@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const NavbarItem = (props) => {
+const MenuItem = (props) => {
     let iconAlt = 'Collapsed menu';
     let navChevronDirection = "chevron-down";
     if (document.querySelector(`button.navbar-item-title-${props.index}:hover`) != null ||
@@ -45,4 +45,4 @@ const NavbarItem = (props) => {
     );
 };
 
-export default NavbarItem;
+export default MenuItem;

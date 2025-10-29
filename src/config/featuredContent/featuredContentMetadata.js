@@ -17,6 +17,18 @@ const contentMap = {
             </AboutTheDataLink>,
             <GlossaryLink term="prime-award" label="prime award" displayIcon={false} />
  */
+
+// example for links
+// explore_more: [
+//     { label: "about", slug: "/about", type: "internal" },
+//     { label: "treasury", slug: "https://home.treasury.gov/", type: "government" },
+//     { label: "this link goes to google but i am making the text long to ellipsize itgaertgwergwerthgrthsrthedrthedrthdrth", slug: "https://google.com", type: "external" }
+// ],
+//     related_terms: [
+//     { term: "prime-award", type: "glossary", label: "prime award" },
+//     { term: "subaward-data-quality", type: "atd", label: "subaward data quality" }
+// ]
+
 const articles = [
     {
         content_type: "Data Definitions",
@@ -32,14 +44,34 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
         fill: contentMap.dataDefinition,
         landing_header_path: "",
-        related_terms: [
-            { term: "prime-award", type: "glossary", label: "prime award" },
-            { term: "subaward-data-quality", type: "atd", label: "subaward data quality" }
-        ],
         explore_more: [
-            { label: "about", slug: "/about", type: "internal" },
-            { label: "treasury", slug: "https://home.treasury.gov/", type: "government" },
-            { label: "this link goes to google but i am making the text long to ellipsize itgaertgwergwerthgrthsrthedrthedrthdrth", slug: "https://google.com", type: "external" }
+            {
+                label: "Federal Spending Guide",
+                slug: "/federal-spending-guide",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "award",
+                type: "glossary",
+                label: "Award"
+            },
+            {
+                term: "obligation",
+                type: "glossary",
+                label: "Obligation"
+            },
+            {
+                term: "recipient",
+                type: "glossary",
+                label: "Recipient"
+            }
         ]
     },
     {
@@ -56,8 +88,24 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/exploring-americas-finances.webp",
         fill: contentMap.finances,
         landing_header_path: "",
-        explore_more: [],
-        related_terms: []
+        related_terms: [],
+        explore_more: [
+            {
+                label: "Fiscal Data",
+                slug: "https://fiscaldata.treasury.gov/",
+                type: "government"
+            },
+            {
+                label: "Exploring America's Finances with USAspending.gov and FiscalData.Treasury.gov",
+                slug: "https://youtu.be/pRGY0VfQ4II",
+                type: "external"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ]
     },
     {
         content_type: "Recently Answered Questions",
@@ -73,8 +121,40 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/recently-answered-questions.webp",
         fill: contentMap.questions,
         landing_header_path: "",
-        explore_more: [],
-        related_terms: []
+        explore_more: [
+            {
+                label: "USAspending Community",
+                slug: "https://onevoicecrm.my.site.com/usaspending/s/",
+                type: "external"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "loan-subsidy-cost",
+                type: "glossary",
+                label: "Loan Subsidy Cost"
+            },
+            {
+                term: "obligation",
+                type: "glossary",
+                label: "Obligation"
+            },
+            {
+                term: "outlay",
+                type: "glossary",
+                label: "Outlay"
+            }
+        ]
     },
     {
         content_type: "See 4 Yourself",
@@ -90,7 +170,18 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/see-4-yourself.webp",
         fill: contentMap.seeforyourself,
         landing_header_path: "",
-        explore_more: [],
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            }
+        ],
         related_terms: []
     }
 ];
