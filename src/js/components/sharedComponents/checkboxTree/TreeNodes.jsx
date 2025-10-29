@@ -35,6 +35,8 @@ const TreeNodes = ({
                 const hasAnyChildren = node.children?.length > 0;
                 const showCheckbox = node.label && node.showCheckbox !== false;
 
+                if (node.value.includes("children_of_")) return null;
+
                 return (
                     <li key={node.id}>
                         <div className="checkbox-tree-label__container">
