@@ -6,7 +6,6 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TreeNodes from './TreeNodes';
 
 const propTypes = {
@@ -29,23 +28,19 @@ const TreeNodesWrapper = ({
     const [localChecked, setLocalChecked] = useState(checked);
     const [localExpanded, setLocalExpanded] = useState(expanded);
     const [localNodes, setLocalNodes] = useState(nodes);
-    const [isLoading, setIsLoading] = useState(true);
     const checkboxRefs = useRef({});
 
     useEffect(() => {
         setLocalNodes(nodes);
-        setIsLoading(false);
     }, [nodes]);
 
     useEffect(() => {
         setLocalExpanded(expanded);
-        setIsLoading(false);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [expanded]);
 
     useEffect(() => {
         setLocalChecked(checked);
-        setIsLoading(false);
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [checked]);
 
@@ -162,28 +157,14 @@ const TreeNodesWrapper = ({
         const isExpanded = localExpanded.includes(id);
         const node = findNodeById(id);
         if (!isExpanded && hasChildren) {
-            setIsLoading(true);
-            const nodeValue = node?.ancestors?.length > 0 ? `${node.ancestors[0]}/${id}` : id;
-            // TODO: this is confusing, the onexpand function need to be sent the id but the local expand needs to take the nodeValue
             onExpand([...localExpanded, id], node);
-            setLocalExpanded((prev) => [...prev, nodeValue]);
-            // if the parent is checked, update local checked
         }
         else {
             const newExpand = localExpanded.filter((eid) => eid !== id);
-            setLocalExpanded(newExpand);
             onExpand(newExpand, node);
         }
     };
 
-    if (isLoading) {
-        return (
-            <div className="children-are-loading">
-                <FontAwesomeIcon icon="spinner" spin />
-                <div className="children-are-loading__text">Loading your data...</div>
-            </div>
-        );
-    }
 
     return (
         <div>
