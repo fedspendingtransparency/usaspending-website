@@ -6,6 +6,10 @@
     }
 
     .featured-content__share-option {
+        &:hover {
+            cursor: pointer;
+        }
+        
         display:flex;
         align-items: center;
         span {

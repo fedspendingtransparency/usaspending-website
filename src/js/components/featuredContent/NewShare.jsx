@@ -12,29 +12,31 @@ import { newSocialShareOptions } from "../../helpers/socialShare";
 const propTypes = {
     url: PropTypes.string.isRequired,
     classNames: PropTypes.string,
-    onShareOptionClick: PropTypes.func.isRequired
+    onShareOptionClick: PropTypes.func.isRequired,
+    onKeyUp: PropTypes.func.isRequired
 };
 
 const NewShare = ({
     classNames = '',
-    url = '',
-    onShareOptionClick = () => {}
+    onShareOptionClick = () => {},
+    onKeyUp = () => {}
+// eslint-disable-next-line arrow-body-style
 }) => {
-    console.debug(newSocialShareOptions);
-
     return (
-        <>
+        <div className={classNames}>
             <span className="featured-content__citation-heading">
             Share this page
             </span>
             <FlexGridRow className="featured-content__share-wrapper">
                 {newSocialShareOptions.map((option) => (
                     <FlexGridCol mobile={12} desktop={12} tablet={2} className="featured-content__share-option">
-                        {option.component ? option.component : option.name}
+                        <div role="button" tabIndex={0} onClick={onShareOptionClick} onKeyUp={onKeyUp}>
+                            {option.component ? option.component : option.name}
+                        </div>
                     </FlexGridCol>
                 ))}
             </FlexGridRow>
-        </>
+        </div>
     );
 };
 
