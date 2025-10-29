@@ -1,6 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
-import GlobalConstants from './GlobalConstants';
 
 export const bannerContent = [
     {

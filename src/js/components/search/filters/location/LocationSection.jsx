@@ -6,13 +6,14 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router';
-import GlobalConstants from 'GlobalConstants';
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import FilterTabs from "../../../sharedComponents/filterSidebar/FilterTabs";
-import LocationAutocompleteContainer from "../../../../containers/search/filters/location/LocationAutocompleteContainer";
-import RecipientFilterContainer from "../../../../containers/search/filters/location/RecipientFilterContainer";
+import RecipientFilterContainer from
+    "../../../../containers/search/filters/location/RecipientFilterContainer";
 import POPFilterContainer from "../../../../containers/search/filters/location/POPFilterContainer";
+// import LocationAutocompleteContainer from
+//     "../../../../containers/search/filters/location/LocationAutocompleteContainer";
 
 const propTypes = {
     selectedRecipientLocations: PropTypes.object,
@@ -25,7 +26,6 @@ const LocationSection = (props) => {
     const [activeTab, setActiveTab] = useState('pop');
     const [hint, setHint] = useState();
     const [filter, setFilter] = useState(null);
-    const [v2, setv2] = useState(false);
 
     const { pathname } = useLocation();
 
@@ -39,14 +39,16 @@ const LocationSection = (props) => {
     };
 
     const toggleTab = (e) => {
-        if ((activeTab === 'recipient' && e.target.textContent !== 'Recipient Location') || (activeTab === 'pop' && e.target.textContent !== 'Place of Performance')) {
+        if (
+            (activeTab === 'recipient' && e.target.textContent !== 'Recipient Location') ||
+            (activeTab === 'pop' && e.target.textContent !== 'Place of Performance')
+        ) {
             setActiveTab(activeTab === 'pop' ? 'recipient' : 'pop');
         }
     };
 
     useEffect(() => {
         openDefaultTab();
-        setv2(pathname === GlobalConstants.SEARCH_V2_PATH);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -60,13 +62,11 @@ const LocationSection = (props) => {
     }, [dirtyFilters]);
 
     useEffect(() => {
-        if (!v2) {
-            if (activeTab === 'recipient') {
-                setFilter(<RecipientFilterContainer />);
-            }
-            else {
-                setFilter(<POPFilterContainer />);
-            }
+        if (activeTab === 'recipient') {
+            setFilter(<RecipientFilterContainer />);
+        }
+        else {
+            setFilter(<POPFilterContainer />);
         }
     }, [activeTab, pathname]);
 
@@ -89,12 +89,10 @@ const LocationSection = (props) => {
                 labels={tabLabels}
                 switchTab={toggleTab}
                 active={activeTab} />
-            {v2 ?
-                <LocationAutocompleteContainer
-                    {...props}
-                    activeTab={activeTab} />
-                :
-                filter}
+            {/* <LocationAutocompleteContainer */}
+            {/*     {...props} */}
+            {/*     activeTab={activeTab} /> */}
+            {filter}
             <SubmitHint
                 ref={(component) => {
                     setHint(component);
