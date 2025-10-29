@@ -14,7 +14,7 @@ import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 import SectionDataTable from "./SectionDataTable";
-import AwardTypeToggle from '../../sharedComponents/buttons/AwardTypeToggle';
+// import AwardTypeToggle from '../../sharedComponents/buttons/AwardTypeToggle';
 import MobileSort from '../mobile/MobileSort';
 
 const propTypes = {
@@ -76,8 +76,8 @@ const SearchSectionWrapper = ({
     setMapViewType = false,
     hash,
     spendingLevel,
-    onToggle,
-    showToggle,
+    // onToggle,
+    // showToggle,
     setSortDirection,
     sort,
     setSort,
@@ -276,19 +276,32 @@ const SearchSectionWrapper = ({
                         options={dropdownOptions}
                         enabled
                         selectedOption={dropdownOptions?.length
-                            ? dropdownOptions?.find((obj) => obj.value === selectedDropdownOption)?.name
-                            : `${selectedDropdownOption}`}
+                            ? dropdownOptions?.find(
+                                (obj) => obj.value === selectedDropdownOption
+                            )?.name
+                            :
+                            `${selectedDropdownOption}`}
                         sortFn={sortFn}
                         classname="advanced-search-dropdown__wrapper"
                         buttonClassname="advanced-search-dropdown__button"
                         parentWidth={wrapperWidth} />
-                    <ChartTableToggle activeType={viewType} changeView={changeView} classname="search__chart-table-toggle" />
+                    <ChartTableToggle
+                        activeType={viewType}
+                        changeView={changeView}
+                        classname="search__chart-table-toggle" />
                 </div>
                 :
                 <>
                     <div className="search__section-wrapper-header">
                         <span className="filter__dropdown-label">{sectionTitle}</span>
-                        {showToggle && <AwardTypeToggle spendingLevel={spendingLevel} onToggle={onToggle} />}
+                        {
+                            // bring back when 'Grouped by Prime Awards' for subawards is ready
+                            //      {showToggle &&
+                            //          <AwardTypeToggle
+                            //              spendingLevel={spendingLevel}
+                            //              onToggle={onToggle} />
+                            //      }
+                        }
                     </div>
                     {/*
                     bring back when grouped tables are ready for mobile
