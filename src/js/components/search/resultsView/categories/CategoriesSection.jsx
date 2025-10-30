@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 import Analytics from "../../../../helpers/analytics/Analytics";
 import CategoriesVisualizationWrapperContainer
-    from "../../../../containers/search/newResultsView/CategoriesVisualizationWrapperContainer";
+    from "../../../../containers/search/resultsView/CategoriesVisualizationWrapperContainer";
 import PlaceholderComponent from "../PlaceholderComponent";
 import CategoriesDsm from "./CategoriesDsm";
 
