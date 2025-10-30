@@ -6,6 +6,7 @@
 import React from 'react';
 import { FlexGridCol, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from 'prop-types';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { marketingArticle, otherArticle } from "../../../helpers/homepageFeaturedContentHelper";
@@ -24,6 +25,25 @@ const trackHomePageLink = ({
             label
         });
     }
+};
+
+// TODO: pull out home page cards
+
+const propTypes = {
+    leftCard: PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        fill: PropTypes.string.isRequired,
+        thumbnail_path: PropTypes.string.isRequired,
+        taxonomy: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired
+    }),
+    rightCard: PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        fill: PropTypes.string.isRequired,
+        thumbnail_path: PropTypes.string.isRequired,
+        taxonomy: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired
+    })
 };
 
 const FeaturedContent = ({ leftCard = marketingArticle, rightCard = otherArticle }) => (
@@ -87,4 +107,6 @@ const FeaturedContent = ({ leftCard = marketingArticle, rightCard = otherArticle
             </FlexGridCol>
         </div>
     </section>);
+
+FeaturedContent.propTypes = propTypes;
 export default FeaturedContent;
