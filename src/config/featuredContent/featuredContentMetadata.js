@@ -65,7 +65,7 @@ const articles = [
                 type: "internal"
             }
         ]
-    }, // 86,400,000 : 604,800,000
+    },
     {
         taxonomy: "Data Definitions",
         content_type: "Featured Content",
