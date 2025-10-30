@@ -5,7 +5,7 @@ import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { useDispatch } from 'react-redux';
 import ExploreMore from "./ExploreMore";
 import RelatedTerms from "./RelatedTerms";
-import NewShare from "./NewShare";
+import InlineShare from "./InlineShare";
 import { showModal } from '../../redux/actions/modal/modalActions';
 import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
 
@@ -33,7 +33,7 @@ const FeaturedContentArticleSidebar = ({ chosenArticle }) => {
             mobile={12}
             desktop={4}
             className="featured-content__column-two">
-            <NewShare
+            <InlineShare
                 onShareOptionClick={(name) => onShareClick(name, slug)}
                 url={getBaseUrl(slug)} />
             {chosenArticle?.related_terms.length > 0 &&

@@ -1,5 +1,5 @@
 /**
- * NewShare.jsx
+ * InlineShare.jsx
  * Created by Nick Torres 10/24/2025
  **/
 
@@ -16,7 +16,7 @@ const propTypes = {
     includedDropdownOptions: PropTypes.arrayOf(PropTypes.string)
 };
 
-const NewShare = ({
+const InlineShare = ({
     includedDropdownOptions = [],
     classNames = '',
     onShareOptionClick = () => {}
@@ -58,6 +58,6 @@ const NewShare = ({
     );
 };
 
-NewShare.propTypes = propTypes;
-NewShare.displayName = 'New Share Menu';
-export default NewShare;
+InlineShare.propTypes = propTypes;
+InlineShare.displayName = 'Inline Share Menu';
+export default InlineShare;
