@@ -8,6 +8,7 @@ import { FlexGridCol, CardContainer, CardHero, CardBody } from 'data-transparenc
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Analytics from 'helpers/analytics/Analytics';
 import ExternalLink from "../../sharedComponents/ExternalLink";
+import articles from "../../../../config/featuredContent/featuredContentMetadata";
 
 
 const trackFeaturedSavingsBondLink = () => Analytics.event({
@@ -16,6 +17,15 @@ const trackFeaturedSavingsBondLink = () => Analytics.event({
     action: 'Link',
     label: 'fiscal data interest expense feature content'
 });
+
+const date = new Date();
+
+const articlesByFeatureDate = articles.sort(
+    (a1, a2) => a1.feature_week - a2.feature_week
+);
+const marketingContent = articles.filter((article) => article.content_type === 'Marketing');
+
+// sort articles by date, then filter by type, then get latest
 
 const FeaturedContent = () => (
     <section className="featured-content__section">
@@ -27,6 +37,7 @@ const FeaturedContent = () => (
         </div>
         <div className="featured-content__section--flex-row">
             <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
+                {console.log({ marketingContent, articlesByFeatureDate })}
                 <ExternalLink isCard url="https://forms.office.com/Pages/ResponsePage.aspx?id=is1pDRKeIU2V8LRAbgZxCosrFrEyW1NFiLX9Wji-iCxUQ0FHNlZMRFdCVlcyQ0VKVFNGOVRDR0lJUi4u">
                     <CardContainer variant="outline" size="md">
                         <CardHero fill="#1b2b85" variant="expanded" img="img/homepage-featured-content/homepage-feature-API-Feedback-Survey@2x.webp" />
