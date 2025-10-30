@@ -10,27 +10,48 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { newSocialShareOptions } from "../../helpers/socialShare";
 
 const propTypes = {
-    url: PropTypes.string.isRequired,
+    url: PropTypes.string,
     classNames: PropTypes.string,
     onShareOptionClick: PropTypes.func.isRequired,
-    onKeyUp: PropTypes.func.isRequired
+    onKeyUp: PropTypes.func.isRequired,
+    includedDropdownOptions: PropTypes.arrayOf(PropTypes.string)
 };
 
 const NewShare = ({
+    includedDropdownOptions = [],
     classNames = '',
-    onShareOptionClick = () => {},
-    onKeyUp = () => {}
+    onShareOptionClick = () => {}
 // eslint-disable-next-line arrow-body-style
 }) => {
+    const socialShareOptions = newSocialShareOptions
+        .filter(({ name }) => {
+            console.debug("name: ", name);
+            if (!includedDropdownOptions.length) return true;
+            return includedDropdownOptions.includes(name);
+        })
+        .map((option) => ({
+            ...option,
+            onClick: () => onShareOptionClick(option.name)
+        }));
+    console.debug("social share options: ", socialShareOptions);
+
     return (
         <div className={classNames}>
             <span className="featured-content__citation-heading">
             Share this page
             </span>
             <FlexGridRow className="featured-content__share-wrapper">
-                {newSocialShareOptions.map((option) => (
+                {socialShareOptions.map((option) => (
                     <FlexGridCol mobile={12} desktop={12} tablet={2} className="featured-content__share-option">
-                        <div role="button" tabIndex={0} onClick={onShareOptionClick} onKeyUp={onKeyUp}>
+                        <div
+                            role="button"
+                            tabIndex={0}
+                            onClick={option.onClick}
+                            onKeyUp={(e) => {
+                                if (e.key === "Enter") {
+                                    option.onClick();
+                                }
+                            }}>
                             {option.component ? option.component : option.name}
                         </div>
                     </FlexGridCol>
