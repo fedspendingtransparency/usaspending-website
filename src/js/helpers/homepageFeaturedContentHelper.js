@@ -49,4 +49,5 @@ const [marketingArticle, otherArticle] = [currentMarketingArticle, currentOtherA
         };
     });
 
+// TODO: make this into a function that takes 'first content release day' as an argument
 export { marketingArticle, otherArticle };
