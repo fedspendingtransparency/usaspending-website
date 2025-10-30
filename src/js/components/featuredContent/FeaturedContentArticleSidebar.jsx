@@ -15,19 +15,15 @@ const propTypes = { chosenArticle: PropTypes.object.isRequired };
 
 const FeaturedContentArticleSidebar = ({ chosenArticle }) => {
     const slug = `/featured-content/${transformString(chosenArticle?.content_type)}/${transformString(chosenArticle?.title)}`;
-    console.debug("chosen article: ", slug);
-    const [value, setValue] = useState();
     const dispatch = useDispatch();
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };
     const onShareClick = (optionName, url) => {
-        console.debug("option name: ", optionName);
-        // remove existing params
         const emailSubject = `Featured Content: ${chosenArticle.banner_title}`;
         const emailArgs = {
             subject: encodeURIComponent(`${emailSubject}`),
-            body: `${`${chosenArticle.content_type}:${chosenArticle.banner_title}`}`
+            body: `${`${chosenArticle.content_type}: ${chosenArticle.banner_title}`}`
         };
         handleShareOptionClick(optionName, url, emailArgs, handleShareDispatch);
     };

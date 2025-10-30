@@ -31,7 +31,6 @@ const Account = ({ account, currentFiscalYear }) => {
         dispatch(showModal(url));
     };
     const handleShare = (name, slug) => {
-        console.debug("name, slug: ", name, slug);
         handleShareOptionClick(name, slug, {
             subject: `USAspending.gov Federal Account Profile: ${account.title}`,
             body: `View the spending activity of this federal account on USAspending.gov: ${getBaseUrl(slug)}`

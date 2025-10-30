@@ -3,10 +3,9 @@
  * Created by Nick Torres 10/24/2025
  **/
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { newSocialShareOptions } from "../../helpers/socialShare";
 
 const propTypes = {
@@ -25,7 +24,6 @@ const NewShare = ({
 }) => {
     const socialShareOptions = newSocialShareOptions
         .filter(({ name }) => {
-            console.debug("name: ", name);
             if (!includedDropdownOptions.length) return true;
             return includedDropdownOptions.includes(name);
         })
@@ -33,7 +31,6 @@ const NewShare = ({
             ...option,
             onClick: () => onShareOptionClick(option.name)
         }));
-    console.debug("social share options: ", socialShareOptions);
 
     return (
         <div className={classNames}>
