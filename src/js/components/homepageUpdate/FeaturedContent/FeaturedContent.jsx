@@ -7,17 +7,26 @@ import React from 'react';
 import { FlexGridCol, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Analytics from 'helpers/analytics/Analytics';
-import ExternalLink from "../../sharedComponents/ExternalLink";
+// import Analytics from 'helpers/analytics/Analytics';
 import articles from "../../../../config/featuredContent/featuredContentMetadata";
+import { transformString } from "../../../helpers/featuredContent/featuredContentHelper";
 
 
-const trackFeaturedSavingsBondLink = () => Analytics.event({
-    event: 'homepage_featured_content_links',
-    category: 'Homepage',
-    action: 'Link',
-    label: 'fiscal data interest expense feature content'
-});
+// const trackHomePageLink = ({
+//     event = 'homepage_featured_content_links',
+//     category = 'Homepage',
+//     action = 'Link',
+//     label
+// }) => {
+//     if (label) {
+//         Analytics.event({
+//             event,
+//             category,
+//             action,
+//             label
+//         });
+//     }
+// };
 
 const date = new Date();
 // TODO: uncomment after testing
@@ -42,7 +51,31 @@ const [marketingArticles, otherArticles] = partition(
 const currentMarketingArticle = marketingArticles[0];
 const currentOtherArticle = otherArticles[featureWeekNum - 1];
 
-const FeaturedContent = () => (
+const [marketingArticle, otherArticle] = [currentMarketingArticle, currentOtherArticle]
+    .map((article) => {
+        const titleIndex = article.title.indexOf(":");
+
+        if (titleIndex > 0 && (titleIndex + 2) < article.title.length) {
+            return {
+                url: `/featured-content/${
+                    transformString(currentMarketingArticle.taxonomy)
+                }/${transformString(currentMarketingArticle.title)}`,
+                title: article.title.substring(titleIndex + 2),
+                overline: article.title.substring(0, titleIndex),
+                ...article
+            };
+        }
+
+        return {
+            url: `/featured-content/${
+                transformString(currentMarketingArticle.taxonomy)
+            }/${transformString(currentMarketingArticle.title)}`,
+            overline: article.taxonomy.toUpperCase(),
+            ...article
+        };
+    });
+
+const FeaturedContent = ({ leftCard = marketingArticle, rightCard = otherArticle }) => (
     <section className="featured-content__section">
         <div className="featured-content__heading">
             <div className="featured-content__heading--background">
@@ -52,30 +85,49 @@ const FeaturedContent = () => (
         </div>
         <div className="featured-content__section--flex-row">
             <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                {console.log({ currentMarketingArticle, currentOtherArticle })}
-                <ExternalLink isCard url="https://forms.office.com/Pages/ResponsePage.aspx?id=is1pDRKeIU2V8LRAbgZxCosrFrEyW1NFiLX9Wji-iCxUQ0FHNlZMRFdCVlcyQ0VKVFNGOVRDR0lJUi4u">
+                <a
+                    href={leftCard.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    // onClick={() => trackHomePageLink(() => trackHomePageLink(
+                    //     { label: rightCard.title }
+                    // ))}
+                    className="featured-content__section--link" >
                     <CardContainer variant="outline" size="md">
-                        <CardHero fill="#1b2b85" variant="expanded" img="img/homepage-featured-content/homepage-feature-API-Feedback-Survey@2x.webp" />
+                        <CardHero
+                            fill={leftCard.fill}
+                            variant="expanded"
+                            img={leftCard.thumbnail_path} />
                         <CardBody
-                            overline="YOUR FEEDBACK"
+                            overline={leftCard.taxonomy.toUpperCase()}
                             headline={
                                 <div>
-                                    We’re seeking your input on the USAspending API
+                                    {leftCard.title}
                                 </div>
                             }>
                         </CardBody>
                     </CardContainer>
-                </ExternalLink>
+                </a>
             </FlexGridCol>
             <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                <a href="https://fiscaldata.treasury.gov/interest-expense-avg-interest-rates/" target="_blank" rel="noopener noreferrer" onClick={trackFeaturedSavingsBondLink} className="featured-content__section--link" >
+                <a
+                    href={rightCard.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    // onClick={() => trackHomePageLink(
+                    //     { label: rightCard.title }
+                    // )}
+                    className="featured-content__section--link" >
                     <CardContainer variant="outline" size="md">
-                        <CardHero fill="#2e8367" variant="expanded" img="img/homepage-featured-content/homepage-feature-interest-expense-2-x@2x.webp" />
+                        <CardHero
+                            fill={rightCard.fill}
+                            variant="expanded"
+                            img={rightCard.thumbnail_path} />
                         <CardBody
-                            overline="PARTNER SITES"
+                            overline={rightCard.taxonomy.toUpperCase()}
                             headline={
                                 <div>
-                                        Fiscal Data Explores Interest Expense on National Debt
+                                    {rightCard.title}
                                 </div>
                             }>
                         </CardBody>
