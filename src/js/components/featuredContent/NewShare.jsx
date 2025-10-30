@@ -20,7 +20,6 @@ const NewShare = ({
     includedDropdownOptions = [],
     classNames = '',
     onShareOptionClick = () => {}
-// eslint-disable-next-line arrow-body-style
 }) => {
     const socialShareOptions = newSocialShareOptions
         .filter(({ name }) => {

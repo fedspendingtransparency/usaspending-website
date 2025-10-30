@@ -4,8 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faFacebook,
     faLinkedin,
-    faReddit,
-    faInstagram
+    faReddit
 } from '@fortawesome/free-brands-svg-icons';
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
@@ -13,8 +12,7 @@ export const socialUrls = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=`,
     twitter: `https://twitter.com/intent/tweet?url=`,
     reddit: `http://www.reddit.com/submit?url=`,
-    linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=`,
-    instagram: `http://www.reddit.com/submit?url=`
+    linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=`
 };
 
 const openShareWindowExternal = (url, handleShareDispatch) => {
@@ -26,14 +24,6 @@ const handleShareClickFacebook = (url, handleShareDispatch) => {
     openShareWindowExternal(finalUrl, handleShareDispatch);
     Analytics.event({
         event: 'Social Share Facebook', category: `${url}`, action: 'share link click', label: 'facebook'
-    });
-};
-
-const handleShareClickInstagram = (url, handleShareDispatch) => {
-    const finalUrl = `${socialUrls.instagram}${encodeURIComponent(url)}`;
-    openShareWindowExternal(finalUrl, handleShareDispatch);
-    Analytics.event({
-        event: 'Social Share Instagram', category: `${url}`, action: 'share link click', label: 'Instagram'
     });
 };
 
@@ -75,7 +65,6 @@ const handlersBySocialMedium = {
     twitter: (url, handleShareDispatch) => handleShareClickTwitter(url, handleShareDispatch),
     facebook: (url, handleShareDispatch) => handleShareClickFacebook(url, handleShareDispatch),
     reddit: (url, handleShareDispatch) => handleShareClickReddit(url, handleShareDispatch),
-    instagram: (url, handleShareDispatch) => handleShareClickInstagram(url, handleShareDispatch),
     email: ({ subject, body = '' }) => {
         handleShareClickEmail(subject, body);
     },
@@ -136,7 +125,6 @@ const GlossaryDropdownOptionTwitter = ({ title }) => (
 );
 export const newSocialShareOptions = [
     { component: <GlossaryDropdownOptionTwitter title="X (Twitter)" />, name: 'twitter' },
-    { component: <GlossaryDropdownOption icon={faInstagram} title="Instagram" color="#000100" />, name: 'instagram' },
     { component: <GlossaryDropdownOption icon={faLinkedin} title="LinkedIn" color="#0A66C2" />, name: 'linkedin' },
     { component: <GlossaryDropdownOption icon={faFacebook} title="Facebook" color="#0866FF" />, name: 'facebook' },
     { component: <GlossaryDropdownOption icon={faReddit} title="Reddit" color="#ff4500" />, name: 'reddit' },
