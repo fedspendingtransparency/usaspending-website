@@ -21,7 +21,7 @@ import KeywordSearchLink from "../KeywordSearchLink";
 import MobileFiltersV2 from "../mobile/MobileFiltersV2";
 import SubawardDropdown from "../SubawardDropdown";
 import { setSearchViewSubaward, setSpendingLevel } from "../../../redux/actions/search/searchViewActions";
-import ResultsView from "../newResultsView/ResultsView";
+import ResultsView from "../resultsView/ResultsView";
 import CollapsibleSidebar from "./SidebarWrapper";
 import { showModal } from '../../../redux/actions/modal/modalActions';
 
