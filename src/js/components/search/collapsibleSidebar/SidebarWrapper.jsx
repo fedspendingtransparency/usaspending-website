@@ -233,6 +233,31 @@ const SidebarWrapper = React.memo(({
     }, [headerHeight]);
 
     useEffect(() => {
+        let time;
+        const sidebar = document.querySelector(".collapsible-sidebar");
+        const handleSidebarResize = () => {
+            console.log('time!');
+            setRenderSidebarContent(true);
+        };
+
+        // eslint-disable-next-line no-undef
+        const sidebarResizeObserver = new ResizeObserver((entries) => {
+            setRenderSidebarContent(false);
+            if (entries[0]) {
+                clearTimeout(time);
+                time = setTimeout(handleSidebarResize, 25);
+            }
+        });
+
+        sidebarResizeObserver.observe(sidebar);
+
+        return () => {
+            clearTimeout(time);
+            sidebarResizeObserver?.unobserve(sidebar);
+        };
+    }, []);
+
+    useEffect(() => {
         // eslint-disable-next-line no-undef
         const mainContentResizeObserver = new ResizeObserver((entries) => {
             setMainContentHeight(entries[0].target?.clientHeight);
@@ -243,26 +268,12 @@ const SidebarWrapper = React.memo(({
             setHeaderHeight(entries[0].target?.clientHeight);
         });
 
-        // eslint-disable-next-line no-undef
-        const sidebarResizeObserver = new ResizeObserver((entries) => {
-            if (
-                Math.round(entries[0].contentRect.width) === sideBarXlDesktopWidth - 2
-            ) {
-                setRenderSidebarContent(true);
-            }
-            else {
-                setRenderSidebarContent(false);
-            }
-        });
 
         const mainContent = document.querySelector("#main-content");
         mainContentResizeObserver.observe(mainContent);
 
         const siteHeader = document.querySelector(".site-header");
         headerResizeObserver.observe(siteHeader);
-
-        const sidebar = document.querySelector(".collapsible-sidebar");
-        sidebarResizeObserver.observe(sidebar);
 
         handleResize();
 
@@ -277,7 +288,6 @@ const SidebarWrapper = React.memo(({
 
             mainContentResizeObserver?.unobserve(mainContent);
             headerResizeObserver?.unobserve(siteHeader);
-            sidebarResizeObserver?.unobserve(sidebar);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
