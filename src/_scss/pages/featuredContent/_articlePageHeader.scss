@@ -13,14 +13,11 @@
         min-height: 325px;
     }
 
-    @media(min-width: large-screen) {
-        height: 350px;
-        min-height: 350px;
-    }
-        
-    @media(min-width: $m-large-screen) {
+    @media(min-width: $medium-screen) {
         height: inherit;
+        min-height: inherit;
     }
+
     
     #featured-content-hero {
         width: 100%;
