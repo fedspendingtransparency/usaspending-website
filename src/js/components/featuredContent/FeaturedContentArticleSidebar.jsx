@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { FlexGridCol } from "data-transparency-ui";
 import PropTypes from "prop-types";
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
-
 import ExploreMore from "./ExploreMore";
 import RelatedTerms from "./RelatedTerms";
 import NewShare from "./NewShare";
