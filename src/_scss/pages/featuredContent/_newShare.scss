@@ -9,9 +9,6 @@
         &:hover {
             cursor: pointer;
         }
-        
-        display:flex;
-        align-items: center;
         span {
             margin-left: rem(8);
             font-size: rem(14);
@@ -45,6 +42,11 @@
             @media(min-width: $medium-screen) {
                 margin-bottom: rem(36);
             }
+        }
+
+        .featured-content__share-button {
+            display: flex;
+            align-items: center;
         }
     }
 }

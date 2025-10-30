@@ -40,6 +40,7 @@ const NewShare = ({
                 {socialShareOptions.map((option) => (
                     <FlexGridCol mobile={12} desktop={12} tablet={2} className="featured-content__share-option">
                         <div
+                            className="featured-content__share-button"
                             role="button"
                             tabIndex={0}
                             onClick={option.onClick}
