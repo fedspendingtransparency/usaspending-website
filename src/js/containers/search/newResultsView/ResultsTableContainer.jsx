@@ -22,10 +22,10 @@ import {
 } from 'dataMapping/search/awardTableColumns';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { measureTableHeader } from 'helpers/textMeasurement';
-import ResultsTableSection from 'components/search/newResultsView/table/ResultsTableSection';
+import ResultsTableSection from 'components/search/resultsView/table/ResultsTableSection';
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
-import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper/SearchSectionWrapper";
+import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import { performKeywordSearch } from "../../../helpers/keywordHelper";
 
 const propTypes = {

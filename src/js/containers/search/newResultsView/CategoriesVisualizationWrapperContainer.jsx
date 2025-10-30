@@ -20,10 +20,10 @@ import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
 
 import { categoryNames } from 'dataMapping/search/spendingByCategory';
-import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper/SearchSectionWrapper";
+import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import SpendingByCategoriesChart
-    from "../../../components/search/newResultsView/categories/SpendingByCategoriesChart";
-import CategoriesSectionWrapper from "../../../components/search/newResultsView/categories/CategoriesSectionWrapper";
+    from "../../../components/search/resultsView/categories/SpendingByCategoriesChart";
+import CategoriesSectionWrapper from "../../../components/search/resultsView/categories/CategoriesSectionWrapper";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const combinedActions = Object.assign({}, searchFilterActions, {

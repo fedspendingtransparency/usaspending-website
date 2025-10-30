@@ -15,11 +15,11 @@ import * as SearchHelper from 'helpers/searchHelper';
 import * as MonthHelper from 'helpers/monthHelper';
 
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper/SearchSectionWrapper";
+import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import BaseSpendingOverTimeRow from "../../../models/v2/search/visualizations/time/BaseSpendingOverTimeRow";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
-import TimeFileDownload from "../../../components/search/newResultsView/time/TimeFileDownload";
-import TimeVisualizationChart from "../../../components/search/newResultsView/time/TimeVisualizationChart";
+import TimeFileDownload from "../../../components/search/resultsView/time/TimeFileDownload";
+import TimeVisualizationChart from "../../../components/search/resultsView/time/TimeVisualizationChart";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
