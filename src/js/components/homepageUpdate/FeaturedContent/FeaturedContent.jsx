@@ -41,13 +41,15 @@ const FeaturedContent = ({ leftCard = marketingArticle, rightCard = otherArticle
                 title={leftCard.title}
                 fill={leftCard.fill}
                 img={leftCard.thumbnail_path}
-                taxonomy={leftCard.taxonomy} />
+                taxonomy={leftCard.taxonomy}
+                externalLink={leftCard?.externalLink} />
             <FeaturedContentCard
                 url={rightCard.url}
                 title={rightCard.title}
                 fill={rightCard.fill}
                 img={rightCard.thumbnail_path}
-                taxonomy={rightCard.taxonomy} />
+                taxonomy={rightCard.taxonomy}
+                externalLink={rightCard?.externalLink} />
         </div>
     </section>);
 
