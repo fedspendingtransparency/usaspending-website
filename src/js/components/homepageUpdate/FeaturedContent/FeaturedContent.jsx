@@ -23,7 +23,18 @@ const date = new Date();
 const articlesByFeatureDate = articles.sort(
     (a1, a2) => a1.feature_week - a2.feature_week
 );
-const marketingContent = articles.filter((article) => article.content_type === 'Marketing');
+
+const partition = (array, isValid) => array.reduce(
+    ([pass, fail], elem) => (isValid(elem) ?
+        [[...pass, elem], fail] :
+        [pass, [...fail, elem]]), [[], []]
+);
+
+const articlesByType = partition(
+    articlesByFeatureDate,
+    (article) => article.content_type === 'Marketing'
+);
+const latestMarketing = articlesByType[0][articlesByType[0].length - 1];
 
 // sort articles by date, then filter by type, then get latest
 
@@ -37,7 +48,7 @@ const FeaturedContent = () => (
         </div>
         <div className="featured-content__section--flex-row">
             <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                {console.log({ marketingContent, articlesByFeatureDate })}
+                {console.log({ articlesByType, latestMarketing })}
                 <ExternalLink isCard url="https://forms.office.com/Pages/ResponsePage.aspx?id=is1pDRKeIU2V8LRAbgZxCosrFrEyW1NFiLX9Wji-iCxUQ0FHNlZMRFdCVlcyQ0VKVFNGOVRDR0lJUi4u">
                     <CardContainer variant="outline" size="md">
                         <CardHero fill="#1b2b85" variant="expanded" img="img/homepage-featured-content/homepage-feature-API-Feedback-Survey@2x.webp" />
