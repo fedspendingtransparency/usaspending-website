@@ -37,7 +37,8 @@ const articles = [
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
         title: "Exploring America's Finances Has Never Been Easier",
         created_date: "09/29/2025",
-        feature_week: 0,
+        feature_week: 1,
+        feature_sprint: 1,
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in dolor nec massa aliquet cursus in vel turpis. Etiam id volutpat ipsum. Sed nibh tellus, ullamcorper ac sagittis vitae, feugiat ac tellus. Vivamus sit amet nulla venenatis, iaculis nibh vitae, efficitur est. Curabitur ac sagittis est, quis condimentum nunc. Vestibulum porttitor lacinia turpis, at volutpat nulla viverra et.",
         mdx_path: "exploring-americas-finances-the-data-behind-the-dollars.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-indigo_cool_vivid.webp",
@@ -64,7 +65,7 @@ const articles = [
                 type: "internal"
             }
         ]
-    },
+    }, // 86,400,000 : 604,800,000
     {
         taxonomy: "Data Definitions",
         content_type: "Featured Content",
@@ -72,7 +73,8 @@ const articles = [
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
         title: "What is an Award?",
         created_date: "09/29/2025",
-        feature_week: 0,
+        feature_week: 1,
+        feature_sprint: 1,
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in dolor nec massa aliquet cursus in vel turpis. Etiam id volutpat ipsum. Sed nibh tellus, ullamcorper ac sagittis vitae, feugiat ac tellus. Vivamus sit amet nulla venenatis, iaculis nibh vitae, efficitur est. Curabitur ac sagittis est, quis condimentum nunc. Vestibulum porttitor lacinia turpis, at volutpat nulla viverra et.",
         mdx_path: "what-is-an-award.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-violet_vivid.webp",
@@ -118,7 +120,8 @@ const articles = [
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
         title: "Obligations vs. Outlays",
         created_date: "09/29/2025",
-        feature_week: 1,
+        feature_week: 2,
+        feature_sprint: 1,
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in dolor nec massa aliquet cursus in vel turpis. Etiam id volutpat ipsum. Sed nibh tellus, ullamcorper ac sagittis vitae, feugiat ac tellus. Vivamus sit amet nulla venenatis, iaculis nibh vitae, efficitur est. Curabitur ac sagittis est, quis condimentum nunc. Vestibulum porttitor lacinia turpis, at volutpat nulla viverra et.",
         mdx_path: "obligations-vs-outlays.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-violet_warm.webp",
@@ -169,7 +172,8 @@ const articles = [
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
         title: "Four Ways to Use Our Data",
         created_date: "09/29/2025",
-        feature_week: 2,
+        feature_week: 3,
+        feature_sprint: 1,
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in dolor nec massa aliquet cursus in vel turpis. Etiam id volutpat ipsum. Sed nibh tellus, ullamcorper ac sagittis vitae, feugiat ac tellus. Vivamus sit amet nulla venenatis, iaculis nibh vitae, efficitur est. Curabitur ac sagittis est, quis condimentum nunc. Vestibulum porttitor lacinia turpis, at volutpat nulla viverra et.",
         mdx_path: "four-ways-to-use-our-data.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-orange_vivid.webp",

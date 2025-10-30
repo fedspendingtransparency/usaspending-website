@@ -6,6 +6,7 @@
 import React from 'react';
 import { FlexGridCol, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Analytics from 'helpers/analytics/Analytics';
 import ExternalLink from "../../sharedComponents/ExternalLink";
 import articles from "../../../../config/featuredContent/featuredContentMetadata";
@@ -19,10 +20,14 @@ const trackFeaturedSavingsBondLink = () => Analytics.event({
 });
 
 const date = new Date();
+// TODO: uncomment after testing
+// const firstFeaturedContentDay = new Date(2025, 10, 12);
+const firstFeaturedContentDay = new Date(2025, 9, 19);
+const weekDifference = Math.ceil(((date - firstFeaturedContentDay) / 604800000));
+const featureSprintNum = Math.ceil(weekDifference / 3);
+const featureWeekNum = weekDifference - ((featureSprintNum - 1) * 3);
 
-const articlesByFeatureDate = articles.sort(
-    (a1, a2) => a1.feature_week - a2.feature_week
-);
+const currentArticles = articles.filter((article) => article.feature_sprint === featureSprintNum);
 
 const partition = (array, isValid) => array.reduce(
     ([pass, fail], elem) => (isValid(elem) ?
@@ -30,13 +35,12 @@ const partition = (array, isValid) => array.reduce(
         [pass, [...fail, elem]]), [[], []]
 );
 
-const articlesByType = partition(
-    articlesByFeatureDate,
+const [marketingArticles, otherArticles] = partition(
+    currentArticles,
     (article) => article.content_type === 'Marketing'
 );
-const latestMarketing = articlesByType[0][articlesByType[0].length - 1];
-
-// sort articles by date, then filter by type, then get latest
+const currentMarketingArticle = marketingArticles[0];
+const currentOtherArticle = otherArticles[featureWeekNum - 1];
 
 const FeaturedContent = () => (
     <section className="featured-content__section">
@@ -48,7 +52,7 @@ const FeaturedContent = () => (
         </div>
         <div className="featured-content__section--flex-row">
             <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                {console.log({ articlesByType, latestMarketing })}
+                {console.log({ currentMarketingArticle, currentOtherArticle })}
                 <ExternalLink isCard url="https://forms.office.com/Pages/ResponsePage.aspx?id=is1pDRKeIU2V8LRAbgZxCosrFrEyW1NFiLX9Wji-iCxUQ0FHNlZMRFdCVlcyQ0VKVFNGOVRDR0lJUi4u">
                     <CardContainer variant="outline" size="md">
                         <CardHero fill="#1b2b85" variant="expanded" img="img/homepage-featured-content/homepage-feature-API-Feedback-Survey@2x.webp" />
