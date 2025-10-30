@@ -7,26 +7,26 @@ import React from 'react';
 import { FlexGridCol, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-// import Analytics from 'helpers/analytics/Analytics';
+import Analytics from 'helpers/analytics/Analytics';
 import articles from "../../../../config/featuredContent/featuredContentMetadata";
 import { transformString } from "../../../helpers/featuredContent/featuredContentHelper";
 
 
-// const trackHomePageLink = ({
-//     event = 'homepage_featured_content_links',
-//     category = 'Homepage',
-//     action = 'Link',
-//     label
-// }) => {
-//     if (label) {
-//         Analytics.event({
-//             event,
-//             category,
-//             action,
-//             label
-//         });
-//     }
-// };
+const trackHomePageLink = ({
+    event = 'homepage_featured_content_links',
+    category = 'Homepage',
+    action = 'Link',
+    label
+}) => {
+    if (label) {
+        Analytics.event({
+            event,
+            category,
+            action,
+            label
+        });
+    }
+};
 
 const date = new Date();
 // TODO: uncomment after testing
@@ -89,9 +89,9 @@ const FeaturedContent = ({ leftCard = marketingArticle, rightCard = otherArticle
                     href={leftCard.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    // onClick={() => trackHomePageLink(() => trackHomePageLink(
-                    //     { label: rightCard.title }
-                    // ))}
+                    onClick={() => trackHomePageLink(() => trackHomePageLink(
+                        { label: rightCard.title }
+                    ))}
                     className="featured-content__section--link" >
                     <CardContainer variant="outline" size="md">
                         <CardHero
@@ -114,9 +114,9 @@ const FeaturedContent = ({ leftCard = marketingArticle, rightCard = otherArticle
                     href={rightCard.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    // onClick={() => trackHomePageLink(
-                    //     { label: rightCard.title }
-                    // )}
+                    onClick={() => trackHomePageLink(
+                        { label: rightCard.title }
+                    )}
                     className="featured-content__section--link" >
                     <CardContainer variant="outline" size="md">
                         <CardHero
