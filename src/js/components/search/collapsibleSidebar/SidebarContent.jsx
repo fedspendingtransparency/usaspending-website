@@ -31,7 +31,7 @@ const SidebarContent = ({
     isDsmOpened,
     // removed in DEV-13712
     // setIsDsmOpened,
-    renderSidebarContent
+    isMobile
 }) => {
     const [open, setOpen] = useState({
         Location: false,
@@ -105,7 +105,7 @@ const SidebarContent = ({
                 openIcon="chevron-up"
                 contentClassName={open[filter.title] ? '' : 'hidden'}
                 selectedChipCount={filterCount[filter.title]}>
-                {renderSidebarContent && open[filter.title] && filter.component}
+                {!isMobile && open[filter.title] && filter.component}
             </Accordion>
         </div>
     ));

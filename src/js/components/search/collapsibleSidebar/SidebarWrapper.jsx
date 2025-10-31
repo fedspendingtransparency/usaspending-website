@@ -33,7 +33,6 @@ const SidebarWrapper = React.memo(({
     const [isFooterVisible, setIsFooterVisible] = useState();
     const [isDsmOpened, setIsDsmOpened] = useState(false);
     const [headerHeight, setHeaderHeight] = useState();
-    const [renderSidebarContent, setRenderSidebarContent] = useState(true);
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
@@ -233,31 +232,6 @@ const SidebarWrapper = React.memo(({
     }, [headerHeight]);
 
     useEffect(() => {
-        let time;
-        const sidebar = document.querySelector(".collapsible-sidebar");
-        const handleSidebarResize = () => {
-            console.log('time!');
-            setRenderSidebarContent(true);
-        };
-
-        // eslint-disable-next-line no-undef
-        const sidebarResizeObserver = new ResizeObserver((entries) => {
-            setRenderSidebarContent(false);
-            if (entries[0]) {
-                clearTimeout(time);
-                time = setTimeout(handleSidebarResize, 20);
-            }
-        });
-
-        sidebarResizeObserver.observe(sidebar);
-
-        return () => {
-            clearTimeout(time);
-            sidebarResizeObserver?.unobserve(sidebar);
-        };
-    }, []);
-
-    useEffect(() => {
         // eslint-disable-next-line no-undef
         const mainContentResizeObserver = new ResizeObserver((entries) => {
             setMainContentHeight(entries[0].target?.clientHeight);
@@ -314,7 +288,13 @@ const SidebarWrapper = React.memo(({
                 } : {
                     height: selectHeight(), overscrollBehavior: "none"
                 }}
-                className={`search-sidebar collapsible-sidebar ${initialPageLoad ? "is-initial-loaded" : ""} ${isOpened ? 'opened' : ''}`}>
+                className={
+                    `search-sidebar collapsible-sidebar ${
+                        initialPageLoad ? "is-initial-loaded" : ""
+                    } ${
+                        isOpened ? 'opened' : ''
+                    }`
+                }>
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => {
@@ -340,7 +320,7 @@ const SidebarWrapper = React.memo(({
                         setShowMobileFilters={setShowMobileFilters}
                         isDsmOpened={isDsmOpened}
                         setIsDsmOpened={setIsDsmOpened}
-                        renderSidebarContent={isMobile || renderSidebarContent} />
+                        isMobile={isMobile} />
                 }
             </div>
         </div>
