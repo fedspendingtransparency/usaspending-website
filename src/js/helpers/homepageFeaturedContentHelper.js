@@ -22,7 +22,7 @@ const fallbackOtherArticle = {
     taxonomy: "Data Definitions"
 };
 
-const getCurrentArticles = (dayOneString = '11/12/2025') => {
+const getCurrentArticles = (dayOneString = '11/13/2025') => {
     // get the sprint number and week number from today's date and start date
     const today = new Date('11/12/2026');
     const dayOne = new Date(dayOneString);
