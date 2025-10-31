@@ -195,6 +195,8 @@ const MapWrapperContainer = React.memo((props) => {
         });
 
         if (locations?.length === 1) {
+            // add check if congressional district or counties are in the same state, we can still use the state as the centerpoint
+            // will need to use a different value than locations[0] though
             findMapCenterPointByLocation(locations[0]);
         }
 
