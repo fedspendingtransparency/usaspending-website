@@ -7,6 +7,7 @@ import { transformDate } from "../../../helpers/featuredContent/featuredContentH
 const ArticleMetadata = {
     populate(data) {
         this.content_type = data.content_type || '';
+        this.taxonomy = data.taxonomy || '';
         this.fill = data.fill || '';
         this.title = data.title || '';
         this.alt_title = data.alt_title || '';

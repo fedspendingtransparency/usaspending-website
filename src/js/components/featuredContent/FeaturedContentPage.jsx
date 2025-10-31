@@ -22,6 +22,7 @@ const FeaturedContentPage = () => {
         articleMetadata.populate(item);
         articlesList.push(articleMetadata);
     });
+
     return (
         <PageWrapper
             pageName="Featured Content"
