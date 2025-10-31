@@ -398,7 +398,8 @@ const PSCCheckboxTreeContainer = ({
                 context={{}}
                 isClearable
                 loading={false}
-                onClear={onClear} />
+                onClear={onClear}
+                searchIcon />
             <NewCheckboxTree
                 isError={isError}
                 errorMessage={errorMessage}

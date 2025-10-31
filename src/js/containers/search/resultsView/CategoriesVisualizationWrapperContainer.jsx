@@ -8,11 +8,10 @@ import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useLocation, useSearchParams } from "react-router";
+import { useSearchParams } from "react-router";
 import { max, get } from 'lodash-es';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
-import GlobalConstants from 'GlobalConstants';
 
 import Analytics from 'helpers/analytics/Analytics';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -21,10 +20,10 @@ import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
 
 import { categoryNames } from 'dataMapping/search/spendingByCategory';
-import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
+import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import SpendingByCategoriesChart
-    from "../../../components/search/newResultsView/categories/SpendingByCategoriesChart";
-import CategoriesSectionWrapper from "../../../components/search/newResultsView/categories/CategoriesSectionWrapper";
+    from "../../../components/search/resultsView/categories/SpendingByCategoriesChart";
+import CategoriesSectionWrapper from "../../../components/search/resultsView/categories/CategoriesSectionWrapper";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
@@ -65,9 +64,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [tableRows, setTableRows] = useState([]);
     const [searchParams] = useSearchParams();
     let apiRequest;
-
-    const { pathname } = useLocation();
-    const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
 
     const childProps = {
         spendingBy,
@@ -354,9 +350,9 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setError(false);
     };
 
-    // This function is necessary for the legacy search page.  The spending level must be transactions here.
+    // TODO: replace getSpendingLevel with just spendingLevel once ready to release transactions
     const getSpendingLevel = (spendingLevel) => {
-        if (isv2 || spendingLevel === "subawards") {
+        if (spendingLevel === "subawards") {
             return spendingLevel;
         }
         return "transactions";

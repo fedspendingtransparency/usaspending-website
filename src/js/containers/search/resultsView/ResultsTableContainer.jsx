@@ -10,7 +10,6 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, intersection, throttle } from 'lodash-es';
-import GlobalConstants from 'GlobalConstants';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
@@ -23,10 +22,10 @@ import {
 } from 'dataMapping/search/awardTableColumns';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { measureTableHeader } from 'helpers/textMeasurement';
-import ResultsTableSection from 'components/search/newResultsView/table/ResultsTableSection';
+import ResultsTableSection from 'components/search/resultsView/table/ResultsTableSection';
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
-import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
+import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import { performKeywordSearch } from "../../../helpers/keywordHelper";
 
 const propTypes = {
@@ -131,7 +130,7 @@ const ResultsTableContainer = (props) => {
     const [isTransactions, setIsTransactions] = useState(props.spendingLevel === 'transactions');
     const [expandableData, setExpandableData] = useState([]);
     const { pathname } = useLocation();
-    const isV2 = pathname === GlobalConstants.SEARCH_V2_PATH;
+    const isV2 = pathname === '/search';
     const showToggle = isV2 && (props.spendingLevel !== "awards");
     const [isMobile, setIsMobile] = useState(false);
     const [columnType, setColumnType] = useState(props.spendingLevel);
