@@ -7,8 +7,10 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 
-import { marketingArticle, otherArticle } from "../../../helpers/homepageFeaturedContentHelper";
+import { getCurrentArticles } from "../../../helpers/homepageFeaturedContentHelper";
 import FeaturedContentCard from "./FeaturedContentCard";
+
+const [marketingArticle, otherArticle] = getCurrentArticles();
 
 const propTypes = {
     leftCard: PropTypes.shape({
