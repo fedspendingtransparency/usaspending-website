@@ -44,7 +44,7 @@ const FeaturedContentCard = ({
                 variant="expanded"
                 img={img} />
             <CardBody
-                overline={taxonomy.toUpperCase()}
+                overline={taxonomy?.toUpperCase()}
                 headline={
                     <div>
                         {title}

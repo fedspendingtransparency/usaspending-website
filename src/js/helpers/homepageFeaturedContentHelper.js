@@ -49,26 +49,30 @@ const getCurrentArticles = (dayOneString = '11/12/2025') => {
         fallbackOtherArticle;
     const [marketingArticle, otherArticle] = [currentMarketingArticle, currentOtherArticle]
         .map((article) => {
-            const titleIndex = article.title.indexOf(":");
+            if (article?.title && article?.taxonomy) {
+                const titleIndex = article.title.indexOf(":");
 
-            if (titleIndex > 0 && (titleIndex + 2) < article.title.length) {
+                if (titleIndex > 0 && (titleIndex + 2) < article.title.length) {
+                    return {
+                        url: `/featured-content/${
+                            transformString(article.taxonomy)
+                        }/${transformString(article.title)}`,
+                        title: article.title.substring(titleIndex + 2),
+                        overline: article.title.substring(0, titleIndex),
+                        ...article
+                    };
+                }
+
                 return {
                     url: `/featured-content/${
-                        transformString(currentMarketingArticle.taxonomy)
-                    }/${transformString(currentMarketingArticle.title)}`,
-                    title: article.title.substring(titleIndex + 2),
-                    overline: article.title.substring(0, titleIndex),
+                        transformString(article.taxonomy)
+                    }/${transformString(article.title)}`,
+                    overline: article.taxonomy.toUpperCase(),
                     ...article
                 };
             }
 
-            return {
-                url: `/featured-content/${
-                    transformString(currentMarketingArticle.taxonomy)
-                }/${transformString(currentMarketingArticle.title)}`,
-                overline: article.taxonomy.toUpperCase(),
-                ...article
-            };
+            return article;
         });
 
     return [marketingArticle, otherArticle];

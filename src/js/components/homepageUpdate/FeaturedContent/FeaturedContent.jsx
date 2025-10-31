@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import getCurrentArticles from "../../../helpers/homepageFeaturedContentHelper";
 import FeaturedContentCard from "./FeaturedContentCard";
 
-const [marketingArticle, otherArticle] = getCurrentArticles('11/12/2025');
+const [marketingArticle, otherArticle] = getCurrentArticles();
 
 const propTypes = {
     leftCard: PropTypes.shape({
