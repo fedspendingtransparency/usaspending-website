@@ -13,10 +13,13 @@
         min-height: 325px;
     }
 
-    @media(min-width: $medium-screen) {
+    @media(min-width: $large-screen) {
         height: inherit;
-        min-height: inherit;
     }
+
+    // @media(min-width: $x-large-screen) {
+    //     max-height: max-content;
+    // }
 
     
     #featured-content-hero {
