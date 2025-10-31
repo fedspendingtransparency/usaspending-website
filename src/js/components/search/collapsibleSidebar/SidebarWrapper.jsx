@@ -245,7 +245,7 @@ const SidebarWrapper = React.memo(({
             setRenderSidebarContent(false);
             if (entries[0]) {
                 clearTimeout(time);
-                time = setTimeout(handleSidebarResize, 25);
+                time = setTimeout(handleSidebarResize, 20);
             }
         });
 
