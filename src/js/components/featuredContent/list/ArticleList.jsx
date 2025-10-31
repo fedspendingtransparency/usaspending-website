@@ -93,8 +93,8 @@ const ArticleList = ({ articles }) => {
                         const newUrl = `/featured-content/${transformString(article.content_type)}/${transformString(article.title)}`;
                         return (
                             <FlexGridCol
-                                desktopxl={3}
-                                desktop={3}
+                                desktopxl={4}
+                                desktop={4}
                                 tablet={6}
                                 mobile={12}
                                 className="list-of-articles__article">
