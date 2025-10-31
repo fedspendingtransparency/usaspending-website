@@ -25,7 +25,7 @@ import KeywordSearchLink from "./KeywordSearchLink";
 import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./SubawardDropdown";
 import { setSearchViewSubaward, setSpendingLevel } from "../../redux/actions/search/searchViewActions";
-import ResultsView from "./newResultsView/ResultsView";
+import ResultsView from "./resultsView/ResultsView";
 
 require('pages/search/searchPage.scss');
 

@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 
 import Analytics from "../../../../helpers/analytics/Analytics";
 import TimeVisualizationSectionContainer
-    from "../../../../containers/search/newResultsView/TimeVisualizationSectionContainer";
+    from "../../../../containers/search/resultsView/TimeVisualizationSectionContainer";
 import PlaceholderComponent from "../PlaceholderComponent";
 import TimeDsm from "./TimeDsm";
 import { useQueryParams } from '../../../../helpers/queryParams';

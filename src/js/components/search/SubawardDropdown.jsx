@@ -3,11 +3,9 @@
  * Created by Nick Torres 2/26/2024
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router';
-import GlobalConstants from 'GlobalConstants';
 import { faFunnelDollar } from "@fortawesome/free-solid-svg-icons";
 import { NewPicker } from 'data-transparency-ui';
 
@@ -28,15 +26,11 @@ const SubawardDropdown = ({
     setSearchViewSubaward,
     enabled = 'false',
     setSpendingLevel,
-    infoSection = false,
+    // infoSection = false,
     infoSectionContent = ''
 }) => {
     const [selected, setSelected] = useState(selectedValue);
-    const [v2, setv2] = useState();
-    const [optionsList, setOptionsList] = useState();
-
     const dispatch = useDispatch();
-    const { pathname } = useLocation();
 
     const onClick = (e) => {
         dispatch(setSearchViewSubaward(e === 'subawards'));
@@ -53,24 +47,25 @@ const SubawardDropdown = ({
         }
     };
 
-    const v2Options =
-        [
-            {
-                name: 'Prime Awards',
-                value: 'awards',
-                onClick
-            },
-            {
-                name: 'Subawards',
-                value: 'subawards',
-                onClick
-            },
-            {
-                name: 'Transactions',
-                value: 'transactions',
-                onClick
-            }
-        ];
+    // TODO: replace legacyOptions with v20ptions once ready to release transactions
+    // const v2Options =
+    //     [
+    //         {
+    //             name: 'Prime Awards',
+    //             value: 'awards',
+    //             onClick
+    //         },
+    //         {
+    //             name: 'Subawards',
+    //             value: 'subawards',
+    //             onClick
+    //         },
+    //         {
+    //             name: 'Transactions',
+    //             value: 'transactions',
+    //             onClick
+    //         }
+    //     ];
 
     const legacyOptions =
         [
@@ -86,15 +81,7 @@ const SubawardDropdown = ({
             }
         ];
 
-    const sortFn = () => optionsList;
-
-    useEffect(() => {
-        const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
-        setv2(isv2);
-
-        setOptionsList(isv2 ? v2Options : legacyOptions);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    const sortFn = () => legacyOptions;
 
     return (
         <div className="subaward-dropdown__container">
@@ -103,17 +90,18 @@ const SubawardDropdown = ({
                 leftIcon={faFunnelDollar}
                 size="sm"
                 label="Filter by:"
-                options={optionsList}
+                options={legacyOptions}
                 classname="subaward-dropdown__wrapper"
                 minTextWidth="subaward-dropdown__textMinWidth"
                 dropdownClassname="subaward-dropdown__list"
                 buttonClassname="subaward-dropdown__button"
-                selectedOption={optionsList?.length
-                    ? optionsList.find((obj) => obj.value === selected)?.name
+                selectedOption={legacyOptions?.length
+                    ? legacyOptions.find((obj) => obj.value === selected)?.name
                     : `${selected}`
                 }
                 sortFn={sortFn}
-                infoSection={v2 ? infoSection : false}
+                // TODO: add infoSection back in once ready to release transactions
+                // infoSection={infoSection}
                 infoSectionContent={infoSectionContent} />
 
         </div>

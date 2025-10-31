@@ -5,7 +5,7 @@
 
 const local = require('./LocalConstants');
 
-const LIVE_SEARCH_VERSION = process.env.ENV === 'qat' || process.env.ENV === 'sandbox' ? 'v2' : 'legacy'; // // "legacy" or "v2" (the v in v2 should be lowercase)
+const LIVE_SEARCH_VERSION = 'v2';
 
 const filesServerUrlByEnv = {
     sandbox: 'https://files-nonprod.usaspending.gov',
@@ -25,8 +25,8 @@ const globalConstants = {
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV],
     DUNS_LABEL: 'Legacy ',
     REQUEST_VERSION: '2020-06-01',
-    SEARCH_LEGACY_PATH: LIVE_SEARCH_VERSION === "v2" ? '/search-legacy' : '/search',
-    SEARCH_V2_PATH: LIVE_SEARCH_VERSION === "v2" ? '/search' : '/searchv2'
+    SEARCH_LEGACY_PATH: LIVE_SEARCH_VERSION,
+    SEARCH_V2_PATH: LIVE_SEARCH_VERSION
 };
 
 module.exports = globalConstants;

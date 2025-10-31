@@ -4,7 +4,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import ResultsTableContainer from "../../../../containers/search/newResultsView/ResultsTableContainer";
+import ResultsTableContainer from "../../../../containers/search/resultsView/ResultsTableContainer";
 
 import TableDsm from "./TableDsm";
 

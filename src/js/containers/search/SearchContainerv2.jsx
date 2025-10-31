@@ -7,7 +7,6 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { useLocation, useNavigate } from 'react-router';
-import GlobalConstants from 'GlobalConstants';
 
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
@@ -151,7 +150,7 @@ const SearchContainer = () => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        navigate(GlobalConstants.SEARCH_V2_PATH);
+                        navigate('/search');
                         request.current = null;
                     }
                 });
@@ -180,7 +179,7 @@ const SearchContainer = () => {
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
-            navigate(GlobalConstants.SEARCH_V2_PATH);
+            navigate('/search');
             setDownloadAvailable(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -203,7 +202,7 @@ const SearchContainer = () => {
             .then((res) => {
                 // update the URL with the received hash
                 const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
-                navigate(`${GlobalConstants.SEARCH_V2_PATH}${getQueryParamString(newQueryParams)}`, { replace: true });
+                navigate(`${'/search'}${getQueryParamString(newQueryParams)}`, { replace: true });
 
                 setGenerateHashInFlight(false);
             })
