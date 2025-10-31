@@ -7,7 +7,6 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { useNavigate, useLocation } from 'react-router';
-import GlobalConstants from 'GlobalConstants';
 
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
@@ -152,7 +151,7 @@ const SearchContainer = () => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        navigate(GlobalConstants.SEARCH_LEGACY_PATH);
+                        navigate('/search-legacy');
                         request.current = null;
                     }
                 });
@@ -182,7 +181,7 @@ const SearchContainer = () => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
             navigate({
-                path: GlobalConstants.SEARCH_LEGACY_PATH
+                path: '/search-legacy'
             }, { replace: true });
 
             setDownloadAvailable(false);
@@ -208,7 +207,7 @@ const SearchContainer = () => {
                 // update the URL with the received hash
                 const newQueryParams = combineQueryParams(query, { hash: res.data.hash });
                 navigate({
-                    path: GlobalConstants.SEARCH_LEGACY_PATH,
+                    path: '/search-legacy',
                     search: getQueryParamString(newQueryParams)
                 }, { replace: true });
 

@@ -10,6 +10,7 @@ import { useDispatch } from 'react-redux';
 import { throttle } from 'lodash-es';
 import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
+
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
@@ -20,7 +21,7 @@ import KeywordSearchLink from "../KeywordSearchLink";
 import MobileFiltersV2 from "../mobile/MobileFiltersV2";
 import SubawardDropdown from "../SubawardDropdown";
 import { setSearchViewSubaward, setSpendingLevel } from "../../../redux/actions/search/searchViewActions";
-import ResultsView from "../newResultsView/ResultsView";
+import ResultsView from "../resultsView/ResultsView";
 import CollapsibleSidebar from "./SidebarWrapper";
 import { showModal } from '../../../redux/actions/modal/modalActions';
 
