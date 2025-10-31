@@ -7,10 +7,10 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 
-import { getCurrentArticles } from "../../../helpers/homepageFeaturedContentHelper";
+import getCurrentArticles from "../../../helpers/homepageFeaturedContentHelper";
 import FeaturedContentCard from "./FeaturedContentCard";
 
-const [marketingArticle, otherArticle] = getCurrentArticles();
+const [marketingArticle, otherArticle] = getCurrentArticles('11/12/2025');
 
 const propTypes = {
     leftCard: PropTypes.shape({

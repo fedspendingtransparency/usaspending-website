@@ -8,9 +8,23 @@ const partition = (array, isValid) => array.reduce(
         [pass, [...fail, elem]]), [[], []]
 );
 
-export const getCurrentArticles = (dayOneString = '11/12/2025') => {
+const fallbackMarketingArticle = {
+    // title: "Exploring America's Finances Has Never Been Easier",
+    fill: '#1b2b85',
+    thumbnail_path: "../../img/featuredContent/cards/exploring-americas-finances.webp",
+    taxonomy: "Exploring America's Finances"
+};
+
+const fallbackOtherArticle = {
+    title: "What is an Award?",
+    fill: '#783cb9',
+    thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
+    taxonomy: "Data Definitions"
+};
+
+const getCurrentArticles = (dayOneString = '11/12/2025') => {
     // get the sprint number and week number from today's date and start date
-    const today = new Date();
+    const today = new Date('11/12/2026');
     const dayOne = new Date(dayOneString);
     const weekDifference = (today - dayOne) > 0 ?
         Math.ceil(((today - dayOne) / 604800000)) :
@@ -19,15 +33,20 @@ export const getCurrentArticles = (dayOneString = '11/12/2025') => {
     const featureWeekNum = weekDifference - ((featureSprintNum - 1) * 3);
 
     // get the current sprint's articles and partition based on content_type === 'Marketing'
-    const currentArticles = articles.filter((article) => article.feature_sprint === featureSprintNum);
+    const currentArticles = articles
+        .filter((article) => article.feature_sprint === featureSprintNum);
     const [marketingArticles, otherArticles] = partition(
         currentArticles,
         (article) => article.content_type === 'Marketing'
     );
 
     // get current week's articles and add relevant key/values
-    const currentMarketingArticle = marketingArticles[0];
-    const currentOtherArticle = otherArticles[featureWeekNum - 1];
+    const currentMarketingArticle = marketingArticles.length > 0 ?
+        marketingArticles[0] :
+        fallbackMarketingArticle;
+    const currentOtherArticle = otherArticles.length > 0 ?
+        otherArticles[featureWeekNum - 1] :
+        fallbackOtherArticle;
     const [marketingArticle, otherArticle] = [currentMarketingArticle, currentOtherArticle]
         .map((article) => {
             const titleIndex = article.title.indexOf(":");
@@ -52,6 +71,7 @@ export const getCurrentArticles = (dayOneString = '11/12/2025') => {
             };
         });
 
-    // TODO: make this into a function that takes 'first content release day' as an argument
     return [marketingArticle, otherArticle];
 };
+
+export default getCurrentArticles;
