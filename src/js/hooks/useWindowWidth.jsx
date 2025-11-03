@@ -1,15 +1,8 @@
 import { useEffect, useState } from 'react';
 import { throttle } from "lodash-es";
 import {
-    mediumScreen, smTabletScreen, tabletScreen
+    getScreenSizeType, tabletScreen
 } from "../dataMapping/shared/mobileBreakpoints";
-
-const getScreenSizeType = (width) => {
-    if (width < smTabletScreen) return 'mobile';
-    else if ((smTabletScreen <= width) && (width < tabletScreen)) return 'tablet';
-    else if ((tabletScreen <= width) && (width < mediumScreen)) return 'desktop';
-    return 'largeDesktop';
-};
 
 const useWindowWidth = (
     screenBreakpoint = tabletScreen,
