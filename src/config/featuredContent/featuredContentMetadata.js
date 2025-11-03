@@ -93,7 +93,7 @@ const articles = [
         created_date: "09/29/2025",
         description: "Behind every dollar the U.S. government spends, there is a story. But how can you discover that story? What tools do you need to understand it?",
         mdx_path: "exploring-americas-finances-the-data-behind-the-dollars.mdx",
-        hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-data_definitions.webp",
+        hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-exploring_americas_finances.webp",
         thumbnail_path: "../../img/featuredContent/cards/exploring-americas-finances.webp",
         fill: contentMap.finances,
         secondary: secondary.finances,

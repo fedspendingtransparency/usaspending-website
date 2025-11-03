@@ -24,6 +24,10 @@
       align-self: center;
       font-family: $font-sans;
       padding-top: rem(46);
+
+      img {
+        width: 100%;
+      }
       
       .featured-content__column-two {
         @media(min-width: $large-screen) {
