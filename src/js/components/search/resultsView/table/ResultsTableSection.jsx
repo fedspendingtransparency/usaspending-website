@@ -3,13 +3,14 @@
   * Created by Kevin Li 11/8/16
   **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, NoResultsMessage } from 'data-transparency-ui';
-import { throttle } from "lodash-es";
+
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ResultsTable from '../../table/ResultsTable';
 import GroupedAwardTable from '../../table/groupedTable/GroupedAwardTable';
+import useWindowWidth from "../../../../hooks/useWindowWidth";
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -32,36 +33,23 @@ const propTypes = {
 };
 
 const ResultsTableSection = (props) => {
-    const [tableWidth, setTableWidth] = useState(0);
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    const windowWidth = useWindowWidth();
+    const [tableWidth, setTableWidth] = useState(document.querySelector('.results-table-content'));
 
-    const setTableWidthFn = () => {
-        const table = document.querySelector('.results-table-content');
-        if (table) {
-            setTableWidth(table.offsetWidth);
-        }
-    };
+    const isMobile = windowWidth < tabletScreen;
 
-    const handleResize = throttle(() => {
-        const newWidth = window.innerWidth;
-        if (windowWidth !== newWidth) {
-            setWindowWidth(newWidth);
-            setIsMobile(newWidth < tabletScreen);
+    const setTableWidthFn = useCallback(() => {
+        if (document.querySelector('.results-table-content')) {
+            setTableWidth(document.querySelector('.results-table-content'));
         }
-    }, 50);
+    }, []);
 
     useEffect(() => {
-        // set the initial table width
-        setTableWidthFn();
-        handleResize();
-        // watch the window for size changes
         window.addEventListener('resize', setTableWidthFn);
         return () => {
-            // stop watching for size changes
             window.removeEventListener('resize', setTableWidthFn);
         };
-    }, [handleResize]);
+    }, [setTableWidthFn]);
 
     useEffect(() => {
         // mobile check
