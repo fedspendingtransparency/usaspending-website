@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 import { icons } from 'dataMapping/explorer/dropdownScopes';
-import * as Icons from 'components/sharedComponents/icons/Icons';
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
 const propTypes = {
