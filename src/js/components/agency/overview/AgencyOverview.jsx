@@ -13,6 +13,7 @@ import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
 import { showSlideout } from '../../../helpers/slideoutHelper';
+import useWindowWidth from "../../../hooks/useWindowWidth";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -20,6 +21,7 @@ const propTypes = {
 };
 
 const AgencyOverview = ({ fy, dataThroughDate }) => {
+    const { isMobile, windowWidth } = useWindowWidth(mediumScreen);
     const {
         website,
         mission,
@@ -27,24 +29,10 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
         showAboutData
     } = useSelector((state) => state.agency.overview);
 
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-
     const openAboutTheDataSidebar = (e, entry) => {
         showSlideout('atd', { url: entry });
         e.preventDefault();
     };
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
 
     const missionBlock = (
         <div className="agency-overview__data">
