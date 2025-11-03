@@ -3,11 +3,11 @@ import { throttle } from "lodash-es";
 import { tabletScreen } from "../dataMapping/shared/mobileBreakpoints";
 
 const useWindowWidth = (
-    screenSize = tabletScreen,
+    screenBreakpoint = tabletScreen,
     throttleWait = 50
 ) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < screenSize);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < screenBreakpoint);
 
     useEffect(() => {
         let isMounted = true;
@@ -17,9 +17,8 @@ const useWindowWidth = (
 
             if (windowWidth !== newWidth && isMounted) {
                 setWindowWidth(newWidth);
-                setIsMobile(newWidth < screenSize);
+                setIsMobile(newWidth < screenBreakpoint);
             }
-
         }, throttleWait);
 
         window.addEventListener('resize', handleResize);
@@ -27,10 +26,10 @@ const useWindowWidth = (
         return () => {
             isMounted = false;
             window.removeEventListener('resize', handleResize);
-        }
-    }, [windowWidth]);
+        };
+    }, [screenBreakpoint, throttleWait, windowWidth]);
 
     return { windowWidth, isMobile };
-}
+};
 
 export default useWindowWidth;
