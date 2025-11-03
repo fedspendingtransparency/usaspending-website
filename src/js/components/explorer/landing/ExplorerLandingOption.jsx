@@ -9,6 +9,7 @@ import { Link } from 'react-router';
 
 import { icons } from 'dataMapping/explorer/dropdownScopes';
 import * as Icons from 'components/sharedComponents/icons/Icons';
+import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
 const propTypes = {
     icon: PropTypes.string,
@@ -19,28 +20,26 @@ const propTypes = {
     onClick: PropTypes.func
 };
 
-const ExplorerLandingOption = (props) => {
-    const IconType = icons[props.icon];
-    const icon = <IconType alt={props.title} />;
+const ExplorerLandingOption = ({ icon, title, description, url, term, onClick }) => {
+    const IconType = icons[icon];
+
     return (
         <div className="landing-option">
             <div className="landing-option__icon">
-                {icon}
+                <IconType alt={title} />
             </div>
             <h2 className="landing-option__title">
-                {props.title}
-                <Link to={`/explorer?glossary=${props.term}`}>
-                    <Icons.Glossary />
-                </Link>
+                {title}
+                <GlossaryLink term={term} />
             </h2>
             <div className="landing-option__description">
-                {props.description}
+                {description}
             </div>
 
             <Link
                 className="landing-option__button"
-                to={props.url}
-                onClick={props.onClick}>
+                to={url}
+                onClick={onClick}>
                 Start
             </Link>
         </div>
