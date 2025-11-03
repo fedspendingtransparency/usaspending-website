@@ -95,7 +95,7 @@ const articles = [
         created_date: "09/29/2025",
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in dolor nec massa aliquet cursus in vel turpis. Etiam id volutpat ipsum. Sed nibh tellus, ullamcorper ac sagittis vitae, feugiat ac tellus. Vivamus sit amet nulla venenatis, iaculis nibh vitae, efficitur est. Curabitur ac sagittis est, quis condimentum nunc. Vestibulum porttitor lacinia turpis, at volutpat nulla viverra et.",
         mdx_path: "exploring-americas-finances-the-data-behind-the-dollars.mdx",
-        hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-data_definitions.webp",
+        hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-exploring_americas_finances.webp",
         tablet_hero: "../../img/featuredContent/banner/tablet/featured_content_banner-tablet-indigo_cool_vivid.webp",
         mobile_hero: "../../img/featuredContent/banner/mobile/featured_content_banner-tablet-indigo_cool_vivid.webp",
         thumbnail_path: "../../img/featuredContent/cards/exploring-americas-finances.webp",
