@@ -7,10 +7,8 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch, connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { throttle } from "lodash-es";
-
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
+
 import { setDataThroughDates,
     setSelectedSubcomponent,
     setSelectedFederalAccount,
@@ -29,6 +27,7 @@ import Note from 'components/sharedComponents/Note';
 import DrilldownSidebar from './DrilldownSidebar';
 import VisualizationSection from './VisualizationSection';
 import IntroSection from './IntroSection';
+import useWindowWidth from "../../../hooks/useWindowWidth";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -36,20 +35,20 @@ const propTypes = {
 };
 
 const StatusOfFunds = ({ fy, onChartLoaded }) => {
+    const { isMobile } = useWindowWidth();
     const dispatch = useDispatch();
+    const request = useRef(null);
+    const { overview } = useSelector((state) => state.agency);
+    const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
+    const [pageSize, changePageSize] = useStateWithPrevious(10);
+
     const [level, setLevel] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [resetPageChange, setResetPageChange] = useState(false);
-    const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
-    const [pageSize, changePageSize] = useStateWithPrevious(10);
     const [totalItems, setTotalItems] = useState(0);
-    const request = useRef(null);
     const [results, setResults] = useState([]);
-    const { overview } = useSelector((state) => state.agency);
     const [toggle, setOnToggle] = useState(false);
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
     const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
@@ -86,17 +85,23 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
     };
 
     useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < tabletScreen);
-                setViewType(isMobile ? 'table' : viewType);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [isMobile, viewType, windowWidth]);
+        if(isMobile) {
+            setViewType('table')
+        }
+    }, [isMobile]);
+
+    // useEffect(() => {
+    //     const handleResize = throttle(() => {
+    //         const newWidth = window.innerWidth;
+    //         if (windowWidth !== newWidth) {
+    //             setWindowWidth(newWidth);
+    //             setIsMobile(newWidth < tabletScreen);
+    //             setViewType(isMobile ? 'table' : viewType);
+    //         }
+    //     }, 50);
+    //     window.addEventListener('resize', handleResize);
+    //     return () => window.removeEventListener('resize', handleResize);
+    // }, [isMobile, viewType, windowWidth]);
 
     const fetchAgencySubcomponents = useCallback(() => {
         if (request.current) {
