@@ -19,7 +19,9 @@ const propTypes = {
     onClick: PropTypes.func
 };
 
-const ExplorerLandingOption = ({ icon, title, description, url, term, onClick }) => {
+const ExplorerLandingOption = ({
+    icon, title, description, url, term, onClick
+}) => {
     const IconType = icons[icon];
 
     return (
