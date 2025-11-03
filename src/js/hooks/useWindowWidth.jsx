@@ -10,15 +10,24 @@ const useWindowWidth = (
     const [isMobile, setIsMobile] = useState(window.innerWidth < screenSize);
 
     useEffect(() => {
+        let isMounted = true;
+
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
+
+            if (windowWidth !== newWidth && isMounted) {
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < screenSize);
             }
+
         }, throttleWait);
+
         window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
+
+        return () => {
+            isMounted = false;
+            window.removeEventListener('resize', handleResize);
+        }
     }, [windowWidth]);
 
     return { windowWidth, isMobile };
