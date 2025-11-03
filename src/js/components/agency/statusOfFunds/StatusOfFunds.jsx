@@ -85,23 +85,10 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
     };
 
     useEffect(() => {
-        if(isMobile) {
-            setViewType('table')
+        if (isMobile) {
+            setViewType('table');
         }
     }, [isMobile]);
-
-    // useEffect(() => {
-    //     const handleResize = throttle(() => {
-    //         const newWidth = window.innerWidth;
-    //         if (windowWidth !== newWidth) {
-    //             setWindowWidth(newWidth);
-    //             setIsMobile(newWidth < tabletScreen);
-    //             setViewType(isMobile ? 'table' : viewType);
-    //         }
-    //     }, 50);
-    //     window.addEventListener('resize', handleResize);
-    //     return () => window.removeEventListener('resize', handleResize);
-    // }, [isMobile, viewType, windowWidth]);
 
     const fetchAgencySubcomponents = useCallback(() => {
         if (request.current) {
