@@ -1,6 +1,15 @@
 import { useEffect, useState } from 'react';
 import { throttle } from "lodash-es";
-import { tabletScreen } from "../dataMapping/shared/mobileBreakpoints";
+import {
+    mediumScreen, smTabletScreen, tabletScreen
+} from "../dataMapping/shared/mobileBreakpoints";
+
+const getScreenSizeType = (width) => {
+    if (width < smTabletScreen) return 'mobile';
+    else if ((smTabletScreen <= width) && (width < tabletScreen)) return 'tablet';
+    else if ((tabletScreen <= width) && (width < mediumScreen)) return 'desktop';
+    return 'largeDesktop';
+};
 
 const useWindowWidth = (
     screenBreakpoint = tabletScreen,
@@ -8,6 +17,7 @@ const useWindowWidth = (
 ) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [isMobile, setIsMobile] = useState(window.innerWidth < screenBreakpoint);
+    const [screenSize, setScreenSize] = useState(getScreenSizeType(window.innerWidth));
 
     useEffect(() => {
         let isMounted = true;
@@ -18,6 +28,7 @@ const useWindowWidth = (
             if (windowWidth !== newWidth && isMounted) {
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < screenBreakpoint);
+                setScreenSize(getScreenSizeType(newWidth));
             }
         }, throttleWait);
 
@@ -29,7 +40,7 @@ const useWindowWidth = (
         };
     }, [screenBreakpoint, throttleWait, windowWidth]);
 
-    return { windowWidth, isMobile };
+    return { windowWidth, isMobile, screenSize };
 };
 
 export default useWindowWidth;
