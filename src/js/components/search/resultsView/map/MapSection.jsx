@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import Analytics from "../../../../helpers/analytics/Analytics";
-import MapSectionWrapper from "../../../../containers/search/newResultsView/MapWrapperContainer";
+import MapSectionWrapper from "../../../../containers/search/resultsView/MapWrapperContainer";
 import MapDsm from "./MapDsm";
 import PlaceholderComponent from "../PlaceholderComponent";
 

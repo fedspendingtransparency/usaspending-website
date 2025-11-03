@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { LoadingMessage, ErrorMessage, NoResultsMessage } from 'data-transparency-ui';
-import SpendingByCategoriesChart from '../../../search/newResultsView/categories/SpendingByCategoriesChart';
+import SpendingByCategoriesChart from '../../../search/resultsView/categories/SpendingByCategoriesChart';
 
 const propTypes = {
     labelSeries: PropTypes.array,

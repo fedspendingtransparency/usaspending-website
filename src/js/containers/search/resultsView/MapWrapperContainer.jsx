@@ -4,21 +4,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash-es';
-import { useLocation } from "react-router";
-import GlobalConstants from 'GlobalConstants';
 
 import { territories, countries, counties, congressionalDistricts } from "dataMapping/search/geoTable";
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
-import { stateFIPSByAbbreviation, stateNameFromFips } from 'dataMapping/state/stateNames';
+import { stateFIPSByAbbreviation, stateNameFromFips, stateAbbreviationFromFips } from 'dataMapping/state/stateNames';
 import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
 import { performSpendingByGeographySearch } from 'apis/search';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
-import SearchSectionWrapper from "../../../components/search/newResultsView/SearchSectionWrapper";
+import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 
 const propTypes = {
@@ -88,9 +86,6 @@ const MapWrapperContainer = React.memo((props) => {
         wrapperNoData: false
     });
 
-    const { pathname } = useLocation();
-    const isv2 = pathname === GlobalConstants.SEARCH_V2_PATH;
-
     const [mapViewType, setMapViewType] = useState('chart');
     let apiRequest = null;
     const mapListeners = [];
@@ -146,6 +141,23 @@ const MapWrapperContainer = React.memo((props) => {
         }
     };
 
+    const areFirstTwoCharsEqual = (arr) => {
+        if (!arr || arr.length === 0) {
+            // Handle empty or null arrays
+            return true;
+        }
+
+        const firstTwoCharsOfFirstElement = arr[0].substring(0, 2);
+
+        return arr.every((element) => {
+            // Ensure the element is a string and has at least two characters
+            if (typeof element !== 'string' || element.length < 2) {
+                return false; // Or handle this case based on your requirements
+            }
+            return element.substring(0, 2) === firstTwoCharsOfFirstElement;
+        });
+    };
+
     /**
      * valuesLocationsLabelsFromAPIData
      * - creates locations, values, and labels for the map visualization from api data
@@ -194,9 +206,11 @@ const MapWrapperContainer = React.memo((props) => {
             }
         });
 
-        if (locations?.length === 1) {
-            // add check if congressional district or counties are in the same state, we can still use the state as the centerpoint
-            // will need to use a different value than locations[0] though
+        if ((mapLayer === "county" || mapLayer === "congressionalDistrict") && areFirstTwoCharsEqual(locations)) {
+            const stateAbbreviation = stateAbbreviationFromFips(locations[0].substring(0, 2));
+            findMapCenterPointByLocation(stateAbbreviation);
+        }
+        else if ((mapLayer === "country" || mapLayer === "state") && locations?.length === 1) {
             findMapCenterPointByLocation(locations[0]);
         }
 
@@ -250,9 +264,9 @@ const MapWrapperContainer = React.memo((props) => {
         return false;
     };
 
-    // This function is necessary for the legacy search page.  The spending level must be transactions here.
+    // TODO: replace getSpendingLevel with just spendingLevel once ready to release transactions
     const getSpendingLevel = (spendingLevel) => {
-        if (isv2 || spendingLevel === "subawards") {
+        if (spendingLevel === "subawards") {
             return spendingLevel;
         }
         return "transactions";

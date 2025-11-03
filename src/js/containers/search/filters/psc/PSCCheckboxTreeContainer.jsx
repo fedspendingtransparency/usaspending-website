@@ -23,12 +23,10 @@ import {
 
 import * as pscActions from 'redux/actions/search/pscActions';
 import { updatePSC } from 'redux/actions/search/searchFilterActions';
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
 import NewCheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { bindActionCreators } from "redux";
-import GlobalConstants from "../../../../GlobalConstants";
 
 const propTypes = {
     setPscNodes: PropTypes.func,
@@ -151,10 +149,18 @@ const PSCCheckboxTreeContainer = ({
                         setPscNodes(key, pscNodes);
                     }
 
-                    const newChecked = checked.includes(`children_of_${key}`)
+                    let modChecked = [];
+
+                    if (checked.includes(`children_of_${key}`)) {
+                        // key node is checked.  add children
+                        const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
+                        modChecked = [...filteredChecked, ...pscNodes.map((child) => child.value)];
+                    }
+
+                    const newChecked = modChecked?.length
                         ? autoCheckPscAfterExpand(
                             { children: pscNodes, value: key },
-                            checked,
+                            modChecked,
                             unchecked
                         )
                         : checked;
@@ -188,22 +194,12 @@ const PSCCheckboxTreeContainer = ({
         const treeDepth = selectedNode.ancestors?.length;
 
         if (shouldFetchChildren && !isSearch) {
-            if (GlobalConstants.QAT && treeDepth >= 1) {
+            if (treeDepth >= 1) {
                 if (treeDepth === 2) {
                     fetchPscLocal(`${selectedNode.ancestors[0]}/${selectedNode.ancestors[1]}/${expandedValue}`);
                 }
                 else {
                     fetchPscLocal(`${selectedNode.ancestors[0]}/${expandedValue}`);
-                }
-            }
-            else if (selectedNode.treeDepth >= 1) {
-                const { parent } = selectedNode;
-
-                if (selectedNode.treeDepth === 2) {
-                    fetchPscLocal(`${parent.ancestors[0]}/${parent.value}/${expandedValue}`);
-                }
-                else {
-                    fetchPscLocal(`${parent.value}/${expandedValue}`);
                 }
             }
             else {
@@ -219,8 +215,10 @@ const PSCCheckboxTreeContainer = ({
     };
 
     const onCheck = (newChecked) => {
+        // prevent double count
+        const stateNewChecked = newChecked?.length > 1 ? newChecked.filter((id) => !id.includes("children_of_")) : newChecked;
         const [newCounts, newUnchecked] = incrementPscCountAndUpdateUnchecked(
-            newChecked,
+            stateNewChecked,
             checked,
             unchecked,
             nodes,
@@ -402,35 +400,20 @@ const PSCCheckboxTreeContainer = ({
                 loading={false}
                 onClear={onClear}
                 searchIcon />
-            {GlobalConstants.QAT ?
-                <NewCheckboxTree
-                    isError={isError}
-                    errorMessage={errorMessage}
-                    isLoading={isLoading}
-                    data={nodes}
-                    checked={checked}
-                    searchString={searchString}
-                    noResults={showNoResults}
-                    expanded={isSearch ? searchExpanded : expanded}
-                    isSearch={isSearch}
-                    onUncheck={onUncheck}
-                    onCheck={onCheck}
-                    onExpand={onExpand}
-                    onCollapse={onCollapse} />
-                :
-                <CheckboxTree
-                    isError={isError}
-                    errorMessage={errorMessage}
-                    isLoading={isLoading}
-                    data={nodes}
-                    checked={checked}
-                    searchString={searchString}
-                    noResults={showNoResults}
-                    expanded={isSearch ? searchExpanded : expanded}
-                    onUncheck={onUncheck}
-                    onCheck={onCheck}
-                    onExpand={onExpand}
-                    onCollapse={onCollapse} />}
+            <NewCheckboxTree
+                isError={isError}
+                errorMessage={errorMessage}
+                isLoading={isLoading}
+                data={nodes}
+                checked={checked}
+                searchString={searchString}
+                noResults={showNoResults}
+                expanded={isSearch ? searchExpanded : expanded}
+                isSearch={isSearch}
+                onUncheck={onUncheck}
+                onCheck={onCheck}
+                onExpand={onExpand}
+                onCollapse={onCollapse} />
         </div>
     );
 };

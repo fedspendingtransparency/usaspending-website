@@ -185,3 +185,14 @@ export const stateNameFromFips = (fips) => {
     }
     return [];
 };
+
+export const stateAbbreviationFromFips = (fips) => {
+    const abbreviations = Object.values(stateFIPSByAbbreviation);
+    const index = abbreviations.indexOf(fips);
+
+    if (index !== -1) {
+        const keys = Object.keys(stateFIPSByAbbreviation);
+        return keys[index];
+    }
+    return null;
+};

@@ -4,13 +4,12 @@
  **/
 
 import React from 'react';
-import GlobalConstants from 'GlobalConstants';
 
 const HomepageUpdate = React.lazy(() => import('components/homepageUpdate/HomepageUpdate').then((comp) => comp));
-const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
-const SearchContainerv2 = React.lazy(() => import('containers/search/SearchContainerv2').then((comp) => comp));
-const SearchContainerRedirect = React.lazy(() => import('containers/search/SearchContainer').then((module) => ({ default: module.SearchContainerRedirect })));
-const SearchContainerRedirectv2 = React.lazy(() => import('containers/search/SearchContainerv2').then((module) => ({ default: module.SearchContainerRedirectv2 })));
+const SearchContainerV2 = React.lazy(() => import('containers/search/SearchContainerv2').then((comp) => comp));
+const SearchContainerRedirectV2 = React.lazy(() => import('containers/search/SearchContainerv2').then((module) => ({ default: module.SearchContainerRedirectv2 })));
+// const SearchContainerRedirect = React.lazy(() => import('containers/search/SearchContainer').then((module) => ({ default: module.SearchContainerRedirect })));
+// const SearchContainerRedirectv2 = React.lazy(() => import('containers/search/SearchContainerv2').then((module) => ({ default: module.SearchContainerRedirectv2 })));
 const ExplorerLanding = React.lazy(() => import('components/explorer/landing/ExplorerLanding').then((comp) => comp));
 const ExplorerDetailPageContainer = React.lazy(() => import('containers/explorer/detail/ExplorerDetailPageContainer').then((comp) => comp));
 const AwardContainer = React.lazy(() => import('containers/award/AwardContainer').then((comp) => comp));
@@ -54,24 +53,23 @@ export const routes = [
         component: HomepageUpdate,
         exact: true
     },
+    // {
+    //     path: GlobalConstants.SEARCH_LEGACY_PATH,
+    //     component: SearchContainer,
+    // },
     {
-        path: GlobalConstants.SEARCH_LEGACY_PATH,
-        component: SearchContainer,
+        path: '/search',
+        component: SearchContainerV2,
         exact: true
     },
+    // {
+    //     path: `${GlobalConstants.SEARCH_LEGACY_PATH}/:urlHash`,
+    //     component: SearchContainerRedirect,
+    //     exact: true
+    // },
     {
-        path: GlobalConstants.SEARCH_V2_PATH,
-        component: SearchContainerv2,
-        exact: true
-    },
-    {
-        path: `${GlobalConstants.SEARCH_LEGACY_PATH}/:urlHash`,
-        component: SearchContainerRedirect,
-        exact: true
-    },
-    {
-        path: `${GlobalConstants.SEARCH_V2_PATH}/:urlHash`,
-        component: SearchContainerRedirectv2,
+        path: `/search/:urlHash`,
+        component: SearchContainerRedirectV2,
         exact: true
     },
     {
