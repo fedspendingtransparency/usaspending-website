@@ -6,7 +6,7 @@ const useWindowWidth = (
     screenSize = tabletScreen,
     throttleWait = 50
 ) => {
-    const [windowWidth, setWindowWidth] = useState(0);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [isMobile, setIsMobile] = useState(window.innerWidth < screenSize);
 
     useEffect(() => {
