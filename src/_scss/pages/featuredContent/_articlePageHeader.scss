@@ -1,23 +1,28 @@
+@use "sass:math";
+
 .featured-content__header-wrapper {
     position: relative;
     display:flex;
     align-items: center;
+    align-self: center;
     height: 250px;
     min-height: 250px;
+    width: 100%;
+    max-width: $homepage-max-width;
 
 
     @media(min-width: $tablet-screen) {
         height: 325px;
         min-height: 325px;
     }
-
-    @media(min-width: $large-screen) {
+    
+    @media(min-width: $medium-screen) {
         height: inherit;
+        min-height: inherit;
     }
     
-    #featured-content-hero {
+    img {
         width: 100%;
-        height: 100%;
     }
 
     .featured-content__header-block {
@@ -27,34 +32,19 @@
         flex-direction: column;
         justify-content: center;
         margin-left: rem(16);
-        max-width: $article-max-width;
         
         @media (min-width: $tablet-screen) {
             margin-left: rem(32);
         }
-        @media (min-width: 1400px) {
+
+        @media (min-width: $m-large-screen) {
             margin-left: $grid-column;
         }
 
-        @media (min-width: 1700px) {
-            margin-left: calc($grid-column + (100vw - $site-max-width) * 0.1);
+        @media (min-width: $x-large-screen) {
+            margin-left: rem(8);
         }
-        @media (min-width: 1750px) {
-            margin-left: calc($grid-column + (100vw - $site-max-width) * 0.2);
-        }
-        @media (min-width: 1850px) {
-            margin-left: calc($grid-column + (100vw - $site-max-width) * 0.27);
-        }
-        @media (min-width: 1900px) {
-            margin-left: calc($grid-column + (100vw - $site-max-width) * 0.3);
-        }
-        @media (min-width: 2050px) {
-            margin-left: calc($grid-column + (100vw - $site-max-width) * 0.33);
-        }
-        @media (min-width: 2150px) {
-            margin-left: calc($grid-column + (100vw - $site-max-width) * 0.37);
-        }
-            
+                  
         &.black-text span {
             color: #000;
         }
