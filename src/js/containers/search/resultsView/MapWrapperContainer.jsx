@@ -9,7 +9,7 @@ import { territories, countries, counties, congressionalDistricts } from "dataMa
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
-import { stateFIPSByAbbreviation, stateNameFromFips } from 'dataMapping/state/stateNames';
+import { stateFIPSByAbbreviation, stateNameFromFips, stateAbbreviationFromFips } from 'dataMapping/state/stateNames';
 import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
@@ -59,7 +59,7 @@ const logMapScopeEvent = (scope) => {
 };
 
 
-const MapSectionWrapper = React.memo((props) => {
+const MapWrapperContainer = React.memo((props) => {
     const USACenterPoint = [-95.569430, 38.852892];
 
     const [mapLayer, setMapLayer] = useState('state');
@@ -106,14 +106,57 @@ const MapSectionWrapper = React.memo((props) => {
         congressionalDistrict: congressionalDistricts
     };
 
-    const selectDataSet = () => {
-        if (mapViewType === "table") {
-            return completeDataSet[mapLayer];
+    const selectDataSet = () => completeDataSet[mapLayer];
+
+    const calculateCenterPoint = (location) => {
+        if (location) {
+            let locationRequest = performCountryGeocode(location);
+            locationRequest.promise
+                .then((res) => {
+                    setCenter(res.data?.features[0]?.center ? res.data?.features[0]?.center : USACenterPoint);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        console.log(err);
+                        locationRequest = null;
+                    }
+                });
         }
-        return visibleEntities;
+        else {
+            setCenter(USACenterPoint);
+        }
     };
 
     const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
+
+    const findMapCenterPointByLocation = (locationAbbrev) => {
+        if (apiScopes[mapLayer] !== 'country') {
+            setCenter(stateCenterFromFips(stateFIPSByAbbreviation[locationAbbrev]));
+        }
+        else if (locationAbbrev !== 'USA') {
+            calculateCenterPoint(locationAbbrev);
+        }
+        else {
+            setCenter(USACenterPoint);
+        }
+    };
+
+    const areFirstTwoCharsEqual = (arr) => {
+        if (!arr || arr.length === 0) {
+            // Handle empty or null arrays
+            return true;
+        }
+
+        const firstTwoCharsOfFirstElement = arr[0].substring(0, 2);
+
+        return arr.every((element) => {
+            // Ensure the element is a string and has at least two characters
+            if (typeof element !== 'string' || element.length < 2) {
+                return false; // Or handle this case based on your requirements
+            }
+            return element.substring(0, 2) === firstTwoCharsOfFirstElement;
+        });
+    };
 
     /**
      * valuesLocationsLabelsFromAPIData
@@ -162,6 +205,14 @@ const MapSectionWrapper = React.memo((props) => {
                 rows.push(row);
             }
         });
+
+        if ((mapLayer === "county" || mapLayer === "congressionalDistrict") && areFirstTwoCharsEqual(locations)) {
+            const stateAbbreviation = stateAbbreviationFromFips(locations[0].substring(0, 2));
+            findMapCenterPointByLocation(stateAbbreviation);
+        }
+        else if ((mapLayer === "country" || mapLayer === "state") && locations?.length === 1) {
+            findMapCenterPointByLocation(locations[0]);
+        }
 
         setTableData(rows);
 
@@ -327,25 +378,6 @@ const MapSectionWrapper = React.memo((props) => {
 
 
         logMapLayerEvent(layer);
-    };
-
-    const calculateCenterPoint = (location) => {
-        if (location) {
-            let locationRequest = performCountryGeocode(location);
-            locationRequest.promise
-                .then((res) => {
-                    setCenter(res.data?.features[0]?.center ? res.data?.features[0]?.center : USACenterPoint);
-                })
-                .catch((err) => {
-                    if (!isCancel(err)) {
-                        console.log(err);
-                        locationRequest = null;
-                    }
-                });
-        }
-        else {
-            setCenter(USACenterPoint);
-        }
     };
 
     const mapScopeLogic = (type) => {
@@ -688,7 +720,7 @@ const MapSectionWrapper = React.memo((props) => {
     );
 });
 
-MapSectionWrapper.propTypes = propTypes;
+MapWrapperContainer.propTypes = propTypes;
 
 export default connect((state) => ({
     reduxFilters: state.appliedFilters.filters,
@@ -701,4 +733,4 @@ export default connect((state) => ({
         { setAppliedFilterCompletion }, { updateMapLegendToggle }),
     dispatch)
 })
-)(MapSectionWrapper);
+)(MapWrapperContainer);
