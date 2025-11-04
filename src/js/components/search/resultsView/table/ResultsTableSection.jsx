@@ -34,9 +34,8 @@ const propTypes = {
 
 const ResultsTableSection = (props) => {
     const windowWidth = useWindowWidth();
-    const [tableWidth, setTableWidth] = useState(document.querySelector('.results-table-content'));
-
     const isMobile = windowWidth < tabletScreen;
+    const [tableWidth, setTableWidth] = useState(document.querySelector('.results-table-content'));
 
     const setTableWidthFn = useCallback(() => {
         if (document.querySelector('.results-table-content')) {

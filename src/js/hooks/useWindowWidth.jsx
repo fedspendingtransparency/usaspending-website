@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { throttle } from "lodash-es";
-import { tabletScreen } from "../dataMapping/shared/mobileBreakpoints";
 
 const useWindowWidth = (
-    screenBreakpoint = tabletScreen,
     throttleWait = 50
 ) => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -25,7 +23,7 @@ const useWindowWidth = (
             isMounted = false;
             window.removeEventListener('resize', handleResize);
         };
-    }, [screenBreakpoint, throttleWait, windowWidth]);
+    }, [throttleWait, windowWidth]);
 
     return windowWidth;
 };

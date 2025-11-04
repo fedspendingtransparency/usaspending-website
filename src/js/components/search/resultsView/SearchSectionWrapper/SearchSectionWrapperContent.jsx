@@ -60,8 +60,7 @@ const SearchSectionWrapperContent = ({
     downloadComponent,
     children
 }) => {
-    const { windowWidth } = useWindowWidth();
-
+    const windowWidth = useWindowWidth();
     const isMobile = windowWidth < tabletScreen;
 
     const Message = () => {
