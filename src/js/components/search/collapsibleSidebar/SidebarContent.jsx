@@ -7,15 +7,15 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-import { searchFilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
 import Accordion from "../../sharedComponents/accordion/Accordion";
-// removed in DEV-13712
-// import DsmSlider from "./DsmSlider";
 import { excludeIDVB, generateCount } from "../../../helpers/search/filterCheckboxHelper";
 import KeywordContainer from "../../../containers/search/filters/KeywordContainer";
 import * as Icons from '../../../components/sharedComponents/icons/Icons';
 import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
+import { searchFilterCategoryTree } from "../../../dataMapping/search/searchFilterCategories";
+// removed in DEV-13712
+// import DsmSlider from "./DsmSlider";
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
@@ -66,13 +66,12 @@ const SidebarContent = ({
         'Award Description': filters.awardDescription ? 1 : 0,
         'Award ID': filters.selectedAwardIDs.size,
         'Spending Amount': filters.awardAmounts.size,
-        'Contract Award Type': excludeIDVB(filters.contractAwardType),
+        'Award Type': excludeIDVB(filters.awardType),
         'North American Industry Classification System (NAICS)': generateCount(filters.naicsCodes),
         'Product and Service Code (PSC)': generateCount(filters.pscCodes),
         'Type of Contract Pricing': filters.pricingType.size,
         'Type of Set Aside': filters.setAside.size,
         'Extent Competed': filters.extentCompeted.size,
-        'Financial Assistance Award Type': filters.financialAssistanceAwardType.size,
         'Assistance Listing': filters.selectedCFDA.size,
         Recipient: filters.selectedRecipients.size,
         'Recipient Type': filters.recipientType.size,
@@ -83,7 +82,7 @@ const SidebarContent = ({
     };
 
     useEffect(() => {
-    // determine if the width changed
+        // determine if the width changed
         const windowWidthTemp = window.innerWidth;
         if (windowWidth !== windowWidthTemp) {
             // width changed, update the visualization width

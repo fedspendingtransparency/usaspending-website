@@ -97,11 +97,7 @@ export const searchFilterCategoryTree = [
         component: <AgencyContainer searchV2 />
     },
     {
-        title: 'Contract Award Type',
-        component: <AwardTypeContainerV2 isContractAwardType />
-    },
-    {
-        title: 'Financial Assistance Award Type',
+        title: 'Award Type',
         component: <AwardTypeContainerV2 />
     },
     {
