@@ -4,20 +4,32 @@
  */
 
 import React from 'react';
-import { FlexGridCol, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Analytics from 'helpers/analytics/Analytics';
-import ExternalLink from "../../sharedComponents/ExternalLink";
+import PropTypes from 'prop-types';
 
+import getCurrentArticles from "../../../helpers/homepageFeaturedContentHelper";
+import FeaturedContentCard from "./FeaturedContentCard";
 
-const trackFeaturedSavingsBondLink = () => Analytics.event({
-    event: 'homepage_featured_content_links',
-    category: 'Homepage',
-    action: 'Link',
-    label: 'fiscal data interest expense feature content'
-});
+const [marketingArticle, otherArticle] = getCurrentArticles();
 
-const FeaturedContent = () => (
+const propTypes = {
+    leftCard: PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        fill: PropTypes.string.isRequired,
+        thumbnail_path: PropTypes.string.isRequired,
+        taxonomy: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired
+    }),
+    rightCard: PropTypes.shape({
+        url: PropTypes.string.isRequired,
+        fill: PropTypes.string.isRequired,
+        thumbnail_path: PropTypes.string.isRequired,
+        taxonomy: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired
+    })
+};
+
+const FeaturedContent = ({ leftCard = marketingArticle, rightCard = otherArticle }) => (
     <section className="featured-content__section">
         <div className="featured-content__heading">
             <div className="featured-content__heading--background">
@@ -26,36 +38,22 @@ const FeaturedContent = () => (
             <span>Featured Content</span>
         </div>
         <div className="featured-content__section--flex-row">
-            <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                <ExternalLink isCard url="https://forms.office.com/Pages/ResponsePage.aspx?id=is1pDRKeIU2V8LRAbgZxCosrFrEyW1NFiLX9Wji-iCxUQ0FHNlZMRFdCVlcyQ0VKVFNGOVRDR0lJUi4u">
-                    <CardContainer variant="outline" size="md">
-                        <CardHero fill="#1b2b85" variant="expanded" img="img/homepage-featured-content/homepage-feature-API-Feedback-Survey@2x.webp" />
-                        <CardBody
-                            overline="YOUR FEEDBACK"
-                            headline={
-                                <div>
-                                    We’re seeking your input on the USAspending API
-                                </div>
-                            }>
-                        </CardBody>
-                    </CardContainer>
-                </ExternalLink>
-            </FlexGridCol>
-            <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                <a href="https://fiscaldata.treasury.gov/interest-expense-avg-interest-rates/" target="_blank" rel="noopener noreferrer" onClick={trackFeaturedSavingsBondLink} className="featured-content__section--link" >
-                    <CardContainer variant="outline" size="md">
-                        <CardHero fill="#2e8367" variant="expanded" img="img/homepage-featured-content/homepage-feature-interest-expense-2-x@2x.webp" />
-                        <CardBody
-                            overline="PARTNER SITES"
-                            headline={
-                                <div>
-                                        Fiscal Data Explores Interest Expense on National Debt
-                                </div>
-                            }>
-                        </CardBody>
-                    </CardContainer>
-                </a>
-            </FlexGridCol>
+            <FeaturedContentCard
+                url={leftCard.url}
+                title={leftCard.title}
+                fill={leftCard.fill}
+                img={leftCard.thumbnail_path}
+                taxonomy={leftCard.taxonomy}
+                externalLink={leftCard?.externalLink} />
+            <FeaturedContentCard
+                url={rightCard.url}
+                title={rightCard.title}
+                fill={rightCard.fill}
+                img={rightCard.thumbnail_path}
+                taxonomy={rightCard.taxonomy}
+                externalLink={rightCard?.externalLink} />
         </div>
     </section>);
+
+FeaturedContent.propTypes = propTypes;
 export default FeaturedContent;
