@@ -5,6 +5,7 @@ import { scaleLinear, scaleBand } from 'd3-scale';
 import { throttle } from 'lodash-es';
 import { largeScreen, mediumScreen, smallScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FlexGridRow, TooltipWrapper } from 'data-transparency-ui';
+import useWindowWidth from "../../../hooks/useWindowWidth";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -19,10 +20,11 @@ const StatusOfFundsChart = ({
     results, fy, setDrilldownLevel, level, toggle, maxLevel
 }) => {
     const chartRef = useRef();
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
-    const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < mediumScreen && window.innerWidth > smallScreen);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+    const windowWidth = useWindowWidth();
+    const isLargeScreen = windowWidth < largeScreen;
+    const isMediumScreen = windowWidth < mediumScreen && windowWidth > smallScreen;
+    const isMobile = windowWidth < 600;
+
     const [negativeTbr, setNegativeTbr] = useState(false);
     const [negativeObl, setNegativeObl] = useState(false);
     const [negativeOutlay, setNegativeOutlay] = useState(false);
@@ -75,19 +77,6 @@ const StatusOfFundsChart = ({
 
     useEffect(() => {
         setTextScale(viewWidth / chartRef.current?.getBoundingClientRect().width);
-
-        const handleResize = throttle(() => {
-            setTextScale(viewWidth / chartRef.current?.getBoundingClientRect().width);
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsLargeScreen(newWidth < largeScreen);
-                setIsMobile(newWidth < 600);
-                setIsMediumScreen(newWidth < mediumScreen && newWidth > smallScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
     }, [windowWidth]);
 
 
