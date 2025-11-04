@@ -24,7 +24,7 @@ const fallbackOtherArticle = {
 
 const getCurrentArticles = (dayOneString = '11/13/2025') => {
     // get the sprint number and week number from today's date and start date
-    const today = new Date('11/12/2026');
+    const today = new Date();
     const dayOne = new Date(dayOneString);
     const weekDifference = (today - dayOne) > 0 ?
         Math.ceil(((today - dayOne) / 604800000)) :
@@ -45,7 +45,7 @@ const getCurrentArticles = (dayOneString = '11/13/2025') => {
         marketingArticles[0] :
         fallbackMarketingArticle;
     const currentOtherArticle = otherArticles.length > 0 ?
-        otherArticles[featureWeekNum - 1] :
+        otherArticles.filter((article) => article.feature_week === featureWeekNum)[0] :
         fallbackOtherArticle;
     const [marketingArticle, otherArticle] = [currentMarketingArticle, currentOtherArticle]
         .map((article) => {
