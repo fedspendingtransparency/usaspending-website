@@ -34,7 +34,7 @@ describe('getCurrentArticles', () => {
         expect(other).toHaveProperty('thumbnail_path');
         expect(other).toHaveProperty('taxonomy');
         expect(other).toHaveProperty('title');
-    })
+    });
 
     it('should return the default articles if start date is far in the past', () => {
         const [marketing, other] = getCurrentArticles('1/1/2000');
@@ -51,26 +51,28 @@ describe('getCurrentArticles', () => {
         expect(other).toHaveProperty('taxonomy');
         expect(other).toHaveProperty('title');
 
-        const { url, fill, thumbnail_path, taxonomy, title } = marketing;
+        const {
+            url, fill, thumbnail_path: thumbnailPath, taxonomy, title
+        } = marketing;
 
-        expect(url).toBe('/featured-content/exploring-americas-finances/exploring-americas-finances-has-never-been-easier')
-        expect(fill).toBe('#1b2b85')
-        expect(thumbnail_path).toBe('../../img/featuredContent/cards/exploring-americas-finances.webp')
-        expect(taxonomy).toBe('Exploring America\'s Finances')
-        expect(title).toBe('Exploring America\'s Finances Has Never Been Easier')
+        expect(url).toBe('/featured-content/exploring-americas-finances/exploring-americas-finances-has-never-been-easier');
+        expect(fill).toBe('#1b2b85');
+        expect(thumbnailPath).toBe('../../img/featuredContent/cards/exploring-americas-finances.webp');
+        expect(taxonomy).toBe('Exploring America\'s Finances');
+        expect(title).toBe('Exploring America\'s Finances Has Never Been Easier');
 
         const {
-            url: url_other,
-            fill: fill_other,
-            thumbnail_path: thumbnail_path_other,
-            taxonomy: taxonomy_other,
-            title: title_other
+            url: urlOther,
+            fill: fillOther,
+            thumbnail_path: thumbnailPathOther,
+            taxonomy: taxonomyOther,
+            title: titleOther
         } = other;
 
-        expect(url_other).toBe('/featured-content/data-definitions/what-is-an-award')
-        expect(fill_other).toBe('#783cb9')
-        expect(thumbnail_path_other).toBe('../../img/featuredContent/cards/data-definitions.webp')
-        expect(taxonomy_other).toBe('Data Definitions')
-        expect(title_other).toBe('What is an Award?')
-    })
-})
+        expect(urlOther).toBe('/featured-content/data-definitions/what-is-an-award');
+        expect(fillOther).toBe('#783cb9');
+        expect(thumbnailPathOther).toBe('../../img/featuredContent/cards/data-definitions.webp');
+        expect(taxonomyOther).toBe('Data Definitions');
+        expect(titleOther).toBe('What is an Award?');
+    });
+});
