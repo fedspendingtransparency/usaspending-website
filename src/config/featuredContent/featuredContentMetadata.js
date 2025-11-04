@@ -43,12 +43,15 @@ const secondary = {
 
 const articles = [
     {
-        content_type: "Data Definitions",
+        taxonomy: "Data Definitions",
+        content_type: 'Featured Content',
         banner_title: "What is an Award?",
         banner_subtitle: "Award Has a Very Specific Meaning in Government Spending",
         title: "What is an Award?",
         created_date: "09/29/2025",
         description: "When you think of the word “award,” you might picture an actor receiving an Oscar, an athlete earning a medal at the Olympics, or even yourself earning a gold",
+        feature_sprint: 1,
+        feature_week: 1,
         mdx_path: "what-is-an-award.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-data_definitions.webp",
         thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
@@ -86,7 +89,8 @@ const articles = [
         ]
     },
     {
-        content_type: "Exploring America's Finances",
+        content_type: 'Marketing',
+        taxonomy: "Exploring America's Finances",
         banner_title: "Exploring America's Finances",
         banner_subtitle: "Learning About Government Spending Has Never Been Easier",
         title: "Exploring America's Finances",
@@ -94,6 +98,8 @@ const articles = [
         description: "Behind every dollar the U.S. government spends, there is a story. But how can you discover that story? What tools do you need to understand it?",
         mdx_path: "exploring-americas-finances-the-data-behind-the-dollars.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-exploring_americas_finances.webp",
+        feature_sprint: 1,
+        feature_week: 1,
         thumbnail_path: "../../img/featuredContent/cards/exploring-americas-finances.webp",
         fill: contentMap.finances,
         secondary: secondary.finances,
@@ -118,12 +124,15 @@ const articles = [
         ]
     },
     {
-        content_type: "Recently Answered Questions",
+        content_type: 'Featured Content',
+        taxonomy: "Recently Answered Questions",
         banner_title: "Obligations vs. Outlays",
         banner_subtitle: "How are Obligations and Outlays Different?",
         title: "Obligations vs. Outlays",
         created_date: "09/29/2025",
         description: "For this series, we asked our Transparency Experience Desk to answer the most commonly-asked questions about USAspending.gov’s open data.",
+        feature_sprint: 1,
+        feature_week: 2,
         mdx_path: "obligations-vs-outlays.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-recently_answered_questions.webp",
         thumbnail_path: "../../img/featuredContent/cards/recently-answered-questions.webp",
@@ -166,12 +175,15 @@ const articles = [
         ]
     },
     {
-        content_type: "See 4 Yourself",
+        taxonomy: "See 4 Yourself",
+        content_type: 'Featured Content',
         banner_title: "Ways to Use Our Data",
         banner_subtitle: "How People Use USAspending.gov Data",
         title: "Ways to Use Our Data",
         created_date: "09/29/2025",
-        description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
+        feature_sprint: 1,
+        feature_week: 3,
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in dolor nec massa aliquet cursus in vel turpis. Etiam id volutpat ipsum. Sed nibh tellus, ullamcorper ac sagittis vitae, feugiat ac tellus. Vivamus sit amet nulla venenatis, iaculis nibh vitae, efficitur est. Curabitur ac sagittis est, quis condimentum nunc. Vestibulum porttitor lacinia turpis, at volutpat nulla viverra et.",
         mdx_path: "four-ways-to-use-our-data.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-see_4_yourself.webp",
         thumbnail_path: "../../img/featuredContent/cards/see-4-yourself.webp",

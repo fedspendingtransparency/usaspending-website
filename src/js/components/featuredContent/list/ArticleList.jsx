@@ -90,7 +90,7 @@ const ArticleList = ({ articles }) => {
                 </FlexGridRow>
                 <FlexGridRow hasGutter gutterSize="lg">
                     {articleList.map((article) => {
-                        const newUrl = `/featured-content/${transformString(article.content_type)}/${transformString(article.title)}`;
+                        const newUrl = `/featured-content/${transformString(article.taxonomy)}/${transformString(article.title)}`;
                         return (
                             <FlexGridCol
                                 desktopxl={4}
@@ -106,7 +106,7 @@ const ArticleList = ({ articles }) => {
                                         }
                                     }}
                                     tabIndex="0"
-                                    taxonomy={article.content_type}
+                                    taxonomy={article.taxonomy}
                                     title={article.title}
                                     description={article.description}
                                     thumbnailUrl={article.thumbnail_path}

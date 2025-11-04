@@ -1,5 +1,3 @@
-@use "sass:math";
-
 .featured-content__header-wrapper {
     // position: relative;
     display:flex;
@@ -36,7 +34,6 @@
         @media (min-width: $tablet-screen) {
             margin-left: rem(32);
         }
-        
         @media (min-width: $m-large-screen) {
             margin-left: $grid-column;
         }
@@ -47,7 +44,7 @@
 
                   
         &.black-text span {
-            color: #000;
+            color: $color-black
         }
 
         .featured-content__label {
@@ -57,7 +54,7 @@
             font-style: normal;
             font-weight: $font-semibold;
             line-height: 12.434px;
-            color: #000;
+            color: $color-black;
             text-transform: uppercase;
             gap: 10px;
             width: max-content;

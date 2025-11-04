@@ -76,7 +76,8 @@ const GlossaryLink = ({
             className="usda-glossary-link"
             aria-label="Open the Glossary"
             tabIndex={hidden ? "-1" : ""}
-            onClick={stopBubble}>
+            onClick={stopBubble}
+            alt={alt}>
             {innerContent()}
         </Link>
     );
