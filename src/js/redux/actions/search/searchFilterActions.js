@@ -137,30 +137,6 @@ export const bulkAwardTypeChange = (state) => ({
     direction: state.direction
 });
 
-// Contract Award Type Filter
-export const toggleContractAwardType = ({ value }) => ({
-    type: 'TOGGLE_SEARCH_FILTER_CONTRACT_AWARD_TYPE',
-    contractAwardType: value
-});
-
-export const bulkContractAwardTypeChange = (state) => ({
-    type: 'BULK_SEARCH_FILTER_CONTRACT_AWARD_TYPE',
-    contractAwardTypes: state.types,
-    direction: state.direction
-});
-
-// Financial Assistance Award Type Filter
-export const toggleFinancialAssistanceAwardType = ({ value }) => ({
-    type: 'TOGGLE_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE',
-    financialAssistanceAwardType: value
-});
-
-export const bulkFinancialAssistanceAwardTypeChange = (state) => ({
-    type: 'BULK_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE',
-    financialAssistanceAwardTypes: state.types,
-    direction: state.direction
-});
-
 // Award Amount Filter
 export const updateAwardAmounts = ({ value }) => ({
     type: 'UPDATE_AWARD_AMOUNTS',

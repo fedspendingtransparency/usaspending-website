@@ -36,8 +36,6 @@ export const requiredTypes = {
     recipientType: Set,
     selectedRecipientLocations: OrderedMap,
     awardType: Set,
-    contractAwardType: Set,
-    financialAssistanceAwardType: Set,
     selectedAwardIDs: OrderedMap,
     awardAmounts: OrderedMap,
     selectedCFDA: OrderedMap,
@@ -70,8 +68,6 @@ export const initialState = {
     recipientType: Set(),
     selectedRecipientLocations: OrderedMap(),
     awardType: Set(),
-    contractAwardType: Set(),
-    financialAssistanceAwardType: Set(),
     selectedAwardIDs: OrderedMap(),
     awardAmounts: OrderedMap(),
     selectedCFDA: OrderedMap(),
@@ -264,34 +260,6 @@ const searchFiltersReducer = (state = initialState, action) => {
             return Object.assign({}, state, {
                 awardType: AwardFilterFunctions.bulkAwardTypeChange(
                     state.awardType, action.awardTypes, action.direction)
-            });
-        }
-
-        // Contract Award Type Filter
-        case 'TOGGLE_SEARCH_FILTER_CONTRACT_AWARD_TYPE': {
-            return Object.assign({}, state, {
-                contractAwardType: AwardFilterFunctions.immutableSetToggle(
-                    state.contractAwardType, action.contractAwardType)
-            });
-        }
-        case 'BULK_SEARCH_FILTER_CONTRACT_AWARD_TYPE': {
-            return Object.assign({}, state, {
-                contractAwardType: AwardFilterFunctions.bulkAwardTypeChange(
-                    state.contractAwardType, action.contractAwardTypes, action.direction)
-            });
-        }
-
-        // Financial Assistance Award Type Filter
-        case 'TOGGLE_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE': {
-            return Object.assign({}, state, {
-                financialAssistanceAwardType: AwardFilterFunctions.immutableSetToggle(
-                    state.financialAssistanceAwardType, action.financialAssistanceAwardType)
-            });
-        }
-        case 'BULK_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE': {
-            return Object.assign({}, state, {
-                financialAssistanceAwardType: AwardFilterFunctions.bulkAwardTypeChange(
-                    state.financialAssistanceAwardType, action.financialAssistanceAwardTypes, action.direction)
             });
         }
 
