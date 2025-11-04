@@ -69,7 +69,9 @@ const FeaturedContentArticle = () => {
             <main
                 id="main-content"
                 className="main-content featured-content">
-                <FlexGridRow className="featured-content__header-wrapper">
+                <FlexGridRow
+                    className="featured-content__header-wrapper"
+                    style={{ backgroundColor: (chosenArticle?.fill) ? chosenArticle.fill : 'none' }}>
                     { !isMobile &&
                         !isTablet &&
                         <img
@@ -78,30 +80,16 @@ const FeaturedContentArticle = () => {
                             name="featured-content-hero"
                             id="featured-content-hero" />
                     }
-                    { isMobile &&
-                        <img
-                            src={chosenArticle?.mobile_hero}
-                            alt="hero"
-                            name="featured-content-hero"
-                            id="featured-content-hero" />
-                    }
-                    { isTablet &&
-                        <img
-                            src={chosenArticle?.tablet_hero}
-                            alt="hero"
-                            name="featured-content-hero"
-                            id="featured-content-hero" />
-                    }
                     <FlexGridCol
-                        desktopxl={{ span: 3, offset: 7 }}
-                        desktop={{ span: 4, offset: 7 }}
-                        tablet={{ span: 7, offset: 1 }}
+                        desktopxl={{ span: 4, offset: 3 }}
+                        desktop={{ span: 5, offset: 1 }}
+                        tablet={{ span: 10, offset: 2 }}
                         mobile={{ span: 10, offset: 1 }}
-                        className="featured-content__header-block">
+                        className={`featured-content__header-block usa-dt-flex-grid__row ${chosenArticle?.black_text ? "black-text" : ""}`}>
                         <span
                             className="featured-content__label"
-                            style={{ backgroundColor: chosenArticle?.fill }}>
-                            {chosenArticle?.taxonomy}
+                            style={{ backgroundColor: chosenArticle?.secondary }}>
+                            {chosenArticle?.content_type}
                         </span>
                         <span className="featured-content__title">
                             {chosenArticle?.banner_title}
