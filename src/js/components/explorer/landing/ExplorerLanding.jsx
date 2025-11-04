@@ -3,13 +3,14 @@
  * Created by Kevin Li 8/16/17
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
 
 import ExplorerWrapperPage from '../ExplorerWrapperPage';
 import ExplorerLandingOption from './ExplorerLandingOption';
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
+/* eslint-disable max-len */
 const ExplorerDescription = () => (
     <div className="explorer-description__content">
         <p>
@@ -27,94 +28,89 @@ const ExplorerDescription = () => (
     </div>
 );
 
-export default class ExplorerLanding extends React.Component {
-    constructor(props) {
-        super(props);
+const explorerLandingDescription = {
+    title: "The Spending Explorer makes it easy to understand the big picture of federal spending.",
+    budget_function: "See spending divided by a high level categorization based on purpose.",
+    agency: "See spending divided by all U.S. government agencies.",
+    object_class:
+        "See spending grouped by the types of items and services purchased by the federal government."
+};
+/* eslint-enable max-len */
 
-        this.state = {
-            expanded: false,
-            showAboutTheDataIcon: false
-        };
+const ExplorerLanding = () => {
+    const [expanded, setExpanded] = useState(false);
+    const [showAboutTheDataIcon, setShowAboutTheDataIcon] = useState(false);
 
-        this.toggleDetail = this.toggleDetail.bind(this);
-        this.setShowAboutTheDataIcon = this.setShowAboutTheDataIcon.bind(this);
-    }
+    const onOptionClick = () => {
+        setShowAboutTheDataIcon(!showAboutTheDataIcon);
+    };
 
-    setShowAboutTheDataIcon() {
-        this.setState({
-            showAboutTheDataIcon: !this.state.showAboutTheDataIcon,
-            expanded: this.state.expanded
-        });
-    }
-    toggleDetail() {
-        this.setState({
-            expanded: !this.state.expanded,
-            showAboutTheDataIcon: this.state.showAboutTheDataIcon
-        });
-    }
+    const onToggleClick = () => {
+        setExpanded(!expanded);
+    };
 
-    render() {
-        const expandLabel = this.state.expanded ? 'Hide' : 'Learn More';
+    const expandLabel = expanded ? 'Hide' : 'Learn More';
 
-        return (
-            <ExplorerWrapperPage showShareIcon showAboutTheDataIcon>
-                <div className="explorer-landing">
-                    <div className="explorer-landing__intro">
-                        <h2
-                            className="explorer-landing__title">
-                            Explore the spending landscape.
-                        </h2>
-                        <div className="explorer-landing__detail">
-                            <div className="explorer-landing__detail-content explorer-description">
-                                <h3
-                                    className="explorer-description__title">
-                                    The Spending Explorer makes it easy to understand the big picture of federal spending.
-                                </h3>
-                                <div className="explorer-description__animations">
-                                    <TransitionGroup>
-                                        {this.state.expanded && (
-                                            <CSSTransition
-                                                classNames="explorer-description-slide"
-                                                timeout={195}
-                                                exit>
-                                                <ExplorerDescription />
-                                            </CSSTransition>
-                                        )}
-                                    </TransitionGroup>
-                                </div>
-                                <button
-                                    className="explorer-description__expand"
-                                    onClick={this.toggleDetail}>
-                                    {expandLabel}
-                                </button>
+    return (
+        <ExplorerWrapperPage showShareIcon showAboutTheDataIcon>
+            <div className="explorer-landing">
+                <div className="explorer-landing__intro">
+                    <h2
+                        className="explorer-landing__title">
+                        Explore the spending landscape.
+                    </h2>
+                    <div className="explorer-landing__detail">
+                        <div className="explorer-landing__detail-content explorer-description">
+                            <h3
+                                className="explorer-description__title">
+                                {explorerLandingDescription.title}
+                            </h3>
+                            <div className="explorer-description__animations">
+                                <TransitionGroup>
+                                    {expanded && (
+                                        <CSSTransition
+                                            classNames="explorer-description-slide"
+                                            timeout={195}
+                                            exit>
+                                            <ExplorerDescription />
+                                        </CSSTransition>
+                                    )}
+                                </TransitionGroup>
                             </div>
+                            <button
+                                className="explorer-description__expand"
+                                onClick={onToggleClick}>
+                                {expandLabel}
+                            </button>
                         </div>
                     </div>
-                    <div className="explorer-landing__options">
-                        <ExplorerLandingOption
-                            icon="budget_function"
-                            title="Budget Function"
-                            description="See spending divided by a high level categorization based on purpose."
-                            url="/explorer/budget_function"
-                            term="budget-function"
-                            onClick={this.setShowAboutTheDataIcon} />
-                        <ExplorerLandingOption
-                            icon="agency"
-                            title="Agency"
-                            description="See spending divided by all U.S. government agencies."
-                            url="/explorer/agency"
-                            term="agency"
-                            onClick={this.setShowAboutTheDataIcon} />
-                        <ExplorerLandingOption
-                            icon="object_class"
-                            title="Object Class"
-                            description="See spending grouped by the types of items and services purchased by the federal government."
-                            url="/explorer/object_class"
-                            term="object-class"
-                            onClick={this.setShowAboutTheDataIcon} />
-                    </div>
                 </div>
-            </ExplorerWrapperPage>
-        );
-    }
-}
+                <div className="explorer-landing__options">
+                    <ExplorerLandingOption
+                        icon="budget_function"
+                        title="Budget Function"
+                        description={explorerLandingDescription.budget_function}
+                        url="/explorer/budget_function"
+                        term="budget-function"
+                        onClick={onOptionClick} />
+                    <ExplorerLandingOption
+                        icon="agency"
+                        title="Agency"
+                        description={explorerLandingDescription.agency}
+                        url="/explorer/agency"
+                        term="agency"
+                        onClick={onOptionClick} />
+                    <ExplorerLandingOption
+                        icon="object_class"
+                        title="Object Class"
+                        description={explorerLandingDescription.object_class}
+                        url="/explorer/object_class"
+                        term="object-class"
+                        onClick={onOptionClick} />
+                </div>
+            </div>
+        </ExplorerWrapperPage>
+    );
+};
+
+export default ExplorerLanding;
