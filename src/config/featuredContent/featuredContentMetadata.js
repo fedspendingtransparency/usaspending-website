@@ -43,11 +43,14 @@ const secondary = {
 
 const articles = [
     {
-        content_type: "Data Definitions",
+        taxonomy: "Data Definitions",
+        content_type: 'Featured Content',
         banner_title: "What is an Award?",
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
         title: "What is an Award?",
         created_date: "09/29/2025",
+        feature_sprint: 1,
+        feature_week: 1,
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in dolor nec massa aliquet cursus in vel turpis. Etiam id volutpat ipsum. Sed nibh tellus, ullamcorper ac sagittis vitae, feugiat ac tellus. Vivamus sit amet nulla venenatis, iaculis nibh vitae, efficitur est. Curabitur ac sagittis est, quis condimentum nunc. Vestibulum porttitor lacinia turpis, at volutpat nulla viverra et.",
         mdx_path: "what-is-an-award.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-data_definitions.webp",
@@ -88,11 +91,14 @@ const articles = [
         ]
     },
     {
-        content_type: "Exploring America's Finances",
+        taxonomy: "Exploring America's Finances",
+        content_type: 'Marketing',
         banner_title: "Exploring America's Finances Has Never Been Easier",
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
         title: "Exploring America's Finances Has Never Been Easier",
         created_date: "09/29/2025",
+        feature_sprint: 1,
+        feature_week: 1,
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in dolor nec massa aliquet cursus in vel turpis. Etiam id volutpat ipsum. Sed nibh tellus, ullamcorper ac sagittis vitae, feugiat ac tellus. Vivamus sit amet nulla venenatis, iaculis nibh vitae, efficitur est. Curabitur ac sagittis est, quis condimentum nunc. Vestibulum porttitor lacinia turpis, at volutpat nulla viverra et.",
         mdx_path: "exploring-americas-finances-the-data-behind-the-dollars.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-exploring_americas_finances.webp",
@@ -122,11 +128,14 @@ const articles = [
         ]
     },
     {
-        content_type: "Recently Answered Questions",
+        taxonomy: "Recently Answered Questions",
+        content_type: 'Featured Content',
         banner_title: "Obligations vs. Outlays",
         banner_subtitle: "subtitle lorem ipsum dolor sit amet, consectetur adipiscing elit",
         title: "Obligations vs. Outlays",
         created_date: "09/29/2025",
+        feature_sprint: 1,
+        feature_week: 2,
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in dolor nec massa aliquet cursus in vel turpis. Etiam id volutpat ipsum. Sed nibh tellus, ullamcorper ac sagittis vitae, feugiat ac tellus. Vivamus sit amet nulla venenatis, iaculis nibh vitae, efficitur est. Curabitur ac sagittis est, quis condimentum nunc. Vestibulum porttitor lacinia turpis, at volutpat nulla viverra et.",
         mdx_path: "obligations-vs-outlays.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-recently_answered_questions.webp",
@@ -172,11 +181,14 @@ const articles = [
         ]
     },
     {
-        content_type: "See 4 Yourself",
+        taxonomy: "See 4 Yourself",
+        content_type: 'Featured Content',
         banner_title: "Exploring America’s Finances Has Never Been Easier",
         banner_subtitle: "What makes up a location filter and how does it behave when applied?",
         title: "Four Ways to Use Our Data",
         created_date: "09/29/2025",
+        feature_sprint: 1,
+        feature_week: 3,
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis in dolor nec massa aliquet cursus in vel turpis. Etiam id volutpat ipsum. Sed nibh tellus, ullamcorper ac sagittis vitae, feugiat ac tellus. Vivamus sit amet nulla venenatis, iaculis nibh vitae, efficitur est. Curabitur ac sagittis est, quis condimentum nunc. Vestibulum porttitor lacinia turpis, at volutpat nulla viverra et.",
         mdx_path: "four-ways-to-use-our-data.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-see_4_yourself.webp",
