@@ -33,6 +33,7 @@ const DataSourcesAndMethodologiesPage = () => {
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };
+
     const sections = [
         {
             label: 'Using this Table',
@@ -70,6 +71,7 @@ const DataSourcesAndMethodologiesPage = () => {
             show: true
         }
     ];
+
     const handleShare = (name) => {
         handleShareOptionClick(
             name,
@@ -78,6 +80,7 @@ const DataSourcesAndMethodologiesPage = () => {
             handleShareDispatch
         );
     };
+
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
@@ -108,12 +111,14 @@ const DataSourcesAndMethodologiesPage = () => {
             behavior: 'smooth'
         });
     };
+
     useEffect(() => {
         if (query.section) {
             jumpToSection(query.section);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query.section]);
+
     useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
         let isMounted = true;
