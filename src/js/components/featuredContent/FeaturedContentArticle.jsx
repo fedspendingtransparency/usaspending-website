@@ -71,7 +71,7 @@ const FeaturedContentArticle = () => {
                 className="main-content featured-content">
                 <FlexGridRow
                     className="featured-content__header-wrapper"
-                    style={{ backgroundColor: (chosenArticle?.fill) ? chosenArticle.fill : 'none' }}>
+                    style={{ backgroundColor: ((isMobile || isTablet) && chosenArticle?.fill) ? chosenArticle.fill : 'none' }}>
                     { !isMobile &&
                         !isTablet &&
                         <img

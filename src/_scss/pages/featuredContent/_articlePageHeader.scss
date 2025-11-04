@@ -1,5 +1,4 @@
 .featured-content__header-wrapper {
-    // position: relative;
     display:flex;
     align-items: center;
     align-self: center;
@@ -7,8 +6,7 @@
     min-height: 250px;
     width: 100%;
     max-width: $site-max-width;
-
-
+    
     @media(min-width: $tablet-screen) {
         height: 325px;
         min-height: 325px;
