@@ -1,7 +1,7 @@
 @use "sass:math";
 
 .featured-content__header-wrapper {
-    position: relative;
+    // position: relative;
     display:flex;
     align-items: center;
     align-self: center;
@@ -38,10 +38,10 @@
         }
 
         @media (min-width: $m-large-screen) {
-            margin-left: $grid-column;
+            margin-left: calc($grid-column - (100vw - $homepage-max-width) * 0.5);
         }
 
-        @media (min-width: $x-large-screen) {
+        @media (min-width: 1640px) {
             margin-left: rem(8);
         }
                   
