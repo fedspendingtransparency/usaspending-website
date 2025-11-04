@@ -11,6 +11,16 @@ import AccordionCheckbox from "../../../sharedComponents/checkbox/AccordionCheck
 
 const awardTypesData = [
     {
+        id: 'award-contracts',
+        name: 'Contracts',
+        filters: awardTypeGroups.contracts
+    },
+    {
+        id: 'indefinite-delivery-vehicle',
+        name: 'Contract IDVs',
+        filters: awardTypeGroups.idvs
+    },
+    {
         id: 'award-grants',
         name: 'Grants',
         filters: awardTypeGroups.grants
