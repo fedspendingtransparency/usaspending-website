@@ -613,7 +613,7 @@ const MapWrapperContainer = React.memo((props) => {
 
     useEffect(() => {
         if (!props.noApplied && mapViewType === 'chart') {
-            // prepareFetch(true);
+            prepareFetch(true);
             updateMapScope();
         }
         else if (!props.noApplied && mapViewType === 'table') {
