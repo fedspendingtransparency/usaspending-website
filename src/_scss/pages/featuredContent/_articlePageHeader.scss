@@ -8,7 +8,7 @@
     height: 250px;
     min-height: 250px;
     width: 100%;
-    max-width: $homepage-max-width;
+    max-width: $site-max-width;
 
 
     @media(min-width: $tablet-screen) {
@@ -36,14 +36,15 @@
         @media (min-width: $tablet-screen) {
             margin-left: rem(32);
         }
-
+        
         @media (min-width: $m-large-screen) {
-            margin-left: calc($grid-column - (100vw - $homepage-max-width) * 0.5);
+            margin-left: $grid-column;
         }
 
-        @media (min-width: 1640px) {
-            margin-left: rem(8);
+        @media (min-width: $x-large-screen) {
+            margin-left: calc($grid-column - (100vw - $site-max-width) * 0.1);
         }
+
                   
         &.black-text span {
             color: #000;
