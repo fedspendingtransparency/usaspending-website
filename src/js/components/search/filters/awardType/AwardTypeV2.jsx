@@ -48,7 +48,7 @@ const propTypes = {
     bulkTypeChange: PropTypes.func
 };
 
-const FinancialAssistanceAwardType = ({ awardType, toggleCheckboxType, bulkTypeChange }) => (
+const AwardTypeV2 = ({ awardType, toggleCheckboxType, bulkTypeChange }) => (
     <div className="award-type-filter search-filter checkbox-type-filter">
         <AccordionCheckbox
             filterCategoryMapping={awardTypesData}
@@ -59,5 +59,5 @@ const FinancialAssistanceAwardType = ({ awardType, toggleCheckboxType, bulkTypeC
     </div>
 );
 
-FinancialAssistanceAwardType.propTypes = propTypes;
-export default FinancialAssistanceAwardType;
+AwardTypeV2.propTypes = propTypes;
+export default AwardTypeV2;

@@ -8,31 +8,35 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import FinancialAssistanceAwardType from "../../../components/search/filters/awardType/FinancialAssistanceAwardType";
-import * as searchFilterActions from "../../../redux/actions/search/searchFilterActions";
+import AwardTypeV2 from "../../../components/search/filters/awardType/AwardTypeV2";
+import {
+
+    toggleAwardType,
+    bulkAwardTypeChange
+} from "../../../redux/actions/search/searchFilterActions";
 
 
 const propTypes = {
-    toggleAwardType: PropTypes.func,
-    bulkAwardTypeChange: PropTypes.func,
+    toggleSingleAwardType: PropTypes.func,
+    toggleBulkAwardType: PropTypes.func,
     awardType: PropTypes.object
 };
 
 const AwardTypeContainerV2 = ({
     awardType,
-    toggleAwardType,
-    bulkAwardTypeChange
+    toggleSingleAwardType,
+    toggleBulkAwardType
 }) => {
     const toggleFinancialAssistance = (selection) => {
-        toggleAwardType(selection);
+        toggleSingleAwardType(selection);
     };
 
     const bulkFinancialAssistance = (selection) => {
-        bulkAwardTypeChange(selection);
+        toggleBulkAwardType(selection);
     };
 
     return (
-        <FinancialAssistanceAwardType
+        <AwardTypeV2
             awardType={awardType}
             toggleCheckboxType={toggleFinancialAssistance}
             bulkTypeChange={bulkFinancialAssistance} />
@@ -44,5 +48,8 @@ export default connect(
     (state) => ({
         awardType: state.filters.awardType
     }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+    (dispatch) => bindActionCreators({
+        toggleSingleAwardType: toggleAwardType,
+        toggleBulkAwardType: bulkAwardTypeChange
+    }, dispatch)
 )(AwardTypeContainerV2);
