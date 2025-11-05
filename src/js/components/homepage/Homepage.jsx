@@ -15,7 +15,7 @@ import HomepageResources from "./HomepageResources/HomepageResources";
 import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";
 import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
 
-require('pages/homepageUpdate/homepageUpdate.scss');
+require('pages/homepage/homepage.scss');
 
 const Homepage = () => {
     useEffect(() => {
