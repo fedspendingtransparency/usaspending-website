@@ -1,5 +1,5 @@
 /**
- * ContractAwardType.jsx
+ * FinancialAssistanceAwardType.jsx
  * Created by Nick Torres 1/8/2025
  **/
 
@@ -19,6 +19,26 @@ const awardTypesData = [
         id: 'indefinite-delivery-vehicle',
         name: 'Contract IDVs',
         filters: awardTypeGroups.idvs
+    },
+    {
+        id: 'award-grants',
+        name: 'Grants',
+        filters: awardTypeGroups.grants
+    },
+    {
+        id: 'award-direct-payments',
+        name: 'Direct Payments',
+        filters: awardTypeGroups.direct_payments
+    },
+    {
+        id: 'award-loans',
+        name: 'Loans',
+        filters: awardTypeGroups.loans
+    },
+    {
+        id: 'award-other',
+        name: 'Other',
+        filters: awardTypeGroups.other
     }
 ];
 
@@ -28,7 +48,7 @@ const propTypes = {
     bulkTypeChange: PropTypes.func
 };
 
-const ContractAwardType = ({ awardType, toggleCheckboxType, bulkTypeChange }) => (
+const AwardTypeV2 = ({ awardType, toggleCheckboxType, bulkTypeChange }) => (
     <div className="award-type-filter search-filter checkbox-type-filter">
         <AccordionCheckbox
             filterCategoryMapping={awardTypesData}
@@ -39,5 +59,5 @@ const ContractAwardType = ({ awardType, toggleCheckboxType, bulkTypeChange }) =>
     </div>
 );
 
-ContractAwardType.propTypes = propTypes;
-export default ContractAwardType;
+AwardTypeV2.propTypes = propTypes;
+export default AwardTypeV2;

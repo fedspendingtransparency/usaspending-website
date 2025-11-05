@@ -40,48 +40,6 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('TOGGLE_SEARCH_FILTER_CONTRACT_AWARD_TYPE', () => {
-        const action = {
-            type: 'TOGGLE_SEARCH_FILTER_CONTRACT_AWARD_TYPE',
-            contractAwardType: '09'
-        };
-
-        it('should add a value if it does not currently exist in the set', () => {
-            const startingState = Object.assign({}, initialState);
-
-            expect(searchFiltersReducer(startingState, action).contractAwardType).toEqual(new Set(['09']));
-        });
-
-        it('should remove a value if currently exists in the set', () => {
-            const startingState = Object.assign({}, initialState, {
-                contractAwardType: new Set(['09'])
-            });
-
-            expect(searchFiltersReducer(startingState, action).contractAwardType).toEqual(new Set([]));
-        });
-    });
-
-    describe('TOGGLE_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE', () => {
-        const action = {
-            type: 'TOGGLE_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE',
-            financialAssistanceAwardType: '09'
-        };
-
-        it('should add a value if it does not currently exist in the set', () => {
-            const startingState = Object.assign({}, initialState);
-
-            expect(searchFiltersReducer(startingState, action).financialAssistanceAwardType).toEqual(new Set(['09']));
-        });
-
-        it('should remove a value if currently exists in the set', () => {
-            const startingState = Object.assign({}, initialState, {
-                financialAssistanceAwardType: new Set(['09'])
-            });
-
-            expect(searchFiltersReducer(startingState, action).financialAssistanceAwardType).toEqual(new Set([]));
-        });
-    });
-
     describe('UPDATE_TEXT_SEARCH', () => {
         const action = {
             type: 'UPDATE_TEXT_SEARCH',
@@ -146,61 +104,6 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('BULK_SEARCH_FILTER_CONTRACT_AWARD_TYPE', () => {
-        it('should add the provided values when the direction is "add"', () => {
-            const action = {
-                type: 'BULK_SEARCH_FILTER_CONTRACT_AWARD_TYPE',
-                contractAwardTypes: ['10', '06'],
-                direction: 'add'
-            };
-
-            const startingState = Object.assign({}, initialState);
-
-            expect(searchFiltersReducer(startingState, action).contractAwardType).toEqual(new Set(['10', '06']));
-        });
-
-        it('should remove the provided values when the direction is "remove"', () => {
-            const action = {
-                type: 'BULK_SEARCH_FILTER_CONTRACT_AWARD_TYPE',
-                contractAwardTypes: ['10', '06'],
-                direction: 'remove'
-            };
-
-            const startingState = Object.assign({}, initialState, {
-                contractAwardType: new Set(['09', '10', '06'])
-            });
-
-            expect(searchFiltersReducer(startingState, action).contractAwardType).toEqual(new Set(['09']));
-        });
-    });
-
-    describe('BULK_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE', () => {
-        it('should add the provided values when the direction is "add"', () => {
-            const action = {
-                type: 'BULK_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE',
-                financialAssistanceAwardTypes: ['10', '06'],
-                direction: 'add'
-            };
-
-            const startingState = Object.assign({}, initialState);
-
-            expect(searchFiltersReducer(startingState, action).financialAssistanceAwardType).toEqual(new Set(['10', '06']));
-        });
-
-        it('should remove the provided values when the direction is "remove"', () => {
-            const action = {
-                type: 'BULK_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE',
-                financialAssistanceAwardTypes: ['10', '06'],
-                direction: 'remove'
-            };
-
-            const startingState = Object.assign({}, initialState, {
-                financialAssistanceAwardType: new Set(['09', '10', '06'])
-            });
-
-            expect(searchFiltersReducer(startingState, action).financialAssistanceAwardType).toEqual(new Set(['09']));
-        });
-    });
 
     describe('UPDATE_SEARCH_FILTER_TIME_PERIOD', () => {
         it('should set the time period value to the provided action data', () => {
