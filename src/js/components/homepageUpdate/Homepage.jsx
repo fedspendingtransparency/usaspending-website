@@ -1,5 +1,5 @@
 /**
- * HomepageUpdate.jsx
+ * Homepage.jsx
  * Created by Brian Petway 08/22/22
  */
 
@@ -17,7 +17,7 @@ import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
 
 require('pages/homepageUpdate/homepageUpdate.scss');
 
-const HomepageUpdate = () => {
+const Homepage = () => {
     useEffect(() => {
         // ok to rewrite with each page reload
         // may need to check if timer already logged.
@@ -43,4 +43,4 @@ const HomepageUpdate = () => {
     );
 };
 
-export default HomepageUpdate;
+export default Homepage;
