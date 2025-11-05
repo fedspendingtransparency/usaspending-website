@@ -72,7 +72,7 @@ const ArticleCard = ({
                     headline={
                         <div>
                             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                            <div className="video-card__headline" onClick={onClick} >
+                            <div className="article-card__headline" onClick={onClick} >
                                 {changedTitle}
                             </div>
                         </div>
