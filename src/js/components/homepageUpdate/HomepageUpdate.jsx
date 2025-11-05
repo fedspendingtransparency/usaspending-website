@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
-import HeroUpdate from './heroUpdate/HeroUpdate';
+import Hero from './Hero/Hero';
 import SummaryStats from "./SummaryStats";
 import AwardSearch from "./AwardSearch/AwardSearch";
 import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle";
@@ -31,7 +31,7 @@ const HomepageUpdate = () => {
             noHeader
             metaTagProps={{ ...homePageMetaTags }}>
             <main id="main-content" className="main-content homepage-update-content">
-                <HeroUpdate />
+                <Hero />
                 <SummaryStats />
                 <HomepageFirstRow />
                 <AwardSearch />
