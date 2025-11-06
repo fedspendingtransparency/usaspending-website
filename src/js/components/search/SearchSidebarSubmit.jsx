@@ -82,13 +82,13 @@ const SearchSidebarSubmit = ({
         }
 
         // Sanity check
-        Cookies.set("has_logged_query_timer", true, { expires: 14 });
+        Cookies.set("has_logged_query_timer", true, { expires: 365 });
     };
 
     useEffect(() => {
         // ok to rewrite with each page reload
         // may need to check if timer already logged.
-        Cookies.set('advanced_search_to_query_time', new Date().getTime(), { expires: 14 });
+        Cookies.set('advanced_search_to_query_time', new Date().getTime(), { expires: 365 });
     }, []);
 
     return (
