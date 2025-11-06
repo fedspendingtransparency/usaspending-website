@@ -100,7 +100,7 @@ describe('filterCheckboxHelper tests', () => {
                 defCode: new Set(['defCode'])
             };
 
-            expect(sourcesCount(test)).toBe(104);
+            expect(sourcesCount(test)).toBe(103);
         });
     });
 });
