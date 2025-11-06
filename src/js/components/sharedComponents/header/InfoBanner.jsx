@@ -18,7 +18,7 @@ const InfoBanner = (props) => {
     const [closeBanner, setCloseBanner] = useState(true);
     const bannerClosed = () => {
         if (Cookies.get(globalInfoBanner) !== "hide") {
-            Cookies.set(globalInfoBanner, "hide", { secure: true, expires: 7 });
+            Cookies.set(globalInfoBanner, "hide", { secure: true, expires: 1 });
             if (props.closeBanner && typeof props.closeBanner === "function") {
                 props.closeBanner("showInfoBanner");
             }
