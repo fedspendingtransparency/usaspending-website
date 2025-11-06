@@ -1,5 +1,5 @@
 /**
- * HeroUpdate.jsx
+ * Hero.jsx
  * Created by Brian Petway 03/22
  */
 
@@ -12,7 +12,7 @@ import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Analytics from 'helpers/analytics/Analytics';
 import AnimatedHeading from './AnimatedHeading';
 
-const HeroUpdate = () => {
+const Hero = () => {
     const [isPaused, setIsPaused] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= mediumScreen);
@@ -169,5 +169,5 @@ const HeroUpdate = () => {
     );
 };
 
-export default HeroUpdate;
+export default Hero;
 
