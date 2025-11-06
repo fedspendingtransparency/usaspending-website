@@ -97,8 +97,7 @@ describe('filterCheckboxHelper tests', () => {
                 selectedAwardingAgencies: new Set(['selectedAwardingAgencies']),
                 selectedFundingAgencies: new Set(['selectedFundingAgencies']),
                 tasCodes: data,
-                covidDefCode: new Set(['covidDefCode']),
-                infraDefCode: new Set(['infraDefCode'])
+                defCode: new Set(['defCode'])
             };
 
             expect(sourcesCount(test)).toBe(104);
