@@ -1018,7 +1018,7 @@ describe('searchFiltersReducer', () => {
         };
 
         const infraAction = {
-            type: 'TOGGLEd_DEF_CODES',
+            type: 'TOGGLE_DEF_CODES',
             defCode: 'Z'
         };
 

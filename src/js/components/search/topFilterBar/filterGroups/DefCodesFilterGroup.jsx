@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { indexOf } from 'lodash-es';
 
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 import { defCodes, defCodeGroups } from '../../../../dataMapping/search/defCodes';
