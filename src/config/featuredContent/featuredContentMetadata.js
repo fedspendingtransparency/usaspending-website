@@ -183,7 +183,7 @@ const articles = [
         created_date: "09/29/2025",
         feature_sprint: 1,
         feature_week: 3,
-        description: "For this series, we asked our Transparency Experience Desk to answer the most commonly-asked questions about USAspending.gov’s open data.",
+        description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
         mdx_path: "four-ways-to-use-our-data.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-see_4_yourself.webp",
         thumbnail_path: "../../img/featuredContent/cards/see-4-yourself.webp",
