@@ -1013,7 +1013,7 @@ describe('searchFiltersReducer', () => {
 
     describe('TOGGLE_DEF_CODES', () => {
         const covidAction = {
-            type: 'TOGGLE_COVID_DEF_CODES',
+            type: 'TOGGLE_DEF_CODES',
             defCode: 'L'
         };
 
@@ -1054,7 +1054,7 @@ describe('searchFiltersReducer', () => {
     describe('BULK_UPDATE_DEF_CODES', () => {
         it('should add the provided values when the direction is "add"', () => {
             const covidAction = {
-                type: 'BULK_UPDATE_COVID_DEF_CODES',
+                type: 'BULK_UPDATE_DEF_CODES',
                 defCodes: ['L', 'M', 'N'],
                 direction: 'add'
             };
@@ -1066,7 +1066,7 @@ describe('searchFiltersReducer', () => {
 
         it('should remove the provided values when the direction is "remove"', () => {
             const covidAction = {
-                type: 'BULK_UPDATE_COVID_DEF_CODES',
+                type: 'BULK_UPDATE_DEF_CODES',
                 defCodes: ['L', 'M'],
                 direction: 'remove'
             };
