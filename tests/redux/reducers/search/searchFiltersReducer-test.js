@@ -1013,69 +1013,69 @@ describe('searchFiltersReducer', () => {
 
     describe('TOGGLE_DEF_CODES', () => {
         const covidAction = {
-            type: 'TOGGLE_COVID_DEF_CODES',
-            covidDefCode: 'L'
+            type: 'TOGGLE_DEF_CODES',
+            defCode: 'L'
         };
 
         const infraAction = {
-            type: 'TOGGLE_INFRA_DEF_CODES',
-            infraDefCode: 'Z'
+            type: 'TOGGLE_DEF_CODES',
+            defCode: 'Z'
         };
 
         it('should add a value if it does not currently exist in the set', () => {
             const startingState = Object.assign({}, initialState);
 
-            expect(searchFiltersReducer(startingState, covidAction).covidDefCode).toEqual(new Set(['L']));
+            expect(searchFiltersReducer(startingState, covidAction).defCode).toEqual(new Set(['L']));
         });
 
         it('should add a value if it does not currently exist in the set', () => {
             const startingState = Object.assign({}, initialState);
 
-            expect(searchFiltersReducer(startingState, infraAction).infraDefCode).toEqual(new Set(['Z']));
+            expect(searchFiltersReducer(startingState, infraAction).defCode).toEqual(new Set(['Z']));
         });
 
         it('should remove a value if currently exists in the set', () => {
             const startingState = Object.assign({}, initialState, {
-                covidDefCode: new Set(['L'])
+                defCode: new Set(['L'])
             });
 
-            expect(searchFiltersReducer(startingState, covidAction).covidDefCode).toEqual(new Set([]));
+            expect(searchFiltersReducer(startingState, covidAction).defCode).toEqual(new Set([]));
         });
 
         it('should remove a value if currently exists in the set', () => {
             const startingState = Object.assign({}, initialState, {
-                infraDefCode: new Set(['Z'])
+                defCode: new Set(['Z'])
             });
 
-            expect(searchFiltersReducer(startingState, infraAction).infraDefCode).toEqual(new Set([]));
+            expect(searchFiltersReducer(startingState, infraAction).defCode).toEqual(new Set([]));
         });
     });
 
     describe('BULK_UPDATE_DEF_CODES', () => {
         it('should add the provided values when the direction is "add"', () => {
             const covidAction = {
-                type: 'BULK_UPDATE_COVID_DEF_CODES',
-                covidDefCodes: ['L', 'M', 'N'],
+                type: 'BULK_UPDATE_DEF_CODES',
+                defCodes: ['L', 'M', 'N'],
                 direction: 'add'
             };
 
             const startingState = Object.assign({}, initialState);
 
-            expect(searchFiltersReducer(startingState, covidAction).covidDefCode).toEqual(new Set(['L', 'M', 'N']));
+            expect(searchFiltersReducer(startingState, covidAction).defCode).toEqual(new Set(['L', 'M', 'N']));
         });
 
         it('should remove the provided values when the direction is "remove"', () => {
             const covidAction = {
-                type: 'BULK_UPDATE_COVID_DEF_CODES',
-                covidDefCodes: ['L', 'M'],
+                type: 'BULK_UPDATE_DEF_CODES',
+                defCodes: ['L', 'M'],
                 direction: 'remove'
             };
 
             const startingState = Object.assign({}, initialState, {
-                covidDefCode: new Set(['L', 'M', 'N'])
+                defCode: new Set(['L', 'M', 'N'])
             });
 
-            expect(searchFiltersReducer(startingState, covidAction).covidDefCode).toEqual(new Set(['N']));
+            expect(searchFiltersReducer(startingState, covidAction).defCode).toEqual(new Set(['N']));
         });
     });
 });

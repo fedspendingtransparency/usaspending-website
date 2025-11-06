@@ -31,8 +31,7 @@ const SidebarContentFilters = ({ isDsmOpened, sidebarContentHeight, isMobile }) 
         "Recipient Type": false,
         Agency: false,
         "Treasury Account Symbol (TAS)": false,
-        "COVID-19 Spending": false,
-        "Infrastructure Spending": false
+        "Disaster Emergency Fund Codes (DEFCs)": false
     });
     const filters = useSelector((state) => state.filters);
     const filterCount = getFilterCount(filters);
