@@ -637,9 +637,7 @@ const SearchSidebarFilterChips = ({
                     );
                 });
             }
-        }
 
-        if (filtersData.defCode?.length > 0) {
             if (isSubset(filtersData.defCode, defCodeGroups.infrastructure)) {
                 addChip(
                     () => props.bulkDefCodeChange({

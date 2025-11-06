@@ -52,12 +52,10 @@ const DEFCheckboxTreeContainer = () => {
         ]);
 
     const toggleDefc = (selection) => {
-        console.log("checking toggleDefc ====> ", selection);
         dispatch(toggleDefCode(selection));
     };
 
     const bulkChangeDefc = (selection) => {
-        console.log("checking bulkChange ====> ", selection);
         dispatch(bulkDefCodeChange(selection));
     };
 
