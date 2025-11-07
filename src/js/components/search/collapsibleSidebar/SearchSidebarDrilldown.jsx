@@ -94,7 +94,7 @@ const SearchSidebarDrilldown = ({
         'Recipient Type': recipientType.size,
         Agency: selectedAwardingAgencies.size + selectedFundingAgencies.size,
         'Treasury Account Symbol (TAS)': generateCount(tasCodes),
-        'Disaster Emergency Fund Codes (DEFCs)': defCode.size
+        'Disaster Emergency Fund Codes (DEFC)': defCode.size
     };
 
     let categoryFilter;

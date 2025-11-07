@@ -153,5 +153,5 @@ export const getFilterCount = (filters) => ({
     'Recipient Type': filters.recipientType.size,
     Agency: filters.selectedAwardingAgencies.size + filters.selectedFundingAgencies.size,
     'Treasury Account Symbol (TAS)': generateCount(filters.tasCodes),
-    'Disaster Emergency Fund Codes (DEFCs)': filters.defCode.size
+    'Disaster Emergency Fund Codes (DEFC)': filters.defCode.size
 });
