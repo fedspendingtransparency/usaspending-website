@@ -13,6 +13,7 @@
         "window": true,
         "document": true
     },
+    "ignorePatterns": ["*.md"],
     "settings": {
         "import/resolver": {
             "node": {
