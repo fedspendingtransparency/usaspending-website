@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
 import ArticleCard from '../articleCard/ArticleCard';
 import { transformString } from '../../../helpers/featuredContent/featuredContentHelper';
+import Analytics from "../../../helpers/analytics/Analytics";
 
 const propTypes = {
     articles: PropTypes.array
@@ -47,6 +48,17 @@ const ArticleList = ({ articles }) => {
         tmpArticles.sort((a, b) => b.value > a.value);
     };
 
+    const onClick = (e, newUrl, title) => {
+        e.persist();
+        window.open(newUrl, "_self");
+
+        Analytics.event({
+            event: 'dap_event',
+            category: 'USAspending – Featured Content ',
+            action: 'Card Clicked',
+            label: `${title}`
+        });
+    };
 
     return (
         <section className="list-of-articles__section">
@@ -78,11 +90,11 @@ const ArticleList = ({ articles }) => {
                 </FlexGridRow>
                 <FlexGridRow hasGutter gutterSize="lg">
                     {articleList.map((article) => {
-                        const newUrl = `/featured-content/${transformString(article.content_type)}/${transformString(article.title)}`;
+                        const newUrl = `/featured-content/${transformString(article.taxonomy)}/${transformString(article.title)}`;
                         return (
                             <FlexGridCol
-                                desktopxl={3}
-                                desktop={3}
+                                desktopxl={4}
+                                desktop={4}
                                 tablet={6}
                                 mobile={12}
                                 className="list-of-articles__article">
@@ -94,16 +106,13 @@ const ArticleList = ({ articles }) => {
                                         }
                                     }}
                                     tabIndex="0"
-                                    taxonomy={article.content_type}
+                                    taxonomy={article.taxonomy}
                                     title={article.title}
                                     description={article.description}
                                     thumbnailUrl={article.thumbnail_path}
                                     fill={article.fill}
                                     publishedAt={article.publishedAt}
-                                    onClick={(e) => {
-                                        e.persist();
-                                        window.open(newUrl, "_self");
-                                    }} />
+                                    onClick={(e) => onClick(e, newUrl, article.title)} />
                             </FlexGridCol>);
                     })
                     }

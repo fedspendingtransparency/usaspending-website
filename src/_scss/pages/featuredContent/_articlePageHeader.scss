@@ -1,35 +1,50 @@
 .featured-content__header-wrapper {
-    position: relative;
     display:flex;
     align-items: center;
-    #featured-content-hero {
+    align-self: center;
+    height: 250px;
+    min-height: 250px;
+    width: 100%;
+    max-width: $site-max-width;
+    
+    @media(min-width: $tablet-screen) {
+        height: 325px;
+        min-height: 325px;
+    }
+    
+    @media(min-width: $medium-screen) {
+        height: inherit;
+        min-height: inherit;
+    }
+    
+    img {
         width: 100%;
-        height: 100%;
     }
 
     .featured-content__header-block {
         position:absolute;
-        bottom: 20%;
-        @media(min-width: $tablet-screen) {
-            bottom: rem(24);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-left: rem(16);
+        
+        @media (min-width: $tablet-screen) {
+            margin-left: rem(32);
+        }
+        @media (min-width: $m-large-screen) {
+            margin-left: $grid-column;
         }
 
-        @media(min-width: $medium-screen) {
-            bottom: rem(24);
+        @media (min-width: $x-large-screen) {
+            margin-left: calc($grid-column - (100vw - $site-max-width) * 0.1);
         }
 
-        @media(min-width: $large-screen) {
-            bottom: rem(36);
+                  
+        &.black-text span {
+            color: $color-black
         }
 
-        @media(min-width: $m-large-screen) {
-            bottom: rem(56);
-        }
-
-        @media(min-width: $x-large-screen) {
-            bottom: rem(80);
-        }
- 
         .featured-content__label {
             padding: rem(6) rem(8);
             border-radius: rem(6);
@@ -37,9 +52,10 @@
             font-style: normal;
             font-weight: $font-semibold;
             line-height: 12.434px;
+            color: $color-black;
             text-transform: uppercase;
-            color: white;
             gap: 10px;
+            width: max-content;
 
             @media(min-width: $tablet-screen) {
                 padding: rem(8);
@@ -51,7 +67,6 @@
         .featured-content__title {
             display: block;
             margin-top: rem(12.5);
-            color: $gray-80;
             font-size: rem(28);
 
             @media(min-width: $tablet-screen) {
@@ -64,14 +79,10 @@
                 font-size: $font-size-48;
             }
             
-            @media(min-width: $m-large-screen) {
-                margin-top: rem(20);
-            }
         }
         .featured-content__subtitle {
             display: block;
             margin-top: rem(8);
-            color: $gray-80;
             font-size: $font-size-14;
 
             @media(min-width: $tablet-screen) {
@@ -82,10 +93,7 @@
             @media(min-width: $medium-screen) {
                 font-size: $font-size-20;
             }
-
-            @media(min-width: $m-large-screen) {
-                margin-top: rem(12);
-            }
-        }
+            
+        }   
     }
 }
