@@ -31,7 +31,7 @@ const SidebarContentFilters = ({ isDsmOpened, sidebarContentHeight, isMobile }) 
         "Recipient Type": false,
         Agency: false,
         "Treasury Account Symbol (TAS)": false,
-        "Disaster Emergency Fund Codes (DEFC)": false
+        "Disaster Emergency Fund Code (DEFC)": false
     });
     const filters = useSelector((state) => state.filters);
     const filterCount = getFilterCount(filters);

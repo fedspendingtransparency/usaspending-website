@@ -127,7 +127,7 @@ export const searchFilterCategoryTree = [
         )
     },
     {
-        title: 'Disaster Emergency Fund Codes (DEFC)',
+        title: 'Disaster Emergency Fund Code (DEFC)',
         component: <DEFCheckboxTreeContainer />
     },
     {
