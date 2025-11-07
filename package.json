@@ -126,6 +126,7 @@
     "webpack-merge": "^6.0.1"
   },
   "resolutions": {
+    "zod":"4.1.12",
     "serve-static": "1.16.0",
     "**/serve-static": "1.16.0",
     "micromatch": "4.0.8",
