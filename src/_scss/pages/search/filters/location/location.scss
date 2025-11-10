@@ -81,6 +81,7 @@
         }
 
         .location-item__cd {
+            @import "./_cdTooltip";
             display: flex;
             align-items: center;
             margin-top: rem(15);
