@@ -20,30 +20,28 @@
     @include align-items(center);
     position: relative;
 
-    background-color: $color-gold-lightest;
-    border: 1px solid $color-gold-light;
+    background-color: $color-white;
+    border: 1px solid $color-gray-light;
     box-shadow: $box-shadow;
-
-    padding: rem(10);
-
-    .icon {
-      @include flex(0 0 auto);
-      width: rem(30);
-      height: rem(30);
-      margin-right: rem(10);
-
-      svg {
-        fill: $color-gold;
-        width: rem(30);
-        height: rem(30);
-      }
-    }
 
     .message {
       @include flex(1 1 auto);
       text-align: left;
       color: $color-base;
       font-size: $small-font-size;
+
+      .tooltip__title {
+        background-color: $color-gray-lightest;
+        margin: 0;
+        padding: rem(20);
+        font-size: $base-font-size;
+        font-weight: $font-bold;
+        line-height: 1.5;
+      }
+
+      .tooltip__text {
+        padding: rem(20);
+      }
 
       .field {
         font-weight: $font-semibold;
@@ -52,13 +50,13 @@
     }
 
     // inherit from the standard tooltip arrow style
-    $color-tooltip-border: $color-gold-light;
+    $color-tooltip-border: $color-gray-light;
     @import "components/visualizations/tooltip/_arrow";
     .tooltip-pointer {
       &.top {
         left: calc(93% - 5px);
         &:after {
-          background: $color-gold-lightest;
+          background: $color-gray-lightest;
         }
       }
     }
