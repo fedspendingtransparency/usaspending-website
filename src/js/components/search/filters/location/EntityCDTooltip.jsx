@@ -40,22 +40,23 @@ const EntityCDTooltip = ({ isDistrictEnabled }) => {
                         isVisible: false
                     }}
                     className="advanced-search__cd-tooltip"
-                    icon="info" />
-                {showTooltip &&
-                    <div
-                        className={`geo-cd ${hideWarning}`}
-                        id={warningId}
-                        aria-hidden={hideWarning === 'hide'}>
-                        <div className="cd-tooltip">
-                            <div className="cd-content">
-                                <div className="tooltip-pointer top" />
-                                <div className="message">
-                                    {<CDTooltip />}
+                    icon="info" >
+                    {showTooltip &&
+                        <div
+                            className={`geo-cd ${hideWarning}`}
+                            id={warningId}
+                            aria-hidden={hideWarning === 'hide'}>
+                            <div className="cd-tooltip">
+                                <div className="cd-content">
+                                    <div className="tooltip-pointer top" />
+                                    <div className="message">
+                                        {<CDTooltip />}
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
+                </TooltipWrapper>
             </div>
         </div>
     );
