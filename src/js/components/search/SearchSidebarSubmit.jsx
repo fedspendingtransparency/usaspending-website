@@ -9,7 +9,8 @@ import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
 import Cookies from 'js-cookie';
 import * as SearchHelper from 'helpers/searchHelper';
-import Analytics from '../../helpers/analytics/Analytics';
+// import Analytics from '../../helpers/analytics/Analytics';
+import { generateCookieSessionId, setSessionCookie } from '../../helpers/analytics/sessionCookieHelper';
 
 const propTypes = {
     stagedFiltersAreEmpty: PropTypes.bool,
@@ -44,20 +45,27 @@ const SearchSidebarSubmit = ({
     const fireSearchEvent = () => {
         if (!urlHash) {
             const now = new Date().getTime();
-            if (
-                Cookies.get("advanced_search_to_query_time") &&
-                !Cookies.get('has_logged_query_timer')
-            ) {
+            if (Cookies.get("advanced_search_to_query_time")) {
                 const timer = now - Cookies.get("advanced_search_to_query_time");
                 const timerInSeconds = Math.floor(timer / 1000);
 
                 if (timerInSeconds < 3600) {
-                    Analytics.event({
+                    const event = {
                         category: 'Advanced Search - Time to First Query',
                         action: 'query_submit',
                         label: `${timerInSeconds} seconds`,
-                        time_to_query: timerInSeconds
-                    });
+                        time_to_query: timerInSeconds,
+                        sessionId: Cookies.get("session_id") || generateCookieSessionId()
+                    };
+
+                    console.log('Firing advanced search to query timer analytics event', event);
+                    // Analytics.event({
+                    //     category: 'Advanced Search - Time to First Query',
+                    //     action: 'query_submit',
+                    //     label: `${timerInSeconds} seconds`,
+                    //     time_to_query: timerInSeconds,
+                    //     sessionId: Cookies.get("session_id") || generateCookieSessionId()
+                    // });
                 }
 
                 // clean up
@@ -69,26 +77,32 @@ const SearchSidebarSubmit = ({
                 const timerHomePageInSeconds = Math.floor(timerHomePage / 1000);
 
                 if (timerHomePageInSeconds < 3600) {
-                    Analytics.event({
+                    const timerEvent = {
                         category: 'Homepage - Time to First Query',
                         action: 'homepage_query_submit',
                         label: `${timerHomePageInSeconds} seconds`,
-                        time_to_query: timerHomePageInSeconds
-                    });
+                        time_to_query: timerHomePageInSeconds,
+                        sessionId: Cookies.get("session_id") || generateCookieSessionId()
+                    };
+                    console.log('Firing homepage to query timer analytics event', timerEvent);
+                    // Analytics.event({
+                    //     category: 'Homepage - Time to First Query',
+                    //     action: 'homepage_query_submit',
+                    //     label: `${timerHomePageInSeconds} seconds`,
+                    //     time_to_query: timerHomePageInSeconds,
+                    //     sessionId: Cookies.get("session_id") || generateCookieSessionId()
+                    // });
                 }
                 // Cleanup
                 Cookies.remove("homepage_to_query_time");
             }
         }
-
-        // Sanity check
-        Cookies.set("has_logged_query_timer", true, { expires: 14 });
     };
 
     useEffect(() => {
         // ok to rewrite with each page reload
         // may need to check if timer already logged.
-        Cookies.set('advanced_search_to_query_time', new Date().getTime(), { expires: 14 });
+        setSessionCookie("advanced_search_session_type", "timestamp", 14);
     }, []);
 
     return (
