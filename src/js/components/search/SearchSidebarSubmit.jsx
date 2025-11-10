@@ -43,6 +43,7 @@ const SearchSidebarSubmit = ({
     }
 
     const fireSearchEvent = () => {
+        console.log('Firing search submit analytics event');
         if (!urlHash) {
             const now = new Date().getTime();
             if (Cookies.get("advanced_search_to_query_time")) {
@@ -72,7 +73,7 @@ const SearchSidebarSubmit = ({
                 Cookies.remove("advanced_search_to_query_time");
             }
 
-            if (Cookies.get("homepage_to_query_time") && !Cookies.get('has_logged_query_timer')) {
+            if (Cookies.get("homepage_to_query_time")) {
                 const timerHomePage = now - Cookies.get("homepage_to_query_time");
                 const timerHomePageInSeconds = Math.floor(timerHomePage / 1000);
 
@@ -102,7 +103,7 @@ const SearchSidebarSubmit = ({
     useEffect(() => {
         // ok to rewrite with each page reload
         // may need to check if timer already logged.
-        setSessionCookie("advanced_search_session_type", "timestamp", 14);
+        setSessionCookie("advanced_search_to_query_time", "timestamp", 14);
     }, []);
 
     return (
