@@ -21,7 +21,6 @@ const propTypes = {
 
 const AgencyOverview = ({ fy, dataThroughDate }) => {
     const [isMediumScreen, windowWidth] = useWindowWidth(mediumScreen);
-    console.log({ isMediumScreen });
     const {
         website,
         mission,
@@ -51,7 +50,11 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
                 <Link
                     to=""
                     aria-label="Open the About the Data"
-                    onClick={(e) => openAboutTheDataSidebar(e, 'delay-in-dod-procurement-data')}>About the Data
+                    onClick={
+                        (e) =>
+                            openAboutTheDataSidebar(e, 'delay-in-dod-procurement-data')
+                    }>
+                    About the Data
                 </Link> module.
                 To see a complete list of this agency&apos;s submissions, visit our&nbsp;
                 <Link to="/submission-statistics/agency/097">Submission Statistics page</Link>.

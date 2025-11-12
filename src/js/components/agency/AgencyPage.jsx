@@ -51,7 +51,7 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const [isMobile] = useWindowWidth(mediumScreen);
+    const [isMediumScreen] = useWindowWidth(mediumScreen);
     const history = useNavigate();
     const query = useQueryParams();
     const dispatch = useDispatch();
@@ -73,6 +73,7 @@ export const AgencyProfileV2 = ({
     const handleShare = (optionName) => {
         handleShareOptionClick(optionName, path, {
             subject: `USAspending.gov Agency Profile: ${name}`,
+            // eslint-disable-next-line max-len
             body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(path)}`
         }, handleShareDispatch);
     };
@@ -129,11 +130,17 @@ export const AgencyProfileV2 = ({
 
         // add offsets
         let conditionalOffset;
-        if (isMobile) {
-            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 140 : 60;
+        if (isMediumScreen) {
+            conditionalOffset =
+                window.scrollY < getStickyBreakPointForSidebar() ?
+                    stickyHeaderHeight + 140 :
+                    60;
         }
         else {
-            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
+            conditionalOffset =
+                window.scrollY < getStickyBreakPointForSidebar() ?
+                    stickyHeaderHeight + 40 :
+                    10;
         }
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
 
@@ -163,7 +170,13 @@ export const AgencyProfileV2 = ({
             jumpToSection={jumpToSection}
             activeSection={activeSection}
             toolBarComponents={[
-                <NumericPickerWrapper size="sm" leftIcon="calendar-alt" enabled selectedValue={selectedFy} latestValue={latestFy} handleChange={(fy) => setSelectedFy({ fy })} />,
+                <NumericPickerWrapper
+                    size="sm"
+                    leftIcon="calendar-alt"
+                    enabled
+                    selectedValue={selectedFy}
+                    latestValue={latestFy}
+                    handleChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
@@ -172,7 +185,12 @@ export const AgencyProfileV2 = ({
                     {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
-                            <AgencySection key={section.section} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
+                            <AgencySection
+                                key={section.section}
+                                section={section}
+                                isLoading={isLoading}
+                                icon={section.icon}
+                                dataThroughDate={section.dataThroughDate}>
                                 {section.component || <ComingSoon />}
                             </AgencySection>
                         ))}
