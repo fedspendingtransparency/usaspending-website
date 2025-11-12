@@ -21,18 +21,21 @@ import useWindowWidth from "../../hooks/useWindowWidth";
 
 
 const AnalystGuidePage = () => {
-    const [isMobile] = useWindowWidth(mediumScreen);
+    const [isMediumScreen] = useWindowWidth(mediumScreen);
     const dispatch = useDispatch();
     const onExternalLinkClick = (e) => {
         dispatch(showModal(e));
     };
 
+    console.log({ isMediumScreen });
+    const dropdownDirection = isMediumScreen ? 'right' : 'left';
     const slug = 'federal-spending-guide';
 
     const onShareClick = (name) => {
         const emailSubject = `USAspending.gov Federal Spending Guide`;
         const emailArgs = {
             subject: `${emailSubject}`,
+            // eslint-disable-next-line max-len
             body: `Interested in learning how to effectively use Federal Spending Data? Check out #USAspending Federal Spending Guide! ${getBaseUrl(slug)}`
         };
         handleShareOptionClick(name, slug, emailArgs, onExternalLinkClick);
@@ -48,6 +51,7 @@ const AnalystGuidePage = () => {
                 <section>
                     <AnalystGuideHeader
                         title="Federal Spending Guide"
+                        // eslint-disable-next-line max-len
                         subtitle="Questions and answers about USAspending data and federal spending concepts" />
                 </section>
                 <FlexGridRow style={{ justifyContent: 'center' }}>
@@ -62,7 +66,7 @@ const AnalystGuidePage = () => {
                                         color: "#0071bc",
                                         confirmationBackgroundColor: "white"
                                     }}
-                                    dropdownDirection={isMobile ? 'right' : 'left'}
+                                    dropdownDirection={dropdownDirection}
                                     keepText
                                     classNames="margin-right no-margin-left"
                                     pickerButtonClassNames="side-margin"
