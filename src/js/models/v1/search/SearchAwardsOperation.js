@@ -123,6 +123,11 @@ class SearchAwardsOperation {
 
         this.defCode = state.defCode?.toArray();
 
+        // Quick fix for now, but refractoring needed later if we want to clean up
+        if (state.defCode) {
+            this.defCodes.require = [...new Set(this.defCode)];
+        }
+
         this.pricingType = state.pricingType?.toArray();
         this.setAside = state.setAside?.toArray();
         this.extentCompeted = state.extentCompeted?.toArray();
