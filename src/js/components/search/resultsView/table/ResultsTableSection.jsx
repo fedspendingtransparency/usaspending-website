@@ -7,7 +7,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, NoResultsMessage } from 'data-transparency-ui';
 
-import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ResultsTable from '../../table/ResultsTable';
 import GroupedAwardTable from '../../table/groupedTable/GroupedAwardTable';
 import useWindowWidth from "../../../../hooks/useWindowWidth";
@@ -33,8 +32,7 @@ const propTypes = {
 };
 
 const ResultsTableSection = (props) => {
-    const windowWidth = useWindowWidth();
-    const isMobile = windowWidth < tabletScreen;
+    const [isMobile] = useWindowWidth();
     const [tableWidth, setTableWidth] = useState(document.querySelector('.results-table-content'));
 
     const setTableWidthFn = useCallback(() => {

@@ -20,10 +20,9 @@ const StatusOfFundsChart = ({
     results, fy, setDrilldownLevel, level, toggle, maxLevel
 }) => {
     const chartRef = useRef();
-    const windowWidth = useWindowWidth();
+    const [isMobile, windowWidth] = useWindowWidth(600);
     const isLargeScreen = windowWidth < largeScreen;
     const isMediumScreen = windowWidth < mediumScreen && windowWidth > smallScreen;
-    const isMobile = windowWidth < 600;
 
     const [negativeTbr, setNegativeTbr] = useState(false);
     const [negativeObl, setNegativeObl] = useState(false);

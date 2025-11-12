@@ -28,7 +28,6 @@ import DrilldownSidebar from './DrilldownSidebar';
 import VisualizationSection from './VisualizationSection';
 import IntroSection from './IntroSection';
 import useWindowWidth from "../../../hooks/useWindowWidth";
-import { tabletScreen } from "../../../dataMapping/shared/mobileBreakpoints";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -36,8 +35,7 @@ const propTypes = {
 };
 
 const StatusOfFunds = ({ fy, onChartLoaded }) => {
-    const windowWidth = useWindowWidth();
-    const isMobile = windowWidth < tabletScreen;
+    const [isMobile] = useWindowWidth();
     const dispatch = useDispatch();
     const request = useRef(null);
     const { overview } = useSelector((state) => state.agency);

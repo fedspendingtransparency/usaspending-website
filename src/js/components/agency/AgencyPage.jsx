@@ -51,7 +51,7 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const { isMobile } = useWindowWidth(mediumScreen);
+    const [isMobile] = useWindowWidth(mediumScreen);
     const history = useNavigate();
     const query = useQueryParams();
     const dispatch = useDispatch();

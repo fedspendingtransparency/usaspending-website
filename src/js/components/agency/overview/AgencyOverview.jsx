@@ -20,7 +20,7 @@ const propTypes = {
 };
 
 const AgencyOverview = ({ fy, dataThroughDate }) => {
-    const { isMobile, windowWidth } = useWindowWidth(mediumScreen);
+    const [isMobile, windowWidth] = useWindowWidth(mediumScreen);
     const {
         website,
         mission,

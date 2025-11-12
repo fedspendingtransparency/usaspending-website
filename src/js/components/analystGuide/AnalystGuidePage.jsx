@@ -21,13 +21,12 @@ import useWindowWidth from "../../hooks/useWindowWidth";
 
 
 const AnalystGuidePage = () => {
-    const windowWidth = useWindowWidth();
+    const [isMobile] = useWindowWidth(mediumScreen);
     const dispatch = useDispatch();
     const onExternalLinkClick = (e) => {
         dispatch(showModal(e));
     };
 
-    const isMobile = windowWidth < mediumScreen;
     const slug = 'federal-spending-guide';
 
     const onShareClick = (name) => {
