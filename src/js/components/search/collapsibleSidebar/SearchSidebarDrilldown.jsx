@@ -72,8 +72,7 @@ const SearchSidebarDrilldown = ({
         selectedAwardingAgencies,
         selectedFundingAgencies,
         tasCodes,
-        covidDefCode,
-        infraDefCode,
+        defCode,
         awardDescription
     } = filters;
 
@@ -95,8 +94,7 @@ const SearchSidebarDrilldown = ({
         'Recipient Type': recipientType.size,
         Agency: selectedAwardingAgencies.size + selectedFundingAgencies.size,
         'Treasury Account Symbol (TAS)': generateCount(tasCodes),
-        'COVID-19 Spending': covidDefCode.size,
-        'Infrastructure Spending': infraDefCode.size
+        'Disaster Emergency Fund Code (DEFC)': defCode.size
     };
 
     let categoryFilter;

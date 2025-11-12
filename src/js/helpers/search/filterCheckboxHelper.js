@@ -129,10 +129,29 @@ export const sourcesCount = ({
     selectedAwardingAgencies,
     selectedFundingAgencies,
     tasCodes,
-    covidDefCode,
-    infraDefCode
+    defCode
 }) => selectedAwardingAgencies.size +
     selectedFundingAgencies.size +
     generateCount(tasCodes) +
-    covidDefCode.size +
-    infraDefCode.size;
+    defCode.size;
+
+export const getFilterCount = (filters) => ({
+    Location: filters.selectedLocations.size + filters.selectedRecipientLocations.size,
+    'Time Period':
+        filters.timePeriodType === 'dr' ? filters.time_period.size : filters.timePeriodFY.size,
+    'Award Description': filters.awardDescription ? 1 : 0,
+    'Award ID': filters.selectedAwardIDs.size,
+    'Spending Amount': filters.awardAmounts.size,
+    'Award Type': excludeIDVB(filters.awardType),
+    'North American Industry Classification System (NAICS)': generateCount(filters.naicsCodes),
+    'Product and Service Code (PSC)': generateCount(filters.pscCodes),
+    'Type of Contract Pricing': filters.pricingType.size,
+    'Type of Set Aside': filters.setAside.size,
+    'Extent Competed': filters.extentCompeted.size,
+    'Assistance Listing': filters.selectedCFDA.size,
+    Recipient: filters.selectedRecipients.size,
+    'Recipient Type': filters.recipientType.size,
+    Agency: filters.selectedAwardingAgencies.size + filters.selectedFundingAgencies.size,
+    'Treasury Account Symbol (TAS)': generateCount(filters.tasCodes),
+    'Disaster Emergency Fund Code (DEFC)': filters.defCode.size
+});

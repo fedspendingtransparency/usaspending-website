@@ -33,7 +33,6 @@ const SidebarWrapper = React.memo(({
     const [isFooterVisible, setIsFooterVisible] = useState();
     const [isDsmOpened, setIsDsmOpened] = useState(false);
     const [headerHeight, setHeaderHeight] = useState();
-    const [renderSidebarContent, setRenderSidebarContent] = useState(true);
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
@@ -243,26 +242,12 @@ const SidebarWrapper = React.memo(({
             setHeaderHeight(entries[0].target?.clientHeight);
         });
 
-        // eslint-disable-next-line no-undef
-        const sidebarResizeObserver = new ResizeObserver((entries) => {
-            if (
-                Math.round(entries[0].contentRect.width) === sideBarXlDesktopWidth - 2
-            ) {
-                setRenderSidebarContent(true);
-            }
-            else {
-                setRenderSidebarContent(false);
-            }
-        });
 
         const mainContent = document.querySelector("#main-content");
         mainContentResizeObserver.observe(mainContent);
 
         const siteHeader = document.querySelector(".site-header");
         headerResizeObserver.observe(siteHeader);
-
-        const sidebar = document.querySelector(".collapsible-sidebar");
-        sidebarResizeObserver.observe(sidebar);
 
         handleResize();
 
@@ -277,7 +262,6 @@ const SidebarWrapper = React.memo(({
 
             mainContentResizeObserver?.unobserve(mainContent);
             headerResizeObserver?.unobserve(siteHeader);
-            sidebarResizeObserver?.unobserve(sidebar);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -304,7 +288,13 @@ const SidebarWrapper = React.memo(({
                 } : {
                     height: selectHeight(), overscrollBehavior: "none"
                 }}
-                className={`search-sidebar collapsible-sidebar ${initialPageLoad ? "is-initial-loaded" : ""} ${isOpened ? 'opened' : ''}`}>
+                className={
+                    `search-sidebar collapsible-sidebar ${
+                        initialPageLoad ? "is-initial-loaded" : ""
+                    } ${
+                        isOpened ? 'opened' : ''
+                    }`
+                }>
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => {
@@ -329,8 +319,7 @@ const SidebarWrapper = React.memo(({
                         sidebarContentHeight={sidebarContentHeight}
                         setShowMobileFilters={setShowMobileFilters}
                         isDsmOpened={isDsmOpened}
-                        setIsDsmOpened={setIsDsmOpened}
-                        renderSidebarContent={isMobile || renderSidebarContent} />
+                        setIsDsmOpened={setIsDsmOpened} />
                 }
             </div>
         </div>

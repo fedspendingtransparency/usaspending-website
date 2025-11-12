@@ -71,8 +71,7 @@ const SearchSidebarFilterChips = ({
     const dataFromState = () => {
         filtersData = new SearchAwardsOperation();
         filtersData.fromState(filters);
-        filtersData.covidDefCode = filters.covidDefCode.toArray();
-        filtersData.infraDefCode = filters.infraDefCode.toArray();
+        filtersData.defCode = filters.defCode.toArray();
     };
 
     const isSubset = (array1, array2) => array2.every((element) => array1.includes(element));
@@ -614,10 +613,10 @@ const SearchSidebarFilterChips = ({
             });
         }
 
-        if (filtersData.covidDefCode?.length > 0) {
-            if (isSubset(filtersData.covidDefCode, defCodeGroups.covid)) {
+        if (filtersData.defCode?.length > 0) {
+            if (isSubset(filtersData.defCode, defCodeGroups.covid)) {
                 addChip(
-                    () => props.bulkCovidDefCodeChange({
+                    () => props.bulkDefCodeChange({
                         types: defCodeGroups.covid,
                         direction: 'remove'
                     }),
@@ -625,9 +624,9 @@ const SearchSidebarFilterChips = ({
                 );
             }
             else {
-                filtersData.covidDefCode.forEach((covid) => {
+                filtersData.defCode.forEach((covid) => {
                     addChip(
-                        () => props.toggleCovidDefCode({ value: covid }),
+                        () => props.toggleDefCode({ value: covid }),
                         `${covid}: ${
                             defCodes[covid].title.substring(0, 30)
                         }... ${
@@ -638,12 +637,10 @@ const SearchSidebarFilterChips = ({
                     );
                 });
             }
-        }
 
-        if (filtersData.infraDefCode?.length > 0) {
-            if (isSubset(filtersData.infraDefCode, defCodeGroups.infrastructure)) {
+            if (isSubset(filtersData.defCode, defCodeGroups.infrastructure)) {
                 addChip(
-                    () => props.bulkInfraDefCodeChange({
+                    () => props.bulkDefCodeChange({
                         types: defCodeGroups.infrastructure,
                         direction: 'remove'
                     }),
@@ -651,8 +648,8 @@ const SearchSidebarFilterChips = ({
                 );
             }
             else {
-                filtersData.infraDefCode.forEach((infra) => {
-                    addChip(() => props.toggleInfraDefCode({ value: infra }),
+                filtersData.DefCode.forEach((infra) => {
+                    addChip(() => props.toggleDefCode({ value: infra }),
                         `${infra}: ${
                             defCodes[infra].title.substring(0, 30)
                         }... ${
