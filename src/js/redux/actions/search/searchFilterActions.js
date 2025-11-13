@@ -137,30 +137,6 @@ export const bulkAwardTypeChange = (state) => ({
     direction: state.direction
 });
 
-// Contract Award Type Filter
-export const toggleContractAwardType = ({ value }) => ({
-    type: 'TOGGLE_SEARCH_FILTER_CONTRACT_AWARD_TYPE',
-    contractAwardType: value
-});
-
-export const bulkContractAwardTypeChange = (state) => ({
-    type: 'BULK_SEARCH_FILTER_CONTRACT_AWARD_TYPE',
-    contractAwardTypes: state.types,
-    direction: state.direction
-});
-
-// Financial Assistance Award Type Filter
-export const toggleFinancialAssistanceAwardType = ({ value }) => ({
-    type: 'TOGGLE_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE',
-    financialAssistanceAwardType: value
-});
-
-export const bulkFinancialAssistanceAwardTypeChange = (state) => ({
-    type: 'BULK_SEARCH_FILTER_FINANCIAL_ASSISTANCE_AWARD_TYPE',
-    financialAssistanceAwardTypes: state.types,
-    direction: state.direction
-});
-
 // Award Amount Filter
 export const updateAwardAmounts = ({ value }) => ({
     type: 'UPDATE_AWARD_AMOUNTS',
@@ -248,25 +224,14 @@ export const updateDefCodes = (require, exclude, counts) => ({
     })
 });
 
-export const toggleCovidDefCode = ({ value }) => ({
-    type: 'TOGGLE_COVID_DEF_CODES',
-    covidDefCode: value
+export const toggleDefCode = ({ value }) => ({
+    type: 'TOGGLE_DEF_CODES',
+    defCode: value
 });
 
-export const bulkCovidDefCodeChange = (state) => ({
-    type: 'BULK_UPDATE_COVID_DEF_CODES',
-    covidDefCodes: state.types,
-    direction: state.direction
-});
-
-export const toggleInfraDefCode = ({ value }) => ({
-    type: 'TOGGLE_INFRA_DEF_CODES',
-    infraDefCode: value
-});
-
-export const bulkInfraDefCodeChange = (state) => ({
-    type: 'BULK_UPDATE_INFRA_DEF_CODES',
-    infraDefCodes: state.types,
+export const bulkDefCodeChange = (state) => ({
+    type: 'BULK_UPDATE_DEF_CODES',
+    defCodes: state.types,
     direction: state.direction
 });
 

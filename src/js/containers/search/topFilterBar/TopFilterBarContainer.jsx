@@ -38,19 +38,16 @@ const TopFilterBarContainer = ({ updateFilterCount, compressed = false, filters 
         const filter = {
             values: []
         };
-        if (filters?.defCodes?.toObject()?.require.length > 0) {
+
+        if (filters?.defCode?.count() > 0) {
             selected = true;
-            filter.values = [
-                ...filter.values,
-                ...filters.defCodes?.counts.map((def) => ({
-                    ...def,
-                    def_description: `${def.label} (${def?.count})`
-                }))
-            ];
-        }
-        if (selected) {
             filter.code = 'defCodes';
             filter.name = 'Disaster Emergency Fund Code (DEFC)';
+
+            filter.values = filters.defCode?.toArray();
+        }
+
+        if (selected) {
             return filter;
         }
         return null;

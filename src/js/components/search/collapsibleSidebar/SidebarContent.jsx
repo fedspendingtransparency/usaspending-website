@@ -7,11 +7,11 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
-// removed in DEV-13712
-// import DsmSlider from "./DsmSlider";
 import * as Icons from '../../../components/sharedComponents/icons/Icons';
 import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import SidebarContentFilters from "./SidebarContentFilters";
+// removed in DEV-13712
+// import DsmSlider from "./DsmSlider";
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
@@ -33,7 +33,7 @@ const SidebarContent = ({
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
-    // determine if the width changed
+        // determine if the width changed
         const windowWidthTemp = window.innerWidth;
         if (windowWidth !== windowWidthTemp) {
             // width changed, update the visualization width

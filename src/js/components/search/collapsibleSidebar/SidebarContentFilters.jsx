@@ -20,20 +20,18 @@ const SidebarContentFilters = ({ isDsmOpened, sidebarContentHeight, isMobile }) 
         "Award Description": false,
         "Award ID": false,
         "Spending Amount": false,
-        "Contract Award Type": false,
+        "Award Type": false,
         "North American Industry Classification System (NAICS)": false,
         "Product and Service Code (PSC)": false,
         "Type of Contract Pricing": false,
         "Type of Set Aside": false,
         "Extent Competed": false,
-        "Financial Assistance Award Type": false,
         "Assistance Listing": false,
         Recipient: false,
         "Recipient Type": false,
         Agency: false,
         "Treasury Account Symbol (TAS)": false,
-        "COVID-19 Spending": false,
-        "Infrastructure Spending": false
+        "Disaster Emergency Fund Code (DEFC)": false
     });
     const filters = useSelector((state) => state.filters);
     const filterCount = getFilterCount(filters);

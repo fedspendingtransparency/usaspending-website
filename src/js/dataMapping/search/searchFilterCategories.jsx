@@ -97,11 +97,7 @@ export const searchFilterCategoryTree = [
         component: <AgencyContainer searchV2 />
     },
     {
-        title: 'Contract Award Type',
-        component: <AwardTypeContainerV2 isContractAwardType />
-    },
-    {
-        title: 'Financial Assistance Award Type',
+        title: 'Award Type',
         component: <AwardTypeContainerV2 />
     },
     {
@@ -131,12 +127,8 @@ export const searchFilterCategoryTree = [
         )
     },
     {
-        title: 'COVID-19 Spending',
-        component: <DEFCheckboxTreeContainer defcType="covid_19" />
-    },
-    {
-        title: 'Infrastructure Spending',
-        component: <DEFCheckboxTreeContainer defcType="infrastructure" />
+        title: 'Disaster Emergency Fund Code (DEFC)',
+        component: <DEFCheckboxTreeContainer />
     },
     {
         title: 'Treasury Account Symbol (TAS)',
