@@ -31,8 +31,6 @@ const logDeselectFilterEvent = (type, filter) => {
     });
 };
 
-const highlightText = (text, searchString) => replaceString(text, searchString, 'highlight');
-
 const propTypes = {
     category: PropTypes.object,
     expandedCategories: PropTypes.array,
@@ -59,7 +57,7 @@ const AccordionCheckboxPrimary = ({
     searchString
 }) => {
     const [allChildren, setAllChildren] = useState(false);
-    const inputRef = useRef();
+    const inputRef = useRef(null);
 
     const primaryCheckbox = document.getElementById(`primary-checkbox__${category.id}`);
     const count = category.id === 'indefinite-delivery-vehicle' ?
@@ -160,7 +158,7 @@ const AccordionCheckboxPrimary = ({
                     ref={inputRef} />
                 <div className="checkbox-filter__header-label-container">
                     <span className="checkbox-filter__header-label accordion-checkbox">
-                        {highlightText(category.name, searchString)}
+                        {replaceString(category.name, searchString, 'highlight')}
                     </span>
                     <span className="checkbox-filter__header-count">
                         {count}{' '}

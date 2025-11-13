@@ -29,7 +29,7 @@ const SingleCheckboxType = ({
     selectedCheckboxes,
     enableAnalytics = false
 }) => {
-    const inputRef = useRef();
+    const inputRef = useRef(null);
 
     const checkboxValue = code || value;
 
