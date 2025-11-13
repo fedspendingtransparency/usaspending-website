@@ -6,7 +6,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import AccordionCheckboxSecondaryItem from "./AccordionCheckboxSecondaryItem";
+import CheckboxItem from "./CheckboxItem";
 
 const propTypes = {
     category: PropTypes.object,
@@ -22,18 +22,17 @@ const AccordionCheckboxSecondary = ({
     category, selectedFilters, singleFilterChange, filters, customLabels, expanded, searchString
 }) => {
     const items = category.filters?.map((filter) => {
-        const filterKey = filters[filter];
+        const label = filters[filter];
         const customLabel = customLabels?.[filter] ?? false;
 
         return (
-            <AccordionCheckboxSecondaryItem
+            <CheckboxItem
                 filter={filter}
-                filterKey={filterKey}
                 selectedFilters={selectedFilters}
+                label={label}
                 customLabel={customLabel}
                 searchString={searchString}
-                singleFilterChange={singleFilterChange}
-                key={filterKey} />
+                singleFilterChange={singleFilterChange} />
         );
     });
 

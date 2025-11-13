@@ -1,5 +1,3 @@
-
-// sub-filters hidden from the user, but  passed to the API when the parent filter is selected
 import React, { useRef } from "react";
 import { uniqueId } from "lodash-es";
 import PropTypes from "prop-types";
@@ -7,21 +5,22 @@ import PropTypes from "prop-types";
 import replaceString from "../../../helpers/replaceString";
 import useEventListener from "../../../hooks/useEventListener";
 
+// sub-filters hidden from the user, but  passed to the API when the parent filter is selected
 const excludedSubFilters = "IDV_B";
 
 const propTypes = {
     filter: PropTypes.string,
-    filterKey: PropTypes.string,
     selectedFilters: PropTypes.array,
+    label: PropTypes.string,
     customLabel: PropTypes.string,
     searchString: PropTypes.string,
     singleFilterChange: PropTypes.func
 };
 
-const AccordionCheckboxSecondaryItem = ({
+const CheckboxItem = ({
     filter,
-    filterKey,
     selectedFilters,
+    label,
     customLabel,
     searchString,
     singleFilterChange
@@ -53,11 +52,11 @@ const AccordionCheckboxSecondaryItem = ({
             {customLabel ?
                 <div className="checkbox-filter__item-label">{highlightText(customLabel)}</div>
                 :
-                <div className="checkbox-filter__item-label">{highlightText(filterKey)}</div>
+                <div className="checkbox-filter__item-label">{highlightText(label)}</div>
             }
         </li>
     );
 };
 
-AccordionCheckboxSecondaryItem.propTypes = propTypes;
-export default AccordionCheckboxSecondaryItem;
+CheckboxItem.propTypes = propTypes;
+export default CheckboxItem;

@@ -6,7 +6,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import ListCheckboxPrimaryItem from "./ListCheckboxPrimaryItem";
+import CheckboxItem from "./CheckboxItem";
 
 const propTypes = {
     category: PropTypes.object,
@@ -22,7 +22,7 @@ const ListCheckboxPrimary = ({
     const items = category.filters?.map((filter) => {
         const label = filters[filter];
         return (
-            <ListCheckboxPrimaryItem
+            <CheckboxItem
                 filter={filter}
                 filters={filters}
                 selectedFilters={selectedFilters}
