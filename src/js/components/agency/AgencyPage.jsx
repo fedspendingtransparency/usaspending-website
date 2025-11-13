@@ -51,7 +51,7 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const [isMediumScreen] = useWindowWidth(mediumScreen);
+    const isMediumScreen = useWindowWidth(mediumScreen);
     const history = useNavigate();
     const query = useQueryParams();
     const dispatch = useDispatch();

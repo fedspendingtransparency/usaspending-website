@@ -21,7 +21,7 @@ import useWindowWidth from "../../hooks/useWindowWidth";
 
 
 const AnalystGuidePage = () => {
-    const [isMediumScreen] = useWindowWidth(mediumScreen);
+    const isMediumScreen = useWindowWidth(mediumScreen);
     const dispatch = useDispatch();
     const onExternalLinkClick = (e) => {
         dispatch(showModal(e));

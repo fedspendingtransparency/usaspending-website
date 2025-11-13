@@ -59,7 +59,7 @@ const SearchSectionWrapperContent = ({
     downloadComponent,
     children
 }) => {
-    const [isTablet] = useWindowWidth();
+    const isTablet = useWindowWidth();
 
     const Message = () => {
         if (isLoading) {

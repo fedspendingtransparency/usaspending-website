@@ -20,9 +20,10 @@ const StatusOfFundsChart = ({
     results, fy, setDrilldownLevel, level, toggle, maxLevel
 }) => {
     const chartRef = useRef();
-    const [isMobile, windowWidth] = useWindowWidth(600);
-    const isLargeScreen = windowWidth < largeScreen;
-    const isMediumScreen = windowWidth < mediumScreen && windowWidth > smallScreen;
+    const isMobile = useWindowWidth(600);
+    const isLargeScreen = useWindowWidth(largeScreen);
+    const isMediumScreen = !isMobile && !isLargeScreen;
+    console.log({ isMobile, isLargeScreen, isMediumScreen });
 
     const [negativeTbr, setNegativeTbr] = useState(false);
     const [negativeObl, setNegativeObl] = useState(false);
@@ -76,7 +77,7 @@ const StatusOfFundsChart = ({
 
     useEffect(() => {
         setTextScale(viewWidth / chartRef.current?.getBoundingClientRect().width);
-    }, [windowWidth]);
+    }, []);
 
 
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321

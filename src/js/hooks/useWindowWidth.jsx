@@ -1,34 +1,34 @@
 import { useEffect, useState } from 'react';
-import { throttle } from "lodash-es";
 import { tabletScreen } from "../dataMapping/shared/mobileBreakpoints";
 
 const useWindowWidth = (
     breakPoint = tabletScreen,
     throttleWait = 50
 ) => {
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const isBreakPoint = windowWidth < breakPoint;
+    const [isBreakPoint, setIsBreakPoint] = useState(undefined);
 
     useEffect(() => {
         let isMounted = true;
 
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
+        const matchMedia = window.matchMedia(
+            `(max-width: ${breakPoint - 1}px)`
+        );
 
-            if (windowWidth !== newWidth && isMounted) {
-                setWindowWidth(newWidth);
-            }
-        }, throttleWait);
+        const onChange = () => {
+            if (isMounted) setIsBreakPoint(window.innerWidth < breakPoint);
+        };
 
-        window.addEventListener('resize', handleResize);
+        matchMedia.addEventListener('change', onChange);
+
+        setIsBreakPoint(window.innerWidth < breakPoint);
 
         return () => {
             isMounted = false;
-            window.removeEventListener('resize', handleResize);
+            matchMedia.removeEventListener('change', onChange);
         };
-    }, [throttleWait, windowWidth]);
+    }, [breakPoint, throttleWait]);
 
-    return [isBreakPoint, windowWidth];
+    return isBreakPoint;
 };
 
 export default useWindowWidth;
