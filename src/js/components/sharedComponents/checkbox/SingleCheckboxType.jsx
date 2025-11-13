@@ -3,11 +3,12 @@
  * Created by michaelbray on 5/18/17.
  */
 
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash-es';
 
 import Analytics from 'helpers/analytics/Analytics';
+import useEventListener from "../../../hooks/useEventListener";
 
 const propTypes = {
     code: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -28,6 +29,8 @@ const SingleCheckboxType = ({
     selectedCheckboxes,
     enableAnalytics = false
 }) => {
+    const inputRef = useRef();
+
     const checkboxValue = code || value;
 
     const logSingleTypeFilterEvent = (type, filter) => {
@@ -50,22 +53,26 @@ const SingleCheckboxType = ({
         });
     };
 
-    const toggleFilter = () => {
-    // Analytics
-        if (enableAnalytics) {
-            if (selectedCheckboxes.has(checkboxValue)) {
-                // already checked, log deselect event
-                logDeselectSingleTypeFilterEvent(name, filterType);
+    const toggleFilter = (e) => {
+        // Analytics
+        if (e.type === 'change' || e?.key === 'Enter') {
+            if (enableAnalytics) {
+                if (selectedCheckboxes.has(checkboxValue)) {
+                    // already checked, log deselect event
+                    logDeselectSingleTypeFilterEvent(name, filterType);
+                }
+                else {
+                    // not already checked, log select event
+                    logSingleTypeFilterEvent(name, filterType);
+                }
             }
-            else {
-                // not already checked, log select event
-                logSingleTypeFilterEvent(name, filterType);
-            }
-        }
 
-        // indicate to Redux that this field needs to toggle
-        toggleCheckboxType({ value: checkboxValue });
+            // indicate to Redux that this field needs to toggle
+            toggleCheckboxType({ value: checkboxValue });
+        }
     };
+
+    useEventListener('keydown', toggleFilter, inputRef);
 
     const elementId = `checkbox-${uniqueId()}`;
     let checked;
@@ -96,7 +103,8 @@ const SingleCheckboxType = ({
                         id={elementId}
                         value={checkboxValue}
                         checked={checked}
-                        onChange={toggleFilter} />
+                        onChange={toggleFilter}
+                        ref={inputRef} />
                     <span className="checkbox-item-label">
                         {name}
                     </span>
