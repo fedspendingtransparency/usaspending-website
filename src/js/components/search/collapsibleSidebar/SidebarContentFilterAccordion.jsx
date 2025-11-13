@@ -5,14 +5,13 @@ import Accordion from "../../sharedComponents/accordion/Accordion";
 const propTypes = {
     title: PropTypes.string,
     component: PropTypes.element,
-    isMobile: PropTypes.bool,
     open: PropTypes.object,
     setOpen: PropTypes.func,
     count: PropTypes.number
 };
 
 const SidebarContentFilterAccordion = ({
-    title, component, isMobile, open, setOpen, count
+    title, component, open, setOpen, count
 }) => (
     <div className="search-filters-list">
         <Accordion
@@ -23,7 +22,7 @@ const SidebarContentFilterAccordion = ({
             openIcon="chevron-up"
             contentClassName={open[title] ? '' : 'hidden'}
             selectedChipCount={count}>
-            {!isMobile && open[title] && component}
+            { open[title] && component }
         </Accordion>
     </div>
 );

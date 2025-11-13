@@ -112,7 +112,7 @@ const articles = [
                 type: "government"
             },
             {
-                label: "Exploring America's Finances with USAspending.gov and FiscalData.Treasury.gov",
+                label: "YouTube: Exploring America's Finances",
                 slug: "https://youtu.be/pRGY0VfQ4II",
                 type: "external"
             },

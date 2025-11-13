@@ -24,10 +24,9 @@ const propTypes = {
 const SidebarContent = ({
     sidebarContentHeight,
     setShowMobileFilters,
-    isDsmOpened,
     // removed in DEV-13712
     // setIsDsmOpened,
-    isMobile
+    isDsmOpened
 }) => {
     const [isSmall, setIsSmall] = useState(window.innerWidth < mediumScreen);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -60,8 +59,7 @@ const SidebarContent = ({
                 </div>}
                 <SidebarContentFilters
                     isDsmOpened={isDsmOpened}
-                    sidebarContentHeight={sidebarContentHeight}
-                    isMobile={isMobile} />
+                    sidebarContentHeight={sidebarContentHeight} />
                 {/* removed in DEV-13712 */}
                 {/* <DsmSlider */}
                 {/*     isDsmOpened={isDsmOpened} */}

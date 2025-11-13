@@ -8,14 +8,14 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash-es';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { TooltipWrapper, Button } from "data-transparency-ui";
+import { Button } from "data-transparency-ui";
 import EntityDropdown from './EntityDropdown';
 import ZIPField from './ZIPField';
 import { defaultLocationValues } from
     "../../../../containers/search/filters/location/LocationPickerContainer";
-import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
 import { showSlideout } from '../../../../helpers/slideoutHelper';
 import { usePrevious } from "../../../../helpers";
+import EntityCDTooltip from "./EntityCDTooltip";
 
 const propTypes = {
     selectedLocations: PropTypes.object,
@@ -344,21 +344,7 @@ const LocationPicker = ({
                             searchString={citySearchString}
                             showDisclaimer={showDisclaimer} />
                     </div>}
-
-                <div className="location-item__cd">
-                    <span
-                        className={`location-label__with-tt ${
-                            isDistrictEnabled === false ? "disabled" : ""
-                        }`}>
-                        CONGRESSIONAL DISTRICT (US ONLY)
-                    </span>
-                    <div>
-                        <TooltipWrapper
-                            className="advanced-search__cd-tooltip"
-                            icon="info"
-                            tooltipComponent={<CDTooltip />} />
-                    </div>
-                </div>
+                <EntityCDTooltip isDistrictEnabled={isDistrictEnabled} />
                 <div className="location-item__with-overline">
                     <EntityDropdown
                         field="district"
