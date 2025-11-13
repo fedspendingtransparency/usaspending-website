@@ -7,7 +7,9 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch, connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
+import {
+    FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage
+} from 'data-transparency-ui';
 
 import { setDataThroughDates,
     setSelectedSubcomponent,
@@ -18,7 +20,13 @@ import { setDataThroughDates,
     setLevel4ApiResponse,
     setIsSofChartLoaded }
     from "redux/actions/agency/agencyActions";
-import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityByTas, fetchObjectClassByTas } from 'apis/agency';
+import {
+    fetchSubcomponentsList,
+    fetchFederalAccountsList,
+    fetchTasList,
+    fetchProgramActivityByTas,
+    fetchObjectClassByTas
+} from 'apis/agency';
 import { parseRows, getLevel5Data } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
@@ -35,7 +43,7 @@ const propTypes = {
 };
 
 const StatusOfFunds = ({ fy, onChartLoaded }) => {
-    const [isMobile] = useWindowWidth();
+    const [isTablet] = useWindowWidth();
     const dispatch = useDispatch();
     const request = useRef(null);
     const { overview } = useSelector((state) => state.agency);
@@ -49,7 +57,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
     const [totalItems, setTotalItems] = useState(0);
     const [results, setResults] = useState([]);
     const [toggle, setOnToggle] = useState(false);
-    const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
+    const [viewType, setViewType] = useState(isTablet ? 'table' : 'chart');
     const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
     // these are used for goBack fn and when changing pages in results
@@ -73,22 +81,25 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
 
     const maxLevel = 4;
 
-    // eslint-disable-next-line eqeqeq
-    let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
+    let statusDataThroughDate =
+        useLatestAccountData()[1]
+            .toArray()
+            // eslint-disable-next-line eqeqeq
+            .filter((i) => i.submission_fiscal_year == fy)[0]?.period_end_date;
 
-    const paginatedTasList = (list) => {
+    const paginatedTasList = useCallback((list) => {
         const cp = currentPage || 1;
         const startIndex = 10 * (cp - 1);
         const endIndex = startIndex + 10;
         list.slice(startIndex, endIndex);
         return list.slice(startIndex, endIndex);
-    };
+    }, [currentPage]);
 
     useEffect(() => {
-        if (isMobile) {
+        if (isTablet) {
             setViewType('table');
         }
-    }, [isMobile]);
+    }, [isTablet]);
 
     const fetchAgencySubcomponents = useCallback(() => {
         if (request.current) {
@@ -130,7 +141,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                 setLoading(false);
                 console.error(err);
             });
-    });
+    }, []);
 
     const fetchFederalAccounts = useCallback((agencyData) => {
         if (request.current) {
@@ -146,7 +157,8 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
             limit: pageSize,
             page: currentPage
         };
-        request.current = fetchFederalAccountsList(overview.toptierCode, agencyData.id, fy, params.page);
+        request.current =
+            fetchFederalAccountsList(overview.toptierCode, agencyData.id, fy, params.page);
         const federalAccountsRequest = request.current;
         federalAccountsRequest.promise
             .then((res) => {
@@ -165,7 +177,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                 setLoading(false);
                 console.error(err);
             });
-    });
+    }, [currentPage, dispatch, error, fy, loading, overview.toptierCode, pageSize]);
 
     const fetchTas = useCallback((federalAccountData) => {
         if (request.current) {
@@ -202,7 +214,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                 setLoading(false);
                 console.error(err);
             });
-    });
+    }, [dispatch, error, fy, loading, paginatedTasList]);
 
     const fetchDataByTas = useCallback((tas, objectClassFlag) => {
         if (request.current) {
@@ -228,7 +240,8 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
         const programActivityRequest = request.current;
         programActivityRequest.promise
             .then((res) => {
-                // store the api res in redux so that when the user clicks one of the bars you can use the id
+                // store the api res in redux so that
+                // when the user clicks one of the bars you can use the id
                 // from that click to get the children of that id to set as results for level 5
                 dispatch(setLevel4ApiResponse(res.data.results));
                 const parsedData = parseRows(res.data.results, tas.id);
@@ -246,7 +259,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                 setLoading(false);
                 console.error(err);
             });
-    });
+    }, [currentPage, dispatch, error, fy, loading, pageSize]);
 
     const fetchLevel5Data = (prgActivityOrObjClass) => {
         const newData = getLevel5Data(prgActivityOrObjClass.name, level4ApiResponse);
@@ -367,7 +380,8 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
 
             // this is a convoluted way to handle back
             // if the currentPage is anything other than 1, we change it to 1 here
-            // which kicks of a useEffect which just calls the fetch fns that we're calling above if currentLevel is 1
+            // which kicks of a useEffect which just calls
+            // the fetch fns that we're calling above if currentLevel is 1
             // why don't we just call the fetch fn here no matter what currentPage is?
             // OR just set currentPage to 1 after setLevel and not call the apis here
             // i think we're calling the apis twice in these situations
@@ -400,8 +414,11 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                         fy={fy} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
-                    {level > 0 && !isMobile ?
-                        <button title="Go up a level" className="drilldown-back-button" onClick={goBack}>
+                    {level > 0 && !isTablet ?
+                        <button
+                            title="Go up a level"
+                            className="drilldown-back-button"
+                            onClick={goBack}>
                             <FontAwesomeIcon icon="arrow-left" />
                             &nbsp;&nbsp;Back
                         </button> : <></>}
@@ -417,7 +434,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                                 setDrilldownLevel={setDrilldownLevel}
                                 fy={fy}
                                 results={results}
-                                isMobile={isMobile}
+                                isMobile={isTablet}
                                 viewType={viewType}
                                 setViewType={setViewType}
                                 maxLevel={maxLevel}
@@ -434,6 +451,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                     }
                 </FlexGridCol>
             </FlexGridRow>
+            {/* eslint-disable max-len */}
             <Note message={
                 (<>The agency sub-components displayed in this section were
                  added to provide greater transparency into the organization of agencies’ account data.
@@ -448,6 +466,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                     rel="noopener noreferrer">
                         OMB Circular A-11 Appendix C
                 </a>.</>)} />
+            {/* eslint-enable max-len */}
         </div>
     );
 };

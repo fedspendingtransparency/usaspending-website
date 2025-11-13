@@ -13,12 +13,3 @@ export const mediumScreen = 992;
 export const largeScreen = 1200;
 export const mLargeScreen = 1400;
 export const xLargeScreen = 1640;
-
-export const getScreenSizeType = (width) => {
-    if (width < smallScreen) return 'mobile';
-    else if ((smallScreen <= width) && (width < smTabletScreen)) return 'tablet';
-    else if ((smTabletScreen <= width) && (width < tabletScreen)) return 'tablet';
-    else if ((tabletScreen <= width) && (width < mediumScreen)) return 'desktop';
-    else if ((mediumScreen <= width) && (width < largeScreen)) return 'largeDesktop';
-    return 'xLargeDesktop';
-};
