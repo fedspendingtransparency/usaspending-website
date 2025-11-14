@@ -7,9 +7,10 @@ const propTypes = { throttleWait: PropTypes.number };
 /**
  * useWindowWidth
  * - a custom hook for returning the current window width, throttled
- * @param {number} throttleWait - number of milliseconds to throttle invocations to
+ * @param {number} [throttleWait=50] - number of milliseconds to throttle invocations to
  * @returns {number} current window width
  */
+
 const useWindowWidth = (throttleWait = 50) => {
     const [windowWidth, setWindowWidth] = useState(0);
 

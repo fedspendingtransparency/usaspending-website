@@ -1,11 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 
+/**
+ * useIntersectionObserver
+ * -  that tracks the intersection of a DOM element with its containing element or the viewport using the Intersection Observer API
+ * https://usehooks-ts.com/react-hook/use-intersection-observer
+ * @param {Object} parameters - parameters for configuring the Intersection Observer
+ * @param {boolean} [parameters.threshold=false] - If `true`, freezes the intersection state once the element becomes visible
+ * @param {boolean} [parameters.initialIsIntersecting=false] - The initial state of the intersection
+ * @param {function} [parameters.root] - event handler function
+ * @param {element} [element=window] - DOM element or media query list to attach the event listener to, defaults to window
+ * @param {Object} [options] - An options object that specifies characteristics about the event listener
+ */
 const useIntersectionObserver = ({
     threshold = 0,
+    initialIsIntersecting = false,
     root = null,
     rootMargin = '0%',
     freezeOnceVisible = false,
-    initialIsIntersecting = false,
     onChange
 }) => {
     const [ref, setRef] = useState(null);

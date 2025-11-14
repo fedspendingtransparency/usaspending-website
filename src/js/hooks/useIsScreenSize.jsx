@@ -4,9 +4,10 @@ import { tabletScreen } from "../dataMapping/shared/mobileBreakpoints";
 /**
  * useIsScreenSize
  * - a custom hook for checking whether your window is at a specific screen size or not
- * @param {number} screenSize - screen size to check as a pixel width
+ * @param {number} [screenSize=768] - screen size to check as a pixel width
  * @returns {boolean} `true` if window width is less than screenSize, `false` if greater than
  */
+
 const useIsScreenSize = (
     screenSize = tabletScreen
 ) => {

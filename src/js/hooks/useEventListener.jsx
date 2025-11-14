@@ -1,6 +1,17 @@
 import { useEffect } from "react";
 
-// useEventListener: https://usehooks-ts.com/react-hook/use-event-listener
+/* eslint-disable max-len */
+/**
+ * useEventListener
+ * - a custom hook for adding and removing event listeners
+ * https://usehooks-ts.com/react-hook/use-event-listener
+ * @param {string} eventName - name of the event to listen for
+ * @param {function} handler - event handler function
+ * @param {element} [element=window] - DOM element or media query list to attach the event listener to, defaults to window
+ * @param {Object} [options=null] - An options object that specifies characteristics about the event listener
+ */
+/* eslint-enable max-len */
+
 const useEventListener = (
     eventName,
     handler,
