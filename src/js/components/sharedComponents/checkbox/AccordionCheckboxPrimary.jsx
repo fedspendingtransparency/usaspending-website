@@ -4,12 +4,12 @@
  */
 
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
 import AccordionCheckboxSecondary from "./AccordionCheckboxSecondary";
 import replaceString from '../../../helpers/replaceString';
 import useEventListener from "../../../hooks/useEventListener";
+import CheckboxChevron from "./CheckboxChevron";
 
 const logPrimaryFilterEvent = (type, filter) => {
     Analytics.event({
@@ -33,7 +33,7 @@ const logDeselectFilterEvent = (type, filter) => {
 
 const propTypes = {
     category: PropTypes.object,
-    expandedCategories: PropTypes.array,
+    expanded: PropTypes.bool,
     toggleExpanded: PropTypes.func,
     selectedFilters: PropTypes.object,
     singleFilterChange: PropTypes.func,
@@ -46,7 +46,7 @@ const propTypes = {
 
 const AccordionCheckboxPrimary = ({
     category,
-    expandedCategories,
+    expanded,
     toggleExpanded,
     selectedFilters,
     singleFilterChange,
@@ -59,12 +59,14 @@ const AccordionCheckboxPrimary = ({
     const [allChildren, setAllChildren] = useState(false);
     const inputRef = useRef(null);
 
+    const icon = expanded ? "chevron-down" : "chevron-right";
     const primaryCheckbox = document.getElementById(`primary-checkbox__${category.id}`);
     const count = category.id === 'indefinite-delivery-vehicle' ?
         category.filters?.length - 1 :
         category.filters?.length;
 
     const toggleChildren = (e) => {
+        e.stopPropagation();
         if (e.type === 'change' || e?.key === 'Enter') {
             if (allChildren) {
                 // all the children are selected, deselect them
@@ -133,22 +135,10 @@ const AccordionCheckboxPrimary = ({
                 role="button"
                 tabIndex="0">
                 <div className="checkbox-filter__header-icon">
-                    {!expandedCategories?.includes(category.id) &&
-                    <FontAwesomeIcon
-                        onClick={() => toggleExpanded(category)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") toggleExpanded(category);
-                        }}
-                        tabIndex={0}
-                        icon="chevron-right" />}
-                    {expandedCategories?.includes(category.id) &&
-                    <FontAwesomeIcon
-                        onClick={() => toggleExpanded(category)}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") toggleExpanded(category);
-                        }}
-                        tabIndex={0}
-                        icon="chevron-down" />}
+                    <CheckboxChevron
+                        category={category}
+                        toggleExpanded={toggleExpanded}
+                        icon={icon} />
                 </div>
                 <input
                     type="checkbox"
@@ -167,7 +157,7 @@ const AccordionCheckboxPrimary = ({
                 </div>
             </div>
             <AccordionCheckboxSecondary
-                expanded={expandedCategories?.includes(category.id)}
+                expanded={expanded}
                 selectedFilters={selectedFilters}
                 category={category}
                 singleFilterChange={singleFilterChange}

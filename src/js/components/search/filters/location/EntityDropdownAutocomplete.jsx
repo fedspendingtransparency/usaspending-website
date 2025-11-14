@@ -41,7 +41,7 @@ const EntityDropdownAutocomplete = ({
     isClearable,
     searchIcon = false
 }) => {
-    const xRef = useRef(null);
+    const iconRef = useRef(null);
 
     const onKeydownClear = (e) => {
         e.stopPropagation();
@@ -50,7 +50,7 @@ const EntityDropdownAutocomplete = ({
         }
     };
 
-    useEventListener('keydown', onKeydownClear, xRef);
+    useEventListener('keydown', onKeydownClear, iconRef);
 
     return (
         <div className="autocomplete__input">
@@ -71,7 +71,7 @@ const EntityDropdownAutocomplete = ({
                 {
                     isClearable &&
                     searchString &&
-                    <FontAwesomeIcon tabIndex="0" onClick={onClear} icon="times" ref={xRef} />
+                    <FontAwesomeIcon tabIndex="0" onClick={onClear} icon="times" ref={iconRef} />
                 }
             </div>
         </div>
