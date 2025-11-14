@@ -7,7 +7,6 @@ import { tabletScreen } from "../dataMapping/shared/mobileBreakpoints";
  * @param {number} [screenSize=768] - screen size to check as a pixel width
  * @returns {boolean} `true` if window width is less than screenSize, `false` if greater than
  */
-
 const useIsScreenSize = (
     screenSize = tabletScreen
 ) => {

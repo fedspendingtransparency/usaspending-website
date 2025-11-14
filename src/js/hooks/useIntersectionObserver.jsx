@@ -1,24 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 
-/**
+/* eslint-disable max-len */ /**
  * useIntersectionObserver
  * -  that tracks the intersection of a DOM element with its containing element or the viewport using the Intersection Observer API
  * https://usehooks-ts.com/react-hook/use-intersection-observer
- * @param {Object} parameters - parameters for configuring the Intersection Observer
- * @param {boolean} [parameters.threshold=false] - If `true`, freezes the intersection state once the element becomes visible
- * @param {boolean} [parameters.initialIsIntersecting=false] - The initial state of the intersection
- * @param {function} [parameters.root] - event handler function
- * @param {element} [element=window] - DOM element or media query list to attach the event listener to, defaults to window
- * @param {Object} [options] - An options object that specifies characteristics about the event listener
+ * @param {Object} properties - properties for configuring the Intersection Observer
+ * @param {boolean} [properties.freezeOnceVisible=false] - If `true`, freezes the intersection state once the element becomes visible
+ * @param {boolean} [properties.initialIsIntersecting=false] - The initial state of the intersection
+ * @param {function} [properties.onChange=undefined] - callback function to be invoked when the intersection state changes
+ * @param {element} [properties.root=null] - element that is used as the viewport for checking visibility of the target
+ * @param {string} [properties.rootMargin='0%'] - margin around the root
+ * @param {number|number[]} [properties.threshold=0] - threshold indicating the percentage of the target's visibility needed to trigger the callback
  */
 const useIntersectionObserver = ({
-    threshold = 0,
+    freezeOnceVisible = false,
     initialIsIntersecting = false,
+    onChange,
     root = null,
     rootMargin = '0%',
-    freezeOnceVisible = false,
-    onChange
+    threshold = 0
 }) => {
+    /* eslint-enable max-len */
     const [ref, setRef] = useState(null);
 
     const [state, setState] = useState(() => ({

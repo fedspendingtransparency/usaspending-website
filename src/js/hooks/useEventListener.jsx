@@ -9,15 +9,14 @@ import { useEffect } from "react";
  * @param {function} handler - event handler function
  * @param {element} [element=window] - DOM element or media query list to attach the event listener to, defaults to window
  * @param {Object} [options=null] - An options object that specifies characteristics about the event listener
- */
-/* eslint-enable max-len */
-
+ * */
 const useEventListener = (
     eventName,
     handler,
     element,
     options
 ) => {
+    /* eslint-enable max-len */
     useEffect(() => {
         // check to see if there is a target element provided, if not use window
         const targetElement = element?.current ?? window;
