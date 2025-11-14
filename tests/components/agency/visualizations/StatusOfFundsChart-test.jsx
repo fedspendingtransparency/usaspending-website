@@ -6,7 +6,8 @@
  */
 
 import React from 'react';
-import StatusOfFundsChart from "components/agency/visualizations/StatusOfFundsChart";
+import '../../../testResources/matchMedia.mock';
+import StatusOfFundsChart from "../../../../src/js/components/agency/visualizations/StatusOfFundsChart";
 import { render, screen } from '../../../testResources/test-utils';
 
 const fy = '2021';
@@ -152,7 +153,11 @@ describe('StatusOfFundsChart', () => {
     });
 
     it('should display negative formatted amount used for max x axis value', () => {
-        render(<StatusOfFundsChart {...mockProps} results={mockChartDataNegative.results} fy={fy} level={0} />);
+        render(<StatusOfFundsChart
+            {...mockProps}
+            results={mockChartDataNegative.results}
+            fy={fy}
+            level={0} />);
         expect(screen.getByText('−$10B')).toBeTruthy();
     });
 });
