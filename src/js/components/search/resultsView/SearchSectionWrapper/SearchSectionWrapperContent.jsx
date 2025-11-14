@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import MobileSort from "../../mobile/MobileSort";
 import SectionDataTable from "../SectionDataTable";
-import useWindowWidth from "../../../../hooks/useWindowWidth";
+import useIsScreenSize from "../../../../hooks/useIsScreenSize";
 
 const propTypes = {
     openAccordion: PropTypes.bool,
@@ -59,7 +59,7 @@ const SearchSectionWrapperContent = ({
     downloadComponent,
     children
 }) => {
-    const isTablet = useWindowWidth();
+    const isTablet = useIsScreenSize();
 
     const Message = () => {
         if (isLoading) {

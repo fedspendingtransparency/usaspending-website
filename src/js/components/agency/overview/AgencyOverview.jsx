@@ -12,7 +12,7 @@ import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
 import { showSlideout } from '../../../helpers/slideoutHelper';
-import useWindowWidth from "../../../hooks/useWindowWidth";
+import useIsScreenSize from "../../../hooks/useIsScreenSize";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -20,7 +20,7 @@ const propTypes = {
 };
 
 const AgencyOverview = ({ fy, dataThroughDate }) => {
-    const isMediumScreen = useWindowWidth(mediumScreen);
+    const isMediumScreen = useIsScreenSize(mediumScreen);
     const {
         website,
         mission,

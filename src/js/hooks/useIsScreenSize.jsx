@@ -1,34 +1,33 @@
 import { useEffect, useState } from 'react';
 import { tabletScreen } from "../dataMapping/shared/mobileBreakpoints";
 
-const useWindowWidth = (
-    breakPoint = tabletScreen,
-    throttleWait = 50
+const useIsScreenSize = (
+    screenSize = tabletScreen
 ) => {
-    const [isBreakPoint, setIsBreakPoint] = useState(undefined);
+    const [isScreenSize, setIsScreenSize] = useState(undefined);
 
     useEffect(() => {
         let isMounted = true;
 
         const matchMedia = window.matchMedia(
-            `(max-width: ${breakPoint - 1}px)`
+            `(max-width: ${screenSize - 1}px)`
         );
 
         const onChange = () => {
-            if (isMounted) setIsBreakPoint(window.innerWidth < breakPoint);
+            if (isMounted) setIsScreenSize(window.innerWidth < screenSize);
         };
 
         matchMedia.addEventListener('change', onChange);
 
-        setIsBreakPoint(window.innerWidth < breakPoint);
+        setIsScreenSize(window.innerWidth < screenSize);
 
         return () => {
             isMounted = false;
             matchMedia.removeEventListener('change', onChange);
         };
-    }, [breakPoint, throttleWait]);
+    }, [screenSize]);
 
-    return isBreakPoint;
+    return isScreenSize;
 };
 
-export default useWindowWidth;
+export default useIsScreenSize;

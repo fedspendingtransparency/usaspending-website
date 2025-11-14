@@ -5,7 +5,7 @@ import { scaleLinear, scaleBand } from 'd3-scale';
 import { throttle } from 'lodash-es';
 import { largeScreen, mediumScreen, smallScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FlexGridRow, TooltipWrapper } from 'data-transparency-ui';
-import useWindowWidth from "../../../hooks/useWindowWidth";
+import useIsScreenSize from "../../../hooks/useIsScreenSize";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -20,8 +20,8 @@ const StatusOfFundsChart = ({
     results, fy, setDrilldownLevel, level, toggle, maxLevel
 }) => {
     const chartRef = useRef();
-    const isMobile = useWindowWidth(600);
-    const isLargeScreen = useWindowWidth(largeScreen);
+    const isMobile = useIsScreenSize(600);
+    const isLargeScreen = useIsScreenSize(largeScreen);
     const isMediumScreen = !isMobile && !isLargeScreen;
     console.log({ isMobile, isLargeScreen, isMediumScreen });
 
