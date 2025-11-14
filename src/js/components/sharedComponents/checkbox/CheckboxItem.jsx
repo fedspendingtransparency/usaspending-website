@@ -29,6 +29,7 @@ const CheckboxItem = ({
     const highlightText = (text) => replaceString(text, searchString, 'highlight');
 
     const toggleFilter = (e) => {
+        e.stopPropagation();
         if (e.type === 'change' || e?.key === 'Enter') {
             const selection = {
                 value: filter
