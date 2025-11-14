@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { throttle } from 'lodash-es';
-import { largeScreen, mediumScreen, smallScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FlexGridRow, TooltipWrapper } from 'data-transparency-ui';
 import useIsScreenSize from "../../../hooks/useIsScreenSize";
 
@@ -23,7 +23,6 @@ const StatusOfFundsChart = ({
     const isMobile = useIsScreenSize(600);
     const isLargeScreen = useIsScreenSize(largeScreen);
     const isMediumScreen = !isMobile && !isLargeScreen;
-    console.log({ isMobile, isLargeScreen, isMediumScreen });
 
     const [negativeTbr, setNegativeTbr] = useState(false);
     const [negativeObl, setNegativeObl] = useState(false);

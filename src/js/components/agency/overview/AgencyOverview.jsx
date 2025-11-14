@@ -110,7 +110,6 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
             <FySummary
                 fy={fy}
                 dataThroughDate={dataThroughDate}
-                windowWidth={windowWidth}
                 isMobile={isMediumScreen} />
         </div>
     );
