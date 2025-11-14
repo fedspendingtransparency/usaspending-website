@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 import { throttle } from "lodash-es";
-import PropTypes from "prop-types";
-
-const propTypes = { throttleWait: PropTypes.number };
 
 /**
  * useWindowWidth
@@ -35,5 +32,4 @@ const useWindowWidth = (throttleWait = 50) => {
     return windowWidth;
 };
 
-useWindowWidth.propTypes = propTypes;
 export default useWindowWidth;
