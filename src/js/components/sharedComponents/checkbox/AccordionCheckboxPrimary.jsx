@@ -3,12 +3,33 @@
  * Created by Josue Aguilar on 09/05/2024.
  */
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
 import AccordionCheckboxSecondary from "./AccordionCheckboxSecondary";
 import replaceString from '../../../helpers/replaceString';
+import useEventListener from "../../../hooks/useEventListener";
+
+const logPrimaryFilterEvent = (type, filter) => {
+    Analytics.event({
+        event: 'search_checkbox_selection',
+        category: 'Search Filter Interaction',
+        action: `Selected ${filter} Type`,
+        label: type,
+        gtm: true
+    });
+};
+
+const logDeselectFilterEvent = (type, filter) => {
+    Analytics.event({
+        event: 'search_checkbox_selection',
+        category: 'Search Filter Interaction',
+        action: `Deselected ${filter} Type Children`,
+        label: type,
+        gtm: true
+    });
+};
 
 const propTypes = {
     category: PropTypes.object,
@@ -36,60 +57,47 @@ const AccordionCheckboxPrimary = ({
     searchString
 }) => {
     const [allChildren, setAllChildren] = useState(false);
+    const inputRef = useRef(null);
 
     const primaryCheckbox = document.getElementById(`primary-checkbox__${category.id}`);
-    const count = category.id === 'indefinite-delivery-vehicle' ? category.filters?.length - 1 : category.filters?.length;
+    const count = category.id === 'indefinite-delivery-vehicle' ?
+        category.filters?.length - 1 :
+        category.filters?.length;
 
-    const logPrimaryFilterEvent = (type, filter) => {
-        Analytics.event({
-            event: 'search_checkbox_selection',
-            category: 'Search Filter Interaction',
-            action: `Selected ${filter} Type`,
-            label: type,
-            gtm: true
-        });
-    };
+    const toggleChildren = (e) => {
+        if (e.type === 'change' || e?.key === 'Enter') {
+            if (allChildren) {
+                // all the children are selected, deselect them
+                bulkFilterChange({
+                    lookupName: '',
+                    types: category.filters,
+                    direction: 'remove'
+                });
 
-    const logDeselectFilterEvent = (type, filter) => {
-        Analytics.event({
-            event: 'search_checkbox_selection',
-            category: 'Search Filter Interaction',
-            action: `Deselected ${filter} Type Children`,
-            label: type,
-            gtm: true
-        });
-    };
-
-    const toggleChildren = () => {
-        if (allChildren) {
-            // all the children are selected, deselect them
-            bulkFilterChange({
-                lookupName: '',
-                types: category.filters,
-                direction: 'remove'
-            });
-
-            // Analytics
-            if (enableAnalytics) {
-                logDeselectFilterEvent(category.id, category.name);
+                // Analytics
+                if (enableAnalytics) {
+                    logDeselectFilterEvent(category.id, category.name);
+                }
             }
-        }
-        else {
-            // not all the children are selected, select them all
-            bulkFilterChange({
-                lookupName: '',
-                types: category.filters,
-                direction: 'add'
-            });
+            else {
+                // not all the children are selected, select them all
+                bulkFilterChange({
+                    lookupName: '',
+                    types: category.filters,
+                    direction: 'add'
+                });
 
-            // Analytics
-            if (enableAnalytics) {
-                logPrimaryFilterEvent(category.id, category.name);
+                // Analytics
+                if (enableAnalytics) {
+                    logPrimaryFilterEvent(category.id, category.name);
+                }
             }
         }
     };
 
-    const compareFiltersToChildren = () => {
+    useEventListener('keydown', toggleChildren, inputRef);
+
+    const compareFiltersToChildren = useCallback(() => {
         let allSelected = true;
         let someSelected = false;
 
@@ -112,13 +120,12 @@ const AccordionCheckboxPrimary = ({
         }
 
         setAllChildren(allSelected);
-    };
+    }, [category.filters, primaryCheckbox, selectedFilters]);
 
     useEffect(() => {
         compareFiltersToChildren();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [selectedFilters]);
-    const highlightText = (text) => replaceString(text, searchString, 'highlight');
+    }, [compareFiltersToChildren, selectedFilters]);
+
     return (
         <div className="checkbox-filter__wrapper">
             <div
@@ -147,9 +154,12 @@ const AccordionCheckboxPrimary = ({
                     type="checkbox"
                     onChange={toggleChildren}
                     checked={allChildren}
-                    id={`primary-checkbox__${category.id}`} />
+                    id={`primary-checkbox__${category.id}`}
+                    ref={inputRef} />
                 <div className="checkbox-filter__header-label-container">
-                    <span className="checkbox-filter__header-label accordion-checkbox">{highlightText(category.name)}</span>
+                    <span className="checkbox-filter__header-label accordion-checkbox">
+                        {replaceString(category.name, searchString, 'highlight')}
+                    </span>
                     <span className="checkbox-filter__header-count">
                         {count}{' '}
                         {count === 1 ? 'type' : 'types'}
