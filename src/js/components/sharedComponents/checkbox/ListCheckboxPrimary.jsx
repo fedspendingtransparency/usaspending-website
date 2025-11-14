@@ -5,7 +5,8 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import replaceString from '../../../helpers/replaceString';
+
+import CheckboxItem from "./CheckboxItem";
 
 const propTypes = {
     category: PropTypes.object,
@@ -18,25 +19,18 @@ const propTypes = {
 const ListCheckboxPrimary = ({
     category, selectedFilters, singleFilterChange, filters, searchString
 }) => {
-    const selectFilter = (filter) => {
-        const selection = {
-            value: filter
-        };
-        singleFilterChange(selection);
-    };
-    const highlightText = (text) => replaceString(text, searchString, 'highlight');
-
-    const items = category.filters?.map((filter, index) => (
-        <li className="checkbox-filter__item" key={filters[filter]}>
-            <input
-                type="checkbox"
-                id={`primary-checkbox-${index}`}
-                value={filter}
-                checked={selectedFilters?.has(filter)}
-                onChange={() => selectFilter(filter)} />
-            <div className="checkbox-filter__item-label">{highlightText(filters[filter])}</div>
-        </li>
-    ));
+    const items = category.filters?.map((filter) => {
+        const label = filters[filter];
+        return (
+            <CheckboxItem
+                filter={filter}
+                filters={filters}
+                selectedFilters={selectedFilters}
+                singleFilterChange={singleFilterChange}
+                label={label}
+                searchString={searchString} />
+        );
+    });
 
     return (
         <ul className="checkbox-filter__list list-checkbox">
