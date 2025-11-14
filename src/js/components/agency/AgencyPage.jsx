@@ -12,7 +12,6 @@ import {
 } from 'data-transparency-ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router';
-import { throttle } from "lodash-es";
 import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
@@ -29,6 +28,7 @@ import PageWrapper from '../sharedComponents/PageWrapper';
 import PageTitle from './overview/PageTitle';
 import NumericPickerWrapper from '../sharedComponents/dropdowns/NumericPickerWrapper';
 import { showModal } from '../../redux/actions/modal/modalActions';
+import useIsScreenSize from "../../hooks/useIsScreenSize";
 
 require('pages/agency/index.scss');
 
@@ -51,6 +51,7 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
+    const isMediumScreen = useIsScreenSize(mediumScreen);
     const history = useNavigate();
     const query = useQueryParams();
     const dispatch = useDispatch();
@@ -64,9 +65,6 @@ export const AgencyProfileV2 = ({
     const { name } = useSelector((state) => state.agency.overview);
     const { isStatusOfFundsChartLoaded } = useSelector((state) => state.agency);
 
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-
     const dataThroughDates = useSelector((state) => state.agency.dataThroughDates);
     const overviewDataThroughDate = dataThroughDates?.overviewDataThroughDate;
     const statusDataThroughDate = dataThroughDates?.statusDataThroughDate;
@@ -75,6 +73,7 @@ export const AgencyProfileV2 = ({
     const handleShare = (optionName) => {
         handleShareOptionClick(optionName, path, {
             subject: `USAspending.gov Agency Profile: ${name}`,
+            // eslint-disable-next-line max-len
             body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(path)}`
         }, handleShareDispatch);
     };
@@ -131,11 +130,17 @@ export const AgencyProfileV2 = ({
 
         // add offsets
         let conditionalOffset;
-        if (isMobile) {
-            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 140 : 60;
+        if (isMediumScreen) {
+            conditionalOffset =
+                window.scrollY < getStickyBreakPointForSidebar() ?
+                    stickyHeaderHeight + 140 :
+                    60;
         }
         else {
-            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
+            conditionalOffset =
+                window.scrollY < getStickyBreakPointForSidebar() ?
+                    stickyHeaderHeight + 40 :
+                    10;
         }
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
 
@@ -153,18 +158,6 @@ export const AgencyProfileV2 = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query.section, isStatusOfFundsChartLoaded]);
 
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
-
     return (
         <PageWrapper
             pageName="agency-v2"
@@ -177,7 +170,13 @@ export const AgencyProfileV2 = ({
             jumpToSection={jumpToSection}
             activeSection={activeSection}
             toolBarComponents={[
-                <NumericPickerWrapper size="sm" leftIcon="calendar-alt" enabled selectedValue={selectedFy} latestValue={latestFy} handleChange={(fy) => setSelectedFy({ fy })} />,
+                <NumericPickerWrapper
+                    size="sm"
+                    leftIcon="calendar-alt"
+                    enabled
+                    selectedValue={selectedFy}
+                    latestValue={latestFy}
+                    handleChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
@@ -186,7 +185,12 @@ export const AgencyProfileV2 = ({
                     {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
-                            <AgencySection key={section.section} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
+                            <AgencySection
+                                key={section.section}
+                                section={section}
+                                isLoading={isLoading}
+                                icon={section.icon}
+                                dataThroughDate={section.dataThroughDate}>
                                 {section.component || <ComingSoon />}
                             </AgencySection>
                         ))}

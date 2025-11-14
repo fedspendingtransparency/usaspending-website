@@ -7,10 +7,10 @@ import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
-
 import { find, throttle } from 'lodash-es';
-import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { ShareIcon } from 'data-transparency-ui';
+
+import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { agencySubmissionDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
@@ -26,7 +26,6 @@ const emailData = {
 };
 
 const DataSourcesAndMethodologiesPage = () => {
-    const [windowWidth, setWindowWidth] = useState(0);
     const [activeSection, setActiveSection] = useState('using_this_table');
     const query = useQueryParams();
     const history = useNavigate();
@@ -34,6 +33,7 @@ const DataSourcesAndMethodologiesPage = () => {
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };
+
     const sections = [
         {
             label: 'Using this Table',
@@ -71,9 +71,16 @@ const DataSourcesAndMethodologiesPage = () => {
             show: true
         }
     ];
+
     const handleShare = (name) => {
-        handleShareOptionClick(name, `submission-statistics/data-sources`, emailData, handleShareDispatch);
+        handleShareOptionClick(
+            name,
+            `submission-statistics/data-sources`,
+            emailData,
+            handleShareDispatch
+        );
     };
+
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
@@ -81,7 +88,9 @@ const DataSourcesAndMethodologiesPage = () => {
         if (!sectionObj) return;
 
         // find the section in dom
-        const sectionDom = document.querySelector(`#submissions-statistics-dsm-${sectionObj.section}`);
+        const sectionDom = document.querySelector(
+            `#submissions-statistics-dsm-${sectionObj.section}`
+        );
         if (!sectionDom) return;
 
         // add section to url
@@ -92,7 +101,8 @@ const DataSourcesAndMethodologiesPage = () => {
 
         setActiveSection(section);
         // add offsets
-        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
+        const conditionalOffset =
+            window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
 
         window.scrollTo({
@@ -101,12 +111,14 @@ const DataSourcesAndMethodologiesPage = () => {
             behavior: 'smooth'
         });
     };
+
     useEffect(() => {
         if (query.section) {
             jumpToSection(query.section);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query.section]);
+
     useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
         let isMounted = true;
@@ -121,18 +133,8 @@ const DataSourcesAndMethodologiesPage = () => {
             isMounted = false;
         };
     }, 100), [history, query.section]);
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
 
-
+    /* eslint-disable max-len */
     return (
         <PageWrapper
             pageName="submissions-statistics-dsm"
@@ -346,5 +348,6 @@ const DataSourcesAndMethodologiesPage = () => {
         </PageWrapper>
     );
 };
+/* eslint-enable max-len */
 
 export default DataSourcesAndMethodologiesPage;

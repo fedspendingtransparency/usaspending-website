@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/8/16
   **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import ResultsTableRow from '../../../models/v2/search/ResultsTableRow';
@@ -41,6 +41,7 @@ const ResultsTable = (props) => {
         setTableHeight(tableHeightlocal);
         setWindowHeight(window.innerHeight);
     };
+
     const prepareDTUIColumns = () => {
         const columnOrder = props.columns.visibleOrder;
         const orderedColumns = columnOrder.map((columnTitle) => {
@@ -167,7 +168,7 @@ const ResultsTable = (props) => {
             setActivateRightFade(true);
         }
     }, [props.isMobile]);
-    const cols = prepareDTUIColumns();
+    const cols = useRef(prepareDTUIColumns());
     const limitedRows = prepareDTUIRows();
     // for table height take the height of the viewport
     // subtract the sticky header part on the top of the page
@@ -183,7 +184,7 @@ const ResultsTable = (props) => {
                 <Table
                     classNames="table-for-new-search-page award-results-table-dtui"
                     stickyFirstColumn={!props.isMobile}
-                    columns={cols}
+                    columns={cols.current}
                     rows={limitedRows}
                     rowHeight={props.isMobile ? null : 58}
                     headerRowHeight={45}
