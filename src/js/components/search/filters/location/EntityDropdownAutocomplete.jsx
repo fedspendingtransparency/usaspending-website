@@ -3,11 +3,12 @@
  * Created by Lizzie Salita 5/6/19
  */
 
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+import useEventListener from "../../../../hooks/useEventListener";
 
 const propTypes = {
     searchString: PropTypes.string,
@@ -39,26 +40,43 @@ const EntityDropdownAutocomplete = ({
     onClear,
     isClearable,
     searchIcon = false
-}) => (
-    <div className="autocomplete__input">
-        {searchIcon && <div className="search-icon"><FontAwesomeIcon icon="search" /></div>}
-        <input
-            className="geo-entity-dropdown__input"
-            disabled={!enabled}
-            type="text"
-            value={searchString}
-            onClick={openDropdown}
-            onKeyDown={handleOnKeyDown}
-            onKeyUp={handleOnKeyUp}
-            onChange={handleTextInputChange}
-            placeholder={placeholder} />
-        <div className="icon">
-            {loading && <FontAwesomeIcon onClick={toggleDropdown} icon="spinner" spin />}
-            {!loading && showDisclaimer && <ExclamationTriangle alt="warning" />}
-            {isClearable && searchString && <FontAwesomeIcon tabIndex="0" onClick={onClear} icon="times" />}
+}) => {
+    const xRef = useRef(null);
+
+    const onKeydownClear = (e) => {
+        e.stopPropagation();
+        if (e.type === 'change' || e?.key === 'Enter') {
+            onClear();
+        }
+    };
+
+    useEventListener('keydown', onKeydownClear, xRef);
+
+    return (
+        <div className="autocomplete__input">
+            {searchIcon && <div className="search-icon"><FontAwesomeIcon icon="search" /></div>}
+            <input
+                className="geo-entity-dropdown__input"
+                disabled={!enabled}
+                type="text"
+                value={searchString}
+                onClick={openDropdown}
+                onKeyDown={handleOnKeyDown}
+                onKeyUp={handleOnKeyUp}
+                onChange={handleTextInputChange}
+                placeholder={placeholder} />
+            <div className="icon">
+                {loading && <FontAwesomeIcon onClick={toggleDropdown} icon="spinner" spin />}
+                {!loading && showDisclaimer && <ExclamationTriangle alt="warning" />}
+                {
+                    isClearable &&
+                    searchString &&
+                    <FontAwesomeIcon tabIndex="0" onClick={onClear} icon="times" ref={xRef} />
+                }
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
 EntityDropdownAutocomplete.propTypes = propTypes;
 
