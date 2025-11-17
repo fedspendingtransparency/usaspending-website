@@ -5,8 +5,6 @@
 
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
 import RecipientTimeVisualizationSection
@@ -16,7 +14,6 @@ import * as FiscalYearHelper from "../../helpers/fiscalYearHelper";
 import * as SearchHelper from "../../helpers/searchHelper";
 import * as RecipientHelper from "../../helpers/recipientHelper";
 import * as MonthHelper from "../../helpers/monthHelper";
-import * as recipientActions from '../../redux/actions/recipient/recipientActions';
 
 const dayjs = require('dayjs');
 
@@ -206,7 +203,4 @@ const RecipientTimeVisualizationSectionContainer = ({ recipient }) => {
 };
 
 RecipientTimeVisualizationSectionContainer.propTypes = propTypes;
-
-export default connect(() => ({}),
-    (dispatch) => bindActionCreators(recipientActions, dispatch)
-)(RecipientTimeVisualizationSectionContainer);
+export default RecipientTimeVisualizationSectionContainer;
