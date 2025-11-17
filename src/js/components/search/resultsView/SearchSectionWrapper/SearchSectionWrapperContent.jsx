@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import MobileSort from "../../mobile/MobileSort";
 import SectionDataTable from "../SectionDataTable";
-import useIsWindowBreakpoint from "../../../../hooks/useIsWindowBreakpoint";
+import useIsMobile from "../../../../hooks/useIsMobile";
 
 const propTypes = {
     openAccordion: PropTypes.bool,
@@ -59,7 +59,7 @@ const SearchSectionWrapperContent = ({
     downloadComponent,
     children
 }) => {
-    const isMobile = useIsWindowBreakpoint();
+    const isMobile = useIsMobile();
 
     const Message = () => {
         if (isLoading) {

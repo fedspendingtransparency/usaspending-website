@@ -5,7 +5,7 @@ import { scaleLinear, scaleBand } from 'd3-scale';
 import { throttle } from 'lodash-es';
 import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FlexGridRow, TooltipWrapper } from 'data-transparency-ui';
-import useIsWindowBreakpoint from "../../../hooks/useIsWindowBreakpoint";
+import useIsMobile from "../../../hooks/useIsMobile";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -20,8 +20,8 @@ const StatusOfFundsChart = ({
     results, fy, setDrilldownLevel, level, toggle, maxLevel
 }) => {
     const chartRef = useRef();
-    const isMobile = useIsWindowBreakpoint(600);
-    const isLargeScreen = useIsWindowBreakpoint(largeScreen);
+    const isMobile = useIsMobile(600);
+    const isLargeScreen = useIsMobile(largeScreen);
     const isMediumScreen = !isMobile && !isLargeScreen;
 
     const [negativeTbr, setNegativeTbr] = useState(false);

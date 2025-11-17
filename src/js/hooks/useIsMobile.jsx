@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react';
 import { tabletScreen } from "../dataMapping/shared/mobileBreakpoints";
 
 /**
- * useIsWindowBreakpoint
+ * useIsMobile
  * - a custom hook for checking whether your window is below a specific window size or not
  * @param {number} [breakPoint=768] - screen size to check as a pixel width
  * @returns {boolean} `true` if window width is less than breakPoint, `false` if greater than
  */
-const useIsWindowBreakpoint = (
+const useIsMobile = (
     breakPoint = tabletScreen
 ) => {
-    const [isBreakpoint, setIsBreakpoint] = useState(undefined);
+    const [isMobile, setIsMobile] = useState(undefined);
 
     useEffect(() => {
         let isMounted = true;
@@ -20,12 +20,12 @@ const useIsWindowBreakpoint = (
         );
 
         const onChange = () => {
-            if (isMounted) setIsBreakpoint(window.innerWidth < breakPoint);
+            if (isMounted) setIsMobile(window.innerWidth < breakPoint);
         };
 
         matchMedia.addEventListener('change', onChange);
 
-        setIsBreakpoint(window.innerWidth < breakPoint);
+        setIsMobile(window.innerWidth < breakPoint);
 
         return () => {
             isMounted = false;
@@ -33,7 +33,7 @@ const useIsWindowBreakpoint = (
         };
     }, [breakPoint]);
 
-    return isBreakpoint;
+    return isMobile;
 };
 
-export default useIsWindowBreakpoint;
+export default useIsMobile;
