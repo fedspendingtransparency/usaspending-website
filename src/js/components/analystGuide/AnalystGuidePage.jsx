@@ -17,11 +17,11 @@ import PageWrapper from "../sharedComponents/PageWrapper";
 import { analystGuideMetaTags } from "../../helpers/metaTagHelper";
 import AnalystGuideQuestions from "./AnalystGuideQuestions";
 import AnalystGuideIntro from "./AnalystGuideIntro";
-import useIsScreenSize from "../../hooks/useIsScreenSize";
+import useIsWindowBreakpoint from "../../hooks/useIsWindowBreakpoint";
 
 
 const AnalystGuidePage = () => {
-    const isMediumScreen = useIsScreenSize(mediumScreen);
+    const isMediumScreen = useIsWindowBreakpoint(mediumScreen);
     const dispatch = useDispatch();
     const onExternalLinkClick = (e) => {
         dispatch(showModal(e));

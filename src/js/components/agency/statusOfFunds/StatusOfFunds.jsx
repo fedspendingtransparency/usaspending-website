@@ -35,7 +35,7 @@ import Note from 'components/sharedComponents/Note';
 import DrilldownSidebar from './DrilldownSidebar';
 import VisualizationSection from './VisualizationSection';
 import IntroSection from './IntroSection';
-import useIsScreenSize from "../../../hooks/useIsScreenSize";
+import useIsWindowBreakpoint from "../../../hooks/useIsWindowBreakpoint";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -43,7 +43,7 @@ const propTypes = {
 };
 
 const StatusOfFunds = ({ fy, onChartLoaded }) => {
-    const isTablet = useIsScreenSize();
+    const isTablet = useIsWindowBreakpoint();
     const dispatch = useDispatch();
     const request = useRef(null);
     const { overview } = useSelector((state) => state.agency);

@@ -9,7 +9,7 @@ import { Tabs, NoResultsMessage } from 'data-transparency-ui';
 
 import ResultsTable from '../../table/ResultsTable';
 import GroupedAwardTable from '../../table/groupedTable/GroupedAwardTable';
-import useIsScreenSize from "../../../../hooks/useIsScreenSize";
+import useIsWindowBreakpoint from "../../../../hooks/useIsWindowBreakpoint";
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -32,7 +32,7 @@ const propTypes = {
 };
 
 const ResultsTableSection = (props) => {
-    const isTablet = useIsScreenSize();
+    const isTablet = useIsWindowBreakpoint();
     const [tableWidth, setTableWidth] = useState(document.querySelector('.results-table-content'));
 
     const setTableWidthFn = useCallback(() => {

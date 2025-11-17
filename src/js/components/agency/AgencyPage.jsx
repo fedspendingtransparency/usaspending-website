@@ -28,7 +28,7 @@ import PageWrapper from '../sharedComponents/PageWrapper';
 import PageTitle from './overview/PageTitle';
 import NumericPickerWrapper from '../sharedComponents/dropdowns/NumericPickerWrapper';
 import { showModal } from '../../redux/actions/modal/modalActions';
-import useIsScreenSize from "../../hooks/useIsScreenSize";
+import useIsWindowBreakpoint from "../../hooks/useIsWindowBreakpoint";
 
 require('pages/agency/index.scss');
 
@@ -51,7 +51,7 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const isMediumScreen = useIsScreenSize(mediumScreen);
+    const isMediumScreen = useIsWindowBreakpoint(mediumScreen);
     const history = useNavigate();
     const query = useQueryParams();
     const dispatch = useDispatch();
