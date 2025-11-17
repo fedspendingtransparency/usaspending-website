@@ -32,7 +32,7 @@ const propTypes = {
 };
 
 const ResultsTableSection = (props) => {
-    const isTablet = useIsWindowBreakpoint();
+    const isMobile = useIsWindowBreakpoint();
     const [tableWidth, setTableWidth] = useState(document.querySelector('.results-table-content'));
 
     const setTableWidthFn = useCallback(() => {
@@ -50,10 +50,10 @@ const ResultsTableSection = (props) => {
 
     useEffect(() => {
         // mobile check
-        if (isTablet && props.checkMobile && props.showToggle) {
-            props.checkMobile(isTablet);
+        if (isMobile && props.checkMobile && props.showToggle) {
+            props.checkMobile(isMobile);
         }
-    }, [isTablet, props]);
+    }, [isMobile, props]);
 
     const renderContent = () => {
         if (!props.results.length) {
@@ -66,7 +66,7 @@ const ResultsTableSection = (props) => {
                     {...props}
                     expandableData={props.expandableData}
                     columnType={props.columnType}
-                    isMobile={isTablet}
+                    isMobile={isMobile}
                     visibleWidth={tableWidth}
                     newMobileView />
             );
@@ -78,7 +78,7 @@ const ResultsTableSection = (props) => {
                 visibleWidth={tableWidth}
                 awardIdClick={props.awardIdClick}
                 subAwardIdClick={props.subAwardIdClick}
-                isMobile={isTablet}
+                isMobile={isMobile}
                 newMobileView />
         );
     };

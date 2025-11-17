@@ -21,13 +21,13 @@ import useIsWindowBreakpoint from "../../hooks/useIsWindowBreakpoint";
 
 
 const AnalystGuidePage = () => {
-    const isMediumScreen = useIsWindowBreakpoint(mediumScreen);
+    const isMobile = useIsWindowBreakpoint(mediumScreen);
     const dispatch = useDispatch();
     const onExternalLinkClick = (e) => {
         dispatch(showModal(e));
     };
 
-    const dropdownDirection = isMediumScreen ? 'right' : 'left';
+    const dropdownDirection = isMobile ? 'right' : 'left';
     const slug = 'federal-spending-guide';
 
     const onShareClick = (name) => {

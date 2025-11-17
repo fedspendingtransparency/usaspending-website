@@ -43,7 +43,7 @@ const propTypes = {
 };
 
 const StatusOfFunds = ({ fy, onChartLoaded }) => {
-    const isTablet = useIsWindowBreakpoint();
+    const isMobile = useIsWindowBreakpoint();
     const dispatch = useDispatch();
     const request = useRef(null);
     const { overview } = useSelector((state) => state.agency);
@@ -57,7 +57,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
     const [totalItems, setTotalItems] = useState(0);
     const [results, setResults] = useState([]);
     const [toggle, setOnToggle] = useState(false);
-    const [viewType, setViewType] = useState(isTablet ? 'table' : 'chart');
+    const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
     const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
     // these are used for goBack fn and when changing pages in results
@@ -96,10 +96,10 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
     }, [currentPage]);
 
     useEffect(() => {
-        if (isTablet) {
+        if (isMobile) {
             setViewType('table');
         }
-    }, [isTablet]);
+    }, [isMobile]);
 
     const fetchAgencySubcomponents = useCallback(() => {
         if (request.current) {
@@ -414,7 +414,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                         fy={fy} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
-                    {level > 0 && !isTablet ?
+                    {level > 0 && !isMobile ?
                         <button
                             title="Go up a level"
                             className="drilldown-back-button"
@@ -434,7 +434,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                                 setDrilldownLevel={setDrilldownLevel}
                                 fy={fy}
                                 results={results}
-                                isMobile={isTablet}
+                                isMobile={isMobile}
                                 viewType={viewType}
                                 setViewType={setViewType}
                                 maxLevel={maxLevel}

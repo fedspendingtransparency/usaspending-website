@@ -20,7 +20,7 @@ const propTypes = {
 };
 
 const AgencyOverview = ({ fy, dataThroughDate }) => {
-    const isMediumScreen = useIsWindowBreakpoint(mediumScreen);
+    const isMobile = useIsWindowBreakpoint(mediumScreen);
     const {
         website,
         mission,
@@ -81,7 +81,7 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
         </div>
     );
 
-    const content = isMediumScreen ?
+    const content = isMobile ?
         <>
             {showAboutData ? aboutBlock : missionBlock}
             <ReadMore>
@@ -110,7 +110,7 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
             <FySummary
                 fy={fy}
                 dataThroughDate={dataThroughDate}
-                isMobile={isMediumScreen} />
+                isMobile={isMobile} />
         </div>
     );
 };

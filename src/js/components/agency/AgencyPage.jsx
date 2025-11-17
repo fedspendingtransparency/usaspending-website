@@ -51,7 +51,7 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const isMediumScreen = useIsWindowBreakpoint(mediumScreen);
+    const isMobile = useIsWindowBreakpoint(mediumScreen);
     const history = useNavigate();
     const query = useQueryParams();
     const dispatch = useDispatch();
@@ -130,7 +130,7 @@ export const AgencyProfileV2 = ({
 
         // add offsets
         let conditionalOffset;
-        if (isMediumScreen) {
+        if (isMobile) {
             conditionalOffset =
                 window.scrollY < getStickyBreakPointForSidebar() ?
                     stickyHeaderHeight + 140 :
