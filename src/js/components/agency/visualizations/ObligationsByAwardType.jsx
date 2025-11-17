@@ -51,7 +51,6 @@ export default function ObligationsByAwardType({
     const [labelTooltip, setLabelTooltip] = useState(false);
     const chartRef = useRef();
     const windowWidth = useWindowWidth();
-    console.log({ windowWidth });
 
     const renderChart = () => {
         const labelRadius = Math.min(chartHeight, chartWidth) / 2;

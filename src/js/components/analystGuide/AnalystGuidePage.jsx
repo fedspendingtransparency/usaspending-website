@@ -27,7 +27,6 @@ const AnalystGuidePage = () => {
         dispatch(showModal(e));
     };
 
-    console.log({ isMediumScreen });
     const dropdownDirection = isMediumScreen ? 'right' : 'left';
     const slug = 'federal-spending-guide';
 
