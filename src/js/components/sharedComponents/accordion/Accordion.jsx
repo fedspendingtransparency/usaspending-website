@@ -3,11 +3,28 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../_scss/elements/_accordion.scss';
 
+/* props notes
+title: shows in the top box, collapsed or open
+color: theme color for border, collapsed background, and highlighted text within
+backgroundColor: background of collapsed box
+*/
+const propTypes = {
+    title: PropTypes.any.isRequired,
+    children: PropTypes.element || PropTypes.string,
+    iconClassName: PropTypes.string,
+    contentClassName: PropTypes.string,
+    closedIcon: PropTypes.string,
+    openIcon: PropTypes.string,
+    setOpen: PropTypes.func,
+    openObject: PropTypes.bool,
+    selectedChipCount: PropTypes.number
+};
+
 const Accordion = ({
     title,
     children,
-    closedIcon,
-    openIcon,
+    closedIcon = "plus",
+    openIcon = "minus",
     iconClassName,
     setOpen,
     contentClassName = '',
@@ -15,6 +32,9 @@ const Accordion = ({
     selectedChipCount = 0
 }) => {
     const [closed, setClosed] = useState(!openObject);
+
+    const sectionClassName = !closed ? `open accordion--open accordion` : `accordion`;
+    const buttonAriaLabel = closed ? 'Open toggle' : 'Close toggle';
 
     const toggleOpen = (e) => {
         e.stopPropagation();
@@ -30,32 +50,37 @@ const Accordion = ({
     const keyClickToggle = (e) => {
         if (e.key === 'Enter') {
             e.stopPropagation();
-            setClosed((prevClosed) => !prevClosed);
         }
     };
 
+    const selectedChip = (count) => ((count > 0) ?
+        (
+            <div className="selected-chip-count">
+                {` ${count} selected`}
+            </div>
+        ) :
+        (<></>));
+
     return (
         <div className="accordion-container">
-            <section data-testid="accordion" className={!closed ? `open accordion--open accordion` : `accordion`}>
+            <section
+                data-testid="accordion"
+                className={sectionClassName}>
                 {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/no-static-element-interactions */}
                 <div onClick={toggleOpen} onKeyDown={keyClickToggle} className="heading">
                     {title}
                     <div className="heading--chip-container">
-                        {(selectedChipCount > 0) && (
-                            <div className="selected-chip-count">
-                                {` ${selectedChipCount} selected`}
-                            </div>
-                        )}
+                        {selectedChip(selectedChipCount)}
                         <button
                             onClick={toggleOpen}
                             onKeyDown={keyClickToggle}
                             className="toggle"
-                            aria-label={closed ? 'Open toggle' : 'Close toggle'}>
+                            aria-label={buttonAriaLabel}>
                             <FontAwesomeIcon
-                                icon={closedIcon || "plus"}
+                                icon={closedIcon}
                                 className={iconClassName || "plus"} />
                             <FontAwesomeIcon
-                                icon={openIcon || "minus"}
+                                icon={openIcon}
                                 className={iconClassName || "minus"} />
                         </button>
                     </div>
@@ -66,21 +91,5 @@ const Accordion = ({
     );
 };
 
+Accordion.propTypes = propTypes;
 export default Accordion;
-
-/* props notes
-title: shows in the top box, collapsed or open
-color: theme color for border, collapsed background, and highlighted text within
-backgroundColor: background of collapsed box
-*/
-Accordion.propTypes = {
-    title: PropTypes.any.isRequired,
-    children: PropTypes.element || PropTypes.string,
-    iconClassName: PropTypes.string,
-    contentClassName: PropTypes.string,
-    closedIcon: PropTypes.string,
-    openIcon: PropTypes.string,
-    setOpen: PropTypes.func,
-    openObject: PropTypes.bool,
-    selectedChipCount: PropTypes.number
-};
