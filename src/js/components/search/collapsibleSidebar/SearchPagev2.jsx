@@ -63,6 +63,11 @@ const SearchPage = ({
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const dispatch = useDispatch();
 
+    let showCountBadge = '';
+    if (filterCount === 0) {
+        showCountBadge = 'hide';
+    }
+
     const infoSectionContent = <>
         <div className="explainer-text__first-column">
             <FontAwesomeIcon icon="info-circle" className="explainer-text__info-icon" />
@@ -120,9 +125,9 @@ const SearchPage = ({
 
     const pluralizeFilterLabel = (count) => {
         if (count === 1) {
-            return 'filter';
+            return 'Filter';
         }
-        return 'filters';
+        return 'Filters';
     };
 
     useEffect(() => {
@@ -205,6 +210,9 @@ const SearchPage = ({
                                 }
                             }}>
                             <div className="mobile-filter-button-content">
+                                <div className={`mobile-filter-button-count ${showCountBadge}`}>
+                                    {filterCount}
+                                </div>
                                 <div className="mobile-filter-button-icon">
                                     <img
                                         className="usa-da-mobile-filter-icon"
@@ -213,7 +221,7 @@ const SearchPage = ({
                                         src="img/Add-search-filters-icon.svg" />
                                 </div>
                                 <div className="mobile-filter-button-label">
-                                    {`Add search ${pluralizeFilterLabel(filterCount)}`}
+                                    {pluralizeFilterLabel(filterCount)}
                                 </div>
                             </div>
                         </button>
