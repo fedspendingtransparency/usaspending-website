@@ -3,21 +3,20 @@
  * Created by Lizzie Salita 7/6/18
  */
 
-import React from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import * as recipientActions from 'redux/actions/recipient/recipientActions';
-
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-import * as MonthHelper from 'helpers/monthHelper';
-import * as SearchHelper from 'helpers/searchHelper';
-import * as RecipientHelper from 'helpers/recipientHelper';
-import Analytics from 'helpers/analytics/Analytics';
 import RecipientTimeVisualizationSection
     from "../../components/recipient/spendingOverTime/RecipientTimeVisualizationSection";
+import Analytics from "../../helpers/analytics/Analytics";
+import * as FiscalYearHelper from "../../helpers/fiscalYearHelper";
+import * as SearchHelper from "../../helpers/searchHelper";
+import * as RecipientHelper from "../../helpers/recipientHelper";
+import * as MonthHelper from "../../helpers/monthHelper";
+import * as recipientActions from '../../redux/actions/recipient/recipientActions';
 
 const dayjs = require('dayjs');
 
@@ -33,233 +32,181 @@ const logPeriodEvent = (period) => {
     });
 };
 
-export class RecipientTimeVisualizationSectionContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const RecipientTimeVisualizationSectionContainer = ({ recipient }) => {
+    const [visualizationPeriod, setVisualizationPeriod] = useState('fiscal_year');
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [groups, setGroups] = useState([]);
+    const [xSeries, setXSeries] = useState([]);
+    const [ySeries, setYSeries] = useState([]);
+    const [zSeries, setZSeries] = useState([]);
+    const [rawLabels, setRawLabels] = useState([]);
+    const request = useRef(null);
+    const trendLineRequest = useRef(null);
 
-        this.state = {
-            visualizationPeriod: 'fiscal_year',
-            loading: true,
-            error: false,
-            groups: [],
-            xSeries: [],
-            ySeries: [],
-            zSeries: []
-        };
-
-        this.request = null;
-        this.trendlineRequest = null;
-        this.updateVisualizationPeriod = this.updateVisualizationPeriod.bind(this);
-    }
-
-    componentDidMount() {
-        this.fetchData();
-        this.fetchTrendlineData();
-        logPeriodEvent(this.state.visualizationPeriod);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.recipient.id !== this.props.recipient.id) {
-            this.fetchData();
-            this.fetchTrendlineData();
-        }
-    }
-
-    updateVisualizationPeriod(visualizationPeriod) {
-        this.setState({
-            visualizationPeriod
-        }, () => {
-            this.fetchData();
-            this.fetchTrendlineData();
-            logPeriodEvent(visualizationPeriod);
-        });
-    }
-
-    fetchData() {
-        this.setState({
-            loading: true,
-            error: false
-        });
-
-        // Cancel API request if it exists
-        if (this.request) {
-            this.request.cancel();
-        }
-
+    const timePeriod = useMemo(() => {
         const earliestYear = FiscalYearHelper.earliestFiscalYear;
         const thisYear = FiscalYearHelper.currentFiscalYear();
         const startDate = FiscalYearHelper.convertFYToDateRange(earliestYear)[0];
         let endDate = FiscalYearHelper.convertFYToDateRange(thisYear)[1];
 
-        if (this.state.visualizationPeriod !== 'fiscal_year') {
+        if (visualizationPeriod !== 'fiscal_year') {
             // use the end of this month
             const endOfMonth = dayjs().endOf('month');
             endDate = endOfMonth.format('YYYY-MM-DD');
         }
 
-        const timePeriod = [
-            {
-                start_date: startDate,
-                end_date: endDate
-            }
-        ];
+        return [{ start_date: startDate, end_date: endDate }];
+    }, [visualizationPeriod]);
+
+    const generateTime = (group, period, type) => {
+        const month = MonthHelper.convertNumToShortMonth(period.month);
+        const year = MonthHelper.convertMonthToFY(period.month, period.fiscal_year);
+
+        if (group === 'fiscal_year') {
+            return type === 'label' ?
+                `FY ${period.fiscal_year}` :
+                { period: null, year: `FY ${period.fiscal_year}` };
+        }
+        else if (group === 'quarter') {
+            return type === 'label' ?
+                `Q${period.quarter} FY ${period.fiscal_year}` :
+                { period: `Q${period.quarter}`, year: `FY ${period.fiscal_year}` };
+        }
+        return type === 'label' ? `${month} ${year}` : { period: `${month}`, year: `${year}` };
+    };
+
+    const parseData = useCallback((data) => {
+        const newGroups = [];
+        const newXSeries = [];
+        const newYSeries = [];
+        const newRawLabels = [];
+
+        // iterate through each response object and
+        // break it up into visualizationPeriods, x series, and y series
+        data.results.forEach((item) => {
+            newGroups.push(generateTime(visualizationPeriod, item.time_period, 'label'));
+            newXSeries.push([generateTime(visualizationPeriod, item.time_period, 'label')]);
+            newYSeries.push([parseFloat(item.aggregated_amount)]);
+            newRawLabels.push(generateTime(visualizationPeriod, item.time_period, 'raw'));
+        });
+
+        setGroups(newGroups);
+        setXSeries(newXSeries);
+        setYSeries(newYSeries);
+        setRawLabels(newRawLabels);
+        setLoading(false);
+        setError(false);
+    }, [visualizationPeriod]);
+
+    const fetchData = useCallback(() => {
+        setLoading(true);
+        setError(false);
+
+        // Cancel API request if it exists
+        if (request.current) {
+            request.current.cancel();
+        }
 
         const searchParams = {
-            recipient_id: this.props.recipient.id
+            recipient_id: recipient.id
         };
 
         searchParams.time_period = timePeriod;
 
-
         // Generate the API parameters
         const apiParams = {
-            group: this.state.visualizationPeriod,
+            group: visualizationPeriod,
             filters: searchParams
         };
 
         apiParams.auditTrail = 'Recipient Spending Over Time Visualization';
 
-        this.request = SearchHelper.performSpendingOverTimeSearch(apiParams);
+        request.current = SearchHelper.performSpendingOverTimeSearch(apiParams);
 
-        this.request.promise
+        request.current.promise
             .then((res) => {
-                this.parseData(res.data, this.state.visualizationPeriod);
-                this.request = null;
+                parseData(res.data);
+                request.current = null;
             })
             .catch((err) => {
                 if (isCancel(err)) {
                     return;
                 }
 
-                this.request = null;
+                request.current = null;
                 console.log(err);
-                this.setState({
-                    loading: false,
-                    error: true
-                });
+                setLoading(false);
+                setError(true);
             });
-    }
+    }, [parseData, recipient.id, timePeriod, visualizationPeriod]);
 
-    fetchTrendlineData() {
-    // Cancel API request if it exists
-        if (this.trendlineRequest) {
-            this.trendlineRequest.cancel();
+    const parseTrendLineData = (results) => {
+        const newZSeries = [];
+
+        // iterate through each response object and store the new awards value
+        results.forEach((item) => {
+            newZSeries.push(parseFloat(item.new_award_count_in_period));
+        });
+
+        setZSeries(newZSeries);
+    };
+
+    const fetchTrendLineData = useCallback(() => {
+        // Cancel API request if it exists
+        if (trendLineRequest.current) {
+            trendLineRequest.current.cancel();
         }
-
-        const earliestYear = FiscalYearHelper.earliestFiscalYear;
-        const thisYear = FiscalYearHelper.currentFiscalYear();
-        const startDate = FiscalYearHelper.convertFYToDateRange(earliestYear)[0];
-        let endDate = FiscalYearHelper.convertFYToDateRange(thisYear)[1];
-
-        if (this.state.visualizationPeriod !== 'fiscal_year') {
-            // use the end of this month
-            const endOfMonth = dayjs().endOf('month');
-            endDate = endOfMonth.format('YYYY-MM-DD');
-        }
-
-        const timePeriod = [
-            {
-                start_date: startDate,
-                end_date: endDate
-            }
-        ];
 
         const searchParams = {
-            recipient_id: this.props.recipient.id
+            recipient_id: recipient.id
         };
 
         searchParams.time_period = timePeriod;
 
         // Generate the API parameters
         const apiParams = {
-            group: this.state.visualizationPeriod,
+            group: visualizationPeriod,
             filters: searchParams
         };
 
-        this.trendlineRequest = RecipientHelper.fetchNewAwardCounts(apiParams);
+        trendLineRequest.current = RecipientHelper.fetchNewAwardCounts(apiParams);
 
-        this.trendlineRequest.promise
+        trendLineRequest.current.promise
             .then((res) => {
-                this.parseTrendlineData(res.data, this.state.visualizationPeriod);
-                this.trendlineRequest = null;
+                parseTrendLineData(res.data.results);
+                trendLineRequest.current = null;
             })
             .catch((err) => {
                 if (isCancel(err)) {
                     return;
                 }
 
-                this.trendlineRequest = null;
+                trendLineRequest.current = null;
                 console.log(err);
             });
-    }
+    }, [recipient.id, timePeriod, visualizationPeriod]);
 
-    generateTime(group, timePeriod, type) {
-        const month = MonthHelper.convertNumToShortMonth(timePeriod.month);
-        const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
+    useEffect(() => {
+        fetchData();
+        fetchTrendLineData();
+        logPeriodEvent(visualizationPeriod);
+    }, [visualizationPeriod, recipient.id, fetchTrendLineData, fetchData]);
 
-        if (group === 'fiscal_year') {
-            return type === 'label' ? `FY ${timePeriod.fiscal_year}` : { period: null, year: `FY ${timePeriod.fiscal_year}` };
-        }
-        else if (group === 'quarter') {
-            return type === 'label' ? `Q${timePeriod.quarter} FY ${timePeriod.fiscal_year}` : { period: `Q${timePeriod.quarter}`, year: `FY ${timePeriod.fiscal_year}` };
-        }
-        return type === 'label' ? `${month} ${year}` : { period: `${month}`, year: `${year}` };
-    }
-
-    parseData(data, group) {
-        const groups = [];
-        const xSeries = [];
-        const ySeries = [];
-        const rawLabels = [];
-
-        // iterate through each response object and break it up into groups, x series, and y series
-        data.results.forEach((item) => {
-            groups.push(this.generateTime(group, item.time_period, 'label'));
-            rawLabels.push(this.generateTime(group, item.time_period, 'raw'));
-            xSeries.push([this.generateTime(group, item.time_period, 'label')]);
-            ySeries.push([parseFloat(item.aggregated_amount)]);
-        });
-
-        this.setState({
-            groups,
-            xSeries,
-            ySeries,
-            rawLabels,
-            loading: false,
-            error: false
-        });
-    }
-
-    parseTrendlineData(data) {
-        const zSeries = [];
-
-        // iterate through each response object and store the new awards value
-        data.results.forEach((item) => {
-            zSeries.push(parseFloat(item.new_award_count_in_period));
-        });
-
-        this.setState({
-            zSeries
-        });
-    }
-
-    render() {
-        return (
-            <RecipientTimeVisualizationSection
-                data={this.state}
-                loading={this.state.loading}
-                error={this.state.error}
-                visualizationPeriod={this.state.visualizationPeriod}
-                updateVisualizationPeriod={this.updateVisualizationPeriod} />
-        );
-    }
-}
+    return (
+        <RecipientTimeVisualizationSection
+            data={{
+                xSeries, ySeries, zSeries, groups, rawLabels
+            }}
+            loading={loading}
+            error={error}
+            visualizationPeriod={visualizationPeriod}
+            updateVisualizationPeriod={setVisualizationPeriod} />
+    );
+};
 
 RecipientTimeVisualizationSectionContainer.propTypes = propTypes;
 
-export default connect(
-    (state) => ({
-        recipient: state.recipient
-    }),
+export default connect(() => ({}),
     (dispatch) => bindActionCreators(recipientActions, dispatch)
 )(RecipientTimeVisualizationSectionContainer);
