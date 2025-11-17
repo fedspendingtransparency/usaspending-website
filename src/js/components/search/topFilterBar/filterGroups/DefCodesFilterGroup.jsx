@@ -7,13 +7,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import BaseTopFilterGroup from './BaseTopFilterGroup';
+import { defCodes, defCodeGroups } from '../../../../dataMapping/search/defCodes';
 
 const propTypes = {
     filter: PropTypes.object,
     redux: PropTypes.object,
     compressed: PropTypes.bool
 };
-
+const groupLabels = {
+    covid_19: 'COVID-19 Spending',
+    infrastructure: 'Infrastructure Spending'
+};
 export default class DefCodesFilterGroup extends React.Component {
     constructor(props) {
         super(props);
@@ -36,12 +40,56 @@ export default class DefCodesFilterGroup extends React.Component {
     }
 
     generateTags() {
-    // check to see if a DEF code is provided
-        return this.props.filter.values.map((value) => ({
-            value: `${value.value}`,
-            title: `${value.def_description}`,
-            removeFilter: this.removeFilter
-        }));
+        const tags = [];
+
+        // check to see if any type groups are fully selected
+        const selectedValues = this.props.filter.values;
+        const fullGroups = [];
+        let excludedValues = [];
+
+        const covidGroup = defCodeGroups.covid;
+        const infrastructureGroup = defCodeGroups.infrastructure;
+
+        if (selectedValues?.length) {
+            if (covidGroup.every((value) => selectedValues.includes(value))) {
+                // covid group is full
+                fullGroups.push("covid_19");
+                // exclude these values from the remaining tags
+                excludedValues = [...excludedValues, ...covidGroup];
+            }
+
+            if (infrastructureGroup.every((value) => selectedValues.includes(value))) {
+                // covid group is full
+                fullGroups.push("infrastructure");
+                excludedValues = [...excludedValues, ...infrastructureGroup];
+            }
+        }
+
+        // add full groups to the beginning of the tag list
+        if (fullGroups.length) {
+            fullGroups.forEach((group) => {
+                const tag = {
+                    value: group,
+                    title: `All ${groupLabels[group]}`,
+                    removeFilter: this.removeGroup
+                };
+
+                tags.push(tag);
+            });
+        }
+
+        selectedValues.forEach((value) => {
+            if (!excludedValues.includes(value)) {
+                const tag = {
+                    value,
+                    title: defCodes[value].title,
+                    removeFilter: this.removeFilter
+                };
+                tags.push(tag);
+            }
+        });
+
+        return tags;
     }
 
     render() {

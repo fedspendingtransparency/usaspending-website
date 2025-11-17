@@ -21,7 +21,7 @@ const Homepage = () => {
     useEffect(() => {
         // ok to rewrite with each page reload
         // may need to check if timer already logged.
-        Cookies.set('homepage_to_query_time', new Date().getTime(), { expires: 365 });
+        Cookies.set('homepage_to_query_time', new Date().getTime(), { expires: 14 });
     }, []);
 
     return (

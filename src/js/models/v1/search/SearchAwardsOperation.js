@@ -50,8 +50,7 @@ class SearchAwardsOperation {
         this.pscCheckbox = checkboxTreeKeys;
         // the defCodes don't actually send the checkboxTrees object shape to the API. See comment below.
         this.defCodes = checkboxTreeKeys;
-        this.infraDefCode = [];
-        this.covidDefCode = [];
+        this.defCode = [];
 
         this.pricingType = [];
         this.setAside = [];
@@ -122,27 +121,12 @@ class SearchAwardsOperation {
             exclude: state.defCodes?.toObject().exclude
         };
 
-        if (state.infraDefCode || state.covidDefCode) {
-            const defCodes = [];
-            const infraDefCode = state.infraDefCode?.toArray();
-            const covidDefCode = state.covidDefCode?.toArray();
+        this.defCode = state.defCode?.toArray();
 
-            infraDefCode.forEach((type) => {
-                defCodes.push(type);
-            });
-
-            covidDefCode.forEach((type) => {
-                defCodes.push(type);
-            });
-
-            // TODO:  Temporarily added to support having both adv search pages live, need to refactor when legacy search is removed
-            if (defCodes.length > 0) {
-                this.defCodes.require = [...new Set(defCodes)];
-            }
+        // Quick fix for now, but refractoring needed later if we want to clean up
+        if (state.defCode) {
+            this.defCodes.require = [...new Set(this.defCode)];
         }
-
-        this.infraDefCode = state.infraDefCode?.toArray();
-        this.covidDefCode = state.covidDefCode?.toArray();
 
         this.pricingType = state.pricingType?.toArray();
         this.setAside = state.setAside?.toArray();

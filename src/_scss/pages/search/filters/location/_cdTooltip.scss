@@ -1,0 +1,64 @@
+&.geo-entity-item {
+  position: relative;
+}
+
+.geo-cd {
+  position: absolute;
+  left: 0;
+  width: 100%;
+}
+
+.cd-tooltip {
+  position: absolute;
+  top: rem(30);
+  width: 100%;
+  z-index: $z-modal - 1;
+
+  .cd-content {
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+    position: relative;
+
+    background-color: $color-white;
+    border: 1px solid $color-gray-light;
+    box-shadow: $box-shadow;
+
+    .message {
+      @include flex(1 1 auto);
+      text-align: left;
+      color: $color-base;
+      font-size: $small-font-size;
+
+      .tooltip__title {
+        background-color: $color-gray-lightest;
+        margin: 0;
+        padding: rem(20);
+        font-size: $base-font-size;
+        font-weight: $font-bold;
+        line-height: 1.5;
+      }
+
+      .tooltip__text {
+        padding: rem(20);
+      }
+
+      .field {
+        font-weight: $font-semibold;
+        text-transform: uppercase;
+      }
+    }
+
+    // inherit from the standard tooltip arrow style
+    $color-tooltip-border: $color-gray-light;
+    @import "components/visualizations/tooltip/_arrow";
+    .tooltip-pointer {
+      &.top {
+        left: calc(93% - 5px);
+        &:after {
+          background: $color-gray-lightest;
+        }
+      }
+    }
+  }
+}

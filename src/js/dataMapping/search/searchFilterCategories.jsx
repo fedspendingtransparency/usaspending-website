@@ -127,12 +127,8 @@ export const searchFilterCategoryTree = [
         )
     },
     {
-        title: 'COVID-19 Spending',
-        component: <DEFCheckboxTreeContainer defcType="covid_19" />
-    },
-    {
-        title: 'Infrastructure Spending',
-        component: <DEFCheckboxTreeContainer defcType="infrastructure" />
+        title: 'Disaster Emergency Fund Code (DEFC)',
+        component: <DEFCheckboxTreeContainer />
     },
     {
         title: 'Treasury Account Symbol (TAS)',

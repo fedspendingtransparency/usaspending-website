@@ -319,8 +319,7 @@ const SidebarWrapper = React.memo(({
                         sidebarContentHeight={sidebarContentHeight}
                         setShowMobileFilters={setShowMobileFilters}
                         isDsmOpened={isDsmOpened}
-                        setIsDsmOpened={setIsDsmOpened}
-                        isMobile={isMobile} />
+                        setIsDsmOpened={setIsDsmOpened} />
                 }
             </div>
         </div>

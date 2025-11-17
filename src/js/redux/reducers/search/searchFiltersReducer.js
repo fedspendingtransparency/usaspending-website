@@ -44,8 +44,7 @@ export const requiredTypes = {
     naicsCodes: CheckboxTreeSelections,
     pscCodes: CheckboxTreeSelections,
     defCodes: CheckboxTreeSelections,
-    covidDefCode: Set,
-    infraDefCode: Set,
+    defCode: Set,
     pricingType: Set,
     setAside: Set,
     extentCompeted: Set
@@ -74,8 +73,7 @@ export const initialState = {
     naicsCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     pscCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     defCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
-    covidDefCode: Set(),
-    infraDefCode: Set(),
+    defCode: Set(),
     pricingType: Set(),
     setAside: Set(),
     extentCompeted: Set(),
@@ -107,8 +105,7 @@ export const initialStateFY = {
     naicsCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     pscCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     defCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
-    covidDefCode: Set(),
-    infraDefCode: Set(),
+    defCode: Set(),
     pricingType: Set(),
     setAside: Set(),
     extentCompeted: Set(),
@@ -333,33 +330,18 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
 
         // Search 2.0 DEFC Filters
-        case 'TOGGLE_COVID_DEF_CODES': {
+        case 'TOGGLE_DEF_CODES': {
             // this redux state is stored in an ImmutableJS set, which returns new instances
             // whenever it is modified
             return Object.assign({}, state, {
-                covidDefCode: AwardFilterFunctions.immutableSetToggle(
-                    state.covidDefCode, action.covidDefCode)
+                defCode: AwardFilterFunctions.immutableSetToggle(
+                    state.defCode, action.defCode)
             });
         }
-        case 'BULK_UPDATE_COVID_DEF_CODES': {
+        case 'BULK_UPDATE_DEF_CODES': {
             return Object.assign({}, state, {
-                covidDefCode: AwardFilterFunctions.bulkAwardTypeChange(
-                    state.covidDefCode, action.covidDefCodes, action.direction)
-            });
-        }
-
-        case 'TOGGLE_INFRA_DEF_CODES': {
-            // this redux state is stored in an ImmutableJS set, which returns new instances
-            // whenever it is modified
-            return Object.assign({}, state, {
-                infraDefCode: AwardFilterFunctions.immutableSetToggle(
-                    state.infraDefCode, action.infraDefCode)
-            });
-        }
-        case 'BULK_UPDATE_INFRA_DEF_CODES': {
-            return Object.assign({}, state, {
-                infraDefCode: AwardFilterFunctions.bulkAwardTypeChange(
-                    state.infraDefCode, action.infraDefCodes, action.direction)
+                defCode: AwardFilterFunctions.bulkAwardTypeChange(
+                    state.defCode, action.defCodes, action.direction)
             });
         }
 
