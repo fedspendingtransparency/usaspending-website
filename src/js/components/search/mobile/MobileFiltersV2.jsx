@@ -6,6 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
+import { FlexGridCol } from "data-transparency-ui";
+
 import CollapsibleSidebar from "../collapsibleSidebar/SidebarWrapper";
 
 const propTypes = {
@@ -19,23 +21,25 @@ const propTypes = {
 const MobileFiltersV2 = ({
     filters, showMobileFilters, setShowMobileFilters, sidebarOpen, setSidebarOpen
 }) => (
-    <TransitionGroup id="mobile-filter-div">
-        {showMobileFilters && (
-            <CSSTransition
-                classNames="mobile-filter"
-                timeout={195}
-                exit>
-                <div className="mobile-filter-content">
-                    <CollapsibleSidebar
-                        filters={filters}
-                        setShowMobileFilters={setShowMobileFilters}
-                        showMobileFilters={showMobileFilters}
-                        sidebarOpen={sidebarOpen}
-                        setSidebarOpen={setSidebarOpen} />
-                </div>
-            </CSSTransition>
-        )}
-    </TransitionGroup>
+    <FlexGridCol className={`mobile-search-sidebar-v2 ${sidebarOpen ? 'sidebar-opened' : ''}`}>
+        <TransitionGroup id="mobile-filter-div">
+            {showMobileFilters && (
+                <CSSTransition
+                    classNames="mobile-filter"
+                    timeout={195}
+                    exit>
+                    <div className="mobile-filter-content">
+                        <CollapsibleSidebar
+                            filters={filters}
+                            setShowMobileFilters={setShowMobileFilters}
+                            showMobileFilters={showMobileFilters}
+                            sidebarOpen={sidebarOpen}
+                            setSidebarOpen={setSidebarOpen} />
+                    </div>
+                </CSSTransition>
+            )}
+        </TransitionGroup>
+    </FlexGridCol>
 );
 
 MobileFiltersV2.propTypes = propTypes;

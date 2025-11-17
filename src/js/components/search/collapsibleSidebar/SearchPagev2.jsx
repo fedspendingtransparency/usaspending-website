@@ -8,22 +8,25 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
 import { throttle } from 'lodash-es';
-import { DownloadIconButton, ShareIcon, FlexGridCol } from 'data-transparency-ui';
+import { DownloadIconButton, ShareIcon } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
-import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
+import FullDownloadModalContainer from
+    'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import NoDownloadHover from '../header/NoDownloadHover';
 import KeywordSearchLink from "../KeywordSearchLink";
 import MobileFiltersV2 from "../mobile/MobileFiltersV2";
 import SubawardDropdown from "../SubawardDropdown";
-import { setSearchViewSubaward, setSpendingLevel } from "../../../redux/actions/search/searchViewActions";
+import { setSearchViewSubaward, setSpendingLevel } from
+    "../../../redux/actions/search/searchViewActions";
 import ResultsView from "../resultsView/ResultsView";
 import CollapsibleSidebar from "./SidebarWrapper";
 import { showModal } from '../../../redux/actions/modal/modalActions';
+import MobileFilterButton from "../MobileFilterButton";
 
 require('pages/search/searchPage.scss');
 
@@ -63,11 +66,7 @@ const SearchPage = ({
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const dispatch = useDispatch();
 
-    let showCountBadge = '';
-    if (filterCount === 0) {
-        showCountBadge = 'hide';
-    }
-
+    /* eslint-disable max-len */
     const infoSectionContent = <>
         <div className="explainer-text__first-column">
             <FontAwesomeIcon icon="info-circle" className="explainer-text__info-icon" />
@@ -77,6 +76,8 @@ const SearchPage = ({
             <p>For more information, read the "About" sections at the bottom of each filter or the "Data sources and methodology" sections at the bottom of each result module.</p>
         </div>
     </>;
+    /* eslint-enable max-len */
+
     const getSlugWithHash = () => {
         if (hash) {
             return `${slug}?hash=${hash}`;
@@ -90,7 +91,9 @@ const SearchPage = ({
     const handleShare = (name) => {
         handleShareOptionClick(name, getSlugWithHash(), {
             subject: emailSubject,
-            body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(getSlugWithHash())}`
+            body: `View search results for federal awards on USAspending.gov:  ${
+                getBaseUrl(getSlugWithHash())
+            }`
         }, handleShareDispatch);
     };
 
@@ -121,13 +124,6 @@ const SearchPage = ({
      */
     const hideDownloadModal = () => {
         setShowFullDownload(false);
-    };
-
-    const pluralizeFilterLabel = (count) => {
-        if (count === 1) {
-            return 'Filter';
-        }
-        return 'Filters';
     };
 
     useEffect(() => {
@@ -162,7 +158,9 @@ const SearchPage = ({
     return (
         <PageWrapper
             pageName="Advanced Search"
-            classNames={`usa-da-search-page v2 ${showMobileFilters && sidebarOpen ? 'fixed-body' : ''}`}
+            classNames={`usa-da-search-page v2 ${
+                showMobileFilters && sidebarOpen ? 'fixed-body' : ''
+            }`}
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
@@ -199,56 +197,32 @@ const SearchPage = ({
                             <KeywordSearchLink />
                             : ''}
                     </div>
-                    <div className={`mobile-filter-button-wrapper 
-                        ${showMobileFilters && sidebarOpen ? 'hidden' : ''}`} >
-                        <button
-                            className="mobile-filter-button-v2"
-                            onClick={toggleMobileFilters}
-                            onKeyUp={(e) => {
-                                if (e.key === "Escape" && showMobileFilters) {
-                                    toggleMobileFilters();
-                                }
-                            }}>
-                            <div className="mobile-filter-button-content">
-                                <div className={`mobile-filter-button-count ${showCountBadge}`}>
-                                    {filterCount}
-                                </div>
-                                <div className="mobile-filter-button-icon">
-                                    <img
-                                        className="usa-da-mobile-filter-icon"
-                                        alt="Toggle filters"
-                                        aria-label="Toggle filters"
-                                        src="img/Add-search-filters-icon.svg" />
-                                </div>
-                                <div className="mobile-filter-button-label">
-                                    {pluralizeFilterLabel(filterCount)}
-                                </div>
-                            </div>
-                        </button>
-                    </div>
-                    <FlexGridCol className={`mobile-search-sidebar-v2 ${sidebarOpen ? 'sidebar-opened' : ''}`}>
-                        <MobileFiltersV2
-                            filters={filters}
-                            showMobileFilters={showMobileFilters}
-                            setShowMobileFilters={setShowMobileFilters}
-                            sidebarOpen={sidebarOpen}
-                            setSidebarOpen={setSidebarOpen} />
-                    </FlexGridCol>
+                    <MobileFilterButton
+                        filterCount={filterCount}
+                        showMobileFilters={showMobileFilters}
+                        sidebarOpen={sidebarOpen}
+                        toggleMobileFilters={toggleMobileFilters} />
+                    <MobileFiltersV2
+                        filters={filters}
+                        showMobileFilters={showMobileFilters}
+                        setShowMobileFilters={setShowMobileFilters}
+                        sidebarOpen={sidebarOpen}
+                        setSidebarOpen={setSidebarOpen} />
                     <Helmet>
-                        <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
+                        <link
+                            href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css"
+                            rel="stylesheet" />
                     </Helmet>
-                    <div className="search-results-view-container">
-                        <ResultsView
-                            filters={filters}
-                            isMobile={isMobile}
-                            filterCount={filterCount}
-                            showMobileFilters={showMobileFilters}
-                            updateFilterCount={updateFilterCount}
-                            requestsComplete={requestsComplete}
-                            noFiltersApplied={noFiltersApplied}
-                            hash={hash}
-                            searchV2 />
-                    </div>
+                    <ResultsView
+                        filters={filters}
+                        isMobile={isMobile}
+                        filterCount={filterCount}
+                        showMobileFilters={showMobileFilters}
+                        updateFilterCount={updateFilterCount}
+                        requestsComplete={requestsComplete}
+                        noFiltersApplied={noFiltersApplied}
+                        hash={hash}
+                        searchV2 />
                 </div>
                 <FullDownloadModalContainer
                     download={download}
