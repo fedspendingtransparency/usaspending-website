@@ -16,7 +16,8 @@ import * as MonthHelper from 'helpers/monthHelper';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as RecipientHelper from 'helpers/recipientHelper';
 import Analytics from 'helpers/analytics/Analytics';
-import RecipientTimeVisualizationSection from 'components/recipient/spendingOverTime/RecipientTimeVisualizationSection';
+import RecipientTimeVisualizationSection
+    from "../../components/recipient/spendingOverTime/RecipientTimeVisualizationSection";
 
 const dayjs = require('dayjs');
 

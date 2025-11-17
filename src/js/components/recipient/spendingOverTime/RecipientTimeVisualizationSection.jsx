@@ -9,7 +9,8 @@ import { throttle } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SectionHeader, FlexGridRow } from "data-transparency-ui";
 
-import TimeVisualizationPeriodButton from 'components/search/resultsView/time/TimeVisualizationPeriodButton';
+import TimeVisualizationPeriodButton from
+    'components/search/resultsView/time/TimeVisualizationPeriodButton';
 import RecipientTimeVisualization from './RecipientTimeVisualization';
 
 const propTypes = {
