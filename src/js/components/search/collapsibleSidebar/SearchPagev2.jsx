@@ -18,7 +18,6 @@ import FullDownloadModalContainer from
     'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import NoDownloadHover from '../header/NoDownloadHover';
-import KeywordSearchLink from "../KeywordSearchLink";
 import MobileFiltersV2 from "../mobile/MobileFiltersV2";
 import SubawardDropdown from "../SubawardDropdown";
 import { setSearchViewSubaward, setSpendingLevel } from
@@ -151,7 +150,8 @@ const SearchPage = ({
                 hash={hash}
                 showMobileFilters={showMobileFilters}
                 sidebarOpen={sidebarOpen}
-                setSidebarOpen={setSidebarOpen} />);
+                setSidebarOpen={setSidebarOpen}
+                searchv2={searchv2} />);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -191,12 +191,7 @@ const SearchPage = ({
             filters={appliedFilters}>
             <div id="main-content">
                 <div className="search-contents v2">
-                    <div className="full-search-sidebar">
-                        {fullSidebar}
-                        {isMobile === false && searchv2 === false ?
-                            <KeywordSearchLink />
-                            : ''}
-                    </div>
+                    {fullSidebar}
                     <MobileFilterButton
                         filterCount={filterCount}
                         showMobileFilters={showMobileFilters}
