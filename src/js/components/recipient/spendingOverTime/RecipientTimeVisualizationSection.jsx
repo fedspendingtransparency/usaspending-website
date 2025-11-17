@@ -26,6 +26,7 @@ const RecipientTimeVisualizationSection = ({
     const [windowWidth, setWindowWidth] = useState(0);
     const sectionHrRef = useRef(null);
 
+    // TODO: replace with useWindowWidth
     useEffect(() => {
         let isMounted = true;
 
