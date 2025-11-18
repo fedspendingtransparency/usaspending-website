@@ -5,27 +5,19 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch } from 'react-redux';
 import { throttle } from 'lodash-es';
-import { DownloadIconButton, ShareIcon } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
-import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import * as MetaTagHelper from 'helpers/metaTagHelper';
+import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
+import * as MetaTagHelper from '../../../helpers/metaTagHelper';
 import FullDownloadModalContainer from
-    'containers/search/modals/fullDownload/FullDownloadModalContainer';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import NoDownloadHover from '../header/NoDownloadHover';
+    '../../../containers/search/modals/fullDownload/FullDownloadModalContainer';
+import PageWrapper from '../../../components/sharedComponents/PageWrapper';
 import MobileFiltersV2 from "../mobile/MobileFiltersV2";
-import SubawardDropdown from "../SubawardDropdown";
-import { setSearchViewSubaward, setSpendingLevel } from
-    "../../../redux/actions/search/searchViewActions";
 import ResultsView from "../resultsView/ResultsView";
 import CollapsibleSidebar from "./SidebarWrapper";
-import { showModal } from '../../../redux/actions/modal/modalActions';
 import MobileFilterButton from "../MobileFilterButton";
+import SearchPageToolBarComponents from "../SearchPageToolBarComponents";
 
 require('pages/search/searchPage.scss');
 
@@ -40,9 +32,6 @@ const propTypes = {
     noFiltersApplied: PropTypes.bool,
     hash: PropTypes.string
 };
-
-const slug = 'search/';
-const emailSubject = 'Award Search results on USAspending.gov';
 
 const SearchPage = ({
     download,
@@ -63,38 +52,6 @@ const SearchPage = ({
     const [searchv2, setSearchv2] = useState(null);
     const [fullSidebar, setFullSidebar] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(true);
-    const dispatch = useDispatch();
-
-    /* eslint-disable max-len */
-    const infoSectionContent = <>
-        <div className="explainer-text__first-column">
-            <FontAwesomeIcon icon="info-circle" className="explainer-text__info-icon" />
-        </div>
-        <div className="explainer-text__second-column">
-            <p>Please note that results displayed will vary depending on the filter that’s selected here.</p>
-            <p>For more information, read the "About" sections at the bottom of each filter or the "Data sources and methodology" sections at the bottom of each result module.</p>
-        </div>
-    </>;
-    /* eslint-enable max-len */
-
-    const getSlugWithHash = () => {
-        if (hash) {
-            return `${slug}?hash=${hash}`;
-        }
-        return slug;
-    };
-
-    const handleShareDispatch = (url) => {
-        dispatch(showModal(url));
-    };
-    const handleShare = (name) => {
-        handleShareOptionClick(name, getSlugWithHash(), {
-            subject: emailSubject,
-            body: `View search results for federal awards on USAspending.gov:  ${
-                getBaseUrl(getSlugWithHash())
-            }`
-        }, handleShareDispatch);
-    };
 
     /**
      * Use the top filter bar container's internal filter parsing to track the current number of
@@ -109,13 +66,6 @@ const SearchPage = ({
      */
     const toggleMobileFilters = () => {
         setShowMobileFilters(!showMobileFilters);
-    };
-
-    /**
-     * Shows the full download modal
-     */
-    const showDownloadModal = () => {
-        setShowFullDownload(true);
     };
 
     /**
@@ -163,31 +113,14 @@ const SearchPage = ({
             }`}
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
-            toolBarComponents={[
-                <SubawardDropdown
-                    size="sm"
-                    label="Filter by:"
-                    enabled
-                    setSearchViewSubaward={setSearchViewSubaward}
-                    selectedValue="awards"
-                    setSpendingLevel={setSpendingLevel}
-                    infoSection
-                    infoSectionContent={infoSectionContent} />,
-                <ShareIcon
-                    isEnabled
-                    url={getBaseUrl(getSlugWithHash())}
-                    onShareOptionClick={handleShare}
-                    classNames={!isMobile ? "margin-right" : ""} />,
-                <DownloadIconButton
-                    tooltipPosition="left"
-                    tooltipComponent={(!downloadAvailable && hash)
-                        ? <NoDownloadHover />
-                        : null
-                    }
-                    isEnabled={downloadAvailable}
+            toolBarComponents={
+                [<SearchPageToolBarComponents
+                    downloadAvailable={downloadAvailable}
                     downloadInFlight={downloadInFlight}
-                    onClick={showDownloadModal} />
-            ]}
+                    isMobile={isMobile}
+                    hash={hash}
+                    setShowFullDownload={setShowFullDownload} />]
+            }
             filters={appliedFilters}>
             <div id="main-content">
                 <div className="search-contents v2">
