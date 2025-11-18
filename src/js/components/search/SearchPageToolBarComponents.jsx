@@ -1,14 +1,12 @@
 import React from "react";
 import { DownloadIconButton, ShareIcon } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from "react-redux";
 
 import SubawardDropdown from "./SubawardDropdown";
 import { setSearchViewSubaward, setSpendingLevel } from
     "../../redux/actions/search/searchViewActions";
 import NoDownloadHover from "./header/NoDownloadHover";
 import { getBaseUrl, handleShareOptionClick } from "../../helpers/socialShare";
-import { showModal } from "../../redux/actions/modal/modalActions";
 
 const emailSubject = 'Award Search results on USAspending.gov';
 const slug = 'search/';
@@ -26,15 +24,14 @@ const infoSectionContent =
     </>;
 /* eslint-enable max-len */
 
-const SearchPageToolBarComponents = ({
+const searchPageToolBarComponents = (
     isMobile,
     downloadAvailable,
     downloadInFlight,
     hash,
-    setShowFullDownload
-}) => {
-    const dispatch = useDispatch();
-
+    setShowFullDownload,
+    handleShareDispatch
+) => {
     const shareIconClassName = !isMobile ? "margin-right" : "";
     const toolTipComponent = (!downloadAvailable && hash)
         ? <NoDownloadHover />
@@ -52,10 +49,6 @@ const SearchPageToolBarComponents = ({
             return `${slug}?hash=${hash}`;
         }
         return slug;
-    };
-
-    const handleShareDispatch = (url) => {
-        dispatch(showModal(url));
     };
 
     const handleShare = (name) => {
@@ -77,20 +70,23 @@ const SearchPageToolBarComponents = ({
                 selectedValue="awards"
                 setSpendingLevel={setSpendingLevel}
                 infoSection
-                infoSectionContent={infoSectionContent} />,
+                infoSectionContent={infoSectionContent}
+                key="SubawardDropdown" />,
             <ShareIcon
                 isEnabled
                 url={getBaseUrl(getSlugWithHash())}
                 onShareOptionClick={handleShare}
-                classNames={shareIconClassName} />,
+                classNames={shareIconClassName}
+                key="ShareIcon" />,
             <DownloadIconButton
                 tooltipPosition="left"
                 tooltipComponent={toolTipComponent}
                 isEnabled={downloadAvailable}
                 downloadInFlight={downloadInFlight}
-                onClick={showDownloadModal} />
+                onClick={showDownloadModal}
+                key="DownloadIconButton" />
         ]
     );
 };
 
-export default SearchPageToolBarComponents;
+export default searchPageToolBarComponents;

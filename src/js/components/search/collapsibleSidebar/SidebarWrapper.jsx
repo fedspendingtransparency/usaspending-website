@@ -281,9 +281,11 @@ const SidebarWrapper = React.memo(({
     };
 
     return (
-        <div className="full-search-sidebar">
+        <>
             <div
-                className={`search-collapsible-sidebar-container search-sidebar ${sidebarIsSticky ? "sticky" : ""}`}
+                className={`search-collapsible-sidebar-container search-sidebar ${
+                    sidebarIsSticky ? "sticky" : ""
+                }`}
                 style={isMobile ? {} : { display: "none" }}>
                 <div
                     style={isFooterVisible ? {
@@ -329,7 +331,7 @@ const SidebarWrapper = React.memo(({
             {isMobile === false && searchv2 === false ?
                 <KeywordSearchLink />
                 : ''}
-        </div>
+        </>
     );
 });
 

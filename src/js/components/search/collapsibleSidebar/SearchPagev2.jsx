@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash-es';
 import { Helmet } from 'react-helmet';
+import { useDispatch } from "react-redux";
 
 import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import * as MetaTagHelper from '../../../helpers/metaTagHelper';
@@ -17,7 +18,8 @@ import MobileFiltersV2 from "../mobile/MobileFiltersV2";
 import ResultsView from "../resultsView/ResultsView";
 import CollapsibleSidebar from "./SidebarWrapper";
 import MobileFilterButton from "../MobileFilterButton";
-import SearchPageToolBarComponents from "../SearchPageToolBarComponents";
+import { showModal } from "../../../redux/actions/modal/modalActions";
+import searchPageToolBarComponents from "../SearchPageToolBarComponents";
 
 require('pages/search/searchPage.scss');
 
@@ -52,6 +54,12 @@ const SearchPage = ({
     const [searchv2, setSearchv2] = useState(null);
     const [fullSidebar, setFullSidebar] = useState(false);
     const [sidebarOpen, setSidebarOpen] = useState(true);
+
+    const dispatch = useDispatch();
+
+    const handleShareDispatch = (url) => {
+        dispatch(showModal(url));
+    };
 
     /**
      * Use the top filter bar container's internal filter parsing to track the current number of
@@ -95,13 +103,15 @@ const SearchPage = ({
     useEffect(() => {
         setSearchv2(true);
         setFullSidebar(
-            <CollapsibleSidebar
-                filters={filters}
-                hash={hash}
-                showMobileFilters={showMobileFilters}
-                sidebarOpen={sidebarOpen}
-                setSidebarOpen={setSidebarOpen}
-                searchv2={searchv2} />);
+            <div className="full-search-sidebar">
+                <CollapsibleSidebar
+                    filters={filters}
+                    hash={hash}
+                    showMobileFilters={showMobileFilters}
+                    sidebarOpen={sidebarOpen}
+                    setSidebarOpen={setSidebarOpen}
+                    searchv2={searchv2} />
+            </div>);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -113,14 +123,16 @@ const SearchPage = ({
             }`}
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
-            toolBarComponents={[
-                <SearchPageToolBarComponents
-                    downloadAvailable={downloadAvailable}
-                    downloadInFlight={downloadInFlight}
-                    isMobile={isMobile}
-                    hash={hash}
-                    setShowFullDownload={setShowFullDownload} />
-            ]}
+            toolBarComponents={
+                searchPageToolBarComponents(
+                    isMobile,
+                    downloadAvailable,
+                    downloadInFlight,
+                    hash,
+                    setShowFullDownload,
+                    handleShareDispatch
+                )
+            }
             filters={appliedFilters}>
             <div id="main-content">
                 <div className="search-contents v2">
