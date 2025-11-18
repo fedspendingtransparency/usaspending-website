@@ -48,7 +48,7 @@ const TreeNodesWrapper = ({
         const stack = [...nodes];
         while (stack.length) {
             const current = stack.pop();
-            if (current.id === id) return current;
+            if (current.id === id || current.value === id) return current;
             if (current.children) stack.push(...current.children);
         }
         return null;
@@ -83,34 +83,35 @@ const TreeNodesWrapper = ({
             if (ancestorNodes.length) {
                 ancestorNodes.forEach((parent) => {
                     // check if anything is checked
+                    const parentId = parent.id || parent.value;
                     if (newChecked?.length) {
                         let allChecked = [...newChecked];
                         let nodePriorChecked = false;
 
                         if (localChecked?.length) {
                             allChecked = [...localChecked, ...newChecked];
-                            nodePriorChecked = localChecked.includes(node.id);
+                            nodePriorChecked = localChecked.includes(node.id || node.value);
                         }
 
-                        const hasAnyChildrenChecked = parent.children.filter((child) => allChecked.includes(child.id) || node.id === child.id);
+                        const hasAnyChildrenChecked = parent.children.filter((child) => allChecked.includes(child.id) || node.id === child.id || node.value === child.value);
                         let setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length < parent.children.length);
 
                         if (checkboxRefs.current) {
                             if (nodePriorChecked) {
                                 // unchecking prior checked node.
-                                if (localChecked?.includes(parent.id)) {
+                                if (localChecked?.includes(parentId)) {
                                     // unchecking a single node make any checked ancestors indeterminate
-                                    setIndeterminate = checkboxRefs.current[parent.id].checked;
+                                    setIndeterminate = checkboxRefs.current[parentId].checked;
                                 }
                             }
                             if (setIndeterminate) {
                                 // make sure all ancesters get properly set
                                 handleIndeterminateAncestors(parent, newChecked);
                             }
-                            checkboxRefs.current[parent.id].indeterminate = setIndeterminate;
+                            checkboxRefs.current[parentId].indeterminate = setIndeterminate;
                         }
                     }
-                    else if (checkboxRefs.current) checkboxRefs.current[parent.id].indeterminate = false;
+                    else if (checkboxRefs.current) checkboxRefs.current[parentId].indeterminate = false;
                 });
             }
         }
@@ -164,7 +165,6 @@ const TreeNodesWrapper = ({
             onExpand(newExpand, node);
         }
     };
-
 
     return (
         <div>
