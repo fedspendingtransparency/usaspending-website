@@ -1,34 +1,34 @@
 .featured-content__header-wrapper {
-    display:flex;
+    display: flex;
     align-items: center;
     align-self: center;
     height: 250px;
     min-height: 250px;
     width: 100%;
     max-width: $site-max-width;
-    
+
     @media(min-width: $tablet-screen) {
         height: 325px;
         min-height: 325px;
     }
-    
+
     @media(min-width: $medium-screen) {
         height: inherit;
         min-height: inherit;
     }
-    
+
     img {
         width: 100%;
     }
 
     .featured-content__header-block {
-        position:absolute;
+        position: absolute;
         color: white;
         display: flex;
         flex-direction: column;
         justify-content: center;
         margin-left: rem(16);
-        
+
         @media (min-width: $tablet-screen) {
             margin-left: rem(32);
         }
@@ -40,7 +40,7 @@
             margin-left: calc($grid-column - (100vw - $site-max-width) * 0.1);
         }
 
-                  
+
         &.black-text span {
             color: $color-black
         }
@@ -64,6 +64,7 @@
                 font-size: $font-size-17;
             }
         }
+
         .featured-content__title {
             display: block;
             margin-top: rem(12.5);
@@ -78,8 +79,9 @@
             @media(min-width: $medium-screen) {
                 font-size: $font-size-48;
             }
-            
+
         }
+
         .featured-content__subtitle {
             display: block;
             margin-top: rem(8);
@@ -93,7 +95,33 @@
             @media(min-width: $medium-screen) {
                 font-size: $font-size-20;
             }
-            
-        }   
+
+        }
+    }
+}
+
+.featured-content__article {
+    .featured-content__header-block {
+        padding-bottom: rem(24);
+
+        .featured-content__label {
+            padding: rem(6) rem(8) rem(24);
+            border-radius: rem(6);
+            font-size: $font-size-12;
+            font-style: normal;
+            font-weight: $font-semibold;
+            line-height: 12.434px;
+            color: $color-white;
+            text-transform: uppercase;
+            gap: 10px;
+            width: max-content;
+
+            @media(min-width: $tablet-screen) {
+                padding: rem(8);
+                border-radius: rem(8);
+                line-height: 15px;
+                font-size: $font-size-17;
+            }
+        }
     }
 }

@@ -82,7 +82,7 @@ const FeaturedContentArticlePage = () => {
                     isMobile={isMobile}
                     isTablet={isTablet}
                     chosenArticle={chosenArticle} />}
-                <FlexGridRow desktop={12} className="grid-content">
+                <FlexGridRow desktop={12} className="grid-content featured-content__article">
                     <FlexGridCol tablet={12} mobile={12} desktop={8}>
                         {isLongForm && <div className="featured-content__header-block">
                             <span
