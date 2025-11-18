@@ -8,10 +8,14 @@ import LocationSection from "../../components/search/filters/location/LocationSe
 import TimePeriodContainer from "../../containers/search/filters/TimePeriodContainer";
 import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
 import AgencyContainer from "../../containers/search/filters/AgencyContainer";
-import TASCheckboxTreeContainer from "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
-import RecipientSearchContainer from "../../containers/search/filters/recipient/RecipientSearchContainer";
-import RecipientTypeContainer from "../../containers/search/filters/recipient/RecipientTypeContainer";
-import AwardAmountSearchContainer from "../../containers/search/filters/awardAmount/AwardAmountSearchContainer";
+import TASCheckboxTreeContainer from
+    "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
+import RecipientSearchContainer from
+    "../../containers/search/filters/recipient/RecipientSearchContainer";
+import RecipientTypeContainer from
+    "../../containers/search/filters/recipient/RecipientTypeContainer";
+import AwardAmountSearchContainer from
+    "../../containers/search/filters/awardAmount/AwardAmountSearchContainer";
 import AwardTypeContainerV2 from "../../containers/search/filters/AwardTypeContainerV2";
 import NAICSCheckboxTree from "../../containers/search/filters/naics/NAICSCheckboxTree";
 import PSCCheckboxTreeContainer from "../../containers/search/filters/psc/PSCCheckboxTreeContainer";
@@ -20,7 +24,8 @@ import SetAsideContainer from "../../containers/search/filters/SetAsideContainer
 import ExtentCompetedContainer from "../../containers/search/filters/ExtentCompetedContainer";
 import CFDASearchContainer from "../../containers/search/filters/cfda/CFDASearchContainer";
 import DEFCheckboxTreeContainer from "../../containers/search/filters/def/DEFCheckboxTreeContainer";
-import AwardDescriptionFilterContainer from "../../containers/search/filters/AwardDescriptionFilterContainer";
+import AwardDescriptionFilterContainer from
+    "../../containers/search/filters/AwardDescriptionFilterContainer";
 
 export const SearchFilterCategories = [
     {
