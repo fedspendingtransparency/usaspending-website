@@ -10,17 +10,15 @@ const propTypes = {
     chartWidth: PropTypes.number
 };
 
-const StateTimeVisualizationTooltip = (props) => {
-    const {
-        y,
-        x,
-        data,
-        barWidth,
-        chartWidth
-    } = props;
-
-    let divRef = useRef();
-    let pointerDivRef = useRef();
+const StateTimeVisualizationTooltip = ({
+    y,
+    x,
+    data,
+    barWidth,
+    chartWidth
+}) => {
+    let divRef = useRef(null);
+    let pointerDivRef = useRef(null);
 
     const positionTooltip = useCallback(() => {
     // we need to wait for the tooltip to render before we can full position it due to its
