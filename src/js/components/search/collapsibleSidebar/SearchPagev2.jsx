@@ -113,14 +113,14 @@ const SearchPage = ({
             }`}
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
-            toolBarComponents={
-                [<SearchPageToolBarComponents
+            toolBarComponents={[
+                <SearchPageToolBarComponents
                     downloadAvailable={downloadAvailable}
                     downloadInFlight={downloadInFlight}
                     isMobile={isMobile}
                     hash={hash}
-                    setShowFullDownload={setShowFullDownload} />]
-            }
+                    setShowFullDownload={setShowFullDownload} />
+            ]}
             filters={appliedFilters}>
             <div id="main-content">
                 <div className="search-contents v2">
