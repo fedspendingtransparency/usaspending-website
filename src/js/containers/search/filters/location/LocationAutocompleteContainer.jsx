@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { isCancel } from "axios";
 import PropTypes from "prop-types";
 
@@ -14,8 +14,7 @@ import LocationAutocomplete from
 import { fetchLocationList } from "../../../../helpers/mapHelper";
 import {
     addPOPLocationObject,
-    addRecipientLocationObject,
-    updateGenericFilter
+    addRecipientLocationObject
 } from "../../../../redux/actions/search/searchFilterActions";
 import {
     getLocationObject,
@@ -35,7 +34,6 @@ const LocationAutocompleteContainer = ({
     const [readyToStage, setReadyToStage] = useState(false);
     const [countriesList, setCountriesList] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const { selectedLocations, selectedRecipientLocations } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
 
     const listRequest = useRef(null);
@@ -160,20 +158,6 @@ const LocationAutocompleteContainer = ({
         setReadyToStage(true);
     };
 
-    const removeLocation = (locationId) => {
-        const newValue = activeTab === 'recipient' ?
-            {
-                type: 'selectedRecipientLocations',
-                value: selectedRecipientLocations.delete(locationId)
-            } :
-            {
-                type: 'selectedLocations',
-                value: selectedLocations.delete(locationId)
-            };
-
-        dispatch(updateGenericFilter(newValue));
-    };
-
     return (
         <LocationAutocomplete
             activeTab={activeTab}
@@ -184,9 +168,6 @@ const LocationAutocompleteContainer = ({
             noResults={noResults}
             readyToStage={readyToStage}
             addLocation={addLocation}
-            selectedLocations={selectedLocations}
-            selectedRecipientLocations={selectedRecipientLocations}
-            removeLocation={removeLocation}
             isLoading={isLoading} />
     );
 };

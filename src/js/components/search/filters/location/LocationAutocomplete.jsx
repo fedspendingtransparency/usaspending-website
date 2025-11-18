@@ -6,6 +6,7 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "data-transparency-ui";
 import PropTypes from "prop-types";
+
 import SelectedLocations from "./SelectedLocations";
 import Autocomplete from "../../../sharedComponents/autocomplete/Autocomplete";
 
@@ -18,9 +19,6 @@ const propTypes = {
     noResults: PropTypes.bool,
     readyToStage: PropTypes.bool,
     addLocation: PropTypes.func,
-    selectedLocations: PropTypes.object,
-    selectedRecipientLocations: PropTypes.object,
-    removeLocation: PropTypes.func,
     isLoading: PropTypes.bool
 };
 
@@ -60,10 +58,7 @@ const LocationAutocomplete = (props) => {
                     onClick={addLocation} />
             </div>
             <SelectedLocations
-                id={activeTab}
-                selectedLocations={props.selectedLocations}
-                selectedRecipientLocations={props.selectedRecipientLocations}
-                removeLocation={props.removeLocation}
+                activeTab={activeTab}
                 key={`selected-location-${props.activeTab}`} />
         </div>
     );
