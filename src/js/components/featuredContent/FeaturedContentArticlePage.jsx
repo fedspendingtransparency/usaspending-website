@@ -1,5 +1,5 @@
 /**
- * FeaturedContentArticle.jsx
+ * FeaturedContentArticlePage.jsx
  * Created by Andrea Blackwell 9/11/2025
  **/
 
@@ -13,10 +13,11 @@ import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreak
 import articles from '../../../config/featuredContent/featuredContentMetadata';
 import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
 import FeaturedContentArticleSidebar from "./FeaturedContentArticleSidebar";
+import FeaturedContentHeader from "./FeaturedContentHeader";
 
 require('pages/featuredContent/featuredContent.scss');
 
-const FeaturedContentArticle = () => {
+const FeaturedContentArticlePage = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isTablet, setIsTablet] = useState(
         window.innerWidth < mediumScreen && window.innerWidth >= tabletScreen
@@ -27,14 +28,17 @@ const FeaturedContentArticle = () => {
     const lastPortion = parts[parts.length - 1];
     const [chosenArticle, setChosenArticle] = useState(null);
     const [markdownContent, setMarkdownContent] = useState('');
+    const [isLongForm, setIsLongForm] = useState(false);
+
 
     useEffect(() => {
         for (const article of articles) {
             if (transformString(article.title) === lastPortion) {
                 setChosenArticle(article);
+                setIsLongForm(Object.prototype.hasOwnProperty.call(article, 'isLongForm') ? article.isLongForm : false);
             }
         }
-    }, [chosenArticle, lastPortion]);
+    }, [articles, lastPortion]);
 
 
     useEffect(() => {
@@ -64,43 +68,29 @@ const FeaturedContentArticle = () => {
         <PageWrapper
             pageName="Featured Content Article"
             classNames="featured-content-page"
-            noHeader
+            noHeader={!isLongForm}
+            backgroundColor={isLongForm && chosenArticle?.fill}
+            sections={[{ section: "1", label: "one" }, { section: "2", label: "two" }]}
+            activeSection="one"
+            title="&nbsp;"
+            inPageNav={isLongForm}
             metaTagProps={{ ...homePageMetaTags }}>
             <main
                 id="main-content"
                 className="main-content featured-content">
-                <FlexGridRow
-                    className="featured-content__header-wrapper"
-                    style={{ backgroundColor: ((isMobile || isTablet) && chosenArticle?.fill) ? chosenArticle.fill : 'none' }}>
-                    { !isMobile &&
-                        !isTablet &&
-                        <img
-                            src={chosenArticle?.hero}
-                            alt="hero"
-                            name="featured-content-hero"
-                            id="featured-content-hero" />
-                    }
-                    <FlexGridCol
-                        desktopxl={{ span: 4, offset: 1 }}
-                        desktop={{ span: 5, offset: 1 }}
-                        tablet={{ span: 10, offset: 2 }}
-                        mobile={{ span: 10, offset: 1 }}
-                        className={`featured-content__header-block usa-dt-flex-grid__row ${chosenArticle?.black_text ? "black-text" : ""}`}>
-                        <span
-                            className="featured-content__label"
-                            style={{ backgroundColor: chosenArticle?.secondary }}>
-                            {chosenArticle?.taxonomy}
-                        </span>
-                        <span className="featured-content__title">
-                            {chosenArticle?.banner_title}
-                        </span>
-                        <span className="featured-content__subtitle">
-                            {chosenArticle?.banner_subtitle}
-                        </span>
-                    </FlexGridCol>
-                </FlexGridRow>
+                {!isLongForm && <FeaturedContentHeader
+                    isMobile={isMobile}
+                    isTablet={isTablet}
+                    chosenArticle={chosenArticle} />}
                 <FlexGridRow desktop={12} className="grid-content">
                     <FlexGridCol tablet={12} mobile={12} desktop={8}>
+                        {isLongForm && <div className="featured-content__header-block">
+                            <span
+                                className="featured-content__label"
+                                style={{ backgroundColor: chosenArticle?.fill }}>
+                                {chosenArticle?.taxonomy}
+                            </span>
+                        </div>}
                         <div className="featured-content__article-title">
                             {chosenArticle?.title}
                         </div>
@@ -115,4 +105,4 @@ const FeaturedContentArticle = () => {
         </PageWrapper>);
 };
 
-export default FeaturedContentArticle;
+export default FeaturedContentArticlePage;

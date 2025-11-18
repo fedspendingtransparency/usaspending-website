@@ -204,6 +204,38 @@ const articles = [
             }
         ],
         related_terms: []
+    },
+    {
+        taxonomy: "See 4 Yourself",
+        isLongForm: true,
+        content_type: 'Featured Content',
+        banner_title: "Ways to Use Our Data",
+        banner_subtitle: "How People Use USAspending.gov Data",
+        title: "Ways to Use Our Data",
+        created_date: "09/29/2025",
+        feature_sprint: 1,
+        feature_week: 3,
+        description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
+        mdx_path: "four-ways-to-use-our-data.mdx",
+        hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-see_4_yourself.webp",
+        thumbnail_path: "../../img/featuredContent/cards/see-4-yourself.webp",
+        fill: contentMap.seeforyourself,
+        secondary: secondary.seeforyourself,
+        black_text: true,
+        landing_header_path: "",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            }
+        ],
+        related_terms: []
     }
 ];
 
