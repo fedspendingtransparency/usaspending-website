@@ -30,21 +30,22 @@ const TreeNodes = ({
     const renderNodes = (nodes, depth) => (
         <ul className="level">
             {nodes?.map((node) => {
-                const isOpen = localExpanded.includes(node.id);
-                const isChecked = localChecked.includes(node.id) || localChecked.includes(`children_of_${node.id}`);
+                const keyId = node.id || node.value;
+                const isOpen = localExpanded.includes(keyId);
+                const isChecked = localChecked.includes(keyId) || localChecked.includes(`children_of_${keyId}`);
                 const hasAnyChildren = node.children?.length > 0;
                 const showCheckbox = node.label && node.showCheckbox !== false;
 
                 if (node.value.includes("children_of_")) return null;
 
                 return (
-                    <li key={node.id}>
+                    <li key={keyId}>
                         <div className="checkbox-tree-label__container">
                             <div className="checkbox-tree-label__controls" >
                                 {hasAnyChildren &&
                                     <button
                                         type="button"
-                                        onClick={() => toggleExpand(node.id, true)}
+                                        onClick={() => toggleExpand(keyId, true)}
                                         title={isOpen ? "Collapse" : "Expand"}
                                         aria-label={isOpen ? "Collapse" : "Expand"}>
                                         <FontAwesomeIcon
@@ -53,21 +54,21 @@ const TreeNodes = ({
                                     </button>}
                                 {showCheckbox && <input
                                     type="checkbox"
-                                    name={`checkbox-${node.id}`}
+                                    name={`checkbox-${keyId}`}
                                     disabled={disabled}
                                     checked={isChecked}
                                     ref={(el) => {
                                         if (el) {
                                             // eslint-disable-next-line no-param-reassign
-                                            checkboxRefs.current[node.id] = el;
+                                            checkboxRefs.current[keyId] = el;
                                         }
                                         else {
                                             // eslint-disable-next-line no-param-reassign
-                                            delete checkboxRefs.current[node.id];
+                                            delete checkboxRefs.current[keyId];
                                         }
                                     }}
-                                    onKeyDown={(e) => (e.key === "Enter" ? handleCheck(node.id, node.children || []) : "")}
-                                    onChange={() => handleCheck(node.id, node.children || [])} />
+                                    onKeyDown={(e) => (e.key === "Enter" ? handleCheck(keyId, node.children || []) : "")}
+                                    onChange={() => handleCheck(keyId, node.children || [])} />
                                 }
                             </div>
                             {node.label}
