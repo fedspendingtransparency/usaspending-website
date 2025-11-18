@@ -8,6 +8,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { isCancel } from "axios";
 import PropTypes from "prop-types";
+
 import { fetchLocations } from 'helpers/searchHelper';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import LocationEntity from "../../../../models/v2/search/LocationEntity";
@@ -19,9 +20,7 @@ const propTypes = {
     activeTab: PropTypes.string,
     addRecipientLocationObject: PropTypes.func,
     addPOPLocationObject: PropTypes.func,
-    updateGenericFilter: PropTypes.func,
-    selectedLocations: PropTypes.object,
-    selectedRecipientLocations: PropTypes.object
+    updateGenericFilter: PropTypes.func
 };
 
 const LocationAutocompleteContainer = (props) => {

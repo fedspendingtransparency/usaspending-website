@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { LocationSectionContainer } from "../../containers/search/filters/location/LocationSectionContainer";
+import LocationSection from "../../components/search/filters/location/LocationSection";
 import TimePeriodContainer from "../../containers/search/filters/TimePeriodContainer";
 import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
 import AgencyContainer from "../../containers/search/filters/AgencyContainer";
@@ -90,7 +90,7 @@ export const searchFilterCategoryTree = [
     },
     {
         title: "Location",
-        component: <LocationSectionContainer />
+        component: <LocationSection />
     },
     {
         title: 'Agency',
