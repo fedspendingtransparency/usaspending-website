@@ -20,7 +20,8 @@ import noteText from 'dataMapping/covid19/recipient/recipient';
 import TableDownloadLink from 'containers/covid19/TableDownloadLink';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
-import { useStateWithPrevious, usePrevious } from 'helpers';
+import { useStateWithPrevious } from 'helpers';
+import usePrevious from "../../../hooks/usePrevious";
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -267,7 +268,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
         if (Object.keys(recipientTotals).length && results.length) {
             addUnlinkedData();
         }
-    }, [recipientTotals, resultTotal, results]);
+    }, [addUnlinkedData, recipientTotals, resultTotal, results]);
 
     useEffect(() => {
     // Reset to the first page
@@ -292,15 +293,15 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                 fetchSpendingByRecipientCallback();
             }
         }
-    }, [pageSize, defcParams, sort, order, activeTab, query]);
+    }, [pageSize, defcParams, sort, order, activeTab, query, currentPage, prevOrder, prevSort, prevPageSize, prevQuery, prevActiveTab, prevDefcParams, fetchSpendingByRecipientCallback, setSort, setOrder]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchSpendingByRecipientCallback]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true);
-    }, [loading, error]);
+    }, [loading, error, scrollIntoView]);
 
     return (
         <div ref={tableWrapperRef}>

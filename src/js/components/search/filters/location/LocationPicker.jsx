@@ -15,7 +15,7 @@ import { defaultLocationValues } from
     "../../../../containers/search/filters/location/LocationPickerContainer";
 import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
 import { showSlideout } from '../../../../helpers/slideoutHelper';
-import { usePrevious } from "../../../../helpers";
+import usePrevious from "../../../../hooks/usePrevious";
 
 const propTypes = {
     selectedLocations: PropTypes.object,
