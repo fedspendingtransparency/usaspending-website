@@ -9,13 +9,12 @@ import { isCancel } from "axios";
 import { useDispatch } from "react-redux";
 
 import { fetchAgencyOverview } from "apis/agency";
-import { useQueryParams } from "helpers/queryParams";
 import BaseAgencyOverview from "models/v2/agency/BaseAgencyOverview";
 import { setAgencyOverview, resetAgency } from "redux/actions/agency/agencyActions";
-
 import { useValidTimeBasedQueryParams, useLatestAccountData } from "containers/account/WithLatestFy";
 import AgencyPage from "components/agency/AgencyPage";
 import { useAgencySlugs } from "./WithAgencySlugs";
+import useQueryParams from "../../hooks/useQueryParams";
 
 export const AgencyProfileV2 = () => {
     const { agencySlug } = useParams();
@@ -23,7 +22,8 @@ export const AgencyProfileV2 = () => {
     const { fy: currentUrlFy } = useQueryParams(["fy"]);
     const [selectedFy, setSelectedFy] = useValidTimeBasedQueryParams(currentUrlFy, null, ["fy"]);
 
-    // Use a custom hook to get the { agency slug: toptier code } mapping, or request it if not yet available
+    // Use a custom hook to get the { agency slug: toptier code } mapping,
+    // or request it if not yet available
     const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
     const [isLoading, setLoading] = useState(true);
     const [isError, setError] = useState(false);

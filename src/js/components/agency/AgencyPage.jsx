@@ -12,14 +12,13 @@ import {
 } from 'data-transparency-ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router';
-import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 
+import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
@@ -29,6 +28,7 @@ import PageTitle from './overview/PageTitle';
 import NumericPickerWrapper from '../sharedComponents/dropdowns/NumericPickerWrapper';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useIsMobile from "../../hooks/useIsMobile";
+import useQueryParams from "../../hooks/useQueryParams";
 
 require('pages/agency/index.scss');
 

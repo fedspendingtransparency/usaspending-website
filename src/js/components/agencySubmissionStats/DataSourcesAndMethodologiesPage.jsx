@@ -10,13 +10,14 @@ import { useDispatch } from 'react-redux';
 import { find, throttle } from 'lodash-es';
 import { ShareIcon } from 'data-transparency-ui';
 
-import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { agencySubmissionDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { showModal } from '../../redux/actions/modal/modalActions';
+import useQueryParams from "../../hooks/useQueryParams";
 
 require('pages/data-sources/index.scss');
 
