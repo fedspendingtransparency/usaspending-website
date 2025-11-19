@@ -315,8 +315,8 @@ const BudgetCategoriesTableContainer = (props) => {
     });
 
     useEffect(() => {
-    // If the sort and order is the same as the default sort and default order, then we are just changing tabs or just changing the spending category.
-    // In this particular case, we want to fetch from api.
+        // If the sort and order is the same as the default sort and default order, then we are just changing tabs or just changing the spending category.
+        // In this particular case, we want to fetch from api.
         if (sort === defaultSort[props.type][spendingCategory].sort && order === defaultSort[props.type][spendingCategory].order) {
             changeCurrentPage(1);
             fetchBudgetSpendingCallback();
@@ -324,23 +324,27 @@ const BudgetCategoriesTableContainer = (props) => {
         // Reset to default sort when the active tab or spending category changes
         setSort(defaultSort[props.type][spendingCategory].sort);
         setOrder(defaultSort[props.type][spendingCategory].order);
-    }, [fetchBudgetSpendingCallback, order, props.type, sort, spendingCategory]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.type, spendingCategory]);
 
     useEffect(() => {
-    // Reset to the first page
+        // Reset to the first page
         if (currentPage === 1) {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defcParams, currentPage, fetchBudgetSpendingCallback]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageSize, sort, order, defcParams]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
-    }, [currentPage, fetchBudgetSpendingCallback]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error, props]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loading, error]);
 
     const renderColumns = () => {
         if (props.type && spendingCategory) {

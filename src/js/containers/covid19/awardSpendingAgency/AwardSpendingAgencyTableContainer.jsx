@@ -270,7 +270,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
         if (Object.keys(spendingByAgencyTotals).length && resultsTotal) {
             addUnlinkedData(results, resultsTotal, spendingByAgencyTotals);
         }
-    }, [spendingByAgencyTotals, resultsTotal, addUnlinkedData, results]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [spendingByAgencyTotals, resultsTotal]);
 
     useEffect(() => {
     // when award type changes, sort is on faceValueOfLoan for loans; otherwise, obligation
@@ -288,7 +289,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
         else {
             updateSort('obligation', 'desc');
         }
-    }, [fetchSpendingByAgencyCallback, order, props.type, sort]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.type]);
 
     useEffect(() => {
     // Reset to the first page
@@ -298,15 +300,18 @@ const AwardSpendingAgencyTableContainer = (props) => {
         else {
             changeCurrentPage(1);
         }
-    }, [pageSize, sort, order, defcParams, query, currentPage, fetchSpendingByAgencyCallback]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageSize, sort, order, defcParams, query]);
 
     useEffect(() => {
         fetchSpendingByAgencyCallback();
-    }, [currentPage, fetchSpendingByAgencyCallback]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error, props]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loading, error]);
 
     useEffect(() => {
         window.scrollTo(0, 0);

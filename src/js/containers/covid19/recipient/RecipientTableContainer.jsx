@@ -268,7 +268,8 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
         if (Object.keys(recipientTotals).length && results.length) {
             addUnlinkedData();
         }
-    }, [addUnlinkedData, recipientTotals, resultTotal, results]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [recipientTotals, resultTotal, results]);
 
     useEffect(() => {
     // Reset to the first page
@@ -293,15 +294,18 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                 fetchSpendingByRecipientCallback();
             }
         }
-    }, [pageSize, defcParams, sort, order, activeTab, query, currentPage, prevOrder, prevSort, prevPageSize, prevQuery, prevActiveTab, prevDefcParams, fetchSpendingByRecipientCallback, setSort, setOrder]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pageSize, defcParams, sort, order, activeTab, query]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
-    }, [currentPage, fetchSpendingByRecipientCallback]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true);
-    }, [loading, error, scrollIntoView]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [loading, error]);
 
     return (
         <div ref={tableWrapperRef}>
