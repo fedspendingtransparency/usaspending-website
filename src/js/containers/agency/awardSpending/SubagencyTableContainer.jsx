@@ -50,7 +50,8 @@ const SubagencyTableContainer = ({
             request.current.cancel();
         }
         dispatch(resetSubagencyTotals());
-    }, [dispatch]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const fetchSpendingBySubagencyCallback = useCallback(() => {
         if (request.current) {
@@ -98,13 +99,15 @@ const SubagencyTableContainer = ({
                 fetchSpendingBySubagencyCallback();
             }
         }
-    }, [type, fy, pageSize, sort, order, currentPage, changeCurrentPage, prevSort, prevOrder, prevPage, prevPageSize, prevType, fetchSpendingBySubagencyCallback]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [type, fy, pageSize, sort, order]);
 
     useEffect(() => {
         if (fy && toptierCode) {
             fetchSpendingBySubagencyCallback();
         }
-    }, [currentPage, fetchSpendingBySubagencyCallback, fy, toptierCode]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage, fy, toptierCode]);
 
     return (
         <div className="table-wrapper">
