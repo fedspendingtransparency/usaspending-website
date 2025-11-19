@@ -20,8 +20,8 @@ import noteText from 'dataMapping/covid19/recipient/recipient';
 import TableDownloadLink from 'containers/covid19/TableDownloadLink';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
-import { useStateWithPrevious } from 'helpers';
 import usePrevious from "../../../hooks/usePrevious";
+import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,

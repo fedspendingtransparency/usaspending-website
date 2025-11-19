@@ -28,7 +28,6 @@ import {
     fetchObjectClassByTas
 } from 'apis/agency';
 import { parseRows, getLevel5Data } from 'helpers/agency/StatusOfFundsVizHelper';
-import { useStateWithPrevious } from 'helpers';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import Note from 'components/sharedComponents/Note';
 
@@ -36,6 +35,7 @@ import DrilldownSidebar from './DrilldownSidebar';
 import VisualizationSection from './VisualizationSection';
 import IntroSection from './IntroSection';
 import useIsMobile from "../../../hooks/useIsMobile";
+import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 
 const propTypes = {
     fy: PropTypes.string,
