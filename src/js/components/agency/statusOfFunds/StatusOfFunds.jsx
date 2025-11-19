@@ -177,7 +177,8 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                 setLoading(false);
                 console.error(err);
             });
-    }, [currentPage, dispatch, error, fy, loading, overview.toptierCode, pageSize]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage, error, fy, loading, overview.toptierCode, pageSize]);
 
     const fetchTas = useCallback((federalAccountData) => {
         if (request.current) {
@@ -214,7 +215,8 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                 setLoading(false);
                 console.error(err);
             });
-    }, [dispatch, error, fy, loading, paginatedTasList]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [error, fy, loading, paginatedTasList]);
 
     const fetchDataByTas = useCallback((tas, objectClassFlag) => {
         if (request.current) {
@@ -259,7 +261,8 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                 setLoading(false);
                 console.error(err);
             });
-    }, [currentPage, dispatch, error, fy, loading, pageSize]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage, error, fy, loading, pageSize]);
 
     const fetchLevel5Data = (prgActivityOrObjClass) => {
         const newData = getLevel5Data(prgActivityOrObjClass.name, level4ApiResponse);

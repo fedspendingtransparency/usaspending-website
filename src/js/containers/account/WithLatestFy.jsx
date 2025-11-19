@@ -65,7 +65,8 @@ export const useLatestAccountData = () => {
                 request.current.cancel();
             }
         };
-    }, [dispatch, isLoading, latestMoment, latestPeriod, submissionPeriods]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dispatch, submissionPeriods]);
 
     return [
         latestMoment,
@@ -137,7 +138,8 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
                 handleTimeChange(null, latestPeriod);
             }
         }
-    }, [history, latestFy, latestPeriod, submissionPeriods.size, currentUrlFy, currentUrlPeriod, requiredParams, existingParams, handleTimeChange]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [history, latestFy, latestPeriod, submissionPeriods.size, currentUrlFy, currentUrlPeriod]);
 
 
     useEffect(() => {
@@ -165,7 +167,8 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
                 handleTimeChange(latestFy);
             }
         }
-    }, [submissionPeriods, currentUrlFy, currentUrlPeriod, latestPeriod, latestFy, requiredParams, existingParams, handleTimeChange]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [submissionPeriods, currentUrlFy, currentUrlPeriod, latestPeriod, latestFy]);
 
     if (requiredParams.length === 1 && requiredParams[0] === 'fy') return [fy, updateUrl];
 
