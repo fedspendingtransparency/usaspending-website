@@ -1,17 +1,18 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * BudgetCategoriesTableContainer-test.js
  * Created by Lizzie Salita 10/15/21
  * */
 
 import React from "react";
+// eslint-disable-next-line import/no-unresolved
 import { render, waitFor, screen } from "test-utils";
 import { expect } from '@jest/globals';
 import BudgetCategoriesTableContainer from "containers/covid19/budgetCategories/BudgetCategoriesTableContainer";
 import * as api from "apis/disaster";
-import * as hooks from "containers/agency/WithAgencySlugs";
 import { defaultState } from "../../../testResources/defaultReduxFilters";
+import * as useAgencySlugs from "../../../../src/js/hooks/useAgencySlugs";
 
 const mockResults = [{
     id: 123,
@@ -105,7 +106,7 @@ describe("BudgetCategoriesTableContainer", () => {
         });
 
         // Mock the custom hook, useAgencySlugs
-        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
+        jest.spyOn(useAgencySlugs, "default").mockImplementation(() => ([
             {},
             {
                 "045": 'department-of-sandwiches',
@@ -113,7 +114,7 @@ describe("BudgetCategoriesTableContainer", () => {
             },
             false,
             false
-        ]);
+        ]));
 
         render(
             <BudgetCategoriesTableContainer
@@ -146,12 +147,12 @@ describe("BudgetCategoriesTableContainer", () => {
         });
 
         // Mock the custom hook, useAgencySlugs
-        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
+        jest.spyOn(useAgencySlugs, "default").mockImplementation(() => ([
             {},
             { "045": 'department-of-sandwiches' },
             false,
             false
-        ]);
+        ]));
 
         render(
             <BudgetCategoriesTableContainer

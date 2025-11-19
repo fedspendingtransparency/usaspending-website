@@ -17,7 +17,7 @@ import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'apis/disaster';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
-import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
+import useAgencySlugs from "../../../hooks/useAgencySlugs";
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -270,7 +270,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         if (Object.keys(spendingByAgencyTotals).length && resultsTotal) {
             addUnlinkedData(results, resultsTotal, spendingByAgencyTotals);
         }
-    }, [spendingByAgencyTotals, resultsTotal]);
+    }, [spendingByAgencyTotals, resultsTotal, addUnlinkedData, results]);
 
     useEffect(() => {
     // when award type changes, sort is on faceValueOfLoan for loans; otherwise, obligation
@@ -288,7 +288,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         else {
             updateSort('obligation', 'desc');
         }
-    }, [props.type]);
+    }, [fetchSpendingByAgencyCallback, order, props.type, sort]);
 
     useEffect(() => {
     // Reset to the first page
@@ -298,15 +298,15 @@ const AwardSpendingAgencyTableContainer = (props) => {
         else {
             changeCurrentPage(1);
         }
-    }, [pageSize, sort, order, defcParams, query]);
+    }, [pageSize, sort, order, defcParams, query, currentPage, fetchSpendingByAgencyCallback]);
 
     useEffect(() => {
         fetchSpendingByAgencyCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchSpendingByAgencyCallback]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error]);
+    }, [loading, error, props]);
 
     useEffect(() => {
         window.scrollTo(0, 0);

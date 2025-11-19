@@ -13,18 +13,20 @@ import BaseAgencyOverview from "models/v2/agency/BaseAgencyOverview";
 import { setAgencyOverview, resetAgency } from "redux/actions/agency/agencyActions";
 import { useValidTimeBasedQueryParams, useLatestAccountData } from "containers/account/WithLatestFy";
 import AgencyPage from "components/agency/AgencyPage";
-import { useAgencySlugs } from "./WithAgencySlugs";
 import useQueryParams from "../../hooks/useQueryParams";
+import useAgencySlugs from "../../hooks/useAgencySlugs";
 
 export const AgencyProfileV2 = () => {
     const { agencySlug } = useParams();
     const [, , { year: latestFy }] = useLatestAccountData();
     const { fy: currentUrlFy } = useQueryParams(["fy"]);
+    console.log({ currentUrlFy });
     const [selectedFy, setSelectedFy] = useValidTimeBasedQueryParams(currentUrlFy, null, ["fy"]);
 
     // Use a custom hook to get the { agency slug: toptier code } mapping,
     // or request it if not yet available
-    const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
+    const [agencySlugs, b, c, slugsLoading, slugsError] = useAgencySlugs();
+    console.log([agencySlugs, b, c, slugsLoading, slugsError]);
     const [isLoading, setLoading] = useState(true);
     const [isError, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");

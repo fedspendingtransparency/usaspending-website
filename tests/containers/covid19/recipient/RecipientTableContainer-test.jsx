@@ -1,6 +1,6 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * RecipientTableContainer-test.js
  * Created by Lizzie Salita 7/17/20
  * */
@@ -53,10 +53,10 @@ describe('RecipientTableContainer', () => {
                             {mockResults[0].description}&nbsp;(
                             <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C/latest">
                                 as Child
-                            </Link>,&nbsp;
+                                </Link>,&nbsp;
                             <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R/latest">
                                 as Recipient
-                            </Link>
+                                    </Link>
                             )
                         </>
                     ),
@@ -75,11 +75,10 @@ describe('RecipientTableContainer', () => {
                     '1'
                 ]
             ];
-    
+
             const parsed = parseRows(mockResults, 'all', '');
             // using toMatchObject for equality comparison that is more lenient than toEqual https://jestjs.io/docs/en/expect#tomatchobjectobject
             expect([...parsed]).toMatchObject(expected);
-            
         });
         it('should parse returned recipient loans data', () => {
             const mockLoanResults = [
@@ -110,10 +109,10 @@ describe('RecipientTableContainer', () => {
                             {mockLoanResults[0].description}&nbsp;(
                             <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-C/latest">
                                 as Child
-                            </Link>,&nbsp;
+                                </Link>,&nbsp;
                             <Link to="/recipient/d2894d22-67fc-f9cb-4005-33fa6a29ef86-R/latest">
                                 as Recipient
-                            </Link>
+                                    </Link>
                             )
                         </>
                     ),
@@ -134,7 +133,7 @@ describe('RecipientTableContainer', () => {
                     '1'
                 ]
             ];
-            
+
             const parsed = parseRows(mockLoanResults, 'loans', '');
             expect([...parsed]).toMatchObject(expected);
         });
