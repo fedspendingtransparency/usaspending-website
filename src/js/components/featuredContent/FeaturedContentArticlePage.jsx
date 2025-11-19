@@ -40,6 +40,9 @@ const FeaturedContentArticlePage = () => {
         }
     }, [articles, lastPortion]);
 
+    useEffect(() => {
+        console.log("markdowncontent", typeof markdownContent);
+    }, [markdownContent]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -57,6 +60,7 @@ const FeaturedContentArticlePage = () => {
     useEffect(() => {
         const fetchMarkdown = async () => {
             const file = await import(`../../../content/featuredContent/${chosenArticle.mdx_path}`);
+            console.log(file);
             setMarkdownContent(file.default());
         };
         if (chosenArticle !== null) {

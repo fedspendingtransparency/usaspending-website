@@ -236,6 +236,38 @@ const articles = [
             }
         ],
         related_terms: []
+    },
+    {
+        taxonomy: "Spending Stories",
+        isLongForm: true,
+        content_type: 'Featured Content',
+        banner_title: "Discover How Government Spending Supports Causes You Care About ",
+        banner_subtitle: "TBD",
+        title: "Discover How Government Spending Supports Causes You Care About ",
+        created_date: "09/29/2025",
+        feature_sprint: 1,
+        feature_week: 3,
+        description: "If you’re passionate about a cause—whether it’s education, environmental protection, public health, or national security—you can use Advanced Search to explore",
+        mdx_path: "discover-how-government-spending-supports-causes-you-care-about.mdx",
+        hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-see_4_yourself.webp",
+        thumbnail_path: "../../img/featuredContent/cards/see-4-yourself.webp",
+        fill: contentMap.seeforyourself,
+        secondary: secondary.seeforyourself,
+        black_text: true,
+        landing_header_path: "",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            }
+        ],
+        related_terms: []
     }
 ];
 
