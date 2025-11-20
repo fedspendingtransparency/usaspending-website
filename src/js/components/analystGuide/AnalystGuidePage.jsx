@@ -10,7 +10,6 @@ import { useDispatch } from "react-redux";
 
 import 'pages/analystGuide/analystGuide.scss';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { showModal } from 'redux/actions/modal/modalActions';
 import AnalystGuideHeader from './AnalystGuideHeader';
 import PageWrapper from "../sharedComponents/PageWrapper";
@@ -21,13 +20,13 @@ import useIsMobile from "../../hooks/useIsMobile";
 
 
 const AnalystGuidePage = () => {
-    const isMobile = useIsMobile(mediumScreen);
+    const { isMediumScreen } = useIsMobile();
     const dispatch = useDispatch();
     const onExternalLinkClick = (e) => {
         dispatch(showModal(e));
     };
 
-    const dropdownDirection = isMobile ? 'right' : 'left';
+    const dropdownDirection = isMediumScreen ? 'right' : 'left';
     const slug = 'federal-spending-guide';
 
     const onShareClick = (name) => {
