@@ -1,42 +1,43 @@
 import { useEffect, useState } from 'react';
 import {
-    smallScreen,
     smTabletScreen,
     tabletScreen,
     mediumScreen,
-    largeScreen,
-    mLargeScreen,
-    xLargeScreen, getScreenSize, getScreenSizeFalse
+    getScreenSize,
+    getScreenSizeFalse, getScreenSizeTrue
 } from "../dataMapping/shared/mobileBreakpoints";
+
+/* eslint-disable max-len */
+/**
+ * An object with the different breakpoint states
+ * @typedef {Object} breakPoints
+ * @property {boolean} isMobile - `true` if window is less than 576px, `false` if greater than or equal to
+ * @property {boolean} isTablet - `true` if window is less than 768px, `false` if greater than or equal to
+ * @property {boolean} isMedium - `true` if window is less than 992px, `false` if greater than or equal to
+ * @property {boolean} isDesktop - `false` if window is less than 992px, `true` if greater than or equal to
+ */
 
 /**
  * useIsMobile
- * - a custom hook for checking whether your window is below a specific window size or not
- * @param {number} [breakPoint=768] - screen size to check as a pixel width
- * @returns {boolean} `true` if window width is less than breakPoint, `false` if greater than
+ * - a custom hook for checking whether the window is below or above the standard project breakpoints
+ * @returns {breakPoints} breakpoints - An object with the different breakpoint states, i.e., isMobile, isTablet, isMedium, & isDesktop
+ *
  */
 const useIsMobile = () => {
+    /* eslint-enable max-len */
     const [breakPoints, setBreakPoints] = useState({
-        isSmall: false,
-        isSmTablet: false,
+        isMobile: false,
         isTablet: false,
         isMedium: false,
-        isLarge: false,
-        isMLarge: false,
-        isXLarge: false,
-        isXXLarge: false
+        isDesktop: false
     });
 
     useEffect(() => {
         let isMounted = true;
 
-        const smallMatchMedia = window.matchMedia(`(max-width: ${smallScreen}px)`);
-        const smTabletMatchMedia = window.matchMedia(`(max-width: ${smTabletScreen}px)`);
-        const tabletMatchMedia = window.matchMedia(`(max-width: ${tabletScreen}px)`);
-        const mediumMatchMedia = window.matchMedia(`(max-width: ${mediumScreen}px)`);
-        const largeMatchMedia = window.matchMedia(`(max-width: ${largeScreen}px)`);
-        const mLargeMatchMedia = window.matchMedia(`(max-width: ${mLargeScreen}px)`);
-        const xLargeMatchMedia = window.matchMedia(`(max-width: ${xLargeScreen}px)`);
+        const smTabletMatchMedia = window.matchMedia(`(max-width: ${smTabletScreen - 1}px)`);
+        const tabletMatchMedia = window.matchMedia(`(max-width: ${tabletScreen - 1}px)`);
+        const mediumMatchMedia = window.matchMedia(`(max-width: ${mediumScreen - 1}px)`);
 
         const onChange = ({ matches }, screenSize) => {
             if (!isMounted) return;
@@ -44,41 +45,26 @@ const useIsMobile = () => {
             let newBreakPoints;
 
             if (matches) {
-                newBreakPoints = Object.fromEntries(
-                    Object.entries(breakPoints)
-                        .map(([key]) => [key, key === screenSize])
-                );
+                newBreakPoints = getScreenSizeTrue(screenSize);
             }
             else {
-                const screenSizeFalse = getScreenSizeFalse(screenSize);
-                newBreakPoints = Object.fromEntries(
-                    Object.entries(breakPoints)
-                        .map(([key]) => [key, key === screenSizeFalse])
-                );
+                newBreakPoints = getScreenSizeFalse(screenSize);
             }
 
             setBreakPoints(newBreakPoints);
         };
 
-        smallMatchMedia.addEventListener('change', (e) => onChange(e, 'isSmall'));
-        smTabletMatchMedia.addEventListener('change', (e) => onChange(e, 'isSmTablet'));
+        smTabletMatchMedia.addEventListener('change', (e) => onChange(e, 'isMobile'));
         tabletMatchMedia.addEventListener('change', (e) => onChange(e, 'isTablet'));
         mediumMatchMedia.addEventListener('change', (e) => onChange(e, 'isMedium'));
-        largeMatchMedia.addEventListener('change', (e) => onChange(e, 'isLarge'));
-        mLargeMatchMedia.addEventListener('change', (e) => onChange(e, 'isMLarge'));
-        xLargeMatchMedia.addEventListener('change', (e) => onChange(e, 'isXLarge'));
 
         onChange({ matches: true }, getScreenSize(window.innerWidth));
 
         return () => {
             isMounted = false;
-            smallMatchMedia.removeEventListener('change', (e) => onChange(e, 'isSmall'));
-            smTabletMatchMedia.removeEventListener('change', (e) => onChange(e, 'isSmTablet'));
+            smTabletMatchMedia.removeEventListener('change', (e) => onChange(e, 'isMobile'));
             tabletMatchMedia.removeEventListener('change', (e) => onChange(e, 'isTablet'));
             mediumMatchMedia.removeEventListener('change', (e) => onChange(e, 'isMedium'));
-            largeMatchMedia.removeEventListener('change', (e) => onChange(e, 'isLarge'));
-            mLargeMatchMedia.removeEventListener('change', (e) => onChange(e, 'isMLarge'));
-            xLargeMatchMedia.removeEventListener('change', (e) => onChange(e, 'isXLarge'));
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

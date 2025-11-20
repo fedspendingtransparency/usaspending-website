@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-/* eslint-disable max-len */ /**
+/* eslint-disable max-len */
+/**
  * useIntersectionObserver
  * -  that tracks the intersection of a DOM element with its containing element or the viewport using the Intersection Observer API
  * https://usehooks-ts.com/react-hook/use-intersection-observer
