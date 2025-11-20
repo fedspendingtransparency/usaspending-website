@@ -18,7 +18,6 @@ import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
@@ -51,7 +50,7 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const isMobile = useIsMobile(mediumScreen);
+    const { isMedium } = useIsMobile();
     const history = useNavigate();
     const query = useQueryParams();
     const dispatch = useDispatch();
@@ -130,7 +129,7 @@ export const AgencyProfileV2 = ({
 
         // add offsets
         let conditionalOffset;
-        if (isMobile) {
+        if (isMedium) {
             conditionalOffset =
                 window.scrollY < getStickyBreakPointForSidebar() ?
                     stickyHeaderHeight + 140 :

@@ -32,7 +32,7 @@ const propTypes = {
 };
 
 const ResultsTableSection = (props) => {
-    const isMobile = useIsMobile();
+    const { isTablet } = useIsMobile();
     const [tableWidth, setTableWidth] = useState(document.querySelector('.results-table-content'));
 
     const setTableWidthFn = useCallback(() => {
@@ -50,10 +50,10 @@ const ResultsTableSection = (props) => {
 
     useEffect(() => {
         // mobile check
-        if (isMobile && props.checkMobile && props.showToggle) {
-            props.checkMobile(isMobile);
+        if (isTablet && props.checkMobile && props.showToggle) {
+            props.checkMobile(isTablet);
         }
-    }, [isMobile, props]);
+    }, [isTablet, props]);
 
     const renderContent = () => {
         if (!props.results.length) {
@@ -66,7 +66,7 @@ const ResultsTableSection = (props) => {
                     {...props}
                     expandableData={props.expandableData}
                     columnType={props.columnType}
-                    isMobile={isMobile}
+                    isMobile={isTablet}
                     visibleWidth={tableWidth}
                     newMobileView />
             );
@@ -78,7 +78,7 @@ const ResultsTableSection = (props) => {
                 visibleWidth={tableWidth}
                 awardIdClick={props.awardIdClick}
                 subAwardIdClick={props.subAwardIdClick}
-                isMobile={isMobile}
+                isMobile={isTablet}
                 newMobileView />
         );
     };

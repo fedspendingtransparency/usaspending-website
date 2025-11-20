@@ -43,7 +43,7 @@ const propTypes = {
 };
 
 const StatusOfFunds = ({ fy, onChartLoaded }) => {
-    const isMobile = useIsMobile();
+    const { isMedium } = useIsMobile();
     const dispatch = useDispatch();
     const request = useRef(null);
     const { overview } = useSelector((state) => state.agency);
@@ -57,7 +57,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
     const [totalItems, setTotalItems] = useState(0);
     const [results, setResults] = useState([]);
     const [toggle, setOnToggle] = useState(false);
-    const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
+    const [viewType, setViewType] = useState(isMedium ? 'table' : 'chart');
     const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
     // these are used for goBack fn and when changing pages in results
@@ -96,10 +96,10 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
     }, [currentPage]);
 
     useEffect(() => {
-        if (isMobile) {
+        if (isMedium) {
             setViewType('table');
         }
-    }, [isMobile]);
+    }, [isMedium]);
 
     const fetchAgencySubcomponents = useCallback(() => {
         if (request.current) {
@@ -417,7 +417,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                         fy={fy} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
-                    {level > 0 && !isMobile ?
+                    {level > 0 && !isMedium ?
                         <button
                             title="Go up a level"
                             className="drilldown-back-button"
@@ -437,7 +437,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                                 setDrilldownLevel={setDrilldownLevel}
                                 fy={fy}
                                 results={results}
-                                isMobile={isMobile}
+                                isMobile={isMedium}
                                 viewType={viewType}
                                 setViewType={setViewType}
                                 maxLevel={maxLevel}

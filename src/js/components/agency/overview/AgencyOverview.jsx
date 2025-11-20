@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
 import { showSlideout } from '../../../helpers/slideoutHelper';
@@ -20,7 +19,7 @@ const propTypes = {
 };
 
 const AgencyOverview = ({ fy, dataThroughDate }) => {
-    const isMobile = useIsMobile(mediumScreen);
+    const { isMedium } = useIsMobile();
     const {
         website,
         mission,
@@ -81,7 +80,7 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
         </div>
     );
 
-    const content = isMobile ?
+    const content = isMedium ?
         <>
             {showAboutData ? aboutBlock : missionBlock}
             <ReadMore>
@@ -110,7 +109,7 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
             <FySummary
                 fy={fy}
                 dataThroughDate={dataThroughDate}
-                isMobile={isMobile} />
+                isMobile={isMedium} />
         </div>
     );
 };

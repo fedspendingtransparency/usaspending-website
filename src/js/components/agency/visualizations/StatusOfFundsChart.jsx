@@ -19,7 +19,7 @@ const propTypes = {
 const StatusOfFundsChart = ({
     results, fy, setDrilldownLevel, level, toggle, maxLevel
 }) => {
-    const chartRef = useRef();
+    const chartRef = useRef(null);
     const isMobile = useIsMobile(600);
     const isLargeScreen = useIsMobile(largeScreen);
     const isMediumScreen = !isMobile && !isLargeScreen;

@@ -59,7 +59,7 @@ const SearchSectionWrapperContent = ({
     downloadComponent,
     children
 }) => {
-    const isMobile = useIsMobile();
+    const { isTablet } = useIsMobile();
 
     const Message = () => {
         if (isLoading) {
@@ -107,7 +107,7 @@ const SearchSectionWrapperContent = ({
                     <Message />
                     :
                     <>
-                        {((viewType === "table" || sectionName === "table") && isMobile) ?
+                        {((viewType === "table" || sectionName === "table") && isTablet) ?
                             <MobileSort
                                 columns={columns}
                                 options={mobileDropdownOptions}
