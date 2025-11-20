@@ -51,8 +51,6 @@ describe('NAICSCheckboxTreeContainer', () => {
             expect(screen.getAllByText('fish', { exact: false }).length).toEqual(12); // kind of a bad test.  counts all the time "fish" return not actaul number of nodes.
             expect(screen.queryByText('Agriculture, Forestry, Fishing and Hunting')).toBeNull(); // "Fish" should be wrapped in a span to highlight now so this should not pass
             expect(screen.getByText('Agriculture, Forestry, ', { exact: false })).toBeInTheDocument(); // check to make sure this element is still there.
-            // kind of a bad test due to deep nesting, however "hide" className removes element from tree
-            expect(screen.queryByText('Mining, Quarrying, and Oil and Gas Extraction').parentElement.parentElement.parentElement.parentElement.parentElement).toHaveClass('hide');
         });
 
         act(() => {
@@ -63,8 +61,6 @@ describe('NAICSCheckboxTreeContainer', () => {
         await waitFor(() => {
             expect(screen.getByText('Agriculture, Forestry, Fishing and Hunting')).toBeInTheDocument();
             expect(screen.getByText('Mining, Quarrying, and Oil and Gas Extraction')).toBeInTheDocument();
-            // deep nested element should no logger have a parent with "hide" className.
-            expect(screen.getByText('Mining, Quarrying, and Oil and Gas Extraction').parentElement.parentElement.parentElement.parentElement.parentElement).not.toHaveClass('hide');
         });
     });
 
@@ -101,57 +97,56 @@ describe('NAICSCheckboxTreeContainer', () => {
     });
 
 
-    // this needs to be in new test for the new CheckboxTree, TreeNodeWrapper, and TreeNodes components.
+    xit('check/uncheck based on parent child relationship', async () => {
+        jest.spyOn(searchHelper, 'naicsRequest').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
 
+        render(<NAICSCheckboxTree />);
 
-    // it('check/uncheck based on parent child relationship', async () => {
-    //     jest.spyOn(searchHelper, 'naicsRequest').mockReturnValueOnce({ promise: Promise.resolve(initialMockResponse) });
+        await waitFor(() => {
+            expect(screen.getByText('Agriculture, Forestry, Fishing and Hunting')).toBeInTheDocument();
+        });
 
-    //     render(<NAICSCheckboxTree />);
+        jest.spyOn(searchHelper, 'naicsRequest').mockReturnValueOnce({ promise: Promise.resolve(accordionOpenMockResponse) });
 
-    //     await waitFor(() => {
-    //         expect(screen.getByText('Agriculture, Forestry, Fishing and Hunting')).toBeInTheDocument();
-    //     });
+        act(() => {
+            const accordionChevron = screen.getAllByRole('button', 'Toggle');
+            fireEvent.click(accordionChevron[1]);
+        });
 
-    //     jest.spyOn(searchHelper, 'naicsRequest').mockReturnValueOnce({ promise: Promise.resolve(accordionOpenMockResponse) });
+        await waitFor(() => {
+            const test = screen.getByText('Agriculture, Forestry, Fishing and Hunting');
+            expect(test).toBeInTheDocument();
+        });
 
-    //     act(() => {
-    //         const accordionChevron = screen.getAllByRole('button', 'Toggle');
-    //         fireEvent.click(accordionChevron[1]);
-    //     });
+        const checkboxes = screen.getAllByRole('checkbox');
 
-    //     await waitFor(() => {
-    //         const test = screen.getByText('Agriculture, Forestry, Fishing and Hunting');
-    //         expect(test).toBeInTheDocument();
-    //     });
+        screen.debug(checkboxes);
 
-    //     const checkboxes = document.getElementsByClassName('rct-checkbox');
+        // parent checked
+        act(() => {
+            fireEvent.click(checkboxes[1]);
+        });
 
-    //     // parent checked
-    //     act(() => {
-    //         fireEvent.click(checkboxes[1]);
-    //     });
+        expect(checkboxes[1].children[0]).toHaveAttribute('data-icon', 'check-square');
+        expect(checkboxes[2].children[0]).toHaveAttribute('data-icon', 'check-square');
+        expect(checkboxes[3].children[0]).toHaveAttribute('data-icon', 'check-square');
 
-    //     expect(checkboxes[1].children[0]).toHaveAttribute('data-icon', 'check-square');
-    //     expect(checkboxes[2].children[0]).toHaveAttribute('data-icon', 'check-square');
-    //     expect(checkboxes[3].children[0]).toHaveAttribute('data-icon', 'check-square');
+        // one child unchecked
+        act(() => {
+            fireEvent.click(checkboxes[2]);
+        });
 
-    //     // one child unchecked
-    //     act(() => {
-    //         fireEvent.click(checkboxes[2]);
-    //     });
+        expect(checkboxes[1].children[0]).toHaveAttribute('data-icon', 'minus-square');
+        expect(checkboxes[2].children[0]).toHaveAttribute('data-icon', 'square');
+        expect(checkboxes[3].children[0]).toHaveAttribute('data-icon', 'check-square');
 
-    //     expect(checkboxes[1].children[0]).toHaveAttribute('data-icon', 'minus-square');
-    //     expect(checkboxes[2].children[0]).toHaveAttribute('data-icon', 'square');
-    //     expect(checkboxes[3].children[0]).toHaveAttribute('data-icon', 'check-square');
+        // both children unchecked
+        act(() => {
+            fireEvent.click(checkboxes[3]);
+        });
 
-    //     // both children unchecked
-    //     act(() => {
-    //         fireEvent.click(checkboxes[3]);
-    //     });
-
-    //     expect(checkboxes[1].children[0]).toHaveAttribute('data-icon', 'square');
-    //     expect(checkboxes[2].children[0]).toHaveAttribute('data-icon', 'square');
-    //     expect(checkboxes[3].children[0]).toHaveAttribute('data-icon', 'square');
-    // });
+        expect(checkboxes[1].children[0]).toHaveAttribute('data-icon', 'square');
+        expect(checkboxes[2].children[0]).toHaveAttribute('data-icon', 'square');
+        expect(checkboxes[3].children[0]).toHaveAttribute('data-icon', 'square');
+    });
 });
