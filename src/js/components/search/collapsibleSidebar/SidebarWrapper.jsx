@@ -306,6 +306,7 @@ const SidebarWrapper = React.memo(({
                         keyHandler(e, toggleOpened);
                     }}
                     role="button"
+                    aria-label="Toggle Collapsible Sidebar"
                     focusable="true"
                     tabIndex={0}>
                     {isOpened ?
