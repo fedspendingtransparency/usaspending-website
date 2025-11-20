@@ -120,8 +120,6 @@ describe('NAICSCheckboxTreeContainer', () => {
 
         const checkboxes = screen.getAllByRole('checkbox');
 
-        screen.debug(checkboxes);
-
         // parent checked
         act(() => {
             fireEvent.click(checkboxes[1]);
