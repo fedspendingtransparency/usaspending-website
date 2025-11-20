@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { throttle } from 'lodash-es';
 import { useLocation } from 'react-router';
+import { parse } from 'react-markdown';
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
@@ -29,6 +30,8 @@ const FeaturedContentArticlePage = () => {
     const [chosenArticle, setChosenArticle] = useState(null);
     const [markdownContent, setMarkdownContent] = useState('');
     const [isLongForm, setIsLongForm] = useState(false);
+    const [metHeadingThreshold, setMetHeadingThreshold] = useState(false);
+    const [sections, setSections] = useState([]);
 
 
     useEffect(() => {
@@ -38,10 +41,9 @@ const FeaturedContentArticlePage = () => {
                 setIsLongForm(Object.prototype.hasOwnProperty.call(article, 'isLongForm') ? article.isLongForm : false);
             }
         }
-    }, [articles, lastPortion]);
+    }, [lastPortion]);
 
     useEffect(() => {
-        console.log("markdowncontent", typeof markdownContent);
     }, [markdownContent]);
 
     useEffect(() => {
@@ -60,8 +62,27 @@ const FeaturedContentArticlePage = () => {
     useEffect(() => {
         const fetchMarkdown = async () => {
             const file = await import(`../../../content/featuredContent/${chosenArticle.mdx_path}`);
-            console.log(file);
             setMarkdownContent(file.default());
+
+            const elements = file?.default()?.props?.children;
+            let h2Count = 0;
+            const tmpSections = [];
+
+            for (let i = 0; i < elements.length; i++) {
+                if (elements[i]?.type === "h2") {
+                    tmpSections.push({
+                        section: elements[i].props.children.props.children,
+                        label: elements[i].props.children.props.children,
+                        href: elements[i].props.children.props.href
+                    });
+                    h2Count++;
+                }
+            }
+
+            if (h2Count > 2) {
+                setMetHeadingThreshold(true);
+                setSections(tmpSections);
+            }
         };
         if (chosenArticle !== null) {
             fetchMarkdown();
@@ -74,21 +95,20 @@ const FeaturedContentArticlePage = () => {
             classNames="featured-content-page"
             noHeader={!isLongForm}
             backgroundColor={isLongForm && chosenArticle?.fill}
-            sections={[{ section: "1", label: "one" }, { section: "2", label: "two" }]}
-            activeSection="one"
-            title="&nbsp;"
+            sections={sections?.length > 0 ? sections : [{ section: " ", label: " " }]}
+            activeSection={sections?.length > 0 ? sections[0]?.label : " "}
             inPageNav={isLongForm}
             metaTagProps={{ ...homePageMetaTags }}>
             <main
                 id="main-content"
                 className="main-content featured-content">
-                {!isLongForm && <FeaturedContentHeader
+                {!isLongForm && metHeadingThreshold && <FeaturedContentHeader
                     isMobile={isMobile}
                     isTablet={isTablet}
                     chosenArticle={chosenArticle} />}
                 <FlexGridRow desktop={12} className="grid-content featured-content__article">
                     <FlexGridCol tablet={12} mobile={12} desktop={8}>
-                        {isLongForm && <div className="featured-content__header-block">
+                        {isLongForm && metHeadingThreshold && <div className="featured-content__header-block">
                             <span
                                 className="featured-content__label"
                                 style={{ backgroundColor: chosenArticle?.fill }}>
