@@ -20,13 +20,13 @@ import useIsMobile from "../../hooks/useIsMobile";
 
 
 const AnalystGuidePage = () => {
-    const { isMediumScreen } = useIsMobile();
+    const { isMedium } = useIsMobile();
     const dispatch = useDispatch();
     const onExternalLinkClick = (e) => {
         dispatch(showModal(e));
     };
 
-    const dropdownDirection = isMediumScreen ? 'right' : 'left';
+    const dropdownDirection = isMedium ? 'right' : 'left';
     const slug = 'federal-spending-guide';
 
     const onShareClick = (name) => {
