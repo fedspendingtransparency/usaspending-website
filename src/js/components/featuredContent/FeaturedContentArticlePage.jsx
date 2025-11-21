@@ -3,11 +3,10 @@
  * Created by Andrea Blackwell 9/11/2025
  **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { throttle } from 'lodash-es';
 import { useLocation } from 'react-router';
-import { parse } from 'react-markdown';
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
@@ -30,9 +29,25 @@ const FeaturedContentArticlePage = () => {
     const [chosenArticle, setChosenArticle] = useState(null);
     const [markdownContent, setMarkdownContent] = useState('');
     const [isLongForm, setIsLongForm] = useState(false);
-    const [metHeadingThreshold, setMetHeadingThreshold] = useState(false);
     const [sections, setSections] = useState([]);
+    const [containsH2, setContainsH2] = useState(false);
 
+    const contentRef = useRef(null);
+
+    useEffect(() => {
+        if (markdownContent && contentRef.current) {
+            // The amount of h2 elements determines if we show the in-page nav bar.  Only set contains h2 if there are 3 or more.
+            const H2Elements = contentRef.current.querySelectorAll('h2');
+            setContainsH2(H2Elements.length > 2);
+            const H2Sections = [...H2Elements].map((H2) => (
+                {
+                    label: H2.innerText,
+                    section: H2.innerText.toLowerCase().replace('/s', '-')
+                }));
+            setSections(H2Sections);
+        }
+    },
+    [markdownContent]);
 
     useEffect(() => {
         for (const article of articles) {
@@ -63,26 +78,6 @@ const FeaturedContentArticlePage = () => {
         const fetchMarkdown = async () => {
             const file = await import(`../../../content/featuredContent/${chosenArticle.mdx_path}`);
             setMarkdownContent(file.default());
-
-            const elements = file?.default()?.props?.children;
-            let h2Count = 0;
-            const tmpSections = [];
-
-            for (let i = 0; i < elements.length; i++) {
-                if (elements[i]?.type === "h2") {
-                    tmpSections.push({
-                        section: elements[i].props.children.props.children,
-                        label: elements[i].props.children.props.children,
-                        href: elements[i].props.children.props.href
-                    });
-                    h2Count++;
-                }
-            }
-
-            if (h2Count > 2) {
-                setMetHeadingThreshold(true);
-                setSections(tmpSections);
-            }
         };
         if (chosenArticle !== null) {
             fetchMarkdown();
@@ -102,13 +97,13 @@ const FeaturedContentArticlePage = () => {
             <main
                 id="main-content"
                 className="main-content featured-content">
-                {!isLongForm && metHeadingThreshold && <FeaturedContentHeader
+                {!isLongForm && containsH2 && <FeaturedContentHeader
                     isMobile={isMobile}
                     isTablet={isTablet}
                     chosenArticle={chosenArticle} />}
                 <FlexGridRow desktop={12} className="grid-content featured-content__article">
                     <FlexGridCol tablet={12} mobile={12} desktop={8}>
-                        {isLongForm && metHeadingThreshold && <div className="featured-content__header-block">
+                        {isLongForm && containsH2 && <div className="featured-content__header-block">
                             <span
                                 className="featured-content__label"
                                 style={{ backgroundColor: chosenArticle?.fill }}>
@@ -121,7 +116,7 @@ const FeaturedContentArticlePage = () => {
                         <div className="featured-content__last-updated">
                             Last Updated: {chosenArticle?.created_date}
                         </div>
-                        {markdownContent}
+                        <div ref={contentRef}>{markdownContent}</div>
                     </FlexGridCol>
                     <FeaturedContentArticleSidebar chosenArticle={chosenArticle} />
                 </FlexGridRow>
