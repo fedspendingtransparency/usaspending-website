@@ -28,7 +28,7 @@ import {
     setNaicsCounts
 } from 'redux/actions/search/naicsActions';
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
-import NewCheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
+import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 
 
@@ -378,7 +378,7 @@ const NAICSCheckboxTree = () => {
                     isClearable
                     onClear={onClear}
                     searchIcon />
-                <NewCheckboxTree
+                <CheckboxTree
                     limit={3}
                     data={getFormatedNaicsDataForCheckboxTree(nodes)}
                     isError={isError}
