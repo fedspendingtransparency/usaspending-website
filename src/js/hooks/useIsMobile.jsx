@@ -33,7 +33,7 @@ const useIsMobile = () => {
         isTablet: false,
         isMedium: false,
         isDesktopSm: false,
-        isDesktopLg: false,
+        isDesktopLg: false
     });
 
     useEffect(() => {
