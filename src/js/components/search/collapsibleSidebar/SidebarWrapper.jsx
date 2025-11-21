@@ -10,17 +10,19 @@ import PropTypes from "prop-types";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
+import KeywordSearchLink from "../KeywordSearchLink";
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func,
     showMobileFilters: PropTypes.bool,
     sidebarOpen: PropTypes.bool,
-    setSidebarOpen: PropTypes.func
+    setSidebarOpen: PropTypes.func,
+    searchv2: PropTypes.bool
 };
 
 const SidebarWrapper = React.memo(({
     // eslint-disable-next-line no-unused-vars
-    setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen
+    setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen, searchv2
 }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
@@ -279,51 +281,58 @@ const SidebarWrapper = React.memo(({
     };
 
     return (
-        <div
-            className={`search-collapsible-sidebar-container search-sidebar ${sidebarIsSticky ? "sticky" : ""}`}
-            style={isMobile ? {} : { display: "none" }}>
+        <>
             <div
-                style={isFooterVisible ? {
-                    height: selectHeight(), overscrollBehavior: "none", position: "fixed"
-                } : {
-                    height: selectHeight(), overscrollBehavior: "none"
-                }}
-                className={
-                    `search-sidebar collapsible-sidebar ${
-                        initialPageLoad ? "is-initial-loaded" : ""
-                    } ${
-                        isOpened ? 'opened' : ''
-                    }`
-                }>
+                className={`search-collapsible-sidebar-container search-sidebar ${
+                    sidebarIsSticky ? "sticky" : ""
+                }`}
+                style={isMobile ? {} : { display: "none" }}>
                 <div
-                    className="collapsible-sidebar--toggle"
-                    onClick={(e) => {
-                        setIsDsmOpened(false);
-                        toggleOpened(e);
+                    style={isFooterVisible ? {
+                        height: selectHeight(), overscrollBehavior: "none", position: "fixed"
+                    } : {
+                        height: selectHeight(), overscrollBehavior: "none"
                     }}
-                    onKeyDown={(e) => {
-                        setIsDsmOpened(false);
-                        keyHandler(e, toggleOpened);
-                    }}
-                    role="button"
-                    aria-label="Toggle Collapsible Sidebar"
-                    focusable="true"
-                    tabIndex={0}>
-                    {isOpened ?
-                        <FontAwesomeIcon className="chevron" icon="chevron-left" />
-                        :
-                        <FontAwesomeIcon className="chevron" icon="chevron-right" />
+                    className={
+                        `search-sidebar collapsible-sidebar ${
+                            initialPageLoad ? "is-initial-loaded" : ""
+                        } ${
+                            isOpened ? 'opened' : ''
+                        }`
+                    }>
+                    <div
+                        className="collapsible-sidebar--toggle"
+                        onClick={(e) => {
+                            setIsDsmOpened(false);
+                            toggleOpened(e);
+                        }}
+                        onKeyDown={(e) => {
+                            setIsDsmOpened(false);
+                            keyHandler(e, toggleOpened);
+                        }}
+                        role="button"
+                        aria-label="Toggle Collapsible Sidebar"
+                        focusable="true"
+                        tabIndex={0}>
+                        {isOpened ?
+                            <FontAwesomeIcon className="chevron" icon="chevron-left" />
+                            :
+                            <FontAwesomeIcon className="chevron" icon="chevron-right" />
+                        }
+                    </div>
+                    { isOpened &&
+                        <SidebarContent
+                            sidebarContentHeight={sidebarContentHeight}
+                            setShowMobileFilters={setShowMobileFilters}
+                            isDsmOpened={isDsmOpened}
+                            setIsDsmOpened={setIsDsmOpened} />
                     }
                 </div>
-                { isOpened &&
-                    <SidebarContent
-                        sidebarContentHeight={sidebarContentHeight}
-                        setShowMobileFilters={setShowMobileFilters}
-                        isDsmOpened={isDsmOpened}
-                        setIsDsmOpened={setIsDsmOpened} />
-                }
             </div>
-        </div>
+            {isMobile === false && searchv2 === false ?
+                <KeywordSearchLink />
+                : ''}
+        </>
     );
 });
 
