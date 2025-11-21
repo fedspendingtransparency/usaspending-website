@@ -3,20 +3,14 @@ import { AboutTheDataMarkdownLink } from '../../js/components/aboutTheDataSideba
 import DsmRelatedTerms from 'components/search/collapsibleSidebar/DsmRelatedTerms.jsx'
 import AboutTheDataLink from "../../js/components/sharedComponents/AboutTheDataLink";
 
-<div className="collapsible-sidebar--dsm-wrapper--text-section">
-    There are two location fields for award data on
+There are two location fields for award data on
 USAspending.gov:
 1. place of performance, and
 2. recipient location.
-</div>
 
-<div className="collapsible-sidebar--dsm-wrapper--text-section">
 Each prime award transaction includes separate fields for the place of performance of the award as well as the business address (recipient location) of the award recipient.
 Each subaward record includes these two location fields for the prime award recipient, as well as for the subaward recipient.
-</div>
 
-<div className="collapsible-sidebar--dsm-wrapper--text-section">
 Spending amounts may vary based on whether the place of performance or recipient location field is selected as a location filter.
-</div>
 
 <DsmRelatedTerms headingTitle={"Related terms"} glossaryLinks={[{text:'Primary Place of Performance', term:"primary-place-of-performance"},{text: "Recipient Location", term:"recipient-location"}]} aboutTheData={[{slug:"medicare-location-data", name:"Medicare Location Data"}, {slug:"congressional-district-data", name: "Congressional District Data"} ]} />
