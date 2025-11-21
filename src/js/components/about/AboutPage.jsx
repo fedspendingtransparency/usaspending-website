@@ -6,13 +6,13 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { find, throttle } from 'lodash-es';
-import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+
+import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
-
+import useQueryParams from "../../hooks/useQueryParams";
 import PageWrapper from "../sharedComponents/PageWrapper";
-
 import Mission from './Mission';
 import Background from './Background';
 import MoreInfo from './MoreInfo';

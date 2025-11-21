@@ -20,7 +20,8 @@ import noteText from 'dataMapping/covid19/recipient/recipient';
 import TableDownloadLink from 'containers/covid19/TableDownloadLink';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
-import { useStateWithPrevious, usePrevious } from 'helpers';
+import usePrevious from "../../../hooks/usePrevious";
+import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
@@ -267,6 +268,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
         if (Object.keys(recipientTotals).length && results.length) {
             addUnlinkedData();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [recipientTotals, resultTotal, results]);
 
     useEffect(() => {
@@ -292,14 +294,17 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                 fetchSpendingByRecipientCallback();
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageSize, defcParams, sort, order, activeTab, query]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loading, error]);
 
     return (

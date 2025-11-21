@@ -14,7 +14,7 @@ import {
 } from 'redux/actions/agency/agencyActions';
 import { fetchSubagencySpendingList } from 'apis/agency';
 import { parseRows } from 'helpers/agency/AwardSpendingSubagencyHelper';
-import { useStateWithPrevious } from 'helpers';
+import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -50,6 +50,7 @@ const SubagencyTableContainer = ({
             request.current.cancel();
         }
         dispatch(resetSubagencyTotals());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const fetchSpendingBySubagencyCallback = useCallback(() => {
@@ -98,12 +99,14 @@ const SubagencyTableContainer = ({
                 fetchSpendingBySubagencyCallback();
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [type, fy, pageSize, sort, order]);
 
     useEffect(() => {
         if (fy && toptierCode) {
             fetchSpendingBySubagencyCallback();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage, fy, toptierCode]);
 
     return (

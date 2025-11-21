@@ -8,14 +8,11 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 import Analytics from 'helpers/analytics/Analytics';
-
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
 import { generateSingular } from 'helpers/singularityHelper';
-
-import { useAgencySlugs } from "containers/agency/WithAgencySlugs";
-
 import TruncationWarning from './TruncationWarning';
+import useAgencySlugs from "../../../../hooks/useAgencySlugs";
 
 const dayjs = require('dayjs');
 

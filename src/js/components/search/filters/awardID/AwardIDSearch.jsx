@@ -7,8 +7,8 @@ import React, { useEffect, useState } from 'react';
 import { Button } from 'data-transparency-ui';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import PropTypes from 'prop-types';
-import { usePrevious } from '../../../../helpers';
 import SelectedAwardIDs from './SelectedAwardIDs';
+import usePrevious from "../../../../hooks/usePrevious";
 
 const propTypes = {
     toggleAwardID: PropTypes.func,

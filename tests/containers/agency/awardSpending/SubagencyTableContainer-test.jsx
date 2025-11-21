@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 import React from 'react';
+// eslint-disable-next-line import/no-unresolved
 import { render, waitFor } from 'test-utils';
 import * as redux from 'react-redux';
 import * as apis from 'apis/agency';

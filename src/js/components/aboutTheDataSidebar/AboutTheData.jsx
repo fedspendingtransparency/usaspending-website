@@ -17,8 +17,8 @@ import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
 import { LoadingWrapper } from "../sharedComponents/Loading";
 import AboutTheDataNoResults from "./AboutTheDataNoResults";
-import { useQueryParams, getQueryParamString } from '../../helpers/queryParams';
-
+import { getQueryParamString } from '../../helpers/queryParams';
+import useQueryParams from "../../hooks/useQueryParams";
 
 const propTypes = {
     aboutTheDataSidebar: PropTypes.object,

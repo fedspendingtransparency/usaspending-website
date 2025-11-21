@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
-import { throttle } from "lodash-es";
 import PropTypes from "prop-types";
 
 import MobileSort from "../../mobile/MobileSort";
 import SectionDataTable from "../SectionDataTable";
-import { tabletScreen } from "../../../../dataMapping/shared/mobileBreakpoints";
+import useIsMobile from "../../../../hooks/useIsMobile";
 
 const propTypes = {
     openAccordion: PropTypes.bool,
@@ -60,8 +59,7 @@ const SearchSectionWrapperContent = ({
     downloadComponent,
     children
 }) => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
-    const [windowWidth, setWindowWidth] = useState(0);
+    const { isTablet } = useIsMobile();
 
     const Message = () => {
         if (isLoading) {
@@ -96,19 +94,6 @@ const SearchSectionWrapperContent = ({
             hasPreviousPage={hasPreviousPage} />);
     };
 
-    // TODO: turn the below useEffect into a custom hook (since it seems to be duplicated elsewhere)
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < tabletScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
-
     return (
         <>
             {!openAccordion &&
@@ -122,7 +107,7 @@ const SearchSectionWrapperContent = ({
                     <Message />
                     :
                     <>
-                        {((viewType === "table" || sectionName === "table") && isMobile) ?
+                        {((viewType === "table" || sectionName === "table") && isTablet) ?
                             <MobileSort
                                 columns={columns}
                                 options={mobileDropdownOptions}

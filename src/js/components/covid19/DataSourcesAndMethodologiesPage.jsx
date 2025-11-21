@@ -18,11 +18,11 @@ import {
     getStickyBreakPointForCovidBanner,
     createJumpToSectionForSidebar
 } from 'helpers/covid19Helper';
-import { useQueryParams, combineQueryParams, getQueryParamString } from "helpers/queryParams";
-
+import { combineQueryParams, getQueryParamString } from "helpers/queryParams";
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { showModal } from '../../redux/actions/modal/modalActions';
+import useQueryParams from "../../hooks/useQueryParams";
 
 const getEmailSocialShareData = {
     subject: "COVID-19 Spending: Data Sources and Methodology",

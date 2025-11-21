@@ -8,16 +8,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { useNavigate, useLocation } from 'react-router';
 
-import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
-import { filterStoreVersion, requiredTypes, initialState } from 'redux/reducers/search/searchFiltersReducer';
+import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+import {
+    filterStoreVersion, requiredTypes, initialState
+} from 'redux/reducers/search/searchFiltersReducer';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
-import { setAppliedFilterEmptiness, resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
+import {
+    setAppliedFilterEmptiness, resetAppliedFilters
+} from 'redux/actions/search/appliedFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
-
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-
 import SearchPage from 'components/search/SearchPage';
 
 import {
@@ -25,6 +27,7 @@ import {
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
+import useQueryParams from "../../hooks/useQueryParams";
 
 require('pages/search/searchPage.scss');
 

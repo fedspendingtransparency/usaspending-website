@@ -23,13 +23,14 @@ import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSear
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { slug, getEmailSocialShareData } from 'dataMapping/covid19/covid19';
-import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { showModal } from 'redux/actions/modal/modalActions';
 import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
 import OtherResources from 'components/covid19/OtherResources';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
 import Analytics from 'helpers/analytics/Analytics';
+import useQueryParams from "../../hooks/useQueryParams";
 
 require('pages/covid19/index.scss');
 

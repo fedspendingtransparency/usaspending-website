@@ -9,20 +9,23 @@ import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
 import { find, throttle } from 'lodash-es';
 import { useNavigate } from "react-router";
 import { useDispatch } from 'react-redux';
-import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
-import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
+import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from
+    'helpers/fiscalYearHelper';
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import ChildRecipientModalContainer from 'containers/recipient/modal/ChildRecipientModalContainer';
-import { AlternateNamesRecipientModalContainer } from 'containers/recipient/modal/AlternateNamesRecipientModalContainer';
+import { AlternateNamesRecipientModalContainer } from
+    'containers/recipient/modal/AlternateNamesRecipientModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Error from 'components/sharedComponents/Error';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import RecipientContent from './RecipientContent';
 import { showModal } from '../../redux/actions/modal/modalActions';
+import useQueryParams from "../../hooks/useQueryParams";
 
 const propTypes = {
     loading: PropTypes.bool,

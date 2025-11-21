@@ -13,12 +13,14 @@ import AboutTheDataModal from "components/agencySubmissionStats/AboutTheDataModa
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import AgenciesContainer from 'containers/agencySubmissionStats/AgenciesContainer';
-import { useLatestAccountData, useValidTimeBasedQueryParams } from 'containers/account/WithLatestFy';
-import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { useLatestAccountData, useValidTimeBasedQueryParams } from
+    'containers/account/WithLatestFy';
+import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { modalTitles, modalClassNames } from 'dataMapping/agencySubmissionStats/modals';
 import { tabTooltips } from './componentMapping/tooltipContentMapping';
 import TimeFilters from './TimeFilters';
 import { showModal } from '../../redux/actions/modal/modalActions';
+import useQueryParams from "../../hooks/useQueryParams";
 
 require('pages/agencySubmissionStats/aboutTheData.scss');
 

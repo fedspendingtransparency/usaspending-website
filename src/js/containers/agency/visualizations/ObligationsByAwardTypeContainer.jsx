@@ -16,11 +16,10 @@ import { calculatePercentage } from 'helpers/moneyFormatter';
 
 const propTypes = {
     fiscalYear: PropTypes.number.isRequired,
-    windowWidth: PropTypes.number.isRequired,
     isMobile: PropTypes.bool
 };
 
-export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidth, isMobile }) {
+export default function ObligationsByAwardTypeContainer({ fiscalYear, isMobile }) {
     const [categoriesForGraph, setCategoriesForGraph] = React.useState([]);
     const [detailsForGraph, setDetailsForGraph] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
@@ -181,7 +180,6 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         <ObligationsByAwardType
             outer={categoriesForGraph}
             inner={detailsForGraph}
-            windowWidth={windowWidth}
             fiscalYear={fiscalYear}
             isMobile={isMobile} />
         }

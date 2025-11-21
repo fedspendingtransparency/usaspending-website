@@ -1,12 +1,12 @@
 
 /**
  * @jest-environment jsdom
- * 
+ *
  * index-test.js
  * Created by Max Kendall 04/26/2021
 * */
 import { act, renderHook } from '@testing-library/react-hooks';
-import { useStateWithPrevious } from 'helpers';
+import useStateWithPrevious from "../../src/js/hooks/useStateWithPrevious";
 
 test('useStateWithPrevious correctly maintains state and previous state', () => {
     const { result } = renderHook(() => useStateWithPrevious(1));

@@ -12,7 +12,7 @@ import TimeVisualizationSectionContainer
     from "../../../../containers/search/resultsView/TimeVisualizationSectionContainer";
 import PlaceholderComponent from "../PlaceholderComponent";
 import TimeDsm from "./TimeDsm";
-import { useQueryParams } from '../../../../helpers/queryParams';
+import useQueryParams from "../../../../hooks/useQueryParams";
 
 const propTypes = {
     timeHasLoaded: PropTypes.bool,

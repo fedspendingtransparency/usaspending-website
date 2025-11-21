@@ -3,14 +3,15 @@
  */
 import React from 'react';
 import { List } from 'immutable';
+// eslint-disable-next-line import/no-unresolved
 import { render, screen, waitFor } from '@test-utils';
 
 import AboutTheDataPage from 'components/agencySubmissionStats/AboutTheDataPage';
 import * as accountHelpers from 'apis/account';
 import * as helpers from "containers/account/WithLatestFy";
 import * as glossaryHelpers from 'helpers/glossaryHelper';
-import * as queryParamHelpers from 'helpers/queryParams';
 import * as agencyReportingAPI from 'apis/agencyReporting';
+import * as useQueryParams from "../../../src/js/hooks/useQueryParams";
 import { mockAPI } from '../../containers/agencySubmissionStats/mockData';
 import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';
 
@@ -104,7 +105,7 @@ beforeEach(() => {
 });
 
 test('renders the details table first', async () => {
-    jest.spyOn(queryParamHelpers, 'useQueryParams').mockImplementation((param) => ({
+    jest.spyOn(useQueryParams, 'default').mockImplementation(() => ({
         fy: '2020',
         period: '12',
         tab: 'submissions'
@@ -117,7 +118,7 @@ test('renders the details table first', async () => {
 
 test('on tab change updates the table view', async () => {
     // shows the other table
-    jest.spyOn(queryParamHelpers, 'useQueryParams').mockImplementation((param) => ({
+    jest.spyOn(useQueryParams, 'default').mockImplementation(() => ({
         fy: '2020',
         period: '12',
         tab: 'publications'
@@ -130,7 +131,7 @@ test('on tab change updates the table view', async () => {
 });
 
 xtest('redirects submission-statistics to url w/ latest fy and period in params', async () => {
-    jest.spyOn(queryParamHelpers, 'useQueryParams').mockReturnValue({});
+    jest.spyOn(useQueryParams, 'default').mockReturnValue({});
     jest.spyOn(URLSearchParams.prototype, 'toString').mockReturnValue("fy=2020&period=12&tab=submissions");
     render(<AboutTheDataPage {...defaultProps} />);
     waitFor(() => {

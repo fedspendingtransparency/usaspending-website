@@ -14,8 +14,9 @@ import {
 } from 'data-transparency-ui';
 
 import TotalObligationsOverTimeVisualization from 'components/agency/visualizations/totalObligationsOverTime/TotalObligationsOverTimeVisualization';
-import { addSubmissionEndDatesToBudgetaryResources } from 'helpers/agency/visualizations/TotalObligationsOverTimeVisualizationHelper';
-import { useQueryParams } from 'helpers/queryParams';
+import { addSubmissionEndDatesToBudgetaryResources } from
+    'helpers/agency/visualizations/TotalObligationsOverTimeVisualizationHelper';
+import useQueryParams from "../../../hooks/useQueryParams";
 
 const propTypes = {
     agencyBudget: PropTypes.number,

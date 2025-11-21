@@ -16,7 +16,7 @@ import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import Analytics from 'helpers/analytics/Analytics';
 import { Tabs } from "data-transparency-ui";
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
-import { useStateWithPrevious } from 'helpers';
+import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 
 const overviewData = [
     {
@@ -27,7 +27,9 @@ const overviewData = [
         type: 'awardObligations',
         title: (
             <div>
-                <span className="glossary-term">Award Obligations</span> <GlossaryLink term="obligation" />
+                <span className="glossary-term">
+                    Award Obligations
+                </span> <GlossaryLink term="obligation" />
             </div>
         ),
         isMonetary: true
@@ -49,7 +51,8 @@ const overviewData = [
 
 const SpendingByRecipientContainer = () => {
     const [inFlight, setInFlight] = useState(true);
-    const [prevActiveTab, activeTab, setActiveTab] = useStateWithPrevious(awardTypeTabs[0].internal);
+    const [prevActiveTab, activeTab, setActiveTab] =
+        useStateWithPrevious(awardTypeTabs[0].internal);
     const { defcParams } = useSelector((state) => state.covid19);
     const awardFilterButtonsRef = useRef(null);
 
@@ -66,7 +69,11 @@ const SpendingByRecipientContainer = () => {
     const changeActiveTab = (tab) => {
         const selectedTab = awardTypeTabs.find((item) => item.internal === tab).internal;
         setActiveTab(selectedTab);
-        Analytics.event({ event: 'covid_spending_recipient', category: 'COVID-19 - Award Spending by Recipient - Recipients', action: `${activeTab} - click` });
+        Analytics.event({
+            event: 'covid_spending_recipient',
+            category: 'COVID-19 - Award Spending by Recipient - Recipients',
+            action: `${activeTab} - click`
+        });
     };
 
     useEffect(() => {
@@ -87,7 +94,15 @@ const SpendingByRecipientContainer = () => {
             });
             // Wait for all the requests to complete and then store the results in state
             Promise.all(promises)
-                .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes, contractRes, idvRes]) => {
+                .then(([
+                    allRes,
+                    grantsRes,
+                    loansRes,
+                    directPaymentsRes,
+                    otherRes,
+                    contractRes,
+                    idvRes
+                ]) => {
                     setTabCounts({
                         all: allRes.data.count,
                         grants: grantsRes.data.count,
@@ -101,8 +116,18 @@ const SpendingByRecipientContainer = () => {
         }
     }, [defcParams]);
 
-    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
-        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, awardFilterButtonsRef);
+    const scrollIntoViewTable = (
+        loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions
+    ) => {
+        scrollIntoView(
+            loading,
+            error,
+            errorOrLoadingRef,
+            tableWrapperRef,
+            margin,
+            scrollOptions,
+            awardFilterButtonsRef
+        );
     };
     useEffect(() => {
         const countState = areCountsDefined(tabCounts);
@@ -119,12 +144,22 @@ const SpendingByRecipientContainer = () => {
             <div ref={awardFilterButtonsRef}>
                 <Tabs
                     active={activeTab}
-                    types={awardTypeTabs.map((tab) => ({ ...tab, disabled: tabCounts && tab.internal !== 'all' && !tabCounts[tab.internal], count: tabCounts[tab.internal] }))}
+                    types={
+                        awardTypeTabs.map((tab) => ({
+                            ...tab,
+                            disabled:
+                                tabCounts &&
+                                tab.internal !== 'all' &&
+                                !tabCounts[tab.internal],
+                            count: tabCounts[tab.internal]
+                        }))
+                    }
                     switchTab={changeActiveTab}
                     tablessStyle />
             </div>
             <SummaryInsightsContainer
-                // pass Recipient count to the summary section so we don't have to make the same API request again
+                // pass Recipient count to the summary section
+                // so we don't have to make the same API request again
                 resultsCount={tabCounts[activeTab]}
                 activeTab={activeTab}
                 areCountsLoading={inFlight}

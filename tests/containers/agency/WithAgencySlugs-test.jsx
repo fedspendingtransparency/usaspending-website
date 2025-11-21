@@ -1,16 +1,17 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * WithAgencySlugs-test.js
  * Created by Lizzie Salita 11/8/21
 * */
 
-import { mapSlugToTopTierCode, mapTopTierCodeToSlug, useAgencySlugs, mapIdToSlug, mapTopTierCodeToOutlay } from 'containers/agency/WithAgencySlugs';
+import { mapSlugToTopTierCode, mapTopTierCodeToSlug, mapIdToSlug, mapTopTierCodeToOutlay } from 'containers/agency/WithAgencySlugs';
 import { renderHook } from '@testing-library/react-hooks';
 import * as redux from 'react-redux';
 import * as api from 'apis/agency';
 import * as actions from 'redux/actions/agency/agencyActions';
 import { waitFor } from '../../testResources/test-utils';
+import useAgencySlugs from "../../../src/js/hooks/useAgencySlugs";
 
 let mockFetch;
 let mockUseSelector;

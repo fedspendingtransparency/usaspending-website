@@ -6,15 +6,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table, TooltipWrapper } from 'data-transparency-ui';
-import { categoryTitles } from 'dataMapping/topCategories';
-import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
-import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { isCancel } from "axios";
 
+import { categoryTitles } from 'dataMapping/topCategories';
+import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { CondensedCDTooltip } from '../award/shared/InfoTooltipContent';
 import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../dataMapping/state/stateNames";
 import { REQUEST_VERSION } from "../../GlobalConstants";
 import { generateUrlHash } from "../../helpers/searchHelper";
+import useAgencySlugs from "../../hooks/useAgencySlugs";
 
 const propTypes = {
     category: PropTypes.string,
