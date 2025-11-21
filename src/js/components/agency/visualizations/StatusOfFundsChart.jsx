@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { throttle } from 'lodash-es';
-import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { largeScreen, mediumScreen, smallScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FlexGridRow, TooltipWrapper } from 'data-transparency-ui';
-import useIsMobile from "../../../hooks/useIsMobile";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -19,11 +18,11 @@ const propTypes = {
 const StatusOfFundsChart = ({
     results, fy, setDrilldownLevel, level, toggle, maxLevel
 }) => {
-    const chartRef = useRef(null);
-    const isMobile = useIsMobile(600);
-    const isLargeScreen = useIsMobile(largeScreen);
-    const isMediumScreen = !isMobile && !isLargeScreen;
-
+    const chartRef = useRef();
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
+    const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < mediumScreen && window.innerWidth > smallScreen);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
     const [negativeTbr, setNegativeTbr] = useState(false);
     const [negativeObl, setNegativeObl] = useState(false);
     const [negativeOutlay, setNegativeOutlay] = useState(false);
@@ -76,7 +75,20 @@ const StatusOfFundsChart = ({
 
     useEffect(() => {
         setTextScale(viewWidth / chartRef.current?.getBoundingClientRect().width);
-    }, []);
+
+        const handleResize = throttle(() => {
+            setTextScale(viewWidth / chartRef.current?.getBoundingClientRect().width);
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsLargeScreen(newWidth < largeScreen);
+                setIsMobile(newWidth < 600);
+                setIsMediumScreen(newWidth < mediumScreen && newWidth > smallScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
 
 
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
