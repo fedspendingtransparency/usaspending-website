@@ -311,7 +311,8 @@ const SidebarWrapper = React.memo(({
                             keyHandler(e, toggleOpened);
                         }}
                         role="button"
-                        focusable="true"
+                        aria-label="Toggle Collapsible Sidebar"
+                    focusable="true"
                         tabIndex={0}>
                         {isOpened ?
                             <FontAwesomeIcon className="chevron" icon="chevron-left" />

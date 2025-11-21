@@ -306,11 +306,22 @@ export default class BarChartTrendline extends React.Component {
                 .range([0, this.state.graphHeight])
                 .clamp(true);
 
+            // check to see if groups and zSeries lengths are the same
+            // remove older entries if they do not match (DEV-13636)
+            const newZSeries = props.zSeries;
+            if (props.groups.length < props.zSeries.length) {
+                const difference = props.zSeries.length - props.groups.length;
+
+                for (let z = 0; z < difference; z++) {
+                    newZSeries.shift();
+                }
+            }
+
             // generate the data points on the line
             const trendItems = [];
             // iterate through each of the groups
             props.groups.forEach((group, groupIndex) => {
-                const zData = props.zSeries[groupIndex];
+                const zData = newZSeries[groupIndex];
 
                 // xPosition is the center of the corresponding bar
                 const bar = this.state.items[groupIndex];
