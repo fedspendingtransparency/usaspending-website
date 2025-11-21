@@ -39,7 +39,7 @@ const propTypes = {
     countLabel: PropTypes.string
 };
 
-const CheckboxTree = ({
+const LegacyCheckboxTree = ({
     data,
     className,
     isLoading,
@@ -280,5 +280,5 @@ const CheckboxTree = ({
     );
 };
 
-CheckboxTree.propTypes = propTypes;
-export default CheckboxTree;
+LegacyCheckboxTree.propTypes = propTypes;
+export default LegacyCheckboxTree;

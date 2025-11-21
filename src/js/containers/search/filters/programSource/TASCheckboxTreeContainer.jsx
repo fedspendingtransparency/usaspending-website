@@ -33,7 +33,7 @@ import {
 } from 'redux/actions/search/tasActions';
 import { updateTAS } from 'redux/actions/search/searchFilterActions';
 
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+import LegacyCheckboxTree from 'components/sharedComponents/LegacyCheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
@@ -402,7 +402,7 @@ export class TASCheckboxTree extends React.Component {
                     loading={false}
                     onClear={this.onClear}
                     searchIcon />
-                <CheckboxTree
+                <LegacyCheckboxTree
                     isError={isError}
                     errorMessage={errorMessage}
                     isLoading={isLoading}

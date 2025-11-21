@@ -19,60 +19,120 @@
     }
 
     li {
-      margin-bottom: 12px !important;
-    }
-
-    .checkbox-tree-label__value-container-value {
-      font-size: 10px !important;
-      align-items: center;
-      color: $gray-90;
-      border-radius: 2px;
-      background-color: $gray-cool-5 !important;
-      padding: rem(1) rem(2) !important;
-
-      span.highlight {
-        background-color: $yellow-10;
-      }
-    }
-
-    .checkbox-tree-label__value-container-count {
-      font-size: 10px !important;
-      color: $gray-60 !important;
-      padding-left: 4px !important;
-      padding-bottom: 0 !important;
-      line-height: 1.8 !important;
-    }
-
-    .checkbox-tree-label__label {
-      font-size: 12px !important;
-      color: $gray-90;
-      padding-top: 4px !important;
-
-      span.highlight {
-        background-color: $yellow-10;
-      }
-    }
-
-    .rct-checkbox {
-      color: $gray-cool-20 !important;
-      padding: 0 rem(4);
-    }
-
-    .rct-text {
-      svg {
-        height: 10px;
-        color: $theme-color-1;
-      }
+      margin-bottom: 0 !important;
 
       label {
-        padding-top: 0 !important;
-        padding-bottom: 0 !important;
         margin-bottom: 0 !important;
+      }
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+
+      li {
+        list-style-type: none;
+        margin-bottom: 0 !important;
+
+        .label {
+          display: flex;
+        }
+      }
+
+      .loading {
+        margin-left: 10px;
+      }
+    }
+
+    div.open {
+      margin-left: 8px;
+      padding-left: 24px;
+      border-left: 1.5px solid $gray-cool-20;
+    }
+
+    button {
+      width: unset;
+      background-color: unset;
+      margin: unset;
+      padding: unset;
+      color: $color_gray;
+      margin-right: 4px;
+      svg {
+        width: 10px;
+        height: 10px;
+        color: $blue-50;
+      }
+    }
+
+    input[type="checkbox"] {
+      margin: 2px 4px 0 0;
+      cursor: pointer;
+    }
+
+    .checkbox-tree-label {
+      &__container {
+        display: flex;
+      }
+
+      &__controls {
+        display: flex;
+        align-items: center;
+        margin-top: 4px;
+        height: 20px;
+      }
+
+      &__value-container {
+        display: inline-flex;
+        align-items: center;
+        line-height: 1.8rem;
+      }
+
+      &__description {
+        margin-left: 10px;
+      }
+
+      &__value-container-count {
+        font-style: italic;
+        font-size: $font-size-10;
+        color: $gray-60;
+        white-space: nowrap;
+        padding-top: rem(4);
+      }
+
+      &__value-container-value {
+        text-align: center;
+        padding: 0 rem(4);
+        margin-right: rem(4);
+        font-size: $font-size-10;
+        background-color: $color-gray-lightest;
+        border-radius: 2px;
+        font-weight: $font-semibold;
+        color: $gray-90;
+
+        span.highlight {
+          background-color: $yellow-10;
+          font-style: normal;
+          font-size: $font-size-10;
+        }
+      }
+      &__label {
+        font-size: $font-size-12;
+        margin-bottom: rem(12);
+        padding-top: 0 !important;
+        font-weight: $font-semibold;
+        line-height: 1.8rem;
+          span.highlight {
+            background-color: $yellow-10;
+          }
+      }
+
+      &__container {
+        margin-left: 4px;
       }
     }
   }
 
-  .psc-checkbox {
+  .psc-search-container {
     @extend .naics-search-container;
 
     .autocomplete__input, .geo-entity-dropdown__input {
@@ -86,23 +146,10 @@
 
 
   .tas-checkbox {
-    @extend .psc-checkbox;
+    @extend .psc-search-container ;
 
-    border-bottom: none !important;
-    margin-bottom: 0 !important;
-    padding-bottom: 0 !important;
-
-    .checkbox-tree {
-      border-bottom: none !important;
-    }
-
-    .checkbox-tree-label__label {
-      padding-top: 0 !important;
-    }
-
-    .rct-checkbox {
-      display: flex;
-      justify-content: flex-start;
+    .autocomplete__input {
+      padding: rem(10) 0;
     }
   }
 

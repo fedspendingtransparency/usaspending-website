@@ -23,7 +23,7 @@ import {
 
 import * as pscActions from 'redux/actions/search/pscActions';
 import { updatePSC } from 'redux/actions/search/searchFilterActions';
-import NewCheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
+import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { bindActionCreators } from "redux";
@@ -389,7 +389,7 @@ const PSCCheckboxTreeContainer = ({
     }, [nodes]);
 
     return (
-        <div className="psc-checkbox">
+        <div className="psc-search-container">
             <EntityDropdownAutocomplete
                 placeholder="Search filters..."
                 searchString={searchString}
@@ -400,7 +400,7 @@ const PSCCheckboxTreeContainer = ({
                 loading={false}
                 onClear={onClear}
                 searchIcon />
-            <NewCheckboxTree
+            <CheckboxTree
                 isError={isError}
                 errorMessage={errorMessage}
                 isLoading={isLoading}

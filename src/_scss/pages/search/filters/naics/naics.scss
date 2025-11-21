@@ -65,5 +65,16 @@
         }
       }
     }
+
+    .checkbox-tree .checkbox-tree-label__description {
+      .checkbox-tree-label__container .checkbox-tree-label .checkbox-tree-label__label {
+        font-weight: $font-semibold;
+
+      }
+
+      .checkbox-tree-label__description .checkbox-tree-label__label {
+        font-weight: normal !important;
+      }
+    }
   }
 }

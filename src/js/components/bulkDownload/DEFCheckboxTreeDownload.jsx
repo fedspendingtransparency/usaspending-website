@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+import LegacyCheckboxTree from 'components/sharedComponents/LegacyCheckboxTree';
 import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
 
 import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
@@ -95,7 +95,7 @@ const DEFCheckboxTreeDownload = ({
 
     return (
         <div className="def-code-filter-download">
-            <CheckboxTree
+            <LegacyCheckboxTree
                 className="def-checkbox-tree"
                 checked={defCodes}
                 expanded={expanded}
@@ -111,7 +111,7 @@ const DEFCheckboxTreeDownload = ({
                 onCheck={stageFilter}
                 onCollapse={onCollapse}
                 onExpand={onExpand} />
-            <CheckboxTree
+            <LegacyCheckboxTree
                 className="def-checkbox-tree"
                 checked={defCodes}
                 expanded={expanded}

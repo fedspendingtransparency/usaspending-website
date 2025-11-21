@@ -5,7 +5,7 @@ import { flowRight } from 'lodash-es';
 
 import withDefCodes from 'containers/covid19/WithDefCodes';
 
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+import LegacyCheckboxTree from 'components/sharedComponents/LegacyCheckboxTree';
 import { updateDefCodes } from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
@@ -112,7 +112,7 @@ const DEFCheckboxTree = (props) => {
 
     return (
         <div className="def-code-filter">
-            <CheckboxTree
+            <LegacyCheckboxTree
                 className="def-checkbox-tree"
                 checked={props.checked}
                 expanded={defaultExpanded}

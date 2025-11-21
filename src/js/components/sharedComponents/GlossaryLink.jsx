@@ -77,6 +77,7 @@ const GlossaryLink = ({
             aria-label="Open the Glossary"
             tabIndex={hidden ? "-1" : ""}
             onClick={stopBubble}
+            replace
             alt={alt}>
             {innerContent()}
         </Link>

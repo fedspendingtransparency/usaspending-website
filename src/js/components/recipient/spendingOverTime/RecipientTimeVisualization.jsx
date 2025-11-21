@@ -3,26 +3,32 @@
  * Created by Lizzie Salita 7/6/18
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
 
-import TimeTooltip from 'components/state/spendingovertime/StateTimeVisualizationTooltip';
-import ChartLoadingMessage from 'components/sharedComponents/ChartLoadingMessage';
-import ChartNoResults from 'components/sharedComponents/ChartNoResults';
-import ChartError from 'components/sharedComponents/ChartError';
 import BarChartTrendline from './chart/BarChartTrendline';
 import PointTooltip from './PointTooltip';
+import ChartNoResults from "../../sharedComponents/ChartNoResults";
+import ChartError from "../../sharedComponents/ChartError";
+import ChartLoadingMessage from "../../sharedComponents/ChartLoadingMessage";
+import TimeTooltip from '../../../components/state/spendingovertime/StateTimeVisualizationTooltip';
 
-const defaultProps = {
-    groups: [],
-    xSeries: [],
-    ySeries: [],
-    zSeries: [],
-    width: 0,
-    height: 280
-};
+const legend = [
+    {
+        color: '#141D3B',
+        stroke: '#141D3B',
+        label: 'All Transactions',
+        offset: 0
+    },
+    {
+        color: '#FFFFFF',
+        stroke: '#F5A623',
+        label: 'Count of New Awards',
+        offset: 120
+    }
+];
 
 /**
  * groups - an array of X-axis labels. Each group can have multiple bars/data points
@@ -32,7 +38,7 @@ const defaultProps = {
  *
  * ySeries - an array of values that describe the Y-axis values for each data point in the group
  *
- * zSeries - an array of values with trendline data for each group
+ * zSeries - an array of values with trendLine data for each group
  */
 
 const propTypes = {
@@ -44,103 +50,89 @@ const propTypes = {
     visualizationPeriod: PropTypes.string
 };
 
-export default class RecipientTimeVisualization extends React.Component {
-    constructor(props) {
-        super(props);
+const RecipientTimeVisualization = ({
+    width = 0,
+    height = 280,
+    data = {
+        groups: [],
+        xSeries: [],
+        ySeries: [],
+        zSeries: [],
+        rawLabels: []
+    },
+    loading,
+    error,
+    visualizationPeriod
+}) => {
+    const [tooltipData, setTooltipData] = useState(data);
+    const [tooltipX, setTooltipX] = useState(0);
+    const [tooltipY, setTooltipY] = useState(0);
+    const [barWidth, setBarWidth] = useState(0);
 
-        this.state = {
-            showTooltip: false,
-            tooltipData: null,
-            tooltipX: 0,
-            tooltipY: 0,
-            barWidth: 0
-        };
+    let tooltip = null;
 
-        this.showTooltip = this.showTooltip.bind(this);
-    }
-
-    showTooltip(data, x, y, width) {
-        this.setState({
-            tooltipData: data,
-            tooltipX: x,
-            tooltipY: y,
-            barWidth: width
-        });
-    }
-
-    render() {
-        const legend = [
-            {
-                color: '#141D3B',
-                stroke: '#141D3B',
-                label: 'All Transactions',
-                offset: 0
-            },
-            {
-                color: '#FFFFFF',
-                stroke: '#F5A623',
-                label: 'Count of New Awards',
-                offset: 120
-            }
-        ];
-
-        let tooltip = null;
-        if (this.state.tooltipData && window.innerWidth > 720) {
-            if (this.state.tooltipData.type === 'bar') {
-                tooltip = (
-                    <TimeTooltip
-                        barWidth={this.state.barWidth}
-                        data={this.state.tooltipData}
-                        x={this.state.tooltipX}
-                        y={this.state.tooltipY}
-                        chartWidth={this.props.width} />
-                );
-            }
-            else if (this.state.tooltipData.type === 'point') {
-                tooltip = (
-                    <PointTooltip
-                        barWidth={this.state.barWidth}
-                        data={this.state.tooltipData}
-                        x={this.state.tooltipX}
-                        y={this.state.tooltipY}
-                        chartWidth={this.props.width} />
-                );
-            }
+    if (tooltipData && window.innerWidth > 720) {
+        if (tooltipData.type === 'bar') {
+            tooltip = (
+                <TimeTooltip
+                    barWidth={barWidth}
+                    data={tooltipData}
+                    x={tooltipX}
+                    y={tooltipY}
+                    chartWidth={width} />
+            );
         }
-
-        return (
-            <div className="recipient-visualization__time-wrapper">
-                <TransitionGroup>
-                    <CSSTransition
-                        classNames="visualization-content-fade"
-                        timeout={{ exit: 225, enter: 195 }}
-                        exit>
-                        <div>
-                            {this.props.data.groups.length > 0 && !this.props.loading && !this.props.error && (
-                                <BarChartTrendline
-                                    height={this.props.height}
-                                    width={this.props.width}
-                                    ySeries={this.props.data.ySeries}
-                                    xSeries={this.props.data.xSeries}
-                                    zSeries={this.props.data.zSeries}
-                                    groups={this.props.data.groups}
-                                    rawLabels={this.props.data.rawLabels}
-                                    legend={legend}
-                                    showTooltip={this.showTooltip}
-                                    visualizationPeriod={this.props.visualizationPeriod}
-                                    activeLabel={this.state.tooltipData} />
-                            )}
-                            {this.props.data.groups.length === 0 && !this.props.loading && !this.props.error && <ChartNoResults />}
-                            {this.props.error && <ChartError />}
-                            {this.props.loading && <ChartLoadingMessage />}
-                        </div>
-                    </CSSTransition>
-                </TransitionGroup>
-                {tooltip}
-            </div>
-        );
+        else if (tooltipData.type === 'point') {
+            tooltip = (
+                <PointTooltip
+                    barWidth={barWidth}
+                    data={tooltipData}
+                    x={tooltipX}
+                    y={tooltipY}
+                    chartWidth={width} />
+            );
+        }
     }
-}
+
+    const showTooltipFunc = (ttData, ttX, ttY, ttWidth) => {
+        setTooltipData(ttData);
+        setTooltipX(ttX);
+        setTooltipY(ttY);
+        setBarWidth(ttWidth);
+    };
+
+    return (
+        <div className="recipient-visualization__time-wrapper">
+            <TransitionGroup>
+                <CSSTransition
+                    classNames="visualization-content-fade"
+                    timeout={{ exit: 225, enter: 195 }}
+                    exit>
+                    <div>
+                        {data.groups.length > 0 && !loading && !error && (
+                            <BarChartTrendline
+                                height={height}
+                                width={width}
+                                ySeries={data.ySeries}
+                                xSeries={data.xSeries}
+                                zSeries={data.zSeries}
+                                groups={data.groups}
+                                rawLabels={data.rawLabels}
+                                legend={legend}
+                                showTooltip={showTooltipFunc}
+                                visualizationPeriod={visualizationPeriod}
+                                activeLabel={tooltipData} />
+                        )}
+                        {data.groups.length === 0 && !loading && !error && <ChartNoResults />}
+                        {error && <ChartError />}
+                        {loading && <ChartLoadingMessage />}
+                    </div>
+                </CSSTransition>
+            </TransitionGroup>
+            {tooltip}
+        </div>
+    );
+};
 
 RecipientTimeVisualization.propTypes = propTypes;
-RecipientTimeVisualization.defaultProps = defaultProps;
+export default RecipientTimeVisualization;

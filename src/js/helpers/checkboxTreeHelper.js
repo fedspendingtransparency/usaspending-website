@@ -77,6 +77,18 @@ export const getAllDescendants = (node, blackList = []) => {
     ];
 };
 
+export const getFormatedDataForCheckboxTree = (
+    nodes,
+    idKey,
+    getFormatedChildrenFn,
+    getFormatedAncestorsFn
+) => nodes.map((node) => ({
+    ...node,
+    id: node.id || node[idKey],
+    children: getFormatedChildrenFn(node),
+    ancestors: getFormatedAncestorsFn(node)
+}));
+
 export const removeStagedFilter = (
     nodes,
     checkedNodes,

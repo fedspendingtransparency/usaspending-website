@@ -191,28 +191,20 @@ const schema = {
             }
         ]
     },
-    "filter-category-descriptions": {
-        heading: "Filter Category Descriptions",
+    "filter-descriptions": {
+        heading: "Filter Descriptions",
         fields: [
             {
                 name: "Time Period",
-                slug: "time-period-category"
+                slug: "time-period-filter"
             },
             {
                 name: "Location",
-                slug: "location-category"
+                slug: "location-filter"
             },
             {
-                name: "Sources",
-                slug: "sources-category"
-            },
-            {
-                name: "Recipients",
-                slug: "recipients-category"
-            },
-            {
-                name: "Characteristics",
-                slug: "characteristics-category"
+                name: "Disaster Emergency Fund Code (DEFC)",
+                slug: "defc-filter"
             }
         ]
     },

@@ -1,11 +1,11 @@
 .mobile-filter-button-wrapper {
     // this is specifically to overlap the footer
     z-index: 1;
-    
+
     &.hidden {
         display: none;
     }
-    
+
     @include media($medium-screen) {
         // hide in non-mobile view
         display: none;
@@ -72,7 +72,6 @@
 
     button.mobile-filter-button-v2 {
         @include button-unstyled;
-        width: rem(180);
         height: rem(40);
         border-radius: 4px;
         color: $color-white;
