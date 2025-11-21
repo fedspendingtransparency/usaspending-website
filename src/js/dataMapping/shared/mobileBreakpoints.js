@@ -15,7 +15,8 @@ export const mLargeScreen = 1400; // dnu for custom hook
 export const xLargeScreen = 1640; // dnu for custom hook
 
 export const getScreenSize = (windowWidth) => {
-    if (windowWidth >= mediumScreen) return 'isDesktop';
+    if (windowWidth >= mLargeScreen) return 'isDesktop';
+    else if ((windowWidth < mLargeScreen) && (windowWidth >= mediumScreen)) return 'isMedium';
     else if ((windowWidth < mediumScreen) && (windowWidth >= tabletScreen)) return 'isMedium';
     else if ((windowWidth < tabletScreen) && (windowWidth >= smTabletScreen)) return 'isTablet';
     return 'isMobile';
@@ -23,58 +24,80 @@ export const getScreenSize = (windowWidth) => {
 
 export const getScreenSizeTrue = (screenSize) => {
     switch (screenSize) {
+        case 'isDesktopSm': return {
+            isMobile: false,
+            isTablet: false,
+            isMedium: false,
+            isDesktopSm: true,
+            isDesktopLg: false
+        };
         case 'isMedium': return {
             isMobile: false,
             isTablet: false,
             isMedium: true,
-            isDesktop: false
+            isDesktopSm: true,
+            isDesktopLg: false
         };
         case 'isTablet': return {
             isMobile: false,
             isTablet: true,
             isMedium: true,
-            isDesktop: false
+            isDesktopSm: true,
+            isDesktopLg: false
         };
         case 'isMobile': return {
             isMobile: true,
             isTablet: true,
             isMedium: true,
-            isDesktop: false
+            isDesktopSm: true,
+            isDesktopLg: false
         };
         default: return {
             isMobile: false,
             isTablet: false,
             isMedium: false,
-            isDesktop: true
+            isDesktopSm: false,
+            isDesktopLg: true
         };
     }
 };
 
 export const getScreenSizeFalse = (screenSize) => {
     switch (screenSize) {
+        case 'isDesktopSm': return {
+            isMobile: false,
+            isTablet: false,
+            isMedium: false,
+            isDesktopSm: false,
+            isDesktopLg: true
+        };
         case 'isMedium': return {
             isMobile: false,
             isTablet: false,
             isMedium: false,
-            isDesktop: true
+            isDesktopSm: true,
+            isDesktopLg: false
         };
         case 'isTablet': return {
             isMobile: false,
             isTablet: false,
             isMedium: true,
-            isDesktop: false
+            isDesktopSm: true,
+            isDesktopLg: false
         };
         case 'isMobile': return {
             isMobile: false,
             isTablet: true,
             isMedium: true,
-            isDesktop: false
+            isDesktopSm: true,
+            isDesktopLg: false
         };
         default: return {
             isMobile: true,
             isTablet: true,
             isMedium: true,
-            isDesktop: false
+            isDesktopSm: true,
+            isDesktopLg: false
         };
     }
 };
