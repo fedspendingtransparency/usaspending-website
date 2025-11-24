@@ -4,7 +4,7 @@
  */
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { isCancel } from "axios";
 import PropTypes from "prop-types";
 
@@ -35,7 +35,9 @@ const LocationAutocompleteContainer = ({
     const [selectedItem, setSelectedItem] = useState(null);
     const [readyToStage, setReadyToStage] = useState(false);
     const [countriesList, setCountriesList] = useState([]);
-    const [isForeign, setIsForeign] = useState(false);
+    const {
+        recipientDomesticForeign, locationDomesticForeign
+    } = useSelector((state) => state.filters);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
 
@@ -81,18 +83,26 @@ const LocationAutocompleteContainer = ({
         setIsLoading(false);
     }, []);
 
-    const test = useCallback(() => {
-        setIsForeign(!isForeign);
+    const setIsForeign = useCallback(() => {
         clearAutocompleteSuggestions();
-        const domesticForeign = isForeign ? 'all' : 'foreign';
+        const domesticForeign = activeTab === 'recipient' ?
+            recipientDomesticForeign :
+            locationDomesticForeign;
+        const scope = domesticForeign === 'foreign' ? 'all' : 'foreign';
 
         if (activeTab === 'recipient') {
-            dispatch(updateRecipientDomesticForeignSelection(domesticForeign));
+            dispatch(updateRecipientDomesticForeignSelection(scope));
         }
         else {
-            dispatch(updateDomesticForeignSelection(domesticForeign));
+            dispatch(updateDomesticForeignSelection(scope));
         }
-    }, [isForeign, clearAutocompleteSuggestions, activeTab, dispatch]);
+    }, [
+        clearAutocompleteSuggestions,
+        activeTab,
+        recipientDomesticForeign,
+        locationDomesticForeign,
+        dispatch
+    ]);
 
     const addLocation = () => {
         getLocationObject(selectedItem, countriesList, createLocationObjectByType);
@@ -185,8 +195,7 @@ const LocationAutocompleteContainer = ({
             readyToStage={readyToStage}
             addLocation={addLocation}
             isLoading={isLoading}
-            isForeign={isForeign}
-            setIsForeign={test} />
+            setIsForeign={setIsForeign} />
     );
 };
 

@@ -6,6 +6,7 @@
 import React from "react";
 import { Button } from "data-transparency-ui";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 import SelectedLocations from "./SelectedLocations";
 import Autocomplete from "../../../sharedComponents/autocomplete/Autocomplete";
@@ -21,7 +22,6 @@ const propTypes = {
     readyToStage: PropTypes.bool,
     addLocation: PropTypes.func,
     isLoading: PropTypes.bool,
-    isForeign: PropTypes.bool,
     setIsForeign: PropTypes.func
 };
 
@@ -35,9 +35,17 @@ const LocationAutocomplete = ({
     readyToStage,
     addLocation,
     isLoading,
-    isForeign,
     setIsForeign
 }) => {
+    const {
+        recipientDomesticForeign, locationDomesticForeign
+    } = useSelector((state) => state.filters);
+
+    const domesticForeign = activeTab === 'recipient' ?
+        recipientDomesticForeign :
+        locationDomesticForeign;
+    const isForeign = domesticForeign === 'foreign';
+
     const onClick = (e) => {
         e.preventDefault();
         addLocation();
