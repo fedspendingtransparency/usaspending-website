@@ -14,7 +14,9 @@ import LocationAutocomplete from
 import { fetchLocationList } from "../../../../helpers/mapHelper";
 import {
     addPOPLocationObject,
-    addRecipientLocationObject
+    addRecipientLocationObject,
+    updateDomesticForeignSelection,
+    updateRecipientDomesticForeignSelection
 } from "../../../../redux/actions/search/searchFilterActions";
 import {
     getLocationObject,
@@ -82,7 +84,15 @@ const LocationAutocompleteContainer = ({
     const test = useCallback(() => {
         setIsForeign(!isForeign);
         clearAutocompleteSuggestions();
-    }, [isForeign, clearAutocompleteSuggestions]);
+        const domesticForeign = isForeign ? 'all' : 'foreign';
+
+        if (activeTab === 'recipient') {
+            dispatch(updateRecipientDomesticForeignSelection(domesticForeign));
+        }
+        else {
+            dispatch(updateDomesticForeignSelection(domesticForeign));
+        }
+    }, [isForeign, clearAutocompleteSuggestions, activeTab, dispatch]);
 
     const addLocation = () => {
         getLocationObject(selectedItem, countriesList, createLocationObjectByType);
