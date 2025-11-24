@@ -3,12 +3,13 @@
  * Created by Andrea Blackwell 10/2024
  */
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button } from "data-transparency-ui";
 import PropTypes from "prop-types";
 
 import SelectedLocations from "./SelectedLocations";
 import Autocomplete from "../../../sharedComponents/autocomplete/Autocomplete";
+import AllForgeinLocationButton from "./AllForeignLocationsButton";
 
 const propTypes = {
     activeTab: PropTypes.string,
@@ -19,33 +20,40 @@ const propTypes = {
     noResults: PropTypes.bool,
     readyToStage: PropTypes.bool,
     addLocation: PropTypes.func,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    isForeign: PropTypes.bool,
+    setIsForeign: PropTypes.func
 };
 
-const LocationAutocomplete = (props) => {
-    const [activeTab, setActiveTab] = useState(props.activeTab);
-
-    useEffect(() => {
-        setActiveTab(props.activeTab);
-    }, [props.activeTab]);
-
-    const addLocation = (e) => {
+const LocationAutocomplete = ({
+    activeTab,
+    locations,
+    handleTextInput,
+    selectItem,
+    clearAutocompleteSuggestions,
+    noResults,
+    readyToStage,
+    addLocation,
+    isLoading,
+    isForeign,
+    setIsForeign
+}) => {
+    const onClick = (e) => {
         e.preventDefault();
-        props.addLocation();
+        addLocation();
     };
 
     return (
         <div id={activeTab}>
-            <div className={`location-autocomplete ${props.activeTab}`}>
+            <div className={`location-autocomplete ${activeTab}`}>
                 <Autocomplete
-                    {...props}
-                    values={props.locations}
-                    handleTextInput={props.handleTextInput}
-                    onSelect={props.selectItem}
-                    clearAutocompleteSuggestions={props.clearAutocompleteSuggestions}
-                    noResults={props.noResults}
+                    values={locations}
+                    handleTextInput={handleTextInput}
+                    onSelect={selectItem}
+                    clearAutocompleteSuggestions={clearAutocompleteSuggestions}
+                    noResults={noResults}
                     placeholder="Search for a location..."
-                    isLoading={props.isLoading}
+                    isLoading={isLoading}
                     retainValue />
                 <Button
                     additionalClassnames="submit-button"
@@ -54,12 +62,16 @@ const LocationAutocomplete = (props) => {
                     buttonSize="sm"
                     buttonType="primary"
                     backgroundColor="light"
-                    disabled={!props.readyToStage}
-                    onClick={addLocation} />
+                    disabled={!readyToStage}
+                    onClick={onClick} />
             </div>
+            <AllForgeinLocationButton
+                filter="location"
+                isForeign={isForeign}
+                setIsForeign={setIsForeign} />
             <SelectedLocations
                 activeTab={activeTab}
-                key={`selected-location-${props.activeTab}`} />
+                key={`selected-location-${activeTab}`} />
         </div>
     );
 };

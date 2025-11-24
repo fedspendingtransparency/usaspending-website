@@ -33,6 +33,7 @@ const LocationAutocompleteContainer = ({
     const [selectedItem, setSelectedItem] = useState(null);
     const [readyToStage, setReadyToStage] = useState(false);
     const [countriesList, setCountriesList] = useState([]);
+    const [isForeign, setIsForeign] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
 
@@ -168,7 +169,9 @@ const LocationAutocompleteContainer = ({
             noResults={noResults}
             readyToStage={readyToStage}
             addLocation={addLocation}
-            isLoading={isLoading} />
+            isLoading={isLoading}
+            isForeign={isForeign}
+            setIsForeign={setIsForeign} />
     );
 };
 
