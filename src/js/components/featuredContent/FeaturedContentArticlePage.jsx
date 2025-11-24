@@ -30,9 +30,27 @@ const FeaturedContentArticlePage = () => {
     const [markdownContent, setMarkdownContent] = useState('');
     const [isLongForm, setIsLongForm] = useState(false);
     const [sections, setSections] = useState([]);
+    const [activeSection, setActiveSection] = useState([]);
     const [containsH2, setContainsH2] = useState(false);
 
     const contentRef = useRef(null);
+
+    const jumpToSection = (section = '') => {
+        // find the section in dom
+        const sectionDom = contentRef.current.querySelector(`a[href="#${section}"]`);
+        if (!sectionDom) return;
+
+        setActiveSection(section);
+
+        // add offsets
+        const sectionTop = sectionDom.offsetTop;
+
+        window.scrollTo({
+            top: sectionTop + 100,
+            left: 0,
+            behavior: 'smooth'
+        });
+    };
 
     useEffect(() => {
         if (markdownContent && contentRef.current) {
@@ -42,9 +60,15 @@ const FeaturedContentArticlePage = () => {
             const H2Sections = [...H2Elements].map((H2) => (
                 {
                     label: H2.innerText,
-                    section: H2.innerText.toLowerCase().replace('/s', '-')
+                    section: H2.innerText.toLowerCase().replace(/\s+/g, '-')
                 }));
             setSections(H2Sections);
+
+            for (let i = 0; i < H2Elements.length; i++) {
+                H2Elements[i].querySelector('a').addEventListener('click', (e) => {
+                    e.preventDefault();
+                });
+            }
         }
     },
     [markdownContent]);
@@ -57,9 +81,6 @@ const FeaturedContentArticlePage = () => {
             }
         }
     }, [lastPortion]);
-
-    useEffect(() => {
-    }, [markdownContent]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -84,6 +105,7 @@ const FeaturedContentArticlePage = () => {
         }
     }, [chosenArticle]);
 
+    console.log(activeSection);
     return (
         <PageWrapper
             pageName="Featured Content Article"
@@ -91,7 +113,8 @@ const FeaturedContentArticlePage = () => {
             noHeader={!isLongForm}
             backgroundColor={isLongForm && chosenArticle?.fill}
             sections={sections?.length > 0 ? sections : [{ section: " ", label: " " }]}
-            activeSection={sections?.length > 0 ? sections[0]?.label : " "}
+            activeSection={activeSection?.length > 0 ? activeSection : ''}
+            jumpToSection={jumpToSection}
             inPageNav={isLongForm}
             metaTagProps={{ ...homePageMetaTags }}>
             <main
@@ -103,13 +126,14 @@ const FeaturedContentArticlePage = () => {
                     chosenArticle={chosenArticle} />}
                 <FlexGridRow desktop={12} className="grid-content featured-content__article">
                     <FlexGridCol tablet={12} mobile={12} desktop={8}>
-                        {isLongForm && containsH2 && <div className="featured-content__header-block">
-                            <span
-                                className="featured-content__label"
-                                style={{ backgroundColor: chosenArticle?.fill }}>
-                                {chosenArticle?.taxonomy}
-                            </span>
-                        </div>}
+                        {isLongForm && containsH2 &&
+                            <div className="featured-content__header-block">
+                                <span
+                                    className="featured-content__label"
+                                    style={{ backgroundColor: chosenArticle?.fill }}>
+                                    {chosenArticle?.taxonomy}
+                                </span>
+                            </div>}
                         <div className="featured-content__article-title">
                             {chosenArticle?.title}
                         </div>
