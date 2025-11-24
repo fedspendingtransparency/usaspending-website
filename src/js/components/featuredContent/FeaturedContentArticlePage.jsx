@@ -105,7 +105,6 @@ const FeaturedContentArticlePage = () => {
         }
     }, [chosenArticle]);
 
-    console.log(activeSection);
     return (
         <PageWrapper
             pageName="Featured Content Article"
@@ -113,7 +112,7 @@ const FeaturedContentArticlePage = () => {
             noHeader={!isLongForm}
             backgroundColor={isLongForm && chosenArticle?.fill}
             sections={sections?.length > 0 ? sections : [{ section: " ", label: " " }]}
-            activeSection={activeSection?.length > 0 ? activeSection : ''}
+            activeSection={activeSection}
             jumpToSection={jumpToSection}
             inPageNav={isLongForm}
             metaTagProps={{ ...homePageMetaTags }}>
