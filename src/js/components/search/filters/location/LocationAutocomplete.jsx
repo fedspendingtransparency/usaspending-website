@@ -54,7 +54,8 @@ const LocationAutocomplete = ({
                     noResults={noResults}
                     placeholder="Search for a location..."
                     isLoading={isLoading}
-                    retainValue />
+                    retainValue
+                    disabled={isForeign} />
                 <Button
                     additionalClassnames="submit-button"
                     copy="Add"

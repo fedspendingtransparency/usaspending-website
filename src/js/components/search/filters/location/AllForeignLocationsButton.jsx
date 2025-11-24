@@ -13,7 +13,7 @@ const propTypes = {
     singleFilterChange: PropTypes.func
 };
 
-const AllForgeinLocationButton = ({
+const AllForeignLocationButton = ({
     filter,
     isForeign,
     setIsForeign
@@ -43,5 +43,5 @@ const AllForgeinLocationButton = ({
     );
 };
 
-AllForgeinLocationButton.propTypes = propTypes;
-export default AllForgeinLocationButton;
+AllForeignLocationButton.propTypes = propTypes;
+export default AllForeignLocationButton;

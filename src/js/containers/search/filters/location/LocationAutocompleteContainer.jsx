@@ -3,7 +3,7 @@
  * Created by Josue Aguilar 8/15/2024
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch } from "react-redux";
 import { isCancel } from "axios";
 import PropTypes from "prop-types";
@@ -73,11 +73,16 @@ const LocationAutocompleteContainer = ({
         loadCountries();
     }, []);
 
-    const clearAutocompleteSuggestions = () => {
+    const clearAutocompleteSuggestions = useCallback(() => {
         setLocations([]);
         setReadyToStage(false);
         setIsLoading(false);
-    };
+    }, []);
+
+    const test = useCallback(() => {
+        setIsForeign(!isForeign);
+        clearAutocompleteSuggestions();
+    }, [isForeign, clearAutocompleteSuggestions]);
 
     const addLocation = () => {
         getLocationObject(selectedItem, countriesList, createLocationObjectByType);
@@ -171,7 +176,7 @@ const LocationAutocompleteContainer = ({
             addLocation={addLocation}
             isLoading={isLoading}
             isForeign={isForeign}
-            setIsForeign={setIsForeign} />
+            setIsForeign={test} />
     );
 };
 
