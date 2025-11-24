@@ -10,7 +10,8 @@ import {
     getNaicsNodeFromTree,
     autoCheckNaicsAfterExpand,
     expandNaicsAndAllDescendantParents,
-    getHighestAncestorNaicsCode
+    getHighestAncestorNaicsCode,
+    getFormatedNaicsDataForCheckboxTree
 } from 'helpers/naicsHelper';
 import {
     getAllDescendants
@@ -27,9 +28,8 @@ import {
     setNaicsCounts
 } from 'redux/actions/search/naicsActions';
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
-import EntityDropdownAutocomplete from
-    'components/search/filters/location/EntityDropdownAutocomplete';
+import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
+import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 
 
 const NAICSCheckboxTree = () => {
@@ -380,7 +380,7 @@ const NAICSCheckboxTree = () => {
                     searchIcon />
                 <CheckboxTree
                     limit={3}
-                    data={nodes}
+                    data={getFormatedNaicsDataForCheckboxTree(nodes)}
                     isError={isError}
                     errorMessage={errorMessage}
                     isLoading={isLoading}
