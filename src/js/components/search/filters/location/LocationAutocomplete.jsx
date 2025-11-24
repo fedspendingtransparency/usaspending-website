@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 
 import SelectedLocations from "./SelectedLocations";
 import Autocomplete from "../../../sharedComponents/autocomplete/Autocomplete";
-import AllForgeinLocationButton from "./AllForeignLocationsButton";
+import AllForeignLocationsCheckbox from "./AllForeignLocationsCheckbox";
 
 const propTypes = {
     activeTab: PropTypes.string,
@@ -82,7 +82,7 @@ const LocationAutocomplete = ({
                     disabled={!readyToStage}
                     onClick={onClick} />
             </div>
-            <AllForgeinLocationButton
+            <AllForeignLocationsCheckbox
                 filter="location"
                 isForeign={isForeign}
                 setIsForeign={setIsForeign}

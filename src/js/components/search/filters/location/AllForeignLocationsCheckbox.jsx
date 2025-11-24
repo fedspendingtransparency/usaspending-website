@@ -10,7 +10,7 @@ const propTypes = {
     disabled: PropTypes.bool
 };
 
-const AllForeignLocationButton = ({
+const AllForeignLocationsCheckbox = ({
     filter,
     isForeign,
     setIsForeign,
@@ -45,5 +45,5 @@ const AllForeignLocationButton = ({
     );
 };
 
-AllForeignLocationButton.propTypes = propTypes;
-export default AllForeignLocationButton;
+AllForeignLocationsCheckbox.propTypes = propTypes;
+export default AllForeignLocationsCheckbox;
