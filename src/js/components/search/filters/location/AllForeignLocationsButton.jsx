@@ -1,45 +1,47 @@
 import React, { useRef } from "react";
-import { uniqueId } from "lodash-es";
 import PropTypes from "prop-types";
 
 import useEventListener from "../../../../hooks/useEventListener";
 
 const propTypes = {
     filter: PropTypes.string,
-    selectedFilters: PropTypes.bool,
-    label: PropTypes.string,
-    customLabel: PropTypes.string,
-    searchString: PropTypes.string,
-    singleFilterChange: PropTypes.func
+    isForeign: PropTypes.bool,
+    setIsForeign: PropTypes.func,
+    disabled: PropTypes.bool
 };
 
 const AllForeignLocationButton = ({
     filter,
     isForeign,
-    setIsForeign
+    setIsForeign,
+    disabled
 }) => {
+    const labelClass = disabled ? 'disabled' : '';
     const inputRef = useRef(null);
 
     const toggleFilter = (e) => {
         e.stopPropagation();
         if (e.type === 'change' || e?.key === 'Enter') {
-            setIsForeign(!isForeign);
+            setIsForeign();
         }
     };
 
     useEventListener('keydown', toggleFilter, inputRef);
 
     return (
-        <>
+        <div className="location-checkbox">
             <input
                 type="checkbox"
-                id={`primary-checkbox-${uniqueId()}`}
+                id="location-checkbox__checkbox"
                 value={filter}
                 checked={isForeign}
                 onChange={toggleFilter}
-                ref={inputRef} />
-            <div className="checkbox-filter__item-label">All foreign locations</div>
-        </>
+                ref={inputRef}
+                disabled={disabled} />
+            <div className={`location-checkbox__label ${labelClass}`}>
+                All foreign locations
+            </div>
+        </div>
     );
 };
 

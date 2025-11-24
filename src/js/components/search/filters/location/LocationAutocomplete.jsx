@@ -38,13 +38,21 @@ const LocationAutocomplete = ({
     setIsForeign
 }) => {
     const {
-        recipientDomesticForeign, locationDomesticForeign
+        recipientDomesticForeign,
+        locationDomesticForeign,
+        selectedLocations,
+        selectedRecipientLocations
     } = useSelector((state) => state.filters);
 
     const domesticForeign = activeTab === 'recipient' ?
         recipientDomesticForeign :
         locationDomesticForeign;
     const isForeign = domesticForeign === 'foreign';
+
+    const locationCount = activeTab === 'recipient' ?
+        selectedRecipientLocations.count() :
+        selectedLocations.count();
+    const locationButtonDisabled = locationCount > 0;
 
     const onClick = (e) => {
         e.preventDefault();
@@ -77,7 +85,8 @@ const LocationAutocomplete = ({
             <AllForgeinLocationButton
                 filter="location"
                 isForeign={isForeign}
-                setIsForeign={setIsForeign} />
+                setIsForeign={setIsForeign}
+                disabled={locationButtonDisabled} />
             <SelectedLocations
                 activeTab={activeTab}
                 key={`selected-location-${activeTab}`} />
