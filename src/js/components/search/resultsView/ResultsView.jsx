@@ -149,10 +149,12 @@ const ResultsView = React.memo((props) => {
     }, [props.noFiltersApplied, hasResults, inFlight, error, props.hash]);
 
     return (
-        <div className="search-results-wrapper">
-            <TopFilterBarContainer {...props} />
-            <div className={`search-results ${mobileFilters}`}>
-                {resultContent}
+        <div className="search-results-view-container">
+            <div className="search-results-wrapper">
+                <TopFilterBarContainer {...props} />
+                <div className={`search-results ${mobileFilters}`}>
+                    {resultContent}
+                </div>
             </div>
         </div>
     );

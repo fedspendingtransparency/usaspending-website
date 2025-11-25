@@ -10,7 +10,8 @@ import {
     getNaicsNodeFromTree,
     autoCheckNaicsAfterExpand,
     expandNaicsAndAllDescendantParents,
-    getHighestAncestorNaicsCode
+    getHighestAncestorNaicsCode,
+    getFormatedNaicsDataForCheckboxTree
 } from 'helpers/naicsHelper';
 import {
     getAllDescendants
@@ -27,7 +28,7 @@ import {
     setNaicsCounts
 } from 'redux/actions/search/naicsActions';
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
+import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 
 
@@ -124,7 +125,8 @@ const NAICSCheckboxTree = () => {
                 else {
                     dispatch(setNaicsNodes(param, results));
                 }
-                // we've searched for a specific naics reference; ie '11' or '1111' and their immediate descendants should be checked.
+                // we've searched for a specific naics reference; ie '11' or '1111'
+                // and their immediate descendants should be checked.
                 if (checked.includes(`children_of_${param}`)) {
                     const newChecked = autoCheckNaicsAfterExpand(
                         results[0],
@@ -378,7 +380,7 @@ const NAICSCheckboxTree = () => {
                     searchIcon />
                 <CheckboxTree
                     limit={3}
-                    data={nodes}
+                    data={getFormatedNaicsDataForCheckboxTree(nodes)}
                     isError={isError}
                     errorMessage={errorMessage}
                     isLoading={isLoading}

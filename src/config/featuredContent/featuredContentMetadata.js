@@ -57,7 +57,6 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
         fill: contentMap.dataDefinition,
         secondary: secondary.dataDefinition,
-        landing_header_path: "",
         explore_more: [
             {
                 label: "Federal Spending Guide",
@@ -103,7 +102,6 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/exploring-americas-finances.webp",
         fill: contentMap.finances,
         secondary: secondary.finances,
-        landing_header_path: "",
         related_terms: [],
         explore_more: [
             {
@@ -138,7 +136,6 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/recently-answered-questions.webp",
         fill: contentMap.questions,
         secondary: secondary.questions,
-        landing_header_path: "",
         explore_more: [
             {
                 label: "USAspending Community",
@@ -190,7 +187,6 @@ const articles = [
         fill: contentMap.seeforyourself,
         secondary: secondary.seeforyourself,
         black_text: true,
-        landing_header_path: "",
         explore_more: [
             {
                 label: "Advanced Search",
@@ -220,7 +216,7 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/understanding-our-trusted-data.webp",
         fill: contentMap.trust,
         secondary: secondary.trust,
-        black_text: false,
+        black_text: true,
         explore_more: [
             {
                 label: "USAspending Community",
