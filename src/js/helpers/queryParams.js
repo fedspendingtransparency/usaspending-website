@@ -1,7 +1,3 @@
-import { useLocation } from 'react-router';
-
-export const useQueryParams = () => Object.fromEntries(new URLSearchParams(useLocation().search));
-
 export const combineQueryParams = (existingParams, newParams) => Object
     .entries(newParams)
     .filter(([, value]) => value !== '' && value)

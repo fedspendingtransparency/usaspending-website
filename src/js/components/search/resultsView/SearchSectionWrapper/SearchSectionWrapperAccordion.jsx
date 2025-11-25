@@ -5,8 +5,9 @@ import PropTypes from "prop-types";
 
 import Accordion from "../../../sharedComponents/accordion/Accordion";
 import {
-    combineQueryParams, getQueryParamString, useQueryParams
+    combineQueryParams, getQueryParamString
 } from "../../../../helpers/queryParams";
+import useQueryParams from "../../../../hooks/useQueryParams";
 
 const propTypes = {
     openAccordion: PropTypes.bool,

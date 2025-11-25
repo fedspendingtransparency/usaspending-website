@@ -14,7 +14,7 @@ import ZIPField from './ZIPField';
 import { defaultLocationValues } from
     "../../../../containers/search/filters/location/LocationPickerContainer";
 import { showSlideout } from '../../../../helpers/slideoutHelper';
-import { usePrevious } from "../../../../helpers";
+import usePrevious from "../../../../hooks/usePrevious";
 import EntityCDTooltip from "./EntityCDTooltip";
 
 const propTypes = {
