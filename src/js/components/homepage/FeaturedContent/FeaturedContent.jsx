@@ -7,10 +7,15 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 
-import getCurrentArticles from "../../../helpers/homepageFeaturedContentHelper";
+import { getArticlesByTitle } from "../../../helpers/homepageFeaturedContentHelper";
 import FeaturedContentCard from "./FeaturedContentCard";
+// import getCurrentArticles from "../../../helpers/homepageFeaturedContentHelper";
 
-const [marketingArticle, otherArticle] = getCurrentArticles();
+// const [marketingArticle, otherArticle] = getCurrentArticles();
+const [marketingArticle, otherArticle] = getArticlesByTitle(
+    "Exploring America's Finances",
+    "What is an Award?"
+);
 
 const propTypes = {
     leftCard: PropTypes.shape({

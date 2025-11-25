@@ -8,6 +8,13 @@ const partition = (array, isValid) => array.reduce(
         [pass, [...fail, elem]]), [[], []]
 );
 
+export const getArticlesByTitle = (firstTitle, secondTitle) => {
+    const firstArticle = articles.find((article) => article.title === firstTitle);
+    const secondArticle = articles.find((article) => article.title === secondTitle);
+
+    return [firstArticle, secondArticle];
+};
+
 const fallbackMarketingArticle = {
     title: "Exploring America's Finances Has Never Been Easier",
     fill: '#1b2b85',
