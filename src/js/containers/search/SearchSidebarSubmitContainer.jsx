@@ -18,7 +18,7 @@ import {
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
-import { usePrevious } from "../../helpers";
+import usePrevious from "../../hooks/usePrevious";
 
 const combinedActions = Object.assign(
     {},

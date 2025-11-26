@@ -232,6 +232,46 @@ const articles = [
         related_terms: []
     },
     {
+        taxonomy: "Data Definitions",
+        content_type: 'Featured Content',
+        banner_title: "What Is a Recipient",
+        banner_subtitle: "How Does USAspending.gov Define Recipients?",
+        title: "What Is a Recipient",
+        created_date: "12/04/25",
+        feature_sprint: 2,
+        feature_week: 1,
+        description: "When searching for government spending data on USAspending.gov, you’re very likely to see the word “recipient. Whether you’re using our filters to refine your",
+        mdx_path: "what-is-a-recipient.mdx",
+        hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-what-is-a-recipient.webp",
+        thumbnail_path: "../../img/featuredContent/cards/what-is-a-recipient.webp",
+        fill: contentMap.dataDefinition,
+        secondary: secondary.dataDefinition,
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Federal Spending Guide",
+                slug: "/federal-spending-guide",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "recipient",
+                type: "glossary",
+                label: "Recipient"
+            },
+            {
+                term: "outlay",
+                type: "glossary",
+                label: "Outlay"
+            }
+        ]
+    },
+    {
         taxonomy: "See 4 Yourself",
         isLongForm: true,
         content_type: 'Featured Content',
@@ -239,8 +279,8 @@ const articles = [
         banner_subtitle: "How People Use USAspending.gov Data",
         title: "Ways to Use Our Data",
         created_date: "09/29/2025",
-        feature_sprint: 1,
-        feature_week: 3,
+        feature_sprint: 0,
+        feature_week: 0,
         description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
         mdx_path: "four-ways-to-use-our-data.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-see_4_yourself.webp",
@@ -271,8 +311,8 @@ const articles = [
         banner_subtitle: "TBD",
         title: "Discover How Government Spending Supports Causes You Care About ",
         created_date: "09/29/2025",
-        feature_sprint: 1,
-        feature_week: 3,
+        feature_sprint: 0,
+        feature_week: 0,
         description: "If you’re passionate about a cause—whether it’s education, environmental protection, public health, or national security—you can use Advanced Search to explore",
         mdx_path: "discover-how-government-spending-supports-causes-you-care-about.mdx",
         hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-see_4_yourself.webp",
