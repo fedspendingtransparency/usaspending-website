@@ -32,9 +32,7 @@ const getOtherArticle = (otherArticleCadence, otherArticles, featureWeekNum, fea
     }
     if (otherArticles.length > 0 && otherArticleCadence === 'sprint') {
         otherArticle = otherArticles.filter(
-            (article) => {
-                return (article.feature_sprint - 1) + article.feature_week === featureSprintNum;
-            }
+            (article) => (article.feature_sprint - 1) + article.feature_week === featureSprintNum
         )[0];
     }
     else {
