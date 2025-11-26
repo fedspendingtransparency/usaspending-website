@@ -136,7 +136,10 @@ export const sourcesCount = ({
     defCode.size;
 
 export const getFilterCount = (filters) => ({
-    Location: filters.selectedLocations.size + filters.selectedRecipientLocations.size,
+    Location: filters.selectedLocations.size +
+        (filters.locationDomesticForeign === 'foreign' ? 1 : 0) +
+        filters.selectedRecipientLocations.size +
+        (filters.recipientDomesticForeign === 'foreign' ? 1 : 0),
     'Time Period':
         filters.timePeriodType === 'dr' ? filters.time_period.size : filters.timePeriodFY.size,
     'Award Description': filters.awardDescription ? 1 : 0,
