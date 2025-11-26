@@ -19,8 +19,10 @@ const FeaturedContentPage = () => {
 
     articles.forEach((item) => {
         const articleMetadata = Object.create(ArticleMetadata);
-        articleMetadata.populate(item);
-        articlesList.push(articleMetadata);
+        if (item.feature_week > 0) {
+            articleMetadata.populate(item);
+            articlesList.push(articleMetadata);
+        }
     });
 
     return (

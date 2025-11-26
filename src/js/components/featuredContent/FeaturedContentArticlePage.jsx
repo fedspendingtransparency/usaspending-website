@@ -109,12 +109,11 @@ const FeaturedContentArticlePage = () => {
         <PageWrapper
             pageName="Featured Content Article"
             classNames="featured-content-page"
-            noHeader={!isLongForm}
             backgroundColor={isLongForm && chosenArticle?.fill}
             sections={sections?.length > 0 ? sections : [{ section: " ", label: " " }]}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
-            inPageNav={isLongForm}
+            inPageNav
             metaTagProps={{ ...homePageMetaTags }}>
             <main
                 id="main-content"
