@@ -41,7 +41,7 @@ const EquityCovidSpendingPage = React.lazy(() => import('components/dataDives/Eq
 const InteractiveDataSourcesPage = React.lazy(() => import('components/interactiveDataSources/InteractiveDataSourcesPage').then((comp) => comp));
 const TrainingVideosContainer = React.lazy(() => import('containers/trainingVideos/TrainingVideosContainer').then((comp) => comp));
 const FeaturedContentPage = React.lazy(() => import('components/featuredContent/FeaturedContentPage').then((comp) => comp));
-const FeaturedContentArticle = React.lazy(() => import('components/featuredContent/FeaturedContentArticle').then((comp) => comp));
+const FeaturedContentArticle = React.lazy(() => import('components/featuredContent/FeaturedContentArticlePage').then((comp) => comp));
 const TempPage = React.lazy(() => import('components/tempPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */

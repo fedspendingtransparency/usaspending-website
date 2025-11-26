@@ -25,6 +25,7 @@ const PageWrapper = ({
     sections,
     activeSection,
     jumpToSection,
+    backgroundColor,
     inPageNav = false
 }) => (
     <div className={classNames} ref={ref}>
@@ -39,6 +40,7 @@ const PageWrapper = ({
             detectActiveSection
             pageName={pageName}
             sections={sections}
+            backgroundColor={backgroundColor}
             activeSection={activeSection}
             jumpToSection={jumpToSection} /></>}
         {React.cloneElement(children, {
@@ -61,7 +63,8 @@ PageWrapper.propTypes = {
     filters: PropTypes.object,
     sections: PropTypes.array,
     activeSection: PropTypes.string,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    backgroundColor: PropTypes.string
 };
 
 export default PageWrapper;
