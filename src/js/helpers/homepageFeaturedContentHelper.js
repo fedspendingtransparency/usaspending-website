@@ -30,7 +30,7 @@ const getOtherArticle = (otherArticleCadence, otherArticles, featureWeekNum, fea
             (article) => article.feature_week === featureWeekNum
         )[0];
     }
-    if (otherArticles.length > 0 && otherArticleCadence === 'sprint') {
+    else if (otherArticles.length > 0 && otherArticleCadence === 'sprint') {
         otherArticle = otherArticles.filter(
             (article) => (article.feature_sprint - 1) + article.feature_week === featureSprintNum
         )[0];
@@ -41,7 +41,15 @@ const getOtherArticle = (otherArticleCadence, otherArticles, featureWeekNum, fea
     return otherArticle;
 };
 
+/* eslint-disable max-len */
+/**
+ *
+ * @param otherArticleCadence - determines the cadence calculation based on a `week` or `sprint`
+ * @param dayOneString - determines the start date for the date calculations
+ * @returns {[(*&{url: string, title: *, overline: *})|(*&{url: string, overline: *})|*|{title: string, fill: string, thumbnail_path: string, taxonomy: string},(*&{url: string, title: *, overline: *})|(*&{url: string, overline: *})|*|{title: string, fill: string, thumbnail_path: string, taxonomy: string}]}
+ */
 const getCurrentArticles = (otherArticleCadence = 'sprint', dayOneString = '11/13/2025') => {
+    /* eslint-enable max-len */
     // get the sprint number and week number from today's date and start date
     const today = new Date();
     const dayOne = new Date(dayOneString);
