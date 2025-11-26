@@ -12,7 +12,7 @@ import { dropdownScopes, rootScopes, icons } from 'dataMapping/explorer/dropdown
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import DropdownItem from './DropdownItem';
-import { usePrevious } from "../../../../../helpers/";
+import usePrevious from "../../../../../hooks/usePrevious";
 
 const propTypes = {
     isRoot: PropTypes.bool,

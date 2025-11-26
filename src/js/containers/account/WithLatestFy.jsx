@@ -13,7 +13,8 @@ import {
     getLastPeriodWithinQuarterByPeriod,
     getPeriodWithTitleById
 } from "helpers/aboutTheDataHelper";
-import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+import useQueryParams from "../../hooks/useQueryParams";
 
 // TODO: Refactor existing consumers of WithLatestFy to use this custom hook
 export const useLatestAccountData = () => {
@@ -64,6 +65,7 @@ export const useLatestAccountData = () => {
                 request.current.cancel();
             }
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, submissionPeriods]);
 
     return [
@@ -136,6 +138,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
                 handleTimeChange(null, latestPeriod);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [history, latestFy, latestPeriod, submissionPeriods.size, currentUrlFy, currentUrlPeriod]);
 
 
@@ -164,6 +167,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
                 handleTimeChange(latestFy);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [submissionPeriods, currentUrlFy, currentUrlPeriod, latestPeriod, latestFy]);
 
     if (requiredParams.length === 1 && requiredParams[0] === 'fy') return [fy, updateUrl];

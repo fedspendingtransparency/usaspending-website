@@ -20,8 +20,8 @@ import { modalTitles, modalClassNames } from 'dataMapping/agencySubmissionStats/
 import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
-import { useAgencySlugs } from "../../containers/agency/WithAgencySlugs";
 import { showModal } from '../../redux/actions/modal/modalActions';
+import useAgencySlugs from "../../hooks/useAgencySlugs";
 
 require('pages/agencySubmissionStats/aboutTheData.scss');
 

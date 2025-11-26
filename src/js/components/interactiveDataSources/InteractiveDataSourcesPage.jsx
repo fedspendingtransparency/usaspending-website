@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { find, throttle, uniqueId } from 'lodash-es';
 import { useDispatch } from 'react-redux';
-
 import { ComingSoon, ShareIcon, FlexGridCol } from 'data-transparency-ui';
+
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -28,6 +28,7 @@ import AwardData from './scrollerSections/AwardData';
 import AdditionalData from './scrollerSections/AdditionalData';
 import DownloadStaticFile from "../sharedComponents/DownloadStaticFile";
 import { showModal } from '../../redux/actions/modal/modalActions';
+import useQueryParams from "../../hooks/useQueryParams";
 
 require('pages/interactiveDataSources/index.scss');
 

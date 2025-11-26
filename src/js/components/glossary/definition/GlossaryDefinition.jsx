@@ -15,7 +15,7 @@ import { handleShareOptionClick } from 'helpers/socialShare';
 import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';
 import { showModal } from '../../../redux/actions/modal/modalActions';
-import { useQueryParams } from "../../../helpers/queryParams";
+import useQueryParams from "../../../hooks/useQueryParams";
 
 const propTypes = {
     glossary: PropTypes.object,

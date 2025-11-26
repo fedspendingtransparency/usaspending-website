@@ -10,7 +10,8 @@ import {
     getNaicsNodeFromTree,
     autoCheckNaicsAfterExpand,
     expandNaicsAndAllDescendantParents,
-    getHighestAncestorNaicsCode
+    getHighestAncestorNaicsCode,
+    getFormatedNaicsDataForCheckboxTree
 } from 'helpers/naicsHelper';
 import {
     getAllDescendants
@@ -27,8 +28,9 @@ import {
     setNaicsCounts
 } from 'redux/actions/search/naicsActions';
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
-import CheckboxTree from 'components/sharedComponents/CheckboxTree';
-import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
+import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
+import EntityDropdownAutocomplete from
+    'components/search/filters/location/EntityDropdownAutocomplete';
 
 
 const NAICSCheckboxTree = () => {
@@ -47,7 +49,9 @@ const NAICSCheckboxTree = () => {
     const unchecked = useSelector((state) => state.naics.unchecked.toJS());
     const counts = useSelector((state) => state.naics.counts.toJS());
     const checkedFromHash = useSelector((state) => state.appliedFilters.filters.naicsCodes.require);
-    const uncheckedFromHash = useSelector((state) => state.appliedFilters.filters.naicsCodes.exclude);
+    const uncheckedFromHash = useSelector(
+        (state) => state.appliedFilters.filters.naicsCodes.exclude
+    );
     const countsFromHash = useSelector((state) => state.appliedFilters.filters.naicsCodes.counts);
 
     const dispatch = useDispatch();
@@ -124,7 +128,8 @@ const NAICSCheckboxTree = () => {
                 else {
                     dispatch(setNaicsNodes(param, results));
                 }
-                // we've searched for a specific naics reference; ie '11' or '1111' and their immediate descendants should be checked.
+                // we've searched for a specific naics reference;
+                // ie '11' or '1111' and their immediate descendants should be checked.
                 if (checked.includes(`children_of_${param}`)) {
                     const newChecked = autoCheckNaicsAfterExpand(
                         results[0],
@@ -285,12 +290,7 @@ const NAICSCheckboxTree = () => {
                             }
                             return uniqueAncestors.concat(
                                 [highestAncestor, immediateAncestor]
-                                    .filter((ancestor) => {
-                                        if (uniqueAncestors.includes(ancestor)) {
-                                            return false;
-                                        }
-                                        return true;
-                                    })
+                                    .filter((ancestor) => !uniqueAncestors.includes(ancestor))
                             );
                         }, []).sort((a, b) => {
                             if (b.length > a.length) return -1;
@@ -307,7 +307,10 @@ const NAICSCheckboxTree = () => {
                                 setIsLoading(false);
                                 const newChecked = checkedFromHash
                                     .reduce((acc, checkedNaic) => {
-                                        if (checkedNaic.length === 6 && !uncheckedFromHash.includes(checkedNaic)) {
+                                        if (
+                                            checkedNaic.length === 6 &&
+                                            !uncheckedFromHash.includes(checkedNaic)
+                                        ) {
                                             return [...acc, checkedNaic];
                                         }
                                         const node = getNaicsNodeFromTree(nodes, checkedNaic);
@@ -378,7 +381,7 @@ const NAICSCheckboxTree = () => {
                     searchIcon />
                 <CheckboxTree
                     limit={3}
-                    data={nodes}
+                    data={getFormatedNaicsDataForCheckboxTree(nodes)}
                     isError={isError}
                     errorMessage={errorMessage}
                     isLoading={isLoading}

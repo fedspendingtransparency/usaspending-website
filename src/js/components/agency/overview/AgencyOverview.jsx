@@ -3,16 +3,15 @@
  * Created by Lizzie Salita 3/16/21
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router';
-import { throttle } from 'lodash-es';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
 import { showSlideout } from '../../../helpers/slideoutHelper';
+import useIsMobile from "../../../hooks/useIsMobile";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -20,6 +19,7 @@ const propTypes = {
 };
 
 const AgencyOverview = ({ fy, dataThroughDate }) => {
+    const { isMedium } = useIsMobile();
     const {
         website,
         mission,
@@ -27,24 +27,10 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
         showAboutData
     } = useSelector((state) => state.agency.overview);
 
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-
     const openAboutTheDataSidebar = (e, entry) => {
         showSlideout('atd', { url: entry });
         e.preventDefault();
     };
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, []);
 
     const missionBlock = (
         <div className="agency-overview__data">
@@ -63,7 +49,11 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
                 <Link
                     to=""
                     aria-label="Open the About the Data"
-                    onClick={(e) => openAboutTheDataSidebar(e, 'delay-in-dod-procurement-data')}>About the Data
+                    onClick={
+                        (e) =>
+                            openAboutTheDataSidebar(e, 'delay-in-dod-procurement-data')
+                    }>
+                    About the Data
                 </Link> module.
                 To see a complete list of this agency&apos;s submissions, visit our&nbsp;
                 <Link to="/submission-statistics/agency/097">Submission Statistics page</Link>.
@@ -90,7 +80,7 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
         </div>
     );
 
-    const content = isMobile ?
+    const content = isMedium ?
         <>
             {showAboutData ? aboutBlock : missionBlock}
             <ReadMore>
@@ -116,7 +106,10 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
     return (
         <div className="body__content agency-overview">
             {content}
-            <FySummary fy={fy} dataThroughDate={dataThroughDate} windowWidth={windowWidth} isMobile={isMobile} />
+            <FySummary
+                fy={fy}
+                dataThroughDate={dataThroughDate}
+                isMobile={isMedium} />
         </div>
     );
 };
