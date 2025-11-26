@@ -232,6 +232,7 @@ const ResultsTableContainer = (props) => {
         }
 
         const loadExpandableData = (showToggle && spendingLevel === "awards" && !isMobile);
+
         let params = {
             filters: searchParamsTemp.toParams(),
             page: pageNumber,
