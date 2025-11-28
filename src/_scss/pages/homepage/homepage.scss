@@ -1,0 +1,48 @@
+.usa-da-home-page {
+  @import 'all';
+  @import "layouts/default/default";
+  @import "layouts/default/header/_warning";
+  @import "components/externalLink";
+
+  .homepage-update-content {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .homepage-hero-content {
+      margin: 0 rem(16);
+      @media (min-width: $tablet-screen) {
+        margin: 0 rem(32);
+      }
+      @media (min-width: $medium-screen) {
+        margin: 0;
+      }
+    }
+
+    .grid-content {
+      margin: 0 rem(16);
+      max-width: $homepage-max-width;
+      align-self: center;
+      @media (min-width: $tablet-screen) {
+        margin: 0 rem(32);
+      }
+      @media (min-width: 1400px) {
+        margin: 0 $grid-column;
+      }
+    }
+  }
+
+  @import "hero/hero";
+  @import "summaryStats";
+  @import "homepageFirstRow";
+  @import "featuredContent";
+  @import "wordOfTheDay";
+  @import "awardSearch";
+  @import "homepageExploreToggle";
+  @import "exploreTheData";
+  @import "homepageResources";
+  @import "readyToGetStarted";
+}
+
+

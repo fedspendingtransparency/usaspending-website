@@ -7,12 +7,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
 
+import { getQueryParamString } from 'helpers/queryParams';
 import GlossaryHeader from './GlossaryHeader';
 import GlossarySearchResults from './search/GlossarySearchResults';
 import GlossaryDefinition from './definition/GlossaryDefinition';
 import NoResults from './noResults/NoResults';
+import useQueryParams from "../../hooks/useQueryParams";
 
 const propTypes = {
     glossary: PropTypes.object,

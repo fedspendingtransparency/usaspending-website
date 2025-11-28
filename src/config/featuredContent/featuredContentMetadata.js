@@ -57,7 +57,6 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
         fill: contentMap.dataDefinition,
         secondary: secondary.dataDefinition,
-        landing_header_path: "",
         explore_more: [
             {
                 label: "Federal Spending Guide",
@@ -103,7 +102,6 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/exploring-americas-finances.webp",
         fill: contentMap.finances,
         secondary: secondary.finances,
-        landing_header_path: "",
         related_terms: [],
         explore_more: [
             {
@@ -138,7 +136,6 @@ const articles = [
         thumbnail_path: "../../img/featuredContent/cards/recently-answered-questions.webp",
         fill: contentMap.questions,
         secondary: secondary.questions,
-        landing_header_path: "",
         explore_more: [
             {
                 label: "USAspending Community",
@@ -190,7 +187,6 @@ const articles = [
         fill: contentMap.seeforyourself,
         secondary: secondary.seeforyourself,
         black_text: true,
-        landing_header_path: "",
         explore_more: [
             {
                 label: "Advanced Search",
@@ -204,6 +200,76 @@ const articles = [
             }
         ],
         related_terms: []
+    },
+    {
+        taxonomy: "Data You Can Trust",
+        content_type: 'Marketing',
+        banner_title: "Understanding Our Trusted Data",
+        banner_subtitle: "What makes our data different, where does it come from, and what makes it trustworthy?",
+        title: "Understanding Our Trusted Data",
+        created_date: "12/04/25",
+        feature_sprint: 2,
+        feature_week: 1,
+        description: "USAspending.gov is the official source for tracking federal government spending—but what makes our data different, where does it come from, and what makes it",
+        mdx_path: "understanding-our-trusted-data.mdx",
+        hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-understanding-our-trusted-data.webp",
+        thumbnail_path: "../../img/featuredContent/cards/understanding-our-trusted-data.webp",
+        fill: contentMap.trust,
+        secondary: secondary.trust,
+        black_text: true,
+        explore_more: [
+            {
+                label: "USAspending Community",
+                slug: "https://onevoicecrm.my.site.com/usaspending/s/",
+                type: "external"
+            },
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            }
+        ],
+        related_terms: []
+    },
+    {
+        taxonomy: "Data Definitions",
+        content_type: 'Featured Content',
+        banner_title: "What Is a Recipient",
+        banner_subtitle: "How Does USAspending.gov Define Recipients?",
+        title: "What Is a Recipient",
+        created_date: "12/04/25",
+        feature_sprint: 2,
+        feature_week: 1,
+        description: "When searching for government spending data on USAspending.gov, you’re very likely to see the word “recipient. Whether you’re using our filters to refine your",
+        mdx_path: "what-is-a-recipient.mdx",
+        hero: "../../img/featuredContent/banner/desktop/featured_content_banner-desktop-what-is-a-recipient.webp",
+        thumbnail_path: "../../img/featuredContent/cards/what-is-a-recipient.webp",
+        fill: contentMap.dataDefinition,
+        secondary: secondary.dataDefinition,
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Federal Spending Guide",
+                slug: "/federal-spending-guide",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "recipient",
+                type: "glossary",
+                label: "Recipient"
+            },
+            {
+                term: "outlay",
+                type: "glossary",
+                label: "Outlay"
+            }
+        ]
     }
 ];
 

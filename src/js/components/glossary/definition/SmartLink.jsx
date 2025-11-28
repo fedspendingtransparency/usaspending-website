@@ -6,12 +6,11 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router';
-import { usePrevious } from "../../../helpers";
+import usePrevious from "../../../hooks/usePrevious";
 
 const propTypes = {
     href: PropTypes.string,
-    children: PropTypes.node,
-    location: PropTypes.object
+    children: PropTypes.node
 };
 
 const SmartLink = (props) => {

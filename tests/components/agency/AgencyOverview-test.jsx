@@ -1,16 +1,17 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * AgencyOverview-test.jsx
  * Created by Lizzie Salita 3/26/21
  */
 
 import React from 'react';
-import { render, screen, act } from 'test-utils';
-import AgencyOverview from 'components/agency/overview/AgencyOverview';
-import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
-import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
-import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
+import { render, screen, act } from '../../testResources/test-utils';
+import '../../testResources/matchMedia.mock';
+import AgencyOverview from "../../../src/js/components/agency/overview/AgencyOverview";
+import BaseAgencyOverview from "../../../src/js/models/v2/agency/BaseAgencyOverview";
+import BaseAgencyBudgetaryResources from "../../../src/js/models/v2/agency/BaseAgencyBudgetaryResources";
+import BaseAgencyRecipients from "../../../src/js/models/v2/agency/BaseAgencyRecipients";
 import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
 import { mockTotalBudgetaryResources } from './overview/mockData';
 

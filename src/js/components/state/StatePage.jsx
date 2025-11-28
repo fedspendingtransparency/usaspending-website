@@ -10,19 +10,22 @@ import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
 import { statePageMetaTags } from 'helpers/metaTagHelper';
 import { useDispatch } from 'react-redux';
 
-import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
+import {
+    currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll
+} from 'helpers/fiscalYearHelper';
 import { Helmet } from 'react-helmet';
 import Error from 'components/sharedComponents/Error';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { useNavigate } from "react-router";
-import { useQueryParams, combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import StateContent from './StateContent';
 import { showModal } from '../../redux/actions/modal/modalActions';
+import useQueryParams from "../../hooks/useQueryParams";
 
 const propTypes = {
     loading: PropTypes.bool,

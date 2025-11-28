@@ -24,8 +24,8 @@ import { fetchDisasterSpending, fetchLoanSpending } from 'apis/disaster';
 import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
-import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
 import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
+import useAgencySlugs from "../../../hooks/useAgencySlugs";
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -315,8 +315,8 @@ const BudgetCategoriesTableContainer = (props) => {
     });
 
     useEffect(() => {
-    // If the sort and order is the same as the default sort and default order, then we are just changing tabs or just changing the spending category.
-    // In this particular case, we want to fetch from api.
+        // If the sort and order is the same as the default sort and default order, then we are just changing tabs or just changing the spending category.
+        // In this particular case, we want to fetch from api.
         if (sort === defaultSort[props.type][spendingCategory].sort && order === defaultSort[props.type][spendingCategory].order) {
             changeCurrentPage(1);
             fetchBudgetSpendingCallback();
@@ -324,22 +324,26 @@ const BudgetCategoriesTableContainer = (props) => {
         // Reset to default sort when the active tab or spending category changes
         setSort(defaultSort[props.type][spendingCategory].sort);
         setOrder(defaultSort[props.type][spendingCategory].order);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.type, spendingCategory]);
 
     useEffect(() => {
-    // Reset to the first page
+        // Reset to the first page
         if (currentPage === 1) {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageSize, sort, order, defcParams]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loading, error]);
 
     const renderColumns = () => {
