@@ -1,17 +1,18 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * AwardSpendingAgencyTableContainer-test.js
  * Created by Lizzie Salita 12/15/21
  * */
 
 import React from "react";
+// eslint-disable-next-line import/no-unresolved
 import { render, waitFor, screen } from "test-utils";
 import { expect } from '@jest/globals';
 import AwardSpendingAgencyTableContainer from "containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer";
 import * as api from "apis/disaster";
-import * as hooks from "containers/agency/WithAgencySlugs";
 import { defaultState } from "../../../testResources/defaultReduxFilters";
+import * as useAgencySlugs from "../../../../src/js/hooks/useAgencySlugs";
 
 const mockData = {
     totals: {
@@ -118,7 +119,7 @@ describe("AwardSpendingAgencyTableContainer", () => {
             cancel: jest.fn()
         });
         // Mock the custom hook, useAgencySlugs
-        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
+        jest.spyOn(useAgencySlugs, "default").mockImplementation(() => ([
             {},
             {
                 "045": 'department-of-sandwiches',
@@ -126,7 +127,7 @@ describe("AwardSpendingAgencyTableContainer", () => {
             },
             false,
             false
-        ]);
+        ]));
 
         render(
             <AwardSpendingAgencyTableContainer
@@ -151,12 +152,12 @@ describe("AwardSpendingAgencyTableContainer", () => {
         });
 
         // Mock the custom hook, useAgencySlugs
-        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
+        jest.spyOn(useAgencySlugs, "default").mockImplementation(() => ([
             {},
             { "045": 'department-of-sandwiches' },
             false,
             false
-        ]);
+        ]));
 
         render(
             <AwardSpendingAgencyTableContainer

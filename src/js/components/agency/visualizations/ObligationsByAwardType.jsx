@@ -7,8 +7,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { mapToFullCategoryName, getCategoryNameByAwardType, getActiveCategoryType, getOuterCategoryId } from 'helpers/agency/visualizations/ObligationsByAwardTypeHelper';
+import {
+    mapToFullCategoryName, getCategoryNameByAwardType, getActiveCategoryType, getOuterCategoryId
+} from 'helpers/agency/visualizations/ObligationsByAwardTypeHelper';
 import ObligationsByAwardTypeTooltip from './ObligationsByAwardTypeTooltip';
+import useWindowWidth from "../../../hooks/useWindowWidth";
 
 const categoryMapping = {
     'All Contracts': ['Contracts', 'IDVs'],
@@ -31,7 +34,6 @@ const propTypes = {
             type: PropTypes.string.isRequired
         })
     ).isRequired,
-    windowWidth: PropTypes.number.isRequired,
     fiscalYear: PropTypes.number,
     isMobile: PropTypes.bool
 };
@@ -39,7 +41,6 @@ const propTypes = {
 export default function ObligationsByAwardType({
     outer,
     inner,
-    windowWidth,
     fiscalYear,
     isMobile
 }) {
@@ -49,6 +50,7 @@ export default function ObligationsByAwardType({
     const [categoryHover, setCategoryHover] = useState(null);
     const [labelTooltip, setLabelTooltip] = useState(false);
     const chartRef = useRef();
+    const windowWidth = useWindowWidth();
 
     const renderChart = () => {
         const labelRadius = Math.min(chartHeight, chartWidth) / 2;
@@ -160,12 +162,21 @@ export default function ObligationsByAwardType({
                 .innerRadius(innerRadius / 2)
             )
             .attr('fill', (d, i) => {
-                if (categoryHover && categoryHover === mapToFullCategoryName(d.data.type) && !isMobile) {
+                if (
+                    categoryHover && categoryHover === mapToFullCategoryName(d.data.type) &&
+                    !isMobile
+                ) {
                     return inner[i].color;
                 }
 
                 // Use the faded color when another section is hovered over
-                return ((activeType && activeType !== inner[i].label) && !isMobile) ? inner[i].fadedColor : inner[i].color;
+                return (
+                    (
+                        activeType && activeType !== inner[i].label) &&
+                        !isMobile
+                )
+                    ? inner[i].fadedColor :
+                    inner[i].color;
             })
             .style('cursor', 'pointer')
             .on('mouseover', (event, d) => {

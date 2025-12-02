@@ -6,8 +6,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router';
-import { useQueryParams } from 'helpers/queryParams';
 import { showSlideout } from '../../helpers/slideoutHelper';
+import useQueryParams from "../../hooks/useQueryParams";
 
 const AboutTheDataListener = ({
     history,

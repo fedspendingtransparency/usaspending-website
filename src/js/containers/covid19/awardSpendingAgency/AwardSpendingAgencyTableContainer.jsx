@@ -17,7 +17,7 @@ import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'apis/disaster';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
-import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
+import useAgencySlugs from "../../../hooks/useAgencySlugs";
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -270,6 +270,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         if (Object.keys(spendingByAgencyTotals).length && resultsTotal) {
             addUnlinkedData(results, resultsTotal, spendingByAgencyTotals);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [spendingByAgencyTotals, resultsTotal]);
 
     useEffect(() => {
@@ -288,6 +289,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         else {
             updateSort('obligation', 'desc');
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.type]);
 
     useEffect(() => {
@@ -298,14 +300,17 @@ const AwardSpendingAgencyTableContainer = (props) => {
         else {
             changeCurrentPage(1);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageSize, sort, order, defcParams, query]);
 
     useEffect(() => {
         fetchSpendingByAgencyCallback();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [loading, error]);
 
     useEffect(() => {

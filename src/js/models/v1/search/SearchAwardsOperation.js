@@ -293,6 +293,11 @@ class SearchAwardsOperation {
             filters[rootKeys.recipientType] = this.recipientType;
         }
 
+        // Add All Foreign locations
+        if (this.recipientDomesticForeign === 'foreign') {
+            filters[rootKeys.recipientLocationScope] = 'foreign';
+        }
+
         // Add Locations
         if (this.selectedLocations?.length > 0) {
             const locationSet = this.selectedLocations.reduce((accLocationSet, currLocation) => {
@@ -308,6 +313,11 @@ class SearchAwardsOperation {
             if (locationSet?.length > 0) {
                 filters[rootKeys.placeOfPerformance] = locationSet;
             }
+        }
+
+        // Add All Foreign locations
+        if (this.locationDomesticForeign === 'foreign') {
+            filters[rootKeys.placeOfPerformanceScope] = 'foreign';
         }
 
         // Add Award Amounts

@@ -16,8 +16,7 @@ import AllFiscalYearsWithChips from "./AllFiscalYearsWithChips";
 import DateRangeError from './DateRangeError';
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import FilterTabs from '../../../sharedComponents/filterSidebar/FilterTabs';
-import { usePrevious } from "../../../../helpers";
-
+import usePrevious from "../../../../hooks/usePrevious";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');

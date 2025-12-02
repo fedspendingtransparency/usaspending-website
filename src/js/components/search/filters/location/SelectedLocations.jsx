@@ -5,28 +5,20 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import GlobalConstants from 'GlobalConstants';
+import { useSelector } from "react-redux";
+
 import ShownLocation from './ShownLocation';
-import { locationChipLabel } from "../../../../helpers/searchHelper";
 
 const propTypes = {
-    selectedLocations: PropTypes.object,
-    selectedRecipientLocations: PropTypes.object,
-    removeLocation: PropTypes.func,
-    id: PropTypes.string
+    activeTab: PropTypes.string
 };
 
-const SelectedLocations = ({
-    selectedLocations, selectedRecipientLocations, removeLocation, id
-}) => {
-    const shownLocations = [];
-    let selectedLocationsObj = selectedLocations;
-    let labelPrefix = 'Place of Performance';
+const SelectedLocations = ({ activeTab }) => {
+    const { selectedLocations, selectedRecipientLocations } = useSelector((state) => state.filters);
 
-    if (id === "recipient" && GlobalConstants.QAT) {
-        selectedLocationsObj = selectedRecipientLocations;
-        labelPrefix = 'Recipient Location';
-    }
+    const shownLocations = [];
+    const selectedLocationsObj = activeTab === "recipient" ?
+        selectedRecipientLocations : selectedLocations;
 
     if (selectedLocationsObj?.size !== 0) {
         selectedLocationsObj?.entrySeq()
@@ -35,10 +27,10 @@ const SelectedLocations = ({
                 const location = entry[1];
                 const value = (
                     <ShownLocation
+                        id={key}
                         location={location}
-                        label={`${labelPrefix}: ${locationChipLabel(location.display.entity, location)}`}
-                        key={key}
-                        removeLocation={() => removeLocation(key)} />
+                        activeTab={activeTab}
+                        key={key} />
                 );
                 shownLocations.push(value);
             });
