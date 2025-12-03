@@ -3,11 +3,14 @@
  * Created by Andrea Blackwell 10/2024
  */
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Button } from "data-transparency-ui";
 import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
+
 import SelectedLocations from "./SelectedLocations";
 import Autocomplete from "../../../sharedComponents/autocomplete/Autocomplete";
+import AllForeignLocationsCheckbox from "./AllForeignLocationsCheckbox";
 
 const propTypes = {
     activeTab: PropTypes.string,
@@ -18,37 +21,57 @@ const propTypes = {
     noResults: PropTypes.bool,
     readyToStage: PropTypes.bool,
     addLocation: PropTypes.func,
-    selectedLocations: PropTypes.object,
-    selectedRecipientLocations: PropTypes.object,
-    removeLocation: PropTypes.func,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    setIsForeign: PropTypes.func
 };
 
-const LocationAutocomplete = (props) => {
-    const [activeTab, setActiveTab] = useState(props.activeTab);
+const LocationAutocomplete = ({
+    activeTab,
+    locations,
+    handleTextInput,
+    selectItem,
+    clearAutocompleteSuggestions,
+    noResults,
+    readyToStage,
+    addLocation,
+    isLoading,
+    setIsForeign
+}) => {
+    const {
+        recipientDomesticForeign,
+        locationDomesticForeign,
+        selectedLocations,
+        selectedRecipientLocations
+    } = useSelector((state) => state.filters);
 
-    useEffect(() => {
-        setActiveTab(props.activeTab);
-    }, [props.activeTab]);
+    const domesticForeign = activeTab === 'recipient' ?
+        recipientDomesticForeign :
+        locationDomesticForeign;
+    const isForeign = domesticForeign === 'foreign';
 
-    const addLocation = (e) => {
+    const locationCount = activeTab === 'recipient' ?
+        selectedRecipientLocations.count() :
+        selectedLocations.count();
+    const locationButtonDisabled = locationCount > 0;
+
+    const onClick = (e) => {
         e.preventDefault();
-        props.addLocation();
+        addLocation();
     };
 
     return (
         <div id={activeTab}>
-            <div className={`location-autocomplete ${props.activeTab}`}>
+            <div className={`location-autocomplete ${activeTab}`}>
                 <Autocomplete
-                    {...props}
-                    values={props.locations}
-                    handleTextInput={props.handleTextInput}
-                    onSelect={props.selectItem}
-                    clearAutocompleteSuggestions={props.clearAutocompleteSuggestions}
-                    noResults={props.noResults}
+                    values={locations}
+                    handleTextInput={handleTextInput}
+                    onSelect={selectItem}
+                    clearAutocompleteSuggestions={clearAutocompleteSuggestions}
+                    noResults={noResults}
                     placeholder="Search for a location..."
-                    isLoading={props.isLoading}
-                    retainValue />
+                    isLoading={isLoading}
+                    retainValue
+                    disabled={isForeign} />
                 <Button
                     additionalClassnames="submit-button"
                     copy="Add"
@@ -56,15 +79,17 @@ const LocationAutocomplete = (props) => {
                     buttonSize="sm"
                     buttonType="primary"
                     backgroundColor="light"
-                    disabled={!props.readyToStage}
-                    onClick={addLocation} />
+                    disabled={!readyToStage}
+                    onClick={onClick} />
             </div>
+            <AllForeignLocationsCheckbox
+                filter="location"
+                isForeign={isForeign}
+                setIsForeign={setIsForeign}
+                disabled={locationButtonDisabled} />
             <SelectedLocations
-                id={activeTab}
-                selectedLocations={props.selectedLocations}
-                selectedRecipientLocations={props.selectedRecipientLocations}
-                removeLocation={props.removeLocation}
-                key={`selected-location-${props.activeTab}`} />
+                activeTab={activeTab}
+                key={`selected-location-${activeTab}`} />
         </div>
     );
 };

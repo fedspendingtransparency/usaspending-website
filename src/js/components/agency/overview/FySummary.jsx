@@ -24,14 +24,12 @@ const dayjs = require('dayjs');
 const propTypes = {
     fy: PropTypes.string,
     dataThroughDate: PropTypes.string,
-    windowWidth: PropTypes.number,
     isMobile: PropTypes.bool
 };
 
 const FySummary = ({
     fy,
     dataThroughDate,
-    windowWidth,
     isMobile
 }) => {
     const dispatch = useDispatch();
@@ -142,7 +140,7 @@ const FySummary = ({
                 data={(<>{awardObligations}<br /> in award obligations</>)}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type" >
-                <ObligationsByAwardTypeContainer fiscalYear={+fy} windowWidth={windowWidth} isMobile={isMobile} />
+                <ObligationsByAwardTypeContainer fiscalYear={+fy} isMobile={isMobile} />
             </VisualizationSection>
         )
     ];

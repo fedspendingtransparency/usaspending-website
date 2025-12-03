@@ -462,17 +462,32 @@ const MapWrapperContainer = React.memo((props) => {
                 changeMapLayer("country");
             }
         }
+        else if (
+            props.reduxFilters[selectedLocationByType].size === 0 &&
+            (
+                props.reduxFilters.recipientDomesticForeign === 'foreign' ||
+                props.reduxFilters.locationDomesticForeign === 'foreign'
+            )
+        ) {
+            changeMapLayer("country");
+        }
         else if (props.reduxFilters[selectedLocationByType].size === 0) {
             changeMapLayer("state");
         }
     };
 
     const updateMapScope = () => {
-        if (props.reduxFilters.selectedLocations.size > 0) {
+        if (
+            props.reduxFilters.selectedLocations.size > 0 ||
+            props.reduxFilters.locationDomesticForeign === 'foreign'
+        ) {
             mapScopeLogic('pop');
         }
 
-        if (props.reduxFilters.selectedRecipientLocations.size > 0) {
+        if (
+            props.reduxFilters.selectedRecipientLocations.size > 0 ||
+            props.reduxFilters.recipientDomesticForeign === 'foreign'
+        ) {
             mapScopeLogic('recipient');
         }
 

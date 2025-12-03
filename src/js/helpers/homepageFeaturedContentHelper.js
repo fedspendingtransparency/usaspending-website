@@ -22,7 +22,34 @@ const fallbackOtherArticle = {
     taxonomy: "Data Definitions"
 };
 
-const getCurrentArticles = (dayOneString = '11/13/2025') => {
+const getOtherArticle = (otherArticleCadence, otherArticles, featureWeekNum, featureSprintNum) => {
+    let otherArticle;
+
+    if (otherArticles.length > 0 && otherArticleCadence === 'week') {
+        otherArticle = otherArticles.filter(
+            (article) => article.feature_week === featureWeekNum
+        )[0];
+    }
+    else if (otherArticles.length > 0 && otherArticleCadence === 'sprint') {
+        otherArticle = otherArticles.filter(
+            (article) => (article.feature_sprint - 1) + article.feature_week === featureSprintNum
+        )[0];
+    }
+    else {
+        otherArticle = fallbackOtherArticle;
+    }
+    return otherArticle;
+};
+
+/* eslint-disable max-len */
+/**
+ *
+ * @param otherArticleCadence - determines the cadence calculation based on a `week` or `sprint`
+ * @param dayOneString - determines the start date for the date calculations
+ * @returns {[(*&{url: string, title: *, overline: *})|(*&{url: string, overline: *})|*|{title: string, fill: string, thumbnail_path: string, taxonomy: string},(*&{url: string, title: *, overline: *})|(*&{url: string, overline: *})|*|{title: string, fill: string, thumbnail_path: string, taxonomy: string}]}
+ */
+const getCurrentArticles = (otherArticleCadence = 'sprint', dayOneString = '11/13/2025') => {
+    /* eslint-enable max-len */
     // get the sprint number and week number from today's date and start date
     const today = new Date();
     const dayOne = new Date(dayOneString);
@@ -44,9 +71,10 @@ const getCurrentArticles = (dayOneString = '11/13/2025') => {
     const currentMarketingArticle = marketingArticles.length > 0 ?
         marketingArticles[0] :
         fallbackMarketingArticle;
-    const currentOtherArticle = otherArticles.length > 0 ?
-        otherArticles.filter((article) => article.feature_week === featureWeekNum)[0] :
-        fallbackOtherArticle;
+    const currentOtherArticle = getOtherArticle(
+        otherArticleCadence, otherArticles, featureWeekNum, featureSprintNum
+    );
+
     const [marketingArticle, otherArticle] = [currentMarketingArticle, currentOtherArticle]
         .map((article) => {
             if (article?.title && article?.taxonomy) {

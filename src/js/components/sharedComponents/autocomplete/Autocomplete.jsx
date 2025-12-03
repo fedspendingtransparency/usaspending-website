@@ -29,7 +29,8 @@ const propTypes = {
     size: PropTypes.oneOf(['small', 'medium']),
     id: PropTypes.string,
     minChar: PropTypes.bool,
-    isLoading: PropTypes.bool
+    isLoading: PropTypes.bool,
+    disabled: PropTypes.bool
 };
 
 const Autocomplete = ({
@@ -51,6 +52,7 @@ const Autocomplete = ({
     id = '',
     minChar = false,
     isLoading = false,
+    disabled = false,
     selectedItemsDisplayNames,
     type
 }) => {
@@ -317,7 +319,8 @@ const Autocomplete = ({
                         aria-autocomplete="list"
                         onBlur={() => onBlur}
                         onKeyDown={(e) => onKeyDown(e)}
-                        maxLength={characterLimit} />
+                        maxLength={characterLimit}
+                        disabled={disabled} />
                 </div>
                 <div
                     className="screen-reader-description"
