@@ -30,7 +30,8 @@ const propTypes = {
     customLabels: PropTypes.object,
     selectedCategory: PropTypes.string,
     isExpanded: PropTypes.bool,
-    setDefSearchString: PropTypes.func
+    setDefSearchString: PropTypes.func,
+    placeholder: PropTypes.string
 };
 
 const AccordionCheckbox = ({
@@ -42,7 +43,8 @@ const AccordionCheckbox = ({
     bulkFilterChange,
     selectedCategory,
     isExpanded,
-    setDefSearchString = () => {}
+    setDefSearchString = () => {},
+    placeholder = "Search filters..."
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
@@ -83,7 +85,14 @@ const AccordionCheckbox = ({
     const searchCategoryMapping = () => {
         // filter out definitions based on search text
         // eslint-disable-next-line no-unused-vars
-        const filteredDefinitions = Object.fromEntries(Object.entries(filters).filter(([key, value]) => value.toLowerCase().includes(searchString.toLowerCase())));
+        const filteredDefinitions = Object
+            .fromEntries(
+                Object
+                    .entries(filters)
+                    .filter(
+                        ([, value]) => value.toLowerCase().includes(searchString.toLowerCase())
+                    )
+            );
 
         // filter out type mapping filters based on filteredDefinitions
         const filteredFilters = filterCategoryMapping.map((type) => ({
@@ -130,7 +139,7 @@ const AccordionCheckbox = ({
     return (
         <div className="filter-item-wrap">
             <EntityDropdownAutocomplete
-                placeholder="Search filters..."
+                placeholder={placeholder}
                 searchString={searchString}
                 enabled
                 handleTextInputChange={handleTextInputChange}

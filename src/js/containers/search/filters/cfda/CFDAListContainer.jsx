@@ -11,6 +11,7 @@ import PropTypes from 'prop-types';
 import * as SearchHelper from 'helpers/searchHelper';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
+import { autocompletePlaceholder } from "../../../../helpers/search/filterCheckboxHelper";
 
 const propTypes = {
     selectCFDA: PropTypes.func,
@@ -119,7 +120,7 @@ const CFDAListContainer = ({ selectCFDA, selectedCFDA, dirtyFilters }) => {
             values={autocompleteCFDA}
             handleTextInput={handleTextInput}
             onSelect={selectCFDA}
-            placeholder="e.g., 93.778 - Medical Assistance Program"
+            placeholder={autocompletePlaceholder}
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}
             noResults={noResults} />
     );

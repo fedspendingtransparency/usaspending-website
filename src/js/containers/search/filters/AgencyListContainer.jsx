@@ -13,6 +13,7 @@ import { Search } from 'js-search';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 import * as SearchHelper from 'helpers/searchHelper';
+import { autocompletePlaceholder } from "../../../helpers/search/filterCheckboxHelper";
 
 const propTypes = {
     toggleAgency: PropTypes.func,
@@ -230,7 +231,7 @@ export default class AgencyListContainer extends React.Component {
                 values={this.state.autocompleteAgencies}
                 handleTextInput={this.handleTextInput}
                 onSelect={this.toggleAgency.bind(this)}
-                placeholder={`${this.props.agencyType} Agency`}
+                placeholder={autocompletePlaceholder}
                 label={`${this.props.agencyType} Agency`}
                 clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
                 noResults={this.state.noResults} />

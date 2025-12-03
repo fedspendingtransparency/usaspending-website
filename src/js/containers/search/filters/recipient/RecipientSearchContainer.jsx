@@ -17,6 +17,7 @@ import EntityDropdownAutocomplete from "../../../../components/search/filters/lo
 import PrimaryCheckboxType from "../../../../components/sharedComponents/checkbox/PrimaryCheckboxType";
 import SelectedRecipients from "../../../../components/search/filters/recipient/SelectedRecipients";
 import replaceString from '../../../../helpers/replaceString';
+import { autocompletePlaceholder } from "../../../../helpers/search/filterCheckboxHelper";
 
 const propTypes = {
     updateSelectedRecipients: PropTypes.func,
@@ -224,7 +225,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         <div className="recipient-filter">
             <div className="filter-item-wrap">
                 <EntityDropdownAutocomplete
-                    placeholder="Search filters..."
+                    placeholder={autocompletePlaceholder}
                     enabled
                     handleTextInputChange={handleTextInputChange}
                     context={{}}
