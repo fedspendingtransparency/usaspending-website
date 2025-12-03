@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
-import bannerContent from 'ActiveBanners';
 
 import MegaMenuWrapper from '../megaMenu/MegaMenuWrapper';
 import GovBanner from "./GovBanner";
 import InfoBanner from './InfoBanner';
+import bannerContent from "../../../ActiveBanners";
 
 const Header = () => {
     const location = useLocation();
