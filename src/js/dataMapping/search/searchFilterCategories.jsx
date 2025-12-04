@@ -6,10 +6,10 @@
 import React from 'react';
 
 import AwardTypeV2 from "components/search/filters/awardType/AwardTypeV2";
+import Agency from "components/search/filters/agency/Agency";
 import LocationSection from "../../components/search/filters/location/LocationSection";
 import TimePeriodContainer from "../../containers/search/filters/TimePeriodContainer";
 import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
-import AgencyContainer from "../../containers/search/filters/AgencyContainer";
 import TASCheckboxTreeContainer from
     "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
 import RecipientSearchContainer from
@@ -100,7 +100,7 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'Agency',
-        component: <AgencyContainer searchV2 />
+        component: <Agency />
     },
     {
         title: 'Award Type',
