@@ -87,7 +87,7 @@
         margin: $global-margin ($global-margin * 4);
 
         @media(max-width: $medium-screen - 1) {
-            padding-top: 0px;
+            margin-top: 0;
         }
     }
 }
