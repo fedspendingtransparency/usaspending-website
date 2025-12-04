@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
 
-import KeywordContainer from 'containers/search/filters/KeywordContainer';
+import Keyword from 'components/search/filters/keyword/Keyword';
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
 import AgencyContainer from 'containers/search/filters/AgencyContainer';
@@ -104,7 +104,7 @@ const staticFilters = {
         }
     ],
     components: [
-        KeywordContainer,
+        Keyword,
         TimePeriodContainer,
         AwardTypeContainer,
         AgencyContainer,
