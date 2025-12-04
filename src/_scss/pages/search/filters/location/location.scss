@@ -10,6 +10,12 @@
 
     padding: 0 $global-padding * 2 rem(20);
 
+    .location-description {
+        font-size: $smallest-font-size;
+        line-height: 1.5;
+        margin: 0 ($global-margin / 2) $global-margin ($global-margin / 2);
+    }
+
     .location-picker-divider {
         border: none;
         margin-left: rem(5);
