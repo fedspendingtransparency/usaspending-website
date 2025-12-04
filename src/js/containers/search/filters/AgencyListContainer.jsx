@@ -11,18 +11,19 @@ import { Search } from 'js-search';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 import { autocompletePlaceholder } from "helpers/search/filterCheckboxHelper";
-import { fetchAwardingAgencies, fetchFundingAgencies } from "helpers/searchHelper";
 
 const propTypes = {
     toggleAgency: PropTypes.func,
     selectedAgencies: PropTypes.object,
-    agencyType: PropTypes.string
+    agencyType: PropTypes.string,
+    fetchAgencies: PropTypes.func
 };
 
 const AgencyListContainer = ({
     toggleAgency,
     selectedAgencies,
-    agencyType
+    agencyType,
+    fetchAgencies
 }) => {
     const [autocompleteAgencies, setAutocompleteAgencies] = useState([]);
     const [noResults, setNoResults] = useState(false);
@@ -161,12 +162,7 @@ const AgencyListContainer = ({
                 limit: 20
             };
 
-            if (agencyType === 'Funding') {
-                request.current = fetchFundingAgencies(agencySearchParams);
-            }
-            else {
-                request.current = fetchAwardingAgencies(agencySearchParams);
-            }
+            request.current = fetchAgencies(agencySearchParams);
 
             request.current.promise
                 .then((res) => {
@@ -206,7 +202,7 @@ const AgencyListContainer = ({
 
     const onSelect = (agency, valid) => {
         // Pass selected agency to parent toggleAgency method, adding agencyType to method call
-        toggleAgency(agency, valid, agencyType);
+        toggleAgency(agency, valid);
 
         // Clear Autocomplete results
         setAutocompleteAgencies([]);
