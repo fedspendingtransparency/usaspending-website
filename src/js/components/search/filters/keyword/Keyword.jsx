@@ -68,7 +68,7 @@ const Keyword = ({
                             className="keyword-input"
                             placeholder={
                                 searchV2 ?
-                                    'Type keyword and click "Add"' :
+                                    'Search using keywords...' :
                                     "Search by Keyword"
                             }
                             value={value}

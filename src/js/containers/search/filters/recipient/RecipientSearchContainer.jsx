@@ -225,7 +225,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         <div className="recipient-filter">
             <div className="filter-item-wrap">
                 <EntityDropdownAutocomplete
-                    placeholder={autocompletePlaceholder}
+                    placeholder="Search filters..."
                     enabled
                     handleTextInputChange={handleTextInputChange}
                     context={{}}
