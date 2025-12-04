@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, TooltipWrapper } from "data-transparency-ui";
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
@@ -77,11 +76,8 @@ export default class Keyword extends React.Component {
                     <div className="filter-item-wrap">
                         { this.props.searchV2 &&
                             <div className="category-header">
-                                <div className="category-header--icon">
-                                    <FontAwesomeIcon icon="search" />
-                                </div>
                                 <div className="category-header--title">
-                                    Keyword
+                                    Filter by Keyword
                                 </div>
                                 <TooltipWrapper icon="info" tooltipComponent={<KeyWordTooltip />} />
                             </div>
@@ -93,7 +89,7 @@ export default class Keyword extends React.Component {
                                 className="keyword-input"
                                 placeholder={
                                     this.props.searchV2 ?
-                                        "Search using keywords..." :
+                                        'Type keyword and click "Add"' :
                                         "Search by Keyword"
                                 }
                                 value={this.state.value}
