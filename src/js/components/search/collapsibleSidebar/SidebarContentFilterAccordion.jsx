@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useCallback, memo } from 'react';
 import PropTypes from "prop-types";
-import Accordion from "../../sharedComponents/accordion/Accordion";
+import Accordion from "components/sharedComponents/accordion/Accordion";
 
 const propTypes = {
     title: PropTypes.string,
@@ -10,22 +10,31 @@ const propTypes = {
     count: PropTypes.number
 };
 
-const SidebarContentFilterAccordion = ({
+// eslint-disable-next-line prefer-arrow-callback
+const SidebarContentFilterAccordion = memo(function SidebarContentFilterAccordion({
     title, component, open, setOpen, count
-}) => (
-    <div className="search-filters-list">
-        <Accordion
-            title={title}
-            setOpen={() => setOpen({ ...open, [title]: !open[title] })}
-            openObject={open[title]}
-            closedIcon="chevron-down"
-            openIcon="chevron-up"
-            contentClassName={open[title] ? '' : 'hidden'}
-            selectedChipCount={count}>
-            { open[title] && component }
-        </Accordion>
-    </div>
-);
+}) {
+    const setOpenCallback = useCallback(() =>
+        setOpen({
+            ...open,
+            [title]: !open[title]
+        }), [open, setOpen, title]);
+
+    return (
+        <div className="search-filters-list">
+            <Accordion
+                title={title}
+                setOpen={setOpenCallback}
+                openObject={open[title]}
+                closedIcon="chevron-down"
+                openIcon="chevron-up"
+                contentClassName={open[title] ? '' : 'hidden'}
+                selectedChipCount={count}>
+                {open[title] && component}
+            </Accordion>
+        </div>
+    );
+});
 
 SidebarContentFilterAccordion.propTypes = propTypes;
 export default SidebarContentFilterAccordion;
