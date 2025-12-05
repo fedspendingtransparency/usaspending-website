@@ -254,7 +254,7 @@ const AboutTheData = (props) => {
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
                 {isLoading || searchResultsPending ?
-                    <><LoadingWrapper isLoading /></>
+                    <LoadingWrapper isLoading />
                     :
                     <>
                         <AboutTheDataHeader
