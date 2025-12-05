@@ -7,14 +7,33 @@ import React, { useState, useEffect } from 'react';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { throttle } from 'lodash-es';
 import { useLocation } from 'react-router';
-import { homePageMetaTags } from "../../helpers/metaTagHelper";
+import { MDXProvider } from "@mdx-js/react";
+
+import { homePageMetaTags } from "helpers/metaTagHelper";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
 import articles from '../../../config/featuredContent/featuredContentMetadata';
 import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
 import FeaturedContentArticleSidebar from "./FeaturedContentArticleSidebar";
+import Post from './../../../content/featuredContent/four-ways-to-use-our-data.mdx';
 
 require('pages/featuredContent/featuredContent.scss');
+
+const CustomA = (props) => {
+    console.log(props);
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
+    return (<a target="_blank" rel="noopener noreferrer" {...props} />);
+};
+
+const CustomH2 = (props) => {
+    console.log(props);
+    // eslint-disable-next-line jsx-a11y/heading-has-content
+    return (<h2 style={{ color: "red" }} {...props} />);
+};
+export const components = {
+    a: CustomA,
+    h2: CustomH2
+};
 
 const FeaturedContentArticle = () => {
     const [windowWidth, setWindowWidth] = useState(0);
@@ -26,7 +45,7 @@ const FeaturedContentArticle = () => {
     const parts = location.pathname.split('/');
     const lastPortion = parts[parts.length - 1];
     const [chosenArticle, setChosenArticle] = useState(null);
-    const [markdownContent, setMarkdownContent] = useState('');
+    const [MarkdownContent, setMarkdownContent] = useState(null);
 
     useEffect(() => {
         for (const article of articles) {
@@ -35,7 +54,6 @@ const FeaturedContentArticle = () => {
             }
         }
     }, [chosenArticle, lastPortion]);
-
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -53,7 +71,7 @@ const FeaturedContentArticle = () => {
     useEffect(() => {
         const fetchMarkdown = async () => {
             const file = await import(`../../../content/featuredContent/${chosenArticle.mdx_path}`);
-            setMarkdownContent(file.default());
+            setMarkdownContent(() => file.default || file);
         };
         if (chosenArticle !== null) {
             fetchMarkdown();
@@ -107,7 +125,7 @@ const FeaturedContentArticle = () => {
                         <div className="featured-content__last-updated">
                             Last Updated: {chosenArticle?.created_date}
                         </div>
-                        {markdownContent}
+                        {chosenArticle && typeof MarkdownContent === "function" && <MarkdownContent components={components} />}
                     </FlexGridCol>
                     <FeaturedContentArticleSidebar chosenArticle={chosenArticle} />
                 </FlexGridRow>
