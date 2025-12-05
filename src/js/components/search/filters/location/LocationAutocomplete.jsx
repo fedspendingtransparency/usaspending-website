@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import SelectedLocations from "./SelectedLocations";
 import Autocomplete from "../../../sharedComponents/autocomplete/Autocomplete";
 import AllForeignLocationsCheckbox from "./AllForeignLocationsCheckbox";
+import { autocompletePlaceholder } from "../../../../helpers/search/filterCheckboxHelper";
 
 const propTypes = {
     activeTab: PropTypes.string,
@@ -68,7 +69,7 @@ const LocationAutocomplete = ({
                     onSelect={selectItem}
                     clearAutocompleteSuggestions={clearAutocompleteSuggestions}
                     noResults={noResults}
-                    placeholder="Search for a location..."
+                    placeholder={autocompletePlaceholder}
                     isLoading={isLoading}
                     retainValue
                     disabled={isForeign} />

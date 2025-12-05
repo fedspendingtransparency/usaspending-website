@@ -12,11 +12,11 @@ import { isCancel } from "axios";
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
-import SubmitHint from "../../../../components/sharedComponents/filterSidebar/SubmitHint";
-import EntityDropdownAutocomplete from "../../../../components/search/filters/location/EntityDropdownAutocomplete";
-import PrimaryCheckboxType from "../../../../components/sharedComponents/checkbox/PrimaryCheckboxType";
-import SelectedRecipients from "../../../../components/search/filters/recipient/SelectedRecipients";
-import replaceString from '../../../../helpers/replaceString';
+import SubmitHint from "components/sharedComponents/filterSidebar/SubmitHint";
+import EntityDropdownAutocomplete from "components/search/filters/location/EntityDropdownAutocomplete";
+import PrimaryCheckboxType from "components/sharedComponents/checkbox/PrimaryCheckboxType";
+import SelectedRecipients from "components/search/filters/recipient/SelectedRecipients";
+import replaceString from 'helpers/replaceString';
 
 const propTypes = {
     updateSelectedRecipients: PropTypes.func,

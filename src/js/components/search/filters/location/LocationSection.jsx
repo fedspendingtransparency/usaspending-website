@@ -40,6 +40,9 @@ const LocationSection = () => {
 
     return (
         <div className="filter-item-wrap location-filter search-filter">
+            <div className="location-description">
+                Search for a country, state, county, city, congressional district, or zip code
+            </div>
             <FilterTabs
                 labels={tabLabels}
                 switchTab={toggleTab}

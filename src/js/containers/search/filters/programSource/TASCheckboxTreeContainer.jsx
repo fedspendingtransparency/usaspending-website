@@ -37,6 +37,7 @@ import LegacyCheckboxTree from 'components/sharedComponents/LegacyCheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
+import { autocompletePlaceholder } from "../../../../helpers/search/filterCheckboxHelper";
 
 const propTypes = {
     setTasNodes: PropTypes.func,
@@ -393,7 +394,7 @@ export class TASCheckboxTree extends React.Component {
                         heading="Find a Treasury Account" />
                 </span>}
                 <EntityDropdownAutocomplete
-                    placeholder="Search filters..."
+                    placeholder={autocompletePlaceholder}
                     searchString={searchString}
                     enabled
                     handleTextInputChange={this.handleTextInputChange}
