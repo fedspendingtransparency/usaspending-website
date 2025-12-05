@@ -7,32 +7,71 @@ import React, { useState, useEffect } from 'react';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { throttle } from 'lodash-es';
 import { useLocation } from 'react-router';
-import { MDXProvider } from "@mdx-js/react";
 
+import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import { homePageMetaTags } from "helpers/metaTagHelper";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
 import articles from '../../../config/featuredContent/featuredContentMetadata';
 import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
 import FeaturedContentArticleSidebar from "./FeaturedContentArticleSidebar";
-import Post from './../../../content/featuredContent/four-ways-to-use-our-data.mdx';
 
 require('pages/featuredContent/featuredContent.scss');
 
-const CustomA = (props) => {
-    console.log(props);
-    // eslint-disable-next-line jsx-a11y/anchor-has-content
-    return (<a target="_blank" rel="noopener noreferrer" {...props} />);
+const contentTaxonomyNameToKey = {
+    "Data Definitions": "dataDefinition",
+    "My USAspending Search": "search",
+    "See 4 Yourself": "seeforyourself",
+    "Recently Answered Questions": "questions",
+    "Exploring America's Finances": "finances",
+    "Data You Can Trust": "trust",
+    "Spending Stories": "stories",
+    "What's the Difference?": "difference"
 };
 
-const CustomH2 = (props) => {
-    console.log(props);
-    // eslint-disable-next-line jsx-a11y/heading-has-content
-    return (<h2 style={{ color: "red" }} {...props} />);
+const primaryFill = {
+    dataDefinition: '#783CB9',
+    search: '#D54309',
+    seeforyourself: '#E66F0E',
+    questions: '#864381',
+    finances: '#1B2B85',
+    trust: '#73B3E7',
+    stories: '#2378C3',
+    difference: '#5ABF95'
 };
+
+const secondaryFill = {
+    dataDefinition: '#D5BFFF',
+    search: '#F6BD9C',
+    seeforyourself: '#FFBC78',
+    questions: '#E2BEE4',
+    finances: '#628EF4',
+    trust: '#D9E8F6',
+    stories: '#73B3E7',
+    difference: '#DBF6ED'
+};
+
+const CustomA = (props) =>
+    // eslint-disable-next-line jsx-a11y/anchor-has-content
+    (<a target="_blank" rel="noopener noreferrer" {...props} />);
+
+const CustomIframe = (props) =>
+    (<iframe
+        width="560"
+        height="315"
+        src={props.src}
+        title="YouTube video player"
+        frameBorder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        referrerPolicy="strict-origin-when-cross-origin"
+        allowFullScreen />);
+const CustomImg = (props) => (<img src={`../../img/featuredContent/articles/${props.src}`} alt={props.alt} />);
+
 export const components = {
+    GlossaryLink,
     a: CustomA,
-    h2: CustomH2
+    img: CustomImg,
+    iframe: CustomIframe
 };
 
 const FeaturedContentArticle = () => {
@@ -46,6 +85,17 @@ const FeaturedContentArticle = () => {
     const lastPortion = parts[parts.length - 1];
     const [chosenArticle, setChosenArticle] = useState(null);
     const [MarkdownContent, setMarkdownContent] = useState(null);
+
+    const getPrimaryFill = () => {
+        if (!chosenArticle) return 'none';
+        return (primaryFill[contentTaxonomyNameToKey[chosenArticle.taxonomy]]);
+    };
+    const getSecondaryFill = () => {
+        if (!chosenArticle) return 'none';
+        return (secondaryFill[contentTaxonomyNameToKey[chosenArticle.taxonomy]]);
+    };
+
+    const heroPath = "../../img/featuredContent/banner/desktop/banner-";
 
     useEffect(() => {
         for (const article of articles) {
@@ -70,7 +120,7 @@ const FeaturedContentArticle = () => {
 
     useEffect(() => {
         const fetchMarkdown = async () => {
-            const file = await import(`../../../content/featuredContent/${chosenArticle.mdx_path}`);
+            const file = await import(`../../../content/featuredContent/${chosenArticle.slug}.mdx`);
             setMarkdownContent(() => file.default || file);
         };
         if (chosenArticle !== null) {
@@ -89,11 +139,11 @@ const FeaturedContentArticle = () => {
                 className="main-content featured-content">
                 <FlexGridRow
                     className="featured-content__header-wrapper"
-                    style={{ backgroundColor: ((isMobile || isTablet) && chosenArticle?.fill) ? chosenArticle.fill : 'none' }}>
+                    style={{ backgroundColor: (isMobile || isTablet) && getPrimaryFill() }}>
                     { !isMobile &&
                         !isTablet &&
                         <img
-                            src={chosenArticle?.hero}
+                            src={chosenArticle?.slug ? `${heroPath}${chosenArticle?.slug}.webp` : null}
                             alt="hero"
                             name="featured-content-hero"
                             id="featured-content-hero" />
@@ -106,11 +156,11 @@ const FeaturedContentArticle = () => {
                         className={`featured-content__header-block usa-dt-flex-grid__row ${chosenArticle?.black_text ? "black-text" : ""}`}>
                         <span
                             className="featured-content__label"
-                            style={{ backgroundColor: chosenArticle?.secondary }}>
+                            style={{ backgroundColor: getSecondaryFill() }}>
                             {chosenArticle?.taxonomy}
                         </span>
                         <span className="featured-content__title">
-                            {chosenArticle?.banner_title}
+                            {chosenArticle?.title}
                         </span>
                         <span className="featured-content__subtitle">
                             {chosenArticle?.banner_subtitle}
