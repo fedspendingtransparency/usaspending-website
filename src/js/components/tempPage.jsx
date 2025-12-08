@@ -75,7 +75,8 @@ const tempPage = () => {
                             type="error"
                             headerText={alertHeaderText}
                             body={alertBody}
-                            icon="chevron-left" />
+                            icon="chevron-left"
+                            closeIcon />
                     </div>
                     <h1>Container Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>

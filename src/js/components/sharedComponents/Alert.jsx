@@ -12,6 +12,7 @@ const propTypes = {
     headerText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     body: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     icon: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    closeIcon: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     className: PropTypes.string
 };
 
@@ -20,6 +21,7 @@ const Alert = ({
     headerText,
     body,
     icon,
+    closeIcon,
     className
 }) => {
     const getIconString = () => {
@@ -34,23 +36,32 @@ const Alert = ({
 
     const iconString = typeof icon === 'string' ? icon : getIconString();
 
+    const closeIconString = typeof closeIcon === 'string' ? closeIcon : 'times';
+
     return (
         <div className={`alert ${type}${className ? ` ${className}` : ''}`}>
-            <div className="alert--header">
+            <div className="alert__header">
                 { icon &&
-                    <div className="alert--header--icon">
+                    <div className="alert__header__icon-container">
                         <FontAwesomeIcon
-                            className="advanced-search__keyword-search-icon"
+                            className="alert__header__icon"
                             icon={iconString} />
                     </div>
                 }
-                <p className="alert--header--text">
+                <p className="alert__header__text">
                     {headerText}
                 </p>
             </div>
-            <div className="alert--body">
+            <div className="alert__body">
                 {body}
             </div>
+            { closeIcon &&
+                <div className="alert__close__icon-container">
+                    <FontAwesomeIcon
+                        className="alert__close__icon"
+                        icon={closeIconString} />
+                </div>
+            }
         </div>
     );
 };
