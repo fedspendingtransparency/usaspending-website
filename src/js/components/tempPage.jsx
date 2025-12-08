@@ -1,33 +1,33 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button } from "data-transparency-ui";
-import { useSelector, useDispatch } from "react-redux";
-import { awardTypeCodes } from 'dataMapping/search/awardType';
-import { recipientTypes } from 'dataMapping/search/recipientType';
+import {
+    FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button
+} from "data-transparency-ui";
+import { Link } from "react-router";
 
+import Alert from "./sharedComponents/Alert";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
-
-import AccordionCheckbox from "./sharedComponents/checkbox/AccordionCheckbox";
-
-import { awardTypesData, recipientTypeMapping } from "../helpers/search/filterCheckboxHelper";
-import { bulkAwardTypeChange, toggleAwardType, toggleRecipientType } from "../redux/actions/search/searchFilterActions";
-import ListCheckbox from "./sharedComponents/checkbox/ListCheckbox";
 
 require("pages/search/searchPage.scss");
 
 const tempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
 
-    /* eslint-disable react-hooks/rules-of-hooks */
-    const { awardType, recipientType } = useSelector((state) => state.filters);
+    const alertHeaderText = "Looking for the \"Keyword Search\" page?";
 
-    const dispatch = useDispatch();
-
-    const toggleAwardTypeChange = (selection) => dispatch(toggleAwardType(selection));
-    const bulkAwardChange = (selection) => dispatch(bulkAwardTypeChange(selection));
-    const toggleRecipientTypeChange = (selection) => dispatch(toggleRecipientType(selection));
-    /* eslint-enable react-hooks/rules-of-hooks */
+    const alertBody = (
+        <Link
+            target="_blank"
+            rel="noopener noreferrer"
+            className="advanced-search__keyword-search-link"
+            to="/keyword_search">
+            Click here to search award transactions
+            <span className="advanced-search__keyword-search-span">
+                {" "}by keyword.
+            </span>
+        </Link>
+    );
 
     return (
         <PageFeatureFlag>
@@ -36,34 +36,46 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <div style={{ display: "flex" }} >
-                        <div
-                            style={{
-                                border: '1px solid red',
-                                margin: '8px',
-                                maxWidth: '300px',
-                                height: 'fit-content'
-                            }}>
-                            <AccordionCheckbox
-                                filterCategoryMapping={awardTypesData}
-                                filters={awardTypeCodes}
-                                selectedFilters={awardType}
-                                singleFilterChange={toggleAwardTypeChange}
-                                bulkFilterChange={bulkAwardChange} />
-                        </div>
-                        <div
-                            style={{
-                                border: '1px solid green',
-                                margin: '8px',
-                                maxWidth: '300px',
-                                height: 'fit-content'
-                            }}>
-                            <ListCheckbox
-                                filterCategoryMapping={recipientTypeMapping}
-                                filters={recipientTypes}
-                                selectedFilters={recipientType}
-                                singleFilterChange={toggleRecipientTypeChange} />
-                        </div>
+                    <div
+                        style={{
+                            display: 'flex',
+                            border: '1px solid red',
+                            padding: '8px',
+                            backgroundColor: 'darkgrey',
+                            height: 'fit-content'
+                        }}>
+                        <Alert
+                            headerText={alertHeaderText}
+                            body={alertBody} />
+                        <Alert
+                            headerText={alertHeaderText}
+                            body={alertBody}
+                            icon />
+                        <Alert
+                            type="success"
+                            headerText={alertHeaderText}
+                            body={alertBody}
+                            icon />
+                        <Alert
+                            type="warning"
+                            headerText={alertHeaderText}
+                            body={alertBody}
+                            icon />
+                        <Alert
+                            type="error"
+                            headerText={alertHeaderText}
+                            body={alertBody}
+                            icon />
+                        <Alert
+                            type="test"
+                            headerText={alertHeaderText}
+                            body={alertBody}
+                            icon />
+                        <Alert
+                            type="error"
+                            headerText={alertHeaderText}
+                            body={alertBody}
+                            icon="chevron-left" />
                     </div>
                     <h1>Container Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>

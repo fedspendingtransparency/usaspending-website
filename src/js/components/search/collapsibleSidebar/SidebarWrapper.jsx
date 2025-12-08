@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
-import KeywordSearchLink from "../KeywordSearchLink";
+import Alert from "../../sharedComponents/Alert";
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func,
@@ -330,7 +330,7 @@ const SidebarWrapper = React.memo(({
                 </div>
             </div>
             {isMobile === false && searchv2 === false ?
-                <KeywordSearchLink />
+                <Alert />
                 : ''}
         </>
     );
