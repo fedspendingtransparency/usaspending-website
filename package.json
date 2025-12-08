@@ -17,12 +17,11 @@
     "lhci:wizard": "lhci wizard",
     "lhci:server": "lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
     "lhci:desktop": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci --config=./lighthousercdesktop.js autorun --chrome-flags=\"--headless\"",
-    "lhci:mobile": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci autorun --config=./lighthouserc.js --chrome-flags=\"--headless\";", 
+    "lhci:mobile": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci autorun --config=./lighthouserc.js --chrome-flags=\"--headless\";",
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -c .storybook -o docs",
     "build-sb-artifacts": "npm run prod && npm run build-storybook"
-
   },
   "author": "",
   "engines": {
@@ -303,12 +302,12 @@
     "mockdate": "^3.0.5",
     "postcss": "^8.4.31",
     "prop-types": "^15.7.2",
-    "react": "^19.1.0",
+    "react": "^19.1.2",
     "react-aria-modal": "^5.0.2",
     "react-checkbox-tree": "1.5.1",
     "react-copy-to-clipboard": "^5.0.1",
     "react-custom-scrollbars": "^4.1.2",
-    "react-dom": "^19.1.0",
+    "react-dom": "^19.1.2",
     "react-flip-toolkit": "^7.0.17",
     "react-frame-component": "^5.2.7",
     "react-helmet": "^6.1.0",
