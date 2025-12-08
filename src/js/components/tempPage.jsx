@@ -45,35 +45,35 @@ const tempPage = () => {
                             height: 'fit-content'
                         }}>
                         <Alert
-                            headerText={alertHeaderText}
+                            header={alertHeaderText}
                             body={alertBody} />
                         <Alert
-                            headerText={alertHeaderText}
+                            header={alertHeaderText}
                             body={alertBody}
                             icon />
                         <Alert
                             type="success"
-                            headerText={alertHeaderText}
+                            header={alertHeaderText}
                             body={alertBody}
                             icon />
                         <Alert
                             type="warning"
-                            headerText={alertHeaderText}
+                            header={alertHeaderText}
                             body={alertBody}
                             icon />
                         <Alert
                             type="error"
-                            headerText={alertHeaderText}
+                            header={alertHeaderText}
                             body={alertBody}
                             icon />
                         <Alert
                             type="test"
-                            headerText={alertHeaderText}
+                            header={alertHeaderText}
                             body={alertBody}
                             icon />
                         <Alert
                             type="error"
-                            headerText={alertHeaderText}
+                            header={alertHeaderText}
                             body={alertBody}
                             icon="chevron-left"
                             closeIcon />

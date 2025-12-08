@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 
 const propTypes = {
     type: PropTypes.oneOf(['info', 'success', 'warning', 'error']),
-    headerText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    header: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     body: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     icon: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
     closeIcon: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
@@ -18,12 +18,22 @@ const propTypes = {
 
 const Alert = ({
     type = "info",
-    headerText,
+    header,
     body,
     icon,
     closeIcon,
     className
 }) => {
+    // add a className, if there is one
+    // compact className added if there's no header
+    const alertClassName = `alert ${
+        type
+    }${
+        className ? ` ${className}` : ''
+    }${
+        header ? '' : ` compact`
+    }`;
+
     const getIconString = () => {
         switch (type) {
             case 'info': return 'info-circle';
@@ -39,21 +49,23 @@ const Alert = ({
     const closeIconString = typeof closeIcon === 'string' ? closeIcon : 'times';
 
     return (
-        <div className={`alert ${type}${className ? ` ${className}` : ''}`}>
-            <div className="alert__header">
-                { icon &&
-                    <div className="alert__header__icon-container">
-                        <FontAwesomeIcon
-                            className="alert__header__icon"
-                            icon={iconString} />
+        <div className={alertClassName}>
+            { icon &&
+                <div className="alert__icon-container">
+                    <FontAwesomeIcon
+                        className="alert__icon"
+                        icon={iconString} />
+                </div>
+            }
+            <div className="alert__message">
+                { header &&
+                    <div className="alert__message__header">
+                        {header}
                     </div>
                 }
-                <p className="alert__header__text">
-                    {headerText}
-                </p>
-            </div>
-            <div className="alert__body">
-                {body}
+                <div className="alert__message__body">
+                    {body}
+                </div>
             </div>
             { closeIcon &&
                 <div className="alert__close__icon-container">

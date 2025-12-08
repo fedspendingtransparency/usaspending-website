@@ -1,4 +1,8 @@
 .alert {
-  background-color: red;
+  // $info-lighter
+  background-color: #E7F6F8;
+  // $info-dark
+  border: rem(1) solid #009EC1;
   padding: $global-padding * 2;
+  display: flex;
 }
