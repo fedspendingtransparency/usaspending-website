@@ -24,16 +24,6 @@ const Alert = ({
     closeIcon,
     className
 }) => {
-    // add a className, if there is one
-    // compact className added if there's no header
-    const alertClassName = `alert ${
-        type
-    }${
-        className ? ` ${className}` : ''
-    }${
-        header ? '' : ` compact`
-    }`;
-
     const getIconString = () => {
         switch (type) {
             case 'info': return 'info-circle';
@@ -49,7 +39,7 @@ const Alert = ({
     const closeIconString = typeof closeIcon === 'string' ? closeIcon : 'times';
 
     return (
-        <div className={alertClassName}>
+        <div className={`alert ${type}${className ? ` ${className}` : ''}`}>
             { icon &&
                 <div className="alert__icon-container">
                     <FontAwesomeIcon

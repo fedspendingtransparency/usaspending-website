@@ -1,8 +1,35 @@
 .alert {
-  // $info-lighter
-  background-color: #E7F6F8;
-  // $info-dark
-  border: rem(1) solid #009EC1;
+  background-color: $gray-cool-2;
+  border: rem(1) solid $gray-cool-90;
+  border-radius: rem(4);
   padding: $global-padding * 2;
   display: flex;
+
+  &.info {
+    // $info-lighter
+    background-color: #E7F6F8;
+    // $info-dark
+    border-color: #009EC1;
+  }
+
+  &.success {
+    // $success-lighter
+    background-color: #E3F5E1;
+    // $success-dark
+    border-color: #008817;
+  }
+
+  &.warning {
+    // $warning-lighter
+    background-color: #FEF2E4;
+    // $warning-dark
+    border-color: #FA9441;
+  }
+
+  &.error {
+    // $error-lighter
+    background-color: #FFF2F5;
+    // $error
+    border-color: #E41D3D;
+  }
 }
