@@ -42,9 +42,9 @@ const Alert = ({
         <div className={`alert ${type}${className ? ` ${className}` : ''}`}>
             <div className="alert__message__container">
                 { icon &&
-                    <div className="alert__icon-container">
+                    <div className="alert___message__icon-container">
                         <FontAwesomeIcon
-                            className="alert__icon"
+                            className="alert___message__icon"
                             icon={iconString} />
                     </div>
                 }
