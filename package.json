@@ -314,7 +314,7 @@
     "react-hot-loader": "^4.8.2",
     "react-markdown": "^2.5.0",
     "react-redux": "^7.2.9",
-    "react-router": "^7.8.1",
+    "react-router": "^7.10.1",
     "react-scrollama": "^2.3.2",
     "react-side-effect": "^2.1.2",
     "react-string-replace": "^1.1.1",
