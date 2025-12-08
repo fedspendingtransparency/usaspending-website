@@ -40,27 +40,29 @@ const Alert = ({
 
     return (
         <div className={`alert ${type}${className ? ` ${className}` : ''}`}>
-            { icon &&
-                <div className="alert__icon-container">
-                    <FontAwesomeIcon
-                        className="alert__icon"
-                        icon={iconString} />
-                </div>
-            }
-            <div className="alert__message">
-                { header &&
-                    <div className="alert__message__header">
-                        {header}
+            <div className="alert__message__container">
+                { icon &&
+                    <div className="alert__icon-container">
+                        <FontAwesomeIcon
+                            className="alert__icon"
+                            icon={iconString} />
                     </div>
                 }
-                <div className="alert__message__body">
-                    {body}
+                <div className="alert__message">
+                    { header &&
+                        <div className="alert__message__header">
+                            {header}
+                        </div>
+                    }
+                    <div className="alert__message__body">
+                        {body}
+                    </div>
                 </div>
             </div>
             { closeIcon &&
-                <div className="alert__close__icon-container">
+                <div className="alert__close-icon__container">
                     <FontAwesomeIcon
-                        className="alert__close__icon"
+                        className="alert__close-icon__icon"
                         icon={closeIconString} />
                 </div>
             }
