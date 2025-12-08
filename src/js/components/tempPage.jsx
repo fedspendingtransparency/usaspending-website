@@ -14,20 +14,9 @@ require("pages/search/searchPage.scss");
 const tempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
 
-    const alertHeaderText = "Looking for the \"Keyword Search\" page?";
+    const alertHeaderText = "Status heading";
 
-    const alertBody = (
-        <Link
-            target="_blank"
-            rel="noopener noreferrer"
-            className="advanced-search__keyword-search-link"
-            to="/keyword_search">
-            Click here to search award transactions
-            <span className="advanced-search__keyword-search-span">
-                {" "}by keyword.
-            </span>
-        </Link>
-    );
+    const alertBody = "This is a succinct, helpful in-page status message.";
 
     return (
         <PageFeatureFlag>
@@ -39,14 +28,24 @@ const tempPage = () => {
                     <div
                         style={{
                             display: 'flex',
-                            border: '1px solid red',
+                            border: '1px solid darkgrey',
                             padding: '8px',
-                            backgroundColor: 'darkgrey',
                             height: 'fit-content'
                         }}>
                         <Alert
-                            header={alertHeaderText}
-                            body={alertBody} />
+                            body={
+                                (<>
+                                    Looking for the "Keyword Search" page? <br />
+                                    <Link
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="advanced-search__keyword-search-link"
+                                        to="/keyword_search">
+                                            Click here to search award transactions by keyword.
+                                    </Link>
+                                </>)
+                            }
+                            icon />
                         <Alert
                             header={alertHeaderText}
                             body={alertBody}

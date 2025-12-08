@@ -11,6 +11,19 @@
     .alert__icon-container {
       margin-right: $global-margin;
     }
+
+    .alert__message__header {
+      color: $gray-90;
+      font-size: $font-size-24;
+      line-height: 1.15;
+      margin-bottom: $global-margin;
+    }
+
+    .alert__message__body {
+      color: $gray-90;
+      font-size: $base-font-size;
+      line-height: 1.5;
+    }
   }
 
   .alert__close-icon__container {
