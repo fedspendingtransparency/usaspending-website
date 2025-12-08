@@ -10,6 +10,11 @@
 
     .alert__icon-container {
       margin-right: $global-margin;
+
+      .alert__icon {
+        min-width: rem(24);
+        min-height: rem(24);
+      }
     }
 
     .alert__message__header {
