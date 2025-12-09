@@ -10,6 +10,8 @@ import SearchSidebarSubmitContainer from "../../../containers/search/SearchSideb
 import * as Icons from '../../../components/sharedComponents/icons/Icons';
 import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import SidebarContentFilters from "./SidebarContentFilters";
+import { Link } from "react-router";
+import Alert from "../../sharedComponents/Alert";
 // removed in DEV-13712
 // import DsmSlider from "./DsmSlider";
 
@@ -30,6 +32,19 @@ const SidebarContent = ({
 }) => {
     const [isSmall, setIsSmall] = useState(window.innerWidth < mediumScreen);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+    const alertBody = (
+        <>
+            Looking for the "Keyword Search" page? <br />
+            <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                className="advanced-search__keyword-search-link"
+                to="/keyword_search">
+                Click here to search award transactions by keyword.
+            </Link>
+        </>
+    );
 
     useEffect(() => {
         // determine if the width changed
@@ -73,6 +88,7 @@ const SidebarContent = ({
             <div className="sidebar-bottom-submit">
                 <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
             </div>
+            <Alert body={alertBody} className="keyword-link" icon />
         </>);
 };
 

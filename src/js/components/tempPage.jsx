@@ -30,21 +30,6 @@ const tempPage = () => {
                             padding: '8px',
                             height: 'fit-content'
                         }}>
-                        {/* TODO: move this over to search sidebar*/}
-                        <Alert
-                            body={
-                                (<>
-                                    Looking for the "Keyword Search" page? <br />
-                                    <Link
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="advanced-search__keyword-search-link"
-                                        to="/keyword_search">
-                                            Click here to search award transactions by keyword.
-                                    </Link>
-                                </>)
-                            }
-                            icon />
                         <Alert
                             header="Info Example"
                             body={alertBody}

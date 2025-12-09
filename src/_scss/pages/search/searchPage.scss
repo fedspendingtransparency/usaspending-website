@@ -125,6 +125,11 @@
         }
     }
 
+    .alert.keyword-link .alert__message__container .alert___message__icon-container .alert___message__icon {
+        min-width: rem(20);
+        min-height: rem(20);
+    }
+
     // remove styles below once <Alert /> examples are removed from /temp-page
     .alert.alert-test-className {
         background-color: yellow;
