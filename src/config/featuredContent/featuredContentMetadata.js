@@ -279,15 +279,15 @@ const articles = [
         ]
     },
     {
-        taxonomy: "My USAspending Search",
-        content_type: 'Featured Content',
-        banner_subtitle: "Follow the Money Using USAspending.gov’s Spending Explorer",
-        title: "John’s USAspending Search",
+        taxonomy: "Spending Stories",
+        content_type: 'Marketing',
+        banner_subtitle: "Explore How the Federal Government Spends Money on a Particular Topic",
+        title: "Discover How Government Spending Supports Causes You Care About",
         created_date: "12/25/25",
         feature_sprint: 3,
         feature_week: 1,
-        description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
-        slug: "johns-usaspending-search",
+        description: "If you’re passionate about a cause—whether it’s education, environmental protection, public health, or national security—you can use Advanced Search to explore",
+        slug: "discover-how-government-spending-supports-causes-you-care-about",
         explore_more: [
             {
                 label: "Advanced Search",
@@ -295,24 +295,69 @@ const articles = [
                 type: "internal"
             },
             {
-                label: "Federal Spending Guide",
-                slug: "/federal-spending-guide",
+                label: "What is a Recipient",
+                slug: "/featured-content/data-definitions/what-is-a-recipient",
+                type: "internal"
+            },
+            {
+                label: "Spending by Agency",
+                slug: "/explorer/agency",
                 type: "internal"
             }
         ],
         related_terms: [
             {
-                term: "recipient",
+                term: "fiscal-year-fy",
                 type: "glossary",
-                label: "Recipient"
+                label: "Fiscal Year"
             },
             {
-                term: "outlay",
+                term: "agency",
                 type: "glossary",
-                label: "Outlay"
+                label: "Agency"
+            },
+            {
+                term: "recipient-location",
+                type: "glossary",
+                label: "Recipient Location"
             }
         ]
     }
+    // {
+    //     taxonomy: "My USAspending Search",
+    //     content_type: 'Featured Content',
+    //     banner_subtitle: "Follow the Money Using USAspending.gov’s Spending Explorer",
+    //     title: "John’s USAspending Search",
+    //     created_date: "12/25/25",
+    //     feature_sprint: 3,
+    //     feature_week: 1,
+    //     description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
+    //     slug: "johns-usaspending-search",
+    //     explore_more: [
+    //         {
+    //             label: "Advanced Search",
+    //             slug: "/search",
+    //             type: "internal"
+    //         },
+    //         {
+    //             label: "Federal Spending Guide",
+    //             slug: "/federal-spending-guide",
+    //             type: "internal"
+    //         }
+    //     ],
+    //     related_terms: [
+    //         {
+    //             term: "recipient",
+    //             type: "glossary",
+    //             label: "Recipient"
+    //         },
+    //         {
+    //             term: "outlay",
+    //             type: "glossary",
+    //             label: "Outlay"
+    //         }
+    //     ]
+    // }
 ];
 
 export default articles;
