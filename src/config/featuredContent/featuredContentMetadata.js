@@ -195,7 +195,6 @@ const articles = [
         feature_week: 1,
         description: "USAspending.gov is the official source for tracking federal government spending—but what makes our data different, where does it come from, and what makes it",
         slug: "understanding-our-trusted-data",
-        thumbnail_path: "../../img/featuredContent/cards/understanding-our-trusted-data.webp",
         black_text: true,
         explore_more: [
             {
@@ -221,7 +220,6 @@ const articles = [
         feature_week: 1,
         description: "When searching for government spending data on USAspending.gov, you’re very likely to see the word “recipient. Whether you’re using our filters to refine your",
         slug: "what-is-a-recipient",
-        thumbnail_path: "../../img/featuredContent/cards/what-is-a-recipient.webp",
         explore_more: [
             {
                 label: "Advanced Search",
@@ -252,12 +250,11 @@ const articles = [
         content_type: 'Featured Content',
         title: "Grants vs. Contracts",
         banner_subtitle: "What’s the Difference Between Grants and Contracts?",
-        created_date: "1/15/26",
+        created_date: "12/25/25",
         feature_sprint: 3,
         feature_week: 1,
         description: "When searching for government spending data on USAspending.gov, you’re very likely to see the word “recipient. Whether you’re using our filters to refine your",
         slug: "grants-vs-contracts",
-        thumbnail_path: "../../img/featuredContent/cards/what-is-a-recipient.webp",
         explore_more: [
             {
                 label: "Advanced Search",
@@ -288,12 +285,11 @@ const articles = [
         content_type: 'Featured Content',
         banner_subtitle: "Follow the Money Using USAspending.gov’s Spending Explorer",
         title: "John’s USAspending Search",
-        created_date: "1/15/26",
+        created_date: "12/25/25",
         feature_sprint: 3,
         feature_week: 1,
         description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
         slug: "johns-usaspending-search",
-        thumbnail_path: "../../img/featuredContent/cards/what-is-a-recipient.webp",
         explore_more: [
             {
                 label: "Advanced Search",

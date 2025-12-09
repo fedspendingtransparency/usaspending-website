@@ -44,8 +44,9 @@ const ArticleList = ({ articles }) => {
 
 
     const getThumbnailPath = (article) => {
+        const slug = article?.taxonomy.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "").replace(/\s+/g, "-").toLowerCase();
         const thumbnailPath = "../../img/featuredContent/cards/";
-        return `${thumbnailPath}${article.slug}.webp`;
+        return `${thumbnailPath}${slug}.webp`;
     };
 
     const getPrimaryFill = (article) => {
