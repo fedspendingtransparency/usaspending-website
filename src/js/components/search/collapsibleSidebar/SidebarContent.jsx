@@ -10,8 +10,6 @@ import SearchSidebarSubmitContainer from "../../../containers/search/SearchSideb
 import * as Icons from '../../../components/sharedComponents/icons/Icons';
 import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import SidebarContentFilters from "./SidebarContentFilters";
-import { Link } from "react-router";
-import Alert from "../../sharedComponents/Alert";
 // removed in DEV-13712
 // import DsmSlider from "./DsmSlider";
 

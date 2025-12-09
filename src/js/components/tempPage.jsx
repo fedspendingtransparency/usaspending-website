@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button
 } from "data-transparency-ui";
-import { Link } from "react-router";
 
 import Alert from "./sharedComponents/Alert";
 import PageWrapper from "./sharedComponents/PageWrapper";
