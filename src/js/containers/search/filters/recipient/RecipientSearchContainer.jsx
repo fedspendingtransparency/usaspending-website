@@ -24,6 +24,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     const [searchString, setSearchString] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [maxRecipients, setMaxRecipients] = useState(false);
+    const [noResults, setNoResults] = useState(false);
 
     const recipientRequest = useRef();
     const maxRecipientsAllowed = 500;
@@ -32,6 +33,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     const highlightText = (text) => replaceString(text, searchString, 'bold-highlight');
 
     const toggleRecipient = ({ value }) => {
+        console.log("checking toggle Reciptient function ", value);
         if (value.uei && searchString.length > 2 && value.uei?.includes(searchString.toUpperCase())) {
             updateSelectedRecipients(value.uei);
         }
@@ -92,32 +94,6 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         }
     };
 
-    const getAllRecipients = () => {
-        if (recipientRequest.current) {
-            recipientRequest.current.cancel();
-        }
-
-        const paramObj = {
-            limit: maxRecipientsAllowed
-        };
-
-        recipientRequest.current = SearchHelper.fetchRecipients(paramObj);
-
-        setIsLoading(true);
-
-        recipientRequest.current.promise
-            .then((res) => {
-                setRecipients(res.data.results);
-                setIsLoading(false);
-                sortResults(res.data.results);
-                setMaxRecipients(true);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(`Recipient Request Error: ${err}`);
-                }
-            });
-    };
 
     const getRecipientsFromSearchString = (term) => {
         if (recipientRequest.current) {
@@ -139,6 +115,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 setRecipients(res.data.results);
                 setIsLoading(false);
                 setMaxRecipients(res.data.count === maxRecipientsAllowed);
+                setNoResults(!res.data.count);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -158,21 +135,22 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
             updateSelectedRecipients(recipient);
         });
 
-        // populate tree with all after initial search is cleared
-        getAllRecipients();
+        setSearchString('');
+        setMaxRecipients(false); // clean up if previously set
+        setRecipients([]);
     };
 
     const getMaxRecipientsText = () => {
         if (maxRecipients) {
             return (
-                <>
+                <div className="recipient-filter-message-container">
                     <div className="find-recipients-text label">
                         {maxRecipientTitle}
                     </div>
                     <div className="find-recipients-text content">
                         {maxRecipientText}
                     </div>
-                </>
+                </div>
             );
         }
 
@@ -198,25 +176,27 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     };
 
     const toggleAll = (selectAll) => {
-        // booz allen
+        const selectedList = selectedRecipients.toArray();
         if (selectAll) {
-            const selectedList = selectedRecipients.toArray();
+            const currentlyChecked = selectedList;
             recipients.forEach((rep) => {
-                if (!selectedList.includes(rep.recipient_name)) {
+                if (!currentlyChecked.includes(rep.recipient_name)) {
                     // do not update currently checked
                     // only new checked.
                     updateSelectedRecipients(rep.recipient_name);
-                    selectedList.push(rep.recipient_name);
+                    currentlyChecked.push(rep.recipient_name);
                 }
             });
         }
         else {
-            handleClearRecipients();
+            selectedRecipients.forEach((rep) => {
+                updateSelectedRecipients(rep);
+            });
         }
     };
 
     useEffect(() => {
-        if (searchString.length >= 3) {
+        if (searchString?.length >= 3) {
             getRecipientsFromSearchString(searchString);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -242,6 +222,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 selectedFilters={selectedRecipients}
                 toggleSingleFilter={toggleRecipient}
                 toggleAll={toggleAll}
+                noResults={noResults}
                 additionalText={getMaxRecipientsText()}
                 isLoading={isLoading} />
         </div>

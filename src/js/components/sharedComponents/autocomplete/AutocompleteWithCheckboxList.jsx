@@ -4,7 +4,7 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EntityDropdownAutocomplete from '../../search/filters/location/EntityDropdownAutocomplete';
 import PrimaryCheckboxType from '../checkbox/PrimaryCheckboxType';
 
@@ -19,6 +19,7 @@ const propTypes = {
     toggleAll: PropTypes.func,
     additionalText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     isLoading: PropTypes.bool,
+    noResults: PropTypes.bool,
     limit: PropTypes.number
 };
 
@@ -33,15 +34,11 @@ const AutocompleteWithCheckboxList = ({
     toggleAll,
     additionalText,
     isLoading,
-    limit = 500
+    noResults,
+    limit = 10
 }) => {
     const [allSelected, setAllSelected] = useState(false);
-
-    useEffect(() => {
-        if (selectedFilters?.count === filters?.count) {
-            setAllSelected(true);
-        }
-    }, [filters.count, selectedFilters.count]);
+    const additionalClassName = filters.length >= limit ? 'bottom-fade' : '';
 
     const handleToggleAll = () => {
         if (toggleAll) {
@@ -50,82 +47,95 @@ const AutocompleteWithCheckboxList = ({
         setAllSelected(!allSelected);
     };
 
+    useEffect(() => {
+        if (selectedFilters?.count === filters?.count) {
+            setAllSelected(true);
+        }
+    }, [filters.count, selectedFilters.count]);
 
-    const filterGroup = () => {
-        if (filters?.length > 0) {
+    const checkboxHeading = () => {
+        if (!searchString) return null;
+
+        return (
+            <li className="autocomplete-heading">
+                {searchString}
+                <button
+                    type="button"
+                    aria-label="Select All filters"
+                    className="toggle-all__button"
+                    tabIndex="0"
+                    onClick={handleToggleAll} >
+                    {allSelected ? 'Deselect All' : 'Select All'}
+                </button>
+            </li>
+        );
+    };
+
+    const resultsContainer = () => {
+        if (noResults) {
+            return <div className="no-results">No results found.</div>;
+        }
+
+        if (isLoading) {
             return (
-                <div className="recipient-results__container">
-                    <div className="clear-all__container">
-                        <button
-                            type="button"
-                            aria-label="Select All filters"
-                            className="clear-all__button"
-                            tabIndex="0"
-                            onClick={handleToggleAll} >
-                            {allSelected ? 'Deselect All' : 'Select All'}
-                        </button>
-                    </div>
-                    <div className={`checkbox-type-filter ${filters.length >= limit ? 'bottom-fade' : ''}`}>
-                        {filters?.map((filter) => (
-                            <PrimaryCheckboxType
-                                name={filter.name}
-                                value={filter.value}
-                                key={filter.key}
-                                toggleCheckboxType={toggleSingleFilter}
-                                selectedCheckboxes={selectedFilters} />
-                        ))}
-                    </div>
+                <div className="loading-message-container">
+                    <FontAwesomeIcon icon="spinner" spin />
+                    <div className="loading-message-container__text">Loading your data...</div>
                 </div>
             );
         }
 
-        if (searchString > 3) {
-            // user searched for something with no results;
-            return (
-                <div className="recipient-list__message">
-                    No results found.
+        return (
+            <>
+                <div
+                    className={`checkbox-type-filter ${additionalClassName}`} >
+                    {filters?.length ? (
+                        <ul className="autocomplete-checkbox">
+                            {checkboxHeading()}
+                            {filters?.map((filter) => (
+                                <PrimaryCheckboxType
+                                    name={filter.name}
+                                    value={filter.value}
+                                    key={filter.key}
+                                    toggleCheckboxType={toggleSingleFilter}
+                                    selectedCheckboxes={selectedFilters} />
+                            ))}
+                        </ul>
+                    ) : (
+                        <div className="clear-all__container">
+                            <button
+                                type="button"
+                                aria-label={`Clear all ${filterType} filters`}
+                                className="clear-all__button"
+                                tabIndex="0"
+                                onClick={onSearchClear} >
+                                {`Clear all ${filterType} filters`}
+                            </button>
+                        </div>
+                    )}
                 </div>
-            );
-        }
-
-        return null;
+                {additionalText && additionalText}
+            </>
+        );
     };
 
     return (
-        <div className="filter-item-wrap">
+        <div className="extent-competed-filter">
             <EntityDropdownAutocomplete
                 placeholder="Search filters..."
+                searchString={searchString}
                 enabled
                 handleTextInputChange={handleTextInputChange}
                 context={{}}
-                searchString={searchString}
-                isClearable
                 loading={false}
+                isClearable
                 onClear={onSearchClear}
                 searchIcon />
-            <div className="clear-all__container">
-                <button
-                    type="button"
-                    aria-label={`Clear all ${filterType} filters`}
-                    className="clear-all__button"
-                    tabIndex="0"
-                    onClick={onSearchClear} >
-                    {`Clear all ${filterType} filters`}
-                </button>
-            </div>
-            { isLoading ? (
-                <div className="recipient-filter-message-container">
-                    <FontAwesomeIcon icon="spinner" spin />
-                    <div className="recipient-filter-message-container__text">Loading your data...</div>
+            <div className="filter-item-wrap">
+                <div className="checkbox-filter__wrapper" >
+                    {resultsContainer()}
                 </div>
-
-            ) : (
-                <>
-                    {filters && filterGroup()}
-                    {additionalText && additionalText}
-                </>
-
-            )}
+            </div>
         </div>
     );
 };
