@@ -14,8 +14,6 @@ require("pages/search/searchPage.scss");
 const tempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
 
-    const alertHeaderText = "Status heading";
-
     const alertBody = "This is a succinct, helpful in-page status message.";
 
     return (
@@ -32,6 +30,7 @@ const tempPage = () => {
                             padding: '8px',
                             height: 'fit-content'
                         }}>
+                        {/* TODO: move this over to search sidebar*/}
                         <Alert
                             body={
                                 (<>
@@ -47,35 +46,37 @@ const tempPage = () => {
                             }
                             icon />
                         <Alert
-                            header={alertHeaderText}
+                            header="Info Example"
                             body={alertBody}
                             icon />
                         <Alert
                             type="success"
-                            header={alertHeaderText}
+                            header="Success Example"
                             body={alertBody}
                             icon />
                         <Alert
                             type="warning"
-                            header={alertHeaderText}
+                            header="Warning Example"
                             body={alertBody}
                             icon />
                         <Alert
                             type="error"
-                            header={alertHeaderText}
+                            header="Error Example"
                             body={alertBody}
                             icon />
                         <Alert
                             type="test"
-                            header={alertHeaderText}
+                            header="Default/Test Example"
                             body={alertBody}
-                            icon />
+                            icon
+                            closeIcon />
                         <Alert
                             type="error"
-                            header={alertHeaderText}
+                            header="Custom Example"
+                            className="alert-test-className"
                             body={alertBody}
                             icon="chevron-left"
-                            closeIcon />
+                            closeIcon="chevron-up" />
                     </div>
                     <h1>Container Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>

@@ -124,6 +124,21 @@
             }
         }
     }
+
+    // remove styles below once <Alert /> examples are removed from /temp-page
+    .alert.alert-test-className {
+        background-color: yellow;
+        opacity: 0.5;
+        border-color: rebeccapurple;
+
+        .alert___message__icon-container {
+            color: blue;
+        }
+
+        .alert__close-icon__icon {
+            color: red;
+        }
+    }
 }
 
 @import "./_searchv2";
