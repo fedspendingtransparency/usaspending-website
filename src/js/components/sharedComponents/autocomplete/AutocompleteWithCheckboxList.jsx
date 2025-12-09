@@ -87,9 +87,8 @@ const AutocompleteWithCheckboxList = ({
 
         return (
             <>
-                <div
-                    className={`checkbox-type-filter ${additionalClassName}`} >
-                    {filters?.length ? (
+                {filters?.length ? (
+                    <div className={`checkbox-type-filter ${additionalClassName}`} >
                         <ul className="autocomplete-checkbox">
                             {checkboxHeading()}
                             {filters?.map((filter) => (
@@ -100,21 +99,21 @@ const AutocompleteWithCheckboxList = ({
                                     toggleCheckboxType={toggleSingleFilter}
                                     selectedCheckboxes={selectedFilters} />
                             ))}
+                            {additionalText && additionalText}
                         </ul>
-                    ) : (
-                        <div className="clear-all__container">
-                            <button
-                                type="button"
-                                aria-label={`Clear all ${filterType} filters`}
-                                className="clear-all__button"
-                                tabIndex="0"
-                                onClick={onSearchClear} >
-                                {`Clear all ${filterType} filters`}
-                            </button>
-                        </div>
-                    )}
-                </div>
-                {additionalText && additionalText}
+                    </div>
+                ) : (
+                    <div className="clear-all__container">
+                        <button
+                            type="button"
+                            aria-label={`Clear all ${filterType} filters`}
+                            className="clear-all__button"
+                            tabIndex="0"
+                            onClick={onSearchClear} >
+                            {`Clear all ${filterType} filters`}
+                        </button>
+                    </div>
+                )}
             </>
         );
     };
