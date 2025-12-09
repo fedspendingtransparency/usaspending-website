@@ -23,11 +23,11 @@ const Alert = ({
     header,
     body,
     icon,
-    onClose = false,
+    onClose = undefined,
     closeIcon,
     className
 }) => {
-    const { ref } = useOnKeydown(onClose);
+    const closeRef = useOnKeydown(onClose);
 
     const getIconString = () => {
         switch (type) {
@@ -40,8 +40,8 @@ const Alert = ({
     };
 
     const iconString = typeof icon === 'string' ? icon : getIconString();
-
     const closeIconString = closeIcon || 'times';
+    const hideCloseIcon = onClose ? {} : { display: 'none' };
 
     return (
         <div className={`alert ${type}${className ? ` ${className}` : ''}`}>
@@ -64,17 +64,15 @@ const Alert = ({
                     </div>
                 </div>
             </div>
-            { onClose &&
-                <div className="alert__close-icon__container">
-                    <FontAwesomeIcon
-                        className="alert__close-icon__icon"
-                        icon={closeIconString}
-                        onClick={onClose}
-                        tabIndex="0"
-                        aria-hidden={false}
-                        ref={ref} />
-                </div>
-            }
+            <div className="alert__close-icon__container" style={hideCloseIcon}>
+                <FontAwesomeIcon
+                    className="alert__close-icon__icon"
+                    icon={closeIconString}
+                    onClick={onClose}
+                    tabIndex="0"
+                    aria-hidden={false}
+                    ref={closeRef} />
+            </div>
         </div>
     );
 };
