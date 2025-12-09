@@ -53,8 +53,8 @@ const tempPage = () => {
                             type="test"
                             header="Default/Test Example"
                             body={alertBody}
-                            icon
-                            closeIcon />
+                            onClose={() => console.log('clear!')}
+                            icon />
                         <Alert
                             type="error"
                             header="Custom Example"

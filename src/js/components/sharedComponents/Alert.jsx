@@ -6,13 +6,15 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
+import useOnKeydown from "../../hooks/useOnKeydown";
 
 const propTypes = {
     type: PropTypes.oneOf(['info', 'success', 'warning', 'error']),
     header: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     body: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     icon: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
-    closeIcon: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),
+    onClose: PropTypes.func,
+    closeIcon: PropTypes.string,
     className: PropTypes.string
 };
 
@@ -21,9 +23,12 @@ const Alert = ({
     header,
     body,
     icon,
+    onClose = false,
     closeIcon,
     className
 }) => {
+    const { ref } = useOnKeydown(onClose);
+
     const getIconString = () => {
         switch (type) {
             case 'info': return 'info-circle';
@@ -36,7 +41,7 @@ const Alert = ({
 
     const iconString = typeof icon === 'string' ? icon : getIconString();
 
-    const closeIconString = typeof closeIcon === 'string' ? closeIcon : 'times';
+    const closeIconString = closeIcon || 'times';
 
     return (
         <div className={`alert ${type}${className ? ` ${className}` : ''}`}>
@@ -59,11 +64,15 @@ const Alert = ({
                     </div>
                 </div>
             </div>
-            { closeIcon &&
+            { onClose &&
                 <div className="alert__close-icon__container">
                     <FontAwesomeIcon
                         className="alert__close-icon__icon"
-                        icon={closeIconString} />
+                        icon={closeIconString}
+                        onClick={onClose}
+                        tabIndex="0"
+                        aria-hidden={false}
+                        ref={ref} />
                 </div>
             }
         </div>
