@@ -33,19 +33,6 @@ const SidebarContent = ({
     const [isSmall, setIsSmall] = useState(window.innerWidth < mediumScreen);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-    const alertBody = (
-        <>
-            Looking for the "Keyword Search" page? <br />
-            <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                className="advanced-search__keyword-search-link"
-                to="/keyword_search">
-                Click here to search award transactions by keyword.
-            </Link>
-        </>
-    );
-
     useEffect(() => {
         // determine if the width changed
         const windowWidthTemp = window.innerWidth;
@@ -88,7 +75,6 @@ const SidebarContent = ({
             <div className="sidebar-bottom-submit">
                 <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
             </div>
-            <Alert body={alertBody} className="keyword-link" icon />
         </>);
 };
 

@@ -1,6 +1,17 @@
 .alert {
-  background-color: $gray-cool-2;
-  border: rem(1) solid $gray-cool-90;
+  $default-background-color: $gray-cool-2;
+  $default-color: $gray-cool-90;
+  $info-background-color: $info-lighter;
+  $info-color: $info-dark;
+  $success-background-color: $success-lighter;
+  $success-color: $success-dark;
+  $warning-background-color: $warning-lighter;
+  $warning-color: $warning-dark;
+  $error-background-color: $error-lighter;
+  $error-color: $error;
+
+  background-color: $default-background-color;
+  border: rem(1) solid $default-color;
   border-radius: rem(4);
   display: flex;
 
@@ -18,14 +29,14 @@
     }
 
     .alert__message__header {
-      color: $gray-90;
+      color: $default-color;
       font-size: $font-size-24;
       line-height: 1.15;
       margin-bottom: $global-margin;
     }
 
     .alert__message__body {
-      color: $gray-90;
+      color: $default-color;
       font-size: $base-font-size;
       line-height: 1.5;
     }
@@ -36,46 +47,38 @@
   }
 
   &.info {
-    // $info-lighter
-    background-color: #E7F6F8;
-    // $info-dark
-    border-color: #009EC1;
+    background-color: $info-background-color;
+    border-color: $info-color;
 
     .alert___message__icon-container {
-      color: #009EC1;
+      color: $info-color;
     }
   }
 
   &.success {
-    // $success-lighter
-    background-color: #E3F5E1;
-    // $success-dark
-    border-color: #008817;
+    background-color: $success-background-color;
+    border-color: $success-color;
 
     .alert___message__icon-container {
-      color: #008817;
+      color: $success-color;
     }
   }
 
   &.warning {
-    // $warning-lighter
-    background-color: #FEF2E4;
-    // $warning-dark
-    border-color: #FA9441;
+    background-color: $warning-background-color;
+    border-color: $warning-color;
 
     .alert___message__icon-container {
-      color: #FA9441;
+      color: $warning-color;
     }
   }
 
   &.error {
-    // $error-lighter
-    background-color: #FFF2F5;
-    // $error
-    border-color: #E41D3D;
+    background-color: $error-background-color;
+    border-color: $error-color;
 
     .alert___message__icon-container {
-      color: #E41D3D;
+      color: $error-color;
     }
   }
 }

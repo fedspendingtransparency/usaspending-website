@@ -7,10 +7,13 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash-es";
 import PropTypes from "prop-types";
+import { Link } from "react-router";
+
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";
+import { sideBarXlDesktopWidth, panelContainerElClasses, checkInView }
+    from "helpers/search/collapsiblesidebarHelper";
+import Alert from "components/sharedComponents/Alert";
 import SidebarContent from "./SidebarContent";
-import Alert from "../../sharedComponents/Alert";
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func,
@@ -280,6 +283,19 @@ const SidebarWrapper = React.memo(({
         return sidebarHeight;
     };
 
+    const alertBody = (
+        <>
+            Looking for the "Keyword Search" page? <br />
+            <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                className="advanced-search__keyword-search-link"
+                to="/keyword_search">
+                Click here to search award transactions by keyword.
+            </Link>
+        </>
+    );
+
     return (
         <>
             <div
@@ -329,9 +345,7 @@ const SidebarWrapper = React.memo(({
                     }
                 </div>
             </div>
-            {isMobile === false && searchv2 === false ?
-                <Alert />
-                : ''}
+            {isMobile === false && <Alert body={alertBody} className="keyword-link" icon />}
         </>
     );
 });
