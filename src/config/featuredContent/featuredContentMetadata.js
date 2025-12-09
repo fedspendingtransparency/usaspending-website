@@ -258,23 +258,23 @@ const articles = [
                 label: "Advanced Search",
                 slug: "/search",
                 type: "internal"
-            },
-            {
-                label: "Federal Spending Guide",
-                slug: "/federal-spending-guide",
-                type: "internal"
             }
         ],
         related_terms: [
             {
-                term: "recipient",
+                term: "contract",
                 type: "glossary",
-                label: "Recipient"
+                label: "Contract"
             },
             {
-                term: "outlay",
+                term: "grant",
                 type: "glossary",
-                label: "Outlay"
+                label: "Grant"
+            },
+            {
+                term: "contract-pricing-type",
+                type: "glossary",
+                label: "Contract Pricing Type"
             }
         ]
     },
