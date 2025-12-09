@@ -55,23 +55,12 @@ const CustomA = (props) =>
     // eslint-disable-next-line jsx-a11y/anchor-has-content
     (<a target="_blank" rel="noopener noreferrer" {...props} />);
 
-const CustomIframe = (props) =>
-    (<iframe
-        width="560"
-        height="315"
-        src={props.src}
-        title="YouTube video player"
-        frameBorder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerPolicy="strict-origin-when-cross-origin"
-        allowFullScreen />);
 const CustomImg = (props) => (<img src={`../../img/featuredContent/articles/${props.src}`} alt={props.alt} />);
 
 export const components = {
     GlossaryLink,
     a: CustomA,
-    img: CustomImg,
-    iframe: CustomIframe
+    img: CustomImg
 };
 
 const FeaturedContentArticle = () => {
@@ -167,7 +156,7 @@ const FeaturedContentArticle = () => {
                         </span>
                     </FlexGridCol>
                 </FlexGridRow>
-                <FlexGridRow desktop={12} className="grid-content">
+                <FlexGridRow desktop={12} className="grid-content featured-content__article-body">
                     <FlexGridCol tablet={12} mobile={12} desktop={8}>
                         <div className="featured-content__article-title">
                             {chosenArticle?.title}

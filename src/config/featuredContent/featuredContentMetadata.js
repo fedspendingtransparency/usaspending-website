@@ -90,10 +90,9 @@ const articles = [
         title: "Exploring America's Finances",
         created_date: "09/29/2025",
         description: "Behind every dollar the U.S. government spends, there is a story. But how can you discover that story? What tools do you need to understand it?",
-        slug: "exploring-americas-finances-the-data-behind-the-dollars",
+        slug: "exploring-americas-finances",
         feature_sprint: 1,
         feature_week: 1,
-        thumbnail_path: "../../img/featuredContent/cards/exploring-americas-finances.webp",
         related_terms: [],
         explore_more: [
             {
@@ -168,8 +167,7 @@ const articles = [
         feature_sprint: 1,
         feature_week: 3,
         description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
-        slug: "four-ways-to-use-our-data",
-        thumbnail_path: "../../img/featuredContent/cards/see-4-yourself.webp",
+        slug: "ways-to-use-our-data",
         black_text: true,
         explore_more: [
             {
