@@ -40,7 +40,7 @@
     .alert__message__body {
       color: $default-color;
       font-size: $base-font-size;
-      line-height: 1.5;
+      line-height: $base-line-height;
     }
   }
 
