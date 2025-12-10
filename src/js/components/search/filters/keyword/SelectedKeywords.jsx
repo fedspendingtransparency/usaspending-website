@@ -6,34 +6,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ShownValue from 'components/search/filters/otherFilters/ShownValue';
+import { useSelector } from "react-redux";
 
 const propTypes = {
-    toggleKeyword: PropTypes.func,
-    selectedKeywords: PropTypes.array
+    toggleKeyword: PropTypes.func
 };
 
-export default class SelectedKeywords extends React.Component {
-    render() {
-        let hideTags = 'hide';
-        if (this.props.selectedKeywords.length !== 0) {
-            hideTags = '';
-        }
-        const shownKeywords = this.props.selectedKeywords.map((keyword) => (
+const SelectedKeywords = ({ toggleKeyword }) => {
+    const keywords = useSelector((state) => state.filters.keyword);
+    const selectedKeywords = keywords.toArray();
+
+    let hideTags = 'hide';
+    if (selectedKeywords.length !== 0) {
+        hideTags = '';
+    }
+    const shownKeywords = selectedKeywords.map((keyword) => {
+        const removeValue = () => toggleKeyword(keyword);
+        return (
             <ShownValue
                 label={keyword}
                 key={keyword}
-                removeValue={this.props.toggleKeyword.bind(null, keyword)} />
-        ));
-
-        return (
-            <div
-                className={`selected-filters ${hideTags}`}
-                id="selected-keyword-tags"
-                role="status">
-                {shownKeywords}
-            </div>
+                removeValue={removeValue} />
         );
-    }
-}
+    });
+
+    return (
+        <div
+            className={`selected-filters ${hideTags}`}
+            id="selected-keyword-tags"
+            role="status">
+            {shownKeywords}
+        </div>
+    );
+};
 
 SelectedKeywords.propTypes = propTypes;
+export default SelectedKeywords;
