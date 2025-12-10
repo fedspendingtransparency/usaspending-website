@@ -14,8 +14,9 @@ require("pages/search/searchPage.scss");
 const TempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
 
+    // eslint-disable-next-line no-alert
+    const onClose = useCallback(() => window.alert('Close Icon Triggered!'), []);
     const alertBody = "This is a succinct, helpful in-page status message.";
-    const onClose = useCallback(() => console.log('On close!'), []);
 
     return (
         <PageFeatureFlag>
@@ -24,45 +25,64 @@ const TempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <Accordion title="Alert Component Variants">
+                    <h1>Alert Variants</h1>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            border: '1px solid darkgrey',
+                            padding: '8px',
+                            height: 'fit-content',
+                            maxWidth: '900px'
+                        }}>
+                        <Alert
+                            type="test"
+                            header="Default/Test Example"
+                            body={alertBody}
+                            onClose={onClose}
+                            icon />
+                        <Alert
+                            type="error"
+                            header="Custom Example"
+                            className="alert-test-className"
+                            body={alertBody}
+                            icon="chevron-left"
+                            closeIcon="chevron-up" />
+                    </div>
+                    <Accordion title="Info Alert Variants">
                         <div
                             style={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 border: '1px solid darkgrey',
                                 padding: '8px',
-                                height: 'fit-content'
+                                height: 'fit-content',
+                                maxWidth: '900px'
+                            }}>
+                            <Alert header="Info Example" onClose={onClose} body={alertBody} icon />
+                            <Alert header="Info Example" body={alertBody} icon />
+                            <Alert header="Info Example" onClose={onClose} body={alertBody} />
+                            <Alert header="Info Example" body={alertBody} />
+                            <Alert body={alertBody} onClose={onClose} icon />
+                            <Alert body={alertBody} icon />
+                            <Alert body={alertBody} onClose={onClose} />
+                            <Alert body={alertBody} />
+                        </div>
+                    </Accordion>
+                    <Accordion title="Success Alert Variants" >
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                border: '1px solid darkgrey',
+                                padding: '8px',
+                                height: 'fit-content',
+                                maxWidth: '900px'
                             }}>
                             <Alert
-                                header="Info Example"
+                                type="success"
+                                header="Success Example"
                                 onClose={onClose}
-                                body={alertBody}
-                                icon />
-                            <Alert
-                                header="Info Example"
-                                body={alertBody}
-                                icon />
-                            <Alert
-                                header="Info Example"
-                                onClose={() => console.log('clear!')}
-                                body={alertBody} />
-                            <Alert
-                                header="Info Example"
-                                body={alertBody} />
-                            <Alert
-                                header="Info Example"
-                                body={alertBody}
-                                icon />
-                            <Alert
-                                header="Info Example"
-                                body={alertBody}
-                                icon />
-                            <Alert
-                                header="Info Example"
-                                body={alertBody}
-                                icon />
-                            <Alert
-                                header="Info Example"
                                 body={alertBody}
                                 icon />
                             <Alert
@@ -71,8 +91,64 @@ const TempPage = () => {
                                 body={alertBody}
                                 icon />
                             <Alert
+                                type="success"
+                                header="Success Example"
+                                onClose={onClose}
+                                body={alertBody} />
+                            <Alert type="success" header="Success Example" body={alertBody} />
+                            <Alert type="success" body={alertBody} onClose={onClose} icon />
+                            <Alert type="success" body={alertBody} icon />
+                            <Alert type="success" body={alertBody} onClose={onClose} />
+                            <Alert type="success" body={alertBody} />
+                        </div>
+                    </Accordion>
+                    <Accordion title="Warning Alert Variants" >
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                border: '1px solid darkgrey',
+                                padding: '8px',
+                                height: 'fit-content',
+                                maxWidth: '900px'
+                            }}>
+                            <Alert
                                 type="warning"
                                 header="Warning Example"
+                                onClose={onClose}
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                type="warning"
+                                header="Warning Example"
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                type="warning"
+                                header="Warning Example"
+                                onClose={onClose}
+                                body={alertBody} />
+                            <Alert type="warning" header="Warning Example" body={alertBody} />
+                            <Alert type="warning" body={alertBody} onClose={onClose} icon />
+                            <Alert type="warning" body={alertBody} icon />
+                            <Alert type="warning" body={alertBody} onClose={onClose} />
+                            <Alert type="warning" body={alertBody} />
+                        </div>
+                    </Accordion>
+                    <Accordion title="Error Alert Variants" >
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                border: '1px solid darkgrey',
+                                padding: '8px',
+                                height: 'fit-content',
+                                maxWidth: '900px'
+                            }}>
+                            <Alert
+                                type="error"
+                                header="Error Example"
+                                onClose={onClose}
                                 body={alertBody}
                                 icon />
                             <Alert
@@ -81,18 +157,15 @@ const TempPage = () => {
                                 body={alertBody}
                                 icon />
                             <Alert
-                                type="test"
-                                header="Default/Test Example"
-                                body={alertBody}
-                                onClose={() => console.log('clear!')}
-                                icon />
-                            <Alert
                                 type="error"
-                                header="Custom Example"
-                                className="alert-test-className"
-                                body={alertBody}
-                                icon="chevron-left"
-                                closeIcon="chevron-up" />
+                                header="Error Example"
+                                onClose={onClose}
+                                body={alertBody} />
+                            <Alert type="error" header="Warning Example" body={alertBody} />
+                            <Alert type="error" body={alertBody} onClose={onClose} icon />
+                            <Alert type="error" body={alertBody} icon />
+                            <Alert type="error" body={alertBody} onClose={onClose} />
+                            <Alert type="error" body={alertBody} />
                         </div>
                     </Accordion>
                     <h1>Container Variants</h1>
