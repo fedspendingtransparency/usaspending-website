@@ -14,6 +14,8 @@
   border: rem(1) solid $default-color;
   border-radius: rem(4);
   display: flex;
+  justify-content: space-between;
+  margin: $global-margin;
 
   .alert__message__container {
     padding: $global-padding * 2;

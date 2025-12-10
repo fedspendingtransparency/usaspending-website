@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button
@@ -7,13 +7,15 @@ import {
 import Alert from "./sharedComponents/Alert";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
+import Accordion from "./sharedComponents/accordion/Accordion";
 
 require("pages/search/searchPage.scss");
 
-const tempPage = () => {
+const TempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
 
     const alertBody = "This is a succinct, helpful in-page status message.";
+    const onClose = useCallback(() => console.log('On close!'), []);
 
     return (
         <PageFeatureFlag>
@@ -22,47 +24,77 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <div
-                        style={{
-                            display: 'flex',
-                            border: '1px solid darkgrey',
-                            padding: '8px',
-                            height: 'fit-content'
-                        }}>
-                        {/* TODO: recreate mocks here */}
-                        <Alert
-                            header="Info Example"
-                            body={alertBody}
-                            icon />
-                        <Alert
-                            type="success"
-                            header="Success Example"
-                            body={alertBody}
-                            icon />
-                        <Alert
-                            type="warning"
-                            header="Warning Example"
-                            body={alertBody}
-                            icon />
-                        <Alert
-                            type="error"
-                            header="Error Example"
-                            body={alertBody}
-                            icon />
-                        <Alert
-                            type="test"
-                            header="Default/Test Example"
-                            body={alertBody}
-                            onClose={() => console.log('clear!')}
-                            icon />
-                        <Alert
-                            type="error"
-                            header="Custom Example"
-                            className="alert-test-className"
-                            body={alertBody}
-                            icon="chevron-left"
-                            closeIcon="chevron-up" />
-                    </div>
+                    <Accordion title="Alert Component Variants">
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                border: '1px solid darkgrey',
+                                padding: '8px',
+                                height: 'fit-content'
+                            }}>
+                            <Alert
+                                header="Info Example"
+                                onClose={onClose}
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                header="Info Example"
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                header="Info Example"
+                                onClose={() => console.log('clear!')}
+                                body={alertBody} />
+                            <Alert
+                                header="Info Example"
+                                body={alertBody} />
+                            <Alert
+                                header="Info Example"
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                header="Info Example"
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                header="Info Example"
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                header="Info Example"
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                type="success"
+                                header="Success Example"
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                type="warning"
+                                header="Warning Example"
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                type="error"
+                                header="Error Example"
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                type="test"
+                                header="Default/Test Example"
+                                body={alertBody}
+                                onClose={() => console.log('clear!')}
+                                icon />
+                            <Alert
+                                type="error"
+                                header="Custom Example"
+                                className="alert-test-className"
+                                body={alertBody}
+                                icon="chevron-left"
+                                closeIcon="chevron-up" />
+                        </div>
+                    </Accordion>
                     <h1>Container Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
                         <FlexGridCol width={3} desktop={3}>
@@ -716,5 +748,4 @@ const tempPage = () => {
     );
 };
 
-
-export default tempPage;
+export default TempPage;
