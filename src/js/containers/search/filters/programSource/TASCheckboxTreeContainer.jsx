@@ -37,7 +37,7 @@ import LegacyCheckboxTree from 'components/sharedComponents/LegacyCheckboxTree';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
 import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
-import { autocompletePlaceholder } from "../../../../helpers/search/filterCheckboxHelper";
+import { autocompletePlaceholder } from "helpers/search/filterCheckboxHelper";
 
 const propTypes = {
     setTasNodes: PropTypes.func,

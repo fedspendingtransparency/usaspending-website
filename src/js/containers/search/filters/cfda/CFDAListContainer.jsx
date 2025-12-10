@@ -9,9 +9,8 @@ import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
 import * as SearchHelper from 'helpers/searchHelper';
-
+import { autocompletePlaceholder } from "helpers/search/filterCheckboxHelper";
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
-import { autocompletePlaceholder } from "../../../../helpers/search/filterCheckboxHelper";
 
 const propTypes = {
     selectCFDA: PropTypes.func,

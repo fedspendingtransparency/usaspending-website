@@ -8,10 +8,10 @@ import { Button } from "data-transparency-ui";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
+import { autocompletePlaceholder } from "helpers/search/filterCheckboxHelper";
+import Autocomplete from "components/sharedComponents/autocomplete/Autocomplete";
 import SelectedLocations from "./SelectedLocations";
-import Autocomplete from "../../../sharedComponents/autocomplete/Autocomplete";
 import AllForeignLocationsCheckbox from "./AllForeignLocationsCheckbox";
-import { autocompletePlaceholder } from "../../../../helpers/search/filterCheckboxHelper";
 
 const propTypes = {
     activeTab: PropTypes.string,
