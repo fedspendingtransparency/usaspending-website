@@ -40,14 +40,22 @@
             background-color: #fff;
             z-index: 10;
             max-height: 400px;
+            border: solid 1px $gray-cool-10;
+            border-radius: 3px;
+
+            &.bottom-fade {
+                ul.autocomplete-checkbox {
+                    li:last-child {
+                        mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 1) 40px);
+                    }
+                }
+            }
 
             ul.autocomplete-checkbox {
                 list-style: none;
                 list-style-type: none;
                 padding: 0;
-                margin: 0;
-                border: solid 1px $gray-cool-10;
-                border-radius: 3px;
+                margin: 0;;
                 min-width: 100%;
 
                 li {

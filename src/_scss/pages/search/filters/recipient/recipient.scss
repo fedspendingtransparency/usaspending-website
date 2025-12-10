@@ -4,14 +4,29 @@
 
     .filter-item-wrap {
         .checkbox-type-filter {
-            &.bottom-fade {
-                mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 1) 40px);
+            .recipient-filter-message-container{
+                align-items: center;
+                padding-bottom: rem(8);
 
-                .recipient-filter-message-container{
-                    align-items: center;
-                    padding-bottom: rem(8);
+                .find-recipients-text {
+                    text-align: center;
+                    font-size: $smallest-font-size;
+                    line-height: 1.5;
+                    padding: 0 8px;
+
+                    &.label {
+                        color: $gray-90;
+                        margin: ($global-spacing-unit * 3) 0 rem(4) 0;
+                        font-weight: $font-semibold;
+                    }
+
+                    &.content {
+                        color: $gray-60;
+                        margin-bottom: rem(4);
+                    }
                 }
             }
-        }        
-    }
+        }
+    }  
+       
 }

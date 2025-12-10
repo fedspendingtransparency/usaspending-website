@@ -90,6 +90,7 @@ const AutocompleteWithCheckboxList = ({
                 {filters?.length ? (
                     <div className={`checkbox-type-filter ${additionalClassName}`} >
                         <ul className="autocomplete-checkbox">
+
                             {checkboxHeading()}
                             {filters?.map((filter) => (
                                 <PrimaryCheckboxType
@@ -99,8 +100,8 @@ const AutocompleteWithCheckboxList = ({
                                     toggleCheckboxType={toggleSingleFilter}
                                     selectedCheckboxes={selectedFilters} />
                             ))}
-                            {additionalText && additionalText}
                         </ul>
+                        {additionalText && additionalText}
                     </div>
                 ) : (
                     <div className="clear-all__container">
