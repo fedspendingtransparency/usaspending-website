@@ -101,7 +101,7 @@ const CFDASearchContainer = () => {
         if (selectAll) {
             let filteredList = autocompleteCFDA;
             if (selectedArray?.length) {
-                filteredList = autocompleteCFDA.filter((cfda) => !selectedCFDA.some((c) => c.program_number === cfda.data.program_number));
+                filteredList = autocompleteCFDA.filter((cfda) => !selectedArray.some((c) => c.program_number === cfda.data.program_number));
             }
 
             filteredList.forEach((fcfda) => {
@@ -119,6 +119,10 @@ const CFDASearchContainer = () => {
     useEffect(() => {
         if (cfdaSearchString?.length >= 3) {
             queryAutocompleteCFDA();
+        }
+
+        if (cfdaSearchString === '') {
+            handleClearCFDAs();
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cfdaSearchString]);

@@ -198,6 +198,10 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         if (searchString?.length >= 3) {
             getRecipientsFromSearchString(searchString);
         }
+
+        if (searchString === '') {
+            handleClearRecipients();
+        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString]);
 
