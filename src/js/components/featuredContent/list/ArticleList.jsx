@@ -6,34 +6,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
 import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
+import { transformString, getPrimaryFill, getThumbnailPath } from 'helpers/featuredContent/featuredContentHelper';
+import Analytics from "helpers/analytics/Analytics";
 import ArticleCard from '../articleCard/ArticleCard';
-import { transformString } from '../../../helpers/featuredContent/featuredContentHelper';
-import Analytics from "../../../helpers/analytics/Analytics";
 
 const propTypes = {
     articles: PropTypes.array
-};
-
-const contentTaxonomyNameToKey = {
-    "Data Definitions": "dataDefinition",
-    "My USAspending Search": "search",
-    "See 4 Yourself": "seeforyourself",
-    "Recently Answered Questions": "questions",
-    "Exploring America's Finances": "finances",
-    "Data You Can Trust": "trust",
-    "Spending Stories": "stories",
-    "What's the Difference?": "difference"
-};
-
-const primaryFill = {
-    dataDefinition: '#783CB9',
-    search: '#D54309',
-    seeforyourself: '#E66F0E',
-    questions: '#864381',
-    finances: '#1B2B85',
-    trust: '#73B3E7',
-    stories: '#2378C3',
-    difference: '#5ABF95'
 };
 
 const ArticleList = ({ articles }) => {
@@ -41,18 +19,6 @@ const ArticleList = ({ articles }) => {
     const [articleList, setArticleList] = useState(articles);
     const originalArticleList = articles;
     const prevSortRef = useRef();
-
-
-    const getThumbnailPath = (article) => {
-        const slug = article?.taxonomy.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "").replace(/\s+/g, "-").toLowerCase();
-        const thumbnailPath = "../../img/featuredContent/cards/";
-        return `${thumbnailPath}${slug}.webp`;
-    };
-
-    const getPrimaryFill = (article) => {
-        if (!article) return 'none';
-        return (primaryFill[contentTaxonomyNameToKey[article.taxonomy]]);
-    };
 
     useEffect(() => {
         setSortOrder("Newest");

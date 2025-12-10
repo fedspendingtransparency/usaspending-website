@@ -70,6 +70,13 @@ export const getSecondaryFill = (article) => {
     return (secondaryFill[contentTaxonomyNameToKey[article.taxonomy]]);
 };
 
+
+export const getThumbnailPath = (article) => {
+    const slug = article?.taxonomy.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "").replace(/\s+/g, "-").toLowerCase();
+    const thumbnailPath = "../../img/featuredContent/cards/";
+    return `${thumbnailPath}${slug}.webp`;
+};
+
 export const components = {
     GlossaryLink,
     a: CustomA,
