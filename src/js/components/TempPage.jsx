@@ -47,6 +47,7 @@ const TempPage = () => {
                             className="alert-test-className"
                             body={alertBody}
                             icon="chevron-left"
+                            onClose={onClose}
                             closeIcon="chevron-up" />
                     </div>
                     <Accordion title="Info Alert Variants">
