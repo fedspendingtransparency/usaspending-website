@@ -126,7 +126,7 @@
     }
 
     .alert.keyword-link {
-        margin: ($global-margin * 2) ($global-margin * 4);
+        margin: ($global-margin * 2) ($global-margin * 4) ($global-margin * 4) ($global-margin * 4);
 
         .alert__message__container {
             .alert__message .alert__message__body {
