@@ -2,14 +2,10 @@
     @import "elements/filters/_errorMessage";
     @import "elements/filters/_typeahead";
     @import "elements/filters/_selectedFilterBtn";
-    @import "mixins/selectedFilterWrap";
     @import './pages/award/_moreButton';
+    @import "components/search/_autocompleteCheckbox";
 
-    padding-left: rem(20);
-
-    &.searchV2 {
-        padding-left: 0;
-    }
+  
 
     .shown {
         min-height: rem(18);
@@ -23,7 +19,6 @@
     }
 
     .selected-filters {
-        @include selected-filter-wrap;
         margin-top: rem(20);
     }
 

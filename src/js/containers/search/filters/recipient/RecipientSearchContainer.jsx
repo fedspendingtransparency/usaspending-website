@@ -33,7 +33,6 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     const highlightText = (text) => replaceString(text, searchString, 'bold-highlight');
 
     const toggleRecipient = ({ value }) => {
-        console.log("checking toggle Reciptient function ", value);
         if (value.uei && searchString.length > 2 && value.uei?.includes(searchString.toUpperCase())) {
             updateSelectedRecipients(value.uei);
         }
@@ -201,14 +200,6 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString]);
-
-    useEffect(() => {
-        if (selectedRecipients.size > 0) {
-            const first = [...selectedRecipients][0];
-            setSearchString(first);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     return (
         <div className="recipient-filter">

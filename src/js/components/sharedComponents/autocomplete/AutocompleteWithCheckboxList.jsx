@@ -20,7 +20,8 @@ const propTypes = {
     additionalText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     isLoading: PropTypes.bool,
     noResults: PropTypes.bool,
-    limit: PropTypes.number
+    limit: PropTypes.number,
+    placeholder: PropTypes.string
 };
 
 const AutocompleteWithCheckboxList = ({
@@ -32,10 +33,11 @@ const AutocompleteWithCheckboxList = ({
     selectedFilters,
     toggleSingleFilter,
     toggleAll,
-    additionalText,
+    additionalText = null,
     isLoading,
     noResults,
-    limit = 10
+    limit = 500,
+    placeholder = "Search filters ..."
 }) => {
     const [allSelected, setAllSelected] = useState(false);
     const additionalClassName = filters.length >= limit ? 'bottom-fade' : '';
@@ -94,8 +96,9 @@ const AutocompleteWithCheckboxList = ({
                             {checkboxHeading()}
                             {filters?.map((filter) => (
                                 <PrimaryCheckboxType
-                                    name={filter.name}
+                                    name={filter.name || filter.title}
                                     value={filter.value}
+                                    // value={filter.value || filter.data}
                                     key={filter.key}
                                     toggleCheckboxType={toggleSingleFilter}
                                     selectedCheckboxes={selectedFilters} />
@@ -122,7 +125,7 @@ const AutocompleteWithCheckboxList = ({
     return (
         <div className="extent-competed-filter">
             <EntityDropdownAutocomplete
-                placeholder="Search filters..."
+                placeholder={placeholder}
                 searchString={searchString}
                 enabled
                 handleTextInputChange={handleTextInputChange}
