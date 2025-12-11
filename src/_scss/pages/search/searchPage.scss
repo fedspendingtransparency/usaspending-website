@@ -126,6 +126,12 @@
     }
 }
 
+.new-tooltip__tooltip-wrapper {
+    background-color: red;
+    position: fixed;
+    width: 500px;
+    z-index: 10;
+}
 @import "./_searchv2";
 
 

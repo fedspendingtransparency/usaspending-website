@@ -5,6 +5,7 @@ import PropTypes from "prop-types";
 
 import { updateNewAwardsOnlySelected } from "redux/actions/search/searchFilterActions";
 import { NewAwardsTooltip } from "../tooltips/AdvancedSearchTooltip";
+import NewTooltip from "./NewTooltip";
 
 const propTypes = { activeClassDR: PropTypes.string };
 
@@ -54,6 +55,7 @@ const NewAwardsFilter = ({ activeClassDR }) => {
                 <TooltipWrapper
                     icon="info"
                     tooltipComponent={<NewAwardsTooltip />} />
+                <NewTooltip tooltipComponent={<NewAwardsTooltip />} />
             </div>
         )
     );

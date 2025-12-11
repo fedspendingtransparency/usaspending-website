@@ -15,6 +15,7 @@ import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 import FilterTabs from '../../../sharedComponents/filterSidebar/FilterTabs';
 import usePrevious from "../../../../hooks/usePrevious";
 import NewAwardsFilter from "./NewAwardsFilter";
+import TooltipContext from "../../../../context/TooltipContext";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -32,14 +33,11 @@ const propTypes = {
     activeTab: PropTypes.string,
     updateFilter: PropTypes.func,
     updateGenericFilter: PropTypes.func,
-    updateNewAwardsOnlySelected: PropTypes.func,
     updateNewAwardsOnlyActive: PropTypes.func,
     updateNaoActiveFromFyOrDateRange: PropTypes.func,
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
     dirtyFilters: PropTypes.symbol,
-    newAwardsOnlySelected: PropTypes.bool,
-    newAwardsOnlyActive: PropTypes.bool,
     federalAccountPage: PropTypes.bool,
     searchV2: PropTypes.bool
 };
