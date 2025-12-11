@@ -154,12 +154,12 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
     };
 
     const getFormatedName = (recipient) => {
-        if (recipient.uei) {
+        if (recipient.uei && recipient.uei?.includes(searchString.toUpperCase())) {
             return (
                 <div className="recipient-checkbox__uei">
                     <span>UEI: </span>{highlightText(recipient.uei)}
                     <div className="secondary-label__name-container">
-                        <span>{recipient.name ? recipient.name : recipient.recipient_name}</span>
+                        {highlightText(recipient.name ? recipient.name : recipient.recipient_name)}
                     </div>
                 </div>
             );
