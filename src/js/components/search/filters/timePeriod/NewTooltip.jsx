@@ -10,7 +10,9 @@ const propTypes = {
     offsetLeft: PropTypes.string
 };
 
-const NewTooltip = ({ tooltip, offsetTop = -12, offsetLeft = 30 }) => {
+const NewTooltip = ({
+    tooltip, icon = "info-circle", offsetTop = -12, offsetLeft = 30
+}) => {
     const setTooltipData = useContext(TooltipContext);
     const ref = useRef(null);
 
@@ -31,7 +33,7 @@ const NewTooltip = ({ tooltip, offsetTop = -12, offsetLeft = 30 }) => {
 
     return (
         <FontAwesomeIcon
-            icon="info-circle"
+            icon={icon}
             tabIndex="0"
             aria-label="Tooltip Hover Wrapper"
             aria-hidden={false}
