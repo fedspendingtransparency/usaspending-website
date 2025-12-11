@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 
 import SearchSidebarSubmitContainer from 'containers/search/SearchSidebarSubmitContainer';
 
-import KeywordContainer from 'containers/search/filters/KeywordContainer';
+import Keyword from 'components/search/filters/keyword/Keyword';
 import AwardTypeContainer from 'containers/search/filters/AwardTypeContainer';
 import TimePeriodContainer from 'containers/search/filters/TimePeriodContainer';
-import AgencyContainer from 'containers/search/filters/AgencyContainer';
+import Agency from "components/search/filters/agency/Agency";
 import LocationSectionContainer from 'containers/search/filters/location/LocationSectionContainer';
 import RecipientSearchContainer from 'containers/search/filters/recipient/RecipientSearchContainer';
 import ProgramSourceContainer from 'containers/search/filters/programSource/ProgramSourceContainer';
@@ -27,21 +27,21 @@ import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
 import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
 import DEFCheckboxTree from 'containers/search/filters/def/DEFCheckboxTree';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+
 import {
     TimePeriodTooltip,
     KeyWordTooltip,
     DEFTooltip,
     LocationTooltip
 } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
-
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
+
+
 import { TooltipWrapper } from 'data-transparency-ui';
-
-
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
-import KeywordSearchLink from "./KeywordSearchLink";
+import Alert from "../sharedComponents/Alert";
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -104,10 +104,10 @@ const staticFilters = {
         }
     ],
     components: [
-        KeywordContainer,
+        Keyword,
         TimePeriodContainer,
         AwardTypeContainer,
-        AgencyContainer,
+        Agency,
         ProgramSourceContainer,
         LocationSectionContainer,
         RecipientSearchContainer,
@@ -226,7 +226,7 @@ const SearchSidebar = ({
                     <SearchSidebarSubmitContainer />
                     {window.innerWidth <= mediumScreen &&
                 <div className="sidebar-bottom__keyword-link-container">
-                    <KeywordSearchLink />
+                    <Alert />
                 </div>}
                 </div>
             </div>
