@@ -7,11 +7,11 @@ describe('getCurrentArticles', () => {
     it('should return a marketing and a non-marketing article', () => {
         const [marketing, other] = getCurrentArticles('week');
 
-        expect(marketing).toHaveProperty('url');
+        expect(marketing).toHaveProperty('slug');
         expect(marketing).toHaveProperty('taxonomy');
         expect(marketing).toHaveProperty('title');
 
-        expect(other).toHaveProperty('url');
+        expect(other).toHaveProperty('slug');
         expect(other).toHaveProperty('taxonomy');
         expect(other).toHaveProperty('title');
     });
@@ -19,11 +19,11 @@ describe('getCurrentArticles', () => {
     it('should return articles if the start date is far in the future', () => {
         const [marketing, other] = getCurrentArticles('week', '12/31/2050');
 
-        expect(marketing).toHaveProperty('url');
+        expect(marketing).toHaveProperty('slug');
         expect(marketing).toHaveProperty('taxonomy');
         expect(marketing).toHaveProperty('title');
 
-        expect(other).toHaveProperty('url');
+        expect(other).toHaveProperty('slug');
         expect(other).toHaveProperty('taxonomy');
         expect(other).toHaveProperty('title');
     });
@@ -31,11 +31,11 @@ describe('getCurrentArticles', () => {
     it('should return the default articles if start date is far in the past', () => {
         const [marketing, other] = getCurrentArticles('week', '1/1/2000');
 
-        expect(marketing).toHaveProperty('url');
+        expect(marketing).toHaveProperty('slug');
         expect(marketing).toHaveProperty('taxonomy');
         expect(marketing).toHaveProperty('title');
 
-        expect(other).toHaveProperty('url');
+        expect(other).toHaveProperty('slug');
         expect(other).toHaveProperty('taxonomy');
         expect(other).toHaveProperty('title');
 
