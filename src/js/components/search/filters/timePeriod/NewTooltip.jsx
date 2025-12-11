@@ -2,21 +2,21 @@ import React, { useContext, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import TooltipContext from "../../../../context/TooltipContext";
 
-const NewTooltip = ({ tooltipComponent }) => {
-    const tooltip = useContext(TooltipContext);
+const NewTooltip = ({ tooltip }) => {
+    const setTooltipData = useContext(TooltipContext);
     const ref = useRef(null);
 
     const closeTooltip = () => {
-        tooltip({
-            x: 0, y: 0, display: 'none', tooltipComponent: <></>
+        setTooltipData({
+            top: 0, left: 0, display: 'none', tooltip: <></>
         });
     };
     const openTooltip = () => {
         console.log({ ref: ref.current.getBoundingClientRect() });
-        const { x, y } = ref.current.getBoundingClientRect();
-        console.log({ x, y });
-        tooltip({
-            x, y, display: 'unset', tooltipComponent
+        const { top, left } = ref.current.getBoundingClientRect();
+        console.log({ top, left });
+        setTooltipData({
+            top, left: left + 20, display: 'unset', tooltip
         });
     };
 

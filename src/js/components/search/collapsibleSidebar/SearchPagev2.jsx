@@ -46,8 +46,8 @@ const SearchPage = ({
     noFiltersApplied,
     hash
 }) => {
-    const [test, setTest] = useState({
-        x: 0, y: 0, display: 'none', tooltipComponent: <></>
+    const [tooltipData, setTooltipData] = useState({
+        top: 0, left: 0, display: 'none', tooltip: <></>
     });
     const [showMobileFilters, setShowMobileFilters] = useState(false);
     const [filterCount, setFilterCount] = useState(0);
@@ -108,7 +108,7 @@ const SearchPage = ({
         setSearchv2(true);
         setFullSidebar(
             <div className="full-search-sidebar">
-                <TooltipContext value={(tt) => setTest(tt)} >
+                <TooltipContext value={(tt) => setTooltipData(tt)} >
                     <CollapsibleSidebar
                         filters={filters}
                         hash={hash}
@@ -143,8 +143,14 @@ const SearchPage = ({
             <div id="main-content">
                 <div className="search-contents v2">
                     {fullSidebar}
-                    <div className="new-tooltip__tooltip-wrapper" style={{ top: test.y, left: (test.x + 20), display: test.display }}>
-                        {test.tooltipComponent}
+                    <div
+                        className="new-tooltip__tooltip-wrapper"
+                        style={{
+                            top: tooltipData.top,
+                            left: tooltipData.left,
+                            display: tooltipData.display
+                        }}>
+                        {tooltipData.tooltip}
                         {/* <NewAwardsTooltip /> */}
                     </div>
                     <MobileFilterButton

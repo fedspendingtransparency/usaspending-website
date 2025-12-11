@@ -55,7 +55,7 @@ const NewAwardsFilter = ({ activeClassDR }) => {
                 <TooltipWrapper
                     icon="info"
                     tooltipComponent={<NewAwardsTooltip />} />
-                <NewTooltip tooltipComponent={<NewAwardsTooltip />} />
+                <NewTooltip tooltip={<NewAwardsTooltip />} />
             </div>
         )
     );
