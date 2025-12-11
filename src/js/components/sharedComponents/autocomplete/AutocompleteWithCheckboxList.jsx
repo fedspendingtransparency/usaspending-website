@@ -53,7 +53,7 @@ const AutocompleteWithCheckboxList = ({
         if (selectedFilters?.count === filters?.count) {
             setAllSelected(true);
         }
-    }, [filters.count, selectedFilters.count]);
+    }, [filters?.count, selectedFilters?.count]);
 
     const checkboxHeading = () => {
         if (!searchString) return null;
