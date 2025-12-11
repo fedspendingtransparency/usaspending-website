@@ -6,6 +6,7 @@ import TooltipContext from "context/TooltipContext";
 
 const propTypes = {
     tooltip: PropTypes.element,
+    icon: PropTypes.string,
     offsetTop: PropTypes.string,
     offsetLeft: PropTypes.string
 };
@@ -32,18 +33,20 @@ const NewTooltip = ({
     };
 
     return (
-        <FontAwesomeIcon
-            icon={icon}
-            tabIndex="0"
-            aria-label="Tooltip Hover Wrapper"
-            aria-hidden={false}
-            className="new-tooltip__icon"
-            onBlur={closeTooltip}
-            onFocus={openTooltip}
-            onMouseEnter={openTooltip}
-            onMouseLeave={closeTooltip}
-            onClick={openTooltip}
-            ref={ref} />
+        <div className="new-tooltip-spacer">
+            <FontAwesomeIcon
+                icon={icon}
+                tabIndex="0"
+                aria-label="Tooltip Hover Wrapper"
+                aria-hidden={false}
+                className="new-tooltip__icon"
+                onBlur={closeTooltip}
+                onFocus={openTooltip}
+                onMouseEnter={openTooltip}
+                onMouseLeave={closeTooltip}
+                onClick={openTooltip}
+                ref={ref} />
+        </div>
 
     );
 };

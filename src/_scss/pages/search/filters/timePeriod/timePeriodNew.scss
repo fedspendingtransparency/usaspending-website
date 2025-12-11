@@ -93,6 +93,24 @@
           height: rem(15);
         }
       }
+
+      .new-tooltip-spacer {
+        margin: 0 $global-margin;
+
+        .new-tooltip__icon {
+          color: $color-gray-lighter;
+          max-width: rem(15);
+          max-height: rem(15);
+
+          &:hover {
+            color: $color-base;
+          }
+
+          &:focus {
+            color: $color-base;
+          }
+        }
+      }
     }
 
     .fiscal-years,

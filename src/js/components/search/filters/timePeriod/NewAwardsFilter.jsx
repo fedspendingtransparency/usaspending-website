@@ -52,9 +52,6 @@ const NewAwardsFilter = ({ activeClassDR }) => {
                         Show New Awards Only
                     </span>
                 </label>
-                <TooltipWrapper
-                    icon="info"
-                    tooltipComponent={<NewAwardsTooltip />} />
                 <NewTooltip tooltip={<NewAwardsTooltip />} />
             </div>
         )
