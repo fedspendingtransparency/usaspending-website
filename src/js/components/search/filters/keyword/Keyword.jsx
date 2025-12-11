@@ -5,13 +5,13 @@
 
 import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Button, TooltipWrapper } from "data-transparency-ui";
+import { Button } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import { updateTextSearchInput } from "redux/actions/search/searchFilterActions";
 import SelectedKeywords from './SelectedKeywords';
-import { KeyWordTooltip, NewAwardsTooltip } from "../tooltips/AdvancedSearchTooltip";
+import { KeyWordTooltip } from "../tooltips/AdvancedSearchTooltip";
 import ContextTooltip from "../timePeriod/ContextTooltip";
 
 const propTypes = {
@@ -59,7 +59,7 @@ const Keyword = ({
                             <div className="category-header--title">
                                 Filter by Keyword
                             </div>
-                            <ContextTooltip tooltip={<NewAwardsTooltip />} />
+                            <ContextTooltip tooltip={<KeyWordTooltip />} />
                         </div>
                     }
                     <div className="keyword-input-wrapper">
