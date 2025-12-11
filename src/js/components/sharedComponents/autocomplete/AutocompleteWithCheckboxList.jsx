@@ -53,7 +53,7 @@ const AutocompleteWithCheckboxList = ({
         if (selectedFilters?.count === filters?.count) {
             setAllSelected(true);
         }
-    }, [filters?.count, selectedFilters?.count]);
+    }, [filters.count, selectedFilters.count]);
 
     const checkboxHeading = () => {
         if (!searchString) return null;
@@ -95,13 +95,15 @@ const AutocompleteWithCheckboxList = ({
 
                             {checkboxHeading()}
                             {filters?.map((filter) => (
-                                <PrimaryCheckboxType
-                                    name={filter.name || filter.title}
-                                    value={filter.value}
-                                    // value={filter.value || filter.data}
-                                    key={filter.key}
-                                    toggleCheckboxType={toggleSingleFilter}
-                                    selectedCheckboxes={selectedFilters} />
+                                <>
+                                    <PrimaryCheckboxType
+                                        name={filter.name || filter.title}
+                                        value={filter.value}
+                                        // value={filter.value || filter.data}
+                                        key={filter.key}
+                                        toggleCheckboxType={toggleSingleFilter}
+                                        selectedCheckboxes={selectedFilters} />
+                                </>
                             ))}
                         </ul>
                         {additionalText && additionalText}

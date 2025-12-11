@@ -82,13 +82,30 @@
 
                     .primary-checkbox-type.single-item {
                         padding-left: rem(8);
+
+                        input {
+                            top: rem(4);
+                        }
+
+                        .checkbox-item-label{
+                            color: $gray-90;
+                            font-size: $font-size-12;
+                            font-weight: $font-normal;
+                            line-height: rem(18);
+
+                            span {
+                                font-style: italic;
+                            }
+
+                            span.bold-highlight {
+                                font-weight: $font-semibold;
+                            }
+                        }
+
+                       
                     }
-                }
 
-                span.bold-highlight {
-                    font-weight: $font-semibold;
                 }
-
             }
         }        
     }    

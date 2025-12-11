@@ -4,6 +4,28 @@
 
     .filter-item-wrap {
         .checkbox-type-filter {
+            .recipient-checkbox__uei {
+                display: inline;
+
+                span {
+                    font-style: italic;
+                    color: $gray-60
+                }
+
+                .secondary-label__name-container {
+                    padding-left: rem(28);
+                    span {
+                        color: $gray-60;
+                        font-size: $font-size-10;
+                        font-style: italic;
+                        font-weight: $font-normal;
+                        line-height: $base-line-height;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+
+    
             .recipient-filter-message-container{
                 align-items: center;
                 padding-bottom: rem(8);

@@ -36,9 +36,6 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         if (value.uei && searchString.length > 2 && value.uei?.includes(searchString.toUpperCase())) {
             updateSelectedRecipients(value.uei);
         }
-        else if (value.duns && searchString.length > 2 && value?.duns.includes(searchString)) {
-            updateSelectedRecipients(value.duns);
-        }
         else {
             updateSelectedRecipients(value.name);
         }
@@ -156,20 +153,40 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         return null;
     };
 
+    const getFormatedName = (recipient) => {
+        if (recipient.uei) {
+            return ({
+                name: <div className="recipient-checkbox__uei">
+                    <span>UEI: </span>{highlightText(recipient.uei)}
+                    <div className="secondary-label__name-container">
+                        <span>{recipient.name ? recipient.name : recipient.recipient_name}</span>
+                    </div>
+                </div>,
+                value: {
+                    name: recipient.name ? recipient.name : recipient.recipient_name,
+                    uei: recipient.uei
+                },
+                key: recipient.uei,
+                secondaryLabel: recipient.name ? recipient.name : recipient.recipient_name
+            });
+        }
+
+        return ({
+            name: highlightText(recipient.name ? recipient.name : recipient.recipient_name),
+            value: {
+                name: recipient.name ? recipient.name : recipient.recipient_name,
+                uei: recipient.uei
+            },
+            key: recipient.id
+        });
+    };
+
     const formatedRecipientFilters = () => {
         let formatedRecipients = [];
         if (recipients) {
             formatedRecipients = recipients.toSorted((a, b) => (
                 a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1))
-                .map((recipient) => ({
-                    name: highlightText(recipient.name ? recipient.name : recipient.recipient_name),
-                    value: {
-                        name: recipient.name ? recipient.name : recipient.recipient_name,
-                        uei: recipient.uei,
-                        duns: recipient.duns ? recipient.duns : null
-                    },
-                    key: recipient.id
-                }));
+                .map((recipient) => (getFormatedName(recipient)));
         }
         return formatedRecipients;
     };
