@@ -1,21 +1,29 @@
 import React, { useContext, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import TooltipContext from "../../../../context/TooltipContext";
+import PropTypes from "prop-types";
 
-const NewTooltip = ({ tooltip }) => {
+import TooltipContext from "context/TooltipContext";
+
+const propTypes = {
+    tooltip: PropTypes.element,
+    offsetTop: PropTypes.string,
+    offsetLeft: PropTypes.string
+};
+
+const NewTooltip = ({ tooltip, offsetTop = -12, offsetLeft = 30 }) => {
     const setTooltipData = useContext(TooltipContext);
     const ref = useRef(null);
 
     const closeTooltip = () => {
         setTooltipData({
-            top: 0, left: 0, display: 'unset', tooltip
+            top: 0, left: 0, display: 'none', tooltip: <></>
         });
     };
     const openTooltip = () => {
         const { top, left } = ref.current.getBoundingClientRect();
         setTooltipData({
-            top,
-            left: left + 20,
+            top: top + offsetTop,
+            left: left + offsetLeft,
             display: 'unset',
             tooltip
         });
@@ -37,4 +45,5 @@ const NewTooltip = ({ tooltip }) => {
     );
 };
 
+NewTooltip.propTypes = propTypes;
 export default NewTooltip;
