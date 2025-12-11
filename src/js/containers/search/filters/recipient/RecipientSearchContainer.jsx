@@ -155,30 +155,17 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
 
     const getFormatedName = (recipient) => {
         if (recipient.uei) {
-            return ({
-                name: <div className="recipient-checkbox__uei">
+            return (
+                <div className="recipient-checkbox__uei">
                     <span>UEI: </span>{highlightText(recipient.uei)}
                     <div className="secondary-label__name-container">
                         <span>{recipient.name ? recipient.name : recipient.recipient_name}</span>
                     </div>
-                </div>,
-                value: {
-                    name: recipient.name ? recipient.name : recipient.recipient_name,
-                    uei: recipient.uei
-                },
-                key: recipient.uei,
-                secondaryLabel: recipient.name ? recipient.name : recipient.recipient_name
-            });
+                </div>
+            );
         }
 
-        return ({
-            name: highlightText(recipient.name ? recipient.name : recipient.recipient_name),
-            value: {
-                name: recipient.name ? recipient.name : recipient.recipient_name,
-                uei: recipient.uei
-            },
-            key: recipient.id
-        });
+        return highlightText(recipient.name ? recipient.name : recipient.recipient_name);
     };
 
     const formatedRecipientFilters = () => {
@@ -186,7 +173,14 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         if (recipients) {
             formatedRecipients = recipients.toSorted((a, b) => (
                 a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1))
-                .map((recipient) => (getFormatedName(recipient)));
+                .map((recipient) => ({
+                    name: getFormatedName(recipient),
+                    value: {
+                        name: recipient.name ? recipient.name : recipient.recipient_name,
+                        uei: recipient.uei
+                    },
+                    key: recipient.uei ? recipient.uei : recipient.id
+                }));
         }
         return formatedRecipients;
     };
