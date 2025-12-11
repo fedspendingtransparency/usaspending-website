@@ -10,6 +10,7 @@ import { isCancel } from 'axios';
 import { fetchCFDA } from '../../../../helpers/searchHelper';
 import { updateSelectedCFDA } from '../../../../redux/actions/search/searchFilterActions';
 import AutocompleteWithCheckboxList from '../../../../components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
+import replaceString from '../../../../helpers/replaceString';
 
 
 const CFDASearchContainer = () => {
@@ -18,6 +19,8 @@ const CFDASearchContainer = () => {
     const [noResults, setNoResults] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const selectedCFDA = useSelector((state) => state.filters.selectedCFDA);
+
+    const highlightText = (text) => replaceString(text, cfdaSearchString, 'bold-highlight');
 
     const cfdaSearchRequest = useRef();
     const dispatch = useDispatch();
@@ -36,7 +39,7 @@ const CFDASearchContainer = () => {
                 const subtitle = '';
 
                 values.push({
-                    title,
+                    title: highlightText(title),
                     subtitle,
                     data: item,
                     value: item.program_number,

@@ -6,8 +6,14 @@
         .checkbox-type-filter {
             .recipient-checkbox__uei {
                 display: inline;
+                color: $gray-90;
+                
+                :not(.bold-highlight) {
+                    font-style: normal;
+                    font-weight: $font-normal;
+                }
 
-                span {
+                span:not(.bold-highlight) {
                     font-style: italic;
                     color: $gray-60
                 }
