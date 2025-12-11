@@ -6,9 +6,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
 import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
+import { transformString, getPrimaryFill, getThumbnailPath } from 'helpers/featuredContent/featuredContentHelper';
+import Analytics from "helpers/analytics/Analytics";
 import ArticleCard from '../articleCard/ArticleCard';
-import { transformString } from '../../../helpers/featuredContent/featuredContentHelper';
-import Analytics from "../../../helpers/analytics/Analytics";
 
 const propTypes = {
     articles: PropTypes.array
@@ -109,8 +109,8 @@ const ArticleList = ({ articles }) => {
                                     taxonomy={article.taxonomy}
                                     title={article.title}
                                     description={article.description}
-                                    thumbnailUrl={article.thumbnail_path}
-                                    fill={article.fill}
+                                    thumbnailUrl={getThumbnailPath(article)}
+                                    fill={getPrimaryFill(article)}
                                     publishedAt={article.publishedAt}
                                     onClick={(e) => onClick(e, newUrl, article.title)} />
                             </FlexGridCol>);
