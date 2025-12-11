@@ -157,7 +157,7 @@
 
   .new-tooltip__tooltip-wrapper {
     position: fixed;
-    z-index: 1;
+    z-index: 3;
     width: rem(375);
     background-color: $color-white;
     box-shadow: 0 0 2px rgba(0, 0, 0, .3);

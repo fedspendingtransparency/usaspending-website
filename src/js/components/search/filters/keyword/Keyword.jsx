@@ -11,7 +11,8 @@ import { useDispatch } from "react-redux";
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import { updateTextSearchInput } from "redux/actions/search/searchFilterActions";
 import SelectedKeywords from './SelectedKeywords';
-import { KeyWordTooltip } from "../tooltips/AdvancedSearchTooltip";
+import { KeyWordTooltip, NewAwardsTooltip } from "../tooltips/AdvancedSearchTooltip";
+import ContextTooltip from "../timePeriod/ContextTooltip";
 
 const propTypes = {
     searchV2: PropTypes.bool
@@ -58,7 +59,7 @@ const Keyword = ({
                             <div className="category-header--title">
                                 Filter by Keyword
                             </div>
-                            <TooltipWrapper icon="info" tooltipComponent={<KeyWordTooltip />} />
+                            <ContextTooltip tooltip={<NewAwardsTooltip />} />
                         </div>
                     }
                     <div className="keyword-input-wrapper">
