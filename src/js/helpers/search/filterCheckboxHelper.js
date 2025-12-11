@@ -158,3 +158,5 @@ export const getFilterCount = (filters) => ({
     'Treasury Account Symbol (TAS)': generateCount(filters.tasCodes),
     'Disaster Emergency Fund Code (DEFC)': filters.defCode.size
 });
+
+export const autocompletePlaceholder = 'Type at least 3 letters...';

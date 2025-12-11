@@ -21,7 +21,7 @@ import { showModal } from 'redux/actions/modal/modalActions';
 
 import SearchSidebar from './SearchSidebar';
 import NoDownloadHover from './header/NoDownloadHover';
-import KeywordSearchLink from "./KeywordSearchLink";
+import Alert from "../sharedComponents/Alert";
 import MobileFilters from "./mobile/MobileFilters";
 import SubawardDropdown from "./SubawardDropdown";
 import { setSearchViewSubaward, setSpendingLevel } from "../../redux/actions/search/searchViewActions";
@@ -180,7 +180,7 @@ const SearchPage = React.memo(({
                     <FlexGridCol className="full-search-sidebar" width={3}>
                         {fullSidebar}
                         {isMobile === false ?
-                            <KeywordSearchLink />
+                            <Alert />
                             : ''}
                     </FlexGridCol>
                     <div className="mobile-filter-button-wrapper">
