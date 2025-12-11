@@ -3,10 +3,10 @@ import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router";
 
-import KeywordContainer from "containers/search/filters/KeywordContainer";
 import Alert from "components/sharedComponents/Alert";
 import { searchFilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import { getFilterCount } from "helpers/search/filterCheckboxHelper";
+import Keyword from "components/search/filters/keyword/Keyword";
 import SidebarContentFilterAccordion from "./SidebarContentFilterAccordion";
 
 const propTypes = {
@@ -57,7 +57,7 @@ const SidebarContentFilters = ({ isDsmOpened, sidebarContentHeight, isMobile }) 
                 <div
                     className="collapsible-sidebar--search-filters-list"
                     style={{ height: sidebarContentHeight }}>
-                    <KeywordContainer searchV2 />
+                    <Keyword searchV2 />
                     {searchFilterCategoryTree.map(({ title, component }) => (
                         <SidebarContentFilterAccordion
                             title={title}
