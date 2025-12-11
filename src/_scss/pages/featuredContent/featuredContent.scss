@@ -50,6 +50,10 @@
         font-weight: $font-semibold;
         line-height: 30px;
         color: $gray-80;
+
+        a {
+          color: $gray-80;
+        }
       }
 
       .featured-content__last-updated {
