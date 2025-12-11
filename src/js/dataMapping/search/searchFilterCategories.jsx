@@ -4,10 +4,12 @@
  */
 
 import React from 'react';
+
+import AwardTypeV2 from "components/search/filters/awardType/AwardTypeV2";
+import Agency from "components/search/filters/agency/Agency";
 import LocationSection from "../../components/search/filters/location/LocationSection";
 import TimePeriodContainer from "../../containers/search/filters/TimePeriodContainer";
 import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
-import AgencyContainer from "../../containers/search/filters/AgencyContainer";
 import TASCheckboxTreeContainer from
     "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
 import RecipientSearchContainer from
@@ -16,7 +18,6 @@ import RecipientTypeContainer from
     "../../containers/search/filters/recipient/RecipientTypeContainer";
 import AwardAmountSearchContainer from
     "../../containers/search/filters/awardAmount/AwardAmountSearchContainer";
-import AwardTypeContainerV2 from "../../containers/search/filters/AwardTypeContainerV2";
 import NAICSCheckboxTree from "../../containers/search/filters/naics/NAICSCheckboxTree";
 import PSCCheckboxTreeContainer from "../../containers/search/filters/psc/PSCCheckboxTreeContainer";
 import PricingTypeContainer from "../../containers/search/filters/PricingTypeContainer";
@@ -99,11 +100,11 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'Agency',
-        component: <AgencyContainer searchV2 />
+        component: <Agency />
     },
     {
         title: 'Award Type',
-        component: <AwardTypeContainerV2 />
+        component: <AwardTypeV2 />
     },
     {
         title: 'Recipient Type',

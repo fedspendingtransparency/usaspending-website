@@ -7,8 +7,8 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 
-import getCurrentArticles from "../../../helpers/homepageFeaturedContentHelper";
 import FeaturedContentCard from "./FeaturedContentCard";
+import getCurrentArticles from "../../../helpers/homepageFeaturedContentHelper";
 
 const [marketingArticle, otherArticle] = getCurrentArticles();
 

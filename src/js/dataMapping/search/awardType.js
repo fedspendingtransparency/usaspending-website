@@ -107,5 +107,43 @@ export const awardTypeGroupLabels = {
 
 export const subawardTypeGroups = {
     subcontracts: awardTypeGroups.contracts.concat(awardTypeGroups.idvs),
-    subgrants: awardTypeGroups.grants.concat(awardTypeGroups.direct_payments).concat(awardTypeGroups.loans).concat(awardTypeGroups.other)
+    subgrants: awardTypeGroups
+        .grants
+        .concat(awardTypeGroups.direct_payments)
+        .concat(awardTypeGroups.loans)
+        .concat(awardTypeGroups.other)
 };
+
+export const awardTypesData = [
+    {
+        id: 'award-contracts',
+        name: 'Contracts',
+        filters: awardTypeGroups.contracts
+    },
+    {
+        id: 'indefinite-delivery-vehicle',
+        name: 'Contract IDVs',
+        filters: awardTypeGroups.idvs
+    },
+    {
+        id: 'award-grants',
+        name: 'Grants',
+        filters: awardTypeGroups.grants
+    },
+    {
+        id: 'award-direct-payments',
+        name: 'Direct Payments',
+        filters: awardTypeGroups.direct_payments
+    },
+    {
+        id: 'award-loans',
+        name: 'Loans',
+        filters: awardTypeGroups.loans
+    },
+    {
+        id: 'award-other',
+        name: 'Other',
+        filters: awardTypeGroups.other
+    }
+];
+

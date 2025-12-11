@@ -3,43 +3,38 @@
 * Created by Emily Gullo 12/23/2016
 **/
 
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { filter, sortBy, slice, concat } from 'lodash-es';
-
 import { Search } from 'js-search';
 
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
-
-import * as SearchHelper from 'helpers/searchHelper';
+import { autocompletePlaceholder } from "helpers/search/filterCheckboxHelper";
 
 const propTypes = {
     toggleAgency: PropTypes.func,
     selectedAgencies: PropTypes.object,
-    agencyType: PropTypes.string
+    agencyType: PropTypes.string,
+    fetchAgencies: PropTypes.func
 };
 
-export default class AgencyListContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const AgencyListContainer = ({
+    toggleAgency,
+    selectedAgencies,
+    agencyType,
+    fetchAgencies
+}) => {
+    const [autocompleteAgencies, setAutocompleteAgencies] = useState([]);
+    const [noResults, setNoResults] = useState(false);
+    const request = useRef(null);
 
-        this.handleTextInput = this.handleTextInput.bind(this);
+    let agencySearchString;
+    let timeout = null;
 
-        this.state = {
-            agencySearchString: '',
-            autocompleteAgencies: [],
-            noResults: false
-        };
-
-        this.handleTextInput = this.handleTextInput.bind(this);
-        this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
-        this.timeout = null;
-    }
-
-    parseAutocompleteAgencies(results) {
+    const parseAutocompleteAgencies = (results) => {
         let agencies = [];
-        let noResults = false;
+        let localNoResults = false;
 
         // Format results of search for use in Autocomplete component
         if (results) {
@@ -55,8 +50,10 @@ export default class AgencyListContainer extends React.Component {
 
                 // Only push items if they are not in selectedAgencies
                 if (item.toptier_flag) {
-                    if (this.props.selectedAgencies.size === 0
-                        || !this.props.selectedAgencies.has(`${item.id}_toptier`)) {
+                    if (
+                        selectedAgencies.size === 0 ||
+                        !selectedAgencies.has(`${item.id}_toptier`)
+                    ) {
                         agencies.push({
                             title: `${item.subtier_agency.name} ${topAbbreviation}`,
                             data: Object.assign({}, item, {
@@ -65,8 +62,10 @@ export default class AgencyListContainer extends React.Component {
                         });
                     }
                 }
-                else if (this.props.selectedAgencies.size === 0
-                    || !this.props.selectedAgencies.has(`${item.id}_subtier`)) {
+                else if (
+                    selectedAgencies.size === 0 ||
+                    !selectedAgencies.has(`${item.id}_subtier`)
+                ) {
                     agencies.push({
                         title: `${item.subtier_agency.name} ${subAbbreviation}`,
                         subtitle: `Sub-Agency of ${item.toptier_agency.name} ${topAbbreviation}`,
@@ -78,12 +77,15 @@ export default class AgencyListContainer extends React.Component {
             });
 
             if (agencies.length === 0) {
-                noResults = true;
+                localNoResults = true;
             }
         }
 
         // For searches for FEMA, leave the results in the same order as the API response
-        if ((this.state.agencySearchString.toLowerCase() !== 'fem') && (this.state.agencySearchString.toLowerCase() !== 'fema')) {
+        if (
+            (agencySearchString.toLowerCase() !== 'fem') &&
+            (agencySearchString.toLowerCase() !== 'fema')
+        ) {
             // Separate top and subtier agencies
             let toptierAgencies = filter(agencies, ['data.agencyType', 'toptier']);
             let subtierAgencies = filter(agencies, ['data.agencyType', 'subtier']);
@@ -95,64 +97,18 @@ export default class AgencyListContainer extends React.Component {
             agencies = slice(concat(toptierAgencies, subtierAgencies), 0, 10);
         }
 
-        this.setState({
-            noResults,
-            autocompleteAgencies: agencies
-        });
-    }
+        setNoResults(localNoResults);
+        setAutocompleteAgencies(agencies);
+    };
 
-    queryAutocompleteAgencies(input) {
-        this.setState({
-            noResults: false
-        });
-
-        // Only search if search is 2 or more characters
-        if (input.length >= 3) {
-            this.setState({
-                agencySearchString: input
-            });
-
-            if (this.agencySearchRequest) {
-                // A request is currently in-flight, cancel it
-                this.agencySearchRequest.cancel();
-            }
-
-            const agencySearchParams = {
-                search_text: input,
-                limit: 20
-            };
-
-            if (this.props.agencyType === 'Funding') {
-                this.agencySearchRequest = SearchHelper.fetchFundingAgencies(agencySearchParams);
-            }
-            else {
-                this.agencySearchRequest = SearchHelper.fetchAwardingAgencies(agencySearchParams);
-            }
-
-            this.agencySearchRequest.promise
-                .then((res) => {
-                    this.performSecondarySearch(res.data.results);
-                })
-                .catch((err) => {
-                    if (!isCancel(err)) {
-                        this.setState({
-                            noResults: true
-                        });
-                    }
-                });
-        }
-        else if (this.agencySearchRequest) {
-            // A request is currently in-flight, cancel it
-            this.agencySearchRequest.cancel();
-        }
-    }
-
-    performSecondarySearch(data) {
-        if ((this.state.agencySearchString.toLowerCase() === 'fem') || (this.state.agencySearchString.toLowerCase() === 'fema')) {
+    const performSecondarySearch = (data) => {
+        if (
+            (agencySearchString.toLowerCase() === 'fem') ||
+            (agencySearchString.toLowerCase() === 'fema')
+        ) {
             // don't change the order of results returned from the API
-            this.parseAutocompleteAgencies(slice(data, 0, 10));
+            parseAutocompleteAgencies(slice(data, 0, 10));
         }
-
         else {
             // search within the returned data
             // create a search index with the API response records
@@ -166,7 +122,7 @@ export default class AgencyListContainer extends React.Component {
             search.addDocuments(data);
 
             // use the JS search library to search within the records
-            const results = search.search(this.state.agencySearchString);
+            const results = search.search(agencySearchString);
 
             const toptier = [];
             const subtier = [];
@@ -185,57 +141,84 @@ export default class AgencyListContainer extends React.Component {
             const improvedResults = slice(concat(toptier, subtier), 0, 10);
 
             // Add search results to Redux
-            this.parseAutocompleteAgencies(improvedResults);
+            parseAutocompleteAgencies(improvedResults);
         }
-    }
+    };
 
-    clearAutocompleteSuggestions() {
-        this.setState({
-            autocompleteAgencies: []
-        });
-    }
+    const queryAutocompleteAgencies = (input) => {
+        setNoResults(false);
 
-    handleTextInput(agencyInput) {
+        // Only search if search is 2 or more characters
+        if (input.length >= 3) {
+            agencySearchString = input;
+
+            if (request.current) {
+                // A request is currently in-flight, cancel it
+                request.current.cancel();
+            }
+
+            const agencySearchParams = {
+                search_text: input,
+                limit: 20
+            };
+
+            request.current = fetchAgencies(agencySearchParams);
+
+            request.current.promise
+                .then((res) => {
+                    performSecondarySearch(res.data.results);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        setNoResults(true);
+                    }
+                });
+        }
+        else if (request.current) {
+            // A request is currently in-flight, cancel it
+            request.current.cancel();
+        }
+    };
+
+    const clearAutocompleteSuggestions = () => {
+        setAutocompleteAgencies([]);
+    };
+
+    const handleTextInput = (agencyInput) => {
         // Clear existing agencies to ensure user can't select an old or existing one
-        if (this.state.autocompleteAgencies.length > 0) {
-            this.setState({
-                autocompleteAgencies: []
-            });
+        if (autocompleteAgencies.length > 0) {
+            setAutocompleteAgencies([]);
         }
 
         // Grab input, clear any exiting timeout
         const input = agencyInput.target.value;
-        window.clearTimeout(this.timeout);
+        window.clearTimeout(timeout);
 
         // Perform search if user doesn't type again for 300ms
-        this.timeout = window.setTimeout(() => {
-            this.queryAutocompleteAgencies(input);
+        timeout = window.setTimeout(() => {
+            queryAutocompleteAgencies(input);
         }, 300);
-    }
+    };
 
-    toggleAgency(agency, valid) {
-    // Pass selected agency to parent toggleAgency method, adding agencyType to method call
-        this.props.toggleAgency(agency, valid, this.props.agencyType);
+    const onSelect = (agency, valid) => {
+        // Pass selected agency to parent toggleAgency method, adding agencyType to method call
+        toggleAgency(agency, valid);
 
         // Clear Autocomplete results
-        this.setState({
-            autocompleteAgencies: []
-        });
-    }
+        setAutocompleteAgencies([]);
+    };
 
-    render() {
-        return (
-            <Autocomplete
-                {...this.props}
-                values={this.state.autocompleteAgencies}
-                handleTextInput={this.handleTextInput}
-                onSelect={this.toggleAgency.bind(this)}
-                placeholder={`${this.props.agencyType} Agency`}
-                label={`${this.props.agencyType} Agency`}
-                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                noResults={this.state.noResults} />
-        );
-    }
-}
+    return (
+        <Autocomplete
+            values={autocompleteAgencies}
+            handleTextInput={handleTextInput}
+            onSelect={onSelect}
+            placeholder={autocompletePlaceholder}
+            label={`${agencyType} Agency`}
+            clearAutocompleteSuggestions={clearAutocompleteSuggestions}
+            noResults={noResults} />
+    );
+};
 
 AgencyListContainer.propTypes = propTypes;
+export default AgencyListContainer;
