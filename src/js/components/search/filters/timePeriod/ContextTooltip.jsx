@@ -1,3 +1,8 @@
+/**
+ * ContextTooltip.jsx
+ * Created on 12/11/2025 by Josue Aguilar
+ */
+
 import React, { useContext, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
@@ -11,7 +16,7 @@ const propTypes = {
     offsetLeft: PropTypes.string
 };
 
-const NewTooltip = ({
+const ContextTooltip = ({
     tooltip, icon = "info-circle", offsetTop = -12, offsetLeft = 30
 }) => {
     const setTooltipData = useContext(TooltipContext);
@@ -51,5 +56,5 @@ const NewTooltip = ({
     );
 };
 
-NewTooltip.propTypes = propTypes;
-export default NewTooltip;
+ContextTooltip.propTypes = propTypes;
+export default ContextTooltip;

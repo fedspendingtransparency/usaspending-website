@@ -1,11 +1,10 @@
 import React from "react";
-import { TooltipWrapper } from "data-transparency-ui";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 import { updateNewAwardsOnlySelected } from "redux/actions/search/searchFilterActions";
 import { NewAwardsTooltip } from "../tooltips/AdvancedSearchTooltip";
-import NewTooltip from "./NewTooltip";
+import ContextTooltip from "./ContextTooltip";
 
 const propTypes = { activeClassDR: PropTypes.string };
 
@@ -52,7 +51,7 @@ const NewAwardsFilter = ({ activeClassDR }) => {
                         Show New Awards Only
                     </span>
                 </label>
-                <NewTooltip tooltip={<NewAwardsTooltip />} />
+                <ContextTooltip tooltip={<NewAwardsTooltip />} />
             </div>
         )
     );
