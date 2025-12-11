@@ -41,7 +41,7 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 
 import { TooltipWrapper } from 'data-transparency-ui';
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
-import KeywordSearchLink from "./KeywordSearchLink";
+import Alert from "../sharedComponents/Alert";
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -226,7 +226,7 @@ const SearchSidebar = ({
                     <SearchSidebarSubmitContainer />
                     {window.innerWidth <= mediumScreen &&
                 <div className="sidebar-bottom__keyword-link-container">
-                    <KeywordSearchLink />
+                    <Alert />
                 </div>}
                 </div>
             </div>

@@ -42,7 +42,7 @@ const InteractiveDataSourcesPage = React.lazy(() => import('components/interacti
 const TrainingVideosContainer = React.lazy(() => import('containers/trainingVideos/TrainingVideosContainer').then((comp) => comp));
 const FeaturedContentPage = React.lazy(() => import('components/featuredContent/FeaturedContentPage').then((comp) => comp));
 const FeaturedContentArticle = React.lazy(() => import('components/featuredContent/FeaturedContentArticle').then((comp) => comp));
-const TempPage = React.lazy(() => import('components/tempPage').then((comp) => comp));
+const TempPage = React.lazy(() => import('components/TempPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.
