@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { Link } from "react-router";
 
-import { searchFilterCategoryTree } from "../../../dataMapping/search/searchFilterCategories";
-import { getFilterCount } from "../../../helpers/search/filterCheckboxHelper";
+import Alert from "components/sharedComponents/Alert";
+import { searchFilterCategoryTree } from "dataMapping/search/searchFilterCategories";
+import { getFilterCount } from "helpers/search/filterCheckboxHelper";
+import Keyword from "components/search/filters/keyword/Keyword";
 import SidebarContentFilterAccordion from "./SidebarContentFilterAccordion";
-import Keyword from "../filters/keyword/Keyword";
 
 const propTypes = {
     isDsmOpened: PropTypes.bool,
@@ -36,6 +38,19 @@ const SidebarContentFilters = ({ isDsmOpened, sidebarContentHeight, isMobile }) 
     const filters = useSelector((state) => state.filters);
     const filterCount = getFilterCount(filters);
 
+    const alertBody = (
+        <>
+            Looking for the "Keyword Search" page?{" "}
+            <Link
+                target="_blank"
+                rel="noopener noreferrer"
+                className="advanced-search__keyword-search-link"
+                to="/keyword_search">
+                Click here to search award transactions by keyword.
+            </Link>
+        </>
+    );
+
     return (
         <>
             {!isDsmOpened && (
@@ -52,6 +67,7 @@ const SidebarContentFilters = ({ isDsmOpened, sidebarContentHeight, isMobile }) 
                             count={filterCount[title]}
                             isMobile={isMobile} />
                     ))}
+                    {!isMobile && <Alert body={alertBody} className="keyword-link" icon />}
                 </div>
             )}
         </>

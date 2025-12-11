@@ -26,7 +26,7 @@ const Accordion = ({
     closedIcon = "plus",
     openIcon = "minus",
     iconClassName,
-    setOpen,
+    setOpen = () => {},
     contentClassName = '',
     openObject = false,
     selectedChipCount = 0
