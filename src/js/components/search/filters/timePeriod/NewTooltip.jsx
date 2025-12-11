@@ -34,6 +34,7 @@ const NewTooltip = ({ tooltip, offsetTop = -12, offsetLeft = 30 }) => {
             icon="info-circle"
             tabIndex="0"
             aria-label="Tooltip Hover Wrapper"
+            aria-hidden={false}
             className="new-tooltip__icon"
             onBlur={closeTooltip}
             onFocus={openTooltip}
