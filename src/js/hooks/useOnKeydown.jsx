@@ -1,9 +1,14 @@
+/**
+ * useOnKeydown.jsx
+ * Created on 12/10/2025 by Josue Aguilar
+ */
+
 import { useRef } from "react";
 import useEventListener from "./useEventListener";
 
 /**
- * useWindowWidth
- * - a custom hook for returning the current window width, throttled
+ * useOnKeydown
+ * - a custom hook for adding an event listener to a keydown event.
  * @param {function} onKeydown - the function triggered on event change or enter keydown
  * @returns {object} ref used to tie event listener to an element
  */
