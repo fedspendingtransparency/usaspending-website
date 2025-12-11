@@ -11,12 +11,18 @@ import { useLocation } from 'react-router';
 import { homePageMetaTags } from "helpers/metaTagHelper";
 import PageWrapper from "components/sharedComponents/PageWrapper";
 import { mediumScreen, tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { transformString, getPrimaryFill, getSecondaryFill, components } from 'helpers/featuredContent/featuredContentHelper';
+import { transformString, getPrimaryFill, getSecondaryFill, CustomA, CustomImg } from 'helpers/featuredContent/featuredContentHelper';
+import GlossaryLink from "components/sharedComponents/GlossaryLink";
 import FeaturedContentArticleSidebar from "./FeaturedContentArticleSidebar";
 import articles from '../../../config/featuredContent/featuredContentMetadata';
 
-
 require('pages/featuredContent/featuredContent.scss');
+
+const components = {
+    GlossaryLink,
+    a: CustomA,
+    img: CustomImg
+};
 
 const FeaturedContentArticle = () => {
     const [windowWidth, setWindowWidth] = useState(0);

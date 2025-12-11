@@ -3,7 +3,6 @@
  * Created by Nick Torres 9/23/2025
 */
 import React from "react";
-import GlossaryLink from "components/glossary/Glossary";
 
 
 const primaryFill = {
@@ -55,11 +54,11 @@ export const transformDate = (input) => {
     return formattedDate;
 };
 
-const CustomA = (props) =>
+export const CustomA = (props) =>
     // eslint-disable-next-line jsx-a11y/anchor-has-content,react/jsx-filename-extension
     (<a target="_blank" rel="noopener noreferrer" {...props} />);
 
-const CustomImg = (props) => (<img src={`../../img/featuredContent/articles/${props.src}`} alt={props.alt} />);
+export const CustomImg = (props) => (<img src={`../../img/featuredContent/articles/${props.src}`} alt={props.alt} />);
 
 export const getPrimaryFill = (article) => {
     if (!article) return 'none';
@@ -70,16 +69,9 @@ export const getSecondaryFill = (article) => {
     return (secondaryFill[contentTaxonomyNameToKey[article.taxonomy]]);
 };
 
-
 export const getThumbnailPath = (article) => {
-    const slug = article?.taxonomy.replace(/[&/\\#,+()$~%.'":*?<>{}]/g, "").replace(/\s+/g, "-").toLowerCase();
+    const slug = transformString(article?.taxonomy);
     const thumbnailPath = "../../img/featuredContent/cards/";
     return `${thumbnailPath}${slug}.webp`;
-};
-
-export const components = {
-    GlossaryLink,
-    a: CustomA,
-    img: CustomImg
 };
 
