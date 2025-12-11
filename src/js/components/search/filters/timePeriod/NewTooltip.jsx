@@ -8,15 +8,16 @@ const NewTooltip = ({ tooltip }) => {
 
     const closeTooltip = () => {
         setTooltipData({
-            top: 0, left: 0, display: 'none', tooltip: <></>
+            top: 0, left: 0, display: 'unset', tooltip
         });
     };
     const openTooltip = () => {
-        console.log({ ref: ref.current.getBoundingClientRect() });
         const { top, left } = ref.current.getBoundingClientRect();
-        console.log({ top, left });
         setTooltipData({
-            top, left: left + 20, display: 'unset', tooltip
+            top,
+            left: left + 20,
+            display: 'unset',
+            tooltip
         });
     };
 

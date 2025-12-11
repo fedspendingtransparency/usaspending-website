@@ -150,8 +150,10 @@ const SearchPage = ({
                             left: tooltipData.left,
                             display: tooltipData.display
                         }}>
-                        {tooltipData.tooltip}
-                        {/* <NewAwardsTooltip /> */}
+                        <div className="tooltip-wrapper">
+                            <div className="tooltip-pointer" />
+                            {tooltipData.tooltip}
+                        </div>
                     </div>
                     <MobileFilterButton
                         filterCount={filterCount}
