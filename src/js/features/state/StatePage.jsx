@@ -6,16 +6,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
+import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
-import StateContent from './StateContent';
+import StateOverview from "components/state/overview/StateOverview";
+import StateTimeVisualizationSectionContainer from
+    "containers/state/StateTimeVisualizationSectionContainer";
+import TopFiveSection from "components/state/topFive/TopFiveSection";
+import StateFooter from "components/state/StateFooter";
 import StatePageWrapper from "./StatePageWrapper";
 
 const propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    id: PropTypes.string,
     stateProfile: PropTypes.object,
     handleFyChange: PropTypes.func
 };
@@ -23,11 +27,21 @@ const propTypes = {
 const StatePage = ({
     error,
     loading,
-    id,
     stateProfile = { fy: '' },
     handleFyChange
 }) => {
-    let content = <StateContent id={id} stateProfile={stateProfile} />;
+    let content = (
+        <FlexGridRow className="state-content-wrapper">
+            <FlexGridCol className="state-content">
+                <StateOverview
+                    stateProfile={stateProfile.overview} />
+                <StateTimeVisualizationSectionContainer
+                    stateProfile={stateProfile.overview} />
+                <TopFiveSection />
+                <StateFooter />
+            </FlexGridCol>
+        </FlexGridRow>
+    );
 
     if (error) {
         content = (
