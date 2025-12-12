@@ -15,7 +15,7 @@ const StatePageNavigation = () => {
     const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
     const fy = fyParam;
 
-    const onClickFy = (newFy) => {
+    const handleFyChange = (newFy) => {
         navigate(`/state/${stateName}/${newFy}`);
         dispatch(setStateFiscalYear(newFy));
     };
@@ -41,7 +41,7 @@ const StatePageNavigation = () => {
 
     return (
         <StatePageContainer
-            onClickFy={onClickFy}
+            handleFyChange={handleFyChange}
             stateId={stateId}
             state={state}
             fy={fy} />

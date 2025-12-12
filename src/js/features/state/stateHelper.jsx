@@ -1,10 +1,15 @@
 /**
- * stateHelper.js
+ * stateHelper.jsx
  * Created by Lizzie Salita 5/1/18
  */
 
-import { stateNameByFipsId, fipsIdByStateName } from "../../dataMapping/state/stateNames";
-import { apiRequest } from "../../helpers/apiRequest";
+import React from "react";
+import { FiscalYearPicker, ShareIcon } from "data-transparency-ui";
+
+import { stateNameByFipsId, fipsIdByStateName } from "dataMapping/state/stateNames";
+import { apiRequest } from "helpers/apiRequest";
+import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from "helpers/fiscalYearHelper";
+import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
 
 export const fetchStateOverview = (id, year) => apiRequest({
     url: `v2/recipient/state/${id}/`,
@@ -59,4 +64,30 @@ export const parseStateDataFromUrl = (state) => {
         ];
     }
     return [null, null];
+};
+
+export const statePageToolbarComponents = (stateProfile, handleFyChange, handleShareDispatch) => {
+    const backgroundColor = "#1a4480";
+
+    const slug = `state/${stateProfile.id}/${stateProfile.fy}`;
+
+    const emailArgs = {
+        subject: `USAspending.gov State Profile: ${stateProfile.overview.name}`,
+        body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}`
+    };
+
+    const handleShare = (name) => {
+        handleShareOptionClick(name, slug, emailArgs, handleShareDispatch);
+    };
+
+    return ([
+        <FiscalYearPicker
+            backgroundColor={backgroundColor}
+            selectedFy={stateProfile?.fy}
+            handleFyChange={handleFyChange}
+            options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
+        <ShareIcon
+            onShareOptionClick={handleShare}
+            url={getBaseUrl(slug)} />
+    ]);
 };

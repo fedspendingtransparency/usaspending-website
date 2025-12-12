@@ -21,7 +21,7 @@ require('pages/state/statePage.scss');
 
 
 const StatePageContainer = ({
-    onClickFy, stateId, state, fy
+    handleFyChange, stateId, state, fy
 }) => {
     const stateProfile = useSelector((s) => s.stateProfile);
     const dispatch = useDispatch();
@@ -82,7 +82,7 @@ const StatePageContainer = ({
             error={statusState.error}
             id={stateProfile.id}
             stateProfile={stateProfile}
-            pickedFy={onClickFy} />
+            handleFyChange={handleFyChange} />
     );
 };
 

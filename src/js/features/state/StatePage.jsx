@@ -26,13 +26,14 @@ import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import StateContent from '../../components/state/StateContent';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useQueryParams from "../../hooks/useQueryParams";
+import { statePageToolbarComponents } from "./stateHelper";
 
 const propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
     id: PropTypes.string,
     stateProfile: PropTypes.object,
-    pickedFy: PropTypes.func
+    handleFyChange: PropTypes.func
 };
 
 const StatePage = ({
@@ -40,7 +41,7 @@ const StatePage = ({
     loading,
     id,
     stateProfile = { fy: '' },
-    pickedFy
+    handleFyChange
 }) => {
     const history = useNavigate();
     const query = useQueryParams();
@@ -48,13 +49,9 @@ const StatePage = ({
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const dispatch = useDispatch();
+
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
-    };
-    const slug = `state/${id}/${stateProfile.fy}`;
-    const emailArgs = {
-        subject: `USAspending.gov State Profile: ${stateProfile.overview.name}`,
-        body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}`
     };
 
     const stateSections = [
@@ -133,11 +130,6 @@ const StatePage = ({
         );
     }
 
-    const handleShare = (name) => {
-        handleShareOptionClick(name, slug, emailArgs, handleShareDispatch);
-    };
-
-    const backgroundColor = "#1a4480";
     return (
         <PageWrapper
             pageName="state"
@@ -145,16 +137,9 @@ const StatePage = ({
             overLine="state profile"
             title={stateProfile.overview.name}
             metaTagProps={stateProfile.overview ? statePageMetaTags(stateProfile.overview) : {}}
-            toolBarComponents={[
-                <FiscalYearPicker
-                    backgroundColor={backgroundColor}
-                    selectedFy={stateProfile?.fy}
-                    handleFyChange={pickedFy}
-                    options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
-                <ShareIcon
-                    onShareOptionClick={handleShare}
-                    url={getBaseUrl(slug)} />
-            ]}
+            toolBarComponents={statePageToolbarComponents(
+                stateProfile, handleFyChange, handleShareDispatch
+            )}
             sections={stateSections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
