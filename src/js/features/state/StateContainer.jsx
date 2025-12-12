@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/1/18
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { useNavigate, useMatch } from 'react-router';
@@ -18,7 +18,7 @@ import {
 } from 'redux/actions/state/stateActions';
 import { stateCenterFromFips } from 'helpers/mapHelper';
 import StatePage from 'components/state/StatePage';
-import { parseStateDataFromUrl } from 'helpers/stateHelper';
+import { fetchStateOverview, parseStateDataFromUrl } from 'helpers/stateHelper';
 
 require('pages/state/statePage.scss');
 
@@ -33,39 +33,30 @@ const Navigate = ({
         error: false
     });
 
-    let fullRequest = null;
-
-    const setCenter = useCallback((id) => {
-        const center = stateCenterFromFips(id);
-        dispatch(setStateCenter(center));
-    }, [dispatch]);
-
-    const parseOverview = (data) => {
-        if (Object.keys(data).length === 0) {
-            return;
-        }
-        const newStateProfile = Object.create(BaseStateProfile);
-        newStateProfile.populate(data);
-        dispatch(setStateOverview(newStateProfile));
-    };
+    const request = useRef(null);
 
     const loadStateOverview = useCallback((id, year) => {
-        if (fullRequest) {
-            fullRequest.cancel();
+        if (request.current) {
+            request.current.cancel();
         }
 
-        fullRequest = StateHelper.fetchStateOverview(id, year);
+        request.current = fetchStateOverview(id, year);
 
-        fullRequest.promise
-            .then((res) => {
-                const noState = Object.keys(res.data).length === 0;
+        request.current.promise
+            .then(({ data }) => {
+                const noState = Object.keys(data).length === 0;
 
                 setStatusState(Object.assign({}, {
                     loading: false,
                     error: noState
                 }));
 
-                parseOverview(res.data);
+                if (Object.keys(data).length === 0) {
+                    return;
+                }
+                const newStateProfile = Object.create(BaseStateProfile);
+                newStateProfile.populate(data);
+                dispatch(setStateOverview(newStateProfile));
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -76,16 +67,17 @@ const Navigate = ({
                     }));
                 }
             });
-    });
+    }, [dispatch]);
 
     useEffect(() => {
         // Reset the FY
         dispatch(setStateFiscalYear(fy));
         loadStateOverview(stateId, fy);
+
         // Update the map center
-        setCenter(stateId);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [state, stateProfile.fy, fy]);
+        const center = stateCenterFromFips(stateId);
+        dispatch(setStateCenter(center));
+    }, [state, stateProfile.fy, fy, dispatch, loadStateOverview, stateId]);
 
     return (
         <StatePage
