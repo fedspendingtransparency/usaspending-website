@@ -10,7 +10,7 @@ import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
-import StateOverview from "components/state/overview/StateOverview";
+import StateOverview from "features/state/overview/StateOverview";
 import StateTimeVisualizationSectionContainer from
     "containers/state/StateTimeVisualizationSectionContainer";
 import TopFiveSection from "components/state/topFive/TopFiveSection";
