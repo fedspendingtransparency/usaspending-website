@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { reduce } from 'lodash-es';
 
-import * as StateHelper from 'helpers/stateHelper';
+import * as StateHelper from 'features/state/stateHelper';
 
 import AwardBreakdownTreeMap from 'components/state/visualizations/awardBreakdown/AwardBreakdownTreeMap';
 import AwardBreakdownTable from 'components/state/visualizations/awardBreakdown/AwardBreakdownTable';

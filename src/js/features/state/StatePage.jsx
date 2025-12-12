@@ -23,7 +23,7 @@ import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import StateContent from './StateContent';
+import StateContent from '../../components/state/StateContent';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useQueryParams from "../../hooks/useQueryParams";
 

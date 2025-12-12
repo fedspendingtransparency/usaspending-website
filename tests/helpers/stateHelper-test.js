@@ -5,7 +5,7 @@
  * Created by Max Kendall 02/05/2021
 */
 
-import { parseStateDataFromUrl, URLifyStateName } from 'helpers/stateHelper';
+import { parseStateDataFromUrl, URLifyStateName } from 'features/state/stateHelper';
 
 test.each([
     ['1', false, 'alabama', '01'],

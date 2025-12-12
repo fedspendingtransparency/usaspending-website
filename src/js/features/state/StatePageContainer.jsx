@@ -14,8 +14,8 @@ import {
     setStateCenter
 } from 'redux/actions/state/stateActions';
 import { stateCenterFromFips } from 'helpers/mapHelper';
-import StatePage from 'components/state/StatePage';
-import { fetchStateOverview } from 'helpers/stateHelper';
+import StatePage from 'features/state/StatePage';
+import { fetchStateOverview } from 'features/state/stateHelper';
 
 require('pages/state/statePage.scss');
 

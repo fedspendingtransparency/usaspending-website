@@ -3,8 +3,8 @@
  * Created by Lizzie Salita 5/1/18
  */
 
-import { stateNameByFipsId, fipsIdByStateName } from "../dataMapping/state/stateNames";
-import { apiRequest } from "./apiRequest";
+import { stateNameByFipsId, fipsIdByStateName } from "../../dataMapping/state/stateNames";
+import { apiRequest } from "../../helpers/apiRequest";
 
 export const fetchStateOverview = (id, year) => apiRequest({
     url: `v2/recipient/state/${id}/`,

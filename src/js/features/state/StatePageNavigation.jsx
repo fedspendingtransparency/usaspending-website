@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useMatch, useNavigate } from "react-router";
 
-import { parseStateDataFromUrl } from "helpers/stateHelper";
+import { parseStateDataFromUrl } from "features/state/stateHelper";
 import { resetState, setStateFiscalYear } from "redux/actions/state/stateActions";
 import StatePageContainer from "./StatePageContainer";
 
