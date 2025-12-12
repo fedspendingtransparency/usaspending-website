@@ -1,7 +1,7 @@
 .search-contents {
     @include flex(1 1 auto);
     @include display(flex);
-    @include flex-direction(row);
+    //@include flex-direction(row);
     @include justify-content(flex-start);
     @include align-items(stretch);
     position: relative;
@@ -14,7 +14,7 @@
     }
     .full-search-sidebar {
         @include flex(0 0 auto);
-        display: none;
+        //display: none;
         @include media(1368px) {
             display: block;
             padding-right: rem(30);

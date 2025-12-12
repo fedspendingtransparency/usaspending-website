@@ -99,10 +99,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const updatePosition = (isHeaderSticky) => {
         const tmpFooterInView = checkInView(footerEl) + footerMargin;
 
-        if (!isHeaderSticky) {
-            resizeHeightByHeader();
-        }
-        else if (isHeaderSticky && document.querySelector(".search-collapsible-sidebar-container")) {
+        // if (!isHeaderSticky) {
+        //     resizeHeightByHeader();
+        // }
+        if (document.querySelector(".search-collapsible-sidebar-container")) {
             const mainContentInView = checkInView(mainContentEl);
             const sidebarContentArea = mainContentInView - (sidebarStaticEls + additionalRibbonHeight);
 
@@ -117,24 +117,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     };
 
     const handleScroll = throttle(() => {
-        if (window.scrollY > 0) {
-            if (document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)")) {
-                document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)").style.zIndex = 10;
-            }
-        }
-
         const tmpFooterInView = checkInView(footerEl) + footerMargin;
         setIsFooterVisible(tmpFooterInView > 0);
-        const isStickyEl = document.querySelector(".usda-page-header--sticky");
-        const isHeaderSticky = isStickyEl !== null;
 
-        if (!isHeaderSticky || sidebarIsSticky !== isHeaderSticky || window.scrollY < 170 || tmpFooterInView > 0) {
-            updatePosition(isHeaderSticky);
-        }
+        updatePosition();
 
-        if (sidebarIsSticky !== isHeaderSticky) {
-            setSidebarIsSticky(isHeaderSticky);
-        }
     }, 20);
 
     const keyHandler = (e, func) => {
@@ -149,7 +136,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             setWindowWidth(newWidth);
             setIsMobile(newWidth < mediumScreen);
         }
-        handleScroll();
+        // handleScroll();
     }, 30);
 
     const openSidebar = (width) => {
@@ -161,7 +148,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         const allDsmSlidersToOpen = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
         if (allDsmSlidersToOpen.length) {
             for (const slider of allDsmSlidersToOpen.values()) {
-                slider.style.display = "flex";
+                // slider.style.display = "flex";
             }
         }
     };
@@ -183,16 +170,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const handleScrollEnd = (e) => {
         handleScroll(e);
-
-        setTimeout(() => {
-            if (document.querySelector(".v2 .site-header")) {
-                document.querySelector(".v2 .site-header").style.zIndex = 'unset';
-            }
-
-            if (document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)")) {
-                document.querySelector(".v2 .usda-page-header:not(.usda-page-header--sticky)").style.zIndex = 'unset';
-            }
-        }, 20);
     };
 
     useEffect(() => {
@@ -218,13 +195,13 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     useEffect(() => {
         if (sidebarHeight > 0 && sidebarContentHeight > 0 && document.querySelector(".search-sidebar").style.display === "none") {
-            document.querySelector(".search-sidebar").style.display = "flex";
+            // document.querySelector(".search-sidebar").style.display = "flex";
         }
     }, [sidebarHeight, sidebarContentHeight]);
 
     useEffect(() => {
         if (window.scrollY === 0) {
-            document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
+            // document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
         }
 
         handleScroll();
@@ -238,9 +215,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     useEffect(() => {
         // eslint-disable-next-line no-undef
-        const mainContentResizeObserver = new ResizeObserver((entries) => {
-            setMainContentHeight(entries[0].target?.clientHeight);
-        });
+        // const mainContentResizeObserver = new ResizeObserver((entries) => {
+        //     setMainContentHeight(entries[0].target?.clientHeight);
+        // });
 
         // eslint-disable-next-line no-undef
         const headerResizeObserver = new ResizeObserver((entries) => {
@@ -248,8 +225,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         });
 
 
-        const mainContent = document.querySelector("#main-content");
-        mainContentResizeObserver.observe(mainContent);
+        // const mainContent = document.querySelector("#main-content");
+        // mainContentResizeObserver.observe(mainContent);
 
         const siteHeader = document.querySelector(".site-header");
         headerResizeObserver.observe(siteHeader);
@@ -265,7 +242,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             window.removeEventListener('scroll', () => handleScroll());
             window.removeEventListener('scrollend', (e) => handleScrollEnd(e));
 
-            mainContentResizeObserver?.unobserve(mainContent);
+            // mainContentResizeObserver?.unobserve(mainContent);
             headerResizeObserver?.unobserve(siteHeader);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -286,16 +263,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     return (
         <>
             <div
-                className={`search-collapsible-sidebar-container search-sidebar ${
-                    sidebarIsSticky ? "sticky" : ""
-                }`}
-                style={isMobile ? {} : { display: "none" }}>
+                className={`search-collapsible-sidebar-container search-sidebar sticky`}>
                 <div
-                    style={isFooterVisible ? {
-                        height: selectHeight(), overscrollBehavior: "none", position: "fixed"
-                    } : {
-                        height: selectHeight(), overscrollBehavior: "none"
-                    }}
+                    style={{ height: selectHeight(), overscrollBehavior: "none", position: "sticky" }}
                     className={
                         `search-sidebar collapsible-sidebar ${
                             initialPageLoad ? "is-initial-loaded" : ""

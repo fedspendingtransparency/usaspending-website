@@ -135,8 +135,25 @@ const SearchPage = ({
             }
             filters={appliedFilters}>
             <div id="main-content">
-                <div className="search-contents v2">
+                <div
+                    className="search-contents v2"
+                    style={{
+                        height: "500px", position: "sticky", top: 0, left: 0, alignSelf: "flex-start"
+                    }}>
                     {fullSidebar}
+
+                    <p>hello world</p>
+                    <p>hello world</p>
+                    <p>hello world</p>
+                    <p>hello world</p>
+                    <p>hello world</p>
+                    <p>hello world</p>
+                    <p>hello world</p>
+                    <p>hello world</p>
+                    <p>hello world</p>
+                </div>
+
+                <div>
                     <MobileFilterButton
                         filterCount={filterCount}
                         showMobileFilters={showMobileFilters}

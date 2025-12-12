@@ -11,7 +11,7 @@
         display: flex;
         flex-direction: column;
         @include media($medium-screen) {
-            flex-direction: row;
+            //flex-direction: row;
         }
         @include media($large-screen) {
             margin: 0 $outer-gutter;

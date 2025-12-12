@@ -20,7 +20,7 @@
   }
 
   &.sticky {
-    position: fixed;
+    position: sticky;
     top: rem(98);
 
     .sidebar-bottom-submit {
@@ -65,7 +65,6 @@
 
   .collapsible-sidebar {
     display: flex;
-    flex-direction: column;
     justify-content: space-between;
     position: relative;
     margin-top: -40px !important; // TODO Keep here until we remove the legacy panel
@@ -488,7 +487,7 @@
   }
 
   .full-search-sidebar {
-    display: none;
+    //display: none;
     margin-right: rem(16);
 
     @media(min-width: $large-screen) {
