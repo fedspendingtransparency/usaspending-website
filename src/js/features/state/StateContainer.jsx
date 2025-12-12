@@ -22,31 +22,23 @@ import { parseStateDataFromUrl } from 'helpers/stateHelper';
 
 require('pages/state/statePage.scss');
 
-const StateContainer = () => {
-    const stateProfile = useSelector((state) => state.stateProfile);
+
+const Navigate = ({
+    onClickFy, stateId, state, fy
+}) => {
+    const stateProfile = useSelector((s) => s.stateProfile);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const match = useMatch(`/state/:state/:fyParam?`);
-    const { state, fyParam } = match.params;
-
-    const fy = fyParam;
-    let fullRequest = null;
-
     const [statusState, setStatusState] = useState({
         loading: true,
         error: false
     });
 
-    const onClickFy = (newFy) => {
-        const [, stateName] = parseStateDataFromUrl(state);
-        navigate(`/state/${stateName}/${newFy}`);
-        dispatch(setStateFiscalYear(newFy));
-    };
+    let fullRequest = null;
 
     const setCenter = useCallback((id) => {
         const center = stateCenterFromFips(id);
         dispatch(setStateCenter(center));
-    });
+    }, [dispatch]);
 
     const parseOverview = (data) => {
         if (Object.keys(data).length === 0) {
@@ -87,8 +79,39 @@ const StateContainer = () => {
     });
 
     useEffect(() => {
-        const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
+        // Reset the FY
+        dispatch(setStateFiscalYear(fy));
+        loadStateOverview(stateId, fy);
+        // Update the map center
+        setCenter(stateId);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [state, stateProfile.fy, fy]);
 
+    return (
+        <StatePage
+            loading={statusState.loading}
+            error={statusState.error}
+            id={stateProfile.id}
+            stateProfile={stateProfile}
+            pickedFy={onClickFy} />
+    );
+};
+
+const StateContainer = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const match = useMatch(`/state/:state/:fyParam?`);
+    const { state, fyParam } = match.params;
+
+    const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
+    const fy = fyParam;
+
+    const onClickFy = (newFy) => {
+        navigate(`/state/${stateName}/${newFy}`);
+        dispatch(setStateFiscalYear(newFy));
+    };
+
+    useEffect(() => {
         if (!fy) {
             // this may be an issue on the first day of 2026 fiscal year
             // history(`/state/${stateName}/latest`, { replace: true });
@@ -99,8 +122,6 @@ const StateContainer = () => {
         }
         else {
             dispatch(setStateFiscalYear(fy));
-            loadStateOverview(stateId, fy);
-            setCenter(stateId);
         }
 
         return () => {
@@ -109,35 +130,12 @@ const StateContainer = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    useEffect(() => {
-        const [, , stateId] = parseStateDataFromUrl(state);
-        // Reset the FY
-        dispatch(setStateFiscalYear(fy));
-        loadStateOverview(stateId, fy);
-        // Update the map center
-        setCenter(stateId);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [state]);
-
-    useEffect(() => {
-        // we just redirected the user or to the new url which includes the fy selection
-        dispatch(setStateFiscalYear(fy));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fy]);
-
-    useEffect(() => {
-        const [, , stateId] = parseStateDataFromUrl(state);
-        loadStateOverview(stateId, stateProfile.fy);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [stateProfile.fy]);
-
     return (
-        <StatePage
-            loading={statusState.loading}
-            error={statusState.error}
-            id={stateProfile.id}
-            stateProfile={stateProfile}
-            pickedFy={onClickFy} />
+        <Navigate
+            onClickFy={onClickFy}
+            stateId={stateId}
+            state={state}
+            fy={fy} />
     );
 };
 
