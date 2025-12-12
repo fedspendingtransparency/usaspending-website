@@ -85,9 +85,11 @@ export const statePageToolbarComponents = (stateProfile, handleFyChange, handleS
             backgroundColor={backgroundColor}
             selectedFy={stateProfile?.fy}
             handleFyChange={handleFyChange}
-            options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
+            options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())}
+            key="state-page__fy-picker" />,
         <ShareIcon
             onShareOptionClick={handleShare}
-            url={getBaseUrl(slug)} />
+            url={getBaseUrl(slug)}
+            key="state-page__share-icon" />
     ]);
 };
