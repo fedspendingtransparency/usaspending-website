@@ -12,7 +12,7 @@ const DownloadButton = () => {
     const logDownloadButtonClick = () => {
         Analytics.event({
             event: "dap_event",
-            category: "USAspending - About the Data Side Panel",
+            category: "About the Data Side Panel",
             action: "Download",
             label: "pdf"
         });

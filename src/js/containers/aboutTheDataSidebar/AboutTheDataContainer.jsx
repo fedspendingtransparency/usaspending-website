@@ -41,9 +41,9 @@ export const AboutTheDataContainer = (props) => {
                 // only fire once name and slug are set.
                 Analytics.event({
                     event: "dap_event",
-                    category: "USAspending - About the Data Side Panel",
+                    category: "About the Data Side Panel",
                     action: "Side Panel Open",
-                    label: `slug = ${term.slug} - term = ${term.name}`
+                    label: `${term.slug} - ${term.name}`
                 });
             }
         }

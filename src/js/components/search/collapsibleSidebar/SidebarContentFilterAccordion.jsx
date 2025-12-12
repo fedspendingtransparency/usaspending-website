@@ -17,7 +17,7 @@ const SidebarContentFilterAccordion = ({
     const onToggle = () => {
         Analytics.event({
             event: "dap_event",
-            category: "USAspending - Advanced Search - Filter",
+            category: "Advanced Search - Filter",
             action: open[title] ? "Filter Close" : "Filter Open",
             label: title.concat(" ", open[title] ? "close" : "open")
         });
