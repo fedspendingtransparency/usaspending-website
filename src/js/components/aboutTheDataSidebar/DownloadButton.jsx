@@ -27,7 +27,7 @@ const DownloadButton = () => {
                 rel="noopener noreferrer"
                 className="atd__download-button"
                 download
-                onClick={logDownloadButtonClick()}>
+                onClick={logDownloadButtonClick}>
                 <FontAwesomeIcon data-href="/data/about-the-data-download.pdf" icon="file-download" className="atd__download-icon" />
             Download
             </a>
