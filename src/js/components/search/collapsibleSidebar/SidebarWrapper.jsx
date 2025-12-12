@@ -13,7 +13,6 @@ import {
     sideBarXlDesktopWidth, panelContainerElClasses, checkInView
 } from "helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
-import Analytics from '../../../helpers/analytics/Analytics';
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func,
@@ -153,14 +152,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         handleScroll();
     }, 30);
 
-    const logSidebarToggle = (event) => {
-        Analytics.event({
-            category: 'Advanced Search - Sidebar Toggle',
-            action: `toggled-sidebar-${event}`,
-            label: `${event}ed advanced sidebar`
-        });
-    };
-
     const openSidebar = (width) => {
         const sidebarElSelector = isMobile ? ".mobile-search-sidebar-v2" : ".full-search-sidebar";
         document.querySelector(sidebarElSelector).style.width = "unset";
@@ -173,7 +164,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 slider.style.display = "flex";
             }
         }
-        logSidebarToggle('open');
     };
 
     const closeSidebar = () => {
@@ -189,7 +179,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 slider.style.display = "none";
             }
         }
-        logSidebarToggle('close');
     };
 
     const handleScrollEnd = (e) => {

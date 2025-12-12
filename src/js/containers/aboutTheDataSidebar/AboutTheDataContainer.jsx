@@ -40,9 +40,10 @@ export const AboutTheDataContainer = (props) => {
             if (term.name && term.slug) {
                 // only fire once name and slug are set.
                 Analytics.event({
-                    category: 'About the Data Link Clicked',
-                    action: `about-the-data-click-${term.slug}`,
-                    label: `About the Data ${term.name} link clicked`
+                    event: "dap_event",
+                    category: "USAspending - About the Data Side Panel",
+                    action: "Side Panel Open",
+                    label: `slug = ${term.slug} - term = ${term.name}`
                 });
             }
         }

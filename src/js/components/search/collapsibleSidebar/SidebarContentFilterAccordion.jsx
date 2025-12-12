@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import Accordion from "../../sharedComponents/accordion/Accordion";
+import Analytics from '../../../helpers/analytics/Analytics';
 
 const propTypes = {
     title: PropTypes.string,
@@ -12,20 +13,33 @@ const propTypes = {
 
 const SidebarContentFilterAccordion = ({
     title, component, open, setOpen, count
-}) => (
-    <div className="search-filters-list">
-        <Accordion
-            title={title}
-            setOpen={() => setOpen({ ...open, [title]: !open[title] })}
-            openObject={open[title]}
-            closedIcon="chevron-down"
-            openIcon="chevron-up"
-            contentClassName={open[title] ? '' : 'hidden'}
-            selectedChipCount={count}>
-            { open[title] && component }
-        </Accordion>
-    </div>
-);
+}) => {
+    const onToggle = () => {
+        Analytics.event({
+            event: "dap_event",
+            category: "USAspending - Advanced Search - Filter",
+            action: open[title] ? "Filter Close" : "Filter Open",
+            label: title.concat(" ", open[title] ? "close" : "open")
+        });
 
+        setOpen({ ...open, [title]: !open[title] });
+    };
+
+    return (
+        <div className="search-filters-list">
+            <Accordion
+                key={title}
+                title={title}
+                setOpen={onToggle}
+                openObject={open[title]}
+                closedIcon="chevron-down"
+                openIcon="chevron-up"
+                contentClassName={open[title] ? '' : 'hidden'}
+                selectedChipCount={count}>
+                { open[title] && component }
+            </Accordion>
+        </div>
+    );
+};
 SidebarContentFilterAccordion.propTypes = propTypes;
 export default SidebarContentFilterAccordion;

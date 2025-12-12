@@ -39,15 +39,6 @@ export const logSingleDownloadField = (type, name, value) => {
     });
 };
 
-export const logDownloadButtonClick = (location, action) => {
-    Analytics.event({
-        event: 'download_button_click',
-        category: `${location} - Download clicked`,
-        action,
-        label: `${location} - Download button clicked`
-    });
-};
-
 // returns a function that accesses the value selected by the user for a given filter
 const selectedValueByFilterType = {
     awardLevels: (obj) => Object.keys(obj)
