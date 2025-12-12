@@ -137,23 +137,13 @@ const SearchPage = ({
             <div id="main-content">
                 <div
                     className="search-contents v2"
-                    style={{
-                        height: "500px", position: "sticky", top: 0, left: 0, alignSelf: "flex-start"
-                    }}>
-                    {fullSidebar}
-
-                    <p>hello world</p>
-                    <p>hello world</p>
-                    <p>hello world</p>
-                    <p>hello world</p>
-                    <p>hello world</p>
-                    <p>hello world</p>
-                    <p>hello world</p>
-                    <p>hello world</p>
-                    <p>hello world</p>
-                </div>
-
-                <div>
+                    style={{ height: "3000px" }}>
+                    <div
+                        style={{
+                            height: "500px", position: "sticky", top: 0, left: 0, alignSelf: "flex-start"
+                        }}>
+                        {fullSidebar}
+                    </div>
                     <MobileFilterButton
                         filterCount={filterCount}
                         showMobileFilters={showMobileFilters}

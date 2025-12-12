@@ -1,10 +1,10 @@
 .search-contents {
-    @include flex(1 1 auto);
+    //@include flex(1 1 auto);
     @include display(flex);
-    //@include flex-direction(row);
+    @include flex-direction(row);
     @include justify-content(flex-start);
-    @include align-items(stretch);
-    position: relative;
+    //@include align-items(stretch);
+    //position: relative;
 
 
     .search-page__results-view {
