@@ -19,7 +19,7 @@ import AwardBreakdownContainer from
 import GeoVisualizationSectionContainer from
     'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
 import DetailsTooltip from 'components/state/overview/DetailsTooltip';
-import SummaryStats from 'components/state/overview/SummaryStats';
+import SummaryStats from 'features/state/overview/SummaryStats';
 import { generateUrlHash } from "helpers/searchHelper";
 import RoundedToggle from "components/sharedComponents/RoundedToggle";
 import Accordion from "components/sharedComponents/accordion/Accordion";
@@ -41,8 +41,8 @@ const StateOverview = ({ stateProfile }) => {
         let hideFlagPrep = 'hide';
 
         if (stateProfile.flag !== '') {
-            flagPrep = '';
-            hideFlagPrep = (
+            hideFlagPrep = '';
+            flagPrep = (
                 <img src={stateProfile.flag} alt={stateProfile.name} />
             );
         }
