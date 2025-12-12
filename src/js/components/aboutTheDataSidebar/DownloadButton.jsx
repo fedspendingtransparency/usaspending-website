@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { logDownloadButtonClick } from '../../containers/bulkDownload/helpers/downloadAnalytics';
 
 const DownloadButton = () => (
     <div className="atd__download-wrapper">
@@ -14,7 +15,8 @@ const DownloadButton = () => (
             aria-label="Download"
             rel="noopener noreferrer"
             className="atd__download-button"
-            download>
+            download
+            onClick={logDownloadButtonClick('About the Data', 'about-the-data-download-click')}>
             <FontAwesomeIcon data-href="/data/about-the-data-download.pdf" icon="file-download" className="atd__download-icon" />
             Download
         </a>

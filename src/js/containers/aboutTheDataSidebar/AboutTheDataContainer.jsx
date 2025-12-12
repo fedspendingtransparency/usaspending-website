@@ -12,6 +12,7 @@ import AboutTheData from 'components/aboutTheDataSidebar/AboutTheData';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { getDrilldownEntry } from 'helpers/aboutTheDataSidebarHelper';
 import schema from '../../../config/aboutTheData/aboutTheDataSchema';
+import Analytics from '../../helpers/analytics/Analytics';
 
 require('components/aboutTheDataSidebar/aboutTheData.scss');
 
@@ -25,12 +26,24 @@ const propTypes = {
 
 export const AboutTheDataContainer = (props) => {
     useEffect(() => {
-        const { termFromUrl } = props.aboutTheDataSidebar;
+        const { termFromUrl, term, display } = props.aboutTheDataSidebar;
+
         if (termFromUrl) {
             const drilldownEntry = getDrilldownEntry(schema, termFromUrl);
             if (drilldownEntry) {
                 props.setAboutTheDataTerm(drilldownEntry);
                 props.setAboutTheDataTermFromUrl('');
+            }
+        }
+        if (display) {
+            // only fire analytics if sidebar is open.
+            if (term.name && term.slug) {
+                // only fire once name and slug are set.
+                Analytics.event({
+                    category: 'About the Data Link Clicked',
+                    action: `about-the-data-click-${term.slug}`,
+                    label: `About the Data ${term.name} link clicked`
+                });
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
