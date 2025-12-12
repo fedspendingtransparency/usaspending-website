@@ -9,7 +9,7 @@ import { Helmet } from 'react-helmet';
 
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
-import StateContent from '../../components/state/StateContent';
+import StateContent from './StateContent';
 import StatePageWrapper from "./StatePageWrapper";
 
 const propTypes = {

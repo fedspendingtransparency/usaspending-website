@@ -7,10 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 
-import StateTimeVisualizationSectionContainer from 'containers/state/StateTimeVisualizationSectionContainer';
-import TopFiveSection from './topFive/TopFiveSection';
-import StateOverview from './overview/StateOverview';
-import StateFooter from './StateFooter';
+import StateTimeVisualizationSectionContainer from
+    'containers/state/StateTimeVisualizationSectionContainer';
+import TopFiveSection from '../../components/state/topFive/TopFiveSection';
+import StateOverview from '../../components/state/overview/StateOverview';
+import StateFooter from '../../components/state/StateFooter';
 
 
 const propTypes = {
