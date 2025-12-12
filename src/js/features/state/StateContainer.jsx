@@ -4,36 +4,33 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { useNavigate, useMatch } from 'react-router';
+
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import * as StateHelper from 'helpers/stateHelper';
-import * as stateActions from 'redux/actions/state/stateActions';
+import {
+    setStateOverview,
+    resetState,
+    setStateFiscalYear,
+    setStateCenter
+} from 'redux/actions/state/stateActions';
 import { stateCenterFromFips } from 'helpers/mapHelper';
-
 import StatePage from 'components/state/StatePage';
-import { parseStateDataFromUrl } from '../../helpers/stateHelper';
+import { parseStateDataFromUrl } from 'helpers/stateHelper';
 
 require('pages/state/statePage.scss');
 
-const propTypes = {
-    stateProfile: PropTypes.object,
-    setStateOverview: PropTypes.func,
-    resetState: PropTypes.func,
-    setStateFiscalYear: PropTypes.func,
-    setStateCenter: PropTypes.func
-};
-
-const StateContainer = (props) => {
-    let fullRequest = null;
+const StateContainer = () => {
+    const stateProfile = useSelector((state) => state.stateProfile);
+    const dispatch = useDispatch();
     const navigate = useNavigate();
     const match = useMatch(`/state/:state/:fyParam?`);
     const { state, fyParam } = match.params;
 
     const fy = fyParam;
+    let fullRequest = null;
 
     const [statusState, setStatusState] = useState({
         loading: true,
@@ -43,21 +40,21 @@ const StateContainer = (props) => {
     const onClickFy = (newFy) => {
         const [, stateName] = parseStateDataFromUrl(state);
         navigate(`/state/${stateName}/${newFy}`);
-        props.setStateFiscalYear(newFy);
+        dispatch(setStateFiscalYear(newFy));
     };
 
-    const setStateCenter = useCallback((id) => {
+    const setCenter = useCallback((id) => {
         const center = stateCenterFromFips(id);
-        props.setStateCenter(center);
+        dispatch(setStateCenter(center));
     });
 
     const parseOverview = (data) => {
         if (Object.keys(data).length === 0) {
             return;
         }
-        const stateProfile = Object.create(BaseStateProfile);
-        stateProfile.populate(data);
-        props.setStateOverview(stateProfile);
+        const newStateProfile = Object.create(BaseStateProfile);
+        newStateProfile.populate(data);
+        dispatch(setStateOverview(newStateProfile));
     };
 
     const loadStateOverview = useCallback((id, year) => {
@@ -94,20 +91,20 @@ const StateContainer = (props) => {
 
         if (!fy) {
             // this may be an issue on the first day of 2026 fiscal year
-            // props.history(`/state/${stateName}/latest`, { replace: true });
+            // history(`/state/${stateName}/latest`, { replace: true });
             navigate(`/state/${stateName}/2026`, { replace: true });
         }
         else if (!wasInputStateName) {
             navigate(`/state/${stateName}/${fy}`, { replace: true });
         }
         else {
-            props.setStateFiscalYear(fy);
+            dispatch(setStateFiscalYear(fy));
             loadStateOverview(stateId, fy);
-            setStateCenter(stateId);
+            setCenter(stateId);
         }
 
         return () => {
-            props.resetState();
+            dispatch(resetState());
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -115,40 +112,33 @@ const StateContainer = (props) => {
     useEffect(() => {
         const [, , stateId] = parseStateDataFromUrl(state);
         // Reset the FY
-        props.setStateFiscalYear(fy);
+        dispatch(setStateFiscalYear(fy));
         loadStateOverview(stateId, fy);
         // Update the map center
-        setStateCenter(stateId);
+        setCenter(stateId);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state]);
 
     useEffect(() => {
         // we just redirected the user or to the new url which includes the fy selection
-        props.setStateFiscalYear(fy);
+        dispatch(setStateFiscalYear(fy));
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fy]);
 
     useEffect(() => {
         const [, , stateId] = parseStateDataFromUrl(state);
-        loadStateOverview(stateId, props.stateProfile.fy);
+        loadStateOverview(stateId, stateProfile.fy);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.stateProfile.fy]);
+    }, [stateProfile.fy]);
 
     return (
         <StatePage
             loading={statusState.loading}
             error={statusState.error}
-            id={props.stateProfile.id}
-            stateProfile={props.stateProfile}
+            id={stateProfile.id}
+            stateProfile={stateProfile}
             pickedFy={onClickFy} />
     );
 };
 
-StateContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        stateProfile: state.stateProfile
-    }),
-    (dispatch) => bindActionCreators(stateActions, dispatch)
-)(StateContainer);
+export default StateContainer;
