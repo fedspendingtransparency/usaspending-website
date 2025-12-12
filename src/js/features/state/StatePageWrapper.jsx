@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { find, throttle } from "lodash-es";
+import { find } from "lodash-es";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -13,6 +13,7 @@ import useQueryParams from "hooks/useQueryParams";
 import { mediumScreen } from "dataMapping/shared/mobileBreakpoints";
 import { showModal } from "redux/actions/modal/modalActions";
 import { statePageToolbarComponents } from "./stateHelper";
+import useWindowWidth from "../../hooks/useWindowWidth";
 
 const stateSections = [
     {
@@ -41,11 +42,11 @@ const StatePageWrapper = ({
 }) => {
     const query = useQueryParams();
     const history = useNavigate();
+    const windowWidth = useWindowWidth();
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    const [windowWidth, setWindowWidth] = useState(0);
 
     const dispatch = useDispatch();
+    const isMobile = windowWidth < mediumScreen;
 
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
@@ -93,18 +94,6 @@ const StatePageWrapper = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query.section, loading]);
-
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
 
     return (
         <PageWrapper
