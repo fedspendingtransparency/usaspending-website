@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Analytics from '../../helpers/analytics/Analytics';
+import Analytics from 'helpers/analytics/Analytics';
 
 
 const DownloadButton = () => {
