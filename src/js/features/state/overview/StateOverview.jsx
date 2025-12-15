@@ -16,7 +16,7 @@ import GeoVisualizationSectionContainer from
     'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
 import SummaryStats from 'features/state/overview/SummaryStats';
 import AwardBreakdownHeader from "./AwardBreakdownHeader";
-import AwardBreakdownCard from "./AwardBreakdownCard";
+import AwardBreakdownCard from "./card/AwardBreakdownCard";
 
 const StateOverview = () => {
     const { overview, fy, id } = useSelector((state) => state.stateProfile);

@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { CardBody, CardButton, CardContainer, CardHero, FlexGridCol } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { isCancel } from "axios";
 
 import { REQUEST_VERSION } from "GlobalConstants";
-import { InfoCircle } from "components/sharedComponents/icons/Icons";
-import DetailsTooltip from "components/state/overview/DetailsTooltip";
 import { initialState as defaultFilters } from "redux/reducers/search/searchFiltersReducer";
 import { generateUrlHash } from "helpers/searchHelper";
+import AwardBreakdownCardHeadline from "./AwardBreakdownCardHeadline";
 
 const propTypes = {
     overview: PropTypes.object
 };
 
 const AwardBreakdownCard = ({ overview }) => {
-    const [showInfoTooltip, setShowInfoTooltip] = useState(false);
-
     let populationSourceYearLabel = '';
     let incomeSourceYearLabel = '';
     const {
@@ -30,23 +27,6 @@ const AwardBreakdownCard = ({ overview }) => {
         medianHouseholdIncome
     } = overview;
     const usaCode = `USA_${code}`;
-
-    useEffect(() => {
-        if (showInfoTooltip) {
-            const closeButton = document.querySelector('#state-overview-tooltip__close_icon');
-            if (closeButton) {
-                closeButton.focus();
-            }
-        }
-    }, [showInfoTooltip]);
-
-    const showTooltip = () => {
-        setShowInfoTooltip(true);
-    };
-
-    const closeTooltip = () => {
-        setShowInfoTooltip(false);
-    };
 
     const getSelectedHash = () => {
         const filterValue = {
@@ -108,15 +88,6 @@ const AwardBreakdownCard = ({ overview }) => {
         incomeSourceYearLabel = `(${incomeSourceYear} est.)`;
     }
 
-    let tooltip = null;
-    if (showInfoTooltip) {
-        tooltip = (
-            <DetailsTooltip
-                showInfoTooltip={showInfoTooltip}
-                closeTooltip={closeTooltip} />
-        );
-    }
-
     return (
         <FlexGridCol width={4} desktop={4} tablet={12} mobile={12}l>
             <div className="state-section__viz details state-overview__heading">
@@ -124,25 +95,7 @@ const AwardBreakdownCard = ({ overview }) => {
                     <CardHero fill="#005ea2" />
                     <CardBody
                         customClassName="details-card-body"
-                        headline={
-                            <div className="state-section__viz">
-                                <h3 className="state-overview__heading">
-                                    Details
-                                    <span className="details__info_icon_holder">
-                                        <button
-                                            id="details__info_icon"
-                                            className="details__info_icon"
-                                            onFocus={showTooltip}
-                                            onBlur={closeTooltip}
-                                            onMouseEnter={showTooltip}
-                                            onClick={showTooltip}>
-                                            <InfoCircle />
-                                        </button>
-                                    </span>
-                                </h3>
-                                {tooltip}
-                            </div>
-                        }
+                        headline={<AwardBreakdownCardHeadline />}
                         text={
                             <div className="details-info">
                                 <div className="details-header">Count</div>
