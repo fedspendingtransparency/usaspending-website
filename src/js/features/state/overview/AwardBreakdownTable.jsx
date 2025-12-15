@@ -11,10 +11,11 @@ const propTypes = {
     hasNegatives: PropTypes.bool
 };
 
-const AwardBreakdownTable = (props) => {
-    const amountType = props.toggleState ? "totalOutlays" : "amount";
+const AwardBreakdownTable = ({ toggleState, awardBreakdown, hasNegatives }) => {
+    const amountType = toggleState ? "totalOutlays" : "amount";
+    const amountTypeHeader = toggleState ? "Outlays" : "Obligations";
 
-    const generateRows = () => props.awardBreakdown.map((row) => (
+    const generateRows = () => awardBreakdown.map((row) => (
         <tr
             className="award-breakdown-table__row"
             key={row.type}>
@@ -25,7 +26,7 @@ const AwardBreakdownTable = (props) => {
     ));
 
     let greatThanOneHundredDescription = null;
-    if (props.hasNegatives) {
+    if (hasNegatives) {
         greatThanOneHundredDescription = (
             <p>
                 <em><strong>Note:</strong> The award types above add up to more
@@ -40,7 +41,7 @@ const AwardBreakdownTable = (props) => {
                 <thead className="award-breakdown-table__head">
                     <tr className="award-breakdown-table__row">
                         <th className="award-breakdown-table__header-cell">Award Type</th>
-                        <th className="award-breakdown-table__header-cell">{props.toggleState ? "Outlays" : "Obligations"}</th>
+                        <th className="award-breakdown-table__header-cell">{amountTypeHeader}</th>
                         <th className="award-breakdown-table__header-cell">Count</th>
                     </tr>
                 </thead>
