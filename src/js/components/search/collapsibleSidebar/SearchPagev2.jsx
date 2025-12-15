@@ -136,11 +136,10 @@ const SearchPage = ({
             filters={appliedFilters}>
             <div id="main-content">
                 <div
-                    className="search-contents v2"
-                    style={{ height: "3000px" }}>
+                    className="search-contents v2">
                     <div
                         style={{
-                            height: "500px", position: "sticky", top: 0, left: 0, alignSelf: "flex-start"
+                            position: "sticky", top: 0, left: 0, alignSelf: "flex-start"
                         }}>
                         {fullSidebar}
                     </div>

@@ -10,12 +10,11 @@ import Keyword from "components/search/filters/keyword/Keyword";
 import SidebarContentFilterAccordion from "./SidebarContentFilterAccordion";
 
 const propTypes = {
-    isDsmOpened: PropTypes.bool,
     sidebarContentHeight: PropTypes.number,
     isMobile: PropTypes.bool
 };
 
-const SidebarContentFilters = ({ isDsmOpened, sidebarContentHeight, isMobile }) => {
+const SidebarContentFilters = ({ sidebarContentHeight, isMobile }) => {
     const [open, setOpen] = useState({
         Location: false,
         "Time Period": true,
@@ -52,25 +51,21 @@ const SidebarContentFilters = ({ isDsmOpened, sidebarContentHeight, isMobile }) 
     );
 
     return (
-        <>
-            {!isDsmOpened && (
-                <div
-                    className="collapsible-sidebar--search-filters-list"
-                    style={{ height: sidebarContentHeight }}>
-                    <Keyword searchV2 />
-                    {searchFilterCategoryTree.map(({ title, component }) => (
-                        <SidebarContentFilterAccordion
-                            title={title}
-                            component={component}
-                            open={open}
-                            setOpen={setOpen}
-                            count={filterCount[title]}
-                            isMobile={isMobile} />
-                    ))}
-                    {!isMobile && <Alert body={alertBody} className="keyword-link" icon />}
-                </div>
-            )}
-        </>
+        <div
+            className="collapsible-sidebar--search-filters-list"
+            style={{ height: sidebarContentHeight }}>
+            <Keyword searchV2 />
+            {searchFilterCategoryTree.map(({ title, component }) => (
+                <SidebarContentFilterAccordion
+                    title={title}
+                    component={component}
+                    open={open}
+                    setOpen={setOpen}
+                    count={filterCount[title]}
+                    isMobile={isMobile} />
+            ))}
+            {!isMobile && <Alert body={alertBody} className="keyword-link" icon />}
+        </div>
     );
 };
 

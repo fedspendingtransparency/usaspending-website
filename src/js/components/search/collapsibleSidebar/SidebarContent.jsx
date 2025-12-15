@@ -10,8 +10,6 @@ import SearchSidebarSubmitContainer from "../../../containers/search/SearchSideb
 import * as Icons from '../../../components/sharedComponents/icons/Icons';
 import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import SidebarContentFilters from "./SidebarContentFilters";
-// removed in DEV-13712
-// import DsmSlider from "./DsmSlider";
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
@@ -23,10 +21,7 @@ const propTypes = {
 
 const SidebarContent = ({
     sidebarContentHeight,
-    setShowMobileFilters,
-    // removed in DEV-13712
-    // setIsDsmOpened,
-    isDsmOpened
+    setShowMobileFilters
 }) => {
     const [isSmall, setIsSmall] = useState(window.innerWidth < mediumScreen);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -57,18 +52,7 @@ const SidebarContent = ({
                         <Icons.Close alt="Close About The Data" />
                     </button>
                 </div>}
-                <SidebarContentFilters
-                    isDsmOpened={isDsmOpened}
-                    sidebarContentHeight={sidebarContentHeight} />
-                {/* removed in DEV-13712 */}
-                {/* <DsmSlider */}
-                {/*     isDsmOpened={isDsmOpened} */}
-                {/*     setIsDsmOpened={setIsDsmOpened} */}
-                {/*     dsmFile="learn-filters-panel.mdx" */}
-                {/*     currentLevel={1} */}
-                {/*     selectedCategoryTitle="" */}
-                {/*     height={sidebarContentHeight} */}
-                {/*     hasChildren={false} /> */}
+                <SidebarContentFilters sidebarContentHeight={sidebarContentHeight} />
             </div>
             <div className="sidebar-bottom-submit">
                 <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />

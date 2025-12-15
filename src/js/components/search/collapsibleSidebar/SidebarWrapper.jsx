@@ -34,7 +34,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const [sidebarContentHeight, setSidebarContentHeight] = useState();
     const [mainContentHeight, setMainContentHeight] = useState();
     const [isOpened, setIsOpened] = useState(sidebarOpen);
-    const [sidebarIsSticky, setSidebarIsSticky] = useState();
     const [isFooterVisible, setIsFooterVisible] = useState();
     const [isDsmOpened, setIsDsmOpened] = useState(false);
     const [headerHeight, setHeaderHeight] = useState();
@@ -87,21 +86,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         setSidebarContentHeight(sidebarContentArea - margins);
     };
 
-    const resizeHeightByHeader = () => {
-        const mainContentInView = checkInView(mainContentEl);
 
-        const sidebarContentArea = mainContentInView - sidebarStaticEls;
-
-        setSidebarHeight(mainContentInView);
-        setSidebarContentHeight(sidebarContentArea);
-    };
-
-    const updatePosition = (isHeaderSticky) => {
+    const updatePosition = () => {
         const tmpFooterInView = checkInView(footerEl) + footerMargin;
 
-        // if (!isHeaderSticky) {
-        //     resizeHeightByHeader();
-        // }
         if (document.querySelector(".search-collapsible-sidebar-container")) {
             const mainContentInView = checkInView(mainContentEl);
             const sidebarContentArea = mainContentInView - (sidebarStaticEls + additionalRibbonHeight);
@@ -121,7 +109,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         setIsFooterVisible(tmpFooterInView > 0);
 
         updatePosition();
-
     }, 20);
 
     const keyHandler = (e, func) => {
@@ -145,12 +132,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         document.querySelector(".full-search-sidebar").style.flexBasis = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.width = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
-        const allDsmSlidersToOpen = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
-        if (allDsmSlidersToOpen.length) {
-            for (const slider of allDsmSlidersToOpen.values()) {
-                // slider.style.display = "flex";
-            }
-        }
+        // const allDsmSlidersToOpen = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
+        // if (allDsmSlidersToOpen.length) {
+        //     for (const slider of allDsmSlidersToOpen.values()) {
+        //         // slider.style.display = "flex";
+        //     }
+        // }
     };
 
     const closeSidebar = () => {
@@ -200,8 +187,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     }, [sidebarHeight, sidebarContentHeight]);
 
     useEffect(() => {
+        // TODO need to eventually remove the v2
         if (window.scrollY === 0) {
-            // document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
+            document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
         }
 
         handleScroll();
@@ -215,21 +203,21 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     useEffect(() => {
         // eslint-disable-next-line no-undef
-        // const mainContentResizeObserver = new ResizeObserver((entries) => {
-        //     setMainContentHeight(entries[0].target?.clientHeight);
-        // });
-
-        // eslint-disable-next-line no-undef
-        const headerResizeObserver = new ResizeObserver((entries) => {
-            setHeaderHeight(entries[0].target?.clientHeight);
+        const mainContentResizeObserver = new ResizeObserver((entries) => {
+            setMainContentHeight(entries[0].target?.clientHeight);
         });
 
+        // eslint-disable-next-line no-undef
+        // const headerResizeObserver = new ResizeObserver((entries) => {
+        //     setHeaderHeight(entries[0].target?.clientHeight);
+        // });
 
-        // const mainContent = document.querySelector("#main-content");
-        // mainContentResizeObserver.observe(mainContent);
 
-        const siteHeader = document.querySelector(".site-header");
-        headerResizeObserver.observe(siteHeader);
+        const mainContent = document.querySelector("#main-content");
+        mainContentResizeObserver.observe(mainContent);
+
+        // const siteHeader = document.querySelector(".site-header");
+        // headerResizeObserver.observe(siteHeader);
 
         handleResize();
 
@@ -243,7 +231,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             window.removeEventListener('scrollend', (e) => handleScrollEnd(e));
 
             // mainContentResizeObserver?.unobserve(mainContent);
-            headerResizeObserver?.unobserve(siteHeader);
+            // headerResizeObserver?.unobserve(siteHeader);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -263,7 +251,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     return (
         <>
             <div
-                className={`search-collapsible-sidebar-container search-sidebar sticky`}>
+                className="search-collapsible-sidebar-container search-sidebar sticky">
                 <div
                     style={{ height: selectHeight(), overscrollBehavior: "none", position: "sticky" }}
                     className={
