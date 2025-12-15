@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/16/18
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { truncate } from 'lodash-es';
 
@@ -44,69 +44,47 @@ const AwardTypeCell = ({
     width,
     labelView
 }) => {
-    const [label, setLabel] = useState('');
-    const [didProcess, setDidProcess] = useState(false);
     const svgRef = useRef(null);
-
-    const initialRender = useCallback(() => {
-        setLabel(initialLabel);
-        setDidProcess(false);
-    }, [initialLabel]);
-
-    useEffect(() => {
-        initialRender();
-    }, [initialRender]);
 
     const onMouseEnter = () => {
         toggleTooltipIn(awardType);
     };
 
-    const truncateText = useCallback(() => {
-        const labelWidth = x1 - x0;
+    const labelWidth = x1 - x0;
 
-        // determine if the text needs to be truncated
-        // get the current label width
+    // determine if the text needs to be truncated
+    // get the current label width
 
-        // We have to wrap this in a try/catch to prevent Firefox from dying when trying
-        // to compute the bounded box of small SVG elements
-        let fullWidth = 0;
-        try {
-            fullWidth = svgRef.current.getBBox().width;
-        }
-        catch (e) {
-            // Firefox can't compute bbox
-        }
+    // We have to wrap this in a try/catch to prevent Firefox from dying when trying
+    // to compute the bounded box of small SVG elements
+    let fullWidth = 0;
+    try {
+        fullWidth = svgRef.current.getBBox().width;
+    }
+    catch (e) {
+        // Firefox can't compute bbox
+    }
 
-        // accounting for 15px margin
-        const maxWidth = labelWidth / 1.5;
-        let maxChars = 0;
+    // accounting for 15px margin
+    const maxWidth = labelWidth / 1.5;
+    let maxChars = 0;
 
-        let truncatedLabel = initialLabel;
+    let truncatedLabel = initialLabel;
 
-        // make sure that the max width is positive
-        if (fullWidth > maxWidth && maxWidth > 0) {
-            // the label is going to exceed the available space, truncate it
-            // calculate the average character width
-            const avgCharWidth = (fullWidth / initialLabel.length);
+    // make sure that the max width is positive
+    if (fullWidth > maxWidth && maxWidth > 0) {
+        // the label is going to exceed the available space, truncate it
+        // calculate the average character width
+        const avgCharWidth = (fullWidth / initialLabel.length);
 
-            // determine how many characters can fit in the available space
-            maxChars = Math.floor((maxWidth) / avgCharWidth);
+        // determine how many characters can fit in the available space
+        maxChars = Math.floor((maxWidth) / avgCharWidth);
 
-            // truncate the label
-            truncatedLabel = truncate(initialLabel, {
-                length: maxChars
-            });
-        }
-
-        setLabel(truncatedLabel);
-        setDidProcess(true);
-    }, [initialLabel, x0, x1]);
-
-    useEffect(() => {
-        if (!didProcess) {
-            truncateText();
-        }
-    }, [truncateText, didProcess]);
+        // truncate the label
+        truncatedLabel = truncate(initialLabel, {
+            length: maxChars
+        });
+    }
 
     return (
         <g
@@ -136,7 +114,7 @@ const AwardTypeCell = ({
                     fill: textColor,
                     opacity
                 }}>
-                {label}
+                {truncatedLabel}
             </text>
         </g>
     );

@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useCallback } from "react";
 import AwardTypeCell from "features/state/overview/treemap/AwardTypeCell";
 
 const AwardBreakdownTreeMapCells = ({ virtualChart, setHoveredAwardType }) => {
-    const toggleTooltipIn = (awardTypeId) => {
+    const toggleTooltipIn = useCallback((awardTypeId) => {
         setHoveredAwardType(awardTypeId);
-    };
+    }, [setHoveredAwardType]);
 
-    const toggleTooltipOut = () => {
+    const toggleTooltipOut = useCallback(() => {
         setHoveredAwardType('');
-    };
+    }, [setHoveredAwardType]);
 
     const cells = virtualChart.map((cell) => (
         <AwardTypeCell
