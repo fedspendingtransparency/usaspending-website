@@ -11,10 +11,10 @@ import { initialState as defaultFilters } from "redux/reducers/search/searchFilt
 import { generateUrlHash } from "helpers/searchHelper";
 
 const propTypes = {
-    stateProfile: PropTypes.object
+    overview: PropTypes.object
 };
 
-const AwardBreakdownCard = ({ stateProfile }) => {
+const AwardBreakdownCard = ({ overview }) => {
     const [showInfoTooltip, setShowInfoTooltip] = useState(false);
 
     let populationSourceYearLabel = '';
@@ -28,7 +28,7 @@ const AwardBreakdownCard = ({ stateProfile }) => {
         incomeSourceYear,
         awardAmountPerCapita,
         medianHouseholdIncome
-    } = stateProfile;
+    } = overview;
     const usaCode = `USA_${code}`;
 
     useEffect(() => {
@@ -98,7 +98,7 @@ const AwardBreakdownCard = ({ stateProfile }) => {
 
     const handleGoToAdvancedSearch = (e) => {
         e?.preventDefault();
-        getSelectedHash(stateProfile);
+        getSelectedHash(overview);
     };
 
     if ((population !== "--") && populationSourceYear) {

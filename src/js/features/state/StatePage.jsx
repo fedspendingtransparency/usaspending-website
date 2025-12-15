@@ -33,10 +33,8 @@ const StatePage = ({
     let content = (
         <FlexGridRow className="state-content-wrapper">
             <FlexGridCol className="state-content">
-                <StateOverview
-                    stateProfile={stateProfile.overview} />
-                <StateTimeVisualizationSectionContainer
-                    stateProfile={stateProfile.overview} />
+                <StateOverview />
+                <StateTimeVisualizationSectionContainer stateProfile={stateProfile.overview} />
                 <TopFiveSection />
                 <StateFooter />
             </FlexGridCol>

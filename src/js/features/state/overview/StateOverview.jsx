@@ -4,25 +4,22 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     SectionHeader, FlexGridRow, FlexGridCol
 } from "data-transparency-ui";
+import { useSelector } from "react-redux";
 
 import AwardBreakdownContainer from
-    'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
+    'features/state/overview/AwardBreakdownContainer';
 import GeoVisualizationSectionContainer from
     'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
 import SummaryStats from 'features/state/overview/SummaryStats';
 import AwardBreakdownHeader from "./AwardBreakdownHeader";
 import AwardBreakdownCard from "./AwardBreakdownCard";
 
-const propTypes = {
-    stateProfile: PropTypes.object
-};
-
-const StateOverview = ({ stateProfile }) => {
+const StateOverview = () => {
+    const { overview, fy, id } = useSelector((state) => state.stateProfile);
     const [hideFlag, setHideFlag] = useState(true);
     const [flag, setFlag] = useState('');
     const [toggle, setToggle] = useState(false);
@@ -31,16 +28,16 @@ const StateOverview = ({ stateProfile }) => {
         let flagPrep = null;
         let hideFlagPrep = 'hide';
 
-        if (stateProfile.flag !== '') {
+        if (overview.flag !== '') {
             hideFlagPrep = '';
             flagPrep = (
-                <img src={stateProfile.flag} alt={stateProfile.name} />
+                <img src={overview.flag} alt={overview.name} />
             );
         }
 
         setFlag(flagPrep);
         setHideFlag(hideFlagPrep);
-    }, [stateProfile.flag, stateProfile.name, stateProfile.id]);
+    }, [overview.flag, overview.name, overview.id]);
 
     return (
         <div
@@ -50,7 +47,7 @@ const StateOverview = ({ stateProfile }) => {
                 <div className={`state-overview__flag ${hideFlag}`}>
                     {flag}
                 </div>
-                <h2 className="state-overview__title">{stateProfile.name}</h2>
+                <h2 className="state-overview__title">{overview.name}</h2>
             </div>
             <SectionHeader
                 icon={<FontAwesomeIcon icon="map-marker-alt" size="2x" />}
@@ -60,17 +57,17 @@ const StateOverview = ({ stateProfile }) => {
             <hr className="results-divider" />
             <div className="state-overview__content">
                 <div className="state-overview__note">
-                    <strong>Note:</strong> All data on this page is based on Primary Place of Performance.
+                    <strong>Note: </strong>
+                    All data on this page is based on Primary Place of Performance.
                 </div>
-                <SummaryStats stateProfile={stateProfile} />
+                <SummaryStats overview={overview} />
                 <AwardBreakdownHeader toggle={toggle} setToggle={setToggle} />
                 <FlexGridRow>
-                    <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
-                        <div className="state-section__viz award-breakdown" id="award">
-                            <AwardBreakdownContainer toggleState={toggle} />
-                        </div>
-                    </FlexGridCol>
-                    <AwardBreakdownCard stateProfile={stateProfile} />
+                    <AwardBreakdownContainer
+                        fy={fy}
+                        id={id}
+                        toggleState={toggle} />
+                    <AwardBreakdownCard overview={overview} />
                 </FlexGridRow>
                 <div className="state-section__viz geo">
                     <h3 className="state-overview__heading">
@@ -83,5 +80,4 @@ const StateOverview = ({ stateProfile }) => {
     );
 };
 
-StateOverview.propTypes = propTypes;
 export default StateOverview;

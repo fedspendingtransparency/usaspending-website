@@ -8,35 +8,34 @@ import PropTypes from 'prop-types';
 import { InformationBoxes } from "data-transparency-ui";
 
 const propTypes = {
-    stateProfile: PropTypes.object
+    overview: PropTypes.object
 };
 
-const SummaryStats = (props) => {
-    const { stateProfile } = props;
+const SummaryStats = ({ overview }) => {
     const boxes = [{
         title: "Obligations",
         type: 'obligatedAmount',
-        amount: stateProfile.totalAmount,
+        amount: overview.totalAmount,
         isMonetary: true,
         isString: true,
-        subtitleBottom: `from ${stateProfile.totalAwards} prime awards`
+        subtitleBottom: `from ${overview.totalAwards} prime awards`
     },
     {
         title: "Outlayed Amount",
         type: 'outlayedAmount',
-        amount: stateProfile.totalOutlays,
+        amount: overview.totalOutlays,
         isMonetary: true,
         isString: true,
-        subtitleBottom: `from ${stateProfile.totalAwards} prime awards`
+        subtitleBottom: `from ${overview.totalAwards} prime awards`
     },
     {
         title: 'Face Value of Loans',
         type: 'faceValueOfLoans',
-        amount: stateProfile.totalFaceValueLoanAmount,
+        amount: overview.totalFaceValueLoanAmount,
         isMonetary: true,
         isString: true,
         subtitleBottom:
-            `from ${stateProfile.totalFaceValueLoanPrimeAwards} prime awards`
+            `from ${overview.totalFaceValueLoanPrimeAwards} prime awards`
     }];
 
     return (
