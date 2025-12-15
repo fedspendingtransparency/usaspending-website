@@ -11,7 +11,7 @@ import { reduce } from 'lodash-es';
 import * as StateHelper from 'features/state/stateHelper';
 
 import AwardBreakdownTreeMap from
-    'components/state/visualizations/awardBreakdown/AwardBreakdownTreeMap';
+    'features/state/overview/treemap/AwardBreakdownTreeMap';
 import AwardBreakdownTable from
     'components/state/visualizations/awardBreakdown/AwardBreakdownTable';
 import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';

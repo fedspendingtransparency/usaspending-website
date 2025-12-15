@@ -3,17 +3,16 @@
  * Created by Lizzie Salita 5/16/18
  */
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
-import { remove, find } from 'lodash-es';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
+import { remove } from 'lodash-es';
+
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { awardTypeLabels } from 'dataMapping/state/awardTypes';
-
-import AwardTypeCell from './AwardTypeCell';
-import AwardTypeTooltip from './AwardTypeTooltip';
+import AwardBreakdownTreeMapCells from "./AwardBreakdownTreeMapCells";
+import useEventListener from "../../../../hooks/useEventListener";
+import CreateAwardTypeTooltip from "./CreateAwardTypeTooltip";
 
 const propTypes = {
     awardBreakdown: PropTypes.array,
@@ -21,22 +20,27 @@ const propTypes = {
     toggleState: PropTypes.bool
 };
 
-const AwardBreakdownTreeMap = (props) => {
-    const [windowWidth, setWindowWidth] = useState(0);
+const AwardBreakdownTreeMap = ({
+    awardBreakdown,
+    totalAmount,
+    toggleState
+}) => {
     const [visualizationWidth, setVisualizationWidth] = useState(0);
     const [virtualChart, setVirtualChart] = useState([]);
     const [hoveredAwardType, setHoveredAwardType] = useState('');
 
-    const amountType = useRef(props.toggleState ? "total_outlays" : "amount");
+    const amountType = useRef(toggleState ? "total_outlays" : "amount");
     const sectionWrapper = useRef(null);
-    const awardRef = useRef(props.awardBreakdown);
+    const awardRef = useRef(awardBreakdown);
 
     const visualizationHeight = 175;
 
-    const buildVirtualCell = (data, i) => {
+    const buildVirtualCell = useCallback((data, i) => {
         // todo - use these two lines, along with the new arrays to return colors in treemapHelper,
         //  when finishing the toggle functionality; the two lines above will not be used
-        let cellColor = amountType.current === 'total_outlays' ? TreemapHelper.stateTreemapColorsWithToggle[i] : TreemapHelper.stateTreemapColorsNoToggle[i];
+        let cellColor = amountType.current === 'total_outlays' ?
+            TreemapHelper.stateTreemapColorsWithToggle[i] :
+            TreemapHelper.stateTreemapColorsNoToggle[i];
         let textColor = TreemapHelper.stateTooltipStyles.defaultStyle.textColor;
 
         let textClass = '';
@@ -69,7 +73,7 @@ const AwardBreakdownTreeMap = (props) => {
             x1: data.x1,
             y0: data.y0,
             y1: data.y1,
-            total: props.totalAmount,
+            total: totalAmount,
             awardType: data.data.type,
             color: cellColor,
             textColor,
@@ -79,9 +83,9 @@ const AwardBreakdownTreeMap = (props) => {
             height,
             percentView
         };
-    };
+    }, [hoveredAwardType, totalAmount]);
 
-    const buildVirtualTree = (data, type) => {
+    const buildVirtualTree = useCallback((data, type) => {
         // remove the negative values from the data because they can't be displayed in the treemap
         remove(data, (v) => v[type] <= 0);
 
@@ -127,107 +131,51 @@ const AwardBreakdownTreeMap = (props) => {
         });
 
         setVirtualChart(cells);
-    };
+    }, [buildVirtualCell]);
 
-    const handleWindowResize = () => {
-        // determine if the width changed
-        const tempWindowWidth = window.innerWidth;
-        if (tempWindowWidth !== windowWidth) {
-            // width changed, update the visualization width
-            setWindowWidth(tempWindowWidth);
-            if (sectionWrapper.current) {
-                setVisualizationWidth(sectionWrapper.current.offsetWidth);
-            }
-            if (awardRef.current.length > 0) {
-                buildVirtualTree(awardRef.current, amountType.current);
-            }
-        }
-    };
-
-    const toggleTooltipIn = (awardTypeId) => {
-        setHoveredAwardType(awardTypeId);
-    };
-
-    const toggleTooltipOut = () => {
-        setHoveredAwardType('');
-    };
-
-    const createTooltip = () => {
-        let tooltip = null;
-
-        // We have to check for the existence of the ref so that Firefox doesn't die
-        let sectionHeight = 0;
+    const handleWindowResize = useCallback(() => {
+        // width changed, update the visualization width
         if (sectionWrapper.current) {
-            sectionHeight = sectionWrapper.current.getBoundingClientRect().height;
+            setVisualizationWidth(sectionWrapper.current.offsetWidth);
         }
-
-        if (hoveredAwardType) {
-            const awardType = find(props.awardBreakdown,
-                { type: `${hoveredAwardType}` });
-
-            const awardTypeDefinition = awardTypeLabels[hoveredAwardType];
-
-            const node = find(virtualChart,
-                { awardType: `${hoveredAwardType}` });
-
-            tooltip = (
-                <AwardTypeTooltip
-                    value={formatMoneyWithUnitsShortLabel(awardType[amountType.current])}
-                    percentage={MoneyFormatter.calculatePercentage(
-                        awardType[amountType.current], props.totalAmount)
-                    }
-                    description={awardTypeDefinition}
-                    x={node.x0}
-                    y={node.y0}
-                    width={node.width}
-                    height={node.height}
-                    sectionHeight={sectionHeight}
-                    toggleState={props.toggleState} />
-            );
+        if (awardRef.current.length > 0) {
+            buildVirtualTree(awardRef.current, amountType.current);
         }
-
-        return tooltip;
-    };
-
-    const cells = virtualChart.map((cell) => (
-        <AwardTypeCell
-            {...cell}
-            key={cell.awardType}
-            strokeColor="white"
-            strokeOpacity={0.5}
-            tooltipStyles={TreemapHelper.stateTooltipStyles}
-            toggleTooltipIn={toggleTooltipIn}
-            toggleTooltipOut={toggleTooltipOut}
-            opacity={1} />
-    ));
+    }, [buildVirtualTree]);
 
     useEffect(() => {
+        // run once to get initial width
         handleWindowResize();
-        window.addEventListener('resize', handleWindowResize);
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    useEventListener('resize', handleWindowResize);
+
     useEffect(() => {
-        awardRef.current = props.awardBreakdown;
-        if (props.awardBreakdown.length > 0) {
+        awardRef.current = awardBreakdown;
+        if (awardBreakdown.length > 0) {
             buildVirtualTree(awardRef.current, amountType.current);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.awardBreakdown, amountType.current]);
+    }, [awardBreakdown, amountType.current]);
 
     useEffect(() => {
-        amountType.current = props.toggleState ? "total_outlays" : "amount";
+        amountType.current = toggleState ? "total_outlays" : "amount";
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.toggleState]);
+    }, [toggleState]);
 
     return (
         <div className="award-breakdown__treemap">
             <div className="usa-da-treemap-section">
                 <div className="treemap-inner-wrap">
-                    {createTooltip()}
+                    <CreateAwardTypeTooltip
+                        sectionWrapper={sectionWrapper}
+                        hoveredAwardType={hoveredAwardType}
+                        awardBreakdown={awardBreakdown}
+                        virtualChart={virtualChart}
+                        amountType={amountType}
+                        totalAmount={totalAmount}
+                        toggleState={toggleState} />
                     <div
                         className="tree-wrapper"
                         ref={sectionWrapper}>
@@ -235,7 +183,9 @@ const AwardBreakdownTreeMap = (props) => {
                             width={visualizationWidth}
                             height={visualizationHeight}
                             className="treemap-svg overlay">
-                            {cells}
+                            <AwardBreakdownTreeMapCells
+                                virtualChart={virtualChart}
+                                setHoveredAwardType={setHoveredAwardType} />
                         </svg>
                     </div>
                 </div>
