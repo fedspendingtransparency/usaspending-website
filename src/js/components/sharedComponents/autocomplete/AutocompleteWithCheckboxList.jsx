@@ -12,6 +12,7 @@ const propTypes = {
     filterType: PropTypes.string,
     handleTextInputChange: PropTypes.func,
     onSearchClear: PropTypes.func,
+    onClearAll: PropTypes.func,
     searchString: PropTypes.string,
     filters: PropTypes.array,
     selectedFilters: PropTypes.array,
@@ -29,6 +30,7 @@ const AutocompleteWithCheckboxList = ({
     filterType,
     handleTextInputChange,
     onSearchClear,
+    onClearAll,
     searchString,
     filters,
     selectedFilters,
@@ -117,7 +119,7 @@ const AutocompleteWithCheckboxList = ({
                             aria-label={`Clear all ${filterType} filters`}
                             className="clear-all__button"
                             tabIndex="0"
-                            onClick={onSearchClear} >
+                            onClick={onClearAll} >
                             {`Clear all ${filterType} filters`}
                         </button>
                     </div>

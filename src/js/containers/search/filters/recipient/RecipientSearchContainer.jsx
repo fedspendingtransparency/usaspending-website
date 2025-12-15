@@ -105,7 +105,6 @@ const RecipientSearchContainer = () => {
             limit: maxRecipientsAllowed
         };
 
-        console.log("checking selected recipients ==== pre ======", selectedRecipients);
         recipientRequest.current = fetchRecipientsAutocomplete(paramObj);
 
         setIsLoading(true);
@@ -117,7 +116,6 @@ const RecipientSearchContainer = () => {
                 setIsLoading(false);
                 setMaxRecipients(res.data.count === maxRecipientsAllowed);
                 setNoResults(!res.data.count);
-                console.log("checking selected recipients ==== post ======", selectedRecipients);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -130,7 +128,13 @@ const RecipientSearchContainer = () => {
         setSearchString(e.target.value);
     };
 
-    const handleClearRecipients = () => {
+    const handleSearchClear = () => {
+        setSearchString('');
+        setMaxRecipients(false); // clean up if previously set
+        setRecipients([]);
+    };
+
+    const handleClearAll = () => {
         const currentRecipients = selectedRecipients;
 
         currentRecipients.forEach((recipient) => {
@@ -222,9 +226,10 @@ const RecipientSearchContainer = () => {
     };
 
     useEffect(() => {
-        if (searchedFilterValues?.recipient) {
-            const searchValues = searchedFilterValues.recipient;
+        if (searchedFilterValues?.get('recipient')) {
+            const searchValues = searchedFilterValues.get('recipient');
             setSearchString(searchValues.input);
+            getRecipientsFromSearchString(searchValues.input);
         }
     }, [searchedFilterValues, appliedRecipients]);
 
@@ -238,9 +243,6 @@ const RecipientSearchContainer = () => {
             }));
         }
 
-        if (searchString === '') {
-            handleClearRecipients();
-        }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString]);
 
@@ -250,7 +252,8 @@ const RecipientSearchContainer = () => {
                 limit={maxRecipientsAllowed}
                 filterType="Recipient"
                 handleTextInputChange={handleTextInputChange}
-                onSearchClear={handleClearRecipients}
+                onSearchClear={handleSearchClear}
+                onClearAll={handleClearAll}
                 searchString={searchString}
                 filters={formatedRecipientFilters()}
                 selectedFilters={selectedRecipients}

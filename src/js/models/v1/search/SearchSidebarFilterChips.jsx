@@ -528,7 +528,6 @@ const SearchSidebarFilterChips = ({
     };
 
     const getRecipientChips = () => {
-        console.log("I should not be called");
         if (filtersData.selectedRecipients?.length > 0) {
             filters.selectedRecipients.forEach((recipient) => {
                 addChip(() => props.updateSelectedRecipients(recipient), recipient);
