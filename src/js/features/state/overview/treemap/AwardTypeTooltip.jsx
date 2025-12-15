@@ -18,29 +18,28 @@ const propTypes = {
     toggleState: PropTypes.bool
 };
 
-const AwardTypeTooltip = (props) => {
-    const {
-        value,
-        description,
-        height,
-        x,
-        y,
-        width,
-        percentage,
-        arrow
-    } = props;
-
-    let divRef = useRef();
-    let pointerDivRef = useRef();
-    let containerDivRef = useRef();
+const AwardTypeTooltip = ({
+    value,
+    description,
+    height,
+    x,
+    y,
+    width,
+    percentage,
+    arrow,
+    toggleState
+}) => {
+    const divRef = useRef(null);
+    const pointerDivRef = useRef(null);
+    const containerDivRef = useRef(null);
 
     const positionTooltip = useCallback(() => {
-        // Tooptip sizes
-        const tooltipWidth = divRef.offsetWidth;
-        const tooltipHeight = divRef.offsetHeight;
+        // Tooltip sizes
+        const tooltipWidth = divRef.current.offsetWidth;
+        const tooltipHeight = divRef.current.offsetHeight;
 
         // Left padding of container
-        const containerPadding = containerDivRef.getBoundingClientRect().left;
+        const containerPadding = containerDivRef.current.getBoundingClientRect().left;
 
         // Window width
         const windowWidth = window.innerWidth;
@@ -82,10 +81,14 @@ const AwardTypeTooltip = (props) => {
             size = ' small';
         }
 
-        pointerDivRef.className = `tooltip-pointer ${topBottomDirection}-${leftRightDirection}`;
-        divRef.style.top = topOffset;
-        divRef.style.left = leftOffset;
-        divRef.className = `tooltip ${topBottomDirection}${size}`;
+        pointerDivRef.current.className = `tooltip-pointer ${
+            topBottomDirection
+        }-${
+            leftRightDirection
+        }`;
+        divRef.current.style.top = topOffset;
+        divRef.current.style.left = leftOffset;
+        divRef.current.className = `tooltip ${topBottomDirection}${size}`;
     }, [arrow, height, width, x, y]);
 
     useEffect(() => {
@@ -96,7 +99,7 @@ const AwardTypeTooltip = (props) => {
         <>
             <div className="tooltip-body-row bottom-spacing">
                 <div className="tooltip-label">
-                    {props.toggleState ? "Outlays" : "Obligations"}
+                    {toggleState ? "Outlays" : "Obligations"}
                 </div>
                 <div className="tooltip-value">
                     {value}
@@ -122,19 +125,13 @@ const AwardTypeTooltip = (props) => {
     return (
         <div
             className="visualization-tooltip"
-            ref={(div) => {
-                containerDivRef = div;
-            }}>
+            ref={containerDivRef}>
             <div
                 className={`tooltip${smallValue}`}
-                ref={(div) => {
-                    divRef = div;
-                }}>
+                ref={divRef}>
                 <div
                     className="tooltip-pointer"
-                    ref={(div) => {
-                        pointerDivRef = div;
-                    }} />
+                    ref={pointerDivRef} />
                 <div className="tooltip-title">
                     {description}
                 </div>
