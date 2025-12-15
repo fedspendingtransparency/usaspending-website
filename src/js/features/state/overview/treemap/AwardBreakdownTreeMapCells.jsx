@@ -1,8 +1,5 @@
 import React from "react";
-
-import AwardTypeCell from "components/state/visualizations/awardBreakdown/AwardTypeCell";
-import * as TreemapHelper from "helpers/treemapHelper";
-
+import AwardTypeCell from "features/state/overview/treemap/AwardTypeCell";
 
 const AwardBreakdownTreeMapCells = ({ virtualChart, setHoveredAwardType }) => {
     const toggleTooltipIn = (awardTypeId) => {
@@ -16,13 +13,12 @@ const AwardBreakdownTreeMapCells = ({ virtualChart, setHoveredAwardType }) => {
     const cells = virtualChart.map((cell) => (
         <AwardTypeCell
             {...cell}
-            key={cell.awardType}
             strokeColor="white"
             strokeOpacity={0.5}
-            tooltipStyles={TreemapHelper.stateTooltipStyles}
             toggleTooltipIn={toggleTooltipIn}
             toggleTooltipOut={toggleTooltipOut}
-            opacity={1} />
+            opacity={1}
+            key={cell.awardType} />
     ));
 
     return (
