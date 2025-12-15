@@ -170,9 +170,7 @@ const StateOverview = ({ stateProfile }) => {
                 <div className="state-overview__note">
                     <strong>Note:</strong> All data on this page is based on Primary Place of Performance.
                 </div>
-                <div className="state-section__row">
-                    <SummaryStats stateProfile={stateProfile} />
-                </div>
+                <SummaryStats stateProfile={stateProfile} />
                 <FlexGridRow>
                     <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
                         <div className="state-section__viz award-breakdown" id="award">

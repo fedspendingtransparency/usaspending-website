@@ -40,8 +40,10 @@ const SummaryStats = (props) => {
     }];
 
     return (
-        <div className="state-section__viz totals-container">
-            <InformationBoxes boxes={boxes} />
+        <div className="state-section__row">
+            <div className="state-section__viz totals-container">
+                <InformationBoxes boxes={boxes} />
+            </div>
         </div>
     );
 };
