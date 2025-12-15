@@ -11,6 +11,7 @@ export const updateSelectedRecipients = (state, searchText) => {
     const recipientIdentifier = `${searchText}`; // force it to a string
 
     if (updatedSet.has(recipientIdentifier)) {
+        console.log(`deleting recip from state ${recipientIdentifier}`);
         updatedSet = updatedSet.delete(recipientIdentifier);
     }
     else {

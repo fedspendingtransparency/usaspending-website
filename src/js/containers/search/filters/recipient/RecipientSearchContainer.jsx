@@ -4,29 +4,27 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from "axios";
 
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import * as SearchHelper from 'helpers/searchHelper';
-import replaceString from '../../../../helpers/replaceString';
-import AutocompleteWithCheckboxList from '../../../../components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
+import { updateSelectedRecipients, updateSearchedFilterValues } from 'redux/actions/search/searchFilterActions';
+import { fetchRecipientsAutocomplete } from 'helpers/searchHelper';
+import replaceString from 'helpers/replaceString';
+import AutocompleteWithCheckboxList from 'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
 
-const propTypes = {
-    updateSelectedRecipients: PropTypes.func,
-    selectedRecipients: PropTypes.object
-};
-
-const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients }) => {
+const RecipientSearchContainer = () => {
     const [recipients, setRecipients] = useState([]);
     const [searchString, setSearchString] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const [maxRecipients, setMaxRecipients] = useState(false);
     const [noResults, setNoResults] = useState(false);
+    const selectedRecipients = useSelector((state) => state.filters.selectedRecipients);
+    const appliedRecipients = useSelector((state) => state.appliedFilters.filters.selectedRecipients);
+    const searchedFilterValues = useSelector((state) => state.appliedFilters.filters.searchedFilterValues);
 
     const recipientRequest = useRef();
+    const dispatch = useDispatch();
+
     const maxRecipientsAllowed = 500;
     const maxRecipientTitle = `Only ${maxRecipientsAllowed} recipients can be displayed at once`;
     const maxRecipientText = 'Please use the search bar to narrow your search and find additional recipients.';
@@ -34,11 +32,17 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
 
     const toggleRecipient = ({ value }) => {
         if (value.uei && searchString.length > 2 && value.uei?.includes(searchString.toUpperCase())) {
-            updateSelectedRecipients(value.uei);
+            dispatch(updateSelectedRecipients(value.uei));
         }
         else {
-            updateSelectedRecipients(value.name);
+            dispatch(updateSelectedRecipients(value.name));
         }
+        const updatedSelected = selectedRecipients.filter((rep) => rep !== value.uei || rep !== value.name);
+        dispatch(updateSearchedFilterValues({
+            filterType: "recipient",
+            input: searchString,
+            selected: updatedSelected
+        }));
     };
 
 
@@ -101,7 +105,8 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
             limit: maxRecipientsAllowed
         };
 
-        recipientRequest.current = SearchHelper.fetchRecipientsAutocomplete(paramObj);
+        console.log("checking selected recipients ==== pre ======", selectedRecipients);
+        recipientRequest.current = fetchRecipientsAutocomplete(paramObj);
 
         setIsLoading(true);
 
@@ -112,6 +117,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 setIsLoading(false);
                 setMaxRecipients(res.data.count === maxRecipientsAllowed);
                 setNoResults(!res.data.count);
+                console.log("checking selected recipients ==== post ======", selectedRecipients);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -128,7 +134,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         const currentRecipients = selectedRecipients;
 
         currentRecipients.forEach((recipient) => {
-            updateSelectedRecipients(recipient);
+            dispatch(updateSelectedRecipients(recipient));
         });
 
         setSearchString('');
@@ -193,21 +199,43 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 if (!currentlyChecked.includes(rep.recipient_name)) {
                     // do not update currently checked
                     // only new checked.
-                    updateSelectedRecipients(rep.recipient_name);
+                    dispatch(updateSelectedRecipients(rep.recipient_name));
                     currentlyChecked.push(rep.recipient_name);
                 }
             });
+            dispatch(updateSearchedFilterValues({
+                type: "recipient",
+                input: searchString,
+                selected: currentlyChecked
+            }));
         }
         else {
             selectedRecipients.forEach((rep) => {
-                updateSelectedRecipients(rep);
+                dispatch(updateSelectedRecipients(rep));
             });
+            dispatch(updateSearchedFilterValues({
+                type: "recipient",
+                input: searchString,
+                selected: []
+            }));
         }
     };
 
     useEffect(() => {
+        if (searchedFilterValues?.recipient) {
+            const searchValues = searchedFilterValues.recipient;
+            setSearchString(searchValues.input);
+        }
+    }, [searchedFilterValues, appliedRecipients]);
+
+    useEffect(() => {
         if (searchString?.length >= 3) {
             getRecipientsFromSearchString(searchString);
+            dispatch(updateSearchedFilterValues({
+                filterType: "recipient",
+                input: searchString,
+                selected: selectedRecipients
+            }));
         }
 
         if (searchString === '') {
@@ -230,16 +258,10 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
                 toggleAll={toggleAll}
                 noResults={noResults}
                 additionalText={getMaxRecipientsText()}
-                isLoading={isLoading} />
+                isLoading={isLoading}
+                searchId="recipient-autocomplete-input" />
         </div>
     );
 };
 
-RecipientSearchContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        selectedRecipients: state.filters.selectedRecipients
-    }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(RecipientSearchContainer);
+export default RecipientSearchContainer;

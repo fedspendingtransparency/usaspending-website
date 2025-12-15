@@ -25,6 +25,9 @@ const defaultCheckboxTreeSelections = { require: [], exclude: [], counts: [] };
 
 export const CheckboxTreeSelections = Record(defaultCheckboxTreeSelections);
 
+// const defaultSearchedFilterValues = { type: "", input: "", selected: [] };
+// export const SearchedFilterValues = Record(defaultSearchedFilterValues);
+
 export const requiredTypes = {
     keyword: OrderedMap,
     timePeriodFY: Set,
@@ -47,7 +50,9 @@ export const requiredTypes = {
     defCode: Set,
     pricingType: Set,
     setAside: Set,
-    extentCompeted: Set
+    extentCompeted: Set,
+    searchedFilterValues: OrderedMap
+    // searchedFilterValues: SearchedFilterValues
 };
 
 export const initialState = {
@@ -79,7 +84,9 @@ export const initialState = {
     extentCompeted: Set(),
     treasuryAccounts: OrderedMap(),
     tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
-    awardDescription: ''
+    awardDescription: '',
+    searchedFilterValues: OrderedMap()
+    // searchedFilterValues: SearchedFilterValues(defaultSearchedFilterValues)
 };
 
 export const initialStateFY = {
@@ -111,7 +118,9 @@ export const initialStateFY = {
     extentCompeted: Set(),
     treasuryAccounts: OrderedMap(),
     tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
-    awardDescription: ''
+    awardDescription: '',
+    searchedFilterValues: OrderedMap()
+    // searchedFilterValues: SearchedFilterValues(defaultSearchedFilterValues)
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -371,6 +380,17 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return Object.assign({}, initialState);
+        }
+
+        case 'UPDATE_SEARCH_FILTER_VALUES': {
+            return Object.assign({}, state, {
+                searchedFilterValues: {
+                    [action.filterType]: {
+                        input: action.input,
+                        selected: action.selected
+                    }
+                }
+            });
         }
 
         default:

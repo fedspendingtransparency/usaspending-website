@@ -21,7 +21,8 @@ const propTypes = {
     isLoading: PropTypes.bool,
     noResults: PropTypes.bool,
     limit: PropTypes.number,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    searchId: PropTypes.string
 };
 
 const AutocompleteWithCheckboxList = ({
@@ -37,7 +38,8 @@ const AutocompleteWithCheckboxList = ({
     isLoading,
     noResults,
     limit = 500,
-    placeholder = "Search filters ..."
+    placeholder = "Search filters ...",
+    searchId
 }) => {
     const [allSelected, setAllSelected] = useState(false);
     const additionalClassName = filters.length >= limit ? 'bottom-fade' : '';
@@ -131,11 +133,11 @@ const AutocompleteWithCheckboxList = ({
                 searchString={searchString}
                 enabled
                 handleTextInputChange={handleTextInputChange}
-                context={{}}
                 loading={false}
                 isClearable
                 onClear={onSearchClear}
-                searchIcon />
+                searchIcon
+                id={searchId} />
             <div className="filter-item-wrap">
                 <div className="checkbox-filter__wrapper" >
                     {resultsContainer()}
