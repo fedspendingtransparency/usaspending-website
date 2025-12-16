@@ -4,22 +4,19 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 
-import StateTimeVisualizationSection from 'components/state/spendingovertime/StateTimeVisualizationSection';
-import * as stateActions from 'redux/actions/state/stateActions';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-import * as MonthHelper from 'helpers/monthHelper';
-import * as SearchHelper from 'helpers/searchHelper';
+import StateTimeVisualizationSection from
+    'components/state/spendingovertime/StateTimeVisualizationSection';
+import {
+    convertFYToDateRange, currentFiscalYear, earliestFiscalYear
+} from "helpers/fiscalYearHelper";
+import { convertMonthToFY, convertNumToShortMonth } from "helpers/monthHelper";
+import { performSpendingOverTimeSearch } from "helpers/searchHelper";
 
-const propTypes = {
-    stateProfile: PropTypes.object
-};
-
-const StateTimeVisualizationSectionContainer = (props) => {
+const StateTimeVisualizationSectionContainer = () => {
+    const { code } = useSelector((state) => state.stateProfile.overview);
     const [visualizationPeriod, setVisualizationPeriod] = useState('fiscal_year');
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -46,8 +43,8 @@ const StateTimeVisualizationSectionContainer = (props) => {
     };
 
     const generateTime = (group, timePeriod, type) => {
-        const month = MonthHelper.convertNumToShortMonth(timePeriod.month);
-        const year = MonthHelper.convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
+        const month = convertNumToShortMonth(timePeriod.month);
+        const year = convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
 
         if (group === 'fiscal_year') {
             return type === 'label' ?
@@ -109,12 +106,12 @@ const StateTimeVisualizationSectionContainer = (props) => {
         }
 
         // Fetch data from the Awards v2 endpoint
-        const earliestYear = FiscalYearHelper.earliestFiscalYear;
-        const thisYear = FiscalYearHelper.currentFiscalYear();
+        const earliestYear = earliestFiscalYear;
+        const thisYear = currentFiscalYear();
         const timePeriod = [
             {
-                start_date: FiscalYearHelper.convertFYToDateRange(earliestYear)[0],
-                end_date: FiscalYearHelper.convertFYToDateRange(thisYear)[1]
+                start_date: convertFYToDateRange(earliestYear)[0],
+                end_date: convertFYToDateRange(thisYear)[1]
             }
         ];
 
@@ -122,7 +119,7 @@ const StateTimeVisualizationSectionContainer = (props) => {
             place_of_performance_locations: [
                 {
                     country: 'USA',
-                    state: props.stateProfile.overview.code
+                    state: code
                 }
             ]
         };
@@ -138,7 +135,7 @@ const StateTimeVisualizationSectionContainer = (props) => {
 
         apiParams.auditTrail = 'Spending Over Time Visualization';
 
-        apiRequest.current = SearchHelper.performSpendingOverTimeSearch(apiParams);
+        apiRequest.current = performSpendingOverTimeSearch(apiParams);
 
         apiRequest.current.promise
             .then((res) => {
@@ -162,7 +159,7 @@ const StateTimeVisualizationSectionContainer = (props) => {
     useEffect(() => {
         fetchData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.stateProfile.overview.code, visualizationPeriod]);
+    }, [code, visualizationPeriod]);
 
     return (
         <StateTimeVisualizationSection
@@ -185,11 +182,4 @@ const StateTimeVisualizationSectionContainer = (props) => {
     );
 };
 
-StateTimeVisualizationSectionContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        stateProfile: state.stateProfile
-    }),
-    (dispatch) => bindActionCreators(stateActions, dispatch)
-)(StateTimeVisualizationSectionContainer);
+export default StateTimeVisualizationSectionContainer;

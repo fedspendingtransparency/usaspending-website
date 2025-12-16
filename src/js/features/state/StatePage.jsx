@@ -12,7 +12,7 @@ import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import StateOverview from "features/state/overview/StateOverview";
 import StateTimeVisualizationSectionContainer from
-    "containers/state/StateTimeVisualizationSectionContainer";
+    "features/state/transactionsOverTime/StateTimeVisualizationSectionContainer";
 import TopFiveSection from "components/state/topFive/TopFiveSection";
 import StateFooter from "components/state/StateFooter";
 import StatePageWrapper from "./StatePageWrapper";
@@ -34,7 +34,7 @@ const StatePage = ({
         <FlexGridRow className="state-content-wrapper">
             <FlexGridCol className="state-content">
                 <StateOverview />
-                <StateTimeVisualizationSectionContainer stateProfile={stateProfile.overview} />
+                <StateTimeVisualizationSectionContainer />
                 <TopFiveSection />
                 <StateFooter />
             </FlexGridCol>
