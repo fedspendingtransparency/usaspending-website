@@ -7,10 +7,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 
-import { fetchCFDA } from '../../../../helpers/searchHelper';
-import { updateSelectedCFDA } from '../../../../redux/actions/search/searchFilterActions';
-import AutocompleteWithCheckboxList from '../../../../components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
-import replaceString from '../../../../helpers/replaceString';
+import { fetchCFDA } from 'helpers/searchHelper';
+import replaceString from 'helpers/replaceString';
+import { updateSearchedFilterValues, updateSelectedCFDA } from 'redux/actions/search/searchFilterActions';
+import AutocompleteWithCheckboxList from 'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
 
 
 const CFDASearchContainer = () => {
@@ -19,6 +19,7 @@ const CFDASearchContainer = () => {
     const [noResults, setNoResults] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const selectedCFDA = useSelector((state) => state.filters.selectedCFDA);
+    const searchedFilterValues = useSelector((state) => state.appliedFilters.filters.searchedFilterValues);
 
     const highlightText = (text) => replaceString(text, cfdaSearchString, 'bold-highlight');
 
@@ -29,6 +30,26 @@ const CFDASearchContainer = () => {
         const cfda = autocompleteCFDA.find((c) => c.data.program_number === value);
 
         if (cfda) dispatch(updateSelectedCFDA({ cfda: cfda.data }));
+
+        const updatedSelected = [];
+        if (selectedCFDA?.size > 0) {
+            // some recipients have already been toggled
+            // check if current is already toggeled
+            selectedCFDA.forEach((scfda) => {
+                if (scfda.program_number !== value.program_number) {
+                    updatedSelected.push(scfda);
+                }
+            });
+        }
+        else {
+            updatedSelected.push(value);
+        }
+
+        dispatch(updateSearchedFilterValues({
+            filterType: "cfda",
+            input: cfdaSearchString,
+            selected: updatedSelected
+        }));
     };
 
     const parseAutocompleteCFDA = (cfda) => {
@@ -89,11 +110,16 @@ const CFDASearchContainer = () => {
         setCfdaSearchString(e.target.value);
     };
 
-    const handleClearCFDAs = () => {
+    const handleClearAll = () => {
         selectedCFDA.forEach((cfda) => {
             dispatch(updateSelectedCFDA({ cfda }));
         });
 
+        setCfdaSearchString(''); // clean up if previously set
+        setAutocompleteCFDA([]);
+    };
+
+    const handleSearchClear = () => {
         setCfdaSearchString(''); // clean up if previously set
         setAutocompleteCFDA([]);
     };
@@ -110,23 +136,51 @@ const CFDASearchContainer = () => {
             filteredList.forEach((fcfda) => {
                 dispatch(updateSelectedCFDA({ cfda: fcfda.data }));
             });
+
+            dispatch(updateSearchedFilterValues({
+                filterType: "cfda",
+                input: cfdaSearchString,
+                selected: selectedArray
+            }));
         }
         else {
             selectedCFDA.forEach((cfda) => {
                 dispatch(updateSelectedCFDA({ cfda }));
             });
+            dispatch(updateSearchedFilterValues({
+                filterType: "cfda",
+                input: cfdaSearchString,
+                selected: []
+            }));
         }
     };
 
 
     useEffect(() => {
-        if (cfdaSearchString?.length >= 3) {
+        let searchValues = {};
+        if (searchedFilterValues?.cfda) {
+            searchValues = searchedFilterValues.cfda;
+        }
+        else if (searchedFilterValues?.get('cfda')) {
+            searchValues = searchedFilterValues.get('cfda');
+        }
+        if (searchValues && (!cfdaSearchString || cfdaSearchString !== searchValues?.input)) {
+            setCfdaSearchString(searchValues.input);
             queryAutocompleteCFDA();
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchedFilterValues]);
 
-        if (cfdaSearchString === '') {
-            handleClearCFDAs();
+    useEffect(() => {
+        if (cfdaSearchString?.length >= 3) {
+            queryAutocompleteCFDA();
+            dispatch(updateSearchedFilterValues({
+                filterType: "cfda",
+                input: cfdaSearchString,
+                selected: selectedCFDA
+            }));
         }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cfdaSearchString]);
 
@@ -136,7 +190,8 @@ const CFDASearchContainer = () => {
                 placeholder="e.g., 93.778 - Medical Assistance Program"
                 filterType="Assistance Listing"
                 handleTextInputChange={handleTextInputChange}
-                onSearchClear={handleClearCFDAs}
+                onSearchClear={handleSearchClear}
+                onClearAll={handleClearAll}
                 searchString={cfdaSearchString}
                 filters={autocompleteCFDA}
                 selectedFilters={selectedCFDA}

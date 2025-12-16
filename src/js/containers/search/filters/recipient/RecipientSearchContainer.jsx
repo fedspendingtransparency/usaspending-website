@@ -19,8 +19,7 @@ const RecipientSearchContainer = () => {
     const [maxRecipients, setMaxRecipients] = useState(false);
     const [noResults, setNoResults] = useState(false);
     const selectedRecipients = useSelector((state) => state.filters.selectedRecipients);
-    const appliedRecipients = useSelector((state) => state.appliedFilters.filters.selectedRecipients);
-    const searchedFilterValues = useSelector((state) => state.appliedFilters.filters.searchedFilterValues);
+    const searchedFilterValues = useSelector((state) => state.filters.searchedFilterValues);
 
     const recipientRequest = useRef();
     const dispatch = useDispatch();
@@ -31,13 +30,29 @@ const RecipientSearchContainer = () => {
     const highlightText = (text) => replaceString(text, searchString, 'bold-highlight');
 
     const toggleRecipient = ({ value }) => {
+        let isUei = false;
         if (value.uei && searchString.length > 2 && value.uei?.includes(searchString.toUpperCase())) {
             dispatch(updateSelectedRecipients(value.uei));
+            isUei = true;
         }
         else {
             dispatch(updateSelectedRecipients(value.name));
         }
-        const updatedSelected = selectedRecipients.filter((rep) => rep !== value.uei || rep !== value.name);
+
+        const updatedSelected = [];
+        if (selectedRecipients?.size > 0) {
+            // some recipients have already been toggled
+            // check if current is already toggeled
+            selectedRecipients.forEach((rep) => {
+                if (rep !== value.uei || rep !== value.name) {
+                    updatedSelected.push(isUei ? rep.uei : rep.name);
+                }
+            });
+        }
+        else {
+            updatedSelected.push(isUei ? value.uei : value.name);
+        }
+
         dispatch(updateSearchedFilterValues({
             filterType: "recipient",
             input: searchString,
@@ -141,9 +156,7 @@ const RecipientSearchContainer = () => {
             dispatch(updateSelectedRecipients(recipient));
         });
 
-        setSearchString('');
-        setMaxRecipients(false); // clean up if previously set
-        setRecipients([]);
+        handleSearchClear();
     };
 
     const getMaxRecipientsText = () => {
@@ -208,7 +221,7 @@ const RecipientSearchContainer = () => {
                 }
             });
             dispatch(updateSearchedFilterValues({
-                type: "recipient",
+                filterType: "recipient",
                 input: searchString,
                 selected: currentlyChecked
             }));
@@ -218,7 +231,7 @@ const RecipientSearchContainer = () => {
                 dispatch(updateSelectedRecipients(rep));
             });
             dispatch(updateSearchedFilterValues({
-                type: "recipient",
+                filterType: "recipient",
                 input: searchString,
                 selected: []
             }));
@@ -226,12 +239,19 @@ const RecipientSearchContainer = () => {
     };
 
     useEffect(() => {
-        if (searchedFilterValues?.get('recipient')) {
-            const searchValues = searchedFilterValues.get('recipient');
+        let searchValues = {};
+        if (searchedFilterValues?.recipient) {
+            searchValues = searchedFilterValues.recipient;
+        }
+        else if (searchedFilterValues?.get('recipient')) {
+            searchValues = searchedFilterValues.get('recipient');
+        }
+        if (searchValues && (!searchString || searchString !== searchValues?.input)) {
             setSearchString(searchValues.input);
             getRecipientsFromSearchString(searchValues.input);
         }
-    }, [searchedFilterValues, appliedRecipients]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchedFilterValues]);
 
     useEffect(() => {
         if (searchString?.length >= 3) {
