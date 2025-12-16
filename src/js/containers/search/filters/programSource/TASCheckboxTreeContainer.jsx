@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { debounce, get, flattenDeep } from 'lodash-es';
 import { useSelector, useDispatch } from 'react-redux';
@@ -32,33 +31,12 @@ import {
 } from 'redux/actions/search/tasActions';
 import { updateTAS } from 'redux/actions/search/searchFilterActions';
 
-import LegacyCheckboxTree from 'components/sharedComponents/LegacyCheckboxTree';
+import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 import EntityDropdownAutocomplete from
     'components/search/filters/location/EntityDropdownAutocomplete';
-import { CSSOnlyTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import { autocompletePlaceholder } from "helpers/search/filterCheckboxHelper";
 
-const propTypes = {
-    showInfo: PropTypes.bool
-};
-
-
-const SearchNote = () => (
-    <div className="tas-checkbox-tt">
-        <p>
-            The following nested hierarchy shows Agency, Federal Accounts owned by that Agency, and Treasury Account Symbols (TAS) within each Federal Account.
-        </p>
-        <br />
-        <p>Filter the options below by typing any of the following:</p>
-        <ul>
-            <li>Any part of an Agency name</li>
-            <li>Any part of a Federal Account symbol or title</li>
-            <li>Any part of a Treasury Account Symbol or title.</li>
-        </ul>
-    </div>
-);
-
-const TASCheckboxTree = (showInfo = true) => {
+const TASCheckboxTree = () => {
     const [searchString, setSearchString] = useState('');
     const [isSearch, setIsSearch] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
@@ -179,13 +157,15 @@ const TASCheckboxTree = (showInfo = true) => {
 
 
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
+        const treeDepth = selectedNode.ancestors?.length;
         if (shouldFetchChildren && !isSearch) {
-            if (selectedNode.treeDepth === 1) {
-                const selectedAgency = nodes
-                    .find((agency) => agency?.children
-                        .some((federalAccount) => federalAccount?.value === expandedValue));
-                const agencyAndFederalAccountString = `${selectedAgency?.value}/${expandedValue}`;
-                fetchTasLocal(agencyAndFederalAccountString);
+            if (treeDepth >= 1) {
+                if (treeDepth === 2) {
+                    fetchTasLocal(`${selectedNode.ancestors[0]}/${selectedNode.ancestors[1]}/${expandedValue}`);
+                }
+                else {
+                    fetchTasLocal(`${selectedNode.ancestors[0]}/${expandedValue}`);
+                }
             }
             else {
                 fetchTasLocal(expandedValue);
@@ -200,7 +180,7 @@ const TASCheckboxTree = (showInfo = true) => {
     };
 
     const onClear = () => {
-        if (request) request.current.cancel();
+        if (request.current) request.current.cancel();
         dispatch(setExpandedTas([], 'SET_SEARCHED_EXPANDED'));
         dispatch(showTasTree());
         setIsSearch(false);
@@ -341,7 +321,7 @@ const TASCheckboxTree = (showInfo = true) => {
 
 
         return () => {
-            if (request) {
+            if (request.current) {
                 request.current.cancel();
             }
             dispatch(showTasTree());
@@ -361,33 +341,25 @@ const TASCheckboxTree = (showInfo = true) => {
 
     return (
         <div className="tas-checkbox">
-            {showInfo &&
-                <span className="checkbox-header">
-                    Search by Agency, Federal Account, or Treasury Account
-                    <CSSOnlyTooltip
-                        definition={<SearchNote />}
-                        heading="Find a Treasury Account" />
-                </span>}
             <EntityDropdownAutocomplete
                 placeholder={autocompletePlaceholder}
                 searchString={searchString}
                 enabled
                 handleTextInputChange={handleTextInputChange}
-                context={{}}
                 isClearable
                 loading={false}
                 onClear={onClear}
                 searchIcon />
-            <LegacyCheckboxTree
+            <CheckboxTree
                 isError={isError}
                 errorMessage={errorMessage}
                 isLoading={isLoading}
                 data={nodes.sort((a, b) => a.label.localeCompare(b.label))}
                 checked={checked}
                 searchString={searchString}
-                countLabel="TAS"
                 noResults={showNoResults}
                 expanded={isSearch ? searchExpanded : expanded}
+                isSearch={isSearch}
                 onUncheck={onUncheck}
                 onCheck={onCheck}
                 onExpand={onExpand}
@@ -395,8 +367,5 @@ const TASCheckboxTree = (showInfo = true) => {
         </div>
     );
 };
-
-
-TASCheckboxTree.propTypes = propTypes;
 
 export default TASCheckboxTree;
