@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash-es";
 import PropTypes from "prop-types";
@@ -16,16 +16,14 @@ import SidebarContent from "./SidebarContent";
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func,
-    showMobileFilters: PropTypes.bool,
     sidebarOpen: PropTypes.bool,
-    setSidebarOpen: PropTypes.func,
-    searchv2: PropTypes.bool
+    height: PropTypes.number
 };
 
 // eslint-disable-next-line prefer-arrow-callback
 const SidebarWrapper = React.memo(function SidebarWrapper({
     // eslint-disable-next-line no-unused-vars
-    setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen, searchv2
+    setShowMobileFilters, sidebarOpen, height
 }) {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
@@ -59,27 +57,27 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             }
         }
     };
-
-    const showElements = (removeableEls) => {
-        for (const value of removeableEls) {
-            const elClass = value.className;
-            if (document.querySelector(`.${elClass}`)?.style) {
-                document.querySelector(`.${elClass}`).style.display = value.display;
-            }
-        }
-    };
+    //
+    // const showElements = (removeableEls) => {
+    //     for (const value of removeableEls) {
+    //         const elClass = value.className;
+    //         if (document.querySelector(`.${elClass}`)?.style) {
+    //             document.querySelector(`.${elClass}`).style.display = value.display;
+    //         }
+    //     }
+    // };
 
     const resizeHeightByFooter = () => {
         const mainContentInView = checkInView(mainContentEl);
-        const sidebarContentArea = mainContentInView - (sidebarStaticEls + 21);
+        const sidebarContentArea = mainContentInView - sidebarStaticEls;
         const padding = 2;
         const margins = (topStickyBarHeight + footerMargin) - padding;
 
         if (sidebarContentArea - margins < minContentHeight) {
-            hideElements(panelContainerElClasses);
+            // hideElements(panelContainerElClasses);
         }
         else {
-            showElements(panelContainerElClasses);
+            // showElements(panelContainerElClasses);
         }
 
         setSidebarHeight(mainContentInView - margins);
@@ -96,7 +94,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
             setSidebarContentHeight(sidebarContentArea);
 
-            document.querySelector(".search-collapsible-sidebar-container").style.height = `100vh - ${topStickyBarHeight}`;
+            // document.querySelector(".search-collapsible-sidebar-container").style.height = `100vh - ${topStickyBarHeight}`;
         }
 
         if (tmpFooterInView > 0) {
@@ -147,12 +145,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         document.querySelector(".collapsible-sidebar").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
         document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
         document.querySelector(".collapsible-sidebar").style.width = "0";
-        const allDsmSlidersToClose = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
-        if (allDsmSlidersToClose.length) {
-            for (const slider of allDsmSlidersToClose.values()) {
-                slider.style.display = "none";
-            }
-        }
+        // const allDsmSlidersToClose = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
+        // if (allDsmSlidersToClose.length) {
+        //     for (const slider of allDsmSlidersToClose.values()) {
+        //         slider.style.display = "none";
+        //     }
+        // }
     };
 
     const handleScrollEnd = (e) => {
@@ -187,11 +185,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     }, [sidebarHeight, sidebarContentHeight]);
 
     useEffect(() => {
-        // TODO need to eventually remove the v2
-        if (window.scrollY === 0) {
-            document.querySelector("#main-content .v2").style.minHeight = `${window.innerHeight}px`;
-        }
-
         handleScroll();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mainContentHeight]);
@@ -251,9 +244,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     return (
         <>
             <div
+                style={{
+                    position: "sticky", top: 0, left: 0, alignSelf: "flex-start", height
+                }}
                 className="search-collapsible-sidebar-container search-sidebar sticky">
                 <div
-                    style={{ height: selectHeight(), overscrollBehavior: "none", position: "sticky" }}
+                    style={{ height: selectHeight() }}
                     className={
                         `search-sidebar collapsible-sidebar ${
                             initialPageLoad ? "is-initial-loaded" : ""

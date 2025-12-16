@@ -21,36 +21,4 @@
   @import "../../components/_checkboxes";
   @import "../../components/checkboxTree/_checkboxTree";
   @import "./_submitHint";
-
-  @include comingSoon;
-
-  .coming-soon {
-    background: repeating-linear-gradient(
-      45deg,
-      rgba($color-gray-lightest, .2),
-      rgba($color-gray-lightest, .2) rem(3px),
-      rgba($color-gray-lighter, .3) rem(3px),
-      rgba($color-gray-lighter, .3) rem(5px)
-    );
-    .filter-toggle {
-      svg {
-        fill: $color-gray-lighter;
-      }
-      .filter-header {
-        color: $color-gray-lighter;
-      }
-    }
-    .coming-soon-container {
-      .coming-soon-icon {
-        bottom: rem(24px);
-        left: rem(35px);
-        position: relative;
-      }
-      .coming-soon-label {
-        bottom: rem(20px);
-        color: $color-gray-lighter;
-        left: rem(50px);
-      }
-    }
-  }
 }

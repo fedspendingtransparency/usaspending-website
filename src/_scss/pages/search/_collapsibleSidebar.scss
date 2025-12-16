@@ -10,23 +10,15 @@
 .search-collapsible-sidebar-container {
   box-shadow: unset;
   border-radius: unset;
-  position: absolute;
+  position: sticky;
   margin-top: 0;
   top: 0;
 
   .sidebar-bottom-submit {
-    position: static;
+    position: absolute;
+    top: 0;
     width: 100%;
-  }
-
-  &.sticky {
-    position: sticky;
-    top: rem(98);
-
-    .sidebar-bottom-submit {
-      position: absolute;
-      bottom: 0;
-    }
+    border-bottom: $gray-cool-10 1px solid;
   }
 
   @media(max-width: $medium-screen - 1) {
@@ -113,11 +105,6 @@
           background-color: white;
         }
       }
-    }
-
-    .sidebar-bottom-submit {
-      border-top: $gray-cool-10 1px solid;
-
     }
 
     .collapsible-sidebar--main-menu {

@@ -3,59 +3,45 @@
  * Created by Andrea Blackwell 1/10/2025
  **/
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
+import SearchSidebarSubmitContainer from "containers/search/SearchSidebarSubmitContainer";
+import * as Icons from 'components/sharedComponents/icons/Icons';
+import useIsMobile from "hooks/useIsMobile";
 
-import SearchSidebarSubmitContainer from "../../../containers/search/SearchSidebarSubmitContainer";
-import * as Icons from '../../../components/sharedComponents/icons/Icons';
-import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
 import SidebarContentFilters from "./SidebarContentFilters";
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
-    setShowMobileFilters: PropTypes.func,
-    isDsmOpened: PropTypes.bool,
-    setIsDsmOpened: PropTypes.func,
-    renderSidebarContent: PropTypes.bool
+    setShowMobileFilters: PropTypes.func
 };
 
 const SidebarContent = ({
     sidebarContentHeight,
     setShowMobileFilters
 }) => {
-    const [isSmall, setIsSmall] = useState(window.innerWidth < mediumScreen);
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-
-    useEffect(() => {
-        // determine if the width changed
-        const windowWidthTemp = window.innerWidth;
-        if (windowWidth !== windowWidthTemp) {
-            // width changed, update the visualization width
-            setWindowWidth(window.innerWidth);
-            setIsSmall(window.innerWidth < mediumScreen);
-        }
-    }, [windowWidth]);
+    const { isMedium } = useIsMobile();
 
     return (
         <>
-            <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">
-                {isSmall &&
-                <div className="collapsible-sidebar--header">
-                    <button
-                        className="close-button"
-                        id="collapsible-mobile-close-button"
-                        aria-label="Close Mobile Filters"
-                        title="Close Mobile Filters"
-                        onClick={() => {
-                            setShowMobileFilters(false);
-                        }}>
-                        <Icons.Close alt="Close About The Data" />
-                    </button>
-                </div>}
-                <SidebarContentFilters sidebarContentHeight={sidebarContentHeight} />
-            </div>
             <div className="sidebar-bottom-submit">
                 <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
+            </div>
+            <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">
+                {isMedium &&
+                    <div className="collapsible-sidebar--header">
+                        <button
+                            className="close-button"
+                            id="collapsible-mobile-close-button"
+                            aria-label="Close Mobile Filters"
+                            title="Close Mobile Filters"
+                            onClick={() => {
+                                setShowMobileFilters(false);
+                            }}>
+                            <Icons.Close alt="Close Filters" />
+                        </button>
+                    </div>}
+                <SidebarContentFilters sidebarContentHeight={sidebarContentHeight} />
             </div>
         </>);
 };
