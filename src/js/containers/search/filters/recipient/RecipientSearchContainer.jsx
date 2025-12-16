@@ -39,15 +39,9 @@ const RecipientSearchContainer = () => {
             dispatch(updateSelectedRecipients(value.name));
         }
 
-        const updatedSelected = [];
-        if (selectedRecipients?.size > 0) {
-            // some recipients have already been toggled
-            // check if current is already toggeled
-            selectedRecipients.forEach((rep) => {
-                if (rep !== value.uei || rep !== value.name) {
-                    updatedSelected.push(isUei ? rep.uei : rep.name);
-                }
-            });
+        const updatedSelected = selectedRecipients.toArray();
+        if (selectedRecipients?.size > 0 && selectedRecipients.includes(isUei ? value.uei : value.name)) {
+            updatedSelected.filter((rep) => rep === (isUei ? value.uei : value.name));
         }
         else {
             updatedSelected.push(isUei ? value.uei : value.name);
@@ -239,7 +233,7 @@ const RecipientSearchContainer = () => {
     };
 
     useEffect(() => {
-        let searchValues = {};
+        let searchValues = null;
         if (searchedFilterValues?.recipient) {
             searchValues = searchedFilterValues.recipient;
         }

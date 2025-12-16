@@ -383,13 +383,16 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
 
         case 'UPDATE_SEARCH_FILTER_VALUES': {
-            return Object.assign({}, state, {
-                searchedFilterValues: {
-                    [action.filterType]: {
-                        input: action.input,
-                        selected: action.selected
-                    }
+            let updatedSet = state.searchedFilterValues;
+            const searchObj = {
+                [action.filterType]: {
+                    input: action.input,
+                    selected: action.selected
                 }
+            };
+            updatedSet = { ...updatedSet, ...searchObj };
+            return Object.assign({}, state, {
+                searchedFilterValues: updatedSet
             });
         }
 

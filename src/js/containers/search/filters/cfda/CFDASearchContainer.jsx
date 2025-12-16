@@ -157,7 +157,7 @@ const CFDASearchContainer = () => {
 
 
     useEffect(() => {
-        let searchValues = {};
+        let searchValues = null;
         if (searchedFilterValues?.cfda) {
             searchValues = searchedFilterValues.cfda;
         }
