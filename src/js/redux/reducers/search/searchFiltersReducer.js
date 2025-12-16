@@ -25,9 +25,6 @@ const defaultCheckboxTreeSelections = { require: [], exclude: [], counts: [] };
 
 export const CheckboxTreeSelections = Record(defaultCheckboxTreeSelections);
 
-// const defaultSearchedFilterValues = { type: "", input: "", selected: [] };
-// export const SearchedFilterValues = Record(defaultSearchedFilterValues);
-
 export const requiredTypes = {
     keyword: OrderedMap,
     timePeriodFY: Set,
@@ -52,7 +49,6 @@ export const requiredTypes = {
     setAside: Set,
     extentCompeted: Set,
     searchedFilterValues: OrderedMap
-    // searchedFilterValues: SearchedFilterValues
 };
 
 export const initialState = {
@@ -86,7 +82,6 @@ export const initialState = {
     tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     awardDescription: '',
     searchedFilterValues: OrderedMap()
-    // searchedFilterValues: SearchedFilterValues(defaultSearchedFilterValues)
 };
 
 export const initialStateFY = {
@@ -120,7 +115,6 @@ export const initialStateFY = {
     tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
     awardDescription: '',
     searchedFilterValues: OrderedMap()
-    // searchedFilterValues: SearchedFilterValues(defaultSearchedFilterValues)
 };
 
 const searchFiltersReducer = (state = initialState, action) => {

@@ -103,7 +103,6 @@ const AutocompleteWithCheckboxList = ({
                                     <PrimaryCheckboxType
                                         name={filter.name || filter.title}
                                         value={filter.value}
-                                        // value={filter.value || filter.data}
                                         key={filter.key}
                                         toggleCheckboxType={toggleSingleFilter}
                                         selectedCheckboxes={selectedFilters} />

@@ -110,18 +110,17 @@ const CFDASearchContainer = () => {
         setCfdaSearchString(e.target.value);
     };
 
+    const handleSearchClear = () => {
+        setCfdaSearchString(''); // clean up if previously set
+        setAutocompleteCFDA([]);
+    };
+
     const handleClearAll = () => {
         selectedCFDA.forEach((cfda) => {
             dispatch(updateSelectedCFDA({ cfda }));
         });
 
-        setCfdaSearchString(''); // clean up if previously set
-        setAutocompleteCFDA([]);
-    };
-
-    const handleSearchClear = () => {
-        setCfdaSearchString(''); // clean up if previously set
-        setAutocompleteCFDA([]);
+        handleSearchClear();
     };
 
     const toggleAll = (selectAll) => {
