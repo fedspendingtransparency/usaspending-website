@@ -8,14 +8,13 @@ import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import GlossaryLink from "components/sharedComponents/GlossaryLink";
+import FilterTabs from 'components/sharedComponents/filterSidebar/FilterTabs';
+import usePrevious from "hooks/usePrevious";
 import DateRange from './DateRange';
 import AllFiscalYearsWithChips from "./AllFiscalYearsWithChips";
 import DateRangeError from './DateRangeError';
-import GlossaryLink from "../../../sharedComponents/GlossaryLink";
-import FilterTabs from '../../../sharedComponents/filterSidebar/FilterTabs';
-import usePrevious from "../../../../hooks/usePrevious";
 import NewAwardsFilter from "./NewAwardsFilter";
-import TooltipContext from "../../../../context/TooltipContext";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
