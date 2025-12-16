@@ -10,7 +10,7 @@ import PropTypes from "prop-types";
 
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import {
-    sideBarXlDesktopWidth, panelContainerElClasses, checkInView
+    sideBarXlDesktopWidth, checkInView
 } from "helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
 
@@ -43,6 +43,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const topStickyBarHeight = 60;
     const minContentHeight = 124;
     const additionalRibbonHeight = 68;
+
+    const sidebarContainer = useRef();
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -128,17 +130,17 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         const sidebarElSelector = isMobile ? ".mobile-search-sidebar-v2" : ".full-search-sidebar";
         document.querySelector(sidebarElSelector).style.width = "unset";
         document.querySelector(".full-search-sidebar").style.flexBasis = `${width}px`;
-        document.querySelector(".collapsible-sidebar").style.width = `${width}px`;
-        document.querySelector(".collapsible-sidebar").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
+        document.querySelector(".search-collapsible-sidebar-container").style.width = `${width}px`;
+        document.querySelector(".search-collapsible-sidebar-container").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
     };
 
     const closeSidebar = () => {
         document.querySelector(".full-search-sidebar").style.width = "0";
         document.querySelector(".full-search-sidebar").style.flexBasis = "0";
         document.querySelector(".mobile-search-sidebar-v2").style.width = "0";
-        document.querySelector(".collapsible-sidebar").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
+        document.querySelector(".search-collapsible-sidebar-container").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
         document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
-        document.querySelector(".collapsible-sidebar").style.width = "0";
+        document.querySelector(".search-collapsible-sidebar-container").style.width = "0";
     };
 
     const handleScrollEnd = (e) => {
@@ -161,16 +163,18 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     }, [isMobile, isOpened, windowWidth]);
 
     useEffect(() => {
-        if (!isOpened && initialPageLoad) {
+        if (initialPageLoad && sidebarContainer) {
+            sidebarContainer.current.display = "block";
+            sidebarContainer.current.height = height;
             setInitialPageLoad(false);
         }
-    }, [initialPageLoad, isOpened]);
+    }, [initialPageLoad, sidebarContainer]);
 
-    useEffect(() => {
-        if (sidebarHeight > 0 && sidebarContentHeight > 0 && document.querySelector(".search-sidebar").style.display === "none") {
-            document.querySelector(".search-sidebar").style.display = "flex";
-        }
-    }, [sidebarHeight, sidebarContentHeight]);
+    // useEffect(() => {
+    //     if (sidebarHeight > 0 && sidebarContentHeight > 0 && document.querySelector(".search-sidebar").style.display === "none") {
+    //         document.querySelector(".search-sidebar").style.display = "flex";
+    //     }
+    // }, [sidebarHeight, sidebarContentHeight]);
 
     useEffect(() => {
         handleScroll();
@@ -218,6 +222,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     }, []);
 
     const selectHeight = () => {
+        // I need to add the top here
         const isStickyEl = document.querySelector(".usda-page-header--sticky");
         const isHeaderSticky = isStickyEl !== null;
         const bufferToTouchBottom = 6;
@@ -229,55 +234,38 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         return sidebarHeight;
     };
 
-    const shouldDisplay = () => {
-        if (initialPageLoad) {
-            return "none";
-        }
-        return "block";
-    };
-
     return (
         <>
             <div
-                style={{ height }}
-                className="search-collapsible-sidebar-container sticky">
+                ref={sidebarContainer}
+                className="search-collapsible-sidebar-container search-sidebar sticky">
                 <div
-                    style={{ height: selectHeight(), display: shouldDisplay() }}
-                    className={
-                        `search-sidebar collapsible-sidebar ${
-                            initialPageLoad ? "is-initial-loaded" : ""
-                        } ${
-                            isOpened ? 'opened' : ''
-                        }`
-                    }>
-                    <div
-                        className="collapsible-sidebar--toggle"
-                        onClick={(e) => {
-                            setIsDsmOpened(false);
-                            toggleOpened(e);
-                        }}
-                        onKeyDown={(e) => {
-                            setIsDsmOpened(false);
-                            keyHandler(e, toggleOpened);
-                        }}
-                        role="button"
-                        aria-label="Toggle Collapsible Sidebar"
-                        focusable="true"
-                        tabIndex={0}>
-                        {isOpened ?
-                            <FontAwesomeIcon className="chevron" icon="chevron-left" />
-                            :
-                            <FontAwesomeIcon className="chevron" icon="chevron-right" />
-                        }
-                    </div>
-                    { isOpened &&
+                    className="collapsible-sidebar--toggle"
+                    onClick={(e) => {
+                        setIsDsmOpened(false);
+                        toggleOpened(e);
+                    }}
+                    onKeyDown={(e) => {
+                        setIsDsmOpened(false);
+                        keyHandler(e, toggleOpened);
+                    }}
+                    role="button"
+                    aria-label="Toggle Collapsible Sidebar"
+                    focusable="true"
+                    tabIndex={0}>
+                    {isOpened ?
+                        <FontAwesomeIcon className="chevron" icon="chevron-left" />
+                        :
+                        <FontAwesomeIcon className="chevron" icon="chevron-right" />
+                    }
+                </div>
+                { isOpened &&
                         <SidebarContent
                             sidebarContentHeight={sidebarContentHeight}
                             setShowMobileFilters={setShowMobileFilters}
                             isDsmOpened={isDsmOpened}
                             setIsDsmOpened={setIsDsmOpened} />
-                    }
-                </div>
+                }
             </div>
         </>
     );
