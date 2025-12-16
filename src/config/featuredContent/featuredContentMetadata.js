@@ -251,7 +251,7 @@ const articles = [
         created_date: "12/25/25",
         feature_sprint: 3,
         feature_week: 1,
-        description: "When searching for government spending data on USAspending.gov, you’re very likely to see the word “recipient. Whether you’re using our filters to refine your",
+        description: "If you want to build a house, you must know what kind of material to use. Lest you end up like two of the three little pigs, building a house out of straw or",
         slug: "grants-vs-contracts",
         explore_more: [
             {
@@ -281,8 +281,8 @@ const articles = [
     {
         taxonomy: "Spending Stories",
         content_type: 'Marketing',
-        banner_subtitle: "Explore How the Federal Government Spends Money on a Particular Topic",
         title: "Discover How Government Spending Supports Causes You Care About",
+        banner_subtitle: "Explore How the Federal Government Spends Money on a Particular Topic",
         created_date: "12/25/25",
         feature_sprint: 3,
         feature_week: 1,
