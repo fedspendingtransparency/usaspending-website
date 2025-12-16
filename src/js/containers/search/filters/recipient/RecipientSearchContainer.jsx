@@ -143,16 +143,6 @@ const RecipientSearchContainer = () => {
         setRecipients([]);
     };
 
-    const handleClearAll = () => {
-        const currentRecipients = selectedRecipients;
-
-        currentRecipients.forEach((recipient) => {
-            dispatch(updateSelectedRecipients(recipient));
-        });
-
-        handleSearchClear();
-    };
-
     const getMaxRecipientsText = () => {
         if (maxRecipients) {
             return (
@@ -264,10 +254,8 @@ const RecipientSearchContainer = () => {
         <div className="recipient-filter">
             <AutocompleteWithCheckboxList
                 limit={maxRecipientsAllowed}
-                filterType="Recipient"
                 handleTextInputChange={handleTextInputChange}
                 onSearchClear={handleSearchClear}
-                onClearAll={handleClearAll}
                 searchString={searchString}
                 filters={formatedRecipientFilters()}
                 selectedFilters={selectedRecipients}

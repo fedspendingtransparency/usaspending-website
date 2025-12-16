@@ -9,10 +9,8 @@ import EntityDropdownAutocomplete from '../../search/filters/location/EntityDrop
 import PrimaryCheckboxType from '../checkbox/PrimaryCheckboxType';
 
 const propTypes = {
-    filterType: PropTypes.string,
     handleTextInputChange: PropTypes.func,
     onSearchClear: PropTypes.func,
-    onClearAll: PropTypes.func,
     searchString: PropTypes.string,
     filters: PropTypes.array,
     selectedFilters: PropTypes.array,
@@ -27,10 +25,8 @@ const propTypes = {
 };
 
 const AutocompleteWithCheckboxList = ({
-    filterType,
     handleTextInputChange,
     onSearchClear,
-    onClearAll,
     searchString,
     filters,
     selectedFilters,

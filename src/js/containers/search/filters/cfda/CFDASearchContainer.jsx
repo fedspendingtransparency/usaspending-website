@@ -115,14 +115,6 @@ const CFDASearchContainer = () => {
         setAutocompleteCFDA([]);
     };
 
-    const handleClearAll = () => {
-        selectedCFDA.forEach((cfda) => {
-            dispatch(updateSelectedCFDA({ cfda }));
-        });
-
-        handleSearchClear();
-    };
-
     const toggleAll = (selectAll) => {
         const selectedArray = selectedCFDA.toArray();
 
@@ -190,7 +182,6 @@ const CFDASearchContainer = () => {
                 filterType="Assistance Listing"
                 handleTextInputChange={handleTextInputChange}
                 onSearchClear={handleSearchClear}
-                onClearAll={handleClearAll}
                 searchString={cfdaSearchString}
                 filters={autocompleteCFDA}
                 selectedFilters={selectedCFDA}
