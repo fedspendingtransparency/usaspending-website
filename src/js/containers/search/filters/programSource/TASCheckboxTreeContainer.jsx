@@ -83,10 +83,9 @@ const TASCheckboxTree = () => {
     const fetchTasLocal = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
         if (request.current) request.current.cancel();
 
-        if (id === '') setIsLoading(true);
-
         if (showNoResults) setShowNoResults(false);
 
+        setIsLoading(true);
         const queryParam = isSearch
             ? `?depth=2&filter=${searchStr}`
             : id;
@@ -104,44 +103,55 @@ const TASCheckboxTree = () => {
                     const key = id.includes('/')
                         ? id.split('/')[1]
                         : id;
-                    if (resolveLoadingIndicator) {
-                        setIsLoading(false);
-                    }
-                    const newChecked = checked.includes(`children_of_${key}`)
-                        ? autoCheckTasAfterExpand(
-                            { children: tasNodes, value: key },
-                            checked,
-                            unchecked
-                        )
-                        : checked;
 
                     if (isSearch) {
-                        dispatch(setSearchedTas(tasNodes));
                         const searchExpandedNodes = expandTasNodeAndAllDescendantParents(tasNodes);
-
-                        dispatch(setExpandedTas(
-                            expandTasNodeAndAllDescendantParents(tasNodes), 'SET_SEARCHED_EXPANDED')
-                        );
-                        const nodesCheckedByPlaceholderOrAncestor = autoCheckSearchResultDescendants(
+                        dispatch(setSearchedTas(tasNodes));
+                        autoCheckSearchResultDescendants(
                             checked,
                             searchExpandedNodes,
                             tasNodes
                         );
-                        dispatch(setCheckedTas(nodesCheckedByPlaceholderOrAncestor));
+
+                        dispatch(setExpandedTas(
+                            expandTasNodeAndAllDescendantParents(searchExpandedNodes), 'SET_SEARCHED_EXPANDED')
+                        );
+
                         if (tasNodes.length === 0) {
                             setShowNoResults(true);
                         }
                     }
                     else {
                         dispatch(setTasNodes(key, tasNodes));
-                        dispatch(setCheckedTas(newChecked));
                     }
+
+                    let modChecked = [];
+
+                    if (checked.includes(`children_of_${key}`)) {
+                        // key node is checked.  add children
+                        const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
+                        modChecked = [...filteredChecked, ...tasNodes.map((child) => child.value)];
+                    }
+
+                    const newChecked = checked.includes(`children_of_${key}`)
+                        ? autoCheckTasAfterExpand(
+                            { children: tasNodes, value: key },
+                            modChecked,
+                            unchecked
+                        )
+                        : checked;
+
+                    dispatch(setCheckedTas(newChecked));
                 }
                 else {
                     // populating tree trunk
                     dispatch(setTasNodes('', tasNodes));
+                }
+
+                if (resolveLoadingIndicator) {
                     setIsLoading(false);
                 }
+
                 request.current = null;
             })
             .catch((e) => {
@@ -336,8 +346,6 @@ const TASCheckboxTree = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSearch, searchString]);
 
-    //  HEY DUMMY
-    // checked not getting checked from hash
 
     return (
         <div className="tas-checkbox">

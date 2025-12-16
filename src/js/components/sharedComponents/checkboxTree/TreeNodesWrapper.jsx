@@ -93,7 +93,7 @@ const TreeNodesWrapper = ({
                         }
 
                         const hasAnyChildrenChecked = parent.children.filter((child) => allChecked.includes(child.id) || node.id === child.id);
-                        let setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length < parent.children.length);
+                        let setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length <= parent.children.length);
 
                         if (checkboxRefs.current) {
                             if (nodePriorChecked) {
@@ -141,6 +141,7 @@ const TreeNodesWrapper = ({
             if ((descendantIds.length > 0)) {
                 // Check node's descendants
                 newChecked = [...new Set([...localChecked, id, ...descendantIds])];
+                console.log("checking newChecked ==== first if ======", newChecked);
             }
             else {
                 // Check node
