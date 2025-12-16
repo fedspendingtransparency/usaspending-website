@@ -15,11 +15,13 @@ import FullDownloadModalContainer from
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { showModal } from "redux/actions/modal/modalActions";
 
+import TooltipContext from "context/TooltipContext";
 import MobileFiltersV2 from "../mobile/MobileFiltersV2";
 import ResultsView from "../resultsView/ResultsView";
-import MobileFilterButton from "../MobileFilterButton";
-import searchPageToolBarComponents from "../SearchPageToolBarComponents";
 import CollapsibleSidebar from "./SidebarWrapper";
+import MobileFilterButton from "../MobileFilterButton";
+import { showModal } from "../../../redux/actions/modal/modalActions";
+import searchPageToolBarComponents from "../SearchPageToolBarComponents";
 
 require('pages/search/searchPage.scss');
 
@@ -45,6 +47,9 @@ const SearchPage = ({
     noFiltersApplied,
     hash
 }) => {
+    const [tooltipData, setTooltipData] = useState({
+        top: 0, left: 0, display: 'none', tooltip: <></>
+    });
     const [showMobileFilters, setShowMobileFilters] = useState(false);
     const [filterCount, setFilterCount] = useState(0);
     const [showFullDownload, setShowFullDownload] = useState(false);
@@ -105,12 +110,26 @@ const SearchPage = ({
             <div id="main-content">
                 <div className="search-contents v2" ref={searchContents}>
                     <div className="full-search-sidebar">
-                        <CollapsibleSidebar
-                            filters={filters}
-                            hash={hash}
-                            showMobileFilters={showMobileFilters}
-                            sidebarOpen={sidebarOpen}
-                            setSidebarOpen={setSidebarOpen} />
+                        <TooltipContext value={(tt) => setTooltipData(tt)} >
+                            <CollapsibleSidebar
+                                filters={filters}
+                                hash={hash}
+                                showMobileFilters={showMobileFilters}
+                                sidebarOpen={sidebarOpen}
+                                setSidebarOpen={setSidebarOpen} />
+                        </TooltipContext>
+                    </div>
+                    <div
+                        className="new-tooltip__tooltip-wrapper"
+                        style={{
+                            top: tooltipData.top,
+                            left: tooltipData.left,
+                            display: tooltipData.display
+                        }}>
+                        <div className="tooltip-wrapper">
+                            <div className="tooltip-pointer" />
+                            {tooltipData.tooltip}
+                        </div>
                     </div>
                     <MobileFilterButton
                         filterCount={filterCount}

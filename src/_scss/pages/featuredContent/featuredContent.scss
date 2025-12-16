@@ -18,6 +18,14 @@
     flex-direction: column;
     justify-content: center;
 
+    .featured-content__article-body {
+      img {
+        display: flex;
+        margin: 0 auto;
+        width: 500px;
+      }
+    }
+
     .grid-content {
       margin: 0 rem(16);
       max-width: $homepage-max-width;
@@ -25,12 +33,6 @@
       font-family: $font-sans;
       padding-top: rem(46);
 
-      img {
-        display: flex;
-        margin: 0 auto;
-        width: 500px;
-      }
-      
       .featured-content__column-two {
         @media(min-width: $large-screen) {
           padding-left: rem(67);
@@ -41,6 +43,7 @@
       @media (min-width: $tablet-screen) {
         margin: 0 rem(32);
       }
+
       @media (min-width: 1400px) {
         margin: 0 $grid-column;
       }
@@ -61,12 +64,16 @@
       p {
         color: $color-black
       }
+
+      iframe {
+        display: flex;
+        justify-self: center;
+      }
     }
   }
   
   @import "../contentPage/contentPageHeader";
   @import "listOfArticles";
-  @import "articleThumbnail";
   @import "articleSort";
   @import "inlineShare";
 

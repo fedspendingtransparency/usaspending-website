@@ -57,6 +57,7 @@ const SidebarContentFilters = ({ sidebarContentHeight, isMobile }) => {
             <Keyword searchV2 />
             {searchFilterCategoryTree.map(({ title, component }) => (
                 <SidebarContentFilterAccordion
+                    key={`toggle-${title}`}
                     title={title}
                     component={component}
                     open={open}
