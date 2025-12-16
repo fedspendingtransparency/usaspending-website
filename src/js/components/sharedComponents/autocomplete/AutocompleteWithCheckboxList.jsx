@@ -111,18 +111,7 @@ const AutocompleteWithCheckboxList = ({
                         </ul>
                         {additionalText && additionalText}
                     </div>
-                ) : (
-                    <div className="clear-all__container">
-                        <button
-                            type="button"
-                            aria-label={`Clear all ${filterType} filters`}
-                            className="clear-all__button"
-                            tabIndex="0"
-                            onClick={onClearAll} >
-                            {`Clear all ${filterType} filters`}
-                        </button>
-                    </div>
-                )}
+                ) : null }
             </>
         );
     };
