@@ -57,15 +57,15 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             }
         }
     };
-    //
-    // const showElements = (removeableEls) => {
-    //     for (const value of removeableEls) {
-    //         const elClass = value.className;
-    //         if (document.querySelector(`.${elClass}`)?.style) {
-    //             document.querySelector(`.${elClass}`).style.display = value.display;
-    //         }
-    //     }
-    // };
+
+    const showElements = (removeableEls) => {
+        for (const value of removeableEls) {
+            const elClass = value.className;
+            if (document.querySelector(`.${elClass}`)?.style) {
+                document.querySelector(`.${elClass}`).style.display = value.display;
+            }
+        }
+    };
 
     const resizeHeightByFooter = () => {
         const mainContentInView = checkInView(mainContentEl);
@@ -130,12 +130,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         document.querySelector(".full-search-sidebar").style.flexBasis = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.width = `${width}px`;
         document.querySelector(".collapsible-sidebar").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
-        // const allDsmSlidersToOpen = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
-        // if (allDsmSlidersToOpen.length) {
-        //     for (const slider of allDsmSlidersToOpen.values()) {
-        //         // slider.style.display = "flex";
-        //     }
-        // }
     };
 
     const closeSidebar = () => {
@@ -145,12 +139,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         document.querySelector(".collapsible-sidebar").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
         document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
         document.querySelector(".collapsible-sidebar").style.width = "0";
-        // const allDsmSlidersToClose = document.querySelectorAll(".collapsible-sidebar--dsm-slider");
-        // if (allDsmSlidersToClose.length) {
-        //     for (const slider of allDsmSlidersToClose.values()) {
-        //         slider.style.display = "none";
-        //     }
-        // }
     };
 
     const handleScrollEnd = (e) => {
@@ -180,7 +168,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     useEffect(() => {
         if (sidebarHeight > 0 && sidebarContentHeight > 0 && document.querySelector(".search-sidebar").style.display === "none") {
-            // document.querySelector(".search-sidebar").style.display = "flex";
+            document.querySelector(".search-sidebar").style.display = "flex";
         }
     }, [sidebarHeight, sidebarContentHeight]);
 
@@ -241,15 +229,20 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         return sidebarHeight;
     };
 
+    const shouldDisplay = () => {
+        if (initialPageLoad) {
+            return "none";
+        }
+        return "block";
+    };
+
     return (
         <>
             <div
-                style={{
-                    position: "sticky", top: 0, left: 0, alignSelf: "flex-start", height
-                }}
-                className="search-collapsible-sidebar-container search-sidebar sticky">
+                style={{ height }}
+                className="search-collapsible-sidebar-container sticky">
                 <div
-                    style={{ height: selectHeight() }}
+                    style={{ height: selectHeight(), display: shouldDisplay() }}
                     className={
                         `search-sidebar collapsible-sidebar ${
                             initialPageLoad ? "is-initial-loaded" : ""

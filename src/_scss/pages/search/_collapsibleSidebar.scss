@@ -10,9 +10,13 @@
 .search-collapsible-sidebar-container {
   box-shadow: unset;
   border-radius: unset;
-  position: sticky;
-  margin-top: 0;
-  top: 0;
+
+  &.sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+    align-self: flex-start;
+  }
 
   .sidebar-bottom-submit {
     position: absolute;
