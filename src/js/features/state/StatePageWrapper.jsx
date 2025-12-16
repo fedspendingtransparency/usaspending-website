@@ -13,7 +13,7 @@ import useQueryParams from "hooks/useQueryParams";
 import { mediumScreen } from "dataMapping/shared/mobileBreakpoints";
 import { showModal } from "redux/actions/modal/modalActions";
 import useWindowWidth from "hooks/useWindowWidth";
-import { statePageToolbarComponents } from "./stateHelper";
+import statePageToolbarComponents from "./statePageToolbarComponents";
 
 const stateSections = [
     {
