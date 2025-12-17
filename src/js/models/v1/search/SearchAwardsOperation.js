@@ -273,9 +273,9 @@ class SearchAwardsOperation {
 
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
         if (this.selectedRecipients?.length > 0) {
-            if (this.searchedFilterValues?.recipient?.allSelected) {
+            if (this.searchedFilterValues?.get('recipient')) {
                 // user selected all use search text.
-                filters[rootKeys.recipients] = [];
+                filters[rootKeys.recipients] = [this.searchedFilterValues?.get('recipient').input];
             }
             else {
                 filters[rootKeys.recipients] = this.selectedRecipients;
