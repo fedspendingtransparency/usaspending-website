@@ -190,7 +190,7 @@ const CFDASearchContainer = () => {
         <div className="cfda-filter">
             <AutocompleteWithCheckboxList
                 placeholder="e.g., 93.778 - Medical Assistance Program"
-                filterType="Assistance Listing"
+                filterType="Assistance Listings"
                 handleTextInputChange={handleTextInputChange}
                 onSearchClear={handleSearchClear}
                 onClearAll={handleClearAll}

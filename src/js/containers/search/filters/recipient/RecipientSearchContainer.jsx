@@ -268,7 +268,7 @@ const RecipientSearchContainer = () => {
     return (
         <div className="recipient-filter">
             <AutocompleteWithCheckboxList
-                filterType="recipient"
+                filterType="Recipients"
                 limit={maxRecipientsAllowed}
                 handleTextInputChange={handleTextInputChange}
                 onSearchClear={handleSearchClear}
