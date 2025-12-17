@@ -47,7 +47,8 @@ export const requiredTypes = {
     defCode: Set,
     pricingType: Set,
     setAside: Set,
-    extentCompeted: Set
+    extentCompeted: Set,
+    searchedFilterValues: OrderedMap
 };
 
 export const initialState = {
@@ -79,7 +80,8 @@ export const initialState = {
     extentCompeted: Set(),
     treasuryAccounts: OrderedMap(),
     tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
-    awardDescription: ''
+    awardDescription: '',
+    searchedFilterValues: OrderedMap()
 };
 
 export const initialStateFY = {
@@ -111,7 +113,8 @@ export const initialStateFY = {
     extentCompeted: Set(),
     treasuryAccounts: OrderedMap(),
     tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
-    awardDescription: ''
+    awardDescription: '',
+    searchedFilterValues: OrderedMap()
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -371,6 +374,20 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return Object.assign({}, initialState);
+        }
+
+        case 'UPDATE_SEARCH_FILTER_VALUES': {
+            let updatedSet = state.searchedFilterValues;
+            const searchObj = {
+                [action.filterType]: {
+                    input: action.input,
+                    selected: action.selected
+                }
+            };
+            updatedSet = { ...updatedSet, ...searchObj };
+            return Object.assign({}, state, {
+                searchedFilterValues: updatedSet
+            });
         }
 
         default:

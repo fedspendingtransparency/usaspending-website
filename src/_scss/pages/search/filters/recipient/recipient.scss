@@ -1,167 +1,64 @@
 .recipient-filter {
-    @import "elements/filters/_selectedFilterBtn";
-    @import "mixins/selectedFilterWrap";
+
+    @import "components/search/_autocompleteCheckbox";
 
     .filter-item-wrap {
-        .autocomplete__input {
-            padding-bottom: 0;
-        }
-
-        .selected-filters {
-            display: none; 
-        }
-
-        .clear-all__container {
-            display: flex;
-            justify-content: right;
-
-            .clear-all__button {
-                background: none;
-                color: $theme-color-1;
-                margin: ($global-margin * 2) 0 0 0;
-                padding: 0;
-                font-size: $smallest-font-size;
-                line-height: 1.5;
-            }
-        }
-    }
-
-    .recipient-results__container {
-        margin-top: $global-margin * 2.5;
-        padding: 0 0 $global-padding * 3 0;
-        overflow-y: scroll;
-        height: rem(400);
-        list-style: none;
-
-        // can be removed when v2 is deployed.  this accounts for the inside scroll bar container removed in v2.
-        margin-left: -2rem;
-        padding-left: 2rem;
-
-        .find-recipients-text {
-            text-align: center;
-            font-size: $smallest-font-size;
-            line-height: 1.5;
-            padding: 0 8px;
-
-            &.label {
-                color: $gray-90;
-                margin: ($global-spacing-unit * 3) 0 rem(4) 0;
-                font-weight: $font-semibold;
-            }
-
-            &.content {
-                color: $gray-60;
-            }
-        }
-
         .checkbox-type-filter {
-            // allows for checkbox focus on v2 to not be cut off on left
-            margin-left: -32px;
-            padding-left: 32px;
-
-            &.bottom-fade {
-                mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 1) 40px);
-            }
-
-            .recipient-label__container {
-                display: flex;
-                flex-flow: column nowrap;
-                margin-bottom: $global-spacing-unit;
-
-                .checkbox-set {
-                    margin: 0;
-
-                    .primary-checkbox-type {
-                        padding-left: 0;
-
-                        .checkbox-item-wrapper {
-                            .checkbox-item-label {
-                                margin-left: 0;
-                            }
-
-                            input {
-                                height: rem(14);
-                                width: rem(14);
-                                appearance: none;
-                                outline: none;
-                                border-color: $gray-cool-20;
-                                top: rem(4);
-
-                                &:focus-visible {
-                                    outline: solid 1px $color-focus;
-                                }
-                            }
-
-                        }
-                    }
+            .recipient-checkbox__uei {
+                display: inline;
+                color: $gray-90;
+                
+                :not(.bold-highlight) {
+                    font-style: normal;
+                    font-weight: $font-normal;
                 }
 
-                .recipient-checkbox__uei {
-                    display: inline;
-                    font-size: $font-size-12;
-                    padding: rem(2.5) $global-padding * .5;
-                    border-radius: 2px;
-                    background-color: $gray-cool-5;
-                    line-height: 1.5;
-                    color: $theme-color-headline;
+                span:not(.bold-highlight) {
+                    font-style: italic;
+                    color: $gray-60
+                }
 
-                    span {
+                .secondary-label__name-container {
+                    padding-left: rem(28);
+                    color: $gray-60;
+                    font-size: $font-size-10;
+                    font-style: italic;
+                    font-weight: $font-normal;
+                    line-height: $base-line-height;
+                    text-transform: uppercase;
+
+                    span.bol-highlight {
+                        color: $gray-90;
+                        font-weight: $font-semibold;
+                        font-style: normal;
+                    }
+                }
+            }
+
+    
+            .recipient-filter-message-container{
+                align-items: center;
+                padding-bottom: rem(8);
+
+                .find-recipients-text {
+                    text-align: center;
+                    font-size: $smallest-font-size;
+                    line-height: 1.5;
+                    padding: 0 8px;
+
+                    &.label {
+                        color: $gray-90;
+                        margin: ($global-spacing-unit * 3) 0 rem(4) 0;
                         font-weight: $font-semibold;
                     }
 
-                    span.highlight {
-                        background-color: $yellow-10;
-                    }
-                }
-
-                .recipient-label__lower-container {
-                    margin-left: rem(21);
-
-                    .recipient-label__legacy-duns {
-                        font-size: $font-size-12;
-                        font-style: italic;
-                        line-height: 1.5;
+                    &.content {
                         color: $gray-60;
-                        margin-top: $global-margin * .5;
-                    }
-
-                    .recipient-label__name-container {
-                        margin: rem(4) rem(4) 0 0;
-
-                        .recipient-label__recipient-name {
-                            font-size: $font-size-12;
-                            font-weight: $font-normal;
-                            line-height: 1.5;
-                            color: $gray-90;
-                            border-right: 0;
-                            margin-right: 0;
-                        }
-
-                        .recipient-label__recipient-level {
-                            font-size: $font-size-10;
-                            font-style: italic;
-                            line-height: 1.5;
-                            color: $gray-60;
-                            margin-left: $global-spacing-unit;
-                        }
+                        margin-bottom: rem(4);
                     }
                 }
             }
         }
-
-        span.highlight {
-            background-color: $yellow-10;
-        }
-    }
-
-    .recipient-filter-message-container {
-        font-size: rem(30);
-        text-align: center;
-        margin-top: $global-margin;
-
-        .recipient-filter-message-container__text {
-            font-size: 2rem;
-            padding-bottom: 2rem;
-        }
-    }
+    }  
+       
 }

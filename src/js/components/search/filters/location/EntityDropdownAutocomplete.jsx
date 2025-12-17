@@ -6,6 +6,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { uniqueId } from 'lodash-es';
 
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 import useEventListener from "../../../../hooks/useEventListener";
@@ -23,7 +24,8 @@ const propTypes = {
     showDisclaimer: PropTypes.bool,
     onClear: PropTypes.func,
     isClearable: PropTypes.bool,
-    searchIcon: PropTypes.bool
+    searchIcon: PropTypes.bool,
+    id: PropTypes.bool
 };
 
 const EntityDropdownAutocomplete = ({
@@ -39,7 +41,8 @@ const EntityDropdownAutocomplete = ({
     showDisclaimer,
     onClear,
     isClearable,
-    searchIcon = false
+    searchIcon = false,
+    id = ''
 }) => {
     const iconRef = useRef(null);
 
@@ -56,6 +59,7 @@ const EntityDropdownAutocomplete = ({
         <div className="autocomplete__input">
             {searchIcon && <div className="search-icon"><FontAwesomeIcon icon="search" /></div>}
             <input
+                id={id !== '' ? id : `geo-entity-dropdown-${uniqueId()}`}
                 className="geo-entity-dropdown__input"
                 disabled={!enabled}
                 type="text"
