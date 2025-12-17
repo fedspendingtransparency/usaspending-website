@@ -1,24 +1,24 @@
-//@use "sass:math";
-//@import "layouts/default/default";
-//
-//#main-content {
-//    @import "../default/stickyHeader/header";
-//
-//    .search-contents {
-//        @include grid-container;
-//        max-width: 100%;
-//        margin: 0 math.div($outer-gutter, 2);
-//        display: flex;
-//        //flex-direction: column;
-//        @include media($medium-screen) {
-//            //flex-direction: row;
-//        }
-//        @include media($large-screen) {
-//            margin: 0 $outer-gutter;
-//        }
-//        @include media($x-large-screen) {
-//            max-width: $site-max-width;
-//            margin: 0 auto;
-//        }
-//    }
-//}
+@use "sass:math";
+@import "layouts/default/default";
+
+#main-content {
+    @import "../default/stickyHeader/header";
+
+    .search-contents {
+        @include grid-container;
+        max-width: 100%;
+        margin: 0 math.div($outer-gutter, 2);
+        display: flex;
+        //flex-direction: column;
+        @include media($medium-screen) {
+            //flex-direction: row;
+        }
+        @include media($large-screen) {
+            margin: 0 $outer-gutter;
+        }
+        @include media($x-large-screen) {
+            max-width: $site-max-width;
+            margin: 0 auto;
+        }
+    }
+}

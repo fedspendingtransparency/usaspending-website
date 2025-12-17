@@ -1,4 +1,5 @@
 @import "searchFilter";
+@import "../../components/checkboxTree/checkboxTree";
 
 // .usda-page-header style is a DTUI override that's specific to the search 2.0 page
 //&.v2 {
@@ -8,76 +9,67 @@
 //}
 
 .search-collapsible-sidebar-container {
-  box-shadow: unset;
-  border-radius: unset;
-
-  &.sticky {
-    position: sticky;
-    top: 0;
-    left: 0;
-    align-self: flex-start;
-  }
-
-  .sidebar-bottom-submit {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    border-bottom: $gray-cool-10 1px solid;
-  }
-
-  @media(max-width: $medium-screen - 1) {
-    left: 0;
-    width: 100%;
-  }
-
-  .chevron {
-    margin: auto;
-    color: $blue-50;
-    width: 6px;
-    height: 100%;
-  }
-
-  .collapsible-sidebar--toggle {
-    @media(max-width: $medium-screen - 1) {
-      display: none;
-    }
-    position: absolute;
-    right: -12px;
-    top: 16px;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-    border: solid 1px $gray-cool-10;
-    background-color: $color-white;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    z-index: 2;
-  }
-
-  @import "../../components/checkboxTree/checkboxTree";
-
-  .search-collapsible-sidebar-container {
-    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    position: relative;
     margin-top: -40px !important; // TODO Keep here until we remove the legacy panel
     border: 1px solid $gray-cool-10;
     box-shadow: none;
     border-radius: unset;
     background-color: unset;
 
+    &.sticky {
+        position: sticky;
+        top: 0;
+        left: 0;
+        align-self: flex-start;
+    }
+
+    .sidebar-top-submit {
+        width: 100%;
+        border-bottom: $gray-cool-10 1px solid;
+    }
+
+    @media(max-width: $medium-screen - 1) {
+      left: 0;
+      width: 100%;
+    }
+
+    .chevron {
+      margin: auto;
+      color: $blue-50;
+      width: 6px;
+      height: 100%;
+    }
+
+    .collapsible-sidebar--toggle {
+        @media(max-width: $medium-screen - 1) {
+            display: none;
+        }
+        position: absolute;
+        right: -12px;
+        top: 16px;
+        border-radius: 12px;
+        width: 24px;
+        height: 24px;
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+        border: solid 1px $gray-cool-10;
+        background-color: $color-white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 2;
+    }
+
     @media(max-width: $medium-screen - 1) {
       border: none;
     }
 
     &:not(.opened) {
-      .sidebar-bottom-submit,
+      .sidebar-top-submit,
       .search-filter__container,
       .collapsible-sidebar--header,
-      .collapsible-sidebar--drilldown,
       .collapsible-sidebar--main-menu {
         display: none;
       }
@@ -168,10 +160,11 @@
     }
   }
 
-}
 
 .search-contents.v2 {
   .search-collapsible-sidebar-container {
+    //display: none;
+    margin-right: rem(16);
     @media(min-width: $large-screen) {
       width: 350px;
     }
@@ -180,28 +173,31 @@
       width: 300px;
     }
   }
+}
 
-  .full-search-sidebar {
-    //display: none;
-    margin-right: rem(16);
-
-    @media(min-width: $large-screen) {
-      display: flex;
-      flex-basis: 350px;
-    }
-
-    @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
-      display: flex;
-      flex-basis: 300px;
-    }
-  }
-
+  //.full-search-sidebar {
+  //  //display: none;
+  //
+  //
+  //  @media(min-width: $large-screen) {
+  //    display: flex;
+  //    flex-basis: 350px;
+  //  }
+  //
+  //  @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
+  //    display: flex;
+  //    flex-basis: 300px;
+  //  }
+  //}
+  //
+.search-contents.v2 {
   .search-results-view-container {
     width: 100%;
     min-width: 0;
   }
 
-  // TODO remove when search v2 is released and remove tooltips from filter code
+  //
+  //// TODO remove when search v2 is released and remove tooltips from filter code
   .tooltip-popover-container {
     display: none !important;
   }

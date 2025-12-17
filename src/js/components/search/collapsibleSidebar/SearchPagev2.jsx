@@ -20,7 +20,6 @@ import MobileFiltersV2 from "../mobile/MobileFiltersV2";
 import ResultsView from "../resultsView/ResultsView";
 import CollapsibleSidebar from "./SidebarWrapper";
 import MobileFilterButton from "../MobileFilterButton";
-import { showModal } from "../../../redux/actions/modal/modalActions";
 import searchPageToolBarComponents from "../SearchPageToolBarComponents";
 
 require('pages/search/searchPage.scss');
@@ -109,16 +108,14 @@ const SearchPage = ({
             filters={appliedFilters}>
             <div id="main-content">
                 <div className="search-contents v2" ref={searchContents}>
-                    <div className="full-search-sidebar">
-                        <TooltipContext value={(tt) => setTooltipData(tt)} >
-                            <CollapsibleSidebar
-                                filters={filters}
-                                hash={hash}
-                                showMobileFilters={showMobileFilters}
-                                sidebarOpen={sidebarOpen}
-                                setSidebarOpen={setSidebarOpen} />
-                        </TooltipContext>
-                    </div>
+                    <TooltipContext value={(tt) => setTooltipData(tt)}>
+                        <CollapsibleSidebar
+                            filters={filters}
+                            hash={hash}
+                            showMobileFilters={showMobileFilters}
+                            sidebarOpen={sidebarOpen}
+                            setSidebarOpen={setSidebarOpen} />
+                    </TooltipContext>
                     <div
                         className="new-tooltip__tooltip-wrapper"
                         style={{

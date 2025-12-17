@@ -34,7 +34,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const [isOpened, setIsOpened] = useState(sidebarOpen);
     const [isFooterVisible, setIsFooterVisible] = useState();
     const [isDsmOpened, setIsDsmOpened] = useState(false);
-    const [headerHeight, setHeaderHeight] = useState();
 
     const mainContentEl = document.querySelector("#main-content");
     const footerEl = document.querySelector("footer");
@@ -127,16 +126,16 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     }, 30);
 
     const openSidebar = (width) => {
-        const sidebarElSelector = isMobile ? ".mobile-search-sidebar-v2" : ".full-search-sidebar";
-        document.querySelector(sidebarElSelector).style.width = "unset";
-        document.querySelector(".full-search-sidebar").style.flexBasis = `${width}px`;
+        // const sidebarElSelector = isMobile ? ".mobile-search-sidebar-v2" : ".full-search-sidebar";
+        // document.querySelector(sidebarElSelector).style.width = "unset";
+        // document.querySelector(".full-search-sidebar").style.flexBasis = `${width}px`;
         document.querySelector(".search-collapsible-sidebar-container").style.width = `${width}px`;
         document.querySelector(".search-collapsible-sidebar-container").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
     };
 
     const closeSidebar = () => {
-        document.querySelector(".full-search-sidebar").style.width = "0";
-        document.querySelector(".full-search-sidebar").style.flexBasis = "0";
+        // document.querySelector(".full-search-sidebar").style.width = "0";
+        // document.querySelector(".full-search-sidebar").style.flexBasis = "0";
         document.querySelector(".mobile-search-sidebar-v2").style.width = "0";
         document.querySelector(".search-collapsible-sidebar-container").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
         document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
@@ -148,17 +147,17 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     };
 
     useEffect(() => {
-        if (isOpened) {
-            if (document.querySelector(".full-search-sidebar")) {
-                openSidebar(sideBarXlDesktopWidth);
-            }
-            else if (document.querySelector(".mobile-search-sidebar-v2") && isMobile) {
-                openSidebar(sideBarXlDesktopWidth);
-            }
-        }
-        else if (document.querySelector(".full-search-sidebar")) {
-            closeSidebar();
-        }
+        // if (isOpened) {
+        //     if (document.querySelector(".full-search-sidebar")) {
+        //         openSidebar(sideBarXlDesktopWidth);
+        //     }
+        //     else if (document.querySelector(".mobile-search-sidebar-v2") && isMobile) {
+        //         openSidebar(sideBarXlDesktopWidth);
+        //     }
+        // }
+        // else if (document.querySelector(".full-search-sidebar")) {
+        //     closeSidebar();
+        // }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isMobile, isOpened, windowWidth]);
 
@@ -181,13 +180,14 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mainContentHeight]);
 
-    useEffect(() => {
-        handleScroll();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [headerHeight]);
+    // useEffect(() => {
+    //     handleScroll();
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [headerHeight]);
 
     useEffect(() => {
         // eslint-disable-next-line no-undef
+        // not sure if i need this
         const mainContentResizeObserver = new ResizeObserver((entries) => {
             setMainContentHeight(entries[0].target?.clientHeight);
         });
@@ -236,9 +236,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     return (
         <>
+            {/* Eventually remove search-sidebar css */}
             <div
                 ref={sidebarContainer}
-                className="search-collapsible-sidebar-container search-sidebar sticky">
+                className="search-collapsible-sidebar-container search-sidebar sticky opened">
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => {

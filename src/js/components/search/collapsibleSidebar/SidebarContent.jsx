@@ -24,7 +24,7 @@ const SidebarContent = ({
 
     return (
         <>
-            <div className="sidebar-bottom-submit">
+            <div className="sidebar-top-submit">
                 <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
             </div>
             <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">
