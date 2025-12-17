@@ -3,11 +3,11 @@
  * Created by David Trinh 5/15/18
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import StateTimeVisualizationSection from
-    'components/state/spendingovertime/StateTimeVisualizationSection';
+    'features/state/transactionsOverTime/StateTimeVisualizationSection';
 import {
     convertFYToDateRange, currentFiscalYear, earliestFiscalYear
 } from "helpers/fiscalYearHelper";
@@ -27,17 +27,6 @@ const StateTimeVisualizationSectionContainer = () => {
     const [combined, setCombined] = useState([]);
     const [combinedOutlay, setCombinedOutlay] = useState();
     const [ySeriesOutlay, setYSeriesOutlay] = useState([]);
-    const [outlayToggle, setOutlayToggle] = useState(false);
-
-    const apiRequest = useRef(null);
-
-    const onOutlaysToggle = () => setOutlayToggle(!outlayToggle);
-
-    const onKeyOutlaysToggle = (e) => {
-        if (e.key === 'Enter') {
-            setOutlayToggle(!outlayToggle);
-        }
-    };
 
     const updateVisualizationPeriod = (newVizPeriod) => {
         setVisualizationPeriod(newVizPeriod);
@@ -123,7 +112,6 @@ const StateTimeVisualizationSectionContainer = () => {
             auditTrail: 'Spending Over Time Visualization'
         };
 
-        apiRequest.current = performSpendingOverTimeSearch(apiParams);
         fetchData(performSpendingOverTimeSearch, apiParams);
     }, [code, fetchData, visualizationPeriod]);
 
@@ -149,10 +137,7 @@ const StateTimeVisualizationSectionContainer = () => {
             }}
             loading={loading}
             updateVisualizationPeriod={updateVisualizationPeriod}
-            visualizationPeriod={visualizationPeriod}
-            outlayToggle={outlayToggle}
-            onKeyOutlaysToggle={onKeyOutlaysToggle}
-            onOutlaysToggle={onOutlaysToggle} />
+            visualizationPeriod={visualizationPeriod} />
     );
 };
 
