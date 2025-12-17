@@ -227,8 +227,10 @@ const TASCheckboxTree = () => {
     };
 
     const onCheck = (newChecked) => {
+        // prevent double count
+        const stateNewChecked = newChecked?.length > 1 ? newChecked.filter((id) => !id.includes("children_of_")) : newChecked;
         const [newCounts, newUnchecked] = incrementTasCountAndUpdateUnchecked(
-            newChecked,
+            stateNewChecked,
             checked,
             unchecked,
             nodes,
@@ -319,6 +321,7 @@ const TASCheckboxTree = () => {
                             dispatch(setExpandedTas([
                                 ...new Set(checkedFromHash.map((ancestryPath) => ancestryPath[0]))
                             ]));
+                            setIsLoading(true);
                         })
                         .catch((e) => {
                             setIsLoading(false);

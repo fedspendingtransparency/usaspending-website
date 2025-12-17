@@ -99,7 +99,8 @@ const TreeNodesWrapper = ({
                         if (checkboxRefs.current) {
                             if (nodePriorChecked) {
                                 // unchecking prior checked node.
-                                if (localChecked?.includes(parent.id)) {
+                                const anyChildrenNewChecked = parent.children.filter((child) => newChecked.includes(child.id));
+                                if (localChecked?.includes(parent.id) && anyChildrenNewChecked?.length > 0) {
                                     // unchecking a single node make any checked ancestors indeterminate
                                     setIndeterminate = checkboxRefs.current[parent.id].checked;
                                 }
@@ -138,6 +139,10 @@ const TreeNodesWrapper = ({
                     if (allChecked) {
                         updatedChecked = [...new Set([...updatedChecked, parent.id])];
                     }
+                    else {
+                        // ancestor should not be checked if not allChecked
+                        updatedChecked = updatedChecked.filter((c) => c !== parent.id);
+                    }
                 });
             }
         }
@@ -155,6 +160,7 @@ const TreeNodesWrapper = ({
             const excludeSet = [...descendantIds, id];
             newChecked = localChecked.filter((cid) => !excludeSet.includes(cid));
 
+            newChecked = handleAutoCheckAncestors(modifiedNode, newChecked);
             handleIndeterminate(modifiedNode, newChecked);
             setLocalChecked([...new Set([...newChecked])]);
             if (onCheck) onCheck(newChecked, modifiedNode);
