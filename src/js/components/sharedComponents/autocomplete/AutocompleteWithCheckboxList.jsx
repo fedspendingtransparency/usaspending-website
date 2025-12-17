@@ -11,13 +11,16 @@ import PrimaryCheckboxType from '../checkbox/PrimaryCheckboxType';
 const propTypes = {
     handleTextInputChange: PropTypes.func,
     onSearchClear: PropTypes.func,
+    onClearAll: PropTypes.func,
     searchString: PropTypes.string,
+    filterType: PropTypes.string,
     filters: PropTypes.array,
     selectedFilters: PropTypes.array,
     toggleSingleFilter: PropTypes.func,
     toggleAll: PropTypes.func,
     additionalText: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     isLoading: PropTypes.bool,
+    errorMessage: PropTypes.string,
     noResults: PropTypes.bool,
     limit: PropTypes.number,
     placeholder: PropTypes.string,
@@ -27,19 +30,23 @@ const propTypes = {
 const AutocompleteWithCheckboxList = ({
     handleTextInputChange,
     onSearchClear,
+    onClearAll,
     searchString,
+    filterType,
     filters,
     selectedFilters,
     toggleSingleFilter,
     toggleAll,
     additionalText = null,
     isLoading,
+    errorMessage,
     noResults,
     limit = 500,
     placeholder = "Search filters ...",
     searchId
 }) => {
     const [allSelected, setAllSelected] = useState(false);
+    const [showClearAll, setShowClearAll] = useState(false);
     const additionalClassName = filters.length >= limit ? 'bottom-fade' : '';
 
     const handleToggleAll = () => {
@@ -49,11 +56,27 @@ const AutocompleteWithCheckboxList = ({
         setAllSelected(!allSelected);
     };
 
+    const handleClear = () => {
+        if (onSearchClear) onSearchClear();
+        if (selectedFilters?.size > 0) setShowClearAll(true);
+    };
+
+    const handleClearAll = () => {
+        if (onClearAll) onClearAll();
+        setShowClearAll(false);
+    };
+
     useEffect(() => {
-        if (selectedFilters?.count === filters?.count) {
-            setAllSelected(true);
+        if (selectedFilters?.size === 0) {
+            setAllSelected(false);
         }
-    }, [filters?.count, selectedFilters?.count]);
+    }, [selectedFilters.size]);
+
+    useEffect(() => {
+        if (filters?.length) {
+            setShowClearAll(false);
+        }
+    }, [filters]);
 
     const checkboxHeading = () => {
         if (!searchString) return null;
@@ -83,6 +106,25 @@ const AutocompleteWithCheckboxList = ({
                 <div className="loading-message-container">
                     <FontAwesomeIcon icon="spinner" spin />
                     <div className="loading-message-container__text">Loading your data...</div>
+                </div>
+            );
+        }
+
+        if (errorMessage) {
+            return <div className="error-message">{errorMessage}</div>;
+        }
+
+        if (showClearAll) {
+            return (
+                <div className="clear-all__container">
+                    <button
+                        type="button"
+                        aria-label={`Clear all ${filterType} filters`}
+                        className="clear-all__button"
+                        tabIndex="0"
+                        onClick={handleClearAll} >
+                        {`Clear all ${filterType} filters`}
+                    </button>
                 </div>
             );
         }
@@ -121,7 +163,7 @@ const AutocompleteWithCheckboxList = ({
                 handleTextInputChange={handleTextInputChange}
                 loading={false}
                 isClearable
-                onClear={onSearchClear}
+                onClear={handleClear}
                 searchIcon
                 id={searchId} />
             <div className="filter-item-wrap">

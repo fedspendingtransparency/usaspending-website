@@ -18,6 +18,7 @@ const RecipientSearchContainer = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [maxRecipients, setMaxRecipients] = useState(false);
     const [noResults, setNoResults] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const selectedRecipients = useSelector((state) => state.filters.selectedRecipients);
     const searchedFilterValues = useSelector((state) => state.filters.searchedFilterValues);
 
@@ -122,6 +123,7 @@ const RecipientSearchContainer = () => {
             .then((res) => {
                 sortResults(res.data.results);
                 setRecipients(res.data.results);
+                setErrorMessage('');
                 setIsLoading(false);
                 setMaxRecipients(res.data.count === maxRecipientsAllowed);
                 setNoResults(!res.data.count);
@@ -129,6 +131,8 @@ const RecipientSearchContainer = () => {
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(`Recipient Request Error: ${err}`);
+                    setErrorMessage(err.message);
+                    setIsLoading(false);
                 }
             });
     };
@@ -141,6 +145,17 @@ const RecipientSearchContainer = () => {
         setSearchString('');
         setMaxRecipients(false); // clean up if previously set
         setRecipients([]);
+    };
+
+
+    const handleClearAll = () => {
+        const currentRecipients = selectedRecipients;
+
+        currentRecipients.forEach((recipient) => {
+            dispatch(updateSelectedRecipients(recipient));
+        });
+
+        handleSearchClear();
     };
 
     const getMaxRecipientsText = () => {
@@ -186,7 +201,7 @@ const RecipientSearchContainer = () => {
                         name: recipient.name ? recipient.name : recipient.recipient_name,
                         uei: recipient.uei
                     },
-                    key: recipient.uei ? recipient.uei : recipient.id
+                    key: recipient.uei ? `UEI-${recipient.uei}` : `Name-${recipient.id}`
                 }));
         }
         return formatedRecipients;
@@ -253,9 +268,11 @@ const RecipientSearchContainer = () => {
     return (
         <div className="recipient-filter">
             <AutocompleteWithCheckboxList
+                filterType="recipient"
                 limit={maxRecipientsAllowed}
                 handleTextInputChange={handleTextInputChange}
                 onSearchClear={handleSearchClear}
+                onClearAll={handleClearAll}
                 searchString={searchString}
                 filters={formatedRecipientFilters()}
                 selectedFilters={selectedRecipients}
@@ -264,6 +281,7 @@ const RecipientSearchContainer = () => {
                 noResults={noResults}
                 additionalText={getMaxRecipientsText()}
                 isLoading={isLoading}
+                errorMessage={errorMessage}
                 searchId="recipient-autocomplete-input" />
         </div>
     );

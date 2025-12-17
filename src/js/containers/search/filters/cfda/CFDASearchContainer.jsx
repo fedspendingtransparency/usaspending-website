@@ -17,6 +17,7 @@ const CFDASearchContainer = () => {
     const [cfdaSearchString, setCfdaSearchString] = useState('');
     const [autocompleteCFDA, setAutocompleteCFDA] = useState([]);
     const [noResults, setNoResults] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const selectedCFDA = useSelector((state) => state.filters.selectedCFDA);
     const searchedFilterValues = useSelector((state) => state.appliedFilters.filters.searchedFilterValues);
@@ -92,6 +93,7 @@ const CFDASearchContainer = () => {
         cfdaSearchRequest.current.promise
             .then((res) => {
                 const autocompleteData = res.data.results;
+                setErrorMessage('');
                 setNoResults(autocompleteData.length === 0);
 
                 // Add search results to Redux
@@ -100,7 +102,7 @@ const CFDASearchContainer = () => {
             })
             .catch((err) => {
                 if (!isCancel(err)) {
-                    setNoResults(true);
+                    setErrorMessage(err.message);
                     setIsLoading(false);
                 }
             });
@@ -114,6 +116,15 @@ const CFDASearchContainer = () => {
         setCfdaSearchString(''); // clean up if previously set
         setAutocompleteCFDA([]);
     };
+
+    const handleClearAll = () => {
+        selectedCFDA.forEach((cfda) => {
+            dispatch(updateSelectedCFDA({ cfda }));
+        });
+
+        handleSearchClear();
+    };
+
 
     const toggleAll = (selectAll) => {
         const selectedArray = selectedCFDA.toArray();
@@ -182,12 +193,14 @@ const CFDASearchContainer = () => {
                 filterType="Assistance Listing"
                 handleTextInputChange={handleTextInputChange}
                 onSearchClear={handleSearchClear}
+                onClearAll={handleClearAll}
                 searchString={cfdaSearchString}
                 filters={autocompleteCFDA}
                 selectedFilters={selectedCFDA}
                 toggleSingleFilter={toggleCFDA}
                 toggleAll={toggleAll}
                 noResults={noResults}
+                errorMessage={errorMessage}
                 isLoading={isLoading}
                 limit={1000} />
         </div>
