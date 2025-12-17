@@ -169,6 +169,7 @@ const TASCheckboxTree = () => {
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
         const treeDepth = selectedNode.ancestors?.length;
         if (shouldFetchChildren && !isSearch) {
+            setIsLoading(true);
             if (treeDepth >= 1) {
                 if (treeDepth === 2) {
                     fetchTasLocal(`${selectedNode.ancestors[0]}/${selectedNode.ancestors[1]}/${expandedValue}`);
@@ -345,7 +346,6 @@ const TASCheckboxTree = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSearch, searchString]);
-
 
     return (
         <div className="tas-checkbox">

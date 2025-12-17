@@ -7,6 +7,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import TreeNodes from './TreeNodes';
+import { removePlaceholderString } from '../../../helpers/checkboxTreeHelper';
 
 const propTypes = {
     nodes: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -93,7 +94,7 @@ const TreeNodesWrapper = ({
                         }
 
                         const hasAnyChildrenChecked = parent.children.filter((child) => allChecked.includes(child.id) || node.id === child.id);
-                        let setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length <= parent.children.length);
+                        let setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length < parent.children.length);
 
                         if (checkboxRefs.current) {
                             if (nodePriorChecked) {
@@ -122,6 +123,27 @@ const TreeNodesWrapper = ({
         handleIndeterminateAncestors(node, newChecked);
     };
 
+    const handleAutoCheckAncestors = (node, newChecked) => {
+        let updatedChecked = newChecked;
+        if (node.ancestors) {
+            const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
+            if (ancestorNodes.length) {
+                ancestorNodes.forEach((parent) => {
+                    const children = parent.children;
+                    const allChecked = children.every(
+                        (child) => (newChecked.includes(
+                            removePlaceholderString(child.id)) || (node.id === removePlaceholderString(child.id))
+                        ));
+
+                    if (allChecked) {
+                        updatedChecked = [...new Set([...updatedChecked, parent.id])]
+                    }
+                });
+            }
+        }
+        return updatedChecked;
+    };
+
     const handleCheck = (id, children = []) => {
         const isChecked = localChecked.includes(id);
         const descendantIds = getDescendantIds(children);
@@ -133,7 +155,7 @@ const TreeNodesWrapper = ({
             const excludeSet = [...descendantIds, id];
             newChecked = localChecked.filter((cid) => !excludeSet.includes(cid));
 
-            handleIndeterminate(modifiedNode, ...newChecked);
+            handleIndeterminate(modifiedNode, newChecked);
             setLocalChecked([...new Set([...newChecked])]);
             if (onCheck) onCheck(newChecked, modifiedNode);
         }
@@ -141,14 +163,14 @@ const TreeNodesWrapper = ({
             if ((descendantIds.length > 0)) {
                 // Check node's descendants
                 newChecked = [...new Set([...localChecked, id, ...descendantIds])];
-                console.log("checking newChecked ==== first if ======", newChecked);
             }
             else {
                 // Check node
                 newChecked = [...new Set([...localChecked, id])];
             }
 
-            handleIndeterminate(modifiedNode, ...newChecked);
+            newChecked = handleAutoCheckAncestors(modifiedNode, newChecked);
+            handleIndeterminate(modifiedNode, newChecked);
             setLocalChecked([...new Set([...newChecked])]);
             if (onCheck) onCheck(newChecked, modifiedNode);
         }

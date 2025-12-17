@@ -360,7 +360,7 @@ const NAICSCheckboxTree = () => {
         ) {
             setShowNoResults(false);
         }
-        else {
+        else if (!isLoading) {
             setShowNoResults(true);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
