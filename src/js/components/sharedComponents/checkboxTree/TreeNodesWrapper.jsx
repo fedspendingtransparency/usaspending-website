@@ -136,7 +136,7 @@ const TreeNodesWrapper = ({
                         ));
 
                     if (allChecked) {
-                        updatedChecked = [...new Set([...updatedChecked, parent.id])]
+                        updatedChecked = [...new Set([...updatedChecked, parent.id])];
                     }
                 });
             }
