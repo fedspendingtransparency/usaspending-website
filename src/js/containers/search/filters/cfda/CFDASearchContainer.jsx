@@ -142,7 +142,8 @@ const CFDASearchContainer = () => {
             dispatch(updateSearchedFilterValues({
                 filterType: "cfda",
                 input: cfdaSearchString,
-                selected: selectedArray
+                selected: selectedArray,
+                allSelected: true
             }));
         }
         else {

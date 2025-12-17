@@ -381,7 +381,8 @@ const searchFiltersReducer = (state = initialState, action) => {
             const searchObj = {
                 [action.filterType]: {
                     input: action.input,
-                    selected: action.selected
+                    selected: action.selected,
+                    allSelected: action.allSelected
                 }
             };
             updatedSet = { ...updatedSet, ...searchObj };

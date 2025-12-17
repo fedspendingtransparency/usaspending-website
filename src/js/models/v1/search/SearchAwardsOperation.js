@@ -57,6 +57,8 @@ class SearchAwardsOperation {
         this.extentCompeted = [];
 
         this.awardDescription = '';
+
+        this.searchedFilterValues = [];
     }
 
     fromState(state) {
@@ -133,6 +135,7 @@ class SearchAwardsOperation {
         this.extentCompeted = state.extentCompeted?.toArray();
 
         this.awardDescription = state.awardDescription;
+        this.searchedFilterValues = state.searchedFilterValues;
     }
 
     toParams() {
@@ -270,7 +273,13 @@ class SearchAwardsOperation {
 
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
         if (this.selectedRecipients?.length > 0) {
-            filters[rootKeys.recipients] = this.selectedRecipients;
+            if (this.searchedFilterValues?.recipient?.allSelected) {
+                // user selected all use search text.
+                filters[rootKeys.recipients] = [];
+            }
+            else {
+                filters[rootKeys.recipients] = this.selectedRecipients;
+            }
         }
 
         if (this.selectedRecipientLocations?.length > 0) {

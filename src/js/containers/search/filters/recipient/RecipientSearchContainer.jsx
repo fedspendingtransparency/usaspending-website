@@ -222,7 +222,8 @@ const RecipientSearchContainer = () => {
             dispatch(updateSearchedFilterValues({
                 filterType: "recipient",
                 input: searchString,
-                selected: currentlyChecked
+                selected: currentlyChecked,
+                allSelected: true
             }));
         }
         else {
