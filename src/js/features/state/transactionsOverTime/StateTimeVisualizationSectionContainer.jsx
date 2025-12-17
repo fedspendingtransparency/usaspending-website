@@ -3,9 +3,8 @@
  * Created by David Trinh 5/15/18
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { isCancel } from 'axios';
 
 import StateTimeVisualizationSection from
     'components/state/spendingovertime/StateTimeVisualizationSection';
@@ -14,12 +13,14 @@ import {
 } from "helpers/fiscalYearHelper";
 import { convertMonthToFY, convertNumToShortMonth } from "helpers/monthHelper";
 import { performSpendingOverTimeSearch } from "helpers/searchHelper";
+import useQuery from "hooks/useQuery";
 
 const StateTimeVisualizationSectionContainer = () => {
     const { code } = useSelector((state) => state.stateProfile.overview);
+    const {
+        loading, error, data, fetchData
+    } = useQuery();
     const [visualizationPeriod, setVisualizationPeriod] = useState('fiscal_year');
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
     const [groups, setGroups] = useState([]);
     const [xSeries, setXSeries] = useState([]);
     const [ySeries, setYSeries] = useState([]);
@@ -59,7 +60,7 @@ const StateTimeVisualizationSectionContainer = () => {
         return type === 'label' ? `${month} ${year}` : { period: `${month}`, year: `${year}` };
     };
 
-    const parseData = (data, group) => {
+    const parseData = useCallback(() => {
         const groupsLocal = [];
         const xSeriesLocal = [];
         const ySeriesLocal = [];
@@ -69,18 +70,18 @@ const StateTimeVisualizationSectionContainer = () => {
 
         // iterate through each response object and break it up into groups, x series, and y series
         data.results.forEach((item) => {
-            groupsLocal.push(generateTime(group, item.time_period, "label"));
-            xSeriesLocal.push([generateTime(group, item.time_period, "label")]);
+            groupsLocal.push(generateTime(visualizationPeriod, item.time_period, "label"));
+            xSeriesLocal.push([generateTime(visualizationPeriod, item.time_period, "label")]);
             ySeriesLocal.push([parseFloat(item.aggregated_amount)]);
             combinedLocal.push(
                 {
-                    x: generateTime(group, item.time_period, "label"),
+                    x: generateTime(visualizationPeriod, item.time_period, "label"),
                     y: parseFloat(item.aggregated_amount)
                 }
             );
             ySeriesOutlayLocal.push([parseFloat(item.total_outlays)]);
             combinedOutlayLocal.push({
-                x: generateTime(group, item.time_period, "label"),
+                x: generateTime(visualizationPeriod, item.time_period, "label"),
                 y: parseFloat(item.total_outlays)
             });
         });
@@ -92,28 +93,12 @@ const StateTimeVisualizationSectionContainer = () => {
         setCombinedOutlay(combinedOutlayLocal);
         setYSeries(ySeriesLocal);
         setYSeriesOutlay(ySeriesOutlayLocal);
-        setLoading(false);
-        setError(false);
-    };
+    }, [data, visualizationPeriod]);
 
-    const fetchData = () => {
-        setLoading(true);
-        setError(false);
-
-        // Cancel API request if it exists
-        if (apiRequest.current) {
-            apiRequest.current.cancel();
-        }
-
+    const beginFetch = useCallback(() => {
         // Fetch data from the Awards v2 endpoint
         const earliestYear = earliestFiscalYear;
         const thisYear = currentFiscalYear();
-        const timePeriod = [
-            {
-                start_date: convertFYToDateRange(earliestYear)[0],
-                end_date: convertFYToDateRange(thisYear)[1]
-            }
-        ];
 
         const searchParams = {
             place_of_performance_locations: [
@@ -121,45 +106,34 @@ const StateTimeVisualizationSectionContainer = () => {
                     country: 'USA',
                     state: code
                 }
+            ],
+            time_period: [
+                {
+                    start_date: convertFYToDateRange(earliestYear)[0],
+                    end_date: convertFYToDateRange(thisYear)[1]
+                }
             ]
         };
-
-        searchParams.time_period = timePeriod;
 
         // Generate the API parameters
         const apiParams = {
             group: visualizationPeriod,
             filters: searchParams,
-            spending_level: "transactions"
+            spending_level: "transactions",
+            auditTrail: 'Spending Over Time Visualization'
         };
 
-        apiParams.auditTrail = 'Spending Over Time Visualization';
-
         apiRequest.current = performSpendingOverTimeSearch(apiParams);
-
-        apiRequest.current.promise
-            .then((res) => {
-                parseData(res.data, visualizationPeriod);
-                apiRequest.current = null;
-            })
-            .catch((err) => {
-                if (isCancel(err)) {
-                    return;
-                }
-
-                apiRequest.current = null;
-
-                console.log(err);
-
-                setLoading(false);
-                setError(true);
-            });
-    };
+        fetchData(performSpendingOverTimeSearch, apiParams);
+    }, [code, fetchData, visualizationPeriod]);
 
     useEffect(() => {
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [code, visualizationPeriod]);
+        beginFetch();
+    }, [code, visualizationPeriod, beginFetch]);
+
+    useEffect(() => {
+        if (data) parseData();
+    }, [data, visualizationPeriod, parseData]);
 
     return (
         <StateTimeVisualizationSection

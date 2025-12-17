@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    SectionHeader, FlexGridRow, FlexGridCol
+    SectionHeader, FlexGridRow
 } from "data-transparency-ui";
 import { useSelector } from "react-redux";
 
