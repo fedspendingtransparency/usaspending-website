@@ -16,11 +16,11 @@ import {
 } from 'recharts';
 import { LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 
-import CustomShape from "./chartCustomizations/CustomShape";
-import CustomXTick from "./chartCustomizations/CustomXTick";
-import CustomYTick from "./chartCustomizations/CustomYTick";
-import CustomTooltip from "./chartCustomizations/CustomTooltip";
-import CustomLegend from "./chartCustomizations/CustomLegend";
+import CustomShape from "./CustomShape";
+import CustomXTick from "./CustomXTick";
+import CustomYTick from "./CustomYTick";
+import CustomTooltip from "./CustomTooltip";
+import CustomLegend from "./CustomLegend";
 
 const stateTimeVisualizationChartPropTypes = {
     data: PropTypes.object,
