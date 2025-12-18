@@ -7,14 +7,22 @@ import React, { useState, useEffect } from 'react';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { throttle } from 'lodash-es';
 import { useLocation } from 'react-router';
-import { homePageMetaTags } from "../../helpers/metaTagHelper";
-import PageWrapper from "../sharedComponents/PageWrapper";
-import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
-import articles from '../../../config/featuredContent/featuredContentMetadata';
-import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
+
+import { homePageMetaTags } from "helpers/metaTagHelper";
+import PageWrapper from "components/sharedComponents/PageWrapper";
+import { mediumScreen, tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { transformString, getPrimaryFill, getSecondaryFill, CustomA, CustomImg } from 'helpers/featuredContent/featuredContentHelper';
+import GlossaryLink from "components/sharedComponents/GlossaryLink";
 import FeaturedContentArticleSidebar from "./FeaturedContentArticleSidebar";
+import articles from '../../../config/featuredContent/featuredContentMetadata';
 
 require('pages/featuredContent/featuredContent.scss');
+
+const components = {
+    GlossaryLink,
+    a: CustomA,
+    img: CustomImg
+};
 
 const FeaturedContentArticle = () => {
     const [windowWidth, setWindowWidth] = useState(0);
@@ -26,7 +34,10 @@ const FeaturedContentArticle = () => {
     const parts = location.pathname.split('/');
     const lastPortion = parts[parts.length - 1];
     const [chosenArticle, setChosenArticle] = useState(null);
-    const [markdownContent, setMarkdownContent] = useState('');
+    const [MarkdownContent, setMarkdownContent] = useState(null);
+
+
+    const heroPath = "../../img/featuredContent/banner/desktop/banner-";
 
     useEffect(() => {
         for (const article of articles) {
@@ -35,7 +46,6 @@ const FeaturedContentArticle = () => {
             }
         }
     }, [chosenArticle, lastPortion]);
-
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -52,8 +62,8 @@ const FeaturedContentArticle = () => {
 
     useEffect(() => {
         const fetchMarkdown = async () => {
-            const file = await import(`../../../content/featuredContent/${chosenArticle.mdx_path}`);
-            setMarkdownContent(file.default());
+            const file = await import(`../../../content/featuredContent/${chosenArticle.slug}.mdx`);
+            setMarkdownContent(() => file.default || file);
         };
         if (chosenArticle !== null) {
             fetchMarkdown();
@@ -71,11 +81,11 @@ const FeaturedContentArticle = () => {
                 className="main-content featured-content">
                 <FlexGridRow
                     className="featured-content__header-wrapper"
-                    style={{ backgroundColor: ((isMobile || isTablet) && chosenArticle?.fill) ? chosenArticle.fill : 'none' }}>
+                    style={{ backgroundColor: (isMobile || isTablet) && getPrimaryFill(chosenArticle) }}>
                     { !isMobile &&
                         !isTablet &&
                         <img
-                            src={chosenArticle?.hero}
+                            src={chosenArticle?.slug ? `${heroPath}${chosenArticle?.slug}.webp` : null}
                             alt="hero"
                             name="featured-content-hero"
                             id="featured-content-hero" />
@@ -88,18 +98,18 @@ const FeaturedContentArticle = () => {
                         className={`featured-content__header-block usa-dt-flex-grid__row ${chosenArticle?.black_text ? "black-text" : ""}`}>
                         <span
                             className="featured-content__label"
-                            style={{ backgroundColor: chosenArticle?.secondary }}>
+                            style={{ backgroundColor: getSecondaryFill(chosenArticle) }}>
                             {chosenArticle?.taxonomy}
                         </span>
                         <span className="featured-content__title">
-                            {chosenArticle?.banner_title}
+                            {chosenArticle?.title}
                         </span>
                         <span className="featured-content__subtitle">
                             {chosenArticle?.banner_subtitle}
                         </span>
                     </FlexGridCol>
                 </FlexGridRow>
-                <FlexGridRow desktop={12} className="grid-content">
+                <FlexGridRow desktop={12} className="grid-content featured-content__article-body">
                     <FlexGridCol tablet={12} mobile={12} desktop={8}>
                         <div className="featured-content__article-title">
                             {chosenArticle?.title}
@@ -107,7 +117,7 @@ const FeaturedContentArticle = () => {
                         <div className="featured-content__last-updated">
                             Last Updated: {chosenArticle?.created_date}
                         </div>
-                        {markdownContent}
+                        {chosenArticle && typeof MarkdownContent === "function" && <MarkdownContent components={components} />}
                     </FlexGridCol>
                     <FeaturedContentArticleSidebar chosenArticle={chosenArticle} />
                 </FlexGridRow>

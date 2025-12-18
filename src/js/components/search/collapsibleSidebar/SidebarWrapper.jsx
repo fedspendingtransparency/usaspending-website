@@ -7,10 +7,12 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { throttle } from "lodash-es";
 import PropTypes from "prop-types";
+
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { sideBarXlDesktopWidth, panelContainerElClasses, checkInView } from "../../../helpers/search/collapsiblesidebarHelper";
+import {
+    sideBarXlDesktopWidth, panelContainerElClasses, checkInView
+} from "helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
-import KeywordSearchLink from "../KeywordSearchLink";
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func,
@@ -20,10 +22,11 @@ const propTypes = {
     searchv2: PropTypes.bool
 };
 
-const SidebarWrapper = React.memo(({
+// eslint-disable-next-line prefer-arrow-callback
+const SidebarWrapper = React.memo(function SidebarWrapper({
     // eslint-disable-next-line no-unused-vars
     setShowMobileFilters, showMobileFilters, sidebarOpen, setSidebarOpen, searchv2
-}) => {
+}) {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [initialPageLoad, setInitialPageLoad] = useState(true);
     const [windowWidth, setWindowWidth] = useState();
@@ -329,13 +332,9 @@ const SidebarWrapper = React.memo(({
                     }
                 </div>
             </div>
-            {isMobile === false && searchv2 === false ?
-                <KeywordSearchLink />
-                : ''}
         </>
     );
 });
 
 SidebarWrapper.propTypes = propTypes;
-
 export default SidebarWrapper;
