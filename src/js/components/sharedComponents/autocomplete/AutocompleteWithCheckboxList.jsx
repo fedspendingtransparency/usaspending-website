@@ -84,14 +84,17 @@ const AutocompleteWithCheckboxList = ({
         return (
             <li className="autocomplete-heading">
                 {searchString}
-                <button
-                    type="button"
-                    aria-label="Select All filters"
-                    className="toggle-all__button"
-                    tabIndex="0"
-                    onClick={handleToggleAll} >
-                    {allSelected ? 'Deselect All' : 'Select All'}
-                </button>
+                {false &&
+                // hide for now until design direction
+                    <button
+                        type="button"
+                        aria-label="Select All filters"
+                        className="toggle-all__button"
+                        tabIndex="0"
+                        onClick={handleToggleAll} >
+                        {allSelected ? 'Deselect All' : 'Select All'}
+                    </button>
+                }
             </li>
         );
     };
