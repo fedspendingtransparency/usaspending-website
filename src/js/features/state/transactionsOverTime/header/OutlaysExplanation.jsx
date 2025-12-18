@@ -1,3 +1,8 @@
+/**
+ * OutlaysExplanation.jsx
+ * Created on 12/17/2025 by Josue Aguilar
+ */
+
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 

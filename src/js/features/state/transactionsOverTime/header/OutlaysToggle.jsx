@@ -1,3 +1,8 @@
+/**
+ * OutlaysToggle.jsx
+ * Created on 12/17/2025 by Josue Aguilar
+ */
+
 import React from "react";
 
 import RoundedToggle from "components/sharedComponents/RoundedToggle";
@@ -22,7 +27,6 @@ const OutlaysToggle = ({
         }
     };
 
-    /* TODO: Add back in once outlays are resolved, commented out in DEV-13189 */
     const setWhatOpen = () => {
         setOutlayWhatOpen(!outlayWhatOpen);
     };

@@ -6,7 +6,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import StateTimeVisualizationChart from 'components/state/spendingovertime/StateTimeVisualizationChart';
+import StateTimeVisualizationChart from
+    'components/state/spendingovertime/StateTimeVisualizationChart';
 import StateTimeVisualizationHeader from "./header/StateTimeVisualizationHeader";
 
 const propTypes = {

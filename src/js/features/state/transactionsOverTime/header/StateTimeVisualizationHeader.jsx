@@ -1,3 +1,8 @@
+/**
+ * StateTimeVisualizationHeader.jsx
+ * Created on 12/17/2025 by Josue Aguilar
+ */
+
 import React, { useEffect, useRef, useState } from "react";
 import { NewPicker, SectionHeader } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
