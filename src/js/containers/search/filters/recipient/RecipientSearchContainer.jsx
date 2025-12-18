@@ -127,6 +127,12 @@ const RecipientSearchContainer = () => {
                 setIsLoading(false);
                 setMaxRecipients(res.data.count === maxRecipientsAllowed);
                 setNoResults(!res.data.count);
+                // wait until results are processed to set redux state.
+                dispatch(updateSearchedFilterValues({
+                    filterType: "recipient",
+                    input: term,
+                    selected: selectedRecipients
+                }));
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -256,11 +262,6 @@ const RecipientSearchContainer = () => {
     useEffect(() => {
         if (searchString?.length >= 3) {
             getRecipientsFromSearchString(searchString);
-            dispatch(updateSearchedFilterValues({
-                filterType: "recipient",
-                input: searchString,
-                selected: selectedRecipients
-            }));
         }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

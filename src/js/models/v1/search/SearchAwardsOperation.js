@@ -273,12 +273,14 @@ class SearchAwardsOperation {
 
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
         if (this.selectedRecipients?.length > 0) {
-            if (this.searchedFilterValues?.recipient) {
-                // user selected all use search text.
-                filters[rootKeys.recipients] = [this.searchedFilterValues.recipient.input];
-            }
-            else {
-                filters[rootKeys.recipients] = this.selectedRecipients;
+            filters[rootKeys.recipients] = this.selectedRecipients;
+        }
+
+        if (this.searchedFilterValues?.recipient) {
+            const recipientFilter = this.searchedFilterValues.recipient;
+            // user selected all or no selected recipients use search text.
+            if (recipientFilter.allSelected || recipientFilter.selected?.size <= 0) {
+                filters[rootKeys.recipients] = [recipientFilter.input];
             }
         }
 
