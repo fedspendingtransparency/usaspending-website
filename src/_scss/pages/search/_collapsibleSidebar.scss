@@ -2,21 +2,31 @@
 @import "../../components/checkboxTree/checkboxTree";
 
 // .usda-page-header style is a DTUI override that's specific to the search 2.0 page
-//&.v2 {
-//  .site-header, .usda-page-header:not(.usda-page-header--sticky) {
-//    position: relative;
-//  }
-//}
+.usa-da-search-page.v2 {
+  .usda-page-header, .usda-page-header--sticky {
+    position: sticky !important;
+    top: 0;
+    left: 0;
+    z-index: 100;
+  }
+}
+
+.usda-page-header--sticky + #main-content {
+  .search-collapsible-sidebar-container.sticky {
+    top: 60px;
+  }
+}
 
 .search-collapsible-sidebar-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-top: -40px !important; // TODO Keep here until we remove the legacy panel
     border: 1px solid $gray-cool-10;
     box-shadow: none;
     border-radius: unset;
     background-color: unset;
+    flex: 0 0 352px;
 
     &.sticky {
         position: sticky;
@@ -32,7 +42,7 @@
 
     @media(max-width: $medium-screen - 1) {
       left: 0;
-      width: 100%;
+      //width: 100%;
     }
 
     .chevron {
@@ -163,14 +173,13 @@
 
 .search-contents.v2 {
   .search-collapsible-sidebar-container {
-    //display: none;
     margin-right: rem(16);
     @media(min-width: $large-screen) {
-      width: 350px;
+      flex: 0 0 352px;
     }
 
     @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
-      width: 300px;
+      flex: 0 0 300px;
     }
   }
 }
@@ -192,8 +201,8 @@
   //
 .search-contents.v2 {
   .search-results-view-container {
-    width: 100%;
-    min-width: 0;
+    margin: auto;
+    flex-basis: 100%;
   }
 
   //
