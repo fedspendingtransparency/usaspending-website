@@ -1,3 +1,8 @@
+/**
+ * StatePageNavigation.jsx
+ * Created on 12/12/2025 by Josue Aguilar
+ */
+
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useMatch, useNavigate } from "react-router";
