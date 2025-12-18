@@ -156,12 +156,10 @@ const AwardBreakdownTreeMap = ({
         if (awardBreakdown.length > 0) {
             buildVirtualTree(awardRef.current, amountType.current);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [awardBreakdown, amountType.current]);
+    }, [awardBreakdown, buildVirtualTree]);
 
     useEffect(() => {
         amountType.current = toggleState ? "total_outlays" : "amount";
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [toggleState]);
 
     return (
@@ -176,18 +174,12 @@ const AwardBreakdownTreeMap = ({
                         amountType={amountType}
                         totalAmount={totalAmount}
                         toggleState={toggleState} />
-                    <div
-                        className="tree-wrapper"
-                        ref={sectionWrapper}>
-                        <svg
-                            width={visualizationWidth}
-                            height={visualizationHeight}
-                            className="treemap-svg overlay">
-                            <AwardBreakdownTreeMapCells
-                                virtualChart={virtualChart}
-                                setHoveredAwardType={setHoveredAwardType} />
-                        </svg>
-                    </div>
+                    <AwardBreakdownTreeMapCells
+                        virtualChart={virtualChart}
+                        setHoveredAwardType={setHoveredAwardType}
+                        sectionWrapper={sectionWrapper}
+                        visualizationWidth={visualizationWidth}
+                        visualizationHeight={visualizationHeight} />
                 </div>
             </div>
         </div>
