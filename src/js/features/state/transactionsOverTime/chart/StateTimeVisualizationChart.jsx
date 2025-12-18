@@ -7,21 +7,20 @@ import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import {
     BarChart,
-    Bar,
     XAxis,
     YAxis,
     ResponsiveContainer,
     ReferenceLine,
     Tooltip,
-    Legend
+    Legend, Bar
 } from 'recharts';
 import { LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 
-import CustomShape from "components/state/spendingovertime/chartCustomizations/CustomShape";
-import CustomXTick from "components/state/spendingovertime/chartCustomizations/CustomXTick";
-import CustomYTick from "components/state/spendingovertime/chartCustomizations/CustomYTick";
-import CustomTooltip from "components/state/spendingovertime/chartCustomizations/CustomTooltip";
-import CustomLegend from "components/state/spendingovertime/chartCustomizations/CustomLegend";
+import CustomShape from "./chartCustomizations/CustomShape";
+import CustomXTick from "./chartCustomizations/CustomXTick";
+import CustomYTick from "./chartCustomizations/CustomYTick";
+import CustomTooltip from "./chartCustomizations/CustomTooltip";
+import CustomLegend from "./chartCustomizations/CustomLegend";
 
 const stateTimeVisualizationChartPropTypes = {
     data: PropTypes.object,
@@ -37,7 +36,10 @@ const StateTimeVisualizationChart = ({
     visualizationPeriod
 }) => {
     const [focusBar, setFocusBar] = useState(null);
+
     const transformedData = [];
+    const barColor = !outlayToggle ? "#0081a1" : "#008480";
+    const legendLabel = !outlayToggle ? "Transactions" : "Outlays";
 
     let label;
     let value;
@@ -125,8 +127,8 @@ const StateTimeVisualizationChart = ({
                         align="left"
                         content={
                             <CustomLegend
-                                barColor={!outlayToggle ? "#0081a1" : "#008480"}
-                                label={!outlayToggle ? "Transactions" : "Outlays"} />
+                                barColor={barColor}
+                                label={legendLabel} />
                         }
                         wrapperStyle={{ left: 60, bottom: 0 }} />
                     <ReferenceLine y={0} stroke="#dfe1e2" />
@@ -135,13 +137,13 @@ const StateTimeVisualizationChart = ({
                         shape={
                             <CustomShape
                                 focusBar={focusBar}
-                                barColor={!outlayToggle ? "#0081a1" : "#008480"} />
+                                barColor={barColor} />
                         }
                         activeBar={
                             <CustomShape
                                 isActive
                                 focusBar={focusBar}
-                                barColor={!outlayToggle ? "#0081a1" : "#008480"} />
+                                barColor={barColor} />
                         }
                         onMouseEnter={onMouseMove}
                         onMouseOut={onMouseLeave}

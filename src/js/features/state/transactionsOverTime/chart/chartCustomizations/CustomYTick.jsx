@@ -5,7 +5,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import { formatMoneyWithUnitsShortLabel } from "../../../../helpers/moneyFormatter";
+import { formatMoneyWithUnitsShortLabel } from "../../../../../helpers/moneyFormatter";
 
 const customYTickPropTypes = {
     x: PropTypes.number,

@@ -12,17 +12,16 @@ const customShapePropTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     focusBar: PropTypes.bool,
-    barColor: PropTypes.string
+    barColor: PropTypes.string,
+    isActive: PropTypes.bool
 };
 
-const CustomShape = (props) => {
-    const {
-        x, y, width, height, focusBar, barColor
-    } = props;
-
+const CustomShape = ({
+    x, y, width, height, focusBar, barColor, isActive
+}) => {
     const fill = barColor;
     let fillOpacity = "1";
-    if (focusBar && !props?.isActive) {
+    if (focusBar && !isActive) {
         fillOpacity = "0.5";
     }
 

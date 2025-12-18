@@ -5,7 +5,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import BarChartLegend from "../../../sharedComponents/timeChart/chart/BarChartLegend";
+import BarChartLegend from "../../../../../components/sharedComponents/timeChart/chart/BarChartLegend";
 
 const customLegendPropTypes = {
     barColor: PropTypes.string,
