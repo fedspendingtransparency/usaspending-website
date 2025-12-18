@@ -59,3 +59,30 @@ export const parseStateDataFromUrl = (state) => {
     }
     return [null, null];
 };
+
+export const tabTypes = [
+    {
+        internal: 'all',
+        label: 'All Awards'
+    },
+    {
+        internal: 'contracts',
+        label: 'Contracts'
+    },
+    {
+        internal: 'grants',
+        label: 'Grants'
+    },
+    {
+        internal: 'direct_payments',
+        label: 'Direct Payments'
+    },
+    {
+        internal: 'loans',
+        label: 'Loans'
+    },
+    {
+        internal: 'other',
+        label: 'Other Financial Assistance'
+    }
+];

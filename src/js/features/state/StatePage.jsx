@@ -13,7 +13,7 @@ import { LoadingWrapper } from "components/sharedComponents/Loading";
 import StateOverview from "features/state/overview/StateOverview";
 import StateTimeVisualizationSectionContainer from
     "features/state/transactionsOverTime/StateTimeVisualizationSectionContainer";
-import TopFiveSection from "components/state/topFive/TopFiveSection";
+import TopFiveSection from "features/state/topFive/TopFiveSection";
 import StateFooter from "components/state/StateFooter";
 import StatePageWrapper from "./StatePageWrapper";
 

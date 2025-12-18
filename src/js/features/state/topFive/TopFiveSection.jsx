@@ -8,43 +8,14 @@ import { Tabs, SectionHeader } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router";
 
-import { categories as topCategories } from 'dataMapping/topCategories';
+import { categories } from 'dataMapping/topCategories';
 import TopFiveContainer from 'containers/state/topFive/TopFiveContainer';
-
-const tabTypes = [
-    {
-        internal: 'all',
-        label: 'All Awards'
-    },
-    {
-        internal: 'contracts',
-        label: 'Contracts'
-    },
-    {
-        internal: 'grants',
-        label: 'Grants'
-    },
-    {
-        internal: 'direct_payments',
-        label: 'Direct Payments'
-    },
-    {
-        internal: 'loans',
-        label: 'Loans'
-    },
-    {
-        internal: 'other',
-        label: 'Other Financial Assistance'
-    }
-];
+import { tabTypes } from "../stateHelper";
 
 const TopFiveSection = () => {
     const [active, setActive] = useState('all');
-    const switchTab = (tab) => {
-        setActive(tab);
-    };
 
-    const content = topCategories[active].map((category) => (
+    const content = categories[active].map((category) => (
         <TopFiveContainer
             key={category}
             category={category}
@@ -69,7 +40,7 @@ const TopFiveSection = () => {
             <Tabs
                 types={tabTypes}
                 active={active}
-                switchTab={switchTab} />
+                switchTab={setActive} />
             <div className="topfive__content">
                 {content}
             </div>
