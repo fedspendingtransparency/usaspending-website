@@ -11,7 +11,7 @@ import { remove } from 'lodash-es';
 import * as TreemapHelper from 'helpers/treemapHelper';
 import { awardTypeLabels } from 'dataMapping/state/awardTypes';
 import AwardBreakdownTreeMapCells from "./AwardBreakdownTreeMapCells";
-import useEventListener from "../../../../hooks/useEventListener";
+import useEventListener from "../../../../../hooks/useEventListener";
 import CreateAwardTypeTooltip from "./CreateAwardTypeTooltip";
 
 const propTypes = {

@@ -11,9 +11,9 @@ import { reduce } from 'lodash-es';
 import * as StateHelper from 'features/state/stateHelper';
 
 import AwardBreakdownTreeMap from
-    'features/state/overview/treemap/AwardBreakdownTreeMap';
+    'features/state/overview/awardBreakdown/treemap/AwardBreakdownTreeMap';
 import AwardBreakdownTable from
-    'features/state/overview/breakdown/AwardBreakdownTable';
+    'features/state/overview/awardBreakdown/AwardBreakdownTable';
 import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
 import { FlexGridCol } from "data-transparency-ui";
 

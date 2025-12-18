@@ -11,12 +11,12 @@ import {
 import { useSelector } from "react-redux";
 
 import AwardBreakdownContainer from
-    'features/state/overview/breakdown/AwardBreakdownContainer';
+    'features/state/overview/awardBreakdown/AwardBreakdownContainer';
 import GeoVisualizationSectionContainer from
     'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
 import SummaryStats from 'features/state/overview/SummaryStats';
-import AwardBreakdownHeader from "./breakdown/AwardBreakdownHeader";
-import AwardBreakdownCard from "./card/AwardBreakdownCard";
+import AwardBreakdownHeader from "./awardBreakdown/AwardBreakdownHeader";
+import AwardBreakdownCard from "./awardBreakdown/card/AwardBreakdownCard";
 
 const StateOverview = () => {
     const { overview, fy, id } = useSelector((state) => state.stateProfile);
