@@ -55,7 +55,7 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
             0
         );
 
-        const newHasNegatives = positiveAmount > totalAmount;
+        const newHasNegatives = positiveAmount > newTotalAmount;
 
         // Sort the results by amount
         const sortedResults = results.sort((rowA, rowB) =>
@@ -73,11 +73,11 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
         setRows(newRows);
         setTotalAmount(newTotalAmount);
         setHasNegatives(newHasNegatives);
-    }, [toggleState, totalAmount]);
+    }, [toggleState]);
 
     useEffect(() => {
         parseData(data);
-    }, [data, parseData, toggleState]);
+    }, [data, parseData]);
 
     useEffect(() => {
         if (!id || id === '' || !fy || fy === '') {
