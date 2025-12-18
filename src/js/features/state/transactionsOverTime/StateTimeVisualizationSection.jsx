@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import StateTimeVisualizationChart from
-    'components/state/spendingovertime/StateTimeVisualizationChart';
+    'features/state/transactionsOverTime/chart/StateTimeVisualizationChart';
 import StateTimeVisualizationHeader from "./header/StateTimeVisualizationHeader";
 
 const propTypes = {
@@ -24,7 +24,6 @@ const StateTimeVisualizationSection = ({
     updateVisualizationPeriod
 }) => {
     const [outlayToggle, setOutlayToggle] = useState(false);
-    const [visualizationWidth, setVisualizationWidth] = useState(0);
 
     return (
         <section
@@ -33,14 +32,12 @@ const StateTimeVisualizationSection = ({
             <StateTimeVisualizationHeader
                 updateVisualizationPeriod={updateVisualizationPeriod}
                 visualizationPeriod={visualizationPeriod}
-                setVisualizationWidth={setVisualizationWidth}
                 outlayToggle={outlayToggle}
                 setOutlayToggle={setOutlayToggle} />
             <StateTimeVisualizationChart
                 visualizationPeriod={visualizationPeriod}
                 loading={loading}
                 data={data}
-                width={visualizationWidth}
                 outlayToggle={outlayToggle} />
         </section>
     );

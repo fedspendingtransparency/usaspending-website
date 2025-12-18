@@ -3,30 +3,20 @@
  * Created on 12/17/2025 by Josue Aguilar
  */
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import { NewPicker, SectionHeader } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import useWindowWidth from "hooks/useWindowWidth";
 import OutlaysToggle from "./OutlaysToggle";
 import OutlaysExplanation from "./OutlaysExplanation";
 
 const StateTimeVisualizationHeader = ({
     visualizationPeriod,
     updateVisualizationPeriod,
-    setVisualizationWidth,
     outlayToggle,
     setOutlayToggle
 }) => {
     const [outlayWhatOpen, setOutlayWhatOpen] = useState(false);
-    const hrRef = useRef(null);
-    const windowWidth = useWindowWidth();
-
-    useEffect(() => {
-        if (hrRef.current) {
-            setVisualizationWidth(hrRef.current.offsetWidth);
-        }
-    }, [setVisualizationWidth, windowWidth]);
 
     const onClick = (e) => {
         updateVisualizationPeriod(e);
@@ -62,11 +52,11 @@ const StateTimeVisualizationHeader = ({
                 title="Transactions Over Time"
                 titleTooltip={{ component: false }}
                 descTooltip={{ component: false }} />
-            <hr
-                className="results-divider"
-                ref={hrRef} />
+            <hr className="results-divider" />
             <div className="state-section__description">
-                The graph below shows trends over time for transactions to this state. Break down the amounts by years, quarters, or months, and hover over the bars for more detailed information.
+                The graph below shows trends over time for transactions to this state.{" "}
+                Break down the amounts by years, quarters, or months,{" "}
+                and hover over the bars for more detailed information.
             </div>
             <div className="state__controls-desktop">
                 <NewPicker

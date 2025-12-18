@@ -3,7 +3,7 @@
  * Created by Keith Didier 09/23/2024
  **/
 
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import {
     BarChart,
@@ -16,28 +16,34 @@ import {
     Legend
 } from 'recharts';
 import { LoadingMessage, NoResultsMessage } from "data-transparency-ui";
-import CustomShape from "./chartCustomizations/CustomShape";
-import CustomXTick from "./chartCustomizations/CustomXTick";
-import CustomYTick from "./chartCustomizations/CustomYTick";
-import CustomTooltip from "./chartCustomizations/CustomTooltip";
-import CustomLegend from "./chartCustomizations/CustomLegend";
+
+import CustomShape from "components/state/spendingovertime/chartCustomizations/CustomShape";
+import CustomXTick from "components/state/spendingovertime/chartCustomizations/CustomXTick";
+import CustomYTick from "components/state/spendingovertime/chartCustomizations/CustomYTick";
+import CustomTooltip from "components/state/spendingovertime/chartCustomizations/CustomTooltip";
+import CustomLegend from "components/state/spendingovertime/chartCustomizations/CustomLegend";
 
 const stateTimeVisualizationChartPropTypes = {
     data: PropTypes.object,
     loading: PropTypes.bool,
-    outlayToggle: PropTypes.bool
+    outlayToggle: PropTypes.bool,
+    visualizationPeriod: PropTypes.string
 };
 
-const StateTimeVisualizationChart = (props) => {
-    const { data, loading } = props;
+const StateTimeVisualizationChart = ({
+    data,
+    loading,
+    outlayToggle,
+    visualizationPeriod
+}) => {
     const [focusBar, setFocusBar] = useState(null);
     const transformedData = [];
 
     let label;
     let value;
     // sort years
-    if (props.visualizationPeriod === 'fiscal_year') {
-        if (!props.outlayToggle) {
+    if (visualizationPeriod === 'fiscal_year') {
+        if (!outlayToggle) {
             // eslint-disable-next-line no-nested-ternary
             data.combined.sort((a, b) => ((a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)));
             for (let i = 0; i < data.combined.length; i++) {
@@ -63,7 +69,7 @@ const StateTimeVisualizationChart = (props) => {
         for (let i = 0; i < data?.xSeries?.length; i++) {
             if (data?.ySeries[i][0] !== 0) {
                 label = data?.xSeries[i][0];
-                if (!props.outlayToggle) {
+                if (!outlayToggle) {
                     value = data?.ySeries[i][0];
                 }
                 else {
@@ -79,15 +85,15 @@ const StateTimeVisualizationChart = (props) => {
     }
 
 
-    const onMouseLeave = () => {
+    const onMouseLeave = useCallback(() => {
         if (focusBar) {
             setFocusBar(null);
         }
-    };
+    }, [focusBar]);
 
-    const onMouseMove = () => {
+    const onMouseMove = useCallback(() => {
         setFocusBar(true);
-    };
+    }, []);
 
     const renderChart = () => {
         if (loading) {
@@ -112,18 +118,31 @@ const StateTimeVisualizationChart = (props) => {
                     <Tooltip
                         cursor={{ fill: '#fff' }}
                         filterNull
-                        content={<CustomTooltip outlayToggle={props.outlayToggle} />}
+                        content={<CustomTooltip outlayToggle={outlayToggle} />}
                         isAnimationActive={false}
                         onMouseLeave={onMouseLeave} />
                     <Legend
                         align="left"
-                        content={<CustomLegend barColor={!props.outlayToggle ? "#0081a1" : "#008480"} label={!props.outlayToggle ? "Transactions" : "Outlays"} />}
+                        content={
+                            <CustomLegend
+                                barColor={!outlayToggle ? "#0081a1" : "#008480"}
+                                label={!outlayToggle ? "Transactions" : "Outlays"} />
+                        }
                         wrapperStyle={{ left: 60, bottom: 0 }} />
                     <ReferenceLine y={0} stroke="#dfe1e2" />
                     <Bar
                         dataKey="value"
-                        shape={<CustomShape focusBar={focusBar} barColor={!props.outlayToggle ? "#0081a1" : "#008480"} />}
-                        activeBar={<CustomShape isActive focusBar={focusBar} barColor={!props.outlayToggle ? "#0081a1" : "#008480"} />}
+                        shape={
+                            <CustomShape
+                                focusBar={focusBar}
+                                barColor={!outlayToggle ? "#0081a1" : "#008480"} />
+                        }
+                        activeBar={
+                            <CustomShape
+                                isActive
+                                focusBar={focusBar}
+                                barColor={!outlayToggle ? "#0081a1" : "#008480"} />
+                        }
                         onMouseEnter={onMouseMove}
                         onMouseOut={onMouseLeave}
                         onMouseLeave={onMouseLeave} />
