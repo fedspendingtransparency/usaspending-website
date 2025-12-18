@@ -5,25 +5,23 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import { formatMoneyWithUnitsShortLabel } from "../../../../../helpers/moneyFormatter";
+import { formatMoneyWithUnitsShortLabel } from "helpers/moneyFormatter";
 
 const customTooltipPropTypes = {
     active: PropTypes.bool,
     payload: PropTypes.array,
     label: PropTypes.string,
     onMouseLeave: PropTypes.func,
-    outlayToggle: PropTypes.bool
+    textLabel: PropTypes.string
 };
 
-const CustomTooltip = (props) => {
-    const {
-        active,
-        payload,
-        label,
-        onMouseLeave,
-        outlayToggle = false
-    } = props;
-
+const CustomTooltip = ({
+    active,
+    payload,
+    label,
+    onMouseLeave,
+    textLabel
+}) => {
     if (active && payload && payload.length) {
         return (
             <div className="custom-tooltip" role="status" aria-live="assertive">
@@ -31,7 +29,7 @@ const CustomTooltip = (props) => {
                     {label}
                 </div>
                 <div className="tooltip__text">
-                    <div className="tooltip__text-label">{outlayToggle ? 'Outlays' : 'Transactions'}</div>
+                    <div className="tooltip__text-label">{textLabel}</div>
                     <div className="tooltip__text-amount">
                         {formatMoneyWithUnitsShortLabel(payload[0].value)}
                     </div>

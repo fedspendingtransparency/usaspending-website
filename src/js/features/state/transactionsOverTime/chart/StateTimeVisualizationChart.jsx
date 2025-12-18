@@ -120,7 +120,7 @@ const StateTimeVisualizationChart = ({
                     <Tooltip
                         cursor={{ fill: '#fff' }}
                         filterNull
-                        content={<CustomTooltip outlayToggle={outlayToggle} />}
+                        content={<CustomTooltip label={legendLabel} />}
                         isAnimationActive={false}
                         onMouseLeave={onMouseLeave} />
                     <Legend

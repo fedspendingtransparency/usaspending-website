@@ -12,26 +12,20 @@ const customXTickPropTypes = {
     payload: PropTypes.object
 };
 
-const CustomXTick = (props) => {
-    const {
-        x, y, payload
-    } = props;
-
-    return (
-        <g transform={`translate(${x},${y})`}>
-            <text
-                x={0}
-                y={0}
-                dx={12}
-                dy={12}
-                textAnchor="end"
-                fill="#5C5C5C"
-                fontSize={12}
-                width="40px">
-                {payload.value}
-            </text>
-        </g>);
-};
+const CustomXTick = ({ x, y, payload }) => (
+    <g transform={`translate(${x},${y})`}>
+        <text
+            x={0}
+            y={0}
+            dx={12}
+            dy={12}
+            textAnchor="end"
+            fill="#5C5C5C"
+            fontSize={12}
+            width="40px">
+            {payload.value}
+        </text>
+    </g>);
 
 CustomXTick.propTypes = customXTickPropTypes;
 export default CustomXTick;
