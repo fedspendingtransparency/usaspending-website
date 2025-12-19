@@ -43,7 +43,7 @@ export const AboutTheDataContainer = (props) => {
                     event: "dap_event",
                     category: "About the Data Side Panel",
                     action: "Side Panel Open",
-                    label: `${term.slug} - ${term.name}`
+                    label: term.name
                 });
             }
         }
