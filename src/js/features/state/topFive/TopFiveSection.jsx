@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router";
 
 import { categories } from 'dataMapping/topCategories';
-import TopFiveContainer from 'containers/state/topFive/TopFiveContainer';
+import TopFiveContainer from 'features/state/topFive/TopFiveContainer';
 import { tabTypes } from "../stateHelper";
 
 const TopFiveSection = () => {
