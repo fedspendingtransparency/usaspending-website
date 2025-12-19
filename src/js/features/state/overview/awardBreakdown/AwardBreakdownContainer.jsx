@@ -7,15 +7,12 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { reduce } from 'lodash-es';
+import { FlexGridCol } from "data-transparency-ui";
 
 import * as StateHelper from 'features/state/stateHelper';
-
-import AwardBreakdownTreeMap from
-    'features/state/overview/awardBreakdown/treemap/AwardBreakdownTreeMap';
-import AwardBreakdownTable from
-    'features/state/overview/awardBreakdown/AwardBreakdownTable';
 import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
-import { FlexGridCol } from "data-transparency-ui";
+import AwardBreakdownTreeMap from './treemap/AwardBreakdownTreeMap';
+import AwardBreakdownTable from './AwardBreakdownTable';
 
 const propTypes = {
     fy: PropTypes.string,

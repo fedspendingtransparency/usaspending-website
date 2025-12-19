@@ -1,3 +1,8 @@
+/**
+ * AwardBreakdownHeader.jsx
+ * Created on 12/15/2025 by Josue Aguilar
+ */
+
 import React, { useState } from "react";
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

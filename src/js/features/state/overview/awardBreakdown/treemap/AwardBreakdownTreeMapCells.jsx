@@ -5,7 +5,7 @@
 
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
-import AwardTypeCell from "features/state/overview/awardBreakdown/treemap/AwardTypeCell";
+import AwardTypeCell from "./AwardTypeCell";
 
 const propTypes = {
     virtualChart: PropTypes.object,
