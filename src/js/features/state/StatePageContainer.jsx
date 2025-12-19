@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
+import PropTypes from "prop-types";
 
 import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import {
@@ -14,11 +15,17 @@ import {
     setStateCenter
 } from 'redux/actions/state/stateActions';
 import { stateCenterFromFips } from 'helpers/mapHelper';
-import StatePage from 'features/state/StatePage';
-import { fetchStateOverview } from 'features/state/stateHelper';
+import StatePage from './StatePage';
+import { fetchStateOverview } from './stateHelper';
 
 require('pages/state/statePage.scss');
 
+const propTypes = {
+    handleFyChange: PropTypes.func,
+    stateId: PropTypes.string,
+    state: PropTypes.string,
+    fy: PropTypes.string
+};
 
 const StatePageContainer = ({
     handleFyChange, stateId, state, fy
@@ -86,4 +93,5 @@ const StatePageContainer = ({
     );
 };
 
+StatePageContainer.propTypes = propTypes;
 export default StatePageContainer;

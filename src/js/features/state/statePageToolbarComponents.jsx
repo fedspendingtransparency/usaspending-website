@@ -1,5 +1,6 @@
 import React from "react";
 import { FiscalYearPicker, ShareIcon } from "data-transparency-ui";
+
 import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
 import {
     currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll

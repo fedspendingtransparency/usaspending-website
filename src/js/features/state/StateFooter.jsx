@@ -10,11 +10,11 @@ const StateFooter = () => (
     <div className="state-footer">
         <div className="footer-content">
             <h4>
-                        Looking for more insight?
+                Looking for more insight?
             </h4>
             <p>
-                        Check out the <strong>Advanced Search</strong> page <br />
-                        for more in-depth analysis on this state and more
+                Check out the <strong>Advanced Search</strong> page <br />
+                for more in-depth analysis on this state and more
             </p>
             <Link
                 className="state-search-button"
