@@ -9,8 +9,8 @@ import { isCancel } from 'axios';
 import { reduce } from 'lodash-es';
 import { FlexGridCol } from "data-transparency-ui";
 
-import * as StateHelper from 'features/state/stateHelper';
 import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
+import { fetchAwardBreakdown } from "features/state/stateHelper";
 import AwardBreakdownTreeMap from './treemap/AwardBreakdownTreeMap';
 import AwardBreakdownTable from './AwardBreakdownTable';
 
@@ -21,9 +21,6 @@ const propTypes = {
 };
 
 const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
-    // const [loading, setLoading] = useState(true);
-    // const [error, setError] = useState(false);
-    // const [inFlight, setInFlight] = useState(true);
     const [awardBreakdown, setAwardBreakdown] = useState([]);
     const [rows, setRows] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
@@ -87,9 +84,7 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
             request.current.cancel();
         }
 
-        request.current = StateHelper.fetchAwardBreakdown(id, fy);
-
-        // setInFlight(true);
+        request.current = fetchAwardBreakdown(id, fy);
 
         request.current.promise
             .then((res) => {
