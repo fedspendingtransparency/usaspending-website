@@ -7,10 +7,13 @@ import React, { useState } from 'react';
 import { Tabs, SectionHeader } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router";
+import PropTypes from "prop-types";
 
 import { categories } from 'dataMapping/topCategories';
-import TopFiveContainer from 'features/state/topFive/TopFiveContainer';
+import TopFiveContainer from './TopFiveContainer';
 import { tabTypes } from "../stateHelper";
+
+const propTypes = { agencyData: PropTypes.object };
 
 const TopFiveSection = ({ agencyData }) => {
     const [active, setActive] = useState('all');
@@ -49,4 +52,5 @@ const TopFiveSection = ({ agencyData }) => {
     );
 };
 
+TopFiveSection.propTypes = propTypes;
 export default TopFiveSection;
