@@ -6,33 +6,32 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
-import useIsMobile from "hooks/useIsMobile";
 
+import useIsMobile from "hooks/useIsMobile";
 import { checkInView } from "helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
+import MobileSidebarContent from "./MobileSidebarContent";
 
 const propTypes = {
-    setShowMobileFilters: PropTypes.func,
-    sidebarOpen: PropTypes.bool
+    setShowMobileFilters: PropTypes.func
 };
 
 // eslint-disable-next-line prefer-arrow-callback
 const SidebarWrapper = React.memo(function SidebarWrapper({
-    // eslint-disable-next-line no-unused-vars
-    setShowMobileFilters, sidebarOpen
+    showMobileFilters, setShowMobileFilters, sidebarIsOpen, setSidebarIsOpen
 }) {
     const [initialPageLoad, setInitialPageLoad] = useState(true);
     const [sidebarContentHeight, setSidebarContentHeight] = useState();
     const [sidebarHeight, setSidebarHeight] = useState();
     const [mainContentHeight, setMainContentHeight] = useState();
-    const [isOpened, setIsOpened] = useState(sidebarOpen);
 
     const sidebarContainer = useRef();
-    const { isMedium } = useIsMobile();
+
+    const isMedium = useIsMobile();
 
     const toggleOpened = (e) => {
         e.preventDefault();
-        setIsOpened((prevState) => !prevState);
+        setSidebarIsOpen((prevState) => !prevState);
     };
 
     const keyHandler = (e, func) => {
@@ -94,11 +93,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         <>
             {/* Eventually remove search-sidebar css */}
             <div
-                style={{
-                    height: sidebarHeight,
-                    display: isMedium ? "" : "none"
-                }}
-                className={`search-collapsible-sidebar-container search-sidebar sticky ${isOpened && !isMedium ? "opened" : ""}`}>
+                style={{ height: sidebarHeight }}
+                className={`search-collapsible-sidebar-container search-sidebar sticky ${sidebarIsOpen ? "opened" : ""} ${showMobileFilters ? "mobile" : ""}`}>
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => {
@@ -111,16 +107,20 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     aria-label="Toggle Collapsible Sidebar"
                     focusable="true"
                     tabIndex={0}>
-                    {isOpened ?
+                    {sidebarIsOpen ?
                         <FontAwesomeIcon className="chevron" icon="chevron-left" />
                         :
                         <FontAwesomeIcon className="chevron" icon="chevron-right" />
                     }
                 </div>
-                { isOpened &&
-                        <SidebarContent
-                            sidebarContentHeight={sidebarContentHeight}
-                            setShowMobileFilters={setShowMobileFilters} />
+                { sidebarIsOpen && !isMedium &&
+                    <SidebarContent
+                        sidebarContentHeight={sidebarContentHeight} />
+                }
+                { sidebarIsOpen && showMobileFilters &&
+                    <MobileSidebarContent
+                        sidebarContentHeight={sidebarContentHeight}
+                        setShowMobileFilters={setShowMobileFilters} />
                 }
             </div>
         </>
