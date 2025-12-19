@@ -51,54 +51,16 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
     };
 
-    const openSidebar = (width) => {
-        // const sidebarElSelector = isMobile ? ".mobile-search-sidebar-v2" : ".full-search-sidebar";
-        // document.querySelector(sidebarElSelector).style.width = "unset";
-        // document.querySelector(".full-search-sidebar").style.flexBasis = `${width}px`;
-        // document.querySelector(".search-collapsible-sidebar-container").style.width = `${width}px`;
-        // document.querySelector(".search-collapsible-sidebar-container").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
-    };
-
-    const closeSidebar = () => {
-        // document.querySelector(".full-search-sidebar").style.width = "0";
-        // document.querySelector(".full-search-sidebar").style.flexBasis = "0";
-    //     document.querySelector(".mobile-search-sidebar-v2").style.width = "0";
-    //     document.querySelector(".search-collapsible-sidebar-container").style.transition = 'width 300ms cubic-bezier(0.2, 0, 0, 1)';
-    //     document.querySelector(".mobile-search-sidebar-v2").style.flexBasis = "0";
-    //     document.querySelector(".search-collapsible-sidebar-container").style.width = "0";
-    };
-
     const handleScrollEnd = (e) => {
         updatePosition(e);
     };
 
     useEffect(() => {
-        // if (isOpened) {
-        //     if (document.querySelector(".full-search-sidebar")) {
-        //         openSidebar(sideBarXlDesktopWidth);
-        //     }
-        //     else if (document.querySelector(".mobile-search-sidebar-v2") && isMobile) {
-        //         openSidebar(sideBarXlDesktopWidth);
-        //     }
-        // }
-        // else if (document.querySelector(".full-search-sidebar")) {
-        //     closeSidebar();
-        // }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isMedium, isOpened]);
-
-    useEffect(() => {
-        if (initialPageLoad && sidebarContainer) {
+        if (initialPageLoad) {
             setInitialPageLoad(false);
             updatePosition();
         }
     }, [initialPageLoad]);
-
-    // useEffect(() => {
-    //     if (sidebarHeight > 0 && sidebarContentHeight > 0 && document.querySelector(".search-sidebar").style.display === "none") {
-    //         document.querySelector(".search-sidebar").style.display = "flex";
-    //     }
-    // }, [sidebarHeight, sidebarContentHeight]);
 
     useEffect(() => {
         updatePosition();
@@ -106,6 +68,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     }, [mainContentHeight]);
 
     useEffect(() => {
+        // eslint-disable-next-line no-undef
         const mainContentResizeObserver = new ResizeObserver((entries) => {
             setMainContentHeight(entries[0].target?.clientHeight);
         });
@@ -131,9 +94,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         <>
             {/* Eventually remove search-sidebar css */}
             <div
-                ref={sidebarContainer}
-                style={{ height: sidebarHeight }}
-                className={`search-collapsible-sidebar-container search-sidebar sticky ${isOpened ? "opened" : ""}`}>
+                style={{
+                    height: sidebarHeight,
+                    display: isMedium ? "" : "none"
+                }}
+                className={`search-collapsible-sidebar-container search-sidebar sticky ${isOpened && !isMedium ? "opened" : ""}`}>
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => {

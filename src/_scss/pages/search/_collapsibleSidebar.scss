@@ -26,13 +26,27 @@
     box-shadow: none;
     border-radius: unset;
     background-color: unset;
-    flex: 0 0 352px;
 
     &.sticky {
         position: sticky;
         top: 0;
         left: 0;
         align-self: flex-start;
+    }
+
+    &.opened {
+      flex: 0 0 352px;
+    }
+
+    &:not(.opened) {
+      flex: 0 0 48px;
+      width: 48px;
+      .sidebar-top-submit,
+      .search-filter__container,
+      .collapsible-sidebar--header,
+      .collapsible-sidebar--main-menu {
+        display: none;
+      }
     }
 
     .sidebar-top-submit {
@@ -92,16 +106,6 @@
 
     @media(max-width: $medium-screen - 1) {
       border: none;
-    }
-
-    &:not(.opened) {
-      flex: 0 0 48px;
-      .sidebar-top-submit,
-      .search-filter__container,
-      .collapsible-sidebar--header,
-      .collapsible-sidebar--main-menu {
-        display: none;
-      }
     }
 
     .collapsible-sidebar--header {
@@ -194,11 +198,15 @@
   .search-collapsible-sidebar-container {
     margin-right: rem(16);
     @media(min-width: $large-screen) {
-      flex: 0 0 352px;
+      .opened {
+        flex: 0 0 352px;
+      }
     }
 
     @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
-      flex: 0 0 300px;
+      .opened {
+        flex: 0 0 300px;
+      }
     }
   }
 }
