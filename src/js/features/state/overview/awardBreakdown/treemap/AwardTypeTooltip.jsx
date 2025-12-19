@@ -115,6 +115,7 @@ const AwardTypeTooltip = ({
             </div>
         </>
     );
+
     let smallValue = '';
 
     if (arrow) {
