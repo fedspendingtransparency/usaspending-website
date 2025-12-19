@@ -16,11 +16,11 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { showModal } from "redux/actions/modal/modalActions";
 
 import TooltipContext from "context/TooltipContext";
-import MobileFiltersV2 from "../mobile/MobileFiltersV2";
-import ResultsView from "../resultsView/ResultsView";
-import CollapsibleSidebar from "./SidebarWrapper";
-import MobileFilterButton from "../MobileFilterButton";
-import searchPageToolBarComponents from "../SearchPageToolBarComponents";
+import MobileFiltersV2 from "./mobile/MobileFiltersV2";
+import ResultsView from "./resultsView/ResultsView";
+import CollapsibleSidebar from "./collapsibleSidebar/SidebarWrapper";
+import MobileFilterButton from "./mobile/MobileFilterButton";
+import searchPageToolBarComponents from "./SearchPageToolBarComponents";
 
 require('pages/search/searchPage.scss');
 

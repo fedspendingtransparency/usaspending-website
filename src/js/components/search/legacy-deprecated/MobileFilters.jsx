@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
 
-import SearchSidebar from '../SearchSidebar';
+import SearchSidebar from './SearchSidebar';
 
 const propTypes = {
     filters: PropTypes.object,

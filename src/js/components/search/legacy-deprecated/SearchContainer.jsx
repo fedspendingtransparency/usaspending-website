@@ -26,8 +26,8 @@ import {
     convertFiltersToAnalyticEvents,
     sendAnalyticEvents,
     sendFieldCombinations
-} from './helpers/searchAnalytics';
-import useQueryParams from "../../hooks/useQueryParams";
+} from '../../../containers/search/helpers/searchAnalytics';
+import useQueryParams from "../../../hooks/useQueryParams";
 
 require('pages/search/searchPage.scss');
 

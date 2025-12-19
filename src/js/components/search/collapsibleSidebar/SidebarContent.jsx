@@ -43,7 +43,7 @@ const SidebarContent = ({
                             <Icons.Close alt="Close Filters" />
                         </button>
                     </div>}
-                <SidebarContentFilters sidebarContentHeight={sidebarContentHeight}/>
+                <SidebarContentFilters sidebarContentHeight={sidebarContentHeight} />
             </div>
         </>);
 };
