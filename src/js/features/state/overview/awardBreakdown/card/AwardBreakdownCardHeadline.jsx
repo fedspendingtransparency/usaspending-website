@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { InfoCircle } from "components/sharedComponents/icons/Icons";
-import DetailsTooltip from "components/state/overview/DetailsTooltip";
-
+import DetailsTooltip from "./DetailsTooltip";
 
 const AwardBreakdownCardHeadline = () => {
     const [showInfoTooltip, setShowInfoTooltip] = useState(false);
@@ -26,9 +25,7 @@ const AwardBreakdownCardHeadline = () => {
     let tooltip = null;
     if (showInfoTooltip) {
         tooltip = (
-            <DetailsTooltip
-                showInfoTooltip={showInfoTooltip}
-                closeTooltip={closeTooltip} />
+            <DetailsTooltip closeTooltip={closeTooltip} />
         );
     }
 
