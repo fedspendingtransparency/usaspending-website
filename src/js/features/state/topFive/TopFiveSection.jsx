@@ -12,11 +12,12 @@ import { categories } from 'dataMapping/topCategories';
 import TopFiveContainer from 'features/state/topFive/TopFiveContainer';
 import { tabTypes } from "../stateHelper";
 
-const TopFiveSection = () => {
+const TopFiveSection = ({ agencyData }) => {
     const [active, setActive] = useState('all');
 
     const content = categories[active].map((category) => (
         <TopFiveContainer
+            agencyData={agencyData}
             key={category}
             category={category}
             type={active} />

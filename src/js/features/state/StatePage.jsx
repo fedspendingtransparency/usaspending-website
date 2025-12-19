@@ -13,9 +13,9 @@ import { LoadingWrapper } from "components/sharedComponents/Loading";
 import StateOverview from "features/state/overview/StateOverview";
 import StateTimeVisualizationSectionContainer from
     "features/state/transactionsOverTime/StateTimeVisualizationSectionContainer";
-import TopFiveSection from "features/state/topFive/TopFiveSection";
 import StateFooter from "components/state/StateFooter";
 import StatePageWrapper from "./StatePageWrapper";
+import TopFiveSectionContainer from "./topFive/TopFiveSectionContainer";
 
 const propTypes = {
     loading: PropTypes.bool,
@@ -35,7 +35,7 @@ const StatePage = ({
             <FlexGridCol className="state-content">
                 <StateOverview />
                 <StateTimeVisualizationSectionContainer />
-                <TopFiveSection />
+                <TopFiveSectionContainer />
                 <StateFooter />
             </FlexGridCol>
         </FlexGridRow>

@@ -18,10 +18,11 @@ import {
 
 const propTypes = {
     type: PropTypes.string,
-    category: PropTypes.string
+    category: PropTypes.string,
+    agencyData: PropTypes.object
 };
 
-const TopFiveContainer = ({ category, type }) => {
+const TopFiveContainer = ({ category, type, agencyData }) => {
     const { overview, fy } = useSelector((state) => state.stateProfile);
     const {
         loading, error, data, fetchData
@@ -163,7 +164,8 @@ const TopFiveContainer = ({ category, type }) => {
                     total={total}
                     loading={loading}
                     error={error}
-                    dataParams={dataParams} />
+                    dataParams={dataParams}
+                    agencyData={agencyData} />
             }
         </>
     );
