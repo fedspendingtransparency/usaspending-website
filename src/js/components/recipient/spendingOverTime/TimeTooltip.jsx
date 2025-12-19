@@ -10,7 +10,7 @@ const propTypes = {
     chartWidth: PropTypes.number
 };
 
-const StateTimeVisualizationTooltip = ({
+const TimeTooltip = ({
     y,
     x,
     data,
@@ -79,5 +79,5 @@ const StateTimeVisualizationTooltip = ({
     );
 };
 
-StateTimeVisualizationTooltip.propTypes = propTypes;
-export default StateTimeVisualizationTooltip;
+TimeTooltip.propTypes = propTypes;
+export default TimeTooltip;
