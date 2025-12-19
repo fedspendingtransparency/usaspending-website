@@ -124,9 +124,14 @@ const TreeNodesWrapper = ({
         handleIndeterminateAncestors(node, newChecked);
     };
 
-    const handleAutoCheckAncestors = (node, newChecked) => {
+    const handleAutoCheckAncestors = (node, newChecked, isChecked) => {
         let updatedChecked = newChecked;
-        if (node.ancestors) {
+
+        if (isChecked && updatedChecked.length <= 1) {
+            // account for unchecking only checked single node
+            updatedChecked = [];
+        }
+        else if (node.ancestors) {
             const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
             if (ancestorNodes.length) {
                 ancestorNodes.forEach((parent) => {
@@ -160,7 +165,7 @@ const TreeNodesWrapper = ({
             const excludeSet = [...descendantIds, id];
             newChecked = localChecked.filter((cid) => !excludeSet.includes(cid));
 
-            newChecked = handleAutoCheckAncestors(modifiedNode, newChecked);
+            newChecked = handleAutoCheckAncestors(modifiedNode, newChecked, true);
             handleIndeterminate(modifiedNode, newChecked);
             setLocalChecked([...new Set([...newChecked])]);
             if (onCheck) onCheck(newChecked, modifiedNode);
@@ -175,7 +180,7 @@ const TreeNodesWrapper = ({
                 newChecked = [...new Set([...localChecked, id])];
             }
 
-            newChecked = handleAutoCheckAncestors(modifiedNode, newChecked);
+            newChecked = handleAutoCheckAncestors(modifiedNode, newChecked, false);
             handleIndeterminate(modifiedNode, newChecked);
             setLocalChecked([...new Set([...newChecked])]);
             if (onCheck) onCheck(newChecked, modifiedNode);
