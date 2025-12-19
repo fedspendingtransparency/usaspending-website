@@ -42,14 +42,32 @@
 
     @media(max-width: $medium-screen - 1) {
       left: 0;
-      //width: 100%;
     }
+
+  .collapsible-sidebar-header {
+    margin-top: 16px;
+    margin-left: 32px;
+    color: $theme-color-headline;
+    font-size: $font-size-16;
+    font-weight: $font-semibold;
+
+    .fa-filter {
+      color: $blue-60v;
+      width: 15px;
+      margin-right: 8px;
+    }
+  }
 
     .chevron {
       margin: auto;
       color: $blue-50;
       width: 6px;
       height: 100%;
+    }
+
+    .fa-filter {
+      color: $blue-60v;
+      width: 15px;
     }
 
     .collapsible-sidebar--toggle {
@@ -77,6 +95,7 @@
     }
 
     &:not(.opened) {
+      flex: 0 0 48px;
       .sidebar-top-submit,
       .search-filter__container,
       .collapsible-sidebar--header,

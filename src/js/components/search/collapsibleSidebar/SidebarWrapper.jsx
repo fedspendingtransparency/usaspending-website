@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
 import useIsMobile from "hooks/useIsMobile";
 
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { checkInView } from "helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
 
@@ -134,7 +133,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             <div
                 ref={sidebarContainer}
                 style={{ height: sidebarHeight }}
-                className="search-collapsible-sidebar-container search-sidebar sticky opened">
+                className={`search-collapsible-sidebar-container search-sidebar sticky ${isOpened ? "opened" : ""}`}>
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => {

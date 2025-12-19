@@ -10,6 +10,7 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import useIsMobile from "hooks/useIsMobile";
 
 import SidebarContentFilters from "./SidebarContentFilters";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
@@ -25,6 +26,7 @@ const SidebarContent = ({
     return (
         <>
             <div className="sidebar-top-submit">
+                <div className="collapsible-sidebar-header"><FontAwesomeIcon icon="filter" />Filters</div>
                 <SearchSidebarSubmitContainer setShowMobileFilters={setShowMobileFilters} />
             </div>
             <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">
@@ -41,7 +43,7 @@ const SidebarContent = ({
                             <Icons.Close alt="Close Filters" />
                         </button>
                     </div>}
-                <SidebarContentFilters sidebarContentHeight={sidebarContentHeight} />
+                <SidebarContentFilters sidebarContentHeight={sidebarContentHeight}/>
             </div>
         </>);
 };
