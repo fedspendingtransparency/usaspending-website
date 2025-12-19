@@ -6,14 +6,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 
-import StateTimeVisualizationSection from
-    'features/state/transactionsOverTime/StateTimeVisualizationSection';
 import {
     convertFYToDateRange, currentFiscalYear, earliestFiscalYear
 } from "helpers/fiscalYearHelper";
 import { convertMonthToFY, convertNumToShortMonth } from "helpers/monthHelper";
 import { performSpendingOverTimeSearch } from "helpers/searchHelper";
 import useQuery from "hooks/useQuery";
+import StateTimeVisualizationSection from './StateTimeVisualizationSection';
 
 const StateTimeVisualizationSectionContainer = () => {
     const { code } = useSelector((state) => state.stateProfile.overview);
