@@ -1,3 +1,8 @@
+/**
+ * AwardBreakdownCardHeadline.jsx
+ * Created on 12/15/2025 by Josue Aguilar
+ */
+
 import React from "react";
 import { CardBody, CardContainer, CardHero, FlexGridCol } from "data-transparency-ui";
 import PropTypes from "prop-types";

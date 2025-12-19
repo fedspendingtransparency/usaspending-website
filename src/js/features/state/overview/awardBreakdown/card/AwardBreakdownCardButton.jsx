@@ -1,3 +1,8 @@
+/**
+ * AwardBreakdownCardHeadline.jsx
+ * Created on 12/15/2025 by Josue Aguilar
+ */
+
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardButton } from "data-transparency-ui";
@@ -81,9 +86,7 @@ const AwardBreakdownCardButton = ({
             }
             variant="secondary"
             textAlignment="center"
-            action={() => {
-                handleGoToAdvancedSearch();
-            }} />
+            action={handleGoToAdvancedSearch} />
     );
 };
 

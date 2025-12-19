@@ -1,3 +1,8 @@
+/**
+ * AwardBreakdownCardHeadline.jsx
+ * Created on 12/15/2025 by Josue Aguilar
+ */
+
 import React, { useEffect, useState } from "react";
 import { InfoCircle } from "components/sharedComponents/icons/Icons";
 import DetailsTooltip from "./DetailsTooltip";
