@@ -26,18 +26,7 @@ export const tasSortFn = (a, b) => {
 // key map for traversing the tas-tree
 const tasKeyMap = { label: 'description', value: 'id', isParent: shouldTasNodeHaveChildren };
 
-export const cleanTasData = (nodes) => cleanTreeData(nodes, tasKeyMap)
-    .map((node) => {
-        if (isAgency(node)) {
-            return {
-                ...node,
-                count: null,
-                showCheckbox: false,
-                displayId: false
-            };
-        }
-        return node;
-    });
+export const cleanTasData = (nodes) => cleanTreeData(nodes, tasKeyMap);
 
 export const getTasNodeFromTree = (tree, code) => {
     if (!tree) return tree;
