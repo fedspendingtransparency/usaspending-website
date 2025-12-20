@@ -27,7 +27,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const sidebarContainer = useRef();
 
-    const isMedium = useIsMobile();
+    const { isMedium } = useIsMobile();
+    console.log(isMedium);
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -93,6 +94,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         <>
             {/* Eventually remove search-sidebar css */}
             <div
+                ref={sidebarContainer}
                 style={{ height: sidebarHeight }}
                 className={`search-collapsible-sidebar-container search-sidebar sticky ${sidebarIsOpen ? "opened" : ""} ${showMobileFilters ? "mobile" : ""}`}>
                 <div

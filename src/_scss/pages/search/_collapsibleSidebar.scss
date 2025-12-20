@@ -36,14 +36,18 @@
 
     &.opened {
       flex: 0 0 352px;
+      width: 352px;
 
       &.mobile {
         flex: 0 0 100%;
         width: 100%;
       }
 
-      &:not(.mobile) {
-        flex: 0 0 0%;
+      @media(max-width: $medium-screen - 1) {
+        &:not(.mobile) {
+          flex: 0 0 0%;
+          width: 0;
+        }
       }
     }
 
@@ -68,19 +72,19 @@
         border-bottom: $gray-cool-10 1px solid;
     }
 
-  .collapsible-sidebar-header {
-    margin-top: 16px;
-    margin-left: 32px;
-    color: $theme-color-headline;
-    font-size: $font-size-16;
-    font-weight: $font-semibold;
+    .collapsible-sidebar-header {
+      margin-top: 16px;
+      margin-left: 32px;
+      color: $theme-color-headline;
+      font-size: $font-size-16;
+      font-weight: $font-semibold;
 
-    .fa-filter {
-      color: $blue-60v;
-      width: 15px;
-      margin-right: 8px;
+      .fa-filter {
+        color: $blue-60v;
+        width: 15px;
+        margin-right: 8px;
+      }
     }
-  }
 
     .chevron {
       margin: auto;

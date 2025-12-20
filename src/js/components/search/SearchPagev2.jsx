@@ -104,12 +104,9 @@ const SearchPage = ({
                 <div className="search-contents v2" ref={searchContents}>
                     <TooltipContext value={(tt) => setTooltipData(tt)}>
                         <CollapsibleSidebar
-                            filters={filters}
-                            filterCount={filterCount}
                             hash={hash}
                             showMobileFilters={showMobileFilters}
                             setShowMobileFilters={setShowMobileFilters}
-                            toggleMobileFilters={toggleMobileFilters}
                             sidebarIsOpen={sidebarIsOpen}
                             setSidebarIsOpen={setSidebarIsOpen} />
                     </TooltipContext>
