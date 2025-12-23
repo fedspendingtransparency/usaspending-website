@@ -1,8 +1,14 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { isCancel } from "axios";
 
 // https://tkdodo.eu/blog/why-you-want-react-query
-const useQuery = () => {
+
+/**
+ * useQueryTemp
+ * - a custom hook for handling simple data fetching with data, loading, and error states
+ * @returns {object} An object containing a fetchData function, as well as the data, loading, and error states
+ */
+const useQueryTemp = (callbackFunc = () => {}) => {
     const [data, setData] = useState();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(false);
@@ -33,9 +39,15 @@ const useQuery = () => {
             });
     }, []);
 
+    useEffect(() => {
+        if (data) {
+            callbackFunc(data);
+        }
+    }, [data, callbackFunc]);
+
     return {
         loading, error, data, fetchData
     };
 };
 
-export default useQuery;
+export default useQueryTemp;

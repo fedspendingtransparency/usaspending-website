@@ -11,7 +11,7 @@ import { getTrailingTwelveMonths, convertFYToDateRange } from 'helpers/fiscalYea
 import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import TopFive from "components/sharedComponents/TopFive";
-import useQuery from "hooks/useQuery";
+import useQueryTemp from "hooks/useQueryTemp";
 import {
     performSpendingByAwardSearch, performSpendingByCategorySearch
 } from "helpers/searchHelper";
@@ -24,9 +24,6 @@ const propTypes = {
 
 const TopFiveContainer = ({ category, type, agencyData }) => {
     const { overview, fy } = useSelector((state) => state.stateProfile);
-    const {
-        loading, error, data, fetchData
-    } = useQuery();
     const [parsedResults, setParsedResults] = useState([]);
     const [noResultState, setNoResultState] = useState(false);
 
@@ -96,9 +93,9 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
 
     const dataParams = useMemo(() => getDataParams(), [getDataParams]);
 
-    const parseResults = useCallback(() => {
-        if (!data) return;
-        const { results, categories: resCategory } = data;
+    const parseResults = useCallback((res) => {
+        if (!res) return;
+        const { results, categories: resCategory } = res;
         if (results.length < 1) {
             setNoResultState(true);
         }
@@ -137,7 +134,11 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
 
             setParsedResults(parsed);
         }
-    }, [category, data]);
+    }, [category]);
+
+    const {
+        loading, error, fetchData
+    } = useQueryTemp(parseResults);
 
     useEffect(() => {
         if (!code) {
@@ -150,10 +151,6 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
 
         fetchData(request, dataParams);
     }, [category, code, dataParams, fetchData, fy, type]);
-
-    useEffect(() => {
-        parseResults();
-    }, [parseResults]);
 
     return (
         <>

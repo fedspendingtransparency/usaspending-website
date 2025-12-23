@@ -11,14 +11,11 @@ import {
 } from "helpers/fiscalYearHelper";
 import { convertMonthToFY, convertNumToShortMonth } from "helpers/monthHelper";
 import { performSpendingOverTimeSearch } from "helpers/searchHelper";
-import useQuery from "hooks/useQuery";
+import useQueryTemp from "hooks/useQueryTemp";
 import StateTimeVisualizationSection from './StateTimeVisualizationSection';
 
 const StateTimeVisualizationSectionContainer = () => {
     const { code } = useSelector((state) => state.stateProfile.overview);
-    const {
-        loading, error, data, fetchData
-    } = useQuery();
     const [visualizationPeriod, setVisualizationPeriod] = useState('fiscal_year');
     const [groups, setGroups] = useState([]);
     const [xSeries, setXSeries] = useState([]);
@@ -48,7 +45,7 @@ const StateTimeVisualizationSectionContainer = () => {
         return type === 'label' ? `${month} ${year}` : { period: `${month}`, year: `${year}` };
     };
 
-    const parseData = useCallback(() => {
+    const parseData = useCallback((res) => {
         const groupsLocal = [];
         const xSeriesLocal = [];
         const ySeriesLocal = [];
@@ -57,7 +54,7 @@ const StateTimeVisualizationSectionContainer = () => {
         const ySeriesOutlayLocal = [];
 
         // iterate through each response object and break it up into groups, x series, and y series
-        data.results.forEach((item) => {
+        res.results.forEach((item) => {
             groupsLocal.push(generateTime(visualizationPeriod, item.time_period, "label"));
             xSeriesLocal.push([generateTime(visualizationPeriod, item.time_period, "label")]);
             ySeriesLocal.push([parseFloat(item.aggregated_amount)]);
@@ -81,7 +78,11 @@ const StateTimeVisualizationSectionContainer = () => {
         setCombinedOutlay(combinedOutlayLocal);
         setYSeries(ySeriesLocal);
         setYSeriesOutlay(ySeriesOutlayLocal);
-    }, [data, visualizationPeriod]);
+    }, [visualizationPeriod]);
+
+    const {
+        loading, error, fetchData
+    } = useQueryTemp(parseData);
 
     const beginFetch = useCallback(() => {
         // Fetch data from the Awards v2 endpoint
@@ -117,10 +118,6 @@ const StateTimeVisualizationSectionContainer = () => {
     useEffect(() => {
         beginFetch();
     }, [code, visualizationPeriod, beginFetch]);
-
-    useEffect(() => {
-        if (data) parseData();
-    }, [data, visualizationPeriod, parseData]);
 
     return (
         <StateTimeVisualizationSection
