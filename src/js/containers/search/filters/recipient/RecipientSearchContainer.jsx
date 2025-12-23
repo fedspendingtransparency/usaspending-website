@@ -4,71 +4,57 @@
  */
 
 import React, { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from "axios";
 
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import * as SearchHelper from 'helpers/searchHelper';
-import SubmitHint from "components/sharedComponents/filterSidebar/SubmitHint";
-import EntityDropdownAutocomplete from "components/search/filters/location/EntityDropdownAutocomplete";
-import PrimaryCheckboxType from "components/sharedComponents/checkbox/PrimaryCheckboxType";
-import SelectedRecipients from "components/search/filters/recipient/SelectedRecipients";
+import { updateSelectedRecipients, updateSearchedFilterValues } from 'redux/actions/search/searchFilterActions';
+import { fetchRecipientsAutocomplete } from 'helpers/searchHelper';
 import replaceString from 'helpers/replaceString';
+import AutocompleteWithCheckboxList from 'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
 
-const propTypes = {
-    updateSelectedRecipients: PropTypes.func,
-    selectedRecipients: PropTypes.object,
-    searchV2: PropTypes.bool
-};
-
-const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients, searchV2 }) => {
+const RecipientSearchContainer = () => {
     const [recipients, setRecipients] = useState([]);
     const [searchString, setSearchString] = useState('');
-    const [newSearch, setNewSearch] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
-    const [maxRecipients, setMaxRecipients] = useState(true);
+    const [maxRecipients, setMaxRecipients] = useState(false);
+    const [noResults, setNoResults] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const selectedRecipients = useSelector((state) => state.filters.selectedRecipients);
+    const searchedFilterValues = useSelector((state) => state.filters.searchedFilterValues);
 
     const recipientRequest = useRef();
+    const dispatch = useDispatch();
+
     const maxRecipientsAllowed = 500;
-    let localSelectedRecipients = null;
-    let maxRecipientTitle = '';
-    let maxRecipientText = '';
-    const highlightText = (text) => replaceString(text, searchString, 'highlight');
-
-    if (newSearch) {
-        maxRecipientTitle = 'Use the search bar to find recipients';
-        maxRecipientText = `The first ${maxRecipientsAllowed} recipients are displayed by default. Please use the search bar to find additional recipients.`;
-    }
-
-    else {
-        maxRecipientTitle = `Only ${maxRecipientsAllowed} recipients can be displayed at once`;
-        maxRecipientText = 'Please use the search bar to narrow your search and find additional recipients.';
-    }
+    const maxRecipientTitle = `Only ${maxRecipientsAllowed} recipients can be displayed at once`;
+    const maxRecipientText = 'Please use the search bar to narrow your search and find additional recipients.';
+    const highlightText = (text) => replaceString(text, searchString, 'bold-highlight');
 
     const toggleRecipient = ({ value }) => {
+        let isUei = false;
         if (value.uei && searchString.length > 2 && value.uei?.includes(searchString.toUpperCase())) {
-            updateSelectedRecipients(value.uei);
-        }
-        else if (value.duns && searchString.length > 2 && value?.duns.includes(searchString)) {
-            updateSelectedRecipients(value.duns);
+            dispatch(updateSelectedRecipients(value.uei));
+            isUei = true;
         }
         else {
-            updateSelectedRecipients(value.name);
+            dispatch(updateSelectedRecipients(value.name));
         }
+
+        const updatedSelected = selectedRecipients.toArray();
+        if (selectedRecipients?.size > 0 && selectedRecipients.includes(isUei ? value.uei : value.name)) {
+            updatedSelected.filter((rep) => rep === (isUei ? value.uei : value.name));
+        }
+        else {
+            updatedSelected.push(isUei ? value.uei : value.name);
+        }
+
+        dispatch(updateSearchedFilterValues({
+            filterType: "recipient",
+            input: searchString,
+            selected: updatedSelected
+        }));
     };
 
-    const removeRecipient = (recipient) => {
-        updateSelectedRecipients(recipient);
-    };
-
-    const levelMapping = {
-        P: 'Parent',
-        R: 'Recipient',
-        C: 'Child'
-    };
 
     const sortResults = (data) => {
         // sort alphabetically
@@ -118,32 +104,6 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         }
     };
 
-    const getAllRecipients = () => {
-        if (recipientRequest.current) {
-            recipientRequest.current.cancel();
-        }
-
-        const paramObj = {
-            limit: maxRecipientsAllowed
-        };
-
-        recipientRequest.current = SearchHelper.fetchRecipients(paramObj);
-
-        setIsLoading(true);
-
-        recipientRequest.current.promise
-            .then((res) => {
-                setRecipients(res.data.results);
-                setIsLoading(false);
-                sortResults(res.data.results);
-                setMaxRecipients(true);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(`Recipient Request Error: ${err}`);
-                }
-            });
-    };
 
     const getRecipientsFromSearchString = (term) => {
         if (recipientRequest.current) {
@@ -155,7 +115,7 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
             limit: maxRecipientsAllowed
         };
 
-        recipientRequest.current = SearchHelper.fetchRecipientsAutocomplete(paramObj);
+        recipientRequest.current = fetchRecipientsAutocomplete(paramObj);
 
         setIsLoading(true);
 
@@ -163,12 +123,22 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
             .then((res) => {
                 sortResults(res.data.results);
                 setRecipients(res.data.results);
+                setErrorMessage('');
                 setIsLoading(false);
                 setMaxRecipients(res.data.count === maxRecipientsAllowed);
+                setNoResults(!res.data.count);
+                // wait until results are processed to set redux state.
+                dispatch(updateSearchedFilterValues({
+                    filterType: "recipient",
+                    input: term,
+                    selected: selectedRecipients
+                }));
             })
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(`Recipient Request Error: ${err}`);
+                    setErrorMessage(err.message);
+                    setIsLoading(false);
                 }
             });
     };
@@ -177,129 +147,146 @@ const RecipientSearchContainer = ({ updateSelectedRecipients, selectedRecipients
         setSearchString(e.target.value);
     };
 
-    const loadingIndicator = (
-        <div className="recipient-filter-message-container">
-            <FontAwesomeIcon icon="spinner" spin />
-            <div className="recipient-filter-message-container__text">Loading your data...</div>
-        </div>
-    );
+    const handleSearchClear = () => {
+        setSearchString('');
+        setMaxRecipients(false); // clean up if previously set
+        setRecipients([]);
+    };
 
-    if (selectedRecipients.size > 0) {
-        localSelectedRecipients = (
-            <SelectedRecipients
-                selectedRecipients={selectedRecipients}
-                toggleRecipient={removeRecipient} />
-        );
-    }
 
-    const handleClearRecipients = () => {
+    const handleClearAll = () => {
         const currentRecipients = selectedRecipients;
 
         currentRecipients.forEach((recipient) => {
-            updateSelectedRecipients(recipient);
+            dispatch(updateSelectedRecipients(recipient));
         });
+
+        handleSearchClear();
+    };
+
+    const getMaxRecipientsText = () => {
+        if (maxRecipients) {
+            return (
+                <div className="recipient-filter-message-container">
+                    <div className="find-recipients-text label">
+                        {maxRecipientTitle}
+                    </div>
+                    <div className="find-recipients-text content">
+                        {maxRecipientText}
+                    </div>
+                </div>
+            );
+        }
+
+        return null;
+    };
+
+    const getFormatedName = (recipient) => {
+        if (recipient.uei && recipient.uei?.includes(searchString.toUpperCase())) {
+            return (
+                <div className="recipient-checkbox__uei">
+                    <span>UEI: </span>{highlightText(recipient.uei)}
+                    <div className="secondary-label__name-container">
+                        {highlightText(recipient.name ? recipient.name : recipient.recipient_name)}
+                    </div>
+                </div>
+            );
+        }
+
+        return highlightText(recipient.name ? recipient.name : recipient.recipient_name);
+    };
+
+    const formatedRecipientFilters = () => {
+        let formatedRecipients = [];
+        if (recipients) {
+            formatedRecipients = recipients.toSorted((a, b) => (
+                a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1))
+                .map((recipient) => ({
+                    name: getFormatedName(recipient),
+                    value: {
+                        name: recipient.name ? recipient.name : recipient.recipient_name,
+                        uei: recipient.uei
+                    },
+                    key: recipient.uei ? `UEI-${recipient.uei}` : `Name-${recipient.id}`
+                }));
+        }
+        return formatedRecipients;
+    };
+
+    const toggleAll = (selectAll) => {
+        const selectedList = selectedRecipients.toArray();
+        if (selectAll) {
+            const currentlyChecked = selectedList;
+            recipients.forEach((rep) => {
+                if (!currentlyChecked.includes(rep.recipient_name)) {
+                    // do not update currently checked
+                    // only new checked.
+                    dispatch(updateSelectedRecipients(rep.recipient_name));
+                    currentlyChecked.push(rep.recipient_name);
+                }
+            });
+            dispatch(updateSearchedFilterValues({
+                filterType: "recipient",
+                input: searchString,
+                selected: currentlyChecked,
+                allSelected: true
+            }));
+        }
+        else {
+            selectedRecipients.forEach((rep) => {
+                dispatch(updateSelectedRecipients(rep));
+            });
+            dispatch(updateSearchedFilterValues({
+                filterType: "recipient",
+                input: searchString,
+                selected: []
+            }));
+        }
     };
 
     useEffect(() => {
-        if (searchString.length >= 3) {
-            setNewSearch(false);
-            getRecipientsFromSearchString(searchString);
+        let searchValues = null;
+        if (searchedFilterValues?.recipient) {
+            searchValues = searchedFilterValues.recipient;
         }
-        else {
-            setNewSearch(true);
-            getAllRecipients();
+        else if (searchedFilterValues?.get('recipient')) {
+            searchValues = searchedFilterValues.get('recipient');
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchString]);
+        if (searchValues && (!searchString || searchString !== searchValues?.input)) {
+            setSearchString(searchValues.input);
+            getRecipientsFromSearchString(searchValues.input);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchedFilterValues]);
 
     useEffect(() => {
-        if (selectedRecipients.size > 0) {
-            const first = [...selectedRecipients][0];
-            setSearchString(first);
+        if (searchString?.length >= 3) {
+            getRecipientsFromSearchString(searchString);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchString]);
 
     return (
         <div className="recipient-filter">
-            <div className="filter-item-wrap">
-                <EntityDropdownAutocomplete
-                    placeholder="Search filters..."
-                    enabled
-                    handleTextInputChange={handleTextInputChange}
-                    context={{}}
-                    loading={false}
-                    searchIcon />
-                <div className="clear-all__container">
-                    <button
-                        type="button"
-                        aria-label="Clear all Recipient filters"
-                        className="clear-all__button"
-                        tabIndex="0"
-                        onClick={handleClearRecipients} >
-                        Clear all Recipient filters
-                    </button>
-                </div>
-                {isLoading ? loadingIndicator :
-                    <div className="recipient-results__container">
-                        <div className={`checkbox-type-filter ${maxRecipients ? 'bottom-fade' : ''}`}>
-                            {recipients.toSorted((a, b) => (a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1))
-                                .map((recipient, index) => (
-                                    <div className="recipient-label__container" key={`recipient-${index}`}>
-                                        <PrimaryCheckboxType
-                                            name={(
-                                                <div className="recipient-checkbox__uei">
-                                                    <span>UEI:</span> {recipient.uei ? highlightText(recipient.uei) : 'Not provided'}
-                                                </div>
-                                            )}
-                                            value={{
-                                                name: recipient.name ? recipient.name : recipient.recipient_name,
-                                                uei: recipient.uei,
-                                                duns: recipient.duns ? recipient.duns : null
-                                            }}
-                                            key={recipient.uei}
-                                            toggleCheckboxType={toggleRecipient}
-                                            selectedCheckboxes={selectedRecipients} />
-                                        <div className="recipient-label__lower-container">
-                                            <div className="recipient-label__legacy-duns">Legacy
-                                                DUNS: {recipient.duns ? highlightText(recipient.duns) : 'Not provided'}
-                                            </div>
-                                            <div className="recipient-label__name-container">
-                                                <span className="recipient-label__recipient-name">
-                                                    {recipient.name ? highlightText(recipient.name) : highlightText(recipient.recipient_name)}
-                                                </span>
-                                                <span className="recipient-label__recipient-level">
-                                                    {levelMapping[recipient.recipient_level]}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                        </div>
-                        {maxRecipients &&
-                            <>
-                                <div className="find-recipients-text label">
-                                    {maxRecipientTitle}
-                                </div>
-                                <div className="find-recipients-text content">
-                                    {maxRecipientText}
-                                </div>
-                            </>
-                        }
-                    </div>
-                }
-                {localSelectedRecipients}
-                { !searchV2 && <SubmitHint selectedFilters={selectedRecipients} /> }
-            </div>
+            <AutocompleteWithCheckboxList
+                filterType="Recipients"
+                limit={maxRecipientsAllowed}
+                handleTextInputChange={handleTextInputChange}
+                onSearchClear={handleSearchClear}
+                onClearAll={handleClearAll}
+                searchString={searchString}
+                filters={formatedRecipientFilters()}
+                selectedFilters={selectedRecipients}
+                toggleSingleFilter={toggleRecipient}
+                toggleAll={toggleAll}
+                noResults={noResults}
+                additionalText={getMaxRecipientsText()}
+                isLoading={isLoading}
+                errorMessage={errorMessage}
+                searchId="recipient-autocomplete-input" />
         </div>
     );
 };
 
-RecipientSearchContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        selectedRecipients: state.filters.selectedRecipients
-    }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(RecipientSearchContainer);
+export default RecipientSearchContainer;
