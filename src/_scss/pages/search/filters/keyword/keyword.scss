@@ -42,36 +42,37 @@
         @import '../../_tooltips.scss';
 
         display: flex;
-        margin-bottom: $global-margin * 2;
-
-        &--icon {
-            height: rem(21);
-            width: rem(21);
-            border-radius: rem(4);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: $cyan-5;
-
-            svg {
-                max-height: rem(12);
-                max-width: rem(12);
-                color: $cyan-50;
-            }
-        }
+        margin-bottom: $global-margin;
 
         &--title {
-            font-size: $small-font-size;
+            font-size: $smallest-font-size;
             font-weight: $font-semibold;
             line-height: 1.5;
             color: $gray-90;
             align-content: center;
-            margin-left: $global-margin;
         }
 
         .tooltip__hover-wrapper svg {
             height: rem(16);
             width: rem(16);
+        }
+
+        .new-tooltip-spacer {
+            margin: 0 $global-margin;
+
+            .new-tooltip__icon {
+                color: $color-gray-lighter;
+                max-width: rem(16);
+                max-height: rem(16);
+
+                &:hover {
+                    color: $color-base;
+                }
+
+                &:focus {
+                    color: $color-base;
+                }
+            }
         }
     }
 
@@ -100,10 +101,11 @@
     }
 
     .filter-item-wrap {
-        padding: ($global-padding * 2) ($global-padding * 4);
+        padding: 0;
+        margin: $global-margin ($global-margin * 4);
 
         @media(max-width: $medium-screen - 1) {
-            padding-top: 0px;
+            margin-top: 0;
         }
     }
 }

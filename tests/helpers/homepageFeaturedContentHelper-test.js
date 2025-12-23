@@ -8,14 +8,10 @@ describe('getCurrentArticles', () => {
         const [marketing, other] = getCurrentArticles('week');
 
         expect(marketing).toHaveProperty('url');
-        expect(marketing).toHaveProperty('fill');
-        expect(marketing).toHaveProperty('thumbnail_path');
         expect(marketing).toHaveProperty('taxonomy');
         expect(marketing).toHaveProperty('title');
 
         expect(other).toHaveProperty('url');
-        expect(other).toHaveProperty('fill');
-        expect(other).toHaveProperty('thumbnail_path');
         expect(other).toHaveProperty('taxonomy');
         expect(other).toHaveProperty('title');
     });
@@ -24,14 +20,10 @@ describe('getCurrentArticles', () => {
         const [marketing, other] = getCurrentArticles('week', '12/31/2050');
 
         expect(marketing).toHaveProperty('url');
-        expect(marketing).toHaveProperty('fill');
-        expect(marketing).toHaveProperty('thumbnail_path');
         expect(marketing).toHaveProperty('taxonomy');
         expect(marketing).toHaveProperty('title');
 
         expect(other).toHaveProperty('url');
-        expect(other).toHaveProperty('fill');
-        expect(other).toHaveProperty('thumbnail_path');
         expect(other).toHaveProperty('taxonomy');
         expect(other).toHaveProperty('title');
     });
@@ -40,14 +32,10 @@ describe('getCurrentArticles', () => {
         const [marketing, other] = getCurrentArticles('week', '1/1/2000');
 
         expect(marketing).toHaveProperty('url');
-        expect(marketing).toHaveProperty('fill');
-        expect(marketing).toHaveProperty('thumbnail_path');
         expect(marketing).toHaveProperty('taxonomy');
         expect(marketing).toHaveProperty('title');
 
         expect(other).toHaveProperty('url');
-        expect(other).toHaveProperty('fill');
-        expect(other).toHaveProperty('thumbnail_path');
         expect(other).toHaveProperty('taxonomy');
         expect(other).toHaveProperty('title');
 

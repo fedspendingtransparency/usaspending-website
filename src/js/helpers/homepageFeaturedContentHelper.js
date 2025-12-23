@@ -35,9 +35,9 @@ const getOtherArticle = (otherArticleCadence, otherArticles, featureWeekNum, fea
             (article) => (article.feature_sprint - 1) + article.feature_week === featureSprintNum
         )[0];
     }
-    else {
-        otherArticle = fallbackOtherArticle;
-    }
+
+    if (!otherArticle) otherArticle = fallbackOtherArticle;
+
     return otherArticle;
 };
 
