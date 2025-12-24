@@ -27,7 +27,7 @@
     border-radius: 8px;
     height: 240px;
     @media (max-width: $small-screen) {
-      margin-bottom: rem(16);
+      margin-bottom: pxToRem(16);
     }
 
     .equityMainCard__image-background {
@@ -74,7 +74,7 @@
         font-weight: $font-semibold;
         color: $color-primary;
         margin: 8px 4px 0 0;
-        font-size: rem(14);
+        font-size: pxToRem(14);
         line-height: 1.5;
         vertical-align: middle;
         &:hover {
@@ -90,7 +90,7 @@
         font-weight: $font-semibold;
         color: $color-primary;
         margin: 8px 4px 0 0;
-        font-size: rem(14);
+        font-size: pxToRem(14);
         line-height: 1.5;
         vertical-align: middle;
         &:hover {

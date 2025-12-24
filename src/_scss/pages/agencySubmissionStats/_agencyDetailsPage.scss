@@ -1,15 +1,15 @@
 .heading-container {
     .header {
-        margin-top: rem(10);
-        font-size: rem(32);
+        margin-top: pxToRem(10);
+        font-size: pxToRem(32);
     }
     .back-link {
-        margin-top: rem(20);
-        margin-bottom: rem(20);
-        font-size: rem(18);
+        margin-top: pxToRem(20);
+        margin-bottom: pxToRem(20);
+        font-size: pxToRem(18);
         font-weight: 400;
         letter-spacing: 0;
-        line-height: rem(23);
+        line-height: pxToRem(23);
         a {
             text-decoration: none;
         }
@@ -18,34 +18,34 @@
         width: 100%;
         @include display(inline-flex);
         @include flex-wrap(wrap);
-        margin-bottom: rem(30);
+        margin-bottom: pxToRem(30);
         @media (max-width: $tablet-screen) {
-            margin-top: rem(10);
+            margin-top: pxToRem(10);
         }
         .more-info-note {
             margin: 0;
             padding: 0;
             letter-spacing: 0;
-            font-size: rem(14);
-            line-height: rem(18);
+            font-size: pxToRem(14);
+            line-height: pxToRem(18);
         }
 
         .agency-info__group {
             &:first-of-type {
-                padding-right: rem(60);
+                padding-right: pxToRem(60);
             }
             h5 {
                 @include flex-wrap(wrap);
-                font-size: rem(16);
+                font-size: pxToRem(16);
                 font-weight: 600;
-                line-height: rem(20);
-                margin: rem(5) 0;
+                line-height: pxToRem(20);
+                margin: pxToRem(5) 0;
             }
 
             .agency-info__website {
-                font-size: rem(14);
-                line-height: rem(20);
-                margin: rem(14) 0;
+                font-size: pxToRem(14);
+                line-height: pxToRem(20);
+                margin: pxToRem(14) 0;
                 @import 'components/externalLink';
             }
         }

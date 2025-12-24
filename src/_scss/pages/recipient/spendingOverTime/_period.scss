@@ -8,7 +8,7 @@
     .visualization-period {
         @include display(flex);
         @include justify-content(flex-end);
-        margin-bottom: rem(20);
+        margin-bottom: pxToRem(20);
         @include media($medium-screen) {
             width: 50%;
         }

@@ -27,7 +27,7 @@ body {
     }
     .info-tooltip__icon {
       background-color: transparent;
-      margin: 0 0 0 rem(5);
+      margin: 0 0 0 pxToRem(5);
       padding: 0;
       color: $color-gray-light;
       &:hover, &:focus {

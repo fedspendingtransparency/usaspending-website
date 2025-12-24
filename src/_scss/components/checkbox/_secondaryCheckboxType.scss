@@ -2,21 +2,21 @@
     @import "./_sharedCheckboxStyle";
     @include sharedCheckboxStyle;
 
-    margin-left: rem(40);
+    margin-left: pxToRem(40);
 
     .checkbox-item-wrapper {
         @include display(flex);
         @include justify-content(center);
         @include align-items(center);
 
-        margin-right: rem(10);
+        margin-right: pxToRem(10);
 
         input[type=checkbox] {
             @include flex(0 0 auto);
             @include align-self(flex-start);
 
-            width: rem(14);
-            height: rem(14);
+            width: pxToRem(14);
+            height: pxToRem(14);
         }
         .checkbox-item-label {
             @include flex(1 1 auto);

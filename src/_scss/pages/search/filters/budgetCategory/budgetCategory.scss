@@ -4,18 +4,18 @@
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
     .shown {
-        min-height: rem(180);
+        min-height: pxToRem(180);
     }
     .visually-hidden {
         display: none;
     }
     .pop-typeahead {
         p.object-class-label {
-            border-bottom: rem(1) solid #E1E2E3;
+            border-bottom: pxToRem(1) solid #E1E2E3;
             font-size: $small-font-size;
             font-weight: $font-semibold;
-            margin: 0 0 rem(15) 0;
-            padding: 0 0 rem(6);
+            margin: 0 0 pxToRem(15) 0;
+            padding: 0 0 pxToRem(6);
         }
         &:nth-of-type(1) {
             & .usa-da-typeahead {

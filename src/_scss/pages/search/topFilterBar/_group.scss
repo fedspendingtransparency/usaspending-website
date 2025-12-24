@@ -13,7 +13,7 @@
                 float: left;
 
                 font-size: $smallest-font-size;
-                line-height: rem(13);
+                line-height: pxToRem(13);
                 color: $top-text-color;
                 font-weight: $font-semibold;
                 text-transform: uppercase;

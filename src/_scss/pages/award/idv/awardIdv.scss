@@ -10,7 +10,7 @@
       @include media($medium-screen) {
         @include display(flex);
       }
-      font-size: rem(24);
+      font-size: pxToRem(24);
     }
     .award__last-modified {
       text-transform: uppercase;

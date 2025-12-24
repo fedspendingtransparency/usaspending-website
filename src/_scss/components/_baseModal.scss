@@ -1,7 +1,7 @@
 .usa-dt-modal {
     background-color: $color-white;
     // Overrides the default library max width of 100%
-    max-width: rem(1200);
+    max-width: pxToRem(1200);
     .usa-dt-modal__header {
         background-color: $color-primary-darker;
         @include display(flex);
@@ -12,27 +12,27 @@
             @include display(flex);
             @include align-items(center);
             @include justify-content(center);
-            font-size: rem(52);
+            font-size: pxToRem(52);
             margin: 0;
             width: 100%;
-            padding: rem(10) rem(0) rem(10) rem(50);
+            padding: pxToRem(10) pxToRem(0) pxToRem(10) pxToRem(50);
         }
         .usa-dt-modal__close-button {
             @include flex(0 0 auto);
             @include flex-direction(column);
             @include button-unstyled;
-            padding: rem(10);
+            padding: pxToRem(10);
             margin-left: auto;
 
             svg {
-                height: rem(24);
-                width: rem(17);
+                height: pxToRem(24);
+                width: pxToRem(17);
                 fill: $color-white;
             }
         }
     }
     .usa-dt-modal__body {
         text-align: center;
-        padding: rem(30) rem(50) rem(23) rem(50);
+        padding: pxToRem(30) pxToRem(50) pxToRem(23) pxToRem(50);
     }
 }

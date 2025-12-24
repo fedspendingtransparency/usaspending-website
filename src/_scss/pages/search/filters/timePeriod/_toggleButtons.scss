@@ -11,13 +11,13 @@ ul.toggle-buttons {
             color: $color-gray;
             font-size: $smallest-font-size;
             font-weight: normal;
-            height: rem(35);
+            height: pxToRem(35);
             margin-bottom: 0;
-            padding: 0 rem(15);
+            padding: 0 pxToRem(15);
             z-index: 9000;
             @import 'components/glossaryLink';
             .usda-glossary-link svg {
-                margin-left: rem(6);
+                margin-left: pxToRem(6);
             }
         }
         .inactive {

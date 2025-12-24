@@ -2,12 +2,12 @@
   .autocomplete__input {
     @include display(flex);
     width: 100%;
-    padding: 0 ($global-spacing-unit * 2) rem(20) ($global-spacing-unit * 2);
+    padding: 0 ($global-spacing-unit * 2) pxToRem(20) ($global-spacing-unit * 2);
     position: relative;
 
     input {
       width: 100%;
-      height: rem(32);
+      height: pxToRem(32);
       margin: 0;
       padding: $global-spacing-unit $global-spacing-unit $global-spacing-unit (
         $global-spacing-unit * 4
@@ -15,25 +15,25 @@
     font-size: $smallest-font-size;
     line-height: 1.5;
     color: $gray-60;
-    border: solid rem(1) $gray-cool-10;
-    border-radius: rem(3);
+    border: solid pxToRem(1) $gray-cool-10;
+    border-radius: pxToRem(3);
   }
 
   svg {
     color: $gray-60;
-    width: rem(12);
-    height: rem(12);
+    width: pxToRem(12);
+    height: pxToRem(12);
   }
 
   .search-icon {
     @include flex(0 0 auto);
     @include align-self(center);
     position: absolute;
-    width: rem(16);
-    height: rem(16);
+    width: pxToRem(16);
+    height: pxToRem(16);
     left: ($global-spacing-unit * 3);
-    top: rem(2);
-    padding: rem(2);
+    top: pxToRem(2);
+    padding: pxToRem(2);
   }
 
   .icon {
@@ -41,16 +41,16 @@
     @include align-self(center);
     justify-self: center;
     position: absolute;
-    width: rem(16);
-    height: rem(12);
+    width: pxToRem(16);
+    height: pxToRem(12);
     right: ($global-spacing-unit * 3);
-    top: rem(2);
-    padding: rem(2);
+    top: pxToRem(2);
+    padding: pxToRem(2);
   }
 }
 
 .no-results {
-  padding: 0 ($global-spacing-unit * 2) rem(20) ($global-spacing-unit * 2);
+  padding: 0 ($global-spacing-unit * 2) pxToRem(20) ($global-spacing-unit * 2);
   font-size: $lead-font-size;
   line-height: 1.5;
   color: $gray-60;
@@ -62,12 +62,12 @@
 // TODO: replace the relevant padding, left, and top properties above with those below once searchV2 releases
 &.collapsible-sidebar--main-menu {
   .extent-competed-filter .autocomplete__input {
-    padding: 0 0 rem(20) 0;
+    padding: 0 0 pxToRem(20) 0;
     min-width: 100%;
 
     .search-icon {
       left: $global-spacing-unit;
-      top: rem(3);
+      top: pxToRem(3);
     }
 
     .icon {

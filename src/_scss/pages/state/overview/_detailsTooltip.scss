@@ -2,34 +2,34 @@
     position: absolute;
     background-color: $color-white;
     border-radius: $border-radius;
-    padding: rem(6);
-    width: rem(300);
+    padding: pxToRem(6);
+    width: pxToRem(300);
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.5);
 
     .state-overview-tooltip__info_icon {
         position: absolute;
-        top: rem(6);
-        left: rem(6);
-        height: rem(15);
-        width: rem(15);
+        top: pxToRem(6);
+        left: pxToRem(6);
+        height: pxToRem(15);
+        width: pxToRem(15);
 
         svg {
-            height: rem(15);
-            width: rem(15);
+            height: pxToRem(15);
+            width: pxToRem(15);
             fill: $color-gray;
             vertical-align: top;
         }
     }
 
     .state-overview-tooltip__text_holder {
-        padding-left: rem(21);
+        padding-left: pxToRem(21);
         line-height: $base-line-height;
         text-align: left;
     }
 
     .state-overview-tooltip__tooltip_title,
     .state-overview-tooltip__tooltip_text {
-        font-size: rem(12);
+        font-size: pxToRem(12);
         color: $color-gray-medium;
     }
 
@@ -46,14 +46,14 @@
         @include button-unstyled;
 
         position: absolute;
-        top: rem(4);
-        right: rem(6);
-        height: rem(12);
-        width: rem(12);
+        top: pxToRem(4);
+        right: pxToRem(6);
+        height: pxToRem(12);
+        width: pxToRem(12);
 
         svg {
-            height: rem(10);
-            width: rem(10);
+            height: pxToRem(10);
+            width: pxToRem(10);
             fill: $color-gray-medium;
         }
     }

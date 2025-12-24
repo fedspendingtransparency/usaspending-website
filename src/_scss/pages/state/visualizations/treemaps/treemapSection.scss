@@ -6,12 +6,12 @@
         @include fullSectionWrap(0, 0);
         @import 'treemapDescription';
         .treemap-navigation-holder {
-            min-height: rem(64);
+            min-height: pxToRem(64);
             .treemap-navigation-bar {
                 .treemap-inner-wrap {
                     width: calc(100% - 8rem);
                     max-width: calc(100% - 8rem);
-                    margin: 0 rem(40) 0;
+                    margin: 0 pxToRem(40) 0;
                     .tree-wrapper {
                         width: 100%;
                     }
@@ -28,8 +28,8 @@
             .function-title {
                 @include h1;
                 text-align: center;
-                font-size: rem(47);
-                line-height: rem(59);
+                font-size: pxToRem(47);
+                line-height: pxToRem(59);
                 margin-bottom: 0;
                 margin-top: 0;
             }
@@ -38,16 +38,16 @@
                 text-align: center;
                 border-top: $color-gray-lighter 1px solid;
                 border-bottom: $color-gray-lighter 1px solid;
-                font-size: rem(19);
-                line-height: rem(24);
+                font-size: pxToRem(19);
+                line-height: pxToRem(24);
                 margin-top: 0;
-                padding: rem(11);
+                padding: pxToRem(11);
             }
             p {
                 text-align: center;
-                font-size: rem(14);
-                line-height: rem(26);
-                margin-bottom: rem(27);
+                font-size: pxToRem(14);
+                line-height: pxToRem(26);
+                margin-bottom: pxToRem(27);
             }
         }
         .visualization-tooltip {
@@ -56,13 +56,13 @@
             @import "components/visualizations/tooltip/_dataVizTooltip";
             .tooltip {
                 &.small {
-                    width: rem(230);
-                    min-height: rem(44);
-                    min-width: rem(200);
-                    max-width: rem(500);
+                    width: pxToRem(230);
+                    min-height: pxToRem(44);
+                    min-width: pxToRem(200);
+                    max-width: pxToRem(500);
                     .tooltip-title {
-                        font-size: rem(14);
-                        line-height: rem(44);
+                        font-size: pxToRem(14);
+                        line-height: pxToRem(44);
                         padding: 0;
                     }
                     .tooltip-body {
@@ -82,7 +82,7 @@
                         width: 100%;
 
                         &.bottom-spacing {
-                            margin-bottom: rem(8);
+                            margin-bottom: pxToRem(8);
                         }
                     }
                 }
@@ -93,13 +93,13 @@
                     }
                     &.right {
                         &.top {
-                            right: calc(10% - 1px);
+                            right: calc(10% - 1);
                             left: auto;
                         }
                     }
                     &.left {
                         &.top {
-                            left: calc(5% - 1px);
+                            left: calc(5% - 1);
                             right: auto;
                         }
                     }
@@ -108,26 +108,26 @@
         }
         .treemap-hover-instructions {
             float: right;
-            height: rem(82);
-            width: rem(469);
+            height: pxToRem(82);
+            width: pxToRem(469);
             position: absolute;
             top: 33%;
-            right: rem(-25);
+            right: pxToRem(-25);
             background-color: #A3F383;
             color: $color-vis-green-darkest;
-            font-size: rem(20);
-            line-height: rem(28);
-            padding: rem(13) rem(15);
+            font-size: pxToRem(20);
+            line-height: pxToRem(28);
+            padding: pxToRem(13) pxToRem(15);
             z-index: 2;
             &:after {
                 position: absolute;
                 right: 0;
-                bottom: rem(-21);
+                bottom: pxToRem(-21);
                 content: "";
                 width: 0;
                 height: 0;
                 border-style: solid;
-                border-width: rem(21) rem(26) 0 0;
+                border-width: pxToRem(21) pxToRem(26) 0 0;
                 border-color: #85C76B transparent transparent transparent;
                 z-index: 3;
             }
@@ -135,17 +135,17 @@
     }
     .tree-desc {
         color: $color-base;
-        font-size: rem(38);
+        font-size: pxToRem(38);
         font-weight: $font-light;
-        line-height: rem(47);
-        margin-bottom: rem(30);
-        padding: rem(10) 0 rem(10) rem(15);
+        line-height: pxToRem(47);
+        margin-bottom: pxToRem(30);
+        padding: pxToRem(10) 0 pxToRem(10) pxToRem(15);
         text-align: center;
         & b {
             font-weight: $font-semibold;
         }
         .highlight {
-            padding-bottom: rem(5);
+            padding-bottom: pxToRem(5);
             border-bottom: #FEB711 5px solid;
         }
     }
@@ -156,10 +156,10 @@
         .budget-line {
             display: inline;
             float: left;
-            width: rem(20);
-            height: rem(642);
+            width: pxToRem(20);
+            height: pxToRem(642);
             &.large {
-                height: rem(20);
+                height: pxToRem(20);
                 margin-bottom: $global-margin * 2;
                 width: 100%;
             }

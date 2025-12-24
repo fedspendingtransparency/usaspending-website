@@ -3,8 +3,8 @@
   border-radius: 4px;
 
   @media(min-width: $tablet-screen) {
-    max-height: rem(46);
-    margin-left: rem(20);
+    max-height: pxToRem(46);
+    margin-left: pxToRem(20);
   }
 
   @media(min-width: $medium-screen) {
@@ -14,7 +14,7 @@
   // overriding the css in _viewTypeButton
   .view-button {
     margin: 0;
-    padding: rem(10);
+    padding: pxToRem(10);
     background-color: $color-white;
     color: $color-primary;
     border: solid 1px $color-primary;
@@ -26,8 +26,8 @@
   }
 
   button {
-    height: rem(40);
-    width: rem(48);
+    height: pxToRem(40);
+    width: pxToRem(48);
   }
   button:first-of-type {
     border-radius: 4px 0 0 4px;
@@ -36,7 +36,7 @@
     border-radius: 0 4px 4px 0;
   }
   svg {
-    width: rem(22);
-    height: rem(18);
+    width: pxToRem(22);
+    height: pxToRem(18);
   }
 }

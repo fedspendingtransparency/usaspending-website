@@ -1,18 +1,18 @@
 .additional-info {
-    padding: rem(40) 0 rem(60);
+    padding: pxToRem(40) 0 pxToRem(60);
 
     .award-viz__heading {
         border-bottom: 2px solid $color-gray;
-        margin-bottom: rem(35);
+        margin-bottom: pxToRem(35);
 
         .award-viz__icon {
-            margin-left: rem(10);
+            margin-left: pxToRem(10);
             margin-right: 0;
         }
     }
 
     .award__row {
-        padding-top: rem(20);
+        padding-top: pxToRem(20);
 
         .award__col {
             width: 100%;
@@ -36,8 +36,8 @@
         margin: 0;
 
         .accordion-table__row {
-            border-bottom: rem(2) solid $color-gray-lightest;
-            padding: rem(8) rem(40);
+            border-bottom: pxToRem(2) solid $color-gray-lightest;
+            padding: pxToRem(8) pxToRem(40);
 
             td {
                 border: 0;
@@ -62,7 +62,7 @@
                     @import '../../../components/visualizations/tooltip/csstooltip';
 
                     .tooltip-popover-container {
-                        margin-left: rem(5);
+                        margin-left: pxToRem(5);
                         color: $color-gray-lighter;
 
                         &:hover,
@@ -72,8 +72,8 @@
 
                         .tooltip-popover {
                             // override the positioning to be centered over the icon
-                            bottom: rem(35);
-                            left: rem(-145);
+                            bottom: pxToRem(35);
+                            left: pxToRem(-145);
                             font-size: $small-font-size;
                         }
                     }
@@ -87,7 +87,7 @@
     }
 
     .accordion {
-        margin-bottom: rem(20);
+        margin-bottom: pxToRem(20);
 
         .accordion__content {
             overflow: hidden;
@@ -97,16 +97,16 @@
         &.accordion_open {
             .accordion__content {
                 height: auto;
-                border: rem(2) solid $color-gray-lightest;
+                border: pxToRem(2) solid $color-gray-lightest;
                 overflow: visible;
                 width: 100%;
 
                 .accordion-row {
-                    border-bottom: rem(2) solid $color-gray-lightest;
-                    padding: rem(8) rem(40);
+                    border-bottom: pxToRem(2) solid $color-gray-lightest;
+                    padding: pxToRem(8) pxToRem(40);
                     @include display(flex);
                     width: 100%;
-                    font-size: rem(14);
+                    font-size: pxToRem(14);
 
                     .accordion-row__title {
                         @include flex-direction(column);
@@ -117,7 +117,7 @@
                         @include flex-direction(column);
                         flex: 1;
                         font-weight: $font-light;
-                        padding-left: rem(40);
+                        padding-left: pxToRem(40);
 
                         &.generated-id {
                             word-break: break-word;
@@ -135,8 +135,8 @@
                                 }
                                 .tooltip-wrapper {
                                     .tooltip__icon {
-                                        height: rem(14);
-                                        width: rem(14);
+                                        height: pxToRem(14);
+                                        width: pxToRem(14);
                                     }
                                 }
                             }
@@ -158,7 +158,7 @@
                         @import '../../../components/visualizations/tooltip/csstooltip';
 
                         .tooltip-popover-container {
-                            margin-left: rem(5);
+                            margin-left: pxToRem(5);
                             color: $color-gray-lighter;
 
                             &:hover,
@@ -168,8 +168,8 @@
 
                             .tooltip-popover {
                                 // override the positioning to be centered over the icon
-                                bottom: rem(35);
-                                left: rem(-145);
+                                bottom: pxToRem(35);
+                                left: pxToRem(-145);
                                 font-size: $small-font-size;
                             }
                         }
@@ -185,13 +185,13 @@
         .accordion__bar {
             cursor: pointer;
             background-color: $color-gray-lightest;
-            padding: rem(10);
+            padding: pxToRem(10);
             overflow: auto;
             color: $color-gray;
             display: flex;
 
             svg {
-                margin-right: rem(8);
+                margin-right: pxToRem(8);
                 fill: $color-gray-medium;
 
                 &.accordion-caret {
@@ -202,9 +202,9 @@
 
             img {
                 position: relative;
-                top: rem(5);
-                height: rem(20);
-                margin-right: rem(10);
+                top: pxToRem(5);
+                height: pxToRem(20);
+                margin-right: pxToRem(10);
                 opacity: 0.5;
             }
 

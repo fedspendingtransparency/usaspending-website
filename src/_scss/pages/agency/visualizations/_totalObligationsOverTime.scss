@@ -19,8 +19,8 @@
             }
             .zero-tick {
               color: $color-gray;
-              font-size: rem(12);
-              line-height: rem(12);
+              font-size: pxToRem(12);
+              line-height: pxToRem(12);
             }
             .total-budget-line {
                 stroke: $color-secondary;
@@ -40,8 +40,8 @@
                 stroke-width: 1;
             }
             .today-text {
-                font-size: rem(12);
-                line-height: rem(12);
+                font-size: pxToRem(12);
+                line-height: pxToRem(12);
                 fill: $color-gray;
             }
             .total-obligations-over-time-svg-axis {
@@ -52,7 +52,7 @@
                 .x-axis {
                     .x-axis-labels {
                         text {
-                            font-size: rem(14);
+                            font-size: pxToRem(14);
                             text-anchor: middle;
                         }
                     }
@@ -86,38 +86,38 @@
         }
         .tooltip-pointer {
             &.left {
-                left: rem(-16) !important;
-                top: rem(28) !important;
+                left: pxToRem(-16) !important;
+                top: pxToRem(28) !important;
                 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
                     // IE only
-                    left: rem(-8);
+                    left: pxToRem(-8);
                 }
             }
         }
         .tooltip__content {
-            width: rem(260);
+            width: pxToRem(260);
         }
 
         .budgetary-resources-tooltip {
             .tooltip__text {
                 display: inline-block;
                 .budgetary-resources-tooltip__desc {
-                    font-size: rem(14);
-                    padding-right: rem(80);
-                    margin-bottom: rem(7);
+                    font-size: pxToRem(14);
+                    padding-right: pxToRem(80);
+                    margin-bottom: pxToRem(7);
                 }
                 .budgetary-resources-tooltip__desc_percent {
-                    margin-bottom: rem(7);
-                    font-size: rem(14);
+                    margin-bottom: pxToRem(7);
+                    font-size: pxToRem(14);
                 }
                 .budgetary-resources-tooltip__amount {
-                    font-size: rem(20);
-                    padding-right: rem(80);
-                    margin-bottom: rem(16);
+                    font-size: pxToRem(20);
+                    padding-right: pxToRem(80);
+                    margin-bottom: pxToRem(16);
                     font-weight: $font-semibold;
                 }
                 .budgetary-resources-tooltip__amount_percent {
-                    font-size: rem(20);
+                    font-size: pxToRem(20);
                     font-weight: $font-semibold;
 
                 }
@@ -129,7 +129,7 @@
             @include display(flex);
             @include align-items(flex-end);
             @include media($medium-screen) {
-                padding: 0 rem(2.5);
+                padding: 0 pxToRem(2.5);
             }
         }
     }

@@ -8,7 +8,7 @@
     font-weight: $font-semibold;
     line-height: 1.25;
     text-align: center;
-    margin-bottom: rem(40);
+    margin-bottom: pxToRem(40);
   }
 
   .ready-to-get-started__card-row {

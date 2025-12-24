@@ -1,7 +1,7 @@
 .referenced-awards-table {
     border: none;
     margin-top: 0;
-    font-size: rem(12);
+    font-size: pxToRem(12);
     .referenced-awards-table__head-row {
         border-bottom: solid 1px $color-gray-lighter;
     }
@@ -11,7 +11,7 @@
             @import '../../stateLanding/sorter';
             background-color: $color-white;
             border: 0;
-            padding: rem(15) rem(10);
+            padding: pxToRem(15) pxToRem(10);
             .header-cell {
                 .header-cell__text {
                     .header-cell__title {
@@ -22,7 +22,7 @@
                 }
                 &.header-cell_right {
                     justify-content: flex-end;
-                    padding-right: rem(10);
+                    padding-right: pxToRem(10);
                 }
             }
         }
@@ -36,11 +36,11 @@
     .referenced-awards-table__body-cell {
         background-color: transparent;
         border: none;
-        padding: rem(10);
+        padding: pxToRem(10);
 
         &.recipient-list__body-cell_right {
             text-align: right;
-            padding-right: rem(20);
+            padding-right: pxToRem(20);
         }
     }
 }

@@ -23,10 +23,10 @@
     .stay-in-touch__title-col {
       margin-bottom: $global-margin * 3;
       @media (min-width: $medium-screen) {
-        width: rem(250);
+        width: pxToRem(250);
       }
 
-      @media (min-width: $large-screen) and (max-width: 1399px) {
+      @media (min-width: $large-screen) and (max-width: 1399) {
         margin-right: $global-margin * 3;
       }
 
@@ -41,8 +41,8 @@
     }
 
     .stay-in-touch__icon-container {
-      width: rem(35);
-      height: rem(35);
+      width: pxToRem(35);
+      height: pxToRem(35);
       border-radius: 4px;
       background-color: $theme-color-dark-blue-bg;
       display: flex;
@@ -68,7 +68,7 @@
       @media (min-width: $m-large-screen) {
         padding: 0;
       }
-      @media (min-width: $m-large-screen) and (max-width: 1466px) {
+      @media (min-width: $m-large-screen) and (max-width: 1466) {
         margin-right: $global-margin * 4;
       }
       @media (max-width: $medium-screen) {

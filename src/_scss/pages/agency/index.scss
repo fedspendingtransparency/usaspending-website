@@ -22,7 +22,7 @@
 
     .accordion-container {
         @media(min-width: $large-screen) {
-            margin-left: rem(10);
+            margin-left: pxToRem(10);
         }
     }
 
@@ -31,7 +31,7 @@
         color: $color-primary;
         border: none;
         font-size: $font-size-14;
-        max-width: rem(120);
+        max-width: pxToRem(120);
         padding: 0;
         margin: 0;
         justify-content: unset !important;
@@ -44,7 +44,7 @@
         }
 
         @media(min-width: $large-screen) {
-            padding-top: rem(8);
+            padding-top: pxToRem(8);
         }
     }
 
@@ -76,7 +76,7 @@
         color: $color-primary;
         font-size: $font-size-14;
         font-weight: $font-semibold;
-        padding-left: rem(6);
+        padding-left: pxToRem(6);
 
         &:hover,
         &:active,
@@ -86,7 +86,7 @@
         }
 
         @media(min-width: $large-screen) {
-            padding-right: rem(6);
+            padding-right: pxToRem(6);
         }
     }
 
@@ -137,7 +137,7 @@
             background: $color-white;
             @import './overview/pageTitle';
 
-            max-width: rem(1400);
+            max-width: pxToRem(1400);
             margin: 0 auto;
             .usda-message {
                 &.usda-message_error {
@@ -146,7 +146,7 @@
             }
 
             .body__content {
-                margin-top: rem(32);
+                margin-top: pxToRem(32);
 
                 .table-wrapper {
                     overflow-x: auto;
@@ -158,7 +158,7 @@
                 @import './overview/overview';
 
                 hr {
-                    height: rem(2)
+                    height: pxToRem(2)
                 }
             }
 

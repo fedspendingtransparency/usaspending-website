@@ -1,18 +1,18 @@
 .stay-in-touch-modal {
-    padding: rem(50) rem(23);
+    padding: pxToRem(50) pxToRem(23);
     .usa-dt-modal__header {
-        height: rem(83);
+        height: pxToRem(83);
         .usa-dt-modal__title {
             @include justify-content(flex-start);
         }
     }
     .usa-dt-modal__body {
         text-align: center;
-        padding: rem(30) rem(50) rem(23) rem(50);
+        padding: pxToRem(30) pxToRem(50) pxToRem(23) pxToRem(50);
         .email-sign-up__modal-body {
             h2 {
-                font-size: rem(24);
-                margin: 0 0 rem(27) 0;
+                font-size: pxToRem(24);
+                margin: 0 0 pxToRem(27) 0;
                 font-weight: 500;
             }
             form {
@@ -20,18 +20,18 @@
                 @include flex-direction(column);
                 @include align-items(flex-start);
                 .email-label {
-                    font-size: rem(14);
+                    font-size: pxToRem(14);
                 }
                 .email-input {
                     width: 100%;
-                    height: rem(35);
+                    height: pxToRem(35);
                 }
                 .submit {
                     @include align-self(center);
-                    width: rem(158);
-                    padding: rem(8) rem(48);
-                    font-size: rem(18);
-                    line-height: rem(23);
+                    width: pxToRem(158);
+                    padding: pxToRem(8) pxToRem(48);
+                    font-size: pxToRem(18);
+                    line-height: pxToRem(23);
                     font-weight: 600;
                     color: white;
                     background-color: $color-primary-darker;
@@ -42,24 +42,24 @@
                 h3 {
                     padding: 0;
                     margin: 0;
-                    font-size: rem(24);
+                    font-size: pxToRem(24);
                     font-weight: 600;
                 }
                 svg {
-                    height: rem(65);
-                    width: rem(65);
+                    height: pxToRem(65);
+                    width: pxToRem(65);
                 }
                 p {
                     margin-top: 0;
-                    margin-bottom: rem(33);
-                    font-size: rem(18);
+                    margin-bottom: pxToRem(33);
+                    font-size: pxToRem(18);
                 }
                 button {
-                    width: rem(158);
-                    font-size: rem(18);
-                    height: rem(40);
+                    width: pxToRem(158);
+                    font-size: pxToRem(18);
+                    height: pxToRem(40);
                     font-weight: 600;
-                    line-height: rem(23);
+                    line-height: pxToRem(23);
                     background-color: $color-primary-darker;
                     margin: 0;
                 }
@@ -67,22 +67,22 @@
             .email-sign-up__validation {
                 width: 100%;
                 background: $color-secondary-lightest;
-                height: rem(45);
-                margin: rem(10) 0;
-                border: rem(1) solid $color-secondary-dark;
+                height: pxToRem(45);
+                margin: pxToRem(10) 0;
+                border: pxToRem(1) solid $color-secondary-dark;
                 @include display(flex);
                 @include justify-content(flex-start);
                 @include align-items(center);
                 span {
-                    font-size: rem(18);
-                    padding-left: rem(8);
+                    font-size: pxToRem(18);
+                    padding-left: pxToRem(8);
                     color: $color-base;
                     font-weight: 600;
                 }
                 svg {
-                    height: rem(24);
-                    width: rem(24);
-                    margin-left: rem(16);
+                    height: pxToRem(24);
+                    width: pxToRem(24);
+                    margin-left: pxToRem(16);
                 }
             }
         }

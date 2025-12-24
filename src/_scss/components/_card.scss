@@ -20,7 +20,7 @@
     border-radius: 4px;
     padding: $global-padding;
     @media (max-width: $medium-screen) {
-      margin-bottom: rem(16);
+      margin-bottom: pxToRem(16);
     }
   }
   .card__heading-wrapper {

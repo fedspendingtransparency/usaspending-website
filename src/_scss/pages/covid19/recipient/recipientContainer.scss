@@ -14,7 +14,7 @@
           position: relative;
 
           .map-container {
-            margin-top: rem(20);
+            margin-top: pxToRem(20);
 
             .map-message-container {
               .map-message {
@@ -62,17 +62,17 @@
 
         // styles the legend on the covid page
         .map-container {
-          height: rem(475);
+          height: pxToRem(475);
           width: 100%;
 
           .map-legend {
-            bottom: rem(8);
-            right: rem(8);
+            bottom: pxToRem(8);
+            right: pxToRem(8);
             z-index: 1;
 
             @include media($tablet-screen) {
-              bottom: rem(8);
-              right: rem(8);
+              bottom: pxToRem(8);
+              right: pxToRem(8);
               left: auto;
             }
           }
@@ -270,11 +270,11 @@
               }
 
               .tooltip-left {
-                padding: rem(15) 0;
+                padding: pxToRem(15) 0;
               }
 
               .tooltip-right {
-                padding: rem(15) 0;
+                padding: pxToRem(15) 0;
               }
             }
           }
@@ -314,11 +314,11 @@
 
       .table-types {
         .table-type-toggle {
-          padding: rem(15) rem(20);
-          margin-right: rem(5);
+          padding: pxToRem(15) pxToRem(20);
+          margin-right: pxToRem(5);
 
           .tab-content {
-            font-size: rem(18);
+            font-size: pxToRem(18);
           }
 
           &.active {
@@ -365,9 +365,9 @@
       }
 
       ul {
-        padding-left: rem(16);
-        font-size: rem(14);
-        margin-left: rem(16);
+        padding-left: pxToRem(16);
+        font-size: pxToRem(14);
+        margin-left: pxToRem(16);
     
         li {
           list-style: disc;

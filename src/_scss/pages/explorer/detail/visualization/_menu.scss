@@ -1,7 +1,7 @@
 .explorer-vis__toolbar {
     background-color: $color-white;
     border: 1px solid $color-gray-border;
-    padding: rem(15) rem(25);
+    padding: pxToRem(15) pxToRem(25);
 
     @import "./_breakdown";
 }

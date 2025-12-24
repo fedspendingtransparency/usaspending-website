@@ -25,8 +25,8 @@ $x3: -$left-pos + $dot-spacing;
     left: $left-pos;
     width: $dot-width;
     height: $dot-height;
-    border-radius: rem(math.div($dot-width, 2));
-    margin: 0 rem(40);
+    border-radius: pxToRem(math.div($dot-width, 2));
+    margin: 0 pxToRem(40);
 
     box-shadow: $x2 0 0 -5px $dot-color;
     animation: dot-pulse 1.5s infinite linear;
@@ -38,9 +38,9 @@ $x3: -$left-pos + $dot-spacing;
         display: inline-block;
         position: absolute;
         top: 0;
-        height: rem(10);
-        width: rem(10);
-        border-radius: rem(5);
+        height: pxToRem(10);
+        width: pxToRem(10);
+        border-radius: pxToRem(5);
     }
 
     &::before {

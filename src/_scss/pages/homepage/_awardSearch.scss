@@ -1,11 +1,11 @@
 .award-search__section {
-  @media (min-width:1400px) and (max-width: 1600px) {
+  @media (min-width:1400) and (max-width: 1600) {
     flex-direction: column;
     display:flex;
   }
 
   .award-search__topdiv {
-    @media(min-width:1600px) {
+    @media(min-width:1600) {
       justify-content: center;
       display:flex;
     }
@@ -17,18 +17,18 @@
     border-radius: 4px;
     min-height: 50rem;
 
-    @media (min-width: 1400px) {
+    @media (min-width: 1400) {
       align-items: center;
     }
 
     .award-search__col1 {
       align-items: center;
 
-      @media (max-width:1400px) {
+      @media (max-width:1400) {
         width: 100%;
       }
 
-      @media(min-width:1400px) {
+      @media(min-width:1400) {
         padding-right: 32px;
         width: 33%;
       }
@@ -49,7 +49,7 @@
 
       .award-search__overline {
         margin: 0 0 0 8px;
-        font-size: rem(16);
+        font-size: pxToRem(16);
         font-weight: $font-semibold;
         font-stretch: normal;
         font-style: normal;
@@ -60,7 +60,7 @@
     }
 
     .award-search__header {
-      font-size: rem(40);
+      font-size: pxToRem(40);
       font-weight: $font-semibold;
       color: $gray-90;
       font-stretch: normal;
@@ -72,14 +72,14 @@
 
     .award-search__subtext {
       margin: 16px 0 0;
-      font-size: rem(20);
+      font-size: pxToRem(20);
       font-stretch: normal;
       font-style: normal;
       line-height: 1.5;
       letter-spacing: normal;
       color: $body-color;
 
-      @media(min-width: 320px) {
+      @media(min-width: 320) {
         margin-bottom: 40px;
       }
     }
@@ -93,11 +93,11 @@
     }
 
     .swiper-wrapper {
-      @media (min-width: 1400px) {
+      @media (min-width: 1400) {
         justify-self: right;
       }
 
-      @media(min-width:320px) {
+      @media(min-width:320) {
         height: 500px;
       }
     }
@@ -132,7 +132,7 @@
       background-color: $color-primary;
       border-radius: 24px;
       height: 48px;
-      transform: translateY(-20px);
+      transform: translateY(-20);
       width: 48px;
       box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
 
@@ -144,7 +144,7 @@
     .swiper-button-next::after,
     .swiper-button-prev::after {
       color: $color-white;
-      font-size: rem(20);
+      font-size: pxToRem(20);
       font-weight: 1000;
       margin-bottom: -1px;
     }
@@ -159,35 +159,35 @@
 
     .award-search__col2 {
 
-      @media (min-width: 1400px) {
+      @media (min-width: 1400) {
         display: inline;
         width: 67%;
       }
 
       .award-search__slide {
-        width: rem(288) !important;
-        height: rem(462) !important;
+        width: pxToRem(288) !important;
+        height: pxToRem(462) !important;
 
         .card-container {
-          border-radius: rem(16);
+          border-radius: pxToRem(16);
           height: 100%;
         }
 
         @media (min-width: $tablet-screen) {
-          width: rem(486) !important;
-          height: rem(482) !important;
+          width: pxToRem(486) !important;
+          height: pxToRem(482) !important;
         }
 
         .award-search__card2 {
-          @media (max-width:500px) {
+          @media (max-width:500) {
             .text {
-              height: rem(96);
+              height: pxToRem(96);
             }
           }
 
           @media (max-width: $tablet-screen) {
             .text {
-              height: rem(98);
+              height: pxToRem(98);
             }
           }
 
@@ -201,8 +201,8 @@
         .award-search__card4 {
           .card__body {
             .text {
-              margin-bottom: rem(4);
-              @media (min-width:450px) and (max-width: $tablet-screen) {
+              margin-bottom: pxToRem(4);
+              @media (min-width:450) and (max-width: $tablet-screen) {
                 margin-bottom: 0;
               }
               @media (min-width: $tablet-screen) {
@@ -220,11 +220,11 @@
 
         .card__body {
           height: 100%;
-          padding: rem(24) rem(32);
+          padding: pxToRem(24) pxToRem(32);
 
           @media (min-width: $tablet-screen) {
             height: unset;
-            padding: rem(40) rem(40) rem(32) rem(40);
+            padding: pxToRem(40) pxToRem(40) pxToRem(32) pxToRem(40);
           }
 
           .headline {

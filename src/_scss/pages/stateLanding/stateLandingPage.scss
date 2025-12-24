@@ -11,11 +11,11 @@
         }
 
         .state-list {
-            margin-top: rem(15);
+            margin-top: pxToRem(15);
         }
         .state-list__message {
-            margin: rem(90) auto;
-            font-size: rem(36);
+            margin: pxToRem(90) auto;
+            font-size: pxToRem(36);
             font-weight: 300;
             color: $color-base;
             text-align: center;
@@ -28,7 +28,7 @@
 
     .results-count {
         font-style: italic;
-        padding: rem(20) 0;
-        font-size: rem(16);
+        padding: pxToRem(20) 0;
+        font-size: pxToRem(16);
     }
 }

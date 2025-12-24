@@ -1,35 +1,35 @@
 .usda-page-header .usda-page-header__container .usda-page-header__toolbar {
     @media(max-width: $medium-screen) {
-        border-bottom: rem(1) solid $color-gray-lighter;
-        height: rem(1);
+        border-bottom: pxToRem(1) solid $color-gray-lighter;
+        height: pxToRem(1);
     }
     .public-law-picker__container {
         @include display(flex);
         @include flex-direction(column);
         @media(max-width: $medium-screen) {
             @include flex-direction(row);
-            padding: rem(10) rem(0);
+            padding: pxToRem(10) pxToRem(0);
         }
     }
     .usa-dt-picker.public-law-picker {
         display: flex;
         align-self: normal;
-        border: rem(2) solid #666;
-        border-radius: rem(4);
+        border: pxToRem(2) solid #666;
+        border-radius: pxToRem(4);
         position: relative;
-        height: rem(29);
+        height: pxToRem(29);
 
         @media(max-width: $medium-screen) {
             background: $color-gray-lightest;
-            border: rem(2) solid $color-gray-light;
-            border-radius: rem(4);
+            border: pxToRem(2) solid $color-gray-light;
+            border-radius: pxToRem(4);
             height: auto;
         }
 
         .usa-dt-picker__icon svg {
-            width: rem(20);
-            height: rem(16);
-            margin: 0 rem(10);
+            width: pxToRem(20);
+            height: pxToRem(16);
+            margin: 0 pxToRem(10);
 
             path {
                 fill: $color-gray-lighter;

@@ -4,26 +4,26 @@
     @include align-items(flex-start);
 
     .truncation-warning__icon {
-        @include flex(0 0 rem(15));
+        @include flex(0 0 pxToRem(15));
 
         svg {
-            width: rem(15);
-            height: rem(15);
-            margin-top: rem(3);
+            width: pxToRem(15);
+            height: pxToRem(15);
+            margin-top: pxToRem(3);
             fill: $color-base;
         }
     }
 
     .truncation-warning__message {
         @include flex(1 1 auto);
-        margin-left: rem(10);
+        margin-left: pxToRem(10);
         font-size: $font-size-14;
 
         .truncation-warning__title {
             font-weight: $font-semibold;
         }
         .truncation-warning__detail {
-            margin-top: rem(3);
+            margin-top: pxToRem(3);
         }
     }
 }

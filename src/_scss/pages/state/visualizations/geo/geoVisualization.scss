@@ -2,18 +2,18 @@
     position: relative;
     @import "loading";
     .map-container {
-        height: rem(475);
+        height: pxToRem(475);
         width: 100%;
 
         .map__filters-toggle {
             background-color: $color-white;
-            width: rem(16);
-            height: rem(35);
-            top: rem(24);
+            width: pxToRem(16);
+            height: pxToRem(35);
+            top: pxToRem(24);
             position: absolute;
             z-index: 2;
             border: solid 1px $gray-cool-10;
-            padding: rem(10) rem(4);
+            padding: pxToRem(10) pxToRem(4);
             display: flex;
             align-items: center;
             border-radius: 0 4px 4px 0;
@@ -32,15 +32,15 @@
             }
 
             svg {
-                width: rem(6);
-                height: rem(14);
+                width: pxToRem(6);
+                height: pxToRem(14);
                 color: $theme-color-1;
             }
         }
 
         .map__filters-container {
             background-color: $color-white;
-            top: rem(8);
+            top: pxToRem(8);
             border-top-right-radius: 4px;
             border-bottom-right-radius: 4px;
             position: absolute;
@@ -50,7 +50,7 @@
             opacity: 1;
             border: solid 1px $gray-cool-10;
             box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-            padding: rem(16) rem(20);
+            padding: pxToRem(16) pxToRem(20);
 
             &.closed {
                 opacity: 0;
@@ -168,8 +168,8 @@
 
                                 li {
                                     height: unset;
-                                    min-height: rem(32);
-                                    margin-bottom: rem(5.5);
+                                    min-height: pxToRem(32);
+                                    margin-bottom: pxToRem(5.5);
 
                                     button {
                                         padding-left: 1.5 * $global-padding !important;
@@ -202,23 +202,23 @@
 
     .tooltip-spacer {
         @media(min-width: $small-screen) {
-            top: rem(36);
-            left: rem(-16);
+            top: pxToRem(36);
+            left: pxToRem(-16);
         }
 
         @media(min-width: $tablet-screen) {
-            top: rem(36);
-            left: rem(84);
+            top: pxToRem(36);
+            left: pxToRem(84);
         }
 
         @media(min-width: $medium-screen) {
-            top: rem(36);
-            left: rem(88);
+            top: pxToRem(36);
+            left: pxToRem(88);
         }
 
         @media(min-width: $large-screen) {
-            top: rem(36);
-            left: rem(98);
+            top: pxToRem(36);
+            left: pxToRem(98);
         }
     }
 

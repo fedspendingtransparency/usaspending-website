@@ -20,10 +20,10 @@
 
     .subaward-dropdown__list {
         min-width: max-content;
-        transform: translateY(-12px);
+        transform: translateY(-12);
         li {
             button {
-                padding-left: rem(30) !important;
+                padding-left: pxToRem(30) !important;
             }
         }
     }
@@ -31,10 +31,10 @@
     div.subaward-dropdown__container {
         .subaward-dropdown__list {
             min-width: max-content;
-            transform: translateY(-12px);
+            transform: translateY(-12);
             li {
                 button {
-                    padding-left: rem(30) !important;
+                    padding-left: pxToRem(30) !important;
                     padding-right: 1.5 * $global-padding !important;
                 }
             }
@@ -42,7 +42,7 @@
     }
 
     .visualization-tabs__toggle-mobile {
-        margin: rem(20) 0;
+        margin: pxToRem(20) 0;
         @media(min-width: $medium-screen) {
             display: none;
         }
@@ -55,11 +55,11 @@
 
     #main-content {
         width: 100%;
-        padding: rem(40) rem(16) rem(16) rem(16);
+        padding: pxToRem(40) pxToRem(16) pxToRem(16) pxToRem(16);
         @import "components/aboutTheDataSidebar/aboutTheData";
 
         @media (min-width: $medium-screen) {
-            padding: rem(40) rem(32) rem(32) rem(32);
+            padding: pxToRem(40) pxToRem(32) pxToRem(32) pxToRem(32);
         }
 
         .search-contents {
@@ -68,7 +68,7 @@
             padding: 0;
 
             .full-search-sidebar {
-                padding-right: rem(16);
+                padding-right: pxToRem(16);
                 .search-sidebar {
                     margin: 0;
                 }
@@ -84,18 +84,18 @@
                         text-align: center;
 
                         .new-search-icon {
-                            height: rem(280);
-                            margin-top: rem(16);
+                            height: pxToRem(280);
+                            margin-top: pxToRem(16);
                         }
 
                         .no-results-icon {
-                            height: rem(280);
-                            margin-top: rem(32);
+                            height: pxToRem(280);
+                            margin-top: pxToRem(32);
                         }
 
                         p {
-                            font-size: rem(14);
-                            margin: rem(24) 0;
+                            font-size: pxToRem(14);
+                            margin: pxToRem(24) 0;
                         }
 
                         button {
@@ -134,8 +134,8 @@
             }
 
             .alert___message__icon-container .alert___message__icon {
-                min-width: rem(20);
-                min-height: rem(20);
+                min-width: pxToRem(20);
+                min-height: pxToRem(20);
             }
         }
     }

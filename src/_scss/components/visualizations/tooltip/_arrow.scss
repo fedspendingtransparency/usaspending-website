@@ -1,12 +1,12 @@
 .tooltip-pointer {
     position: absolute;
-    top: rem(12);
-    left: rem(-9);
+    top: pxToRem(12);
+    left: pxToRem(-9);
     &:after {
         content: "";
         position: absolute;
-        width: rem(16);
-        height: rem(16);
+        width: pxToRem(16);
+        height: pxToRem(16);
         background: #f0f0f0;
         border-bottom: 1px solid $color-tooltip-border;
         border-left: 1px solid $color-tooltip-border;
@@ -15,7 +15,7 @@
     }
     &.right {
         left: auto;
-        right: rem(-9);
+        right: pxToRem(-9);
         &:after {
             transform: rotate(225deg);
         }
@@ -28,22 +28,22 @@
         }
     }
     &.top {
-        left: calc(50% - 8px);
-        top: rem(-9);
+        left: calc(50% - 8);
+        top: pxToRem(-9);
         &:after {
             transform: rotate(135deg);
             background: #f0f0f0;
         }
     }
     &.top-left {
-        left: rem(-9);
-        top: rem(9);
+        left: pxToRem(-9);
+        top: pxToRem(9);
         z-index: -1;
     }
     &.top-right {
-        right: rem(7);
+        right: pxToRem(7);
         left: auto;
-        top: rem(9);
+        top: pxToRem(9);
         &:after {
             transform: rotate(225deg);
         }
@@ -55,23 +55,23 @@
         }
     }
     &.bottom-left {
-        left: rem(-9);
-        top: calc(100% - 32px);
+        left: pxToRem(-9);
+        top: calc(100% - 32);
         z-index: -1;
         &:after {
             transform: rotate(45deg);
         }
     }
     &.bottom-right {
-        right: rem(8);
+        right: pxToRem(8);
         left: auto;
-        top: calc(100% - 32px);
+        top: calc(100% - 32);
         z-index: -1;
         &:after {
             transform: rotate(225deg);
         }
     }
     &.bottom {
-        top: rem(-8);
+        top: pxToRem(-8);
     }
 }

@@ -7,17 +7,17 @@
         h2.landing-page__title {
             font-weight: 600;
             margin: 0;
-            font-size: rem(20);
+            font-size: pxToRem(20);
             line-height: 1.25;
 
             @media(min-width: $medium-screen) {
-                font-size: rem(36);
+                font-size: pxToRem(36);
             }
         }
         .landing-page__description {
             font-size: $small-font-size;
             color: $color-base;
-            padding: rem(15) 0 rem(30);
+            padding: pxToRem(15) 0 pxToRem(30);
 
             @include media($medium-screen) {
                 margin: auto;
@@ -27,8 +27,8 @@
     }
     .landing-page__tagline {
         text-align: center;
-        font-size: rem(18);
-        margin-top: rem(30);
+        font-size: pxToRem(18);
+        margin-top: pxToRem(30);
     }
 
     .landing-page__tagline_light {
@@ -36,11 +36,11 @@
     }
 
     .landing-page__tagline-icon {
-        width: rem(13);
-        height: rem(15);
+        width: pxToRem(13);
+        height: pxToRem(15);
     }
   .landing-page__disclaimer {
-      margin-top: rem(45);
+      margin-top: pxToRem(45);
       .landing-page__note {
         font-weight: bold;
       }
@@ -59,7 +59,7 @@
 
     .content__col {
         width: 100%;
-        max-width: rem(1400);
+        max-width: pxToRem(1400);
         margin: auto;
     }
 }

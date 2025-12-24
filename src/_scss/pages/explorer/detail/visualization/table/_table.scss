@@ -8,7 +8,7 @@
     overflow: auto;
 
     .usa-dt-pagination {
-        margin: rem(15);
+        margin: pxToRem(15);
     }
 
     &.no-results {
@@ -16,7 +16,7 @@
     }
     table {
         margin-top: 0;
-        width: rem(500);
+        width: pxToRem(500);
 
         @include media($tablet-screen) {
             width: auto;

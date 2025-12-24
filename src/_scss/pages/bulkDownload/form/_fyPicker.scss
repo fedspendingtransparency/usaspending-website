@@ -5,7 +5,7 @@
     .quarter-picker__fy {
         @include flex(1 1 auto);
         @include justify-content(flex-start);
-        padding: rem(5) 0;
+        padding: pxToRem(5) 0;
         .fy-picker {
             .fy-picker__header {
                 @include display(flex);
@@ -32,24 +32,24 @@
 
                     .fy-picker__button-text {
                         @include flex(1 1 auto);
-                        margin-right: rem(10);
+                        margin-right: pxToRem(10);
                         color: $color-gray;
-                        padding-left: rem(5);
+                        padding-left: pxToRem(5);
                         white-space: nowrap;
-                        font-size: rem(32);
+                        font-size: pxToRem(32);
                         font-weight: 300;
-                        line-height: rem(34);
+                        line-height: pxToRem(34);
                         svg {
                             margin-left: $global-margin * 2;
                         }
                     }
 
                     .fy-picker__button-icon {
-                        @include flex(0 0 rem(20));
+                        @include flex(0 0 pxToRem(20));
                         color: $color-gray;
                         svg {
-                            width: rem(12);
-                            height: rem(12);
+                            width: pxToRem(12);
+                            height: pxToRem(12);
                             fill: $color-gray;
                         }
                     }
@@ -70,8 +70,8 @@
                 .fy-picker__item {
                     @include button-unstyled;
                     color: $color-gray;
-                    font-size: rem(18);
-                    padding: rem(10);
+                    font-size: pxToRem(18);
+                    padding: pxToRem(10);
                     width: 100%;
 
                     &:hover, &:active, &.active {
@@ -88,9 +88,9 @@
         @include display(flex);
         @include align-items(center);
         @include flex(1 1 auto);
-        padding: rem(5) 0;
+        padding: pxToRem(5) 0;
         li.quarter-picker__list-item {
-            margin-right: rem(1);
+            margin-right: pxToRem(1);
 
             &:last-child {
                 margin-right: 0;
@@ -100,21 +100,21 @@
                 @include button-unstyled;
                 color: $color-white;
                 text-align: center;
-                line-height: rem(22);
+                line-height: pxToRem(22);
                 font-weight: $font-bold;
 
                 background-color: $color-primary-alt-light;
 
-                padding: rem(3) rem(18);
+                padding: pxToRem(3) pxToRem(18);
                 @include media($medium-screen) {
-                    padding: rem(4) rem(28);
+                    padding: pxToRem(4) pxToRem(28);
                 }
 
                 &.quarter-picker__quarter_first {
-                    border-radius: rem(30) 0 0 rem(30);
+                    border-radius: pxToRem(30) 0 0 pxToRem(30);
                 }
                 &.quarter-picker__quarter_last {
-                    border-radius: 0 rem(30) rem(30) 0;
+                    border-radius: 0 pxToRem(30) pxToRem(30) 0;
                 }
 
                 &:hover, &:active, &.quarter-picker__quarter_active {

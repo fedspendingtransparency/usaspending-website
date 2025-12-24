@@ -7,17 +7,17 @@
         @include display(flex);
         @include align-items(baseline);
         @media(max-width: $tablet-screen) {
-            margin: rem(16) rem(16) rem(16) rem(20);
+            margin: pxToRem(16) pxToRem(16) pxToRem(16) pxToRem(20);
         }
         @media(min-width: $tablet-screen) {
-            margin: rem(16) rem(16) rem(16) rem(20);
+            margin: pxToRem(16) pxToRem(16) pxToRem(16) pxToRem(20);
         }
         @media(min-width: $large-screen) {
-            margin: rem(16) rem(36) rem(16) rem(40);
+            margin: pxToRem(16) pxToRem(36) pxToRem(16) pxToRem(40);
         }
         @media(min-width: $x-large-screen) {
-            margin: rem(16) auto;
-            max-width: rem(1600);
+            margin: pxToRem(16) auto;
+            max-width: pxToRem(1600);
         }
 
         .info-banner__icon {
@@ -25,25 +25,25 @@
         }
 
         .info-banner__hyphen {
-          padding: 0 rem(2);
+          padding: 0 pxToRem(2);
         }
         .info-banner__alert-text {
             @include flex(1 1 auto);
             @include align-self(center);
             margin-left: $global-margin * 2;
             font-size: $small-font-size;
-            line-height: rem(21);
+            line-height: pxToRem(21);
             color: $theme-color-body;
             .info-banner__title-text {
                 color: $theme-color-headline;
-                font-size: rem(20);
+                font-size: pxToRem(20);
                 font-weight: 600;
-                line-height: rem(25);
-                margin-bottom: rem(4);
+                line-height: pxToRem(25);
+                margin-bottom: pxToRem(4);
                 margin-top: 0;
 
                 .info-banner__linebreak {
-                    @media (min-width: 576px) {
+                    @media (min-width: 576) {
                         display: none;
                     }
                 }
@@ -56,7 +56,7 @@
                     background-color: transparent;
                     margin: 0;
                     padding: 0;
-                    padding-left: rem(2);
+                    padding-left: pxToRem(2);
                 }
             }
             a {
@@ -71,12 +71,12 @@
         }
         .info-banner__description-external-link {
           color: $color-link;
-          padding-left: rem(5);
+          padding-left: pxToRem(5);
         }
         .info-banner__close-button {
             @include flex(0 0 auto);
             @include button-unstyled;
-            padding: rem(5) 0;
+            padding: pxToRem(5) 0;
             color: $gray-cool-90;
         }
 
@@ -111,7 +111,7 @@
             @media (min-width: $medium-screen) {
                 position: fixed;
                 // right underneath the site header @ 60px
-                top: rem(60);
+                top: pxToRem(60);
                 z-index: 4;
                 left: 0;
             }
@@ -121,28 +121,28 @@
             transform: scaleY(-1);
             border-radius: 0 0 0.5rem 0.5rem;
             background-color: $color-gold-light;
-            height: rem(6);
+            height: pxToRem(6);
         }
         .info-banner__content {
             @include flex-wrap(wrap);
-            margin: rem(10);
+            margin: pxToRem(10);
             @media(min-width: $tablet-screen) {
-                margin: rem(0) rem(25) rem(10) rem(25);
+                margin: pxToRem(0) pxToRem(25) pxToRem(10) pxToRem(25);
             }
             @media(min-width: $medium-screen) {
                 // fixed height so we know how much to offset for the sidebar.
-                height: rem(75);
+                height: pxToRem(75);
             }
             @media(min-width: $large-screen) {
-                margin: rem(0) rem(40) rem(10) rem(40);
+                margin: pxToRem(0) pxToRem(40) pxToRem(10) pxToRem(40);
             }
             @media(min-width: $x-large-screen) {
                 margin: auto;
-                max-width: rem(1600);
+                max-width: pxToRem(1600);
             }
             .info-banner__content--title {
                 @include display(flex);
-                margin-top: rem(10);
+                margin-top: pxToRem(10);
                 width: 100%;
                 svg {
                     @include align-self(center);
@@ -158,14 +158,14 @@
                     margin: 0;
                     font-size: $h6-font-size;
                     font-weight: $font-semibold;
-                    margin-left: rem(10);
-                    line-height: rem(21);
+                    margin-left: pxToRem(10);
+                    line-height: pxToRem(21);
                 }
             }
             p {
                 width: 100%;
                 font-size: $small-font-size;
-                margin: rem(8) 0 rem(14) rem(35);
+                margin: pxToRem(8) 0 pxToRem(14) pxToRem(35);
                 a {
                     @include button-unstyled;
                     font-weight: $font-semibold;

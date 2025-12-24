@@ -14,12 +14,12 @@
     $top-divider-color: $color-gray-border;
     $top-group-color: #E2E3E4;
     width: 100%;
-    font-size: rem(12);
+    font-size: pxToRem(12);
 
     .search-top-filter-header {
         @include clearfix;
         border-bottom: 1px solid $top-divider-color;
-        padding-bottom: rem(7);
+        padding-bottom: pxToRem(7);
 
         @include media($medium-screen) {
             display: flex;
@@ -28,8 +28,8 @@
         .header-title {
             float: left;
             font-weight: 600;
-            font-size: rem(14);
-            line-height: rem(18);
+            font-size: pxToRem(14);
+            line-height: pxToRem(18);
             color: $top-header-color;
             margin: 0;
         }
@@ -51,12 +51,12 @@
 
         .search-top-filters-content {
             display: block;
-            padding-right: rem(10);
-            padding-bottom: rem(10);
+            padding-right: pxToRem(10);
+            padding-bottom: pxToRem(10);
 
             // all this is to ensure that the New Awards Only chip is grouped with the other Time Period chips
             .filter-group-container {
-                margin-left: rem(15);
+                margin-left: pxToRem(15);
             }
             .filter-group-container:first-child {
                 margin-left: 0;

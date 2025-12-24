@@ -4,8 +4,8 @@
   background-color: $color-white;
 
   .spotlightCard__icon-wrapper {
-    width: rem(40);
-    height: rem(40);
+    width: pxToRem(40);
+    height: pxToRem(40);
     background: $gray-90;
     text-align: center;
     border-radius: 4px;

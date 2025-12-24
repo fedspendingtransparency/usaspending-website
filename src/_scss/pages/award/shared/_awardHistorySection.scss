@@ -1,5 +1,5 @@
 .award-history {
-    padding: rem(40) 0 rem(60);
+    padding: pxToRem(40) 0 pxToRem(60);
     width: 100%;
     @import "../table/_tablesSection";
     .table-types {

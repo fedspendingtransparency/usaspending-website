@@ -11,13 +11,13 @@
       background-color: rgb(246, 246, 246);
 
       .results-table-loading {
-        margin-bottom: rem(100);
+        margin-bottom: pxToRem(100);
       }
 
       .no-results-container {
         text-align: center;
-        margin-top: rem(100);
-        margin-bottom: rem(100);
+        margin-top: pxToRem(100);
+        margin-bottom: pxToRem(100);
 
         .no-results-title {
           h4 {
@@ -40,23 +40,23 @@
 
       .results-table-error {
         .icon {
-          width: rem(36);
-          height: rem(36);
+          width: pxToRem(36);
+          height: pxToRem(36);
 
           svg {
-            width: rem(36);
-            height: rem(36);
+            width: pxToRem(36);
+            height: pxToRem(36);
           }
         }
 
         .title {
-          font-size: rem(20);
-          line-height: rem(45);
+          font-size: pxToRem(20);
+          line-height: pxToRem(45);
         }
 
         .description {
-          font-size: rem(16);
-          line-height: rem(10);
+          font-size: pxToRem(16);
+          line-height: pxToRem(10);
         }
       }
     }
@@ -74,7 +74,7 @@
             font-weight: $font-normal;
             font-size: $font-size-16;
             margin-right: 0;
-            padding-right: rem(4);
+            padding-right: pxToRem(4);
           }
 
           .default-picker__button {
@@ -83,14 +83,14 @@
               border-bottom: 1px solid $color-link;
               height: auto;
             .filter__dropdown-button-text {
-              margin-right: rem(5);
-              margin-left: rem(5);
+              margin-right: pxToRem(5);
+              margin-left: pxToRem(5);
               color: $color-base;
               font-weight: $font-semibold;
-              font-size: rem(16);
+              font-size: pxToRem(16);
             }
             .filter__dropdown-chevron {
-              width: rem(18);
+              width: pxToRem(18);
               svg {
                 color: $color-link;
               }
@@ -98,7 +98,7 @@
           }
         }
         .default-picker__append {
-          padding-left: rem(4);
+          padding-left: pxToRem(4);
         }
       }
 
@@ -106,13 +106,13 @@
 
       .activity-visualization-title {
         width: 100%;
-        margin-bottom: rem(18);
+        margin-bottom: pxToRem(18);
         font-weight: $font-semibold;
       }
 
       .activity-x-label {
         width: 100%;
-        font-size: rem(12);
+        font-size: pxToRem(12);
         font-weight: $font-semibold;
         text-align: center;
       }
@@ -123,7 +123,7 @@
 
       .usa-dt-pagination {
         width: 100%;
-        margin-top: rem(20);
+        margin-top: pxToRem(20);
 
         .usa-dt-pagination__wrapper .pager {
           .pager__item:last-child {
@@ -142,7 +142,7 @@
           border-radius: 6px;
           border: none;
           pointer-events: visible;
-          font-size: rem(14rem);
+          font-size: pxToRem(14rem);
           color: $color-base;
           background-color: #f5f5f5;
           min-width: 310px;
@@ -152,14 +152,14 @@
             background-color: #f5f5f5;
             text-align: left;
             font-weight: normal;
-            padding: 0 0 0 rem(10em);
+            padding: 0 0 0 pxToRem(10em);
             margin-bottom: 0;
-            margin-top: rem(7.5em);
+            margin-top: pxToRem(7.5em);
           }
 
           .tooltip-body {
             @include display(flex);
-            padding: 0 0 rem(7.5em) rem(10rem);
+            padding: 0 0 pxToRem(7.5em) pxToRem(10rem);
 
             .tooltip-body__row {
               @include display(flex);
@@ -167,18 +167,18 @@
               @include justify-content(left);
 
               .tooltip-body__row-info {
-                padding-bottom: rem(5em);
+                padding-bottom: pxToRem(5em);
 
                 &.second-child {
-                  padding-right: rem(30em);
+                  padding-right: pxToRem(30em);
                 }
 
                 .tooltip-body__row-info-title {
                   color: #444444;
-                  font-size: rem(13rem);
+                  font-size: pxToRem(13rem);
                   white-space: nowrap;
-                  padding-bottom: rem(0.3em);
-                  margin-top: rem(4em);
+                  padding-bottom: pxToRem(0.3em);
+                  margin-top: pxToRem(4em);
                   margin-bottom: 0;
                 }
 
@@ -192,11 +192,11 @@
               }
 
               .tooltip-body__row-info:nth-child(1) {
-                padding-right: rem(30em);
+                padding-right: pxToRem(30em);
               }
 
               #grandparentLabel {
-                padding-right: rem(30);
+                padding-right: pxToRem(30);
               }
             }
           }
@@ -207,22 +207,22 @@
         width: 100%;
         background-color: #F4F3F3;
         border-radius: 3px;
-        margin-top: rem(35);
+        margin-top: pxToRem(35);
         @include display(flex);
         @include flex-wrap(wrap);
 
         .visualization-legend__item {
           @include display(flex);
-          margin-top: rem(13);
-          margin-bottom: rem(10);
-          padding-right: rem(15);
-          padding-left: rem(7);
+          margin-top: pxToRem(13);
+          margin-bottom: pxToRem(10);
+          padding-right: pxToRem(15);
+          padding-left: pxToRem(7);
 
           .visualization-legend__circle {
-            @include flex(0 0 rem(16));
-            height: rem(16);
-            width: rem(16);
-            border-radius: rem(8);
+            @include flex(0 0 pxToRem(16));
+            height: pxToRem(16);
+            width: pxToRem(16);
+            border-radius: pxToRem(8);
             background-color: $color-gray-border;
 
             &.visualization-legend__circle_obligated {
@@ -234,12 +234,12 @@
                   $color-vis-green-light,
                   $color-vis-green-light 4px,
                   rgb(188, 92, 35) 4px,
-                  rgb(188, 92, 35) 6px);
+                  rgb(188, 92, 35) 6);
             }
           }
 
           .visualization-legend__label {
-            font-size: rem(14);
+            font-size: pxToRem(14);
           }
         }
       }
@@ -255,7 +255,7 @@
             }
 
             .activity-chart-bar {
-              padding: rem(10) 0;
+              padding: pxToRem(10) 0;
             }
           }
 
@@ -269,11 +269,11 @@
           }
 
           .y-axis__text {
-            font-size: rem(12rem);
+            font-size: pxToRem(12rem);
           }
 
           .x-axis__text {
-            font-size: rem(12rem);
+            font-size: pxToRem(12rem);
           }
         }
       }

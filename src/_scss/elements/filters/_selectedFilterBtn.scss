@@ -2,13 +2,13 @@
     .shown-filter-button {
         background-color: $color-white;
         border: 1px solid $color-gray-lighter;
-        border-radius: rem(2);
+        border-radius: pxToRem(2);
         color: $color-gray;
         font-size: $smallest-font-size;
         font-weight: $font-semibold;
-        min-height: rem(22);
+        min-height: pxToRem(22);
         height: auto;
-        padding: rem(2) rem(4);
+        padding: pxToRem(2) pxToRem(4);
         text-align: left;
         width: auto;
         max-width: 90%;
@@ -20,7 +20,7 @@
         &__shown-filter-button-icon {
             border: unset;
             color:  $color-gray;
-            margin:  0 0 0 rem(4);
+            margin:  0 0 0 pxToRem(4);
             padding: 0;
             svg {
                  :hover {
@@ -40,7 +40,7 @@
         .close {
             @include display(flex);
             font-size: $small-font-size;
-            padding: 0 0 0 rem(4);
+            padding: 0 0 0 pxToRem(4);
         }
 
         &:hover {

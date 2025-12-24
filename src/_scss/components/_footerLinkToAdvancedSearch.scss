@@ -10,7 +10,7 @@
 
     .footerLinkToAdvancedSearch__content {
         @include flex(1 1 auto);
-        margin: 0 rem(16);
+        margin: 0 pxToRem(16);
 
         h4,
         p {
@@ -18,13 +18,13 @@
         }
 
         h4 {
-            font-size: rem(38);
-            line-height: rem(47);
+            font-size: pxToRem(38);
+            line-height: pxToRem(47);
             margin: $global-margin 0;
         }
 
         p {
-            font-size: rem(18);
+            font-size: pxToRem(18);
             font-weight: $font-light;
 
             @media (min-width: $large-screen) {
@@ -40,11 +40,11 @@
 
         .footerLinkToAdvancedSearch__button {
             display: block;
-            margin: rem(30) auto 0 auto;
-            width: rem(180);
-            height: rem(50);
+            margin: pxToRem(30) auto 0 auto;
+            width: pxToRem(180);
+            height: pxToRem(50);
             text-align: center;
-            font-size: rem(24);
+            font-size: pxToRem(24);
         }
 
         @media (min-width: $large-screen) {

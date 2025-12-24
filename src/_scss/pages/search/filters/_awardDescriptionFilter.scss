@@ -23,7 +23,7 @@
           }
         }
 
-        max-height: rem(32);
+        max-height: pxToRem(32);
         font-size: $smallest-font-size;
         line-height: 1.5;
         color: $gray-90;
@@ -42,11 +42,11 @@
         cursor: pointer;
       }
 
-      margin: 0 0 0 rem(4);
+      margin: 0 0 0 pxToRem(4);
       line-height: 1.5;
       @include new-search-button;
 
-      @media screen and (max-width: 320px) {
+      @media screen and (max-width: 320) {
         width: auto;
       }
     }

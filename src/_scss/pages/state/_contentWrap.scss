@@ -7,14 +7,14 @@
 			margin: 0;
 			font-size: $h3-font-size;
 			font-weight: 300;
-			line-height: rem(47);
+			line-height: pxToRem(47);
 		}
 
 		.state-section__description {
 			font-size: $lead-font-size;
 			font-weight: 300;
-			line-height: rem(25);
-			padding-bottom: rem(35);
+			line-height: pxToRem(25);
+			padding-bottom: pxToRem(35);
 		}
 
 		.state__controls-desktop {
@@ -40,9 +40,9 @@
 					text-align: start;
 
 					.filter__dropdown-button-text {
-						margin-right: rem(8);
-						font-size: rem(16);
-						line-height: rem(24);
+						margin-right: pxToRem(8);
+						font-size: pxToRem(16);
+						line-height: pxToRem(24);
 						color: $gray-60;
 						opacity: 1;
 						white-space: nowrap;
@@ -59,10 +59,10 @@
 
 				ul[class^='filter__dropdown-list'] {
 					background-color: $color-white;
-					border: rem(2) solid $gray-cool-10;
-					border-radius: rem(4);
-					box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
-					transform: translate(0px, 0px);
+					border: pxToRem(2) solid $gray-cool-10;
+					border-radius: pxToRem(4);
+					box-shadow: 0 pxToRem(1) pxToRem(4) 0 rgba(0, 0, 0, 0.1);
+					transform: translate(0px, 0);
 					width: max-content;
 					min-width: 100%;
 
@@ -97,23 +97,23 @@
 
 			// overrides to level out the text in the row
 			.rounded-toggle__wrapper {
-				margin-top: rem(2);
+				margin-top: pxToRem(2);
 			}
 
 			.accordion-container {
 				.accordion {
 					.heading {
-						padding-top: rem(10);
+						padding-top: pxToRem(10);
 					}
 				}
 			}
 
 			.accordion-container {
 				@media(max-width: $tablet-screen) {
-					margin-bottom: rem(4);
+					margin-bottom: pxToRem(4);
 				}
 				@media(min-width: $tablet-screen) {
-					margin-left: rem(10);
+					margin-left: pxToRem(10);
 				}
 			}
 
@@ -122,7 +122,7 @@
 				color: $color-primary;
 				border: none;
 				font-size: $font-size-14;
-				max-width: rem(120);
+				max-width: pxToRem(120);
 				padding: 0;
 				margin: 0;
 				justify-content: unset !important;
@@ -135,7 +135,7 @@
 				}
 
 				@media(min-width: $tablet-screen) {
-					padding-top: rem(8);
+					padding-top: pxToRem(8);
 				}
 			}
 
@@ -167,7 +167,7 @@
 				color: $color-primary;
 				font-size: $font-size-14;
 				font-weight: $font-semibold;
-				padding-left: rem(6);
+				padding-left: pxToRem(6);
 
 				&:hover,
 				&:active,
@@ -177,7 +177,7 @@
 				}
 
 				@media(min-width: $tablet-screen) {
-					padding-right: rem(6);
+					padding-right: pxToRem(6);
 				}
 			}
 
@@ -242,27 +242,27 @@
 		}
 		hr.results-divider {
 			width: 100%;
-			height: rem(2);
+			height: pxToRem(2);
 			background: #494440;
 			border: none;
-			margin: rem(8) 0 rem(8) 0;
+			margin: pxToRem(8) 0 pxToRem(8) 0;
 		}
 
 		.state-section__row {
 			width: 100%;
-			margin-bottom: rem(32);
+			margin-bottom: pxToRem(32);
 
 			@include media($tablet-screen) {
 				@include display(flex);
 			}
 
 			&.award-row {
-				margin-bottom: rem(32);
+				margin-bottom: pxToRem(32);
 			}
 
 			&.geo-row {
 				padding-bottom: 0;
-				margin-bottom: rem(2);
+				margin-bottom: pxToRem(2);
 			}
 
 			.totals-container {
@@ -276,11 +276,11 @@
 				@include media($tablet-screen) {
 					@include flex(1 1 50%);
 					@include flex-direction(column);
-					margin-right: rem(10);
+					margin-right: pxToRem(10);
 				}
 
 				.loan {
-					margin-top: rem(50);
+					margin-top: pxToRem(50);
 					margin-left: 0;
 					@include flex(1 1 50%);
 
@@ -303,8 +303,8 @@
 						}
 
 						svg {
-							height: rem(20);
-							width: rem(20);
+							height: pxToRem(20);
+							width: pxToRem(20);
 						}
 					}
 
@@ -327,7 +327,7 @@
 					@include align-items(center);
 					@include button-unstyled;
 					color: $blue-50;
-					margin-top: rem(16);
+					margin-top: pxToRem(16);
 					font-size: $font-size-14;
 					width: fit-content;
 

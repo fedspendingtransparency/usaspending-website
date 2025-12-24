@@ -1,8 +1,8 @@
 .federal-accounts-table {
   border: none;
   margin-top: 0;
-  margin-bottom: rem(7);
-  font-size: rem(12);
+  margin-bottom: pxToRem(7);
+  font-size: pxToRem(12);
   .federal-accounts-table__head-row {
       border-bottom: solid 1px $color-gray-lighter;
   }
@@ -12,7 +12,7 @@
           @import '../../stateLanding/sorter';
           background-color: $color-white;
           border: 0;
-          padding: rem(15) rem(10);
+          padding: pxToRem(15) pxToRem(10);
           .header-sorter {
             .header-sorter__button {
               svg {
@@ -22,7 +22,7 @@
           }
           .header-cell {
             .header-cell__text {
-              margin-right: rem(10);
+              margin-right: pxToRem(10);
               .header-cell__title {
                   font-weight: 600;
                   font-size: $small-font-size;
@@ -36,7 +36,7 @@
   .federal-accounts-table__body-cell {
       background-color: transparent;
       border: none;
-      padding: rem(7);
+      padding: pxToRem(7);
       white-space: nowrap;
 
       &.right {
@@ -44,11 +44,11 @@
       }
 
       &.offset-right {
-        padding-right: rem(34);
+        padding-right: pxToRem(34);
       }
 
       &.offset-left {
-        padding-left: rem(10);
+        padding-left: pxToRem(10);
       }
   }
 }

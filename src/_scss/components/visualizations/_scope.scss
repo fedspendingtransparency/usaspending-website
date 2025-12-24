@@ -1,6 +1,6 @@
 .content {
     @import "../../elements/underlineButton";
-    padding: rem(15);
+    padding: pxToRem(15);
     background-color: rgba($color-primary-alt-lightest, .5);
     ul {
         @include unstyled-list;
@@ -8,7 +8,7 @@
         margin-right: auto;
         text-align: center;
         li {
-            margin-bottom: rem(9);
+            margin-bottom: pxToRem(9);
             @include underlineButton();
         }
     }

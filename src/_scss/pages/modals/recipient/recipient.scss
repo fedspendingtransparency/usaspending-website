@@ -5,7 +5,7 @@
             @include display(flex);
             @include justify-content(space-between);
             @include align-items(flex-start);
-            padding: rem(20) rem(35);
+            padding: pxToRem(20) pxToRem(35);
             background-color: $color-gray-light;
             h1.recipients-modal__title {
                 @include display(flex);
@@ -19,22 +19,22 @@
                 @include display(flex);
                 @include flex(0 0 auto);
                 @include button-unstyled;
-                padding-left: rem(15);
+                padding-left: pxToRem(15);
                 svg {
                     fill: $color-white;
-                    height: rem(14);
-                    width: rem(14);
+                    height: pxToRem(14);
+                    width: pxToRem(14);
                 }
             }
         }
         .recipients-modal__body {
-            padding: rem(20) rem(60) rem(40);
+            padding: pxToRem(20) pxToRem(60) pxToRem(40);
             @import "table";
             .recipients-modal__message {
                 @include h4;
                 text-align: center;
                 @include media($medium-screen) {
-                    min-width: rem(500);
+                    min-width: pxToRem(500);
                 }
             }
         }

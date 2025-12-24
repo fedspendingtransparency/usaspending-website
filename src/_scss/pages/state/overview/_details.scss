@@ -2,24 +2,24 @@
     @import './detailsTooltip';
 
     svg {
-        height: rem(14);
+        height: pxToRem(14);
     }
     
     h3 {
         color: #555555;
     }
 
-    margin-left: rem(7);
+    margin-left: pxToRem(7);
 
     .details-info {
         margin-top: 8px;
 
         .details-header {
-            width: rem(351);
-            height: rem(20);
+            width: pxToRem(351);
+            height: pxToRem(20);
             flex-grow: 0;
-            margin: 0 0 rem(2);
-            font-size: rem(13);
+            margin: 0 0 pxToRem(2);
+            font-size: pxToRem(13);
             font-weight: $font-semibold;
             font-stretch: normal;
             font-style: normal;
@@ -31,8 +31,8 @@
         
         .details-text {
             flex-grow: 0;
-            margin: rem(2) 0 rem(16);
-            font-size: rem(18);
+            margin: pxToRem(2) 0 pxToRem(16);
+            font-size: pxToRem(18);
             font-weight: 300;
             font-stretch: normal;
             font-style: normal;
@@ -43,7 +43,7 @@
         }
 
         .details__info_icon_holder {
-            margin-left: rem(10);
+            margin-left: pxToRem(10);
         }
     }
 

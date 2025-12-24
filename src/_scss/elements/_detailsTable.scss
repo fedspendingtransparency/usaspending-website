@@ -1,7 +1,7 @@
-$table-pad: rem(13);
+$table-pad: pxToRem(13);
 table {
-    margin-top: rem(10);
-    margin-bottom: rem(5);
+    margin-top: pxToRem(10);
+    margin-bottom: pxToRem(5);
     min-width: 50%;
     width: 100%;
     tbody {
@@ -15,7 +15,7 @@ table {
                 background: none;
                 border: none;
                 margin: 0;
-                padding: rem(2) rem(10);
+                padding: pxToRem(2) pxToRem(10);
                 float: left;
                 width: 100%;
                 &:first-child {

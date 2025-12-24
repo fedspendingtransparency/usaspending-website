@@ -6,7 +6,7 @@
         @include align-items(flex-start);
         position: relative;
 
-        padding: rem(12) rem(30);
+        padding: pxToRem(12) pxToRem(30);
 
         h1 {
             @include flex(1 1 auto);
@@ -17,16 +17,16 @@
 
         .close-wrapper {
             @include flex(0 0 auto);
-            height: rem(14);
-            width: rem(14);
+            height: pxToRem(14);
+            width: pxToRem(14);
 
             button.close-button {
                 @include button-unstyled;
 
                 svg {
                     fill: $color-white;
-                    height: rem(14);
-                    width: rem(14);
+                    height: pxToRem(14);
+                    width: pxToRem(14);
                 }
             }
         }

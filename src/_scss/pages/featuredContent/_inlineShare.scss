@@ -1,8 +1,8 @@
 .featured-content__share-wrapper {
-    margin-left: rem(5);
+    margin-left: pxToRem(5);
     @media (min-width: $tablet-screen) and (max-width: ($medium-screen - 1)) {
-        margin-top: rem(20);
-        margin-bottom: rem(36);
+        margin-top: pxToRem(20);
+        margin-bottom: pxToRem(36);
     }
 
     .featured-content__share-option {
@@ -10,37 +10,37 @@
             cursor: pointer;
         }
         span {
-            margin-left: rem(8);
-            font-size: rem(14);
+            margin-left: pxToRem(8);
+            font-size: pxToRem(14);
             font-style: normal;
-            line-height: rem(21);
+            line-height: pxToRem(21);
             color: $gray-80;
         }
         svg {
-            font-size: rem(16);
+            font-size: pxToRem(16);
         }
 
         @media (min-width: $tablet-screen) and (max-width: ($medium-screen - 1)) {
             margin-top: 0;
         }
-        margin-top: rem(16);
+        margin-top: pxToRem(16);
 
         &:first-of-type {
-            margin-top: rem(12);
+            margin-top: pxToRem(12);
             @media(min-width: $tablet-screen) {
                 margin-top: 0;
             }
             @media(min-width: $medium-screen) {
-                margin-top: rem(20);
+                margin-top: pxToRem(20);
             }
         }
         &:last-of-type {
-            margin-bottom: rem(28);
+            margin-bottom: pxToRem(28);
             @media(min-width: $tablet-screen) {
                 margin-bottom: 0;
             }
             @media(min-width: $medium-screen) {
-                margin-bottom: rem(36);
+                margin-bottom: pxToRem(36);
             }
         }
 

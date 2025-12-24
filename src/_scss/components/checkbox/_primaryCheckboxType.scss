@@ -3,7 +3,7 @@
     @include sharedCheckboxStyle;
 
     &.single-item {
-        padding-left: rem(19);
+        padding-left: pxToRem(19);
     }
 
     .primary-checkbox-wrapper {
@@ -15,9 +15,9 @@
     .toggle {
         @include button-unstyled;
         @include flex(0 0 auto);
-        width: rem(11);
-        height: rem(28);
-        margin-right: rem(8);
+        width: pxToRem(11);
+        height: pxToRem(28);
+        margin-right: pxToRem(8);
 
         cursor: pointer;
 
@@ -34,8 +34,8 @@
 
          svg {
             fill: $color-gray-dark;
-            height: rem(11);
-            width: rem(11);
+            height: pxToRem(11);
+            width: pxToRem(11);
             position: relative;
             pointer-events: none;
         }

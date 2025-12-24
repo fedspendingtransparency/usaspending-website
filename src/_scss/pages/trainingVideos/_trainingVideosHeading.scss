@@ -99,18 +99,18 @@
         }
 
         .training-videos__column-share-icon {
-          width: rem(38);
+          width: pxToRem(38);
 
           // this is to place the msg on top of the 'copy link' item in dropdown
           .usda-share-icon .copy-confirmation {
-            top: rem(40);
-            right: rem(16);
+            top: pxToRem(40);
+            right: pxToRem(16);
           }
 
           .usda-share-icon {
             .usa-dt-picker .usa-dt-picker__dropdown-container {
               .usa-dt-picker__button {
-                margin: 0 rem(34) 0 0;
+                margin: 0 pxToRem(34) 0 0;
                 padding-bottom: 4px;
               }
 

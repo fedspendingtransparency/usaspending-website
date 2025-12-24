@@ -3,21 +3,21 @@
 
 @mixin elementContainerWrap {
     @include grid-container;
-    margin: rem(30) math.div($outer-gutter, 2) rem(60);
+    margin: pxToRem(30) math.div($outer-gutter, 2) pxToRem(60);
     max-width: 100%;
     background-color: $color-white;
-    border-bottom: rem(1) solid $color-gray-border;
-    border-right: rem(1) solid $color-gray-border;
-    border-top: rem(1) solid $color-gray-border;
+    border-bottom: pxToRem(1) solid $color-gray-border;
+    border-right: pxToRem(1) solid $color-gray-border;
+    border-top: pxToRem(1) solid $color-gray-border;
     box-shadow: $container-shadow;
     color: $color-base;
     
-    padding: 0 rem(30) rem(15);
+    padding: 0 pxToRem(30) pxToRem(15);
     @include media($large-screen) {
-        margin: rem(30) $outer-gutter rem(60);
+        margin: pxToRem(30) $outer-gutter pxToRem(60);
     }
     @include media($x-large-screen) {
         max-width: $site-max-width;
-        margin: rem(30) auto rem(60);
+        margin: pxToRem(30) auto pxToRem(60);
     }
 }

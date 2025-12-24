@@ -4,7 +4,7 @@
         @include display(flex);
         @include justify-content(space-between);
         @include align-items(flex-end);
-        padding-bottom: rem(11);
+        padding-bottom: pxToRem(11);
         .award-dates__title {
             @include display(flex);
             @include flex(0 0 auto);
@@ -12,7 +12,7 @@
         }
     }
     .progress-bar-shapes__progress-text {
-      font-size: rem(12);
+      font-size: pxToRem(12);
     }
     .award-dates__row {
         font-weight: $font-light;
@@ -21,10 +21,10 @@
         .award-dates__label-container {
           @include display(inline-flex);
           .award-dates__circle {
-            height: rem(8);
-            width: rem(8);
+            height: pxToRem(8);
+            width: pxToRem(8);
             border-radius: 20px;
-            margin: rem(7) rem(7) 0 0;
+            margin: pxToRem(7) pxToRem(7) 0 0;
             &.award-dates__circle-top {
               background-color: $color-green-lighter;
             }
@@ -37,7 +37,7 @@
           }
         }
         .award-dates__date {
-            padding-left: rem(10);
+            padding-left: pxToRem(10);
         }
     }
     @import '../../../../components/_progressBar';

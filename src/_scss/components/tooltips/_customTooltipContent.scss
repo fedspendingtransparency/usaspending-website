@@ -26,21 +26,21 @@
             width: 100%;
             .tooltip__title {
                 @include justify-content(center);
-                font-size: rem(16);
+                font-size: pxToRem(16);
             }
 
             .tooltip__close-button {
                 background-color: $color-gray-lightest;
                 .award-summary__close-button {
                     @include button-unstyled;
-                    padding: rem(5);
+                    padding: pxToRem(5);
                     margin-top: $global-margin*2;
                     margin-right: $global-margin*2;
                     margin-left: $global-margin*2;
                     svg {
                         fill: $color-primary;
-                        height: rem(16);
-                        width: rem(16);
+                        height: pxToRem(16);
+                        width: pxToRem(16);
                     }
                     &:hover :focus {
                         color: $color-primary-darkest;
@@ -77,7 +77,7 @@
         text-align: center;
     }
     .tooltip__text {
-        padding: rem(12) rem(23);
+        padding: pxToRem(12) pxToRem(23);
     }
     .tooltip__list li {
         font-style: italic;
@@ -97,11 +97,11 @@
         &.award-desciption-section {
             // the list in the award description section
             li:last-of-type {
-                margin-top: rem(14);
+                margin-top: pxToRem(14);
             }
             .info-tooltip__list {
                 // nested list in this section
-                padding-left: rem(15);
+                padding-left: pxToRem(15);
                 li:last-of-type {
                     margin-top: 0;
                 }
@@ -109,7 +109,7 @@
         }
         li {
             margin: 0;
-            margin-right: rem(5);
+            margin-right: pxToRem(5);
             padding: 0;
         }
     }
@@ -125,12 +125,12 @@
         color: $color-base;
     }
     h2.tooltip__title {
-        font-size: rem(16);
+        font-size: pxToRem(16);
         text-align: center;
     }
 
     .tooltip__text p {
-        font-size: rem(14);
+        font-size: pxToRem(14);
         a {
             color: $color-primary;
             font-weight: $font-semibold;
@@ -138,8 +138,8 @@
     }
 
     ol {
-        padding-left: rem(16);
-        margin: rem(8) 0 rem(8) rem(8);
+        padding-left: pxToRem(16);
+        margin: pxToRem(8) 0 pxToRem(8) pxToRem(8);
     }
     .tooltip_list {
         li::marker {
@@ -158,12 +158,12 @@
 
     h2 {
         text-align: left;
-        font-size: rem(16);
-        padding-left: rem(16);
+        font-size: pxToRem(16);
+        padding-left: pxToRem(16);
     }
 
     p {
-        font-size: rem(14);
+        font-size: pxToRem(14);
         margin: 0;
     }
 
@@ -171,7 +171,7 @@
 
 .cd-tt {
     p {
-        margin: rem(8) 0;
+        margin: pxToRem(8) 0;
     }
 }
 

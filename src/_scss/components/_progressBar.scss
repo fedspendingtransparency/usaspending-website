@@ -12,7 +12,7 @@
     .progress-bar-shapes__progress-text {
       fill: $color-gray;
       font-weight: $font-semibold;
-      font-size: rem(14);
+      font-size: pxToRem(14);
     }
     .progress-bar-shapes__progress-vertical-line {
       stroke: $color-gray-light;

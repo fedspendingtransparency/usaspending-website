@@ -1,25 +1,25 @@
 @mixin comingSoon {
 	.coming-soon-container {
 		.coming-soon-icon {
-	        bottom: rem(10px);
+	        bottom: pxToRem(10);
 	        height: 0;
 	        float: left;
-	        left: rem(0px);
+	        left: pxToRem(0);
 	        position: relative;
 	        svg {
 	            fill: $color-gray-lighter;
-	            height: rem(10px);
-	            width: rem(10px);
+	            height: pxToRem(10);
+	            width: pxToRem(10);
 	        }
 	    }
 	    .coming-soon-label {
-	        bottom: rem(6px);
+	        bottom: pxToRem(6);
 	        color: $color-gray-lighter;
 	        float: left;
 	        font-weight: bold;
-	        font-size: rem(10px);
+	        font-size: pxToRem(10);
 	        height: 0;
-	        left: rem(13px);
+	        left: pxToRem(13);
 	        position: relative;
 	    }
 	}

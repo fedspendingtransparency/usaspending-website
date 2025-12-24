@@ -3,8 +3,8 @@
     border-right: 1px solid $color-gray-lighter;
 
     .cell-content {
-        padding: rem(12) rem(16);
-        font-size: rem(12);
+        padding: pxToRem(12) pxToRem(16);
+        font-size: pxToRem(12);
         color: $color-base;
         box-sizing: border-box;
         overflow: hidden;

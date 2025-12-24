@@ -4,9 +4,9 @@
 
         li.mobile-nav-content__list-item {
             text-align: left;
-            margin: rem(0) rem(16) rem(24) rem(16);
+            margin: pxToRem(0) pxToRem(16) pxToRem(24) pxToRem(16);
             @media (min-width: $tablet-screen) {
-                margin: rem(0) rem(32) rem(24) rem(32);
+                margin: pxToRem(0) pxToRem(32) pxToRem(24) pxToRem(32);
             }
         }
 
@@ -25,8 +25,8 @@
             @include button-unstyled;
 
             color: $color-gray;
-            font-size: rem(30);
-            line-height: rem(36);
+            font-size: pxToRem(30);
+            line-height: pxToRem(36);
             opacity: 0.6;
 
             &:active, &:hover {
@@ -38,9 +38,9 @@
             border: none;
             border-bottom: 2px solid $gray-cool-10;
             width: auto;
-            margin: rem(0) rem(16) rem(24) rem(16);
+            margin: pxToRem(0) pxToRem(16) pxToRem(24) pxToRem(16);
             @media (min-width: $tablet-screen) {
-                margin: rem(0) rem(32) rem(24) rem(32);
+                margin: pxToRem(0) pxToRem(32) pxToRem(24) pxToRem(32);
             }
         }
     }

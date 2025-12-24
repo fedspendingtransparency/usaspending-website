@@ -37,7 +37,7 @@
       width: 48px;
       margin-top: -4px;
       .usa-da-icon-close {
-        width: rem(24);
+        width: pxToRem(24);
         fill: $blue-60v;
       }
     }
@@ -46,23 +46,23 @@
 
 .usa-banner {
   @media(max-width: $tablet-screen) {
-    margin: 0 0 0 rem(20);
+    margin: 0 0 0 pxToRem(20);
   }
   @media(min-width: $tablet-screen) {
-    margin: 0 0 0 rem(20);
+    margin: 0 0 0 pxToRem(20);
   }
   @media(min-width: $large-screen) {
-    margin: 0 rem(36) 0 rem(40);
+    margin: 0 pxToRem(36) 0 pxToRem(40);
   }
   @media(min-width: $x-large-screen) {
     margin: 0 auto;
-    width: rem(1600);
+    width: pxToRem(1600);
   }
 
   .usa-banner__header-flag {
-    width: rem(16);
-    height: rem(11);
-    margin-top: rem(3);
+    width: pxToRem(16);
+    height: pxToRem(11);
+    margin-top: pxToRem(3);
   }
 
   .usa-banner__header-text-wrapper {
@@ -72,7 +72,7 @@
   .usa-banner__header-text {
     display: flex;
     flex-wrap: wrap;
-    font-size: rem(12.8);
+    font-size: pxToRem(12.8);
     margin-left: 8px;
     margin-right: 8px;
       .usa-banner__header-sub-text {
@@ -141,14 +141,14 @@
 
     @media(min-width: $tablet-screen) {
       flex-direction: row;
-      margin-left: rem(8);
+      margin-left: pxToRem(8);
       > .usa-banner__guidance {
-        margin: rem(24) rem(12) rem(24) rem(24);
+        margin: pxToRem(24) pxToRem(12) pxToRem(24) pxToRem(24);
         width: 100%;
       }
 
       > .usa-banner__guidance ~ .usa-banner__guidance {
-        margin: rem(24) rem(24) rem(24) rem(12);
+        margin: pxToRem(24) pxToRem(24) pxToRem(24) pxToRem(12);
         width: 100%;
       }
     }

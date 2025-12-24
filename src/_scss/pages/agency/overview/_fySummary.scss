@@ -1,28 +1,28 @@
 .fy-summary {
-    padding-top: rem(50);
+    padding-top: pxToRem(50);
     .fy-summary__heading {
-        font-size: rem(14);
-        line-height: rem(16);
+        font-size: pxToRem(14);
+        line-height: pxToRem(16);
         margin: 0;
         @include media($medium-screen) { // Desktop
-            font-size: rem(18);
+            font-size: pxToRem(18);
             font-weight: $font-semibold;
-            line-height: rem(23);
+            line-height: pxToRem(23);
         }
     }
     hr {
-        height: rem(1);
+        height: pxToRem(1);
         background-color: $color-gray-light;
-        margin-top: rem(5);
+        margin-top: pxToRem(5);
     }
     .fy-summary__row { // Desktop
         @include display(flex);
-        padding: rem(30) 0 rem(22);
+        padding: pxToRem(30) 0 pxToRem(22);
         .fy-summary__col {
             @include flex (1 1 25%);
             width: 25%;
-            padding: 0 rem(10);
-            border-right: solid rem(1) $color-gray-lighter;
+            padding: 0 pxToRem(10);
+            border-right: solid pxToRem(1) $color-gray-lighter;
             &:first-of-type {
                 padding-left: 0;
             }
@@ -46,7 +46,7 @@
         }
     }
     .usa-dt-carousel { // Mobile
-        padding-top: rem(25);
+        padding-top: pxToRem(25);
     }
     @import './visualizationSection';
 }

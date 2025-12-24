@@ -5,7 +5,7 @@
   .rounded-toggle__label {
       color: $color-base;
       font-weight: $font-semibold;
-      font-size: rem(14);
+      font-size: pxToRem(14);
       margin: 0;
       bottom: 0;
       margin-right: 8px;
@@ -56,9 +56,9 @@
   }
 
   input:checked + .rounded-toggle__slider:before {
-    -webkit-transform: translateX(22px);
-    -ms-transform: translateX(22px);
-    transform: translateX(22px);
+    -webkit-transform: translateX(22);
+    -ms-transform: translateX(22);
+    transform: translateX(22);
     border: 1px solid $color-gray !important;
   }
 

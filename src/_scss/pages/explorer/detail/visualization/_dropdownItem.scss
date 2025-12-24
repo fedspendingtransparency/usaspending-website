@@ -5,19 +5,19 @@
     @include align-items(center);
     position: relative;
 
-    padding: rem(15) rem(25);
+    padding: pxToRem(15) pxToRem(25);
     width: 100%;
 
     .dropdown-option__icon {
         @include flex(0 0 auto);
-        width: rem(15);
-        height: rem(15);
+        width: pxToRem(15);
+        height: pxToRem(15);
 
-        margin-right: rem(25);
+        margin-right: pxToRem(25);
 
         svg {
-            width: rem(15);
-            height: rem(15);
+            width: pxToRem(15);
+            height: pxToRem(15);
             fill: $color-base;
         }
     }

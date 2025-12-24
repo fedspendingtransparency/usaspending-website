@@ -16,7 +16,7 @@
 
         h2.detail-header__title {
             max-width: 100%;
-            margin: 0 0 rem(8);
+            margin: 0 0 pxToRem(8);
             font-size: $font-size-28;
             color: $gray-90;
             font-weight: $font-semibold;
@@ -33,7 +33,7 @@
         }
 
         .detail-header__instructions {
-            margin-top: rem(10);
+            margin-top: pxToRem(10);
             font-size: $font-size-20;
             color: $color-base;
             font-weight: $font-normal;
@@ -42,15 +42,15 @@
     }
 
     .detail-header__amounts {
-        @include flex(0 1 rem(150));
-        margin-left: rem(10);
+        @include flex(0 1 pxToRem(150));
+        margin-left: pxToRem(10);
 
         @include media($medium-screen) {
-            @include flex(0 1 rem(250));
-            margin-left: rem(50);
+            @include flex(0 1 pxToRem(250));
+            margin-left: pxToRem(50);
         }
         @include media($x-large-screen) {
-            margin-left: rem(150);
+            margin-left: pxToRem(150);
         }
 
         .detail-header__fy {
@@ -79,7 +79,7 @@
 
         .detail-header__icon {
             display: inline-block;
-            padding: 0 0 0 rem(5);
+            padding: 0 0 0 pxToRem(5);
             cursor: default;
             margin: 0;
             background-color: transparent;
@@ -89,27 +89,27 @@
         display: inline-flex;
     }
     svg {
-        width: rem(10);
-        height: rem(16);
+        width: pxToRem(10);
+        height: pxToRem(16);
         color: $color-base;
     }
     .tooltip-spacer {
-        transform: translate(-8px, 2px);
+        transform: translate(-8px, 2);
         text-transform: none;
         .tooltip__content{
-            left: rem(16);
+            left: pxToRem(16);
         }
         @media (min-width: $medium-screen) {
-            transform: translate(-8px, 4px);
+            transform: translate(-8px, 4);
             .tooltip__content{
-            left: rem(16);
+            left: pxToRem(16);
         }
         }
         @media (max-width: $tablet-screen + 1) {
-            transform: translate(7px, 35px);
+            transform: translate(7px, 35);
         }
-        @media only screen and (max-width: 878px) and (min-width: 768px){
-            transform: translate(-308px, -18px);
+        @media only screen and (max-width: 878) and (min-width: 768){
+            transform: translate(-308px, -18);
         }
 
     }
@@ -117,15 +117,15 @@
 
     .right-side {
         @include flex(0 1 auto);
-        width: rem(150);
-        margin-left: rem(10);
+        width: pxToRem(150);
+        margin-left: pxToRem(10);
 
         @include media($medium-screen) {
-            width: rem(250);
-            margin-left: rem(50);
+            width: pxToRem(250);
+            margin-left: pxToRem(50);
         }
         @include media($x-large-screen) {
-            margin-left: rem(150);
+            margin-left: pxToRem(150);
         }
 
         .amount-header {
@@ -154,7 +154,7 @@
 }
 
 .detail-header__truncation {
-    margin-top: rem(20);
+    margin-top: pxToRem(20);
 }
 @import "pages/homepage/hero/_heroTooltip";
 
@@ -162,20 +162,20 @@
   // we don't want the tooltip to be on top of the fix header, this will make sure that
   // it's stays under the fixed header when scrolling
   z-index: 1;
-  width: rem(220);
+  width: pxToRem(220);
   .homepage-hero-tooltip__text_holder {
-    height: rem(200);
-    padding: rem(7) rem(20) 0 rem(35);
+    height: pxToRem(200);
+    padding: pxToRem(7) pxToRem(20) 0 pxToRem(35);
   }
 
   .homepage-hero-tooltip__info_icon {
-    top: rem(15);
-    left: rem(15);
+    top: pxToRem(15);
+    left: pxToRem(15);
   }
 
   .homepage-hero-tooltip__close_icon {
-    top: rem(15);
-    right: rem(10);
+    top: pxToRem(15);
+    right: pxToRem(10);
   }
 }
 

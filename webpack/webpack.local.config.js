@@ -35,7 +35,10 @@ module.exports = merge(common, {
                     {
                         loader: "sass-loader",
                         options: {
+                            implementation: require("sass"),
                             sourceMap: true,
+                            additionalData: `@use "sass:math"; 
+                            @use "core/_variables.scss" as *;`,
                             sassOptions: {
                                 includePaths: ["./src/_scss", "./node_modules"],
                                 quiet: true

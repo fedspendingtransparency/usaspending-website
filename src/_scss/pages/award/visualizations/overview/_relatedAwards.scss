@@ -9,10 +9,10 @@
     }
     .related-awards__label {
         font-weight: $font-light;
-        padding-bottom: rem(5);
+        padding-bottom: pxToRem(5);
         &.related-awards__label_count {
             @include display(flex);
-            padding-top: rem(10);
+            padding-top: pxToRem(10);
         }
     }
     .related-awards__counts {
@@ -20,9 +20,9 @@
         @include flex-direction(column);
         @include align-items(right);
         @include justify-content(right);
-        margin-right: rem(8);
+        margin-right: pxToRem(8);
         .award-viz__button {
-          font-size: rem(16);
+          font-size: pxToRem(16);
           display: block;
           text-align: right;
         }

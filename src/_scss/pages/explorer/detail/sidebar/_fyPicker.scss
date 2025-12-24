@@ -7,12 +7,12 @@
         @include align-items(center);
 
         .fy-picker__icon {
-            @include flex(0 0 rem(30));
-            margin-right: rem(25);
+            @include flex(0 0 pxToRem(30));
+            margin-right: pxToRem(25);
 
             svg {
-                width: rem(30);
-                height: rem(30);
+                width: pxToRem(30);
+                height: pxToRem(30);
                 fill: $color-white;
             }
         }
@@ -35,7 +35,7 @@
 
         .fy-picker__button-text {
             @include flex(1 1 auto);
-            margin-right: rem(15);
+            margin-right: pxToRem(15);
             color: $color-white;
             font-weight: $font-semibold;
             font-size: $font-size-20;
@@ -46,10 +46,10 @@
         }
 
         .fy-picker__button-icon {
-            @include flex(0 0 rem(20));
+            @include flex(0 0 pxToRem(20));
             svg {
-                width: rem(20);
-                height: rem(20);
+                width: pxToRem(20);
+                height: pxToRem(20);
                 fill: $color-primary-alt;
             }
         }
@@ -83,7 +83,7 @@
             font-size: $font-size-20;
             text-align: center;
 
-            padding: rem(10) rem(15);
+            padding: pxToRem(10) pxToRem(15);
             width: 100%;
 
             &:hover, &:active {

@@ -3,6 +3,6 @@
 @import './table';
 .results-table-section {
     position: relative;
-    min-height: rem(200);
+    min-height: pxToRem(200);
     @include transition(opacity 0.25s ease-in);
 }

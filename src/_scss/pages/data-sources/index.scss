@@ -25,21 +25,21 @@
                 padding: 1rem 4rem;
                 @media (min-width: $large-screen) {
                     width: 75%;
-                    max-width: rem(975);
+                    max-width: pxToRem(975);
                     margin: auto;
                 }
                 .about-section-content .usda-external-link {
                     @include button-unstyled;
                     display: inline;
-                    padding: 0 rem(5);
-                    font-size: rem(18);
+                    padding: 0 pxToRem(5);
+                    font-size: pxToRem(18);
                     color: $color-primary;
                     svg {
                         color: $color-primary;
                     }
                 }
                 .about-section-content ol {
-                    font-size: rem(18);
+                    font-size: pxToRem(18);
                     &.about-instructions {
                         font-family: monospace;
                         padding: 3rem 5rem;
@@ -70,7 +70,7 @@
     .sticky-header {
         .sticky-header__toolbar {
             .copy-confirmation {
-                right: rem(83);
+                right: pxToRem(83);
                 z-index: 1;
             }
         }

@@ -49,13 +49,13 @@ table {
             position: sticky;
             position: -webkit-sticky;
             border: none;                
-            padding: rem(16);
-            margin: auto rem(8);
+            padding: pxToRem(16);
+            margin: auto pxToRem(8);
             top: 50px;
             
             .expaned-table-container__outer-cell {
-                border: rem(1) solid $gray-cool-10;
-                border-radius: rem(4);
+                border: pxToRem(1) solid $gray-cool-10;
+                border-radius: pxToRem(4);
                 background-color: $color-white;
                 
                 .table-title {

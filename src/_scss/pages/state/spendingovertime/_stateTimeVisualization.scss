@@ -7,14 +7,14 @@
     }
 
     .results-visualization-message {
-        margin-top: rem(10);
+        margin-top: pxToRem(10);
         font-size: $small-font-size;
         color: $color-base;
         text-align: center;
     }
 
     .state-visualization__time-wrapper {
-        height: rem(350);
+        height: pxToRem(350);
 
         // Applies styles to the tooltip
         @import "pages/search/results/visualizations/time/timeVisualization";

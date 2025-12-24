@@ -5,14 +5,14 @@
     @import "mixins/selectedFilterWrap";
     @import './pages/award/_moreButton';
 
-    padding-left: rem(20);
+    padding-left: pxToRem(20);
 
     &.searchV2 {
         padding-left: 0;
     }
 
     .shown {
-        min-height: rem(18);
+        min-height: pxToRem(18);
     }
     .visually-hidden {
         display: none;
@@ -24,7 +24,7 @@
 
     .selected-filters {
         @include selected-filter-wrap;
-        margin-top: rem(20);
+        margin-top: pxToRem(20);
     }
 
     .usa-da-typeahead__input .autocomplete-md {
@@ -35,5 +35,5 @@
 }
 
 .award-type-filter .filter-submit-hint {
-    padding: 0 rem(20);
+    padding: 0 pxToRem(20);
 }

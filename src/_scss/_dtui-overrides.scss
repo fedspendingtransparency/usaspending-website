@@ -6,5 +6,5 @@
 
 @mixin new-search-button {
   font-size: $smallest-font-size;
-  padding: rem(7) rem(12);
+  padding: pxToRem(7) pxToRem(12);
 }

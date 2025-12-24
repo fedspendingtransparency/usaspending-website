@@ -5,9 +5,9 @@
     @import "pages/search/results/visualizations/_messages";
 
     .visualization-message-container {
-        margin-top: rem(30);
-        min-height: rem(112);
-        padding-top: rem(45);
+        margin-top: pxToRem(30);
+        min-height: pxToRem(112);
+        padding-top: pxToRem(45);
     }
 
     .award-viz__heading {
@@ -18,9 +18,9 @@
         .award-viz__icon {
             @include flex(0 0 auto);
 
-            height: rem(20);
-            width: rem(20);
-            margin-right: rem(9);
+            height: pxToRem(20);
+            width: pxToRem(20);
+            margin-right: pxToRem(9);
 
             svg {
                 fill: $color-gray;
@@ -33,7 +33,7 @@
 
             margin: 0;
             line-height: $base-line-height;
-            font-size: rem(18);
+            font-size: pxToRem(18);
             font-weight: $font-semibold;
         }
 
@@ -65,17 +65,17 @@
         @include align-items(center);
 
         width: fit-content;
-        padding: rem(4) 0;
+        padding: pxToRem(4) 0;
 
         .award-viz__link-icon {
             @include display(flex);
             @include flex(0 0 auto);
 
-            margin-right: rem(5);
+            margin-right: pxToRem(5);
 
             svg {
-                height: rem(15);
-                width: rem(15);
+                height: pxToRem(15);
+                width: pxToRem(15);
                 fill: $color-link;
             }
         }
@@ -109,10 +109,10 @@
     .award-viz__link-icon {
         @include display(flex);
         @include flex(0 0 auto);
-        margin-right: rem(5);
+        margin-right: pxToRem(5);
         svg {
-            height: rem(15);
-            width: rem(15);
+            height: pxToRem(15);
+            width: pxToRem(15);
             fill: $color-link;
         }
     }

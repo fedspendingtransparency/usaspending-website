@@ -1,8 +1,8 @@
 .cfda-section-table {
   border: none;
   margin-top: 0;
-  margin-bottom: rem(7);
-  font-size: rem(12);
+  margin-bottom: pxToRem(7);
+  font-size: pxToRem(12);
   .cfda-section-table__head-row {
       border-bottom: solid 1px $color-gray-lighter;
   }
@@ -12,7 +12,7 @@
           @import '../../stateLanding/sorter';
           background-color: $color-white;
           border: 0;
-          padding: rem(15) rem(2);
+          padding: pxToRem(15) pxToRem(2);
           .header-sorter {
             .header-sorter__button {
               svg {
@@ -22,7 +22,7 @@
           }
           .header-cell {
             .header-cell__text {
-              margin-right: rem(10);
+              margin-right: pxToRem(10);
               .header-cell__title {
                   font-weight: 600;
                   font-size: $small-font-size;
@@ -36,7 +36,7 @@
   .cfda-section-table__body-cell {
       background-color: transparent;
       border: none;
-      padding: rem(7) rem(2);
+      padding: pxToRem(7) pxToRem(2);
       white-space: nowrap;
 
       &.right {

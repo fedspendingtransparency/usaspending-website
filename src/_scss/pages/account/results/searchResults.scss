@@ -29,7 +29,7 @@
         .search-results {
             background-color: $color-white;
             box-shadow: $container-shadow;
-            padding: rem(30);
+            padding: pxToRem(30);
             h3 {
                 margin: 0;
                 color: $color-base;

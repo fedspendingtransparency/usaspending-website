@@ -23,7 +23,7 @@
       min-height: 36vh;
   }
   .award-hr-margin-bottom {
-    margin-bottom: rem(3);
+    margin-bottom: pxToRem(3);
   }
   .idv-award-amounts-tabs {
     margin-top: 0;
@@ -37,7 +37,7 @@
       .award {
           padding: $global-padding * 2;
         @media (min-width: $tablet-screen) {
-          padding: rem(24) rem(30);
+          padding: pxToRem(24) pxToRem(30);
         }
           .award__heading {
               @include media($medium-screen) {
@@ -55,7 +55,7 @@
                     @include display(flex);
                     @include flex(0 0 auto);
                     font-weight: $font-semibold;
-                    padding-right: rem(10);
+                    padding-right: pxToRem(10);
                     margin: 0;
                     font-size: $h5-font-size;
                     line-height: normal;
@@ -63,14 +63,14 @@
                   .award__heading-icon {
                       @include display(flex);
                       @include flex(0 0 auto);
-                      padding-right: rem(10);
+                      padding-right: pxToRem(10);
                       @media (max-width: $medium-screen) {
-                          margin: rem(4) 0;
+                          margin: pxToRem(4) 0;
                       }
                       svg {
                           @include display(flex);
-                          height: rem(20);
-                          width: rem(20);
+                          height: pxToRem(20);
+                          width: pxToRem(20);
                       }
                       &:focus {
                           svg {
@@ -86,7 +86,7 @@
                       h3 {
                         font-weight: $font-normal;
                         display: flex;
-                        padding-right: rem(10);
+                        padding-right: pxToRem(10);
                         font-size: $h5-font-size;
                         margin: 0;
                         line-height: normal;
@@ -110,7 +110,7 @@
                 }
                 .award-status-container__status {
                   &.award-status__text-space {
-                    padding-right: rem(5);
+                    padding-right: pxToRem(5);
                   }
                 }
                 .award-status-container__time-remaining {
@@ -119,43 +119,43 @@
               }
           }
         .award-summary__covid-19-flag {
-          padding: rem(3) rem(7);
+          padding: pxToRem(3) pxToRem(7);
           @include display(flex);
           @include flex-wrap(wrap);
           @include justify-content(center);
           @include align-items(center);
           background: $color-disaster-covid-19;
           color: $color-white;
-          font-size: rem(14);
+          font-size: pxToRem(14);
           font-weight: 600;
           text-align: center;
-          height: rem(25);
-          border-radius: rem(4);
-          width: rem(200);
-          margin: rem(8) 0 rem(12);
+          height: pxToRem(25);
+          border-radius: pxToRem(4);
+          width: pxToRem(200);
+          margin: pxToRem(8) 0 pxToRem(12);
         }
 
         .award-summary__unlinked-flag {
           cursor: pointer;
-          padding: rem(3) rem(7);
+          padding: pxToRem(3) pxToRem(7);
           @include display(flex);
           @include flex-wrap(wrap);
           @include justify-content(center);
           @include align-items(center);
           background: $color-gray-lightest;
           color: $color-primary;
-          font-size: rem(14);
+          font-size: pxToRem(14);
           font-weight: 600;
           text-align: center;
-          height: rem(24);
-          border-radius: rem(4);
-          width: rem(112);
-          margin: rem(8) 0 rem(12);
+          height: pxToRem(24);
+          border-radius: pxToRem(4);
+          width: pxToRem(112);
+          margin: pxToRem(8) 0 pxToRem(12);
 
           .tooltip-spacer {
-            transform: translate(-24px, 8px);
+            transform: translate(-24px, 8);
             @media (min-width: $medium-screen) {
-              transform: translate(-8px, 20px);
+              transform: translate(-8px, 20);
             }
 
             @media (max-width: $medium-screen) {
@@ -163,17 +163,17 @@
               margin-right: $global-margin*2;
               max-width: 335px;
             }
-            @media (max-width: 400px) {
+            @media (max-width: 400) {
               transform: translate(-38px, 0);
             }
 
             .tooltip-pointer.bottom {
               @media (min-width: $medium-screen) {
-                transform: rotate(90deg) translate(-8px, 140px);
+                transform: rotate(90deg) translate(-8px, 140);
               }
 
               @media (max-width: $medium-screen) {
-                transform: rotate(90deg) translate(-3px, 140px);
+                transform: rotate(90deg) translate(-3px, 140);
               }
 
             }
@@ -185,7 +185,7 @@
           .award__row {
               @include display(flex);
               @include flex-wrap(wrap);
-              padding: rem(40) 0 rem(60);
+              padding: pxToRem(40) 0 pxToRem(60);
               @include media($medium-screen) {
                   @include flex-wrap(nowrap)
               }
@@ -208,23 +208,23 @@
                   @include flex(1 1 auto);
                   // Add padding between columns when they are stacked in mobile
                   &:first-child {
-                      padding-bottom: rem(60);
+                      padding-bottom: pxToRem(60);
                   }
                   &:last-child {
-                      padding-top: rem(40);
+                      padding-top: pxToRem(40);
                   }
                   @include media($medium-screen) {
                       @include flex(0 0 50%);
                       &:first-child {
-                          padding-right: rem(15);
+                          padding-right: pxToRem(15);
                           padding-bottom: 0;
                       }
                       &:last-child {
-                          padding-left: rem(15);
+                          padding-left: pxToRem(15);
                           padding-top: 0;
                       }
                   }
-                  @include media(700px) {
+                  @include media(700) {
                       // forces content to go to single column layout
                       min-width: 470px;
                   }
@@ -233,11 +233,11 @@
                       @include display(flex);
                       @include flex-direction(column);
                       h4 {
-                          font-size: rem(16px);
+                          font-size: pxToRem(16);
                           font-weight: $font-semibold;
                       }
                       h5 {
-                          font-size: rem(14px);
+                          font-size: pxToRem(14);
                           font-weight: $font-semibold;
                       }
                   }
@@ -250,7 +250,7 @@
               height: 2px;
               background: $color-base;
               border: none;
-              margin-bottom: rem(35);
+              margin-bottom: pxToRem(35);
           }
           @import "./visualizations/awardViz";
           @import "./visualizations/overview/overview";

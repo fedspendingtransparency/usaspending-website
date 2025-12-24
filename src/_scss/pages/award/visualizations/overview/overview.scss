@@ -1,5 +1,5 @@
 .award-overview {
-    $padding-top: rem(11);
+    $padding-top: pxToRem(11);
     // Layout
     @include display(flex);
     .award-overview__right-section {
@@ -20,7 +20,7 @@
               @include flex(0 0 47%);
           }
           &.first {
-            padding-bottom: rem(30);
+            padding-bottom: pxToRem(30);
             @include media($tablet-screen) {
                 padding-bottom: 0;
             }
@@ -29,7 +29,7 @@
         .award-overview-column__spacing {
           @include media($tablet-screen) {
             &:nth-child(odd) {
-              padding-right: rem(15);
+              padding-right: pxToRem(15);
             }
           }
         }
@@ -43,7 +43,7 @@
             }
         }
         .award-overview-title {
-            font-size: rem(16);
+            font-size: pxToRem(16);
             margin-top: 0;
             align-items: center;
         }

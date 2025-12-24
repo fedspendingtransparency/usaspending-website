@@ -2,8 +2,8 @@
 @import "./_noFilters";
 
 .visualization-status-screen {
-    padding-top: rem(180);
-    padding-bottom: rem(180);
+    padding-top: pxToRem(180);
+    padding-bottom: pxToRem(180);
 }
 
 // slide in animation

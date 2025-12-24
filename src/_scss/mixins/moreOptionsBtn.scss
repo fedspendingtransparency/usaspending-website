@@ -2,15 +2,15 @@
     svg {
         float: right;
         fill: $baseColor;
-        height: rem(30);
-        width: rem(50);
-        border: rem(1) solid rgba($baseColor, .6);
-        padding: 0 rem(10);
+        height: pxToRem(30);
+        width: pxToRem(50);
+        border: pxToRem(1) solid rgba($baseColor, .6);
+        padding: 0 pxToRem(10);
     }
     &:hover {
         & svg {
             fill: $bgColor;
-            border: rem(1) solid rgba($baseColor, .6);
+            border: pxToRem(1) solid rgba($baseColor, .6);
             background: rgba($baseColor, .6);
             cursor: pointer;
             @include transition(all 0.25s $ease-in-out-sine);

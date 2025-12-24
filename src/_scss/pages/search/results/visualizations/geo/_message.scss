@@ -17,9 +17,9 @@
         background-color: $color-white;
         display: block;
         box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-        line-height: rem(18);
+        line-height: pxToRem(18);
 
-        padding: rem(10) rem(15);
+        padding: pxToRem(10) pxToRem(15);
 
         color: $color-base;
         text-align: center;
@@ -29,24 +29,24 @@
 }
 
 .map-loading, .map-no-results {
-    padding: rem(10);
+    padding: pxToRem(10);
     .loading-animation {
-        width: rem(50);
-        height: rem(50);
+        width: pxToRem(50);
+        height: pxToRem(50);
         margin-left: auto;
         margin-right: auto;
     }
 
     .loading-message {
-        font-size: rem(36);
-        line-height: rem(45);
+        font-size: pxToRem(36);
+        line-height: pxToRem(45);
         color: $color-gray-light;
         text-align: center;
     }
 
     .no-results-icon {
-        width: rem(75);
-        height: rem(72);
+        width: pxToRem(75);
+        height: pxToRem(72);
 
         margin-left: auto;
         margin-right: auto;
@@ -56,16 +56,16 @@
         background-repeat: no-repeat;
     }
     .error-icon {
-        width: rem(75);
-        height: rem(72);
+        width: pxToRem(75);
+        height: pxToRem(72);
 
         margin-left: auto;
         margin-right: auto;
-        margin-bottom: rem(10);
+        margin-bottom: pxToRem(10);
 
         svg {
-            width: rem(72);
-            height: rem(72);
+            width: pxToRem(72);
+            height: pxToRem(72);
             fill: $color-gray-light;
         }
     }
@@ -75,19 +75,19 @@
 
         margin-left: auto;
         margin-right: auto;
-        max-width: rem(200);
-        font-size: rem(18);
+        max-width: pxToRem(200);
+        font-size: pxToRem(18);
 
         @include media($tablet-screen) {
-            max-width: rem(400);
-            font-size: rem(24);
-            line-height: rem(30);
+            max-width: pxToRem(400);
+            font-size: pxToRem(24);
+            line-height: pxToRem(30);
         }
 
         @include media($large-screen) {
-            max-width: rem(600);
-            font-size: rem(36);
-            line-height: rem(45);
+            max-width: pxToRem(600);
+            font-size: pxToRem(36);
+            line-height: pxToRem(45);
         }
     }
 

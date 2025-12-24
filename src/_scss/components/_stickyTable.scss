@@ -1,19 +1,19 @@
 .table-container {
-    height: rem(500);
+    height: pxToRem(500);
     overflow: scroll;
     margin: 0;
-    border: rem(1) solid $color-gray-border;
+    border: pxToRem(1) solid $color-gray-border;
     .usda-table {
         border-collapse: separate;
         margin-top: 0;
         margin-bottom: 0;
-        border-bottom: rem(1) solid $color-gray-border;
+        border-bottom: pxToRem(1) solid $color-gray-border;
         &.table-loading {
             height: 100%;
         }
         thead {
             tr th {
-                min-width: rem(300);
+                min-width: pxToRem(300);
                 vertical-align: top;
             }
             .table-header__content_right
@@ -24,10 +24,10 @@
                 .tooltip__interior
                 .tooltip-pointer {
                 &.left {
-                    left: rem(-24);
+                    left: pxToRem(-24);
                 }
                 &.right {
-                    right: rem(8);
+                    right: pxToRem(8);
                 }
             }
             .nested-header {
@@ -52,14 +52,14 @@
                     .generic-cell-content {
                         padding-right: 3.6rem; // to match 0.8 padding + 2.8 width of the action button
                         .not-certified {
-                            margin-left: rem(5);
+                            margin-left: pxToRem(5);
                             background: $colors-potential;
-                            border-radius: rem(2);
+                            border-radius: pxToRem(2);
                             color: $color-base;
-                            padding: rem(5);
-                            font-size: rem(10);
+                            padding: pxToRem(5);
+                            font-size: pxToRem(10);
                             font-weight: $font-semibold;
-                            line-height: rem(13);
+                            line-height: pxToRem(13);
                         }
                     }
                     .matched-str {
@@ -80,7 +80,7 @@
                         position: -webkit-sticky;
                         top: 0;
                         z-index: 9;
-                        border: rem(1) solid $color-gray-lighter;
+                        border: pxToRem(1) solid $color-gray-lighter;
                         // Set a higher z-index on the <th> the user is hovering over so
                         // tooltips display above the stacking context of the other headers
                         &:hover {
@@ -88,8 +88,8 @@
                         }
                     }
                     tr:last-of-type th {
-                        top: rem(50);
-                        border: rem(1) solid $color-gray-lighter;
+                        top: pxToRem(50);
+                        border: pxToRem(1) solid $color-gray-lighter;
                     }
                 }
             }
@@ -116,7 +116,7 @@
                             z-index: 10;
                             left: 0px;
                             box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.2);
-                            border-right: rem(1) solid $color-gray-lightest;
+                            border-right: pxToRem(1) solid $color-gray-lightest;
                         }
                     }
                 }
@@ -129,13 +129,13 @@
 }
 // Pagination
 .usa-dt-pagination {
-    padding: rem(20);
+    padding: pxToRem(20);
     .usa-dt-pagination__totals {
         text-align: center;
-        padding: rem(20); // extra padding on mobile
+        padding: pxToRem(20); // extra padding on mobile
         @media (min-width: $tablet-screen) {
             text-align: left;
-            padding: rem(0);
+            padding: pxToRem(0);
         }
     }
     .usa-dt-pagination__wrapper {
@@ -144,7 +144,7 @@
             @include justify-content(flex-end);
         }
         .pager {
-            padding: rem(20); // extra padding on mobile
+            padding: pxToRem(20); // extra padding on mobile
             @media (min-width: $tablet-screen) {
                 padding: 0;
             }

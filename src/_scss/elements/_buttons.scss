@@ -165,7 +165,7 @@ button,
 [type="submit"]:disabled,
 .usa-button-disabled-outline {
     background: none;
-    border: rem(1) solid $color-gray-lighter;
+    border: pxToRem(1) solid $color-gray-lighter;
     color: $color-gray-light;
     pointer-events: none;
     cursor: not-allowed;
@@ -215,7 +215,7 @@ button,
 .usa-button-link {
     @include button-unstyled;
     color: $theme-color-1;
-    margin-top: rem(3);
+    margin-top: pxToRem(3);
     cursor: pointer;
     width: fit-content;
     &:hover {

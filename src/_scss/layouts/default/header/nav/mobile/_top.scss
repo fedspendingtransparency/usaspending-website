@@ -3,15 +3,15 @@
     .usa-banner__inner {
         display: flex;
         justify-content: space-between;
-        margin-top: rem(0);
-        margin-left: rem(16);
+        margin-top: pxToRem(0);
+        margin-left: pxToRem(16);
         @media (min-width: $tablet-screen) {
-            margin-left: rem(32);
+            margin-left: pxToRem(32);
         }
     }
 }
 .usa-banner__header-text-wrapper{
-    margin-top: rem(4);
+    margin-top: pxToRem(4);
 }
 .usa-banner__wrapper  {
     background-color: $theme-color-background;
@@ -25,28 +25,28 @@
     @include flex-direction(row);
     @include align-items(center);
 
-    margin: rem(0) rem(16);
+    margin: pxToRem(0) pxToRem(16);
     @media (min-width: $tablet-screen) {
-        margin: rem(0) rem(32);
+        margin: pxToRem(0) pxToRem(32);
 }
     .mobile-nav_back-button-container {
         display: flex;
         color: #2378c3;
         background-color: $color-white;
-        padding-top: rem(23);
+        padding-top: pxToRem(23);
         &:hover {
             cursor: pointer;
         }
         .mobile-nav_back-button{
-            padding-left: rem(2);
+            padding-left: pxToRem(2);
             font-size: $font-size-14;
             font-weight: $font-semibold;
             object-fit: contain;
             margin: 1px 4px 1px 0;
         }
         .mobile-nav_back-button-icon {
-            width: rem(16);
-            height: rem(16);
+            width: pxToRem(16);
+            height: pxToRem(16);
             line-height: 1.29;
             svg {
                 width: 6px;
@@ -62,27 +62,27 @@
     .mobile-nav-header__close {
         @include flex(0 0 auto);
         position: relative;
-        height: rem(26);
-        width: rem(26);
+        height: pxToRem(26);
+        width: pxToRem(26);
         color: $gray-cool-90;
         .mobile-nav-header__close-button {
             @include button-unstyled;
-            height: rem(26);
-            width: rem(26);
+            height: pxToRem(26);
+            width: pxToRem(26);
             svg {
-                height: rem(16);
-                width: rem(16);
+                height: pxToRem(16);
+                width: pxToRem(16);
                 color: $gray-cool-90;
             }
         }
         .mobile-nav-header__close-button-section {
-            margin-top: rem(12) !important;
+            margin-top: pxToRem(12) !important;
             @include button-unstyled;
-            height: rem(26);
-            width: rem(26);
+            height: pxToRem(26);
+            width: pxToRem(26);
             svg {
-                height: rem(16);
-                width: rem(16);
+                height: pxToRem(16);
+                width: pxToRem(16);
                 color: $gray-cool-90;
             }
         }
@@ -104,7 +104,7 @@
         line-height: 1.25;
         font-weight: $font-semibold;
         width: 100%;
-        padding-right: rem(8);
+        padding-right: pxToRem(8);
         &:active, &:hover {
             opacity: 1;
         }
@@ -120,13 +120,13 @@
             display: contents;
             color: $theme-color-1;
             margin-left: auto;
-            width: rem(20);
-            height: rem(20);
+            width: pxToRem(20);
+            height: pxToRem(20);
             object-fit: contain;
             background-color: $blue-warm-5;
             svg {
-                width: rem(6);
-                height: rem(9.8);
+                width: pxToRem(6);
+                height: pxToRem(9.8);
                 fill: $theme-color-1;
             }
         }

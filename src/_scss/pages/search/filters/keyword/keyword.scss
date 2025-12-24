@@ -15,11 +15,11 @@
 
     .keyword-input {
         @include flex(1 1 auto);
-        margin-right: rem(4);
+        margin-right: pxToRem(4);
         font-size: $small-font-size;
         color: $color-base;
-        line-height: rem(36);
-        height: rem(40);
+        line-height: pxToRem(36);
+        height: pxToRem(40);
 
         @include placeholder {
             color: $color-placeholder;
@@ -53,8 +53,8 @@
         }
 
         .tooltip__hover-wrapper svg {
-            height: rem(16);
-            width: rem(16);
+            height: pxToRem(16);
+            width: pxToRem(16);
         }
 
         .new-tooltip-spacer {
@@ -62,8 +62,8 @@
 
             .new-tooltip__icon {
                 color: $color-gray-lighter;
-                max-width: rem(16);
-                max-height: rem(16);
+                max-width: pxToRem(16);
+                max-height: pxToRem(16);
 
                 &:hover {
                     color: $color-base;
@@ -78,12 +78,12 @@
 
     .keyword-input {
         @include flex(1 1 auto);
-        margin: 0 rem(4) 0 0;
+        margin: 0 pxToRem(4) 0 0;
         font-size: $smallest-font-size;
         line-height: 1.5;
-        height: rem(32);
-        border-radius: rem(3);
-        border: rem(1) solid $gray-cool-10;
+        height: pxToRem(32);
+        border-radius: pxToRem(3);
+        border: pxToRem(1) solid $gray-cool-10;
 
         @include placeholder {
             color: $gray-60;
@@ -92,7 +92,7 @@
 
     .keyword-input-wrapper .button__sm {
         font-size: $smallest-font-size;
-        padding: rem(7) rem(12);
+        padding: pxToRem(7) pxToRem(12);
         margin: 0;
     }
 

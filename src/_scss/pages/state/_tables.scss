@@ -28,13 +28,13 @@
     background-color: rgb(246, 246, 246);
 
     .results-table-loading {
-        margin-bottom: rem(100);
+        margin-bottom: pxToRem(100);
     }
 
     .no-results-container {
         text-align: center;
-        margin-top: rem(100);
-        margin-bottom: rem(100);
+        margin-top: pxToRem(100);
+        margin-bottom: pxToRem(100);
 
         .no-results-title {
             h4 {
@@ -57,23 +57,23 @@
 
     .results-table-error {
         .icon {
-            width: rem(36);
-            height: rem(36);
+            width: pxToRem(36);
+            height: pxToRem(36);
 
             svg {
-                width: rem(36);
-                height: rem(36);
+                width: pxToRem(36);
+                height: pxToRem(36);
             }
         }
 
         .title {
-            font-size: rem(20);
-            line-height: rem(45);
+            font-size: pxToRem(20);
+            line-height: pxToRem(45);
         }
 
         .description {
-            font-size: rem(16);
-            line-height: rem(10);
+            font-size: pxToRem(16);
+            line-height: pxToRem(10);
         }
     }
 }

@@ -8,21 +8,21 @@
             @include flex-wrap(nowrap);
         }
         .column {
-            margin-right: rem(20);
+            margin-right: pxToRem(20);
             .time-period-button {
                 @include button-unstyled();
                 width: 100%;
                 display: block;
                 color: $color-gray;
-                font-size: rem(20);
+                font-size: pxToRem(20);
                 font-weight: 300;
-                line-height: rem(37);
-                margin: rem(5) 0;
-                padding: 0 rem(5);
+                line-height: pxToRem(37);
+                margin: pxToRem(5) 0;
+                padding: 0 pxToRem(5);
                 &.active, &:hover {
                     background-color: $color-primary;
                     color: $color-white;
-                    border-radius: rem(5);
+                    border-radius: pxToRem(5);
                 }
             }
         }

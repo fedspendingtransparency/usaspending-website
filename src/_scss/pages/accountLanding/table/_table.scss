@@ -5,8 +5,8 @@
     }
 
     .results-table__message {
-        margin: rem(90) auto;
-        font-size: rem(36);
+        margin: pxToRem(90) auto;
+        font-size: pxToRem(36);
         font-weight: 300;
         color: $color-base;
         text-align: center;

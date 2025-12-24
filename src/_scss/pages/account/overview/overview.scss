@@ -2,17 +2,17 @@
     @import '../../../mixins/setText';
     @import 'elements/_divider';
     background-color: $color-white;
-    padding: rem(30);
-    margin-bottom: rem(40);
+    padding: pxToRem(30);
+    margin-bottom: pxToRem(40);
 
     .usda-section-title__sectionHeader:first-of-type {
         margin-top: 0;
         .usda-section-title__header {
             .usda-section-title__title {
                 h3 {
-                    font-size: rem(36);
+                    font-size: pxToRem(36);
                     font-weight: $font-semibold;
-                    line-height: rem(45);
+                    line-height: pxToRem(45);
                     margin-bottom: $global-margin * 2;
                 }
             }
@@ -24,7 +24,7 @@
             margin-left: 0;
             .usda-section-title__title {
                 h3 {
-                    font-size: rem(18);
+                    font-size: pxToRem(18);
                 }
             }
         }
@@ -33,7 +33,7 @@
 
 
     hr.results-divider {
-        margin: rem(9) 0 rem(10) 0;
+        margin: pxToRem(9) 0 pxToRem(10) 0;
         border-bottom: 1px solid $color-gray-light;
     }
 
@@ -42,9 +42,9 @@
         font-size: $small-font-size;
 
         .account-overview__heading {
-            padding: rem(28) 0 rem(5);
+            padding: pxToRem(28) 0 pxToRem(5);
             font-weight: $font-semibold;
-            font-size: rem(19);
+            font-size: pxToRem(19);
         }
 
         .account-overview__heading:first-of-type {
@@ -66,7 +66,7 @@
 
         .sankey-disclosures {
             text-align: left;
-            margin-top: rem(20);
+            margin-top: pxToRem(20);
 
             .disclosure-title {
                 font-weight: $font-semibold;

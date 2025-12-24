@@ -13,7 +13,7 @@
     }
 
     .dsm__heading {
-        font-size: rem(30);
+        font-size: pxToRem(30);
         text-align: left;
         font-weight: 600;
         border-bottom: 1px solid;
@@ -26,8 +26,8 @@
     }
 
     .dsm__topSection p {
-        font-size: rem(14);
-        margin-top: rem(20);
+        font-size: pxToRem(14);
+        margin-top: pxToRem(20);
         text-align: left;
     }
 
@@ -43,14 +43,14 @@
             margin-right: auto;
         }
 
-        margin-top: rem(25);
+        margin-top: pxToRem(25);
         padding-left: 2%;
-        font-size: rem(14);
+        font-size: pxToRem(14);
     }
 
     .otherResources__list>li {
         list-style: disc;
-        padding-bottom: rem(10);
+        padding-bottom: pxToRem(10);
 
         .other-resources__link__container {
             @include display(flex);

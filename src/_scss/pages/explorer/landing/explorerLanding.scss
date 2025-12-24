@@ -1,11 +1,11 @@
 .explorer-landing {
 
     .explorer-landing__intro {
-        padding: rem(64) 0 rem(32);
+        padding: pxToRem(64) 0 pxToRem(32);
         text-align: center;
 
         @include media($large-screen) {
-            width: rem(1110);
+            width: pxToRem(1110);
             margin-left: auto;
             margin-right: auto;
             padding-left: 0;
@@ -13,12 +13,12 @@
         }
 
         @include media($x-large-screen) {
-            width: rem(1280);
+            width: pxToRem(1280);
         }
 
         h2.explorer-landing__title {
             margin: 0;
-            padding-bottom: rem(24);
+            padding-bottom: pxToRem(24);
             font-size: $font-size-40;
             color: $gray-90;
             font-weight: $font-semibold;
@@ -26,7 +26,7 @@
         }
 
         .explorer-landing__detail {
-            padding: rem(16);
+            padding: pxToRem(16);
 
             .explorer-landing__detail-content {
                 margin: 0 auto;
@@ -39,7 +39,7 @@
     }
 
     .explorer-description {
-        max-width: rem(945);
+        max-width: pxToRem(945);
 
         h3.explorer-description__title {
             margin: 0;
@@ -55,7 +55,7 @@
             font-weight: $font-semibold;
             font-size: $font-size-20;
             line-height: $base-line-height;
-            margin-top: rem(25);
+            margin-top: pxToRem(25);
         }
 
         .explorer-description__content {
@@ -68,8 +68,8 @@
                 line-height: $base-line-height;
 
                 .usda-glossary-link svg {
-                    width: rem(15);
-                    height: rem(15);
+                    width: pxToRem(15);
+                    height: pxToRem(15);
                     color: $color-base;
                 }
             }
@@ -83,8 +83,8 @@
         @include align-items(center);
         position: relative;
 
-        padding-left: rem(30);
-        padding-right: rem(30);
+        padding-left: pxToRem(30);
+        padding-right: pxToRem(30);
 
         @include media($large-screen) {
             @include flex-direction(row);
@@ -94,6 +94,6 @@
 
         @import "./_option";
 
-        padding-bottom: rem(230);
+        padding-bottom: pxToRem(230);
     }
 }

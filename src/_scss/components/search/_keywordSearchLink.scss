@@ -11,18 +11,18 @@
         margin-top: $global-margin * 3;
     }
     .advanced-search__keyword-search-link-col1{
-        width: rem(24);
-        height: rem(24);
+        width: pxToRem(24);
+        height: pxToRem(24);
         .advanced-search__keyword-search-icon {
-            width: rem(16);
-            height: rem(16);
+            width: pxToRem(16);
+            height: pxToRem(16);
             color: $theme-color-1;
             margin-right: $global-margin;
         }
     }
     .advanced-search__keyword-search-link-col2 {
         .advanced-search__keyword-search-link-text {
-            font-size: rem(14);
+            font-size: pxToRem(14);
             font-weight: normal;
             font-stretch: normal;
             font-style: normal;
@@ -33,7 +33,7 @@
             margin: 0;
         }
         .advanced-search__keyword-search-link {
-            font-size: rem(14);
+            font-size: pxToRem(14);
             font-weight: $font-semibold;
             font-stretch: normal;
             font-style: normal;

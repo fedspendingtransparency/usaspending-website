@@ -1,6 +1,6 @@
 .metadata-dl {
     @include media($medium-screen) {
-        padding: 0 rem(30);
+        padding: 0 pxToRem(30);
     }
     .metadata__title {
         margin-top: 0;
@@ -8,8 +8,8 @@
     }
     .metadata__intro {
         font-size: $small-font-size;
-        margin-bottom: rem(12);
-        max-width: rem(565);
+        margin-bottom: pxToRem(12);
+        max-width: pxToRem(565);
     }
     .metadata-download-button {
         a {
@@ -22,23 +22,23 @@
         @include justify-content(left);
         @include align-items(left);
         position: relative;
-        width: rem(280);
+        width: pxToRem(280);
 
         @include transition(opacity 0.2s ease-in-out);
 
         .full-menu__item--button {
             height: 4.8rem;
-            margin-top: rem(20);
+            margin-top: pxToRem(20);
             border: 1px solid $color-primary;
-            font-size: rem(14);
+            font-size: pxToRem(14);
             font-weight: bold;
-            line-height: rem(18);
+            line-height: pxToRem(18);
             @include display(flex);
             @include align-items(center);
-            padding: rem(5.5) rem(12.5);
+            padding: pxToRem(5.5) pxToRem(12.5);
             svg {
-                font-size: rem(20);
-                margin-right: rem(12.5);
+                font-size: pxToRem(20);
+                margin-right: pxToRem(12.5);
             }
         }
 

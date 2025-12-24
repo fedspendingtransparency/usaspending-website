@@ -5,7 +5,7 @@
             font-size: $h4-font-size;
             font-weight: $font-light;
 
-            margin: rem(20) 0;
+            margin: pxToRem(20) 0;
         }
     }
 
@@ -17,20 +17,20 @@
             position: relative;
         }
 
-        margin-bottom: rem(20);
+        margin-bottom: pxToRem(20);
 
         .level-option {
             &:first-child {
-                margin-bottom: rem(20);
+                margin-bottom: pxToRem(20);
             }
 
             @include media($medium-screen) {
                 @include flex(1 1 auto);
-                margin-left: rem(10);
+                margin-left: pxToRem(10);
                 &:first-child {
                     margin-left: 0;
                     margin-bottom: 0;
-                    margin-right: rem(10);
+                    margin-right: pxToRem(10);
                 }
             }
 
@@ -42,9 +42,9 @@
 
             .level-button {
                 @include flex(1 1 auto);
-                padding: rem(10) rem(40);
+                padding: pxToRem(10) pxToRem(40);
 
-                margin-bottom: rem(20);
+                margin-bottom: pxToRem(20);
 
                 background-color: transparent;
                 border: 2px solid $color-primary-darker;

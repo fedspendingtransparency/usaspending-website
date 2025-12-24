@@ -1,6 +1,6 @@
 .search-option .def-code-filter {
-  margin-bottom: rem(12);
-  padding: rem(12);
+  margin-bottom: pxToRem(12);
+  padding: pxToRem(12);
 
   .def-checkbox-tree {
     margin-bottom: 2rem;
@@ -38,8 +38,8 @@
                 color: white;
                 display: flex;
                 align-items: center;
-                padding: rem(5) rem(10);
-                font-size: rem(16);
+                padding: pxToRem(5) pxToRem(10);
+                font-size: pxToRem(16);
                 border: 1px solid #C7C7C7;
                 border-radius: 4px;
               }
@@ -51,8 +51,8 @@
                 color: $color-gray-medium;
                 display: flex;
                 align-items: center;
-                padding: rem(5) rem(10);
-                font-size: rem(16);
+                padding: pxToRem(5) pxToRem(10);
+                font-size: pxToRem(16);
                 border-radius: 4px;
               }
             }
@@ -60,7 +60,7 @@
 
           .rct-node-leaf .rct-text .rct-title .checkbox-tree-label .checkbox-tree-label__label {
             &.multiple-label {
-              padding-bottom: rem(10);
+              padding-bottom: pxToRem(10);
 
               &:last-of-type {
                 padding-bottom: 0;

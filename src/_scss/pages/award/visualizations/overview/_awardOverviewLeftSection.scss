@@ -9,11 +9,11 @@
     }
     .award__heading-icon {
         @include display(inline-flex);
-        padding-left: rem(10);
+        padding-left: pxToRem(10);
         svg {
             @include display(flex);
-            height: rem(20);
-            width: rem(20);
+            height: pxToRem(20);
+            width: pxToRem(20);
         }
         &:focus {
             svg {
@@ -26,7 +26,7 @@
         font-weight: $font-semibold;
     }
     .award-overview__left-section__agency-name__recipient {
-        margin-bottom: rem(2.5);
+        margin-bottom: pxToRem(2.5);
     }
     // recipient address
     .award-overview__left-section__recipient-address-container {
@@ -36,18 +36,18 @@
             align-self: flex-end;
             .tooltip-wrapper {
                 .tooltip__icon {
-                    height: rem(14);
-                    width: rem(14);
+                    height: pxToRem(14);
+                    width: pxToRem(14);
                 }
                 svg {
-                    margin: 0 rem(7.5);
+                    margin: 0 pxToRem(7.5);
                 }
             }
         }
     }
     // recipient text
     .award-overview__left-section__aggregated-text {
-        font-size: rem(14);
+        font-size: pxToRem(14);
         font-weight: $font-light;
     }
     .award-overview__left-section__aggregated-text:last-of-type {

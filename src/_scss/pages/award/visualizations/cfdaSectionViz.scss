@@ -48,7 +48,7 @@
     }
     .award-amounts-viz {
       .award-amounts-viz__bar-wrapper.cfda-viz {
-        height: rem(40);
+        height: pxToRem(40);
       }
       .award-amounts-viz__desc.top.cfda-viz {
         border-left: solid 0.4rem $color-vis-green-darkest;

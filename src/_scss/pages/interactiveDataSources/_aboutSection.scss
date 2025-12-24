@@ -7,7 +7,7 @@
         line-height: $heading-line-height;
         letter-spacing: normal;
         color: $gray-90;
-        font-size: rem(28);
+        font-size: pxToRem(28);
         margin: 36px 0px 20px;
         @media (max-width: $medium-screen) {
         margin: 32px 16px 20px;
@@ -15,7 +15,7 @@
     }
 
     .scroller-overlay-card-content {
-        padding-top: rem(20);
+        padding-top: pxToRem(20);
         padding-bottom: 0px;
     }
 
@@ -47,7 +47,7 @@
           margin: 40px 16px 2px;
         }
         margin: 40px 0px 2px;
-        font-size: rem(20);
+        font-size: pxToRem(20);
         font-weight: $font-semibold;
         font-stretch: normal;
         font-style: normal;
@@ -70,7 +70,7 @@
             border-bottom: 3px solid $color-primary;
             line-height: 1.5 !important;
             width: 84%;
-            @media (min-width: 408px) {
+            @media (min-width: 408) {
                 line-height: 1.75 !important;
                 width: unset;
             }
@@ -93,8 +93,8 @@
 
         h4 {
             color: $color-white;
-            font-size: rem(20);
-            line-height: rem(30);
+            font-size: pxToRem(20);
+            line-height: pxToRem(30);
             font-weight: $font-semibold;
             margin: auto 12%;
             font-stretch: normal;
@@ -113,8 +113,8 @@
 
             h5 {
                 color: $color-white;
-                font-size: rem(15);
-                line-height: rem(20);
+                font-size: pxToRem(15);
+                line-height: pxToRem(20);
                 font-weight: $font-semibold;
                 font-stretch: normal;
                 font-style: normal;
@@ -133,21 +133,21 @@
                     border-radius: 50%;
                     color: white;
                     fill: white;
-                    font-size: rem(45);
+                    font-size: pxToRem(45);
                     margin: 0 auto;
                     padding: 10px;
-                    width: rem(50);
+                    width: pxToRem(50);
                     text-align: center;
                     animation: moveUpDown 1.5s linear infinite;
-                    transform: translateY(0px);
+                    transform: translateY(0);
                 }
 
                 @keyframes moveUpDown {
                     0%, 100% {
-                        transform: translateY(0px);
+                        transform: translateY(0);
                     }
                     50% {
-                        transform: translateY(-10px);
+                        transform: translateY(-10);
                     }
                 }
             }

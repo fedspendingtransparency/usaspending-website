@@ -1,7 +1,7 @@
 .geo-entity-list {
     @include unstyled-list;
     z-index: $z-header - 1;
-    max-height: rem(680);
+    max-height: pxToRem(680);
     margin: 0;
     list-style-type: none;
     padding-left: 0;
@@ -13,14 +13,14 @@
 
     li {
         display: block;
-        min-width: rem(250);
+        min-width: pxToRem(250);
     }
 
     .list-item {
         @include button-unstyled;
         color: $color-gray;
         font-size: $small-font-size;
-        padding: rem(10);
+        padding: pxToRem(10);
 
         width: 100%;
 

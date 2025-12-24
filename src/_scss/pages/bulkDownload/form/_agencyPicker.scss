@@ -1,6 +1,6 @@
 .filter-picker {
     @import 'elements/_titleSelector';
-    padding-top: rem(15);
+    padding-top: pxToRem(15);
     &:first-child {
         padding-top: 0;
     }
@@ -8,8 +8,8 @@
     .select-label {
         display: block;
         text-transform: uppercase;
-        font-size: rem(13);
-        line-height: rem(17);
+        font-size: pxToRem(13);
+        line-height: pxToRem(17);
     }
     .field-picker {
         display: block;
@@ -20,13 +20,13 @@
             @include button-unstyled;
 
             border-bottom: 1px solid $color-gray-light;
-            padding: rem(4);
+            padding: pxToRem(4);
             .label {
                 @include display(flex);
                 @include flex(1 1 auto);
                 color: $color-gray;
-                font-size: rem(21);
-                line-height: rem(24);
+                font-size: pxToRem(21);
+                line-height: pxToRem(24);
                 font-weight: 200;
             }
             .arrow-icon {
@@ -48,7 +48,7 @@
             ul {
                 background-color: $color-white;
                 border: 1px solid $color-gray-lighter;
-                max-height: rem(400);
+                max-height: pxToRem(400);
                 overflow-y: scroll;
 
                 li.field-item {
@@ -57,7 +57,7 @@
                         @include button-unstyled;
                         color: $color-gray;
                         font-size: $small-font-size;
-                        padding: rem(10);
+                        padding: pxToRem(10);
                         width: 100%;
 
                         &:hover, &:active, &.active {
@@ -73,7 +73,7 @@
                     }
                     &.indent {
                         .item-button {
-                            padding: rem(10) rem(10) rem(10) rem(15);
+                            padding: pxToRem(10) pxToRem(10) pxToRem(10) pxToRem(15);
                         }
                     }
                 }

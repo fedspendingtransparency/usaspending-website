@@ -2,16 +2,16 @@
     .uei-modal-header {
         background: $color-primary-darker !important;
         h1 {
-            padding-left: rem(24) !important;
+            padding-left: pxToRem(24) !important;
         }
     }
     .uei-modal-body {
         text-align: left !important;
-        padding: 2rem 1.5rem 5rem rem(24) !important;
+        padding: 2rem 1.5rem 5rem pxToRem(24) !important;
     }
     .usa-dt-modal.covid-modal {
         width: 100%;
-        @media screen and (max-width: 500px) {
+        @media screen and (max-width: 500) {
             max-width: 38rem;
             max-height: 128rem;
         }
@@ -21,12 +21,12 @@
                 color: $color-white;
                 @include display(flex);
                 h1 {
-                    margin-top: rem(17);
-                    margin-bottom: rem(17);
-                    font-size: rem(30);
-                    line-height: rem(35);
+                    margin-top: pxToRem(17);
+                    margin-bottom: pxToRem(17);
+                    font-size: pxToRem(30);
+                    line-height: pxToRem(35);
                     padding: 0;
-                    padding-left: rem(30);
+                    padding-left: pxToRem(30);
                     @include align-items(flex-start);
                     @include justify-content(flex-start);
                 }
@@ -34,20 +34,20 @@
             .usa-dt-modal__close-button {
                 @include align-self(flex-start);
                 svg {
-                    width: rem(20);
-                    height: rem(20);
+                    width: pxToRem(20);
+                    height: pxToRem(20);
                 }
             }
         }
         .usa-dt-modal__body {
             &.covid-modal-body {
-                padding: rem(30) rem(30) rem(15) rem(30);
+                padding: pxToRem(30) pxToRem(30) pxToRem(15) pxToRem(30);
             }
             .covid-modal-h2 {
-                font-size: rem(19);
+                font-size: pxToRem(19);
                 font-weight: 400;
                 text-align: left;
-                line-height: rem(24);
+                line-height: pxToRem(24);
             }
 
             .covid-modal-bold {
@@ -56,41 +56,41 @@
 
             .covid-modal-li {
                 text-align: left;
-                font-size: rem(14);
-                line-height: rem(18);
+                font-size: pxToRem(14);
+                line-height: pxToRem(18);
             }
             .usa-dt-modal__link {
                 @include display(flex);
                 button {
-                    height: rem(36);
-                    width: rem(158);
+                    height: pxToRem(36);
+                    width: pxToRem(158);
                 }
                 &.covid-modal-button {
-                    margin-top: rem(45);
+                    margin-top: pxToRem(45);
                     @include display(flex);
                     @include justify-content(center);
                 }
             }
             .modal-disclaimer {
-                margin: rem(14) 0 rem(2);
+                margin: pxToRem(14) 0 pxToRem(2);
                 @include usa-alert-warning;
                 @include display(flex);
                 border: solid 1px $color-gold;
                 text-align: left;
-                padding: rem(18) rem(10);
+                padding: pxToRem(18) pxToRem(10);
                 .modal-disclaimer__icon {
                     @include flex(0 0 auto);
                     color: $color-gold;
-                    font-size: rem(26);
-                    margin-right: rem(10);
+                    font-size: pxToRem(26);
+                    margin-right: pxToRem(10);
                 }
                 .modal-disclaimer__text {
                     @include flex (1 1 auto);
                     h2 {
-                        margin: 0 0 rem(6);
+                        margin: 0 0 pxToRem(6);
                         font-weight: $font-semibold;
-                        font-size: rem(18);
-                        line-height: rem(22);
+                        font-size: pxToRem(18);
+                        line-height: pxToRem(22);
                     }
                     p {
                         margin: 0;
@@ -106,8 +106,8 @@
                 }
                 li {
                     text-align: left;
-                    font-size: rem(14);
-                    line-height: rem(18);
+                    font-size: pxToRem(14);
+                    line-height: pxToRem(18);
                 }
             }
         }
@@ -118,19 +118,19 @@
 
 @include media($tablet-screen) {
     .usa-dt-modal.covid-modal {
-        width: rem(768);
+        width: pxToRem(768);
         .usa-dt-modal__header {
             &.covid-header {
                 h1 {
-                    font-size: rem(34);
-                    line-height: rem(42);
-                    padding-left: rem(80);
+                    font-size: pxToRem(34);
+                    line-height: pxToRem(42);
+                    padding-left: pxToRem(80);
                 }
             }
         }
         .usa-dt-modal__body {
             &.covid-modal-body {
-                padding: rem(10) rem(80) rem(10) rem(80);
+                padding: pxToRem(10) pxToRem(80) pxToRem(10) pxToRem(80);
             }
         }
     }
@@ -138,6 +138,6 @@
 
 @include media($large-screen) {
     .usa-dt-modal.covid-modal {
-        width: rem(1056);
+        width: pxToRem(1056);
     }
 }

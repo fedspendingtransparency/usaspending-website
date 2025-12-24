@@ -1,12 +1,12 @@
 .def-code-filter-download {
-  margin-bottom: rem(12);
-  padding: rem(12);
+  margin-bottom: pxToRem(12);
+  padding: pxToRem(12);
   padding-left: 0;
   padding-bottom: 0;
 
   .def-checkbox-tree {
     margin-bottom: 0rem;
-    // border-bottom: rem(1) solid rgb(214, 215, 217);
+    // border-bottom: pxToRem(1) solid rgb(214, 215, 217);
 
     .react-checkbox-tree {
       max-height: none;
@@ -14,7 +14,7 @@
       ol {
         padding-left: 0;
         border-left: none;
-        margin: rem(16) 0;
+        margin: pxToRem(16) 0;
 
         .rct-node:nth-child(n) ol {
           border-left: none;
@@ -35,7 +35,7 @@
 
           .rct-node-leaf .rct-text .rct-title .checkbox-tree-label .checkbox-tree-label__label {
             &.multiple-label {
-              padding-bottom: rem(10);
+              padding-bottom: pxToRem(10);
               &:last-of-type {
                 padding-bottom: 0;
               }
@@ -56,7 +56,7 @@
         }
 
         .rct-node:nth-child(n) {
-          margin-left: rem(20);
+          margin-left: pxToRem(20);
 
           .rct-text {
             width: 100%;
@@ -102,37 +102,37 @@
             label {
               width: 100%;
               @include display(flex);
-              margin-bottom: rem(8);
+              margin-bottom: pxToRem(8);
               margin-left: 0;
 
               .rct-checkbox {
                 @include display(flex);
                 @include flex-direction(column);
                 @include align-items(top);
-                padding: rem(2.5) rem(5) rem(2.5) rem(5);
+                padding: pxToRem(2.5) pxToRem(5) pxToRem(2.5) pxToRem(5);
 
                 .rct-icon-uncheck {
                   color: white;
                   border: 1px solid $color-gray-medium;
                   border-radius: 3px;
-                  height: rem(15);
-                  width: rem(15);
+                  height: pxToRem(15);
+                  width: pxToRem(15);
                 }
 
                 .rct-icon-check {
                   color: $color-primary;
-                  height: rem(15);
-                  width: rem(15);
+                  height: pxToRem(15);
+                  width: pxToRem(15);
                 }
 
                 .rct-icon-half-check {
                   color: $color-primary;
-                  height: rem(15);
-                  width: rem(15);
+                  height: pxToRem(15);
+                  width: pxToRem(15);
                 }
 
                 svg {
-                  margin: rem(2) rem(1);
+                  margin: pxToRem(2) pxToRem(1);
 
                   &:focus {
                     outline: none;
@@ -159,7 +159,7 @@
                     padding: 0;
                     border-radius: 2px;
                     font-weight: $font-bold;
-                    font-size: rem(14);
+                    font-size: pxToRem(14);
                     background-color: transparent;
 
                     .highlight {
@@ -168,11 +168,11 @@
                   }
 
                   .checkbox-tree-label__value-container-count {
-                    padding: rem(1.5) rem(7);
+                    padding: pxToRem(1.5) pxToRem(7);
                     border-radius: 3px;
                     color: $color-gray-medium;
                     font-style: italic;
-                    font-size: rem(12);
+                    font-size: pxToRem(12);
 
                     .highlight {
                       background-color: transparent;
@@ -182,7 +182,7 @@
 
                 .checkbox-tree-label__label {
                   @include flex-basis(100%);
-                  line-height: rem(18);
+                  line-height: pxToRem(18);
                   color: $color-base;
 
                   .highlight {

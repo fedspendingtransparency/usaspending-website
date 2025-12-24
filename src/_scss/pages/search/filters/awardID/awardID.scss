@@ -6,7 +6,7 @@
     @import "../_singleSubmit";
 
     .shown {
-        min-height: rem(18);
+        min-height: pxToRem(18);
     }
     .visually-hidden {
         display: none;
@@ -16,7 +16,7 @@
     }
 
     .award-id-filter-description {
-        margin-bottom: rem(16);
+        margin-bottom: pxToRem(16);
         color: $gray-90;
         font-size: $font-size-12;
         line-height: $base-line-height;
@@ -44,7 +44,7 @@
                     }
                 }
 
-                max-height: rem(32);
+                max-height: pxToRem(32);
                 font-size: $smallest-font-size;
                 line-height: 1.5;
                 color: $gray-90;
@@ -63,11 +63,11 @@
                 cursor: pointer;
             }
 
-            margin: 0 0 0 rem(4);
+            margin: 0 0 0 pxToRem(4);
             line-height: 1.5;
             @include new-search-button;
 
-            @media screen and (max-width: 320px) {
+            @media screen and (max-width: 320) {
                 width: auto;
             }
         }

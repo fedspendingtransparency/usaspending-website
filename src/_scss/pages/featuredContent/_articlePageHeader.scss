@@ -27,10 +27,10 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        margin-left: rem(16);
+        margin-left: pxToRem(16);
         
         @media (min-width: $tablet-screen) {
-            margin-left: rem(32);
+            margin-left: pxToRem(32);
         }
         @media (min-width: $m-large-screen) {
             margin-left: $grid-column;
@@ -46,8 +46,8 @@
         }
 
         .featured-content__label {
-            padding: rem(6) rem(8);
-            border-radius: rem(6);
+            padding: pxToRem(6) pxToRem(8);
+            border-radius: pxToRem(6);
             font-size: $font-size-12;
             font-style: normal;
             font-weight: $font-semibold;
@@ -58,19 +58,19 @@
             width: max-content;
 
             @media(min-width: $tablet-screen) {
-                padding: rem(8);
-                border-radius: rem(8);
+                padding: pxToRem(8);
+                border-radius: pxToRem(8);
                 line-height: 15px;
                 font-size: $font-size-17;
             }
         }
         .featured-content__title {
             display: block;
-            margin-top: rem(12.5);
-            font-size: rem(28);
+            margin-top: pxToRem(12.5);
+            font-size: pxToRem(28);
 
             @media(min-width: $tablet-screen) {
-                margin-top: rem(16);
+                margin-top: pxToRem(16);
                 font-size: $font-size-48;
                 line-height: 56px;
             }
@@ -82,12 +82,12 @@
         }
         .featured-content__subtitle {
             display: block;
-            margin-top: rem(8);
+            margin-top: pxToRem(8);
             font-size: $font-size-14;
 
             @media(min-width: $tablet-screen) {
                 font-size: $font-size-20;
-                margin-top: rem(8);
+                margin-top: pxToRem(8);
                 line-height: normal;
             }
             @media(min-width: $medium-screen) {

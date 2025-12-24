@@ -96,13 +96,13 @@
         font-size: $font-size-10;
         color: $gray-60;
         white-space: nowrap;
-        padding-top: rem(4);
+        padding-top: pxToRem(4);
       }
 
       &__value-container-value {
         text-align: center;
-        padding: 0 rem(4);
-        margin-right: rem(4);
+        padding: 0 pxToRem(4);
+        margin-right: pxToRem(4);
         font-size: $font-size-10;
         background-color: $color-gray-lightest;
         border-radius: 2px;
@@ -117,7 +117,7 @@
       }
       &__label {
         font-size: $font-size-12;
-        margin-bottom: rem(12);
+        margin-bottom: pxToRem(12);
         padding-top: 0 !important;
         font-weight: $font-semibold;
         line-height: 1.8rem;
@@ -149,7 +149,7 @@
     @extend .psc-search-container ;
 
     .autocomplete__input {
-      padding: rem(10) 0;
+      padding: pxToRem(10) 0;
     }
   }
 
@@ -157,7 +157,7 @@
     padding: unset !important; // TODO remove after search 2.0 is released
 
     .defc-filter-message-container {
-      font-size: rem(30);
+      font-size: pxToRem(30);
       text-align: center;
       margin-top: $global-margin;
 
@@ -168,20 +168,20 @@
     }
 
     li {
-      margin-bottom: rem(12) !important; // TODO remove after search 2.0 is released
+      margin-bottom: pxToRem(12) !important; // TODO remove after search 2.0 is released
     }
 
     .checkbox-filter__header {
-      margin-bottom: rem(16) !important; // TODO remove after search 2.0 is released
+      margin-bottom: pxToRem(16) !important; // TODO remove after search 2.0 is released
     }
 
     .checkbox-tree-label {
       .checkbox-tree-label__value-container {
         background: $gray-cool-5;
-        border-radius: rem(2);
+        border-radius: pxToRem(2);
         display: inline-block;
-        padding: rem(2.5);
-        height: rem(18);
+        padding: pxToRem(2.5);
+        height: pxToRem(18);
 
         .checkbox-tree-label__value-container-value {
           color: $gray-90;
@@ -193,7 +193,7 @@
 
     .checkbox-tree-label .checkbox-tree-label__label {
       &.multiple-label {
-        padding-bottom: rem(8);
+        padding-bottom: pxToRem(8);
 
         &:last-of-type {
           padding-bottom: 0;
@@ -203,7 +203,7 @@
       span {
         font-size: $font-size-10;
         font-style: italic;
-        line-height: rem(1.8);
+        line-height: pxToRem(1.8);
         color: $gray-60;
       }
       span.highlight {

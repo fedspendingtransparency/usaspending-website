@@ -3,7 +3,7 @@
   $color-title-background: $color-white;
   $color-tooltip-border: $color-gray-light;
 
-  width: rem(200);
+  width: pxToRem(200);
   pointer-events: none;
   position: absolute;
   z-index: 3;
@@ -11,7 +11,7 @@
   border: 1px solid $color-gray-light;
   box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.1);
   background-color: $color-white;
-  padding: rem(16);
+  padding: pxToRem(16);
 
   @import "./_arrow";
 
@@ -25,7 +25,7 @@
   .tooltip-body {
     @include display(flex);
     @include justify-content(space-between);
-    padding: rem(16) 0 0 0;
+    padding: pxToRem(16) 0 0 0;
 
     &.center {
       width: 100%;

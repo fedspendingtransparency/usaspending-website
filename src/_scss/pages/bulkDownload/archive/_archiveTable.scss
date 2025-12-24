@@ -5,9 +5,9 @@
         thead {
             tr {
                 th {
-                    font-size: rem(14);
+                    font-size: pxToRem(14);
                     font-weight: 600;
-                    line-height: rem(18);
+                    line-height: pxToRem(18);
                     color: $color-white;
                     background-color: $color-base;
                     border: solid 1px $color-gray-light;

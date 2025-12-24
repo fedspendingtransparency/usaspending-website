@@ -1,17 +1,17 @@
 .landing-option {
     @include flex(0 0 auto);
-    padding: rem(30);
+    padding: pxToRem(30);
 
     width: 100%;
 
-    margin-top: rem(30);
+    margin-top: pxToRem(30);
     &:first-child {
         margin-top: 0;
     }
 
     @include media($large-screen) {
-        width: rem(350);
-        margin-left: rem(30);
+        width: pxToRem(350);
+        margin-left: pxToRem(30);
         margin-top: 0;
 
         &:first-child {
@@ -19,25 +19,25 @@
         }
     }
     @include media($x-large-screen) {
-        width: rem(400);
+        width: pxToRem(400);
     }
 
     background-color: $color-gray;
-    border-radius: rem(8);
+    border-radius: pxToRem(8);
     color: $color-white;
     text-align: center;
 
     .landing-option__icon {
-        width: rem(50);
-        height: rem(50);
+        width: pxToRem(50);
+        height: pxToRem(50);
         margin-left: auto;
         margin-right: auto;
 
-        margin-bottom: rem(30);
+        margin-bottom: pxToRem(30);
 
         svg {
-            width: rem(50);
-            height: rem(50);
+            width: pxToRem(50);
+            height: pxToRem(50);
             fill: $color-white;
             opacity: 0.7;
         }
@@ -50,11 +50,11 @@
         line-height: $heading-line-height;
 
         .usda-glossary-link svg {
-            width: rem(16);
-            height: rem(16);
+            width: pxToRem(16);
+            height: pxToRem(16);
             fill: $color-white;
             color: $color-white;
-            margin: 0 0 rem(12) rem(8);
+            margin: 0 0 pxToRem(12) pxToRem(8);
             &:hover {
                 cursor: pointer;
             }
@@ -62,14 +62,14 @@
     }
 
     .landing-option__description {
-        margin-top: rem(10);
-        margin-bottom: rem(30);
+        margin-top: pxToRem(10);
+        margin-bottom: pxToRem(30);
         font-weight: $font-normal;
         font-size: $font-size-16;
         line-height: $base-line-height;
 
         @include media($large-screen) {
-            min-height: rem(70);
+            min-height: pxToRem(70);
         }
     }
 

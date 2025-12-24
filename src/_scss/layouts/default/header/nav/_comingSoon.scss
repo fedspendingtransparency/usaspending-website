@@ -7,28 +7,28 @@
     .nav-coming-soon__icon {
         @include flex(0 0 auto);
         svg {
-            height: rem(16);
-            width: rem(16);
+            height: pxToRem(16);
+            width: pxToRem(16);
             fill: $nav-coming-soon;
 
             @include media($medium-screen) {
-                height: rem(10);
-                width: rem(10);
+                height: pxToRem(10);
+                width: pxToRem(10);
             }
         }
     }
 
     .nav-coming-soon__label {
         @include flex(1 1 auto);
-        margin-left: rem(5);
-        font-size: rem(16);
+        margin-left: pxToRem(5);
+        font-size: pxToRem(16);
         line-height: 1.2;
         font-weight: $font-normal;
         color: $nav-coming-soon;
 
         @include media($medium-screen) {
-            font-size: rem(11);
-            line-height: rem(14);
+            font-size: pxToRem(11);
+            line-height: pxToRem(14);
         }
     }
 }

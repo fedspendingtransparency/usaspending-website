@@ -13,9 +13,9 @@
     .table-controls__time-and-search {
         padding-left: 0;
         @media (min-width: $medium-screen) {
-            padding-left: rem(25);
+            padding-left: pxToRem(25);
         }
-        margin-top: rem(25);
+        margin-top: pxToRem(25);
         @include display(flex);
         @include justify-content(flex-start);
         @include align-items(flex-start);
@@ -27,8 +27,8 @@
             @include display(flex);
             @include flex-direction(column);
             .filter__title {
-                font-size: rem(14);
-                margin-left: rem(15);
+                font-size: pxToRem(14);
+                margin-left: pxToRem(15);
                 color: #8c8c8c;
             }
             .period-picker,
@@ -38,28 +38,28 @@
                 }
                 .fy-loading {
                     svg {
-                        margin-left: rem(10);
+                        margin-left: pxToRem(10);
                     }
                 }
                 .usa-dt-picker__list {
                     z-index: 12;
-                    min-width: rem(110);
+                    min-width: pxToRem(110);
                 }
                 .usa-dt-picker__button {
-                    border-bottom: rem(2) solid #0074be;
-                    margin-bottom: rem(20);
-                    padding-bottom: rem(2);
+                    border-bottom: pxToRem(2) solid #0074be;
+                    margin-bottom: pxToRem(20);
+                    padding-bottom: pxToRem(2);
                     .usa-dt-picker__button-text {
-                        font-size: rem(18);
+                        font-size: pxToRem(18);
                         font-weight: 500;
-                        line-height: rem(23);
+                        line-height: pxToRem(23);
                         color: $color-base;
                     }
                 }
                 .usa-dt-picker__list li.usa-dt-picker__list-item {
                     border: none;
                     .usa-dt-picker__item {
-                        font-size: rem(14);
+                        font-size: pxToRem(14);
                     }
                 }
             }
@@ -109,7 +109,7 @@
                     button.usa-dt-picker__item {
                         padding: 0;
                         .period {
-                            padding: rem(10) rem(15);
+                            padding: pxToRem(10) pxToRem(15);
                             @include display(flex);
                             @include justify-content(flex-end);
                             &:not(.last) span {
@@ -169,17 +169,17 @@
             }
             .usa-dt-search-bar {
                 padding: 0;
-                margin: rem(10) 0 rem(10) rem(15);
+                margin: pxToRem(10) 0 pxToRem(10) pxToRem(15);
                 width: 100%;
-                height: rem(30);
-                border-radius: rem(3);
+                height: pxToRem(30);
+                border-radius: pxToRem(3);
                 @include media($tablet-screen) {
-                    width: rem(273);
-                    margin: rem(10) 0 0 rem(15);
+                    width: pxToRem(273);
+                    margin: pxToRem(10) 0 0 pxToRem(15);
                 }
                 .usa-dt-search-bar__input {
                     padding: 0;
-                    text-indent: rem(3);
+                    text-indent: pxToRem(3);
                     &:focus {
                         outline: none;
                     }
@@ -187,7 +187,7 @@
                 .usa-dt-search-bar__button {
                     @include display(flex);
                     svg {
-                        font-size: rem(17);
+                        font-size: pxToRem(17);
                     }
                 }
             }
@@ -208,6 +208,6 @@
         }
     }
     .usa-dt-picker__list {
-        max-width: rem(500);
+        max-width: pxToRem(500);
     }
 }

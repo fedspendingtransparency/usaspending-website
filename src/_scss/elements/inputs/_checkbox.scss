@@ -1,6 +1,6 @@
 @mixin usa-input-checkbox {
-    height: rem(14);
-    width: rem(14);
+    height: pxToRem(14);
+    width: pxToRem(14);
     position: relative;
     top: 2px;
     box-sizing: content-box;
@@ -40,7 +40,7 @@
     }
 
     &:focus-visible {
-        outline: solid rem(1) $color-focus;
+        outline: solid pxToRem(1) $color-focus;
     }
 
     + label {

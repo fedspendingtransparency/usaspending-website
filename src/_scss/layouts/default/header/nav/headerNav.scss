@@ -6,7 +6,7 @@ header.site-header__wrapper {
     $nav-coming-soon: $color-gray-medium;
 
     .site-navigation {
-        height: rem(64);
+        height: pxToRem(64);
         background-color: $color-white;
 
         &.site-navigation-homepage {
@@ -20,7 +20,7 @@ header.site-header__wrapper {
             @include flex-direction(row);
             @include align-items(center);
             // style the primary menu
-            margin: 0 rem(24);
+            margin: 0 pxToRem(24);
         }
 
         .site-navigation__logo {

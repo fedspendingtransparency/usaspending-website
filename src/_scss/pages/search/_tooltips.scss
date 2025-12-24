@@ -2,8 +2,8 @@ $letter-color: $color-gray-dark;
 
 .tooltip-wrapper {
     svg {
-        width: rem(20);
-        height: rem(20);
+        width: pxToRem(20);
+        height: pxToRem(20);
     }
     .advanced-search-tt {
         display: flex;
@@ -14,9 +14,9 @@ $letter-color: $color-gray-dark;
         // tooltip header styles
         .advanced-search-tt__title {
             margin: 0;
-            padding: rem(16) rem(10);
+            padding: pxToRem(16) pxToRem(10);
             font-weight: bold;
-            font-size: rem(16);
+            font-size: pxToRem(16);
             width: 100%;
             color: $letter-color;
             text-align: left;
@@ -26,20 +26,20 @@ $letter-color: $color-gray-dark;
         }
         h3 {
             margin: 0;
-            padding: 0 rem(10);
+            padding: 0 pxToRem(10);
             font-weight: bold;
-            font-size: rem(16);
+            font-size: pxToRem(16);
             width: 100%;
             color: $letter-color;
             text-align: center;
             background: #F0F0F0;
-            line-height: rem(42);
+            line-height: pxToRem(42);
             z-index: 2;
         }
         // tooltip body
         .advanced-search-tt__body {
             width: 100%;
-            padding: rem(5) rem(10);
+            padding: pxToRem(5) pxToRem(10);
             @include display(flex);
             @include flex-direction(column);
             // text based elements
@@ -49,8 +49,8 @@ $letter-color: $color-gray-dark;
             .advanced-search-tt__list li {
                 color: $letter-color;
                 letter-spacing: 0;
-                font-size: rem(14);
-                line-height: rem(18);
+                font-size: pxToRem(14);
+                line-height: pxToRem(18);
                 font-weight: 400;
                 width: 100%;
             }
@@ -59,14 +59,14 @@ $letter-color: $color-gray-dark;
                 font-size: $font-size-14;
             }
             p {
-                margin: rem(5);
+                margin: pxToRem(5);
                 &:last-of-type {
-                    margin-bottom: rem(10);
+                    margin-bottom: pxToRem(10);
                 }
             }
             .advanced-search-tt__list {
                 @include align-self(flex-start);
-                padding-left: rem(40);
+                padding-left: pxToRem(40);
                 padding-top: 0;
             }
             
@@ -80,7 +80,7 @@ $letter-color: $color-gray-dark;
 @import "../../components/visualizations/tooltip/csstooltip";
 
 .tooltip-popover-container {
-    margin-left: rem(5);
+    margin-left: pxToRem(5);
     color: $color-gray-lighter;
 
     &:hover, &:focus {
@@ -89,42 +89,42 @@ $letter-color: $color-gray-dark;
     }
 
     &.tooltip-popover-container_description {
-        padding-top: rem(10);
+        padding-top: pxToRem(10);
         font-size: $small-font-size;
         .tooltip-popover-container__description {
             color: $color-gray-medium;
             text-decoration: underline;
-            padding-right: rem(5);
+            padding-right: pxToRem(5);
         }
         .tooltip-popover {
             // override the positioning to be centered over the icon
-            left: rem(60);
-            bottom: rem(32);
+            left: pxToRem(60);
+            bottom: pxToRem(32);
         }
     }
 
     .tooltip-popover {
         // override the positioning to be centered over the icon
-        bottom: rem(35);
-        left: rem(-145);
+        bottom: pxToRem(35);
+        left: pxToRem(-145);
         padding: 0;
         font-size: $small-font-size;
 
         &.advanced-search-css-tooltip {
             box-shadow: $box-shadow;
             background-color: $color-white;
-            border: solid rem(1) $color-gray-light;
+            border: solid pxToRem(1) $color-gray-light;
 
             .advanced-search-css-tooltip__heading {
                 background-color: $color-gray-lightest;
-                border-top-left-radius: rem(5);
-                border-top-right-radius: rem(5);
-                padding: rem(10) rem(15);
+                border-top-left-radius: pxToRem(5);
+                border-top-right-radius: pxToRem(5);
+                padding: pxToRem(10) pxToRem(15);
                 font-weight: $font-bold;
             }
 
             .advanced-search-css-tooltip__definition {
-                padding: rem(10) rem(15) 0;
+                padding: pxToRem(10) pxToRem(15) 0;
                 a:hover {
                     cursor: pointer;
                 }
@@ -136,7 +136,7 @@ $letter-color: $color-gray-dark;
             .advanced-search-css-tooltip__example {
                 font-weight: $font-bold;
                 font-style: italic;
-                padding: rem(10) rem(15) rem(15);
+                padding: pxToRem(10) pxToRem(15) pxToRem(15);
             }
         }
     }

@@ -35,14 +35,14 @@
         @include comingSoon;
         .coming-soon {
             .coming-soon-container {
-                width: rem(72);
+                width: pxToRem(72);
                 margin: 0 auto;
                 .period-button {
                     color: $color-gray-lighter;
                 }
                 .period-button:hover {
                     color: $color-gray-lighter;
-                    border-bottom: rem(4) solid rgba(255, 255, 255, 0);
+                    border-bottom: pxToRem(4) solid rgba(255, 255, 255, 0);
                 }
             }
         }

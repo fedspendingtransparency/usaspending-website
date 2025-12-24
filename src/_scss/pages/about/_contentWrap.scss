@@ -3,12 +3,12 @@
     color: $color-base;
 
     .about-padded-content {
-        padding: rem(35);
+        padding: pxToRem(35);
     }
 
     @include media($large-screen) {
         .about-padded-content {
-            padding: rem(38) rem(88) rem(22) rem(88);
+            padding: pxToRem(38) pxToRem(88) pxToRem(22) pxToRem(88);
         }
     }
 }

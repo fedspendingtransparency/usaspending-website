@@ -1,6 +1,6 @@
 .state-overview {
     padding-bottom: 0;
-    margin-bottom: rem(2);
+    margin-bottom: pxToRem(2);
 
     .state-overview__title-wrapper {
         @include display(flex);
@@ -10,9 +10,9 @@
         position: relative;
         .state-overview__flag {
             @include flex(0 0 auto);
-            width: rem(90);
+            width: pxToRem(90);
             height: auto;
-            margin-right: rem(24);
+            margin-right: pxToRem(24);
 
             img {
                 border: 1px solid $color-gray-lighter;
@@ -21,7 +21,7 @@
         h2.state-overview__title {
             @include h3;
             @include flex(1 1 auto);
-            margin: rem(5) 0;
+            margin: pxToRem(5) 0;
             font-weight: $font-semibold;
         }
     }
@@ -30,7 +30,7 @@
         .state-overview__note {
             font-style: italic;
             font-size: $smallest-font-size;
-            padding-bottom: rem(42);
+            padding-bottom: pxToRem(42);
         }
 
         .card__body {
@@ -49,23 +49,23 @@
 
         .state-section__viz.details {
             @media(max-width: ($medium-screen - 1)) {
-                margin: rem(48) rem(7) 0 0;
+                margin: pxToRem(48) pxToRem(7) 0 0;
             }
         }
 
         h3.state-overview__heading {
             @include h4;
-            font-size: rem(19);
+            font-size: pxToRem(19);
             font-weight: 600;
-            margin-bottom: rem(10);
+            margin-bottom: pxToRem(10);
             .details__info_icon_holder {
                 position: relative;
-                padding-left: rem(10);
+                padding-left: pxToRem(10);
                 .details__info_icon {
                     @include button-unstyled;
                     svg {
-                        height: rem(15);
-                        width: rem(15);
+                        height: pxToRem(15);
+                        width: pxToRem(15);
                         fill: $color-gray-light;
                     }
                 }
@@ -79,7 +79,7 @@
 
         .award-breakdown {
             @import "../visualizations/awardBreakdown/awardBreakdownVisualization";
-            margin-right: rem(10);
+            margin-right: pxToRem(10);
 
             .award-breakdown__heading-row {
                 h3 {
@@ -102,12 +102,12 @@
 
                     // overrides to level out the text in the row
                     .rounded-toggle__wrapper {
-                        margin-top: rem(2);
+                        margin-top: pxToRem(2);
                     }
                     .accordion-container {
                         .accordion {
                             .heading {
-                                padding-top: rem(10);
+                                padding-top: pxToRem(10);
                             }
                         }
                     }
@@ -125,10 +125,10 @@
                     // it's only used in two places right now, but if we use it in a third place we should probably make it a separate WhatIsThisAccordion component
                     .accordion-container {
                         @media(max-width: $tablet-screen) {
-                            margin-bottom: rem(4);
+                            margin-bottom: pxToRem(4);
                         }
                         @media(min-width: $tablet-screen) {
-                            margin-left: rem(10);
+                            margin-left: pxToRem(10);
                         }
                     }
 
@@ -137,7 +137,7 @@
                         color: $color-primary;
                         border: none;
                         font-size: $font-size-14;
-                        max-width: rem(120);
+                        max-width: pxToRem(120);
                         padding: 0;
                         margin: 0;
                         justify-content: unset !important;
@@ -150,7 +150,7 @@
                         }
 
                         @media(min-width: $tablet-screen) {
-                            padding-top: rem(8);
+                            padding-top: pxToRem(8);
                         }
                     }
 
@@ -182,7 +182,7 @@
                         color: $color-primary;
                         font-size: $font-size-14;
                         font-weight: $font-semibold;
-                        padding-left: rem(6);
+                        padding-left: pxToRem(6);
 
                         &:hover,
                         &:active,
@@ -192,7 +192,7 @@
                         }
 
                         @media(min-width: $tablet-screen) {
-                            padding-right: rem(6);
+                            padding-right: pxToRem(6);
                         }
                     }
 
@@ -211,7 +211,7 @@
                 border-bottom: 1px solid $color-primary-alt-light;
                 background-color: #e0f3f8;
                 padding: 24px 16px;
-                margin-bottom: rem(16);
+                margin-bottom: pxToRem(16);
                 @import "../../../components/glossaryLink";
 
                 .state-overview__info-icon {
@@ -225,7 +225,7 @@
                 }
 
                 .state-overview__what-heading {
-                    font-size: rem(16);
+                    font-size: pxToRem(16);
                     font-weight: $font-semibold;
                     display: inline-block;
                     margin: 0;
@@ -234,7 +234,7 @@
                 }
 
                 .state-overview__what-second-heading {
-                    font-size: rem(16);
+                    font-size: pxToRem(16);
                     font-weight: $font-semibold;
                     display: inline-block;
                     color: $gray-90;
@@ -243,7 +243,7 @@
 
                 .state-overview__what-text {
                     margin-left: 40px;
-                    font-size: rem(14);
+                    font-size: pxToRem(14);
                     color: $color-base;
                     margin-bottom: 0;
                     margin-top: 8px;

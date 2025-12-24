@@ -10,11 +10,11 @@
         @include align-items(center);
         .heading {
             font-weight: $font-bold;
-            font-size: rem(18);
-            margin-left: rem(8);
+            font-size: pxToRem(18);
+            margin-left: pxToRem(8);
         }
         svg {
-            width: rem(20);
+            width: pxToRem(20);
             fill: $color-secondary-dark;
         }
     }

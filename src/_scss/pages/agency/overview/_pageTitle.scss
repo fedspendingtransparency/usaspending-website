@@ -17,8 +17,8 @@
         }
     }
     .page-title__image {
-        max-width: rem(90);
-        max-height: rem(90);
+        max-width: pxToRem(90);
+        max-height: pxToRem(90);
         height: 100%;
         object-fit: contain;
     }

@@ -15,9 +15,9 @@
 
     .explorer-detail-content {
         @include flex(1 1 auto);
-        padding: rem(10);
+        padding: pxToRem(10);
         @include media($tablet-screen) {
-            padding: rem(40);
+            padding: pxToRem(40);
         }
         position: relative;
 
@@ -33,11 +33,11 @@
             top: 0;
             left: 0;
             width: 100%;
-            padding: rem(40);
+            padding: pxToRem(40);
 
             &.above {
                 top: auto;
-                bottom: rem(530);
+                bottom: pxToRem(530);
             }
         }
 
@@ -49,22 +49,22 @@
 
             .left-block {
                 @include flex(1 1 auto);
-                margin-right: rem(5);
+                margin-right: pxToRem(5);
                 background-color: #1C4956;
-                height: rem(530);
+                height: pxToRem(530);
             }
             
 	    .middle-block {
                 @include flex(1 1 auto);
-                margin-right: rem(5);
-                height: rem(530);
+                margin-right: pxToRem(5);
+                height: pxToRem(530);
                 background-color: rgb(53, 137, 161);
             }
 
             .right-block {
                 @include flex(1 1 auto);
                 background-color: #47BAD9;
-                height: rem(530);
+                height: pxToRem(530);
             }
         }
 
@@ -82,8 +82,8 @@
                 font-size: $font-size-20;
 
                 .loading-animation {
-                    width: rem(50);
-                    height: rem(50);
+                    width: pxToRem(50);
+                    height: pxToRem(50);
                     margin-left: auto;
                     margin-right: auto;
                     @import "../../../loading";
@@ -98,7 +98,7 @@
                     font-size: $font-size-28;
                     color: $color-primary-alt-darkest;
                     line-height: $heading-line-height;
-                    margin-bottom: rem(8);
+                    margin-bottom: pxToRem(8);
                 }
                 .explorer-detail-content__loading-subtitle {
                     font-weight: $font-semibold;

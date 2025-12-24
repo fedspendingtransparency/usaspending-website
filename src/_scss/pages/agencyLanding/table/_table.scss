@@ -9,8 +9,8 @@
         border: none;
     }
 	table {
-		margin-top: rem(15);
-        width: rem(500);
+		margin-top: pxToRem(15);
+        width: pxToRem(500);
 
         @include media($tablet-screen) {
             width: auto;

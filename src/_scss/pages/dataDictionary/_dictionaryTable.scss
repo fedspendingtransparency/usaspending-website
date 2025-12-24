@@ -38,11 +38,11 @@ $dictionary-yellow: #fff694;
 
     .dictionary-table__above-scroller {
         overflow-x: scroll;
-        height: rem(20);
+        height: pxToRem(20);
     }
 
     .dictionary-table__scroller {
-        height: rem(7);
+        height: pxToRem(7);
     }
 
     .dictionary-table__container {
@@ -57,7 +57,7 @@ $dictionary-yellow: #fff694;
                 table-layout: fixed;
 
                 th {
-                    min-width: rem(300);
+                    min-width: pxToRem(300);
                 }
             }
 
@@ -65,8 +65,8 @@ $dictionary-yellow: #fff694;
                 border: none;
 
                 .dictionary-table__head-cell {
-                    border: solid rem(3) $color-white;
-                    padding: rem(10);
+                    border: solid pxToRem(3) $color-white;
+                    padding: pxToRem(10);
                     &.dictionary-table__head-cell_first {
                         border-left: 0;
                     }
@@ -84,13 +84,13 @@ $dictionary-yellow: #fff694;
             margin: 0;
             table-layout: fixed;
             td {
-                min-width: rem(300);
+                min-width: pxToRem(300);
             }
         }
 
         .dictionary-table__content {
             overflow-x: scroll;
-            max-height: rem(870);
+            max-height: pxToRem(870);
         }
 
         .dictionary-table__content-body {
@@ -100,10 +100,10 @@ $dictionary-yellow: #fff694;
 
             .dictionary-table__body-row {
                 .dictionary-table__body-cell {
-                    border: solid rem(3) $color-white;
-                    padding: rem(10);
+                    border: solid pxToRem(3) $color-white;
+                    padding: pxToRem(10);
                     vertical-align: top;
-                    max-width: rem(300);
+                    max-width: pxToRem(300);
                     word-wrap: break-word;
                     &.dictionary-table__body-cell_first {
                         border-left: 0;

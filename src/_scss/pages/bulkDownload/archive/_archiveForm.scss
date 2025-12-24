@@ -1,14 +1,14 @@
 .award-data-archive-form {
     background-color: #F3FAFC;
-    padding: rem(15) rem(5);
+    padding: pxToRem(15) pxToRem(5);
 
     .form-title__wrapper {
         @include display(flex);
         @include justify-content(space-between);
-        margin-bottom: rem(10);
+        margin-bottom: pxToRem(10);
     }
     .form-title {
-        padding-left: rem(15);
+        padding-left: pxToRem(15);
         font-size: 18px;
         font-weight: 600;
         line-height: 23px;
@@ -24,13 +24,13 @@
         @import "../form/agencyPicker";
 
         .filter-picker {
-            padding: 0 rem(15);
+            padding: 0 pxToRem(15);
             .select-label {
-                font-size: rem(14);
+                font-size: pxToRem(14);
                 text-transform: capitalize;
             }
             .field-picker {
-                margin: rem(5) 0 0 0;
+                margin: pxToRem(5) 0 0 0;
                 .selected-button {
                     width: 100%;
                     border: solid 1px $color-gray-light;
@@ -70,14 +70,14 @@
             }
         }
         .form__button {
-            padding: 0 rem(15);
+            padding: 0 pxToRem(15);
             @include media($medium-screen) {
-                width: rem(120);
+                width: pxToRem(120);
             }
             input {
                 width: 100%;
-                margin-top: rem(19);
-                height: rem(36);
+                margin-top: pxToRem(19);
+                height: pxToRem(36);
             }
         }
     }

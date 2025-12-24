@@ -16,7 +16,7 @@
         border-bottom: 1px solid $color-gray-border;
 
         .keyword-search-bar {
-            margin-bottom: rem(22);
+            margin-bottom: pxToRem(22);
         }
         @import "searchBar";
         @import "table/resultsTable";

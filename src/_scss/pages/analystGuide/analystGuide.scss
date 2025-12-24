@@ -11,20 +11,20 @@
   background-color: $color-white;
 
   .main-content {
-    margin-bottom: rem(40);
+    margin-bottom: pxToRem(40);
     @media (min-width: $medium-screen) {
-      margin-bottom: rem(60);
+      margin-bottom: pxToRem(60);
     }
   }
 
   .analyst-guide-body {
     width: 100%;
-    max-width: rem(1400);
-    margin-left: rem(16);
-    margin-right: rem(16);
+    max-width: pxToRem(1400);
+    margin-left: pxToRem(16);
+    margin-right: pxToRem(16);
     @media (min-width: $tablet-screen) {
-      margin-left: rem(32);
-      margin-right: rem(32);
+      margin-left: pxToRem(32);
+      margin-right: pxToRem(32);
     }
   }
 
@@ -85,7 +85,7 @@
     line-height: $heading-line-height;
     letter-spacing: normal;
     color: $gray-90;
-    font-size: rem(28);
+    font-size: pxToRem(28);
     margin: 32px 0px 20px;
   }
 
@@ -113,7 +113,7 @@
 
   .analyst-guide__questionSections {
       margin: 40px 0px 2px;
-      font-size: rem(20);
+      font-size: pxToRem(20);
       font-weight: $font-semibold;
       font-stretch: normal;
       font-style: normal;
@@ -141,7 +141,7 @@
 
   h4.analyst-guide-citation {
     @include h5();
-    font-size: rem(16);
+    font-size: pxToRem(16);
     color: $color-base;
     line-height: 1.25;
   }
@@ -167,7 +167,7 @@
 
   .analyst-guide__sectionJump {
     @include button-unstyled;
-    font-size: rem(16);
+    font-size: pxToRem(16);
     color: $theme-color-1;
     &:hover {
       background-color: white;

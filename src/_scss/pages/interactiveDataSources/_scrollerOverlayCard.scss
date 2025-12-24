@@ -24,12 +24,12 @@ $mobile-large: 500px;
       padding: $global-padding;
       margin-right: $global-margin * 2;
       @media (max-width: $medium-screen) {
-        margin-bottom: rem(16);
+        margin-bottom: pxToRem(16);
       }
     }
 
     .scroller-overlay-card__overline-wrapper {
-      font-size: rem(14);
+      font-size: pxToRem(14);
       line-height: 1.25;
       margin: 0 0 4px 0;
       color: $color-white;

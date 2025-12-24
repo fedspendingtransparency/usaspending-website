@@ -1,45 +1,45 @@
 .about-section-wrapper {
-    margin-bottom: rem(55);
+    margin-bottom: pxToRem(55);
 
     h2.about-section-title {
         @include h4();
 
-        font-size: rem(47);
-        line-height: rem(59);
+        font-size: pxToRem(47);
+        line-height: pxToRem(59);
         color: $color-gray;
         font-weight: 300;
-        margin: rem(30) 0 rem(40);
+        margin: pxToRem(30) 0 pxToRem(40);
     }
 
     h3.about-subtitle {
         @include h5();
 
         color: $color-gray;
-        padding-left: rem(3);
-        margin: 0 0 rem(5);
+        padding-left: pxToRem(3);
+        margin: 0 0 pxToRem(5);
     }
 
     h4.about-citation {
         @include h5();
-        font-size: rem(18);
+        font-size: pxToRem(18);
         color: $color-gray;
-        padding-left: rem(3);
-        margin: 0 0 rem(5);
+        padding-left: pxToRem(3);
+        margin: 0 0 pxToRem(5);
     }
 
     .back-link {
-        padding-top: rem(25);
+        padding-top: pxToRem(25);
         a {
-            font-size: rem(18);
+            font-size: pxToRem(18);
             font-weight: bold;
         }
         svg {
-            padding-right: rem(5);
+            padding-right: pxToRem(5);
         }
     }
 
     .about-section-content {
-        margin-bottom: rem(25);
+        margin-bottom: pxToRem(25);
         a {
             white-space: nowrap;
         }
@@ -47,35 +47,35 @@
             white-space: normal;
         }
         p {
-            font-size: rem(18);
-            line-height: rem(28);
+            font-size: pxToRem(18);
+            line-height: pxToRem(28);
             color: $color-gray;
-            padding-left: rem(3);
-            margin: rem(10) 0 rem(20);
+            padding-left: pxToRem(3);
+            margin: pxToRem(10) 0 pxToRem(20);
         }
 
         .citation-wrapper {
-            margin-left: rem(16);
-            text-indent: rem(-16);
+            margin-left: pxToRem(16);
+            text-indent: pxToRem(-16);
             .citation-it {
                 font-style: italic;
             }
         }
 
         p + p {
-            margin: rem(30) 0;
+            margin: pxToRem(30) 0;
         }
 
         ul {
-            margin: rem(28) 0;
-            padding-left: rem(31);
+            margin: pxToRem(28) 0;
+            padding-left: pxToRem(31);
 
             li {
-                font-size: rem(18);
-                line-height: rem(28);
-                margin-left: rem(10);
-                margin-bottom: rem(20);
-                padding-left: rem(18);
+                font-size: pxToRem(18);
+                line-height: pxToRem(28);
+                margin-left: pxToRem(10);
+                margin-bottom: pxToRem(20);
+                padding-left: pxToRem(18);
 
                 span.about-section-list-item-title {
                     display: block;
@@ -86,12 +86,12 @@
 
         button {
             display: block;
-            margin: rem(19) 0 rem(38);
-            padding: rem(16) rem(32);
+            margin: pxToRem(19) 0 pxToRem(38);
+            padding: pxToRem(16) pxToRem(32);
             text-decoration: none;
             &.usa-button-link, &.usda-external-link {
                 @include button-link;
-                font-size: rem(18);
+                font-size: pxToRem(18);
                 line-height: normal;
             }
         }
@@ -99,11 +99,11 @@
           text-align: center;
         }
         .usa-button-link__icon {
-          padding-left: rem(3);
+          padding-left: pxToRem(3);
         }
 
         .about-section-content-inline-buttons {
-            margin-bottom: rem(38);
+            margin-bottom: pxToRem(38);
             @include grid-column(16);
 
             .button-holder {
@@ -111,7 +111,7 @@
 
                 button {
                     display: block;
-                    margin-bottom: rem(19);
+                    margin-bottom: pxToRem(19);
                     width: 100%;
                 }
             }
@@ -119,7 +119,7 @@
             @include media($large-screen) {
                 .button-holder {
                     @include grid-column(8);
-                    padding-right: rem(18);
+                    padding-right: pxToRem(18);
 
                     button {
                         display: inline-block;

@@ -1,8 +1,8 @@
 .map-legend {
   border-radius: 4px;
   background-color: $color-white;
-  bottom: rem(8);
-  right: rem(8);
+  bottom: pxToRem(8);
+  right: pxToRem(8);
   position: absolute;
   z-index: 2;
   border: solid 1px $gray-cool-10;
@@ -57,7 +57,7 @@
     padding: $global-padding*2;
 
     li {
-      margin-bottom: rem(4);
+      margin-bottom: pxToRem(4);
 
       &:last-child {
         margin-bottom: 0px;
@@ -66,15 +66,15 @@
 
     .map-legend-item {
       @include clearfix;
-      line-height: rem(18);
-      font-size: rem(14);
+      line-height: pxToRem(18);
+      font-size: pxToRem(14);
 
       .color-swatch {
         border-radius: 4px;
         float: left;
-        height: rem(12);
+        height: pxToRem(12);
         margin: 2px 6px 2px 0;
-        width: rem(12);
+        width: pxToRem(12);
       }
 
       .label {
@@ -94,10 +94,10 @@
 
     .map-legend-gradient {
       background: linear-gradient(rgba(1, 43, 58, 1), #FFF);
-      height: rem(100);
-      width: rem(20);
-      margin: rem(7) auto;
-      border: rem(0.1) solid lightslategray;
+      height: pxToRem(100);
+      width: pxToRem(20);
+      margin: pxToRem(7) auto;
+      border: pxToRem(0.1) solid lightslategray;
     }
   }
 }

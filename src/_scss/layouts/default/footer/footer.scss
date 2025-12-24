@@ -47,7 +47,7 @@
         }
 
         .footer-logo {
-            max-width: rem(300);
+            max-width: pxToRem(300);
             margin-bottom: $global-margin * 3;
 
             a {
@@ -56,10 +56,10 @@
             }
 
             img {
-                max-height: rem(32);
+                max-height: pxToRem(32);
                 @media (min-width: $m-large-screen) {
                     max-width: unset;
-                    width: rem(300);
+                    width: pxToRem(300);
                 }
             }
         }
@@ -86,7 +86,7 @@
         margin-bottom: $global-margin * 5;
 
         @media (min-width: $tablet-screen) {
-            width: rem(426);
+            width: pxToRem(426);
             margin-bottom: $global-margin * 6;
         }
 
@@ -101,12 +101,12 @@
         @media (min-width: $tablet-screen) {
             display: flex;
             justify-content: space-evenly;
-            width: rem(568);
+            width: pxToRem(568);
             margin-bottom: $global-margin * 6;
         }
 
         @media (min-width: $m-large-screen) {
-            width: rem(500);
+            width: pxToRem(500);
             justify-content: space-between;
             margin-bottom: 0;
             text-align: left;
@@ -116,7 +116,7 @@
             margin-bottom: $global-margin * 5;
 
             @media (min-width: $tablet-screen) {
-                width: rem(160);
+                width: pxToRem(160);
                 margin-bottom: 0;
             }
 
@@ -163,7 +163,7 @@
 
 
     .footer-social-media-section {
-        width: rem(288);
+        width: pxToRem(288);
         padding: 0 $global-padding * 3;
         margin: $global-margin 0 $global-margin * 5;
 
@@ -174,7 +174,7 @@
         @media (min-width: $m-large-screen) {
             margin-bottom: 0;
             padding-right: 0;
-            width: rem(240);
+            width: pxToRem(240);
         }
 
         ul {
@@ -185,8 +185,8 @@
 
             li {
                 svg.footer__twitter-logo {
-                    height: rem(24);
-                    width: rem(32);
+                    height: pxToRem(24);
+                    width: pxToRem(32);
                 }
                 &:hover {
                     svg {
@@ -202,7 +202,7 @@
 
                 button {
                     @include button-unstyled;
-                    font-size: rem(32);
+                    font-size: pxToRem(32);
                 }
             }
         }
@@ -212,7 +212,7 @@
         width: 100%;
 
         @media (min-width: $tablet-screen) {
-            width: rem(558);
+            width: pxToRem(558);
             margin-bottom: $global-margin * 5;
         }
 

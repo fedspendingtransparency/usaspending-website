@@ -8,7 +8,7 @@
     @import "components/_filterTabs.scss";
     @import "elements/filters/_typeahead";
 
-    padding: 0 $global-padding * 2 rem(20);
+    padding: 0 $global-padding * 2 pxToRem(20);
 
     .location-description {
         font-size: $smallest-font-size;
@@ -18,25 +18,25 @@
 
     .location-picker-divider {
         border: none;
-        margin-left: rem(5);
-        margin-right: rem(5);
+        margin-left: pxToRem(5);
+        margin-right: pxToRem(5);
     }
 
     .location-filter-form {
-        padding: 0 rem(5);
+        padding: 0 pxToRem(5);
 
         .location-item {
-            margin-top: rem(15);
+            margin-top: pxToRem(15);
 
             &:first-child {
-                margin-top: rem(10);
+                margin-top: pxToRem(10);
             }
         }
 
         .location-item__with-overline {
-            margin-top: rem(10);
+            margin-top: pxToRem(10);
             &:last-child {
-                margin-bottom: rem(15);
+                margin-bottom: pxToRem(15);
             }
             .geo-entity-item {
                 .location-label__with-tt {
@@ -49,9 +49,9 @@
         }
 
         .location-filter__link-container {
-            margin-top: rem(15);
+            margin-top: pxToRem(15);
             display: flex;
-            height: rem(20);
+            height: pxToRem(20);
             justify-content: center;
 
             .button-type__text-left-icon-light {
@@ -90,10 +90,10 @@
             @import "./_cdTooltip";
             display: flex;
             align-items: center;
-            margin-top: rem(15);
+            margin-top: pxToRem(15);
 
             &:first-child {
-                margin-top: rem(10);
+                margin-top: pxToRem(10);
             }
 
             &.disabled {
@@ -117,7 +117,7 @@
         }
 
         .location-label {
-            padding: rem(5) 0;
+            padding: pxToRem(5) 0;
             font-size: $base-font-size;
             text-transform: uppercase;
 
@@ -127,8 +127,8 @@
         }
 
         .location-label__overline {
-            padding: rem(5) 0;
-            margin: rem(10) rem(5) rem(5) 0;
+            padding: pxToRem(5) 0;
+            margin: pxToRem(10) pxToRem(5) pxToRem(5) 0;
             font-size: $font-size-14;
 
             &.disabled {
@@ -144,22 +144,22 @@
                 position: relative;
                 width: 100%;
                 height: 4rem;
-                margin-top: rem(5);
+                margin-top: pxToRem(5);
 
                 .geo-entity-dropdown__input {
                     height: 100%;
                     width: 100%;
                     font-size: $small-font-size;
                     border: 1px solid $color-gray-lighter;
-                    padding: rem(5);
+                    padding: pxToRem(5);
                 }
 
                 .icon {
                     @include flex(0 0 auto);
                     position: absolute;
-                    width: rem(15);
-                    height: rem(15);
-                    right: rem(15);
+                    width: pxToRem(15);
+                    height: pxToRem(15);
+                    right: pxToRem(15);
 
                     svg {
                         color: $color-gray;
@@ -175,7 +175,7 @@
         }
 
         .add-location {
-            margin-top: rem(15);
+            margin-top: pxToRem(15);
             width: 100%;
             cursor: pointer;
 
@@ -199,11 +199,11 @@
 
                 .zip-input {
                     @include flex(1 1 auto);
-                    margin-right: rem(4);
+                    margin-right: pxToRem(4);
                     font-size: $small-font-size;
                     color: $color-base;
-                    line-height: rem(36);
-                    height: rem(40);
+                    line-height: pxToRem(36);
+                    height: pxToRem(40);
 
                     @include placeholder {
                         color: $color-placeholder;
@@ -219,7 +219,7 @@
     }
 
     .shown {
-        min-height: rem(18);
+        min-height: pxToRem(18);
     }
 
     .visually-hidden {
@@ -234,11 +234,11 @@
         display: flex;
         align-items: baseline;
         justify-content: space-between;
-        margin-top: rem(16);
+        margin-top: pxToRem(16);
 
         .usa-da-typeahead-wrapper {
             width: 100%;
-            margin-right: rem(4);
+            margin-right: pxToRem(4);
         }
 
         .submit-button {
@@ -254,7 +254,7 @@
         }
 
         ul.autocomplete li {
-            padding: rem(4) rem(12);
+            padding: pxToRem(4) pxToRem(12);
 
             &:hover,
             &.hover {
@@ -283,9 +283,9 @@
                 text-align: left;
                 color: $gray-60;
                 text-transform: uppercase;
-                padding-top: rem(12);
+                padding-top: pxToRem(12);
                 &:first-child {
-                    padding-top: rem(8);
+                    padding-top: pxToRem(8);
                 }
             }
         }

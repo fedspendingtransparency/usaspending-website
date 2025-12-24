@@ -14,7 +14,7 @@
         @include unstyled-list;
 
         li {
-            min-height: rem(28);
+            min-height: pxToRem(28);
         }
 
         div.account-program-activity-loading {

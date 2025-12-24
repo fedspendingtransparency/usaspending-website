@@ -12,17 +12,17 @@
 
     input {
         line-height: 1.5;
-        height: rem(32);
+        height: pxToRem(32);
         margin: 0 auto;
         width: 100%;
         border-color: $gray-cool-10;
-        border-radius: rem(3);
+        border-radius: pxToRem(3);
         color: $gray-60;
     }
 
     .autocomplete-md {
         font-size: $small-font-size;
-        padding: rem(6) rem(12);
+        padding: pxToRem(6) pxToRem(12);
         color: $theme-color-headline;
 
         &:focus-visible {
@@ -32,7 +32,7 @@
 
     .autocomplete-sm {
         font-size: $smallest-font-size;
-        padding: rem(8);
+        padding: pxToRem(8);
         color: $theme-color-headline;
 
         &:focus-visible {
@@ -41,7 +41,7 @@
     }
 
     .icon {
-        padding-left: rem(32);
+        padding-left: pxToRem(32);
     }
 
     .screen-reader-description {
@@ -60,7 +60,7 @@
         list-style-type: none;
         margin: 0;
         padding: 0;
-        max-height: rem(300);
+        max-height: pxToRem(300);
         overflow-y: auto;
         overflow-x: hidden;
         border-radius: 3px;
@@ -70,7 +70,7 @@
             font-size: $small-font-size;
             line-height: 1.5;
             font-weight: normal;
-            padding: rem(5.5) rem(12);
+            padding: pxToRem(5.5) pxToRem(12);
             color: $gray-60;
             margin-bottom: 0;
             width: 100%;
@@ -103,7 +103,7 @@
     }
 
     .autocomplete-filter-message-container {
-        font-size: rem(30);
+        font-size: pxToRem(30);
         text-align: center;
         margin-top: $global-margin;
         .autocomplete-filter-message-container__text {

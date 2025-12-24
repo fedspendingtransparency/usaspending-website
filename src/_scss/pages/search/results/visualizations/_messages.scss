@@ -1,37 +1,37 @@
 .visualization-message-container {
     background-color: $color-white;
-    margin-top: rem(100);
+    margin-top: pxToRem(100);
 
-    max-width: rem(450);
-    padding-left: rem(10);
-    padding-right: rem(10);
+    max-width: pxToRem(450);
+    padding-left: pxToRem(10);
+    padding-right: pxToRem(10);
     margin-left: auto;
     margin-right: auto;
 
     @include media($tablet-screen) {
-        max-width: rem(600);
+        max-width: pxToRem(600);
     }
 
     .loading-animation {
-        width: rem(50);
-        height: rem(50);
+        width: pxToRem(50);
+        height: pxToRem(50);
         margin-left: auto;
         margin-right: auto;
     }
 
     .message {
-        font-size: rem(36);
-        line-height: rem(45);
+        font-size: pxToRem(36);
+        line-height: pxToRem(45);
         color: $color-gray-light;
         text-align: center;
     }
 
     .visualization-no-results {
-        margin-top: rem(100);
+        margin-top: pxToRem(100);
 
         .no-results-icon {
-            width: rem(75);
-            height: rem(72);
+            width: pxToRem(75);
+            height: pxToRem(72);
 
             margin-left: auto;
             margin-right: auto;
@@ -41,29 +41,29 @@
             background-repeat: no-repeat;
         }
         .error-icon {
-            width: rem(75);
-            height: rem(72);
+            width: pxToRem(75);
+            height: pxToRem(72);
 
             margin-left: auto;
             margin-right: auto;
-            margin-bottom: rem(10);
+            margin-bottom: pxToRem(10);
 
             svg {
-                width: rem(72);
-                height: rem(72);
+                width: pxToRem(72);
+                height: pxToRem(72);
                 fill: $color-gray-light;
             }
         }
         .title {
-            font-size: rem(36);
-            line-height: rem(45);
+            font-size: pxToRem(36);
+            line-height: pxToRem(45);
             color: $color-gray-light;
             text-align: center;
             font-weight: $font-semibold;
         }
         .description {
-            font-size: rem(36);
-            line-height: rem(45);
+            font-size: pxToRem(36);
+            line-height: pxToRem(45);
             color: $color-gray-light;
             text-align: center;
         }

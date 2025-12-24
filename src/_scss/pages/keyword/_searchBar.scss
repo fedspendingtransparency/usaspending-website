@@ -1,6 +1,6 @@
 .keyword-search-bar {
     background-color: $color-primary-alt-lightest;
-    padding: rem(15);
+    padding: pxToRem(15);
     border: 1px solid $color-vis-lightest;
     @include media($medium-screen) {
         @include display(flex);
@@ -11,7 +11,7 @@
 
     .keyword-search-bar__form {
         border: 1px solid $color-gray-light;
-        margin-right: rem(15);
+        margin-right: pxToRem(15);
         background-color: $color-white;
         @include display(flex);
         @include flex-direction(row);
@@ -24,14 +24,14 @@
         .keyword-search-bar__input {
             @include flex(1 1 auto);
             margin-right: 0;
-            height: rem(66);
+            height: pxToRem(66);
             border: 0;
-            padding: rem(15);
-            font-size: rem(20);
+            padding: pxToRem(15);
+            font-size: pxToRem(20);
             font-weight: 300;
             @include media($tablet-screen) {
-                font-size: rem(28);
-                line-height: rem(36);
+                font-size: pxToRem(28);
+                line-height: pxToRem(36);
             }
 
             @include placeholder {
@@ -41,11 +41,11 @@
         .keyword-search-bar__button {
             @include flex(0 0 auto);
             @include button-unstyled;
-            height: rem(66);
-            padding: 0 rem(15);
+            height: pxToRem(66);
+            padding: 0 pxToRem(15);
             .keyword-search-bar__button-icon {
-                height: rem(30);
-                width: rem(30);
+                height: pxToRem(30);
+                width: pxToRem(30);
                 svg {
                     fill: $color-gray;
                 }
@@ -65,22 +65,22 @@
 
     .keyword-search-bar__info {
         font-size: $small-font-size;
-        line-height: rem(26);
-        padding-top: rem(10);
+        line-height: pxToRem(26);
+        padding-top: pxToRem(10);
         @include media($medium-screen) {
             width: 50%;
             @include flex(1 1 auto);
             padding-top: 0;
-            padding-left: rem(10);
+            padding-left: pxToRem(10);
         }
         .keyword-search-bar__icon-wrapper {
             display: inline-block;
-            margin: 0 rem(5);
+            margin: 0 pxToRem(5);
             @import "keywordTooltip";
             .keyword-search-bar__icon {
                 @include button-unstyled;
-                height: rem(15);
-                width: rem(15);
+                height: pxToRem(15);
+                width: pxToRem(15);
                 svg {
                     fill: $color-primary;
                 }

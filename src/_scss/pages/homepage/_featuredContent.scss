@@ -2,7 +2,7 @@
   .featured-content__heading {
     display: flex;
     flex-direction: row;
-    font-size: rem(16);
+    font-size: pxToRem(16);
     font-weight: $font-semibold;
     line-height: 1.25;
     text-transform: uppercase;

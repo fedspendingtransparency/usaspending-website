@@ -31,7 +31,7 @@
       }
 
       .covid-content__col {
-        max-width: rem(1400);
+        max-width: pxToRem(1400);
         margin: auto;
       }
     }
@@ -80,7 +80,7 @@
           flex-wrap: wrap;
           align-items: center;
           @include justify-content(space-between);
-          border-bottom: rem(3) solid $color-base;
+          border-bottom: pxToRem(3) solid $color-base;
 
           .body__header-left {
             @include display(flex);
@@ -111,14 +111,14 @@
             @include display(flex);
             margin: 0;
             line-height: $base-line-height;
-            font-size: rem(18);
+            font-size: pxToRem(18);
             font-weight: $font-semibold;
           }
         }
 
         hr {
           width: 100%;
-          height: rem(2);
+          height: pxToRem(2);
           background: $color-gray;
           border: none;
         }
@@ -191,7 +191,7 @@
           background-color: #763e94;
 
           @media (min-width: $medium-screen) {
-            border-radius: 0 0 rem(5) rem(5);
+            border-radius: 0 0 pxToRem(5) pxToRem(5);
           }
         }
 
@@ -201,7 +201,7 @@
           background-color: #B9C5D2;
 
           @media (min-width: $medium-screen) {
-            border-radius: 0 0 rem(5) rem(5);
+            border-radius: 0 0 pxToRem(5) pxToRem(5);
           }
         }
 
@@ -273,7 +273,7 @@
               padding-bottom: 3rem;
             }
 
-            @media (max-width: 560px) {
+            @media (max-width: 560) {
               padding-right: $global-padding * 2;
             }
 
@@ -293,7 +293,7 @@
           .aligned-heading {
             display: block;
 
-            @include media(560px) {
+            @include media(560) {
               display: flex;
               align-items: flex-end;
             }
@@ -307,7 +307,7 @@
               max-height: 30rem;
             }
 
-            @media (max-width: 560px) {
+            @media (max-width: 560) {
               img {
                 display: block;
                 margin-left: auto;
@@ -324,7 +324,7 @@
               max-height: 40rem;
             }
 
-            @media (max-width: 560px) {
+            @media (max-width: 560) {
               img {
                 display: block;
                 margin-left: auto;

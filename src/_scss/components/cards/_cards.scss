@@ -41,7 +41,7 @@
       justify-content: center;
       border-radius: 0;
       img {
-        height: calc(100% - 32px);
+        height: calc(100% - 32);
       }
     }
   }
@@ -158,15 +158,15 @@ a:hover, a:active {
       justify-content: center;
       align-items: center;
       flex-wrap: nowrap;
-      height: rem(40);
+      height: pxToRem(40);
       font-weight: $font-semibold;
-      font-size: rem(16);
+      font-size: pxToRem(16);
       white-space: nowrap;
       color: $color-primary;
       background-color: transparent;
-      border: solid rem(1);
+      border: solid pxToRem(1);
       border-color: $color-primary;
-      border-radius: rem(4);
+      border-radius: pxToRem(4);
       width: 100%;
      &.card__button--borderless {
        height: unset;
@@ -175,7 +175,7 @@ a:hover, a:active {
        justify-content: left !important;
      }
       @media (min-width: $medium-screen) {
-        border-radius: rem(6);
+        border-radius: pxToRem(6);
       }
 
       &:hover, &:active {

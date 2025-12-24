@@ -2,12 +2,12 @@
     .award-description__content {
         font-size: $small-font-size;
         .award-expandable-section__secondary {
-          margin-bottom: rem(28);
+          margin-bottom: pxToRem(28);
         }
         .award-description__naics-psc {
             .naics-psc__section {
                 @media all and (max-width: $tablet-screen){
-                    padding-bottom: rem(32);
+                    padding-bottom: pxToRem(32);
                 }
                 .line-tree-psc,
                 .line-tree-naics {
@@ -47,17 +47,17 @@
             }
             .naics-psc__heading {
                 font-weight: $font-semibold;
-                padding-bottom: rem(12);
+                padding-bottom: pxToRem(12);
                 span {
-                    margin-left: rem(5);
+                    margin-left: pxToRem(5);
                     white-space: nowrap;
-                    height: rem(21);
-                    width: rem(21);
+                    height: pxToRem(21);
+                    width: pxToRem(21);
                     svg {
-                        margin-left: rem(5);
+                        margin-left: pxToRem(5);
                         vertical-align: middle;
-                        height: rem(14);
-                        width: rem(13);
+                        height: pxToRem(14);
+                        width: pxToRem(13);
                     }
                 }
             }
@@ -65,7 +65,7 @@
                 @media(min-width: $medium-screen) {
                     margin-bottom: 35px;
                 }
-                @media(min-width: 1039px) {
+                @media(min-width: 1039) {
                     margin-bottom: 18px;
                 }
             }

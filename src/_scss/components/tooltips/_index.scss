@@ -5,10 +5,10 @@
     div:first-of-type {
         .tooltip-spacer .tooltip .tooltip__interior .tooltip-pointer {
             &.left {
-                left: rem(-8);
+                left: pxToRem(-8);
             }
             &.right {
-                right: rem(-8);
+                right: pxToRem(-8);
             }
         }
     }
@@ -26,7 +26,7 @@
         .tooltip__text {
             p,
             strong {
-                margin: rem(8) 0;
+                margin: pxToRem(8) 0;
             }
             > *:first-child,
             > *:last-child {
@@ -34,13 +34,13 @@
             }
             > *:first-child:nth-last-child(2) { // if only two items
                 // set first childs margin bottom
-                margin-bottom: rem(8);
+                margin-bottom: pxToRem(8);
             }
         }
     }
 
     .tooltip .tooltip__interior .tooltip-pointer.bottom {
-        top: rem(-8);
+        top: pxToRem(-8);
     }
 }
 

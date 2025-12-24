@@ -3,36 +3,36 @@
 }
 .usa-dt-modal.about-the-data-modal {
     @include media($tablet-screen) {
-      max-width: rem(483);
+      max-width: pxToRem(483);
     }
     @include media($large-screen) {
-      min-width: rem(483);
+      min-width: pxToRem(483);
     }
-    font-size: rem(14);
+    font-size: pxToRem(14);
     .usa-dt-modal__header {
       .about-the-data-modal__header-data {
-        padding: rem(30);
+        padding: pxToRem(30);
         @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
           /* IE10+ CSS styles go here */
           padding-left: 0;
         }
         .about-the-data-modal__agency-name {
-            font-size: rem(14);
-            line-height: rem(18);
+            font-size: pxToRem(14);
+            line-height: pxToRem(18);
         }
         .usa-dt-modal__title {
-            font-size: rem(22);
-            line-height: rem(28);
-            padding: rem(5) 0;
+            font-size: pxToRem(22);
+            line-height: pxToRem(28);
+            padding: pxToRem(5) 0;
         }
         .about-the-data-modal__fiscal-year-quarter-period {
-            font-size: rem(16);
+            font-size: pxToRem(16);
         }
       }
       .usa-dt-modal__close-button {
         @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
           /* IE10+ CSS styles go here */
-          margin-left: rem(30);
+          margin-left: pxToRem(30);
         }
       }
     }
@@ -40,7 +40,7 @@
       overflow-x: scroll;
       padding: 0;
       @include media($tablet-screen) {
-        padding: 0 rem(30) rem(30) rem(30);
+        padding: 0 pxToRem(30) pxToRem(30) pxToRem(30);
       }
       @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
         /* IE10+ CSS styles go here */
@@ -63,11 +63,11 @@
           .table-header {
             .table-header__content {
               .table-header__label {
-                font-size: rem(14);
-                line-height: rem(18);
+                font-size: pxToRem(14);
+                line-height: pxToRem(18);
                 .publication-dates__column-header-sub-title {
-                  font-size: rem(14);
-                  line-height: rem(15);
+                  font-size: pxToRem(14);
+                  line-height: pxToRem(15);
                   font-weight: $font-normal;
                 }
               }
@@ -77,7 +77,7 @@
         .usda-table__body { // removes loading border
           .usda-table__row {
             .usda-table__cell {
-              font-size: rem(14);
+              font-size: pxToRem(14);
             }
           }
           tr {
@@ -90,10 +90,10 @@
               }
             }
           }
-          font-size: rem(14);
+          font-size: pxToRem(14);
           .usda-table__row {
             .usda-table__cell {
-              padding: rem(10) rem(15);
+              padding: pxToRem(10) pxToRem(15);
             }
           }
         }
@@ -102,11 +102,11 @@
     // missing account balances specific
     &.missing-account-balance-modal {
       @include media($tablet-screen) {
-        max-width: rem(700);
+        max-width: pxToRem(700);
       }
       @include media($large-screen) {
-        max-width: rem(700);
-        min-width: rem(700);
+        max-width: pxToRem(700);
+        min-width: pxToRem(700);
       }
       .about-the-data-modal__header-data {
         @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
@@ -119,7 +119,7 @@
           .usda-table__body {
             .usda-table__row {
               .usda-table__cell:not(:first-child) {
-                padding-right: rem(42);
+                padding-right: pxToRem(42);
               }
             }
           }
@@ -129,11 +129,11 @@
     // publication dates modal specific
     &.publication-dates-modal {
       @include media($tablet-screen) {
-        max-width: rem(483);
+        max-width: pxToRem(483);
       }
       @include media($large-screen) {
-        max-width: rem(483);
-        min-width: rem(483);
+        max-width: pxToRem(483);
+        min-width: pxToRem(483);
       }
       .usa-dt-modal__section {
         .usda-table {
@@ -142,8 +142,8 @@
               .table-header__content {
                 .table-header__label {
                   .publication-dates__column-header-sub-title {
-                    font-size: rem(14);
-                    line-height: rem(15);
+                    font-size: pxToRem(14);
+                    line-height: pxToRem(15);
                     font-weight: $font-normal;
                   }
                 }
@@ -156,12 +156,12 @@
     // reporting differences modal
     &.reporting-differences-modal {
       @include media($tablet-screen) {
-        max-width: rem(900);
+        max-width: pxToRem(900);
 
       }
       @include media($large-screen) {
-        max-width: rem(900);
-        min-width: rem(900);
+        max-width: pxToRem(900);
+        min-width: pxToRem(900);
       }
       .usa-dt-modal__section {
         .usda-table {
@@ -169,7 +169,7 @@
             .usda-table__row {
               .usda-table__cell:not(:first-child) {
                 text-align: right;
-                padding-right: rem(42);
+                padding-right: pxToRem(42);
               }
             }
           }
@@ -179,14 +179,14 @@
     // unlinked data modal
     &.unlinked-data-modal {
       @include media($tablet-screen) {
-        max-width: rem(730);
+        max-width: pxToRem(730);
         table.usda-table {
           margin-bottom: 0;
         }
       }
       @include media($large-screen) {
-        max-width: rem(730);
-        min-width: rem(730);
+        max-width: pxToRem(730);
+        min-width: pxToRem(730);
       }
       .usa-dt-modal__section {
         table.usda-table {
@@ -200,14 +200,14 @@
                 vertical-align: top;
               }
               .table-header:not(:first-child) {
-                border-bottom: solid rem(1) $color-gray-light;
+                border-bottom: solid pxToRem(1) $color-gray-light;
               }
             }
           }
           .usda-table__body {
             .usda-table__row {
               .table-header {
-                font-size: rem(14);
+                font-size: pxToRem(14);
                 text-align: right;
                 border: none;
                 padding-left: 0;

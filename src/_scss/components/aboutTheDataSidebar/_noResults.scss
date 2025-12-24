@@ -4,13 +4,13 @@
     font-weight: $font-semibold;
     line-height: 1.25;
     color: $theme-color-headline-inverse;
-    margin-top: rem(16);
+    margin-top: pxToRem(16);
   }
 
   .atd-no-results__text {
     font-size: $font-size-16;
     line-height: 1.5;
     color: $theme-color-body-inverse;
-    margin-top: rem(8);
+    margin-top: pxToRem(8);
   }
 }

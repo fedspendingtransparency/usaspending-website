@@ -3,7 +3,7 @@ svg.bar-graph {
     @import "bar";
     .chart-legend-item {
         .key-label {
-            font-size: rem(12);
+            font-size: pxToRem(12);
             color: $gray-60;
             fill: $gray-60;
         }

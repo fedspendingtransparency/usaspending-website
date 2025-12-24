@@ -8,15 +8,15 @@
 
     .header-cell__text {
         @include flex(0 1 auto);
-        margin-right: rem(20);
+        margin-right: pxToRem(20);
     }
 
     .header-cell__title {
         text-align: left;
         font-weight: $font-semibold;
         color: $color-base;
-        font-size: rem(20);
-        line-height: rem(25);
+        font-size: pxToRem(20);
+        line-height: pxToRem(25);
 
         &.header-cell__title_right {
             text-align: right;
@@ -24,17 +24,17 @@
 
     }
     .header-cell__longer-title {
-        padding-top: rem(18);
+        padding-top: pxToRem(18);
     }
     .header-cell__subtitle {
         text-align: right;
         font-weight: $font-light;
         color: $color-base;
-        font-size: rem(14);
-        line-height: rem(18);
+        font-size: pxToRem(14);
+        line-height: pxToRem(18);
     }
 
     .header-cell__sorter {
-        @include flex(0 0 rem(20));
+        @include flex(0 0 pxToRem(20));
     }
 }

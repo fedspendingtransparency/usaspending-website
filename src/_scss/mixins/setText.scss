@@ -1,8 +1,8 @@
 // DYNAMACALLY SET LINE-HEIGHT BASED OFF THE SIZE OF TEXT
 //@import "../../mixins/setText";
-// CALL WITH -- @include setText(rem(42)); --
+// CALL WITH -- @include setText(pxToRem(42)); --
 
 @mixin setText($fontSize) {
     font-size: $fontSize;
-    line-height: ($fontSize + rem(6%));
+    line-height: ($fontSize + pxToRem(6%));
 }

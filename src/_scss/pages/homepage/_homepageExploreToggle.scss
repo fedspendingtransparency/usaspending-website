@@ -20,14 +20,14 @@ $customWidthJustForThisComponent: 440px;
       background-color: white;
       margin-right: 0;
       margin-bottom: 0;
-      padding: rem(4) rem(8);
+      padding: pxToRem(4) pxToRem(8);
       border-top: none;
       border-left: none;
       border-right: none;
       border-radius: 0;
       border-bottom: solid 1px $theme-color-underline;
       @media(min-width: $customWidthJustForThisComponent) {
-        padding: rem(4) rem(16);
+        padding: pxToRem(4) pxToRem(16);
       }
 
         &.active {
@@ -46,38 +46,38 @@ $customWidthJustForThisComponent: 440px;
         display: flex;
 
         .homepage-explore-toggle__icon-container {
-          width: rem(20);
-          height: rem(20);
-          padding-left: rem(4);
-          border-radius: rem(2);
+          width: pxToRem(20);
+          height: pxToRem(20);
+          padding-left: pxToRem(4);
+          border-radius: pxToRem(2);
           background-color: $color-primary-alt-lightest;
           opacity: 50%;
           &.access {
             background-color: $theme-color-accent-11;
-            padding-left: rem(6);
+            padding-left: pxToRem(6);
           }
         }
         .homepage-explore-toggle__icon {
           color: $theme-color-accent-6;
-          font-size: rem(12);
+          font-size: pxToRem(12);
           &.access {
             color: $theme-color-accent-16;
           }
         }
 
         .homepage-explore-toggle__text {
-          font-size: rem(14);
+          font-size: pxToRem(14);
           font-stretch: normal;
           font-style: normal;
           line-height: 1;
           letter-spacing: normal;
           color: $color-base;
-          margin-left: rem(4);
+          margin-left: pxToRem(4);
           align-self: center;
           @media(min-width: $customWidthJustForThisComponent) {
-            font-size: rem(16);
+            font-size: pxToRem(16);
             line-height: 1.25;
-            margin-left: rem(8);
+            margin-left: pxToRem(8);
           }
         }
       }

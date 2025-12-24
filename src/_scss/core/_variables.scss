@@ -1,40 +1,47 @@
+@use 'sass:math';
 // Typography
-// $em-base must be declared before using the rem() function
+// $em-base must be declared before using the pxToRem() function
 $em-base: 10px;
 
-$font-size-56: rem(56px);
-$font-size-48: rem(48px);
-$font-size-40: rem(40px);
+// Function to convert pixels to rem
+@function pxToRem($px) {
+  $em-base: 10;
+  @return math.div($px, $em-base) * 1rem;
+}
 
-$font-size-32: rem(32px);
-$font-size-28: rem(28px);
-$font-size-24: rem(24px);
-$font-size-20: rem(20px);
-$font-size-17: rem(17px);
-$font-size-16: rem(16px);
-$font-size-12: rem(12px);
-$font-size-10: rem(10px);
-$font-size-14: rem(14px);
+$font-size-56: pxToRem(56);
+$font-size-48: pxToRem(48);
+$font-size-40: pxToRem(40);
+
+$font-size-32: pxToRem(32);
+$font-size-28: pxToRem(28);
+$font-size-24: pxToRem(24);
+$font-size-20: pxToRem(20);
+$font-size-17: pxToRem(17);
+$font-size-16: pxToRem(16);
+$font-size-12: pxToRem(12);
+$font-size-10: pxToRem(10);
+$font-size-14: pxToRem(14);
 
 $base-font-size:      $font-size-16;
 $small-font-size:     $font-size-14;
-$smallest-font-size:  rem(12px);
+$smallest-font-size:  pxToRem(12);
 $lead-font-size:      $font-size-20;
-$title-font-size:     rem(52px);
+$title-font-size:     pxToRem(52);
 
 $h1-font-size:        $font-size-56;
 $h2-font-size:        $font-size-40;
 $h3-font-size:        $font-size-32;
 $h4-font-size:        $font-size-28;
 $h5-font-size:        $font-size-20;
-$h6-font-size:        rem(19px);
+$h6-font-size:        pxToRem(19);
 
 $base-line-height:    1.5;
 $heading-line-height: 1.2;
 $lead-line-height:    1.7;
 
-$font-sans:           'Source Sans Pro', $helvetica;
-$font-serif:          'Merriweather', $georgia;
+$font-sans:           'Source Sans Pro';
+$font-serif:          'Merriweather';
 $font-path:           './fonts';
 
 $font-light:       200;
@@ -275,7 +282,7 @@ $shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.1);
 
 // Global Padding and Margins (new units for 2022 homepage redesign)
 // (example usage {padding: ($global-padding * 4);} = 32px of padding.)
-$global-spacing-unit: rem(8);
+$global-spacing-unit: pxToRem(8);
 $global-padding: $global-spacing-unit;
 $global-margin: $global-spacing-unit;
 
@@ -292,21 +299,21 @@ $x-large-screen:    1640px;
 
 
 // Magic Numbers
-$text-max-width:      rem(530);
-$lead-max-width:      rem(770);
-$site-max-width:      rem(1600);
+$text-max-width:      pxToRem(530);
+$lead-max-width:      pxToRem(770);
+$site-max-width:      pxToRem(1600);
 // Homepage max-width
-$homepage-max-width:  rem(1400);
-$site-margins:        rem(30);
-$site-margins-mobile: rem(15);
-$article-max-width:   rem(600);
-$input-max-width:     rem(460);
-$border-radius:       rem(3px);
+$homepage-max-width:  pxToRem(1400);
+$site-margins:        pxToRem(30);
+$site-margins-mobile: pxToRem(15);
+$article-max-width:   pxToRem(600);
+$input-max-width:     pxToRem(460);
+$border-radius:       pxToRem(3);
 $box-shadow:          0 0 2px $color-shadow;
 $focus-shadow:        0 0 3px $color-focus, 0 0 7px $color-focus;
 $container-shadow:    0 1px 2px rgba(43,59,93,.29);
-$nav-width:           rem(951);
-$outer-gutter:        rem(40);
+$nav-width:           pxToRem(951);
+$outer-gutter:        pxToRem(40);
 
 // 44 x 44 pixels hit target following Apple iOS Human Interface Guidelines
 $hit-area:          4.4rem;

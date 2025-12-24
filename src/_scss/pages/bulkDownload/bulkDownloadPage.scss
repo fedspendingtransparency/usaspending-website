@@ -5,17 +5,17 @@
 
     .bulk-download {
         padding: 0;
-        margin-left: rem(16);
-        margin-right: rem(16);
+        margin-left: pxToRem(16);
+        margin-right: pxToRem(16);
 
         @media(min-width: $tablet-screen) {
-            margin-left: rem(32);
-            margin-right: rem(32);
-            max-width: rem(600);
+            margin-left: pxToRem(32);
+            margin-right: pxToRem(32);
+            max-width: pxToRem(600);
         }
         @include media($tablet-screen) {
             &.award-data-archive-special-width {
-                max-width: rem(1400);
+                max-width: pxToRem(1400);
             }
         }
 
@@ -25,7 +25,7 @@
             @import "../../components/checkboxTree/checkboxTree";
             @import "metadataPage";
             background-color: $color-white;
-            padding: rem(30) 0;
+            padding: pxToRem(30) 0;
         }
     }
 }

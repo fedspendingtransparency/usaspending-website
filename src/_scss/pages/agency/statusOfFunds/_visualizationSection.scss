@@ -3,7 +3,7 @@
 
     .usda-message_loading {
         @media(max-width: $tablet-screen) {
-            margin-top: rem(24);
+            margin-top: pxToRem(24);
         }
     }
     .status-of-funds__controls-mobile {
@@ -25,10 +25,10 @@
             justify-content: space-between;
             align-items: center;
             @media(min-width: $tablet-screen) {
-                margin: rem(24) 0 rem(8);
+                margin: pxToRem(24) 0 pxToRem(8);
             }
             @media(min-width: $large-screen) {
-                margin: rem(16) 0 rem(24) rem(32);
+                margin: pxToRem(16) 0 pxToRem(24) pxToRem(32);
             }
         }
 
@@ -40,7 +40,7 @@
 
             .rounded-toggle__wrapper {
                 @media(min-width: $tablet-screen) {
-                    margin-bottom: rem(6);
+                    margin-bottom: pxToRem(6);
                 }
                 @media(min-width: $large-screen) {
                     margin-bottom: 0;
@@ -78,7 +78,7 @@
             margin-top: 32px;
         }
         .status-of-funds__what-heading {
-            font-size: rem(16);
+            font-size: pxToRem(16);
             font-weight: $font-semibold;
             display: inline-block;
             margin: 0;
@@ -87,7 +87,7 @@
         }
 
         .status-of-funds__what-second-heading {
-            font-size: rem(16);
+            font-size: pxToRem(16);
             font-weight: $font-semibold;
             display: inline-block;
             color: $gray-90;
@@ -96,7 +96,7 @@
 
         .status-of-funds__what-text {
             margin-left: 40px;
-            font-size: rem(14);
+            font-size: pxToRem(14);
             color: $color-base;
             margin-bottom: 0;
             margin-top: 8px;
@@ -123,13 +123,13 @@
     .status-of-funds__controls-heading-container {
         display: flex;
         flex-wrap: wrap;
-        margin: rem(8) 0;
+        margin: pxToRem(8) 0;
         @media(min-width: $tablet-screen) {
             margin: 0;
         }
 
         .status-of-funds__controls-heading {
-            font-size: rem(20);
+            font-size: pxToRem(20);
             font-weight: $font-normal;
             color: $gray-90;
             display: flex;
@@ -148,11 +148,11 @@
             border: solid 2px $gray-cool-10;
             background-color: $color-white;
             color: $gray-cool-60;
-            margin: 0 rem(6);
-            height: rem(36);
+            margin: 0 pxToRem(6);
+            height: pxToRem(36);
 
             .usa-dt-picker__button {
-                padding: rem(4) rem(10);
+                padding: pxToRem(4) pxToRem(10);
                 margin: 0;
 
                 .usa-dt-picker__button-text {
@@ -182,7 +182,7 @@
     }
 
     .usa-dt-picker__dropdown-container {
-        width: rem(156);
+        width: pxToRem(156);
     }
 
     .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item {
@@ -216,17 +216,17 @@
 
     .usa-dt-pagination__totals {
         @media(min-width: $large-screen) {
-            margin-left: rem(32);
+            margin-left: pxToRem(32);
         }
     }
     .drilldown-back-button {
         @media(max-width: $medium-screen) {
-            margin-top: rem(24);
+            margin-top: pxToRem(24);
         }
         @media(min-width: $large-screen) {
-            margin-left: rem(32);
+            margin-left: pxToRem(32);
         }
-        font-size: rem(16);
+        font-size: pxToRem(16);
         padding: 0;
         border: none;
         background: none;
@@ -234,7 +234,7 @@
     }
     .status-of-funds__visualization-chart {
         @media(min-width: $large-screen) {
-            margin-left: rem(20);
+            margin-left: pxToRem(20);
         }
         svg {
             height: 100% !important;
@@ -246,21 +246,21 @@
         .parent-g > *:hover { cursor: pointer; opacity: 1; transition-delay: 0ms, 0ms; rect#hlines { filter: drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.1)); fill-opacity: 1; stroke: 1px }}
 
         text.y-axis-labels {
-            font-size: rem(20);
-            @media(max-width: 1499px) {
-                font-size: rem(23);
+            font-size: pxToRem(20);
+            @media(max-width: 1499) {
+                font-size: pxToRem(23);
             }
-            @media(max-width: 1199px) {
-                font-size: rem(30);
+            @media(max-width: 1199) {
+                font-size: pxToRem(30);
             }
             @media(max-width: $medium-screen) {
-                font-size: rem(28);
+                font-size: pxToRem(28);
             }
-            @media(max-width: 599px) {
-                font-size: rem(40);
+            @media(max-width: 599) {
+                font-size: pxToRem(40);
             }
-            @media(max-width: 350px) {
-                font-size: rem(44);
+            @media(max-width: 350) {
+                font-size: pxToRem(44);
             }
         }
     }
@@ -308,10 +308,10 @@
         }
 
             @media(min-width: $large-screen) {
-            margin-left: rem(32);
+            margin-left: pxToRem(32);
 
             .usda-table {
-                margin: rem(20) 0;
+                margin: pxToRem(20) 0;
             }
         }
     }

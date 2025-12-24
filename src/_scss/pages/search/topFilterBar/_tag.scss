@@ -11,8 +11,8 @@
         padding: 8px;
         border: 1px solid $color-gray-lighter;
         box-shadow: $container-shadow;
-        @include border-top-radius(5px);
-        @include border-bottom-radius(5px);
+        @include border-top-radius(5);
+        @include border-bottom-radius(5);
 
         font-size: $smallest-font-size;
 
@@ -32,13 +32,13 @@
 
             .filter-remove {
                 margin-left: 10px;
-                width: rem(8);
-                height: rem(8);
+                width: pxToRem(8);
+                height: pxToRem(8);
                 
                 .close-icon {
                     svg {
-                        height: rem(8);
-                        width: rem(8);
+                        height: pxToRem(8);
+                        width: pxToRem(8);
                         fill: $color-gray;
                     }
                 }

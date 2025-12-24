@@ -17,7 +17,7 @@ import reducers from 'redux/reducers/index';
 import { LoadingWrapper as Loading } from 'components/sharedComponents/Loading';
 import MobileMessage from 'components/sharedComponents/MobileMessage';
 
-import '_global.scss';
+// import '_global.scss';
 
 import { routes } from './router/RouterRoutes';
 

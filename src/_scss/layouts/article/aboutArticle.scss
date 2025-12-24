@@ -21,8 +21,8 @@
         & .breadcrumb-arrow {
             display: inline-block;
             & svg {
-                height: rem(12);
-                margin-bottom: rem(-2)
+                height: pxToRem(12);
+                margin-bottom: pxToRem(-2)
             }
         }
         @include media($medium-screen) {

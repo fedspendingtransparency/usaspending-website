@@ -17,24 +17,24 @@
 
             .training__back__label {
                 color: $gray-cool-1;
-                font-size: rem(14);
+                font-size: pxToRem(14);
                 line-height: 1.5;
                 font-weight: $font-semibold;
                 margin-left: 5px;
-                transform: translateY(-16px);
+                transform: translateY(-16);
                 cursor: pointer;
             }
 
             svg {
                 width: 14px;
                 height: 14px;
-                transform: translateY(-16px);
+                transform: translateY(-16);
             }
         }
 
         .usa-dt-modal__title {
             text-align: left;
-            font-size: rem(24);
+            font-size: pxToRem(24);
             font-weight: $font-semibold;
             line-height: 1.25;
             color: $gray-90;
@@ -65,11 +65,11 @@
                     overflow-y: scroll;
                     text-align: left;
                     color: $gray-60;
-                    font-size: rem(16);
+                    font-size: pxToRem(16);
                     line-height: 1.5;
                     margin-top: 24px;
                     margin-bottom: 24px;
-                    height: rem(176);
+                    height: pxToRem(176);
 
                     &::-webkit-scrollbar {
                         border-radius: 2.5px;
@@ -93,7 +93,7 @@
 
                 .usa-dt-modal__meta {
                     text-align: left;
-                    font-size: rem(14);
+                    font-size: pxToRem(14);
                     color: $gray-60;
                     margin-top: 24px;
                     padding-left: 4px;

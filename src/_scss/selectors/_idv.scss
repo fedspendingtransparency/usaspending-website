@@ -1,7 +1,7 @@
 %column-less-table__row {
     border: 1px #d5d6d8 solid;
-    padding: rem(8);
-    font-size: rem(16);
+    padding: pxToRem(8);
+    font-size: pxToRem(16);
     display: flex;
     justify-content: space-between;
     color: #525252;
@@ -12,7 +12,7 @@
     justify-content: center;
     align-items: center;
     background: $color-gray-lightest;
-    padding: rem(24) rem(24) rem(36) rem(36);
+    padding: pxToRem(24) pxToRem(24) pxToRem(36) pxToRem(36);
     div {
         display: flex;
         flex-direction: column;

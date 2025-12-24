@@ -35,7 +35,7 @@
         @include media($large-screen) {
             .about-padded-content {
                 width: 75%;
-                max-width: rem(975);
+                max-width: pxToRem(975);
                 margin: auto;
             }
         }

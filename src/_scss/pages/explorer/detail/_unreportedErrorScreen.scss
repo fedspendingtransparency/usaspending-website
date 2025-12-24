@@ -2,27 +2,27 @@
     @include display(flex);
     @include justify-content(center);
     @include align-items(center);
-    margin: rem(50) 0 rem(15) 0;
+    margin: pxToRem(50) 0 pxToRem(15) 0;
 
     .explorer-unreported__top {
         display: flex;
-        padding-bottom: rem(20);
+        padding-bottom: pxToRem(20);
     }
 
     .explorer-unreported__icon {
-       margin-right: rem(10);
+       margin-right: pxToRem(10);
        @include align-self(center);
 
         svg {
-            width: rem(30);
-            height: rem(30);
+            width: pxToRem(30);
+            height: pxToRem(30);
             fill: #FFB800;
         }
     }
 
     .explorer-unreported__box {
-        max-width: rem(720);
-        padding: rem(30) rem(30) rem(30) rem(30);
+        max-width: pxToRem(720);
+        padding: pxToRem(30) pxToRem(30) pxToRem(30) pxToRem(30);
         height: auto;
         border: 1px solid #FFB800;
         background-color: #FFFCF6;
@@ -32,7 +32,7 @@
         font-size: $font-size-20;
         margin: 0;
         font-weight: $font-semibold;
-        padding-left: rem(20);
+        padding-left: pxToRem(20);
         line-height: $heading-line-height;
     }
 
@@ -42,12 +42,12 @@
     }
 
     .explorer-unreported__body {
-        padding-left: rem(62);
+        padding-left: pxToRem(62);
     }
 
     .explorer-unreported__list {
-        padding-left: rem(20);
-        margin-top: rem(10);
+        padding-left: pxToRem(20);
+        margin-top: pxToRem(10);
         font-size: $font-size-16;
 
         li {

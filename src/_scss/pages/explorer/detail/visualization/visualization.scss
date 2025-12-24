@@ -1,5 +1,5 @@
 .explorer-vis {
-    margin-top: rem(40);
+    margin-top: pxToRem(40);
 
     @import "./_menu";
     @import "./treemap/treemap";
@@ -18,7 +18,7 @@
         font-size: $font-size-14;
         font-weight: $font-normal;
         line-height: $base-line-height;
-        margin-top: rem(16);
+        margin-top: pxToRem(16);
         @import 'components/externalLink';
 
         strong, b {

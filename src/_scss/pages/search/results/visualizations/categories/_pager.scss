@@ -5,13 +5,13 @@
     .visualization-pager {
         display: inline-block;
         @include button-unstyled;
-        padding: rem(10);
-        margin-top: rem(12);
+        padding: pxToRem(10);
+        margin-top: pxToRem(12);
         color: $color-gray;
-        font-size: rem(12);
-        border: rem(1) solid #D5D6D8;
-        margin-left: rem(20);
-        margin-bottom: rem(20);
+        font-size: pxToRem(12);
+        border: pxToRem(1) solid #D5D6D8;
+        margin-left: pxToRem(20);
+        margin-bottom: pxToRem(20);
         &:first-child {
             margin-left: 0;
         }
@@ -20,18 +20,18 @@
         }
         .pager-label {
             float: left;
-            line-height: rem(18);
-            margin: 0 0 0 rem(5);
+            line-height: pxToRem(18);
+            margin: 0 0 0 pxToRem(5);
             &.next {
-                margin: 0 rem(5) 0 0;
+                margin: 0 pxToRem(5) 0 0;
             }
         }
         .icon {
             float: left;
             margin-top: 0.3rem;
             & svg {
-                height: rem(12);
-                width: rem(12);
+                height: pxToRem(12);
+                width: pxToRem(12);
                 fill: $color-gray;
             }
         }

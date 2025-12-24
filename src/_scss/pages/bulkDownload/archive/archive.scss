@@ -1,6 +1,6 @@
 .award-data-archive-content {
     @include media($medium-screen) {
-        padding: 0 rem(30);
+        padding: 0 pxToRem(30);
     }
     h2 {
         margin-top: 0;

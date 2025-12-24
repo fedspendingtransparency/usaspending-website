@@ -9,7 +9,7 @@
     @include resultsSection;
     .results-count {
         font-style: italic;
-        padding: rem(20) 0;
-        font-size: rem(16);
+        padding: pxToRem(20) 0;
+        font-size: pxToRem(16);
     }
 }

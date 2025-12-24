@@ -3,16 +3,16 @@
 	.no-awards-message {
 		font-weight: $font-semibold;
 		font-size: $font-size-32;
-		margin: 20vh 0 rem(30) 0;
+		margin: 20vh 0 pxToRem(30) 0;
 		.info-icon-circle {
 			@include align-self(center);
 			display: inline-block;
 			fill: $color-primary-alt;
-			height: rem(27);
-			right: rem(5);
+			height: pxToRem(27);
+			right: pxToRem(5);
 			position: relative;
-			top: rem(3);
-			width: rem(25);
+			top: pxToRem(3);
+			width: pxToRem(25);
 			svg {
 				float: none;
 			}

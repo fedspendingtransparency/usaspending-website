@@ -5,18 +5,18 @@
         @include button-unstyled;
         @extend h3;
         font-weight: $font-light;
-        border-bottom: rem(1) solid $color-gray-light;
-        padding-left: rem(10);
-        padding-right: rem(10);
+        border-bottom: pxToRem(1) solid $color-gray-light;
+        padding-left: pxToRem(10);
+        padding-right: pxToRem(10);
         .label {
             display: inline-block;
         }
         .arrow-icon {
             display: inline-block;
-            margin-left: rem(10);
+            margin-left: pxToRem(10);
             svg {
-                width: rem(14);
-                height: rem(14);
+                width: pxToRem(14);
+                height: pxToRem(14);
                 fill: $color-gray;
             }
         }
@@ -24,11 +24,11 @@
     .field-list {
         position: absolute;
         z-index: 2;
-        width: rem(300);
+        width: pxToRem(300);
         overflow-y: auto;
-        border: rem(1) solid $color-gray-light;
-        margin: rem(-1) 0 0 0;
-        box-shadow: 0 rem(5) rem(5) 0 rgba($color-black, .2);
+        border: pxToRem(1) solid $color-gray-light;
+        margin: pxToRem(-1) 0 0 0;
+        box-shadow: 0 pxToRem(5) pxToRem(5) 0 rgba($color-black, .2);
         ul {
             @include unstyled-list;
             @import "components/_comingSoon";
@@ -38,16 +38,16 @@
                 width: 100%;
                 background-color: $color-white;
                 border: none;
-                border-bottom: rem(1) solid $color-gray-light;
+                border-bottom: pxToRem(1) solid $color-gray-light;
                 &:last-child {
                     border-bottom: none;
                 }
                 .item-button {
                     @include button-unstyled;
                     color: $color-gray;
-                    font-size: rem(14);
+                    font-size: pxToRem(14);
                     width: 100%;
-                    padding: rem(20);
+                    padding: pxToRem(20);
                     &:hover,
                     &:active,
                     &:focus {
@@ -65,12 +65,12 @@
                     }
                 }
                 .coming-soon-icon {
-                    left: rem(185);
-                    bottom: rem(12);
+                    left: pxToRem(185);
+                    bottom: pxToRem(12);
                 }
                 .coming-soon-label {
-                    left: rem(200);
-                    bottom: rem(10);
+                    left: pxToRem(200);
+                    bottom: pxToRem(10);
                 }
             }
         }

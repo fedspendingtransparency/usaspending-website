@@ -9,17 +9,17 @@
       .results-table-message-container {
         position: relative;
         background-color: rgb(246, 246, 246);
-        margin-bottom: rem(30);
+        margin-bottom: pxToRem(30);
 
         .no-results-container {
           text-align: center;
-          margin-top: rem(100);
-          margin-bottom: rem(100);
+          margin-top: pxToRem(100);
+          margin-bottom: pxToRem(100);
           .no-results-title {
             h4 {
               margin-bottom: 0;
               vertical-align: bottom;
-              font-size: rem(18);
+              font-size: pxToRem(18);
               font-weight: $font-semibold;
             }
           }
@@ -39,9 +39,9 @@
         @include justify-content(space-between);
         background-color: #F3FAFC;
         color: #525252;
-        font-size: rem(14);
-        margin: rem(30) 0;
-        padding: 0 rem(10) 0 rem(10);
+        font-size: pxToRem(14);
+        margin: pxToRem(30) 0;
+        padding: 0 pxToRem(10) 0 pxToRem(10);
         width: 100%;
         .award-viz__button {
             margin: 0;
@@ -58,36 +58,36 @@
     }
 
     .award-amounts__banner-info-icon {
-        margin-top: rem(18);
-        margin-right: rem(5);
+        margin-top: pxToRem(18);
+        margin-right: pxToRem(5);
 
         svg {
-            width: rem(15);
-            height: rem(15);
+            width: pxToRem(15);
+            height: pxToRem(15);
             fill: $color-primary-alt-dark;
         }
     }
 
     .award-amounts__banner-close-icon {
         margin: 0;
-        margin-top: rem(8);
+        margin-top: pxToRem(8);
         background-color: unset;
 
         svg {
-            width: rem(10);
-            height: rem(10);
+            width: pxToRem(10);
+            height: pxToRem(10);
             fill: $color-gray;
         }
     }
 
     .award-amounts__data {
         @extend %column-less-table__row;
-        margin: rem(40) 0 rem(10) 0;
-        border-radius: rem(5);
+        margin: pxToRem(40) 0 pxToRem(10) 0;
+        border-radius: pxToRem(5);
     }
 
   .award-amounts__table-by-type {
-    padding-top: rem(16);
+    padding-top: pxToRem(16);
   }
 
   .usa-dt-tab-list:not(.tabless-tabs) .usa-dt-tab-list__border-post-filler {

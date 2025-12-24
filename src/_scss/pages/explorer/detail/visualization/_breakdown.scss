@@ -19,7 +19,7 @@
             @include media($medium-screen) {
                 @include flex(0 0 auto);
             }
-            margin-right: rem(30);
+            margin-right: pxToRem(30);
             font-size: $font-size-20;
             font-weight: $font-semibold;
             line-height: $heading-line-height;
@@ -28,7 +28,7 @@
 
         .breakdown__dropdown {
             position: relative;
-            margin: rem(5) 0 rem(15);
+            margin: pxToRem(5) 0 pxToRem(15);
             @include media($medium-screen) {
                 @include flex(1 1 auto);
                 margin: 0;
@@ -43,18 +43,18 @@
 
                 border-bottom: 1px solid $color-base;
 
-                padding: rem(10) rem(5);
-                margin-right: rem(30);
+                padding: pxToRem(10) pxToRem(5);
+                margin-right: pxToRem(30);
 
                 .dropdown__icon, .dropdown__arrow {
                     @include flex(0 0 auto);
-                    width: rem(20);
-                    height: rem(20);
+                    width: pxToRem(20);
+                    height: pxToRem(20);
                     color: $color-primary;
 
                     svg {
-                        width: rem(20);
-                        height: rem(20);
+                        width: pxToRem(20);
+                        height: pxToRem(20);
                         fill: $color-base;
                     }
                 }
@@ -65,15 +65,15 @@
                     font-size: $font-size-24;
                     line-height: $heading-line-height;
                     font-weight: $font-normal;
-                    margin-left: rem(12);
-                    margin-right: rem(8);
+                    margin-left: pxToRem(12);
+                    margin-right: pxToRem(8);
                 }
             }
 
             .dropdown__menu {
                 @include unstyled-list;
                 position: absolute;
-                top: rem(50);
+                top: pxToRem(50);
                 left: 0;
                 border: 1px solid $color-gray-lighter;
 
@@ -96,7 +96,7 @@
       @include viewTypeButton();
 
       .view-button {
-        min-height: rem(32);
+        min-height: pxToRem(32);
       }
     }
 }

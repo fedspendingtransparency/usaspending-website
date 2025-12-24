@@ -19,13 +19,13 @@
     justify-content: center;
 
     .grid-content {
-      margin: 0 rem(16);
+      margin: 0 pxToRem(16);
       max-width: $homepage-max-width;
       align-self: center;
       @media (min-width: $tablet-screen) {
-        margin: 0 rem(32);
+        margin: 0 pxToRem(32);
       }
-      @media (min-width: 1400px) {
+      @media (min-width: 1400) {
         margin: 0 $grid-column;
       }
     }

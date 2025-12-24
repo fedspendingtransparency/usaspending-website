@@ -1,12 +1,12 @@
 .award-type-filter {
     .filter-item-wrap {
         // reduce the bottom padding because the checkbox items have their own bottom padding
-        padding-bottom: rem(5);
+        padding-bottom: pxToRem(5);
     }
 
     @import "./_primaryType";
 
     .filter-submit-hint {
-        margin-bottom: rem(20);
+        margin-bottom: pxToRem(20);
     }
 }

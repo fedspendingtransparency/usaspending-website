@@ -32,7 +32,7 @@
         }
 
         &:last-child {
-            width: rem(320);
+            width: pxToRem(320);
         }
     }
 }

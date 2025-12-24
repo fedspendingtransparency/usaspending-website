@@ -31,7 +31,7 @@
 }
 .sof-chart-tooltip {
   .tooltip__title {
-    font-size: rem(16);
+    font-size: pxToRem(16);
     font-weight: $font-semibold;
     color: $gray-90;
     background-color: $color-white;
@@ -44,7 +44,7 @@
       height: 1px;
     }
     .tooltip__text-note {
-      font-size: rem(14);
+      font-size: pxToRem(14);
       font-style: italic;
       text-align: center;
       color: $color-base;
@@ -66,7 +66,7 @@
         margin-top: 0.4rem;
       }
       .tooltip__text {
-        font-size: rem(14);
+        font-size: pxToRem(14);
       }
     }
   }

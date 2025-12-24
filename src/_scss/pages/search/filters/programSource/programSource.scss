@@ -8,11 +8,11 @@
     // temporary; remove import and delete the scss file when TASDeprecationNotice is removed
     @import "./tasDeprecationNotice.scss";
 
-    padding: 0 $global-padding * 2 rem(20);
+    padding: 0 $global-padding * 2 pxToRem(20);
 
     .program-source-components {
         .program-source-components__heading {
-            padding: rem(15) 0;
+            padding: pxToRem(15) 0;
             font-weight: $font-semibold;
         }
 
@@ -22,11 +22,11 @@
             @import "../location/warning";
 
             .warning-tooltip {
-                top: rem(5);
+                top: pxToRem(5);
             }
 
             .program-source-components__button {
-                margin-top: rem(15);
+                margin-top: pxToRem(15);
                 width: 100%;
                 cursor: pointer;
 
@@ -40,7 +40,7 @@
         }
 
         .program-source-select-filter {
-            padding-bottom: rem(15);
+            padding-bottom: pxToRem(15);
 
             @import "elements/filters/_errorMessage";
             @import "elements/filters/_typeahead";
@@ -57,7 +57,7 @@
                     @include flex(0 0 auto);
                     @include align-self(center);
                     position: absolute;
-                    right: rem(15);
+                    right: pxToRem(15);
                 }
             }
             .program-source-select-filter__label {
@@ -70,7 +70,7 @@
                     @include align-self(center);
 
                     flex-wrap: wrap;
-                    padding-left: rem(5);
+                    padding-left: pxToRem(5);
                     color: $color-secondary;
                     text-align: right;
                 }
@@ -83,7 +83,7 @@
     }
 
     .shown {
-        min-height: rem(18);
+        min-height: pxToRem(18);
     }
 
     .visually-hidden {

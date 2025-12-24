@@ -9,11 +9,11 @@
 		@include fullSectionWrap(0,0);
 
 		background-color: $color-white;
-		padding: rem(30) rem(20);
+		padding: pxToRem(30) pxToRem(20);
 
 		.data-dictionary {
 			@include media($medium-screen) {
-				padding: 0 rem(30);
+				padding: 0 pxToRem(30);
 			}
 			.data-dictionary__title {
 				margin-top: 0;
@@ -33,16 +33,16 @@
 			}
 			.data-dictionary__download {
 				@include align-self(center);
-				padding-bottom: rem(5);
+				padding-bottom: pxToRem(5);
 				.data-dictionary__download-link {
 					@include display(flex);
 					@include align-items(center);
 					.data-dictionary__download-icon {
 						@include display(flex);
 						@include flex(0 0 auto);
-						height: rem(15);
-						width: rem(15);
-						padding-right: rem(5);
+						height: pxToRem(15);
+						width: pxToRem(15);
+						padding-right: pxToRem(5);
 					}
 					font-size: $small-font-size;
 				}

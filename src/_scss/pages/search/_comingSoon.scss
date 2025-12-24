@@ -2,29 +2,29 @@
     background: repeating-linear-gradient(
         45deg,
         rgba($color-gray-lightest, .2),
-        rgba($color-gray-lightest, .2) rem(2px),
-        rgba($color-gray-lighter, .3) rem(2px),
-        rgba($color-gray-lighter, .3) rem(4px)
+        rgba($color-gray-lightest, .2) pxToRem(2),
+        rgba($color-gray-lighter, .3) pxToRem(2),
+        rgba($color-gray-lighter, .3) pxToRem(4)
     );
     .coming-soon-icon {
-        bottom: rem(24px);
+        bottom: pxToRem(24);
         height: 0;
-        left: rem(35px);
+        left: pxToRem(35);
         position: relative;
         svg {
             fill: $color-gray-lighter;
-            height: rem(10px);
-            width: rem(10px);
+            height: pxToRem(10);
+            width: pxToRem(10);
         }
     }
     .coming-soon-label {
-        bottom: rem(20px);
+        bottom: pxToRem(20);
         color: $color-gray-lighter;
         float: left;
         font-weight: bold;
-        font-size: rem(10px);
+        font-size: pxToRem(10);
         height: 0;
-        left: rem(50px);
+        left: pxToRem(50);
         position: relative;
     }
     .filter-toggle {

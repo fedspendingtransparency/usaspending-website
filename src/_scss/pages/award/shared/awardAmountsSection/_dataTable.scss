@@ -11,11 +11,11 @@
         border-bottom: 0;
         padding-left: 2.3rem;
         &:nth-of-type(1) {
-            border-radius: rem(5) rem(5) 0 0;
+            border-radius: pxToRem(5) pxToRem(5) 0 0;
         }
         &:last-of-type {
-            border-radius: 0 0 rem(5) rem(5);
-            border-bottom: solid rem(1) $border-light-gray;
+            border-radius: 0 0 pxToRem(5) pxToRem(5);
+            border-bottom: solid pxToRem(1) $border-light-gray;
         }
 
         .remove-indent {
@@ -33,12 +33,12 @@
     }
 
     .award-amounts__data-icon {
-        height: rem(10);
-        min-width: rem(10);
+        height: pxToRem(10);
+        min-width: pxToRem(10);
         border-radius: 50%;
         display: inline-block;
-        margin-top: rem(5);
-        margin-right: rem(5);
+        margin-top: pxToRem(5);
+        margin-right: pxToRem(5);
     }
 
     .award-amounts__data-icon_blue {
@@ -67,17 +67,17 @@
 
     .award-amounts__data-icon_transparent {
         background-color: white;
-        border: rem(2) solid #BBBBBB;
+        border: pxToRem(2) solid #BBBBBB;
     }
 
     .award-amounts__data-icon_transparent-green {
         background-color: white;
-        border: rem(2) solid $colors-grants-nff;
+        border: pxToRem(2) solid $colors-grants-nff;
     }
 
     .award-amounts__file-c-outlays {
         background-color: $color-disaster-covid-19;
-        border: rem(2) solid $color-disaster-covid-19;
+        border: pxToRem(2) solid $color-disaster-covid-19;
     }
 
     .award-amounts__potential {
@@ -98,44 +98,44 @@
 
     .award-amounts__file-c-obligations {
         background-color: $color-covid-19-obligations;
-        border: rem(2) solid $color-covid-19-obligations;
+        border: pxToRem(2) solid $color-covid-19-obligations;
     }
 
     .award-amounts__infrastructure-obligated {
         background-color: $color-infrastructure-obligations;
-        border: rem(2) solid $color-infrastructure-obligations;
+        border: pxToRem(2) solid $color-infrastructure-obligations;
     }
 
     .award-amounts__infrastructure-outlays {
         background-color: $color-infrastructure-outlays;
-        border: rem(2) solid $color-infrastructure-outlays;
+        border: pxToRem(2) solid $color-infrastructure-outlays;
     }
 
     .award-amounts__data-icon_overspending {
         background: repeating-linear-gradient(
             45deg,
             $color-white,
-            $color-white rem(5),
-            $color-gold rem(2),
-            $color-gold rem(7)
+            $color-white pxToRem(5),
+            $color-gold pxToRem(2),
+            $color-gold pxToRem(7)
         );
-        border: rem(1) solid $color-gold;
+        border: pxToRem(1) solid $color-gold;
     }
     .award-amounts__data-icon_extreme-overspending {
         background: repeating-linear-gradient(
             45deg,
             $color-white,
-            $color-white rem(5),
-            $color-secondary rem(2),
-            $color-secondary rem(7)
+            $color-white pxToRem(5),
+            $color-secondary pxToRem(2),
+            $color-secondary pxToRem(7)
         );
-        border: rem(1) solid $color-secondary;
+        border: pxToRem(1) solid $color-secondary;
     }
 }
 
 .award-amounts-children__data-wrapper {
-  margin-top: rem(30);
-  margin-bottom: rem(15);
+  margin-top: pxToRem(30);
+  margin-bottom: pxToRem(15);
 
   strong {
       font-weight: 600;
@@ -153,14 +153,14 @@
       margin-right: 0;
       margin-left: auto;
       margin-top: 0.8rem;
-      @media (max-width: 510px) {
+      @media (max-width: 510) {
         margin-left: 0;
       }
   }
   .title-and-link-span {
       width: 100%;
       display: inline-flex;
-      @media (max-width: 510px) {
+      @media (max-width: 510) {
         display: block;
       }
   }
@@ -169,11 +169,11 @@
       @extend %column-less-table__row;
       border-bottom: 0;
       &:nth-of-type(1) {
-          border-radius: rem(5) rem(5) 0 0;
+          border-radius: pxToRem(5) pxToRem(5) 0 0;
       }
       &:last-of-type {
-          border-radius: 0 0 rem(5) rem(5);
-          border-bottom: solid rem(1) $border-light-gray;
+          border-radius: 0 0 pxToRem(5) pxToRem(5);
+          border-bottom: solid pxToRem(1) $border-light-gray;
       }
   }
 }

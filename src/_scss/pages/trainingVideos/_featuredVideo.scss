@@ -22,7 +22,7 @@
         }
 
         img {
-          border-radius: rem(8) rem(8) 0 0;
+          border-radius: pxToRem(8) pxToRem(8) 0 0;
         }
       }
     }
@@ -86,29 +86,29 @@
   }
 
   .training-video-feature__column-share-icon {
-    height: rem(24);
-    width: rem(24);
+    height: pxToRem(24);
+    width: pxToRem(24);
 
     // this is to place the msg on top of the 'copy link' item in dropdown
     .usda-share-icon .copy-confirmation {
-      left: rem(4);
+      left: pxToRem(4);
     }
 
     .usda-share-icon {
-      height: rem(24);
-      width: rem(24);
+      height: pxToRem(24);
+      width: pxToRem(24);
 
       .usa-dt-picker {
-        height: rem(24);
-        width: rem(24);
+        height: pxToRem(24);
+        width: pxToRem(24);
 
         .usa-dt-picker__dropdown-container {
-          height: rem(24);
-            width: rem(24);
+          height: pxToRem(24);
+            width: pxToRem(24);
 
           .usa-dt-picker__button {
-            height: rem(24);
-            width: rem(24);
+            height: pxToRem(24);
+            width: pxToRem(24);
             margin: 0;
             padding: 0;
           }

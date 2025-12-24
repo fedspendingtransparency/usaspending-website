@@ -21,13 +21,13 @@
 
         .cell-content {
             .header-sort {
-                padding: rem(16) rem(20);
+                padding: pxToRem(16) pxToRem(20);
                 .header-label {
-                    line-height: rem(18);
+                    line-height: pxToRem(18);
                 }
                 .header-icons {
                     vertical-align: top;
-                    padding-top: rem(4);
+                    padding-top: pxToRem(4);
                 }
             }
         }

@@ -7,7 +7,7 @@
     pointer-events: visible;
   }
   .svg-line__text {
-    font-size: rem(12);
+    font-size: pxToRem(12);
   }
   .rectangle-background {
      fill: white;

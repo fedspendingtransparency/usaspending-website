@@ -1,11 +1,11 @@
 .budget-categories {
     .table-types {
         .table-type-toggle {
-            padding: rem(15) rem(20);
-            margin-right: rem(5);
+            padding: pxToRem(15) pxToRem(20);
+            margin-right: pxToRem(5);
 
             .tab-content {
-                font-size: rem(18);
+                font-size: pxToRem(18);
             }
 
             &.active {
@@ -69,7 +69,7 @@
             .usda-table__body {
                 tr.usda-table__row {
                     td.usda-table__cell {
-                        padding-left: rem(15);
+                        padding-left: pxToRem(15);
 
                         &:first-of-type {
                             margin-left: 0;
@@ -103,10 +103,10 @@
         @include display(flex);
         @include justify-content(left);
         @include align-items(center);
-        margin-top: rem(20);
+        margin-top: pxToRem(20);
 
         label {
-            padding-right: rem(6);
+            padding-right: pxToRem(6);
         }
 
         .usa-dt-picker {
@@ -116,21 +116,21 @@
                 padding-bottom: 0;
                 padding-top: 0;
                 margin-left: 0;
-                padding-left: rem(1);
-                border-bottom: rem(2) solid $color-cool-blue-light;
-                width: rem(140);
+                padding-left: pxToRem(1);
+                border-bottom: pxToRem(2) solid $color-cool-blue-light;
+                width: pxToRem(140);
 
                 .usa-dt-picker__button-text {
                     font-size: $base-font-size;
                     white-space: nowrap;
-                    margin-right: rem(6);
+                    margin-right: pxToRem(6);
                     color: $color-base;
                     font-weight: $font-normal;
                 }
 
                 .usa-dt-picker__button-icon svg {
-                    height: rem(12);
-                    margin-bottom: rem(3);
+                    height: pxToRem(12);
+                    margin-bottom: pxToRem(3);
                     color: $color-cool-blue-light;
                 }
             }

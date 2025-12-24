@@ -6,7 +6,7 @@
     width: 100%;
 
     background-color: $color-primary-alt-lightest;
-    padding: 0 rem(15);
+    padding: 0 pxToRem(15);
 
 
     @include media($medium-screen) {
@@ -20,10 +20,10 @@
 
     .filter-header-collapse {
         @include flex(0 0 auto);
-        width: rem(100);
+        width: pxToRem(100);
         button.filter-collapse {
             @include button-unstyled;
-            padding: rem(15);
+            padding: pxToRem(15);
 
             .filter-collapse-content {
                 @include display(flex);
@@ -33,11 +33,11 @@
 
                 .icon {
                     @include flex(0 0 auto);
-                    margin-right: rem(5);
+                    margin-right: pxToRem(5);
 
                     svg {
                         fill: $color-primary;
-                        height: rem(10);
+                        height: pxToRem(10);
                     }
                 }
 
@@ -45,7 +45,7 @@
                     @include flex(1 1 auto);
                     color: $color-primary;
                     font-size: $smallest-font-size;
-                    line-height: rem(15);
+                    line-height: pxToRem(15);
                     font-weight: $font-semibold;
                 }
             }

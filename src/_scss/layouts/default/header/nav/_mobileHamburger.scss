@@ -1,6 +1,6 @@
 .mobile-hamburger {
-    height: rem(45);
-    width: rem(45);
+    height: pxToRem(45);
+    width: pxToRem(45);
 
     .mobile-hamburger__wrapper {
         position: absolute;
@@ -14,16 +14,16 @@
         display: flex;
         align-items: center;
         justify-content: right;
-        height: rem(45);
+        height: pxToRem(45);
         position: relative;
-        width: rem(48);
+        width: pxToRem(48);
         .svg {
             color: $gray-cool-90;
         }
 
         .mobile-hamburger__buns {
             color: $gray-cool-90;
-            width: rem(16);
+            width: pxToRem(16);
         }
     }
 

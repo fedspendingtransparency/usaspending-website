@@ -12,7 +12,7 @@
     width: 100% !important;
     background-color: $color-white;
     // Overrides the default library max width of 100%
-    max-width: rem(1200); 
+    max-width: pxToRem(1200);
     box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.15);
     .usa-dt-modal__header {
         background-color: $blue-60v;
@@ -21,31 +21,31 @@
         .usa-dt-modal__close-button {
             @include flex(0 0 auto);
             @include button-unstyled;
-            padding: rem(10);
+            padding: pxToRem(10);
             svg {
-                height: rem(16);
-                width: rem(16);
+                height: pxToRem(16);
+                width: pxToRem(16);
                 fill: $color-white;
             }
         }
     }
     .usa-dt-modal__body {
         text-align: center;
-        padding: rem(24);
+        padding: pxToRem(24);
         display: flex;
         .usa-dt-modal__title-icon {
-            margin-right: rem(8);
-            padding-top: rem(7.5);
+            margin-right: pxToRem(8);
+            padding-top: pxToRem(7.5);
             svg {
-                width: rem(32);
-                height: rem(24);
+                width: pxToRem(32);
+                height: pxToRem(24);
                 fill: $color-gray;
             }
         }
         .usa-dt-modal__text-wrapper {
             flex: 1 1 auto;
             width: 89%;
-            @media(min-width: 820px) {
+            @media(min-width: 820) {
                 width: 100%;
             }
             .usa-dt-modal__title {
@@ -54,38 +54,38 @@
             .usa-dt-modal__title-text {
                 text-align: left;
                 font-weight: 600;
-                font-size: rem(32);
-                line-height: rem(40);
+                font-size: pxToRem(32);
+                line-height: pxToRem(40);
                 color: $gray-90;
             }
             }
             .usa-dt-modal__explanation {
-            padding-top: rem(16);
-            padding-bottom: rem(16);
+            padding-top: pxToRem(16);
+            padding-bottom: pxToRem(16);
             font-size: $font-size-16;
             font-weight: $font-semibold;
-            line-height: rem(20);
+            line-height: pxToRem(20);
             text-align: left;
             color: $gray-80;
             }
             .usa-dt-modal__directions {
             font-size: $font-size-16;
-            line-height: rem(24);
-            margin-top: rem(16);
+            line-height: pxToRem(24);
+            margin-top: pxToRem(16);
             text-align: left;
             color: $gray-80;
             }
             .usa-dt-modal__link {
             font-weight: $font-semibold;
-            font-size: rem(16);
-            line-height: rem(24);
-            margin-top: rem(8);
+            font-size: pxToRem(16);
+            line-height: pxToRem(24);
+            margin-top: pxToRem(8);
             text-align: left;
             pointer-events: none;
             }
             .usa-dt-modal__button-container {
-            padding-top: rem(16);
-            padding-bottom: rem(16);
+            padding-top: pxToRem(16);
+            padding-bottom: pxToRem(16);
             justify-content: flex-end;
             display: flex;
 
@@ -93,9 +93,9 @@
                 margin-top: 0;
                 margin-bottom: 0;
                 margin-right: 0;
-                height: rem(40);
+                height: pxToRem(40);
                 &:first-of-type {
-                    margin-right: rem(32);
+                    margin-right: pxToRem(32);
                 }
             }
             }

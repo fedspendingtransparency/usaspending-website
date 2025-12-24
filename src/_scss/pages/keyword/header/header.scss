@@ -20,15 +20,15 @@
                 p {
                     color: $color-white;
                     margin: 0;
-                    font-size: rem(14);
+                    font-size: pxToRem(14);
                     @include display(flex);
-                    padding: 0 rem(10);
+                    padding: 0 pxToRem(10);
                     &:first-of-type {
                         font-weight: $font-semibold;
-                        border-right: rem(1) solid $color-white;
+                        border-right: pxToRem(1) solid $color-white;
                     }
                     span {
-                        padding-left: rem(5);
+                        padding-left: pxToRem(5);
                         font-weight: $font-semibold;
                     }
                 }

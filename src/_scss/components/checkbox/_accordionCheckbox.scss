@@ -2,36 +2,36 @@
   .autocomplete__input {
     @include display(flex);
     width: 100%;
-    padding-bottom: rem(20);
+    padding-bottom: pxToRem(20);
     position: relative;
 
     input {
       width: 100%;
-      height: rem(32);
+      height: pxToRem(32);
       margin: 0;
       padding: $global-spacing-unit $global-spacing-unit $global-spacing-unit ($global-spacing-unit * 4);
       font-size: $smallest-font-size;
       line-height: 1.5;
       color: $gray-60;
-      border: solid rem(1) $gray-cool-10;
-      border-radius: rem(3);
+      border: solid pxToRem(1) $gray-cool-10;
+      border-radius: pxToRem(3);
     }
 
     svg {
       color: $gray-60;
-      width: rem(12);
-      height: rem(12);
+      width: pxToRem(12);
+      height: pxToRem(12);
     }
 
     .search-icon {
       @include flex(0 0 auto);
       @include align-self(center);
       position: absolute;
-      width: rem(16);
-      height: rem(16);
+      width: pxToRem(16);
+      height: pxToRem(16);
       left: $global-spacing-unit;
-      top: rem(2);
-      padding: rem(2);
+      top: pxToRem(2);
+      padding: pxToRem(2);
     }
 
     .icon {
@@ -39,15 +39,15 @@
       @include align-self(center);
       justify-self: center;
       position: absolute;
-      height: rem(16);
+      height: pxToRem(16);
       right: $global-spacing-unit;
-      top: rem(2);
-      padding: rem(2);
+      top: pxToRem(2);
+      padding: pxToRem(2);
     }
   }
 
   .no-results {
-    padding-bottom: rem(20);
+    padding-bottom: pxToRem(20);
     font-size: $lead-font-size;
     line-height: 1.5;
     color: $gray-60;
@@ -59,23 +59,23 @@
       margin-bottom: ($global-margin * 1.5);
 
       .checkbox-filter__header-icon {
-        width: rem(10);
+        width: pxToRem(10);
 
         svg {
           color: $blue-50;
-          max-width: rem(10);
-          max-height: rem(10);
+          max-width: pxToRem(10);
+          max-height: pxToRem(10);
         }
       }
 
       input {
         @include usa-input-checkbox;
-        width: rem(12);
-        height: rem(12);
-        min-width: rem(12);
-        margin: 0 0 rem(4) rem(6);
+        width: pxToRem(12);
+        height: pxToRem(12);
+        min-width: pxToRem(12);
+        margin: 0 0 pxToRem(4) pxToRem(6);
         vertical-align: middle;
-        border: solid rem(1) $gray-cool-20;
+        border: solid pxToRem(1) $gray-cool-20;
 
         &:checked {
           background-color: $blue-50;
@@ -83,9 +83,9 @@
         }
 
         &:checked:before {
-          width: rem(4);
-          height: rem(8);
-          margin: rem(0) rem(3);
+          width: pxToRem(4);
+          height: pxToRem(8);
+          margin: pxToRem(0) pxToRem(3);
         }
 
         &:indeterminate {
@@ -94,14 +94,14 @@
         }
 
         &:indeterminate:before {
-          width: rem(10);
-          margin: rem(5) auto;
-          border-bottom: rem(2) solid #fff;
+          width: pxToRem(10);
+          margin: pxToRem(5) auto;
+          border-bottom: pxToRem(2) solid #fff;
         }
       }
 
       .checkbox-filter__header-label.accordion-checkbox {
-        margin-left: rem(6);
+        margin-left: pxToRem(6);
 
         span.highlight {
           background-color: $yellow-10;
@@ -110,7 +110,7 @@
     }
 
     .checkbox-filter__list.accordion-checkbox {
-      margin: 0 0 0 rem(30);
+      margin: 0 0 0 pxToRem(30);
     }
   }
 }

@@ -1,23 +1,23 @@
 .download-center {
     @import "./archiveInfoBox";
     .archive-info {
-        margin: rem(30) 0;
+        margin: pxToRem(30) 0;
         @include media($medium-screen) {
-            margin: rem(30) rem(20) rem(30) rem(30);
+            margin: pxToRem(30) pxToRem(20) pxToRem(30) pxToRem(30);
         }
     }
     .download-center__filters {
         @include media($medium-screen) {
             width: 100%;
         }
-        margin-bottom: rem(30);
+        margin-bottom: pxToRem(30);
         .download-center__title {
             @include display(flex);
             @include flex(1 1 auto);
             margin: 0;
             font-weight: 400;
             @include media($medium-screen) {
-                padding-left: rem(30);
+                padding-left: pxToRem(30);
             }
         }
         @import "./form/downloadForm";
@@ -34,30 +34,30 @@
 
     .download-info {
         @include media($medium-screen) {
-            padding: rem(15) 0 0 0;
+            padding: pxToRem(15) 0 0 0;
         }
 
         h3.download-info__title {
             @include h6;
             margin: 0;
-            padding-bottom: rem(15);
+            padding-bottom: pxToRem(15);
         }
         .download-info__section {
             font-size: $small-font-size;
-            padding-bottom: rem(15);
+            padding-bottom: pxToRem(15);
             h4.download-info__section-heading {
                 margin: 0;
-                padding-bottom: rem(5);
+                padding-bottom: pxToRem(5);
                 font-size: $small-font-size;
                 font-weight: $font-bold;
             }
             p {
                 margin: 0;
-                padding-bottom: rem(8);
+                padding-bottom: pxToRem(8);
             }
             .usa-da-icon-guide {
-                height: rem(16);
-                width: rem(16);
+                height: pxToRem(16);
+                width: pxToRem(16);
             }
         }
     }

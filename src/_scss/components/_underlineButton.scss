@@ -4,20 +4,20 @@
 @mixin underlineButton {
     button {
         @include button-unstyled;
-        border-bottom: rem(4) solid transparent;
+        border-bottom: pxToRem(4) solid transparent;
         color: #808288;
-        font-size: rem(14);
+        font-size: pxToRem(14);
         font-weight: $font-semibold;
-        line-height: rem(18);
-        padding: 0 rem(10) rem(5);
+        line-height: pxToRem(18);
+        padding: 0 pxToRem(10) pxToRem(5);
         &:hover {
-            border-bottom: rem(4) solid darken( $color-primary-alt-lightest, 15%);
+            border-bottom: pxToRem(4) solid darken( $color-primary-alt-lightest, 15%);
             color: lighten($color-gray-dark, 15%);
             @include transition(all 0.25s $ease-in-out-sine);
         }
         &.active,
         &:active {
-            border-bottom: rem(4) solid $color-primary-alt-dark;
+            border-bottom: pxToRem(4) solid $color-primary-alt-dark;
             color: $color-gray-dark;
         }
     }

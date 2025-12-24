@@ -3,12 +3,12 @@
     background-color: $color-white;
     display: block;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-    line-height: rem(18);
+    line-height: pxToRem(18);
 
     position: absolute;
-    top: rem(15);
-    left: rem(15);
-    padding: rem(10) rem(15);
+    top: pxToRem(15);
+    left: pxToRem(15);
+    padding: pxToRem(10) pxToRem(15);
 
     .map-layer-list {
         @include unstyled-list;
@@ -28,16 +28,16 @@
         li {
             @include flex(1 1 auto);
             margin-left: 0;
-            margin-top: rem(5);
+            margin-top: pxToRem(5);
             display: flex;
 
             @include media($tablet-screen) {
-                margin-left: rem(10);
+                margin-left: pxToRem(10);
                 margin-top: 0;
             }
 
             @include media($large-screen) {
-                margin-left: rem(20);
+                margin-left: pxToRem(20);
             }
 
             &:first-child {
@@ -47,8 +47,8 @@
 
             .map-layer__cd-tooltip {
                 svg {
-                    margin-left: rem(5);
-                    margin-right: rem(7.5);
+                    margin-left: pxToRem(5);
+                    margin-right: pxToRem(7.5);
                 }
             }
         }
@@ -59,17 +59,17 @@
             text-align: left;
             font-size: $small-font-size;
             font-weight: $font-normal;
-            line-height: rem(18);
+            line-height: pxToRem(18);
             padding: 0;
-            border-bottom: rem(4) solid $color-white;
-            max-width: rem(180);
+            border-bottom: pxToRem(4) solid $color-white;
+            max-width: pxToRem(180);
 
             &.active,
             &:hover,
             &:active {
                 font-weight: $font-bold;
-                border-bottom: rem(4) solid $color-primary-darker;
-                max-width: rem(200);
+                border-bottom: pxToRem(4) solid $color-primary-darker;
+                max-width: pxToRem(200);
 
             }
 
@@ -84,7 +84,7 @@
 
             .tooltip-pointer {
                 &.left {
-                    left: rem(-27) !important;
+                    left: pxToRem(-27) !important;
                 }
             }
         }
@@ -99,28 +99,28 @@
                 .tooltip-spacer {
                     width: 316px !important;
 
-                    @media (max-width: 767px) {
-                        top: rem(110) !important;
-                        left: rem(-30) !important;
+                    @media (max-width: 767) {
+                        top: pxToRem(110) !important;
+                        left: pxToRem(-30) !important;
                     }
 
                     @media ((min-width: $tablet-screen) and (max-width: $large-screen)) {
-                        top: rem(32) !important;
-                        left: rem(344) !important;
+                        top: pxToRem(32) !important;
+                        left: pxToRem(344) !important;
 
                         .tooltip-pointer {
                             transform: rotate(90deg);
                         }
 
                         .smart-bottom-right {
-                            top: rem(-7) !important;
+                            top: pxToRem(-7) !important;
                             left: 29.2rem !important;
                         }
                     }
 
                     @media (min-width: $large-screen) {
-                        top: rem(32) !important;
-                        left: rem(373) !important;
+                        top: pxToRem(32) !important;
+                        left: pxToRem(373) !important;
                     }
                 }
             }

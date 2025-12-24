@@ -1,18 +1,18 @@
 .new-badge {
-  height: rem(24);
-  width: rem(47);
-  border-radius: rem(4);
+  height: pxToRem(24);
+  width: pxToRem(47);
+  border-radius: pxToRem(4);
   background-color: $color-secondary-dark;
   @include display(inline-flex);
   @include justify-content(center);
   @include align-items(center);
-  font-size: rem(14);
+  font-size: pxToRem(14);
   color: $color-white;
   font-weight: 600;
-  margin-right: rem(35);
+  margin-right: pxToRem(35);
   @media(max-width: $medium-screen) {
     &.dropdown-item {
-      margin: 0 0 0 rem(5);
+      margin: 0 0 0 pxToRem(5);
     }
   }
   @include media($medium-screen) {
@@ -24,28 +24,28 @@
 
 .new-badge-outer {
   color: $color-secondary-dark;
-  height: rem(14);
-  width: rem(14);
+  height: pxToRem(14);
+  width: pxToRem(14);
   position: relative;
-  margin-right: rem(4);
-  margin-top: rem(4);
+  margin-right: pxToRem(4);
+  margin-top: pxToRem(4);
 
   @media(max-width: $medium-screen) {
-    margin-right: rem(8);
-    margin-bottom: rem(4);
+    margin-right: pxToRem(8);
+    margin-bottom: pxToRem(4);
   }
 
   svg {
-    margin-bottom: rem(5);
-    height: rem(10);
-    width: rem(10);
+    margin-bottom: pxToRem(5);
+    height: pxToRem(10);
+    width: pxToRem(10);
 
     @media(max-width: $medium-screen) {
       position: absolute;
-      top: rem(1);
-      left: rem(1);
-      height: rem(16);
-      width: rem(16);
+      top: pxToRem(1);
+      left: pxToRem(1);
+      height: pxToRem(16);
+      width: pxToRem(16);
       margin-right: 8px;
     
     }

@@ -3,17 +3,17 @@
 .tables-section {
     display: block;
     width: 100%;
-    margin-top: rem(20);
-    margin-bottom: rem(20);
+    margin-top: pxToRem(20);
+    margin-bottom: pxToRem(20);
     transition: opacity 0.25s ease;
     z-index: 15;
 
     .usa-dt-tab {
-        border-bottom: rem(1) solid $gray-cool-10;
-        margin-bottom: rem(-1);
+        border-bottom: pxToRem(1) solid $gray-cool-10;
+        margin-bottom: pxToRem(-1);
 
         &.active {
-            border-bottom: rem(1) solid transparent;
+            border-bottom: pxToRem(1) solid transparent;
         }
     }
 

@@ -5,21 +5,21 @@
   display: grid;
 
   .rounded-toggle__wrapper {
-    margin: rem(16) rem(24) rem(8) rem(24);
-    line-height: rem(21);
+    margin: pxToRem(16) pxToRem(24) pxToRem(8) pxToRem(24);
+    line-height: pxToRem(21);
     height: fit-content;
-    padding: rem(16);
-    border: rem(1) solid $gray-cool-10;
-    border-radius: rem(4);
-    box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
+    padding: pxToRem(16);
+    border: pxToRem(1) solid $gray-cool-10;
+    border-radius: pxToRem(4);
+    box-shadow: 0 pxToRem(1) pxToRem(4) 0 rgba(0, 0, 0, 0.1);
     justify-self: center;
 
     @media(max-width: $medium-screen) {
-      margin-top: rem(24);
+      margin-top: pxToRem(24);
     }
 
     @media(max-width: $tablet-screen) {
-      margin-top: rem(16)
+      margin-top: pxToRem(16)
     }
 
     .rounded-toggle__slider:before {
@@ -27,7 +27,7 @@
     }
 
     .rounded-toggle__label {
-      margin-right: rem(16);
+      margin-right: pxToRem(16);
       color: $gray-90;
     }
 
@@ -36,8 +36,8 @@
     }
 
     .rounded-toggle__switch {
-      width: rem(36);
-      min-width: rem(36);
+      width: pxToRem(36);
+      min-width: pxToRem(36);
       align-self: center;
     }
 
@@ -47,9 +47,9 @@
 
     input:checked + .rounded-toggle__slider:before {
       border-color: #00a91c !important;
-      -webkit-transform: translateX(16px);
-      -ms-transform: translateX(16px);
-      transform: translateX(16px);
+      -webkit-transform: translateX(16);
+      -ms-transform: translateX(16);
+      transform: translateX(16);
     }
   }
 }

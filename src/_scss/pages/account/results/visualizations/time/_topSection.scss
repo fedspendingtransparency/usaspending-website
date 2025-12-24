@@ -1,6 +1,6 @@
 .visualization-top {
     @include grid-column();
-    margin-bottom: rem(20);
+    margin-bottom: pxToRem(20);
     @import "../../../../../components/visualizations/_description";
     @import "../../../../../components/visualizations/_period";
     margin-left: 0;

@@ -30,22 +30,22 @@
     @include justify-content(center);
     @include align-items(center);
 
-    margin-top: rem(20);        
+    margin-top: pxToRem(20);
 
     .hint-icon {
         @include flex(0 0 auto);
-        width: rem(30);
-        height: rem(30);
+        width: pxToRem(30);
+        height: pxToRem(30);
         svg {
-            width: rem(30);
-            height: rem(30);
+            width: pxToRem(30);
+            height: pxToRem(30);
             fill: $color-green;
         }
     }
 
     .hint-text {
         @include flex(1 1 auto);
-        padding-left: rem(10);
+        padding-left: pxToRem(10);
         color: $color-green;
 
         .hint-title {

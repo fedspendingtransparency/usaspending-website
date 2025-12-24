@@ -6,13 +6,13 @@
         position: relative;
     }
 
-    margin-bottom: rem(10);
+    margin-bottom: pxToRem(10);
 
     .breadcrumb-item {
         display: block;
         @include media($medium-screen) {
             @include flex(1 1 auto);
-            height: rem(40);
+            height: pxToRem(40);
         }
         background-color: $filter-bar-gray;
         font-size: $small-font-size;
@@ -46,16 +46,16 @@
 
             .breadcrumb-step {
                 @include flex(0 1 auto);
-                max-width: rem(55);
-                margin: 0 rem(10);
-                padding: rem(10) 0;
+                max-width: pxToRem(55);
+                margin: 0 pxToRem(10);
+                padding: pxToRem(10) 0;
                 font-weight: $font-semibold;
                 text-transform: uppercase;
             }
 
             .breadcrumb-title {
                 @include flex(1 1 auto);
-                padding: rem(10) 0;
+                padding: pxToRem(10) 0;
             }
 
             .breadcrumb-arrow {
@@ -64,8 +64,8 @@
                 @include media($medium-screen) {
                     @include flex(0 0 auto);
                     background-color: $filter-bar-gray;
-                    width: rem(25);
-                    height: rem(40);
+                    width: pxToRem(25);
+                    height: pxToRem(40);
                     display: block;
                 }
 

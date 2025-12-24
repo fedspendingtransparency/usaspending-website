@@ -1,6 +1,6 @@
 .button__sm {
     border-radius: 3px;
-    font-size: rem(14);
+    font-size: pxToRem(14);
     font-weight: $font-semibold;
     padding: 5.5px 12px;
     display: flex;
@@ -12,7 +12,7 @@
 }
 
 .button__md {
-    font-size: rem(16);
+    font-size: pxToRem(16);
     font-weight: $font-semibold;
     padding: 8px 16px;
     vertical-align: middle;
@@ -27,7 +27,7 @@
 
 .button__lg {
     border-radius: 6px;
-    font-size: rem(20);
+    font-size: pxToRem(20);
     padding: 13px 24px;
     display: flex;
 

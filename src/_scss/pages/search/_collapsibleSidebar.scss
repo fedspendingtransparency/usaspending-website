@@ -21,7 +21,7 @@
 
   &.sticky {
     position: fixed;
-    top: rem(98);
+    top: pxToRem(98);
 
     .sidebar-bottom-submit {
       position: absolute;
@@ -116,7 +116,7 @@
     }
 
     .collapsible-sidebar--header {
-      padding: rem(20) rem(20) 0 rem(32);
+      padding: pxToRem(20) pxToRem(20) 0 pxToRem(32);
       line-height: 1.5;
       color: $gray-90;
       background-color: unset;
@@ -127,16 +127,16 @@
           display: none;
         }
 
-        width: rem(10);
-        height: rem(10);
+        width: pxToRem(10);
+        height: pxToRem(10);
         background-color: white;
         margin: 0;
-        stroke-width: rem(2);
+        stroke-width: pxToRem(2);
         padding: 0;
         padding-bottom: $global-padding * 4;
         svg {
-          width: rem(10);
-          height: rem(10);
+          width: pxToRem(10);
+          height: pxToRem(10);
           color: $gray-90;
           background-color: white;
         }
@@ -159,7 +159,7 @@
 
         .search-filters-list {
           margin: 0 ($global-padding * 4);
-          border-bottom: rem(1) solid $gray-cool-10;
+          border-bottom: pxToRem(1) solid $gray-cool-10;
         }
 
         .accordion-container {
@@ -177,8 +177,8 @@
               button {
                 padding: 0;
                 margin: 0;
-                max-height: rem(18);
-                max-width: rem(18);
+                max-height: pxToRem(18);
+                max-width: pxToRem(18);
 
                 svg {
                   color: $blue-50;
@@ -200,7 +200,7 @@
               }
 
               .agency-filter .filter-item-wrap:first-of-type {
-                padding-bottom: rem(16);
+                padding-bottom: pxToRem(16);
               }
             }
           }
@@ -243,13 +243,13 @@
 
       .categories-list-category-type {
         color: $gray-90;
-        font-size: rem(10);
+        font-size: pxToRem(10);
         line-height: 1.5;
-        padding: rem(2) rem(6);
+        padding: pxToRem(2) pxToRem(6);
         background-color: $gray-cool-5;
-        border-radius: rem(4);
+        border-radius: pxToRem(4);
         width: fit-content;
-        margin-top: rem(32);
+        margin-top: pxToRem(32);
 
         &:first-of-type {
           margin-top: 0;
@@ -257,7 +257,7 @@
       }
 
       .categories-list-item-container {
-        min-height: rem(39);
+        min-height: pxToRem(39);
         line-height: 1.5;
         font-size: $smallest-font-size;
         color: $gray-90;
@@ -277,16 +277,16 @@
           align-content: center;
           flex-wrap: nowrap;
           justify-content: space-between;
-          padding: rem(12) 0;
+          padding: pxToRem(12) 0;
           cursor: pointer;
 
           div {
             &:first-of-type {
-              padding-left: rem(4);
+              padding-left: pxToRem(4);
             }
 
             &:last-of-type {
-              padding-right: rem(4);
+              padding-right: pxToRem(4);
             }
           }
 
@@ -303,9 +303,9 @@
               font-size: $font-size-10;
               font-weight: normal;
               background-color: $gray-cool-2;
-              padding: rem(1) rem(5);
-              border-radius: rem(4);
-              border: solid rem(1) $gray-cool-5;
+              padding: pxToRem(1) pxToRem(5);
+              border-radius: pxToRem(4);
+              border: solid pxToRem(1) $gray-cool-5;
               margin-left: $global-spacing-unit;
               height: fit-content;
               white-space: nowrap;
@@ -326,8 +326,8 @@
 
     .collapsible-sidebar--dsm-slider {
       color: $blue-50;
-      padding: rem(16) rem(32);
-      font-size: rem(12);
+      padding: pxToRem(16) pxToRem(32);
+      font-size: pxToRem(12);
       font-weight: $font-semibold;
       line-height: 1.5;
       border-top: 1px solid $gray-cool-5;
@@ -380,7 +380,7 @@
 
             &--button {
               margin-left: 0;
-              padding: rem(6);
+              padding: pxToRem(6);
 
               &:focus {
                 display: inline-block;
@@ -435,13 +435,13 @@
 
           &--icon-section {
             display: flex;
-            margin: rem(4) 0 ($global-margin * 2) 0;
+            margin: pxToRem(4) 0 ($global-margin * 2) 0;
 
             &--icon {
-              margin: $global-margin rem(12) $global-margin 0;
-              height: rem(21);
-              width: rem(21);
-              border-radius: rem(4);
+              margin: $global-margin pxToRem(12) $global-margin 0;
+              height: pxToRem(21);
+              width: pxToRem(21);
+              border-radius: pxToRem(4);
               display: flex;
               align-items: center;
               justify-content: center;
@@ -450,13 +450,13 @@
           }
 
           &--atd-links {
-            margin-top: rem(12);
+            margin-top: pxToRem(12);
 
             .collapsible-sidebar--dsm-wrapper--atd-link {
               font-size: $smallest-font-size;
               font-weight: 600;
               line-height: 1.75;
-              margin: rem(4) $global-margin;
+              margin: pxToRem(4) $global-margin;
             }
           }
         }
@@ -489,7 +489,7 @@
 
   .full-search-sidebar {
     display: none;
-    margin-right: rem(16);
+    margin-right: pxToRem(16);
 
     @media(min-width: $large-screen) {
       display: flex;

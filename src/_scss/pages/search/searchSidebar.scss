@@ -13,8 +13,8 @@
 
     background-color: $color-white;
     box-shadow: $container-shadow;
-    border-radius: rem(5);
-    margin-top: rem(32);
+    border-radius: pxToRem(5);
+    margin-top: pxToRem(32);
 
     .sidebar-header {
         display: none;
@@ -23,33 +23,33 @@
             @include align-items(left);
             @include justify-content(flex-start);
             position: relative;
-            border-bottom: rem(1) solid $color-gray-lighter;
-            height: rem(70);
+            border-bottom: pxToRem(1) solid $color-gray-lighter;
+            height: pxToRem(70);
             width: 100%;
             margin: 0;
-            padding: 0 rem(16) 0 rem(16);
+            padding: 0 pxToRem(16) 0 pxToRem(16);
             .sidebar-header_title-advanced-search{
                 display: flex;
                 flex-flow: inherit;
-                padding-top: rem(16);
-                padding-bottom: rem(16);
+                padding-top: pxToRem(16);
+                padding-bottom: pxToRem(16);
                 & .sidebar-title_advanced-search {
                     @include h6;
                     @include flex(1 1 auto);
                     color: $color-gray;
-                    font-size: rem(19);
-                    line-height: rem(21);
+                    font-size: pxToRem(19);
+                    line-height: pxToRem(21);
                     font-weight: $font-semibold;
                     margin: 0;
                 }
                 & .filter-icon {
                     @include flex(0 0 auto);
-                    width: rem(16);
-                    margin-right: rem(8);
+                    width: pxToRem(16);
+                    margin-right: pxToRem(8);
                     & .usa-da-icon-filter {
                         fill: lighten( $color-gray, 15%);
-                        width: rem(16);
-                        margin-top: rem(4);
+                        width: pxToRem(16);
+                        margin-top: pxToRem(4);
                     }
                 }
             }
@@ -57,29 +57,29 @@
                 @include h6;
                 @include flex(1 1 auto);
                 color: $color-gray;
-                font-size: rem(19);
-                line-height: rem(21);
+                font-size: pxToRem(19);
+                line-height: pxToRem(21);
                 font-weight: $font-semibold;
                 margin: 0;
             }
             & .filter-icon {
                 @include flex(0 0 auto);
                 display: table-cell;
-                width: rem(16);
-                padding-right: rem(8);
-                margin-right: rem(8);
+                width: pxToRem(16);
+                padding-right: pxToRem(8);
+                margin-right: pxToRem(8);
                 & .usa-da-icon-filter {
                     fill: lighten( $color-gray, 15%);
-                    width: rem(16);
-                    margin-top: rem(5);
+                    width: pxToRem(16);
+                    margin-top: pxToRem(5);
                 }
             }
 
             .sidebar-paragraph__container {
-                padding-bottom: rem(16);
+                padding-bottom: pxToRem(16);
                 display: flex;
                 flex-flow: row;
-                padding-right: rem(4);
+                padding-right: pxToRem(4);
                 .sidebar-paragraph {
                     font-weight: $font-semibold;
                     font-size: $font-size-14;
@@ -87,11 +87,11 @@
                 .tooltip-wrapper {
                     display: inline-block;
                     .award-summary__new-category {
-                            margin-bottom: rem(0);
+                            margin-bottom: pxToRem(0);
                     }
                     .tooltip__icon {
-                        height: rem(15);
-                        width: rem(15);
+                        height: pxToRem(15);
+                        width: pxToRem(15);
                     }
                     .tooltip-spacer {
                         @media (max-width: $medium-screen) {
@@ -99,14 +99,14 @@
                             left: 250px;
                         }
                         @media (max-width: $tablet-screen) {
-                            left: rem(-13) !important;
+                            left: pxToRem(-13) !important;
                         }
 
                     }
                     .ul-override_filter {
                         ul {
-                            padding-left: rem(16);
-                            margin-top: rem(0);
+                            padding-left: pxToRem(16);
+                            margin-top: pxToRem(0);
                         }
                     }
                 }

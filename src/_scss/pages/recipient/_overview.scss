@@ -1,9 +1,9 @@
 .recipient-overview {
 	h2.recipient-overview__title {
 		@include h3;
-		margin: rem(5) 0;
+		margin: pxToRem(5) 0;
         font-weight: $font-semibold;
-        font-size: rem(36);
+        font-size: pxToRem(36);
     }
     .recipient-overview__alternate-names-button {
         @include display(flex);
@@ -11,10 +11,10 @@
         @include align-items(center);
         @include button-unstyled;
         color: $theme-color-1;
-        padding: rem(5);
+        padding: pxToRem(5);
         svg {
-            height: rem(15);
-            width: rem(15);
+            height: pxToRem(15);
+            width: pxToRem(15);
             fill: $theme-color-1;
         }
         &:hover {
@@ -28,7 +28,7 @@
         width:100%;
 		h3.recipient-overview__heading {
 			@include h4;
-			font-size: rem(19);
+			font-size: pxToRem(19);
 			font-weight: 600;
 			margin: 0;
         }
@@ -46,11 +46,11 @@
 				bottom: 35px;
 				left: -200px;
 				font-style: italic;
-				font-size: rem(12);
+				font-size: pxToRem(12);
 				svg {
 					margin-left: 2px;
-					height: rem(15);
-					width: rem(15);
+					height: pxToRem(15);
+					width: pxToRem(15);
 					fill: $color-gray-medium;
 				}
 				div:first-child {
@@ -108,7 +108,7 @@
         .recipient-overview__children {
             @include display(flex);
             @include align-items(center);
-            padding: rem(10) 0 rem(30);
+            padding: pxToRem(10) 0 pxToRem(30);
             .recipient-overview__label {
                 @include display(flex);
                 @include align-items(center);
@@ -116,15 +116,15 @@
                 color: $color-white;
                 background-color: $color-gray;
                 text-transform: uppercase;
-                border-radius: rem(5);
-                padding: rem(5) rem(10);
+                border-radius: pxToRem(5);
+                padding: pxToRem(5) pxToRem(10);
                 font-size: $smallest-font-size;
                 font-weight: $font-semibold;
                 svg {
                     @include flex(0 0 auto);
-                    margin-left: rem(5);
-                    height: rem(12);
-                    width: rem(12);
+                    margin-left: pxToRem(5);
+                    height: pxToRem(12);
+                    width: pxToRem(12);
                     fill: $color-white;
                 }
                 &:hover {
@@ -143,11 +143,11 @@
                 @include align-items(center);
                 @include button-unstyled;
                 color: $color-primary;
-                padding: rem(5);
-                margin-left: rem(10);
+                padding: pxToRem(5);
+                margin-left: pxToRem(10);
                 svg {
-                    height: rem(15);
-                    width: rem(15);
+                    height: pxToRem(15);
+                    width: pxToRem(15);
                     fill: $color-primary;
                 }
                 &:hover {

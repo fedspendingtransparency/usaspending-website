@@ -1,23 +1,23 @@
 .totals {
     .totals__amount {
         color: $color-vis-dark;
-        font-size: rem(48);
-        line-height: rem(40);
+        font-size: pxToRem(48);
+        line-height: pxToRem(40);
         font-weight: $font-normal;
         text-transform: capitalize;
-        padding-bottom: rem(10);
-        padding-top: rem(5);
+        padding-bottom: pxToRem(10);
+        padding-top: pxToRem(5);
     }
     .totals__awards {
-        font-size: rem(22);
-        line-height: rem(25);
+        font-size: pxToRem(22);
+        line-height: pxToRem(25);
         font-weight: $font-light;
     }
     .state-overview__total {
         color: $color-vis-dark;
     }
     .totals__subawards {
-        padding: rem(23) 0;
+        padding: pxToRem(23) 0;
         font-weight: $font-normal;
     }
 }

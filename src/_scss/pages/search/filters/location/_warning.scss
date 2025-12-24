@@ -9,7 +9,7 @@
 
 .warning-tooltip {
     position: absolute;
-    top: rem(20);
+    top: pxToRem(20);
     width: 100%;
     z-index: $z-modal - 1;
 
@@ -23,18 +23,18 @@
         border: 1px solid $color-gold-light;
         box-shadow: $box-shadow;
 
-        padding: rem(10);
+        padding: pxToRem(10);
 
         .icon {
             @include flex(0 0 auto);
-            width: rem(30);
-            height: rem(30);
-            margin-right: rem(10);
+            width: pxToRem(30);
+            height: pxToRem(30);
+            margin-right: pxToRem(10);
 
             svg {
                 fill: $color-gold;
-                width: rem(30);
-                height: rem(30);
+                width: pxToRem(30);
+                height: pxToRem(30);
             }
         }
 

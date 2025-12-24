@@ -16,7 +16,7 @@
             }
             .agency-submission-stat-col {
                 width: 100%;
-                max-width: rem(1400);
+                max-width: pxToRem(1400);
                 margin: auto;
                 .heading-container {
                     width: 100%;
@@ -24,7 +24,7 @@
                         margin-bottom: 0;
                         font-weight: $font-semibold;
                         letter-spacing: 0;
-                        line-height: rem(59);
+                        line-height: pxToRem(59);
                     }
                 }
             }
@@ -46,12 +46,12 @@
         margin-top: 0;
         padding: 0;
         letter-spacing: 0;
-        max-width: rem(873);
-        line-height: rem(22);
-        font-size: rem(14);
-        margin-bottom: rem(10);
+        max-width: pxToRem(873);
+        line-height: pxToRem(22);
+        font-size: pxToRem(14);
+        margin-bottom: pxToRem(10);
         @media (min-width: $tablet-screen) {
-            margin-bottom: rem(30);
+            margin-bottom: pxToRem(30);
         }
         @import 'components/externalLink';
     }
@@ -69,7 +69,7 @@
 
     .agency-table-download {
         svg {
-            margin-right: rem(5);
+            margin-right: pxToRem(5);
         }
     }
 

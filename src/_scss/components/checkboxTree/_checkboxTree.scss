@@ -1,5 +1,5 @@
 .checkbox-tree-filter-message-container {
-  font-size: rem(30);
+  font-size: pxToRem(30);
   text-align: center;
 
   .checkbox-tree-filter-message-container__text {
@@ -9,7 +9,7 @@
 }
 
 .naics-search-container.checkbox-tree {
-  margin-bottom: rem(20);
+  margin-bottom: pxToRem(20);
   border-bottom: 1px solid $gray-cool-5;
 }
 

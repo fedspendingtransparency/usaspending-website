@@ -4,7 +4,7 @@
     @include align-items(center);
 
     .tooltip-spacer {
-        @media(max-width:424px) {
+        @media(max-width:424) {
             width: 375px !important;
         }
     }
@@ -14,7 +14,7 @@
         @include display(flex);
         @include align-items(center);
         @include flex(1 1 auto);
-        padding: rem(15);
+        padding: pxToRem(15);
 
         @include h6;
         color: $color-gray;
@@ -28,9 +28,9 @@
         }
         svg {
             @include flex(0 0 auto);
-            height: rem(16);
-            width: rem(16);
-            margin-right: rem(5);
+            height: pxToRem(16);
+            width: pxToRem(16);
+            margin-right: pxToRem(5);
             pointer-events: none;
         }
         @import './tooltips';
@@ -47,8 +47,8 @@
     .filter-toggle__glossary {
         @include display(flex);
         @include flex(0 0 auto);
-        padding-right: rem(15);
-        padding-left: rem(5);
+        padding-right: pxToRem(15);
+        padding-left: pxToRem(5);
         @import 'components/glossaryLink';
     }
 }

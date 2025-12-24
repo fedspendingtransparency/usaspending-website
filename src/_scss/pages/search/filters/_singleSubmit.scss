@@ -8,18 +8,18 @@
     border: 1px solid $color-gray-light;
     cursor: pointer;
 
-    height: rem(40);
-    width: rem(50);
+    height: pxToRem(40);
+    width: pxToRem(50);
 
     .icon {
         @include flex(0 0 auto);
-        width: rem(20);
-        height: rem(20);
+        width: pxToRem(20);
+        height: pxToRem(20);
 
         svg {
             fill: $color-gray;
-            width: rem(20);
-            height: rem(20);                            
+            width: pxToRem(20);
+            height: pxToRem(20);
         }
     }
 

@@ -8,6 +8,6 @@
     .content {
         color: $color-base;
         font-size: $small-font-size;
-        line-height: rem(26);
+        line-height: pxToRem(26);
     }
 }

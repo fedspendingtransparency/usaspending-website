@@ -1,6 +1,6 @@
 .search-visualizations {
     position: relative;
-    margin-top: rem(20);
+    margin-top: pxToRem(20);
 
     @include media($medium-screen) {
         margin-top: 0;
@@ -42,8 +42,8 @@
         @include justify-content(center);
         @include align-items(center);
         position: relative;
-        margin-right: rem(4);
-        padding: rem(20);
+        margin-right: pxToRem(4);
+        padding: pxToRem(20);
         background-color: $gray-cool-10;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
@@ -55,31 +55,31 @@
         // this makes the active tab overlap the border of the container below
         // so it appears to be connected to it
         // this is a remnant of the original design
-        top: rem(1);
+        top: pxToRem(1);
 
         @include media($tablet-screen) {
-            padding: rem(20) rem(30);
+            padding: pxToRem(20) pxToRem(30);
         }
 
         .icon {
             @include flex(0 0 auto);
-            width: rem(20);
-            height: rem(20);
+            width: pxToRem(20);
+            height: pxToRem(20);
 
             svg {
                 fill: $theme-color-body;
-                width: rem(20);
-                height: rem(20);
+                width: pxToRem(20);
+                height: pxToRem(20);
             }
 
             @include media($tablet-screen) {
-                margin-right: rem(9);
-                width: rem(25);
-                height: rem(25);
+                margin-right: pxToRem(9);
+                width: pxToRem(25);
+                height: pxToRem(25);
 
                 svg {
-                    width: rem(25);
-                    height: rem(25);
+                    width: pxToRem(25);
+                    height: pxToRem(25);
                 }
             }
         }
@@ -92,8 +92,8 @@
                 display: block;
                 color: $theme-color-body;
                 text-transform: uppercase;
-                line-height: rem(18);
-                letter-spacing: rem(2);
+                line-height: pxToRem(18);
+                letter-spacing: pxToRem(2);
             }
         }
 

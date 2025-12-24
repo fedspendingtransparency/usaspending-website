@@ -17,8 +17,8 @@
   }
 
   .search-filter__content {
-    height: rem(124);
-    padding: ($global-margin * 2) 0 rem(46) 0;
+    height: pxToRem(124);
+    padding: ($global-margin * 2) 0 pxToRem(46) 0;
 
     &.filter-header__title-only {
       padding-bottom: $global-margin * 2;
@@ -38,15 +38,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: rem(21);
-        width: rem(21);
-        min-width: rem(21);
+        height: pxToRem(21);
+        width: pxToRem(21);
+        min-width: pxToRem(21);
         border-radius: 4px;
         margin-right: $global-margin;
         align-self: flex-start;
 
         svg {
-          width: rem(12);
+          width: pxToRem(12);
           margin-bottom: 1px;
         }
       }
@@ -55,7 +55,7 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
-        margin-right: rem(8);
+        margin-right: pxToRem(8);
 
         .search-filter__top-row-title {
           font-size: $font-size-14;
@@ -75,7 +75,7 @@
         line-height: 1.5;
         color: $theme-color-body;
         white-space: nowrap;
-        min-width: rem(60);
+        min-width: pxToRem(60);
       }
     }
 
@@ -99,11 +99,11 @@
 
       @media (min-width: $medium-screen) {
         &.right-fade {
-          mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 8px);
+          mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 8);
         }
 
         &.left-fade {
-          mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 8px);
+          mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 8);
         }
 
         &.right-fade.left-fade {
@@ -112,7 +112,7 @@
       }
 
       .shown-filter-button {
-        margin: 0 rem(8) 0 0;
+        margin: 0 pxToRem(8) 0 0;
         white-space: nowrap;
         min-width: max-content;
         cursor: default;

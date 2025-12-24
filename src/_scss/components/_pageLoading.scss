@@ -37,7 +37,7 @@
         @include media($medium-screen) {
             display: block;
             margin: 0;
-            padding-left: rem(10);
+            padding-left: pxToRem(10);
             font-size: $font-size-20;
             font-weight: $font-semibold;
         }

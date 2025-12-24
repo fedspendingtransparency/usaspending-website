@@ -18,7 +18,7 @@
         width: 166px;
 
         .tooltip__title {
-            font-size: rem(16);
+            font-size: pxToRem(16);
             line-height: 1.25;
             font-weight: $font-semibold;
             color: $gray-90;
@@ -31,7 +31,7 @@
 
             .tooltip__text-label {
                 flex: 1;
-                font-size: rem(14);
+                font-size: pxToRem(14);
                 text-align: left;
                 line-height:1.5;
                 color: $color-base;

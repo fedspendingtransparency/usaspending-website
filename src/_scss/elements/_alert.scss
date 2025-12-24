@@ -11,8 +11,8 @@
   $error-color: $error;
 
   background-color: $default-background-color;
-  border: rem(1) solid $default-color;
-  border-radius: rem(4);
+  border: pxToRem(1) solid $default-color;
+  border-radius: pxToRem(4);
   display: flex;
   justify-content: space-between;
   margin: $global-margin;
@@ -25,8 +25,8 @@
       margin-right: $global-margin;
 
       .alert___message__icon {
-        min-width: rem(24);
-        min-height: rem(24);
+        min-width: pxToRem(24);
+        min-height: pxToRem(24);
       }
     }
 

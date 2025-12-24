@@ -6,11 +6,11 @@
 
     .tooltip {
         position: relative;
-	    max-width: rem(500);
+	    max-width: pxToRem(500);
 
         .disclaimer-total {
-            margin-bottom: rem(15);
-            padding: rem(0) rem(15);
+            margin-bottom: pxToRem(15);
+            padding: pxToRem(0) pxToRem(15);
             font-size: $font-size-12;
             font-style: italic;
             text-align: center;

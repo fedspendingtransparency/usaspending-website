@@ -11,9 +11,9 @@
         }
     }
     .tooltip-pointer {
-        top: rem(-16);
+        top: pxToRem(-16);
         &.bottom {
-            left: rem(60);
+            left: pxToRem(60);
         }
     }
 
@@ -27,7 +27,7 @@
         }
     }
 
-    @media (min-width: 1401px) {
+    @media (min-width: 1401) {
         &.tooltip-wrapper .tooltip-spacer {
             left: 8rem;
         }
@@ -39,7 +39,7 @@
 
     .obligations-by-award-type__chart {
         text.obligations-by-award-type__label {
-            font-size: rem(14);
+            font-size: pxToRem(14);
             color: $color-base;
         }
         .obligations-by-award-type__donut {
@@ -58,7 +58,7 @@
         }
         .award-type-tooltip__table {
             .table-header__content {
-                padding: rem(5) rem(6);
+                padding: pxToRem(5) pxToRem(6);
             }
             .usda-table__head {
                 .table-header {
@@ -71,7 +71,7 @@
             .usda-table__row {
                 .usda-table__cell {
                     border: 0;
-                    padding: rem(4) rem(6);
+                    padding: pxToRem(4) pxToRem(6);
                     &:first-child {
                         >div {
                             @include display(flex);

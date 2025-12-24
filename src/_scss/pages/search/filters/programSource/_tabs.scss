@@ -1,26 +1,26 @@
 @import '../timePeriod/toggleButtons';
 ul.toggle-buttons {
-    padding-left: rem(15);
-    margin-top: rem(10);
+    padding-left: pxToRem(15);
+    margin-top: pxToRem(10);
     @include media($large-screen) {
-        padding-left: rem(30);
+        padding-left: pxToRem(30);
     }
 
     li {
-        margin-left: rem(-2);
+        margin-left: pxToRem(-2);
         @include media($large-screen) {
             margin-left: 0;
         }
 
         .tab-toggle {
-            padding: 0 rem(2);
-            font-size: rem(11);
-            margin: 0 rem(5);
+            padding: 0 pxToRem(2);
+            font-size: pxToRem(11);
+            margin: 0 pxToRem(5);
             width: auto;
             display: inline-block;
-            @include media(1430px) {
-                padding: rem(8) rem(8);
-                font-size: rem(13);
+            @include media(1430) {
+                padding: pxToRem(8) pxToRem(8);
+                font-size: pxToRem(13);
             }
         }
     }
@@ -32,5 +32,5 @@ ul.toggle-buttons {
     margin-top: -1px;
     z-index: 1;
     width: 100%;
-    height: rem(1);
+    height: pxToRem(1);
 }

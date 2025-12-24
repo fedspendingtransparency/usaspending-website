@@ -18,7 +18,7 @@
             display:flex;
             justify-content: space-between;
             .filter-modal__header-close {
-                transform: translateY(-16px);
+                transform: translateY(-16);
                 .button-type__icon-dark {
                     margin: 0;
                     height: auto;
@@ -27,7 +27,7 @@
             }
 
             .filter-modal__header-text {
-                font-size: rem(24);
+                font-size: pxToRem(24);
                 font-weight: $font-semibold;
                 font-stretch: normal;
                 font-style: normal;
@@ -47,7 +47,7 @@
             }
 
             .filter-modal__top-description, .filter-modal__top-description-2 {
-                font-size: rem(16);
+                font-size: pxToRem(16);
                 font-weight: normal;
                 font-stretch: normal;
                 font-style: normal;
@@ -63,7 +63,7 @@
             .filter-modal__example {
                 margin-top: 24px;
                 .filter-modal__title {
-                    font-size: rem(16);
+                    font-size: pxToRem(16);
                     font-weight: $font-semibold;
                     font-stretch: normal;
                     font-style: normal;
@@ -84,7 +84,7 @@
                 }
 
                 .filter-modal__description {
-                    font-size: rem(16);
+                    font-size: pxToRem(16);
                     font-weight: normal;
                     font-stretch: normal;
                     font-style: normal;
@@ -94,7 +94,7 @@
                 }
 
                 .filter-modal__operator {
-                    font-size: rem(16);
+                    font-size: pxToRem(16);
                     font-weight: $font-semibold;
                     font-stretch: normal;
                     font-style: normal;

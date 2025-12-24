@@ -27,24 +27,24 @@
     }
 
     .grid-content {
-      margin: 0 rem(16);
+      margin: 0 pxToRem(16);
       max-width: $homepage-max-width;
       align-self: center;
       font-family: $font-sans;
-      padding-top: rem(46);
+      padding-top: pxToRem(46);
 
       .featured-content__column-two {
         @media(min-width: $large-screen) {
-          padding-left: rem(67);
+          padding-left: pxToRem(67);
         }
         @import "./citationList";
       }
       
       @media (min-width: $tablet-screen) {
-        margin: 0 rem(32);
+        margin: 0 pxToRem(32);
       }
 
-      @media (min-width: 1400px) {
+      @media (min-width: 1400) {
         margin: 0 $grid-column;
       }
 

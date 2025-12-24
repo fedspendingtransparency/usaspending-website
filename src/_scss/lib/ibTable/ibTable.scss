@@ -1,9 +1,9 @@
 .ibt-table__top-scroller {
     overflow-x: scroll;
-    height: rem(16);
+    height: pxToRem(16);
 
     .ibt-table__scroller {
-        height: rem(7);
+        height: pxToRem(7);
     }
 }
 

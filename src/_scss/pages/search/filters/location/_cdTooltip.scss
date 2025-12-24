@@ -10,7 +10,7 @@
 
 .cd-tooltip {
   position: absolute;
-  top: rem(30);
+  top: pxToRem(30);
   width: 100%;
   z-index: $z-modal - 1;
 
@@ -33,14 +33,14 @@
       .tooltip__title {
         background-color: $color-gray-lightest;
         margin: 0;
-        padding: rem(20);
+        padding: pxToRem(20);
         font-size: $base-font-size;
         font-weight: $font-bold;
         line-height: 1.5;
       }
 
       .tooltip__text {
-        padding: rem(20);
+        padding: pxToRem(20);
       }
 
       .field {
@@ -54,7 +54,7 @@
     @import "components/visualizations/tooltip/_arrow";
     .tooltip-pointer {
       &.top {
-        left: calc(93% - 5px);
+        left: calc(93% - 5);
         &:after {
           background: $color-gray-lightest;
         }

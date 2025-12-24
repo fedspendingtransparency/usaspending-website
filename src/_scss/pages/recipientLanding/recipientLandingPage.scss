@@ -10,14 +10,14 @@
 
     .recipient-landing__icon {
         color: $color-white;
-        margin-right: rem(10);
-        padding: 0 rem(4) 0 rem(4);
-        border-radius: rem(3);
+        margin-right: pxToRem(10);
+        padding: 0 pxToRem(4) 0 pxToRem(4);
+        border-radius: pxToRem(3);
         font-weight: 600;
-        font-size: rem(14);
+        font-size: pxToRem(14);
         display: inline-block;
-        width: rem(18);
-        height: rem(18);
+        width: pxToRem(18);
+        height: pxToRem(18);
         text-align: center;
 
         &.recipient-landing__icon_parent {
@@ -34,13 +34,13 @@
     }
 
     .landing-page__info {
-        padding: rem(16) 0;
+        padding: pxToRem(16) 0;
         @import "./_recipientLabels";
     }
 
     .results-table-section {
         position: relative;
-        min-height: rem(200);
+        min-height: pxToRem(200);
     }
 
     .recipient-landing__results {
@@ -49,11 +49,11 @@
         }
 
         .recipient-list {
-            margin-top: rem(15);
+            margin-top: pxToRem(15);
         }
         .recipient-list__message {
-            margin: rem(90) auto;
-            font-size: rem(36);
+            margin: pxToRem(90) auto;
+            font-size: pxToRem(36);
             font-weight: 300;
             color: $color-base;
             text-align: center;

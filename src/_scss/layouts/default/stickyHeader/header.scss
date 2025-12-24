@@ -2,7 +2,7 @@
 
 .usda-page-header {
     @include display(flex);
-    min-height: rem(60);
+    min-height: pxToRem(60);
 
     @import "../../../mixins/fullSectionWrap.scss";
     @import "../../../components/numericPickerWrapper";
@@ -26,7 +26,7 @@
 
                 @media(min-width:$medium-screen) {
                     display: flex;
-                    height: rem(43);
+                    height: pxToRem(43);
 
                     a {
                         font-size: $font-size-14;
@@ -46,7 +46,7 @@
                             }
 
                             span {
-                                margin-top: rem(4);
+                                margin-top: pxToRem(4);
                             }
                         }
                     }

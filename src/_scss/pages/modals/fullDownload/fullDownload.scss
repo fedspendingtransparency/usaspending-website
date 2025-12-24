@@ -9,7 +9,7 @@
     background-color: $color-white;
 
     .download-body {
-        padding: rem(20) rem(60) rem(40);
+        padding: pxToRem(20) pxToRem(60) pxToRem(40);
 
         @import "./_filterBar";
     }

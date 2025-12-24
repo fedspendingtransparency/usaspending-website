@@ -31,7 +31,7 @@
       }
     }
 
-    @media screen and (min-width: 2300px) {
+    @media screen and (min-width: 2300) {
       .usa-dt-flex-grid__row.grid-content {
         margin: 0 $grid-column * 3;
       }
@@ -52,7 +52,7 @@
         }
       }
       h2 {
-        font-size: rem(20);
+        font-size: pxToRem(20);
         font-weight: $font-semibold;
         color: $gray-90;
         line-height: 1.25;
@@ -60,7 +60,7 @@
       }
 
       p {
-        font-size: rem(16);
+        font-size: pxToRem(16);
         line-height: 1.5;
         color: $color-base;
       }

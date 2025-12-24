@@ -5,10 +5,10 @@
     .visualization-content {
         box-shadow: $container-shadow;
         border: 1px solid $color-gray-lighter;
-        border-radius: 0 rem(5) rem(5) rem(5);
+        border-radius: 0 pxToRem(5) pxToRem(5) pxToRem(5);
         z-index: 1;
         background-color: $color-white;
-        padding: rem(30);
+        padding: pxToRem(30);
         @import "./_typography";
         @import "../../../elements/_divider";
         @import "./table/resultsTable";

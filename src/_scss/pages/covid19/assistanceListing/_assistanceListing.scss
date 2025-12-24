@@ -6,7 +6,7 @@
                     &:first-of-type {
                         margin-left: 0;
                         .fa-external-link-alt {
-                            margin-left: rem(5);
+                            margin-left: pxToRem(5);
                         }
                     }
 

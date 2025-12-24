@@ -6,8 +6,8 @@
     .homepage-resources__top-label-container {
       margin-bottom: $global-margin * 2;
       .homepage-resources__top-label-icon-container {
-        width: rem(20);
-        height: rem(20);
+        width: pxToRem(20);
+        height: pxToRem(20);
         border-radius: 2px;
         background-color: $theme-color-accent-7;
         display: flex;
@@ -69,8 +69,8 @@
         }
 
         .homepage-resources__icon-container {
-          width: rem(40);
-          height: rem(40);
+          width: pxToRem(40);
+          height: pxToRem(40);
           border-radius: 2px;
           margin-bottom: $global-margin * 2;
           display: flex;

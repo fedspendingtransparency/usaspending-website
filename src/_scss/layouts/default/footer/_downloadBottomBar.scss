@@ -16,7 +16,7 @@
         @include align-items(center);
         position: relative;
 
-        padding: rem(20);
+        padding: pxToRem(20);
 
         .text-content {
             @include flex(1 1 auto);
@@ -24,7 +24,7 @@
             .title {
                 font-size: $h6-font-size;
                 font-weight: $font-normal;
-                margin: rem(10) auto;
+                margin: pxToRem(10) auto;
             }
 
             p {
@@ -42,16 +42,16 @@
             .link {
                 background-color: $color-white;
                 border: solid 1px $color-gray-light;
-                padding: rem(5);
+                padding: pxToRem(5);
             }
 
             .icon {
-                height: rem(20);
+                height: pxToRem(20);
                 display: inline-block;
-                margin-right: rem(3);
+                margin-right: pxToRem(3);
                 svg {
                     width: auto;
-                    height: rem(10);
+                    height: pxToRem(10);
                     fill: $color-green;
                 }
             }
@@ -59,10 +59,10 @@
 
         .left-icon {
             @include flex(0 0 auto);
-            width: rem(40);
-            height: rem(40);
+            width: pxToRem(40);
+            height: pxToRem(40);
 
-            margin-right: rem(20);
+            margin-right: pxToRem(20);
             // from spinkit: https://github.com/tobiasahlin/SpinKit
             .spinner {
                 width: 40px;
@@ -101,8 +101,8 @@
             }
 
             svg {
-                width: rem(40);
-                height: rem(40);
+                width: pxToRem(40);
+                height: pxToRem(40);
                 fill: $color-gray-dark;
             }
         }

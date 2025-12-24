@@ -14,7 +14,7 @@
         border: none;
         line-height: 1.5;
         color: $gray-90;
-        padding: rem(3) rem(4) rem(3) $global-padding;
+        padding: pxToRem(3) pxToRem(4) pxToRem(3) $global-padding;
 
         &:hover {
             background-color: $gray-cool-10;
@@ -26,7 +26,7 @@
         }
 
         .shown-filter-button__shown-filter-button-icon {
-            margin-left: rem(4);
+            margin-left: pxToRem(4);
             border-radius: 50%;
             width: 18px;
             height: 18px;
@@ -37,8 +37,8 @@
             }
 
             svg {
-                height: rem(12);
-                width: rem(12);
+                height: pxToRem(12);
+                width: pxToRem(12);
                 color: $gray-90;
                 margin: auto;
             }

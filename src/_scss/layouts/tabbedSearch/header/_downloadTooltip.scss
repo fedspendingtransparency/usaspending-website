@@ -1,18 +1,18 @@
 .download-hover-spacer {
     // BODGE: add a wrapper that goes from the button to the edges of the hover in order to make it clickable
     position: absolute;
-    top: rem(-18);
-    left: rem(-290);
-    width: rem(290);
-    height: rem(90);
+    top: pxToRem(-18);
+    left: pxToRem(-290);
+    width: pxToRem(290);
+    height: pxToRem(90);
     z-index: $z-modal - 2;
 }
 .download-hover {
-    margin-right: rem(20);
+    margin-right: pxToRem(20);
     z-index: $z-modal - 1;
 
-    width: rem(270);
-    height: rem(90);
+    width: pxToRem(270);
+    height: pxToRem(90);
 
     .download-hover-interior {
         position: relative;
@@ -29,18 +29,18 @@
         border: 1px solid $color-gold-light;
         box-shadow: $box-shadow;
 
-        padding: rem(10);
+        padding: pxToRem(10);
 
         .icon {
             @include flex(0 0 auto);
             @include align-self(flex-start);
-            width: rem(25);
-            height: rem(25);
-            margin-right: rem(10);
+            width: pxToRem(25);
+            height: pxToRem(25);
+            margin-right: pxToRem(10);
             svg {
                 fill: $color-gold;
-                width: rem(25);
-                height: rem(25);
+                width: pxToRem(25);
+                height: pxToRem(25);
             }
         }
 
@@ -72,8 +72,8 @@
         }
 
         &.right {
-            top: rem(32);
-            right: rem(-8);
+            top: pxToRem(32);
+            right: pxToRem(-8);
         }
     }
 }

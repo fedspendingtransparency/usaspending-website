@@ -1,8 +1,8 @@
 .download-user-selections {
     background-color: $color-gray-lightest;
-    padding: rem(20);
+    padding: pxToRem(20);
     @import "mixins/fullSectionWrap";
-    @include fullSectionWrap((rem(40)), (rem(30)));
+    @include fullSectionWrap((pxToRem(40)), (pxToRem(30)));
     @media(max-width: $medium-screen) {
         padding: 30px 20px;
         width: 78%;
@@ -26,19 +26,19 @@
     .selection {
         .selection__heading {
             @include h6;
-            padding-top: rem(18);
-            padding-bottom: rem(6);
+            padding-top: pxToRem(18);
+            padding-bottom: pxToRem(6);
             color: $color-gray;
-            font-size: rem(12);
+            font-size: pxToRem(12);
             font-weight: 600;
-            line-height: rem(15);
+            line-height: pxToRem(15);
         }
         .selection__content {
             font-weight: 300;
-            font-size: rem(18);
+            font-size: pxToRem(18);
             &.selection__content-required {
                 color: $color-secondary;
-                line-height: rem(23);
+                line-height: pxToRem(23);
             }
         }
     }

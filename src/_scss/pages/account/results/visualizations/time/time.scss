@@ -8,27 +8,27 @@
         @include unstyled-list;
 
         li {
-            margin-top: rem(15);
+            margin-top: pxToRem(15);
             &:first-child {
                 margin-top: 0;
             }
 
             .item-value {
                 border-bottom: 1px solid #D5D6D8;
-                font-size: rem(30);
+                font-size: pxToRem(30);
                 font-weight: $font-light;
-                line-height: rem(30);
-                padding: 0 0 rem(10) 0;
+                line-height: pxToRem(30);
+                padding: 0 0 pxToRem(10) 0;
                 @media(max-width: $tablet-screen) {
-                    font-size: rem(16);
-                    line-height: rem(20);
+                    font-size: pxToRem(16);
+                    line-height: pxToRem(20);
                     }
                 }
             .item-label {
                 font-size: $small-font-size;
                 font-weight: $font-normal;
-                line-height: rem(23);
-                padding: rem(5) 0 0 0;
+                line-height: pxToRem(23);
+                padding: pxToRem(5) 0 0 0;
                 text-align: center;
             }
         }
@@ -39,7 +39,7 @@
     }
 
     .results-visualization-message {
-        margin-top: rem(10);
+        margin-top: pxToRem(10);
         font-size: $small-font-size;
         color: $color-base;
         text-align: center;

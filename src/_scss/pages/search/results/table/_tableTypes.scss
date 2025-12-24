@@ -1,6 +1,6 @@
 .table-types {
     border-bottom: 1px solid $color-gray-light;
-    padding-left: rem(15);
+    padding-left: pxToRem(15);
     display: none;
     @include media($tablet-screen) {
         @include display(flex);
@@ -18,14 +18,14 @@
             background-color: $color-tab-inactive;
             font-size: $base-font-size;
             font-weight: normal;
-            margin-right: rem(2);
-            padding: rem(10);
-            height: rem(50);
+            margin-right: pxToRem(2);
+            padding: pxToRem(10);
+            height: pxToRem(50);
             vertical-align: middle;
             margin-bottom: -0.1rem;
             width: auto;
             @include media($large-screen) {
-                padding: rem(15);
+                padding: pxToRem(15);
             }
             &:hover{
                 @include transition(all 0.3s ease-in-out);
@@ -48,16 +48,16 @@
                 position: relative;
                 .tab-label {
                     @include flex(1 1 auto);
-                    margin-right: rem(5);
+                    margin-right: pxToRem(5);
                     white-space: nowrap;
                 }
 
                 .count-badge {
                     @include flex(1 1 auto);
                     background-color: $color-gray-lighter;
-                    font-size: rem(12);
-                    line-height: rem(16);
-                    padding: rem(0) rem(5);
+                    font-size: pxToRem(12);
+                    line-height: pxToRem(16);
+                    padding: pxToRem(0) pxToRem(5);
 
                     &.active {
                         background-color: $color-gold;

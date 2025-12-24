@@ -6,8 +6,8 @@
     }
 
     .mapboxgl-ctrl {
-        margin-right: rem(8);
-        margin-top: rem(8);
+        margin-right: pxToRem(8);
+        margin-top: pxToRem(8);
     }
     .mapbox-item {
         display: block;
@@ -46,8 +46,8 @@
         .map-buttons {
             position: absolute;
             float: left;
-            left: rem(5);
-            bottom: rem(40);
+            left: pxToRem(5);
+            bottom: pxToRem(40);
             z-index: 2;
             .first-row,
             .second-row {
@@ -60,12 +60,12 @@
                 background-color: $color-white;
                 box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
                 color: $color-gray;
-                padding: rem(5) rem(10);
+                padding: pxToRem(5) pxToRem(10);
                 margin-bottom: 0;
                 svg {
                     fill: $color-gray;
-                    height: rem(10);
-                    width: rem(10);
+                    height: pxToRem(10);
+                    width: pxToRem(10);
                 }
             }
         }

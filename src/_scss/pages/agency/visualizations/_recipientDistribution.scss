@@ -11,14 +11,14 @@
                 fill: #88B4C0;
             }
             .top-count-text {
-                font-size: rem(12);
-                line-height: rem(12);
+                font-size: pxToRem(12);
+                line-height: pxToRem(12);
                 fill: $color-gray;
                 font-weight: $font-semibold;
             }
             .top-count-text-desc {
-                font-size: rem(10);
-                line-height: rem(10);
+                font-size: pxToRem(10);
+                line-height: pxToRem(10);
                 fill: $color-gray;
             }
             

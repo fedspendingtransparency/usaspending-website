@@ -1,17 +1,17 @@
 .heading-container {
     .header {
-        margin-top: rem(30);
-        font-size: rem(24);
+        margin-top: pxToRem(30);
+        font-size: pxToRem(24);
     }
     .sub-header {
         color: $color-base;
-        font-size: rem(16);
+        font-size: pxToRem(16);
         font-weight: 300;
         letter-spacing: 0;
-        line-height: rem(24);
+        line-height: pxToRem(24);
         margin-top: 0;
-        margin-bottom: rem(30);
-        max-width: rem(769);
+        margin-bottom: pxToRem(30);
+        max-width: pxToRem(769);
     }
 }
 @import './tableControls';
@@ -50,12 +50,12 @@
                     display: none;
                 }
                 .tooltip-spacer {
-                    transform: translate(-4px, 2px);
+                    transform: translate(-4px, 2);
                     text-transform: none;
                     .tooltip__content{
-                        left: rem(-100);
-                        @media(min-width: 992px) {
-                            left: rem(-200);
+                        left: pxToRem(-100);
+                        @media(min-width: 992) {
+                            left: pxToRem(-200);
                         }
                     }
                 }
@@ -103,12 +103,12 @@
                     display: none;
                 }
                 .tooltip-spacer {
-                    transform: translate(-4px, 2px);
+                    transform: translate(-4px, 2);
                     text-transform: none;
                     .tooltip__content{
-                        left: rem(-100);
-                        @media(min-width: 992px) {
-                            left: rem(-200);
+                        left: pxToRem(-100);
+                        @media(min-width: 992) {
+                            left: pxToRem(-200);
                         }
                     }
                 }

@@ -7,12 +7,12 @@
 
     ul.summary-status-items {
         @include unstyled-list;
-        padding: rem(5) 0;
+        padding: pxToRem(5) 0;
 
         li {
             @include display(flex);
             @include justify-content(flex-start);
-            padding: 0 0 rem(4);
+            padding: 0 0 pxToRem(4);
             width: 100%;
 
             .format-item {
@@ -22,7 +22,7 @@
                 .item-label {
                     color: #CEF233;
                     font-weight: $font-semibold;
-                    margin: 0 rem(5) 0 0;
+                    margin: 0 pxToRem(5) 0 0;
                     &:after {
                         content: (":");
                     }
@@ -42,7 +42,7 @@
         ul.summary-status-items {
             li {
                 @include justify-content(flex-start);
-                padding: rem(16) 0;
+                padding: pxToRem(16) 0;
 
                 .format-item {
                     @include display(flex);
@@ -51,7 +51,7 @@
                     .item-label {
                         color: #CEF233;
                         font-weight: $font-semibold;
-                        margin: 0 rem(5) 0 0;
+                        margin: 0 pxToRem(5) 0 0;
                         &:after {
                             content: (":");
                         }
@@ -72,13 +72,13 @@
 
             li {
                 border-right: 1px solid rgba($color-white, .3);
-                min-width: rem(150);
+                min-width: pxToRem(150);
                 padding: 0;
 
                 .format-item {
                     @include display(flex);
                     @include flex-direction(column);
-                    @include flex(1 0 rem(180));
+                    @include flex(1 0 pxToRem(180));
 
                     padding: 0 $global-padding * 4;
                     .item-label {

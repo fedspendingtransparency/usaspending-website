@@ -1,5 +1,5 @@
 .specific-award-amount {
-    margin-top: rem(15);
+    margin-top: pxToRem(15);
     .award-amount-warning {
         margin-top: $global-margin;
         line-height: 1.5;
@@ -24,7 +24,7 @@
     }
 
     .warning-tooltip {
-        margin-top: rem(-20);
+        margin-top: pxToRem(-20);
     }
 
     .award-amount-item-wrapper label {
@@ -94,14 +94,14 @@
             @include new-search-button;
         }
 
-        @media only screen and (min-width:1342px) {
+        @media only screen and (min-width:1342) {
             @include display(flex);
             @include justify-content(space-between);
             @include align-items(center);
 
             input {
                 width: 100%;
-                height: rem(32);
+                height: pxToRem(32);
             }
 
             .award-amount-submit {
@@ -109,10 +109,10 @@
             }
         }
 
-        @media only screen and (max-width:1341px) {
+        @media only screen and (max-width:1341) {
             input {
                 width: 100%;
-                height: rem(32);
+                height: pxToRem(32);
             }
         }
     }

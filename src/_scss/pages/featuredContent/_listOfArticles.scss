@@ -21,7 +21,7 @@
   }
 
   .list-of-articles__article {
-    margin-bottom: rem(32);
+    margin-bottom: pxToRem(32);
     @media (max-width:$medium-screen) {
       display:flex;
       justify-content:center;
@@ -34,9 +34,9 @@
       }
 
       img {
-        border-radius: rem(8) rem(8) 0 0;
+        border-radius: pxToRem(8) pxToRem(8) 0 0;
         width: 100%;
-        margin-bottom: rem(-7);
+        margin-bottom: pxToRem(-7);
       }
 
     }
@@ -61,11 +61,11 @@
       -webkit-line-clamp: 4;
       line-clamp: 4;
 
-      @media(min-width: 768px) and (max-width:992px) {
+      @media(min-width: 768) and (max-width:992) {
         -webkit-line-clamp: 2;
         line-clamp: 2;
       }
-      @media(min-width:992px) and (max-width: 1200px) {
+      @media(min-width:992) and (max-width: 1200) {
         -webkit-line-clamp: 3;
         line-clamp: 3;
       }
@@ -79,7 +79,7 @@
 
     div.article-card__metadiv {
       color: $gray-60;
-      font-size: rem(14);
+      font-size: pxToRem(14);
       text-align: left;
       width: 100%
     }

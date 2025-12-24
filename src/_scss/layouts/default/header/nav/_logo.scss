@@ -1,7 +1,7 @@
 .site-logo {
     .site-logo__wrapper {
-        max-width: rem(300);
-        margin: rem(16)  rem(0);
+        max-width: pxToRem(300);
+        margin: pxToRem(16)  pxToRem(0);
         position: relative;
     }
     a.site-logo__link {
@@ -9,6 +9,6 @@
     }
 
     img.site-logo__image {
-        max-height: rem(32);
+        max-height: pxToRem(32);
     }
 }

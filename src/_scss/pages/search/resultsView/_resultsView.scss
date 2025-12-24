@@ -1,26 +1,26 @@
 .search-contents {
-  padding-top: rem(24);
+  padding-top: pxToRem(24);
 
   .search__sidebar {
-    border: rem(1) solid purple;
-    margin: rem(24);
+    border: pxToRem(1) solid purple;
+    margin: pxToRem(24);
     margin-bottom: 0;
   }
 
   .search__placeholder {
-    height: rem(800);
-    border: rem(1) solid $gray-cool-10;
-    border-radius: rem(8);
+    height: pxToRem(800);
+    border: pxToRem(1) solid $gray-cool-10;
+    border-radius: pxToRem(8);
     color: $color-white;
     background-color: $color-white;
   }
 
   .search__section-wrapper {
-    padding: rem(24);
-    margin-bottom: rem(16);
+    padding: pxToRem(24);
+    margin-bottom: pxToRem(16);
 
-    border: rem(1) solid $gray-cool-10;
-    border-radius: rem(8);
+    border: pxToRem(1) solid $gray-cool-10;
+    border-radius: pxToRem(8);
     background-color: $color-white;
 
     .search__section-wrapper-header {
@@ -29,7 +29,7 @@
       position: relative;
       top: 0;
       left: 0;
-      margin-bottom: rem(24);
+      margin-bottom: pxToRem(24);
 
       .filter__dropdown-label {
         color: $gray-90;
@@ -44,12 +44,12 @@
 
       .award-type-toggle {
         display: inline-flex;
-        height: rem(32);
-        padding: rem(3);
+        height: pxToRem(32);
+        padding: pxToRem(3);
         justify-content: center;
         align-items: center;
-        border-radius: rem(3);
-        border: rem(1) solid $gray-cool-10;
+        border-radius: pxToRem(3);
+        border: pxToRem(1) solid $gray-cool-10;
         background: $gray-cool-2;
         position: absolute;
         right: 0;
@@ -60,11 +60,11 @@
         }
 
         button {
-          font-size: rem(11);
-          height: rem(26);
+          font-size: pxToRem(11);
+          height: pxToRem(26);
           margin: 0 !important;
-          padding: rem(3) rem(12);
-          line-height: rem(16.5);
+          padding: pxToRem(3) pxToRem(12);
+          line-height: pxToRem(16.5);
         }
 
         .borderless{
@@ -74,12 +74,12 @@
 
         .button-type__primary-left-icon-light {
           color: $color-white;
-          border: rem(2);
+          border: pxToRem(2);
           
           svg {
             fill: $color-white;
-            margin-right: rem(3);
-            width: rem(10);
+            margin-right: pxToRem(3);
+            width: pxToRem(10);
           }
         }
       }
@@ -87,11 +87,11 @@
       .advanced-search-dropdown__wrapper {
         height: auto;
         max-width: 100%;
-        padding-left: rem(8);
+        padding-left: pxToRem(8);
 
         @media(max-width: $medium-screen) {
           padding-left: 0;
-          padding-top: rem(8);
+          padding-top: pxToRem(8);
         }
 
         // DTUI NewPicker.jsx override
@@ -107,9 +107,9 @@
             text-align: start;
 
             .filter__dropdown-button-text {
-              margin-right: rem(8);
-              font-size: rem(16);
-              line-height: rem(24);
+              margin-right: pxToRem(8);
+              font-size: pxToRem(16);
+              line-height: pxToRem(24);
               color: $gray-60;
               opacity: 1;
               white-space: nowrap;
@@ -126,10 +126,10 @@
 
           ul[class^='filter__dropdown-list'] {
             background-color: $color-white;
-            border: rem(2) solid $gray-cool-10;
-            border-radius: rem(4);
-            box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
-            transform: translate(0px, 0px);
+            border: pxToRem(2) solid $gray-cool-10;
+            border-radius: pxToRem(4);
+            box-shadow: 0 pxToRem(1) pxToRem(4) 0 rgba(0, 0, 0, 0.1);
+            transform: translate(0px, 0);
             width: max-content;
             min-width: 100%;
 
@@ -152,7 +152,7 @@
       @import "../../../components/chartTableToggle";
 
       .search__chart-table-toggle.chart-table-toggle {
-        border: rem(1) solid $gray-cool-10;
+        border: pxToRem(1) solid $gray-cool-10;
         height: fit-content;
         position: absolute;
         right: 0;
@@ -160,7 +160,7 @@
         .view-button {
           border: none;
           color: $theme-color-1;
-          padding: rem(6) rem(8);
+          padding: pxToRem(6) pxToRem(8);
 
           &.active {
             background-color: $blue-5;
@@ -169,12 +169,12 @@
         }
 
         button {
-          height: rem(30);
-          width: rem(31);
+          height: pxToRem(30);
+          width: pxToRem(31);
         }
 
         svg {
-          width: rem(16);
+          width: pxToRem(16);
         }
       }
     }
@@ -182,38 +182,38 @@
     .award-type-toggle__mobile {
       display: none;
 
-      @media(max-width: 497px) { 
+      @media(max-width: 497) {
         // set px used instead of variables due to specific width needed in this case
         display: flex;
-        margin-bottom: rem(16);
-        margin-top: rem(-16);
+        margin-bottom: pxToRem(16);
+        margin-top: pxToRem(-16);
 
         .award-type-toggle {
           display: inline-flex;
-          height: rem(32);
-          padding: rem(3);
+          height: pxToRem(32);
+          padding: pxToRem(3);
           justify-content: center;
           align-items: center;
-          border-radius: rem(3);
-          border: rem(1) solid $gray-cool-10;
+          border-radius: pxToRem(3);
+          border: pxToRem(1) solid $gray-cool-10;
           background: $gray-cool-2;
           font-family: $font-sans;
 
           button {
-            font-size: rem(11);
-            height: rem(26);
+            font-size: pxToRem(11);
+            height: pxToRem(26);
             margin: 0 !important;
-            padding: rem(3) rem(12);
-            line-height: rem(16.5);
+            padding: pxToRem(3) pxToRem(12);
+            line-height: pxToRem(16.5);
             
           }
           
-          @media(max-width: 348px) {
+          @media(max-width: 348) {
             // set px used instead of variables due to specific width needed in this case
-            height: rem(42);
+            height: pxToRem(42);
 
             button {
-              height: rem(36);
+              height: pxToRem(36);
             }
           }
           .borderless{
@@ -223,12 +223,12 @@
   
           .button-type__primary-left-icon-light {
             color: $color-white;
-            border: rem(2);
+            border: pxToRem(2);
             
             svg {
               fill: $color-white;
-              margin-right: rem(3);
-              width: rem(10);
+              margin-right: pxToRem(3);
+              width: pxToRem(10);
             }
           }
         }
@@ -236,39 +236,39 @@
     }
 
     .search__section-wrapper-content {
-      margin-bottom: rem(24);
+      margin-bottom: pxToRem(24);
 
       .advanced-search__table-wrapper {
         overflow-y: auto;
       }
 
       table.advanced-search__table {
-        margin-top: rem(2);
+        margin-top: pxToRem(2);
       }
 
       .usda-table.search-results {
-        margin-bottom: rem(16);
+        margin-bottom: pxToRem(16);
       }
       .mobile__sort {
         display:flex;
         @import "../../../components/mobileSortToggle";
-        margin-bottom: rem(32);
+        margin-bottom: pxToRem(32);
         .mobile-sort__picker {
-          height: rem(32);
+          height: pxToRem(32);
           .filter__dropdown-label-sm {
             color: $gray-cool-90;
           }
           .filter__dropdown-button-sm {
             margin: 0;
             // if this is not set, ellipsis will not work
-            max-width: rem(144);
+            max-width: pxToRem(144);
           }
 
           .filter__dropdown-list-sm {
             width: auto;
-            max-width: rem(240);
+            max-width: pxToRem(240);
             .filter__dropdown-list-item {
-              padding: rem(5.5) rem(12);
+              padding: pxToRem(5.5) pxToRem(12);
               .filter__dropdown-item {
                 white-space: nowrap;
                 text-overflow: ellipsis;
@@ -283,8 +283,8 @@
             text-align: start;
 
             .filter__dropdown-button-text {
-              margin-right: rem(8);
-              line-height: rem(24);
+              margin-right: pxToRem(8);
+              line-height: pxToRem(24);
               color: $gray-60;
               opacity: 1;
               white-space: nowrap;
@@ -301,10 +301,10 @@
 
           ul[class^='filter__dropdown-list'] {
             background-color: $color-white;
-            border: rem(2) solid $gray-cool-10;
-            border-radius: rem(4);
-            box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
-            transform: translate(0px, 0px);
+            border: pxToRem(2) solid $gray-cool-10;
+            border-radius: pxToRem(4);
+            box-shadow: 0 pxToRem(1) pxToRem(4) 0 rgba(0, 0, 0, 0.1);
+            transform: translate(0px, 0);
             width: max-content;
             min-width: 100%;
 
@@ -323,13 +323,13 @@
           }
         }
         .mobile-sort-toggle {
-        border: rem(1) solid $gray-cool-10;
+        border: pxToRem(1) solid $gray-cool-10;
         height: fit-content;
 
         .view-button {
           border: none;
           color: $theme-color-1;
-          padding: rem(6) rem(8);
+          padding: pxToRem(6) pxToRem(8);
 
           &.active {
             background-color: $blue-50;
@@ -338,20 +338,20 @@
         }
 
         button {
-          height: rem(30);
-          width: rem(31);
+          height: pxToRem(30);
+          width: pxToRem(31);
         }
 
         svg {
-          width: rem(16);
+          width: pxToRem(16);
         }
       }
       }
       .download {
         display: flex;
         justify-content: end;
-        margin-bottom: rem(8);
-        font-size: rem(12);
+        margin-bottom: pxToRem(8);
+        font-size: pxToRem(12);
         line-height: 1.5;
         color: #2378c3;
 
@@ -376,7 +376,7 @@
       }
 
       .visualization-pager-container {
-        margin-top: rem(16);
+        margin-top: pxToRem(16);
       }
 
       // TODO: Remove importants after the tabbed results view is removed from the code
@@ -387,24 +387,24 @@
     }
 
     .accordion-container {
-      padding-top: rem(16);
-      border-top: rem(1) solid $gray-cool-10;
+      padding-top: pxToRem(16);
+      border-top: pxToRem(1) solid $gray-cool-10;
 
       .accordion .heading {
         border: none;
         padding: 0;
-        font-size: rem(12);
-        line-height: rem(18);
+        font-size: pxToRem(12);
+        line-height: pxToRem(18);
         color: $theme-color-1;
         justify-content: start;
 
         .toggle {
           padding: 0;
-          margin: auto 0 rem(3) rem(8);
+          margin: auto 0 pxToRem(3) pxToRem(8);
 
           svg {
             color: $theme-color-1;
-            width: rem(10);
+            width: pxToRem(10);
             vertical-align: top;
           }
         }
@@ -422,22 +422,22 @@
         }
 
         h4 {
-          margin: rem(24) 0 rem(8) 0;
+          margin: pxToRem(24) 0 pxToRem(8) 0;
           font-weight: $font-semibold;
           color: $gray-90;
-          font-size: rem(14);
+          font-size: pxToRem(14);
           line-height: 1.5;
         }
 
         p {
-          font-size: rem(14);
+          font-size: pxToRem(14);
           line-height: 1.5;
           margin: 0;
           color: $gray-60
         }
 
         .award-search__body-text {
-          margin-bottom: rem(8);
+          margin-bottom: pxToRem(8);
 
           .award-search__subaward-note {
             font-weight: $font-semibold;
@@ -455,7 +455,7 @@
 .usda-message_no-results,
 .usda-message_error,
 .usda-message_loading {
-  padding: rem(200) 0;
+  padding: pxToRem(200) 0;
 }
 
 .award-search__glossary-term {

@@ -26,7 +26,7 @@
         @include display(flex);
         @include flex-flow(row wrap);
         @include justify-content(space-between);
-        padding: rem(15) ($global-padding * 4);
+        padding: pxToRem(15) ($global-padding * 4);
         &.center {
             width: 100%;
         }
@@ -40,12 +40,12 @@
         @include flex(1 1 auto);
         @include media($tablet-screen) {
             @include flex(1 1 auto);
-            margin: 0 rem(10) 0 0;
+            margin: 0 pxToRem(10) 0 0;
         }
     }
     .tooltip-right {
         @include media($tablet-screen) {
-            margin: 0 0 0 rem(10);
+            margin: 0 0 0 pxToRem(10);
         }
     }
     .tooltip-value,
@@ -59,24 +59,24 @@
         font-size: $font-size-24;
         font-weight: $font-normal;
         line-height: 1;
-        padding: 0 0 rem(10) 0;
+        padding: 0 0 pxToRem(10) 0;
     }
     .tooltip-description {
         font-size: $font-size-14;
         font-weight: $font-normal;
-        line-height: rem(23);
-        padding: rem(5) 0 0 0;
+        line-height: pxToRem(23);
+        padding: pxToRem(5) 0 0 0;
         text-align: center;
     }
     .tooltip-label {
         font-weight: $font-normal;
-        padding: rem(10) rem(0) rem(0) rem(0);
+        padding: pxToRem(10) pxToRem(0) pxToRem(0) pxToRem(0);
     }
     .tooltip-footer {
         background-color: $color-gold-lightest;
         font-size: $font-size-14;
         margin: 0 5%;
-        padding: rem(16) rem(15) rem(14);
+        padding: pxToRem(16) pxToRem(15) pxToRem(14);
         text-align: center;
         width: 90%;
     }

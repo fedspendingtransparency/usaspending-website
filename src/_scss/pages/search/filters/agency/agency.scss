@@ -4,7 +4,7 @@
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
     .shown {
-        min-height: rem(180);
+        min-height: pxToRem(180);
     }
     .visually-hidden {
         display: none;

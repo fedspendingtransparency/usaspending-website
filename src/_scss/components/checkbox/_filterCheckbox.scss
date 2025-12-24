@@ -2,7 +2,7 @@
 @import "_accordionCheckbox";
 
 .filter-item-wrap {
-  padding: rem(20) rem(32);
+  padding: pxToRem(20) pxToRem(32);
 
   .checkbox-filter__wrapper {
     .checkbox-filter__header {
@@ -22,7 +22,7 @@
         }
 
         .checkbox-filter__header-count {
-          margin-left: rem(6);
+          margin-left: pxToRem(6);
           font-size: $font-size-10;
           font-style: italic;
           color: $gray-60;
@@ -48,11 +48,11 @@
         input {
           @include usa-input-checkbox;
           margin: 0;
-          border: solid rem(1) $gray-cool-20;
-          width: rem(12);
-          height: rem(12);
-          min-width: rem(12);
-          top: rem(3);
+          border: solid pxToRem(1) $gray-cool-20;
+          width: pxToRem(12);
+          height: pxToRem(12);
+          min-width: pxToRem(12);
+          top: pxToRem(3);
 
           &:checked {
             background-color: $blue-50;
@@ -60,14 +60,14 @@
           }
 
           &:checked:before {
-            width: rem(4);
-            height: rem(8);
-            margin: rem(0) rem(3);
+            width: pxToRem(4);
+            height: pxToRem(8);
+            margin: pxToRem(0) pxToRem(3);
           }
         }
 
         .checkbox-filter__item-label {
-          margin: rem(1) 0 0 rem(6);
+          margin: pxToRem(1) 0 0 pxToRem(6);
           color: $gray-80;
 
           span.highlight {

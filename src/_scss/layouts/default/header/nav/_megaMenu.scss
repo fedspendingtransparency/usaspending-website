@@ -9,7 +9,7 @@
     font-size: $font-size-16;
     line-height: 1.25;
     border: none;
-    padding: rem(14) $global-padding;
+    padding: pxToRem(14) $global-padding;
     margin: $global-margin;
     color: $gray-90;
     display: flex;
@@ -51,17 +51,17 @@
   .dropdown-slot {
     position: absolute;
     left: 50%;
-    transform: translate(-50%, -10px);
+    transform: translate(-50%, -10);
     perspective: 1500px;
     z-index: 150;
   }
 
   .dropdown-slot-2 .dropdown-background {
-    transform: translateX(-140px);
+    transform: translateX(-140);
   }
 
   .dropdown-slot-3 .dropdown-background {
-    transform: translateX(-275px);
+    transform: translateX(-275);
   }
 
   .dropdown-section__wrapper {
@@ -70,7 +70,7 @@
     border: solid 1px $gray-cool-5;
 
     @media(min-width: $medium-screen) {
-      width: rem(720);
+      width: pxToRem(720);
       padding: $global-padding * 5;
     }
 
@@ -78,7 +78,7 @@
       display: flex !important;
       background-color: $color-white;
       background-clip: padding-box;
-      margin-bottom: rem(16);
+      margin-bottom: pxToRem(16);
 
       .first-dropdown-section {
         display: flex;
@@ -130,7 +130,7 @@
         background-color: $blue-warm-5;
         color: $blue-warm-60;
         padding: $global-padding * .5;
-        border-radius: rem(4);
+        border-radius: pxToRem(4);
 
         margin-right: $global-margin;
       }
@@ -158,7 +158,7 @@
         text-align: left;
         color: $gray-60;
         width: auto;
-        max-width: rem(240);
+        max-width: pxToRem(240);
         display: flex;
         word-wrap: break-word;
       }
@@ -170,7 +170,7 @@
         div {
           .dropdown-item__link-desc {
             display: block;
-            border-radius: rem(8);
+            border-radius: pxToRem(8);
 
             .dropdown-item__link-label {
               font-size: $font-size-16;
@@ -201,11 +201,11 @@
           margin-top: 0;
           display: flex;
           padding: $global-padding;
-          transform: translateX(-8px);
+          transform: translateX(-8);
           margin-bottom: 0;
           &:hover {
             background: $gray-cool-3;
-            border-radius: rem(8);
+            border-radius: pxToRem(8);
             cursor: pointer;
 
             svg {
@@ -224,7 +224,7 @@
             background-color: $blue-warm-5;
             color: $blue-warm-60;
             padding: $global-padding * .5;
-            border-radius: rem(4);
+            border-radius: pxToRem(4);
             margin-right: $global-margin;
           }
 
@@ -259,8 +259,8 @@
         .list__extra-padding {
           padding-left: $global-padding * 2;
           padding-right: $global-padding * 2;
-          transform: translateX(-16px) !important;
-          width: rem(272) !important;
+          transform: translateX(-16) !important;
+          width: pxToRem(272) !important;
         }
 
         li:first-of-type {
@@ -272,7 +272,7 @@
     .dropdown-section__bottom-portion {
       background: $gray-cool-2;
       margin: 0 $global-margin * -5 $global-margin * -5;
-      padding: rem(24) $global-padding * 5 $global-padding * 5;
+      padding: pxToRem(24) $global-padding * 5 $global-padding * 5;
 
       .dropdown-section__section-list {
         margin: 0 !important;
@@ -283,8 +283,8 @@
         .list__extra-padding {
           padding-left: $global-padding * 2;
           padding-right: $global-padding * 2;
-          transform: translateX(-16px) !important;
-          width: rem(272) !important;
+          transform: translateX(-16) !important;
+          width: pxToRem(272) !important;
           height: min-content !important;
 
           &:hover {
@@ -293,7 +293,7 @@
         }
 
         .list__extra-padding:nth-child(even) {
-          margin-left: rem(66);
+          margin-left: pxToRem(66);
         }
         .third__item-margin:nth-child(even) {
           margin-left: $global-margin * 8.5 !important;
@@ -323,8 +323,8 @@
   }
 
   .caret {
-    width: rem(18);
-    height: rem(16);
+    width: pxToRem(18);
+    height: pxToRem(16);
     border-width: 1px;
     border-style: solid;
     border-color: transparent transparent $color-white;
@@ -338,7 +338,7 @@
 
   .dropdown-background {
     transform-origin: 0 0;
-    border-radius: rem(8);
+    border-radius: pxToRem(8);
     overflow: hidden;
     position: relative;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
@@ -352,11 +352,11 @@
 
     .dropdown-section__section-list-item {
       padding: $global-padding $global-padding*2 $global-padding $global-padding*2;
-      border-radius: rem(8);
+      border-radius: pxToRem(8);
     }
 
     .dropdown-section__section-list-item:nth-child(2) {
-      margin-left: rem(102);
+      margin-left: pxToRem(102);
     }
   }
 
@@ -397,7 +397,7 @@
     }
 
     to {
-      transform: translateX(-20px);
+      transform: translateX(-20);
       opacity: 0;
       display: none;
       visibility: hidden;
@@ -411,7 +411,7 @@
     }
 
     to {
-      transform: translateX(20px);
+      transform: translateX(20);
       opacity: 0;
       display: none;
       visibility: hidden;
@@ -420,7 +420,7 @@
 
   @keyframes fade-content-animate-in-left {
     from {
-      transform: translateX(20px);
+      transform: translateX(20);
     }
 
     to {
@@ -431,7 +431,7 @@
 
   @keyframes fade-content-animate-in-right {
     from {
-      transform: translateX(-20px);
+      transform: translateX(-20);
     }
 
     to {

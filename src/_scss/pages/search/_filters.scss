@@ -28,9 +28,9 @@
     background: repeating-linear-gradient(
       45deg,
       rgba($color-gray-lightest, .2),
-      rgba($color-gray-lightest, .2) rem(3px),
-      rgba($color-gray-lighter, .3) rem(3px),
-      rgba($color-gray-lighter, .3) rem(5px)
+      rgba($color-gray-lightest, .2) pxToRem(3),
+      rgba($color-gray-lighter, .3) pxToRem(3),
+      rgba($color-gray-lighter, .3) pxToRem(5)
     );
     .filter-toggle {
       svg {
@@ -42,14 +42,14 @@
     }
     .coming-soon-container {
       .coming-soon-icon {
-        bottom: rem(24px);
-        left: rem(35px);
+        bottom: pxToRem(24);
+        left: pxToRem(35);
         position: relative;
       }
       .coming-soon-label {
-        bottom: rem(20px);
+        bottom: pxToRem(20);
         color: $color-gray-lighter;
-        left: rem(50px);
+        left: pxToRem(50);
       }
     }
   }

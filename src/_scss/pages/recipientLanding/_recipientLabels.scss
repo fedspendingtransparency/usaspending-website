@@ -1,10 +1,10 @@
 .recipient-labels {
     @include display(inline-flex);
-    margin: 0 0 rem(16) 0;
+    margin: 0 0 pxToRem(16) 0;
 
     .recipient-labels-wrapper {
         @include display(flex);
-        margin-right: rem(20);
+        margin-right: pxToRem(20);
     }
 
     .recipient-labels__icon-info {
@@ -14,15 +14,15 @@
             padding: 0;
      
              svg {
-                 width: rem(12);
-                 height: rem(12);
+                 width: pxToRem(12);
+                 height: pxToRem(12);
                  fill: $color-base;
              }
     }
 
     .recipient-labels__text {
-        margin-right: rem(5);
-        font-size: rem(14);
+        margin-right: pxToRem(5);
+        font-size: pxToRem(14);
     }
     @import "pages/homepage/hero/_heroTooltip";
 
@@ -30,31 +30,31 @@
         // we don't want the tooltip to be on top of the fix header, this will make sure that
         // it's stays under the fixed header when scrolling
         z-index: 1;
-        width: rem(210);
+        width: pxToRem(210);
         .homepage-hero-tooltip__text_holder {
           height: auto;
-          padding: 0 rem(15) 0 rem(35);
+          padding: 0 pxToRem(15) 0 pxToRem(35);
         }
       
         .homepage-hero-tooltip__info_icon {
-          top: rem(15);
-          left: rem(15);
+          top: pxToRem(15);
+          left: pxToRem(15);
         }
       
         .homepage-hero-tooltip__close_icon {
-          top: rem(15);
-          right: rem(10);
+          top: pxToRem(15);
+          right: pxToRem(10);
         }
       }
     
     .homepage-hero-tooltip:nth-child(2) {
 
         .homepage-hero-tooltip__info_icon {
-            top: rem(6);
+            top: pxToRem(6);
           }
         
           .homepage-hero-tooltip__close_icon {
-            top: rem(6);
+            top: pxToRem(6);
           }
 
     }

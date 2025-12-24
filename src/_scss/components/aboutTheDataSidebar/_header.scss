@@ -8,8 +8,8 @@
 
     .close-button {
         @include button-unstyled;
-        width: rem(30);
-        height: rem(30);
+        width: pxToRem(30);
+        height: pxToRem(30);
         float: right;
         text-align: center;
         svg {
@@ -27,7 +27,7 @@
 
     h1.usa-atd-header__title {
         font-weight: $font-semibold;
-        font-size: rem(32);
+        font-size: pxToRem(32);
         font-stretch: normal;
         font-style: normal;
         line-height: 1.25;

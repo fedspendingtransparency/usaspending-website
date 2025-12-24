@@ -1,6 +1,6 @@
 .list-of-videos__sort {
   justify-content: end;
-  margin: 0 0 rem(32) 0;
+  margin: 0 0 pxToRem(32) 0;
 
   .usa-dt-flex-grid__col-12 {
     width: unset;
@@ -14,7 +14,7 @@
       font-weight: $font-semibold;
       line-height: 1.5;
       color: $gray-cool-90;
-      margin-right: rem(8);
+      margin-right: pxToRem(8);
     }
 
     .video-sort-list {

@@ -5,14 +5,14 @@
     @include align-items(flex-start);
     @include justify-content(flex-start);
 
-    @media(min-width: 1356px) {
+    @media(min-width: 1356) {
         @include flex-direction(row);
     }
 }
 
 .generate-datepicker-wrap {
     @include flex(1 1 auto);
-    width: rem(250);
+    width: pxToRem(250);
     position: relative;
     @include media($large-screen) {
         width: auto;
@@ -20,12 +20,12 @@
             margin-right: 0;
         }
     }
-    @media(min-width: $medium-screen) and (max-width: 1355px) {
+    @media(min-width: $medium-screen) and (max-width: 1355) {
         width: 100%;
     }
 
-    @media(min-width: 1355px) {
-        margin-right: rem(5);
+    @media(min-width: 1355) {
+        margin-right: pxToRem(5);
     }
     .generate-datepicker {
         input {
@@ -52,7 +52,7 @@
 
 .set-date-submit {
     @include flex(0 0 auto);
-    height: rem(42);
+    height: pxToRem(42);
     width: 100%;
     margin-left: 0;
     margin-right: 0;
@@ -60,7 +60,7 @@
     @include media($large-screen) {
         @include flex(0 0 auto);
         margin: 0;
-        margin-bottom: rem(3);
-        width: rem(15);
+        margin-bottom: pxToRem(3);
+        width: pxToRem(15);
     }
 }

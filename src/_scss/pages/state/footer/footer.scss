@@ -9,18 +9,18 @@
     width: 100%;
     .footer-content {
         @include flex(1 1 auto);
-        margin: 0 rem(20);
+        margin: 0 pxToRem(20);
         h4,
         p {
             text-align: center;
         }
         h4 {
-            font-size: rem(38);
-            line-height: rem(47);
-            margin: rem(5) 0;
+            font-size: pxToRem(38);
+            line-height: pxToRem(47);
+            margin: pxToRem(5) 0;
         }
         p {
-            font-size: rem(18);
+            font-size: pxToRem(18);
             font-weight: $font-light;
             & strong {
                 font-weight: $font-semibold;
@@ -28,12 +28,12 @@
         }
         .state-search-button {
             display: block;
-            margin: rem(30) auto 0 auto;
-            width: rem(180);
-            height: rem(50);
+            margin: pxToRem(30) auto 0 auto;
+            width: pxToRem(180);
+            height: pxToRem(50);
             text-align: center;
-            font-size: rem(24);
-            padding: rem(10) rem(20);
+            font-size: pxToRem(24);
+            padding: pxToRem(10) pxToRem(20);
             background-color: $color-primary;
             color: $color-white;
             font-weight: $font-bold;

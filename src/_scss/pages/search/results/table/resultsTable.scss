@@ -7,8 +7,8 @@
 
     .results-table-content {
         position: relative;
-        margin-top: rem(16);
-        min-height: rem(200);
+        margin-top: pxToRem(16);
+        min-height: pxToRem(200);
         @include transition(opacity 0.25s ease-in);
 
         .usa-dt-pagination {
@@ -88,8 +88,8 @@
             @include transition(all 0.25s $ease-in-out-sine);
             border: 1px solid $color-gray-lighter;
             background-color: $color-white;
-            width: rem(58);
-            height: rem(28);
+            width: pxToRem(58);
+            height: pxToRem(28);
             margin: 0;
             position: relative;
             cursor: pointer;
@@ -97,8 +97,8 @@
             & svg {
                 position: absolute;
                 top: -3px;
-                left: rem(12);
-                width: rem(33);
+                left: pxToRem(12);
+                width: pxToRem(33);
                 fill: $color-gray-light;
             }
 
@@ -126,7 +126,7 @@
         line-height: 1.5;
         margin-top: 4px;
         margin-bottom: 0;
-        font-size: rem(14);
+        font-size: pxToRem(14);
 
         .award-search__subaward-note {
             font-weight: $font-semibold;
@@ -134,7 +134,7 @@
     }
 
     .award-search__what-title {
-        font-size: rem(14);
+        font-size: pxToRem(14);
         font-weight: $font-semibold;
         font-stretch: normal;
         font-style: normal;
@@ -158,7 +158,7 @@
     .read-more__preview-lines {
         margin-bottom: 0;
         margin-top: 0;
-        font-size: rem(14);
+        font-size: pxToRem(14);
     }
 
     .line-clamp {

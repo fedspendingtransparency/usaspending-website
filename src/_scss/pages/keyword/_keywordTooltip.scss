@@ -1,9 +1,9 @@
 .keyword-hover {
     z-index: $z-modal - 1;
-    width: rem(350);
-    height: rem(90);
+    width: pxToRem(350);
+    height: pxToRem(90);
     position: absolute;
-    right: rem(45);
+    right: pxToRem(45);
 
     .hover-content {
         @include display(flex);
@@ -16,18 +16,18 @@
         border: 1px solid $color-primary-alt-light;
         box-shadow: $box-shadow;
 
-        padding: rem(5) rem(10);
+        padding: pxToRem(5) pxToRem(10);
 
         .icon {
             @include flex(0 0 auto);
             @include align-self(flex-start);
-            width: rem(15);
-            height: rem(15);
-            margin-right: rem(10);
+            width: pxToRem(15);
+            height: pxToRem(15);
+            margin-right: pxToRem(10);
             svg {
                 fill: $color-primary-alt;
-                width: rem(15);
-                height: rem(15);
+                width: pxToRem(15);
+                height: pxToRem(15);
             }
         }
 
@@ -35,13 +35,13 @@
             @include button-unstyled;
             @include flex(0 0 auto);
             @include align-self(flex-start);
-            width: rem(13);
-            height: rem(13);
-            margin-top: rem(3);
+            width: pxToRem(13);
+            height: pxToRem(13);
+            margin-top: pxToRem(3);
             svg {
                 fill: $color-gray;
-                width: rem(13);
-                height: rem(13);
+                width: pxToRem(13);
+                height: pxToRem(13);
             }
         }
 
@@ -50,7 +50,7 @@
             text-align: left;
             color: $color-base;
             font-size: $smallest-font-size;
-            line-height: rem(22);
+            line-height: pxToRem(22);
 
             a {
                 text-decoration: underline;

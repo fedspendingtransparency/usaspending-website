@@ -9,7 +9,7 @@
 
     .header-cell__text {
         @include flex(1 1 auto);
-        margin-right: rem(15);
+        margin-right: pxToRem(15);
     }
 
     .header-cell__title {
@@ -19,6 +19,6 @@
     }
 
     .header-cell__sorter {
-        @include flex(0 0 rem(15));
+        @include flex(0 0 pxToRem(15));
     }
 }

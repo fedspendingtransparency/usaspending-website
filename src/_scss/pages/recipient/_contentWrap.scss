@@ -7,22 +7,22 @@
 			margin: 0;
 			font-size: $h3-font-size;
 			font-weight: 300;
-			line-height: rem(47);
+			line-height: pxToRem(47);
 		}
 
 		.recipient-section__description {
 			font-size: $lead-font-size;
 			font-weight: 300;
-			line-height: rem(25);
-			padding-bottom: rem(35);
+			line-height: pxToRem(25);
+			padding-bottom: pxToRem(35);
 		}
 
 		hr.results-divider {
 			width: 100%;
-			height: rem(2);
+			height: pxToRem(2);
 			background: #494440;
 			border: none;
-			margin: rem(8) 0 rem(32) 0;
+			margin: pxToRem(8) 0 pxToRem(32) 0;
 		}
 
 		.recipient-section__row {
@@ -35,11 +35,11 @@
 				@include media($tablet-screen) {
 					@include flex(1 1 50%);
 					@include flex-direction(column);
-					margin-right: rem(10);
+					margin-right: pxToRem(10);
 				}
 
 				.loan {
-					margin-top: rem(50);
+					margin-top: pxToRem(50);
 					margin-left: 0;
 					@include flex(1 1 50%);
 
@@ -62,8 +62,8 @@
 						}
 
 						svg {
-							height: rem(20);
-							width: rem(20);
+							height: pxToRem(20);
+							width: pxToRem(20);
 						}
 					}
 
@@ -84,13 +84,13 @@
 					border-collapse: unset !important;
 
 					tr {
-						height: rem(39);
+						height: pxToRem(39);
 					}
 
 					th, td {
 						border: solid 1px $color-gray-border;
 						border-bottom: 0;
-						padding: rem(10) rem(15);
+						padding: pxToRem(10) pxToRem(15);
 					}
 
 					th {
@@ -127,8 +127,8 @@
 					@include align-items(center);
 					@include button-unstyled;
 					color: $theme-color-1;
-					margin-top: rem(16);
-					font-size: rem(14);
+					margin-top: pxToRem(16);
+					font-size: pxToRem(14);
 					width: fit-content;
 					&:hover {
 						color: $theme-color-1-dark;

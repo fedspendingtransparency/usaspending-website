@@ -5,21 +5,21 @@
     @import "../../tooltips";
 
     .checkbox-header {
-      padding-top: rem(10);
+      padding-top: pxToRem(10);
     }
 
-    padding: rem(12);
-    margin-bottom: rem(12);
+    padding: pxToRem(12);
+    margin-bottom: pxToRem(12);
 
     .children-are-loading {
-      font-size: rem(15);
+      font-size: pxToRem(15);
       text-align: center;
     }
 
     .autocomplete__input {
       @include display(flex);
 
-      padding: rem(10) 0;
+      padding: pxToRem(10) 0;
       position: relative;
       width: 100%;
 
@@ -33,33 +33,33 @@
         @include new-search-button;
 
         &.geo-entity-dropdown__input {
-          padding-left: rem(28) !important;
+          padding-left: pxToRem(28) !important;
         }
       }
 
       svg {
         color: $gray-60;
-        width: rem(12);
-        height: rem(12);
+        width: pxToRem(12);
+        height: pxToRem(12);
       }
 
       .search-icon {
         @include flex(0 0 auto);
         @include align-self(center);
         position: absolute;
-        width: rem(16);
-        height: rem(16);
+        width: pxToRem(16);
+        height: pxToRem(16);
         left: $global-spacing-unit;
-        top: rem(6);
-        padding: rem(2);
+        top: pxToRem(6);
+        padding: pxToRem(2);
       }
 
       .icon {
         @include flex(0 0 auto);
         @include align-self(center);
         position: absolute;
-        width: rem(15);
-        right: rem(5);
+        width: pxToRem(15);
+        right: pxToRem(5);
         svg {
             // color: $color-gray;
         }

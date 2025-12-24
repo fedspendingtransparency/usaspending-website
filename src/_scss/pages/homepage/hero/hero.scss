@@ -34,7 +34,7 @@ $special-var-for-mobile-screens: 450px;
     justify-content: flex-end;
 
     // only for mobile sizes
-    height: rem(840);
+    height: pxToRem(840);
 
     @media (min-width: $special-var-for-mobile-screens) {
         flex-direction: row;
@@ -43,20 +43,20 @@ $special-var-for-mobile-screens: 450px;
     }
 
     .homepage-hero-content {
-        padding-top: rem(40);
+        padding-top: pxToRem(40);
         position: absolute;
         z-index: 100;
 
         // only for mobile sizes
-        margin-bottom: rem(160);
+        margin-bottom: pxToRem(160);
 
         @media (min-width: $special-var-for-mobile-screens) {
-            padding: rem(40) 0;
+            padding: pxToRem(40) 0;
             margin-bottom: unset;
         }
 
         @media (min-width: $medium-screen) {
-            padding: rem(88) rem(40) rem(48) rem(40);
+            padding: pxToRem(88) pxToRem(40) pxToRem(48) pxToRem(40);
             margin: 0 auto;
         }
 
@@ -72,11 +72,11 @@ $special-var-for-mobile-screens: 450px;
             display: flex;
             flex-direction: row;
             justify-content: center;
-            margin-top: rem(42);
+            margin-top: pxToRem(42);
 
             @media (max-width: $medium-screen) {
                 align-items: baseline;
-                margin-top: rem(20);
+                margin-top: pxToRem(20);
             }
 
             .hero__left-image-wrapper {
@@ -86,7 +86,7 @@ $special-var-for-mobile-screens: 450px;
                 @media (max-width: $large-screen) {
                     display: none;
                 }
-                width: rem(272);
+                width: pxToRem(272);
                 justify-self: end;
             }
 
@@ -97,7 +97,7 @@ $special-var-for-mobile-screens: 450px;
                 @media (max-width: $large-screen) {
                     display: none;
                 }
-                width: rem(272);
+                width: pxToRem(272);
             }
 
             .hero__center-content-wrapper {
@@ -105,7 +105,7 @@ $special-var-for-mobile-screens: 450px;
                 align-self: center;
                 justify-content: center;
                 align-items: center;
-                flex-basis: rem(1061);
+                flex-basis: pxToRem(1061);
 
                 .hero__center-content {
                     display: flex;
@@ -126,7 +126,7 @@ $special-var-for-mobile-screens: 450px;
                             flex-direction: row;
 
                             .button__lg {
-                                margin-right: rem(10);
+                                margin-right: pxToRem(10);
                                 justify-content: unset;
                             }
                         }
@@ -135,8 +135,8 @@ $special-var-for-mobile-screens: 450px;
                             color: $color-white;
                             background-color: $color-primary;
                             @media (min-width: $medium-screen) {
-                                font-size: rem(20);
-                                margin: 0 rem(8) rem(16) rem(16);
+                                font-size: pxToRem(20);
+                                margin: 0 pxToRem(8) pxToRem(16) pxToRem(16);
                                 background-color: $color-primary;
                             }
 
@@ -153,10 +153,10 @@ $special-var-for-mobile-screens: 450px;
                     .hero__text-container {
                         display: flex;
                         justify-content: center;
-                        margin-bottom: rem(20);
+                        margin-bottom: pxToRem(20);
 
                         p {
-                            font-size: rem(20);
+                            font-size: pxToRem(20);
                             font-weight: normal;
                             font-stretch: normal;
                             font-style: normal;
@@ -173,7 +173,7 @@ $special-var-for-mobile-screens: 450px;
                         cursor: pointer;
 
                         a {
-                            font-size: rem(14);
+                            font-size: pxToRem(14);
                             font-weight: $font-semibold;
                             line-height: 1.25;
 
@@ -191,10 +191,10 @@ $special-var-for-mobile-screens: 450px;
 .homepage-hero-graphic-container {
     width: 140%;
 
-    @media(min-width: 768px) {
+    @media(min-width: 768) {
         margin-top: 40px;
     }
-    @media(min-width: 992px) {
+    @media(min-width: 992) {
         margin-right: -250px;
         margin-left: -250px;
     }

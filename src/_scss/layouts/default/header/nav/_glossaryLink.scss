@@ -4,7 +4,7 @@
     @include display(flex);
     @include justify-content(center);
     @include align-items(center);
-    padding: rem(15) rem(20);
+    padding: pxToRem(15) pxToRem(20);
 
     &:hover, &:active {
         box-shadow: 0 2px 6px 0 rgba(78,78,78,0.5);
@@ -12,14 +12,14 @@
 
     .glossary-nav__icon {
         @include flex(0 0 auto);
-        width: rem(15);
-        height: rem(15);
-        margin-right: rem(10);
+        width: pxToRem(15);
+        height: pxToRem(15);
+        margin-right: pxToRem(10);
 
         svg {
-            margin-top: rem(2);
-            height: rem(15);
-            width: rem(15);
+            margin-top: pxToRem(2);
+            height: pxToRem(15);
+            width: pxToRem(15);
             fill: $nav-color;
         }
     }
@@ -28,7 +28,7 @@
         @include flex(1 1 auto);
         color: $nav-color;
         font-weight: $font-semibold;
-        font-size: rem(15);
-        line-height: rem(19);
+        font-size: pxToRem(15);
+        line-height: pxToRem(19);
     }
 }

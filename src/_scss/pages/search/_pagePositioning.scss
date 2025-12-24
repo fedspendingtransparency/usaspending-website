@@ -8,21 +8,21 @@
 
 
     .search-page__results-view {
-        @media (min-width: $medium-screen) and (max-width: 1368px) {
+        @media (min-width: $medium-screen) and (max-width: 1368) {
             width: 66%;
         }
     }
     .full-search-sidebar {
         @include flex(0 0 auto);
         display: none;
-        @include media(1368px) {
+        @include media(1368) {
             display: block;
-            padding-right: rem(30);
+            padding-right: pxToRem(30);
             width: 25%;
         }
-        @media (min-width: $medium-screen) and (max-width: 1367px) {
+        @media (min-width: $medium-screen) and (max-width: 1367) {
             display: block;
-            padding-right: rem(30);
+            padding-right: pxToRem(30);
             width: 34%;
         }
  
@@ -34,7 +34,7 @@
         overflow: visible;
 
         @include media($medium-screen) {
-            margin-top: rem(32);
+            margin-top: pxToRem(32);
         }
     }
 }

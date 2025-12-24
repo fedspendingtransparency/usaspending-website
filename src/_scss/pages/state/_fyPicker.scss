@@ -1,27 +1,27 @@
 @import '../explorer/detail/sidebar/_fyPicker.scss';
 .fy-picker {
-    padding: rem(30) rem(30) rem(15);
-    border-bottom: solid rem(1) $color-gray-lighter;
+    padding: pxToRem(30) pxToRem(30) pxToRem(15);
+    border-bottom: solid pxToRem(1) $color-gray-lighter;
     .fy-picker__header {
         .fy-picker__icon {
-            margin-right: rem(10);
+            margin-right: pxToRem(10);
             svg {
                 fill: $color-gray;
-                height: rem(25);
-                width: rem(25);
+                height: pxToRem(25);
+                width: pxToRem(25);
             }
         }
         .fy-picker__dropdown-container {
             @include flex(1 1 auto);
         }
         .fy-picker__button {
-            border-bottom: solid rem(1) $color-gray;
+            border-bottom: solid pxToRem(1) $color-gray;
         }
         .fy-picker__button-text {
             color: $color-gray;
         }
         .fy-picker__button-icon {
-            padding-top: rem(4);
+            padding-top: pxToRem(4);
             svg {
                 fill: $color-gray;
             }
@@ -30,7 +30,7 @@
     .fy-picker__list {
         border-color: $color-gray-lighter;
         background-color: $color-white;
-        max-height: rem(275);
+        max-height: pxToRem(275);
         overflow-y: scroll;
         padding: 0;
         .fy-picker__list-item {

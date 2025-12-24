@@ -9,7 +9,7 @@
 }
 
 .category-table {
-  margin-top: rem(30);
+  margin-top: pxToRem(30);
   width: 100%;
 
   &>div {
@@ -25,11 +25,11 @@
   @media(min-width: $medium-screen) {
     // Evenly distribute padding between tables
     &:nth-child(odd) {
-      padding-right: rem(15);
+      padding-right: pxToRem(15);
     }
 
     &:nth-child(even) {
-      padding-left: rem(15);
+      padding-left: pxToRem(15);
     }
   }
 
@@ -74,19 +74,19 @@
     @include justify-content(flex-start);
     @include align-items(center);
 
-    margin: rem(15) 0;
+    margin: pxToRem(15) 0;
 
     .category-table__title-icon {
-      @include flex(0 0 rem(30));
-      height: rem(25);
-      margin-right: rem(5);
-      margin-left: rem(3);
+      @include flex(0 0 pxToRem(30));
+      height: pxToRem(25);
+      margin-right: pxToRem(5);
+      margin-left: pxToRem(3);
     }
 
     .category-table__title-name {
       @include flex(1 1 auto);
-      font-size: rem(19);
-      line-height: rem(24);
+      font-size: pxToRem(19);
+      line-height: pxToRem(24);
       font-weight: $font-semibold;
       display: flex;
       align-items: center;
@@ -101,17 +101,17 @@
       }
 
       .tooltip-spacer {
-        max-width: rem(314);
-        transform: translate(-128px, 12px);
+        max-width: pxToRem(314);
+        transform: translate(-128px, 12);
 
         .tooltip-pointer {
-          left: calc(50% - 20px);
+          left: calc(50% - 20);
         }
 
-        @media(max-width: 767px) {
+        @media(max-width: 767) {
           position: absolute;
           left: 0 !important;
-          transform: translateX(-224px);
+          transform: translateX(-224);
         }
       }
     }

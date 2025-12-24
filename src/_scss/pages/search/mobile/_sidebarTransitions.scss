@@ -16,7 +16,7 @@
     position: absolute;
     width: 100%;
     left: 0;
-    padding: 0 rem(20);
+    padding: 0 pxToRem(20);
 
     @include animation(mobileFilterSlideIn 0.195s ease-in forwards);
 }
@@ -40,7 +40,7 @@
     position: absolute;
     width: 100%;
     left: 0;
-    padding: 0 rem(20);
+    padding: 0 pxToRem(20);
 
     @include animation(mobileFilterSlideOut 0.195s ease-in forwards);
 }

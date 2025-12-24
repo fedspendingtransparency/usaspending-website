@@ -13,7 +13,7 @@
 
     button.mobile-filter-button {
         @include button-unstyled;
-        width: rem(175);
+        width: pxToRem(175);
 
         color: $color-white;
         background-color: $color-primary;
@@ -30,19 +30,19 @@
             @include align-items(center);
             @include justify-content(center);
             position: relative;
-            padding: rem(10) rem(20);
+            padding: pxToRem(10) pxToRem(20);
 
             .mobile-filter-button-count {
                 @include flex(0 0 auto);
 
                 color: $color-primary;
-                font-size: rem(14);
-                line-height: rem(24);
-                margin-right: rem(15);
+                font-size: pxToRem(14);
+                line-height: pxToRem(24);
+                margin-right: pxToRem(15);
 
-                width: rem(24);
-                height: rem(24);
-                border-radius: rem(12);
+                width: pxToRem(24);
+                height: pxToRem(24);
+                border-radius: pxToRem(12);
 
                 text-align: center;
 
@@ -51,8 +51,8 @@
 
             .mobile-filter-button-icon {
                 @include flex(0 0 auto);
-                margin-right: rem(5);
-                height: rem(18);
+                margin-right: pxToRem(5);
+                height: pxToRem(18);
                 svg {
                     fill: $color-white;
                     width: 18px;
@@ -62,7 +62,7 @@
             .mobile-filter-button-label {
                 @include flex(1 1 auto);
                 color: $color-white;
-                line-height: rem(18);
+                line-height: pxToRem(18);
                 font-size: $small-font-size;
                 font-weight: $font-semibold;
                 text-transform: uppercase;
@@ -72,12 +72,12 @@
 
     button.mobile-filter-button-v2 {
         @include button-unstyled;
-        height: rem(40);
+        height: pxToRem(40);
         border-radius: 4px;
         color: $color-white;
         background-color: $theme-color-1;
-        left: rem(16);
-        bottom: rem(16);
+        left: pxToRem(16);
+        bottom: pxToRem(16);
         position: fixed;
         box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
         &:hover, &:active {
@@ -93,19 +93,19 @@
             @include align-items(center);
             @include justify-content(center);
             position: relative;
-            padding: rem(8) rem(16);
+            padding: pxToRem(8) pxToRem(16);
 
             .mobile-filter-button-count {
                 @include flex(0 0 auto);
 
                 color: $color-primary;
-                font-size: rem(14);
-                line-height: rem(24);
-                margin-right: rem(15);
+                font-size: pxToRem(14);
+                line-height: pxToRem(24);
+                margin-right: pxToRem(15);
 
-                width: rem(24);
-                height: rem(24);
-                border-radius: rem(12);
+                width: pxToRem(24);
+                height: pxToRem(24);
+                border-radius: pxToRem(12);
 
                 text-align: center;
 
@@ -114,11 +114,11 @@
 
             .mobile-filter-button-icon {
                 @include flex(0 0 auto);
-                margin-right: rem(8);
-                height: rem(20);
+                margin-right: pxToRem(8);
+                height: pxToRem(20);
                 svg {
                     fill: $color-white;
-                    width: rem(20);
+                    width: pxToRem(20);
                 }
             }
 
@@ -134,7 +134,7 @@
 
     button.mobile-clear-all {
         @include button-unstyled;
-        margin-left: rem(20);
+        margin-left: pxToRem(20);
 
         .mobile-clear-all-content {
             @include display(flex);
@@ -142,11 +142,11 @@
             @include justify-content(center);
             position: relative;
 
-            padding: rem(10);
+            padding: pxToRem(10);
 
             .icon {
                 @include flex(0 0 auto);
-                margin-right: rem(5);
+                margin-right: pxToRem(5);
                 svg {
                     fill: $color-base;
                     height: 18px;
@@ -156,8 +156,8 @@
             .label {
                 @include flex(1 1 auto);
                 color: $color-base;
-                font-size: rem(14);
-                line-height: rem(18);
+                font-size: pxToRem(14);
+                line-height: pxToRem(18);
 
                 text-transform: lowercase;
             }

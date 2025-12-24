@@ -3,8 +3,8 @@
 
     position: absolute;
     font-size: $small-font-size;
-    right: rem(10);
-    top: rem(180);
+    right: pxToRem(10);
+    top: pxToRem(180);
 
     @include media($medium-screen) {
         right: auto;
@@ -15,8 +15,8 @@
     @include justify-content(center);
     @include align-items(flex-start);
 
-    width: rem($hover-width);
-    padding: rem(20) rem(15);
+    width: pxToRem($hover-width);
+    padding: pxToRem(20) pxToRem(15);
 
     background-color: $color-primary-alt-lightest;
     border: 1px solid $color-primary-alt;
@@ -29,15 +29,15 @@
 
     .icon {
         @include flex(0 0 auto);
-        width: rem(30);
-        height: rem(30);
+        width: pxToRem(30);
+        height: pxToRem(30);
 
-        margin-right: rem(20);
+        margin-right: pxToRem(20);
 
         svg {
             fill: $color-primary-alt;
-            width: rem(30);
-            height: rem(30);
+            width: pxToRem(30);
+            height: pxToRem(30);
         }
     }
 

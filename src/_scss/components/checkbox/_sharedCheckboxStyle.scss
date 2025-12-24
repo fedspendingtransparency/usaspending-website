@@ -5,14 +5,14 @@
 
         input[type=checkbox] {
             @include usa-input-checkbox;
-            height: rem(14);
-            width: rem(14);
+            height: pxToRem(14);
+            width: pxToRem(14);
 
             cursor: pointer;
         }
         .checkbox-item-label {
-            margin-left: rem(6);
-            font-size: rem(12);
+            margin-left: pxToRem(6);
+            font-size: pxToRem(12);
             cursor: pointer;
 
             @include media($large-screen) {
