@@ -7,7 +7,8 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 
-import getCurrentArticles from "../../../helpers/homepageFeaturedContentHelper";
+import getCurrentArticles from "helpers/homepageFeaturedContentHelper";
+import { getThumbnailPath, getPrimaryFill } from "helpers/featuredContent/featuredContentHelper";
 import FeaturedContentCard from "./FeaturedContentCard";
 
 const [marketingArticle, otherArticle] = getCurrentArticles();
@@ -41,15 +42,15 @@ const FeaturedContent = ({ leftCard = marketingArticle, rightCard = otherArticle
             <FeaturedContentCard
                 url={leftCard.url}
                 title={leftCard.title}
-                fill={leftCard.fill}
-                img={leftCard.thumbnail_path}
+                fill={getPrimaryFill(leftCard)}
+                img={getThumbnailPath(leftCard)}
                 taxonomy={leftCard.taxonomy}
                 externalLink={leftCard?.externalLink} />
             <FeaturedContentCard
                 url={rightCard.url}
                 title={rightCard.title}
-                fill={rightCard.fill}
-                img={rightCard.thumbnail_path}
+                fill={getPrimaryFill(rightCard)}
+                img={getThumbnailPath(rightCard)}
                 taxonomy={rightCard.taxonomy}
                 externalLink={rightCard?.externalLink} />
         </div>

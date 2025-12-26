@@ -7,15 +7,23 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { throttle } from 'lodash-es';
 import { useLocation } from 'react-router';
-import { homePageMetaTags } from "../../helpers/metaTagHelper";
-import PageWrapper from "../sharedComponents/PageWrapper";
-import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
-import articles from '../../../config/featuredContent/featuredContentMetadata';
-import { transformString } from '../../helpers/featuredContent/featuredContentHelper';
+
+import { homePageMetaTags } from "helpers/metaTagHelper";
+import PageWrapper from "components/sharedComponents/PageWrapper";
+import { mediumScreen, tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { transformString, getPrimaryFill, getSecondaryFill, CustomA, CustomImg } from 'helpers/featuredContent/featuredContentHelper';
+import GlossaryLink from "components/sharedComponents/GlossaryLink";
 import FeaturedContentArticleSidebar from "./FeaturedContentArticleSidebar";
+import articles from '../../../config/featuredContent/featuredContentMetadata';
 import FeaturedContentHeader from "./FeaturedContentHeader";
 
 require('pages/featuredContent/featuredContent.scss');
+
+const components = {
+    GlossaryLink,
+    a: CustomA,
+    img: CustomImg
+};
 
 const FeaturedContentArticlePage = () => {
     const [windowWidth, setWindowWidth] = useState(0);
@@ -97,8 +105,8 @@ const FeaturedContentArticlePage = () => {
 
     useEffect(() => {
         const fetchMarkdown = async () => {
-            const file = await import(`../../../content/featuredContent/${chosenArticle.mdx_path}`);
-            setMarkdownContent(file.default());
+            const file = await import(`../../../content/featuredContent/${chosenArticle.slug}.mdx`);
+            setMarkdownContent(() => file.default || file);
         };
         if (chosenArticle !== null) {
             fetchMarkdown();

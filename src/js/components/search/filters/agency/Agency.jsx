@@ -4,67 +4,67 @@
  **/
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
 
-import AgencyListContainer from 'containers/search/filters/AgencyListContainer';
-import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
-import SelectedAgencies from './SelectedAgencies';
+import AgencyListContainer from "containers/search/filters/AgencyListContainer";
+import { fetchAwardingAgencies, fetchFundingAgencies } from "helpers/searchHelper";
+import {
+    updateSelectedAwardingAgencies,
+    updateSelectedFundingAgencies
+} from "redux/actions/search/searchFilterActions";
+import SelectedAgencies from "./SelectedAgencies";
 
-const propTypes = {
-    toggleAgency: PropTypes.func,
-    selectedAwardingAgencies: PropTypes.object,
-    selectedFundingAgencies: PropTypes.object,
-    agencyTypes: PropTypes.array,
-    dirtyFunding: PropTypes.symbol,
-    dirtyAwarding: PropTypes.symbol,
-    searchV2: PropTypes.bool
-};
 
-const Agency = ({
-    toggleAgency,
-    selectedAwardingAgencies,
-    selectedFundingAgencies,
-    agencyTypes = [
-        "Awarding",
-        "Funding"
-    ],
-    dirtyFunding,
-    dirtyAwarding,
-    searchV2
-}) => {
-    const agencies = agencyTypes.map((type) => {
-        let selectedAgencies = {};
+const Agency = () => {
+    const {
+        selectedAwardingAgencies, selectedFundingAgencies
+    } = useSelector((state) => state.filters);
+    const dispatch = useDispatch();
 
-        if (type === 'Funding') {
-            selectedAgencies = selectedFundingAgencies;
+    const toggleFundingAgency = (agency, isValid) => {
+        if (Object.keys(agency).length !== 0 && isValid) {
+            const updateParams = {};
+            updateParams.agency = agency;
+
+            dispatch(updateSelectedFundingAgencies(updateParams));
         }
-        else {
-            selectedAgencies = selectedAwardingAgencies;
-        }
+    };
 
-        return (
-            <div className="filter-item-wrap" key={`holder-${type}`}>
-                <AgencyListContainer
-                    agencyType={type}
-                    toggleAgency={toggleAgency}
-                    selectedAgencies={selectedAgencies} />
-                <SelectedAgencies
-                    agencyType={type}
-                    selectedAgencies={selectedAgencies}
-                    toggleAgency={toggleAgency} />
-                { !searchV2 && type === 'Funding' &&
-                    <SubmitHint selectedFilters={[dirtyAwarding, dirtyFunding]} />
-                }
-            </div>
-        );
-    });
+    const toggleAwardingAgency = (agency, isValid) => {
+        if (Object.keys(agency).length !== 0 && isValid) {
+            const updateParams = {};
+            updateParams.agency = agency;
+
+            dispatch(updateSelectedAwardingAgencies(updateParams));
+        }
+    };
 
     return (
         <div className="agency-filter">
-            {agencies}
+            <div className="filter-item-wrap">
+                <AgencyListContainer
+                    agencyType="Awarding"
+                    fetchAgencies={fetchAwardingAgencies}
+                    toggleAgency={toggleAwardingAgency}
+                    selectedAgencies={selectedAwardingAgencies} />
+                <SelectedAgencies
+                    agencyType="Awarding"
+                    selectedAgencies={selectedAwardingAgencies}
+                    toggleAgency={toggleAwardingAgency} />
+            </div>
+            <div className="filter-item-wrap">
+                <AgencyListContainer
+                    agencyType="Funding"
+                    fetchAgencies={fetchFundingAgencies}
+                    toggleAgency={toggleFundingAgency}
+                    selectedAgencies={selectedFundingAgencies} />
+                <SelectedAgencies
+                    agencyType="Funding"
+                    selectedAgencies={selectedFundingAgencies}
+                    toggleAgency={toggleFundingAgency} />
+            </div>
         </div>
     );
 };
 
-Agency.propTypes = propTypes;
 export default Agency;

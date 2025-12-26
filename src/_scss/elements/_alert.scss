@@ -1,0 +1,90 @@
+.alert {
+  $default-background-color: $gray-cool-2;
+  $default-color: $gray-90;
+  $info-background-color: $info-lighter;
+  $info-color: $info-dark;
+  $success-background-color: $success-lighter;
+  $success-color: $success-dark;
+  $warning-background-color: $warning-lighter;
+  $warning-color: $warning-dark;
+  $error-background-color: $error-lighter;
+  $error-color: $error;
+
+  background-color: $default-background-color;
+  border: rem(1) solid $default-color;
+  border-radius: rem(4);
+  display: flex;
+  justify-content: space-between;
+  margin: $global-margin;
+
+  .alert__message__container {
+    padding: $global-padding * 2;
+    display: flex;
+
+    .alert___message__icon-container {
+      margin-right: $global-margin;
+
+      .alert___message__icon {
+        min-width: rem(24);
+        min-height: rem(24);
+      }
+    }
+
+    .alert__message__header {
+      color: $default-color;
+      font-size: $font-size-24;
+      line-height: 1.15;
+      margin-bottom: $global-margin;
+    }
+
+    .alert__message__body {
+      color: $default-color;
+      font-size: $base-font-size;
+      line-height: $base-line-height;
+
+      a {
+        cursor: pointer;
+      }
+    }
+  }
+
+  .alert__close-icon__container {
+    padding: $global-padding;
+  }
+
+  &.info {
+    background-color: $info-background-color;
+    border-color: $info-color;
+
+    .alert___message__icon-container {
+      color: $info-color;
+    }
+  }
+
+  &.success {
+    background-color: $success-background-color;
+    border-color: $success-color;
+
+    .alert___message__icon-container {
+      color: $success-color;
+    }
+  }
+
+  &.warning {
+    background-color: $warning-background-color;
+    border-color: $warning-color;
+
+    .alert___message__icon-container {
+      color: $warning-color;
+    }
+  }
+
+  &.error {
+    background-color: $error-background-color;
+    border-color: $error-color;
+
+    .alert___message__icon-container {
+      color: $error-color;
+    }
+  }
+}

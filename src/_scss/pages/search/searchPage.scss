@@ -124,6 +124,38 @@
             }
         }
     }
+
+    .alert.keyword-link {
+        margin: ($global-margin * 2) ($global-margin * 4) ($global-margin * 4) ($global-margin * 4);
+
+        .alert__message__container {
+            .alert__message .alert__message__body {
+                font-size: $small-font-size;
+            }
+
+            .alert___message__icon-container .alert___message__icon {
+                min-width: rem(20);
+                min-height: rem(20);
+            }
+        }
+    }
+
+    // remove styles below once <Alert /> examples are removed from /temp-page
+    .alert.alert-test-className {
+        background-color: yellow;
+        opacity: 0.5;
+        border-color: rebeccapurple;
+
+        .alert___message__icon-container {
+            color: blue;
+        }
+
+        .alert__close-icon__icon {
+            color: red;
+        }
+    }
+
+  @import 'contextTooltip';
 }
 
 @import "./_searchv2";

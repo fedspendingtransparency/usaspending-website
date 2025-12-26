@@ -1,6 +1,3 @@
-// eslint-disable-next-line no-unused-vars
-import React from 'react';
-
 /* eslint-disable max-len */
 const bannerContent = [
     {
@@ -23,13 +20,6 @@ const bannerContent = [
         content: 'This is a notice across the entire site',
         page: 'site wide', // use 'site wide' to display a banner across the entire site
         type: 'warning-resolved' // three options "general", "warning", "warning-resolved"
-    },
-    {
-        isActive: true,
-        title: '',
-        content: <>Normal operations have resumed. Some data updates and support services may be delayed as we work to process pending publications. We will return to our normal update schedule as soon as possible.</>,
-        page: 'site wide', // use 'site wide' to display a banner across the entire site
-        type: 'general' // three options "general", "warning", "warning-resolved"
     }
 ];
 

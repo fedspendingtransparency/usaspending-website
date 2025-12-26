@@ -5,49 +5,37 @@ import getCurrentArticles from "../../src/js/helpers/homepageFeaturedContentHelp
 
 describe('getCurrentArticles', () => {
     it('should return a marketing and a non-marketing article', () => {
-        const [marketing, other] = getCurrentArticles();
+        const [marketing, other] = getCurrentArticles('week');
 
         expect(marketing).toHaveProperty('url');
-        expect(marketing).toHaveProperty('fill');
-        expect(marketing).toHaveProperty('thumbnail_path');
         expect(marketing).toHaveProperty('taxonomy');
         expect(marketing).toHaveProperty('title');
 
         expect(other).toHaveProperty('url');
-        expect(other).toHaveProperty('fill');
-        expect(other).toHaveProperty('thumbnail_path');
         expect(other).toHaveProperty('taxonomy');
         expect(other).toHaveProperty('title');
     });
 
     it('should return articles if the start date is far in the future', () => {
-        const [marketing, other] = getCurrentArticles('12/31/2050');
+        const [marketing, other] = getCurrentArticles('week', '12/31/2050');
 
         expect(marketing).toHaveProperty('url');
-        expect(marketing).toHaveProperty('fill');
-        expect(marketing).toHaveProperty('thumbnail_path');
         expect(marketing).toHaveProperty('taxonomy');
         expect(marketing).toHaveProperty('title');
 
         expect(other).toHaveProperty('url');
-        expect(other).toHaveProperty('fill');
-        expect(other).toHaveProperty('thumbnail_path');
         expect(other).toHaveProperty('taxonomy');
         expect(other).toHaveProperty('title');
     });
 
     it('should return the default articles if start date is far in the past', () => {
-        const [marketing, other] = getCurrentArticles('1/1/2000');
+        const [marketing, other] = getCurrentArticles('week', '1/1/2000');
 
         expect(marketing).toHaveProperty('url');
-        expect(marketing).toHaveProperty('fill');
-        expect(marketing).toHaveProperty('thumbnail_path');
         expect(marketing).toHaveProperty('taxonomy');
         expect(marketing).toHaveProperty('title');
 
         expect(other).toHaveProperty('url');
-        expect(other).toHaveProperty('fill');
-        expect(other).toHaveProperty('thumbnail_path');
         expect(other).toHaveProperty('taxonomy');
         expect(other).toHaveProperty('title');
 

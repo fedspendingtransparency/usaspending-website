@@ -125,8 +125,6 @@ const TimePeriodContainer = (props) => {
         <TimePeriod
             {...props}
             dirtyFilters={dirtyFilters()}
-            newAwardsOnlySelected={props.newAwardsOnlySelected}
-            newAwardsOnlyActive={props.newAwardsOnlyActive}
             naoActiveFromFyOrDateRange={props.naoActiveFromFyOrDateRange}
             activeTab={activeTab}
             timePeriods={timePeriods}
@@ -143,8 +141,6 @@ export default connect(
         filterTimePeriodType: state.filters.timePeriodType,
         filterTimePeriodFY: state.filters.timePeriodFY,
         filterTime_Period: state.filters.time_period,
-        newAwardsOnlySelected: state.filters.filterNewAwardsOnlySelected,
-        newAwardsOnlyActive: state.filters.filterNewAwardsOnlyActive,
         naoActiveFromFyOrDateRange: state.filters.filterNaoActiveFromFyOrDateRange,
         appliedFilters: state.appliedFilters.filters
     }),

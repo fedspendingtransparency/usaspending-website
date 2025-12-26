@@ -1,33 +1,22 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button } from "data-transparency-ui";
-import { useSelector, useDispatch } from "react-redux";
-import { awardTypeCodes } from 'dataMapping/search/awardType';
-import { recipientTypes } from 'dataMapping/search/recipientType';
+import {
+    FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button
+} from "data-transparency-ui";
 
+import Alert from "./sharedComponents/Alert";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
-
-import AccordionCheckbox from "./sharedComponents/checkbox/AccordionCheckbox";
-
-import { awardTypesData, recipientTypeMapping } from "../helpers/search/filterCheckboxHelper";
-import { bulkAwardTypeChange, toggleAwardType, toggleRecipientType } from "../redux/actions/search/searchFilterActions";
-import ListCheckbox from "./sharedComponents/checkbox/ListCheckbox";
+import Accordion from "./sharedComponents/accordion/Accordion";
 
 require("pages/search/searchPage.scss");
 
-const tempPage = () => {
+const TempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
 
-    /* eslint-disable react-hooks/rules-of-hooks */
-    const { awardType, recipientType } = useSelector((state) => state.filters);
-
-    const dispatch = useDispatch();
-
-    const toggleAwardTypeChange = (selection) => dispatch(toggleAwardType(selection));
-    const bulkAwardChange = (selection) => dispatch(bulkAwardTypeChange(selection));
-    const toggleRecipientTypeChange = (selection) => dispatch(toggleRecipientType(selection));
-    /* eslint-enable react-hooks/rules-of-hooks */
+    // eslint-disable-next-line no-alert
+    const onClose = useCallback(() => window.alert('Close Icon Triggered!'), []);
+    const alertBody = "This is a succinct, helpful in-page status message.";
 
     return (
         <PageFeatureFlag>
@@ -36,35 +25,150 @@ const tempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <div style={{ display: "flex" }} >
-                        <div
-                            style={{
-                                border: '1px solid red',
-                                margin: '8px',
-                                maxWidth: '300px',
-                                height: 'fit-content'
-                            }}>
-                            <AccordionCheckbox
-                                filterCategoryMapping={awardTypesData}
-                                filters={awardTypeCodes}
-                                selectedFilters={awardType}
-                                singleFilterChange={toggleAwardTypeChange}
-                                bulkFilterChange={bulkAwardChange} />
-                        </div>
-                        <div
-                            style={{
-                                border: '1px solid green',
-                                margin: '8px',
-                                maxWidth: '300px',
-                                height: 'fit-content'
-                            }}>
-                            <ListCheckbox
-                                filterCategoryMapping={recipientTypeMapping}
-                                filters={recipientTypes}
-                                selectedFilters={recipientType}
-                                singleFilterChange={toggleRecipientTypeChange} />
-                        </div>
+                    <h1>Alert Variants</h1>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            border: '1px solid darkgrey',
+                            padding: '8px',
+                            height: 'fit-content',
+                            maxWidth: '900px'
+                        }}>
+                        <Alert
+                            type="test"
+                            header="Default/Test Example"
+                            body={alertBody}
+                            onClose={onClose}
+                            icon />
+                        <Alert
+                            type="error"
+                            header="Custom Example"
+                            className="alert-test-className"
+                            body={alertBody}
+                            icon="chevron-left"
+                            onClose={onClose}
+                            closeIcon="chevron-up" />
                     </div>
+                    <Accordion title="Info Alert Variants">
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                border: '1px solid darkgrey',
+                                padding: '8px',
+                                height: 'fit-content',
+                                maxWidth: '900px'
+                            }}>
+                            <Alert header="Info Example" onClose={onClose} body={alertBody} icon />
+                            <Alert header="Info Example" body={alertBody} icon />
+                            <Alert header="Info Example" onClose={onClose} body={alertBody} />
+                            <Alert header="Info Example" body={alertBody} />
+                            <Alert body={alertBody} onClose={onClose} icon />
+                            <Alert body={alertBody} icon />
+                            <Alert body={alertBody} onClose={onClose} />
+                            <Alert body={alertBody} />
+                        </div>
+                    </Accordion>
+                    <Accordion title="Success Alert Variants" >
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                border: '1px solid darkgrey',
+                                padding: '8px',
+                                height: 'fit-content',
+                                maxWidth: '900px'
+                            }}>
+                            <Alert
+                                type="success"
+                                header="Success Example"
+                                onClose={onClose}
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                type="success"
+                                header="Success Example"
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                type="success"
+                                header="Success Example"
+                                onClose={onClose}
+                                body={alertBody} />
+                            <Alert type="success" header="Success Example" body={alertBody} />
+                            <Alert type="success" body={alertBody} onClose={onClose} icon />
+                            <Alert type="success" body={alertBody} icon />
+                            <Alert type="success" body={alertBody} onClose={onClose} />
+                            <Alert type="success" body={alertBody} />
+                        </div>
+                    </Accordion>
+                    <Accordion title="Warning Alert Variants" >
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                border: '1px solid darkgrey',
+                                padding: '8px',
+                                height: 'fit-content',
+                                maxWidth: '900px'
+                            }}>
+                            <Alert
+                                type="warning"
+                                header="Warning Example"
+                                onClose={onClose}
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                type="warning"
+                                header="Warning Example"
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                type="warning"
+                                header="Warning Example"
+                                onClose={onClose}
+                                body={alertBody} />
+                            <Alert type="warning" header="Warning Example" body={alertBody} />
+                            <Alert type="warning" body={alertBody} onClose={onClose} icon />
+                            <Alert type="warning" body={alertBody} icon />
+                            <Alert type="warning" body={alertBody} onClose={onClose} />
+                            <Alert type="warning" body={alertBody} />
+                        </div>
+                    </Accordion>
+                    <Accordion title="Error Alert Variants" >
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                border: '1px solid darkgrey',
+                                padding: '8px',
+                                height: 'fit-content',
+                                maxWidth: '900px'
+                            }}>
+                            <Alert
+                                type="error"
+                                header="Error Example"
+                                onClose={onClose}
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                type="error"
+                                header="Error Example"
+                                body={alertBody}
+                                icon />
+                            <Alert
+                                type="error"
+                                header="Error Example"
+                                onClose={onClose}
+                                body={alertBody} />
+                            <Alert type="error" header="Warning Example" body={alertBody} />
+                            <Alert type="error" body={alertBody} onClose={onClose} icon />
+                            <Alert type="error" body={alertBody} icon />
+                            <Alert type="error" body={alertBody} onClose={onClose} />
+                            <Alert type="error" body={alertBody} />
+                        </div>
+                    </Accordion>
                     <h1>Container Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
                         <FlexGridCol width={3} desktop={3}>
@@ -718,5 +822,4 @@ const tempPage = () => {
     );
 };
 
-
-export default tempPage;
+export default TempPage;

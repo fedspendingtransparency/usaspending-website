@@ -47,6 +47,8 @@ $image-path: './img';
 // USWDS Color Tokens
 $red-warm-20v: #F6BD9C;
 $red-warm-50v: #D54309;
+$red-cool-5v: #FFF2F5;
+$red-cool-50v: #E41D3D;
 $yellow-10: #F5E6AF;
 $orange-5v: #FEF2E4;
 $orange-20v: #FFBC78;
@@ -125,6 +127,7 @@ $gray-cool-90: #1c1d1f;
 $green-cool-5v: #E3F5E1;
 $green-cool-20v: #70E17B;
 $green-cool-30v: #21C834;
+$green-cool-50v: #008817;
 
 // Theme Colors
 $theme-color-1: $blue-60v;
@@ -167,6 +170,15 @@ $theme-color-vertical-pipe: $gray-cool-30;
 $theme-color-homepage-hero: rgba(136, 180, 192, .15);
 $theme-color-background: #f0f0f0;
 
+$info-lighter: $cyan-5;
+$info-dark: $cyan-40v;
+$success-lighter: $green-cool-5v;
+$success-dark: $green-cool-50v;
+$warning-lighter: $orange-5v;
+$warning-dark: $orange-30v;
+$error-lighter: $red-cool-5v;
+$error: $red-cool-50v;
+
 // Color
 $color-primary:              #0071bc;
 $color-primary-darker:       #205493;
@@ -183,7 +195,7 @@ $color-secondary-dark:       #cd2026;
 $color-secondary-darkest:    #981b1e;
 $color-secondary-light:      #e59393;
 $color-secondary-lightest:   #f9dede;
-$color-secondary-vivid:      #e41d3d;
+$color-secondary-vivid:      $red-cool-50v;
 $color-white:                #fff;
 $color-black:                #000;
 $color-base:                 #555;

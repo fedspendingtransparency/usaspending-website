@@ -26,7 +26,7 @@ const Accordion = ({
     closedIcon = "plus",
     openIcon = "minus",
     iconClassName,
-    setOpen,
+    setOpen = () => {},
     contentClassName = '',
     openObject = false,
     selectedChipCount = 0
@@ -78,10 +78,12 @@ const Accordion = ({
                             aria-label={buttonAriaLabel}>
                             <FontAwesomeIcon
                                 icon={closedIcon}
-                                className={iconClassName || "plus"} />
+                                className={iconClassName || "plus"}
+                                key="open" />
                             <FontAwesomeIcon
                                 icon={openIcon}
-                                className={iconClassName || "minus"} />
+                                className={iconClassName || "minus"}
+                                key="close" />
                         </button>
                     </div>
                 </div>

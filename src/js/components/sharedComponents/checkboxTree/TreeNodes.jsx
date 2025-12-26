@@ -35,7 +35,7 @@ const TreeNodes = ({
                 const hasAnyChildren = node.children?.length > 0;
                 const showCheckbox = node.label && node.showCheckbox !== false;
 
-                if (node.value.includes("children_of_")) return null;
+                if (node.value.includes("children_of_") || node.className === 'hide') return null;
 
                 return (
                     <li key={node.id}>
