@@ -1,8 +1,9 @@
 @import "searchFilter";
 @import "../../components/checkboxTree/checkboxTree";
 
-// .usda-page-header style is a DTUI override that's specific to the search 2.0 page
 .usa-da-search-page.v2 {
+
+  // .usda-page-header style is a DTUI override that's specific to the search 2.0 page
   .usda-page-header, .usda-page-header--sticky {
     position: sticky !important;
     top: 0;

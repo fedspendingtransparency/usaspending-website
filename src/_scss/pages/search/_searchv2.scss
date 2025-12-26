@@ -4,8 +4,12 @@
     max-width: 100vw;
   }
   #main-content {
+    padding-bottom: 0;
     .search-contents {
       max-width: 1600px !important; //TODO: Remove after search 2.0 is released
+    }
+    .search-results-view-container {
+      padding-bottom: 16px;
     }
   }
 }

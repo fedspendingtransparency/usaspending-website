@@ -45,9 +45,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         if (sidebarContainer?.current) {
             const mainContentEl = document.querySelector(".search-contents.v2");
             const mainContentInView = checkInView(mainContentEl);
-            const sidebarContentArea = mainContentInView - 100;
+            const sidebarContentArea = mainContentInView - 88;
             setSidebarContentHeight(sidebarContentArea);
-            setSidebarHeight(mainContentInView + 32);
+            setSidebarHeight(mainContentInView + 72);
         }
     };
 
@@ -123,6 +123,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     <MobileSidebarContent
                         sidebarContentHeight={sidebarContentHeight}
                         setShowMobileFilters={setShowMobileFilters} />
+                }
+                { !sidebarIsOpen && !isMedium &&
+                    <div style={{ margin: "18px 16px" }}><FontAwesomeIcon icon="filter" /></div>
                 }
             </div>
         </>
