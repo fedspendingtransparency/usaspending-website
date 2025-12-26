@@ -5,9 +5,7 @@
 
     .search-top-filter-header {
         margin-bottom: rem(10);
-        @include clearfix;
         .header-title {
-            float: left;
             font-weight: 600;
             font-size: rem(14);
             padding-top: rem(6);

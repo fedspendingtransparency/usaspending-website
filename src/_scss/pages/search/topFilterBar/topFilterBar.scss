@@ -17,16 +17,16 @@
     font-size: rem(12);
 
     .search-top-filter-header {
-        @include clearfix;
         border-bottom: 1px solid $top-divider-color;
         padding-bottom: rem(7);
+        display: flex;
+        justify-content: space-between;
 
         @include media($medium-screen) {
             display: flex;
         }
 
         .header-title {
-            float: left;
             font-weight: 600;
             font-size: rem(14);
             line-height: rem(18);
@@ -37,9 +37,7 @@
         .button-type__text-right-icon-light {
             margin: 0;
             padding: 0;
-            position:absolute;
             height: auto;
-            right: 0;
         }
 
         @import "./_clearAllButton";
