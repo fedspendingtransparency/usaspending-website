@@ -205,7 +205,12 @@ const schema = {
             {
                 name: "Disaster Emergency Fund Code (DEFC)",
                 slug: "defc-filter"
+            },
+            {
+                name: "Data Elements",
+                slug: "data-elements"
             }
+
         ]
     },
     "legal-disclosures": {
