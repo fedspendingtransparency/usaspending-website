@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import SearchSidebarSubmitContainer from "containers/search/SearchSidebarSubmitContainer";
+import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 import SidebarContentFilters from "./SidebarContentFilters";
 
 const propTypes = {
@@ -19,6 +20,7 @@ const SidebarContent = ({ sidebarContentHeight }) => (
     <>
         <div className="sidebar-top-submit">
             <div className="collapsible-sidebar-header"><FontAwesomeIcon icon="filter" />Filters</div>
+            <AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink>
             <SearchSidebarSubmitContainer />
         </div>
         <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">
