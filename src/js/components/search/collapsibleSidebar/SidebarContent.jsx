@@ -19,8 +19,10 @@ const propTypes = {
 const SidebarContent = ({ sidebarContentHeight }) => (
     <>
         <div className="sidebar-top-submit">
-            <div className="collapsible-sidebar-header"><FontAwesomeIcon icon="filter" />Filters</div>
-            <AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink>
+            <div className="collapsible-sidebar-header">
+                <FontAwesomeIcon icon="filter" />Filters
+                <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
+            </div>
             <SearchSidebarSubmitContainer />
         </div>
         <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">

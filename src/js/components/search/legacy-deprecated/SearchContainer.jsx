@@ -20,7 +20,7 @@ import {
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import SearchPage from 'components/search/SearchPage';
+import SearchPage from './SearchPage';
 
 import {
     convertFiltersToAnalyticEvents,
