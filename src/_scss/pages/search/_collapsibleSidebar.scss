@@ -22,8 +22,9 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin-top: -40px !important; // TODO Keep here until we remove the legacy panel
-    border: 1px solid $gray-cool-10;
+    margin-top: -40px !important; // TODO Keep here until we remove the legacy panel css
+    border-left: 1px solid $gray-cool-10;
+    border-right: 1px solid $gray-cool-10;
     box-shadow: none;
     border-radius: unset;
     background-color: unset;

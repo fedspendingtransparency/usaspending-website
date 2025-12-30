@@ -28,7 +28,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const sidebarContainer = useRef();
 
     const { isMedium } = useIsMobile();
-    console.log(isMedium);
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -43,11 +42,19 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const updatePosition = () => {
         if (sidebarContainer?.current) {
+            const hasStickyHeader = document.querySelector(".usda-page-header--sticky");
             const mainContentEl = document.querySelector(".search-contents.v2");
             const mainContentInView = checkInView(mainContentEl);
-            const sidebarContentArea = mainContentInView - 88;
+
+            let adjustHeight = -36;
+            if (hasStickyHeader) {
+                adjustHeight = 62;
+            }
+
+            const sidebarContentArea = (mainContentInView - 170) - adjustHeight;
             setSidebarContentHeight(sidebarContentArea);
-            setSidebarHeight(mainContentInView + 72);
+
+            setSidebarHeight(mainContentInView - adjustHeight);
         }
     };
 
