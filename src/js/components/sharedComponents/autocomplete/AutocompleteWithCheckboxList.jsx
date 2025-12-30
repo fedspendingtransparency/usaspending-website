@@ -2,11 +2,13 @@
  * Created by JD House on 11/21/25.
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import EntityDropdownAutocomplete from '../../search/filters/location/EntityDropdownAutocomplete';
-import PrimaryCheckboxType from '../checkbox/PrimaryCheckboxType';
+import EntityDropdownAutocomplete from
+    'components/search/filters/location/EntityDropdownAutocomplete';
+import PrimaryCheckboxType from
+    'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const propTypes = {
     handleTextInputChange: PropTypes.func,
@@ -46,8 +48,10 @@ const AutocompleteWithCheckboxList = ({
     searchId
 }) => {
     const [allSelected, setAllSelected] = useState(false);
-    const [showClearAll, setShowClearAll] = useState(false);
+    const [isOpen, setIsOpen] = useState(false);
+    const [showClearAll, setShowClearAll] = useState(true);
     const additionalClassName = filters.length >= limit ? 'bottom-fade' : '';
+    const dropDownRef = useRef(null);
 
     const handleToggleAll = () => {
         if (toggleAll) {
@@ -58,7 +62,6 @@ const AutocompleteWithCheckboxList = ({
 
     const handleClear = () => {
         if (onSearchClear) onSearchClear();
-        if (selectedFilters?.size > 0) setShowClearAll(true);
     };
 
     const handleClearAll = () => {
@@ -66,17 +69,38 @@ const AutocompleteWithCheckboxList = ({
         setShowClearAll(false);
     };
 
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+
     useEffect(() => {
-        if (selectedFilters?.size === 0) {
-            setAllSelected(false);
+        if (selectedFilters?.size > 0) {
+            setAllSelected(true);
+            setShowClearAll(true);
+        }
+        else {
+            setShowClearAll(false);
         }
     }, [selectedFilters.size]);
 
     useEffect(() => {
         if (filters?.length) {
-            setShowClearAll(false);
+            setIsOpen(true);
         }
     }, [filters]);
+
+    useEffect(() => {
+        const handleOutsideClick = (e) => {
+            if (dropDownRef.current && !dropDownRef.current.contains(e.target)) {
+                setIsOpen(false);
+            }
+        };
+
+        document.addEventListener('click', handleOutsideClick);
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, [dropDownRef]);
 
     const checkboxHeading = () => {
         if (!searchString) return null;
@@ -117,7 +141,7 @@ const AutocompleteWithCheckboxList = ({
             return <div className="error-message">{errorMessage}</div>;
         }
 
-        if (showClearAll) {
+        if (showClearAll && !isOpen) {
             return (
                 <div className="clear-all__container">
                     <button
@@ -132,33 +156,33 @@ const AutocompleteWithCheckboxList = ({
             );
         }
 
-        return (
-            <>
-                {filters?.length ? (
-                    <div className={`checkbox-type-filter ${additionalClassName}`} >
-                        <ul className="autocomplete-checkbox">
+        if (isOpen && filters?.length) {
+            return (
+                <div className={`checkbox-type-filter ${additionalClassName}`} >
+                    <ul className="autocomplete-checkbox">
 
-                            {checkboxHeading()}
-                            {filters?.map((filter) => (
-                                <>
-                                    <PrimaryCheckboxType
-                                        name={filter.name || filter.title}
-                                        value={filter.value}
-                                        key={filter.key}
-                                        toggleCheckboxType={toggleSingleFilter}
-                                        selectedCheckboxes={selectedFilters} />
-                                </>
-                            ))}
-                        </ul>
-                        {additionalText && additionalText}
-                    </div>
-                ) : null }
-            </>
-        );
+                        {checkboxHeading()}
+                        {filters?.map((filter) => (
+                            <>
+                                <PrimaryCheckboxType
+                                    name={filter.name || filter.title}
+                                    value={filter.value}
+                                    key={filter.key}
+                                    toggleCheckboxType={toggleSingleFilter}
+                                    selectedCheckboxes={selectedFilters} />
+                            </>
+                        ))}
+                    </ul>
+                    {additionalText && additionalText}
+                </div>
+            );
+        }
+
+        return null;
     };
 
     return (
-        <div className="extent-competed-filter">
+        <div className="extent-competed-filter" ref={dropDownRef}>
             <EntityDropdownAutocomplete
                 placeholder={placeholder}
                 searchString={searchString}
@@ -166,6 +190,7 @@ const AutocompleteWithCheckboxList = ({
                 handleTextInputChange={handleTextInputChange}
                 loading={false}
                 isClearable
+                openDropdown={toggleDropdown}
                 onClear={handleClear}
                 searchIcon
                 id={searchId} />
