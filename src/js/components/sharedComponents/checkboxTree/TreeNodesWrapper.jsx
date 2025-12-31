@@ -6,8 +6,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { removePlaceholderString } from 'helpers/checkboxTreeHelper';
 import TreeNodes from './TreeNodes';
-import { removePlaceholderString } from '../../../helpers/checkboxTreeHelper';
 
 const propTypes = {
     nodes: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -96,6 +96,11 @@ const TreeNodesWrapper = ({
                         const hasAnyChildrenChecked = parent.children.filter((child) => allChecked.includes(child.id) || node.id === child.id);
                         let setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length < parent.children.length);
 
+                        // one off grandparent condition
+                        if (parent.children.length === 1 && hasAnyChildrenChecked.length) {
+                            setIndeterminate = true;
+                        }
+
                         if (checkboxRefs.current) {
                             if (nodePriorChecked) {
                                 // unchecking prior checked node.
@@ -142,6 +147,7 @@ const TreeNodesWrapper = ({
                         ));
 
                     if (allChecked) {
+                        console.log("checking all checked for parent ==== ", parent);
                         updatedChecked = [...new Set([...updatedChecked, parent.id])];
                     }
                     else {
@@ -171,7 +177,7 @@ const TreeNodesWrapper = ({
             if (onCheck) onCheck(newChecked, modifiedNode);
         }
         else {
-            if ((descendantIds.length > 0)) {
+            if ((descendantIds.length > 1)) {
                 // Check node's descendants
                 newChecked = [...new Set([...localChecked, id, ...descendantIds])];
             }
