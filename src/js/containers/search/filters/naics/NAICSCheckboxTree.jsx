@@ -39,7 +39,6 @@ const NAICSCheckboxTree = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [isSearch, setIsSearch] = useState(false);
     const [searchString, setSearchString] = useState('');
-    const [requestType, setRequestType] = useState('initial');
     const [showNoResults, setShowNoResults] = useState(false);
 
     const nodes = useSelector((state) => state.naics.naics.toJS());
@@ -107,13 +106,14 @@ const NAICSCheckboxTree = () => {
             request.current.cancel();
         }
 
+        if (showNoResults) {
+            setShowNoResults(false);
+        }
         const searchParam = (isSearch && searchString)
             ? `?filter=${searchString}`
             : null;
 
-        if (requestType === 'initial' || requestType === 'search') {
-            setIsLoading(true);
-        }
+        setIsLoading(true);
 
         request.current = naicsRequest(param || searchParam);
 
@@ -124,6 +124,10 @@ const NAICSCheckboxTree = () => {
                     dispatch(setSearchedNaics(results));
                     autoCheckSearchedResultDescendants(checked, visibleNaicsValues);
                     dispatch(setExpandedNaics(visibleNaicsValues, 'SET_SEARCHED_EXPANDED'));
+
+                    if (results?.length === 0) {
+                        setShowNoResults(true);
+                    }
                 }
                 else {
                     dispatch(setNaicsNodes(param, results));
@@ -141,7 +145,6 @@ const NAICSCheckboxTree = () => {
                 setIsLoading(resolveLoading ? false : isLoading);
                 setIsError(false);
                 setErrorMessage('');
-                setRequestType('');
 
                 request.current = null;
             })
@@ -151,7 +154,6 @@ const NAICSCheckboxTree = () => {
                     setIsError(true);
                     setErrorMessage(e.message);
                     setIsLoading(false);
-                    setRequestType('');
                 }
                 request.current = null;
             });
@@ -166,7 +168,7 @@ const NAICSCheckboxTree = () => {
         setIsSearch(false);
         setSearchString('');
         setIsLoading(false);
-        setRequestType('');
+        setShowNoResults(false);
         dispatch(showNaicsTree());
     };
 
@@ -175,13 +177,14 @@ const NAICSCheckboxTree = () => {
             onClear();
         }
 
-        setRequestType('search');
         fetchNAICS();
     }, 500);
 
     const onCheck = (newChecked) => {
+        // prevent double count
+        const stateNewChecked = newChecked?.length > 1 ? newChecked.filter((id) => !id.includes("children_of_")) : newChecked;
         const [newCounts, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
-            newChecked,
+            stateNewChecked,
             checked,
             unchecked,
             nodes,
@@ -353,18 +356,6 @@ const NAICSCheckboxTree = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [checked, counts]);
 
-    useEffect(() => {
-        if (
-            (nodes.length !== 0 && !isSearch) ||
-            searchExpanded.length !== 0
-        ) {
-            setShowNoResults(false);
-        }
-        else {
-            setShowNoResults(true);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nodes, searchExpanded]);
 
     return (
         <div>
