@@ -367,7 +367,7 @@ const articles = [
         feature_sprint: 4,
         feature_week: 1,
         description: "You might be wondering: where does the data on USAspending.gov come from? Since our goal is to promote open data and foster open government, we'd love to tell",
-        slug: "understanding-four-government-data-source-system",
+        slug: "understanding-four-government-data-source-systems",
         explore_more: [
             {
                 label: "Data Sources",
@@ -382,7 +382,7 @@ const articles = [
         ],
         related_terms: [
             {
-                term: "fiscal-year-fy",
+                term: "transaction",
                 type: "glossary",
                 label: "Transaction"
             },
