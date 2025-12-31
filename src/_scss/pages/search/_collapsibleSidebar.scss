@@ -28,6 +28,7 @@
     box-shadow: none;
     border-radius: unset;
     background-color: unset;
+    min-height: 500px;
 
     &.sticky {
         position: sticky;
@@ -161,6 +162,7 @@
       .collapsible-sidebar--search-filters-list {
         overflow-y: auto;
         scrollbar-gutter: stable;
+        min-height: 330px;
 
         .search-filters-list {
           margin: 0 ($global-padding * 4);
