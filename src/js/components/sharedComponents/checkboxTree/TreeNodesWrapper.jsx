@@ -147,6 +147,7 @@ const TreeNodesWrapper = ({
             updatedChecked = [];
         }
         else if (node.ancestors) {
+            // ancestors are stored as an array of id and not the complete anscestor node
             const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
             if (ancestorNodes.length) {
                 ancestorNodes.forEach((parent) => {
