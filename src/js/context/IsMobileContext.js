@@ -5,6 +5,12 @@
 
 import { createContext } from "react";
 
-const IsMobileContext = createContext(null);
+const IsMobileContext = createContext({
+    isMobile: false,
+    isTablet: false,
+    isMedium: false,
+    isDesktopSm: false,
+    isDesktopLg: false
+});
 
 export default IsMobileContext;
