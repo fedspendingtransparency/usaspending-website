@@ -324,13 +324,88 @@ const articles = [
         ]
     },
     {
+        taxonomy: "Spending Stories",
+        content_type: 'Marketing',
+        title: "Exploring Spending in Your Community",
+        banner_subtitle: "Learn How to Search for Federal Spending Where You Live",
+        created_date: "01/15/26",
+        feature_sprint: 4,
+        feature_week: 1,
+        description: "Federal government spending may seem like a distant or complicated topic – one that is best understood by government officials or journalists.",
+        slug: "exploring-spending-in-your-community",
+        explore_more: [
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            },
+            {
+                label: "State Spending Profiles",
+                slug: "/state",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "award",
+                type: "glossary",
+                label: "Award"
+            }
+        ]
+    },
+    {
+        taxonomy: "See 4 Yourself",
+        content_type: 'Featured Content',
+        title: "Understanding Four Government Data Source Systems",
+        banner_subtitle: "Learn Where USAspending.gov Data Comes From",
+        created_date: "01/15/26",
+        feature_sprint: 4,
+        feature_week: 1,
+        description: "You might be wondering: where does the data on USAspending.gov come from? Since our goal is to promote open data and foster open government, we'd love to tell",
+        slug: "understanding-four-government-data-source-systems",
+        explore_more: [
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "transaction",
+                type: "glossary",
+                label: "Transaction"
+            },
+            {
+                term: "award-id",
+                type: "glossary",
+                label: "Award ID"
+            },
+            {
+                term: "contract",
+                type: "glossary",
+                label: "Contract"
+            }
+        ]
+    },
+    {
         taxonomy: "See 4 Yourself",
         isLongForm: true,
         content_type: 'Featured Content',
         banner_title: "Ways to Use Our Data",
         banner_subtitle: "How People Use USAspending.gov Data",
         title: "Ways to Use Our Data",
-        created_date: "09/29/2025",
+        created_date: "02/31/2026",
         feature_sprint: 0,
         feature_week: 0,
         description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
@@ -362,7 +437,7 @@ const articles = [
         banner_title: "Discover How Government Spending Supports Causes You Care About ",
         banner_subtitle: "TBD",
         title: "Discover How Government Spending Supports Causes You Care About ",
-        created_date: "09/29/2025",
+        created_date: "02/31/2026",
         feature_sprint: 0,
         feature_week: 0,
         description: "If you’re passionate about a cause—whether it’s education, environmental protection, public health, or national security—you can use Advanced Search to explore",
