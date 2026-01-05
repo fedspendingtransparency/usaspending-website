@@ -251,7 +251,7 @@ const articles = [
         created_date: "12/25/25",
         feature_sprint: 3,
         feature_week: 1,
-        description: "When searching for government spending data on USAspending.gov, you’re very likely to see the word “recipient. Whether you’re using our filters to refine your",
+        description: "If you want to build a house, you must know what kind of material to use. Lest you end up like two of the three little pigs, building a house out of straw or",
         slug: "grants-vs-contracts",
         explore_more: [
             {
@@ -281,8 +281,8 @@ const articles = [
     {
         taxonomy: "Spending Stories",
         content_type: 'Marketing',
-        banner_subtitle: "Explore How the Federal Government Spends Money on a Particular Topic",
         title: "Discover How Government Spending Supports Causes You Care About",
+        banner_subtitle: "Explore How the Federal Government Spends Money on a Particular Topic",
         created_date: "12/25/25",
         feature_sprint: 3,
         feature_week: 1,
@@ -320,6 +320,81 @@ const articles = [
                 term: "recipient-location",
                 type: "glossary",
                 label: "Recipient Location"
+            }
+        ]
+    },
+    {
+        taxonomy: "Spending Stories",
+        content_type: 'Marketing',
+        title: "Exploring Spending in Your Community",
+        banner_subtitle: "Learn How to Search for Federal Spending Where You Live",
+        created_date: "01/15/26",
+        feature_sprint: 4,
+        feature_week: 1,
+        description: "Federal government spending may seem like a distant or complicated topic – one that is best understood by government officials or journalists.",
+        slug: "exploring-spending-in-your-community",
+        explore_more: [
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            },
+            {
+                label: "State Spending Profiles",
+                slug: "/state",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "award",
+                type: "glossary",
+                label: "Award"
+            }
+        ]
+    },
+    {
+        taxonomy: "See 4 Yourself",
+        content_type: 'Featured Content',
+        title: "Understanding Four Government Data Source Systems",
+        banner_subtitle: "Learn Where USAspending.gov Data Comes From",
+        created_date: "01/15/26",
+        feature_sprint: 4,
+        feature_week: 1,
+        description: "You might be wondering: where does the data on USAspending.gov come from? Since our goal is to promote open data and foster open government, we'd love to tell",
+        slug: "understanding-four-government-data-source-systems",
+        explore_more: [
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "transaction",
+                type: "glossary",
+                label: "Transaction"
+            },
+            {
+                term: "award-id",
+                type: "glossary",
+                label: "Award ID"
+            },
+            {
+                term: "contract",
+                type: "glossary",
+                label: "Contract"
             }
         ]
     }

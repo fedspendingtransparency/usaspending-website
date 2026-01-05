@@ -41,6 +41,10 @@
       color: $default-color;
       font-size: $base-font-size;
       line-height: $base-line-height;
+
+      a {
+        cursor: pointer;
+      }
     }
   }
 

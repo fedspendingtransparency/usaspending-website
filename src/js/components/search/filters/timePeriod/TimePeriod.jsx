@@ -4,19 +4,17 @@
  **/
 
 import React, { useEffect, useState } from 'react';
-import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
-import { TooltipWrapper } from 'data-transparency-ui';
 import { Set } from 'immutable';
 
-import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
+import GlossaryLink from "components/sharedComponents/GlossaryLink";
+import FilterTabs from 'components/sharedComponents/filterSidebar/FilterTabs';
+import usePrevious from "hooks/usePrevious";
 import DateRange from './DateRange';
 import AllFiscalYearsWithChips from "./AllFiscalYearsWithChips";
 import DateRangeError from './DateRangeError';
-import GlossaryLink from "../../../sharedComponents/GlossaryLink";
-import FilterTabs from '../../../sharedComponents/filterSidebar/FilterTabs';
-import usePrevious from "../../../../hooks/usePrevious";
+import NewAwardsFilter from "./NewAwardsFilter";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -34,14 +32,11 @@ const propTypes = {
     activeTab: PropTypes.string,
     updateFilter: PropTypes.func,
     updateGenericFilter: PropTypes.func,
-    updateNewAwardsOnlySelected: PropTypes.func,
     updateNewAwardsOnlyActive: PropTypes.func,
     updateNaoActiveFromFyOrDateRange: PropTypes.func,
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
     dirtyFilters: PropTypes.symbol,
-    newAwardsOnlySelected: PropTypes.bool,
-    newAwardsOnlyActive: PropTypes.bool,
     federalAccountPage: PropTypes.bool,
     searchV2: PropTypes.bool
 };
@@ -57,14 +52,11 @@ const TimePeriod = ({
     activeTab,
     updateFilter,
     updateGenericFilter,
-    updateNewAwardsOnlySelected,
     updateNewAwardsOnlyActive,
     updateNaoActiveFromFyOrDateRange,
     changeTab,
     disableDateRange = false,
     dirtyFilters,
-    newAwardsOnlySelected,
-    newAwardsOnlyActive,
     federalAccountPage,
     searchV2
 }) => {
@@ -76,7 +68,6 @@ const TimePeriod = ({
     const [errorMessage, setErrorMessage] = useState('');
     const [header, setHeader] = useState('');
     const [dateRangeChipRemoved, setDateRangeChipRemoved] = useState(false);
-    const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
     const prevProps = usePrevious({ filterTimePeriodFY, filterTimePeriod });
     const prevState = usePrevious({
         startDateUI, endDateUI, startDateDropdown, endDateDropdown
@@ -203,23 +194,6 @@ const TimePeriod = ({
         setHeader('');
     };
 
-    const newAwardsClick = (e) => {
-        updateNewAwardsOnlySelected(e.target.checked);
-    };
-
-    const enterKeyToggleHandler = (e) => {
-        if (e.key === 'Enter') {
-            let isSelected = false;
-            if (!newAwardsOnlySelected) {
-                isSelected = true;
-            }
-            else {
-                isSelected = false;
-            }
-            updateNewAwardsOnlySelected(isSelected);
-        }
-    };
-
     let errorDetails;
     let showFilter;
     let activeClassDR = '';
@@ -262,30 +236,6 @@ const TimePeriod = ({
     if (disableDateRange) {
         activeClassDR = 'hidden';
     }
-
-    const isSubAward = spendingLevel === "subawards";
-    const newAwardsFilter = (
-        <div className={`new-awards-wrapper ${activeClassDR}`}>
-            <label
-                htmlFor="new-awards-checkbox">
-                <input
-                    type="checkbox"
-                    className={`new-awards-checkbox ${isSubAward || !newAwardsOnlyActive ? 'not-active' : ''}`}
-                    id="new-awards-checkbox"
-                    value="new-awards-checkbox"
-                    disabled={isSubAward || !newAwardsOnlyActive}
-                    checked={newAwardsOnlySelected && !isSubAward}
-                    onChange={newAwardsClick}
-                    onKeyUp={(e) => enterKeyToggleHandler(e)} />
-                <span className={`new-awards-label ${isSubAward || !newAwardsOnlyActive ? 'not-active' : ''}`}>
-                    Show New Awards Only
-                </span>
-            </label>
-            <TooltipWrapper
-                icon="info"
-                tooltipComponent={<NewAwardsTooltip />} />
-        </div>
-    );
 
     const tabLabels = [
         {
@@ -357,7 +307,7 @@ const TimePeriod = ({
                     active={activeTab} />
                 { showFilter }
                 { errorDetails }
-                { !federalAccountPage && newAwardsFilter }
+                { !federalAccountPage && <NewAwardsFilter activeClassDR={activeClassDR} /> }
                 { !searchV2 && <SubmitHint selectedFilters={dirtyFilters} />}
             </div>
         </div>
