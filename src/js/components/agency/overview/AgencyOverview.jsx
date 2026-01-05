@@ -3,15 +3,16 @@
  * Created by Lizzie Salita 3/16/21
  */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import ReadMore from '../../../components/sharedComponents/ReadMore';
+
+import ReadMore from 'components/sharedComponents/ReadMore';
+import { showSlideout } from 'helpers/slideoutHelper';
+import IsMobileContext from "context/IsMobileContext";
 import FySummary from './FySummary';
-import { showSlideout } from '../../../helpers/slideoutHelper';
-import useIsMobile from "../../../hooks/useIsMobile";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -19,7 +20,7 @@ const propTypes = {
 };
 
 const AgencyOverview = ({ fy, dataThroughDate }) => {
-    const { isMedium } = useIsMobile();
+    const { isMedium } = useContext(IsMobileContext);
     const {
         website,
         mission,
