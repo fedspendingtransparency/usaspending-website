@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/16/21
  */
 
-import React, { useContext } from 'react';
+import React, { memo, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router';
@@ -19,7 +19,8 @@ const propTypes = {
     dataThroughDate: PropTypes.string
 };
 
-const AgencyOverview = ({ fy, dataThroughDate }) => {
+// eslint-disable-next-line prefer-arrow-callback
+const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
     const { isMedium } = useContext(IsMobileContext);
     const {
         website,
@@ -113,7 +114,7 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
                 isMobile={isMedium} />
         </div>
     );
-};
+});
 
 AgencyOverview.propTypes = propTypes;
 export default AgencyOverview;
