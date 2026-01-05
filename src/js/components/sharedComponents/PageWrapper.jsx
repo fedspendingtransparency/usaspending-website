@@ -11,8 +11,6 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
 import Footer from 'containers/Footer';
-import IsMobileContext from "context/IsMobileContext";
-import useIsMobile from "../../hooks/useIsMobile";
 
 const PageWrapper = ({
     pageName,
@@ -29,37 +27,31 @@ const PageWrapper = ({
     activeSection,
     jumpToSection,
     inPageNav = false
-}) => {
-    const isMobileObject = useIsMobile();
-
-    return (
-        <IsMobileContext value={isMobileObject}>
-            <div className={classNames} ref={ref}>
-                <MetaTags {...metaTagProps} />
-                <Header />
-                {noHeader ? null : <><PageHeader
-                    title={title}
-                    stickyBreakPoint={getStickyBreakPointForSidebar()}
-                    overLine={overLine}
-                    toolBar={toolBarComponents}
-                    inPageNav={inPageNav}
-                    detectActiveSection
-                    pageName={pageName}
-                    sections={sections}
-                    activeSection={activeSection}
-                    jumpToSection={jumpToSection} /></>}
-                {React.cloneElement(children, {
-                    className: `usda-page__container${
-                        children.props.className ?
-                            ` ${children.props.className}` :
-                            ''
-                    }`
-                })}
-                <Footer pageName={pageName} filters={filters} />
-            </div>
-        </IsMobileContext>
-    );
-};
+}) => (
+    <div className={classNames} ref={ref}>
+        <MetaTags {...metaTagProps} />
+        <Header />
+        {noHeader ? null : <><PageHeader
+            title={title}
+            stickyBreakPoint={getStickyBreakPointForSidebar()}
+            overLine={overLine}
+            toolBar={toolBarComponents}
+            inPageNav={inPageNav}
+            detectActiveSection
+            pageName={pageName}
+            sections={sections}
+            activeSection={activeSection}
+            jumpToSection={jumpToSection} /></>}
+        {React.cloneElement(children, {
+            className: `usda-page__container${
+                children.props.className ?
+                    ` ${children.props.className}` :
+                    ''
+            }`
+        })}
+        <Footer pageName={pageName} filters={filters} />
+    </div>
+);
 
 PageWrapper.propTypes = {
     pageName: PropTypes.string.isRequired,

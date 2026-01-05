@@ -1,14 +1,22 @@
 import React from "react";
+import { useLocation } from 'react-router';
+
 import GlossaryListenerContainer from 'containers/glossary/GlossaryListener';
 import AboutTheDataListenerContainer from 'containers/aboutTheDataSidebar/AboutTheDataListener';
-import { useLocation } from 'react-router';
+import useIsMobile from "hooks/useIsMobile";
+import IsMobileContext from "context/IsMobileContext";
 
 const WithUrlListener = (component, props) => {
     const { search } = useLocation();
-    const ListenerContainer = search.includes('about-the-data') ? AboutTheDataListenerContainer : GlossaryListenerContainer;
+    const ListenerContainer = search.includes('about-the-data') ?
+        AboutTheDataListenerContainer :
+        GlossaryListenerContainer;
+    const isMobileObject = useIsMobile();
 
     return (
-        <ListenerContainer {...props} Child={component} />
+        <IsMobileContext value={isMobileObject}>
+            <ListenerContainer {...props} Child={component} />
+        </IsMobileContext>
     );
 };
 
