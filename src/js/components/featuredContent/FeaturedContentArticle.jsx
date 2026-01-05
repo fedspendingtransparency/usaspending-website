@@ -11,7 +11,7 @@ import { useLocation } from 'react-router';
 import { homePageMetaTags } from "helpers/metaTagHelper";
 import PageWrapper from "components/sharedComponents/PageWrapper";
 import { mediumScreen, tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { transformString, getPrimaryFill, getSecondaryFill, CustomA, CustomImg } from 'helpers/featuredContent/featuredContentHelper';
+import { transformString, getPrimaryFill, CustomA, CustomImg } from 'helpers/featuredContent/featuredContentHelper';
 import GlossaryLink from "components/sharedComponents/GlossaryLink";
 import FeaturedContentArticleSidebar from "./FeaturedContentArticleSidebar";
 import articles from '../../../config/featuredContent/featuredContentMetadata';
@@ -25,7 +25,7 @@ const components = {
     img: CustomImg
 };
 
-const FeaturedContentArticlePage = () => {
+const FeaturedContentArticle = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isTablet, setIsTablet] = useState(
         window.innerWidth < mediumScreen && window.innerWidth >= tabletScreen
@@ -35,17 +35,18 @@ const FeaturedContentArticlePage = () => {
     const parts = location.pathname.split('/');
     const lastPortion = parts[parts.length - 1];
     const [chosenArticle, setChosenArticle] = useState(null);
-    const [markdownContent, setMarkdownContent] = useState('');
+    const [MarkdownContent, setMarkdownContent] = useState(null);
     const [isLongForm, setIsLongForm] = useState(false);
     const [sections, setSections] = useState([]);
     const [activeSection, setActiveSection] = useState([]);
-    const [containsH2, setContainsH2] = useState(false);
 
     const contentRef = useRef(null);
 
+
     const jumpToSection = (section = '') => {
+        console.log(section);
         // find the section in dom
-        const sectionDom = contentRef.current.querySelector(`a[href="#${section}"]`);
+        const sectionDom = document.querySelector(`a[href="#${section}"]`);
         if (!sectionDom) return;
 
         setActiveSection(section);
@@ -54,38 +55,68 @@ const FeaturedContentArticlePage = () => {
         const sectionTop = sectionDom.offsetTop;
 
         window.scrollTo({
-            top: sectionTop + 100,
+            top: sectionTop + 60,
             left: 0,
             behavior: 'smooth'
         });
     };
 
-    useEffect(() => {
-        if (markdownContent && contentRef.current) {
-            // The amount of h2 elements determines if we show the in-page nav bar.  Only set contains h2 if there are 3 or more.
-            const H2Elements = contentRef.current.querySelectorAll('h2');
-            setContainsH2(H2Elements.length > 2);
-            const H2Sections = [...H2Elements].map((H2) => (
-                {
-                    label: H2.innerText,
-                    section: H2.innerText.toLowerCase().replace(/\s+/g, '-')
-                }));
-            setSections(H2Sections);
-
-            for (let i = 0; i < H2Elements.length; i++) {
-                H2Elements[i].querySelector('a').addEventListener('click', (e) => {
-                    e.preventDefault();
-                });
-            }
-        }
-    },
-    [markdownContent]);
+    // useEffect(() => {
+    //     console.log(MarkdownContent);
+    //     if (MarkdownContent) {
+    //         const H2Elements = document.querySelectorAll('h2');
+    //         if (H2Elements) {
+    //             const H2Sections = [...H2Elements].map((H2) => (
+    //                 {
+    //                     label: H2.innerText,
+    //                     section: H2.innerText.toLowerCase().replace(/\s+/g, '-')
+    //                 }));
+    //             setSections(H2Sections);
+    //
+    //             for (let i = 0; i < H2Elements?.length; i++) {
+    //                 H2Elements[i].querySelector('a')?.addEventListener('click', (e) => {
+    //                     e.preventDefault();
+    //                 });
+    //             }
+    //         }
+    //     }
+    // },
+    // [MarkdownContent, contentRef?.current]);
 
     useEffect(() => {
         for (const article of articles) {
             if (transformString(article.title) === lastPortion) {
                 setChosenArticle(article);
                 setIsLongForm(Object.prototype.hasOwnProperty.call(article, 'isLongForm') ? article.isLongForm : false);
+
+                const tempSections = [];
+                for (let i = 0; i < article?.sections?.length; i++) {
+                    tempSections.push({
+                        section: transformString(article?.sections[i]),
+                        label: article?.sections[i]
+                    });
+                }
+
+                if (tempSections?.length > 0) {
+                    setSections(tempSections);
+
+                    const H2Elements = document.querySelectorAll('h2');
+                    if (H2Elements) {
+                        for (let i = 0; i < H2Elements?.length; i++) {
+                            H2Elements[i].querySelector('a')?.addEventListener('click', (e) => {
+                                e.preventDefault();
+                            });
+                        }
+                    }
+                }
+                else {
+                    setSections([{
+                        section: "",
+                        label: ""
+                    }]);
+                }
+
+
             }
         }
     }, [lastPortion]);
@@ -118,36 +149,36 @@ const FeaturedContentArticlePage = () => {
             pageName="Featured Content Article"
             classNames="featured-content-page"
             noHeader={!isLongForm}
-            backgroundColor={isLongForm && chosenArticle?.fill}
+            backgroundColor={isLongForm && getPrimaryFill(chosenArticle)}
             sections={sections?.length > 0 ? sections : [{ section: " ", label: " " }]}
-            activeSection={"search-by-keywords"}
+            activeSection={activeSection}
             jumpToSection={jumpToSection}
             inPageNav={isLongForm}
             metaTagProps={{ ...homePageMetaTags }}>
             <main
                 id="main-content"
                 className="main-content featured-content">
-                {!isLongForm && containsH2 && <FeaturedContentHeader
+                {isLongForm &&
+                    <div className="featured-content__header-block">
+                        <span
+                            className="featured-content__label"
+                            style={{ backgroundColor: getPrimaryFill(chosenArticle) }}>
+                            {chosenArticle?.taxonomy}
+                        </span>
+                    </div>}
+                {!isLongForm && <FeaturedContentHeader
                     isMobile={isMobile}
                     isTablet={isTablet}
                     chosenArticle={chosenArticle} />}
-                <FlexGridRow desktop={12} className="grid-content featured-content__article">
+                <FlexGridRow desktop={12} className="grid-content featured-content__article-body">
                     <FlexGridCol tablet={12} mobile={12} desktop={8}>
-                        {isLongForm && containsH2 &&
-                            <div className="featured-content__header-block">
-                                <span
-                                    className="featured-content__label"
-                                    style={{ backgroundColor: chosenArticle?.fill }}>
-                                    {chosenArticle?.taxonomy}
-                                </span>
-                            </div>}
                         <div className="featured-content__article-title">
                             {chosenArticle?.title}
                         </div>
                         <div className="featured-content__last-updated">
                             Last Updated: {chosenArticle?.created_date}
                         </div>
-                        <div ref={contentRef}>{markdownContent}</div>
+                        {chosenArticle && typeof MarkdownContent === "function" && <MarkdownContent ref={contentRef} components={components} />}
                     </FlexGridCol>
                     <FeaturedContentArticleSidebar chosenArticle={chosenArticle} />
                 </FlexGridRow>
@@ -155,4 +186,4 @@ const FeaturedContentArticlePage = () => {
         </PageWrapper>);
 };
 
-export default FeaturedContentArticlePage;
+export default FeaturedContentArticle;
