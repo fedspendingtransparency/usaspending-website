@@ -187,7 +187,7 @@ const TreeNodesWrapper = ({
             if (onCheck) onCheck(newChecked, modifiedNode);
         }
         else {
-            if ((descendantIds.length > 1)) {
+            if ((descendantIds.length > 0)) {
                 // Check node's descendants
                 newChecked = [...new Set([...localChecked, id, ...descendantIds])];
             }
