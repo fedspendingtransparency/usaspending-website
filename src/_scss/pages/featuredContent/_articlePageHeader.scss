@@ -100,6 +100,30 @@
     }
 }
 
+.long-form-featured-content__header-block {
+    margin-bottom: rem(28);
+
+    .featured-content__label {
+        padding: rem(6) rem(8);
+        border-radius: rem(6);
+        font-size: $font-size-12;
+        font-style: normal;
+        font-weight: $font-semibold;
+        line-height: 15px;
+        color: $color-black;
+        text-transform: uppercase;
+        gap: 10px;
+        width: max-content;
+
+        @media(min-width: $tablet-screen) {
+            padding: rem(8);
+            border-radius: rem(8);
+            line-height: 15px;
+            font-size: $font-size-17;
+        }
+    }
+}
+
 .featured-content__article {
     .featured-content__header-block {
         padding-bottom: rem(24);

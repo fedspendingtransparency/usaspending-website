@@ -118,7 +118,59 @@ const FeaturedContentArticle = () => {
         return false;
     };
 
-    return (<>
+    const Hero = () => {
+        if (isLongForm) return <></>;
+
+        return (<FeaturedContentHeader
+            isMobile={isMobile}
+            isTablet={isTablet}
+            chosenArticle={chosenArticle} />);
+    };
+
+    const LongFormHero = () => {
+        if (isLongForm) {
+            return (
+                <div className="long-form-featured-content__header-block">
+                    <span
+                        className="featured-content__label"
+                        style={{ backgroundColor: getPrimaryFill(chosenArticle) }}>
+                        {chosenArticle?.taxonomy}
+                    </span>
+                </div>);
+        }
+
+        return <></>;
+    };
+
+    const Article = () => {
+        if (chosenArticle && typeof MarkdownContent === "function") {
+            return <MarkdownContent ref={contentRef} components={components} />;
+        }
+        return <></>;
+    };
+
+    const PageContent = () => {
+        if (!isFound) return <ErrorMessage />;
+
+        return (<>
+            <Hero />
+            <FlexGridRow desktop={12} className="grid-content featured-content__article-body">
+                <FlexGridCol tablet={12} mobile={12} desktop={8}>
+                    <LongFormHero />
+                    <div className="featured-content__article-title">
+                        {chosenArticle?.title}
+                    </div>
+                    <div className="featured-content__last-updated">
+                        Last Updated: {chosenArticle?.created_date}
+                    </div>
+                    <Article />
+                </FlexGridCol>
+                <FeaturedContentArticleSidebar chosenArticle={chosenArticle} />
+            </FlexGridRow>
+        </>);
+    };
+
+    return <>
         {chosenArticle?.hidden && <Navigate to="/404" />}
         <PageWrapper
             pageName="featured-content-article"
@@ -133,34 +185,10 @@ const FeaturedContentArticle = () => {
             <main
                 id="main-content"
                 className="main-content featured-content">
-                {isLongForm &&
-                    <div className="featured-content__header-block">
-                        <span
-                            className="featured-content__label"
-                            style={{ backgroundColor: getPrimaryFill(chosenArticle) }}>
-                            {chosenArticle?.taxonomy}
-                        </span>
-                    </div>}
-                {!isFound ? <ErrorMessage /> :
-                    !isLongForm && <><FeaturedContentHeader
-                        isMobile={isMobile}
-                        isTablet={isTablet}
-                        chosenArticle={chosenArticle} />
-                    <FlexGridRow desktop={12} className="grid-content featured-content__article-body">
-                        <FlexGridCol tablet={12} mobile={12} desktop={8}>
-                            <div className="featured-content__article-title">
-                                {chosenArticle?.title}
-                            </div>
-                            <div className="featured-content__last-updated">
-                            Last Updated: {chosenArticle?.created_date}
-                            </div>
-                            {chosenArticle && typeof MarkdownContent === "function" && <MarkdownContent ref={contentRef} components={components} />}
-                        </FlexGridCol>
-                        <FeaturedContentArticleSidebar chosenArticle={chosenArticle} />
-                    </FlexGridRow></>}
+                <PageContent />
             </main>
         </PageWrapper>
-    </>);
+    </>;
 };
 
 export default FeaturedContentArticle;

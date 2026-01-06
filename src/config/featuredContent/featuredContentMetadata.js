@@ -402,7 +402,7 @@ const articles = [
         taxonomy: "See 4 Yourself",
         isLongForm: true,
         content_type: 'Featured Content',
-        title: "TEST ARTICLE - Ways to Use Our Data",
+        title: "QAT ONLY - Ways to Use Our Data",
         banner_subtitle: "How People Use USAspending.gov Data",
         created_date: "02/29/2026",
         feature_sprint: 5,
@@ -411,7 +411,7 @@ const articles = [
         description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
         slug: "ways-to-use-our-data-2",
         black_text: true,
-        hidden: true,
+        hidden: !GlobalConstants.QAT,
         explore_more: [
             {
                 label: "Advanced Search",
