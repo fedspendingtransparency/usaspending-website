@@ -8,9 +8,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from 'react-redux';
 import { bulkDefCodeChange, toggleDefCode } from 'redux/actions/search/searchFilterActions';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-import AccordionCheckbox from "../../../../components/sharedComponents/checkbox/AccordionCheckbox";
-import DEFCheckboxTreeLabelv2 from "../../../../components/search/filters/defc/DEFCheckboxTreeLabelv2";
-import { sortAlphaNumbersLast } from "../../../../helpers/search/collapsiblesidebarHelper";
+import AccordionCheckbox from "components/sharedComponents/checkbox/AccordionCheckbox";
+import DEFCheckboxTreeLabelv2 from "components/search/filters/defc/DEFCheckboxTreeLabelv2";
+import { sortAlphaNumbersLast } from "helpers/search/collapsiblesidebarHelper";
 
 const DEFCheckboxTreeContainer = () => {
     const [defSearchString, setDefSearchString] = useState('');

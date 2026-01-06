@@ -6,8 +6,8 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { removePlaceholderString } from 'helpers/checkboxTreeHelper';
 import TreeNodes from './TreeNodes';
-import { removePlaceholderString } from '../../../helpers/checkboxTreeHelper';
 
 const propTypes = {
     nodes: PropTypes.arrayOf(PropTypes.object).isRequired,
@@ -78,6 +78,18 @@ const TreeNodesWrapper = ({
         }
     };
 
+    const hasCheckedDescendants = (node, checkedArray) => {
+        if (checkedArray.includes(node.id)) {
+            return true;
+        }
+
+        if (node.children?.length) {
+            return node.children.some((childNode) => hasCheckedDescendants(childNode, checkedArray));
+        }
+
+        return false;
+    };
+
     const handleIndeterminateAncestors = (node, newChecked) => {
         if (node.ancestors) {
             const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
@@ -94,21 +106,24 @@ const TreeNodesWrapper = ({
                         }
 
                         const hasAnyChildrenChecked = parent.children.filter((child) => allChecked.includes(child.id) || node.id === child.id);
-                        let setIndeterminate = (hasAnyChildrenChecked.length > 0) && (hasAnyChildrenChecked.length < parent.children.length);
+                        const allChildrenChecked = hasAnyChildrenChecked?.length === parent.children?.length;
+                        const parentHasCheckedDescendants = hasCheckedDescendants(parent, newChecked);
+
+                        // if all children are checked parent should be checked
+                        // if any children or descendants are checked parent should be indeterminate.
+                        let setIndeterminate = !allChildrenChecked
+                            ? (hasAnyChildrenChecked.length > 0 || parentHasCheckedDescendants)
+                            : false;
 
                         if (checkboxRefs.current) {
                             if (nodePriorChecked) {
                                 // unchecking prior checked node.
-                                const anyChildrenNewChecked = parent.children.filter((child) => newChecked.includes(child.id));
-                                if (localChecked?.includes(parent.id) && anyChildrenNewChecked?.length > 0) {
+                                if (localChecked?.includes(parent.id) && hasAnyChildrenChecked?.length > 0) {
                                     // unchecking a single node make any checked ancestors indeterminate
                                     setIndeterminate = checkboxRefs.current[parent.id].checked;
                                 }
                             }
-                            if (setIndeterminate) {
-                                // make sure all ancesters get properly set
-                                handleIndeterminateAncestors(parent, newChecked);
-                            }
+
                             checkboxRefs.current[parent.id].indeterminate = setIndeterminate;
                         }
                     }
@@ -132,13 +147,14 @@ const TreeNodesWrapper = ({
             updatedChecked = [];
         }
         else if (node.ancestors) {
+            // ancestors are stored as an array of id and not the complete anscestor node
             const ancestorNodes = node.ancestors.map((ancestor) => findNodeById(ancestor));
             if (ancestorNodes.length) {
                 ancestorNodes.forEach((parent) => {
                     const children = parent.children;
                     const allChecked = children.every(
                         (child) => (newChecked.includes(
-                            removePlaceholderString(child.id)) || (node.id === removePlaceholderString(child.id))
+                            removePlaceholderString(child.id)) || (node.id === child.id)
                         ));
 
                     if (allChecked) {

@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 03/29/22
  */
 
-import React from 'react';
+import React, { useContext } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridRow, FlexGridCol, ShareIcon } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
@@ -11,16 +11,15 @@ import { useDispatch } from "react-redux";
 import 'pages/analystGuide/analystGuide.scss';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { showModal } from 'redux/actions/modal/modalActions';
+import { analystGuideMetaTags } from "helpers/metaTagHelper";
+import IsMobileContext from "context/IsMobileContext";
 import AnalystGuideHeader from './AnalystGuideHeader';
 import PageWrapper from "../sharedComponents/PageWrapper";
-import { analystGuideMetaTags } from "../../helpers/metaTagHelper";
 import AnalystGuideQuestions from "./AnalystGuideQuestions";
 import AnalystGuideIntro from "./AnalystGuideIntro";
-import useIsMobile from "../../hooks/useIsMobile";
-
 
 const AnalystGuidePage = () => {
-    const { isMedium } = useIsMobile();
+    const { isMedium } = useContext(IsMobileContext);
     const dispatch = useDispatch();
     const onExternalLinkClick = (e) => {
         dispatch(showModal(e));
