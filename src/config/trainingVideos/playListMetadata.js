@@ -1375,7 +1375,33 @@ const metaData = {
                 projection: "rectangular",
                 hasCustomThumbnail: false
             }
-        }
+        },
+        {
+  "kind": "youtube#videoListResponse",
+  "etag": "auCzR9xhhlHY70UepIchjoxEZSA",
+  "items": [
+    {
+      "kind": "youtube#video",
+      "etag": "K6e9E1bp2_IP_kL8byFN3YjcGFU",
+      "id": "3-oakEz2juE",
+      "contentDetails": {
+        "duration": "PT3M39S",
+        "dimension": "2d",
+        "definition": "hd",
+        "caption": "true",
+        "licensedContent": false,
+        "contentRating": {},
+        "projection": "rectangular",
+        "hasCustomThumbnail": true
+      }
+    }
+  ],
+  "pageInfo": {
+    "totalResults": 1,
+    "resultsPerPage": 1
+  }
+}
+
         // put a comma at the end of the brace above this line, then paste what you copied from the response above this comment
     ]
 };
