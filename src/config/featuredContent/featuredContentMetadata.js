@@ -54,7 +54,6 @@ const articles = [
         feature_sprint: 1,
         feature_week: 1,
         slug: "what-is-an-award",
-        thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
         explore_more: [
             {
                 label: "Federal Spending Guide",
@@ -124,7 +123,6 @@ const articles = [
         feature_sprint: 1,
         feature_week: 2,
         slug: "obligations-vs-outlays",
-        thumbnail_path: "../../img/featuredContent/cards/recently-answered-questions.webp",
         explore_more: [
             {
                 label: "USAspending Community",
