@@ -44,9 +44,9 @@ const FeaturedContentArticle = () => {
 
 
     const jumpToSection = (section = '') => {
-        console.log(section);
+        console.log("jump to section", section);
         // find the section in dom
-        const sectionDom = document.querySelector(`a[href="#${section}"]`);
+        const sectionDom = document.querySelector(`#featured-content-article-${section}`);
         if (!sectionDom) return;
 
         setActiveSection(section);
@@ -99,15 +99,6 @@ const FeaturedContentArticle = () => {
 
                 if (tempSections?.length > 0) {
                     setSections(tempSections);
-
-                    const H2Elements = document.querySelectorAll('h2');
-                    if (H2Elements) {
-                        for (let i = 0; i < H2Elements?.length; i++) {
-                            H2Elements[i].querySelector('a')?.addEventListener('click', (e) => {
-                                e.preventDefault();
-                            });
-                        }
-                    }
                 }
                 else {
                     setSections([{
@@ -146,11 +137,11 @@ const FeaturedContentArticle = () => {
 
     return (
         <PageWrapper
-            pageName="Featured Content Article"
+            pageName="featured-content-article"
             classNames="featured-content-page"
             noHeader={!isLongForm}
             backgroundColor={isLongForm && getPrimaryFill(chosenArticle)}
-            sections={sections?.length > 0 ? sections : [{ section: " ", label: " " }]}
+            sections={sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
             inPageNav={isLongForm}
