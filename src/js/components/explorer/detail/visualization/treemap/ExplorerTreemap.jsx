@@ -31,7 +31,7 @@ const propTypes = {
 export const ExplorerTreemap = ({
     isLoading,
     width,
-    height,
+    height = 530,
     total,
     data,
     goDeeper,
@@ -75,10 +75,6 @@ export const ExplorerTreemap = ({
     };
 
     const buildVirtualCell = (item, scale, localTotal) => {
-        console.log("checking item ==== > ", item);
-        console.log("checking scale ==== > ", scale);
-        console.log("checking localTotal ==== > ", localTotal);
-
         const localHeight = item.y1 - item.y0;
         const localWidth = item.x1 - item.x0;
 
@@ -135,7 +131,6 @@ export const ExplorerTreemap = ({
 
     const buildVirtualChart = () => {
         const localData = data.toJS();
-        console.log("checking local data ===== ", localData);
         // parse the inbound data into D3's treemap hierarchy structure
         const treemapData = hierarchy({ children: localData })
             .sum((d) => d.amount); // tell D3 how to extract the monetary value out of the object
@@ -149,7 +144,6 @@ export const ExplorerTreemap = ({
 
         // generate the treemap and calculate the individual boxes
         const treeItems = tree(treemapData).leaves();
-        console.log("checking treeItems ===== ", treeItems);
 
         if (treeItems.length === 0 || localData.length === 0) {
             // we have no data, so don't draw a chart
