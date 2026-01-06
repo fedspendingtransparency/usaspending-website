@@ -126,11 +126,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     <SidebarContent
                         sidebarContentHeight={sidebarContentHeight} />
                 }
-                {/*{ sidebarIsOpen && showMobileFilters &&*/}
-                {/*    <MobileSidebarContent*/}
-                {/*        sidebarContentHeight={sidebarContentHeight}*/}
-                {/*        setShowMobileFilters={setShowMobileFilters} />*/}
-                {/*}*/}
+                { sidebarIsOpen && showMobileFilters &&
+                    <MobileSidebarContent
+                        sidebarContentHeight={sidebarContentHeight}
+                        setShowMobileFilters={setShowMobileFilters} />
+                }
                 { !sidebarIsOpen && !isMedium &&
                     <div style={{ margin: "18px 16px" }}><FontAwesomeIcon icon="filter" /></div>
                 }
