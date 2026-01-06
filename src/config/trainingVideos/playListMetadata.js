@@ -1433,12 +1433,8 @@ const metaData = {
                 hasCustomThumbnail: true
             }
         }
-    ],
-    pageInfo: {
-        totalResults: 1,
-        resultsPerPage: 1
-    }
-    // put a comma at the end of the brace above this line, then paste what you copied from the response above this comment
+        // put a comma at the end of the brace above this line, then paste what you copied from the response above this comment
+    ]
 };
 
 export default metaData;
