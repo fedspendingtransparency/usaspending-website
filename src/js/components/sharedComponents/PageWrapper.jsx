@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PageHeader } from 'data-transparency-ui';
+
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
@@ -42,7 +43,11 @@ const PageWrapper = ({
             activeSection={activeSection}
             jumpToSection={jumpToSection} /></>}
         {React.cloneElement(children, {
-            className: `usda-page__container${children.props.className ? ` ${children.props.className}` : ''}`
+            className: `usda-page__container${
+                children.props.className ?
+                    ` ${children.props.className}` :
+                    ''
+            }`
         })}
         <Footer pageName={pageName} filters={filters} />
     </div>
@@ -61,7 +66,8 @@ PageWrapper.propTypes = {
     filters: PropTypes.object,
     sections: PropTypes.array,
     activeSection: PropTypes.string,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    inPageNav: PropTypes.bool
 };
 
 export default PageWrapper;

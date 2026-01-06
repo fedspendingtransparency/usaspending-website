@@ -3,7 +3,7 @@
  * Created by Maxwell Kendall 01/31/2020
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
     ComingSoon,
@@ -18,6 +18,9 @@ import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+import { showModal } from 'redux/actions/modal/modalActions';
+import useQueryParams from "hooks/useQueryParams";
+import IsMobileContext from "context/IsMobileContext";
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
@@ -25,9 +28,6 @@ import StatusOfFunds from './statusOfFunds/StatusOfFunds';
 import PageWrapper from '../sharedComponents/PageWrapper';
 import PageTitle from './overview/PageTitle';
 import NumericPickerWrapper from '../sharedComponents/dropdowns/NumericPickerWrapper';
-import { showModal } from '../../redux/actions/modal/modalActions';
-import useIsMobile from "../../hooks/useIsMobile";
-import useQueryParams from "../../hooks/useQueryParams";
 
 require('pages/agency/index.scss');
 
@@ -50,7 +50,7 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const { isMedium } = useIsMobile();
+    const { isMedium } = useContext(IsMobileContext);
     const history = useNavigate();
     const query = useQueryParams();
     const dispatch = useDispatch();
