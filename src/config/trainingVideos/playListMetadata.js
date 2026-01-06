@@ -1375,6 +1375,63 @@ const metaData = {
                 projection: "rectangular",
                 hasCustomThumbnail: false
             }
+        },
+        {
+            kind: "youtube#video",
+            etag: "PFDeqCG3RcJvMEm6Uaah1Rv3if8",
+            id: "3-oakEz2juE",
+            snippet: {
+                publishedAt: "2025-12-03T12:32:53Z",
+                channelId: "UCyDn83O-0XC98H3TCV-VCGQ",
+                title: "Your Data, Your Story: David Gill",
+                description: "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from David Gill, Acting Manager, Analytics and Technology Solutions Branch at Department of the Treasury, Internal Revenue Service. Learn more about how David used USAspending.gov to help a small business obtain a key contract.",
+                thumbnails: {
+                    default: {
+                        url: "https://i.ytimg.com/vi/3-oakEz2juE/default.jpg",
+                        width: 120,
+                        height: 90
+                    },
+                    medium: {
+                        url: "https://i.ytimg.com/vi/3-oakEz2juE/mqdefault.jpg",
+                        width: 320,
+                        height: 180
+                    },
+                    high: {
+                        url: "https://i.ytimg.com/vi/3-oakEz2juE/hqdefault.jpg",
+                        width: 480,
+                        height: 360
+                    },
+                    standard: {
+                        url: "https://i.ytimg.com/vi/3-oakEz2juE/sddefault.jpg",
+                        width: 640,
+                        height: 480
+                    },
+                    maxres: {
+                        url: "https://i.ytimg.com/vi/3-oakEz2juE/maxresdefault.jpg",
+                        width: 1280,
+                        height: 720
+                    }
+                },
+                channelTitle: "USAspending",
+                categoryId: "27",
+                liveBroadcastContent: "none",
+                defaultLanguage: "en",
+                localized: {
+                    title: "Your Data, Your Story: David Gill",
+                    description: "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from David Gill, Acting Manager, Analytics and Technology Solutions Branch at Department of the Treasury, Internal Revenue Service. Learn more about how David used USAspending.gov to help a small business obtain a key contract."
+                },
+                defaultAudioLanguage: "en"
+            },
+            contentDetails: {
+                duration: "PT3M39S",
+                dimension: "2d",
+                definition: "hd",
+                caption: "true",
+                licensedContent: false,
+                contentRating: {},
+                projection: "rectangular",
+                hasCustomThumbnail: true
+            }
         }
         // put a comma at the end of the brace above this line, then paste what you copied from the response above this comment
     ]
