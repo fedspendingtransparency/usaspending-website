@@ -4,9 +4,9 @@
  **/
 
 import React, { useState, useEffect, useRef } from 'react';
-import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
+import { FlexGridCol, FlexGridRow, ErrorMessage } from 'data-transparency-ui';
 import { throttle } from 'lodash-es';
-import { useLocation } from 'react-router';
+import { Navigate, useLocation } from 'react-router';
 
 import { homePageMetaTags } from "helpers/metaTagHelper";
 import PageWrapper from "components/sharedComponents/PageWrapper";
@@ -39,12 +39,12 @@ const FeaturedContentArticle = () => {
     const [isLongForm, setIsLongForm] = useState(false);
     const [sections, setSections] = useState([]);
     const [activeSection, setActiveSection] = useState([]);
+    const [isFound, setIsFound] = useState(false);
 
     const contentRef = useRef(null);
 
 
     const jumpToSection = (section = '') => {
-        console.log("jump to section", section);
         // find the section in dom
         const sectionDom = document.querySelector(`#featured-content-article-${section}`);
         if (!sectionDom) return;
@@ -61,34 +61,13 @@ const FeaturedContentArticle = () => {
         });
     };
 
-    // useEffect(() => {
-    //     console.log(MarkdownContent);
-    //     if (MarkdownContent) {
-    //         const H2Elements = document.querySelectorAll('h2');
-    //         if (H2Elements) {
-    //             const H2Sections = [...H2Elements].map((H2) => (
-    //                 {
-    //                     label: H2.innerText,
-    //                     section: H2.innerText.toLowerCase().replace(/\s+/g, '-')
-    //                 }));
-    //             setSections(H2Sections);
-    //
-    //             for (let i = 0; i < H2Elements?.length; i++) {
-    //                 H2Elements[i].querySelector('a')?.addEventListener('click', (e) => {
-    //                     e.preventDefault();
-    //                 });
-    //             }
-    //         }
-    //     }
-    // },
-    // [MarkdownContent, contentRef?.current]);
-
+    // eslint-disable-next-line consistent-return
     useEffect(() => {
         for (const article of articles) {
             if (transformString(article.title) === lastPortion) {
+                setIsFound(true);
                 setChosenArticle(article);
                 setIsLongForm(Object.prototype.hasOwnProperty.call(article, 'isLongForm') ? article.isLongForm : false);
-
                 const tempSections = [];
                 for (let i = 0; i < article?.sections?.length; i++) {
                     tempSections.push({
@@ -106,8 +85,6 @@ const FeaturedContentArticle = () => {
                         label: ""
                     }]);
                 }
-
-
             }
         }
     }, [lastPortion]);
@@ -135,12 +112,19 @@ const FeaturedContentArticle = () => {
         }
     }, [chosenArticle]);
 
-    return (
+    const setNoHeader = () => {
+        if (!isFound) return false;
+        if (!isLongForm) return true;
+        return false;
+    };
+
+    return (<>
+        {chosenArticle?.hidden && <Navigate to="/404" />}
         <PageWrapper
             pageName="featured-content-article"
             classNames="featured-content-page"
-            noHeader={!isLongForm}
-            backgroundColor={isLongForm && getPrimaryFill(chosenArticle)}
+            noHeader={setNoHeader()}
+            backgroundColor={isLongForm ? getPrimaryFill(chosenArticle) : `rgb(26, 68, 128)`}
             sections={sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
@@ -157,24 +141,26 @@ const FeaturedContentArticle = () => {
                             {chosenArticle?.taxonomy}
                         </span>
                     </div>}
-                {!isLongForm && <FeaturedContentHeader
-                    isMobile={isMobile}
-                    isTablet={isTablet}
-                    chosenArticle={chosenArticle} />}
-                <FlexGridRow desktop={12} className="grid-content featured-content__article-body">
-                    <FlexGridCol tablet={12} mobile={12} desktop={8}>
-                        <div className="featured-content__article-title">
-                            {chosenArticle?.title}
-                        </div>
-                        <div className="featured-content__last-updated">
+                {!isFound ? <ErrorMessage /> :
+                    !isLongForm && <><FeaturedContentHeader
+                        isMobile={isMobile}
+                        isTablet={isTablet}
+                        chosenArticle={chosenArticle} />
+                    <FlexGridRow desktop={12} className="grid-content featured-content__article-body">
+                        <FlexGridCol tablet={12} mobile={12} desktop={8}>
+                            <div className="featured-content__article-title">
+                                {chosenArticle?.title}
+                            </div>
+                            <div className="featured-content__last-updated">
                             Last Updated: {chosenArticle?.created_date}
-                        </div>
-                        {chosenArticle && typeof MarkdownContent === "function" && <MarkdownContent ref={contentRef} components={components} />}
-                    </FlexGridCol>
-                    <FeaturedContentArticleSidebar chosenArticle={chosenArticle} />
-                </FlexGridRow>
+                            </div>
+                            {chosenArticle && typeof MarkdownContent === "function" && <MarkdownContent ref={contentRef} components={components} />}
+                        </FlexGridCol>
+                        <FeaturedContentArticleSidebar chosenArticle={chosenArticle} />
+                    </FlexGridRow></>}
             </main>
-        </PageWrapper>);
+        </PageWrapper>
+    </>);
 };
 
 export default FeaturedContentArticle;

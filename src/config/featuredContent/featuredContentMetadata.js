@@ -1,3 +1,5 @@
+import GlobalConstants from 'GlobalConstants';
+
 /* eslint-disable max-len */
 const contentMap = {
     dataDefinition: '#783CB9',
@@ -402,43 +404,16 @@ const articles = [
         taxonomy: "See 4 Yourself",
         isLongForm: true,
         content_type: 'Featured Content',
-        banner_title: "Ways to Use Our Data",
+        title: "TEST ARTICLE - Ways to Use Our Data",
         banner_subtitle: "How People Use USAspending.gov Data",
-        title: "Ways to Use Our Data",
         created_date: "02/29/2026",
         feature_sprint: 5,
         feature_week: 1,
         sections: ["Federal Spending Transparency and Accountability", "Market Research", "Grant Opportunities and Compliance", "Federal Spending Trends and Stories"],
         description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
-        slug: "ways-to-use-our-data",
+        slug: "ways-to-use-our-data-2",
         black_text: true,
-        explore_more: [
-            {
-                label: "Advanced Search",
-                slug: "/search",
-                type: "internal"
-            },
-            {
-                label: "Data Sources",
-                slug: "/data-sources",
-                type: "internal"
-            }
-        ],
-        related_terms: []
-    },
-    {
-        taxonomy: "Spending Stories",
-        isLongForm: true,
-        content_type: 'Featured Content',
-        banner_title: "Discover How Government Spending Supports Causes You Care About ",
-        banner_subtitle: "TBD",
-        title: "Discover How Government Spending Supports Causes You Care About ",
-        created_date: "02/29/2026",
-        feature_sprint: 5,
-        feature_week: 1,
-        description: "If you’re passionate about a cause—whether it’s education, environmental protection, public health, or national security—you can use Advanced Search to explore",
-        slug: "discover-how-government-spending-supports-causes-you-care-about",
-        black_text: true,
+        hidden: true,
         explore_more: [
             {
                 label: "Advanced Search",
