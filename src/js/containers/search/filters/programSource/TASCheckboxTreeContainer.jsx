@@ -54,7 +54,6 @@ const TASCheckboxTree = () => {
     const checkedFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.require);
     const uncheckedFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.exclude);
     const countsFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.counts);
-    // const filters = useSelector((state) => state.appliedFilters.filter);
 
     const request = useRef(null);
     const dispatch = useDispatch();
@@ -113,9 +112,7 @@ const TASCheckboxTree = () => {
                             tasNodes
                         );
 
-                        dispatch(setExpandedTas(
-                            expandTasNodeAndAllDescendantParents(searchExpandedNodes), 'SET_SEARCHED_EXPANDED')
-                        );
+                        dispatch(setExpandedTas(searchExpandedNodes, 'SET_SEARCHED_EXPANDED'));
 
                         if (tasNodes.length === 0) {
                             setShowNoResults(true);
@@ -133,7 +130,7 @@ const TASCheckboxTree = () => {
                         modChecked = [...filteredChecked, ...tasNodes.map((child) => child.value)];
                     }
 
-                    const newChecked = checked.includes(`children_of_${key}`)
+                    const newChecked = modChecked?.length
                         ? autoCheckTasAfterExpand(
                             { children: tasNodes, value: key },
                             modChecked,
