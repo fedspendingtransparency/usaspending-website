@@ -3,7 +3,7 @@
  * Created by Kevin Li 8/17/17
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
@@ -74,7 +74,7 @@ export const ExplorerTreemap = ({
         return label;
     };
 
-    const buildVirtualCell = (item, scale, localTotal) => {
+    const buildVirtualCell = useCallback((item, scale, localTotal) => {
         const localHeight = item.y1 - item.y0;
         const localWidth = item.x1 - item.x0;
 
@@ -123,13 +123,13 @@ export const ExplorerTreemap = ({
         };
 
         return cell;
-    };
+    }, []);
 
-    const selectedCell = (id, title) => {
+    const selectedCell = useCallback((id, title) => {
         goDeeper(id, title);
-    };
+    }, [goDeeper]);
 
-    const buildVirtualChart = () => {
+    const buildVirtualChart = useCallback(() => {
         const localData = data.toJS();
         // parse the inbound data into D3's treemap hierarchy structure
         const treemapData = hierarchy({ children: localData })
@@ -175,11 +175,11 @@ export const ExplorerTreemap = ({
         });
 
         setVirtualChart(cells);
-    };
+    }, [data, width, height, buildVirtualCell, total]);
 
     useEffect(() => {
         buildVirtualChart();
-    }, [width, height, data]);
+    }, [buildVirtualChart]);
 
     if (width <= 0) {
         return null;
