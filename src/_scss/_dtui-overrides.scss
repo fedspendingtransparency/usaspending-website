@@ -9,13 +9,3 @@
   padding: rem(7) rem(12);
 }
 
-._acsAnimate._acsbadge--default {
-  /* Override the animation delay to 0 seconds (starts immediately from the beginning) */
-  animation-delay: 0s !important;
-  transition-duration: 0s !important;
-}
-
-._acsbadge--default {
-  -webkit-transform: none !important;
-  transform: none !important;
-}

@@ -51,6 +51,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 adjustHeight = 62;
             }
 
+            if (isMedium) {
+                adjustHeight += 51;
+            }
             const sidebarContentArea = (mainContentInView - 170) - adjustHeight;
             setSidebarContentHeight(sidebarContentArea);
 
@@ -83,6 +86,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         const mainContent = document.querySelector("#main-content");
         mainContentResizeObserver.observe(mainContent);
 
+        if (sidebarContainer.current) {
+            sidebarContainer.current.style.display = "flex";
+        }
+
         window.addEventListener('resize', () => updatePosition());
         window.addEventListener('scroll', () => updatePosition());
         window.addEventListener('scrollend', (e) => handleScrollEnd(e));
@@ -102,7 +109,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             {/* Eventually remove search-sidebar css */}
             <div
                 ref={sidebarContainer}
-                style={{ height: sidebarHeight }}
+                style={{ height: sidebarHeight, display: "none" }}
                 className={`search-collapsible-sidebar-container search-sidebar sticky ${sidebarIsOpen ? "opened" : ""} ${showMobileFilters ? "mobile" : ""}`}>
                 <div
                     className="collapsible-sidebar--toggle"
