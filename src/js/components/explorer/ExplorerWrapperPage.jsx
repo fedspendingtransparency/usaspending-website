@@ -18,16 +18,15 @@ const propTypes = {
     showShareIcon: PropTypes.bool
 };
 
-const defaultProps = {
-    showShareIcon: false
-};
-
 require('pages/explorer/explorerPage.scss');
 
 const slug = 'explorer';
 const emailSubject = 'USAspending.gov Federal Spending Explorer';
 
-const ExplorerWrapperPage = (props) => {
+const ExplorerWrapperPage = ({
+    showShareIcon = false,
+    children
+}) => {
     const dispatch = useDispatch();
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
@@ -45,7 +44,7 @@ const ExplorerWrapperPage = (props) => {
             classNames="usa-da-explorer-page"
             title="Spending Explorer"
             metaTagProps={explorerPageMetaTags}
-            toolBarComponents={props.showShareIcon ? [
+            toolBarComponents={showShareIcon ? [
                 <ShareIcon
                     onShareOptionClick={handleShare}
                     url={getBaseUrl(slug)} />
@@ -53,13 +52,12 @@ const ExplorerWrapperPage = (props) => {
             <main
                 id="main-content"
                 className="main-content">
-                {props.children}
+                {children}
             </main>
         </PageWrapper>
     );
 };
 
 ExplorerWrapperPage.propTypes = propTypes;
-ExplorerWrapperPage.defaultProps = defaultProps;
 
 export default ExplorerWrapperPage;
