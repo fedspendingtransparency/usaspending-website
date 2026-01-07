@@ -62,7 +62,7 @@ export default class CFDATreeTooltip extends React.Component {
     }
 
     positionTooltip() {
-    // measure the tooltip width
+        // measure the tooltip width
         const tooltipWidth = this.div.offsetWidth;
 
         let direction = 'top';
@@ -72,6 +72,8 @@ export default class CFDATreeTooltip extends React.Component {
             direction = 'left';
             adjustedX = (this.props.x - adjustedX);
         }
+
+        console.log({ adjustedX, y: this.props.y });
 
         this.setState({
             direction,

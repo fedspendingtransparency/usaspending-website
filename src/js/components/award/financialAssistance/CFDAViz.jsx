@@ -83,8 +83,10 @@ const CFDAViz = ({
 
     const showTooltipFunc = useCallback((position, data) => {
         setShowTooltip(true);
-        setTooltip({ ...position, ...data });
-    }, []);
+        if (data.id !== tooltip?.id) {
+            setTooltip({ ...position, ...data });
+        }
+    }, [tooltip.id]);
 
     const hideTooltip = useCallback(() => {
         setShowTooltip(false);
@@ -200,14 +202,16 @@ const CFDAViz = ({
 
     return (
         <div className="cfda-section__viz">
-            {showTooltip && <CFDATreeTooltip
-                y={tooltip.y}
-                x={tooltip.x}
-                cfdaNumber={tooltip.cfdaNumber}
-                cfdaTitle={tooltip.cfdaTitle}
-                federalActionOblicationAmount={tooltip.federalActionOblicationAmount}
-                percentOfTotal={tooltip.percentOfTotal}
-                cfdaFederalAgency={tooltip.cfdaFederalAgency} />}
+            {showTooltip && (
+                <CFDATreeTooltip
+                    y={tooltip.y}
+                    x={tooltip.x}
+                    cfdaNumber={tooltip.cfdaNumber}
+                    cfdaTitle={tooltip.cfdaTitle}
+                    federalActionOblicationAmount={tooltip.federalActionOblicationAmount}
+                    percentOfTotal={tooltip.percentOfTotal}
+                    cfdaFederalAgency={tooltip.cfdaFederalAgency} />
+            )}
             <div className="cfda-section-results">
                 {buttons()}
                 {title()}
