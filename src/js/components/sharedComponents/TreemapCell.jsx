@@ -67,7 +67,7 @@ const TreemapCell = ({
         }
         else if (data.name === 'Unreported Data') {
             exitedCell();
-            goToUnreported(this.props.data);
+            goToUnreported(data);
         }
     };
 
