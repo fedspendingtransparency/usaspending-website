@@ -18,7 +18,7 @@ import { setAppliedFilterEmptiness, resetAppliedFilters } from 'redux/actions/se
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import SearchPagev2 from 'components/search/collapsibleSidebar/SearchPagev2';
+import SearchPagev2 from 'components/search/SearchPagev2';
 import {
     convertFiltersToAnalyticEvents,
     sendAnalyticEvents,

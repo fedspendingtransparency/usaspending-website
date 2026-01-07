@@ -20,14 +20,14 @@ import {
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import SearchPage from 'components/search/SearchPage';
+import SearchPage from './SearchPage';
 
 import {
     convertFiltersToAnalyticEvents,
     sendAnalyticEvents,
     sendFieldCombinations
-} from './helpers/searchAnalytics';
-import useQueryParams from "../../hooks/useQueryParams";
+} from '../../../containers/search/helpers/searchAnalytics';
+import useQueryParams from "../../../hooks/useQueryParams";
 
 require('pages/search/searchPage.scss');
 

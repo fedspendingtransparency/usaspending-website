@@ -40,8 +40,8 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 
 
 import { TooltipWrapper } from 'data-transparency-ui';
-import { FilterTooltip } from '../award/shared/InfoTooltipContent';
-import Alert from "../sharedComponents/Alert";
+import { FilterTooltip } from '../../award/shared/InfoTooltipContent';
+import Alert from "../../sharedComponents/Alert";
 
 const staticFilters = {
     // NOTE: if you update the title here
