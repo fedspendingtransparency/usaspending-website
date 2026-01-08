@@ -3,12 +3,11 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useEffect, useState, useRef } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
 
 import useIsMobile from "hooks/useIsMobile";
-import { checkInView } from "helpers/search/collapsiblesidebarHelper";
 import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
 
@@ -20,13 +19,6 @@ const propTypes = {
 const SidebarWrapper = React.memo(function SidebarWrapper({
     showMobileFilters, setShowMobileFilters, sidebarIsOpen, setSidebarIsOpen
 }) {
-    const [initialPageLoad, setInitialPageLoad] = useState(true);
-    const [sidebarContentHeight, setSidebarContentHeight] = useState();
-    const [sidebarHeight, setSidebarHeight] = useState();
-    const [mainContentHeight, setMainContentHeight] = useState();
-
-    const sidebarContainer = useRef();
-
     const { isMedium } = useIsMobile();
 
     const toggleOpened = (e) => {
@@ -40,77 +32,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
     };
 
-    const updatePosition = () => {
-        if (sidebarContainer?.current) {
-            const hasStickyHeader = document.querySelector(".usda-page-header--sticky");
-            const mainContentEl = document.querySelector(".search-contents.v2");
-            const mainContentInView = checkInView(mainContentEl);
-
-            let adjustHeight = -36;
-            if (hasStickyHeader) {
-                adjustHeight = 62;
-            }
-
-            if (isMedium) {
-                adjustHeight += 51;
-            }
-            const sidebarContentArea = (mainContentInView - 170) - adjustHeight;
-            setSidebarContentHeight(sidebarContentArea);
-
-            setSidebarHeight(mainContentInView - adjustHeight);
-        }
-    };
-
-    const handleScrollEnd = (e) => {
-        updatePosition(e);
-    };
-
-    useEffect(() => {
-        if (initialPageLoad) {
-            setInitialPageLoad(false);
-            updatePosition();
-        }
-    }, [initialPageLoad]);
-
-    useEffect(() => {
-        updatePosition();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [mainContentHeight]);
-
-    useEffect(() => {
-        // eslint-disable-next-line no-undef
-        const mainContentResizeObserver = new ResizeObserver((entries) => {
-            setMainContentHeight(entries[0].target?.clientHeight);
-        });
-
-        const mainContent = document.querySelector("#main-content");
-        mainContentResizeObserver.observe(mainContent);
-
-        if (sidebarContainer.current) {
-            sidebarContainer.current.style.display = "flex";
-        }
-
-        window.addEventListener('resize', () => updatePosition());
-        window.addEventListener('scroll', () => updatePosition());
-        window.addEventListener('scrollend', (e) => handleScrollEnd(e));
-
-        return () => {
-            window.removeEventListener('resize', () => updatePosition());
-            window.removeEventListener('scroll', () => updatePosition());
-            window.removeEventListener('scrollend', (e) => handleScrollEnd(e));
-
-            mainContentResizeObserver?.unobserve(mainContent);
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     return (
         <>
             {/* Eventually remove search-sidebar css */}
-            <div
-                ref={sidebarContainer}
-                style={{ height: sidebarHeight, display: "none" }}
-                className={`search-collapsible-sidebar-container search-sidebar sticky ${sidebarIsOpen ? "opened" : ""} ${showMobileFilters ? "mobile" : ""}`}>
+            <div className={`search-collapsible-sidebar-container search-sidebar sticky ${sidebarIsOpen ? "opened" : ""} ${showMobileFilters ? "mobile" : ""}`}>
                 <div
                     className="collapsible-sidebar--toggle"
                     onClick={(e) => {
@@ -130,13 +55,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     }
                 </div>
                 { sidebarIsOpen && !isMedium &&
-                    <SidebarContent
-                        sidebarContentHeight={sidebarContentHeight} />
+                    <SidebarContent />
                 }
                 { sidebarIsOpen && showMobileFilters &&
-                    <MobileSidebarContent
-                        sidebarContentHeight={sidebarContentHeight}
-                        setShowMobileFilters={setShowMobileFilters} />
+                    <MobileSidebarContent setShowMobileFilters={setShowMobileFilters} />
                 }
                 { !sidebarIsOpen && !isMedium &&
                     <div style={{ margin: "18px 16px" }}><FontAwesomeIcon icon="filter" /></div>

@@ -148,7 +148,7 @@ const SearchPage = React.memo(({
         <PageWrapper
             pageName="Advanced Search"
             classNames="usa-da-search-page"
-            title="Advanced Search"
+            title="Award Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
                 <SubawardDropdown

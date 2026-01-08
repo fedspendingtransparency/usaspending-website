@@ -52,8 +52,8 @@ const SidebarContentFilters = ({ sidebarContentHeight, isMobile }) => {
 
     return (
         <div
-            className="collapsible-sidebar--search-filters-list"
-            style={{ height: sidebarContentHeight }}>
+            className="collapsible-sidebar--search-filters-list">
+            {/*style={{ height: sidebarContentHeight }}>*/}
             <Keyword searchV2 />
             {searchFilterCategoryTree.map(({ title, component }) => (
                 <SidebarContentFilterAccordion
