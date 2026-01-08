@@ -14,7 +14,7 @@ const propTypes = {
     isMobile: PropTypes.bool
 };
 
-const SidebarContentFilters = ({ sidebarContentHeight, isMobile }) => {
+const SidebarContentFilters = ({ isMobile }) => {
     const [open, setOpen] = useState({
         Location: false,
         "Time Period": true,
@@ -53,7 +53,6 @@ const SidebarContentFilters = ({ sidebarContentHeight, isMobile }) => {
     return (
         <div
             className="collapsible-sidebar--search-filters-list">
-            {/*style={{ height: sidebarContentHeight }}>*/}
             <Keyword searchV2 />
             {searchFilterCategoryTree.map(({ title, component }) => (
                 <SidebarContentFilterAccordion
