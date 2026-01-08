@@ -238,19 +238,9 @@
 
     @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
       .opened {
-        flex: 0 0 300px;
+        flex: 1 0 300px;
       }
     }
-  }
-
-  @media(min-width: $large-screen) {
-    display: flex;
-    flex-basis: 350px;
-  }
-
-  @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
-    display: flex;
-    flex-basis: 300px;
   }
 }
 

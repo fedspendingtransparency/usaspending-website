@@ -2,6 +2,9 @@
   &.fixed-body {
     position: fixed;
     max-width: 100vw;
+    .mobile-sort-toggle {
+      display: none !important;
+    }
   }
   #main-content {
     padding-bottom: 0;
