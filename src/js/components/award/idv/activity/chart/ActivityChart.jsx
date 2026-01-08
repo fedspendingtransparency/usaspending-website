@@ -305,8 +305,6 @@ const ActivityChart = ({
         const { newXRange, newYRange } = xyRange();
         const { newGraphWidth, newGraphHeight } = graphWidthAndHeight();
 
-        console.log({ newXRange, newGraphWidth });
-
         // Create the scales using D3
         // domain is the data range, and range is the
         // range of possible pixel positions along the axis

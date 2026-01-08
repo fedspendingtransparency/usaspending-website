@@ -3,20 +3,9 @@
  * Created by Lizzie Salita 5/16/19
  */
 
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash-es';
 import ActivityXAxisItem from './ActivityXAxisItem';
-
-const defaultProps = {
-    padding: {
-        left: 0,
-        bottom: 0,
-        top: 0,
-        right: 0
-    },
-    width: 0
-};
 
 const propTypes = {
     width: PropTypes.number,
@@ -30,38 +19,32 @@ const propTypes = {
     removeLastLabel: PropTypes.bool
 };
 
-const yOffset = 20;
+const ActivityXAxis = ({
+    width = 0,
+    height,
+    padding = {
+        left: 0,
+        bottom: 0,
+        top: 0,
+        right: 0
+    },
+    line,
+    transformLabels,
+    scale,
+    ticks,
+    removeFirstLabel,
+    removeLastLabel
+}) => {
+    const [description, setDescription] = useState('');
+    const [labels, setLabels] = useState([]);
 
-const labelOffset = 15;
+    const yOffset = 20;
+    const labelOffset = 15;
+    const rotate = transformLabels?.rotate;
+    const x = transformLabels?.x;
+    const y = transformLabels?.y;
 
-export default class ActivityXAxis extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            description: '',
-            labels: [],
-            gridLines: []
-        };
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!isEqual(prevProps, this.props)) {
-            this.drawAxis();
-        }
-    }
-
-    drawAxis = () => {
-        const {
-            scale,
-            ticks,
-            height,
-            width,
-            line,
-            transformLabels,
-            removeFirstLabel,
-            removeLastLabel
-        } = this.props;
+    const drawAxis = useCallback(() => {
         if (!scale) {
             return;
         }
@@ -72,17 +55,17 @@ export default class ActivityXAxis extends React.Component {
         const lineStart = -5;
         const lineEnd = 5;
 
-        let description = '';
+        let newDescription = '';
         if (tickLabels.length > 0) {
-            description = `The X-axis of the chart, showing a range of dates from `;
-            description += `${tickLabels[0]} to ${tickLabels[tickLabels.length - 1]}`;
+            newDescription = `The X-axis of the chart, showing a range of dates from `;
+            newDescription += `${tickLabels[0]} to ${tickLabels[tickLabels.length - 1]}`;
         }
 
         // set all the labels 20px below the X axis
         const yPos = height + yOffset;
 
         // iterate through the D3 generated tick marks and add them to the chart
-        const labels = ticks.map((tick, i, array) => {
+        const newLabels = ticks.map((tick, i, array) => {
             // calculate the X position
             // D3 scale returns the tick positions as pixels
             const xPos = scale(tick.date);
@@ -93,9 +76,12 @@ export default class ActivityXAxis extends React.Component {
             if (removeFirstLabel && i === 0) return null;
             if (removeLastLabel && i === (array.length - 1)) return null;
             // adjust the display of the labels
-            const translateX = xPos - ((transformLabels?.x || transformLabels?.x === 0) ? transformLabels?.x : labelOffset);
-            const translateY = yPos + ((transformLabels?.y || transformLabels?.y === 0) ? transformLabels?.y : labelOffset);
-            const rotateLabel = (transformLabels?.rotate || transformLabels?.rotate === 0) ? transformLabels?.rotate : 325;
+            const translateX = xPos - ((x || x === 0) ?
+                x : labelOffset);
+            const translateY = yPos + ((y || y === 0) ?
+                y : labelOffset);
+            const rotateLabel = (rotate || rotate === 0) ?
+                rotate : 325;
             const transform = `translate(${translateX},${translateY}) rotate(${rotateLabel})`;
 
             return (<ActivityXAxisItem
@@ -109,34 +95,45 @@ export default class ActivityXAxis extends React.Component {
                 line={line || false} />);
         });
 
-        this.setState({
-            labels,
-            description
-        });
-    };
+        setDescription(newDescription);
+        setLabels(newLabels);
+    }, [
+        width,
+        height,
+        line,
+        rotate,
+        x,
+        y,
+        scale,
+        ticks,
+        removeFirstLabel,
+        removeLastLabel
+    ]);
 
-    render() {
-        return (
-            <g
-                className="bar-axis"
-                transform={`translate(${this.props.padding.left},0)`}>
-                <title>X-Axis</title>
-                <desc>
-                    {this.state.description}
-                </desc>
-                <line
-                    className="axis x-axis"
-                    x1={0}
-                    y1={this.props.height}
-                    x2={this.props.width}
-                    y2={this.props.height} />
-                <g className="axis-labels">
-                    {this.state.labels}
-                </g>
+    useEffect(() => {
+        drawAxis();
+    }, [drawAxis]);
+
+    return (
+        <g
+            className="bar-axis"
+            transform={`translate(${padding.left},0)`}>
+            <title>X-Axis</title>
+            <desc>
+                {description}
+            </desc>
+            <line
+                className="axis x-axis"
+                x1={0}
+                y1={height}
+                x2={width}
+                y2={height} />
+            <g className="axis-labels">
+                {labels}
             </g>
-        );
-    }
-}
+        </g>
+    );
+};
 
 ActivityXAxis.propTypes = propTypes;
-ActivityXAxis.defaultProps = defaultProps;
+export default ActivityXAxis;
