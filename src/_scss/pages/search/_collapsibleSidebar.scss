@@ -49,13 +49,20 @@
       }
 
       @media(max-width: $medium-screen - 1) {
-        &:not(.mobile) {
-          flex: 0 0 0%;
-          width: 0;
+        &.mobile {
+          flex: 0 0 100%;
+          width: 100%;
+        }
+      }
+
+      @media(min-width: $medium-screen - 1) {
+        &.mobile {
+          flex: 0 0 352px;
+          width: 352px;
         }
       }
     }
-
+  
     &:not(.opened) {
       flex: 0 0 48px;
       width: 48px;
