@@ -15,6 +15,7 @@
 .usda-page-header--sticky + #main-content {
   .search-collapsible-sidebar-container.sticky {
     top: 60px;
+    min-height: calc(100vh - 60px);
   }
 }
 
@@ -28,7 +29,8 @@
     box-shadow: none;
     border-radius: unset;
     background-color: unset;
-    min-height: 500px;
+    flex-grow: 1;
+    min-height: calc(100vh - 130px);
 
     &.sticky {
         position: sticky;
@@ -159,10 +161,18 @@
     }
 
     .collapsible-sidebar--main-menu {
+      overflow-y: auto;
+
       .collapsible-sidebar--search-filters-list {
         overflow-y: auto;
         scrollbar-gutter: stable;
-        min-height: 330px;
+        flex-grow: 1;
+
+        // This should be for mobile
+        @media(max-width: $medium-screen - 1) {
+          height: calc(100vh - 400px);
+        }
+
 
         .search-filters-list {
           margin: 0 ($global-padding * 4);
@@ -222,25 +232,15 @@
     margin-right: rem(16);
     @media(min-width: $large-screen) {
       .opened {
-        flex: 0 0 352px;
+        flex: 1 0 352px;
       }
     }
 
     @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
       .opened {
-        flex: 0 0 300px;
+        flex: 1 0 300px;
       }
     }
-  }
-
-  @media(min-width: $large-screen) {
-    display: flex;
-    flex-basis: 350px;
-  }
-
-  @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
-    display: flex;
-    flex-basis: 300px;
   }
 }
 
