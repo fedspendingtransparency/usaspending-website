@@ -289,7 +289,7 @@ const ContractGrantsActivityChart = ({
             .nice();
         setYTicks(updatedTicksWithSpacing);
         setYScale(() => updatedScale);
-    }, [yDomain, height, totalVerticalLineTextHeight]);
+    }, [yDomain, height, addTicksForSpacing]);
     // hook - runs only on mount unless transactions change
     useEffect(() => {
         if (xDomain.length && yDomain.length) {
@@ -312,7 +312,7 @@ const ContractGrantsActivityChart = ({
             setEndLineData(Object.assign({}, endLineData, { value: getLineValue(dates._endDate, xDomain) }));
             setPotentialEndLineData(Object.assign({}, potentialEndLineData, { value: getLineValue(dates._potentialEndDate, xDomain) }));
         }
-    }, [dates, xDomain]);
+    }, [dates, endLineData, potentialEndLineData, startLineData, todayLineData, xDomain]);
     const setVerticalLineHeight = (i, lineHeight) => {
         if (i === 0) return setStartLineData(Object.assign({}, startLineData, { height: lineHeight }));
         if (i === 1) return setEndLineData(Object.assign({}, endLineData, { height: lineHeight }));
@@ -345,13 +345,7 @@ const ContractGrantsActivityChart = ({
                 }
                 return null;
             });
-    }, [
-        verticalLineTextHeight,
-        startLineData,
-        endLineData,
-        todayLineData,
-        potentialEndLineData
-    ]);
+    }, [allVerticalLines, setVerticalLineHeight, verticalLineTextHeight]);
 
     const updateTotalTextHeightAndVerticalLineHeights = useCallback(() => {
         if (!totalVerticalLineTextHeight) {
@@ -390,17 +384,16 @@ const ContractGrantsActivityChart = ({
             <g className="contract-grant-activity-chart__body" transform="translate(0,10)">
                 <ActivityYAxis
                     height={height}
-                    width={visualizationWidth}
                     padding={paddingForYAxis}
                     scale={yScale}
                     ticks={yTicks}
                     textAnchor="left" />
                 <ActivityXAxis
-                    height={height}
                     width={visualizationWidth - padding.left}
+                    height={height}
                     padding={padding}
-                    ticks={xTicks}
                     scale={xScale}
+                    ticks={xTicks}
                     line />
                 {/* area paths */}
                 {xScale && <ContractGrantActivityChartAreaPaths

@@ -11,10 +11,10 @@ const propTypes = {
     width: PropTypes.number,
     height: PropTypes.number,
     padding: PropTypes.object,
-    line: PropTypes.bool,
-    transformLabels: PropTypes.object,
     scale: PropTypes.func,
     ticks: PropTypes.array,
+    line: PropTypes.bool,
+    transformLabels: PropTypes.object,
     removeFirstLabel: PropTypes.bool,
     removeLastLabel: PropTypes.bool
 };
@@ -28,10 +28,10 @@ const ActivityXAxis = ({
         top: 0,
         right: 0
     },
-    line,
-    transformLabels,
     scale,
     ticks,
+    line,
+    transformLabels,
     removeFirstLabel,
     removeLastLabel
 }) => {

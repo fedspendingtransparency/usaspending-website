@@ -346,17 +346,16 @@ const ActivityChart = ({
                 transform="translate(0,45)">
                 <ActivityYAxis
                     height={height - padding.bottom}
-                    width={width - padding.left}
-                    extendLine={barHeight}
                     padding={padding}
+                    extendLine={barHeight}
                     scale={yScaleRef.current}
                     ticks={yTicks} />
                 <ActivityXAxis
-                    height={height - padding.bottom}
                     width={graphWidth}
+                    height={height - padding.bottom}
                     padding={padding}
-                    ticks={xTicks}
                     scale={xScaleRef.current}
+                    ticks={xTicks}
                     line />
                 <g
                     className="activity-chart-data">
