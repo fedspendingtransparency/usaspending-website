@@ -5,7 +5,6 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
 import { remove } from 'lodash-es';
