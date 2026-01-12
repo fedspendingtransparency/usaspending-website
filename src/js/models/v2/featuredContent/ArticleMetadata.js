@@ -10,16 +10,14 @@ const ArticleMetadata = {
         this.taxonomy = data.taxonomy || '';
         this.fill = data.fill || '';
         this.title = data.title || '';
-        this.alt_title = data.alt_title || '';
+        this.banner_subtitle = data.banner_subtitle || '';
         this.created_date = data.created_date || '';
         this.description = data.description || '';
-        this.mdx_path = data.mdx_path || '';
-        this.thumbnail_path = data.thumbnail_path || '';
-        this.mobile_hero = data.mobile_hero || '';
         this.hero = data.hero || '';
         this.slug = data.slug || '';
         this.explore_more = data.explore_more || '';
         this.related_terms = data.related_terms || '';
+        this.hidden = data.hidden || '';
     },
     get publishedAt() {
         return transformDate(this.created_date);

@@ -10,14 +10,14 @@ import { Set } from 'immutable';
 import { MemoryRouter, Router, Route, useLocation } from 'react-router';
 import * as redux from 'react-redux';
 
-import SearchContainer, { parseRemoteFilters } from 'containers/search/SearchContainer';
+import SearchContainer, { parseRemoteFilters } from 'containers/search/SearchContainerv2';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 
 import { mockFilters, mockRedux } from './mockSearchHashes';
 import { restoreUrlHash, generateUrlHash } from './filters/searchHelper';
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/search/SearchPage', () => (
+jest.mock('components/search/SearchPagev2', () => (
     jest.fn(() => null)
 ));
 

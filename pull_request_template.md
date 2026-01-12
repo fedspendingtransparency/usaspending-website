@@ -6,7 +6,7 @@ High level description of the PR.  Please include technical details for the know
 [DEV-12345](https://federal-spending-transparency.atlassian.net/browse/DEV-12345)
 
 **Mockup:**
-https://app.zeplin.io/
+https://figma-gov.com/
 
 The following are ALL required for the PR to be merged:
 

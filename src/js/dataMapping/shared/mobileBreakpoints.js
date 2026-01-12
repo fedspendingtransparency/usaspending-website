@@ -6,17 +6,17 @@
 // exports our SCSS breakpoint variables for use in JS files
 // these values should match scss/core/variables.scss
 
-export const smallScreen = 320; // dnu for custom hook
-export const smTabletScreen = 576; // less than is mobile
-export const tabletScreen = 768; // not used?
-export const mediumScreen = 992; // larger than or equal to is desktop
-export const largeScreen = 1200; // dnu for custom hook
-export const mLargeScreen = 1400; // dnu for custom hook
-export const xLargeScreen = 1640; // dnu for custom hook
+export const smallScreen = 320;
+export const smTabletScreen = 576;
+export const tabletScreen = 768;
+export const mediumScreen = 992;
+export const largeScreen = 1200;
+export const mLargeScreen = 1400;
+export const xLargeScreen = 1640;
 
 export const getScreenSize = (windowWidth) => {
-    if (windowWidth >= mLargeScreen) return 'isDesktop';
-    else if ((windowWidth < mLargeScreen) && (windowWidth >= mediumScreen)) return 'isMedium';
+    if (windowWidth >= mLargeScreen) return 'isDesktopLg';
+    else if ((windowWidth < mLargeScreen) && (windowWidth >= mediumScreen)) return 'isDesktopSm';
     else if ((windowWidth < mediumScreen) && (windowWidth >= tabletScreen)) return 'isMedium';
     else if ((windowWidth < tabletScreen) && (windowWidth >= smTabletScreen)) return 'isTablet';
     return 'isMobile';
