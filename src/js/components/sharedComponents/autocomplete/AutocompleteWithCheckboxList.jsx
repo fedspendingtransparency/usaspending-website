@@ -29,7 +29,7 @@ const propTypes = {
     searchId: PropTypes.string
 };
 
-const AutocompleteWithCheckboxList = ({
+const AutocompleteWithCheckboxList = React.memo(({
     handleTextInputChange,
     onSearchClear,
     onClearAll,
@@ -182,7 +182,7 @@ const AutocompleteWithCheckboxList = ({
     };
 
     return (
-        <div className="extent-competed-filter" ref={dropDownRef}>
+        <div className={`extent-competed-filter ${filterType}`} ref={dropDownRef}>
             <EntityDropdownAutocomplete
                 placeholder={placeholder}
                 searchString={searchString}
@@ -201,7 +201,7 @@ const AutocompleteWithCheckboxList = ({
             </div>
         </div>
     );
-};
+});
 
 AutocompleteWithCheckboxList.propTypes = propTypes;
 export default AutocompleteWithCheckboxList;

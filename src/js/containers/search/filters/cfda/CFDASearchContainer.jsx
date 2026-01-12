@@ -3,7 +3,7 @@
   * Created by Emily Gullo 07/10/2017
   **/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 
@@ -108,9 +108,9 @@ const CFDASearchContainer = () => {
             });
     };
 
-    const handleTextInputChange = (e) => {
+    const handleTextInputChange = useCallback((e) => {
         setCfdaSearchString(e.target.value);
-    };
+    }, []);
 
     const handleSearchClear = () => {
         setCfdaSearchString(''); // clean up if previously set
@@ -164,7 +164,9 @@ const CFDASearchContainer = () => {
         if (searchedFilterValues?.cfda) {
             searchValues = searchedFilterValues.cfda;
         }
-        else if (searchedFilterValues?.get('cfda')) {
+        else if ((searchedFilterValues?.get === 'function')
+            && (searchedFilterValues.get('cfda'))
+        ) {
             searchValues = searchedFilterValues.get('cfda');
         }
         if (searchValues && (!cfdaSearchString || cfdaSearchString !== searchValues?.input)) {
