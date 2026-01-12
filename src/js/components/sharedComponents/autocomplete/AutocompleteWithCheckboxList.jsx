@@ -44,7 +44,7 @@ const AutocompleteWithCheckboxList = React.memo(({
     errorMessage,
     noResults,
     limit = 500,
-    placeholder = "Search filters ...",
+    placeholder = "Type at least 3 letters...",
     searchId
 }) => {
     const [allSelected, setAllSelected] = useState(false);
