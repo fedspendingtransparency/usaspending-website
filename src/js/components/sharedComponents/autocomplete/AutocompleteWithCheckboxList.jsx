@@ -70,8 +70,8 @@ const AutocompleteWithCheckboxList = React.memo(({
     };
 
     const toggleDropdown = useCallback(() => {
-        setIsOpen(!isOpen);
-    }, [isOpen]);
+        setIsOpen((prevState) => !prevState);
+    }, []);
 
     useEffect(() => {
         if (selectedFilters?.size > 0) {
