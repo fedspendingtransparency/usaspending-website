@@ -1,8 +1,7 @@
 @import "searchFilter";
 @import "../../components/checkboxTree/checkboxTree";
 
-.usa-da-search-page.v2 {
-
+&.v2 {
   // .usda-page-header style is a DTUI override that's specific to the search 2.0 page
   .usda-page-header, .usda-page-header--sticky {
     position: sticky !important;
@@ -13,9 +12,9 @@
 }
 
 .usda-page-header--sticky + #main-content {
-  .search-collapsible-sidebar-container.sticky {
+  .search-collapsible-sidebar-container {
     top: 60px;
-    min-height: calc(100vh - 60px);
+    min-height: calc(100vh - 62px);
   }
 }
 
@@ -23,14 +22,11 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
-    margin-top: -40px !important; // TODO Keep here until we remove the legacy panel css
-    border-left: 1px solid $gray-cool-10;
-    border-right: 1px solid $gray-cool-10;
     box-shadow: none;
     border-radius: unset;
     background-color: unset;
     flex-grow: 1;
-    min-height: calc(100vh - 130px);
+    min-height: calc(100vh - 16px);
 
     &.sticky {
         position: sticky;
@@ -49,9 +45,21 @@
       }
 
       @media(max-width: $medium-screen - 1) {
+        &.mobile {
+          flex: 0 0 100%;
+          width: 100%;
+        }
+
         &:not(.mobile) {
-          flex: 0 0 0%;
+          flex: 0;
           width: 0;
+        }
+      }
+
+      @media(min-width: $medium-screen) {
+        &.mobile {
+          flex: 0 0 352px;
+          width: 352px;
         }
       }
     }
@@ -229,7 +237,6 @@
 
 .search-contents.v2 {
   .search-collapsible-sidebar-container {
-    margin-right: rem(16);
     @media(min-width: $large-screen) {
       .opened {
         flex: 1 0 352px;
