@@ -2,7 +2,7 @@
  * Created by JD House on 11/21/25.
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EntityDropdownAutocomplete from
@@ -69,9 +69,9 @@ const AutocompleteWithCheckboxList = React.memo(({
         setShowClearAll(false);
     };
 
-    const toggleDropdown = () => {
+    const toggleDropdown = useCallback(() => {
         setIsOpen(!isOpen);
-    };
+    }, [isOpen]);
 
     useEffect(() => {
         if (selectedFilters?.size > 0) {
@@ -84,23 +84,18 @@ const AutocompleteWithCheckboxList = React.memo(({
     }, [selectedFilters.size]);
 
     useEffect(() => {
-        if (filters?.length) {
-            setIsOpen(true);
-        }
-    }, [filters]);
-
-    useEffect(() => {
         const handleOutsideClick = (e) => {
             if (dropDownRef.current && !dropDownRef.current.contains(e.target)) {
                 setIsOpen(false);
             }
         };
-
-        document.addEventListener('click', handleOutsideClick);
+        if (isOpen) {
+            document.addEventListener('click', handleOutsideClick);
+        }
         return () => {
             document.removeEventListener('click', handleOutsideClick);
         };
-    }, [dropDownRef]);
+    }, [dropDownRef, isOpen]);
 
     const checkboxHeading = () => {
         if (!searchString) return null;
