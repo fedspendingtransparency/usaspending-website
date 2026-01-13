@@ -40,10 +40,10 @@ const Glossary = (props) => {
     }));
 
     useEffect(() => {
-        if (props.glossary.display) {
+        if (props.glossary?.display) {
             setFirstMount(false);
         }
-    }, [props.glossary.display]);
+    }, [props.glossary?.display]);
 
     const closeGlossary = useCallback((e) => {
         if (e.key === 'Escape' || (e.type === 'click')) {
@@ -74,11 +74,11 @@ const Glossary = (props) => {
     useEffect(() => {
         measureAvailableHeight();
 
-        if (props.glossary.search.results.length === 0) {
+        if (props.glossary?.search.results.length === 0) {
             setContent(<NoResults {...props} />);
             setLoadingContent(null);
         }
-        else if (props.glossary.term.slug && props.glossary.term.slug !== '') {
+        else if (props.glossary?.term.slug && props.glossary?.term.slug !== '') {
             setContent(<GlossaryDefinition {...props} />);
             setLoadingContent(null);
         }
@@ -99,7 +99,7 @@ const Glossary = (props) => {
 
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.loading, props.error, props.glossary.search.results, props.glossary.term.slug]);
+    }, [props.loading, props.error, props.glossary?.search.results, props.glossary?.term.slug]);
 
     useEffect(() => {
         window.addEventListener('keyup', closeGlossary);
@@ -116,15 +116,15 @@ const Glossary = (props) => {
     }, [measureAvailableHeight, scrollbar]);
 
     useEffect(() => {
-        if (props.glossary.term) {
+        if (props.glossary?.term) {
             scrollbar?.scrollToTop();
         }
-    }, [props.glossary.term, scrollbar]);
+    }, [props.glossary?.term, scrollbar]);
 
     return (
         <div
             style={{ visibility: firstMount ? "hidden" : "" }}
-            className={props.glossary.display ? `opened usa-da-glossary-wrapper ${props.zIndexClass}` : `usa-da-glossary-wrapper ${props.zIndexClass}`}>
+            className={props.glossary?.display ? `opened usa-da-glossary-wrapper ${props.zIndexClass}` : `usa-da-glossary-wrapper ${props.zIndexClass}`}>
             <aside
                 id="glossary-sidebar"
                 role="dialog"

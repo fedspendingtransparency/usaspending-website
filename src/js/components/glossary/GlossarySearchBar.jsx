@@ -46,23 +46,23 @@ const GlossarySearchBar = (props) => {
         performSearch(props.glossary.search.input);
     };
 
-    return (
-        <div className="glossary-search-bar">
-            <form onSubmit={submitSearch}>
-                <input
-                    className="search-field"
-                    type="text"
-                    value={props.glossary.search.input}
-                    placeholder="Search for a term..."
-                    onChange={changedSearchValue} />
-                <button
-                    aria-label="Search"
-                    className="search-button"
-                    type="submit">
-                    <Search alt="Search" />
-                </button>
-            </form>
-        </div>
+    return (<></>
+        // <div className="glossary-search-bar">
+        //     <form onSubmit={submitSearch}>
+        //         <input
+        //             className="search-field"
+        //             type="text"
+        //             value={props.glossary.search.input}
+        //             placeholder="Search for a term..."
+        //             onChange={changedSearchValue} />
+        //         <button
+        //             aria-label="Search"
+        //             className="search-button"
+        //             type="submit">
+        //             <Search alt="Search" />
+        //         </button>
+        //     </form>
+        // </div>
     );
 };
 
