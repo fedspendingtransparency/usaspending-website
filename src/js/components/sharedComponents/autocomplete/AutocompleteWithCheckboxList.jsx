@@ -2,7 +2,7 @@
  * Created by JD House on 11/21/25.
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import EntityDropdownAutocomplete from
@@ -29,7 +29,7 @@ const propTypes = {
     searchId: PropTypes.string
 };
 
-const AutocompleteWithCheckboxList = ({
+const AutocompleteWithCheckboxList = React.memo(({
     handleTextInputChange,
     onSearchClear,
     onClearAll,
@@ -44,7 +44,7 @@ const AutocompleteWithCheckboxList = ({
     errorMessage,
     noResults,
     limit = 500,
-    placeholder = "Search filters ...",
+    placeholder = "Type at least 3 letters...",
     searchId
 }) => {
     const [allSelected, setAllSelected] = useState(false);
@@ -69,9 +69,9 @@ const AutocompleteWithCheckboxList = ({
         setShowClearAll(false);
     };
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
+    const toggleDropdown = useCallback(() => {
+        setIsOpen((prevState) => !prevState);
+    }, []);
 
     useEffect(() => {
         if (selectedFilters?.size > 0) {
@@ -84,23 +84,18 @@ const AutocompleteWithCheckboxList = ({
     }, [selectedFilters.size]);
 
     useEffect(() => {
-        if (filters?.length) {
-            setIsOpen(true);
-        }
-    }, [filters]);
-
-    useEffect(() => {
         const handleOutsideClick = (e) => {
             if (dropDownRef.current && !dropDownRef.current.contains(e.target)) {
                 setIsOpen(false);
             }
         };
-
-        document.addEventListener('click', handleOutsideClick);
+        if (isOpen) {
+            document.addEventListener('click', handleOutsideClick);
+        }
         return () => {
             document.removeEventListener('click', handleOutsideClick);
         };
-    }, [dropDownRef]);
+    }, [dropDownRef, isOpen]);
 
     const checkboxHeading = () => {
         if (!searchString) return null;
@@ -182,7 +177,7 @@ const AutocompleteWithCheckboxList = ({
     };
 
     return (
-        <div className="extent-competed-filter" ref={dropDownRef}>
+        <div className={`extent-competed-filter ${filterType}`} ref={dropDownRef}>
             <EntityDropdownAutocomplete
                 placeholder={placeholder}
                 searchString={searchString}
@@ -201,7 +196,7 @@ const AutocompleteWithCheckboxList = ({
             </div>
         </div>
     );
-};
+});
 
 AutocompleteWithCheckboxList.propTypes = propTypes;
 export default AutocompleteWithCheckboxList;
