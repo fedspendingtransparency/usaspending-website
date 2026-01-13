@@ -6,8 +6,9 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardContainer, CardBody, CardButton } from 'data-transparency-ui';
-import { isCancel } from "axios";
 import { useLocation } from "react-router";
+// eslint-disable-next-line import/no-extraneous-dependencies
+import { useQuery } from "@tanstack/react-query";
 import { fetchAllTerms } from "helpers/glossaryHelper";
 import Analytics from '../../../helpers/analytics/Analytics';
 import { LoadingWrapper } from "../../sharedComponents/Loading";
@@ -15,8 +16,7 @@ import ErrorWordOfTheDay from "./ErrorWordOfTheDay";
 import { showSlideout } from '../../../helpers/slideoutHelper';
 
 const WordOfTheDay = () => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
+    const [noResults, setNoResults] = useState(false);
     const [term, setTerm] = useState('');
     const [changedTerm, setChangedTerm] = useState('');
     const [definition, setDefinition] = useState('');
@@ -110,22 +110,21 @@ const WordOfTheDay = () => {
         setCurrentMonth(d.getUTCMonth());
     };
 
+    const {
+        data: allTerms, isSuccess: allTermsSuccess, isLoading: loading, error
+    } = useQuery({
+        queryKey: ['allGlossaryTerms'],
+        queryFn: () => fetchAllTerms().promise,
+        staleTime: 60000
+    });
+
     useEffect(() => {
-        fetchAllTerms().promise
-            .then((res) => {
-                selectWordOfTheDay();
-                setGlossary(res.data.results);
-                setLoading(false);
-                setError(false);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    setLoading(false);
-                    setError(true);
-                }
-            });
-    }, []);
+        if (allTerms && allTermsSuccess) {
+            selectWordOfTheDay();
+            setGlossary(allTerms.data.results);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [allTerms, allTermsSuccess]);
 
     const readMoreAction = () => {
         Analytics.event({
@@ -154,13 +153,13 @@ const WordOfTheDay = () => {
                 if (value.term?.trim().toLowerCase() === term?.trim().toLowerCase()) {
                     setGlossarySlug(value.slug);
                     found = true;
-                    setError(false);
+                    setNoResults(false);
                     setDefinition(value.plain);
                 }
             }
         }
         if (!found) {
-            setError(true);
+            setNoResults(true);
         }
 
         if (term === "Account Balance (File A)") {
@@ -198,7 +197,7 @@ const WordOfTheDay = () => {
             </div>
             <CardContainer variant="outline" fill="#1a4480">
                 {/* eslint-disable-next-line no-nested-ternary */}
-                {!loading && !error ?
+                {!loading && !noResults && !error ?
                     <>
                         <div className="word-of-the-day__headline">{changedTerm === "" ? term : changedTerm}</div>
                         <div className="word-of-the-day__divider" />
