@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from "@tanstack/react-query";
 
 import * as GlossaryHelper from 'helpers/glossaryHelper';
 
@@ -31,8 +31,13 @@ const propTypes = {
 const GlossaryContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [searchLoading, setSearchLoading] = useState(false);
-    const [isError, setIsError] = useState(false);
+    const [error, setError] = useState(false);
     let request = null;
+
+    const { data: allTerms, isSuccess: allTermsSuccess } = useQuery({
+        queryKey: ['allGlossaryTerms'],
+        queryFn: () => GlossaryHelper.fetchAllTerms().promise
+    });
 
     const parseTerms = (data) => {
         const terms = data.map((result) => new Definition(result));
@@ -47,89 +52,15 @@ const GlossaryContainer = (props) => {
         props.setGlossaryCache(terms);
     };
 
-    const { data, isSuccess, error } = useQuery({
-        queryKey: ['glossaryData'],
-        queryFn: () => fetch('https://api.usaspending.gov/api/v2/references/glossary/?limit=500').then((r) => r.json())
-    });
-
-    useEffect(() => {
-        console.log("data", data, isSuccess);
-        if (isSuccess && data) {
-            writeCache(data.results);
-            parseTerms(data.results);
-            // Your side effect logic here
-            console.log('Data fetched successfully:', data);
-            // Example: show a toast notification
-            // toast.success('User data loaded!');
-        }
-
-        if (error) {
-            // Handle error side effects
-            // toast.error('Failed to load user data!');
-        }
-    }, [isSuccess, data, error]); // Add error to the dependency array if you handle it here
-
-
-
-    // const {data, isPending, er} = useQuery({
-    //     queryKey: ['glossaryData'],
-    //     queryFn: () => fetch('https://api.usaspending.gov/api/v2/references/glossary/?limit=500').then(r => r.json()),
-    //     staleTime: 60000
-    // });
-
-
-    // const queryClient = useQueryClient();
-    // const mutation = useMutation({
-    //     mutationFn: () => fetch('https://api.usaspending.gov/api/v2/references/glossary/?limit=500').then(r => r.json()),
-    //     onSuccess: () => {
-    //         console.log("done");
-    //         // Invalidate and refetch queries after a successful mutation
-    //         // queryClient.invalidateQueries({ queryKey: ['todos'] });
-    //     },
-    //     onError: () => {
-    //
-    //     },
-    //     onMutate: () => {
-    //         console.log("mutate");
-    //     }
-    // });
-    // ...
-
-
-    // const populateGlossaryWithAllTerms = () => {
-    //     setSearchLoading(true);
-    //
-    //     if (request) {
-    //         request.cancel();
-    //     }
-    //
-    //
-    //     request = GlossaryHelper.fetchAllTerms();
-    //     request.promise
-    //         .then((res) => {
-    //             parseTerms(res.data.results);
-    //             request = null;
-    //             setLoading(false);
-    //             setSearchLoading(false);
-    //             setError(false);
-    //         })
-    //         .catch((err) => {
-    //             if (!isCancel(err)) {
-    //                 console.log(err);
-    //                 setLoading(false);
-    //                 setSearchLoading(false);
-    //                 setError(true);
-    //             }
-    //             request = null;
-    //         });
-    // };
+    const populateGlossaryWithAllTerms = () => {
+        parseTerms(allTerms.data.results);
+    };
 
     const performSearch = () => {
         const { input } = props.glossary.search;
 
         if (!input) {
-            // if there is no search input, auto-populate glossary results w/ all terms
-            // populateGlossaryWithAllTerms();
+            populateGlossaryWithAllTerms();
             return;
         }
 
@@ -148,7 +79,7 @@ const GlossaryContainer = (props) => {
             .then((res) => {
                 setLoading(false);
                 setSearchLoading(false);
-                setIsError(false);
+                setError(false);
 
                 request = null;
 
@@ -159,11 +90,48 @@ const GlossaryContainer = (props) => {
                     console.log(err);
                     setLoading(false);
                     setSearchLoading(false);
-                    setIsError(true);
+                    setError(true);
                 }
                 request = null;
             });
     };
+
+
+    // const { data: searchResults, isSuccess: searchResultsSuccess } = useQuery({
+    //     queryKey: ['allGlossaryTerms'],
+    //     queryFn: () => GlossaryHelper.fetchSearchResults({
+    //         search_text: input,
+    //         limit: 500
+    //     }).promise
+    // });
+
+    useEffect(() => {
+        if (props.glossary.cache.count() === 0) {
+            if (allTerms && allTermsSuccess) {
+                console.log("cache written");
+                writeCache(allTerms.data.results);
+
+                if (!props.glossary.search.input) {
+                    parseTerms(allTerms.data.results);
+                    setLoading(false);
+                }
+                else {
+                    // okay now perform the search (which will be the same data most of the time,
+                    // but potentially not)
+                    performSearch();
+                }
+            }
+        } else {
+            performSearch();
+        }
+    }, [allTerms, allTermsSuccess]);
+
+    // useEffect(() => {
+    //     if (searchResults && searchResultsSuccess) {
+    //         writeCache(searchResults.data.results);
+    //     }
+    // }, [searchResults, searchResultsSuccess]);
+
 
     // const populateCache = () => {
     //     if (request) {
@@ -207,7 +175,7 @@ const GlossaryContainer = (props) => {
 
     useEffect(() => {
         // on the first load, populate the cache
-        if (props.glossary?.cache.count() === 0) {
+        if (props.glossary.cache.count() === 0) {
             // no cache set yet, populate it
             // we need to build a cache because
             // when the glossary is searched, it may internally link
@@ -216,7 +184,7 @@ const GlossaryContainer = (props) => {
         }
         else {
             // we have a cache set, just do a search
-            // performSearch();
+            performSearch();
         }
         // return () => {
         //     if (request) {
@@ -227,15 +195,13 @@ const GlossaryContainer = (props) => {
     }, []);
 
     useEffect(() => {
-        // const { termFromUrl, cache } = props.glossary;
-        // const { cache } = props.glossary;
-        console.log(props);
+        const { termFromUrl, cache } = props.glossary;
 
-        // if (cache.count() > 0 && termFromUrl) {
-        //     const term = cache.get(termFromUrl);
-        //     props.setGlossaryTerm(term);
-        //     props.setTermFromUrl('');
-        // }
+        if (cache.count() > 0 && termFromUrl) {
+            const term = cache.get(termFromUrl);
+            props.setGlossaryTerm(term);
+            props.setTermFromUrl('');
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props?.glossary]);
 
