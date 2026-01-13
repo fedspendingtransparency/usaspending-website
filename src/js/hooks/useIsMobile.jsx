@@ -1,3 +1,8 @@
+/**
+ * useIsMobile.jsx
+ * Created on 11/17/2025 by Josue Aguilar
+ */
+
 import { useEffect, useState } from 'react';
 import {
     smTabletScreen,

@@ -1,3 +1,5 @@
+import GlobalConstants from 'GlobalConstants';
+
 /* eslint-disable max-len */
 const contentMap = {
     dataDefinition: '#783CB9',
@@ -52,7 +54,6 @@ const articles = [
         feature_sprint: 1,
         feature_week: 1,
         slug: "what-is-an-award",
-        thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
         explore_more: [
             {
                 label: "Federal Spending Guide",
@@ -122,7 +123,6 @@ const articles = [
         feature_sprint: 1,
         feature_week: 2,
         slug: "obligations-vs-outlays",
-        thumbnail_path: "../../img/featuredContent/cards/recently-answered-questions.webp",
         explore_more: [
             {
                 label: "USAspending Community",
@@ -397,6 +397,34 @@ const articles = [
                 label: "Contract"
             }
         ]
+    },
+    {
+        taxonomy: "See 4 Yourself",
+        isLongForm: true,
+        content_type: 'Featured Content',
+        title: "QAT ONLY Test",
+        banner_subtitle: "How People Use USAspending.gov Data",
+        created_date: "02/29/2026",
+        feature_sprint: 5,
+        feature_week: 1,
+        sections: ["Federal Spending Transparency and Accountability", "Market Research", "Grant Opportunities and Compliance", "Federal Spending Trends and Stories"],
+        description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
+        slug: "qat-only-test",
+        black_text: true,
+        hidden: !GlobalConstants.QAT,
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            }
+        ],
+        related_terms: []
     }
     // {
     //     taxonomy: "My USAspending Search",
