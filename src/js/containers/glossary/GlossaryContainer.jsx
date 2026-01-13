@@ -3,11 +3,11 @@
  * Created by Kevin Li 4/28/17
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isCancel } from 'axios';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { useQuery } from "@tanstack/react-query";
 
 import * as GlossaryHelper from 'helpers/glossaryHelper';
@@ -30,19 +30,32 @@ const propTypes = {
 
 const GlossaryContainer = (props) => {
     const [loading, setLoading] = useState(true);
-    const [searchLoading, setSearchLoading] = useState(false);
-    const [error, setError] = useState(false);
-    let request = null;
+    const [input, setInput] = useState('');
 
-    const { data: allTerms, isSuccess: allTermsSuccess } = useQuery({
+    const {
+        data: allTerms, isSuccess: allTermsSuccess, isLoading: allTermsLoading, error
+    } = useQuery({
         queryKey: ['allGlossaryTerms'],
-        queryFn: () => GlossaryHelper.fetchAllTerms().promise
+        queryFn: () => GlossaryHelper.fetchAllTerms().promise,
+        staleTime: 60000
     });
 
-    const parseTerms = (data) => {
+    const {
+        data: searchResults, isSuccess: searchResultsSuccess, isLoading: searchResultsLoading, error: searchResultsError
+    } = useQuery({
+        queryKey: ['glossarySearchResults', input],
+        queryFn: () => GlossaryHelper.fetchSearchResults({
+            search_text: input,
+            limit: 50
+        }).promise,
+        enabled: input !== '' && !!input,
+        staleTime: 60000
+    });
+
+    const parseTerms = useCallback((data) => {
         const terms = data.map((result) => new Definition(result));
         props.setGlossaryResults(terms);
-    };
+    });
 
     const writeCache = (data) => {
         const terms = data.reduce((acc, searchResult) => Object.assign(acc, {
@@ -56,143 +69,47 @@ const GlossaryContainer = (props) => {
         parseTerms(allTerms.data.results);
     };
 
-    const performSearch = () => {
-        const { input } = props.glossary.search;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const performSearch = useCallback(() => {
+        const localInput = props.glossary.search?.input;
 
-        if (!input) {
+        if (!localInput) {
             populateGlossaryWithAllTerms();
             return;
         }
 
-        if (request) {
-            request.cancel();
+        setInput(localInput);
+        setLoading(false);
+    });
+
+    useEffect(() => {
+        if (searchResults && searchResultsSuccess) {
+            parseTerms(searchResults.data.matched_terms);
+            setLoading(false);
         }
-
-        request = GlossaryHelper.fetchSearchResults({
-            search_text: input,
-            limit: 500
-        });
-
-        setSearchLoading(true);
-
-        request.promise
-            .then((res) => {
-                setLoading(false);
-                setSearchLoading(false);
-                setError(false);
-
-                request = null;
-
-                parseTerms(res.data.matched_terms);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    setLoading(false);
-                    setSearchLoading(false);
-                    setError(true);
-                }
-                request = null;
-            });
-    };
-
-
-    // const { data: searchResults, isSuccess: searchResultsSuccess } = useQuery({
-    //     queryKey: ['allGlossaryTerms'],
-    //     queryFn: () => GlossaryHelper.fetchSearchResults({
-    //         search_text: input,
-    //         limit: 500
-    //     }).promise
-    // });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchResults, searchResultsSuccess]);
 
     useEffect(() => {
         if (props.glossary.cache.count() === 0) {
             if (allTerms && allTermsSuccess) {
-                console.log("cache written");
                 writeCache(allTerms.data.results);
 
-                if (!props.glossary.search.input) {
+                if (!input) {
                     parseTerms(allTerms.data.results);
                     setLoading(false);
                 }
                 else {
-                    // okay now perform the search (which will be the same data most of the time,
-                    // but potentially not)
                     performSearch();
                 }
             }
-        } else {
-            performSearch();
-        }
-    }, [allTerms, allTermsSuccess]);
-
-    // useEffect(() => {
-    //     if (searchResults && searchResultsSuccess) {
-    //         writeCache(searchResults.data.results);
-    //     }
-    // }, [searchResults, searchResultsSuccess]);
-
-
-    // const populateCache = () => {
-    //     if (request) {
-    //         request.cancel();
-    //     }
-    //
-    //     setLoading(true);
-    //     setSearchLoading(true);
-    //     setError(false);
-    //
-    //     request = GlossaryHelper.fetchAllTerms();
-    //
-    //     request.promise
-    //         .then((res) => {
-    //             writeCache(res.data.results);
-    //             request = null;
-    //             // if there is no search input, autopopulate glossary results w/ all terms
-    //             if (!props.glossary.search.input) {
-    //                 parseTerms(res.data.results);
-    //                 setLoading(false);
-    //                 setSearchLoading(false);
-    //                 setError(false);
-    //             }
-    //             else {
-    //                 // okay now perform the search (which will be the same data most of the time,
-    //                 // but potentially not)
-    //                 performSearch();
-    //             }
-    //         })
-    //         .catch((err) => {
-    //             if (!isCancel(err)) {
-    //                 console.log(err);
-    //                 setLoading(false);
-    //                 setSearchLoading(false);
-    //                 setError(true);
-    //             }
-    //
-    //             request = null;
-    //         });
-    // };
-
-    useEffect(() => {
-        // on the first load, populate the cache
-        if (props.glossary.cache.count() === 0) {
-            // no cache set yet, populate it
-            // we need to build a cache because
-            // when the glossary is searched, it may internally link
-            // terms that are no longer in the results array
-            // populateCache();
         }
         else {
-            // we have a cache set, just do a search
             performSearch();
         }
-        // return () => {
-        //     if (request) {
-        //         request.cancel();
-        //     }
-        // };
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [allTerms, allTermsSuccess, input]);
 
     useEffect(() => {
         const { termFromUrl, cache } = props.glossary;
@@ -209,8 +126,8 @@ const GlossaryContainer = (props) => {
         <AnimatedGlossaryWrapper
             {...props}
             loading={loading}
-            error={error}
-            searchLoading={searchLoading}
+            error={error || searchResultsError}
+            searchLoading={allTermsLoading || searchResultsLoading}
             performSearch={performSearch} />
     );
 };
