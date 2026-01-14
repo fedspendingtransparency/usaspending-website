@@ -408,7 +408,6 @@ const articles = [
         feature_week: 1,
         description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
         slug: "johns-usaspending-search",
-        black_text: true,
         explore_more: [
             {
                 label: "Spending Explorer",
