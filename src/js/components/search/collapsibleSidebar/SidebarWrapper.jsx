@@ -45,7 +45,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                         keyHandler(e, toggleOpened);
                     }}
                     role="button"
-                    aria-label="Toggle Collapsible Sidebar"
+                    aria-label={sidebarIsOpen ? "Close" : "Open"}
                     focusable="true"
                     tabIndex={0}>
                     {sidebarIsOpen ?
@@ -61,7 +61,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     <MobileSidebarContent setShowMobileFilters={setShowMobileFilters} />
                 }
                 { !sidebarIsOpen && !isMedium &&
-                    <div style={{ margin: "18px 16px" }}><FontAwesomeIcon icon="filter" /></div>
+                    <div style={{ margin: "18px 16px" }}><FontAwesomeIcon title="Filters" icon="filter" /></div>
                 }
             </div>
         </>
