@@ -38,8 +38,7 @@ const MobileSidebarContent = ({
                                 <button
                                     className="close-button"
                                     id="collapsible-mobile-close-button"
-                                    aria-label="Close Mobile Filters"
-                                    title="Close Mobile Filters"
+                                    aria-label="Close Filters"
                                     onClick={() => {
                                         setShowMobileFilters(false);
                                     }}>
