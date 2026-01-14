@@ -92,7 +92,7 @@ const articles = [
         created_date: "09/29/2025",
         description: "Behind every dollar the U.S. government spends, there is a story. But how can you discover that story? What tools do you need to understand it?",
         slug: "exploring-americas-finances",
-        feature_sprint: 1,
+        feature_sprint: 5,
         feature_week: 1,
         related_terms: [],
         explore_more: [
@@ -399,6 +399,47 @@ const articles = [
         ]
     },
     {
+        taxonomy: "My USAspending Search",
+        content_type: 'Featured Content',
+        title: "John’s USAspending Search",
+        banner_subtitle: "Follow the Money Using USAspending.gov’s Spending Explorer",
+        created_date: "02/05/2026",
+        feature_sprint: 5,
+        feature_week: 1,
+        description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
+        slug: "johns-usaspending-search",
+        black_text: true,
+        explore_more: [
+            {
+                label: "Spending Explorer",
+                slug: "/explorer/agency",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "USAspending on YouTube",
+                slug: "https://www.youtube.com/@usaspendinggov",
+                type: "external"
+            }
+        ],
+        related_terms: [
+            {
+                term: "awarding-agency",
+                type: "glossary",
+                label: "Awarding Agency"
+            },
+            {
+                term: "naics",
+                type: "glossary",
+                label: "NAICS"
+            }
+        ]
+    },
+    {
         taxonomy: "See 4 Yourself",
         isLongForm: true,
         content_type: 'Featured Content',
@@ -426,41 +467,6 @@ const articles = [
         ],
         related_terms: []
     }
-    // {
-    //     taxonomy: "My USAspending Search",
-    //     content_type: 'Featured Content',
-    //     banner_subtitle: "Follow the Money Using USAspending.gov’s Spending Explorer",
-    //     title: "John’s USAspending Search",
-    //     created_date: "12/25/25",
-    //     feature_sprint: 3,
-    //     feature_week: 1,
-    //     description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
-    //     slug: "johns-usaspending-search",
-    //     explore_more: [
-    //         {
-    //             label: "Advanced Search",
-    //             slug: "/search",
-    //             type: "internal"
-    //         },
-    //         {
-    //             label: "Federal Spending Guide",
-    //             slug: "/federal-spending-guide",
-    //             type: "internal"
-    //         }
-    //     ],
-    //     related_terms: [
-    //         {
-    //             term: "recipient",
-    //             type: "glossary",
-    //             label: "Recipient"
-    //         },
-    //         {
-    //             term: "outlay",
-    //             type: "glossary",
-    //             label: "Outlay"
-    //         }
-    //     ]
-    // }
 ];
 
 export default articles;
