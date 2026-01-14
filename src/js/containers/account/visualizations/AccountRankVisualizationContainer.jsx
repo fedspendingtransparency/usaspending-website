@@ -97,7 +97,6 @@ ${MoneyFormatter.formatMoney(adjustedValue)}`;
         setLoading(true);
 
         const searchOperation = new AccountSearchOperation(account.id);
-        searchOperation.fromState(reduxFilters);
 
         apiRequest.current = AccountHelper.fetchTasCategoryTotals({
             group: categoryLabelFields[categoryScope],
