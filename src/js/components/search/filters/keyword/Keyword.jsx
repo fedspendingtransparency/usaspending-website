@@ -12,7 +12,7 @@ import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import { updateTextSearchInput } from "redux/actions/search/searchFilterActions";
 import SelectedKeywords from './SelectedKeywords';
 import { KeyWordTooltip } from "../tooltips/AdvancedSearchTooltip";
-import ContextTooltip from "../timePeriod/ContextTooltip";
+import ContextTooltip from "../ContextTooltip";
 
 const propTypes = {
     searchV2: PropTypes.bool
