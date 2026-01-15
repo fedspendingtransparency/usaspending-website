@@ -5,12 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import LegacyCheckboxTree from 'components/sharedComponents/LegacyCheckboxTree';
 import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
-
-import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
-
-export const NewBadge = () => (
-    <div className="new-badge">NEW</div>
-);
+import DEFCheckboxTreeLabel from './DEFCheckboxTreeLabel';
 
 const covidParentNode = {
     label: "COVID-19 Spending",
