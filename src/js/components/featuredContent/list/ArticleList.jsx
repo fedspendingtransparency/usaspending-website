@@ -16,8 +16,8 @@ const propTypes = {
 
 const ArticleList = ({ articles }) => {
     const [sortOrder, setSortOrder] = useState();
-    const [articleList, setArticleList] = useState(articles);
-    const originalArticleList = articles;
+    const [articleList, setArticleList] = useState(articles.filter((article) => !article?.hidden));
+    const originalArticleList = articles.filter((article) => !article?.hidden);
     const prevSortRef = useRef();
 
     useEffect(() => {

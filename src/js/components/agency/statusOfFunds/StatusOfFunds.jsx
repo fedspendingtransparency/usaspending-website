@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 10/27/21
  */
 
-import React, { useCallback, useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect, useRef, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch, connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -30,12 +30,11 @@ import {
 import { parseRows, getLevel5Data } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import Note from 'components/sharedComponents/Note';
-
+import useStateWithPrevious from "hooks/useStateWithPrevious";
+import IsMobileContext from "context/IsMobileContext";
 import DrilldownSidebar from './DrilldownSidebar';
 import VisualizationSection from './VisualizationSection';
 import IntroSection from './IntroSection';
-import useIsMobile from "../../../hooks/useIsMobile";
-import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -43,7 +42,7 @@ const propTypes = {
 };
 
 const StatusOfFunds = ({ fy, onChartLoaded }) => {
-    const { isMedium } = useIsMobile();
+    const { isMedium } = useContext(IsMobileContext);
     const dispatch = useDispatch();
     const request = useRef(null);
     const { overview } = useSelector((state) => state.agency);

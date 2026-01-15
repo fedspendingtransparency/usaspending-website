@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 import PropTypes from "prop-types";
 
+import IsMobileContext from "context/IsMobileContext";
 import MobileSort from "../../mobile/MobileSort";
 import SectionDataTable from "../SectionDataTable";
-import useIsMobile from "../../../../hooks/useIsMobile";
 
 const propTypes = {
     openAccordion: PropTypes.bool,
@@ -59,7 +59,7 @@ const SearchSectionWrapperContent = ({
     downloadComponent,
     children
 }) => {
-    const { isTablet } = useIsMobile();
+    const { isTablet } = useContext(IsMobileContext);
 
     const Message = () => {
         if (isLoading) {

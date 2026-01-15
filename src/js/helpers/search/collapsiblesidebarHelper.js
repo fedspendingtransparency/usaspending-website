@@ -22,7 +22,9 @@ export const panelContainerElClasses = [
 ];
 
 export const checkInView = (el) => {
-    const bbox = el.getBoundingClientRect();
+    if (!el) return null;
+
+    const bbox = el?.getBoundingClientRect();
 
     const intersection = {
         top: Math.max(0, bbox.top),
