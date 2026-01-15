@@ -19,7 +19,7 @@ import TooltipContext from "context/TooltipContext";
 import ResultsView from "./resultsView/ResultsView";
 import CollapsibleSidebar from "./collapsibleSidebar/SidebarWrapper";
 import MobileFilterButton from "./mobile/MobileFilterButton";
-import searchPageToolBarComponents from "./SearchPageToolBarComponents";
+import searchPageToolBarComponents from "./header/SearchPageToolBarComponents";
 
 require('pages/search/searchPage.scss');
 
