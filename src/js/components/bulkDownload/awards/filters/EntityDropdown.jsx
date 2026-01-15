@@ -9,12 +9,10 @@ import { uniqueId } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TooltipWrapper } from "data-transparency-ui";
 
-import { defaultLocationValues }
-    from "containers/search/filters/location/LocationPickerContainer";
-import EntityDropdownList from './EntityDropdownList';
-import EntityWarning from './EntityWarning';
-import EntityDropdownAutocomplete from './EntityDropdownAutocomplete';
-import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
+import EntityDropdownList from '../../../search/filters/location/EntityDropdownList';
+import EntityWarning from '../../../search/filters/location/EntityWarning';
+import EntityDropdownAutocomplete from '../../../search/filters/location/EntityDropdownAutocomplete';
+import { CDTooltip } from "../../../search/filters/tooltips/AdvancedSearchTooltip";
 
 const propTypes = {
     value: PropTypes.object,
@@ -34,6 +32,44 @@ const propTypes = {
 };
 
 const alphabetRegex = /([a-z]|[0-9])/;
+
+const defaultLocationValues = {
+    country: {
+        code: "",
+        name: "",
+        autoPopulated: false
+    },
+    state: {
+        code: "",
+        fips: "",
+        name: "",
+        autoPopulated: false // from city selection
+    },
+    county: {
+        code: "",
+        fips: "",
+        state: "",
+        name: ""
+    },
+    city: {
+        name: "",
+        code: ""
+    },
+    district_original: {
+        code: "",
+        district: "",
+        name: ""
+    },
+    district_current: {
+        code: "",
+        district: "",
+        name: ""
+    },
+    zip: {
+        valid: "",
+        invalid: ""
+    }
+};
 
 const EntityDropdown = ({
     value,
