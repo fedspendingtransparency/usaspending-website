@@ -5,25 +5,25 @@
 
 import React from 'react';
 
-import TimePeriodFYFilterGroup from './TimePeriodFYFilterGroup';
-import TimePeriodDRFilterGroup from './TimePeriodDRFilterGroup';
-import AwardTypeFilterGroup from './AwardTypeFilterGroup';
-import LocationFilterGroup from './LocationFilterGroup';
-import AgencyFilterGroup from './AgencyFilterGroup';
-import RecipientFilterGroup from './RecipientFilterGroup';
-import RecipientTypeFilterGroup from './RecipientTypeFilterGroup';
-import KeywordFilterGroup from './KeywordFilterGroup';
-import AwardIDFilterGroup from './AwardIDFilterGroup';
-import AwardAmountFilterGroup from './AwardAmountFilterGroup';
-import CFDAFilterGroup from './CFDAFilterGroup';
-import NAICSFilterGroup from './NAICSFilterGroup';
-import PSCFilterGroup from './PSCFilterGroup';
-import PricingTypeFilterGroup from './PricingTypeFilterGroup';
-import SetAsideFilterGroup from './SetAsideFilterGroup';
-import ExtentCompetedFilterGroup from './ExtentCompetedFilterGroup';
-import ProgramSourceFilterGroup from './ProgramSourceFilterGroup';
-import DefCodesFilterGroup from "./DefCodesFilterGroup";
-import NewAwardsOnlyFilterGroup from "./NewAwardsOnlyFilterGroup";
+import TimePeriodFYFilterGroup from './filterGroups/TimePeriodFYFilterGroup';
+import TimePeriodDRFilterGroup from './filterGroups/TimePeriodDRFilterGroup';
+import AwardTypeFilterGroup from './filterGroups/AwardTypeFilterGroup';
+import LocationFilterGroup from './filterGroups/LocationFilterGroup';
+import AgencyFilterGroup from './filterGroups/AgencyFilterGroup';
+import RecipientFilterGroup from './filterGroups/RecipientFilterGroup';
+import RecipientTypeFilterGroup from './filterGroups/RecipientTypeFilterGroup';
+import KeywordFilterGroup from './filterGroups/KeywordFilterGroup';
+import AwardIDFilterGroup from './filterGroups/AwardIDFilterGroup';
+import AwardAmountFilterGroup from './filterGroups/AwardAmountFilterGroup';
+import CFDAFilterGroup from './filterGroups/CFDAFilterGroup';
+import NAICSFilterGroup from './filterGroups/NAICSFilterGroup';
+import PSCFilterGroup from './filterGroups/PSCFilterGroup';
+import PricingTypeFilterGroup from './filterGroups/PricingTypeFilterGroup';
+import SetAsideFilterGroup from './filterGroups/SetAsideFilterGroup';
+import ExtentCompetedFilterGroup from './filterGroups/ExtentCompetedFilterGroup';
+import ProgramSourceFilterGroup from './filterGroups/ProgramSourceFilterGroup';
+import DefCodesFilterGroup from "./filterGroups/DefCodesFilterGroup";
+import NewAwardsOnlyFilterGroup from "./filterGroups/NewAwardsOnlyFilterGroup";
 
 export const topFilterGroupGenerator = (config = {
     filter: {

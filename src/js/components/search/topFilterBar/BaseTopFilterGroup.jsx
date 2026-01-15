@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import TopFilterItem from '../TopFilterItem';
+import TopFilterItem from './TopFilterItem';
 
 const propTypes = {
     filter: PropTypes.object,
