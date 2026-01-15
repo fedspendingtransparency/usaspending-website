@@ -3,24 +3,23 @@
  * * Created by Andrea Blackwell November 4, 2024
  * **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash-es';
 import { Helmet } from 'react-helmet';
 import { useDispatch } from "react-redux";
+import useIsMobile from "hooks/useIsMobile";
 
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import FullDownloadModalContainer from
     'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import TooltipContext from "context/TooltipContext";
 import { showModal } from "redux/actions/modal/modalActions";
-import MobileFiltersV2 from "../mobile/MobileFiltersV2";
-import ResultsView from "../resultsView/ResultsView";
-import CollapsibleSidebar from "./SidebarWrapper";
-import MobileFilterButton from "../MobileFilterButton";
-import searchPageToolBarComponents from "../SearchPageToolBarComponents";
+
+import TooltipContext from "context/TooltipContext";
+import ResultsView from "./resultsView/ResultsView";
+import CollapsibleSidebar from "./collapsibleSidebar/SidebarWrapper";
+import MobileFilterButton from "./mobile/MobileFilterButton";
+import searchPageToolBarComponents from "./SearchPageToolBarComponents";
 
 require('pages/search/searchPage.scss');
 
@@ -50,88 +49,49 @@ const SearchPage = ({
         top: 0, left: 0, display: 'none', tooltip: <></>
     });
     const [showMobileFilters, setShowMobileFilters] = useState(false);
+    const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
     const [filterCount, setFilterCount] = useState(0);
     const [showFullDownload, setShowFullDownload] = useState(false);
     const [stateHash, setStateHash] = useState(hash);
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    const [searchv2, setSearchv2] = useState(null);
-    const [fullSidebar, setFullSidebar] = useState(false);
-    const [sidebarOpen, setSidebarOpen] = useState(true);
 
     const dispatch = useDispatch();
+    const { isMedium } = useIsMobile();
+    const searchContents = useRef();
 
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };
 
-    /**
-     * Use the top filter bar container's internal filter parsing to track the current number of
-     * filters applied
-     */
+    // Use the top filter bar container's internal filter parsing to track the current number of filters applied
     const updateFilterCount = (count) => {
         setFilterCount(count);
     };
 
-    /**
-     * Toggle whether or not to show the mobile filter view
-     */
+    // Toggle whether or not to show the mobile filter view
     const toggleMobileFilters = () => {
-        setShowMobileFilters(!showMobileFilters);
+        setShowMobileFilters((prevState) => !prevState);
     };
 
-    /**
-     * Hides the full download modal
-     */
+    // Hides the full download modal
     const hideDownloadModal = () => {
         setShowFullDownload(false);
     };
 
     useEffect(() => {
         setStateHash(hash);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hash]);
-
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 100);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
-
-    useEffect(() => {
-        setSearchv2(true);
-        setFullSidebar(
-            <div className="full-search-sidebar">
-                <TooltipContext value={(tt) => setTooltipData(tt)} >
-                    <CollapsibleSidebar
-                        filters={filters}
-                        hash={hash}
-                        showMobileFilters={showMobileFilters}
-                        sidebarOpen={sidebarOpen}
-                        setSidebarOpen={setSidebarOpen}
-                        searchv2={searchv2} />
-                </TooltipContext>
-            </div>);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     return (
         <PageWrapper
             pageName="Advanced Search"
             classNames={`usa-da-search-page v2 ${
-                showMobileFilters && sidebarOpen ? 'fixed-body' : ''
+                showMobileFilters && sidebarIsOpen ? 'fixed-body' : ''
             }`}
             title="Advanced Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={
                 searchPageToolBarComponents(
-                    isMobile,
+                    isMedium,
                     downloadAvailable,
                     downloadInFlight,
                     hash,
@@ -141,8 +101,15 @@ const SearchPage = ({
             }
             filters={appliedFilters}>
             <div id="main-content">
-                <div className="search-contents v2">
-                    {fullSidebar}
+                <div className="search-contents v2" ref={searchContents}>
+                    <TooltipContext value={(tt) => setTooltipData(tt)}>
+                        <CollapsibleSidebar
+                            hash={hash}
+                            showMobileFilters={showMobileFilters}
+                            setShowMobileFilters={setShowMobileFilters}
+                            sidebarIsOpen={sidebarIsOpen}
+                            setSidebarIsOpen={setSidebarIsOpen} />
+                    </TooltipContext>
                     <div
                         className="new-tooltip__tooltip-wrapper"
                         style={{
@@ -158,14 +125,8 @@ const SearchPage = ({
                     <MobileFilterButton
                         filterCount={filterCount}
                         showMobileFilters={showMobileFilters}
-                        sidebarOpen={sidebarOpen}
+                        sidebarOpen={sidebarIsOpen}
                         toggleMobileFilters={toggleMobileFilters} />
-                    <MobileFiltersV2
-                        filters={filters}
-                        showMobileFilters={showMobileFilters}
-                        setShowMobileFilters={setShowMobileFilters}
-                        sidebarOpen={sidebarOpen}
-                        setSidebarOpen={setSidebarOpen} />
                     <Helmet>
                         <link
                             href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css"
@@ -173,7 +134,7 @@ const SearchPage = ({
                     </Helmet>
                     <ResultsView
                         filters={filters}
-                        isMobile={isMobile}
+                        isMobile={isMedium}
                         filterCount={filterCount}
                         showMobileFilters={showMobileFilters}
                         updateFilterCount={updateFilterCount}

@@ -3,7 +3,7 @@
  * Created by Kevin Li 8/16/17
  */
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import DetailContentContainer from 'containers/explorer/detail/DetailContentContainer';
 import ExplorerWrapperPage from '../ExplorerWrapperPage';
 import ExplorerTooltip from './visualization/ExplorerTooltip';
@@ -22,14 +22,14 @@ const ExplorerDetailPage = () => {
         isAward: false
     });
 
-    const showTooltipFn = (position, data) => {
+    const showTooltipFn = useCallback((position, data) => {
         setShowTooltip(true);
         setTooltip(Object.assign({}, position, data));
-    };
+    }, []);
 
-    const hideTooltipFn = () => {
+    const hideTooltipFn = useCallback(() => {
         setShowTooltip(false);
-    };
+    }, []);
 
     let tooltipUi = null;
 

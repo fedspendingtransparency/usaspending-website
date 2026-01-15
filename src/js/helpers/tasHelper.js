@@ -11,7 +11,7 @@ import {
 export const isAgency = (tasNode) => tasNode.ancestors.length === 0;
 export const shouldTasNodeHaveChildren = (node) => {
     if (node.isPlaceHolder) return false;
-    return node.ancestors.length < 2;
+    return node.ancestors?.length < 2;
 };
 
 export const tasSortFn = (a, b) => {

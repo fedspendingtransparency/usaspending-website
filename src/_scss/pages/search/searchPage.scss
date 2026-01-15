@@ -55,11 +55,11 @@
 
     #main-content {
         width: 100%;
-        padding: rem(40) rem(16) rem(16) rem(16);
+        padding: 0 rem(16) rem(16) rem(16);
         @import "components/aboutTheDataSidebar/aboutTheData";
 
         @media (min-width: $medium-screen) {
-            padding: rem(40) rem(32) rem(32) rem(32);
+            padding: 0 rem(32) rem(32) rem(32);
         }
 
         .search-contents {
@@ -155,9 +155,9 @@
         }
     }
 
-  @import 'contextTooltip';
+    @import 'contextTooltip';
+    @import "searchv2";
 }
 
-@import "./_searchv2";
 
 

@@ -3,13 +3,13 @@
   * Created by Kevin Li 11/8/16
   **/
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, NoResultsMessage } from 'data-transparency-ui';
 
+import IsMobileContext from "context/IsMobileContext";
 import ResultsTable from '../../table/ResultsTable';
 import GroupedAwardTable from '../../table/groupedTable/GroupedAwardTable';
-import useIsMobile from "../../../../hooks/useIsMobile";
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -32,7 +32,7 @@ const propTypes = {
 };
 
 const ResultsTableSection = (props) => {
-    const { isTablet } = useIsMobile();
+    const { isTablet } = useContext(IsMobileContext);
     const [tableWidth, setTableWidth] = useState(document.querySelector('.results-table-content'));
 
     const setTableWidthFn = useCallback(() => {

@@ -20,12 +20,12 @@ import { useDispatch } from "react-redux";
 import { showModal } from 'redux/actions/modal/modalActions';
 
 import SearchSidebar from './SearchSidebar';
-import NoDownloadHover from './header/NoDownloadHover';
-import Alert from "../sharedComponents/Alert";
-import MobileFilters from "./mobile/MobileFilters";
-import SubawardDropdown from "./SubawardDropdown";
-import { setSearchViewSubaward, setSpendingLevel } from "../../redux/actions/search/searchViewActions";
-import ResultsView from "./resultsView/ResultsView";
+import NoDownloadHover from '../header/NoDownloadHover';
+import Alert from "../../sharedComponents/Alert";
+import MobileFilters from "./MobileFilters";
+import SubawardDropdown from "../SubawardDropdown";
+import { setSearchViewSubaward, setSpendingLevel } from "../../../redux/actions/search/searchViewActions";
+import ResultsView from "../resultsView/ResultsView";
 
 require('pages/search/searchPage.scss');
 
@@ -148,7 +148,7 @@ const SearchPage = React.memo(({
         <PageWrapper
             pageName="Advanced Search"
             classNames="usa-da-search-page"
-            title="Advanced Search"
+            title="Award Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
                 <SubawardDropdown
