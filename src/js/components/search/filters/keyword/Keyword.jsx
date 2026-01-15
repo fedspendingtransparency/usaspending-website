@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Button } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 
-import IndividualSubmit from 'components/search/filters/IndividualSubmit';
+import IndividualSubmit from 'components/search/filters/keyword/IndividualSubmit';
 import { updateTextSearchInput } from "redux/actions/search/searchFilterActions";
 import SelectedKeywords from './SelectedKeywords';
 import { KeyWordTooltip } from "../tooltips/AdvancedSearchTooltip";
