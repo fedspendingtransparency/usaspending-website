@@ -11,7 +11,7 @@ import { CSSTransition, TransitionGroup } from 'react-transitioning';
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
-import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
+import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableBeginMessage from './ResultsTableBeginMessage';
 import ResultsTable from './ResultsTable';
 
