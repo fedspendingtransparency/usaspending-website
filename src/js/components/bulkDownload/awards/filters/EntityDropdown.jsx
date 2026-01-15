@@ -9,10 +9,10 @@ import { uniqueId } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TooltipWrapper } from "data-transparency-ui";
 
-import EntityDropdownList from '../../../search/filters/location/EntityDropdownList';
-import EntityWarning from '../../../search/filters/location/EntityWarning';
-import EntityDropdownAutocomplete from '../../../sharedComponents/EntityDropdownAutocomplete';
-import { CDTooltip } from "../../../search/filters/tooltips/AdvancedSearchTooltip";
+import EntityWarning from 'components/search/filters/location/EntityWarning';
+import EntityDropdownAutocomplete from 'components/sharedComponents/EntityDropdownAutocomplete';
+import { CDTooltip } from "components/search/filters/tooltips/AdvancedSearchTooltip";
+import EntityDropdownList from './EntityDropdownList';
 
 const propTypes = {
     value: PropTypes.object,
