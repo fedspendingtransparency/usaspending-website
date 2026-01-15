@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
 
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableLoadingMessage from 'components/keyword/table/ResultsTableLoadingMessage';
+import ResultsTableNoResults from 'components/keyword/table/ResultsTableNoResults';
+import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
 import ResultsTableTabs from './ResultsTableTabs';
 import ResultsTableBeginMessage from './ResultsTableBeginMessage';
 import ResultsTable from './ResultsTable';
