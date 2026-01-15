@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { setSearchViewSubaward, setSpendingLevel } from "redux/actions/search/searchViewActions";
 import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
-import SubawardDropdown from "../SubawardDropdown";
+import SubawardDropdown from "./SubawardDropdown";
 import NoDownloadHover from "./NoDownloadHover";
 
 const emailSubject = 'Award Search results on USAspending.gov';
