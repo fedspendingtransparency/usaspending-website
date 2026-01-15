@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { toLower } from 'lodash-es';
-import ShownValue from "../otherFilters/ShownValue";
+import ShownValue from "../ShownValue";
 
 const propTypes = {
     selectedAgencies: PropTypes.object,

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ShownValue from "../otherFilters/ShownValue";
+import ShownValue from "../ShownValue";
 
 const propTypes = {
     toggleAwardID: PropTypes.func,
