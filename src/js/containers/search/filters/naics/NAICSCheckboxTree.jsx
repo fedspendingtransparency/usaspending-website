@@ -30,7 +30,7 @@ import {
 import { updateNaics } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 import EntityDropdownAutocomplete from
-    'components/search/filters/location/EntityDropdownAutocomplete';
+    'components/sharedComponents/EntityDropdownAutocomplete';
 
 
 const NAICSCheckboxTree = () => {

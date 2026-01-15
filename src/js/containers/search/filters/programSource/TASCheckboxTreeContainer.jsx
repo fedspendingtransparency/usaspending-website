@@ -33,7 +33,7 @@ import { updateTAS } from 'redux/actions/search/searchFilterActions';
 
 import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 import EntityDropdownAutocomplete from
-    'components/search/filters/location/EntityDropdownAutocomplete';
+    'components/sharedComponents/EntityDropdownAutocomplete';
 import { autocompletePlaceholder } from "helpers/search/filterCheckboxHelper";
 
 const TASCheckboxTree = () => {

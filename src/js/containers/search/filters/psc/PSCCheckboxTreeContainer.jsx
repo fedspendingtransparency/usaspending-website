@@ -25,7 +25,7 @@ import * as pscActions from 'redux/actions/search/pscActions';
 import { updatePSC } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
 
-import EntityDropdownAutocomplete from 'components/search/filters/location/EntityDropdownAutocomplete';
+import EntityDropdownAutocomplete from 'components/sharedComponents/EntityDropdownAutocomplete';
 import { bindActionCreators } from "redux";
 
 const propTypes = {

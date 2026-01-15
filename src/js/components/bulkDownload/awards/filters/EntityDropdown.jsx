@@ -11,7 +11,7 @@ import { TooltipWrapper } from "data-transparency-ui";
 
 import EntityDropdownList from '../../../search/filters/location/EntityDropdownList';
 import EntityWarning from '../../../search/filters/location/EntityWarning';
-import EntityDropdownAutocomplete from '../../../search/filters/location/EntityDropdownAutocomplete';
+import EntityDropdownAutocomplete from '../../../sharedComponents/EntityDropdownAutocomplete';
 import { CDTooltip } from "../../../search/filters/tooltips/AdvancedSearchTooltip";
 
 const propTypes = {

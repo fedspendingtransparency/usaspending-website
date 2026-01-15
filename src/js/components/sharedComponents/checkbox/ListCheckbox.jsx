@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ListCheckboxPrimary from "./ListCheckboxPrimary";
 import SubmitHint from "../filterSidebar/SubmitHint";
-import EntityDropdownAutocomplete from "../../search/filters/location/EntityDropdownAutocomplete";
+import EntityDropdownAutocomplete from "../EntityDropdownAutocomplete";
 import replaceString from '../../../helpers/replaceString';
 
 const propTypes = {

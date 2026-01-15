@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { uniqueId } from 'lodash-es';
 
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
-import useEventListener from "../../../../hooks/useEventListener";
+import useEventListener from "../../hooks/useEventListener";
 
 const propTypes = {
     searchString: PropTypes.string,
