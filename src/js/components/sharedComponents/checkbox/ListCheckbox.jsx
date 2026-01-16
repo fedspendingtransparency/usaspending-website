@@ -6,7 +6,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import ListCheckboxPrimary from "./ListCheckboxPrimary";
-import SubmitHint from "../filterSidebar/SubmitHint";
 import EntityDropdownAutocomplete from "../EntityDropdownAutocomplete";
 import replaceString from '../../../helpers/replaceString';
 
@@ -14,12 +13,11 @@ const propTypes = {
     filters: PropTypes.object,
     filterCategoryMapping: PropTypes.arrayOf(PropTypes.object),
     selectedFilters: PropTypes.object,
-    singleFilterChange: PropTypes.func,
-    searchV2: PropTypes.bool
+    singleFilterChange: PropTypes.func
 };
 
 const ListCheckbox = ({
-    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange, searchV2
+    filters, filterCategoryMapping = [], selectedFilters, singleFilterChange
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
@@ -37,7 +35,10 @@ const ListCheckbox = ({
     const searchCategoryMapping = () => {
         // filter out definitions based on search text
         // eslint-disable-next-line no-unused-vars
-        const filteredDefinitions = Object.fromEntries(Object.entries(filters).filter(([key, value]) => value.toLowerCase().includes(searchString.toLowerCase())));
+        const filteredDefinitions = Object.fromEntries(
+            Object.entries(filters)
+                .filter(([, value]) => value.toLowerCase().includes(searchString.toLowerCase()))
+        );
 
         // filter out type mapping filters based on filteredDefinitions
         const filteredFilters = filterCategoryMapping.map((type) => ({
@@ -65,7 +66,9 @@ const ListCheckbox = ({
                 role="button"
                 tabIndex="0">
                 <div className="checkbox-filter__header-label-container">
-                    <span className="checkbox-filter__header-label">{highlightText(category.name)}</span>
+                    <span className="checkbox-filter__header-label">
+                        {highlightText(category.name)}
+                    </span>
                     <span className="checkbox-filter__header-count">
                         {category.filters?.length}{' '}
                         {category.filters?.length === 1 ? 'type' : 'types'}
@@ -103,7 +106,6 @@ const ListCheckbox = ({
                 :
                 <div className="filter-item-wrap">
                     {checkboxCategories}
-                    { !searchV2 && <SubmitHint selectedFilters={selectedFilters} /> }
                 </div>
             }
         </div>

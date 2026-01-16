@@ -7,26 +7,24 @@ import React from 'react';
 
 import AwardTypeV2 from "components/search/filters/awardType/AwardTypeV2";
 import Agency from "components/search/filters/agency/Agency";
-import LocationSection from "../../components/search/filters/location/LocationSection";
-import TimePeriodContainer from "../../containers/search/filters/TimePeriodContainer";
-import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
+import LocationSection from "components/search/filters/location/LocationSection";
+import TimePeriodContainer from "containers/search/filters/TimePeriodContainer";
+import AwardIDSearchContainer from "containers/search/filters/awardID/AwardIDSearchContainer";
 import TASCheckboxTreeContainer from
-    "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
-import RecipientSearchContainer from
-    "../../containers/search/filters/recipient/RecipientSearchContainer";
-import RecipientTypeContainer from
-    "../../containers/search/filters/recipient/RecipientTypeContainer";
+    "containers/search/filters/programSource/TASCheckboxTreeContainer";
+import RecipientSearchContainer from "containers/search/filters/recipient/RecipientSearchContainer";
+import RecipientType from "containers/search/filters/recipient/RecipientType";
 import AwardAmountSearchContainer from
-    "../../containers/search/filters/awardAmount/AwardAmountSearchContainer";
-import NAICSCheckboxTree from "../../containers/search/filters/naics/NAICSCheckboxTree";
-import PSCCheckboxTreeContainer from "../../containers/search/filters/psc/PSCCheckboxTreeContainer";
-import PricingTypeContainer from "../../containers/search/filters/PricingTypeContainer";
-import SetAsideContainer from "../../containers/search/filters/SetAsideContainer";
-import ExtentCompetedContainer from "../../containers/search/filters/ExtentCompetedContainer";
-import CFDASearchContainer from "../../containers/search/filters/cfda/CFDASearchContainer";
-import DEFCheckboxTreeContainer from "../../containers/search/filters/def/DEFCheckboxTreeContainer";
+    "containers/search/filters/awardAmount/AwardAmountSearchContainer";
+import NAICSCheckboxTree from "containers/search/filters/naics/NAICSCheckboxTree";
+import PSCCheckboxTreeContainer from "containers/search/filters/psc/PSCCheckboxTreeContainer";
+import PricingTypeContainer from "containers/search/filters/PricingTypeContainer";
+import SetAsideContainer from "containers/search/filters/SetAsideContainer";
+import ExtentCompetedContainer from "containers/search/filters/ExtentCompetedContainer";
+import CFDASearchContainer from "containers/search/filters/cfda/CFDASearchContainer";
+import DEFCheckboxTreeContainer from "containers/search/filters/def/DEFCheckboxTreeContainer";
 import AwardDescriptionFilterContainer from
-    "../../containers/search/filters/AwardDescriptionFilterContainer";
+    "containers/search/filters/AwardDescriptionFilterContainer";
 
 export const SearchFilterCategories = [
     {
@@ -108,7 +106,7 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'Recipient Type',
-        component: <RecipientTypeContainer searchV2 />
+        component: <RecipientType />
     },
     {
         title: "Award Description",
