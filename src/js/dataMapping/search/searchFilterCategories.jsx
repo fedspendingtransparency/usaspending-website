@@ -14,8 +14,7 @@ import TASCheckboxTreeContainer from
     "containers/search/filters/programSource/TASCheckboxTreeContainer";
 import RecipientSearchContainer from "containers/search/filters/recipient/RecipientSearchContainer";
 import RecipientType from "containers/search/filters/recipient/RecipientType";
-import AwardAmountSearchContainer from
-    "containers/search/filters/awardAmount/AwardAmountSearchContainer";
+import AwardAmountSearch from "components/search/filters/awardAmount/AwardAmountSearch";
 import NAICSCheckboxTree from "containers/search/filters/naics/NAICSCheckboxTree";
 import PSCCheckboxTreeContainer from "containers/search/filters/psc/PSCCheckboxTreeContainer";
 import PricingTypeContainer from "containers/search/filters/PricingTypeContainer";
@@ -114,7 +113,7 @@ export const searchFilterCategoryTree = [
     },
     {
         title: "Award Amount",
-        component: <AwardAmountSearchContainer searchV2 />
+        component: <AwardAmountSearch />
     },
     {
         title: 'Assistance Listing',
