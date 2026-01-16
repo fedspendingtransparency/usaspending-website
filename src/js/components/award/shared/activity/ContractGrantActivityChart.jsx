@@ -18,7 +18,6 @@ import ContractGrantActivityChartAreaPaths from './ContractGrantActivityChartAre
 
 const dayjs = require('dayjs');
 
-
 const propTypes = {
     height: PropTypes.number,
     padding: PropTypes.object,
@@ -36,7 +35,7 @@ const propTypes = {
 
 const xAxisSpacingPercentage = 0.05;
 
-const ContractGrantsActivityChart = ({
+const ContractGrantActivityChart = ({
     height,
     padding,
     visualizationWidth,
@@ -74,6 +73,7 @@ const ContractGrantsActivityChart = ({
     const [xAxisSpacing, setXAxisSpacing] = useState(0);
     const [verticalLineTextHeight, setVerticalLineTextHeight] = useState(0);
     const [totalVerticalLineTextHeight, setTotalVerticalLineTextHeight] = useState(0);
+
     /**
      * createXSeries
      * - creates the x domain and updates state
@@ -106,6 +106,7 @@ const ContractGrantsActivityChart = ({
         }
         setYDomain([yZero, yOne]);
     }, [transactions, totalObligation]);
+
     // hook - runs only on mount unless transactions change
     useEffect(() => {
         createXDomain();
@@ -115,6 +116,7 @@ const ContractGrantsActivityChart = ({
         createXDomain,
         createYDomain
     ]);
+
     /**
      * addLastTickForSpacing
      * - We want to add spacing to the top of the chart based off of the design.
@@ -161,6 +163,7 @@ const ContractGrantsActivityChart = ({
         }
         return updatedTicks;
     };
+
     /**
      * xTickDateAndLabel
      * - format the x-axis labels
@@ -175,6 +178,7 @@ const ContractGrantsActivityChart = ({
         const label = `${shortMonth} FY '${shortYear}`;
         return { date: newDate, label };
     });
+
     /**
      * createXScaleAndTicks
      * - creates the x scaling function and updates state
@@ -271,6 +275,7 @@ const ContractGrantsActivityChart = ({
         visualizationWidth,
         padding.left
     ]);
+
     /**
      * createYScale
      * - creates the y scaling function and ticks.
@@ -289,7 +294,9 @@ const ContractGrantsActivityChart = ({
             .nice();
         setYTicks(updatedTicksWithSpacing);
         setYScale(() => updatedScale);
-    }, [yDomain, height, addTicksForSpacing]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [yDomain, height, totalVerticalLineTextHeight]);
+
     // hook - runs only on mount unless transactions change
     useEffect(() => {
         if (xDomain.length && yDomain.length) {
@@ -304,6 +311,7 @@ const ContractGrantsActivityChart = ({
         yDomain,
         visualizationWidth
     ]);
+
     // sets the line values - hook - runs on mount and dates change
     useEffect(() => {
         if (xDomain && xDomain.length > 0) {
@@ -312,7 +320,8 @@ const ContractGrantsActivityChart = ({
             setEndLineData(Object.assign({}, endLineData, { value: getLineValue(dates._endDate, xDomain) }));
             setPotentialEndLineData(Object.assign({}, potentialEndLineData, { value: getLineValue(dates._potentialEndDate, xDomain) }));
         }
-    }, [dates, endLineData, potentialEndLineData, startLineData, todayLineData, xDomain]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dates, xDomain]);
     const setVerticalLineHeight = (i, lineHeight) => {
         if (i === 0) return setStartLineData(Object.assign({}, startLineData, { height: lineHeight }));
         if (i === 1) return setEndLineData(Object.assign({}, endLineData, { height: lineHeight }));
@@ -345,7 +354,14 @@ const ContractGrantsActivityChart = ({
                 }
                 return null;
             });
-    }, [allVerticalLines, setVerticalLineHeight, verticalLineTextHeight]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [
+        verticalLineTextHeight,
+        startLineData,
+        endLineData,
+        todayLineData,
+        potentialEndLineData
+    ]);
 
     const updateTotalTextHeightAndVerticalLineHeights = useCallback(() => {
         if (!totalVerticalLineTextHeight) {
@@ -358,24 +374,29 @@ const ContractGrantsActivityChart = ({
         allVerticalLines,
         totalVerticalLineTextHeight
     ]);
+
     // update the total text height and vertical line heights
     useEffect(() => {
         updateTotalTextHeightAndVerticalLineHeights();
     }, [verticalLineTextHeight, updateTotalTextHeightAndVerticalLineHeights]);
+
     // updates the y axis if the total text height changes
     useEffect(() => {
         createYScaleAndTicks();
     }, [totalVerticalLineTextHeight, createYScaleAndTicks]);
+
     const updateVerticalLineTextData = (data) => {
         if (data.height !== verticalLineTextHeight) {
             setVerticalLineTextHeight(data.height);
         }
     };
+
     // Adds padding bottom and 40 extra pixels for the x-axis
     const svgHeight = height + padding.bottom + 40;
     // updates the x position of our labels
     const paddingForYAxis = Object.assign(padding, { labels: 20 });
     const potentialAwardAmountLineDescription = `A horizontal line representing the total award obligation of ${formatMoney(totalObligation)}`;
+
     return (
         <svg
             className="contract-grant-activity-chart"
@@ -459,6 +480,5 @@ const ContractGrantsActivityChart = ({
     );
 };
 
-ContractGrantsActivityChart.propTypes = propTypes;
-
-export default ContractGrantsActivityChart;
+ContractGrantActivityChart.propTypes = propTypes;
+export default ContractGrantActivityChart;
