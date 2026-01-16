@@ -88,11 +88,11 @@ export const searchFilterCategoryTree = [
     },
     {
         title: "Award ID",
-        component: <AwardIDSearchContainer searchV2 />
+        component: <AwardIDSearchContainer />
     },
     {
         title: "Time Period",
-        component: <TimePeriodContainer searchV2 />
+        component: <TimePeriodContainer />
     },
     {
         title: "Location",

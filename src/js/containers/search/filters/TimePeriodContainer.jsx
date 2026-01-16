@@ -10,9 +10,7 @@ import { connect } from 'react-redux';
 import { Set, is } from 'immutable';
 
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-
 import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 
 export const startYear = FiscalYearHelper.earliestFiscalYear;
@@ -28,8 +26,7 @@ const propTypes = {
     appliedFilters: PropTypes.object,
     newAwardsOnlySelected: PropTypes.bool,
     newAwardsOnlyActive: PropTypes.bool,
-    naoActiveFromFyOrDateRange: PropTypes.bool,
-    searchV2: PropTypes.bool
+    naoActiveFromFyOrDateRange: PropTypes.bool
 };
 
 const TimePeriodContainer = (props) => {
@@ -129,8 +126,7 @@ const TimePeriodContainer = (props) => {
             activeTab={activeTab}
             timePeriods={timePeriods}
             updateFilter={updateFilter}
-            changeTab={changeTab}
-            searchV2={props.searchV2} />
+            changeTab={changeTab} />
     );
 };
 
