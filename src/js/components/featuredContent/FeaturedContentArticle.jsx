@@ -36,7 +36,7 @@ const FeaturedContentArticle = () => {
     const lastPortion = parts[parts.length - 1];
     const [chosenArticle, setChosenArticle] = useState(null);
     const [MarkdownContent, setMarkdownContent] = useState(null);
-    const [isLongForm, setIsLongForm] = useState(false);
+    const [isInfographicTemplate, setIsInfographicTemplate] = useState(false);
     const [sections, setSections] = useState([]);
     const [activeSection, setActiveSection] = useState([]);
     const [isFound, setIsFound] = useState(false);
@@ -67,7 +67,7 @@ const FeaturedContentArticle = () => {
             if (transformString(article.title) === lastPortion) {
                 setIsFound(true);
                 setChosenArticle(article);
-                setIsLongForm(Object.prototype.hasOwnProperty.call(article, 'isLongForm') ? article.isLongForm : false);
+                setIsInfographicTemplate(Object.prototype.hasOwnProperty.call(article, 'isInfographicTemplate') ? article.isInfographicTemplate : false);
                 const tempSections = [];
                 for (let i = 0; i < article?.sections?.length; i++) {
                     tempSections.push({
@@ -114,12 +114,12 @@ const FeaturedContentArticle = () => {
 
     const setNoHeader = () => {
         if (!isFound) return false;
-        if (!isLongForm) return true;
+        if (!isInfographicTemplate) return true;
         return false;
     };
 
     const Hero = () => {
-        if (isLongForm) return <></>;
+        if (isInfographicTemplate) return <></>;
 
         return (<FeaturedContentHeader
             isMobile={isMobile}
@@ -128,7 +128,7 @@ const FeaturedContentArticle = () => {
     };
 
     const LongFormHero = () => {
-        if (isLongForm) {
+        if (isInfographicTemplate) {
             return (
                 <div className="long-form-featured-content__header-block">
                     <span
@@ -176,11 +176,11 @@ const FeaturedContentArticle = () => {
             pageName="featured-content-article"
             classNames="featured-content-page"
             noHeader={setNoHeader()}
-            backgroundColor={isLongForm ? getPrimaryFill(chosenArticle) : `rgb(26, 68, 128)`}
+            backgroundColor={isInfographicTemplate ? getPrimaryFill(chosenArticle) : `rgb(26, 68, 128)`}
             sections={sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
-            inPageNav={isLongForm}
+            inPageNav={isInfographicTemplate && sections?.length > 2}
             metaTagProps={{ ...homePageMetaTags }}>
             <main
                 id="main-content"
