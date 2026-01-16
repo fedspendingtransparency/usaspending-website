@@ -73,8 +73,6 @@ export default class CFDATreeTooltip extends React.Component {
             adjustedX = (this.props.x - adjustedX);
         }
 
-        console.log({ adjustedX, y: this.props.y });
-
         this.setState({
             direction,
             tooltipStyle: {
