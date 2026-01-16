@@ -84,7 +84,7 @@ export const SearchFilterCategories = [
 export const searchFilterCategoryTree = [
     {
         title: 'Recipient',
-        component: <RecipientSearchContainer searchV2 />
+        component: <RecipientSearchContainer />
     },
     {
         title: "Award ID",
