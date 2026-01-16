@@ -10,7 +10,7 @@ import { awardTypesData, awardTypeCodes } from 'dataMapping/search/awardType';
 import AccordionCheckbox from "components/sharedComponents/checkbox/AccordionCheckbox";
 import { bulkAwardTypeChange, toggleAwardType } from "redux/actions/search/searchFilterActions";
 
-const AwardTypeV2 = () => {
+const AwardType = () => {
     const awardType = useSelector((state) => state.filters.awardType);
     const dispatch = useDispatch();
 
@@ -34,4 +34,4 @@ const AwardTypeV2 = () => {
     );
 };
 
-export default AwardTypeV2;
+export default AwardType;

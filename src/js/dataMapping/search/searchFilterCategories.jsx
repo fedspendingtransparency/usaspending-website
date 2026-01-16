@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import AwardTypeV2 from "components/search/filters/awardType/AwardTypeV2";
+import AwardType from "components/search/filters/awardType/AwardType";
 import Agency from "components/search/filters/agency/Agency";
 import LocationSection from "components/search/filters/location/LocationSection";
 import TimePeriodContainer from "containers/search/filters/TimePeriodContainer";
@@ -102,7 +102,7 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'Award Type',
-        component: <AwardTypeV2 />
+        component: <AwardType />
     },
     {
         title: 'Recipient Type',
