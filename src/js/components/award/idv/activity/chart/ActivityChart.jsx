@@ -347,7 +347,6 @@ const ActivityChart = ({
                 <ActivityYAxis
                     height={height - padding.bottom}
                     padding={padding}
-                    extendLine={barHeight}
                     scale={yScaleRef.current}
                     ticks={yTicks} />
                 <ActivityXAxis

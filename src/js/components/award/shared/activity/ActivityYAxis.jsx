@@ -21,7 +21,7 @@ const propTypes = {
 const ActivityYAxis = ({
     height,
     padding,
-    extendLine = 10,
+    extendLine = -10,
     scale,
     ticks,
     textAnchor
