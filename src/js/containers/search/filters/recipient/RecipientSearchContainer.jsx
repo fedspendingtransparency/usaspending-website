@@ -3,7 +3,7 @@
  * Created by michaelbray on 2/16/17.
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from "axios";
 
@@ -143,9 +143,9 @@ const RecipientSearchContainer = () => {
             });
     };
 
-    const handleTextInputChange = (e) => {
+    const handleTextInputChange = useCallback((e) => {
         setSearchString(e.target.value);
-    };
+    }, []);
 
     const handleSearchClear = () => {
         setSearchString('');
@@ -249,7 +249,9 @@ const RecipientSearchContainer = () => {
         if (searchedFilterValues?.recipient) {
             searchValues = searchedFilterValues.recipient;
         }
-        else if (searchedFilterValues?.get('recipient')) {
+        else if ((searchedFilterValues?.get === 'function')
+            && (searchedFilterValues.get('recipient'))
+        ) {
             searchValues = searchedFilterValues.get('recipient');
         }
         if (searchValues && (!searchString || searchString !== searchValues?.input)) {
