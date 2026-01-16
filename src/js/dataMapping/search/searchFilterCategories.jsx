@@ -117,7 +117,7 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'Assistance Listing',
-        component: <CFDASearchContainer searchV2 />
+        component: <CFDASearchContainer />
     },
     {
         title: 'North American Industry Classification System (NAICS)',
