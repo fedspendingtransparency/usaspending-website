@@ -10,14 +10,14 @@ import { Set } from 'immutable';
 import { MemoryRouter, Router, Route, useLocation } from 'react-router';
 import * as redux from 'react-redux';
 
-import SearchContainer, { parseRemoteFilters } from 'containers/search/SearchContainerv2';
+import SearchContainer, { parseRemoteFilters } from 'containers/search/SearchContainer';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 
 import { mockFilters, mockRedux } from './mockSearchHashes';
 import { restoreUrlHash, generateUrlHash } from './filters/searchHelper';
 
 // mock the child component by replacing it with a function that returns a null element
-jest.mock('components/search/SearchPagev2', () => (
+jest.mock('components/search/SearchPage', () => (
     jest.fn(() => null)
 ));
 
@@ -39,13 +39,11 @@ jest.mock('react-redux', () => {
     };
 });
 
-jest.mock('react-router', () => {
-    return {
-        ...jest.requireActual('react-router'),
-        useLocation: jest.fn().mockReturnValue({search: ''}),
-        useNavigate: jest.fn()
-    };
-});
+jest.mock('react-router', () => ({
+    ...jest.requireActual('react-router'),
+    useLocation: jest.fn().mockReturnValue({ search: '' }),
+    useNavigate: jest.fn()
+}));
 
 
 test('parseRemoteFilters should return null if the versions do not match', () => {
@@ -86,10 +84,10 @@ xtest('a non-hashed url does not make a request to the api', async () => {
 xtest('a hashed url makes a request to the api & sets loading state', async () => {
     restoreUrlHash.mockClear();
     <MemoryRouter initialEntries={['/?hash=abc']}>
-        <Router>
-            <Route path='/?hash=abc' />
+            <Router>
+            <Route path="/?hash=abc" />
         </Router>
-    </MemoryRouter>
+        </MemoryRouter>;
     const setLoadingStateFn = jest.spyOn(appliedFilterActions, 'setAppliedFilterEmptiness');
     render(<SearchContainer />, {});
     await waitFor(() => {

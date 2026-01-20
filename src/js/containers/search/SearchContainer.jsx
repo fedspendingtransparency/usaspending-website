@@ -14,11 +14,13 @@ import {
 } from 'redux/reducers/search/searchFiltersReducer';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
-import { setAppliedFilterEmptiness, resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
+import {
+    setAppliedFilterEmptiness, resetAppliedFilters
+} from 'redux/actions/search/appliedFilterActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import SearchPagev2 from 'components/search/SearchPagev2';
+import SearchPage from 'components/search/SearchPage';
 import {
     convertFiltersToAnalyticEvents,
     sendAnalyticEvents,
@@ -243,7 +245,7 @@ const SearchContainer = () => {
     }, [appliedFilters, stagedFilters]);
 
     return (
-        <SearchPagev2
+        <SearchPage
             hash={urlHash}
             filters={stagedFilters}
             appliedFilters={appliedFilters}

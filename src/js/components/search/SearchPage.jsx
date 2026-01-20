@@ -1,5 +1,5 @@
 /**
- * SearchPagev2.jsx
+ * SearchPage.jsx
  * * Created by Andrea Blackwell November 4, 2024
  * **/
 
