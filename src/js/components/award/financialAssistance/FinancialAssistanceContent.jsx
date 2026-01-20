@@ -151,7 +151,6 @@ const FinancialAssistanceContent = ({
         </AwardPageWrapper>
     );
 };
-FinancialAssistanceContent.defaultProps = { uniqueGeneratedAwardId: '' };
-FinancialAssistanceContent.propTypes = propTypes;
 
+FinancialAssistanceContent.propTypes = propTypes;
 export default FinancialAssistanceContent;
