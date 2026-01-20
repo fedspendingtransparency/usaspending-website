@@ -127,11 +127,26 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
     const resultsContainer = () => {
         if (noResults) {
             return (
-                <Alert
-                    header="Sorry, no results found."
-                    body="Please double-check your spelling or broaden your search and try again."
-                    type="warning"
-                    icon />
+                <>
+                    {showClearAll &&
+                        <div className="clear-all__container">
+                            <button
+                                type="button"
+                                aria-label={`Clear all ${filterType}`}
+                                className="clear-all__button"
+                                tabIndex="0"
+                                onClick={handleClearAll} >
+                                {`Clear all ${filterType}`}
+                            </button>
+                        </div>
+                    }
+                    <Alert
+                        className="autocomplete-no-results"
+                        header="Sorry, no results found."
+                        body="Please double-check your spelling or broaden your search and try again."
+                        type="warning"
+                        icon />
+                </>
             );
         }
 
