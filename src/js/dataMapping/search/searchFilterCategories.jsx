@@ -121,13 +121,7 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'North American Industry Classification System (NAICS)',
-        component: (
-            <>
-                <div className="search-option">
-                    <NAICSCheckboxTree searchV2 />
-                </div>
-            </>
-        )
+        component: <NAICSCheckboxTree />
     },
     {
         title: 'Disaster Emergency Fund Code (DEFC)',

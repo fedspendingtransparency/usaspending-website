@@ -358,7 +358,7 @@ const NAICSCheckboxTree = () => {
 
 
     return (
-        <div>
+        <div className="search-option">
             <div className="naics-search-container">
                 <EntityDropdownAutocomplete
                     placeholder="Type at least 2 letters..."
