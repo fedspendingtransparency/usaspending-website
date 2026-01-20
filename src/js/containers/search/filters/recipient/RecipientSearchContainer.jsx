@@ -266,7 +266,6 @@ const RecipientSearchContainer = () => {
             getRecipientsFromSearchString(searchString);
         }
         else if (searchString?.length === 0) setNoResults(false);
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString]);
 
