@@ -133,13 +133,7 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'Product and Service Code (PSC)',
-        component: (
-            <>
-                <div className="search-option">
-                    <PSCCheckboxTreeContainer searchV2 />
-                </div>
-            </>
-        )
+        component: <PSCCheckboxTreeContainer />
     },
     {
         title: 'Type of Contract Pricing',
