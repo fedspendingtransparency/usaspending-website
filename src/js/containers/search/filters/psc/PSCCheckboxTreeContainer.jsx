@@ -117,8 +117,8 @@ const PSCCheckboxTreeContainer = () => {
                             searchExpandedNodes,
                             nodes
                         );
-                        dispatch(setExpandedPsc(searchExpandedNodes, 'SET_SEARCHED_EXPANDED'))();
 
+                        dispatch(setExpandedPsc(searchExpandedNodes, 'SET_SEARCHED_EXPANDED'));
 
                         if (pscNodes.length === 0) {
                             setShowNoResults(true);
