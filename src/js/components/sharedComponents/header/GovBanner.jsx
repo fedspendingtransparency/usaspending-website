@@ -32,6 +32,18 @@ const GovBanner = () => {
         setAccordionOpen(false);
     };
 
+    const getMobileButton = () => (
+        <button
+            tabIndex={0}
+            onClick={(e) => toggleAccordion(e)}
+            onKeyDown={(e) => {
+                if (e.key === "Enter") toggleAccordion(e);
+            }}
+            className="usa-banner__mobile-button-wrapper"
+            aria-expanded="false"
+            aria-controls="gov-banner" />
+    );
+
     useEffect(() => {
         if (isMobile && document.querySelector(".usa-banner-close").style.display === "none") {
             // isMobile
@@ -47,6 +59,7 @@ const GovBanner = () => {
                             className="usa-banner__inner"
                             data-testid="banner-header-inner-div">
                             <div className="usa-banner__header-text-wrapper">
+                                {isMobile && getMobileButton()}
                                 <img
                                     className="usa-banner__header-flag"
                                     alt="U.S. flag"
@@ -56,8 +69,8 @@ const GovBanner = () => {
                                     <div className="usa-banner__header-sub-text">An official website of the United States government</div>
                                     <button
                                         type="button"
-                                        tabIndex={0}
-                                        onClick={toggleAccordion}
+                                        tabIndex={!isMobile ? 0 : -1}
+                                        onClick={(e) => (!isMobile ? toggleAccordion(e) : "")}
                                         onKeyDown={(e) => {
                                             if (e.key === "Enter") toggleAccordion(e);
                                         }}
@@ -71,12 +84,12 @@ const GovBanner = () => {
                             </div>
                             <div
                                 className="usa-banner-close"
-                                tabIndex={0}
+                                tabIndex={!isMobile ? 0 : -1}
                                 role="button"
                                 onKeyDown={(e) => {
-                                    if (e.key === "Enter") closeAccordion(e);
+                                    if (e.key === "Enter" && !isMobile) closeAccordion();
                                 }}
-                                onClick={closeAccordion}>
+                                onClick={() => (!isMobile ? closeAccordion() : "")}>
                                 <Icons.Close alt="Close Top Hat Mobile Menu" />
                             </div>
                         </div>
