@@ -23,9 +23,9 @@ import SearchSidebar from './SearchSidebar';
 import NoDownloadHover from '../header/NoDownloadHover';
 import Alert from "../../sharedComponents/Alert";
 import MobileFilters from "./MobileFilters";
-import SubawardDropdown from "../SubawardDropdown";
 import { setSearchViewSubaward, setSpendingLevel } from "../../../redux/actions/search/searchViewActions";
 import ResultsView from "../resultsView/ResultsView";
+import FilterAwardToggle from '../FilterAwardToggle';
 
 require('pages/search/searchPage.scss');
 
@@ -151,10 +151,8 @@ const SearchPage = React.memo(({
             title="Award Search"
             metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
             toolBarComponents={[
-                <SubawardDropdown
-                    size="sm"
-                    label="Filter by:"
-                    enabled
+                <FilterAwardToggle
+                    // only adding here due to SubawardDropdown was removed
                     setSearchViewSubaward={setSearchViewSubaward}
                     setSpendingLevel={setSpendingLevel}
                     selectedValue="awards" />,
