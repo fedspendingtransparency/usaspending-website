@@ -41,7 +41,8 @@ const GovBanner = () => {
             }}
             className="usa-banner__mobile-button-wrapper"
             aria-expanded="false"
-            aria-controls="gov-banner" />
+            aria-controls="gov-banner"
+            aria-label="Toggle USA banner information" />
     );
 
     useEffect(() => {
