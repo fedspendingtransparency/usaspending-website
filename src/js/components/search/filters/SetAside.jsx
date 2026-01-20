@@ -1,5 +1,5 @@
 /**
- * SetAsideContainer.jsx
+ * SetAside.jsx
  * Created by Emily Gullo on 6/22/17
  */
 
@@ -10,7 +10,7 @@ import { setAsideDefinitions, setAsideTypeMapping } from 'dataMapping/search/con
 import ListCheckbox from "components/sharedComponents/checkbox/ListCheckbox";
 import { updateSetAside } from "redux/actions/search/searchFilterActions";
 
-const SetAsideContainer = () => {
+const SetAside = () => {
     const setAside = useSelector((state) => state.filters.setAside);
     const dispatch = useDispatch();
 
@@ -27,4 +27,4 @@ const SetAsideContainer = () => {
     );
 };
 
-export default SetAsideContainer;
+export default SetAside;

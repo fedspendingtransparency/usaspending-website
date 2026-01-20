@@ -18,7 +18,7 @@ import AwardAmountSearch from "components/search/filters/awardAmount/AwardAmount
 import NAICSCheckboxTree from "containers/search/filters/naics/NAICSCheckboxTree";
 import PSCCheckboxTreeContainer from "containers/search/filters/psc/PSCCheckboxTreeContainer";
 import PricingType from "components/search/filters/PricingType";
-import SetAsideContainer from "containers/search/filters/SetAsideContainer";
+import SetAside from "components/search/filters/SetAside";
 import ExtentCompetedContainer from "containers/search/filters/ExtentCompetedContainer";
 import CFDASearchContainer from "containers/search/filters/cfda/CFDASearchContainer";
 import DEFCheckboxTreeContainer from "containers/search/filters/def/DEFCheckboxTreeContainer";
@@ -141,7 +141,7 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'Type of Set Aside',
-        component: <SetAsideContainer searchV2 />
+        component: <SetAside />
     },
     {
         title: 'Extent Competed',
