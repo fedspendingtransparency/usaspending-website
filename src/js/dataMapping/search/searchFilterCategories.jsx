@@ -17,7 +17,7 @@ import RecipientType from "containers/search/filters/recipient/RecipientType";
 import AwardAmountSearch from "components/search/filters/awardAmount/AwardAmountSearch";
 import NAICSCheckboxTree from "containers/search/filters/naics/NAICSCheckboxTree";
 import PSCCheckboxTreeContainer from "containers/search/filters/psc/PSCCheckboxTreeContainer";
-import PricingTypeContainer from "containers/search/filters/PricingTypeContainer";
+import PricingType from "components/search/filters/PricingType";
 import SetAsideContainer from "containers/search/filters/SetAsideContainer";
 import ExtentCompetedContainer from "containers/search/filters/ExtentCompetedContainer";
 import CFDASearchContainer from "containers/search/filters/cfda/CFDASearchContainer";
@@ -137,7 +137,7 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'Type of Contract Pricing',
-        component: <PricingTypeContainer searchV2 />
+        component: <PricingType />
     },
     {
         title: 'Type of Set Aside',
