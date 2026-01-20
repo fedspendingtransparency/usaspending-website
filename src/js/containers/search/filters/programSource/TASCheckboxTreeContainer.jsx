@@ -63,8 +63,7 @@ const TASCheckboxTree = () => {
             .filter((expandedNode) => {
                 // if node is checked by an immediate placeholder, consider it checked.
                 if (checked.includes(`children_of_${expandedNode}`)) return true;
-                if (checked.includes(expandedNode)) return true;
-                return false;
+                return !!checked.includes(expandedNode);
             })
             .map((node) => removePlaceholderString(node))
             .reduce((acc, expandedAndChecked) => {
@@ -98,7 +97,9 @@ const TASCheckboxTree = () => {
                 // dynamically populating tree branches
                 const tasNodes = cleanTasData(data.results);
                 if (isPartialTree) {
-                    // parsing the prepended agency (format in url is agencyId/federalAccountId when fetching federalAccount level data)
+                    // parsing the prepended agency
+                    // (format in url is agencyId/federalAccountId
+                    // when fetching federalAccount level data)
                     const key = id.includes('/')
                         ? id.split('/')[1]
                         : id;
@@ -169,7 +170,9 @@ const TASCheckboxTree = () => {
             setIsLoading(true);
             if (treeDepth >= 1) {
                 if (treeDepth === 2) {
-                    fetchTasLocal(`${selectedNode.ancestors[0]}/${selectedNode.ancestors[1]}/${expandedValue}`);
+                    fetchTasLocal(
+                        `${selectedNode.ancestors[0]}/${selectedNode.ancestors[1]}/${expandedValue}`
+                    );
                 }
                 else {
                     fetchTasLocal(`${selectedNode.ancestors[0]}/${expandedValue}`);
@@ -225,7 +228,9 @@ const TASCheckboxTree = () => {
 
     const onCheck = (newChecked) => {
         // prevent double count
-        const stateNewChecked = newChecked?.length > 1 ? newChecked.filter((id) => !id.includes("children_of_")) : newChecked;
+        const stateNewChecked = newChecked?.length > 1 ?
+            newChecked.filter((id) => !id.includes("children_of_")) :
+            newChecked;
         const [newCounts, newUnchecked] = incrementTasCountAndUpdateUnchecked(
             stateNewChecked,
             checked,

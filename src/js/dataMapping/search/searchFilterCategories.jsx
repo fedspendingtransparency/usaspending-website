@@ -129,7 +129,7 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'Treasury Account Symbol (TAS)',
-        component: <TASCheckboxTreeContainer showInfo={false} searchV2 />
+        component: <TASCheckboxTreeContainer />
     },
     {
         title: 'Product and Service Code (PSC)',
