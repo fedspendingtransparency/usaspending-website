@@ -22,13 +22,28 @@ const GovBanner = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, [windowWidth]);
 
-    const toggleAccordion = () => {
+    const toggleAccordion = (e) => {
+        e.preventDefault();
         setAccordionOpen((prevState) => !prevState);
     };
 
-    const closeAccordion = () => {
+    const closeAccordion = (e) => {
+        e.preventDefault();
         setAccordionOpen(false);
     };
+
+    const getMobileButton = () => (
+        <button
+            tabIndex={0}
+            onClick={(e) => toggleAccordion(e)}
+            onKeyDown={(e) => {
+                if (e.key === "Enter") toggleAccordion(e);
+            }}
+            className="usa-banner__mobile-button-wrapper"
+            aria-expanded="false"
+            aria-controls="gov-banner"
+            aria-label="Toggle USA banner information" />
+    );
 
     useEffect(() => {
         if (isMobile && document.querySelector(".usa-banner-close").style.display === "none") {
@@ -43,14 +58,9 @@ const GovBanner = () => {
                     <header className="usa-banner__header">
                         <div
                             className="usa-banner__inner"
-                            tabIndex={isMobile ? 0 : ""}
-                            role="button"
-                            onKeyDown={(e) => {
-                                if (e.key === "Enter" && isMobile) toggleAccordion();
-                            }}
-                            onClick={() => ((isMobile) ? toggleAccordion() : "")}
                             data-testid="banner-header-inner-div">
                             <div className="usa-banner__header-text-wrapper">
+                                {isMobile && getMobileButton()}
                                 <img
                                     className="usa-banner__header-flag"
                                     alt="U.S. flag"
@@ -61,7 +71,10 @@ const GovBanner = () => {
                                     <button
                                         type="button"
                                         tabIndex={!isMobile ? 0 : -1}
-                                        onClick={() => (!isMobile ? toggleAccordion() : "")}
+                                        onClick={(e) => (!isMobile ? toggleAccordion(e) : "")}
+                                        onKeyDown={(e) => {
+                                            if (e.key === "Enter") toggleAccordion(e);
+                                        }}
                                         className="usa-accordion__button usa-banner__button"
                                         aria-expanded="false"
                                         aria-controls="gov-banner">
@@ -72,7 +85,7 @@ const GovBanner = () => {
                             </div>
                             <div
                                 className="usa-banner-close"
-                                tabIndex={0}
+                                tabIndex={!isMobile ? 0 : -1}
                                 role="button"
                                 onKeyDown={(e) => {
                                     if (e.key === "Enter" && !isMobile) closeAccordion();
