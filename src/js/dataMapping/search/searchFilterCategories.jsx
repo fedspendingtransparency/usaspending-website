@@ -19,7 +19,7 @@ import NAICSCheckboxTree from "containers/search/filters/naics/NAICSCheckboxTree
 import PSCCheckboxTreeContainer from "containers/search/filters/psc/PSCCheckboxTreeContainer";
 import PricingType from "components/search/filters/PricingType";
 import SetAside from "components/search/filters/SetAside";
-import ExtentCompetedContainer from "containers/search/filters/ExtentCompetedContainer";
+import ExtentCompeted from "components/search/filters/ExtentCompeted";
 import CFDASearchContainer from "containers/search/filters/cfda/CFDASearchContainer";
 import DEFCheckboxTreeContainer from "containers/search/filters/def/DEFCheckboxTreeContainer";
 import AwardDescriptionFilterContainer from
@@ -145,6 +145,6 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'Extent Competed',
-        component: <ExtentCompetedContainer searchV2 />
+        component: <ExtentCompeted />
     }
 ];
