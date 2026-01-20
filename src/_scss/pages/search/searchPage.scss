@@ -18,26 +18,46 @@
     @import "filters";
     @import "collapsibleSidebar";
 
-    .subaward-dropdown__list {
-        min-width: max-content;
-        transform: translateY(-12px);
-        li {
-            button {
-                padding-left: rem(30) !important;
-            }
+    div.filter-award-toggle__container {
+        display: flex;
+        height: 21px;
+        align-self: center;
+        align-items: center;
+        
+        .filter-award-toggle__label {
+            font-size: $font-size-14;
+            color: $color-white;
+            margin-right: rem(8);
         }
-    }
+        
+        .filter-award-toggle__wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border: 1px solid #FACE00;
+            border-radius: 4px;
+            
+            button {
+                color: $gray-90;
+                font-size: $font-size-12;
+                line-height: 24px;
+                padding: rem(4) rem(8);
+                background-color: $color-white;
+                margin: 0px;
+                
 
-    div.subaward-dropdown__container {
-        .subaward-dropdown__list {
-            min-width: max-content;
-            transform: translateY(-12px);
-            li {
-                button {
-                    padding-left: rem(30) !important;
-                    padding-right: 1.5 * $global-padding !important;
+                &.active {
+                    background-color: #FACE00
                 }
             }
+            button:first-of-type {
+                border-radius: 4px 0 0 4px;
+            }
+            button:nth-of-type(2) {
+                border-radius: 0 4px 4px 0;
+            }
+            
+            
         }
     }
 
