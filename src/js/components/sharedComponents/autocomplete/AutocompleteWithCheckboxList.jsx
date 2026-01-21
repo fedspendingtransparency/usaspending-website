@@ -1,14 +1,17 @@
 /**
+ * AutocompleteWithCheckboxList.jsx
  * Created by JD House on 11/21/25.
  */
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import EntityDropdownAutocomplete from
     'components/search/filters/location/EntityDropdownAutocomplete';
 import PrimaryCheckboxType from
     'components/sharedComponents/checkbox/PrimaryCheckboxType';
+import Alert from "../Alert";
 
 const propTypes = {
     handleTextInputChange: PropTypes.func,
@@ -29,7 +32,8 @@ const propTypes = {
     searchId: PropTypes.string
 };
 
-const AutocompleteWithCheckboxList = React.memo(({
+// eslint-disable-next-line prefer-arrow-callback
+const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckboxList({
     handleTextInputChange,
     onSearchClear,
     onClearAll,
@@ -46,7 +50,7 @@ const AutocompleteWithCheckboxList = React.memo(({
     limit = 500,
     placeholder = "Type at least 3 letters...",
     searchId
-}) => {
+}) {
     const [allSelected, setAllSelected] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [showClearAll, setShowClearAll] = useState(true);
@@ -100,11 +104,13 @@ const AutocompleteWithCheckboxList = React.memo(({
     const checkboxHeading = () => {
         if (!searchString) return null;
 
+        // hide select all button for now until design direction
+        const selectAllButton = false;
+
         return (
             <li className="autocomplete-heading">
                 {searchString}
-                {false &&
-                // hide for now until design direction
+                {selectAllButton &&
                     <button
                         type="button"
                         aria-label="Select All filters"
@@ -120,7 +126,28 @@ const AutocompleteWithCheckboxList = React.memo(({
 
     const resultsContainer = () => {
         if (noResults) {
-            return <div className="no-results">No results found.</div>;
+            return (
+                <>
+                    {showClearAll &&
+                        <div className="clear-all__container">
+                            <button
+                                type="button"
+                                aria-label={`Clear all ${filterType}`}
+                                className="clear-all__button"
+                                tabIndex="0"
+                                onClick={handleClearAll} >
+                                {`Clear all ${filterType}`}
+                            </button>
+                        </div>
+                    }
+                    <Alert
+                        className="autocomplete-no-results"
+                        header="Sorry, no results found"
+                        body="Please check your spelling or try a broader search."
+                        type="warning"
+                        icon />
+                </>
+            );
         }
 
         if (isLoading) {

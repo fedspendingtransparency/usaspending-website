@@ -185,7 +185,7 @@ const CFDASearchContainer = () => {
                 selected: selectedCFDA
             }));
         }
-
+        else if (cfdaSearchString?.length === 0) setNoResults(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cfdaSearchString]);
 
