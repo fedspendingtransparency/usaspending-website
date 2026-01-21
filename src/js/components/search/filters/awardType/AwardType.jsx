@@ -1,5 +1,5 @@
 /**
- * FinancialAssistanceAwardType.jsx
+ * AwardType.jsx
  * Created by Nick Torres 1/8/2025
  **/
 
