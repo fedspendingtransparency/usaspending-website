@@ -142,8 +142,8 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
                     }
                     <Alert
                         className="autocomplete-no-results"
-                        header="Sorry, no results found."
-                        body="Please double-check your spelling or broaden your search and try again."
+                        header="Sorry, no results found"
+                        body="Please check your spelling or try a broader search."
                         type="warning"
                         icon />
                 </>
