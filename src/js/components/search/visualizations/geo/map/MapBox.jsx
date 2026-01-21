@@ -26,7 +26,8 @@ const delta = 100;
 // define map sources
 const mapStyle = 'mapbox://styles/usaspendingfrbkc/cm97fy9mm00g601qt032hg79g';
 
-const MapBox = forwardRef((props, ref) => {
+// eslint-disable-next-line prefer-arrow-callback
+const MapBox = forwardRef(function MapBox(props, ref) {
     let componentUnmounted = false;
     const map = useRef();
     const mapDiv = useRef(null);

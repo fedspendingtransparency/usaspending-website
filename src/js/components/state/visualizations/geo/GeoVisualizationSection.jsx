@@ -40,7 +40,8 @@ const propTypes = {
 
 const availableLayers = ['county', 'congressionalDistrict'];
 
-const GeoVisualizationSection = React.memo((props) => {
+// eslint-disable-next-line prefer-arrow-callback
+const GeoVisualizationSection = React.memo(function GeoVisualizationSection(props) {
     const [showHover, setShowHover] = useState(false);
     const [selectedItem, setSelectedItem] = useState({});
     const dataRef = useRef(props.data);
@@ -65,7 +66,8 @@ const GeoVisualizationSection = React.memo((props) => {
 
         if (value === "all") {
             props.clearSearchFilters("def_code");
-        } else {
+        }
+        else {
             newSearch.filters.def_codes = [value];
             props.changeScope(newSearch, "def_code", [value]);
         }

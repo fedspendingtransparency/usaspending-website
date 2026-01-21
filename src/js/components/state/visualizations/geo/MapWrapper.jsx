@@ -88,7 +88,8 @@ const mapboxSources = {
     }
 };
 
-const StateProfileMapWrapper = React.memo((props) => {
+// eslint-disable-next-line prefer-arrow-callback
+const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props) {
     const mapRef = useRef();
     const scopeRef = useRef(props.scope);
     const [mapLayers, setMapLayers] = useState({});
