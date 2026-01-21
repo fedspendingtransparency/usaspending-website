@@ -11,6 +11,7 @@ import { TooltipWrapper } from "data-transparency-ui";
 
 import EntityDropdownAutocomplete from 'components/sharedComponents/EntityDropdownAutocomplete';
 import { CDTooltip } from "components/search/filters/tooltips/AdvancedSearchTooltip";
+import defaultLocationValues from "dataMapping/bulkDownload/defaultLocationValues";
 import EntityWarning from './EntityWarning';
 import EntityDropdownList from './EntityDropdownList';
 
@@ -32,44 +33,6 @@ const propTypes = {
 };
 
 const alphabetRegex = /([a-z]|[0-9])/;
-
-const defaultLocationValues = {
-    country: {
-        code: "",
-        name: "",
-        autoPopulated: false
-    },
-    state: {
-        code: "",
-        fips: "",
-        name: "",
-        autoPopulated: false // from city selection
-    },
-    county: {
-        code: "",
-        fips: "",
-        state: "",
-        name: ""
-    },
-    city: {
-        name: "",
-        code: ""
-    },
-    district_original: {
-        code: "",
-        district: "",
-        name: ""
-    },
-    district_current: {
-        code: "",
-        district: "",
-        name: ""
-    },
-    zip: {
-        valid: "",
-        invalid: ""
-    }
-};
 
 const EntityDropdown = ({
     value,
