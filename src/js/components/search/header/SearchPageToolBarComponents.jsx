@@ -1,5 +1,5 @@
 /**
- * NoDownloadHover.jsx
+ * SearchPageToolBarComponents.jsx
  * Created on 11/18/2025 by Josue Aguilar
  */
 
@@ -7,10 +7,10 @@ import React from "react";
 import { DownloadIconButton, ShareIcon } from "data-transparency-ui";
 
 import { setSearchViewSubaward, setSpendingLevel } from
-    "../../redux/actions/search/searchViewActions";
-import NoDownloadHover from "./header/NoDownloadHover";
-import { getBaseUrl, handleShareOptionClick } from "../../helpers/socialShare";
-import FilterAwardToggle from "./FilterAwardToggle";
+    "redux/actions/search/searchViewActions";
+import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
+import FilterAwardToggle from "../FilterAwardToggle";
+import NoDownloadHover from "./NoDownloadHover";
 
 const emailSubject = 'Award Search results on USAspending.gov';
 const slug = 'search/';
