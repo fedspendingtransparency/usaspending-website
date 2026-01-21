@@ -3,13 +3,16 @@
  * Created by Kevin Li 2/17/17
  */
 
-import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef, useCallback } from 'react';
+import React, {
+    useEffect, useState, useImperativeHandle, useRef, forwardRef, useCallback, useContext
+} from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
-import { throttle } from 'lodash-es';
-import * as Icons from 'components/sharedComponents/icons/Icons';
-import statesBySqMile from "dataMapping/state/statesBySqMile";
+
 import kGlobalConstants from 'GlobalConstants';
+import statesBySqMile from "dataMapping/state/statesBySqMile";
+import IsMobileContext from "context/IsMobileContext";
+import MapBoxNavButtons from "./MapBoxNavButtons";
 
 const propTypes = {
     loadedMap: PropTypes.func,
@@ -20,41 +23,56 @@ const propTypes = {
     singleLocationSelected: PropTypes.object
 };
 
-// Define map movement increment
-const delta = 100;
-
 // define map sources
 const mapStyle = 'mapbox://styles/usaspendingfrbkc/cm97fy9mm00g601qt032hg79g';
 
 // eslint-disable-next-line prefer-arrow-callback
-const MapBox = forwardRef(function MapBox(props, ref) {
-    let componentUnmounted = false;
-    const map = useRef();
-    const mapDiv = useRef(null);
-
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+const MapBox = forwardRef(function MapBox({
+    loadedMap,
+    unloadedMap,
+    center,
+    stateProfile,
+    stateInfo,
+    singleLocationSelected
+}, ref) {
+    const { isTablet } = useContext(IsMobileContext);
     const [showNavButtons, setShowNavButtons] = useState(false);
     const [zoom, setZoom] = useState(3.2);
+    const mapDiv = useRef(null);
+    const map = useRef(null);
 
     useImperativeHandle(ref, () => ({
         map
     }));
 
 
-    const isStateSelected = () => {
-        if (props.stateInfo?.code !== '' || (props.singleLocationSelected && Object.prototype.hasOwnProperty.call(props.singleLocationSelected, 'state'))) {
-            return true;
-        }
-        return false;
-    };
+    const isStateSelected = () => !!(
+        stateInfo?.code !== '' ||
+        (
+            singleLocationSelected &&
+            Object.prototype.hasOwnProperty.call(singleLocationSelected, 'state')
+        )
+    );
 
-    const isCountyOrDistrict = useCallback(() => props.singleLocationSelected && Object.keys(props.singleLocationSelected)?.length > 0 && (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "state") && props.singleLocationSelected.state !== "AK") && (Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "county") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_current") || Object.prototype.hasOwnProperty.call(props.singleLocationSelected, "district_original")));
+    const isCountyOrDistrict = useCallback(
+        () => singleLocationSelected &&
+                Object.keys(singleLocationSelected)?.length > 0 &&
+                (
+                    Object.prototype.hasOwnProperty.call(singleLocationSelected, "state") &&
+                    singleLocationSelected.state !== "AK"
+                ) &&
+                (
+                    Object.prototype.hasOwnProperty.call(singleLocationSelected, "county") ||
+                    Object.prototype.hasOwnProperty.call(singleLocationSelected, "district_current") ||
+                    Object.prototype.hasOwnProperty.call(singleLocationSelected, "district_original")
+                )
+        , [singleLocationSelected]);
 
     const calculateMapZoom = () => {
         let zoomLevel = 3.2;
 
         if (isStateSelected()) {
-            const stateCode = props.stateInfo?.code || props.singleLocationSelected?.state;
+            const stateCode = stateInfo?.code || singleLocationSelected?.state;
 
             if (stateCode && stateCode !== '') {
                 const state = statesBySqMile.find((s) => s.code === stateCode);
@@ -80,35 +98,15 @@ const MapBox = forwardRef(function MapBox(props, ref) {
         return zoomLevel;
     };
 
-    const moveMap = (bearing) => {
-        map.current.panBy(bearing);
-    };
-
-    const moveUp = () => {
-        moveMap([0, -delta]);
-    };
-
-    const moveLeft = () => {
-        moveMap([-delta, 0]);
-    };
-
-    const moveRight = () => {
-        moveMap([delta, 0]);
-    };
-
-    const moveDown = () => {
-        moveMap([0, delta]);
-    };
-
     const centerMap = (m) => {
         m?.current?.jumpTo({
             zoom: zoom || 3.2,
-            center: props?.center
+            center
         });
     };
 
     const resizeMap = () => {
-        if (windowWidth < 768) {
+        if (isTablet) {
             map.current.dragPan.disable();
             centerMap(map);
             setShowNavButtons(true);
@@ -119,14 +117,14 @@ const MapBox = forwardRef(function MapBox(props, ref) {
         }
     };
 
-    const mountMap = () => {
+    const mountMap = (mounted) => {
         MapboxGL.accessToken = kGlobalConstants.MAPBOX_TOKEN;
         map.current = new MapboxGL.Map({
             container: mapDiv.current,
             style: mapStyle,
             logoPosition: 'bottom-left',
             attributionControl: false,
-            center: props.center,
+            center,
             zoom: calculateMapZoom(),
             dragRotate: false // disable 3D view
         });
@@ -141,7 +139,7 @@ const MapBox = forwardRef(function MapBox(props, ref) {
         map.current.dragRotate.disable();
 
         let showNavigationButtons = false;
-        if (windowWidth < 768) {
+        if (isTablet) {
             showNavigationButtons = true;
             map.current.dragPan.disable();
             centerMap(map);
@@ -152,49 +150,29 @@ const MapBox = forwardRef(function MapBox(props, ref) {
 
         // prepare the shapes
         map.current.on('load', () => {
-            if (componentUnmounted) {
+            if (!mounted) {
                 // don't update the state if the map has been unmounted
                 return;
             }
 
             setShowNavButtons(showNavigationButtons);
-            props.loadedMap(map);
+            loadedMap(map);
         });
     };
 
-    const handleWindowResize = throttle(() => {
-        // determine if the width changed
-        const currentWindowWidth = window.innerWidth;
-        if (currentWindowWidth !== windowWidth) {
-            // width changed, update the visualization width
-            setWindowWidth(currentWindowWidth);
-        }
-    }, 16);
-
-    useEffect(() => {
-        componentUnmounted = false;
-        handleWindowResize();
-        window.addEventListener('resize', handleWindowResize);
-
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-            props.unloadedMap();
-            componentUnmounted = true;
-        };
-    }, []);
-
     const isReCenterable = useCallback(() => {
-        if (props.stateProfile) {
+        if (stateProfile) {
             return false;
         }
 
-        const isSingleLocation = props.center?.length > 0 && Object.prototype.hasOwnProperty.call(props, "singleLocationSelected") && Object.keys(props.singleLocationSelected)?.length > 0;
-        return isSingleLocation;
-    });
+        return center?.length > 0 &&
+            singleLocationSelected &&
+            Object.keys(singleLocationSelected)?.length > 0;
+    }, [center.length, singleLocationSelected, stateProfile]);
 
     useEffect(() => {
         if (isReCenterable()) {
-            if (props.singleLocationSelected?.country !== "USA") {
+            if (singleLocationSelected?.country !== "USA") {
                 centerMap(map);
             }
             else {
@@ -202,57 +180,36 @@ const MapBox = forwardRef(function MapBox(props, ref) {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.center, props.singleLocationSelected]);
+    }, [center, singleLocationSelected]);
 
     useEffect(() => {
-        if (map.current && props?.center?.length > 0) {
+        if (map.current && center?.length > 0) {
             centerMap(map);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [zoom, props.center]);
+    }, [zoom, center]);
 
     useEffect(() => {
+        let mounted = true;
         if (map.current) {
             resizeMap();
         }
         else {
-            mountMap();
+            mountMap(mounted);
         }
+
+        return () => {
+            mounted = false;
+            unloadedMap();
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [windowWidth]);
+    }, [isTablet]);
 
     return (
         <div
             className="mapbox-item"
-            ref={(div) => {
-                mapDiv.current = div;
-            }}>
-            <div className={`map-buttons ${showNavButtons ? '' : 'hide'}`}>
-                <div className="first-row">
-                    <button
-                        onMouseDown={moveUp}
-                        onTouchStart={moveUp}>
-                        <Icons.AngleUp />
-                    </button>
-                </div>
-                <div className="second-row">
-                    <button
-                        onMouseDown={moveLeft}
-                        onTouchStart={moveLeft}>
-                        <Icons.AngleLeft />
-                    </button>
-                    <button
-                        onMouseDown={moveDown}
-                        onTouchStart={moveDown}>
-                        <Icons.AngleDown />
-                    </button>
-                    <button
-                        onMouseDown={moveRight}
-                        onTouchStart={moveRight}>
-                        <Icons.AngleRight />
-                    </button>
-                </div>
-            </div>
+            ref={mapDiv}>
+            <MapBoxNavButtons showNavButtons={showNavButtons} map={map} />
         </div>
     );
 });
