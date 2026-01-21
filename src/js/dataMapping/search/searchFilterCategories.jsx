@@ -13,7 +13,7 @@ import AwardIDSearchContainer from "containers/search/filters/awardID/AwardIDSea
 import TASCheckboxTreeContainer from
     "containers/search/filters/programSource/TASCheckboxTreeContainer";
 import RecipientSearchContainer from "containers/search/filters/recipient/RecipientSearchContainer";
-import RecipientType from "containers/search/filters/recipient/RecipientType";
+import RecipientType from "components/search/filters/RecipientType";
 import AwardAmountSearch from "components/search/filters/awardAmount/AwardAmountSearch";
 import NAICSCheckboxTree from "containers/search/filters/naics/NAICSCheckboxTree";
 import PSCCheckboxTreeContainer from "containers/search/filters/psc/PSCCheckboxTreeContainer";

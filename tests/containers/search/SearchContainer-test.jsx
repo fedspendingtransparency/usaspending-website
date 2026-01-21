@@ -7,7 +7,7 @@
 import React from 'react';
 import { render, waitFor } from '@testing-library/react';
 import { Set } from 'immutable';
-import { MemoryRouter, Router, Route, useLocation } from 'react-router';
+import { MemoryRouter, Router, Route } from 'react-router';
 import * as redux from 'react-redux';
 
 import SearchContainer, { parseRemoteFilters } from 'containers/search/SearchContainer';
@@ -83,11 +83,14 @@ xtest('a non-hashed url does not make a request to the api', async () => {
 
 xtest('a hashed url makes a request to the api & sets loading state', async () => {
     restoreUrlHash.mockClear();
+
+    // eslint-disable-next-line react/jsx-indent
     <MemoryRouter initialEntries={['/?hash=abc']}>
-            <Router>
+        <Router>
             <Route path="/?hash=abc" />
         </Router>
-        </MemoryRouter>;
+    </MemoryRouter>;
+
     const setLoadingStateFn = jest.spyOn(appliedFilterActions, 'setAppliedFilterEmptiness');
     render(<SearchContainer />, {});
     await waitFor(() => {
