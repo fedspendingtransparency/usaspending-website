@@ -34,8 +34,9 @@
             display: flex;
             flex-direction: row;
             justify-content: center;
-            border: 1px solid #FACE00;
+            border: 1px solid $yellow-20v;
             border-radius: 4px;
+            background-color: $yellow-20v;
             
             button {
                 color: $gray-90;
@@ -47,7 +48,7 @@
                 
 
                 &.active {
-                    background-color: #FACE00
+                    background-color: $yellow-20v
                 }
             }
             button:first-of-type {
