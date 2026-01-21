@@ -5,28 +5,15 @@
 
 import React from "react";
 import { DownloadIconButton, ShareIcon } from "data-transparency-ui";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { setSearchViewSubaward, setSpendingLevel } from "redux/actions/search/searchViewActions";
-import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
-import SubawardDropdown from "./SubawardDropdown";
-import NoDownloadHover from "./NoDownloadHover";
+import { setSearchViewSubaward, setSpendingLevel } from
+    "../../redux/actions/search/searchViewActions";
+import NoDownloadHover from "./header/NoDownloadHover";
+import { getBaseUrl, handleShareOptionClick } from "../../helpers/socialShare";
+import FilterAwardToggle from "./FilterAwardToggle";
 
 const emailSubject = 'Award Search results on USAspending.gov';
 const slug = 'search/';
-
-/* eslint-disable max-len */
-const infoSectionContent =
-    <>
-        <div className="explainer-text__first-column">
-            <FontAwesomeIcon icon="info-circle" className="explainer-text__info-icon" />
-        </div>
-        <div className="explainer-text__second-column">
-            <p>Please note that results displayed will vary depending on the filter that’s selected here.</p>
-            <p>For more information, read the "About" sections at the bottom of each filter or the "Data sources and methodology" sections at the bottom of each result module.</p>
-        </div>
-    </>;
-/* eslint-enable max-len */
 
 const searchPageToolBarComponents = (
     isMobile,
@@ -66,16 +53,10 @@ const searchPageToolBarComponents = (
 
     return (
         [
-            <SubawardDropdown
-                size="sm"
-                label="Filter by:"
-                enabled
+            <FilterAwardToggle
                 setSearchViewSubaward={setSearchViewSubaward}
-                selectedValue="awards"
                 setSpendingLevel={setSpendingLevel}
-                infoSection
-                infoSectionContent={infoSectionContent}
-                key="SubawardDropdown" />,
+                selectedValue="awards" />,
             <ShareIcon
                 isEnabled
                 url={getBaseUrl(getSlugWithHash())}

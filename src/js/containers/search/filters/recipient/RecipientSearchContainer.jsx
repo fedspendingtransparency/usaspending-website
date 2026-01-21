@@ -273,7 +273,7 @@ const RecipientSearchContainer = () => {
         if (searchString?.length >= 3) {
             getRecipientsFromSearchString(searchString);
         }
-
+        else if (searchString?.length === 0) setNoResults(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString]);
 
