@@ -44,12 +44,8 @@ const TableDsm = ({ spendingLevel }) => {
                 </> :
                 <>
                     <p style={{ marginBottom: '8px' }}>
-                        View a list of {
-                            spendingLevel === 'transactions' ? ' transactions' : 'award summaries'
-                        } based on your selected filters.
-                        {
-                            spendingLevel === 'transactions' ? ' Click the Prime Award ID for additional details on the prime award that the transaction is associated with. If you selected any Time Period filter, your results include transactions with an action date within your selected time period. ' : ' Click the Award ID, Recipient Name, or Awarding Agency to find more detailed information on individual awards.'
-                        }
+                        View a list of award summaries based on your selected filters.
+                        Click the Award ID, Recipient Name, or Awarding Agency to find more detailed information on individual awards including transaction history, subawards, and more.
                     </p>
                     {spendingLevel === 'awards' &&
                         <p className="award-search__body-text">The rows in the table represent award summaries for {
