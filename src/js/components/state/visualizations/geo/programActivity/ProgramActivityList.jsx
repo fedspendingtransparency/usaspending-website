@@ -8,12 +8,12 @@ import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
 import * as SearchHelper from 'helpers/searchHelper';
-
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    selectProgramActivity: PropTypes.func,
-    selectedProgramActivity: PropTypes.object,
+    searchData: PropTypes.string,
+    changeScope: PropTypes.func,
+    clearSearchFilters: PropTypes.func,
     placeholder: PropTypes.string
 };
 

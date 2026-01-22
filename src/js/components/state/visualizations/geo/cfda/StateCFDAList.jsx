@@ -12,8 +12,9 @@ import * as SearchHelper from 'helpers/searchHelper';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    selectCFDA: PropTypes.func,
-    selectedCFDA: PropTypes.object
+    searchData: PropTypes.string,
+    changeScope: PropTypes.func,
+    clearSearchFilters: PropTypes.func
 };
 
 const StateCFDAList = (props) => {

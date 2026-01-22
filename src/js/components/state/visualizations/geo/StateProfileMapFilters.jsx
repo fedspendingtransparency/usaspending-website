@@ -5,61 +5,129 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash-es';
+import { cloneDeep, uniqueId } from 'lodash-es';
 import { NewPicker } from "data-transparency-ui";
 
-import { mapFilterSortOrderByValue } from '../../../../dataMapping/state/stateMap';
-import { handleSort } from '../../../../helpers/covid19Helper';
-import MapFiltersTitle from '../../../search/visualizations/geo/MapFiltersTitle';
+import { mapFilterSortOrderByValue } from 'dataMapping/state/stateMap';
+import { handleSort } from 'helpers/covid19Helper';
+import MapFiltersTitle from 'components/search/visualizations/geo/MapFiltersTitle';
 import StateCFDAList from "./cfda/StateCFDAList";
 import StateAgencyList from "./agency/StateAgencyList";
 import ProgramActivityList from "./programActivity/ProgramActivityList";
 
 const propTypes = {
-    filters: PropTypes.object,
+    mapFilters: PropTypes.object,
+    amountTypeEnabled: PropTypes.bool,
     activeFilters: PropTypes.object,
-    isOpen: PropTypes.bool
+    isFiltersOpen: PropTypes.bool,
+    awardTypeFilters: PropTypes.object,
+    changeScope: PropTypes.func,
+    clearSearchFilters: PropTypes.func,
+    searchData: PropTypes.string,
+    selectedItemsDisplayNames: PropTypes.object
 };
 // eslint-disable-next-line prefer-arrow-callback
-const StateProfileMapFilters = React.memo(function StateProfileMapFilters(props) {
+const StateProfileMapFilters = React.memo(function StateProfileMapFilters({
+    mapFilters,
+    amountTypeEnabled,
+    activeFilters,
+    isFiltersOpen,
+    awardTypeFilters,
+    changeScope,
+    clearSearchFilters,
+    searchData,
+    selectedItemsDisplayNames
+}) {
+    let tempMapFilters = mapFilters;
+    let active = cloneDeep(activeFilters);
+
+    if (!tempMapFilters || !activeFilters) return null;
+    const awardTypeFiltersLocal = awardTypeFilters?.map((filter) => filter.internal)
+        .filter((filter) => filter !== 'all')
+        .filter((filter) => filter !== 'loans');
+
+    if (awardTypeFiltersLocal?.includes(activeFilters.awardType)) {
+        tempMapFilters.spendingType.options.pop();
+    }
+
+    if (activeFilters?.territory === 'country') {
+        tempMapFilters = Object.assign({},
+            {
+                territory: tempMapFilters.territory,
+                def_codes: tempMapFilters.def_codes,
+                amountType: { ...tempMapFilters.amountType, enabled: false }
+            });
+
+        active = Object.assign({}, {
+            ...active,
+            amountType: 'totalSpending'
+        });
+    }
+    else if (amountTypeEnabled === false) {
+        tempMapFilters = Object.assign({},
+            {
+                territory: tempMapFilters.territory,
+                def_codes: tempMapFilters.def_codes
+            }
+        );
+    }
+    else {
+        tempMapFilters = Object.assign({},
+            {
+                territory: tempMapFilters.territory,
+                def_codes: tempMapFilters.def_codes,
+                amountType: { ...tempMapFilters.amountType, enabled: true }
+            }
+        );
+    }
+
+    const mapFilterClassName = isFiltersOpen ?
+        'map__filters-container open' :
+        'map__filters-container closed';
+
     return (
-        <div className={props.isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
+        <div className={mapFilterClassName}>
             <div className="map__filters-header">
                 <MapFiltersTitle />
             </div>
             <div className="map__filters-body">
                 {/* below chunk is for the dropdown filters */}
                 {
-                    Object.keys(props.filters)
+                    Object.keys(tempMapFilters)
                         .map((filter) => {
                             let filterType = null;
 
-                            if (props.filters[filter].label.includes('DEFC')) {
+                            if (tempMapFilters[filter].label.includes('DEFC')) {
                                 filterType = 'defc';
                             }
 
-                            if (props.filters[filter].label.includes('Award Type')) {
+                            if (tempMapFilters[filter].label.includes('Award Type')) {
                                 filterType = 'awardType';
                             }
 
                             return (<>
                                 <div key={uniqueId()} className="map__filters-filter__container">
                                     <div className="map__filters-wrapper">
-                                        <span
-                                            className="map__filters-label">{props.filters[filter].label}
+                                        <span className="map__filters-label">
+                                            {tempMapFilters[filter].label}
                                         </span>
                                         <NewPicker
-                                            enabled={props.filters[filter].enabled}
+                                            enabled={tempMapFilters[filter].enabled}
                                             size="sm"
                                             classname={`map__filters-button ${filterType}`}
                                             dropdownClassname="map__filters-dropdown"
                                             sortFn={handleSort}
-                                            selectedOption={props.filters[filter].options?.find((option) => option.value === props.activeFilters[filter])?.label}
+                                            selectedOption={
+                                                tempMapFilters[filter]
+                                                    .options?.find(
+                                                        (option) => option.value === active[filter]
+                                                    )?.label
+                                            }
                                             options={
-                                                props.filters[filter].options?.map((option) => ({
+                                                tempMapFilters[filter].options?.map((option) => ({
                                                     name: option.label,
                                                     value: option.value,
-                                                    onClick: props.filters[filter].onClick,
+                                                    onClick: tempMapFilters[filter].onClick,
                                                     sortOrder: mapFilterSortOrderByValue[option.value]
                                                 }))
                                             } />
@@ -73,22 +141,30 @@ const StateProfileMapFilters = React.memo(function StateProfileMapFilters(props)
                     <div className="map__filters-wrapper">
                         <div className="filter-item-wrap" key="holder-awarding">
                             <StateAgencyList
-                                {...props}
+                                changeScope={changeScope}
+                                clearSearchFilters={clearSearchFilters}
                                 agencyType="awarding"
+                                selectedItemsDisplayNames={selectedItemsDisplayNames}
                                 placeholder="Search for an awarding agency..." />
                         </div>
                     </div>
                     <div key={uniqueId()} className="map__filters-filter__container">
                         <div className="map__filters-wrapper">
                             <ProgramActivityList
-                                {...props}
+                                changeScope={changeScope}
+                                clearSearchFilters={clearSearchFilters}
+                                searchData={searchData}
+                                selectedItemsDisplayNames={selectedItemsDisplayNames}
                                 placeholder="Search for a program activity..." />
                         </div>
                     </div>
                     <div key={uniqueId()} className="map__filters-filter__container">
                         <div className="map__filters-wrapper">
                             <StateCFDAList
-                                {...props}
+                                changeScope={changeScope}
+                                clearSearchFilters={clearSearchFilters}
+                                searchData={searchData}
+                                selectedItemsDisplayNames={selectedItemsDisplayNames}
                                 placeholder="Search for an assistance listing..." />
                         </div>
                     </div>

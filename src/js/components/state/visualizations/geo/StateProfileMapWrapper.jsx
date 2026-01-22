@@ -526,35 +526,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
             setIsFiltersOpen(!isFiltersOpen);
         }
     };
-    const filters = () => {
-        const { activeFilters } = props;
-        let tempMapFilters = mapFilters;
-        let active = cloneDeep(activeFilters);
-        if (!tempMapFilters || !activeFilters) return null;
-        const awardTypeFilters = props.awardTypeFilters?.map((filter) => filter.internal).filter((filter) => filter !== 'all').filter((filter) => filter !== 'loans');
-        if (awardTypeFilters?.includes(activeFilters.awardType)) {
-            tempMapFilters.spendingType.options.pop();
-        }
-
-        if (activeFilters?.territory === 'country') {
-            tempMapFilters = Object.assign({}, { territory: tempMapFilters.territory, def_codes: tempMapFilters.def_codes, amountType: { ...tempMapFilters.amountType, enabled: false } });
-            active = Object.assign({}, { ...active, amountType: 'totalSpending' });
-        }
-        else if (props.amountTypeEnabled === false) {
-            tempMapFilters = Object.assign({}, { territory: tempMapFilters.territory, def_codes: tempMapFilters.def_codes });
-        }
-        else {
-            tempMapFilters = Object.assign({}, { territory: tempMapFilters.territory, def_codes: tempMapFilters.def_codes, amountType: { ...tempMapFilters.amountType, enabled: true } });
-        }
-
-        return (
-            <StateProfileMapFilters
-                {...props}
-                filters={tempMapFilters}
-                activeFilters={active}
-                isOpen={isFiltersOpen} />
-        );
-    };
 
     const parseDefCodes = (codes) => {
         const defCodeOptionsList = codes.map((code) => ({
@@ -635,7 +606,16 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
                 onKeyDown={onKeyDown}
                 onClick={toggleFilters}
                 isOpen={isFiltersOpen} />
-            {filters()}
+            <StateProfileMapFilters
+                mapFilters={mapFilters}
+                amountTypeEnabled={props.amountTypeEnabled}
+                activeFilters={props.activeFilters}
+                isFiltersOpen={isFiltersOpen}
+                awardTypeFilters={props.awardTypeFilters}
+                changeScope={props.changeScope}
+                clearSearchFilters={props.clearSearchFilters}
+                searchData={props.searchData}
+                selectedItemsDisplayNames={props.selectedItemsDisplayNames} />
             {legend()}
             {tooltip()}
             {props.children}
