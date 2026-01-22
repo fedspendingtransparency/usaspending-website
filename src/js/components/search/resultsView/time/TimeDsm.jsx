@@ -47,19 +47,25 @@ const TimeDsm = ({ spendingLevel }) => {
                         </Link> in our About the Data module.
                     </span>
                     </p>
-                </>}
-            {spendingLevel === 'awards' &&
+                </>
+            }
+            { spendingLevel === 'awards' &&
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                     <p className="award-search__body-text">The data in the chart represent
-                        {<span className="award-search__glossary-term"> federal action</span>}
-                        {' '}{<GlossaryLink term="federal-action-obligation" />}
+                        {<span className="award-search__glossary-term"> federal action </span>}
+                        {<GlossaryLink term="federal-action-obligation" />}
                         {<span className="award-search__glossary-term"> obligation </span>}
-                        {' '}{<GlossaryLink term="obligation" />} amounts for prime award summaries within the selected filters.
-                        If you selected any Time Period filter, your results include all awards that overlap with the selected time period,
-                        even if there are no new
+                        {<GlossaryLink term="obligation" />} amounts for prime award
                         {<span className="award-search__glossary-term"> transactions </span>}
-                        {' '}{<GlossaryLink term="transaction" />}{' '}within that time period. For example, for the selected time period of Mar. 1-31, 2022, you would see results for an award with a base transaction action date of Jan. 1, 2022 and a latest transaction action date of Dec. 31, 2022, even if there is no transaction activity for that award within the period of Mar. 1-31, 2022.
+                        {<GlossaryLink term="transaction" />}
+                        within the selected filters. Loan awards use the
+                        {<span className="award-search__glossary-term"> subsidy cost </span>}
+                        {<GlossaryLink term="loan-subsidy-cost" />}
+                        rather than the obligated amount to sum up the
+                        {<span className="award-search__glossary-term"> value of the loan </span>}
+                        {<GlossaryLink term="face-value-of-loan" />}.
+                        Prime award transactions with the same unique award ID are grouped under a single prime award summary.
                     </p>
                     <p className="award-search__body-text">
                         Obligations across the life of the award are aggregated and displayed under the latest month, quarter, or year of the latest transaction action date for each award.
@@ -73,17 +79,8 @@ const TimeDsm = ({ spendingLevel }) => {
                         {<span className="award-search__glossary-term"> value of the loan</span>}
                         {' '}{<GlossaryLink term="face-value-of-loan" />}.
                     </p>
-                </>}
-            {spendingLevel === 'transactions' &&
-                <>
-                    <p className="award-search__body-text">The data in the chart represent
-                        {<span className="award-search__glossary-term"> federal action</span>}
-                        {' '}{<GlossaryLink term="federal-action-obligation" />}
-                        {<span className="award-search__glossary-term"> obligation </span>}
-                        {' '}{<GlossaryLink term="obligation" />} amounts for prime award transactions within the selected filters. If you selected any Time Period filter, your results include transactions with an action date within your selected time period.
-                    </p>
-                </>}
-
+                </>
+            }
         </>
     );
     /* eslint-enable max-len */
