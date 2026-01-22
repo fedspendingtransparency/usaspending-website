@@ -3,7 +3,7 @@
  * Created by Kevin Li 8/17/17
  */
 
-import React from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { labelColorFromBackground } from 'helpers/colorHelper';
@@ -24,137 +24,121 @@ const propTypes = {
     highlightColor: PropTypes.string
 };
 
-const highlightColor = '#fdb81e';
+const TreemapCell = ({
+    width,
+    height,
+    x,
+    y,
+    color,
+    title,
+    subtitle,
+    data,
+    selectedCell,
+    showTooltip,
+    hideTooltip,
+    goToUnreported,
+    highlightColor = '#fdb81e'
+}) => {
+    const [backgroundColor, setBackgroundColor] = useState('');
+    const [active, setActive] = useState('');
+    const [textColor, setTextColor] = useState('#ffffff');
+    const elementRef = useRef(null);
 
-export default class TreemapCell extends React.Component {
-    constructor(props) {
-        super(props);
+    const setTextAndBackgroundColor = useCallback(() => {
+        const newTextColor = labelColorFromBackground(color);
+        setTextColor(newTextColor);
+        setBackgroundColor(color);
+    }, [color]);
 
-        this.state = {
-            backgroundColor: '',
-            active: '',
-            textColor: '#ffffff'
-        };
+    useEffect(() => {
+        setTextAndBackgroundColor();
+    }, [setTextAndBackgroundColor]);
 
-        this.clickedCell = this.clickedCell.bind(this);
-        this.enteredCell = this.enteredCell.bind(this);
-        this.exitedCell = this.exitedCell.bind(this);
-    }
+    const exitedCell = () => {
+        hideTooltip();
+        setBackgroundColor(color);
+        setActive('');
+    };
 
-    componentDidMount() {
-        this.setTextAndBackgroundColor();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.color !== this.props.color) {
-            this.setTextAndBackgroundColor();
+    const clickedCell = () => {
+        if (data.id !== 'undefined' && data.id) {
+            exitedCell();
+            selectedCell(data.id, data);
         }
-    }
-
-    setTextAndBackgroundColor() {
-        const textColor = labelColorFromBackground(this.props.color);
-        this.setState({
-            textColor,
-            backgroundColor: this.props.color
-        });
-    }
-
-    clickedCell() {
-        if (this.props.data.id !== 'undefined' && this.props.data.id) {
-            this.exitedCell();
-            this.props.selectedCell(this.props.data.id, this.props.data);
+        else if (data.name === 'Unreported Data') {
+            exitedCell();
+            goToUnreported(data);
         }
-        else if (this.props.data.name === 'Unreported Data') {
-            this.exitedCell();
-            this.props.goToUnreported(this.props.data);
-        }
-    }
+    };
 
-    enteredCell() {
-        const x = this.element.getBoundingClientRect().left + (this.props.width / 2);
-        const y = this.element.getBoundingClientRect().top + (this.props.height / 2);
-
+    const enteredCell = () => {
         const position = {
-            x,
-            y
+            x: elementRef.current.getBoundingClientRect().left + (width / 2),
+            y: elementRef.current.getBoundingClientRect().top + (height / 2)
         };
 
-        this.props.showTooltip(position, {
-            ...this.props.data,
-            isAward: this.props.data.type === 'award'
+        showTooltip(position, {
+            ...data,
+            isAward: data.type === 'award'
         });
 
-        this.setState({
-            backgroundColor: this.props.highlightColor || highlightColor,
-            active: 'active'
-        });
+        setBackgroundColor(highlightColor);
+        setActive('active');
+    };
+
+    let cellTitle = (
+        <text
+            className={`explorer-cell-title ${active}`}
+            textAnchor="middle"
+            fill={textColor}
+            x={title.x}
+            y={title.y}>
+            {title.text}
+        </text>
+    );
+
+    let cellValue = (
+        <text
+            className={`explorer-cell-value ${active}`}
+            textAnchor="middle"
+            fill={textColor}
+            x={subtitle.x}
+            y={subtitle.y}>
+            {subtitle.text}
+        </text>
+    );
+
+    if (width < 75 || height < 38) {
+        cellTitle = '';
+        cellValue = '';
     }
+    const position = `translate(${x}, ${y})`;
 
-    exitedCell() {
-        this.props.hideTooltip();
-        this.setState({
-            backgroundColor: this.props.color,
-            active: ''
-        });
-    }
-
-    render() {
-        let cellTitle = (
-            <text
-                className={`explorer-cell-title ${this.state.active}`}
-                textAnchor="middle"
-                fill={this.state.textColor}
-                x={this.props.title.x}
-                y={this.props.title.y}>
-                {this.props.title.text}
-            </text>
-        );
-
-        let cellValue = (
-            <text
-                className={`explorer-cell-value ${this.state.active}`}
-                textAnchor="middle"
-                fill={this.state.textColor}
-                x={this.props.subtitle.x}
-                y={this.props.subtitle.y}>
-                {this.props.subtitle.text}
-            </text>
-        );
-
-        if (this.props.width < 75 || this.props.height < 38) {
-            cellTitle = '';
-            cellValue = '';
-        }
-        const position = `translate(${this.props.x}, ${this.props.y})`;
-
-        return (
-            <g
-                className="explorer-cell"
-                transform={position}
-                onClick={this.clickedCell}
-                onMouseMove={this.enteredCell}
-                onMouseLeave={this.exitedCell}
-                ref={(g) => {
-                    this.element = g;
-                }}>
-                <title>
-                    {this.props.title.text}
-                </title>
-                <rect
-                    className="explorer-cell-box"
-                    x={0}
-                    y={0}
-                    width={this.props.width}
-                    height={this.props.height}
-                    style={{
-                        fill: this.state.backgroundColor
-                    }} />
-                {cellTitle}
-                {cellValue}
-            </g>
-        );
-    }
-}
+    return (
+        <g
+            className="explorer-cell"
+            transform={position}
+            onClick={clickedCell}
+            onMouseMove={enteredCell}
+            onMouseLeave={exitedCell}
+            ref={elementRef}>
+            <title>
+                {title.text}
+            </title>
+            <rect
+                className="explorer-cell-box"
+                x={0}
+                y={0}
+                width={width}
+                height={height}
+                style={{
+                    fill: backgroundColor
+                }} />
+            {cellTitle}
+            {cellValue}
+        </g>
+    );
+};
 
 TreemapCell.propTypes = propTypes;
-
+export default TreemapCell;
