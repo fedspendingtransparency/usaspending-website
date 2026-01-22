@@ -3,7 +3,7 @@
  * Created by Kevin Li 8/16/17
  */
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
 
@@ -15,12 +15,6 @@ const propTypes = {
 };
 
 const VerticalTrail = ({ trail, rewindToFilter }) => {
-    const nodeRefs = useRef([]);
-
-    useEffect(() => {
-        nodeRefs.current = trail.map((item, i) => nodeRefs.current[i] ?? React.createRef());
-    }, [trail]);
-
     const getTrailItem = () => (
         trail.map((item, index) => (
             <TrailItem
@@ -29,8 +23,7 @@ const VerticalTrail = ({ trail, rewindToFilter }) => {
                 isLast={index + 1 === trail.length}
                 rewindToFilter={rewindToFilter}
                 index={index}
-                key={item.within}
-                ref={nodeRefs.current[index]} />
+                key={item.within} />
         ))
     );
 
