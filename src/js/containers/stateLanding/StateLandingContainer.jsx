@@ -9,7 +9,7 @@ import { isCancel } from 'axios';
 import { Search } from 'js-search';
 import { orderBy } from 'lodash-es';
 
-import * as StateHelper from 'helpers/stateHelper';
+import * as StateHelper from 'features/state/stateHelper';
 import BaseStateLandingItem from 'models/v2/state/BaseStateLandingItem';
 
 import StateLandingContent from 'components/stateLanding/StateLandingContent';

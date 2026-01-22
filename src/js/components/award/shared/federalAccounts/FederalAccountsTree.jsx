@@ -12,8 +12,8 @@ import { remove } from 'lodash-es';
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import TreemapCell from 'components/sharedComponents/TreemapCell';
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableLoadingMessage from 'components/keyword/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 
 const truncateText = (text, type, maxWidth) => {

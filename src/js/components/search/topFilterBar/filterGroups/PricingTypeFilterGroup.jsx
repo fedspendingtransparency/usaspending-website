@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import * as ContractFields from 'dataMapping/search/contractFields';
 
-import BaseTopFilterGroup from './BaseTopFilterGroup';
+import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = {
     filter: PropTypes.object,

@@ -11,7 +11,7 @@ import { Set } from 'immutable';
 
 import * as AwardType from 'dataMapping/search/awardType';
 
-import BaseTopFilterGroup from './BaseTopFilterGroup';
+import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = {
     filter: PropTypes.object,

@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 
-import ShownValue from '../otherFilters/ShownValue';
+import ShownValue from '../ShownValue';
 import { updateGenericFilter } from "../../../../redux/actions/search/searchFilterActions";
 import { locationChipLabel } from "../../../../helpers/searchHelper";
 

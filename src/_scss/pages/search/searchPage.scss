@@ -18,26 +18,47 @@
     @import "filters";
     @import "collapsibleSidebar";
 
-    .subaward-dropdown__list {
-        min-width: max-content;
-        transform: translateY(-12px);
-        li {
-            button {
-                padding-left: rem(30) !important;
-            }
+    div.filter-award-toggle__container {
+        display: flex;
+        height: rem(21);
+        align-self: center;
+        align-items: center;
+        
+        .filter-award-toggle__label {
+            font-size: $small-font-size;
+            color: $color-white;
+            margin-right: rem(8);
         }
-    }
+        
+        .filter-award-toggle__wrapper {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            border: rem(1) solid $yellow-20v;
+            border-radius: rem(4);
+            background-color: $yellow-20v;
+            
+            button {
+                color: $gray-90;
+                font-size: $smallest-font-size;
+                line-height: rem(20);
+                padding: rem(4) rem(8);
+                background-color: $color-white;
+                margin: 0px;
+                
 
-    div.subaward-dropdown__container {
-        .subaward-dropdown__list {
-            min-width: max-content;
-            transform: translateY(-12px);
-            li {
-                button {
-                    padding-left: rem(30) !important;
-                    padding-right: 1.5 * $global-padding !important;
+                &.active {
+                    background-color: $yellow-20v
                 }
             }
+            button:first-of-type {
+                border-radius: rem(4) 0 0 rem(4);
+            }
+            button:nth-of-type(2) {
+                border-radius: 0 rem(4) rem(4) 0;
+            }
+            
+            
         }
     }
 
@@ -115,7 +136,7 @@
                     @media(min-width: $tablet-screen) and (max-width: $medium-screen) {
                         display: unset;
                         .button-type__text-right-icon-light {
-                            margin: 16px 0 0 0;
+                            margin: rem(16) 0 0 0;
                             height: auto;
                             padding: 0;
                         }

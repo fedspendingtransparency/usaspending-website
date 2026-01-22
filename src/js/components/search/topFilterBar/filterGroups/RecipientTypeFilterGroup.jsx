@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 import * as RecipientType from 'dataMapping/search/recipientType';
 
-import BaseTopFilterGroup from './BaseTopFilterGroup';
+import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = {
     filter: PropTypes.object,
