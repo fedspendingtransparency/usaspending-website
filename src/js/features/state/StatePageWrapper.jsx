@@ -1,18 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { find } from "lodash-es";
 import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
 import { statePageMetaTags } from "helpers/metaTagHelper";
-import PageWrapper from "components/sharedComponents/PageWrapper";
 import { combineQueryParams, getQueryParamString } from "helpers/queryParams";
 import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 import { stickyHeaderHeight } from "dataMapping/stickyHeader/stickyHeader";
 import useQueryParams from "hooks/useQueryParams";
-import { mediumScreen } from "dataMapping/shared/mobileBreakpoints";
 import { showModal } from "redux/actions/modal/modalActions";
-import useWindowWidth from "hooks/useWindowWidth";
+import IsMobileContext from "context/IsMobileContext";
+import PageWrapper from "components/sharedComponents/PageWrapper";
 import statePageToolbarComponents from "./statePageToolbarComponents";
 
 const stateSections = [
@@ -42,11 +41,15 @@ const StatePageWrapper = ({
 }) => {
     const query = useQueryParams();
     const history = useNavigate();
-    const windowWidth = useWindowWidth();
+    const { isMedium } = useContext(IsMobileContext);
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
-
     const dispatch = useDispatch();
-    const isMobile = windowWidth < mediumScreen;
+
+    const { name, id } = stateProfile.overview;
+    const metaTagProps = useMemo(
+        () => (name && id ? statePageMetaTags({ name, id }) : {})
+        , [name, id]
+    );
 
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
@@ -70,7 +73,7 @@ const StatePageWrapper = ({
 
         // add offsets
         let conditionalOffset;
-        if (isMobile) {
+        if (isMedium) {
             conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ?
                 stickyHeaderHeight + 140 : 60;
         }
@@ -93,15 +96,15 @@ const StatePageWrapper = ({
             jumpToSection(query.section);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query.section, loading]);
+    }, [query.section, loading, isMedium]);
 
     return (
         <PageWrapper
             pageName="state"
             classNames="usa-da-state-page"
             overLine="state profile"
-            title={stateProfile.overview.name}
-            metaTagProps={stateProfile.overview ? statePageMetaTags(stateProfile.overview) : {}}
+            title={name}
+            metaTagProps={metaTagProps}
             toolBarComponents={statePageToolbarComponents(
                 stateProfile, handleFyChange, handleShareDispatch
             )}
