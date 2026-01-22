@@ -53,7 +53,7 @@ const AwardBreakdownCard = ({ overview }) => {
     );
 
     return (
-        <FlexGridCol width={4} desktop={4} tablet={12} mobile={12}l>
+        <FlexGridCol width={4} desktop={4} tablet={12} mobile={12}>
             <div className="state-section__viz details state-overview__heading">
                 <CardContainer variant="outline" size="md">
                     <CardHero fill="#005ea2" />
