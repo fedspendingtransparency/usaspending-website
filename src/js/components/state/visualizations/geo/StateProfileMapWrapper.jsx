@@ -1,21 +1,21 @@
 /**
- * MapWrapper.jsx
+ * StateProfileMapWrapper.jsx
  * Created by Kevin Li 2/14/17
  */
 
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { uniq, cloneDeep } from 'lodash-es';
+import GlobalConstants from 'GlobalConstants';
+
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
-import GlobalConstants from 'GlobalConstants';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-
-import MapBox from '../../../search/visualizations/geo/map/MapBox';
-import MapLegend from '../../../search/visualizations/geo/MapLegend';
-import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
-import MapFiltersToggle from "../../../covid19/recipient/map/MapFiltersToggle";
+import { stateFIPSByAbbreviation } from "dataMapping/state/stateNames";
+import MapBox from 'components/search/visualizations/geo/map/MapBox';
+import MapLegend from 'components/search/visualizations/geo/MapLegend';
+import MapFiltersToggle from "components/covid19/recipient/map/MapFiltersToggle";
 import StateProfileMapFilters from "./StateProfileMapFilters";
 
 const propTypes = {
@@ -619,16 +619,22 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
 
     return (
         <div className="map-container">
-            {GlobalConstants.MAPBOX_TOKEN && <MapBox
-                loadedMap={mapReadyPrep}
-                unloadedMap={mapRemoved}
-                center={center}
-                mapType={props.scope}
-                stateInfo={props.stateInfo}
-                stateProfile={props.stateProfile}
-                ref={mapRef}
-                singleLocationSelected={props.singleLocationSelected} />}
-            <MapFiltersToggle onKeyDown={onKeyDown} onClick={toggleFilters} isOpen={isFiltersOpen} />
+            {
+                GlobalConstants.MAPBOX_TOKEN &&
+                <MapBox
+                    loadedMap={mapReadyPrep}
+                    unloadedMap={mapRemoved}
+                    center={center}
+                    mapType={props.scope}
+                    stateInfo={props.stateInfo}
+                    stateProfile={props.stateProfile}
+                    ref={mapRef}
+                    singleLocationSelected={props.singleLocationSelected} />
+            }
+            <MapFiltersToggle
+                onKeyDown={onKeyDown}
+                onClick={toggleFilters}
+                isOpen={isFiltersOpen} />
             {filters()}
             {legend()}
             {tooltip()}

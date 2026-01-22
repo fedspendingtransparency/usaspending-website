@@ -206,9 +206,7 @@ const MapBox = forwardRef(function MapBox({
     }, [isTablet]);
 
     return (
-        <div
-            className="mapbox-item"
-            ref={mapDiv}>
+        <div className="mapbox-item" ref={mapDiv}>
             <MapBoxNavButtons showNavButtons={showNavButtons} map={map} />
         </div>
     );

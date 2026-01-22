@@ -6,18 +6,18 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
+
 import {
     stateFilters,
     filtersOnClickHandler,
     awardTypeTabs
-} from '../../../../dataMapping/state/stateMap';
-
-import ResultsTableErrorMessage from '../../../../components/search/table/ResultsTableErrorMessage';
-import LoadingSpinner from '../../../../components/sharedComponents/LoadingSpinner';
-import { ExclamationTriangle } from '../../../../components/sharedComponents/icons/Icons';
-import GeoVisualizationTooltip from '../../../../components/search/visualizations/geo/GeoVisualizationTooltip';
-import MapMessage from '../../../../components/search/visualizations/geo/MapMessage';
-import MapWrapper from './MapWrapper';
+} from 'dataMapping/state/stateMap';
+import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
+import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+import GeoVisualizationTooltip from 'components/search/visualizations/geo/GeoVisualizationTooltip';
+import MapMessage from 'components/search/visualizations/geo/MapMessage';
+import StateProfileMapWrapper from './StateProfileMapWrapper';
 
 const propTypes = {
     mapLayer: PropTypes.string,
@@ -162,7 +162,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
 
     return (
         <div className="geo__map-section">
-            <MapWrapper
+            <StateProfileMapWrapper
                 {...props}
                 awardTypeFilters={awardTypeTabs}
                 filters={addOnClickToFilters()}
@@ -184,7 +184,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
                 stateProfile
                 amountTypeEnabled={false}>
                 {message}
-            </MapWrapper>
+            </StateProfileMapWrapper>
         </div>
     );
 });
