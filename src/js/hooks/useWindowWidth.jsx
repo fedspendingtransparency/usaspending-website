@@ -8,7 +8,7 @@ import { throttle } from "lodash-es";
  * @returns {number} current window width
  */
 const useWindowWidth = (throttleWait = 50) => {
-    const [windowWidth, setWindowWidth] = useState(0);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
         let isMounted = true;

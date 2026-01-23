@@ -11,7 +11,7 @@ import { orderBy, difference, concat, indexOf } from 'lodash-es';
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
 import { topFilterGroupGenerator } from
-    'components/search/topFilterBar/filterGroups/TopFilterGroupGenerator';
+    'components/search/topFilterBar/TopFilterGroupGenerator';
 
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as AwardType from 'dataMapping/search/awardType';
