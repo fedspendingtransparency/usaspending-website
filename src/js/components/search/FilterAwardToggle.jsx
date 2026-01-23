@@ -3,7 +3,7 @@
  * Created by JD House 01/2026
  */
 
-import React, { useState, memo } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
@@ -17,7 +17,7 @@ const propTypes = {
     setSpendingLevel: PropTypes.func
 };
 
-const FilterAwardToggle = memo(({
+const FilterAwardToggle = ({
     selectedValue = 'awards',
     setSearchViewSubaward,
     label = "View By",
@@ -69,7 +69,7 @@ const FilterAwardToggle = memo(({
             </div>
         </div>
     );
-});
+};
 
 FilterAwardToggle.propTypes = propTypes;
 export default FilterAwardToggle;

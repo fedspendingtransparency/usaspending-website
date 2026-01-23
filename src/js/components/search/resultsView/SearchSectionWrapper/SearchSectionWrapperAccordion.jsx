@@ -1,4 +1,4 @@
-import React, { useEffect, useState, memo } from 'react';
+import React, { useEffect, useState } from 'react';
 import { throttle } from "lodash-es";
 import { useLocation, useNavigate } from "react-router";
 import PropTypes from "prop-types";
