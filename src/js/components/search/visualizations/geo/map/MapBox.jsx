@@ -4,7 +4,7 @@
  */
 
 import React, {
-    useEffect, useState, useRef, useCallback, useContext
+    useEffect, useState, useRef, useCallback, useContext, useMemo
 } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
@@ -20,7 +20,8 @@ const propTypes = {
     center: PropTypes.array,
     stateProfile: PropTypes.bool,
     stateInfo: PropTypes.object,
-    singleLocationSelected: PropTypes.object
+    singleLocationSelected: PropTypes.object,
+    ref: PropTypes.shape({ current: PropTypes.object })
 };
 
 // define map sources
@@ -40,16 +41,17 @@ const MapBox = ({
     const [showNavButtons, setShowNavButtons] = useState(false);
     const mapDiv = useRef(null);
 
+    const code = stateInfo?.code;
 
-    const isStateSelected = !!(
-        stateInfo?.code !== '' ||
+    const isStateSelected = useMemo(() => !!(
+        code !== '' ||
         (
             singleLocationSelected &&
             Object.prototype.hasOwnProperty.call(singleLocationSelected, 'state')
         )
-    );
+    ), [singleLocationSelected, code]);
 
-    const isCountyOrDistrict = (
+    const isCountyOrDistrict = useMemo(() => (
         singleLocationSelected &&
         Object.keys(singleLocationSelected)?.length > 0 &&
         (
@@ -61,26 +63,26 @@ const MapBox = ({
             Object.prototype.hasOwnProperty.call(singleLocationSelected, "district_current") ||
             Object.prototype.hasOwnProperty.call(singleLocationSelected, "district_original")
         )
-    );
+    ), [singleLocationSelected]);
 
-    const calculateMapZoom = () => {
+    const stateCode = code || singleLocationSelected?.state;
+
+    const calculateMapZoom = useCallback(() => {
         let zoom = 3.2;
 
         if (isStateSelected) {
-            const stateCode = stateInfo?.code || singleLocationSelected?.state;
-
             if (stateCode && stateCode !== '') {
-                const state = statesBySqMile.find((s) => s.code === stateCode);
-                if (state?.size > 500000) {
+                const stateMile = statesBySqMile.find((s) => s.code === stateCode);
+                if (stateMile?.size > 500000) {
                     zoom = 3.0;
                 }
-                else if (state?.size < 1000) {
+                else if (stateMile?.size < 1000) {
                     zoom = 9.6;
                 }
-                else if (state?.size < 10000) {
+                else if (stateMile?.size < 10000) {
                     zoom = 6.2;
                 }
-                else if (state?.size < 140000) {
+                else if (stateMile?.size < 140000) {
                     zoom = 4.8;
                 }
                 zoom = 4.2;
@@ -90,14 +92,33 @@ const MapBox = ({
         }
 
         return zoom;
-    };
+    }, [isStateSelected, stateCode, isCountyOrDistrict]);
 
-    const centerMap = (m) => {
+    const centerMap = useCallback((m, z, c) => {
         m?.current?.jumpTo({
-            zoom: calculateMapZoom(),
-            center
+            zoom: z,
+            center: c
         });
-    };
+    }, []);
+
+    useEffect(() => {
+        const mapReady = map.current && center?.length > 0;
+        const isReCenterable = stateProfile ?
+            false :
+            (
+                center?.length > 0 &&
+                singleLocationSelected &&
+                Object.keys(singleLocationSelected)?.length > 0
+            );
+        const isForeign = singleLocationSelected?.country !== "USA";
+
+        if (
+            mapReady ||
+            (isReCenterable && isForeign)
+        ) {
+            centerMap(map, calculateMapZoom(), center);
+        }
+    }, [centerMap, map, calculateMapZoom, center, stateProfile, singleLocationSelected]);
 
     const resizeMap = () => {
         if (isTablet) {
@@ -154,32 +175,6 @@ const MapBox = ({
             loadedMap(map);
         });
     };
-
-    const isReCenterable = useCallback(() => {
-        if (stateProfile) {
-            return false;
-        }
-
-        return center?.length > 0 &&
-            singleLocationSelected &&
-            Object.keys(singleLocationSelected)?.length > 0;
-    }, [center.length, singleLocationSelected, stateProfile]);
-
-    useEffect(() => {
-        if (isReCenterable()) {
-            if (singleLocationSelected?.country !== "USA") {
-                centerMap(map);
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [center, singleLocationSelected]);
-
-    useEffect(() => {
-        if (map.current && center?.length > 0) {
-            centerMap(map);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [center]);
 
     useEffect(() => {
         let mounted = true;
