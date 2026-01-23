@@ -3,7 +3,7 @@
  * Created by michaelbray on 4/3/17.
  */
 
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -82,7 +82,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         recipientError
     };
 
-    const columns = useMemo(() => ({
+    const columns = () => ({
         recipient: [
             {
                 title: 'name',
@@ -155,7 +155,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 right: true
             }
         ]
-    }), []);
+    });
     const createTableRows = (rows) => {
         const rowsArray = [];
         rows.forEach((row) => {
