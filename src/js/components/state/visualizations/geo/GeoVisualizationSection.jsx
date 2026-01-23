@@ -12,10 +12,10 @@ import {
     filtersOnClickHandler,
     awardTypeTabs
 } from 'dataMapping/state/stateMap';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 import MapMessage from 'components/search/visualizations/geo/MapMessage';
+import ResultsTableErrorMessage from "components/keyword/table/ResultsTableErrorMessage";
 import StateProfileMapWrapper from './StateProfileMapWrapper';
 
 const propTypes = {

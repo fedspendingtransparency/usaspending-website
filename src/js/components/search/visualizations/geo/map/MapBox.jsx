@@ -4,7 +4,7 @@
  */
 
 import React, {
-    useEffect, useState, useImperativeHandle, useRef, forwardRef, useCallback, useContext
+    useEffect, useState, useRef, useCallback, useContext
 } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
@@ -27,23 +27,19 @@ const propTypes = {
 const mapStyle = 'mapbox://styles/usaspendingfrbkc/cm97fy9mm00g601qt032hg79g';
 
 // eslint-disable-next-line prefer-arrow-callback
-const MapBox = forwardRef(function MapBox({
+const MapBox = ({
     loadedMap,
     unloadedMap,
     center,
     stateProfile,
     stateInfo,
-    singleLocationSelected
-}, ref) {
+    singleLocationSelected,
+    ref: map
+}) => {
     const { isTablet } = useContext(IsMobileContext);
     const [showNavButtons, setShowNavButtons] = useState(false);
     const [zoom, setZoom] = useState(3.2);
     const mapDiv = useRef(null);
-    const map = useRef(null);
-
-    useImperativeHandle(ref, () => ({
-        map
-    }));
 
 
     const isStateSelected = () => !!(
@@ -119,6 +115,7 @@ const MapBox = forwardRef(function MapBox({
 
     const mountMap = (mounted) => {
         MapboxGL.accessToken = kGlobalConstants.MAPBOX_TOKEN;
+        // eslint-disable-next-line no-param-reassign
         map.current = new MapboxGL.Map({
             container: mapDiv.current,
             style: mapStyle,
@@ -210,7 +207,7 @@ const MapBox = forwardRef(function MapBox({
             <MapBoxNavButtons showNavButtons={showNavButtons} map={map} />
         </div>
     );
-});
+};
 
 MapBox.propTypes = propTypes;
 
