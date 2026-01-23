@@ -17,6 +17,7 @@ import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapLegend from 'components/search/visualizations/geo/MapLegend';
 import MapFiltersToggle from "components/covid19/recipient/map/MapFiltersToggle";
 import StateProfileMapFilters from "./StateProfileMapFilters";
+import StateGeoTooltip from "./StateGeoTooltip";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -476,37 +477,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
         setSpendingScale(scale);
     };
 
-    /**
-     * tooltipDescription
-     * - description for tooltip based on page and toggle
-     * @returns {string}
-     */
-    const tooltipDescription = () => {
-        const { stateProfile, mapLegendToggle } = props;
-        // state page
-        if (stateProfile) return 'Awarded Amount';
-        // per capita toggle
-        return (mapLegendToggle === 'totalSpending' ? 'Obligations' : 'Per Capita');
-    };
-
-    const tooltip = () => {
-        const {
-            tooltip: TooltipComponent, selectedItem, showHover, scope
-        } = props;
-        if (scope === "country" && selectedItem.label === "United States") {
-            selectedItem.label += " and Territories";
-        }
-
-        if (showHover) {
-            return (
-                <TooltipComponent
-                    description={tooltipDescription()}
-                    {...selectedItem} />
-            );
-        }
-        return null;
-    };
-
     const toggleFilters = () => setIsFiltersOpen(!isFiltersOpen);
     const onKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -606,7 +576,9 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
             <MapLegend
                 segments={spendingScale.segments}
                 units={spendingScale.units} />
-            {tooltip()}
+            <StateGeoTooltip
+                selectedItem={props.selectedItem}
+                showHover={props.showHover} />
             {props.children}
         </div>
     );

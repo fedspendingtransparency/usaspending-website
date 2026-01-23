@@ -15,7 +15,6 @@ import {
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
-import GeoVisualizationTooltip from 'components/search/visualizations/geo/GeoVisualizationTooltip';
 import MapMessage from 'components/search/visualizations/geo/MapMessage';
 import StateProfileMapWrapper from './StateProfileMapWrapper';
 
@@ -176,7 +175,6 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
                 selectedItem={selectedItem}
                 showTooltip={showTooltip}
                 hideTooltip={hideTooltip}
-                tooltip={GeoVisualizationTooltip}
                 availableLayers={availableLayers}
                 showLayerToggle
                 center={center}
