@@ -507,19 +507,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
         return null;
     };
 
-    const legend = () => {
-        const { updateMapLegendToggle, mapLegendToggle, scope } = props;
-        return (
-            <MapLegend
-                segments={spendingScale.segments}
-                units={spendingScale.units}
-                mapLegendToggleData={mapLegendToggleData}
-                updateMapLegendToggle={updateMapLegendToggle}
-                mapLegendToggle={mapLegendToggle}
-                scope={scope} />
-        );
-    };
-
     const toggleFilters = () => setIsFiltersOpen(!isFiltersOpen);
     const onKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -616,7 +603,9 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
                 clearSearchFilters={props.clearSearchFilters}
                 searchData={props.searchData}
                 selectedItemsDisplayNames={props.selectedItemsDisplayNames} />
-            {legend()}
+            <MapLegend
+                segments={spendingScale.segments}
+                units={spendingScale.units} />
             {tooltip()}
             {props.children}
         </div>
