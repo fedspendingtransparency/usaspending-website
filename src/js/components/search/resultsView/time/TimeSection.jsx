@@ -35,7 +35,7 @@ const TimeSection = ({
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    const wrapperProps = () => ({
+    const wrapperProps = {
         sectionTitle: 'Results Over Time',
         dropdownOptions: [
             {
@@ -59,7 +59,7 @@ const TimeSection = ({
         ],
         selectedDropdownOption: visualizationPeriod,
         sectionName: 'time'
-    });
+    };
 
     return (
         <div id="search-page-component" className="time">
