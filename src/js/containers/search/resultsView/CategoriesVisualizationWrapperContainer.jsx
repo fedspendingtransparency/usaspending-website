@@ -82,7 +82,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         recipientError
     };
 
-    const columns = () => ({
+    const columns = {
         recipient: [
             {
                 title: 'name',
@@ -155,7 +155,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
                 right: true
             }
         ]
-    });
+    };
     const createTableRows = (rows) => {
         const rowsArray = [];
         rows.forEach((row) => {

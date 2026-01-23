@@ -3,7 +3,7 @@
   * Created by Kevin Li 4/25/2016
   */
 
-import React, { memo } from 'react';
+import React from 'react';
 import PropTypes from "prop-types";
 
 import BaseIcon from './BaseIcon';
@@ -50,7 +50,7 @@ export const AngleDown = ({
 );
 AngleDown.propTypes = propTypes;
 
-export const AngleLeft = memo(({
+export const AngleLeft = ({
     iconName = "usa-da-icon-angle-left",
     iconClass = "usa-da-icon-angle-left",
     alt = "Arrow Pointing Left Icon"
@@ -59,10 +59,10 @@ export const AngleLeft = memo(({
         iconName={iconName}
         iconClass={iconClass}
         alt={alt} />
-));
+);
 AngleLeft.propTypes = propTypes;
 
-export const AngleRight = memo(({
+export const AngleRight = ({
     iconName = "usa-da-icon-angle-right",
     iconClass = "usa-da-icon-angle-right",
     alt = "Arrow Pointing Right Icon"
@@ -71,7 +71,7 @@ export const AngleRight = memo(({
         iconName={iconName}
         iconClass={iconClass}
         alt={alt} />
-));
+);
 AngleRight.propTypes = propTypes;
 
 export const AngleUp = ({

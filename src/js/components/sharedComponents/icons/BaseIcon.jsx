@@ -3,7 +3,7 @@
   * Created by Kevin Li 4/25/2016
   */
 
-import React, { useEffect, useRef, useState, memo } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import IconSingleton from './iconSingleton';
@@ -14,7 +14,7 @@ const propTypes = {
     alt: PropTypes.string
 };
 
-const BaseIcon = memo(({
+const BaseIcon = ({
     iconClass,
     iconName,
     alt = ''
@@ -84,7 +84,7 @@ const BaseIcon = memo(({
             {/* eslint-enable react/no-danger */}
         </svg>
     );
-});
+};
 
 BaseIcon.propTypes = propTypes;
 export default BaseIcon;
