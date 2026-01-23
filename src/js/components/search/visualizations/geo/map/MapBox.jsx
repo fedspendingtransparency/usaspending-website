@@ -38,11 +38,10 @@ const MapBox = ({
 }) => {
     const { isTablet } = useContext(IsMobileContext);
     const [showNavButtons, setShowNavButtons] = useState(false);
-    const [zoom, setZoom] = useState(3.2);
     const mapDiv = useRef(null);
 
 
-    const isStateSelected = () => !!(
+    const isStateSelected = !!(
         stateInfo?.code !== '' ||
         (
             singleLocationSelected &&
@@ -50,53 +49,52 @@ const MapBox = ({
         )
     );
 
-    const isCountyOrDistrict = useCallback(
-        () => singleLocationSelected &&
-                Object.keys(singleLocationSelected)?.length > 0 &&
-                (
-                    Object.prototype.hasOwnProperty.call(singleLocationSelected, "state") &&
-                    singleLocationSelected.state !== "AK"
-                ) &&
-                (
-                    Object.prototype.hasOwnProperty.call(singleLocationSelected, "county") ||
-                    Object.prototype.hasOwnProperty.call(singleLocationSelected, "district_current") ||
-                    Object.prototype.hasOwnProperty.call(singleLocationSelected, "district_original")
-                )
-        , [singleLocationSelected]);
+    const isCountyOrDistrict = (
+        singleLocationSelected &&
+        Object.keys(singleLocationSelected)?.length > 0 &&
+        (
+            Object.prototype.hasOwnProperty.call(singleLocationSelected, "state") &&
+            singleLocationSelected.state !== "AK"
+        ) &&
+        (
+            Object.prototype.hasOwnProperty.call(singleLocationSelected, "county") ||
+            Object.prototype.hasOwnProperty.call(singleLocationSelected, "district_current") ||
+            Object.prototype.hasOwnProperty.call(singleLocationSelected, "district_original")
+        )
+    );
 
     const calculateMapZoom = () => {
-        let zoomLevel = 3.2;
+        let zoom = 3.2;
 
-        if (isStateSelected()) {
+        if (isStateSelected) {
             const stateCode = stateInfo?.code || singleLocationSelected?.state;
 
             if (stateCode && stateCode !== '') {
                 const state = statesBySqMile.find((s) => s.code === stateCode);
                 if (state?.size > 500000) {
-                    zoomLevel = 3.0;
+                    zoom = 3.0;
                 }
                 else if (state?.size < 1000) {
-                    zoomLevel = 9.6;
+                    zoom = 9.6;
                 }
                 else if (state?.size < 10000) {
-                    zoomLevel = 6.2;
+                    zoom = 6.2;
                 }
                 else if (state?.size < 140000) {
-                    zoomLevel = 4.8;
+                    zoom = 4.8;
                 }
-                zoomLevel = 4.2;
+                zoom = 4.2;
             }
 
-            zoomLevel += isCountyOrDistrict() ? 1 : 0;
+            zoom += isCountyOrDistrict ? 1 : 0;
         }
 
-        setZoom(zoomLevel);
-        return zoomLevel;
+        return zoom;
     };
 
     const centerMap = (m) => {
         m?.current?.jumpTo({
-            zoom: zoom || 3.2,
+            zoom: calculateMapZoom(),
             center
         });
     };
@@ -172,9 +170,6 @@ const MapBox = ({
             if (singleLocationSelected?.country !== "USA") {
                 centerMap(map);
             }
-            else {
-                calculateMapZoom();
-            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [center, singleLocationSelected]);
@@ -184,7 +179,7 @@ const MapBox = ({
             centerMap(map);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [zoom, center]);
+    }, [center]);
 
     useEffect(() => {
         let mounted = true;
