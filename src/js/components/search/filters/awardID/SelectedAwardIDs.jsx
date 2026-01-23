@@ -5,8 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import ShownAwardID from './ShownAwardID';
+import ShownValue from "../ShownValue";
 
 const propTypes = {
     toggleAwardID: PropTypes.func,
@@ -20,12 +19,10 @@ const SelectedAwardIDs = (props) => {
     selectedAwardIDs.entrySeq().forEach((entry) => {
         const key = entry[0];
         const awardID = entry[1];
-        const value = (
-            <ShownAwardID
-                awardID={awardID}
-                label={awardID}
-                key={key}
-                toggleAwardID={() => toggleAwardID(awardID)} />);
+        const removeValue = () => toggleAwardID(awardID);
+
+        const value = (<ShownValue label={awardID} removeValue={removeValue} key={key} />);
+
         shownAwardIDs.push(value);
     });
 

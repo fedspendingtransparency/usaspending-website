@@ -11,7 +11,7 @@ import { Button, NewPicker } from "data-transparency-ui";
 import Analytics from 'helpers/analytics/Analytics';
 import DatePicker from 'components/sharedComponents/DatePicker';
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
-import ShownValue from "../otherFilters/ShownValue";
+import ShownValue from "../ShownValue";
 import { dateRangeChipLabel } from "../../../../helpers/searchHelper";
 import usePrevious from "../../../../hooks/usePrevious";
 

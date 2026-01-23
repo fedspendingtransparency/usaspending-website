@@ -7,13 +7,14 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { isCancel } from "axios";
 import { useSelector } from "react-redux";
+
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import SearchAwardsOperation from "models/v1/search/SearchAwardsOperation";
 import { performSpendingByAwardTabCountSearch, areFiltersEqual } from "helpers/searchHelper";
+import { performTabCountSearch } from "helpers/keywordHelper";
 import NewSearchScreen from "./NewSearchScreen";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";
-import { performTabCountSearch } from "../../../helpers/keywordHelper";
 
 require("pages/search/searchPage.scss");
 
@@ -22,10 +23,17 @@ const propTypes = {
     isMobile: PropTypes.bool,
     noFiltersApplied: PropTypes.bool,
     hash: PropTypes.string,
-    searchV2: PropTypes.bool
+    updateFilterCount: PropTypes.func
 };
 
-const ResultsView = React.memo((props) => {
+// eslint-disable-next-line prefer-arrow-callback
+const ResultsView = React.memo(function ResultsView({
+    showMobileFilters,
+    isMobile,
+    noFiltersApplied,
+    hash,
+    updateFilterCount
+}) {
     const [hasResults, setHasResults] = useState(false);
     const [resultContent, setResultContent] = useState(null);
     const [tabData, setTabData] = useState();
@@ -103,7 +111,7 @@ const ResultsView = React.memo((props) => {
     };
 
     useEffect(() => {
-        if (!areFiltersEqual(filters) || !props.hash) {
+        if (!areFiltersEqual(filters) || !hash) {
             checkForData();
         }
 
@@ -115,26 +123,26 @@ const ResultsView = React.memo((props) => {
 
 
     useEffect(() => {
-        if (props.showMobileFilters && props.isMobile) {
+        if (showMobileFilters && isMobile) {
             mobileFilters = 'behind-filters';
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.showMobileFilters, props.isMobile]);
+    }, [showMobileFilters, isMobile]);
 
     useEffect(() => {
         let content = null;
 
         if (!inFlight && !error) {
-            if (!props.hash && props.noFiltersApplied) {
+            if (!hash && noFiltersApplied) {
                 content = <NewSearchScreen />;
             }
 
-            if (!props.noFiltersApplied) {
+            if (!noFiltersApplied) {
                 if (hasResults) {
                     content = (
                         <SectionsContent
                             tabData={tabData}
-                            hash={props.hash}
+                            hash={hash}
                             spendingLevel={spendingLevel} />
                     );
                 }
@@ -146,12 +154,12 @@ const ResultsView = React.memo((props) => {
 
         setResultContent(content);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.noFiltersApplied, hasResults, inFlight, error, props.hash]);
+    }, [noFiltersApplied, hasResults, inFlight, error, hash]);
 
     return (
         <div className="search-results-view-container">
             <div className="search-results-wrapper">
-                <TopFilterBarContainer {...props} />
+                <TopFilterBarContainer filters={filters} updateFilterCount={updateFilterCount} />
                 <div className={`search-results ${mobileFilters}`}>
                     {resultContent}
                 </div>

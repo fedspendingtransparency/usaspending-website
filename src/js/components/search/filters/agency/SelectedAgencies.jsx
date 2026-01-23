@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { toLower } from 'lodash-es';
-import ShownAgency from './ShownAgency';
+import ShownValue from "../ShownValue";
 
 const propTypes = {
     selectedAgencies: PropTypes.object,
@@ -38,14 +38,12 @@ const SelectedAgencies = ({ selectedAgencies, toggleAgency, agencyType }) => {
             }
         }
 
-        const value = (
-            <ShownAgency
-                agency={agency}
-                label={label}
-                key={key}
-                agencyType={agencyType}
-                toggleAgency={toggleAgency} />
-        );
+        const removeValue = () => {
+            toggleAgency(agency, true, agencyType);
+        };
+
+        const value = (<ShownValue label={label} removeValue={removeValue} key={key} />);
+
         shownAgencies.push(value);
     });
 
