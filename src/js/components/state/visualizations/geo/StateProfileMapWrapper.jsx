@@ -545,8 +545,8 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
                     mapType={props.scope}
                     stateInfo={props.stateInfo}
                     stateProfile={props.stateProfile}
-                    ref={mapRef}
-                    singleLocationSelected={props.singleLocationSelected} />
+                    singleLocationSelected={props.singleLocationSelected}
+                    ref={mapRef} />
             }
             <MapFiltersToggle
                 onKeyDown={onKeyDown}

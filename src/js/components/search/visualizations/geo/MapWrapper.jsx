@@ -144,10 +144,10 @@ const MapWrapper = ({
         }
 
         // hide the base layer
-        mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'none');
+        mapRef.current.setLayoutProperty(layers.base, 'visibility', 'none');
         layers.highlights.forEach((highlight) => {
             // iterate through all the highlight layers and enable them
-            mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'none');
+            mapRef.current.setLayoutProperty(highlight, 'visibility', 'none');
         });
     };
 
@@ -157,7 +157,7 @@ const MapWrapper = ({
      * @returns {string} first symbol layer id.
      */
     const firstSymbolId = () => {
-        const layers = mapRef.current.map.current.getStyle().layers;
+        const layers = mapRef.current.getStyle().layers;
         // Find the index of the first symbol layer in the map style
         let symbolId = null;
         for (let i = 0; i < layers.length; i++) {
@@ -192,14 +192,14 @@ const MapWrapper = ({
 
         // load the data source
         const source = mapboxSources[type];
-        mapRef.current.map.current.addSource(type, {
+        mapRef.current.addSource(type, {
             type: 'vector',
             url: source.url
         });
 
         // transform the source shapes into a base layer that will show the outline of all the
         // contents
-        mapRef.current.map.current.addLayer({
+        mapRef.current.addLayer({
             id: baseLayer,
             type: 'fill',
             source: type,
@@ -215,7 +215,7 @@ const MapWrapper = ({
         const colors = MapHelper.visualizationColors;
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
-            mapRef.current.map.current.addLayer({
+            mapRef.current.addLayer({
                 id: layerName,
                 type: 'fill',
                 source: type,
@@ -228,8 +228,8 @@ const MapWrapper = ({
             }, firstSymbolId());
 
             // setup mouseover events
-            mapRef.current.map.current.on('mousemove', layerName, mouseOverLayer.bind(this));
-            mapRef.current.map.current.on('mouseleave', layerName, mouseExitLayer.bind(this));
+            mapRef.current.on('mousemove', layerName, mouseOverLayer.bind(this));
+            mapRef.current.on('mouseleave', layerName, mouseExitLayer.bind(this));
 
             // save a reference to this layer
             sourceRef.highlights.push(layerName);
@@ -251,10 +251,10 @@ const MapWrapper = ({
         }
 
         // enable the base layer
-        mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'visible');
+        mapRef.current.setLayoutProperty(layers.base, 'visibility', 'visible');
         layers.highlights.forEach((highlight) => {
             // iterate through all the highlight layers and enable them
-            mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'visible');
+            mapRef.current.setLayoutProperty(highlight, 'visibility', 'visible');
         });
     };
 
@@ -280,19 +280,19 @@ const MapWrapper = ({
 
         // check if we need to zoom in to show the layer
         if (source.minZoom) {
-            const currentZoom = mapRef.current.map.current.getZoom();
+            const currentZoom = mapRef.current.getZoom();
             if (currentZoom < source.minZoom) {
                 // we are zoomed too far out and won't be able to see the new map layer, zoom in
                 // don't allow users to zoom further out than the min zoom
-                mapRef.current.map.current.setMinZoom(source.minZoom);
+                mapRef.current.setMinZoom(source.minZoom);
             }
         }
         else {
-            mapRef.current.map.current.setMinZoom(0);
+            mapRef.current.setMinZoom(0);
         }
 
 
-        const parentMap = mapRef.current.map.current;
+        const parentMap = mapRef.current;
         function renderResolver() {
             parentMap.off('render', renderResolver);
             resolve();
@@ -310,7 +310,7 @@ const MapWrapper = ({
         }
 
         // if we're loading new data, we need to wait for the data to be ready
-        mapRef.current.map.current.on('sourcedata', loadResolver);
+        mapRef.current.on('sourcedata', loadResolver);
     });
 
     const runMapOperationQueue = () => {
@@ -323,7 +323,7 @@ const MapWrapper = ({
 
     const prepareChangeListeners = () => {
         // detect visible entities whenever the map moves
-        const parentMap = mapRef.current.map.current;
+        const parentMap = mapRef.current;
         const mapMovedCallback = () => {
             if (parentMap.loaded()) {
                 parentMap.off('render', mapMovedCallback);
@@ -367,7 +367,7 @@ const MapWrapper = ({
         // determine which entities (state, counties, etc. based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
 
-        const mapLoaded = mapRef.current.map.current.loaded();
+        const mapLoaded = mapRef.current.loaded();
         // wait for the map to load before continuing
         if (!mapLoaded) {
             window.requestAnimationFrame(() => {
@@ -377,7 +377,7 @@ const MapWrapper = ({
         }
 
         // TODO: investigate if we can useState instead of useRef for scopeRef
-        const entities = mapRef.current.map.current.queryRenderedFeatures({
+        const entities = mapRef.current.queryRenderedFeatures({
             layers: [`base_${scopeRef.current}`]
         });
 
@@ -411,8 +411,8 @@ const MapWrapper = ({
     const removeChangeListeners = () => {
         // remove the render callbacks
         if (mapRef.current) {
-            mapRef.current.map.current.off('moveend', renderCallback);
-            mapRef.current.map.current.off('resize', renderCallback);
+            mapRef.current.off('moveend', renderCallback);
+            mapRef.current.off('resize', renderCallback);
         }
     };
 
@@ -421,7 +421,7 @@ const MapWrapper = ({
     };
 
     const setCenterFromMapTiles = (value, filterKey, lat, long) => {
-        const entities = mapRef.current.map.current.queryRenderedFeatures({
+        const entities = mapRef.current.queryRenderedFeatures({
             layers: [`base_${scope}`]
         });
 
@@ -512,7 +512,7 @@ const MapWrapper = ({
                 // if there are locations that are displayable, include those in the filter
                 filter = ['in', source.filterKey].concat(valueSet);
             }
-            mapRef.current.map.current.setFilter(layerName, filter);
+            mapRef.current.setFilter(layerName, filter);
         });
 
         reCenterMap();
