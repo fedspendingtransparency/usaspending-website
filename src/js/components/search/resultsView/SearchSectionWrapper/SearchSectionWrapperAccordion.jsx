@@ -18,7 +18,7 @@ const propTypes = {
     sectionName: PropTypes.string
 };
 
-const SearchSectionWrapperAccordion = memo(({
+const SearchSectionWrapperAccordion = ({
     openAccordion,
     setOpenAccordion,
     dropdownOptions,
@@ -114,7 +114,7 @@ const SearchSectionWrapperAccordion = memo(({
             ) : (<></>)}
         </Accordion>
     );
-});
+};
 
 SearchSectionWrapperAccordion.propTypes = propTypes;
 export default SearchSectionWrapperAccordion;
