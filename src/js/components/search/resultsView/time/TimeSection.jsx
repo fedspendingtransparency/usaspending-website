@@ -4,7 +4,7 @@
  **/
 
 
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 
 import Analytics from "../../../../helpers/analytics/Analytics";
@@ -35,7 +35,7 @@ const TimeSection = ({
         });
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-    const wrapperProps = useMemo(() => ({
+    const wrapperProps = () => ({
         sectionTitle: 'Results Over Time',
         dropdownOptions: [
             {
@@ -59,7 +59,7 @@ const TimeSection = ({
         ],
         selectedDropdownOption: visualizationPeriod,
         sectionName: 'time'
-    }), []);
+    });
 
     return (
         <div id="search-page-component" className="time">
