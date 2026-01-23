@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/14/17
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { uniq, cloneDeep } from 'lodash-es';
 import GlobalConstants from 'GlobalConstants';
@@ -97,11 +97,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
 
     const [, , defCodes] = useDefCodes();
     const [mapFilters, setMapFilters] = useState(cloneDeep(props.filters));
-
-    const mapRemoved = () => {
-        // map is about to be removed
-        setMapReady(false);
-    };
 
     const hideSource = (type) => {
         const layers = mapLayers[type];
@@ -324,11 +319,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
             });
     };
 
-    const mapReadyPrep = () => {
-        // map has mounted, load the state shapes
-        setMapReady(true);
-    };
-
     const measureMap = (forced = false) => {
         // determine which entities (state, counties, etc. based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
@@ -539,8 +529,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
             {
                 GlobalConstants.MAPBOX_TOKEN &&
                 <MapBox
-                    loadedMap={mapReadyPrep}
-                    unloadedMap={mapRemoved}
+                    setMapReady={setMapReady}
                     center={center}
                     mapType={props.scope}
                     stateInfo={props.stateInfo}

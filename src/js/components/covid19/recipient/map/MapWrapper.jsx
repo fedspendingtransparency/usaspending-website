@@ -121,17 +121,7 @@ export default class MapWrapper extends React.Component {
         return colors;
     };
 
-    mapReady = () => {
-    // map has mounted, load the state shapes
-        this.props.onMapLoaded(true);
-    };
-
     countUnique = (iterable) => new Set(iterable).size;
-
-    mapRemoved = () => {
-    // map is about to be removed
-        this.props.onMapLoaded(false);
-    };
 
     prepareMap = () => {
         this.prepareLayers()
@@ -511,11 +501,13 @@ export default class MapWrapper extends React.Component {
                 ref={(div) => {
                     this.wrapperDiv = div;
                 }}>
-                {GlobalConstants.MAPBOX_TOKEN && <MapBox
-                    loadedMap={this.mapReady}
-                    unloadedMap={this.mapRemoved}
-                    center={this.props.center}
-                    ref={this.mapRef} />}
+                {
+                    GlobalConstants.MAPBOX_TOKEN &&
+                    <MapBox
+                        setMapReady={this.props.onMapLoaded}
+                        center={this.props.center}
+                        ref={this.mapRef} />
+                }
                 <MapFiltersToggle onKeyDown={this.onKeyDown} onClick={this.toggleFilters} isOpen={this.state.isFiltersOpen} />
                 {this.filters()}
                 {this.legend()}

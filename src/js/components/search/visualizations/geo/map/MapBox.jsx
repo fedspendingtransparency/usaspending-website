@@ -15,8 +15,7 @@ import IsMobileContext from "context/IsMobileContext";
 import MapBoxNavButtons from "./MapBoxNavButtons";
 
 const propTypes = {
-    loadedMap: PropTypes.func,
-    unloadedMap: PropTypes.func,
+    setMapReady: PropTypes.func,
     center: PropTypes.array,
     stateProfile: PropTypes.bool,
     stateInfo: PropTypes.object,
@@ -29,8 +28,7 @@ const mapStyle = 'mapbox://styles/usaspendingfrbkc/cm97fy9mm00g601qt032hg79g';
 
 // eslint-disable-next-line prefer-arrow-callback
 const MapBox = ({
-    loadedMap,
-    unloadedMap,
+    setMapReady,
     center,
     stateProfile,
     stateInfo,
@@ -120,77 +118,84 @@ const MapBox = ({
         }
     }, [centerMap, map, calculateMapZoom, center, stateProfile, singleLocationSelected]);
 
-    const resizeMap = () => {
-        if (isTablet) {
-            map.current.dragPan.disable();
-            centerMap(map);
+    const resizeMap = useCallback((m, z, c, isMobile) => {
+        if (isMobile) {
+            m.current.dragPan.disable();
+            centerMap(m, z, c);
             setShowNavButtons(true);
         }
         else {
-            map.current.dragPan.enable();
+            m.current.dragPan.enable();
             setShowNavButtons(false);
         }
-    };
+    }, [centerMap]);
 
-    const mountMap = (mounted) => {
+    const mountMap = useCallback((m, z, c, mounted, isMobile) => {
         MapboxGL.accessToken = kGlobalConstants.MAPBOX_TOKEN;
         // eslint-disable-next-line no-param-reassign
-        map.current = new MapboxGL.Map({
+        m.current = new MapboxGL.Map({
             container: mapDiv.current,
             style: mapStyle,
             logoPosition: 'bottom-left',
             attributionControl: false,
-            center,
-            zoom: calculateMapZoom(),
+            center: c,
+            zoom: z,
             dragRotate: false // disable 3D view
         });
 
         // add navigation controls
-        map.current.addControl(new MapboxGL.NavigationControl());
-        map.current.addControl(new MapboxGL.AttributionControl({
+        m.current.addControl(new MapboxGL.NavigationControl());
+        m.current.addControl(new MapboxGL.AttributionControl({
             compact: false
         }));
 
         // disable the compass controls
-        map.current.dragRotate.disable();
+        m.current.dragRotate.disable();
 
         let showNavigationButtons = false;
-        if (isTablet) {
+        if (isMobile) {
             showNavigationButtons = true;
-            map.current.dragPan.disable();
-            centerMap(map);
+            m.current.dragPan.disable();
+            centerMap(m, z, c);
         }
 
         // disable scroll zoom
-        map.current.scrollZoom.disable();
+        m.current.scrollZoom.disable();
 
         // prepare the shapes
-        map.current.on('load', () => {
+        m.current.on('load', () => {
             if (!mounted) {
                 // don't update the state if the map has been unmounted
                 return;
             }
 
             setShowNavButtons(showNavigationButtons);
-            loadedMap(map);
+            setMapReady(true);
         });
-    };
+    }, [centerMap, setMapReady]);
 
     useEffect(() => {
         let mounted = true;
+        const zoom = calculateMapZoom();
+
         if (map.current) {
-            resizeMap();
+            resizeMap(map, zoom, center, isTablet);
         }
         else {
-            mountMap(mounted);
+            mountMap(
+                map,
+                zoom,
+                center,
+                mounted,
+                isTablet
+            );
         }
 
         return () => {
             mounted = false;
-            unloadedMap();
+            setMapReady(false);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isTablet]);
+    }, [map, calculateMapZoom, center, resizeMap, mountMap, isTablet, setMapReady]);
 
     return (
         <div className="mapbox-item" ref={mapDiv}>
@@ -200,5 +205,4 @@ const MapBox = ({
 };
 
 MapBox.propTypes = propTypes;
-
 export default MapBox;

@@ -108,7 +108,6 @@ const MapWrapper = ({
     mapLegendToggle,
     updateMapLegendToggle,
     stateInfo,
-    onMapLoaded,
     amountTypeEnabled = true,
     singleLocationSelected,
     tooltip: TooltipComponent
@@ -129,11 +128,6 @@ const MapWrapper = ({
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
-
-    const mapRemoved = () => {
-        // map is about to be removed
-        setMapReady(false);
-    };
 
     const hideSource = (type) => {
         const layers = mapLayers[type];
@@ -354,13 +348,6 @@ const MapWrapper = ({
                 // notify any listeners that the map is ready
                 MapBroadcaster.emit('mapReady');
             });
-    };
-
-    const mapReadyPrep = () => {
-        // map has mounted, load the state shapes
-        setMapReady(true);
-        // and set the redux property used for jumpTo function in searchSectionWrapper
-        onMapLoaded(true);
     };
 
     const measureMap = (forced = false) => {
@@ -647,15 +634,17 @@ const MapWrapper = ({
 
     return (
         <div className="map-container">
-            {GlobalConstants.MAPBOX_TOKEN && <MapBox
-                loadedMap={mapReadyPrep}
-                unloadedMap={mapRemoved}
-                center={center}
-                mapType={scope}
-                stateInfo={stateInfo}
-                stateProfile={stateProfile}
-                ref={mapRef}
-                singleLocationSelected={singleLocationSelected} />}
+            {
+                GlobalConstants.MAPBOX_TOKEN &&
+                <MapBox
+                    setMapReady={setMapReady}
+                    center={center}
+                    mapType={scope}
+                    stateInfo={stateInfo}
+                    stateProfile={stateProfile}
+                    ref={mapRef}
+                    singleLocationSelected={singleLocationSelected} />
+            }
             <MapFiltersToggle
                 onKeyDown={onKeyDown}
                 onClick={toggleFilters}
