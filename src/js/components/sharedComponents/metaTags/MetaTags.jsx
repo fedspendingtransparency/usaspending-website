@@ -3,7 +3,7 @@
  * Created by michaelbray on 5/25/17.
  */
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
@@ -24,7 +24,7 @@ const propTypes = {
     og_image: PropTypes.string
 };
 
-const MetaTags = ({
+const MetaTags = memo(({
     og_url: url = 'https://usaspending.gov',
     og_title: title = 'USAspending.gov',
     og_description: description = 'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
@@ -123,7 +123,7 @@ const MetaTags = ({
             {tags}
         </Helmet>
     );
-};
+});
 
 MetaTags.propTypes = propTypes;
 

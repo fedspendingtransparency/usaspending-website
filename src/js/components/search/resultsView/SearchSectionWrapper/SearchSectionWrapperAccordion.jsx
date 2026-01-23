@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, memo } from 'react';
 import { throttle } from "lodash-es";
 import { useLocation, useNavigate } from "react-router";
 import PropTypes from "prop-types";
@@ -18,7 +18,7 @@ const propTypes = {
     sectionName: PropTypes.string
 };
 
-const SearchSectionWrapperAccordion = ({
+const SearchSectionWrapperAccordion = memo(({
     openAccordion,
     setOpenAccordion,
     dropdownOptions,
@@ -114,7 +114,7 @@ const SearchSectionWrapperAccordion = ({
             ) : (<></>)}
         </Accordion>
     );
-};
+});
 
 SearchSectionWrapperAccordion.propTypes = propTypes;
 export default SearchSectionWrapperAccordion;
