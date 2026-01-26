@@ -1,8 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import TimeVisualizationPeriodButton from
-    "../../search/resultsView/time/TimeVisualizationPeriodButton";
+import TimeVisualizationPeriodButton from "./TimeVisualizationPeriodButton";
 
 const propTypes = {
     visualizationPeriod: PropTypes.string,

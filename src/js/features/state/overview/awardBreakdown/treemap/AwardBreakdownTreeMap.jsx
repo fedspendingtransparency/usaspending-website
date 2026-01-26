@@ -28,17 +28,16 @@ const AwardBreakdownTreeMap = ({
     const [visualizationWidth, setVisualizationWidth] = useState(0);
     const [virtualChart, setVirtualChart] = useState([]);
     const [hoveredAwardType, setHoveredAwardType] = useState('');
-
-    const amountType = useRef(toggleState ? "total_outlays" : "amount");
     const sectionWrapper = useRef(null);
     const awardRef = useRef(awardBreakdown);
 
+    const amountType = toggleState ? "total_outlays" : "amount";
     const visualizationHeight = 175;
 
-    const buildVirtualCell = useCallback((data, i) => {
+    const buildVirtualCell = useCallback((data, i, type, hoveredType, total) => {
         // todo - use these two lines, along with the new arrays to return colors in treemapHelper,
         //  when finishing the toggle functionality; the two lines above will not be used
-        let cellColor = amountType.current === 'total_outlays' ?
+        let cellColor = type === 'total_outlays' ?
             TreemapHelper.stateTreemapColorsWithToggle[i] :
             TreemapHelper.stateTreemapColorsNoToggle[i];
         let textColor = TreemapHelper.stateTooltipStyles.defaultStyle.textColor;
@@ -46,7 +45,7 @@ const AwardBreakdownTreeMap = ({
         let textClass = '';
 
         // Set highlighted state for hovered award type
-        if (hoveredAwardType === data.data.type) {
+        if (hoveredType === data.data.type) {
             cellColor = TreemapHelper.stateTooltipStyles.highlightedStyle.color;
             textColor = TreemapHelper.stateTooltipStyles.highlightedStyle.textColor;
             textClass = 'chosen';
@@ -73,7 +72,7 @@ const AwardBreakdownTreeMap = ({
             x1: data.x1,
             y0: data.y0,
             y1: data.y1,
-            total: totalAmount,
+            total,
             awardType: data.data.type,
             color: cellColor,
             textColor,
@@ -83,9 +82,9 @@ const AwardBreakdownTreeMap = ({
             height,
             percentView
         };
-    }, [hoveredAwardType, totalAmount]);
+    }, []);
 
-    const buildVirtualTree = useCallback((data, type) => {
+    const buildVirtualTree = useCallback((data, type, hoveredType, total) => {
         // remove the negative values from the data because they can't be displayed in the treemap
         remove(data, (v) => v[type] <= 0);
 
@@ -126,7 +125,7 @@ const AwardBreakdownTreeMap = ({
         // create the individual treemap cells
         const cells = [];
         treeItems.forEach((item, index) => {
-            const cell = buildVirtualCell(item, index);
+            const cell = buildVirtualCell(item, index, type, hoveredType, total);
             cells.push(cell);
         });
 
@@ -139,9 +138,9 @@ const AwardBreakdownTreeMap = ({
             setVisualizationWidth(sectionWrapper.current.offsetWidth);
         }
         if (awardRef.current.length > 0) {
-            buildVirtualTree(awardRef.current, amountType.current);
+            buildVirtualTree(awardRef.current, amountType, hoveredAwardType, totalAmount);
         }
-    }, [buildVirtualTree]);
+    }, [buildVirtualTree, amountType, hoveredAwardType, totalAmount]);
 
     useEffect(() => {
         // run once to get initial width
@@ -154,13 +153,9 @@ const AwardBreakdownTreeMap = ({
     useEffect(() => {
         awardRef.current = awardBreakdown;
         if (awardBreakdown.length > 0) {
-            buildVirtualTree(awardRef.current, amountType.current);
+            buildVirtualTree(awardRef.current, amountType, hoveredAwardType, totalAmount);
         }
-    }, [awardBreakdown, buildVirtualTree]);
-
-    useEffect(() => {
-        amountType.current = toggleState ? "total_outlays" : "amount";
-    }, [toggleState]);
+    }, [awardBreakdown, buildVirtualTree, amountType, hoveredAwardType, totalAmount]);
 
     return (
         <div className="award-breakdown__treemap">
@@ -171,7 +166,6 @@ const AwardBreakdownTreeMap = ({
                         hoveredAwardType={hoveredAwardType}
                         awardBreakdown={awardBreakdown}
                         virtualChart={virtualChart}
-                        amountType={amountType}
                         totalAmount={totalAmount}
                         toggleState={toggleState} />
                     <AwardBreakdownTreeMapCells

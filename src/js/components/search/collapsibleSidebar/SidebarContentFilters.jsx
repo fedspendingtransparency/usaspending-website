@@ -10,7 +10,6 @@ import Keyword from "components/search/filters/keyword/Keyword";
 import SidebarContentFilterAccordion from "./SidebarContentFilterAccordion";
 
 const propTypes = {
-    sidebarContentHeight: PropTypes.number,
     isMobile: PropTypes.bool
 };
 
@@ -53,7 +52,7 @@ const SidebarContentFilters = ({ isMobile }) => {
     return (
         <div
             className="collapsible-sidebar--search-filters-list">
-            <Keyword searchV2 />
+            <Keyword />
             {searchFilterCategoryTree.map(({ title, component }) => (
                 <SidebarContentFilterAccordion
                     key={`toggle-${title}`}

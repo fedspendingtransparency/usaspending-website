@@ -5,28 +5,25 @@
 
 import React from 'react';
 
-import AwardTypeV2 from "components/search/filters/awardType/AwardTypeV2";
+import AwardType from "components/search/filters/awardType/AwardType";
 import Agency from "components/search/filters/agency/Agency";
-import LocationSection from "../../components/search/filters/location/LocationSection";
-import TimePeriodContainer from "../../containers/search/filters/TimePeriodContainer";
-import AwardIDSearchContainer from "../../containers/search/filters/awardID/AwardIDSearchContainer";
+import LocationSection from "components/search/filters/location/LocationSection";
+import TimePeriodContainer from "containers/search/filters/TimePeriodContainer";
+import AwardIDSearchContainer from "containers/search/filters/awardID/AwardIDSearchContainer";
 import TASCheckboxTreeContainer from
-    "../../containers/search/filters/programSource/TASCheckboxTreeContainer";
-import RecipientSearchContainer from
-    "../../containers/search/filters/recipient/RecipientSearchContainer";
-import RecipientTypeContainer from
-    "../../containers/search/filters/recipient/RecipientTypeContainer";
-import AwardAmountSearchContainer from
-    "../../containers/search/filters/awardAmount/AwardAmountSearchContainer";
-import NAICSCheckboxTree from "../../containers/search/filters/naics/NAICSCheckboxTree";
-import PSCCheckboxTreeContainer from "../../containers/search/filters/psc/PSCCheckboxTreeContainer";
-import PricingTypeContainer from "../../containers/search/filters/PricingTypeContainer";
-import SetAsideContainer from "../../containers/search/filters/SetAsideContainer";
-import ExtentCompetedContainer from "../../containers/search/filters/ExtentCompetedContainer";
-import CFDASearchContainer from "../../containers/search/filters/cfda/CFDASearchContainer";
-import DEFCheckboxTreeContainer from "../../containers/search/filters/def/DEFCheckboxTreeContainer";
+    "containers/search/filters/programSource/TASCheckboxTreeContainer";
+import RecipientSearchContainer from "containers/search/filters/recipient/RecipientSearchContainer";
+import RecipientType from "components/search/filters/RecipientType";
+import AwardAmountSearch from "components/search/filters/awardAmount/AwardAmountSearch";
+import NAICSCheckboxTree from "containers/search/filters/naics/NAICSCheckboxTree";
+import PSCCheckboxTreeContainer from "containers/search/filters/psc/PSCCheckboxTreeContainer";
+import PricingType from "components/search/filters/PricingType";
+import SetAside from "components/search/filters/SetAside";
+import ExtentCompeted from "components/search/filters/ExtentCompeted";
+import CFDASearchContainer from "containers/search/filters/cfda/CFDASearchContainer";
+import DEFCheckboxTreeContainer from "containers/search/filters/def/DEFCheckboxTreeContainer";
 import AwardDescriptionFilterContainer from
-    "../../containers/search/filters/AwardDescriptionFilterContainer";
+    "containers/search/filters/AwardDescriptionFilterContainer";
 
 export const SearchFilterCategories = [
     {
@@ -84,15 +81,15 @@ export const SearchFilterCategories = [
 export const searchFilterCategoryTree = [
     {
         title: 'Recipient',
-        component: <RecipientSearchContainer searchV2 />
+        component: <RecipientSearchContainer />
     },
     {
         title: "Award ID",
-        component: <AwardIDSearchContainer searchV2 />
+        component: <AwardIDSearchContainer />
     },
     {
         title: "Time Period",
-        component: <TimePeriodContainer searchV2 />
+        component: <TimePeriodContainer />
     },
     {
         title: "Location",
@@ -104,11 +101,11 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'Award Type',
-        component: <AwardTypeV2 />
+        component: <AwardType />
     },
     {
         title: 'Recipient Type',
-        component: <RecipientTypeContainer searchV2 />
+        component: <RecipientType />
     },
     {
         title: "Award Description",
@@ -116,21 +113,15 @@ export const searchFilterCategoryTree = [
     },
     {
         title: "Award Amount",
-        component: <AwardAmountSearchContainer searchV2 />
+        component: <AwardAmountSearch />
     },
     {
         title: 'Assistance Listing',
-        component: <CFDASearchContainer searchV2 />
+        component: <CFDASearchContainer />
     },
     {
         title: 'North American Industry Classification System (NAICS)',
-        component: (
-            <>
-                <div className="search-option">
-                    <NAICSCheckboxTree searchV2 />
-                </div>
-            </>
-        )
+        component: <NAICSCheckboxTree />
     },
     {
         title: 'Disaster Emergency Fund Code (DEFC)',
@@ -138,28 +129,22 @@ export const searchFilterCategoryTree = [
     },
     {
         title: 'Treasury Account Symbol (TAS)',
-        component: <TASCheckboxTreeContainer showInfo={false} searchV2 />
+        component: <TASCheckboxTreeContainer />
     },
     {
         title: 'Product and Service Code (PSC)',
-        component: (
-            <>
-                <div className="search-option">
-                    <PSCCheckboxTreeContainer searchV2 />
-                </div>
-            </>
-        )
+        component: <PSCCheckboxTreeContainer />
     },
     {
         title: 'Type of Contract Pricing',
-        component: <PricingTypeContainer searchV2 />
+        component: <PricingType />
     },
     {
         title: 'Type of Set Aside',
-        component: <SetAsideContainer searchV2 />
+        component: <SetAside />
     },
     {
         title: 'Extent Competed',
-        component: <ExtentCompetedContainer searchV2 />
+        component: <ExtentCompeted />
     }
 ];

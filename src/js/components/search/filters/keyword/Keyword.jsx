@@ -4,30 +4,18 @@
  **/
 
 import React, { useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Button } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 
-import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import { updateTextSearchInput } from "redux/actions/search/searchFilterActions";
 import SelectedKeywords from './SelectedKeywords';
 import { KeyWordTooltip } from "../tooltips/AdvancedSearchTooltip";
-import ContextTooltip from "../timePeriod/ContextTooltip";
+import ContextTooltip from "../ContextTooltip";
 
-const propTypes = {
-    searchV2: PropTypes.bool
-};
-
-const Keyword = ({
-    searchV2
-}) => {
+const Keyword = () => {
     const [value, setValue] = useState('');
     const searchInputRef = useRef(null);
     const dispatch = useDispatch();
-
-    const accessibility = {
-        'aria-controls': 'selected-keyword-tags'
-    };
 
     const changedInput = (e) => {
         setValue(e.target.value);
@@ -54,43 +42,29 @@ const Keyword = ({
         <div className="keyword-filter search-filter">
             <form onSubmit={searchKeyword}>
                 <div className="filter-item-wrap">
-                    { searchV2 &&
-                        <div className="category-header">
-                            <div className="category-header--title">
-                                Filter by Keyword
-                            </div>
-                            <ContextTooltip tooltip={<KeyWordTooltip />} />
+                    <div className="category-header">
+                        <div className="category-header--title">
+                            Filter by Keyword
                         </div>
-                    }
+                        <ContextTooltip tooltip={<KeyWordTooltip />} />
+                    </div>
                     <div className="keyword-input-wrapper">
                         <input
                             id="search"
                             type="text"
                             className="keyword-input"
-                            placeholder={
-                                searchV2 ?
-                                    'Search using keywords...' :
-                                    "Search by Keyword"
-                            }
+                            placeholder="Search using keywords..."
                             value={value}
                             onChange={changedInput}
                             ref={searchInputRef} />
-                        { searchV2 ?
-                            <Button
-                                copy="Add"
-                                buttonTitle="Add"
-                                buttonSize="sm"
-                                buttonType="primary"
-                                backgroundColor="light"
-                                disabled={value.length === 0}
-                                onClick={searchKeyword} />
-                            :
-                            <IndividualSubmit
-                                className="keyword-submit"
-                                onClick={searchKeyword}
-                                label="Filter by keyword"
-                                accessibility={accessibility} />
-                        }
+                        <Button
+                            copy="Add"
+                            buttonTitle="Add"
+                            buttonSize="sm"
+                            buttonType="primary"
+                            backgroundColor="light"
+                            disabled={value.length === 0}
+                            onClick={searchKeyword} />
                     </div>
                     <SelectedKeywords toggleKeyword={toggleKeyword} />
                 </div>
@@ -99,5 +73,4 @@ const Keyword = ({
     );
 };
 
-Keyword.propTypes = propTypes;
 export default Keyword;

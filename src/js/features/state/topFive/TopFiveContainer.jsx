@@ -150,7 +150,7 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
             performSpendingByCategorySearch;
 
         fetchData(request, dataParams);
-    }, [category, code, dataParams, fetchData, fy, type]);
+    }, [code, category, dataParams, fetchData]);
 
     return (
         <>

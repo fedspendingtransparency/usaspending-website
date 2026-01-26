@@ -18,8 +18,7 @@ const CreateAwardTypeTooltip = ({
     toggleState,
     sectionWrapper,
     hoveredAwardType,
-    virtualChart,
-    amountType
+    virtualChart
 }) => {
     const createTooltip = () => {
         let tooltip = null;
@@ -39,11 +38,13 @@ const CreateAwardTypeTooltip = ({
             const node = find(virtualChart,
                 { awardType: `${hoveredAwardType}` });
 
+            const amountType = toggleState ? "total_outlays" : "amount";
+
             tooltip = (
                 <AwardTypeTooltip
-                    value={formatMoneyWithUnitsShortLabel(awardType[amountType.current])}
+                    value={formatMoneyWithUnitsShortLabel(awardType[amountType])}
                     percentage={MoneyFormatter.calculatePercentage(
-                        awardType[amountType.current], totalAmount)
+                        awardType[amountType], totalAmount)
                     }
                     description={awardTypeDefinition}
                     x={node.x0}

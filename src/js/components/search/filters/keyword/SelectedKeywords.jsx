@@ -5,8 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ShownValue from 'components/search/filters/otherFilters/ShownValue';
 import { useSelector } from "react-redux";
+import ShownValue from '../ShownValue';
 
 const propTypes = {
     toggleKeyword: PropTypes.func

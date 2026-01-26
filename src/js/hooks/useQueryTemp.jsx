@@ -3,12 +3,15 @@ import { isCancel } from "axios";
 
 // https://tkdodo.eu/blog/why-you-want-react-query
 
+/* eslint-disable max-len */
 /**
  * useQueryTemp
  * - a custom hook for handling simple data fetching with data, loading, and error states
+ * @param {function} [callbackFunc=() => {}] - callback function, please wrap this function in a useCallback() to avoid unnecessary re-renders
  * @returns {object} An object containing a fetchData function, as well as the data, loading, and error states
  */
 const useQueryTemp = (callbackFunc = () => {}) => {
+    /* eslint-enable max-len */
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);

@@ -93,9 +93,7 @@ const StateTimeVisualizationChart = ({
         }
     }, [focusBar]);
 
-    const onMouseMove = useCallback(() => {
-        setFocusBar(true);
-    }, []);
+    const onMouseMove = () => setFocusBar(true);
 
     const renderChart = () => {
         if (loading) {
