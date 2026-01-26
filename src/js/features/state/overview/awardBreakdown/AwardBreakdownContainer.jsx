@@ -3,13 +3,13 @@
  * Created by Lizzie Salita 5/16/18
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isCancel } from 'axios';
 import { reduce } from 'lodash-es';
-import { FlexGridCol } from "data-transparency-ui";
+import { ErrorMessage, FlexGridCol, LoadingMessage } from "data-transparency-ui";
 
 import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
+import useQueryTemp from "hooks/useQueryTemp";
 import { fetchAwardBreakdown } from "features/state/stateHelper";
 import AwardBreakdownTreeMap from './treemap/AwardBreakdownTreeMap';
 import AwardBreakdownTable from './AwardBreakdownTable';
@@ -25,8 +25,6 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
     const [rows, setRows] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const [hasNegatives, setHasNegatives] = useState(false);
-    const [data, setData] = useState([]);
-    const request = useRef(null);
 
     const parseData = useCallback((results) => {
         const amountType = toggleState ? "total_outlays" : "amount";
@@ -69,9 +67,7 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
         setHasNegatives(newHasNegatives);
     }, [toggleState]);
 
-    useEffect(() => {
-        parseData(data);
-    }, [data, parseData]);
+    const { fetchData, loading, error } = useQueryTemp(parseData);
 
     useEffect(() => {
         if (!id || id === '' || !fy || fy === '') {
@@ -79,46 +75,28 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
             return;
         }
 
-        if (request.current) {
-            // A request is currently in-flight, cancel it
-            request.current.cancel();
-        }
-
-        request.current = fetchAwardBreakdown(id, fy);
-
-        request.current.promise
-            .then((res) => {
-                request.current = null;
-
-                // setInFlight(false);
-                setData(res.data);
-
-                parseData(res.data);
-            })
-            .catch((err) => {
-                request.current = null;
-
-                // setInFlight(false);
-
-                if (!isCancel(err)) {
-                    console.log(err);
-                }
-            });
-    }, [fy, id, parseData]);
+        fetchData(() => fetchAwardBreakdown(id, fy));
+    }, [fetchData, fy, id]);
 
     return (
         <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
+            { loading && <LoadingMessage /> }
+            { error && <ErrorMessage /> }
             <div className="state-section__viz award-breakdown" id="award">
                 <div className="award-breakdown__content">
-                    <AwardBreakdownTreeMap
-                        activeFY={fy}
-                        awardBreakdown={awardBreakdown}
-                        totalAmount={totalAmount}
-                        toggleState={toggleState} />
-                    <AwardBreakdownTable
-                        awardBreakdown={rows}
-                        hasNegatives={hasNegatives}
-                        toggleState={toggleState} />
+                    { !loading && !error && (
+                        <>
+                            <AwardBreakdownTreeMap
+                                activeFY={fy}
+                                awardBreakdown={awardBreakdown}
+                                totalAmount={totalAmount}
+                                toggleState={toggleState} />
+                            <AwardBreakdownTable
+                                awardBreakdown={rows}
+                                hasNegatives={hasNegatives}
+                                toggleState={toggleState} />
+                        </>
+                    )}
                 </div>
             </div>
         </FlexGridCol>
