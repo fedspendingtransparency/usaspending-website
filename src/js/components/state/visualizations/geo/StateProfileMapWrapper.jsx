@@ -456,13 +456,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
         setSpendingScale(scale);
     };
 
-    const toggleFilters = () => setIsFiltersOpen(!isFiltersOpen);
-    const onKeyDown = (e) => {
-        if (e.key === "Enter") {
-            setIsFiltersOpen(!isFiltersOpen);
-        }
-    };
-
     const parseDefCodes = (codes) => {
         const defCodeOptionsList = codes.map((code) => ({
             label: `${code.code} - ${code.title}`,
@@ -538,9 +531,8 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
                     ref={mapRef} />
             }
             <MapFiltersToggle
-                onKeyDown={onKeyDown}
-                onClick={toggleFilters}
-                isOpen={isFiltersOpen} />
+                isFiltersOpen={isFiltersOpen}
+                setIsFiltersOpen={setIsFiltersOpen} />
             <StateProfileMapFilters
                 mapFilters={mapFilters}
                 amountTypeEnabled={props.amountTypeEnabled}

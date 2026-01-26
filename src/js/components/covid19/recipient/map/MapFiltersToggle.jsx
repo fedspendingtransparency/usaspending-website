@@ -8,22 +8,34 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
-    isOpen: PropTypes.bool,
-    onClick: PropTypes.func,
-    onKeyDown: PropTypes.func
+    isFiltersOpen: PropTypes.bool,
+    setIsFiltersOpen: PropTypes.func
 };
 
-const MapFiltersToggle = ({ isOpen, onClick, onKeyDown }) => (
-    <div
-        role="button"
-        onKeyDown={onKeyDown}
-        tabIndex={0}
-        onClick={onClick}
-        className={isOpen ? 'map__filters-toggle open' : 'map__filters-toggle closed'}
-        aria-label={`${isOpen ? 'Close' : 'Open'} map filters`} >
-        <FontAwesomeIcon icon={isOpen ? 'caret-left' : 'caret-right'} />
-    </div>
-);
+const MapFiltersToggle = ({ isFiltersOpen, setIsFiltersOpen }) => {
+    const onToggle = () => setIsFiltersOpen(!isFiltersOpen);
+    const onKeyDown = (e) => {
+        if (e.key === "Enter") {
+            setIsFiltersOpen(!isFiltersOpen);
+        }
+    };
+
+    const className = isFiltersOpen ? 'map__filters-toggle open' : 'map__filters-toggle closed';
+    const ariaLabel = `${isFiltersOpen ? 'Close' : 'Open'} map filters`;
+    const icon = isFiltersOpen ? 'caret-left' : 'caret-right';
+
+    return (
+        <div
+            onClick={onToggle}
+            onKeyDown={onKeyDown}
+            className={className}
+            aria-label={ariaLabel}
+            role="button"
+            tabIndex={0} >
+            <FontAwesomeIcon icon={icon} />
+        </div>
+    );
+};
 
 MapFiltersToggle.propTypes = propTypes;
 export default MapFiltersToggle;

@@ -59,10 +59,12 @@ const MapLegend = ({
             label = `${previousValue} to ${currencyValue}`;
         }
 
-        return (<MapLegendItem
-            key={`item-${uniqueId()}`}
-            label={label}
-            color={color} />);
+        return (
+            <MapLegendItem
+                key={`item-${uniqueId()}`}
+                label={label}
+                color={color} />
+        );
     });
 
 

@@ -456,7 +456,7 @@ export default class MapWrapper extends React.Component {
         });
     };
 
-    toggleFilters = () => this.setState({ isFiltersOpen: !this.state.isFiltersOpen });
+    toggleFilters = (bool) => this.setState({ isFiltersOpen: bool });
 
     tooltip = () => {
         const { tooltip: TooltipComponent, selectedItem, showHover } = this.props;
@@ -508,7 +508,9 @@ export default class MapWrapper extends React.Component {
                         center={this.props.center}
                         ref={this.mapRef} />
                 }
-                <MapFiltersToggle onKeyDown={this.onKeyDown} onClick={this.toggleFilters} isOpen={this.state.isFiltersOpen} />
+                <MapFiltersToggle
+                    isFiltersOpen={this.state.isFiltersOpen}
+                    setIsFiltersOpen={this.toggleFilters} />
                 {this.filters()}
                 {this.legend()}
                 {this.tooltip()}
