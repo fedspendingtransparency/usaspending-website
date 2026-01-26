@@ -143,9 +143,7 @@ const StateProfileMapFilters = React.memo(function StateProfileMapFilters({
                             <StateAgencyList
                                 changeScope={changeScope}
                                 clearSearchFilters={clearSearchFilters}
-                                agencyType="awarding"
-                                selectedItemsDisplayNames={selectedItemsDisplayNames}
-                                placeholder="Search for an awarding agency..." />
+                                selectedItemsDisplayNames={selectedItemsDisplayNames} />
                         </div>
                     </div>
                     <div key={uniqueId()} className="map__filters-filter__container">

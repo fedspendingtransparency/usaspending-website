@@ -8,15 +8,21 @@ import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { filter, sortBy, slice, concat } from 'lodash-es';
 import { Search } from 'js-search';
+
+import { fetchAwardingAgencies } from "helpers/searchHelper";
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
-import * as SearchHelper from 'helpers/searchHelper';
 
 const propTypes = {
     changeScope: PropTypes.func,
     clearSearchFilters: PropTypes.func
 };
 
-const StateAgencyList = React.memo((props) => {
+// eslint-disable-next-line prefer-arrow-callback
+const StateAgencyList = React.memo(function StateAgencyList({
+    changeScope,
+    clearSearchFilters,
+    selectedItemsDisplayNames
+}) {
     const [agencySearchString, setAgencySearchString] = useState('');
     const [autocompleteAgencies, setAutocompleteAgencies] = useState([]);
     const [noResults, setNoResults] = useState(false);
@@ -67,7 +73,10 @@ const StateAgencyList = React.memo((props) => {
         }
 
         // For searches for FEMA, leave the results in the same order as the API response
-        if ((agencySearchString.toLowerCase() !== 'fem') && (agencySearchString.toLowerCase() !== 'fema')) {
+        if (
+            (agencySearchString.toLowerCase() !== 'fem') &&
+            (agencySearchString.toLowerCase() !== 'fema')
+        ) {
             // Separate top and subtier agencies
             let toptierAgencies = filter(agencies, ['data.agencyType', 'toptier']);
             let subtierAgencies = filter(agencies, ['data.agencyType', 'subtier']);
@@ -154,7 +163,7 @@ const StateAgencyList = React.memo((props) => {
                 limit: 20
             };
 
-            apiRequest = SearchHelper.fetchAwardingAgencies(agencySearchParams);
+            apiRequest = fetchAwardingAgencies(agencySearchParams);
 
             apiRequest.promise
                 .then((res) => {
@@ -207,7 +216,7 @@ const StateAgencyList = React.memo((props) => {
 
     useEffect(() => {
         if (Object.keys(searchData).length > 0) {
-            props.changeScope(searchData, "agency");
+            changeScope(searchData, "agency");
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -223,7 +232,7 @@ const StateAgencyList = React.memo((props) => {
         el.addEventListener("blur", (e) => {
             if (e.target.value === "") {
                 clearAutocompleteSuggestions();
-                props.clearSearchFilters("agency");
+                clearSearchFilters("agency");
                 setAgencySearchString('');
             }
         });
@@ -236,7 +245,7 @@ const StateAgencyList = React.memo((props) => {
             el.removeEventListener("blur", (e) => {
                 if (e.target.value === "") {
                     clearAutocompleteSuggestions();
-                    props.clearSearchFilters("agency");
+                    clearSearchFilters("agency");
                     setAgencySearchString('');
                 }
             });
@@ -246,15 +255,16 @@ const StateAgencyList = React.memo((props) => {
 
     return (
         <Autocomplete
-            {...props}
-            id="state__agency-id"
-            type="agency"
             values={autocompleteAgencies}
             handleTextInput={handleTextInput}
             onSelect={selectAgency}
-            label={`${props.agencyType} Agency`}
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}
             noResults={noResults}
+            selectedItemsDisplayNames={selectedItemsDisplayNames}
+            label="Awarding Agency"
+            placeholder="Search for an awarding agency..."
+            id="state__agency-id"
+            type="agency"
             retainValue />
     );
 });
