@@ -9,6 +9,7 @@ import { isCancel } from 'axios';
 import { filter, sortBy, slice, concat } from 'lodash-es';
 import { Search } from 'js-search';
 
+import useEventListener from "hooks/useEventListener";
 import { fetchAwardingAgencies } from "helpers/searchHelper";
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
@@ -29,6 +30,39 @@ const StateAgencyList = React.memo(function StateAgencyList({
     const [searchData, setSearchData] = useState({});
     const timeout = useRef(null);
     const request = useRef(null);
+
+    const clearAutocompleteSuggestions = useCallback(() => {
+        setAutocompleteAgencies([]);
+    }, []);
+
+    useEffect(() => {
+        if (Object.keys(searchData).length > 0) {
+            changeScope(searchData, "agency");
+        }
+
+        return () => window.clearTimeout(timeout.current);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchData]);
+
+    const el = useRef(document.getElementById("state__agency-id"));
+
+    const onFocus = useCallback((e) => {
+        if (e.target.value !== "") {
+            el.current.select();
+        }
+    }, []);
+
+    const onBlur = useCallback((e) => {
+        if (e.target.value === "") {
+            clearAutocompleteSuggestions();
+            clearSearchFilters("agency");
+            setAgencySearchString('');
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [clearAutocompleteSuggestions]);
+
+    useEventListener("focus", onFocus, el);
+    useEventListener("blur", onBlur, el);
 
     const parseAutocompleteAgencies = useCallback((results) => {
         let agencies = [];
@@ -141,10 +175,6 @@ const StateAgencyList = React.memo(function StateAgencyList({
         }
     }, [parseAutocompleteAgencies]);
 
-    const clearAutocompleteSuggestions = useCallback(() => {
-        setAutocompleteAgencies([]);
-    }, []);
-
     const queryAutocompleteAgencies = useCallback((inputVal) => {
         setNoResults(false);
 
@@ -198,7 +228,7 @@ const StateAgencyList = React.memo(function StateAgencyList({
         }, 300);
     }, [autocompleteAgencies.length, queryAutocompleteAgencies]);
 
-    const selectAgency = useCallback((agency, valid) => {
+    const onSelect = useCallback((agency, valid) => {
         // apply awarding agency filter
         const newSearch = {
             filters: {}
@@ -215,51 +245,11 @@ const StateAgencyList = React.memo(function StateAgencyList({
         setAutocompleteAgencies([]);
     }, []);
 
-    useEffect(() => {
-        if (Object.keys(searchData).length > 0) {
-            changeScope(searchData, "agency");
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchData]);
-
-    useEffect(() => {
-        const el = document.getElementById("state__agency-id");
-        el.addEventListener("focus", (e) => {
-            if (e.target.value !== "") {
-                el.select();
-            }
-        });
-        el.addEventListener("blur", (e) => {
-            if (e.target.value === "") {
-                clearAutocompleteSuggestions();
-                clearSearchFilters("agency");
-                setAgencySearchString('');
-            }
-        });
-        return () => {
-            el.removeEventListener("focus", (e) => {
-                if (e.target.value !== "") {
-                    el.select();
-                }
-            });
-            el.removeEventListener("blur", (e) => {
-                if (e.target.value === "") {
-                    clearAutocompleteSuggestions();
-                    clearSearchFilters("agency");
-                    setAgencySearchString('');
-                }
-            });
-            window.clearTimeout(timeout.current);
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     return (
         <Autocomplete
             values={autocompleteAgencies}
             handleTextInput={handleTextInput}
-            onSelect={selectAgency}
+            onSelect={onSelect}
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}
             noResults={noResults}
             selectedItemsDisplayNames={selectedItemsDisplayNames}
