@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/14/17
  */
 
-import React, { useState, useRef, useEffect, useCallback } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { uniq, cloneDeep } from 'lodash-es';
 import GlobalConstants from 'GlobalConstants';
