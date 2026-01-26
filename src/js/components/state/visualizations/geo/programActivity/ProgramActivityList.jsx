@@ -11,31 +11,37 @@ import * as SearchHelper from 'helpers/searchHelper';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    searchData: PropTypes.string,
     changeScope: PropTypes.func,
     clearSearchFilters: PropTypes.func,
-    placeholder: PropTypes.string
+    searchData: PropTypes.string,
+    selectedItemsDisplayNames: PropTypes.object
 };
 
-const ProgramActivityList = (props) => {
-    const [titleString, setTitleString] = useState('');
+const ProgramActivityList = ({
+    searchData,
+    changeScope,
+    clearSearchFilters,
+    selectedItemsDisplayNames
+}) => {
     const [autocompleteList, setAutocompleteList] = useState([]);
     const [noResults, setNoResults] = useState(false);
-    const [searchData, setSearchData] = useState({});
 
     let apiRequest = null;
     let timeout = null;
 
     const selectProgramActivity = (programActivity) => {
-        setTitleString(programActivity.program_activity_name);
-        const newSearch = props.searchData;
+        const newSearch = searchData;
+
         newSearch.filters.program_activities = [];
         newSearch.filters.program_activities.push({
             name: programActivity.program_activity_name
         });
+
         // Clear Autocomplete results
         setAutocompleteList([]);
-        setSearchData(newSearch);
+        if (Object.keys(newSearch).length > 0) {
+            changeScope(newSearch, "program_activity", programActivity.program_activity_name);
+        }
     };
 
     const parseAutocompleteProgramActivity = (programActivity) => {
@@ -110,13 +116,6 @@ const ProgramActivityList = (props) => {
     };
 
     useEffect(() => {
-        if (Object.keys(searchData).length > 0) {
-            props.changeScope(searchData, "program_activity", titleString);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchData]);
-
-    useEffect(() => {
         const el = document.getElementById("state__program-activity-id");
         el.addEventListener("focus", (e) => {
             if (e.target.value !== "") {
@@ -126,8 +125,7 @@ const ProgramActivityList = (props) => {
         el.addEventListener("blur", (e) => {
             if (e.target.value === "") {
                 clearAutocompleteSuggestions();
-                props.clearSearchFilters("program_activity");
-                setTitleString('');
+                clearSearchFilters("program_activity");
             }
         });
         return () => {
@@ -139,8 +137,7 @@ const ProgramActivityList = (props) => {
             el.removeEventListener("blur", (e) => {
                 if (e.target.value === "") {
                     clearAutocompleteSuggestions();
-                    props.clearSearchFilters("program_activity");
-                    setTitleString('');
+                    clearSearchFilters("program_activity");
                 }
             });
         };
@@ -149,15 +146,16 @@ const ProgramActivityList = (props) => {
 
     return (
         <Autocomplete
-            {...props}
-            id="state__program-activity-id"
-            label="Program Activity"
             values={autocompleteList}
             handleTextInput={handleTextInput}
             onSelect={selectProgramActivity}
-            type="program_activity"
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}
             noResults={noResults}
+            selectedItemsDisplayNames={selectedItemsDisplayNames}
+            label="Program Activity"
+            placeholder="Search for a program activity..."
+            id="state__program-activity-id"
+            type="program_activity"
             retainValue />
     );
 };

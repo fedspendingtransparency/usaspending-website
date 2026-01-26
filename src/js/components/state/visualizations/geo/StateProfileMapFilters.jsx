@@ -152,8 +152,7 @@ const StateProfileMapFilters = React.memo(function StateProfileMapFilters({
                                 changeScope={changeScope}
                                 clearSearchFilters={clearSearchFilters}
                                 searchData={searchData}
-                                selectedItemsDisplayNames={selectedItemsDisplayNames}
-                                placeholder="Search for a program activity..." />
+                                selectedItemsDisplayNames={selectedItemsDisplayNames} />
                         </div>
                     </div>
                     <div key={uniqueId()} className="map__filters-filter__container">

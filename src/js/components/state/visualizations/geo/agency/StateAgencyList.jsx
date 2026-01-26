@@ -15,7 +15,8 @@ import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete'
 
 const propTypes = {
     changeScope: PropTypes.func,
-    clearSearchFilters: PropTypes.func
+    clearSearchFilters: PropTypes.func,
+    selectedItemsDisplayNames: PropTypes.object
 };
 
 // eslint-disable-next-line prefer-arrow-callback
@@ -30,21 +31,11 @@ const StateAgencyList = React.memo(function StateAgencyList({
     const [searchData, setSearchData] = useState({});
     const timeout = useRef(null);
     const request = useRef(null);
+    const el = useRef(document.getElementById("state__agency-id"));
 
     const clearAutocompleteSuggestions = useCallback(() => {
         setAutocompleteAgencies([]);
     }, []);
-
-    useEffect(() => {
-        if (Object.keys(searchData).length > 0) {
-            changeScope(searchData, "agency");
-        }
-
-        return () => window.clearTimeout(timeout.current);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchData]);
-
-    const el = useRef(document.getElementById("state__agency-id"));
 
     const onFocus = useCallback((e) => {
         if (e.target.value !== "") {
@@ -63,6 +54,15 @@ const StateAgencyList = React.memo(function StateAgencyList({
 
     useEventListener("focus", onFocus, el);
     useEventListener("blur", onBlur, el);
+
+    useEffect(() => {
+        if (Object.keys(searchData).length > 0) {
+            changeScope(searchData, "agency");
+        }
+
+        return () => window.clearTimeout(timeout.current);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchData]);
 
     const parseAutocompleteAgencies = useCallback((results) => {
         let agencies = [];
