@@ -3,7 +3,7 @@
 * Created by Andrea Blackwell 09/05/2024
 **/
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
@@ -28,21 +28,6 @@ const ProgramActivityList = ({
 
     let apiRequest = null;
     let timeout = null;
-
-    const selectProgramActivity = (programActivity) => {
-        const newSearch = searchData;
-
-        newSearch.filters.program_activities = [];
-        newSearch.filters.program_activities.push({
-            name: programActivity.program_activity_name
-        });
-
-        // Clear Autocomplete results
-        setAutocompleteList([]);
-        if (Object.keys(newSearch).length > 0) {
-            changeScope(newSearch, "program_activity", programActivity.program_activity_name);
-        }
-    };
 
     const parseAutocompleteProgramActivity = (programActivity) => {
         const values = [];
@@ -97,23 +82,9 @@ const ProgramActivityList = ({
         }
     };
 
-    const clearAutocompleteSuggestions = () => {
+    const clearAutocompleteSuggestions = useCallback(() => {
         setAutocompleteList([]);
-    };
-
-    const handleTextInput = (inputVal) => {
-    // Clear existing cfdas to ensure user can't select an old or existing one
-        setAutocompleteList([]);
-
-        // Grab input, clear any exiting timeout
-        const input = inputVal.target?.value;
-        window.clearTimeout(timeout);
-
-        // Perform search if user doesn't type again for 300ms
-        timeout = window.setTimeout(() => {
-            queryAutocompleteProgramActivity(input);
-        }, 300);
-    };
+    }, []);
 
     useEffect(() => {
         const el = document.getElementById("state__program-activity-id");
@@ -142,6 +113,36 @@ const ProgramActivityList = ({
             });
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const selectProgramActivity = useCallback((programActivity) => {
+        const newSearch = searchData;
+
+        newSearch.filters.program_activities = [];
+        newSearch.filters.program_activities.push({
+            name: programActivity.program_activity_name
+        });
+
+        // Clear Autocomplete results
+        setAutocompleteList([]);
+        if (Object.keys(newSearch).length > 0) {
+            changeScope(newSearch, "program_activity", programActivity.program_activity_name);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchData]);
+
+    const handleTextInput = useCallback((inputVal) => {
+        // Clear existing cfdas to ensure user can't select an old or existing one
+        setAutocompleteList([]);
+
+        // Grab input, clear any exiting timeout
+        const input = inputVal.target?.value;
+        window.clearTimeout(timeout);
+
+        // Perform search if user doesn't type again for 300ms
+        timeout = window.setTimeout(() => {
+            queryAutocompleteProgramActivity(input);
+        }, 300);
     }, []);
 
     return (
