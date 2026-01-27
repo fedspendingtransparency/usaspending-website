@@ -73,7 +73,6 @@ const columns = {
     ]
 };
 const TimeVisualizationSectionContainer = (props) => {
-    const [visualizationPeriod, setVisualizationPeriod] = useState(props.visualizationPeriod);
     const [sortDirection, setSortDirection] = useState('asc');
     const [activeField, setActiveField] = useState('aggregated_amount');
     const [parsedData, setParsedData] = useState({
@@ -246,7 +245,7 @@ const TimeVisualizationSectionContainer = (props) => {
 
         // Generate the API parameters
         const apiParams = {
-            group: visualizationPeriod,
+            group: props.visualizationPeriod,
             filters: searchParams,
             spending_level: getSpendingLevel(props.spendingLevel)
         };
@@ -260,7 +259,7 @@ const TimeVisualizationSectionContainer = (props) => {
         apiRequest.promise
             .then((res) => {
                 const data = res.data;
-                parseData(data, visualizationPeriod);
+                parseData(data, props.visualizationPeriod);
                 const tempTableData = [];
                 data.results.map((d) => {
                     const row = Object.create(BaseSpendingOverTimeRow);
@@ -304,7 +303,7 @@ const TimeVisualizationSectionContainer = (props) => {
             fetchData();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.reduxFilters, visualizationPeriod, props.spendingLevel]);
+    }, [props.reduxFilters, props.visualizationPeriod, props.spendingLevel]);
 
     useEffect(() => {
         if (parsedData.loading !== true && parsedData.error !== true) {
@@ -314,13 +313,6 @@ const TimeVisualizationSectionContainer = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parsedData]);
 
-
-    useEffect(() => {
-        if (props.visualizationPeriod !== visualizationPeriod) {
-            setVisualizationPeriod(props.visualizationPeriod);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.visualizationPeriod]);
     return (
         <SearchSectionWrapper
             {...props.wrapperProps}
@@ -330,7 +322,7 @@ const TimeVisualizationSectionContainer = (props) => {
             setSortDirection={setSortDirection}
             activeField={activeField}
             rows={tableRows}
-            columns={columns[visualizationPeriod]}
+            columns={columns[props.visualizationPeriod]}
             isLoading={parsedData?.loading}
             isError={parsedData?.error}
             hasNoData={parsedData
@@ -340,14 +332,14 @@ const TimeVisualizationSectionContainer = (props) => {
             downloadComponent={
                 <TimeFileDownload
                     downloadData={downloadData}
-                    visualizationPeriod={visualizationPeriod} />
+                    visualizationPeriod={props.visualizationPeriod} />
             }
             manualSort
             hash={props.hash}
             setActiveField={setActiveField}>
             <TimeVisualizationChart
                 {...parsedData}
-                visualizationPeriod={visualizationPeriod} />
+                visualizationPeriod={props.visualizationPeriod} />
         </SearchSectionWrapper>
     );
 };
