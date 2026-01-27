@@ -3,9 +3,8 @@
  * Created by Jonathan Hill 5/1/19
  */
 
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
 import { remove } from 'lodash-es';
@@ -13,9 +12,41 @@ import { remove } from 'lodash-es';
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import TreemapCell from 'components/sharedComponents/TreemapCell';
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableLoadingMessage from 'components/keyword/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
+
+const truncateText = (text, type, maxWidth) => {
+    // calculate the text width of the full label
+    let label = text;
+    let labelWidth = 0;
+    if (type === 'title') {
+        labelWidth = measureTreemapHeader(text);
+    }
+    else if (type === 'subtitle') {
+        labelWidth = measureTreemapValue(text);
+    }
+    // check to see if the full label will fit
+    if (labelWidth > maxWidth) {
+        // label won't fit, let's cut it down
+        // determine the average character pixel width
+        const characterWidth = Math.ceil(labelWidth / text.length);
+        // give an additional 30px for the ellipsis
+        const availableWidth = maxWidth - 30;
+        let availableLength = Math.floor(availableWidth / characterWidth);
+        if (availableLength < 1) {
+            // we must show at least one character
+            availableLength = 1;
+        }
+
+        // substring the label to this length
+        if (availableLength < text.length) {
+            label = `${label.substring(0, availableLength)}...`;
+        }
+    }
+
+    return label;
+};
 
 const propTypes = {
     data: PropTypes.array,
@@ -28,37 +59,55 @@ const propTypes = {
     error: PropTypes.bool
 };
 
-const defaultProps = {
-    height: 294
-};
+const FederalAccountsTree = ({
+    data,
+    width,
+    height = 294,
+    goDeeper,
+    showTooltip,
+    hideTooltip,
+    inFlight,
+    error
+}) => {
+    const [virtualChart, setVirtualChart] = useState([]);
 
-export default class FederalAccountsTree extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            chartReady: false,
-            virtualChart: []
+    const buildVirtualCell = useCallback((item, scale, usableWidth) => {
+        const itemHeight = item.y1 - item.y0;
+        const itemWidth = item.x1 - item.x0;
+
+        const amount = item.data._obligatedAmount;
+        const units = MoneyFormatter.calculateUnitForSingleValue(amount, 1);
+        const formattedSubtitle =
+            `${MoneyFormatter.formatMoneyWithPrecision(
+                (amount / units.unit), 1
+            )}${units.unitLabel}`;
+        const name = item.data._federalAccountName;
+        const title = truncateText(name, 'title', usableWidth);
+        const subtitle = truncateText(formattedSubtitle, 'subtitle', usableWidth);
+        const color = scale(amount);
+
+        return {
+            width: itemWidth,
+            height: itemHeight,
+            x: item.x0,
+            y: item.y0,
+            data: item.data,
+            color,
+            title: {
+                text: title,
+                x: (itemWidth / 2),
+                // shift it up slightly so the full title + subtitle combo is vertically centered
+                y: (itemHeight / 2) - 5
+            },
+            subtitle: {
+                text: subtitle,
+                x: (itemWidth / 2),
+                y: (itemHeight / 2) + 15 // to place the subtitle below the title
+            }
         };
+    }, []);
 
-        this.selectedCell = this.selectedCell.bind(this);
-    }
-
-    componentDidMount() {
-        this.buildVirtualChart(this.props);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.data !== this.props.data) {
-            this.buildVirtualChart(this.props);
-        }
-        else if (prevProps.width !== this.props.width || prevProps.height !== this.props.height) {
-            this.buildVirtualChart(this.props);
-        }
-    }
-
-    buildVirtualChart(props) {
-        const data = props.data;
-
+    const buildVirtualChart = useCallback(() => {
         // remove negative values because we can't display those in the treemap
         remove(data, (account) => parseFloat(account._obligatedAmount) <= 0);
 
@@ -72,7 +121,7 @@ export default class FederalAccountsTree extends React.Component {
 
         // set up a function for generating the treemap of the specified size and style
         const tree = treemap()
-            .size([props.width, props.height])
+            .size([width, height])
             .tile(treemapBinary)
             .paddingInner(5)
             .round(true);
@@ -81,9 +130,7 @@ export default class FederalAccountsTree extends React.Component {
         const treeItems = tree(treemapData).leaves();
         if (treeItems.length === 0 || data.length === 0) {
             // we have no data, so don't draw a chart
-            this.setState({
-                virtualChart: []
-            });
+            setVirtualChart([]);
             return;
         }
 
@@ -105,154 +152,86 @@ export default class FederalAccountsTree extends React.Component {
         // we can now begin creating the individual treemap cells
         const cells = [];
         treeItems.forEach((item) => {
-            const cell = this.buildVirtualCell(item, scale);
+            const cell = buildVirtualCell(item, scale, width);
             cells.push(cell);
         });
-        this.setState({
-            virtualChart: cells
-        });
+
+        setVirtualChart(cells);
+    }, [buildVirtualCell, data, height, width]);
+
+    useEffect(() => {
+        buildVirtualChart();
+    }, [buildVirtualChart]);
+
+    const selectedCell = (id, title) => {
+        if (goDeeper) {
+            goDeeper(id, title);
+        }
+    };
+
+    if (width <= 0) {
+        return null;
     }
 
-    buildVirtualCell(data, scale) {
-        const height = data.y1 - data.y0;
-        const width = data.x1 - data.x0;
+    const noResults = virtualChart.length === 0;
+    const naming = virtualChart.length === 1 ? 'result' : 'results';
 
-        const amount = data.data._obligatedAmount;
-        const units = MoneyFormatter.calculateUnitForSingleValue(amount, 1);
-        const formattedSubtitle =
-        `${MoneyFormatter.formatMoneyWithPrecision((amount / units.unit), 1)}${units.unitLabel}`;
-        const usableWidth = width;
-        const name = data.data._federalAccountName;
-        const title = this.truncateText(name, 'title', usableWidth);
-        const subtitle = this.truncateText(formattedSubtitle, 'subtitle', usableWidth);
-        const color = scale(amount);
+    let loadingMessage = null;
+    let errorMessage = null;
+    let noResultsMessage = null;
+    let resultsCount = null;
+    let treeMap = null;
 
-        const cell = {
-            width,
-            height,
-            x: data.x0,
-            y: data.y0,
-            data: data.data,
-            color,
-            title: {
-                text: title,
-                x: (width / 2),
-                // shift it up slightly so the full title + subtitle combo is vertically centered
-                y: (height / 2) - 5
-            },
-            subtitle: {
-                text: subtitle,
-                x: (width / 2),
-                y: (height / 2) + 15 // to place the subtitle below the title
-            }
-        };
+    const cells = virtualChart.map((cell) => (
+        <TreemapCell
+            {...cell}
+            highlightColor="#f49c20"
+            key={`${cell.data.federalAccount}${cell.data.fundingAgencyId}`}
+            selectedCell={selectedCell}
+            showTooltip={showTooltip}
+            hideTooltip={hideTooltip} />
+    ));
 
-        return cell;
+    if (inFlight) {
+        loadingMessage = (<ResultsTableLoadingMessage />);
     }
-
-    truncateText(text, type, maxWidth) {
-    // calculate the text width of the full label
-        let label = text;
-        let labelWidth = 0;
-        if (type === 'title') {
-            labelWidth = measureTreemapHeader(text);
-        }
-        else if (type === 'subtitle') {
-            labelWidth = measureTreemapValue(text);
-        }
-        // check to see if the full label will fit
-        if (labelWidth > maxWidth) {
-            // label won't fit, let's cut it down
-            // determine the average character pixel width
-            const characterWidth = Math.ceil(labelWidth / text.length);
-            // give an additional 30px for the ellipsis
-            const availableWidth = maxWidth - 30;
-            let availableLength = Math.floor(availableWidth / characterWidth);
-            if (availableLength < 1) {
-                // we must show at least one character
-                availableLength = 1;
-            }
-
-            // substring the label to this length
-            if (availableLength < text.length) {
-                label = `${label.substring(0, availableLength)}...`;
-            }
-        }
-
-        return label;
+    else if (error) {
+        errorMessage = (<ResultsTableErrorMessage />);
     }
-
-    selectedCell(id, title) {
-        if (this.props.goDeeper) {
-            this.props.goDeeper(id, title);
-        }
+    else if (noResults) {
+        noResultsMessage = (<NoResultsMessage
+            title="Chart Not Available"
+            message="No available data to display." />);
     }
-
-    render() {
-        if (this.props.width <= 0) {
-            return null;
-        }
-        const { inFlight, error } = this.props;
-        const noResults = this.state.virtualChart.length === 0;
-
-        const naming = this.state.virtualChart.length === 1 ? 'result' : 'results';
-        let loadingMessage = null;
-        let errorMessage = null;
-        let noResultsMessage = null;
-        let resultsCount = null;
-        let treeMap = null;
-
-        const cells = this.state.virtualChart.map((cell) => (
-            <TreemapCell
-                {...cell}
-                highlightColor="#f49c20"
-                key={`${cell.data.federalAccount}${cell.data.fundingAgencyId}`}
-                selectedCell={this.selectedCell}
-                showTooltip={this.props.showTooltip}
-                hideTooltip={this.props.hideTooltip} />
-        ));
-
-        if (inFlight) {
-            loadingMessage = (<ResultsTableLoadingMessage />);
-        }
-        else if (error) {
-            errorMessage = (<ResultsTableErrorMessage />);
-        }
-        else if (noResults) {
-            noResultsMessage = (<NoResultsMessage
-                title="Chart Not Available"
-                message="No available data to display." />);
-        }
-        else {
-            treeMap = (
-                <svg
-                    className="treemap"
-                    width="100%"
-                    height={this.props.height}>
-                    {cells}
-                </svg>
-            );
-            resultsCount = (
-                <div className="federal-accounts-treemap-count">
-                    {`${this.state.virtualChart.length} ${naming}`}
-                </div>
-            );
-        }
-        return (
-            <div>
-                <div className="results-table-message-container">
-                    {loadingMessage}
-                    {errorMessage}
-                    {noResultsMessage}
-                </div>
-                <div className="federal-accounts-treemap">
-                    {treeMap}
-                </div>
-                {resultsCount}
+    else {
+        treeMap = (
+            <svg
+                className="treemap"
+                width="100%"
+                height={height}>
+                {cells}
+            </svg>
+        );
+        resultsCount = (
+            <div className="federal-accounts-treemap-count">
+                {`${virtualChart.length} ${naming}`}
             </div>
         );
     }
-}
+    return (
+        <div>
+            <div className="results-table-message-container">
+                {loadingMessage}
+                {errorMessage}
+                {noResultsMessage}
+            </div>
+            <div className="federal-accounts-treemap">
+                {treeMap}
+            </div>
+            {resultsCount}
+        </div>
+    );
+};
 
 FederalAccountsTree.propTypes = propTypes;
-FederalAccountsTree.defaultProps = defaultProps;
+export default FederalAccountsTree;

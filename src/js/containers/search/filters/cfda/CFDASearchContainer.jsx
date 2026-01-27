@@ -9,8 +9,11 @@ import { isCancel } from 'axios';
 
 import { fetchCFDA } from 'helpers/searchHelper';
 import replaceString from 'helpers/replaceString';
-import { updateSearchedFilterValues, updateSelectedCFDA } from 'redux/actions/search/searchFilterActions';
-import AutocompleteWithCheckboxList from 'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
+import {
+    updateSearchedFilterValues, updateSelectedCFDA
+} from 'redux/actions/search/searchFilterActions';
+import AutocompleteWithCheckboxList from
+    'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
 
 
 const CFDASearchContainer = () => {
@@ -20,12 +23,13 @@ const CFDASearchContainer = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const selectedCFDA = useSelector((state) => state.filters.selectedCFDA);
-    const searchedFilterValues = useSelector((state) => state.appliedFilters.filters.searchedFilterValues);
+    const searchedFilterValues = useSelector(
+        (state) => state.appliedFilters.filters.searchedFilterValues
+    );
+    const cfdaSearchRequest = useRef(null);
+    const dispatch = useDispatch();
 
     const highlightText = (text) => replaceString(text, cfdaSearchString, 'bold-highlight');
-
-    const cfdaSearchRequest = useRef();
-    const dispatch = useDispatch();
 
     const toggleCFDA = ({ value }) => {
         const cfda = autocompleteCFDA.find((c) => c.data.program_number === value);
@@ -185,7 +189,7 @@ const CFDASearchContainer = () => {
                 selected: selectedCFDA
             }));
         }
-
+        else if (cfdaSearchString?.length === 0) setNoResults(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cfdaSearchString]);
 
