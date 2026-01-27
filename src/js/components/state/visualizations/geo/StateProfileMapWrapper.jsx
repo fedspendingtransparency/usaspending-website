@@ -16,7 +16,7 @@ import { stateFIPSByAbbreviation } from "dataMapping/state/stateNames";
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapLegend from 'components/search/visualizations/geo/MapLegend';
 import MapFiltersToggle from "components/covid19/recipient/map/MapFiltersToggle";
-import StateProfileMapFilters from "./StateProfileMapFilters";
+import StateProfileMapFilters from "./filters/StateProfileMapFilters";
 import StateGeoTooltip from "./StateGeoTooltip";
 
 const propTypes = {

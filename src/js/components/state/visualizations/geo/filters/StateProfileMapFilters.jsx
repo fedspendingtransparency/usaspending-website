@@ -11,9 +11,10 @@ import { NewPicker } from "data-transparency-ui";
 import { mapFilterSortOrderByValue } from 'dataMapping/state/stateMap';
 import { handleSort } from 'helpers/covid19Helper';
 import MapFiltersTitle from 'components/search/visualizations/geo/MapFiltersTitle';
-import StateCFDAList from "./cfda/StateCFDAList";
-import StateAgencyList from "./agency/StateAgencyList";
-import ProgramActivityList from "./programActivity/ProgramActivityList";
+import StateCFDAList from "./StateCFDAList";
+import StateAgencyList from "./StateAgencyList";
+import ProgramActivityList from "./ProgramActivityList";
+import StateMapFiltersAutocomplete from "./StateMapFiltersAutocomplete";
 
 const propTypes = {
     mapFilters: PropTypes.object,
@@ -136,36 +137,11 @@ const StateProfileMapFilters = React.memo(function StateProfileMapFilters({
                             </>);
                         })
                 }
-                {/* below chunk is for the autocomplete filters */}
-                <div key={uniqueId()} className="map__filters-filter__container">
-                    <div className="map__filters-wrapper">
-                        <div className="filter-item-wrap" key="holder-awarding">
-                            <StateAgencyList
-                                searchData={searchData}
-                                changeScope={changeScope}
-                                clearSearchFilters={clearSearchFilters}
-                                selectedItemsDisplayNames={selectedItemsDisplayNames} />
-                        </div>
-                    </div>
-                    <div key={uniqueId()} className="map__filters-filter__container">
-                        <div className="map__filters-wrapper">
-                            <ProgramActivityList
-                                searchData={searchData}
-                                changeScope={changeScope}
-                                clearSearchFilters={clearSearchFilters}
-                                selectedItemsDisplayNames={selectedItemsDisplayNames} />
-                        </div>
-                    </div>
-                    <div key={uniqueId()} className="map__filters-filter__container">
-                        <div className="map__filters-wrapper">
-                            <StateCFDAList
-                                searchData={searchData}
-                                changeScope={changeScope}
-                                clearSearchFilters={clearSearchFilters}
-                                selectedItemsDisplayNames={selectedItemsDisplayNames} />
-                        </div>
-                    </div>
-                </div>
+                <StateMapFiltersAutocomplete
+                    searchData={searchData}
+                    changeScope={changeScope}
+                    clearSearchFilters={clearSearchFilters}
+                    selectedItemsDisplayNames={selectedItemsDisplayNames} />
             </div>
         </div>
     );
