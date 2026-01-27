@@ -33,8 +33,7 @@ const TimeSection = ({
             action: `View ${e}`,
             label: hash
         });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [hash]);
     const wrapperProps = {
         sectionTitle: 'Results Over Time',
         dropdownOptions: [
