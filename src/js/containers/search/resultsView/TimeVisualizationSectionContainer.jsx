@@ -297,8 +297,7 @@ const TimeVisualizationSectionContainer = (props) => {
 
     useEffect(() => {
         sortBy("aggregated_amount", "desc");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tableData, sortBy]);
+    }, [sortBy]);
 
     useEffect(() => {
         if (!props.noApplied) {
@@ -306,11 +305,6 @@ const TimeVisualizationSectionContainer = (props) => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.reduxFilters, visualizationPeriod, props.spendingLevel]);
-
-    useEffect(() => {
-        fetchData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [visualizationPeriod]);
 
     useEffect(() => {
         if (parsedData.loading !== true && parsedData.error !== true) {
