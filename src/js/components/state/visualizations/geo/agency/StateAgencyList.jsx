@@ -9,7 +9,6 @@ import { isCancel } from 'axios';
 import { filter, sortBy, slice, concat } from 'lodash-es';
 import { Search } from 'js-search';
 
-import useEventListener from "hooks/useEventListener";
 import { fetchAwardingAgencies } from "helpers/searchHelper";
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
@@ -31,29 +30,35 @@ const StateAgencyList = React.memo(function StateAgencyList({
     const [searchData, setSearchData] = useState({});
     const timeout = useRef(null);
     const request = useRef(null);
-    const el = useRef(document.getElementById("state__agency-id"));
 
     const clearAutocompleteSuggestions = useCallback(() => {
         setAutocompleteAgencies([]);
     }, []);
 
-    const onFocus = useCallback((e) => {
-        if (e.target.value !== "") {
-            el.current.select();
-        }
-    }, []);
+    useEffect(() => {
+        const el = document.getElementById("state__agency-id");
+        const onFocus = (e) => {
+            if (e.target.value !== "") {
+                el.current.select();
+            }
+        };
+        const onBlur = (e) => {
+            if (e.target.value === "") {
+                clearAutocompleteSuggestions();
+                clearSearchFilters("agency");
+                setAgencySearchString('');
+            }
+        };
 
-    const onBlur = useCallback((e) => {
-        if (e.target.value === "") {
-            clearAutocompleteSuggestions();
-            clearSearchFilters("agency");
-            setAgencySearchString('');
-        }
+        el.addEventListener("focus", onFocus);
+        el.addEventListener("blur", onBlur);
+
+        return () => {
+            el.removeEventListener("focus", onFocus);
+            el.removeEventListener("blur", onBlur);
+        };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [clearAutocompleteSuggestions]);
-
-    useEventListener("focus", onFocus, el);
-    useEventListener("blur", onBlur, el);
 
     useEffect(() => {
         if (Object.keys(searchData).length > 0) {

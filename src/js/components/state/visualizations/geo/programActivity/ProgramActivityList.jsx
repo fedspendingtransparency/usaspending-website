@@ -29,6 +29,37 @@ const ProgramActivityList = ({
     let apiRequest = null;
     let timeout = null;
 
+    const clearAutocompleteSuggestions = useCallback(() => {
+        setAutocompleteList([]);
+    }, []);
+
+    useEffect(() => {
+        const el = document.getElementById("state__program-activity-id");
+
+        const onFocus = (e) => {
+            if (e.target.value !== "") {
+                el.current.select();
+            }
+        };
+
+        const onBlur = (e) => {
+            if (e.target.value === "") {
+                clearAutocompleteSuggestions();
+                clearSearchFilters("program_activity");
+            }
+        };
+
+        el.addEventListener("focus", onFocus);
+        el.addEventListener("blur", onBlur);
+
+        return () => {
+            el.removeEventListener("focus", onFocus);
+            el.removeEventListener("blur", onBlur);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [clearAutocompleteSuggestions]);
+
+
     const parseAutocompleteProgramActivity = (programActivity) => {
         const values = [];
         if (programActivity && programActivity.length > 0) {
@@ -81,39 +112,6 @@ const ProgramActivityList = ({
             apiRequest.cancel();
         }
     };
-
-    const clearAutocompleteSuggestions = useCallback(() => {
-        setAutocompleteList([]);
-    }, []);
-
-    useEffect(() => {
-        const el = document.getElementById("state__program-activity-id");
-        el.addEventListener("focus", (e) => {
-            if (e.target.value !== "") {
-                el.select();
-            }
-        });
-        el.addEventListener("blur", (e) => {
-            if (e.target.value === "") {
-                clearAutocompleteSuggestions();
-                clearSearchFilters("program_activity");
-            }
-        });
-        return () => {
-            el.removeEventListener("focus", (e) => {
-                if (e.target.value !== "") {
-                    el.select();
-                }
-            });
-            el.removeEventListener("blur", (e) => {
-                if (e.target.value === "") {
-                    clearAutocompleteSuggestions();
-                    clearSearchFilters("program_activity");
-                }
-            });
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const selectProgramActivity = useCallback((programActivity) => {
         const newSearch = searchData;
