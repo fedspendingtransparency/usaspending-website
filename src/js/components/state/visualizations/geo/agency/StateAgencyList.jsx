@@ -13,12 +13,14 @@ import { fetchAwardingAgencies } from "helpers/searchHelper";
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
+    searchData: PropTypes.string,
     changeScope: PropTypes.func,
     clearSearchFilters: PropTypes.func,
     selectedItemsDisplayNames: PropTypes.object
 };
 
 const StateAgencyList = ({
+    searchData,
     changeScope,
     clearSearchFilters,
     selectedItemsDisplayNames
@@ -26,7 +28,6 @@ const StateAgencyList = ({
     const [agencySearchString, setAgencySearchString] = useState('');
     const [autocompleteAgencies, setAutocompleteAgencies] = useState([]);
     const [noResults, setNoResults] = useState(false);
-    const [searchData, setSearchData] = useState({});
     const timeout = useRef(null);
     const request = useRef(null);
 
@@ -58,13 +59,6 @@ const StateAgencyList = ({
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [clearAutocompleteSuggestions]);
-
-    useEffect(() => {
-        if (Object.keys(searchData).length > 0) {
-            changeScope(searchData, "agency");
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchData]);
 
     const parseAutocompleteAgencies = useCallback((results) => {
         let agencies = [];
@@ -245,9 +239,13 @@ const StateAgencyList = ({
                 type: "awarding"
             }
         );
-        setSearchData(newSearch);
+
         setAutocompleteAgencies([]);
-    }, []);
+        if (Object.keys(searchData).length > 0) {
+            changeScope(newSearch, "agency");
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchData]);
 
     return (
         <Autocomplete

@@ -141,6 +141,7 @@ const StateProfileMapFilters = React.memo(function StateProfileMapFilters({
                     <div className="map__filters-wrapper">
                         <div className="filter-item-wrap" key="holder-awarding">
                             <StateAgencyList
+                                searchData={searchData}
                                 changeScope={changeScope}
                                 clearSearchFilters={clearSearchFilters}
                                 selectedItemsDisplayNames={selectedItemsDisplayNames} />
@@ -149,9 +150,9 @@ const StateProfileMapFilters = React.memo(function StateProfileMapFilters({
                     <div key={uniqueId()} className="map__filters-filter__container">
                         <div className="map__filters-wrapper">
                             <ProgramActivityList
+                                searchData={searchData}
                                 changeScope={changeScope}
                                 clearSearchFilters={clearSearchFilters}
-                                searchData={searchData}
                                 selectedItemsDisplayNames={selectedItemsDisplayNames} />
                         </div>
                     </div>

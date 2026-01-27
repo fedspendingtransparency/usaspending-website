@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
-import * as SearchHelper from 'helpers/searchHelper';
+import { fetchProgramActivity } from "helpers/searchHelper";
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
@@ -90,7 +90,7 @@ const ProgramActivityList = ({
                 limit: 1000
             };
 
-            request.current = SearchHelper.fetchProgramActivity(searchParams);
+            request.current = fetchProgramActivity(searchParams);
 
             request.current.promise
                 .then((res) => {
@@ -112,7 +112,7 @@ const ProgramActivityList = ({
         }
     }, []);
 
-    const selectProgramActivity = useCallback((programActivity) => {
+    const onSelect = useCallback((programActivity) => {
         const newSearch = searchData;
 
         newSearch.filters.program_activities = [];
@@ -148,7 +148,7 @@ const ProgramActivityList = ({
         <Autocomplete
             values={autocompleteList}
             handleTextInput={handleTextInput}
-            onSelect={selectProgramActivity}
+            onSelect={onSelect}
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}
             noResults={noResults}
             selectedItemsDisplayNames={selectedItemsDisplayNames}
