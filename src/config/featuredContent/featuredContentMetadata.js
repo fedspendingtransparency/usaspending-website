@@ -465,6 +465,33 @@ const articles = [
             }
         ],
         related_terms: []
+    },
+    {
+        taxonomy: "Recently Answered Questions",
+        isLongForm: true,
+        content_type: 'Featured Content',
+        title: "Branching Out with Recipients",
+        banner_subtitle: "Searching for Parent/Child Recipients on USAspending.gov",
+        created_date: "02/29/2026",
+        feature_sprint: 5,
+        feature_week: 1,
+        sections: ["Parent Recipient", "Child Recipient", "Recipient", "A Complex Family Tree", "Adding It All Up", "Lost in the Woods"],
+        description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
+        slug: "branching-out-with-recipients",
+        hidden: !GlobalConstants.QAT,
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            }
+        ],
+        related_terms: []
     }
 ];
 
