@@ -189,7 +189,9 @@ const ContractGrantActivityContainer = ({
             setLoading(false);
         };
         asyncFunc();
-    }, [awardId, formatTransactions]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [awardId]);
+
     // hook - runs on mount and anytime awardId and getTransactions change
     useEffect(() => {
         getTransactions();
