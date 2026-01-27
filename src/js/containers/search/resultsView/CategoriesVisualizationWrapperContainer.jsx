@@ -39,7 +39,8 @@ const propTypes = {
     wrapperProps: PropTypes.object,
     setSelectedDropdown: PropTypes.func,
     hash: PropTypes.string,
-    spendingLevel: PropTypes.string
+    spendingLevel: PropTypes.string,
+    selectedDropdown: PropTypes.string
 };
 const columns = {
     recipient: [
