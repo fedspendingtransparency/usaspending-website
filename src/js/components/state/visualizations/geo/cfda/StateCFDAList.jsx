@@ -3,39 +3,74 @@
 * Created by Nick Torres 8/13/2024
 **/
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
-import * as SearchHelper from 'helpers/searchHelper';
-
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
+import { fetchCFDA } from "helpers/searchHelper";
 
 const propTypes = {
     searchData: PropTypes.string,
     changeScope: PropTypes.func,
-    clearSearchFilters: PropTypes.func
+    clearSearchFilters: PropTypes.func,
+    selectedItemsDisplayNames: PropTypes.object
 };
 
-const StateCFDAList = (props) => {
-    const [cfdaTitleString, setCfdaTitleString] = useState('');
+const StateCFDAList = ({
+    searchData,
+    changeScope,
+    clearSearchFilters,
+    selectedItemsDisplayNames
+}) => {
     const [autocompleteCFDA, setAutocompleteCFDA] = useState([]);
     const [noResults, setNoResults] = useState(false);
-    const [searchData, setSearchData] = useState({});
+    const request = useRef(null);
+    const timeout = useRef(null);
 
-    let apiRequest = null;
-    let timeout = null;
+    const clearAutocompleteSuggestions = useCallback(() => {
+        setAutocompleteCFDA([]);
+    }, []);
 
-    const selectCFDA = (cfda) => {
-        setCfdaTitleString(`${cfda.program_number} - ${cfda.program_title}`);
-        const newSearch = props.searchData;
+    useEffect(() => {
+        const el = document.getElementById("state__cfda-id");
+
+        const onFocus = (e) => {
+            if (e.target.value !== "") {
+                el.select();
+            }
+        };
+
+        const onBlur = (e) => {
+            if (e.target.value === "") {
+                clearAutocompleteSuggestions();
+                clearSearchFilters("program_number");
+            }
+        };
+
+        el.addEventListener("focus", onFocus);
+        el.addEventListener("blur", onBlur);
+
+        return () => {
+            el.removeEventListener("focus", onFocus);
+            el.removeEventListener("blur", onBlur);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [clearAutocompleteSuggestions]);
+
+    const onSelect = useCallback((cfda) => {
+        const newTitle = `${cfda.program_number} - ${cfda.program_title}`;
+        const newSearch = searchData;
         newSearch.filters.program_numbers = [];
         newSearch.filters.program_numbers.push(cfda.program_number);
 
         // Clear Autocomplete results
         setAutocompleteCFDA([]);
-        setSearchData(newSearch);
-    };
+        if (Object.keys(newSearch).length > 0) {
+            changeScope(newSearch, "program_number", newTitle);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchData]);
 
     const parseAutocompleteCFDA = (cfda) => {
         const values = [];
@@ -55,14 +90,14 @@ const StateCFDAList = (props) => {
         setAutocompleteCFDA(values);
     };
 
-    const queryAutocompleteCFDA = (input) => {
+    const queryAutocompleteCFDA = useCallback((input) => {
         setNoResults(false);
 
         // Only search if input is 3 or more characters
         if (input.length >= 3) {
-            if (apiRequest) {
+            if (request.current) {
                 // A request is currently in-flight, cancel it
-                apiRequest.cancel();
+                request.current.cancel();
             }
 
             const cfdaSearchParams = {
@@ -70,9 +105,9 @@ const StateCFDAList = (props) => {
                 limit: 1000
             };
 
-            apiRequest = SearchHelper.fetchCFDA(cfdaSearchParams);
+            request.current = fetchCFDA(cfdaSearchParams);
 
-            apiRequest.promise
+            request.current.promise
                 .then((res) => {
                     const autocompleteData = res.data.results;
                     setNoResults(autocompleteData.length === 0);
@@ -86,79 +121,40 @@ const StateCFDAList = (props) => {
                     }
                 });
         }
-        else if (apiRequest) {
+        else if (request.current) {
             // A request is currently in-flight, cancel it
-            apiRequest.cancel();
+            request.current.cancel();
         }
-    };
+    }, []);
 
-    const clearAutocompleteSuggestions = () => {
-        setAutocompleteCFDA([]);
-    };
-
-    const handleTextInput = (cfdaInput) => {
-    // Clear existing cfdas to ensure user can't select an old or existing one
+    const handleTextInput = useCallback((cfdaInput) => {
+        // Clear existing cfdas to ensure user can't select an old or existing one
         setAutocompleteCFDA([]);
 
         // Grab input, clear any exiting timeout
         const input = cfdaInput.target?.value;
-        window.clearTimeout(timeout);
+        window.clearTimeout(timeout.current);
 
         // Perform search if user doesn't type again for 300ms
-        timeout = window.setTimeout(() => {
+        timeout.current = window.setTimeout(() => {
             queryAutocompleteCFDA(input);
         }, 300);
-    };
 
-    useEffect(() => {
-        if (Object.keys(searchData).length > 0) {
-            props.changeScope(searchData, "program_number", cfdaTitleString);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchData]);
-
-    useEffect(() => {
-        const el = document.getElementById("state__cfda-id");
-        el.addEventListener("focus", (e) => {
-            if (e.target.value !== "") {
-                el.select();
-            }
-        });
-        el.addEventListener("blur", (e) => {
-            if (e.target.value === "") {
-                clearAutocompleteSuggestions();
-                props.clearSearchFilters("program_number");
-                setCfdaTitleString('');
-            }
-        });
-        return () => {
-            el.removeEventListener("focus", (e) => {
-                if (e.target.value !== "") {
-                    el.select();
-                }
-            });
-            el.removeEventListener("blur", (e) => {
-                if (e.target.value === "") {
-                    clearAutocompleteSuggestions();
-                    props.clearSearchFilters("agency");
-                    setCfdaTitleString('');
-                }
-            });
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        return () => window.clearTimeout(timeout.current);
+    }, [queryAutocompleteCFDA]);
 
     return (
         <Autocomplete
-            {...props}
-            id="state__cfda-id"
-            label="Assistance Listing"
             values={autocompleteCFDA}
             handleTextInput={handleTextInput}
-            onSelect={selectCFDA}
-            type="program_number"
+            onSelect={onSelect}
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}
             noResults={noResults}
+            selectedItemsDisplayNames={selectedItemsDisplayNames}
+            label="Assistance Listing"
+            placeholder="Search for an assistance listing..."
+            id="state__cfda-id"
+            type="program_number"
             retainValue />
     );
 };

@@ -159,11 +159,10 @@ const StateProfileMapFilters = React.memo(function StateProfileMapFilters({
                     <div key={uniqueId()} className="map__filters-filter__container">
                         <div className="map__filters-wrapper">
                             <StateCFDAList
+                                searchData={searchData}
                                 changeScope={changeScope}
                                 clearSearchFilters={clearSearchFilters}
-                                searchData={searchData}
-                                selectedItemsDisplayNames={selectedItemsDisplayNames}
-                                placeholder="Search for an assistance listing..." />
+                                selectedItemsDisplayNames={selectedItemsDisplayNames} />
                         </div>
                     </div>
                 </div>
