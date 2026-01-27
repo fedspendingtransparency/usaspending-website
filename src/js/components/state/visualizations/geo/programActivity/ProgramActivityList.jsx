@@ -3,7 +3,7 @@
 * Created by Andrea Blackwell 09/05/2024
 **/
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
@@ -25,9 +25,8 @@ const ProgramActivityList = ({
 }) => {
     const [autocompleteList, setAutocompleteList] = useState([]);
     const [noResults, setNoResults] = useState(false);
-
-    let apiRequest = null;
-    let timeout = null;
+    const request = useRef(null);
+    const timeout = useRef(null);
 
     const clearAutocompleteSuggestions = useCallback(() => {
         setAutocompleteList([]);
@@ -76,14 +75,14 @@ const ProgramActivityList = ({
         setAutocompleteList(values);
     };
 
-    const queryAutocompleteProgramActivity = (input) => {
+    const queryAutocompleteProgramActivity = useCallback((input) => {
         setNoResults(false);
 
         // Only search if input is 3 or more characters
         if (input.length >= 3) {
-            if (apiRequest) {
+            if (request.current) {
                 // A request is currently in-flight, cancel it
-                apiRequest.cancel();
+                request.current.cancel();
             }
 
             const searchParams = {
@@ -91,9 +90,9 @@ const ProgramActivityList = ({
                 limit: 1000
             };
 
-            apiRequest = SearchHelper.fetchProgramActivity(searchParams);
+            request.current = SearchHelper.fetchProgramActivity(searchParams);
 
-            apiRequest.promise
+            request.current.promise
                 .then((res) => {
                     const autocompleteData = res.data.results;
                     setNoResults(autocompleteData.length === 0);
@@ -107,11 +106,11 @@ const ProgramActivityList = ({
                     }
                 });
         }
-        else if (apiRequest) {
+        else if (request.current) {
             // A request is currently in-flight, cancel it
-            apiRequest.cancel();
+            request.current.cancel();
         }
-    };
+    }, []);
 
     const selectProgramActivity = useCallback((programActivity) => {
         const newSearch = searchData;
@@ -135,13 +134,15 @@ const ProgramActivityList = ({
 
         // Grab input, clear any exiting timeout
         const input = inputVal.target?.value;
-        window.clearTimeout(timeout);
+        window.clearTimeout(timeout.current);
 
         // Perform search if user doesn't type again for 300ms
-        timeout = window.setTimeout(() => {
+        timeout.current = window.setTimeout(() => {
             queryAutocompleteProgramActivity(input);
         }, 300);
-    }, []);
+
+        return () => window.clearTimeout(timeout.current);
+    }, [queryAutocompleteProgramActivity]);
 
     return (
         <Autocomplete

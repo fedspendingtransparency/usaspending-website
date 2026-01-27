@@ -18,12 +18,11 @@ const propTypes = {
     selectedItemsDisplayNames: PropTypes.object
 };
 
-// eslint-disable-next-line prefer-arrow-callback
-const StateAgencyList = React.memo(function StateAgencyList({
+const StateAgencyList = ({
     changeScope,
     clearSearchFilters,
     selectedItemsDisplayNames
-}) {
+}) => {
     const [agencySearchString, setAgencySearchString] = useState('');
     const [autocompleteAgencies, setAutocompleteAgencies] = useState([]);
     const [noResults, setNoResults] = useState(false);
@@ -64,8 +63,6 @@ const StateAgencyList = React.memo(function StateAgencyList({
         if (Object.keys(searchData).length > 0) {
             changeScope(searchData, "agency");
         }
-
-        return () => window.clearTimeout(timeout.current);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchData]);
 
@@ -231,6 +228,8 @@ const StateAgencyList = React.memo(function StateAgencyList({
         timeout.current = window.setTimeout(() => {
             queryAutocompleteAgencies(inputVal);
         }, 300);
+
+        return () => window.clearTimeout(timeout.current);
     }, [autocompleteAgencies.length, queryAutocompleteAgencies]);
 
     const onSelect = useCallback((agency, valid) => {
@@ -264,7 +263,7 @@ const StateAgencyList = React.memo(function StateAgencyList({
             type="agency"
             retainValue />
     );
-});
+};
 
 StateAgencyList.propTypes = propTypes;
 export default StateAgencyList;

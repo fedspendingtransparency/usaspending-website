@@ -3,7 +3,7 @@
  * Created by michaelbray on 4/3/17.
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -29,6 +29,81 @@ import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
 });
+
+const columns = {
+    recipient: [
+        {
+            title: 'name',
+            displayName: ["Recipient Name"],
+            right: false
+        },
+        {
+            title: 'obligations',
+            displayName: ["Obligations"],
+            right: true
+        }
+    ],
+    awarding_agency: [
+        {
+            title: 'awarding_agency',
+            displayName: ["Awarding Agency"],
+            right: false
+        },
+        {
+            title: 'obligations',
+            displayName: ["Obligations"],
+            right: true
+        }
+    ],
+    awarding_subagency: [
+        {
+            title: 'awarding_subagency',
+            displayName: ["Awarding Subagency"],
+            right: false
+        },
+        {
+            title: 'obligations',
+            displayName: ["Obligations"],
+            right: true
+        }
+    ],
+    cfda: [
+        {
+            title: 'cfda',
+            displayName: ["Assistance Listing"],
+            right: false
+        },
+        {
+            title: 'obligations',
+            displayName: ["Obligations"],
+            right: true
+        }
+    ],
+    naics: [
+        {
+            title: 'naics',
+            displayName: ["North American Industry Classification System (NAICS)"],
+            right: false
+        },
+        {
+            title: 'obligations',
+            displayName: ["Obligations"],
+            right: true
+        }
+    ],
+    psc: [
+        {
+            title: 'psc',
+            displayName: ["Product and Service Code (PSC)"],
+            right: false
+        },
+        {
+            title: 'obligations',
+            displayName: ["Obligations"],
+            right: true
+        }
+    ]
+};
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -82,80 +157,6 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         recipientError
     };
 
-    const columns = {
-        recipient: [
-            {
-                title: 'name',
-                displayName: ["Recipient Name"],
-                right: false
-            },
-            {
-                title: 'obligations',
-                displayName: ["Obligations"],
-                right: true
-            }
-        ],
-        awarding_agency: [
-            {
-                title: 'awarding_agency',
-                displayName: ["Awarding Agency"],
-                right: false
-            },
-            {
-                title: 'obligations',
-                displayName: ["Obligations"],
-                right: true
-            }
-        ],
-        awarding_subagency: [
-            {
-                title: 'awarding_subagency',
-                displayName: ["Awarding Subagency"],
-                right: false
-            },
-            {
-                title: 'obligations',
-                displayName: ["Obligations"],
-                right: true
-            }
-        ],
-        cfda: [
-            {
-                title: 'cfda',
-                displayName: ["Assistance Listing"],
-                right: false
-            },
-            {
-                title: 'obligations',
-                displayName: ["Obligations"],
-                right: true
-            }
-        ],
-        naics: [
-            {
-                title: 'naics',
-                displayName: ["North American Industry Classification System (NAICS)"],
-                right: false
-            },
-            {
-                title: 'obligations',
-                displayName: ["Obligations"],
-                right: true
-            }
-        ],
-        psc: [
-            {
-                title: 'psc',
-                displayName: ["Product and Service Code (PSC)"],
-                right: false
-            },
-            {
-                title: 'obligations',
-                displayName: ["Obligations"],
-                right: true
-            }
-        ]
-    };
     const createTableRows = (rows) => {
         const rowsArray = [];
         rows.forEach((row) => {
@@ -210,11 +211,17 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         }
     };
 
-    const nextPage = () => {
+    // const nextPage = () => {
+    //     if (hasNextPage) {
+    //         setPage((prevState) => prevState + 1);
+    //     }
+    // };
+
+    const nextPage = useCallback(() => {
         if (hasNextPage) {
             setPage((prevState) => prevState + 1);
         }
-    };
+    }, [hasNextPage]);
 
     const previousPage = () => {
         // change the state by subtracting 2 (since the page number is already incremented)
