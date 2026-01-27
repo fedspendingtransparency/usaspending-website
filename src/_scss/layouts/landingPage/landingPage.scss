@@ -23,6 +23,10 @@
                 margin: auto;
                 width: 50%;
             }
+            
+            a {
+                font-weight: $font-semibold;
+            }
         }
     }
     .landing-page__tagline {
