@@ -408,6 +408,7 @@ const articles = [
         feature_week: 1,
         description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
         slug: "johns-usaspending-search",
+        isInfographicTemplate: false,
         explore_more: [
             {
                 label: "Spending Explorer",
@@ -440,7 +441,7 @@ const articles = [
     },
     {
         taxonomy: "See 4 Yourself",
-        isLongForm: true,
+        isInfographicTemplate: true,
         content_type: 'Featured Content',
         title: "QAT ONLY Test",
         banner_subtitle: "How People Use USAspending.gov Data",
