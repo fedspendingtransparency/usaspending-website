@@ -127,12 +127,12 @@ const FeaturedContentArticle = () => {
             chosenArticle={chosenArticle} />);
     };
 
-    const LongFormHero = () => {
+    const InfographicHero = () => {
         if (isInfographicTemplate) {
             return (
-                <div className="long-form-featured-content__header-block">
+                <div className="infographic-featured-content__header-block">
                     <span
-                        className="featured-content__label"
+                        className={`featured-content__label ${chosenArticle?.black_text ? "black-text" : ""}`}
                         style={{ backgroundColor: getPrimaryFill(chosenArticle) }}>
                         {chosenArticle?.taxonomy}
                     </span>
@@ -156,7 +156,7 @@ const FeaturedContentArticle = () => {
             <Hero />
             <FlexGridRow desktop={12} className="grid-content featured-content__article-body">
                 <FlexGridCol tablet={12} mobile={12} desktop={8}>
-                    <LongFormHero />
+                    <InfographicHero />
                     <div className="featured-content__article-title">
                         {chosenArticle?.title}
                     </div>
