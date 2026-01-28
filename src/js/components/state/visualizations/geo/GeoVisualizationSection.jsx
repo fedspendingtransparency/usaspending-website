@@ -47,7 +47,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
         const label = dataRef.current.labels[geoId];
         setShowHover(true);
         setSelectedItem({
-            label: label.label,
+            label: label?.label,
             total: props.total,
             value: label.value,
             x: position.x,

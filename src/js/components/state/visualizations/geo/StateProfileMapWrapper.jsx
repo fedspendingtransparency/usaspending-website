@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/14/17
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import GlobalConstants from 'GlobalConstants';
 
@@ -73,6 +73,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
 }) {
     const mapRef = useRef(null);
     const scopeRef = useRef(scope);
+    const mapOperationQueue = useRef(null);
     const [mapLayers, setMapLayers] = useState({});
     const [mapReady, setMapReady] = useState(false);
     const [spendingScale, setSpendingScale] = useState({
@@ -80,25 +81,8 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
         segments: [],
         units: {}
     });
+
     const [isFiltersOpen, setIsFiltersOpen] = useState(true);
-
-    let mapOperationQueue = {};
-
-    const hideSource = (type) => {
-        const layers = mapLayers[type];
-
-        if (!layers) {
-            // we haven't loaded the layer yet, stop
-            return;
-        }
-
-        // hide the base layer
-        mapRef.current.setLayoutProperty(layers.base, 'visibility', 'none');
-        layers.highlights.forEach((highlight) => {
-            // iterate through all the highlight layers and enable them
-            mapRef.current.setLayoutProperty(highlight, 'visibility', 'none');
-        });
-    };
 
     /**
      * firstSymbolId
@@ -118,7 +102,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
         return symbolId;
     };
 
-    const mouseOverLayer = (e) => {
+    const mouseOverLayer = useCallback((e) => {
         const source = mapboxSources[scope];
         // grab the filter ID from the GeoJSON feature properties
         const entityId = e.features[0].properties[source.filterKey];
@@ -126,13 +110,15 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
             x: e.originalEvent.offsetX,
             y: e.originalEvent.offsetY
         });
-    };
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, [scope]);
 
-    const mouseExitLayer = () => {
+    const mouseExitLayer = useCallback(() => {
         hideTooltip();
-    };
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, []);
 
-    const loadSource = (type) => {
+    const loadSource = useCallback((type) => {
         const baseLayer = `base_${type}`;
         const sourceRef = {
             base: baseLayer,
@@ -187,10 +173,9 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
             ...prevLayers,
             [type]: sourceRef
         }));
-    };
+    }, [mouseExitLayer, mouseOverLayer]);
 
-    const showSource = (type) => {
-        const layers = mapLayers[type];
+    const showSource = useCallback((layers, type) => {
         // check if we've already loaded the data layer
         if (!layers) {
             // we haven't loaded it yet, do that now
@@ -204,73 +189,88 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
             // iterate through all the highlight layers and enable them
             mapRef.current.setLayoutProperty(highlight, 'visibility', 'visible');
         });
-    };
+    }, [loadSource]);
 
-    const prepareLayers = () => new Promise((resolve, reject) => {
-        if (!mapReady) {
-            // something went wrong, the map isn't ready yet
-            reject();
+    const hideSource = useCallback((layers) => {
+        if (!layers) {
+            // we haven't loaded the layer yet, stop
+            return;
         }
 
-        const source = mapboxSources[scope];
-        if (!source) {
-            reject();
-        }
-
-        // hide all the other layers
-        Object.keys(mapboxSources).forEach((type) => {
-            if (type !== scope) {
-                hideSource(type);
-            }
+        // hide the base layer
+        mapRef.current.setLayoutProperty(layers.base, 'visibility', 'none');
+        layers.highlights.forEach((highlight) => {
+            // iterate through all the highlight layers and enable them
+            mapRef.current.setLayoutProperty(highlight, 'visibility', 'none');
         });
+    }, []);
 
-        showSource(scope);
-
-        // check if we need to zoom in to show the layer
-        if (source.minZoom) {
-            const currentZoom = mapRef.current.getZoom();
-            if (currentZoom < source.minZoom) {
-                // we are zoomed too far out and won't be able to see the new map layer, zoom in
-                // don't allow users to zoom further out than the min zoom
-                mapRef.current.setMinZoom(source.minZoom);
+    const prepareLayers = useCallback((ready) =>
+        new Promise((resolve, reject) => {
+            if (!ready) {
+                // something went wrong, the map isn't ready yet
+                reject();
             }
-        }
-        else {
-            mapRef.current.setMinZoom(0);
-        }
 
-
-        const parentMap = mapRef.current;
-        function renderResolver() {
-            parentMap.off('render', renderResolver);
-            resolve();
-        }
-        function loadResolver(e) {
-            // Mapbox insists on emitting sourcedata events for many different source
-            // loading stages, so we need to wait for the source to be loaded AND for
-            // it to be affecting tiles (aka, it has moved onto the render stage)
-            if (e.isSourceLoaded && e.tile) {
-                // source has finished loading and is rendered (so we can start filtering
-                // and querying)
-                parentMap.off('sourcedata', loadResolver);
-                parentMap.on('render', renderResolver);
+            const source = mapboxSources[scope];
+            if (!source) {
+                reject();
             }
+
+            // hide all the other layers
+            Object.keys(mapboxSources).forEach((type) => {
+                if (type !== scope) {
+                    hideSource(mapLayers[type]);
+                }
+            });
+
+            showSource(mapLayers[scope], scope);
+
+            // check if we need to zoom in to show the layer
+            if (source.minZoom) {
+                const currentZoom = mapRef.current.getZoom();
+                if (currentZoom < source.minZoom) {
+                    // we are zoomed too far out and won't be able to see the new map layer, zoom in
+                    // don't allow users to zoom further out than the min zoom
+                    mapRef.current.setMinZoom(source.minZoom);
+                }
+            }
+            else {
+                mapRef.current.setMinZoom(0);
+            }
+
+            const parentMap = mapRef.current;
+            function renderResolver() {
+                parentMap.off('render', renderResolver);
+                resolve();
+            }
+            function loadResolver(e) {
+                // Mapbox insists on emitting sourcedata events for many different source
+                // loading stages, so we need to wait for the source to be loaded AND for
+                // it to be affecting tiles (aka, it has moved onto the render stage)
+                if (e.isSourceLoaded && e.tile) {
+                    // source has finished loading and is rendered (so we can start filtering
+                    // and querying)
+                    parentMap.off('sourcedata', loadResolver);
+                    parentMap.on('render', renderResolver);
+                }
+            }
+
+            // if we're loading new data, we need to wait for the data to be ready
+            mapRef.current.on('sourcedata', loadResolver);
         }
+        ), [hideSource, showSource, scope, mapLayers]);
 
-        // if we're loading new data, we need to wait for the data to be ready
-        mapRef.current.on('sourcedata', loadResolver);
-    });
-
-    const runMapOperationQueue = () => {
-        Object.keys(mapOperationQueue).forEach((key) => {
-            const op = mapOperationQueue[key];
+    const runMapOperationQueue = useCallback(() => {
+        Object.keys(mapOperationQueue.current).forEach((key) => {
+            const op = mapOperationQueue.current[key];
             op.call(this);
         });
-        mapOperationQueue = {};
-    };
+        mapOperationQueue.current = {};
+    }, []);
 
-    const prepareMap = () => {
-        prepareLayers()
+    const prepareMap = useCallback((ready) => {
+        prepareLayers(ready)
             .then(() => {
                 // we depend on the state shapes to process the state fills, so the operation
                 // queue must wait for the state shapes to load first
@@ -279,10 +279,10 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
                 // notify any listeners that the map is ready
                 MapBroadcaster.emit('mapReady');
             });
-    };
+    }, [prepareLayers, runMapOperationQueue]);
 
     const queueMapOperation = (name, operation) => {
-        mapOperationQueue[name] = operation;
+        mapOperationQueue.current = { [name]: operation };
     };
 
     const displayData = () => {
@@ -292,6 +292,8 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
             queueMapOperation('displayData', displayData);
             return;
         }
+
+        if (data.locations.length === 0) return;
 
         const source = mapboxSources[scope];
 
@@ -330,21 +332,20 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
     useEffect(() => {
         if (scopeRef.current !== scope) {
             queueMapOperation('displayData', displayData);
-            prepareMap();
+            prepareMap(mapReady);
             scopeRef.current = scope;
         }
         else {
             displayData();
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [renderHash, data]);
+    }, [renderHash, data, mapReady]);
 
     useEffect(() => {
         if (mapReady) {
-            prepareMap();
+            prepareMap(mapReady);
         }
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [mapReady]);
+    }, [mapReady, prepareMap]);
 
     return (
         <div className="map-container">
