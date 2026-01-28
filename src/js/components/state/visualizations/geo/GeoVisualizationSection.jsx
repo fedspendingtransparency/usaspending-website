@@ -18,7 +18,6 @@ const propTypes = {
     changeScope: PropTypes.func,
     changeMapLayer: PropTypes.func,
     mapMoved: PropTypes.func,
-    renderHash: PropTypes.string,
     data: PropTypes.object,
     total: PropTypes.number,
     loading: PropTypes.bool,
@@ -64,9 +63,13 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
     let message = null;
 
     if (!MapboxGL.supported()) {
+        // eslint-disable-next-line max-len
+        const description = "Please enable WebGL in your browser settings to view this map visualization.";
         return (
             <div className="results-table-message-container">
-                <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
+                <ResultsTableErrorMessage
+                    title="WebGL Required for this map."
+                    description={description} />
             </div>
         );
     }
