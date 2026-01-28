@@ -7,11 +7,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 
-import {
-    stateFilters,
-    filtersOnClickHandler,
-    awardTypeTabs
-} from 'dataMapping/state/stateMap';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 import MapMessage from 'components/search/visualizations/geo/MapMessage';
@@ -45,42 +40,9 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
     const [selectedItem, setSelectedItem] = useState({});
     const dataRef = useRef(props.data);
 
-    const updateTerritoryFilter = (value) => {
-        props.changeMapLayer(value);
-    };
-
-    useEffect(() => {
-        updateTerritoryFilter(props.mapLayer);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.mapLayer]);
-
     useEffect(() => {
         dataRef.current = props.data;
     }, [props.data]);
-
-    const updateDefcFilter = (value) => {
-        const newSearch = {
-            filters: {}
-        };
-
-        if (value === "all") {
-            props.clearSearchFilters("def_code");
-        }
-        else {
-            newSearch.filters.def_codes = [value];
-            props.changeScope(newSearch, "def_code", [value]);
-        }
-    };
-
-    // this will need to be updated as more filters are added
-    const addOnClickToFilters = () => Object.keys(stateFilters).reduce((acc, filter) => {
-        const filterWithOnClick = {
-            ...stateFilters[filter],
-            onClick: filtersOnClickHandler[filter] === 'updateTerritoryFilter' ? updateTerritoryFilter : updateDefcFilter
-        };
-        acc[filter] = filterWithOnClick;
-        return acc;
-    }, {});
 
     const showTooltip = (geoId, position) => {
         // convert state code to full string name
@@ -163,8 +125,6 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
         <div className="geo__map-section">
             <StateProfileMapWrapper
                 {...props}
-                awardTypeFilters={awardTypeTabs}
-                filters={addOnClickToFilters()}
                 activeFilters={props.activeFilters}
                 className={props.className}
                 data={props.data}
@@ -179,8 +139,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
                 showLayerToggle
                 center={center}
                 stateInfo={props.stateInfo}
-                stateProfile
-                amountTypeEnabled={false}>
+                stateProfile>
                 {message}
             </StateProfileMapWrapper>
         </div>

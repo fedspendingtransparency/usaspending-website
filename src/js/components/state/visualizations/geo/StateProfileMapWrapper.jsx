@@ -5,13 +5,12 @@
 
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { uniq, cloneDeep } from 'lodash-es';
+import { uniq } from 'lodash-es';
 import GlobalConstants from 'GlobalConstants';
 
 import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
-import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import { stateFIPSByAbbreviation } from "dataMapping/state/stateNames";
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapLegend from 'components/search/visualizations/geo/MapLegend';
@@ -22,7 +21,6 @@ import StateGeoTooltip from "./StateGeoTooltip";
 const propTypes = {
     filters: PropTypes.object,
     activeFilters: PropTypes.object,
-    awardTypeFilters: PropTypes.array,
     data: PropTypes.object,
     scope: PropTypes.string,
     renderHash: PropTypes.string,
@@ -41,7 +39,6 @@ const propTypes = {
     updateMapLegendToggle: PropTypes.func,
     className: PropTypes.string,
     stateInfo: PropTypes.object,
-    amountTypeEnabled: PropTypes.bool,
     searchData: PropTypes.object,
     program_numbers: PropTypes.string,
     agency: PropTypes.object
@@ -55,8 +52,7 @@ const defaultProps = {
     scope: 'state',
     availableLayers: ['state'],
     showLayerToggle: false,
-    children: null,
-    amountTypeEnabled: true
+    children: null
 };
 
 const mapboxSources = {
@@ -94,9 +90,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
     const broadcastReceivers = [];
     let renderCallback = null;
     let mapOperationQueue = {};
-
-    const [, , defCodes] = useDefCodes();
-    const [mapFilters, setMapFilters] = useState(cloneDeep(props.filters));
 
     const hideSource = (type) => {
         const layers = mapLayers[type];
@@ -456,29 +449,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
         setSpendingScale(scale);
     };
 
-    const parseDefCodes = (codes) => {
-        const defCodeOptionsList = codes.map((code) => ({
-            label: `${code.code} - ${code.title}`,
-            value: code.code
-        }));
-
-        // Move DEFC 1 to the end of the list
-        const firstElement = defCodeOptionsList.shift();
-        defCodeOptionsList.push(firstElement);
-
-        const tempMapFilters = mapFilters;
-        if (tempMapFilters.def_codes.options.length === 1) {
-            tempMapFilters.def_codes.options.push(...defCodeOptionsList);
-            setMapFilters(tempMapFilters);
-        }
-    };
-
-    useEffect(() => {
-        if (defCodes.length > 0) {
-            parseDefCodes(defCodes);
-        }
-    }, [defCodes, parseDefCodes]);
-
     useEffect(() => {
         displayData();
         if (!props.stateProfile) {
@@ -534,15 +504,13 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
                 isFiltersOpen={isFiltersOpen}
                 setIsFiltersOpen={setIsFiltersOpen} />
             <StateProfileMapFilters
-                mapFilters={mapFilters}
-                amountTypeEnabled={props.amountTypeEnabled}
                 activeFilters={props.activeFilters}
                 isFiltersOpen={isFiltersOpen}
-                awardTypeFilters={props.awardTypeFilters}
                 changeScope={props.changeScope}
                 clearSearchFilters={props.clearSearchFilters}
                 searchData={props.searchData}
-                selectedItemsDisplayNames={props.selectedItemsDisplayNames} />
+                selectedItemsDisplayNames={props.selectedItemsDisplayNames}
+                changeMapLayer={props.changeMapLayer} />
             <MapLegend
                 segments={spendingScale.segments}
                 units={spendingScale.units} />
