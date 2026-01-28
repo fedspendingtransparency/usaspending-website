@@ -32,8 +32,6 @@ const propTypes = {
     agency: PropTypes.object
 };
 
-const availableLayers = ['county', 'congressionalDistrict'];
-
 // eslint-disable-next-line prefer-arrow-callback
 const GeoVisualizationSection = React.memo(function GeoVisualizationSection(props) {
     const [showHover, setShowHover] = useState(false);
@@ -114,31 +112,24 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
         );
     }
 
-    let center = props.stateCenter;
-    if (props.stateCenter.length === 0) {
-        // If there was an error getting the center of the state, use the center
-        // of the United States so that we don't generate a MapBox error
-        center = [-95.569430, 38.852892];
-    }
-
     return (
         <div className="geo__map-section">
             <StateProfileMapWrapper
-                {...props}
                 activeFilters={props.activeFilters}
-                className={props.className}
                 data={props.data}
-                renderHash={props.renderHash}
                 scope={props.mapLayer}
-                changeMapLayer={props.changeMapLayer}
+                renderHash={props.renderHash}
                 showHover={showHover}
                 selectedItem={selectedItem}
                 showTooltip={showTooltip}
                 hideTooltip={hideTooltip}
-                availableLayers={availableLayers}
-                showLayerToggle
-                center={center}
+                changeMapLayer={props.changeMapLayer}
                 stateInfo={props.stateInfo}
+                searchData={props.searchData}
+                changeScope={props.changeScope}
+                clearSearchFilters={props.clearSearchFilters}
+                selectedItemsDisplayNames={props.selectedItemsDisplayNames}
+                stateCenter={props.stateCenter}
                 stateProfile>
                 {message}
             </StateProfileMapWrapper>

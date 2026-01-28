@@ -3,14 +3,14 @@
  * Created by Kevin Li 2/14/17
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { uniq } from 'lodash-es';
 import GlobalConstants from 'GlobalConstants';
 
-import * as MapHelper from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
+import { calculateRange, visualizationColors } from "helpers/mapHelper";
 import { stateFIPSByAbbreviation } from "dataMapping/state/stateNames";
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapLegend from 'components/search/visualizations/geo/MapLegend';
@@ -19,7 +19,6 @@ import StateProfileMapFilters from "./filters/StateProfileMapFilters";
 import StateGeoTooltip from "./StateGeoTooltip";
 
 const propTypes = {
-    filters: PropTypes.object,
     activeFilters: PropTypes.object,
     data: PropTypes.object,
     scope: PropTypes.string,
@@ -28,31 +27,11 @@ const propTypes = {
     selectedItem: PropTypes.object,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    tooltip: PropTypes.func,
-    availableLayers: PropTypes.array,
     changeMapLayer: PropTypes.func,
-    showLayerToggle: PropTypes.bool,
-    children: PropTypes.node,
-    center: PropTypes.array,
-    stateProfile: PropTypes.bool,
-    mapLegendToggle: PropTypes.string,
-    updateMapLegendToggle: PropTypes.func,
-    className: PropTypes.string,
     stateInfo: PropTypes.object,
     searchData: PropTypes.object,
-    program_numbers: PropTypes.string,
-    agency: PropTypes.object
-};
-
-const defaultProps = {
-    data: {
-        locations: [],
-        values: []
-    },
-    scope: 'state',
-    availableLayers: ['state'],
-    showLayerToggle: false,
-    children: null
+    stateProfile: PropTypes.bool,
+    children: PropTypes.node
 };
 
 const mapboxSources = {
@@ -75,9 +54,31 @@ const mapboxSources = {
 };
 
 // eslint-disable-next-line prefer-arrow-callback
-const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props) {
+const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
+    activeFilters,
+    data = {
+        locations: [],
+        values: []
+    },
+    scope = 'state',
+    renderHash,
+    showHover,
+    selectedItem,
+    showTooltip,
+    hideTooltip,
+    changeMapLayer,
+    stateInfo,
+    searchData,
+    singleLocationSelected, // TODO: does this get passed down from anywhere?
+    changeScope,
+    clearSearchFilters,
+    selectedItemsDisplayNames,
+    stateCenter,
+    stateProfile, // TODO: does this get passed down from anywhere?
+    children = null
+}) {
     const mapRef = useRef(null);
-    const scopeRef = useRef(props.scope);
+    const scopeRef = useRef(scope);
     const [mapLayers, setMapLayers] = useState({});
     const [mapReady, setMapReady] = useState(false);
     const [spendingScale, setSpendingScale] = useState({
@@ -85,7 +86,11 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
         segments: [],
         units: {}
     });
-    const [center, setCenter] = useState(props.center);
+    const [center, setCenter] = useState(
+        // If there was an error getting the center of the state, use the center
+        // of the United States so that we don't generate a MapBox error
+        stateCenter.length === 0 ? [-95.569430, 38.852892] : stateCenter
+    );
     const [isFiltersOpen, setIsFiltersOpen] = useState(true);
     const broadcastReceivers = [];
     let renderCallback = null;
@@ -126,17 +131,17 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
     };
 
     const mouseOverLayer = (e) => {
-        const source = mapboxSources[props.scope];
+        const source = mapboxSources[scope];
         // grab the filter ID from the GeoJSON feature properties
         const entityId = e.features[0].properties[source.filterKey];
-        props.showTooltip(entityId, {
+        showTooltip(entityId, {
             x: e.originalEvent.offsetX,
             y: e.originalEvent.offsetY
         });
     };
 
     const mouseExitLayer = () => {
-        props.hideTooltip();
+        hideTooltip();
     };
 
     const loadSource = (type) => {
@@ -168,8 +173,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
 
         // generate the highlight layers that will be shaded in when populated with data filters
         // set up temporary empty filters that will show nothing
-        const colors = MapHelper.visualizationColors;
-        colors.forEach((color, index) => {
+        visualizationColors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
             mapRef.current.addLayer({
                 id: layerName,
@@ -220,19 +224,19 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
             reject();
         }
 
-        const source = mapboxSources[props.scope];
+        const source = mapboxSources[scope];
         if (!source) {
             reject();
         }
 
         // hide all the other layers
         Object.keys(mapboxSources).forEach((type) => {
-            if (type !== props.scope) {
+            if (type !== scope) {
                 hideSource(type);
             }
         });
 
-        showSource(props.scope);
+        showSource(scope);
 
         // check if we need to zoom in to show the layer
         if (source.minZoom) {
@@ -290,11 +294,11 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
         // we need to hold a reference to the callback in order to remove the listener when
         // the component unmounts
         renderCallback = () => {
-            mapRef?.current?.map?.current?.on('render', mapMovedCallback);
+            mapRef?.current?.on('render', mapMovedCallback);
         };
-        mapRef?.current?.map?.current?.on('moveend', renderCallback);
+        mapRef?.current?.on('moveend', renderCallback);
         // but also do it when the map resizes, since the view will be different
-        mapRef?.current?.map?.current?.on('resize', renderCallback);
+        mapRef?.current?.on('resize', renderCallback);
     };
 
     const prepareMap = () => {
@@ -303,7 +307,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
                 // we depend on the state shapes to process the state fills, so the operation
                 // queue must wait for the state shapes to load first
                 runMapOperationQueue();
-                if (!props.stateProfile) {
+                if (!stateProfile) {
                     prepareChangeListeners();
                 }
 
@@ -337,7 +341,9 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
 
         if (scopeRef.current === 'country') {
             // prepend USA to account for prohibited country codes
-            const filteredArray = visibleEntities.filter((value) => prohibitedCountryCodes?.includes(value));
+            const filteredArray = visibleEntities.filter(
+                (value) => prohibitedCountryCodes?.includes(value)
+            );
 
             if (filteredArray?.length > 0) {
                 visibleEntities.push('USA');
@@ -369,7 +375,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
 
     const setCenterFromMapTiles = (value, filterKey, lat, long) => {
         const entities = mapRef.current.queryRenderedFeatures({
-            layers: [`base_${props.scope}`]
+            layers: [`base_${scope}`]
         });
 
         const found = entities.find((element) => element.properties[filterKey] === value);
@@ -385,23 +391,33 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
     };
 
     const reCenterMap = () => {
-        if (mapReady && {}.hasOwnProperty.call(props, "singleLocationSelected") && Object.keys(props.singleLocationSelected).length > 0 && (props.scope === "county" || props.scope === "congressionalDistrict")) {
+        if (
+            mapReady &&
+            singleLocationSelected &&
+            Object.keys(singleLocationSelected).length > 0
+            && (scope === "county" || scope === "congressionalDistrict")
+        ) {
             let value;
             let filterKey;
             let lat = "INTPTLAT";
             let long = "INTPTLON";
-            const district = props.singleLocationSelected.district_original || props.singleLocationSelected.district_current;
+            const district = singleLocationSelected.district_original ||
+                singleLocationSelected.district_current;
 
-            if (props.scope === "congressionalDistrict") {
+            if (scope === "congressionalDistrict") {
                 filterKey = "GEOID20";
                 lat += "20";
                 long += "20";
-                value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${district}`;
+                value = `${stateFIPSByAbbreviation[singleLocationSelected.state]}${district}`;
                 setCenterFromMapTiles(value, filterKey, lat, long);
             }
-            else if (props.scope === "county") {
+            else if (scope === "county") {
                 filterKey = "GEOID";
-                value = `${stateFIPSByAbbreviation[props.singleLocationSelected.state]}${props.singleLocationSelected.county}`;
+                value = `${
+                    stateFIPSByAbbreviation[singleLocationSelected.state]
+                }${
+                    singleLocationSelected.county
+                }`;
                 setCenterFromMapTiles(value, filterKey, lat, long);
             }
         }
@@ -415,17 +431,18 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
             return;
         }
 
-        const source = mapboxSources[props.scope];
+        const source = mapboxSources[scope];
 
         // calculate the range of data
-        const scale = MapHelper.calculateRange(props.data.values);
-        const colors = MapHelper.visualizationColors;
+        const scale = calculateRange(data.values);
+
         // prepare a set of blank (false) filters
-        const filterValues = colors.map(() => (
+        const filterValues = visualizationColors.map(() => (
             []
         ));
-        props.data.locations.forEach((location, index) => {
-            let value = props.data.values[index];
+
+        data.locations.forEach((location, index) => {
+            let value = data.values[index];
             if (isNaN(value)) value = 0;
             // determine the group index
             const group = scale.scale(value);
@@ -435,7 +452,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
 
         // generate Mapbox filters from the values
         filterValues.forEach((valueSet, index) => {
-            const layerName = `highlight_${props.scope}_group_${index}`;
+            const layerName = `highlight_${scope}_group_${index}`;
             // by default set up the filter to not include anything
             let filter = ['in', source.filterKey, ''];
             if (valueSet.length > 0) {
@@ -451,7 +468,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
 
     useEffect(() => {
         displayData();
-        if (!props.stateProfile) {
+        if (!stateProfile) {
             prepareBroadcastReceivers();
         }
         return () => {
@@ -465,16 +482,16 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
     }, []);
 
     useEffect(() => {
-        if (scopeRef.current !== props.scope) {
+        if (scopeRef.current !== scope) {
             queueMapOperation('displayData', displayData);
             prepareMap();
-            scopeRef.current = props.scope;
+            scopeRef.current = scope;
         }
         else {
             displayData();
         }
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props.renderHash, props.data]);
+    }, [renderHash, data]);
 
     useEffect(() => {
         if (mapReady) {
@@ -483,10 +500,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [mapReady]);
 
-    useEffect(() => {
-        setCenter(props.center);
-    }, [props.center]);
-
     return (
         <div className="map-container">
             {
@@ -494,35 +507,34 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper(props)
                 <MapBox
                     setMapReady={setMapReady}
                     center={center}
-                    mapType={props.scope}
-                    stateInfo={props.stateInfo}
-                    stateProfile={props.stateProfile}
-                    singleLocationSelected={props.singleLocationSelected}
+                    mapType={scope}
+                    stateInfo={stateInfo}
+                    singleLocationSelected={singleLocationSelected}
+                    stateProfile
                     ref={mapRef} />
             }
             <MapFiltersToggle
                 isFiltersOpen={isFiltersOpen}
                 setIsFiltersOpen={setIsFiltersOpen} />
             <StateProfileMapFilters
-                activeFilters={props.activeFilters}
+                activeFilters={activeFilters}
                 isFiltersOpen={isFiltersOpen}
-                changeScope={props.changeScope}
-                clearSearchFilters={props.clearSearchFilters}
-                searchData={props.searchData}
-                selectedItemsDisplayNames={props.selectedItemsDisplayNames}
-                changeMapLayer={props.changeMapLayer} />
+                changeScope={changeScope}
+                clearSearchFilters={clearSearchFilters}
+                searchData={searchData}
+                selectedItemsDisplayNames={selectedItemsDisplayNames}
+                changeMapLayer={changeMapLayer} />
             <MapLegend
                 segments={spendingScale.segments}
                 units={spendingScale.units} />
             <StateGeoTooltip
-                selectedItem={props.selectedItem}
-                showHover={props.showHover} />
-            {props.children}
+                selectedItem={selectedItem}
+                showHover={showHover} />
+            {children}
         </div>
     );
 });
 
 StateProfileMapWrapper.propTypes = propTypes;
-StateProfileMapWrapper.defaultProps = defaultProps;
 export default StateProfileMapWrapper;
 
