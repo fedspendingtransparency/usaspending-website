@@ -5,13 +5,10 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { uniq } from 'lodash-es';
 import GlobalConstants from 'GlobalConstants';
 
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
 import { calculateRange, visualizationColors } from "helpers/mapHelper";
-import { stateFIPSByAbbreviation } from "dataMapping/state/stateNames";
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapLegend from 'components/search/visualizations/geo/MapLegend';
 import MapFiltersToggle from "components/covid19/recipient/map/MapFiltersToggle";
@@ -30,7 +27,6 @@ const propTypes = {
     changeMapLayer: PropTypes.func,
     stateInfo: PropTypes.object,
     searchData: PropTypes.object,
-    stateProfile: PropTypes.bool,
     children: PropTypes.node
 };
 
@@ -69,12 +65,10 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
     changeMapLayer,
     stateInfo,
     searchData,
-    singleLocationSelected, // TODO: does this get passed down from anywhere?
     changeScope,
     clearSearchFilters,
     selectedItemsDisplayNames,
     stateCenter,
-    stateProfile, // TODO: does this get passed down from anywhere?
     children = null
 }) {
     const mapRef = useRef(null);
@@ -86,14 +80,8 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
         segments: [],
         units: {}
     });
-    const [center, setCenter] = useState(
-        // If there was an error getting the center of the state, use the center
-        // of the United States so that we don't generate a MapBox error
-        stateCenter.length === 0 ? [-95.569430, 38.852892] : stateCenter
-    );
     const [isFiltersOpen, setIsFiltersOpen] = useState(true);
-    const broadcastReceivers = [];
-    let renderCallback = null;
+
     let mapOperationQueue = {};
 
     const hideSource = (type) => {
@@ -281,146 +269,20 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
         mapOperationQueue = {};
     };
 
-    const prepareChangeListeners = () => {
-        // detect visible entities whenever the map moves
-        const parentMap = mapRef.current;
-        const mapMovedCallback = () => {
-            if (parentMap.loaded()) {
-                parentMap.off('render', mapMovedCallback);
-                MapBroadcaster.emit('mapMoved');
-            }
-        };
-
-        // we need to hold a reference to the callback in order to remove the listener when
-        // the component unmounts
-        renderCallback = () => {
-            mapRef?.current?.on('render', mapMovedCallback);
-        };
-        mapRef?.current?.on('moveend', renderCallback);
-        // but also do it when the map resizes, since the view will be different
-        mapRef?.current?.on('resize', renderCallback);
-    };
-
     const prepareMap = () => {
         prepareLayers()
             .then(() => {
                 // we depend on the state shapes to process the state fills, so the operation
                 // queue must wait for the state shapes to load first
                 runMapOperationQueue();
-                if (!stateProfile) {
-                    prepareChangeListeners();
-                }
 
                 // notify any listeners that the map is ready
                 MapBroadcaster.emit('mapReady');
             });
     };
 
-    const measureMap = (forced = false) => {
-        // determine which entities (state, counties, etc. based on current scope) are in view
-        // use Mapbox SDK to determine the currently rendered shapes in the base layer
-
-        const mapLoaded = mapRef.current.loaded();
-        // wait for the map to load before continuing
-        if (!mapLoaded) {
-            window.requestAnimationFrame(() => {
-                measureMap();
-            });
-            return;
-        }
-
-        // TODO: investigate if we can useState instead of useRef for scopeRef
-        const entities = mapRef.current.queryRenderedFeatures({
-            layers: [`base_${scopeRef.current}`]
-        });
-
-        const source = mapboxSources[scopeRef.current];
-        const visibleEntities = entities.map((entity) => (
-            entity.properties[source.filterKey]
-        ));
-
-        if (scopeRef.current === 'country') {
-            // prepend USA to account for prohibited country codes
-            const filteredArray = visibleEntities.filter(
-                (value) => prohibitedCountryCodes?.includes(value)
-            );
-
-            if (filteredArray?.length > 0) {
-                visibleEntities.push('USA');
-            }
-        }
-
-        // remove the duplicates values and pass them to the parent, remove null values also
-        const uniqueEntities = uniq(visibleEntities).filter((n) => n);
-
-        MapBroadcaster.emit('mapMeasureDone', uniqueEntities, forced);
-    };
-
-    const prepareBroadcastReceivers = () => {
-        const listenerRef = MapBroadcaster.on('measureMap', measureMap);
-        broadcastReceivers.push(listenerRef);
-    };
-
-    const removeChangeListeners = () => {
-        // remove the render callbacks
-        if (mapRef.current) {
-            mapRef.current.off('moveend', renderCallback);
-            mapRef.current.off('resize', renderCallback);
-        }
-    };
-
     const queueMapOperation = (name, operation) => {
         mapOperationQueue[name] = operation;
-    };
-
-    const setCenterFromMapTiles = (value, filterKey, lat, long) => {
-        const entities = mapRef.current.queryRenderedFeatures({
-            layers: [`base_${scope}`]
-        });
-
-        const found = entities.find((element) => element.properties[filterKey] === value);
-        if (found) {
-            const coords = [parseFloat(found.properties[long]), parseFloat(found.properties[lat])];
-            const isEqual = coords.every((v, index) => v === center[index]);
-
-            if (!isEqual) {
-                setCenter([parseFloat(found.properties[long]), parseFloat(found.properties[lat])]);
-                removeChangeListeners();
-            }
-        }
-    };
-
-    const reCenterMap = () => {
-        if (
-            mapReady &&
-            singleLocationSelected &&
-            Object.keys(singleLocationSelected).length > 0
-            && (scope === "county" || scope === "congressionalDistrict")
-        ) {
-            let value;
-            let filterKey;
-            let lat = "INTPTLAT";
-            let long = "INTPTLON";
-            const district = singleLocationSelected.district_original ||
-                singleLocationSelected.district_current;
-
-            if (scope === "congressionalDistrict") {
-                filterKey = "GEOID20";
-                lat += "20";
-                long += "20";
-                value = `${stateFIPSByAbbreviation[singleLocationSelected.state]}${district}`;
-                setCenterFromMapTiles(value, filterKey, lat, long);
-            }
-            else if (scope === "county") {
-                filterKey = "GEOID";
-                value = `${
-                    stateFIPSByAbbreviation[singleLocationSelected.state]
-                }${
-                    singleLocationSelected.county
-                }`;
-                setCenterFromMapTiles(value, filterKey, lat, long);
-            }
-        }
     };
 
     const displayData = () => {
@@ -462,22 +324,11 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
             mapRef.current.setFilter(layerName, filter);
         });
 
-        reCenterMap();
         setSpendingScale(scale);
     };
 
     useEffect(() => {
         displayData();
-        if (!stateProfile) {
-            prepareBroadcastReceivers();
-        }
-        return () => {
-            // remove any broadcast listeners
-            removeChangeListeners();
-            broadcastReceivers.forEach((listenerRef) => {
-                MapBroadcaster.off(listenerRef.event, listenerRef.id);
-            });
-        };
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, []);
 
@@ -506,10 +357,9 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
                 GlobalConstants.MAPBOX_TOKEN &&
                 <MapBox
                     setMapReady={setMapReady}
-                    center={center}
+                    center={stateCenter}
                     mapType={scope}
                     stateInfo={stateInfo}
-                    singleLocationSelected={singleLocationSelected}
                     stateProfile
                     ref={mapRef} />
             }

@@ -129,8 +129,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
                 changeScope={props.changeScope}
                 clearSearchFilters={props.clearSearchFilters}
                 selectedItemsDisplayNames={props.selectedItemsDisplayNames}
-                stateCenter={props.stateCenter}
-                stateProfile>
+                stateCenter={props.stateCenter}>
                 {message}
             </StateProfileMapWrapper>
         </div>
