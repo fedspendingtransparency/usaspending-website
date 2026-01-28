@@ -328,11 +328,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
     };
 
     useEffect(() => {
-        displayData();
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, []);
-
-    useEffect(() => {
         if (scopeRef.current !== scope) {
             queueMapOperation('displayData', displayData);
             prepareMap();
