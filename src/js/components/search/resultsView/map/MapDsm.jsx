@@ -55,6 +55,20 @@ const MapDsm = ({ spendingLevel }) => {
                         {<span className="award-search__glossary-term"> value of the loan </span>}{<GlossaryLink term="face-value-of-loan" />}.{' '}
                         Prime award transactions with the same unique award ID are grouped under a single prime award summary.
                     </p>
+                    <h4>Geographical Amount Types</h4>
+                    <p className="award-search__body-text">
+                        There are two different ways to display spending amounts on the map: Total Spending and Per Capita Spending.
+                    </p>
+                    <h4>Total Spending</h4>
+                    <p className="award-search__body-text">
+                        Total Spending shows the full amount of dollars spent in each geographical unit (state/territory/county/country/congressional district).
+                    </p>
+                    <h4>Per Capita Spending</h4>
+                    <p className="award-search__body-text">
+                        Per Capita Spending shows the total amount spent in each geographical unit (state/territory/county/congressional district)
+                        divided by the population of that unit. This number makes it easier to compare numbers across geographic units,
+                        since spending usually scales by the population of a region.
+                    </p>
                 </>
             }
             <p>Currently, the table view only displays data for locations that are in view on the map.</p>
