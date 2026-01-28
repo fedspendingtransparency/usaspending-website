@@ -39,7 +39,7 @@ const TopFiveSection = ({ agencyData }) => {
             <div className="state-section__description">
                 The tables below provide a summary of federal spending in this state through multiple angles.
                 The initial view includes all award types, but you can also view individual award type amounts.
-                To see more than the top 5, visit our <Link to="/search">Advanced Search</Link> page.
+                To see more than the top 5, visit our <Link className="usa-bold-link" to="/search">Advanced Search</Link> page.
             </div>
             <Tabs
                 types={tabTypes}
