@@ -71,7 +71,6 @@ const MapDsm = ({ spendingLevel }) => {
                     </p>
                 </>
             }
-            <p>Currently, the table view only displays data for locations that are in view on the map.</p>
             <p style={{ marginTop: '8px' }}>
                 <span className="award-search__glossary-term">NOTE: </span>
                 Data reported by the Department of Health and Human Services (HHS) related
