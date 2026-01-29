@@ -57,7 +57,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
         values: []
     },
     scope = 'state',
-    renderHash,
     showHover,
     selectedItem,
     showTooltip,
@@ -72,7 +71,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
     children = null
 }) {
     const mapRef = useRef(null);
-    const scopeRef = useRef(scope);
     const mapOperationQueue = useRef(null);
     const [mapLayers, setMapLayers] = useState({});
     const [mapReady, setMapReady] = useState(false);
@@ -283,30 +281,29 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
 
     const queueMapOperation = (name, operation) => {
         mapOperationQueue.current = { [name]: operation };
+        console.log({ mapOperationQueue: mapOperationQueue.current });
     };
 
-    const displayData = () => {
+    const displayData = useCallback((locations, values, ready, layer) => {
         // don't do anything if the map has not yet loaded
-        if (!mapReady) {
+        if (!ready || !locations || locations.length === 0) {
             // add to the map operation queue
             queueMapOperation('displayData', displayData);
             return;
         }
 
-        if (data.locations.length === 0) return;
-
-        const source = mapboxSources[scope];
+        const source = mapboxSources[layer];
 
         // calculate the range of data
-        const scale = calculateRange(data.values);
+        const scale = calculateRange(values);
 
         // prepare a set of blank (false) filters
         const filterValues = visualizationColors.map(() => (
             []
         ));
 
-        data.locations.forEach((location, index) => {
-            let value = data.values[index];
+        locations.forEach((location, index) => {
+            let value = values[index];
             if (isNaN(value)) value = 0;
             // determine the group index
             const group = scale.scale(value);
@@ -316,7 +313,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
 
         // generate Mapbox filters from the values
         filterValues.forEach((valueSet, index) => {
-            const layerName = `highlight_${scope}_group_${index}`;
+            const layerName = `highlight_${layer}_group_${index}`;
             // by default set up the filter to not include anything
             let filter = ['in', source.filterKey, ''];
             if (valueSet.length > 0) {
@@ -327,19 +324,11 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
         });
 
         setSpendingScale(scale);
-    };
+    }, []);
 
     useEffect(() => {
-        if (scopeRef.current !== scope) {
-            queueMapOperation('displayData', displayData);
-            prepareMap(mapReady);
-            scopeRef.current = scope;
-        }
-        else {
-            displayData();
-        }
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [renderHash, data, mapReady]);
+        displayData(data?.locations, data.values, mapReady, scope);
+    }, [data.locations, data.values, displayData, mapReady, scope]);
 
     useEffect(() => {
         if (mapReady) {

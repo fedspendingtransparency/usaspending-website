@@ -121,7 +121,6 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
                 activeFilters={props.activeFilters}
                 data={props.data}
                 scope={props.mapLayer}
-                renderHash={props.renderHash}
                 showHover={showHover}
                 selectedItem={selectedItem}
                 showTooltip={showTooltip}
