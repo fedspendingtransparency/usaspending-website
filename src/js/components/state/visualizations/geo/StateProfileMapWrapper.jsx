@@ -108,13 +108,11 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
             x: e.originalEvent.offsetX,
             y: e.originalEvent.offsetY
         });
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [scope]);
+    }, [scope, showTooltip]);
 
     const mouseExitLayer = useCallback(() => {
         hideTooltip();
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, []);
+    }, [hideTooltip]);
 
     const loadSource = useCallback((type) => {
         const baseLayer = `base_${type}`;
@@ -281,7 +279,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
 
     const queueMapOperation = (name, operation) => {
         mapOperationQueue.current = { [name]: operation };
-        console.log({ mapOperationQueue: mapOperationQueue.current });
     };
 
     const displayData = useCallback((locations, values, ready, layer) => {

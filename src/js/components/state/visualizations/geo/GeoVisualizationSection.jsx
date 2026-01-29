@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/14/18
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 
@@ -32,33 +32,49 @@ const propTypes = {
 };
 
 // eslint-disable-next-line prefer-arrow-callback
-const GeoVisualizationSection = React.memo(function GeoVisualizationSection(props) {
+const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
+    mapLayer,
+    changeScope,
+    changeMapLayer,
+    data,
+    total,
+    loading,
+    error,
+    noResults,
+    stateCenter,
+    stateInfo,
+    searchData,
+    activeFilters,
+    clearSearchFilters,
+    selectedItemsDisplayNames
+}) {
     const [showHover, setShowHover] = useState(false);
     const [selectedItem, setSelectedItem] = useState({});
-    const dataRef = useRef(props.data);
+    const dataRef = useRef(data);
 
     useEffect(() => {
-        dataRef.current = props.data;
-    }, [props.data]);
+        dataRef.current = data;
+    }, [data]);
 
-    const showTooltip = (geoId, position) => {
+    const showTooltip = useCallback((geoId, position) => {
         // convert state code to full string name
-        // TODO: This ref is necessary, need to figure out why the map components are losing reference to data
+        // TODO: This ref is necessary,
+        //  need to figure out why the map components are losing reference to data
         const label = dataRef.current.labels[geoId];
         setShowHover(true);
         setSelectedItem({
             label: label?.label,
-            total: props.total,
+            total,
             value: label.value,
             x: position.x,
             y: position.y
         });
-    };
+    }, [total]);
 
-    const hideTooltip = () => {
+    const hideTooltip = useCallback(() => {
         setShowHover(false);
         setSelectedItem({});
-    };
+    }, []);
 
     let message = null;
 
@@ -73,7 +89,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
             </div>
         );
     }
-    else if (props.loading) {
+    else if (loading) {
         message = (
             <MapMessage>
                 <div className="map-loading">
@@ -85,7 +101,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
             </MapMessage>
         );
     }
-    else if (props.error || props.stateCenter.length === 0) {
+    else if (error || stateCenter.length === 0) {
         message = (
             <MapMessage>
                 <div className="map-no-results">
@@ -102,7 +118,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
             </MapMessage>
         );
     }
-    else if (props.noResults) {
+    else if (noResults) {
         message = (
             <MapMessage>
                 <div className="map-no-results">
@@ -118,20 +134,20 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection(prop
     return (
         <div className="geo__map-section">
             <StateProfileMapWrapper
-                activeFilters={props.activeFilters}
-                data={props.data}
-                scope={props.mapLayer}
+                activeFilters={activeFilters}
+                data={data}
+                scope={mapLayer}
                 showHover={showHover}
                 selectedItem={selectedItem}
                 showTooltip={showTooltip}
                 hideTooltip={hideTooltip}
-                changeMapLayer={props.changeMapLayer}
-                stateInfo={props.stateInfo}
-                searchData={props.searchData}
-                changeScope={props.changeScope}
-                clearSearchFilters={props.clearSearchFilters}
-                selectedItemsDisplayNames={props.selectedItemsDisplayNames}
-                stateCenter={props.stateCenter}>
+                changeMapLayer={changeMapLayer}
+                stateInfo={stateInfo}
+                searchData={searchData}
+                changeScope={changeScope}
+                clearSearchFilters={clearSearchFilters}
+                selectedItemsDisplayNames={selectedItemsDisplayNames}
+                stateCenter={stateCenter}>
                 {message}
             </StateProfileMapWrapper>
         </div>
