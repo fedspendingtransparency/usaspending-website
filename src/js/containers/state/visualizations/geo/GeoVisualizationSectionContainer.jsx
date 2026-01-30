@@ -26,9 +26,9 @@ const apiScopes = {
 
 const GeoVisualizationSectionContainer = () => {
     const {
-        fy, overview, center
+        fy, overview: stateInfo, center
     } = useSelector((state) => state.stateProfile);
-    const { code } = overview;
+    const { code } = stateInfo;
     const [mapLayer, setMapLayer] = useState('county');
     const [data, setData] = useState({
         values: [],
@@ -243,8 +243,8 @@ const GeoVisualizationSectionContainer = () => {
             loading={loading}
             error={error}
             noResults={noResults}
-            stateCenter={center}
-            stateInfo={overview}
+            center={center}
+            stateInfo={stateInfo}
             searchData={searchData}
             activeFilters={activeFilters}
             clearSearchFilters={clearSearchFilters}

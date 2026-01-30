@@ -22,7 +22,7 @@ const propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
     noResults: PropTypes.bool,
-    stateCenter: PropTypes.array,
+    center: PropTypes.array,
     className: PropTypes.string,
     stateInfo: PropTypes.object,
     searchData: PropTypes.object,
@@ -40,7 +40,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
     loading,
     error,
     noResults,
-    stateCenter,
+    center,
     stateInfo,
     searchData,
     activeFilters,
@@ -100,7 +100,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
             </MapMessage>
         );
     }
-    else if (error || stateCenter.length === 0) {
+    else if (error || center.length === 0) {
         message = (
             <MapMessage>
                 <div className="map-no-results">
@@ -146,7 +146,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
                 changeScope={changeScope}
                 clearSearchFilters={clearSearchFilters}
                 selectedItemsDisplayNames={selectedItemsDisplayNames}
-                stateCenter={stateCenter}
+                center={center}
                 loadingTilesReady={loadingTilesReady} >
                 {message}
             </StateProfileMapWrapper>

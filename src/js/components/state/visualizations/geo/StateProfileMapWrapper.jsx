@@ -26,6 +26,7 @@ const propTypes = {
     changeMapLayer: PropTypes.func,
     stateInfo: PropTypes.object,
     searchData: PropTypes.object,
+    center: PropTypes.array,
     loadingTilesReady: PropTypes.func,
     children: PropTypes.node
 };
@@ -67,7 +68,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
     changeScope,
     clearSearchFilters,
     selectedItemsDisplayNames,
-    stateCenter,
+    center,
     loadingTilesReady,
     children = null
 }) {
@@ -340,7 +341,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
                 GlobalConstants.MAPBOX_TOKEN &&
                 <MapBox
                     setMapReady={setMapReady}
-                    center={stateCenter}
+                    center={center}
                     mapType={scope}
                     stateInfo={stateInfo}
                     stateProfile
