@@ -31,7 +31,7 @@ export default class AgencyLandingContent extends React.Component {
                         </h2>
                         <div className="landing-page__description">
                             <p>Dive into federal agency spending with our Agency Profiles. Find details on agencies' total obligations and outlays to understand how each agency spends its funding.</p>
-                            <p>P.L. 117-40 requires the posting of a list of all Executive Branch agencies that have submitted Congressional Justifications which include: the date that those materials were submitted to Congress, the date those materials were posted on a public website, and the website address (URL) of those materials. <a href="/data/cj_list.csv" download="cj_list.csv">Click here</a> to download a machine-readable version of this list. Note that this list contains agencies that do not currently submit data to USAspending.gov and therefore do not appear elsewhere on the website.</p>
+                            <p>P.L. 117-40 requires the posting of a list of all Executive Branch agencies that have submitted Congressional Justifications which include: the date that those materials were submitted to Congress, the date those materials were posted on a public website, and the website address (URL) of those materials. <a className="usa-bold-link" href="/data/cj_list.csv" download="cj_list.csv">Click here</a> to download a machine-readable version of this list. Note that this list contains agencies that do not currently submit data to USAspending.gov and therefore do not appear elsewhere on the website.</p>
                         </div>
                     </div>
                     <LandingSearchBar

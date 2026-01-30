@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import { updateNewAwardsOnlySelected } from "redux/actions/search/searchFilterActions";
 import { NewAwardsTooltip } from "../tooltips/AdvancedSearchTooltip";
-import ContextTooltip from "./ContextTooltip";
+import ContextTooltip from "../ContextTooltip";
 
 const propTypes = { activeClassDR: PropTypes.string };
 

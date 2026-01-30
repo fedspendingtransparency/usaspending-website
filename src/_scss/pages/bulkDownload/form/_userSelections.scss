@@ -1,5 +1,6 @@
 .download-user-selections {
-    background-color: $color-gray-lightest;
+    border: rem(2) solid $color-gray-lightest;
+    border-radius: rem(8);
     padding: rem(20);
     @import "mixins/fullSectionWrap";
     @include fullSectionWrap((rem(40)), (rem(30)));

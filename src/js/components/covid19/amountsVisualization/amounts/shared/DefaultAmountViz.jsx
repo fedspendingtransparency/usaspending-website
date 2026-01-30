@@ -35,7 +35,7 @@ const DefaultAmountViz = ({
     className,
     publicLaw
 }) => (
-    <g>
+    <g tabIndex={-1}>
         <DefaultLineAndText
             overviewData={overviewData}
             className={className}
