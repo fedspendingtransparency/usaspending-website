@@ -157,9 +157,9 @@ const FeaturedContentArticle = () => {
             <FlexGridRow desktop={12} className="grid-content featured-content__article-body">
                 <FlexGridCol tablet={12} mobile={12} desktop={8}>
                     <InfographicHero />
-                    <div className="featured-content__article-title">
+                    <h1 className="featured-content__article-title">
                         {chosenArticle?.title}
-                    </div>
+                    </h1>
                     <div className="featured-content__last-updated">
                         Last Updated: {chosenArticle?.created_date}
                     </div>
