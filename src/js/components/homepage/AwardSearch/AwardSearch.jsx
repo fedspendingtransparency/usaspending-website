@@ -31,21 +31,21 @@ const AwardSearch = () => {
     const placeOfPerformance = (
         <div aria-disabled={activeCardIndex !== 0}>
             Search spending to your community using Location filters like
-            <div className="award-search__glossary">Place of Performance</div>
+            <div className="award-search__glossary"> Place of Performance</div>
             {<GlossaryLink term="primary-place-of-performance" hidden={activeCardIndex !== 0} />}
         </div>
     );
     const fiscalYear = (
         <div aria-disabled={activeCardIndex !== 1}>
             See spending data over time using our Time Period filters, like
-            <div className="award-search__glossary">Fiscal Year</div>
+            <div className="award-search__glossary"> Fiscal Year</div>
             {<GlossaryLink term="fiscal-year-fy" hidden={activeCardIndex !== 1} />}
         </div>
     );
     const naics = (
         <div aria-disabled={activeCardIndex !== 2}>
             Use the
-            <div className="award-search__glossary">North American Industry Classification System (NAICS)</div>
+            <div className="award-search__glossary"> North American Industry Classification System (NAICS)</div>
             {<GlossaryLink term="naics" hidden={activeCardIndex !== 2} />}
              filter to find spending by industry
         </div>
@@ -53,7 +53,7 @@ const AwardSearch = () => {
     const psc = (
         <div aria-disabled={activeCardIndex !== 3}>
             From medical supplies to aircraft equipment, use
-            <div className="award-search__glossary">Product or Service Codes (PSCs)</div>
+            <div className="award-search__glossary"> Product or Service Codes (PSCs)</div>
             {<GlossaryLink term="product-or-service-code-psc" hidden={activeCardIndex !== 3} />}
              to see what&apos;s being purchased
         </div>
@@ -212,7 +212,10 @@ const AwardSearch = () => {
                                     keyboard={{ enabled: true }}
                                     style={{ alignItems: "middle" }}
                                     onSlideChange={onSlideChange}>
-                                    <SwiperSlide tabIndex={0} className="award-search__slide award-search__card1" style={{ marginBottom: "20px" }}>
+                                    <SwiperSlide
+                                        tabIndex={activeCardIndex === 0 ? 0 : -1}
+                                        className="award-search__slide award-search__card1"
+                                        style={{ marginBottom: "20px" }}>
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending to Communities"
@@ -227,11 +230,15 @@ const AwardSearch = () => {
                                                     textAlignment="center"
                                                     action={() => {
                                                         handleGoToAdvancedSearch("map");
-                                                    }} />
+                                                    }}
+                                                    disabled={activeCardIndex !== 0} />
                                             </CardBody>
                                         </CardContainer>
                                     </SwiperSlide>
-                                    <SwiperSlide tabIndex={0} className="award-search__slide award-search__card2" style={{ marginBottom: "20px" }}>
+                                    <SwiperSlide
+                                        tabIndex={activeCardIndex === 1 ? 0 : -1}
+                                        className="award-search__slide award-search__card2"
+                                        style={{ marginBottom: "20px" }}>
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending Over Time"
@@ -246,11 +253,15 @@ const AwardSearch = () => {
                                                     textAlignment="center"
                                                     action={() => {
                                                         handleGoToAdvancedSearch("time");
-                                                    }} />
+                                                    }}
+                                                    disabled={activeCardIndex !== 1} />
                                             </CardBody>
                                         </CardContainer>
                                     </SwiperSlide>
-                                    <SwiperSlide tabIndex={0} className="award-search__slide award-search__card3" style={{ marginBottom: "20px" }}>
+                                    <SwiperSlide
+                                        tabIndex={activeCardIndex === 2 ? 0 : -1}
+                                        className="award-search__slide award-search__card3"
+                                        style={{ marginBottom: "20px" }}>
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending by Industry"
@@ -265,11 +276,15 @@ const AwardSearch = () => {
                                                     textAlignment="center"
                                                     action={() => {
                                                         handleGoToAdvancedSearch("categories", "naics");
-                                                    }} />
+                                                    }}
+                                                    disabled={activeCardIndex !== 2} />
                                             </CardBody>
                                         </CardContainer>
                                     </SwiperSlide>
-                                    <SwiperSlide tabIndex={0} className="award-search__slide award-search__card1" style={{ marginBottom: "20px" }}>
+                                    <SwiperSlide
+                                        tabIndex={activeCardIndex === 3 ? 0 : -1}
+                                        className="award-search__slide award-search__card1"
+                                        style={{ marginBottom: "20px" }}>
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending by Product or Service"
@@ -284,7 +299,8 @@ const AwardSearch = () => {
                                                     textAlignment="center"
                                                     action={() => {
                                                         handleGoToAdvancedSearch("categories", "psc");
-                                                    }} />
+                                                    }}
+                                                    disabled={activeCardIndex !== 3} />
                                             </CardBody>
                                         </CardContainer>
                                     </SwiperSlide>
@@ -318,7 +334,10 @@ const AwardSearch = () => {
                                     keyboard={{ enabled: true }}
                                     className="award-search__swiper"
                                     onSlideChange={onSlideChange}>
-                                    <SwiperSlide tabIndex={0} className="award-search__slide" style={{ marginBottom: "20px" }}>
+                                    <SwiperSlide
+                                        tabIndex={activeCardIndex === 0 ? 0 : -1}
+                                        className="award-search__slide"
+                                        style={{ marginBottom: "20px" }}>
                                         <CardContainer className="award-search__card1" variant="elevated" size={isMobile ? "sm" : "lg"}>
                                             <CardBody
                                                 headline="Federal Spending to Communities"
@@ -334,11 +353,15 @@ const AwardSearch = () => {
                                                     backgroundColor="dark"
                                                     action={() => {
                                                         handleGoToAdvancedSearch("map");
-                                                    }} />
+                                                    }}
+                                                    disabled={activeCardIndex !== 0} />
                                             </CardBody>
                                         </CardContainer>
                                     </SwiperSlide>
-                                    <SwiperSlide tabIndex={0} className="award-search__slide award-search__card2" style={{ marginBottom: "20px" }}>
+                                    <SwiperSlide
+                                        tabIndex={activeCardIndex === 1 ? 0 : -1}
+                                        className="award-search__slide award-search__card2"
+                                        style={{ marginBottom: "20px" }}>
                                         <CardContainer className="award-search__card2" variant="elevated" size={isMobile ? "sm" : "lg"}>
                                             <CardBody
                                                 headline="Federal Spending Over Time"
@@ -352,11 +375,15 @@ const AwardSearch = () => {
                                                     variant="primary"
                                                     action={() => {
                                                         handleGoToAdvancedSearch("time");
-                                                    }} />
+                                                    }}
+                                                    disabled={activeCardIndex !== 1} />
                                             </CardBody>
                                         </CardContainer>
                                     </SwiperSlide>
-                                    <SwiperSlide tabIndex={0} className="award-search__slide award-search__card3" style={{ marginBottom: "20px" }}>
+                                    <SwiperSlide
+                                        tabIndex={activeCardIndex === 2 ? 0 : -1}
+                                        className="award-search__slide award-search__card3"
+                                        style={{ marginBottom: "20px" }}>
                                         <CardContainer className="award-search__card3" variant="elevated" size={isMobile ? "sm" : "lg"}>
                                             <CardBody
                                                 headline="Federal Spending by Industry"
@@ -370,11 +397,15 @@ const AwardSearch = () => {
                                                     variant="primary"
                                                     action={() => {
                                                         handleGoToAdvancedSearch("categories", "naics");
-                                                    }} />
+                                                    }}
+                                                    disabled={activeCardIndex !== 2} />
                                             </CardBody>
                                         </CardContainer>
                                     </SwiperSlide>
-                                    <SwiperSlide tabIndex={0} className="award-search__slide award-search__card4" style={{ marginBottom: "20px" }}>
+                                    <SwiperSlide
+                                        tabIndex={activeCardIndex === 3 ? 0 : -1}
+                                        className="award-search__slide award-search__card4"
+                                        style={{ marginBottom: "20px" }}>
                                         <CardContainer className="award-search__card4" variant="elevated" size={isMobile ? "sm" : "lg"}>
                                             <CardBody
                                                 headline="Federal Spending by Product or Service"
@@ -388,7 +419,8 @@ const AwardSearch = () => {
                                                     variant="primary"
                                                     action={() => {
                                                         handleGoToAdvancedSearch("categories", "psc");
-                                                    }} />
+                                                    }}
+                                                    disabled={activeCardIndex !== 3} />
                                             </CardBody>
                                         </CardContainer>
                                     </SwiperSlide>
