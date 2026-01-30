@@ -236,7 +236,7 @@ export default class AgencyFilter extends React.Component {
 
                     <div className="download-filter__content">
                         <div className="federal-picker">
-                            <label className={`select-label ${federalAccountDisabled}`} htmlFor="federal-select">
+                            <label className="select-label" htmlFor="federal-select" tabIndex={-1}>
                             Federal Account
                             </label>
                             <div className="field-picker">
@@ -245,6 +245,7 @@ export default class AgencyFilter extends React.Component {
                                     title={currentFederalAccountName}
                                     aria-label={currentFederalAccountName}
                                     disabled={disabled}
+                                    tabIndex={disabled ? -1 : 0}
                                     onClick={this.toggleFederalAccountPicker} >
                                     <div className="label">
                                         {currentFederalAccountName}

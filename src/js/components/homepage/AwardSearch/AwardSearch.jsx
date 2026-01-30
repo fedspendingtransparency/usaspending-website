@@ -28,10 +28,36 @@ const AwardSearch = () => {
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [activeCardIndex, setActiveCardIndex] = useState(0);
 
-    const placeOfPerformance = <div>Search spending to your community using Location filters like <div className="award-search__glossary">Place of Performance</div> {<GlossaryLink term="primary-place-of-performance" hidden={activeCardIndex !== 0} />}</div>;
-    const fiscalYear = <div>See spending data over time using our Time Period filters, like <div className="award-search__glossary">Fiscal Year</div> {<GlossaryLink term="fiscal-year-fy" hidden={activeCardIndex !== 1} />}</div>;
-    const naics = <div>Use the <div className="award-search__glossary">North American Industry Classification System (NAICS)</div> {<GlossaryLink term="naics" hidden={activeCardIndex !== 2} />} filter to find spending by industry</div>;
-    const psc = <div>From medical supplies to aircraft equipment, use <div className="award-search__glossary">Product or Service Codes (PSCs)</div> {<GlossaryLink term="product-or-service-code-psc" hidden={activeCardIndex !== 3} />} to see what&apos;s being purchased</div>;
+    const placeOfPerformance = (
+        <div aria-disabled={activeCardIndex !== 0}>
+            Search spending to your community using Location filters like
+            <div className="award-search__glossary">Place of Performance</div>
+            {<GlossaryLink term="primary-place-of-performance" hidden={activeCardIndex !== 0} />}
+        </div>
+    );
+    const fiscalYear = (
+        <div aria-disabled={activeCardIndex !== 1}>
+            See spending data over time using our Time Period filters, like
+            <div className="award-search__glossary">Fiscal Year</div>
+            {<GlossaryLink term="fiscal-year-fy" hidden={activeCardIndex !== 1} />}
+        </div>
+    );
+    const naics = (
+        <div aria-disabled={activeCardIndex !== 2}>
+            Use the
+            <div className="award-search__glossary">North American Industry Classification System (NAICS)</div>
+            {<GlossaryLink term="naics" hidden={activeCardIndex !== 2} />}
+             filter to find spending by industry
+        </div>
+    );
+    const psc = (
+        <div aria-disabled={activeCardIndex !== 3}>
+            From medical supplies to aircraft equipment, use
+            <div className="award-search__glossary">Product or Service Codes (PSCs)</div>
+            {<GlossaryLink term="product-or-service-code-psc" hidden={activeCardIndex !== 3} />}
+             to see what&apos;s being purchased
+        </div>
+    );
 
     useEffect(() => {
         const handleResize = throttle(() => {

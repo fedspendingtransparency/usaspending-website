@@ -13,7 +13,7 @@ const PrivacyPage = () => (
         <p>
             USASpending.gov is committed to protecting the privacy and security of its users.
             Our online privacy policy is outlined below. If you have questions about this policy,
-            please <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us">contact us</a>.
+            please <a className="usa-bold-link" href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us">contact us</a>.
         </p>
         <h3 className="about-subtitle">
             Collection and disclosure of information
@@ -106,7 +106,7 @@ const PrivacyPage = () => (
         <p>
             If you&#39;d like to disable cookies,{' '}
             <a
-                className="about-section-content do-wrap"
+                className="about-section-content do-wrap usa-bold-link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.usa.gov/optout-instructions">
@@ -149,7 +149,7 @@ const PrivacyPage = () => (
         </p>
         <p>
             <a
-                className="about-section-content do-wrap"
+                className="about-section-content do-wrap usa-bold-link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://home.treasury.gov/footer/privacy-act/how-to-write-a-privacy-act-request">
@@ -159,7 +159,7 @@ const PrivacyPage = () => (
         <p>
             <strong>NOTE:</strong> View or print the{' '}
             <a
-                className="about-section-content do-wrap"
+                className="about-section-content do-wrap usa-bold-link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.fiscal.treasury.gov/pia.html">
