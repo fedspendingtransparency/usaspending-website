@@ -3,7 +3,7 @@
  * Created by Kevin Li 2/17/17
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from "lodash-es";
 
@@ -20,14 +20,15 @@ const propTypes = {
     segments: PropTypes.arrayOf(PropTypes.number)
 };
 
-const MapLegend = ({
+// eslint-disable-next-line prefer-arrow-callback
+const MapLegend = memo(function MapLegend({
     units = {
         unit: 1,
         precision: 0,
         unitLabel: ''
     },
     segments
-}) => {
+}) {
     const prepareItems = (s, { unit, precision, unitLabel }) => s.map((segment, i, array) => {
         let label;
 
@@ -75,7 +76,7 @@ const MapLegend = ({
             </ul>
         </div>
     );
-};
+});
 
 MapLegend.propTypes = propTypes;
 export default MapLegend;

@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 07/06/20
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -12,7 +12,8 @@ const propTypes = {
     setIsFiltersOpen: PropTypes.func
 };
 
-const MapFiltersToggle = ({ isFiltersOpen, setIsFiltersOpen }) => {
+// eslint-disable-next-line prefer-arrow-callback
+const MapFiltersToggle = memo(function MapFiltersToggle({ isFiltersOpen, setIsFiltersOpen }) {
     const onToggle = () => setIsFiltersOpen(!isFiltersOpen);
     const onKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -35,7 +36,7 @@ const MapFiltersToggle = ({ isFiltersOpen, setIsFiltersOpen }) => {
             <FontAwesomeIcon icon={icon} />
         </div>
     );
-};
+});
 
 MapFiltersToggle.propTypes = propTypes;
 export default MapFiltersToggle;
