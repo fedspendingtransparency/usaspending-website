@@ -19,7 +19,6 @@ const propTypes = {
     changeMapLayer: PropTypes.func,
     mapMoved: PropTypes.func,
     data: PropTypes.object,
-    total: PropTypes.number,
     loading: PropTypes.bool,
     error: PropTypes.bool,
     noResults: PropTypes.bool,
@@ -37,7 +36,6 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
     changeScope,
     changeMapLayer,
     data,
-    total,
     loading,
     error,
     noResults,
@@ -64,12 +62,11 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
         setShowHover(true);
         setSelectedItem({
             label: label?.label,
-            total,
             value: label.value,
             x: position.x,
             y: position.y
         });
-    }, [total]);
+    }, []);
 
     const hideTooltip = useCallback(() => {
         setShowHover(false);

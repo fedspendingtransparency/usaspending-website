@@ -72,7 +72,7 @@ const StateOverview = () => {
                     <h3 className="state-overview__heading">
                         Primary Place of Performance
                     </h3>
-                    <GeoVisualizationSectionContainer className="state-profile__map-toggle" />
+                    <GeoVisualizationSectionContainer />
                 </div>
             </div>
         </div>
