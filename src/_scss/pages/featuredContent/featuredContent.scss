@@ -52,17 +52,18 @@
         font-size: rem(36);
         font-weight: $font-semibold;
         line-height: 1.2;
-        color: $gray-80;
+        color: $theme-color-headline;
+        margin: 0;
       }
 
       .featured-content__article-title, h2 {
         font-size: $font-size-28;
         font-weight: $font-semibold;
         line-height: 1.2;
-        color: $gray-80;
+        color: $theme-color-headline;
 
         a {
-          color: $gray-80;
+          color: $theme-color-headline;
         }
       }
 
@@ -70,17 +71,17 @@
         font-size: $font-size-20;
         font-weight: $font-semibold;
         line-height: 1.2;
-        color: $gray-80;
+        color: $theme-color-headline;
       }
 
       .featured-content__last-updated {
         font-size: $font-size-16;
         font-style: italic;
-        color: $color-black
+        color: $theme-color-body;
       }
 
       p {
-        color: $color-black
+        color: $theme-color-body;
       }
 
       iframe {
