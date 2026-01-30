@@ -52,7 +52,7 @@
         font-size: rem(36);
         font-weight: $font-semibold;
         line-height: 1.2;
-        color: $theme-color-headline;
+        color: $gray-80;
         margin: 0;
       }
 
@@ -60,10 +60,10 @@
         font-size: $font-size-28;
         font-weight: $font-semibold;
         line-height: 1.2;
-        color: $theme-color-headline;
+        color: $gray-80;
 
         a {
-          color: $theme-color-headline;
+          color: $gray-80;
         }
       }
 
@@ -71,17 +71,17 @@
         font-size: $font-size-20;
         font-weight: $font-semibold;
         line-height: 1.2;
-        color: $theme-color-headline;
+        color: $gray-80;
       }
 
       .featured-content__last-updated {
         font-size: $font-size-16;
         font-style: italic;
-        color: $theme-color-body;
+        color: $color-black;
       }
 
       p {
-        color: $theme-color-body;
+        color: $color-black;
       }
 
       iframe {
