@@ -7,7 +7,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import GlobalConstants from 'GlobalConstants';
 
-import MapBroadcaster from 'helpers/mapBroadcaster';
 import { calculateRange, visualizationColors } from "helpers/mapHelper";
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapLegend from 'components/search/visualizations/geo/MapLegend';
@@ -27,6 +26,7 @@ const propTypes = {
     changeMapLayer: PropTypes.func,
     stateInfo: PropTypes.object,
     searchData: PropTypes.object,
+    loadingTilesReady: PropTypes.func,
     children: PropTypes.node
 };
 
@@ -68,6 +68,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
     clearSearchFilters,
     selectedItemsDisplayNames,
     stateCenter,
+    loadingTilesReady,
     children = null
 }) {
     const mapRef = useRef(null);
@@ -272,10 +273,10 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
                 // queue must wait for the state shapes to load first
                 runMapOperationQueue();
 
-                // notify any listeners that the map is ready
-                MapBroadcaster.emit('mapReady');
+                // notify container that map is now loaded
+                loadingTilesReady();
             });
-    }, [prepareLayers, runMapOperationQueue]);
+    }, [prepareLayers, runMapOperationQueue, loadingTilesReady]);
 
     const queueMapOperation = (name, operation) => {
         mapOperationQueue.current = { [name]: operation };

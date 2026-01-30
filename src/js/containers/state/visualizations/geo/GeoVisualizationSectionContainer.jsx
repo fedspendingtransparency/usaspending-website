@@ -7,7 +7,6 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 
-import MapBroadcaster from 'helpers/mapBroadcaster';
 import { convertFYToDateRange, getTrailingTwelveMonths } from "helpers/fiscalYearHelper";
 import { performSpendingByGeographySearch } from "helpers/searchHelper";
 import GeoVisualizationSection from 'components/state/visualizations/geo/GeoVisualizationSection';
@@ -53,6 +52,10 @@ const GeoVisualizationSectionContainer = () => {
     const paramsRef = useRef({});
 
     const noResults = data.values.length === 0;
+
+    const loadingTilesReady = useCallback(() => {
+        setLoadingTiles(false);
+    }, []);
 
     const getInitialApiParams = useCallback((params, year, state) => {
         // Create the time period filter
@@ -173,18 +176,6 @@ const GeoVisualizationSectionContainer = () => {
         paramsRef.current = searchData;
     }, [searchData, loadingTiles, fetchData]);
 
-    const mapLoaded = () => {
-        setLoadingTiles(false);
-    };
-
-    useEffect(() => {
-        MapBroadcaster.on('mapReady', mapLoaded);
-
-        return () => {
-            MapBroadcaster.off('mapReady', mapLoaded);
-        };
-    }, []);
-
     const changeMapLayer = useCallback((layer) => {
         setMapLayer(layer);
         setLoadingTiles(true);
@@ -257,7 +248,8 @@ const GeoVisualizationSectionContainer = () => {
             searchData={searchData}
             activeFilters={activeFilters}
             clearSearchFilters={clearSearchFilters}
-            selectedItemsDisplayNames={selectedItemsDisplayNames} />
+            selectedItemsDisplayNames={selectedItemsDisplayNames}
+            loadingTilesReady={loadingTilesReady} />
     );
 };
 

@@ -27,7 +27,8 @@ const propTypes = {
     stateInfo: PropTypes.object,
     searchData: PropTypes.object,
     program_numbers: PropTypes.string,
-    agency: PropTypes.object
+    agency: PropTypes.object,
+    loadingTilesReady: PropTypes.func
 };
 
 // eslint-disable-next-line prefer-arrow-callback
@@ -44,7 +45,8 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
     searchData,
     activeFilters,
     clearSearchFilters,
-    selectedItemsDisplayNames
+    selectedItemsDisplayNames,
+    loadingTilesReady
 }) {
     const [showHover, setShowHover] = useState(false);
     const [selectedItem, setSelectedItem] = useState({});
@@ -144,7 +146,8 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
                 changeScope={changeScope}
                 clearSearchFilters={clearSearchFilters}
                 selectedItemsDisplayNames={selectedItemsDisplayNames}
-                stateCenter={stateCenter}>
+                stateCenter={stateCenter}
+                loadingTilesReady={loadingTilesReady} >
                 {message}
             </StateProfileMapWrapper>
         </div>
