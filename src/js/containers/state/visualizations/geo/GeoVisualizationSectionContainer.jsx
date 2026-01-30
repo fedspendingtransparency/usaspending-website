@@ -223,7 +223,7 @@ const GeoVisualizationSectionContainer = () => {
         }));
     }, []);
 
-    const clearSearchFilters = (filterType) => {
+    const clearSearchFilters = useCallback((filterType) => {
         const tempSearchData = cloneDeep(paramsRef.current);
         const filterTypePlural = pluralize(filterType);
 
@@ -241,7 +241,7 @@ const GeoVisualizationSectionContainer = () => {
                 def_codes: "all"
             }));
         }
-    };
+    }, []);
 
     return (
         <GeoVisualizationSection

@@ -57,8 +57,7 @@ const StateAgencyList = ({
             el.removeEventListener("focus", onFocus);
             el.removeEventListener("blur", onBlur);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [clearAutocompleteSuggestions]);
+    }, [clearAutocompleteSuggestions, clearSearchFilters]);
 
     const parseAutocompleteAgencies = useCallback((results) => {
         let agencies = [];
@@ -244,8 +243,7 @@ const StateAgencyList = ({
         if (Object.keys(searchData).length > 0) {
             changeScope(newSearch, "agency");
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchData]);
+    }, [searchData, changeScope]);
 
     return (
         <Autocomplete

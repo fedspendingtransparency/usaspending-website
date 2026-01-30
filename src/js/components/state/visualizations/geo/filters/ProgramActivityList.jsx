@@ -55,8 +55,7 @@ const ProgramActivityList = ({
             el.removeEventListener("focus", onFocus);
             el.removeEventListener("blur", onBlur);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [clearAutocompleteSuggestions]);
+    }, [clearAutocompleteSuggestions, clearSearchFilters]);
 
 
     const parseAutocompleteProgramActivity = (programActivity) => {
@@ -125,8 +124,7 @@ const ProgramActivityList = ({
         if (Object.keys(newSearch).length > 0) {
             changeScope(newSearch, "program_activity", programActivity.program_activity_name);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchData]);
+    }, [searchData, changeScope]);
 
     const handleTextInput = useCallback((inputVal) => {
         // Clear existing cfdas to ensure user can't select an old or existing one

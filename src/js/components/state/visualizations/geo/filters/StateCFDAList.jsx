@@ -55,8 +55,7 @@ const StateCFDAList = ({
             el.removeEventListener("focus", onFocus);
             el.removeEventListener("blur", onBlur);
         };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [clearAutocompleteSuggestions]);
+    }, [clearAutocompleteSuggestions, clearSearchFilters]);
 
     const onSelect = useCallback((cfda) => {
         const newTitle = `${cfda.program_number} - ${cfda.program_title}`;
@@ -69,8 +68,7 @@ const StateCFDAList = ({
         if (Object.keys(newSearch).length > 0) {
             changeScope(newSearch, "program_number", newTitle);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchData]);
+    }, [searchData, changeScope]);
 
     const parseAutocompleteCFDA = (cfda) => {
         const values = [];
