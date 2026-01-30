@@ -52,6 +52,8 @@ const GeoVisualizationSectionContainer = () => {
     const request = useRef(null);
     const paramsRef = useRef({});
 
+    const noResults = data.values.length === 0;
+
     const getInitialApiParams = useCallback((params, year, state) => {
         // Create the time period filter
         let timePeriod = null;
@@ -162,7 +164,6 @@ const GeoVisualizationSectionContainer = () => {
     }, [parseData]);
 
     useEffect(() => {
-        console.log({ searchData });
         if (loadingTiles) {
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
             return;
@@ -250,7 +251,7 @@ const GeoVisualizationSectionContainer = () => {
             data={data}
             loading={loading}
             error={error}
-            noResults={data.values.length === 0}
+            noResults={noResults}
             stateCenter={center}
             stateInfo={overview}
             searchData={searchData}
