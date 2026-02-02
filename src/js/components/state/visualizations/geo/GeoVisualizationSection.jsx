@@ -17,17 +17,16 @@ const propTypes = {
     mapLayer: PropTypes.string,
     changeScope: PropTypes.func,
     changeMapLayer: PropTypes.func,
-    mapMoved: PropTypes.func,
     data: PropTypes.object,
     loading: PropTypes.bool,
     error: PropTypes.bool,
     noResults: PropTypes.bool,
     center: PropTypes.array,
-    className: PropTypes.string,
     stateInfo: PropTypes.object,
     searchParams: PropTypes.object,
-    program_numbers: PropTypes.string,
-    agency: PropTypes.object,
+    activeFilters: PropTypes.object,
+    clearSearchFilters: PropTypes.func,
+    selectedItemsDisplayNames: PropTypes.object,
     loadingTilesReady: PropTypes.func
 };
 

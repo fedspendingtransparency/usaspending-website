@@ -18,7 +18,6 @@ const propTypes = {
     activeFilters: PropTypes.object,
     data: PropTypes.object,
     scope: PropTypes.string,
-    renderHash: PropTypes.string,
     showHover: PropTypes.bool,
     selectedItem: PropTypes.object,
     showTooltip: PropTypes.func,
@@ -26,6 +25,9 @@ const propTypes = {
     changeMapLayer: PropTypes.func,
     stateInfo: PropTypes.object,
     searchParams: PropTypes.object,
+    changeScope: PropTypes.func,
+    clearSearchFilters: PropTypes.func,
+    selectedItemsDisplayNames: PropTypes.object,
     center: PropTypes.array,
     loadingTilesReady: PropTypes.func,
     children: PropTypes.node

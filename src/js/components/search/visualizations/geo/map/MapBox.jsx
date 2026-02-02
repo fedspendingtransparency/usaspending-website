@@ -26,7 +26,6 @@ const propTypes = {
 // define map sources
 const mapStyle = 'mapbox://styles/usaspendingfrbkc/cm97fy9mm00g601qt032hg79g';
 
-// eslint-disable-next-line prefer-arrow-callback
 const MapBox = ({
     setMapReady,
     center,
