@@ -285,7 +285,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
 
     const displayData = useCallback((locations, values, ready, layer) => {
         // don't do anything if the map has not yet loaded
-        if (!ready || !locations || locations.length === 0) {
+        if (!ready || !locations) {
             // add to the map operation queue
             queueMapOperation('displayData', displayData);
             return;
@@ -319,6 +319,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
                 // if there are locations that are displayable, include those in the filter
                 filter = ['in', source.filterKey].concat(valueSet);
             }
+
             mapRef.current.setFilter(layerName, filter);
         });
 
