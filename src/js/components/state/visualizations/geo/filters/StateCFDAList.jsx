@@ -11,14 +11,14 @@ import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete'
 import { fetchCFDA } from "helpers/searchHelper";
 
 const propTypes = {
-    searchData: PropTypes.string,
+    searchParams: PropTypes.string,
     changeScope: PropTypes.func,
     clearSearchFilters: PropTypes.func,
     selectedItemsDisplayNames: PropTypes.object
 };
 
 const StateCFDAList = ({
-    searchData,
+    searchParams,
     changeScope,
     clearSearchFilters,
     selectedItemsDisplayNames
@@ -59,7 +59,7 @@ const StateCFDAList = ({
 
     const onSelect = useCallback((cfda) => {
         const newTitle = `${cfda.program_number} - ${cfda.program_title}`;
-        const newSearch = searchData;
+        const newSearch = searchParams;
         newSearch.filters.program_numbers = [];
         newSearch.filters.program_numbers.push(cfda.program_number);
 
@@ -68,7 +68,7 @@ const StateCFDAList = ({
         if (Object.keys(newSearch).length > 0) {
             changeScope(newSearch, "program_number", newTitle);
         }
-    }, [searchData, changeScope]);
+    }, [searchParams, changeScope]);
 
     const parseAutocompleteCFDA = (cfda) => {
         const values = [];

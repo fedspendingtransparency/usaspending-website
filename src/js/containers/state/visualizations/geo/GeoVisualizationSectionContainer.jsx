@@ -37,7 +37,7 @@ const GeoVisualizationSectionContainer = () => {
     const [loading, setLoading] = useState(true);
     const [loadingTiles, setLoadingTiles] = useState(true);
     const [error, setError] = useState(false);
-    const [searchData, setSearchData] = useState({});
+    const [searchParams, setSearchParams] = useState({});
     const [selectedItemsDisplayNames, setSelectedItemsDisplayNames] = useState({
         agency: "",
         def_code: "",
@@ -61,7 +61,7 @@ const GeoVisualizationSectionContainer = () => {
         // Create the time period filter
         let timePeriod = null;
         let dateRange = [];
-        let searchParams;
+        let newParams;
 
         if (year !== 'all') {
             if (year === 'latest') {
@@ -84,10 +84,10 @@ const GeoVisualizationSectionContainer = () => {
             params?.geo_layer.length > 0 &&
             year !== 'all'
         ) {
-            searchParams = params.filters;
+            newParams = params.filters;
         }
         else {
-            searchParams = {
+            newParams = {
                 place_of_performance_locations: [
                     {
                         country: 'USA',
@@ -98,14 +98,14 @@ const GeoVisualizationSectionContainer = () => {
         }
 
         if (timePeriod) {
-            searchParams.time_period = timePeriod;
+            newParams.time_period = timePeriod;
         }
 
         // set initial search data and trigger data fetch
-        setSearchData({
+        setSearchParams({
             scope: 'place_of_performance',
             geo_layer: 'county',
-            filters: searchParams
+            filters: newParams
         });
     }, []);
 
@@ -172,9 +172,9 @@ const GeoVisualizationSectionContainer = () => {
             return;
         }
 
-        fetchData(searchData);
-        paramsRef.current = searchData;
-    }, [searchData, loadingTiles, fetchData]);
+        fetchData(searchParams);
+        paramsRef.current = searchParams;
+    }, [searchParams, loadingTiles, fetchData]);
 
     const changeMapLayer = useCallback((layer) => {
         setMapLayer(layer);
@@ -183,7 +183,7 @@ const GeoVisualizationSectionContainer = () => {
             def_codes: prevState.def_codes,
             territory: layer
         }));
-        setSearchData((prevState) => ({ ...prevState, geo_layer: apiScopes[layer] }));
+        setSearchParams((prevState) => ({ ...prevState, geo_layer: apiScopes[layer] }));
     }, []);
 
     // need to figure out how the time period change affects this
@@ -199,7 +199,7 @@ const GeoVisualizationSectionContainer = () => {
             tempSearchData.filters[filterTypePlural] = newSearch.filters[filterTypePlural];
         }
 
-        setSearchData(tempSearchData);
+        setSearchParams(tempSearchData);
         setActiveFilters((prev) => ({
             ...prev,
             [filterTypePlural]: filterType === "agency" ?
@@ -220,7 +220,7 @@ const GeoVisualizationSectionContainer = () => {
 
         delete tempSearchData.filters[filterTypePlural];
 
-        setSearchData(tempSearchData);
+        setSearchParams(tempSearchData);
 
         setSelectedItemsDisplayNames((prevState) => ({
             ...prevState, [filterType]: ''
@@ -245,7 +245,7 @@ const GeoVisualizationSectionContainer = () => {
             noResults={noResults}
             center={center}
             stateInfo={stateInfo}
-            searchData={searchData}
+            searchParams={searchParams}
             activeFilters={activeFilters}
             clearSearchFilters={clearSearchFilters}
             selectedItemsDisplayNames={selectedItemsDisplayNames}

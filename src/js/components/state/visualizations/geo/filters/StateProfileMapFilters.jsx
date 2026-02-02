@@ -15,7 +15,7 @@ const propTypes = {
     isFiltersOpen: PropTypes.bool,
     changeScope: PropTypes.func,
     clearSearchFilters: PropTypes.func,
-    searchData: PropTypes.string,
+    searchParams: PropTypes.string,
     selectedItemsDisplayNames: PropTypes.object,
     changeMapLayer: PropTypes.func
 };
@@ -25,7 +25,7 @@ const StateProfileMapFilters = React.memo(function StateProfileMapFilters({
     isFiltersOpen,
     changeScope,
     clearSearchFilters,
-    searchData,
+    searchParams,
     selectedItemsDisplayNames,
     changeMapLayer
 }) {
@@ -45,7 +45,7 @@ const StateProfileMapFilters = React.memo(function StateProfileMapFilters({
                     clearSearchFilters={clearSearchFilters}
                     changeMapLayer={changeMapLayer} />
                 <StateMapFiltersAutocomplete
-                    searchData={searchData}
+                    searchParams={searchParams}
                     changeScope={changeScope}
                     clearSearchFilters={clearSearchFilters}
                     selectedItemsDisplayNames={selectedItemsDisplayNames} />

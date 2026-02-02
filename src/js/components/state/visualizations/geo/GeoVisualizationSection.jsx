@@ -25,7 +25,7 @@ const propTypes = {
     center: PropTypes.array,
     className: PropTypes.string,
     stateInfo: PropTypes.object,
-    searchData: PropTypes.object,
+    searchParams: PropTypes.object,
     program_numbers: PropTypes.string,
     agency: PropTypes.object,
     loadingTilesReady: PropTypes.func
@@ -42,7 +42,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
     noResults,
     center,
     stateInfo,
-    searchData,
+    searchParams,
     activeFilters,
     clearSearchFilters,
     selectedItemsDisplayNames,
@@ -142,7 +142,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
                 hideTooltip={hideTooltip}
                 changeMapLayer={changeMapLayer}
                 stateInfo={stateInfo}
-                searchData={searchData}
+                searchParams={searchParams}
                 changeScope={changeScope}
                 clearSearchFilters={clearSearchFilters}
                 selectedItemsDisplayNames={selectedItemsDisplayNames}

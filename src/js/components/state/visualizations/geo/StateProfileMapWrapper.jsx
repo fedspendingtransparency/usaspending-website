@@ -25,7 +25,7 @@ const propTypes = {
     hideTooltip: PropTypes.func,
     changeMapLayer: PropTypes.func,
     stateInfo: PropTypes.object,
-    searchData: PropTypes.object,
+    searchParams: PropTypes.object,
     center: PropTypes.array,
     loadingTilesReady: PropTypes.func,
     children: PropTypes.node
@@ -64,7 +64,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
     hideTooltip,
     changeMapLayer,
     stateInfo,
-    searchData,
+    searchParams,
     changeScope,
     clearSearchFilters,
     selectedItemsDisplayNames,
@@ -356,7 +356,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
                 isFiltersOpen={isFiltersOpen}
                 changeScope={changeScope}
                 clearSearchFilters={clearSearchFilters}
-                searchData={searchData}
+                searchParams={searchParams}
                 selectedItemsDisplayNames={selectedItemsDisplayNames}
                 changeMapLayer={changeMapLayer} />
             <MapLegend

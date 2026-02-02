@@ -13,12 +13,12 @@ import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete'
 const propTypes = {
     changeScope: PropTypes.func,
     clearSearchFilters: PropTypes.func,
-    searchData: PropTypes.string,
+    searchParams: PropTypes.string,
     selectedItemsDisplayNames: PropTypes.object
 };
 
 const ProgramActivityList = ({
-    searchData,
+    searchParams,
     changeScope,
     clearSearchFilters,
     selectedItemsDisplayNames
@@ -112,7 +112,7 @@ const ProgramActivityList = ({
     }, []);
 
     const onSelect = useCallback((programActivity) => {
-        const newSearch = searchData;
+        const newSearch = searchParams;
 
         newSearch.filters.program_activities = [];
         newSearch.filters.program_activities.push({
@@ -124,7 +124,7 @@ const ProgramActivityList = ({
         if (Object.keys(newSearch).length > 0) {
             changeScope(newSearch, "program_activity", programActivity.program_activity_name);
         }
-    }, [searchData, changeScope]);
+    }, [searchParams, changeScope]);
 
     const handleTextInput = useCallback((inputVal) => {
         // Clear existing cfdas to ensure user can't select an old or existing one

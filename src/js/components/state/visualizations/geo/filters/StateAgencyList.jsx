@@ -13,14 +13,14 @@ import { fetchAwardingAgencies } from "helpers/searchHelper";
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    searchData: PropTypes.string,
+    searchParams: PropTypes.string,
     changeScope: PropTypes.func,
     clearSearchFilters: PropTypes.func,
     selectedItemsDisplayNames: PropTypes.object
 };
 
 const StateAgencyList = ({
-    searchData,
+    searchParams,
     changeScope,
     clearSearchFilters,
     selectedItemsDisplayNames
@@ -240,10 +240,10 @@ const StateAgencyList = ({
         );
 
         setAutocompleteAgencies([]);
-        if (Object.keys(searchData).length > 0) {
+        if (Object.keys(searchParams).length > 0) {
             changeScope(newSearch, "agency");
         }
-    }, [searchData, changeScope]);
+    }, [searchParams, changeScope]);
 
     return (
         <Autocomplete

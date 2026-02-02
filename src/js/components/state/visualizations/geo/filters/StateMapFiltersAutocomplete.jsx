@@ -7,20 +7,20 @@ import ProgramActivityList from "./ProgramActivityList";
 import StateCFDAList from "./StateCFDAList";
 
 const propTypes = {
-    searchData: PropTypes.string,
+    searchParams: PropTypes.string,
     changeScope: PropTypes.func,
     clearSearchFilters: PropTypes.func,
     selectedItemsDisplayNames: PropTypes.object
 };
 
 const StateMapFiltersAutocomplete = ({
-    searchData, changeScope, clearSearchFilters, selectedItemsDisplayNames
+    searchParams, changeScope, clearSearchFilters, selectedItemsDisplayNames
 }) => (
     <div key={uniqueId()} className="map__filters-filter__container">
         <div className="map__filters-wrapper">
             <div className="filter-item-wrap" key="holder-awarding">
                 <StateAgencyList
-                    searchData={searchData}
+                    searchParams={searchParams}
                     changeScope={changeScope}
                     clearSearchFilters={clearSearchFilters}
                     selectedItemsDisplayNames={selectedItemsDisplayNames} />
@@ -29,7 +29,7 @@ const StateMapFiltersAutocomplete = ({
         <div key={uniqueId()} className="map__filters-filter__container">
             <div className="map__filters-wrapper">
                 <ProgramActivityList
-                    searchData={searchData}
+                    searchParams={searchParams}
                     changeScope={changeScope}
                     clearSearchFilters={clearSearchFilters}
                     selectedItemsDisplayNames={selectedItemsDisplayNames} />
@@ -38,7 +38,7 @@ const StateMapFiltersAutocomplete = ({
         <div key={uniqueId()} className="map__filters-filter__container">
             <div className="map__filters-wrapper">
                 <StateCFDAList
-                    searchData={searchData}
+                    searchParams={searchParams}
                     changeScope={changeScope}
                     clearSearchFilters={clearSearchFilters}
                     selectedItemsDisplayNames={selectedItemsDisplayNames} />
