@@ -218,6 +218,8 @@ const GeoVisualizationSectionContainer = () => {
         const tempSearchData = cloneDeep(paramsRef.current);
         const filterTypePlural = pluralize(filterType);
 
+        if (!tempSearchData.filters[filterTypePlural]) return;
+
         delete tempSearchData.filters[filterTypePlural];
 
         setSearchParams(tempSearchData);

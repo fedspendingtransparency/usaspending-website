@@ -37,7 +37,7 @@ const StateCFDAList = ({
 
         const onFocus = (e) => {
             if (e.target.value !== "") {
-                el.select();
+                el?.select();
             }
         };
 
