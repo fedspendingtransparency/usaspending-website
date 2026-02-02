@@ -84,12 +84,12 @@ const ProgramActivityList = ({
                 request.current.cancel();
             }
 
-            const searchParams = {
+            const params = {
                 search_text: input,
                 limit: 1000
             };
 
-            request.current = fetchProgramActivity(searchParams);
+            request.current = fetchProgramActivity(params);
 
             request.current.promise
                 .then((res) => {

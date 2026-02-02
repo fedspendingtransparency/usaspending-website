@@ -6,11 +6,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
+import { cloneDeep } from "lodash-es";
 
 import { convertFYToDateRange, getTrailingTwelveMonths } from "helpers/fiscalYearHelper";
 import { performSpendingByGeographySearch } from "helpers/searchHelper";
-import GeoVisualizationSection from 'components/state/visualizations/geo/GeoVisualizationSection';
-import { cloneDeep } from "lodash-es";
+import GeoVisualizationSection from './GeoVisualizationSection';
 
 const pluralize = (string) => {
     if (string[string.length - 1] === "y") {

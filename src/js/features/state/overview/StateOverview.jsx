@@ -10,8 +10,7 @@ import {
 } from "data-transparency-ui";
 import { useSelector } from "react-redux";
 
-import GeoVisualizationSectionContainer from
-    'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
+import GeoVisualizationSectionContainer from './geo/GeoVisualizationSectionContainer';
 import SummaryStats from './SummaryStats';
 import AwardBreakdownContainer from './awardBreakdown/AwardBreakdownContainer';
 import AwardBreakdownHeader from "./awardBreakdown/AwardBreakdownHeader";
