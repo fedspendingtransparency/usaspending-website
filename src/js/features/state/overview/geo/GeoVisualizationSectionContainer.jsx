@@ -237,21 +237,26 @@ const GeoVisualizationSectionContainer = () => {
     }, []);
 
     return (
-        <GeoVisualizationSection
-            mapLayer={mapLayer}
-            changeScope={changeScope}
-            changeMapLayer={changeMapLayer}
-            data={data}
-            loading={loading}
-            error={error}
-            noResults={noResults}
-            center={center}
-            stateInfo={stateInfo}
-            searchParams={searchParams}
-            activeFilters={activeFilters}
-            clearSearchFilters={clearSearchFilters}
-            selectedItemsDisplayNames={selectedItemsDisplayNames}
-            loadingTilesReady={loadingTilesReady} />
+        <div className="state-section__viz geo">
+            <h3 className="state-overview__heading">
+                Primary Place of Performance
+            </h3>
+            <GeoVisualizationSection
+                mapLayer={mapLayer}
+                changeScope={changeScope}
+                changeMapLayer={changeMapLayer}
+                data={data}
+                loading={loading}
+                error={error}
+                noResults={noResults}
+                center={center}
+                stateInfo={stateInfo}
+                searchParams={searchParams}
+                activeFilters={activeFilters}
+                clearSearchFilters={clearSearchFilters}
+                selectedItemsDisplayNames={selectedItemsDisplayNames}
+                loadingTilesReady={loadingTilesReady} />
+        </div>
     );
 };
 
