@@ -3,7 +3,7 @@
  * Created by michaelbray on 4/3/17.
  */
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -30,6 +30,18 @@ const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
 });
 
+const propTypes = {
+    reduxFilters: PropTypes.object,
+    setAppliedFilterCompletion: PropTypes.func,
+    noApplied: PropTypes.bool,
+    agencyIds: oneOfType([PropTypes.array, PropTypes.object]),
+    error: PropTypes.bool,
+    wrapperProps: PropTypes.object,
+    setSelectedDropdown: PropTypes.func,
+    hash: PropTypes.string,
+    spendingLevel: PropTypes.string,
+    selectedDropdown: PropTypes.string
+};
 const columns = {
     recipient: [
         {
@@ -104,19 +116,6 @@ const columns = {
         }
     ]
 };
-
-const propTypes = {
-    reduxFilters: PropTypes.object,
-    setAppliedFilterCompletion: PropTypes.func,
-    noApplied: PropTypes.bool,
-    agencyIds: oneOfType([PropTypes.array, PropTypes.object]),
-    error: PropTypes.bool,
-    wrapperProps: PropTypes.object,
-    setSelectedDropdown: PropTypes.func,
-    hash: PropTypes.string,
-    spendingLevel: PropTypes.string
-};
-
 const CategoriesVisualizationWrapperContainer = (props) => {
     const [sortDirection, setSortDirection] = useState('desc');
     const [activeField, setActiveField] = useState('obligations');
@@ -176,7 +175,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         });
         setTableRows(rowsArray);
     };
-    const sortBy = (field, direction) => {
+    const sortBy = useCallback((field, direction) => {
         const updatedTable = [...labeledtableData];
         if (direction === 'asc') {
             updatedTable.sort((a, b) => {
@@ -198,7 +197,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setSortDirection(direction);
         setActiveField(field);
         createTableRows(updatedTable);
-    };
+    }, [labeledtableData]);
 
     const parseRank = () => {
         const section = searchParams.get('section');
@@ -211,23 +210,17 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         }
     };
 
-    // const nextPage = () => {
-    //     if (hasNextPage) {
-    //         setPage((prevState) => prevState + 1);
-    //     }
-    // };
-
     const nextPage = useCallback(() => {
         if (hasNextPage) {
             setPage((prevState) => prevState + 1);
         }
     }, [hasNextPage]);
 
-    const previousPage = () => {
+    const previousPage = useCallback(() => {
         // change the state by subtracting 2 (since the page number is already incremented)
         const prevPage = max([1, page - 1]);
         setPage(prevPage);
-    };
+    }, [page]);
 
     const onClickHandler = (linkName) => {
         Analytics.event({

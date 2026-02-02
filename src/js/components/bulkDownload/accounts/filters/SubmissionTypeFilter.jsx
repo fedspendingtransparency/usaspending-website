@@ -73,7 +73,7 @@ export default class SubmissionTypeFilter extends React.Component {
                     </p>
                     <p className="download-filter__content-note">
                         Files with unlinked awards will include the same columns as files with linked awards; however, the columns that involve data from Files D1 and D2 will be blank in the files with unlinked awards. In addition, please note that files with unlinked awards will include award records with obligation activity or outlay activity, in order to show all agency File C award records that are unlinked to Files D1 or D2. (Note that in the{' '}
-                        <Link to="/submission-statistics">
+                        <Link className="usa-bold-link" to="/submission-statistics">
                             Agency Submission Statistics page
                         </Link>
                         , the counts of unlinked awards in File C use only awards with obligation activity.)

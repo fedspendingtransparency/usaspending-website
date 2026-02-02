@@ -13,7 +13,7 @@ import { isCancel } from "axios";
 const useQueryTemp = (callbackFunc = () => {}) => {
     /* eslint-enable max-len */
     const [data, setData] = useState();
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const requestRef = useRef(null);
 
