@@ -5,8 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { calculateUnitForSingleValue } from '../../../../helpers/moneyFormatter';
+import { formatMoneyWithPrecision, calculateUnitForSingleValue } from "helpers/moneyFormatter";
 
 const propTypes = {
     units: PropTypes.shape({
@@ -18,17 +17,23 @@ const propTypes = {
     max: PropTypes.number
 };
 
-const defaultProps = {
-    units: {
+const MapLegend = ({
+    units = {
         unit: 1,
         precision: 0,
         unitLabel: ''
-    }
-};
+    },
+    min,
+    max
+}) => {
+    const maxCurrencyValue = formatMoneyWithPrecision(
+        max / calculateUnitForSingleValue(max).unit, units.precision
+    ) + calculateUnitForSingleValue(max).unitLabel;
 
-const MapLegend = ({ units, min, max }) => {
-    const maxCurrencyValue = MoneyFormatter.formatMoneyWithPrecision(max / calculateUnitForSingleValue(max).unit, units.precision) + calculateUnitForSingleValue(max).unitLabel;
-    const minCurrencyValue = MoneyFormatter.formatMoneyWithPrecision(min / calculateUnitForSingleValue(min).unit, units.precision) + calculateUnitForSingleValue(min).unitLabel;
+    const minCurrencyValue = formatMoneyWithPrecision(
+        min / calculateUnitForSingleValue(min).unit, units.precision
+    ) + calculateUnitForSingleValue(min).unitLabel;
+
     return (
         <div className="map-legend">
             <div className="map-legend-body-covid19">
@@ -42,5 +47,4 @@ const MapLegend = ({ units, min, max }) => {
 };
 
 MapLegend.propTypes = propTypes;
-MapLegend.defaultProps = defaultProps;
 export default MapLegend;

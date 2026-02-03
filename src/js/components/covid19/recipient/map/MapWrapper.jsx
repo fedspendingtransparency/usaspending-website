@@ -10,9 +10,9 @@ import { scaleQuantile, scaleLinear } from 'd3-scale';
 import GlobalConstants from 'GlobalConstants';
 
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import { firstSymbolId, mapboxSources } from "helpers/mapHelper";
+import { firstSymbolId, getColors, mapboxSources } from "helpers/mapHelper";
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
-import MapFilters from 'components/covid19/recipient/map/MapFilters';
+import MapFilters from './MapFilters';
 import MapLegend from './MapLegend';
 import MapFiltersToggle from './MapFiltersToggle';
 
@@ -111,15 +111,6 @@ export default class MapWrapper extends React.Component {
             this.setState({ isFiltersOpen: !this.state.isFiltersOpen });
         }
     };
-    getColors = (numQuantiles) => {
-        const colors = [];
-        for (let i = 0; i < numQuantiles; i++) {
-            // get the color for the map, we use the base color and an opacity attached to it
-            // if we have n quantiles we need n distinct colors
-            colors.push(`rgba(1, 43, 58, ${i * (1 / numQuantiles)})`);
-        }
-        return colors;
-    };
 
     countUnique = (iterable) => new Set(iterable).size;
 
@@ -206,14 +197,14 @@ export default class MapWrapper extends React.Component {
         let colors = [];
         if (this.props.data.values.length !== 0) {
             if (this.props.activeFilters.territory === 'state') {
-                colors = this.getColors(numStateQuantiles);
+                colors = getColors(numStateQuantiles);
             }
             else {
-                colors = this.getColors(numCountyQuantiles);
+                colors = getColors(numCountyQuantiles);
             }
         }
         else {
-            colors = this.getColors(numStateQuantiles); // in the case when the map has not recieved data yet
+            colors = getColors(numStateQuantiles); // in the case when the map has not recieved data yet
         }
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
@@ -387,11 +378,11 @@ export default class MapWrapper extends React.Component {
         let rangeArray = [];
         let colors = [];
         if (this.props.activeFilters.territory === 'state') {
-            colors = this.getColors(numStateQuantiles);
+            colors = getColors(numStateQuantiles);
             rangeArray = [...Array(numStateQuantiles).keys()];
         }
         else {
-            colors = this.getColors(numCountyQuantiles);
+            colors = getColors(numCountyQuantiles);
             rangeArray = [...Array(numCountyQuantiles).keys()];
         }
 
