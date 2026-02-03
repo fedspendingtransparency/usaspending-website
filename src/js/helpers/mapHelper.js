@@ -532,3 +532,9 @@ export const getColors = (numQuantiles) => {
     return colors;
 };
 
+export const pluralize = (string) => {
+    if (string[string.length - 1] === "y") {
+        return `${string.slice(0, -1)}ies`;
+    }
+    return `${string}s`;
+};

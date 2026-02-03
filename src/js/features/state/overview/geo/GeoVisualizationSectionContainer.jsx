@@ -10,14 +10,8 @@ import { cloneDeep } from "lodash-es";
 
 import { convertFYToDateRange, getTrailingTwelveMonths } from "helpers/fiscalYearHelper";
 import { performSpendingByGeographySearch } from "helpers/searchHelper";
+import { pluralize } from "helpers/mapHelper";
 import GeoVisualizationSection from './GeoVisualizationSection';
-
-const pluralize = (string) => {
-    if (string[string.length - 1] === "y") {
-        return `${string.slice(0, -1)}ies`;
-    }
-    return `${string}s`;
-};
 
 const apiScopes = {
     county: 'county',
