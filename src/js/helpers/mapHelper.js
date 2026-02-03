@@ -467,3 +467,22 @@ export const fetchCityResults = (reqObj = getCitySearchRequestObj()) => apiReque
     method: 'post',
     data: reqObj
 });
+
+/**
+ * firstSymbolId
+ * - finds the first symbol ( text to mapbox ) layer.
+ * @param {object} ref holding the map useRef()
+ * @returns {string} first symbol layer id.
+ */
+export const firstSymbolId = ({ current }) => {
+    const layers = current.getStyle().layers;
+    // Find the index of the first symbol layer in the map style
+    let symbolId = null;
+    for (let i = 0; i < layers.length; i++) {
+        if (layers[i].type === 'symbol') {
+            symbolId = layers[i].id;
+            break;
+        }
+    }
+    return symbolId;
+};

@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import GlobalConstants from 'GlobalConstants';
 
-import { calculateRange, visualizationColors } from "helpers/mapHelper";
+import { calculateRange, visualizationColors, firstSymbolId } from "helpers/mapHelper";
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapLegend from 'components/search/visualizations/geo/MapLegend';
 import MapFiltersToggle from "components/covid19/recipient/map/MapFiltersToggle";
@@ -86,24 +86,6 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
 
     const [isFiltersOpen, setIsFiltersOpen] = useState(true);
 
-    /**
-     * firstSymbolId
-     * - finds the first symbol ( text to mapbox ) layer.
-     * @returns {string} first symbol layer id.
-     */
-    const firstSymbolId = () => {
-        const layers = mapRef.current.getStyle().layers;
-        // Find the index of the first symbol layer in the map style
-        let symbolId = null;
-        for (let i = 0; i < layers.length; i++) {
-            if (layers[i].type === 'symbol') {
-                symbolId = layers[i].id;
-                break;
-            }
-        }
-        return symbolId;
-    };
-
     const mouseOverLayer = useCallback((e) => {
         const source = mapboxSources[scope];
         // grab the filter ID from the GeoJSON feature properties
@@ -159,7 +141,7 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
                     'fill-color': color
                 },
                 filter: ['in', source.filterKey, '']
-            }, firstSymbolId());
+            }, firstSymbolId(mapRef));
 
             // setup mouseover events
             mapRef.current.on('mousemove', layerName, mouseOverLayer.bind(this));

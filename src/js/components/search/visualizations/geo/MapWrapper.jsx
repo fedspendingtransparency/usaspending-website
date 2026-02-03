@@ -3,22 +3,21 @@
  * Created by Kevin Li 2/14/17
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { uniq, cloneDeep } from 'lodash-es';
+import { cloneDeep, uniq } from 'lodash-es';
 import GlobalConstants from 'GlobalConstants';
 
-import * as MapHelper from 'helpers/mapHelper';
-import MapBroadcaster from 'helpers/mapBroadcaster';
+import { setMapHasLoaded } from "redux/actions/search/searchViewActions";
+import { stateFIPSByAbbreviation } from "dataMapping/state/stateNames";
+import { calculateRange, firstSymbolId, visualizationColors } from 'helpers/mapHelper';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
-
+import MapBroadcaster from 'helpers/mapBroadcaster';
 import MapBox from './map/MapBox';
 import MapLegend from './MapLegend';
-import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
 import MapFiltersToggle from "../../../covid19/recipient/map/MapFiltersToggle";
 import AdvancedSearchMapFilters from "./AdvancedSearchMapFilters";
-import { setMapHasLoaded } from "../../../../redux/actions/search/searchViewActions";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -37,9 +36,9 @@ const propTypes = {
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
     stateInfo: PropTypes.object,
-    onMapLoaded: PropTypes.func.isRequired,
     amountTypeEnabled: PropTypes.bool,
-    singleLocationSelected: PropTypes.object
+    singleLocationSelected: PropTypes.object,
+    tooltip: PropTypes.object
 };
 
 const mapLegendToggleData = [
@@ -145,24 +144,6 @@ const MapWrapper = ({
         });
     };
 
-    /**
-     * firstSymbolId
-     * - finds the first symbol ( text to mapbox ) layer.
-     * @returns {string} first symbol layer id.
-     */
-    const firstSymbolId = () => {
-        const layers = mapRef.current.getStyle().layers;
-        // Find the index of the first symbol layer in the map style
-        let symbolId = null;
-        for (let i = 0; i < layers.length; i++) {
-            if (layers[i].type === 'symbol') {
-                symbolId = layers[i].id;
-                break;
-            }
-        }
-        return symbolId;
-    };
-
     const mouseOverLayer = (e) => {
         const source = mapboxSources[scope];
         // grab the filter ID from the GeoJSON feature properties
@@ -206,8 +187,7 @@ const MapWrapper = ({
 
         // generate the highlight layers that will be shaded in when populated with data filters
         // set up temporary empty filters that will show nothing
-        const colors = MapHelper.visualizationColors;
-        colors.forEach((color, index) => {
+        visualizationColors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
             mapRef.current.addLayer({
                 id: layerName,
@@ -219,7 +199,7 @@ const MapWrapper = ({
                     'fill-color': color
                 },
                 filter: ['in', source.filterKey, '']
-            }, firstSymbolId());
+            }, firstSymbolId(mapRef));
 
             // setup mouseover events
             mapRef.current.on('mousemove', layerName, mouseOverLayer.bind(this));
@@ -475,10 +455,9 @@ const MapWrapper = ({
         const source = mapboxSources[scope];
 
         // calculate the range of data
-        const scale = MapHelper.calculateRange(data.values);
-        const colors = MapHelper.visualizationColors;
+        const scale = calculateRange(data.values);
         // prepare a set of blank (false) filters
-        const filterValues = colors.map(() => (
+        const filterValues = visualizationColors.map(() => (
             []
         ));
         data.locations.forEach((location, index) => {
