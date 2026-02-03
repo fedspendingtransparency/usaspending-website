@@ -10,8 +10,7 @@ import { scaleQuantile, scaleLinear } from 'd3-scale';
 import GlobalConstants from 'GlobalConstants';
 
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import { firstSymbolId } from "helpers/mapHelper";
-import { mapboxSources } from 'dataMapping/covid19/recipient/map/map';
+import { firstSymbolId, mapboxSources } from "helpers/mapHelper";
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapFilters from 'components/covid19/recipient/map/MapFilters';
 import MapLegend from './MapLegend';

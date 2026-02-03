@@ -11,7 +11,9 @@ import GlobalConstants from 'GlobalConstants';
 
 import { setMapHasLoaded } from "redux/actions/search/searchViewActions";
 import { stateFIPSByAbbreviation } from "dataMapping/state/stateNames";
-import { calculateRange, firstSymbolId, visualizationColors } from 'helpers/mapHelper';
+import {
+    calculateRange, firstSymbolId, mapboxSources, visualizationColors
+} from 'helpers/mapHelper';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import MapBox from './map/MapBox';
@@ -51,41 +53,6 @@ const mapLegendToggleData = [
         value: 'perCapita'
     }
 ];
-
-const mapboxSources = {
-    country: {
-        label: 'country',
-        url: 'mapbox://usaspendingfrbkc.countries-tileset',
-        layer: 'genc-countries',
-        filterKey: 'GENC0', // three digit country code
-        lat: 'INTPTLAT',
-        long: 'INTPTLON'
-    },
-    state: {
-        label: 'state',
-        url: 'mapbox://usaspendingfrbkc.2kdrjq7z',
-        layer: 'cb_2023_us_state_500k-b3ar5z',
-        filterKey: 'STUSPS', // state abbreviation
-        lat: 'INTPTLAT',
-        long: 'INTPTLON'
-    },
-    county: {
-        label: 'county',
-        url: 'mapbox://usaspendingfrbkc.county-tileset',
-        layer: 'tl_2024_us_county',
-        filterKey: 'GEOID', // the county GEOID is state FIPS + county FIPS
-        lat: 'INTPTLAT',
-        long: 'INTPTLON'
-    },
-    congressionalDistrict: {
-        label: 'congressional district',
-        url: 'mapbox://usaspendingfrbkc.district-tileset',
-        layer: '118-CD',
-        filterKey: 'GEOID20', // the GEOID is state FIPS + district
-        lat: 'INTPTLAT',
-        long: 'INTPTLON'
-    }
-};
 
 const MapWrapper = ({
     filters,

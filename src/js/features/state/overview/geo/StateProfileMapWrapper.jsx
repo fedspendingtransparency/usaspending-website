@@ -7,7 +7,9 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import GlobalConstants from 'GlobalConstants';
 
-import { calculateRange, visualizationColors, firstSymbolId } from "helpers/mapHelper";
+import {
+    calculateRange, visualizationColors, firstSymbolId, mapboxSources
+} from "helpers/mapHelper";
 import MapBox from 'components/search/visualizations/geo/map/MapBox';
 import MapLegend from 'components/search/visualizations/geo/MapLegend';
 import MapFiltersToggle from "components/covid19/recipient/map/MapFiltersToggle";
@@ -31,25 +33,6 @@ const propTypes = {
     center: PropTypes.array,
     loadingTilesReady: PropTypes.func,
     children: PropTypes.node
-};
-
-const mapboxSources = {
-    county: {
-        label: 'county',
-        url: 'mapbox://usaspendingfrbkc.county-tileset',
-        layer: 'tl_2024_us_county',
-        filterKey: 'GEOID', // the county GEOID is state FIPS + county FIPS
-        lat: 'INTPTLAT',
-        long: 'INTPTLON'
-    },
-    congressionalDistrict: {
-        label: 'congressional district',
-        url: 'mapbox://usaspendingfrbkc.district-tileset',
-        layer: '118-CD',
-        filterKey: 'GEOID20', // the GEOID is state FIPS + district
-        lat: 'INTPTLAT',
-        long: 'INTPTLON'
-    }
 };
 
 // eslint-disable-next-line prefer-arrow-callback
