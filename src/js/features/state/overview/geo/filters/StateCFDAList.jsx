@@ -25,8 +25,8 @@ const StateCFDAList = ({
 }) => {
     const [autocompleteCFDA, setAutocompleteCFDA] = useState([]);
     const [noResults, setNoResults] = useState(false);
-    const request = useRef(null);
-    const timeout = useRef(null);
+    const requestRef = useRef(null);
+    const timeoutRef = useRef(null);
 
     const clearAutocompleteSuggestions = useCallback(() => {
         setAutocompleteCFDA([]);
@@ -93,9 +93,9 @@ const StateCFDAList = ({
 
         // Only search if input is 3 or more characters
         if (input.length >= 3) {
-            if (request.current) {
+            if (requestRef.current) {
                 // A request is currently in-flight, cancel it
-                request.current.cancel();
+                requestRef.current.cancel();
             }
 
             const cfdaSearchParams = {
@@ -103,9 +103,9 @@ const StateCFDAList = ({
                 limit: 1000
             };
 
-            request.current = fetchCFDA(cfdaSearchParams);
+            requestRef.current = fetchCFDA(cfdaSearchParams);
 
-            request.current.promise
+            requestRef.current.promise
                 .then((res) => {
                     const autocompleteData = res.data.results;
                     setNoResults(autocompleteData.length === 0);
@@ -119,9 +119,9 @@ const StateCFDAList = ({
                     }
                 });
         }
-        else if (request.current) {
+        else if (requestRef.current) {
             // A request is currently in-flight, cancel it
-            request.current.cancel();
+            requestRef.current.cancel();
         }
     }, []);
 
@@ -131,14 +131,14 @@ const StateCFDAList = ({
 
         // Grab input, clear any exiting timeout
         const input = cfdaInput.target?.value;
-        window.clearTimeout(timeout.current);
+        window.clearTimeout(timeoutRef.current);
 
         // Perform search if user doesn't type again for 300ms
-        timeout.current = window.setTimeout(() => {
+        timeoutRef.current = window.setTimeout(() => {
             queryAutocompleteCFDA(input);
         }, 300);
 
-        return () => window.clearTimeout(timeout.current);
+        return () => window.clearTimeout(timeoutRef.current);
     }, [queryAutocompleteCFDA]);
 
     return (
