@@ -63,15 +63,22 @@ const StateMapFiltersDropdown = ({
             {
                 Object.keys(mapFilters)
                     .map((filter) => {
-                        let filterType = null;
+                        const filterType = mapFilters[filter].label.includes('DEFC') ?
+                            'defc' :
+                            null;
 
-                        if (mapFilters[filter].label.includes('DEFC')) {
-                            filterType = 'defc';
-                        }
+                        const selectedOption = mapFilters[filter]
+                            .options?.find(
+                                (option) =>
+                                    option.value === activeFilters[filter]
+                            )?.label;
 
-                        if (mapFilters[filter].label.includes('Award Type')) {
-                            filterType = 'awardType';
-                        }
+                        const options = mapFilters[filter].options?.map((option) => ({
+                            name: option.label,
+                            value: option.value,
+                            onClick: mapFilters[filter].onClick,
+                            sortOrder: mapFilterSortOrderByValue[option.value]
+                        }));
 
                         return (<>
                             <div key={uniqueId()} className="map__filters-filter__container">
@@ -85,21 +92,8 @@ const StateMapFiltersDropdown = ({
                                         classname={`map__filters-button ${filterType}`}
                                         dropdownClassname="map__filters-dropdown"
                                         sortFn={handleSort}
-                                        selectedOption={
-                                            mapFilters[filter]
-                                                .options?.find(
-                                                    (option) =>
-                                                        option.value === activeFilters[filter]
-                                                )?.label
-                                        }
-                                        options={
-                                            mapFilters[filter].options?.map((option) => ({
-                                                name: option.label,
-                                                value: option.value,
-                                                onClick: mapFilters[filter].onClick,
-                                                sortOrder: mapFilterSortOrderByValue[option.value]
-                                            }))
-                                        } />
+                                        selectedOption={selectedOption}
+                                        options={options} />
                                 </div>
                             </div>
                         </>);
