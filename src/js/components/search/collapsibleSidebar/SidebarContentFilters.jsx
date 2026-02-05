@@ -58,7 +58,7 @@ const SidebarContentFilters = ({ isMobile }) => {
                     key={`toggle-${title}`}
                     title={title}
                     component={component}
-                    open={open}
+                    open={open[title]}
                     setOpen={setOpen}
                     count={filterCount[title]}
                     isMobile={isMobile} />
