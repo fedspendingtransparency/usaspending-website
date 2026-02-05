@@ -3,7 +3,7 @@
  * Created by Kevin Li 12/21/17
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -36,9 +36,8 @@ const SearchSidebarSubmitContainer = ({ setShowMobileFilters }) => {
     const prevStagedFilters = usePrevious(stagedFilters);
     const prevAppliedFilters = usePrevious(appliedFilters);
 
-    const areStagedFiltersEmpty = () => (
-        areFiltersEqual(stagedFilters, initialState) ||
-            areFiltersEqual(stagedFilters, initialStateFY));
+    const areStagedFiltersEmpty = areFiltersEqual(stagedFilters, initialState) ||
+            areFiltersEqual(stagedFilters, initialStateFY);
 
     const compareStores = () => {
     // we need to do a deep equality check by comparing every store key
@@ -50,11 +49,11 @@ const SearchSidebarSubmitContainer = ({ setShowMobileFilters }) => {
         return areFiltersEqual(stagedFilters, appliedFilters);
     };
 
-    const resetFilters = () => {
+    const resetFilters = useCallback(() => {
         dispatch(clearStagedFilters());
         dispatch(resetAppliedFilters());
         dispatch(resetMapLegendToggle());
-    };
+    }, [dispatch]);
 
     const stagingChanged = () => {
     // do a deep equality check between the staged filters and applied filters
@@ -66,7 +65,7 @@ const SearchSidebarSubmitContainer = ({ setShowMobileFilters }) => {
         }
     };
 
-    const applyFilters = () => {
+    const applyFilters = useCallback(() => {
         dispatch(setAppliedFilterCompletion(false));
 
         if (areFiltersEqual(stagedFilters)) {
@@ -81,7 +80,7 @@ const SearchSidebarSubmitContainer = ({ setShowMobileFilters }) => {
         const events = convertFiltersToAnalyticEvents(stagedFilters);
         sendAnalyticEvents(events);
         sendFieldCombinations(events);
-    };
+    }, [dispatch, resetFilters, stagedFilters]);
 
     useEffect(() => {
         const areStagedAndAppliedFiltersEquivalent = (
@@ -96,7 +95,7 @@ const SearchSidebarSubmitContainer = ({ setShowMobileFilters }) => {
 
     return (
         <SearchSidebarSubmit
-            stagedFiltersAreEmpty={areStagedFiltersEmpty()}
+            stagedFiltersAreEmpty={areStagedFiltersEmpty}
             filtersChanged={filtersChanged}
             requestsComplete={requestsComplete}
             applyStagedFilters={applyFilters}
