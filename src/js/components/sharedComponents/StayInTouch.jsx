@@ -97,10 +97,10 @@ const StayInTouch = ({ pageName }) => {
                     tablet={12}
                     desktop={3}>
                     <div className="stay-in-touch__second-row-title">
-                        Learn how to use USAspending
+                        How to search USAspending.gov
                     </div>
                     <div className="stay-in-touch__second-row-text">
-                        Access specialized training videos on how to use our tools and data.
+                        Learn how you can search for federal spending in your area with our new Featured Content.
                     </div>
                     <div className="stay-in-touch__second-row-link">
                         <Button
