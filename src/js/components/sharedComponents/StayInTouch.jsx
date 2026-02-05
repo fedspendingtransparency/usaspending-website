@@ -4,6 +4,8 @@
  */
 
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { showModal } from 'redux/actions/modal/modalActions';
 import { FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
 import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
@@ -14,6 +16,8 @@ const propTypes = {
 };
 
 const StayInTouch = ({ pageName }) => {
+    const dispatch = useDispatch();
+
     const trackLinkSignUp = () => Analytics.event({
         event: 'stay-in-touch',
         category: pageName,
@@ -26,6 +30,12 @@ const StayInTouch = ({ pageName }) => {
         action: 'Link',
         label: 'learn-more'
     });
+    const trackLinkSurvey = () => Analytics.event({
+        event: 'stay-in-touch',
+        category: pageName,
+        action: 'Survey',
+        label: 'survey'
+    });
 
     const handleSignUp = () => {
         trackLinkSignUp();
@@ -33,7 +43,11 @@ const StayInTouch = ({ pageName }) => {
     };
     const handleLearnMore = () => {
         trackLinkLearnMore();
-        window.open("/training-videos", "_self");
+        window.open("/featured-content", "_self");
+    };
+    const handleSurveyClick = () => {
+        trackLinkSurvey();
+        dispatch(showModal("https://eex-survey.voc.ttecgov.us/se/0ADFD0F60B14B90A"));
     };
 
     return (
@@ -59,10 +73,34 @@ const StayInTouch = ({ pageName }) => {
                     tablet={12}
                     desktop={3}>
                     <div className="stay-in-touch__second-row-title">
-                        Learn how to use USAspending
+                        Your USAspending ideas
                     </div>
                     <div className="stay-in-touch__second-row-text">
-                        Access specialized training videos on how to use our tools and data.
+                        We're looking for your ideas! Tell us what you want to see on USAspending.gov.
+                    </div>
+                    <div className="stay-in-touch__second-row-link">
+                        <Button
+                            copy="Tell Us"
+                            buttonTitle="Tell Us"
+                            buttonSize="md"
+                            onClick={handleSurveyClick}
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            textAlignment="left"
+                            image={<FontAwesomeIcon icon="arrow-right" style={{ height: '16px', width: '14px' }} />} />
+                    </div>
+                </FlexGridCol>
+                <FlexGridCol
+                    className="stay-in-touch__second-row-container"
+                    mobile={12}
+                    tablet={12}
+                    desktop={3}>
+                    <div className="stay-in-touch__second-row-title">
+                        How to search USAspending.gov
+                    </div>
+                    <div className="stay-in-touch__second-row-text">
+                        Learn how you can search for federal spending in your area with our new Featured Content.
                     </div>
                     <div className="stay-in-touch__second-row-link">
                         <Button
