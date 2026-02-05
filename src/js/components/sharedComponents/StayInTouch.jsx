@@ -43,7 +43,7 @@ const StayInTouch = ({ pageName }) => {
     };
     const handleLearnMore = () => {
         trackLinkLearnMore();
-        window.open("/training-videos", "_self");
+        window.open("/featured-content", "_self");
     };
     const handleSurveyClick = () => {
         trackLinkSurvey();
