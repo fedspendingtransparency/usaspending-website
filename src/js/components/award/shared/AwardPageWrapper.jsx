@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { awardTypeCodes, glossaryLinks } from 'dataMapping/search/awardType';
-import { useDefCodes } from 'containers/covid19/WithDefCodes';
+import { useDefCodes } from 'hooks/WithDefCodes';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 import AwardStatus from './AwardStatus';
 import { CovidFlagTooltip, UnlinkedTooltip } from '../shared/InfoTooltipContent';
@@ -78,7 +78,9 @@ const AwardPageWrapper = ({
                 controlledProps={{
                     isControlled: true,
                     isVisible: !!showTooltip,
-                    showTooltip: () => { handleFocus(); },
+                    showTooltip: () => {
+                        handleFocus();
+                    },
                     closeTooltip: () => {}
                 }}
 

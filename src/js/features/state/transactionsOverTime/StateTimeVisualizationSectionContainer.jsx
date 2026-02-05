@@ -84,7 +84,7 @@ const StateTimeVisualizationSectionContainer = () => {
         loading, error, fetchData
     } = useQueryTemp(parseData);
 
-    const beginFetch = useCallback(() => {
+    const beginFetch = useCallback((stateCode, period) => {
         // Fetch data from the Awards v2 endpoint
         const earliestYear = earliestFiscalYear;
         const thisYear = currentFiscalYear();
@@ -93,7 +93,7 @@ const StateTimeVisualizationSectionContainer = () => {
             place_of_performance_locations: [
                 {
                     country: 'USA',
-                    state: code
+                    state: stateCode
                 }
             ],
             time_period: [
@@ -106,17 +106,18 @@ const StateTimeVisualizationSectionContainer = () => {
 
         // Generate the API parameters
         const apiParams = {
-            group: visualizationPeriod,
+            group: period,
             filters: searchParams,
             spending_level: "transactions",
             auditTrail: 'Spending Over Time Visualization'
         };
 
         fetchData(performSpendingOverTimeSearch, apiParams);
-    }, [code, fetchData, visualizationPeriod]);
+    }, [fetchData]);
 
     useEffect(() => {
-        beginFetch();
+        // don't run fetch unless we have a state code
+        if (code) beginFetch(code, visualizationPeriod);
     }, [code, visualizationPeriod, beginFetch]);
 
     return (
