@@ -53,10 +53,7 @@ const searchPageToolBarComponents = (
 
     return (
         [
-            <FilterAwardToggle
-                setSearchViewSubaward={setSearchViewSubaward}
-                setSpendingLevel={setSpendingLevel}
-                selectedValue="awards" />,
+            <FilterAwardToggle />,
             <ShareIcon
                 isEnabled
                 url={getBaseUrl(getSlugWithHash())}
