@@ -217,7 +217,7 @@ class LottieAnimation extends React.Component {
     render() {
         return (
             <div className="lottie-animation-container">
-                <div ref={this.lottieRef} role={this.props.role} />
+                <div ref={this.lottieRef} role={this.props.role} aria-hidden />
             </div>
         );
     }
