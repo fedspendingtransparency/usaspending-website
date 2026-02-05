@@ -47,8 +47,6 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
     const request = useRef(null);
     const { overview } = useSelector((state) => state.agency);
     const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
-    const [pageSize, changePageSize] = useStateWithPrevious(10);
-
     const [level, setLevel] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -100,7 +98,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
         }
     }, [isMedium]);
 
-    const fetchAgencySubcomponents = useCallback(() => {
+    const fetchAgencySubcomponents = useCallback((pageNumber = 1) => {
         if (request.current) {
             request.current.cancel();
         }
@@ -110,11 +108,8 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
         if (!loading) {
             setLoading(true);
         }
-        const params = {
-            limit: pageSize,
-            page: currentPage
-        };
-        request.current = fetchSubcomponentsList(overview.toptierCode, fy, params.page);
+
+        request.current = fetchSubcomponentsList(overview.toptierCode, fy, pageNumber);
         const agencySubcomponentsListRequest = request.current;
         agencySubcomponentsListRequest.promise
             .then((res) => {
@@ -152,12 +147,9 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
         if (!loading) {
             setLoading(true);
         }
-        const params = {
-            limit: pageSize,
-            page: currentPage
-        };
+
         request.current =
-            fetchFederalAccountsList(overview.toptierCode, agencyData.id, fy, params.page);
+            fetchFederalAccountsList(overview.toptierCode, agencyData.id, fy, currentPage);
         const federalAccountsRequest = request.current;
         federalAccountsRequest.promise
             .then((res) => {
@@ -177,7 +169,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                 console.error(err);
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentPage, error, fy, loading, overview.toptierCode, pageSize]);
+    }, [currentPage, error, fy, loading, overview.toptierCode]);
 
     const fetchTas = useCallback((federalAccountData) => {
         if (request.current) {
@@ -227,16 +219,12 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
         if (!loading) {
             setLoading(true);
         }
-        const params = {
-            limit: pageSize,
-            page: currentPage
-        };
 
         if (objectClassFlag) {
-            request.current = fetchObjectClassByTas(tas.id, fy, params.page);
+            request.current = fetchObjectClassByTas(tas.id, fy, currentPage);
         }
         else {
-            request.current = fetchProgramActivityByTas(tas.id, fy, params.page);
+            request.current = fetchProgramActivityByTas(tas.id, fy, currentPage);
         }
         const programActivityRequest = request.current;
         programActivityRequest.promise
@@ -261,9 +249,9 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
                 console.error(err);
             });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [currentPage, error, fy, loading, pageSize]);
+    }, [currentPage, error, fy, loading]);
 
-    const fetchLevel5Data = (prgActivityOrObjClass) => {
+    const fetchLevel5Data = useCallback((prgActivityOrObjClass) => {
         const newData = getLevel5Data(prgActivityOrObjClass.name, level4ApiResponse);
         const parsedData = parseRows(newData, prgActivityOrObjClass.id);
         const nameAndId = {
@@ -274,7 +262,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
         setLevel(4);
         setResults(parsedData);
         setTotalItems(newData.length);
-    };
+    });
 
     useEffect(() => {
         if (resetPageChange) {
@@ -282,7 +270,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
         }
         else {
             if (prevPage !== currentPage && level === 0) {
-                fetchAgencySubcomponents();
+                fetchAgencySubcomponents(currentPage);
             }
             if (prevPage !== currentPage && level === 1) {
                 fetchFederalAccounts(selectedSubComponentNameAndId);
@@ -327,7 +315,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [error, loading]);
 
-    const setDrilldownLevel = (selectedLevel, parentData, objectClassFlag) => {
+    const setDrilldownLevel = useCallback((selectedLevel, parentData, objectClassFlag = false) => {
         if (selectedLevel === 1) {
             fetchFederalAccounts(parentData);
             dispatch(setSelectedSubcomponent(parentData));
@@ -350,7 +338,7 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
         }
 
         setResetPageChange(true);
-    };
+    }, [dispatch, fetchDataByTas, fetchFederalAccounts, fetchLevel5Data, fetchTas]);
 
     const goBack = () => {
         if (overview.toptierCode) {
@@ -391,17 +379,19 @@ const StatusOfFunds = ({ fy, onChartLoaded }) => {
         }
     };
 
-    const onToggle = () => {
+    const onToggle = useCallback(() => {
         setOnToggle(!toggle);
-    };
+    }, [toggle]);
 
-    const onKeyToggle = (event) => {
+    const onKeyToggle = useCallback((event) => {
         if (event.key === 'Enter') {
             setOnToggle(!toggle);
         }
-    };
-    const handleChangeLimit = (newLimit) => {
-        changePageSize(newLimit);
+    }, [toggle]);
+
+    const handleChangeLimit = () => {
+        // this is needed for pagination component elsewhere but not here.
+        // changePageSize(newLimit);
     };
     return (
         <div className="body__content status-of-funds">
