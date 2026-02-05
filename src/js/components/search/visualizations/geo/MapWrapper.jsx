@@ -16,9 +16,9 @@ import {
 } from 'helpers/mapHelper';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import MapBox from './map/MapBox';
-import MapLegend from './MapLegend';
-import MapFiltersToggle from "../../../covid19/recipient/map/MapFiltersToggle";
+import MapBox from 'components/sharedComponents/map/MapBox';
+import MapLegend from 'components/sharedComponents/map/MapLegend';
+import MapFiltersToggle from "components/sharedComponents/map/MapFiltersToggle";
 import AdvancedSearchMapFilters from "./AdvancedSearchMapFilters";
 
 const propTypes = {

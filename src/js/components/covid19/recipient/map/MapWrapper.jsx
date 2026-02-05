@@ -11,10 +11,10 @@ import GlobalConstants from 'GlobalConstants';
 
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { firstSymbolId, getColors, mapboxSources } from "helpers/mapHelper";
-import MapBox from 'components/search/visualizations/geo/map/MapBox';
+import MapBox from 'components/sharedComponents/map/MapBox';
+import MapFiltersToggle from 'components/sharedComponents/map/MapFiltersToggle';
 import MapFilters from './MapFilters';
 import MapLegend from './MapLegend';
-import MapFiltersToggle from './MapFiltersToggle';
 
 const propTypes = {
     data: PropTypes.object,

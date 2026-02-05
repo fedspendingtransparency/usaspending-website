@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import MapFiltersTitle from 'components/search/visualizations/geo/MapFiltersTitle';
+import MapFiltersTitle from 'components/sharedComponents/map/MapFiltersTitle';
 import StateMapFiltersAutocomplete from "./StateMapFiltersAutocomplete";
 import StateMapFiltersDropdown from "./StateMapFiltersDropdown";
 

@@ -9,7 +9,7 @@ import {
     mapFilterSortOrderByValue,
     stateFilters
 } from "dataMapping/state/stateMap";
-import { useDefCodes } from "containers/covid19/WithDefCodes";
+import { useDefCodes } from "hooks/WithDefCodes";
 
 const propTypes = {
     activeFilters: PropTypes.object,

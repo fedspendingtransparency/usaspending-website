@@ -10,9 +10,9 @@ import GlobalConstants from 'GlobalConstants';
 import {
     calculateRange, visualizationColors, firstSymbolId, mapboxSources
 } from "helpers/mapHelper";
-import MapBox from 'components/search/visualizations/geo/map/MapBox';
-import MapLegend from 'components/search/visualizations/geo/MapLegend';
-import MapFiltersToggle from "components/covid19/recipient/map/MapFiltersToggle";
+import MapBox from 'components/sharedComponents/map/MapBox';
+import MapLegend from 'components/sharedComponents/map/MapLegend';
+import MapFiltersToggle from "components/sharedComponents/map/MapFiltersToggle";
 import StateProfileMapFilters from "./filters/StateProfileMapFilters";
 import StateGeoTooltip from "./StateGeoTooltip";
 
