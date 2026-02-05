@@ -3,7 +3,9 @@
  * Created by Kevin Li 2/17/17
  */
 
-import React, { useEffect, useState, useImperativeHandle, useRef, forwardRef, useCallback } from 'react';
+import React, {
+    useEffect, useState, useImperativeHandle, useRef, forwardRef, useCallback
+} from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { throttle } from 'lodash-es';

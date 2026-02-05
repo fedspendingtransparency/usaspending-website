@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ResultsTableMessage from 'components/search/table/ResultsTableMessage';
+import ResultsTableMessage from './ResultsTableMessage';
 import AgencyLandingTable from './table/AgencyLandingTable';
 
 const propTypes = {

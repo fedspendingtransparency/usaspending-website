@@ -268,3 +268,7 @@ dfn {
     line-height: 1.5rem;
     @include profile-page-wrap;
 }
+
+.usa-bold-link {
+    font-weight: $font-semibold;
+}

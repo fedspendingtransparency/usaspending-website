@@ -14,35 +14,37 @@ const propTypes = {
     rewindToFilter: PropTypes.func
 };
 
-export default class VerticalTrail extends React.Component {
-    render() {
-        const trail = this.props.trail.map((item, index) => (
+const VerticalTrail = ({ trail, rewindToFilter }) => {
+    const getTrailItem = () => (
+        trail.map((item, index) => (
             <TrailItem
                 {...item}
                 isFirst={index === 0}
-                isLast={index + 1 === this.props.trail.length}
-                rewindToFilter={this.props.rewindToFilter}
+                isLast={index + 1 === trail.length}
+                rewindToFilter={rewindToFilter}
                 index={index}
                 key={item.within} />
-        ));
+        ))
+    );
 
-        return (
-            <div className="vertical-trail-wrapper">
-                <ul className="vertical-trail">
-                    <TransitionGroup>
-                        <CSSTransition
-                            classNames="explorer-item-animation"
-                            timeout={{ exit: 750, enter: 200 }}
-                            exit>
-                            <div>
-                                {trail}
-                            </div>
-                        </CSSTransition>
-                    </TransitionGroup>
-                </ul>
-            </div>
-        );
-    }
-}
+    return (
+        <div className="vertical-trail-wrapper">
+            <ul className="vertical-trail">
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="explorer-item-animation"
+                        timeout={{ exit: 750, enter: 200 }}
+                        exit>
+                        <li className="trail-item">
+                            {getTrailItem()}
+                        </li>
+                    </CSSTransition>
+                </TransitionGroup>
+            </ul>
+        </div>
+    );
+};
 
 VerticalTrail.propTypes = propTypes;
+
+export default VerticalTrail;

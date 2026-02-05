@@ -74,7 +74,7 @@ const Rectangle = ({
     }, [scale, overviewData, publicLaw === 'american-rescue-plan']);
     return (
         <g
-            tabIndex="0"
+            tabIndex="-1"
             aria-label={data.description}
             data-id={dataId}
             data-tooltip={tooltipId}

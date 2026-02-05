@@ -31,12 +31,12 @@ const MapLegend = ({ units, min, max }) => {
     const minCurrencyValue = MoneyFormatter.formatMoneyWithPrecision(min / calculateUnitForSingleValue(min).unit, units.precision) + calculateUnitForSingleValue(min).unitLabel;
     return (
         <div className="map-legend">
-            <ul className="map-legend-body-covid19">
+            <div className="map-legend-body-covid19">
                 <span className="legend-number">{maxCurrencyValue}</span>
                 <br />
                 <div className="map-legend-gradient" />
                 <span className="legend-number">{minCurrencyValue}</span>
-            </ul>
+            </div>
         </div>
     );
 };

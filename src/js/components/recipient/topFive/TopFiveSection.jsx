@@ -9,10 +9,15 @@ import { recipientCategories as topCategories } from 'dataMapping/topCategories'
 import TopFiveContainer from 'containers/recipient/topFive/TopFiveContainer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SectionHeader, FlexGridRow } from "data-transparency-ui";
+import useAgencySlugs from "../../../hooks/useAgencySlugs";
 
 const TopFiveSection = () => {
+    const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
+    const agencyData = { agencySlugs, slugsLoading, slugsError };
+
     const content = topCategories.map((category) => (
         <TopFiveContainer
+            agencyData={agencyData}
             key={category}
             category={category} />
     ));

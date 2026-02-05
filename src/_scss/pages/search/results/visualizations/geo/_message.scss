@@ -40,7 +40,7 @@
     .loading-message {
         font-size: rem(36);
         line-height: rem(45);
-        color: $color-gray-light;
+        color: $color-gray-medium;
         text-align: center;
     }
 
@@ -66,11 +66,11 @@
         svg {
             width: rem(72);
             height: rem(72);
-            fill: $color-gray-light;
+            fill: $color-gray-medium;
         }
     }
     .title, .description {
-        color: $color-gray-light;
+        color: $color-gray-medium;
         text-align: center;
 
         margin-left: auto;
