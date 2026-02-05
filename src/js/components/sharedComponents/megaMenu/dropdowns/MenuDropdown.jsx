@@ -27,7 +27,7 @@ const MenuDropdown = React.memo(({
 
     return <>
         {navbarConfig.map((section, i) => {
-            if (i <= 0) {
+            if (i < 0) {
                 // eslint-disable-next-line array-callback-return
                 return;
             }
@@ -55,7 +55,7 @@ const MenuDropdown = React.memo(({
                         style={prevIndex !== i && menuIndex !== i ? { display: "none" } : {}}
                         className="dropdown-section__wrapper"
                         key={uniqueId()}>
-                        <div className={menuIndex === 1 ? "dropdown-section__top-columns undo__bottom-padding" : "dropdown-section__top-columns"}>
+                        <div className="dropdown-section__top-columns undo__bottom-padding">
                             <div
                                 key={uniqueId()}
                                 className="dropdown-section first-dropdown-section"
@@ -73,7 +73,7 @@ const MenuDropdown = React.memo(({
                                         {section1Items?.map((item, index) => !item.hidden && <>
                                             <li
                                                 key={`link-${uniqueId(index)}`}
-                                                className={menuIndex > 1 ? 'list__extra-padding' : ''}>
+                                                className="list__extra-padding">
                                                 <Link className="dropdown--item__link" to={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
                                                     {item.icon && item.icon !== '' && item.icon !== null ?
                                                         <FontAwesomeIcon
@@ -95,7 +95,7 @@ const MenuDropdown = React.memo(({
                                 </div>
                             </div>
                             <div key={uniqueId()} className="dropdown-section">
-                                <div className={menuIndex > 1 ? "dropdown-section__alternate-top" : ""}>
+                                <div className="dropdown-section__alternate-top">
                                     {section2Icon && section2Icon !== null && section2Icon !== '' ?
                                         <FontAwesomeIcon
                                             role="presentation"
@@ -111,7 +111,7 @@ const MenuDropdown = React.memo(({
                                             {section2Items?.map((item, index) => !item.hidden && <>
                                                 <li
                                                     key={`second-section-link-${uniqueId(index)}`}
-                                                    className={menuIndex > 1 ? 'list__extra-padding' : ''}>
+                                                    className="list__extra-padding">
                                                     <Link
                                                         className="dropdown--item__link"
                                                         to={item.url === "?about-the-data" || item.url === "?glossary" ? '' : item.url}
@@ -161,7 +161,7 @@ const MenuDropdown = React.memo(({
                         </div>
                         {section3Title !== null && section3Title !== undefined && section3Title !== '' ?
                             <div key={uniqueId()} className="dropdown-section dropdown-section__bottom-portion">
-                                <div className={menuIndex > 1 ? "dropdown-section__alternate-top" : ""}>
+                                <div className="dropdown-section__alternate-top">
                                     {section3Icon && section3Icon !== null && section3Icon !== '' ?
                                         <FontAwesomeIcon
                                             role="presentation"

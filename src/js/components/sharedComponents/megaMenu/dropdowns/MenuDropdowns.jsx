@@ -11,7 +11,9 @@ import {
     allDownloadOptions,
     section1Options,
     section2Options,
-    section3Options
+    section3Options,
+    searchSection1Options,
+    searchSection2Options
 } from '../../../../../config/megaMenu/megaMenuOptions';
 import MenuDropdownWrapper from "./MenuDropdownWrapper";
 import MenuItem from './MenuItem';
@@ -20,7 +22,11 @@ import MenuDropdown from './MenuDropdown';
 const navbarConfig = [
     {
         title: "Search Award Data",
-        url: '/search'
+        section1Items: searchSection1Options,
+        section2Items: searchSection2Options,
+        section1Options,
+        section2Options,
+        section3Options
     },
     {
         title: "Explore the Data",
