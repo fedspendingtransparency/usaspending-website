@@ -3,29 +3,63 @@
 * Created by Nick Torres 8/12/2024
 **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { filter, sortBy, slice, concat } from 'lodash-es';
 import { Search } from 'js-search';
+
+import { fetchAwardingAgencies } from "helpers/searchHelper";
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
-import * as SearchHelper from 'helpers/searchHelper';
 
 const propTypes = {
+    searchParams: PropTypes.string,
     changeScope: PropTypes.func,
-    clearSearchFilters: PropTypes.func
+    clearSearchFilters: PropTypes.func,
+    selectedItemsDisplayNames: PropTypes.object
 };
 
-const StateAgencyList = React.memo((props) => {
+const StateAgencyList = ({
+    searchParams,
+    changeScope,
+    clearSearchFilters,
+    selectedItemsDisplayNames
+}) => {
     const [agencySearchString, setAgencySearchString] = useState('');
     const [autocompleteAgencies, setAutocompleteAgencies] = useState([]);
     const [noResults, setNoResults] = useState(false);
-    const [searchData, setSearchData] = useState({});
+    const timeout = useRef(null);
+    const request = useRef(null);
 
-    let timeout = null;
-    let apiRequest = null;
+    const clearAutocompleteSuggestions = useCallback(() => {
+        setAutocompleteAgencies([]);
+    }, []);
 
-    const parseAutocompleteAgencies = (results) => {
+    useEffect(() => {
+        const el = document.getElementById("state__agency-id");
+        const onFocus = (e) => {
+            if (e.target.value !== "") {
+                el.current.select();
+            }
+        };
+        const onBlur = (e) => {
+            if (e.target.value === "") {
+                clearAutocompleteSuggestions();
+                clearSearchFilters("agency");
+                setAgencySearchString('');
+            }
+        };
+
+        el.addEventListener("focus", onFocus);
+        el.addEventListener("blur", onBlur);
+
+        return () => {
+            el.removeEventListener("focus", onFocus);
+            el.removeEventListener("blur", onBlur);
+        };
+    }, [clearAutocompleteSuggestions, clearSearchFilters]);
+
+    const parseAutocompleteAgencies = useCallback((results) => {
         let agencies = [];
         setNoResults(false);
 
@@ -67,7 +101,10 @@ const StateAgencyList = React.memo((props) => {
         }
 
         // For searches for FEMA, leave the results in the same order as the API response
-        if ((agencySearchString.toLowerCase() !== 'fem') && (agencySearchString.toLowerCase() !== 'fema')) {
+        if (
+            (agencySearchString.toLowerCase() !== 'fem') &&
+            (agencySearchString.toLowerCase() !== 'fema')
+        ) {
             // Separate top and subtier agencies
             let toptierAgencies = filter(agencies, ['data.agencyType', 'toptier']);
             let subtierAgencies = filter(agencies, ['data.agencyType', 'subtier']);
@@ -83,14 +120,16 @@ const StateAgencyList = React.memo((props) => {
             setNoResults(false);
         }
         setAutocompleteAgencies(agencies);
-    };
+    }, [agencySearchString]);
 
-    const performSecondarySearch = (data, inputVal) => {
-        if ((inputVal.toLowerCase() === 'fem') || (inputVal.toLowerCase() === 'fema')) {
+    const performSecondarySearch = useCallback((data, inputVal) => {
+        if (
+            (inputVal.toLowerCase() === 'fem') ||
+            (inputVal.toLowerCase() === 'fema')
+        ) {
             // don't change the order of results returned from the API
             parseAutocompleteAgencies(slice(data, 0, 10));
         }
-
         else {
             // search within the returned data
             // create a search index with the API response records
@@ -129,13 +168,9 @@ const StateAgencyList = React.memo((props) => {
             // Add search results to Redux
             parseAutocompleteAgencies(improvedResults);
         }
-    };
+    }, [parseAutocompleteAgencies]);
 
-    const clearAutocompleteSuggestions = () => {
-        setAutocompleteAgencies([]);
-    };
-
-    const queryAutocompleteAgencies = (inputVal) => {
+    const queryAutocompleteAgencies = useCallback((inputVal) => {
         setNoResults(false);
 
         if (inputVal.length >= 3) {
@@ -143,9 +178,9 @@ const StateAgencyList = React.memo((props) => {
             setAgencySearchString(inputVal);
 
 
-            if (apiRequest) {
+            if (request.current) {
                 // A request is currently in-flight, cancel it
-                apiRequest.cancel();
+                request.current.cancel();
             }
 
 
@@ -154,9 +189,9 @@ const StateAgencyList = React.memo((props) => {
                 limit: 20
             };
 
-            apiRequest = SearchHelper.fetchAwardingAgencies(agencySearchParams);
+            request.current = fetchAwardingAgencies(agencySearchParams);
 
-            apiRequest.promise
+            request.current.promise
                 .then((res) => {
                     performSecondarySearch(res.data.results, inputVal);
                 })
@@ -166,29 +201,31 @@ const StateAgencyList = React.memo((props) => {
                     }
                 });
         }
-        else if (apiRequest) {
+        else if (request.current) {
             // A request is currently in-flight, cancel it
-            apiRequest.cancel();
+            request.current.cancel();
         }
-    };
+    }, [performSecondarySearch]);
 
-    const handleTextInput = (inputEvent) => {
-    // Clear existing agencies to ensure user can't select an old or existing one
+    const handleTextInput = useCallback((inputEvent) => {
+        // Clear existing agencies to ensure user can't select an old or existing one
         if (autocompleteAgencies.length > 0) {
             setAutocompleteAgencies([]);
         }
         const inputVal = inputEvent.target.value;
 
-        // Grab input, clear any exiting timeout
-        window.clearTimeout(timeout);
+        // Grab input, clear any exiting timeout.current
+        window.clearTimeout(timeout.current);
 
         // Perform search if user doesn't type again for 300ms
-        timeout = window.setTimeout(() => {
+        timeout.current = window.setTimeout(() => {
             queryAutocompleteAgencies(inputVal);
         }, 300);
-    };
 
-    const selectAgency = (agency, valid) => {
+        return () => window.clearTimeout(timeout.current);
+    }, [autocompleteAgencies.length, queryAutocompleteAgencies]);
+
+    const onSelect = useCallback((agency, valid) => {
         // apply awarding agency filter
         const newSearch = {
             filters: {}
@@ -201,63 +238,28 @@ const StateAgencyList = React.memo((props) => {
                 type: "awarding"
             }
         );
-        setSearchData(newSearch);
+
         setAutocompleteAgencies([]);
-    };
-
-    useEffect(() => {
-        if (Object.keys(searchData).length > 0) {
-            props.changeScope(searchData, "agency");
+        if (Object.keys(searchParams).length > 0) {
+            changeScope(newSearch, "agency");
         }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchData]);
-
-    useEffect(() => {
-        const el = document.getElementById("state__agency-id");
-        el.addEventListener("focus", (e) => {
-            if (e.target.value !== "") {
-                el.select();
-            }
-        });
-        el.addEventListener("blur", (e) => {
-            if (e.target.value === "") {
-                clearAutocompleteSuggestions();
-                props.clearSearchFilters("agency");
-                setAgencySearchString('');
-            }
-        });
-        return () => {
-            el.removeEventListener("focus", (e) => {
-                if (e.target.value !== "") {
-                    el.select();
-                }
-            });
-            el.removeEventListener("blur", (e) => {
-                if (e.target.value === "") {
-                    clearAutocompleteSuggestions();
-                    props.clearSearchFilters("agency");
-                    setAgencySearchString('');
-                }
-            });
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [searchParams, changeScope]);
 
     return (
         <Autocomplete
-            {...props}
-            id="state__agency-id"
-            type="agency"
             values={autocompleteAgencies}
             handleTextInput={handleTextInput}
-            onSelect={selectAgency}
-            label={`${props.agencyType} Agency`}
+            onSelect={onSelect}
             clearAutocompleteSuggestions={clearAutocompleteSuggestions}
             noResults={noResults}
+            selectedItemsDisplayNames={selectedItemsDisplayNames}
+            label="Awarding Agency"
+            placeholder="Search for an awarding agency..."
+            id="state__agency-id"
+            type="agency"
             retainValue />
     );
-});
+};
 
 StateAgencyList.propTypes = propTypes;
 export default StateAgencyList;

@@ -6,7 +6,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
-import useOnKeydown from "../../hooks/useOnKeydown";
+import useOnKeydown from "hooks/useOnKeydown";
 
 const propTypes = {
     type: PropTypes.oneOf(['info', 'success', 'warning', 'error']),

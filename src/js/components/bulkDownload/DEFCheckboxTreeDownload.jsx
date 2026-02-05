@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import { useDispatch, useSelector } from 'react-redux';
 
-import { useDefCodes } from 'containers/covid19/WithDefCodes';
+import { useDefCodes } from 'hooks/WithDefCodes';
 import LegacyCheckboxTree from 'components/sharedComponents/LegacyCheckboxTree';
 import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
 import DEFCheckboxTreeLabel from './DEFCheckboxTreeLabel';

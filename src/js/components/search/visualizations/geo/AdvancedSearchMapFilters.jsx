@@ -10,7 +10,7 @@ import { NewPicker } from "data-transparency-ui";
 
 import { mapFilterSortOrderByValue } from 'dataMapping/covid19/covid19';
 import { handleSort } from 'helpers/covid19Helper';
-import MapFiltersTitle from './MapFiltersTitle';
+import MapFiltersTitle from 'components/sharedComponents/map/MapFiltersTitle';
 
 const propTypes = {
     filters: PropTypes.object,
