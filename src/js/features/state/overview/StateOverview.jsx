@@ -10,8 +10,7 @@ import {
 } from "data-transparency-ui";
 import { useSelector } from "react-redux";
 
-import GeoVisualizationSectionContainer from
-    'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
+import GeoVisualizationSectionContainer from './geo/GeoVisualizationSectionContainer';
 import SummaryStats from './SummaryStats';
 import AwardBreakdownContainer from './awardBreakdown/AwardBreakdownContainer';
 import AwardBreakdownHeader from "./awardBreakdown/AwardBreakdownHeader";
@@ -68,12 +67,7 @@ const StateOverview = () => {
                         toggleState={toggle} />
                     <AwardBreakdownCard overview={overview} />
                 </FlexGridRow>
-                <div className="state-section__viz geo">
-                    <h3 className="state-overview__heading">
-                        Primary Place of Performance
-                    </h3>
-                    <GeoVisualizationSectionContainer className="state-profile__map-toggle" />
-                </div>
+                <GeoVisualizationSectionContainer />
             </div>
         </div>
     );
