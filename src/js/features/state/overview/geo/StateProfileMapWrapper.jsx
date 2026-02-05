@@ -287,6 +287,12 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
                 filter = ['in', source.filterKey].concat(valueSet);
             }
 
+            // check to see if highlight layers available
+            const layersReady = Object.hasOwn(mapRef.current.style._layers, layerName);
+
+            // if not available, don't setFilter in order to avoid console error
+            if (!layersReady) return;
+
             mapRef.current.setFilter(layerName, filter);
         });
 
