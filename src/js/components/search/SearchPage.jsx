@@ -62,11 +62,6 @@ const SearchPage = ({
         dispatch(showModal(url));
     };
 
-    // Use the top filter bar container's internal filter parsing to track the current number of filters applied
-    const updateFilterCount = (count) => {
-        setFilterCount(count);
-    };
-
     // Toggle whether or not to show the mobile filter view
     const toggleMobileFilters = () => {
         setShowMobileFilters((prevState) => !prevState);
@@ -137,7 +132,7 @@ const SearchPage = ({
                         isMobile={isMedium}
                         filterCount={filterCount}
                         showMobileFilters={showMobileFilters}
-                        updateFilterCount={updateFilterCount}
+                        updateFilterCount={setFilterCount}
                         requestsComplete={requestsComplete}
                         noFiltersApplied={noFiltersApplied}
                         hash={hash}

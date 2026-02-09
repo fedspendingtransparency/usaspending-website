@@ -21,7 +21,8 @@ const propTypes = {
     groupGenerator: PropTypes.func
 };
 
-const TopFilterBar = memo((props) => {
+// eslint-disable-next-line prefer-arrow-callback
+const TopFilterBar = memo(function TopFilterBar(props) {
     const newAwardsOnlyPresent = props.filters.find((el) => el.code === 'newAwardsOnly');
     const filters = props.filters.map((filter) =>
         props.groupGenerator({
