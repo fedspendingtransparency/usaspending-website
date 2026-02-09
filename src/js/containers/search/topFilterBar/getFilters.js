@@ -1,9 +1,9 @@
 import { concat, difference, indexOf, orderBy } from "lodash-es";
 import dayjs from "dayjs";
-import * as FiscalYearHelper from "helpers/fiscalYearHelper";
-import * as AwardType from "dataMapping/search/awardType";
+import { currentFiscalYear, earliestFiscalYear } from "helpers/fiscalYearHelper";
+import { awardTypeGroups } from "dataMapping/search/awardType";
 
-const test = (filters) => {
+const getFilters = (filters) => {
     const prepareSelectedDefCodes = () => {
         let selected = false;
         const filter = {
@@ -528,7 +528,7 @@ const test = (filters) => {
     };
 
     const determineFYCount = (count) => {
-        const allFY = (FiscalYearHelper.currentFiscalYear() - FiscalYearHelper.earliestFiscalYear)
+        const allFY = (currentFiscalYear() - earliestFiscalYear)
             + 1;
 
         if (count === allFY) {
@@ -543,7 +543,7 @@ const test = (filters) => {
         const groupKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'idvs', 'other'];
 
         groupKeys.forEach((key) => {
-            const fullMembership = AwardType.awardTypeGroups[key];
+            const fullMembership = awardTypeGroups[key];
 
             // quick way of checking for full group membership is to return an array of missing
             // values; it'll be empty if all the values are selected
@@ -564,7 +564,7 @@ const test = (filters) => {
             awardTypeCount += 1;
 
             // exclude these values from the remaining tags
-            excludedValues = concat(excludedValues, AwardType.awardTypeGroups[group]);
+            excludedValues = concat(excludedValues, awardTypeGroups[group]);
         });
 
         // Loop through each value and add 1 to the count if the value hasn't been excluded,
@@ -732,4 +732,4 @@ const test = (filters) => {
     return prepareFilters();
 };
 
-export default test;
+export default getFilters;

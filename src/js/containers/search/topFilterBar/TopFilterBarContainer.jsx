@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
-import test from './test';
+import getFilters from './getFilters';
 
 const propTypes = {
     updateFilterCount: PropTypes.func,
@@ -18,7 +18,7 @@ const propTypes = {
 const TopFilterBarContainer = ({ updateFilterCount, compressed = false }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
 
-    const { filters, filterCount } = useMemo(() => test(reduxFilters), [reduxFilters]);
+    const { filters, filterCount } = useMemo(() => getFilters(reduxFilters), [reduxFilters]);
 
     useEffect(() => {
         if (!compressed) {
