@@ -18,26 +18,18 @@ const KeywordFilterGroup = ({ filter }) => {
     const dispatch = useDispatch();
     const keyword = useSelector((state) => state.filters.keyword);
 
-    const generateTags = () => {
     // check to see if a keyword is provided
-        const tags = [];
+    const tags = [];
 
-        const keywords = filter.values;
+    filter.values.forEach((value) => {
+        const tag = {
+            title: `${value}`,
+            unstageFilter: () => dispatch(updateTextSearchInput(value)),
+            unstaged: !keyword.get(value)
+        };
 
-        keywords.forEach((value) => {
-            const tag = {
-                title: `${value}`,
-                unstageFilter: () => dispatch(updateTextSearchInput(value)),
-                unstaged: !keyword.get(value)
-            };
-
-            tags.push(tag);
-        });
-
-        return tags;
-    };
-
-    const tags = generateTags();
+        tags.push(tag);
+    });
 
     return (<BaseTopFilterGroup tags={tags} filter={filter} />);
 };
