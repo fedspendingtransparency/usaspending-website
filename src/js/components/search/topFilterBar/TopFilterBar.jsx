@@ -12,29 +12,26 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Button } from 'data-transparency-ui';
-import { showModal } from 'redux/actions/modal/modalActions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { showModal } from 'redux/actions/modal/modalActions';
+import { topFilterGroupGenerator } from
+    'components/search/topFilterBar/TopFilterGroupGenerator';
 
 const propTypes = {
     filters: PropTypes.array,
-    filterCount: PropTypes.number,
-    groupGenerator: PropTypes.func
+    filterCount: PropTypes.number
 };
 
 // eslint-disable-next-line prefer-arrow-callback
-const TopFilterBar = memo(function TopFilterBar(props) {
-    const newAwardsOnlyPresent = props.filters.find((el) => el.code === 'newAwardsOnly');
-    const filters = props.filters.map((filter) =>
-        props.groupGenerator({
-            filter,
-            redux: props
+const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
+    const newAwardsOnlyPresent = filters.find(({ code }) => code === 'newAwardsOnly');
+
+    const groups = filters.map((filter) =>
+        topFilterGroupGenerator({
+            filter
         }));
 
-    let filterBarHeader = `${props.filterCount} Active Filter`;
-    if (props.filterCount !== 1) {
-        filterBarHeader += 's';
-    }
-    filterBarHeader += ':';
     const dispatch = useDispatch();
 
     return (
@@ -47,7 +44,7 @@ const TopFilterBar = memo(function TopFilterBar(props) {
                     <h2
                         className="header-title"
                         id="top-filter-bar-title">
-                        {filterBarHeader}
+                        {`${filterCount} Active Filter${filterCount !== 1 ? 's' : ''}:`}
                     </h2>
                     <Button
                         onClick={(e) => {
@@ -73,7 +70,7 @@ const TopFilterBar = memo(function TopFilterBar(props) {
                         className={`search-top-filters-content ${
                             newAwardsOnlyPresent ? 'newAwardsOnlyPresent' : ''
                         }`}>
-                        {filters}
+                        {groups}
                     </div>
                 </div>
             </div>

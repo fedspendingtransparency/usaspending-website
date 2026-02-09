@@ -159,7 +159,7 @@ const ResultsView = React.memo(function ResultsView({
     return (
         <div className="search-results-view-container">
             <div className="search-results-wrapper">
-                <TopFilterBarContainer filters={filters} updateFilterCount={updateFilterCount} />
+                <TopFilterBarContainer updateFilterCount={updateFilterCount} />
                 <div className={`search-results ${mobileFilters}`}>
                     {resultContent}
                 </div>

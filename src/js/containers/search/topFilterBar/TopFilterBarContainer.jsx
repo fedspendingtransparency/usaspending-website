@@ -3,13 +3,11 @@
   * Created by Kevin Li 12/13/16
   **/
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
-import { topFilterGroupGenerator } from
-    'components/search/topFilterBar/TopFilterGroupGenerator';
 import test from './test';
 
 const propTypes = {
@@ -20,20 +18,19 @@ const propTypes = {
 const TopFilterBarContainer = ({ updateFilterCount, compressed = false }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
 
-    const filtersInfo = test(reduxFilters);
+    const { filters, filterCount } = useMemo(() => test(reduxFilters), [reduxFilters]);
 
     useEffect(() => {
         if (!compressed) {
-            updateFilterCount(filtersInfo.filterCount);
+            updateFilterCount(filterCount);
         }
-    }, [compressed, filtersInfo, updateFilterCount]);
+    }, [compressed, filterCount, updateFilterCount]);
 
-    if (filtersInfo?.filters?.length > 0) {
+    if (filters && filters?.length > 0) {
         return (
             <TopFilterBar
-                filters={filtersInfo.filters}
-                filterCount={filtersInfo.filterCount}
-                groupGenerator={topFilterGroupGenerator} />
+                filters={filters}
+                filterCount={filterCount} />
         );
     }
     return (<></>);
