@@ -28,7 +28,7 @@ const KeywordFilterGroup = ({ filter }) => {
             const tag = {
                 title: `${value}`,
                 unstageFilter: () => dispatch(updateTextSearchInput(value)),
-                unstaged: keyword.get(value)
+                unstaged: !keyword.get(value)
             };
 
             tags.push(tag);

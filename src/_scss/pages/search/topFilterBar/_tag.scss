@@ -2,6 +2,12 @@
     display: inline-block;
     margin-right: 5px;
 
+
+    .unstaged {
+        background-color: red !important;
+        opacity: 0.5;
+    }
+
     .filter-item {
         @include button-unstyled();
         display: table;
