@@ -67,7 +67,7 @@ export const determineSpendingScenarioAsstAwards = (awardAmountObj) => {
         return 'insufficientData';
     }
     // if total funding is sum of obligation and non federal funding, return normal
-    else if (((_totalObligation + _nonFederalFunding) === _totalFunding) || (Math.round((_totalObligation + _nonFederalFunding) * 100) / 100)) {
+    else if ((_totalObligation + _nonFederalFunding) === _totalFunding) {
         return 'normal';
     }
     // if totalObligation equals totalFunding or is less than total funding while nonFederalFunding is null or zero
