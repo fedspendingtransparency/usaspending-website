@@ -43,14 +43,12 @@ const TimePeriodFYFilterGroup = ({ filter }) => {
     // not all fiscal years were selected, list them individually
     filter.values.forEach((value) => {
         const unstaged = !timePeriodFY.has(value);
-        const tag = {
+        tags.push({
             value,
             title: `FY ${value}`,
             unstageFilter: () => unstageFilter(value, !unstaged),
             unstaged
-        };
-
-        tags.push(tag);
+        });
     });
 
     return (<BaseTopFilterGroup tags={tags} filter={filter} />);

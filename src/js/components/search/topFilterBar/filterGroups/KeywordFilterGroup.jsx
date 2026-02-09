@@ -22,13 +22,11 @@ const KeywordFilterGroup = ({ filter }) => {
     const tags = [];
 
     filter.values.forEach((value) => {
-        const tag = {
+        tags.push({
             title: `${value}`,
             unstageFilter: () => dispatch(updateTextSearchInput(value)),
             unstaged: !keyword.get(value)
-        };
-
-        tags.push(tag);
+        });
     });
 
     return (<BaseTopFilterGroup tags={tags} filter={filter} />);

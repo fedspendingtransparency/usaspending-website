@@ -4,49 +4,64 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import { uniqueId } from "lodash-es";
+import { useDispatch, useSelector } from "react-redux";
+
+import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
+import { dateRangeChipLabel } from "helpers/searchHelper";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
-};
+const TimePeriodDRFilterGroup = () => {
+    const timePeriod = useSelector((state) => state.filters.time_period);
+    const appliedTimePeriod = useSelector((state) => state.appliedFilters.filters.time_period);
+    const dispatch = useDispatch();
 
-export default class TimePeriodDRFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
+    const unstageFilters = ({ startDate, endDate }, staged) => {
+        let newValue = timePeriod;
 
-        this.clearGroup = this.clearGroup.bind(this);
-    }
-
-    clearGroup() {
-        this.props.redux.resetTimeFilters();
-    }
-
-    generateTags() {
-        const tags = [];
-
-        this.props.filter.values.forEach((value) => {
-            tags.push({
-                value: 'dr',
-                title: value,
-                id: uniqueId()
-            });
+        timePeriod.forEach((date) => {
+            if (staged && date.start_date === startDate && date.end_date === endDate) {
+                newValue = newValue.delete(date);
+            }
+            else {
+                newValue = newValue.add(date);
+            }
         });
 
-        return tags;
-    }
+        // TODO: fix the 're-staging' currently not working correctly
+        if (!staged) newValue = newValue.add({ end_date: endDate, start_date: startDate });
 
-    render() {
-        const tags = this.generateTags();
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
+        dispatch(updateGenericFilter({
+            type: 'timePeriodType',
+            value: 'dr'
+        }));
+        dispatch(updateGenericFilter({
+            type: 'time_period',
+            value: newValue
+        }));
+    };
 
-TimePeriodDRFilterGroup.propTypes = propTypes;
+    const filter = {
+        values: appliedTimePeriod.map((value) => ({
+            title: dateRangeChipLabel(value),
+            startDate: value.start_date,
+            endDate: value.end_date,
+            unstaged: !timePeriod.has(value)
+        }))
+    };
+
+    const tags = [];
+
+    filter.values.forEach(({
+        title, startDate, endDate, unstaged
+    }) => {
+        tags.push({
+            title,
+            unstageFilter: () => unstageFilters({ startDate, endDate }, !unstaged),
+            unstaged
+        });
+    });
+
+    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+};
+
+export default TimePeriodDRFilterGroup;
