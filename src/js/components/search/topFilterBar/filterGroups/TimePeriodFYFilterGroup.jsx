@@ -5,92 +5,56 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
 
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-
+import { updateTimePeriod } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
+    filter: PropTypes.object
 };
 
-export default class TimePeriodFYFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
+const TimePeriodFYFilterGroup = ({ filter }) => {
+    const timePeriodFY = useSelector((state) => state.filters.timePeriodFY);
+    const dispatch = useDispatch();
 
-        this.removeFilter = this.removeFilter.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
+    const unstageFilter = (value, staged) => {
+        // remove a single filter item
+        let newYears;
 
-    removeFilter(value) {
-    // remove a single filter item
-        const timePeriodFilter = {
-            dateType: this.props.redux.reduxFilters.timePeriodType,
-            fy: this.props.redux.reduxFilters.timePeriodFY,
-            start: this.props.redux.reduxFilters.timePeriodStart,
-            end: this.props.redux.reduxFilters.timePeriodEnd
-        };
-
-        // remove the item from the set
-        timePeriodFilter.dateType = 'fy';
-        // as an ImmutableJS structure, the delete function will return a new instance
-        timePeriodFilter.fy = this.props.redux.reduxFilters.timePeriodFY.delete(value);
-
-        // reuse the Redux action from the time period filter component
-        this.props.redux.updateTimePeriod(timePeriodFilter);
-    }
-
-    clearGroup() {
-        this.props.redux.resetTimeFilters();
-    }
-
-    generateTags() {
-        const tags = [];
-
-        const selectedValues = this.props.filter.values;
-
-        // determine how many fiscal years there are available to select
-        // add an extra year at the end to include the current year in the count
-        const allFY = (FiscalYearHelper.currentFiscalYear() - FiscalYearHelper.earliestFiscalYear)
-            + 1;
-
-        // check if all fiscal years were selected
-        if (selectedValues.length === allFY) {
-            const tag = {
-                value: 'all',
-                title: 'All Fiscal Years',
-                removeFilter: this.clearGroup
-            };
-
-            tags.push(tag);
+        // check if we are adding or removing
+        if (staged) {
+            // the year already exists in the set so we are removing
+            newYears = timePeriodFY.delete(value);
         }
         else {
-            // not all fiscal years were selected, list them individually
-            selectedValues.forEach((value) => {
-                const tag = {
-                    value,
-                    title: `FY ${value}`,
-                    removeFilter: this.removeFilter
-                };
-
-                tags.push(tag);
-            });
+            // the year does not yet exist in the set so we are adding
+            newYears = timePeriodFY.add(value);
         }
 
-        return tags;
-    }
+        dispatch(updateTimePeriod({
+            fy: newYears,
+            dateType: 'fy'
+        }));
+    };
 
-    render() {
-        const tags = this.generateTags();
+    const tags = [];
 
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
+    // not all fiscal years were selected, list them individually
+    filter.values.forEach((value) => {
+        const unstaged = !timePeriodFY.has(value);
+        const tag = {
+            value,
+            title: `FY ${value}`,
+            unstageFilter: () => unstageFilter(value, !unstaged),
+            unstaged
+        };
+
+        tags.push(tag);
+    });
+
+    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+};
 
 TimePeriodFYFilterGroup.propTypes = propTypes;
+export default TimePeriodFYFilterGroup;
