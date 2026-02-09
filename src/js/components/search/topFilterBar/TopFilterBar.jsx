@@ -15,8 +15,7 @@ import { Button } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { showModal } from 'redux/actions/modal/modalActions';
-import { topFilterGroupGenerator } from
-    'components/search/topFilterBar/TopFilterGroupGenerator';
+import topFilterGroupGenerator from './TopFilterGroupGenerator';
 
 const propTypes = {
     filters: PropTypes.array,
@@ -27,10 +26,7 @@ const propTypes = {
 const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
     const newAwardsOnlyPresent = filters.find(({ code }) => code === 'newAwardsOnly');
 
-    const groups = filters.map((filter) =>
-        topFilterGroupGenerator({
-            filter
-        }));
+    const groups = filters.map((filter) => topFilterGroupGenerator(filter));
 
     const dispatch = useDispatch();
 

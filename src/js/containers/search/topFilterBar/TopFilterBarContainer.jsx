@@ -18,7 +18,9 @@ const propTypes = {
 const TopFilterBarContainer = ({ updateFilterCount, compressed = false }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
 
-    const { filters, filterCount } = useMemo(() => getFilters(reduxFilters), [reduxFilters]);
+    const { filters, filterCount } = useMemo(
+        () => getFilters(reduxFilters)
+        , [reduxFilters]);
 
     useEffect(() => {
         if (!compressed) {

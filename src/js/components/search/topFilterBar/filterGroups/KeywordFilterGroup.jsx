@@ -5,64 +5,42 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
 
+import { updateTextSearchInput } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
+    filter: PropTypes.object
 };
 
-export default class KeywordFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
+const KeywordFilterGroup = ({ filter }) => {
+    const dispatch = useDispatch();
+    const keyword = useSelector((state) => state.filters.keyword);
 
-        this.removeFilter = this.removeFilter.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
-
-    removeFilter(value) {
-    // remove a single filter item
-        const newValue = this.props.redux.reduxFilters.keyword.delete(value);
-        this.props.redux.updateGenericFilter({
-            type: 'keyword',
-            value: newValue
-        });
-    }
-
-    clearGroup() {
-        this.props.redux.clearFilterType('keyword');
-    }
-
-    generateTags() {
+    const generateTags = () => {
     // check to see if a keyword is provided
         const tags = [];
 
-        const keywords = this.props.filter.values;
+        const keywords = filter.values;
 
         keywords.forEach((value) => {
             const tag = {
-                value: `${value}`,
                 title: `${value}`,
-                removeFilter: this.removeFilter
+                unstageFilter: () => dispatch(updateTextSearchInput(value)),
+                unstaged: keyword.get(value)
             };
 
             tags.push(tag);
         });
 
         return tags;
-    }
+    };
 
-    render() {
-        const tags = this.generateTags();
+    const tags = generateTags();
 
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
+    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+};
 
 KeywordFilterGroup.propTypes = propTypes;
+export default KeywordFilterGroup;

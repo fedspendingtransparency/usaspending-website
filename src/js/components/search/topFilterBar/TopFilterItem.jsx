@@ -5,22 +5,30 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Button } from "data-transparency-ui";
 
 const propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    unstageFilter: PropTypes.func,
+    unstaged: PropTypes.bool
 };
 
-const TopFilterItem = ({ title = 'Filter' }) => (
-    <div className="filter-item-container">
-        <div
-            className="filter-item"
-            role="listitem">
-            <div className="filter-item-title">
-                {title}
-            </div>
+const TopFilterItem = ({ title = 'Filter', unstageFilter, unstaged }) => {
+    const className = `filter-item${unstaged ? ' unstaged' : ''}`;
+
+    return (
+        <div className="filter-item-container">
+            <Button
+                copy={title}
+                buttonTitle={title}
+                buttonSize="sm"
+                buttonType="tertiary"
+                backgroundColor="light"
+                additionalClassnames={className}
+                onClick={unstageFilter} />
         </div>
-    </div>
-);
+    );
+};
 
 TopFilterItem.propTypes = propTypes;
 

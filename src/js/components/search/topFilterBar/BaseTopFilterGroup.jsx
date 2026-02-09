@@ -5,28 +5,25 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from "lodash-es";
 
 import TopFilterItem from './TopFilterItem';
 
 const propTypes = {
     filter: PropTypes.object,
-    tags: PropTypes.array,
-    compressed: PropTypes.bool
+    tags: PropTypes.array
 };
 
 const BaseTopFilterGroup = ({
     filter,
-    tags = [],
-    compressed
+    tags = []
 }) => {
-    const tagsArray = tags.map((tag) => (
+    const tagsArray = tags.map(({ title, unstageFilter, unstaged }) => (
         <TopFilterItem
-            key={`top-tag-${tag.id}-${tag.value}`}
-            title={tag.title}
-            value={tag.value}
-            code={filter.code}
-            removeFilter={tag.removeFilter}
-            compressed={compressed} />
+            title={title}
+            unstageFilter={unstageFilter}
+            unstaged={unstaged}
+            key={`top-tag-${title}-${uniqueId()}`} />
     ));
 
     return (
