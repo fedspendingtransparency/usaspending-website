@@ -27,11 +27,6 @@ const MenuDropdown = React.memo(({
 
     return <>
         {navbarConfig.map((section, i) => {
-            if (i < 0) {
-                // eslint-disable-next-line array-callback-return
-                return;
-            }
-
             const {
                 section1Items,
                 section2Items,
