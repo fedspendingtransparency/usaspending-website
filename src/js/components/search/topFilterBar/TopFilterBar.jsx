@@ -8,7 +8,7 @@
   * @extends React.Component
   **/
 
-import React, { memo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Button } from 'data-transparency-ui';
@@ -34,6 +34,20 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
 
     const dispatch = useDispatch();
 
+    const onClick = useCallback((e) => {
+        e.persist();
+        dispatch(showModal(window.location.href, 'filter'));
+    }, [dispatch]);
+
+    const onKeyUp = useCallback((e) => {
+        e.persist();
+        if (e.key === 'Enter') {
+            dispatch(showModal(window.location.href, 'filter'));
+        }
+    }, [dispatch]);
+
+    const image = useMemo(() => (<FontAwesomeIcon icon="window-restore" />), []);
+
     return (
         <div>
             <div
@@ -47,23 +61,15 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
                         {`${filterCount} Active Filter${filterCount !== 1 ? 's' : ''}:`}
                     </h2>
                     <Button
-                        onClick={(e) => {
-                            e.persist();
-                            dispatch(showModal(window.location.href, 'filter'));
-                        }}
-                        onKeyUp={(e) => {
-                            e.persist();
-                            if (e.key === 'Enter') {
-                                dispatch(showModal(window.location.href, 'filter'));
-                            }
-                        }}
+                        onClick={onClick}
+                        onKeyUp={onKeyUp}
                         copy="Learn how active filters work"
                         buttonTitle="filter modal"
                         buttonSize="sm"
                         buttonType="text"
                         backgroundColor="light"
                         imageAlignment="right"
-                        image={<FontAwesomeIcon icon="window-restore" />} />
+                        image={image} />
                 </div>
                 <div className="search-top-filters">
                     <div
