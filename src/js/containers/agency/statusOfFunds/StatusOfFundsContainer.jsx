@@ -37,9 +37,6 @@ const propTypes = {
 };
 
 const StatusOfFundsContainer = ({ fy }) => {
-    const dispatch = useDispatch();
-    const request = useRef(null);
-    const { overview } = useSelector((state) => state.agency);
     const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
     const [level, setLevel] = useState(0);
     const [loading, setLoading] = useState(true);
@@ -49,6 +46,11 @@ const StatusOfFundsContainer = ({ fy }) => {
     const [results, setResults] = useState([]);
     const [toggle, setOnToggle] = useState(false);
     const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
+    const { overview } = useSelector((state) => state.agency);
+
+    const dispatch = useDispatch();
+    const request = useRef(null);
+    const pageRef = useRef(1);
 
     // these are used for goBack fn and when changing pages in results
     const selectedSubComponentNameAndId = {
@@ -85,7 +87,7 @@ const StatusOfFundsContainer = ({ fy }) => {
         return list.slice(startIndex, endIndex);
     }, [currentPage]);
 
-    const fetchAgencySubcomponents = useCallback((pageNumber = 1) => {
+    const fetchAgencySubcomponents = useCallback(() => {
         if (request.current) {
             request.current.cancel();
         }
@@ -96,7 +98,7 @@ const StatusOfFundsContainer = ({ fy }) => {
             setLoading(true);
         }
 
-        request.current = fetchSubcomponentsList(overview.toptierCode, fy, pageNumber);
+        request.current = fetchSubcomponentsList(overview.toptierCode, fy, pageRef.current);
         const agencySubcomponentsListRequest = request.current;
         agencySubcomponentsListRequest.promise
             .then((res) => {
@@ -136,7 +138,7 @@ const StatusOfFundsContainer = ({ fy }) => {
         }
 
         request.current =
-            fetchFederalAccountsList(overview.toptierCode, agencyData.id, fy, currentPage);
+            fetchFederalAccountsList(overview.toptierCode, agencyData.id, fy, pageRef.current);
         const federalAccountsRequest = request.current;
         federalAccountsRequest.promise
             .then((res) => {
@@ -208,10 +210,10 @@ const StatusOfFundsContainer = ({ fy }) => {
         }
 
         if (objectClassFlag) {
-            request.current = fetchObjectClassByTas(tas.id, fy, currentPage);
+            request.current = fetchObjectClassByTas(tas.id, fy, pageRef.current);
         }
         else {
-            request.current = fetchProgramActivityByTas(tas.id, fy, currentPage);
+            request.current = fetchProgramActivityByTas(tas.id, fy, pageRef.current);
         }
         const programActivityRequest = request.current;
         programActivityRequest.promise
@@ -252,6 +254,9 @@ const StatusOfFundsContainer = ({ fy }) => {
     });
 
     useEffect(() => {
+        if (pageRef.current) {
+            pageRef.current = currentPage;
+        }
         if (resetPageChange) {
             setResetPageChange(false);
         }
