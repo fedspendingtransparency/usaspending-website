@@ -22,15 +22,15 @@ const propTypes = {
     noResults: PropTypes.bool,
     characterLimit: PropTypes.number,
     retainValue: PropTypes.bool,
-    dirtyFilters: PropTypes.symbol,
     minCharsToSearch: PropTypes.number,
-    inFlight: PropTypes.bool,
     icon: PropTypes.bool,
     size: PropTypes.oneOf(['small', 'medium']),
     id: PropTypes.string,
     minChar: PropTypes.bool,
     isLoading: PropTypes.bool,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    selectedItemsDisplayNames: PropTypes.object,
+    type: PropTypes.string
 };
 
 const Autocomplete = ({
@@ -112,11 +112,12 @@ const Autocomplete = ({
     };
 
     const scrollToSelectedId = (selectedId) => {
-        document.getElementById(`${autocompleteIdRef.current}__option_${selectedId}`).scrollIntoView({
-            behavior: 'auto',
-            block: 'nearest',
-            inline: 'nearest'
-        });
+        document.getElementById(`${autocompleteIdRef.current}__option_${selectedId}`)
+            .scrollIntoView({
+                behavior: 'auto',
+                block: 'nearest',
+                inline: 'nearest'
+            });
     };
 
     const open = () => {
@@ -227,7 +228,9 @@ const Autocomplete = ({
             if ((value && value.length < minCharsToSearch) && minChar) {
                 error = warning(
                     'Error',
-                    `Please enter more than ${minCharsToSearch - 1} character${minCharsToSearch > 2 ? 's' : ''}.`
+                    `Please enter more than ${
+                        minCharsToSearch - 1
+                    } character${minCharsToSearch > 2 ? 's' : ''}.`
                 );
             }
             else if ((value && value.length < minCharsToSearch) && !minChar) {
