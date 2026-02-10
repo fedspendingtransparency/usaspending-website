@@ -18,7 +18,7 @@ const TimePeriodFYFilterGroup = ({ filter }) => {
     const timePeriodFY = useSelector((state) => state.filters.timePeriodFY);
     const dispatch = useDispatch();
 
-    const unstageFilter = (value, staged) => {
+    const toggleFilter = (value, staged) => {
         // remove a single filter item
         let newYears;
 
@@ -42,12 +42,11 @@ const TimePeriodFYFilterGroup = ({ filter }) => {
 
     // not all fiscal years were selected, list them individually
     filter.values.forEach((value) => {
-        const unstaged = !timePeriodFY.has(value);
         tags.push({
             value,
             title: `FY ${value}`,
-            unstageFilter: () => unstageFilter(value, !unstaged),
-            unstaged
+            toggleFilter,
+            staged: timePeriodFY.has(value)
         });
     });
 
