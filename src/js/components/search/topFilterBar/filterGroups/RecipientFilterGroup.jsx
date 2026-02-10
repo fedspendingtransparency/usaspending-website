@@ -5,64 +5,44 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
 
+import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
-};
+const propTypes = { filter: PropTypes.object };
 
-export default class RecipientFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
+const RecipientFilterGroup = ({ filter }) => {
+    const selectedRecipients = useSelector((state) => state.filters.selectedRecipients);
+    const dispatch = useDispatch();
 
-        this.removeFilter = this.removeFilter.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
+    const removeFilter = (value, staged) => {
+        let newValue;
 
-    removeFilter(value) {
-    // remove a single filter item
-        const newValue = this.props.redux.reduxFilters.selectedRecipients.delete(value);
-        this.props.redux.updateGenericFilter({
+        if (staged) newValue = selectedRecipients.delete(value);
+        else newValue = selectedRecipients.add(value);
+
+        dispatch(updateGenericFilter({
             type: 'selectedRecipients',
             value: newValue
-        });
-    }
+        }));
+    };
 
-    clearGroup() {
-        this.props.redux.clearFilterType('selectedRecipients');
-    }
+    const tags = [];
 
-    generateTags() {
-        const tags = [];
+    filter.values.forEach((value) => {
+        const tag = {
+            value,
+            title: `RECIPIENT | ${value}`,
+            toggleFilter: removeFilter,
+            staged: selectedRecipients.has(value)
+        };
 
-        // check to see if an agency is provided
-        const recipients = this.props.filter.values;
+        tags.push(tag);
+    });
 
-        recipients.forEach((value) => {
-            const tag = {
-                value: `${value}`,
-                title: `RECIPIENT | ${value}`,
-                removeFilter: this.removeFilter
-            };
-
-            tags.push(tag);
-        });
-
-        return tags;
-    }
-
-    render() {
-        const tags = this.generateTags();
-
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
+    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+};
 
 RecipientFilterGroup.propTypes = propTypes;
+export default RecipientFilterGroup;
