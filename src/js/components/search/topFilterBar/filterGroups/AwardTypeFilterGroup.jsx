@@ -8,7 +8,9 @@ import PropTypes from 'prop-types';
 import { indexOf, difference, concat } from 'lodash-es';
 import { useDispatch, useSelector } from "react-redux";
 
-import { awardTypeCodes, awardTypeGroups } from "dataMapping/search/awardType";
+import {
+    awardTypeCodes, awardTypeGroups, analyticsAwardTypeGroupLabels as groupLabels
+} from "dataMapping/search/awardType";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
@@ -16,23 +18,16 @@ const propTypes = {
     filter: PropTypes.object
 };
 
-const groupKeys = ['contracts', 'idvs', 'grants', 'direct_payments', 'loans', 'other'];
-const groupLabels = {
-    contracts: 'Contracts',
-    idvs: 'Indefinite Delivery Vehicles',
-    grants: 'Grants',
-    direct_payments: 'Direct Payments',
-    loans: 'Loans',
-    other: 'Other'
-};
-
 const AwardTypeFilterGroup = ({ filter }) => {
     const awardType = useSelector((state) => state.filters.awardType);
     const dispatch = useDispatch();
 
-    const removeFilter = (value) => {
-        // remove a single filter item
-        const newValue = awardType.delete(value);
+    const removeFilter = (value, staged) => {
+        let newValue;
+
+        if (staged) newValue = awardType.delete(value);
+        else newValue = awardType.add(value);
+
         dispatch(updateGenericFilter({
             type: 'awardType',
             value: newValue
@@ -45,7 +40,11 @@ const AwardTypeFilterGroup = ({ filter }) => {
         let updatedValues = awardType;
 
         if (staged) updatedValues = updatedValues.filter((x) => !(indexOf(awardValues, x) > -1));
-        else awardValues.forEach((x) => updatedValues = updatedValues.add(x));
+        else {
+            awardValues.forEach((x) => {
+                updatedValues = updatedValues.add(x);
+            });
+        }
 
         dispatch(updateGenericFilter({
             type: 'awardType',
@@ -60,7 +59,7 @@ const AwardTypeFilterGroup = ({ filter }) => {
     const fullGroups = [];
     const unstagedGroups = [];
 
-    groupKeys.forEach((key) => {
+    Object.keys(groupLabels).forEach((key) => {
         const fullMembership = awardTypeGroups[key];
 
         // quick way of checking for full group membership is to return an array of missing
@@ -94,9 +93,11 @@ const AwardTypeFilterGroup = ({ filter }) => {
     });
 
     selectedValues.forEach((value) => {
+        const unstaged = !awardType.includes(value);
         const tag = {
             title: awardTypeCodes[value],
-            unstageFilter: removeFilter
+            unstageFilter: () => removeFilter(value, !unstaged),
+            unstaged
         };
 
         if (indexOf(excludedValues, value) < 0) {
