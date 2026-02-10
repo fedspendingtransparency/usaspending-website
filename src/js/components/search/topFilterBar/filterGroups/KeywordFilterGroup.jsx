@@ -18,14 +18,17 @@ const KeywordFilterGroup = ({ filter }) => {
     const dispatch = useDispatch();
     const keyword = useSelector((state) => state.filters.keyword);
 
+    const toggleFilter = (value) => dispatch(updateTextSearchInput(value));
+
     // check to see if a keyword is provided
     const tags = [];
 
     filter.values.forEach((value) => {
         tags.push({
-            title: `${value}`,
-            unstageFilter: () => dispatch(updateTextSearchInput(value)),
-            unstaged: !keyword.get(value)
+            value,
+            title: value,
+            toggleFilter,
+            staged: keyword.get(value)
         });
     });
 
