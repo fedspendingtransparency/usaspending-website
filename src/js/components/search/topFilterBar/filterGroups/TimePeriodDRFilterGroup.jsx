@@ -15,7 +15,8 @@ const TimePeriodDRFilterGroup = () => {
     const appliedTimePeriod = useSelector((state) => state.appliedFilters.filters.time_period);
     const dispatch = useDispatch();
 
-    const unstageFilters = ({ startDate, endDate }, staged) => {
+    const toggleFilter = ({ startDate, endDate }, staged) => {
+        console.log({ startDate, endDate, staged });
         let newValue = timePeriod;
 
         timePeriod.forEach((date) => {
@@ -42,22 +43,23 @@ const TimePeriodDRFilterGroup = () => {
 
     const filter = {
         values: appliedTimePeriod.map((value) => ({
-            title: dateRangeChipLabel(value),
             startDate: value.start_date,
             endDate: value.end_date,
-            unstaged: !timePeriod.has(value)
+            title: dateRangeChipLabel(value),
+            staged: timePeriod.has(value)
         }))
     };
 
     const tags = [];
 
     filter.values.forEach(({
-        title, startDate, endDate, unstaged
+        startDate, endDate, title, staged
     }) => {
         tags.push({
+            value: { startDate, endDate },
             title,
-            unstageFilter: () => unstageFilters({ startDate, endDate }, !unstaged),
-            unstaged
+            toggleFilter,
+            staged
         });
     });
 
