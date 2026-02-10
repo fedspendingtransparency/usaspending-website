@@ -5,12 +5,15 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import { dateRangeChipLabel } from "helpers/searchHelper";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const TimePeriodDRFilterGroup = () => {
+const propTypes = { filter: PropTypes.object };
+
+const TimePeriodDRFilterGroup = ({ filter }) => {
     const timePeriod = useSelector((state) => state.filters.time_period);
     const appliedTimePeriod = useSelector((state) => state.appliedFilters.filters.time_period);
     const dispatch = useDispatch();
@@ -41,7 +44,7 @@ const TimePeriodDRFilterGroup = () => {
         }));
     };
 
-    const filter = {
+    const filters = {
         values: appliedTimePeriod.map((value) => ({
             startDate: value.start_date,
             endDate: value.end_date,
@@ -52,7 +55,7 @@ const TimePeriodDRFilterGroup = () => {
 
     const tags = [];
 
-    filter.values.forEach(({
+    filters.values.forEach(({
         startDate, endDate, title, staged
     }) => {
         tags.push({
@@ -66,4 +69,5 @@ const TimePeriodDRFilterGroup = () => {
     return (<BaseTopFilterGroup tags={tags} filter={filter} />);
 };
 
+TimePeriodDRFilterGroup.propTypes = propTypes;
 export default TimePeriodDRFilterGroup;
