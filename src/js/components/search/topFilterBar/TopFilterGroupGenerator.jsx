@@ -40,10 +40,7 @@ const topFilterGroupGenerator = (filter = { code: "" }) => {
         case 'awardType':
             return <AwardTypeFilterGroup key={groupKey} filter={filter} />;
         case 'selectedLocations':
-            return (<LocationFilterGroup
-                key={groupKey}
-                filter={filter}
-                toggle="locationDomesticForeign" />);
+            return (<LocationFilterGroup filter={filter} key={groupKey} />);
         case 'selectedFundingAgencies':
             return <AgencyFilterGroup key={groupKey} filter={filter} />;
         case 'selectedAwardingAgencies':
@@ -51,10 +48,7 @@ const topFilterGroupGenerator = (filter = { code: "" }) => {
         case 'selectedRecipients':
             return <RecipientFilterGroup key={groupKey} filter={filter} />;
         case 'selectedRecipientLocations':
-            return (<LocationFilterGroup
-                key={groupKey}
-                filter={filter}
-                toggle="recipientDomesticForeign" />);
+            return (<LocationFilterGroup filter={filter} key={groupKey} />);
         case 'treasuryAccounts':
             return <ProgramSourceFilterGroup key={groupKey} filter={filter} />;
         case 'recipientType':
