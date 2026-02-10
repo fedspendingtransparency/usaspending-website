@@ -5,78 +5,62 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
 
+import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    toggle: PropTypes.string,
-    compressed: PropTypes.bool
+const propTypes = { filter: PropTypes.object };
+
+const LocationFilterGroup = ({ filter }) => {
+    const { selectedLocations, selectedRecipientLocations } = useSelector((state) => state.filters);
+    const dispatch = useDispatch();
+
+    const filterType = filter.code === 'selectedLocations' ?
+        selectedLocations :
+        selectedRecipientLocations;
+
+    const toggleFilter = (value, staged) => {
+        let newValue = filterType;
+
+        filterType.forEach((v, i) => {
+            if (staged && v.identifier === value.identifier) newValue = newValue.delete(i);
+            else newValue = newValue.add(i);
+        });
+
+        if (!staged) newValue = newValue.set(value.identifier, value);
+
+        dispatch(updateGenericFilter({
+            type: filter.code,
+            value: newValue
+        }));
+    };
+
+    const tags = [];
+
+    filter.values.forEach((value) => {
+        const staged = filterType.includes(value);
+        let tag = {
+            value,
+            title: `${value?.display?.entity?.toUpperCase()} | ${value?.display?.standalone}`,
+            toggleFilter,
+            staged
+        };
+
+        if (value.isScope) {
+            tag = {
+                value,
+                title: "ALL FOREIGN LOCATIONS",
+                toggleFilter,
+                staged
+            };
+        }
+
+        tags.push(tag);
+    });
+
+    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
 };
 
-export default class LocationFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.removeFilter = this.removeFilter.bind(this);
-        this.removeScope = this.removeScope.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
-
-    removeFilter(value) {
-    // remove a single filter item
-    // this.props.removeFilter(this.props.filter.code, value);
-    // remove a single filter item
-        const newValue = this.props.redux.reduxFilters[this.props.filter.code].delete(value);
-        this.props.redux.updateGenericFilter({
-            type: this.props.filter.code,
-            value: newValue
-        });
-    }
-
-    removeScope() {
-        this.props.redux.clearFilterType(this.props.toggle);
-    }
-
-    clearGroup() {
-        this.props.redux.clearFilterType(this.props.filter.code);
-        this.props.redux.clearFilterType(this.props.toggle);
-    }
-
-    generateTags() {
-        const tags = [];
-
-        this.props?.filter?.values.forEach((value) => {
-            let tag = {
-                value: value?.identifier,
-                title: `${value?.display?.entity?.toUpperCase()} | ${value?.display?.standalone}`,
-                removeFilter: this.removeFilter
-            };
-
-            if (value.isScope) {
-                tag = {
-                    value: value?.identifier,
-                    title: "ALL FOREIGN LOCATIONS",
-                    removeFilter: this.removeFilter
-                };
-            }
-
-            tags.push(tag);
-        });
-
-        return tags;
-    }
-
-    render() {
-        const tags = this.generateTags();
-
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
-
 LocationFilterGroup.propTypes = propTypes;
+export default LocationFilterGroup;
