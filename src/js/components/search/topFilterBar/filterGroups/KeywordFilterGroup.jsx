@@ -10,13 +10,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateTextSearchInput } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object
-};
+const propTypes = { filter: PropTypes.object };
 
 const KeywordFilterGroup = ({ filter }) => {
-    const dispatch = useDispatch();
     const keyword = useSelector((state) => state.filters.keyword);
+    const dispatch = useDispatch();
 
     const toggleFilter = (value) => dispatch(updateTextSearchInput(value));
 
