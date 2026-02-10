@@ -78,12 +78,12 @@ const AwardTypeFilterGroup = ({ filter }) => {
     // add full groups to the beginning of the tag list
     let excludedValues = [];
     fullGroups.forEach((group) => {
-        const unstaged = unstagedGroups.includes(group);
+        const staged = !unstagedGroups.includes(group);
         const tag = {
             value: group,
             title: `All ${groupLabels[group]}`,
-            unstageFilter: () => removeGroup(group, !unstaged),
-            unstaged
+            toggleFilter: removeGroup,
+            staged
         };
 
         tags.push(tag);
@@ -93,11 +93,12 @@ const AwardTypeFilterGroup = ({ filter }) => {
     });
 
     selectedValues.forEach((value) => {
-        const unstaged = !awardType.includes(value);
+        const staged = awardType.includes(value);
         const tag = {
+            value,
             title: awardTypeCodes[value],
-            unstageFilter: () => removeFilter(value, !unstaged),
-            unstaged
+            toggleFilter: removeFilter,
+            staged
         };
 
         if (indexOf(excludedValues, value) < 0) {

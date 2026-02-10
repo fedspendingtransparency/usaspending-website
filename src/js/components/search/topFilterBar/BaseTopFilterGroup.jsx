@@ -18,11 +18,14 @@ const BaseTopFilterGroup = ({
     filter,
     tags = []
 }) => {
-    const tagsArray = tags.map(({ title, unstageFilter, unstaged }) => (
+    const tagsArray = tags.map(({
+        title, toggleFilter, staged, value
+    }) => (
         <TopFilterItem
             title={title}
-            unstageFilter={unstageFilter}
-            unstaged={unstaged}
+            toggleFilter={toggleFilter}
+            staged={staged}
+            value={value}
             key={`top-tag-${title}-${uniqueId()}`} />
     ));
 

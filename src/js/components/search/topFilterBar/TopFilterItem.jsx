@@ -5,27 +5,41 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button } from "data-transparency-ui";
 
 const propTypes = {
     title: PropTypes.string.isRequired,
-    unstageFilter: PropTypes.func,
-    unstaged: PropTypes.bool
+    toggleFilter: PropTypes.func,
+    staged: PropTypes.bool,
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 };
 
-const TopFilterItem = ({ title = 'Filter', unstageFilter, unstaged }) => {
-    const className = `filter-item${unstaged ? ' unstaged' : ''}`;
+const TopFilterItem = ({
+    title = 'Filter', toggleFilter, staged, value
+}) => {
+    const onClick = () => {
+        if (value) toggleFilter(value, staged);
+        else toggleFilter();
+    };
+
+    const onKeyUp = (e) => {
+        e.persist();
+        if (e.key === 'Enter') onClick();
+    };
 
     return (
         <div className="filter-item-container">
-            <Button
-                copy={title}
-                buttonTitle={title}
-                buttonSize="sm"
-                buttonType="tertiary"
-                backgroundColor="light"
-                additionalClassnames={className}
-                onClick={unstageFilter} />
+            <button
+                onClick={onClick}
+                onKeyUp={onKeyUp}
+                type="button"
+                aria-label={title}
+                className={`filter-item${staged ? '' : ' unstaged'}`}
+                value={title}
+                tabIndex="0">
+                <div className="filter-item-title">
+                    {title}
+                </div>
+            </button>
         </div>
     );
 };
