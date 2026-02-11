@@ -1,4 +1,5 @@
-import React from "react";
+/* eslint-disable max-len */
+import React, { useCallback } from "react";
 import { FlexGridRow } from 'data-transparency-ui';
 import { Link } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -7,6 +8,9 @@ import FadeContents from "./FadeContents";
 import isRedirectNeeded from '../../../../helpers/url';
 import ExternalLink from "../../ExternalLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
+import useQueryParams from "../../../../hooks/useQueryParams";
+import { combineQueryParams, getQueryParamString } from '../../../../helpers/queryParams';
+
 
 const MenuDropdown = React.memo(({
     navbarConfig,
@@ -15,15 +19,23 @@ const MenuDropdown = React.memo(({
     closeDropdown,
     direction
 }) => {
-    const openATD = (e) => {
+    const query = useQueryParams();
+    const openATD = useCallback((e) => {
         showSlideout('atd');
         e.preventDefault();
-    };
+    }, []);
 
-    const openGlossary = (e) => {
+    const openGlossary = useCallback((e) => {
         showSlideout('glossary');
         e.preventDefault();
-    };
+    }, []);
+
+    const subAwardClick = useCallback(() => {
+        if (!window.location.href.includes("subawards")) {
+            const newQueryParams = combineQueryParams(query, { subawards: "true" });
+            window.open(`/search${getQueryParamString(newQueryParams)}`);
+        }
+    }, [query]);
 
     return <>
         {navbarConfig.map((section, i) => {
@@ -69,7 +81,7 @@ const MenuDropdown = React.memo(({
                                             <li
                                                 key={`link-${uniqueId(index)}`}
                                                 className="list__extra-padding">
-                                                <Link prefetch={menuIndex === 0 ? "intent" : "none"} className="dropdown--item__link" to={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
+                                                <Link prefetch={menuIndex === 0 ? "intent" : "none"} onClick={index === 1 ? subAwardClick : null} className="dropdown--item__link" to={index === 1 ? null : item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
                                                     {item.icon && item.icon !== '' && item.icon !== null ?
                                                         <FontAwesomeIcon
                                                             role="presentation"
