@@ -247,7 +247,7 @@ const articles = [
         taxonomy: "What's the Difference?",
         content_type: 'Featured Content',
         title: "Grants vs. Contracts",
-        banner_subtitle: "What’s the Difference Between Grants and Contracts?",
+        banner_subtitle: "What's the Difference Between Grants and Contracts?",
         created_date: "12/25/25",
         feature_sprint: 3,
         feature_week: 1,
@@ -440,7 +440,7 @@ const articles = [
         ]
     },
     {
-        taxonomy: "Exploring America’s Finances",
+        taxonomy: "Exploring America's Finances",
         isInfographicTemplate: false,
         content_type: 'Marketing',
         title: "Using Popular Filters on USAspending.gov",
@@ -482,11 +482,11 @@ const articles = [
         ]
     },
     {
-        taxonomy: "What’s the Difference?",
+        taxonomy: "What's the Difference?",
         isInfographicTemplate: false,
         content_type: 'Featured Content',
         title: "Awarding Agency vs. Funding Agency",
-        banner_subtitle: "What’s the Difference Between Awarding Agency and Funding Agency?",
+        banner_subtitle: "What's the Difference Between Awarding Agency and Funding Agency?",
         created_date: "02/26/2026",
         feature_sprint: 6,
         feature_week: 1,
