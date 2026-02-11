@@ -3,26 +3,24 @@
  * Created by JD House 01/2026
  */
 
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import Analytics from 'helpers/analytics/Analytics';
+import { setSearchViewSubaward, setSpendingLevel } from "redux/actions/search/searchViewActions";
 
 
 const propTypes = {
-    setSearchViewSubaward: PropTypes.func,
     selectedValue: PropTypes.string,
-    label: PropTypes.string,
-    setSpendingLevel: PropTypes.func
+    label: PropTypes.string
 };
 
-const FilterAwardToggle = ({
+// eslint-disable-next-line prefer-arrow-callback
+const FilterAwardToggle = memo(function FilterAwardToggle({
     selectedValue = 'awards',
-    setSearchViewSubaward,
-    label = "View By",
-    setSpendingLevel
-}) => {
+    label = "View By"
+}) {
     const [selected, setSelected] = useState(selectedValue);
     const dispatch = useDispatch();
 
@@ -59,7 +57,9 @@ const FilterAwardToggle = ({
                 {buttonOptions.map((type) => (
                     <button
                         id={type.name}
-                        className={`filter-award-toggle__button ${selected === type.value ? "active" : ""}`}
+                        className={`filter-award-toggle__button ${
+                            selected === type.value ? "active" : ""
+                        }`}
                         tabIndex="0"
                         onClick={() => onToggle(type.value)}
                         onKeyDown={(e) => (e.key === "Enter" ? onToggle(type.value) : "")} >
@@ -69,7 +69,7 @@ const FilterAwardToggle = ({
             </div>
         </div>
     );
-};
+});
 
 FilterAwardToggle.propTypes = propTypes;
 export default FilterAwardToggle;

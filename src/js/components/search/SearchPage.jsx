@@ -26,22 +26,18 @@ require('pages/search/searchPage.scss');
 
 const propTypes = {
     download: PropTypes.object,
-    filters: PropTypes.object,
     appliedFilters: PropTypes.object,
     downloadAvailable: PropTypes.bool,
     downloadInFlight: PropTypes.bool,
-    requestsComplete: PropTypes.bool,
     noFiltersApplied: PropTypes.bool,
     hash: PropTypes.string
 };
 
 const SearchPage = ({
     download,
-    filters,
     appliedFilters,
     downloadAvailable,
     downloadInFlight,
-    requestsComplete,
     noFiltersApplied,
     hash
 }) => {
@@ -56,15 +52,10 @@ const SearchPage = ({
 
     const dispatch = useDispatch();
     const { isMedium } = useIsMobile();
-    const searchContents = useRef();
+    const searchContents = useRef(null);
 
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
-    };
-
-    // Use the top filter bar container's internal filter parsing to track the current number of filters applied
-    const updateFilterCount = (count) => {
-        setFilterCount(count);
     };
 
     // Toggle whether or not to show the mobile filter view
@@ -133,15 +124,11 @@ const SearchPage = ({
                             rel="stylesheet" />
                     </Helmet>
                     <ResultsView
-                        filters={filters}
-                        isMobile={isMedium}
-                        filterCount={filterCount}
                         showMobileFilters={showMobileFilters}
-                        updateFilterCount={updateFilterCount}
-                        requestsComplete={requestsComplete}
+                        isMobile={isMedium}
                         noFiltersApplied={noFiltersApplied}
                         hash={hash}
-                        searchV2 />
+                        setFilterCount={setFilterCount} />
                 </div>
                 <FullDownloadModalContainer
                     download={download}
@@ -153,5 +140,4 @@ const SearchPage = ({
 };
 
 SearchPage.propTypes = propTypes;
-
 export default SearchPage;
