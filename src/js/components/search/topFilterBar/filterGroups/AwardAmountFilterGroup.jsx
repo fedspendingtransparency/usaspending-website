@@ -6,9 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
+import { OrderedMap } from "immutable";
 
 import { formatAwardAmountRange } from "helpers/awardAmountHelper";
-import { updateAwardAmounts } from "redux/actions/search/searchFilterActions";
+import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { filter: PropTypes.object };
@@ -18,13 +19,22 @@ const AwardAmountFilterGroup = ({ filter }) => {
     const appliedAwardAmounts = useSelector((state) => state.appliedFilters.filters.awardAmounts);
     const dispatch = useDispatch();
 
-    const toggleFilter = (value) => dispatch(updateAwardAmounts({ value }));
+    const toggleFilter = (value, staged) => {
+        const newValue = staged ?
+            new OrderedMap() :
+            appliedAwardAmounts;
+
+        dispatch(updateGenericFilter({
+            type: 'awardAmounts',
+            value: newValue
+        }));
+    };
 
     const tags = [];
 
     appliedAwardAmounts.forEach((amounts, i) => {
-        const value = typeof i === 'string' ?
-            i : amounts;
+        const value = i === 'specific' ?
+            amounts : i;
 
         const tag = {
             value,
