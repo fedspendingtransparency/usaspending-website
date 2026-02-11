@@ -3,15 +3,14 @@
   * Created by Kevin Li 12/13/16
   **/
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { orderBy, difference, concat, indexOf } from 'lodash-es';
+import { concat, difference, indexOf, orderBy } from 'lodash-es';
 
 
 import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
-import { topFilterGroupGenerator } from
-    'components/search/topFilterBar/TopFilterGroupGenerator';
+import { topFilterGroupGenerator } from 'components/search/topFilterBar/TopFilterGroupGenerator';
 
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import * as AwardType from 'dataMapping/search/awardType';
@@ -21,12 +20,12 @@ import * as AwardType from 'dataMapping/search/awardType';
 const dayjs = require('dayjs');
 
 const propTypes = {
-    updateFilterCount: PropTypes.func,
+    setFilterCount: PropTypes.func,
     compressed: PropTypes.bool,
     filters: PropTypes.object
 };
 
-const TopFilterBarContainer = ({ updateFilterCount, compressed = false, filters }) => {
+const TopFilterBarContainer = ({ setFilterCount, compressed = false, filters }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
     const [filtersInfo, setFiltersInfo] = useState({
         filters: [],
@@ -115,7 +114,8 @@ const TopFilterBarContainer = ({ updateFilterCount, compressed = false, filters 
     };
 
     /**
-     * Logic for parsing the current Redux newAwardsOnly filter into a JS object that can be parsed by the
+     * Logic for parsing the current Redux newAwardsOnly filter into
+     * a JS object that can be parsed by the
      * top filter bar
      */
     const prepareNewAwardsOnly = () => {
@@ -228,8 +228,7 @@ const TopFilterBarContainer = ({ updateFilterCount, compressed = false, filters 
         if (filters?.treasuryAccounts && filters.treasuryAccounts?.count() > 0) {
             // treasury account components have been selected
             selected = true;
-            const identifiers = Object.keys(filters.treasuryAccounts?.toObject());
-            filter.values = identifiers;
+            filter.values = Object.keys(filters.treasuryAccounts?.toObject());
         }
 
         if (filters?.tasCodes?.require.length > 0) {
@@ -768,7 +767,7 @@ const TopFilterBarContainer = ({ updateFilterCount, compressed = false, filters 
 
     useEffect(() => {
         if (!compressed) {
-            updateFilterCount(filtersInfo.filterCount);
+            setFilterCount(filtersInfo.filterCount);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filtersInfo]);
