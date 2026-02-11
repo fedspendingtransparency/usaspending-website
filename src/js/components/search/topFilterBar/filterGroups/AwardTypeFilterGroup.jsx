@@ -22,7 +22,7 @@ const AwardTypeFilterGroup = ({ filter }) => {
     const awardType = useSelector((state) => state.filters.awardType);
     const dispatch = useDispatch();
 
-    const removeFilter = (value, staged) => {
+    const toggleFilter = (value, staged) => {
         let newValue;
 
         if (staged) newValue = awardType.delete(value);
@@ -34,7 +34,7 @@ const AwardTypeFilterGroup = ({ filter }) => {
         }));
     };
 
-    const removeGroup = (value, staged) => {
+    const toggleGroup = (value, staged) => {
         const awardValues = awardTypeGroups[value];
 
         let updatedValues = awardType;
@@ -82,7 +82,7 @@ const AwardTypeFilterGroup = ({ filter }) => {
         const tag = {
             value: group,
             title: `All ${groupLabels[group]}`,
-            toggleFilter: removeGroup,
+            toggleFilter: toggleGroup,
             staged
         };
 
@@ -97,7 +97,7 @@ const AwardTypeFilterGroup = ({ filter }) => {
         const tag = {
             value,
             title: awardTypeCodes[value],
-            toggleFilter: removeFilter,
+            toggleFilter,
             staged
         };
 
