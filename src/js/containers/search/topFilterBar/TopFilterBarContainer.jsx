@@ -11,11 +11,11 @@ import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
 import getFilters from './getFilters';
 
 const propTypes = {
-    updateFilterCount: PropTypes.func,
+    setFilterCount: PropTypes.func,
     compressed: PropTypes.bool
 };
 
-const TopFilterBarContainer = ({ updateFilterCount, compressed = false }) => {
+const TopFilterBarContainer = ({ setFilterCount, compressed = false }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
 
     const { filters, filterCount } = useMemo(
@@ -24,9 +24,9 @@ const TopFilterBarContainer = ({ updateFilterCount, compressed = false }) => {
 
     useEffect(() => {
         if (!compressed) {
-            updateFilterCount(filterCount);
+            setFilterCount(filterCount);
         }
-    }, [compressed, filterCount, updateFilterCount]);
+    }, [compressed, filterCount, setFilterCount]);
 
     if (filters && filters?.length > 0) {
         return (

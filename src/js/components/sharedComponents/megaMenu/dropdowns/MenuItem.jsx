@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const MenuItem = (props) => {
@@ -20,27 +19,22 @@ const MenuItem = (props) => {
     };
 
     const {
-        title, children, url, index, closeDropdown
+        title, children, index
     } = props;
 
     return (
         <li className="navbar-item-el">
-            {url ? <Link onMouseEnter={() => closeDropdown()} className="navbar-item-title" to={url}>{title}</Link>
-                :
-                <>
-                    <button
-                        className={`navbar-item-title navbar-item-title-${index} ${navChevronDirection === "chevron-up" ? "navbar-item-title-hover" : ""}`}
-                        onMouseEnter={() => onMouseEnter(index)}
-                        onMouseLeave={() => onMouseLeave()}
-                        onFocus={() => onMouseEnter(index)}>
-                        {title}
-                        <div className="navbar-chevron-icon">
-                            <FontAwesomeIcon icon={navChevronDirection} alt={iconAlt} />
-                        </div>
-                    </button>
-                    <div className={`dropdown-slot dropdown-slot-${index}`}>{children}</div>
-                </>
-            }
+            <button
+                className={`navbar-item-title navbar-item-title-${index} ${navChevronDirection === "chevron-up" ? "navbar-item-title-hover" : ""}`}
+                onMouseEnter={() => onMouseEnter(index)}
+                onMouseLeave={() => onMouseLeave()}
+                onFocus={() => onMouseEnter(index)}>
+                {title}
+                <div className="navbar-chevron-icon">
+                    <FontAwesomeIcon icon={navChevronDirection} alt={iconAlt} />
+                </div>
+            </button>
+            <div className={`dropdown-slot dropdown-slot-${index}`}>{children}</div>
         </li>
     );
 };

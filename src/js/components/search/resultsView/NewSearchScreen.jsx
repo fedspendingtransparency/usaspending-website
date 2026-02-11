@@ -4,57 +4,21 @@
  */
 
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import * as fiscalYearHelper from 'helpers/fiscalYearHelper';
-import { Button } from 'data-transparency-ui';
-import { updateTimePeriod } from "../../../redux/actions/search/searchFilterActions";
-import {
-    applyStagedFilters,
-    setAppliedFilterCompletion
-} from "../../../redux/actions/search/appliedFilterActions";
+import PropTypes from "prop-types";
+import NewSearchScreenButton from "./NewSearchScreenButton";
 
-const NewSearchScreen = () => {
-    const dispatch = useDispatch();
-    const lastYear = new Set([(fiscalYearHelper.currentFiscalYear() - 1).toString()]);
+const propTypes = { showButton: PropTypes.bool };
 
-    const timePeriodFilter = {
-        dateType: "fy",
-        fy: lastYear,
-        start: null,
-        end: null
-    };
+const NewSearchScreen = ({ showButton }) => (
+    <div className="new-search-container">
+        <img
+            className="new-search-icon"
+            src="graphics/award-search-default-empty-state.svg"
+            alt="Start your search by adding filters" />
+        <p className="new-search__start-text">Start your search by adding filters</p>
+        { showButton && <NewSearchScreenButton /> }
+    </div>
+);
 
-    const filter = useSelector((state) => state.filters);
-
-    const updatedFilter = {
-        ...filter,
-        timePeriod: timePeriodFilter
-    };
-
-
-    const handleOnClick = () => {
-        dispatch(updateTimePeriod(timePeriodFilter));
-        dispatch(setAppliedFilterCompletion(false));
-        dispatch(applyStagedFilters(updatedFilter));
-        dispatch(setAppliedFilterCompletion(true));
-    };
-
-    return (
-        <div className="new-search-container">
-            <img
-                className="new-search-icon"
-                src="graphics/award-search-default-empty-state.svg"
-                alt="Start your search by adding filters" />
-            <p className="new-search__start-text">Start your search by adding filters</p>
-            <Button
-                buttonSize="md"
-                copy="See spending from last year"
-                buttonTitle="See spending from last year"
-                buttonType="primary"
-                backgroundColor="light"
-                onClick={handleOnClick} />
-        </div>
-    );
-};
-
+NewSearchScreen.propTypes = propTypes;
 export default NewSearchScreen;

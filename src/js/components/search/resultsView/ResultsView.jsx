@@ -23,7 +23,7 @@ const propTypes = {
     isMobile: PropTypes.bool,
     noFiltersApplied: PropTypes.bool,
     hash: PropTypes.string,
-    updateFilterCount: PropTypes.func
+    setFilterCount: PropTypes.func
 };
 
 // eslint-disable-next-line prefer-arrow-callback
@@ -32,7 +32,7 @@ const ResultsView = React.memo(function ResultsView({
     isMobile,
     noFiltersApplied,
     hash,
-    updateFilterCount
+    setFilterCount
 }) {
     const [hasResults, setHasResults] = useState(false);
     const [resultContent, setResultContent] = useState(null);
@@ -159,7 +159,7 @@ const ResultsView = React.memo(function ResultsView({
     return (
         <div className="search-results-view-container">
             <div className="search-results-wrapper">
-                <TopFilterBarContainer updateFilterCount={updateFilterCount} />
+                <TopFilterBarContainer filters={filters} setFilterCount={setFilterCount} />
                 <div className={`search-results ${mobileFilters}`}>
                     {resultContent}
                 </div>
