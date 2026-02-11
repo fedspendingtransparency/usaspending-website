@@ -34,7 +34,6 @@ const FilterAwardToggle = ({
             dispatch(setSpendingLevel("subawards"));
         }
     }, []);
-
     const onToggle = useCallback((type) => {
         dispatch(setSearchViewSubaward(type === 'subawards'));
         dispatch(setSpendingLevel(type));
@@ -73,7 +72,6 @@ const FilterAwardToggle = ({
             value: 'subawards'
         }
     ];
-
 
     return (
         <div className="filter-award-toggle__container">
