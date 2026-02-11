@@ -6,8 +6,6 @@
 import React from "react";
 import { DownloadIconButton, ShareIcon } from "data-transparency-ui";
 
-import { setSearchViewSubaward, setSpendingLevel } from
-    "redux/actions/search/searchViewActions";
 import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
 import FilterAwardToggle from "../FilterAwardToggle";
 import NoDownloadHover from "./NoDownloadHover";
@@ -53,10 +51,7 @@ const searchPageToolBarComponents = (
 
     return (
         [
-            <FilterAwardToggle
-                setSearchViewSubaward={setSearchViewSubaward}
-                setSpendingLevel={setSpendingLevel}
-                selectedValue="awards" />,
+            <FilterAwardToggle />,
             <ShareIcon
                 isEnabled
                 url={getBaseUrl(getSlugWithHash())}

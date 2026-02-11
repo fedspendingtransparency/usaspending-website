@@ -3,7 +3,7 @@
  * Created by Emily Gullo 10/18/2016
  **/
 
-import React, { useRef, useState } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import { Button } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 
@@ -12,7 +12,8 @@ import SelectedKeywords from './SelectedKeywords';
 import { KeyWordTooltip } from "../tooltips/AdvancedSearchTooltip";
 import ContextTooltip from "../ContextTooltip";
 
-const Keyword = () => {
+// eslint-disable-next-line prefer-arrow-callback
+const Keyword = memo(function Keyword() {
     const [value, setValue] = useState('');
     const searchInputRef = useRef(null);
     const dispatch = useDispatch();
@@ -71,6 +72,6 @@ const Keyword = () => {
             </form>
         </div>
     );
-};
+});
 
 export default Keyword;
