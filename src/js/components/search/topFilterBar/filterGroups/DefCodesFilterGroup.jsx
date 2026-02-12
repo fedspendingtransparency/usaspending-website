@@ -5,102 +5,98 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
+import { difference, indexOf } from "lodash-es";
 
+import { defCodes as defCodeLabels, defCodeGroups } from 'dataMapping/search/defCodes';
+import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
-import { defCodes, defCodeGroups } from '../../../../dataMapping/search/defCodes';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
-};
+const propTypes = { filter: PropTypes.object };
+
 const groupLabels = {
-    covid_19: 'COVID-19 Spending',
+    covid: 'COVID-19 Spending',
     infrastructure: 'Infrastructure Spending'
 };
-export default class DefCodesFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
 
-        this.removeFilter = this.removeFilter.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
+const DefCodesFilterGroup = ({ filter }) => {
+    const defCode = useSelector((state) => state.filters.defCode);
+    const appliedDefCode = useSelector((state) => state.appliedFilters.filters.defCode);
+    const dispatch = useDispatch();
 
-    removeFilter(value) {
-    // remove a single filter item
-        const newValue = this.props.redux.reduxFilters.defCodes.delete(value);
-        this.props.redux.updateGenericFilter({
-            type: 'defCodes',
+    const toggleFilter = (value, staged) => {
+        const newValue = staged ?
+            defCode.delete(value) :
+            defCode.add(value);
+
+        dispatch(updateGenericFilter({
+            type: 'defCode',
             value: newValue
-        });
-    }
+        }));
+    };
 
-    clearGroup() {
-        this.props.redux.clearFilterType('defCodes');
-    }
+    const toggleGroups = (value, staged) => {
+        const defCodes = defCodeGroups[value];
+        let newValue = defCode;
 
-    generateTags() {
-        const tags = [];
-
-        // check to see if any type groups are fully selected
-        const selectedValues = this.props.filter.values;
-        const fullGroups = [];
-        let excludedValues = [];
-
-        const covidGroup = defCodeGroups.covid;
-        const infrastructureGroup = defCodeGroups.infrastructure;
-
-        if (selectedValues?.length) {
-            if (covidGroup.every((value) => selectedValues.includes(value))) {
-                // covid group is full
-                fullGroups.push("covid_19");
-                // exclude these values from the remaining tags
-                excludedValues = [...excludedValues, ...covidGroup];
-            }
-
-            if (infrastructureGroup.every((value) => selectedValues.includes(value))) {
-                // covid group is full
-                fullGroups.push("infrastructure");
-                excludedValues = [...excludedValues, ...infrastructureGroup];
-            }
-        }
-
-        // add full groups to the beginning of the tag list
-        if (fullGroups.length) {
-            fullGroups.forEach((group) => {
-                const tag = {
-                    value: group,
-                    title: `All ${groupLabels[group]}`,
-                    removeFilter: this.removeGroup
-                };
-
-                tags.push(tag);
+        if (staged) newValue = newValue.filter((x) => !(indexOf(defCodes, x) > -1));
+        else {
+            defCodes.forEach((x) => {
+                newValue = newValue.add(x);
             });
         }
 
-        selectedValues.forEach((value) => {
-            if (!excludedValues.includes(value)) {
-                const tag = {
-                    value,
-                    title: defCodes[value].title,
-                    removeFilter: this.removeFilter
-                };
-                tags.push(tag);
-            }
-        });
+        dispatch(updateGenericFilter({
+            type: 'defCode',
+            value: newValue
+        }));
+    };
 
-        return tags;
-    }
+    const tags = [];
 
-    render() {
-        const tags = this.generateTags();
+    // check to see if any type groups are fully selected
+    const fullGroups = [];
+    const unstagedGroups = [];
+    let excludedValues = [];
 
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
+    Object.keys(defCodeGroups).forEach((key) => {
+        const fullMembership = defCodeGroups[key];
+
+        const missingValues = difference(fullMembership, appliedDefCode.toArray());
+        const unstaged = difference(fullMembership, defCode.toArray());
+
+        if (missingValues.length === 0) fullGroups.push(key);
+        if (unstaged.length > 0) unstagedGroups.push(key);
+    });
+
+    // add full groups to the beginning of the tag list
+    fullGroups.forEach((group) => {
+        const tag = {
+            value: group,
+            title: `All ${groupLabels[group]}`,
+            toggleFilter: toggleGroups,
+            staged: !unstagedGroups.includes(group)
+        };
+
+        tags.push(tag);
+
+        excludedValues = [...excludedValues, ...defCodeGroups[group]];
+    });
+
+    appliedDefCode.forEach((value) => {
+        if (!excludedValues.includes(value)) {
+            const tag = {
+                value,
+                title: defCodeLabels[value].title,
+                toggleFilter,
+                staged: defCode.has(value)
+            };
+            if (indexOf(excludedValues, value) < 0) tags.push(tag);
+        }
+    });
+
+    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+};
 
 DefCodesFilterGroup.propTypes = propTypes;
+export default DefCodesFilterGroup;

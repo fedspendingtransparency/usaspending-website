@@ -35,7 +35,6 @@ const AwardTypeFilterGroup = ({ filter }) => {
 
     const toggleGroup = (value, staged) => {
         const awardValues = awardTypeGroups[value];
-
         let updatedValues = awardType;
 
         if (staged) updatedValues = updatedValues.filter((x) => !(indexOf(awardValues, x) > -1));
@@ -66,10 +65,7 @@ const AwardTypeFilterGroup = ({ filter }) => {
         const missingValues = difference(fullMembership, selectedValues);
         const unstaged = difference(fullMembership, awardType.toArray());
 
-        if (missingValues.length === 0) {
-            // this group is complete
-            fullGroups.push(key);
-        }
+        if (missingValues.length === 0) fullGroups.push(key);
 
         if (unstaged.length > 0) unstagedGroups.push(key);
     });
@@ -77,12 +73,11 @@ const AwardTypeFilterGroup = ({ filter }) => {
     // add full groups to the beginning of the tag list
     let excludedValues = [];
     fullGroups.forEach((group) => {
-        const staged = !unstagedGroups.includes(group);
         const tag = {
             value: group,
             title: `All ${groupLabels[group]}`,
             toggleFilter: toggleGroup,
-            staged
+            staged: !unstagedGroups.includes(group)
         };
 
         tags.push(tag);
@@ -92,12 +87,11 @@ const AwardTypeFilterGroup = ({ filter }) => {
     });
 
     selectedValues.forEach((value) => {
-        const staged = awardType.includes(value);
         const tag = {
             value,
             title: awardTypeCodes[value],
             toggleFilter,
-            staged
+            staged: awardType.includes(value)
         };
 
         if (indexOf(excludedValues, value) < 0) {
