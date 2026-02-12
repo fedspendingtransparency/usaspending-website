@@ -22,7 +22,8 @@ const propTypes = {
     section2Options: PropTypes.array,
     section3Options: PropTypes.array,
     hideMobileNav: PropTypes.func,
-    index: PropTypes.number
+    index: PropTypes.number,
+    type: PropTypes.string
 };
 const clickedHeaderLink = (route) => {
     Analytics.event({
@@ -42,7 +43,8 @@ const MobileDropdownItem = ({
     section2Options,
     section3Options,
     hideMobileNav,
-    index
+    index,
+    type
 }) => {
     const openATD = (e) => {
         showSlideout('atd');
@@ -54,23 +56,47 @@ const MobileDropdownItem = ({
         hideMobileNav();
     };
 
+    const RenderSection1 = () => (<>
+        <ul>
+            {section1Items.map((item) => (
+                <li key={uniqueId()}>
+                    <Link
+                        to={item.url}
+                        onClick={clickedLink}
+                        className="mobile-dropdown__section-link">
+                        <div className="mobile-dropdown__section-icon">
+                            {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "100%" }} /> : ''}
+                        </div>
+                        <div className="mobile-dropdown__section-etd-label">
+                            {item.label}
+                        </div>
+                    </Link>
+                    <div className="mobile-dropdown__section-etd-description">
+                        {item.description}
+                    </div>
+                </li>
+            ))}
+        </ul>
+        <hr />
+    </>);
+
     return (
         <div className="mobile-dropdown__layout-container">
             <hr />
             <div className="mobile-dropdown_parent-title">{title}</div>
-            <div className={index >= 2 ? "mobile-dropdown_main-container" : ""}>
-                <div className={index >= 2 ? "mobile-dropdown__section-icon" : ""}>
+            <div className={type === "primary" ? "mobile-dropdown_main-container" : ""}>
+                <div className={type === "primary" ? "mobile-dropdown__section-icon" : ""}>
                     {section1Options[index].icon && section1Options[index].icon !== null && section1Options[index].icon !== '' ? <FontAwesomeIcon icon={section1Options[index].icon} style={{ width: "12px", height: "100%" }} /> : ''}
                 </div>
-                <div className={index === 1 ? "mobile-dropdown__title" : "mobile-dropdown__title-section-two"}>
+                <div className={type === "secondary" ? "mobile-dropdown__title" : "mobile-dropdown__title-section-two"}>
                     {section1Options[index].title}
                 </div>
             </div>
-            <div className={index === 1 ? "mobile-dropdown__sub" : "mobile-dropdown__sub-two"} >
+            <div className={type === "secondary" ? "mobile-dropdown__sub" : "mobile-dropdown__sub-two"} >
                 {section1Options[index].sub}
             </div>
             <div className="mobile-dropdown__section-container">
-                {index === 1 ?
+                {type === "secondary" ?
                     <>
                         <ul>
                             {section1Items.map((item) => (
@@ -114,19 +140,19 @@ const MobileDropdownItem = ({
                     </>
                 }
             </div>
-            <div className={index >= 2 ? "mobile-dropdown_main-container" : ""}>
+            <div className={type === "secondary" ? "mobile-dropdown_main-container" : ""}>
                 <div className={section2Options[index].icon && section2Options[index].icon !== null && section2Options[index].icon !== '' ? "mobile-dropdown__section-icon" : ""}>
                     {section2Options[index].icon && section2Options[index].icon !== '' && section2Options[index].icon !== null ? <FontAwesomeIcon role="presentation" icon={section2Options[index].icon} style={{ width: "12px", height: "100%" }} /> : ''}
                 </div>
-                <div className={index === 1 ? "mobile-dropdown__title" : "mobile-dropdown__title-section-two"}>
+                <div className={type === "secondary" ? "mobile-dropdown__title" : "mobile-dropdown__title-section-two"}>
                     {section2Options[index].title}
                 </div>
             </div>
-            <div className={index === 1 ? "mobile-dropdown__sub" : "mobile-dropdown__sub-two"}>
+            <div className={type === "secondary" ? "mobile-dropdown__sub" : "mobile-dropdown__sub-two"}>
                 {section2Options[index].sub}
             </div>
             <div className="mobile-dropdown__section-container">
-                {index === 1 ?
+                {type === "secondary" ?
                     <ul>
                         {section2Items.map((item) => (
                             <li key={uniqueId()}>
@@ -184,51 +210,52 @@ const MobileDropdownItem = ({
 
                 }
             </div>
-            <div className="mobile-dropdown_main-container">
-                <div className={section3Options[index].icon && section3Options[index].icon !== null && section3Options[index].icon !== '' ? "mobile-dropdown__section-icon" : ""}>
-                    {section3Options[index].icon && section3Options[index].icon !== null && section3Options[index].icon !== '' ? <FontAwesomeIcon icon={section3Options[index].icon} style={{ width: "12px", height: "100%" }} /> : ''}
-                </div>
-                <div>
-                    <div className={index === 1 ? "mobile-dropdown__title" : "mobile-dropdown__title-section-two"}>
-                        {section3Options[index].title}
+            {index > 0 &&
+                <div className="mobile-dropdown_main-container">
+                    <div className={section3Options[index].icon && section3Options[index].icon !== null && section3Options[index].icon !== '' ? "mobile-dropdown__section-icon" : ""}>
+                        {section3Options[index].icon && section3Options[index].icon !== null && section3Options[index].icon !== '' ? <FontAwesomeIcon icon={section3Options[index].icon} style={{ width: "12px", height: "100%" }} /> : ''}
                     </div>
-                    <div className={index === 1 ? "mobile-dropdown__sub" : "mobile-dropdown__sub-two"}>
-                        {section3Options[index].sub}
+                    <div>
+                        <div className={type === "secondary" ? "mobile-dropdown__title" : "mobile-dropdown__title-section-two"}>
+                            {section3Options[index].title}
+                        </div>
+                        <div className={type === "secondary" ? "mobile-dropdown__sub" : "mobile-dropdown__sub-two"}>
+                            {section3Options[index].sub}
+                        </div>
+                        <div className="mobile-dropdown__section-container">
+                            {type === "primary" &&
+                            <>
+                                <ul>
+                                    {section3Items.map((item) => (
+                                        <li className="mobile-dropdown__section-downloads" key={uniqueId()}>
+                                            { isRedirectNeeded(item) ?
+                                                <ExternalLink isCard={false} url={item.url}>
+                                                    <div className="mobile-dropdown__section-link">
+                                                        <div className="mobile-dropdown__section-label">
+                                                            {item.label}
+                                                            <span className="mobile-dropdown__section-description">
+                                                                {item.description}
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </ExternalLink> :
+                                                <a href={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} className="mobile-dropdown__section-link">
+                                                    <div className="mobile-dropdown__section-label">
+                                                        {item.label}
+                                                        <span className="mobile-dropdown__section-description">
+                                                            {item.description}
+                                                        </span>
+                                                    </div>
+                                                </a>
+                                            }
+                                        </li>
+                                    ))}
+                                </ul>
+                            </>
+                            }
+                        </div>
                     </div>
-                    <div className="mobile-dropdown__section-container">
-                        {index >= 2 &&
-                <>
-                    <ul>
-                        {section3Items.map((item) => (
-                            <li className="mobile-dropdown__section-downloads" key={uniqueId()}>
-                                { isRedirectNeeded(item) ?
-                                    <ExternalLink isCard={false} url={item.url}>
-                                        <div className="mobile-dropdown__section-link">
-                                            <div className="mobile-dropdown__section-label">
-                                                {item.label}
-                                                <span className="mobile-dropdown__section-description">
-                                                    {item.description}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </ExternalLink> :
-                                    <a href={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} className="mobile-dropdown__section-link">
-                                        <div className="mobile-dropdown__section-label">
-                                            {item.label}
-                                            <span className="mobile-dropdown__section-description">
-                                                {item.description}
-                                            </span>
-                                        </div>
-                                    </a>
-                                }
-                            </li>
-                        ))}
-                    </ul>
-                </>
-                        }
-                    </div>
-                </div>
-            </div>
+                </div>}
         </div>
     );
 };
