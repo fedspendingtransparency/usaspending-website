@@ -19,18 +19,9 @@ const TimePeriodFYFilterGroup = ({ filter }) => {
     const dispatch = useDispatch();
 
     const toggleFilter = (value, staged) => {
-        // remove a single filter item
-        let newYears;
-
-        // check if we are adding or removing
-        if (staged) {
-            // the year already exists in the set so we are removing
-            newYears = timePeriodFY.delete(value);
-        }
-        else {
-            // the year does not yet exist in the set so we are adding
-            newYears = timePeriodFY.add(value);
-        }
+        const newYears = staged ?
+            timePeriodFY.delete(value) :
+            timePeriodFY.add(value);
 
         dispatch(updateTimePeriod({
             fy: newYears,
@@ -40,7 +31,6 @@ const TimePeriodFYFilterGroup = ({ filter }) => {
 
     const tags = [];
 
-    // not all fiscal years were selected, list them individually
     filter.values.forEach((value) => {
         tags.push({
             value,

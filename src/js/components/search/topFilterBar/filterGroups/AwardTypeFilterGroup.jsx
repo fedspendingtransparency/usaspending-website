@@ -23,10 +23,9 @@ const AwardTypeFilterGroup = ({ filter }) => {
     const dispatch = useDispatch();
 
     const toggleFilter = (value, staged) => {
-        let newValue;
-
-        if (staged) newValue = awardType.delete(value);
-        else newValue = awardType.add(value);
+        const newValue = staged ?
+            awardType.delete(value) :
+            awardType.add(value);
 
         dispatch(updateGenericFilter({
             type: 'awardType',

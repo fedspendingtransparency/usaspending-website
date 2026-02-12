@@ -18,11 +18,9 @@ const RecipientTypeFilterGroup = ({ filter }) => {
     const dispatch = useDispatch();
 
     const toggleFilter = (value, staged) => {
-    // remove a single filter item
-        let newValue;
-
-        if (staged) newValue = recipientType.delete(value);
-        else newValue = recipientType.add(value);
+        const newValue = staged ?
+            recipientType.delete(value) :
+            recipientType.add(value);
 
         dispatch(updateGenericFilter({
             type: 'recipientType',

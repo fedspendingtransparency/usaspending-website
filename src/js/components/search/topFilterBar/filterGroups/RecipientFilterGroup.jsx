@@ -17,10 +17,9 @@ const RecipientFilterGroup = ({ filter }) => {
     const dispatch = useDispatch();
 
     const removeFilter = (value, staged) => {
-        let newValue;
-
-        if (staged) newValue = selectedRecipients.delete(value);
-        else newValue = selectedRecipients.add(value);
+        const newValue = staged ?
+            selectedRecipients.delete(value) :
+            selectedRecipients.add(value);
 
         dispatch(updateGenericFilter({
             type: 'selectedRecipients',
