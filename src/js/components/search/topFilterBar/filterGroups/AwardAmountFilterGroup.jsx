@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
-import { OrderedMap } from "immutable";
 
 import { formatAwardAmountRange } from "helpers/awardAmountHelper";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
@@ -19,10 +18,10 @@ const AwardAmountFilterGroup = ({ filter }) => {
     const appliedAwardAmounts = useSelector((state) => state.appliedFilters.filters.awardAmounts);
     const dispatch = useDispatch();
 
-    const toggleFilter = (value, staged) => {
+    const toggleFilter = ({ key, value }, staged) => {
         const newValue = staged ?
-            new OrderedMap() :
-            appliedAwardAmounts;
+            awardAmounts.delete(key) :
+            awardAmounts.set(key, value);
 
         dispatch(updateGenericFilter({
             type: 'awardAmounts',
@@ -32,15 +31,12 @@ const AwardAmountFilterGroup = ({ filter }) => {
 
     const tags = [];
 
-    appliedAwardAmounts.forEach((amounts, i) => {
-        const value = i === 'specific' ?
-            amounts : i;
-
+    appliedAwardAmounts.forEach((value, key) => {
         const tag = {
-            value,
-            title: formatAwardAmountRange(amounts),
+            value: { key, value },
+            title: formatAwardAmountRange(value),
             toggleFilter,
-            staged: awardAmounts.has(i)
+            staged: awardAmounts.has(key)
         };
 
         tags.push(tag);
