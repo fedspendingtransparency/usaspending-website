@@ -14,12 +14,13 @@ const propTypes = { filter: PropTypes.object };
 
 const CFDAFilterGroup = ({ filter }) => {
     const selectedCFDA = useSelector((state) => state.filters.selectedCFDA);
+    const appliedCFDA = useSelector((state) => state.appliedFilters.filters.selectedCFDA);
     const dispatch = useDispatch();
 
-    const toggleFilter = ({ key, value }, staged) => {
+    const toggleFilter = (value, staged) => {
         const newValue = staged ?
-            selectedCFDA.delete(key) :
-            selectedCFDA.set(key, value);
+            selectedCFDA.delete(value.identifier) :
+            selectedCFDA.set(value.identifier, value);
 
         dispatch(updateGenericFilter({
             type: 'selectedCFDA',
@@ -29,13 +30,12 @@ const CFDAFilterGroup = ({ filter }) => {
 
     const tags = [];
 
-    filter.values.forEach((value) => {
-        const staged = selectedCFDA.has(value.identifier);
+    appliedCFDA.forEach((value) => {
         const tag = {
-            value: { key: value.identifier, value },
+            value,
             title: `${value.program_number} | ${value.program_title}`,
             toggleFilter,
-            staged
+            staged: selectedCFDA.has(value.identifier)
         };
 
         tags.push(tag);

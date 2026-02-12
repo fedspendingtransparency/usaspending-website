@@ -10,28 +10,27 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateTimePeriod } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object
-};
+const propTypes = { filter: PropTypes.object };
 
 const TimePeriodFYFilterGroup = ({ filter }) => {
     const timePeriodFY = useSelector((state) => state.filters.timePeriodFY);
+    const appliedTimePeriodFY = useSelector((state) => state.appliedFilters.filters.timePeriodFY);
     const dispatch = useDispatch();
 
     const toggleFilter = (value, staged) => {
-        const newYears = staged ?
+        const newValue = staged ?
             timePeriodFY.delete(value) :
             timePeriodFY.add(value);
 
         dispatch(updateTimePeriod({
-            fy: newYears,
+            fy: newValue,
             dateType: 'fy'
         }));
     };
 
     const tags = [];
 
-    filter.values.forEach((value) => {
+    appliedTimePeriodFY.forEach((value) => {
         tags.push({
             value,
             title: `FY ${value}`,

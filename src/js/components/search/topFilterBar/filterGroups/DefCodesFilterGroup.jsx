@@ -65,17 +65,17 @@ const DefCodesFilterGroup = ({ filter }) => {
     });
 
     // add full groups to the beginning of the tag list
-    fullGroups.forEach((group) => {
+    fullGroups.forEach((value) => {
         const tag = {
-            value: group,
-            title: `All ${groupLabels[group]}`,
+            value,
+            title: `All ${groupLabels[value]}`,
             toggleFilter: toggleGroups,
-            staged: !unstagedGroups.includes(group)
+            staged: !unstagedGroups.includes(value)
         };
 
         tags.push(tag);
 
-        excludedValues = [...excludedValues, ...defCodeGroups[group]];
+        excludedValues = [...excludedValues, ...defCodeGroups[value]];
     });
 
     appliedDefCode.forEach((value) => {

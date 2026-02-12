@@ -33,12 +33,12 @@ const ExtentCompetedFilterGroup = ({ filter }) => {
 
     const tags = [];
 
-    appliedExtentCompeted.forEach((key) => {
+    appliedExtentCompeted.forEach((value) => {
         const tag = {
-            value: key,
-            title: extentCompetedDefinitions[key],
+            value,
+            title: extentCompetedDefinitions[value],
             toggleFilter,
-            staged: extentCompeted.has(key)
+            staged: extentCompeted.has(value)
         };
 
         tags.push(tag);

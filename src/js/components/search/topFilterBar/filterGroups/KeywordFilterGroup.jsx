@@ -7,21 +7,31 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateTextSearchInput } from "redux/actions/search/searchFilterActions";
+import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { filter: PropTypes.object };
 
 const KeywordFilterGroup = ({ filter }) => {
     const keyword = useSelector((state) => state.filters.keyword);
+    const appliedKeyword = useSelector((state) => state.appliedFilters.filters.keyword);
     const dispatch = useDispatch();
 
-    const toggleFilter = (value) => dispatch(updateTextSearchInput(value));
+    const toggleFilter = (value, staged) => {
+        const newValue = staged ?
+            keyword.delete(value) :
+            keyword.set(value, value);
+
+        dispatch(updateGenericFilter({
+            type: 'keyword',
+            value: newValue
+        }));
+    };
 
     // check to see if a keyword is provided
     const tags = [];
 
-    filter.values.forEach((value) => {
+    appliedKeyword.forEach((value) => {
         tags.push({
             value,
             title: value,

@@ -31,12 +31,12 @@ const SetAsideFilterGroup = ({ filter }) => {
 
     const tags = [];
 
-    appliedSetAside.forEach((key) => {
+    appliedSetAside.forEach((value) => {
         const tag = {
-            value: key,
-            title: setAsideDefinitions[key],
+            value,
+            title: setAsideDefinitions[value],
             toggleFilter,
-            staged: setAside.has(key)
+            staged: setAside.has(value)
         };
 
         tags.push(tag);

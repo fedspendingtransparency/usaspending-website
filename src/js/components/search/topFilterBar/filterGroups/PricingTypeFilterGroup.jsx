@@ -31,12 +31,12 @@ const PricingTypeFilterGroup = ({ filter }) => {
 
     const tags = [];
 
-    appliedPricingType.forEach((key) => {
+    appliedPricingType.forEach((value) => {
         const tag = {
-            value: key,
-            title: pricingTypeDefinitions[key],
+            value,
+            title: pricingTypeDefinitions[value],
             toggleFilter,
-            staged: pricingType.has(key)
+            staged: pricingType.has(value)
         };
 
         tags.push(tag);

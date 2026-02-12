@@ -15,6 +15,7 @@ const propTypes = { filter: PropTypes.object };
 
 const RecipientTypeFilterGroup = ({ filter }) => {
     const recipientType = useSelector((state) => state.filters.recipientType);
+    const appliedRecipientType = useSelector((state) => state.appliedFilters.filters.recipientType);
     const dispatch = useDispatch();
 
     const toggleFilter = (value, staged) => {
@@ -30,7 +31,7 @@ const RecipientTypeFilterGroup = ({ filter }) => {
 
     const tags = [];
 
-    filter.values.forEach((value) => {
+    appliedRecipientType.forEach((value) => {
         const tag = {
             value,
             title: recipientTypes[value],
