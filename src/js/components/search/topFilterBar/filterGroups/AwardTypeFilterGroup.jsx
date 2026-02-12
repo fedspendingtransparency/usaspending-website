@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { indexOf, difference, concat } from 'lodash-es';
+import { indexOf, difference } from 'lodash-es';
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -14,12 +14,11 @@ import {
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object
-};
+const propTypes = { filter: PropTypes.object };
 
 const AwardTypeFilterGroup = ({ filter }) => {
     const awardType = useSelector((state) => state.filters.awardType);
+    const appliedAwardType = useSelector((state) => state.appliedFilters.filters.awardType);
     const dispatch = useDispatch();
 
     const toggleFilter = (value, staged) => {
@@ -53,7 +52,6 @@ const AwardTypeFilterGroup = ({ filter }) => {
     const tags = [];
 
     // check to see if any type groups are fully selected
-    const selectedValues = filter.values;
     const fullGroups = [];
     const unstagedGroups = [];
 
@@ -62,7 +60,7 @@ const AwardTypeFilterGroup = ({ filter }) => {
 
         // quick way of checking for full group membership is to return an array of missing
         // values; it'll be empty if all the values are selected
-        const missingValues = difference(fullMembership, selectedValues);
+        const missingValues = difference(fullMembership, appliedAwardType.toArray());
         const unstaged = difference(fullMembership, awardType.toArray());
 
         if (missingValues.length === 0) fullGroups.push(key);
@@ -83,10 +81,10 @@ const AwardTypeFilterGroup = ({ filter }) => {
         tags.push(tag);
 
         // exclude these values from the remaining tags
-        excludedValues = concat(excludedValues, awardTypeGroups[group]);
+        excludedValues = [...excludedValues, ...awardTypeGroups[group]];
     });
 
-    selectedValues.forEach((value) => {
+    appliedAwardType.forEach((value) => {
         const tag = {
             value,
             title: awardTypeCodes[value],
@@ -94,12 +92,8 @@ const AwardTypeFilterGroup = ({ filter }) => {
             staged: awardType.includes(value)
         };
 
-        if (indexOf(excludedValues, value) < 0) {
-            // only insert individual tags that aren't part of a fully-selected group
-            // excluded values is an array of values that are already included in a full group,
-            // so if this value isn't in that array, it can be shown individually
-            tags.push(tag);
-        }
+        // only insert individual tags that aren't part of a fully-selected group
+        if (indexOf(excludedValues, value) < 0) tags.push(tag);
     });
 
     return (<BaseTopFilterGroup tags={tags} filter={filter} />);
