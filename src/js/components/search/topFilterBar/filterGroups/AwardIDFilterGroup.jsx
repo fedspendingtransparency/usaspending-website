@@ -14,13 +14,13 @@ const propTypes = { filter: PropTypes.object };
 
 const AwardIDFilterGroup = ({ filter }) => {
     const selectedAwardIDs = useSelector((state) => state.filters.selectedAwardIDs);
+    const appliedAwardIDs = useSelector((state) => state.appliedFilters.filters.selectedAwardIDs);
     const dispatch = useDispatch();
 
     const removeFilter = (value, staged) => {
-        let newValue;
-
-        if (staged) newValue = selectedAwardIDs.delete(value);
-        else newValue = selectedAwardIDs.set(value);
+        const newValue = staged ?
+            selectedAwardIDs.delete(value) :
+            selectedAwardIDs.set(value, value);
 
         dispatch(updateGenericFilter({
             type: 'selectedAwardIDs',
@@ -30,7 +30,7 @@ const AwardIDFilterGroup = ({ filter }) => {
 
     const tags = [];
 
-    filter.values.forEach((value) => {
+    appliedAwardIDs.forEach((value) => {
         const tag = {
             value,
             title: `${value} | Award ID`,
