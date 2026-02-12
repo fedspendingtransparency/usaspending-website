@@ -18,8 +18,6 @@ const PricingTypeFilterGroup = ({ filter }) => {
     const appliedPricingType = useSelector((state) => state.appliedFilters.filters.pricingType);
     const dispatch = useDispatch();
 
-    console.log({ pricingType });
-
     const toggleFilter = (value, staged) => {
         const newValue = staged ?
             pricingType.delete(value) :
