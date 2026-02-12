@@ -24,10 +24,10 @@ import IsMobileContext from "context/IsMobileContext";
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
-import StatusOfFunds from './statusOfFunds/StatusOfFunds';
 import PageWrapper from '../sharedComponents/PageWrapper';
 import PageTitle from './overview/PageTitle';
 import NumericPickerWrapper from '../sharedComponents/dropdowns/NumericPickerWrapper';
+import StatusOfFundsContainer from '../../containers/agency/statusOfFunds/StatusOfFundsContainer';
 
 require('pages/agency/index.scss');
 
@@ -90,7 +90,7 @@ export const AgencyProfileV2 = ({
             label: 'Status of Funds',
             icon: 'money-check-alt',
             dataThroughDate: statusDataThroughDate,
-            component: <StatusOfFunds fy={selectedFy} />
+            component: <StatusOfFundsContainer fy={selectedFy} />
         },
         {
             section: 'award-spending',
