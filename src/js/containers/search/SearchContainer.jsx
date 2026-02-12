@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import {
@@ -76,6 +76,7 @@ export const parseRemoteFilters = (data) => {
 
 const SearchContainer = () => {
     const { hash: urlHash } = getObjFromQueryParams(useLocation().search);
+    const [searchURLParams, setSearchURLParams] = useSearchParams();
     const query = useQueryParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -157,7 +158,8 @@ const SearchContainer = () => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        navigate('/search');
+                        searchURLParams.delete("hash");
+                        setSearchURLParams(searchURLParams);
                         request.current = null;
                     }
                 });
@@ -186,7 +188,8 @@ const SearchContainer = () => {
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
-            navigate('/search');
+            searchURLParams.delete("hash");
+            setSearchURLParams(searchURLParams);
             setDownloadAvailable(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps

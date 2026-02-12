@@ -31,7 +31,7 @@ const FilterAwardToggle = memo(function FilterAwardToggle({
             dispatch(setSearchViewSubaward("subawards"));
             dispatch(setSpendingLevel("subawards"));
         }
-    }, []);
+    }, [dispatch]);
 
     const onToggle = useCallback((type) => {
         dispatch(setSearchViewSubaward(type === 'subawards'));
