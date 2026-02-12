@@ -5,65 +5,47 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as ContractFields from 'dataMapping/search/contractFields';
+import { useDispatch, useSelector } from "react-redux";
 
+import { pricingTypeDefinitions } from "dataMapping/search/contractFields";
+import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
-};
+const propTypes = { filter: PropTypes.object };
 
-export default class PricingTypeFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
+const PricingTypeFilterGroup = ({ filter }) => {
+    const pricingType = useSelector((state) => state.filters.pricingType);
+    const appliedPricingType = useSelector((state) => state.appliedFilters.filters.pricingType);
+    const dispatch = useDispatch();
 
-        this.removeFilter = this.removeFilter.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
+    console.log({ pricingType });
 
-    removeFilter(value) {
-    // remove a single filter item
-        const newValue = this.props.redux.reduxFilters.pricingType.delete(value);
-        this.props.redux.updateGenericFilter({
+    const toggleFilter = (value, staged) => {
+        const newValue = staged ?
+            pricingType.delete(value) :
+            pricingType.add(value);
+
+        dispatch(updateGenericFilter({
             type: 'pricingType',
             value: newValue
-        });
-    }
+        }));
+    };
 
-    clearGroup() {
-        this.props.redux.clearFilterType('pricingType');
-    }
+    const tags = [];
 
-    generateTags() {
-        const tags = [];
+    appliedPricingType.forEach((key) => {
+        const tag = {
+            value: key,
+            title: pricingTypeDefinitions[key],
+            toggleFilter,
+            staged: pricingType.has(key)
+        };
 
-        // check to see if an Award Amount is provided
-        const pricingTypes = this.props.filter.values;
+        tags.push(tag);
+    });
 
-        Object.keys(pricingTypes).forEach((key) => {
-            const tag = {
-                value: key,
-                title: ContractFields.pricingTypeDefinitions[key],
-                removeFilter: this.removeFilter
-            };
-
-            tags.push(tag);
-        });
-
-        return tags;
-    }
-
-    render() {
-        const tags = this.generateTags();
-
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
+    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+};
 
 PricingTypeFilterGroup.propTypes = propTypes;
+export default PricingTypeFilterGroup;
