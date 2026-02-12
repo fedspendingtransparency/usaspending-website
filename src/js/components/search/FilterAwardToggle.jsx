@@ -58,7 +58,6 @@ const FilterAwardToggle = memo(function FilterAwardToggle({
             searchParams.delete("subawards");
             setSearchParams(searchParams);
         }
-    // eslint-disable-next-line max-len
     }, [dispatch, searchParams, setSearchParams]);
 
     const buttonOptions = [
