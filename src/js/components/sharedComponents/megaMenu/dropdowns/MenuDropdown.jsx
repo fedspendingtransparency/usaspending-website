@@ -33,7 +33,7 @@ const MenuDropdown = React.memo(({
     const subAwardClick = useCallback(() => {
         if (!window.location.href.includes("subawards")) {
             const newQueryParams = combineQueryParams(query, { subawards: "true" });
-            window.open(`/search${getQueryParamString(newQueryParams)}`);
+            window.open(`/search${getQueryParamString(newQueryParams)}`, "_self");
         }
     }, [query]);
 
