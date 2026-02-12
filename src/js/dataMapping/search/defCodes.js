@@ -41,3 +41,8 @@ export const defCodeGroups = {
     covid: ['L', 'M', 'N', 'O', 'P', 'U', 'V'],
     infrastructure: ['Z', '1']
 };
+
+export const groupLabels = {
+    covid: 'COVID-19 Spending',
+    infrastructure: 'Infrastructure Spending'
+};

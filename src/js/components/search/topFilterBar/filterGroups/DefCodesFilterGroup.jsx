@@ -8,16 +8,11 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 import { difference, indexOf } from "lodash-es";
 
-import { defCodes as defCodeLabels, defCodeGroups } from 'dataMapping/search/defCodes';
+import { defCodes as defCodeLabels, defCodeGroups, groupLabels } from 'dataMapping/search/defCodes';
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { filter: PropTypes.object };
-
-const groupLabels = {
-    covid: 'COVID-19 Spending',
-    infrastructure: 'Infrastructure Spending'
-};
 
 const DefCodesFilterGroup = ({ filter }) => {
     const defCode = useSelector((state) => state.filters.defCode);
