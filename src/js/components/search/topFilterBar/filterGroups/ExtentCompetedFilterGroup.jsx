@@ -5,65 +5,47 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import * as ContractFields from 'dataMapping/search/contractFields';
+import { useDispatch, useSelector } from "react-redux";
 
+import { extentCompetedDefinitions } from "dataMapping/search/contractFields";
+import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
-};
+const propTypes = { filter: PropTypes.object };
 
-export default class ExtentCompetedFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
+const ExtentCompetedFilterGroup = ({ filter }) => {
+    const extentCompeted = useSelector((state) => state.filters.extentCompeted);
+    const appliedExtentCompeted = useSelector(
+        (state) => state.appliedFilters.filters.extentCompeted
+    );
+    const dispatch = useDispatch();
 
-        this.removeFilter = this.removeFilter.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
+    const toggleFilter = (value, staged) => {
+        const newValue = staged ?
+            extentCompeted.delete(value) :
+            extentCompeted.add(value);
 
-    removeFilter(value) {
-    // remove a single filter item
-        const newValue = this.props.redux.reduxFilters.extentCompeted.delete(value);
-        this.props.redux.updateGenericFilter({
+        dispatch(updateGenericFilter({
             type: 'extentCompeted',
             value: newValue
-        });
-    }
+        }));
+    };
 
-    clearGroup() {
-        this.props.redux.clearFilterType('extentCompeted');
-    }
+    const tags = [];
 
-    generateTags() {
-        const tags = [];
+    appliedExtentCompeted.forEach((key) => {
+        const tag = {
+            value: key,
+            title: extentCompetedDefinitions[key],
+            toggleFilter,
+            staged: extentCompeted.has(key)
+        };
 
-        // check to see if an Award Amount is provided
-        const extentCompeted = this.props.filter.values;
+        tags.push(tag);
+    });
 
-        Object.keys(extentCompeted).forEach((key) => {
-            const tag = {
-                value: key,
-                title: ContractFields.extentCompetedDefinitions[key],
-                removeFilter: this.removeFilter
-            };
-
-            tags.push(tag);
-        });
-
-        return tags;
-    }
-
-    render() {
-        const tags = this.generateTags();
-
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
+    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+};
 
 ExtentCompetedFilterGroup.propTypes = propTypes;
+export default ExtentCompetedFilterGroup;
