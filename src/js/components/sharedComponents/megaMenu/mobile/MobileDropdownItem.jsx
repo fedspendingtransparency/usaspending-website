@@ -56,30 +56,6 @@ const MobileDropdownItem = ({
         hideMobileNav();
     };
 
-    const RenderSection1 = () => (<>
-        <ul>
-            {section1Items.map((item) => (
-                <li key={uniqueId()}>
-                    <Link
-                        to={item.url}
-                        onClick={clickedLink}
-                        className="mobile-dropdown__section-link">
-                        <div className="mobile-dropdown__section-icon">
-                            {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "100%" }} /> : ''}
-                        </div>
-                        <div className="mobile-dropdown__section-etd-label">
-                            {item.label}
-                        </div>
-                    </Link>
-                    <div className="mobile-dropdown__section-etd-description">
-                        {item.description}
-                    </div>
-                </li>
-            ))}
-        </ul>
-        <hr />
-    </>);
-
     return (
         <div className="mobile-dropdown__layout-container">
             <hr />
