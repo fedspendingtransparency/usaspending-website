@@ -7,32 +7,30 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-    updateSelectedAwardingAgencies, updateSelectedFundingAgencies
-} from "redux/actions/search/searchFilterActions";
+import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string, code: PropTypes.string };
 
 const AgencyFilterGroup = ({ name, code }) => {
-    const {
-        selectedAwardingAgencies, selectedFundingAgencies
-    } = useSelector((state) => state.filters);
+    const selectedAgencies = useSelector((state) => state.filters[code]);
+    const appliedAgencies = useSelector((state) => state.appliedFilters.filters[code]);
     const dispatch = useDispatch();
 
-    const filterType = code === 'selectedAwardingAgencies' ?
-        selectedAwardingAgencies :
-        selectedFundingAgencies;
+    const toggleFilter = ({ key, value }, staged) => {
+        const newValue = staged ?
+            selectedAgencies.delete(key) :
+            selectedAgencies.set(key, value);
 
-    const filterDispatch = code === 'selectedAwardingAgencies' ?
-        updateSelectedAwardingAgencies :
-        updateSelectedFundingAgencies;
-
-    const toggleFilter = (value) => dispatch(filterDispatch({ agency: value }));
+        dispatch(updateGenericFilter({
+            type: code,
+            value: newValue
+        }));
+    };
 
     const tags = [];
 
-    filter.values.forEach((value) => {
+    appliedAgencies.forEach((value) => {
         let agencyTitle = value.subtier_agency.name;
 
         if (value.agencyType === 'subtier' && value.subtier_agency.abbreviation) {
@@ -47,11 +45,13 @@ const AgencyFilterGroup = ({ name, code }) => {
             }`;
         }
 
+        const key = `${value.id}_${value.agencyType}`;
+
         const tag = {
-            value,
+            value: { key, value },
             title: agencyTitle,
             toggleFilter,
-            staged: filterType.has(`${value.id}_${value.agencyType}`)
+            staged: selectedAgencies.has(key)
         };
 
         tags.push(tag);

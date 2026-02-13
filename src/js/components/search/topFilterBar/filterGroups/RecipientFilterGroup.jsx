@@ -14,6 +14,9 @@ const propTypes = { name: PropTypes.string };
 
 const RecipientFilterGroup = ({ name }) => {
     const selectedRecipients = useSelector((state) => state.filters.selectedRecipients);
+    const appliedRecipientType = useSelector(
+        (state) => state.appliedFilters.filters.selectedRecipients
+    );
     const dispatch = useDispatch();
 
     const removeFilter = (value, staged) => {
@@ -29,7 +32,7 @@ const RecipientFilterGroup = ({ name }) => {
 
     const tags = [];
 
-    filter.values.forEach((value) => {
+    appliedRecipientType.forEach((value) => {
         const tag = {
             value,
             title: `RECIPIENT | ${value}`,
