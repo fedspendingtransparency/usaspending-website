@@ -478,6 +478,11 @@ const articles = [
                 term: "fiscal-year-fy",
                 type: "glossary",
                 label: "Fiscal Year"
+            },
+            {
+                term: "sub-award",
+                type: "glossary",
+                label: "Sub-Award"
             }
         ]
     },
