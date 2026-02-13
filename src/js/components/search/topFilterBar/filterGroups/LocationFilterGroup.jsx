@@ -13,43 +13,26 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 const propTypes = { name: PropTypes.string, code: PropTypes.string };
 
 const LocationFilterGroup = ({ name, code }) => {
-    const {
-        selectedLocations,
-        selectedRecipientLocations,
-        locationDomesticForeign,
-        recipientDomesticForeign
-    } = useSelector((state) => state.filters);
-    const {
-        selectedLocations: appliedSelectedLocations,
-        selectedRecipientLocations: appliedRecipientLocations,
-        locationDomesticForeign: appliedLocationDomesticForeign,
-        recipientDomesticForeign: appliedRecipientDomesticForeign
-    } = useSelector((state) => state.appliedFilters.filters);
-    const dispatch = useDispatch();
+    const foreignLocationsCode = code === 'selectedLocations' ?
+        'locationDomesticForeign' : 'recipientDomesticForeign';
 
-    const filterType = code === 'selectedLocations' ?
-        {
-            locations: selectedLocations,
-            appliedLocations: appliedSelectedLocations,
-            domesticForeign: locationDomesticForeign,
-            appliedDomesticForeign: appliedLocationDomesticForeign,
-            type: 'locationDomesticForeign'
-        } :
-        {
-            locations: selectedRecipientLocations,
-            appliedLocations: appliedRecipientLocations,
-            domesticForeign: recipientDomesticForeign,
-            appliedDomesticForeign: appliedRecipientDomesticForeign,
-            type: 'recipientDomesticForeign'
-        };
+    const stagedLocations = useSelector((state) => state.filters[code]);
+    const stagedForeignLocations = useSelector((state) => state.filters[foreignLocationsCode]);
+    const appliedLocations = useSelector(
+        (state) => state.appliedFilters.filters[code]
+    );
+    const appliedForeignLocations = useSelector(
+        (state) => state.appliedFilters.filters[foreignLocationsCode]
+    );
+    const dispatch = useDispatch();
 
     const toggleFilter = (value, staged) => {
         const newValue = staged ?
-            filterType.locations.delete(value.identifier) :
-            filterType.locations.set(value.identifier, value);
+            stagedLocations.delete(value.identifier) :
+            stagedLocations.set(value.identifier, value);
 
         dispatch(updateGenericFilter({
-            type: filter.code,
+            type: code,
             value: newValue
         }));
     };
@@ -58,30 +41,30 @@ const LocationFilterGroup = ({ name, code }) => {
         const newValue = staged ? 'all' : 'foreign';
 
         dispatch(updateGenericFilter({
-            type: filterType.type,
+            type: foreignLocationsCode,
             value: newValue
         }));
     };
 
     const tags = [];
 
-    filterType.appliedLocations.forEach((value) => {
+    appliedLocations.forEach((value) => {
         const tag = {
             value,
             title: `${value?.display?.entity?.toUpperCase()} | ${value?.display?.standalone}`,
             toggleFilter,
-            staged: filterType.locations.includes(value)
+            staged: stagedLocations.includes(value)
         };
 
         tags.push(tag);
     });
 
-    if (filterType.appliedDomesticForeign !== "all") {
+    if (appliedForeignLocations !== "all") {
         const tag = {
-            value: filterType.appliedDomesticForeign,
+            value: stagedForeignLocations,
             title: "ALL FOREIGN LOCATIONS",
             toggleFilter: toggleDomestic,
-            staged: filterType.domesticForeign === 'foreign'
+            staged: stagedForeignLocations === 'foreign'
         };
 
         tags.push(tag);
