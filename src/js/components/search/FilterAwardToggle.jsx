@@ -3,33 +3,55 @@
  * Created by JD House 01/2026
  */
 
-import React, { memo, useState } from 'react';
+import React, { useState, useCallback, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-
+import { useSearchParams } from "react-router";
 import Analytics from 'helpers/analytics/Analytics';
 import { setSearchViewSubaward, setSpendingLevel } from "redux/actions/search/searchViewActions";
 
-
 const propTypes = {
     selectedValue: PropTypes.string,
-    label: PropTypes.string
+    label: PropTypes.string,
+    queryParam: PropTypes.object
 };
 
 // eslint-disable-next-line prefer-arrow-callback
 const FilterAwardToggle = memo(function FilterAwardToggle({
     selectedValue = 'awards',
-    label = "View By"
+    label = "View By",
+    queryParam
 }) {
     const [selected, setSelected] = useState(selectedValue);
+    const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
 
-    const onToggle = (type) => {
+    useEffect(() => {
+        if (window.location.href.includes("subawards") || queryParam) {
+            setSelected("subawards");
+            dispatch(setSearchViewSubaward("subawards"));
+            dispatch(setSpendingLevel("subawards"));
+
+            if (queryParam) {
+                setSearchParams(queryParam);
+            }
+        }
+    }, [dispatch, queryParam, setSearchParams]);
+
+    const onToggle = useCallback((type) => {
         dispatch(setSearchViewSubaward(type === 'subawards'));
         dispatch(setSpendingLevel(type));
         setSelected(type);
 
         if (type === 'subawards') {
+            if (!window.location.href.includes("subawards")) {
+                searchParams.append("subawards", "true");
+                setSearchParams(searchParams);
+            }
+            else {
+                // do nothing, subawards in url and setting to subawards
+            }
+
             Analytics.event({
                 event: 'search_subaward_dropdown',
                 category: 'Advanced Search - Search Fields',
@@ -37,7 +59,11 @@ const FilterAwardToggle = memo(function FilterAwardToggle({
                 gtm: true
             });
         }
-    };
+        else if (window.location.href.includes("subawards")) {
+            searchParams.delete("subawards");
+            setSearchParams(searchParams);
+        }
+    }, [dispatch, searchParams, setSearchParams]);
 
     const buttonOptions = [
         {

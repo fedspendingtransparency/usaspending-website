@@ -75,7 +75,8 @@ export const parseRemoteFilters = (data) => {
 };
 
 const SearchContainer = () => {
-    const { hash: urlHash } = getObjFromQueryParams(useLocation().search);
+    const location = useLocation();
+    const { hash: urlHash } = getObjFromQueryParams(location.search);
     const query = useQueryParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -241,7 +242,6 @@ const SearchContainer = () => {
             areFiltersSelected(appliedFilters) &&
             areFiltersDifferent(appliedFilters, prevAppliedFilters)
         );
-        console.debug("4", filtersChangedAndAreSelected);
         if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && areFiltersSelected(prevAppliedFilters))) {
             generateHash();
             setDownloadAvailability();
@@ -269,7 +269,8 @@ const SearchContainer = () => {
             downloadAvailable={downloadAvailable}
             downloadInFlight={downloadInFlight}
             noFiltersApplied={areAppliedFiltersEmpty}
-            hash={urlHash} />
+            hash={urlHash}
+            queryParam={location.state} />
     );
 };
 
