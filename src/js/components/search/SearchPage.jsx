@@ -91,7 +91,7 @@ const SearchPage = ({
                 )
             }
             filters={appliedFilters}>
-            <div id="main-content">
+            <div id="main-content" role="main">
                 <div className="search-contents v2" ref={searchContents}>
                     <TooltipContext value={(tt) => setTooltipData(tt)}>
                         <CollapsibleSidebar
