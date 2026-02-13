@@ -10,9 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string };
 
-const CFDAFilterGroup = ({ filter }) => {
+const CFDAFilterGroup = ({ name }) => {
     const selectedCFDA = useSelector((state) => state.filters.selectedCFDA);
     const appliedCFDA = useSelector((state) => state.appliedFilters.filters.selectedCFDA);
     const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const CFDAFilterGroup = ({ filter }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 CFDAFilterGroup.propTypes = propTypes;

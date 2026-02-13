@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import PropTypes from "prop-types";
 
 import TimePeriodFYFilterGroup from './filterGroups/TimePeriodFYFilterGroup';
 import TimePeriodDRFilterGroup from './filterGroups/TimePeriodDRFilterGroup';
@@ -25,55 +26,58 @@ import ProgramSourceFilterGroup from './filterGroups/ProgramSourceFilterGroup';
 import DefCodesFilterGroup from "./filterGroups/DefCodesFilterGroup";
 import NewAwardsOnlyFilterGroup from "./filterGroups/NewAwardsOnlyFilterGroup";
 
-const topFilterGroupGenerator = (filter = { code: "" }) => {
-    const groupKey = `top-filter-group-${filter.code}`;
+const propTypes = { code: PropTypes.string, name: PropTypes.string };
 
-    switch (filter.code) {
+const topFilterGroupGenerator = ({ code = '', name }) => {
+    const groupKey = `top-filter-group-${code}`;
+
+    switch (code) {
         case 'keyword':
-            return <KeywordFilterGroup key={groupKey} filter={filter} />;
+            return <KeywordFilterGroup name={name} key={groupKey} />;
         case 'timePeriodFY':
-            return <TimePeriodFYFilterGroup key={groupKey} filter={filter} />;
+            return <TimePeriodFYFilterGroup name={name} key={groupKey} />;
         case 'timePeriodDR':
-            return <TimePeriodDRFilterGroup key={groupKey} filter={filter} />;
+            return <TimePeriodDRFilterGroup name={name} key={groupKey} />;
         case 'newAwardsOnly':
-            return <NewAwardsOnlyFilterGroup key={groupKey} filter={filter} />;
+            return <NewAwardsOnlyFilterGroup name={name} key={groupKey} />;
         case 'awardType':
-            return <AwardTypeFilterGroup key={groupKey} filter={filter} />;
+            return <AwardTypeFilterGroup name={name} key={groupKey} />;
         case 'selectedLocations':
-            return (<LocationFilterGroup filter={filter} key={groupKey} />);
+            return (<LocationFilterGroup name={name} code={code} key={groupKey} />);
         case 'selectedFundingAgencies':
-            return <AgencyFilterGroup key={groupKey} filter={filter} />;
+            return <AgencyFilterGroup name={name} code={code} key={groupKey} />;
         case 'selectedAwardingAgencies':
-            return <AgencyFilterGroup key={groupKey} filter={filter} />;
+            return <AgencyFilterGroup name={name} code={code} key={groupKey} />;
         case 'selectedRecipients':
-            return <RecipientFilterGroup key={groupKey} filter={filter} />;
+            return <RecipientFilterGroup name={name} key={groupKey} />;
         case 'selectedRecipientLocations':
-            return (<LocationFilterGroup filter={filter} key={groupKey} />);
+            return (<LocationFilterGroup name={name} code={code} key={groupKey} />);
         case 'treasuryAccounts':
-            return <ProgramSourceFilterGroup key={groupKey} filter={filter} />;
+            return <ProgramSourceFilterGroup name={name} key={groupKey} />;
         case 'recipientType':
-            return <RecipientTypeFilterGroup key={groupKey} filter={filter} />;
+            return <RecipientTypeFilterGroup name={name} key={groupKey} />;
         case 'selectedAwardIDs':
-            return (<AwardIDFilterGroup key={groupKey} filter={filter} />);
+            return (<AwardIDFilterGroup name={name} key={groupKey} />);
         case 'awardAmounts':
-            return (<AwardAmountFilterGroup key={groupKey} filter={filter} />);
+            return (<AwardAmountFilterGroup name={name} key={groupKey} />);
         case 'selectedCFDA':
-            return (<CFDAFilterGroup key={groupKey} filter={filter} />);
+            return (<CFDAFilterGroup name={name} key={groupKey} />);
         case 'selectedNAICS':
-            return (<NAICSFilterGroup key={groupKey} filter={filter} />);
+            return (<NAICSFilterGroup name={name} key={groupKey} />);
         case 'selectedPSC':
-            return (<PSCFilterGroup key={groupKey} filter={filter} />);
+            return (<PSCFilterGroup name={name} key={groupKey} />);
         case 'pricingType':
-            return (<PricingTypeFilterGroup key={groupKey} filter={filter} />);
+            return (<PricingTypeFilterGroup name={name} key={groupKey} />);
         case 'setAside':
-            return (<SetAsideFilterGroup key={groupKey} filter={filter} />);
+            return (<SetAsideFilterGroup name={name} key={groupKey} />);
         case 'extentCompeted':
-            return (<ExtentCompetedFilterGroup key={groupKey} filter={filter} />);
+            return (<ExtentCompetedFilterGroup name={name} key={groupKey} />);
         case 'defCodes':
-            return (<DefCodesFilterGroup key={groupKey} filter={filter} />);
+            return (<DefCodesFilterGroup name={name} key={groupKey} />);
         default:
             return null;
     }
 };
 
+topFilterGroupGenerator.propTypes = propTypes;
 export default topFilterGroupGenerator;

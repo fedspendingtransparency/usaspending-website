@@ -10,9 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string, code: PropTypes.string };
 
-const LocationFilterGroup = ({ filter }) => {
+const LocationFilterGroup = ({ name, code }) => {
     const {
         selectedLocations,
         selectedRecipientLocations,
@@ -27,7 +27,7 @@ const LocationFilterGroup = ({ filter }) => {
     } = useSelector((state) => state.appliedFilters.filters);
     const dispatch = useDispatch();
 
-    const filterType = filter.code === 'selectedLocations' ?
+    const filterType = code === 'selectedLocations' ?
         {
             locations: selectedLocations,
             appliedLocations: appliedSelectedLocations,
@@ -87,7 +87,7 @@ const LocationFilterGroup = ({ filter }) => {
         tags.push(tag);
     }
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 LocationFilterGroup.propTypes = propTypes;

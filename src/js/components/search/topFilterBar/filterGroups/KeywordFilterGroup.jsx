@@ -10,9 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string };
 
-const KeywordFilterGroup = ({ filter }) => {
+const KeywordFilterGroup = ({ name }) => {
     const keyword = useSelector((state) => state.filters.keyword);
     const appliedKeyword = useSelector((state) => state.appliedFilters.filters.keyword);
     const dispatch = useDispatch();
@@ -40,7 +40,7 @@ const KeywordFilterGroup = ({ filter }) => {
         });
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 KeywordFilterGroup.propTypes = propTypes;

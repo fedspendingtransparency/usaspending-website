@@ -12,9 +12,9 @@ import { defCodes as defCodeLabels, defCodeGroups, groupLabels } from 'dataMappi
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string };
 
-const DefCodesFilterGroup = ({ filter }) => {
+const DefCodesFilterGroup = ({ name }) => {
     const defCode = useSelector((state) => state.filters.defCode);
     const appliedDefCode = useSelector((state) => state.appliedFilters.filters.defCode);
     const dispatch = useDispatch();
@@ -90,7 +90,7 @@ const DefCodesFilterGroup = ({ filter }) => {
         }
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 DefCodesFilterGroup.propTypes = propTypes;

@@ -11,15 +11,14 @@ import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import { dateRangeChipLabel } from "helpers/searchHelper";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string };
 
-const TimePeriodDRFilterGroup = ({ filter }) => {
+const TimePeriodDRFilterGroup = ({ name }) => {
     const timePeriod = useSelector((state) => state.filters.time_period);
     const appliedTimePeriod = useSelector((state) => state.appliedFilters.filters.time_period);
     const dispatch = useDispatch();
 
     const toggleFilter = ({ startDate, endDate }, staged) => {
-        console.log({ startDate, endDate, staged });
         let newValue = timePeriod;
 
         timePeriod.forEach((date) => {
@@ -66,7 +65,7 @@ const TimePeriodDRFilterGroup = ({ filter }) => {
         });
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 TimePeriodDRFilterGroup.propTypes = propTypes;

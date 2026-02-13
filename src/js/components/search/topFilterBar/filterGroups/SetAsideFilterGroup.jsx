@@ -11,9 +11,9 @@ import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import { setAsideDefinitions } from "dataMapping/search/contractFields";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string };
 
-const SetAsideFilterGroup = ({ filter }) => {
+const SetAsideFilterGroup = ({ name }) => {
     const setAside = useSelector((state) => state.filters.setAside);
     const appliedSetAside = useSelector((state) => state.appliedFilters.filters.setAside);
     const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const SetAsideFilterGroup = ({ filter }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 SetAsideFilterGroup.propTypes = propTypes;

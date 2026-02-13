@@ -11,9 +11,9 @@ import { pricingTypeDefinitions } from "dataMapping/search/contractFields";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string };
 
-const PricingTypeFilterGroup = ({ filter }) => {
+const PricingTypeFilterGroup = ({ name }) => {
     const pricingType = useSelector((state) => state.filters.pricingType);
     const appliedPricingType = useSelector((state) => state.appliedFilters.filters.pricingType);
     const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const PricingTypeFilterGroup = ({ filter }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 PricingTypeFilterGroup.propTypes = propTypes;

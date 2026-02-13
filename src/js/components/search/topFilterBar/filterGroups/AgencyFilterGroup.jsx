@@ -12,19 +12,19 @@ import {
 } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string, code: PropTypes.string };
 
-const AgencyFilterGroup = ({ filter }) => {
+const AgencyFilterGroup = ({ name, code }) => {
     const {
         selectedAwardingAgencies, selectedFundingAgencies
     } = useSelector((state) => state.filters);
     const dispatch = useDispatch();
 
-    const filterType = filter.code === 'selectedAwardingAgencies' ?
+    const filterType = code === 'selectedAwardingAgencies' ?
         selectedAwardingAgencies :
         selectedFundingAgencies;
 
-    const filterDispatch = filter.code === 'selectedAwardingAgencies' ?
+    const filterDispatch = code === 'selectedAwardingAgencies' ?
         updateSelectedAwardingAgencies :
         updateSelectedFundingAgencies;
 
@@ -57,7 +57,7 @@ const AgencyFilterGroup = ({ filter }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 AgencyFilterGroup.propTypes = propTypes;

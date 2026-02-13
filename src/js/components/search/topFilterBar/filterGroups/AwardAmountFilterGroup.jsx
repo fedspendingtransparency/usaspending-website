@@ -11,9 +11,9 @@ import { formatAwardAmountRange } from "helpers/awardAmountHelper";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string };
 
-const AwardAmountFilterGroup = ({ filter }) => {
+const AwardAmountFilterGroup = ({ name }) => {
     const awardAmounts = useSelector((state) => state.filters.awardAmounts);
     const appliedAwardAmounts = useSelector((state) => state.appliedFilters.filters.awardAmounts);
     const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const AwardAmountFilterGroup = ({ filter }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 AwardAmountFilterGroup.propTypes = propTypes;

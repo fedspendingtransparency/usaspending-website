@@ -10,12 +10,12 @@ import { uniqueId } from "lodash-es";
 import TopFilterItem from './TopFilterItem';
 
 const propTypes = {
-    filter: PropTypes.object,
+    name: PropTypes.string,
     tags: PropTypes.array
 };
 
 const BaseTopFilterGroup = ({
-    filter,
+    name,
     tags = []
 }) => {
     const tagsArray = tags.map(({
@@ -34,10 +34,10 @@ const BaseTopFilterGroup = ({
             <div
                 className="filter-group"
                 role="group"
-                aria-label={filter.name}>
+                aria-label={name}>
                 <div className="filter-group-top">
                     <div className="filter-name">
-                        {filter.name}
+                        {name}
                     </div>
                 </div>
                 <div className="filter-group-bottom">

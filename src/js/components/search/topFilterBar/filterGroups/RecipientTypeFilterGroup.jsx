@@ -11,9 +11,9 @@ import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import { groupLabels, recipientTypes } from "dataMapping/search/recipientType";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string };
 
-const RecipientTypeFilterGroup = ({ filter }) => {
+const RecipientTypeFilterGroup = ({ name }) => {
     const recipientType = useSelector((state) => state.filters.recipientType);
     const appliedRecipientType = useSelector((state) => state.appliedFilters.filters.recipientType);
     const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const RecipientTypeFilterGroup = ({ filter }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 RecipientTypeFilterGroup.propTypes = propTypes;

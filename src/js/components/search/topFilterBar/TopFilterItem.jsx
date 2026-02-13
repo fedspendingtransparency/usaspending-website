@@ -62,5 +62,4 @@ const TopFilterItem = ({
 };
 
 TopFilterItem.propTypes = propTypes;
-
 export default TopFilterItem;

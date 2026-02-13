@@ -11,9 +11,9 @@ import { extentCompetedDefinitions } from "dataMapping/search/contractFields";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string };
 
-const ExtentCompetedFilterGroup = ({ filter }) => {
+const ExtentCompetedFilterGroup = ({ name }) => {
     const extentCompeted = useSelector((state) => state.filters.extentCompeted);
     const appliedExtentCompeted = useSelector(
         (state) => state.appliedFilters.filters.extentCompeted
@@ -44,7 +44,7 @@ const ExtentCompetedFilterGroup = ({ filter }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 ExtentCompetedFilterGroup.propTypes = propTypes;

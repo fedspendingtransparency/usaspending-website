@@ -10,9 +10,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string };
 
-const AwardIDFilterGroup = ({ filter }) => {
+const AwardIDFilterGroup = ({ name }) => {
     const selectedAwardIDs = useSelector((state) => state.filters.selectedAwardIDs);
     const appliedAwardIDs = useSelector((state) => state.appliedFilters.filters.selectedAwardIDs);
     const dispatch = useDispatch();
@@ -41,7 +41,7 @@ const AwardIDFilterGroup = ({ filter }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 AwardIDFilterGroup.propTypes = propTypes;

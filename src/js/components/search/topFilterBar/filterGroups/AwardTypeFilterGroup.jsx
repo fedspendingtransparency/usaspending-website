@@ -14,9 +14,9 @@ import {
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string };
 
-const AwardTypeFilterGroup = ({ filter }) => {
+const AwardTypeFilterGroup = ({ name }) => {
     const awardType = useSelector((state) => state.filters.awardType);
     const appliedAwardType = useSelector((state) => state.appliedFilters.filters.awardType);
     const dispatch = useDispatch();
@@ -96,7 +96,7 @@ const AwardTypeFilterGroup = ({ filter }) => {
         if (indexOf(excludedValues, value) < 0) tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 AwardTypeFilterGroup.propTypes = propTypes;
