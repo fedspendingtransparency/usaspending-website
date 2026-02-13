@@ -101,7 +101,7 @@ const MobileDropdownItem = ({
                         <ul>
                             {section1Items.map((item) => (
                                 <li className="mobile-dropdown__section" key={uniqueId()}>
-                                    <Link to={item.url} onClick={clickedLink} className="mobile-dropdown__section-link">
+                                    <Link to={item.url} onClick={clickedLink} className="mobile-dropdown__section-link" state={item.queryParam}>
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
                                         </div>
