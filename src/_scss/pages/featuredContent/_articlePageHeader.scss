@@ -100,7 +100,7 @@
     }
 }
 
-.long-form-featured-content__header-block {
+.infographic-featured-content__header-block {
     margin-bottom: rem(28);
 
     .featured-content__label {
@@ -110,10 +110,14 @@
         font-style: normal;
         font-weight: $font-semibold;
         line-height: 15px;
-        color: $color-black;
+        color: $color-white;
         text-transform: uppercase;
         gap: 10px;
         width: max-content;
+
+        &.black-text {
+            color: $color-black;
+        }
 
         @media(min-width: $tablet-screen) {
             padding: rem(8);

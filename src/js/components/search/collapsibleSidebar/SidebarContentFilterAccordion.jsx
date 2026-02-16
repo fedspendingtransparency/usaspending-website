@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useCallback } from 'react';
 import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
 import Accordion from "../../sharedComponents/accordion/Accordion";
@@ -11,19 +11,20 @@ const propTypes = {
     count: PropTypes.number
 };
 
-const SidebarContentFilterAccordion = ({
+// eslint-disable-next-line prefer-arrow-callback
+const SidebarContentFilterAccordion = memo(function SidebarContentFilterAccordion({
     title, component, open, setOpen, count
-}) => {
-    const onToggle = () => {
+}) {
+    const onToggle = useCallback(() => {
         Analytics.event({
             event: "dap_event",
             category: "Advanced Search - Filter",
-            action: open[title] ? "Filter Close" : "Filter Open",
-            label: title.concat(" ", open[title] ? "close" : "open")
+            action: open ? "Filter Close" : "Filter Open",
+            label: title.concat(" ", open ? "close" : "open")
         });
 
-        setOpen({ ...open, [title]: !open[title] });
-    };
+        setOpen((prevState) => ({ ...prevState, [title]: !prevState[title] }));
+    }, [open, setOpen, title]);
 
     return (
         <div className="search-filters-list">
@@ -31,15 +32,16 @@ const SidebarContentFilterAccordion = ({
                 key={title}
                 title={title}
                 setOpen={onToggle}
-                openObject={open[title]}
+                openObject={open}
                 closedIcon="chevron-down"
                 openIcon="chevron-up"
-                contentClassName={open[title] ? '' : 'hidden'}
+                contentClassName={open ? '' : 'hidden'}
                 selectedChipCount={count}>
-                { open[title] && component }
+                { open && component }
             </Accordion>
         </div>
     );
-};
+});
+
 SidebarContentFilterAccordion.propTypes = propTypes;
 export default SidebarContentFilterAccordion;

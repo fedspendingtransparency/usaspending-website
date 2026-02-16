@@ -92,7 +92,7 @@ const articles = [
         created_date: "09/29/2025",
         description: "Behind every dollar the U.S. government spends, there is a story. But how can you discover that story? What tools do you need to understand it?",
         slug: "exploring-americas-finances",
-        feature_sprint: 1,
+        feature_sprint: 5,
         feature_week: 1,
         related_terms: [],
         explore_more: [
@@ -247,7 +247,7 @@ const articles = [
         taxonomy: "What's the Difference?",
         content_type: 'Featured Content',
         title: "Grants vs. Contracts",
-        banner_subtitle: "What’s the Difference Between Grants and Contracts?",
+        banner_subtitle: "What's the Difference Between Grants and Contracts?",
         created_date: "12/25/25",
         feature_sprint: 3,
         feature_week: 1,
@@ -399,8 +399,133 @@ const articles = [
         ]
     },
     {
+        taxonomy: "My USAspending Search",
+        content_type: 'Featured Content',
+        title: "John’s USAspending Search",
+        banner_subtitle: "Follow the Money Using USAspending.gov’s Spending Explorer",
+        created_date: "02/05/2026",
+        feature_sprint: 5,
+        feature_week: 1,
+        description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
+        slug: "johns-usaspending-search",
+        isInfographicTemplate: false,
+        explore_more: [
+            {
+                label: "Spending Explorer",
+                slug: "/explorer/agency",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "USAspending on YouTube",
+                slug: "https://www.youtube.com/@usaspendinggov",
+                type: "external"
+            }
+        ],
+        related_terms: [
+            {
+                term: "awarding-agency",
+                type: "glossary",
+                label: "Awarding Agency"
+            },
+            {
+                term: "naics",
+                type: "glossary",
+                label: "NAICS"
+            }
+        ]
+    },
+    {
+        taxonomy: "Exploring America's Finances",
+        isInfographicTemplate: false,
+        content_type: 'Marketing',
+        title: "Using Popular Filters on USAspending.gov",
+        banner_subtitle: "Unlocking the Power of USAspending’s Advanced Search",
+        created_date: "02/26/2026",
+        feature_sprint: 6,
+        feature_week: 1,
+        sections: ["Federal Spending Transparency and Accountability", "Market Research", "Grant Opportunities and Compliance", "Federal Spending Trends and Stories"],
+        description: "USAspending’s Advanced Search is designed to change that. With a set of powerful filters, you can pinpoint exactly where and how federal dollars are spent.",
+        slug: "using-popular-filters-on-usaspendinggov",
+        explore_more: [
+            {
+                label: "What is a Recipient?",
+                slug: "/featured-content/data-definitions/what-is-a-recipient",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Spending Explorer",
+                slug: "/explorer",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "recipient",
+                type: "glossary",
+                label: "Recipient"
+            },
+            {
+                term: "fiscal-year-fy",
+                type: "glossary",
+                label: "Fiscal Year"
+            }
+        ]
+    },
+    {
+        taxonomy: "What's the Difference?",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "Awarding Agency vs. Funding Agency",
+        banner_subtitle: "What's the Difference Between Awarding Agency and Funding Agency?",
+        created_date: "02/26/2026",
+        feature_sprint: 6,
+        feature_week: 1,
+        sections: ["Federal Spending Transparency and Accountability", "Market Research", "Grant Opportunities and Compliance", "Federal Spending Trends and Stories"],
+        description: "In the “Agency” section of USAspending’s advanced search, you’ll see the option to search by Awarding Agency or Funding Agency. But what’s the difference?",
+        slug: "awarding-agency-vs-funding-agency",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Agency Profiles",
+                slug: "/agency",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "awarding-agency",
+                type: "glossary",
+                label: "Awarding Agency"
+            },
+            {
+                term: "funding-agency",
+                type: "glossary",
+                label: "Funding Agency"
+            },
+            {
+                term: "agency",
+                type: "glossary",
+                label: "Agency"
+            }
+        ]
+    },
+    {
         taxonomy: "See 4 Yourself",
-        isLongForm: true,
+        isInfographicTemplate: true,
         content_type: 'Featured Content',
         title: "QAT ONLY Test",
         banner_subtitle: "How People Use USAspending.gov Data",
@@ -426,41 +551,6 @@ const articles = [
         ],
         related_terms: []
     }
-    // {
-    //     taxonomy: "My USAspending Search",
-    //     content_type: 'Featured Content',
-    //     banner_subtitle: "Follow the Money Using USAspending.gov’s Spending Explorer",
-    //     title: "John’s USAspending Search",
-    //     created_date: "12/25/25",
-    //     feature_sprint: 3,
-    //     feature_week: 1,
-    //     description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
-    //     slug: "johns-usaspending-search",
-    //     explore_more: [
-    //         {
-    //             label: "Advanced Search",
-    //             slug: "/search",
-    //             type: "internal"
-    //         },
-    //         {
-    //             label: "Federal Spending Guide",
-    //             slug: "/federal-spending-guide",
-    //             type: "internal"
-    //         }
-    //     ],
-    //     related_terms: [
-    //         {
-    //             term: "recipient",
-    //             type: "glossary",
-    //             label: "Recipient"
-    //         },
-    //         {
-    //             term: "outlay",
-    //             type: "glossary",
-    //             label: "Outlay"
-    //         }
-    //     ]
-    // }
 ];
 
 export default articles;

@@ -19,7 +19,7 @@ import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
 
 import AggregatedAwardAmounts from 'components/award/idv/amounts/AggregatedAwardAmountsSection';
 import { awardAmountsInfo } from 'components/award/shared/InfoTooltipContent';
-import withDefCodes from 'containers/covid19/WithDefCodes';
+import withDefCodes from 'hooks/WithDefCodes';
 import AggregatedAwardAmountsTableWrapper
     from "../../../components/award/idv/amounts/AggregatedAwardAmountsTableWrapper";
 

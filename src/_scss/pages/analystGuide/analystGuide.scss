@@ -109,6 +109,10 @@
         color: $color-primary;
       }
     }
+    
+    a {
+        font-weight: $font-semibold;
+    }
   }
 
   .analyst-guide__questionSections {

@@ -109,7 +109,6 @@ const TimeVisualizationChart = (props) => {
         const { active, payload, label } = args;
 
         if (active && payload && payload.length && payload[0].label !== "jump") {
-            setFocusBar(label);
             return (
                 <div className="custom-tooltip" role="status" aria-live="assertive">
                     <div className="tooltip__title">

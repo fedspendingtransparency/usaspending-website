@@ -200,7 +200,7 @@ export default class BudgetFunctionFilter extends React.Component {
 
                     <div className="download-filter__content">
                         <div className="federal-picker">
-                            <label className={`select-label ${budgetSubfunctionDisabled}`} htmlFor="federal-select">
+                            <label className="select-label" htmlFor="federal-select" tabIndex={-1}>
                             Budget Sub-function
                             </label>
                             <div className="field-picker">
@@ -209,6 +209,7 @@ export default class BudgetFunctionFilter extends React.Component {
                                     title={currentBudgetSubfunctionTitle}
                                     aria-label={currentBudgetSubfunctionTitle}
                                     disabled={disabled}
+                                    tabIndex={disabled ? -1 : 0}
                                     onClick={this.toggleBudgetSubfunctionPicker} >
                                     <div className="label">
                                         {currentBudgetSubfunctionTitle}

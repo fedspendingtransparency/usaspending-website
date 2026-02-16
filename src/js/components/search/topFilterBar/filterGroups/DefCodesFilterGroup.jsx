@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import BaseTopFilterGroup from './BaseTopFilterGroup';
+import BaseTopFilterGroup from '../BaseTopFilterGroup';
 import { defCodes, defCodeGroups } from '../../../../dataMapping/search/defCodes';
 
 const propTypes = {

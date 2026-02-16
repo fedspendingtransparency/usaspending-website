@@ -255,7 +255,7 @@ export default class AgencyFilter extends React.Component {
                         </div>
                     </div>
                     <div className="filter-picker">
-                        <label className="select-label" htmlFor="sub-agency-select">
+                        <label className="select-label" htmlFor="sub-agency-select" tabIndex={-1}>
                             Sub-Agency
                         </label>
                         <div className="field-picker">
@@ -263,7 +263,9 @@ export default class AgencyFilter extends React.Component {
                                 className={`selected-button ${subAgencyDisabledClass}`}
                                 title={currentSubAgencyName}
                                 aria-label={currentSubAgencyName}
-                                onClick={this.toggleSubAgencyPicker}>
+                                onClick={this.toggleSubAgencyPicker}
+                                disabled={subAgencyDisabledClass === 'disabled'}
+                                tabIndex={subAgencyDisabledClass === 'disabled' ? -1 : 0}>
                                 <div className="label">
                                     {currentSubAgencyName}
                                 </div>

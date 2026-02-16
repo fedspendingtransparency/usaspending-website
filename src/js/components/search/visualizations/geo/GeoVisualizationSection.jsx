@@ -7,7 +7,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 import Note from 'components/sharedComponents/Note';

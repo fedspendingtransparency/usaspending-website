@@ -77,6 +77,11 @@
         @import "totals";
         @import "details";
 
+        .usda-message {
+            height: 100%;
+            align-content: center;
+        }
+
         .award-breakdown {
             @import "../visualizations/awardBreakdown/awardBreakdownVisualization";
             margin-right: rem(10);

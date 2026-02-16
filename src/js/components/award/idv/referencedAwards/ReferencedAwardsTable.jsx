@@ -11,9 +11,9 @@ import { Link } from 'react-router';
 import { referencedAwardsColumns } from 'dataMapping/award/referencedAwards';
 
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
-import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableNoResults from 'components/keyword/table/ResultsTableNoResults';
+import ResultsTableLoadingMessage from 'components/keyword/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
 
 export default class ReferencedAwardsTable extends React.Component {
     static propTypes = {

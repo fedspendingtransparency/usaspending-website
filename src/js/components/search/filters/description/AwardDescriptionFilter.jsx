@@ -6,7 +6,7 @@
 import React from 'react';
 import { Button } from "data-transparency-ui";
 import PropTypes from "prop-types";
-import ShownValue from "../otherFilters/ShownValue";
+import ShownValue from "../ShownValue";
 
 const propTypes = {
     applyAwardDescription: PropTypes.func,

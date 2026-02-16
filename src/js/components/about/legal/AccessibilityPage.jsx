@@ -15,7 +15,7 @@ const AccessibilityPage = () => (
             to all members of the public and ensuring that it meets or exceeds the
             requirements of{' '}
             <a
-                className="about-section-content do-wrap"
+                className="about-section-content do-wrap usa-bold-link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://section508.gov/">
@@ -26,6 +26,7 @@ const AccessibilityPage = () => (
             To help users who are visually impaired users more easily distinguish content,
             we regularly test contrast and color schemes using a tool called&nbsp;
             <a
+                className="usa-bold-link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://webaim.org/resources/contrastchecker/">
@@ -51,7 +52,7 @@ const AccessibilityPage = () => (
             </li>
         </ul>
         <p>
-            <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us">Contact us</a>
+            <a className="usa-bold-link" href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us">Contact us</a>
             &nbsp;if you have any difficulty accessing information on USASpending.gov.
         </p>
     </LegalPage>

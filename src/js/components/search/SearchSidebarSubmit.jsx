@@ -8,8 +8,9 @@ import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
 import Cookies from 'js-cookie';
-import * as SearchHelper from 'helpers/searchHelper';
-import Analytics from '../../helpers/analytics/Analytics';
+
+import { getObjFromQueryParams } from "helpers/searchHelper";
+import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     stagedFiltersAreEmpty: PropTypes.bool,
@@ -30,7 +31,7 @@ const SearchSidebarSubmit = ({
 }) => {
     let disabled = false;
     let title = 'Click to submit your search.';
-    const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
+    const { hash: urlHash } = getObjFromQueryParams(useLocation().search);
 
     if (stagedFiltersAreEmpty) {
         title = 'Add or update a filter to submit.';

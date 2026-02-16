@@ -80,7 +80,7 @@ const DefaultLineAndText = ({
     }, [width, scale, valueData]);
 
     return (
-        <g>
+        <g tabIndex={-1}>
             <DefaultLine
                 scale={scale}
                 className={className}

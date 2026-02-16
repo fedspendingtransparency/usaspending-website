@@ -467,3 +467,74 @@ export const fetchCityResults = (reqObj = getCitySearchRequestObj()) => apiReque
     method: 'post',
     data: reqObj
 });
+
+/**
+ * firstSymbolId
+ * - finds the first symbol ( text to mapbox ) layer.
+ * @param {object} ref holding the map useRef()
+ * @returns {string} first symbol layer id.
+ */
+export const firstSymbolId = ({ current }) => {
+    const layers = current.getStyle().layers;
+    // Find the index of the first symbol layer in the map style
+    let symbolId = null;
+    for (let i = 0; i < layers.length; i++) {
+        if (layers[i].type === 'symbol') {
+            symbolId = layers[i].id;
+            break;
+        }
+    }
+    return symbolId;
+};
+
+export const mapboxSources = {
+    country: {
+        label: 'country',
+        url: 'mapbox://usaspendingfrbkc.countries-tileset',
+        layer: 'genc-countries',
+        filterKey: 'GENC0', // three digit country code
+        lat: 'INTPTLAT',
+        long: 'INTPTLON'
+    },
+    state: {
+        label: 'state',
+        url: 'mapbox://usaspendingfrbkc.2kdrjq7z',
+        layer: 'cb_2023_us_state_500k-b3ar5z',
+        filterKey: 'STUSPS', // state abbreviation
+        lat: 'INTPTLAT',
+        long: 'INTPTLON'
+    },
+    county: {
+        label: 'county',
+        url: 'mapbox://usaspendingfrbkc.county-tileset',
+        layer: 'tl_2024_us_county',
+        filterKey: 'GEOID', // the county GEOID is state FIPS + county FIPS
+        lat: 'INTPTLAT',
+        long: 'INTPTLON'
+    },
+    congressionalDistrict: {
+        label: 'congressional district',
+        url: 'mapbox://usaspendingfrbkc.district-tileset',
+        layer: '118-CD',
+        filterKey: 'GEOID20', // the GEOID is state FIPS + district
+        lat: 'INTPTLAT',
+        long: 'INTPTLON'
+    }
+};
+
+export const getColors = (numQuantiles) => {
+    const colors = [];
+    for (let i = 0; i < numQuantiles; i++) {
+        // get the color for the map, we use the base color and an opacity attached to it
+        // if we have n quantiles we need n distinct colors
+        colors.push(`rgba(1, 43, 58, ${i * (1 / numQuantiles)})`);
+    }
+    return colors;
+};
+
+export const pluralize = (string) => {
+    if (string[string.length - 1] === "y") {
+        return `${string.slice(0, -1)}ies`;
+    }
+    return `${string}s`;
+};

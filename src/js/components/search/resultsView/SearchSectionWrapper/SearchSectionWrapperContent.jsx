@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import IsMobileContext from "context/IsMobileContext";
 import MobileSort from "../../mobile/MobileSort";
-import SectionDataTable from "../SectionDataTable";
+import SectionDataTable from "./SectionDataTable";
 
 const propTypes = {
     openAccordion: PropTypes.bool,

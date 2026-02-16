@@ -14,7 +14,7 @@
         background-color: $color-white;
         .search-section__input {
             @include flex(1 1 auto);
-            color: $color-gray-light;
+            color: $color-gray-medium;
             font-weight: 300;
             line-height: rem(28);
             padding: rem(10) rem(15);
@@ -31,7 +31,7 @@
                 height: rem(24);
                 width: rem(24);
                 svg {
-                    fill: $color-gray-light;
+                    fill: $color-gray-medium;
                 }
             }
         }

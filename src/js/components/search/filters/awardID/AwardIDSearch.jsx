@@ -3,34 +3,18 @@
  * Created by michaelbray on 3/2/17.
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'data-transparency-ui';
-import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import PropTypes from 'prop-types';
 import SelectedAwardIDs from './SelectedAwardIDs';
-import usePrevious from "../../../../hooks/usePrevious";
 
 const propTypes = {
     toggleAwardID: PropTypes.func,
-    selectedAwardIDs: PropTypes.object,
-    dirtyFilters: PropTypes.symbol,
-    searchV2: PropTypes.bool
+    selectedAwardIDs: PropTypes.object
 };
 
-const AwardIDSearch = (props) => {
-    const { toggleAwardID, selectedAwardIDs, dirtyFilters } = props;
-
+const AwardIDSearch = ({ toggleAwardID, selectedAwardIDs }) => {
     const [awardID, setAwardID] = useState('');
-    const [hint, setHint] = useState(null);
-    const prevDirtyFilters = usePrevious(dirtyFilters);
-
-    useEffect(() => {
-        if (dirtyFilters && prevDirtyFilters !== dirtyFilters) {
-            if (hint) {
-                hint.showHint();
-            }
-        }
-    }, [dirtyFilters, prevDirtyFilters, hint]);
 
     const inputChangeHandler = (e) => {
         setAwardID(e.target.value);
@@ -81,13 +65,6 @@ const AwardIDSearch = (props) => {
                 </form>
 
                 {renderSelectedAwardIDs()}
-
-                { !props.searchV2 &&
-                    <SubmitHint
-                        ref={(component) => {
-                            setHint(component);
-                        }} />
-                }
             </div>
         </div>
     );

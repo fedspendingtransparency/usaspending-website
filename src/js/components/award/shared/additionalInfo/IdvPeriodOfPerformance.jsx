@@ -61,7 +61,11 @@ export default class IdvPeriodOfPerformance extends React.Component {
                                 className="accordion-table__row">
                                 <td className="accordion-table__data accordion-table__data_info-tooltip">
                                     Start Date
-                                    <div className="tooltip-popover-container" tabIndex="0" role="button">
+                                    <div
+                                        className="tooltip-popover-container"
+                                        tabIndex={this.state.open ? 0 : -1}
+                                        aria-hidden={!this.state.open}
+                                        role="button">
                                         <FontAwesomeIcon icon="info-circle" />
                                         <span className="tooltip-popover">
                                         Selected based on the earliest Start Date across all transactions on this IDV
@@ -74,7 +78,11 @@ export default class IdvPeriodOfPerformance extends React.Component {
                                 className="accordion-table__row">
                                 <td className="accordion-table__data accordion-table__data_info-tooltip">
                                     Ordering Period End Date
-                                    <div className="tooltip-popover-container" tabIndex="0" role="button">
+                                    <div
+                                        className="tooltip-popover-container"
+                                        tabIndex={this.state.open ? 0 : -1}
+                                        aria-hidden={!this.state.open}
+                                        role="button">
                                         <FontAwesomeIcon icon="info-circle" />
                                         <span className="tooltip-popover">
                                             Selected based on the latest Ordering Period End Date across all transactions on this IDV

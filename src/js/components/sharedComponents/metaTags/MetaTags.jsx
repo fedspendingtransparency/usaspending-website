@@ -126,5 +126,4 @@ const MetaTags = ({
 };
 
 MetaTags.propTypes = propTypes;
-
 export default MetaTags;

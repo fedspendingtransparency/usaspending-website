@@ -7,7 +7,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { fetchOverview, fetchAwardAmounts } from 'apis/disaster';
-import { useDefCodes } from 'containers/covid19/WithDefCodes';
+import { useDefCodes } from 'hooks/WithDefCodes';
 import { setOverview, setTotals, setDefcParams, resetOverview } from 'redux/actions/covid19/covid19Actions';
 import Covid19Page from 'components/covid19/Covid19Page';
 import useAgencySlugs from "../../hooks/useAgencySlugs";

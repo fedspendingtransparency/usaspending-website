@@ -3,7 +3,7 @@ import React, { forwardRef } from 'react';
 
 const DefaultText = forwardRef((props, ref) => (
     <text
-        tabIndex="0"
+        tabIndex="-1"
         aria-label={props.text}
         ref={ref}
         data-id={props.dataId}

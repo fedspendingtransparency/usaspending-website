@@ -3,14 +3,17 @@
  * Created by michaelbray on 2/16/17.
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from "axios";
 
-import { updateSelectedRecipients, updateSearchedFilterValues } from 'redux/actions/search/searchFilterActions';
+import {
+    updateSelectedRecipients, updateSearchedFilterValues
+} from 'redux/actions/search/searchFilterActions';
 import { fetchRecipientsAutocomplete } from 'helpers/searchHelper';
 import replaceString from 'helpers/replaceString';
-import AutocompleteWithCheckboxList from 'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
+import AutocompleteWithCheckboxList from
+    'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
 
 const RecipientSearchContainer = () => {
     const [recipients, setRecipients] = useState([]);
@@ -22,17 +25,21 @@ const RecipientSearchContainer = () => {
     const selectedRecipients = useSelector((state) => state.filters.selectedRecipients);
     const searchedFilterValues = useSelector((state) => state.filters.searchedFilterValues);
 
-    const recipientRequest = useRef();
+    const recipientRequest = useRef(null);
     const dispatch = useDispatch();
 
     const maxRecipientsAllowed = 500;
     const maxRecipientTitle = `Only ${maxRecipientsAllowed} recipients can be displayed at once`;
+    // eslint-disable-next-line max-len
     const maxRecipientText = 'Please use the search bar to narrow your search and find additional recipients.';
     const highlightText = (text) => replaceString(text, searchString, 'bold-highlight');
 
     const toggleRecipient = ({ value }) => {
         let isUei = false;
-        if (value.uei && searchString.length > 2 && value.uei?.includes(searchString.toUpperCase())) {
+        if (
+            value.uei && searchString.length > 2 &&
+            value.uei?.includes(searchString.toUpperCase())
+        ) {
             dispatch(updateSelectedRecipients(value.uei));
             isUei = true;
         }
@@ -41,7 +48,10 @@ const RecipientSearchContainer = () => {
         }
 
         const updatedSelected = selectedRecipients.toArray();
-        if (selectedRecipients?.size > 0 && selectedRecipients.includes(isUei ? value.uei : value.name)) {
+        if (
+            selectedRecipients?.size > 0 &&
+            selectedRecipients.includes(isUei ? value.uei : value.name)
+        ) {
             updatedSelected.filter((rep) => rep === (isUei ? value.uei : value.name));
         }
         else {
@@ -143,9 +153,9 @@ const RecipientSearchContainer = () => {
             });
     };
 
-    const handleTextInputChange = (e) => {
+    const handleTextInputChange = useCallback((e) => {
         setSearchString(e.target.value);
-    };
+    }, []);
 
     const handleSearchClear = () => {
         setSearchString('');
@@ -155,9 +165,7 @@ const RecipientSearchContainer = () => {
 
 
     const handleClearAll = () => {
-        const currentRecipients = selectedRecipients;
-
-        currentRecipients.forEach((recipient) => {
+        selectedRecipients.forEach((recipient) => {
             dispatch(updateSelectedRecipients(recipient));
         });
 
@@ -249,7 +257,9 @@ const RecipientSearchContainer = () => {
         if (searchedFilterValues?.recipient) {
             searchValues = searchedFilterValues.recipient;
         }
-        else if (searchedFilterValues?.get('recipient')) {
+        else if ((searchedFilterValues?.get === 'function')
+            && (searchedFilterValues.get('recipient'))
+        ) {
             searchValues = searchedFilterValues.get('recipient');
         }
         if (searchValues && (!searchString || searchString !== searchValues?.input)) {
@@ -263,7 +273,7 @@ const RecipientSearchContainer = () => {
         if (searchString?.length >= 3) {
             getRecipientsFromSearchString(searchString);
         }
-
+        else if (searchString?.length === 0) setNoResults(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString]);
 

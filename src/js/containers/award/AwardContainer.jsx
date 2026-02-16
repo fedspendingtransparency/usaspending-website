@@ -31,9 +31,9 @@ import {
     fetchContractDownloadFile,
     fetchAssistanceDownloadFile
 } from 'helpers/downloadHelper';
-import withDefCodes from 'containers/covid19/WithDefCodes';
-import { getAwardHistoryCounts } from "../../helpers/awardHistoryHelper";
-import Analytics from "../../helpers/analytics/Analytics";
+import withDefCodes from 'hooks/WithDefCodes';
+import { getAwardHistoryCounts } from "helpers/awardHistoryHelper";
+import Analytics from "helpers/analytics/Analytics";
 
 require('pages/award/awardPage.scss');
 

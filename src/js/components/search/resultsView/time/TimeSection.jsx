@@ -4,7 +4,7 @@
  **/
 
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 
 import Analytics from "../../../../helpers/analytics/Analytics";
@@ -26,15 +26,14 @@ const TimeSection = ({
     const query = useQueryParams();
     const [visualizationPeriod, setVisualizationPeriod] = useState(query.by || 'month');
 
-    const onClick = (e) => {
+    const onClick = useCallback((e) => {
         setVisualizationPeriod(e);
         Analytics.event({
             category: 'Section Time',
             action: `View ${e}`,
             label: hash
         });
-    };
-
+    }, [hash]);
     const wrapperProps = {
         sectionTitle: 'Results Over Time',
         dropdownOptions: [

@@ -27,7 +27,7 @@ import {
 
 /**
  * useIsMobile
- * - a custom hook for checking whether the window is below or above the standard project breakpoints
+ * - PLEASE USE useContext(IsMobileContext) INSTEAD. A custom hook for checking whether the window is below or above the standard project breakpoints
  * @returns {breakPoints} breakpoints - An object with the different breakpoint states, i.e., isMobile, isTablet, isMedium, isDesktopSm, & isDesktopLg
  *
  */

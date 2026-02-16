@@ -23,11 +23,12 @@ const propTypes = {
     category: PropTypes.string,
     fy: PropTypes.string,
     recipientHash: PropTypes.string,
-    recipientName: PropTypes.string
+    recipientName: PropTypes.string,
+    agencyData: PropTypes.object
 };
 
 const TopFiveContainer = ({
-    total, category, fy, recipientHash, recipientName
+    total, category, fy, recipientHash, recipientName, agencyData
 }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -144,7 +145,8 @@ const TopFiveContainer = ({
                     dataParams={dataParams()}
                     loading={loading}
                     error={error}
-                    results={results} />
+                    results={results}
+                    agencyData={agencyData} />
             }
         </>
     );

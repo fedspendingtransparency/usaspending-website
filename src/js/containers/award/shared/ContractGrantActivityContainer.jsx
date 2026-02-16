@@ -4,8 +4,8 @@ import { cloneDeep } from 'lodash-es';
 
 import { fetchAwardTransaction } from 'helpers/searchHelper';
 import { areTransactionDatesOrAwardAmountsInvalid } from 'helpers/contractGrantActivityHelper';
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableLoadingMessage from 'components/keyword/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 import ContractGrantActivity from 'components/award/shared/activity/ContractGrantActivity';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -189,7 +189,9 @@ const ContractGrantActivityContainer = ({
             setLoading(false);
         };
         asyncFunc();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [awardId]);
+
     // hook - runs on mount and anytime awardId and getTransactions change
     useEffect(() => {
         getTransactions();

@@ -7,12 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { keywordTableColumnTypes } from 'dataMapping/keyword/keywordTableColumnTypes';
-
-import IBTable from 'components/keyword/IBTable/IBTable';
-
-import ResultsTableFormattedCell from 'components/search/table/cells/ResultsTableFormattedCell';
-import ResultsTableLinkCell from 'components/search/table/cells/ResultsTableLinkCell';
-import ResultsTableHeaderCell from 'components/search/table/cells/ResultsTableHeaderCell';
+import IBTable from '../IBTable/IBTable';
+import ResultsTableFormattedCell from './ResultsTableFormattedCell';
+import ResultsTableLinkCell from './ResultsTableLinkCell';
+import ResultsTableHeaderCell from './ResultsTableHeaderCell';
 
 const propTypes = {
     results: PropTypes.array,

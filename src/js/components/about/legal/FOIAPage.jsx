@@ -14,7 +14,7 @@ const FOIAPage = () => (
             If your FOIA request is about data and information for a specific agency, please contact
             that agency directly.&nbsp;
             <a
-                className="about-section-content do-wrap"
+                className="about-section-content do-wrap usa-bold-link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.foia.gov/report-makerequest.html">
@@ -25,6 +25,7 @@ const FOIAPage = () => (
             If your FOIA request is related to information concerning the Department of the Treasury,
             Bureau of the Fiscal Service, please visit our&nbsp;
             <a
+                className="usa-bold-link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://fiscal.treasury.gov/foia.html">

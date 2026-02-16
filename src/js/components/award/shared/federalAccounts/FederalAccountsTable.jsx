@@ -11,8 +11,8 @@ import { Link } from 'react-router';
 
 import tableMapping from 'dataMapping/award/federalAccountSectionTable';
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
+import ResultsTableLoadingMessage from 'components/keyword/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
 import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
 
 export default class FederalAccountsTable extends React.Component {

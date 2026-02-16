@@ -6,10 +6,12 @@
 import React, { useEffect, useState } from 'react';
 import { CSSTransition, TransitionGroup } from "react-transitioning";
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Analytics from 'helpers/analytics/Analytics';
 import {
+    searchSection1Options,
+    searchSection2Options,
     spendingOptions,
     profileOptions,
     learnResourceOptions,
@@ -32,13 +34,19 @@ const propTypes = {
     setMobileNavInitialState: PropTypes.func
 };
 
+// Possible types include direct-link, primary-dropdown, custom-dropdown
 const navbarConfig = [
     {
         title: "Search Award Data",
-        url: '/search'
+        type: 'primary',
+        section1Items: searchSection1Options,
+        section2Items: searchSection2Options,
+        section1Options,
+        section2Options
     },
     {
         title: "Explore the Data",
+        type: 'secondary',
         section1Items: spendingOptions,
         section2Items: profileOptions,
         section1Options,
@@ -47,6 +55,7 @@ const navbarConfig = [
     },
     {
         title: "Download the Data",
+        type: 'primary',
         section1Items: awardDownloadOptions,
         section2Items: accountDataOptions,
         section3Items: allDownloadOptions,
@@ -57,6 +66,7 @@ const navbarConfig = [
     },
     {
         title: "Find Resources",
+        type: 'primary',
         section1Items: learnResourceOptions,
         section2Items: referenceMaterialsOptions,
         section3Items: developerOptions,
@@ -82,6 +92,7 @@ const MobileNav = React.memo((props) => {
     };
 
     const openDetailedMobileNav = (index) => {
+        console.log(index);
         setDetailMobileNavIsHidden(false);
         setMobileNavInitialState(false);
         setCurrentIndex(index);
@@ -127,32 +138,21 @@ const MobileNav = React.memo((props) => {
                         <div key={`item: ${navbarConfig[index].title}`}>
                             <hr className={`mobile-nav-content__divider ${detailMobileNavIsHidden ? " animation-enter" : " "}`} />
                             <li className={`mobile-nav-content__list-item ${detailMobileNavIsHidden ? " animation-enter" : " "}`}>
-                                {index === 0 ?
-                                    <Link
-                                        className="mobile-nav-content__link"
-                                        to="/search"
-                                        title="Search"
-                                        name="search"
-                                        onClick={clickedLink}>
-                                        Search Award Data
-                                    </Link>
-                                    :
-                                    <div className="mobile-dropdown">
-                                        <button
-                                            className="mobile-dropdown__parent"
-                                            title={navbarConfig[index].title}
-                                            onClick={() => {
-                                                openDetailedMobileNav(index);
-                                            }}>
-                                            <span className="mobile-dropdown__parent-label">
-                                                {navbarConfig[index].title}
-                                            </span>
-                                            <span className="mobile-dropdown__parent-icon">
-                                                <FontAwesomeIcon icon="chevron-right" />
-                                            </span>
-                                        </button>
-                                    </div>
-                                }
+                                <div className="mobile-dropdown">
+                                    <button
+                                        className="mobile-dropdown__parent"
+                                        title={navbarConfig[index].title}
+                                        onClick={() => {
+                                            openDetailedMobileNav(index);
+                                        }}>
+                                        <span className="mobile-dropdown__parent-label">
+                                            {navbarConfig[index].title}
+                                        </span>
+                                        <span className="mobile-dropdown__parent-icon">
+                                            <FontAwesomeIcon icon="chevron-right" />
+                                        </span>
+                                    </button>
+                                </div>
                             </li>
                         </div>
                     ))}
@@ -161,7 +161,7 @@ const MobileNav = React.memo((props) => {
                     className="mobile-dropdown__list mobile-nav-animations"
                     style={!detailMobileNavIsHidden ? {} : { display: "none" }}>
                     <TransitionGroup>
-                        {currentIndex && (
+                        {currentIndex !== null && (
                             <CSSTransition
                                 classNames="mobile-nav-side-slide"
                                 timeout={{ enter: 225, exit: 225 }}
@@ -171,6 +171,7 @@ const MobileNav = React.memo((props) => {
                                     mainTitle={navbarConfig[currentIndex].title}
                                     label={navbarConfig[currentIndex].title}
                                     title={navbarConfig[currentIndex].title}
+                                    type={navbarConfig[currentIndex].type}
                                     section1Items={navbarConfig[currentIndex].section1Items}
                                     section2Items={navbarConfig[currentIndex].section2Items}
                                     section3Items={navbarConfig[currentIndex].section3Items}

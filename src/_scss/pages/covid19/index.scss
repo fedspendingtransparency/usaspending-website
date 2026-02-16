@@ -156,7 +156,9 @@
                 font-size: $smallest-font-size;
               }
             }
-
+            p a {
+                font-weight: $font-semibold;
+            }
             .glossary-term {
               font-weight: $font-semibold;
             }
@@ -166,6 +168,7 @@
 
           .default-note {
             font-size: $small-font-size;
+            
           }
 
           .loading-animation {

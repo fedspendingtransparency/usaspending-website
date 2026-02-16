@@ -6,10 +6,8 @@
 import React from 'react';
 
 const Homepage = React.lazy(() => import('components/homepage/Homepage').then((comp) => comp));
-const SearchContainerV2 = React.lazy(() => import('containers/search/SearchContainerv2').then((comp) => comp));
-const SearchContainerRedirectV2 = React.lazy(() => import('containers/search/SearchContainerv2').then((module) => ({ default: module.SearchContainerRedirectv2 })));
-// const SearchContainerRedirect = React.lazy(() => import('containers/search/SearchContainer').then((module) => ({ default: module.SearchContainerRedirect })));
-// const SearchContainerRedirectv2 = React.lazy(() => import('containers/search/SearchContainerv2').then((module) => ({ default: module.SearchContainerRedirectv2 })));
+const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
+const SearchContainerRedirect = React.lazy(() => import('containers/search/SearchContainer').then((module) => ({ default: module.SearchContainerRedirectv2 })));
 const ExplorerLanding = React.lazy(() => import('components/explorer/landing/ExplorerLanding').then((comp) => comp));
 const ExplorerDetailPageContainer = React.lazy(() => import('containers/explorer/detail/ExplorerDetailPageContainer').then((comp) => comp));
 const AwardContainer = React.lazy(() => import('containers/award/AwardContainer').then((comp) => comp));
@@ -24,7 +22,7 @@ const BulkDownloadPageContainer = React.lazy(() => import('containers/bulkDownlo
 const KeywordContainer = React.lazy(() => import('containers/keyword/KeywordContainer').then((comp) => comp));
 const AccountLandingPage = React.lazy(() => import('components/accountLanding/AccountLandingPage').then((comp) => comp));
 const StateLandingPage = React.lazy(() => import('components/stateLanding/StateLandingPage').then((comp) => comp));
-const StateContainer = React.lazy(() => import('containers/state/StateContainer').then((comp) => comp));
+const StatePageNavigation = React.lazy(() => import('features/state/StatePageNavigation').then((comp) => comp));
 const RecipientLandingPage = React.lazy(() => import('components/recipientLanding/RecipientLandingPage').then((comp) => comp));
 const RecipientContainer = React.lazy(() => import('containers/recipient/RecipientContainer').then((comp) => comp));
 const AgencyProfile = React.lazy(() => import('containers/agency/AgencyContainer').then((comp) => comp));
@@ -53,23 +51,14 @@ export const routes = [
         component: Homepage,
         exact: true
     },
-    // {
-    //     path: GlobalConstants.SEARCH_LEGACY_PATH,
-    //     component: SearchContainer,
-    // },
     {
         path: '/search',
-        component: SearchContainerV2,
+        component: SearchContainer,
         exact: true
     },
-    // {
-    //     path: `${GlobalConstants.SEARCH_LEGACY_PATH}/:urlHash`,
-    //     component: SearchContainerRedirect,
-    //     exact: true
-    // },
     {
         path: `/search/:urlHash`,
-        component: SearchContainerRedirectV2,
+        component: SearchContainerRedirect,
         exact: true
     },
     {
@@ -151,13 +140,13 @@ export const routes = [
     {
     // could be state name or fips code
         path: '/state/:state/:fy?',
-        component: StateContainer,
+        component: StatePageNavigation,
         exact: true
     },
     {
     // could be state name or fips code
         path: '/state/:state',
-        component: StateContainer,
+        component: StatePageNavigation,
         exact: true
     },
     {

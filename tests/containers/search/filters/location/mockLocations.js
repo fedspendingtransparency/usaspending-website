@@ -1,6 +1,5 @@
 import { OrderedMap } from 'immutable';
-
-import { defaultLocationValues } from "../../../../../src/js/containers/search/filters/location/LocationPickerContainer";
+import defaultLocationValues from "dataMapping/bulkDownload/defaultLocationValues";
 
 export const mockRedux = {
     addPOPLocationObject: jest.fn(),

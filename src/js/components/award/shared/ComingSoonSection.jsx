@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import { TooltipWrapper } from 'data-transparency-ui';
+
 import AwardSection from './AwardSection';
 
 const propTypes = {
@@ -16,22 +16,15 @@ const propTypes = {
     children: PropTypes.node
 };
 
-const defaultProps = {
-    tooltipWide: false,
-    tooltipContent: null,
-    includeHeader: false,
-    className: null
-};
-
 const ComingSoonSection = ({
     title,
     icon,
-    toolTipWide,
+    toolTipWide = false,
     toolTipAlignLeft,
-    toolTipContent,
-    includeHeader,
-    children,
-    className
+    toolTipContent = null,
+    includeHeader = false,
+    className = "coming-soon__section",
+    children
 }) => {
     const renderChildren = () => (
         children || (
@@ -41,8 +34,6 @@ const ComingSoonSection = ({
             </div>
         )
     );
-
-    const comingSoonClass = className || "coming-soon__section";
 
     if (includeHeader) {
         return (
@@ -64,21 +55,20 @@ const ComingSoonSection = ({
                         )}
                     </div>
                     <hr />
-                    <div className={comingSoonClass}>
+                    <div className={className}>
                         {renderChildren()}
                     </div>
                 </div>
             </AwardSection>
         );
     }
+
     return (
-        <div className={comingSoonClass}>
+        <div className={className}>
             {renderChildren()}
         </div>
     );
 };
 
 ComingSoonSection.propTypes = propTypes;
-ComingSoonSection.defaultProps = defaultProps;
-
 export default ComingSoonSection;

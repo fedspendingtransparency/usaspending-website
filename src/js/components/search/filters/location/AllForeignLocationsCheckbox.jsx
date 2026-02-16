@@ -1,7 +1,12 @@
+/**
+ * AllForeignLocationsCheckbox.jsx
+ * Created on 11/24/2025 by Josue Aguilar
+ */
+
 import React, { useRef } from "react";
 import PropTypes from "prop-types";
 
-import useEventListener from "../../../../hooks/useEventListener";
+import useEventListener from "hooks/useEventListener";
 
 const propTypes = {
     filter: PropTypes.string,

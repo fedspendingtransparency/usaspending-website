@@ -3,10 +3,10 @@
  * Created by Nick Torres 4/11/23
  **/
 
-import React from 'react';
+import React, { memo } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
-import useOnKeydown from "../../hooks/useOnKeydown";
+import useOnKeydown from "hooks/useOnKeydown";
 
 const propTypes = {
     type: PropTypes.oneOf(['info', 'success', 'warning', 'error']),
@@ -18,7 +18,8 @@ const propTypes = {
     className: PropTypes.string
 };
 
-const Alert = ({
+// eslint-disable-next-line prefer-arrow-callback
+const Alert = memo(function Alert({
     type = "info",
     header,
     body,
@@ -26,7 +27,7 @@ const Alert = ({
     onClose = undefined,
     closeIcon,
     className
-}) => {
+}) {
     const closeRef = useOnKeydown(onClose);
 
     const getIconString = () => {
@@ -75,7 +76,7 @@ const Alert = ({
             </div>
         </div>
     );
-};
+});
 
 Alert.propTypes = propTypes;
 export default Alert;

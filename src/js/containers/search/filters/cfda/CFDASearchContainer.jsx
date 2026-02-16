@@ -3,14 +3,17 @@
   * Created by Emily Gullo 07/10/2017
   **/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 
 import { fetchCFDA } from 'helpers/searchHelper';
 import replaceString from 'helpers/replaceString';
-import { updateSearchedFilterValues, updateSelectedCFDA } from 'redux/actions/search/searchFilterActions';
-import AutocompleteWithCheckboxList from 'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
+import {
+    updateSearchedFilterValues, updateSelectedCFDA
+} from 'redux/actions/search/searchFilterActions';
+import AutocompleteWithCheckboxList from
+    'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
 
 
 const CFDASearchContainer = () => {
@@ -20,12 +23,13 @@ const CFDASearchContainer = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const selectedCFDA = useSelector((state) => state.filters.selectedCFDA);
-    const searchedFilterValues = useSelector((state) => state.appliedFilters.filters.searchedFilterValues);
+    const searchedFilterValues = useSelector(
+        (state) => state.appliedFilters.filters.searchedFilterValues
+    );
+    const cfdaSearchRequest = useRef(null);
+    const dispatch = useDispatch();
 
     const highlightText = (text) => replaceString(text, cfdaSearchString, 'bold-highlight');
-
-    const cfdaSearchRequest = useRef();
-    const dispatch = useDispatch();
 
     const toggleCFDA = ({ value }) => {
         const cfda = autocompleteCFDA.find((c) => c.data.program_number === value);
@@ -108,9 +112,9 @@ const CFDASearchContainer = () => {
             });
     };
 
-    const handleTextInputChange = (e) => {
+    const handleTextInputChange = useCallback((e) => {
         setCfdaSearchString(e.target.value);
-    };
+    }, []);
 
     const handleSearchClear = () => {
         setCfdaSearchString(''); // clean up if previously set
@@ -164,7 +168,9 @@ const CFDASearchContainer = () => {
         if (searchedFilterValues?.cfda) {
             searchValues = searchedFilterValues.cfda;
         }
-        else if (searchedFilterValues?.get('cfda')) {
+        else if ((searchedFilterValues?.get === 'function')
+            && (searchedFilterValues.get('cfda'))
+        ) {
             searchValues = searchedFilterValues.get('cfda');
         }
         if (searchValues && (!cfdaSearchString || cfdaSearchString !== searchValues?.input)) {
@@ -183,14 +189,13 @@ const CFDASearchContainer = () => {
                 selected: selectedCFDA
             }));
         }
-
+        else if (cfdaSearchString?.length === 0) setNoResults(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [cfdaSearchString]);
 
     return (
         <div className="cfda-filter">
             <AutocompleteWithCheckboxList
-                placeholder="e.g., 93.778 - Medical Assistance Program"
                 filterType="Assistance Listings"
                 handleTextInputChange={handleTextInputChange}
                 onSearchClear={handleSearchClear}

@@ -130,6 +130,9 @@
 
       .default-note {
         @include profile-page-wrap;
+        a {
+          font-weight: $font-semibold;
+        }
       }
 
       .position {

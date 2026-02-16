@@ -19,7 +19,7 @@ import {
     createJumpToSectionForSidebar
 } from 'helpers/covid19Helper';
 import { combineQueryParams, getQueryParamString } from "helpers/queryParams";
-import { useDefCodes } from 'containers/covid19/WithDefCodes';
+import { useDefCodes } from 'hooks/WithDefCodes';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useQueryParams from "../../hooks/useQueryParams";

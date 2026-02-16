@@ -5,7 +5,7 @@
     button {
         @include button-unstyled;
         border-bottom: rem(4) solid transparent;
-        color: #808288;
+        color: $color-gray-dark;
         font-size: rem(14);
         font-weight: $font-semibold;
         line-height: rem(18);
@@ -18,7 +18,6 @@
         &.active,
         &:active {
             border-bottom: rem(4) solid $color-primary-alt-dark;
-            color: $color-gray-dark;
         }
     }
 }

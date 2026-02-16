@@ -13,7 +13,7 @@ import PointTooltip from './PointTooltip';
 import ChartNoResults from "../../sharedComponents/ChartNoResults";
 import ChartError from "../../sharedComponents/ChartError";
 import ChartLoadingMessage from "../../sharedComponents/ChartLoadingMessage";
-import TimeTooltip from '../../../components/state/spendingovertime/StateTimeVisualizationTooltip';
+import TimeTooltip from './TimeTooltip';
 
 const legend = [
     {

@@ -8,7 +8,7 @@
   * @extends React.Component
   **/
 
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { Button } from 'data-transparency-ui';
@@ -21,7 +21,7 @@ const propTypes = {
     groupGenerator: PropTypes.func
 };
 
-const TopFilterBar = (props) => {
+const TopFilterBar = memo((props) => {
     const newAwardsOnlyPresent = props.filters.find((el) => el.code === 'newAwardsOnly');
     const filters = props.filters.map((filter) =>
         props.groupGenerator({
@@ -78,7 +78,7 @@ const TopFilterBar = (props) => {
             </div>
         </div>
     );
-};
+});
 
 TopFilterBar.propTypes = propTypes;
 

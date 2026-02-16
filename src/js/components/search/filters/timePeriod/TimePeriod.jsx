@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
-import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import GlossaryLink from "components/sharedComponents/GlossaryLink";
 import FilterTabs from 'components/sharedComponents/filterSidebar/FilterTabs';
 import usePrevious from "hooks/usePrevious";
@@ -37,8 +36,7 @@ const propTypes = {
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
     dirtyFilters: PropTypes.symbol,
-    federalAccountPage: PropTypes.bool,
-    searchV2: PropTypes.bool
+    federalAccountPage: PropTypes.bool
 };
 
 const TimePeriod = ({
@@ -57,8 +55,7 @@ const TimePeriod = ({
     changeTab,
     disableDateRange = false,
     dirtyFilters,
-    federalAccountPage,
-    searchV2
+    federalAccountPage
 }) => {
     const [startDateUI, setStartDateUI] = useState(null);
     const [endDateUI, setEndDateUI] = useState(null);
@@ -308,7 +305,6 @@ const TimePeriod = ({
                 { showFilter }
                 { errorDetails }
                 { !federalAccountPage && <NewAwardsFilter activeClassDR={activeClassDR} /> }
-                { !searchV2 && <SubmitHint selectedFilters={dirtyFilters} />}
             </div>
         </div>
     );

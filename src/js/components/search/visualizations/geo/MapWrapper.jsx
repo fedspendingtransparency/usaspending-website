@@ -3,22 +3,23 @@
  * Created by Kevin Li 2/14/17
  */
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { uniq, cloneDeep } from 'lodash-es';
+import { cloneDeep, uniq } from 'lodash-es';
 import GlobalConstants from 'GlobalConstants';
 
-import * as MapHelper from 'helpers/mapHelper';
-import MapBroadcaster from 'helpers/mapBroadcaster';
+import { setMapHasLoaded } from "redux/actions/search/searchViewActions";
+import { stateFIPSByAbbreviation } from "dataMapping/state/stateNames";
+import {
+    calculateRange, firstSymbolId, mapboxSources, visualizationColors
+} from 'helpers/mapHelper';
 import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
-
-import MapBox from './map/MapBox';
-import MapLegend from './MapLegend';
-import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
-import MapFiltersToggle from "../../../covid19/recipient/map/MapFiltersToggle";
+import MapBroadcaster from 'helpers/mapBroadcaster';
+import MapBox from 'components/sharedComponents/map/MapBox';
+import MapLegend from 'components/sharedComponents/map/MapLegend';
+import MapFiltersToggle from "components/sharedComponents/map/MapFiltersToggle";
 import AdvancedSearchMapFilters from "./AdvancedSearchMapFilters";
-import { setMapHasLoaded } from "../../../../redux/actions/search/searchViewActions";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -37,9 +38,9 @@ const propTypes = {
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
     stateInfo: PropTypes.object,
-    onMapLoaded: PropTypes.func.isRequired,
     amountTypeEnabled: PropTypes.bool,
-    singleLocationSelected: PropTypes.object
+    singleLocationSelected: PropTypes.object,
+    tooltip: PropTypes.object
 };
 
 const mapLegendToggleData = [
@@ -52,41 +53,6 @@ const mapLegendToggleData = [
         value: 'perCapita'
     }
 ];
-
-const mapboxSources = {
-    country: {
-        label: 'country',
-        url: 'mapbox://usaspendingfrbkc.countries-tileset',
-        layer: 'genc-countries',
-        filterKey: 'GENC0', // three digit country code
-        lat: 'INTPTLAT',
-        long: 'INTPTLON'
-    },
-    state: {
-        label: 'state',
-        url: 'mapbox://usaspendingfrbkc.2kdrjq7z',
-        layer: 'cb_2023_us_state_500k-b3ar5z',
-        filterKey: 'STUSPS', // state abbreviation
-        lat: 'INTPTLAT',
-        long: 'INTPTLON'
-    },
-    county: {
-        label: 'county',
-        url: 'mapbox://usaspendingfrbkc.county-tileset',
-        layer: 'tl_2024_us_county',
-        filterKey: 'GEOID', // the county GEOID is state FIPS + county FIPS
-        lat: 'INTPTLAT',
-        long: 'INTPTLON'
-    },
-    congressionalDistrict: {
-        label: 'congressional district',
-        url: 'mapbox://usaspendingfrbkc.district-tileset',
-        layer: '118-CD',
-        filterKey: 'GEOID20', // the GEOID is state FIPS + district
-        lat: 'INTPTLAT',
-        long: 'INTPTLON'
-    }
-};
 
 const MapWrapper = ({
     filters,
@@ -108,7 +74,6 @@ const MapWrapper = ({
     mapLegendToggle,
     updateMapLegendToggle,
     stateInfo,
-    onMapLoaded,
     amountTypeEnabled = true,
     singleLocationSelected,
     tooltip: TooltipComponent
@@ -130,11 +95,6 @@ const MapWrapper = ({
     let renderCallback = null;
     let mapOperationQueue = {};
 
-    const mapRemoved = () => {
-        // map is about to be removed
-        setMapReady(false);
-    };
-
     const hideSource = (type) => {
         const layers = mapLayers[type];
 
@@ -144,29 +104,11 @@ const MapWrapper = ({
         }
 
         // hide the base layer
-        mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'none');
+        mapRef.current.setLayoutProperty(layers.base, 'visibility', 'none');
         layers.highlights.forEach((highlight) => {
             // iterate through all the highlight layers and enable them
-            mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'none');
+            mapRef.current.setLayoutProperty(highlight, 'visibility', 'none');
         });
-    };
-
-    /**
-     * firstSymbolId
-     * - finds the first symbol ( text to mapbox ) layer.
-     * @returns {string} first symbol layer id.
-     */
-    const firstSymbolId = () => {
-        const layers = mapRef.current.map.current.getStyle().layers;
-        // Find the index of the first symbol layer in the map style
-        let symbolId = null;
-        for (let i = 0; i < layers.length; i++) {
-            if (layers[i].type === 'symbol') {
-                symbolId = layers[i].id;
-                break;
-            }
-        }
-        return symbolId;
     };
 
     const mouseOverLayer = (e) => {
@@ -192,14 +134,14 @@ const MapWrapper = ({
 
         // load the data source
         const source = mapboxSources[type];
-        mapRef.current.map.current.addSource(type, {
+        mapRef.current.addSource(type, {
             type: 'vector',
             url: source.url
         });
 
         // transform the source shapes into a base layer that will show the outline of all the
         // contents
-        mapRef.current.map.current.addLayer({
+        mapRef.current.addLayer({
             id: baseLayer,
             type: 'fill',
             source: type,
@@ -212,10 +154,9 @@ const MapWrapper = ({
 
         // generate the highlight layers that will be shaded in when populated with data filters
         // set up temporary empty filters that will show nothing
-        const colors = MapHelper.visualizationColors;
-        colors.forEach((color, index) => {
+        visualizationColors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
-            mapRef.current.map.current.addLayer({
+            mapRef.current.addLayer({
                 id: layerName,
                 type: 'fill',
                 source: type,
@@ -225,11 +166,11 @@ const MapWrapper = ({
                     'fill-color': color
                 },
                 filter: ['in', source.filterKey, '']
-            }, firstSymbolId());
+            }, firstSymbolId(mapRef));
 
             // setup mouseover events
-            mapRef.current.map.current.on('mousemove', layerName, mouseOverLayer.bind(this));
-            mapRef.current.map.current.on('mouseleave', layerName, mouseExitLayer.bind(this));
+            mapRef.current.on('mousemove', layerName, mouseOverLayer.bind(this));
+            mapRef.current.on('mouseleave', layerName, mouseExitLayer.bind(this));
 
             // save a reference to this layer
             sourceRef.highlights.push(layerName);
@@ -251,10 +192,10 @@ const MapWrapper = ({
         }
 
         // enable the base layer
-        mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'visible');
+        mapRef.current.setLayoutProperty(layers.base, 'visibility', 'visible');
         layers.highlights.forEach((highlight) => {
             // iterate through all the highlight layers and enable them
-            mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'visible');
+            mapRef.current.setLayoutProperty(highlight, 'visibility', 'visible');
         });
     };
 
@@ -280,19 +221,19 @@ const MapWrapper = ({
 
         // check if we need to zoom in to show the layer
         if (source.minZoom) {
-            const currentZoom = mapRef.current.map.current.getZoom();
+            const currentZoom = mapRef.current.getZoom();
             if (currentZoom < source.minZoom) {
                 // we are zoomed too far out and won't be able to see the new map layer, zoom in
                 // don't allow users to zoom further out than the min zoom
-                mapRef.current.map.current.setMinZoom(source.minZoom);
+                mapRef.current.setMinZoom(source.minZoom);
             }
         }
         else {
-            mapRef.current.map.current.setMinZoom(0);
+            mapRef.current.setMinZoom(0);
         }
 
 
-        const parentMap = mapRef.current.map.current;
+        const parentMap = mapRef.current;
         function renderResolver() {
             parentMap.off('render', renderResolver);
             resolve();
@@ -310,7 +251,7 @@ const MapWrapper = ({
         }
 
         // if we're loading new data, we need to wait for the data to be ready
-        mapRef.current.map.current.on('sourcedata', loadResolver);
+        mapRef.current.on('sourcedata', loadResolver);
     });
 
     const runMapOperationQueue = () => {
@@ -323,7 +264,7 @@ const MapWrapper = ({
 
     const prepareChangeListeners = () => {
         // detect visible entities whenever the map moves
-        const parentMap = mapRef.current.map.current;
+        const parentMap = mapRef.current;
         const mapMovedCallback = () => {
             if (parentMap.loaded()) {
                 parentMap.off('render', mapMovedCallback);
@@ -356,18 +297,11 @@ const MapWrapper = ({
             });
     };
 
-    const mapReadyPrep = () => {
-        // map has mounted, load the state shapes
-        setMapReady(true);
-        // and set the redux property used for jumpTo function in searchSectionWrapper
-        onMapLoaded(true);
-    };
-
     const measureMap = (forced = false) => {
         // determine which entities (state, counties, etc. based on current scope) are in view
         // use Mapbox SDK to determine the currently rendered shapes in the base layer
 
-        const mapLoaded = mapRef.current.map.current.loaded();
+        const mapLoaded = mapRef.current.loaded();
         // wait for the map to load before continuing
         if (!mapLoaded) {
             window.requestAnimationFrame(() => {
@@ -377,7 +311,7 @@ const MapWrapper = ({
         }
 
         // TODO: investigate if we can useState instead of useRef for scopeRef
-        const entities = mapRef.current.map.current.queryRenderedFeatures({
+        const entities = mapRef.current.queryRenderedFeatures({
             layers: [`base_${scopeRef.current}`]
         });
 
@@ -411,8 +345,8 @@ const MapWrapper = ({
     const removeChangeListeners = () => {
         // remove the render callbacks
         if (mapRef.current) {
-            mapRef.current.map.current.off('moveend', renderCallback);
-            mapRef.current.map.current.off('resize', renderCallback);
+            mapRef.current.off('moveend', renderCallback);
+            mapRef.current.off('resize', renderCallback);
         }
     };
 
@@ -421,7 +355,7 @@ const MapWrapper = ({
     };
 
     const setCenterFromMapTiles = (value, filterKey, lat, long) => {
-        const entities = mapRef.current.map.current.queryRenderedFeatures({
+        const entities = mapRef.current.queryRenderedFeatures({
             layers: [`base_${scope}`]
         });
 
@@ -488,10 +422,9 @@ const MapWrapper = ({
         const source = mapboxSources[scope];
 
         // calculate the range of data
-        const scale = MapHelper.calculateRange(data.values);
-        const colors = MapHelper.visualizationColors;
+        const scale = calculateRange(data.values);
         // prepare a set of blank (false) filters
-        const filterValues = colors.map(() => (
+        const filterValues = visualizationColors.map(() => (
             []
         ));
         data.locations.forEach((location, index) => {
@@ -512,7 +445,7 @@ const MapWrapper = ({
                 // if there are locations that are displayable, include those in the filter
                 filter = ['in', source.filterKey].concat(valueSet);
             }
-            mapRef.current.map.current.setFilter(layerName, filter);
+            mapRef.current.setFilter(layerName, filter);
         });
 
         reCenterMap();
@@ -561,12 +494,6 @@ const MapWrapper = ({
         );
     };
 
-    const toggleFilters = () => setIsFiltersOpen(!isFiltersOpen);
-    const onKeyDown = (e) => {
-        if (e.key === "Enter") {
-            setIsFiltersOpen(!isFiltersOpen);
-        }
-    };
     const filtersFunc = () => {
         let mapFilters = cloneDeep(filters);
         let active = cloneDeep(activeFilters);
@@ -647,19 +574,20 @@ const MapWrapper = ({
 
     return (
         <div className="map-container">
-            {GlobalConstants.MAPBOX_TOKEN && <MapBox
-                loadedMap={mapReadyPrep}
-                unloadedMap={mapRemoved}
-                center={center}
-                mapType={scope}
-                stateInfo={stateInfo}
-                stateProfile={stateProfile}
-                ref={mapRef}
-                singleLocationSelected={singleLocationSelected} />}
+            {
+                GlobalConstants.MAPBOX_TOKEN &&
+                <MapBox
+                    setMapReady={setMapReady}
+                    center={center}
+                    mapType={scope}
+                    stateInfo={stateInfo}
+                    stateProfile={stateProfile}
+                    ref={mapRef}
+                    singleLocationSelected={singleLocationSelected} />
+            }
             <MapFiltersToggle
-                onKeyDown={onKeyDown}
-                onClick={toggleFilters}
-                isOpen={isFiltersOpen} />
+                isFiltersOpen={isFiltersOpen}
+                setIsFiltersOpen={setIsFiltersOpen} />
             {filtersFunc()}
             {legend()}
             {tooltipFunc()}

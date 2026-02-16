@@ -50,8 +50,8 @@ const GlossaryLink = ({
     }
 
     const stopBubble = (e) => {
-        showSlideout('glossary', { url: term });
         e.stopPropagation();
+        showSlideout('glossary', { url: term });
     };
 
     const innerContent = () => {
@@ -75,7 +75,7 @@ const GlossaryLink = ({
             to={newUrl}
             className="usda-glossary-link"
             aria-label="Open the Glossary"
-            tabIndex={hidden ? "-1" : ""}
+            tabIndex={hidden ? -1 : 0}
             onClick={stopBubble}
             replace
             alt={alt}>

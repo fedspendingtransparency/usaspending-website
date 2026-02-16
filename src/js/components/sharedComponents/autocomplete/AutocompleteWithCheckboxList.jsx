@@ -1,14 +1,17 @@
 /**
+ * AutocompleteWithCheckboxList.jsx
  * Created by JD House on 11/21/25.
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import EntityDropdownAutocomplete from
-    'components/search/filters/location/EntityDropdownAutocomplete';
+    'components/sharedComponents/EntityDropdownAutocomplete';
 import PrimaryCheckboxType from
     'components/sharedComponents/checkbox/PrimaryCheckboxType';
+import Alert from "../Alert";
 
 const propTypes = {
     handleTextInputChange: PropTypes.func,
@@ -29,7 +32,8 @@ const propTypes = {
     searchId: PropTypes.string
 };
 
-const AutocompleteWithCheckboxList = ({
+// eslint-disable-next-line prefer-arrow-callback
+const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckboxList({
     handleTextInputChange,
     onSearchClear,
     onClearAll,
@@ -44,9 +48,9 @@ const AutocompleteWithCheckboxList = ({
     errorMessage,
     noResults,
     limit = 500,
-    placeholder = "Search filters ...",
+    placeholder = "Type at least 3 letters...",
     searchId
-}) => {
+}) {
     const [allSelected, setAllSelected] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
     const [showClearAll, setShowClearAll] = useState(true);
@@ -69,9 +73,9 @@ const AutocompleteWithCheckboxList = ({
         setShowClearAll(false);
     };
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
+    const toggleDropdown = useCallback(() => {
+        setIsOpen((prevState) => !prevState);
+    }, []);
 
     useEffect(() => {
         if (selectedFilters?.size > 0) {
@@ -84,32 +88,29 @@ const AutocompleteWithCheckboxList = ({
     }, [selectedFilters.size]);
 
     useEffect(() => {
-        if (filters?.length) {
-            setIsOpen(true);
-        }
-    }, [filters]);
-
-    useEffect(() => {
         const handleOutsideClick = (e) => {
             if (dropDownRef.current && !dropDownRef.current.contains(e.target)) {
                 setIsOpen(false);
             }
         };
-
-        document.addEventListener('click', handleOutsideClick);
+        if (isOpen) {
+            document.addEventListener('click', handleOutsideClick);
+        }
         return () => {
             document.removeEventListener('click', handleOutsideClick);
         };
-    }, [dropDownRef]);
+    }, [dropDownRef, isOpen]);
 
     const checkboxHeading = () => {
         if (!searchString) return null;
 
+        // hide select all button for now until design direction
+        const selectAllButton = false;
+
         return (
             <li className="autocomplete-heading">
                 {searchString}
-                {false &&
-                // hide for now until design direction
+                {selectAllButton &&
                     <button
                         type="button"
                         aria-label="Select All filters"
@@ -125,7 +126,28 @@ const AutocompleteWithCheckboxList = ({
 
     const resultsContainer = () => {
         if (noResults) {
-            return <div className="no-results">No results found.</div>;
+            return (
+                <>
+                    {showClearAll &&
+                        <div className="clear-all__container">
+                            <button
+                                type="button"
+                                aria-label={`Clear all ${filterType}`}
+                                className="clear-all__button"
+                                tabIndex="0"
+                                onClick={handleClearAll} >
+                                {`Clear all ${filterType}`}
+                            </button>
+                        </div>
+                    }
+                    <Alert
+                        className="autocomplete-no-results"
+                        header="Sorry, no results found"
+                        body="Please check your spelling or try a broader search."
+                        type="warning"
+                        icon />
+                </>
+            );
         }
 
         if (isLoading) {
@@ -182,7 +204,7 @@ const AutocompleteWithCheckboxList = ({
     };
 
     return (
-        <div className="extent-competed-filter" ref={dropDownRef}>
+        <div className={`extent-competed-filter ${filterType}`} ref={dropDownRef}>
             <EntityDropdownAutocomplete
                 placeholder={placeholder}
                 searchString={searchString}
@@ -201,7 +223,7 @@ const AutocompleteWithCheckboxList = ({
             </div>
         </div>
     );
-};
+});
 
 AutocompleteWithCheckboxList.propTypes = propTypes;
 export default AutocompleteWithCheckboxList;

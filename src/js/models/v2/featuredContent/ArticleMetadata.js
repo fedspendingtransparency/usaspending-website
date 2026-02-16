@@ -18,6 +18,7 @@ const ArticleMetadata = {
         this.explore_more = data.explore_more || '';
         this.related_terms = data.related_terms || '';
         this.hidden = data.hidden || '';
+        this.isInfographicTemplate = data.isInfographicTemplate || '';
     },
     get publishedAt() {
         return transformDate(this.created_date);

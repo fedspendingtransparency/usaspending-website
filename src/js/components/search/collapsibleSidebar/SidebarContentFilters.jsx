@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router";
@@ -10,7 +10,6 @@ import Keyword from "components/search/filters/keyword/Keyword";
 import SidebarContentFilterAccordion from "./SidebarContentFilterAccordion";
 
 const propTypes = {
-    sidebarContentHeight: PropTypes.number,
     isMobile: PropTypes.bool
 };
 
@@ -37,7 +36,7 @@ const SidebarContentFilters = ({ isMobile }) => {
     const filters = useSelector((state) => state.filters);
     const filterCount = getFilterCount(filters);
 
-    const alertBody = (
+    const alertBody = useMemo(() => (
         <>
             Looking for the "Keyword Search" page?{" "}
             <Link
@@ -48,18 +47,18 @@ const SidebarContentFilters = ({ isMobile }) => {
                 Click here to search award transactions by keyword.
             </Link>
         </>
-    );
+    ), []);
 
     return (
         <div
             className="collapsible-sidebar--search-filters-list">
-            <Keyword searchV2 />
+            <Keyword />
             {searchFilterCategoryTree.map(({ title, component }) => (
                 <SidebarContentFilterAccordion
                     key={`toggle-${title}`}
                     title={title}
                     component={component}
-                    open={open}
+                    open={open[title]}
                     setOpen={setOpen}
                     count={filterCount[title]}
                     isMobile={isMobile} />

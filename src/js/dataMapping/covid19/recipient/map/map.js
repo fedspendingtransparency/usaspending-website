@@ -190,28 +190,6 @@ export const filtersOnClickHandler = {
     awardType: 'updateAwardTypeFilter'
 };
 
-// Still in use for COVID profile map
-export const mapboxSources = {
-    state: {
-        label: 'state',
-        url: 'mapbox://usaspendingfrbkc.2kdrjq7z',
-        layer: 'cb_2023_us_state_500k-b3ar5z',
-        filterKey: 'STUSPS' // state abbreviation
-    },
-    county: {
-        label: 'county',
-        url: 'mapbox://usaspendingfrbkc.county-tileset',
-        layer: 'tl_2024_us_county',
-        filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
-    },
-    district: {
-        label: 'congressional district',
-        url: 'mapbox://usaspendingfrbkc.district-tileset',
-        layer: '118-CD',
-        filterKey: 'GEOID20' // the GEOID is state FIPS + district
-    }
-};
-
 export const logMapLayerEvent = (layer) => {
     Analytics.event({
         event: 'covid_map_layer',

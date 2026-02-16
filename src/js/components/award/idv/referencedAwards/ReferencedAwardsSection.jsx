@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 
-import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
+import ResultsTableTabs from 'components/keyword/table/ResultsTableTabs';
 import ReferencedAwardsTable from './ReferencedAwardsTable';
 import { relatedAwardsInfo } from '../../shared/InfoTooltipContent';
 
