@@ -174,7 +174,14 @@ const TopFilterBarContainer = ({ setFilterCount, compressed = false, filters }) 
             filter.code = 'awardType';
             filter.name = 'Award Type';
 
-            filter.values = filters.awardType?.toArray();
+            const awardTypefilters = filters.awardType?.toArray();
+            let cleanedFilters = [];
+            if (awardTypefilters?.length) {
+                // filter out new F codes for now.
+                cleanedFilters = awardTypefilters.filter((key) => key.indexOf('F0') !== 0);
+            }
+
+            filter.values = cleanedFilters;
         }
 
         if (selected) {
