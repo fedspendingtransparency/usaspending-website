@@ -1,5 +1,5 @@
 /**
- * ProgramSourceFilterGroup.jsx
+ * TASFilterGroup.jsx
  * Created by Lizzie Salita 6/14/19
  */
 
@@ -12,7 +12,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string };
 
-const ProgramSourceFilterGroup = ({ name }) => {
+const TASFilterGroup = ({ name }) => {
     const { require, counts } = useSelector((state) => state.filters.tasCodes);
     const { counts: appliedCounts } = useSelector((state) => state.appliedFilters.filters.tasCodes);
     const dispatch = useDispatch();
@@ -47,5 +47,5 @@ const ProgramSourceFilterGroup = ({ name }) => {
     return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
-ProgramSourceFilterGroup.propTypes = propTypes;
-export default ProgramSourceFilterGroup;
+TASFilterGroup.propTypes = propTypes;
+export default TASFilterGroup;
