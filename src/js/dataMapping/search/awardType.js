@@ -46,8 +46,7 @@ export const awardTypeNewLinkCodes = {
     '08': 'F004',
     '09': 'F005',
     '10': 'F007',
-    '11': ['F010', 'F008', 'F009'],
-    '-1': ['F008', 'F009']
+    '11': ['F010']
 };
 
 export const awardTypeNewFCodes = {
@@ -58,8 +57,6 @@ export const awardTypeNewFCodes = {
     'F005': 'Indemnity/Insurance (non-loan)',
     'F006': 'Direct Payment for Specified Use',
     'F007': 'Direct Payment with Unrestricted Use',
-    'F008': 'Asset Forfeiture/Equitable Sharing',
-    'F009': 'Sale, Exchange, or Donation of Property and Goods',
     'F010': 'Other Financial Assistance'
 };
 
@@ -103,7 +100,7 @@ export const awardTypeGroups = {
     grants: ['02', '03', '04', '05', 'F001', 'F002'],
     direct_payments: ['10', '06', 'F006', 'F007'],
     loans: ['07', '08', 'F003', 'F004'],
-    other: ['09', '11', '-1', 'F005', 'F008', 'F009', 'F010']
+    other: ['09', '11', '-1', 'F005', 'F010']
 };
 
 export const transactionTypeGroups = {
