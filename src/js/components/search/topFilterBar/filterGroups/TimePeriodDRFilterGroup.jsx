@@ -30,7 +30,6 @@ const TimePeriodDRFilterGroup = ({ name }) => {
             }
         });
 
-        // TODO: fix the 're-staging' currently not working correctly
         if (!staged) newValue = newValue.add({ end_date: endDate, start_date: startDate });
 
         dispatch(updateGenericFilter({
@@ -48,20 +47,23 @@ const TimePeriodDRFilterGroup = ({ name }) => {
             startDate: value.start_date,
             endDate: value.end_date,
             title: dateRangeChipLabel(value),
-            staged: timePeriod.has(value)
+            key: `${value.start_date}-${value.end_date}`
         }))
     };
+
+    // eslint-disable-next-line camelcase
+    const keys = timePeriod.map(({ start_date, end_date }) => `${start_date}-${end_date}`);
 
     const tags = [];
 
     filters.values.forEach(({
-        startDate, endDate, title, staged
+        startDate, endDate, title, key
     }) => {
         tags.push({
             value: { startDate, endDate },
             title,
             toggleFilter,
-            staged
+            staged: keys.has(key)
         });
     });
 
