@@ -22,7 +22,7 @@ import PSCFilterGroup from './filterGroups/PSCFilterGroup';
 import PricingTypeFilterGroup from './filterGroups/PricingTypeFilterGroup';
 import SetAsideFilterGroup from './filterGroups/SetAsideFilterGroup';
 import ExtentCompetedFilterGroup from './filterGroups/ExtentCompetedFilterGroup';
-import ProgramSourceFilterGroup from './filterGroups/ProgramSourceFilterGroup';
+import TASFilterGroup from './filterGroups/TASFilterGroup';
 import DefCodesFilterGroup from "./filterGroups/DefCodesFilterGroup";
 import NewAwardsOnlyFilterGroup from "./filterGroups/NewAwardsOnlyFilterGroup";
 
@@ -53,7 +53,7 @@ const topFilterGroupGenerator = ({ code = '', name, values }) => {
         case 'selectedRecipientLocations':
             return (<LocationFilterGroup name={name} code={code} key={groupKey} />);
         case 'treasuryAccounts':
-            return <ProgramSourceFilterGroup name={name} key={groupKey} />;
+            return <TASFilterGroup name={name} key={groupKey} />;
         case 'recipientType':
             return <RecipientTypeFilterGroup name={name} key={groupKey} />;
         case 'selectedAwardIDs':
