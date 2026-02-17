@@ -46,7 +46,7 @@ export const awardTypeNewLinkCodes = {
     '08': 'F004',
     '09': 'F005',
     '10': 'F007',
-    '11': ['F010']
+    '11': 'F010'
 };
 
 export const awardTypeNewFCodes = {
