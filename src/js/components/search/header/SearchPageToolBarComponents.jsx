@@ -19,7 +19,8 @@ const searchPageToolBarComponents = (
     downloadInFlight,
     hash,
     setShowFullDownload,
-    handleShareDispatch
+    handleShareDispatch,
+    queryParam
 ) => {
     const shareIconClassName = !isMobile ? "margin-right" : "";
     const toolTipComponent = (!downloadAvailable && hash)
@@ -51,7 +52,7 @@ const searchPageToolBarComponents = (
 
     return (
         [
-            <FilterAwardToggle />,
+            <FilterAwardToggle queryParam={queryParam} />,
             <ShareIcon
                 isEnabled
                 url={getBaseUrl(getSlugWithHash())}
