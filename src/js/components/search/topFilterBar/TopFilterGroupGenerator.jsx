@@ -63,7 +63,7 @@ const topFilterGroupGenerator = ({ code = '', name, values }) => {
         case 'selectedCFDA':
             return (<CFDAFilterGroup name={name} key={groupKey} />);
         case 'selectedNAICS':
-            return (<NAICSFilterGroup filter={{ code, name, values }} key={groupKey} />);
+            return (<NAICSFilterGroup name={name} key={groupKey} />);
         case 'selectedPSC':
             return (<PSCFilterGroup filter={{ code, name, values }} key={groupKey} />);
         case 'pricingType':
