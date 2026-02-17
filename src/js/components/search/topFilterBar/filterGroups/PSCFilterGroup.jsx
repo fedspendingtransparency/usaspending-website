@@ -49,7 +49,7 @@ export default class PSCFilterGroup extends React.Component {
 
         return (<BaseTopFilterGroup
             tags={tags}
-            filter={this.props.filter}
+            name={this.props.filter.name}
             clearFilterGroup={this.clearGroup}
             compressed={this.props.compressed} />);
     }

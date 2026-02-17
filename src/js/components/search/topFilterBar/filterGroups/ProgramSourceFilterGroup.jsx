@@ -7,48 +7,44 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
+import { updateTAS } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { filter: PropTypes.object };
+const propTypes = { name: PropTypes.string };
 
-const ProgramSourceFilterGroup = ({ filter }) => {
-    const tasCodes = useSelector((state) => state.filters.tasCodes);
+const ProgramSourceFilterGroup = ({ name }) => {
+    const { require, counts } = useSelector((state) => state.filters.tasCodes);
+    const { counts: appliedCounts } = useSelector((state) => state.appliedFilters.filters.tasCodes);
     const dispatch = useDispatch();
 
-    console.log({ tasCodes });
+    const toggleFilter = (value, staged) => {
+        const newTAS = staged ?
+            {
+                require: require.filter((v) => v[0] !== value.value),
+                counts: counts.filter((v) => v.value !== value.value)
+            } :
+            {
+                require: [...require, [value.value]],
+                counts: [...counts, value]
+            };
 
-    const removeFilter = (value) => {
-        console.log({ value });
-        // remove a single filter item
-        // const newValue = tasCodes.delete(value);
-        // this.props.redux.updateGenericFilter({
-        //     type: this.props.filter.code,
-        //     value: newValue
-        // });
-        const newValue = tasCodes.delete(value);
-
-        dispatch(updateGenericFilter({
-            type: filter.code,
-            value: newValue
-        }));
+        dispatch(updateTAS(
+            newTAS.require,
+            [],
+            newTAS.counts
+        ));
     };
 
-    const label = (filter.code === 'treasuryAccounts') ? 'TAS #' : 'FA #';
+    const keys = counts.map((t) => `${t.value}-${t.count}`);
 
-    const tags = filter.values.map((tas) => {
-        const title = tas.isCheckbox
-            ? tas.tas_description
-            : `${label} | ${tas}`;
+    const tags = appliedCounts.map((value) => ({
+        value,
+        title: `${value.label} (${value.count})`,
+        toggleFilter,
+        staged: keys.includes(`${value.value}-${value.count}`)
+    }));
 
-        return {
-            value: tas,
-            title,
-            toggleFilter: removeFilter
-        };
-    });
-
-    return (<BaseTopFilterGroup tags={tags} filter={filter} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 ProgramSourceFilterGroup.propTypes = propTypes;
