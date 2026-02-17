@@ -31,7 +31,7 @@ describe('filterCheckboxHelper tests', () => {
 
     describe('excludeIDVBandNewFCodes', () => {
         it('removes IDVB', () => {
-            const test = new Set(["IDV_B", 'test 1', 'F001', 'F003']);
+            const test = new Set(["IDV_B", "test 1", "F001", "F003"]);
 
             expect(excludeIDVBandNewFCodes(test)).toBe(1);
         });

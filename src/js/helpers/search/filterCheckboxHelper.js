@@ -94,18 +94,19 @@ export const generateCount = (data) => {
 
 // sub-filters hidden from the user, but  passed to the API when the parent filter is selected
 export const excludeIDVBandNewFCodes = (awardTypes) => {
-    if (awardTypes.has("IDV_B")) {
-        return awardTypes.size - 1;
-    }
-
+    let count = awardTypes.size;
     const newFCodeCount = Object.keys(awardTypeNewFCodes)
         .filter((key) => awardTypes.has(key)).length;
 
-    if (newFCodeCount) {
-        return awardTypes.size - newFCodeCount;
+    if (awardTypes.has("IDV_B")) {
+        count -= 1;
     }
 
-    return awardTypes.size;
+    if (newFCodeCount) {
+        count -= newFCodeCount;
+    }
+
+    return count;
 };
 
 export const characteristicsCount = ({
