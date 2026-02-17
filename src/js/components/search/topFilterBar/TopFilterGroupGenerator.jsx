@@ -28,7 +28,7 @@ import NewAwardsOnlyFilterGroup from "./filterGroups/NewAwardsOnlyFilterGroup";
 
 const propTypes = { code: PropTypes.string, name: PropTypes.string };
 
-const topFilterGroupGenerator = ({ code = '', name, values }) => {
+const topFilterGroupGenerator = ({ code = '', name }) => {
     const groupKey = `top-filter-group-${code}`;
 
     switch (code) {
@@ -65,7 +65,7 @@ const topFilterGroupGenerator = ({ code = '', name, values }) => {
         case 'selectedNAICS':
             return (<NAICSFilterGroup name={name} key={groupKey} />);
         case 'selectedPSC':
-            return (<PSCFilterGroup filter={{ code, name, values }} key={groupKey} />);
+            return (<PSCFilterGroup name={name} key={groupKey} />);
         case 'pricingType':
             return (<PricingTypeFilterGroup name={name} key={groupKey} />);
         case 'setAside':

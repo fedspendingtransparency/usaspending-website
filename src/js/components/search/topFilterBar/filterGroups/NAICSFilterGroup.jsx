@@ -12,7 +12,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string };
 
-const getUniqueNaics = (value, index, array) => array.indexOf(value) === index;
+const getUniqueValues = (value, index, array) => array.indexOf(value) === index;
 
 const NAICSFilterGroup = ({ name }) => {
     const { require, counts } = useSelector((state) => state.filters.naicsCodes);
@@ -40,7 +40,7 @@ const NAICSFilterGroup = ({ name }) => {
     };
 
     const keys = counts.map((t) => `${t.value}-${t.count}`);
-    const uniqueNAICS = appliedRequire.filter(getUniqueNaics);
+    const uniqueNAICS = appliedRequire.filter(getUniqueValues);
 
     const tags = appliedCounts.map((value) => {
         const array = uniqueNAICS.filter((v) => v.indexOf(value.value) === 0);
