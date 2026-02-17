@@ -1,6 +1,6 @@
 /**
- * FilterTab.jsx
- * Created by Brian Petway 07/23/24
+ * FilterInteractiveTab.jsx
+ * Created by JD House 02/17/2026
  */
 
 import React from 'react';
@@ -11,23 +11,17 @@ const propTypes = {
     active: PropTypes.bool.isRequired,
     switchTab: PropTypes.func.isRequired,
     focusNextTab: PropTypes.func.isRequired,
-    focusPrevTab: PropTypes.func.isRequired,
-    index: PropTypes.number
+    focusPrevTab: PropTypes.func.isRequired
 };
 
-const FilterTab = ({
-    label, active, switchTab, focusNextTab, focusPrevTab, index
-}) => {
-    let labelClass = `filter-tabs__tab ${active ? 'active' : ''}`;
-
-    if (label.interactiveLabel) {
-        labelClass = `${labelClass} anchor-${index}`;
-    }
-
-    return (
+const FilterInteractiveTab = ({
+    label, active, switchTab, focusNextTab, focusPrevTab
+}) => (
+    <div
+        id={`filter-tab-${label.internal}`}
+        className={`filter-tabs__tab interactive ${active ? 'active' : ''}`}>
         <div
-            id={`filter-tab-${label.internal}`}
-            className={labelClass}
+            className="filter-tabs__label"
             onClick={switchTab}
             onKeyDown={(e) => {
                 if (e.key === 'Enter') {
@@ -45,12 +39,11 @@ const FilterTab = ({
             aria-label={`Show ${label.title}`}
             aria-selected={active}
             tabIndex={active ? 0 : -1}>
-            <div className="filter-tabs__label">
-                {label.label}
-            </div>
+            {label.label}
         </div>
-    );
-};
+        {label.interactiveLabel}
+    </div>
+);
 
-FilterTab.propTypes = propTypes;
-export default FilterTab;
+FilterInteractiveTab.propTypes = propTypes;
+export default FilterInteractiveTab;

@@ -10,6 +10,10 @@
     white-space: nowrap;
     border-bottom: solid 2px $card-outline-color;
 
+    &.anchor-0 {
+      anchor-name: --tab-anchor-0;
+    }
+
     &.active {
       font-weight: $font-semibold;
       border-bottom: solid 2px $theme-color-1;
@@ -29,4 +33,10 @@
     width: 100%;
     border-bottom: solid 2px $card-outline-color;
   }
+}
+
+.target-0{
+  position: absolute;
+  position-anchor: --tab-anchor-0;
+  position-area: center right;
 }

@@ -15,7 +15,7 @@ const propTypes = {
 
 const FilterTabs = ({ labels, active, switchTab }) => {
     const ref = useRef();
-
+    const interactiveLabels = [];
     const focusNextTab = (e) => {
         const tabsInDom = ref.current && Array.from(ref.current.querySelectorAll('[role=tab]'));
         const currentPositionInTabs = tabsInDom.findIndex((ele) => ele.id === e.target.id);
@@ -30,21 +30,37 @@ const FilterTabs = ({ labels, active, switchTab }) => {
         tabsInDom[prevPositionInTabs].focus();
     };
 
-    const tabs = labels.map((label) => (
-        <FilterTab
-            label={label}
-            key={`filter-tab-${label.internal}`}
-            active={active === label.internal}
-            switchTab={switchTab}
-            focusNextTab={focusNextTab}
-            focusPrevTab={focusPrevTab} />
-    ));
+    const tabs = labels.map((label, i) => {
+        if (label.interactiveLabel) {
+            interactiveLabels.push(
+                <div className={`target-${i}`}>
+                    {label.interactiveLabel}
+                </div>
+            );
+        }
+
+        return (
+            <FilterTab
+                label={label}
+                key={`filter-tab-${label.internal}`}
+                active={active === label.internal}
+                switchTab={switchTab}
+                focusNextTab={focusNextTab}
+                focusPrevTab={focusPrevTab}
+                index={i} />
+        );
+    });
 
     return (
-        <div className="filter-tabs__container" ref={ref} role="tablist" aria-labelledby="tablist-1">
-            {tabs}
-            <div className="filter-tabs__spacer" />
-        </div>
+        <>
+            <div className="filter-tabs__container"ref={ref} role="tablist" aria-label="tablist">
+                {tabs}
+                <div className="filter-tabs__spacer" />
+            </div>
+            {interactiveLabels && interactiveLabels.map((label) => (
+                <>{label}</>
+            ))}
+        </>
     );
 };
 

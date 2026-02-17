@@ -237,10 +237,9 @@ const TimePeriod = ({
     const tabLabels = [
         {
             internal: 'fy',
-            label: (
-                <div>
-                    Fiscal years &nbsp; <GlossaryLink term="fiscal-year-fy" />
-                </div>
+            label: 'Fiscal years',
+            interactiveLabel: (
+                <GlossaryLink term="fiscal-year-fy" hidden />
             ),
             title: 'Fiscal years'
         },
