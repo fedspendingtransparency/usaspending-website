@@ -101,7 +101,7 @@ const MobileDropdownItem = ({
                         <ul>
                             {section1Items.map((item) => (
                                 <li className="mobile-dropdown__section" key={uniqueId()}>
-                                    <Link to={item.url} onClick={clickedLink} className="mobile-dropdown__section-link">
+                                    <Link to={item.url} onClick={clickedLink} className="mobile-dropdown__section-link" state={item.queryParam}>
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
                                         </div>
@@ -116,7 +116,7 @@ const MobileDropdownItem = ({
                     </>
                 }
             </div>
-            <div className={type === "secondary" ? "mobile-dropdown_main-container" : ""}>
+            <div className={type === "primary" ? "mobile-dropdown_main-container" : ""}>
                 <div className={section2Options[index].icon && section2Options[index].icon !== null && section2Options[index].icon !== '' ? "mobile-dropdown__section-icon" : ""}>
                     {section2Options[index].icon && section2Options[index].icon !== '' && section2Options[index].icon !== null ? <FontAwesomeIcon role="presentation" icon={section2Options[index].icon} style={{ width: "12px", height: "100%" }} /> : ''}
                 </div>
