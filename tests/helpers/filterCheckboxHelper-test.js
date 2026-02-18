@@ -4,7 +4,7 @@
 
 import {
     characteristicsCount,
-    excludeIDVB,
+    excludeIDVBandNewFCodes,
     generateCount,
     sourcesCount
 } from "../../src/js/helpers/search/filterCheckboxHelper";
@@ -29,12 +29,11 @@ describe('filterCheckboxHelper tests', () => {
         });
     });
 
-    describe('excludeIDVB', () => {
+    describe('excludeIDVBandNewFCodes', () => {
         it('removes IDVB', () => {
-            const test = new Set(["IDV_B", 'test 1']);
+            const test = new Set(["IDV_B", "test 1", "F001", "F003"]);
 
-            expect(excludeIDVB(test)).toBe(1);
-            expect(excludeIDVB(test)).toBe(1);
+            expect(excludeIDVBandNewFCodes(test)).toBe(1);
         });
     });
 
