@@ -12,7 +12,7 @@
 
     &.anchor-0 {
       anchor-name: --tab-anchor-0;
-      padding-right: $global-padding * 2;
+      padding-right: $global-padding * 2.8;
     }
 
     &.active {
@@ -40,7 +40,8 @@
   position: absolute;
   position-anchor: --tab-anchor-0;
   position-area: center right;
-  margin-left: -($global-margin * 2);
+  margin-left: -($global-margin * 2.8);
+  margin-bottom: rem(6);
   font-size: $font-size-12;
   line-height: 1.5;
 }
