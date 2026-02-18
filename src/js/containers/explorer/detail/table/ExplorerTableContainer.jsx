@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 10/16/17
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -19,78 +19,71 @@ import ExplorerTable from 'components/explorer/detail/visualization/table/Explor
 
 const propTypes = {
     isLoading: PropTypes.bool,
-    order: PropTypes.object,
-    setExplorerTableOrder: PropTypes.func,
-    pageNumber: PropTypes.number,
-    setExplorerTablePage: PropTypes.func,
     results: PropTypes.object,
     goDeeper: PropTypes.func,
     total: PropTypes.number,
     goToUnreported: PropTypes.func
 };
 
-export class ExplorerTableContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const ExplorerTableContainer = ({
+    isLoading,
+    results,
+    total,
+    goDeeper,
+    goToUnreported
+}) => {
+    const [columns, setColumns] = useState([]);
+    // const [results, setResults] = useState([]);
+    const [pageOfItems, setPageOfItems] = useState([]);
+    const [totalItems, setTotalItems] = useState(0);
+    const [pageSize, setPageSize] = useState(20);
 
-        this.state = {
-            columns: [],
-            results: [],
-            pageOfItems: [],
-            totalItems: 0,
-            pageSize: 20
-        };
+    // componentDidMount() {
+    //     this.buildVirtualTable();
+    // }
 
-        this.onChangePage = this.onChangePage.bind(this);
-        this.buildVirtualTable = this.buildVirtualTable.bind(this);
-        this.updateSort = this.updateSort.bind(this);
-    }
+    // componentDidUpdate(prevProps) {
+    //     if (prevProps.results !== this.props.results) {
+    //         this.buildVirtualTable();
+    //     }
+    //     if (this.props.order !== prevProps.order) {
+    //         // table sort changed
+    //         this.buildVirtualTable();
+    //     }
+    //     if (this.props.pageNumber !== prevProps.pageNumber) {
+    //         // page number changed
+    //         this.buildVirtualTable();
+    //     }
+    // }
 
-    componentDidMount() {
-        this.buildVirtualTable();
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.results !== this.props.results) {
-            this.buildVirtualTable();
-        }
-        if (this.props.order !== prevProps.order) {
-            // table sort changed
-            this.buildVirtualTable();
-        }
-        if (this.props.pageNumber !== prevProps.pageNumber) {
-            // page number changed
-            this.buildVirtualTable();
-        }
-    }
-
-    onChangePage(pageNumber) {
+    const onChangePage = (pageNumber) => {
     // Change page number in Redux state
-        const totalPages = Math.ceil(this.state.totalItems / this.state.pageSize);
+        const totalPages = Math.ceil(totalItems / pageSize);
         const inRange = (pageNumber > 0) && (pageNumber <= totalPages);
+        // TODO: figure out if this even does anything
         if (inRange) {
-            this.props.setExplorerTablePage(pageNumber);
+            // setExplorerTablePage(pageNumber);
         }
-    }
+    };
 
-    setPageOfItems(results) {
-    // calculate start and end item indexes
-        const startIndex = (this.props.pageNumber - 1) * this.state.pageSize;
-        const endIndex = Math.min(startIndex + (this.state.pageSize - 1), (results.length - 1));
+    const setPage = (r) => {
+        // calculate start and end item indexes
+        const startIndex = (pageNumber - 1) * pageSize;
+        const endIndex = Math.min(startIndex + (pageSize - 1), (r.length - 1));
 
         // Get new page of items from results
-        return results.slice(startIndex, endIndex + 1);
-    }
+        return r.slice(startIndex, endIndex + 1);
+    };
 
-    parseResults(data) {
-        const results = [];
+    const parseResults = (data) => {
+        const resultsArray = [];
 
         data.forEach((item) => {
             // Format obligated amount
             const formattedCurrency =
                 MoneyFormatter.formatMoneyWithPrecision(item.amount, 0);
 
-            const percentageValue = (item.amount / this.props.total);
+            const percentageValue = (item.amount / total);
 
             // Convert from decimal value to percentage and round to 2 decimal places
             const formattedPercentage = (percentageValue * 100).toFixed(2);
@@ -113,15 +106,19 @@ export class ExplorerTableContainer extends React.Component {
                 },
                 link: item.link
             };
-            results.push(result);
+            resultsArray.push(result);
         });
 
-        return orderBy(results,
-            [this.props.order.field], [this.props.order.direction]);
-    }
+        // TODO: Figure out if this is even being used frfr
+        return orderBy(
+            resultsArray,
+            [order.field],
+            [order.direction]
+        );
+    };
 
-    showColumns() {
-        const columns = [];
+    const showColumns = () => {
+        const columnsArray = [];
         const sortOrder = ExplorerTableFields.defaultSortDirection;
 
         ExplorerTableFields.order.forEach((col) => {
@@ -132,64 +129,62 @@ export class ExplorerTableContainer extends React.Component {
                 displayName,
                 defaultDirection: sortOrder[col]
             };
-            columns.push(column);
+            columnsArray.push(column);
         });
 
-        return columns;
-    }
+        return columnsArray;
+    };
 
-    buildVirtualTable() {
-        const columns = this.showColumns();
-        const orderedResults = this.parseResults(this.props.results);
-        const pageOfItems = this.setPageOfItems(orderedResults);
+    const buildVirtualTable = () => {
+        const columnsArray = showColumns();
+        const orderedResults = parseResults(results);
+        const page = setPage(orderedResults);
 
-        this.setState({
-            columns,
-            pageOfItems,
-            totalItems: orderedResults.length
-        });
-    }
+        setColumns(columnsArray);
+        setPageOfItems(page);
+        setTotalItems(orderedResults.length);
+    };
 
-    orderResults() {
-    // sort the results by the appropriate table column and direction
-        const orderedResults = orderBy(this.state.results,
-            [this.props.order.field], [this.props.order.direction]);
+    const orderResults = () => {
+        // sort the results by the appropriate table column and direction
+        const orderedResults = orderBy(
+            results,
+            [order.field],
+            [order.direction]
+        );
 
         this.setState({
             results: orderedResults
         }, () => {
-            this.setPageOfItems();
+            setPage();
         });
-    }
+    };
 
-    updateSort(field, direction) {
+    const updateSort = (field, direction) => {
         this.props.setExplorerTableOrder({
             field,
             direction
         });
-    }
+    };
 
-    render() {
-        return (
-            <ExplorerTable
-                isLoading={this.props.isLoading}
-                results={this.state.pageOfItems}
-                columns={this.state.columns}
-                order={this.props.order}
-                updateSort={this.updateSort}
-                total={this.props.total}
-                goDeeper={this.props.goDeeper}
-                onChangePage={this.onChangePage}
-                pageNumber={this.props.pageNumber}
-                totalItems={this.state.totalItems}
-                pageSize={this.state.pageSize}
-                goToUnreported={this.props.goToUnreported} />
-        );
-    }
-}
+    return (
+        <ExplorerTable
+            isLoading={this.props.isLoading}
+            results={this.state.pageOfItems}
+            columns={this.state.columns}
+            order={this.props.order}
+            updateSort={this.updateSort}
+            total={this.props.total}
+            goDeeper={this.props.goDeeper}
+            onChangePage={onChangePage}
+            pageNumber={this.props.pageNumber}
+            totalItems={this.state.totalItems}
+            pageSize={this.state.pageSize}
+            goToUnreported={this.props.goToUnreported} />
+    );
+};
 
 ExplorerTableContainer.propTypes = propTypes;
-
 export default connect(
     (state) => ({
         order: state.explorer.table.order,
