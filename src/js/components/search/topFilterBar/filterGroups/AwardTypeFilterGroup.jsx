@@ -74,7 +74,8 @@ export default class AwardTypeFilterGroup extends React.Component {
         const selectedValues = this.props.filter.values;
         const fullGroups = [];
         groupKeys.forEach((key) => {
-            const fullMembership = AwardType.awardTypeGroups[key];
+            const fullMembership = AwardType.awardTypeGroups[key]
+                .filter((code) => code.indexOf('F0') !== 0);
 
             // quick way of checking for full group membership is to return an array of missing
             // values; it'll be empty if all the values are selected

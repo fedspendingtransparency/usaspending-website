@@ -174,7 +174,14 @@ const TopFilterBarContainer = ({ setFilterCount, compressed = false, filters }) 
             filter.code = 'awardType';
             filter.name = 'Award Type';
 
-            filter.values = filters.awardType?.toArray();
+            const awardTypefilters = filters.awardType?.toArray();
+            let cleanedFilters = [];
+            if (awardTypefilters?.length) {
+                // filter out new F codes for now.
+                cleanedFilters = awardTypefilters.filter((key) => key.indexOf('F0') !== 0);
+            }
+
+            filter.values = cleanedFilters;
         }
 
         if (selected) {
@@ -572,7 +579,8 @@ const TopFilterBarContainer = ({ setFilterCount, compressed = false, filters }) 
         const groupKeys = ['contracts', 'grants', 'direct_payments', 'loans', 'idvs', 'other'];
 
         groupKeys.forEach((key) => {
-            const fullMembership = AwardType.awardTypeGroups[key];
+            const fullMembership = AwardType.awardTypeGroups[key]
+                .filter((code) => code.indexOf('F0') !== 0);
 
             // quick way of checking for full group membership is to return an array of missing
             // values; it'll be empty if all the values are selected

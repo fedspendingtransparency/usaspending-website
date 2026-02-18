@@ -36,6 +36,31 @@ export const awardTypeCodes = {
     '-1': 'Not Specified'
 };
 
+export const awardTypeNewLinkCodes = {
+    '02': 'F001',
+    '03': 'F001',
+    '04': 'F001',
+    '05': 'F002',
+    '06': 'F006',
+    '07': 'F003',
+    '08': 'F004',
+    '09': 'F005',
+    '10': 'F007',
+    '11': 'F010'
+};
+
+export const awardTypeNewFCodes = {
+    'F001': 'Grant',
+    'F002': 'Cooperative Agreement',
+    'F003': 'Direct Loans',
+    'F004': 'Loan Guarantee',
+    'F005': 'Indemnity/Insurance (non-loan)',
+    'F006': 'Direct Payment for Specified Use',
+    'F007': 'Direct Payment with Unrestricted Use',
+    'F010': 'Other Financial Assistance'
+};
+
+
 export const glossaryLinks = {
     'A': 'blanket-purchase-agreement-bpa',
     'B': 'purchase-order',
@@ -72,10 +97,10 @@ export const glossaryLinks = {
 export const awardTypeGroups = {
     contracts: ['A', 'B', 'C', 'D'],
     idvs: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E'],
-    grants: ['02', '03', '04', '05'],
-    direct_payments: ['10', '06'],
-    loans: ['07', '08'],
-    other: ['09', '11', '-1']
+    grants: ['02', '03', '04', '05', 'F001', 'F002'],
+    direct_payments: ['10', '06', 'F006', 'F007'],
+    loans: ['07', '08', 'F003', 'F004'],
+    other: ['09', '11', '-1', 'F005', 'F010']
 };
 
 export const transactionTypeGroups = {
