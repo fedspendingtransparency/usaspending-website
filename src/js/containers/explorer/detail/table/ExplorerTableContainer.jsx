@@ -16,6 +16,7 @@ import * as explorerActions from 'redux/actions/explorer/explorerActions';
 import ExplorerTableFields from 'dataMapping/explorer/explorerTableFields';
 
 import ExplorerTable from 'components/explorer/detail/visualization/table/ExplorerTable';
+import { Table } from "data-transparency-ui";
 
 const propTypes = {
     isLoading: PropTypes.bool,
@@ -32,8 +33,8 @@ const ExplorerTableContainer = ({
     goDeeper,
     goToUnreported
 }) => {
-    const [columns, setColumns] = useState([]);
     // const [results, setResults] = useState([]);
+    const [sort, setSort] = useState({ field: 'obligated_amount', direction: 'desc' });
     const [pageOfItems, setPageOfItems] = useState([]);
     const [totalItems, setTotalItems] = useState(0);
     const [pageSize, setPageSize] = useState(20);
@@ -117,30 +118,10 @@ const ExplorerTableContainer = ({
         );
     };
 
-    const showColumns = () => {
-        const columnsArray = [];
-        const sortOrder = ExplorerTableFields.defaultSortDirection;
-
-        ExplorerTableFields.order.forEach((col) => {
-            const displayName = ExplorerTableFields[col];
-
-            const column = {
-                columnName: col,
-                displayName,
-                defaultDirection: sortOrder[col]
-            };
-            columnsArray.push(column);
-        });
-
-        return columnsArray;
-    };
-
     const buildVirtualTable = () => {
-        const columnsArray = showColumns();
         const orderedResults = parseResults(results);
         const page = setPage(orderedResults);
 
-        setColumns(columnsArray);
         setPageOfItems(page);
         setTotalItems(orderedResults.length);
     };
@@ -161,26 +142,24 @@ const ExplorerTableContainer = ({
     };
 
     const updateSort = (field, direction) => {
-        this.props.setExplorerTableOrder({
-            field,
-            direction
-        });
+        // setExplorerTableOrder({
+        //     field,
+        //     direction
+        // });
+        setSort({ field, direction });
     };
 
     return (
-        <ExplorerTable
-            isLoading={this.props.isLoading}
-            results={this.state.pageOfItems}
-            columns={this.state.columns}
-            order={this.props.order}
-            updateSort={this.updateSort}
-            total={this.props.total}
-            goDeeper={this.props.goDeeper}
-            onChangePage={onChangePage}
-            pageNumber={this.props.pageNumber}
-            totalItems={this.state.totalItems}
-            pageSize={this.state.pageSize}
-            goToUnreported={this.props.goToUnreported} />
+        <Table
+            classNames={`explorer-table${results.length === 0 ? ' no-results' : ''}`}
+            columns={ExplorerTableFields.columns}
+            rows={rows}
+            onClickHandler={onClickHandler}
+            isMobile={isMobile}
+            atMaxLevel={atMaxLevel}
+            currentSort={sort}
+            isStacked
+            newMobileView />
     );
 };
 
