@@ -85,6 +85,9 @@ const AwardTypeFilterGroup = ({ name }) => {
     });
 
     appliedAwardType.forEach((value) => {
+        // exclude the new Assistance Type Codes (F0XX codes)
+        if (value.indexOf('F0') === 0) return;
+
         const tag = {
             value,
             title: awardTypeCodes[value],
