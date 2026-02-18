@@ -13,11 +13,9 @@ import {
     setStateFiscalYear,
     setStateCenter
 } from 'redux/actions/state/stateActions';
-import useOverview from "./hooks/useOverview";
-import useQueryTemp from "hooks/useQueryTemp";
 import { stateCenterFromFips } from 'helpers/mapHelper';
+import useOverview from "./hooks/useOverview";
 import StatePage from './StatePage';
-import { fetchStateOverview } from './stateHelper';
 
 require('pages/state/statePage.scss');
 
@@ -43,21 +41,28 @@ const StatePageContainer = ({
         dispatch(setStateOverview(newStateProfile));
     }, [dispatch]);
 
-    const { fetchData, loading, error } = useQueryTemp(loadStateOverview);
+    const {
+        data, isSuccess, isLoading, error
+    } = useOverview(stateId, fy);
+
+    useEffect(() => {
+        if (isSuccess && Object.keys(data?.data).length === 0) {
+            loadStateOverview(data?.data);
+        }
+    }, [data]);
 
     useEffect(() => {
         // Reset the FY
         dispatch(setStateFiscalYear(fy));
-        fetchData(() => fetchStateOverview(stateId, fy));
 
         // Update the map center
         const center = stateCenterFromFips(stateId);
         dispatch(setStateCenter(center));
-    }, [state, stateProfile.fy, fy, dispatch, stateId, fetchData]);
+    }, [state, stateProfile.fy, fy, dispatch, stateId]);
 
     return (
         <StatePage
-            loading={loading}
+            loading={isLoading}
             error={error}
             id={stateProfile.id}
             stateProfile={stateProfile}
