@@ -56,7 +56,7 @@ const AwardTypeFilterGroup = ({ name }) => {
     const unstagedGroups = [];
 
     Object.keys(groupLabels).forEach((key) => {
-        const fullMembership = awardTypeGroups[key];
+        const fullMembership = awardTypeGroups[key].filter((code) => code.indexOf('F0') !== 0);
 
         // quick way of checking for full group membership is to return an array of missing
         // values; it'll be empty if all the values are selected
