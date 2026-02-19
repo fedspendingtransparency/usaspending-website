@@ -5,92 +5,42 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
 
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-
+import { updateTimePeriod } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
+const propTypes = { name: PropTypes.string };
+
+const TimePeriodFYFilterGroup = ({ name }) => {
+    const timePeriodFY = useSelector((state) => state.filters.timePeriodFY);
+    const appliedTimePeriodFY = useSelector((state) => state.appliedFilters.filters.timePeriodFY);
+    const dispatch = useDispatch();
+
+    const toggleFilter = (value, staged) => {
+        const newValue = staged ?
+            timePeriodFY.delete(value) :
+            timePeriodFY.add(value);
+
+        dispatch(updateTimePeriod({
+            fy: newValue,
+            dateType: 'fy'
+        }));
+    };
+
+    const tags = [];
+
+    appliedTimePeriodFY.forEach((value) => {
+        tags.push({
+            value,
+            title: `FY ${value}`,
+            toggleFilter,
+            staged: timePeriodFY.has(value)
+        });
+    });
+
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
-export default class TimePeriodFYFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.removeFilter = this.removeFilter.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
-
-    removeFilter(value) {
-    // remove a single filter item
-        const timePeriodFilter = {
-            dateType: this.props.redux.reduxFilters.timePeriodType,
-            fy: this.props.redux.reduxFilters.timePeriodFY,
-            start: this.props.redux.reduxFilters.timePeriodStart,
-            end: this.props.redux.reduxFilters.timePeriodEnd
-        };
-
-        // remove the item from the set
-        timePeriodFilter.dateType = 'fy';
-        // as an ImmutableJS structure, the delete function will return a new instance
-        timePeriodFilter.fy = this.props.redux.reduxFilters.timePeriodFY.delete(value);
-
-        // reuse the Redux action from the time period filter component
-        this.props.redux.updateTimePeriod(timePeriodFilter);
-    }
-
-    clearGroup() {
-        this.props.redux.resetTimeFilters();
-    }
-
-    generateTags() {
-        const tags = [];
-
-        const selectedValues = this.props.filter.values;
-
-        // determine how many fiscal years there are available to select
-        // add an extra year at the end to include the current year in the count
-        const allFY = (FiscalYearHelper.currentFiscalYear() - FiscalYearHelper.earliestFiscalYear)
-            + 1;
-
-        // check if all fiscal years were selected
-        if (selectedValues.length === allFY) {
-            const tag = {
-                value: 'all',
-                title: 'All Fiscal Years',
-                removeFilter: this.clearGroup
-            };
-
-            tags.push(tag);
-        }
-        else {
-            // not all fiscal years were selected, list them individually
-            selectedValues.forEach((value) => {
-                const tag = {
-                    value,
-                    title: `FY ${value}`,
-                    removeFilter: this.removeFilter
-                };
-
-                tags.push(tag);
-            });
-        }
-
-        return tags;
-    }
-
-    render() {
-        const tags = this.generateTags();
-
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
-
 TimePeriodFYFilterGroup.propTypes = propTypes;
+export default TimePeriodFYFilterGroup;
