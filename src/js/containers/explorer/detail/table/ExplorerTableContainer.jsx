@@ -3,11 +3,12 @@
  * Created by Lizzie Salita 10/16/17
  */
 
-import React, { useMemo, useState } from 'react';
+import React, { useContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { orderBy } from 'lodash-es';
 import { Pagination, Table } from "data-transparency-ui";
 
+import IsMobileContext from "context/IsMobileContext";
 import { formatMoneyWithPrecision } from "helpers/moneyFormatter";
 import { columns } from 'dataMapping/explorer/explorerTableFields';
 
@@ -30,7 +31,7 @@ const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
         const name = item.name !== "Unreported Data" ? item.name : "Unreported Data*";
         const link = item.name !== "Unreported Data" ?
             () => goDeeper(item.id, name) :
-            goToUnreported;
+            () => goToUnreported(item);
 
         const result = {
             name,
@@ -78,6 +79,7 @@ const ExplorerTableContainer = ({
     goDeeper,
     goToUnreported
 }) => {
+    const { isMobile } = useContext(IsMobileContext);
     const [sort, setSort] = useState({ field: 'obligated_amount', direction: 'desc' });
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -116,11 +118,10 @@ const ExplorerTableContainer = ({
             <Table
                 columns={columns}
                 rows={rows}
-                // onClickHandler={onClickHandler}
-                // isMobile={isMobile}
-                // atMaxLevel={atMaxLevel}
+                isMobile={isMobile}
                 currentSort={sort}
                 updateSort={updateSort}
+                loading={isLoading}
                 isStacked
                 newMobileView />
             <Pagination
