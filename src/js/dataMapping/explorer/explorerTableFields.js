@@ -22,12 +22,12 @@ export const columns = [
         defaultSortDirection: 'asc'
     },
     {
-        title: 'obligated_amount',
+        title: 'obligatedAmount',
         displayName: 'Obligated Amount',
         defaultSortDirection: 'desc'
     },
     {
-        title: 'percent_of_total',
+        title: 'percent',
         displayName: 'Percent of Total',
         defaultSortDirection: 'desc'
     }

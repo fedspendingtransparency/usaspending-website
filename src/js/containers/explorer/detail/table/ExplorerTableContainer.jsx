@@ -11,36 +11,32 @@ import { Pagination, Table } from "data-transparency-ui";
 import { formatMoneyWithPrecision } from "helpers/moneyFormatter";
 import { columns } from 'dataMapping/explorer/explorerTableFields';
 
-const parseResults = (data, total, sort) => {
+const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
     const resultsArray = [];
 
     data.forEach((item) => {
         // Format obligated amount
-        const formattedCurrency =
+        const obligatedAmount =
             formatMoneyWithPrecision(item.amount, 0);
 
-        const percentageValue = (item.amount / total);
-
         // Convert from decimal value to percentage and round to 2 decimal places
-        const formattedPercentage = (percentageValue * 100).toFixed(2);
+        const formattedPercentage = ((item.amount / total) * 100).toFixed(2);
 
         let percent = `${formattedPercentage}%`;
         if (percent === '0.00%') {
             percent = 'Less than 0.01%';
         }
 
+        const name = item.name !== "Unreported Data" ? item.name : "Unreported Data*";
+        const link = item.name !== "Unreported Data" ?
+            () => goDeeper(item.id, name) :
+            goToUnreported;
+
         const result = {
-            name: item.name,
-            id: item.id,
-            account_number: item.account_number,
-            obligated_amount: item.amount,
-            percent_of_total: percentageValue,
-            display: {
-                name: item.name,
-                obligated_amount: formattedCurrency,
-                percent_of_total: percent
-            },
-            link: item.link
+            name,
+            obligatedAmount,
+            percent,
+            link
         };
         resultsArray.push(result);
     });
@@ -50,7 +46,21 @@ const parseResults = (data, total, sort) => {
         [sort.field],
         [sort.direction]
     ).map(
-        ({ display }) => [display.name, display.obligated_amount, display.percent_of_total]);
+        ({
+            name, obligatedAmount, percent, link
+        }) => [
+            (
+                <div className="cell-content">
+                    <button
+                        className="go-deeper-link"
+                        onClick={link} >
+                        {name}
+                    </button>
+                </div>
+            ),
+            obligatedAmount,
+            percent
+        ]);
 };
 
 const propTypes = {
@@ -82,17 +92,16 @@ const ExplorerTableContainer = ({
     };
 
     const rows = useMemo(() => {
-        const parsedResults = parseResults(results, total, sort);
+        const parsedResults = parseResults(results, total, sort, goDeeper, goToUnreported);
 
         if (totalItems < pageSize) return parsedResults;
 
         const endingIndex = (pageNumber * pageSize) - 1;
         const startingIndex = (pageNumber - 1) * pageSize;
 
-
         return parsedResults.filter((v, i) => i <= endingIndex && startingIndex <= i);
     }
-    , [pageNumber, results, total, sort, totalItems]);
+    , [results, total, sort, goDeeper, goToUnreported, totalItems, pageNumber]);
 
     const updateSort = (field, direction) => setSort({ field, direction });
 
