@@ -51,12 +51,14 @@ const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
             name, obligatedAmount, percent, link
         }) => [
             (
-                <div className="cell-content">
-                    <button
-                        className="go-deeper-link"
-                        onClick={link} >
-                        {name}
-                    </button>
+                <div className="explorer-link-cell">
+                    <div className="cell-content">
+                        <button
+                            className="go-deeper-link"
+                            onClick={link} >
+                            {name}
+                        </button>
+                    </div>
                 </div>
             ),
             obligatedAmount,

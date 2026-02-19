@@ -22,22 +22,29 @@
             width: auto;
         }
 
-        thead {
-            tr {
+        .usda-table__head {
+            .usda-table__row {
                 border-bottom: solid 1px $color-gray-lighter;
-                td {
+
+                .table-header {
+                    background-color: $color-white;
                     border: 0;
+
                     &:first-child {
                         width: 55%;
                     }
+
                     &:nth-child(2) {
                         width: 25%;
+
                         .cell-content {
                             float: right;
                         }
                     }
+
                     &:last-child {
                         width: 20%;
+
                         .cell-content {
                             float: right;
                         }
@@ -48,21 +55,28 @@
                 @import "./cells/_explorerHeaderCell";
             }
         }
-        tbody {
-            tr {
-                td {
+
+        .usda-table__body {
+            .usda-table__row {
+                .usda-table__cell {
                     border: 0;
+                    background-color: inherit;
+
                     &:first-child {
                         width: 55%;
                     }
+
                     &:nth-child(2) {
                         width: 25%;
+
                         .cell-content {
                             float: right;
                         }
                     }
+
                     &:last-child {
                         width: 20%;
+
                         .cell-content {
                             float: right;
                         }
@@ -78,8 +92,9 @@
                         }
                     }
                 }
+
                 // gray out even rows
-                .row-even {
+                &.usda-table__row_odd {
                     background-color: #f7f7f7;
                 }
             }
