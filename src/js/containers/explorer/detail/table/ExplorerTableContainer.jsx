@@ -3,10 +3,10 @@
  * Created by Lizzie Salita 10/16/17
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { orderBy } from 'lodash-es';
-import { Table } from "data-transparency-ui";
+import { Pagination, Table } from "data-transparency-ui";
 
 import { formatMoneyWithPrecision } from "helpers/moneyFormatter";
 import { columns } from 'dataMapping/explorer/explorerTableFields';
@@ -67,26 +67,29 @@ const ExplorerTableContainer = ({
     goDeeper,
     goToUnreported
 }) => {
-    // const [results, setResults] = useState([]);
     const [sort, setSort] = useState({ field: 'obligated_amount', direction: 'desc' });
     const [totalItems, setTotalItems] = useState(0);
-    const [pageSize, setPageSize] = useState(20);
     const [pageNumber, setPageNumber] = useState(1);
 
+    const pageSize = 20;
+
     const onChangePage = (p) => {
-        // Change page number in Redux state
         const totalPages = Math.ceil(totalItems / pageSize);
         const inRange = (p > 0) && (p <= totalPages);
-        if (inRange) {
-            // setExplorerTablePage(pageNumber);
-        }
+
+        if (inRange) setPageNumber(p);
     };
 
-    const rows = parseResults(results, total, sort).map(
+    const rows = useMemo(() => parseResults(results, total, sort).map(
         ({ display }) => [display.name, display.obligated_amount, display.percent_of_total]
-    );
+    ), [results, total, sort]);
 
-    console.log({ rows });
+    useEffect(() => {
+        // if rows are updated, then set total items to the number of rows
+        setTotalItems(rows.length);
+    }, [rows]);
+
+    console.log({ rows, length: rows.length });
 
     // const setPage = (r) => {
     //     // calculate start and end item indexes
@@ -100,17 +103,30 @@ const ExplorerTableContainer = ({
     const updateSort = (field, direction) => setSort({ field, direction });
 
     return (
-        <Table
-            classNames={`explorer-table${results.length === 0 ? ' no-results' : ''}`}
-            columns={columns}
-            rows={rows}
-            // onClickHandler={onClickHandler}
-            // isMobile={isMobile}
-            // atMaxLevel={atMaxLevel}
-            currentSort={sort}
-            updateSort={updateSort}
-            isStacked
-            newMobileView />
+        <div className={`explorer-table${results.length === 0 ? ' no-results' : ''}`}>
+            <Pagination
+                resultsText
+                changePage={onChangePage}
+                currentPage={pageNumber}
+                totalItems={totalItems}
+                pageSize={pageSize} />
+            <Table
+                columns={columns}
+                rows={rows}
+                // onClickHandler={onClickHandler}
+                // isMobile={isMobile}
+                // atMaxLevel={atMaxLevel}
+                currentSort={sort}
+                updateSort={updateSort}
+                isStacked
+                newMobileView />
+            <Pagination
+                resultsText
+                changePage={onChangePage}
+                currentPage={pageNumber}
+                totalItems={totalItems}
+                pageSize={pageSize} />
+        </div>
     );
 };
 
