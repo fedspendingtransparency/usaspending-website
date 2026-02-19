@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 10/16/17
  */
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { orderBy } from 'lodash-es';
 import { Pagination, Table } from "data-transparency-ui";
@@ -49,7 +49,8 @@ const parseResults = (data, total, sort) => {
         resultsArray,
         [sort.field],
         [sort.direction]
-    );
+    ).map(
+        ({ display }) => [display.name, display.obligated_amount, display.percent_of_total]);
 };
 
 const propTypes = {
@@ -68,10 +69,10 @@ const ExplorerTableContainer = ({
     goToUnreported
 }) => {
     const [sort, setSort] = useState({ field: 'obligated_amount', direction: 'desc' });
-    const [totalItems, setTotalItems] = useState(0);
     const [pageNumber, setPageNumber] = useState(1);
 
     const pageSize = 20;
+    const totalItems = results.size;
 
     const onChangePage = (p) => {
         const totalPages = Math.ceil(totalItems / pageSize);
@@ -80,25 +81,18 @@ const ExplorerTableContainer = ({
         if (inRange) setPageNumber(p);
     };
 
-    const rows = useMemo(() => parseResults(results, total, sort).map(
-        ({ display }) => [display.name, display.obligated_amount, display.percent_of_total]
-    ), [results, total, sort]);
+    const rows = useMemo(() => {
+        const parsedResults = parseResults(results, total, sort);
 
-    useEffect(() => {
-        // if rows are updated, then set total items to the number of rows
-        setTotalItems(rows.length);
-    }, [rows]);
+        if (totalItems < pageSize) return parsedResults;
 
-    console.log({ rows, length: rows.length });
+        const endingIndex = (pageNumber * pageSize) - 1;
+        const startingIndex = (pageNumber - 1) * pageSize;
 
-    // const setPage = (r) => {
-    //     // calculate start and end item indexes
-    //     const startIndex = (pageNumber - 1) * pageSize;
-    //     const endIndex = Math.min(startIndex + (pageSize - 1), (r.length - 1));
-    //
-    //     // Get new page of items from results
-    //     return r.slice(startIndex, endIndex + 1);
-    // };
+
+        return parsedResults.filter((v, i) => i <= endingIndex && startingIndex <= i);
+    }
+    , [pageNumber, results, total, sort, totalItems]);
 
     const updateSort = (field, direction) => setSort({ field, direction });
 
