@@ -5,64 +5,44 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
 
+import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
-};
+const propTypes = { name: PropTypes.string };
 
-export default class CFDAFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
+const CFDAFilterGroup = ({ name }) => {
+    const selectedCFDA = useSelector((state) => state.filters.selectedCFDA);
+    const appliedCFDA = useSelector((state) => state.appliedFilters.filters.selectedCFDA);
+    const dispatch = useDispatch();
 
-        this.removeFilter = this.removeFilter.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
+    const toggleFilter = (value, staged) => {
+        const newValue = staged ?
+            selectedCFDA.delete(value.identifier) :
+            selectedCFDA.set(value.identifier, value);
 
-    removeFilter(value) {
-    // remove a single filter item
-        const newValue = this.props.redux.reduxFilters.selectedCFDA.delete(value);
-        this.props.redux.updateGenericFilter({
+        dispatch(updateGenericFilter({
             type: 'selectedCFDA',
             value: newValue
-        });
-    }
+        }));
+    };
 
-    clearGroup() {
-        this.props.redux.clearFilterType('selectedCFDA');
-    }
+    const tags = [];
 
-    generateTags() {
-        const tags = [];
+    appliedCFDA.forEach((value) => {
+        const tag = {
+            value,
+            title: `${value.program_number} | ${value.program_title}`,
+            toggleFilter,
+            staged: selectedCFDA.has(value.identifier)
+        };
 
-        // check to see if an CFDA code is provided
-        const CFDA = this.props.filter.values;
+        tags.push(tag);
+    });
 
-        CFDA.forEach((value) => {
-            const tag = {
-                value: `${value.identifier}`,
-                title: `${value.program_number} | ${value.program_title}`,
-                removeFilter: this.removeFilter
-            };
-
-            tags.push(tag);
-        });
-
-        return tags;
-    }
-
-    render() {
-        const tags = this.generateTags();
-
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
+};
 
 CFDAFilterGroup.propTypes = propTypes;
+export default CFDAFilterGroup;

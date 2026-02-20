@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 import { Link } from "react-router";
@@ -36,7 +36,7 @@ const SidebarContentFilters = ({ isMobile }) => {
     const filters = useSelector((state) => state.filters);
     const filterCount = getFilterCount(filters);
 
-    const alertBody = (
+    const alertBody = useMemo(() => (
         <>
             Looking for the "Keyword Search" page?{" "}
             <Link
@@ -47,7 +47,7 @@ const SidebarContentFilters = ({ isMobile }) => {
                 Click here to search award transactions by keyword.
             </Link>
         </>
-    );
+    ), []);
 
     return (
         <div
@@ -58,7 +58,7 @@ const SidebarContentFilters = ({ isMobile }) => {
                     key={`toggle-${title}`}
                     title={title}
                     component={component}
-                    open={open}
+                    open={open[title]}
                     setOpen={setOpen}
                     count={filterCount[title]}
                     isMobile={isMobile} />

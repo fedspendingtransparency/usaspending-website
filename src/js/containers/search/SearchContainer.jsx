@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import { useLocation, useNavigate } from 'react-router';
+import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import {
@@ -17,16 +17,22 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import {
     setAppliedFilterEmptiness, resetAppliedFilters
 } from 'redux/actions/search/appliedFilterActions';
-import * as SearchHelper from 'helpers/searchHelper';
+import {
+    areFiltersDifferent,
+    areFiltersEmpty, areFiltersEqual,
+    areFiltersSelected,
+    generateUrlHash, getObjFromQueryParams,
+    restoreUrlHash
+} from "helpers/searchHelper";
 import * as DownloadHelper from 'helpers/downloadHelper';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
+import useQueryParams from "hooks/useQueryParams";
 import SearchPage from 'components/search/SearchPage';
 import {
     convertFiltersToAnalyticEvents,
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
-import useQueryParams from "../../hooks/useQueryParams";
 
 require('pages/search/searchPage.scss');
 
@@ -42,7 +48,7 @@ export const parseRemoteFilters = (data) => {
     if (version !== filterStoreVersion) {
     // versions don't match, don't populate the filters
     // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
-    // a URL hash contains data that no longer applies to the current site
+    //  a URL hash contains data that no longer applies to the current site
         console.info("version mismatch");
         return null;
     }
@@ -69,17 +75,18 @@ export const parseRemoteFilters = (data) => {
 };
 
 const SearchContainer = () => {
-    const { hash: urlHash } = SearchHelper.getObjFromQueryParams(useLocation().search);
+    const location = useLocation();
+    const { hash: urlHash } = getObjFromQueryParams(location.search);
     const query = useQueryParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [searchURLParams, setSearchURLParams] = useSearchParams();
     const {
         filters: stagedFilters,
         download,
         appliedFilters: {
             filters: appliedFilters,
-            _empty: areAppliedFiltersEmpty,
-            _complete: areFiltersApplied
+            _empty: areAppliedFiltersEmpty
         }
     } = useSelector((state) => state);
     const [downloadAvailable, setDownloadAvailable] = useState(false);
@@ -126,13 +133,13 @@ const SearchContainer = () => {
         // receiving filters from previous search via hash.
         const shouldFetchRemoteFilters = (
             urlHash &&
-            SearchHelper.areFiltersEqual(stagedFilters, initialState)
+            areFiltersEqual(stagedFilters, initialState)
         );
         if (shouldFetchRemoteFilters) {
             if (request.current) {
                 request.current.cancel();
             }
-            request.current = SearchHelper.restoreUrlHash({
+            request.current = restoreUrlHash({
                 hash: urlHash
             });
             request.current.promise
@@ -152,12 +159,13 @@ const SearchContainer = () => {
                         // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
-                        navigate('/search');
+                        searchURLParams.delete("hash");
+                        setSearchURLParams(searchURLParams);
                         request.current = null;
                     }
                 });
         }
-        else if (SearchHelper.areFiltersSelected(appliedFilters) && SearchHelper.areFiltersEmpty(stagedFilters)) {
+        else if (areFiltersSelected(appliedFilters) && areFiltersEmpty(stagedFilters)) {
             dispatch(restoreHashedFilters(appliedFilters));
         }
         else if (!urlHash) {
@@ -181,8 +189,11 @@ const SearchContainer = () => {
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
             // all the filters were cleared, reset to a blank hash
-            navigate('/search');
+            searchURLParams.delete("hash");
+            setSearchURLParams(searchURLParams);
             setDownloadAvailable(false);
+            dispatch(resetAppliedFilters());
+            dispatch(clearAllFilters());
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [areAppliedFiltersEmpty, urlHash]);
@@ -196,7 +207,7 @@ const SearchContainer = () => {
         // this triggers the loading indicator
         dispatch(setAppliedFilterEmptiness(false));
 
-        request.current = SearchHelper.generateUrlHash({
+        request.current = generateUrlHash({
             filters: appliedFilters,
             version: filterStoreVersion
         });
@@ -219,26 +230,33 @@ const SearchContainer = () => {
     }, [appliedFilters, generateHashInFlight]);
 
     useEffect(() => {
-    /**
+        /**
          * Conditions where we generate a new hash:
          * (1) First Search: applied filters have changed & are no longer empty
-         * (2) Subsequent Searches: same as above except: (a) urlHash is present and (b) previous search was not empty
+         * (2) Subsequent Searches: same as above except:
+         *      (a) urlHash is present and
+         *      (b) previous search was not empty
          * NOTE: additional logic is necessary to avoid false positive where we're loading a previous hash
          * */
         const filtersChangedAndAreSelected = (
-            SearchHelper.areFiltersSelected(appliedFilters) &&
-            SearchHelper.areFiltersDifferent(appliedFilters, prevAppliedFilters)
+            areFiltersSelected(appliedFilters) &&
+            areFiltersDifferent(appliedFilters, prevAppliedFilters)
         );
-
-        if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && SearchHelper.areFiltersSelected(prevAppliedFilters))) {
+        if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && areFiltersSelected(prevAppliedFilters))) {
             generateHash();
             setDownloadAvailability();
+        } else if (!urlHash) {
+            dispatch(resetAppliedFilters());
+            dispatch(clearAllFilters());
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appliedFilters, urlHash]);
 
     useEffect(() => {
-        if (SearchHelper.areFiltersDifferent(appliedFilters, stagedFilters) && SearchHelper.areFiltersDifferent(prevAppliedFilters, appliedFilters)) {
+        if (
+            areFiltersDifferent(appliedFilters, stagedFilters) &&
+            areFiltersDifferent(prevAppliedFilters, appliedFilters)
+        ) {
             dispatch(restoreHashedFilters(appliedFilters));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -246,14 +264,13 @@ const SearchContainer = () => {
 
     return (
         <SearchPage
-            hash={urlHash}
-            filters={stagedFilters}
+            download={download}
             appliedFilters={appliedFilters}
-            noFiltersApplied={areAppliedFiltersEmpty}
             downloadAvailable={downloadAvailable}
             downloadInFlight={downloadInFlight}
-            download={download}
-            requestsComplete={areFiltersApplied} />
+            noFiltersApplied={areAppliedFiltersEmpty}
+            hash={urlHash}
+            queryParam={location.state} />
     );
 };
 

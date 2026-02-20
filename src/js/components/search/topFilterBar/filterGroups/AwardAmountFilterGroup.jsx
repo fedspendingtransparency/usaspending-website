@@ -5,65 +5,45 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
 
-import * as AwardAmountFormatter from 'helpers/awardAmountHelper';
+import { formatAwardAmountRange } from "helpers/awardAmountHelper";
+import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
-};
+const propTypes = { name: PropTypes.string };
 
-export default class AwardAmountFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
+const AwardAmountFilterGroup = ({ name }) => {
+    const awardAmounts = useSelector((state) => state.filters.awardAmounts);
+    const appliedAwardAmounts = useSelector((state) => state.appliedFilters.filters.awardAmounts);
+    const dispatch = useDispatch();
 
-        this.removeFilter = this.removeFilter.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
+    const toggleFilter = ({ key, value }, staged) => {
+        const newValue = staged ?
+            awardAmounts.delete(key) :
+            awardAmounts.set(key, value);
 
-    removeFilter(value) {
-    // remove a single filter item
-        const newValue = this.props.redux.reduxFilters.awardAmounts.delete(value);
-        this.props.redux.updateGenericFilter({
+        dispatch(updateGenericFilter({
             type: 'awardAmounts',
             value: newValue
-        });
-    }
+        }));
+    };
 
-    clearGroup() {
-        this.props.redux.clearFilterType('awardAmounts');
-    }
+    const tags = [];
 
-    generateTags() {
-        const tags = [];
+    appliedAwardAmounts.forEach((value, key) => {
+        const tag = {
+            value: { key, value },
+            title: formatAwardAmountRange(value),
+            toggleFilter,
+            staged: awardAmounts.has(key)
+        };
 
-        // check to see if an Award Amount is provided
-        const awardAmounts = this.props.filter.values;
+        tags.push(tag);
+    });
 
-        Object.keys(awardAmounts).forEach((key) => {
-            const tag = {
-                value: key,
-                title: AwardAmountFormatter.formatAwardAmountRange(awardAmounts[key]),
-                removeFilter: this.removeFilter
-            };
-
-            tags.push(tag);
-        });
-
-        return tags;
-    }
-
-    render() {
-        const tags = this.generateTags();
-
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
+};
 
 AwardAmountFilterGroup.propTypes = propTypes;
+export default AwardAmountFilterGroup;

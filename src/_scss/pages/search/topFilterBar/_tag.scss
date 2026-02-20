@@ -2,6 +2,14 @@
     display: inline-block;
     margin-right: 5px;
 
+
+    // TODO: remove this styling in favor of mocks
+    //  also, fix focus issue (button not highlighted)
+    .unstaged {
+        background-color: red !important;
+        opacity: 0.5;
+    }
+
     .filter-item {
         @include button-unstyled();
         display: table;

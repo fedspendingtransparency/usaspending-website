@@ -7,14 +7,25 @@ import GlobalConstants from 'GlobalConstants';
 
 const { FILES_SERVER_BASE_URL } = GlobalConstants;
 
-export const searchOptions = [
+export const searchSection1Options = [
     {
-        label: 'Advanced Search',
+        label: 'Search by Award & Transactions',
+        description: 'Explore government spending by prime award',
         url: '/search',
         hidden: false
     },
     {
-        label: 'Keyword Search',
+        label: 'Search by Subaward',
+        description: 'Explore government spending by subaward',
+        url: '/search',
+        queryParam: { subawards: true },
+        hidden: false
+    }
+];
+export const searchSection2Options = [
+    {
+        label: 'Search by Keyword',
+        description: 'Search government spending by a specific keyword',
         url: '/keyword_search',
         hidden: false
     }
@@ -413,9 +424,9 @@ export const resourceOptions = [
 
 export const section1Options = [
     {
-        title: '',
-        sub: '',
-        icon: ''
+        title: 'Award or Subaward',
+        sub: 'Explore government spending related to contracts, grants, loans, and more',
+        icon: 'hand-holding-usd'
     },
     {
         title: 'Spending Explorer',
@@ -435,9 +446,9 @@ export const section1Options = [
 ];
 export const section2Options = [
     {
-        title: '',
-        sub: '',
-        icon: ''
+        title: 'Transaction',
+        sub: 'Search government spending by specific award transactions',
+        icon: 'money-bill-wave'
     },
     {
         title: 'Profiles',
