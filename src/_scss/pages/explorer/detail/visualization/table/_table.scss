@@ -7,6 +7,11 @@
     display: block;
     overflow: auto;
 
+    .mobile-table-rows {
+        display: table;
+        width: 100%;
+    }
+
     .usa-dt-pagination {
         margin: rem(15);
     }
