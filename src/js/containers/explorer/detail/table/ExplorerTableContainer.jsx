@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 10/16/17
  */
 
-import React, { useContext, useMemo, useState } from 'react';
+import React, { memo, useContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { orderBy } from 'lodash-es';
 import { Pagination, Table } from "data-transparency-ui";
@@ -74,14 +74,15 @@ const propTypes = {
     goToUnreported: PropTypes.func
 };
 
-const ExplorerTableContainer = ({
+// eslint-disable-next-line prefer-arrow-callback
+const ExplorerTableContainer = memo(function ExplorerTableContainer({
     isLoading,
     results,
     total,
     goDeeper,
     goToUnreported
-}) => {
-    const { isMobile } = useContext(IsMobileContext);
+}) {
+    const { isTablet } = useContext(IsMobileContext);
     const [sort, setSort] = useState({ field: 'obligated_amount', direction: 'desc' });
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -120,7 +121,7 @@ const ExplorerTableContainer = ({
             <Table
                 columns={columns}
                 rows={rows}
-                isMobile={isMobile}
+                isMobile={isTablet}
                 currentSort={sort}
                 updateSort={updateSort}
                 loading={isLoading}
@@ -134,7 +135,7 @@ const ExplorerTableContainer = ({
                 pageSize={pageSize} />
         </div>
     );
-};
+});
 
 ExplorerTableContainer.propTypes = propTypes;
 export default ExplorerTableContainer;
