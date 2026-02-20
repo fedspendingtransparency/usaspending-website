@@ -125,6 +125,7 @@ const ExplorerTableContainer = memo(function ExplorerTableContainer({
                 currentSort={sort}
                 updateSort={updateSort}
                 loading={isLoading}
+                atMaxLevel
                 isStacked
                 newMobileView />
             <Pagination
