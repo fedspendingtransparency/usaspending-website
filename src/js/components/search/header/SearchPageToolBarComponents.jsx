@@ -11,7 +11,7 @@ import FilterAwardToggle from "../FilterAwardToggle";
 import NoDownloadHover from "./NoDownloadHover";
 
 const emailSubject = 'Award Search results on USAspending.gov';
-const slug = 'search/';
+const slug = 'search';
 
 const searchPageToolBarComponents = (
     isMobile,
@@ -19,7 +19,8 @@ const searchPageToolBarComponents = (
     downloadInFlight,
     hash,
     setShowFullDownload,
-    handleShareDispatch
+    handleShareDispatch,
+    queryParam
 ) => {
     const shareIconClassName = !isMobile ? "margin-right" : "";
     const toolTipComponent = (!downloadAvailable && hash)
@@ -33,12 +34,7 @@ const searchPageToolBarComponents = (
         setShowFullDownload(true);
     };
 
-    const getSlugWithHash = () => {
-        if (hash) {
-            return `${slug}?hash=${hash}`;
-        }
-        return slug;
-    };
+    const getSlugWithHash = () => `${slug}${window.location.search}`;
 
     const handleShare = (name) => {
         handleShareOptionClick(name, getSlugWithHash(), {
@@ -51,7 +47,7 @@ const searchPageToolBarComponents = (
 
     return (
         [
-            <FilterAwardToggle />,
+            <FilterAwardToggle queryParam={queryParam} />,
             <ShareIcon
                 isEnabled
                 url={getBaseUrl(getSlugWithHash())}
