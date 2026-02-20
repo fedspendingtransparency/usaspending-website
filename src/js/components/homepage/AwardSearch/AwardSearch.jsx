@@ -8,8 +8,6 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { FlexGridRow, FlexGridCol, CardContainer, CardButton, CardBody } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination, Keyboard, A11y } from "swiper";
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { throttle } from 'lodash-es';
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
@@ -18,6 +16,8 @@ import { REQUEST_VERSION } from "../../../GlobalConstants";
 import Analytics from '../../../helpers/analytics/Analytics';
 
 /* eslint-disable */
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Keyboard, A11y } from 'swiper/modules';
 import "swiper/css/bundle";
 import "swiper/css";
 /* eslint-enable */
@@ -202,14 +202,14 @@ const AwardSearch = () => {
                             </FlexGridCol>
                             <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2">
                                 <Swiper
-                                    a11y={{ enabled: true }}
+                                    a11y
                                     centeredSlides
                                     navigation
                                     watchslidesvisibility="true"
                                     slidesPerView="auto"
                                     spaceBetween={40}
                                     modules={[Keyboard, A11y, Navigation]}
-                                    keyboard={{ enabled: true }}
+                                    keyboard
                                     style={{ alignItems: "middle" }}
                                     onSlideChange={onSlideChange}>
                                     <SwiperSlide
@@ -323,7 +323,7 @@ const AwardSearch = () => {
                             </FlexGridRow>
                             <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2" style={{ width: "100%", margin: "auto" }}>
                                 <Swiper
-                                    a11y={{ enabled: true }}
+                                    a11y
                                     centeredSlides
                                     pagination={isMobile}
                                     navigation={!isMobile}
@@ -331,7 +331,7 @@ const AwardSearch = () => {
                                     slidesPerView="auto"
                                     spaceBetween={40}
                                     modules={[Keyboard, A11y, Pagination, Navigation]}
-                                    keyboard={{ enabled: true }}
+                                    keyboard
                                     className="award-search__swiper"
                                     onSlideChange={onSlideChange}>
                                     <SwiperSlide
