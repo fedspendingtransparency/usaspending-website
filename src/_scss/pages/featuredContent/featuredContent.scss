@@ -82,11 +82,16 @@
 
       p {
         color: $color-black;
-      }
 
+      }
+      
       iframe {
         display: flex;
         justify-self: center;
+      }
+      
+      li a {
+        font-weight: $font-semibold;
       }
     }
   }
