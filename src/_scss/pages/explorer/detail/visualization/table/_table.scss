@@ -10,6 +10,16 @@
     .mobile-table-rows {
         display: table;
         width: 100%;
+
+        .cell-content {
+            button {
+                margin: 0;
+                padding: 0;
+                font-size: $lead-font-size;
+                line-height: 1.5;
+                background-color: unset;
+            }
+        }
     }
 
     .usa-dt-pagination {
