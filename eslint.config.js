@@ -3,7 +3,7 @@ import reactHooks from "eslint-plugin-react-hooks";
 import babel from "eslint-plugin-babel";
 import { fixupPluginRules } from "@eslint/compat";
 import babelParser from "@babel/eslint-parser";
-import * as path from 'path';
+import path from "node:path";
 import { fileURLToPath } from "node:url";
 import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
@@ -21,7 +21,7 @@ export default defineConfig([{
 
     plugins: {
         "react-hooks": fixupPluginRules(reactHooks),
-        babel,
+        "babel": fixupPluginRules(babel),
     },
 
     languageOptions: {
