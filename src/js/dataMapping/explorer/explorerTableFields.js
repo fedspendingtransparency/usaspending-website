@@ -17,17 +17,17 @@ export const explorerTableFields = {
 
 export const columns = [
     {
-        title: 'name',
+        title: 'Name',
         displayName: 'Name',
         defaultSortDirection: 'asc'
     },
     {
-        title: 'obligatedAmount',
+        title: 'Obligated Amount',
         displayName: 'Obligated Amount',
         defaultSortDirection: 'desc'
     },
     {
-        title: 'percent',
+        title: 'Percent of Total',
         displayName: 'Percent of Total',
         defaultSortDirection: 'desc'
     }

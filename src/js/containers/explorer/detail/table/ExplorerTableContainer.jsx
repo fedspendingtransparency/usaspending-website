@@ -34,9 +34,9 @@ const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
             () => goToUnreported(item);
 
         const result = {
-            name,
-            obligatedAmount,
-            percent,
+            Name: name,
+            "Obligated Amount": obligatedAmount,
+            "Percent of Total": percent,
             link
         };
         resultsArray.push(result);
@@ -48,7 +48,7 @@ const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
         [sort.direction]
     ).map(
         ({
-            name, obligatedAmount, percent, link
+            Name: name, "Obligated Amount": obligatedAmount, "Percent of Total": percent, link
         }) => [
             (
                 <div className="explorer-link-cell">
@@ -83,7 +83,7 @@ const ExplorerTableContainer = memo(function ExplorerTableContainer({
     goToUnreported
 }) {
     const { isTablet } = useContext(IsMobileContext);
-    const [sort, setSort] = useState({ field: 'obligated_amount', direction: 'desc' });
+    const [sort, setSort] = useState({ field: 'Obligated Amount', direction: 'desc' });
     const [pageNumber, setPageNumber] = useState(1);
 
     const pageSize = 20;
