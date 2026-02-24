@@ -255,7 +255,8 @@
     "**/form-data": "4.0.4",
     "**/on-headers": "1.1.0",
     "sha.js": "2.4.12",
-    "qs": "6.15.0"
+    "qs": "6.15.0",
+    "minimatch": "10.2.2"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
