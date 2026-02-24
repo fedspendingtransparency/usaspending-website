@@ -1,29 +1,22 @@
-const {
-    defineConfig,
-    globalIgnores,
-} = require("eslint/config");
+import { defineConfig } from "eslint/config";
+import reactHooks from "eslint-plugin-react-hooks";
+import babel from "eslint-plugin-babel";
+import { fixupPluginRules } from "@eslint/compat";
+import babelParser from "@babel/eslint-parser";
+import * as path from 'path';
+import { fileURLToPath } from "node:url";
+import js from "@eslint/js";
+import { FlatCompat } from "@eslint/eslintrc";
 
-const reactHooks = require("eslint-plugin-react-hooks");
-const babel = require("eslint-plugin-babel");
-
-const {
-    fixupPluginRules,
-} = require("@eslint/compat");
-
-const babelParser = require("@babel/eslint-parser");
-const js = require("@eslint/js");
-
-const {
-    FlatCompat,
-} = require("@eslint/eslintrc");
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const compat = new FlatCompat({
     baseDirectory: __dirname,
     recommendedConfig: js.configs.recommended,
     allConfig: js.configs.all
 });
 
-module.exports = defineConfig([globalIgnores(["**/*.md"]), {
+export default defineConfig([{
     extends: compat.extends("airbnb"),
 
     plugins: {
@@ -40,10 +33,6 @@ module.exports = defineConfig([globalIgnores(["**/*.md"]), {
         parser: babelParser,
         ecmaVersion: 2022,
         sourceType: "script",
-
-        parserOptions: {
-            presets: ["@babel/preset-react"],
-        },
     },
 
     settings: {
