@@ -1,5 +1,5 @@
 /**
- * ExplorerTableContainer.jsx
+ * ExplorerTable.jsx
  * Created by Lizzie Salita 10/16/17
  */
 
@@ -20,7 +20,7 @@ const propTypes = {
 };
 
 // eslint-disable-next-line prefer-arrow-callback
-const ExplorerTableContainer = memo(function ExplorerTableContainer({
+const ExplorerTable = memo(function ExplorerTableContainer({
     isLoading,
     results,
     total,
@@ -102,5 +102,5 @@ const ExplorerTableContainer = memo(function ExplorerTableContainer({
     );
 });
 
-ExplorerTableContainer.propTypes = propTypes;
-export default ExplorerTableContainer;
+ExplorerTable.propTypes = propTypes;
+export default ExplorerTable;

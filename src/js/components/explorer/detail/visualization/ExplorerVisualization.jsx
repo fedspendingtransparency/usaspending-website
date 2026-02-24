@@ -10,7 +10,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import * as redirectHelper from 'helpers/redirectHelper';
 
 import UnreportedErrorScreen from 'components/explorer/detail/UnreportedErrorScreen';
-import ExplorerTableContainer from 'containers/explorer/detail/table/ExplorerTableContainer';
+import ExplorerTable from 'containers/explorer/detail/table/ExplorerTable';
 import Note, { dodNote } from 'components/sharedComponents/Note';
 import BreakdownDropdown from './toolbar/BreakdownDropdown';
 import ExplorerTreemap from './treemap/ExplorerTreemap';
@@ -108,7 +108,7 @@ export default class ExplorerVisualization extends React.Component {
         if (this.state.viewType === 'table') {
             visualization = (
                 <div className={`explorer-vis__table-transition ${loadingTableClass}`}>
-                    <ExplorerTableContainer
+                    <ExplorerTable
                         isLoading={this.props.isLoading}
                         results={this.props.data}
                         total={this.props.total}
