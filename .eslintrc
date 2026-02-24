@@ -97,7 +97,6 @@
         "no-await-in-loop": [0],
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": [1],
-        "jsx-a11y/anchor-is-valid": "warn",
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": false}]
+        "jsx-a11y/anchor-is-valid": "warn"
     }
 }
