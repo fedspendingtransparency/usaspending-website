@@ -255,8 +255,7 @@
     "**/form-data": "4.0.4",
     "**/on-headers": "1.1.0",
     "sha.js": "2.4.12",
-    "qs": "6.15.0",
-    "glob": "13.0.6"
+    "qs": "6.15.0"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
@@ -266,7 +265,7 @@
     "@fortawesome/free-regular-svg-icons": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
     "@fortawesome/react-fontawesome": "^3.1.1",
-    "@jest/globals": "^27.5.1",
+    "@jest/globals": "^29.7.0",
     "@react-hook/resize-observer": "^2.0.2",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
     "@tanstack/react-table": "^8.21.3",
