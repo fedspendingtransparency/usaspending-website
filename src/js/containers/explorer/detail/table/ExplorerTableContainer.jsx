@@ -5,66 +5,11 @@
 
 import React, { memo, useContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
-import { orderBy } from 'lodash-es';
 import { Pagination, Table } from "data-transparency-ui";
 
 import IsMobileContext from "context/IsMobileContext";
-import { formatMoneyWithPrecision } from "helpers/moneyFormatter";
 import { columns } from 'dataMapping/explorer/explorerTableFields';
-
-const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
-    const resultsArray = [];
-
-    data.forEach((item) => {
-        // Format obligated amount
-        const obligatedAmount =
-            formatMoneyWithPrecision(item.amount, 0);
-
-        // Convert from decimal value to percentage and round to 2 decimal places
-        const formattedPercentage = ((item.amount / total) * 100).toFixed(2);
-
-        let percent = `${formattedPercentage}%`;
-        if (percent === '0.00%') {
-            percent = 'Less than 0.01%';
-        }
-
-        const name = item.name !== "Unreported Data" ? item.name : "Unreported Data*";
-        const link = item.name !== "Unreported Data" ?
-            () => goDeeper(item.id, name) :
-            () => goToUnreported(item);
-
-        const result = {
-            Name: name,
-            "Obligated Amount": obligatedAmount,
-            "Percent of Total": percent,
-            link
-        };
-        resultsArray.push(result);
-    });
-
-    return orderBy(
-        resultsArray,
-        [sort.field],
-        [sort.direction]
-    ).map(
-        ({
-            Name: name, "Obligated Amount": obligatedAmount, "Percent of Total": percent, link
-        }) => [
-            (
-                <div className="explorer-link-cell">
-                    <div className="cell-content">
-                        <button
-                            className="go-deeper-link"
-                            onClick={link} >
-                            {name}
-                        </button>
-                    </div>
-                </div>
-            ),
-            obligatedAmount,
-            percent
-        ]);
-};
+import parseResults from "../helpers/parseResults";
 
 const propTypes = {
     isLoading: PropTypes.bool,
@@ -96,7 +41,7 @@ const ExplorerTableContainer = memo(function ExplorerTableContainer({
         if (inRange) setPageNumber(p);
     };
 
-    const rows = useMemo(() => {
+    const parsedData = useMemo(() => {
         const parsedResults = parseResults(results, total, sort, goDeeper, goToUnreported);
 
         if (totalItems < pageSize) return parsedResults;
@@ -107,6 +52,25 @@ const ExplorerTableContainer = memo(function ExplorerTableContainer({
         return parsedResults.filter((v, i) => i <= endingIndex && startingIndex <= i);
     }
     , [results, total, sort, goDeeper, goToUnreported, totalItems, pageNumber]);
+
+    const rows = parsedData.map(
+        ({
+            Name: name, "Obligated Amount": obligatedAmount, "Percent of Total": percent, link
+        }) => [
+            (
+                <div className="explorer-link-cell">
+                    <div className="cell-content">
+                        <button
+                            className="go-deeper-link"
+                            onClick={link} >
+                            {name}
+                        </button>
+                    </div>
+                </div>
+            ),
+            obligatedAmount,
+            percent
+        ]);
 
     const updateSort = (field, direction) => setSort({ field, direction });
 
