@@ -1,6 +1,5 @@
 import { defineConfig } from "eslint/config";
 import reactHooks from "eslint-plugin-react-hooks";
-import babel from "eslint-plugin-babel";
 import { fixupPluginRules } from "@eslint/compat";
 import babelParser from "@babel/eslint-parser";
 import path from "node:path";
@@ -21,7 +20,6 @@ export default defineConfig([{
 
     plugins: {
         "react-hooks": fixupPluginRules(reactHooks),
-        "babel": fixupPluginRules(babel),
     },
 
     languageOptions: {
