@@ -259,7 +259,8 @@
     "**/on-headers": "1.1.0",
     "sha.js": "2.4.12",
     "qs": "6.14.1",
-    "minimatch": "10.2.1"
+    "minimatch": "10.2.1",
+    "zod": "4.3.6"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.28.6",
