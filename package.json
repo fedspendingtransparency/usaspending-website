@@ -4,7 +4,6 @@
   "description": "USAspending Website",
   "repository": "fedspendingtransparency/usaspending-website",
   "main": "src/index.js",
-  "type":"module",
   "scripts": {
     "preinstall": "npx npm-force-resolutions@0.0.3",
     "start": "webpack serve --open --history-api-fallback --progress --config ./webpack/webpack.local.config.js",
