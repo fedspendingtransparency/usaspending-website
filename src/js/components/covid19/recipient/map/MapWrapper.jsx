@@ -10,11 +10,11 @@ import { scaleQuantile, scaleLinear } from 'd3-scale';
 import GlobalConstants from 'GlobalConstants';
 
 import MapBroadcaster from 'helpers/mapBroadcaster';
-import { mapboxSources } from 'dataMapping/covid19/recipient/map/map';
-import MapBox from 'components/search/visualizations/geo/map/MapBox';
-import MapFilters from 'components/covid19/recipient/map/MapFilters';
+import { firstSymbolId, getColors, mapboxSources } from "helpers/mapHelper";
+import MapBox from 'components/sharedComponents/map/MapBox';
+import MapFiltersToggle from 'components/sharedComponents/map/MapFiltersToggle';
+import MapFilters from './MapFilters';
 import MapLegend from './MapLegend';
-import MapFiltersToggle from './MapFiltersToggle';
 
 const propTypes = {
     data: PropTypes.object,
@@ -111,27 +111,8 @@ export default class MapWrapper extends React.Component {
             this.setState({ isFiltersOpen: !this.state.isFiltersOpen });
         }
     };
-    getColors = (numQuantiles) => {
-        const colors = [];
-        for (let i = 0; i < numQuantiles; i++) {
-            // get the color for the map, we use the base color and an opacity attached to it
-            // if we have n quantiles we need n distinct colors
-            colors.push(`rgba(1, 43, 58, ${i * (1 / numQuantiles)})`);
-        }
-        return colors;
-    };
-
-    mapReady = () => {
-    // map has mounted, load the state shapes
-        this.props.onMapLoaded(true);
-    };
 
     countUnique = (iterable) => new Set(iterable).size;
-
-    mapRemoved = () => {
-    // map is about to be removed
-        this.props.onMapLoaded(false);
-    };
 
     prepareMap = () => {
         this.prepareLayers()
@@ -162,10 +143,10 @@ export default class MapWrapper extends React.Component {
             return;
         }
         // enable the base layer
-        this.mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'visible');
+        this.mapRef.current.setLayoutProperty(layers.base, 'visibility', 'visible');
         layers.highlights.forEach((highlight) => {
             // iterate through all the highlight layers and enable them
-            this.mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'visible');
+            this.mapRef.current.setLayoutProperty(highlight, 'visibility', 'visible');
         });
     };
 
@@ -177,28 +158,11 @@ export default class MapWrapper extends React.Component {
             return;
         }
         // hide the base layer
-        this.mapRef.current.map.current.setLayoutProperty(layers.base, 'visibility', 'none');
+        this.mapRef.current.setLayoutProperty(layers.base, 'visibility', 'none');
         layers.highlights.forEach((highlight) => {
             // iterate through all the highlight layers and enable them
-            this.mapRef.current.map.current.setLayoutProperty(highlight, 'visibility', 'none');
+            this.mapRef.current.setLayoutProperty(highlight, 'visibility', 'none');
         });
-    };
-    /**
-     * firstSymbolId
-     * - finds the first symbol ( text to mapbox ) layer.
-     * @returns {string} first symbol layer id.
-     */
-    firstSymbolId = () => {
-        const layers = this.mapRef.current.map.current.getStyle().layers;
-        // Find the index of the first symbol layer in the map style
-        let firstSymbolId = null;
-        for (let i = 0; i < layers.length; i++) {
-            if (layers[i].type === 'symbol') {
-                firstSymbolId = layers[i].id;
-                break;
-            }
-        }
-        return firstSymbolId;
     };
 
     loadSource = (type) => {
@@ -210,14 +174,14 @@ export default class MapWrapper extends React.Component {
 
         // load the data source
         const source = mapboxSources[type];
-        this.mapRef.current.map.current.addSource(type, {
+        this.mapRef.current.addSource(type, {
             type: 'vector',
             url: source.url
         });
 
         // transform the source shapes into a base layer that will show the outline of all the
         // contents
-        this.mapRef.current.map.current.addLayer({
+        this.mapRef.current.addLayer({
             id: baseLayer,
             type: 'fill',
             source: type,
@@ -233,18 +197,18 @@ export default class MapWrapper extends React.Component {
         let colors = [];
         if (this.props.data.values.length !== 0) {
             if (this.props.activeFilters.territory === 'state') {
-                colors = this.getColors(numStateQuantiles);
+                colors = getColors(numStateQuantiles);
             }
             else {
-                colors = this.getColors(numCountyQuantiles);
+                colors = getColors(numCountyQuantiles);
             }
         }
         else {
-            colors = this.getColors(numStateQuantiles); // in the case when the map has not recieved data yet
+            colors = getColors(numStateQuantiles); // in the case when the map has not recieved data yet
         }
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
-            this.mapRef.current.map.current.addLayer({
+            this.mapRef.current.addLayer({
                 id: layerName,
                 type: 'fill',
                 source: type,
@@ -254,11 +218,11 @@ export default class MapWrapper extends React.Component {
                     'fill-color': color
                 },
                 filter: ['in', source.filterKey, '']
-            }, this.firstSymbolId());
+            }, firstSymbolId(this.mapRef));
 
             // setup mouseover events
-            this.mapRef.current.map.current.on('mousemove', layerName, this.mouseOverLayer.bind(this));
-            this.mapRef.current.map.current.on('mouseleave', layerName, this.mouseExitLayer.bind(this));
+            this.mapRef.current.on('mousemove', layerName, this.mouseOverLayer.bind(this));
+            this.mapRef.current.on('mouseleave', layerName, this.mouseExitLayer.bind(this));
 
             // save a reference to this layer
             sourceRef.highlights.push(layerName);
@@ -288,18 +252,18 @@ export default class MapWrapper extends React.Component {
 
         // check if we need to zoom in to show the layer
         if (source.minZoom) {
-            const currentZoom = this.mapRef.current.map.current.getZoom();
+            const currentZoom = this.mapRef.current.getZoom();
             if (currentZoom < source.minZoom) {
                 // we are zoomed too far out and won't be able to see the new map layer, zoom in
                 // don't allow users to zoom further out than the min zoom
-                this.mapRef.current.map.current.setMinZoom(source.minZoom);
+                this.mapRef.current.setMinZoom(source.minZoom);
             }
         }
         else {
-            this.mapRef.current.map.current.setMinZoom(0);
+            this.mapRef.current.setMinZoom(0);
         }
 
-        const parentMap = this.mapRef.current.map.current;
+        const parentMap = this.mapRef.current;
         function renderResolver() {
             parentMap.off('render', renderResolver);
             resolve();
@@ -317,13 +281,13 @@ export default class MapWrapper extends React.Component {
         }
 
         // if we're loading new data, we need to wait for the data to be ready
-        this.mapRef.current.map.current.on('sourcedata', loadResolver);
+        this.mapRef.current.on('sourcedata', loadResolver);
     });
 
     measureMap = (forced = false) => {
     // determine which entities (state, counties, etc based on current activeFilter territory) are in view
     // use Mapbox SDK to determine the currently rendered shapes in the base layer
-        const mapLoaded = this.mapRef.current.map.current.loaded();
+        const mapLoaded = this.mapRef.current.loaded();
         // wait for the map to load before continuing
         if (!mapLoaded) {
             window.requestAnimationFrame(() => {
@@ -332,7 +296,7 @@ export default class MapWrapper extends React.Component {
             return;
         }
 
-        const entities = this.mapRef.current.map.current.queryRenderedFeatures({
+        const entities = this.mapRef.current.queryRenderedFeatures({
             layers: [`base_${this.props.activeFilters.territory}`]
         });
 
@@ -349,7 +313,7 @@ export default class MapWrapper extends React.Component {
 
     prepareChangeListeners = () => {
     // detect visible entities whenever the map moves
-        const parentMap = this.mapRef.current.map.current;
+        const parentMap = this.mapRef.current;
         function renderCallback() {
             if (parentMap.loaded()) {
                 parentMap.off('render', renderCallback);
@@ -360,17 +324,17 @@ export default class MapWrapper extends React.Component {
         // we need to hold a reference to the callback in order to remove the listener when
         // the component unmounts
         this.renderCallback = () => {
-            this.mapRef.current.map.current.on('render', renderCallback);
+            this.mapRef.current.on('render', renderCallback);
         };
-        this.mapRef.current.map.current.on('moveend', this.renderCallback);
+        this.mapRef.current.on('moveend', this.renderCallback);
         // but also do it when the map resizes, since the view will be different
-        this.mapRef.current.map.current.on('resize', this.renderCallback);
+        this.mapRef.current.on('resize', this.renderCallback);
     };
 
     removeChangeListeners = () => {
     // remove the render callbacks
-        this.mapRef.current.map.current.off('moveend', this.renderCallback);
-        this.mapRef.current.map.current.off('resize', this.renderCallback);
+        this.mapRef.current.off('moveend', this.renderCallback);
+        this.mapRef.current.off('resize', this.renderCallback);
     };
 
     mouseOverLayer = (e) => {
@@ -414,11 +378,11 @@ export default class MapWrapper extends React.Component {
         let rangeArray = [];
         let colors = [];
         if (this.props.activeFilters.territory === 'state') {
-            colors = this.getColors(numStateQuantiles);
+            colors = getColors(numStateQuantiles);
             rangeArray = [...Array(numStateQuantiles).keys()];
         }
         else {
-            colors = this.getColors(numCountyQuantiles);
+            colors = getColors(numCountyQuantiles);
             rangeArray = [...Array(numCountyQuantiles).keys()];
         }
 
@@ -458,7 +422,7 @@ export default class MapWrapper extends React.Component {
                 // if there are locations that are displayable, include those in the filter
                 filter = ['in', source.filterKey].concat(valueSet);
             }
-            this.mapRef.current.map.current.setFilter(layerName, filter);
+            this.mapRef.current.setFilter(layerName, filter);
         });
 
         this.setState({
@@ -466,7 +430,7 @@ export default class MapWrapper extends React.Component {
         });
     };
 
-    toggleFilters = () => this.setState({ isFiltersOpen: !this.state.isFiltersOpen });
+    toggleFilters = (bool) => this.setState({ isFiltersOpen: bool });
 
     tooltip = () => {
         const { tooltip: TooltipComponent, selectedItem, showHover } = this.props;
@@ -511,12 +475,16 @@ export default class MapWrapper extends React.Component {
                 ref={(div) => {
                     this.wrapperDiv = div;
                 }}>
-                {GlobalConstants.MAPBOX_TOKEN && <MapBox
-                    loadedMap={this.mapReady}
-                    unloadedMap={this.mapRemoved}
-                    center={this.props.center}
-                    ref={this.mapRef} />}
-                <MapFiltersToggle onKeyDown={this.onKeyDown} onClick={this.toggleFilters} isOpen={this.state.isFiltersOpen} />
+                {
+                    GlobalConstants.MAPBOX_TOKEN &&
+                    <MapBox
+                        setMapReady={this.props.onMapLoaded}
+                        center={this.props.center}
+                        ref={this.mapRef} />
+                }
+                <MapFiltersToggle
+                    isFiltersOpen={this.state.isFiltersOpen}
+                    setIsFiltersOpen={this.toggleFilters} />
                 {this.filters()}
                 {this.legend()}
                 {this.tooltip()}
