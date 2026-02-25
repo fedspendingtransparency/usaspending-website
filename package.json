@@ -13,7 +13,7 @@
     "errors": "eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
     "dev": "webpack --progress --config ./webpack/webpack.dev.config.js",
     "prod": "webpack --progress --config ./webpack/webpack.prod.config.js",
-    "auditLintTest": "eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" && jest --maxWorkers=2 --silent",
+    "auditLintTest": "npm audit --audit-level=high --production && eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" && jest --maxWorkers=2 --silent",
     "lhci:wizard": "lhci wizard",
     "lhci:server": "lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
     "lhci:desktop": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci --config=./lighthousercdesktop.js autorun --chrome-flags=\"--headless\"",
