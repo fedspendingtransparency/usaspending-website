@@ -25,7 +25,6 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
     const [rows, setRows] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const [hasNegatives, setHasNegatives] = useState(false);
-    console.debug("TOGGLE: ", toggleState);
     const parseData = useCallback((results) => {
         const amountType = toggleState ? "total_outlays" : "amount";
         // Sum all amounts in the returned award types
