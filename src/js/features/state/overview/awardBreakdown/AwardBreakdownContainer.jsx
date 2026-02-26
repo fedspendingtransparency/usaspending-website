@@ -10,7 +10,7 @@ import { ErrorMessage, FlexGridCol, LoadingMessage } from "data-transparency-ui"
 
 import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
 import useQueryTemp from "hooks/useQueryTemp";
-import { fetchAwardBreakdown } from "features/state/stateHelper";
+import { fetchAwardBreakdown } from "apis/state";
 import AwardBreakdownTreeMap from './treemap/AwardBreakdownTreeMap';
 import AwardBreakdownTable from './AwardBreakdownTable';
 

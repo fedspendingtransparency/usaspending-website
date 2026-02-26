@@ -3,18 +3,17 @@
  * Created by Lizzie Salita 5/1/18
  */
 
-import React, { useEffect, useCallback } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 
-import BaseStateProfile from 'models/v2/state/BaseStateProfile';
 import {
     setStateOverview,
     setStateFiscalYear,
     setStateCenter
 } from 'redux/actions/state/stateActions';
 import { stateCenterFromFips } from 'helpers/mapHelper';
-import useOverview from "./hooks/useOverview";
+import useFetchOverview from "./hooks/useFetchOverview";
 import StatePage from './StatePage';
 
 require('pages/state/statePage.scss');
@@ -32,24 +31,15 @@ const StatePageContainer = ({
     const stateProfile = useSelector((s) => s.stateProfile);
     const dispatch = useDispatch();
 
-    const loadStateOverview = useCallback((data) => {
-        if (Object.keys(data).length === 0) {
-            return;
-        }
-        const newStateProfile = Object.create(BaseStateProfile);
-        newStateProfile.populate(data);
-        dispatch(setStateOverview(newStateProfile));
-    }, [dispatch]);
-
     const {
-        data, isSuccess, isLoading, error
-    } = useOverview(stateId, fy);
+        stateProfileData, isSuccess, isLoading, error
+    } = useFetchOverview(stateId, fy);
 
     useEffect(() => {
-        if (isSuccess && Object.keys(data?.data).length === 0) {
-            loadStateOverview(data?.data);
+        if (isSuccess && stateProfileData && Object.keys(stateProfileData).length > 0) {
+            dispatch(setStateOverview(stateProfileData));
         }
-    }, [data]);
+    }, [isSuccess, stateProfileData]);
 
     useEffect(() => {
         // Reset the FY
