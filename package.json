@@ -257,6 +257,32 @@
     "sha.js": "2.4.12",
     "qs": "6.14.2"
   },
+  "overrides": {
+    "babel-plugin-module-resolver": {
+      "minimatch": "8.0.7"
+    },
+    "eslint-plugin-import": {
+      "minimatch":"3.1.3"
+    },
+    "eslint": {
+      "minimatch": "3.1.3"
+    },
+    "glob": {
+      "minimatch":"3.1.3"
+    },
+    "fork-ts-checker-webpack-plugin": {
+      "minimatch":"3.1.3"
+    },
+    "eslint-plugin-jsx-a11y": {
+      "minimatch":"3.1.3"
+    },
+    "test-exclude": {
+      "minimatch":"3.1.3"
+    },
+    "@eslint/eslintrc": {
+      "minimatch":"3.1.3"
+    }   
+  },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
     "@chromatic-com/storybook": "^4.1.1",
