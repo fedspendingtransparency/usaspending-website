@@ -23,7 +23,7 @@ jobs:
         run: npm install -g @lhci/cli@0.14.x          
 
       - name: Init NPM
-        run: npm install -g npm@10.8.3
+        run: npm install -g npm@11.11.0
 
       - name: Install webpack
         run: npm install -g webpack@5.94.0
