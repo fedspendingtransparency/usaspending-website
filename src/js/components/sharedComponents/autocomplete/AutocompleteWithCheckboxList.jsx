@@ -77,6 +77,10 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
         setIsOpen((prevState) => !prevState);
     }, []);
 
+    const handleNoResultsLinkClick = () => {
+        // GA event fire here
+    };
+
     useEffect(() => {
         if (selectedFilters?.size > 0) {
             setAllSelected(true);
@@ -126,6 +130,16 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
 
     const resultsContainer = () => {
         if (noResults) {
+            const alertBody = (
+                <p>
+                    Please check your spelling or try a broader search. Missing something?
+                    <a
+                        href="https://eex-survey.voc.ttecgov.us/se/0ADFD0F61A0367FE"
+                        onClick={handleNoResultsLinkClick}>
+                        &nbsp;Submit feedback on filters.&nbsp;
+                    </a>
+                </p>
+            );
             return (
                 <>
                     {showClearAll &&
@@ -143,7 +157,7 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
                     <Alert
                         className="autocomplete-no-results"
                         header="Sorry, no results found"
-                        body="Please check your spelling or try a broader search."
+                        body={alertBody}
                         type="warning"
                         icon />
                 </>
