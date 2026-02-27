@@ -23,7 +23,7 @@ const propTypes = {
     total: PropTypes.number,
     goDeeper: PropTypes.func,
     changeSubdivisionType: PropTypes.func,
-    showTooltip: PropTypes.func,
+    showTooltip: PropTypes.bool,
     hideTooltip: PropTypes.func,
     goToUnreported: PropTypes.func
 };
