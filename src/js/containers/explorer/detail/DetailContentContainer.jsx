@@ -3,247 +3,125 @@
  * Created by Kevin Li 8/16/17
  */
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { List } from 'immutable';
 
 import Analytics from 'helpers/analytics/Analytics';
-
 import { dropdownScopes } from 'dataMapping/explorer/dropdownScopes';
-
-import * as explorerActions from 'redux/actions/explorer/explorerActions';
-import * as ExplorerHelper from 'helpers/explorerHelper';
-
+import {
+    appendCellForDataOutsideTree, fetchBreakdown, truncateDataForTreemap
+} from 'helpers/explorerHelper';
+import {
+    addExplorerTrail,
+    overwriteExplorerTrail,
+    resetExplorerTable,
+    setExplorerActive,
+    setExplorerPeriod
+} from "redux/actions/explorer/explorerActions";
 import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
-import withAgencySlugs from "containers/agency/WithAgencySlugs";
 
 const propTypes = {
-    explorer: PropTypes.object,
-    setExplorerActive: PropTypes.func,
-    setExplorerPeriod: PropTypes.func,
-    overwriteExplorerTrail: PropTypes.func,
-    addExplorerTrail: PropTypes.func,
     showTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func,
-    resetExplorerTable: PropTypes.func,
-    history: PropTypes.object,
-    agencySlugs: PropTypes.object,
-    loading: PropTypes.bool,
-    error: PropTypes.bool
+    hideTooltip: PropTypes.func
 };
 
-export class DetailContentContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const DetailContentContainer = ({
+    showTooltip,
+    hideTooltip
+}) => {
+    const {
+        root, fy, quarter, period, active, trail: rawTrail
+    } = useSelector((state) => state.explorer);
+    const dispatch = useDispatch();
+    const [data, setData] = useState(new List());
+    const [lastUpdate, setLastUpdate] = useState('');
+    const [filters, setFilters] = useState({});
+    const [transitionSteps, setTransitionSteps] = useState(0);
+    const [inFlight, setInFlight] = useState(true);
+    const [isTruncated, setIsTruncated] = useState(false);
+    const [transition, setTransition] = useState('');
+    const requestRef = useRef(null);
 
-        this.state = {
-            data: new List(),
-            lastUpdate: '',
-            filters: {},
-            transitionSteps: 0,
-            inFlight: true,
-            isTruncated: false,
-            transition: ''
-        };
+    const trail = rawTrail?.toJS();
 
-        this.request = null;
-
-        this.goDeeper = this.goDeeper.bind(this);
-        this.goToUnreported = this.goToUnreported.bind(this);
-        this.changeSubdivisionType = this.changeSubdivisionType.bind(this);
-        this.rewindToFilter = this.rewindToFilter.bind(this);
-    }
-
-    componentDidMount() {
-        if (this.props.explorer.fy && (this.props.explorer.period || this.props.explorer.quarter)) {
-            this.prepareRootRequest(
-                this.props.explorer.root,
-                this.props.explorer.fy,
-                this.props.explorer.quarter,
-                this.props.explorer.period
-            );
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (prevProps.explorer.root !== this.props.explorer.root ||
-            prevProps.explorer.fy !== this.props.explorer.fy ||
-            prevProps.explorer.quarter !== this.props.explorer.quarter ||
-            prevProps.explorer.period !== this.props.explorer.period) {
-            // root changed, reload everything
-            this.prepareRootRequest(
-                this.props.explorer.root,
-                this.props.explorer.fy,
-                this.props.explorer.quarter,
-                this.props.explorer.period
-            );
-        }
-    }
-
-    prepareRootRequest(rootType, fy, quarter, period) {
-    // we need to make a root request
-    // at the root level, ignore all filters except for the root
-    // in fact, just to be safe, let's overwrite the filter props
-        const resetFilters = {
-            fy,
-            quarter,
-            period
-        };
-
-        // make the request
-        const request = {
-            within: 'root',
-            subdivision: rootType
-        };
-
-        this.setState({
-            filters: resetFilters
-        }, () => {
-            this.loadData(request, true);
-        });
-
-        // log the analytics event for a Spending Explorer starting point
-        Analytics.event({
-            event: 'Spending Explorer - Starting Point',
-            category: 'Spending Explorer - Starting Point',
-            action: rootType
-        });
-    }
-
-    loadData(request, isRoot = false, isRewind = false) {
-        this.setState({
-            inFlight: true
-        });
-
-        if (this.request) {
-            this.request.cancel();
-        }
-
-        if (!this.props.explorer.fy || (!this.props.explorer.period && !this.props.explorer.quarter)) {
-            return Promise.resolve();
-        }
-
-        // perform the API request
-        const requestFilters = Object.assign({}, this.state.filters);
-        if (requestFilters.quarter == null) {
-            delete requestFilters.quarter;
-        }
-        if (requestFilters.period == null) {
-            delete requestFilters.period;
-        }
-        this.request = ExplorerHelper.fetchBreakdown({
-            type: request.subdivision,
-            filters: requestFilters
-        });
-
-        return this.request.promise
-            .then((res) => {
-                if (isRoot) {
-                    this.parseRootData(res.data);
-                }
-                else {
-                    this.parseData(res.data, request, isRewind);
-                }
-                this.request = null;
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.error(err);
-                    this.request = null;
-                }
-            });
-    }
-
-    parseRootData(data) {
-        const total = data.total;
-
+    const parseRootData = ({ total, end_date: endDate, results }) => {
         // build the active screen root object
         const activeScreen = {
             total,
             within: 'root',
-            subdivision: this.props.explorer.root
+            subdivision: root
         };
+
         // update the trail to consist of only this screen (since we are at the root, there cannot
         //  be anything else in the trail)
-        const trail = [
+        dispatch(overwriteExplorerTrail([
             {
                 total,
                 within: 'root',
-                subdivision: this.props.explorer.root,
+                subdivision: root,
                 title: '',
                 id: ''
             }
-        ];
+        ]));
+        dispatch(resetExplorerTable());
 
-        this.props.overwriteExplorerTrail(trail);
-
-        this.props.resetExplorerTable();
-
-        if (this.state.transitionSteps !== 0) {
+        if (transitionSteps !== 0) {
             // there is going to be a transition, so trigger the exit animation
             // then, 250ms later (after the exit animation completes), apply the props and state
             // so the entry animation occurs with the new data
-            this.setState({
-                transition: 'start'
-            }, () => {
-                window.setTimeout(() => {
-                    this.props.setExplorerActive(activeScreen);
+            setTransition('start');
+            window.setTimeout(() => {
+                dispatch(setExplorerActive(activeScreen));
 
-                    // save the data as an Immutable object for easy change comparison within
-                    // the treemap
-                    this.setState({
-                        data: new List(data.results),
-                        lastUpdate: data.end_date,
-                        inFlight: false,
-                        isTruncated: false, // root will never be truncated
-                        transition: 'end'
-                    });
-                }, 250);
-            });
+                // save the data as an Immutable object for easy change comparison within
+                // the treemap
+                setData(new List(results));
+                setLastUpdate(endDate);
+                setInFlight(false);
+                setIsTruncated(false); // root will never be truncated
+                setTransition('end');
+            }, 250);
         }
         else {
             // there are no transition steps, so apply changes immediate
-            this.props.setExplorerActive(activeScreen);
+            dispatch(setExplorerActive(activeScreen));
 
             // save the data as an Immutable object for easy change comparison within
             // the treemap
-            this.setState({
-                data: new List(data.results),
-                lastUpdate: data.end_date,
-                inFlight: false,
-                isTruncated: false, // root will never be truncated
-                transition: ''
-            });
+            setData(new List(results));
+            setLastUpdate(endDate);
+            setInFlight(false);
+            setIsTruncated(false); // root will never be truncated
+            setTransition('');
         }
-    }
+    };
 
-    parseData(data, request, isRewind) {
-        const total = data.total;
-
-        let isTruncated = false;
-        let parsedResults = ExplorerHelper.truncateDataForTreemap(data.results);
+    const parseData = ({ total, end_date: endDate, results }, request, isRewind) => {
+        let truncated = false;
+        let parsedResults = truncateDataForTreemap(results);
 
         if (request.subdivision === 'award') {
-            // link to award page using new human readable id
-            parsedResults = parsedResults.map((obj) => ({ ...obj, id: encodeURIComponent(obj.generated_unique_award_id) }));
+            // link to award page using new human-readable id
+            parsedResults = parsedResults.map(
+                (obj) => ({ ...obj, id: encodeURIComponent(obj.generated_unique_award_id) })
+            );
         }
 
         if (request.subdivision === 'award' || request.subdivision === 'recipient') {
-            isTruncated = data.results.length > 500;
+            truncated = results.length > 500;
         }
 
-        if (isTruncated) {
-            parsedResults = ExplorerHelper.appendCellForDataOutsideTree(parsedResults, total, request.subdivision)
+        if (truncated) {
+            parsedResults = appendCellForDataOutsideTree(parsedResults, total, request.subdivision)
                 .sort((a, b) => b.amount - a.amount);
         }
+
         // build the trail item of the last applied filter using the request object
-        const trailItem = Object.assign({}, request, {
-            total
-        });
+        const trailItem = Object.assign({}, request, { total });
 
         // add it to the sidebar trail, but only if the "within" value has changed
         // otherwise, we're simply cutting the data up in a different way (ie, only the subdivision
@@ -251,8 +129,8 @@ export class DetailContentContainer extends React.Component {
         // Also, if the data load was part of a rewind operation (going back up the path via
         // the sidebar), the sidebar is already rendered with the correct items, so don't add
         // anything
-        if (request.within !== this.props.explorer.active.within && !isRewind) {
-            this.props.addExplorerTrail(trailItem);
+        if (request.within !== active.within && !isRewind) {
+            dispatch(addExplorerTrail(trailItem));
         }
 
         // update the active screen within and subdivision values using the request object
@@ -263,40 +141,33 @@ export class DetailContentContainer extends React.Component {
             accountNumber: request.accountNumber || ''
         };
 
-        if (this.state.transitionSteps !== 0) {
+        if (transitionSteps !== 0) {
             // there is going to be a transition, so trigger the exit animation
             // then, 250ms later (after the exit animation completes), apply the props and state
             // so the entry animation occurs with the new data
-            this.setState({
-                transition: 'start'
-            }, () => {
-                window.setTimeout(() => {
-                    this.props.setExplorerActive(activeScreen);
+            setTransition('start');
+            window.setTimeout(() => {
+                setExplorerActive(activeScreen);
 
-                    // save the data as an Immutable object for easy change comparison within
-                    // the treemap
-                    this.setState({
-                        isTruncated,
-                        data: new List(parsedResults),
-                        lastUpdate: data.end_date,
-                        inFlight: false,
-                        transition: 'end'
-                    });
-                }, 250);
-            });
+                // save the data as an Immutable object for easy change comparison within
+                // the treemap
+                setData(new List(parsedResults));
+                setLastUpdate(endDate);
+                setInFlight(false);
+                setIsTruncated(truncated);
+                setTransition('end');
+            }, 250);
         }
         else {
             // no animation required if there are 0 transition steps
-            this.props.setExplorerActive(activeScreen);
+            setExplorerActive(activeScreen);
 
             // save the data as an Immutable object for easy change comparison within the treemap
-            this.setState({
-                isTruncated,
-                data: new List(parsedResults),
-                lastUpdate: data.end_date,
-                inFlight: false,
-                transition: ''
-            });
+            setData(new List(parsedResults));
+            setLastUpdate(endDate);
+            setInFlight(false);
+            setIsTruncated(truncated);
+            setTransition('');
         }
 
         Analytics.event({
@@ -304,10 +175,84 @@ export class DetailContentContainer extends React.Component {
             category: 'Spending Explorer - Data Type',
             action: request.subdivision
         });
-    }
+    };
 
-    goDeeper(id, data) {
-        if (this.state.inFlight) {
+    const loadData = (request, isRoot = false, isRewind = false) => {
+        setInFlight(true);
+
+        if (requestRef.current) {
+            requestRef.current.cancel();
+        }
+
+        if (!fy || (!period && !quarter)) {
+            return Promise.resolve();
+        }
+
+        // perform the API request
+        const requestFilters = Object.assign({}, filters);
+
+        if (requestFilters.quarter == null) {
+            delete requestFilters.quarter;
+        }
+
+        if (requestFilters.period == null) {
+            delete requestFilters.period;
+        }
+
+        requestRef.current = fetchBreakdown({
+            type: request.subdivision,
+            filters: requestFilters
+        });
+
+        return requestRef.current.promise
+            .then((res) => {
+                if (isRoot) {
+                    parseRootData(res.data);
+                }
+                else {
+                    parseData(res.data, request, isRewind);
+                }
+                requestRef.current = null;
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.error(err);
+                    requestRef.current = null;
+                }
+            });
+    };
+
+    const prepareRootRequest = (rootType, y, q, p) => {
+        // we need to make a root request
+        // at the root level, ignore all filters except for the root
+        // in fact, just to be safe, let's overwrite the filter props
+        setFilters({ fy: y, quarter: q, period: p });
+
+        // make the request
+        const request = {
+            within: 'root',
+            subdivision: rootType
+        };
+
+        loadData(request, true);
+
+        // log the analytics event for a Spending Explorer starting point
+        Analytics.event({
+            event: 'Spending Explorer - Starting Point',
+            category: 'Spending Explorer - Starting Point',
+            action: rootType
+        });
+    };
+
+    useEffect(() => {
+        if (fy && (period || quarter)) prepareRootRequest(root, fy, quarter, period);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [root, fy, quarter, period]);
+
+    const goDeeper = (id, {
+        name, id: dataId, account_number: accountNumber, link
+    }) => {
+        if (inFlight) {
             // API call is in progress, don't allow clicks
             return;
         }
@@ -315,7 +260,7 @@ export class DetailContentContainer extends React.Component {
         // determine how we are currently subdividing the data
         // determine the data element we should filter by
         // this is equal to how we are currently subdividing the spending
-        const filterBy = this.props.explorer.active.subdivision;
+        const filterBy = active.subdivision;
         if (filterBy === 'award') {
             // we are at the bottom of the path, go to the award page
             // and open in new tab
@@ -336,8 +281,8 @@ export class DetailContentContainer extends React.Component {
         // generate a trail object representing the current filter that is being applied
         // the new "within" value is the old subdivision unit
         // given this, determine how far down the path we are
-        const path = dropdownScopes[this.props.explorer.root];
-        const currentDepth = path.indexOf(this.props.explorer.active.subdivision);
+        const path = dropdownScopes[root];
+        const currentDepth = path.indexOf(active.subdivision);
 
         // By default, the next subdivision unit is the next step down the path
         let nextSubdivision = path[currentDepth + 1];
@@ -351,7 +296,7 @@ export class DetailContentContainer extends React.Component {
             // scope if it's not already there
             if (programActivityIndex === -1) {
                 let index = 3;
-                if (this.props.explorer.root === 'agency') {
+                if (root === 'agency') {
                     index = 2;
                 }
                 // Insert program activity
@@ -370,56 +315,50 @@ export class DetailContentContainer extends React.Component {
         // the total amount represents)
         // the next item in the path will be the new subdivision unit
         const request = {
-            within: this.props.explorer.active.subdivision,
+            within: active.subdivision,
             subdivision: nextSubdivision,
-            title: data.name,
-            id: data.id,
-            accountNumber: data.account_number || '',
-            link: data.link
+            title: name,
+            id: dataId,
+            accountNumber: accountNumber || '',
+            link
         };
 
-        this.props.resetExplorerTable();
+        dispatch(resetExplorerTable());
 
-        this.setState({
-            transitionSteps: 1,
-            filters: Object.assign({}, this.state.filters, newFilter)
-        }, () => {
-            this.loadData(request, false);
-        });
+        setTransitionSteps(1);
+        setFilters(Object.assign({}, filters, newFilter));
+
+        loadData(request, false);
 
         Analytics.event({
             event: 'Spending Explorer - Drilldown',
             category: 'Spending Explorer - Drilldown',
             action: filterBy,
-            label: `${data.name} - ${data.id}`
+            label: `${name} - ${dataId}`
         });
-    }
+    };
 
-    changeSubdivisionType(type) {
-    // if we're skipping levels, then we are not adding filters, we're simply revisualizating
-    // the data that is already filtered.
-    // This means we don't need to modify the trail or the redux filter set.
-    // This also means we shouldn't show an animation.
-    // To do this, clone the current active screen object and change only the subdivision to
-    // the selected type. We'll pass this on as the request object to loadData.
-    // loadData has internal logic that will just change the redux Active Screen and not add
-    // anything to the sidebar trail
-        const request = Object.assign({}, this.props.explorer.active.toJS(), {
+    const changeSubdivisionType = (type) => {
+        // if we're skipping levels, then we are not adding filters, we're simply revisualizating
+        // the data that is already filtered.
+        // This means we don't need to modify the trail or the redux filter set.
+        // This also means we shouldn't show an animation.
+        // To do this, clone the current active screen object and change only the subdivision to
+        // the selected type. We'll pass this on as the request object to loadData.
+        // loadData has internal logic that will just change the redux Active Screen and not add
+        // anything to the sidebar trail
+        const request = Object.assign({}, active.toJS(), {
             subdivision: type
         });
 
-        this.props.resetExplorerTable();
+        dispatch(resetExplorerTable());
+        setTransitionSteps(0);
+        loadData(request, false);
+    };
 
-        this.setState({
-            transitionSteps: 0
-        }, () => {
-            this.loadData(request, false);
-        });
-    }
+    const rewindToFilter = (index) => {
+        const oldFilters = filters;
 
-    rewindToFilter(index) {
-        const trail = this.props.explorer.trail.toJS();
-        const oldFilters = this.state.filters;
         // don't do anything if this is the current filter (ie, the last one in the trail)
         if (index === trail.length - 1) {
             return;
@@ -428,23 +367,17 @@ export class DetailContentContainer extends React.Component {
         // determine how many steps we need to rewind
         const steps = index - (trail.length - 1);
 
-
         if (index === 0) {
             // we are going all the way back to the start
-            this.setState({
-                transitionSteps: steps
-            }, () => {
-                this.prepareRootRequest(this.props.explorer.root, this.props.explorer.fy, this.props.explorer.quarter, this.props.explorer.period);
-            });
+            setTransitionSteps(steps);
+            prepareRootRequest(root, fy, quarter, period);
+
             return;
         }
 
         // iterate through the trail to rebuild the filter set
-        const newFilters = {
-            fy: this.props.explorer.fy,
-            quarter: this.props.explorer.quarter,
-            period: this.props.explorer.period
-        };
+        const newFilters = { fy, quarter, period };
+
         const newTrail = [];
         // iterate through the trail and include only those filters up to the point we are rewinding
         // to
@@ -453,9 +386,9 @@ export class DetailContentContainer extends React.Component {
             if (filterType !== 'root') {
                 // root filters are not real filters, so ignore them
                 // get the filter type and fetch its ID from the current filter set
-                const filterValue = oldFilters[filterType];
-                newFilters[filterType] = filterValue;
+                newFilters[filterType] = oldFilters[filterType];
             }
+
             // add the old item back into the new trail
             newTrail.push(trail[i]);
         }
@@ -466,120 +399,102 @@ export class DetailContentContainer extends React.Component {
         // the request object will essentially match the trail item from the selected index
         const selectedTrailItem = trail[index];
 
-        this.props.overwriteExplorerTrail(newTrail);
+        dispatch(overwriteExplorerTrail(newTrail));
+        resetExplorerTable();
 
-        this.props.resetExplorerTable();
+        setTransitionSteps(steps);
+        setFilters(newFilters);
 
-        this.setState({
-            transitionSteps: steps,
-            filters: newFilters
-        }, () => {
-            this.loadData(selectedTrailItem, isRoot, true);
-        });
-    }
+        loadData(selectedTrailItem, isRoot, true);
+    };
 
-    goToUnreported(data) {
-        const dataArr = [data];
+    const goToUnreported = (d) => {
+        const dataArr = [d];
 
         // generate a trail object representing the current filter that is being applied
         // the new "within" value is the old subdivision unit
         // given this, determine how far down the path we are
-        const path = dropdownScopes[this.props.explorer.root];
-        const currentDepth = path.indexOf(this.props.explorer.active.subdivision);
+        const path = dropdownScopes[root];
+        const currentDepth = path.indexOf(active.subdivision);
 
         const currentSubdivision = path[currentDepth];
 
         const trailDisplay = {
-            within: this.props.explorer.active.subdivision,
-            title: data.name,
+            within: active.subdivision,
+            title: d.name,
             subdivision: currentSubdivision
         };
 
         let total;
-        if (!data.obligated_amount) {
-            total = data.amount;
+        if (!d.obligated_amount) {
+            total = d.amount;
         }
         else {
-            total = data.obligated_amount;
+            total = d.obligated_amount;
         }
 
         const trailItem = Object.assign({}, trailDisplay, {
             total
         });
 
-        this.props.addExplorerTrail(trailItem);
+        dispatch(addExplorerTrail(trailItem));
 
         // update the active screen within and subdivision values using the request object
         const activeScreen = {
             total
         };
 
-
-        this.setState({
-            transitionSteps: 1
-        });
+        setTransitionSteps(1);
 
         // there is going to be a transition, so trigger the exit animation
         // then, 250ms later (after the exit animation completes), apply the props and state
         // so the entry animation occurs with the new data
-        this.setState({
-            transition: 'start'
-        }, () => {
-            window.setTimeout(() => {
-                this.props.setExplorerActive(activeScreen);
+        setTransition('start');
 
-                // save the data as an Immutable object for easy change comparison within
-                // the treemap
-                this.setState({
-                    data: new List(dataArr),
-                    lastUpdate: this.state.lastUpdate,
-                    inFlight: false,
-                    transition: 'end'
-                });
-            }, 250);
-        });
+        window.setTimeout(() => {
+            dispatch(setExplorerActive(activeScreen));
 
-        this.props.resetExplorerTable();
-    }
+            // save the data as an Immutable object for easy change comparison within
+            // the treemap
+            setData(new List(dataArr));
+            setInFlight(false);
+            setTransition('end');
+        }, 250);
 
-    render() {
-        return (
-            <div className="explorer-detail">
-                <ExplorerSidebar
-                    fy={this.props.explorer.fy}
-                    quarter={this.props.explorer.quarter}
-                    period={this.props.explorer.period}
-                    trail={this.props.explorer.trail}
-                    setExplorerPeriod={this.props.setExplorerPeriod}
-                    rewindToFilter={this.rewindToFilter} />
-                <DetailContent
-                    isRoot={this.props.explorer.active.within === 'root'}
-                    isLoading={this.state.inFlight || this.props.error}
-                    isTruncated={this.state.isTruncated}
-                    root={this.props.explorer.root}
-                    fy={this.props.explorer.fy}
-                    active={this.props.explorer.active}
-                    trail={this.props.explorer.trail.toJS()}
-                    total={this.props.explorer.active.total}
-                    data={this.state.data}
-                    lastUpdate={this.state.lastUpdate}
-                    transitionSteps={this.state.transitionSteps}
-                    transition={this.state.transition}
-                    goDeeper={this.goDeeper}
-                    changeSubdivisionType={this.changeSubdivisionType}
-                    showTooltip={this.props.showTooltip}
-                    hideTooltip={this.props.hideTooltip}
-                    rewindToFilter={this.rewindToFilter}
-                    goToUnreported={this.goToUnreported} />
-            </div>
-        );
-    }
-}
+        resetExplorerTable();
+    };
+
+    return (
+        <div className="explorer-detail">
+            <ExplorerSidebar
+                fy={fy}
+                quarter={quarter}
+                period={period}
+                trail={rawTrail}
+                setExplorerPeriod={(obj) => dispatch(setExplorerPeriod(obj))}
+                rewindToFilter={rewindToFilter} />
+            <DetailContent
+                isRoot={active.within === 'root'}
+                isLoading={inFlight}
+                isTruncated={isTruncated}
+                root={root}
+                fy={fy}
+                active={active}
+                trail={trail}
+                total={active.total}
+                data={data}
+                lastUpdate={lastUpdate}
+                transitionSteps={transitionSteps}
+                transition={transition}
+                goDeeper={goDeeper}
+                changeSubdivisionType={changeSubdivisionType}
+                showTooltip={showTooltip}
+                hideTooltip={hideTooltip}
+                rewindToFilter={rewindToFilter}
+                goToUnreported={goToUnreported} />
+        </div>
+    );
+};
 
 DetailContentContainer.propTypes = propTypes;
-const DetailContentContainerWithSlugs = withAgencySlugs(DetailContentContainer);
-
-export default connect(
-    (state) => ({ explorer: state.explorer }),
-    (dispatch) => bindActionCreators(explorerActions, dispatch)
-)(DetailContentContainerWithSlugs);
+export default DetailContentContainer;
