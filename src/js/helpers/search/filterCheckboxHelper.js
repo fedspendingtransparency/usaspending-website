@@ -1,5 +1,5 @@
 import { recipientTypeGroups } from 'dataMapping/search/recipientType';
-import { awardTypeGroups } from "../../dataMapping/search/awardType";
+import { awardTypeGroups, awardTypeNewFCodes } from "../../dataMapping/search/awardType";
 
 export const awardTypesData = [
     {
@@ -93,12 +93,20 @@ export const generateCount = (data) => {
 };
 
 // sub-filters hidden from the user, but  passed to the API when the parent filter is selected
-export const excludeIDVB = (awardTypes) => {
+export const excludeIDVBandNewFCodes = (awardTypes) => {
+    let count = awardTypes.size;
+    const newFCodeCount = Object.keys(awardTypeNewFCodes)
+        .filter((key) => awardTypes.has(key)).length;
+
     if (awardTypes.has("IDV_B")) {
-        return awardTypes.size - 1;
+        count -= 1;
     }
 
-    return awardTypes.size;
+    if (newFCodeCount) {
+        count -= newFCodeCount;
+    }
+
+    return count;
 };
 
 export const characteristicsCount = ({
@@ -115,7 +123,7 @@ export const characteristicsCount = ({
     awardDescription
 }) => selectedAwardIDs.size +
     awardAmounts.size +
-    excludeIDVB(contractAwardType) +
+    excludeIDVBandNewFCodes(contractAwardType) +
     financialAssistanceAwardType.size +
     generateCount(naicsCodes) +
     generateCount(pscCodes) +
@@ -145,7 +153,7 @@ export const getFilterCount = (filters) => ({
     'Award Description': filters.awardDescription ? 1 : 0,
     'Award ID': filters.selectedAwardIDs.size,
     'Spending Amount': filters.awardAmounts.size,
-    'Award Type': excludeIDVB(filters.awardType),
+    'Award Type': excludeIDVBandNewFCodes(filters.awardType),
     'North American Industry Classification System (NAICS)': generateCount(filters.naicsCodes),
     'Product and Service Code (PSC)': generateCount(filters.pscCodes),
     'Type of Contract Pricing': filters.pricingType.size,

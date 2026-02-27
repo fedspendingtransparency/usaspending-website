@@ -20,14 +20,16 @@ const SelectedAgencies = ({ selectedAgencies, toggleAgency, agencyType }) => {
     selectedAgencies.entrySeq().forEach((entry) => {
         const key = entry[0];
         const agency = entry[1];
-        let label = agency.subtier_agency.name;
+        let label = agency.subtier_agency?.name;
 
         if (agency.agencyType !== '' && agency.agencyType !== null) {
-            if (agency.agencyType === 'subtier' && agency.subtier_agency.abbreviation) {
+            if (agency.agencyType === 'subtier' && agency.subtier_agency?.abbreviation) {
                 label += ` (${agency.subtier_agency.abbreviation})`;
             }
-            else if (agency.agencyType === 'toptier' &&
-            agency.toptier_agency.abbreviation) {
+            else if (
+                agency.agencyType === 'toptier' &&
+                agency.toptier_agency?.abbreviation
+            ) {
                 label += ` (${agency.toptier_agency.abbreviation})`;
             }
 

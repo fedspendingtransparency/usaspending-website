@@ -19,7 +19,8 @@ const propTypes = {
     label: PropTypes.string,
     alt: PropTypes.string,
     showHoverText: PropTypes.bool,
-    displayIcon: PropTypes.bool
+    displayIcon: PropTypes.bool,
+    boldLinkLink: PropTypes.bool
 };
 
 const GlossaryLink = ({
@@ -28,7 +29,8 @@ const GlossaryLink = ({
     label = "",
     alt = "",
     showHoverText = false,
-    displayIcon = true
+    displayIcon = true,
+    boldLink = false
 }) => {
     const [urlSearchParam, setUrlSearchParam] = useState(null);
     const { pathname, search } = useLocation();
@@ -73,7 +75,7 @@ const GlossaryLink = ({
     return (
         <Link
             to={newUrl}
-            className="usda-glossary-link"
+            className={`usda-glossary-link ${boldLink ? "usa-bold-link" : ""}`}
             aria-label="Open the Glossary"
             tabIndex={hidden ? -1 : 0}
             onClick={stopBubble}

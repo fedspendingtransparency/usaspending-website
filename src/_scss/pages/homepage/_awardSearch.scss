@@ -135,27 +135,17 @@
       transform: translateY(-20px);
       width: 48px;
       box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+      color: $color-white;
+      
+      svg{
+        height: rem(20); 
+      }
 
       &:hover {
         background-color: $color-primary-darker;
       }
     }
 
-    .swiper-button-next::after,
-    .swiper-button-prev::after {
-      color: $color-white;
-      font-size: rem(20);
-      font-weight: 1000;
-      margin-bottom: -1px;
-    }
-
-    .swiper-button-next::after {
-      margin-left: 5px;
-    }
-
-    .swiper-button-prev::after {
-      margin-right: 5px;
-    }
 
     .award-search__col2 {
 

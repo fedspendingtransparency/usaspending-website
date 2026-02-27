@@ -5,54 +5,55 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
 
+import { updatePSC } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
+const propTypes = { name: PropTypes.string };
+
+const PSCFilterGroup = ({ name }) => {
+    const { require, exclude, counts } = useSelector((state) => state.filters.pscCodes);
+    const { require: appliedRequire, exclude: appliedExclude, counts: appliedCounts } = useSelector(
+        (state) => state.appliedFilters.filters.pscCodes
+    );
+    const dispatch = useDispatch();
+
+    const toggleFilter = (value, staged = true) => {
+        let newRequire;
+        let newExclude;
+        let newCounts;
+
+        if (staged) {
+            newRequire = require.filter((v) => v[0] !== value.value);
+            newExclude = exclude.filter((v) => v[0] !== value.value);
+            newCounts = counts.filter((v) => v.value !== value.value);
+        }
+        else {
+            newRequire = [...require, ...appliedRequire.filter((v) => v[0] === value.value)];
+            newExclude = [...exclude, ...appliedExclude.filter((v) => v[0] === value.value)];
+            newCounts = [...counts, ...appliedCounts.filter((v) => v.value === value.value)];
+        }
+
+        dispatch(updatePSC(
+            newRequire,
+            newExclude,
+            newCounts
+        ));
+    };
+
+    const keys = counts.map((t) => `${t.value}-${t.count}`);
+
+    // check to see if a PSC code is provided
+    const tags = appliedCounts.map((value) => ({
+        value,
+        title: `${value.value} (${value.count})`,
+        toggleFilter,
+        staged: keys.includes(`${value.value}-${value.count}`)
+    }));
+
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
-export default class PSCFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.removeFilter = this.removeFilter.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
-
-    removeFilter(value) {
-    // remove a single filter item
-        const newValue = this.props.redux.reduxFilters.selectedPSC.delete(value);
-        this.props.redux.updateGenericFilter({
-            type: 'selectedPSC',
-            value: newValue
-        });
-    }
-
-    clearGroup() {
-        this.props.redux.clearFilterType('selectedPSC');
-    }
-
-    generateTags() {
-    // check to see if a PSC code is provided
-        return this.props.filter.values.map((value) => ({
-            value: `${value.value}`,
-            title: `${value.psc_description}`,
-            removeFilter: this.removeFilter
-        }));
-    }
-
-    render() {
-        const tags = this.generateTags();
-
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
-
 PSCFilterGroup.propTypes = propTypes;
+export default PSCFilterGroup;
