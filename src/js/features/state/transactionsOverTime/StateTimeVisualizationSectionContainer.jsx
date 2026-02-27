@@ -3,16 +3,11 @@
  * Created by David Trinh 5/15/18
  */
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-
-import {
-    convertFYToDateRange, currentFiscalYear, earliestFiscalYear
-} from "helpers/fiscalYearHelper";
-import { convertMonthToFY, convertNumToShortMonth } from "helpers/monthHelper";
-import { performSpendingOverTimeSearch } from "helpers/searchHelper";
-import useQueryTemp from "hooks/useQueryTemp";
 import StateTimeVisualizationSection from './StateTimeVisualizationSection';
+import useFetchSpendingOverTime from "./useFetchSpendingOverTime";
+import { createApiParams } from "../stateHelper";
 
 const StateTimeVisualizationSectionContainer = () => {
     const { code } = useSelector((state) => state.stateProfile.overview);
@@ -23,107 +18,39 @@ const StateTimeVisualizationSectionContainer = () => {
     const [combined, setCombined] = useState([]);
     const [combinedOutlay, setCombinedOutlay] = useState();
     const [ySeriesOutlay, setYSeriesOutlay] = useState([]);
+    const [apiSearchParams, setApiSearchParams] = useState(null);
+
+    const {
+        parsedData, isSuccess, isLoading, error
+    } = useFetchSpendingOverTime(apiSearchParams, visualizationPeriod);
 
     const updateVisualizationPeriod = (newVizPeriod) => {
         setVisualizationPeriod(newVizPeriod);
     };
 
-    const generateTime = (group, timePeriod, type) => {
-        const month = convertNumToShortMonth(timePeriod.month);
-        const year = convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
-
-        if (group === 'fiscal_year') {
-            return type === 'label' ?
-                `${timePeriod.fiscal_year}` :
-                { period: null, year: timePeriod.fiscal_year };
-        }
-        else if (group === 'quarter') {
-            return type === 'label' ?
-                `Q${timePeriod.quarter} ${timePeriod.fiscal_year}` :
-                { period: `Q${timePeriod.quarter}`, year: `${timePeriod.fiscal_year}` };
-        }
-        return type === 'label' ? `${month} ${year}` : { period: `${month}`, year: `${year}` };
-    };
-
-    const parseData = useCallback((res) => {
-        const groupsLocal = [];
-        const xSeriesLocal = [];
-        const ySeriesLocal = [];
-        const combinedLocal = [];
-        const combinedOutlayLocal = [];
-        const ySeriesOutlayLocal = [];
-
-        // iterate through each response object and break it up into groups, x series, and y series
-        res.results.forEach((item) => {
-            groupsLocal.push(generateTime(visualizationPeriod, item.time_period, "label"));
-            xSeriesLocal.push([generateTime(visualizationPeriod, item.time_period, "label")]);
-            ySeriesLocal.push([parseFloat(item.aggregated_amount)]);
-            combinedLocal.push(
-                {
-                    x: generateTime(visualizationPeriod, item.time_period, "label"),
-                    y: parseFloat(item.aggregated_amount)
-                }
-            );
-            ySeriesOutlayLocal.push([parseFloat(item.total_outlays)]);
-            combinedOutlayLocal.push({
-                x: generateTime(visualizationPeriod, item.time_period, "label"),
-                y: parseFloat(item.total_outlays)
-            });
-        });
-
-        setGroups(groupsLocal);
-        setXSeries(xSeriesLocal);
-        setYSeries(ySeriesLocal);
-        setCombined(combinedLocal);
-        setCombinedOutlay(combinedOutlayLocal);
-        setYSeries(ySeriesLocal);
-        setYSeriesOutlay(ySeriesOutlayLocal);
-    }, [visualizationPeriod]);
-
-    const {
-        loading, error, fetchData
-    } = useQueryTemp(parseData);
-
-    const beginFetch = useCallback((stateCode, period) => {
-        // Fetch data from the Awards v2 endpoint
-        const earliestYear = earliestFiscalYear;
-        const thisYear = currentFiscalYear();
-
-        const searchParams = {
-            place_of_performance_locations: [
-                {
-                    country: 'USA',
-                    state: stateCode
-                }
-            ],
-            time_period: [
-                {
-                    start_date: convertFYToDateRange(earliestYear)[0],
-                    end_date: convertFYToDateRange(thisYear)[1]
-                }
-            ]
-        };
-
-        // Generate the API parameters
-        const apiParams = {
-            group: period,
-            filters: searchParams,
-            spending_level: "transactions",
-            auditTrail: 'Spending Over Time Visualization'
-        };
-
-        fetchData(performSpendingOverTimeSearch, apiParams);
-    }, [fetchData]);
-
     useEffect(() => {
         // don't run fetch unless we have a state code
-        if (code) beginFetch(code, visualizationPeriod);
-    }, [code, visualizationPeriod, beginFetch]);
+        if (code && visualizationPeriod) {
+            setApiSearchParams(createApiParams(code, visualizationPeriod));
+        }
+    }, [code, visualizationPeriod]);
+
+    useEffect(() => {
+        if (isSuccess && parsedData && Object.keys(parsedData).length > 0) {
+            setGroups(parsedData.groupsLocal);
+            setXSeries(parsedData.xSeriesLocal);
+            setYSeries(parsedData.ySeriesLocal);
+            setCombined(parsedData.combinedLocal);
+            setCombinedOutlay(parsedData.combinedOutlayLocal);
+            setYSeries(parsedData.ySeriesLocal);
+            setYSeriesOutlay(parsedData.ySeriesOutlayLocal);
+        }
+    }, [parsedData]);
 
     return (
         <StateTimeVisualizationSection
             data={{
-                loading,
+                loading: isLoading,
                 error,
                 groups,
                 xSeries,
@@ -132,7 +59,7 @@ const StateTimeVisualizationSectionContainer = () => {
                 combinedOutlay,
                 ySeriesOutlay
             }}
-            loading={loading}
+            loading={isLoading}
             updateVisualizationPeriod={updateVisualizationPeriod}
             visualizationPeriod={visualizationPeriod} />
     );
