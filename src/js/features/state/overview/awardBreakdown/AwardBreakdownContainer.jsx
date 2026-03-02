@@ -80,7 +80,7 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
         <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
             { loading && <LoadingMessage /> }
             { error && <ErrorMessage /> }
-            { (awardBreakdown.length === 0 || totalAmount === 0) && <GenericMessage title="No Results" description="This award doesn't contain outlay data" className="no-results" />}
+            { !loading && (awardBreakdown.length === 0 || totalAmount === 0) && <GenericMessage title="No Results" description="This award doesn't contain outlay data" className="no-results" />}
             <div className="state-section__viz award-breakdown" id="award">
                 <div className="award-breakdown__content">
                     { !loading && !error && (awardBreakdown.length > 0 && totalAmount > 0) && (
