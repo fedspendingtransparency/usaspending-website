@@ -529,6 +529,67 @@ const articles = [
         ]
     },
     {
+        taxonomy: "Data You Can Trust",
+        isInfographicTemplate: false,
+        content_type: 'Marketing',
+        title: "The Story of Spending Transparency",
+        banner_subtitle: "Learn How USAspending.gov Came to Be",
+        created_date: "03/19/2026",
+        feature_sprint: 7,
+        feature_week: 1,
+        description: "The U.S. is one of the few countries worldwide that makes federal spending data accessible to the public. But before USAspending.gov existed, much",
+        slug: "the-story-of-spending-transparency",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: []
+    },
+    {
+        taxonomy: "My USAspending Search",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "Keon's USAspending Search",
+        banner_subtitle: "Learn How to Search Government Contracts for Local Businesses",
+        created_date: "03/19/2026",
+        feature_sprint: 7,
+        feature_week: 1,
+        description: "In our feature, “My USAspending Search,” we highlight one of our users and their unique approach to searching government spending open data.",
+        slug: "keons-usaspending-search",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "USAspending YouTube",
+                slug: "https://www.youtube.com/@usaspendinggov",
+                type: "external"
+            }
+        ],
+        related_terms: [
+            {
+                term: "naics",
+                type: "glossary",
+                label: "NAICS"
+            },
+            {
+                term: "product-or-service-code-psc",
+                type: "glossary",
+                label: "Product or Service Code (PSC)"
+            },
+            {
+                term: "fiscal-year-fy",
+                type: "glossary",
+                label: "Fiscal Year (FY)"
+            }
+        ]
+    },
+    {
         taxonomy: "See 4 Yourself",
         isInfographicTemplate: true,
         content_type: 'Featured Content',
