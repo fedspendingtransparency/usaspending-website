@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import * as downloadActions from 'redux/actions/search/downloadActions';
 
 import FullDownloadModal from 'components/search/modals/fullDownload/FullDownloadModal';
+import NewDownloadModal from '../../../../components/search/modals/fullDownload/NewDownloadModal';
 
 const propTypes = {
     mounted: PropTypes.bool,
