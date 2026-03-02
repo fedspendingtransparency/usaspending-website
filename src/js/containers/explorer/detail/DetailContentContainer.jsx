@@ -3,7 +3,7 @@
  * Created by Kevin Li 8/16/17
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
@@ -29,10 +29,11 @@ const propTypes = {
     hideTooltip: PropTypes.func
 };
 
-const DetailContentContainer = ({
+// eslint-disable-next-line prefer-arrow-callback
+const DetailContentContainer = memo(function DetailContentContainer({
     showTooltip,
     hideTooltip
-}) => {
+}) {
     const {
         root, fy, quarter, period, active, trail: rawTrail
     } = useSelector((state) => state.explorer);
