@@ -3,7 +3,7 @@
  * Created by Kevin Li 8/16/17
  */
 
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
@@ -495,7 +495,7 @@ const DetailContentContainer = memo(function DetailContentContainer({
                 goToUnreported={goToUnreported} />
         </div>
     );
-};
+});
 
 DetailContentContainer.propTypes = propTypes;
 export default DetailContentContainer;
