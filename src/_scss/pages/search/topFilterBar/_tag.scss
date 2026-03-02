@@ -1,39 +1,37 @@
 .filter-item-container {
     display: inline-block;
-    margin-right: 5px;
-
-
-    // TODO: remove this styling in favor of mocks
-    //  also, fix focus issue (button not highlighted)
-    .unstaged {
-        background-color: red !important;
-        opacity: 0.5;
-    }
+    margin-right: $global-margin;
 
     .filter-item {
         @include button-unstyled();
         display: table;
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
+        margin: ($global-margin * 1.5) 0;
         background-color: $color-white;
-        padding: 8px;
-        border: 1px solid $color-gray-lighter;
+        padding: $global-padding;
+        border: 1px solid $gray-cool-10;
+        border-radius: rem(4);
         box-shadow: $container-shadow;
-        @include border-top-radius(5px);
-        @include border-bottom-radius(5px);
-
-        font-size: $smallest-font-size;
-
-        &:hover, &:active {
-            background-color: $color-white;
-        }
+        font-size: $small-font-size;
+        line-height: 1.5;
+        color: $gray-90;
 
         .filter-item-title {
-            color: $color-gray;
             display: table-cell;
             vertical-align: middle;
         }
 
+        &.unstaged {
+            background-color: $gray-cool-10 !important;
+            border-color: $gray-10;
+            color: $gray-60;
+        }
+
+        &:hover, &:active, &:focus {
+            background-color: $gray-cool-10;
+            border-color: $gray-cool-40;
+        }
+
+        // TODO: remove styling below for legacy top filter
         .filter-item-remove-container {
             display: table-cell;
             vertical-align: middle;
