@@ -6,7 +6,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { reduce } from 'lodash-es';
-import { ErrorMessage, FlexGridCol, LoadingMessage } from "data-transparency-ui";
+import { ErrorMessage, FlexGridCol, GenericMessage, LoadingMessage } from "data-transparency-ui";
 
 import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
 import useQueryTemp from "hooks/useQueryTemp";
@@ -25,7 +25,6 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
     const [rows, setRows] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const [hasNegatives, setHasNegatives] = useState(false);
-
     const parseData = useCallback((results) => {
         const amountType = toggleState ? "total_outlays" : "amount";
         // Sum all amounts in the returned award types
@@ -76,15 +75,15 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
         }
 
         fetchData(() => fetchAwardBreakdown(id, fy));
-    }, [fetchData, fy, id]);
-
+    }, [fetchData, fy, id, toggleState]);
     return (
         <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
             { loading && <LoadingMessage /> }
             { error && <ErrorMessage /> }
+            { !loading && (awardBreakdown.length === 0 || totalAmount === 0) && <GenericMessage title="No Results" description="This award doesn't contain outlay data." className="no-results" />}
             <div className="state-section__viz award-breakdown" id="award">
                 <div className="award-breakdown__content">
-                    { !loading && !error && (
+                    { !loading && !error && (awardBreakdown.length > 0 && totalAmount > 0) && (
                         <>
                             <AwardBreakdownTreeMap
                                 activeFY={fy}
