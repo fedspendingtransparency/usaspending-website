@@ -41,6 +41,15 @@
         }
 
         @import "./_clearAllButton";
+
+        &.advanced-search {
+            display: block;
+
+            .above-line, .below-line {
+                display: flex;
+                justify-content: space-between;
+            }
+        }
     }
 
     .search-top-filters {
