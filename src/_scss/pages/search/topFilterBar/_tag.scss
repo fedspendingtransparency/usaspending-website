@@ -7,7 +7,7 @@
         display: table;
         margin: ($global-margin * 1.5) 0;
         background-color: $color-white;
-        padding: $global-padding;
+        padding: rem(7);
         border: 1px solid $gray-cool-10;
         border-radius: rem(4);
         box-shadow: $container-shadow;
