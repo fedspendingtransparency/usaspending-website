@@ -4,6 +4,7 @@
  */
 import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { library } from '@fortawesome/fontawesome-svg-core';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import {
     faAngleDown,
     faAngleUp,
@@ -95,7 +96,7 @@ import {
     faCodeBranch,
     faLongArrowAltUp,
     faLongArrowAltDown
-} from "@fortawesome/free-solid-svg-icons";
+} from "@fortawesome/pro-solid-svg-icons";
 
 export default function registerIcons() {
     library.add(
