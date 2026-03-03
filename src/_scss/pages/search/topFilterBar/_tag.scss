@@ -29,6 +29,12 @@
         &:hover, &:active, &:focus {
             background-color: $gray-cool-10;
             border-color: $gray-cool-40;
+            color: $gray-90;
+        }
+
+        .filter-item-icon {
+            // a 6px because the icon adds 2px of empty space
+            margin-left: rem(6);
         }
 
         // TODO: remove styling below for legacy top filter
