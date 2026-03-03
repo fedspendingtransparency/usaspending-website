@@ -26,23 +26,23 @@ const BarHeaderAbove = () => {
         <div className="above-line">
             <div className="title-container">
                 <h1 className="title">Search Results</h1>
-                <h2 className="subtitle">
-                    {/* TODO: change these icons to font awesome 7 */}
-                    <FontAwesomeIcon icon="lightbulb" />
-                    To <span>remove active filters</span>, select the individual filter labels.
-                  Then, once the button appears, click "Remove selected filters".
-                </h2>
+                <Button
+                    onClick={onClick}
+                    onKeyUp={onKeyUp}
+                    copy="Learn how active filters work"
+                    buttonTitle="filter modal"
+                    buttonSize="sm"
+                    buttonType="text"
+                    backgroundColor="light"
+                    imageAlignment="right"
+                    image={image} />
             </div>
-            <Button
-                onClick={onClick}
-                onKeyUp={onKeyUp}
-                copy="Learn how active filters work"
-                buttonTitle="filter modal"
-                buttonSize="sm"
-                buttonType="text"
-                backgroundColor="light"
-                imageAlignment="right"
-                image={image} />
+            <h2 className="subtitle">
+                {/* TODO: change these icons to font awesome 7 */}
+                <FontAwesomeIcon icon="lightbulb" />
+                To <span>remove active filters</span>, select the individual filter labels.
+                Then, once the button appears, click "Remove selected filters".
+            </h2>
         </div>
     );
 };
