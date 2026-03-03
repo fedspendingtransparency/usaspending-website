@@ -25,6 +25,11 @@ jobs:
       - name: Install webpack
         run: npm install -g webpack@5.94.0
 
+      - name: Add FontAwesome Pro token
+        run: |
+          npm config set "@fortawesome:registry" https://npm.fontawesome.com/
+          npm config set '//npm.fontawesome.com/:_authToken' "${{ secrets.FASECRET }}"
+
       - name: Install webpack cli
         run: npm install -g webpack-cli@5.1.4
 
