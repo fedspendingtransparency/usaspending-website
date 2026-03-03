@@ -44,14 +44,16 @@
 
         &.advanced-search {
             display: block;
+            padding-bottom: rem(5);
+            border: none;
 
-            .title-container, .below-line {
+            .title-container, .below-line, .filter-buttons {
                 display: flex;
                 justify-content: space-between;
             }
 
             .above-line {
-                padding: 0 ($global-margin * 2) rem(20);
+                padding: 0 ($global-padding * 2) rem(20);
                 border-bottom: rem(1) solid $color-gray-border;
 
                 h1 {
@@ -75,6 +77,30 @@
 
                     svg {
                         color: $blue-60v;
+                    }
+                }
+            }
+
+            .below-line {
+                margin: $global-margin ($global-margin * 2) 0;
+
+                .header-title {
+                    margin-top: rem(4);
+                }
+
+                .filter-buttons button {
+                    border: rem(2) solid $blue-60v;
+                    border-radius: rem(4);
+                    padding: rem(6) rem(10);
+                    font-size: $small-font-size;
+                    line-height: rem(18);
+
+                    &:first-of-type {
+                        margin-right: rem(20);
+                    }
+
+                    svg {
+                        height: rem(13);
                     }
                 }
             }
