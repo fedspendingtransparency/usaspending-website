@@ -11,6 +11,7 @@ import EntityDropdownAutocomplete from
     'components/sharedComponents/EntityDropdownAutocomplete';
 import PrimaryCheckboxType from
     'components/sharedComponents/checkbox/PrimaryCheckboxType';
+import Analytics from 'helpers/analytics/Analytics';
 import Alert from "../Alert";
 
 const propTypes = {
@@ -78,7 +79,11 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
     }, []);
 
     const handleNoResultsLinkClick = () => {
-        // GA event fire here
+        Analytics.event({
+            category: "Advanced Search - Filter Feedback",
+            action: "Submit Feeback",
+            label: filterType
+        });
     };
 
     useEffect(() => {
@@ -133,10 +138,11 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
             const alertBody = (
                 <p>
                     Please check your spelling or try a broader search. Missing something?
+                    <br />
                     <a
                         href="https://eex-survey.voc.ttecgov.us/se/0ADFD0F61A0367FE"
                         onClick={handleNoResultsLinkClick}>
-                        &nbsp;Submit feedback on filters.&nbsp;
+                        Submit feedback on filters.
                     </a>
                 </p>
             );
