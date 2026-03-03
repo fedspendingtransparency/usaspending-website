@@ -29,7 +29,7 @@ const BarHeaderAbove = () => {
                 <h2 className="subtitle">
                     {/* TODO: change these icons to font awesome 7 */}
                     <FontAwesomeIcon icon="lightbulb" />
-                  To remove active filters, select the individual filter labels.
+                    To <span>remove active filters</span>, select the individual filter labels.
                   Then, once the button appears, click "Remove selected filters".
                 </h2>
             </div>

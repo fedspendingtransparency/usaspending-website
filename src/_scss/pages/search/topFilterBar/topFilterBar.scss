@@ -49,6 +49,34 @@
                 display: flex;
                 justify-content: space-between;
             }
+
+            .above-line {
+                padding: 0 ($global-margin * 2) rem(20);
+
+                h1 {
+                    color: $gray-cool-90;
+                    font-size: $lead-font-size;
+                    line-height: 1.25;
+                    margin: 0 0 $global-margin;
+                    font-weight: $font-semibold;
+                }
+
+                h2 {
+                    color: $color-black;
+                    font-size: $base-font-size;
+                    line-height: 1.5;
+                    margin: 0 0 rem(20);
+                    font-weight: $font-normal;
+
+                    span {
+                        font-weight: $font-semibold;
+                    }
+
+                    svg {
+                        color: $blue-60v;
+                    }
+                }
+            }
         }
     }
 
