@@ -33,8 +33,9 @@
         }
 
         .filter-item-icon {
-            // a 6px because the icon adds 2px of empty space
+            // added 6px and -2px because the icon adds 2px of empty space on each side
             margin-left: rem(6);
+            margin-right: rem(-2);
         }
 
         // TODO: remove styling below for legacy top filter
