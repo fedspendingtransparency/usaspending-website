@@ -13,7 +13,6 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 const propTypes = { name: PropTypes.string };
 
 const RecipientFilterGroup = ({ name }) => {
-    console.log({ name });
     const selectedRecipients = useSelector((state) => state.filters.selectedRecipients);
     const appliedRecipientType = useSelector(
         (state) => state.appliedFilters.filters.selectedRecipients

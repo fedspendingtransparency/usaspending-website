@@ -39,8 +39,10 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
                     setExpandedFilters={setExpandedFilters} />
                 <div className="search-top-filters">
                     <div
-                        className={`search-top-filters-content ${
-                            newAwardsOnlyPresent ? 'newAwardsOnlyPresent' : ''
+                        className={`search-top-filters-content${
+                            newAwardsOnlyPresent ? ' newAwardsOnlyPresent' : ''
+                        }${
+                            expandedFilters ? ' expanded' : ' collapsed'
                         }`}>
                         {groups}
                     </div>

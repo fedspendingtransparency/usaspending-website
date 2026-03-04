@@ -98,8 +98,8 @@
                     font-size: $small-font-size;
                     line-height: rem(18);
 
-                    &:first-of-type {
-                        margin-right: rem(20);
+                    &:last-of-type {
+                        margin-left: rem(20);
                     }
 
                     svg {
@@ -119,6 +119,16 @@
             padding-right: rem(10);
             padding-bottom: rem(10);
             padding-left: $global-padding * 2;
+
+            &.collapsed {
+                max-height: 125px;
+                overflow: hidden;
+            }
+
+            &.expanded {
+                max-height: 280px;
+                overflow: auto;
+            }
 
             // all this is to ensure that the New Awards Only chip is grouped with the other Time Period chips
             .filter-group-container {

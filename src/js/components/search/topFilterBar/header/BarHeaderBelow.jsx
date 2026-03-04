@@ -10,7 +10,7 @@ const propTypes = {
 };
 
 const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) => {
-    /* TODO: change these icons to font awesome 7 */
+    // TODO: change these icons to font awesome 7
     const closeIcon = useMemo(() => (<FontAwesomeIcon icon="times" />), []);
     const chevronIcon = useMemo(() => (
         <FontAwesomeIcon icon={expandedFilters ? "chevron-up" : "chevron-down"} />
@@ -27,16 +27,19 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
                 {`${filterCount} Active Filter${filterCount !== 1 ? 's' : ''}:`}
             </h2>
             <div className="filter-buttons">
-                <Button
-                    onClick={removeOnClick}
-                    onKeyUp={removeOnClick}
-                    copy="Remove elected filters"
-                    buttonTitle="filter modal"
-                    buttonSize="sm"
-                    buttonType="text"
-                    backgroundColor="light"
-                    imageAlignment="right"
-                    image={closeIcon} />
+                { /* TODO: change this state to if filters equal */ }
+                { expandedFilters && (
+                    <Button
+                        onClick={removeOnClick}
+                        onKeyUp={removeOnClick}
+                        copy="Remove elected filters"
+                        buttonTitle="filter modal"
+                        buttonSize="sm"
+                        buttonType="text"
+                        backgroundColor="light"
+                        imageAlignment="right"
+                        image={closeIcon} />
+                )}
                 <Button
                     onClick={collapseOnClick}
                     onKeyUp={collapseOnClick}
