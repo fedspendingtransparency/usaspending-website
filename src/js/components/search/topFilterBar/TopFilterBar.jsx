@@ -10,7 +10,7 @@
 
 import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
-import topFilterGroupGenerator from './TopFilterGroupGenerator';
+import TopFilterGroupGenerator from './TopFilterGroupGenerator';
 import BarHeader from "./header/BarHeader";
 
 const propTypes = {
@@ -23,7 +23,9 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
     const [expandedFilters, setExpandedFilters] = useState(false);
     const newAwardsOnlyPresent = filters.find(({ code }) => code === 'newAwardsOnly');
 
-    const groups = filters.map((filter) => topFilterGroupGenerator(filter));
+    const groups = filters.map(({ code, name }) => (
+        <TopFilterGroupGenerator code={code} name={name} />
+    ));
 
     return (
         <div>

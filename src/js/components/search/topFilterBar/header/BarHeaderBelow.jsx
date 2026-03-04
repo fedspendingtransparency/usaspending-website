@@ -30,7 +30,7 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
                 <Button
                     onClick={removeOnClick}
                     onKeyUp={removeOnClick}
-                    copy="Remove Selected Filters"
+                    copy="Remove elected filters"
                     buttonTitle="filter modal"
                     buttonSize="sm"
                     buttonType="text"
@@ -40,7 +40,7 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
                 <Button
                     onClick={collapseOnClick}
                     onKeyUp={collapseOnClick}
-                    copy={`${expandedFilters ? "Collapse" : "Expand"} Active Filters`}
+                    copy={`${expandedFilters ? "Collapse" : "Expand"} active filters`}
                     buttonTitle="filter modal"
                     buttonSize="sm"
                     buttonType="text"
