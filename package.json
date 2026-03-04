@@ -286,7 +286,7 @@
     "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v7.1.8",
     "date-fns": "^2.16.1",
     "dayjs": "^1.11.10",
-    "dompurify": "^3.2.4",
+    "dompurify": "^3.3.1",
     "file-loader": "^6.2.0",
     "focus-trap-react": "^11.0.3",
     "history": "^4.6.1",
