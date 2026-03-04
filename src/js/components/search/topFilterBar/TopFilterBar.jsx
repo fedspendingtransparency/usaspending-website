@@ -8,7 +8,7 @@
   * @extends React.Component
   **/
 
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import topFilterGroupGenerator from './TopFilterGroupGenerator';
 import BarHeader from "./header/BarHeader";
@@ -20,6 +20,7 @@ const propTypes = {
 
 // eslint-disable-next-line prefer-arrow-callback
 const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
+    const [expandedFilters, setExpandedFilters] = useState(false);
     const newAwardsOnlyPresent = filters.find(({ code }) => code === 'newAwardsOnly');
 
     const groups = filters.map((filter) => topFilterGroupGenerator(filter));
@@ -30,7 +31,10 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
                 className="search-top-filter-bar"
                 role="complementary"
                 aria-label="Currently applied search filters">
-                <BarHeader filterCount={filterCount} />
+                <BarHeader
+                    filterCount={filterCount}
+                    expandedFilters={expandedFilters}
+                    setExpandedFilters={setExpandedFilters} />
                 <div className="search-top-filters">
                     <div
                         className={`search-top-filters-content ${

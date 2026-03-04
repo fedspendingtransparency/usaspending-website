@@ -1,11 +1,11 @@
-import React, { useCallback, useMemo } from "react";
+import React, { memo, useCallback, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 import { showModal } from "redux/actions/modal/modalActions";
 
-
-const BarHeaderAbove = () => {
+// eslint-disable-next-line prefer-arrow-callback
+const BarHeaderAbove = memo(function BarHeaderAbove() {
     const dispatch = useDispatch();
 
     const onClick = useCallback((e) => {
@@ -45,6 +45,6 @@ const BarHeaderAbove = () => {
             </h2>
         </div>
     );
-};
+});
 
 export default BarHeaderAbove;
