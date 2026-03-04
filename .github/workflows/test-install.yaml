@@ -25,6 +25,15 @@ jobs:
       - name: Install webpack
         run: npm install -g webpack@5.94.0
 
+      - name: Validate MY_SECRET exists
+        run: |
+          if [ -z "FASECRET" ]; then
+            echo "Error: MY_SECRET secret not set or is empty"
+            exit 1
+          fi
+        env:
+          MY_SECRET: ${{ secrets.FASECRET }}
+
       - name: Add FontAwesome Pro token
         run: |
           npm config set "@fortawesome:registry" https://npm.fontawesome.com/
