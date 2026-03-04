@@ -5,8 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { areFiltersEqual } from "helpers/searchHelper";
 import {
-    applyStagedFilters, setAppliedFilterCompletion
+    applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion
 } from "redux/actions/search/appliedFilterActions";
+import { clearAllFilters as clearStagedFilters } from "../../../../redux/actions/search/searchFilterActions";
+import { resetMapLegendToggle } from "../../../../redux/actions/search/mapLegendToggleActions";
 
 const propTypes = {
     filterCount: PropTypes.number,
@@ -20,6 +22,7 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
     const appliedFilters = useSelector((state) => state.appliedFilters.filters);
 
     const equalFilters = areFiltersEqual(stagedFilters, appliedFilters);
+    const emptyFilters = areFiltersEqual(stagedFilters);
 
     // TODO: change these icons to font awesome 7
     const closeIcon = useMemo(() => (<FontAwesomeIcon icon="times" />), []);
@@ -28,7 +31,14 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
     ), [expandedFilters]);
 
     const removeOnClick = () => {
-        if (!equalFilters) {
+        dispatch(setAppliedFilterCompletion(false));
+
+        if (emptyFilters) {
+            dispatch(clearStagedFilters());
+            dispatch(resetAppliedFilters());
+            dispatch(resetMapLegendToggle());
+        }
+        else if (!equalFilters) {
             dispatch(applyStagedFilters(stagedFilters));
             dispatch(setAppliedFilterCompletion(true));
         }
