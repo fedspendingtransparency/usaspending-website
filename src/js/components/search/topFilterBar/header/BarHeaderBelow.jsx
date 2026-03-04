@@ -2,6 +2,11 @@ import React, { useMemo } from "react";
 import { Button } from "data-transparency-ui";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch, useSelector } from "react-redux";
+import { areFiltersEqual } from "helpers/searchHelper";
+import {
+    applyStagedFilters, setAppliedFilterCompletion
+} from "redux/actions/search/appliedFilterActions";
 
 const propTypes = {
     filterCount: PropTypes.number,
@@ -10,14 +15,34 @@ const propTypes = {
 };
 
 const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) => {
+    const dispatch = useDispatch();
+    const stagedFilters = useSelector((state) => state.filters);
+    const appliedFilters = useSelector((state) => state.appliedFilters.filters);
+
+    const equalFilters = areFiltersEqual(stagedFilters, appliedFilters);
+
     // TODO: change these icons to font awesome 7
     const closeIcon = useMemo(() => (<FontAwesomeIcon icon="times" />), []);
     const chevronIcon = useMemo(() => (
         <FontAwesomeIcon icon={expandedFilters ? "chevron-up" : "chevron-down"} />
     ), [expandedFilters]);
 
-    const removeOnClick = () => console.log("Remove Selected Filters");
+    const removeOnClick = () => {
+        if (!equalFilters) {
+            dispatch(applyStagedFilters(stagedFilters));
+            dispatch(setAppliedFilterCompletion(true));
+        }
+    };
+    const removeOnKeyUp = (e) => {
+        e.persist();
+        if (e.key === 'Enter') removeOnClick();
+    };
+
     const collapseOnClick = () => setExpandedFilters((prevState) => !prevState);
+    const collapseOnKeyUp = (e) => {
+        e.persist();
+        if (e.key === 'Enter') collapseOnClick();
+    };
 
     return (
         <div className="below-line">
@@ -28,10 +53,10 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
             </h2>
             <div className="filter-buttons">
                 { /* TODO: change this state to if filters equal */ }
-                { expandedFilters && (
+                { !equalFilters && (
                     <Button
                         onClick={removeOnClick}
-                        onKeyUp={removeOnClick}
+                        onKeyUp={removeOnKeyUp}
                         copy="Remove elected filters"
                         buttonTitle="filter modal"
                         buttonSize="sm"
@@ -42,7 +67,7 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
                 )}
                 <Button
                     onClick={collapseOnClick}
-                    onKeyUp={collapseOnClick}
+                    onKeyUp={collapseOnKeyUp}
                     copy={`${expandedFilters ? "Collapse" : "Expand"} active filters`}
                     buttonTitle="filter modal"
                     buttonSize="sm"

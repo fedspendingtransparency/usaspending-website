@@ -116,9 +116,9 @@
 
         .search-top-filters-content {
             display: block;
-            padding-right: rem(10);
-            padding-bottom: rem(10);
-            padding-left: $global-padding * 2;
+            margin-right: rem(10);
+            margin-bottom: rem(10);
+            margin-left: $global-margin * 2;
 
             &.collapsed {
                 max-height: 125px;
@@ -130,10 +130,6 @@
                 overflow: auto;
             }
 
-            // all this is to ensure that the New Awards Only chip is grouped with the other Time Period chips
-            .filter-group-container {
-                margin-left: rem(15);
-            }
             .filter-group-container:first-child {
                 margin-left: 0;
             }
