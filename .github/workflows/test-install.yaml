@@ -34,10 +34,15 @@ jobs:
         env:
           MY_SECRET: ${{ secrets.FASECRET }}
 
+      - name: Add FontAwesome Pro token
+        run: |
+          echo "@fortawesome:registry=https://npm.fontawesome.com/" >> ~/.npmrc
+          echo "//npm.fontawesome.com/:_authToken=${FONTAWESOME_NPM_TOKEN}" >> ~/.npmrc
+        env:
+          FONTAWESOME_NPM_TOKEN: ${{ secrets.FASECRET }}
+
       - name: Install webpack cli
         run: npm install -g webpack-cli@5.1.4
 
       - name: Run NPM install
         run: npm ci --legacy-peer-deps --timeout=90000
-        env:
-          FONTAWESOME_NPM_TOKEN: ${{ secrets.FASECRET }}
