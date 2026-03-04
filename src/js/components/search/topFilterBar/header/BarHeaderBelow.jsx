@@ -1,14 +1,15 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Button } from "data-transparency-ui";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
+
 import { areFiltersEqual } from "helpers/searchHelper";
 import {
     applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion
 } from "redux/actions/search/appliedFilterActions";
-import { clearAllFilters as clearStagedFilters } from "../../../../redux/actions/search/searchFilterActions";
-import { resetMapLegendToggle } from "../../../../redux/actions/search/mapLegendToggleActions";
+import { clearAllFilters as clearStagedFilters } from "redux/actions/search/searchFilterActions";
+import { resetMapLegendToggle } from "redux/actions/search/mapLegendToggleActions";
 
 const propTypes = {
     filterCount: PropTypes.number,
@@ -20,6 +21,7 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
     const dispatch = useDispatch();
     const stagedFilters = useSelector((state) => state.filters);
     const appliedFilters = useSelector((state) => state.appliedFilters.filters);
+    const [needExpandButton, setNeedExpandButton] = useState(false);
 
     const equalFilters = areFiltersEqual(stagedFilters, appliedFilters);
     const emptyFilters = areFiltersEqual(stagedFilters);
@@ -54,6 +56,14 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
         if (e.key === 'Enter') collapseOnClick();
     };
 
+    useEffect(() => {
+        setNeedExpandButton(
+            document
+                .querySelector(".search-top-filters-content")
+                ?.offsetHeight > 124
+        );
+    }, [appliedFilters]);
+
     return (
         <div className="below-line">
             <h2
@@ -62,7 +72,6 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
                 {`${filterCount} Active Filter${filterCount !== 1 ? 's' : ''}:`}
             </h2>
             <div className="filter-buttons">
-                { /* TODO: change this state to if filters equal */ }
                 { !equalFilters && (
                     <Button
                         onClick={removeOnClick}
@@ -75,16 +84,18 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
                         imageAlignment="right"
                         image={closeIcon} />
                 )}
-                <Button
-                    onClick={collapseOnClick}
-                    onKeyUp={collapseOnKeyUp}
-                    copy={`${expandedFilters ? "Collapse" : "Expand"} active filters`}
-                    buttonTitle="filter modal"
-                    buttonSize="sm"
-                    buttonType="text"
-                    backgroundColor="light"
-                    imageAlignment="right"
-                    image={chevronIcon} />
+                { needExpandButton && (
+                    <Button
+                        onClick={collapseOnClick}
+                        onKeyUp={collapseOnKeyUp}
+                        copy={`${expandedFilters ? "Collapse" : "Expand"} active filters`}
+                        buttonTitle="filter modal"
+                        buttonSize="sm"
+                        buttonType="text"
+                        backgroundColor="light"
+                        imageAlignment="right"
+                        image={chevronIcon} />
+                )}
             </div>
         </div>
     );
