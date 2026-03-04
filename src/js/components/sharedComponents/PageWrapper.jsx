@@ -26,7 +26,7 @@ const PageWrapper = ({
     sections,
     activeSection,
     jumpToSection,
-    backgroundColor,
+    backgroundColor = "#112F4E",
     inPageNav = false
 }) => (
     <div className={classNames} ref={ref}>
