@@ -11,6 +11,7 @@ import EntityDropdownAutocomplete from
     'components/sharedComponents/EntityDropdownAutocomplete';
 import PrimaryCheckboxType from
     'components/sharedComponents/checkbox/PrimaryCheckboxType';
+import Analytics from 'helpers/analytics/Analytics';
 import Alert from "../Alert";
 
 const propTypes = {
@@ -77,6 +78,14 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
         setIsOpen((prevState) => !prevState);
     }, []);
 
+    const handleNoResultsLinkClick = () => {
+        Analytics.event({
+            category: "Advanced Search - Filter Feedback",
+            action: "Submit Feeback",
+            label: filterType
+        });
+    };
+
     useEffect(() => {
         if (selectedFilters?.size > 0) {
             setAllSelected(true);
@@ -126,6 +135,17 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
 
     const resultsContainer = () => {
         if (noResults) {
+            const alertBody = (
+                <p>
+                    Please check your spelling or try a broader search. Missing something?
+                    <br />
+                    <a
+                        href="https://eex-survey.voc.ttecgov.us/se/0ADFD0F61A0367FE"
+                        onClick={handleNoResultsLinkClick}>
+                        Submit feedback on filters.
+                    </a>
+                </p>
+            );
             return (
                 <>
                     {showClearAll &&
@@ -143,7 +163,7 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
                     <Alert
                         className="autocomplete-no-results"
                         header="Sorry, no results found"
-                        body="Please check your spelling or try a broader search."
+                        body={alertBody}
                         type="warning"
                         icon />
                 </>
