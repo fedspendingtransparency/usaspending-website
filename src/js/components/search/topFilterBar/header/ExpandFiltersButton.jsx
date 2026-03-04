@@ -1,7 +1,15 @@
 import { Button } from "data-transparency-ui";
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
+import Analytics from "helpers/analytics/Analytics";
+
+const logExpandEvent = (type) => {
+    Analytics.event({
+        category: "Advanced Search - Active Filters",
+        action: `${type} Filters`
+    });
+};
 
 const propTypes = {
     appliedFilters: PropTypes.object,
@@ -17,11 +25,16 @@ const ExpandFiltersButton = ({ appliedFilters, expandedFilters, setExpandedFilte
         <FontAwesomeIcon icon={expandedFilters ? "chevron-up" : "chevron-down"} />
     ), [expandedFilters]);
 
-    const collapseOnClick = () => setExpandedFilters((prevState) => !prevState);
-    const collapseOnKeyUp = (e) => {
+    const collapseOnClick = useCallback(() => setExpandedFilters((prevState) => {
+        logExpandEvent(!prevState ? "Expand" : "Collapse");
+
+        return !prevState;
+    }), [setExpandedFilters]);
+
+    const collapseOnKeyUp = useCallback((e) => {
         e.persist();
         if (e.key === 'Enter') collapseOnClick();
-    };
+    }, [collapseOnClick]);
 
     useEffect(() => {
         setNeedExpandButton(
