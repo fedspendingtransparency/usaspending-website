@@ -9,13 +9,10 @@ import Modal from 'react-aria-modal';
 
 import { Close } from 'components/sharedComponents/icons/Icons';
 
-import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarContainer';
-import DownloadLevelContainer from
-    'containers/search/modals/fullDownload/screens/DownloadLevelContainer';
-import DownloadScopeContainer from
-    'containers/search/modals/fullDownload/screens/DownloadScopeContainer';
-
-import DownloadBreadcrumb from './breadcrumb/DownloadBreadcrumb';
+import NewDownloadLevelContainer from
+    'containers/search/modals/fullDownload/screens/newScreens/NewDownloadLevelContainer';
+import NewDownloadScopeContainer from
+    'containers/search/modals/fullDownload/screens/newScreens/NewDownloadScopeContainer';
 
 import DownloadProgress from './screens/DownloadProgress';
 import usePrevious from '../../../../hooks/usePrevious';
@@ -36,10 +33,11 @@ const NewDownloadModal = (props) => {
         props.hideModal();
     }, [props]);
     useEffect(() => {
-        if (!props.pendingDownload && prevProps.pendingDownload) {
+        if (!props?.pendingDownload && prevProps?.pendingDownload) {
             resetModal();
         }
-    }, [prevProps.pendingDownload, props.pendingDownload, resetModal]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [prevProps?.pendingDownload, props?.pendingDownload, resetModal]);
 
 
     const hideModal = () => {
@@ -63,11 +61,13 @@ const NewDownloadModal = (props) => {
         setDownloadStep(step);
     };
 
-    let content = <DownloadLevelContainer goToStep={goToStep} />;
+    let content = <NewDownloadLevelContainer goToStep={goToStep} />;
+    let headerContent = "Step 1 of 2: Select which data you'd like to download";
     if (downloadStep === 2) {
-        content = <DownloadScopeContainer goToStep={goToStep} />;
+        content = <NewDownloadScopeContainer goToStep={goToStep} />;
     }
     else if (downloadStep === 3) {
+        headerContent = "Step 2 of 2: Select which data you'd like to download";
         content = (<DownloadProgress
             hideModal={hideModal}
             download={props.download}
@@ -80,13 +80,13 @@ const NewDownloadModal = (props) => {
             mounted={props.mounted}
             onExit={hideModal}
             titleText="Additional Options"
-            dialogClass="search-section-extra-modal"
+            dialogClass="search-section-new-download-modal"
             verticallyCenter
             escapeExits>
-            <div className="full-download-modal">
+            <div className="new-full-download-modal">
                 <div className="download-header">
                     <div className="header-content">
-                        <h1>Download Data</h1>
+                        <h1 className="modal__header">{headerContent}</h1>
                         <div className="close-wrapper">
                             <button
                                 className="close-button"
@@ -100,12 +100,6 @@ const NewDownloadModal = (props) => {
                 </div>
 
                 <div className="download-body">
-                    <div className="download-filter-bar">
-                        <TopFilterBarContainer compressed />
-                    </div>
-                    <DownloadBreadcrumb
-                        step={downloadStep}
-                        goToStep={goToStep} />
                     {content}
                 </div>
             </div>

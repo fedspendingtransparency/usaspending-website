@@ -1,0 +1,21 @@
+.search-section-new-download-modal {
+    // override the modal widths
+    width: 50%;
+    border-radius: rem(12);
+}
+
+.new-full-download-modal {
+    $filter-bar-gray: #DDDDDD;
+    @import "./_header";
+    background-color: $color-white;
+    border-radius: rem(12);
+    .download-body {
+        padding: rem(24);
+        @import "./_filterBar";
+    }
+
+    @import "./_breadcrumb";
+
+    @import "./_levelScreen";
+    @import "./_progressScreen";
+}

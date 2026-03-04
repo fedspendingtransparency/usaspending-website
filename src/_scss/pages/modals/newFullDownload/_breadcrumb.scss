@@ -1,0 +1,123 @@
+.download-breadcrumb {
+    @include media($medium-screen) {
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(flex-start);
+        position: relative;
+    }
+
+    margin-bottom: rem(10);
+
+    .breadcrumb-item {
+        display: block;
+        @include media($medium-screen) {
+            @include flex(1 1 auto);
+            height: rem(40);
+        }
+        background-color: $filter-bar-gray;
+        font-size: $small-font-size;
+
+        &.active {
+            background-color: $color-primary-darker;
+        }
+
+        &.past {
+            background-color: $color-gray-medium;
+        }
+
+        .breadcrumb-content {
+            @include button-unstyled;
+            @include display(flex);
+            @include justify-content(flex-start);
+            @include align-items(center);
+
+            width: 100%;
+
+            color: $color-base;
+
+            &.active, &.past {
+                color: $color-white;
+            }
+
+            border-top: 2px solid $color-white;
+            @include media($medium-screen) {
+                border-top: none;
+            }
+
+            .breadcrumb-step {
+                @include flex(0 1 auto);
+                max-width: rem(55);
+                margin: 0 rem(10);
+                padding: rem(10) 0;
+                font-weight: $font-semibold;
+                text-transform: uppercase;
+            }
+
+            .breadcrumb-title {
+                @include flex(1 1 auto);
+                padding: rem(10) 0;
+            }
+
+            .breadcrumb-arrow {
+                display: none;
+
+                @include media($medium-screen) {
+                    @include flex(0 0 auto);
+                    background-color: $filter-bar-gray;
+                    width: rem(25);
+                    height: rem(40);
+                    display: block;
+                }
+
+                .arrow {
+                    position: relative;
+                    width: 100%;
+                    height: 100%;
+
+                    &:before, &:after {
+                        left: 0;
+                        top: 50%;
+                        border: solid transparent;
+                        content: " ";
+                        height: 0;
+                        width: 0;
+                        position: absolute;
+                        pointer-events: none;
+                    }
+                    &:after {
+                        border-color: rgba(136, 183, 213, 0);
+                        border-left-color: $filter-bar-gray;
+                        border-width: 20px;
+                        margin-top: -20px;
+                    }
+                    &:before {
+                        border-color: rgba(194, 225, 245, 0);
+                        border-left-color: $color-white;
+                        border-width: 25px;
+                        margin-top: -25px;
+                    }
+
+                    &.active {
+                        &:after {
+                            border-left-color: $color-primary-darker;
+                        }
+                    }
+
+                    &.past {
+                        &:after {
+                            border-left-color: $color-gray-medium;
+                        }
+                    }
+                }
+
+                &.next-active, &.is-last, &.active {
+                    background-color: $color-primary-darker;
+                }
+
+                &.next-past, &.past {
+                    background-color: $color-gray-medium
+                }
+            }
+        }
+    }
+}
