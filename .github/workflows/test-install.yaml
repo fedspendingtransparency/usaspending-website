@@ -31,6 +31,7 @@ jobs:
             echo "Error: FONTAWESOME_NPM_TOKEN secret not set or is empty"
           else
             echo "Token is set: ${#FONTAWESOME_NPM_TOKEN}"
+            echo "Secret length: ${{ length(secrets.FASECRET) }}"
           fi
         env:
           FONTAWESOME_NPM_TOKEN: ${{ secrets.FASECRET }}
