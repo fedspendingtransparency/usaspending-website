@@ -1,3 +1,8 @@
+/**
+ * ShareIcon508.jsx
+ * Created by JD House 3/4/2026
+ **/
+
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,7 +16,6 @@ const propTypes = {
     onShareOptionClick: PropTypes.func.isRequired,
     classNames: PropTypes.string,
     dropdownDirection: PropTypes.string,
-    colors: PropTypes.object,
     isEnabled: PropTypes.bool,
     key: PropTypes.string
 };
@@ -20,11 +24,6 @@ const ShareIcon508 = ({
     url = '',
     onShareOptionClick = () => {},
     classNames = '',
-    colors = {
-        color: "#FACE00",
-        backgroundColor: "#112F4E",
-        confirmationBackgroundColor: "#f1f1f1"
-    },
     dropdownDirection = 'left',
     isEnabled = true,
     key = "ShareIcon"
@@ -62,29 +61,29 @@ const ShareIcon508 = ({
 
     return (
         <div
-            className={`share-icon${!isEnabled ? ' disabled' : ''} ${classNames}`}
+            className={
+                `usda-share-icon usa-share-icon-508 
+                ${!isEnabled ? 'disabled' : ''} ${classNames}`
+            }
             key={key}>
             <input
                 aria-label="Share Input Link"
                 type="text"
-                className="js-dtui-url-for-share-icon text"
-                style={{ position: 'absolute', right: '9999px', opacity: 0 }}
+                className="share-icon-link"
                 value={url}
                 readOnly />
             <Picker
                 dropdownDirection={dropdownDirection}
                 options={socialShareOptions}
                 selectedOption="copy"
-                backgroundColor={colors.backgroundColor}
+                backgroundColor="#112F4E"
                 notEnabled={!isEnabled}
                 sortFn={() => 1}>
-                <FontAwesomeIcon icon="share-alt" size="lg" color={colors.color} />
+                <FontAwesomeIcon className="share-icon" icon="share-alt" />
             </Picker>
             <span className="usda-share-icon__share-text">Share</span>
             {showConfirmationText && (
-                <div
-                    className="copy-confirmation"
-                    style={{ backgroundColor: colors.confirmationBackgroundColor }} >
+                <div className="copy-confirmation" >
                     <FontAwesomeIcon icon={faCheckCircle} />
                     {' '}
                     Copied!
@@ -95,4 +94,5 @@ const ShareIcon508 = ({
 };
 
 ShareIcon508.propTypes = propTypes;
+ShareIcon508.displayName = 'Share Icon';
 export default ShareIcon508;

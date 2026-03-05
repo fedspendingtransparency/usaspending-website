@@ -4,10 +4,10 @@
  */
 
 import React from "react";
-import { DownloadIconButton } from "data-transparency-ui";
 
 import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
 import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
+import DownloadIconButton508 from "components/sharedComponents/buttons/DownloadButton508";
 import FilterAwardToggle from "../FilterAwardToggle";
 import NoDownloadHover from "./NoDownloadHover";
 
@@ -23,7 +23,6 @@ const searchPageToolBarComponents = (
     handleShareDispatch,
     queryParam
 ) => {
-    const shareIconClassName = !isMobile ? "margin-right" : "";
     const toolTipComponent = (!downloadAvailable && hash)
         ? <NoDownloadHover />
         : null;
@@ -48,9 +47,8 @@ const searchPageToolBarComponents = (
 
     return (
         [
-            <FilterAwardToggle queryParam={queryParam} />,
-            <DownloadIconButton
-                tooltipPosition="left"
+            <FilterAwardToggle queryParam={queryParam} key="FilterAwardToggle" />,
+            <DownloadIconButton508
                 tooltipComponent={toolTipComponent}
                 isEnabled={downloadAvailable}
                 downloadInFlight={downloadInFlight}
@@ -60,7 +58,6 @@ const searchPageToolBarComponents = (
                 isEnabled
                 url={getBaseUrl(getSlugWithHash())}
                 onShareOptionClick={handleShare}
-                classNames={shareIconClassName}
                 key="ShareIcon" />
         ]
     );

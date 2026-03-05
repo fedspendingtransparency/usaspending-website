@@ -1,0 +1,38 @@
+.usa-share-icon-508 {
+    position: relative;
+    padding: rem(4);
+    margin: 0;
+    
+    .share-icon-link { 
+        position: absolute;
+        right: 9999px;
+        opacity: 0; 
+    }
+
+    span {
+        color: $theme-color-accent-vivid;
+    }
+
+    .usa-dt-picker {
+        .usa-dt-picker__dropdown-container {
+            .usa-dt-picker__button {
+                color: $theme-color-accent-vivid;
+
+                svg {
+                    width: rem(16);
+                    height: rem(16);
+                    margin-bottom: rem(4);
+
+                }
+                span, svg {
+                    &:hover, &:active {
+                        color: $yellow-10v
+                    }
+                }
+
+            }
+
+    
+        }
+    }
+}

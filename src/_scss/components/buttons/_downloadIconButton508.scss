@@ -1,0 +1,42 @@
+.usa-download-icon {
+    padding: rem(4);
+    margin: 0 rem(24);
+    display: flex;
+
+    .tooltip__hover-wrapper {
+        flex-direction: column;
+    }
+
+    &.disabled {
+        .usa-button {
+            cursor: default;
+
+            svg, span {
+                color: $theme-color-base-light
+            }
+        }
+    }
+
+    .usa-button {
+        @include button-unstyled;
+        background-color: $theme-color-dark-blue-bg;
+        text-align: center;
+        
+        svg {
+            width: rem(15);
+            height: rem(16);
+            margin-bottom: rem(4);
+            
+        }
+        svg, span {
+            color: $theme-color-accent-vivid;
+            &:hover, &:active {
+                color: $yellow-10v;
+            }
+        }
+    }
+
+  @media (max-width: $medium-screen) {
+      display: none;
+  }
+}

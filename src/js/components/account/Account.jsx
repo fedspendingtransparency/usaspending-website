@@ -5,13 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 
 import AccountOverview from './AccountOverview';
 import SearchSidebar from './SearchSidebar';
@@ -45,7 +46,7 @@ const Account = ({ account, currentFiscalYear }) => {
             title={`Federal Account Symbol: ${accountSymbol}`}
             metaTagProps={account ? MetaTagHelper.federalAccountPageMetaTags(account) : {}}
             toolBarComponents={[
-                <ShareIcon
+                <ShareIcon508
                     url={getBaseUrl(fedAccountSlug)}
                     onShareOptionClick={(name) => handleShare(name, fedAccountSlug)} />
             ]}>

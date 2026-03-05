@@ -59,4 +59,12 @@
             @include fullSectionWrap(0, 0);
         }
     }
+
+    .usda-page-header__mobile-top{
+        .usa-share-icon-508 {
+            @media(min-width: $medium-screen) {
+                display: none;
+            }
+        }
+    }
 }
