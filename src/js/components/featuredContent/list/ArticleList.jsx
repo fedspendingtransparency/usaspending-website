@@ -54,7 +54,7 @@ const ArticleList = ({ articles }) => {
 
         Analytics.event({
             event: 'dap_event',
-            category: 'USAspending – Featured Content ',
+            category: 'Featured Content',
             action: 'Card Clicked',
             label: `${title}`
         });
