@@ -10,70 +10,92 @@
             color: $gray-90;
         }
     }
-
+    .download-warning-container {
+        display: flex;
+        align-items: flex-start;
+        border: rem(1) solid $orange-30v;
+        border-radius: rem(4);
+        background-color: $orange-5v;
+        padding: rem(16);
+        margin-bottom: rem(12);
+        .usa-da-icon-exclamation-triangle {
+            width: rem(60);
+            margin-right: rem(8);
+            fill: $orange-30v;
+        }
+        span {
+            line-height: 150%;
+            font-size: rem(16);
+            color: $gray-90;
+        }
+    }
     .level-options-container {
         @include media($medium-screen) {
-            @include display(flex);
-            @include justify-content(center);
-            @include align-items(center);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: rem(20);
             position: relative;
         }
 
         margin-bottom: rem(12);
-
-        .level-option {
-            &:first-child {
-                margin-bottom: rem(20);
+        .download-item {
+            border: rem(1) solid $gray-10;
+            border-radius: rem(12);
+            padding: rem(16);
+            &.disabled {
+                background-color: $gray-2;
+                color: $gray-2;
             }
-
-            @include media($medium-screen) {
-                @include flex(1 1 auto);
-                margin-left: rem(10);
-                &:first-child {
-                    margin-left: 0;
-                    margin-bottom: 0;
-                    margin-right: rem(10);
+            .download-item-top {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: rem(11);
+                &.disabled {
+                    background-color: $gray-2;
                 }
-            }
-
-            @include display(flex);
-            @include flex-direction(column);
-            @include justify-content(center);
-            @include align-items(center);
-            position: relative;
-
-            .level-button {
-                @include flex(1 1 auto);
-                padding: rem(10) rem(40);
-
-                margin-bottom: rem(20);
-
-                background-color: transparent;
-                border: 2px solid $color-primary-darker;
-                color: $color-primary-darker;
-                font-size: $base-font-size;
-
-                &:hover, &:active {
-                    background-color: $color-primary-darker;
-                    color: $color-white;
-                }
-
-                &:disabled {
-                    cursor: not-allowed;
-                    opacity: 0.3;
-
-                    &:hover {
-                        background-color: $color-white;
-                        color: $color-primary-darker;
+                input { 
+                    margin-right: rem(8);
+                    border: rem(1) solid $gray-cool-30;
+                    border-radius: rem(2);
+                    &.disabled {
+                        background-color: $gray-cool-30;
                     }
                 }
-            }
+                .download-item-title {
+                    font-weight: $font-semibold;
+                    line-height: 120%;
+                    color: $gray-90;
+                    display:flex;
+                    align-items: center;
 
-            .level-description {
-                @include flex(1 1 auto);
-                color: $color-gray;
-                font-size: $small-font-size;
-                text-align: center;
+                    &.disabled {
+                        color: $gray-60;
+                    }
+                }
+                .download-record-count {
+                    font-weight: $font-semibold;
+                    line-height: 150%;
+                    font-size: rem(14);
+                    padding: 0 rem(4);
+                    color: $gray-90;
+                    background-color: $yellow-20v;
+                    border-radius: rem(4);
+
+                    &.disabled {
+                        background-color: $gray-2;
+                        color: $gray-60;
+                    }                    
+                }
+            }
+            .download-item-body {
+                size: rem(16);
+                color: $gray-90;
+                line-height: 150%; 
+                &.disabled {
+                    background-color: $gray-2;
+                    color: $gray-60;
+                }
             }
         }
     }
@@ -85,6 +107,19 @@
         line-height: 150%;
         .level-options-bold {
             font-weight: $font-semibold;
+        }
+    }
+
+    .download-button-container {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            margin: 0;
+
+            &:first-of-type {
+                margin-right: rem(12);
+            }
         }
     }
 }

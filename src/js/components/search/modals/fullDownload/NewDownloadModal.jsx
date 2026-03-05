@@ -11,10 +11,8 @@ import { Close } from 'components/sharedComponents/icons/Icons';
 
 import NewDownloadLevelContainer from
     'containers/search/modals/fullDownload/screens/newScreens/NewDownloadLevelContainer';
-import NewDownloadScopeContainer from
-    'containers/search/modals/fullDownload/screens/newScreens/NewDownloadScopeContainer';
 
-import DownloadProgress from './screens/DownloadProgress';
+
 import usePrevious from '../../../../hooks/usePrevious';
 
 const propTypes = {
@@ -61,19 +59,17 @@ const NewDownloadModal = (props) => {
         setDownloadStep(step);
     };
 
-    let content = <NewDownloadLevelContainer goToStep={goToStep} />;
+    // remove eslint warnings after you do the other levels
+    // eslint-disable-next-line prefer-const
+    let content = <NewDownloadLevelContainer goToStep={goToStep} hideModal={hideModal} />;
+    // eslint-disable-next-line prefer-const
     let headerContent = "Step 1 of 2: Select which data you'd like to download";
-    if (downloadStep === 2) {
-        content = <NewDownloadScopeContainer goToStep={goToStep} />;
-    }
-    else if (downloadStep === 3) {
-        headerContent = "Step 2 of 2: Select which data you'd like to download";
-        content = (<DownloadProgress
-            hideModal={hideModal}
-            download={props.download}
-            setDownloadCollapsed={props.setDownloadCollapsed}
-            expectedUrl={props.download.expectedUrl} />);
-    }
+
+    // will need for the future
+    // if (downloadStep === 2) {
+    // }
+    // else if (downloadStep === 3) {
+    // }
 
     return (
         <Modal

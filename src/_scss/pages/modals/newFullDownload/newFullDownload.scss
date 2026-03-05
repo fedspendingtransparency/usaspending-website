@@ -1,6 +1,6 @@
 .search-section-new-download-modal {
     // override the modal widths
-    width: 50%;
+    width: 60%;
     border-radius: rem(12);
 }
 
@@ -11,11 +11,7 @@
     border-radius: rem(12);
     .download-body {
         padding: rem(24);
-        @import "./_filterBar";
     }
 
-    @import "./_breadcrumb";
-
     @import "./_levelScreen";
-    @import "./_progressScreen";
 }
