@@ -29,7 +29,9 @@ jobs:
         run: |
           if [ -z "FASECRET" ]; then
             echo "Error: MY_SECRET secret not set or is empty"
-            exit 1
+          else
+            echo "Token is set"
+          exit 1
           fi
         env:
           MY_SECRET: ${{ secrets.FASECRET }}
