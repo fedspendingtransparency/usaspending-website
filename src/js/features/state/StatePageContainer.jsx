@@ -13,7 +13,7 @@ import {
     setStateCenter
 } from 'redux/actions/state/stateActions';
 import { stateCenterFromFips } from 'helpers/mapHelper';
-import useFetchOverview from "./hooks/useFetchOverview";
+import useFetchOverview from "./overview/useFetchOverview";
 import StatePage from './StatePage';
 
 require('pages/state/statePage.scss');
