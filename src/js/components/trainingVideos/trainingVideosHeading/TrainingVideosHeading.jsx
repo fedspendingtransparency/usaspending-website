@@ -53,7 +53,7 @@ const TrainingVideosHeading = () => {
                     mobile={0}>
                     <div className="training-videos__column-one">
                         <div className="training-videos__img-container">
-                            <img className="training-videos__img" src="img/youtube-page/youtube-landing-page-hero-image@2x.webp" alt="placeholder" />
+                            <img fetchPriority="high" className="training-videos__img" src="img/youtube-page/youtube-landing-page-hero-image@2x.webp" alt="placeholder" />
                         </div>
                     </div>
                 </FlexGridCol>

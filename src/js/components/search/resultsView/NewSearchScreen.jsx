@@ -12,6 +12,7 @@ const propTypes = { showButton: PropTypes.bool };
 const NewSearchScreen = ({ showButton }) => (
     <div className="new-search-container">
         <img
+            fetchPriority="high"
             className="new-search-icon"
             src="graphics/award-search-default-empty-state.svg"
             alt="Start your search by adding filters" />

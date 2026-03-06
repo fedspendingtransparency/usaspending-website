@@ -374,6 +374,7 @@ const TopFive = (props) => {
             <div className="category-table__title">
                 <img
                     className="category-table__title-icon"
+                    fetchPriority="high"
                     src={`img/state-categories/${props.category}.png`}
                     aria-hidden="true"
                     alt="" />

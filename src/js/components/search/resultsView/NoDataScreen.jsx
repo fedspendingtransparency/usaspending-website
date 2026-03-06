@@ -8,6 +8,7 @@ import React from 'react';
 const NoDataScreen = () => (
     <div className="new-search-container">
         <img
+            fetchPriority="high"
             className="no-results-icon"
             src="graphics/No-results.svg"
             alt="No results found. Please adjust your search filters and try again." />

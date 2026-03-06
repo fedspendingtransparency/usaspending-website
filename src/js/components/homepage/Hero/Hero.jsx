@@ -114,31 +114,41 @@ const Hero = () => {
                 <div className="homepage-hero-graphic">
                     <div className="hero__graphic-layer-background">
                         <img
+                            rel="preload"
+                            fetchPriority="high"
                             role="presentation"
                             src="../../../../img/homepage-hero/desktop/hero-graphic-background-mountains@2x.webp"
                             alt="" />
                     </div>
                     <div className="hero__graphic-layer-bridge">
                         <img
+                            rel="preload"
                             role="presentation"
+                            fetchPriority="high"
                             src="../../../../img/homepage-hero/desktop/hero-graphic-background-bridge@2x.webp"
                             alt="" />
                     </div>
                     <div className="hero__graphic-layer-buildings">
                         <img
                             role="presentation"
+                            rel="preload"
+                            fetchPriority="high"
                             src="../../../../img/homepage-hero/desktop/hero-graphic-background-left-hill@2x.webp"
                             alt="" />
                     </div>
                     <div className="hero__graphic-layer-windmills">
                         <img
                             role="presentation"
+                            rel="preload"
+                            fetchPriority="high"
                             src="../../../../img/homepage-hero/desktop/hero-graphic-background-right-hill@2x.webp"
                             alt="" />
                     </div>
                     <div className="hero__graphic-layer-foreground">
                         <img
                             role="presentation"
+                            rel="preload"
+                            fetchPriority="high"
                             src="../../../../img/homepage-hero/desktop/hero-graphic-foreground@2x.webp"
                             alt="" />
                     </div>
@@ -148,18 +158,24 @@ const Hero = () => {
                         <div className="hero__graphic-layer-windmills">
                             <img
                                 role="presentation"
+                                rel="preload"
+                                fetchPriority="high"
                                 src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-background-right-hill@2x.webp"
                                 alt="" />
                         </div>
                         <div className="hero__graphic-layer-background">
                             <img
                                 role="presentation"
+                                rel="preload"
+                                fetchPriority="high"
                                 src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-background-left-hill@2x.webp"
                                 alt="" />
                         </div>
                         <div className="hero__graphic-layer-foreground">
                             <img
                                 role="presentation"
+                                rel="preload"
+                                fetchPriority="high"
                                 src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-foreground@2x.webp"
                                 alt="" />
                         </div>

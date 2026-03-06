@@ -40,7 +40,7 @@ const MobileMessage = () => {
         <div className="mobile-message__container">
             <div className="mobile-message">
                 <div className="mobile-message__image">
-                    <img src="img/icon--flipMobile.png" alt="Rotate to landscape view" />
+                    <img fetchPriority="high" src="img/icon--flipMobile.png" alt="Rotate to landscape view" />
                 </div>
                 <div className="mobile-message__text">
                     Rotate your device for the optimal mobile experience

@@ -63,6 +63,7 @@ const GovBanner = () => {
                                 {isMobile && getMobileButton()}
                                 <img
                                     className="usa-banner__header-flag"
+                                    fetchPriority="high"
                                     alt="U.S. flag"
                                     src="img/uswds/us_flag_small.png" />
                                 <div
@@ -103,6 +104,7 @@ const GovBanner = () => {
                             <div className="usa-media-block__body">
                                 <img
                                     className="usa-banner__content-icon"
+                                    fetchPriority="high"
                                     alt="Lock"
                                     src="img/uswds/icon-dot-gov.svg" />
                                 <p><strong>Official websites use .gov</strong><br />A <strong>.gov</strong> website belongs to an official government organization in the United States.</p>
@@ -112,12 +114,14 @@ const GovBanner = () => {
                             <div className="usa-media-block__body">
                                 <img
                                     className="usa-banner__content-icon"
+                                    fetchPriority="high"
                                     alt="Lock"
                                     src="img/uswds/icon-https.svg" />
                                 <p><strong>Secure .gov websites use HTTPS</strong><br />A&nbsp;
                                     <strong>lock (
                                         <img
                                             className="usa-banner__content-lock"
+                                            fetchPriority="high"
                                             alt="Lock"
                                             src="img/uswds/lock.svg" />
                                         )

@@ -15,6 +15,7 @@ const AnalystGuideHeader = ({ title, subtitle }) => (
                 <div className="hero__right-image-wrapper">
                     <picture>
                         <img
+                            fetchPriority="high"
                             className="hero__right-image"
                             role="presentation"
                             src="../../../../img/analyst-guide-hero-graphic-2x.png"

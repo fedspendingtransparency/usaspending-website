@@ -52,7 +52,7 @@ const MainCards = ({ contentObject }) => {
                             mobile={12}
                             className={index % 2 === 0 ? `equity-main-card__col-one` : `equity-main-card__col-two`}>
                             <MainCard
-                                image={<img className="main-cards__svg" role="presentation" src={card.img} alt="" />}
+                                image={<img fetchPriority="high" className="main-cards__svg" role="presentation" src={card.img} alt="" />}
                                 imageColor={card.color}
                                 heading={<h2>{card.heading}</h2>}
                                 text={cardContent}

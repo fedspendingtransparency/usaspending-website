@@ -19,6 +19,7 @@ const PageTitle = () => {
 
     const image = logo ? (
         <img
+            fetchPriority="high"
             className="page-title__image"
             src={`graphics/agency/${logo}`}
             alt={`${name} logo`} />

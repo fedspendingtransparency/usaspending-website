@@ -64,6 +64,7 @@ const FilterModal = (props) => {
                         </div>
                         <div className="filter-modal__image">
                             <img
+                                fetchPriority="high"
                                 role="presentation"
                                 src="../../../../img/FY21_WOB.png"
                                 alt="" />
@@ -79,6 +80,7 @@ const FilterModal = (props) => {
                         <div className="filter-modal__image">
                             <img
                                 role="presentation"
+                                fetchPriority="high"
                                 src="../../../../img/FY21_WOB_VOB.png"
                                 alt="" />
                         </div>
@@ -93,6 +95,7 @@ const FilterModal = (props) => {
                         <div className="filter-modal__image">
                             <img
                                 role="presentation"
+                                fetchPriority="high"
                                 src="../../../../img/WOB_VOB.png"
                                 alt="" />
                         </div>

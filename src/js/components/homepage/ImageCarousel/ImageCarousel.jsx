@@ -219,7 +219,7 @@ export default class ImageCarousel extends React.Component {
                     <picture className="feature-carousel-image__image">
                         <source srcSet={image.srcSet} type="image/webp" />
                         <source srcSet={image.src} type="image/png" />
-                        <img src={image.src} alt={image.alt} />
+                        <img fetchPriority="high" src={image.src} alt={image.alt} />
                     </picture>
                 </li>
             );

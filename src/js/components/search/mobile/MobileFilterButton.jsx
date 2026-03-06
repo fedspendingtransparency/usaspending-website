@@ -44,6 +44,7 @@ const MobileFilterButton = ({
                     </div>
                     <div className="mobile-filter-button-icon">
                         <img
+                            fetchPriority="high"
                             className="usa-da-mobile-filter-icon"
                             alt="Toggle filters"
                             aria-label="Toggle filters"

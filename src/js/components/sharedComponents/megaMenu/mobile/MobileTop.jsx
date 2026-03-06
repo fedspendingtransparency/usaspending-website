@@ -36,6 +36,7 @@ const MobileTop = (props) => {
                             onClick={(e) => clickedLink(e)}>
                             <img
                                 className="site-logo__image"
+                                fetchPriority="high"
                                 src="img/logo.png"
                                 srcSet="img/logo.png 1x, img/logo@2x.png 2x"
                                 alt="USAspending.gov" />

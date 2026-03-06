@@ -18,7 +18,7 @@ const ArticleThumbnail = ({
 }) => (
     <FlexGridRow>
         <FlexGridCol width={12} className="video-thumbnail__column-container">
-            <img src={thumbnailUrl} title={title} alt={title} />
+            <img fetchPriority="high" src={thumbnailUrl} title={title} alt={title} />
         </FlexGridCol>
     </FlexGridRow>
 );

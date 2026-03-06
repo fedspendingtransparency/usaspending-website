@@ -4,6 +4,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 // const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const TerserPlugin = require('terser-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 
 const common = require('./webpack.common');
 
@@ -18,6 +19,7 @@ module.exports = merge(common, {
         warnings: true
     },
     optimization: {
+        minimize: true,
         minimizer: [
             new TerserPlugin(),
             new CssMinimizerPlugin()
@@ -58,6 +60,8 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
+        new TerserPlugin(),
+        new CompressionPlugin(),
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),

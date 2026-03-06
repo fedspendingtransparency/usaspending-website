@@ -168,7 +168,7 @@ const MenuDropdowns = React.memo(() => {
                             <div
                                 style={dropdownRoot()}>
                                 <Flipped flipId="dropdown-caret">
-                                    <img role="presentation" src="img/caret.svg" alt="" className="caret" />
+                                    <img fetchPriority="high" role="presentation" src="img/caret.svg" alt="" className="caret" />
                                 </Flipped>
                                 <Flipped flipId="dropdown">
                                     <div className="dropdown-background">

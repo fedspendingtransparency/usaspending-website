@@ -11,6 +11,7 @@ const FeaturedContentHeader = ({ isMobile, isTablet, chosenArticle }) => (
         { !isMobile &&
             !isTablet &&
             <img
+                fetchPriority="high"
                 src={chosenArticle?.slug ? `${heroPath}${chosenArticle?.slug}.webp` : null}
                 alt="hero"
                 name="featured-content-hero"

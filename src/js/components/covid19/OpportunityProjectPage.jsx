@@ -39,7 +39,7 @@ const OpportunityProjectPage = () => {
                         <main role="main" className="main-content" id="main-content">
                             <header>
                                 <h1 className="main-heading">Analyzing Equity in Federal COVID-19 Spending: The Opportunity Project</h1>
-                                <img src="img/opportunity-project-logo.png" role="presentation" alt="" />
+                                <img fetchPriority="high" src="img/opportunity-project-logo.png" role="presentation" alt="" />
                             </header>
 
                             <section>
@@ -51,7 +51,7 @@ const OpportunityProjectPage = () => {
                             <picture>
                                 <source srcSet="img/opportunity-project-map.webp 950w" type="image/webp" />
                                 <source srcSet="img/opportunity-project-map.png" type="image/png" />
-                                <img src="img/opportunity-project-map.png" alt="United States map displaying locations of teams who participated in the Bureau of the Fiscal Service's 2021 sprint for The Opportunity Project" />
+                                <img fetchPriority="high" src="img/opportunity-project-map.png" alt="United States map displaying locations of teams who participated in the Bureau of the Fiscal Service's 2021 sprint for The Opportunity Project" />
                             </picture>
 
                             <section>

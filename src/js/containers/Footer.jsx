@@ -76,7 +76,7 @@ const Footer = ({
                             title="USAspending.gov Home"
                             aria-label="USAspending.gov Home"
                             onClick={clickedFooterLink.bind(null, '/')}>
-                            <img src="img/footer_logo.png" alt="USAspending.gov" />
+                            <img src="img/footer_logo.png" alt="USAspending.gov" fetchPriority="high" />
                         </Link>
                     </div>
                     {isLargeScreen && (

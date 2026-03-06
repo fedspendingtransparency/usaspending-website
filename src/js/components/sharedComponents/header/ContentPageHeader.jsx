@@ -66,7 +66,7 @@ const ContentPageHeader = ({
                     mobile={0}>
                     <div className={`${className}__column-one`}>
                         <div className={`${className}__img-container`}>
-                            <img className={`${className}__img`} src={image} alt="placeholder" />
+                            <img className={`${className}__img`} fetchPriority="high" src={image} alt="placeholder" />
                         </div>
                     </div>
                 </FlexGridCol>

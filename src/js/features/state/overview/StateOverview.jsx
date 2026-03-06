@@ -29,7 +29,7 @@ const StateOverview = () => {
         if (overview.flag !== '') {
             hideFlagPrep = '';
             flagPrep = (
-                <img src={overview.flag} alt={overview.name} />
+                <img fetchPriority="high" src={overview.flag} alt={overview.name} />
             );
         }
 

@@ -45,13 +45,13 @@ const Heading = ({ publicLaw }) => {
                     <>
                         <picture className="heading__img-arp">
                             <source srcSet="img/ARPA-illustration.webp 1x, img/ARPA-illustration.webp 2x" type="image/webp" />
-                            <img src="img/ARPA-illustration.svg" alt="" />
+                            <img fetchPriority="high" src="img/ARPA-illustration.svg" alt="" />
                         </picture>
                     </> :
                     <>
                         <picture className="heading__img-all">
                             <source srcSet="img/All-Public-Laws-Illustration.webp 1x" type="image/webp" />
-                            <img src="img/All-Public-Laws-Illustration.svg" alt="" />
+                            <img fetchPriority="high" src="img/All-Public-Laws-Illustration.svg" alt="" />
                         </picture>
                     </>
                 }
