@@ -140,6 +140,8 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
                     Please check your spelling or try a broader search. Missing something?
                     <br />
                     <a
+                        target="_blank"
+                        rel="noopener noreferrer"
                         href="https://eex-survey.voc.ttecgov.us/se/0ADFD0F61A0367FE"
                         onClick={handleNoResultsLinkClick}>
                         Submit feedback on filters.
