@@ -33,6 +33,8 @@ jobs:
     if: |
       always() &&
       needs.Cancel-If-Draft-Pull-Request.result == 'skipped'
+    secrets:
+      FASECRET: ${{ secrets.FASECRET }}
     uses: ./.github/workflows/test-install.yaml
 
   # The test suite is broken into multiple groups based on a combination of what is under test
@@ -43,6 +45,8 @@ jobs:
     strategy:
       fail-fast: true
     if: ${{ !failure() && !cancelled() }}
+    secrets:
+      FASECRET: ${{ secrets.FASECRET }}
     uses: ./.github/workflows/test-unit.yaml
 
   Run-Lighthouse-Desktop:
@@ -51,6 +55,8 @@ jobs:
       fail-fast: true    
     needs: Cancel-If-Draft-Pull-Request
     if: ${{ !failure() && !cancelled() }}
+    secrets:
+      FASECRET: ${{ secrets.FASECRET }}
     uses: ./.github/workflows/test-lighthouse-desktop.yaml
 
   Run-Lighthouse-Mobile:
@@ -59,6 +65,8 @@ jobs:
       fail-fast: true    
     needs: Cancel-If-Draft-Pull-Request
     if: ${{ !failure() && !cancelled() }}
+    secrets:
+      FASECRET: ${{ secrets.FASECRET }}
     uses: ./.github/workflows/test-lighthouse-mobile.yaml  
 
   Run-Broken-Link-Check:
