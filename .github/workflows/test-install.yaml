@@ -28,16 +28,6 @@ jobs:
       - name: Install webpack
         run: npm install -g webpack@5.94.0
 
-      - name: Validate MY_SECRET exists
-        env:
-          FONTAWESOME_NPM_TOKEN: ${{ secrets.FASECRET }}
-        run: |
-          if [ -z "FASECRET" ]; then
-            echo "Error: FONTAWESOME_NPM_TOKEN secret not set or is empty"
-          else
-            echo "Token is set: ${#FONTAWESOME_NPM_TOKEN}"
-          fi
-
       - name: Add FontAwesome Pro token
         env:
           FONTAWESOME_NPM_TOKEN: ${{ secrets.FASECRET }}
