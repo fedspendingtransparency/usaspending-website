@@ -5,28 +5,28 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from "lodash-es";
 
 import TopFilterItem from './TopFilterItem';
 
 const propTypes = {
-    filter: PropTypes.object,
-    tags: PropTypes.array,
-    compressed: PropTypes.bool
+    name: PropTypes.string,
+    tags: PropTypes.array
 };
 
 const BaseTopFilterGroup = ({
-    filter,
-    tags = [],
-    compressed
+    name,
+    tags = []
 }) => {
-    const tagsArray = tags.map((tag) => (
+    const tagsArray = tags.map(({
+        title, toggleFilter, staged, value
+    }) => (
         <TopFilterItem
-            key={`top-tag-${tag.id}-${tag.value}`}
-            title={tag.title}
-            value={tag.value}
-            code={filter.code}
-            removeFilter={tag.removeFilter}
-            compressed={compressed} />
+            title={title}
+            toggleFilter={toggleFilter}
+            staged={staged}
+            value={value}
+            key={`top-tag-${title}-${uniqueId()}`} />
     ));
 
     return (
@@ -34,10 +34,10 @@ const BaseTopFilterGroup = ({
             <div
                 className="filter-group"
                 role="group"
-                aria-label={filter.name}>
+                aria-label={name}>
                 <div className="filter-group-top">
                     <div className="filter-name">
-                        {filter.name}
+                        {name}
                     </div>
                 </div>
                 <div className="filter-group-bottom">

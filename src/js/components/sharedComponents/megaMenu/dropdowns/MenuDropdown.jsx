@@ -69,7 +69,7 @@ const MenuDropdown = React.memo(({
                                             <li
                                                 key={`link-${uniqueId(index)}`}
                                                 className="list__extra-padding">
-                                                <Link prefetch={menuIndex === 0 ? "intent" : "none"} className="dropdown--item__link" to={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
+                                                <Link prefetch={menuIndex === 0 ? "intent" : "none"} className="dropdown--item__link" to={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} state={item.queryParam}>
                                                     {item.icon && item.icon !== '' && item.icon !== null ?
                                                         <FontAwesomeIcon
                                                             role="presentation"

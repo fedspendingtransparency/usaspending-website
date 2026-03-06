@@ -28,7 +28,7 @@ describe('searchFiltersReducer', () => {
         it('should add a value if it does not currently exist in the set', () => {
             const startingState = Object.assign({}, initialState);
 
-            expect(searchFiltersReducer(startingState, action).awardType).toEqual(new Set(['09']));
+            expect(searchFiltersReducer(startingState, action).awardType).toEqual(new Set(['09', 'F005']));
         });
 
         it('should remove a value if currently exists in the set', () => {
@@ -86,7 +86,7 @@ describe('searchFiltersReducer', () => {
 
             const startingState = Object.assign({}, initialState);
 
-            expect(searchFiltersReducer(startingState, action).awardType).toEqual(new Set(['10', '06']));
+            expect(searchFiltersReducer(startingState, action).awardType).toEqual(new Set(['10', '06', 'F006', 'F007']));
         });
 
         it('should remove the provided values when the direction is "remove"', () => {

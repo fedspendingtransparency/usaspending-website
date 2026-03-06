@@ -18,6 +18,7 @@ export const searchSection1Options = [
         label: 'Search by Subaward',
         description: 'Explore government spending by subaward',
         url: '/search',
+        queryParam: { subawards: true },
         hidden: false
     }
 ];

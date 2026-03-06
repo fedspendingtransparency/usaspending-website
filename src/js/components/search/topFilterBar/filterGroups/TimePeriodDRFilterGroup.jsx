@@ -4,49 +4,71 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
-import { uniqueId } from "lodash-es";
+import { useDispatch, useSelector } from "react-redux";
+import PropTypes from "prop-types";
+
+import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
+import { dateRangeChipLabel } from "helpers/searchHelper";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
-};
+const propTypes = { name: PropTypes.string };
 
-export default class TimePeriodDRFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
+const TimePeriodDRFilterGroup = ({ name }) => {
+    const timePeriod = useSelector((state) => state.filters.time_period);
+    const appliedTimePeriod = useSelector((state) => state.appliedFilters.filters.time_period);
+    const dispatch = useDispatch();
 
-        this.clearGroup = this.clearGroup.bind(this);
-    }
+    const toggleFilter = ({ startDate, endDate }, staged) => {
+        let newValue = timePeriod;
 
-    clearGroup() {
-        this.props.redux.resetTimeFilters();
-    }
-
-    generateTags() {
-        const tags = [];
-
-        this.props.filter.values.forEach((value) => {
-            tags.push({
-                value: 'dr',
-                title: value,
-                id: uniqueId()
-            });
+        timePeriod.forEach((date) => {
+            if (staged && date.start_date === startDate && date.end_date === endDate) {
+                newValue = newValue.delete(date);
+            }
+            else {
+                newValue = newValue.add(date);
+            }
         });
 
-        return tags;
-    }
+        if (!staged) newValue = newValue.add({ end_date: endDate, start_date: startDate });
 
-    render() {
-        const tags = this.generateTags();
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
+        dispatch(updateGenericFilter({
+            type: 'timePeriodType',
+            value: 'dr'
+        }));
+        dispatch(updateGenericFilter({
+            type: 'time_period',
+            value: newValue
+        }));
+    };
+
+    const filters = {
+        values: appliedTimePeriod.map((value) => ({
+            startDate: value.start_date,
+            endDate: value.end_date,
+            title: dateRangeChipLabel(value),
+            key: `${value.start_date}-${value.end_date}`
+        }))
+    };
+
+    // eslint-disable-next-line camelcase
+    const keys = timePeriod.map(({ start_date, end_date }) => `${start_date}-${end_date}`);
+
+    const tags = [];
+
+    filters.values.forEach(({
+        startDate, endDate, title, key
+    }) => {
+        tags.push({
+            value: { startDate, endDate },
+            title,
+            toggleFilter,
+            staged: keys.has(key)
+        });
+    });
+
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
+};
 
 TimePeriodDRFilterGroup.propTypes = propTypes;
+export default TimePeriodDRFilterGroup;

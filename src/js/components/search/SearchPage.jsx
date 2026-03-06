@@ -30,7 +30,8 @@ const propTypes = {
     downloadAvailable: PropTypes.bool,
     downloadInFlight: PropTypes.bool,
     noFiltersApplied: PropTypes.bool,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    queryParam: PropTypes.object
 };
 
 const SearchPage = ({
@@ -39,7 +40,8 @@ const SearchPage = ({
     downloadAvailable,
     downloadInFlight,
     noFiltersApplied,
-    hash
+    hash,
+    queryParam
 }) => {
     const [tooltipData, setTooltipData] = useState({
         top: 0, left: 0, display: 'none', tooltip: <></>
@@ -87,11 +89,12 @@ const SearchPage = ({
                     downloadInFlight,
                     hash,
                     setShowFullDownload,
-                    handleShareDispatch
+                    handleShareDispatch,
+                    queryParam
                 )
             }
             filters={appliedFilters}>
-            <div id="main-content">
+            <div id="main-content" role="main">
                 <div className="search-contents v2" ref={searchContents}>
                     <TooltipContext value={(tt) => setTooltipData(tt)}>
                         <CollapsibleSidebar

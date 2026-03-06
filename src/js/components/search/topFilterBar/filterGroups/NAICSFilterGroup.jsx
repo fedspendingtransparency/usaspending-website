@@ -5,54 +5,55 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from "react-redux";
 
+import { updateNaics } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
+const propTypes = { name: PropTypes.string };
+
+const getUniqueValues = (value, index, array) => array.indexOf(value) === index;
+
+const NAICSFilterGroup = ({ name }) => {
+    const { require, counts } = useSelector((state) => state.filters.naicsCodes);
+    const { require: appliedRequire, counts: appliedCounts } = useSelector(
+        (state) => state.appliedFilters.filters.naicsCodes
+    );
+    const dispatch = useDispatch();
+
+    const toggleFilter = ({ value, array }, staged) => {
+        const newNAICS = staged ?
+            {
+                require: require.filter((v) => !array.includes(v)),
+                counts: counts.filter((v) => v.value !== value.value)
+            } :
+            {
+                require: [...require, ...array],
+                counts: [...counts, value]
+            };
+
+        dispatch(updateNaics(
+            newNAICS.require,
+            [],
+            newNAICS.counts
+        ));
+    };
+
+    const keys = counts.map((t) => `${t.value}-${t.count}`);
+    const uniqueNAICS = appliedRequire.filter(getUniqueValues);
+
+    const tags = appliedCounts.map((value) => {
+        const array = uniqueNAICS.filter((v) => v.indexOf(value.value) === 0);
+        return {
+            value: { value, array },
+            title: `${value.value} - ${value.label} (${value.count})`,
+            toggleFilter,
+            staged: keys.includes(`${value.value}-${value.count}`)
+        };
+    });
+
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
-export default class NAICSFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.removeFilter = this.removeFilter.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
-
-    removeFilter(value) {
-    // remove a single filter item
-        const newValue = this.props.redux.reduxFilters.selectedNAICS.delete(value);
-        this.props.redux.updateGenericFilter({
-            type: 'selectedNAICS',
-            value: newValue
-        });
-    }
-
-    clearGroup() {
-        this.props.redux.clearFilterType('selectedNAICS');
-    }
-
-    generateTags() {
-        return this.props.filter.values
-            .map((naics) => ({
-                value: `${naics.identifier}`,
-                title: `${naics.value} - ${naics.label} (${naics.count})`,
-                removeFilter: () => this.removeFilter
-            }));
-    }
-
-    render() {
-        const tags = this.generateTags();
-
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
-
 NAICSFilterGroup.propTypes = propTypes;
+export default NAICSFilterGroup;

@@ -5,7 +5,8 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { ErrorMessage, FlexGridCol, LoadingMessage } from "data-transparency-ui";
+import { reduce } from 'lodash-es';
+import { ErrorMessage, FlexGridCol, GenericMessage, LoadingMessage } from "data-transparency-ui";
 
 import AwardBreakdownTreeMap from './treemap/AwardBreakdownTreeMap';
 import AwardBreakdownTable from './AwardBreakdownTable';
@@ -81,9 +82,10 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
         <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
             { isLoading && <LoadingMessage /> }
             { error && <ErrorMessage /> }
+            { !isLoading && (awardBreakdown.length === 0 || totalAmount === 0) && <GenericMessage title="No Results" description="This award doesn't contain outlay data." className="no-results" />}
             <div className="state-section__viz award-breakdown" id="award">
                 <div className="award-breakdown__content">
-                    { !isLoading && !error && (
+                    { !isLoading && !error && (awardBreakdown.length > 0 && totalAmount > 0) && (
                         <>
                             <AwardBreakdownTreeMap
                                 activeFY={fy}
