@@ -27,8 +27,15 @@ const AwardAmountSearch = () => {
         }));
     };
 
-    const toggleSelection = (selection) => {
-        dispatch(updateAwardAmounts(selection));
+    const toggleSelection = ({ value: key }) => {
+        const newValue = awardAmounts.has(key) ?
+            awardAmounts.delete(key) :
+            awardAmounts.set(key, awardRanges[key]);
+
+        dispatch(updateGenericFilter({
+            type: 'awardAmounts',
+            value: newValue
+        }));
     };
 
     const searchSpecificRange = (selections) => {
