@@ -2,6 +2,9 @@ name: Audit, Jest, Linting
 # run audit and jest
 on:
   workflow_call:
+    secrets:
+      FASECRET:
+        required: true
 
 jobs:
   Run:
