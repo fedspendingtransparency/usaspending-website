@@ -1,99 +1,97 @@
 table {
-    border-spacing: 0;
-    margin: 2em 0;
-    min-width: 100%;
+  border-spacing: 0;
+  margin: 2em 0;
+  min-width: 100%;
 
-    thead {
-        th {
-            background-color: $color-gray-lightest;
-        }
-    }
-
+  thead {
     th {
-        text-align: left;
+      background-color: $color-gray-lightest;
     }
+  }
 
-    tbody {
-        th {
-            font-weight: $font-normal;
-        }
+  th {
+    text-align: left;
+  }
+
+  tbody {
+    th {
+      font-weight: $font-normal;
     }
+  }
 
-    th,
+  th,
+  td {
+    background-color: $color-white;
+    border: 1px solid $color-gray;
+    padding: 1.5rem;
+  }
+
+  &.table-for-new-search-page {
+    .table-header__content_right {
+      text-align: right;
+    }
     td {
+      // this is necessary to make the usda-table__row class hover work correctly
+      background-color: unset;
+    }
+  }
+
+  .usda-table__body {
+    .expaned-table-parent__sticky {
+      .td {
+        border-bottom: none;
+      }
+    }
+
+    .expaned-table-container {
+      position: sticky;
+      position: -webkit-sticky;
+      border: none;
+      padding: rem(16);
+      margin: auto rem(8);
+      top: 50px;
+
+      .expaned-table-container__outer-cell {
+        border: rem(1) solid $gray-cool-10;
+        border-radius: rem(4);
         background-color: $color-white;
-        border: 1px solid $color-gray;
-        padding: 1.5rem;
+
+        .table-title {
+          color: $gray-90;
+          font-weight: $font-semibold;
+          font-size: $font-size-16;
+          line-height: 1.5;
+          margin: auto 0;
+        }
+
+        .table-subTitle {
+          font-size: $small-font-size;
+          line-height: 1.2;
+        }
+      }
     }
-
-
-    &.table-for-new-search-page {
-        .table-header__content_right {
-            text-align: right;
-        }
-        td {
-            // this is necessary to make the usda-table__row class hover work correctly
-            background-color: unset;
-        }
-
-    }
-
-    .usda-table__body {   
-        .expaned-table-parent__sticky{
-            .td {
-                border-bottom: none;
-            }
-        }
-            
-        .expaned-table-container {
-            position: sticky;
-            position: -webkit-sticky;
-            border: none;                
-            padding: rem(16);
-            margin: auto rem(8);
-            top: 50px;
-            
-            .expaned-table-container__outer-cell {
-                border: rem(1) solid $gray-cool-10;
-                border-radius: rem(4);
-                background-color: $color-white;
-                
-                .table-title {
-                    color: $gray-90;
-                    font-weight: $font-semibold;
-                    font-size: $font-size-16;
-                    line-height: 1.5;
-                    margin: auto 0;
-                }
-                
-                .table-subTitle {
-                    font-size: $small-font-size;
-                    line-height: 1.2;
-                }
-            }
-        }
-    }
+  }
 }
 
 .usa-table-borderless {
-    thead {
-        tr {
-            background-color: transparent;
-        }
-
-        th {
-            border-top: 0;
-        }
+  thead {
+    tr {
+      background-color: transparent;
     }
 
-    th,
-    td {
-        border-left: 0;
-        border-right: 0;
+    th {
+      border-top: 0;
     }
+  }
+
+  th,
+  td {
+    border-left: 0;
+    border-right: 0;
+  }
 }
 
-.expandable-table__show-expanded{
-    table-layout: fixed;
-    width: 500px; 
+.expandable-table__show-expanded {
+  table-layout: fixed;
+  width: 500px;
 }

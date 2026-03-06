@@ -1,5 +1,5 @@
 .content-page {
-  @import 'all';
+  @import "all";
   @import "layouts/default/default";
 
   .usda-page-header {
@@ -29,9 +29,7 @@
         margin: 0 $grid-column;
       }
     }
-
   }
 
   @import "pages/contentPage/contentPageHeader";
-
 }

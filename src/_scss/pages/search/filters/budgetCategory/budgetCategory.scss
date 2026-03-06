@@ -1,32 +1,32 @@
 .budget-category-filter {
-    @import "elements/filters/_errorMessage";
-    @import "elements/filters/_typeahead";
-    @import "elements/filters/_selectedFilterBtn";
-    @import "mixins/selectedFilterWrap";
-    .shown {
-        min-height: rem(180);
+  @import "elements/filters/_errorMessage";
+  @import "elements/filters/_typeahead";
+  @import "elements/filters/_selectedFilterBtn";
+  @import "mixins/selectedFilterWrap";
+  .shown {
+    min-height: rem(180);
+  }
+  .visually-hidden {
+    display: none;
+  }
+  .pop-typeahead {
+    p.object-class-label {
+      border-bottom: rem(1) solid #e1e2e3;
+      font-size: $small-font-size;
+      font-weight: $font-semibold;
+      margin: 0 0 rem(15) 0;
+      padding: 0 0 rem(6);
     }
-    .visually-hidden {
-        display: none;
+    &:nth-of-type(1) {
+      & .usa-da-typeahead {
+        margin-top: 0;
+      }
     }
-    .pop-typeahead {
-        p.object-class-label {
-            border-bottom: rem(1) solid #E1E2E3;
-            font-size: $small-font-size;
-            font-weight: $font-semibold;
-            margin: 0 0 rem(15) 0;
-            padding: 0 0 rem(6);
-        }
-        &:nth-of-type(1) {
-            & .usa-da-typeahead {
-                margin-top: 0;
-            }
-        }
-    }
-    .selected-filters {
-        @include selected-filter-wrap;
-    }
-    ul.object-classes {
-        @include unstyled-list;
-    }
+  }
+  .selected-filters {
+    @include selected-filter-wrap;
+  }
+  ul.object-classes {
+    @include unstyled-list;
+  }
 }

@@ -1,92 +1,92 @@
 .program-source-filter {
-    @import "tabs";
-    @import "../singleSubmit";
-    @import "elements/filters/_selectedFilterBtn";
-    @import "mixins/selectedFilterWrap";
-    @import "../../tooltips";
+  @import "tabs";
+  @import "../singleSubmit";
+  @import "elements/filters/_selectedFilterBtn";
+  @import "mixins/selectedFilterWrap";
+  @import "../../tooltips";
 
-    // temporary; remove import and delete the scss file when TASDeprecationNotice is removed
-    @import "./tasDeprecationNotice.scss";
+  // temporary; remove import and delete the scss file when TASDeprecationNotice is removed
+  @import "./tasDeprecationNotice.scss";
 
-    padding: 0 $global-padding * 2 rem(20);
+  padding: 0 $global-padding * 2 rem(20);
 
-    .program-source-components {
-        .program-source-components__heading {
-            padding: rem(15) 0;
-            font-weight: $font-semibold;
+  .program-source-components {
+    .program-source-components__heading {
+      padding: rem(15) 0;
+      font-weight: $font-semibold;
+    }
+
+    .program-source-components__button-wrapper {
+      position: relative;
+
+      @import "../location/warning";
+
+      .warning-tooltip {
+        top: rem(5);
+      }
+
+      .program-source-components__button {
+        margin-top: rem(15);
+        width: 100%;
+        cursor: pointer;
+
+        &:disabled {
+          background-color: $color-gray-lightest;
+          border: 1px solid $color-gray-lighter;
+          color: $color-gray-light;
+          cursor: not-allowed;
         }
+      }
+    }
 
-        .program-source-components__button-wrapper {
-            position: relative;
+    .program-source-select-filter {
+      padding-bottom: rem(15);
 
-            @import "../location/warning";
-
-            .warning-tooltip {
-                top: rem(5);
-            }
-
-            .program-source-components__button {
-                margin-top: rem(15);
-                width: 100%;
-                cursor: pointer;
-
-                &:disabled {
-                    background-color: $color-gray-lightest;
-                    border: 1px solid $color-gray-lighter;
-                    color: $color-gray-light;
-                    cursor: not-allowed;
-                }
-            }
+      @import "elements/filters/_errorMessage";
+      @import "elements/filters/_typeahead";
+      .usa-da-typeahead__input {
+        @include display(flex);
+        position: relative;
+        background-color: $color-white;
+        border: 1px solid $color-gray-lighter;
+        input {
+          border: 0;
+          width: 100%;
         }
-
-        .program-source-select-filter {
-            padding-bottom: rem(15);
-
-            @import "elements/filters/_errorMessage";
-            @import "elements/filters/_typeahead";
-            .usa-da-typeahead__input {
-                @include display(flex);
-                position: relative;
-                background-color: $color-white;
-                border: 1px solid $color-gray-lighter;
-                input {
-                    border: 0;
-                    width: 100%;
-                }
-                .usa-da-typeahead__loading-icon {
-                    @include flex(0 0 auto);
-                    @include align-self(center);
-                    position: absolute;
-                    right: rem(15);
-                }
-            }
-            .program-source-select-filter__label {
-                @include display(flex);
-
-                .program-source-select-filter__label-required {
-                    @include display(flex);
-                    @include justify-content(flex-end);
-                    @include flex(1 1 auto);
-                    @include align-self(center);
-
-                    flex-wrap: wrap;
-                    padding-left: rem(5);
-                    color: $color-secondary;
-                    text-align: right;
-                }
-            }
+        .usa-da-typeahead__loading-icon {
+          @include flex(0 0 auto);
+          @include align-self(center);
+          position: absolute;
+          right: rem(15);
         }
-    }
+      }
+      .program-source-select-filter__label {
+        @include display(flex);
 
-    .selected-filters {
-        @include selected-filter-wrap;
-    }
+        .program-source-select-filter__label-required {
+          @include display(flex);
+          @include justify-content(flex-end);
+          @include flex(1 1 auto);
+          @include align-self(center);
 
-    .shown {
-        min-height: rem(18);
+          flex-wrap: wrap;
+          padding-left: rem(5);
+          color: $color-secondary;
+          text-align: right;
+        }
+      }
     }
+  }
 
-    .visually-hidden {
-        display: none;
-    }
+  .selected-filters {
+    @include selected-filter-wrap;
+  }
+
+  .shown {
+    min-height: rem(18);
+  }
+
+  .visually-hidden {
+    display: none;
+  }
 }

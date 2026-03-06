@@ -1,46 +1,46 @@
 .download-user-selections {
-    border: rem(2) solid $color-gray-lightest;
-    border-radius: rem(8);
-    padding: rem(20);
-    @import "mixins/fullSectionWrap";
-    @include fullSectionWrap((rem(40)), (rem(30)));
-    @media(max-width: $medium-screen) {
-        padding: 30px 20px;
-        width: 78%;
+  border: rem(2) solid $color-gray-lightest;
+  border-radius: rem(8);
+  padding: rem(20);
+  @import "mixins/fullSectionWrap";
+  @include fullSectionWrap((rem(40)), (rem(30)));
+  @media (max-width: $medium-screen) {
+    padding: 30px 20px;
+    width: 78%;
+  }
+  .download-user-selections__left-col {
+    @include grid-column(16);
+    @include media($medium-screen) {
+      @include grid-column(8);
     }
-    .download-user-selections__left-col {
-        @include grid-column(16);
-        @include media($medium-screen) {
-            @include grid-column(8);
-        }
+  }
+  .download-user-selections__right-col {
+    @include grid-column(16);
+    @include media($medium-screen) {
+      @include grid-column(8);
     }
-    .download-user-selections__right-col {
-        @include grid-column(16);
-        @include media($medium-screen) {
-            @include grid-column(8);
-        }
+  }
+  h3.download-user-selections__title {
+    @include h5;
+    margin: 0;
+  }
+  .selection {
+    .selection__heading {
+      @include h6;
+      padding-top: rem(18);
+      padding-bottom: rem(6);
+      color: $color-gray;
+      font-size: rem(12);
+      font-weight: 600;
+      line-height: rem(15);
     }
-    h3.download-user-selections__title {
-        @include h5;
-        margin: 0;
+    .selection__content {
+      font-weight: 300;
+      font-size: rem(18);
+      &.selection__content-required {
+        color: $color-secondary;
+        line-height: rem(23);
+      }
     }
-    .selection {
-        .selection__heading {
-            @include h6;
-            padding-top: rem(18);
-            padding-bottom: rem(6);
-            color: $color-gray;
-            font-size: rem(12);
-            font-weight: 600;
-            line-height: rem(15);
-        }
-        .selection__content {
-            font-weight: 300;
-            font-size: rem(18);
-            &.selection__content-required {
-                color: $color-secondary;
-                line-height: rem(23);
-            }
-        }
-    }
+  }
 }

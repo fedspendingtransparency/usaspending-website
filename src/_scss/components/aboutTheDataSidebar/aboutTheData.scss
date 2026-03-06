@@ -1,253 +1,254 @@
 .usa-atd-animations {
-    @import 'bourbon/app/assets/stylesheets/_bourbon';
-    @import 'bourbon-neat/core/_neat';
+  @import "bourbon/app/assets/stylesheets/_bourbon";
+  @import "bourbon-neat/core/_neat";
 
-    @import "../../core/variables";
-    @import "../../core/utilities";
+  @import "../../core/variables";
+  @import "../../core/utilities";
 
-    @import "../../elements/buttons";
-    @import "../../elements/typography";
+  @import "../../elements/buttons";
+  @import "../../elements/typography";
 
-    @keyframes slidein {
-        0% {
-            transform: translate(300px, 0);
-            visibility: hidden;
-        }
-        100% {
-            transform: translate(0, 0);
-            visibility: visible;
-        }
+  @keyframes slidein {
+    0% {
+      transform: translate(300px, 0);
+      visibility: hidden;
+    }
+    100% {
+      transform: translate(0, 0);
+      visibility: visible;
+    }
+  }
+
+  @keyframes slideout {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(300px, 0);
+      visibility: hidden;
+    }
+  }
+
+  .usa-atd-wrapper {
+    position: fixed;
+    right: 0;
+    top: 0;
+    height: 100%;
+    box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
+
+    &.opened {
+      animation: slidein 0.5s ease-in forwards;
+      -webkit-animation: slidein 0.5s ease-in forwards;
+      overflow: hidden;
+      visibility: visible;
     }
 
-    @keyframes slideout {
-        0% {
-            transform: translate(0, 0);
-        }
-        100% {
-            transform: translate(300px, 0);
-            visibility: hidden;
-        }
+    &:not(.opened) {
+      animation: slideout 0.5s ease-out forwards;
+      -webkit-animation: slideout 0.5s ease-out forwards;
+      overflow: hidden;
     }
 
-    .usa-atd-wrapper {
-        position: fixed;
-        right: 0;
-        top: 0;
-        height: 100%;
-        box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
+    .atd-sidebar {
+      background-color: $cyan-60v;
+      color: $color-white;
+      font-size: rem(14);
+      width: 100%;
+      height: 100%;
 
-        &.opened {
-            animation: slidein 0.5s ease-in forwards;
-            -webkit-animation: slidein 0.5s ease-in forwards;
-            overflow: hidden;
-            visibility: visible;
-        }
+      @import "./_header";
+      @import "./_scrollbar";
+    }
 
-        &:not(.opened) {
-            animation: slideout 0.5s ease-out forwards;
-            -webkit-animation: slideout 0.5s ease-out forwards;
-            overflow: hidden;
-        }
+    .atd__overline {
+      font-size: $font-size-14;
+      line-height: rem(21);
+      text-transform: uppercase;
+      color: $theme-color-body-inverse;
+    }
 
-        .atd-sidebar {
-            background-color: $cyan-60v;
-            color: $color-white;
-            font-size: rem(14);
-            width: 100%;
-            height: 100%;
+    hr {
+      height: rem(1);
+      background-color: $theme-color-underline;
+      border: none;
+      margin-top: rem(8);
+    }
 
-            @import "./_header";
-            @import "./_scrollbar";
-        }
+    .atd__heading {
+      margin-top: rem(16);
+      font-size: $font-size-20;
+      line-height: rem(25);
+      color: $theme-color-headline-inverse;
+      font-weight: $font-semibold;
+    }
 
-        .atd__overline {
-            font-size: $font-size-14;
-            line-height: rem(21);
-            text-transform: uppercase;
-            color: $theme-color-body-inverse;
-        }
+    .atd__link {
+      font-size: $font-size-16;
+      line-height: rem(24);
+      color: $gray-cool-10;
+      cursor: pointer;
 
-        hr {
-            height: rem(1);
-            background-color: $theme-color-underline;
-            border: none;
-            margin-top: rem(8);
-        }
+      &:hover {
+        color: $gray-cool-5;
+        text-decoration: underline;
+      }
 
-        .atd__heading {
-            margin-top: rem(16);
-            font-size: $font-size-20;
-            line-height: rem(25);
-            color: $theme-color-headline-inverse;
-            font-weight: $font-semibold;
-        }
+      &:active {
+        color: $gray-cool-1;
+        text-decoration: underline;
+      }
+    }
 
-        .atd__link {
-            font-size: $font-size-16;
-            line-height: rem(24);
-            color: $gray-cool-10;
-            cursor: pointer;
+    .atd__copy {
+      font-size: $font-size-16;
+      line-height: rem(24);
+      color: $gray-cool-10;
+    }
 
+    .atd__body {
+      margin: 24px 24px 48px 24px;
+
+      .atd__download-wrapper {
+        display: none;
+
+        @media (min-width: $medium-screen) {
+          display: flex;
+          justify-content: end;
+
+          svg {
             &:hover {
-                color: $gray-cool-5;
-                text-decoration: underline;
+              color: $gray-cool-5;
+              text-decoration: none;
             }
 
             &:active {
-                color: $gray-cool-1;
-                text-decoration: underline;
+              color: $gray-cool-1;
             }
+          }
         }
 
-        .atd__copy {
-            font-size: $font-size-16;
-            line-height: rem(24);
-            color: $gray-cool-10;
-        }
+        .atd__download-button {
+          font-size: rem(14);
+          font-weight: $font-semibold;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.5;
+          letter-spacing: normal;
+          color: $gray-cool-10;
+          vertical-align: middle;
 
-        .atd__body {
-            margin: 24px 24px 48px 24px;
-
-            .atd__download-wrapper {
-                display: none;
-
-                @media(min-width:$medium-screen) {
-                    display: flex;
-                    justify-content: end;
-
-                    svg {
-                        &:hover {
-                            color: $gray-cool-5;
-                            text-decoration: none;
-                        }
-
-                        &:active {
-                            color: $gray-cool-1;
-                        }
-                    }
-                }
-
-                .atd__download-button {
-                    font-size: rem(14);
-                    font-weight: $font-semibold;
-                    font-stretch: normal;
-                    font-style: normal;
-                    line-height: 1.5;
-                    letter-spacing: normal;
-                    color: $gray-cool-10;
-                    vertical-align: middle;
-
-                    &:hover {
-                        color: $gray-cool-5;
-                        text-decoration: none;
-                    }
-
-                    &:active {
-                        color: $gray-cool-1;
-                    }
-
-                    .atd__download-icon {
-                        width: 12px;
-                        height: 16px;
-                        margin-right: 8px;
-                        color: $gray-cool-10;
-                        vertical-align: middle;
-
-                        &:hover {
-                            color: $gray-cool-5;
-                            text-decoration: none;
-                        }
-
-                        &:active {
-                            color: $gray-cool-1;
-                        }
-                    }
-                }
-            }
-        }
-
-        &.z-index {
-            z-index: $z-guide;
-        }
-        &.z-index-plus-one {
-            z-index: $z-guide + 1;
-        }
-
-        @import "noResults";
-    }
-
-    .matched-highlight {
-        font-weight: $font-semibold;
-        text-decoration: underline;
-    }
-
-    .atd__drilldown {
-        .atd__drilldown__heading {
-            font-size: $font-size-24;
-            margin-top: rem(8);
-            line-height: rem(30);
-            color: $theme-color-headline-inverse;
-            font-weight: $font-semibold;
-        }
-
-        h3, .atd__drilldown__subheading {
-            font-size: $font-size-20;
-            margin-top: rem(8);
-            line-height: rem(30);
-            color: $theme-color-headline-inverse;
-            font-weight: $font-semibold;
-        }
-
-        a {
-            font-size: $font-size-16;
-            line-height: 1.5;
+          &:hover {
             color: $gray-cool-5;
-            text-decoration: underline;
-        }
+            text-decoration: none;
+          }
 
-        a:visited,
-        a:hover {
-            color: $gray-cool-5;
-        }
-    }
-    .atd__back {
-        margin-bottom: rem(24);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        width: 60px;
-        .usa-da-icon-angle-left {
-            height: rem(16);
-            width: rem(16);
-            fill: $gray-cool-10;
-        }
+          &:active {
+            color: $gray-cool-1;
+          }
 
-        .atd__back__label {
-            font-size: $font-size-16;
-            line-height: rem(24);
-            color: $theme-color-headline-inverse;
-            font-weight: $font-semibold;
-            text-transform: uppercase;
-            margin-left: rem(8);
-        }
-
-        .left-chevron-icon {
-            font-size: rem(16);
+          .atd__download-icon {
+            width: 12px;
+            height: 16px;
+            margin-right: 8px;
             color: $gray-cool-10;
+            vertical-align: middle;
+
+            &:hover {
+              color: $gray-cool-5;
+              text-decoration: none;
+            }
+
+            &:active {
+              color: $gray-cool-1;
+            }
+          }
         }
+      }
     }
 
-    .atd__share__icon {
-        right: 0;
-        top: 0;
-        position: absolute;
-        align-items: center;
-        margin-top: 16px;
-        margin-right: 24px;
-        .usda-share-icon {
-            .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
-                padding-bottom: 0;
-            }
-        }
+    &.z-index {
+      z-index: $z-guide;
     }
+    &.z-index-plus-one {
+      z-index: $z-guide + 1;
+    }
+
+    @import "noResults";
+  }
+
+  .matched-highlight {
+    font-weight: $font-semibold;
+    text-decoration: underline;
+  }
+
+  .atd__drilldown {
+    .atd__drilldown__heading {
+      font-size: $font-size-24;
+      margin-top: rem(8);
+      line-height: rem(30);
+      color: $theme-color-headline-inverse;
+      font-weight: $font-semibold;
+    }
+
+    h3,
+    .atd__drilldown__subheading {
+      font-size: $font-size-20;
+      margin-top: rem(8);
+      line-height: rem(30);
+      color: $theme-color-headline-inverse;
+      font-weight: $font-semibold;
+    }
+
+    a {
+      font-size: $font-size-16;
+      line-height: 1.5;
+      color: $gray-cool-5;
+      text-decoration: underline;
+    }
+
+    a:visited,
+    a:hover {
+      color: $gray-cool-5;
+    }
+  }
+  .atd__back {
+    margin-bottom: rem(24);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    width: 60px;
+    .usa-da-icon-angle-left {
+      height: rem(16);
+      width: rem(16);
+      fill: $gray-cool-10;
+    }
+
+    .atd__back__label {
+      font-size: $font-size-16;
+      line-height: rem(24);
+      color: $theme-color-headline-inverse;
+      font-weight: $font-semibold;
+      text-transform: uppercase;
+      margin-left: rem(8);
+    }
+
+    .left-chevron-icon {
+      font-size: rem(16);
+      color: $gray-cool-10;
+    }
+  }
+
+  .atd__share__icon {
+    right: 0;
+    top: 0;
+    position: absolute;
+    align-items: center;
+    margin-top: 16px;
+    margin-right: 24px;
+    .usda-share-icon {
+      .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
+        padding-bottom: 0;
+      }
+    }
+  }
 }

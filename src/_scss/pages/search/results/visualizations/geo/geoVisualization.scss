@@ -58,13 +58,17 @@
       &.closed {
         opacity: 0;
         display: none;
-        transition: opacity 1s, display 1s;
+        transition:
+          opacity 1s,
+          display 1s;
       }
 
       &.open {
         opacity: 1;
         display: block;
-        transition: opacity 1s, display 1s;
+        transition:
+          opacity 1s,
+          display 1s;
       }
 
       .map__filters-header {
@@ -105,7 +109,7 @@
 
             .map__filters-button {
               height: auto;
-              button[class^='filter__dropdown-button'] {
+              button[class^="filter__dropdown-button"] {
                 border: solid 2px $gray-cool-10;
                 white-space: nowrap;
                 margin-top: $global-margin * 0.5;
@@ -129,10 +133,10 @@
                 width: max-content;
                 li {
                   button {
-                      padding-left: 1.5 * $global-padding !important;
-                      padding-right: 1.5 * $global-padding !important;
+                    padding-left: 1.5 * $global-padding !important;
+                    padding-right: 1.5 * $global-padding !important;
                   }
-              }
+                }
               }
             }
           }
@@ -164,7 +168,7 @@
   }
 
   @import "./_message";
-  @import 'components/Note';
+  @import "components/Note";
 
   .default-note {
     padding-top: 0;

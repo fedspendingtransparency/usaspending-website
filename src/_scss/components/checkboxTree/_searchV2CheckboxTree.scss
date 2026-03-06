@@ -121,9 +121,9 @@
         padding-top: 0 !important;
         font-weight: $font-semibold;
         line-height: 1.8rem;
-          span.highlight {
-            background-color: $yellow-10;
-          }
+        span.highlight {
+          background-color: $yellow-10;
+        }
       }
 
       &__container {
@@ -135,7 +135,8 @@
   .psc-search-container {
     @extend .naics-search-container;
 
-    .autocomplete__input, .geo-entity-dropdown__input {
+    .autocomplete__input,
+    .geo-entity-dropdown__input {
       @import "dtui-overrides";
       height: 100%;
       line-height: 1.5;
@@ -144,9 +145,8 @@
     }
   }
 
-
   .tas-checkbox {
-    @extend .psc-search-container ;
+    @extend .psc-search-container;
 
     .autocomplete__input {
       padding: rem(10) 0;
@@ -168,11 +168,15 @@
     }
 
     li {
-      margin-bottom: rem(12) !important; // TODO remove after search 2.0 is released
+      margin-bottom: rem(
+        12
+      ) !important; // TODO remove after search 2.0 is released
     }
 
     .checkbox-filter__header {
-      margin-bottom: rem(16) !important; // TODO remove after search 2.0 is released
+      margin-bottom: rem(
+        16
+      ) !important; // TODO remove after search 2.0 is released
     }
 
     .checkbox-tree-label {

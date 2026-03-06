@@ -1,99 +1,98 @@
 .explorer-landing {
+  .explorer-landing__intro {
+    padding: rem(64) 0 rem(32);
+    text-align: center;
 
-    .explorer-landing__intro {
-        padding: rem(64) 0 rem(32);
-        text-align: center;
-
-        @include media($large-screen) {
-            width: rem(1110);
-            margin-left: auto;
-            margin-right: auto;
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        @include media($x-large-screen) {
-            width: rem(1280);
-        }
-
-        h2.explorer-landing__title {
-            margin: 0;
-            padding-bottom: rem(24);
-            font-size: $font-size-40;
-            color: $gray-90;
-            font-weight: $font-semibold;
-            line-height: $heading-line-height;
-        }
-
-        .explorer-landing__detail {
-            padding: rem(16);
-
-            .explorer-landing__detail-content {
-                margin: 0 auto;
-
-                .explorer-description__animations {
-                    @import "./_animations";
-                }
-            }
-        }
+    @include media($large-screen) {
+      width: rem(1110);
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 0;
+      padding-right: 0;
     }
 
-    .explorer-description {
-        max-width: rem(945);
-
-        h3.explorer-description__title {
-            margin: 0;
-            font-size: $font-size-20;
-            color: $color-base;
-            font-weight: $font-normal;
-            line-height: $base-line-height;
-        }
-
-        button.explorer-description__expand {
-            @include button-unstyled;
-            color: $theme-color-1;
-            font-weight: $font-semibold;
-            font-size: $font-size-20;
-            line-height: $base-line-height;
-            margin-top: rem(25);
-        }
-
-        .explorer-description__content {
-            &.explorer-description__content_hidden {
-                display: none;
-            }
-
-            p {
-                font-size: $font-size-20;
-                line-height: $base-line-height;
-
-                .usda-glossary-link svg {
-                    width: rem(15);
-                    height: rem(15);
-                    color: $color-base;
-                }
-            }
-        }
+    @include media($x-large-screen) {
+      width: rem(1280);
     }
 
-    .explorer-landing__options {
-        @include display(flex);
-        @include flex-direction(column);
-        @include justify-content(center);
-        @include align-items(center);
-        position: relative;
-
-        padding-left: rem(30);
-        padding-right: rem(30);
-
-        @include media($large-screen) {
-            @include flex-direction(row);
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        @import "./_option";
-
-        padding-bottom: rem(230);
+    h2.explorer-landing__title {
+      margin: 0;
+      padding-bottom: rem(24);
+      font-size: $font-size-40;
+      color: $gray-90;
+      font-weight: $font-semibold;
+      line-height: $heading-line-height;
     }
+
+    .explorer-landing__detail {
+      padding: rem(16);
+
+      .explorer-landing__detail-content {
+        margin: 0 auto;
+
+        .explorer-description__animations {
+          @import "./_animations";
+        }
+      }
+    }
+  }
+
+  .explorer-description {
+    max-width: rem(945);
+
+    h3.explorer-description__title {
+      margin: 0;
+      font-size: $font-size-20;
+      color: $color-base;
+      font-weight: $font-normal;
+      line-height: $base-line-height;
+    }
+
+    button.explorer-description__expand {
+      @include button-unstyled;
+      color: $theme-color-1;
+      font-weight: $font-semibold;
+      font-size: $font-size-20;
+      line-height: $base-line-height;
+      margin-top: rem(25);
+    }
+
+    .explorer-description__content {
+      &.explorer-description__content_hidden {
+        display: none;
+      }
+
+      p {
+        font-size: $font-size-20;
+        line-height: $base-line-height;
+
+        .usda-glossary-link svg {
+          width: rem(15);
+          height: rem(15);
+          color: $color-base;
+        }
+      }
+    }
+  }
+
+  .explorer-landing__options {
+    @include display(flex);
+    @include flex-direction(column);
+    @include justify-content(center);
+    @include align-items(center);
+    position: relative;
+
+    padding-left: rem(30);
+    padding-right: rem(30);
+
+    @include media($large-screen) {
+      @include flex-direction(row);
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    @import "./_option";
+
+    padding-bottom: rem(230);
+  }
 }

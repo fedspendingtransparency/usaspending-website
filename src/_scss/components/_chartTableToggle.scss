@@ -2,12 +2,12 @@
   display: flex;
   border-radius: 4px;
 
-  @media(min-width: $tablet-screen) {
+  @media (min-width: $tablet-screen) {
     max-height: rem(46);
     margin-left: rem(20);
   }
 
-  @media(min-width: $medium-screen) {
+  @media (min-width: $medium-screen) {
     margin-top: 0;
   }
 

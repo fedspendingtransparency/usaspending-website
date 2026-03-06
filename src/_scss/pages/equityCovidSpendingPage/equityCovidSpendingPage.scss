@@ -1,5 +1,5 @@
 .equity-covid-spending-page {
-  @import 'all';
+  @import "all";
   @import "layouts/default/default";
   @import "layouts/default/header/_warning";
   @import "layouts/default/stickyHeader/header";
@@ -17,7 +17,6 @@
       .usa-dt-flex-grid__row.grid-content {
         margin: 0 $global-margin * 4;
       }
-
     }
     @media screen and (min-width: $large-screen) {
       .usa-dt-flex-grid__row.grid-content {
@@ -71,6 +70,6 @@
     }
   }
   @import "../../components/equityMainCard";
-  @import 'equityHeading';
-  @import 'equitySpotlightCards';
+  @import "equityHeading";
+  @import "equitySpotlightCards";
 }

@@ -1,116 +1,115 @@
 @use "sass:math";
 
 .tables-section {
-    display: block;
-    width: 100%;
-    margin-top: rem(20);
-    margin-bottom: rem(20);
-    transition: opacity 0.25s ease;
-    z-index: 15;
+  display: block;
+  width: 100%;
+  margin-top: rem(20);
+  margin-bottom: rem(20);
+  transition: opacity 0.25s ease;
+  z-index: 15;
 
-    .usa-dt-tab {
-        border-bottom: rem(1) solid $gray-cool-10;
-        margin-bottom: rem(-1);
+  .usa-dt-tab {
+    border-bottom: rem(1) solid $gray-cool-10;
+    margin-bottom: rem(-1);
 
-        &.active {
-            border-bottom: rem(1) solid transparent;
-        }
+    &.active {
+      border-bottom: rem(1) solid transparent;
     }
+  }
 
-    .usa-dt-tab:focus {
-        outline: none;
-    }
+  .usa-dt-tab:focus {
+    outline: none;
+  }
 
-    @media (min-width: $tablet-screen) {
-        .usa-dt-tab-list {
-          overflow-x: visible;
-          overflow-y: visible;
-        }
-        .award-summary-tooltip{
-            .tooltip__title {
-                display: none;
-            }
-            .tooltip__text {
-                white-space: normal;
-                padding: 0;
-            }
-        }
-        .tooltip__text {
-            white-space: normal;
-        }
+  @media (min-width: $tablet-screen) {
+    .usa-dt-tab-list {
+      overflow-x: visible;
+      overflow-y: visible;
     }
-    .tooltip-wrapper {
+    .award-summary-tooltip {
+      .tooltip__title {
         display: none;
-        @media (min-width: $tablet-screen) {
-            @include display(flex);
-            white-space: normal;
-        }
+      }
+      .tooltip__text {
+        white-space: normal;
+        padding: 0;
+      }
+    }
+    .tooltip__text {
+      white-space: normal;
+    }
+  }
+  .tooltip-wrapper {
+    display: none;
+    @media (min-width: $tablet-screen) {
+      @include display(flex);
+      white-space: normal;
+    }
+  }
+
+  .tables-width-master {
+    width: 100%;
+  }
+
+  .table-message {
+    margin-top: 1rem;
+    font-size: $small-font-size;
+    color: $color-base;
+    text-align: center;
+  }
+
+  @import "pages/award/table/_table";
+  @import "pages/search/results/table/_tableTypes";
+  @import "resultsTablePicker";
+  @import "../../search/results/table/tableMessages";
+
+  .table-types {
+    @include display(flex);
+    @media (max-width: $tablet-screen) {
+      display: none;
     }
 
-    .tables-width-master {
-        width: 100%;
+    .table-type-toggle {
+      @include display(flex);
+      .tab-content span {
+        margin-right: math.div($global-margin * 2, 3);
+      }
+    }
+  }
+
+  .results-table-message-container {
+    position: relative;
+    .results-table-no-results {
+      .description {
+        display: none;
+      }
+    }
+  }
+
+  .field-picker {
+    float: none;
+    display: block;
+
+    @include media($tablet-screen) {
+      display: none;
     }
 
-    .table-message {
-        margin-top: 1rem;
-        font-size: $small-font-size;
-        color: $color-base;
-        text-align: center;
+    .field-list {
+      z-index: $z-header - 1;
     }
+  }
 
-    @import "pages/award/table/_table";
-    @import "pages/search/results/table/_tableTypes";
-    @import "resultsTablePicker";
-    @import "../../search/results/table/tableMessages";
+  .tables-content {
+    @import "../../search/results/table/resultsTable";
+    @import "../../search/results/typography";
 
-    .table-types {
-        @include display(flex);
-        @media (max-width: $tablet-screen) {
-            display: none;
-        }
+    .search-results-table-section .results-table-content {
+      overflow-x: auto;
+      margin: $global-spacing-unit 0;
 
-        .table-type-toggle {
-            @include display(flex);
-            .tab-content span {
-                margin-right: math.div($global-margin * 2, 3);
-            }
-        }
+      table.usda-table.award-history-table {
+        margin: 0;
+      }
     }
-
-    .results-table-message-container {
-        position: relative;
-        .results-table-no-results {
-            .description {
-                display: none;
-            }
-        }
-    }
-
-    .field-picker {
-        float: none;
-        display: block;
-
-        @include media($tablet-screen) {
-            display: none;
-        }
-
-
-        .field-list {
-            z-index: $z-header - 1;
-        }
-    }
-
-    .tables-content {
-        @import "../../search/results/table/resultsTable";
-        @import "../../search/results/typography";
-
-        .search-results-table-section .results-table-content {
-            overflow-x: auto;
-            margin: $global-spacing-unit 0;
-
-            table.usda-table.award-history-table {
-                margin: 0;
-            }
-        }
-    }
+  }
 }

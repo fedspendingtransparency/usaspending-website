@@ -1,50 +1,49 @@
 .recharts-time-visualization-container {
-    height: 350px;
+  height: 350px;
 
-    .recharts-cartesian-axis-line {
-        stroke: $gray-cool-10;
-    }
+  .recharts-cartesian-axis-line {
+    stroke: $gray-cool-10;
+  }
 }
 
 .recharts-tooltip-wrapper {
-    background-color: $color-white;
-    border: 1px solid $color-gray-light;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+  background-color: $color-white;
+  border: 1px solid $color-gray-light;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 
-    .custom-tooltip {
-        margin: 16px 16px 12px;
-        display: flex;
-        flex-direction: column;
-        width: 166px;
+  .custom-tooltip {
+    margin: 16px 16px 12px;
+    display: flex;
+    flex-direction: column;
+    width: 166px;
 
-        .tooltip__title {
-            font-size: rem(16);
-            line-height: 1.25;
-            font-weight: $font-semibold;
-            color: $gray-90;
-        }
-
-        .tooltip__text {
-            margin-top: 16px;
-            display: flex;
-            flex-direction: row;
-
-            .tooltip__text-label {
-                flex: 1;
-                font-size: rem(14);
-                text-align: left;
-                line-height:1.5;
-                color: $color-base;
-            }
-
-            .tooltip__text-amount {
-                font-weight: $font-bold;
-                text-align: right;
-                line-height: 1.5;
-                font-size: $font-size-14;
-                color: $color-base;
-            }
-        }
+    .tooltip__title {
+      font-size: rem(16);
+      line-height: 1.25;
+      font-weight: $font-semibold;
+      color: $gray-90;
     }
-}
 
+    .tooltip__text {
+      margin-top: 16px;
+      display: flex;
+      flex-direction: row;
+
+      .tooltip__text-label {
+        flex: 1;
+        font-size: rem(14);
+        text-align: left;
+        line-height: 1.5;
+        color: $color-base;
+      }
+
+      .tooltip__text-amount {
+        font-weight: $font-bold;
+        text-align: right;
+        line-height: 1.5;
+        font-size: $font-size-14;
+        color: $color-base;
+      }
+    }
+  }
+}

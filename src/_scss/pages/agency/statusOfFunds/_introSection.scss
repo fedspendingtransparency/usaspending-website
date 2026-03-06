@@ -1,32 +1,32 @@
-@import 'mixins/profilePage';
+@import "mixins/profilePage";
 
 .status-of-funds__intro-wrapper {
-    padding-bottom: 4rem;
-    @include profile-page-wrap;
+  padding-bottom: 4rem;
+  @include profile-page-wrap;
 }
 
 .status-of-funds__intro-section-title {
-    font-size: $lead-font-size;
-    font-weight: $font-semibold;
-    line-height: $heading-line-height;
-    margin-bottom: 2rem;
+  font-size: $lead-font-size;
+  font-weight: $font-semibold;
+  line-height: $heading-line-height;
+  margin-bottom: 2rem;
 }
 
 .status-of-funds__intro-section-text {
-    @import "components/glossaryLink";
-    font-size: $small-font-size;
-    font-weight: $font-normal;
-    line-height: $base-line-height;
-    margin-bottom: 2rem;
+  @import "components/glossaryLink";
+  font-size: $small-font-size;
+  font-weight: $font-normal;
+  line-height: $base-line-height;
+  margin-bottom: 2rem;
 }
 
 .status-of-funds__glossary-term {
-    font-weight: $font-semibold;
+  font-weight: $font-semibold;
 }
 
 .status-of-funds__intro-section-italic-text {
-    font-size: $small-font-size;
-    font-weight: $font-normal;
-    font-style: italic;
-    line-height: $base-line-height;
+  font-size: $small-font-size;
+  font-weight: $font-normal;
+  font-style: italic;
+  line-height: $base-line-height;
 }

@@ -1,217 +1,220 @@
-.download-center-form, .bulk-download {
-    .download-filter {
-        padding: rem(45) 0;
-        &:nth-of-type(1) {
-            padding: 0;
-        }
-        &.width-96 {
-            width: 96%
-        }
-        h3.download-filter__title {
-            @include h5;
-            margin: 0;
-            font-weight: 400;
-            padding-bottom: rem(35);
-            .download-filter__title_em {
-                color: $color-primary;
-                font-weight: 600;
-            }
-            .icon {
-                float: left;
-                margin-right: rem(10);
-                width: rem(18);
-                height: rem(18);
-
-                svg {
-                    width: rem(18);
-                    height: rem(18);
-                    fill: $color-green;
-                }
-                &.invalid {
-                    svg {
-                        fill: $color-secondary;
-                    }
-                }
-            }
-        }
-
-        h4.download-filter__title {
-            font-size: rem(18);
-            font-weight: 400;
-            padding-left: rem(30);
-        }
-
-        .download-filter__container {
-            display: flex;
-        }
-
-        .download-filter__info {
-            padding-left: rem(30);
-            font-weight: 200;
-            .icon {
-              float: left;
-              margin-right: rem(10);
-              width: rem(18);
-              height: rem(18);
-
-              svg {
-                width: rem(18);
-                height: rem(18);
-                fill: $color-green;
-              }
-              &.invalid {
-                svg {
-                  fill: $color-secondary;
-                }
-              }
-            }
-        }
-
-        .download-filter__content {
-            @include media($medium-screen) {
-                padding-left: rem(30);
-                width: 96%;
-            }
-            .radio {
-                input[type=radio] {
-                    @include usa-input-radio;
-                }
-            }
-            input[type=checkbox] {
-                @include usa-input-checkbox;
-            }
-            .download-filter__fy {
-                @import "fyPicker";
-                .quarter-picker .quarter-picker__fy {
-                    @include flex(0 0 auto);
-                    padding-right: rem(20);
-                }
-                .usa-dt-quarter-picker__list {
-                    @include flex-wrap(wrap);
-                    @media(min-width: $tablet-screen) {
-                        @include flex-wrap(nowrap);
-                    }
-                }
-                .usa-dt-quarter-picker__period-list-container {
-                    p {
-                        font-weight: 600;
-                    }
-                    .usa-dt-quarter-picker__period-list .usa-dt-quarter-picker__list-item {
-                        // the generic period styles
-                        margin: rem(0) rem(1);
-                        .usa-dt-quarter-picker__quarter {
-                            width: rem(24);
-                            font-weight: $font-bold;
-                            padding-right: 0;
-                            padding-left: 0;
-                        }
-                        // period representing two periods (1-2)
-                        &.double-period .usa-dt-quarter-picker__quarter {
-                            width: rem(48);
-                        }
-                        // period representing three periods (1-3)
-                        &.triple-period .usa-dt-quarter-picker__quarter {
-                            width: rem(72);
-                        }
-                        // period representing three periods w/ two-digit integers (10-12)
-                        &.triple-period--extra-wide .usa-dt-quarter-picker__quarter {
-                            width: rem(72);
-                        }
-                    }
-                }
-            }
-        }
-
-        &.download-filter-notice {
-          padding: 3rem 0 0 0;
-          .download-filter__title {
-            padding-left: rem(30);
-            padding-bottom: 0;
-          }
-          .download-filter__info {
-            padding-left: 0;
-            font-size: 1.8rem;
-            margin-top: rem(10);
-            span {
-              padding-left: rem(2.5);
-              position: relative;
-              bottom: 2.25px;
-            }
-          }
-        }
-
-        .download-filter__content-note {
-            font-style: italic;
-            font-size: rem(14);
-            line-height: rem(18);
-
-            &:first-of-type {
-                margin-top: rem(10);
-            }
-            @media(max-width: $medium-screen) {
-                max-width: 75%;
-            }
-        }
-
-        .download-filter__content-note_bold {
-            font-weight: 600;
-        }
-        .download-checkbox {
-            padding: rem(10) 0;
-            input {
-               margin-right: rem(5);
-            }
-        }
-        .download-filter__unordered-list {
-            list-style-type: none;
-            margin-top: 0;
-            li {
-                list-style-type: none;
-            }
-            input {
-                margin-right: rem(5);
-            }
-            input[type=checkbox] {
-                @include usa-input-checkbox;
-            }
-        }
-        @import "agencyPicker";
-        @import "federalPicker";
-        @import "downloadButtons";
-        @import "dateRange";
-        @import "locationFilter";
+.download-center-form,
+.bulk-download {
+  .download-filter {
+    padding: rem(45) 0;
+    &:nth-of-type(1) {
+      padding: 0;
     }
-    @import "defCodeFilter";
-    @import "userSelections";
-    .download-user-selections {
+    &.width-96 {
+      width: 96%;
+    }
+    h3.download-filter__title {
+      @include h5;
+      margin: 0;
+      font-weight: 400;
+      padding-bottom: rem(35);
+      .download-filter__title_em {
+        color: $color-primary;
+        font-weight: 600;
+      }
+      .icon {
+        float: left;
+        margin-right: rem(10);
+        width: rem(18);
+        height: rem(18);
+
+        svg {
+          width: rem(18);
+          height: rem(18);
+          fill: $color-green;
+        }
+        &.invalid {
+          svg {
+            fill: $color-secondary;
+          }
+        }
+      }
+    }
+
+    h4.download-filter__title {
+      font-size: rem(18);
+      font-weight: 400;
+      padding-left: rem(30);
+    }
+
+    .download-filter__container {
+      display: flex;
+    }
+
+    .download-filter__info {
+      padding-left: rem(30);
+      font-weight: 200;
+      .icon {
+        float: left;
+        margin-right: rem(10);
+        width: rem(18);
+        height: rem(18);
+
+        svg {
+          width: rem(18);
+          height: rem(18);
+          fill: $color-green;
+        }
+        &.invalid {
+          svg {
+            fill: $color-secondary;
+          }
+        }
+      }
+    }
+
+    .download-filter__content {
+      @include media($medium-screen) {
+        padding-left: rem(30);
+        width: 96%;
+      }
+      .radio {
+        input[type="radio"] {
+          @include usa-input-radio;
+        }
+      }
+      input[type="checkbox"] {
+        @include usa-input-checkbox;
+      }
+      .download-filter__fy {
+        @import "fyPicker";
+        .quarter-picker .quarter-picker__fy {
+          @include flex(0 0 auto);
+          padding-right: rem(20);
+        }
+        .usa-dt-quarter-picker__list {
+          @include flex-wrap(wrap);
+          @media (min-width: $tablet-screen) {
+            @include flex-wrap(nowrap);
+          }
+        }
+        .usa-dt-quarter-picker__period-list-container {
+          p {
+            font-weight: 600;
+          }
+          .usa-dt-quarter-picker__period-list
+            .usa-dt-quarter-picker__list-item {
+            // the generic period styles
+            margin: rem(0) rem(1);
+            .usa-dt-quarter-picker__quarter {
+              width: rem(24);
+              font-weight: $font-bold;
+              padding-right: 0;
+              padding-left: 0;
+            }
+            // period representing two periods (1-2)
+            &.double-period .usa-dt-quarter-picker__quarter {
+              width: rem(48);
+            }
+            // period representing three periods (1-3)
+            &.triple-period .usa-dt-quarter-picker__quarter {
+              width: rem(72);
+            }
+            // period representing three periods w/ two-digit integers (10-12)
+            &.triple-period--extra-wide .usa-dt-quarter-picker__quarter {
+              width: rem(72);
+            }
+          }
+        }
+      }
+    }
+
+    &.download-filter-notice {
+      padding: 3rem 0 0 0;
+      .download-filter__title {
+        padding-left: rem(30);
+        padding-bottom: 0;
+      }
+      .download-filter__info {
+        padding-left: 0;
+        font-size: 1.8rem;
+        margin-top: rem(10);
+        span {
+          padding-left: rem(2.5);
+          position: relative;
+          bottom: 2.25px;
+        }
+      }
+    }
+
+    .download-filter__content-note {
+      font-style: italic;
+      font-size: rem(14);
+      line-height: rem(18);
+
+      &:first-of-type {
+        margin-top: rem(10);
+      }
+      @media (max-width: $medium-screen) {
+        max-width: 75%;
+      }
+    }
+
+    .download-filter__content-note_bold {
+      font-weight: 600;
+    }
+    .download-checkbox {
+      padding: rem(10) 0;
+      input {
+        margin-right: rem(5);
+      }
+    }
+    .download-filter__unordered-list {
+      list-style-type: none;
+      margin-top: 0;
+      li {
+        list-style-type: none;
+      }
+      input {
+        margin-right: rem(5);
+      }
+      input[type="checkbox"] {
+        @include usa-input-checkbox;
+      }
+    }
+    @import "agencyPicker";
+    @import "federalPicker";
+    @import "downloadButtons";
+    @import "dateRange";
+    @import "locationFilter";
+  }
+  @import "defCodeFilter";
+  @import "userSelections";
+  .download-user-selections {
+    margin: 0;
+    @include media($medium-screen) {
+      margin: rem(45) rem(20) rem(20) rem(20);
+    }
+    @include media($x-large-screen) {
+      margin: rem(40) rem(30);
+    }
+  }
+  .submit-wrapper {
+    margin: rem(24) rem(16);
+    @media (max-width: $medium-screen) {
+      width: 75%;
+    }
+  }
+  .submit-button {
+    button,
+    input {
+      width: 100%;
+      font-size: rem(24);
+      font-weight: 600;
+    }
+    &.submit-button_disabled {
+      button {
         margin: 0;
-        @include media($medium-screen) {
-            margin: rem(45) rem(20) rem(20) rem(20);
-        }
-        @include media($x-large-screen) {
-            margin: rem(40) rem(30);
-        }
+        background-color: $color-white;
+        color: $color-gray-light;
+        border: solid rem(1) $color-gray-light;
+      }
     }
-    .submit-wrapper {
-        margin: rem(24) rem(16);
-        @media(max-width: $medium-screen) {
-            width: 75%;
-        }
-    }
-    .submit-button {
-        button, input {
-            width: 100%;
-            font-size: rem(24);
-            font-weight: 600;
-        }
-        &.submit-button_disabled {
-            button {
-                margin: 0;
-                background-color: $color-white;
-                color: $color-gray-light;
-                border: solid rem(1) $color-gray-light;
-            }
-        }
-    }
-    @import "tooltip";
+  }
+  @import "tooltip";
 }

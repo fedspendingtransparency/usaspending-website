@@ -1,60 +1,60 @@
 .details {
-    @import './detailsTooltip';
+  @import "./detailsTooltip";
 
-    svg {
-        height: rem(14);
-    }
-    
-    h3 {
-        color: #555555;
-    }
+  svg {
+    height: rem(14);
+  }
 
-    margin-left: rem(7);
+  h3 {
+    color: #555555;
+  }
 
-    .details-info {
-        margin-top: 8px;
+  margin-left: rem(7);
 
-        .details-header {
-            width: rem(351);
-            height: rem(20);
-            flex-grow: 0;
-            margin: 0 0 rem(2);
-            font-size: rem(13);
-            font-weight: $font-semibold;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1.5;
-            letter-spacing: normal;
-            text-align: left;
-            color: $color-base;
-        }
-        
-        .details-text {
-            flex-grow: 0;
-            margin: rem(2) 0 rem(16);
-            font-size: rem(18);
-            font-weight: 300;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1.5;
-            letter-spacing: normal;
-            text-align: left;
-            color: $color-base;
-        }
+  .details-info {
+    margin-top: 8px;
 
-        .details__info_icon_holder {
-            margin-left: rem(10);
-        }
+    .details-header {
+      width: rem(351);
+      height: rem(20);
+      flex-grow: 0;
+      margin: 0 0 rem(2);
+      font-size: rem(13);
+      font-weight: $font-semibold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.5;
+      letter-spacing: normal;
+      text-align: left;
+      color: $color-base;
     }
 
-    .details-button {
-        display: flex;
-        justify-content: center;
-        width: 100%;
-        margin-right: 0;
+    .details-text {
+      flex-grow: 0;
+      margin: rem(2) 0 rem(16);
+      font-size: rem(18);
+      font-weight: 300;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.5;
+      letter-spacing: normal;
+      text-align: left;
+      color: $color-base;
     }
 
-    .text {
-        margin: 0 0 12px;
+    .details__info_icon_holder {
+      margin-left: rem(10);
     }
+  }
+
+  .details-button {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .text {
+    margin: 0 0 12px;
+  }
 }

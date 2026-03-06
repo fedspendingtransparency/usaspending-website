@@ -1,80 +1,80 @@
 .usa-da-dsm-page {
-    @import "all";
-    @import "layouts/default/default";
-    @import "layouts/default/stickyHeader/header";
+  @import "all";
+  @import "layouts/default/default";
+  @import "layouts/default/stickyHeader/header";
 
-    $color-gray-border: $color-gray-lighter;
+  $color-gray-border: $color-gray-lighter;
 
-    .main-content {
-        @import "../../mixins/fullSectionWrap";
-        @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
-        padding:  0;
+  .main-content {
+    @import "../../mixins/fullSectionWrap";
+    @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
+    padding: 0;
 
-        @import "../about/_contentWrap";
-        @import "elements/_divider";
-        @import "../about/_section";
+    @import "../about/_contentWrap";
+    @import "elements/_divider";
+    @import "../about/_section";
 
-        .about-content-wrapper {
-            @include grid-column(16);
-            @media(min-width: $small-screen) {
-                margin-left: 0;
-                max-width: 160rem;
-                width:100%;
-            }
-            .about-padded-content {
-                padding: 1rem 4rem;
-                @media (min-width: $large-screen) {
-                    width: 75%;
-                    max-width: rem(975);
-                    margin: auto;
-                }
-                .about-section-content .usda-external-link {
-                    @include button-unstyled;
-                    display: inline;
-                    padding: 0 rem(5);
-                    font-size: rem(18);
-                    color: $color-primary;
-                    svg {
-                        color: $color-primary;
-                    }
-                }
-                .about-section-content ol {
-                    font-size: rem(18);
-                    &.about-instructions {
-                        font-family: monospace;
-                        padding: 3rem 5rem;
-                        background-color: $color-gray-lightest;
-                    }
-                }
-                .about-section-content ul {
-                    margin: 0 0 3rem;
-                }
-                .about-section-content ul li {
-                    margin: 1rem 0;
-                }
-                .about-section-content ul li ul{
-                    margin-bottom: 3rem;
-                }
-                .about-section-content_custom-list {
-                    list-style-type: none;
-                    padding-left: 1.5rem;
-                    font-style: italic;
-                }
-            }
-            .about-content {
-                width: 100%;
-            }
+    .about-content-wrapper {
+      @include grid-column(16);
+      @media (min-width: $small-screen) {
+        margin-left: 0;
+        max-width: 160rem;
+        width: 100%;
+      }
+      .about-padded-content {
+        padding: 1rem 4rem;
+        @media (min-width: $large-screen) {
+          width: 75%;
+          max-width: rem(975);
+          margin: auto;
         }
-    }
-
-    .sticky-header {
-        .sticky-header__toolbar {
-            .copy-confirmation {
-                right: rem(83);
-                z-index: 1;
-            }
+        .about-section-content .usda-external-link {
+          @include button-unstyled;
+          display: inline;
+          padding: 0 rem(5);
+          font-size: rem(18);
+          color: $color-primary;
+          svg {
+            color: $color-primary;
+          }
         }
+        .about-section-content ol {
+          font-size: rem(18);
+          &.about-instructions {
+            font-family: monospace;
+            padding: 3rem 5rem;
+            background-color: $color-gray-lightest;
+          }
+        }
+        .about-section-content ul {
+          margin: 0 0 3rem;
+        }
+        .about-section-content ul li {
+          margin: 1rem 0;
+        }
+        .about-section-content ul li ul {
+          margin-bottom: 3rem;
+        }
+        .about-section-content_custom-list {
+          list-style-type: none;
+          padding-left: 1.5rem;
+          font-style: italic;
+        }
+      }
+      .about-content {
+        width: 100%;
+      }
     }
+  }
 
-    @import '../../layouts/default/header/warning';
+  .sticky-header {
+    .sticky-header__toolbar {
+      .copy-confirmation {
+        right: rem(83);
+        z-index: 1;
+      }
+    }
+  }
+
+  @import "../../layouts/default/header/warning";
 }

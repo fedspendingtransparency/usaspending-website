@@ -1,8 +1,8 @@
 .usa-da-account-landing {
-    @import "all";
-    @import "layouts/landingPage/landingPage";
+  @import "all";
+  @import "layouts/landingPage/landingPage";
 
-    @import "layouts/default/stickyHeader/header";
-    @import './searchSection';
-    @import './table/resultsSection';
+  @import "layouts/default/stickyHeader/header";
+  @import "./searchSection";
+  @import "./table/resultsSection";
 }

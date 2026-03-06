@@ -1,47 +1,47 @@
 .primary-checkbox-type {
-    @import "./_sharedCheckboxStyle";
-    @include sharedCheckboxStyle;
+  @import "./_sharedCheckboxStyle";
+  @include sharedCheckboxStyle;
 
-    &.single-item {
-        padding-left: rem(19);
+  &.single-item {
+    padding-left: rem(19);
+  }
+
+  .primary-checkbox-wrapper {
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+  }
+
+  .toggle {
+    @include button-unstyled;
+    @include flex(0 0 auto);
+    width: rem(11);
+    height: rem(28);
+    margin-right: rem(8);
+
+    cursor: pointer;
+
+    &.hidden-button {
+      opacity: 0.3;
+      cursor: not-allowed;
     }
 
-    .primary-checkbox-wrapper {
-        @include display(flex);
-        @include justify-content(center);
-        @include align-items(center);
+    span {
+      // this is for the animation group
+      margin: 0;
+      top: 0;
     }
 
-    .toggle {
-        @include button-unstyled;
-        @include flex(0 0 auto);
-        width: rem(11);
-        height: rem(28);
-        margin-right: rem(8);
-
-        cursor: pointer;
-
-        &.hidden-button {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        span {
-            // this is for the animation group
-            margin: 0;
-            top: 0;
-        }
-
-         svg {
-            fill: $color-gray-dark;
-            height: rem(11);
-            width: rem(11);
-            position: relative;
-            pointer-events: none;
-        }
+    svg {
+      fill: $color-gray-dark;
+      height: rem(11);
+      width: rem(11);
+      position: relative;
+      pointer-events: none;
     }
+  }
 
-    .checkbox-item-wrapper {
-        @include flex(1 1 auto);
-    }
+  .checkbox-item-wrapper {
+    @include flex(1 1 auto);
+  }
 }

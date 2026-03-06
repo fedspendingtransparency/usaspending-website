@@ -43,11 +43,18 @@
     }
   }
 
-  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item {
+  .usa-dt-picker
+    .usa-dt-picker__dropdown-container
+    .usa-dt-picker__list
+    .usa-dt-picker__list-item {
     border-top: none;
   }
 
-  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button .usa-dt-picker__button-text, .usa-dt-picker .usa-dt-picker__item {
+  .usa-dt-picker
+    .usa-dt-picker__dropdown-container
+    .usa-dt-picker__button
+    .usa-dt-picker__button-text,
+  .usa-dt-picker .usa-dt-picker__item {
     padding: 0 16px;
     font-size: $font-size-16;
     font-weight: $font-semibold;
@@ -55,27 +62,43 @@
     color: $gray-cool-60;
   }
 
-  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button .usa-dt-picker__button-icon svg {
+  .usa-dt-picker
+    .usa-dt-picker__dropdown-container
+    .usa-dt-picker__button
+    .usa-dt-picker__button-icon
+    svg {
     width: 12px;
     color: $theme-color-1;
   }
 
-  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item:hover {
+  .usa-dt-picker
+    .usa-dt-picker__dropdown-container
+    .usa-dt-picker__list
+    .usa-dt-picker__item:hover {
     background-color: $gray-cool-3;
     color: $gray-cool-60;
   }
 
-  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active {
+  .usa-dt-picker
+    .usa-dt-picker__dropdown-container
+    .usa-dt-picker__list
+    .usa-dt-picker__item.active {
     color: $gray-cool-60;
     background-color: $gray-cool-5;
   }
 
-  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active:hover {
+  .usa-dt-picker
+    .usa-dt-picker__dropdown-container
+    .usa-dt-picker__list
+    .usa-dt-picker__item.active:hover {
     background-color: $gray-cool-10;
     color: $gray-cool-60;
   }
 
-  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item:focus {
+  .usa-dt-picker
+    .usa-dt-picker__dropdown-container
+    .usa-dt-picker__list
+    .usa-dt-picker__item:focus {
     background-color: $gray-cool-3;
   }
 

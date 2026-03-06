@@ -1,29 +1,29 @@
 // slide in animation
 @keyframes atd-slidein {
-    0% {
-        transform: translate(300px, 0);
-    }
-    100% {
-        transform: translate(0, 0);
-    }
+  0% {
+    transform: translate(300px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
 }
 
 @keyframes atd-slideout {
-    0% {
-        transform: translate(0, 0);
-    }
-    100% {
-        transform: translate(300px, 0);
-    }
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(300px, 0);
+  }
 }
 
 .usa-atd-wrapper {
-    animation: atd-slidein 0.5s ease-in;
-    -webkit-animation: atd-slidein 0.5s ease-in;
-    animation-delay: 0ms;
-    -webkit-animation-delay: 0ms;
-    opacity: 1;
-    overflow: hidden;
-    position: relative;
-    visibility: visible;
+  animation: atd-slidein 0.5s ease-in;
+  -webkit-animation: atd-slidein 0.5s ease-in;
+  animation-delay: 0ms;
+  -webkit-animation-delay: 0ms;
+  opacity: 1;
+  overflow: hidden;
+  position: relative;
+  visibility: visible;
 }

@@ -1,40 +1,40 @@
 .sidebar-submit {
-    padding: rem(8) rem(32);
+  padding: rem(8) rem(32);
 
-    .screen-reader-submit-header {
-        position:absolute;
-        left:-10000px;
-        top:auto;
-        width:1px;
-        height:1px;
-        overflow:hidden;
+  .screen-reader-submit-header {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  .submit-button {
+    display: block;
+    width: 100%;
+  }
+  .reset-button {
+    display: block;
+    width: 100%;
+    font-size: $font-size-14;
+    font-weight: $font-normal !important;
+    padding: 0;
+    margin-top: rem(8);
+    margin-left: auto;
+    margin-right: auto;
+
+    &:hover {
+      text-decoration: underline;
     }
 
-    .submit-button {
-        display: block;
-        width: 100%;
+    &[disabled] {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
-    .reset-button {
-        display: block;
-        width: 100%;
-        font-size: $font-size-14;
-        font-weight: $font-normal !important;
-        padding: 0;
-        margin-top: rem(8);
-        margin-left: auto;
-        margin-right: auto;
-
-        &:hover {
-            text-decoration: underline;
-        }
-
-        &[disabled] {
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-    }
+  }
 }
 
 .sidebar-top-submit {
-    border-bottom: 1px solid $color-gray-warm-light;
+  border-bottom: 1px solid $color-gray-warm-light;
 }

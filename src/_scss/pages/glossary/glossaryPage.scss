@@ -1,93 +1,92 @@
 .usa-da-glossary-animations {
-    @import 'bourbon/app/assets/stylesheets/_bourbon';
-    @import 'bourbon-neat/core/_neat';
+  @import "bourbon/app/assets/stylesheets/_bourbon";
+  @import "bourbon-neat/core/_neat";
 
-    @import "../../core/variables";
-    @import "../../core/utilities";
+  @import "../../core/variables";
+  @import "../../core/utilities";
 
-    @import "../../elements/buttons";
-    @import "../../elements/typography";
+  @import "../../elements/buttons";
+  @import "../../elements/typography";
 
+  @keyframes slidein {
+    0% {
+      transform: translate(300px, 0);
+      visibility: hidden;
+    }
+    100% {
+      transform: translate(0, 0);
+      visibility: visible;
+    }
+  }
 
-    @keyframes slidein {
-        0% {
-            transform: translate(300px, 0);
-            visibility: hidden;
-        }
-        100% {
-            transform: translate(0, 0);
-            visibility: visible;
-        }
+  @keyframes slideout {
+    0% {
+      transform: translate(0, 0);
+    }
+    100% {
+      transform: translate(300px, 0);
+      visibility: hidden;
+    }
+  }
+
+  .usa-da-glossary-wrapper {
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 310px;
+    height: 100%;
+    box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
+
+    &.opened {
+      animation: slidein 0.5s ease-in forwards;
+      -webkit-animation: slidein 0.5s ease-in forwards;
+      overflow: hidden;
+      visibility: visible;
     }
 
-    @keyframes slideout {
-        0% {
-            transform: translate(0, 0);
-        }
-        100% {
-            transform: translate(300px, 0);
-            visibility: hidden;
-        }
+    &:not(.opened) {
+      animation: slideout 0.5s ease-out forwards;
+      -webkit-animation: slideout 0.5s ease-out forwards;
+      overflow: hidden;
     }
 
-    .usa-da-glossary-wrapper {
-        position: fixed;
-        right: 0;
-        top: 0;
-        width: 310px;
-        height: 100%;
-        box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
+    .glossary-sidebar {
+      background-color: $color-primary-darker;
+      color: $color-white;
+      font-size: 14px;
+      width: 100%;
+      height: 100%;
 
-        &.opened {
-            animation: slidein 0.5s ease-in forwards;
-            -webkit-animation: slidein 0.5s ease-in forwards;
-            overflow: hidden;
-            visibility: visible;
-        }
+      @import "./_scrollbar";
+      @import "./_header";
+      @import "./_searchList";
+      @import "./_definition";
+      @import "./_noResults";
 
-        &:not(.opened) {
-            animation: slideout 0.5s ease-out forwards;
-            -webkit-animation: slideout 0.5s ease-out forwards;
-            overflow: hidden;
-        }
+      .glossary-loading-content {
+        padding: 20px;
+      }
 
-        .glossary-sidebar {
-            background-color: $color-primary-darker;
-            color: $color-white;
-            font-size: 14px;
-            width: 100%;
-            height: 100%;
+      .loading {
+        opacity: 0.2;
+      }
 
-            @import "./_scrollbar";
-            @import "./_header";
-            @import "./_searchList";
-            @import "./_definition";
-            @import "./_noResults";
+      .left-chevron-icon {
+        font-size: rem(16);
+        color: $gray-cool-10;
+      }
 
-            .glossary-loading-content {
-                padding: 20px;
-            }
-
-            .loading {
-                opacity: 0.2;
-            }
-
-            .left-chevron-icon {
-                font-size: rem(16);
-                color: $gray-cool-10;
-            }
-
-            .glossary-definition__column-share-icon {
-                display: inline-flex;
-                float: right;
-            }
-        }
-
-        &.z-index {
-            z-index: $z-guide;
-        }
-        &.z-index-plus-one {
-            z-index: $z-guide + 1;
-        }
+      .glossary-definition__column-share-icon {
+        display: inline-flex;
+        float: right;
+      }
     }
+
+    &.z-index {
+      z-index: $z-guide;
+    }
+    &.z-index-plus-one {
+      z-index: $z-guide + 1;
+    }
+  }
 }

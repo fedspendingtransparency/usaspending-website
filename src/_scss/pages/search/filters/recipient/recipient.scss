@@ -1,64 +1,61 @@
 .recipient-filter {
+  @import "components/search/_autocompleteCheckbox";
 
-    @import "components/search/_autocompleteCheckbox";
+  .filter-item-wrap {
+    .checkbox-type-filter {
+      .recipient-checkbox__uei {
+        display: inline;
+        color: $gray-90;
 
-    .filter-item-wrap {
-        .checkbox-type-filter {
-            .recipient-checkbox__uei {
-                display: inline;
-                color: $gray-90;
-                
-                :not(.bold-highlight) {
-                    font-style: normal;
-                    font-weight: $font-normal;
-                }
-
-                span:not(.bold-highlight) {
-                    font-style: italic;
-                    color: $gray-60
-                }
-
-                .secondary-label__name-container {
-                    padding-left: rem(28);
-                    color: $gray-60;
-                    font-size: $font-size-10;
-                    font-style: italic;
-                    font-weight: $font-normal;
-                    line-height: $base-line-height;
-                    text-transform: uppercase;
-
-                    span.bol-highlight {
-                        color: $gray-90;
-                        font-weight: $font-semibold;
-                        font-style: normal;
-                    }
-                }
-            }
-
-    
-            .recipient-filter-message-container{
-                align-items: center;
-                padding-bottom: rem(8);
-
-                .find-recipients-text {
-                    text-align: center;
-                    font-size: $smallest-font-size;
-                    line-height: 1.5;
-                    padding: 0 8px;
-
-                    &.label {
-                        color: $gray-90;
-                        margin: ($global-spacing-unit * 3) 0 rem(4) 0;
-                        font-weight: $font-semibold;
-                    }
-
-                    &.content {
-                        color: $gray-60;
-                        margin-bottom: rem(4);
-                    }
-                }
-            }
+        :not(.bold-highlight) {
+          font-style: normal;
+          font-weight: $font-normal;
         }
-    }  
-       
+
+        span:not(.bold-highlight) {
+          font-style: italic;
+          color: $gray-60;
+        }
+
+        .secondary-label__name-container {
+          padding-left: rem(28);
+          color: $gray-60;
+          font-size: $font-size-10;
+          font-style: italic;
+          font-weight: $font-normal;
+          line-height: $base-line-height;
+          text-transform: uppercase;
+
+          span.bol-highlight {
+            color: $gray-90;
+            font-weight: $font-semibold;
+            font-style: normal;
+          }
+        }
+      }
+
+      .recipient-filter-message-container {
+        align-items: center;
+        padding-bottom: rem(8);
+
+        .find-recipients-text {
+          text-align: center;
+          font-size: $smallest-font-size;
+          line-height: 1.5;
+          padding: 0 8px;
+
+          &.label {
+            color: $gray-90;
+            margin: ($global-spacing-unit * 3) 0 rem(4) 0;
+            font-weight: $font-semibold;
+          }
+
+          &.content {
+            color: $gray-60;
+            margin-bottom: rem(4);
+          }
+        }
+      }
+    }
+  }
 }

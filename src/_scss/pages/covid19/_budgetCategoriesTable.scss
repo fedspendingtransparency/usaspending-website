@@ -1,160 +1,158 @@
 .budget-categories {
-    .table-types {
-        .table-type-toggle {
-            padding: rem(15) rem(20);
-            margin-right: rem(5);
+  .table-types {
+    .table-type-toggle {
+      padding: rem(15) rem(20);
+      margin-right: rem(5);
 
-            .tab-content {
-                font-size: rem(18);
-            }
+      .tab-content {
+        font-size: rem(18);
+      }
 
-            &.active {
-                .tab-content {
-                    font-weight: $font-semibold;
-                }
-            }
+      &.active {
+        .tab-content {
+          font-weight: $font-semibold;
         }
+      }
+    }
+  }
+
+  .body__narrative-description .sba-note-container {
+    display: flex;
+    flex-direction: column;
+
+    ul:first-of-type {
+      margin-top: 0.7rem;
     }
 
-    .body__narrative-description .sba-note-container {
-        display: flex;
-        flex-direction: column;
-
-        ul:first-of-type {
-            margin-top: 0.7rem;
-        }
-
-        ul {
-            text-align: left;
-            margin: 0;
-        }
-
-        .outer-list {
-            padding-left: 8rem;
-        }
-
-        .inner-list {
-            padding-left: 4rem;
-        }
-
-        .outer-list:before {
-            content: '•';
-            text-indent: -5px;
-        }
-
-        .inner-list:before {
-            content: "-";
-        }
+    ul {
+      text-align: left;
+      margin: 0;
     }
 
-    .budget-categories__content {
-        .usda-table {
-            margin-top: 0;
-
-            td {
-                &:first-child {
-                    p {
-                        a {
-
-                            // IE11 fix for td not having the correct width
-                            @media all and (-ms-high-contrast: none),
-                            (-ms-high-contrast: active) {
-                                max-width: 50%;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .usda-table__body {
-                tr.usda-table__row {
-                    td.usda-table__cell {
-                        padding-left: rem(15);
-
-                        &:first-of-type {
-                            margin-left: 0;
-                        }
-
-                        margin-left: 0;
-                        vertical-align: middle;
-                    }
-
-                    td.usda-table__cell_right:last-of-type {
-                        width: 100%;
-                    }
-                }
-            }
-        }
+    .outer-list {
+      padding-left: 8rem;
     }
 
-    .overview-data {
-        .overview-data__label {
-            white-space: wrap;
-        }
-
-        @include media($large-screen) {
-            .overview-data__label {
-                white-space: nowrap;
-            }
-        }
+    .inner-list {
+      padding-left: 4rem;
     }
 
-    .budget-categories-table__header {
-        @include display(flex);
-        @include justify-content(left);
-        @include align-items(center);
-        margin-top: rem(20);
+    .outer-list:before {
+      content: "•";
+      text-indent: -5px;
+    }
 
-        label {
-            padding-right: rem(6);
+    .inner-list:before {
+      content: "-";
+    }
+  }
+
+  .budget-categories__content {
+    .usda-table {
+      margin-top: 0;
+
+      td {
+        &:first-child {
+          p {
+            a {
+              // IE11 fix for td not having the correct width
+              @media all and (-ms-high-contrast: none),
+                (-ms-high-contrast: active) {
+                max-width: 50%;
+              }
+            }
+          }
         }
+      }
 
-        .usa-dt-picker {
+      .usda-table__body {
+        tr.usda-table__row {
+          td.usda-table__cell {
+            padding-left: rem(15);
 
-            .usa-dt-picker__button {
-                margin-right: 0;
-                padding-bottom: 0;
-                padding-top: 0;
-                margin-left: 0;
-                padding-left: rem(1);
-                border-bottom: rem(2) solid $color-cool-blue-light;
-                width: rem(140);
-
-                .usa-dt-picker__button-text {
-                    font-size: $base-font-size;
-                    white-space: nowrap;
-                    margin-right: rem(6);
-                    color: $color-base;
-                    font-weight: $font-normal;
-                }
-
-                .usa-dt-picker__button-icon svg {
-                    height: rem(12);
-                    margin-bottom: rem(3);
-                    color: $color-cool-blue-light;
-                }
+            &:first-of-type {
+              margin-left: 0;
             }
 
-            .usa-dt-picker__list {
-                z-index: 4;
-                // some styles need to go here to hide the scroll bar in ie
-                -ms-overflow-style: none;
+            margin-left: 0;
+            vertical-align: middle;
+          }
 
-                .usa-dt-picker__list-item {
-                    border-top: none;
-
-                    .usa-dt-picker__item {
-                        font-size: 1.4rem;
-                        letter-spacing: 0;
-                        line-height: 1.8rem;
-                    }
-                }
-            }
-        }
-
-        .budget-categories-tooltip {
-            display: block;
+          td.usda-table__cell_right:last-of-type {
             width: 100%;
+          }
         }
+      }
     }
+  }
+
+  .overview-data {
+    .overview-data__label {
+      white-space: wrap;
+    }
+
+    @include media($large-screen) {
+      .overview-data__label {
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .budget-categories-table__header {
+    @include display(flex);
+    @include justify-content(left);
+    @include align-items(center);
+    margin-top: rem(20);
+
+    label {
+      padding-right: rem(6);
+    }
+
+    .usa-dt-picker {
+      .usa-dt-picker__button {
+        margin-right: 0;
+        padding-bottom: 0;
+        padding-top: 0;
+        margin-left: 0;
+        padding-left: rem(1);
+        border-bottom: rem(2) solid $color-cool-blue-light;
+        width: rem(140);
+
+        .usa-dt-picker__button-text {
+          font-size: $base-font-size;
+          white-space: nowrap;
+          margin-right: rem(6);
+          color: $color-base;
+          font-weight: $font-normal;
+        }
+
+        .usa-dt-picker__button-icon svg {
+          height: rem(12);
+          margin-bottom: rem(3);
+          color: $color-cool-blue-light;
+        }
+      }
+
+      .usa-dt-picker__list {
+        z-index: 4;
+        // some styles need to go here to hide the scroll bar in ie
+        -ms-overflow-style: none;
+
+        .usa-dt-picker__list-item {
+          border-top: none;
+
+          .usa-dt-picker__item {
+            font-size: 1.4rem;
+            letter-spacing: 0;
+            line-height: 1.8rem;
+          }
+        }
+      }
+    }
+
+    .budget-categories-tooltip {
+      display: block;
+      width: 100%;
+    }
+  }
 }

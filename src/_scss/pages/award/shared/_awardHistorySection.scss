@@ -1,20 +1,20 @@
 .award-history {
-    padding: rem(40) 0 rem(60);
-    width: 100%;
-    @import "../table/_tablesSection";
-    .table-types {
-      .table-type-toggle {
-        margin-top: 0;
+  padding: rem(40) 0 rem(60);
+  width: 100%;
+  @import "../table/_tablesSection";
+  .table-types {
+    .table-type-toggle {
+      margin-top: 0;
+    }
+  }
+  .subaward-totals {
+    @include display(flex);
+    justify-content: center;
+    .total-item {
+      padding: $global-padding * 2;
+      .total-value {
+        font-weight: bold;
       }
     }
-    .subaward-totals {
-        @include display(flex);
-        justify-content: center;
-        .total-item {
-            padding: $global-padding * 2;
-            .total-value {
-                font-weight: bold;
-            }
-        }
-    }
+  }
 }

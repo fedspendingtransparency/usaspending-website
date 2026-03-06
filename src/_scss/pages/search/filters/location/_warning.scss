@@ -1,62 +1,62 @@
 .geo-entity-item {
-    position: relative;
+  position: relative;
 }
 
 .geo-warning {
-    position: absolute;
-    width: 100%;
+  position: absolute;
+  width: 100%;
 }
 
 .warning-tooltip {
-    position: absolute;
-    top: rem(20);
-    width: 100%;
-    z-index: $z-modal - 1;
+  position: absolute;
+  top: rem(20);
+  width: 100%;
+  z-index: $z-modal - 1;
 
-    .warning-content {
-        @include display(flex);
-        @include justify-content(center);
-        @include align-items(center);
-        position: relative;
+  .warning-content {
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+    position: relative;
 
-        background-color: $color-gold-lightest;
-        border: 1px solid $color-gold-light;
-        box-shadow: $box-shadow;
+    background-color: $color-gold-lightest;
+    border: 1px solid $color-gold-light;
+    box-shadow: $box-shadow;
 
-        padding: rem(10);
+    padding: rem(10);
 
-        .icon {
-            @include flex(0 0 auto);
-            width: rem(30);
-            height: rem(30);
-            margin-right: rem(10);
+    .icon {
+      @include flex(0 0 auto);
+      width: rem(30);
+      height: rem(30);
+      margin-right: rem(10);
 
-            svg {
-                fill: $color-gold;
-                width: rem(30);
-                height: rem(30);
-            }
-        }
-
-        .message {
-            @include flex(1 1 auto);
-            text-align: left;
-            color: $color-base;
-            font-size: $small-font-size;
-
-            .field {
-                font-weight: $font-semibold;
-                text-transform: uppercase;
-            }
-        }
-
-        // inherit from the standard tooltip arrow style
-        $color-tooltip-border: $color-gold-light;
-        @import "components/visualizations/tooltip/_arrow";
-        .tooltip-pointer {
-            &.top:after {
-                background: $color-gold-lightest;
-            }
-        }
+      svg {
+        fill: $color-gold;
+        width: rem(30);
+        height: rem(30);
+      }
     }
+
+    .message {
+      @include flex(1 1 auto);
+      text-align: left;
+      color: $color-base;
+      font-size: $small-font-size;
+
+      .field {
+        font-weight: $font-semibold;
+        text-transform: uppercase;
+      }
+    }
+
+    // inherit from the standard tooltip arrow style
+    $color-tooltip-border: $color-gold-light;
+    @import "components/visualizations/tooltip/_arrow";
+    .tooltip-pointer {
+      &.top:after {
+        background: $color-gold-lightest;
+      }
+    }
+  }
 }

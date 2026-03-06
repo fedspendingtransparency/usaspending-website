@@ -26,20 +26,20 @@ $customWidthJustForThisComponent: 440px;
       border-right: none;
       border-radius: 0;
       border-bottom: solid 1px $theme-color-underline;
-      @media(min-width: $customWidthJustForThisComponent) {
+      @media (min-width: $customWidthJustForThisComponent) {
         padding: rem(4) rem(16);
       }
 
-        &.active {
-          border-bottom: solid 2px $color-primary;
+      &.active {
+        border-bottom: solid 2px $color-primary;
 
-          .homepage-explore-toggle__text {
-            font-weight: $font-semibold;
-            color: $gray-90;
-          }
-          .homepage-explore-toggle__icon-container {
-            opacity: 100% !important;
-          }
+        .homepage-explore-toggle__text {
+          font-weight: $font-semibold;
+          color: $gray-90;
+        }
+        .homepage-explore-toggle__icon-container {
+          opacity: 100% !important;
+        }
       }
 
       .homepage-explore-toggle__text-container {
@@ -74,7 +74,7 @@ $customWidthJustForThisComponent: 440px;
           color: $color-base;
           margin-left: rem(4);
           align-self: center;
-          @media(min-width: $customWidthJustForThisComponent) {
+          @media (min-width: $customWidthJustForThisComponent) {
             font-size: rem(16);
             line-height: 1.25;
             margin-left: rem(8);

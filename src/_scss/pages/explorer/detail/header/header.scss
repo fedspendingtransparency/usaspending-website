@@ -1,160 +1,157 @@
-
 .detail-header {
-    @include display(flex);
-    @include justify-content(space-between);
-    @include align-items(flex-start);
-    position: relative;
+  @include display(flex);
+  @include justify-content(space-between);
+  @include align-items(flex-start);
+  position: relative;
 
-    .detail-header__labels {
-        @include flex(1 1 auto);
-        // this is a truly horrific hack to make the h2 title text wrap on IE 11 in smaller screens
-        // this works because flex grow will cause the content to push this flexbox's width out
-        width: 0;
-        font-size: $font-size-16;
-        line-height: $base-line-height;
-        font-weight: $font-normal;
+  .detail-header__labels {
+    @include flex(1 1 auto);
+    // this is a truly horrific hack to make the h2 title text wrap on IE 11 in smaller screens
+    // this works because flex grow will cause the content to push this flexbox's width out
+    width: 0;
+    font-size: $font-size-16;
+    line-height: $base-line-height;
+    font-weight: $font-normal;
 
-        h2.detail-header__title {
-            max-width: 100%;
-            margin: 0 0 rem(8);
-            font-size: $font-size-28;
-            color: $gray-90;
-            font-weight: $font-semibold;
-            line-height: $heading-line-height;
+    h2.detail-header__title {
+      max-width: 100%;
+      margin: 0 0 rem(8);
+      font-size: $font-size-28;
+      color: $gray-90;
+      font-weight: $font-semibold;
+      line-height: $heading-line-height;
 
-            &.detail-header__title_title {
-                text-transform: capitalize;
-            }
-        }
-        a.detail-header__title-link {
-            &:hover {
-                text-decoration: none;
-            }
-        }
-
-        .detail-header__instructions {
-            margin-top: rem(10);
-            font-size: $font-size-20;
-            color: $color-base;
-            font-weight: $font-normal;
-            line-height: $base-line-height;
-        }
+      &.detail-header__title_title {
+        text-transform: capitalize;
+      }
+    }
+    a.detail-header__title-link {
+      &:hover {
+        text-decoration: none;
+      }
     }
 
-    .detail-header__amounts {
-        @include flex(0 1 rem(150));
-        margin-left: rem(10);
+    .detail-header__instructions {
+      margin-top: rem(10);
+      font-size: $font-size-20;
+      color: $color-base;
+      font-weight: $font-normal;
+      line-height: $base-line-height;
+    }
+  }
 
-        @include media($medium-screen) {
-            @include flex(0 1 rem(250));
-            margin-left: rem(50);
-        }
-        @include media($x-large-screen) {
-            margin-left: rem(150);
-        }
+  .detail-header__amounts {
+    @include flex(0 1 rem(150));
+    margin-left: rem(10);
 
-        .detail-header__fy {
-            text-align: right;
-            text-transform: uppercase;
-            font-weight: $font-semibold;
-            font-size: $font-size-16;
-            line-height: $base-line-height;
-        }
+    @include media($medium-screen) {
+      @include flex(0 1 rem(250));
+      margin-left: rem(50);
+    }
+    @include media($x-large-screen) {
+      margin-left: rem(150);
+    }
 
-        .detail-header__value {
-            text-align: right;
-            text-transform: capitalize;
-            font-weight: $font-semibold;
-            font-size: $font-size-32;
-            line-height: $heading-line-height;
-            color: #32788C;
-        }
+    .detail-header__fy {
+      text-align: right;
+      text-transform: uppercase;
+      font-weight: $font-semibold;
+      font-size: $font-size-16;
+      line-height: $base-line-height;
+    }
 
-        .detail-header__update {
-            text-align: right;
-            font-size: $font-size-14;
-            line-height: $base-line-height;
-        }
+    .detail-header__value {
+      text-align: right;
+      text-transform: capitalize;
+      font-weight: $font-semibold;
+      font-size: $font-size-32;
+      line-height: $heading-line-height;
+      color: #32788c;
+    }
 
+    .detail-header__update {
+      text-align: right;
+      font-size: $font-size-14;
+      line-height: $base-line-height;
+    }
 
-        .detail-header__icon {
-            display: inline-block;
-            padding: 0 0 0 rem(5);
-            cursor: default;
-            margin: 0;
-            background-color: transparent;
-            align-self: flex-end;
+    .detail-header__icon {
+      display: inline-block;
+      padding: 0 0 0 rem(5);
+      cursor: default;
+      margin: 0;
+      background-color: transparent;
+      align-self: flex-end;
     }
     .award-section-tt {
-        display: inline-flex;
+      display: inline-flex;
     }
     svg {
-        width: rem(10);
-        height: rem(16);
-        color: $color-base;
+      width: rem(10);
+      height: rem(16);
+      color: $color-base;
     }
     .tooltip-spacer {
-        transform: translate(-8px, 2px);
-        text-transform: none;
-        .tooltip__content{
-            left: rem(16);
+      transform: translate(-8px, 2px);
+      text-transform: none;
+      .tooltip__content {
+        left: rem(16);
+      }
+      @media (min-width: $medium-screen) {
+        transform: translate(-8px, 4px);
+        .tooltip__content {
+          left: rem(16);
         }
-        @media (min-width: $medium-screen) {
-            transform: translate(-8px, 4px);
-            .tooltip__content{
-            left: rem(16);
-        }
-        }
-        @media (max-width: $tablet-screen + 1) {
-            transform: translate(7px, 35px);
-        }
-        @media only screen and (max-width: 878px) and (min-width: 768px){
-            transform: translate(-308px, -18px);
-        }
-
+      }
+      @media (max-width: $tablet-screen + 1) {
+        transform: translate(7px, 35px);
+      }
+      @media only screen and (max-width: 878px) and (min-width: 768px) {
+        transform: translate(-308px, -18px);
+      }
     }
-}
+  }
 
-    .right-side {
-        @include flex(0 1 auto);
-        width: rem(150);
-        margin-left: rem(10);
+  .right-side {
+    @include flex(0 1 auto);
+    width: rem(150);
+    margin-left: rem(10);
 
-        @include media($medium-screen) {
-            width: rem(250);
-            margin-left: rem(50);
-        }
-        @include media($x-large-screen) {
-            margin-left: rem(150);
-        }
-
-        .amount-header {
-            text-align: right;
-            text-transform: uppercase;
-            font-weight: $font-semibold;
-            font-size: $font-size-16;
-            line-height: $base-line-height;
-        }
-
-        .amount-value {
-            text-align: right;
-            text-transform: capitalize;
-            font-weight: $font-semibold;
-            font-size: $font-size-32;
-            line-height: $heading-line-height;
-            color: #32788C;
-        }
-
-        .update-date {
-            text-align: right;
-            font-size: $font-size-14;
-            line-height: $base-line-height;
-        }
+    @include media($medium-screen) {
+      width: rem(250);
+      margin-left: rem(50);
     }
+    @include media($x-large-screen) {
+      margin-left: rem(150);
+    }
+
+    .amount-header {
+      text-align: right;
+      text-transform: uppercase;
+      font-weight: $font-semibold;
+      font-size: $font-size-16;
+      line-height: $base-line-height;
+    }
+
+    .amount-value {
+      text-align: right;
+      text-transform: capitalize;
+      font-weight: $font-semibold;
+      font-size: $font-size-32;
+      line-height: $heading-line-height;
+      color: #32788c;
+    }
+
+    .update-date {
+      text-align: right;
+      font-size: $font-size-14;
+      line-height: $base-line-height;
+    }
+  }
 }
 
 .detail-header__truncation {
-    margin-top: rem(20);
+  margin-top: rem(20);
 }
 @import "pages/homepage/hero/_heroTooltip";
 
@@ -180,4 +177,3 @@
 }
 
 @import "./_truncation";
-

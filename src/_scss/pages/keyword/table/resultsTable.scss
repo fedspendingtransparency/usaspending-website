@@ -3,11 +3,11 @@
 @import "./tableBeginMessage";
 
 .search-results-table-section {
-    @import 'elements/divider';
-    &.hide-counts {
-        // Hide the tab counts until a search is performed
-        .count-badge {
-            display: none;
-        }
+  @import "elements/divider";
+  &.hide-counts {
+    // Hide the tab counts until a search is performed
+    .count-badge {
+      display: none;
     }
+  }
 }

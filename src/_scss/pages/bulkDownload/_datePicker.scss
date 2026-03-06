@@ -1,9 +1,9 @@
-@import 'elements/filters/_errorMessage';
-@import 'components/datePicker/_datePicker';
+@import "elements/filters/_errorMessage";
+@import "components/datePicker/_datePicker";
 .date-pickers {
-    margin-top: rem(25);
-    display: initial;
-    .generate-datepicker-wrap {
-        display: inline-flex;
-    }
+  margin-top: rem(25);
+  display: initial;
+  .generate-datepicker-wrap {
+    display: inline-flex;
+  }
 }

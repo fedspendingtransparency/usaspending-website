@@ -1,50 +1,50 @@
 .visualization-period {
+  @include grid-column(16);
+  @import "_scope";
+  margin-top: $global-margin * 2;
+  margin-left: 0;
+  width: 100%;
+  @include media($tablet-screen) {
+    @include grid-column(7);
+    margin-top: 0;
+    margin-left: 0;
+  }
+  align-self: flex-end;
+  .content {
     @include grid-column(16);
-    @import "_scope";
-    margin-top: $global-margin * 2;
     margin-left: 0;
     width: 100%;
     @include media($tablet-screen) {
-        @include grid-column(7);
-        margin-top: 0;
-        margin-left: 0;
+      width: 100%;
+      margin-left: 0;
     }
-    align-self:flex-end;
-    .content {
-        @include grid-column(16);
+    ul {
+      display: flex;
+      li {
+        float: left;
+        @include grid-column(5.3);
         margin-left: 0;
-        width: 100%;
         @include media($tablet-screen) {
-            width: 100%;
-            margin-left: 0;
+          margin-bottom: 0;
+          margin-left: 0;
         }
-        ul {
-            display: flex;
-            li {
-                float: left;
-                @include grid-column(5.3);
-                margin-left: 0;
-                @include media($tablet-screen) {
-                    margin-bottom: 0;
-                    margin-left: 0;
-                }
-            }
-        }
-
-        @import "./components/_comingSoon";
-        @include comingSoon;
-        .coming-soon {
-            .coming-soon-container {
-                width: rem(72);
-                margin: 0 auto;
-                .period-button {
-                    color: $color-gray-lighter;
-                }
-                .period-button:hover {
-                    color: $color-gray-lighter;
-                    border-bottom: rem(4) solid rgba(255, 255, 255, 0);
-                }
-            }
-        }
+      }
     }
+
+    @import "./components/_comingSoon";
+    @include comingSoon;
+    .coming-soon {
+      .coming-soon-container {
+        width: rem(72);
+        margin: 0 auto;
+        .period-button {
+          color: $color-gray-lighter;
+        }
+        .period-button:hover {
+          color: $color-gray-lighter;
+          border-bottom: rem(4) solid rgba(255, 255, 255, 0);
+        }
+      }
+    }
+  }
 }

@@ -15,7 +15,7 @@
   &.open {
     height: 100%;
 
-    @media(max-width: $tablet-screen - 1) {
+    @media (max-width: $tablet-screen - 1) {
       .usa-banner__button {
         display: none;
       }
@@ -26,7 +26,7 @@
     }
 
     .usa-banner-close {
-      @media(min-width: $tablet-screen) {
+      @media (min-width: $tablet-screen) {
         display: none;
       }
       display: flex;
@@ -45,16 +45,16 @@
 }
 
 .usa-banner {
-  @media(max-width: $tablet-screen) {
+  @media (max-width: $tablet-screen) {
     margin: 0 0 0 rem(20);
   }
-  @media(min-width: $tablet-screen) {
+  @media (min-width: $tablet-screen) {
     margin: 0 0 0 rem(20);
   }
-  @media(min-width: $large-screen) {
+  @media (min-width: $large-screen) {
     margin: 0 rem(36) 0 rem(40);
   }
-  @media(min-width: $x-large-screen) {
+  @media (min-width: $x-large-screen) {
     margin: 0 auto;
     width: rem(1600);
   }
@@ -75,9 +75,9 @@
     font-size: rem(12.8);
     margin-left: 8px;
     margin-right: 8px;
-      .usa-banner__header-sub-text {
-        margin-right: 8px;
-      }
+    .usa-banner__header-sub-text {
+      margin-right: 8px;
+    }
   }
 
   .usa-banner__header-action {
@@ -89,7 +89,6 @@
     text-align: left;
     color: $theme-color-1;
     text-decoration: underline;
-
   }
 
   .usa-banner__button {
@@ -105,12 +104,12 @@
     margin-bottom: 4px;
     cursor: pointer;
 
-    @media(min-width: $tablet-screen) {
+    @media (min-width: $tablet-screen) {
       cursor: default;
     }
 
-    @media(max-width: $tablet-screen - 1) {
-      .usa-banner__mobile-button-wrapper{
+    @media (max-width: $tablet-screen - 1) {
+      .usa-banner__mobile-button-wrapper {
         position: absolute;
         top: 0;
         left: 0;
@@ -153,7 +152,7 @@
       margin: 16px 16px 20px 0;
     }
 
-    @media(min-width: $tablet-screen) {
+    @media (min-width: $tablet-screen) {
       flex-direction: row;
       margin-left: rem(8);
       > .usa-banner__guidance {
@@ -193,4 +192,3 @@
     }
   }
 }
-

@@ -1,6 +1,6 @@
 .amounts-viz {
   width: 100%;
-  @import '../../award/shared/awardAmountsSection/charts';
+  @import "../../award/shared/awardAmountsSection/charts";
   .tooltip-wrapper {
     display: none;
     @include media($medium-screen) {
@@ -10,26 +10,26 @@
     .tooltip__content {
       .tooltip__message {
         .tooltip__text {
-            padding: 2rem 2rem 0 2rem;
-            .tooltip__text-section {
-                font-weight: $font-normal;
-            }
-            .tooltip__text-section:first-of-type {
-              padding-bottom: 0.5rem;
-              line-height: 1;
-              font-size: 2.8rem;
-            }
-            .tooltip__text-section:nth-child(2) {
-              margin-top: 0;
-            }
-            .tooltip__text-section:last-of-type {
-              padding-top: 2rem;
-            }
+          padding: 2rem 2rem 0 2rem;
+          .tooltip__text-section {
+            font-weight: $font-normal;
+          }
+          .tooltip__text-section:first-of-type {
+            padding-bottom: 0.5rem;
+            line-height: 1;
+            font-size: 2.8rem;
+          }
+          .tooltip__text-section:nth-child(2) {
+            margin-top: 0;
+          }
+          .tooltip__text-section:last-of-type {
+            padding-top: 2rem;
+          }
         }
         .tooltip__text:last-child {
           padding: 2rem;
         }
-      } 
+      }
     }
     .tooltip-pagination-container {
       @include display(inline-flex);
@@ -61,20 +61,20 @@
                 }
               }
               grid-template-rows: 0.25fr 0.25fr 0.25fr;
-                .amounts-viz__title {
-                  line-height: rem(25);
-                  font-size: rem(20);
-                  margin-bottom: 0;
-                  margin-top: 2rem;
-                }
-                .amounts-viz__sub-title {
-                  font-size: rem(16);
-                  letter-spacing: 0;
-                  line-height: rem(22);
-                  margin-top: 0;
-                  margin-bottom: 0;
-                  padding-top: 0;
-                }
+              .amounts-viz__title {
+                line-height: rem(25);
+                font-size: rem(20);
+                margin-bottom: 0;
+                margin-top: 2rem;
+              }
+              .amounts-viz__sub-title {
+                font-size: rem(16);
+                letter-spacing: 0;
+                line-height: rem(22);
+                margin-top: 0;
+                margin-bottom: 0;
+                padding-top: 0;
+              }
               .amounts-viz__svg {
                 .highlight {
                   stroke: $color-active;
@@ -135,7 +135,7 @@
       }
     }
     .usa-dt-carousel-pager {
-        padding-top: rem(20);
+      padding-top: rem(20);
       .usa-dt-carousel-pager__list {
         margin-top: 0;
       }
@@ -157,6 +157,5 @@
         }
       }
     }
-
   }
 }

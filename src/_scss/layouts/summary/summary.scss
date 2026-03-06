@@ -2,11 +2,11 @@
 @import "../default/default";
 
 .main-content {
-    @include grid-container;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 100%;
-    padding: 0;
-    background-color: $color-white;
-    color: $color-base;
+  @include grid-container;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  padding: 0;
+  background-color: $color-white;
+  color: $color-base;
 }

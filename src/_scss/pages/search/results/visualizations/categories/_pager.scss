@@ -1,50 +1,50 @@
 .visualization-pager-container {
-    margin-left: auto;
-    margin-right: auto;
-    width: 300px;
-    .visualization-pager {
-        display: inline-block;
-        @include button-unstyled;
-        padding: rem(10);
-        margin-top: rem(12);
-        color: $color-gray;
-        font-size: rem(12);
-        border: rem(1) solid #D5D6D8;
-        margin-left: rem(20);
-        margin-bottom: rem(20);
-        &:first-child {
-            margin-left: 0;
-        }
-        .pager-content {
-            @include clearfix();
-        }
-        .pager-label {
-            float: left;
-            line-height: rem(18);
-            margin: 0 0 0 rem(5);
-            &.next {
-                margin: 0 rem(5) 0 0;
-            }
-        }
-        .icon {
-            float: left;
-            margin-top: 0.3rem;
-            & svg {
-                height: rem(12);
-                width: rem(12);
-                fill: $color-gray;
-            }
-        }
-        &[disabled] {
-            opacity: 0.2;
-        }
-        &.hide {
-            display: none;
-        }
-        &:hover {
-            @include transition(all 0.25s $ease-in-out-sine);
-            background: $color-gray-lightest;
-            color: #333;
-        }
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  .visualization-pager {
+    display: inline-block;
+    @include button-unstyled;
+    padding: rem(10);
+    margin-top: rem(12);
+    color: $color-gray;
+    font-size: rem(12);
+    border: rem(1) solid #d5d6d8;
+    margin-left: rem(20);
+    margin-bottom: rem(20);
+    &:first-child {
+      margin-left: 0;
     }
+    .pager-content {
+      @include clearfix();
+    }
+    .pager-label {
+      float: left;
+      line-height: rem(18);
+      margin: 0 0 0 rem(5);
+      &.next {
+        margin: 0 rem(5) 0 0;
+      }
+    }
+    .icon {
+      float: left;
+      margin-top: 0.3rem;
+      & svg {
+        height: rem(12);
+        width: rem(12);
+        fill: $color-gray;
+      }
+    }
+    &[disabled] {
+      opacity: 0.2;
+    }
+    &.hide {
+      display: none;
+    }
+    &:hover {
+      @include transition(all 0.25s $ease-in-out-sine);
+      background: $color-gray-lightest;
+      color: #333;
+    }
+  }
 }

@@ -3,7 +3,8 @@
 
 &.v2 {
   // .usda-page-header style is a DTUI override that's specific to the search 2.0 page
-  .usda-page-header, .usda-page-header--sticky {
+  .usda-page-header,
+  .usda-page-header--sticky {
     position: sticky !important;
     top: 0;
     left: 0;
@@ -19,231 +20,229 @@
 }
 
 .search-collapsible-sidebar-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    box-shadow: none;
-    border-radius: unset;
-    background-color: unset;
-    flex-grow: 1;
-    min-height: calc(100vh - 16px);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-shadow: none;
+  border-radius: unset;
+  background-color: unset;
+  flex-grow: 1;
+  min-height: calc(100vh - 16px);
 
-    &.sticky {
-        position: sticky;
-        top: 0;
-        left: 0;
-        align-self: flex-start;
+  &.sticky {
+    position: sticky;
+    top: 0;
+    left: 0;
+    align-self: flex-start;
+  }
+
+  &.opened {
+    flex: 0 0 352px;
+    width: 352px;
+
+    &.mobile {
+      flex: 0 0 100%;
+      width: 100%;
     }
 
-    &.opened {
-      flex: 0 0 352px;
-      width: 352px;
-
+    @media (max-width: $medium-screen - 1) {
       &.mobile {
         flex: 0 0 100%;
         width: 100%;
       }
 
-      @media(max-width: $medium-screen - 1) {
-        &.mobile {
-          flex: 0 0 100%;
-          width: 100%;
-        }
-
-        &:not(.mobile) {
-          flex: 0;
-          width: 0;
-        }
-      }
-
-      @media(min-width: $medium-screen) {
-        &.mobile {
-          flex: 0 0 352px;
-          width: 352px;
-        }
+      &:not(.mobile) {
+        flex: 0;
+        width: 0;
       }
     }
 
-    &:not(.opened) {
-      flex: 0 0 48px;
-      width: 48px;
-      .sidebar-top-submit,
-      .search-filter__container,
-      .collapsible-sidebar--main-menu {
-        display: none;
+    @media (min-width: $medium-screen) {
+      &.mobile {
+        flex: 0 0 352px;
+        width: 352px;
       }
     }
+  }
 
-    @media(max-width: $medium-screen - 1) {
-      left: 0;
-      width: 100%;
+  &:not(.opened) {
+    flex: 0 0 48px;
+    width: 48px;
+    .sidebar-top-submit,
+    .search-filter__container,
+    .collapsible-sidebar--main-menu {
+      display: none;
     }
+  }
 
-    .sidebar-top-submit {
-        width: 100%;
-        border-bottom: $gray-cool-10 1px solid;
-    }
+  @media (max-width: $medium-screen - 1) {
+    left: 0;
+    width: 100%;
+  }
 
-    .collapsible-sidebar-header {
-      margin-top: 16px;
-      margin-left: 32px;
-      color: $theme-color-headline;
-      font-size: $font-size-16;
-      font-weight: $font-semibold;
+  .sidebar-top-submit {
+    width: 100%;
+    border-bottom: $gray-cool-10 1px solid;
+  }
 
-      .fa-filter {
-        color: $blue-60v;
-        width: 15px;
-        margin-right: 8px;
-      }
-
-      .link {
-        margin: 8px 0;
-        font-size: $font-size-14;
-        font-weight: $font-normal;
-      }
-    }
-
-    .chevron {
-      margin: auto;
-      color: $blue-50;
-      width: 6px;
-      height: 100%;
-    }
+  .collapsible-sidebar-header {
+    margin-top: 16px;
+    margin-left: 32px;
+    color: $theme-color-headline;
+    font-size: $font-size-16;
+    font-weight: $font-semibold;
 
     .fa-filter {
       color: $blue-60v;
       width: 15px;
+      margin-right: 8px;
     }
 
-    .collapsible-sidebar--toggle {
-        @media(max-width: $medium-screen - 1) {
-            display: none;
-        }
-        position: absolute;
-        right: -12px;
-        top: 16px;
-        border-radius: 12px;
-        width: 24px;
-        height: 24px;
-        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-        border: solid 1px $gray-cool-10;
-        background-color: $color-white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 2;
+    .link {
+      margin: 8px 0;
+      font-size: $font-size-14;
+      font-weight: $font-normal;
     }
+  }
 
-    @media(max-width: $medium-screen - 1) {
-      border: none;
+  .chevron {
+    margin: auto;
+    color: $blue-50;
+    width: 6px;
+    height: 100%;
+  }
+
+  .fa-filter {
+    color: $blue-60v;
+    width: 15px;
+  }
+
+  .collapsible-sidebar--toggle {
+    @media (max-width: $medium-screen - 1) {
+      display: none;
     }
+    position: absolute;
+    right: -12px;
+    top: 16px;
+    border-radius: 12px;
+    width: 24px;
+    height: 24px;
+    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+    border: solid 1px $gray-cool-10;
+    background-color: $color-white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+  }
 
-    .collapsible-sidebar--header {
-      padding: rem(20) rem(20) 0 rem(32);
-      line-height: 1.5;
-      color: $gray-90;
-      background-color: unset;
-      display: flex;
-      justify-content: flex-end;
-      #collapsible-mobile-close-button {
-        @media(min-width: $medium-screen) {
-          display: none;
-        }
+  @media (max-width: $medium-screen - 1) {
+    border: none;
+  }
 
+  .collapsible-sidebar--header {
+    padding: rem(20) rem(20) 0 rem(32);
+    line-height: 1.5;
+    color: $gray-90;
+    background-color: unset;
+    display: flex;
+    justify-content: flex-end;
+    #collapsible-mobile-close-button {
+      @media (min-width: $medium-screen) {
+        display: none;
+      }
+
+      width: rem(10);
+      height: rem(10);
+      background-color: white;
+      margin: 0;
+      stroke-width: rem(2);
+      padding: 0;
+      padding-bottom: $global-padding * 4;
+      svg {
         width: rem(10);
         height: rem(10);
+        color: $gray-90;
         background-color: white;
-        margin: 0;
-        stroke-width: rem(2);
-        padding: 0;
-        padding-bottom: $global-padding * 4;
-        svg {
-          width: rem(10);
-          height: rem(10);
-          color: $gray-90;
-          background-color: white;
-        }
       }
     }
+  }
 
-    .collapsible-sidebar--main-menu {
+  .collapsible-sidebar--main-menu {
+    overflow-y: auto;
+
+    .collapsible-sidebar--search-filters-list {
       overflow-y: auto;
+      scrollbar-gutter: stable;
+      flex-grow: 1;
 
-      .collapsible-sidebar--search-filters-list {
-        overflow-y: auto;
-        scrollbar-gutter: stable;
-        flex-grow: 1;
+      // This should be for mobile
+      @media (max-width: $medium-screen - 1) {
+        height: calc(100vh - 400px);
+      }
 
-        // This should be for mobile
-        @media(max-width: $medium-screen - 1) {
-          height: calc(100vh - 400px);
+      .search-filters-list {
+        margin: 0 ($global-padding * 4);
+        border-bottom: rem(1) solid $gray-cool-10;
+      }
+
+      .accordion-container {
+        &.open {
+          padding: 0;
         }
 
+        .accordion {
+          .heading {
+            padding: $global-padding ($global-padding / 2);
+            border: none;
+            font-size: $smallest-font-size;
+            line-height: 1.5;
 
-        .search-filters-list {
-          margin: 0 ($global-padding * 4);
-          border-bottom: rem(1) solid $gray-cool-10;
-        }
+            button {
+              padding: 0;
+              margin: 0;
+              max-height: rem(18);
+              max-width: rem(18);
 
-        .accordion-container {
-           &.open {
-             padding: 0;
-           }
-
-          .accordion {
-            .heading {
-              padding: $global-padding ($global-padding / 2);
-              border: none;
-              font-size: $smallest-font-size;
-              line-height: 1.5;
-
-              button {
-                padding: 0;
-                margin: 0;
-                max-height: rem(18);
-                max-width: rem(18);
-
-                svg {
-                  color: $blue-50;
-                }
+              svg {
+                color: $blue-50;
               }
             }
+          }
 
-            .content {
-              border: none;
-              padding: $global-padding ($global-padding / 2);
+          .content {
+            border: none;
+            padding: $global-padding ($global-padding / 2);
 
-              &.hidden {
-                overflow: hidden;
-                padding: 0;
-              }
+            &.hidden {
+              overflow: hidden;
+              padding: 0;
+            }
 
-              .filter-item-wrap {
-                padding: 0;
-              }
+            .filter-item-wrap {
+              padding: 0;
+            }
 
-              .agency-filter .filter-item-wrap:first-of-type {
-                padding-bottom: rem(16);
-              }
+            .agency-filter .filter-item-wrap:first-of-type {
+              padding-bottom: rem(16);
             }
           }
         }
       }
     }
   }
-
+}
 
 .search-contents.v2 {
   .search-collapsible-sidebar-container {
-    @media(min-width: $large-screen) {
+    @media (min-width: $large-screen) {
       .opened {
         flex: 1 0 352px;
       }
     }
 
-    @media(min-width: $medium-screen) and (max-width: $large-screen - 1) {
+    @media (min-width: $medium-screen) and (max-width: $large-screen - 1) {
       .opened {
         flex: 1 0 300px;
       }

@@ -6,12 +6,12 @@ $top: 60px;
   width: 100%;
 }
 
-.scroller-backdrop  {
-    position: sticky;
-    display: block;
-    top: $top;
-    overflow: hidden;
-  }
+.scroller-backdrop {
+  position: sticky;
+  display: block;
+  top: $top;
+  overflow: hidden;
+}
 
 .scroller-backdrop > * {
   width: 100%;
@@ -20,7 +20,7 @@ $top: 60px;
 }
 
 .scroller-backdrop div {
-    border: none;
+  border: none;
 }
 
 .scroller-overlays {

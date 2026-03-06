@@ -1,30 +1,30 @@
 .explorer-cell {
-    cursor: pointer;
+  cursor: pointer;
 
-    .explorer-cell-title {
-        transition: fill 0.2s;
-        font-size: $font-size-16;
+  .explorer-cell-title {
+    transition: fill 0.2s;
+    font-size: $font-size-16;
 
-        &.active {
-            fill: $color-black;
-        }
+    &.active {
+      fill: $color-black;
     }
+  }
 
-    .explorer-cell-value {
-        transition: fill 0.2s;
-        font-size: $font-size-16;
-        font-weight: $font-semibold;
+  .explorer-cell-value {
+    transition: fill 0.2s;
+    font-size: $font-size-16;
+    font-weight: $font-semibold;
 
-        &.active {
-            fill: $color-black;
-        }
+    &.active {
+      fill: $color-black;
     }
+  }
 
-    .explorer-cell-box {
-        transition: fill 0.2s;
-    }
+  .explorer-cell-box {
+    transition: fill 0.2s;
+  }
 
-    &.link-disabled {
-        cursor: default;
-    }
+  &.link-disabled {
+    cursor: default;
+  }
 }

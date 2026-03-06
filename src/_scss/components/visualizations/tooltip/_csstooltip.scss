@@ -7,7 +7,7 @@
     background-color: $color-white;
     border-radius: 5px;
     bottom: 25px;
-    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
     color: $color-base;
     display: none;
     left: -130px;
@@ -19,25 +19,26 @@
     text-align: left;
   }
 
-  &:hover, &:focus {
-      .tooltip-popover {
-        display: block;
+  &:hover,
+  &:focus {
+    .tooltip-popover {
+      display: block;
 
-        &::after {
-            content: "";
-            position: absolute;
-            width: 0;
-            height: 0;
-            margin-left: -10px;
-            bottom: -20px;
-            left: 50%;
-            box-sizing: border-box;
-            border: 10px solid black;
-            border-color: transparent transparent $color-white $color-white;
-            transform-origin: 0 0;
-            transform: rotate(-45deg);
-            box-shadow: -2px 2px 2px 0 rgba(0, 0, 0, 0.25);
-         }
+      &::after {
+        content: "";
+        position: absolute;
+        width: 0;
+        height: 0;
+        margin-left: -10px;
+        bottom: -20px;
+        left: 50%;
+        box-sizing: border-box;
+        border: 10px solid black;
+        border-color: transparent transparent $color-white $color-white;
+        transform-origin: 0 0;
+        transform: rotate(-45deg);
+        box-shadow: -2px 2px 2px 0 rgba(0, 0, 0, 0.25);
       }
     }
+  }
 }

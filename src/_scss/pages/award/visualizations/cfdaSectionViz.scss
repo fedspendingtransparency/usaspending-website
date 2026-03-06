@@ -11,8 +11,8 @@
       }
     }
     .view-buttons-section__text {
-        flex-grow: 1;
-        font-size: 1.4rem;
+      flex-grow: 1;
+      font-size: 1.4rem;
     }
     .view-buttons-section__buttons {
       @include viewTypeButton();
@@ -27,9 +27,9 @@
     }
   }
   .cfda-section-results {
-    @import './cfdaSectionTable';
-    @import '../shared/awardAmountsSection/charts';
-    @import '../../search/results/table/tableMessages';
+    @import "./cfdaSectionTable";
+    @import "../shared/awardAmountsSection/charts";
+    @import "../../search/results/table/tableMessages";
     .tooltip__amount--loans {
       font-size: 3rem;
       padding-bottom: 1rem;
@@ -78,7 +78,7 @@
       font-weight: bold;
     }
     .explorer-cell-box:hover {
-        background-color: #f49c20;
+      background-color: #f49c20;
     }
     .usa-dt-picker {
       margin-bottom: 4rem;

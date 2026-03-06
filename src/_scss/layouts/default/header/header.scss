@@ -1,12 +1,9 @@
 .site-header {
-    @import "./_warning";
-    @import "./nav/headerNav";
-    @import "./_officialSite";
+  @import "./_warning";
+  @import "./nav/headerNav";
+  @import "./_officialSite";
 
-    .skip-nav {
-        @include skipNav;
-    }
+  .skip-nav {
+    @include skipNav;
+  }
 }
-
-
-

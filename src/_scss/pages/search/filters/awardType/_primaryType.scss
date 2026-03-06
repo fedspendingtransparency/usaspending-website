@@ -1,31 +1,31 @@
 .primary-award-type {
-    &.single-item {
-        padding-left: 1.8rem;
+  &.single-item {
+    padding-left: 1.8rem;
+  }
+
+  svg {
+    fill: $color-gray;
+    height: 1.1rem;
+    width: 1.1rem;
+    position: relative;
+  }
+
+  .toggle {
+    @include button-unstyled;
+    display: inline-block;
+    height: 1.1rem;
+    vertical-align: middle;
+    margin-right: 7px;
+
+    &.hidden-button {
+      opacity: 0.3;
+      cursor: not-allowed;
     }
 
-    svg {
-        fill: $color-gray;
-        height: 1.1rem;
-        width: 1.1rem;
-        position:relative;
+    span {
+      // this is for the animation group
+      margin: 0;
+      top: 0;
     }
-
-    .toggle {
-        @include button-unstyled;
-        display: inline-block;
-        height: 1.1rem;
-        vertical-align: middle;
-        margin-right: 7px;
-
-        &.hidden-button {
-            opacity: 0.3;
-            cursor: not-allowed;
-        }
-
-        span {
-            // this is for the animation group
-            margin: 0;
-            top: 0;
-        }
-    }
+  }
 }

@@ -1,140 +1,141 @@
 .about-section-wrapper {
-    margin-bottom: rem(55);
+  margin-bottom: rem(55);
 
-    h2.about-section-title {
-        @include h4();
+  h2.about-section-title {
+    @include h4();
 
-        font-size: rem(47);
-        line-height: rem(59);
-        color: $color-gray;
-        font-weight: 300;
-        margin: rem(30) 0 rem(40);
+    font-size: rem(47);
+    line-height: rem(59);
+    color: $color-gray;
+    font-weight: 300;
+    margin: rem(30) 0 rem(40);
+  }
+
+  h3.about-subtitle {
+    @include h5();
+
+    color: $color-gray;
+    padding-left: rem(3);
+    margin: 0 0 rem(5);
+  }
+
+  h4.about-citation {
+    @include h5();
+    font-size: rem(18);
+    color: $color-gray;
+    padding-left: rem(3);
+    margin: 0 0 rem(5);
+  }
+
+  .back-link {
+    padding-top: rem(25);
+    a {
+      font-size: rem(18);
+      font-weight: bold;
+    }
+    svg {
+      padding-right: rem(5);
+    }
+  }
+
+  .about-section-content {
+    margin-bottom: rem(25);
+    a {
+      white-space: nowrap;
+    }
+    .do-wrap {
+      white-space: normal;
+    }
+    p {
+      font-size: rem(18);
+      line-height: rem(28);
+      color: $color-gray;
+      padding-left: rem(3);
+      margin: rem(10) 0 rem(20);
     }
 
-    h3.about-subtitle {
-        @include h5();
-
-        color: $color-gray;
-        padding-left: rem(3);
-        margin: 0 0 rem(5);
+    .citation-wrapper {
+      margin-left: rem(16);
+      text-indent: rem(-16);
+      .citation-it {
+        font-style: italic;
+      }
     }
 
-    h4.about-citation {
-        @include h5();
+    p + p {
+      margin: rem(30) 0;
+    }
+
+    ul {
+      margin: rem(28) 0;
+      padding-left: rem(31);
+
+      li {
         font-size: rem(18);
-        color: $color-gray;
-        padding-left: rem(3);
-        margin: 0 0 rem(5);
+        line-height: rem(28);
+        margin-left: rem(10);
+        margin-bottom: rem(20);
+        padding-left: rem(18);
+
+        span.about-section-list-item-title {
+          display: block;
+          font-weight: $font-semibold;
+        }
+      }
     }
 
-    .back-link {
-        padding-top: rem(25);
-        a {
-            font-size: rem(18);
-            font-weight: bold;
-        }
-        svg {
-            padding-right: rem(5);
-        }
+    button {
+      display: block;
+      margin: rem(19) 0 rem(38);
+      padding: rem(16) rem(32);
+      text-decoration: none;
+      &.usa-button-link,
+      &.usda-external-link {
+        @include button-link;
+        font-size: rem(18);
+        line-height: normal;
+      }
+    }
+    .center {
+      text-align: center;
+    }
+    .usa-button-link__icon {
+      padding-left: rem(3);
     }
 
-    .about-section-content {
-        margin-bottom: rem(25);
-        a {
-            white-space: nowrap;
-        }
-        .do-wrap {
-            white-space: normal;
-        }
-        p {
-            font-size: rem(18);
-            line-height: rem(28);
-            color: $color-gray;
-            padding-left: rem(3);
-            margin: rem(10) 0 rem(20);
-        }
+    .about-section-content-inline-buttons {
+      margin-bottom: rem(38);
+      @include grid-column(16);
 
-        .citation-wrapper {
-            margin-left: rem(16);
-            text-indent: rem(-16);
-            .citation-it {
-                font-style: italic;
-            }
-        }
-
-        p + p {
-            margin: rem(30) 0;
-        }
-
-        ul {
-            margin: rem(28) 0;
-            padding-left: rem(31);
-
-            li {
-                font-size: rem(18);
-                line-height: rem(28);
-                margin-left: rem(10);
-                margin-bottom: rem(20);
-                padding-left: rem(18);
-
-                span.about-section-list-item-title {
-                    display: block;
-                    font-weight: $font-semibold;
-                }
-            }
-        }
+      .button-holder {
+        @include grid-column(16);
 
         button {
-            display: block;
-            margin: rem(19) 0 rem(38);
-            padding: rem(16) rem(32);
-            text-decoration: none;
-            &.usa-button-link, &.usda-external-link {
-                @include button-link;
-                font-size: rem(18);
-                line-height: normal;
-            }
+          display: block;
+          margin-bottom: rem(19);
+          width: 100%;
         }
-        .center {
-          text-align: center;
+      }
+
+      @include media($large-screen) {
+        .button-holder {
+          @include grid-column(8);
+          padding-right: rem(18);
+
+          button {
+            display: inline-block;
+          }
         }
-        .usa-button-link__icon {
-          padding-left: rem(3);
-        }
+      }
 
-        .about-section-content-inline-buttons {
-            margin-bottom: rem(38);
-            @include grid-column(16);
-
-            .button-holder {
-                @include grid-column(16);
-
-                button {
-                    display: block;
-                    margin-bottom: rem(19);
-                    width: 100%;
-                }
-            }
-
-            @include media($large-screen) {
-                .button-holder {
-                    @include grid-column(8);
-                    padding-right: rem(18);
-
-                    button {
-                        display: inline-block;
-                    }
-                }
-            }
-
-            @media(max-width: $medium-screen) {
-                margin-left: 0;
-                width: 78%;
-            }
-        }
-
-        .trainingContent__strong {
-            font-weight: $font-semibold;
-        }
+      @media (max-width: $medium-screen) {
+        margin-left: 0;
+        width: 78%;
+      }
     }
+
+    .trainingContent__strong {
+      font-weight: $font-semibold;
+    }
+  }
 }

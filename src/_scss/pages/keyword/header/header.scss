@@ -1,39 +1,38 @@
 .usda-page-header {
-    .usda-page-header__container {
-        .usda-page-header__toolbar {
-            @include align-items(center);
-            @include justify-content(flex-end);
-            margin-left: auto;
-            @media(min-width: $medium-screen) {
-                width: 85%;
-            }
-            @media(min-width: $large-screen) {
-                width: 90%;
-            }
-            .keyword-header__summary {
-                display: none;
-                @media(min-width: $medium-screen) {
-                    @include display(flex);
-                    @include align-items(center);
-                }
-                margin: auto;
-                p {
-                    color: $color-white;
-                    margin: 0;
-                    font-size: rem(14);
-                    @include display(flex);
-                    padding: 0 rem(10);
-                    &:first-of-type {
-                        font-weight: $font-semibold;
-                        border-right: rem(1) solid $color-white;
-                    }
-                    span {
-                        padding-left: rem(5);
-                        font-weight: $font-semibold;
-                    }
-                }
-            }
+  .usda-page-header__container {
+    .usda-page-header__toolbar {
+      @include align-items(center);
+      @include justify-content(flex-end);
+      margin-left: auto;
+      @media (min-width: $medium-screen) {
+        width: 85%;
+      }
+      @media (min-width: $large-screen) {
+        width: 90%;
+      }
+      .keyword-header__summary {
+        display: none;
+        @media (min-width: $medium-screen) {
+          @include display(flex);
+          @include align-items(center);
         }
-
+        margin: auto;
+        p {
+          color: $color-white;
+          margin: 0;
+          font-size: rem(14);
+          @include display(flex);
+          padding: 0 rem(10);
+          &:first-of-type {
+            font-weight: $font-semibold;
+            border-right: rem(1) solid $color-white;
+          }
+          span {
+            padding-left: rem(5);
+            font-weight: $font-semibold;
+          }
+        }
+      }
     }
+  }
 }

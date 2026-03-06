@@ -1,5 +1,5 @@
 .featured-content-page {
-  @import 'all';
+  @import "all";
   @import "layouts/default/default";
 
   .usda-page-header {
@@ -34,12 +34,12 @@
       padding-top: rem(46);
 
       .featured-content__column-two {
-        @media(min-width: $large-screen) {
+        @media (min-width: $large-screen) {
           padding-left: rem(67);
         }
         @import "./citationList";
       }
-      
+
       @media (min-width: $tablet-screen) {
         margin: 0 rem(32);
       }
@@ -56,7 +56,8 @@
         margin: 0;
       }
 
-      .featured-content__article-title, h2 {
+      .featured-content__article-title,
+      h2 {
         font-size: $font-size-28;
         font-weight: $font-semibold;
         line-height: $heading-line-height;
@@ -82,20 +83,19 @@
 
       p {
         color: $color-black;
-
       }
-      
+
       iframe {
         display: flex;
         justify-self: center;
       }
-      
+
       li a {
         font-weight: $font-semibold;
       }
     }
   }
-  
+
   @import "../contentPage/contentPageHeader";
   @import "listOfArticles";
   @import "articleSort";
@@ -104,6 +104,3 @@
   // article
   @import "articlePageHeader";
 }
-
-
-

@@ -1,77 +1,77 @@
 .search-top-filter-bar {
-    display: none;
+  display: none;
+
+  @include media($medium-screen) {
+    display: block;
+  }
+
+  $top-background-color: #dddddd;
+  $top-text-color: #4a4a4a;
+  $top-item-border-color: #cacaca;
+  $top-clear-button-background-color: #cbccce;
+  $top-clear-button-color: $color-gray;
+  $top-header-color: #525252;
+  $top-divider-color: $color-gray-border;
+  $top-group-color: #e2e3e4;
+  width: 100%;
+  font-size: rem(12);
+
+  .search-top-filter-header {
+    border-bottom: 1px solid $top-divider-color;
+    padding-bottom: rem(7);
+    display: flex;
+    justify-content: space-between;
 
     @include media($medium-screen) {
-        display: block;
+      display: flex;
     }
 
-    $top-background-color: #DDDDDD;
-    $top-text-color: #4A4A4A;
-    $top-item-border-color: #CACACA;
-    $top-clear-button-background-color: #CBCCCE;
-    $top-clear-button-color: $color-gray;
-    $top-header-color: #525252;
-    $top-divider-color: $color-gray-border;
-    $top-group-color: #E2E3E4;
-    width: 100%;
-    font-size: rem(12);
-
-    .search-top-filter-header {
-        border-bottom: 1px solid $top-divider-color;
-        padding-bottom: rem(7);
-        display: flex;
-        justify-content: space-between;
-
-        @include media($medium-screen) {
-            display: flex;
-        }
-
-        .header-title {
-            font-weight: 600;
-            font-size: rem(14);
-            line-height: rem(18);
-            color: $top-header-color;
-            margin: 0;
-        }
-
-        .button-type__text-right-icon-light {
-            margin: 0;
-            padding: 0;
-            height: auto;
-        }
-
-        @import "./_clearAllButton";
+    .header-title {
+      font-weight: 600;
+      font-size: rem(14);
+      line-height: rem(18);
+      color: $top-header-color;
+      margin: 0;
     }
 
-    .search-top-filters {
-        display: table-cell;
-        vertical-align: middle;
-
-        .search-top-filters-content {
-            display: block;
-            padding-right: rem(10);
-            padding-bottom: rem(10);
-
-            // all this is to ensure that the New Awards Only chip is grouped with the other Time Period chips
-            .filter-group-container {
-                margin-left: rem(15);
-            }
-            .filter-group-container:first-child {
-                margin-left: 0;
-            }
-            &.newAwardsOnlyPresent {
-                .filter-group-container:nth-child(2) {
-                    margin-left: 0;
-                }
-            }
-            // New Awards Only chip has to disappear if subawards is also selected
-            &.subAward.newAwardsOnlyPresent {
-                .filter-group-container:nth-child(2) {
-                    display: none;
-                }
-            }
-        }
-
-        @import "./_group";
+    .button-type__text-right-icon-light {
+      margin: 0;
+      padding: 0;
+      height: auto;
     }
+
+    @import "./_clearAllButton";
+  }
+
+  .search-top-filters {
+    display: table-cell;
+    vertical-align: middle;
+
+    .search-top-filters-content {
+      display: block;
+      padding-right: rem(10);
+      padding-bottom: rem(10);
+
+      // all this is to ensure that the New Awards Only chip is grouped with the other Time Period chips
+      .filter-group-container {
+        margin-left: rem(15);
+      }
+      .filter-group-container:first-child {
+        margin-left: 0;
+      }
+      &.newAwardsOnlyPresent {
+        .filter-group-container:nth-child(2) {
+          margin-left: 0;
+        }
+      }
+      // New Awards Only chip has to disappear if subawards is also selected
+      &.subAward.newAwardsOnlyPresent {
+        .filter-group-container:nth-child(2) {
+          display: none;
+        }
+      }
+    }
+
+    @import "./_group";
+  }
 }

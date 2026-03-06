@@ -1,185 +1,187 @@
 @use "sass:math";
 .award-summary-tooltip {
-    width: 100%;
+  width: 100%;
 
-    .tooltip__title,
-    .tooltip__text {
-        text-align: left;
-    }
+  .tooltip__title,
+  .tooltip__text {
+    text-align: left;
+  }
 
+  .tooltip__title {
+    position: relative;
+    z-index: 2;
+  }
+  &.covid-19 {
+    @include display(flex);
+    @include flex-direction(column);
     .tooltip__title {
-        position: relative;
-        z-index: 2;
+      @include justify-content(center);
     }
-    &.covid-19 {
-        @include display(flex);
-        @include flex-direction(column);
-        .tooltip__title {
-            @include justify-content(center);
-        }
-    }
-    &.unlinked {
-        @include display(flex);
-        @include flex-direction(column);
-        .tooltip__header {
-            display:inline-flex;
-            width: 100%;
-            .tooltip__title {
-                @include justify-content(center);
-                font-size: rem(16);
-            }
+  }
+  &.unlinked {
+    @include display(flex);
+    @include flex-direction(column);
+    .tooltip__header {
+      display: inline-flex;
+      width: 100%;
+      .tooltip__title {
+        @include justify-content(center);
+        font-size: rem(16);
+      }
 
-            .tooltip__close-button {
-                background-color: $color-gray-lightest;
-                .award-summary__close-button {
-                    @include button-unstyled;
-                    padding: rem(5);
-                    margin-top: $global-margin*2;
-                    margin-right: $global-margin*2;
-                    margin-left: $global-margin*2;
-                    svg {
-                        fill: $color-primary;
-                        height: rem(16);
-                        width: rem(16);
-                    }
-                    &:hover :focus {
-                        color: $color-primary-darkest;
-                        box-shadow: 0 0 3px $color-focus, 0 0 7px $color-focus;
-                    }
-                }
-            }
+      .tooltip__close-button {
+        background-color: $color-gray-lightest;
+        .award-summary__close-button {
+          @include button-unstyled;
+          padding: rem(5);
+          margin-top: $global-margin * 2;
+          margin-right: $global-margin * 2;
+          margin-left: $global-margin * 2;
+          svg {
+            fill: $color-primary;
+            height: rem(16);
+            width: rem(16);
+          }
+          &:hover :focus {
+            color: $color-primary-darkest;
+            box-shadow:
+              0 0 3px $color-focus,
+              0 0 7px $color-focus;
+          }
         }
-
-        .award-summary__unlinked-anchor {
-            font-weight: $font-semibold;
-        }
+      }
     }
+
+    .award-summary__unlinked-anchor {
+      font-weight: $font-semibold;
+    }
+  }
 }
 
 .related-awards-tt {
-    p:nth-of-type(2) {
-        padding-bottom:0;
-        margin-bottom: 0;
-    }
+  p:nth-of-type(2) {
+    padding-bottom: 0;
+    margin-bottom: 0;
+  }
 }
 .transaction-history-tt {
-    p:nth-of-type(3) {
-        margin-bottom: 0;
-    }
+  p:nth-of-type(3) {
+    margin-bottom: 0;
+  }
 }
 .award-amounts-tt {
-    @include display(flex);
-    @include flex-direction(column);
-    @include align-items(center);
-    .tooltip__title {
-        width: 100%;
-        margin-bottom: math.div($global-margin * 2, 2);
-        text-align: center;
-    }
-    .tooltip__text {
-        padding: rem(12) rem(23);
-    }
-    .tooltip__list li {
-        font-style: italic;
-    }
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(center);
+  .tooltip__title {
+    width: 100%;
+    margin-bottom: math.div($global-margin * 2, 2);
+    text-align: center;
+  }
+  .tooltip__text {
+    padding: rem(12) rem(23);
+  }
+  .tooltip__list li {
+    font-style: italic;
+  }
 }
 
 .tooltip__message .award-amounts-tt {
-    .tooltip__amount--loans {
-        font-size: $base-font-size * 1.25;
-        font-weight: bold;
-        margin: 0;
-    }
-    .info-tooltip__list {
-        @include display(flex);
-        @include flex-wrap(wrap);
-        @include flex-direction(column);
-        &.award-desciption-section {
-            // the list in the award description section
-            li:last-of-type {
-                margin-top: rem(14);
-            }
-            .info-tooltip__list {
-                // nested list in this section
-                padding-left: rem(15);
-                li:last-of-type {
-                    margin-top: 0;
-                }
-            }
+  .tooltip__amount--loans {
+    font-size: $base-font-size * 1.25;
+    font-weight: bold;
+    margin: 0;
+  }
+  .info-tooltip__list {
+    @include display(flex);
+    @include flex-wrap(wrap);
+    @include flex-direction(column);
+    &.award-desciption-section {
+      // the list in the award description section
+      li:last-of-type {
+        margin-top: rem(14);
+      }
+      .info-tooltip__list {
+        // nested list in this section
+        padding-left: rem(15);
+        li:last-of-type {
+          margin-top: 0;
         }
-        li {
-            margin: 0;
-            margin-right: rem(5);
-            padding: 0;
-        }
+      }
     }
+    li {
+      margin: 0;
+      margin-right: rem(5);
+      padding: 0;
+    }
+  }
 }
 
 .homepage__covid-19-tt,
 .covid-profile-tt {
-    @include display(flex);
-    @include flex-direction(column);
-    @include justify-content(center);
-    h2.tooltip__title,
-    .tooltip__text p {
-        color: $color-base;
-    }
-    h2.tooltip__title {
-        font-size: rem(16);
-        text-align: center;
-    }
+  @include display(flex);
+  @include flex-direction(column);
+  @include justify-content(center);
+  h2.tooltip__title,
+  .tooltip__text p {
+    color: $color-base;
+  }
+  h2.tooltip__title {
+    font-size: rem(16);
+    text-align: center;
+  }
 
-    .tooltip__text p {
-        font-size: rem(14);
-        a {
-            color: $color-primary;
-            font-weight: $font-semibold;
-        }
+  .tooltip__text p {
+    font-size: rem(14);
+    a {
+      color: $color-primary;
+      font-weight: $font-semibold;
     }
+  }
 
-    ol {
-        padding-left: rem(16);
-        margin: rem(8) 0 rem(8) rem(8);
+  ol {
+    padding-left: rem(16);
+    margin: rem(8) 0 rem(8) rem(8);
+  }
+  .tooltip_list {
+    li::marker {
+      font-weight: $font-bold;
     }
-    .tooltip_list {
-        li::marker {
-            font-weight: $font-bold
-        }
-    }
+  }
 }
 
 .spending_types-tt {
-    @include display(flex);
-    @include flex-direction(column);
-    @include justify-content(center);
-    p, h2 {
-        color: $color-base;
-    }
+  @include display(flex);
+  @include flex-direction(column);
+  @include justify-content(center);
+  p,
+  h2 {
+    color: $color-base;
+  }
 
-    h2 {
-        text-align: left;
-        font-size: rem(16);
-        padding-left: rem(16);
-    }
+  h2 {
+    text-align: left;
+    font-size: rem(16);
+    padding-left: rem(16);
+  }
 
-    p {
-        font-size: rem(14);
-        margin: 0;
-    }
-
+  p {
+    font-size: rem(14);
+    margin: 0;
+  }
 }
 
 .cd-tt {
-    p {
-        margin: rem(8) 0;
-    }
+  p {
+    margin: rem(8) 0;
+  }
 }
 
 .ul-override {
-    ul li {
-        display: list-item;
-      }
-    ul li:before {
-        content: " • ";
-    }
+  ul li {
+    display: list-item;
+  }
+  ul li:before {
+    content: " • ";
+  }
 }

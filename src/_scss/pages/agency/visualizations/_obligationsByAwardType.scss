@@ -1,90 +1,90 @@
 .obligations-by-award-type {
-    // Tooltip wrapper
+  // Tooltip wrapper
+  width: 100%;
+  height: 100%;
+  > div {
     width: 100%;
     height: 100%;
-    >div {
-        width: 100%;
-        height: 100%;
-        .tooltip__hover-wrapper {
-            width: 100%;
-            height: 100%;
-        }
+    .tooltip__hover-wrapper {
+      width: 100%;
+      height: 100%;
     }
-    .tooltip-pointer {
-        top: rem(-16);
-        &.bottom {
-            left: rem(60);
-        }
+  }
+  .tooltip-pointer {
+    top: rem(-16);
+    &.bottom {
+      left: rem(60);
+    }
+  }
+
+  @media (max-width: $homepage-max-width) {
+    &.tooltip-wrapper .tooltip-spacer {
+      left: -15rem;
     }
 
-    @media (max-width: $homepage-max-width) {
-        &.tooltip-wrapper .tooltip-spacer {
-            left: -15rem;
-        }
+    .tooltip-pointer.bottom {
+      left: 28rem;
+    }
+  }
 
-        .tooltip-pointer.bottom {
-            left: 28rem;
-        }
+  @media (min-width: 1401px) {
+    &.tooltip-wrapper .tooltip-spacer {
+      left: 8rem;
     }
 
-    @media (min-width: 1401px) {
-        &.tooltip-wrapper .tooltip-spacer {
-            left: 8rem;
-        }
+    .tooltip-pointer.bottom {
+      left: 18rem;
+    }
+  }
 
-        .tooltip-pointer.bottom {
-            left: 18rem;
-        }
+  .obligations-by-award-type__chart {
+    text.obligations-by-award-type__label {
+      font-size: rem(14);
+      color: $color-base;
     }
-
-    .obligations-by-award-type__chart {
-        text.obligations-by-award-type__label {
-            font-size: rem(14);
-            color: $color-base;
+    .obligations-by-award-type__donut {
+      @include media($medium-screen) {
+        &:hover {
+          cursor: pointer;
         }
-        .obligations-by-award-type__donut {
-            @include media($medium-screen) {
-                &:hover {
-                    cursor: pointer;
-                }
-            }
-        }
+      }
     }
-    // Tooltip content
-    .award-type-tooltip {
-        position: relative;
-        .tooltip__text {
-            display: block;
-        }
-        .award-type-tooltip__table {
-            .table-header__content {
-                padding: rem(5) rem(6);
-            }
-            .usda-table__head {
-                .table-header {
-                    border: 0;
-                }
-            }
-            .usda-table__body {
-                border: 0;
-            }
-            .usda-table__row {
-                .usda-table__cell {
-                    border: 0;
-                    padding: rem(4) rem(6);
-                    &:first-child {
-                        >div {
-                            @include display(flex);
-                            @include align-items(center);
-                        }
-                    }
-                    .award-type-tooltip__table-data {
-                        &.award-type-tooltip__table-data_active {
-                            font-weight: $font-semibold;
-                        }
-                    }
-                }
-            }
-        }
+  }
+  // Tooltip content
+  .award-type-tooltip {
+    position: relative;
+    .tooltip__text {
+      display: block;
     }
+    .award-type-tooltip__table {
+      .table-header__content {
+        padding: rem(5) rem(6);
+      }
+      .usda-table__head {
+        .table-header {
+          border: 0;
+        }
+      }
+      .usda-table__body {
+        border: 0;
+      }
+      .usda-table__row {
+        .usda-table__cell {
+          border: 0;
+          padding: rem(4) rem(6);
+          &:first-child {
+            > div {
+              @include display(flex);
+              @include align-items(center);
+            }
+          }
+          .award-type-tooltip__table-data {
+            &.award-type-tooltip__table-data_active {
+              font-weight: $font-semibold;
+            }
+          }
+        }
+      }
+    }
+  }
 }

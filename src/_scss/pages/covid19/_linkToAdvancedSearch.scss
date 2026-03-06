@@ -1,31 +1,31 @@
-@import 'components/_footerLinkToAdvancedSearch';
+@import "components/_footerLinkToAdvancedSearch";
 
 .footerLinkToAdvancedSearch__content_covid {
-    h2 {
-        font-size: rem(38);
-        line-height: rem(47);
-        margin: rem(16) 0;
-        text-align: left;
+  h2 {
+    font-size: rem(38);
+    line-height: rem(47);
+    margin: rem(16) 0;
+    text-align: left;
 
-        @media (min-width:$large-screen) {
-        margin: rem(16) auto;
-        text-align: center;        
-        }
+    @media (min-width: $large-screen) {
+      margin: rem(16) auto;
+      text-align: center;
     }
+  }
 
-    button {
-        @include button-link;
-        font-size: 1.8rem;
-        color: $color-white;
-        text-decoration: underline;
-        &:hover {
-            color: $color-white;
-        }
+  button {
+    @include button-link;
+    font-size: 1.8rem;
+    color: $color-white;
+    text-decoration: underline;
+    &:hover {
+      color: $color-white;
     }
+  }
 
-    a {
-        color: $color-white;
-        font-weight: $font-normal;
-        text-decoration: underline;
-    }
+  a {
+    color: $color-white;
+    font-weight: $font-normal;
+    text-decoration: underline;
+  }
 }

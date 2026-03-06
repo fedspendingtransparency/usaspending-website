@@ -7,8 +7,8 @@
       width: 100%;
 
       .recipient__content {
-        @import './awardFilterButtons';
-        @import './spendingByRecipient';
+        @import "./awardFilterButtons";
+        @import "./spendingByRecipient";
 
         .results-visualization-geo-section {
           position: relative;
@@ -30,7 +30,7 @@
 
           button {
             border-bottom: 0.3rem solid transparent;
-            transition: border-bottom .1s ease-in-out;
+            transition: border-bottom 0.1s ease-in-out;
 
             &:hover {
               border-bottom-color: $color-primary-alt-light;
@@ -368,7 +368,7 @@
         padding-left: rem(16);
         font-size: rem(14);
         margin-left: rem(16);
-    
+
         li {
           list-style: disc;
 
@@ -378,7 +378,6 @@
           }
         }
       }
-    
     }
   }
 }

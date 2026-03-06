@@ -1,88 +1,88 @@
 .explorer-table {
-    background-color: $color-white;
-    border-left: 1px solid $color-gray-border;
-    border-right: 1px solid $color-gray-border;
-    border-bottom: 1px solid $color-gray-border;
-    position: relative;
-    display: block;
-    overflow: auto;
+  background-color: $color-white;
+  border-left: 1px solid $color-gray-border;
+  border-right: 1px solid $color-gray-border;
+  border-bottom: 1px solid $color-gray-border;
+  position: relative;
+  display: block;
+  overflow: auto;
 
-    .usa-dt-pagination {
-        margin: rem(15);
+  .usa-dt-pagination {
+    margin: rem(15);
+  }
+
+  &.no-results {
+    border: none;
+  }
+  table {
+    margin-top: 0;
+    width: rem(500);
+
+    @include media($tablet-screen) {
+      width: auto;
     }
 
-    &.no-results {
-        border: none;
+    thead {
+      tr {
+        border-bottom: solid 1px $color-gray-lighter;
+        td {
+          border: 0;
+          &:first-child {
+            width: 55%;
+          }
+          &:nth-child(2) {
+            width: 25%;
+            .cell-content {
+              float: right;
+            }
+          }
+          &:last-child {
+            width: 20%;
+            .cell-content {
+              float: right;
+            }
+          }
+        }
+      }
+      .award-result-header-cell {
+        @import "./cells/_explorerHeaderCell";
+      }
     }
-    table {
-        margin-top: 0;
-        width: rem(500);
-
-        @include media($tablet-screen) {
-            width: auto;
-        }
-
-        thead {
-            tr {
-                border-bottom: solid 1px $color-gray-lighter;
-                td {
-                    border: 0;
-                    &:first-child {
-                        width: 55%;
-                    }
-                    &:nth-child(2) {
-                        width: 25%;
-                        .cell-content {
-                            float: right;
-                        }
-                    }
-                    &:last-child {
-                        width: 20%;
-                        .cell-content {
-                            float: right;
-                        }
-                    }
-                }
+    tbody {
+      tr {
+        td {
+          border: 0;
+          &:first-child {
+            width: 55%;
+          }
+          &:nth-child(2) {
+            width: 25%;
+            .cell-content {
+              float: right;
             }
-            .award-result-header-cell {
-                @import "./cells/_explorerHeaderCell";
+          }
+          &:last-child {
+            width: 20%;
+            .cell-content {
+              float: right;
             }
+          }
         }
-        tbody {
-            tr {
-                td {
-                    border: 0;
-                    &:first-child {
-                        width: 55%;
-                    }
-                    &:nth-child(2) {
-                        width: 25%;
-                        .cell-content {
-                            float: right;
-                        }
-                    }
-                    &:last-child {
-                        width: 20%;
-                        .cell-content {
-                            float: right;
-                        }
-                    }
-                }
-                .explorer-link-cell {
-                    .cell-content {
-                        .go-deeper-link {
-                            @include button-unstyled;
-                            color: $blue-50;
-                            font-size: $font-size-16;
-                            line-height: $base-line-height;
-                        }
-                    }
-                }
-                // gray out even rows
-                .row-even {
-                    background-color: #f7f7f7;
-                }
+        .explorer-link-cell {
+          .cell-content {
+            .go-deeper-link {
+              @include button-unstyled;
+              color: $blue-50;
+              font-size: $font-size-16;
+              line-height: $base-line-height;
             }
+          }
         }
+        // gray out even rows
+        .row-even {
+          background-color: #f7f7f7;
+        }
+      }
     }
+  }
 }

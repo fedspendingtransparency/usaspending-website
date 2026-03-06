@@ -1,7 +1,7 @@
 .psc-checkbox {
   padding: rem(12);
 
-  @import '../../tooltips';
+  @import "../../tooltips";
 
   .checkbox-header {
     padding-top: rem(10);
@@ -55,9 +55,10 @@
   }
 
   .checkbox-tree .checkbox-tree-label__description {
-    .checkbox-tree-label__container .checkbox-tree-label .checkbox-tree-label__label {
+    .checkbox-tree-label__container
+      .checkbox-tree-label
+      .checkbox-tree-label__label {
       font-weight: $font-semibold;
-
     }
 
     .checkbox-tree-label__description .checkbox-tree-label__label {

@@ -1,33 +1,33 @@
 .usa-da-top-banner {
-    @include align-self(stretch);
-    background: as-alpha($color-gold-lightest, 0.95);
-    height:rem(60);
-    padding: rem(15) 0;
-    width: 100%;
-    border-bottom: rem(1) solid $color-gold-lighter;
-    margin-bottom:rem(20);
-    & p {
-        max-width: 100%;
-        margin: rem(5) 0;
-        font-size: rem(14);
-        text-align: left;
+  @include align-self(stretch);
+  background: as-alpha($color-gold-lightest, 0.95);
+  height: rem(60);
+  padding: rem(15) 0;
+  width: 100%;
+  border-bottom: rem(1) solid $color-gold-lighter;
+  margin-bottom: rem(20);
+  & p {
+    max-width: 100%;
+    margin: rem(5) 0;
+    font-size: rem(14);
+    text-align: left;
+  }
+  & .usa-da-icon {
+    height: rem(30);
+    width: rem(30);
+    float: right;
+    & svg {
+      fill: $color-gray-dark;
+      height: rem(30);
+      width: rem(30);
     }
-    & .usa-da-icon {
-        height: rem(30);
-        width: rem(30);
-        float: right;
-        & svg {
-            fill: $color-gray-dark;
-            height: rem(30);
-            width: rem(30);
-        }
-    }
+  }
 
-    & .top-alert-icon {
-        @include grid-column(1);
-    }
+  & .top-alert-icon {
+    @include grid-column(1);
+  }
 
-    & .top-alert-text {
-        @include grid-column(15);
-    }
+  & .top-alert-text {
+    @include grid-column(15);
+  }
 }

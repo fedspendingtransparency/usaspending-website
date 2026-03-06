@@ -9,7 +9,8 @@
       width: 100%;
       height: rem(32);
       margin: 0;
-      padding: $global-spacing-unit $global-spacing-unit $global-spacing-unit ($global-spacing-unit * 4);
+      padding: $global-spacing-unit $global-spacing-unit $global-spacing-unit
+        ($global-spacing-unit * 4);
       font-size: $smallest-font-size;
       line-height: 1.5;
       color: $gray-60;

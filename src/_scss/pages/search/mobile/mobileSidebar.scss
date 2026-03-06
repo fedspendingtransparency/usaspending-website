@@ -1,45 +1,44 @@
 .mobile-search-sidebar {
-    @import "./_sidebarTransitions";
+  @import "./_sidebarTransitions";
 
-    z-index: $z-header;
+  z-index: $z-header;
 
-    @include media($medium-screen) {
-        display: none;
+  @include media($medium-screen) {
+    display: none;
+  }
+
+  @import "./_filterHeader";
+
+  .mobile-filter-content {
+    .search-sidebar {
+      //TODO need to change this possibly to .search-collapsible-sidebar-container
+      margin-top: 0;
+      margin-bottom: 0;
+
+      background-color: $color-white;
     }
-
-    @import "./_filterHeader";
-
-    .mobile-filter-content {
-
-        .search-sidebar {
-            //TODO need to change this possibly to .search-collapsible-sidebar-container
-            margin-top: 0;
-            margin-bottom: 0;
-
-            background-color: $color-white;
-        }
-    }
+  }
 }
 
 .mobile-search-sidebar-v2 {
-    @import "./_sidebarTransitions";
+  @import "./_sidebarTransitions";
 
-    @include media($medium-screen) {
-        display: none;
+  @include media($medium-screen) {
+    display: none;
+  }
+
+  @import "./_filterHeader";
+
+  .mobile-filter-content {
+    .search-sidebar {
+      margin-top: 0;
+      margin-bottom: 0;
+      background-color: $color-white;
     }
-
-    @import "./_filterHeader";
-
-    .mobile-filter-content {
-        .search-sidebar {
-            margin-top: 0;
-            margin-bottom: 0;
-            background-color: $color-white;
-        }
-    }
+  }
 }
 
 .mobile-search-sidebar-v2.sidebar-opened {
-    // put in front of sticky column
-    z-index: 2;
+  // put in front of sticky column
+  z-index: 2;
 }

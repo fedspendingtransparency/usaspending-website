@@ -1,11 +1,11 @@
 .tab-filter-wrap {
   .filter-item-wrap {
-    @import 'elements/_inputs';
-    @import 'elements/_labels';
-    @import 'elements/filters/_errorMessage';
-    @import 'components/_alerts';
-    @import 'components/datePicker/_datePicker';
-    @import './_toggleButtons';
+    @import "elements/_inputs";
+    @import "elements/_labels";
+    @import "elements/filters/_errorMessage";
+    @import "components/_alerts";
+    @import "components/datePicker/_datePicker";
+    @import "./_toggleButtons";
     @import "elements/filters/_selectedFilterBtn";
     @import "mixins/selectedFilterWrap";
     @import "../_singleSubmit";
@@ -58,7 +58,7 @@
         margin: rem(15) 0 0 rem(15);
       }
 
-      @import '../../tooltips';
+      @import "../../tooltips";
 
       .new-awards-checkbox {
         @include usa-input-checkbox;
@@ -138,48 +138,48 @@
         align-items: flex-end !important;
         flex-direction: row;
 
-         .generate-datepicker {
-           .generate-datepicker__label {
-             text-transform: uppercase;
-             display: block;
-             font-size: $font-size-10;
-             font-weight: $font-semibold;
-             line-height: 1.5;
-             color: $gray-60;
-             margin-bottom: .5 * $global-margin;
-           }
-
-           input {
-             @include placeholder {
-               color: $gray-60;
-             }
-
-             line-height: 1.5;
-             border-radius: 3px;
-             border: solid 1px $gray-cool-10;
-             padding: rem(7) rem(2);
-             margin-top: 0;
-             height: rem(32);
-             width: 100%;
+        .generate-datepicker {
+          .generate-datepicker__label {
+            text-transform: uppercase;
+            display: block;
+            font-size: $font-size-10;
+            font-weight: $font-semibold;
+            line-height: 1.5;
+            color: $gray-60;
+            margin-bottom: 0.5 * $global-margin;
           }
 
-           .date-picker__input-field {
-             @media (min-width: $tablet-screen) {
-               width: rem(70);
-             }
+          input {
+            @include placeholder {
+              color: $gray-60;
+            }
 
-             @media(min-width: $large-screen) {
-               width: rem(95);
-             }
-           }
+            line-height: 1.5;
+            border-radius: 3px;
+            border: solid 1px $gray-cool-10;
+            padding: rem(7) rem(2);
+            margin-top: 0;
+            height: rem(32);
+            width: 100%;
+          }
+
+          .date-picker__input-field {
+            @media (min-width: $tablet-screen) {
+              width: rem(70);
+            }
+
+            @media (min-width: $large-screen) {
+              width: rem(95);
+            }
+          }
 
           .date-picker__input-field:invalid {
             outline: rem(1) solid $color-secondary-vivid;
           }
-         }
+        }
 
         .date-range-column {
-          margin-right: .5 * $global-margin;
+          margin-right: 0.5 * $global-margin;
           width: 100%;
 
           .generate-datepicker-wrap {
@@ -219,7 +219,7 @@
 
           .date-range-option__dropdown-section-picker-wrapper {
             width: 100%;
-            margin-right: $global-margin * .5;
+            margin-right: $global-margin * 0.5;
 
             // DTUI NewPicker.jsx override
             .filter__dropdown-container {
@@ -259,7 +259,7 @@
                   }
                 }
 
-                ul[class^='filter__dropdown-list'] {
+                ul[class^="filter__dropdown-list"] {
                   background-color: $color-white;
                   border: rem(2) solid $gray-cool-10;
                   border-radius: rem(4);
@@ -316,7 +316,7 @@
       }
 
       ul {
-        margin-top: .5 * $global-margin;
+        margin-top: 0.5 * $global-margin;
         padding: 0;
         margin-left: 1.5 * $global-margin;
 

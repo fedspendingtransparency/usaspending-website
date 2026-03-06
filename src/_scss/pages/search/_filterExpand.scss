@@ -1,55 +1,54 @@
 .filter-toggle {
-    margin: 0;
+  margin: 0;
+  @include display(flex);
+  @include align-items(center);
+
+  .tooltip-spacer {
+    @media (max-width: 424px) {
+      width: 375px !important;
+    }
+  }
+
+  .filter-toggle__button {
+    @include button-unstyled;
     @include display(flex);
     @include align-items(center);
+    @include flex(1 1 auto);
+    padding: rem(15);
 
-    .tooltip-spacer {
-        @media(max-width:424px) {
-            width: 375px !important;
-        }
+    @include h6;
+    color: $color-gray;
+    font-size: $small-font-size;
+    font-weight: $font-semibold;
+    height: 100%;
+    line-height: 1;
+    margin: 0;
+    @include media($large-screen) {
+      font-size: $base-font-size;
     }
+    svg {
+      @include flex(0 0 auto);
+      height: rem(16);
+      width: rem(16);
+      margin-right: rem(5);
+      pointer-events: none;
+    }
+    @import "./tooltips";
 
-    .filter-toggle__button {
-        @include button-unstyled;
-        @include display(flex);
-        @include align-items(center);
-        @include flex(1 1 auto);
-        padding: rem(15);
-
-        @include h6;
-        color: $color-gray;
-        font-size: $small-font-size;
-        font-weight: $font-semibold;
-        height: 100%;
-        line-height: 1;
-        margin: 0;
-        @include media($large-screen) {
-            font-size: $base-font-size;
-        }
-        svg {
-            @include flex(0 0 auto);
-            height: rem(16);
-            width: rem(16);
-            margin-right: rem(5);
-            pointer-events: none;
-        }
-        @import './tooltips';
-
-        &:hover {
-            cursor: pointer;
-        }
+    &:hover {
+      cursor: pointer;
     }
-    .filter-toggle__accessory {
-        @include display(flex);
-        @include align-items(flex-start);
-        @import 'components/newBadge';
-    }
-    .filter-toggle__glossary {
-        @include display(flex);
-        @include flex(0 0 auto);
-        padding-right: rem(15);
-        padding-left: rem(5);
-        @import 'components/glossaryLink';
-    }
+  }
+  .filter-toggle__accessory {
+    @include display(flex);
+    @include align-items(flex-start);
+    @import "components/newBadge";
+  }
+  .filter-toggle__glossary {
+    @include display(flex);
+    @include flex(0 0 auto);
+    padding-right: rem(15);
+    padding-left: rem(5);
+    @import "components/glossaryLink";
+  }
 }
-

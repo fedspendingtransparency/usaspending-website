@@ -1,7 +1,8 @@
 .table-wrapper {
   .usda-table {
     // this was added after the dtui table styles were changed for the new search page
-    th, td {
+    th,
+    td {
       // we need to get rid of the black borders that will appear
       border: 0;
       // and replace them with this gray border

@@ -14,12 +14,12 @@
     box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
     justify-self: center;
 
-    @media(max-width: $medium-screen) {
+    @media (max-width: $medium-screen) {
       margin-top: rem(24);
     }
 
-    @media(max-width: $tablet-screen) {
-      margin-top: rem(16)
+    @media (max-width: $tablet-screen) {
+      margin-top: rem(16);
     }
 
     .rounded-toggle__slider:before {

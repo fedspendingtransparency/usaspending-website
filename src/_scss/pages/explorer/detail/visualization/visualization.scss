@@ -1,47 +1,47 @@
 .explorer-vis {
-    margin-top: rem(40);
+  margin-top: rem(40);
 
-    @import "./_menu";
-    @import "./treemap/treemap";
-    @import "./table/table";
+  @import "./_menu";
+  @import "./treemap/treemap";
+  @import "./table/table";
 
-    .explorer-vis__width-reference {
-        width: 100%;
-        height: 0;
+  .explorer-vis__width-reference {
+    width: 100%;
+    height: 0;
+  }
+
+  .explorer-detail-content__loading {
+    position: absolute;
+  }
+
+  .explorer-vis__disclaimer {
+    font-size: $font-size-14;
+    font-weight: $font-normal;
+    line-height: $base-line-height;
+    margin-top: rem(16);
+    @import "components/externalLink";
+
+    strong,
+    b {
+      font-weight: $font-semibold;
     }
+  }
 
-    .explorer-detail-content__loading {
-        position: absolute;
+  .explorer-vis__table-transition {
+    transition: opacity 0.25s;
+    &.explorer-vis__table-transition_loading {
+      opacity: 0.5;
     }
+  }
 
-    .explorer-vis__disclaimer {
-        font-size: $font-size-14;
-        font-weight: $font-normal;
-        line-height: $base-line-height;
-        margin-top: rem(16);
-        @import 'components/externalLink';
+  .explorer-vis__treemap-transition {
+    transition: opacity 0.25s;
+    &.explorer-vis__treemap-transition_loading {
+      opacity: 0.5;
 
-        strong, b {
-            font-weight: $font-semibold;
-        }
+      .explorer-cell {
+        cursor: auto;
+      }
     }
-
-    .explorer-vis__table-transition {
-        transition: opacity 0.25s;
-        &.explorer-vis__table-transition_loading {
-            opacity: 0.5;
-        }
-    }
-
-    .explorer-vis__treemap-transition {
-        transition: opacity 0.25s;
-        &.explorer-vis__treemap-transition_loading {
-            opacity: 0.5;
-
-            .explorer-cell {
-                cursor: auto;
-            }
-        }
-    }
-
+  }
 }

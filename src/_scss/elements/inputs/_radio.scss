@@ -1,33 +1,33 @@
 @mixin usa-input-radio {
-    margin: 4px .5rem 0 0;
-    width: 15px;
-    height: 15px;
-    border: 1px solid $color-gray-light;
+  margin: 4px 0.5rem 0 0;
+  width: 15px;
+  height: 15px;
+  border: 1px solid $color-gray-light;
+  border-radius: 50%;
+  outline: none;
+  appearance: none;
+  cursor: pointer;
+
+  &:before {
+    content: "";
+    display: block;
+    width: 9px;
+    height: 9px;
     border-radius: 50%;
-    outline: none;
-    appearance: none;
+    margin: 2px 0 0 2px;
+  }
+
+  &:checked {
+    border-color: $color-primary;
+  }
+
+  &:checked:before {
+    background: $color-primary;
+  }
+
+  + label {
     cursor: pointer;
-
-    &:before {
-        content: '';
-        display: block;
-        width: 9px;
-        height: 9px;
-        border-radius: 50%;
-        margin: 2px 0 0 2px;
-    }
-
-    &:checked {
-        border-color: $color-primary;
-    }
-    
-    &:checked:before {
-        background: $color-primary;
-    }
-
-    + label {
-        cursor: pointer;
-        font-weight: 400;
-        margin-bottom: 0.5em;
-    }
+    font-weight: 400;
+    margin-bottom: 0.5em;
+  }
 }

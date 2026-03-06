@@ -1,60 +1,60 @@
 .filter-item-container {
-    display: inline-block;
-    margin-right: 5px;
+  display: inline-block;
+  margin-right: 5px;
 
+  // TODO: remove this styling in favor of mocks
+  //  also, fix focus issue (button not highlighted)
+  .unstaged {
+    background-color: red !important;
+    opacity: 0.5;
+  }
 
-    // TODO: remove this styling in favor of mocks
-    //  also, fix focus issue (button not highlighted)
-    .unstaged {
-        background-color: red !important;
-        opacity: 0.5;
+  .filter-item {
+    @include button-unstyled();
+    display: table;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    background-color: $color-white;
+    padding: 8px;
+    border: 1px solid $color-gray-lighter;
+    box-shadow: $container-shadow;
+    @include border-top-radius(5px);
+    @include border-bottom-radius(5px);
+
+    font-size: $smallest-font-size;
+
+    &:hover,
+    &:active {
+      background-color: $color-white;
     }
 
-    .filter-item {
-        @include button-unstyled();
-        display: table;
-        margin-top: 0.5rem;
-        margin-bottom: 0.5rem;
-        background-color: $color-white;
-        padding: 8px;
-        border: 1px solid $color-gray-lighter;
-        box-shadow: $container-shadow;
-        @include border-top-radius(5px);
-        @include border-bottom-radius(5px);
-
-        font-size: $smallest-font-size;
-
-        &:hover, &:active {
-            background-color: $color-white;
-        }
-
-        .filter-item-title {
-            color: $color-gray;
-            display: table-cell;
-            vertical-align: middle;
-        }
-
-        .filter-item-remove-container {
-            display: table-cell;
-            vertical-align: middle;
-
-            .filter-remove {
-                margin-left: 10px;
-                width: rem(8);
-                height: rem(8);
-                
-                .close-icon {
-                    svg {
-                        height: rem(8);
-                        width: rem(8);
-                        fill: $color-gray;
-                    }
-                }
-
-                .sr-only {
-                    @include sr-only();
-                }
-            }
-        }
+    .filter-item-title {
+      color: $color-gray;
+      display: table-cell;
+      vertical-align: middle;
     }
+
+    .filter-item-remove-container {
+      display: table-cell;
+      vertical-align: middle;
+
+      .filter-remove {
+        margin-left: 10px;
+        width: rem(8);
+        height: rem(8);
+
+        .close-icon {
+          svg {
+            height: rem(8);
+            width: rem(8);
+            fill: $color-gray;
+          }
+        }
+
+        .sr-only {
+          @include sr-only();
+        }
+      }
+    }
+  }
 }

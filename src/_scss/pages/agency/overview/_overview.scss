@@ -1,32 +1,32 @@
 .agency-overview {
-    @import 'mixins/profilePage';
-    @import './fySummary';
-    .agency-overview__row {
-        @include profile-page-wrap;
-        .usa-dt-flex-grid__col-4 {
-            padding-left: 3.2rem;
-        }
+  @import "mixins/profilePage";
+  @import "./fySummary";
+  .agency-overview__row {
+    @include profile-page-wrap;
+    .usa-dt-flex-grid__col-4 {
+      padding-left: 3.2rem;
     }
-    .agency-overview__data {
-        padding-bottom: 1.6rem;
-        font-size: $small-font-size;
-        h4 {
-            font-weight: $font-semibold;
-            margin: 0 0 0.8rem;
-            font-size: 1.6rem;
-            line-height: normal;
-        }
-        p {
-            margin: 0;
-        }
-        a {
-            overflow-wrap: break-word;
-        }
+  }
+  .agency-overview__data {
+    padding-bottom: 1.6rem;
+    font-size: $small-font-size;
+    h4 {
+      font-weight: $font-semibold;
+      margin: 0 0 0.8rem;
+      font-size: 1.6rem;
+      line-height: normal;
     }
-    .read-more-button {
-        @include button-link;
-        margin-top: 0.5rem;
+    p {
+      margin: 0;
     }
-    @import '../visualizations/totalObligationsOverTime';
-    @import '../visualizations/recipientDistribution';
+    a {
+      overflow-wrap: break-word;
+    }
+  }
+  .read-more-button {
+    @include button-link;
+    margin-top: 0.5rem;
+  }
+  @import "../visualizations/totalObligationsOverTime";
+  @import "../visualizations/recipientDistribution";
 }

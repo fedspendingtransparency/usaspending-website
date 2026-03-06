@@ -1,6 +1,6 @@
 .federal-accounts {
   width: 100%;
-  @import 'components/Note';
+  @import "components/Note";
   .visualization-tooltip {
     @import "components/visualizations/tooltip/_tooltip";
     position: fixed;
@@ -19,15 +19,15 @@
         padding: $global-padding * 2 ($global-padding * 4);
       }
       .disclaimer-total {
-          margin-bottom: rem(15);
-          padding: rem(0) rem(15);
-          font-size: rem(12);
-          font-style: italic;
-          text-align: center;
+        margin-bottom: rem(15);
+        padding: rem(0) rem(15);
+        font-size: rem(12);
+        font-style: italic;
+        text-align: center;
       }
     }
   }
-  @import '../../search/results/table/tableMessages';
+  @import "../../search/results/table/tableMessages";
   .results-table-message-container {
     position: relative;
     background-color: rgb(246, 246, 246);
@@ -52,7 +52,7 @@
       }
     }
     .loading-animation {
-        @import "../../../loading";
+      @import "../../../loading";
     }
     .results-table-error {
       .icon {
@@ -72,7 +72,7 @@
         line-height: rem(10);
       }
     }
-}
+  }
   .federal-accounts__section {
     width: 100%;
     .view-buttons {
@@ -87,7 +87,7 @@
       }
     }
     .federal-accounts-results {
-      @import './federalAccountsTable';
+      @import "./federalAccountsTable";
       width: 100%;
       .federal-accounts-table-renderer {
         width: 100%;
@@ -103,7 +103,7 @@
         font-weight: bold;
       }
       .explorer-cell-box:hover {
-          background-color: #f49c20;
+        background-color: #f49c20;
       }
     }
   }
@@ -111,16 +111,16 @@
     .award-funding-summary__table {
       margin-bottom: rem(10);
       .award-funding-summary__data {
-          @extend %column-less-table__row;
-          margin: 0;
-          border-bottom: 0;
-          &:nth-of-type(1) {
-              border-radius: rem(5) rem(5) 0 0;
-          }
-          &:last-of-type {
-              border-radius: 0 0 rem(5) rem(5);
-              border-bottom: solid rem(1) #d5d6d8;
-          }
+        @extend %column-less-table__row;
+        margin: 0;
+        border-bottom: 0;
+        &:nth-of-type(1) {
+          border-radius: rem(5) rem(5) 0 0;
+        }
+        &:last-of-type {
+          border-radius: 0 0 rem(5) rem(5);
+          border-bottom: solid rem(1) #d5d6d8;
+        }
       }
     }
   }

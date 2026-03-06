@@ -37,7 +37,7 @@
         line-height: 1.5;
         margin: auto 0;
 
-        @media(max-width: $medium-screen) {
+        @media (max-width: $medium-screen) {
           flex: 100%;
         }
       }
@@ -55,7 +55,7 @@
         right: 0;
         font-family: $font-sans;
 
-        @media(max-width: $tablet-screen - 1) {
+        @media (max-width: $tablet-screen - 1) {
           display: none;
         }
 
@@ -67,7 +67,7 @@
           line-height: rem(16.5);
         }
 
-        .borderless{
+        .borderless {
           border: none;
           color: $gray-80;
         }
@@ -75,7 +75,7 @@
         .button-type__primary-left-icon-light {
           color: $color-white;
           border: rem(2);
-          
+
           svg {
             fill: $color-white;
             margin-right: rem(3);
@@ -89,7 +89,7 @@
         max-width: 100%;
         padding-left: rem(8);
 
-        @media(max-width: $medium-screen) {
+        @media (max-width: $medium-screen) {
           padding-left: 0;
           padding-top: rem(8);
         }
@@ -124,7 +124,7 @@
             }
           }
 
-          ul[class^='filter__dropdown-list'] {
+          ul[class^="filter__dropdown-list"] {
             background-color: $color-white;
             border: rem(2) solid $gray-cool-10;
             border-radius: rem(4);
@@ -182,7 +182,7 @@
     .award-type-toggle__mobile {
       display: none;
 
-      @media(max-width: 497px) { 
+      @media (max-width: 497px) {
         // set px used instead of variables due to specific width needed in this case
         display: flex;
         margin-bottom: rem(16);
@@ -205,10 +205,9 @@
             margin: 0 !important;
             padding: rem(3) rem(12);
             line-height: rem(16.5);
-            
           }
-          
-          @media(max-width: 348px) {
+
+          @media (max-width: 348px) {
             // set px used instead of variables due to specific width needed in this case
             height: rem(42);
 
@@ -216,15 +215,15 @@
               height: rem(36);
             }
           }
-          .borderless{
+          .borderless {
             border: none;
             color: $gray-80;
           }
-  
+
           .button-type__primary-left-icon-light {
             color: $color-white;
             border: rem(2);
-            
+
             svg {
               fill: $color-white;
               margin-right: rem(3);
@@ -250,7 +249,7 @@
         margin-bottom: rem(16);
       }
       .mobile__sort {
-        display:flex;
+        display: flex;
         @import "../../../components/mobileSortToggle";
         margin-bottom: rem(32);
         .mobile-sort__picker {
@@ -277,7 +276,7 @@
             }
           }
 
-            [class*="filter__dropdown-button"] {
+          [class*="filter__dropdown-button"] {
             margin: 0;
             border-color: $gray-cool-10;
             text-align: start;
@@ -299,7 +298,7 @@
             }
           }
 
-          ul[class^='filter__dropdown-list'] {
+          ul[class^="filter__dropdown-list"] {
             background-color: $color-white;
             border: rem(2) solid $gray-cool-10;
             border-radius: rem(4);
@@ -323,29 +322,29 @@
           }
         }
         .mobile-sort-toggle {
-        border: rem(1) solid $gray-cool-10;
-        height: fit-content;
+          border: rem(1) solid $gray-cool-10;
+          height: fit-content;
 
-        .view-button {
-          border: none;
-          color: $theme-color-1;
-          padding: rem(6) rem(8);
+          .view-button {
+            border: none;
+            color: $theme-color-1;
+            padding: rem(6) rem(8);
 
-          &.active {
-            background-color: $blue-50;
-            color: $color-white;
+            &.active {
+              background-color: $blue-50;
+              color: $color-white;
+            }
+          }
+
+          button {
+            height: rem(30);
+            width: rem(31);
+          }
+
+          svg {
+            width: rem(16);
           }
         }
-
-        button {
-          height: rem(30);
-          width: rem(31);
-        }
-
-        svg {
-          width: rem(16);
-        }
-      }
       }
       .download {
         display: flex;
@@ -417,7 +416,7 @@
         border: none;
         overflow-x: auto;
 
-        @media(max-width: $medium-screen) {
+        @media (max-width: $medium-screen) {
           width: 100%;
         }
 
@@ -433,7 +432,7 @@
           font-size: rem(14);
           line-height: 1.5;
           margin: 0;
-          color: $gray-60
+          color: $gray-60;
         }
 
         .award-search__body-text {

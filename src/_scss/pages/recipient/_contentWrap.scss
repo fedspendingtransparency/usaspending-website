@@ -1,151 +1,151 @@
 .recipient-content {
-	background-color: $color-white;
-	color: $color-base;
+  background-color: $color-white;
+  color: $color-base;
 
-	.recipient-section {
-		h3.recipient-section__title {
-			margin: 0;
-			font-size: $h3-font-size;
-			font-weight: 300;
-			line-height: rem(47);
-		}
+  .recipient-section {
+    h3.recipient-section__title {
+      margin: 0;
+      font-size: $h3-font-size;
+      font-weight: 300;
+      line-height: rem(47);
+    }
 
-		.recipient-section__description {
-			font-size: $lead-font-size;
-			font-weight: 300;
-			line-height: rem(25);
-			padding-bottom: rem(35);
-		}
+    .recipient-section__description {
+      font-size: $lead-font-size;
+      font-weight: 300;
+      line-height: rem(25);
+      padding-bottom: rem(35);
+    }
 
-		hr.results-divider {
-			width: 100%;
-			height: rem(2);
-			background: #494440;
-			border: none;
-			margin: rem(8) 0 rem(32) 0;
-		}
+    hr.results-divider {
+      width: 100%;
+      height: rem(2);
+      background: #494440;
+      border: none;
+      margin: rem(8) 0 rem(32) 0;
+    }
 
-		.recipient-section__row {
-			width: 100%;
-			@include media($tablet-screen) {
-				@include display(flex);
-			}
+    .recipient-section__row {
+      width: 100%;
+      @include media($tablet-screen) {
+        @include display(flex);
+      }
 
-			.totals-container {
-				@include media($tablet-screen) {
-					@include flex(1 1 50%);
-					@include flex-direction(column);
-					margin-right: rem(10);
-				}
+      .totals-container {
+        @include media($tablet-screen) {
+          @include flex(1 1 50%);
+          @include flex-direction(column);
+          margin-right: rem(10);
+        }
 
-				.loan {
-					margin-top: rem(50);
-					margin-left: 0;
-					@include flex(1 1 50%);
+        .loan {
+          margin-top: rem(50);
+          margin-left: 0;
+          @include flex(1 1 50%);
 
-					.totals__header {
-						@include display(flex);
-						@include align-items(center);
-					}
+          .totals__header {
+            @include display(flex);
+            @include align-items(center);
+          }
 
-					.recipient-overview__heading {
-						float: left;
-					}
+          .recipient-overview__heading {
+            float: left;
+          }
 
-					.tooltip-wrapper {
-						@include display(inline-block);
-						float: left;
+          .tooltip-wrapper {
+            @include display(inline-block);
+            float: left;
 
-						.recipient-overview-tooltip {
-							@include display(inline-block);
-							width: 100%;
-						}
+            .recipient-overview-tooltip {
+              @include display(inline-block);
+              width: 100%;
+            }
 
-						svg {
-							height: rem(20);
-							width: rem(20);
-						}
-					}
+            svg {
+              height: rem(20);
+              width: rem(20);
+            }
+          }
 
-					.totals__amount {
-						clear: both;
-					}
-				}
-			}
-			.recipient-section__viz {
-				width: 100%;
-				@include media($tablet-screen) {
-					@include flex(1 1 50%);
-				}
-				
-				// this is all to make the borders gray and not doubled
-				// it's not ideal, but here we are
-				.recipient-section__details-table {
-					border-collapse: unset !important;
+          .totals__amount {
+            clear: both;
+          }
+        }
+      }
+      .recipient-section__viz {
+        width: 100%;
+        @include media($tablet-screen) {
+          @include flex(1 1 50%);
+        }
 
-					tr {
-						height: rem(39);
-					}
+        // this is all to make the borders gray and not doubled
+        // it's not ideal, but here we are
+        .recipient-section__details-table {
+          border-collapse: unset !important;
 
-					th, td {
-						border: solid 1px $color-gray-border;
-						border-bottom: 0;
-						padding: rem(10) rem(15);
-					}
+          tr {
+            height: rem(39);
+          }
 
-					th {
-						border-right: 0;
-					}
+          th,
+          td {
+            border: solid 1px $color-gray-border;
+            border-bottom: 0;
+            padding: rem(10) rem(15);
+          }
 
-					.recipient-section__details-table-first-th {
-						border-top-left-radius: 5px;
-					}
+          th {
+            border-right: 0;
+          }
 
-					.recipient-section__details-table-first-td {
-						border-top-right-radius: 5px;
-					}
+          .recipient-section__details-table-first-th {
+            border-top-left-radius: 5px;
+          }
 
-					.recipient-section__details-table-last-th {
-						border-bottom-left-radius: 5px;
-						border-bottom: solid 1px $color-gray-border;
-					}
+          .recipient-section__details-table-first-td {
+            border-top-right-radius: 5px;
+          }
 
-					.recipient-section__details-table-last-td {
-						border-bottom-right-radius: 5px;
-						border-bottom: solid 1px $color-gray-border;
-					}
+          .recipient-section__details-table-last-th {
+            border-bottom-left-radius: 5px;
+            border-bottom: solid 1px $color-gray-border;
+          }
 
-					.details__table-cd-row {
-						display: flex;
-						flex-direction: row;
-					}
-				}
+          .recipient-section__details-table-last-td {
+            border-bottom-right-radius: 5px;
+            border-bottom: solid 1px $color-gray-border;
+          }
 
-				.recipient-section__award-button {
-					@include display(flex);
-					@include flex(0 0 auto);
-					@include align-items(center);
-					@include button-unstyled;
-					color: $theme-color-1;
-					margin-top: rem(16);
-					font-size: rem(14);
-					width: fit-content;
-					&:hover {
-						color: $theme-color-1-dark;
-						svg {
-							fill: $theme-color-1-dark;
-						}
-					}
-				}
-			}
+          .details__table-cd-row {
+            display: flex;
+            flex-direction: row;
+          }
+        }
 
-			.recipient-section__viz.details {
-				margin-left: 0;
-			}
-		}
-	}
+        .recipient-section__award-button {
+          @include display(flex);
+          @include flex(0 0 auto);
+          @include align-items(center);
+          @include button-unstyled;
+          color: $theme-color-1;
+          margin-top: rem(16);
+          font-size: rem(14);
+          width: fit-content;
+          &:hover {
+            color: $theme-color-1-dark;
+            svg {
+              fill: $theme-color-1-dark;
+            }
+          }
+        }
+      }
 
-	@import "./overview";
-	@import "./spendingOverTime/recipientTimeVisualization";
+      .recipient-section__viz.details {
+        margin-left: 0;
+      }
+    }
+  }
+
+  @import "./overview";
+  @import "./spendingOverTime/recipientTimeVisualization";
 }
-

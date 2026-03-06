@@ -23,20 +23,20 @@
         padding: 12px 48px;
         border-radius: 8px;
         // not using color var here so the opacity won't apply to the icon
-        background-color: rgb(0, 0, 0, .25);
+        background-color: rgb(0, 0, 0, 0.25);
         display: flex;
         justify-content: center;
         align-items: center;
-        @media(min-width: $tablet-screen) {
+        @media (min-width: $tablet-screen) {
           height: 80px;
         }
-        &:hover{
-          background-color: rgb(0, 0, 0, .35);
+        &:hover {
+          background-color: rgb(0, 0, 0, 0.35);
           padding: 12px 50px;
           width: 150px;
           height: 82px;
           cursor: pointer;
-          .play-button__icon{
+          .play-button__icon {
             height: 58px;
             width: 50px;
           }
@@ -47,7 +47,7 @@
           width: 32px;
           color: $gray-cool-1;
           opacity: 1;
-          @media(min-width: $tablet-screen) {
+          @media (min-width: $tablet-screen) {
             height: 56px;
             width: 56px;
           }
@@ -74,9 +74,9 @@
       display: inline-flex;
       flex-direction: row;
       align-items: center;
-        &.featured-video {
-          bottom: 0;
-        }
+      &.featured-video {
+        bottom: 0;
+      }
 
       .duration-text {
         max-height: $font-size-16;

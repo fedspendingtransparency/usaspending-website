@@ -1,14 +1,14 @@
 .about-content {
-    background-color: $color-white;
-    color: $color-base;
+  background-color: $color-white;
+  color: $color-base;
 
+  .about-padded-content {
+    padding: rem(35);
+  }
+
+  @include media($large-screen) {
     .about-padded-content {
-        padding: rem(35);
+      padding: rem(38) rem(88) rem(22) rem(88);
     }
-
-    @include media($large-screen) {
-        .about-padded-content {
-            padding: rem(38) rem(88) rem(22) rem(88);
-        }
-    }
+  }
 }

@@ -16,49 +16,49 @@ $font-size-12: rem(12px);
 $font-size-10: rem(10px);
 $font-size-14: rem(14px);
 
-$base-font-size:      $font-size-16;
-$small-font-size:     $font-size-14;
-$smallest-font-size:  $font-size-12;
-$lead-font-size:      $font-size-20;
-$title-font-size:     rem(52px);
+$base-font-size: $font-size-16;
+$small-font-size: $font-size-14;
+$smallest-font-size: $font-size-12;
+$lead-font-size: $font-size-20;
+$title-font-size: rem(52px);
 
-$h1-font-size:        $font-size-56;
-$h2-font-size:        $font-size-40;
-$h3-font-size:        $font-size-32;
-$h4-font-size:        $font-size-28;
-$h5-font-size:        $font-size-20;
-$h6-font-size:        rem(19px);
+$h1-font-size: $font-size-56;
+$h2-font-size: $font-size-40;
+$h3-font-size: $font-size-32;
+$h4-font-size: $font-size-28;
+$h5-font-size: $font-size-20;
+$h6-font-size: rem(19px);
 
-$base-line-height:    1.5;
+$base-line-height: 1.5;
 $heading-line-height: 1.2;
-$lead-line-height:    1.7;
+$lead-line-height: 1.7;
 
-$font-sans:           'Source Sans Pro', $helvetica;
-$font-serif:          'Merriweather', $georgia;
-$font-path:           './fonts';
+$font-sans: "Source Sans Pro", $helvetica;
+$font-serif: "Merriweather", $georgia;
+$font-path: "./fonts";
 
-$font-light:       200;
-$font-normal:      400;
-$font-semibold:    600;
-$font-bold:        700;
+$font-light: 200;
+$font-normal: 400;
+$font-semibold: 600;
+$font-bold: 700;
 
-$image-path: './img';
+$image-path: "./img";
 
 // USWDS Color Tokens
-$red-warm-20v: #F6BD9C;
-$red-warm-50v: #D54309;
-$red-cool-5v: #FFF2F5;
-$red-cool-50v: #E41D3D;
-$yellow-10: #F5E6AF;
-$yellow-20v: #FACE00;
-$orange-5v: #FEF2E4;
-$orange-20v: #FFBC78;
-$orange-30v: #FA9441;
-$orange-warm-40v: #FF580A;
+$red-warm-20v: #f6bd9c;
+$red-warm-50v: #d54309;
+$red-cool-5v: #fff2f5;
+$red-cool-50v: #e41d3d;
+$yellow-10: #f5e6af;
+$yellow-20v: #face00;
+$orange-5v: #fef2e4;
+$orange-20v: #ffbc78;
+$orange-30v: #fa9441;
+$orange-warm-40v: #ff580a;
 $orange-warm-10v: #ffe2d1;
 $mint-5: #dbf6ed;
 $mint-30: #5abf95;
-$mint-40: #34A37E;
+$mint-40: #34a37e;
 $mint-cool-20v: #29e1cb;
 $mint-cool-30v: #1dc2ae;
 $mint-cool-40v: #00a398;
@@ -68,7 +68,7 @@ $cyan-5: #e7f6f8;
 $cyan-5v: #e5faff;
 $cyan-10: #ccecf2;
 $cyan-20: #88b4c0;
-$cyan-30v: #00BDE3;
+$cyan-30v: #00bde3;
 $cyan-40: #449dac;
 $cyan-40v: #009ec1;
 $cyan-50: #168092;
@@ -77,12 +77,12 @@ $cyan-60v: #00687d;
 $cyan-70v: #0e4f5c;
 $cyan-vivid-80: #093b44;
 $blue-5: #eff6fb;
-$blue-10: #D9E8F6;
-$blue-20: #AACDEC;
-$blue-50: #2378C3;
-$blue-60: #2C608A;
+$blue-10: #d9e8f6;
+$blue-20: #aacdec;
+$blue-50: #2378c3;
+$blue-60: #2c608a;
 $blue-60v: #005ea2;
-$blue-70v: #0B4778;
+$blue-70v: #0b4778;
 $blue-80v: #112f4e;
 $blue-cool-5v: #e1f3f8;
 $blue-cool-20v: #97d4ea;
@@ -92,42 +92,42 @@ $blue-cool-80v: #002d3f;
 $blue-vivid-5v: #e8f5ff;
 $blue-warm-5: #ecf1f7;
 $blue-warm-10: #e1e7f1;
-$blue-vivid-70: #0B4778;
+$blue-vivid-70: #0b4778;
 $blue-warm-5v: #edf5ff;
 $blue-warm-40v: #5994f6;
 $blue-warm-60: #345d96;
 $blue-warm-60v: #0050d8;
-$blue-warm-70v: #1A4480;
+$blue-warm-70v: #1a4480;
 $blue-warm-80: #252f3e;
 $indigo-cool-5v: #edf0ff;
 $indigo-5v: #f0f0ff;
 $indigo-50v: #656bd7;
 $indigo-60v: #4a50c4;
 $indigo-70v: #3333a3;
-$indigo-cool-40v: #628EF4;
-$indigo-cool-80v: #1B2B85;
-$violet-20v: #D5BFFF;
-$violet-50v: #9355DC;
+$indigo-cool-40v: #628ef4;
+$indigo-cool-80v: #1b2b85;
+$violet-20v: #d5bfff;
+$violet-50v: #9355dc;
 $violet-60v: #783cb9;
 $violet-70v: #54278f;
-$gray-cool-1: #FBFCFD;
-$gray-2: #F9F9F9;
-$gray-10: #E6E6E6;
+$gray-cool-1: #fbfcfd;
+$gray-2: #f9f9f9;
+$gray-10: #e6e6e6;
 $gray-cool-30: #a9aeb1;
-$gray-80: #2E2E2E;
-$gray-90: #1B1B1B;
+$gray-80: #2e2e2e;
+$gray-90: #1b1b1b;
 $gray-cool-50: #71767a;
-$gray-cool-60: #565C65;
-$gray-60: #5C5C5C;
+$gray-cool-60: #565c65;
+$gray-60: #5c5c5c;
 $gray-cool-2: #f7f9fa;
 $gray-cool-3: #f5f6f7;
 $gray-cool-5: #edeff0;
 $gray-cool-10: #dfe1e2;
 $gray-cool-20: #c6cace;
 $gray-cool-90: #1c1d1f;
-$green-cool-5v: #E3F5E1;
-$green-cool-20v: #70E17B;
-$green-cool-30v: #21C834;
+$green-cool-5v: #e3f5e1;
+$green-cool-20v: #70e17b;
+$green-cool-30v: #21c834;
 $green-cool-50v: #008817;
 
 // Theme Colors
@@ -168,7 +168,7 @@ $theme-color-underline: $gray-cool-20;
 $theme-color-another-underline: $gray-cool-50;
 $theme-color-vertical-pipe: $gray-cool-30;
 
-$theme-color-homepage-hero: rgba(136, 180, 192, .15);
+$theme-color-homepage-hero: rgba(136, 180, 192, 0.15);
 $theme-color-background: #f0f0f0;
 
 $info-lighter: $cyan-5;
@@ -181,79 +181,79 @@ $error-lighter: $red-cool-5v;
 $error: $red-cool-50v;
 
 // Color
-$color-primary:              #0071bc;
-$color-primary-darker:       #205493;
-$color-primary-darkest:      #112e51;
+$color-primary: #0071bc;
+$color-primary-darker: #205493;
+$color-primary-darkest: #112e51;
 
-$color-primary-alt:          #02bfe7;
-$color-primary-alt-dark:     #00a6d2;
-$color-primary-alt-darkest:  #046b99;
-$color-primary-alt-light:    #9bdaf1;
+$color-primary-alt: #02bfe7;
+$color-primary-alt-dark: #00a6d2;
+$color-primary-alt-darkest: #046b99;
+$color-primary-alt-light: #9bdaf1;
 $color-primary-alt-lightest: $cyan-5;
 
-$color-secondary:            #e31c3d;
-$color-secondary-dark:       #cd2026;
-$color-secondary-darkest:    #981b1e;
-$color-secondary-light:      #e59393;
-$color-secondary-lightest:   #f9dede;
-$color-secondary-vivid:      $red-cool-50v;
-$color-white:                #fff;
-$color-black:                #000;
-$color-base:                 #555;
-$color-link:                 $color-primary;
-$color-gray-dark:            #323a45;
-$color-gray:                 #5b616b;
-$color-gray-medium:          #757575;
-$color-gray-light:           #aeb0b5;
-$color-gray-lighter:         #d6d7d9;
-$color-gray-lightest:        #f1f1f1;
+$color-secondary: #e31c3d;
+$color-secondary-dark: #cd2026;
+$color-secondary-darkest: #981b1e;
+$color-secondary-light: #e59393;
+$color-secondary-lightest: #f9dede;
+$color-secondary-vivid: $red-cool-50v;
+$color-white: #fff;
+$color-black: #000;
+$color-base: #555;
+$color-link: $color-primary;
+$color-gray-dark: #323a45;
+$color-gray: #5b616b;
+$color-gray-medium: #757575;
+$color-gray-light: #aeb0b5;
+$color-gray-lighter: #d6d7d9;
+$color-gray-lightest: #f1f1f1;
 
-$color-gray-warm-dark:       #494440;
-$color-gray-warm-light:      #e4e2e0;
-$color-gray-cool-light:      #dce4ef;
+$color-gray-warm-dark: #494440;
+$color-gray-warm-light: #e4e2e0;
+$color-gray-cool-light: #dce4ef;
 
-$color-gold:                 #fdb81e;
-$color-gold-light:           #f9c642;
-$color-gold-lighter:         #fad980;
-$color-gold-lightest:        #fff1d2;
-$color-green:                #2e8540;
-$color-green-light:          #4aa564;
-$color-green-lighter:        #94bfa2;
-$color-green-lightest:       #e7f4e4;
-$green-cool-50:              #4d8055;
-$color-cool-blue:            $color-primary-darker;
-$color-cool-blue-light:      #4773aa;
-$color-cool-blue-lighter:    #8ba6ca;
-$color-cool-blue-lightest:   $color-gray-cool-light;
+$color-gold: #fdb81e;
+$color-gold-light: #f9c642;
+$color-gold-lighter: #fad980;
+$color-gold-lightest: #fff1d2;
+$color-green: #2e8540;
+$color-green-light: #4aa564;
+$color-green-lighter: #94bfa2;
+$color-green-lightest: #e7f4e4;
+$green-cool-50: #4d8055;
+$color-cool-blue: $color-primary-darker;
+$color-cool-blue-light: #4773aa;
+$color-cool-blue-lighter: #8ba6ca;
+$color-cool-blue-lightest: $color-gray-cool-light;
 
-$color-warning:              #FCF8E3;
-$color-warning-dark:         #F0AD4E;
+$color-warning: #fcf8e3;
+$color-warning-dark: #f0ad4e;
 
-$color-vis-lightest:		 #d0e9ef;
-$color-vis-lighter:		 	 #a7c2ca;
-$color-vis-light:		 	 #7f9ba7;
-$color-vis-dark:		 	 #597785;
-$color-vis-darker:		 	 #335565;
-$color-vis-darkest:		 	 #083546;
+$color-vis-lightest: #d0e9ef;
+$color-vis-lighter: #a7c2ca;
+$color-vis-light: #7f9ba7;
+$color-vis-dark: #597785;
+$color-vis-darker: #335565;
+$color-vis-darkest: #083546;
 
-$color-vis-green-light:      #45bb8c;
-$color-vis-green-dark:       #0d817c;
-$color-vis-green-darkest:    #1b4956;
+$color-vis-green-light: #45bb8c;
+$color-vis-green-dark: #0d817c;
+$color-vis-green-darkest: #1b4956;
 
-$color-active:				 #F2B733;
-$color-focus:                #3e94cf;
-$color-visited:              #4c2c92;
-$color-shadow:               rgba(#000, 0.3);
-$color-tab-inactive:	     $color-gray-lightest;
-$color-gray-border:          #D8D8D8;
+$color-active: #f2b733;
+$color-focus: #3e94cf;
+$color-visited: #4c2c92;
+$color-shadow: rgba(#000, 0.3);
+$color-tab-inactive: $color-gray-lightest;
+$color-gray-border: #d8d8d8;
 
-$color-placeholder:          #747474;
+$color-placeholder: #747474;
 
-$color-disaster-covid-19:    #6E338E;
-$color-covid-19-obligations: #B699C6;
-$color-covid-dark-purple:    #3B005B;
+$color-disaster-covid-19: #6e338e;
+$color-covid-19-obligations: #b699c6;
+$color-covid-dark-purple: #3b005b;
 
-$colors-grants-nff: #47AAA7;
+$colors-grants-nff: #47aaa7;
 $colors-loans-subsidy: #8c6e86;
 $colors-loans-face-value: #ded5db;
 
@@ -263,7 +263,7 @@ $colors-potential: #dce4ee;
 $colors-outlayed: #0b2e5a;
 
 $color-infrastructure-obligations: #afcdd5;
-$color-infrastructure-outlays:    #2d6878;
+$color-infrastructure-outlays: #2d6878;
 
 $headline-color: $gray-90;
 $body-color: $gray-60;
@@ -284,33 +284,34 @@ $global-margin: $global-spacing-unit;
 $grid-column: 8.33%;
 
 // Mobile First Breakpoints
-$small-screen:      320px;
-$tablet-screen:     768px;
-$medium-screen:     992px;
-$large-screen:      1200px;
-$m-large-screen:    1400px;
-$x-large-screen:    1640px;
-
+$small-screen: 320px;
+$tablet-screen: 768px;
+$medium-screen: 992px;
+$large-screen: 1200px;
+$m-large-screen: 1400px;
+$x-large-screen: 1640px;
 
 // Magic Numbers
-$text-max-width:      rem(530);
-$lead-max-width:      rem(770);
-$site-max-width:      rem(1600);
+$text-max-width: rem(530);
+$lead-max-width: rem(770);
+$site-max-width: rem(1600);
 // Homepage max-width
-$homepage-max-width:  rem(1400);
-$site-margins:        rem(30);
+$homepage-max-width: rem(1400);
+$site-margins: rem(30);
 $site-margins-mobile: rem(15);
-$article-max-width:   rem(600);
-$input-max-width:     rem(460);
-$border-radius:       rem(3px);
-$box-shadow:          0 0 2px $color-shadow;
-$focus-shadow:        0 0 3px $color-focus, 0 0 7px $color-focus;
-$container-shadow:    0 1px 2px rgba(43,59,93,.29);
-$nav-width:           rem(951);
-$outer-gutter:        rem(40);
+$article-max-width: rem(600);
+$input-max-width: rem(460);
+$border-radius: rem(3px);
+$box-shadow: 0 0 2px $color-shadow;
+$focus-shadow:
+  0 0 3px $color-focus,
+  0 0 7px $color-focus;
+$container-shadow: 0 1px 2px rgba(43, 59, 93, 0.29);
+$nav-width: rem(951);
+$outer-gutter: rem(40);
 
 // 44 x 44 pixels hit target following Apple iOS Human Interface Guidelines
-$hit-area:          4.4rem;
+$hit-area: 4.4rem;
 
 // z-indices (to use, add a number 0-9 to the layer you want to use)
 // this keeps out z-indices in check without going to absurdly high numbers
@@ -321,8 +322,8 @@ $z-modal: 300;
 $z-mobile-nav: 800;
 
 // new colors w/ same names as design
-$color-grass-light:                 #78BF8F;
-$color-grass-lighter:               #BBDFC7;
+$color-grass-light: #78bf8f;
+$color-grass-lighter: #bbdfc7;
 
 // drop shadow
-$shadow-3: 0 8px 16px 0 rgba(0,0,0,0.1);
+$shadow-3: 0 8px 16px 0 rgba(0, 0, 0, 0.1);

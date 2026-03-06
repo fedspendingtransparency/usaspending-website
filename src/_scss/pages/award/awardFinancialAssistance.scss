@@ -1,167 +1,167 @@
 /* Styles specific to Financial Assistance */
 
 .award {
-    @import './shared/contractGrantsActivity.scss';
-    .cfda-section {
-        width: 100%;
-        .award__col__content {
-            @import 'components/Note';
-            .award-expandable-section__primary {
-                h4 {
-                    margin-top: 0;
-                    margin-bottom: 0;
-                }
-                h5 {
-                    margin-top: 30px;
-                    margin-bottom: 0;
-                }
-                h5:nth-of-type(2),
-                h5:last-of-type {
-                    margin-top: 37px;
-                }
-                p {
-                    padding: 0;
-                    margin: 0;
-                }
-                a {
-                  overflow-wrap: break-word;
-                }
+  @import "./shared/contractGrantsActivity.scss";
+  .cfda-section {
+    width: 100%;
+    .award__col__content {
+      @import "components/Note";
+      .award-expandable-section__primary {
+        h4 {
+          margin-top: 0;
+          margin-bottom: 0;
+        }
+        h5 {
+          margin-top: 30px;
+          margin-bottom: 0;
+        }
+        h5:nth-of-type(2),
+        h5:last-of-type {
+          margin-top: 37px;
+        }
+        p {
+          padding: 0;
+          margin: 0;
+        }
+        a {
+          overflow-wrap: break-word;
+        }
 
-                .cfda-grants-gov-opportunities__section {
-                  button.award-expandable-btn {
-                    display: none;
-                  }
-                }
+        .cfda-grants-gov-opportunities__section {
+          button.award-expandable-btn {
+            display: none;
+          }
+        }
 
-                .cfda-grants-gov-opportunities__container {
-                  p {
-                    font-size: 1.4rem;
-                    letter-spacing: 0;
-                    line-height: 2.5rem;
-                    margin: 0;
-                  }
-                  .administrative-agency {
-                    font-size: 1.4rem;
-                    letter-spacing: 0;
-                    line-height: 1.8rem;
-                  }
-                  button {
-                    @include button-link;
-                    font-size: 1.4rem;
-                    letter-spacing: 0;
-                    line-height: 1.8rem;
-                  }
-                  .cfda-opportunities__container {
-                    background-color: $color-gray-lightest;
-                    margin-top: 2rem;
-                    .cfda-opportunities__totals {
-                      @include display(flex);
-                      width: 100%;
-                      padding: 1.2rem 0;
-                      .cfda-opportunities__total {
-                        @include display(flex);
-                        @include flex-direction(column);
-                        @include flex-basis(25%);
-                        text-align: center;
-                        border-left: 1px solid $color-gray-light;
-                        .cfda-opportunities__total__title {
-                          font-size: 1.4rem;
-                          font-weight: $font-semibold;
-                          letter-spacing: 0;
-                          line-height: 1.8rem;
-                        }
-                        .cfda-opportunities__total__count {
-                          font-size: 1.8rem;
-                          letter-spacing: 0;
-                          line-height: 2.3rem;
-                          $dot-color: $color-gray-light;
-                          @import 'components/loading-pulse-animation';
-                          .dot-pulse {
-                            margin: 1rem 0 0 8rem;
-                          }
-                        }
-                      }
-                      .cfda-opportunities__total:first-of-type {
-                        border: none;
-                      }
-                    }
-                  }
-                }
-            }
+        .cfda-grants-gov-opportunities__container {
+          p {
+            font-size: 1.4rem;
+            letter-spacing: 0;
+            line-height: 2.5rem;
+            margin: 0;
+          }
+          .administrative-agency {
+            font-size: 1.4rem;
+            letter-spacing: 0;
+            line-height: 1.8rem;
+          }
+          button {
+            @include button-link;
+            font-size: 1.4rem;
+            letter-spacing: 0;
+            line-height: 1.8rem;
+          }
+          .cfda-opportunities__container {
+            background-color: $color-gray-lightest;
+            margin-top: 2rem;
+            .cfda-opportunities__totals {
+              @include display(flex);
               width: 100%;
-              .visualization-tooltip {
-                @import "components/visualizations/tooltip/_tooltip";
-                position: fixed;
-                top: 0;
-                left: 0;
-                z-index: 4;
-                .tooltip {
-                  position: relative;
-                  max-width: rem(500);
-                  .tooltip-title {
-                    background-color: #eeeeee;
-                  }
-                  .tooltip-subtitle {
-                    text-align: center;
-                    background-color: #f8f8f8;
-                    padding: $global-padding * 2 ($global-padding * 4);
-                  }
-                  .disclaimer-total {
-                      margin-bottom: rem(15);
-                      padding: rem(0) rem(15);
-                      font-size: rem(12);
-                      font-style: italic;
-                      text-align: center;
+              padding: 1.2rem 0;
+              .cfda-opportunities__total {
+                @include display(flex);
+                @include flex-direction(column);
+                @include flex-basis(25%);
+                text-align: center;
+                border-left: 1px solid $color-gray-light;
+                .cfda-opportunities__total__title {
+                  font-size: 1.4rem;
+                  font-weight: $font-semibold;
+                  letter-spacing: 0;
+                  line-height: 1.8rem;
+                }
+                .cfda-opportunities__total__count {
+                  font-size: 1.8rem;
+                  letter-spacing: 0;
+                  line-height: 2.3rem;
+                  $dot-color: $color-gray-light;
+                  @import "components/loading-pulse-animation";
+                  .dot-pulse {
+                    margin: 1rem 0 0 8rem;
                   }
                 }
               }
-              @import '../search/results/table/tableMessages';
-              .results-table-message-container {
-                position: relative;
-                background-color: rgb(246, 246, 246);
-                .results-table-loading {
-                  margin-bottom: rem(100);
-                }
-                .no-results-container {
-                  text-align: center;
-                  margin-top: rem(100);
-                  margin-bottom: rem(100);
-                  .no-results-title {
-                    h4 {
-                      margin-bottom: 0;
-                      vertical-align: bottom;
-                    }
-                  }
-                  .no-results-message {
-                    p {
-                      margin-top: 0;
-                      vertical-align: top;
-                    }
-                  }
-                }
-                .loading-animation {
-                    @import "../../loading";
-                }
-                .results-table-error {
-                  .icon {
-                    width: rem(36);
-                    height: rem(36);
-                    svg {
-                      width: rem(36);
-                      height: rem(36);
-                    }
-                  }
-                  .title {
-                    font-size: rem(20);
-                    line-height: rem(45);
-                  }
-                  .description {
-                    font-size: rem(16);
-                    line-height: rem(10);
-                  }
-                }
+              .cfda-opportunities__total:first-of-type {
+                border: none;
+              }
             }
-            @import './visualizations/cfdaSectionViz';
+          }
         }
+      }
+      width: 100%;
+      .visualization-tooltip {
+        @import "components/visualizations/tooltip/_tooltip";
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 4;
+        .tooltip {
+          position: relative;
+          max-width: rem(500);
+          .tooltip-title {
+            background-color: #eeeeee;
+          }
+          .tooltip-subtitle {
+            text-align: center;
+            background-color: #f8f8f8;
+            padding: $global-padding * 2 ($global-padding * 4);
+          }
+          .disclaimer-total {
+            margin-bottom: rem(15);
+            padding: rem(0) rem(15);
+            font-size: rem(12);
+            font-style: italic;
+            text-align: center;
+          }
+        }
+      }
+      @import "../search/results/table/tableMessages";
+      .results-table-message-container {
+        position: relative;
+        background-color: rgb(246, 246, 246);
+        .results-table-loading {
+          margin-bottom: rem(100);
+        }
+        .no-results-container {
+          text-align: center;
+          margin-top: rem(100);
+          margin-bottom: rem(100);
+          .no-results-title {
+            h4 {
+              margin-bottom: 0;
+              vertical-align: bottom;
+            }
+          }
+          .no-results-message {
+            p {
+              margin-top: 0;
+              vertical-align: top;
+            }
+          }
+        }
+        .loading-animation {
+          @import "../../loading";
+        }
+        .results-table-error {
+          .icon {
+            width: rem(36);
+            height: rem(36);
+            svg {
+              width: rem(36);
+              height: rem(36);
+            }
+          }
+          .title {
+            font-size: rem(20);
+            line-height: rem(45);
+          }
+          .description {
+            font-size: rem(16);
+            line-height: rem(10);
+          }
+        }
+      }
+      @import "./visualizations/cfdaSectionViz";
     }
+  }
 }
