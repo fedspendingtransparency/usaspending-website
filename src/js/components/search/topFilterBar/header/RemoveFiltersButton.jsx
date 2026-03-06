@@ -12,6 +12,11 @@ import {
 } from "redux/actions/search/appliedFilterActions";
 import { clearAllFilters as clearStagedFilters } from "redux/actions/search/searchFilterActions";
 import { resetMapLegendToggle } from "redux/actions/search/mapLegendToggleActions";
+import {
+    convertFiltersToAnalyticEvents,
+    sendAnalyticEvents,
+    sendFieldCombinations
+} from "containers/search/helpers/searchAnalytics";
 
 const propTypes = { appliedFilters: PropTypes.object };
 
@@ -38,6 +43,10 @@ const RemoveFiltersButton = ({ appliedFilters }) => {
             dispatch(applyStagedFilters(stagedFilters));
             dispatch(setAppliedFilterCompletion(true));
         }
+
+        const events = convertFiltersToAnalyticEvents(stagedFilters);
+        sendAnalyticEvents(events);
+        sendFieldCombinations(events, "Advanced Search - Active Filters");
     };
     const removeOnKeyUp = (e) => {
         e.persist();
