@@ -3,6 +3,7 @@
  * Created by Max Kendall 12/8/2020
  */
 import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { faLightbulb as falLightbulb } from "@fortawesome/pro-light-svg-icons";
 import { library } from '@fortawesome/fontawesome-svg-core';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
@@ -18,6 +19,7 @@ import {
     faArrowRight,
     faBan,
     faBars,
+    faBluetooth,
     faBullhorn,
     faBook,
     faBookOpen,
@@ -61,6 +63,7 @@ import {
     faLaptop,
     faLevelUpAlt,
     faLightbulb,
+    faLightbulbCfl,
     faLink,
     faMapMarkedAlt,
     faMapMarkerAlt,
@@ -110,6 +113,7 @@ export default function registerIcons() {
         faArrowRight,
         faBan,
         faBars,
+        faBluetooth,
         faBullhorn,
         faBook,
         faBookOpen,
@@ -154,7 +158,9 @@ export default function registerIcons() {
         faLaptop,
         faLevelUpAlt,
         faLightbulb,
+        faLightbulbCfl,
         faLink,
+        falLightbulb,
         faMapMarkedAlt,
         faMapMarkerAlt,
         faMinus,

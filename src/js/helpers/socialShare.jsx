@@ -6,7 +6,7 @@ import {
     faLinkedin,
     faReddit
 } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from "@fortawesome/fontawesome-svg-core";
+import { faEnvelope } from "@fortawesome/pro-solid-svg-icons";
 
 export const socialUrls = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=`,

@@ -264,6 +264,7 @@
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/pro-regular-svg-icons": "^7.2.0",
     "@fortawesome/pro-solid-svg-icons": "^7.2.0",
+    "@fortawesome/pro-light-svg-icons": "^7.2.0",
     "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@fortawesome/react-fontawesome": "^3.2.0",
     "@jest/globals": "^29.7.0",

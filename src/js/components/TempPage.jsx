@@ -25,6 +25,11 @@ const TempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
+                    <h1>Fontawesome Pro Icons</h1>
+                    <FontAwesomeIcon icon="bluetooth" />
+                    <FontAwesomeIcon icon="lightbulb-cfl" />
+                    <FontAwesomeIcon icon={['fal', 'lightbulb']} />
+
                     <h1>Alert Variants</h1>
                     <div
                         style={{
@@ -40,7 +45,7 @@ const TempPage = () => {
                             header="Default/Test Example"
                             body={alertBody}
                             onClose={onClose}
-                            icon />
+                            icon/>
                         <Alert
                             type="error"
                             header="Custom Example"
@@ -48,7 +53,7 @@ const TempPage = () => {
                             body={alertBody}
                             icon="chevron-left"
                             onClose={onClose}
-                            closeIcon="chevron-up" />
+                            closeIcon="chevron-up"/>
                     </div>
                     <Accordion title="Info Alert Variants">
                         <div
@@ -60,17 +65,17 @@ const TempPage = () => {
                                 height: 'fit-content',
                                 maxWidth: '900px'
                             }}>
-                            <Alert header="Info Example" onClose={onClose} body={alertBody} icon />
-                            <Alert header="Info Example" body={alertBody} icon />
-                            <Alert header="Info Example" onClose={onClose} body={alertBody} />
-                            <Alert header="Info Example" body={alertBody} />
-                            <Alert body={alertBody} onClose={onClose} icon />
-                            <Alert body={alertBody} icon />
-                            <Alert body={alertBody} onClose={onClose} />
-                            <Alert body={alertBody} />
+                            <Alert header="Info Example" onClose={onClose} body={alertBody} icon/>
+                            <Alert header="Info Example" body={alertBody} icon/>
+                            <Alert header="Info Example" onClose={onClose} body={alertBody}/>
+                            <Alert header="Info Example" body={alertBody}/>
+                            <Alert body={alertBody} onClose={onClose} icon/>
+                            <Alert body={alertBody} icon/>
+                            <Alert body={alertBody} onClose={onClose}/>
+                            <Alert body={alertBody}/>
                         </div>
                     </Accordion>
-                    <Accordion title="Success Alert Variants" >
+                    <Accordion title="Success Alert Variants">
                         <div
                             style={{
                                 display: 'flex',
@@ -85,25 +90,25 @@ const TempPage = () => {
                                 header="Success Example"
                                 onClose={onClose}
                                 body={alertBody}
-                                icon />
+                                icon/>
                             <Alert
                                 type="success"
                                 header="Success Example"
                                 body={alertBody}
-                                icon />
+                                icon/>
                             <Alert
                                 type="success"
                                 header="Success Example"
                                 onClose={onClose}
-                                body={alertBody} />
-                            <Alert type="success" header="Success Example" body={alertBody} />
-                            <Alert type="success" body={alertBody} onClose={onClose} icon />
-                            <Alert type="success" body={alertBody} icon />
-                            <Alert type="success" body={alertBody} onClose={onClose} />
-                            <Alert type="success" body={alertBody} />
+                                body={alertBody}/>
+                            <Alert type="success" header="Success Example" body={alertBody}/>
+                            <Alert type="success" body={alertBody} onClose={onClose} icon/>
+                            <Alert type="success" body={alertBody} icon/>
+                            <Alert type="success" body={alertBody} onClose={onClose}/>
+                            <Alert type="success" body={alertBody}/>
                         </div>
                     </Accordion>
-                    <Accordion title="Warning Alert Variants" >
+                    <Accordion title="Warning Alert Variants">
                         <div
                             style={{
                                 display: 'flex',
@@ -118,25 +123,25 @@ const TempPage = () => {
                                 header="Warning Example"
                                 onClose={onClose}
                                 body={alertBody}
-                                icon />
+                                icon/>
                             <Alert
                                 type="warning"
                                 header="Warning Example"
                                 body={alertBody}
-                                icon />
+                                icon/>
                             <Alert
                                 type="warning"
                                 header="Warning Example"
                                 onClose={onClose}
-                                body={alertBody} />
-                            <Alert type="warning" header="Warning Example" body={alertBody} />
-                            <Alert type="warning" body={alertBody} onClose={onClose} icon />
-                            <Alert type="warning" body={alertBody} icon />
-                            <Alert type="warning" body={alertBody} onClose={onClose} />
-                            <Alert type="warning" body={alertBody} />
+                                body={alertBody}/>
+                            <Alert type="warning" header="Warning Example" body={alertBody}/>
+                            <Alert type="warning" body={alertBody} onClose={onClose} icon/>
+                            <Alert type="warning" body={alertBody} icon/>
+                            <Alert type="warning" body={alertBody} onClose={onClose}/>
+                            <Alert type="warning" body={alertBody}/>
                         </div>
                     </Accordion>
-                    <Accordion title="Error Alert Variants" >
+                    <Accordion title="Error Alert Variants">
                         <div
                             style={{
                                 display: 'flex',
@@ -151,22 +156,22 @@ const TempPage = () => {
                                 header="Error Example"
                                 onClose={onClose}
                                 body={alertBody}
-                                icon />
+                                icon/>
                             <Alert
                                 type="error"
                                 header="Error Example"
                                 body={alertBody}
-                                icon />
+                                icon/>
                             <Alert
                                 type="error"
                                 header="Error Example"
                                 onClose={onClose}
-                                body={alertBody} />
-                            <Alert type="error" header="Warning Example" body={alertBody} />
-                            <Alert type="error" body={alertBody} onClose={onClose} icon />
-                            <Alert type="error" body={alertBody} icon />
-                            <Alert type="error" body={alertBody} onClose={onClose} />
-                            <Alert type="error" body={alertBody} />
+                                body={alertBody}/>
+                            <Alert type="error" header="Warning Example" body={alertBody}/>
+                            <Alert type="error" body={alertBody} onClose={onClose} icon/>
+                            <Alert type="error" body={alertBody} icon/>
+                            <Alert type="error" body={alertBody} onClose={onClose}/>
+                            <Alert type="error" body={alertBody}/>
                         </div>
                     </Accordion>
                     <h1>Container Variants</h1>
@@ -213,7 +218,7 @@ const TempPage = () => {
                                     overline="Award Search"
                                     headline="Find details on federal awards"
                                     text="Search spending to your community using Location filters like Place of Performance">
-                                    <CardButton text="Search" variant="primary" link="/search" />
+                                    <CardButton text="Search" variant="primary" link="/search"/>
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
@@ -222,7 +227,7 @@ const TempPage = () => {
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
                         <FlexGridCol width={3} desktop={3}>
                             <CardContainer variant="elevated" size="sm">
-                                <CardHero variant="inset" fill="#1a4480" img={imageLink} />
+                                <CardHero variant="inset" fill="#1a4480" img={imageLink}/>
                                 <CardBody variant="inset" overline="blah lbahl bhal" headline="more more more">
                                     <p>hello</p>
                                     <p>hello</p>
@@ -231,19 +236,19 @@ const TempPage = () => {
                         </FlexGridCol>
                         <FlexGridCol width={3} desktop={3}>
                             <CardContainer variant="elevated" size="md">
-                                <CardHero fill="#1a4480" img={imageLink} />
+                                <CardHero fill="#1a4480" img={imageLink}/>
                                 <p>hello</p>
                                 <p>hello</p>
                             </CardContainer>
                         </FlexGridCol>
                         <FlexGridCol width={3} desktop={3}>
                             <CardContainer variant="elevated" size="md">
-                                <CardHero fill="#1a4480" />
+                                <CardHero fill="#1a4480"/>
                                 <CardBody
                                     overline="Award Search"
                                     headline="Find details on federal awards"
                                     text="Search spending to your community using Location filters like Place of Performance">
-                                    <CardButton text="Return Home" variant="primary" link="/" />
+                                    <CardButton text="Return Home" variant="primary" link="/"/>
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
@@ -252,57 +257,57 @@ const TempPage = () => {
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
                         <FlexGridCol width={4} desktop={4}>
                             <CardContainer variant="elevated" size="md">
-                                <CardHero fill="#1a4480" />
+                                <CardHero fill="#1a4480"/>
                                 <CardBody
                                     overline="Resources"
                                     headline="Learn how to use USAspending with our tutorial videos">
-                                    <CardButton text="Search" variant="hero__button--action" link="/search" />
+                                    <CardButton text="Search" variant="hero__button--action" link="/search"/>
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
                         <FlexGridCol width={4} desktop={4}>
                             <CardContainer variant="elevated" size="md">
-                                <CardHero variant="expanded" img={imageLink} />
+                                <CardHero variant="expanded" img={imageLink}/>
                                 <CardBody
                                     overline="Resources"
                                     headline="Learn how to use USAspending with our tutorial videos">
-                                    <CardButton text="Search" link="/search" />
+                                    <CardButton text="Search" link="/search"/>
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
                         <FlexGridCol width={4} desktop={4}>
                             <CardContainer variant="elevated" size="md">
-                                <CardHero variant="expanded" fill="#1a4480" img={imageLink} />
+                                <CardHero variant="expanded" fill="#1a4480" img={imageLink}/>
                                 <CardBody
                                     overline="Resources"
                                     headline="Learn how to use USAspending with our tutorial videos">
-                                    <CardButton text="Search" variant="text" link="/search" />
+                                    <CardButton text="Search" variant="text" link="/search"/>
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
                     </FlexGridRow>
                     <h1>New Button Variants</h1>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="sm"
                             buttonType="primary"
-                            backgroundColor="light" />
+                            backgroundColor="light"/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="md"
                             buttonType="primary"
-                            backgroundColor="light" />
+                            backgroundColor="light"/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="lg"
                             buttonType="primary"
-                            backgroundColor="light" />
+                            backgroundColor="light"/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="This is wrapping button text"
                             buttonTitle="TEST"
@@ -310,7 +315,7 @@ const TempPage = () => {
                             buttonType="primary"
                             backgroundColor="light"
                             maxWidth="200px"
-                            textAlignment="center" />
+                            textAlignment="center"/>
                         <Button
                             copy="This is wrapping button text"
                             buttonTitle="TEST"
@@ -318,32 +323,32 @@ const TempPage = () => {
                             buttonType="primary"
                             backgroundColor="light"
                             maxWidth="200px"
-                            textAlignment="left" />
+                            textAlignment="left"/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="sm"
                             buttonType="primary"
                             backgroundColor="light"
-                            disabled />
+                            disabled/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="md"
                             buttonType="primary"
                             backgroundColor="light"
-                            disabled />
+                            disabled/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="lg"
                             buttonType="primary"
                             backgroundColor="light"
-                            disabled />
+                            disabled/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -351,7 +356,7 @@ const TempPage = () => {
                             buttonType="primaryIcon"
                             backgroundColor="light"
                             imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -359,7 +364,7 @@ const TempPage = () => {
                             buttonType="primaryIcon"
                             backgroundColor="light"
                             imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -367,27 +372,27 @@ const TempPage = () => {
                             buttonType="primaryIcon"
                             backgroundColor="light"
                             imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="sm"
                             buttonType="secondary"
-                            backgroundColor="light" />
+                            backgroundColor="light"/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="md"
                             buttonType="secondary"
-                            backgroundColor="light" />
+                            backgroundColor="light"/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="lg"
                             buttonType="secondary"
-                            backgroundColor="light" />
+                            backgroundColor="light"/>
                     </FlexGridRow>
                     <FlexGridRow
                         width={3}
@@ -403,19 +408,19 @@ const TempPage = () => {
                             buttonTitle="TEST"
                             buttonSize="sm"
                             buttonType="secondary"
-                            backgroundColor="dark" />
+                            backgroundColor="dark"/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="md"
                             buttonType="secondary"
-                            backgroundColor="dark" />
+                            backgroundColor="dark"/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="lg"
                             buttonType="secondary"
-                            backgroundColor="dark" />
+                            backgroundColor="dark"/>
                     </FlexGridRow>
                     <FlexGridRow
                         width={3}
@@ -433,7 +438,7 @@ const TempPage = () => {
                             buttonType="secondaryIcon"
                             backgroundColor="dark"
                             imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -441,7 +446,7 @@ const TempPage = () => {
                             buttonType="secondaryIcon"
                             backgroundColor="dark"
                             imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -449,29 +454,29 @@ const TempPage = () => {
                             buttonType="secondaryIcon"
                             backgroundColor="dark"
                             imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="sm"
                             buttonType="tertiary"
-                            backgroundColor="light" />
+                            backgroundColor="light"/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="md"
                             buttonType="tertiary"
-                            backgroundColor="light" />
+                            backgroundColor="light"/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="lg"
                             buttonType="tertiary"
-                            backgroundColor="light" />
+                            backgroundColor="light"/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -479,7 +484,7 @@ const TempPage = () => {
                             buttonType="tertiaryIcon"
                             backgroundColor="light"
                             imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -487,7 +492,7 @@ const TempPage = () => {
                             buttonType="tertiaryIcon"
                             backgroundColor="light"
                             imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -495,29 +500,29 @@ const TempPage = () => {
                             buttonType="tertiaryIcon"
                             backgroundColor="light"
                             imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="sm"
                             buttonType="text"
-                            backgroundColor="light" />
+                            backgroundColor="light"/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="md"
                             buttonType="text"
-                            backgroundColor="light" />
+                            backgroundColor="light"/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="lg"
                             buttonType="text"
-                            backgroundColor="light" />
+                            backgroundColor="light"/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -525,7 +530,7 @@ const TempPage = () => {
                             buttonType="text"
                             backgroundColor="light"
                             imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -533,7 +538,7 @@ const TempPage = () => {
                             buttonType="text"
                             backgroundColor="light"
                             imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -541,9 +546,9 @@ const TempPage = () => {
                             buttonType="text"
                             backgroundColor="light"
                             imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -551,7 +556,7 @@ const TempPage = () => {
                             buttonType="text"
                             backgroundColor="light"
                             imageAlignment="right"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -559,7 +564,7 @@ const TempPage = () => {
                             buttonType="text"
                             backgroundColor="light"
                             imageAlignment="right"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -567,7 +572,7 @@ const TempPage = () => {
                             buttonType="text"
                             backgroundColor="light"
                             imageAlignment="right"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                     </FlexGridRow>
                     <FlexGridRow
                         width={3}
@@ -583,53 +588,19 @@ const TempPage = () => {
                             buttonTitle="TEST"
                             buttonSize="sm"
                             buttonType="text"
-                            backgroundColor="dark" />
+                            backgroundColor="dark"/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="md"
                             buttonType="text"
-                            backgroundColor="dark" />
+                            backgroundColor="dark"/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="lg"
                             buttonType="text"
-                            backgroundColor="dark" />
-                    </FlexGridRow>
-                    <FlexGridRow
-                        width={3}
-                        desktop={3}
-                        hasGutter
-                        gutterSize={32}
-                        style={{
-                            marginLeft: "16px",
-                            backgroundColor: "#323a44"
-                        }}>
-                        <Button
-                            copy="TEST"
-                            buttonTitle="TEST"
-                            buttonSize="sm"
-                            buttonType="text"
-                            backgroundColor="dark"
-                            imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button
-                            copy="TEST"
-                            buttonTitle="TEST"
-                            buttonSize="md"
-                            buttonType="text"
-                            backgroundColor="dark"
-                            imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button
-                            copy="TEST"
-                            buttonTitle="TEST"
-                            buttonSize="lg"
-                            buttonType="text"
-                            backgroundColor="dark"
-                            imageAlignment="left"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            backgroundColor="dark"/>
                     </FlexGridRow>
                     <FlexGridRow
                         width={3}
@@ -646,8 +617,42 @@ const TempPage = () => {
                             buttonSize="sm"
                             buttonType="text"
                             backgroundColor="dark"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="md"
+                            buttonType="text"
+                            backgroundColor="dark"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="lg"
+                            buttonType="text"
+                            backgroundColor="dark"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
+                    </FlexGridRow>
+                    <FlexGridRow
+                        width={3}
+                        desktop={3}
+                        hasGutter
+                        gutterSize={32}
+                        style={{
+                            marginLeft: "16px",
+                            backgroundColor: "#323a44"
+                        }}>
+                        <Button
+                            copy="TEST"
+                            buttonTitle="TEST"
+                            buttonSize="sm"
+                            buttonType="text"
+                            backgroundColor="dark"
                             imageAlignment="right"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -655,7 +660,7 @@ const TempPage = () => {
                             buttonType="text"
                             backgroundColor="dark"
                             imageAlignment="right"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
@@ -663,30 +668,30 @@ const TempPage = () => {
                             buttonType="text"
                             backgroundColor="dark"
                             imageAlignment="right"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="sm"
                             buttonType="stacked"
                             backgroundColor="light"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="md"
                             buttonType="stacked"
                             backgroundColor="light"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="lg"
                             buttonType="stacked"
                             backgroundColor="light"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                     </FlexGridRow>
                     <FlexGridRow
                         width={3}
@@ -703,41 +708,41 @@ const TempPage = () => {
                             buttonSize="sm"
                             buttonType="stacked"
                             backgroundColor="dark"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="md"
                             buttonType="stacked"
                             backgroundColor="dark"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="TEST"
                             buttonTitle="TEST"
                             buttonSize="lg"
                             buttonType="stacked"
                             backgroundColor="dark"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             buttonTitle="TEST"
                             buttonSize="sm"
                             buttonType="icon"
                             backgroundColor="light"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             buttonTitle="TEST"
                             buttonSize="md"
                             buttonType="icon"
                             backgroundColor="light"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             buttonTitle="TEST"
                             buttonSize="lg"
                             buttonType="icon"
                             backgroundColor="light"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                     </FlexGridRow>
                     <FlexGridRow
                         width={3}
@@ -753,21 +758,21 @@ const TempPage = () => {
                             buttonSize="sm"
                             buttonType="icon"
                             backgroundColor="dark"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             buttonTitle="TEST"
                             buttonSize="md"
                             buttonType="icon"
                             backgroundColor="dark"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             buttonTitle="TEST"
                             buttonSize="lg"
                             buttonType="icon"
                             backgroundColor="dark"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="what"
                             buttonTitle="TEST"
@@ -775,7 +780,7 @@ const TempPage = () => {
                             buttonType="inline"
                             backgroundColor="light"
                             imageAlignment="right"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="what"
                             buttonTitle="TEST"
@@ -783,7 +788,7 @@ const TempPage = () => {
                             buttonType="inline"
                             backgroundColor="light"
                             imageAlignment="right"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                         <Button
                             copy="what"
                             buttonTitle="TEST"
@@ -791,30 +796,30 @@ const TempPage = () => {
                             buttonType="inline"
                             backgroundColor="light"
                             imageAlignment="right"
-                            image={<FontAwesomeIcon icon="share-alt" />} />
+                            image={<FontAwesomeIcon icon="share-alt"/>}/>
                     </FlexGridRow>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{marginLeft: "16px"}}>
                         <Button
                             copy="hello"
                             buttonTitle="TEST"
                             buttonSize="sm"
                             buttonType="intext"
                             backgroundColor="light"
-                            to="https://usaspending.gov" />
+                            to="https://usaspending.gov"/>
                         <Button
                             copy="hello"
                             buttonTitle="TEST"
                             buttonSize="md"
                             buttonType="intext"
                             backgroundColor="light"
-                            to="https://usaspending.gov" />
+                            to="https://usaspending.gov"/>
                         <Button
                             copy="hello"
                             buttonTitle="TEST"
                             buttonSize="lg"
                             buttonType="intext"
                             backgroundColor="light"
-                            to="https://usaspending.gov" />
+                            to="https://usaspending.gov"/>
                     </FlexGridRow>
                 </main>
             </PageWrapper>
