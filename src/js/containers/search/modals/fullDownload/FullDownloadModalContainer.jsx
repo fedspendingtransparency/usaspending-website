@@ -24,28 +24,22 @@ const propTypes = {
 
 export class FullDownloadModalContainer extends React.Component {
     render() {
-        // if (GlobalConstants.QAT) {
-        //     return (<NewDownloadModal
-        //         setDownloadCollapsed={this.props.setDownloadCollapsed}
-        //         pendingDownload={this.props.pendingDownload}
-        //         download={this.props.download}
-        //         mounted={this.props.mounted}
-        //         hideModal={this.props.hideModal} />);
-        // }
-        // return (
-        //     <FullDownloadModal
-        //         setDownloadCollapsed={this.props.setDownloadCollapsed}
-        //         pendingDownload={this.props.pendingDownload}
-        //         download={this.props.download}
-        //         mounted={this.props.mounted}
-        //         hideModal={this.props.hideModal} />
-        // );
-        return (<NewDownloadModal
-            setDownloadCollapsed={this.props.setDownloadCollapsed}
-            pendingDownload={this.props.pendingDownload}
-            download={this.props.download}
-            mounted={this.props.mounted}
-            hideModal={this.props.hideModal} />);
+        if (GlobalConstants.QAT) {
+            return (<NewDownloadModal
+                setDownloadCollapsed={this.props.setDownloadCollapsed}
+                pendingDownload={this.props.pendingDownload}
+                download={this.props.download}
+                mounted={this.props.mounted}
+                hideModal={this.props.hideModal} />);
+        }
+        return (
+            <FullDownloadModal
+                setDownloadCollapsed={this.props.setDownloadCollapsed}
+                pendingDownload={this.props.pendingDownload}
+                download={this.props.download}
+                mounted={this.props.mounted}
+                hideModal={this.props.hideModal} />
+        );
     }
 }
 
