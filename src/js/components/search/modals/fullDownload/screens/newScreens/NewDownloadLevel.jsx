@@ -18,16 +18,17 @@ const propTypes = {
 const ITEM_MAX = 500000;
 const NewDownloadLevel = (props) => {
     // may need for follow up ticket
+    // eslint-disable-next-line no-unused-vars
     const clickedAward = () => {
         props.setDownloadType('awards');
         props.goToStep(2, true);
     };
-
+    // eslint-disable-next-line no-unused-vars
     const clickedTransaction = () => {
         props.setDownloadType('transactions');
         props.goToStep(2, true);
     };
-
+    // eslint-disable-next-line no-unused-vars
     const clickedSubawards = () => {
         props.setDownloadType('subawards');
         props.goToStep(2, true);
