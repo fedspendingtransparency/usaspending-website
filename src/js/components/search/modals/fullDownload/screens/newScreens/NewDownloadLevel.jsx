@@ -37,9 +37,7 @@ const NewDownloadLevel = (props) => {
     const transactionCount = "500,001";
     const subawardCount = "1";
     let message = null;
-    console.debug(parseInt(awardCount.replace(/,/g, ''), 10), parseInt(transactionCount.replace(/,/g, ''), 10), parseInt(subawardCount.replace(/,/g, ''), 10), ITEM_MAX);
     if (parseInt(awardCount.replace(/,/g, ''), 10) > ITEM_MAX || parseInt(transactionCount.replace(/,/g, ''), 10) > ITEM_MAX || parseInt(subawardCount.replace(/,/g, ''), 10) > ITEM_MAX) {
-        console.debug("message set");
         message = <span className="download-warning-text">One or more options is not available for download because it exceeds the 500,000 record download limit. Please return to your search results and narrow them down by selecting additional filters; or try downloading the data by selecting new options from our <Link target="_blank" rel="noopener noreferrer" to="/download_center/custom_award_data">Custom Award Data</Link> page.</span>;
     }
     return (
