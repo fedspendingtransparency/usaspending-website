@@ -100,6 +100,7 @@ import {
     faLongArrowAltUp,
     faLongArrowAltDown
 } from "@fortawesome/pro-solid-svg-icons";
+import { faXmark } from '@fortawesome/pro-regular-svg-icons';
 
 export default function registerIcons() {
     library.add(
@@ -199,6 +200,7 @@ export default function registerIcons() {
         faYoutube,
         faLinkedin,
         faGithub,
-        faArrowDown
+        faArrowDown,
+        faXmark
     );
 }

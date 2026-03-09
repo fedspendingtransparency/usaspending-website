@@ -6,12 +6,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
-
-import { Close } from 'components/sharedComponents/icons/Icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import NewDownloadLevelContainer from
     'containers/search/modals/fullDownload/screens/newScreens/NewDownloadLevelContainer';
-
 
 import usePrevious from '../../../../hooks/usePrevious';
 
@@ -84,13 +82,7 @@ const NewDownloadModal = (props) => {
                     <div className="header-content">
                         <h1 className="modal__header">{headerContent}</h1>
                         <div className="close-wrapper">
-                            <button
-                                className="close-button"
-                                onClick={props.hideModal}
-                                title="Close"
-                                aria-label="Close">
-                                <Close alt="Close modal" />
-                            </button>
+                            <FontAwesomeIcon tabIndex={0} className="close-button" onClick={props.hideModal} aria-label="Close" icon="xmark" />
                         </div>
                     </div>
                 </div>
