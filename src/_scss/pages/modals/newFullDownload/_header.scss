@@ -17,7 +17,7 @@
         }
 
         .close-wrapper {
-            @include flex(0 0 auto);
+            display: flex;
             position: absolute;
             right: 24px;
             height: rem(24);
