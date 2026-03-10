@@ -25,6 +25,11 @@ const TempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
+                    <h1>Fontawesome Pro Icons</h1>
+                    <FontAwesomeIcon icon="bluetooth" />
+                    <FontAwesomeIcon icon="lightbulb-cfl" />
+                    <FontAwesomeIcon icon={['fal', 'lightbulb']} />
+
                     <h1>Alert Variants</h1>
                     <div
                         style={{
@@ -70,7 +75,7 @@ const TempPage = () => {
                             <Alert body={alertBody} />
                         </div>
                     </Accordion>
-                    <Accordion title="Success Alert Variants" >
+                    <Accordion title="Success Alert Variants">
                         <div
                             style={{
                                 display: 'flex',
@@ -103,7 +108,7 @@ const TempPage = () => {
                             <Alert type="success" body={alertBody} />
                         </div>
                     </Accordion>
-                    <Accordion title="Warning Alert Variants" >
+                    <Accordion title="Warning Alert Variants">
                         <div
                             style={{
                                 display: 'flex',
@@ -136,7 +141,7 @@ const TempPage = () => {
                             <Alert type="warning" body={alertBody} />
                         </div>
                     </Accordion>
-                    <Accordion title="Error Alert Variants" >
+                    <Accordion title="Error Alert Variants">
                         <div
                             style={{
                                 display: 'flex',

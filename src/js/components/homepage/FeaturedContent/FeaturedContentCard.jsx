@@ -4,23 +4,24 @@
  */
 
 import React from 'react';
-import { CardBody, CardContainer, CardHero, FlexGridCol } from "data-transparency-ui";
 import PropTypes from "prop-types";
-import Analytics from "../../../helpers/analytics/Analytics";
-import ExternalLink from "../../sharedComponents/ExternalLink";
+import { CardBody, CardContainer, CardHero, FlexGridCol } from "data-transparency-ui";
 
-const trackHomePageLink = ({
+import Analytics from "helpers/analytics/Analytics";
+import ExternalLink from "components/sharedComponents/ExternalLink";
+
+const trackHomePageLink = (
+    title,
     event = 'homepage_featured_content_links',
     category = 'Homepage',
-    action = 'Link',
-    label
-}) => {
-    if (label) {
+    action = 'Link'
+) => {
+    if (title) {
         Analytics.event({
+            label: title,
             event,
             category,
-            action,
-            label
+            action
         });
     }
 };
@@ -65,9 +66,7 @@ const FeaturedContentCard = ({
                     href={url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => trackHomePageLink(() => trackHomePageLink(
-                        { label: title }
-                    ))}
+                    onClick={() => trackHomePageLink(title)}
                     className="featured-content__section--link" >
                     <Content />
                 </a>
