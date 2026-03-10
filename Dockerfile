@@ -27,7 +27,7 @@ ENV FASECRET=$FASECRET
 RUN npm install -g npm@10.8.3
 RUN npm install -g webpack@5.94.0
 RUN npm install -g webpack-cli@5.1.4
-RUN npm ci --maxsockets 1
+RUN npm ci --legacy-peer-deps --maxsockets 1
 
 # Now copy the remaining source files
 # Files in .dockerignore will not be copied#
