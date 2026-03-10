@@ -38,8 +38,7 @@ const BarHeaderAbove = memo(function BarHeaderAbove() {
                     image={image} />
             </div>
             <h2 className="subtitle">
-                {/* TODO: change these icons to font awesome 7 */}
-                <FontAwesomeIcon icon="lightbulb" />
+                <FontAwesomeIcon icon={["far", "lightbulb"]} />
                 To <span>remove active filters</span>, select the individual filter labels.
                 Then, once the button appears, click "Remove selected filters".
             </h2>

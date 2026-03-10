@@ -20,7 +20,6 @@ const propTypes = {
 const ExpandFiltersButton = ({ appliedFilters, expandedFilters, setExpandedFilters }) => {
     const [needExpandButton, setNeedExpandButton] = useState(false);
 
-    // TODO: change these icons to font awesome 7
     const chevronIcon = useMemo(() => (
         <FontAwesomeIcon icon={expandedFilters ? "chevron-up" : "chevron-down"} />
     ), [expandedFilters]);

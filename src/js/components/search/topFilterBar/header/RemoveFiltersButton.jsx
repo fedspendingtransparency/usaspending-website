@@ -24,7 +24,6 @@ const RemoveFiltersButton = ({ appliedFilters }) => {
     const dispatch = useDispatch();
     const stagedFilters = useSelector((state) => state.filters);
 
-    // TODO: change these icons to font awesome 7
     const closeIcon = useMemo(() => (<FontAwesomeIcon icon="times" />), []);
     const emptyFilters = areFiltersEqual(stagedFilters);
     const equalFilters = areFiltersEqual(stagedFilters, appliedFilters);
@@ -58,7 +57,7 @@ const RemoveFiltersButton = ({ appliedFilters }) => {
         <Button
             onClick={removeOnClick}
             onKeyUp={removeOnKeyUp}
-            copy="Remove elected filters"
+            copy="Remove selected filters"
             buttonTitle="filter modal"
             buttonSize="sm"
             buttonType="text"
