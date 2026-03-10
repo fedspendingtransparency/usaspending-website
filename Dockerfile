@@ -3,7 +3,6 @@ FROM node:22.14.0
 # Default environment variables
 ENV ENV=prod USASPENDING_API=https://api.usaspending.gov/api/ MAPBOX_TOKEN='' GA_TRACKING_ID='' FASECRET=''
 
-
 RUN mkdir /node-workspace && mkdir /test-results
 
 # Copy JUST the package files first.
