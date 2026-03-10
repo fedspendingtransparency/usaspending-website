@@ -45,7 +45,7 @@ const TopFilterItem = ({
     };
 
     return (
-        <div className="filter-item-container">
+        <div className="filter-item-container" role="listitem">
             <button
                 onClick={onClick}
                 onKeyUp={onKeyUp}
