@@ -30,5 +30,5 @@ RUN npm install -g webpack-cli@5.1.4
 RUN npm ci --maxsockets 1
 
 # Now copy the remaining source files
-# Files in .dockerignore will not be copied
+# Files in .dockerignore will not be copied#
 COPY . /node-workspace
