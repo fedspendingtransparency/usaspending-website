@@ -23,7 +23,6 @@ WORKDIR /node-workspace
 # RUN npm config set https-proxy "http://p1proxy.frb.org:8080/"
 # RUN npm config set proxy "http://p1proxy.frb.org:8080/"
 ARG FASECRET
-ENV FASECRET=$FASECRET
 RUN npm install -g npm@10.8.3
 RUN npm install -g webpack@5.94.0
 RUN npm install -g webpack-cli@5.1.4
