@@ -268,7 +268,7 @@ export const sendAnalyticEvents = (events) => {
     });
 };
 
-export const sendFieldCombinations = (events) => {
+export const sendFieldCombinations = (events, category = 'Advanced Search - Search Fields') => {
     // record the filter field combinations that were selected
     // extract the action label from each event and then eliminate duplicates
     const fields = uniq(events.reduce((parsed, event) => {
@@ -280,7 +280,7 @@ export const sendFieldCombinations = (events) => {
 
     Analytics.event({
         event: 'search_send_all_fields',
-        category: 'Advanced Search - Search Fields',
+        category,
         action: fields.sort().join('|'),
         gtm: true
     });

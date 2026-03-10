@@ -41,6 +41,73 @@
         }
 
         @import "./_clearAllButton";
+
+        &.advanced-search {
+            display: block;
+            padding-bottom: rem(5);
+            border: none;
+
+            .title-container, .below-line, .filter-buttons {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .above-line {
+                padding: 0 ($global-padding * 2) rem(20);
+                border-bottom: rem(1) solid $color-gray-border;
+
+                h1 {
+                    color: $gray-cool-90;
+                    font-size: $lead-font-size;
+                    line-height: 1.25;
+                    margin: 0 0 $global-margin;
+                    font-weight: $font-semibold;
+                }
+
+                h2 {
+                    color: $color-black;
+                    font-size: $base-font-size;
+                    line-height: 1.5;
+                    margin: 0;
+                    font-weight: $font-normal;
+
+                    span {
+                        font-weight: $font-semibold;
+                    }
+
+                    svg {
+                        color: $blue-60v;
+                    }
+                }
+            }
+
+            .below-line {
+                margin: $global-margin ($global-margin * 2) 0;
+
+                .header-title {
+                    margin-top: rem(4);
+                    color: $gray-cool-90;
+                    font-size: $base-font-size;
+                    line-height: 1.5;
+                }
+
+                .filter-buttons button {
+                    border: rem(2) solid $blue-60v;
+                    border-radius: rem(4);
+                    padding: rem(6) rem(10);
+                    font-size: $small-font-size;
+                    line-height: rem(18);
+
+                    &:last-of-type {
+                        margin-left: rem(20);
+                    }
+
+                    svg {
+                        height: rem(13);
+                    }
+                }
+            }
+        }
     }
 
     .search-top-filters {
@@ -49,13 +116,20 @@
 
         .search-top-filters-content {
             display: block;
-            padding-right: rem(10);
-            padding-bottom: rem(10);
+            margin-right: rem(10);
+            margin-bottom: rem(10);
+            margin-left: $global-margin * 2;
 
-            // all this is to ensure that the New Awards Only chip is grouped with the other Time Period chips
-            .filter-group-container {
-                margin-left: rem(15);
+            &.collapsed {
+                max-height: 125px;
+                overflow: hidden;
             }
+
+            &.expanded {
+                max-height: 280px;
+                overflow: auto;
+            }
+
             .filter-group-container:first-child {
                 margin-left: 0;
             }

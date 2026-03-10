@@ -3,7 +3,7 @@
  * Created by Kevin Li 1/24/17
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from "prop-types";
 
 import TimePeriodFYFilterGroup from './filterGroups/TimePeriodFYFilterGroup';
@@ -28,7 +28,8 @@ import NewAwardsOnlyFilterGroup from "./filterGroups/NewAwardsOnlyFilterGroup";
 
 const propTypes = { code: PropTypes.string, name: PropTypes.string };
 
-const topFilterGroupGenerator = ({ code = '', name }) => {
+// eslint-disable-next-line prefer-arrow-callback
+const TopFilterGroupGenerator = memo(function TopFilterGroupGenerator({ code = '', name }) {
     const groupKey = `top-filter-group-${code}`;
 
     switch (code) {
@@ -77,7 +78,7 @@ const topFilterGroupGenerator = ({ code = '', name }) => {
         default:
             return null;
     }
-};
+});
 
-topFilterGroupGenerator.propTypes = propTypes;
-export default topFilterGroupGenerator;
+TopFilterGroupGenerator.propTypes = propTypes;
+export default TopFilterGroupGenerator;

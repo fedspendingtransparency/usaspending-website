@@ -66,6 +66,7 @@ const SearchSidebarSubmitContainer = ({ setShowMobileFilters }) => {
     };
 
     const applyFilters = useCallback(() => {
+        console.log("fire");
         dispatch(setAppliedFilterCompletion(false));
 
         if (areFiltersEqual(stagedFilters)) {
