@@ -1,5 +1,5 @@
 import { Button } from "data-transparency-ui";
-import React, { useMemo } from "react";
+import React, { useCallback, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
@@ -29,9 +29,7 @@ const RemoveFiltersButton = ({ appliedFilters }) => {
     const emptyFilters = areFiltersEqual(stagedFilters);
     const equalFilters = areFiltersEqual(stagedFilters, appliedFilters);
 
-    if (equalFilters) return (<></>);
-
-    const removeOnClick = () => {
+    const removeOnClick = useCallback(() => {
         dispatch(setAppliedFilterCompletion(false));
 
         if (emptyFilters) {
@@ -47,11 +45,14 @@ const RemoveFiltersButton = ({ appliedFilters }) => {
         const events = convertFiltersToAnalyticEvents(stagedFilters);
         sendAnalyticEvents(events);
         sendFieldCombinations(events, "Advanced Search - Active Filters");
-    };
-    const removeOnKeyUp = (e) => {
+    }, [dispatch, emptyFilters, equalFilters, stagedFilters]);
+
+    const removeOnKeyUp = useCallback((e) => {
         e.persist();
         if (e.key === 'Enter') removeOnClick();
-    };
+    }, [removeOnClick]);
+
+    if (equalFilters) return (<></>);
 
     return (
         <Button
