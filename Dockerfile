@@ -29,8 +29,8 @@ WORKDIR /node-workspace
 RUN npm install -g npm@10.8.3
 RUN npm install -g webpack@5.94.0
 RUN npm install -g webpack-cli@5.1.4
-RUN npm config set "@fortawesome:registry" https://npm.fontawesome.com/ \
-    && npm config set "//npm.fontawesome.com/:_authToken=$FASECRET"
+
+ENV FONTAWESOME_NPM_AUTH_TOKEN=$FASECRET
 RUN npm ci --legacy-peer-deps --dd
 
 # Now copy the remaining source files
