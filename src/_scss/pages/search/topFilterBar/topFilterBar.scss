@@ -117,17 +117,22 @@
         .search-top-filters-content {
             display: block;
             margin-right: rem(10);
-            margin-bottom: rem(10);
+            margin-bottom: rem(15);
             margin-left: $global-margin * 2;
 
             &.collapsed {
-                max-height: 125px;
+                max-height: 150px;
                 overflow: hidden;
             }
 
             &.expanded {
                 max-height: 280px;
                 overflow: auto;
+
+            }
+
+            &.fade {
+                mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 1) 40%);
             }
 
             .filter-group-container:first-child {
