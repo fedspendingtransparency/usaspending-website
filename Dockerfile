@@ -35,7 +35,7 @@ ENV FONTAWESOME_NPM_AUTH_TOKEN=$FASECRET
 ENV FABASEENCODE=$FABASEENCODE
 RUN echo "@fortawesome:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
     echo "@awesome.me:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
-    echo "//npm.fontawesome.com/:username=${FONTAWESOME_NPM_AUTH_TOKEN}" >> ~/.npmrc && \\
+    echo "//npm.fontawesome.com/:username=${FONTAWESOME_NPM_AUTH_TOKEN}" >> ~/.npmrc && \
     echo "//npm.fontawesome.com/:_password=${FABASEENCODE}" >> ~/.npmrc
 
 RUN cat ~/.npmrc
