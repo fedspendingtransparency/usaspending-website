@@ -45,10 +45,10 @@ const getOtherArticle = (otherArticleCadence, otherArticles, featureWeekNum, fea
 /**
  *
  * @param otherArticleCadence - determines the cadence calculation based on a `week` or `sprint`
- * @param dayOneString - determines the start date for the date calculations
+ * @param dayOneString - determines the start date for the date calculations, new sprints start on Thursdays
  * @returns {[(*&{url: string, title: *, overline: *})|(*&{url: string, overline: *})|*|{title: string, fill: string, thumbnail_path: string, taxonomy: string},(*&{url: string, title: *, overline: *})|(*&{url: string, overline: *})|*|{title: string, fill: string, thumbnail_path: string, taxonomy: string}]}
  */
-const getCurrentArticles = (otherArticleCadence = 'sprint', dayOneString = '11/13/2025') => {
+const getCurrentArticles = (otherArticleCadence, dayOneString = '11/13/2025') => {
     /* eslint-enable max-len */
     // get the sprint number and week number from today's date and start date
     const today = new Date();
