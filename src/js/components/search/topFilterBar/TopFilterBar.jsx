@@ -48,10 +48,6 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
             (!expandedFilters && atMaxHeight)
         ) newClass = ' fade';
 
-        console.log({
-            expandedFilters, atMaxHeight, newClass, offsetHeight, filtersMaxHeight
-        });
-
         setFadeClass(newClass);
     }, [bottom, expandedFilters, filters]);
 
@@ -65,6 +61,7 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
             const scrollTop = contentRef.current?.scrollTop;
             const scrollHeight = contentRef.current?.scrollHeight;
             const clientHeight = contentRef.current?.clientHeight;
+
             const scrolledTo = scrollHeight - clientHeight;
             const isReachBottom = scrollTop === scrolledTo;
 
