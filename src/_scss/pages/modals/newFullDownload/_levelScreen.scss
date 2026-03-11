@@ -1,0 +1,125 @@
+.download-level-screen {
+    .main-title {
+        h2 {
+            text-align: left;
+            font-size: rem(20);
+            font-weight: $font-normal;
+            margin-bottom: rem(12);
+            margin-top: 0;
+            line-height: 120%;
+            color: $gray-90;
+        }
+    }
+    .download-warning-container {
+        display: flex;
+        align-items: flex-start;
+        border: rem(1) solid $orange-30v;
+        border-radius: rem(4);
+        background-color: $orange-5v;
+        padding: rem(16);
+        margin-bottom: rem(12);
+        .usa-da-icon-exclamation-triangle {
+            width: rem(44);
+            margin-right: rem(8);
+            fill: $orange-30v;
+        }
+        span {
+            line-height: 150%;
+            font-size: rem(16);
+            color: $gray-90;
+        }
+    }
+    .level-options-container {
+        @include media($medium-screen) {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: rem(20);
+            position: relative;
+        }
+
+        margin-bottom: rem(12);
+        .download-item {
+            border: rem(1) solid $gray-10;
+            border-radius: rem(12);
+            padding: rem(16);
+            &.disabled {
+                background-color: $gray-2;
+                color: $gray-2;
+            }
+            .download-item-top {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: rem(11);
+                &.disabled {
+                    background-color: $gray-2;
+                }
+                input { 
+                    margin-right: rem(8);
+                    border: rem(1) solid $gray-cool-30;
+                    border-radius: rem(2);
+                    &.disabled {
+                        background-color: $gray-cool-30;
+                    }
+                }
+                .download-item-title {
+                    font-weight: $font-semibold;
+                    line-height: 120%;
+                    color: $gray-90;
+                    display:flex;
+                    align-items: center;
+
+                    &.disabled {
+                        color: $gray-60;
+                    }
+                }
+                .download-record-count {
+                    font-weight: $font-semibold;
+                    line-height: 150%;
+                    font-size: rem(14);
+                    padding: 0 rem(4);
+                    color: $gray-90;
+                    background-color: $yellow-20v;
+                    border-radius: rem(4);
+
+                    &.disabled {
+                        background-color: $gray-2;
+                        color: $gray-60;
+                    }                    
+                }
+            }
+            .download-item-body {
+                size: rem(16);
+                color: $gray-90;
+                line-height: 150%; 
+                &.disabled {
+                    background-color: $gray-2;
+                    color: $gray-60;
+                }
+            }
+        }
+    }
+
+    .level-options-note {
+        margin-bottom: rem(12);
+        color: $gray-90;
+        font-size: rem(16);
+        line-height: 150%;
+        .level-options-bold {
+            font-weight: $font-semibold;
+        }
+    }
+
+    .download-button-container {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            margin: 0;
+
+            &:first-of-type {
+                margin-right: rem(12);
+            }
+        }
+    }
+}
