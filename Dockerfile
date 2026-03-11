@@ -2,6 +2,7 @@ FROM node:22.14.0
 
 # font awesome token passed in
 ARG FASECRET
+ARG FABASEENCODE
 
 # Default environment variables
 ENV ENV=prod USASPENDING_API=https://api.usaspending.gov/api/ MAPBOX_TOKEN='' GA_TRACKING_ID=''
@@ -31,9 +32,11 @@ RUN npm install -g webpack@5.94.0
 RUN npm install -g webpack-cli@5.1.4
 
 ENV FONTAWESOME_NPM_AUTH_TOKEN=$FASECRET
+ENV FABASEENCODE=$FABASEENCODE
 RUN echo "@fortawesome:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
     echo "@awesome.me:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
-    echo "//npm.fontawesome.com/:_authToken=${FONTAWESOME_NPM_AUTH_TOKEN}" >> ~/.npmrc
+    echo "//npm.fontawesome.com/:username=${FONTAWESOME_NPM_AUTH_TOKEN}" >> ~/.npmrc && \\
+    echo "//npm.fontawesome.com/:_password=${FABASEENCODE}" >> ~/.npmrc
 
 RUN cat ~/.npmrc
 
