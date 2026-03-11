@@ -37,9 +37,8 @@ RUN echo "@fortawesome:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
     echo "//npm.fontawesome.com/:username=${FONTAWESOME_NPM_AUTH_TOKEN}" >> ~/.npmrc && \
     echo "//npm.fontawesome.com/:_password=${FABASEENCODE}" >> ~/.npmrc
 
-RUN cat ~/.npmrc
-
-RUN npm ci --legacy-peer-deps --dd
+## Add --dd to see verbose logs
+RUN npm ci --legacy-peer-deps 
 
 # Now copy the remaining source files
 # Files in .dockerignore will not be copied
