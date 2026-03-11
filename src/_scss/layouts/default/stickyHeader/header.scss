@@ -11,7 +11,7 @@
         .usda-page-header__header,
         .usda-page-header__toolbar {
             border-bottom: none;
-            background-color: #112F4E;
+            background-color: $blue-80v;
 
             @media (max-width: $medium-screen) {
                 .usda-fy-picker__container {
