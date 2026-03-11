@@ -6,8 +6,6 @@ import {
     faLinkedin,
     faReddit
 } from '@fortawesome/free-brands-svg-icons';
-import { faEnvelope } from "@fortawesome/pro-regular-svg-icons";
-import { faLink } from '@fortawesome/pro-solid-svg-icons';
 
 export const socialUrls = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=`,
@@ -129,11 +127,11 @@ export const newSocialShareOptions = [
     { component: <GlossaryDropdownOption icon={faLinkedin} title="LinkedIn" color="#0A66C2" />, name: 'linkedin' },
     { component: <GlossaryDropdownOption icon={faFacebook} title="Facebook" color="#0866FF" />, name: 'facebook' },
     { component: <GlossaryDropdownOption icon={faReddit} title="Reddit" color="#ff4500" />, name: 'reddit' },
-    { component: <GlossaryDropdownOption icon={faEnvelope} title="Email" color="#000" />, name: 'email' }
+    { component: <GlossaryDropdownOption icon={["fa", "envelope"]} title="Email" color="#000" />, name: 'email' }
 ];
 export const newSocialShareOptionsWithCopy = [
-    { component: <GlossaryDropdownOption icon={faLink} title="Copy link" />, name: `copy` },
-    { component: <GlossaryDropdownOption icon={faEnvelope} title="Email" />, name: 'email' },
+    { component: <GlossaryDropdownOption icon={["fa", "link"]} title="Copy link" />, name: `copy` },
+    { component: <GlossaryDropdownOption icon={["fa", "envelope"]} title="Email" />, name: 'email' },
     { component: <GlossaryDropdownOptionTwitter title="X (Twitter)" />, name: 'twitter' },
     { component: <GlossaryDropdownOption icon={faFacebook} title="Facebook" />, name: 'facebook' },
     { component: <GlossaryDropdownOption icon={faLinkedin} title="LinkedIn" />, name: 'linkedin' },
