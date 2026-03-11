@@ -22,7 +22,7 @@ const propTypes = {
 
 const InPageNav = (props) => {
     const {
-        sections, jumpToSection, pageName, detectActiveSection
+        sections, jumpToSection, pageName, detectActiveSection, rootMargin
     } = props;
     const [observerSupported, setObserverSupported] = useState(false);
     const [activeSection, setActiveSection] = useState(props.activeSection);
@@ -38,11 +38,12 @@ const InPageNav = (props) => {
     const visibleSections = new Set();
 
     const observerOptions = {
-        rootMargin: `-120px 0px 0px 0px`,
+        rootMargin: rootMargin || `-120px 0px 0px 0px`,
         threshold: 0.1
     };
 
-    let firstTime = true;
+    let initialPageLoad = true;
+    const prefix = `${pageName}-`;
 
     const callbackFunction = useCallback((entries) => {
         entries.forEach((entry) => {
@@ -54,11 +55,14 @@ const InPageNav = (props) => {
             }
 
             const visible = [...visibleSections];
-            if (!visible.length) return;
 
-            const topMost = visible.reduce((best, el) => (el.getBoundingClientRect().top < best.getBoundingClientRect().top ? el : best));
+            if (visible.length) {
+                const topMost = visible.reduce((best, el) => (el.getBoundingClientRect().top < best.getBoundingClientRect().top ? el : best));
 
-            console.log("testing sections", visible, topMost);
+                const section = topMost.id.replace(prefix, "");
+
+                setActiveSection(section);
+            }
         });
     });
     // detect if the element is overflowing on the left or the right
@@ -193,7 +197,8 @@ const InPageNav = (props) => {
 
         window.addEventListener('resize', () => handleResize());
         return () => window.removeEventListener('resize', () => handleResize());
-    }, [getInitialElements, handleResize]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     useEffect(() => {
         checkIsOverflowHidden();
@@ -228,82 +233,6 @@ const InPageNav = (props) => {
         setSectionPositions(newSectionPositions);
     }, 100);
 
-    const highlightCurrentSection = throttle(() => {
-        const windowTop = window.pageYOffset || document.documentElement.scrollTop;
-        const windowBottom = windowTop + window.innerHeight;
-
-        // determine the section to highlight
-        let nextActiveSection = activeSection;
-        let bottomSectionVisible = false;
-        const visibleSections = [];
-
-        // ignore sections if only 30px of the top or bottom are visible
-        const edgeMargin = 30;
-        const visibleTop = windowTop + edgeMargin;
-        const visibleBottom = windowBottom - edgeMargin;
-
-        sectionPositions.forEach((section, index) => {
-            // 1. check if the section is in view
-            if (section.top <= visibleBottom && section.bottom >= visibleTop) {
-                // 2. get % of section in view
-                const height = section.bottom - section.top;
-                const visibleHeight = Math.min(section.bottom, visibleBottom)
-                    - Math.max(visibleTop, section.top);
-                const percentageVisible = visibleHeight / height;
-                visibleSections.push({
-                    section: section.section,
-                    amount: percentageVisible
-                });
-
-                if (index === sectionPositions.length - 1) {
-                    // this is the last section and it is visible
-                    bottomSectionVisible = true;
-                }
-            }
-            else if (index === sectionPositions.length - 1) {
-                // this is the last section, so highlight it if we're at the bottom or lower
-                // on the page
-                if (section.top <= visibleTop) {
-                    // we are lower than the top of the last section
-                    bottomSectionVisible = true;
-                    visibleSections.push({
-                        section: section.section,
-                        amount: 1
-                    });
-                }
-            }
-        });
-
-        // select the first section we saw
-        if (visibleSections.length > 0) {
-            nextActiveSection = visibleSections[0].section;
-            if (visibleSections[0].amount < 0.15 && visibleSections.length > 1) {
-                // less than 15% of the first section is visible and we have more than 1 section,
-                // select the next section
-                nextActiveSection = visibleSections[1].section;
-            }
-        }
-
-        // handle a case where we're at the bottom but there's the bottom section is not tall enough
-        // to be the first visible section (which will cause the bottom section to never be
-        // active)
-        if (bottomSectionVisible && visibleSections.length > 1) {
-            const bottomSection = visibleSections[visibleSections.length - 1];
-            const previousSection = visibleSections[visibleSections.length - 2];
-            if (previousSection.amount < 0.5 && bottomSection.amount === 1) {
-                // less than half of the previous section is visible and all of the bottom section
-                // is visible, select the bottom section
-                nextActiveSection = bottomSection.section;
-            }
-        }
-
-        if (nextActiveSection === activeSection) {
-            // no change
-            return;
-        }
-        setActiveSection(nextActiveSection);
-    }, 100);
-
     useEffect(() => {
         setObserverSupported('IntersectionObserver' in window);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -311,48 +240,35 @@ const InPageNav = (props) => {
 
     // eslint-disable-next-line consistent-return
     useEffect(() => {
-        if (observerSupported && firstTime) {
-            firstTime = false;
-            const target = 'about-';
-            const targets = document.querySelectorAll(`[id*="${target}"]`);
-
+        // eslint-disable-next-line consistent-return
+        if (observerSupported && initialPageLoad) {
+            initialPageLoad = false;
+            const target = prefix;
+            const targets = document.querySelectorAll(`[id*='${target}']`);
             // eslint-disable-next-line no-undef
             const observer = new IntersectionObserver(callbackFunction, observerOptions);
 
             targets.forEach((i) => {
-                if (i.className) {
+                if (i) {
                     observer.observe(i);
                 }
             });
 
             return () => observer.disconnect();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [observerSupported]);
+    });
 
     useEffect(() => {
         if (detectActiveSection && sectionPositions.length === 0) {
             cacheSectionPositions();
         }
 
-        const handleScrollAndSetActiveSection = () => {
-            cacheSectionPositions();
-            if (detectActiveSection) highlightCurrentSection();
-        };
-
-        window.addEventListener('scroll', handleScrollAndSetActiveSection);
         window.addEventListener('resize', cacheSectionPositions);
 
         return () => {
-            window.removeEventListener('scroll', handleScrollAndSetActiveSection);
             window.removeEventListener('resize', cacheSectionPositions);
         };
-    }, [
-        detectActiveSection,
-        cacheSectionPositions,
-        highlightCurrentSection,
-        sectionPositions.length
-    ]);
+    }, [cacheSectionPositions, detectActiveSection, sectionPositions.length]);
 
     return (
         <div className="usda-in-page-nav__container">

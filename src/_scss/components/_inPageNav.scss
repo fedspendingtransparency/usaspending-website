@@ -5,6 +5,7 @@
   border-bottom: $theme-color-body-inverse 2px solid;
   position: sticky;
   top: 60px;
+  z-index: 30;
 
   .usda-in-page-nav__wrapper {
     height: rem(53);

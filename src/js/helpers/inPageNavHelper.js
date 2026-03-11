@@ -10,11 +10,11 @@ export const checkIsOverflow = (ulEl, padding) => {
     const firstElPosition = elArray[0]?.getBoundingClientRect();
     const lastElPosition = elArray[elArray.length - 1]?.getBoundingClientRect();
 
-    if (firstElPosition.left < 0 || ulEl.scrollLeft > 0) {
+    if (firstElPosition?.left < 0 || ulEl?.scrollLeft > 0) {
         left = true;
     }
 
-    if (lastElPosition.right > ulEl.clientWidth + padding || lastElPosition.right > ulEl.scrollWidth) {
+    if (lastElPosition?.right > ulEl?.clientWidth + padding || lastElPosition?.right > ulEl?.scrollWidth) {
         right = true;
     }
 

@@ -28,7 +28,9 @@ const PageWrapper = ({
     sections,
     activeSection,
     jumpToSection,
-    backgroundColor
+    backgroundColor,
+    rootMargin,
+    inPageNav
 }) => (
     <div className={classNames} ref={ref}>
         <MetaTags {...metaTagProps} />
@@ -38,13 +40,9 @@ const PageWrapper = ({
             stickyBreakPoint={getStickyBreakPointForSidebar()}
             overLine={overLine}
             toolBar={toolBarComponents}
-            detectActiveSection
             pageName={pageName}
-            sections={sections}
-            backgroundColor={backgroundColor}
-            activeSection={activeSection}
-            jumpToSection={jumpToSection} />
-        {sections && <InPageNav sections={sections} jumpToSection={jumpToSection} />}
+            backgroundColor={backgroundColor} />
+        {sections && inPageNav && <InPageNav sections={sections} activeSection={activeSection} pageName={pageName} rootMargin={rootMargin} detectActiveSection jumpToSection={jumpToSection} />}
         </>}
         {React.cloneElement(children, {
             className: `usda-page__container${
