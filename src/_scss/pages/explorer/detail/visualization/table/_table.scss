@@ -28,10 +28,33 @@
                 border-radius: rem(3);
 
                 .usa-dt-picker__button-text {
-                    font-weight: $font-semibold;
                     background-color: $color-white !important;
+                    font-weight: $font-semibold;
                     color: $gray-60;
                     font-size: $small-font-size;
+                }
+            }
+
+            ul {
+                overflow-y: auto;
+                background-color: #fff;
+                border: .2rem solid #dfe1e2;
+                border-radius: .4rem;
+                box-shadow: 0 .1rem .4rem 0 rgba(0, 0, 0, .1);
+
+                li {
+                    border: none;
+
+                    button {
+                        border: none;
+                        font-weight: $font-semibold;
+                        color: $gray-60;
+                        font-size: $small-font-size;
+
+                        &:hover {
+                            background-color: $gray-cool-3 !important;
+                        }
+                    }
                 }
             }
         }
