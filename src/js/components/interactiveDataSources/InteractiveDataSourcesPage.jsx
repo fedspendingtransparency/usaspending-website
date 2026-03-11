@@ -216,10 +216,6 @@ const InteractiveDataSourcesPage = () => {
         handleShareOptionClick(name, `data-sources`, emailData, handleShareDispatch);
     };
 
-    // const handleDownload = () => {
-        // come back to
-    // }
-
     return (
         <PageWrapper
             pageName="interactive-data-sources"
@@ -228,18 +224,13 @@ const InteractiveDataSourcesPage = () => {
             metaTagProps={interactiveDataSourcesPageMetaTags}
             title="Data Sources"
             toolBarComponents={[
-                // <DownloadIconButton508
-                //     downloadInFlight={downloadInFlight}
-                //     onClick={handleDownload}
-                //     key="DownloadIconButton" />
+                <DownloadStaticFile
+                    key={uniqueId()}
+                    path="/data/data-sources-download.pdf" />,
                 <ShareIcon508
                     key={uniqueId()}
                     url={getBaseUrl('data-sources')}
-                    onShareOptionClick={handleShare}
-                    classNames={!isMobile ? "margin-right" : ""} />,
-                <DownloadStaticFile
-                    key={uniqueId()}
-                    path="/data/data-sources-download.pdf" />
+                    onShareOptionClick={handleShare} />
             ]}
             sections={sections}
             activeSection={activeSection}

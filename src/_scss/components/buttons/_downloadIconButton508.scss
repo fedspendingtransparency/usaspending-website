@@ -7,16 +7,6 @@
         flex-direction: column;
     }
 
-    &.disabled {
-        .usa-button {
-            cursor: default;
-
-            svg, span {
-                color: $theme-color-base-light
-            }
-        }
-    }
-
     .usa-button {
         @include button-unstyled;
         background-color: $theme-color-dark-blue-bg;
@@ -28,10 +18,27 @@
             margin-bottom: rem(4);
             
         }
+        
+        span {
+            line-height: rem(18);
+            font-size: $smallest-font-size;
+        }
+        
         svg, span {
             color: $theme-color-accent-vivid;
             &:hover, &:active {
                 color: $yellow-10v;
+            }
+        }
+    }
+
+    &.disabled {
+        .usa-button {
+            cursor: default;
+
+            svg, span {
+                color: $theme-color-base-light
+                
             }
         }
     }

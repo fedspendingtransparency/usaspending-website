@@ -158,12 +158,12 @@ const Covid19Page = ({ loading }) => {
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
             toolBarComponents={[
+                <DownloadButtonContainer />,
                 <ShareIcon508
                     key={uniqueId()}
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare}
-                    classNames={!isMobile ? "margin-right" : ""} />,
-                <DownloadButtonContainer />
+                    classNames={!isMobile ? "margin-right" : ""} />
             ]}
             sections={covid19Sections}
             activeSection={activeSection}

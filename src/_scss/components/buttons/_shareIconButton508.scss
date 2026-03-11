@@ -11,6 +11,8 @@
 
     span {
         color: $theme-color-accent-vivid;
+        line-height: rem(18);
+        font-size: $smallest-font-size;
     }
 
     .usa-dt-picker {
@@ -26,7 +28,9 @@
                 }
                 span, svg {
                     &:hover, &:active {
-                        color: $yellow-10v
+                        &:not(:disabled) {
+                            color: $yellow-10v;
+                        }
                     }
                 }
 

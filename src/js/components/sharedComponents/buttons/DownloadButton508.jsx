@@ -58,6 +58,7 @@ const DownloadIconButton508 = ({
     );
 
     if (tooltipComponent) {
+        console.log("checking tooltipComponent");
         return (
             <TooltipWrapper
                 className={wrapperclass}

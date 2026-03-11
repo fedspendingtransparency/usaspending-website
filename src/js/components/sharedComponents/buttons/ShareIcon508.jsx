@@ -79,7 +79,7 @@ const ShareIcon508 = ({
                 backgroundColor="#112F4E"
                 notEnabled={!isEnabled}
                 sortFn={() => 1}>
-                <FontAwesomeIcon className="share-icon" icon="share-alt" />
+                <FontAwesomeIcon className="share-icon" icon="fa-share-nodes" />
             </Picker>
             <span className="usda-share-icon__share-text">Share</span>
             {showConfirmationText && (
