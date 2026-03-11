@@ -31,6 +31,12 @@ RUN npm install -g webpack@5.94.0
 RUN npm install -g webpack-cli@5.1.4
 
 ENV FONTAWESOME_NPM_AUTH_TOKEN=$FASECRET
+RUN echo "@fortawesome:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
+    echo "@awesome.me:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
+    echo "//npm.fontawesome.com/:_authToken=${FONTAWESOME_PACKAGE_TOKEN}"
+
+RUN cat ~/.npmrc
+
 RUN npm ci --legacy-peer-deps --dd
 
 # Now copy the remaining source files
