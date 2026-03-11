@@ -38,50 +38,29 @@ const InPageNav = (props) => {
     const visibleSections = new Set();
 
     const observerOptions = {
+        rootMargin: `-120px 0px 0px 0px`,
         threshold: 0.1
     };
-    
+
     let firstTime = true;
 
-    const callbackFunction = (entries) => {
+    const callbackFunction = useCallback((entries) => {
         entries.forEach((entry) => {
-            const section = entry.target.id.replace("agency-v2-", "");
             if (entry.isIntersecting) {
                 visibleSections.add(entry.target);
-            } else {
+            }
+            else {
                 visibleSections.delete(entry.target);
             }
 
             const visible = [...visibleSections];
             if (!visible.length) return;
 
-            const topMost = visible.reduce((best, el) => {
-                return el.getBoundingClientRect().top < best.getBoundingClientRect().top ? el : best;
-            });
+            const topMost = visible.reduce((best, el) => (el.getBoundingClientRect().top < best.getBoundingClientRect().top ? el : best));
 
             console.log("testing sections", visible, topMost);
-
-            sections.forEach((s) => {
-                // console.log("testing sections", s, topMost, visible);
-            })
-            //     if (section === 'awards') {
-            //         logVisualizationViewEvent("awards");
-            //     }
-            //     else if (section === 'time') {
-            //         setTimeHasLoaded(true);
-            //         logVisualizationViewEvent("time");
-            //     }
-            //     else if (section === 'categories') {
-            //         setCategoriesHasLoaded(true);
-            //         logVisualizationViewEvent("categories");
-            //     }
-            //     else if (section === "map") {
-            //         setMapHasLoaded(true);
-            //         logVisualizationViewEvent("map");
-            //     }
-            // }
         });
-    };
+    });
     // detect if the element is overflowing on the left or the right
     const checkIsOverflowHidden = () => {
         const ulEl = navBar?.current?.querySelector("ul");
@@ -214,7 +193,7 @@ const InPageNav = (props) => {
 
         window.addEventListener('resize', () => handleResize());
         return () => window.removeEventListener('resize', () => handleResize());
-    }, []);
+    }, [getInitialElements, handleResize]);
 
     useEffect(() => {
         checkIsOverflowHidden();
@@ -334,10 +313,10 @@ const InPageNav = (props) => {
     useEffect(() => {
         if (observerSupported && firstTime) {
             firstTime = false;
-            const target = 'agency-v2-';
+            const target = 'about-';
             const targets = document.querySelectorAll(`[id*="${target}"]`);
 
-            //eslint-disable-next-line no-undef
+            // eslint-disable-next-line no-undef
             const observer = new IntersectionObserver(callbackFunction, observerOptions);
 
             targets.forEach((i) => {
