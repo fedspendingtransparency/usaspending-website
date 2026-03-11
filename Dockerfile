@@ -33,7 +33,7 @@ RUN npm install -g webpack-cli@5.1.4
 ENV FONTAWESOME_NPM_AUTH_TOKEN=$FASECRET
 RUN echo "@fortawesome:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
     echo "@awesome.me:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
-    echo "//npm.fontawesome.com/:_authToken=${FONTAWESOME_PACKAGE_TOKEN}" >> ~/.npmrc
+    echo "//npm.fontawesome.com/:_authToken=${FONTAWESOME_NPM_AUTH_TOKEN}" >> ~/.npmrc
 
 RUN cat ~/.npmrc
 
