@@ -31,7 +31,7 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
         // max heights of the .search-top-filters-content (located in topFilterBar.scss)
         const filtersMaxHeight = expandedFilters ? 280 : 150;
         const offsetHeight = contentRef.current?.offsetHeight;
-        const atMaxHeight = filtersMaxHeight >= offsetHeight;
+        const atMaxHeight = filtersMaxHeight <= offsetHeight;
 
         let newClass = '';
 
@@ -47,6 +47,10 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
             (expandedFilters && atMaxHeight && !bottom) ||
             (!expandedFilters && atMaxHeight)
         ) newClass = ' fade';
+
+        console.log({
+            expandedFilters, atMaxHeight, newClass, offsetHeight, filtersMaxHeight
+        });
 
         setFadeClass(newClass);
     }, [bottom, expandedFilters, filters]);
