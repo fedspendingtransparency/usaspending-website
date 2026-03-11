@@ -6,11 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpinner, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { TooltipWrapper } from 'data-transparency-ui';
-
-
-// require('../styles/components/_downloadIconButton.scss');
 
 const propTypes = {
     onClick: PropTypes.func.isRequired,
@@ -39,7 +35,7 @@ const DownloadIconButton508 = ({
         wrapperclass += " disabled";
     }
     const buttonText = downloadInFlight ? 'Preparing Download...' : 'Download';
-    const icon = downloadInFlight ? faSpinner : faDownload;
+    const icon = downloadInFlight ? "spinner" : "download";
 
     const downloadButton = () => (
         <button
@@ -52,7 +48,7 @@ const DownloadIconButton508 = ({
             onClick={startDownload}
             tabIndex={!isEnabled ? -1 : 0}
             aria-hidden={!isEnabled}>
-            <FontAwesomeIcon icon={icon} spin={downloadInFlight} />
+            <FontAwesomeIcon icon={["fa", icon]} spin={downloadInFlight} />
             <span>{buttonText}</span>
         </button>
     );

@@ -7,7 +7,6 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { debounce } from "lodash-es";
-import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import { Picker } from 'data-transparency-ui';
 import { newSocialShareOptionsWithCopy } from "helpers/socialShare";
 
@@ -84,7 +83,7 @@ const ShareIcon508 = ({
             <span className="usda-share-icon__share-text">Share</span>
             {showConfirmationText && (
                 <div className="copy-confirmation" >
-                    <FontAwesomeIcon icon={faCheckCircle} />
+                    <FontAwesomeIcon icon={["fa", "check-circle"]} />
                     {' '}
                     Copied!
                 </div>
