@@ -7,6 +7,36 @@
     display: block;
     overflow: auto;
 
+    .usa-dt-table__stacked-picker {
+        label {
+            margin: 0 rem(6) 0 rem(25);
+            font-size: $small-font-size;
+            line-height: 1.5;
+            font-weight: $font-semibold;
+        }
+
+        .usa-dt-picker {
+            background-color: $color-white !important;
+        }
+
+        .usa-dt-picker__dropdown-container {
+            background-color: $color-white !important;
+
+            button {
+                background-color: $color-white !important;
+                border: rem(2) solid $gray-cool-10;
+                border-radius: rem(3);
+
+                .usa-dt-picker__button-text {
+                    font-weight: $font-semibold;
+                    background-color: $color-white !important;
+                    color: $gray-60;
+                    font-size: $small-font-size;
+                }
+            }
+        }
+    }
+
     .mobile-table-rows {
         display: table;
         width: 100%;
