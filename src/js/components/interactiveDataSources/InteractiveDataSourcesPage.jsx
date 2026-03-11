@@ -4,7 +4,6 @@ import { find, throttle, uniqueId } from 'lodash-es';
 import { useDispatch } from 'react-redux';
 import { ComingSoon, FlexGridCol } from 'data-transparency-ui';
 
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -37,8 +36,6 @@ const InteractiveDataSourcesPage = () => {
     const [activeSection, setActiveSection] = useState('intro-section');
     const query = useQueryParams();
     const history = useNavigate();
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const dispatch = useDispatch();
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
@@ -193,19 +190,6 @@ const InteractiveDataSourcesPage = () => {
             isMounted = false;
         };
     }, 100), [history, query.section]);
-
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
-
 
     const emailData = {
         subject: "USAspending Data Sources",
