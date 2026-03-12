@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Tabs, ShareIcon, FlexGridCol, FlexGridRow } from "data-transparency-ui";
+import { Tabs, FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import { useDispatch } from 'react-redux';
 import { Link, useLocation, useNavigate } from "react-router";
 import { getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
@@ -12,6 +12,7 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import AboutTheDataModal from "components/agencySubmissionStats/AboutTheDataModal";
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import AgenciesContainer from 'containers/agencySubmissionStats/AgenciesContainer';
 import { useLatestAccountData, useValidTimeBasedQueryParams } from
     'containers/account/WithLatestFy';
@@ -84,7 +85,7 @@ const AboutTheDataPage = () => {
             classNames="about-the-data about-the-data_agencies-page"
             title="Agency Submission Statistics"
             toolBarComponents={[
-                <ShareIcon
+                <ShareIcon508
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare} />
             ]}>

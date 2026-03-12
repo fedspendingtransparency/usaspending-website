@@ -28,9 +28,9 @@ const PageWrapper = ({
     sections,
     activeSection,
     jumpToSection,
-    backgroundColor,
+    backgroundColor = "#112F4E",
     rootMargin,
-    inPageNav
+    inPageNav = false
 }) => (
     <div className={classNames} ref={ref}>
         <MetaTags {...metaTagProps} />

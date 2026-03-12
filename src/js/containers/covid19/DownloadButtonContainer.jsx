@@ -6,8 +6,9 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { DownloadIconButton, TooltipComponent } from 'data-transparency-ui';
+import { TooltipComponent } from 'data-transparency-ui';
 
+import DownloadIconButton508 from 'components/sharedComponents/buttons/DownloadButton508';
 import { requestFullDownload } from 'helpers/downloadHelper';
 import {
     setDownloadCollapsed,
@@ -65,7 +66,7 @@ const DownloadButtonContainer = () => {
     };
 
     return (
-        <DownloadIconButton
+        <DownloadIconButton508
             tooltipComponent={<Tooltip />}
             downloadInFlight={downloadInFlight}
             onClick={downloadData} />
