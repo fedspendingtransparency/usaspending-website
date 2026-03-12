@@ -54,6 +54,10 @@
                         &:hover {
                             background-color: $gray-cool-3 !important;
                         }
+
+                        &:focus {
+                            background-color: $gray-cool-3 !important;
+                        }
                     }
                 }
             }
