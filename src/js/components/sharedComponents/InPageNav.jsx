@@ -247,7 +247,6 @@ const InPageNav = (props) => {
             const targets = document.querySelectorAll(`[id*='${target}']`);
             // eslint-disable-next-line no-undef
             const observer = new IntersectionObserver(callbackFunction, observerOptions);
-
             targets.forEach((i) => {
                 if (i) {
                     observer.observe(i);
@@ -256,7 +255,7 @@ const InPageNav = (props) => {
 
             return () => observer.disconnect();
         }
-    });
+    }, [observerSupported]);
 
     useEffect(() => {
         if (detectActiveSection && sectionPositions.length === 0) {
