@@ -19,9 +19,11 @@ const AwardAmountSearch = () => {
     const dispatch = useDispatch();
 
     const toggleSelection = ({ value: key }) => {
-        const newValue = awardAmounts.has(key) ?
+        let newValue = awardAmounts.has(key) ?
             awardAmounts.delete(key) :
             awardAmounts.set(key, awardRanges[key]);
+
+        if (newValue.has('specific')) newValue = newValue.delete('specific');
 
         dispatch(updateGenericFilter({
             type: 'awardAmounts',

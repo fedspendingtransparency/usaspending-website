@@ -14,8 +14,7 @@ import * as explorerActions from 'redux/actions/explorer/explorerActions';
 import ExplorerDetailPage from 'components/explorer/detail/ExplorerDetailPage';
 
 const propTypes = {
-    setExplorerRoot: PropTypes.func,
-    match: PropTypes.object
+    setExplorerRoot: PropTypes.func
 };
 
 const ExplorerDetailPageContainer = (props) => {
