@@ -50,15 +50,15 @@ const NewDownloadLevel = (props) => {
             <div className="level-options-container">
                 <DownloadOption
                     title="Awards"
-                    copy="Download award data. An award is money the federal government has promised to pay a recipient. This data provides summary-level information about the current status of an award in a single point in time."
+                    copy="An award is money the federal government has promised to pay a recipient. This data provides summary-level information about the current status of an award in a single point in time."
                     count={awardCount} />
                 <DownloadOption
                     title="Transactions"
-                    copy="Download transaction data. A transaction can be the initial contract, grant, loan, or insurance award or any amendment or modification to that award. This data provides a time-based analysis that captures all monetary exchanges."
+                    copy="A transaction can be the initial contract, grant, loan, or insurance award or any amendment or modification to that award. This data provides a time-based analysis that captures all monetary exchanges."
                     count={transactionCount} />
                 <DownloadOption
                     title="Sub-awards"
-                    copy="Download subaward data. A subaward refers to records of an agreement that a prime recipient makes with another entity to perform a portion of their award. This data provides a view of how money is exchanged between entities. "
+                    copy="A subaward refers to records of an agreement that a prime recipient makes with another entity to perform a portion of their award. This data provides a view of how money is exchanged between entities. "
                     count={subawardCount} />
             </div>
 
