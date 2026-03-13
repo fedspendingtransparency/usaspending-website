@@ -9,3 +9,25 @@
   padding: rem(7) rem(12);
 }
 
+div[class*="-landing"] {
+  .usda-page-header__title {
+    h1 {
+      font-size: 32px;
+      line-height: 120%;
+      font-weight: 600;
+    }
+  }
+}
+
+.landing-page {
+  h2.landing-page__title {
+    font-size: 28px !important;
+    line-height: 120%;
+    font-weight: 600;
+  }
+
+  .landing-page__description {
+    font-size: 20px !important;
+    line-height: 150%;
+  }
+}
