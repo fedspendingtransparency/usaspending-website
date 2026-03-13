@@ -7,8 +7,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
     ComingSoon,
-    ErrorMessage,
-    ShareIcon
+    ErrorMessage
 } from 'data-transparency-ui';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router';
@@ -21,6 +20,7 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { showModal } from 'redux/actions/modal/modalActions';
 import useQueryParams from "hooks/useQueryParams";
 import IsMobileContext from "context/IsMobileContext";
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
@@ -176,7 +176,7 @@ export const AgencyProfileV2 = ({
                     selectedValue={selectedFy}
                     latestValue={latestFy}
                     handleChange={(fy) => setSelectedFy({ fy })} />,
-                <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
+                <ShareIcon508 url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
                 <div className="body usda__flex-col">
