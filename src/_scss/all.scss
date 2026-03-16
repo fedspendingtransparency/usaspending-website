@@ -1,13 +1,13 @@
 // Vendor -------------- //
 $output-bourbon-deprecation-warnings: false !default;
 @import '~data-transparency-ui/dist/data-transparency-ui.css';
-@import 'dtui-overrides';
 @import 'bourbon/app/assets/stylesheets/_bourbon';
 @import 'bourbon-neat/core/_neat';
 @import 'lib/normalize';
 
 // Core -------------- //
 @import 'core/variables';
+@import 'dtui-overrides';
 @import 'core/deprecated';
 @import 'core/fonts';
 @import 'core/base';

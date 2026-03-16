@@ -3,30 +3,22 @@
 .landing-page {
     padding: $global-padding * 2;
     .landing-page__overview {
-        text-align: center;
         h2.landing-page__title {
-            font-weight: 600;
+            font-weight: $font-semibold;
             margin: 0;
-            font-size: rem(20);
-            line-height: 1.25;
-
-            @media(min-width: $medium-screen) {
-                font-size: rem(36);
-            }
+            font-size: $font-size-28;
+            line-height: 1.2;
         }
+
         .landing-page__description {
-            font-size: $small-font-size;
+            font-size: $font-size-16;
             color: $color-base;
             padding: rem(15) 0 rem(30);
-
-            @include media($medium-screen) {
-                margin: auto;
-                width: 50%;
-            }
+            line-height: 1.5;
+            max-width: 76.9rem;
         }
     }
     .landing-page__tagline {
-        text-align: center;
         font-size: rem(18);
         margin-top: rem(30);
     }
@@ -39,7 +31,7 @@
         width: rem(13);
         height: rem(15);
     }
-  .landing-page__disclaimer {
+    .landing-page__disclaimer {
       margin-top: rem(45);
       .landing-page__note {
         font-weight: bold;
@@ -47,7 +39,12 @@
       .landing-page__entities {
         font-style: italic;
       }
-  }
+    }
+    .usa-dt-pagination {
+        @media (max-width: $medium-screen) {
+            align-items: flex-start;
+        }
+    }
 }
 
 .content__row {
