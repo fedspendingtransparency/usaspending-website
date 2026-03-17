@@ -21,13 +21,17 @@
                 padding-left: math.div($outer-gutter, 2);
             }
 
-            .usda-fy-picker__container .usa-dt-picker.usda-fy-picker .usa-dt-picker__button {
-                background-color: $blue-80v !important;
-                min-width: 126px;
-                width: auto;
-                
-                .usa-dt-picker__button-text {
+            .usda-fy-picker__container {
+                margin-right: rem(40);
+
+                .usa-dt-picker.usda-fy-picker .usa-dt-picker__button {
                     background-color: $blue-80v !important;
+                    
+                    .usa-dt-picker__button-text {
+                        background-color: $blue-80v !important;
+                        min-width: 126px;
+                        width: auto;
+                    }
                 }
             }
 
