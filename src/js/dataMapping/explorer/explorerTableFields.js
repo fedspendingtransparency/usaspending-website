@@ -1,4 +1,4 @@
-const explorerTableFields = {
+export const explorerTableFields = {
     defaultSortDirection: {
         name: 'asc',
         obligated_amount: 'desc',
@@ -15,4 +15,20 @@ const explorerTableFields = {
     percent_of_total: 'Percent of Total'
 };
 
-export default explorerTableFields;
+export const columns = [
+    {
+        title: 'Name',
+        displayName: 'Name',
+        defaultSortDirection: 'asc'
+    },
+    {
+        title: 'Obligated Amount',
+        displayName: 'Obligated Amount',
+        defaultSortDirection: 'desc'
+    },
+    {
+        title: 'Percent of Total',
+        displayName: 'Percent of Total',
+        defaultSortDirection: 'desc'
+    }
+];

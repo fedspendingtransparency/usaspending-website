@@ -5,7 +5,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useParams, Link } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { LoadingMessage, ErrorMessage, ShareIcon, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
+import { LoadingMessage, ErrorMessage, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
 
 import { fetchAgencyOverview } from 'apis/agency';
@@ -15,6 +15,7 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import Note from 'components/sharedComponents/Note';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import AgencyDetailsContainer from 'containers/agencySubmissionStats/AgencyDetailsContainer';
 import { modalTitles, modalClassNames } from 'dataMapping/agencySubmissionStats/modals';
 import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
@@ -101,7 +102,7 @@ const AgencyDetailsPage = () => {
             overLine="Agency Profile"
             title={agencyOverview?.name}
             toolBarComponents={[
-                <ShareIcon
+                <ShareIcon508
                     url={getBaseUrl(`submission-statistics/agency/${agencyCode}`)}
                     onShareOptionClick={handleShare} />
             ]}>
