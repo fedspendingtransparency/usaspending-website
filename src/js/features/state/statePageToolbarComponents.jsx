@@ -1,10 +1,11 @@
 import React from "react";
-import { FiscalYearPicker, ShareIcon } from "data-transparency-ui";
+import { FiscalYearPicker } from "data-transparency-ui";
 
 import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
 import {
     currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll
 } from "helpers/fiscalYearHelper";
+import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
 
 const statePageToolbarComponents = (stateProfile, handleFyChange, handleShareDispatch) => {
     const backgroundColor = "#1a4480";
@@ -27,7 +28,7 @@ const statePageToolbarComponents = (stateProfile, handleFyChange, handleShareDis
             handleFyChange={handleFyChange}
             options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())}
             key="state-page__fy-picker" />,
-        <ShareIcon
+        <ShareIcon508
             onShareOptionClick={handleShare}
             url={getBaseUrl(slug)}
             key="state-page__share-icon" />
