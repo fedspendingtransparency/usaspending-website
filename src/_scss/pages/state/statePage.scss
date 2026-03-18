@@ -19,16 +19,6 @@
     .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
         width: 100%
     }
-
-    .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker.usda-fy-picker .usa-dt-picker__button {
-        background-color: $blue-80v !important;
-
-        .usa-dt-picker__button-text {
-            min-width: 126px;
-            width: auto;
-            background-color: $blue-80v !important;
-        }
-    }
     
     .main-content {
         //@import "../../mixins/fullSectionWrap";
