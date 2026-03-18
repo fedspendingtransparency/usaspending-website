@@ -108,7 +108,7 @@
     "sass-loader": "^13.3.2",
     "sinon": "^2.3.8",
     "speed-measure-webpack-plugin": "^1.5.0",
-    "sqlite3": "^5.1.5",
+    "sqlite3": "^6.0.1",
     "storybook": "^9.1.19",
     "strip-ansi": "^4.0.0",
     "style-loader": "^3.3.1",
