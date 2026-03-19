@@ -90,8 +90,8 @@ const AboutTheDataPage = () => {
                     onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content">
-                <FlexGridRow className="agency-submission-stat-row">
-                    <FlexGridCol className="agency-submission-stat-col" >
+                <FlexGridRow width="9" className="agency-submission-stat-row">
+                    <FlexGridCol >
                         <div className="heading-container">
                             <h2 className="header">About These Statistics</h2>
                             <p className="sub-header">
@@ -102,6 +102,10 @@ const AboutTheDataPage = () => {
                             republish/recertify existing submissions. For more information about the data in this table, visit <Link className="usa-bold-link" to="/submission-statistics/data-sources">the Data Sources and Methodology page.</Link>
                             </p>
                         </div>
+                    </FlexGridCol>
+                </FlexGridRow>
+                <FlexGridRow width="9" className="agency-submission-stat-row">
+                    <FlexGridCol className="agency-submission-stat-col" >
                         <LoadingWrapper isLoading={!activeTab}>
                             <>
                                 <div className="table-controls">
@@ -111,13 +115,11 @@ const AboutTheDataPage = () => {
                                         types={[
                                             {
                                                 internal: 'submissions',
-                                                label: "Statistics by Submission Period",
-                                                tooltip: tabTooltips["Statistics by Submission Period"]
+                                                label: "Statistics by Submission Period"
                                             },
                                             {
                                                 internal: 'publications',
-                                                label: "Updates by Fiscal Year",
-                                                tooltip: tabTooltips["Updates by Fiscal Year"]
+                                                label: "Updates by Fiscal Year"
                                             }
                                         ]} />
                                     <TimeFilters
