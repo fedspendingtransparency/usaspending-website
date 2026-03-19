@@ -185,6 +185,13 @@
         .search-filters-list {
           margin: 0 ($global-padding * 4);
           border-bottom: rem(1) solid $gray-cool-10;
+
+          &:last-of-type {
+            margin-bottom: rem(16);
+            @media(min-width: $medium-screen) {
+              margin-bottom: rem(32);
+            }
+          }
         }
 
         .accordion-container {
