@@ -50,6 +50,7 @@ $red-warm-50v: #D54309;
 $red-cool-5v: #FFF2F5;
 $red-cool-50v: #E41D3D;
 $yellow-10: #F5E6AF;
+$yellow-10v: #FEE685;
 $yellow-20v: #FACE00;
 $orange-5v: #FEF2E4;
 $orange-20v: #FFBC78;
@@ -113,6 +114,7 @@ $violet-70v: #54278f;
 $gray-cool-1: #FBFCFD;
 $gray-2: #F9F9F9;
 $gray-10: #E6E6E6;
+$gray-20: #C9C9C9;
 $gray-cool-30: #a9aeb1;
 $gray-80: #2E2E2E;
 $gray-90: #1B1B1B;
@@ -156,6 +158,9 @@ $theme-color-accent-13: $violet-60v;
 $theme-color-accent-14: $indigo-60v;
 $theme-color-accent-15: $blue-warm-60v;
 $theme-color-accent-16: $indigo-50v;
+$theme-color-accent-vivid: $yellow-20v;
+
+$theme-color-base-light: $gray-20;
 
 $theme-color-headline: $gray-90;
 $theme-color-headline-inverse: $gray-2;

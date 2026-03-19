@@ -3,9 +3,8 @@
  * Created by Kevin Li 8/16/17
  */
 
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash-es';
 
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import RootHeader from './header/RootHeader';
@@ -35,56 +34,34 @@ const propTypes = {
     goToUnreported: PropTypes.func
 };
 
-export default class DetailContent extends React.Component {
-    constructor(props) {
-        super(props);
+const DetailContent = ({
+    isRoot,
+    isLoading,
+    isTruncated,
+    data,
+    root,
+    fy,
+    lastUpdate,
+    total,
+    active,
+    trail,
+    transitionSteps,
+    transition,
+    goDeeper,
+    changeSubdivisionType,
+    showTooltip,
+    hideTooltip,
+    rewindToFilter,
+    goToUnreported
+}) => {
+    const [showFakes, setShowFakes] = useState(false);
+    const [fakeDirection, setFakeDirection] = useState('below');
+    const divRef = useRef(null);
+    const scrollDestinationRef = useRef(null);
 
-        this.state = {
-            showFakes: false,
-            fakeDirection: 'below',
-            showTooltip: false,
-            tooltip: {
-                x: 0,
-                y: 0,
-                title: '',
-                amount: 0,
-                percent: 0
-            }
-        };
-    }
-
-    componentDidMount() {
-        this.updateChart(this.props.data);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.transitionSteps !== 0 && prevProps.transition !== this.props.transition) {
-            if (this.props.transition === 'start') {
-                this.startTransition(this.props.transitionSteps);
-            }
-            else if (this.props.transition === 'end') {
-                this.finishTransition();
-            }
-            else if (!isEqual(prevProps.data, this.props.data)) {
-                this.updateChart(this.props.data);
-            }
-        }
-    }
-
-    updateChart(data, callback) {
-        this.setState({
-            data,
-            showFakes: false
-        }, () => {
-            if (callback) {
-                callback();
-            }
-        });
-    }
-
-    startTransition(steps) {
-    // measure how tall the wrapper div is; we'll use this as the height of each screen
-        const wrapperHeight = this.wrapperDiv.offsetHeight;
+    const startTransition = (steps) => {
+        // measure how tall the wrapper div is; we'll use this as the height of each screen
+        const wrapperHeight = divRef.current.offsetHeight;
 
         const absoluteSteps = Math.abs(steps);
         // we scroll upwards if the explorer is drilling down, and we scroll downwards if the
@@ -93,26 +70,18 @@ export default class DetailContent extends React.Component {
 
         // the end point of the scroll operation is the height of each screen times the number
         // of screens we'll be passing through
-        const scrollDestination = (direction * absoluteSteps * wrapperHeight);
+        scrollDestinationRef.current = (direction * absoluteSteps * wrapperHeight);
 
         if (absoluteSteps > 1) {
-            let fakeDirection = 'below';
-            if (steps < 0) {
-                fakeDirection = 'above';
-            }
+            const stepDirections = steps < 0 ? 'above' : 'below';
 
-            this.setState({
-                fakeDirection,
-                showFakes: true // render the fake screens into the DOM
-            }, () => {
-                this.wrapperDiv.classList.add('detail-animate');
-                this.wrapperDiv.style.transform = `translate(0px,${scrollDestination}px)`;
-            });
+            setFakeDirection(stepDirections);
+            setShowFakes(true);
         }
         else {
             // we don't have any fake screens, so just go straight to DOM animations
-            this.wrapperDiv.classList.add('detail-animate');
-            this.wrapperDiv.style.transform = `translate(0px,${scrollDestination}px)`;
+            divRef.current.classList.add('detail-animate');
+            divRef.current.style.transform = `translate(0px,${scrollDestinationRef.current}px)`;
         }
 
         // the detail-animate CSS class animates transform changes over 250ms, so we'll schedule
@@ -120,147 +89,164 @@ export default class DetailContent extends React.Component {
         setTimeout(() => {
             // the first "exit" animation has completed, now remove the animation class so
             // we can make DOM changes immediately without animations
-            this.wrapperDiv.classList.remove('detail-animate');
+            divRef.current.classList.remove('detail-animate');
             // position the screen below the bottom of the visible area
             // but, if we are scrolling downwards (negative step count), we should position it
             // above the visible area
             const secondScrollStart = -1 * direction * wrapperHeight;
-            this.wrapperDiv.style.transform = `translate(0px,${secondScrollStart}px)`;
+            divRef.current.style.transform = `translate(0px,${secondScrollStart}px)`;
         }, 250);
-    }
+    };
 
-    finishTransition() {
-    // re-render the screen with the updated data and without the fake screens
-        this.setState({
-            showFakes: false
-        }, () => {
-            // once the update is complete, restore the animation frame and animate the screen
-            // back to its default position
-            window.requestAnimationFrame(() => {
-                this.wrapperDiv.classList.add('detail-animate');
-                this.wrapperDiv.style.transform = `translate(0px,0px)`;
-            });
+    const finishTransition = () => {
+        // re-render the screen with the updated data and without the fake screens
+        setShowFakes(false);
+        window.requestAnimationFrame(() => {
+            divRef.current.classList.add('detail-animate');
+            divRef.current.style.transform = `translate(0px,0px)`;
         });
-    }
+    };
 
-    render() {
-        if (this.props.isLoading && this.props.data.count() < 1) {
-            return (
-                <div
-                    className="explorer-detail-content"
-                    ref={(div) => {
-                        this.wrapperDiv = div;
-                    }}>
-                    <div className="explorer-detail-content__loading">
-                        <div className="explorer-detail-content__loading-message">
-                            <LoadingSpinner />
-                            <div className="explorer-detail-content__loading-title">Gathering your data...</div>
-                            <div className="explorer-detail-content__loading-subtitle">Updating Spending Explorer.</div>
-                            <div>This should only take a few moments...</div>
+    useEffect(() => {
+        if (transitionSteps !== 0) {
+            if (transition === 'start') startTransition(transitionSteps);
+            else if (transition === 'end') finishTransition();
+            else setShowFakes(false);
+        }
+    }, [data, transition, transitionSteps]);
+
+    useEffect(() => {
+        if (showFakes) {
+            divRef.current.classList.add('detail-animate');
+            divRef.current.style.transform = `translate(0px,${scrollDestinationRef.current}px)`;
+        }
+    }, [showFakes]);
+
+    if (isLoading && data.count() < 1) {
+        return (
+            <div
+                className="explorer-detail-content"
+                ref={divRef}>
+                <div className="explorer-detail-content__loading">
+                    <div className="explorer-detail-content__loading-message">
+                        <LoadingSpinner />
+                        <div className="explorer-detail-content__loading-title">
+                            Gathering your data...
                         </div>
+                        <div className="explorer-detail-content__loading-subtitle">
+                            Updating Spending Explorer.
+                        </div>
+                        <div>This should only take a few moments...</div>
                     </div>
                 </div>
-            );
+            </div>
+        );
+    }
+
+    let header = (
+        <RootHeader
+            isLoading={isLoading}
+            root={root}
+            fy={fy}
+            lastUpdate={lastUpdate}
+            total={active.total} />
+    );
+
+    let lastFilter = null;
+
+    if (!isRoot) {
+        // when we're not at the root level, the header displays information about the
+        // last filter chosen
+        lastFilter = trail[trail.length - 1];
+        // when we are more than one level past the root, the header subtitle displays the
+        // relation to its parent filter
+        let parentFilter = null;
+        if (trail.length > 2) {
+            parentFilter = trail[trail.length - 2].title;
         }
-        let header = (<RootHeader
-            isLoading={this.props.isLoading}
-            root={this.props.root}
-            fy={this.props.fy}
-            lastUpdate={this.props.lastUpdate}
-            total={this.props.active.total} />);
 
-        let lastFilter = null;
+        // ID is used to build links to profile pages in DetailHeader
+        // Use the account number for federal accounts
+        let id = `${lastFilter.id}`;
+        if (lastFilter.within === 'federal_account') {
+            id = lastFilter.accountNumber;
+        }
 
-        if (!this.props.isRoot) {
-            // when we're not at the root level, the header displays information about the
-            // last filter chosen
-            lastFilter = this.props.trail[this.props.trail.length - 1];
-            // when we are more than one level past the root, the header subtitle displays the
-            // relation to its parent filter
-            let parentFilter = null;
-            if (this.props.trail.length > 2) {
-                parentFilter = this.props.trail[this.props.trail.length - 2].title;
-            }
-
-            // ID is used to build links to profile pages in DetailHeader
-            // Use the account number for federal accounts
-            let id = `${lastFilter.id}`;
-            if (lastFilter.within === 'federal_account') {
-                id = lastFilter.accountNumber;
-            }
-
-            header = (<DetailHeader
-                activeSubdivision={this.props.active.subdivision}
-                isLoading={this.props.isLoading}
+        header = (
+            <DetailHeader
+                activeSubdivision={active.subdivision}
+                isLoading={isLoading}
                 within={lastFilter.within}
                 title={lastFilter.title}
                 link={lastFilter.link}
                 id={id}
-                fy={this.props.fy}
-                lastUpdate={this.props.lastUpdate}
-                total={this.props.active.total}
+                fy={fy}
+                lastUpdate={lastUpdate}
+                total={active.total}
                 parent={parentFilter}
-                isTruncated={this.props.isTruncated} />);
-        }
-
-        let fakeScreenAbove = null;
-        let fakeScreenBelow = null;
-        if (this.state.showFakes && this.state.fakeDirection === 'below') {
-            fakeScreenBelow = (<FakeScreens
-                position="below"
-                transitionSteps={this.props.transitionSteps} />);
-        }
-        else if (this.state.showFakes && this.state.fakeDirection === 'above') {
-            fakeScreenAbove = (<FakeScreens
-                position="above"
-                transitionSteps={this.props.transitionSteps} />);
-        }
-        const currentIndex = this.props.trail.length - 1;
-        let visualizationSection = (
-            <NoAwardsScreen
-                rewindToFilter={this.props.rewindToFilter}
-                currentIndex={currentIndex} />);
-
-        if (this.props.data.count() > 0) {
-            visualizationSection = (
-                <ExplorerVisualization
-                    isRoot={this.props.isRoot}
-                    isLoading={this.props.isLoading}
-                    lastFilter={lastFilter}
-                    root={this.props.root}
-                    fy={this.props.fy}
-                    active={this.props.active}
-                    trail={this.props.trail}
-                    total={this.props.total}
-                    data={this.props.data}
-                    goDeeper={this.props.goDeeper}
-                    changeSubdivisionType={this.props.changeSubdivisionType}
-                    goToUnreported={this.props.goToUnreported}
-                    showTooltip={this.props.showTooltip}
-                    hideTooltip={this.props.hideTooltip}
-                    currentIndex={currentIndex}
-                    rewindToFilter={this.props.rewindToFilter} />
-            );
-        }
-
-
-        return (
-            <div
-                className="explorer-detail-content"
-                ref={(div) => {
-                    this.wrapperDiv = div;
-                }}>
-
-                {fakeScreenAbove}
-
-                {header}
-
-                {visualizationSection}
-
-                {fakeScreenBelow}
-            </div>
+                isTruncated={isTruncated} />
         );
     }
-}
+
+    let fakeScreenAbove = null;
+    let fakeScreenBelow = null;
+
+    if (showFakes && fakeDirection === 'below') {
+        fakeScreenBelow = (
+            <FakeScreens
+                position="below"
+                transitionSteps={transitionSteps} />);
+    }
+    else if (showFakes && fakeDirection === 'above') {
+        fakeScreenAbove = (
+            <FakeScreens
+                position="above"
+                transitionSteps={transitionSteps} />
+        );
+    }
+
+    const currentIndex = trail.length - 1;
+
+    let visualizationSection = (
+        <NoAwardsScreen
+            rewindToFilter={rewindToFilter}
+            currentIndex={currentIndex} />
+    );
+
+    if (data.count() > 0) {
+        visualizationSection = (
+            <ExplorerVisualization
+                isRoot={isRoot}
+                isLoading={isLoading}
+                lastFilter={lastFilter}
+                root={root}
+                fy={fy}
+                active={active}
+                trail={trail}
+                total={total}
+                data={data}
+                goDeeper={goDeeper}
+                changeSubdivisionType={changeSubdivisionType}
+                goToUnreported={goToUnreported}
+                showTooltip={showTooltip}
+                hideTooltip={hideTooltip}
+                currentIndex={currentIndex}
+                rewindToFilter={rewindToFilter} />
+        );
+    }
+
+
+    return (
+        <div
+            className="explorer-detail-content"
+            ref={divRef}>
+            {fakeScreenAbove}
+            {header}
+            {visualizationSection}
+            {fakeScreenBelow}
+        </div>
+    );
+};
 
 DetailContent.propTypes = propTypes;
+export default DetailContent;
