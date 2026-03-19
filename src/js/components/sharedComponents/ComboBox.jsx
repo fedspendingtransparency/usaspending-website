@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const testArray = [
     { value: "apple", text: "Apple" },
@@ -69,28 +70,75 @@ const testArray = [
 
 const ComboBox = ({
     labelText = "Select a fruit",
-    placeHolderText = "Select a fruit",
+    placeHolder = "Select a fruit",
     optionsArray = testArray,
     htmlName = "fruit"
 }) => {
-    const options = optionsArray.map(({ value, text }) => (
-        <option value={value}>{text}</option>
-    ));
+    const [inputValue, setInputValue] = useState('');
+    const [openOptions, setOpenOptions] = useState(false);
+
+    // 1) filter for inputValue 2) map to list item element
+    const options = optionsArray
+        .filter(({ value }) => value.indexOf(inputValue.toLowerCase()) !== -1)
+        .map(({ value, text }) => (
+            <li value={value}>{text}</li>
+        ));
+
+    const onChange = (e) => {
+        setInputValue(e.target.value);
+        setOpenOptions(e.target.value !== 0);
+    };
+
+    const onClickClear = () => setInputValue('');
+    const onKeydownClear = (e) => {
+        e.persist();
+        if (e.key === 'Enter') onClickClear();
+    };
+
+    const onClickToggle = () => setOpenOptions((prevState) => !prevState);
+    const onKeydownToggle = (e) => {
+        e.persist();
+        if (e.key === 'Enter') onClickToggle();
+    };
+
+    const chevron = openOptions ? "chevron-down" : "chevron-up";
 
     return (
-        <>
+        <div className="usa-combo-box">
             <label
                 className="usa-label"
+                id={`${htmlName}-label`}
                 htmlFor={htmlName}>
                 {labelText}
+                <input
+                    value={inputValue}
+                    type="text"
+                    name={htmlName}
+                    onChange={onChange}
+                    placeholder={placeHolder} />
+                <button
+                    type="button"
+                    name={htmlName}
+                    aria-label={`${htmlName}-on-clear`}
+                    tabIndex={0}
+                    onClick={onClickClear}
+                    onKeyDown={onKeydownClear}>
+                    <FontAwesomeIcon icon="times" tabIndex={-1} />
+                </button>
+                <button
+                    type="button"
+                    name={htmlName}
+                    aria-label={`${htmlName}-on-clear`}
+                    tabIndex={0}
+                    onClick={onClickToggle}
+                    onKeyDown={onKeydownToggle}>
+                    <FontAwesomeIcon icon={chevron} />
+                </button>
+                <ul className="usa-select" id={`${htmlName}-select-id`}>
+                    { openOptions && options }
+                </ul>
             </label>
-            <div className="usa-combo-box">
-                <select className="usa-select" name={htmlName} id="fruit">
-                    <option value>{placeHolderText}</option>
-                    {options}
-                </select>
-            </div>
-        </>
+        </div>
     );
 };
 
