@@ -5,11 +5,10 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { reduce } from 'lodash-es';
 import { ErrorMessage, FlexGridCol, GenericMessage, LoadingMessage } from "data-transparency-ui";
 
-import AwardBreakdownTreeMap from './treemap/AwardBreakdownTreeMap';
-import AwardBreakdownTable from './AwardBreakdownTable';
+import AwardBreakdownTreeMap from '../treemap/AwardBreakdownTreeMap';
+import AwardBreakdownTable from '../AwardBreakdownTable';
 import useFetchAwardBreakdown from "./useFetchAwardBreakdown";
 
 const propTypes = {
@@ -24,57 +23,17 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
     const [totalAmount, setTotalAmount] = useState(0);
     const [hasNegatives, setHasNegatives] = useState(false);
 
-    // const parseData = useCallback((results) => {
-    //     const amountType = toggleState ? "total_outlays" : "amount";
-    //     // Sum all amounts in the returned award types
-    //     const newTotalAmount = reduce(
-    //         results,
-    //         (sum, awardType) => sum + parseFloat(awardType[amountType]),
-    //         0
-    //     );
-    //
-    //     // Sum only the positive amounts in the returned award types
-    //     const positiveAmount = reduce(
-    //         results,
-    //         (sum, awardType) => {
-    //             if (parseFloat(awardType.amount) >= 0) {
-    //                 return sum + parseFloat(awardType[amountType]);
-    //             }
-    //             return sum;
-    //         },
-    //         0
-    //     );
-    //
-    //     const newHasNegatives = positiveAmount > newTotalAmount;
-    //
-    //     // Sort the results by amount
-    //     const sortedResults = results.sort((rowA, rowB) =>
-    //         rowB[amountType] - rowA[amountType]
-    //     );
-    //
-    //     const newRows = sortedResults.map((result) => {
-    //         const row = Object.create(BaseAwardBreakdownRow);
-    //         row.populate(result);
-    //         return row;
-    //     });
-    //
-    //     setAwardBreakdown(results);
-    //     setRows(newRows);
-    //     setTotalAmount(newTotalAmount);
-    //     setHasNegatives(newHasNegatives);
-    // }, [toggleState]);
-
     const {
         parsedData, isSuccess, isLoading, error
     } = useFetchAwardBreakdown(id, fy, toggleState);
 
 
     useEffect(() => {
-        if (isSuccess) {
-            setAwardBreakdown(parsedData.results);
-            setRows(parsedData.newRows);
-            setTotalAmount(parsedData.newTotalAmount);
-            setHasNegatives(parsedData.newHasNegatives);
+        if (isSuccess && parsedData) {
+            setAwardBreakdown(parsedData?.results);
+            setRows(parsedData?.newRows);
+            setTotalAmount(parsedData?.newTotalAmount);
+            setHasNegatives(parsedData?.newHasNegatives);
         }
     }, [isSuccess, parsedData]);
 

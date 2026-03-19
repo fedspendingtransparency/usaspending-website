@@ -5,9 +5,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import StateTimeVisualizationSection from './StateTimeVisualizationSection';
+import StateTimeVisualizationSection from '../StateTimeVisualizationSection';
 import useFetchSpendingOverTime from "./useFetchSpendingOverTime";
-import { createApiParams } from "../stateHelper";
+import { createApiParams } from "../../stateHelper";
 
 const StateTimeVisualizationSectionContainer = () => {
     const { code } = useSelector((state) => state.stateProfile.overview);
