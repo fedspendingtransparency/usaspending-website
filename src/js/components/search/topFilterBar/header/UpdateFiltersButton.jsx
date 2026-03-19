@@ -20,7 +20,7 @@ import {
 
 const propTypes = { appliedFilters: PropTypes.object };
 
-const RemoveFiltersButton = ({ appliedFilters }) => {
+const UpdateFiltersButton = ({ appliedFilters }) => {
     const dispatch = useDispatch();
     const stagedFilters = useSelector((state) => state.filters);
 
@@ -57,7 +57,7 @@ const RemoveFiltersButton = ({ appliedFilters }) => {
         <Button
             onClick={removeOnClick}
             onKeyUp={removeOnKeyUp}
-            copy="Remove selected filters"
+            copy="Update selected filters"
             buttonTitle="filter modal"
             buttonSize="sm"
             buttonType="text"
@@ -67,5 +67,5 @@ const RemoveFiltersButton = ({ appliedFilters }) => {
     );
 };
 
-RemoveFiltersButton.propTypes = propTypes;
-export default RemoveFiltersButton;
+UpdateFiltersButton.propTypes = propTypes;
+export default UpdateFiltersButton;

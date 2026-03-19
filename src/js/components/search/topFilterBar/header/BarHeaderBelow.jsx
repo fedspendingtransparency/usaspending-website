@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-import RemoveFiltersButton from "./RemoveFiltersButton";
+import UpdateFiltersButton from "./UpdateFiltersButton";
 import ExpandFiltersButton from "./ExpandFiltersButton";
 
 const propTypes = {
@@ -24,7 +24,7 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
                 {filterCountCopy}
             </h2>
             <div className="filter-buttons">
-                <RemoveFiltersButton appliedFilters={appliedFilters} />
+                <UpdateFiltersButton appliedFilters={appliedFilters} />
                 <ExpandFiltersButton
                     appliedFilters={appliedFilters}
                     expandedFilters={expandedFilters}
