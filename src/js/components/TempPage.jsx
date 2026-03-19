@@ -8,6 +8,7 @@ import Alert from "./sharedComponents/Alert";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 import Accordion from "./sharedComponents/accordion/Accordion";
+import ComboBox from "./sharedComponents/ComboBox";
 
 require("pages/search/searchPage.scss");
 
@@ -25,6 +26,8 @@ const TempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
+                    <h1>ComboBox Variants</h1>
+                    <ComboBox />
                     <h1>Alert Variants</h1>
                     <div
                         style={{
