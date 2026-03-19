@@ -1,9 +1,7 @@
-import React, { useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { Link } from "react-router";
 
-import Alert from "components/sharedComponents/Alert";
 import { searchFilterCategoryTree } from "dataMapping/search/searchFilterCategories";
 import { getFilterCount } from "helpers/search/filterCheckboxHelper";
 import Keyword from "components/search/filters/keyword/Keyword";
@@ -35,19 +33,6 @@ const SidebarContentFilters = ({ isMobile }) => {
     });
     const filters = useSelector((state) => state.filters);
     const filterCount = getFilterCount(filters);
-
-    const alertBody = useMemo(() => (
-        <>
-            Looking for the "Keyword Search" page?{" "}
-            <Link
-                target="_blank"
-                rel="noopener noreferrer"
-                className="advanced-search__keyword-search-link"
-                to="/keyword_search">
-                Click here to search award transactions by keyword.
-            </Link>
-        </>
-    ), []);
 
     return (
         <div
