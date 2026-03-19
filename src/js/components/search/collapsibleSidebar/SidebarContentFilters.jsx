@@ -63,7 +63,6 @@ const SidebarContentFilters = ({ isMobile }) => {
                     count={filterCount[title]}
                     isMobile={isMobile} />
             ))}
-            {!isMobile && <Alert body={alertBody} className="keyword-link" icon />}
         </div>
     );
 };
