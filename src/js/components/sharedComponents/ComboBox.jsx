@@ -1,82 +1,33 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
 
-const testArray = [
-    { value: "apple", text: "Apple" },
-    { value: "apricot", text: "Apricot" },
-    { value: "avocado", text: "Avocado" },
-    { value: "banana", text: "Banana" },
-    { value: "blackberry", text: "Blackberry" },
-    { value: "blood-orange", text: "Blood orange" },
-    { value: "blueberry", text: "Blueberry" },
-    { value: "boysenberry", text: "Boysenberry" },
-    { value: "breadfruit", text: "Breadfruit" },
-    { value: "buddhas-hand-citron", text: "Buddha's hand citron" },
-    { value: "cantaloupe", text: "Cantaloupe" },
-    { value: "clementine", text: "Clementine" },
-    { value: "crab-apple", text: "Crab apple" },
-    { value: "currant", text: "Currant" },
-    { value: "cherry", text: "Cherry" },
-    { value: "custard-apple", text: "Custard apple" },
-    { value: "coconut", text: "Coconut" },
-    { value: "cranberry", text: "Cranberry" },
-    { value: "date", text: "Date" },
-    { value: "dragonfruit", text: "Dragonfruit" },
-    { value: "durian", text: "Durian" },
-    { value: "elderberry", text: "Elderberry" },
-    { value: "fig", text: "Fig" },
-    { value: "gooseberry", text: "Gooseberry" },
-    { value: "grape", text: "Grape" },
-    { value: "grapefruit", text: "Grapefruit" },
-    { value: "guava", text: "Guava" },
-    { value: "honeydew-melon", text: "Honeydew melon" },
-    { value: "jackfruit", text: "Jackfruit" },
-    { value: "kiwifruit", text: "Kiwifruit" },
-    { value: "kumquat", text: "Kumquat" },
-    { value: "lemon", text: "Lemon" },
-    { value: "lime", text: "Lime" },
-    { value: "lychee", text: "Lychee" },
-    { value: "mandarine", text: "Mandarine" },
-    { value: "mango", text: "Mango" },
-    { value: "mangosteen", text: "Mangosteen" },
-    { value: "marionberry", text: "Marionberry" },
-    { value: "nectarine", text: "Nectarine" },
-    { value: "orange", text: "Orange" },
-    { value: "papaya", text: "Papaya" },
-    { value: "passionfruit", text: "Passionfruit" },
-    { value: "peach", text: "Peach" },
-    { value: "pear", text: "Pear" },
-    { value: "persimmon", text: "Persimmon" },
-    { value: "plantain", text: "Plantain" },
-    { value: "plum", text: "Plum" },
-    { value: "pineapple", text: "Pineapple" },
-    { value: "pluot", text: "Pluot" },
-    { value: "pomegranate", text: "Pomegranate" },
-    { value: "pomelo", text: "Pomelo" },
-    { value: "quince", text: "Quince" },
-    { value: "raspberry", text: "Raspberry" },
-    { value: "rambutan", text: "Rambutan" },
-    { value: "soursop", text: "Soursop" },
-    { value: "starfruit", text: "Starfruit" },
-    { value: "strawberry", text: "Strawberry" },
-    { value: "tamarind", text: "Tamarind" },
-    { value: "tangelo", text: "Tangelo" },
-    { value: "tangerine", text: "Tangerine" },
-    { value: "ugli-fruit", text: "Ugli fruit" },
-    { value: "watermelon", text: "Watermelon" },
-    { value: "white-current", text: "White currant" },
-    { value: "yuzu", text: "Yuzu" }
-];
+const propTypes = {
+    optionsArray: PropTypes.arrayOf(
+        PropTypes.shape(
+            {
+                value: PropTypes.string.isRequired,
+                text: PropTypes.string.isRequired
+            }
+        )).isRequired,
+    label: PropTypes.string,
+    placeholder: PropTypes.string,
+    formName: PropTypes.string,
+    disabled: PropTypes.bool,
+    defaultValue: PropTypes.string,
+    className: PropTypes.string
+};
 
 const ComboBox = ({
-    labelText = "Select a fruit",
-    placeHolder = "Select a fruit",
-    optionsArray = testArray,
-    htmlName = "fruit",
+    optionsArray,
+    label,
+    placeholder,
+    formName,
     disabled,
+    defaultValue = '',
     className
 }) => {
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState(defaultValue);
     const [openOptions, setOpenOptions] = useState(false);
 
     // 1) filter for inputValue 2) map to list item element
@@ -89,11 +40,10 @@ const ComboBox = ({
             };
 
             return (
-                <li value={value}>
+                <li value={value} className="combo-box__options-item">
                     <button
                         type="button"
-                        aria-label={`${htmlName}-option`}
-                        tabIndex={0}
+                        aria-label={`${formName}-option-item`}
                         onClick={onClick}>
                         {text}
                     </button>
@@ -115,44 +65,46 @@ const ComboBox = ({
 
     const chevron = openOptions ? "chevron-down" : "chevron-up";
 
+    const isDisabled = disabled || optionsArray.length === 0;
+
     return (
-        <div className={`usa-combo-box${className ? ` ${className}` : ''}`}>
+        <div className={`combo-box${className ? ` ${className}` : ''}`}>
             <label
-                className="usa-label"
-                id={`${htmlName}-label`}
-                htmlFor={htmlName}>
-                {labelText}
-                <div className="input-container">
+                className="combo-box__label"
+                id={`${formName}-label`}
+                htmlFor={formName}>
+                {label}
+                <div className="combo-box__input-container">
                     <input
                         value={inputValue}
                         type="text"
-                        name={htmlName}
+                        name={formName}
                         onChange={onChange}
-                        placeholder={placeHolder}
-                        disabled={disabled} />
-                    <div className="buttons-container">
+                        placeholder={placeholder}
+                        disabled={isDisabled} />
+                    <div className="combo-box__buttons-container">
                         <button
+                            className="combo-box__button"
                             type="button"
-                            name={htmlName}
-                            aria-label={`${htmlName}-on-clear`}
-                            tabIndex={0}
+                            name={`${formName}-on-clear`}
+                            aria-label={`${formName}-on-clear`}
                             onClick={onClickClear}
-                            disabled={disabled}>
+                            disabled={isDisabled}>
                             <FontAwesomeIcon icon="times" />
                         </button>
                         <button
+                            className="combo-box__button"
                             type="button"
-                            name={htmlName}
-                            aria-label={`${htmlName}-on-clear`}
-                            tabIndex={0}
+                            name={`${formName}-on-toggle`}
+                            aria-label={`${formName}-on-toggle`}
                             onClick={onClickToggle}
-                            disabled={disabled}>
+                            disabled={isDisabled}>
                             <FontAwesomeIcon icon={chevron} />
                         </button>
                     </div>
                 </div>
-                <div className="options-list">
-                    <ul className="usa-select" id={`${htmlName}-select-id`}>
+                <div className="combo-box__options-container">
+                    <ul className="combo-box__options" id={`${formName}-list`}>
                         { openOptions && options }
                     </ul>
                 </div>
@@ -161,4 +113,5 @@ const ComboBox = ({
     );
 };
 
+ComboBox.propTypes = propTypes;
 export default ComboBox;

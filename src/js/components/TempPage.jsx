@@ -9,6 +9,7 @@ import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 import Accordion from "./sharedComponents/accordion/Accordion";
 import ComboBox from "./sharedComponents/ComboBox";
+import { mockComboBox } from "../../../tests/mockData";
 
 require("pages/search/searchPage.scss");
 
@@ -33,7 +34,12 @@ const TempPage = () => {
                 title="Test Page">
                 <main id="main-content" className="main-content">
                     <h1>ComboBox Variants</h1>
-                    <ComboBox disabled={disabled} />
+                    <ComboBox
+                        optionsArray={mockComboBox}
+                        label="Please select a fruit"
+                        placeholder="e.g., apple, banana, mango"
+                        formName="fruit"
+                        disabled={disabled} />
                     <h1>Alert Variants</h1>
                     <div
                         style={{
