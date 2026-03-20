@@ -4,10 +4,9 @@
  */
 
 import { useCallback, useState, useEffect } from "react";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { useQuery } from "@tanstack/react-query";
-import { fetchStateOverview } from 'apis/state';
 import BaseStateProfile from "models/v2/state/BaseStateProfile";
+import { performSpendingByGeographySearch } from "helpers/searchHelper";
 
 export const useFetchOverview = (params) => {
     const [stateProfileData, setStateProfileData] = useState(null);

@@ -90,31 +90,30 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
     const dataParams = useMemo(() => getDataParams(), [getDataParams]);
 
 
-    // const {
-    //     parsedData, isSuccess, isLoading, error, noResults
-    // } = useFetchSpendingBy(dataParams, category);
+    const {
+        parsedData, isSuccess, isLoading, error, noResults
+    } = useFetchSpendingBy(dataParams, category);
 
-    // useEffect(() => {
-    //     if (isSuccess) {
-    //         console.log(isSuccess, parsedData);
-    //         setParsedResults(parsedData);
-    //         setNoResultState(noResults);
-    //     }
-    // }, [isSuccess, noResults, parsedData]);
+    useEffect(() => {
+        if (isSuccess && (noResults || parsedData?.length > 0)) {
+            setParsedResults(parsedData);
+            setNoResultState(noResults);
+        }
+    }, [isSuccess, noResults, parsedData]);
 
 
     return (
         <>
-            {/*{!noResultState &&*/}
-            {/*    <TopFive*/}
-            {/*        category={category}*/}
-            {/*        results={parsedResults}*/}
-            {/*        total={total}*/}
-            {/*        loading={isLoading}*/}
-            {/*        error={error}*/}
-            {/*        dataParams={dataParams}*/}
-            {/*        agencyData={agencyData} />*/}
-            {/*}*/}
+            {!noResultState &&
+                <TopFive
+                    category={category}
+                    results={parsedResults}
+                    total={total}
+                    loading={isLoading}
+                    error={error}
+                    dataParams={dataParams}
+                    agencyData={agencyData} />
+            }
         </>
     );
 };

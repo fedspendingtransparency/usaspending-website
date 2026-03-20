@@ -4,7 +4,6 @@
  */
 
 import { useCallback, useState, useEffect } from "react";
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { useQuery } from "@tanstack/react-query";
 import { performSpendingOverTimeSearch } from "helpers/searchHelper";
 import { convertMonthToFY, convertNumToShortMonth } from "helpers/monthHelper";
