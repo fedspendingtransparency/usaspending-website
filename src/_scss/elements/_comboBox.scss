@@ -1,0 +1,28 @@
+.combo-box {
+  margin: rem(20);
+
+  .combo-box__input-container {
+    display: flex;
+
+    .combo-box__buttons-container {
+      display: flex;
+
+      .combo-box__vertical-line {
+        border-left: 1px solid red;
+        height: 100%;
+      }
+
+      .combo-box__button {
+        padding: rem(10);
+        margin: 0;
+        border-radius: 0;
+        background-color: transparent;
+
+        svg {
+          width: rem(11);
+          color: black;
+        }
+      }
+    }
+  }
+}

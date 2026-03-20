@@ -33,14 +33,23 @@ const TempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <h1>ComboBox Variants</h1>
-                    <ComboBox
-                        optionsArray={mockComboBox}
-                        label="Please select a fruit"
-                        placeholder="e.g., apple, banana, mango"
-                        formName="fruit"
-                        disabled={disabled} />
-                    <h1>Alert Variants</h1>
+                    <h1>{"<ComboBox />"}</h1>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            border: '1px solid darkgrey',
+                            height: 'fit-content',
+                            maxWidth: '900px'
+                        }}>
+                        <ComboBox
+                            optionsArray={mockComboBox}
+                            label="Please select a fruit"
+                            placeholder="e.g., apple, banana, mango"
+                            formName="fruit"
+                            disabled={disabled} />
+                    </div>
+                    <h1>{"<Alert />"}</h1>
                     <div
                         style={{
                             display: 'flex',
@@ -52,7 +61,7 @@ const TempPage = () => {
                         }}>
                         <Alert
                             type="test"
-                            header="Default/Test Example"
+                            header="Default Example"
                             body={alertBody}
                             onClose={onClose}
                             icon />

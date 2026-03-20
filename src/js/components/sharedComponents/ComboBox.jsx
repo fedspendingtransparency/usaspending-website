@@ -10,7 +10,7 @@ const propTypes = {
                 text: PropTypes.string.isRequired
             }
         )).isRequired,
-    label: PropTypes.string,
+    label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     placeholder: PropTypes.string,
     formName: PropTypes.string,
     disabled: PropTypes.bool,
@@ -92,6 +92,7 @@ const ComboBox = ({
                             disabled={isDisabled}>
                             <FontAwesomeIcon icon="times" />
                         </button>
+                        <div className="combo-box__vertical-line" />
                         <button
                             className="combo-box__button"
                             type="button"
