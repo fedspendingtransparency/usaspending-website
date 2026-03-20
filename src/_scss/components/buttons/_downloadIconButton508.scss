@@ -1,0 +1,50 @@
+.usa-download-icon {
+    padding: rem(4);
+    margin: 0 rem(24);
+    display: flex;
+
+    .tooltip__hover-wrapper {
+        flex-direction: column;
+    }
+
+    .usa-button {
+        @include button-unstyled;
+        background-color: $theme-color-dark-blue-bg;
+        text-align: center;
+        
+        svg {
+            width: rem(15);
+            height: rem(16);
+            margin-bottom: rem(4);
+            
+        }
+        
+        span {
+            line-height: rem(18);
+            font-size: $smallest-font-size;
+            font-weight: $font-semibold;
+        }
+        
+        svg, span {
+            color: $theme-color-accent-vivid;
+            &:hover, &:active {
+                color: $yellow-10v;
+            }
+        }
+    }
+
+    &.disabled {
+        .usa-button {
+            cursor: default;
+
+            svg, span {
+                color: $theme-color-base-light
+                
+            }
+        }
+    }
+
+  @media (max-width: $medium-screen) {
+      display: none;
+  }
+}

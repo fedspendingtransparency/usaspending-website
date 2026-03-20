@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 import * as downloadActions from 'redux/actions/search/downloadActions';
 
 import FullDownloadModal from 'components/search/modals/fullDownload/FullDownloadModal';
+import NewDownloadModal from '../../../../components/search/modals/fullDownload/NewDownloadModal';
+import GlobalConstants from '../../../../GlobalConstants';
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -22,6 +24,14 @@ const propTypes = {
 
 export class FullDownloadModalContainer extends React.Component {
     render() {
+        if (GlobalConstants.QAT) {
+            return (<NewDownloadModal
+                setDownloadCollapsed={this.props.setDownloadCollapsed}
+                pendingDownload={this.props.pendingDownload}
+                download={this.props.download}
+                mounted={this.props.mounted}
+                hideModal={this.props.hideModal} />);
+        }
         return (
             <FullDownloadModal
                 setDownloadCollapsed={this.props.setDownloadCollapsed}

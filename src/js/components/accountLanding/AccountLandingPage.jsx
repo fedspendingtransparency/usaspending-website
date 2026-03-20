@@ -4,13 +4,13 @@
  */
 
 import React from 'react';
-import { ShareIcon } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
 
 import { accountLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import AccountLandingContainer from 'containers/accountLanding/AccountLandingContainer';
 import { showModal } from '../../redux/actions/modal/modalActions';
 
@@ -36,7 +36,7 @@ const AccountLandingPage = () => {
             title="Federal Account Profiles"
             metaTagProps={accountLandingPageMetaTags}
             toolBarComponents={[
-                <ShareIcon
+                <ShareIcon508
                     onShareOptionClick={handleShare}
                     url={getBaseUrl(slug)} />
             ]}>
