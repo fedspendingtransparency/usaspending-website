@@ -72,7 +72,8 @@ const ComboBox = ({
     labelText = "Select a fruit",
     placeHolder = "Select a fruit",
     optionsArray = testArray,
-    htmlName = "fruit"
+    htmlName = "fruit",
+    className
 }) => {
     const [inputValue, setInputValue] = useState('');
     const [openOptions, setOpenOptions] = useState(false);
@@ -80,63 +81,77 @@ const ComboBox = ({
     // 1) filter for inputValue 2) map to list item element
     const options = optionsArray
         .filter(({ value }) => value.indexOf(inputValue.toLowerCase()) !== -1)
-        .map(({ value, text }) => (
-            <li value={value}>{text}</li>
-        ));
+        .map(({ value, text }) => {
+            const onClick = () => {
+                setInputValue(text);
+                setOpenOptions(false);
+            };
+
+            return (
+                <li value={value}>
+                    <button
+                        type="button"
+                        aria-label={`${htmlName}-option`}
+                        tabIndex={0}
+                        onClick={onClick}>
+                        {text}
+                    </button>
+                </li>
+            );
+        });
 
     const onChange = (e) => {
         setInputValue(e.target.value);
         setOpenOptions(e.target.value !== 0);
     };
 
-    const onClickClear = () => setInputValue('');
-    const onKeydownClear = (e) => {
-        e.persist();
-        if (e.key === 'Enter') onClickClear();
+    const onClickClear = () => {
+        setInputValue('');
+        setOpenOptions(false);
     };
 
     const onClickToggle = () => setOpenOptions((prevState) => !prevState);
-    const onKeydownToggle = (e) => {
-        e.persist();
-        if (e.key === 'Enter') onClickToggle();
-    };
 
     const chevron = openOptions ? "chevron-down" : "chevron-up";
 
     return (
-        <div className="usa-combo-box">
+        <div className={`usa-combo-box${className ? ` ${className}` : ''}`}>
             <label
                 className="usa-label"
                 id={`${htmlName}-label`}
                 htmlFor={htmlName}>
                 {labelText}
-                <input
-                    value={inputValue}
-                    type="text"
-                    name={htmlName}
-                    onChange={onChange}
-                    placeholder={placeHolder} />
-                <button
-                    type="button"
-                    name={htmlName}
-                    aria-label={`${htmlName}-on-clear`}
-                    tabIndex={0}
-                    onClick={onClickClear}
-                    onKeyDown={onKeydownClear}>
-                    <FontAwesomeIcon icon="times" tabIndex={-1} />
-                </button>
-                <button
-                    type="button"
-                    name={htmlName}
-                    aria-label={`${htmlName}-on-clear`}
-                    tabIndex={0}
-                    onClick={onClickToggle}
-                    onKeyDown={onKeydownToggle}>
-                    <FontAwesomeIcon icon={chevron} />
-                </button>
-                <ul className="usa-select" id={`${htmlName}-select-id`}>
-                    { openOptions && options }
-                </ul>
+                <div className="input-container">
+                    <input
+                        value={inputValue}
+                        type="text"
+                        name={htmlName}
+                        onChange={onChange}
+                        placeholder={placeHolder} />
+                    <div className="buttons-container">
+                        <button
+                            type="button"
+                            name={htmlName}
+                            aria-label={`${htmlName}-on-clear`}
+                            tabIndex={0}
+                            onClick={onClickClear}>
+                            <FontAwesomeIcon icon="times" />
+                        </button>
+                        <button
+                            type="button"
+                            name={htmlName}
+                            aria-label={`${htmlName}-on-clear`}
+                            tabIndex={0}
+                            onClick={onClickToggle}>
+                            <FontAwesomeIcon icon={chevron} />
+                        </button>
+                    </div>
+                </div>
+                <div className="options-list">
+                    <ul className="usa-select" id={`${htmlName}-select-id`}>
+                        { openOptions && options }
+                    </ul>
+                </div>
             </label>
         </div>
     );
