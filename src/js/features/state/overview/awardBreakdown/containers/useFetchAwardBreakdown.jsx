@@ -18,6 +18,7 @@ export const useFetchAwardBreakdown = (id, fy, toggleState) => {
     } = useQuery({
         queryKey: ['awardBreakdownStateProfile'],
         queryFn: () => fetchAwardBreakdown(id, fy).promise,
+        enabled: !!id,
         staleTime: 60000
     });
 

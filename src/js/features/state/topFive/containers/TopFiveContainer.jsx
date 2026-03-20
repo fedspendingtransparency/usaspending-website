@@ -3,16 +3,14 @@
  * Created by Kevin Li 5/15/18
  */
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 
 import { getTrailingTwelveMonths, convertFYToDateRange } from 'helpers/fiscalYearHelper';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import TopFive from "components/sharedComponents/TopFive";
-import useQueryTemp from "hooks/useQueryTemp";
-import useFetchSpendingByAward from "./useFetchSpendingByAward";
-import useFetchSpendingByCategory from "./useFetchSpendingByCategory";
+import useFetchSpendingBy from "./useFetchSpendingBy";
 
 const propTypes = {
     type: PropTypes.string,
@@ -91,32 +89,31 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
 
     const dataParams = useMemo(() => getDataParams(), [getDataParams]);
 
+    let initialLoad = true;
 
-    // const {
-    //     parsedData, isSuccess, isLoading, error, noResults
-    // } = category === 'awards' ?
-    // // eslint-disable-next-line react-hooks/rules-of-hooks
-    //     useFetchSpendingByAward(dataParams, category) :
-    // // eslint-disable-next-line react-hooks/rules-of-hooks
-    //     useFetchSpendingByCategory(dataParams, category);
+    const {
+        parsedData, isSuccess, isLoading, error, noResults
+    } = useFetchSpendingBy(dataParams, category);
 
-    // if (isSuccess) {
-    //     setParsedResults(parsedData);
-    //     setNoResultState(noResults);
-    // }
+    if (isSuccess && initialLoad) {
+        initialLoad = false;
+        console.log(isSuccess, parsedData);
+        setParsedResults(parsedData);
+        setNoResultState(noResults);
+    }
 
     return (
         <>
-            {/*{!noResultState &&*/}
-            {/*    <TopFive*/}
-            {/*        category={category}*/}
-            {/*        results={parsedResults}*/}
-            {/*        total={total}*/}
-            {/*        loading={isLoading}*/}
-            {/*        error={error}*/}
-            {/*        dataParams={dataParams}*/}
-            {/*        agencyData={agencyData} />*/}
-            {/*}*/}
+            {!noResultState &&
+                <TopFive
+                    category={category}
+                    results={parsedResults}
+                    total={total}
+                    loading={isLoading}
+                    error={error}
+                    dataParams={dataParams}
+                    agencyData={agencyData} />
+            }
         </>
     );
 };

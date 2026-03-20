@@ -6,17 +6,31 @@
 import { useState, useEffect } from "react";
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { useQuery } from "@tanstack/react-query";
-import { performSpendingByAwardSearch, parseData } from "helpers/searchHelper";
+import { performSpendingByAwardSearch, performSpendingByCategorySearch, parseData } from "helpers/searchHelper";
 
-export const useFetchSpendingByAward = (apiParams, category) => {
+export const useFetchSpendingBy = (apiParams, category) => {
     const [parsedData, setParsedData] = useState(null);
     const [noResults, setNoResults] = useState(false);
+
+    console.log("hello", apiParams);
+
+    const categoryName = category === "award" ? "Award" : "Category";
+
+    let categoryFn = null;
+
+    useEffect(() => {
+        if (category === "award") {
+            categoryFn = performSpendingByAwardSearch;
+        } else {
+            categoryFn = performSpendingByCategorySearch;
+        }
+    }, [category]);
 
     const {
         data, isSuccess, isLoading, error
     } = useQuery({
-        queryKey: ['spendingByAward'],
-        queryFn: () => performSpendingByAwardSearch(apiParams).promise,
+        queryKey: [`spendingBy${categoryName}`],
+        queryFn: () => categoryFn(apiParams).promise,
         staleTime: 60000
     });
 
@@ -26,7 +40,8 @@ export const useFetchSpendingByAward = (apiParams, category) => {
             const { noResults, parsedData } = parseData(data?.data, category);
             if (noResults) {
                 setNoResults(true);
-            } else {
+            }
+            else {
                 setParsedData(parsedData);
             }
         }
@@ -37,4 +52,4 @@ export const useFetchSpendingByAward = (apiParams, category) => {
     };
 };
 
-export default useFetchSpendingByAward;
+export default useFetchSpendingBy;

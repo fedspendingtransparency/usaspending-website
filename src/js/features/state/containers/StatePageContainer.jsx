@@ -48,7 +48,7 @@ const StatePageContainer = ({
         // Update the map center
         const center = stateCenterFromFips(stateId);
         dispatch(setStateCenter(center));
-    }, [state, stateProfile.fy, fy, dispatch, stateId]);
+    }, [state, stateProfile.fy, fy, stateId]);
 
     return (
         <StatePage
