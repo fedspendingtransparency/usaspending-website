@@ -15,6 +15,15 @@
             }
             margin: auto;
             padding: 0;
+            .heading-container {
+                width: 100%;
+                .header {
+                    margin-bottom: 0;
+                    font-weight: $font-semibold;
+                    letter-spacing: 0;
+                    line-height: 120%;
+                }
+            }
             @media (max-width: $tablet-screen) {
                 padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2) ($global-spacing-unit * 2) ($global-spacing-unit * 2);
 
@@ -31,15 +40,6 @@
             .agency-submission-stat-col {
                 width: 100%;
                 margin: auto;
-                .heading-container {
-                    width: 100%;
-                    .header {
-                        margin-bottom: 0;
-                        font-weight: $font-semibold;
-                        letter-spacing: 0;
-                        line-height: rem(59);
-                    }
-                }
             }
         }
     }

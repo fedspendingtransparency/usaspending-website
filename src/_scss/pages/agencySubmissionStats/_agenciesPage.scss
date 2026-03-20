@@ -1,16 +1,25 @@
 .heading-container {
     .header {
         margin-top: rem(30);
-        font-size: rem(24);
+        font-size: rem(28);
     }
     .sub-header {
-        color: $color-base;
+        color: $gray-cool-60;
         font-size: rem(16);
-        font-weight: 300;
+        font-weight: $font-normal;
         letter-spacing: 0;
         line-height: rem(24);
-        margin-top: 0;
-        margin-bottom: rem(30);
+        margin-top: rem(8);
+        margin-bottom: 0;
+        .sub-header-span {
+            font-weight: $font-semibold;
+        }
+        .sub-header-link {
+            text-decoration: underline;
+        }
+        &:last-of-type {
+            margin-bottom: rem(30);
+        }
     }
 }
 @import './tableControls';
