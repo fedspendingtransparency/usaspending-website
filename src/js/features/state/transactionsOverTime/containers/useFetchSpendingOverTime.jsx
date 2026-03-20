@@ -17,6 +17,7 @@ export const useFetchSpendingOverTime = (apiParams, visualizationPeriod) => {
     } = useQuery({
         queryKey: ['spendingOverTimeSearch'],
         queryFn: () => performSpendingOverTimeSearch(apiParams).promise,
+        enabled: !!apiParams,
         staleTime: 60000
     });
 
