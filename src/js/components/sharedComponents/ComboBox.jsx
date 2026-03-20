@@ -73,6 +73,7 @@ const ComboBox = ({
     placeHolder = "Select a fruit",
     optionsArray = testArray,
     htmlName = "fruit",
+    disabled,
     className
 }) => {
     const [inputValue, setInputValue] = useState('');
@@ -127,14 +128,16 @@ const ComboBox = ({
                         type="text"
                         name={htmlName}
                         onChange={onChange}
-                        placeholder={placeHolder} />
+                        placeholder={placeHolder}
+                        disabled={disabled} />
                     <div className="buttons-container">
                         <button
                             type="button"
                             name={htmlName}
                             aria-label={`${htmlName}-on-clear`}
                             tabIndex={0}
-                            onClick={onClickClear}>
+                            onClick={onClickClear}
+                            disabled={disabled}>
                             <FontAwesomeIcon icon="times" />
                         </button>
                         <button
@@ -142,7 +145,8 @@ const ComboBox = ({
                             name={htmlName}
                             aria-label={`${htmlName}-on-clear`}
                             tabIndex={0}
-                            onClick={onClickToggle}>
+                            onClick={onClickToggle}
+                            disabled={disabled}>
                             <FontAwesomeIcon icon={chevron} />
                         </button>
                     </div>

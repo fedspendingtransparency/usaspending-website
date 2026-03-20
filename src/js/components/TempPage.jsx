@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button
@@ -19,6 +19,12 @@ const TempPage = () => {
     const onClose = useCallback(() => window.alert('Close Icon Triggered!'), []);
     const alertBody = "This is a succinct, helpful in-page status message.";
 
+    const [disabled, setDisabled] = useState(true);
+
+    setTimeout(() => {
+        setDisabled(false);
+    }, 5000);
+
     return (
         <PageFeatureFlag>
             <PageWrapper
@@ -27,7 +33,7 @@ const TempPage = () => {
                 title="Test Page">
                 <main id="main-content" className="main-content">
                     <h1>ComboBox Variants</h1>
-                    <ComboBox />
+                    <ComboBox disabled={disabled} />
                     <h1>Alert Variants</h1>
                     <div
                         style={{
