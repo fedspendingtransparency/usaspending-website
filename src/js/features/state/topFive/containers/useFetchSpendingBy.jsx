@@ -11,26 +11,17 @@ import { performSpendingByAwardSearch, performSpendingByCategorySearch, parseDat
 export const useFetchSpendingBy = (apiParams, category) => {
     const [parsedData, setParsedData] = useState(null);
     const [noResults, setNoResults] = useState(false);
-
-    console.log("hello", apiParams);
-
     const categoryName = category === "award" ? "Award" : "Category";
-
-    let categoryFn = null;
-
-    useEffect(() => {
-        if (category === "award") {
-            categoryFn = performSpendingByAwardSearch;
-        } else {
-            categoryFn = performSpendingByCategorySearch;
-        }
-    }, [category]);
 
     const {
         data, isSuccess, isLoading, error
     } = useQuery({
         queryKey: [`spendingBy${categoryName}`],
-        queryFn: () => categoryFn(apiParams).promise,
+        queryFn: () => {
+            if (category === 'award') return performSpendingByAwardSearch(apiParams).promise;
+            return performSpendingByCategorySearch(apiParams).promise;
+        },
+        enabled: !!category,
         staleTime: 60000
     });
 

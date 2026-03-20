@@ -3,7 +3,7 @@
  * Created by Kevin Li 5/15/18
  */
 
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 
@@ -89,31 +89,32 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
 
     const dataParams = useMemo(() => getDataParams(), [getDataParams]);
 
-    let initialLoad = true;
 
-    const {
-        parsedData, isSuccess, isLoading, error, noResults
-    } = useFetchSpendingBy(dataParams, category);
+    // const {
+    //     parsedData, isSuccess, isLoading, error, noResults
+    // } = useFetchSpendingBy(dataParams, category);
 
-    if (isSuccess && initialLoad) {
-        initialLoad = false;
-        console.log(isSuccess, parsedData);
-        setParsedResults(parsedData);
-        setNoResultState(noResults);
-    }
+    // useEffect(() => {
+    //     if (isSuccess) {
+    //         console.log(isSuccess, parsedData);
+    //         setParsedResults(parsedData);
+    //         setNoResultState(noResults);
+    //     }
+    // }, [isSuccess, noResults, parsedData]);
+
 
     return (
         <>
-            {!noResultState &&
-                <TopFive
-                    category={category}
-                    results={parsedResults}
-                    total={total}
-                    loading={isLoading}
-                    error={error}
-                    dataParams={dataParams}
-                    agencyData={agencyData} />
-            }
+            {/*{!noResultState &&*/}
+            {/*    <TopFive*/}
+            {/*        category={category}*/}
+            {/*        results={parsedResults}*/}
+            {/*        total={total}*/}
+            {/*        loading={isLoading}*/}
+            {/*        error={error}*/}
+            {/*        dataParams={dataParams}*/}
+            {/*        agencyData={agencyData} />*/}
+            {/*}*/}
         </>
     );
 };
