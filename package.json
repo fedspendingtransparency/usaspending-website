@@ -298,7 +298,7 @@
     "history": "^4.6.1",
     "immutable": "^3.8.3",
     "intersection-observer": "^0.12.2",
-    "jest-environment-jsdom": "^29.7.0",
+    "jest-environment-jsdom": "^30.3.0",
     "js-cookie": "^3.0.5",
     "js-search": "^1.4.2",
     "linkify-html": "^4.1.0",
