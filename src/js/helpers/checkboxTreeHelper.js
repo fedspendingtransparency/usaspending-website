@@ -423,7 +423,8 @@ export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true)
                 isPlaceHolder: true,
                 label: 'Child Placeholder',
                 value: `children_of_${parent?.value}`,
-                className: hide ? 'hide' : ''
+                className: hide ? 'hide' : '',
+                id: `children_of_${parent?.value}`
             }]);
     }
     if (isPlaceHolderNeeded) {
@@ -431,7 +432,8 @@ export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true)
             isPlaceHolder: true,
             label: 'Child Placeholder',
             value: `children_of_${parent?.value}`,
-            className: hide ? 'hide' : ''
+            className: hide ? 'hide' : '',
+            id: `children_of_${parent?.value}`
         }]);
     }
     if (hasGenuineGrandChildren || hasPlaceholderGrandChildren) {
