@@ -5,7 +5,6 @@
 import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { faLightbulb as falLightbulb } from "@fortawesome/pro-light-svg-icons";
 import { library } from '@fortawesome/fontawesome-svg-core';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import {
     faAngleDown,
     faAngleUp,
