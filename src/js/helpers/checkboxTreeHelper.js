@@ -423,6 +423,7 @@ export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true)
                 isPlaceHolder: true,
                 label: 'Child Placeholder',
                 value: `children_of_${parent?.value}`,
+                id: `children_of_${parent?.value}`,
                 className: hide ? 'hide' : ''
             }]);
     }
@@ -431,6 +432,7 @@ export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true)
             isPlaceHolder: true,
             label: 'Child Placeholder',
             value: `children_of_${parent?.value}`,
+            id: `children_of_${parent?.value}`,
             className: hide ? 'hide' : ''
         }]);
     }
