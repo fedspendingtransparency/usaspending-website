@@ -192,8 +192,10 @@ const TASCheckboxTree = () => {
 
     const onClear = () => {
         if (request.current) request.current.cancel();
+
         dispatch(setExpandedTas([], 'SET_SEARCHED_EXPANDED'));
         dispatch(showTasTree());
+
         setIsSearch(false);
         setSearchString('');
         setIsLoading(false);
@@ -360,6 +362,7 @@ const TASCheckboxTree = () => {
                 enabled
                 handleTextInputChange={handleTextInputChange}
                 isClearable
+                context={{}}
                 loading={false}
                 onClear={onClear}
                 searchIcon />
