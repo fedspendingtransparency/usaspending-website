@@ -301,11 +301,9 @@ const TASCheckboxTree = () => {
                 getTasAncestryPathForChecked(unchecked, nodes),
                 countsFromHash
             ));
-            return Promise.resolve();
         }
         else if (nodes.length !== 0) {
             dispatch(showTasTree());
-            return Promise.resolve();
         }
 
         fetchTasLocal('')
@@ -362,7 +360,6 @@ const TASCheckboxTree = () => {
                 enabled
                 handleTextInputChange={handleTextInputChange}
                 isClearable
-                context={{}}
                 loading={false}
                 onClear={onClear}
                 searchIcon />
