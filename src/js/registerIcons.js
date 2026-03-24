@@ -5,6 +5,7 @@
 import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { faLightbulb as falLightbulb } from "@fortawesome/pro-light-svg-icons";
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { faXmark, faLightbulb as farLightbulb } from '@fortawesome/pro-regular-svg-icons';
 import {
     faAngleDown,
     faAngleUp,
@@ -99,7 +100,6 @@ import {
     faLongArrowAltUp,
     faLongArrowAltDown
 } from "@fortawesome/pro-solid-svg-icons";
-import { faXmark } from '@fortawesome/pro-regular-svg-icons';
 
 export default function registerIcons() {
     library.add(
@@ -158,6 +158,7 @@ export default function registerIcons() {
         faLaptop,
         faLevelUpAlt,
         faLightbulb,
+        farLightbulb,
         faLightbulbCfl,
         faLink,
         falLightbulb,
