@@ -1,8 +1,36 @@
 .combo-box {
   margin: rem(20);
 
+  .combo-box__label {
+    font-size: $base-font-size;
+    font-weight: $font-semibold;
+    color: $gray-90;
+    line-height: 1.5;
+
+    span {
+      font-weight: normal;
+      color: $red-cool-50v;
+    }
+
+    svg {
+      color: $gray-20;
+    }
+  }
+
   .combo-box__input-container {
     display: flex;
+    align-items: center;
+    margin: rem(8) 0 rem(16) 0;
+
+    .combo-box__input {
+      width: 100%;
+      font-size: $small-font-size;
+      line-height: 1.5;
+      color: $gray-60;
+      padding: rem(8) rem(10);
+      border: rem(1) solid $gray-20;
+      border-radius: rem(3);
+    }
 
     .combo-box__buttons-container {
       display: flex;
@@ -15,7 +43,7 @@
       }
 
       .combo-box__button {
-        padding: rem(6);
+        padding: rem(4);
         margin: 0;
         border-radius: 0;
         background-color: transparent;

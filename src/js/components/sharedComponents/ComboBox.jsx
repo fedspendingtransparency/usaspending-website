@@ -78,6 +78,7 @@ const ComboBox = ({
                     <input
                         value={inputValue}
                         type="text"
+                        className="combo-box__input"
                         name={formName}
                         onChange={onChange}
                         placeholder={placeholder}

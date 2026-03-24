@@ -26,6 +26,14 @@ const TempPage = () => {
         setDisabled(false);
     }, 5000);
 
+    const exampleLabel = (
+        <>
+            Label
+            <span> (Required) </span>
+            <FontAwesomeIcon icon="circle-question" />
+        </>
+    );
+
     return (
         <PageFeatureFlag>
             <PageWrapper
@@ -45,6 +53,12 @@ const TempPage = () => {
                         <ComboBox
                             optionsArray={mockComboBox}
                             label="Please select a fruit"
+                            placeholder="e.g., apple, banana, mango"
+                            formName="fruit"
+                            disabled={disabled} />
+                        <ComboBox
+                            optionsArray={mockComboBox}
+                            label={exampleLabel}
                             placeholder="e.g., apple, banana, mango"
                             formName="fruit"
                             disabled={disabled} />
