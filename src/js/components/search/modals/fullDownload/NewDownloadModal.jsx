@@ -57,18 +57,36 @@ const NewDownloadModal = (props) => {
         setDownloadStep(step);
     };
 
-    // remove eslint warnings after you do the other levels
-    // eslint-disable-next-line prefer-const
-    let content = <NewDownloadLevelContainer goToStep={goToStep} hideModal={hideModal} />;
-    // eslint-disable-next-line prefer-const
     let headerContent = "Step 1 of 2: Select which data you'd like to download";
+    let downloadData = {};
 
-    // will need for the future
-    // if (downloadStep === 2) {
-    // }
+    if (downloadStep === 2) {
+        headerContent = "Step 2 of 2: Review and begin download";
+        // dummy data for now
+        // need to figure out data structure for step 2
+        downloadData = {
+            expectedFile: "sampleFileName_DDMMYYYY.zip",
+            selections: "Transactions, Subawards",
+            filters: [
+                {
+                    type: "Fiscal Year",
+                    values: "2024, 2025, 2026"
+                },
+                {
+                    type: "Agency",
+                    values: "Department of Education, Department of Housing, Department of Commerce, Department of Agriculture, Department of Homeland Security, Department of Justice, Department of Labor, Department of State, Department of Transportation, Department of Veterans Affairs, Department of the Interior, Department of the Treasury"
+                }
+            ]
+        };
+    }
     // else if (downloadStep === 3) {
     // }
 
+    const content = (<NewDownloadLevelContainer
+        goToStep={goToStep}
+        hideModal={hideModal}
+        step={downloadStep}
+        downloadData={downloadData} />);
     return (
         <Modal
             mounted={props.mounted}
@@ -82,7 +100,12 @@ const NewDownloadModal = (props) => {
                     <div className="header-content">
                         <h1 className="modal__header">{headerContent}</h1>
                         <div className="close-wrapper">
-                            <FontAwesomeIcon tabIndex={0} className="close-button" onClick={props.hideModal} aria-label="Close" icon="xmark" />
+                            <FontAwesomeIcon
+                                tabIndex={0}
+                                className="close-button"
+                                onClick={props.hideModal}
+                                aria-label="Close"
+                                icon="xmark" />
                         </div>
                     </div>
                 </div>

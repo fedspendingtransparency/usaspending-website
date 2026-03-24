@@ -44,7 +44,7 @@ const NewDownloadLevel = (props) => {
     return (
         <div className="download-level-screen">
             <div className="main-title">
-                <h2>Select one or more of the options below; each option needs to be under 500,000 records.</h2>
+                <h3>Select one or more of the options below; each option needs to be under 500,000 records.</h3>
             </div>
             {message && <DownloadWarning message={message} />}
             <div className="level-options-container">
@@ -85,7 +85,13 @@ const NewDownloadLevel = (props) => {
                     buttonSize="sm"
                     buttonTitle="Next"
                     buttonType="primary"
-                    copy="Next" />
+                    copy="Next"
+                    onClick={() => props.goToStep(2, true)}
+                    onKeyUp={(e) => {
+                        if (e.key === "Enter") {
+                            props.goToStep(2, true);
+                        }
+                    }} />
             </div>
         </div>
     );

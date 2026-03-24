@@ -14,5 +14,18 @@
         padding: rem(24);
     }
 
+
+    .main-title {
+        h3 {
+            text-align: left;
+            font-size: rem(20);
+            font-weight: $font-normal;
+            margin-bottom: rem(12);
+            margin-top: 0;
+            line-height: 120%;
+            color: $gray-90;
+        }
+    }
     @import "./_levelScreen";
+    @import "./_summaryScreen";
 }

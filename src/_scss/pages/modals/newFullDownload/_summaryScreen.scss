@@ -1,0 +1,36 @@
+.download-summary-container{
+    font-size: $base-font-size;
+    color: $color-black;
+
+    .dowload-summary__heading {
+        background-color: $blue-vivid-5v;
+        padding: rem(8) rem(16);
+        font-weight: $font-semibold;
+        margin: 0px;
+        
+    }
+
+    table, th, td {
+        border: none;
+    }
+
+    .dowload-summary__details-table {
+        margin-top: 0px;
+
+        th, td {
+            padding: rem(8) rem(16);
+            border-bottom: rem(1) solid $gray-10;
+            
+        }
+        
+        th {
+            font-weight: $font-semibold;
+            width: rem(198);
+        }
+        
+        td {
+            font-weight: $font-normal;
+            
+        }
+    }
+}

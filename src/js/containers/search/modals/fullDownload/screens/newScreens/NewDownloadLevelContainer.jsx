@@ -11,14 +11,23 @@ import { connect } from 'react-redux';
 import * as downloadActions from 'redux/actions/search/downloadActions';
 
 import NewDownloadLevel from 'components/search/modals/fullDownload/screens/newScreens/NewDownloadLevel';
+import NewDownloadSummary from 'components/search/modals/fullDownload/screens/newScreens/NewDownloadSummary';
 
 const propTypes = {
-    download: PropTypes.object
+    download: PropTypes.object,
+    step: PropTypes.number,
+    goToStep: PropTypes.func,
+    downloadData: PropTypes.object
 };
 
-const NewDownloadLevelContainer = (props) => (
-    <NewDownloadLevel {...props} />
-);
+const NewDownloadLevelContainer = (props) => {
+    console.log("props============", props);
+    if (props.step === 2) {
+        return <NewDownloadSummary {...props} />;
+    }
+
+    return <NewDownloadLevel {...props} />;
+};
 
 NewDownloadLevelContainer.propTypes = propTypes;
 
