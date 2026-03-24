@@ -90,7 +90,7 @@ const ComboBox = ({
                             aria-label={`${formName}-on-clear`}
                             onClick={onClickClear}
                             disabled={isDisabled}>
-                            <FontAwesomeIcon icon="times" />
+                            <FontAwesomeIcon icon="times" className="close-icon" />
                         </button>
                         <div className="combo-box__vertical-line" />
                         <button
@@ -100,7 +100,7 @@ const ComboBox = ({
                             aria-label={`${formName}-on-toggle`}
                             onClick={onClickToggle}
                             disabled={isDisabled}>
-                            <FontAwesomeIcon icon={chevron} />
+                            <FontAwesomeIcon icon={chevron} className="chevron-icon" />
                         </button>
                     </div>
                 </div>

@@ -8,19 +8,28 @@
       display: flex;
 
       .combo-box__vertical-line {
-        border-left: 1px solid red;
-        height: 100%;
+        width: rem(1);
+        height: rem(24);
+        background-color: $gray-20;
+        margin: 0 rem(7);
       }
 
       .combo-box__button {
-        padding: rem(10);
+        padding: rem(6);
         margin: 0;
         border-radius: 0;
         background-color: transparent;
 
         svg {
           width: rem(11);
-          color: black;
+        }
+
+        .close-icon {
+          color: $gray-90;
+        }
+
+        .chevron-icon {
+          color: $blue-60v;
         }
       }
     }
