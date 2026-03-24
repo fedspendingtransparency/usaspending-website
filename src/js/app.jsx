@@ -1,7 +1,6 @@
 import React from 'react';
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import AppContainer from 'containers/AppContainer';
 import registerIcons from './registerIcons';
@@ -23,7 +22,6 @@ const appDiv = document.getElementById("app");
 const root = createRoot(appDiv);
 const App = root.render(
     <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools initialIsOpen={false} />
         <AppContainer />
     </QueryClientProvider>
 );
