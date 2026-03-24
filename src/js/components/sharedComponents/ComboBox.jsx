@@ -67,6 +67,8 @@ const ComboBox = ({
 
     const isDisabled = disabled || optionsArray.length === 0;
 
+    const inputValueEmpty = inputValue === '';
+
     return (
         <div className={`combo-box${className ? ` ${className}` : ''}`}>
             <label
@@ -83,16 +85,20 @@ const ComboBox = ({
                         onChange={onChange}
                         placeholder={placeholder}
                         disabled={isDisabled} />
-                    <div className="combo-box__buttons-container">
-                        <button
-                            className="combo-box__button"
-                            type="button"
-                            name={`${formName}-on-clear`}
-                            aria-label={`${formName}-on-clear`}
-                            onClick={onClickClear}
-                            disabled={isDisabled}>
-                            <FontAwesomeIcon icon="times" className="close-icon" />
-                        </button>
+                    <div className={`combo-box__buttons-container${
+                        inputValueEmpty ? ' empty' : ''
+                    }`}>
+                        { !inputValueEmpty &&
+                            <button
+                                className="combo-box__button"
+                                type="button"
+                                name={`${formName}-on-clear`}
+                                aria-label={`${formName}-on-clear`}
+                                onClick={onClickClear}
+                                disabled={isDisabled}>
+                                <FontAwesomeIcon icon="times" className="close-icon" />
+                            </button>
+                        }
                         <div className="combo-box__vertical-line" />
                         <button
                             className="combo-box__button"

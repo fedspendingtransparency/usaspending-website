@@ -21,6 +21,7 @@
     display: flex;
     align-items: center;
     margin: rem(8) 0 rem(16) 0;
+    position: relative;
 
     .combo-box__input {
       width: 100%;
@@ -34,6 +35,13 @@
 
     .combo-box__buttons-container {
       display: flex;
+      position: absolute;
+      margin-left: rem(-60);
+      left: 100%;
+
+      &.empty {
+        margin-left: rem(-41);
+      }
 
       .combo-box__vertical-line {
         width: rem(1);
