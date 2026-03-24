@@ -43,7 +43,7 @@ const RecipientFilterGroup = ({ name }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} filter={name} />);
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
 RecipientFilterGroup.propTypes = propTypes;
