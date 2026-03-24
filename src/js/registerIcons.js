@@ -7,8 +7,7 @@ import { faLightbulb as falLightbulb } from "@fortawesome/pro-light-svg-icons";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faXmark,
-    faLightbulb as farLightbulb,
-    faCircleQuestion as farCircleQuestion
+    faLightbulb as farLightbulb
 } from '@fortawesome/pro-regular-svg-icons';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
