@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import { ShareIcon } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
 
 import { recipientLandingPageMetaTags } from 'helpers/metaTagHelper';
@@ -12,7 +11,8 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import RecipientLandingContainer from 'containers/recipientLanding/RecipientLandingContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import { showModal } from '../../redux/actions/modal/modalActions';
+import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
+import { showModal } from 'redux/actions/modal/modalActions';
 
 require('pages/recipientLanding/recipientLandingPage.scss');
 
@@ -38,7 +38,7 @@ const RecipientLandingPage = () => {
             title="Recipient Profiles"
             metaTagProps={recipientLandingPageMetaTags}
             toolBarComponents={[
-                <ShareIcon
+                <ShareIcon508
                     onShareOptionClick={handleShare}
                     url={getBaseUrl(slug)}
                     key="page-wrapper__share-icon" />
