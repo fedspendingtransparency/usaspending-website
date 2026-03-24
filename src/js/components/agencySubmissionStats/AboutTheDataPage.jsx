@@ -18,7 +18,6 @@ import { useLatestAccountData, useValidTimeBasedQueryParams } from
     'containers/account/WithLatestFy';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { modalTitles, modalClassNames } from 'dataMapping/agencySubmissionStats/modals';
-import { tabTooltips } from './componentMapping/tooltipContentMapping';
 import TimeFilters from './TimeFilters';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useQueryParams from "../../hooks/useQueryParams";
