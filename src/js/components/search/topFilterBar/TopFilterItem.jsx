@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { QAT } from 'GlobalConstants';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     title: PropTypes.string.isRequired,
@@ -44,7 +45,7 @@ const TopFilterItem = ({
     };
 
     return (
-        <div className="filter-item-container">
+        <div className="filter-item-container" role="listitem">
             <button
                 onClick={onClick}
                 onKeyUp={onKeyUp}
@@ -55,6 +56,9 @@ const TopFilterItem = ({
                 tabIndex="0">
                 <div className="filter-item-title">
                     {title}
+                    <FontAwesomeIcon
+                        icon={staged ? "times" : "plus"}
+                        className="filter-item-icon" />
                 </div>
             </button>
         </div>

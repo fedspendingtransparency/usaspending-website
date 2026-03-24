@@ -1,5 +1,10 @@
 @use "sass:math";
 
+// feature content may style header per article
+.usda-page-header:not(.featured-content-page >.usda-page-header ) {
+    background-color: $blue-80v !important;
+}
+
 .usda-page-header {
     @include display(flex);
     min-height: rem(60);

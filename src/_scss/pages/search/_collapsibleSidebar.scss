@@ -229,6 +229,13 @@
 
               .filter-item-wrap {
                 padding: 0;
+                
+                .filter-description {
+                  color: $gray-90;
+                  font-size: $smallest-font-size;
+                  line-height: 1.5;
+                  padding: 0 ($global-padding / 2) $global-padding ($global-padding / 2);
+                }
               }
 
               .agency-filter .filter-item-wrap:first-of-type {
