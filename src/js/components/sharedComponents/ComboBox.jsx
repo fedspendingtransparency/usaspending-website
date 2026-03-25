@@ -44,6 +44,7 @@ const ComboBox = memo(function ComboBox({
             return (
                 <li value={value} className="combo-box__options-item" key={value}>
                     <button
+                        className="combo-box__option"
                         type="button"
                         aria-label={`${formName}-option-item`}
                         onClick={onClick}>
@@ -70,6 +71,8 @@ const ComboBox = memo(function ComboBox({
     const isDisabledAndEmpty = disabled || optionsArray.length === 0;
 
     const inputValueEmpty = inputValue === '';
+
+    const noSearchResults = options.length === 0 && !inputValueEmpty;
 
     return (
         <div className={`combo-box${className ? ` ${className}` : ''}`}>
@@ -120,6 +123,15 @@ const ComboBox = memo(function ComboBox({
                 <div className={`combo-box__options-container${label ? ' label' : ''}`}>
                     <ul className="combo-box__options" id={`${formName}-list`}>
                         { openOptions && options }
+                        { openOptions && noSearchResults &&
+                            <li value="no-result" className="combo-box__options-item" key="no-result">
+                                <div
+                                    className="combo-box__option"
+                                    aria-label={`${formName}-option-item`}>
+                                    No results found
+                                </div>
+                            </li>
+                        }
                     </ul>
                 </div>
             </label>
