@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { memo, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
@@ -19,7 +19,8 @@ const propTypes = {
     className: PropTypes.string
 };
 
-const ComboBox = ({
+// eslint-disable-next-line prefer-arrow-callback
+const ComboBox = memo(function ComboBox({
     inputValue,
     setInputValue,
     optionsArray,
@@ -28,7 +29,7 @@ const ComboBox = ({
     formName,
     disabled,
     className
-}) => {
+}) {
     const [openOptions, setOpenOptions] = useState(false);
 
     // 1) filter for inputValue 2) map to list item element
@@ -120,7 +121,7 @@ const ComboBox = ({
             </label>
         </div>
     );
-};
+});
 
 ComboBox.propTypes = propTypes;
 export default ComboBox;

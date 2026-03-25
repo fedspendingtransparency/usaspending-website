@@ -68,7 +68,7 @@ const TempPage = () => {
                             inputValue={inputValue}
                             setInputValue={setInputValue}
                             optionsArray={mockComboBox}
-                            placeholder="e.g., apple, banana, mango"
+                            placeholder="this is a ComboBox with no label"
                             formName="fruit" />
                         <ComboBox
                             inputValue={inputValue1}
