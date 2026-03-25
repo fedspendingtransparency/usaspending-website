@@ -625,21 +625,21 @@ const articles = [
         isInfographicTemplate: false,
         content_type: 'Featured Content',
         title: "What Is a Loan?",
-        banner_subtitle: "How Federal Spending Protects America’s Parks and Monuments",
+        banner_subtitle: "Learn About the Types of Loans on USAspending.gov",
         created_date: "04/09/2026",
         feature_sprint: 8,
         feature_week: 1,
-        description: "When you hear the term federal spending, you may think of big-ticket items like military, healthcare, or social services. But did you know that every year,",
+        description: "On USAspending's Advanced Search, loans are found under Award Type; users can search for two different types of loans: direct loans and guaranteed/insured loans",
         slug: "what-is-a-loan",
         explore_more: [
             {
-                label: "Advanced Search",
-                slug: "/search",
+                label: "Federal Spending Guide",
+                slug: "/federal-spending-guide",
                 type: "internal"
             },
             {
-                label: "Federal Spending Guide",
-                slug: "/federal-spending-guide",
+                label: "Advanced Search",
+                slug: "/search",
                 type: "internal"
             }
         ],
