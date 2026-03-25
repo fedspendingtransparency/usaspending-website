@@ -41,7 +41,7 @@ const ComboBox = ({
             };
 
             return (
-                <li value={value} className="combo-box__options-item">
+                <li value={value} className="combo-box__options-item" key={value}>
                     <button
                         type="button"
                         aria-label={`${formName}-option-item`}
@@ -89,7 +89,7 @@ const ComboBox = ({
                     <div className={`combo-box__buttons-container${
                         inputValueEmpty ? ' empty' : ''
                     }`}>
-                        { !inputValueEmpty && disabled &&
+                        { !inputValueEmpty && !disabled &&
                             <button
                                 className="combo-box__button"
                                 type="button"
@@ -112,7 +112,7 @@ const ComboBox = ({
                         </button>
                     </div>
                 </div>
-                <div className="combo-box__options-container">
+                <div className={`combo-box__options-container${label ? ' label' : ''}`}>
                     <ul className="combo-box__options" id={`${formName}-list`}>
                         { openOptions && options }
                     </ul>

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button
@@ -25,9 +25,11 @@ const TempPage = () => {
     const [inputValue2, setInputValue2] = useState('');
     const [disabled, setDisabled] = useState(true);
 
-    setTimeout(() => {
-        setDisabled(false);
-    }, 5000);
+    useEffect(() => {
+        setTimeout(() => {
+            setDisabled(false);
+        }, 5000);
+    }, []);
 
     const exampleLabel = (
         <>
