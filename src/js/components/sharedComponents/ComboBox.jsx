@@ -65,7 +65,7 @@ const ComboBox = memo(function ComboBox({
 
     const onClickToggle = () => setOpenOptions((prevState) => !prevState);
 
-    const chevron = openOptions ? "chevron-down" : "chevron-up";
+    const chevron = openOptions ? "chevron-up" : "chevron-down";
 
     const isDisabledAndEmpty = disabled || optionsArray.length === 0;
 
