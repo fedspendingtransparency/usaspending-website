@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 const propTypes = {
+    inputValue: PropTypes.string.isRequired,
+    setInputValue: PropTypes.func.isRequired,
     optionsArray: PropTypes.arrayOf(
         PropTypes.shape(
             {
@@ -14,20 +16,19 @@ const propTypes = {
     placeholder: PropTypes.string,
     formName: PropTypes.string,
     disabled: PropTypes.bool,
-    defaultValue: PropTypes.string,
     className: PropTypes.string
 };
 
 const ComboBox = ({
+    inputValue,
+    setInputValue,
     optionsArray,
     label,
     placeholder,
     formName,
     disabled,
-    defaultValue = '',
     className
 }) => {
-    const [inputValue, setInputValue] = useState(defaultValue);
     const [openOptions, setOpenOptions] = useState(false);
 
     // 1) filter for inputValue 2) map to list item element
@@ -65,7 +66,7 @@ const ComboBox = ({
 
     const chevron = openOptions ? "chevron-down" : "chevron-up";
 
-    const isDisabled = disabled || optionsArray.length === 0;
+    const isDisabledAndEmpty = disabled || optionsArray.length === 0;
 
     const inputValueEmpty = inputValue === '';
 
@@ -84,18 +85,18 @@ const ComboBox = ({
                         name={formName}
                         onChange={onChange}
                         placeholder={placeholder}
-                        disabled={isDisabled} />
+                        disabled={isDisabledAndEmpty} />
                     <div className={`combo-box__buttons-container${
                         inputValueEmpty ? ' empty' : ''
                     }`}>
-                        { !inputValueEmpty &&
+                        { !inputValueEmpty && disabled &&
                             <button
                                 className="combo-box__button"
                                 type="button"
                                 name={`${formName}-on-clear`}
                                 aria-label={`${formName}-on-clear`}
                                 onClick={onClickClear}
-                                disabled={isDisabled}>
+                                disabled={isDisabledAndEmpty}>
                                 <FontAwesomeIcon icon="times" className="close-icon" />
                             </button>
                         }
@@ -106,7 +107,7 @@ const ComboBox = ({
                             name={`${formName}-on-toggle`}
                             aria-label={`${formName}-on-toggle`}
                             onClick={onClickToggle}
-                            disabled={isDisabled}>
+                            disabled={isDisabledAndEmpty}>
                             <FontAwesomeIcon icon={chevron} className="chevron-icon" />
                         </button>
                     </div>

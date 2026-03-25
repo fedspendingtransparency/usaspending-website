@@ -20,6 +20,9 @@ const TempPage = () => {
     const onClose = useCallback(() => window.alert('Close Icon Triggered!'), []);
     const alertBody = "This is a succinct, helpful in-page status message.";
 
+    const [inputValue, setInputValue] = useState('This is a default value');
+    const [inputValue1, setInputValue1] = useState('');
+    const [inputValue2, setInputValue2] = useState('');
     const [disabled, setDisabled] = useState(true);
 
     setTimeout(() => {
@@ -28,7 +31,7 @@ const TempPage = () => {
 
     const exampleLabel = (
         <>
-            Label
+            This is an Example Label
             <span> (Required) </span>
             <FontAwesomeIcon icon="circle-question" />
         </>
@@ -50,18 +53,29 @@ const TempPage = () => {
                             height: 'fit-content',
                             maxWidth: '900px'
                         }}>
+
                         <ComboBox
-                            optionsArray={mockComboBox}
-                            label="Please select a fruit"
-                            placeholder="e.g., apple, banana, mango"
-                            formName="fruit"
-                            disabled={disabled} />
-                        <ComboBox
+                            inputValue={inputValue2}
+                            setInputValue={setInputValue2}
                             optionsArray={mockComboBox}
                             label={exampleLabel}
-                            placeholder="e.g., apple, banana, mango"
-                            formName="fruit"
+                            placeholder="this has a 5 second disabled delay"
+                            formName="fruit2"
                             disabled={disabled} />
+                        <ComboBox
+                            inputValue={inputValue}
+                            setInputValue={setInputValue}
+                            optionsArray={mockComboBox}
+                            placeholder="e.g., apple, banana, mango"
+                            formName="fruit" />
+                        <ComboBox
+                            inputValue={inputValue1}
+                            setInputValue={setInputValue1}
+                            optionsArray={mockComboBox}
+                            label="This is a disabled combo box"
+                            placeholder="e.g., apple, banana, mango"
+                            formName="fruit1"
+                            disabled />
                     </div>
                     <h1>Fontawesome Pro Icons</h1>
                     <FontAwesomeIcon icon="bluetooth" />
