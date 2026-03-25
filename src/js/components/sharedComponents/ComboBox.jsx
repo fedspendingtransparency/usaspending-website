@@ -98,7 +98,9 @@ const ComboBox = memo(function ComboBox({
                                 aria-label={`${formName}-on-clear`}
                                 onClick={onClickClear}
                                 disabled={isDisabledAndEmpty}>
-                                <FontAwesomeIcon icon="times" className="close-icon" />
+                                <FontAwesomeIcon
+                                    icon="times"
+                                    className={`close-icon${disabled ? ' disabled' : ''}`} />
                             </button>
                         }
                         <div className="combo-box__vertical-line" />
@@ -109,7 +111,9 @@ const ComboBox = memo(function ComboBox({
                             aria-label={`${formName}-on-toggle`}
                             onClick={onClickToggle}
                             disabled={isDisabledAndEmpty}>
-                            <FontAwesomeIcon icon={chevron} className="chevron-icon" />
+                            <FontAwesomeIcon
+                                icon={chevron}
+                                className={`chevron-icon${disabled ? ' disabled' : ''}`} />
                         </button>
                     </div>
                 </div>
