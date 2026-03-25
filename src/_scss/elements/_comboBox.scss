@@ -32,6 +32,10 @@
       padding: $global-padding rem(10);
       border: rem(1) solid $gray-20;
       border-radius: rem(3);
+
+      &:focus-visible {
+        outline-color: $blue-50v;
+      }
     }
 
     .combo-box__buttons-container {
