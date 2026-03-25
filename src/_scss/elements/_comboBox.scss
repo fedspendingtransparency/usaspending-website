@@ -1,5 +1,6 @@
 .combo-box {
   margin: rem(20);
+  position: relative;
 
   .combo-box__label {
     font-size: $base-font-size;
@@ -22,7 +23,6 @@
     display: flex;
     align-items: center;
     margin: rem(8) 0 rem(16) 0;
-    position: relative;
 
     .combo-box__input {
       width: 100%;
@@ -75,9 +75,14 @@
   .combo-box__options-container {
     position: absolute;
     top: 0;
-    margin-top: rem(69);
     width: 100%;
     background-color: $color-white;
+    z-index: 1;
+    margin-top: rem(47);
+
+    &.label {
+      margin-top: rem(69);
+    }
 
     ul {
       padding: 0;
