@@ -590,6 +590,78 @@ const articles = [
         ]
     },
     {
+        taxonomy: "Spending Stories",
+        isInfographicTemplate: false,
+        content_type: 'Marketing',
+        title: "Preserving America’s Story",
+        banner_subtitle: "How Federal Spending Protects America’s Parks and Monuments",
+        created_date: "04/09/2026",
+        feature_sprint: 8,
+        feature_week: 1,
+        description: "When you hear the term federal spending, you may think of big-ticket items like military, healthcare, or social services. But did you know that every year,",
+        slug: "preserving-americas-story",
+        explore_more: [
+            {
+                label: "Department of the Interior Agency Profile",
+                slug: "/agency/department-of-the-interior?fy=2025",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "agency",
+                type: "glossary",
+                label: "Agency"
+            }
+        ]
+    },
+    {
+        taxonomy: "Data Definitions",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "What Is a Loan?",
+        banner_subtitle: "How Federal Spending Protects America’s Parks and Monuments",
+        created_date: "04/09/2026",
+        feature_sprint: 8,
+        feature_week: 1,
+        description: "When you hear the term federal spending, you may think of big-ticket items like military, healthcare, or social services. But did you know that every year,",
+        slug: "what-is-a-loan",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Federal Spending Guide",
+                slug: "/federal-spending-guide",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "loan",
+                type: "glossary",
+                label: "Loan"
+            },
+            {
+                term: "obligation",
+                type: "glossary",
+                label: "Obligation"
+            },
+            {
+                term: "outlay",
+                type: "glossary",
+                label: "Outlay"
+            }
+        ]
+    },
+    {
         taxonomy: "See 4 Yourself",
         isInfographicTemplate: true,
         content_type: 'Featured Content',
