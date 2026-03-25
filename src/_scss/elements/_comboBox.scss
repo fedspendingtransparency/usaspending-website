@@ -22,14 +22,14 @@
   .combo-box__input-container {
     display: flex;
     align-items: center;
-    margin-top: rem(8);
+    margin-top: $global-margin;
 
     .combo-box__input {
       width: 100%;
       font-size: $small-font-size;
       line-height: 1.5;
       color: $gray-60;
-      padding: rem(8) rem(10);
+      padding: $global-padding rem(10);
       border: rem(1) solid $gray-20;
       border-radius: rem(3);
     }
@@ -118,7 +118,7 @@
           color: $gray-90;
           font-size: $small-font-size;
           line-height: 1.5;
-          padding: rem(8);
+          padding: $global-padding;
         }
       }
     }
