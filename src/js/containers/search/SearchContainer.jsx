@@ -33,6 +33,7 @@ import {
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
+import { set } from 'dottie';
 
 require('pages/search/searchPage.scss');
 
@@ -75,6 +76,7 @@ export const parseRemoteFilters = (data) => {
 };
 
 const SearchContainer = () => {
+    const [downloadAvailable, setDownloadAvailable] = useState(false);
     const location = useLocation();
     const { hash: urlHash } = getObjFromQueryParams(location.search);
     const query = useQueryParams();
@@ -120,6 +122,7 @@ const SearchContainer = () => {
         requestAwards.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
+                setDownloadAvailable(true);
                 setAwardsCount(res.data.calculated_count);
             })
             .catch(() => {
@@ -145,6 +148,7 @@ const SearchContainer = () => {
         requestTransactions.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
+                setDownloadAvailable(true);
                 setTransactionsCount(res.data.calculated_count);
             })
             .catch(() => {
@@ -170,6 +174,7 @@ const SearchContainer = () => {
         requestSubawards.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
+                setDownloadAvailable(true);
                 setSubawardsCount(res.data.calculated_count);
             })
             .catch(() => {
@@ -181,10 +186,6 @@ const SearchContainer = () => {
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
         prevAppliedFiltersRef.current = appliedFilters;
-
-        setDownloadAvailabilityAwards();
-        setDownloadAvailabilityTransactions();
-        setDownloadAvailabilitySubawards();
     }, [areAppliedFiltersEmpty, appliedFilters]);
 
     const { current: prevAreAppliedFiltersEmpty } = areAppliedFiltersEmptyRef;
@@ -210,6 +211,10 @@ const SearchContainer = () => {
                         // apply the filters to both the staged and applied stores
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
                         dispatch(setAppliedFilterEmptiness(false));
+
+                        setDownloadAvailabilityAwards(filtersInImmutableStructure);
+                        setDownloadAvailabilitySubawards(filtersInImmutableStructure);
+                        setDownloadAvailabilityTransactions(filtersInImmutableStructure);
                     }
                     request.current = null;
                 })
@@ -252,6 +257,7 @@ const SearchContainer = () => {
             setSearchURLParams(searchURLParams);
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
+            setDownloadAvailable(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [areAppliedFiltersEmpty, urlHash]);
@@ -326,7 +332,7 @@ const SearchContainer = () => {
         <SearchPage
             download={download}
             appliedFilters={appliedFilters}
-            downloadAvailable
+            downloadAvailable={downloadAvailable}
             downloadInFlight={downloadInFlight}
             noFiltersApplied={areAppliedFiltersEmpty}
             hash={urlHash}
