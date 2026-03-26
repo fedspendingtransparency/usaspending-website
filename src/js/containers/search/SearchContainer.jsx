@@ -104,6 +104,31 @@ const SearchContainer = () => {
     const areAppliedFiltersEmptyRef = useRef();
     const prevAppliedFiltersRef = useRef();
 
+    const setDownloadAvailability = useCallback(async (filters = stagedFilters) => {
+        setDownloadInFlight(true);
+
+        const operation = new SearchAwardsOperation();
+        operation.fromState(filters);
+        const searchParams = operation.toParams();
+        // generate the API parameters
+        const apiParams = {
+            filters: searchParams,
+            auditTrail: 'Download Availability Count Awards'
+        };
+
+        requestAwards.current = DownloadHelper.requestDownloadCount(apiParams);
+        requestAwards.current.promise
+            .then((res) => {
+                setDownloadInFlight(false);
+                setDownloadAvailable(true);
+                setAwardsCount(res.data.calculated_count);
+            })
+            .catch(() => {
+                setDownloadInFlight(false);
+                requestAwards.current = null;
+            });
+    }, [stagedFilters]);
+
     const setDownloadAvailabilityAwards = useCallback(async (filters = stagedFilters) => {
         setDownloadInFlight(true);
 
@@ -211,6 +236,9 @@ const SearchContainer = () => {
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
                         dispatch(setAppliedFilterEmptiness(false));
 
+                        // delete once we deploy
+                        setDownloadAvailability(filtersInImmutableStructure);
+
                         setDownloadAvailabilityAwards(filtersInImmutableStructure);
                         setDownloadAvailabilitySubawards(filtersInImmutableStructure);
                         setDownloadAvailabilityTransactions(filtersInImmutableStructure);
@@ -307,6 +335,9 @@ const SearchContainer = () => {
         );
         if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && areFiltersSelected(prevAppliedFilters))) {
             generateHash();
+            // delete once we deploy
+            setDownloadAvailability();
+
             setDownloadAvailabilityAwards();
             setDownloadAvailabilityTransactions();
             setDownloadAvailabilitySubawards();
