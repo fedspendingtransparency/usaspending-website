@@ -91,6 +91,11 @@ const SearchContainer = () => {
     } = useSelector((state) => state);
     const [downloadInFlight, setDownloadInFlight] = useState(false);
     const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
+
+    const [awardsCount, setAwardsCount] = useState();
+    const [transactionsCount, setTransactionsCount] = useState();
+    const [subawardsCount, setSubawardsCount] = useState();
+
     const request = useRef(null);
     const requestAwards = useRef(null);
     const requestTransactions = useRef(null);
@@ -98,41 +103,16 @@ const SearchContainer = () => {
     const areAppliedFiltersEmptyRef = useRef();
     const prevAppliedFiltersRef = useRef();
 
-    const setDownloadAvailability = useCallback((filters = stagedFilters) => {
-        setDownloadInFlight(true);
-
-        const operation = new SearchAwardsOperation();
-        operation.fromState(filters);
-        const searchParams = operation.toParams();
-        searchParams.spending_level = "awards";
-        // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            auditTrail: 'Download Availability Count'
-        };
-
-
-        request.current = DownloadHelper.requestDownloadCount(apiParams);
-        request.current.promise
-            .then((res) => {
-                setDownloadInFlight(false);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                request.current = null;
-            });
-    }, [stagedFilters]);
-
     const setDownloadAvailabilityAwards = useCallback(async (filters = stagedFilters) => {
         setDownloadInFlight(true);
 
         const operation = new SearchAwardsOperation();
         operation.fromState(filters);
         const searchParams = operation.toParams();
-        searchParams.spending_level = "awards";
         // generate the API parameters
         const apiParams = {
             filters: searchParams,
+            spending_level: "awards",
             auditTrail: 'Download Availability Count Awards'
         };
 
@@ -140,6 +120,7 @@ const SearchContainer = () => {
         requestAwards.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
+                setAwardsCount(res.data.calculated_count);
             })
             .catch(() => {
                 setDownloadInFlight(false);
@@ -153,10 +134,10 @@ const SearchContainer = () => {
         const operation = new SearchAwardsOperation();
         operation.fromState(filters);
         const searchParams = operation.toParams();
-        searchParams.spending_level = "transactions";
         // generate the API parameters
         const apiParams = {
             filters: searchParams,
+            spending_level: "transactions",
             auditTrail: 'Download Availability Count Transactions'
         };
 
@@ -164,6 +145,7 @@ const SearchContainer = () => {
         requestTransactions.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
+                setTransactionsCount(res.data.calculated_count);
             })
             .catch(() => {
                 setDownloadInFlight(false);
@@ -177,10 +159,10 @@ const SearchContainer = () => {
         const operation = new SearchAwardsOperation();
         operation.fromState(filters);
         const searchParams = operation.toParams();
-        searchParams.spending_level = "subawards";
         // generate the API parameters
         const apiParams = {
             filters: searchParams,
+            spending_level: "subawards",
             auditTrail: 'Download Availability Count Subawards'
         };
 
@@ -188,6 +170,7 @@ const SearchContainer = () => {
         requestSubawards.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
+                setSubawardsCount(res.data.calculated_count);
             })
             .catch(() => {
                 setDownloadInFlight(false);
@@ -198,6 +181,10 @@ const SearchContainer = () => {
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
         prevAppliedFiltersRef.current = appliedFilters;
+
+        setDownloadAvailabilityAwards();
+        setDownloadAvailabilityTransactions();
+        setDownloadAvailabilitySubawards();
     }, [areAppliedFiltersEmpty, appliedFilters]);
 
     const { current: prevAreAppliedFiltersEmpty } = areAppliedFiltersEmptyRef;
@@ -315,7 +302,6 @@ const SearchContainer = () => {
         );
         if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && areFiltersSelected(prevAppliedFilters))) {
             generateHash();
-            setDownloadAvailability();
             setDownloadAvailabilityAwards();
             setDownloadAvailabilityTransactions();
             setDownloadAvailabilitySubawards();
@@ -344,6 +330,9 @@ const SearchContainer = () => {
             downloadInFlight={downloadInFlight}
             noFiltersApplied={areAppliedFiltersEmpty}
             hash={urlHash}
+            awardsCount={awardsCount}
+            transactionsCount={transactionsCount}
+            subawardsCount={subawardsCount}
             queryParam={location.state} />
     );
 };

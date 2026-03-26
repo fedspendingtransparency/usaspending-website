@@ -14,8 +14,8 @@ const propTypes = {
 };
 
 const DownloadOption = (props) => {
-    const isEnabled = parseInt(props.count.replace(/,/g, ''), 10) <= 500000;
-
+    const isEnabled = props.count <= 500000;
+    console.debug("count: ", props.count);
     return (
         <div className={`download-item ${!isEnabled ? "disabled" : ''}`}>
             <div className={`download-item-top ${!isEnabled ? "disabled" : ''}`}>

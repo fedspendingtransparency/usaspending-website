@@ -18,7 +18,10 @@ const propTypes = {
     download: PropTypes.object,
     hideModal: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
-    pendingDownload: PropTypes.bool
+    pendingDownload: PropTypes.bool,
+    awardsCount: PropTypes.number,
+    transactionsCount: PropTypes.number,
+    subawardsCount: PropTypes.number
 };
 
 const NewDownloadModal = (props) => {
@@ -59,7 +62,7 @@ const NewDownloadModal = (props) => {
 
     // remove eslint warnings after you do the other levels
     // eslint-disable-next-line prefer-const
-    let content = <NewDownloadLevelContainer goToStep={goToStep} hideModal={hideModal} />;
+    let content = <NewDownloadLevelContainer goToStep={goToStep} hideModal={hideModal} awardsCount={props.awardsCount} transactionsCount={props.transactionsCount} subawardsCount={props.subawardsCount} />;
     // eslint-disable-next-line prefer-const
     let headerContent = "Step 1 of 2: Select which data you'd like to download";
 

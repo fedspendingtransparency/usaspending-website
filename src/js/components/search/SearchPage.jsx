@@ -31,7 +31,10 @@ const propTypes = {
     downloadInFlight: PropTypes.bool,
     noFiltersApplied: PropTypes.bool,
     hash: PropTypes.string,
-    queryParam: PropTypes.object
+    queryParam: PropTypes.object,
+    awardsCount: PropTypes.number,
+    transactionsCount: PropTypes.number,
+    subawardsCount: PropTypes.number
 };
 
 const SearchPage = ({
@@ -41,7 +44,10 @@ const SearchPage = ({
     downloadInFlight,
     noFiltersApplied,
     hash,
-    queryParam
+    queryParam,
+    awardsCount,
+    transactionsCount,
+    subawardsCount
 }) => {
     const [tooltipData, setTooltipData] = useState({
         top: 0, left: 0, display: 'none', tooltip: <></>
@@ -136,7 +142,10 @@ const SearchPage = ({
                 <FullDownloadModalContainer
                     download={download}
                     mounted={showFullDownload}
-                    hideModal={hideDownloadModal} />
+                    hideModal={hideDownloadModal}
+                    awardsCount={awardsCount}
+                    transactionsCount={transactionsCount}
+                    subawardsCount={subawardsCount} />
             </div>
         </PageWrapper>
     );
