@@ -20,7 +20,6 @@ import {
 } from "containers/search/helpers/searchAnalytics";
 
 const logUpdateEvent = () => {
-    console.log('fire');
     Analytics.event({
         category: "Advanced Search - Active Filters",
         action: `Update Filters`
