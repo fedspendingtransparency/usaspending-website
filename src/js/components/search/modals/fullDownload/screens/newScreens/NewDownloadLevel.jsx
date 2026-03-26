@@ -36,10 +36,7 @@ const NewDownloadLevel = (props) => {
         props.setDownloadType('subawards');
         props.goToStep(2, true);
     };
-    // these counts are faked until we get a proper api call in place
-    // const awardCount = "1";
-    // const transactionCount = "500,001";
-    // const subawardCount = "1";
+
     let message = null;
     if (props.awardsCount > ITEM_MAX || props.transactionsCount > ITEM_MAX || props.subawardsCount > ITEM_MAX) {
         message = <span className="download-warning-text">One or more options is not available for download because it exceeds the 500,000 record download limit. Please return to your search results and narrow them down by selecting additional filters; or try downloading the data by selecting new options from our <Link target="_blank" rel="noopener noreferrer" to="/download_center/custom_award_data">Custom Award Data</Link> page.</span>;

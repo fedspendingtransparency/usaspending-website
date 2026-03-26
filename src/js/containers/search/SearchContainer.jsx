@@ -33,7 +33,6 @@ import {
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
-import { set } from 'dottie';
 
 require('pages/search/searchPage.scss');
 
