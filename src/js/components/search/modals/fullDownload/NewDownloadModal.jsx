@@ -18,7 +18,10 @@ const propTypes = {
     download: PropTypes.object,
     hideModal: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
-    pendingDownload: PropTypes.bool
+    pendingDownload: PropTypes.bool,
+    awardsCount: PropTypes.number,
+    transactionsCount: PropTypes.number,
+    subawardsCount: PropTypes.number
 };
 
 const NewDownloadModal = (props) => {
@@ -67,6 +70,7 @@ const NewDownloadModal = (props) => {
         });
     };
 
+    // eslint-disable-next-line prefer-const
     let headerContent = "Step 1 of 2: Select which data you'd like to download";
     let downloadData = {};
 
@@ -140,14 +144,6 @@ const NewDownloadModal = (props) => {
     // else if (downloadStep === 3) {
     // }
 
-    const content = (<NewDownloadContainer
-        goToStep={goToStep}
-        hideModal={hideModal}
-        step={downloadStep}
-        downloadData={downloadData}
-        toggleDownloadType={toggleDownloadType} />
-    );
-
     return (
         <Modal
             mounted={props.mounted}
@@ -172,7 +168,15 @@ const NewDownloadModal = (props) => {
                 </div>
 
                 <div className="download-body">
-                    {content}
+                    <NewDownloadContainer
+                        goToStep={goToStep}
+                        hideModal={hideModal}
+                        step={downloadStep}
+                        awardsCount={props.awardsCount}
+                        transactionsCount={props.transactionsCount}
+                        subawardsCount={props.subawardsCount}
+                        downloadData={downloadData}
+                        toggleDownloadType={toggleDownloadType} />
                 </div>
             </div>
         </Modal>

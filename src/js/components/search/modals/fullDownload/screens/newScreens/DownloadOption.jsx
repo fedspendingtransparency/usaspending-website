@@ -21,8 +21,7 @@ const DownloadOption = ({
     checkboxId,
     toggleOption
 }) => {
-    const isEnabled = parseInt(count.replace(/,/g, ''), 10) <= 500000;
-
+    const isEnabled = count <= 500000;
     return (
         <div className={`download-item ${!isEnabled ? "disabled" : ''}`}>
             <div className={`download-item-top ${!isEnabled ? "disabled" : ''}`}>

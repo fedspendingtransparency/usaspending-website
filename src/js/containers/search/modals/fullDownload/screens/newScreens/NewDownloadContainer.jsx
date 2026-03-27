@@ -21,7 +21,10 @@ const propTypes = {
     goToStep: PropTypes.func,
     toggleDownloadType: PropTypes.func,
     beginDownload: PropTypes.func,
-    downloadData: PropTypes.object
+    downloadData: PropTypes.object,
+    awardsCount: PropTypes.number,
+    transactionsCount: PropTypes.number,
+    subawardsCount: PropTypes.number
 };
 
 const NewDownloadContainer = (props) => {
