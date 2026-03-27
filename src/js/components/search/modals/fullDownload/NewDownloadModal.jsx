@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import NewDownloadLevelContainer from
-    'containers/search/modals/fullDownload/screens/newScreens/NewDownloadLevelContainer';
+import NewDownloadContainer from
+    'containers/search/modals/fullDownload/screens/newScreens/NewDownloadContainer';
 
-import usePrevious from '../../../../hooks/usePrevious';
+import usePrevious from 'hooks/usePrevious';
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -23,6 +23,7 @@ const propTypes = {
 
 const NewDownloadModal = (props) => {
     const [downloadStep, setDownloadStep] = useState(1);
+    const [downloadType, setDownloadType] = useState([]);
     const prevProps = usePrevious(props);
     const resetModal = useCallback(() => {
         setDownloadStep(1);
@@ -49,12 +50,20 @@ const NewDownloadModal = (props) => {
     };
 
     const goToStep = (step, override = false) => {
-    // we can only go backwards
         if (step >= downloadStep && !override) {
             return;
         }
 
         setDownloadStep(step);
+    };
+
+    const toggleDownloadType = (type) => {
+        setDownloadType((prevState) => {
+            if (downloadType.includes(type)) {
+                return prevState.filter((str) => str !== type);
+            }
+            return [...prevState, type];
+        });
     };
 
     let headerContent = "Step 1 of 2: Select which data you'd like to download";
@@ -78,15 +87,66 @@ const NewDownloadModal = (props) => {
                 }
             ]
         };
+
+        if (downloadType.includes('subawards')) {
+            downloadData = {
+                ...downloadData,
+                filters: [
+                    {
+                        type: "Fiscal Year",
+                        values: "2024, 2025, 2026"
+                    },
+                    {
+                        type: "Agency",
+                        values: "Department of Education, Department of Housing, Department of Commerce, Department of Agriculture, Department of Homeland Security, Department of Justice, Department of Labor, Department of State, Department of Transportation, Department of Veterans Affairs, Department of the Interior, Department of the Treasury"
+                    },
+                    {
+                        type: "Recipient",
+                        values: "BAMBOOZLE LIVING INC., BAMBOOZLE LIVING INC, BAMBOOZELS INC., BAMBOOZELS, INC., BAMBOOZLE TEA LOUNGE, BAMBOOZLE LIVING, INC., BOOZ ALLEN & HAMILTON INC, BAMBOOZLE ENTERPRISES LLC, BAMBOOZELD, BAMBOOZLE CHANNELSIDE, BAMBOOZLE CAFE, BAMBOOZLE"
+                    },
+                    {
+                        type: "Award Type",
+                        values: "Contracts, Block Grant, Formula Grant, Project Grant"
+                    },
+                    {
+                        type: "Recipient Location",
+                        values: "STATE | MISSOURI"
+                    },
+                    {
+                        type: "Fiscal Year",
+                        values: "2024, 2025, 2026"
+                    },
+                    {
+                        type: "Agency",
+                        values: "Department of Education, Department of Housing, Department of Commerce, Department of Agriculture, Department of Homeland Security, Department of Justice, Department of Labor, Department of State, Department of Transportation, Department of Veterans Affairs, Department of the Interior, Department of the Treasury"
+                    },
+                    {
+                        type: "Recipient",
+                        values: "BAMBOOZLE LIVING INC., BAMBOOZLE LIVING INC, BAMBOOZELS INC., BAMBOOZELS, INC., BAMBOOZLE TEA LOUNGE, BAMBOOZLE LIVING, INC., BOOZ ALLEN & HAMILTON INC, BAMBOOZLE ENTERPRISES LLC, BAMBOOZELD, BAMBOOZLE CHANNELSIDE, BAMBOOZLE CAFE, BAMBOOZLE"
+                    },
+                    {
+                        type: "Award Type",
+                        values: "Contracts, Block Grant, Formula Grant, Project Grant"
+                    },
+                    {
+                        type: "Recipient Location",
+                        values: "STATE | MISSOURI"
+                    }
+                ]
+            };
+        }
     }
     // else if (downloadStep === 3) {
     // }
 
-    const content = (<NewDownloadLevelContainer
+    const content = (<NewDownloadContainer
         goToStep={goToStep}
         hideModal={hideModal}
         step={downloadStep}
-        downloadData={downloadData} />);
+        downloadData={downloadData}
+        toggleDownloadType={toggleDownloadType} />
+    );
+
     return (
         <Modal
             mounted={props.mounted}
@@ -103,7 +163,7 @@ const NewDownloadModal = (props) => {
                             <FontAwesomeIcon
                                 tabIndex={0}
                                 className="close-button"
-                                onClick={props.hideModal}
+                                onClick={hideModal}
                                 aria-label="Close"
                                 icon="xmark" />
                         </div>

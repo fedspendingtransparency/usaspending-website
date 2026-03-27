@@ -1,8 +1,13 @@
 .download-summary-container{
     font-size: $base-font-size;
     color: $color-black;
+    height: 400px;
+    max-height: calc(100vh - 100px);
+    box-sizing: border-box; 
+    overflow-y: scroll; 
+    margin-bottom: rem(12);
 
-    .dowload-summary__heading {
+    .download-summary__heading {
         background-color: $blue-vivid-5v;
         padding: rem(8) rem(16);
         font-weight: $font-semibold;
@@ -14,13 +19,20 @@
         border: none;
     }
 
-    .dowload-summary__details-table {
+    .download-summary__details-table {
         margin-top: 0px;
+        max-height: calc(100vh - 15%);
+        overflow-y: auto; 
+
+        tr {
+            margin: 0px;
+            padding: 0px;
+        }
 
         th, td {
             padding: rem(8) rem(16);
             border-bottom: rem(1) solid $gray-10;
-            
+            line-height: 1.5;    
         }
         
         th {
@@ -29,7 +41,16 @@
         }
         
         td {
-            font-weight: $font-normal;
+            font-weight: $font-normal;         
+            
+            .read-more__preview-lines{
+                margin: 0px;
+            }
+            .readMoreUpdated__button {
+                background-color: transparent;
+                color: $theme-color-1;
+                padding: 0;
+            }
             
         }
     }

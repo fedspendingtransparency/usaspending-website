@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * NewDownloadLevel.jsx
  * Created by Nick Torres 3/4/26
@@ -12,26 +13,24 @@ import DownloadWarning from './DownloadWarning';
 
 const propTypes = {
     goToStep: PropTypes.func,
-    setDownloadType: PropTypes.func,
+    toggleDownloadType: PropTypes.func,
     hideModal: PropTypes.func
 };
 const ITEM_MAX = 500000;
-const NewDownloadLevel = (props) => {
+const NewDownloadLevel = ({
+    goToStep,
+    toggleDownloadType,
+    hideModal
+}) => {
     // may need for follow up ticket
-    // eslint-disable-next-line no-unused-vars
     const clickedAward = () => {
-        props.setDownloadType('awards');
-        props.goToStep(2, true);
+        toggleDownloadType('awards');
     };
-    // eslint-disable-next-line no-unused-vars
     const clickedTransaction = () => {
-        props.setDownloadType('transactions');
-        props.goToStep(2, true);
+        toggleDownloadType('transactions');
     };
-    // eslint-disable-next-line no-unused-vars
     const clickedSubawards = () => {
-        props.setDownloadType('subawards');
-        props.goToStep(2, true);
+        toggleDownloadType('subawards');
     };
     // these counts are faked until we get a proper api call in place
     const awardCount = "1";
@@ -51,15 +50,18 @@ const NewDownloadLevel = (props) => {
                 <DownloadOption
                     title="Awards"
                     copy="An award is money the federal government has promised to pay a recipient. This data provides summary-level information about the current status of an award in a single point in time."
-                    count={awardCount} />
+                    count={awardCount}
+                    toggleOption={clickedAward} />
                 <DownloadOption
                     title="Transactions"
                     copy="A transaction can be the initial contract, grant, loan, or insurance award or any amendment or modification to that award. This data provides a time-based analysis that captures all monetary exchanges."
-                    count={transactionCount} />
+                    count={transactionCount}
+                    toggleOption={clickedTransaction} />
                 <DownloadOption
                     title="Sub-awards"
                     copy="A subaward refers to records of an agreement that a prime recipient makes with another entity to perform a portion of their award. This data provides a view of how money is exchanged between entities. "
-                    count={subawardCount} />
+                    count={subawardCount}
+                    toggleOption={clickedSubawards} />
             </div>
 
             <div className="level-options-note">
@@ -72,10 +74,10 @@ const NewDownloadLevel = (props) => {
                     backgroundColor="light"
                     buttonSize="sm"
                     buttonTitle="Cancel"
-                    onClick={props.hideModal}
+                    onClick={hideModal}
                     onKeyUp={(e) => {
                         if (e.key === "Enter") {
-                            props.hideModal();
+                            hideModal();
                         }
                     }}
                     buttonType="text"
@@ -86,10 +88,10 @@ const NewDownloadLevel = (props) => {
                     buttonTitle="Next"
                     buttonType="primary"
                     copy="Next"
-                    onClick={() => props.goToStep(2, true)}
+                    onClick={() => goToStep(2, true)}
                     onKeyUp={(e) => {
                         if (e.key === "Enter") {
-                            props.goToStep(2, true);
+                            goToStep(2, true);
                         }
                     }} />
             </div>

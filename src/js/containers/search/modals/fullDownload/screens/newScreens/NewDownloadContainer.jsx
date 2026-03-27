@@ -1,5 +1,5 @@
 /**
- * NewDownloadLevelContainer.jsx
+ * NewDownloadContainer.jsx
  * Created by Nick Torres 3/3/26
  */
 
@@ -10,18 +10,21 @@ import { connect } from 'react-redux';
 
 import * as downloadActions from 'redux/actions/search/downloadActions';
 
-import NewDownloadLevel from 'components/search/modals/fullDownload/screens/newScreens/NewDownloadLevel';
-import NewDownloadSummary from 'components/search/modals/fullDownload/screens/newScreens/NewDownloadSummary';
+import NewDownloadLevel from
+    'components/search/modals/fullDownload/screens/newScreens/NewDownloadLevel';
+import NewDownloadSummary from
+    'components/search/modals/fullDownload/screens/newScreens/NewDownloadSummary';
 
 const propTypes = {
     download: PropTypes.object,
     step: PropTypes.number,
     goToStep: PropTypes.func,
+    toggleDownloadType: PropTypes.func,
+    beginDownload: PropTypes.func,
     downloadData: PropTypes.object
 };
 
-const NewDownloadLevelContainer = (props) => {
-    console.log("props============", props);
+const NewDownloadContainer = (props) => {
     if (props.step === 2) {
         return <NewDownloadSummary {...props} />;
     }
@@ -29,9 +32,9 @@ const NewDownloadLevelContainer = (props) => {
     return <NewDownloadLevel {...props} />;
 };
 
-NewDownloadLevelContainer.propTypes = propTypes;
+NewDownloadContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({ download: state.download }),
     (dispatch) => bindActionCreators(downloadActions, dispatch)
-)(NewDownloadLevelContainer);
+)(NewDownloadContainer);
