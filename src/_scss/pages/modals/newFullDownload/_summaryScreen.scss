@@ -11,7 +11,7 @@
         background-color: $blue-vivid-5v;
         padding: rem(8) rem(16);
         font-weight: $font-semibold;
-        margin: 0px;
+        margin: 0;
         
     }
 
@@ -20,19 +20,19 @@
     }
 
     .download-summary__details-table {
-        margin-top: 0px;
+        margin-top: 0;
         max-height: calc(100vh - 15%);
         overflow-y: auto; 
 
         tr {
-            margin: 0px;
-            padding: 0px;
+            margin: 0;
+            padding: 0;
         }
 
         th, td {
             padding: rem(8) rem(16);
             border-bottom: rem(1) solid $gray-10;
-            line-height: 1.5;    
+            line-height: $base-line-height;    
         }
         
         th {
@@ -44,7 +44,7 @@
             font-weight: $font-normal;         
             
             .read-more__preview-lines{
-                margin: 0px;
+                margin: 0;
             }
             .readMoreUpdated__button {
                 background-color: transparent;
