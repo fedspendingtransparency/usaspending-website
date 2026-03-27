@@ -27,8 +27,10 @@ const NewDownloadModal = (props) => {
     const prevProps = usePrevious(props);
     const resetModal = useCallback(() => {
         setDownloadStep(1);
+        setDownloadType([]);
         props.hideModal();
     }, [props]);
+
     useEffect(() => {
         if (!props?.pendingDownload && prevProps?.pendingDownload) {
             resetModal();
@@ -45,8 +47,7 @@ const NewDownloadModal = (props) => {
             return;
         }
 
-        setDownloadStep(1);
-        props.hideModal();
+        resetModal(1);
     };
 
     const goToStep = (step, override = false) => {
