@@ -80,7 +80,7 @@ const NewDownloadModal = (props) => {
         // need to figure out data structure for step 2
         downloadData = {
             expectedFile: "sampleFileName_DDMMYYYY.zip",
-            selections: "Transactions, Subawards",
+            selections: downloadType,
             filters: [
                 {
                     type: "Fiscal Year",

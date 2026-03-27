@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
+import { upperFirst } from 'lodash-es';
 import DownloadFilterRow from './DownloadFilterRow';
 
 const propTypes = {
@@ -15,9 +16,9 @@ const propTypes = {
 };
 
 const NewDownloadSummary = ({
-    beginDownload,
+    beginDownload = () => {},
     hideModal,
-    downloadData = () => {}
+    downloadData
 }) => {
     const startDownload = () => {
         console.log("downloading ....... ");
@@ -44,7 +45,7 @@ const NewDownloadSummary = ({
                         </tr>
                         <tr>
                             <th>Data Selections:</th>
-                            <td>{downloadData.selections}</td>
+                            <td>{downloadData.selections.map(upperFirst).join(", ")}</td>
                         </tr>
                         {downloadData.filters && downloadData.filters.map((filterGroup) => (
                             <DownloadFilterRow filter={filterGroup} />
