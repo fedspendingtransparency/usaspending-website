@@ -13,7 +13,10 @@ import * as downloadActions from 'redux/actions/search/downloadActions';
 import NewDownloadLevel from 'components/search/modals/fullDownload/screens/newScreens/NewDownloadLevel';
 
 const propTypes = {
-    download: PropTypes.object
+    download: PropTypes.object,
+    awardsCount: PropTypes.number,
+    transactionsCount: PropTypes.number,
+    subawardsCount: PropTypes.number
 };
 
 const NewDownloadLevelContainer = (props) => (
