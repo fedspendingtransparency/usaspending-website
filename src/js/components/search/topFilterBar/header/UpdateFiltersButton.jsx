@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 import { areFiltersEqual } from "helpers/searchHelper";
+import Analytics from "helpers/analytics/Analytics";
 import {
     applyStagedFilters,
     resetAppliedFilters,
@@ -18,6 +19,13 @@ import {
     sendFieldCombinations
 } from "containers/search/helpers/searchAnalytics";
 
+const logUpdateEvent = () => {
+    Analytics.event({
+        category: "Advanced Search - Active Filters",
+        action: `Update Filters`
+    });
+};
+
 const propTypes = { appliedFilters: PropTypes.object };
 
 const UpdateFiltersButton = ({ appliedFilters }) => {
@@ -28,7 +36,7 @@ const UpdateFiltersButton = ({ appliedFilters }) => {
     const emptyFilters = areFiltersEqual(stagedFilters);
     const equalFilters = areFiltersEqual(stagedFilters, appliedFilters);
 
-    const removeOnClick = useCallback(() => {
+    const onClick = useCallback(() => {
         dispatch(setAppliedFilterCompletion(false));
 
         if (emptyFilters) {
@@ -44,19 +52,20 @@ const UpdateFiltersButton = ({ appliedFilters }) => {
         const events = convertFiltersToAnalyticEvents(stagedFilters);
         sendAnalyticEvents(events);
         sendFieldCombinations(events, "Advanced Search - Active Filters");
+        logUpdateEvent();
     }, [dispatch, emptyFilters, equalFilters, stagedFilters]);
 
-    const removeOnKeyUp = useCallback((e) => {
+    const onKeyUp = useCallback((e) => {
         e.persist();
-        if (e.key === 'Enter') removeOnClick();
-    }, [removeOnClick]);
+        if (e.key === 'Enter') onClick();
+    }, [onClick]);
 
     if (equalFilters) return (<></>);
 
     return (
         <Button
-            onClick={removeOnClick}
-            onKeyUp={removeOnKeyUp}
+            onClick={onClick}
+            onKeyUp={onKeyUp}
             copy="Update selected filters"
             buttonTitle="filter modal"
             buttonSize="sm"
