@@ -129,7 +129,7 @@ const SearchContainer = () => {
             });
     }, [stagedFilters]);
 
-    const setDownloadAvailabilityAwards = useCallback(async (filters = stagedFilters) => {
+    const setDownloadAvailabilityAwards = useCallback((filters = stagedFilters) => {
         setDownloadInFlight(true);
 
         const operation = new SearchAwardsOperation();
@@ -155,7 +155,7 @@ const SearchContainer = () => {
             });
     }, [stagedFilters]);
 
-    const setDownloadAvailabilityTransactions = useCallback(async (filters = stagedFilters) => {
+    const setDownloadAvailabilityTransactions = useCallback((filters = stagedFilters) => {
         setDownloadInFlight(true);
 
         const operation = new SearchAwardsOperation();
@@ -181,7 +181,7 @@ const SearchContainer = () => {
             });
     }, [stagedFilters]);
 
-    const setDownloadAvailabilitySubawards = useCallback(async (filters = stagedFilters) => {
+    const setDownloadAvailabilitySubawards = useCallback((filters = stagedFilters) => {
         setDownloadInFlight(true);
 
         const operation = new SearchAwardsOperation();
