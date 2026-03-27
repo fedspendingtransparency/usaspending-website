@@ -104,7 +104,7 @@ const SearchContainer = () => {
     const areAppliedFiltersEmptyRef = useRef();
     const prevAppliedFiltersRef = useRef();
 
-    const setDownloadAvailability = useCallback(async (filters = stagedFilters) => {
+    const setDownloadAvailability = useCallback((filters = stagedFilters) => {
         setDownloadInFlight(true);
 
         const operation = new SearchAwardsOperation();
@@ -116,16 +116,15 @@ const SearchContainer = () => {
             auditTrail: 'Download Availability Count Awards'
         };
 
-        requestAwards.current = DownloadHelper.requestDownloadCount(apiParams);
-        requestAwards.current.promise
+        request.current = DownloadHelper.requestDownloadCount(apiParams);
+        request.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
-                setDownloadAvailable(true);
-                setAwardsCount(res.data.calculated_count);
+                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
             })
             .catch(() => {
                 setDownloadInFlight(false);
-                requestAwards.current = null;
+                request.current = null;
             });
     }, [stagedFilters]);
 
