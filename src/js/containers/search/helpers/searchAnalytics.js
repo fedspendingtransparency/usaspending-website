@@ -286,6 +286,25 @@ export const sendFieldCombinations = (events, category = 'Advanced Search - Sear
     });
 };
 
+export const sendFieldCombinationsOnUpdate = (events, category, action) => {
+    // record the filter field combinations that were selected
+    // extract the action label from each event and then eliminate duplicates
+    const fields = uniq(events.reduce((parsed, event) => {
+        if (event.action) {
+            parsed.push(event.action);
+        }
+        return parsed;
+    }, []));
+
+    Analytics.event({
+        event: 'search_send_all_fields_on_update',
+        category,
+        action,
+        label: fields.sort().join('|'),
+        gtm: true
+    });
+};
+
 export const uniqueFilterFields = (redux) => {
     const events = convertFiltersToAnalyticEvents(redux);
     const fields = uniq(events.reduce((parsed, event) => {
