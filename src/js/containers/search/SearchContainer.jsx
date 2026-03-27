@@ -110,17 +110,18 @@ const SearchContainer = () => {
         const operation = new SearchAwardsOperation();
         operation.fromState(filters);
         const searchParams = operation.toParams();
+
         // generate the API parameters
         const apiParams = {
             filters: searchParams,
-            auditTrail: 'Download Availability Count Awards'
+            auditTrail: 'Download Availability Count'
         };
 
         request.current = DownloadHelper.requestDownloadCount(apiParams);
         request.current.promise
             .then((res) => {
-                setDownloadInFlight(false);
                 setDownloadAvailable(!res.data.transaction_rows_gt_limit);
+                setDownloadInFlight(false);
             })
             .catch(() => {
                 setDownloadInFlight(false);
