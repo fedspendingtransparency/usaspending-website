@@ -1,10 +1,9 @@
 .download-summary-container{
     font-size: $base-font-size;
     color: $gray-90;
-    height: 400px;
-    max-height: calc(100vh - 100px);
+    max-height: 50vh;
     box-sizing: border-box; 
-    overflow-y: scroll; 
+    overflow-y: auto; 
     margin-bottom: rem(12);
 
     .download-summary__heading {

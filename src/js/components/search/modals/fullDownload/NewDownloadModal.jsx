@@ -136,6 +136,46 @@ const NewDownloadModal = (props) => {
                     {
                         type: "Recipient Location",
                         values: "STATE | MISSOURI"
+                    },
+                    {
+                        type: "Fiscal Year",
+                        values: "2024, 2025, 2026"
+                    },
+                    {
+                        type: "Agency",
+                        values: "Department of Education, Department of Housing, Department of Commerce, Department of Agriculture, Department of Homeland Security, Department of Justice, Department of Labor, Department of State, Department of Transportation, Department of Veterans Affairs, Department of the Interior, Department of the Treasury"
+                    },
+                    {
+                        type: "Recipient",
+                        values: "BAMBOOZLE LIVING INC., BAMBOOZLE LIVING INC, BAMBOOZELS INC., BAMBOOZELS, INC., BAMBOOZLE TEA LOUNGE, BAMBOOZLE LIVING, INC., BOOZ ALLEN & HAMILTON INC, BAMBOOZLE ENTERPRISES LLC, BAMBOOZELD, BAMBOOZLE CHANNELSIDE, BAMBOOZLE CAFE, BAMBOOZLE"
+                    },
+                    {
+                        type: "Award Type",
+                        values: "Contracts, Block Grant, Formula Grant, Project Grant"
+                    },
+                    {
+                        type: "Recipient Location",
+                        values: "STATE | MISSOURI"
+                    },
+                    {
+                        type: "Fiscal Year",
+                        values: "2024, 2025, 2026"
+                    },
+                    {
+                        type: "Agency",
+                        values: "Department of Education, Department of Housing, Department of Commerce, Department of Agriculture, Department of Homeland Security, Department of Justice, Department of Labor, Department of State, Department of Transportation, Department of Veterans Affairs, Department of the Interior, Department of the Treasury"
+                    },
+                    {
+                        type: "Recipient",
+                        values: "BAMBOOZLE LIVING INC., BAMBOOZLE LIVING INC, BAMBOOZELS INC., BAMBOOZELS, INC., BAMBOOZLE TEA LOUNGE, BAMBOOZLE LIVING, INC., BOOZ ALLEN & HAMILTON INC, BAMBOOZLE ENTERPRISES LLC, BAMBOOZELD, BAMBOOZLE CHANNELSIDE, BAMBOOZLE CAFE, BAMBOOZLE"
+                    },
+                    {
+                        type: "Award Type",
+                        values: "Contracts, Block Grant, Formula Grant, Project Grant"
+                    },
+                    {
+                        type: "Recipient Location",
+                        values: "STATE | MISSOURI"
                     }
                 ]
             };
