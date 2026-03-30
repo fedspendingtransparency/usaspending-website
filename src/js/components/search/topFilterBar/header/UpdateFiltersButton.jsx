@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 import { areFiltersEqual } from "helpers/searchHelper";
-import Analytics from "helpers/analytics/Analytics";
 import {
     applyStagedFilters,
     resetAppliedFilters,
@@ -13,18 +12,7 @@ import {
 } from "redux/actions/search/appliedFilterActions";
 import { clearAllFilters as clearStagedFilters } from "redux/actions/search/searchFilterActions";
 import { resetMapLegendToggle } from "redux/actions/search/mapLegendToggleActions";
-import {
-    convertFiltersToAnalyticEvents,
-    sendAnalyticEvents,
-    sendFieldCombinations
-} from "containers/search/helpers/searchAnalytics";
-
-const logUpdateEvent = () => {
-    Analytics.event({
-        category: "Advanced Search - Active Filters",
-        action: `Update Filters`
-    });
-};
+import { convertFiltersToAnalyticEvents, sendFieldCombinationsOnUpdate } from "containers/search/helpers/searchAnalytics";
 
 const propTypes = { appliedFilters: PropTypes.object };
 
@@ -50,9 +38,7 @@ const UpdateFiltersButton = ({ appliedFilters }) => {
         }
 
         const events = convertFiltersToAnalyticEvents(stagedFilters);
-        sendAnalyticEvents(events);
-        sendFieldCombinations(events, "Advanced Search - Active Filters");
-        logUpdateEvent();
+        sendFieldCombinationsOnUpdate(events, "Advanced Search - Active Filters", "Update Filters");
     }, [dispatch, emptyFilters, equalFilters, stagedFilters]);
 
     const onKeyUp = useCallback((e) => {
