@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
+import { FiscalYearPicker } from 'data-transparency-ui';
 import { find, throttle } from 'lodash-es';
 import { useNavigate } from "react-router";
 import { useDispatch } from 'react-redux';
@@ -21,11 +21,12 @@ import { AlternateNamesRecipientModalContainer } from
     'containers/recipient/modal/AlternateNamesRecipientModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Error from 'components/sharedComponents/Error';
+import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { showModal } from 'redux/actions/modal/modalActions';
+import useQueryParams from "hooks/useQueryParams";
 import RecipientContent from './RecipientContent';
-import { showModal } from '../../redux/actions/modal/modalActions';
-import useQueryParams from "../../hooks/useQueryParams";
 
 const propTypes = {
     loading: PropTypes.bool,
@@ -165,7 +166,7 @@ export const RecipientPage = ({
                     handleFyChange={pickedFy}
                     options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())}
                     key="page-wrapper__fiscal-year-picker" />,
-                <ShareIcon
+                <ShareIcon508
                     onShareOptionClick={handleShare}
                     url={getBaseUrl(slug)}
                     key="page-wrapper__share-icon" />
