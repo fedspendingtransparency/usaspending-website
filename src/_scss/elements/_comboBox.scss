@@ -6,7 +6,7 @@
     font-size: $base-font-size;
     font-weight: $font-semibold;
     color: $gray-90;
-    line-height: 1.5;
+    line-height: $base-line-height;
     position: relative;
 
     span {
@@ -27,7 +27,7 @@
     .combo-box__input {
       width: 100%;
       font-size: $small-font-size;
-      line-height: 1.5;
+      line-height: $base-line-height;
       color: $gray-60;
       padding: $global-padding rem(10);
       border: rem(1) solid $gray-20;
@@ -121,7 +121,7 @@
           background-color: transparent;
           color: $gray-90;
           font-size: $small-font-size;
-          line-height: 1.5;
+          line-height: $base-line-height;
           padding: $global-padding;
         }
       }
