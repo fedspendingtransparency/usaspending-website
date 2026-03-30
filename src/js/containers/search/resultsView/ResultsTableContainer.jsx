@@ -14,7 +14,10 @@ import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from 'helpers/analytics/Analytics';
-import { awardTypeGroups, subawardTypeGroups, transactionTypeGroups } from 'dataMapping/search/awardType';
+import { tableTypes, subTypes, transactionTypes } from 'dataMapping/search/resultsView/table';
+import {
+    awardTypeGroups, subawardTypeGroups, transactionTypeGroups
+} from 'dataMapping/search/awardType';
 import {
     defaultColumns,
     defaultSort,
@@ -25,8 +28,9 @@ import { measureTableHeader } from 'helpers/textMeasurement';
 import ResultsTableSection from 'components/search/resultsView/table/ResultsTableSection';
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
-import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
-import { performKeywordSearch } from "../../../helpers/keywordHelper";
+import SearchSectionWrapper from "components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
+import { performKeywordSearch } from "helpers/keywordHelper";
+import useResultsTableSearch from './useResultsTableSearch';
 
 const propTypes = {
     filters: PropTypes.object,
@@ -38,70 +42,6 @@ const propTypes = {
     hash: PropTypes.string,
     spendingLevel: PropTypes.string
 };
-export const tableTypes = [
-    {
-        label: 'Contracts',
-        internal: 'contracts'
-    },
-    {
-        label: 'Contract IDVs',
-        internal: 'idvs'
-    },
-    {
-        label: 'Grants',
-        internal: 'grants'
-    },
-    {
-        label: 'Direct Payments',
-        internal: 'direct_payments'
-    },
-    {
-        label: 'Loans',
-        internal: 'loans'
-    },
-    {
-        label: 'Other',
-        internal: 'other'
-    }
-];
-
-export const subTypes = [
-    {
-        label: 'Sub-Contracts',
-        internal: 'subcontracts'
-    },
-    {
-        label: 'Sub-Grants',
-        internal: 'subgrants'
-    }
-];
-
-const transactionTypes = [
-    {
-        label: 'Contracts',
-        internal: 'transaction_contracts'
-    },
-    {
-        label: 'Contract IDVs',
-        internal: 'transaction_idvs'
-    },
-    {
-        label: 'Grants',
-        internal: 'transaction_grants'
-    },
-    {
-        label: 'Direct Payments',
-        internal: 'transaction_direct_payments'
-    },
-    {
-        label: 'Loans',
-        internal: 'transaction_loans'
-    },
-    {
-        label: 'Other',
-        internal: 'transaction_other'
-    }
-];
 
 const ResultsTableContainer = (props) => {
     let tabCountRequest = null;
@@ -340,6 +280,10 @@ const ResultsTableContainer = (props) => {
                 }
             });
     }, 400);
+
+    const response = useResultsTableSearch(props.filters, tableType);
+
+    console.log(response);
 
     const createColumn = (col) => {
         // create an object that integrates with the expected column data structure used by
