@@ -19,7 +19,10 @@ const propTypes = {
     hideModal: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
     pendingDownload: PropTypes.bool,
-    download: PropTypes.object
+    download: PropTypes.object,
+    awardsCount: PropTypes.number,
+    transactionsCount: PropTypes.number,
+    subawardsCount: PropTypes.number
 };
 
 export class FullDownloadModalContainer extends React.Component {
@@ -30,7 +33,10 @@ export class FullDownloadModalContainer extends React.Component {
                 pendingDownload={this.props.pendingDownload}
                 download={this.props.download}
                 mounted={this.props.mounted}
-                hideModal={this.props.hideModal} />);
+                hideModal={this.props.hideModal}
+                awardsCount={this.props.awardsCount}
+                subawardsCount={this.props.subawardsCount}
+                transactionsCount={this.props.transactionsCount} />);
         }
         return (
             <FullDownloadModal
