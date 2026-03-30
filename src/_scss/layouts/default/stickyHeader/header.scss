@@ -1,16 +1,9 @@
 @use "sass:math";
+@import "../../../elements/typography";
 
 .usda-page-header {
     h1 {
-        font-size: rem(32);
-        line-height: 1.2;
-        font-weight: normal;
-    }
-
-    h2 {
-        font-size: rem(28);
-        line-height: 1.2;
-        font-weight: normal;
+        @include h1();
     }
 
     @include display(flex);

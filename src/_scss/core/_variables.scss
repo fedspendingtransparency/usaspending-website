@@ -2,7 +2,6 @@
 // $em-base must be declared before using the rem() function
 $em-base: 10px;
 
-$font-size-56: rem(56px);
 $font-size-48: rem(48px);
 $font-size-40: rem(40px);
 
@@ -10,11 +9,12 @@ $font-size-32: rem(32px);
 $font-size-28: rem(28px);
 $font-size-24: rem(24px);
 $font-size-20: rem(20px);
+$font-size-18: rem(18px);
 $font-size-17: rem(17px);
 $font-size-16: rem(16px);
 $font-size-12: rem(12px);
-$font-size-10: rem(10px);
 $font-size-14: rem(14px);
+$font-size-10: rem(10px);
 
 $base-font-size:      $font-size-16;
 $small-font-size:     $font-size-14;
@@ -22,12 +22,12 @@ $smallest-font-size:  $font-size-12;
 $lead-font-size:      $font-size-20;
 $title-font-size:     rem(52px);
 
-$h1-font-size:        $font-size-56;
-$h2-font-size:        $font-size-40;
-$h3-font-size:        $font-size-32;
-$h4-font-size:        $font-size-28;
-$h5-font-size:        $font-size-20;
-$h6-font-size:        rem(19px);
+$h1-font-size:        $font-size-32;
+$h2-font-size:        $font-size-28;
+$h3-font-size:        $font-size-20;
+$h4-font-size:        $font-size-18;
+$h5-font-size:        $font-size-14;
+$h6-font-size:        $font-size-10;
 
 $base-line-height:    1.5;
 $heading-line-height: 1.2;
