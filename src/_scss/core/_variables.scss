@@ -2,6 +2,7 @@
 // $em-base must be declared before using the rem() function
 $em-base: 10px;
 
+$font-size-56: rem(56px);
 $font-size-48: rem(48px);
 $font-size-40: rem(40px);
 
@@ -19,8 +20,8 @@ $font-size-10: rem(10px);
 $base-font-size:      $font-size-16;
 $small-font-size:     $font-size-14;
 $smallest-font-size:  $font-size-12;
-$lead-font-size:      $font-size-20;
-$title-font-size:     rem(52px);
+$lead-font-size:      $font-size-24;
+$title-font-size:     $font-size-56;
 
 $h1-font-size:        $font-size-32;
 $h2-font-size:        $font-size-28;

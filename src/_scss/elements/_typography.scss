@@ -82,43 +82,38 @@ h6 {
     line-height: $heading-line-height;
     margin-bottom: .5em;
     margin-top: 1.5em;
+    font-weight: $font-normal;
 }
 
 // Create heading mixins
 
 @mixin title {
     font-size: $title-font-size;
-    font-weight: $font-bold;
+    line-height: $heading-line-height;
 }
 
 @mixin h1 {
     font-size: $h1-font-size;
-    font-weight: $font-light;
 }
 
 @mixin h2 {
     font-size: $h2-font-size;
-    font-weight: $font-light;
 }
 
 @mixin h3 {
     font-size: $h3-font-size;
-    font-weight: $font-light;
 }
 
 @mixin h4 {
     font-size: $h4-font-size;
-    font-weight: $font-light;
 }
 
 @mixin h5 {
     font-size: $h5-font-size;
-    font-weight: $font-semibold;
 }
 
 @mixin h6 {
     font-size: $h6-font-size;
-    font-weight: $font-semibold;
 }
 
 h1 {

@@ -9,6 +9,7 @@
 .usda-page-header {
     h1 {
         @include h1();
+        font-weight: $font-normal;
     }
 
     @include display(flex);
