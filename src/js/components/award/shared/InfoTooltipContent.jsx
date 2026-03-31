@@ -383,7 +383,8 @@ export const amountSub = (
 );
 export const descriptionSub = (
     <TooltipComponent title="Description">The description of the sub-contract provided by the prime recipient.
-            The level of detail in descriptions varies and is dependent on the author.</TooltipComponent>
+            The level of detail in descriptions varies and is dependent on the author.
+    </TooltipComponent>
 );
 // export const transactionDescriptionFA = (
 //     <div className="award-summary-tooltip transaction-history-tt">
