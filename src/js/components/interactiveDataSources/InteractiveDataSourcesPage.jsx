@@ -7,7 +7,6 @@ import { ComingSoon, FlexGridCol } from 'data-transparency-ui';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { interactiveDataSourcesPageMetaTags } from 'helpers/metaTagHelper';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import DownloadStaticFile from "components/sharedComponents/DownloadStaticFile";
