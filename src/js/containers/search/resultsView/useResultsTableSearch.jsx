@@ -137,6 +137,7 @@ const useResultsTableSearch = (
     const { sort, order } = getSortOrder(searchOrder, grouped);
 
     let request;
+
     const filters = filtersTemp.toParams();
 
     const params = {
@@ -160,13 +161,15 @@ const useResultsTableSearch = (
     } = useQuery({
         queryKey: ['resultsTableData', filters, limit, order, page, sort, spendingLevel, grouped],
         queryFn: () => request.promise,
-        staleTime: 5 * 60 * 1000
+        staleTime: 60000
     });
 
-    const results = data?.data.results.map((result) => ({
-        ...result,
-        generated_internal_id: encodeURIComponent(result.generated_internal_id)
-    }));
+    const results = data?.data ?
+        data?.data.results.map((result) => ({
+            ...result,
+            generated_internal_id: encodeURIComponent(result.generated_internal_id)
+        })) :
+        [];
 
     return {
         data,

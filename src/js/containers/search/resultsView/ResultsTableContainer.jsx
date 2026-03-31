@@ -9,27 +9,23 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { uniqueId, intersection, throttle } from 'lodash-es';
+import { throttle } from 'lodash-es';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from 'helpers/analytics/Analytics';
 import { tableTypes, subTypes, transactionTypes } from 'dataMapping/search/resultsView/table';
 import {
-    awardTypeGroups, subawardTypeGroups, transactionTypeGroups
-} from 'dataMapping/search/awardType';
-import {
     defaultColumns,
-    defaultSort,
-    apiFieldByTableColumnName
+    defaultSort
 } from 'dataMapping/search/awardTableColumns';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
 import { measureTableHeader } from 'helpers/textMeasurement';
 import ResultsTableSection from 'components/search/resultsView/table/ResultsTableSection';
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
-import SearchSectionWrapper from "components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
-import { performKeywordSearch } from "helpers/keywordHelper";
+import SearchSectionWrapper from
+    "components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import useResultsTableSearch from './useResultsTableSearch';
 
 const propTypes = {
@@ -45,11 +41,8 @@ const propTypes = {
 
 const ResultsTableContainer = (props) => {
     let tabCountRequest = null;
-    let searchRequest = null;
     const location = useLocation();
-    const [searchParams, setSearchParams] = useState(new SearchAwardsOperation());
     const [page, setPage] = useState(1);
-    const [lastPage, setLastPage] = useState(true);
     const [counts, setCounts] = useState({});
     const [tableType, setTableType] = useState();
     const [columns, setColumns] = useState({});
@@ -59,238 +52,43 @@ const ResultsTableContainer = (props) => {
     });
     const [inFlight, setInFlight] = useState(false);
     const [error, setError] = useState(false);
-    const [results, setResults] = useState([]);
-    const [total, setTotal] = useState(0);
     const [resultLimit, setResultLimit] = useState(100);
-    const [tableInstance, setTableInstance] = useState(`${uniqueId()}`);
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
     const [isInitialLoad, setIsInitialLoad] = useState(true);
     const [spendingLevel, setSpendingLevel] = useState(props.spendingLevel);
     const [isSubaward, setIsSubaward] = useState(props.spendingLevel === 'subawards');
     const [isTransactions, setIsTransactions] = useState(props.spendingLevel === 'transactions');
-    const [expandableData, setExpandableData] = useState([]);
+    const [isMobile, setIsMobile] = useState(false);
     const { pathname } = useLocation();
+
     const isV2 = pathname === '/search';
     const showToggle = isV2 && (props.spendingLevel !== "awards");
-    const [isMobile, setIsMobile] = useState(false);
-    const [columnType, setColumnType] = useState(props.spendingLevel);
-
     const loadExpandableData = (showToggle && spendingLevel === "awards" && !isMobile);
 
-    const performSearch = throttle((newSearch = false) => {
-        if (searchRequest) {
-            // a request is currently in-flight, cancel it
-            searchRequest.cancel();
-        }
-
-        const tableTypeTemp = tableType;
-
-        // get searchParams from state
-        const searchParamsTemp = new SearchAwardsOperation();
-        searchParamsTemp.fromState(props.filters);
-
-        // if subawards is true, newAwardsOnly cannot be true, so we remove
-        // dateType for this request; also has to be done for the tabCounts request
-        if (isSubaward && searchParamsTemp.dateType) {
-            delete searchParamsTemp.dateType;
-        }
-
-        // generate an array of award type codes representing the current table tab we're showing
-        // and use a different mapping if we're showing a subaward table vs a prime award table
-        let groupsFromTableType =
-            isSubaward ? subawardTypeGroups[tableTypeTemp] : awardTypeGroups[tableTypeTemp];
-
-        if (isTransactions) {
-            groupsFromTableType = transactionTypeGroups[tableTypeTemp];
-        }
-
-        if (searchParams.awardType.length === 0) {
-            searchParamsTemp.awardType = groupsFromTableType;
-        }
-        else {
-            let intersectingTypes = intersection(groupsFromTableType,
-                searchParams.awardType);
-            if (!intersectingTypes || intersectingTypes.length === 0) {
-                // the filtered types and the table type do not align
-                // in this case, send an array of non-existent types because the endpoint requires
-                // an award type parameter
-                intersectingTypes = ['no intersection'];
-            }
-            searchParamsTemp.awardType = intersectingTypes;
-        }
-
-        // indicate the request is about to start
-        setInFlight(true);
-        setError(false);
-
-        let pageNumber = page;
-
-        if (newSearch) {
-            // a new search (vs just getting more pages of an existing search) requires resetting
-            // the page number
-            pageNumber = 1;
-        }
-
-        const requestFields = [];
-
-        // Request fields for visible columns only
-        const columnVisibility = columns[tableTypeTemp]?.visibleOrder;
-        if (!columnVisibility) {
-            return null;
-        }
-
-        columnVisibility.forEach((field) => {
-            if (!requestFields.includes(field) && field !== "Action Date") {
-                // Prevent duplicates in the list of fields to request
-                if (Object.keys(apiFieldByTableColumnName).includes(field)) {
-                    requestFields.push(apiFieldByTableColumnName[field]);
-                }
-                else {
-                    requestFields.push(field);
-                }
-            }
-            else if (field === "Action Date" && props.spendingLevel !== 'transactions') {
-                requestFields.push('Sub-Award Date');
-            }
-        });
-
-        if (props.spendingLevel === 'transactions') {
-            requestFields.push('awarding_agency_id');
-        }
-        else {
-            requestFields.push('recipient_id', 'prime_award_recipient_id');
-        }
-
-        // parse the redux search order into the API-consumable format
-        const searchOrder = sort;
-        let sortDirection = searchOrder.direction;
-
-        if (!sortDirection) {
-            sortDirection = 'desc';
-        }
-
-        if (searchOrder?.field === 'Action Date' && props.spendingLevel !== 'transactions') {
-            searchOrder.field = 'Sub-Award Date';
-        }
-
-        let params = {
-            filters: searchParamsTemp.toParams(),
-            page: pageNumber,
-            limit: resultLimit,
-            sort: "award_id",
-            order: sortDirection,
-            auditTrail: 'Results Table - Spending by award search'
-        };
-
-        // Set the params needed for download API call
-        if (!params.filters.award_type_codes) {
-            return null;
-        }
-
-        if (loadExpandableData) {
-            if (props.spendingLevel === 'transactions') {
-                setColumnType('transactions');
-                searchRequest = SearchHelper.performSpendingByTransactionsGrouped(params);
-            }
-            else {
-                setColumnType('subawards');
-                searchRequest = SearchHelper.performSpendingBySubawardGrouped(params);
-            }
-        }
-        else {
-            params = {
-                ...params,
-                fields: requestFields,
-                spending_level: spendingLevel,
-                sort: searchOrder.field,
-                page
-            };
-
-            if (isTransactions) {
-                params.fields = [
-                    "Award ID",
-                    "Mod",
-                    "Recipient Name",
-                    "Transaction Amount",
-                    "Action Date",
-                    "Transaction Description",
-                    "Action Type",
-                    "Award Type",
-                    "Recipient UEI",
-                    "Recipient Location",
-                    "Primary Place of Performance",
-                    "Awarding Agency",
-                    "awarding_agency_id",
-                    "recipient_id",
-                    "Awarding Sub Agency",
-                    "NAICS",
-                    "PSC",
-                    "Assistance Listing"
-                ];
-
-                searchRequest = performKeywordSearch(params);
-            }
-            else {
-                searchRequest = SearchHelper.performSpendingByAwardSearch(params);
-            }
-        }
-
-        return searchRequest.promise
-            .then((res) => {
-                const newState = {
-                    inFlight: false
-                };
-
-                const parsedResults = res.data.results.map((result) => ({
-                    ...result,
-                    generated_internal_id: encodeURIComponent(result.generated_internal_id)
-                }));
-
-                // don't clear records if we're appending (not the first page)
-                newState.tableInstance = `${uniqueId()}`;
-                newState.results = parsedResults;
-
-                if (newSearch) {
-                    setTotal(newState.results.length);
-                }
-
-                // request is done
-                searchRequest = null;
-                newState.page = res.data.page_metadata.page;
-                newState.lastPage = !res.data.page_metadata.hasNext;
-                setInFlight(newState.inFlight);
-                setTableInstance(newState.tableInstance);
-                setPage(newState.page);
-                setLastPage(newState.lastPage);
-                if (loadExpandableData) {
-                    setExpandableData(newState.results);
-                }
-                else {
-                    setResults(newState.results);
-                }
-
-                props.setAppliedFilterCompletion(true);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    setInFlight(false);
-                    setError(true);
-                    props.setAppliedFilterCompletion(true);
-                    console.log(err);
-                }
-            });
-    }, 400);
-
-    const response = useResultsTableSearch(
+    const {
+        isLoading,
+        results,
+        total,
+        tableInstance,
+        lastPage
+    } = useResultsTableSearch(
         props.filters,
         tableType,
         spendingLevel,
         resultLimit,
         sort,
-        loadExpandableData
+        loadExpandableData,
+        page
     );
 
-    console.log(response);
+    // console.log(response);
+
+    // const test = response?.isSuccess;
+
+    // useEffect(() => {
+    //     console.log(response);
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [test]);
 
     const createColumn = (col) => {
         // create an object that integrates with the expected column data structure used by
@@ -332,16 +130,7 @@ const ResultsTableContainer = (props) => {
         setColumns(Object.assign(columns, columnsTemp));
     };
 
-    const updateFilters = throttle(() => {
-        // the searchParams state var is now only used in the
-        // block using intersection in performSearch
-        const newSearch = new SearchAwardsOperation();
-        newSearch.fromState(props.filters);
-        setSearchParams(newSearch);
-
-        setPage(1);
-        performSearch(true);
-    }, 350);
+    const updateFilters = throttle(() => setPage(1), 350);
 
     const switchTab = (tab) => {
         const newState = {
@@ -547,7 +336,6 @@ const ResultsTableContainer = (props) => {
             setSpendingLevel(props.spendingLevel);
             setIsSubaward(props.spendingLevel === "subawards");
             setIsTransactions(props.spendingLevel === "transactions");
-            setExpandableData([]);
             return;
         }
 
@@ -574,11 +362,11 @@ const ResultsTableContainer = (props) => {
     }, 400), []);
 
     useEffect(throttle(() => {
-        if (!isInitialLoad && tableType) {
-            performSearch(props?.spendingLevel === "subawards");
+        if (!isInitialLoad && tableType && props?.spendingLevel === "subawards") {
+            setPage(1);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [tableType, sort, resultLimit, page]);
+    }, 400), [tableType]);
 
     useEffect(throttle(() => {
         if (!isInitialLoad) {
@@ -596,9 +384,6 @@ const ResultsTableContainer = (props) => {
         }
 
         return () => {
-            if (searchRequest) {
-                searchRequest.cancel();
-            }
             if (tabCountRequest) {
                 tabCountRequest.cancel();
             }
@@ -608,7 +393,6 @@ const ResultsTableContainer = (props) => {
 
     useEffect(throttle(() => {
         if (isLoadingNextPage) {
-            performSearch();
             setLoadNextPage(false);
         }
     }, 400), [isLoadingNextPage]);
@@ -621,7 +405,7 @@ const ResultsTableContainer = (props) => {
         <SearchSectionWrapper
             isError={error}
             isLoading={inFlight}
-            noData={!inFlight && !error && results.length === 0}
+            noData={!inFlight && !error && total === 0}
             hash={props.hash}
             spendingLevel={spendingLevel}
             sort={sort}
@@ -633,8 +417,8 @@ const ResultsTableContainer = (props) => {
             manualSort>
             <ResultsTableSection
                 error={error}
-                inFlight={inFlight}
-                results={results}
+                inFlight={inFlight || isLoading}
+                results={loadExpandableData ? [] : results}
                 columns={columns[tableType]}
                 sort={props.spendingLevel !== 'transactions' ? formattedSubSort() : sort}
                 tableTypes={tabsWithCounts}
@@ -653,10 +437,10 @@ const ResultsTableContainer = (props) => {
                 setResultLimit={setResultLimit}
                 resultsCount={counts[tableType]}
                 showToggle={showToggle}
-                expandableData={expandableData}
+                expandableData={loadExpandableData ? results : []}
                 filters={props.filters}
                 checkMobile={(isMobileState) => setIsMobile(isMobileState)}
-                columnType={columnType}
+                columnType={spendingLevel}
                 subColumnOptions={columns} />
         </SearchSectionWrapper>
     );
