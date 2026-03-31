@@ -100,7 +100,6 @@ export const headerTooltipsByType = {
 };
 // eslint-disable-next-line import/prefer-default-export
 export const getHeaderTooltipsByTypeAndCol = (type, col) => {
-    console.debug("type, col: ", type, col);
     const arrayOfSections = Object.keys(headerTooltipsByType);
     const arrayOfAwardTypesForSection = Object.keys(headerTooltipsByType[type]);
 

@@ -50,7 +50,6 @@ const AwardHistoryTableContainer = ({
     };
 
     const parseTransactionsData = (data) => {
-        console.debug("category: ", category);
         if (category === 'idv' || category === 'loan' || category === 'contract') {
             setColumns(transactionsTableMapping[category]);
         }
