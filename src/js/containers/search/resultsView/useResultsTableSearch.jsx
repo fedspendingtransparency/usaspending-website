@@ -1,8 +1,11 @@
+// eslint-disable-next-line no-unused-vars
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { intersection } from 'lodash-es';
 
-import { performSpendingByAwardSearch } from "helpers/searchHelper";
+import {
+    performSpendingByAwardSearch, performSpendingBySubawardGrouped
+} from "helpers/searchHelper";
 import { measureTableHeader } from 'helpers/textMeasurement';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import {
@@ -18,7 +21,7 @@ const getAwardTypeGroup = (spendingLevel, tableType, awardType) => {
         subawardTypeGroups[tableType] :
         awardTypeGroups[tableType];
 
-    if (awardType.length === 0) {
+    if (awardType.size === 0) {
         return awardTypeGroup;
     }
 
@@ -99,57 +102,65 @@ const getFields = (tableType) => {
     return fields;
 };
 
-// const getSort = (searchOrder) => {
-//     // parse the redux search order into the API-consumable format
-//     let sort = searchOrder.field;
-//     let order = searchOrder.direction;
+const getSortOrder = (searchOrder, grouped) => {
+    // parse the redux search order into the API-consumable format
+    let sort = searchOrder?.field;
+    let order = searchOrder?.direction;
 
-//     if (!searchOrder.direction) {
-//         order = 'desc';
-//     }
+    if (!order) order = 'desc';
 
-//     if (searchOrder?.field === 'Action Date') {
-//         sort = 'Sub-Award Date';
-//     }
+    if (sort === 'Action Date') sort = 'Sub-Award Date';
 
-//     return { sort, order };
-// };
+    if (grouped) sort = 'award_id';
 
-const useResultsTableSearch = (filters, tableType, spendingLevel, page = 1, searchOrder) => {
-    const searchFilters = new SearchAwardsOperation();
+    return { sort, order };
+};
+
+const useResultsTableSearch = (
+    searchFilters, tableType, spendingLevel, limit, searchOrder, grouped, page = 1
+) => {
+    const filtersTemp = new SearchAwardsOperation();
 
     // get initial searchParams from state
-    searchFilters.fromState(filters);
+    filtersTemp.fromState(searchFilters);
 
     // if subawards is true, newAwardsOnly cannot be true, so we remove
     // dateType for this request; also has to be done for the tabCounts request
-    if (spendingLevel === "subaward" && searchFilters.dateType) {
-        delete searchFilters.dateType;
+    if (spendingLevel === "subaward" && filtersTemp.dateType) {
+        delete filtersTemp.dateType;
     }
 
-    searchFilters.awardType = getAwardTypeGroup(spendingLevel, tableType, filters.awardType);
+    filtersTemp.awardType = getAwardTypeGroup(spendingLevel, tableType, searchFilters.awardType);
 
     const fields = getFields(tableType);
 
-    // const { sort, order } = getSort(searchOrder);
+    const { sort, order } = getSortOrder(searchOrder, grouped);
+
+    let request;
+    const filters = filtersTemp.toParams();
 
     const params = {
         auditTrail: 'Results Table - Spending by award search',
-        fields,
-        filters: searchFilters.toParams(),
-        limit: 10,
-        order: "desc",
+        filters,
+        limit,
+        order,
         page,
-        sort: "Award Amount",
-        spending_level: spendingLevel
+        sort
     };
+
+    if (grouped) request = performSpendingBySubawardGrouped(params);
+    else {
+        request = performSpendingByAwardSearch({
+            ...params, fields, spending_level: spendingLevel
+        });
+    }
 
     const {
         data, isSuccess, isLoading, error
     } = useQuery({
-        queryKey: ['resultsTableData'],
-        queryFn: () => performSpendingByAwardSearch(params).promise,
-        staleTime: 60000
+        queryKey: ['resultsTableData', filters, limit, order, page, sort, spendingLevel, grouped],
+        queryFn: () => request.promise,
+        staleTime: 5 * 60 * 1000
     });
 
     return {

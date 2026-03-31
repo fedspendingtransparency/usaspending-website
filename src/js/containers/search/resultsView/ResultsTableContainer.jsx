@@ -75,6 +75,8 @@ const ResultsTableContainer = (props) => {
     const [isMobile, setIsMobile] = useState(false);
     const [columnType, setColumnType] = useState(props.spendingLevel);
 
+    const loadExpandableData = (showToggle && spendingLevel === "awards" && !isMobile);
+
     const performSearch = throttle((newSearch = false) => {
         if (searchRequest) {
             // a request is currently in-flight, cancel it
@@ -170,8 +172,6 @@ const ResultsTableContainer = (props) => {
         if (searchOrder?.field === 'Action Date' && props.spendingLevel !== 'transactions') {
             searchOrder.field = 'Sub-Award Date';
         }
-
-        const loadExpandableData = (showToggle && spendingLevel === "awards" && !isMobile);
 
         let params = {
             filters: searchParamsTemp.toParams(),
@@ -281,7 +281,14 @@ const ResultsTableContainer = (props) => {
             });
     }, 400);
 
-    const response = useResultsTableSearch(props.filters, tableType);
+    const response = useResultsTableSearch(
+        props.filters,
+        tableType,
+        spendingLevel,
+        // resultLimit,
+        10,
+        sort,
+        loadExpandableData);
 
     console.log(response);
 
