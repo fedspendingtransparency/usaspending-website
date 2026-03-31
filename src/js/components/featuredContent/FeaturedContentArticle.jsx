@@ -177,7 +177,7 @@ const FeaturedContentArticle = () => {
             sections={sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
-            inPageNav={isInfographicTemplate && sections?.length > 2}
+            inPageNav={isInfographicTemplate && sections?.length > 2 && chosenArticle && typeof MarkdownContent === "function"}
             metaTagProps={{ ...homePageMetaTags }}
             rootMargin="-240px 0px 0px 0px">
             <main

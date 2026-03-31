@@ -7,7 +7,6 @@ import { ComingSoon, FlexGridCol } from 'data-transparency-ui';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { interactiveDataSourcesPageMetaTags } from 'helpers/metaTagHelper';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import DownloadStaticFile from "components/sharedComponents/DownloadStaticFile";
@@ -158,9 +157,7 @@ const InteractiveDataSourcesPage = () => {
         }, { replace: true });
 
         setActiveSection(section);
-        // add offsets
-        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
 
         window.scrollTo({
             top: sectionTop - 25,
@@ -219,6 +216,7 @@ const InteractiveDataSourcesPage = () => {
             sections={sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
+            threshold="0"
             inPageNav>
             <main id="main-content" className="main-content usda__flex-row">
                 <FlexGridCol className="body usda__flex-col">
