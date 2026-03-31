@@ -158,9 +158,7 @@ const InteractiveDataSourcesPage = () => {
         }, { replace: true });
 
         setActiveSection(section);
-        // add offsets
-        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
 
         window.scrollTo({
             top: sectionTop - 25,
@@ -219,6 +217,7 @@ const InteractiveDataSourcesPage = () => {
             sections={sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
+            threshold="0"
             inPageNav>
             <main id="main-content" className="main-content usda__flex-row">
                 <FlexGridCol className="body usda__flex-col">
