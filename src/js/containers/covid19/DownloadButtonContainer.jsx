@@ -18,16 +18,6 @@ import {
 } from 'redux/actions/bulkDownload/bulkDownloadActions';
 import Analytics from 'helpers/analytics/Analytics';
 
-const Tooltip = () => (
-    <TooltipComponent title="COVID-19 Download">
-        <div className="message">
-            <div>The data downloads will include all data displayed on this page (as well as many additional data elements), with the exception of a few aspects one would need the more granular Account Breakdown by Award data (File C) to reproduce. If you wish to download this more granular data, visit the{' '}
-                <Link to="/download_center/custom_account_data">Custom Account Data</Link> download page.
-            </div>
-        </div>
-    </TooltipComponent>
-);
-
 const DownloadButtonContainer = () => {
     const dispatch = useDispatch();
     const downloadInFlight = useSelector((state) => state.bulkDownload.download.pendingDownload);
