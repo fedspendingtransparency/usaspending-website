@@ -24,16 +24,16 @@ const ExpandFiltersButton = ({ appliedFilters, expandedFilters, setExpandedFilte
         <FontAwesomeIcon icon={expandedFilters ? "chevron-up" : "chevron-down"} />
     ), [expandedFilters]);
 
-    const collapseOnClick = useCallback(() => setExpandedFilters((prevState) => {
+    const onClick = useCallback(() => setExpandedFilters((prevState) => {
         logExpandEvent(!prevState ? "Expand" : "Collapse");
 
         return !prevState;
     }), [setExpandedFilters]);
 
-    const collapseOnKeyUp = useCallback((e) => {
+    const onKeyUp = useCallback((e) => {
         e.persist();
-        if (e.key === 'Enter') collapseOnClick();
-    }, [collapseOnClick]);
+        if (e.key === 'Enter') onClick();
+    }, [onClick]);
 
     useEffect(() => {
         setNeedExpandButton(
@@ -47,8 +47,8 @@ const ExpandFiltersButton = ({ appliedFilters, expandedFilters, setExpandedFilte
 
     return (
         <Button
-            onClick={collapseOnClick}
-            onKeyUp={collapseOnKeyUp}
+            onClick={onClick}
+            onKeyUp={onKeyUp}
             copy={`${expandedFilters ? "Collapse" : "Expand"} active filters`}
             buttonTitle="filter modal"
             buttonSize="sm"

@@ -98,7 +98,8 @@ import {
     faGraduationCap,
     faCodeBranch,
     faLongArrowAltUp,
-    faLongArrowAltDown
+    faLongArrowAltDown,
+    faCircleQuestion
 } from "@fortawesome/pro-solid-svg-icons";
 
 export default function registerIcons() {
@@ -201,6 +202,7 @@ export default function registerIcons() {
         faLinkedin,
         faGithub,
         faArrowDown,
-        faXmark
+        faXmark,
+        faCircleQuestion
     );
 }

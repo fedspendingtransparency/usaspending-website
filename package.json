@@ -262,7 +262,6 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
     "@chromatic-com/storybook": "^4.1.1",
-    "@fortawesome/fontawesome-pro": "^7.2.0",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@fortawesome/pro-light-svg-icons": "^7.2.0",
