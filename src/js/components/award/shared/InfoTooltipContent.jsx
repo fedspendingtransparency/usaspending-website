@@ -399,6 +399,47 @@ export const loanSubsidyCost = (
         </div>
     </div>
 );
+export const subawardID = (
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">Sub-Award ID</div>
+        <div className="tooltip__text">
+            The sub-award ID number chosen by the prime recipient for this transaction.
+        </div>
+    </div>
+);
+export const recipientName = (
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">Sub-Recipient Name</div>
+        <div className="tooltip__text">
+            The name of the sub-recipient.
+        </div>
+    </div>
+);
+export const actionDateSub = (
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">Action Date</div>
+        <div className="tooltip__text">
+            The date when the sub-contract was issued.
+        </div>
+    </div>
+);
+export const amountSub = (
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">Amount</div>
+        <div className="tooltip__text">
+            The amount of money involved in the sub-contract action.
+        </div>
+    </div>
+);
+export const descriptionSub = (
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">Description</div>
+        <div className="tooltip__text">
+            The description of the sub-contract provided by the prime recipient.
+            The level of detail in descriptions varies and is dependent on the author.
+        </div>
+    </div>
+);
 // export const transactionDescriptionFA = (
 //     <div className="award-summary-tooltip transaction-history-tt">
 //         <div className="tooltip__title">Transaction Description</div>

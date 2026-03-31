@@ -1,6 +1,7 @@
 import React from "react";
 import { TooltipWrapper } from "data-transparency-ui";
 import { getHeaderTooltipsByTypeAndCol } from "../tooltips";
+import { subawardID, recipientName, actionDateSub, amountSub, descriptionSub } from "../../../components/award/shared/InfoTooltipContent";
 
 export const transactionsTableMapping = {
     idv: [
@@ -298,30 +299,35 @@ export const subawardTableMapping = [
         columnWidth: 150,
         displayName: 'Sub-Award ID',
         right: false,
-        title: 'subaward_number'
+        title: 'subaward_number',
+        icon: <TooltipWrapper tooltipPosition="right" icon="info" className="award-summary-tooltip" tooltipComponent={subawardID} />
     },
     {
         columnWidth: 300,
         displayName: 'Recipient Name',
         right: false,
-        title: 'recipient_name'
+        title: 'recipient_name',
+        icon: <TooltipWrapper tooltipPosition="right" icon="info" className="award-summary-tooltip" tooltipComponent={recipientName} />
     },
     {
         columnWidth: 150,
         displayName: 'Action Date',
         right: false,
-        title: 'action_date'
+        title: 'action_date',
+        icon: <TooltipWrapper tooltipPosition="right" icon="info" className="award-summary-tooltip" tooltipComponent={actionDateSub} />
     },
     {
         columnWidth: 150,
         displayName: 'Amount',
         right: true,
-        title: 'amount'
+        title: 'amount',
+        icon: <TooltipWrapper tooltipPosition="right" icon="info" className="award-summary-tooltip" tooltipComponent={amountSub} />
     },
     {
         columnWidth: 300,
         displayName: 'Sub-Award Description',
         right: false,
-        title: 'description'
+        title: 'description',
+        icon: <TooltipWrapper tooltipPosition="right" icon="info" className="award-summary-tooltip" tooltipComponent={descriptionSub} />
     }
 ];
