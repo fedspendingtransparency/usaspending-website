@@ -16,17 +16,17 @@ const tooltipsBySectionByAwardType = {
         asst: tooltips.awardHistoryFinancialAssistanceGeneric
     },
     transactionHistory: {
-        idv: tooltips.transactionHistoryInfoGeneric,
-        contract: tooltips.transactionHistoryInfoContract,
-        asst: tooltips.transactionHistoryInfoFinancialAssistance
+        idv: null,
+        contract: null,
+        asst: null
     },
     subAwards: {
-        contract: tooltips.subAwardsTabContract,
-        grant: tooltips.subAwardsTabGrant
+        contract: null,
+        grant: null
     },
     federalAccountFunding: {
-        idv: tooltips.federalAccountFundingInfoIDV,
-        default: tooltips.federalAccountFundingInfoGeneric
+        idv: null,
+        default: null
     },
     awardAmounts: {
         contract: tooltips.ContractAwardAmountsInfo,
