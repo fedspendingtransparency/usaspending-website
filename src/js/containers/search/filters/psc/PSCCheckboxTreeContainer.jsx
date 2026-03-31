@@ -332,7 +332,6 @@ const PSCCheckboxTreeContainer = () => {
                                 setErrorMessage(get(e, 'message', 'Error fetching PSC.'));
                             });
                     }
-                    setIsLoading(false);
 
                     // just do this for consistent return.
                     return Promise.resolve();
@@ -365,7 +364,7 @@ const PSCCheckboxTreeContainer = () => {
             );
 
             if (newCheckedWithPlaceholders.length > 0) {
-                dispatch(setCheckedPsc(newCheckedWithPlaceholders));
+                dispatch(setCheckedPsc([...newCheck, ...newCheckedWithPlaceholders]));
                 dispatch(setUncheckedPsc(uncheckedFromHashLocal));
                 nodesRef.current = false;
             }

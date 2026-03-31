@@ -69,7 +69,7 @@ export const removePlaceholderString = (str) => {
 
 export const getAllDescendants = (node, blackList = []) => {
     if (blackList.includes(node?.value)) return [];
-    if (!node.children || node?.children?.length === 0) return [node?.value];
+    if (!node?.children || node?.children?.length === 0) return [node?.value];
     return [
         ...node.children
             .filter((child) => !blackList.includes(child?.value))
