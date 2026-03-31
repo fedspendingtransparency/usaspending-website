@@ -333,7 +333,6 @@ export const actionType = (
         </div>
     </div>
 );
-
 export const actionTypeFA = (
     <div className="award-summary-tooltip transaction-history-tt">
         <div className="tooltip__title">Action Type</div>
@@ -356,8 +355,6 @@ export const actionTypeFA = (
         </div>
     </div>
 );
-
-
 export const transactionDescription = (
     <div className="award-summary-tooltip transaction-history-tt">
         <div className="tooltip__title">Transaction Description</div>
@@ -366,14 +363,11 @@ export const transactionDescription = (
         </div>
     </div>
 );
-
-export const transactionDescriptionFA = (
+export const loanFaceValue = (
     <div className="award-summary-tooltip transaction-history-tt">
-        <div className="tooltip__title">Transaction Description</div>
+        <div className="tooltip__title">Loan Face Value</div>
         <div className="tooltip__text">
-            Describes the modification, typically covering its effect on the award.
-            <p>
-                <strong>Loan Face Value</strong> - The Face Value of a loan represents how much has actually been lent out to
+                The Face Value of a loan represents how much has actually been lent out to
                 the entity that received the loan dollars. Sometimes loans are financed by a
                 financial institution (with the Federal government merely providing a &#39;loan
                 guarantee&#39; to the financial institution and reimbursement in cases where the
@@ -383,9 +377,14 @@ export const transactionDescriptionFA = (
                 it does not, in itself, represent a long-term cost to the government. The
                 estimated long-term cost to the government of a loan is captured
                 in the subsidy cost field.
-            </p>
-            <p>
-                <strong>Loan Subsidy Cost (Total Obligations To Date)</strong> - The implications of a loan or loan guarantee for the Federal Budget (and thus the
+        </div>
+    </div>
+);
+export const loanSubsidyCost = (
+    <div className="award-summary-tooltip transaction-history-tt">
+        <div className="tooltip__title">Loan Subsidy Cost (Total Obligations To Date)</div>
+        <div className="tooltip__text">
+            The implications of a loan or loan guarantee for the Federal Budget (and thus the
             loan version of spending/obligations) are known as the loan&#39;s subsidy
             cost. Subsidy cost is the calculated net present value of the loan to the
             government, taking into account the interest rate and the modeled risk of the
@@ -397,10 +396,43 @@ export const transactionDescriptionFA = (
             guarantee program itself are excluded from subsidy cost calculations. Note
             that a loan&#39;s face value is not considered Federal spending, since it
             does not in itself represent a long-term cost to the government.
-            </p>
         </div>
     </div>
 );
+// export const transactionDescriptionFA = (
+//     <div className="award-summary-tooltip transaction-history-tt">
+//         <div className="tooltip__title">Transaction Description</div>
+//         <div className="tooltip__text">
+//             Describes the modification, typically covering its effect on the award.
+//             <p>
+//                 <strong>Loan Face Value</strong> - The Face Value of a loan represents how much has actually been lent out to
+//                 the entity that received the loan dollars. Sometimes loans are financed by a
+//                 financial institution (with the Federal government merely providing a &#39;loan
+//                 guarantee&#39; to the financial institution and reimbursement in cases where the
+//                 loan isn&#39;t paid back), and other times they are financed by the Federal
+//                 government directly (direct loans). Regardless of how it is financed,
+//                 a loan&#39;s face value is not considered Federal spending, because
+//                 it does not, in itself, represent a long-term cost to the government. The
+//                 estimated long-term cost to the government of a loan is captured
+//                 in the subsidy cost field.
+//             </p>
+//             <p>
+//                 <strong>Loan Subsidy Cost (Total Obligations To Date)</strong> - The implications of a loan or loan guarantee for the Federal Budget (and thus the
+//             loan version of spending/obligations) are known as the loan&#39;s subsidy
+//             cost. Subsidy cost is the calculated net present value of the loan to the
+//             government, taking into account the interest rate and the modeled risk of the
+//             recipient failing to pay back the loan in part or full; subsidy cost can be
+//             positive (indicating that the government is likely to lose money on the loan) or
+//             negative (indicating that the government is likely to make money on the
+//             loan). Subsidy cost should never be larger in absolute value terms than
+//             the face value itself. Administrative costs of running the loan or loan
+//             guarantee program itself are excluded from subsidy cost calculations. Note
+//             that a loan&#39;s face value is not considered Federal spending, since it
+//             does not in itself represent a long-term cost to the government.
+//             </p>
+//         </div>
+//     </div>
+// );
 
 export const federalAccountFundingInfoIDV = (
     <div className="award-summary-tooltip">

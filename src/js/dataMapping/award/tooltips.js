@@ -57,3 +57,58 @@ export const getToolTipBySectionAndAwardType = (section, type) => {
     }
     return tooltipsBySectionByAwardType[section].default;
 };
+
+
+export const headerTooltipsByType = {
+    idv: {
+        modificationNumber: tooltips.modificationNumber,
+        actionDate: tooltips.actionDate,
+        amount: tooltips.amount,
+        actionType: tooltips.actionType,
+        transactionDescription: tooltips.transactionDescription
+    },
+    contract: {
+        modificationNumber: tooltips.modificationNumber,
+        actionDate: tooltips.actionDate,
+        amount: tooltips.amount,
+        actionType: tooltips.actionType,
+        transactionDescription: tooltips.transactionDescription
+    },
+    assistance: {
+        modificationNumber: tooltips.modificationNumber,
+        actionDate: tooltips.actionDate,
+        amount: tooltips.amount,
+        actionType: tooltips.actionTypeFA,
+        transactionDescription: tooltips.transactionDescription
+    },
+    loan: {
+        modificationNumber: tooltips.modificationNumber,
+        actionDate: tooltips.actionDate,
+        amount: tooltips.amount,
+        actionType: tooltips.actionTypeFA,
+        transactionDescription: tooltips.transactionDescription,
+        loanFaceValue: tooltips.loanFaceValue,
+        loanSubsidyCost: tooltips.loanSubsidyCost
+    },
+    default: {
+        modificationNumber: tooltips.modificationNumber,
+        actionDate: tooltips.actionDate,
+        amount: tooltips.amount,
+        actionType: tooltips.actionType,
+        transactionDescription: tooltips.transactionDescription
+    }
+};
+// eslint-disable-next-line import/prefer-default-export
+export const getHeaderTooltipsByTypeAndCol = (type, col) => {
+    console.debug("type, col: ", type, col);
+    const arrayOfSections = Object.keys(headerTooltipsByType);
+    const arrayOfAwardTypesForSection = Object.keys(headerTooltipsByType[type]);
+
+    if (arrayOfSections.includes(type) && arrayOfAwardTypesForSection.includes(col)) {
+        return headerTooltipsByType[type][col];
+    }
+    else if (isAwardFinancialAssistance(type) && arrayOfAwardTypesForSection.includes('asst')) {
+        return headerTooltipsByType[type].asst;
+    }
+    return headerTooltipsByType[type].default;
+};

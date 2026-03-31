@@ -50,6 +50,7 @@ const AwardHistoryTableContainer = ({
     };
 
     const parseTransactionsData = (data) => {
+        console.debug("category: ", category);
         if (category === 'idv' || category === 'loan' || category === 'contract') {
             setColumns(transactionsTableMapping[category]);
         }
@@ -67,7 +68,6 @@ const AwardHistoryTableContainer = ({
         const dtuiRows = transactions.map((obj) => {
             const value = [];
             if (category === 'idv' || category === 'contract') {
-                console.debug("value: ", value);
                 value.push(
                     obj.modificationNumber || '--',
                     obj.actionDate || '--',
