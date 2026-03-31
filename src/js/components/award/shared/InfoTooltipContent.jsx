@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash-es';
-
+import { TooltipComponent } from 'data-transparency-ui';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import AboutTheDataLink from "../../sharedComponents/AboutTheDataLink";
 
@@ -258,132 +258,103 @@ export const transactionHistoryInfoFinancialAssistance = (
 );
 
 export const modificationNumber = (
-    <div className="award-summary-tooltip transaction-history-tt">
-        <div className="tooltip__title">Modification Number</div>
-        <div className="tooltip__text">
-            This number identifies the modification. Modification numbers increment
+    <TooltipComponent title="Modification Number">This number identifies the modification. Modification numbers increment
                     from lower to higher as more mods are made.
-        </div>
-    </div>
+    </TooltipComponent>
 );
 export const actionDate = (
-    <div className="award-summary-tooltip transaction-history-tt">
-        <div className="tooltip__title">Action Date</div>
-        <div className="tooltip__text">
-            This is when the modification was issued.
-        </div>
-    </div>
+    <TooltipComponent title="Action Date">This is when the modification was issued.</TooltipComponent>
 );
 export const amount = (
-    <div className="award-summary-tooltip transaction-history-tt">
-        <div className="tooltip__title">Amount</div>
-        <div className="tooltip__text">
-                This refers to the amount of
+    <TooltipComponent title="Amount">This refers to the amount of
                 money added or subtracted from the initial awarded
                 amount by the modification, if any.
-        </div>
-    </div>
+    </TooltipComponent>
 );
 export const actionType = (
-    <div className="award-summary-tooltip transaction-history-tt">
-        <div className="tooltip__title">Action Type</div>
-        <div className="tooltip__text">
-            This column describes the type of modification. It uses a letter code system that maps to the following descriptions:
-            <ul className="info-tooltip__list">
-                <li>
-                    <strong>A</strong> – Additional Work
-                </li>
-                <li>
-                    <strong>B</strong> – Supplemental Agreement for work
+    <TooltipComponent title="Action Type">
+         This column describes the type of modification. It uses a letter code system that maps to the following descriptions:
+        <ul className="info-tooltip__list">
+            <li>
+                <strong>A</strong> – Additional Work
+            </li>
+            <li>
+                <strong>B</strong> – Supplemental Agreement for work
                 within scope
-                </li>
-                <li>
-                    <strong>C</strong> – Funding Only Action
-                </li>
-                <li>
-                    <strong>D</strong> – Change Order
-                </li>
-                <li>
-                    <strong>E</strong> – Terminate for Default (complete or
+            </li>
+            <li>
+                <strong>C</strong> – Funding Only Action
+            </li>
+            <li>
+                <strong>D</strong> – Change Order
+            </li>
+            <li>
+                <strong>E</strong> – Terminate for Default (complete or
                 partial)
-                </li>
-                <li>
-                    <strong>F</strong> – Terminate for Convenience (complete
+            </li>
+            <li>
+                <strong>F</strong> – Terminate for Convenience (complete
                 or partial)
-                </li>
-                <li>
-                    <strong>G</strong> – Exercise an Option
-                </li>
-                <li>
-                    <strong>H</strong> – Definitize Letter Contract
-                </li>
-                <li>
-                    <strong>J</strong> – Novation Agreement
-                </li>
-                <li>
-                    <strong>K</strong> – Close Out
-                </li>
-                <li>
-                    <strong>L</strong> – Definitize Change Order
-                </li>
-                <li>
-                    <strong>M</strong> – Other Administrative Action
-                </li>
-            </ul>
-        </div>
-    </div>
+            </li>
+            <li>
+                <strong>G</strong> – Exercise an Option
+            </li>
+            <li>
+                <strong>H</strong> – Definitize Letter Contract
+            </li>
+            <li>
+                <strong>J</strong> – Novation Agreement
+            </li>
+            <li>
+                <strong>K</strong> – Close Out
+            </li>
+            <li>
+                <strong>L</strong> – Definitize Change Order
+            </li>
+            <li>
+                <strong>M</strong> – Other Administrative Action
+            </li>
+        </ul>
+    </TooltipComponent>
 );
 export const actionTypeFA = (
-    <div className="award-summary-tooltip transaction-history-tt">
-        <div className="tooltip__title">Action Type</div>
-        <div className="tooltip__text">
-            This column describes the type of modification. It uses a letter code system that maps to the following descriptions:
-            <ul className="info-tooltip__list">
-                <li>
-                    <strong>A</strong> – New assistance award
-                </li>
-                <li>
-                    <strong>B</strong> – Continuation
-                </li>
-                <li>
-                    <strong>C</strong> – Revision
-                </li>
-                <li>
-                    <strong>D</strong> – Funding adjustment to a completed project
-                </li>
-            </ul>
-        </div>
-    </div>
+    <TooltipComponent title="Action Type">
+                    This column describes the type of modification. It uses a letter code system that maps to the following descriptions:
+        <ul className="info-tooltip__list">
+            <li>
+                <strong>A</strong> – New assistance award
+            </li>
+            <li>
+                <strong>B</strong> – Continuation
+            </li>
+            <li>
+                <strong>C</strong> – Revision
+            </li>
+            <li>
+                <strong>D</strong> – Funding adjustment to a completed project
+            </li>
+        </ul>
+    </TooltipComponent>
 );
 export const transactionDescription = (
-    <div className="award-summary-tooltip transaction-history-tt">
-        <div className="tooltip__title">Transaction Description</div>
-        <div className="tooltip__text">
-            <p>Describes the modification, typically covering its effect on the contract.</p>
-        </div>
-    </div>
+    <TooltipComponent title="Transaction Description">Describes the modification, typically covering its effect on the contract.</TooltipComponent>
 );
 export const loanFaceValue = (
-    <div className="award-summary-tooltip transaction-history-tt">
-        <div className="tooltip__title">Loan Face Value</div>
-        <div className="tooltip__text">
-                The Face Value of a loan represents how much has actually been lent out to
-                the entity that received the loan dollars. Sometimes loans are financed by a
-                financial institution (with the Federal government merely providing a &#39;loan
-                guarantee&#39; to the financial institution and reimbursement in cases where the
-                loan isn&#39;t paid back), and other times they are financed by the Federal
-                government directly (direct loans). Regardless of how it is financed,
-                a loan&#39;s face value is not considered Federal spending, because
-                it does not, in itself, represent a long-term cost to the government. The
-                estimated long-term cost to the government of a loan is captured
-                in the subsidy cost field.
-        </div>
-    </div>
+    <TooltipComponent title="Loan Face Value">
+        The Face Value of a loan represents how much has actually been lent out to
+        the entity that received the loan dollars. Sometimes loans are financed by a
+        financial institution (with the Federal government merely providing a &#39;loan
+        guarantee&#39; to the financial institution and reimbursement in cases where the
+        loan isn&#39;t paid back), and other times they are financed by the Federal
+        government directly (direct loans). Regardless of how it is financed,
+        a loan&#39;s face value is not considered Federal spending, because
+        it does not, in itself, represent a long-term cost to the government. The
+        estimated long-term cost to the government of a loan is captured
+        in the subsidy cost field.
+    </TooltipComponent>
 );
 export const loanSubsidyCost = (
-    <div className="award-summary-tooltip transaction-history-tt">
-        <div className="tooltip__title">Loan Subsidy Cost (Total Obligations To Date)</div>
-        <div className="tooltip__text">
+    <TooltipComponent title="Loan Subsidy Cost (Total Obligations To Date)">
             The implications of a loan or loan guarantee for the Federal Budget (and thus the
             loan version of spending/obligations) are known as the loan&#39;s subsidy
             cost. Subsidy cost is the calculated net present value of the loan to the
@@ -396,49 +367,23 @@ export const loanSubsidyCost = (
             guarantee program itself are excluded from subsidy cost calculations. Note
             that a loan&#39;s face value is not considered Federal spending, since it
             does not in itself represent a long-term cost to the government.
-        </div>
-    </div>
+    </TooltipComponent>
 );
 export const subawardID = (
-    <div className="award-summary-tooltip">
-        <div className="tooltip__title">Sub-Award ID</div>
-        <div className="tooltip__text">
-            The sub-award ID number chosen by the prime recipient for this transaction.
-        </div>
-    </div>
+    <TooltipComponent title="Sub-Award ID">The sub-award ID number chosen by the prime recipient for this transaction.</TooltipComponent>
 );
 export const recipientName = (
-    <div className="award-summary-tooltip">
-        <div className="tooltip__title">Sub-Recipient Name</div>
-        <div className="tooltip__text">
-            The name of the sub-recipient.
-        </div>
-    </div>
+    <TooltipComponent title="Sub-Recipient Name">The name of the sub-recipient.</TooltipComponent>
 );
 export const actionDateSub = (
-    <div className="award-summary-tooltip">
-        <div className="tooltip__title">Action Date</div>
-        <div className="tooltip__text">
-            The date when the sub-contract was issued.
-        </div>
-    </div>
+    <TooltipComponent title="Action Date">The date when the sub-contract was issued.</TooltipComponent>
 );
 export const amountSub = (
-    <div className="award-summary-tooltip">
-        <div className="tooltip__title">Amount</div>
-        <div className="tooltip__text">
-            The amount of money involved in the sub-contract action.
-        </div>
-    </div>
+    <TooltipComponent title="Amount">The amount of money involved in the sub-contract action.</TooltipComponent>
 );
 export const descriptionSub = (
-    <div className="award-summary-tooltip">
-        <div className="tooltip__title">Description</div>
-        <div className="tooltip__text">
-            The description of the sub-contract provided by the prime recipient.
-            The level of detail in descriptions varies and is dependent on the author.
-        </div>
-    </div>
+    <TooltipComponent title="Description">The description of the sub-contract provided by the prime recipient.
+            The level of detail in descriptions varies and is dependent on the author.</TooltipComponent>
 );
 // export const transactionDescriptionFA = (
 //     <div className="award-summary-tooltip transaction-history-tt">
