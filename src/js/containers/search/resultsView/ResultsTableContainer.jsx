@@ -285,10 +285,10 @@ const ResultsTableContainer = (props) => {
         props.filters,
         tableType,
         spendingLevel,
-        // resultLimit,
-        10,
+        resultLimit,
         sort,
-        loadExpandableData);
+        loadExpandableData
+    );
 
     console.log(response);
 

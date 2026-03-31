@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { intersection } from 'lodash-es';
+import { intersection, uniqueId } from 'lodash-es';
 
 import {
     performSpendingByAwardSearch, performSpendingBySubawardGrouped
@@ -163,8 +163,21 @@ const useResultsTableSearch = (
         staleTime: 5 * 60 * 1000
     });
 
+    const results = data?.data.results.map((result) => ({
+        ...result,
+        generated_internal_id: encodeURIComponent(result.generated_internal_id)
+    }));
+
     return {
-        data, isSuccess, isLoading, error
+        data,
+        isSuccess,
+        isLoading,
+        error,
+        results,
+        total: results?.length,
+        tableInstance: uniqueId(),
+        page: data?.data?.page_metadata.page,
+        lastPage: !data?.data?.page_metadata.hasNext
     };
 };
 
