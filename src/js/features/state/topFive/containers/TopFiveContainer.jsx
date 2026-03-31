@@ -91,7 +91,7 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
 
 
     const {
-        parsedData, isSuccess, isLoading, error, noResults
+        parsedData, noResults, isSuccess, isLoading, error
     } = useFetchSpendingBy(dataParams, category);
 
     useEffect(() => {

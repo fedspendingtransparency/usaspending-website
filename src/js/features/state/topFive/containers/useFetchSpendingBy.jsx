@@ -4,31 +4,13 @@
  */
 
 import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from '@tanstack/react-query';
 import { performSpendingByAwardSearch, performSpendingByCategorySearch } from "helpers/searchHelper";
 import BaseStateCategoryResult from "models/v2/state/BaseStateCategoryResult";
 
 export const useFetchSpendingBy = (apiParams, category) => {
     const [parsedData, setParsedData] = useState(null);
     const [noResults, setNoResults] = useState(false);
-    const categoryName = category === "award" ? "Award" : "Category";
-
-    const isEnabled = () => {
-        if (category && apiParams?.filters?.place_of_performance_locations[0]?.state?.length > 0) return true;
-        return false;
-    };
-
-    const {
-        data, isSuccess, isLoading, error
-    } = useQuery({
-        queryKey: [`spendingBy${categoryName}`],
-        queryFn: () => {
-            if (category === 'award') return performSpendingByAwardSearch(apiParams).promise;
-            return performSpendingByCategorySearch(apiParams).promise;
-        },
-        enabled: isEnabled(),
-        staleTime: 60000
-    });
 
     const parseData = (res) => {
         if (!res) {
@@ -75,15 +57,31 @@ export const useFetchSpendingBy = (apiParams, category) => {
         setParsedData(dataResults);
     };
 
+    const {
+        mutate, isSuccess, isPending, error
+    } = useMutation({
+        mutationKey: [`spendingBy${category}`],
+        mutationFn: () => {
+            if (category === 'awards') {
+                return performSpendingByAwardSearch(apiParams).promise;
+            }
+            return performSpendingByCategorySearch(apiParams).promise;
+        },
+        // 2. Handle success (e.g., refreshing local data)
+        onSuccess: (data) => {
+            parseData(data?.data);
+        },
+        staleTime: 60000
+    });
 
     useEffect(() => {
-        if (isSuccess && Object.keys(data?.data).length > 0) {
-            parseData(data?.data);
+        if (apiParams?.filters?.place_of_performance_locations[0]?.state.length > 0 && category) {
+            mutate();
         }
-    }, [data, isSuccess, parseData]);
+    }, [apiParams, mutate, category]);
 
     return {
-        parsedData, isSuccess, isLoading, error, noResults
+        parsedData, noResults, isSuccess, isLoading: isPending, error
     };
 };
 
