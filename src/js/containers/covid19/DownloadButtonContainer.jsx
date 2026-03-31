@@ -4,9 +4,7 @@
  */
 
 import React, { useRef } from 'react';
-import { Link } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
-import { TooltipComponent } from 'data-transparency-ui';
 
 import DownloadIconButton508 from 'components/sharedComponents/buttons/DownloadButton508';
 import { requestFullDownload } from 'helpers/downloadHelper';
