@@ -46,7 +46,7 @@ const DownloadFilterRow = ({
                 <ReadMore
                     text={filter.values}
                     limit={limit}
-                    openPrompt="Show More"
+                    openPrompt="Show all"
                     closePrompt="Show Less" />
             </td>
         </tr>
