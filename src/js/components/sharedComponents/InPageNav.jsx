@@ -22,7 +22,7 @@ const propTypes = {
 
 const InPageNav = (props) => {
     const {
-        sections, jumpToSection, pageName, detectActiveSection, rootMargin
+        sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold
     } = props;
     const [observerSupported, setObserverSupported] = useState(false);
     const [activeSection, setActiveSection] = useState(props.activeSection);
@@ -39,7 +39,7 @@ const InPageNav = (props) => {
 
     const observerOptions = {
         rootMargin: rootMargin || `-120px 0px 0px 0px`,
-        threshold: 0.1
+        threshold: threshold || 0.1
     };
 
     let initialPageLoad = true;
@@ -192,15 +192,6 @@ const InPageNav = (props) => {
     };
 
     useEffect(() => {
-        getInitialElements();
-        handleResize();
-
-        window.addEventListener('resize', () => handleResize());
-        return () => window.removeEventListener('resize', () => handleResize());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
         checkIsOverflowHidden();
         ulElement?.addEventListener('scrollend', (e) => handleHorizontalScroll(e));
         return () => ulElement?.removeEventListener('scrollend', (e) => handleHorizontalScroll(e));
@@ -234,7 +225,12 @@ const InPageNav = (props) => {
     }, 100);
 
     useEffect(() => {
+        getInitialElements();
+        handleResize();
         setObserverSupported('IntersectionObserver' in window);
+
+        window.addEventListener('resize', () => handleResize());
+        return () => window.removeEventListener('resize', () => handleResize());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
