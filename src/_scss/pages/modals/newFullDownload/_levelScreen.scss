@@ -1,15 +1,4 @@
 .download-level-screen {
-    .main-title {
-        h2 {
-            text-align: left;
-            font-size: rem(20);
-            font-weight: $font-normal;
-            margin-bottom: rem(12);
-            margin-top: 0;
-            line-height: 120%;
-            color: $gray-90;
-        }
-    }
     .download-warning-container {
         display: flex;
         align-items: flex-start;

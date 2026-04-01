@@ -10,20 +10,40 @@ const propTypes = {
     title: PropTypes.string,
     copy: PropTypes.string,
     count: PropTypes.string,
-    checkboxId: PropTypes.string
+    checkboxId: PropTypes.string,
+    toggleOption: PropTypes.func
 };
 
-const DownloadOption = (props) => {
-    const isEnabled = props.count <= 500000;
+const DownloadOption = ({
+    title,
+    copy,
+    count,
+    checkboxId,
+    toggleOption
+}) => {
+    const isEnabled = count <= 500000;
     return (
         <div className={`download-item ${!isEnabled ? "disabled" : ''}`}>
             <div className={`download-item-top ${!isEnabled ? "disabled" : ''}`}>
-                <label htmlFor={props.checkboxId} className={`download-item-title ${!isEnabled ? "disabled" : ''}`}><input type="checkbox" id={props.checkboxId} disabled={!isEnabled} />{props.title}</label>
-                {props.count === "1" && <div className={`download-record-count ${!isEnabled ? "disabled" : ''}`}>{props.count} record</div>}
-                {props.count !== "1" && <div className={`download-record-count ${!isEnabled ? "disabled" : ''}`}>{props.count} records</div>}
+                <label
+                    htmlFor={checkboxId}
+                    className={`download-item-title ${!isEnabled ? "disabled" : ''}`}>
+                    <input
+                        type="checkbox"
+                        id={checkboxId}
+                        disabled={!isEnabled}
+                        onKeyDown={(e) => (e.key === "Enter" ? toggleOption() : "")}
+                        onChange={() => toggleOption()} />
+                    {title}
+                </label>
+
+                <div className={`download-record-count ${!isEnabled ? "disabled" : ''}`}>
+                    {`${count} ${count === "1" ? "record" : "records"}`}
+                </div>
+
             </div>
             <div className={`download-item-body ${!isEnabled ? "disabled" : ''}`}>
-                {props.copy}
+                {copy}
             </div>
         </div>
     );
