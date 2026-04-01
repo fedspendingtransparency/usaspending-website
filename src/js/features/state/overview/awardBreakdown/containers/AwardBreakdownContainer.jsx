@@ -24,18 +24,20 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
     const [hasNegatives, setHasNegatives] = useState(false);
 
     const {
-        parsedData, isSuccess, isLoading, error
+        parsedData, parsedDataOutlays, isSuccess, isLoading, error
     } = useFetchAwardBreakdown(id, fy, toggleState);
 
 
     useEffect(() => {
-        if (isSuccess && parsedData) {
-            setAwardBreakdown(parsedData?.results);
-            setRows(parsedData?.newRows);
-            setTotalAmount(parsedData?.newTotalAmount);
-            setHasNegatives(parsedData?.newHasNegatives);
+        if (isSuccess && parsedData && parsedDataOutlays) {
+            const data = toggleState ? parsedDataOutlays : parsedData;
+            console.log(data);
+            setAwardBreakdown(data?.results);
+            setRows(data?.newRows);
+            setTotalAmount(data?.newTotalAmount);
+            setHasNegatives(data?.newHasNegatives);
         }
-    }, [isSuccess, parsedData]);
+    }, [isSuccess, parsedData, parsedDataOutlays, toggleState]);
 
     return (
         <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
