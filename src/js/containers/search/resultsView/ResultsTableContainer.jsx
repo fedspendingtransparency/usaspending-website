@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { throttle } from 'lodash-es';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
 import Analytics from 'helpers/analytics/Analytics';
@@ -26,18 +26,29 @@ import SearchSectionWrapper from
 import useResultsTableSearch from './useResultsTableSearch';
 
 const propTypes = {
-    filters: PropTypes.object,
     setAppliedFilterCompletion: PropTypes.func,
     noApplied: PropTypes.bool,
-    subAwardIdClicked: PropTypes.func,
-    wrapperProps: PropTypes.object,
     tabData: PropTypes.object,
+    spendingLevel: PropTypes.string,
     hash: PropTypes.string,
-    spendingLevel: PropTypes.string
+    sectionTitle: PropTypes.string,
+    dsmContent: PropTypes.element,
+    sectionName: PropTypes.string
 };
 
-const ResultsTableContainer = (props) => {
+const ResultsTableContainer = ({
+    setAppliedFilterCompletion,
+    noApplied,
+    tabData,
+    spendingLevel,
+    hash,
+    sectionTitle,
+    dsmContent,
+    sectionName
+}) => {
     const location = useLocation();
+    const { filters } = useSelector((state) => state.appliedFilters);
+    const dispatch = useDispatch();
     const [page, setPage] = useState(1);
     const [tableType, setTableType] = useState();
     const [sort, setSort] = useState({
@@ -48,9 +59,9 @@ const ResultsTableContainer = (props) => {
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
-    const isSubaward = props.spendingLevel === "subawards";
-    const loadExpandableData = (isSubaward && props.spendingLevel === "awards" && !isMobile);
-    const counts = props.tabData.results;
+    const isSubaward = spendingLevel === "subawards";
+    const loadExpandableData = (isSubaward && spendingLevel === "awards" && !isMobile);
+    const counts = tabData.results;
 
     const {
         isLoading,
@@ -60,9 +71,9 @@ const ResultsTableContainer = (props) => {
         tableInstance,
         lastPage
     } = useResultsTableSearch(
-        props.filters,
+        filters,
         tableType,
-        props.spendingLevel,
+        spendingLevel,
         resultLimit,
         sort,
         loadExpandableData,
@@ -211,7 +222,7 @@ const ResultsTableContainer = (props) => {
             label: id,
             gtm: true
         });
-        props.subAwardIdClicked(true);
+        dispatch(subAwardIdClicked(true));
     };
 
     const availableTypes = isSubaward ? subTypes : tableTypes;
@@ -232,9 +243,9 @@ const ResultsTableContainer = (props) => {
     };
 
     useEffect(() => {
-        parseTabCounts(props.tabData);
+        parseTabCounts(tabData);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.tabData]);
+    }, [tabData]);
 
     useEffect(throttle(() => {
         if (isLoadingNextPage) {
@@ -251,28 +262,30 @@ const ResultsTableContainer = (props) => {
             isError={error}
             isLoading={isLoading}
             noData={total === 0}
-            hash={props.hash}
-            spendingLevel={props.spendingLevel}
+            hash={hash}
+            spendingLevel={spendingLevel}
             sort={sort}
             setSort={setSort}
             onToggle={() => {}}
             showToggle={() => {}}
             tableColumns={columns[tableType]}
-            {...props.wrapperProps}
+            sectionTitle={sectionTitle}
+            dsmContent={dsmContent}
+            sectionName={sectionName}
             manualSort>
             <ResultsTableSection
                 error={error}
                 inFlight={isLoading}
                 results={loadExpandableData ? [] : results}
                 columns={columns[tableType]}
-                sort={props.spendingLevel !== 'transactions' ? formattedSubSort() : sort}
+                sort={spendingLevel !== 'transactions' ? formattedSubSort() : sort}
                 tableTypes={tabsWithCounts}
                 currentType={tableType}
                 tableInstance={tableInstance}
                 switchTab={switchTab}
                 updateSort={updateSort}
                 loadNextPage={loadNextPage}
-                spendingLevel={props.spendingLevel}
+                spendingLevel={spendingLevel}
                 awardIdClick={awardIdClick}
                 subAwardIdClick={subAwardIdClick}
                 page={page}
@@ -283,9 +296,9 @@ const ResultsTableContainer = (props) => {
                 resultsCount={counts[tableType]}
                 showToggle={() => {}}
                 expandableData={loadExpandableData ? results : []}
-                filters={props.filters}
+                filters={filters}
                 checkMobile={(isMobileState) => setIsMobile(isMobileState)}
-                columnType={props.spendingLevel}
+                columnType={spendingLevel}
                 subColumnOptions={columns} />
         </SearchSectionWrapper>
     );
@@ -295,17 +308,14 @@ ResultsTableContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        filters: state.appliedFilters.filters,
-        noApplied: state.appliedFilters._empty,
-        spendingLevel: state.searchView.spendingLevel
+        noApplied: state.appliedFilters._empty
     }),
     (dispatch) => bindActionCreators(
         // access multiple redux actions
         Object.assign(
             {},
             searchActions,
-            appliedFilterActions,
-            { subAwardIdClicked }
+            appliedFilterActions
         ),
         dispatch
     )

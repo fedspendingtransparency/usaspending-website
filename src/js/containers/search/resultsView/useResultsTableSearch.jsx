@@ -17,7 +17,7 @@ import { defaultColumns, apiFieldByTableColumnName } from 'dataMapping/search/aw
 const getAwardTypeGroup = (spendingLevel, tableType, awardType) => {
     // generate an array of award type codes representing the current table tab we're showing
     // and use a different mapping if we're showing a subaward table vs a prime award table
-    const awardTypeGroup = spendingLevel === "subaward" ?
+    const awardTypeGroup = spendingLevel === "subawards" ?
         subawardTypeGroups[tableType] :
         awardTypeGroups[tableType];
 

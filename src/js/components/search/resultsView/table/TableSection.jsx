@@ -19,19 +19,15 @@ const TableSection = ({
 }) => {
     const sectionTitle = spendingLevel === "awards" ? 'Prime Award Results' : 'Subaward Results';
 
-    const wrapperProps = {
-        sectionTitle,
-        dsmContent: <TableDsm spendingLevel={spendingLevel} />,
-        sectionName: 'table'
-    };
-
     return (
         <div id="search-page-component" className="awards">
             <ResultsTableContainer
                 tabData={tabData}
-                wrapperProps={wrapperProps}
                 hash={hash}
-                spendingLevel={spendingLevel} />
+                spendingLevel={spendingLevel}
+                sectionTitle={sectionTitle}
+                dsmContent={<TableDsm spendingLevel={spendingLevel} />}
+                sectionName="table" />
         </div>
     );
 };
