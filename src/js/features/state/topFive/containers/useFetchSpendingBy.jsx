@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 import { performSpendingByAwardSearch, performSpendingByCategorySearch } from "helpers/searchHelper";
 import BaseStateCategoryResult from "models/v2/state/BaseStateCategoryResult";
 
-export const useFetchSpendingBy = (apiParams, category) => {
+export const useFetchSpendingBy = (apiParams, category, code, fy) => {
     const [parsedData, setParsedData] = useState(null);
     const [noResults, setNoResults] = useState(false);
 
@@ -60,14 +60,13 @@ export const useFetchSpendingBy = (apiParams, category) => {
     const {
         mutate, isSuccess, isPending, error
     } = useMutation({
-        mutationKey: [`spendingBy${category}`],
+        mutationKey: [`spendingBy${category}${code}${fy}`],
         mutationFn: () => {
             if (category === 'awards') {
                 return performSpendingByAwardSearch(apiParams).promise;
             }
             return performSpendingByCategorySearch(apiParams).promise;
         },
-        // 2. Handle success (e.g., refreshing local data)
         onSuccess: (data) => {
             parseData(data?.data);
         },
@@ -75,10 +74,10 @@ export const useFetchSpendingBy = (apiParams, category) => {
     });
 
     useEffect(() => {
-        if (apiParams?.filters?.place_of_performance_locations[0]?.state.length > 0 && category) {
+        if (code && category) {
             mutate();
         }
-    }, [apiParams, mutate, category]);
+    }, [code, mutate, category]);
 
     return {
         parsedData, noResults, isSuccess, isLoading: isPending, error

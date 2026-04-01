@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import BaseStateProfile from "models/v2/state/BaseStateProfile";
 import { performSpendingByGeographySearch } from "helpers/searchHelper";
 
-export const useFetchOverview = (params) => {
+export const useSpendingByGeographySearch = (params) => {
     const [stateProfileData, setStateProfileData] = useState(null);
 
     const {
@@ -39,4 +39,4 @@ export const useFetchOverview = (params) => {
     };
 };
 
-export default useFetchOverview;
+export default useSpendingByGeographySearch;

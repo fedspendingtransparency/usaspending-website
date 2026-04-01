@@ -14,7 +14,7 @@ export const useFetchOverview = (stateId, fy) => {
     const {
         data, isSuccess, isLoading, error
     } = useQuery({
-        queryKey: ['stateProfileData'],
+        queryKey: [`stateProfileData${stateId}${fy}`],
         queryFn: () => fetchStateOverview(stateId, fy).promise,
         staleTime: 60000
     });

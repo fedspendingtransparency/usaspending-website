@@ -22,7 +22,7 @@ const StateTimeVisualizationSectionContainer = () => {
 
     const {
         parsedData, isSuccess, isLoading, error
-    } = useFetchSpendingOverTime(apiSearchParams, visualizationPeriod);
+    } = useFetchSpendingOverTime(apiSearchParams, visualizationPeriod, code);
 
     const updateVisualizationPeriod = (newVizPeriod) => {
         setVisualizationPeriod(newVizPeriod);

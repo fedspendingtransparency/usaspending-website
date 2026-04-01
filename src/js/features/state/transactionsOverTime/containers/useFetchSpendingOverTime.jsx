@@ -8,13 +8,13 @@ import { useQuery } from "@tanstack/react-query";
 import { performSpendingOverTimeSearch } from "helpers/searchHelper";
 import { convertMonthToFY, convertNumToShortMonth } from "helpers/monthHelper";
 
-export const useFetchSpendingOverTime = (apiParams, visualizationPeriod) => {
+export const useFetchSpendingOverTime = (apiParams, visualizationPeriod, code) => {
     const [parsedData, setParsedData] = useState(null);
 
     const {
         data, isSuccess, isLoading, error
     } = useQuery({
-        queryKey: ['spendingOverTimeSearch'],
+        queryKey: [`spendingOverTimeSearch${code}${visualizationPeriod}`],
         queryFn: () => performSpendingOverTimeSearch(apiParams).promise,
         enabled: !!apiParams,
         staleTime: 60000

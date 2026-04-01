@@ -92,7 +92,7 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
 
     const {
         parsedData, noResults, isSuccess, isLoading, error
-    } = useFetchSpendingBy(dataParams, category);
+    } = useFetchSpendingBy(dataParams, category, code, fy);
 
     useEffect(() => {
         if (isSuccess && (noResults || parsedData?.length > 0)) {
