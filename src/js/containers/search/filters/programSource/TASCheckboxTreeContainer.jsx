@@ -267,6 +267,7 @@ const TASCheckboxTree = () => {
 
 
     const setCheckedStateFromUrlHash = (newChecked) => {
+        console.log("checking newChecked", newChecked);
         setNewCheck(newChecked);
         setUncheckedFromHashLocal(uncheckedFromHash.map((ancestryPath) => ancestryPath.pop()));
     };
@@ -286,7 +287,7 @@ const TASCheckboxTree = () => {
     };
 
     useEffect(() => {
-        if (nodes.length !== 0 && checkedFromHash.length) {
+        if (nodes.length !== 0 && checkedFromHash.length && checked.length <= 0) {
             setCheckedStateFromUrlHash(
                 checkedFromHash.map((ancestryPath) => ancestryPath[ancestryPath.length - 1])
             );
@@ -362,7 +363,16 @@ const TASCheckboxTree = () => {
             );
 
             if (newCheckedWithPlaceholders.length > 0) {
-                dispatch(setCheckedTas([...newCheck, ...newCheckedWithPlaceholders]));
+                // Sometimes happens with nested checked single parent nodes
+                const orphanCheckedPlaceholders = newCheckedWithPlaceholders
+                    .filter((child) => !newCheck.includes(removePlaceholderString(child)))
+                    .map((op) => removePlaceholderString(op));
+
+                dispatch(setCheckedTas([
+                    ...newCheck,
+                    ...newCheckedWithPlaceholders,
+                    ...orphanCheckedPlaceholders
+                ]));
                 dispatch(setUncheckedTas(uncheckedFromHashLocal));
                 nodesRef.current = false;
             }
