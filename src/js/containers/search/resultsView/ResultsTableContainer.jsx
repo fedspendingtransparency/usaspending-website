@@ -8,11 +8,8 @@ import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { isCancel } from 'axios';
 import { throttle } from 'lodash-es';
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
-import * as SearchHelper from 'helpers/searchHelper';
 import Analytics from 'helpers/analytics/Analytics';
 import { tableTypes, subTypes, transactionTypes } from 'dataMapping/search/resultsView/table';
 import {
@@ -40,33 +37,24 @@ const propTypes = {
 };
 
 const ResultsTableContainer = (props) => {
-    let tabCountRequest = null;
     const location = useLocation();
     const [page, setPage] = useState(1);
-    const [counts, setCounts] = useState({});
     const [tableType, setTableType] = useState();
-    const [columns, setColumns] = useState({});
     const [sort, setSort] = useState({
         field: 'Award Amount',
         direction: 'desc'
     });
-    const [inFlight, setInFlight] = useState(false);
-    const [error, setError] = useState(false);
     const [resultLimit, setResultLimit] = useState(100);
     const [isLoadingNextPage, setLoadNextPage] = useState(false);
-    const [isInitialLoad, setIsInitialLoad] = useState(true);
-    const [spendingLevel, setSpendingLevel] = useState(props.spendingLevel);
-    const [isSubaward, setIsSubaward] = useState(props.spendingLevel === 'subawards');
-    const [isTransactions, setIsTransactions] = useState(props.spendingLevel === 'transactions');
     const [isMobile, setIsMobile] = useState(false);
-    const { pathname } = useLocation();
 
-    const isV2 = pathname === '/search';
-    const showToggle = isV2 && (props.spendingLevel !== "awards");
-    const loadExpandableData = (showToggle && spendingLevel === "awards" && !isMobile);
+    const isSubaward = props.spendingLevel === "subawards";
+    const loadExpandableData = (isSubaward && props.spendingLevel === "awards" && !isMobile);
+    const counts = props.tabData.results;
 
     const {
         isLoading,
+        error,
         results,
         total,
         tableInstance,
@@ -74,21 +62,12 @@ const ResultsTableContainer = (props) => {
     } = useResultsTableSearch(
         props.filters,
         tableType,
-        spendingLevel,
+        props.spendingLevel,
         resultLimit,
         sort,
         loadExpandableData,
         page
     );
-
-    // console.log(response);
-
-    // const test = response?.isSuccess;
-
-    // useEffect(() => {
-    //     console.log(response);
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [test]);
 
     const createColumn = (col) => {
         // create an object that integrates with the expected column data structure used by
@@ -109,15 +88,18 @@ const ResultsTableContainer = (props) => {
         };
     };
 
-    const loadColumns = () => {
-        // in the future, this will be an API call, but for now, read the local data file
-        // load every possible table column up front, so we don't need to deal with this when
-        // switching tabs
-        const columnsTemp = tableTypes.concat(subTypes).concat(transactionTypes).reduce((cols, type) => {
+    // in the future, this will be an API call, but for now, read the local data file
+    // load every possible table column up front, so we don't need to deal with this when
+    // switching tabs
+    const columns = tableTypes
+        .concat(subTypes)
+        .concat(transactionTypes)
+        .reduce((cols, type) => {
             const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
-            const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => Object.assign({}, parsedCols, {
-                [data.title]: createColumn(data)
-            }), {});
+            const parsedColumns = defaultColumns(type.internal)
+                .reduce((parsedCols, data) => Object.assign({}, parsedCols, {
+                    [data.title]: createColumn(data)
+                }), {});
 
             return Object.assign(cols, {
                 [type.internal]: {
@@ -126,9 +108,6 @@ const ResultsTableContainer = (props) => {
                 }
             });
         }, {});
-
-        setColumns(Object.assign(columns, columnsTemp));
-    };
 
     const updateFilters = throttle(() => setPage(1), 350);
 
@@ -166,8 +145,7 @@ const ResultsTableContainer = (props) => {
         });
     };
 
-    const parseTabCounts = (data) => {
-        let awardCounts = data.results;
+    const parseTabCounts = () => {
         let firstAvailable = '';
         let i = 0;
         let availableTabs = tableTypes;
@@ -175,23 +153,12 @@ const ResultsTableContainer = (props) => {
         if (isSubaward) {
             availableTabs = subTypes;
         }
-        else if (isTransactions) {
-            availableTabs = transactionTypes;
-            awardCounts = {
-                transaction_contracts: data.results.contracts,
-                transaction_grants: data.results.grants,
-                transaction_direct_payments: data.results.direct_payments,
-                transaction_loans: data.results.loans,
-                transaction_other: data.results.other,
-                transaction_idvs: data.results.idvs
-            };
-        }
 
         // Set the first available award type to the first non-zero entry in the
         while (firstAvailable === '' && i < availableTabs.length) {
             const tableTypeTemp = availableTabs[i].internal;
 
-            if (awardCounts[tableTypeTemp] > 0) {
+            if (counts[tableTypeTemp] > 0) {
                 firstAvailable = tableTypeTemp;
             }
 
@@ -204,56 +171,14 @@ const ResultsTableContainer = (props) => {
             firstAvailable = availableTabs[0].internal;
         }
 
-        setCounts(Object.assign({}, counts, awardCounts));
         switchTab(firstAvailable);
         updateFilters();
     };
 
-    const pickDefaultTab = () => {
-        // get the award counts for the current filter set
-        if (tabCountRequest) {
-            tabCountRequest.cancel();
-        }
-
-        if (props.tabData && props.spendingLevel === spendingLevel) {
-            parseTabCounts(props.tabData);
-            return;
-        }
-
-        setInFlight(true);
-        setError(false);
-
-        const searchParamsTemp = new SearchAwardsOperation();
-        searchParamsTemp.fromState(props.filters);
-
-        // if subawards is true, newAwardsOnly cannot be true, so we remove dateType for this request
-        // also has to be done for the main request, in performSearch
-        if (isSubaward && searchParamsTemp.dateType) {
-            delete searchParamsTemp.dateType;
-        }
-
-        tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
-            filters: searchParamsTemp.toParams(),
-            spending_level: spendingLevel,
-            auditTrail: 'Award Table - Tab Counts'
-        });
-
-        tabCountRequest.promise
-            .then((res) => {
-                parseTabCounts(res.data);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    setInFlight(false);
-                    setError(true);
-                    console.log(err);
-                }
-            });
-    };
 
     const loadNextPage = () => {
         // check if request is already in-flight
-        if (inFlight) {
+        if (isLoading) {
             // in-flight, ignore this request
             return;
         }
@@ -266,20 +191,7 @@ const ResultsTableContainer = (props) => {
         }
     };
 
-    const updateSort = (field, direction) => {
-        if (field === 'Action Date' && props.spendingLevel !== 'transactions') {
-            setSort(Object.assign({
-                field: 'Sub-Award Date',
-                direction
-            }));
-        }
-        else {
-            setSort(Object.assign({
-                field,
-                direction
-            }));
-        }
-    };
+    const updateSort = (field, direction) => setSort({ field, direction });
 
     const awardIdClick = (id) => {
         Analytics.event({
@@ -302,47 +214,13 @@ const ResultsTableContainer = (props) => {
         props.subAwardIdClicked(true);
     };
 
-    let availableTypes = tableTypes;
-
-    if (isSubaward) {
-        availableTypes = subTypes;
-    }
-    else if (isTransactions) {
-        availableTypes = transactionTypes;
-    }
+    const availableTypes = isSubaward ? subTypes : tableTypes;
 
     const tabsWithCounts = availableTypes.map((type) => ({
         ...type,
         count: counts[type.internal],
-        disabled: inFlight || counts[type.internal] === 0
+        disabled: counts[type.internal] === 0
     }));
-
-    const initialTableLoad = () => {
-        loadColumns();
-        if (SearchHelper.isSearchHashReady(location) && props?.tabData?.results?.length > 0) {
-            parseTabCounts(props.tabData);
-        }
-        else if (SearchHelper.isSearchHashReady(location)) {
-            pickDefaultTab();
-        }
-        else {
-            pickDefaultTab();
-        }
-    };
-
-    const toggleSpendingLevel = () => {
-        if (spendingLevel === "awards") {
-            // return back to original.
-            setSpendingLevel(props.spendingLevel);
-            setIsSubaward(props.spendingLevel === "subawards");
-            setIsTransactions(props.spendingLevel === "transactions");
-            return;
-        }
-
-        setSpendingLevel("awards");
-        setIsSubaward(false);
-        setIsTransactions(false);
-    };
 
     const formattedSubSort = () => {
         const formattedSort = sort;
@@ -353,43 +231,10 @@ const ResultsTableContainer = (props) => {
         return formattedSort;
     };
 
-    useEffect(throttle(() => {
-        if (isInitialLoad) {
-            setIsInitialLoad(false);
-            initialTableLoad();
-        }
+    useEffect(() => {
+        parseTabCounts(props.tabData);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), []);
-
-    useEffect(throttle(() => {
-        if (!isInitialLoad && tableType && props?.spendingLevel === "subawards") {
-            setPage(1);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [tableType]);
-
-    useEffect(throttle(() => {
-        if (!isInitialLoad) {
-            if (isSubaward && !props.noApplied) {
-                // subaward toggle changed, update the search object
-                pickDefaultTab();
-            }
-            else if (SearchHelper.isSearchHashReady(location) && location.search) {
-                // hash is (a) defined and (b) new
-                pickDefaultTab();
-            }
-            else if (!isSubaward || !isTransactions) {
-                pickDefaultTab();
-            }
-        }
-
-        return () => {
-            if (tabCountRequest) {
-                tabCountRequest.cancel();
-            }
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, 400), [isSubaward, props.noApplied, isTransactions]);
+    }, [props.tabData]);
 
     useEffect(throttle(() => {
         if (isLoadingNextPage) {
@@ -404,20 +249,20 @@ const ResultsTableContainer = (props) => {
     return (
         <SearchSectionWrapper
             isError={error}
-            isLoading={inFlight}
-            noData={!inFlight && !error && total === 0}
+            isLoading={isLoading}
+            noData={total === 0}
             hash={props.hash}
-            spendingLevel={spendingLevel}
+            spendingLevel={props.spendingLevel}
             sort={sort}
             setSort={setSort}
-            onToggle={toggleSpendingLevel}
-            showToggle={showToggle}
+            onToggle={() => {}}
+            showToggle={() => {}}
             tableColumns={columns[tableType]}
             {...props.wrapperProps}
             manualSort>
             <ResultsTableSection
                 error={error}
-                inFlight={inFlight || isLoading}
+                inFlight={isLoading}
                 results={loadExpandableData ? [] : results}
                 columns={columns[tableType]}
                 sort={props.spendingLevel !== 'transactions' ? formattedSubSort() : sort}
@@ -427,7 +272,7 @@ const ResultsTableContainer = (props) => {
                 switchTab={switchTab}
                 updateSort={updateSort}
                 loadNextPage={loadNextPage}
-                spendingLevel={spendingLevel}
+                spendingLevel={props.spendingLevel}
                 awardIdClick={awardIdClick}
                 subAwardIdClick={subAwardIdClick}
                 page={page}
@@ -436,11 +281,11 @@ const ResultsTableContainer = (props) => {
                 resultsLimit={resultLimit}
                 setResultLimit={setResultLimit}
                 resultsCount={counts[tableType]}
-                showToggle={showToggle}
+                showToggle={() => {}}
                 expandableData={loadExpandableData ? results : []}
                 filters={props.filters}
                 checkMobile={(isMobileState) => setIsMobile(isMobileState)}
-                columnType={spendingLevel}
+                columnType={props.spendingLevel}
                 subColumnOptions={columns} />
         </SearchSectionWrapper>
     );

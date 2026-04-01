@@ -4,7 +4,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import ResultsTableContainer from "../../../../containers/search/resultsView/ResultsTableContainer";
+import ResultsTableContainer from "containers/search/resultsView/ResultsTableContainer";
 
 import TableDsm from "./TableDsm";
 
@@ -17,16 +17,10 @@ const propTypes = {
 const TableSection = ({
     tabData, hash, spendingLevel
 }) => {
-    const sectionTitle = () => {
-        switch (spendingLevel) {
-            case 'awards': return 'Prime Award Results';
-            case 'subawards': return 'Subaward Results';
-            default: return 'Transaction Results';
-        }
-    };
+    const sectionTitle = spendingLevel === "awards" ? 'Prime Award Results' : 'Subaward Results';
 
     const wrapperProps = {
-        sectionTitle: sectionTitle(),
+        sectionTitle,
         dsmContent: <TableDsm spendingLevel={spendingLevel} />,
         sectionName: 'table'
     };

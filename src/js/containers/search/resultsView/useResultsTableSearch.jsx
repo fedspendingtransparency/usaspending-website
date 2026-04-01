@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import { intersection, uniqueId } from 'lodash-es';
 
@@ -172,7 +172,6 @@ const useResultsTableSearch = (
         [];
 
     return {
-        data,
         isSuccess,
         isLoading,
         error,
