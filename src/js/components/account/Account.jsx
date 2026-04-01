@@ -42,6 +42,7 @@ const Account = ({ account, currentFiscalYear }) => {
         <PageWrapper
             pageName="Federal Account Profile"
             classNames="usa-da-account-page"
+            overLine="Federal Account Profile"
             title={`Federal Account Symbol: ${accountSymbol}`}
             metaTagProps={account ? MetaTagHelper.federalAccountPageMetaTags(account) : {}}
             toolBarComponents={[
