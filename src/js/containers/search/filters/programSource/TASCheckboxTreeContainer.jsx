@@ -299,11 +299,9 @@ const TASCheckboxTree = () => {
                 getTasAncestryPathForChecked(unchecked, nodes),
                 countsFromHash
             ));
-            return Promise.resolve();
         }
         else if (nodes.length !== 0) {
             dispatch(showTasTree());
-            return Promise.resolve();
         }
 
         fetchTasLocal('')

@@ -12,7 +12,7 @@ const propTypes = {
 };
 
 const DownloadStaticFile = ({ path }) => (
-    <div className="download_static-file__container">
+    <div className="download_static-file__container usa-download-icon">
         <a
             href={path}
             target="_blank"
@@ -21,7 +21,7 @@ const DownloadStaticFile = ({ path }) => (
             rel="noopener noreferrer"
             download>
             <div className="download_static-file__button-content">
-                <FontAwesomeIcon data-href={path} icon="file-download" />
+                <FontAwesomeIcon data-href={path} icon="fa-download" />
                 <span>Download</span>
             </div>
         </a>

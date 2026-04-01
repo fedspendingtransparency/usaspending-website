@@ -1,7 +1,11 @@
 FROM node:22.14.0
 
+# font awesome token passed in
+ARG FATOKEN
+ARG FABASEENCODE
+
 # Default environment variables
-ENV ENV=prod USASPENDING_API=https://api.usaspending.gov/api/ MAPBOX_TOKEN='' GA_TRACKING_ID='' FASECRET=''
+ENV ENV=prod USASPENDING_API=https://api.usaspending.gov/api/ MAPBOX_TOKEN='' GA_TRACKING_ID=''
 
 RUN mkdir /node-workspace && mkdir /test-results
 
@@ -22,11 +26,19 @@ WORKDIR /node-workspace
 #FE Devs building docker locally may require you to uncomment the next two lines
 # RUN npm config set https-proxy "http://p1proxy.frb.org:8080/"
 # RUN npm config set proxy "http://p1proxy.frb.org:8080/"
-ARG FASECRET
 RUN npm install -g npm@10.8.3
 RUN npm install -g webpack@5.94.0
 RUN npm install -g webpack-cli@5.1.4
-RUN npm ci --legacy-peer-deps --maxsockets 1
+
+ENV FONTAWESOME_NPM_AUTH_TOKEN=$FATOKEN
+ENV FABASEENCODE=$FABASEENCODE
+RUN echo "@fortawesome:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
+    echo "@awesome.me:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
+    echo "//npm.fontawesome.com/:username=${FONTAWESOME_NPM_AUTH_TOKEN}" >> ~/.npmrc && \
+    echo "//npm.fontawesome.com/:_password=${FABASEENCODE}" >> ~/.npmrc
+
+## Add --dd to see verbose logs
+RUN npm ci --legacy-peer-deps 
 
 # Now copy the remaining source files
 # Files in .dockerignore will not be copied
