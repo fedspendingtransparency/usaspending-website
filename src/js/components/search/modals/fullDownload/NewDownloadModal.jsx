@@ -181,8 +181,7 @@ const NewDownloadModal = (props) => {
             };
         }
     }
-    // else if (downloadStep === 3) {
-    // }
+
 
     return (
         <Modal
