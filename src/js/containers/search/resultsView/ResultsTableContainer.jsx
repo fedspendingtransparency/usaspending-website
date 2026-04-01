@@ -6,10 +6,11 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { throttle } from 'lodash-es';
+
 import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
+import { measureTableHeader } from 'helpers/textMeasurement';
 import Analytics from 'helpers/analytics/Analytics';
 import { tableTypes, subTypes, transactionTypes } from 'dataMapping/search/resultsView/table';
 import {
@@ -17,17 +18,12 @@ import {
     defaultSort
 } from 'dataMapping/search/awardTableColumns';
 import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
-import { measureTableHeader } from 'helpers/textMeasurement';
 import ResultsTableSection from 'components/search/resultsView/table/ResultsTableSection';
-import searchActions from 'redux/actions/searchActions';
-import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 import SearchSectionWrapper from
     "components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import useResultsTableSearch from './useResultsTableSearch';
 
 const propTypes = {
-    setAppliedFilterCompletion: PropTypes.func,
-    noApplied: PropTypes.bool,
     tabData: PropTypes.object,
     spendingLevel: PropTypes.string,
     hash: PropTypes.string,
@@ -37,8 +33,6 @@ const propTypes = {
 };
 
 const ResultsTableContainer = ({
-    setAppliedFilterCompletion,
-    noApplied,
     tabData,
     spendingLevel,
     hash,
@@ -47,8 +41,8 @@ const ResultsTableContainer = ({
     sectionName
 }) => {
     const location = useLocation();
-    const { filters } = useSelector((state) => state.appliedFilters);
     const dispatch = useDispatch();
+    const { filters } = useSelector((state) => state.appliedFilters);
     const [page, setPage] = useState(1);
     const [tableType, setTableType] = useState();
     const [sort, setSort] = useState({
@@ -242,6 +236,12 @@ const ResultsTableContainer = ({
         return formattedSort;
     };
 
+    const onToggleSpendingLevel = () => {
+        // TODO: fix this function for expandable tables
+        // IF switching to expandable table AND spendingLevel === "subawards"
+        // THEN dispatch(setSpendingLevel("awards"))
+    };
+
     useEffect(() => {
         parseTabCounts(tabData);
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -266,8 +266,8 @@ const ResultsTableContainer = ({
             spendingLevel={spendingLevel}
             sort={sort}
             setSort={setSort}
-            onToggle={() => {}}
-            showToggle={() => {}}
+            onToggle={onToggleSpendingLevel}
+            showToggle
             tableColumns={columns[tableType]}
             sectionTitle={sectionTitle}
             dsmContent={dsmContent}
@@ -294,7 +294,7 @@ const ResultsTableContainer = ({
                 resultsLimit={resultLimit}
                 setResultLimit={setResultLimit}
                 resultsCount={counts[tableType]}
-                showToggle={() => {}}
+                showToggle
                 expandableData={loadExpandableData ? results : []}
                 filters={filters}
                 checkMobile={(isMobileState) => setIsMobile(isMobileState)}
@@ -305,18 +305,4 @@ const ResultsTableContainer = ({
 };
 
 ResultsTableContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        noApplied: state.appliedFilters._empty
-    }),
-    (dispatch) => bindActionCreators(
-        // access multiple redux actions
-        Object.assign(
-            {},
-            searchActions,
-            appliedFilterActions
-        ),
-        dispatch
-    )
-)(ResultsTableContainer);
+export default ResultsTableContainer;
