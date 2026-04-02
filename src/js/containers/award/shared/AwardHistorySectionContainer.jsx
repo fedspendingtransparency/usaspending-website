@@ -7,7 +7,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { tabs, awardTypesWithSubawards } from 'dataMapping/award/awardHistorySection';
-import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
 import { Tabs } from "data-transparency-ui";
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
 import AwardSectionHeader from 'components/award/shared/AwardSectionHeader';
@@ -28,7 +27,6 @@ const AwardHistory = ({
     const sectionTitle = (overview.category === 'idv')
         ? "Award History for this IDV"
         : "Award History";
-    const tooltip = getToolTipBySectionAndAwardType('awardHistory', overview.category);
     let countRequest = null;
 
     const setTableTabsAndGetCounts = (award = overview) => {
@@ -77,9 +75,7 @@ const AwardHistory = ({
         <div id="award-award-history" className="award-viz award-history">
             <AwardSectionHeader
                 title={sectionTitle}
-                icon={<AwardLoop alt="Award History" />}
-                tooltip={tooltip}
-                tooltipWide={(overview.category === 'contract')} />
+                icon={<AwardLoop alt="Award History" />} />
             <div className="tables-section">
                 <Tabs
                     types={tabOptions}
