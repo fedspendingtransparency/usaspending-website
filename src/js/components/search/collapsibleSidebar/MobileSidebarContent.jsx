@@ -37,21 +37,20 @@ const MobileSidebarContent = ({
                         exit>
                         <div className="mobile-filter-content">
                             <div className={className}>
-                                <div className="collapsible-sidebar--header">
-                                    <button
-                                        className="close-button"
-                                        id="collapsible-mobile-close-button"
-                                        aria-label="Close Filters"
-                                        onClick={() => {
-                                            setShowMobileFilters(false);
-                                        }}>
-                                        <Close alt="Close Filters" />
-                                    </button>
-                                </div>
                                 <div className="sidebar-top-submit">
                                     <div className="collapsible-sidebar-header">
-                                        <FontAwesomeIcon icon="filter" />
-                                        Filters
+                                        <FontAwesomeIcon icon="filter" />Filters
+                                        <div className="sub--header">
+                                            <button
+                                                className="close-button"
+                                                id="collapsible-mobile-close-button"
+                                                aria-label="Close Filters"
+                                                onClick={() => {
+                                                    setShowMobileFilters(false);
+                                                }}>
+                                                <Close alt="Close Filters" />
+                                            </button>
+                                        </div>
                                     </div>
                                     <SearchSidebarSubmitContainer
                                         setShowMobileFilters={setShowMobileFilters} />
