@@ -26,7 +26,7 @@ const AwardSectionHeader = ({
                 wide={tooltipWide}
                 tooltipComponent={tooltip} />}
             </div>
-            <hr />
+            <hr className="award-viz__break" />
             {title === "Award History" && content}
         </React.Fragment>
     );
