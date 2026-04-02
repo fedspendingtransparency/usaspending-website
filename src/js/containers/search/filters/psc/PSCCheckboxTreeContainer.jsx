@@ -290,18 +290,7 @@ const PSCCheckboxTreeContainer = () => {
     };
 
     useEffect(() => {
-        if (nodes.length !== 0 && checkedFromHash.length) {
-            setCheckedStateFromUrlHash(
-                checkedFromHash.map((ancestryPath) => ancestryPath[ancestryPath.length - 1])
-            );
-            dispatch(setPscCounts(countsFromHash));
-            dispatch(updatePSC(
-                trimCheckedToCommonAncestors(getPscAncestryPathForChecked(checked, nodes)),
-                getPscAncestryPathForChecked(unchecked, nodes),
-                counts
-            ));
-        }
-        else if (nodes.length !== 0) {
+        if (nodes.length !== 0) {
             dispatch(showPscTree());
         }
         else {
@@ -337,7 +326,6 @@ const PSCCheckboxTreeContainer = () => {
                     return Promise.resolve();
                 });
         }
-
         return () => {
             if (request.current) {
                 request.current.cancel();
@@ -364,7 +352,16 @@ const PSCCheckboxTreeContainer = () => {
             );
 
             if (newCheckedWithPlaceholders.length > 0) {
-                dispatch(setCheckedPsc([...newCheck, ...newCheckedWithPlaceholders]));
+                // Sometimes happens with nested checked single parent nodes
+                const orphanCheckedPlaceholders = newCheckedWithPlaceholders
+                    .filter((child) => !newCheck.includes(removePlaceholderString(child)))
+                    .map((op) => removePlaceholderString(op));
+
+                dispatch(setCheckedPsc([
+                    ...newCheck,
+                    ...newCheckedWithPlaceholders,
+                    ...orphanCheckedPlaceholders
+                ]));
                 dispatch(setUncheckedPsc(uncheckedFromHashLocal));
                 nodesRef.current = false;
             }

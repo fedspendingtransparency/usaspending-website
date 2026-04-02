@@ -170,7 +170,6 @@ const TASCheckboxTree = () => {
         const treeDepth = selectedNode.ancestors?.length;
 
         if (shouldFetchChildren && !isSearch) {
-            setIsLoading(true);
             if (treeDepth >= 1) {
                 if (treeDepth === 2) {
                     fetchTasLocal(
@@ -267,7 +266,6 @@ const TASCheckboxTree = () => {
 
 
     const setCheckedStateFromUrlHash = (newChecked) => {
-        console.log("checking newChecked", newChecked);
         setNewCheck(newChecked);
         setUncheckedFromHashLocal(uncheckedFromHash.map((ancestryPath) => ancestryPath.pop()));
     };
@@ -287,18 +285,7 @@ const TASCheckboxTree = () => {
     };
 
     useEffect(() => {
-        if (nodes.length !== 0 && checkedFromHash.length && checked.length <= 0) {
-            setCheckedStateFromUrlHash(
-                checkedFromHash.map((ancestryPath) => ancestryPath[ancestryPath.length - 1])
-            );
-            dispatch(setTasCounts(countsFromHash));
-            dispatch(updateTAS(
-                trimCheckedToCommonAncestors(getTasAncestryPathForChecked(checked, nodes)),
-                getTasAncestryPathForChecked(unchecked, nodes),
-                counts
-            ));
-        }
-        else if (nodes.length !== 0) {
+        if (nodes.length !== 0) {
             dispatch(showTasTree());
         }
         else {
@@ -335,7 +322,6 @@ const TASCheckboxTree = () => {
                     return Promise.resolve();
                 });
         }
-
 
         return () => {
             if (request.current) {
