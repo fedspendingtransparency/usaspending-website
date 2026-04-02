@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../_scss/elements/_accordion.scss';
@@ -31,14 +31,13 @@ const Accordion = ({
     openObject = false,
     selectedChipCount = 0
 }) => {
-    const [closed, setClosed] = useState(!openObject);
+    const closed = !openObject;
 
     const sectionClassName = !closed ? `open accordion--open accordion` : `accordion`;
     const buttonAriaLabel = closed ? 'Open toggle' : 'Close toggle';
 
     const toggleOpen = (e) => {
         e.stopPropagation();
-        setClosed((prevClosed) => !prevClosed);
         if (openObject) {
             setOpen();
         }
@@ -61,6 +60,9 @@ const Accordion = ({
         ) :
         (<></>));
 
+    if (title === "Treasury Account Symbol (TAS)") {
+        console.log(`checking title == ${title} and isOpen ==== ${openObject}`);
+    }
     return (
         <div className="accordion-container">
             <section

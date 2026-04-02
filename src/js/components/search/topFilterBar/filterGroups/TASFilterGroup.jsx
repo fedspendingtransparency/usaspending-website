@@ -9,12 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { updateTAS } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
+import { useSidebarObserver } from '../../../../context/SidebarFilterContext';
 
 const propTypes = { name: PropTypes.string };
 
 const TASFilterGroup = ({ name }) => {
     const { require, counts } = useSelector((state) => state.filters.tasCodes);
     const { counts: appliedCounts } = useSelector((state) => state.appliedFilters.filters.tasCodes);
+    const { dispatch: setOpenFilter } = useSidebarObserver();
     const dispatch = useDispatch();
 
     const toggleFilter = (value, staged) => {
@@ -33,6 +35,11 @@ const TASFilterGroup = ({ name }) => {
             [],
             newTAS.counts
         ));
+
+        setOpenFilter({
+            type: 'close',
+            payload: 'Treasury Account Symbol (TAS)'
+        });
     };
 
     const keys = counts.map((t) => `${t.value}-${t.count}`);

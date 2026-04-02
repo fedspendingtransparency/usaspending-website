@@ -20,6 +20,7 @@ import ResultsView from "./resultsView/ResultsView";
 import CollapsibleSidebar from "./collapsibleSidebar/SidebarWrapper";
 import MobileFilterButton from "./mobile/MobileFilterButton";
 import searchPageToolBarComponents from "./header/SearchPageToolBarComponents";
+import { SidebarFilterProvider } from '../../context/SidebarFilterContext';
 
 require('pages/search/searchPage.scss');
 
@@ -102,14 +103,7 @@ const SearchPage = ({
             filters={appliedFilters}>
             <div id="main-content" role="main">
                 <div className="search-contents v2" ref={searchContents}>
-                    <TooltipContext value={(tt) => setTooltipData(tt)}>
-                        <CollapsibleSidebar
-                            hash={hash}
-                            showMobileFilters={showMobileFilters}
-                            setShowMobileFilters={setShowMobileFilters}
-                            sidebarIsOpen={sidebarIsOpen}
-                            setSidebarIsOpen={setSidebarIsOpen} />
-                    </TooltipContext>
+
                     <div
                         className="new-tooltip__tooltip-wrapper"
                         style={{
@@ -132,12 +126,22 @@ const SearchPage = ({
                             href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css"
                             rel="stylesheet" />
                     </Helmet>
-                    <ResultsView
-                        showMobileFilters={showMobileFilters}
-                        isMobile={isMedium}
-                        noFiltersApplied={noFiltersApplied}
-                        hash={hash}
-                        setFilterCount={setFilterCount} />
+                    <SidebarFilterProvider>
+                        <TooltipContext value={(tt) => setTooltipData(tt)}>
+                            <CollapsibleSidebar
+                                hash={hash}
+                                showMobileFilters={showMobileFilters}
+                                setShowMobileFilters={setShowMobileFilters}
+                                sidebarIsOpen={sidebarIsOpen}
+                                setSidebarIsOpen={setSidebarIsOpen} />
+                        </TooltipContext>
+                        <ResultsView
+                            showMobileFilters={showMobileFilters}
+                            isMobile={isMedium}
+                            noFiltersApplied={noFiltersApplied}
+                            hash={hash}
+                            setFilterCount={setFilterCount} />
+                    </SidebarFilterProvider>
                 </div>
                 <FullDownloadModalContainer
                     download={download}

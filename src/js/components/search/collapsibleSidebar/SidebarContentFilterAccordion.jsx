@@ -2,29 +2,37 @@ import React, { memo, useCallback } from 'react';
 import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
 import Accordion from "../../sharedComponents/accordion/Accordion";
+import { useSidebarObserver } from '../../../context/SidebarFilterContext';
 
 const propTypes = {
     title: PropTypes.string,
     component: PropTypes.element,
-    open: PropTypes.object,
-    setOpen: PropTypes.func,
+    // open: PropTypes.object,
+    // setOpen: PropTypes.func,
     count: PropTypes.number
 };
 
 // eslint-disable-next-line prefer-arrow-callback
 const SidebarContentFilterAccordion = memo(function SidebarContentFilterAccordion({
-    title, component, open, setOpen, count
+    title, component, count
+    // title, component, open, setOpen, count
 }) {
+    const { open, dispatch } = useSidebarObserver();
+    const isOpen = open[title];
+
     const onToggle = useCallback(() => {
         Analytics.event({
             event: "dap_event",
             category: "Advanced Search - Filter",
-            action: open ? "Filter Close" : "Filter Open",
-            label: title.concat(" ", open ? "close" : "open")
+            action: isOpen ? "Filter Close" : "Filter Open",
+            label: title.concat(" ", isOpen ? "close" : "open")
         });
 
-        setOpen((prevState) => ({ ...prevState, [title]: !prevState[title] }));
-    }, [open, setOpen, title]);
+        dispatch({
+            type: "toggle",
+            payload: title
+        });
+    }, [dispatch, isOpen, title]);
 
     return (
         <div className="search-filters-list">
@@ -32,12 +40,12 @@ const SidebarContentFilterAccordion = memo(function SidebarContentFilterAccordio
                 key={title}
                 title={title}
                 setOpen={onToggle}
-                openObject={open}
+                openObject={isOpen}
                 closedIcon="chevron-down"
                 openIcon="chevron-up"
-                contentClassName={open ? '' : 'hidden'}
+                contentClassName={isOpen ? '' : 'hidden'}
                 selectedChipCount={count}>
-                { open && component }
+                { isOpen && component }
             </Accordion>
         </div>
     );
