@@ -1,34 +1,44 @@
+import React from "react";
+import { TooltipWrapper } from "data-transparency-ui";
+import { getHeaderTooltipsByTypeAndCol } from "../tooltips";
+import { subawardID, recipientName, actionDateSub, amountSub, descriptionSub } from "../../../components/award/shared/InfoTooltipContent";
+
 export const transactionsTableMapping = {
     idv: [
         {
             columnWidth: 150,
             displayName: 'Modification Number',
             right: false,
-            title: 'modification_number'
+            title: 'modification_number',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('idv', 'modificationNumber')} />
         },
         {
             columnWidth: 150,
             displayName: 'Action Date',
             right: false,
-            title: 'action_date'
+            title: 'action_date',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('idv', 'actionDate')} />
         },
         {
             columnWidth: 150,
             displayName: 'Amount',
             right: true,
-            title: 'federal_action_obligation'
+            title: 'federal_action_obligation',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('idv', 'amount')} />
         },
         {
             columnWidth: 250,
             displayName: 'Action Type',
             right: false,
-            title: 'action_type'
+            title: 'action_type',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('idv', 'actionType')} />
         },
         {
             columnWidth: 300,
             displayName: 'Transaction Description',
             right: false,
-            title: 'description'
+            title: 'description',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('idv', 'transactionDescription')} />
         }
     ],
     loan: [
@@ -36,7 +46,8 @@ export const transactionsTableMapping = {
             columnWidth: 150,
             displayName: 'Modification Number',
             right: false,
-            title: 'modification_number'
+            title: 'modification_number',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('loan', 'modificationNumber')} />
         },
         {
             columnWidth: 150,
@@ -48,31 +59,36 @@ export const transactionsTableMapping = {
             columnWidth: 150,
             displayName: 'Action Date',
             right: false,
-            title: 'action_date'
+            title: 'action_date',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('loan', 'actionDate')} />
         },
         {
             columnWidth: 150,
             displayName: 'Loan Face Value',
             right: true,
-            title: 'face_value_loan_guarantee'
+            title: 'face_value_loan_guarantee',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('loan', 'loanFaceValue')} />
         },
         {
             columnWidth: 250,
             displayName: 'Loan Subsidy Cost (Total Obligations To Date)',
             right: true,
-            title: 'original_loan_subsidy_cost'
+            title: 'original_loan_subsidy_cost',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('loan', 'loanSubsidyCost')} />
         },
         {
             columnWidth: 250,
             displayName: 'Action Type',
             right: false,
-            title: 'action_type'
+            title: 'action_type',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('loan', 'actionType')} />
         },
         {
             columnWidth: 300,
             displayName: 'Transaction Description',
             right: false,
-            title: 'description'
+            title: 'description',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('loan', 'transactionDescription')} />
         }
     ],
     contract: [
@@ -80,31 +96,36 @@ export const transactionsTableMapping = {
             columnWidth: 150,
             displayName: 'Modification Number',
             right: false,
-            title: 'modification_number'
+            title: 'modification_number',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('contract', 'modificationNumber')} />
         },
         {
             columnWidth: 150,
             displayName: 'Action Date',
             right: false,
-            title: 'action_date'
+            title: 'action_date',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('contract', 'actionDate')} />
         },
         {
             columnWidth: 150,
             displayName: 'Amount',
             right: false,
-            title: 'federal_action_obligation'
+            title: 'federal_action_obligation',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('contract', 'amount')} />
         },
         {
             columnWidth: 250,
             displayName: 'Action Type',
             right: false,
-            title: 'action_type'
+            title: 'action_type',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('contract', 'actionType')} />
         },
         {
             columnWidth: 300,
             displayName: 'Transaction Description',
             right: false,
-            title: 'description'
+            title: 'description',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('contract', 'transactionDescription')} />
         }
     ],
     assistance: [
@@ -112,7 +133,8 @@ export const transactionsTableMapping = {
             columnWidth: 150,
             displayName: 'Modification Number',
             right: false,
-            title: 'modification_number'
+            title: 'modification_number',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('assistance', 'modificationNumber')} />
         },
         {
             columnWidth: 150,
@@ -124,25 +146,29 @@ export const transactionsTableMapping = {
             columnWidth: 150,
             displayName: 'Action Date',
             right: false,
-            title: 'action_date'
+            title: 'action_date',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('assistance', 'actionDate')} />
         },
         {
             columnWidth: 150,
             displayName: 'Amount',
             right: true,
-            title: 'federal_action_obligation'
+            title: 'federal_action_obligation',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('assistance', 'amount')} />
         },
         {
             columnWidth: 250,
             displayName: 'Action Type',
             right: false,
-            title: 'action_type'
+            title: 'action_type',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('assistance', 'actionType')} />
         },
         {
             columnWidth: 300,
             displayName: 'Transaction Description',
             right: false,
-            title: 'description'
+            title: 'description',
+            icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={getHeaderTooltipsByTypeAndCol('assistance', 'transactionDescription')} />
         }
     ]
 };
@@ -273,30 +299,35 @@ export const subawardTableMapping = [
         columnWidth: 150,
         displayName: 'Sub-Award ID',
         right: false,
-        title: 'subaward_number'
+        title: 'subaward_number',
+        icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={subawardID} />
     },
     {
         columnWidth: 300,
         displayName: 'Recipient Name',
         right: false,
-        title: 'recipient_name'
+        title: 'recipient_name',
+        icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={recipientName} />
     },
     {
         columnWidth: 150,
         displayName: 'Action Date',
         right: false,
-        title: 'action_date'
+        title: 'action_date',
+        icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={actionDateSub} />
     },
     {
         columnWidth: 150,
         displayName: 'Amount',
         right: true,
-        title: 'amount'
+        title: 'amount',
+        icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={amountSub} />
     },
     {
         columnWidth: 300,
         displayName: 'Sub-Award Description',
         right: false,
-        title: 'description'
+        title: 'description',
+        icon: <TooltipWrapper tooltipPosition="left" icon="info" className="award-section-tt" tooltipComponent={descriptionSub} />
     }
 ];
