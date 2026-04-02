@@ -16,17 +16,17 @@ const tooltipsBySectionByAwardType = {
         asst: tooltips.awardHistoryFinancialAssistanceGeneric
     },
     transactionHistory: {
-        idv: tooltips.transactionHistoryInfoGeneric,
-        contract: tooltips.transactionHistoryInfoContract,
-        asst: tooltips.transactionHistoryInfoFinancialAssistance
+        idv: null,
+        contract: null,
+        asst: null
     },
     subAwards: {
-        contract: tooltips.subAwardsTabContract,
-        grant: tooltips.subAwardsTabGrant
+        contract: null,
+        grant: null
     },
     federalAccountFunding: {
-        idv: tooltips.federalAccountFundingInfoIDV,
-        default: tooltips.federalAccountFundingInfoGeneric
+        idv: null,
+        default: null
     },
     awardAmounts: {
         contract: tooltips.ContractAwardAmountsInfo,
@@ -56,4 +56,58 @@ export const getToolTipBySectionAndAwardType = (section, type) => {
         return tooltipsBySectionByAwardType[section].asst;
     }
     return tooltipsBySectionByAwardType[section].default;
+};
+
+
+export const headerTooltipsByType = {
+    idv: {
+        modificationNumber: tooltips.modificationNumber,
+        actionDate: tooltips.actionDate,
+        amount: tooltips.amount,
+        actionType: tooltips.actionType,
+        transactionDescription: tooltips.transactionDescription
+    },
+    contract: {
+        modificationNumber: tooltips.modificationNumber,
+        actionDate: tooltips.actionDate,
+        amount: tooltips.amount,
+        actionType: tooltips.actionType,
+        transactionDescription: tooltips.transactionDescription
+    },
+    assistance: {
+        modificationNumber: tooltips.modificationNumber,
+        actionDate: tooltips.actionDate,
+        amount: tooltips.amount,
+        actionType: tooltips.actionTypeFA,
+        transactionDescription: tooltips.transactionDescription
+    },
+    loan: {
+        modificationNumber: tooltips.modificationNumber,
+        actionDate: tooltips.actionDate,
+        amount: tooltips.amount,
+        actionType: tooltips.actionTypeFA,
+        transactionDescription: tooltips.transactionDescription,
+        loanFaceValue: tooltips.loanFaceValue,
+        loanSubsidyCost: tooltips.loanSubsidyCost
+    },
+    default: {
+        modificationNumber: tooltips.modificationNumber,
+        actionDate: tooltips.actionDate,
+        amount: tooltips.amount,
+        actionType: tooltips.actionType,
+        transactionDescription: tooltips.transactionDescription
+    }
+};
+// eslint-disable-next-line import/prefer-default-export
+export const getHeaderTooltipsByTypeAndCol = (type, col) => {
+    const arrayOfSections = Object.keys(headerTooltipsByType);
+    const arrayOfAwardTypesForSection = Object.keys(headerTooltipsByType[type]);
+
+    if (arrayOfSections.includes(type) && arrayOfAwardTypesForSection.includes(col)) {
+        return headerTooltipsByType[type][col];
+    }
+    else if (isAwardFinancialAssistance(type) && arrayOfAwardTypesForSection.includes('asst')) {
+        return headerTooltipsByType[type].asst;
+    }
+    return headerTooltipsByType[type].default;
 };

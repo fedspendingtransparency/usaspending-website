@@ -6,12 +6,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { TooltipWrapper } from 'data-transparency-ui';
 
 const propTypes = {
     onClick: PropTypes.func.isRequired,
     downloadInFlight: PropTypes.bool,
-    tooltipComponent: PropTypes.element,
     isEnabled: PropTypes.bool,
     key: PropTypes.string
 };
@@ -19,7 +17,6 @@ const propTypes = {
 const DownloadIconButton508 = ({
     onClick,
     downloadInFlight,
-    tooltipComponent = null,
     isEnabled = true,
     key
 }) => {
@@ -53,16 +50,6 @@ const DownloadIconButton508 = ({
         </button>
     );
 
-    if (tooltipComponent) {
-        return (
-            <TooltipWrapper
-                className={wrapperclass}
-                tooltipPosition="left"
-                tooltipComponent={tooltipComponent} >
-                {downloadButton()}
-            </TooltipWrapper>
-        );
-    }
     return (
         <div className={wrapperclass} >
             {downloadButton()}
