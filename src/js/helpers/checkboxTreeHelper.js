@@ -864,7 +864,7 @@ export const handleNewCheckedIds = (nodes, currentId, checked, unchecked, staged
             return false;
         })[0];
         const allChildren = getChildrenAndDescendantIds(currentNode);
-        const currentNodeIdOrValue = currentNode.Id || currentNode.value; 
+        const currentNodeIdOrValue = currentNode.Id || currentNode.value;
 
         // update values based on new required.
         if (staged) {
