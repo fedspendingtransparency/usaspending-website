@@ -6,18 +6,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
-
+import { setCheckedTas, setUncheckedTas } from 'redux/actions/search/tasActions';
 import { updateTAS } from "redux/actions/search/searchFilterActions";
+import { handleNewCheckedIds } from 'helpers/checkboxTreeHelper';
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
-import { useSidebarObserver } from '../../../../context/SidebarFilterContext';
 
 const propTypes = { name: PropTypes.string };
 
 const TASFilterGroup = ({ name }) => {
     const { require, counts } = useSelector((state) => state.filters.tasCodes);
     const { counts: appliedCounts } = useSelector((state) => state.appliedFilters.filters.tasCodes);
-    const { dispatch: setOpenFilter } = useSidebarObserver();
+    const nodes = useSelector((state) => state.tas.tas.toJS());
+    const checked = useSelector((state) => state.tas.checked.toJS());
+    const unchecked = useSelector((state) => state.tas.unchecked.toJS());
     const dispatch = useDispatch();
+
 
     const toggleFilter = (value, staged) => {
         const newTAS = staged ?
@@ -36,10 +39,15 @@ const TASFilterGroup = ({ name }) => {
             newTAS.counts
         ));
 
-        setOpenFilter({
-            type: 'close',
-            payload: 'Treasury Account Symbol (TAS)'
-        });
+        if (nodes.length !== 0) {
+            const {
+                newChecked,
+                newUnchecked
+            } = handleNewCheckedIds(nodes, value.value, checked, unchecked, staged);
+
+            dispatch(setCheckedTas(newChecked));
+            dispatch(setUncheckedTas(newUnchecked));
+        }
     };
 
     const keys = counts.map((t) => `${t.value}-${t.count}`);

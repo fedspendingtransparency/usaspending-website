@@ -8,6 +8,11 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 
 import { updatePSC } from "redux/actions/search/searchFilterActions";
+import {
+    setCheckedPsc,
+    setUncheckedPsc
+} from "redux/actions/search/pscActions";
+import { handleNewCheckedIds } from 'helpers/checkboxTreeHelper';
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string };
@@ -17,6 +22,9 @@ const PSCFilterGroup = ({ name }) => {
     const { require: appliedRequire, exclude: appliedExclude, counts: appliedCounts } = useSelector(
         (state) => state.appliedFilters.filters.pscCodes
     );
+    const nodes = useSelector((state) => state.psc.psc.toJS());
+    const checked = useSelector((state) => state.psc.checked.toJS());
+    const unchecked = useSelector((state) => state.psc.unchecked.toJS());
     const dispatch = useDispatch();
 
     const toggleFilter = (value, staged = true) => {
@@ -40,6 +48,16 @@ const PSCFilterGroup = ({ name }) => {
             newExclude,
             newCounts
         ));
+
+        if (nodes.length !== 0) {
+            const {
+                newChecked,
+                newUnchecked
+            } = handleNewCheckedIds(nodes, value.value, checked, unchecked, staged);
+
+            dispatch(setCheckedPsc(newChecked));
+            dispatch(setUncheckedPsc(newUnchecked));
+        }
     };
 
     const keys = counts.map((t) => `${t.value}-${t.count}`);

@@ -822,3 +822,65 @@ export const setCounts = (newCounts, treeName) => ({
     type: `SET_${treeName}_COUNTS`,
     payload: newCounts
 });
+
+
+// new helpers initially for Active Filters
+export const getChildrenAndDescendantIds = (node) => {
+    let children = [];
+    const getChildrenIds = (n) => {
+        console.log("checking n====", n);
+        if (n.children) {
+            n.children.forEach((c) => {
+                if (c.value.includes('children_of_')) {
+                    // c is a placeholder add and move on.
+                    children = [...children, c.value];
+                    return;
+                }
+                if (c.id) children = [...children, c.id];
+                if (c.value) children = [...children, c.value];
+                if (c.children) {
+                    getChildrenIds(c);
+                }
+            });
+        }
+    };
+
+    getChildrenIds(node);
+
+    return children;
+};
+
+export const handleNewCheckedIds = (nodes, currentId, checked, unchecked, staged) => {
+    let newChecked = [];
+    let newUnchecked = [];
+    // if filter accordion is closed then there will be no nodes
+    if (nodes.length > 0) {
+        console.log("helper nodes ===== ", nodes);
+        const currentNode = nodes.filter((n) => {
+            if (n.id) {
+                return n.id === currentId;
+            }
+            if (n.value) {
+                return n.value === currentId;
+            }
+            return false;
+        })[0];
+        const allChildren = getChildrenAndDescendantIds(currentNode);
+
+        // update values based on new required.
+        if (staged) {
+            // remove value value and children
+            const toRemove = [...allChildren, currentNode.id];
+            newChecked = checked.filter((c) => !toRemove.includes(c));
+            newUnchecked = [...unchecked, ...toRemove];
+        }
+        else {
+            // add back value and any children not in exclude
+            const toAdd = [...allChildren, currentNode.id];
+            newChecked = [...checked, ...toAdd];
+            newUnchecked = unchecked.filter((c) => !toAdd.includes(c));
+        }
+    }
+
+    return { newChecked, newUnchecked };
+};

@@ -11,7 +11,6 @@ import {
     expandTasNodeAndAllDescendantParents,
     getTasNodeFromTree,
     getTasAncestryPathForChecked
-    // shouldTasNodeHaveChildren
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
 import {
@@ -126,7 +125,6 @@ const TASCheckboxTree = () => {
                     }
 
                     let modChecked = [];
-
                     if (checked.includes(`children_of_${key}`)) {
                         // key node is checked.  add children
                         const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
@@ -168,7 +166,7 @@ const TASCheckboxTree = () => {
 
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
         const treeDepth = selectedNode.ancestors?.length;
-
+        setIsLoading(true);
         if (shouldFetchChildren && !isSearch) {
             if (treeDepth >= 1) {
                 if (treeDepth === 2) {
@@ -190,6 +188,7 @@ const TASCheckboxTree = () => {
         else {
             dispatch(setExpandedTas(newExpandedArray));
         }
+        setIsLoading(false);
     };
 
     const onClear = () => {
@@ -267,6 +266,8 @@ const TASCheckboxTree = () => {
 
     const setCheckedStateFromUrlHash = (newChecked) => {
         setNewCheck(newChecked);
+        console.log("checking uncheckFromHash", uncheckedFromHash);
+        console.log("checking uncheckFromHash", uncheckedFromHash.map((ancestryPath) => ancestryPath.pop()));
         setUncheckedFromHashLocal(uncheckedFromHash.map((ancestryPath) => ancestryPath.pop()));
     };
 
@@ -283,6 +284,35 @@ const TASCheckboxTree = () => {
             setIsLoading(true);
         }
     };
+
+    // for properly setting checked state from hash
+    useEffect(() => {
+        if (nodes.length > 0 && nodesRef.current) {
+            const newCheckedWithPlaceholders = flattenDeep(newCheck
+                .map((check) => getAllDescendants(
+                    getTasNodeFromTree(nodes, check), uncheckedFromHashLocal)
+                )
+            );
+
+            if (newCheckedWithPlaceholders.length > 0) {
+                // Sometimes happens with nested checked single parent nodes
+                const orphanCheckedPlaceholders = newCheckedWithPlaceholders
+                    .filter((child) => !newCheck.includes(removePlaceholderString(child)))
+                    .map((op) => removePlaceholderString(op));
+
+                dispatch(setCheckedTas([
+                    ...newCheck,
+                    ...newCheckedWithPlaceholders,
+                    ...orphanCheckedPlaceholders
+                ]));
+                dispatch(setUncheckedTas(uncheckedFromHashLocal));
+                nodesRef.current = false;
+            }
+
+            setIsLoading(false);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [nodes]);
 
     useEffect(() => {
         if (nodes.length !== 0) {
@@ -339,34 +369,6 @@ const TASCheckboxTree = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSearch, searchString]);
 
-    // for properly setting checked state from hash
-    useEffect(() => {
-        if (nodes.length > 0 && nodesRef.current) {
-            const newCheckedWithPlaceholders = flattenDeep(newCheck
-                .map((check) => getAllDescendants(
-                    getTasNodeFromTree(nodes, check), uncheckedFromHashLocal)
-                )
-            );
-
-            if (newCheckedWithPlaceholders.length > 0) {
-                // Sometimes happens with nested checked single parent nodes
-                const orphanCheckedPlaceholders = newCheckedWithPlaceholders
-                    .filter((child) => !newCheck.includes(removePlaceholderString(child)))
-                    .map((op) => removePlaceholderString(op));
-
-                dispatch(setCheckedTas([
-                    ...newCheck,
-                    ...newCheckedWithPlaceholders,
-                    ...orphanCheckedPlaceholders
-                ]));
-                dispatch(setUncheckedTas(uncheckedFromHashLocal));
-                nodesRef.current = false;
-            }
-
-            setIsLoading(false);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nodes]);
 
     return (
         <div className="tas-checkbox">
