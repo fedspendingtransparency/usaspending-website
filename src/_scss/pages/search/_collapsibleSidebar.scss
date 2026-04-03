@@ -90,6 +90,8 @@
       color: $theme-color-headline;
       font-size: $font-size-16;
       font-weight: $font-semibold;
+      display: flex;
+      flex-wrap: wrap;
 
       .fa-filter {
         color: $blue-60v;
@@ -98,6 +100,7 @@
       }
 
       .link {
+        width: 100%;
         margin: 8px 0;
         font-size: $font-size-14;
         font-weight: $font-normal;
@@ -107,8 +110,7 @@
       line-height: 1.5;
       color: $gray-90;
       background-color: unset;
-      display: flex;
-      right: 0;
+      align-self: flex-end;
       #collapsible-mobile-close-button {
         @media(min-width: $medium-screen) {
           display: none;
@@ -180,6 +182,10 @@
         // This should be for mobile
         @media(max-width: $medium-screen - 1) {
           height: calc(100vh - 400px);
+
+          .keyword-filter .filter-item-wrap:first-of-type {
+                margin-top: rem(8);
+          }
         }
 
 
@@ -230,7 +236,6 @@
 
               .filter-item-wrap {
                 padding: 0;
-                
                 .filter-description {
                   color: $gray-90;
                   font-size: $smallest-font-size;
@@ -242,6 +247,7 @@
               .agency-filter .filter-item-wrap:first-of-type {
                 padding-bottom: rem(16);
               }
+
             }
           }
         }

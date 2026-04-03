@@ -10,6 +10,7 @@ import { TransitionGroup, CSSTransition } from "react-transitioning";
 import { FlexGridCol } from "data-transparency-ui";
 
 import SearchSidebarSubmitContainer from "containers/search/SearchSidebarSubmitContainer";
+import AboutTheDataLink from "../../sharedComponents/AboutTheDataLink";
 import { Close } from 'components/sharedComponents/icons/Icons';
 
 import SidebarContentFilters from "./SidebarContentFilters";
@@ -40,17 +41,7 @@ const MobileSidebarContent = ({
                                 <div className="sidebar-top-submit">
                                     <div className="collapsible-sidebar-header">
                                         <FontAwesomeIcon icon="filter" />Filters
-                                        <div className="sub--header">
-                                            <button
-                                                className="close-button"
-                                                id="collapsible-mobile-close-button"
-                                                aria-label="Close Filters"
-                                                onClick={() => {
-                                                    setShowMobileFilters(false);
-                                                }}>
-                                                <Close alt="Close Filters" />
-                                            </button>
-                                        </div>
+                                        <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
                                     </div>
                                     <SearchSidebarSubmitContainer
                                         setShowMobileFilters={setShowMobileFilters} />
