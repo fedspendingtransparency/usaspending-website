@@ -98,15 +98,11 @@ const NAICSCheckboxTree = () => {
                 // dynamically populating tree branches
                 const naicsNodes = cleanNaicsData(data.results);
 
-                console.log("checking differerence naicsNodes  ==== ", naicsNodes);
-                console.log("vs naicsNodes[0]  ==== ", naicsNodes[0]);
-
                 if (isPartialTree) {
                     const key = param.includes('/')
                         ? param.split('/')[1]
                         : param;
 
-                    console.log("checking key", key);
                     if (isSearch) {
                         const searchExpandedNodes = expandNaicsAndAllDescendantParents(
                             naicsNodes,
@@ -130,11 +126,6 @@ const NAICSCheckboxTree = () => {
 
                     // we've searched for a specific naics reference;
                     // ie '11' or '1111' and their immediate descendants should be checked.
-                    // if (checked.includes(`children_of_${param}`)) {
-                    console.log("naicsNodes[0] =============== ", naicsNodes[0]);
-                    console.log("checked =============== ", checked);
-                    console.log("unchecked =============== ", unchecked);
-
                     let modChecked = [];
                     if (checked.includes(`children_of_${key}`)) {
                         // key node is checked.  add children
@@ -144,9 +135,6 @@ const NAICSCheckboxTree = () => {
                             .map((child) => child.value);
                         modChecked = [...filteredChecked, ...filteredChildren];
                     }
-
-                    console.log("checking modChecked ==== ", modChecked);
-
 
                     const newChecked = modChecked?.length
                         ? autoCheckNaicsAfterExpand(
@@ -212,7 +200,6 @@ const NAICSCheckboxTree = () => {
             nodes,
             counts
         );
-        console.log("onCheck props newCHeck /////// ", newCheck);
         dispatch(setNaicsCounts(newCounts));
         dispatch(setCheckedNaics(newChecked));
         dispatch(setUncheckedNaics(newUnchecked));
@@ -321,32 +308,12 @@ const NAICSCheckboxTree = () => {
                         // initial load with hash.  reload or shared hash.
                         dispatch(setNaicsCounts(countsFromHash));
 
-                        // get all children of checked and set to checked
-                        // get ancestors and check if all their children are checked
-                        //  check all ancestors with all children checked.
-
-                        // for expand get all ancestors of checked
-                        // add to expanded state..
-
-                        console.log("checking state post fetch ++++++++++++++++ ");
-                        console.log("checking state post fetch countsFromHash ========= ", countsFromHash);
-                        console.log("checking state post fetch checkedFromHash ========= ", checkedFromHash);
-                        console.log("checking state post fetch checked ========= ", checked);
-                        console.log("checking state post fetch unchecked ========= ", unchecked);
-                        console.log("checking state post fetch expanded ========= ", expanded);
-                        console.log("checking state post fetch allUnique ========= ", [
-                            ...checkedFromHash,
-                            ...uncheckedFromHash
-                        ]);
-
                         let allUniqueAncestors = [
                             ...checkedFromHash,
                             ...uncheckedFromHash
                         ].reduce((uniqueAncestors, code) => {
                             const highestAncestor = getHighestAncestorNaicsCode(code);
                             const immediateAncestor = getImmediateAncestorNaicsCode(code);
-                            console.log("checking highest ancestor ======= ", highestAncestor);
-                            console.log("checking immediateAncestor ======= ", immediateAncestor);
                             if (uniqueAncestors.includes(highestAncestor)) {
                                 if (!uniqueAncestors.includes(immediateAncestor)) {
                                     return uniqueAncestors.concat([immediateAncestor]);
@@ -366,7 +333,6 @@ const NAICSCheckboxTree = () => {
                         // ensure unique values
                         allUniqueAncestors = [...new Set(allUniqueAncestors)];
 
-                        console.log("all unique post reduce", allUniqueAncestors);
                         // Sequentially populate tree.
                         return allUniqueAncestors
                             .reduce((prevPromise, ancestor) => prevPromise
