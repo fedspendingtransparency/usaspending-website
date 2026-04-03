@@ -6,7 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
-
+import { handleNewCheckedIds } from 'helpers/checkboxTreeHelper';
+import {
+    setCheckedNaics,
+    setUncheckedNaics
+} from 'redux/actions/search/naicsActions';
 import { updateNaics } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
@@ -19,6 +23,10 @@ const NAICSFilterGroup = ({ name }) => {
     const { require: appliedRequire, counts: appliedCounts } = useSelector(
         (state) => state.appliedFilters.filters.naicsCodes
     );
+    const nodes = useSelector((state) => state.naics.naics.toJS());
+    const checked = useSelector((state) => state.naics.checked.toJS());
+    const unchecked = useSelector((state) => state.naics.unchecked.toJS());
+
     const dispatch = useDispatch();
 
     const toggleFilter = ({ value, array }, staged) => {
@@ -37,6 +45,16 @@ const NAICSFilterGroup = ({ name }) => {
             [],
             newNAICS.counts
         ));
+
+        if (nodes.length !== 0) {
+            const {
+                newChecked,
+                newUnchecked
+            } = handleNewCheckedIds(nodes, value.value, checked, unchecked, staged);
+
+            dispatch(setCheckedNaics(newChecked));
+            dispatch(setUncheckedNaics(newUnchecked));
+        }
     };
 
     const keys = counts.map((t) => `${t.value}-${t.count}`);

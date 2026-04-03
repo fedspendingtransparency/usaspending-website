@@ -166,7 +166,7 @@ const TASCheckboxTree = () => {
 
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
         const treeDepth = selectedNode.ancestors?.length;
-        setIsLoading(true);
+
         if (shouldFetchChildren && !isSearch) {
             if (treeDepth >= 1) {
                 if (treeDepth === 2) {
@@ -188,7 +188,6 @@ const TASCheckboxTree = () => {
         else {
             dispatch(setExpandedTas(newExpandedArray));
         }
-        setIsLoading(false);
     };
 
     const onClear = () => {
@@ -266,8 +265,6 @@ const TASCheckboxTree = () => {
 
     const setCheckedStateFromUrlHash = (newChecked) => {
         setNewCheck(newChecked);
-        console.log("checking uncheckFromHash", uncheckedFromHash);
-        console.log("checking uncheckFromHash", uncheckedFromHash.map((ancestryPath) => ancestryPath.pop()));
         setUncheckedFromHashLocal(uncheckedFromHash.map((ancestryPath) => ancestryPath.pop()));
     };
 

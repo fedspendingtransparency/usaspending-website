@@ -828,7 +828,6 @@ export const setCounts = (newCounts, treeName) => ({
 export const getChildrenAndDescendantIds = (node) => {
     let children = [];
     const getChildrenIds = (n) => {
-        console.log("checking n====", n);
         if (n.children) {
             n.children.forEach((c) => {
                 if (c.value.includes('children_of_')) {
@@ -855,7 +854,6 @@ export const handleNewCheckedIds = (nodes, currentId, checked, unchecked, staged
     let newUnchecked = [];
     // if filter accordion is closed then there will be no nodes
     if (nodes.length > 0) {
-        console.log("helper nodes ===== ", nodes);
         const currentNode = nodes.filter((n) => {
             if (n.id) {
                 return n.id === currentId;
@@ -866,17 +864,18 @@ export const handleNewCheckedIds = (nodes, currentId, checked, unchecked, staged
             return false;
         })[0];
         const allChildren = getChildrenAndDescendantIds(currentNode);
+        const currentNodeIdOrValue = currentNode.Id || currentNode.value; 
 
         // update values based on new required.
         if (staged) {
             // remove value value and children
-            const toRemove = [...allChildren, currentNode.id];
+            const toRemove = [...allChildren, currentNodeIdOrValue];
             newChecked = checked.filter((c) => !toRemove.includes(c));
             newUnchecked = [...unchecked, ...toRemove];
         }
         else {
             // add back value and any children not in exclude
-            const toAdd = [...allChildren, currentNode.id];
+            const toAdd = [...allChildren, currentNodeIdOrValue];
             newChecked = [...checked, ...toAdd];
             newUnchecked = unchecked.filter((c) => !toAdd.includes(c));
         }
