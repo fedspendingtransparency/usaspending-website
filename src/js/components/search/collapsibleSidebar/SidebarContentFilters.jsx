@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -12,6 +12,25 @@ const propTypes = {
 };
 
 const SidebarContentFilters = ({ isMobile }) => {
+    const [open, setOpen] = useState({
+        Location: false,
+        "Time Period": true,
+        "Award Description": false,
+        "Award ID": false,
+        "Spending Amount": false,
+        "Award Type": false,
+        "North American Industry Classification System (NAICS)": false,
+        "Product and Service Code (PSC)": false,
+        "Type of Contract Pricing": false,
+        "Type of Set Aside": false,
+        "Extent Competed": false,
+        "Assistance Listing": false,
+        Recipient: false,
+        "Recipient Type": false,
+        Agency: false,
+        "Treasury Account Symbol (TAS)": false,
+        "Disaster Emergency Fund Code (DEFC)": false
+    });
     const filters = useSelector((state) => state.filters);
     const filterCount = getFilterCount(filters);
 
@@ -24,6 +43,8 @@ const SidebarContentFilters = ({ isMobile }) => {
                     key={`toggle-${title}`}
                     title={title}
                     component={component}
+                    open={open[title]}
+                    setOpen={setOpen}
                     count={filterCount[title]}
                     isMobile={isMobile} />
             ))}

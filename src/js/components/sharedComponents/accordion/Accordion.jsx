@@ -60,9 +60,6 @@ const Accordion = ({
         ) :
         (<></>));
 
-    if (title === "Treasury Account Symbol (TAS)") {
-        console.log(`checking title == ${title} and isOpen ==== ${openObject}`);
-    }
     return (
         <div className="accordion-container">
             <section
