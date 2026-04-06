@@ -1,6 +1,19 @@
 .award-history {
     padding: rem(40) 0 rem(60);
     width: 100%;
+
+    .award-viz__break {
+        color: $gray-60;
+        margin-bottom: rem(24);
+    }
+    span {
+        font-weight: $font-semibold;
+        color: $gray-60;
+    }
+    p {
+        color: $gray-60;
+        line-height: 150%;
+    }
     @import "../table/_tablesSection";
     .table-types {
       .table-type-toggle {
