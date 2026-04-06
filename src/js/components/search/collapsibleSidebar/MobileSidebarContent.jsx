@@ -40,7 +40,22 @@ const MobileSidebarContent = ({
                             <div className={className}>
                                 <div className="sidebar-top-submit">
                                     <div className="collapsible-sidebar-header">
-                                        <FontAwesomeIcon icon="filter" />Filters
+                                        <div className="collapsible-sidebar-group">
+                                            <div className="collapsible-sidebar-left">
+                                                <FontAwesomeIcon icon="filter" />Filters
+                                            </div>
+                                            <div className="sub--header">
+                                                <button
+                                                    className="close-button"
+                                                    id="collapsible-mobile-close-button"
+                                                    aria-label="Close Filters"
+                                                    onClick={() => {
+                                                        setShowMobileFilters(false);
+                                                    }}>
+                                                    <Close alt="Close Filters" />
+                                                </button>
+                                            </div>
+                                        </div>
                                         <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
                                     </div>
                                     <SearchSidebarSubmitContainer

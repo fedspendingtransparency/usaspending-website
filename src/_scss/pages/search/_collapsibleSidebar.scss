@@ -105,32 +105,36 @@
         font-size: $font-size-14;
         font-weight: $font-normal;
       }
-
-      .sub--header {
+      .collapsible-sidebar-group {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+        .sub--header {
       line-height: 1.5;
       color: $gray-90;
       background-color: unset;
-      align-self: flex-end;
       #collapsible-mobile-close-button {
         @media(min-width: $medium-screen) {
           display: none;
         }
+        padding: 0;
 
         width: rem(10);
         height: rem(10);
         background-color: white;
         margin: 0;
         stroke-width: rem(2);
-        padding: 0;
-        padding-bottom: $global-padding * 4;
         svg {
           width: rem(10);
           height: rem(10);
+          padding: 0;
           color: $gray-90;
           background-color: white;
         }
       }
-    }
+        }
+      }
     }
 
     .chevron {
