@@ -3,9 +3,11 @@
  * Created by Lizzie Salita 5/16/18
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ErrorMessage, FlexGridCol, GenericMessage, LoadingMessage } from "data-transparency-ui";
+import { reduce } from "lodash-es";
+import BaseAwardBreakdownRow from "models/v2/state/BaseAwardBreakdownRow";
 
 import AwardBreakdownTreeMap from '../treemap/AwardBreakdownTreeMap';
 import AwardBreakdownTable from '../AwardBreakdownTable';
@@ -25,15 +27,53 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
 
     const {
         data, isSuccess, isLoading, error
-    } = useFetchAwardBreakdown(id, fy, toggleState);
+    } = useFetchAwardBreakdown(id, fy);
 
+    const dataByAwardType = useCallback((results, amountType) => {
+        // Sum all amounts in the returned award types
+        const newTotalAmount = reduce(
+            results,
+            (sum, awardType) => sum + parseFloat(awardType[amountType]),
+            0
+        );
+
+        // Sum only the positive amounts in the returned award types
+        const positiveAmount = reduce(
+            results,
+            (sum, awardType) => {
+                if (parseFloat(awardType.amount) >= 0) {
+                    return sum + parseFloat(awardType[amountType]);
+                }
+                return sum;
+            },
+            0
+        );
+
+        const newHasNegatives = positiveAmount > newTotalAmount;
+
+        // Sort the results by amount
+        const sortedResults = results?.sort((rowA, rowB) =>
+            rowB[amountType] - rowA[amountType]
+        );
+
+        const newRows = sortedResults.map((result) => {
+            const row = Object.create(BaseAwardBreakdownRow);
+            row.populate(result);
+            return row;
+        });
+
+        setAwardBreakdown(results);
+        setRows(newRows);
+        setTotalAmount(newTotalAmount);
+        setHasNegatives(newHasNegatives);
+    });
 
     useEffect(() => {
         if (isSuccess && data) {
             const toggleType = toggleState ? "total_outlays" : "amount";
             dataByAwardType([...data.data], toggleType);
         }
-    }, [isSuccess, data, toggleState]);
+    }, [isSuccess, data, toggleState, dataByAwardType]);
 
     return (
         <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
