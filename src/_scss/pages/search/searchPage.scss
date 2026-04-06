@@ -148,6 +148,27 @@
 
     @import 'contextTooltip';
     @import "searchv2";
+
+    // delete temp-page__body-ui once the typography section has been removed from /temp-page
+    .temp-page__body-ui {
+        .title {
+            @include title();
+        }
+
+        line-height: $base-line-height;
+
+        .lead {
+            font-size: $lead-font-size;
+        }
+
+        .small {
+            font-size: $small-font-size;
+        }
+
+        .smallest {
+            font-size: $smallest-font-size;
+        }
+    }
 }
 
 

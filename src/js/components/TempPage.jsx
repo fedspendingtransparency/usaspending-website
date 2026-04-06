@@ -46,6 +46,22 @@ const TempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
+                    <h1>New 508 Typography</h1>
+                    <Accordion title="Headings">
+                        <h1>h1: A quick brown fox jumps over the lazy dog.</h1>
+                        <h2>h2: A quick brown fox jumps over the lazy dog.</h2>
+                        <h3>h3: A quick brown fox jumps over the lazy dog.</h3>
+                        <h4>h4: A quick brown fox jumps over the lazy dog.</h4>
+                        <h5>h5: A quick brown fox jumps over the lazy dog.</h5>
+                        <h6>h6: A quick brown fox jumps over the lazy dog.</h6>
+                    </Accordion>
+                    <Accordion title="Body & UI" contentClassName="temp-page__body-ui">
+                        <p className="title">title: A quick brown fox jumps over the lazy dog.</p>
+                        <p className="lead">lead: A quick brown fox jumps over the lazy dog.</p>
+                        <p className="base">base: A quick brown fox jumps over the lazy dog.</p>
+                        <p className="small">small: A quick brown fox jumps over the lazy dog.</p>
+                        <p className="smallest">smallest: A quick brown fox jumps over the lazy dog.</p>
+                    </Accordion>
                     <h1>{"<ComboBox />"}</h1>
                     <div
                         style={{
