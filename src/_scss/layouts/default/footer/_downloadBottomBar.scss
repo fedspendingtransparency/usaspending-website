@@ -22,7 +22,7 @@
             @include flex(1 1 auto);
 
             .title {
-                font-size: $h6-font-size;
+                font-size: rem(19);
                 font-weight: $font-normal;
                 margin: rem(10) auto;
             }

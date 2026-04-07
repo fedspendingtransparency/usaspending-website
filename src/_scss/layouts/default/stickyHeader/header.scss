@@ -1,6 +1,17 @@
 @use "sass:math";
+@import "../../../elements/typography";
+
+// feature content may style header per article
+.usda-page-header:not(.featured-content-page >.usda-page-header ) {
+    background-color: $blue-80v !important;
+}
 
 .usda-page-header {
+    h1 {
+        @include h1();
+        font-weight: $font-normal;
+    }
+
     @include display(flex);
     min-height: rem(60);
 

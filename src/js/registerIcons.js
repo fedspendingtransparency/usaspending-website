@@ -5,6 +5,10 @@
 import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { faLightbulb as falLightbulb } from "@fortawesome/pro-light-svg-icons";
 import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+    faXmark,
+    faLightbulb as farLightbulb
+} from '@fortawesome/pro-regular-svg-icons';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import {
     faAngleDown,
@@ -98,9 +102,9 @@ import {
     faGraduationCap,
     faCodeBranch,
     faLongArrowAltUp,
-    faLongArrowAltDown
+    faLongArrowAltDown,
+    faCircleQuestion
 } from "@fortawesome/pro-solid-svg-icons";
-import { faXmark } from '@fortawesome/pro-regular-svg-icons';
 
 export default function registerIcons() {
     library.add(
@@ -159,6 +163,7 @@ export default function registerIcons() {
         faLaptop,
         faLevelUpAlt,
         faLightbulb,
+        farLightbulb,
         faLightbulbCfl,
         faLink,
         falLightbulb,
@@ -201,6 +206,7 @@ export default function registerIcons() {
         faLinkedin,
         faGithub,
         faArrowDown,
-        faXmark
+        faXmark,
+        faCircleQuestion
     );
 }

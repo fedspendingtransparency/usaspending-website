@@ -174,7 +174,6 @@ export default () => {
             pageName="data-sources"
             classNames="usa-da-dsm-page"
             ref={dataDisclaimerBannerRef}
-            overLine="Data Sources &amp; Methodology"
             title="COVID-19 Spending"
             metaTagProps={covidDataSourcesMetaTags}
             toolBarComponents={[

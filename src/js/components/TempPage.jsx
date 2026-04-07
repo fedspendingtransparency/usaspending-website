@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button
@@ -8,6 +8,8 @@ import Alert from "./sharedComponents/Alert";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 import Accordion from "./sharedComponents/accordion/Accordion";
+import ComboBox from "./sharedComponents/ComboBox";
+import { mockComboBox } from "../../../tests/mockData";
 
 require("pages/search/searchPage.scss");
 
@@ -18,6 +20,25 @@ const TempPage = () => {
     const onClose = useCallback(() => window.alert('Close Icon Triggered!'), []);
     const alertBody = "This is a succinct, helpful in-page status message.";
 
+    const [inputValue, setInputValue] = useState('This is a default value');
+    const [inputValue1, setInputValue1] = useState('');
+    const [inputValue2, setInputValue2] = useState('');
+    const [disabled, setDisabled] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setDisabled(false);
+        }, 5000);
+    }, []);
+
+    const exampleLabel = (
+        <>
+            This is an Example Label
+            <span> (Required) </span>
+            <FontAwesomeIcon icon="circle-question" />
+        </>
+    );
+
     return (
         <PageFeatureFlag>
             <PageWrapper
@@ -25,12 +46,61 @@ const TempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
+                    <h1>New 508 Typography</h1>
+                    <Accordion title="Headings">
+                        <h1>h1: A quick brown fox jumps over the lazy dog.</h1>
+                        <h2>h2: A quick brown fox jumps over the lazy dog.</h2>
+                        <h3>h3: A quick brown fox jumps over the lazy dog.</h3>
+                        <h4>h4: A quick brown fox jumps over the lazy dog.</h4>
+                        <h5>h5: A quick brown fox jumps over the lazy dog.</h5>
+                        <h6>h6: A quick brown fox jumps over the lazy dog.</h6>
+                    </Accordion>
+                    <Accordion title="Body & UI" contentClassName="temp-page__body-ui">
+                        <p className="title">title: A quick brown fox jumps over the lazy dog.</p>
+                        <p className="lead">lead: A quick brown fox jumps over the lazy dog.</p>
+                        <p className="base">base: A quick brown fox jumps over the lazy dog.</p>
+                        <p className="small">small: A quick brown fox jumps over the lazy dog.</p>
+                        <p className="smallest">smallest: A quick brown fox jumps over the lazy dog.</p>
+                    </Accordion>
+                    <h1>{"<ComboBox />"}</h1>
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            border: '1px solid darkgrey',
+                            height: 'fit-content',
+                            maxWidth: '900px'
+                        }}>
+
+                        <ComboBox
+                            inputValue={inputValue2}
+                            setInputValue={setInputValue2}
+                            optionsArray={mockComboBox}
+                            label={exampleLabel}
+                            placeholder="this has a 5 second disabled delay"
+                            formName="fruit2"
+                            disabled={disabled} />
+                        <ComboBox
+                            inputValue={inputValue}
+                            setInputValue={setInputValue}
+                            optionsArray={mockComboBox}
+                            placeholder="this is a ComboBox with no label"
+                            formName="fruit" />
+                        <ComboBox
+                            inputValue={inputValue1}
+                            setInputValue={setInputValue1}
+                            optionsArray={mockComboBox}
+                            label="This is a disabled combo box"
+                            placeholder="e.g., apple, banana, mango"
+                            formName="fruit1"
+                            disabled />
+                    </div>
                     <h1>Fontawesome Pro Icons</h1>
                     <FontAwesomeIcon icon="bluetooth" />
                     <FontAwesomeIcon icon="lightbulb-cfl" />
                     <FontAwesomeIcon icon={['fal', 'lightbulb']} />
 
-                    <h1>Alert Variants</h1>
+                    <h1>{"<Alert />"}</h1>
                     <div
                         style={{
                             display: 'flex',
@@ -42,7 +112,7 @@ const TempPage = () => {
                         }}>
                         <Alert
                             type="test"
-                            header="Default/Test Example"
+                            header="Default Example"
                             body={alertBody}
                             onClose={onClose}
                             icon />
