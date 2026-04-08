@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { debounce, flattenDeep, get } from 'lodash-es';
+import { debounce, get } from 'lodash-es';
 import { isCancel } from 'axios';
 
 import {
@@ -53,14 +53,10 @@ const NAICSCheckboxTree = () => {
         (state) => state.appliedFilters.filters.naicsCodes.exclude
     );
     const countsFromHash = useSelector((state) => state.appliedFilters.filters.naicsCodes.counts);
-    const [newCheck, setNewCheck] = useState([]);
-    const [uncheckedFromHashLocal, setUncheckedFromHashLocal] = useState([]);
-
-    const nodesRef = useRef(true);
     const request = useRef(null);
     const dispatch = useDispatch();
 
-    const autoCheckSearchedResultDescendants = (checkedLocal, expandedLocal, nodesLocal) => {
+    const autoCheckResultDescendants = (checkedLocal, expandedLocal, nodesLocal) => {
         const newChecked = expandedLocal
             .filter((expandedNode) => {
                 // if node is checked by an immediate placeholder, consider it checked.
@@ -109,7 +105,7 @@ const NAICSCheckboxTree = () => {
                             'naics'
                         );
                         dispatch(setSearchedNaics(naicsNodes));
-                        autoCheckSearchedResultDescendants(
+                        autoCheckResultDescendants(
                             checked,
                             searchExpandedNodes,
                             naicsNodes
@@ -135,7 +131,6 @@ const NAICSCheckboxTree = () => {
                             .map((child) => child.value);
                         modChecked = [...filteredChecked, ...filteredChildren];
                     }
-
                     const newChecked = modChecked?.length
                         ? autoCheckNaicsAfterExpand(
                             naicsNodes[0],
@@ -143,7 +138,6 @@ const NAICSCheckboxTree = () => {
                             unchecked
                         )
                         : checked;
-
                     dispatch(setCheckedNaics(newChecked));
                 }
                 else {
@@ -261,42 +255,6 @@ const NAICSCheckboxTree = () => {
         }
     };
 
-    const setCheckedStateFromUrlHash = (newChecked) => {
-        setNewCheck(newChecked);
-        setUncheckedFromHashLocal(uncheckedFromHash);
-    };
-
-    // for properly setting checked state from hash
-    useEffect(() => {
-        if (nodes.length > 0 && nodesRef.current) {
-            if (checkedFromHash?.length) {
-                const newCheckedWithPlaceholders = flattenDeep(newCheck
-                    .map((check) => getAllDescendants(
-                        getNaicsNodeFromTree(nodes, check), uncheckedFromHashLocal)
-                    )
-                );
-                if (newCheckedWithPlaceholders.length > 0) {
-                    // Sometimes happens with nested checked single parent nodes
-                    const orphanCheckedPlaceholders = newCheckedWithPlaceholders
-                        .filter((child) => !newCheck
-                            .includes(removePlaceholderString(child)))
-                        .map((op) => removePlaceholderString(op));
-
-                    dispatch(setCheckedNaics(new Set([
-                        ...newCheck,
-                        ...newCheckedWithPlaceholders,
-                        ...orphanCheckedPlaceholders
-                    ])));
-                    dispatch(setUncheckedNaics(uncheckedFromHashLocal));
-                    nodesRef.current = false;
-                }
-
-                setIsLoading(false);
-            }
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nodes]);
-
     useEffect(() => {
         if (nodes.length !== 0) {
             dispatch(showNaicsTree());
@@ -339,8 +297,17 @@ const NAICSCheckboxTree = () => {
                                 .then(() => fetchNAICS(ancestor, false)), Promise.resolve()
                             )
                             .then(() => {
-                                setCheckedStateFromUrlHash(checkedFromHash);
-                                dispatch(setExpandedNaics(checkedFromHash));
+                                const compareAllExpandedNodes = expandNaicsAndAllDescendantParents(
+                                    nodes,
+                                    'naics'
+                                );
+                                const autoChecked = autoCheckResultDescendants(
+                                    checkedFromHash,
+                                    compareAllExpandedNodes,
+                                    nodes
+                                );
+                                dispatch(setCheckedNaics(autoChecked));
+                                dispatch(setExpandedNaics(allUniqueAncestors));
                             })
                             .catch((e) => {
                                 setIsLoading(false);

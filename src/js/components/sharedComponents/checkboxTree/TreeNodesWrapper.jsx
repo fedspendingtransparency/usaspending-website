@@ -109,8 +109,10 @@ const TreeNodesWrapper = ({
 
                         const hasAnyChildrenChecked = parent.children.filter((child) => allChecked.includes(getIdOrValue(child)) || getIdOrValue(node) === getIdOrValue(child));
                         const allChildrenChecked = hasAnyChildrenChecked?.length === parent.children?.length;
-                        const parentHasCheckedDescendants = hasCheckedDescendants(parent, newChecked);
 
+                        if (allChildrenChecked) return; // skip parent should stay checked.
+
+                        const parentHasCheckedDescendants = hasCheckedDescendants(parent, newChecked);
                         // if all children are checked parent should be checked
                         // if any children or descendants are checked parent should be indeterminate.
                         let setIndeterminate = !allChildrenChecked
@@ -159,7 +161,6 @@ const TreeNodesWrapper = ({
                         (child) => (newChecked.includes(
                             removePlaceholderString(getIdOrValue(child))) || (getIdOrValue(node) === getIdOrValue(child))
                         ));
-
                     if (allChecked) {
                         updatedChecked = [...new Set([...updatedChecked, getIdOrValue(parent)])];
                     }
