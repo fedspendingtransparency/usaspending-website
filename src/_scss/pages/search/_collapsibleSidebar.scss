@@ -120,16 +120,16 @@
         }
         padding: 0;
 
-        width: rem(10);
-        height: rem(10);
+        width: rem(16);
+        height: rem(16);
         background-color: white;
         margin: 0;
         stroke-width: rem(2);
         svg {
-          width: rem(10);
-          height: rem(10);
-          padding: 0;
+          width: rem(12);
+          height: rem(12);
           color: $gray-90;
+          padding: 0;
           background-color: white;
         }
       }
