@@ -123,7 +123,7 @@ const NAICSCheckboxTree = () => {
                     // we've searched for a specific naics reference;
                     // ie '11' or '1111' and their immediate descendants should be checked.
                     let modChecked = [];
-                    if (checked.includes(`children_of_${key}`)) {
+                    if (checked.includes(key)) {
                         // key node is checked.  add children
                         const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
                         const filteredChildren = naicsNodes[0].children
@@ -297,13 +297,13 @@ const NAICSCheckboxTree = () => {
                                 .then(() => fetchNAICS(ancestor, false)), Promise.resolve()
                             )
                             .then(() => {
-                                const compareAllExpandedNodes = expandNaicsAndAllDescendantParents(
+                                const allExpandedNodes = expandNaicsAndAllDescendantParents(
                                     nodes,
                                     'naics'
                                 );
                                 const autoChecked = autoCheckResultDescendants(
                                     checkedFromHash,
-                                    compareAllExpandedNodes,
+                                    allExpandedNodes,
                                     nodes
                                 );
                                 dispatch(setCheckedNaics(autoChecked));

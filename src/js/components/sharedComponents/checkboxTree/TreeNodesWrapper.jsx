@@ -228,8 +228,8 @@ const TreeNodesWrapper = ({
                 }
             });
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [localChecked]);
-
 
     return (
         <div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { isCancel } from 'axios';
-import { debounce, get, flattenDeep } from 'lodash-es';
+import { debounce, get } from 'lodash-es';
 import { useDispatch, useSelector } from 'react-redux';
 
 import {
@@ -49,13 +49,10 @@ const PSCCheckboxTreeContainer = () => {
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const [showNoResults, setShowNoResults] = useState(false);
-    const [newCheck, setNewCheck] = useState([]);
-    const [uncheckedFromHashLocal, setUncheckedFromHashLocal] = useState([]);
 
-    const nodesRef = useRef(true);
     const request = useRef(null);
 
-    const autoCheckSearchResultDescendants = (checkedLocal, expandedLocal, nodesLocal) => {
+    const autoCheckResultDescendants = (checkedLocal, expandedLocal, nodesLocal) => {
         const newChecked = expandedLocal
             .filter((expandedNode) => {
                 // if node is checked by an immediate placeholder, consider it checked.
@@ -84,6 +81,7 @@ const PSCCheckboxTreeContainer = () => {
             setShowNoResults(false);
         }
 
+        setIsLoading(true);
         const queryParam = (isSearch && searchStr.length > 0) ?
             `?depth=-1&filter=${searchStr}` :
             id;
@@ -97,8 +95,6 @@ const PSCCheckboxTreeContainer = () => {
 
         return request.current.promise
             .then(({ data }) => {
-                setIsLoading(true);
-
                 // dynamically populating tree branches
                 const pscNodes = cleanPscData(data.results);
 
@@ -112,7 +108,7 @@ const PSCCheckboxTreeContainer = () => {
                         const searchExpandedNodes = expandPscNodeAndAllDescendantParents(pscNodes);
                         dispatch(setSearchedPsc(pscNodes));
 
-                        autoCheckSearchResultDescendants(
+                        autoCheckResultDescendants(
                             checked,
                             searchExpandedNodes,
                             nodes
@@ -130,7 +126,7 @@ const PSCCheckboxTreeContainer = () => {
 
                     let modChecked = [];
 
-                    if (checked.includes(`children_of_${key}`)) {
+                    if (checked.includes(key)) {
                         // key node is checked.  add children
                         const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
                         modChecked = [...filteredChecked, ...pscNodes.map((child) => child.value)];
@@ -151,9 +147,7 @@ const PSCCheckboxTreeContainer = () => {
                     dispatch(setPscNodes('', pscNodes));
                 }
 
-                if (resolveLoadingIndicator) {
-                    setIsLoading(false);
-                }
+                setIsLoading(resolveLoadingIndicator ? false : isLoading);
 
                 request.current = null;
             })
@@ -270,11 +264,6 @@ const PSCCheckboxTreeContainer = () => {
         }
     };
 
-    const setCheckedStateFromUrlHash = (newChecked) => {
-        setNewCheck(newChecked);
-        setUncheckedFromHashLocal(uncheckedFromHash.map((ancestryPath) => ancestryPath.pop()));
-    };
-
     const handleTextInputChange = (e) => {
         e.persist();
         const text = e.target.value;
@@ -294,26 +283,38 @@ const PSCCheckboxTreeContainer = () => {
             dispatch(showPscTree());
         }
         else {
-            fetchPscLocal('', null, false)
+            fetchPscLocal()
                 .then(() => {
                     if (checkedFromHash.length > 0) {
                         dispatch(setPscCounts(countsFromHash));
-                        return getUniqueAncestorPaths(checkedFromHash, uncheckedFromHash)
+
+                        const allUniqueAncestors = getUniqueAncestorPaths(
+                            checkedFromHash,
+                            uncheckedFromHash
+                        );
+
+                        return allUniqueAncestors
                             .reduce((prevPromise, param) => prevPromise
-                            // fetch the all the ancestors of the checked nodes
+                                // fetch the all the ancestors of the checked nodes
                                 .then(() => fetchPscLocal(param, null, false)), Promise.resolve([])
                             )
                             .then(() => {
-                                setCheckedStateFromUrlHash(
-                                    checkedFromHash.map(
-                                        (ancestryPath) => ancestryPath[ancestryPath.length - 1]
-                                    )
+                                let autoChecked = autoCheckResultDescendants(
+                                    checkedFromHash,
+                                    expanded,
+                                    nodes
                                 );
-                                dispatch(setExpandedPsc([
-                                    ...new Set(
-                                        checkedFromHash.map((ancestryPath) => ancestryPath[0])
-                                    )
-                                ]));
+
+                                autoChecked = Array.from(autoChecked, (check) => check.at(-1));
+                                const toExpand = allUniqueAncestors.map((ancestor) => {
+                                    if (ancestor.includes('/')) {
+                                        return ancestor.split('/')[1];
+                                    }
+                                    return ancestor;
+                                });
+
+                                dispatch(setCheckedPsc(autoChecked));
+                                dispatch(setExpandedPsc(toExpand));
                             })
                             .catch((e) => {
                                 setIsLoading(false);
@@ -342,34 +343,6 @@ const PSCCheckboxTreeContainer = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSearch, searchString]);
 
-    // for properly setting checked state from hash
-    useEffect(() => {
-        if (nodes.length > 0 && nodesRef.current) {
-            const newCheckedWithPlaceholders = flattenDeep(newCheck
-                .map((check) => getAllDescendants(
-                    getPscNodeFromTree(nodes, check), uncheckedFromHashLocal)
-                )
-            );
-
-            if (newCheckedWithPlaceholders.length > 0) {
-                // Sometimes happens with nested checked single parent nodes
-                const orphanCheckedPlaceholders = newCheckedWithPlaceholders
-                    .filter((child) => !newCheck.includes(removePlaceholderString(child)))
-                    .map((op) => removePlaceholderString(op));
-
-                dispatch(setCheckedPsc([
-                    ...newCheck,
-                    ...newCheckedWithPlaceholders,
-                    ...orphanCheckedPlaceholders
-                ]));
-                dispatch(setUncheckedPsc(uncheckedFromHashLocal));
-                nodesRef.current = false;
-            }
-
-            setIsLoading(false);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nodes]);
 
     return (
         <div className="search-option">

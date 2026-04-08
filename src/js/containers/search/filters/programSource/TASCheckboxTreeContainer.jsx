@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { isCancel } from 'axios';
-import { debounce, get, flattenDeep } from 'lodash-es';
+import { debounce, get } from 'lodash-es';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -53,14 +53,11 @@ const TASCheckboxTree = () => {
     const checkedFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.require);
     const uncheckedFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.exclude);
     const countsFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.counts);
-    const [newCheck, setNewCheck] = useState([]);
-    const [uncheckedFromHashLocal, setUncheckedFromHashLocal] = useState([]);
 
-    const nodesRef = useRef(true);
     const request = useRef(null);
     const dispatch = useDispatch();
 
-    const autoCheckSearchResultDescendants = (checkedLocal, expandedLocal, nodesLocal) => {
+    const autoCheckResultDescendants = (checkedLocal, expandedLocal, nodesLocal) => {
         const newChecked = expandedLocal
             .filter((expandedNode) => {
                 // if node is checked by an immediate placeholder, consider it checked.
@@ -76,7 +73,7 @@ const TASCheckboxTree = () => {
                 ];
             }, []);
 
-        return new Set([...checkedLocal, ...newChecked]);
+        return new Set([...checkedLocal.flat(), ...newChecked.flat()]);
     };
 
     const fetchTasLocal = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
@@ -108,7 +105,7 @@ const TASCheckboxTree = () => {
                     if (isSearch) {
                         const searchExpandedNodes = expandTasNodeAndAllDescendantParents(tasNodes);
                         dispatch(setSearchedTas(tasNodes));
-                        autoCheckSearchResultDescendants(
+                        autoCheckResultDescendants(
                             checked,
                             searchExpandedNodes,
                             tasNodes
@@ -125,7 +122,7 @@ const TASCheckboxTree = () => {
                     }
 
                     let modChecked = [];
-                    if (checked.includes(`children_of_${key}`)) {
+                    if (checked.includes(key)) {
                         // key node is checked.  add children
                         const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
                         modChecked = [...filteredChecked, ...tasNodes.map((child) => child.value)];
@@ -146,9 +143,7 @@ const TASCheckboxTree = () => {
                     dispatch(setTasNodes('', tasNodes));
                 }
 
-                if (resolveLoadingIndicator) {
-                    setIsLoading(false);
-                }
+                setIsLoading(resolveLoadingIndicator ? false : isLoading);
 
                 request.current = null;
             })
@@ -262,12 +257,6 @@ const TASCheckboxTree = () => {
         }
     };
 
-
-    const setCheckedStateFromUrlHash = (newChecked) => {
-        setNewCheck(newChecked);
-        setUncheckedFromHashLocal(uncheckedFromHash.map((ancestryPath) => ancestryPath.pop()));
-    };
-
     const handleTextInputChange = (e) => {
         e.persist();
         const text = e.target.value;
@@ -282,61 +271,35 @@ const TASCheckboxTree = () => {
         }
     };
 
-    // for properly setting checked state from hash
-    useEffect(() => {
-        if (nodes.length > 0 && nodesRef.current) {
-            const newCheckedWithPlaceholders = flattenDeep(newCheck
-                .map((check) => getAllDescendants(
-                    getTasNodeFromTree(nodes, check), uncheckedFromHashLocal)
-                )
-            );
-
-            if (newCheckedWithPlaceholders.length > 0) {
-                // Sometimes happens with nested checked single parent nodes
-                const orphanCheckedPlaceholders = newCheckedWithPlaceholders
-                    .filter((child) => !newCheck.includes(removePlaceholderString(child)))
-                    .map((op) => removePlaceholderString(op));
-
-                dispatch(setCheckedTas([
-                    ...newCheck,
-                    ...newCheckedWithPlaceholders,
-                    ...orphanCheckedPlaceholders
-                ]));
-                dispatch(setUncheckedTas(uncheckedFromHashLocal));
-                nodesRef.current = false;
-            }
-
-            setIsLoading(false);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [nodes]);
 
     useEffect(() => {
         if (nodes.length !== 0) {
             dispatch(showTasTree());
         }
         else {
-            fetchTasLocal('', '', false)
+            fetchTasLocal()
                 .then(() => {
                     if (checkedFromHash.length > 0) {
                         dispatch(setTasCounts(countsFromHash));
-                        return getUniqueAncestorPaths(checkedFromHash, uncheckedFromHash)
+
+                        const allUniqueAncestors = getUniqueAncestorPaths(
+                            checkedFromHash,
+                            uncheckedFromHash
+                        );
+                        return allUniqueAncestors
                             .reduce((prevPromise, param) => prevPromise
                             // fetch the all the ancestors of the checked nodes
                                 .then(() => fetchTasLocal(param, null, false)), Promise.resolve([])
                             )
                             .then(() => {
-                                setCheckedStateFromUrlHash(
-                                    checkedFromHash.map(
-                                        (ancestryPath) => ancestryPath[ancestryPath.length - 1]
-                                    )
+                                const autoChecked = autoCheckResultDescendants(
+                                    checkedFromHash,
+                                    expanded,
+                                    nodes
                                 );
 
-                                dispatch(setExpandedTas([
-                                    ...new Set(
-                                        checkedFromHash.map((ancestryPath) => ancestryPath[0])
-                                    )
-                                ]));
+                                dispatch(setCheckedTas(autoChecked));
+                                dispatch(setExpandedTas(allUniqueAncestors));
                             })
                             .catch((e) => {
                                 setIsLoading(false);
