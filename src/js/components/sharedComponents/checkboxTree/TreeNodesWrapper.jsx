@@ -45,11 +45,13 @@ const TreeNodesWrapper = ({
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
     }, [checked]);
 
+    const getIdOrValue = (node) => node.id || node.value;
+
     const findNodeById = (id) => {
         const stack = [...nodes];
         while (stack.length) {
             const current = stack.pop();
-            if (current.id === id) return current;
+            if (getIdOrValue(current) === id) return current;
             if (current.children) stack.push(...current.children);
         }
         return null;
@@ -71,7 +73,7 @@ const TreeNodesWrapper = ({
             for (let i = 0; i < node.children.length; i++) {
                 const child = node.children[i];
                 if (checkboxRefs.current) {
-                    if (checkboxRefs.current[child.id]) checkboxRefs.current[child.id].indeterminate = false;
+                    if (checkboxRefs.current[getIdOrValue(child)]) checkboxRefs.current[getIdOrValue(child)].indeterminate = false;
                 }
                 if (child.children?.length) handleIndeterminateChildren(child);
             }
@@ -79,7 +81,7 @@ const TreeNodesWrapper = ({
     };
 
     const hasCheckedDescendants = (node, checkedArray) => {
-        if (checkedArray.includes(node.id)) {
+        if (checkedArray.includes(getIdOrValue(node))) {
             return true;
         }
 
@@ -102,10 +104,10 @@ const TreeNodesWrapper = ({
 
                         if (localChecked?.length) {
                             allChecked = [...localChecked, ...newChecked];
-                            nodePriorChecked = localChecked.includes(node.id);
+                            nodePriorChecked = localChecked.includes(getIdOrValue(node));
                         }
 
-                        const hasAnyChildrenChecked = parent.children.filter((child) => allChecked.includes(child.id) || node.id === child.id);
+                        const hasAnyChildrenChecked = parent.children.filter((child) => allChecked.includes(getIdOrValue(child)) || getIdOrValue(node) === getIdOrValue(child));
                         const allChildrenChecked = hasAnyChildrenChecked?.length === parent.children?.length;
                         const parentHasCheckedDescendants = hasCheckedDescendants(parent, newChecked);
 
@@ -118,16 +120,17 @@ const TreeNodesWrapper = ({
                         if (checkboxRefs.current) {
                             if (nodePriorChecked) {
                                 // unchecking prior checked node.
-                                if (localChecked?.includes(parent.id) && hasAnyChildrenChecked?.length > 0) {
+                                if (localChecked?.includes(getIdOrValue(parent)) && hasAnyChildrenChecked?.length > 0) {
                                     // unchecking a single node make any checked ancestors indeterminate
-                                    setIndeterminate = checkboxRefs.current[parent.id].checked;
+                                    setIndeterminate = checkboxRefs.current[getIdOrValue(parent)].checked;
                                 }
                             }
-
-                            checkboxRefs.current[parent.id].indeterminate = setIndeterminate;
+                            if (checkboxRefs.current[getIdOrValue(parent)]) {
+                                checkboxRefs.current[getIdOrValue(parent)].indeterminate = setIndeterminate;
+                            }
                         }
                     }
-                    else if (checkboxRefs.current) checkboxRefs.current[parent.id].indeterminate = false;
+                    else if (checkboxRefs.current) checkboxRefs.current[getIdOrValue(parent)].indeterminate = false;
                 });
             }
         }
@@ -154,15 +157,15 @@ const TreeNodesWrapper = ({
                     const children = parent.children;
                     const allChecked = children.every(
                         (child) => (newChecked.includes(
-                            removePlaceholderString(child.id)) || (node.id === child.id)
+                            removePlaceholderString(getIdOrValue(child))) || (getIdOrValue(node) === getIdOrValue(child))
                         ));
 
                     if (allChecked) {
-                        updatedChecked = [...new Set([...updatedChecked, parent.id])];
+                        updatedChecked = [...new Set([...updatedChecked, getIdOrValue(parent)])];
                     }
                     else {
                         // ancestor should not be checked if not allChecked
-                        updatedChecked = updatedChecked.filter((c) => c !== parent.id);
+                        updatedChecked = updatedChecked.filter((c) => c !== getIdOrValue(parent));
                     }
                 });
             }
@@ -214,6 +217,18 @@ const TreeNodesWrapper = ({
             onExpand(newExpand, node);
         }
     };
+
+    useEffect(() => {
+        if (localChecked.length > 0) {
+            localChecked.forEach((value) => {
+                const currentNode = findNodeById(value);
+                if (currentNode) {
+                    handleIndeterminate(currentNode, localChecked);
+                }
+            });
+        }
+    }, [localChecked]);
+
 
     return (
         <div>
