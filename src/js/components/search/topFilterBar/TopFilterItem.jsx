@@ -5,8 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { QAT } from 'GlobalConstants';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
@@ -19,21 +17,6 @@ const propTypes = {
 const TopFilterItem = ({
     title = 'Filter', toggleFilter, staged, value
 }) => {
-    // TODO: remove feature flag for clickable chips
-    if (!QAT) {
-        return (
-            <div className="filter-item-container">
-                <div
-                    className="filter-item"
-                    role="listitem">
-                    <div className="filter-item-title">
-                        {title}
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
     const onClick = () => {
         if (value) toggleFilter(value, staged);
         else toggleFilter();
