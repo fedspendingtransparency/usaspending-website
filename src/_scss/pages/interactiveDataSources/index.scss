@@ -21,6 +21,11 @@
     width: 100%;
   }
 
+  .main-content {
+    justify-content: center;
+    margin: auto;
+  }
+
   .usda__flex-row {
     @include display(flex);
     @include flex-wrap(wrap);
