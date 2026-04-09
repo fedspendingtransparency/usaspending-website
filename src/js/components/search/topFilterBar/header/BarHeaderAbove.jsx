@@ -4,7 +4,6 @@ import { Button } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 import { showModal } from "redux/actions/modal/modalActions";
 import PropTypes from "prop-types";
-import BarHeader from "./BarHeader";
 
 const propTypes = {
     resultsView: PropTypes.bool
