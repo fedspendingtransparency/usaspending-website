@@ -98,6 +98,31 @@ export const getFormatedChildren = (node) => {
     return [];
 };
 
+export const getAllUniqueAncestors = (ancestorArray) => {
+    const allUniqueAncestors = ancestorArray.reduce((uniqueAncestors, code) => {
+        const highestAncestor = getHighestAncestorNaicsCode(code);
+        const immediateAncestor = getImmediateAncestorNaicsCode(code);
+        if (uniqueAncestors.includes(highestAncestor)) {
+            if (!uniqueAncestors.includes(immediateAncestor)) {
+                return uniqueAncestors.concat([immediateAncestor]);
+            }
+            return uniqueAncestors;
+        }
+        return uniqueAncestors.concat(
+            [highestAncestor, immediateAncestor]
+                .filter((ancestor) => !uniqueAncestors.includes(ancestor))
+        );
+    }, []).sort((a, b) => {
+        if (b.length > a.length) return -1;
+        if (a.length > b.length) return 1;
+        return 0;
+    });
+
+    // ensure unique values
+    return [...new Set(allUniqueAncestors)];
+};
+
+
 export const getFormatedNaicsDataForCheckboxTree = (nodes) => getFormatedDataForCheckboxTree(nodes, 'naics', getFormatedChildren, getFormatedAncestors);
 
 export const decrementNaicsCountAndUpdateUnchecked = (

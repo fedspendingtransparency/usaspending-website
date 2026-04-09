@@ -849,6 +849,11 @@ export const getChildrenAndDescendantIds = (node) => {
     return children;
 };
 
+export const stateEqualityCheck = (arr1, arr2) => (
+    (arr1.length === arr2.length) &&
+    arr1.every((val, index) => val === arr2[index])
+);
+
 export const handleNewCheckedIds = (nodes, currentId, checked, unchecked, staged) => {
     let newChecked = [];
     let newUnchecked = [];
@@ -863,19 +868,27 @@ export const handleNewCheckedIds = (nodes, currentId, checked, unchecked, staged
             }
             return false;
         })[0];
-        const allChildren = getChildrenAndDescendantIds(currentNode);
+
+        const allChildrenIds = getChildrenAndDescendantIds(currentNode);
+        const allCheckedChildren = checked.filter((c) => (
+            allChildrenIds.includes(c)
+        ));
+        const allUncheckedChildren = unchecked.filter((c) => (
+            allChildrenIds.includes(c)
+        ));
+
         const currentNodeIdOrValue = currentNode.Id || currentNode.value;
 
         // update values based on new required.
         if (staged) {
             // remove value value and children
-            const toRemove = [...allChildren, currentNodeIdOrValue];
+            const toRemove = [...allCheckedChildren, currentNodeIdOrValue];
             newChecked = checked.filter((c) => !toRemove.includes(c));
             newUnchecked = [...unchecked, ...toRemove];
         }
         else {
             // add back value and any children not in exclude
-            const toAdd = [...allChildren, currentNodeIdOrValue];
+            const toAdd = [...allUncheckedChildren, currentNodeIdOrValue];
             newChecked = [...checked, ...toAdd];
             newUnchecked = unchecked.filter((c) => !toAdd.includes(c));
         }

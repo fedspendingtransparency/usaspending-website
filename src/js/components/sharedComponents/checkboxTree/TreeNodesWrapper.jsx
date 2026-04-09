@@ -228,6 +228,22 @@ const TreeNodesWrapper = ({
                 }
             });
         }
+
+        if (checkboxRefs.current) {
+            let indeterminateRefs = [];
+            for (const [key, value] of Object.entries(checkboxRefs.current)) {
+                if (value.indeterminate) {
+                    indeterminateRefs = [...indeterminateRefs, key];
+                }
+            }
+            indeterminateRefs.forEach((ref) => {
+                const refNode = findNodeById(ref);
+                if (!hasCheckedDescendants(refNode, localChecked)) {
+                    checkboxRefs.current[ref].indeterminate = false;
+                }
+            });
+        }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [localChecked]);
 
