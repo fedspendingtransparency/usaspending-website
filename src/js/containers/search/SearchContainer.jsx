@@ -146,7 +146,7 @@ const SearchContainer = () => {
         requestAwards.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
-                setDownloadAvailable(true);
+                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
                 setAwardsCount(res.data.calculated_count);
             })
             .catch(() => {
@@ -172,7 +172,7 @@ const SearchContainer = () => {
         requestTransactions.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
-                setDownloadAvailable(true);
+                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
                 setTransactionsCount(res.data.calculated_count);
             })
             .catch(() => {
@@ -198,7 +198,7 @@ const SearchContainer = () => {
         requestSubawards.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
-                setDownloadAvailable(true);
+                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
                 setSubawardsCount(res.data.calculated_count);
             })
             .catch(() => {

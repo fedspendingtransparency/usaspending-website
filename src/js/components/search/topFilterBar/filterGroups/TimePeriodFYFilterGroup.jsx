@@ -12,7 +12,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string };
 
-const TimePeriodFYFilterGroup = ({ name }) => {
+const TimePeriodFYFilterGroup = ({ name, resultsView }) => {
     const timePeriodFY = useSelector((state) => state.filters.timePeriodFY);
     const appliedTimePeriodFY = useSelector((state) => state.appliedFilters.filters.timePeriodFY);
     const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const TimePeriodFYFilterGroup = ({ name }) => {
         });
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 TimePeriodFYFilterGroup.propTypes = propTypes;
