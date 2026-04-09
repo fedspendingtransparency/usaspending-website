@@ -27,7 +27,7 @@ const propTypes = {
 
 export class FullDownloadModalContainer extends React.Component {
     render() {
-        if (GlobalConstants.QAT) {
+        if (!GlobalConstants.QAT) {
             return (<NewDownloadModal
                 setDownloadCollapsed={this.props.setDownloadCollapsed}
                 pendingDownload={this.props.pendingDownload}

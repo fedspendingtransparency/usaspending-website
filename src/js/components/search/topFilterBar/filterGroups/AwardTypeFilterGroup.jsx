@@ -16,7 +16,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string };
 
-const AwardTypeFilterGroup = ({ name }) => {
+const AwardTypeFilterGroup = ({ name, resultsView }) => {
     const awardType = useSelector((state) => state.filters.awardType);
     const appliedAwardType = useSelector((state) => state.appliedFilters.filters.awardType);
     const dispatch = useDispatch();
@@ -99,7 +99,7 @@ const AwardTypeFilterGroup = ({ name }) => {
         if (indexOf(excludedValues, value) < 0) tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 AwardTypeFilterGroup.propTypes = propTypes;

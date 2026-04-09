@@ -3,9 +3,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 import { showModal } from "redux/actions/modal/modalActions";
+import PropTypes from "prop-types";
+import BarHeader from "./BarHeader";
+
+const propTypes = {
+    resultsView: PropTypes.bool
+};
 
 // eslint-disable-next-line prefer-arrow-callback
-const BarHeaderAbove = memo(function BarHeaderAbove() {
+const BarHeaderAbove = memo(function BarHeaderAbove({ resultsView }) {
     const dispatch = useDispatch();
 
     const onClick = useCallback((e) => {
@@ -37,13 +43,16 @@ const BarHeaderAbove = memo(function BarHeaderAbove() {
                     imageAlignment="right"
                     image={image} />
             </div>
-            <h2 className="subtitle">
-                <FontAwesomeIcon icon={["far", "lightbulb"]} />
-                To <span>remove active filters</span>, select the individual filter labels.
-                Then, once the button appears, click "Update selected filters".
-            </h2>
+            {resultsView &&
+                <h2 className="subtitle">
+                    <FontAwesomeIcon icon={["far", "lightbulb"]} />
+                    To <span>remove active filters</span>, select the individual filter labels.
+                    Then, once the button appears, click "Update selected filters".
+                </h2>
+            }
         </div>
     );
 });
 
+BarHeaderAbove.propTypes = propTypes;
 export default BarHeaderAbove;
