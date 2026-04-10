@@ -854,7 +854,14 @@ export const stateEqualityCheck = (arr1, arr2) => (
     arr1.every((val, index) => val === arr2[index])
 );
 
-export const handleNewCheckedIds = (nodes, currentId, checked, unchecked, staged) => {
+export const handleNewCheckedIds = (
+    nodes,
+    currentId,
+    checked,
+    unchecked,
+    staged,
+    addCurrentNode = true
+) => {
     let newChecked = [];
     let newUnchecked = [];
     // if filter accordion is closed then there will be no nodes
@@ -877,18 +884,21 @@ export const handleNewCheckedIds = (nodes, currentId, checked, unchecked, staged
             allChildrenIds.includes(c)
         ));
 
-        const currentNodeIdOrValue = currentNode.Id || currentNode.value;
+        let currentNodeIdOrValue = [];
+        if (addCurrentNode) {
+            currentNodeIdOrValue = [currentNode.Id || currentNode.value];
+        }
 
         // update values based on new required.
         if (staged) {
             // remove value value and children
-            const toRemove = [...allCheckedChildren, currentNodeIdOrValue];
+            const toRemove = [...allCheckedChildren, ...currentNodeIdOrValue];
             newChecked = checked.filter((c) => !toRemove.includes(c));
             newUnchecked = [...unchecked, ...toRemove];
         }
         else {
             // add back value and any children not in exclude
-            const toAdd = [...allUncheckedChildren, currentNodeIdOrValue];
+            const toAdd = [...allUncheckedChildren, ...currentNodeIdOrValue];
             newChecked = [...checked, ...toAdd];
             newUnchecked = unchecked.filter((c) => !toAdd.includes(c));
         }

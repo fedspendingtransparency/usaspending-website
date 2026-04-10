@@ -58,7 +58,8 @@ const TASCheckboxTree = () => {
     } = useSelector((state) => state.appliedFilters.filters.tasCodes);
     const {
         require: checkedStaged,
-        exclude: uncheckedStaged
+        exclude: uncheckedStaged,
+        counts: countsStaged
     } = useSelector((state) => state.filters.tasCodes);
 
     const request = useRef(null);
@@ -112,11 +113,6 @@ const TASCheckboxTree = () => {
                     if (isSearch) {
                         const searchExpandedNodes = expandTasNodeAndAllDescendantParents(tasNodes);
                         dispatch(setSearchedTas(tasNodes));
-                        autoCheckResultDescendants(
-                            checked,
-                            searchExpandedNodes,
-                            tasNodes
-                        );
 
                         dispatch(setExpandedTas(searchExpandedNodes, 'SET_SEARCHED_EXPANDED'));
 
@@ -129,10 +125,17 @@ const TASCheckboxTree = () => {
                     }
 
                     let modChecked = [];
-                    if (checked.includes(key)) {
+
+                    if (checked.includes(key) || checked.includes(`children_of_${key}`)) {
                         // key node is checked.  add children
                         const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
                         modChecked = [...filteredChecked, ...tasNodes.map((child) => child.value)];
+
+                        if (!checked.includes(key)) {
+                            // checked had child placeholder checked
+                            // parent should be checked
+                            modChecked = [...modChecked, key];
+                        }
                     }
 
                     const newChecked = modChecked?.length
@@ -286,12 +289,17 @@ const TASCheckboxTree = () => {
         else {
             fetchTasLocal()
                 .then(() => {
-                    if (checkedFromHash.length > 0) {
-                        dispatch(setTasCounts(countsFromHash));
+                    if (checkedFromHash.length || checkedStaged.length) {
+                        const useHash = stateEqualityCheck(checkedFromHash, checkedStaged);
+                        const checkedArray = useHash ? checkedFromHash : checkedStaged;
+                        const uncheckedArray = useHash ? uncheckedFromHash : uncheckedStaged;
+                        const countsToSet = useHash ? countsFromHash : countsStaged;
+
+                        dispatch(setTasCounts(countsToSet));
 
                         const allUniqueAncestors = getUniqueAncestorPaths(
-                            checkedFromHash,
-                            uncheckedFromHash
+                            checkedArray,
+                            uncheckedArray
                         );
                         return allUniqueAncestors
                             .reduce((prevPromise, param) => prevPromise
@@ -336,9 +344,12 @@ const TASCheckboxTree = () => {
                     checkedArray = checkedStaged;
                     uncheckedArray = uncheckedStaged;
                 }
+
                 const autoChecked = autoCheckResultDescendants(
-                    checkedArray,
-                    expandTasNodeAndAllDescendantParents(nodes),
+                    checkedArray.map(
+                        (ancestryPath) => ancestryPath[ancestryPath.length - 1]
+                    ),
+                    expanded,
                     nodes
                 );
 
