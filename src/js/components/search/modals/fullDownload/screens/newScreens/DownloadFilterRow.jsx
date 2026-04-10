@@ -47,7 +47,7 @@ const DownloadFilterRow = ({
                     text={filter.values}
                     limit={limit}
                     openPrompt="Show all"
-                    closePrompt="Show Less" />
+                    closePrompt="Show less" />
             </td>
         </tr>
     );
