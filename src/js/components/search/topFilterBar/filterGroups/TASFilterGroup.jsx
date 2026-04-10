@@ -6,7 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
-import { setCheckedTas, setUncheckedTas } from 'redux/actions/search/tasActions';
+import {
+    setCheckedTas,
+    setUncheckedTas,
+    setExpandedTas
+} from 'redux/actions/search/tasActions';
 import { updateTAS } from "redux/actions/search/searchFilterActions";
 import { handleNewCheckedIds } from 'helpers/checkboxTreeHelper';
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
@@ -16,8 +20,12 @@ const propTypes = { name: PropTypes.string };
 const getUniqueValues = (value, index, array) => array.indexOf(value) === index;
 
 const TASFilterGroup = ({ name }) => {
-    const { require, counts } = useSelector((state) => state.filters.tasCodes);
-    const { require: appliedRequire, counts: appliedCounts } = useSelector((state) => state.appliedFilters.filters.tasCodes);
+    const { require, exclude, counts } = useSelector((state) => state.filters.tasCodes);
+    const {
+        require: appliedRequire,
+        exclude: appliedExclude,
+        counts: appliedCounts
+    } = useSelector((state) => state.appliedFilters.filters.tasCodes);
     const nodes = useSelector((state) => state.tas.tas.toJS());
     const checked = useSelector((state) => state.tas.checked.toJS());
     const unchecked = useSelector((state) => state.tas.unchecked.toJS());
@@ -25,20 +33,25 @@ const TASFilterGroup = ({ name }) => {
 
 
     const toggleFilter = ({ value, array }, staged) => {
-        const newTAS = staged ?
-            {
-                require: require.filter((v) => !array.includes(v)),
-                counts: counts.filter((v) => v.value !== value.value)
-            } :
-            {
-                require: [...require, ...array],
-                counts: [...counts, value]
-            };
+        let newRequire;
+        let newExclude;
+        let newCounts;
+
+        if (staged) {
+            newRequire = require.filter((v) => !array.includes(v));
+            newExclude = exclude.filter((v) => !array.includes(v));
+            newCounts = counts.filter((v) => v.value !== value.value);
+        }
+        else {
+            newRequire = [...require, ...array];
+            newExclude = [...exclude, ...appliedExclude.filter((v) => !array.includes(v))];
+            newCounts = [...counts, value];
+        }
 
         dispatch(updateTAS(
-            newTAS.require,
-            [],
-            newTAS.counts
+            newRequire,
+            newExclude,
+            newCounts
         ));
 
 
@@ -57,8 +70,12 @@ const TASFilterGroup = ({ name }) => {
                 false
             );
 
+            const toExpand = newRequire
+                .flatMap((subArray) => subArray.slice(0, -1));
+
             dispatch(setCheckedTas(newChecked));
             dispatch(setUncheckedTas(newUnchecked));
+            dispatch(setExpandedTas([...new Set(toExpand)]));
         }
     };
 

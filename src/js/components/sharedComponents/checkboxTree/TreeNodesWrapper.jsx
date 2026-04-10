@@ -124,7 +124,7 @@ const TreeNodesWrapper = ({
                                 // unchecking prior checked node.
                                 if (localChecked?.includes(getIdOrValue(parent)) && hasAnyChildrenChecked?.length > 0) {
                                     // unchecking a single node make any checked ancestors indeterminate
-                                    setIndeterminate = checkboxRefs.current[getIdOrValue(parent)].checked;
+                                    setIndeterminate = checkboxRefs.current[getIdOrValue(parent)]?.checked;
                                 }
                             }
                             if (checkboxRefs.current[getIdOrValue(parent)]) {
