@@ -17,7 +17,8 @@ import {
     removePlaceholderString,
     getUniqueAncestorPaths,
     getAllDescendants,
-    trimCheckedToCommonAncestors
+    trimCheckedToCommonAncestors,
+    stateEqualityCheck
 } from 'helpers/checkboxTreeHelper';
 import {
     setTasNodes,
@@ -50,9 +51,15 @@ const TASCheckboxTree = () => {
     const checked = useSelector((state) => state.tas.checked.toJS());
     const unchecked = useSelector((state) => state.tas.unchecked.toJS());
     const counts = useSelector((state) => state.tas.counts.toJS());
-    const checkedFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.require);
-    const uncheckedFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.exclude);
-    const countsFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.counts);
+    const {
+        require: checkedFromHash,
+        exclude: uncheckedFromHash,
+        counts: countsFromHash
+    } = useSelector((state) => state.appliedFilters.filters.tasCodes);
+    const {
+        require: checkedStaged,
+        exclude: uncheckedStaged
+    } = useSelector((state) => state.filters.tasCodes);
 
     const request = useRef(null);
     const dispatch = useDispatch();
@@ -291,16 +298,6 @@ const TASCheckboxTree = () => {
                             // fetch the all the ancestors of the checked nodes
                                 .then(() => fetchTasLocal(param, null, false)), Promise.resolve([])
                             )
-                            .then(() => {
-                                const autoChecked = autoCheckResultDescendants(
-                                    checkedFromHash,
-                                    expanded,
-                                    nodes
-                                );
-
-                                dispatch(setCheckedTas(autoChecked));
-                                dispatch(setExpandedTas(allUniqueAncestors));
-                            })
                             .catch((e) => {
                                 setIsLoading(false);
                                 setIsError(true);
@@ -329,6 +326,29 @@ const TASCheckboxTree = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSearch, searchString]);
 
+    useEffect(() => {
+        if (nodes.length && (checkedFromHash.length || checkedStaged.length)) {
+            let checkedArray = checkedFromHash;
+            let uncheckedArray = uncheckedFromHash;
+
+            if (!checked.length) {
+                if (!stateEqualityCheck(checkedFromHash, checkedStaged)) {
+                    checkedArray = checkedStaged;
+                    uncheckedArray = uncheckedStaged;
+                }
+                const autoChecked = autoCheckResultDescendants(
+                    checkedArray,
+                    expandTasNodeAndAllDescendantParents(nodes),
+                    nodes
+                );
+
+                dispatch(setCheckedTas(autoChecked));
+                dispatch(setExpandedTas(
+                    getUniqueAncestorPaths([...checkedArray, ...uncheckedArray])
+                ));
+            }
+        }
+    }, [nodes, checkedFromHash, checkedStaged, checked]);
 
     return (
         <div className="tas-checkbox">
