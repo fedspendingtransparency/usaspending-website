@@ -835,8 +835,9 @@ export const getChildrenAndDescendantIds = (node) => {
                     children = [...children, c.value];
                     return;
                 }
-                if (c.id) children = [...children, c.id];
-                if (c.value) children = [...children, c.value];
+                if (c.id || c.value) {
+                    children = [...children, c.id || c.value];
+                }
                 if (c.children) {
                     getChildrenIds(c);
                 }
@@ -859,8 +860,7 @@ export const handleNewCheckedIds = (
     currentId,
     checked,
     unchecked,
-    staged,
-    addCurrentNode = true
+    staged
 ) => {
     let newChecked = [];
     let newUnchecked = [];
@@ -884,23 +884,16 @@ export const handleNewCheckedIds = (
             allChildrenIds.includes(c)
         ));
 
-        let currentNodeIdOrValue = [];
-        if (addCurrentNode) {
-            currentNodeIdOrValue = [currentNode.Id || currentNode.value];
-        }
-
         // update values based on new required.
         if (staged) {
-            // remove value value and children
-            const toRemove = [...allCheckedChildren, ...currentNodeIdOrValue];
-            newChecked = checked.filter((c) => !toRemove.includes(c));
-            newUnchecked = [...unchecked, ...toRemove];
+            // remove children
+            newChecked = checked.filter((c) => !allCheckedChildren.includes(c));
+            newUnchecked = [...unchecked, ...allCheckedChildren];
         }
         else {
-            // add back value and any children not in exclude
-            const toAdd = [...allUncheckedChildren, ...currentNodeIdOrValue];
-            newChecked = [...checked, ...toAdd];
-            newUnchecked = unchecked.filter((c) => !toAdd.includes(c));
+            // add back any children not in exclude
+            newChecked = [...checked, ...allUncheckedChildren];
+            newUnchecked = unchecked.filter((c) => !allUncheckedChildren.includes(c));
         }
     }
 

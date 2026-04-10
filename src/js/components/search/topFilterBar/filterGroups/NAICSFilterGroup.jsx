@@ -56,10 +56,19 @@ const NAICSFilterGroup = ({ name }) => {
                 staged
             );
 
-            const toExpand = newChecked.filter((c) => (
-                !c.includes('children_of_')
-                || array.includes(c)
+            const filteredChecked = newChecked.filter((c) => (
+                !c.includes('children_of_') || array.includes(c)
             ));
+
+            const toExpand = filteredChecked.flatMap((f) => {
+                if (f.length === 6) {
+                    return [f, f.substring(0, 2), f.substring(0, 4)];
+                }
+                if (f.length === 4) {
+                    return [f, f.substring(0, 2)];
+                }
+                return [f];
+            });
 
             dispatch(setCheckedNaics(newChecked));
             dispatch(setUncheckedNaics(newUnchecked));

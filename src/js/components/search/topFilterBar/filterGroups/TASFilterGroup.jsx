@@ -66,8 +66,7 @@ const TASFilterGroup = ({ name }) => {
                 value.value,
                 [...checked, ...filteredArray],
                 unchecked,
-                staged,
-                false
+                staged
             );
 
             const toExpand = newRequire
