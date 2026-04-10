@@ -92,7 +92,6 @@ const MobileNav = React.memo((props) => {
     };
 
     const openDetailedMobileNav = (index) => {
-        console.log(index);
         setDetailMobileNavIsHidden(false);
         setMobileNavInitialState(false);
         setCurrentIndex(index);

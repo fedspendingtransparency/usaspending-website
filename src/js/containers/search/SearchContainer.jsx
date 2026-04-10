@@ -147,7 +147,6 @@ const SearchContainer = () => {
         requestAwards.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
-                console.log("2", !res.data.transaction_rows_gt_limit);
                 setDownloadAvailable(!res.data.transaction_rows_gt_limit);
                 setAwardsCount(res.data.calculated_count);
             })
@@ -174,7 +173,6 @@ const SearchContainer = () => {
         requestTransactions.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
-                console.log("3", !res.data.transaction_rows_gt_limit);
                 setDownloadAvailable(!res.data.transaction_rows_gt_limit);
                 setTransactionsCount(res.data.calculated_count);
             })
