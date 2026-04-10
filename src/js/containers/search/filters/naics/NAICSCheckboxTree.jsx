@@ -110,11 +110,7 @@ const NAICSCheckboxTree = () => {
                             'naics'
                         );
                         dispatch(setSearchedNaics(naicsNodes));
-                        autoCheckResultDescendants(
-                            checked,
-                            searchExpandedNodes,
-                            naicsNodes
-                        );
+
                         dispatch(setExpandedNaics(searchExpandedNodes, 'SET_SEARCHED_EXPANDED'));
 
                         if (naicsNodes?.length === 0) {

@@ -47,10 +47,13 @@ const NAICSFilterGroup = ({ name }) => {
         ));
 
         if (nodes.length !== 0) {
-            const {
-                newChecked,
-                newUnchecked
-            } = handleNewCheckedIds(nodes, value.value, checked, unchecked, staged);
+            const { newChecked, newUnchecked } = handleNewCheckedIds(
+                nodes,
+                value.value,
+                [...checked, ...array],
+                unchecked,
+                staged
+            );
 
             dispatch(setCheckedNaics(newChecked));
             dispatch(setUncheckedNaics(newUnchecked));
