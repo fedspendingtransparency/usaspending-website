@@ -71,8 +71,7 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
     useEffect(() => {
         if (isSuccess && data) {
             const toggleType = toggleState ? "total_outlays" : "amount";
-            console.log(data.data);
-            dataByAwardType(data?.data, toggleType);
+            dataByAwardType([...data.data], toggleType);
         }
     }, [isSuccess, data, toggleState]);
 
