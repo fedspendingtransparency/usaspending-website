@@ -116,12 +116,6 @@ const PSCCheckboxTreeContainer = () => {
                         const searchExpandedNodes = expandPscNodeAndAllDescendantParents(pscNodes);
                         dispatch(setSearchedPsc(pscNodes));
 
-                        autoCheckResultDescendants(
-                            checked,
-                            searchExpandedNodes,
-                            nodes
-                        );
-
                         dispatch(setExpandedPsc(searchExpandedNodes, 'SET_SEARCHED_EXPANDED'));
 
                         if (pscNodes.length === 0) {
@@ -134,10 +128,16 @@ const PSCCheckboxTreeContainer = () => {
 
                     let modChecked = [];
 
-                    if (checked.includes(key)) {
+                    if (checked.includes(key) || checked.includes(`children_of_${key}`)) {
                         // key node is checked.  add children
                         const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
                         modChecked = [...filteredChecked, ...pscNodes.map((child) => child.value)];
+
+                        if (!checked.includes(key)) {
+                            // checked had child placeholder checked
+                            // parent should be checked
+                            modChecked = [...modChecked, key];
+                        }
                     }
 
                     const newChecked = modChecked?.length
@@ -343,9 +343,15 @@ const PSCCheckboxTreeContainer = () => {
                     checkedArray = checkedStaged;
                     uncheckedArray = uncheckedStaged;
                 }
+
                 let autoChecked = autoCheckResultDescendants(
-                    checkedArray,
-                    expandPscNodeAndAllDescendantParents(nodes),
+                    checkedArray.map((ancestor) => {
+                        if (ancestor.includes('/')) {
+                            return ancestor.split('/')[1];
+                        }
+                        return ancestor;
+                    }),
+                    expanded,
                     nodes
                 );
 
