@@ -126,6 +126,7 @@ const KeywordContainer = () => {
             .then((res) => {
                 const results = res.data.results;
                 const recordLimit = 500000;
+                console.log("comparison", results.prime_awards_count < recordLimit);
                 setDownloadAvailable(results.prime_awards_count < recordLimit);
                 setSummaryInFlight(false);
                 setSummary({

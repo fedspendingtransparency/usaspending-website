@@ -102,7 +102,7 @@ export default class FullDownloadModal extends React.Component {
                 dialogClass="search-section-extra-modal"
                 verticallyCenter
                 escapeExits>
-                <div className="full-download-modal">
+                <div className="full-download-modal legacy">
                     <div className="download-header">
                         <div className="header-content">
                             <h1>Download Data</h1>
