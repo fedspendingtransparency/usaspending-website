@@ -17,7 +17,8 @@ import {
     getAllDescendants,
     removePlaceholderString,
     getUniqueAncestorPaths,
-    trimCheckedToCommonAncestors
+    trimCheckedToCommonAncestors,
+    stateEqualityCheck
 } from 'helpers/checkboxTreeHelper';
 import { updatePSC } from 'redux/actions/search/searchFilterActions';
 import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
@@ -37,9 +38,16 @@ const PSCCheckboxTreeContainer = () => {
     const checked = useSelector((state) => state.psc.checked.toJS());
     const unchecked = useSelector((state) => state.psc.unchecked.toJS());
     const counts = useSelector((state) => state.psc.counts.toJS());
-    const checkedFromHash = useSelector((state) => state.appliedFilters.filters.pscCodes.require);
-    const uncheckedFromHash = useSelector((state) => state.appliedFilters.filters.pscCodes.exclude);
-    const countsFromHash = useSelector((state) => state.appliedFilters.filters.pscCodes.counts);
+    const {
+        require: checkedFromHash,
+        exclude: uncheckedFromHash,
+        counts: countsFromHash
+    } = useSelector((state) => state.appliedFilters.filters.pscCodes);
+    const {
+        require: checkedStaged,
+        exclude: uncheckedStaged
+    } = useSelector((state) => state.filters.pscCodes);
+
 
     const dispatch = useDispatch();
 
@@ -298,24 +306,6 @@ const PSCCheckboxTreeContainer = () => {
                                 // fetch the all the ancestors of the checked nodes
                                 .then(() => fetchPscLocal(param, null, false)), Promise.resolve([])
                             )
-                            .then(() => {
-                                let autoChecked = autoCheckResultDescendants(
-                                    checkedFromHash,
-                                    expanded,
-                                    nodes
-                                );
-
-                                autoChecked = Array.from(autoChecked, (check) => check.at(-1));
-                                const toExpand = allUniqueAncestors.map((ancestor) => {
-                                    if (ancestor.includes('/')) {
-                                        return ancestor.split('/')[1];
-                                    }
-                                    return ancestor;
-                                });
-
-                                dispatch(setCheckedPsc(autoChecked));
-                                dispatch(setExpandedPsc(toExpand));
-                            })
                             .catch((e) => {
                                 setIsLoading(false);
                                 setIsError(true);
@@ -343,6 +333,39 @@ const PSCCheckboxTreeContainer = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSearch, searchString]);
 
+    useEffect(() => {
+        if (nodes.length && (checkedFromHash.length || checkedStaged.length)) {
+            let checkedArray = checkedFromHash;
+            let uncheckedArray = uncheckedFromHash;
+
+            if (!checked.length) {
+                if (!stateEqualityCheck(checkedFromHash, checkedStaged)) {
+                    checkedArray = checkedStaged;
+                    uncheckedArray = uncheckedStaged;
+                }
+                let autoChecked = autoCheckResultDescendants(
+                    checkedArray,
+                    expandPscNodeAndAllDescendantParents(nodes),
+                    nodes
+                );
+
+                const allUniqueAncestors = getUniqueAncestorPaths(
+                    checkedArray,
+                    uncheckedArray
+                );
+                autoChecked = Array.from(autoChecked, (check) => check.at(-1));
+                const toExpand = allUniqueAncestors.map((ancestor) => {
+                    if (ancestor.includes('/')) {
+                        return ancestor.split('/')[1];
+                    }
+                    return ancestor;
+                });
+
+                dispatch(setCheckedPsc(autoChecked));
+                dispatch(setExpandedPsc(toExpand));
+            }
+        }
+    }, [nodes, checkedFromHash, checkedStaged, checked]);
 
     return (
         <div className="search-option">
