@@ -25,9 +25,6 @@ const TASFilterGroup = ({ name }) => {
 
 
     const toggleFilter = ({ value, array }, staged) => {
-        console.log("checking value ======= ", value);
-        console.log("checking staged ======= ", staged);
-        console.log("checking array ======= ", array);
         const newTAS = staged ?
             {
                 require: require.filter((v) => !array.includes(v)),
@@ -37,9 +34,7 @@ const TASFilterGroup = ({ name }) => {
                 require: [...require, ...array],
                 counts: [...counts, value]
             };
-        console.log("checking require ======= ", require);
-        console.log("checking appliedRequire ======= ", appliedRequire);
-        console.log("checking newNAICS ======= ", newTAS);
+
         dispatch(updateTAS(
             newTAS.require,
             [],
@@ -53,7 +48,6 @@ const TASFilterGroup = ({ name }) => {
                 (ancestryPath) => ancestryPath[ancestryPath.length - 1]
             );
 
-            console.log("checking filteredArray ====== ", filteredArray);
             const { newChecked, newUnchecked } = handleNewCheckedIds(
                 nodes,
                 value.value,
@@ -62,8 +56,6 @@ const TASFilterGroup = ({ name }) => {
                 staged,
                 false
             );
-
-            console.log("checking newChecked ==== ", newChecked);
 
             dispatch(setCheckedTas(newChecked));
             dispatch(setUncheckedTas(newUnchecked));
