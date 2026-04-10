@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { handleNewCheckedIds } from 'helpers/checkboxTreeHelper';
 import {
     setCheckedNaics,
-    setUncheckedNaics
+    setUncheckedNaics,
+    setExpandedNaics
 } from 'redux/actions/search/naicsActions';
 import { updateNaics } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
@@ -55,8 +56,14 @@ const NAICSFilterGroup = ({ name }) => {
                 staged
             );
 
+            const toExpand = newChecked.filter((c) => (
+                !c.includes('children_of_')
+                || array.includes(c)
+            ));
+
             dispatch(setCheckedNaics(newChecked));
             dispatch(setUncheckedNaics(newUnchecked));
+            dispatch(setExpandedNaics(toExpand));
         }
     };
 
