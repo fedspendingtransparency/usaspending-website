@@ -33,6 +33,7 @@ import {
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
+import GlobalConstants from "../../GlobalConstants";
 
 require('pages/search/searchPage.scss');
 
@@ -239,9 +240,12 @@ const SearchContainer = () => {
                         // delete once we deploy
                         setDownloadAvailability(filtersInImmutableStructure);
 
-                        setDownloadAvailabilityAwards(filtersInImmutableStructure);
-                        setDownloadAvailabilitySubawards(filtersInImmutableStructure);
-                        setDownloadAvailabilityTransactions(filtersInImmutableStructure);
+                        // TODO:  Disabling for 14913 hotfix
+                        if (GlobalConstants.IS_NEW_DOWNLOAD) {
+                            setDownloadAvailabilityAwards(filtersInImmutableStructure);
+                            setDownloadAvailabilitySubawards(filtersInImmutableStructure);
+                            setDownloadAvailabilityTransactions(filtersInImmutableStructure);
+                        }
                     }
                     request.current = null;
                 })
@@ -338,9 +342,12 @@ const SearchContainer = () => {
             // delete once we deploy
             setDownloadAvailability();
 
-            setDownloadAvailabilityAwards();
-            setDownloadAvailabilityTransactions();
-            setDownloadAvailabilitySubawards();
+            // TODO:  Disabling for 14913 hotfix
+            if (GlobalConstants.IS_NEW_DOWNLOAD) {
+                setDownloadAvailabilityAwards();
+                setDownloadAvailabilityTransactions();
+                setDownloadAvailabilitySubawards();
+            }
         } else if (!urlHash) {
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
