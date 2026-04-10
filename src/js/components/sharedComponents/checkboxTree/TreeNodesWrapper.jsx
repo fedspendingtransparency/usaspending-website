@@ -146,7 +146,6 @@ const TreeNodesWrapper = ({
 
     const handleAutoCheckAncestors = (node, newChecked, isChecked) => {
         let updatedChecked = newChecked;
-
         if (isChecked && updatedChecked.length <= 1) {
             // account for unchecking only checked single node
             updatedChecked = [];
@@ -161,7 +160,7 @@ const TreeNodesWrapper = ({
                         (child) => (newChecked.includes(
                             removePlaceholderString(getIdOrValue(child))) || (getIdOrValue(node) === getIdOrValue(child))
                         ));
-                    if (allChecked) {
+                    if (allChecked && !isChecked) {
                         updatedChecked = [...new Set([...updatedChecked, getIdOrValue(parent)])];
                     }
                     else {
