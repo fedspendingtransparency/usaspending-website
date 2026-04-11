@@ -3,11 +3,9 @@
  * Created by Lizzie Salita 5/16/18
  */
 
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ErrorMessage, FlexGridCol, GenericMessage, LoadingMessage } from "data-transparency-ui";
-import { reduce } from "lodash-es";
-import BaseAwardBreakdownRow from "models/v2/state/BaseAwardBreakdownRow";
 
 import AwardBreakdownTreeMap from '../treemap/AwardBreakdownTreeMap';
 import AwardBreakdownTable from '../AwardBreakdownTable';
@@ -26,54 +24,26 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
     const [hasNegatives, setHasNegatives] = useState(false);
 
     const {
-        data, isSuccess, isLoading, error
-    } = useFetchAwardBreakdown(id, fy);
+        parsedData, parsedDataOutlays, isSuccess, isLoading, error
+    } = useFetchAwardBreakdown(id, fy, toggleState);
 
-    const dataByAwardType = useCallback((results, amountType) => {
-        // Sum all amounts in the returned award types
-        const newTotalAmount = reduce(
-            results,
-            (sum, awardType) => sum + parseFloat(awardType[amountType]),
-            0
-        );
-
-        // Sum only the positive amounts in the returned award types
-        const positiveAmount = reduce(
-            results,
-            (sum, awardType) => {
-                if (parseFloat(awardType.amount) >= 0) {
-                    return sum + parseFloat(awardType[amountType]);
-                }
-                return sum;
-            },
-            0
-        );
-
-        const newHasNegatives = positiveAmount > newTotalAmount;
-
-        // Sort the results by amount
-        const sortedResults = results?.sort((rowA, rowB) =>
-            rowB[amountType] - rowA[amountType]
-        );
-
-        const newRows = sortedResults.map((result) => {
-            const row = Object.create(BaseAwardBreakdownRow);
-            row.populate(result);
-            return row;
-        });
-
-        setAwardBreakdown(results);
-        setRows(newRows);
-        setTotalAmount(newTotalAmount);
-        setHasNegatives(newHasNegatives);
-    });
 
     useEffect(() => {
+<<<<<<< HEAD
         if (isSuccess && data) {
             const toggleType = toggleState ? "total_outlays" : "amount";
             dataByAwardType([...data.data], toggleType);
+=======
+        if (isSuccess && parsedData && parsedDataOutlays) {
+            const data = toggleState ? parsedDataOutlays : parsedData;
+            console.log(data);
+            setAwardBreakdown(data?.results);
+            setRows(data?.newRows);
+            setTotalAmount(data?.newTotalAmount);
+            setHasNegatives(data?.newHasNegatives);
+>>>>>>> parent of 97de9342f (wip)
         }
-    }, [isSuccess, data, toggleState]);
+    }, [isSuccess, parsedData, parsedDataOutlays, toggleState]);
 
     return (
         <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
