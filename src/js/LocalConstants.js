@@ -4,6 +4,6 @@
  */
 
 export const localConstants = {
-    API: 'https://qat-api.usaspending.gov/api',
-    MAPBOX_TOKEN: 'pk.eyJ1IjoidXNhc3BlbmRpbmdmcmJrYyIsImEiOiJjbThnZ2Yyc3kwbmkwMmtvOXRoNjdheHRuIn0.UJlFxl-R3tE8KIqpWmlptg'
+    API: null,
+    MAPBOX_TOKEN: null
 };
