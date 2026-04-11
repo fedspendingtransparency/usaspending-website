@@ -24,26 +24,16 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
     const [hasNegatives, setHasNegatives] = useState(false);
 
     const {
-        parsedData, parsedDataOutlays, isSuccess, isLoading, error
+        data, isSuccess, isLoading, error
     } = useFetchAwardBreakdown(id, fy, toggleState);
 
 
     useEffect(() => {
-<<<<<<< HEAD
         if (isSuccess && data) {
             const toggleType = toggleState ? "total_outlays" : "amount";
             dataByAwardType([...data.data], toggleType);
-=======
-        if (isSuccess && parsedData && parsedDataOutlays) {
-            const data = toggleState ? parsedDataOutlays : parsedData;
-            console.log(data);
-            setAwardBreakdown(data?.results);
-            setRows(data?.newRows);
-            setTotalAmount(data?.newTotalAmount);
-            setHasNegatives(data?.newHasNegatives);
->>>>>>> parent of 97de9342f (wip)
         }
-    }, [isSuccess, parsedData, parsedDataOutlays, toggleState]);
+    }, [isSuccess, data, toggleState]);
 
     return (
         <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
