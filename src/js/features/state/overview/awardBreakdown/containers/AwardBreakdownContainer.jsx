@@ -73,7 +73,8 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
             const toggleType = toggleState ? "total_outlays" : "amount";
             dataByAwardType([...data.data], toggleType);
         }
-    }, [isSuccess, data, toggleState, dataByAwardType]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isSuccess, data, toggleState]);
 
     return (
         <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
