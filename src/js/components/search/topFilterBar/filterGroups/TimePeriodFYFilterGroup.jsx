@@ -42,8 +42,6 @@ const TimePeriodFYFilterGroup = ({ name }) => {
 
     const newAwards = useNewAwardsOnly();
 
-    console.log({ newAwards });
-
     if (newAwards) tags.push(newAwards);
 
     return (<BaseTopFilterGroup tags={tags} name={name} />);
