@@ -77,7 +77,7 @@ export const useFetchSpendingBy = (apiParams, category, code, fy) => {
         if (code && category) {
             mutate();
         }
-    }, [code, mutate, category]);
+    }, [code, mutate, category, apiParams]);
 
     return {
         parsedData, noResults, isSuccess, isLoading: isPending, error
