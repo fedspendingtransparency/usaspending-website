@@ -10,7 +10,6 @@
 
 import React, { memo, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
 import TopFilterGroupGenerator from './TopFilterGroupGenerator';
 import BarHeader from "./header/BarHeader";
 
@@ -21,7 +20,6 @@ const propTypes = {
 
 // eslint-disable-next-line prefer-arrow-callback
 const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
-    const newAwards = useSelector((state) => state.appliedFilters.filters.filterNewAwardsOnlySelected);
     const [expandedFilters, setExpandedFilters] = useState(false);
     const [fadeClass, setFadeClass] = useState('');
     const [bottom, setBottom] = useState(false);
@@ -81,10 +79,6 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
     const groups = filters.map(({ code, name }) => (
         <TopFilterGroupGenerator code={code} name={name} />
     ));
-
-    if (newAwards) {
-        groups.push(<TopFilterGroupGenerator code="newAwardsOnly" name="New Awards" />);
-    }
 
     return (
         <div>
