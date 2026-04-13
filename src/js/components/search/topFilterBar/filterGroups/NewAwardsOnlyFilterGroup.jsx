@@ -4,63 +4,30 @@
  */
 
 import React from 'react';
+import { useDispatch, useSelector } from "react-redux";
 import PropTypes from 'prop-types';
+import { updateNewAwardsOnlySelected } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = {
-    filter: PropTypes.object,
-    redux: PropTypes.object,
-    compressed: PropTypes.bool
+const propTypes = { name: PropTypes.string };
+
+const NewAwardsOnlyFilterGroup = ({ name }) => {
+    const dispatch = useDispatch();
+    const newAwards = useSelector((state) => state.filters.filterNewAwardsOnlySelected);
+
+    const toggleFilter = (value) => {
+        dispatch(updateNewAwardsOnlySelected(!value));
+    };
+
+    const tags = [{
+        value: newAwards,
+        title: 'Show New Awards Only',
+        toggleFilter,
+        staged: newAwards
+    }];
+
+    return (<BaseTopFilterGroup tags={tags} name={name} />);
 };
 
-export default class NewAwardsOnlyFilterGroup extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.removeFilter = this.removeFilter.bind(this);
-        this.clearGroup = this.clearGroup.bind(this);
-    }
-
-    removeFilter(value) {
-        // remove a single filter item
-        const newValue = this.props.redux.reduxFilters.awardAmounts.delete(value);
-        this.props.redux.updateGenericFilter({
-            type: 'newAwardsOnly',
-            value: newValue
-        });
-    }
-
-    clearGroup() {
-        this.props.redux.clearFilterType('newAwardsOnly');
-    }
-
-    generateTags() {
-        const tags = [];
-
-        // check to see if newAwardsOnly is provided
-        const newAwardsOnly = this.props.filter.values;
-
-        if (newAwardsOnly) {
-            const tag = {
-                value: newAwardsOnly,
-                title: 'Show New Awards Only',
-                removeFilter: this.removeFilter
-            };
-            tags.push(tag);
-        }
-
-        return tags;
-    }
-
-    render() {
-        const tags = this.generateTags();
-
-        return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup}
-            compressed={this.props.compressed} />);
-    }
-}
-
 NewAwardsOnlyFilterGroup.propTypes = propTypes;
+export default NewAwardsOnlyFilterGroup;

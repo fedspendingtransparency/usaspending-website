@@ -10,7 +10,7 @@
 
 import React, { memo, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Button } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -24,11 +24,21 @@ const propTypes = {
 
 // eslint-disable-next-line prefer-arrow-callback
 const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
+    const dispatch = useDispatch();
+    const newAwards = useSelector((state) => state.appliedFilters.filters.filterNewAwardsOnlySelected);
+
     const newAwardsOnlyPresent = filters.find(({ code }) => code === 'newAwardsOnly');
 
     const groups = filters.map((filter) => topFilterGroupGenerator(filter));
 
-    const dispatch = useDispatch();
+    if (newAwards) {
+        groups.push(
+            topFilterGroupGenerator({
+                code: "newAwardsOnly",
+                name: "New Awards"
+            })
+        );
+    }
 
     const onClick = useCallback((e) => {
         e.persist();
@@ -81,5 +91,4 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
 });
 
 TopFilterBar.propTypes = propTypes;
-
 export default TopFilterBar;
