@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Tabs, ShareIcon, FlexGridCol, FlexGridRow } from "data-transparency-ui";
+import { Tabs, FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import { useDispatch } from 'react-redux';
 import { Link, useLocation, useNavigate } from "react-router";
 import { getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
@@ -12,12 +12,12 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import AboutTheDataModal from "components/agencySubmissionStats/AboutTheDataModal";
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import AgenciesContainer from 'containers/agencySubmissionStats/AgenciesContainer';
 import { useLatestAccountData, useValidTimeBasedQueryParams } from
     'containers/account/WithLatestFy';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { modalTitles, modalClassNames } from 'dataMapping/agencySubmissionStats/modals';
-import { tabTooltips } from './componentMapping/tooltipContentMapping';
 import TimeFilters from './TimeFilters';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useQueryParams from "../../hooks/useQueryParams";
@@ -84,13 +84,13 @@ const AboutTheDataPage = () => {
             classNames="about-the-data about-the-data_agencies-page"
             title="Agency Submission Statistics"
             toolBarComponents={[
-                <ShareIcon
+                <ShareIcon508
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content">
                 <FlexGridRow className="agency-submission-stat-row">
-                    <FlexGridCol className="agency-submission-stat-col" >
+                    <FlexGridCol width={9} >
                         <div className="heading-container">
                             <h2 className="header">About These Statistics</h2>
                             <p className="sub-header">
@@ -98,9 +98,17 @@ const AboutTheDataPage = () => {
                             on a quarterly and/or monthly basis to USAspending.gov. The table below
                             shows information about the status and content of these submissions. It will
                             be updated as agencies publish/certify new submissions or
-                            republish/recertify existing submissions. For more information about the data in this table, visit <Link className="usa-bold-link" to="/submission-statistics/data-sources">the Data Sources and Methodology page.</Link>
+                            republish/recertify existing submissions.
                             </p>
+                            <p className="sub-header"><span className="sub-header-span">Statistics by Submission Period</span> - Please note that if you select the first or second period of a quarter, you will only see data from agencies that upload monthly. Only by selecting the last period of each quarter (i.e., P03, P06, P09, P12) will you see data for all agencies, including quarterly-submitting agencies.</p>
+                            <p className="sub-header"><span className="sub-header-span">Updates by Fiscal Year</span> - The columns for the last period of each quarter (i.e., P03, P06, P09, P12) do show data for all agencies.</p>
+                            <p className="sub-header"><span className="sub-header-span">Please Note:</span> Fiscal years start in October (Period 1), and starting in FY 2022 (i.e., October 2021), all agencies will report monthly data to USAspending.gov.</p>
+                            <p className="sub-header">For more information about the data in this table, visit <Link className="sub-header-link" to="/submission-statistics/data-sources">the Data Sources and Methodology page.</Link></p>
                         </div>
+                    </FlexGridCol>
+                </FlexGridRow>
+                <FlexGridRow className="agency-submission-stat-row">
+                    <FlexGridCol width={12} className="agency-submission-stat-col" >
                         <LoadingWrapper isLoading={!activeTab}>
                             <>
                                 <div className="table-controls">
@@ -110,13 +118,11 @@ const AboutTheDataPage = () => {
                                         types={[
                                             {
                                                 internal: 'submissions',
-                                                label: "Statistics by Submission Period",
-                                                tooltip: tabTooltips["Statistics by Submission Period"]
+                                                label: "Statistics by Submission Period"
                                             },
                                             {
                                                 internal: 'publications',
-                                                label: "Updates by Fiscal Year",
-                                                tooltip: tabTooltips["Updates by Fiscal Year"]
+                                                label: "Updates by Fiscal Year"
                                             }
                                         ]} />
                                     <TimeFilters

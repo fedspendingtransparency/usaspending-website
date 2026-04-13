@@ -18,7 +18,6 @@ export default class DataDictionaryPage extends React.Component {
             pageName="Data Dictionary"
             classNames="usa-da-data-dictionary-page"
             metaTagProps={dataDictionaryPageMetaTags}
-            overLine="resources"
             title="Data Dictionary">
             <div id="main-content">
                 <DataDictionaryContainer />

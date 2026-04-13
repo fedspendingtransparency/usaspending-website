@@ -7,10 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
-import { ShareIcon } from 'data-transparency-ui';
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import { showModal } from '../../redux/actions/modal/modalActions';
 
 const propTypes = {
@@ -45,7 +45,7 @@ const ExplorerWrapperPage = ({
             title="Spending Explorer"
             metaTagProps={explorerPageMetaTags}
             toolBarComponents={showShareIcon ? [
-                <ShareIcon
+                <ShareIcon508
                     onShareOptionClick={handleShare}
                     url={getBaseUrl(slug)} />
             ] : []}>

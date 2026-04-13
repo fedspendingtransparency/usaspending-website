@@ -8,7 +8,6 @@ import Cookies from 'js-cookie';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router';
 import { uniqueId } from 'lodash-es';
-import { ShareIcon } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
 
 import { covidDataSourcesMetaTags } from 'helpers/metaTagHelper';
@@ -21,6 +20,7 @@ import {
 import { combineQueryParams, getQueryParamString } from "helpers/queryParams";
 import { useDefCodes } from 'hooks/WithDefCodes';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useQueryParams from "../../hooks/useQueryParams";
 
@@ -174,11 +174,10 @@ export default () => {
             pageName="data-sources"
             classNames="usa-da-dsm-page"
             ref={dataDisclaimerBannerRef}
-            overLine="Data Sources &amp; Methodology"
             title="COVID-19 Spending"
             metaTagProps={covidDataSourcesMetaTags}
             toolBarComponents={[
-                <ShareIcon
+                <ShareIcon508
                     onShareOptionClick={handleShare}
                     url={getBaseUrl("disaster/covid-19/data-sources")} />
             ]}

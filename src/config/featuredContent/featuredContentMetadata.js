@@ -529,6 +529,139 @@ const articles = [
         ]
     },
     {
+        taxonomy: "Data You Can Trust",
+        isInfographicTemplate: false,
+        content_type: 'Marketing',
+        title: "The Story of Spending Transparency",
+        banner_subtitle: "Learn How USAspending.gov Came to Be",
+        created_date: "03/19/2026",
+        feature_sprint: 7,
+        feature_week: 1,
+        description: "The U.S. is one of the few countries worldwide that makes federal spending data accessible to the public. But before USAspending.gov existed, much",
+        slug: "the-story-of-spending-transparency",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: []
+    },
+    {
+        taxonomy: "My USAspending Search",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "Keon's USAspending Search",
+        banner_subtitle: "Learn How to Search Government Contracts for Local Businesses",
+        created_date: "03/19/2026",
+        feature_sprint: 7,
+        feature_week: 1,
+        description: "In our feature, “My USAspending Search,” we highlight one of our users and their unique approach to searching government spending open data.",
+        slug: "keons-usaspending-search",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "USAspending YouTube",
+                slug: "https://www.youtube.com/@usaspendinggov",
+                type: "external"
+            }
+        ],
+        related_terms: [
+            {
+                term: "naics",
+                type: "glossary",
+                label: "NAICS"
+            },
+            {
+                term: "product-or-service-code-psc",
+                type: "glossary",
+                label: "Product or Service Code (PSC)"
+            },
+            {
+                term: "fiscal-year-fy",
+                type: "glossary",
+                label: "Fiscal Year (FY)"
+            }
+        ]
+    },
+    {
+        taxonomy: "Spending Stories",
+        isInfographicTemplate: false,
+        content_type: 'Marketing',
+        title: "Preserving America’s Story",
+        banner_subtitle: "How Federal Spending Protects America’s Parks and Monuments",
+        created_date: "04/09/2026",
+        feature_sprint: 8,
+        feature_week: 1,
+        description: "When you hear the term federal spending, you may think of big-ticket items like military, healthcare, or social services. But did you know that every year,",
+        slug: "preserving-americas-story",
+        explore_more: [
+            {
+                label: "Department of the Interior Agency Profile",
+                slug: "/agency/department-of-the-interior?fy=2025",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "agency",
+                type: "glossary",
+                label: "Agency"
+            }
+        ]
+    },
+    {
+        taxonomy: "Data Definitions",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "What Is a Loan?",
+        banner_subtitle: "Learn About the Types of Loans on USAspending.gov",
+        created_date: "04/09/2026",
+        feature_sprint: 8,
+        feature_week: 1,
+        description: "On USAspending's Advanced Search, loans are found under Award Type; users can search for two different types of loans: direct loans and guaranteed/insured loans",
+        slug: "what-is-a-loan",
+        explore_more: [
+            {
+                label: "Federal Spending Guide",
+                slug: "/federal-spending-guide",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "loan",
+                type: "glossary",
+                label: "Loan"
+            },
+            {
+                term: "obligation",
+                type: "glossary",
+                label: "Obligation"
+            },
+            {
+                term: "outlay",
+                type: "glossary",
+                label: "Outlay"
+            }
+        ]
+    },
+    {
         taxonomy: "See 4 Yourself",
         isInfographicTemplate: true,
         content_type: 'Featured Content',

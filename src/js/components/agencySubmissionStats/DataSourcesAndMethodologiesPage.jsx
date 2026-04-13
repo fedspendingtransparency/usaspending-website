@@ -8,12 +8,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { find, throttle } from 'lodash-es';
-import { ShareIcon } from 'data-transparency-ui';
 
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { agencySubmissionDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { showModal } from '../../redux/actions/modal/modalActions';
@@ -144,7 +144,7 @@ const DataSourcesAndMethodologiesPage = () => {
             classNames="usa-da-dsm-page"
             metaTagProps={agencySubmissionDataSourcesMetaTags}
             toolBarComponents={[
-                <ShareIcon
+                <ShareIcon508
                     url={getBaseUrl('submission-statistics')}
                     onShareOptionClick={handleShare} />
             ]}
