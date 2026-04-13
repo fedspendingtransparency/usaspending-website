@@ -316,7 +316,7 @@ const NAICSCheckboxTree = () => {
             let checkedArray = checkedFromHash;
             let uncheckedArray = uncheckedFromHash;
 
-            if (!checked.length) {
+            if (!checked.length && checkedStaged.length) {
                 if (!stateEqualityCheck(checkedFromHash, checkedStaged)) {
                     checkedArray = checkedStaged;
                     uncheckedArray = uncheckedStaged;
