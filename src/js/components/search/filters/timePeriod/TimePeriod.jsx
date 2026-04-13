@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
-import GlossaryLink from "components/sharedComponents/GlossaryLink";
 import FilterTabs from 'components/sharedComponents/filterSidebar/FilterTabs';
 import usePrevious from "hooks/usePrevious";
 import DateRange from './DateRange';
@@ -237,11 +236,7 @@ const TimePeriod = ({
     const tabLabels = [
         {
             internal: 'fy',
-            label: (
-                <div>
-                    Fiscal years &nbsp; <GlossaryLink term="fiscal-year-fy" />
-                </div>
-            ),
+            label: 'Fiscal years',
             title: 'Fiscal years'
         },
         {
@@ -259,6 +254,10 @@ const TimePeriod = ({
             changeTab(nextTab);
         }
     };
+
+    const additonalText = activeTab === 'fy' ?
+        "Search by fiscal year (FY), a 12-month span from October 1 to September 30" :
+        "Select a start/end date or choose from the pre-selected date ranges";
 
     useEffect(() => {
         prepopulateDatePickers();
@@ -298,6 +297,9 @@ const TimePeriod = ({
     return (
         <div className="tab-filter-wrap">
             <div className="filter-item-wrap">
+                <div className="filter-description">
+                    {additonalText}
+                </div>
                 <FilterTabs
                     labels={tabLabels}
                     switchTab={toggleTab}

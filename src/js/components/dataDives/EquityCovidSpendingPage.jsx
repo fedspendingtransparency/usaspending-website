@@ -9,14 +9,14 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import Analytics from 'helpers/analytics/Analytics';
 import { useDispatch } from 'react-redux';
 
-import { ShareIcon } from 'data-transparency-ui';
 import { Link } from "react-router";
-import PageWrapper from "../sharedComponents/PageWrapper";
-import { equityPageMetaTags } from "../../helpers/metaTagHelper";
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+import PageWrapper from "components/sharedComponents/PageWrapper";
+import { equityPageMetaTags } from "helpers/metaTagHelper";
+import { showModal } from 'redux/actions/modal/modalActions';
 import MainCards from "./shared/MainCards";
 import EquityHeading from "./shared/DataDiveHeading";
 import EquitySpotlightCards from "./equity/EquitySpotlightCards";
-import { showModal } from '../../redux/actions/modal/modalActions';
 
 require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
@@ -141,7 +141,7 @@ const EquityCovidSpendingPage = () => {
             title="Equity in COVID-19 Spending"
             metaTagProps={{ ...equityPageMetaTags }}
             toolBarComponents={[
-                <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
+                <ShareIcon508 url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content equity-content">
                 <EquityHeading content={HeadingContentObject} postCount={Object.keys(cardsContentObject).length} />

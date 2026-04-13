@@ -4,15 +4,16 @@
  */
 
 import React from 'react';
-import { FlexGridCol, FlexGridRow, ShareIcon } from 'data-transparency-ui';
+import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
 import { stateLandingPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import StateLandingContainer from 'containers/stateLanding/StateLandingContainer';
-import { showModal } from '../../redux/actions/modal/modalActions';
+import { showModal } from 'redux/actions/modal/modalActions';
 
 require('pages/stateLanding/stateLandingPage.scss');
 
@@ -38,7 +39,7 @@ const StateLandingPage = () => {
             title="State Profiles"
             metaTagProps={stateLandingPageMetaTags}
             toolBarComponents={[
-                <ShareIcon
+                <ShareIcon508
                     onShareOptionClick={handleShare}
                     url={getBaseUrl(slug)} />
             ]}>

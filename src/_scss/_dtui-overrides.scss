@@ -9,3 +9,30 @@
   padding: rem(7) rem(12);
 }
 
+.usda-loading-animation__container .loading-message {
+  color: #555;
+}
+
+// TODO: Delete the mixin and related styles below once the new header style has been implemented
+// ref: DEV-14800
+@mixin profile-page-h1 {
+  font-size: $font-size-20 !important;
+  font-weight: $font-semibold !important;
+  line-height: 1;
+}
+
+.usa-da-agency-page-v2 .usda-page-header h1 {
+  @include profile-page-h1;
+}
+
+.usa-da-account-page .usda-page-header h1 {
+  @include profile-page-h1;
+}
+
+.usa-da-state-page .usda-page-header h1 {
+  @include profile-page-h1;
+}
+
+.usa-da-recipient-page .usda-page-header h1 {
+  @include profile-page-h1;
+}

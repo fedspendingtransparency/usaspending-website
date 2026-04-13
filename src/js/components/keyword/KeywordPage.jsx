@@ -8,7 +8,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { DownloadIconButton } from 'data-transparency-ui';
 
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -17,6 +16,7 @@ import { keywordPageMetaTags } from 'helpers/metaTagHelper';
 import ResultsTableContainer from 'containers/keyword/table/ResultsTableContainer';
 import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import DownloadIconButton508 from 'components/sharedComponents/buttons/DownloadButton508';
 
 import KeywordSearchBar from './KeywordSearchBar';
 import SearchSummary from './SearchSummary';
@@ -79,7 +79,7 @@ const KeywordPage = ({
                     primeAwardTotal={summary?.primeAmount}
                     primeTransactionCount={summary?.primeCount}
                     inFlight={summaryInFlight} />,
-                <DownloadIconButton
+                <DownloadIconButton508
                     tooltipComponent={(!downloadAvailable && keyword)
                         ? <NoDownloadHover />
                         : null

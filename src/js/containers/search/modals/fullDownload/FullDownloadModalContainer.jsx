@@ -11,17 +11,33 @@ import { connect } from 'react-redux';
 import * as downloadActions from 'redux/actions/search/downloadActions';
 
 import FullDownloadModal from 'components/search/modals/fullDownload/FullDownloadModal';
+import NewDownloadModal from '../../../../components/search/modals/fullDownload/NewDownloadModal';
+import GlobalConstants from '../../../../GlobalConstants';
 
 const propTypes = {
     mounted: PropTypes.bool,
     hideModal: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
     pendingDownload: PropTypes.bool,
-    download: PropTypes.object
+    download: PropTypes.object,
+    awardsCount: PropTypes.number,
+    transactionsCount: PropTypes.number,
+    subawardsCount: PropTypes.number
 };
 
 export class FullDownloadModalContainer extends React.Component {
     render() {
+        if (GlobalConstants.QAT) {
+            return (<NewDownloadModal
+                setDownloadCollapsed={this.props.setDownloadCollapsed}
+                pendingDownload={this.props.pendingDownload}
+                download={this.props.download}
+                mounted={this.props.mounted}
+                hideModal={this.props.hideModal}
+                awardsCount={this.props.awardsCount}
+                subawardsCount={this.props.subawardsCount}
+                transactionsCount={this.props.transactionsCount} />);
+        }
         return (
             <FullDownloadModal
                 setDownloadCollapsed={this.props.setDownloadCollapsed}

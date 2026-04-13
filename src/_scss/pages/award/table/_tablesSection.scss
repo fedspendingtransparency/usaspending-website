@@ -108,8 +108,18 @@
             overflow-x: auto;
             margin: $global-spacing-unit 0;
 
-            table.usda-table.award-history-table {
+            table.usda-table {
                 margin: 0;
+                @import "../../../components/tooltips/customTooltipContent";
+                th {
+                    position: relative;
+                }
+
+                .table-header__content_right {
+                    .smart-bottom-right {
+                        top: rem(-24);
+                    }
+                }
             }
         }
     }
