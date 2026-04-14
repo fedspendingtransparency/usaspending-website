@@ -15,11 +15,12 @@ import BarHeader from "./header/BarHeader";
 
 const propTypes = {
     filters: PropTypes.array,
-    filterCount: PropTypes.number
+    filterCount: PropTypes.number,
+    resultsView: PropTypes.bool
 };
 
 // eslint-disable-next-line prefer-arrow-callback
-const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
+const TopFilterBar = memo(function TopFilterBar({ filters, filterCount, resultsView }) {
     const [expandedFilters, setExpandedFilters] = useState(false);
     const [fadeClass, setFadeClass] = useState('');
     const [bottom, setBottom] = useState(false);
@@ -77,7 +78,7 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
     }, []);
 
     const groups = filters.map(({ code, name }) => (
-        <TopFilterGroupGenerator code={code} name={name} />
+        <TopFilterGroupGenerator resultsView={resultsView} code={code} name={name} />
     ));
 
     return (
@@ -87,6 +88,7 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
                 role="complementary"
                 aria-label="Currently applied search filters">
                 <BarHeader
+                    resultsView={resultsView}
                     filterCount={filterCount}
                     expandedFilters={expandedFilters}
                     setExpandedFilters={setExpandedFilters} />

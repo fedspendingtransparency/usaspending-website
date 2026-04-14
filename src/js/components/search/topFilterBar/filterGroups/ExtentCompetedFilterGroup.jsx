@@ -13,7 +13,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string };
 
-const ExtentCompetedFilterGroup = ({ name }) => {
+const ExtentCompetedFilterGroup = ({ name, resultsView }) => {
     const extentCompeted = useSelector((state) => state.filters.extentCompeted);
     const appliedExtentCompeted = useSelector(
         (state) => state.appliedFilters.filters.extentCompeted
@@ -44,7 +44,7 @@ const ExtentCompetedFilterGroup = ({ name }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 ExtentCompetedFilterGroup.propTypes = propTypes;

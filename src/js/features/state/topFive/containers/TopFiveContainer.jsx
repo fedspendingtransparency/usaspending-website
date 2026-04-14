@@ -3,18 +3,14 @@
  * Created by Kevin Li 5/15/18
  */
 
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 
 import { getTrailingTwelveMonths, convertFYToDateRange } from 'helpers/fiscalYearHelper';
-import BaseStateCategoryResult from 'models/v2/state/BaseStateCategoryResult';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import TopFive from "components/sharedComponents/TopFive";
-import useQueryTemp from "hooks/useQueryTemp";
-import {
-    performSpendingByAwardSearch, performSpendingByCategorySearch
-} from "helpers/searchHelper";
+import useFetchSpendingBy from "./useFetchSpendingBy";
 
 const propTypes = {
     type: PropTypes.string,
@@ -93,64 +89,18 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
 
     const dataParams = useMemo(() => getDataParams(), [getDataParams]);
 
-    const parseResults = useCallback((res) => {
-        if (!res) return;
-        const { results, categories: resCategory } = res;
-        if (results.length < 1) {
-            setNoResultState(true);
-        }
-        else {
-            const parsed = results.map((item, index) => {
-                const result = Object.create(BaseStateCategoryResult);
-                if (category === 'awards') {
-                    result.populate({
-                        name: item['Award ID'],
-                        amount: item['Award Amount'],
-                        agency_slug: item.generated_internal_id,
-                        category
-                    }, index + 1);
-                }
-                else {
-                    result.populate({ ...item, category }, index + 1);
-                }
-
-                if (resCategory === 'awarding_agency' || resCategory === 'awarding_subagency') {
-                    result.nameTemplate = (resCode, name) => {
-                        if (resCode) {
-                            return `${name} (${resCode})`;
-                        }
-                        return name;
-                    };
-                }
-                else if (resCategory === 'recipient') {
-                    result.nameTemplate = (resCode, name) => name;
-                }
-                else if (resCategory === 'county' || resCategory === 'district') {
-                    result.nameTemplate = (resCode, name) => (name);
-                }
-                setNoResultState(false);
-                return result;
-            });
-
-            setParsedResults(parsed);
-        }
-    }, [category]);
 
     const {
-        loading, error, fetchData
-    } = useQueryTemp(parseResults);
+        parsedData, noResults, isSuccess, isLoading, error
+    } = useFetchSpendingBy(dataParams, category, code, fy);
 
     useEffect(() => {
-        if (!code) {
-            return;
+        if (isSuccess && (noResults || parsedData?.length > 0)) {
+            setParsedResults(parsedData);
+            setNoResultState(noResults);
         }
+    }, [isSuccess, noResults, parsedData]);
 
-        const request = category === 'awards' ?
-            performSpendingByAwardSearch :
-            performSpendingByCategorySearch;
-
-        fetchData(request, dataParams);
-    }, [code, category, dataParams, fetchData]);
 
     return (
         <>
@@ -159,7 +109,7 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
                     category={category}
                     results={parsedResults}
                     total={total}
-                    loading={loading}
+                    loading={isLoading}
                     error={error}
                     dataParams={dataParams}
                     agencyData={agencyData} />

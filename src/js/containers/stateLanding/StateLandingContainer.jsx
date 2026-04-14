@@ -9,7 +9,7 @@ import { isCancel } from 'axios';
 import { Search } from 'js-search';
 import { orderBy } from 'lodash-es';
 
-import * as StateHelper from 'features/state/stateHelper';
+import { fetchStateList } from 'apis/state';
 import BaseStateLandingItem from 'models/v2/state/BaseStateLandingItem';
 
 import StateLandingContent from 'components/stateLanding/StateLandingContent';
@@ -64,7 +64,7 @@ export default class StateLandingContainer extends React.Component {
             error: false
         });
 
-        this.request = StateHelper.fetchStateList();
+        this.request = fetchStateList();
         this.request.promise
             .then((res) => {
                 this.parseData(res.data);
