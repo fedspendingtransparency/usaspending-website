@@ -3,21 +3,36 @@
  * Created by Lizzie Salita 5/1/18
  */
 import { stateNameByFipsId, fipsIdByStateName } from "dataMapping/state/stateNames";
-import { apiRequest } from "helpers/apiRequest";
+import { convertFYToDateRange, currentFiscalYear, earliestFiscalYear } from "../../helpers/fiscalYearHelper";
 
-export const fetchStateOverview = (id, year) => apiRequest({
-    url: `v2/recipient/state/${id}/`,
-    params: { year }
-});
+export const createApiParams = (stateCode, period) => {
+    const earliestYear = earliestFiscalYear;
+    const thisYear = currentFiscalYear();
 
-export const fetchAwardBreakdown = (id, year) => apiRequest({
-    url: `v2/recipient/state/awards/${id}/`,
-    params: { year }
-});
+    const filterParams = {
+        place_of_performance_locations: [
+            {
+                country: 'USA',
+                state: stateCode
+            }
+        ],
+        time_period: [
+            {
+                start_date: convertFYToDateRange(earliestYear)[0],
+                end_date: convertFYToDateRange(thisYear)[1]
+            }
+        ]
+    };
 
-export const fetchStateList = () => apiRequest({
-    url: 'v2/recipient/state/'
-});
+    const apiParams = {
+        group: period,
+        filters: filterParams,
+        spending_level: "transactions",
+        auditTrail: 'Spending Over Time Visualization'
+    };
+
+    return apiParams;
+};
 
 const acceptableChars = "abcdefghijklmnopqrstuvwxyz";
 
@@ -86,3 +101,4 @@ export const tabTypes = [
         label: 'Other Financial Assistance'
     }
 ];
+
