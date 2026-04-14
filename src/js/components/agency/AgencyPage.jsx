@@ -22,7 +22,7 @@ import useQueryParams from "hooks/useQueryParams";
 import IsMobileContext from "context/IsMobileContext";
 import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import BreadcrumbNav from 'components/sharedComponents/BreadcrumbNav';
+import Breadcrumb from 'components/sharedComponents/Breadcrumb';
 import NumericPickerWrapper from 'components/sharedComponents/dropdowns/NumericPickerWrapper';
 import StatusOfFundsContainer from 'containers/agency/statusOfFunds/StatusOfFundsContainer';
 import AgencySection from './AgencySection';
@@ -180,10 +180,9 @@ export const AgencyProfileV2 = ({
                 <ShareIcon508 url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
-                <BreadcrumbNav
-                    className="usda__flex-row"
-                    title={name}
-                    type="Agency" />
+                <Breadcrumb
+                    label="Back to Agency Profile Page"
+                    url="/agency" />
                 <div className="body usda__flex-col">
                     <PageTitle />
                     {isError
