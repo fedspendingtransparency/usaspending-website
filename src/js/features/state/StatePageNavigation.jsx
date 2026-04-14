@@ -9,7 +9,7 @@ import { useMatch, useNavigate } from "react-router";
 
 import { resetState, setStateFiscalYear } from "redux/actions/state/stateActions";
 import { parseStateDataFromUrl } from "./stateHelper";
-import StatePageContainer from "./StatePageContainer";
+import StatePageContainer from "./containers/StatePageContainer";
 
 const StatePageNavigation = () => {
     const dispatch = useDispatch();
