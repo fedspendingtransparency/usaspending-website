@@ -3,7 +3,7 @@
  * Created by Kevin Li 11/8/16
  **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import { useLocation } from 'react-router';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,19 +32,20 @@ const propTypes = {
     sectionName: PropTypes.string
 };
 
-const ResultsTableContainer = ({
+// eslint-disable-next-line prefer-arrow-callback
+const ResultsTableContainer = memo(function ResultsTableContainer({
     tabData,
     spendingLevel,
     hash,
     sectionTitle,
     dsmContent,
     sectionName
-}) => {
+}) {
     const location = useLocation();
     const dispatch = useDispatch();
-    const { filters } = useSelector((state) => state.appliedFilters);
+    const filters = useSelector((state) => state.appliedFilters.filters);
     const [page, setPage] = useState(1);
-    const [tableType, setTableType] = useState();
+    const [tableType, setTableType] = useState('contracts');
     const [sort, setSort] = useState({
         field: 'Award Amount',
         direction: 'desc'
@@ -302,7 +303,7 @@ const ResultsTableContainer = ({
                 subColumnOptions={columns} />
         </SearchSectionWrapper>
     );
-};
+});
 
 ResultsTableContainer.propTypes = propTypes;
 export default ResultsTableContainer;
