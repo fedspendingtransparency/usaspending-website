@@ -13,7 +13,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string };
 
-const AwardAmountFilterGroup = ({ name }) => {
+const AwardAmountFilterGroup = ({ name, resultsView }) => {
     const awardAmounts = useSelector((state) => state.filters.awardAmounts);
     const appliedAwardAmounts = useSelector((state) => state.appliedFilters.filters.awardAmounts);
     const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const AwardAmountFilterGroup = ({ name }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 AwardAmountFilterGroup.propTypes = propTypes;

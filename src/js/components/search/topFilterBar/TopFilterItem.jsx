@@ -15,11 +15,13 @@ const propTypes = {
 };
 
 const TopFilterItem = ({
-    title = 'Filter', toggleFilter, staged, value
+    title = 'Filter', toggleFilter, staged, value, resultsView
 }) => {
     const onClick = () => {
-        if (value) toggleFilter(value, staged);
-        else toggleFilter();
+        if (resultsView) {
+            if (value) toggleFilter(value, staged);
+            else toggleFilter();
+        }
     };
 
     const onKeyUp = (e) => {
@@ -39,9 +41,9 @@ const TopFilterItem = ({
                 tabIndex="0">
                 <div className="filter-item-title">
                     {title}
-                    <FontAwesomeIcon
+                    {resultsView && <FontAwesomeIcon
                         icon={staged ? "times" : "plus"}
-                        className="filter-item-icon" />
+                        className="filter-item-icon" />}
                 </div>
             </button>
         </div>
