@@ -157,9 +157,9 @@ const useResultsTableSearch = (
     }
 
     const {
-        data, isSuccess, isLoading, error
+        data, isLoading, error
     } = useQuery({
-        queryKey: ['resultsTableData', filters, limit, order, page, sort, spendingLevel, grouped],
+        queryKey: ['resultsTableData', limit, order, page, sort, spendingLevel, grouped, filters],
         queryFn: () => request.promise,
         staleTime: 60000
     });
@@ -172,7 +172,6 @@ const useResultsTableSearch = (
         [];
 
     return {
-        isSuccess,
         isLoading,
         error,
         results,
