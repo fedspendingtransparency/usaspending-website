@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/2/18
  */
 
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";

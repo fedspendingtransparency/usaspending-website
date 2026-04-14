@@ -4,6 +4,7 @@
  */
 
 export const localConstants = {
+
     API: null,
-    MAPBOX_TOKEN: null
+    MAPBOX_TOKEN: 'pk.eyJ1IjoidXNhc3BlbmRpbmdmcmJrYyIsImEiOiJjbThnZ2Yyc3kwbmkwMmtvOXRoNjdheHRuIn0.UJlFxl-R3tE8KIqpWmlptg'
 };
