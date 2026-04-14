@@ -14,6 +14,7 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import StateLandingContainer from 'containers/stateLanding/StateLandingContainer';
 import { showModal } from 'redux/actions/modal/modalActions';
+import H2PageHeader from '../sharedComponents/header/H2PageHeader';
 
 require('pages/stateLanding/stateLandingPage.scss');
 
@@ -32,6 +33,9 @@ const StateLandingPage = () => {
         }, handleShareDispatch);
     };
 
+    // eslint-disable-next-line max-len
+    const body = "Find insights into the awards that fall within a particular U.S. state or territory with the tools and data breakdowns found in our State Profile pages.";
+
     return (
         <PageWrapper
             pageName="State Profiles"
@@ -48,15 +52,7 @@ const StateLandingPage = () => {
                 className="main-content">
                 <FlexGridRow className="content__row landing-page">
                     <FlexGridCol className="content__col" width="fill">
-                        <div className="landing-page__overview">
-                            <h2
-                                className="landing-page__title">
-                                    Find a State Profile.
-                            </h2>
-                            <div className="landing-page__description">
-                                    Find insights into the awards that fall within a particular U.S. state or territory with the tools and data breakdowns found in our State Profile pages.
-                            </div>
-                        </div>
+                        <H2PageHeader headerCopy="Find a State Profile." body={body} />
                         <StateLandingContainer />
                     </FlexGridCol>
                 </FlexGridRow>
