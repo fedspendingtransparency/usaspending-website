@@ -12,10 +12,11 @@ import getFilters from './getFilters';
 
 const propTypes = {
     setFilterCount: PropTypes.func,
-    compressed: PropTypes.bool
+    compressed: PropTypes.bool,
+    resultsView: PropTypes.bool
 };
 
-const TopFilterBarContainer = ({ setFilterCount, compressed = false }) => {
+const TopFilterBarContainer = ({ setFilterCount, compressed = false, resultsView = false }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
 
     const { filters, filterCount } = useMemo(
@@ -31,6 +32,7 @@ const TopFilterBarContainer = ({ setFilterCount, compressed = false }) => {
     if (filters && filters?.length > 0) {
         return (
             <TopFilterBar
+                resultsView={resultsView}
                 filters={filters}
                 filterCount={filterCount} />
         );
