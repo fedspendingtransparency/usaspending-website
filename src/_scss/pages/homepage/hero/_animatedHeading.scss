@@ -48,6 +48,8 @@ $green-text: $color-infrastructure-outlays;
         text-align: center;
         margin: 0 0 rem(10) 0;
         line-height: rem(70);
+        font-size: rem(56);
+
         @media (max-width: $medium-screen) {
             line-height: rem(50);
             text-align: left;

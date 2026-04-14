@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash-es';
-
+import { TooltipComponent } from 'data-transparency-ui';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 import AboutTheDataLink from "../../sharedComponents/AboutTheDataLink";
 
@@ -256,6 +256,170 @@ export const transactionHistoryInfoFinancialAssistance = (
         </div>
     </div>
 );
+
+export const modificationNumber = (
+    <TooltipComponent title="Modification Number">This number identifies the modification. Modification numbers increment
+                    from lower to higher as more mods are made.
+    </TooltipComponent>
+);
+export const actionDate = (
+    <TooltipComponent title="Action Date">This is when the modification was issued.</TooltipComponent>
+);
+export const amount = (
+    <TooltipComponent title="Amount">This refers to the amount of
+                money added or subtracted from the initial awarded
+                amount by the modification, if any.
+    </TooltipComponent>
+);
+export const actionType = (
+    <TooltipComponent title="Action Type">
+         This column describes the type of modification. It uses a letter code system that maps to the following descriptions:
+        <ul className="info-tooltip__list">
+            <li>
+                <strong>A</strong> – Additional Work
+            </li>
+            <li>
+                <strong>B</strong> – Supplemental Agreement for work
+                within scope
+            </li>
+            <li>
+                <strong>C</strong> – Funding Only Action
+            </li>
+            <li>
+                <strong>D</strong> – Change Order
+            </li>
+            <li>
+                <strong>E</strong> – Terminate for Default (complete or
+                partial)
+            </li>
+            <li>
+                <strong>F</strong> – Terminate for Convenience (complete
+                or partial)
+            </li>
+            <li>
+                <strong>G</strong> – Exercise an Option
+            </li>
+            <li>
+                <strong>H</strong> – Definitize Letter Contract
+            </li>
+            <li>
+                <strong>J</strong> – Novation Agreement
+            </li>
+            <li>
+                <strong>K</strong> – Close Out
+            </li>
+            <li>
+                <strong>L</strong> – Definitize Change Order
+            </li>
+            <li>
+                <strong>M</strong> – Other Administrative Action
+            </li>
+        </ul>
+    </TooltipComponent>
+);
+export const actionTypeFA = (
+    <TooltipComponent title="Action Type">
+                    This column describes the type of modification. It uses a letter code system that maps to the following descriptions:
+        <ul className="info-tooltip__list">
+            <li>
+                <strong>A</strong> – New assistance award
+            </li>
+            <li>
+                <strong>B</strong> – Continuation
+            </li>
+            <li>
+                <strong>C</strong> – Revision
+            </li>
+            <li>
+                <strong>D</strong> – Funding adjustment to a completed project
+            </li>
+        </ul>
+    </TooltipComponent>
+);
+export const transactionDescription = (
+    <TooltipComponent title="Transaction Description">Describes the modification, typically covering its effect on the contract.</TooltipComponent>
+);
+export const loanFaceValue = (
+    <TooltipComponent title="Loan Face Value">
+        The Face Value of a loan represents how much has actually been lent out to
+        the entity that received the loan dollars. Sometimes loans are financed by a
+        financial institution (with the Federal government merely providing a &#39;loan
+        guarantee&#39; to the financial institution and reimbursement in cases where the
+        loan isn&#39;t paid back), and other times they are financed by the Federal
+        government directly (direct loans). Regardless of how it is financed,
+        a loan&#39;s face value is not considered Federal spending, because
+        it does not, in itself, represent a long-term cost to the government. The
+        estimated long-term cost to the government of a loan is captured
+        in the subsidy cost field.
+    </TooltipComponent>
+);
+export const loanSubsidyCost = (
+    <TooltipComponent title="Loan Subsidy Cost (Total Obligations To Date)">
+            The implications of a loan or loan guarantee for the Federal Budget (and thus the
+            loan version of spending/obligations) are known as the loan&#39;s subsidy
+            cost. Subsidy cost is the calculated net present value of the loan to the
+            government, taking into account the interest rate and the modeled risk of the
+            recipient failing to pay back the loan in part or full; subsidy cost can be
+            positive (indicating that the government is likely to lose money on the loan) or
+            negative (indicating that the government is likely to make money on the
+            loan). Subsidy cost should never be larger in absolute value terms than
+            the face value itself. Administrative costs of running the loan or loan
+            guarantee program itself are excluded from subsidy cost calculations. Note
+            that a loan&#39;s face value is not considered Federal spending, since it
+            does not in itself represent a long-term cost to the government.
+    </TooltipComponent>
+);
+export const subawardID = (
+    <TooltipComponent title="Sub-Award ID">The sub-award ID number chosen by the prime recipient for this transaction.</TooltipComponent>
+);
+export const recipientName = (
+    <TooltipComponent title="Sub-Recipient Name">The name of the sub-recipient.</TooltipComponent>
+);
+export const actionDateSub = (
+    <TooltipComponent title="Action Date">The date when the sub-contract was issued.</TooltipComponent>
+);
+export const amountSub = (
+    <TooltipComponent title="Amount">The amount of money involved in the sub-contract action.</TooltipComponent>
+);
+export const descriptionSub = (
+    <TooltipComponent title="Description">The description of the sub-contract provided by the prime recipient.
+            The level of detail in descriptions varies and is dependent on the author.
+    </TooltipComponent>
+);
+// export const transactionDescriptionFA = (
+//     <div className="award-summary-tooltip transaction-history-tt">
+//         <div className="tooltip__title">Transaction Description</div>
+//         <div className="tooltip__text">
+//             Describes the modification, typically covering its effect on the award.
+//             <p>
+//                 <strong>Loan Face Value</strong> - The Face Value of a loan represents how much has actually been lent out to
+//                 the entity that received the loan dollars. Sometimes loans are financed by a
+//                 financial institution (with the Federal government merely providing a &#39;loan
+//                 guarantee&#39; to the financial institution and reimbursement in cases where the
+//                 loan isn&#39;t paid back), and other times they are financed by the Federal
+//                 government directly (direct loans). Regardless of how it is financed,
+//                 a loan&#39;s face value is not considered Federal spending, because
+//                 it does not, in itself, represent a long-term cost to the government. The
+//                 estimated long-term cost to the government of a loan is captured
+//                 in the subsidy cost field.
+//             </p>
+//             <p>
+//                 <strong>Loan Subsidy Cost (Total Obligations To Date)</strong> - The implications of a loan or loan guarantee for the Federal Budget (and thus the
+//             loan version of spending/obligations) are known as the loan&#39;s subsidy
+//             cost. Subsidy cost is the calculated net present value of the loan to the
+//             government, taking into account the interest rate and the modeled risk of the
+//             recipient failing to pay back the loan in part or full; subsidy cost can be
+//             positive (indicating that the government is likely to lose money on the loan) or
+//             negative (indicating that the government is likely to make money on the
+//             loan). Subsidy cost should never be larger in absolute value terms than
+//             the face value itself. Administrative costs of running the loan or loan
+//             guarantee program itself are excluded from subsidy cost calculations. Note
+//             that a loan&#39;s face value is not considered Federal spending, since it
+//             does not in itself represent a long-term cost to the government.
+//             </p>
+//         </div>
+//     </div>
+// );
 
 export const federalAccountFundingInfoIDV = (
     <div className="award-summary-tooltip">
