@@ -15,11 +15,14 @@ import { updateTAS } from "redux/actions/search/searchFilterActions";
 import { handleNewCheckedIds } from 'helpers/checkboxTreeHelper';
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { name: PropTypes.string };
+const propTypes = {
+    name: PropTypes.string,
+    resultsView: PropTypes.bool
+};
 
 const getUniqueValues = (value, index, array) => array.indexOf(value) === index;
 
-const TASFilterGroup = ({ name }) => {
+const TASFilterGroup = ({ name, resultsView }) => {
     const { require, exclude, counts } = useSelector((state) => state.filters.tasCodes);
     const {
         require: appliedRequire,
@@ -91,7 +94,7 @@ const TASFilterGroup = ({ name }) => {
         };
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 TASFilterGroup.propTypes = propTypes;

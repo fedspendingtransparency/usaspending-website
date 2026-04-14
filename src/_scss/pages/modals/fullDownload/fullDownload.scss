@@ -12,7 +12,16 @@
         padding: rem(20) rem(60) rem(40);
 
         @import "./_filterBar";
+
+        .search-top-filter-header .advanced-search h2.subtitle {
+            display: none;
+        }
+
+        .filter-buttons {
+          display: none;
+        }
     }
+
 
     @import "./_breadcrumb";
 

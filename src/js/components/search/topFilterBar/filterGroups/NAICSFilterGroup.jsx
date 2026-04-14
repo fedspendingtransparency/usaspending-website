@@ -19,7 +19,7 @@ const propTypes = { name: PropTypes.string };
 
 const getUniqueValues = (value, index, array) => array.indexOf(value) === index;
 
-const NAICSFilterGroup = ({ name }) => {
+const NAICSFilterGroup = ({ name, resultsView }) => {
     const { require, counts } = useSelector((state) => state.filters.naicsCodes);
     const { require: appliedRequire, counts: appliedCounts } = useSelector(
         (state) => state.appliedFilters.filters.naicsCodes
@@ -89,7 +89,7 @@ const NAICSFilterGroup = ({ name }) => {
         };
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 NAICSFilterGroup.propTypes = propTypes;

@@ -16,11 +16,14 @@ import {
 import { handleNewCheckedIds } from 'helpers/checkboxTreeHelper';
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { name: PropTypes.string };
+const propTypes = {
+    name: PropTypes.string,
+    resultsView: PropTypes.bool
+};
 
 const getUniqueValues = (value, index, array) => array.indexOf(value) === index;
 
-const PSCFilterGroup = ({ name }) => {
+const PSCFilterGroup = ({ name, resultsView }) => {
     const { require, exclude, counts } = useSelector((state) => state.filters.pscCodes);
     const { require: appliedRequire, exclude: appliedExclude, counts: appliedCounts } = useSelector(
         (state) => state.appliedFilters.filters.pscCodes
@@ -90,7 +93,7 @@ const PSCFilterGroup = ({ name }) => {
         };
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 PSCFilterGroup.propTypes = propTypes;
