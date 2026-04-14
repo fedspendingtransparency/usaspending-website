@@ -15,7 +15,10 @@ import {
 import { updateNaics } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { name: PropTypes.string };
+const propTypes = {
+    name: PropTypes.string,
+    resultsView: PropTypes.bool
+};
 
 const getUniqueValues = (value, index, array) => array.indexOf(value) === index;
 
