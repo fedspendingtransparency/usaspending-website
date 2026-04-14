@@ -14,7 +14,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string };
 
-const DefCodesFilterGroup = ({ name }) => {
+const DefCodesFilterGroup = ({ name, resultsView }) => {
     const defCode = useSelector((state) => state.filters.defCode);
     const appliedDefCode = useSelector((state) => state.appliedFilters.filters.defCode);
     const dispatch = useDispatch();
@@ -90,7 +90,7 @@ const DefCodesFilterGroup = ({ name }) => {
         }
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 DefCodesFilterGroup.propTypes = propTypes;

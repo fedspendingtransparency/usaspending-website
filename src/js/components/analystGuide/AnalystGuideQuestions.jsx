@@ -739,7 +739,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                 </button>
                 {' '}provides information for developers on how the USAspending application works.
             </p>
-            <p className="analyst-guide__answerStyle">The USAspending&apos;s{' '}<a href="https://fiscalservice.force.com/usaspending/s/">FAQ page{' '}</a>provides additional advice for getting the most out of the site.
+            <p className="analyst-guide__answerStyle">The USAspending&apos;s{' '}<a href="https://onevoicecrm.my.site.com/usaspending/s/recordlist/Knowledge__kav/00B3d000000V4WDEA0">FAQ page{' '}</a>provides additional advice for getting the most out of the site.
             </p>
             <p className="analyst-guide__answerStyle">The <a href="https://tfx.treasury.gov/data-transparency/gsdm">Governmentwide Spending Data Model (GSDM) page</a> provides more information on various systems related to the data in USAspending.</p>
         </>)
