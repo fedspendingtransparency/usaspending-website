@@ -2,7 +2,7 @@
  * TableSection.jsx
  */
 
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import ResultsTableContainer from "containers/search/resultsView/ResultsTableContainer";
 
@@ -19,6 +19,8 @@ const TableSection = ({
 }) => {
     const sectionTitle = spendingLevel === "awards" ? 'Prime Award Results' : 'Subaward Results';
 
+    const dsmContent = useMemo(() => <TableDsm spendingLevel={spendingLevel} />, [spendingLevel]);
+
     return (
         <div id="search-page-component" className="awards">
             <ResultsTableContainer
@@ -26,7 +28,7 @@ const TableSection = ({
                 hash={hash}
                 spendingLevel={spendingLevel}
                 sectionTitle={sectionTitle}
-                dsmContent={<TableDsm spendingLevel={spendingLevel} />}
+                dsmContent={dsmContent}
                 sectionName="table" />
         </div>
     );
