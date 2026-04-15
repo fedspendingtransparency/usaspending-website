@@ -12,7 +12,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string };
 
-const PSCFilterGroup = ({ name }) => {
+const PSCFilterGroup = ({ name, resultsView }) => {
     const { require, exclude, counts } = useSelector((state) => state.filters.pscCodes);
     const { require: appliedRequire, exclude: appliedExclude, counts: appliedCounts } = useSelector(
         (state) => state.appliedFilters.filters.pscCodes
@@ -52,7 +52,7 @@ const PSCFilterGroup = ({ name }) => {
         staged: keys.includes(`${value.value}-${value.count}`)
     }));
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 PSCFilterGroup.propTypes = propTypes;

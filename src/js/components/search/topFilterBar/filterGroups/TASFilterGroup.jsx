@@ -12,7 +12,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string };
 
-const TASFilterGroup = ({ name }) => {
+const TASFilterGroup = ({ name, resultsView }) => {
     const { require, counts } = useSelector((state) => state.filters.tasCodes);
     const { counts: appliedCounts } = useSelector((state) => state.appliedFilters.filters.tasCodes);
     const dispatch = useDispatch();
@@ -44,7 +44,7 @@ const TASFilterGroup = ({ name }) => {
         staged: keys.includes(`${value.value}-${value.count}`)
     }));
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 TASFilterGroup.propTypes = propTypes;

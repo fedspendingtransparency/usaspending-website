@@ -13,10 +13,10 @@ import { LoadingWrapper } from "components/sharedComponents/Loading";
 import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
 import StateOverview from "features/state/overview/StateOverview";
 import StateTimeVisualizationSectionContainer from
-    "features/state/transactionsOverTime/StateTimeVisualizationSectionContainer";
+    "features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer";
 import StateFooter from "features/state/StateFooter";
 import StatePageWrapper from "./StatePageWrapper";
-import TopFiveSectionContainer from "./topFive/TopFiveSectionContainer";
+import TopFiveSectionContainer from "./topFive/containers/TopFiveSectionContainer";
 
 const propTypes = {
     loading: PropTypes.bool,

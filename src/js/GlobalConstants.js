@@ -22,7 +22,8 @@ const globalConstants = {
     PROD: process.env.ENV === 'prod',
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV],
     DUNS_LABEL: 'Legacy ',
-    REQUEST_VERSION: '2020-06-01'
+    REQUEST_VERSION: '2020-06-01',
+    IS_NEW_DOWNLOAD: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox')
 };
 
 module.exports = globalConstants;

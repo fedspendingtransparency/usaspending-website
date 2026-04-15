@@ -10,10 +10,11 @@ import PropTypes from "prop-types";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import { dateRangeChipLabel } from "helpers/searchHelper";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
+import useNewAwardsOnly from "./useNewAwardsOnly";
 
 const propTypes = { name: PropTypes.string };
 
-const TimePeriodDRFilterGroup = ({ name }) => {
+const TimePeriodDRFilterGroup = ({ name, resultsView }) => {
     const timePeriod = useSelector((state) => state.filters.time_period);
     const appliedTimePeriod = useSelector((state) => state.appliedFilters.filters.time_period);
     const dispatch = useDispatch();
@@ -67,7 +68,11 @@ const TimePeriodDRFilterGroup = ({ name }) => {
         });
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    const newAwards = useNewAwardsOnly();
+
+    if (newAwards) tags.push(newAwards);
+
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 TimePeriodDRFilterGroup.propTypes = propTypes;
