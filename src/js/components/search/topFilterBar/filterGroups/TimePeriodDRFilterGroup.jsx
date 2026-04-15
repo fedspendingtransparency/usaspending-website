@@ -14,7 +14,7 @@ import useNewAwardsOnly from "./useNewAwardsOnly";
 
 const propTypes = { name: PropTypes.string };
 
-const TimePeriodDRFilterGroup = ({ name }) => {
+const TimePeriodDRFilterGroup = ({ name, resultsView }) => {
     const timePeriod = useSelector((state) => state.filters.time_period);
     const appliedTimePeriod = useSelector((state) => state.appliedFilters.filters.time_period);
     const dispatch = useDispatch();
@@ -72,7 +72,7 @@ const TimePeriodDRFilterGroup = ({ name }) => {
 
     if (newAwards) tags.push(newAwards);
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 TimePeriodDRFilterGroup.propTypes = propTypes;

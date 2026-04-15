@@ -11,7 +11,7 @@ import { cloneDeep } from "lodash-es";
 import { convertFYToDateRange, getTrailingTwelveMonths } from "helpers/fiscalYearHelper";
 import { performSpendingByGeographySearch } from "helpers/searchHelper";
 import { pluralize } from "helpers/mapHelper";
-import GeoVisualizationSection from './GeoVisualizationSection';
+import GeoVisualizationSection from '../GeoVisualizationSection';
 
 const apiScopes = {
     county: 'county',

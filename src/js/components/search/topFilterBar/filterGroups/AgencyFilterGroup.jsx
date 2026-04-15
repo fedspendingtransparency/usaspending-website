@@ -12,7 +12,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string, code: PropTypes.string };
 
-const AgencyFilterGroup = ({ name, code }) => {
+const AgencyFilterGroup = ({ name, code, resultsView }) => {
     const selectedAgencies = useSelector((state) => state.filters[code]);
     const appliedAgencies = useSelector((state) => state.appliedFilters.filters[code]);
     const dispatch = useDispatch();
@@ -57,7 +57,7 @@ const AgencyFilterGroup = ({ name, code }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 AgencyFilterGroup.propTypes = propTypes;
