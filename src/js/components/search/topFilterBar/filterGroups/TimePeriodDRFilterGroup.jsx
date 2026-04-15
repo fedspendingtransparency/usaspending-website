@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import { dateRangeChipLabel } from "helpers/searchHelper";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
+import useNewAwardsOnly from "./useNewAwardsOnly";
 
 const propTypes = { name: PropTypes.string };
 
@@ -66,6 +67,10 @@ const TimePeriodDRFilterGroup = ({ name, resultsView }) => {
             staged: keys.has(key)
         });
     });
+
+    const newAwards = useNewAwardsOnly();
+
+    if (newAwards) tags.push(newAwards);
 
     return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };

@@ -111,5 +111,4 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount, resultsV
 });
 
 TopFilterBar.propTypes = propTypes;
-
 export default TopFilterBar;
