@@ -34,7 +34,7 @@ const StateLandingPage = () => {
     };
 
     // eslint-disable-next-line max-len
-    const body = "Find insights into the awards that fall within a particular U.S. state or territory with the tools and data breakdowns found in our State Profile pages.";
+    const subtitle = "Find insights into the awards that fall within a particular U.S. state or territory with the tools and data breakdowns found in our State Profile pages.";
 
     return (
         <PageWrapper
@@ -52,7 +52,7 @@ const StateLandingPage = () => {
                 className="main-content">
                 <FlexGridRow className="content__row landing-page">
                     <FlexGridCol className="content__col" width="fill">
-                        <H2PageHeader headerCopy="Find a State Profile." body={body} />
+                        <H2PageHeader title="Find a State Profile." subtitle={subtitle} />
                         <StateLandingContainer />
                     </FlexGridCol>
                 </FlexGridRow>
