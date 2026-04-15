@@ -111,28 +111,28 @@
         width: 100%;
         justify-content: space-between;
         .sub--header {
-      line-height: 1.5;
-      color: $gray-90;
-      background-color: unset;
-      #collapsible-mobile-close-button {
-        @media(min-width: $medium-screen) {
-          display: none;
-        }
-        padding: 0;
-
-        width: rem(16);
-        height: rem(16);
-        background-color: white;
-        margin: 0;
-        stroke-width: rem(2);
-        svg {
-          width: rem(12);
-          height: rem(12);
+          line-height: 1.5;
           color: $gray-90;
-          padding: 0;
-          background-color: white;
-        }
-      }
+          background-color: unset;
+          #collapsible-mobile-close-button {
+            @media(min-width: $medium-screen) {
+              display: none;
+            }
+            padding: 0;
+
+            width: rem(16);
+            height: rem(16);
+            background-color: white;
+            margin: 0;
+            stroke-width: rem(2);
+            svg {
+              width: rem(12);
+              height: rem(12);
+              color: $gray-90;
+              padding: 0;
+              background-color: white;
+            }
+          }
         }
       }
     }
