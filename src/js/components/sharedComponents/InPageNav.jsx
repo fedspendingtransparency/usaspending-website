@@ -38,7 +38,7 @@ const InPageNav = (props) => {
     const visibleSections = new Set();
 
     const observerOptions = {
-        rootMargin: rootMargin || `-120px 0px 0px 0px`,
+        rootMargin: rootMargin || `-140px 0px 0px 0px`,
         threshold: threshold || [0, 0.25, 0.5, 0.75, 1]
     };
 
