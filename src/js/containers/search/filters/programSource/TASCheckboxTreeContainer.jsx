@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { isCancel } from 'axios';
-import { debounce, get, flattenDeep } from 'lodash-es';
+import { debounce, get } from 'lodash-es';
 import { useSelector, useDispatch } from 'react-redux';
 
 import {
@@ -10,15 +10,15 @@ import {
     autoCheckTasAfterExpand,
     expandTasNodeAndAllDescendantParents,
     getTasNodeFromTree,
-    getTasAncestryPathForChecked,
-    shouldTasNodeHaveChildren
+    getTasAncestryPathForChecked
 } from 'helpers/tasHelper';
 import { fetchTas } from 'helpers/searchHelper';
 import {
     removePlaceholderString,
     getUniqueAncestorPaths,
     getAllDescendants,
-    trimCheckedToCommonAncestors
+    trimCheckedToCommonAncestors,
+    stateEqualityCheck
 } from 'helpers/checkboxTreeHelper';
 import {
     setTasNodes,
@@ -51,31 +51,37 @@ const TASCheckboxTree = () => {
     const checked = useSelector((state) => state.tas.checked.toJS());
     const unchecked = useSelector((state) => state.tas.unchecked.toJS());
     const counts = useSelector((state) => state.tas.counts.toJS());
-    const checkedFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.require);
-    const uncheckedFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.exclude);
-    const countsFromHash = useSelector((state) => state.appliedFilters.filters.tasCodes.counts);
+    const {
+        require: checkedFromHash,
+        exclude: uncheckedFromHash,
+        counts: countsFromHash
+    } = useSelector((state) => state.appliedFilters.filters.tasCodes);
+    const {
+        require: checkedStaged,
+        exclude: uncheckedStaged,
+        counts: countsStaged
+    } = useSelector((state) => state.filters.tasCodes);
 
     const request = useRef(null);
     const dispatch = useDispatch();
 
-    const autoCheckSearchResultDescendants = () => {
-        const newChecked = expanded
+    const autoCheckResultDescendants = (checkedLocal, expandedLocal, nodesLocal) => {
+        const newChecked = expandedLocal
             .filter((expandedNode) => {
                 // if node is checked by an immediate placeholder, consider it checked.
-                if (checked.includes(`children_of_${expandedNode}`)) return true;
-                return !!checked.includes(expandedNode);
+                if (checkedLocal.includes(`children_of_${expandedNode}`)) return true;
+                return !!checkedLocal.includes(expandedNode);
             })
             .map((node) => removePlaceholderString(node))
             .reduce((acc, expandedAndChecked) => {
-                if (!expandedAndChecked) return acc;
-                const node = getTasNodeFromTree(nodes, expandedAndChecked);
-                if (shouldTasNodeHaveChildren(node)) {
-                    return [...acc, ...node.children.map((tas) => tas.value)];
-                }
-                return acc;
+                const node = getTasNodeFromTree(nodesLocal, expandedAndChecked);
+                return [
+                    ...acc,
+                    ...getAllDescendants(node)
+                ];
             }, []);
 
-        return new Set([...checked, ...newChecked]);
+        return new Set([...checkedLocal.flat(), ...newChecked.flat()]);
     };
 
     const fetchTasLocal = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
@@ -107,11 +113,6 @@ const TASCheckboxTree = () => {
                     if (isSearch) {
                         const searchExpandedNodes = expandTasNodeAndAllDescendantParents(tasNodes);
                         dispatch(setSearchedTas(tasNodes));
-                        autoCheckSearchResultDescendants(
-                            checked,
-                            searchExpandedNodes,
-                            tasNodes
-                        );
 
                         dispatch(setExpandedTas(searchExpandedNodes, 'SET_SEARCHED_EXPANDED'));
 
@@ -125,10 +126,16 @@ const TASCheckboxTree = () => {
 
                     let modChecked = [];
 
-                    if (checked.includes(`children_of_${key}`)) {
+                    if (checked.includes(key) || checked.includes(`children_of_${key}`)) {
                         // key node is checked.  add children
                         const filteredChecked = checked.filter((ch) => ch !== `children_of_${key}`);
                         modChecked = [...filteredChecked, ...tasNodes.map((child) => child.value)];
+
+                        if (!checked.includes(key)) {
+                            // checked had child placeholder checked
+                            // parent should be checked
+                            modChecked = [...modChecked, key];
+                        }
                     }
 
                     const newChecked = modChecked?.length
@@ -146,9 +153,7 @@ const TASCheckboxTree = () => {
                     dispatch(setTasNodes('', tasNodes));
                 }
 
-                if (resolveLoadingIndicator) {
-                    setIsLoading(false);
-                }
+                setIsLoading(resolveLoadingIndicator ? false : isLoading);
 
                 request.current = null;
             })
@@ -166,8 +171,8 @@ const TASCheckboxTree = () => {
 
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
         const treeDepth = selectedNode.ancestors?.length;
+
         if (shouldFetchChildren && !isSearch) {
-            setIsLoading(true);
             if (treeDepth >= 1) {
                 if (treeDepth === 2) {
                     fetchTasLocal(
@@ -203,8 +208,11 @@ const TASCheckboxTree = () => {
     };
 
     const onSearchChange = debounce(() => {
-        if (!searchString) return onClear();
-        return fetchTasLocal('', searchString);
+        if (!searchString) {
+            onClear();
+        }
+
+        fetchTasLocal('', searchString);
     }, 500);
 
     const onUncheck = (newChecked, uncheckedNode) => {
@@ -259,23 +267,6 @@ const TASCheckboxTree = () => {
         }
     };
 
-    const setCheckedStateFromUrlHash = (newChecked) => {
-        if (nodes.length > 0) {
-            uncheckedFromHash.map((ancestryPath) => ancestryPath.pop());
-            dispatch(setUncheckedTas(uncheckedFromHash));
-            setTimeout(() => {
-                const realCheckedWithPlaceholders = flattenDeep(newChecked
-                    .map((check) => getAllDescendants(
-                        getTasNodeFromTree(nodes, check), uncheckedFromHash)
-                    )
-                );
-                dispatch(setCheckedTas(realCheckedWithPlaceholders));
-                setIsLoading(false);
-                setIsError(false);
-            }, 100);
-        }
-    };
-
     const handleTextInputChange = (e) => {
         e.persist();
         const text = e.target.value;
@@ -290,49 +281,42 @@ const TASCheckboxTree = () => {
         }
     };
 
+
     useEffect(() => {
-        if (nodes.length !== 0 && checkedFromHash.length) {
-            setCheckedStateFromUrlHash(checkedFromHash.map((ancestryPath) => ancestryPath.pop()));
-            dispatch(setTasCounts(countsFromHash));
-            dispatch(updateTAS(
-                trimCheckedToCommonAncestors(getTasAncestryPathForChecked(checked, nodes)),
-                getTasAncestryPathForChecked(unchecked, nodes),
-                countsFromHash
-            ));
-        }
-        else if (nodes.length !== 0) {
+        if (nodes.length !== 0) {
             dispatch(showTasTree());
         }
+        else {
+            fetchTasLocal()
+                .then(() => {
+                    if (checkedFromHash.length || checkedStaged.length) {
+                        const useHash = stateEqualityCheck(checkedFromHash, checkedStaged);
+                        const checkedArray = useHash ? checkedFromHash : checkedStaged;
+                        const uncheckedArray = useHash ? uncheckedFromHash : uncheckedStaged;
+                        const countsToSet = useHash ? countsFromHash : countsStaged;
 
-        fetchTasLocal('')
-            .then(() => {
-                if (checkedFromHash.length > 0) {
-                    dispatch(setTasCounts(countsFromHash));
-                    return getUniqueAncestorPaths(checkedFromHash, uncheckedFromHash)
-                        .reduce((prevPromise, param) => prevPromise
-                        // fetch the all the ancestors of the checked nodes
-                            .then(() => fetchTasLocal(param, null, false)), Promise.resolve([])
-                        )
-                        .then(() => {
-                            setCheckedStateFromUrlHash(
-                                checkedFromHash.map((ancestryPath) => ancestryPath.pop())
-                            );
+                        dispatch(setTasCounts(countsToSet));
 
-                            dispatch(setExpandedTas([
-                                ...new Set(checkedFromHash.map((ancestryPath) => ancestryPath[0]))
-                            ]));
-                            setIsLoading(true);
-                        })
-                        .catch((e) => {
-                            setIsLoading(false);
-                            setIsError(true);
-                            setErrorMessage(get(e, 'message', 'Error fetching TAS.'));
-                        });
-                }
-                // just do this for consistent return.
-                return Promise.resolve();
-            });
+                        const allUniqueAncestors = getUniqueAncestorPaths(
+                            checkedArray,
+                            uncheckedArray
+                        );
+                        return allUniqueAncestors
+                            .reduce((prevPromise, param) => prevPromise
+                            // fetch the all the ancestors of the checked nodes
+                                .then(() => fetchTasLocal(param, null, false)), Promise.resolve([])
+                            )
+                            .catch((e) => {
+                                setIsLoading(false);
+                                setIsError(true);
+                                setErrorMessage(get(e, 'message', 'Error fetching TAS.'));
+                            });
+                    }
 
+                    // just do this for consistent return.
+                    return Promise.resolve();
+                });
+        }
 
         return () => {
             if (request.current) {
@@ -349,6 +333,33 @@ const TASCheckboxTree = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSearch, searchString]);
+
+    useEffect(() => {
+        if (nodes.length && (checkedFromHash.length || checkedStaged.length)) {
+            let checkedArray = checkedFromHash;
+            let uncheckedArray = uncheckedFromHash;
+
+            if (!checked.length && checkedStaged.length) {
+                if (!stateEqualityCheck(checkedFromHash, checkedStaged)) {
+                    checkedArray = checkedStaged;
+                    uncheckedArray = uncheckedStaged;
+                }
+
+                const autoChecked = autoCheckResultDescendants(
+                    checkedArray.map(
+                        (ancestryPath) => ancestryPath[ancestryPath.length - 1]
+                    ),
+                    expanded,
+                    nodes
+                );
+
+                dispatch(setCheckedTas(autoChecked));
+                dispatch(setExpandedTas(
+                    getUniqueAncestorPaths([...checkedArray, ...uncheckedArray])
+                ));
+            }
+        }
+    }, [nodes, checkedFromHash, checkedStaged, checked]);
 
     return (
         <div className="tas-checkbox">
