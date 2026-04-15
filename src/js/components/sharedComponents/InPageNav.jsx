@@ -22,7 +22,7 @@ const propTypes = {
 
 const InPageNav = (props) => {
     const {
-        sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold
+        sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold, loading
     } = props;
     const [observerSupported, setObserverSupported] = useState(false);
     const [activeSection, setActiveSection] = useState(props.activeSection);
@@ -38,8 +38,8 @@ const InPageNav = (props) => {
     const visibleSections = new Set();
 
     const observerOptions = {
-        rootMargin: `-120px 0px 0px 0px`,
-        threshold: [0, 0.25, 0.5, 0.75, 1]
+        rootMargin: rootMargin || `-120px 0px 0px 0px`,
+        threshold: threshold || [0, 0.25, 0.5, 0.75, 1]
     };
 
     let initialPageLoad = true;
@@ -48,11 +48,9 @@ const InPageNav = (props) => {
     const callbackFunction = useCallback((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                console.log("visible entry -", entry.target);
                 visibleSections.add(entry.target);
             }
             else {
-                console.log("remove entry -", entry.target);
                 visibleSections.delete(entry.target);
             }
 
@@ -243,10 +241,8 @@ const InPageNav = (props) => {
         // eslint-disable-next-line consistent-return
         if (observerSupported && initialPageLoad) {
             initialPageLoad = false;
-            console.log(prefix);
             const target = prefix;
             const targets = document.querySelectorAll(`[id*='${target}']`);
-            console.log(targets);
             // eslint-disable-next-line no-undef
             const observer = new IntersectionObserver(callbackFunction, observerOptions);
             targets.forEach((i) => {
@@ -255,11 +251,9 @@ const InPageNav = (props) => {
                 }
             });
 
-            console.log("oberserver set up", targets);
-
             return () => observer.disconnect();
         }
-    });
+    }, [observerSupported, loading]);
 
     useEffect(() => {
         if (detectActiveSection && sectionPositions.length === 0) {
