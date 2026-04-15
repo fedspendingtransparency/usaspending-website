@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import React from "react";
+import PropTypes from "prop-types";
 
 const propTypes = {
     headerCopy: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
@@ -11,9 +11,9 @@ const H2PageHeader = ({ headerCopy, body, className = "" }) => {
     let stuff;
 
     return (
-        <div className={className} >
-            <h2>{headerCopy}</h2>
-            { typeof body === "string" ? <p>{body}</p> : body }
+        <div className={`h2-page-header ${className}`} >
+            <h2 className="h2-page-header__title">{headerCopy}</h2>
+            <div className="h2-page-header__subtitle">{body}</div>
         </div>
     );
 };

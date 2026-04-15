@@ -1,0 +1,15 @@
+.h2-page-header {
+    max-width: 75%;
+
+    h2.h2-page-header__title {
+        font-weight: $font-semibold;
+        margin: 0;
+        padding: 0;
+    }
+
+    .h2-page-header__subtitle {
+        margin: 0;
+        padding: rem(15) 0 rem(30);
+        font-size: $base-font-size;
+    }
+}
