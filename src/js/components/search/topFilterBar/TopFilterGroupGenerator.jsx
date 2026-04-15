@@ -24,7 +24,6 @@ import SetAsideFilterGroup from './filterGroups/SetAsideFilterGroup';
 import ExtentCompetedFilterGroup from './filterGroups/ExtentCompetedFilterGroup';
 import TASFilterGroup from './filterGroups/TASFilterGroup';
 import DefCodesFilterGroup from "./filterGroups/DefCodesFilterGroup";
-import NewAwardsOnlyFilterGroup from "./filterGroups/NewAwardsOnlyFilterGroup";
 
 const propTypes = { code: PropTypes.string, name: PropTypes.string };
 
@@ -39,8 +38,6 @@ const TopFilterGroupGenerator = memo(function TopFilterGroupGenerator({ code = '
             return <TimePeriodFYFilterGroup resultsView={resultsView} name={name} key={groupKey} />;
         case 'timePeriodDR':
             return <TimePeriodDRFilterGroup resultsView={resultsView} name={name} key={groupKey} />;
-        case 'newAwardsOnly':
-            return <NewAwardsOnlyFilterGroup resultsView={resultsView} name={name} key={groupKey} />;
         case 'awardType':
             return <AwardTypeFilterGroup resultsView={resultsView} name={name} key={groupKey} />;
         case 'selectedLocations':
