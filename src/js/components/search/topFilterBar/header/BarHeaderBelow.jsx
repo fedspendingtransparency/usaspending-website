@@ -11,7 +11,9 @@ const propTypes = {
     setExpandedFilters: PropTypes.func
 };
 
-const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) => {
+const BarHeaderBelow = ({
+    filterCount, expandedFilters, setExpandedFilters, resultsView
+}) => {
     const appliedFilters = useSelector((state) => state.appliedFilters.filters);
 
     const filterCountCopy = `${filterCount} Active Filter${filterCount !== 1 ? 's' : ''}:`;
@@ -23,13 +25,15 @@ const BarHeaderBelow = ({ filterCount, expandedFilters, setExpandedFilters }) =>
                 id="top-filter-bar-title">
                 {filterCountCopy}
             </h2>
-            <div className="filter-buttons">
-                <UpdateFiltersButton appliedFilters={appliedFilters} />
-                <ExpandFiltersButton
-                    appliedFilters={appliedFilters}
-                    expandedFilters={expandedFilters}
-                    setExpandedFilters={setExpandedFilters} />
-            </div>
+            {resultsView &&
+                <div className="filter-buttons">
+                    <UpdateFiltersButton appliedFilters={appliedFilters} />
+                    <ExpandFiltersButton
+                        appliedFilters={appliedFilters}
+                        expandedFilters={expandedFilters}
+                        setExpandedFilters={setExpandedFilters} />
+                </div>
+            }
         </div>
     );
 };
