@@ -3,7 +3,7 @@
  * Created by Kevin Li 1/24/17
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
@@ -12,7 +12,10 @@ import { dateRangeChipLabel } from "helpers/searchHelper";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 import useNewAwardsOnly from "./useNewAwardsOnly";
 
-const propTypes = { name: PropTypes.string };
+const propTypes = {
+    name: PropTypes.string,
+    resultsView: PropTypes.bool
+};
 
 const TimePeriodDRFilterGroup = ({ name, resultsView }) => {
     const timePeriod = useSelector((state) => state.filters.time_period);
@@ -71,6 +74,13 @@ const TimePeriodDRFilterGroup = ({ name, resultsView }) => {
     const newAwards = useNewAwardsOnly();
 
     if (newAwards) tags.push(newAwards);
+
+    const drCount = timePeriod.size;
+
+    useEffect(() => {
+        // if there are no fy filters, then remove new awards filter
+        if (drCount === 0) newAwards.toggleFilter(true);
+    }, [drCount, newAwards]);
 
     return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
