@@ -13,7 +13,7 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
-import Breadcrumb from 'components/sharedComponents/Breadcrumb';
+import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
 
 import AccountOverview from './AccountOverview';
 import SearchSidebar from './SearchSidebar';
@@ -54,7 +54,7 @@ const Account = ({ account, currentFiscalYear }) => {
             <main
                 id="main-content"
                 className="main-content">
-                <Breadcrumb
+                <ProfileBackLink
                     label="Back to Federal Account Profile Page"
                     url="/federal_account" />
                 <FlexGridRow className="fed-account-content__row" >

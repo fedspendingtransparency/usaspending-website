@@ -1,5 +1,5 @@
 /**
- * BreadcrumbNav.jsx
+ * ProfileBackLink.jsx
  * Created by JD House 04/13/2026
  **/
 
@@ -13,13 +13,13 @@ const propTypes = {
     url: PropTypes.string
 };
 
-const Breadcrumb = ({ label, url }) => (
-    <div className="usa-breadcrumb-nav__container">
-        <ul className="usa-breadcrumb-nav__list">
+const ProfileBackLink = ({ label, url }) => (
+    <div className="usa-profile-back-link__container">
+        <ul className="usa-profile-back-link__list">
             <li>
                 <Link
                     to={url}
-                    className="usa-breadcrumb__item" >
+                    className="usa-profile-back-link__item" >
                     <FontAwesomeIcon icon="arrow-left" alt="Back" className="bc-back-link" />
                     {label}
                 </Link>
@@ -29,5 +29,5 @@ const Breadcrumb = ({ label, url }) => (
     </div>
 );
 
-Breadcrumb.propTypes = propTypes;
-export default Breadcrumb;
+ProfileBackLink.propTypes = propTypes;
+export default ProfileBackLink;

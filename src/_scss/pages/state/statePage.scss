@@ -31,6 +31,7 @@
         @import "elements/filters/_typeahead";
         @import "../../components/pageLoading";
         @import "./footer/footer";
+        @import 'components/profileBackLink';
 
         .usa-da-typeahead-wrapper {
             margin-top: $global-margin * 2;

@@ -22,7 +22,7 @@ import { AlternateNamesRecipientModalContainer } from
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Error from 'components/sharedComponents/Error';
 import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
-import Breadcrumb from 'components/sharedComponents/Breadcrumb';
+import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
 
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -178,7 +178,7 @@ export const RecipientPage = ({
             jumpToSection={jumpToSection}
             inPageNav>
             <main id="main-content" className="main-content">
-                <Breadcrumb
+                <ProfileBackLink
                     label="Back to Recipient Profile Page"
                     url="/recipient" />
                 <LoadingWrapper isLoading={loading}>

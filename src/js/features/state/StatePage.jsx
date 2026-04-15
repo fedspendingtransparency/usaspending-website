@@ -10,6 +10,7 @@ import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
+import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
 import StateOverview from "features/state/overview/StateOverview";
 import StateTimeVisualizationSectionContainer from
     "features/state/transactionsOverTime/StateTimeVisualizationSectionContainer";
@@ -55,6 +56,9 @@ const StatePage = ({
             handleFyChange={handleFyChange}
             loading={loading}>
             <main id="main-content" className="main-content">
+                <ProfileBackLink
+                    label="Back to State Profile Page"
+                    url="/state" />
                 <Helmet>
                     <link
                         href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css"
