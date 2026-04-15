@@ -7,13 +7,17 @@ import BarHeaderBelow from "./BarHeaderBelow";
 const propTypes = {
     filterCount: PropTypes.number,
     expandedFilters: PropTypes.bool,
-    setExpandedFilters: PropTypes.func
+    setExpandedFilters: PropTypes.func,
+    resultsView: PropTypes.bool
 };
 
-const BarHeader = ({ filterCount, expandedFilters, setExpandedFilters }) => (
+const BarHeader = ({
+    filterCount, expandedFilters, setExpandedFilters, resultsView
+}) => (
     <div className="search-top-filter-header advanced-search">
-        <BarHeaderAbove />
+        <BarHeaderAbove resultsView={resultsView} />
         <BarHeaderBelow
+            resultsView={resultsView}
             filterCount={filterCount}
             expandedFilters={expandedFilters}
             setExpandedFilters={setExpandedFilters} />

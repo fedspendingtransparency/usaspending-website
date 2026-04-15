@@ -13,7 +13,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string };
 
-const PricingTypeFilterGroup = ({ name }) => {
+const PricingTypeFilterGroup = ({ name, resultsView }) => {
     const pricingType = useSelector((state) => state.filters.pricingType);
     const appliedPricingType = useSelector((state) => state.appliedFilters.filters.pricingType);
     const dispatch = useDispatch();
@@ -42,7 +42,7 @@ const PricingTypeFilterGroup = ({ name }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 PricingTypeFilterGroup.propTypes = propTypes;
