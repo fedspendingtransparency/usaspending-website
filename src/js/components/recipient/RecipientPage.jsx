@@ -158,7 +158,6 @@ export const RecipientPage = ({
         <PageWrapper
             pageName="recipient"
             classNames="usa-da-recipient-page"
-            overLine="Recipient Profile"
             title={recipient.overview.name}
             metaTagProps={recipient.overview.id && !loading ? recipientPageMetaTags(recipient.overview) : {}}
             toolBarComponents={[

@@ -162,7 +162,6 @@ export const AgencyProfileV2 = ({
         <PageWrapper
             pageName="agency-v2"
             classNames="usa-da-agency-page-v2"
-            overLine="Agency Profile"
             title={name}
             metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencySlug, name })}
             inPageNav
