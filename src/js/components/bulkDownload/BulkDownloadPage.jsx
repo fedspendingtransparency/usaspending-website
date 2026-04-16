@@ -65,20 +65,15 @@ const BulkDownloadPage = ({
         setShowModal(true);
     };
 
-    let awardDataArchiveClass = '';
-    let downloadDataContent = (<AwardDataContainer clickedDownload={clickedDownload} />);
+    let downloadDataContent;
 
-    if (dataType === 'award_data_archive') {
-        downloadDataContent = (<AwardDataArchiveContainer />);
-        awardDataArchiveClass = 'award-data-archive-special-width';
-    }
-
-    if (dataType === 'accounts') {
-        downloadDataContent = (<AccountDataContainer clickedDownload={clickedDownload} />);
-    }
-
-    if (dataType === 'dataset_metadata') {
-        downloadDataContent = (<MetadataDownload />);
+    switch (dataType) {
+        case 'award_data_archive': downloadDataContent = (<AwardDataArchiveContainer />); break;
+        case 'accounts':
+            downloadDataContent = (<AccountDataContainer clickedDownload={clickedDownload} />);
+            break;
+        case 'dataset_metadata': downloadDataContent = (<MetadataDownload />); break;
+        default: downloadDataContent = (<AwardDataContainer clickedDownload={clickedDownload} />);
     }
 
     return (
@@ -93,7 +88,7 @@ const BulkDownloadPage = ({
             }>
             <main id="main-content">
                 <FlexGridRow style={{ justifyContent: 'center' }}>
-                    <FlexGridCol width={12} className={`bulk-download ${awardDataArchiveClass}`}>
+                    <FlexGridCol width={12} className="bulk-download">
                         <div className="bulk-download__data">
                             {downloadDataContent}
                         </div>
