@@ -13,7 +13,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string };
 
-const RecipientTypeFilterGroup = ({ name }) => {
+const RecipientTypeFilterGroup = ({ name, resultsView }) => {
     const recipientType = useSelector((state) => state.filters.recipientType);
     const appliedRecipientType = useSelector((state) => state.appliedFilters.filters.recipientType);
     const dispatch = useDispatch();
@@ -48,7 +48,7 @@ const RecipientTypeFilterGroup = ({ name }) => {
         tags.push(tag);
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 RecipientTypeFilterGroup.propTypes = propTypes;

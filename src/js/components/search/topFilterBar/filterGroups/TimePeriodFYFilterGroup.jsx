@@ -9,10 +9,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { updateTimePeriod } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
+import useNewAwardsOnly from "./useNewAwardsOnly";
 
 const propTypes = { name: PropTypes.string };
 
-const TimePeriodFYFilterGroup = ({ name }) => {
+const TimePeriodFYFilterGroup = ({ name, resultsView }) => {
     const timePeriodFY = useSelector((state) => state.filters.timePeriodFY);
     const appliedTimePeriodFY = useSelector((state) => state.appliedFilters.filters.timePeriodFY);
     const dispatch = useDispatch();
@@ -39,7 +40,11 @@ const TimePeriodFYFilterGroup = ({ name }) => {
         });
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    const newAwards = useNewAwardsOnly();
+
+    if (newAwards) tags.push(newAwards);
+
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 TimePeriodFYFilterGroup.propTypes = propTypes;
