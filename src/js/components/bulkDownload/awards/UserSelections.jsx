@@ -10,33 +10,22 @@ import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptio
 
 const dayjs = require('dayjs');
 
-const propTypes = {
-    awards: PropTypes.object
-};
+const propTypes = { awards: PropTypes.object };
 
-export default class UserSelections extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.generateAwardTypeString = this.generateAwardTypeString.bind(this);
-        this.generateAgencyTypeString = this.generateAgencyTypeString.bind(this);
-        this.generateAgencyString = this.generateAgencyString.bind(this);
-        this.generateSubAgencyString = this.generateSubAgencyString.bind(this);
-        this.generateLocationString = this.generateLocationString.bind(this);
-        this.generateDateTypeString = this.generateDateTypeString.bind(this);
-        this.generateFileFormatString = this.generateFileFormatString.bind(this);
-        this.generateDateRangeString = this.generateDateRangeString.bind(this);
-    }
-
-    generateAwardTypeString() {
+const UserSelections = ({
+    awards
+}) => {
+    const generateAwardTypeString = () => {
     // Build an array of labels for the current selections
         const options = Object.assign(
             {},
-            ...Object.entries(awardDownloadOptions.awardTypeLookups).map(([key, value]) => ({ [key]: value.label }))
+            ...Object.entries(awardDownloadOptions.awardTypeLookups)
+                .map(([key, value]) => ({ [key]: value.label }))
         );
-        const currentAwardTypes = Object.values(this.props.awards.awardTypes).reduce((acc, curr) => (
-            acc.concat(curr.toArray())
-        ), []);
+        const currentAwardTypes = Object.values(awards.awardTypes)
+            .reduce((acc, curr) => (
+                acc.concat(curr.toArray())
+            ), []);
         const selectionsArray = currentAwardTypes.map((awardType) => (
             options[awardType]
         ));
@@ -59,13 +48,13 @@ export default class UserSelections extends React.Component {
         return (
             <div className="selection__content selection__content-required">required</div>
         );
-    }
+    };
 
-    generateDateTypeString() {
-        if (this.props.awards.dateType !== '') {
+    const generateDateTypeString = () => {
+        if (awards.dateType !== '') {
             const options = awardDownloadOptions.dateTypes;
             const selectedOption = options.find((option) =>
-                option.name === this.props.awards.dateType
+                option.name === awards.dateType
             );
             return (
                 <div className="selection__content">{selectedOption.label}</div>
@@ -74,13 +63,13 @@ export default class UserSelections extends React.Component {
         return (
             <div className="selection__content selection__content-required">required</div>
         );
-    }
+    };
 
-    generateFileFormatString() {
-        if (this.props.awards.fileFormat !== '') {
+    const generateFileFormatString = () => {
+        if (awards.fileFormat !== '') {
             const options = awardDownloadOptions.fileFormats;
             const selectedOption = options.find((option) =>
-                option.name === this.props.awards.fileFormat
+                option.name === awards.fileFormat
             );
             return (
                 <div className="selection__content">{selectedOption.label}</div>
@@ -89,65 +78,65 @@ export default class UserSelections extends React.Component {
         return (
             <div className="selection__content selection__content-required">required</div>
         );
-    }
+    };
 
-    generateAgencyTypeString() {
+    const generateAgencyTypeString = () => {
         const options = awardDownloadOptions.agencyTypes;
         const selectedOption = options.find((option) =>
-            option.name === this.props.awards.agencyType
+            option.name === awards.agencyType
         );
         return (
             <div className="selection__content">{selectedOption.label}</div>
         );
-    }
+    };
 
-    generateAgencyString() {
-        if (this.props.awards.agency.name !== 'Select an Agency') {
+    const generateAgencyString = () => {
+        if (awards.agency.name !== 'Select an Agency') {
             return (
-                <div className="selection__content">{this.props.awards.agency.name}</div>
+                <div className="selection__content">{awards.agency.name}</div>
             );
         }
 
         return (
             <div className="selection__content selection__content-required">required</div>
         );
-    }
+    };
 
-    generateSubAgencyString() {
-        if (this.props.awards.subAgency.name !== 'Select a Sub-Agency') {
+    const generateSubAgencyString = () => {
+        if (awards.subAgency.name !== 'Select a Sub-Agency') {
             return (
-                <div className="selection__content">{this.props.awards.subAgency.name}</div>
+                <div className="selection__content">{awards.subAgency.name}</div>
             );
         }
         return (
             <div className="selection__content">&mdash;</div>
         );
-    }
+    };
 
-    generateLocationTypeString() {
+    const generateLocationTypeString = () => {
         const options = awardDownloadOptions.locationTypes;
         const selectedOption = options.find((option) =>
-            option.name === this.props.awards.locationType
+            option.name === awards.locationType
         );
         return (
             <div className="selection__content">{selectedOption.label}</div>
         );
-    }
+    };
 
-    generateLocationString() {
-        if (this.props.awards.location.country.code && this.props.awards.location.country.code !== 'all') {
-            if (this.props.awards.location.state.code && this.props.awards.location.state.code !== 'all') {
+    const generateLocationString = () => {
+        if (awards.location.country.code && awards.location.country.code !== 'all') {
+            if (awards.location.state.code && awards.location.state.code !== 'all') {
                 return (
                     <div className="selection__content">
-                        {`${this.props.awards.location.state.name}, ${this.props.awards.location.country.name}`}
+                        {`${awards.location.state.name}, ${awards.location.country.name}`}
                     </div>
                 );
             }
             return (
-                <div className="selection__content">{this.props.awards.location.country.name}</div>
+                <div className="selection__content">{awards.location.country.name}</div>
             );
         }
-        else if (this.props.awards.location.country.code === 'all') {
+        else if (awards.location.country.code === 'all') {
             return (
                 <div className="selection__content">All</div>
             );
@@ -155,19 +144,19 @@ export default class UserSelections extends React.Component {
         return (
             <div className="selection__content">&mdash;</div>
         );
-    }
+    };
 
-    generateDateRangeString() {
-        let startDate = this.props.awards.dateRange.startDate;
-        let endDate = this.props.awards.dateRange.endDate;
+    const generateDateRangeString = () => {
+        let startDate = awards.dateRange.startDate;
+        let endDate = awards.dateRange.endDate;
 
         if (startDate !== '') {
-            const start = dayjs(this.props.awards.dateRange.startDate);
+            const start = dayjs(awards.dateRange.startDate);
             startDate = start.format("MM/DD/YYYY");
         }
 
         if (endDate !== '') {
-            const end = dayjs(this.props.awards.dateRange.endDate);
+            const end = dayjs(awards.dateRange.endDate);
             endDate = end.format("MM/DD/YYYY");
         }
 
@@ -179,51 +168,50 @@ export default class UserSelections extends React.Component {
         return (
             <div className="selection__content selection__content-required">required</div>
         );
-    }
+    };
 
-    render() {
-        return (
-            <div className="download-user-selections">
-                <h3 className="download-user-selections__title">Your selected options are...</h3>
-                <div className="download-user-selections__left_col">
-                    <div className="selection">
-                        <div className="selection__heading">Award Types</div>
-                        {this.generateAwardTypeString()}
-                    </div>
-                </div>
-                <div className="download-user-selections__left-col">
-                    <div className="selection">
-                        <div className="selection__heading">Agency</div>
-                        {this.generateAgencyTypeString()}
-                        {this.generateAgencyString()}
-                    </div>
-                    <div className="selection">
-                        <div className="selection__heading">Location</div>
-                        {this.generateLocationTypeString()}
-                        {this.generateLocationString()}
-                    </div>
-                    <div className="selection">
-                        <div className="selection__heading">Date Type</div>
-                        {this.generateDateTypeString()}
-                    </div>
-                    <div className="selection">
-                        <div className="selection__heading">File Format</div>
-                        {this.generateFileFormatString()}
-                    </div>
-                </div>
-                <div className="download-user-selections__right-col">
-                    <div className="selection">
-                        <div className="selection__heading">Sub Agency</div>
-                        {this.generateSubAgencyString()}
-                    </div>
-                    <div className="selection">
-                        <div className="selection__heading">Date Range</div>
-                        {this.generateDateRangeString()}
-                    </div>
+    return (
+        <div className="download-user-selections">
+            <h3 className="download-user-selections__title">Your selected options are...</h3>
+            <div className="download-user-selections__left_col">
+                <div className="selection">
+                    <div className="selection__heading">Award Types</div>
+                    {generateAwardTypeString()}
                 </div>
             </div>
-        );
-    }
-}
+            <div className="download-user-selections__left-col">
+                <div className="selection">
+                    <div className="selection__heading">Agency</div>
+                    {generateAgencyTypeString()}
+                    {generateAgencyString()}
+                </div>
+                <div className="selection">
+                    <div className="selection__heading">Location</div>
+                    {generateLocationTypeString()}
+                    {generateLocationString()}
+                </div>
+                <div className="selection">
+                    <div className="selection__heading">Date Type</div>
+                    {generateDateTypeString()}
+                </div>
+                <div className="selection">
+                    <div className="selection__heading">File Format</div>
+                    {generateFileFormatString()}
+                </div>
+            </div>
+            <div className="download-user-selections__right-col">
+                <div className="selection">
+                    <div className="selection__heading">Sub Agency</div>
+                    {generateSubAgencyString()}
+                </div>
+                <div className="selection">
+                    <div className="selection__heading">Date Range</div>
+                    {generateDateRangeString()}
+                </div>
+            </div>
+        </div>
+    );
+};
 
 UserSelections.propTypes = propTypes;
+export default UserSelections;
