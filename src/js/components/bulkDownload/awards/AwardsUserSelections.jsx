@@ -1,5 +1,5 @@
 /**
- * UserSelections.jsx
+ * AwardsUserSelections.jsx
  * Created by Lizzie Salita 11/3/17
  */
 
@@ -10,7 +10,7 @@ import { useSelector } from 'react-redux';
 
 const dayjs = require('dayjs');
 
-const UserSelections = () => {
+const AwardsUserSelections = () => {
     const awards = useSelector((state) => state.bulkDownload.awards);
     const generateAwardTypeString = () => {
     // Build an array of labels for the current selections
@@ -210,4 +210,4 @@ const UserSelections = () => {
     );
 };
 
-export default UserSelections;
+export default AwardsUserSelections;

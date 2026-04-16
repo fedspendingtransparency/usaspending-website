@@ -19,7 +19,7 @@ import DateTypeFilter from './filters/DateTypeFilter';
 import TimePeriodFilter from './filters/dateRange/TimePeriodFilter';
 import FileFormatFilter from './filters/FileFormatFilter';
 import SubmitButton from './SubmitButton';
-import UserSelections from './UserSelections';
+import AwardsUserSelections from './AwardsUserSelections';
 
 const propTypes = {
     awards: PropTypes.object,
@@ -156,7 +156,7 @@ const AwardDataContent = ({
                         currentFileFormat={awards.fileFormat}
                         updateFilter={updateFilter}
                         valid={awards.fileFormat !== ''} />
-                    { isTablet && <UserSelections />}
+                    { isTablet && <AwardsUserSelections />}
                     <SubmitButton
                         filters={awards}
                         validForm={validForm}
