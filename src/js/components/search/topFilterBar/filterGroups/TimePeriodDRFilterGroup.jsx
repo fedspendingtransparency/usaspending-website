@@ -79,7 +79,7 @@ const TimePeriodDRFilterGroup = ({ name, resultsView }) => {
 
     useEffect(() => {
         // if there are no fy filters, then remove new awards filter
-        if (drCount === 0) newAwards.toggleFilter(true);
+        if (drCount === 0 && newAwards) newAwards.toggleFilter(true);
     }, [drCount, newAwards]);
 
     return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
