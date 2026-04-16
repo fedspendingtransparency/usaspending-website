@@ -4,17 +4,14 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import { useSelector } from 'react-redux';
 
 const dayjs = require('dayjs');
 
-const propTypes = { awards: PropTypes.object };
-
-const UserSelections = ({
-    awards
-}) => {
+const UserSelections = () => {
+    const awards = useSelector((state) => state.bulkDownload.awards);
     const generateAwardTypeString = () => {
     // Build an array of labels for the current selections
         const options = Object.assign(
@@ -213,5 +210,4 @@ const UserSelections = ({
     );
 };
 
-UserSelections.propTypes = propTypes;
 export default UserSelections;
