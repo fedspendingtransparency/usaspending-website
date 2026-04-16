@@ -19,6 +19,7 @@ import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContaine
 import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
+import UserSelections from './awards/UserSelections';
 
 const propTypes = {
     dataType: PropTypes.string,
@@ -87,14 +88,17 @@ const BulkDownloadPage = ({
                     {}
             }>
             <main id="main-content">
-                <FlexGridRow style={{ justifyContent: 'center' }}>
-                    <FlexGridCol width={12} className="bulk-download">
+                <FlexGridRow >
+                    <FlexGridCol width={8} className="bulk-download">
                         <div className="bulk-download__data">
                             {downloadDataContent}
                         </div>
                         <BulkDownloadModalContainer
                             mounted={showModal}
                             hideModal={hideModal} />
+                    </FlexGridCol>
+                    <FlexGridCol width={4} >
+                        <UserSelections />
                     </FlexGridCol>
                 </FlexGridRow>
             </main>
