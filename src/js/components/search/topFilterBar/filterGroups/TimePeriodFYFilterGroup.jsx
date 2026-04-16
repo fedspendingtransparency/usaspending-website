@@ -3,16 +3,20 @@
  * Created by Kevin Li 1/24/17
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 
 import { updateTimePeriod } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
+import useNewAwardsOnly from "./useNewAwardsOnly";
 
-const propTypes = { name: PropTypes.string };
+const propTypes = {
+    name: PropTypes.string,
+    resultsView: PropTypes.bool
+};
 
-const TimePeriodFYFilterGroup = ({ name }) => {
+const TimePeriodFYFilterGroup = ({ name, resultsView }) => {
     const timePeriodFY = useSelector((state) => state.filters.timePeriodFY);
     const appliedTimePeriodFY = useSelector((state) => state.appliedFilters.filters.timePeriodFY);
     const dispatch = useDispatch();
@@ -39,7 +43,18 @@ const TimePeriodFYFilterGroup = ({ name }) => {
         });
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    const newAwards = useNewAwardsOnly();
+
+    if (newAwards) tags.push(newAwards);
+
+    const fyCount = timePeriodFY.size;
+
+    useEffect(() => {
+        // if there are no fy filters, then remove new awards filter
+        if (fyCount === 0 && newAwards) newAwards.toggleFilter(true);
+    }, [fyCount, newAwards]);
+
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 TimePeriodFYFilterGroup.propTypes = propTypes;
