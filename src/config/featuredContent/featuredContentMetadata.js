@@ -662,6 +662,47 @@ const articles = [
         ]
     },
     {
+        taxonomy: "Spending Stories",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "Celebrating Small Business Week",
+        banner_subtitle: "Small Business Spending on USAspending.gov",
+        created_date: "05/07/2026",
+        feature_sprint: 9,
+        feature_week: 1,
+        description: "National Small Business Week shines a spotlight on the entrepreneurs and innovators who drive America’s economy. From neighborhood start-ups",
+        slug: "celebrating-small-business-week",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "National Small Business Week",
+                slug: "https://www.sba.gov/national-small-business-week",
+                type: "external"
+            }
+        ],
+        related_terms: [
+            {
+                term: "Award",
+                type: "glossary",
+                label: "Award"
+            },
+            {
+                term: "Contract",
+                type: "glossary",
+                label: "Contract"
+            },
+            {
+                term: "Grant",
+                type: "glossary",
+                label: "Grant"
+            }
+        ]
+    },
+    {
         taxonomy: "See 4 Yourself",
         isInfographicTemplate: true,
         content_type: 'Featured Content',
