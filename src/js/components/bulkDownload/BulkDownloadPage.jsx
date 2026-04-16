@@ -3,9 +3,10 @@
  * Created by Lizzie Salita 10/30/17
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
+import IsMobileContext from "context/IsMobileContext";
 import {
     downloadArchivePageMetaTags,
     downloadAwardPageMetaTags,
@@ -41,6 +42,7 @@ const BulkDownloadPage = ({
     startAwardDownload,
     startAccountDownload
 }) => {
+    const { isTablet } = useContext(IsMobileContext);
     const [showModal, setShowModal] = useState(false);
 
     const hideModal = () => setShowModal(false);
@@ -89,7 +91,9 @@ const BulkDownloadPage = ({
             }>
             <main id="main-content">
                 <FlexGridRow >
-                    <FlexGridCol width={8} className="bulk-download">
+                    <FlexGridCol
+                        width={isTablet ? 12 : 8}
+                        className="bulk-download">
                         <div className="bulk-download__data">
                             {downloadDataContent}
                         </div>
@@ -97,9 +101,11 @@ const BulkDownloadPage = ({
                             mounted={showModal}
                             hideModal={hideModal} />
                     </FlexGridCol>
-                    <FlexGridCol width={4} >
-                        <UserSelections />
-                    </FlexGridCol>
+                    { !isTablet &&
+                        <FlexGridCol width={4} >
+                            <UserSelections />
+                        </FlexGridCol>
+                    }
                 </FlexGridRow>
             </main>
         </PageWrapper>

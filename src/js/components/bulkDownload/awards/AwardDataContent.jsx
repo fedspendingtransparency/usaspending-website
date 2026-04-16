@@ -3,13 +3,14 @@
  * Created by Lizzie Salita 10/30/17
  */
 
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import Note, { dodNote } from 'components/sharedComponents/Note';
+import IsMobileContext from "context/IsMobileContext";
 
 import AwardLevelAndTypeFilter from './filters/AwardLevelAndTypeFilter';
 import AgencyFilter from './filters/AgencyFilter';
@@ -18,6 +19,7 @@ import DateTypeFilter from './filters/DateTypeFilter';
 import TimePeriodFilter from './filters/dateRange/TimePeriodFilter';
 import FileFormatFilter from './filters/FileFormatFilter';
 import SubmitButton from './SubmitButton';
+import UserSelections from './UserSelections';
 
 const propTypes = {
     awards: PropTypes.object,
@@ -48,6 +50,7 @@ const AwardDataContent = ({
     bulkAwardTypeChange,
     toggleAwardTypeChange
 }) => {
+    const { isTablet } = useContext(IsMobileContext);
     const [validDates, setValidDates] = useState(false);
     const [validForm, setValidForm] = useState(false);
 
@@ -153,6 +156,7 @@ const AwardDataContent = ({
                         currentFileFormat={awards.fileFormat}
                         updateFilter={updateFilter}
                         valid={awards.fileFormat !== ''} />
+                    { isTablet && <UserSelections />}
                     <SubmitButton
                         filters={awards}
                         validForm={validForm}
