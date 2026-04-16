@@ -3,7 +3,7 @@ $mobile-large: 500px;
 .scroller-overlay-card-content {
     width: 100%;
     background-color: $color-primary-darker;
-    margin: 0 0 $global-margin * 4;
+    margin: 0;
     padding-top: $global-padding * 3;
     padding-bottom: $global-padding * 3;
     padding-left: $global-padding * 4;
@@ -76,6 +76,14 @@ $mobile-large: 500px;
           font-size: $h5-font-size;
         }
       }
+    }
+    .blue-section-heading {
+      display: flex;
+      justify-content: center;
+    }
+    .blue-section-content {
+      display:flex;
+      justify-content: center;
     }
   
     .scroller-overlay-card__content-wrapper {

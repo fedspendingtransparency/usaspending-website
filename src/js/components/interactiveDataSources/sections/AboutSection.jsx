@@ -1,12 +1,12 @@
 /* eslint-disable max-len */
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { FlexGridCol } from 'data-transparency-ui';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import { Link } from "react-router";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
-import { FlexGridCol } from 'data-transparency-ui';
 
 const AboutSection = () => {
     // todo figure out why interactives-guide_bullet-points adds the bullet points but messes up the layout; currently appears as just text
@@ -119,46 +119,52 @@ const AboutSection = () => {
     }];
     const dataModelCardContent = {
         heading: (
-            <FlexGridCol width={6}>
+            <FlexGridCol width={8}>
                 <div className="interactives-guide__heading-container">
                     <h4 className="interactives-guide__heading">USAspending Data Model</h4>
                 </div>
             </FlexGridCol>
         ),
         content: (
-            <FlexGridCol width={6}>
+            <FlexGridCol width={8}>
                 <p data-testid="cardText" className="interactives-guide-cardText">
                     The USAspending data model is a collection of resources that explains the elements, relationships, and sources for the data on USAspending.gov. This Data Sources page is one such resource. Read about the other resources below.
                 </p>
-                <ReadMore>
-                    {readMoreList}
-                </ReadMore>
+                <div style={{ display: "flex", justifyContent: "center", marginTop: "20px" }}>
+                    <ReadMore>
+                        {readMoreList}
+                    </ReadMore>
+                </div>
             </FlexGridCol>
         )
     };
 
     return (
         <div className="body__content interactive-data-sources-intro-section">
-            <div className="body-padded__content">
-                <h3 className="interactiveDataHeader__topTitle">
-                History of the DATA Act
-                </h3>
-                {aboutDetails.map((item, i) => (
-                    <Accordion
-                        data-testid="accordion"
-                        aria-label="Toggle Expansion"
-                        aria-expanded="false"
-                        key={`item_${i}`}
-                        title={item.title}>
-                        {item.details}
-                    </Accordion>
-                ))}
-            </div>
+            <FlexGridCol width={8} style={{ display: "flex", justifyContent: "center", margin: "auto" }}>
+                <div className="body-padded__content">
+                    <h3 className="interactiveDataHeader__topTitle">
+                        History of the DATA Act
+                    </h3>
+                    {aboutDetails.map((item, i) => (
+                        <Accordion
+                            data-testid="accordion"
+                            aria-label="Toggle Expansion"
+                            aria-expanded="false"
+                            key={`item_${i}`}
+                            title={item.title}>
+                            {item.details}
+                        </Accordion>
+                    ))}
+                </div>
+            </FlexGridCol>
             <div className="interactives-guide__background-green">
                 <div className="body-padded__content">
                     <ScrollerOverlayCard
                         heading={dataModelCardContent.heading}
-                        content={dataModelCardContent.content} />
+                        content={dataModelCardContent.content}
+                        extraClassNameHeading="blue-section-heading"
+                        extraClassNameContent="blue-section-content" />
                 </div>
                 <br />
                 <div className="interactives-guide_begin-scroller">
