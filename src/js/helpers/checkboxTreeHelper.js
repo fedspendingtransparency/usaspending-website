@@ -69,7 +69,7 @@ export const removePlaceholderString = (str) => {
 
 export const getAllDescendants = (node, blackList = []) => {
     if (blackList.includes(node?.value)) return [];
-    if (!node.children || node?.children?.length === 0) return [node?.value];
+    if (!node?.children || node?.children?.length === 0) return [node?.value];
     return [
         ...node.children
             .filter((child) => !blackList.includes(child?.value))
@@ -822,3 +822,80 @@ export const setCounts = (newCounts, treeName) => ({
     type: `SET_${treeName}_COUNTS`,
     payload: newCounts
 });
+
+
+// new helpers initially for Active Filters
+export const getChildrenAndDescendantIds = (node) => {
+    let children = [];
+    const getChildrenIds = (n) => {
+        if (n.children) {
+            n.children.forEach((c) => {
+                if (c.value.includes('children_of_')) {
+                    // c is a placeholder add and move on.
+                    children = [...children, c.value];
+                    return;
+                }
+                if (c.id || c.value) {
+                    children = [...children, c.id || c.value];
+                }
+                if (c.children) {
+                    getChildrenIds(c);
+                }
+            });
+        }
+    };
+
+    getChildrenIds(node);
+
+    return children;
+};
+
+export const stateEqualityCheck = (arr1, arr2) => (
+    (arr1.length === arr2.length) &&
+    arr1.every((val, index) => val === arr2[index])
+);
+
+export const handleNewCheckedIds = (
+    nodes,
+    currentId,
+    checked,
+    unchecked,
+    staged
+) => {
+    let newChecked = [];
+    let newUnchecked = [];
+    // if filter accordion is closed then there will be no nodes
+    if (nodes.length > 0) {
+        const currentNode = nodes.filter((n) => {
+            if (n.id) {
+                return n.id === currentId;
+            }
+            if (n.value) {
+                return n.value === currentId;
+            }
+            return false;
+        })[0];
+
+        const allChildrenIds = getChildrenAndDescendantIds(currentNode);
+        const allCheckedChildren = checked.filter((c) => (
+            allChildrenIds.includes(c)
+        ));
+        const allUncheckedChildren = unchecked.filter((c) => (
+            allChildrenIds.includes(c)
+        ));
+
+        // update values based on new required.
+        if (staged) {
+            // remove children
+            newChecked = checked.filter((c) => !allCheckedChildren.includes(c));
+            newUnchecked = [...unchecked, ...allCheckedChildren];
+        }
+        else {
+            // add back any children not in exclude
+            newChecked = [...checked, ...allUncheckedChildren];
+            newUnchecked = unchecked.filter((c) => !allUncheckedChildren.includes(c));
+        }
+    }
+
+    return { newChecked, newUnchecked };
+};
