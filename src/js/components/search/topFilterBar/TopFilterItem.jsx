@@ -11,7 +11,8 @@ const propTypes = {
     title: PropTypes.string.isRequired,
     toggleFilter: PropTypes.func,
     staged: PropTypes.bool,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    resultsView: PropTypes.bool
 };
 
 const TopFilterItem = ({
