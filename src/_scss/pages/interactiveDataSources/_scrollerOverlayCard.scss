@@ -8,7 +8,7 @@ $mobile-large: 500px;
     padding-bottom: $global-padding * 3;
     padding-left: $global-padding * 4;
     padding-right: $global-padding * 4;
-    border-radius: 6px;
+    border-radius: 12px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     @media (min-width: $medium-screen) {
       display: flex;
@@ -47,6 +47,8 @@ $mobile-large: 500px;
       line-height: 1.25;
       letter-spacing: normal;
       color: $color-white;
+      display: flex;
+      justify-content: center;
       @media (min-width: $medium-screen) {
         padding-bottom: 2px;
       }
@@ -86,6 +88,8 @@ $mobile-large: 500px;
       letter-spacing: normal;
       color: $color-white;
       margin-bottom: 16px;
+      display: flex;
+      justify-content: center;
   
       p {
         margin-bottom: 0;

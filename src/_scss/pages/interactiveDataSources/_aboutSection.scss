@@ -79,7 +79,8 @@
 
     .interactives-guide__background-green {
         background: linear-gradient(to bottom, $color-white 25%, $color-vis-green-darkest 25%);
-
+        border-bottom-left-radius: rem(12);
+        border-bottom-right-radius: rem(12);
         .body-padded__content {
             padding-bottom: 5%;
         }

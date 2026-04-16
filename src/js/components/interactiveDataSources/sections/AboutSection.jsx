@@ -6,6 +6,7 @@ import { Link } from "react-router";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
+import { FlexGridCol } from 'data-transparency-ui';
 
 const AboutSection = () => {
     // todo figure out why interactives-guide_bullet-points adds the bullet points but messes up the layout; currently appears as just text
@@ -118,19 +119,21 @@ const AboutSection = () => {
     }];
     const dataModelCardContent = {
         heading: (
-            <div className="interactives-guide__heading-container">
-                <h4 className="interactives-guide__heading">USAspending Data Model</h4>
-            </div>
+            <FlexGridCol width={6}>
+                <div className="interactives-guide__heading-container">
+                    <h4 className="interactives-guide__heading">USAspending Data Model</h4>
+                </div>
+            </FlexGridCol>
         ),
         content: (
-            <>
+            <FlexGridCol width={6}>
                 <p data-testid="cardText" className="interactives-guide-cardText">
                     The USAspending data model is a collection of resources that explains the elements, relationships, and sources for the data on USAspending.gov. This Data Sources page is one such resource. Read about the other resources below.
                 </p>
                 <ReadMore>
                     {readMoreList}
                 </ReadMore>
-            </>
+            </FlexGridCol>
         )
     };
 
