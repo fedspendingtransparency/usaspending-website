@@ -275,7 +275,7 @@
     "accounting": "^0.4.1",
     "ajv": "^8.18.0",
     "axios": "^1.15.0",
-    "basic-ftp": "^5.2.0",
+    "basic-ftp": "^5.3.0",
     "bourbon": "^4.3.4",
     "bourbon-neat": "^4.0.0",
     "buffer": "^6.0.3",
