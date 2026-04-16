@@ -1,5 +1,5 @@
 /**
- * UserSelections.jsx
+ * AccountUserSelections.jsx
  * Created by Lizzie Salita 4/25/18
  */
 
@@ -12,7 +12,7 @@ const propTypes = {
     accounts: PropTypes.object
 };
 
-const UserSelections = ({ accounts }) => {
+const AccountUserSelections = ({ accounts }) => {
     const generateDefCodesString = () => {
         const { submissionTypes, defCodes } = accounts;
         if (
@@ -186,5 +186,5 @@ const UserSelections = ({ accounts }) => {
     );
 };
 
-UserSelections.propTypes = propTypes;
-export default UserSelections;
+AccountUserSelections.propTypes = propTypes;
+export default AccountUserSelections;

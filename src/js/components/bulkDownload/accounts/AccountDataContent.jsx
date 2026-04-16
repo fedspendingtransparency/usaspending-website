@@ -20,7 +20,7 @@ import AgencyFilter from './filters/AgencyFilter';
 import BudgetFunctionFilter from './filters/BudgetFunctionFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
-import UserSelections from './UserSelections';
+import AccountUserSelections from './AccountUserSelections';
 import SubmitButton from '../awards/SubmitButton';
 
 import FilterSelection from './filters/FilterSelection';
@@ -124,7 +124,7 @@ export default class AccountDataContent extends React.Component {
                             latestSelectedTimePeriod={accounts.period ? accounts.period : accounts.quarter}
                             updateFilter={this.props.updateFilter}
                             valid={(accounts.fy && (accounts.quarter || accounts.period))} />
-                        <UserSelections
+                        <AccountUserSelections
                             accounts={accounts} />
                         <SubmitButton
                             handleSubmit={this.handleSubmit}
