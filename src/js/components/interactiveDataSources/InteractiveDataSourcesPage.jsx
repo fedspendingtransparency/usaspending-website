@@ -201,7 +201,6 @@ const InteractiveDataSourcesPage = () => {
         <PageWrapper
             pageName="interactive-data-sources"
             classNames="usa-da-interactive-data-sources-page"
-            overLine="resources"
             metaTagProps={interactiveDataSourcesPageMetaTags}
             title="Data Sources"
             toolBarComponents={[
