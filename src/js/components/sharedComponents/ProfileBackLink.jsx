@@ -15,17 +15,14 @@ const propTypes = {
 
 const ProfileBackLink = ({ label, url }) => (
     <div className="usa-profile-back-link__container">
-        <ul className="usa-profile-back-link__list">
-            <li>
-                <Link
-                    to={url}
-                    className="usa-profile-back-link__item" >
-                    <FontAwesomeIcon icon="arrow-left" alt="Back" className="bc-back-link" />
-                    {label}
-                </Link>
-
-            </li>
-        </ul>
+        <div className="usa-profile-back-link__wrapper">
+            <Link
+                to={url}
+                className="usa-profile-back-link__item" >
+                <FontAwesomeIcon icon="arrow-left" alt="Back" className="bc-back-link" />
+                {label}
+            </Link>
+        </div>
     </div>
 );
 
