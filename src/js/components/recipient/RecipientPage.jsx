@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FiscalYearPicker } from 'data-transparency-ui';
-import { find, throttle } from 'lodash-es';
+import { find } from 'lodash-es';
 import { useNavigate } from "react-router";
 import { useDispatch } from 'react-redux';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
@@ -24,8 +24,6 @@ import Error from 'components/sharedComponents/Error';
 import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
 import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
 
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { showModal } from 'redux/actions/modal/modalActions';
 import useQueryParams from "hooks/useQueryParams";
 import RecipientContent from './RecipientContent';
@@ -54,8 +52,6 @@ export const RecipientPage = ({
     const hideAlternateModal = () => showAlternateRecipientModal(false);
     const showChildRecipientModal = () => showChildModal(true);
     const hideChildRecipientModal = () => showChildModal(false);
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const dispatch = useDispatch();
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
@@ -101,18 +97,10 @@ export const RecipientPage = ({
             path: `${getQueryParamString(newQueryParams)}`
         }, { replace: true });
 
-        // add offsets
-        let conditionalOffset;
-        if (isMobile) {
-            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 140 : 60;
-        }
-        else {
-            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
-        }
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
 
         window.scrollTo({
-            top: sectionTop - 25,
+            top: sectionTop - 55,
             left: 0,
             behavior: 'smooth'
         });
@@ -124,18 +112,6 @@ export const RecipientPage = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query.section, loading]);
-
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
 
     let content = (
         <RecipientContent
@@ -159,6 +135,7 @@ export const RecipientPage = ({
             pageName="recipient"
             classNames="usa-da-recipient-page"
             title={recipient.overview.name}
+            loading={loading}
             metaTagProps={recipient.overview.id && !loading ? recipientPageMetaTags(recipient.overview) : {}}
             toolBarComponents={[
                 <FiscalYearPicker
