@@ -215,7 +215,6 @@ const InteractiveDataSourcesPage = () => {
             sections={sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
-            threshold="0"
             inPageNav>
             <main id="main-content" className="main-content usda__flex-row">
                 <FlexGridCol width={12} className="body usda__flex-col">
