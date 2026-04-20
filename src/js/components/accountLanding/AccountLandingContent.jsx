@@ -45,8 +45,8 @@ const AccountLandingContent = ({
 
     return (
         <FlexGridRow className="content__row landing-page">
-            <FlexGridCol className="content__col" width="fill">
-                <H2PageHeader title="Find a Federal Account Profile." subtitle={subtitle} />
+            <H2PageHeader title="Find a Federal Account Profile." subtitle={subtitle} />
+            <FlexGridCol width={12} className="content__col">
                 <AccountLandingSearchBar
                     setAccountSearchString={setAccountSearchString} />
                 <Pagination
