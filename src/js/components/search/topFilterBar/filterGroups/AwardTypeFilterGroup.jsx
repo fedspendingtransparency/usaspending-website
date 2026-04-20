@@ -14,7 +14,7 @@ import {
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { name: PropTypes.string };
+const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };
 
 const AwardTypeFilterGroup = ({ name, resultsView }) => {
     const awardType = useSelector((state) => state.filters.awardType);

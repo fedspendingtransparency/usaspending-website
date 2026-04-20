@@ -11,7 +11,7 @@ import { formatAwardAmountRange } from "helpers/awardAmountHelper";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { name: PropTypes.string };
+const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };
 
 const AwardAmountFilterGroup = ({ name, resultsView }) => {
     const awardAmounts = useSelector((state) => state.filters.awardAmounts);

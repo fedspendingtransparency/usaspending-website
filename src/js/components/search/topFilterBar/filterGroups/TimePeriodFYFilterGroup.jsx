@@ -11,10 +11,7 @@ import { updateTimePeriod } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 import useNewAwardsOnly from "./useNewAwardsOnly";
 
-const propTypes = {
-    name: PropTypes.string,
-    resultsView: PropTypes.bool
-};
+const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };
 
 const TimePeriodFYFilterGroup = ({ name, resultsView }) => {
     const timePeriodFY = useSelector((state) => state.filters.timePeriodFY);
