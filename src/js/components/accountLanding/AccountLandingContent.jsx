@@ -9,6 +9,7 @@ import { FlexGridCol, FlexGridRow, Pagination } from 'data-transparency-ui';
 
 import AccountLandingSearchBar from './AccountLandingSearchBar';
 import AccountLandingResultsSection from './AccountLandingResultsSection';
+import H2PageHeader from '../sharedComponents/header/H2PageHeader';
 
 const propTypes = {
     results: PropTypes.array,
@@ -25,44 +26,52 @@ const propTypes = {
     updateSort: PropTypes.func
 };
 
-export default class AccountLandingContent extends React.Component {
-    render() {
-        return (
-            <FlexGridRow className="content__row landing-page">
-                <FlexGridCol className="content__col" width="fill">
-                    <div className="landing-page__overview">
-                        <h2 className="landing-page__title">
-                            Find a Federal Account Profile.
-                        </h2>
-                        <div className="landing-page__description">
-                            The government has more than 2,000 unique Federal Accounts, which are similar to bank accounts. Use our Federal Account Profiles to get a better understanding of how agencies receive and spend congressional funding to carry out their programs, projects, and activities.
-                        </div>
-                    </div>
-                    <AccountLandingSearchBar
-                        setAccountSearchString={this.props.setAccountSearchString} />
-                    <Pagination
-                        resultsText
-                        changePage={this.props.onChangePage}
-                        currentPage={this.props.pageNumber}
-                        totalItems={this.props.totalItems}
-                        pageSize={this.props.pageSize} />
-                    <AccountLandingResultsSection
-                        columns={this.props.columns}
-                        results={this.props.results}
-                        inFlight={this.props.inFlight}
-                        error={this.props.error}
-                        searchString={this.props.searchString}
-                        order={this.props.order}
-                        updateSort={this.props.updateSort} />
-                    <Pagination
-                        changePage={this.props.onChangePage}
-                        currentPage={this.props.pageNumber}
-                        totalItems={this.props.totalItems}
-                        pageSize={this.props.pageSize} />
-                </FlexGridCol>
-            </FlexGridRow>
-        );
-    }
-}
+const AccountLandingContent = ({
+    results,
+    searchString,
+    inFlight,
+    error,
+    columns,
+    setAccountSearchString,
+    onChangePage,
+    pageNumber,
+    totalItems,
+    pageSize,
+    order,
+    updateSort
+}) => {
+    // eslint-disable-next-line max-len
+    const subtitle = "The government has more than 2,000 unique Federal Accounts, which are similar to bank accounts. Use our Federal Account Profiles to get a better understanding of how agencies receive and spend congressional funding to carry out their programs, projects, and activities.";
+
+    return (
+        <FlexGridRow className="content__row landing-page">
+            <H2PageHeader title="Find a Federal Account Profile." subtitle={subtitle} />
+            <FlexGridCol width={12} className="content__col">
+                <AccountLandingSearchBar
+                    setAccountSearchString={setAccountSearchString} />
+                <Pagination
+                    resultsText
+                    changePage={onChangePage}
+                    currentPage={pageNumber}
+                    totalItems={totalItems}
+                    pageSize={pageSize} />
+                <AccountLandingResultsSection
+                    columns={columns}
+                    results={results}
+                    inFlight={inFlight}
+                    error={error}
+                    searchString={searchString}
+                    order={order}
+                    updateSort={updateSort} />
+                <Pagination
+                    changePage={onChangePage}
+                    currentPage={pageNumber}
+                    totalItems={totalItems}
+                    pageSize={pageSize} />
+            </FlexGridCol>
+        </FlexGridRow>
+    );
+};
 
 AccountLandingContent.propTypes = propTypes;
+export default AccountLandingContent;
