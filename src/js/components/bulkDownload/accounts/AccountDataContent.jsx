@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 4/23/18
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
@@ -13,6 +13,7 @@ import { areDefCodesDisabled } from 'helpers/bulkDownloadHelper';
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import DefCodeFilter from 'components/bulkDownload/sharedFilters/DefCodeFilter';
+import IsMobileContext from "context/IsMobileContext";
 
 import AccountLevelFilter from './filters/AccountLevelFilter';
 import AgencyFilter from './filters/AgencyFilter';
@@ -49,6 +50,7 @@ const AccountDataContent = ({
     setBudgetSubfunctionList,
     budgetSubfunctions
 }) => {
+    const { isTablet } = useContext(IsMobileContext);
     const [validForm, setValidForm] = useState(false);
 
     useEffect(() => {
@@ -109,7 +111,7 @@ const AccountDataContent = ({
                         }
                         updateFilter={updateFilter}
                         valid={(accounts.fy && (accounts.quarter || accounts.period))} />
-                    <AccountUserSelections />
+                    { isTablet && <AccountUserSelections /> }
                     <SubmitButton
                         handleSubmit={clickedDownload}
                         validForm={validForm}

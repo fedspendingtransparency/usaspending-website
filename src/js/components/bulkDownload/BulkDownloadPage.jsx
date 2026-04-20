@@ -21,6 +21,7 @@ import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataCo
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import AwardsUserSelections from './awards/AwardsUserSelections';
+import AccountUserSelections from './accounts/AccountUserSelections';
 
 const propTypes = {
     dataType: PropTypes.string,
@@ -69,14 +70,18 @@ const BulkDownloadPage = ({
     };
 
     let downloadDataContent;
+    let userSelections;
 
     switch (dataType) {
         case 'award_data_archive': downloadDataContent = (<AwardDataArchiveContainer />); break;
         case 'accounts':
             downloadDataContent = (<AccountDataContainer clickedDownload={clickedDownload} />);
+            userSelections = (<AccountUserSelections />);
             break;
         case 'dataset_metadata': downloadDataContent = (<MetadataDownload />); break;
-        default: downloadDataContent = (<AwardDataContainer clickedDownload={clickedDownload} />);
+        default:
+            downloadDataContent = (<AwardDataContainer clickedDownload={clickedDownload} />);
+            userSelections = (<AwardsUserSelections />);
     }
 
     return (
@@ -92,7 +97,7 @@ const BulkDownloadPage = ({
             <main id="main-content">
                 <FlexGridRow >
                     <FlexGridCol
-                        width={isTablet ? 12 : 8}
+                        width={isTablet || !userSelections ? 12 : 8}
                         className="bulk-download">
                         <div className="bulk-download__data">
                             {downloadDataContent}
@@ -101,9 +106,9 @@ const BulkDownloadPage = ({
                             mounted={showModal}
                             hideModal={hideModal} />
                     </FlexGridCol>
-                    { !isTablet &&
+                    { userSelections && !isTablet &&
                         <FlexGridCol width={4} >
-                            <AwardsUserSelections />
+                            {userSelections}
                         </FlexGridCol>
                     }
                 </FlexGridRow>
