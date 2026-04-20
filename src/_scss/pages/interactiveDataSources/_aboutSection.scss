@@ -15,7 +15,7 @@
     }
 
     .scroller-overlay-card-content {
-        padding-top: rem(20);
+        padding-top: rem(32);
         padding-bottom: 0px;
     }
 
@@ -79,9 +79,12 @@
 
     .interactives-guide__background-green {
         background: linear-gradient(to bottom, $color-white 25%, $color-vis-green-darkest 25%);
-
+        border-bottom-left-radius: rem(12);
+        border-bottom-right-radius: rem(12);
+        width: 66%;
+        margin: auto;
         .body-padded__content {
-            padding-bottom: 5%;
+            padding-bottom: rem(32);
         }
     }
 
@@ -89,14 +92,18 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-bottom: 5%;
+        padding-bottom: rem(32);
+        justify-content: center;
+        margin: auto;
 
         h4 {
+            margin-top: 0;
             color: $color-white;
             font-size: rem(20);
             line-height: rem(30);
             font-weight: $font-semibold;
-            margin: auto 12%;
+            margin-left: rem(32);
+            margin-right: rem(32);
             font-stretch: normal;
             font-style: normal;
             letter-spacing: normal;
