@@ -22,7 +22,7 @@ const propTypes = {
 
 const InPageNav = (props) => {
     const {
-        sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold
+        sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold, loading
     } = props;
     const [observerSupported, setObserverSupported] = useState(false);
     const [activeSection, setActiveSection] = useState(props.activeSection);
@@ -38,8 +38,8 @@ const InPageNav = (props) => {
     const visibleSections = new Set();
 
     const observerOptions = {
-        rootMargin: rootMargin || `-120px 0px 0px 0px`,
-        threshold: threshold || 0.1
+        rootMargin: rootMargin || `-140px 0px 0px 0px`,
+        threshold: threshold || [0, 0.25, 0.5, 0.75, 1]
     };
 
     let initialPageLoad = true;
@@ -53,6 +53,8 @@ const InPageNav = (props) => {
             else {
                 visibleSections.delete(entry.target);
             }
+
+            console.log(visibleSections);
 
             const visible = [...visibleSections];
 
@@ -251,7 +253,7 @@ const InPageNav = (props) => {
 
             return () => observer.disconnect();
         }
-    }, [observerSupported]);
+    }, [observerSupported, loading]);
 
     useEffect(() => {
         if (detectActiveSection && sectionPositions.length === 0) {
@@ -263,7 +265,7 @@ const InPageNav = (props) => {
         return () => {
             window.removeEventListener('resize', cacheSectionPositions);
         };
-    }, [cacheSectionPositions, detectActiveSection, sectionPositions.length]);
+    }, [detectActiveSection, sectionPositions.length]);
 
     return (
         <div className="usda-in-page-nav__container">

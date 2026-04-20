@@ -3,7 +3,7 @@
  * Created by Maxwell Kendall 01/31/2020
  */
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
     ComingSoon,
@@ -16,10 +16,8 @@ import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { showModal } from 'redux/actions/modal/modalActions';
 import useQueryParams from "hooks/useQueryParams";
-import IsMobileContext from "context/IsMobileContext";
 import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
@@ -50,7 +48,6 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const { isMedium } = useContext(IsMobileContext);
     const history = useNavigate();
     const query = useQueryParams();
     const dispatch = useDispatch();
@@ -128,23 +125,11 @@ export const AgencyProfileV2 = ({
         setActiveSection(section);
 
         // add offsets
-        let conditionalOffset;
-        if (isMedium) {
-            conditionalOffset =
-                window.scrollY < getStickyBreakPointForSidebar() ?
-                    stickyHeaderHeight + 140 :
-                    60;
-        }
-        else {
-            conditionalOffset =
-                window.scrollY < getStickyBreakPointForSidebar() ?
-                    stickyHeaderHeight + 40 :
-                    10;
-        }
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
 
         window.scrollTo({
-            top: sectionTop - 25,
+            top: sectionTop - 55,
             left: 0,
             behavior: 'smooth'
         });
@@ -165,6 +150,7 @@ export const AgencyProfileV2 = ({
             title={name}
             metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencySlug, name })}
             inPageNav
+            loading={isLoading}
             sections={sections}
             jumpToSection={jumpToSection}
             activeSection={activeSection}
