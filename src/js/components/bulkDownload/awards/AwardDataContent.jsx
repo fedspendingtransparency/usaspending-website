@@ -83,6 +83,9 @@ const AwardDataContent = ({
         validateForm(awards, validDates);
     }, [awards, validDates, validateForm]);
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => () => clearAwardFilters(), []);
+
     const currentAgencies = {
         agency: awards.agency,
         subAgency: awards.subAgency
