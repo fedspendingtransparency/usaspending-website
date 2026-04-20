@@ -35,7 +35,7 @@ const RecipientFilterGroup = ({ name, resultsView }) => {
     appliedRecipientType.forEach((value) => {
         const tag = {
             value,
-            title: `RECIPIENT | ${value}`,
+            title: value,
             toggleFilter: removeFilter,
             staged: selectedRecipients.has(value)
         };
