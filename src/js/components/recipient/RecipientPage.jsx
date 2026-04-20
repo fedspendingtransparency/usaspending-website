@@ -22,6 +22,8 @@ import { AlternateNamesRecipientModalContainer } from
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Error from 'components/sharedComponents/Error';
 import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
+import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
+
 import { showModal } from 'redux/actions/modal/modalActions';
 import useQueryParams from "hooks/useQueryParams";
 import RecipientContent from './RecipientContent';
@@ -132,7 +134,6 @@ export const RecipientPage = ({
         <PageWrapper
             pageName="recipient"
             classNames="usa-da-recipient-page"
-            overLine="Recipient Profile"
             title={recipient.overview.name}
             loading={loading}
             metaTagProps={recipient.overview.id && !loading ? recipientPageMetaTags(recipient.overview) : {}}
@@ -153,6 +154,9 @@ export const RecipientPage = ({
             jumpToSection={jumpToSection}
             inPageNav>
             <main id="main-content" className="main-content">
+                <ProfileBackLink
+                    label="Back to Recipient Profile Page"
+                    url="/recipient" />
                 <LoadingWrapper isLoading={loading}>
                     {content}
                     <ChildRecipientModalContainer

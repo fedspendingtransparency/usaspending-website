@@ -5,6 +5,7 @@
     @import 'layouts/default/stickyHeader/header';
     @import 'mixins/profilePage';
     @import './dtuiOverrides';
+    @import 'components/profileBackLink';
 
     @include display(flex);
     @include justify-content(flex-start);
