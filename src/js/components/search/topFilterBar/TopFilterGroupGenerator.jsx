@@ -24,6 +24,7 @@ import SetAsideFilterGroup from './filterGroups/SetAsideFilterGroup';
 import ExtentCompetedFilterGroup from './filterGroups/ExtentCompetedFilterGroup';
 import TASFilterGroup from './filterGroups/TASFilterGroup';
 import DefCodesFilterGroup from "./filterGroups/DefCodesFilterGroup";
+import AwardDescriptionFilterGroup from './filterGroups/AwardDescriptionFilterGroup';
 
 const propTypes = { code: PropTypes.string, name: PropTypes.string, resultsView: PropTypes.bool };
 
@@ -84,6 +85,12 @@ const TopFilterGroupGenerator = memo(function TopFilterGroupGenerator({
                     name={name}
                     key={groupKey} />
             );
+        case 'description': return (
+            <AwardDescriptionFilterGroup
+                resultsView={resultsView}
+                name={name}
+                key={groupKey} />
+        );
         case 'selectedAwardIDs':
             return (<AwardIDFilterGroup resultsView={resultsView} name={name} key={groupKey} />
 
