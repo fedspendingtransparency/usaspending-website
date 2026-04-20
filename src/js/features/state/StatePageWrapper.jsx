@@ -6,7 +6,6 @@ import PropTypes from "prop-types";
 
 import { statePageMetaTags } from "helpers/metaTagHelper";
 import { combineQueryParams, getQueryParamString } from "helpers/queryParams";
-import { getStickyBreakPointForSidebar } from "helpers/stickyHeaderHelper";
 import { stickyHeaderHeight } from "dataMapping/stickyHeader/stickyHeader";
 import useQueryParams from "hooks/useQueryParams";
 import { showModal } from "redux/actions/modal/modalActions";
@@ -71,20 +70,10 @@ const StatePageWrapper = ({
             path: `${getQueryParamString(newQueryParams)}`
         }, { replace: true });
 
-        // add offsets
-        let conditionalOffset;
-        if (isMedium) {
-            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ?
-                stickyHeaderHeight + 140 : 60;
-        }
-        else {
-            conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ?
-                stickyHeaderHeight + 40 : 10;
-        }
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
 
         window.scrollTo({
-            top: sectionTop - 25,
+            top: sectionTop - 55,
             left: 0,
             behavior: 'smooth'
         });
@@ -111,6 +100,7 @@ const StatePageWrapper = ({
             sections={stateSections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
+            loading={loading}
             inPageNav>
             {children}
         </PageWrapper>

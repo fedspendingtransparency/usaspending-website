@@ -49,9 +49,9 @@ const articles = [
         content_type: 'Featured Content',
         banner_subtitle: "Award Has a Very Specific Meaning in Government Spending",
         title: "What is an Award?",
-        created_date: "09/29/2025",
+        created_date: "04/30/2026",
         description: "When you think of the word “award,” you might picture an actor receiving an Oscar, an athlete earning a medal at the Olympics, or even yourself earning a gold.",
-        feature_sprint: 1,
+        feature_sprint: 9,
         feature_week: 1,
         slug: "what-is-an-award",
         explore_more: [
@@ -248,9 +248,9 @@ const articles = [
         content_type: 'Featured Content',
         title: "Grants vs. Contracts",
         banner_subtitle: "What's the Difference Between Grants and Contracts?",
-        created_date: "12/25/25",
-        feature_sprint: 3,
-        feature_week: 1,
+        created_date: "05/14/26",
+        feature_sprint: 9,
+        feature_week: 3,
         description: "If you want to build a house, you must know what kind of material to use. Lest you end up like two of the three little pigs, building a house out of straw or",
         slug: "grants-vs-contracts",
         explore_more: [
@@ -283,8 +283,8 @@ const articles = [
         content_type: 'Marketing',
         title: "Discover How Government Spending Supports Causes You Care About",
         banner_subtitle: "Explore How the Federal Government Spends Money on a Particular Topic",
-        created_date: "12/25/25",
-        feature_sprint: 3,
+        created_date: "4/30/2026",
+        feature_sprint: 9,
         feature_week: 1,
         description: "If you’re passionate about a cause—whether it’s education, environmental protection, public health, or national security—you can use Advanced Search to explore",
         slug: "discover-how-government-spending-supports-causes-you-care-about",
@@ -658,6 +658,47 @@ const articles = [
                 term: "outlay",
                 type: "glossary",
                 label: "Outlay"
+            }
+        ]
+    },
+    {
+        taxonomy: "Spending Stories",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "Celebrating Small Business Week",
+        banner_subtitle: "Small Business Spending on USAspending.gov",
+        created_date: "05/07/2026",
+        feature_sprint: 9,
+        feature_week: 2,
+        description: "National Small Business Week shines a spotlight on the entrepreneurs and innovators who drive America’s economy. From neighborhood start-ups",
+        slug: "celebrating-small-business-week",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "National Small Business Week",
+                slug: "https://www.sba.gov/national-small-business-week",
+                type: "external"
+            }
+        ],
+        related_terms: [
+            {
+                term: "Award",
+                type: "glossary",
+                label: "Award"
+            },
+            {
+                term: "Contract",
+                type: "glossary",
+                label: "Contract"
+            },
+            {
+                term: "Grant",
+                type: "glossary",
+                label: "Grant"
             }
         ]
     },
