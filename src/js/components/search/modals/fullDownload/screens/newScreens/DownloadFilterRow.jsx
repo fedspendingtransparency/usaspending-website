@@ -38,10 +38,10 @@ const DownloadFilterRow = ({
         window.addEventListener('resize', checkOverflow);
         return () => window.removeEventListener('resize', checkOverflow);
     }, [filter]);
-
+    console.debug("FILTER: ", filter);
     return (
         <tr>
-            <th>{filter.type}:</th>
+            <th>{filter.name}:</th>
             <td ref={tdRef}>
                 <ReadMore
                     text={filter.values}

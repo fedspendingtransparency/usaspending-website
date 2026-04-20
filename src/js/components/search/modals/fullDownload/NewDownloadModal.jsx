@@ -3,15 +3,17 @@
  * Created by Nick Torres 2/27/26
  */
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useSelector } from 'react-redux';
 
 import NewDownloadContainer from
     'containers/search/modals/fullDownload/screens/newScreens/NewDownloadContainer';
-
 import usePrevious from 'hooks/usePrevious';
+
+import getFilters from '../../../../containers/search/topFilterBar/getFilters';
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -33,6 +35,12 @@ const NewDownloadModal = (props) => {
         setDownloadType([]);
         props.hideModal();
     }, [props]);
+    const reduxFilters = useSelector((state) => state.appliedFilters.filters);
+
+    const { filters, filterCount } = useMemo(
+        () => getFilters(reduxFilters), [reduxFilters]);
+
+    console.debug("REDUX FILTERS: ", filters, filterCount);
 
     useEffect(() => {
         if (!props?.pendingDownload && prevProps?.pendingDownload) {
@@ -81,103 +89,13 @@ const NewDownloadModal = (props) => {
         downloadData = {
             expectedFile: "sampleFileName_DDMMYYYY.zip",
             selections: downloadType,
-            filters: [
-                {
-                    type: "Fiscal Year",
-                    values: "2024, 2025, 2026"
-                },
-                {
-                    type: "Agency",
-                    values: "Department of Education, Department of Housing, Department of Commerce, Department of Agriculture, Department of Homeland Security, Department of Justice, Department of Labor, Department of State, Department of Transportation, Department of Veterans Affairs, Department of the Interior, Department of the Treasury"
-                }
-            ]
+            filters
         };
 
         if (downloadType.includes('subawards')) {
             downloadData = {
                 ...downloadData,
-                filters: [
-                    {
-                        type: "Fiscal Year",
-                        values: "2024, 2025, 2026"
-                    },
-                    {
-                        type: "Agency",
-                        values: "Department of Education, Department of Housing, Department of Commerce, Department of Agriculture, Department of Homeland Security, Department of Justice, Department of Labor, Department of State, Department of Transportation, Department of Veterans Affairs, Department of the Interior, Department of the Treasury"
-                    },
-                    {
-                        type: "Recipient",
-                        values: "BAMBOOZLE LIVING INC., BAMBOOZLE LIVING INC, BAMBOOZELS INC., BAMBOOZELS, INC., BAMBOOZLE TEA LOUNGE, BAMBOOZLE LIVING, INC., BOOZ ALLEN & HAMILTON INC, BAMBOOZLE ENTERPRISES LLC, BAMBOOZELD, BAMBOOZLE CHANNELSIDE, BAMBOOZLE CAFE, BAMBOOZLE"
-                    },
-                    {
-                        type: "Award Type",
-                        values: "Contracts, Block Grant, Formula Grant, Project Grant"
-                    },
-                    {
-                        type: "Recipient Location",
-                        values: "STATE | MISSOURI"
-                    },
-                    {
-                        type: "Fiscal Year",
-                        values: "2024, 2025, 2026"
-                    },
-                    {
-                        type: "Agency",
-                        values: "Department of Education, Department of Housing, Department of Commerce, Department of Agriculture, Department of Homeland Security, Department of Justice, Department of Labor, Department of State, Department of Transportation, Department of Veterans Affairs, Department of the Interior, Department of the Treasury"
-                    },
-                    {
-                        type: "Recipient",
-                        values: "BAMBOOZLE LIVING INC., BAMBOOZLE LIVING INC, BAMBOOZELS INC., BAMBOOZELS, INC., BAMBOOZLE TEA LOUNGE, BAMBOOZLE LIVING, INC., BOOZ ALLEN & HAMILTON INC, BAMBOOZLE ENTERPRISES LLC, BAMBOOZELD, BAMBOOZLE CHANNELSIDE, BAMBOOZLE CAFE, BAMBOOZLE"
-                    },
-                    {
-                        type: "Award Type",
-                        values: "Contracts, Block Grant, Formula Grant, Project Grant"
-                    },
-                    {
-                        type: "Recipient Location",
-                        values: "STATE | MISSOURI"
-                    },
-                    {
-                        type: "Fiscal Year",
-                        values: "2024, 2025, 2026"
-                    },
-                    {
-                        type: "Agency",
-                        values: "Department of Education, Department of Housing, Department of Commerce, Department of Agriculture, Department of Homeland Security, Department of Justice, Department of Labor, Department of State, Department of Transportation, Department of Veterans Affairs, Department of the Interior, Department of the Treasury"
-                    },
-                    {
-                        type: "Recipient",
-                        values: "BAMBOOZLE LIVING INC., BAMBOOZLE LIVING INC, BAMBOOZELS INC., BAMBOOZELS, INC., BAMBOOZLE TEA LOUNGE, BAMBOOZLE LIVING, INC., BOOZ ALLEN & HAMILTON INC, BAMBOOZLE ENTERPRISES LLC, BAMBOOZELD, BAMBOOZLE CHANNELSIDE, BAMBOOZLE CAFE, BAMBOOZLE"
-                    },
-                    {
-                        type: "Award Type",
-                        values: "Contracts, Block Grant, Formula Grant, Project Grant"
-                    },
-                    {
-                        type: "Recipient Location",
-                        values: "STATE | MISSOURI"
-                    },
-                    {
-                        type: "Fiscal Year",
-                        values: "2024, 2025, 2026"
-                    },
-                    {
-                        type: "Agency",
-                        values: "Department of Education, Department of Housing, Department of Commerce, Department of Agriculture, Department of Homeland Security, Department of Justice, Department of Labor, Department of State, Department of Transportation, Department of Veterans Affairs, Department of the Interior, Department of the Treasury"
-                    },
-                    {
-                        type: "Recipient",
-                        values: "BAMBOOZLE LIVING INC., BAMBOOZLE LIVING INC, BAMBOOZELS INC., BAMBOOZELS, INC., BAMBOOZLE TEA LOUNGE, BAMBOOZLE LIVING, INC., BOOZ ALLEN & HAMILTON INC, BAMBOOZLE ENTERPRISES LLC, BAMBOOZELD, BAMBOOZLE CHANNELSIDE, BAMBOOZLE CAFE, BAMBOOZLE"
-                    },
-                    {
-                        type: "Award Type",
-                        values: "Contracts, Block Grant, Formula Grant, Project Grant"
-                    },
-                    {
-                        type: "Recipient Location",
-                        values: "STATE | MISSOURI"
-                    }
-                ]
+                filters
             };
         }
     }
