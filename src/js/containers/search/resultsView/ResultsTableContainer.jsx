@@ -45,9 +45,11 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
     const dispatch = useDispatch();
     const filters = useSelector((state) => state.appliedFilters.filters);
     const [page, setPage] = useState(1);
-    const [tableType, setTableType] = useState('contracts');
+    const [tableType, setTableType] = useState(
+        spendingLevel === 'subawards' ? 'subcontracts' : 'contracts'
+    );
     const [sort, setSort] = useState({
-        field: 'Award Amount',
+        field: spendingLevel === 'subawards' ? 'Sub-Award Amount' : 'Award Amount',
         direction: 'desc'
     });
     const [resultLimit, setResultLimit] = useState(100);
