@@ -54,8 +54,6 @@ const InPageNav = (props) => {
                 visibleSections.delete(entry.target);
             }
 
-            console.log(visibleSections);
-
             const visible = [...visibleSections];
 
             if (visible.length) {
