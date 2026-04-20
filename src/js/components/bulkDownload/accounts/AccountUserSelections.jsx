@@ -4,15 +4,13 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 
-const propTypes = {
-    accounts: PropTypes.object
-};
+const AccountUserSelections = () => {
+    const accounts = useSelector((state) => state.bulkDownload.accounts);
 
-const AccountUserSelections = ({ accounts }) => {
     const generateDefCodesString = () => {
         const { submissionTypes, defCodes } = accounts;
         if (
@@ -186,5 +184,4 @@ const AccountUserSelections = ({ accounts }) => {
     );
 };
 
-AccountUserSelections.propTypes = propTypes;
 export default AccountUserSelections;

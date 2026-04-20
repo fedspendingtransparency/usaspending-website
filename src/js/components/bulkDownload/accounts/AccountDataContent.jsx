@@ -88,7 +88,8 @@ export default class AccountDataContent extends React.Component {
             <div className="download-center">
                 <div className="download-center__filters">
                     <h2 className="download-center__title">Custom Account Data</h2>
-                    <FilterSelection valid={accounts.budgetFunction.code !== '' || accounts.agency.id !== ''} />
+                    <FilterSelection
+                        valid={accounts.budgetFunction.code !== '' || accounts.agency.id !== ''} />
                     <div className="download-center-form">
                         <BudgetFunctionFilter
                             budgetFunctions={this.props.budgetFunctions}
@@ -118,14 +119,17 @@ export default class AccountDataContent extends React.Component {
                             currentSubmissionTypes={accounts.submissionTypes}
                             updateFilter={this.props.updateFilter}
                             valid={accounts.submissionTypes.length !== 0} />
-                        <DefCodeFilter type="accounts" isDisabled={areDefCodesDisabled(accounts.submissionTypes)} />
+                        <DefCodeFilter
+                            type="accounts"
+                            isDisabled={areDefCodesDisabled(accounts.submissionTypes)} />
                         <FiscalYearFilter
                             currentFy={accounts.fy}
-                            latestSelectedTimePeriod={accounts.period ? accounts.period : accounts.quarter}
+                            latestSelectedTimePeriod={
+                                accounts.period ? accounts.period : accounts.quarter
+                            }
                             updateFilter={this.props.updateFilter}
                             valid={(accounts.fy && (accounts.quarter || accounts.period))} />
-                        <AccountUserSelections
-                            accounts={accounts} />
+                        <AccountUserSelections />
                         <SubmitButton
                             handleSubmit={this.handleSubmit}
                             validForm={this.state.validForm}
