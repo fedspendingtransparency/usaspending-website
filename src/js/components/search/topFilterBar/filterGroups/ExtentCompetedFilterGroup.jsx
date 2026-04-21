@@ -11,7 +11,7 @@ import { extentCompetedDefinitions } from "dataMapping/search/contractFields";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { name: PropTypes.string };
+const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };
 
 const ExtentCompetedFilterGroup = ({ name, resultsView }) => {
     const extentCompeted = useSelector((state) => state.filters.extentCompeted);

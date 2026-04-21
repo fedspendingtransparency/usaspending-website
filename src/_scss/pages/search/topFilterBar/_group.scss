@@ -8,6 +8,7 @@
 
         .filter-group-top {
             @include clearfix;
+            margin-right: $global-margin;
 
             .filter-name {
                 float: left;
