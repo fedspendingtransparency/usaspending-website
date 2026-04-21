@@ -33,7 +33,7 @@ const GlossarySearchBar = (props) => {
 
         // wait for typing to stop 300ms before performing search
         searchTimer = window.setTimeout(() => {
-            // props.performSearch();
+            props.performSearch(term);
         }, 300);
     };
 

@@ -30,24 +30,23 @@ const propTypes = {
 
 const GlossaryContainer = (props) => {
     const [loading, setLoading] = useState(true);
-    const [input, setInput] = useState('');
     const [terms, setTerms] = useState();
 
     const {
         allTerms, isSuccess, isLoading, error
     } = useFetchAllTerms();
 
-    const {
-        data: searchResults, isSuccess: searchResultsSuccess, isLoading: searchResultsLoading, error: searchResultsError
-    } = useQuery({
-        queryKey: ['glossarySearchResults', input],
-        queryFn: () => GlossaryHelper.fetchSearchResults({
-            search_text: input,
-            limit: 50
-        }).promise,
-        enabled: input !== '' && !!input,
-        staleTime: 60000
-    });
+    // const {
+    //     data: searchResults, isSuccess: searchResultsSuccess, isLoading: searchResultsLoading, error: searchResultsError
+    // } = useQuery({
+    //     queryKey: ['glossarySearchResults', input],
+    //     queryFn: () => GlossaryHelper.fetchSearchResults({
+    //         search_text: input,
+    //         limit: 50
+    //     }).promise,
+    //     enabled: input !== '' && !!input,
+    //     staleTime: 60000
+    // });
 
     // const parseTerms = useCallback((data) => {
     //     const localTerms = data.map((result) => new Definition(result));
@@ -68,25 +67,15 @@ const GlossaryContainer = (props) => {
     // };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    const performSearch = useCallback(() => {
-        const localInput = props.glossary.search?.input;
-
-        if (!localInput) {
-            // populateGlossaryWithAllTerms();
-            return;
+    const performSearch = useCallback((input) => {
+        if (!input) {
+            setTerms(allTerms);
+        } else {
+            // add js to perform a search
         }
 
-        setInput(localInput);
         setLoading(false);
     });
-
-    useEffect(() => {
-        if (searchResults && searchResultsSuccess) {
-            // parseTerms(searchResults.data.matched_terms);
-            setLoading(false);
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchResults, searchResultsSuccess]);
 
     useEffect(() => {
         if (allTerms && isSuccess) {
@@ -131,9 +120,8 @@ const GlossaryContainer = (props) => {
         <AnimatedGlossaryWrapper
             {...props}
             glossaryResults={terms}
-            loading={isLoading}
+            loading={loading}
             error={error}
-            searchLoading={isLoading}
             performSearch={performSearch} />
     );
 };
