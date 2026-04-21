@@ -12,7 +12,7 @@ const propTypes = {
     glossary: PropTypes.object
 };
 
-const AnimatedGlossaryWrapper = (props) => {
+const AnimatedGlossaryWrapper = ({ glossary }) => {
     const [zIndexClass, setZIndexClass] = useState(null);
 
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
@@ -23,7 +23,7 @@ const AnimatedGlossaryWrapper = (props) => {
 
     return (
         <div className="usa-da-glossary-animations">
-            <Glossary {...props} zIndexClass={zIndexClass} />
+            <Glossary glossary={glossary} zIndexClass={zIndexClass} />
         </div>
     );
 };

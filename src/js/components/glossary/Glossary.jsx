@@ -24,7 +24,7 @@ const propTypes = {
     zIndexClass: PropTypes.string
 };
 
-const Glossary = (props) => {
+const Glossary = ({ glossary, glossaryResults, loading, error, zIndexClass }) => {
     const history = useNavigate();
     const query = useQueryParams();
     const [contentHeight, setContentHeight] = useState(0);
@@ -42,10 +42,10 @@ const Glossary = (props) => {
     }));
 
     useEffect(() => {
-        if (props.glossary?.display) {
+        if (glossary?.display) {
             setFirstMount(false);
         }
-    }, [props.glossary.display]);
+    }, [glossary.display]);
 
     const closeGlossary = useCallback((e) => {
         if (e.key === 'Escape' || (e.type === 'click')) {
@@ -68,7 +68,7 @@ const Glossary = (props) => {
             }
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props]);
+    }, []);
 
     const track = () => <div className="glossary-scrollbar-track" />;
     const thumb = () => <div className="glossary-scrollbar-thumb" />;
@@ -76,11 +76,11 @@ const Glossary = (props) => {
     useEffect(() => {
         measureAvailableHeight();
 
-        if (props.glossaryResults?.length === 0) {
-            setContent(<NoResults {...props} />);
+        if (glossaryResults?.length === 0) {
+            setContent(<NoResults glossary={glossary} searchLoading={searchLoading} />);
             setLoadingContent(null);
         }
-        else if (props.glossary?.term.slug && props.glossary?.term.slug !== '') {
+        else if (glossary?.term.slug && glossary?.term.slug !== '') {
             setContent(<GlossaryDefinition {...props} />);
             setLoadingContent(null);
         }

@@ -13,25 +13,27 @@ const propTypes = {
     clickedTab: PropTypes.func
 };
 
-const TabItem = (props) => {
+const TabItem = ({
+    active, label, type, clickedTab
+}) => {
     const clickedButton = () => {
-        props.clickedTab(props.type);
+        clickedTab(type);
     };
 
 
-    let active = '';
-    if (props.active) {
-        active = 'active';
+    let activeLocal = '';
+    if (active) {
+        activeLocal = 'active';
     }
 
     return (
         <li>
             <button
-                className={`definition-tab ${active}`}
-                aria-label={props.label}
-                title={props.label}
+                className={`definition-tab ${activeLocal}`}
+                aria-label={label}
+                title={label}
                 onClick={clickedButton}>
-                {props.label}
+                {label}
             </button>
         </li>
     );
