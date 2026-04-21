@@ -23,7 +23,7 @@ const GlossarySearchBar = (props) => {
             window.clearTimeout(searchTimer);
         }
 
-        props.setSearchValue(term);
+        // props.setSearchValue(term);
 
         if (term.length > 0 && term.length < 3) {
             // do not perform a search because the search term is too short
@@ -33,7 +33,7 @@ const GlossarySearchBar = (props) => {
 
         // wait for typing to stop 300ms before performing search
         searchTimer = window.setTimeout(() => {
-            props.performSearch();
+            // props.performSearch();
         }, 300);
     };
 
@@ -43,7 +43,7 @@ const GlossarySearchBar = (props) => {
 
     const submitSearch = (e) => {
         e.preventDefault();
-        performSearch(props.glossary.search.input);
+        // performSearch(props.glossary.search.input);
     };
 
     return (

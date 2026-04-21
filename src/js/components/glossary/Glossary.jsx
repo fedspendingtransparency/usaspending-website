@@ -47,7 +47,7 @@ const Glossary = (props) => {
 
     const closeGlossary = useCallback((e) => {
         if (e.key === 'Escape' || (e.type === 'click')) {
-            props.hideGlossary();
+            // props.hideGlossary();
 
             // remove search param from url
             if (window.location.href.includes('glossary')) {
@@ -74,32 +74,34 @@ const Glossary = (props) => {
     useEffect(() => {
         measureAvailableHeight();
 
-        if (props.glossary?.search.results.length === 0) {
+        console.log(props.glossaryResults, props.loading);
+        if (props.glossaryResults?.length === 0) {
             setContent(<NoResults {...props} />);
             setLoadingContent(null);
         }
-        else if (props.glossary?.term.slug && props.glossary?.term.slug !== '') {
-            setContent(<GlossaryDefinition {...props} />);
-            setLoadingContent(null);
-        }
-        else {
+
+        // else if (props.glossary?.term.slug && props.glossary?.term.slug !== '') {
+        //     setContent(<GlossaryDefinition {...props} />);
+        //     setLoadingContent(null);
+        // }
+
+
+        // if (props.loading) {
+        //     setLoadingContent(<div className="glossary-loading-content">Loading Glossary...</div>);
+        //     setContent(null);
+        // }
+        else if (props.error) {
+            setLoadingContent(<div className="glossary-loading-content">Error: Could not load Glossary.</div>);
+            setContent(null);
+        } else {
             setContent(<GlossarySearchResults {...props} />);
             setLoadingContent(null);
         }
 
 
-        if (props.loading) {
-            setLoadingContent(<div className="glossary-loading-content">Loading Glossary...</div>);
-            setContent(null);
-        }
-        else if (props.error) {
-            setLoadingContent(<div className="glossary-loading-content">Error: Could not load Glossary.</div>);
-            setContent(null);
-        }
-
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.loading, props.error, props.glossary?.search.results, props.glossary?.term.slug]);
+    }, [props.loading, props.error, props.glossaryResults, props.glossary?.term.slug]);
+    // }, [props.loading, props.error]);
 
     useEffect(() => {
         window.addEventListener('keyup', closeGlossary);
@@ -115,16 +117,17 @@ const Glossary = (props) => {
         scrollbar?.scrollToTop();
     }, [measureAvailableHeight, scrollbar]);
 
-    useEffect(() => {
-        if (props.glossary?.term) {
-            scrollbar?.scrollToTop();
-        }
-    }, [props.glossary?.term, scrollbar]);
+    // useEffect(() => {
+    //     if (props.glossary?.term) {
+    //         scrollbar?.scrollToTop();
+    //     }
+    // }, [props.glossary?.term, scrollbar]);
 
     return (
         <div
             style={{ visibility: firstMount ? "hidden" : "" }}
-            className={props.glossary?.display ? `opened usa-da-glossary-wrapper ${props.zIndexClass}` : `usa-da-glossary-wrapper ${props.zIndexClass}`}>
+            // className={`open usa-da-glossary-wrapper ${props.zIndexClass}`}>
+        className={props.glossary?.display ? `opened usa-da-glossary-wrapper ${props.zIndexClass}` : `usa-da-glossary-wrapper ${props.zIndexClass}`}>
             <aside
                 id="glossary-sidebar"
                 role="dialog"

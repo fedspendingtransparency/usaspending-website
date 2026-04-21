@@ -29,7 +29,7 @@ const GlossaryHeader = (props) => {
                     id="glossary-close-button"
                     aria-label="Close Glossary"
                     title="Close Glossary"
-                    onClick={props.closeGlossary}
+                    // onClick={props.closeGlossary}
                     ref={closeButtonRef}>
                     <Icons.Close alt="Close Glossary" />
                 </button>

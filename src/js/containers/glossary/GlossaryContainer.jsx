@@ -15,6 +15,7 @@ import AnimatedGlossaryWrapper from 'components/glossary/AnimatedGlossaryWrapper
 
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import { Definition } from 'redux/reducers/glossary/glossaryReducer';
+import useFetchAllTerms from './useFetchAllTerms';
 
 require('pages/glossary/glossaryPage.scss');
 
@@ -30,14 +31,11 @@ const propTypes = {
 const GlossaryContainer = (props) => {
     const [loading, setLoading] = useState(true);
     const [input, setInput] = useState('');
+    const [terms, setTerms] = useState();
 
     const {
-        data: allTerms, isSuccess: allTermsSuccess, isLoading: allTermsLoading, error
-    } = useQuery({
-        queryKey: ['allGlossaryTerms'],
-        queryFn: () => GlossaryHelper.fetchAllTerms().promise,
-        staleTime: 60000
-    });
+        allTerms, isSuccess, isLoading, error
+    } = useFetchAllTerms();
 
     const {
         data: searchResults, isSuccess: searchResultsSuccess, isLoading: searchResultsLoading, error: searchResultsError
@@ -51,29 +49,30 @@ const GlossaryContainer = (props) => {
         staleTime: 60000
     });
 
-    const parseTerms = useCallback((data) => {
-        const terms = data.map((result) => new Definition(result));
-        props.setGlossaryResults(terms);
-    });
+    // const parseTerms = useCallback((data) => {
+    //     const localTerms = data.map((result) => new Definition(result));
+    //     setTerms(localTerms);
+    //     props.setGlossaryResults(terms);
+    // });
 
-    const writeCache = (data) => {
-        const terms = data.reduce((acc, searchResult) => Object.assign(acc, {
-            [searchResult.slug]: new Definition(searchResult)
-        }), {});
+    // const writeCache = (data) => {
+    //     const terms = data.reduce((acc, searchResult) => Object.assign(acc, {
+    //         [searchResult.slug]: new Definition(searchResult)
+    //     }), {});
+    //
+    //     props.setGlossaryCache(terms);
+    // };
 
-        props.setGlossaryCache(terms);
-    };
-
-    const populateGlossaryWithAllTerms = () => {
-        parseTerms(allTerms.data.results);
-    };
+    // const populateGlossaryWithAllTerms = () => {
+    //     parseTerms(allTerms.data.results);
+    // };
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const performSearch = useCallback(() => {
         const localInput = props.glossary.search?.input;
 
         if (!localInput) {
-            populateGlossaryWithAllTerms();
+            // populateGlossaryWithAllTerms();
             return;
         }
 
@@ -83,50 +82,58 @@ const GlossaryContainer = (props) => {
 
     useEffect(() => {
         if (searchResults && searchResultsSuccess) {
-            parseTerms(searchResults.data.matched_terms);
+            // parseTerms(searchResults.data.matched_terms);
             setLoading(false);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchResults, searchResultsSuccess]);
 
     useEffect(() => {
-        if (props.glossary.cache.count() === 0) {
-            if (allTerms && allTermsSuccess) {
-                writeCache(allTerms.data.results);
-
-                if (!input) {
-                    parseTerms(allTerms.data.results);
-                    setLoading(false);
-                }
-                else {
-                    performSearch();
-                }
-            }
+        if (allTerms && isSuccess) {
+            setTerms(allTerms);
+            setLoading(false);
         }
-        else {
-            performSearch();
-        }
+    }, [allTerms, isSuccess]);
 
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [allTerms, allTermsSuccess, input]);
+    // useEffect(() => {
+    //     if (props.glossary.cache.count() === 0) {
+    //         if (allTerms && allTermsSuccess) {
+    //             writeCache(allTerms.data.results);
+    //
+    //             if (!input) {
+    //                 parseTerms(allTerms.data.results);
+    //                 setLoading(false);
+    //             }
+    //             else {
+    //                 performSearch();
+    //             }
+    //         }
+    //     }
+    //     else {
+    //         performSearch();
+    //     }
+    //
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [allTerms, allTermsSuccess, input]);
 
-    useEffect(() => {
-        const { termFromUrl, cache } = props.glossary;
-
-        if (cache.count() > 0 && termFromUrl) {
-            const term = cache.get(termFromUrl);
-            props.setGlossaryTerm(term);
-            props.setTermFromUrl('');
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props?.glossary]);
+    // useEffect(() => {
+    //     const { termFromUrl, cache } = props.glossary;
+    //
+    //     if (cache.count() > 0 && termFromUrl) {
+    //         const term = cache.get(termFromUrl);
+    //         props.setGlossaryTerm(term);
+    //         props.setTermFromUrl('');
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [props?.glossary]);
 
     return (
         <AnimatedGlossaryWrapper
             {...props}
-            loading={loading}
-            error={error || searchResultsError}
-            searchLoading={allTermsLoading || searchResultsLoading}
+            glossaryResults={terms}
+            loading={isLoading}
+            error={error}
+            searchLoading={isLoading}
             performSearch={performSearch} />
     );
 };

@@ -39,7 +39,7 @@ const GlossarySearchResults = (props) => {
     // we need to group the results by their starting letter
         const groups = {};
 
-        props.glossary.search.results.forEach((result) => {
+        props.glossaryResults?.forEach((result) => {
             const startingLetter = result.term.charAt(0).toUpperCase();
             // check if we already have the character
             if (Object.hasOwnProperty.call(groups, startingLetter)) {
@@ -75,7 +75,7 @@ const GlossarySearchResults = (props) => {
     useEffect(() => {
         groupResults();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.glossary.search.results]);
+    }, [props.glossaryResults]);
 
     let searchLoading = '';
     if (props.searchLoading) {
