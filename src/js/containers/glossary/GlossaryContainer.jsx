@@ -22,7 +22,7 @@ const GlossaryContainer = () => {
     const dispatch = useDispatch();
 
     const {
-        allTerms, isSuccess, error
+        allTerms, isSuccess, isLoading, error
     } = useFetchAllTerms();
 
     const writeCache = (data) => {
@@ -76,6 +76,7 @@ const GlossaryContainer = () => {
             glossaryResults={terms}
             loading={loading}
             error={error}
+            searchLoading={isLoading}
             performSearch={performSearch} />
     );
 };

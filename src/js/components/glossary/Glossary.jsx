@@ -21,10 +21,15 @@ const propTypes = {
     glossary: PropTypes.object,
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    zIndexClass: PropTypes.string
+    zIndexClass: PropTypes.string,
+    performSearch: PropTypes.func,
+    glossaryResults: PropTypes.object,
+    searchLoading: PropTypes.bool
 };
 
-const Glossary = ({ glossary, glossaryResults, loading, error, zIndexClass }) => {
+const Glossary = ({
+    glossary, glossaryResults, searchLoading, loading, error, zIndexClass, performSearch
+}) => {
     const history = useNavigate();
     const query = useQueryParams();
     const [contentHeight, setContentHeight] = useState(0);
@@ -81,25 +86,25 @@ const Glossary = ({ glossary, glossaryResults, loading, error, zIndexClass }) =>
             setLoadingContent(null);
         }
         else if (glossary?.term.slug && glossary?.term.slug !== '') {
-            setContent(<GlossaryDefinition {...props} />);
+            setContent(<GlossaryDefinition glossary={glossary} />);
             setLoadingContent(null);
         }
         else {
-            setContent(<GlossarySearchResults {...props} />);
+            setContent(<GlossarySearchResults glossary={glossary} searchLoading={searchLoading} glossaryResults={glossaryResults} />);
             setLoadingContent(null);
         }
 
-        if (props.loading) {
+        if (loading) {
             setLoadingContent(<div className="glossary-loading-content">Loading Glossary...</div>);
             setContent(null);
         }
-        else if (props.error) {
+        else if (error) {
             setLoadingContent(<div className="glossary-loading-content">Error: Could not load Glossary.</div>);
             setContent(null);
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.loading, props.error, props.glossaryResults, props.glossary?.term.slug]);
+    }, [loading, error, glossaryResults, glossary?.term.slug]);
 
     useEffect(() => {
         window.addEventListener('keyup', closeGlossary);
@@ -116,15 +121,15 @@ const Glossary = ({ glossary, glossaryResults, loading, error, zIndexClass }) =>
     }, [measureAvailableHeight, scrollbar]);
 
     useEffect(() => {
-        if (props.glossary?.term) {
+        if (glossary?.term) {
             scrollbar?.scrollToTop();
         }
-    }, [props.glossary.term, scrollbar]);
+    }, [scrollbar]);
 
     return (
         <div
             style={{ visibility: firstMount ? "hidden" : "" }}
-            className={props.glossary?.display ? `opened usa-da-glossary-wrapper ${props.zIndexClass}` : `usa-da-glossary-wrapper ${props.zIndexClass}`}>
+            className={glossary?.display ? `opened usa-da-glossary-wrapper ${zIndexClass}` : `usa-da-glossary-wrapper ${zIndexClass}`}>
             <aside
                 id="glossary-sidebar"
                 role="dialog"
@@ -134,7 +139,8 @@ const Glossary = ({ glossary, glossaryResults, loading, error, zIndexClass }) =>
                     id="glossary-sidebar-header"
                     className="glossary-header-wrapper">
                     <GlossaryHeader
-                        {...props}
+                        glossary={glossary}
+                        performSearch={performSearch}
                         closeGlossary={closeGlossary} />
                 </div>
                 {loadingContent}

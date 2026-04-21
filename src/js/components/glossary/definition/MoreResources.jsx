@@ -16,7 +16,7 @@ const propTypes = {
 const MoreResources = ({ resources }) => (
     <div className="glossary-resources">
         <h3 className="title">
-                    More Resources
+            More Resources
         </h3>
         <hr />
         <ReactMarkdown

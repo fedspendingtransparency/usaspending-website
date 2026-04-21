@@ -13,24 +13,24 @@ const propTypes = {
     selectTerm: PropTypes.func
 };
 
-const ResultItem = (props) => {
+const ResultItem = ({ item, search, selectTerm }) => {
     const [label, setLabel] = useState(null);
 
     const prepareLabel = () => {
-        const value = props.item.term.toLowerCase();
+        const value = item.term.toLowerCase();
         let labelLocal = null;
-        if (!props.search || value.indexOf(props.search.toLowerCase()) === -1) {
+        if (!search || value.indexOf(search.toLowerCase()) === -1) {
             // nothing is being searched (or there are no matches), so nothing needs to be
             // highlighted
-            labelLocal = props.item.term;
+            labelLocal = item.term;
         }
 
         else {
             // there is a search value, so we need to highlight the matched parts
-            const search = props.search.toLowerCase();
+            const searchLocal = search.toLowerCase();
 
             // split the string up into parts based on the search term
-            const parts = value.split(search);
+            const parts = value.split(searchLocal);
 
             let position = 0;
             const output = [];
@@ -38,7 +38,7 @@ const ResultItem = (props) => {
                 const unmatchedPos = position + part.length;
                 if (part.length > 0) {
                     // add the unmatched parts of the label
-                    const unmatched = props.item.term.substring(position, unmatchedPos);
+                    const unmatched = item.term.substring(position, unmatchedPos);
                     output.push(
                         <span key={`unmatched-${index}`}>
                             {unmatched}
@@ -49,7 +49,7 @@ const ResultItem = (props) => {
                 if (index < parts.length - 1) {
                     // add the matched parts of the label
                     const matchedPos = unmatchedPos + search.length;
-                    const matchedValue = props.item.term.substring(unmatchedPos, matchedPos);
+                    const matchedValue = item.term.substring(unmatchedPos, matchedPos);
                     const matched = (
                         <span className="matched-highlight" key={`match-${index}`}>
                             {matchedValue}
@@ -68,7 +68,7 @@ const ResultItem = (props) => {
     };
 
     const clickedLink = (term) => {
-        props.selectTerm(props.item);
+        selectTerm(item);
         Analytics.event({
             event: 'glossary-link',
             category: 'Glossary',
@@ -78,9 +78,9 @@ const ResultItem = (props) => {
 
 
     useEffect(() => {
-        prepareLabel(props);
+        prepareLabel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props]);
+    }, [item, search, selectTerm]);
 
     return (
         <li>
