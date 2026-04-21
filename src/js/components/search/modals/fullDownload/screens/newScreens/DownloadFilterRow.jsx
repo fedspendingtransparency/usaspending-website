@@ -38,13 +38,57 @@ const DownloadFilterRow = ({
         window.addEventListener('resize', checkOverflow);
         return () => window.removeEventListener('resize', checkOverflow);
     }, [filter]);
-    console.debug("FILTER: ", filter);
+    // every filter value/name has a completely different format ( array of strings, array of objects, object, object of arrays), these have to be formatted before they
+    // are passed into ReadMore because if you don't format it there is no comma separation
+    let formatted = null;
+
+    if (filter.name === 'Awarding Agency') {
+        formatted = filter.values.map((filterTemp, i, row) => {
+            if (i + 1 === row.length) {
+                return `${filterTemp.toptier_agency.name} `;
+            }
+            return `${filterTemp.toptier_agency.name}, `;
+        });
+    } else if (filter.name === 'Award Amounts') {
+        formatted = Object.entries(filter.values).map((filterTemp, i, row) => {
+            if (i + 1 === row.length) {
+                return `${filterTemp[1][0]} - ${filterTemp[1][1]}`;
+            }
+            return `${filterTemp[1][0]} - ${filterTemp[1][1]}, `;
+        });
+    } else if (filter.name === 'NAICS') {
+        formatted = filter.values.map((filterTemp, i, row) => {
+            if (i + 1 === row.length) {
+                return `${filterTemp.label} `;
+            }
+            return `${filterTemp.label}, `;
+        });
+    } else if (filter.name === 'Treasury Account') {
+        formatted = filter.values.map((filterTemp, i, row) => {
+            if (i + 1 === row.length) {
+                return `${filterTemp.label} `;
+            }
+            return `${filterTemp.label}, `;
+        });
+    } else if (filter.name === 'PSC') {
+        formatted = filter.values.map((filterTemp, i, row) => {
+            if (i + 1 === row.length) {
+                return `${filterTemp.value} `;
+            }
+            return `${filterTemp.value}, `;
+        });
+    } else if (filter.name === 'Type of Contract Pricing' || 'Type of Set Aside') {
+        formatted = Object.values(filter.values).join(", ");
+    }
+    else {
+        formatted = filter.values.join(", ");
+    }
     return (
         <tr>
             <th>{filter.name}:</th>
             <td ref={tdRef}>
                 <ReadMore
-                    text={filter.values}
+                    text={formatted}
                     limit={limit}
                     openPrompt="Show all"
                     closePrompt="Show less" />
