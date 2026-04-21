@@ -11,6 +11,7 @@ import { startCase } from "lodash-es";
 import { useDispatch } from 'react-redux';
 
 import { handleShareOptionClick } from 'helpers/socialShare';
+import { clearGlossaryTerm } from 'redux/actions/glossary/glossaryActions';
 
 import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';
@@ -18,14 +19,13 @@ import { showModal } from '../../../redux/actions/modal/modalActions';
 import useQueryParams from "../../../hooks/useQueryParams";
 
 const propTypes = {
-    glossary: PropTypes.object,
-    clearGlossaryTerm: PropTypes.func
+    glossary: PropTypes.object
 };
 
 const getGlossaryEmailSubject = (slug) => `USAspending.gov Glossary Term: ${startCase(slug)}`;
 const getGlossaryEmailBody = (url) => `View the definition of this federal spending term on USAspending.gov: ${url}`;
 
-const GlossaryDefinition = (props) => {
+const GlossaryDefinition = ({ glossary }) => {
     const query = useQueryParams();
     const [tab, setTab] = useState('plain');
     const [hasPlain, setHasPlain] = useState(true);
@@ -59,10 +59,10 @@ const GlossaryDefinition = (props) => {
         let hasOfficialLocal = false;
         let tabLocal = tab;
 
-        if (props.glossary.term.plain && props.glossary.term.plain !== '') {
+        if (glossary.term.plain && glossary.term.plain !== '') {
             hasPlainLocal = true;
         }
-        if (props.glossary.term.official && props.glossary.term.official !== '') {
+        if (glossary.term.official && glossary.term.official !== '') {
             hasOfficialLocal = true;
             if (tabLocal === 'plain' && !hasPlain) {
                 tabLocal = 'official';
@@ -82,10 +82,10 @@ const GlossaryDefinition = (props) => {
     };
 
     const clickedBack = () => {
-        props.clearGlossaryTerm();
+        dispatch(clearGlossaryTerm());
     };
 
-    const slug = props.glossary.term.toJS().slug;
+    const slug = glossary.term.toJS().slug;
 
     const stripUrl = () => {
         const url = new URL(window.location.href);
@@ -134,9 +134,9 @@ const GlossaryDefinition = (props) => {
     };
 
     useEffect(() => {
-        checkDefinitions(props);
+        checkDefinitions();
         /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [props]);
+    }, [glossary]);
 
     return (
         <div className="glossary-definition">
@@ -156,7 +156,7 @@ const GlossaryDefinition = (props) => {
                     noShareText />
             </div>
             <ItemDefinition
-                {...props.glossary.term.toJS()}
+                {...glossary.term.toJS()}
                 type={tab} />
             <button
                 className="glossary-back"

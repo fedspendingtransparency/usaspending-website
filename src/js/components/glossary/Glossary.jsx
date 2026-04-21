@@ -21,7 +21,6 @@ const propTypes = {
     glossary: PropTypes.object,
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    hideGlossary: PropTypes.func,
     zIndexClass: PropTypes.string
 };
 

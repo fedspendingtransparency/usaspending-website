@@ -5,17 +5,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { useDispatch } from 'react-redux';
+import { setSearchValue } from "redux/actions/glossary/glossaryActions"
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     glossary: PropTypes.object,
-    setSearchValue: PropTypes.func,
     performSearch: PropTypes.func
 };
 
 const GlossarySearchBar = (props) => {
     let searchTimer = null;
+
+    const dispatch = useDispatch();
 
     const performSearch = (term) => {
         if (searchTimer) {
@@ -23,7 +25,7 @@ const GlossarySearchBar = (props) => {
             window.clearTimeout(searchTimer);
         }
 
-        // props.setSearchValue(term);
+        dispatch(setSearchValue(term));
 
         if (term.length > 0 && term.length < 3) {
             // do not perform a search because the search term is too short
@@ -43,7 +45,7 @@ const GlossarySearchBar = (props) => {
 
     const submitSearch = (e) => {
         e.preventDefault();
-        // performSearch(props.glossary.search.input);
+        performSearch(props.glossary.search.input);
     };
 
     return (

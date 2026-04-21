@@ -16,7 +16,7 @@ const GlossaryContainer = () => {
     const [loading, setLoading] = useState(true);
     const [terms, setTerms] = useState();
 
-    // Glossary TODO this is necessary, why?
+    // This state is for glossary actions not results
     const glossary = useSelector((state) => state.glossary);
 
     const dispatch = useDispatch();
