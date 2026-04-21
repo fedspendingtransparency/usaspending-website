@@ -19,13 +19,14 @@ import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { showModal } from 'redux/actions/modal/modalActions';
 import useQueryParams from "hooks/useQueryParams";
 import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+import PageWrapper from 'components/sharedComponents/PageWrapper';
+import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
+import NumericPickerWrapper from 'components/sharedComponents/dropdowns/NumericPickerWrapper';
+import StatusOfFundsContainer from 'containers/agency/statusOfFunds/StatusOfFundsContainer';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
-import PageWrapper from '../sharedComponents/PageWrapper';
 import PageTitle from './overview/PageTitle';
-import NumericPickerWrapper from '../sharedComponents/dropdowns/NumericPickerWrapper';
-import StatusOfFundsContainer from '../../containers/agency/statusOfFunds/StatusOfFundsContainer';
 
 require('pages/agency/index.scss');
 
@@ -146,7 +147,6 @@ export const AgencyProfileV2 = ({
         <PageWrapper
             pageName="agency-v2"
             classNames="usa-da-agency-page-v2"
-            overLine="Agency Profile"
             title={name}
             metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencySlug, name })}
             inPageNav
@@ -165,6 +165,9 @@ export const AgencyProfileV2 = ({
                 <ShareIcon508 url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
+                <ProfileBackLink
+                    label="Back to Agency Profile Page"
+                    url="/agency" />
                 <div className="body usda__flex-col">
                     <PageTitle />
                     {isError

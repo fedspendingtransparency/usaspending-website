@@ -4,13 +4,14 @@
     @import "./header/options";
 
     @import "../search/resultsView/dtuiOverrides";
-
+    
     $color-gray-border: #D8D8D8;
     $color-blue-background: #F5FBFC;
-
+    
     .main-content {
         @import "./overview/overview";
         @import "./results/searchResults";
+        @import 'components/profileBackLink';
 
         .fed-account-content__row {
             padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4) ($global-spacing-unit * 4) ($global-spacing-unit * 4);
