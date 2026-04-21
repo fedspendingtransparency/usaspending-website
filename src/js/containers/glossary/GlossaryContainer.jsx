@@ -4,32 +4,18 @@
  */
 
 import React, { useEffect, useState, useCallback } from 'react';
-import PropTypes from 'prop-types';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import AnimatedGlossaryWrapper from 'components/glossary/AnimatedGlossaryWrapper';
 import useFetchAllTerms from './useFetchAllTerms';
-import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 
 require('pages/glossary/glossaryPage.scss');
-
-const propTypes = {
-    glossary: PropTypes.object,
-    setGlossaryResults: PropTypes.func,
-    showGlossary: PropTypes.func,
-    setGlossaryTerm: PropTypes.func,
-    setGlossaryCache: PropTypes.func,
-    setTermFromUrl: PropTypes.func
-};
 
 const GlossaryContainer = () => {
     const [loading, setLoading] = useState(true);
     const [terms, setTerms] = useState();
 
-    // this is necessary, why?
+    // Glossary TODO this is necessary, why?
     const glossary = useSelector((state) => state.glossary);
-    // const dispatch = useDispatch();
-    // dispatch(glossaryActions.setGlossaryTerm());
-    // dispatch(glossaryActions.closeGlossary());
 
     const {
         allTerms, isSuccess, error
@@ -66,7 +52,5 @@ const GlossaryContainer = () => {
             performSearch={performSearch} />
     );
 };
-
-GlossaryContainer.propTypes = propTypes;
 
 export default GlossaryContainer;
