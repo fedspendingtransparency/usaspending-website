@@ -5,8 +5,10 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { hideGlossary } from 'redux/actions/glossary/glossaryActions';
 
 import { getQueryParamString } from 'helpers/queryParams';
 import GlossaryHeader from './GlossaryHeader';
@@ -32,6 +34,7 @@ const Glossary = (props) => {
     const [scrollbar, setScrollbar] = useState(null);
     const [firstMount, setFirstMount] = useState(true);
 
+    const dispatch = useDispatch();
     const measureAvailableHeight = (useCallback(() => {
         const sidebarHeight = document.getElementById('glossary-sidebar')?.getBoundingClientRect().height || 0;
         const headerHeight = document.getElementById('glossary-sidebar-header')?.getBoundingClientRect().height || 0;
@@ -43,11 +46,11 @@ const Glossary = (props) => {
         if (props.glossary?.display) {
             setFirstMount(false);
         }
-    }, [props.glossary?.display]);
+    }, [props.glossary.display]);
 
     const closeGlossary = useCallback((e) => {
         if (e.key === 'Escape' || (e.type === 'click')) {
-            // props.hideGlossary();
+            dispatch(hideGlossary());
 
             // remove search param from url
             if (window.location.href.includes('glossary')) {
@@ -74,34 +77,30 @@ const Glossary = (props) => {
     useEffect(() => {
         measureAvailableHeight();
 
-        console.log(props.glossaryResults, props.loading);
         if (props.glossaryResults?.length === 0) {
             setContent(<NoResults {...props} />);
             setLoadingContent(null);
         }
-
-        // else if (props.glossary?.term.slug && props.glossary?.term.slug !== '') {
-        //     setContent(<GlossaryDefinition {...props} />);
-        //     setLoadingContent(null);
-        // }
-
-
-        // if (props.loading) {
-        //     setLoadingContent(<div className="glossary-loading-content">Loading Glossary...</div>);
-        //     setContent(null);
-        // }
-        else if (props.error) {
-            setLoadingContent(<div className="glossary-loading-content">Error: Could not load Glossary.</div>);
-            setContent(null);
-        } else {
+        else if (props.glossary?.term.slug && props.glossary?.term.slug !== '') {
+            setContent(<GlossaryDefinition {...props} />);
+            setLoadingContent(null);
+        }
+        else {
             setContent(<GlossarySearchResults {...props} />);
             setLoadingContent(null);
         }
 
+        if (props.loading) {
+            setLoadingContent(<div className="glossary-loading-content">Loading Glossary...</div>);
+            setContent(null);
+        }
+        else if (props.error) {
+            setLoadingContent(<div className="glossary-loading-content">Error: Could not load Glossary.</div>);
+            setContent(null);
+        }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.loading, props.error, props.glossaryResults, props.glossary?.term.slug]);
-    // }, [props.loading, props.error]);
 
     useEffect(() => {
         window.addEventListener('keyup', closeGlossary);
@@ -117,17 +116,16 @@ const Glossary = (props) => {
         scrollbar?.scrollToTop();
     }, [measureAvailableHeight, scrollbar]);
 
-    // useEffect(() => {
-    //     if (props.glossary?.term) {
-    //         scrollbar?.scrollToTop();
-    //     }
-    // }, [props.glossary?.term, scrollbar]);
+    useEffect(() => {
+        if (props.glossary?.term) {
+            scrollbar?.scrollToTop();
+        }
+    }, [props.glossary.term, scrollbar]);
 
     return (
         <div
             style={{ visibility: firstMount ? "hidden" : "" }}
-            // className={`open usa-da-glossary-wrapper ${props.zIndexClass}`}>
-        className={props.glossary?.display ? `opened usa-da-glossary-wrapper ${props.zIndexClass}` : `usa-da-glossary-wrapper ${props.zIndexClass}`}>
+            className={props.glossary?.display ? `opened usa-da-glossary-wrapper ${props.zIndexClass}` : `usa-da-glossary-wrapper ${props.zIndexClass}`}>
             <aside
                 id="glossary-sidebar"
                 role="dialog"

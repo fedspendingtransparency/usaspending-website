@@ -7,17 +7,21 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { concat, sortBy } from 'lodash-es';
 import Analytics from 'helpers/analytics/Analytics';
+import { useDispatch } from "react-redux";
+import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 
 import ResultGroup from './ResultGroup';
 
 const propTypes = {
     glossary: PropTypes.object,
-    searchLoading: PropTypes.bool,
-    setGlossaryTerm: PropTypes.func
+    // not sure about this search loading
+    searchLoading: PropTypes.bool
 };
 
 const GlossarySearchResults = (props) => {
     const [results, setResults] = useState([]);
+
+    const dispatch = useDispatch();
 
     const logGlossaryTermEvent = (term) => {
         Analytics.event({
@@ -29,8 +33,7 @@ const GlossarySearchResults = (props) => {
     };
 
     const selectTerm = (term) => {
-        props.setGlossaryTerm(term);
-
+        dispatch(glossaryActions.setGlossaryTerm(term));
         // Analytics
         logGlossaryTermEvent(term.term);
     };

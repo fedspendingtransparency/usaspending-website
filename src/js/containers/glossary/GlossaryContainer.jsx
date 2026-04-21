@@ -5,9 +5,10 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import AnimatedGlossaryWrapper from 'components/glossary/AnimatedGlossaryWrapper';
 import useFetchAllTerms from './useFetchAllTerms';
+import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 
 require('pages/glossary/glossaryPage.scss');
 
@@ -20,12 +21,15 @@ const propTypes = {
     setTermFromUrl: PropTypes.func
 };
 
-const GlossaryContainer = (props) => {
+const GlossaryContainer = () => {
     const [loading, setLoading] = useState(true);
     const [terms, setTerms] = useState();
 
     // this is necessary, why?
     const glossary = useSelector((state) => state.glossary);
+    // const dispatch = useDispatch();
+    // dispatch(glossaryActions.setGlossaryTerm());
+    // dispatch(glossaryActions.closeGlossary());
 
     const {
         allTerms, isSuccess, error
@@ -55,7 +59,6 @@ const GlossaryContainer = (props) => {
 
     return (
         <AnimatedGlossaryWrapper
-            {...props}
             glossary={glossary}
             glossaryResults={terms}
             loading={loading}
