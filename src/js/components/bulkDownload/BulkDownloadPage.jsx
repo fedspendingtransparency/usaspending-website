@@ -3,9 +3,10 @@
  * Created by Lizzie Salita 10/30/17
  */
 
-import React from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
+import IsMobileContext from "context/IsMobileContext";
 import {
     downloadArchivePageMetaTags,
     downloadAwardPageMetaTags,
@@ -19,13 +20,14 @@ import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContaine
 import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';
 import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
 import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
+import AwardsUserSelections from './awards/AwardsUserSelections';
+import AccountUserSelections from './accounts/AccountUserSelections';
 
 const propTypes = {
     dataType: PropTypes.string,
     bulkDownload: PropTypes.object,
     startAwardDownload: PropTypes.func,
-    startAccountDownload: PropTypes.func,
-    dataTypes: PropTypes.array
+    startAccountDownload: PropTypes.func
 };
 
 const metaTagsByDataType = {
@@ -35,95 +37,85 @@ const metaTagsByDataType = {
     dataset_metadata: metadataDownloadPageMetaTags
 };
 
-export default class BulkDownloadPage extends React.Component {
-    constructor(props) {
-        super(props);
+const BulkDownloadPage = ({
+    dataType,
+    bulkDownload,
+    startAwardDownload,
+    startAccountDownload
+}) => {
+    const { isTablet } = useContext(IsMobileContext);
+    const [showModal, setShowModal] = useState(false);
 
-        this.state = {
-            showModal: false
-        };
+    const hideModal = () => setShowModal(false);
 
-        this.hideModal = this.hideModal.bind(this);
-        this.showModal = this.showModal.bind(this);
-        this.clickedDownload = this.clickedDownload.bind(this);
+    useEffect(() => {
+        if (
+            showModal &&
+            bulkDownload.download.expectedUrl === "" &&
+            !bulkDownload.download.showCollapsedProgress
+        ) {
+            hideModal();
+        }
+    }, [bulkDownload.download.expectedUrl, bulkDownload.download.showCollapsedProgress, showModal]);
+
+    const clickedDownload = () => {
+        if (dataType === 'awards') {
+            startAwardDownload();
+        }
+        else if (dataType === 'accounts') {
+            startAccountDownload();
+        }
+
+        setShowModal(true);
+    };
+
+    let downloadDataContent;
+    let userSelections;
+
+    switch (dataType) {
+        case 'award_data_archive': downloadDataContent = (<AwardDataArchiveContainer />); break;
+        case 'accounts':
+            downloadDataContent = (<AccountDataContainer clickedDownload={clickedDownload} />);
+            userSelections = (<AccountUserSelections />);
+            break;
+        case 'dataset_metadata': downloadDataContent = (<MetadataDownload />); break;
+        default:
+            downloadDataContent = (<AwardDataContainer clickedDownload={clickedDownload} />);
+            userSelections = (<AwardsUserSelections />);
     }
 
-    componentDidUpdate() {
-    // Need to close the modal once the download is completed
-        if (this.state.showModal && this.props.bulkDownload.download.expectedUrl === ""
-            && !this.props.bulkDownload.download.showCollapsedProgress) {
-            this.hideModal();
-        }
-    }
-
-    hideModal() {
-        this.setState({
-            showModal: false
-        });
-    }
-
-    showModal() {
-        this.setState({
-            showModal: true
-        });
-    }
-
-    clickedDownload() {
-        if (this.props.dataType === 'awards') {
-            this.props.startAwardDownload();
-        }
-        else if (this.props.dataType === 'accounts') {
-            this.props.startAccountDownload();
-        }
-
-        this.showModal();
-    }
-
-    render() {
-        let awardDataArchiveClass = '';
-        let downloadDataContent = (
-            <AwardDataContainer
-                clickedDownload={this.clickedDownload} />
-        );
-        if (this.props.dataType === 'award_data_archive') {
-            downloadDataContent = (
-                <AwardDataArchiveContainer />
-            );
-            awardDataArchiveClass = 'award-data-archive-special-width';
-        }
-        if (this.props.dataType === 'accounts') {
-            downloadDataContent = (
-                <AccountDataContainer
-                    clickedDownload={this.clickedDownload} />
-            );
-        }
-        if (this.props.dataType === 'dataset_metadata') {
-            downloadDataContent = (
-                <MetadataDownload />
-            );
-        }
-        return (
-            <PageWrapper
-                pageName="Download Center"
-                classNames="usa-da-bulk-download-page"
-                title="Download Center"
-                metaTagProps={this.props.dataType in metaTagsByDataType ? metaTagsByDataType[this.props.dataType] : {}}>
-                <main id="main-content">
-                    <FlexGridRow style={{ justifyContent: 'center' }}>
-                        <FlexGridCol width={12} className={`bulk-download ${awardDataArchiveClass}`}>
-                            <div className="bulk-download__data">
-                                {downloadDataContent}
-                            </div>
-                            <BulkDownloadModalContainer
-                                mounted={this.state.showModal}
-                                hideModal={this.hideModal} />
+    return (
+        <PageWrapper
+            pageName="Download Center"
+            classNames="usa-da-bulk-download-page"
+            title="Download Center"
+            metaTagProps={
+                dataType in metaTagsByDataType ?
+                    metaTagsByDataType[dataType] :
+                    {}
+            }>
+            <main id="main-content">
+                <FlexGridRow >
+                    <FlexGridCol
+                        width={isTablet || !userSelections ? 12 : 8}
+                        className="bulk-download">
+                        <div className="bulk-download__data">
+                            {downloadDataContent}
+                        </div>
+                        <BulkDownloadModalContainer
+                            mounted={showModal}
+                            hideModal={hideModal} />
+                    </FlexGridCol>
+                    { userSelections && !isTablet &&
+                        <FlexGridCol width={4} >
+                            {userSelections}
                         </FlexGridCol>
-                    </FlexGridRow>
-                </main>
-            </PageWrapper>
-        );
-    }
-}
+                    }
+                </FlexGridRow>
+            </main>
+        </PageWrapper>
+    );
+};
 
 BulkDownloadPage.propTypes = propTypes;
-
+export default BulkDownloadPage;
