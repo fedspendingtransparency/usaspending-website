@@ -185,7 +185,6 @@ const Award = (props) => {
         <PageWrapper
             pageName="Award Profile"
             classNames="usa-da-award-v2-page"
-            overLine="Award Profile"
             metaTagProps={overview ? MetaTagHelper.awardPageMetaTags(overview) : {}}
             title={isLoading ? '--' : title}
             toolBarComponents={[

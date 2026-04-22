@@ -12,10 +12,7 @@ import { dateRangeChipLabel } from "helpers/searchHelper";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 import useNewAwardsOnly from "./useNewAwardsOnly";
 
-const propTypes = {
-    name: PropTypes.string,
-    resultsView: PropTypes.bool
-};
+const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };
 
 const TimePeriodDRFilterGroup = ({ name, resultsView }) => {
     const timePeriod = useSelector((state) => state.filters.time_period);

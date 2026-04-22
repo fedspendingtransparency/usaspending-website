@@ -3,6 +3,15 @@
     @import "layouts/default/stickyHeader/header";
     @import "./form/downloadForm";
 
+    .usa-dt-flex-grid__row {
+        max-width: rem(1400);
+        justify-content: center;
+        margin: auto;
+        flex-wrap: nowrap;
+
+        @import "./form/userSelections";
+    }
+
     .bulk-download {
         padding: 0;
         margin-left: rem(16);
@@ -11,12 +20,6 @@
         @media(min-width: $tablet-screen) {
             margin-left: rem(32);
             margin-right: rem(32);
-            max-width: rem(600);
-        }
-        @include media($tablet-screen) {
-            &.award-data-archive-special-width {
-                max-width: rem(1400);
-            }
         }
 
         .bulk-download__data {
