@@ -1,7 +1,33 @@
 .def-code-filter {
     h3.download-filter__title {
-        padding-left: rem(30);
-        padding-bottom: 0;
+        padding-bottom: rem(12);
+        line-height: $base-line-height;
+        font-size: $base-font-size;
+        justify-content: center;
+        color: $gray-90;
+
+        .download-filter__title_em {
+            background-color: $green-cool-5v;
+            font-weight: $font-semibold;
+            color: $gray-90;
+        }
+
+        .icon.title {
+            display: flex;
+            margin-right: rem(4);
+            padding: rem(4);
+            background-color: $green-cool-5v;
+            border-radius: rem(4);
+            align-items: center;
+            width: rem(24);
+            height: rem(24);
+
+            svg {
+                color: $green-cool-60v;
+                width: rem(18);
+                height: rem(18);
+            }
+        }
     }
     p.download-filter__subtitle {
         font-size: rem(16);
@@ -9,5 +35,9 @@
         padding-left: rem(30);
         margin-bottom: rem(15);
         margin-top: 0;
+    }
+
+    .download-filter__content {
+        padding-left: 0;
     }
 }

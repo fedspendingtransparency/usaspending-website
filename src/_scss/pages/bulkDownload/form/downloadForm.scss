@@ -10,11 +10,11 @@
         h3.download-filter__title {
             @include h5;
             margin: 0;
-            font-weight: 400;
+            font-weight: $font-normal;
             padding-bottom: rem(35);
             .download-filter__title_em {
                 color: $color-primary;
-                font-weight: 600;
+                font-weight: $font-semibold;
             }
             .icon {
                 float: left;

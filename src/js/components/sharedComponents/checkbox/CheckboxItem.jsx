@@ -14,7 +14,8 @@ const propTypes = {
     label: PropTypes.string,
     customLabel: PropTypes.string,
     searchString: PropTypes.string,
-    singleFilterChange: PropTypes.func
+    singleFilterChange: PropTypes.func,
+    isDisabled: PropTypes.bool
 };
 
 const CheckboxItem = ({
@@ -23,7 +24,8 @@ const CheckboxItem = ({
     label,
     customLabel,
     searchString,
-    singleFilterChange
+    singleFilterChange,
+    isDisabled = false
 }) => {
     const inputRef = useRef(null);
     const highlightText = (text) => replaceString(text, searchString, 'highlight');
@@ -49,6 +51,7 @@ const CheckboxItem = ({
                 value={filter}
                 checked={selectedFilters?.has(filter)}
                 onChange={toggleFilter}
+                disabled={isDisabled}
                 ref={inputRef} />
             {customLabel ?
                 <div className="checkbox-filter__item-label">{highlightText(customLabel)}</div>

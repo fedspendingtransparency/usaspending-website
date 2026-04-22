@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDefCodes } from 'hooks/WithDefCodes';
+import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AccordionCheckbox from "components/sharedComponents/checkbox/AccordionCheckbox";
 import DEFCheckboxTreeLabelv2 from "components/search/filters/defc/DEFCheckboxTreeLabelv2";
 import { sortAlphaNumbersLast } from "helpers/search/collapsiblesidebarHelper";
-import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
-import PropTypes from 'prop-types';
-
+import { defCodeGroups } from 'dataMapping/search/defCodes';
 
 const DEFCheckboxTreeDownload = ({
     type,
@@ -54,6 +54,31 @@ const DEFCheckboxTreeDownload = ({
             }
         ]);
 
+    const handleIndeterminateAncestor = (value) => {
+        // get parent
+        const isCovid = defCodeGroups.covid.includes(value);
+        let allChecked = false;
+        let checkbox;
+
+        if (isCovid) {
+            allChecked = defCodeGroups.covid.every((c) => (
+                defCodes.includes(c))
+            );
+            checkbox = document.getElementById('primary-checkbox__covid');
+        }
+        else {
+            allChecked = defCodeGroups.infrastructure.every((c) => (
+                defCodes.includes(c))
+            );
+            checkbox = document.getElementById('primary-checkbox__infrastructure');
+        }
+
+        if (checkbox) {
+            checkbox.indeterminate = !allChecked;
+            checkbox.checked = allChecked;
+        }
+    };
+
     const toggleDefc = (selection) => {
         const value = selection.value;
         let newCheck = new Set([...defCodes]);
@@ -64,11 +89,13 @@ const DEFCheckboxTreeDownload = ({
             else {
                 newCheck = new Set([...newCheck, value]);
             }
-            dispatch(setDefCodes(type, newCheck));
+            dispatch(setDefCodes(type, [...newCheck]));
         }
         else {
             dispatch(setDefCodes(type, selection.value));
         }
+
+        handleIndeterminateAncestor(value);
     };
 
     const bulkChangeDefc = (selection) => {
@@ -89,7 +116,7 @@ const DEFCheckboxTreeDownload = ({
                 newCheck = new Set([...newCheck, ...types]);
             }
 
-            dispatch(setDefCodes(type, newCheck));
+            dispatch(setDefCodes(type, [...newCheck]));
         }
         else {
             dispatch(setDefCodes(type, types));

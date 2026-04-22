@@ -1,48 +1,127 @@
-  .def-code-filter-download {
-
-    .filter-item-wrap {
-      padding: 0;  // we want padding for search container but not here 
-      
-      .checkbox-filter__header-icon {
-        margin-top: rem(4);
-        margin-right: rem(8);
-      }
-
-      .defc-filter-message-container {
-        font-size: rem(30);
+.def-code-filter-download {
+  .filter-item-wrap {
+    padding: 0;  // we want padding for search container but not here 
+    
+    .checkbox-filter__wrapper {
+      .checkbox-filter__header.accordion-checkbox {
+        margin-bottom: ($global-margin * 1.5);
+        line-height: $base-line-height;
+        display: inline-flex;
         text-align: center;
-        margin-top: $global-margin;
+        justify-content: center;
+        
+        .checkbox-filter__header-icon {
+          margin: 0 rem(8) 0 0;
+          
+          svg {
+            font-weight: 900;
+            color: $blue-50;
+            width: rem(12);
+            height: rem(24);
+            max-height: rem(24);
+          }
+        }
+        
+        .checkbox-filter__header-label-container {
+          line-height: $base-line-height;
+          display: flex;
+          justify-content: center;
+          align-items: center;
 
-        .defc-filter-message-container__text {
-          font-size: 2rem;
-          padding-bottom: 2rem;
-        }
-      }
-      
-      .checkbox-tree-label {
-        .checkbox-tree-label__value-container {
-          background: $gray-cool-5;
-          border-radius: rem(2);
-          display: inline-block;
-          padding: rem(2.5);
-          height: rem(18);
-          
-          .checkbox-tree-label__value-container-value {
-            color: $gray-90;
-            font-weight: $font-semibold;
-            font-size: $font-size-10;
+          input {    
+            width: rem(24);
+            height: rem(24);
+            border: solid rem(2) $gray-70; 
+            border-radius: rem(4);  
+            
+            &:disabled {
+              border: solid rem(2) $gray-40; 
+              background-color: $gray-20;
+            }
+            
+            &:checked {
+              background-color: $blue-60v !important;
+              border-color: $blue-60v !important;
+            }
+            
+            &:checked:before {
+              width: rem(8);
+              height: rem(16);
+              margin: rem(0) rem(6);
+            }
+            
+            &:indeterminate {
+              background-color: $blue-60v !important;
+              border-color: $blue-60v !important;
+            }
+            
+            &:indeterminate:before {
+              width: rem(10);
+              margin: rem(12) auto;
+              border-bottom: rem(2) solid #fff;
+            }
           }
-        }
-      }
-      
-      .checkbox-tree-label .checkbox-tree-label__label {
-        &.multiple-label {
-          padding-bottom: rem(8);
           
-          &:last-of-type {
-            padding-bottom: 0;
+          .checkbox-filter__header-label {
+            font-size: $base-font-size;
+            color: $body-color;
+            font-weight: $font-normal;
           }
+
+          .checkbox-filter__header-count {
+            display: none;
+          }     
+        }
+      
+        .checkbox-filter__list.accordion-checkbox {
+          margin: 0 0 0 rem(56);
+          input {    
+            width: rem(24);
+            height: rem(24);
+            border: solid rem(2) $gray-70; 
+            border-radius: rem(4);  
+            
+            &:disabled {
+              border: solid rem(2) $gray-40; 
+              background-color: $gray-20;
+            }
+            
+            &:checked {
+              background-color: $blue-60v !important;
+              border-color: $blue-60v !important;
+            }
+            
+            &:checked:before {
+              width: rem(8);
+              height: rem(16);
+              margin: rem(0) rem(6);
+            }
+            
+            &:indeterminate {
+              background-color: $blue-60v !important;
+              border-color: $blue-60v !important;
+            }
+            
+            &:indeterminate:before {
+              width: rem(10);
+              margin: rem(12) auto;
+              border-bottom: rem(2) solid #fff;
+            }
+          }
+
         }
       }
     }
+
+    .defc-filter-message-container {
+      font-size: rem(30);
+      text-align: center;
+      margin-top: $global-margin;
+      
+      .defc-filter-message-container__text {
+        font-size: 2rem;
+        padding-bottom: 2rem;
+      }
+    }
   }
+}

@@ -41,7 +41,8 @@ const propTypes = {
     bulkFilterChange: PropTypes.func,
     enableAnalytics: PropTypes.bool,
     customLabels: PropTypes.object,
-    searchString: PropTypes.string
+    searchString: PropTypes.string,
+    isDisabled: PropTypes.bool
 };
 
 const AccordionCheckboxPrimary = ({
@@ -54,7 +55,8 @@ const AccordionCheckboxPrimary = ({
     customLabels,
     bulkFilterChange,
     enableAnalytics = false,
-    searchString
+    searchString,
+    isDisabled = false
 }) => {
     const [allChildren, setAllChildren] = useState(false);
     const inputRef = useRef(null);
@@ -130,23 +132,23 @@ const AccordionCheckboxPrimary = ({
 
     return (
         <div className="checkbox-filter__wrapper">
-            <div
-                className="checkbox-filter__header accordion-checkbox"
-                role="button"
-                tabIndex="0">
+            <div className="checkbox-filter__header accordion-checkbox">
                 <div className="checkbox-filter__header-icon">
                     <CheckboxChevron
                         category={category}
                         toggleExpanded={toggleExpanded}
                         icon={icon} />
                 </div>
-                <input
-                    type="checkbox"
-                    onChange={toggleChildren}
-                    checked={allChildren}
-                    id={`primary-checkbox__${category.id}`}
-                    ref={inputRef} />
-                <div className="checkbox-filter__header-label-container">
+                <label
+                    htmlFor={`primary-checkbox__${category.id}`}
+                    className="checkbox-filter__header-label-container">
+                    <input
+                        type="checkbox"
+                        onChange={toggleChildren}
+                        checked={allChildren}
+                        disabled={isDisabled}
+                        id={`primary-checkbox__${category.id}`}
+                        ref={inputRef} />
                     <span className="checkbox-filter__header-label accordion-checkbox">
                         {replaceString(category.name, searchString, 'highlight')}
                     </span>
@@ -154,7 +156,7 @@ const AccordionCheckboxPrimary = ({
                         {count}{' '}
                         {count === 1 ? 'type' : 'types'}
                     </span>
-                </div>
+                </label>
             </div>
             <AccordionCheckboxSecondary
                 expanded={expanded}
@@ -163,7 +165,8 @@ const AccordionCheckboxPrimary = ({
                 singleFilterChange={singleFilterChange}
                 filters={filters}
                 customLabels={customLabels}
-                searchString={searchString} />
+                searchString={searchString}
+                isDisabled={isDisabled} />
         </div>);
 };
 
