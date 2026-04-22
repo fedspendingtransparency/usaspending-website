@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import React from "react";
-import { useQuery } from "@tanstack/react-query";
+import React, { useEffect, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
 import { intersection, uniqueId } from 'lodash-es';
 
 import {
@@ -117,50 +117,27 @@ const getSortOrder = (searchOrder, grouped) => {
 };
 
 const useResultsTableSearch = (
-    searchFilters, tableType, spendingLevel, limit, searchOrder, grouped, page = 1
+    searchFilters, tableType, spendingLevel, limit, searchOrder, grouped, page
 ) => {
-    const filtersTemp = new SearchAwardsOperation();
-
-    // get initial searchParams from state
-    filtersTemp.fromState(searchFilters);
-
-    // if subawards is true, newAwardsOnly cannot be true, so we remove
-    // dateType for this request; also has to be done for the tabCounts request
-    if (spendingLevel === "subaward" && filtersTemp.dateType) {
-        delete filtersTemp.dateType;
-    }
-
-    filtersTemp.awardType = getAwardTypeGroup(spendingLevel, tableType, searchFilters.awardType);
-
-    const fields = getFields(tableType);
-
-    const { sort, order } = getSortOrder(searchOrder, grouped);
-
-    let request;
-
-    const filters = filtersTemp.toParams();
-
-    const params = {
-        auditTrail: 'Results Table - Spending by award search',
-        filters,
-        limit,
-        order,
-        page,
-        sort
-    };
-
-    if (grouped) request = performSpendingBySubawardGrouped(params);
-    else {
-        request = performSpendingByAwardSearch({
-            ...params, fields, spending_level: spendingLevel
-        });
-    }
+    const [data, setData] = useState([]);
 
     const {
-        data, isLoading, error
-    } = useQuery({
-        queryKey: ['resultsTableData', limit, order, page, sort, spendingLevel, grouped, filters],
-        queryFn: () => request.promise,
+        isPending, error, mutate
+    } = useMutation({
+        mutationKey: [
+            'resultsTableData',
+            limit,
+            page,
+            searchOrder,
+            spendingLevel,
+            grouped,
+            tableType,
+            searchFilters
+        ],
+        mutationFn: (request) => request,
+        onSuccess: async (d) => {
+            await d.promise.then((res) => setData(res));
+        },
         staleTime: 60000
     });
 
@@ -171,8 +148,50 @@ const useResultsTableSearch = (
         })) :
         [];
 
+    useEffect(() => {
+        let request;
+        const fields = getFields(tableType);
+
+        const { sort, order } = getSortOrder(searchOrder, grouped);
+
+        const filtersTemp = new SearchAwardsOperation();
+
+        // get initial searchParams from state
+        filtersTemp.fromState(searchFilters);
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove
+        // dateType for this request; also has to be done for the tabCounts request
+        if (spendingLevel === "subaward" && filtersTemp.dateType) {
+            delete filtersTemp.dateType;
+        }
+
+        filtersTemp.awardType = getAwardTypeGroup(
+            spendingLevel, tableType, searchFilters.awardType
+        );
+
+        const filters = filtersTemp.toParams();
+
+        const params = {
+            auditTrail: 'Results Table - Spending by award search',
+            filters,
+            limit,
+            order,
+            page,
+            sort
+        };
+
+        if (grouped) request = performSpendingBySubawardGrouped(params);
+        else {
+            request = performSpendingByAwardSearch({
+                ...params, fields, spending_level: spendingLevel
+            });
+        }
+
+        mutate(request);
+    }, [mutate, grouped, tableType, searchOrder, searchFilters, spendingLevel, limit, page]);
+
     return {
-        isLoading,
+        isLoading: isPending,
         error,
         results,
         total: results?.length,
