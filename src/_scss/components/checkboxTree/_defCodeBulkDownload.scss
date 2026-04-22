@@ -16,6 +16,13 @@
           width: auto;
           display: flex;
 
+          button.toggle {
+            @include button-unstyled;
+            @include display(flex);
+            @include align-items(center);
+            @include flex(1 1 auto);
+          }
+
           svg {
             font-weight: 900;
             color: $blue-50;
@@ -31,12 +38,14 @@
           flex: 1 0 0;
           justify-content: center;
           align-items: center;
+          gap: rem(8);
 
           input {    
             width: rem(22);
             height: rem(22);
             border: solid rem(2) $gray-70; 
             border-radius: rem(4);
+            margin-right: 0;
             
             &:disabled {
               border: solid rem(2) $gray-40; 
@@ -70,6 +79,7 @@
             font-size: $base-font-size;
             color: $body-color;
             font-weight: $font-normal;
+            margin-left: 0;
           }
           
           .checkbox-filter__header-count {
@@ -82,78 +92,89 @@
         .checkbox-filter__item {
           line-height: $base-line-height;
           margin-left: rem(32);
-          
-          input {    
-            width: rem(22);
-            height: rem(22);
-            border: solid rem(2) $gray-70; 
-            border-radius: rem(4);
-            flex-shrink: 0;
-            
-            &:disabled {
-              border: solid rem(2) $gray-40; 
-              background-color: $gray-20;
-            }
-            
-            &:checked {
-              background-color: $blue-60v !important;
-              border-color: $blue-60v !important;
-            }
-            
-            &:checked:before {
-              width: rem(8);
-              height: rem(16);
-              margin: rem(0) rem(6);
-            }
-            
-            &:indeterminate {
-              background-color: $blue-60v !important;
-              border-color: $blue-60v !important;
-            }
-            
-            &:indeterminate:before {
-              width: rem(10);
-              margin: rem(12) auto;
-              border-bottom: rem(2) solid #fff;
-            }
-          }
+          gap: rem(8);
 
-          .checkbox-tree-label {
-            display: flex;
-            width: 100%;
+          .checkbox-filter__item-label-container {
+            line-height: $base-line-height;
+            gap: rem(8);
 
-            .checkbox-tree-label__value-container {
-              line-height: $base-line-height;
-              color: $gray-90;
-              display: flex;
-              align-items: flex-start;
+            input {    
+              width: rem(22);
+              height: rem(22);
+              border: solid rem(2) $gray-70; 
+              border-radius: rem(4);
+              flex-shrink: 0;
+              margin-right: 0;
               
-              .checkbox-tree-label__value-container-value {
-                font-size: $base-font-size;
-                font-weight: $font-semibold;
-                text-indent: rem(21) hanging each-line;
-              }
-              .checkbox-tree-label__value-container-label {
-                font-size: $base-font-size;
-                font-weight: $font-normal;
-              }
-              .checkbox-tree-label__value-container-spacer {
-                font-size: $base-font-size;
-                font-weight: $font-normal;
-                margin-right: rem(4);
+              &:disabled {
+                border: solid rem(2) $gray-40; 
+                background-color: $gray-20;
               }
               
-              .checkbox-tree-label__value-container-sub-label {
-                font-size: $small-font-size;
-                font-weight: $font-normal;
-                margin-bottom: rem(12);
-                margin-left: rem(21);
+              &:checked {
+                background-color: $blue-60v !important;
+                border-color: $blue-60v !important;
               }
+              
+              &:checked:before {
+                width: rem(8);
+                height: rem(16);
+                margin: rem(0) rem(6);
+              }
+              
+              &:indeterminate {
+                background-color: $blue-60v !important;
+                border-color: $blue-60v !important;
+              }
+              
+              &:indeterminate:before {
+                width: rem(10);
+                margin: rem(12) auto;
+                border-bottom: rem(2) solid #fff;
+              }
+            }
 
-              .multi-label-level {
-                margin-left: rem(-8);
-                .checkbox-tree-label__value-container-sub-label {
-                  margin-left: 0;
+            .checkbox-filter__item-label {
+              margin-left: 0;
+
+              .checkbox-tree-label {
+                display: flex;
+                width: 100%;
+                
+                .checkbox-tree-label__value-container {
+                  line-height: $base-line-height;
+                  color: $gray-90;
+                  display: flex;
+                  align-items: flex-start;
+                  
+                  .checkbox-tree-label__value-container-value {
+                    font-size: $base-font-size;
+                    font-weight: $font-semibold;
+                    text-indent: rem(21) hanging each-line;
+                  }
+                  .checkbox-tree-label__value-container-label {
+                    font-size: $base-font-size;
+                    font-weight: $font-normal;
+                  }
+                  .checkbox-tree-label__value-container-spacer {
+                    font-size: $base-font-size;
+                    font-weight: $font-normal;
+                    margin-right: rem(4);
+                  }
+                  
+                  .checkbox-tree-label__value-container-sub-label {
+                    font-size: $small-font-size;
+                    font-weight: $font-normal;
+                    margin-bottom: rem(12);
+                    margin-left: rem(21);
+                  }
+                  
+                  .multi-label-level {
+                    margin-left: rem(-8);
+                    .checkbox-tree-label__value-container-sub-label {
+                      margin-left: 0;
+                    }
+                  }
                 }
               }
             }

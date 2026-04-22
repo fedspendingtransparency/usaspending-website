@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { uniqueId } from "lodash-es";
 import PropTypes from "prop-types";
 
 import replaceString from "../../../helpers/replaceString";
@@ -45,19 +44,23 @@ const CheckboxItem = ({
 
     return (
         <li className={`checkbox-filter__item ${filter === excludedSubFilters ? 'hidden' : ''}`}>
-            <input
-                type="checkbox"
-                id={`primary-checkbox-${uniqueId()}`}
-                value={filter}
-                checked={selectedFilters?.has(filter)}
-                onChange={toggleFilter}
-                disabled={isDisabled}
-                ref={inputRef} />
-            {customLabel ?
-                <div className="checkbox-filter__item-label">{highlightText(customLabel)}</div>
-                :
-                <div className="checkbox-filter__item-label">{highlightText(label)}</div>
-            }
+            <label
+                htmlFor={`primary-checkbox__${filter}`}
+                className="checkbox-filter__item-label-container">
+                <input
+                    type="checkbox"
+                    id={`primary-checkbox-${filter}`}
+                    value={filter}
+                    checked={selectedFilters?.has(filter)}
+                    onChange={toggleFilter}
+                    disabled={isDisabled}
+                    ref={inputRef} />
+                {customLabel ?
+                    <div className="checkbox-filter__item-label">{highlightText(customLabel)}</div>
+                    :
+                    <div className="checkbox-filter__item-label">{highlightText(label)}</div>
+                }
+            </label>
         </li>
     );
 };

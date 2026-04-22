@@ -61,7 +61,6 @@ const AccordionCheckboxPrimary = ({
     const [allChildren, setAllChildren] = useState(false);
     const inputRef = useRef(null);
 
-    const icon = expanded ? "chevron-down" : "chevron-right";
     const primaryCheckbox = document.getElementById(`primary-checkbox__${category.id}`);
     const count = category.id === 'indefinite-delivery-vehicle' ?
         category.filters?.length - 1 :
@@ -137,7 +136,7 @@ const AccordionCheckboxPrimary = ({
                     <CheckboxChevron
                         category={category}
                         toggleExpanded={toggleExpanded}
-                        icon={icon} />
+                        expanded={expanded} />
                 </div>
                 <label
                     htmlFor={`primary-checkbox__${category.id}`}
