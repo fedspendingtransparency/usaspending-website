@@ -6,21 +6,17 @@
     display: flex;
     flex-direction: row;
     list-style-type: none;
-    margin: rem(20) auto;
-    margin-left: rem(4);
+    margin: rem(16) 0 0 rem(20);
     
-    @media(min-width: $tablet-screen) and (max-width: $large-screen - 1) {
-        margin-left: rem(-12);
-    }
     @media(min-width: $large-screen) {
-        padding: rem(8) 0;
-        margin-left: rem(8);
+        padding: rem(16) 0;
+        margin: 0 rem(40);
     }
     @media(min-width: $x-large-screen) {
+        margin: 0 auto;
         width: rem(1600);
-        margin-left: auto;
     }
-
+    
     .usa-profile-back-link__wrapper {
         display: inline-flex;
         gap: rem(4);
@@ -42,5 +38,23 @@
             aspect-ratio: 1/1;
             padding-right: rem(4);
         }
+    }
+
+    &.agency-profile {
+        margin: rem(20) auto;
+        margin-left: rem(4);
+        
+        @media(min-width: $tablet-screen) and (max-width: $large-screen - 1) {
+            margin-left: rem(-12);
+        }
+        @media(min-width: $large-screen) {
+            padding: rem(8) 0;
+            margin-left: rem(8);
+        }
+        @media(min-width: $x-large-screen) {
+            width: rem(1600);
+            margin-left: auto;
+        }
+    
     }
 }
