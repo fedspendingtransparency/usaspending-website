@@ -166,6 +166,7 @@ export const AgencyProfileV2 = ({
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
                 <ProfileBackLink
+                    className="agency-profile"
                     label="Back to Agency Profile Page"
                     url="/agency" />
                 <div className="body usda__flex-col">
