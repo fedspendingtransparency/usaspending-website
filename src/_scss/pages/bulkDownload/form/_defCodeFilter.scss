@@ -1,6 +1,6 @@
 .def-code-filter {
     display: flex;
-    width: rem(924);
+    width: 100%;
     flex-direction: column;
     align-items: flex-start;
     gap: rem(12);
@@ -45,5 +45,11 @@
 
     .download-filter__content {
         padding-left: 0;
+        .download-filter__content-note {
+            font-style: normal;
+            color: $gray-90;
+        }
     }
+
+
 }

@@ -58,7 +58,6 @@ const AccordionCheckbox = ({
     );
 
     const toggleExpanded = (category) => {
-        if (isDisabled) return;
         const containsId = expandedCategories?.indexOf(category.id);
         if (containsId <= -1) {
             setExpandedCategories([...expandedCategories, category.id]);

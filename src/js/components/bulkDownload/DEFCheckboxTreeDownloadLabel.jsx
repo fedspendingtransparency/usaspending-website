@@ -31,7 +31,6 @@ const DEFCheckboxTreeDownloadLabel = ({
                                 </span>
                                 <div className="checkbox-tree-label__value-container-sub-label">
                                     <span>{parseAcronym(subLabels[i])}</span>
-                                    <br />
                                 </div>
                             </>
                         ))}
@@ -52,7 +51,6 @@ const DEFCheckboxTreeDownloadLabel = ({
                     {subLabel && (
                         <div className="checkbox-tree-label__value-container-sub-label">
                             <span>{parseAcronym(subLabel)}</span>
-                            <br />
                         </div>
                     )}
                 </div>
