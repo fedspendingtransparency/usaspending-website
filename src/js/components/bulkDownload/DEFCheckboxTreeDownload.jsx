@@ -5,9 +5,9 @@ import { useDefCodes } from 'hooks/WithDefCodes';
 import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AccordionCheckbox from "components/sharedComponents/checkbox/AccordionCheckbox";
-import DEFCheckboxTreeLabelv2 from "components/search/filters/defc/DEFCheckboxTreeLabelv2";
 import { sortAlphaNumbersLast } from "helpers/search/collapsiblesidebarHelper";
 import { defCodeGroups } from 'dataMapping/search/defCodes';
+import DEFCheckboxTreeDownloadLabel from "./DEFCheckboxTreeDownloadLabel";
 
 const DEFCheckboxTreeDownload = ({
     type,
@@ -32,7 +32,7 @@ const DEFCheckboxTreeDownload = ({
     const detailsDisplay = (codes) => codes.reduce((obj, item) => {
         // eslint-disable-next-line no-param-reassign
         obj[item.code] = (
-            <DEFCheckboxTreeLabelv2
+            <DEFCheckboxTreeDownloadLabel
                 label={item.title}
                 subLabel={item.public_law}
                 value={item.code}
