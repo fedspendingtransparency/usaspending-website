@@ -5,25 +5,27 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { useDispatch } from 'react-redux';
+import { setSearchValue } from "redux/actions/glossary/glossaryActions";
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     glossary: PropTypes.object,
-    setSearchValue: PropTypes.func,
     performSearch: PropTypes.func
 };
 
-const GlossarySearchBar = (props) => {
+const GlossarySearchBar = ({ glossary, performSearch }) => {
     let searchTimer = null;
 
-    const performSearch = (term) => {
+    const dispatch = useDispatch();
+
+    const performSearchLocal = (term) => {
         if (searchTimer) {
             // clear any existing timers, it's old data
             window.clearTimeout(searchTimer);
         }
 
-        props.setSearchValue(term);
+        dispatch(setSearchValue(term));
 
         if (term.length > 0 && term.length < 3) {
             // do not perform a search because the search term is too short
@@ -33,17 +35,17 @@ const GlossarySearchBar = (props) => {
 
         // wait for typing to stop 300ms before performing search
         searchTimer = window.setTimeout(() => {
-            props.performSearch();
+            performSearch(term);
         }, 300);
     };
 
     const changedSearchValue = (e) => {
-        performSearch(e.target.value);
+        performSearchLocal(e.target.value);
     };
 
     const submitSearch = (e) => {
         e.preventDefault();
-        performSearch(props.glossary.search.input);
+        performSearchLocal(glossary.search.input);
     };
 
     return (
@@ -52,7 +54,7 @@ const GlossarySearchBar = (props) => {
                 <input
                     className="search-field"
                     type="text"
-                    value={props.glossary.search.input}
+                    value={glossary.search.input}
                     placeholder="Search for a term..."
                     onChange={changedSearchValue} />
                 <button
