@@ -24,7 +24,7 @@ const DefCodeFilter = ({ type, isDisabled = false }) => {
                 }
             </div>
         </div>
-    )
+    );
 };
 
 DefCodeFilter.propTypes = {
