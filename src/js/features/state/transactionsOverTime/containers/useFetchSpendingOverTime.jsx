@@ -79,7 +79,8 @@ export const useFetchSpendingOverTime = (visualizationPeriod, code) => {
         if (isSuccess && Object.keys(data?.data).length > 0) {
             parseData(data?.data);
         }
-    }, [data, isSuccess, parseData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data, isSuccess]);
 
     return {
         parsedData, isSuccess, isLoading, error

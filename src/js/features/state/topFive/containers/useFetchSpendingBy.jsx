@@ -133,6 +133,7 @@ export const useFetchSpendingBy = (category, code, fy, type) => {
             }
             return performSpendingByCategorySearch(dataParams).promise;
         },
+        enabled: !!(dataParams && code && type && fy),
         staleTime: 60000
     });
 
