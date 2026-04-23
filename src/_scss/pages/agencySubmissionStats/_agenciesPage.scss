@@ -1,8 +1,8 @@
 .heading-container {
-    .header {
+    h2 {
         margin-top: rem(30);
-        font-size: rem(28);
     }
+
     .sub-header {
         color: $gray-cool-60;
         font-size: rem(16);
@@ -11,14 +11,17 @@
         line-height: rem(24);
         margin-top: rem(8);
         margin-bottom: 0;
+
         .sub-header-span {
             font-weight: $font-semibold;
         }
+
         .sub-header-link {
             text-decoration: underline;
         }
+
         &:last-of-type {
-            margin-bottom: rem(30);
+            margin-bottom: rem(16);
         }
     }
 }

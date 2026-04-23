@@ -5,14 +5,13 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { reduce } from 'lodash-es';
 import { ErrorMessage, FlexGridCol, GenericMessage, LoadingMessage } from "data-transparency-ui";
+import { reduce } from "lodash-es";
+import BaseAwardBreakdownRow from "models/v2/state/BaseAwardBreakdownRow";
 
-import BaseAwardBreakdownRow from 'models/v2/state/BaseAwardBreakdownRow';
-import useQueryTemp from "hooks/useQueryTemp";
-import { fetchAwardBreakdown } from "features/state/stateHelper";
-import AwardBreakdownTreeMap from './treemap/AwardBreakdownTreeMap';
-import AwardBreakdownTable from './AwardBreakdownTable';
+import AwardBreakdownTreeMap from '../treemap/AwardBreakdownTreeMap';
+import AwardBreakdownTable from '../AwardBreakdownTable';
+import useFetchAwardBreakdown from "./useFetchAwardBreakdown";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -25,8 +24,12 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
     const [rows, setRows] = useState([]);
     const [totalAmount, setTotalAmount] = useState(0);
     const [hasNegatives, setHasNegatives] = useState(false);
-    const parseData = useCallback((results) => {
-        const amountType = toggleState ? "total_outlays" : "amount";
+
+    const {
+        data, isSuccess, isLoading, error
+    } = useFetchAwardBreakdown(id, fy);
+
+    const dataByAwardType = useCallback((results, amountType) => {
         // Sum all amounts in the returned award types
         const newTotalAmount = reduce(
             results,
@@ -49,7 +52,7 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
         const newHasNegatives = positiveAmount > newTotalAmount;
 
         // Sort the results by amount
-        const sortedResults = results.sort((rowA, rowB) =>
+        const sortedResults = results?.sort((rowA, rowB) =>
             rowB[amountType] - rowA[amountType]
         );
 
@@ -59,31 +62,28 @@ const AwardBreakdownContainer = ({ fy, id, toggleState }) => {
             return row;
         });
 
-
         setAwardBreakdown(results);
         setRows(newRows);
         setTotalAmount(newTotalAmount);
         setHasNegatives(newHasNegatives);
-    }, [toggleState]);
-
-    const { fetchData, loading, error } = useQueryTemp(parseData);
+    });
 
     useEffect(() => {
-        if (!id || id === '' || !fy || fy === '') {
-            // invalid ID or fiscal year
-            return;
+        if (isSuccess && data) {
+            const toggleType = toggleState ? "total_outlays" : "amount";
+            dataByAwardType([...data.data], toggleType);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isSuccess, data, toggleState]);
 
-        fetchData(() => fetchAwardBreakdown(id, fy));
-    }, [fetchData, fy, id, toggleState]);
     return (
         <FlexGridCol width={8} desktop={8} tablet={12} mobile={12}>
-            { loading && <LoadingMessage /> }
+            { isLoading && <LoadingMessage /> }
             { error && <ErrorMessage /> }
-            { !loading && (awardBreakdown.length === 0 || totalAmount === 0) && <GenericMessage title="No Results" description="This award doesn't contain outlay data." className="no-results" />}
+            { !isLoading && (awardBreakdown.length === 0 || totalAmount === 0) && <GenericMessage title="No Results" description="This award doesn't contain outlay data." className="no-results" />}
             <div className="state-section__viz award-breakdown" id="award">
                 <div className="award-breakdown__content">
-                    { !loading && !error && (awardBreakdown.length > 0 && totalAmount > 0) && (
+                    { !isLoading && !error && (awardBreakdown.length > 0 && totalAmount > 0) && (
                         <>
                             <AwardBreakdownTreeMap
                                 activeFY={fy}

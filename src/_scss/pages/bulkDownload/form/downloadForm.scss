@@ -181,17 +181,9 @@
         @import "dateRange";
         @import "locationFilter";
     }
+
     @import "defCodeFilter";
-    @import "userSelections";
-    .download-user-selections {
-        margin: 0;
-        @include media($medium-screen) {
-            margin: rem(45) rem(20) rem(20) rem(20);
-        }
-        @include media($x-large-screen) {
-            margin: rem(40) rem(30);
-        }
-    }
+
     .submit-wrapper {
         margin: rem(24) rem(16);
         @media(max-width: $medium-screen) {
