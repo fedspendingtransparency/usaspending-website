@@ -11,15 +11,17 @@ const partition = (array, isValid) => array.reduce(
 const fallbackMarketingArticle = {
     title: "Exploring America's Finances Has Never Been Easier",
     fill: '#1b2b85',
-    thumbnail_path: "../../img/featuredContent/thumbnails/exploring-americas-finances-thumbnail.webp",
-    taxonomy: "Exploring America's Finances"
+    thumbnail_path: "../../img/featuredContent/thumbnails/exploring-americas-finances-has-never-been-easier-thumbnail.webp",
+    taxonomy: "Exploring America's Finances",
+    slug: "exploring-americas-finances-has-never-been-easier"
 };
 
 const fallbackOtherArticle = {
     title: "What is an Award?",
     fill: '#783cb9',
     thumbnail_path: "../../img/featuredContent/thumbnails/what-is-an-award-thumbnail.webp",
-    taxonomy: "Data Definitions"
+    taxonomy: "Data Definitions",
+    slug: "what-is-an-award"
 };
 
 const getOtherArticle = (otherArticleCadence, otherArticles, featureWeekNum, featureSprintNum) => {

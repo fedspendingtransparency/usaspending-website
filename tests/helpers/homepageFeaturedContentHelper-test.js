@@ -45,7 +45,7 @@ describe('getCurrentArticles', () => {
 
         expect(url).toBe('/featured-content/exploring-americas-finances/exploring-americas-finances-has-never-been-easier');
         expect(fill).toBe('#1b2b85');
-        expect(thumbnailPath).toBe('../../img/featuredContent/cards/exploring-americas-finances.webp');
+        expect(thumbnailPath).toBe('../../img/featuredContent/thumbnails/exploring-americas-finances-has-never-been-easier-thumbnail.webp');
         expect(taxonomy).toBe('Exploring America\'s Finances');
         expect(title).toBe('Exploring America\'s Finances Has Never Been Easier');
 
@@ -59,7 +59,7 @@ describe('getCurrentArticles', () => {
 
         expect(urlOther).toBe('/featured-content/data-definitions/what-is-an-award');
         expect(fillOther).toBe('#783cb9');
-        expect(thumbnailPathOther).toBe('../../img/featuredContent/cards/data-definitions.webp');
+        expect(thumbnailPathOther).toBe('../../img/featuredContent/thumbnails/what-is-an-award-thumbnail.webp');
         expect(taxonomyOther).toBe('Data Definitions');
         expect(titleOther).toBe('What is an Award?');
     });
