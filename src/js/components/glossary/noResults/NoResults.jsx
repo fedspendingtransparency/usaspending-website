@@ -11,11 +11,11 @@ const propTypes = {
     searchLoading: PropTypes.bool
 };
 
-const NoResults = (props) => {
+const NoResults = ({ glossary, searchLoading }) => {
     // TODO: Kevin Li - temporary text until we implement the feedback form (since people
     // complain when we mention features that aren't there yet)
     let loading = '';
-    if (props.searchLoading) {
+    if (searchLoading) {
         loading = 'loading';
     }
 
@@ -26,7 +26,7 @@ const NoResults = (props) => {
             </h2>
 
             <div className="no-results-content">
-                <p>No results found for &quot;{props.glossary.search.input}.&quot;</p>
+                <p>No results found for &quot;{glossary.search.input}.&quot;</p>
             </div>
         </div>
     );
