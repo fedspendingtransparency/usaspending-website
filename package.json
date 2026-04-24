@@ -22,7 +22,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -c .storybook -o docs",
     "build-sb-artifacts": "npm run prod && npm run build-storybook",
-    "postinstall": "npx prettier --write \"**/*.{scss,css}\" ; eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" --fix" 
+    "postinstall": "npx prettier --write \"**/*.{scss,css}\" && eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" --fix" 
   },
   "author": "",
   "engines": {
