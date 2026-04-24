@@ -51,6 +51,7 @@
     .advanced-search__table-wrapper {
         width: auto;
         overflow-y: auto;
+        height: 638px;
 
         @media (min-width: $tablet-screen) {
             overflow-x: scroll;
