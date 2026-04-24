@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import StateTimeVisualizationSection from '../StateTimeVisualizationSection';
 import useFetchSpendingOverTime from "./useFetchSpendingOverTime";
-import { createApiParams } from "../../stateHelper";
 
 const StateTimeVisualizationSectionContainer = () => {
     const { code } = useSelector((state) => state.stateProfile.overview);
@@ -18,22 +17,14 @@ const StateTimeVisualizationSectionContainer = () => {
     const [combined, setCombined] = useState([]);
     const [combinedOutlay, setCombinedOutlay] = useState();
     const [ySeriesOutlay, setYSeriesOutlay] = useState([]);
-    const [apiSearchParams, setApiSearchParams] = useState(null);
 
     const {
         parsedData, isSuccess, isLoading, error
-    } = useFetchSpendingOverTime(apiSearchParams, visualizationPeriod, code);
+    } = useFetchSpendingOverTime(visualizationPeriod, code);
 
     const updateVisualizationPeriod = (newVizPeriod) => {
         setVisualizationPeriod(newVizPeriod);
     };
-
-    useEffect(() => {
-        // don't run fetch unless we have a state code
-        if (code && visualizationPeriod) {
-            setApiSearchParams(createApiParams(code, visualizationPeriod));
-        }
-    }, [code, visualizationPeriod]);
 
     useEffect(() => {
         if (isSuccess && parsedData && Object.keys(parsedData).length > 0) {
@@ -45,7 +36,7 @@ const StateTimeVisualizationSectionContainer = () => {
             setYSeries(parsedData.ySeriesLocal);
             setYSeriesOutlay(parsedData.ySeriesOutlayLocal);
         }
-    }, [parsedData]);
+    }, [isSuccess, parsedData]);
 
     return (
         <StateTimeVisualizationSection
