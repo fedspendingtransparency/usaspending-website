@@ -1,55 +1,53 @@
 header.site-header__wrapper {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  background-color: $color-white;
+  $nav-color: #595959;
+  $nav-coming-soon: $color-gray-medium;
+
+  .site-navigation {
+    height: rem(64);
     background-color: $color-white;
-    $nav-color: #595959;
-    $nav-coming-soon: $color-gray-medium;
 
-    .site-navigation {
-        height: rem(64);
-        background-color: $color-white;
-
-        &.site-navigation-homepage {
-            background: $theme-color-homepage-hero;
-        }
-        .site-navigation__wrapper {
-            @import "mixins/fullSectionWrap";
-            @include fullSectionWrap(0, 0);
-            @include display(flex);
-            @include justify-content(space-between);
-            @include flex-direction(row);
-            @include align-items(center);
-            // style the primary menu
-            margin: 0 rem(24);
-        }
-
-        .site-navigation__logo {
-            @include flex(0 1 auto);
-        }
-
-        .site-navigation__mobile {
-            @include flex(1 0 auto);
-            position: relative;
-            @include media($medium-screen) {
-                display: none;
-            }
-        }
-
-        .site-navigation__menu {
-            display: none;
-            @include media($medium-screen) {
-                display: block;
-                @include flex(1 0 auto);
-            }
-        }
+    &.site-navigation-homepage {
+      background: $theme-color-homepage-hero;
+    }
+    .site-navigation__wrapper {
+      @import "mixins/fullSectionWrap";
+      @include fullSectionWrap(0, 0);
+      @include display(flex);
+      @include justify-content(space-between);
+      @include flex-direction(row);
+      @include align-items(center);
+      // style the primary menu
+      margin: 0 rem(24);
     }
 
-    @import "./_megaMenu";
-    @import "./_logo";
-    @import "./_glossaryLink";
-    // style the mobile menu button
-    @import "./_mobileHamburger";
-    @import "./mobile/mobileNav";
+    .site-navigation__logo {
+      @include flex(0 1 auto);
+    }
+
+    .site-navigation__mobile {
+      @include flex(1 0 auto);
+      position: relative;
+      @include media($medium-screen) {
+        display: none;
+      }
+    }
+
+    .site-navigation__menu {
+      display: none;
+      @include media($medium-screen) {
+        display: block;
+        @include flex(1 0 auto);
+      }
+    }
+  }
+
+  @import "./_megaMenu";
+  @import "./_logo";
+  @import "./_glossaryLink";
+  // style the mobile menu button
+  @import "./_mobileHamburger";
+  @import "./mobile/mobileNav";
 }
-
-

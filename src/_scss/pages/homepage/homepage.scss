@@ -1,5 +1,5 @@
 .usa-da-home-page {
-  @import 'all';
+  @import "all";
   @import "layouts/default/default";
   @import "layouts/default/header/_warning";
   @import "components/externalLink";
@@ -44,5 +44,3 @@
   @import "homepageResources";
   @import "readyToGetStarted";
 }
-
-

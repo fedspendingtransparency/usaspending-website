@@ -1,119 +1,119 @@
 .specific-award-amount {
-    margin-top: rem(15);
-    .award-amount-warning {
-        margin-top: $global-margin;
+  margin-top: rem(15);
+  .award-amount-warning {
+    margin-top: $global-margin;
+    line-height: 1.5;
+    position: relative;
+    .award-amount__invalid {
+      font-size: $font-size-12;
+      font-weight: $font-semibold;
+      color: $color-secondary-vivid;
+    }
+    ul {
+      margin-top: 0.5 * $global-margin;
+      padding: 0;
+      margin-left: 1.5 * $global-margin;
+      li {
+        font-size: $font-size-10;
         line-height: 1.5;
-        position: relative;
-        .award-amount__invalid {
-            font-size: $font-size-12;
-            font-weight: $font-semibold;
-            color: $color-secondary-vivid;
-        }
-        ul {
-            margin-top: .5 * $global-margin;
-            padding: 0;
-            margin-left: 1.5 * $global-margin;
-            li {
-                font-size: $font-size-10;
-                line-height: 1.5;
-                color: $color-secondary-vivid;
-                list-style-type: disc;
-                margin-left: $global-margin;
-            }
-        }
+        color: $color-secondary-vivid;
+        list-style-type: disc;
+        margin-left: $global-margin;
+      }
+    }
+  }
+
+  .warning-tooltip {
+    margin-top: rem(-20);
+  }
+
+  .award-amount-item-wrapper label {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .specific-award-amount-wrapper {
+    font-size: $small-font-size;
+    line-height: $small-font-size;
+    padding: 0;
+    display: flex;
+    align-items: flex-end !important;
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin: 0;
     }
 
-    .warning-tooltip {
-        margin-top: rem(-20);
+    input[type="number"] {
+      -moz-appearance: textfield;
     }
 
-    .award-amount-item-wrapper label {
-        margin-top: 0;
-        margin-bottom: 0;
+    input[type="number"].specific-amount-warning:focus-visible {
+      outline: 1px solid $color-secondary-vivid !important;
     }
 
-    .specific-award-amount-wrapper {
-        font-size: $small-font-size;
-        line-height: $small-font-size;
-        padding: 0;
-        display: flex;
-        align-items: flex-end !important;
-        input[type=number]::-webkit-inner-spin-button,
-        input[type=number]::-webkit-outer-spin-button {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            margin: 0;
-        }
-
-        input[type=number] {
-            -moz-appearance: textfield;
-        }
-
-        input[type=number].specific-amount-warning:focus-visible {
-            outline: 1px solid $color-secondary-vivid !important;
-        }
-
-        span {
-            padding-right: 0.5rem;
-        }
-
-        .specific-award-amount-column {
-            margin-right: .5 * $global-margin;
-            width: 100%;
-
-            .award-amount-label {
-                display: block;
-                font-size: $font-size-10;
-                font-weight: $font-semibold;
-                line-height: 1.5;
-                color: $gray-60;
-                margin-bottom: .5 * $global-margin;
-            }
-
-            input {
-                font-size: $smallest-font-size;
-            }
-        }
-
-        input {
-            @include placeholder {
-                color: $gray-60;
-            }
-
-            line-height: 1.5;
-            border-radius: 3px;
-            border: solid 1px $gray-cool-10 !important;
-            padding: 7px 8px;
-        }
-
-        .award-amount-submit {
-            @import "dtui-overrides";
-
-            margin: 0;
-            @include new-search-button;
-        }
-
-        @media only screen and (min-width:1342px) {
-            @include display(flex);
-            @include justify-content(space-between);
-            @include align-items(center);
-
-            input {
-                width: 100%;
-                height: rem(32);
-            }
-
-            .award-amount-submit {
-                margin-right: 0;
-            }
-        }
-
-        @media only screen and (max-width:1341px) {
-            input {
-                width: 100%;
-                height: rem(32);
-            }
-        }
+    span {
+      padding-right: 0.5rem;
     }
+
+    .specific-award-amount-column {
+      margin-right: 0.5 * $global-margin;
+      width: 100%;
+
+      .award-amount-label {
+        display: block;
+        font-size: $font-size-10;
+        font-weight: $font-semibold;
+        line-height: 1.5;
+        color: $gray-60;
+        margin-bottom: 0.5 * $global-margin;
+      }
+
+      input {
+        font-size: $smallest-font-size;
+      }
+    }
+
+    input {
+      @include placeholder {
+        color: $gray-60;
+      }
+
+      line-height: 1.5;
+      border-radius: 3px;
+      border: solid 1px $gray-cool-10 !important;
+      padding: 7px 8px;
+    }
+
+    .award-amount-submit {
+      @import "dtui-overrides";
+
+      margin: 0;
+      @include new-search-button;
+    }
+
+    @media only screen and (min-width: 1342px) {
+      @include display(flex);
+      @include justify-content(space-between);
+      @include align-items(center);
+
+      input {
+        width: 100%;
+        height: rem(32);
+      }
+
+      .award-amount-submit {
+        margin-right: 0;
+      }
+    }
+
+    @media only screen and (max-width: 1341px) {
+      input {
+        width: 100%;
+        height: rem(32);
+      }
+    }
+  }
 }
