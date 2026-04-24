@@ -306,7 +306,7 @@
     "lottie-web": "^5.9.6",
     "mapbox-gl": "^2.11.1",
     "mockdate": "^3.0.5",
-    "postcss": "^8.4.31",
+    "postcss": "^8.5.10",
     "prop-types": "^15.7.2",
     "react": "^19.2.4",
     "react-aria-modal": "^5.0.2",
