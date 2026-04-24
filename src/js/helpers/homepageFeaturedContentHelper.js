@@ -11,14 +11,14 @@ const partition = (array, isValid) => array.reduce(
 const fallbackMarketingArticle = {
     title: "Exploring America's Finances Has Never Been Easier",
     fill: '#1b2b85',
-    thumbnail_path: "../../img/featuredContent/cards/exploring-americas-finances.webp",
+    thumbnail_path: "../../img/featuredContent/thumbnails/exploring-americas-finances-thumbnail.webp",
     taxonomy: "Exploring America's Finances"
 };
 
 const fallbackOtherArticle = {
     title: "What is an Award?",
     fill: '#783cb9',
-    thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
+    thumbnail_path: "../../img/featuredContent/thumbnails/what-is-an-award-thumbnail.webp",
     taxonomy: "Data Definitions"
 };
 
