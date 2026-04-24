@@ -20,7 +20,6 @@ const propTypes = {
 };
 
 
-
 // eslint-disable-next-line prefer-arrow-callback
 const TopFilterBar = memo(function TopFilterBar({ filters, filterCount, resultsView }) {
     const [expandedFilters, setExpandedFilters] = useState(false);
