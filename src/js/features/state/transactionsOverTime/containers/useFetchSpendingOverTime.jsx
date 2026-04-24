@@ -7,20 +7,13 @@ import { useCallback, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { performSpendingOverTimeSearch } from "helpers/searchHelper";
 import { convertMonthToFY, convertNumToShortMonth } from "helpers/monthHelper";
+import { createApiParams } from "../../stateHelper";
 
-export const useFetchSpendingOverTime = (apiParams, visualizationPeriod, code) => {
+export const useFetchSpendingOverTime = (visualizationPeriod, code) => {
     const [parsedData, setParsedData] = useState(null);
 
-    const {
-        data, isSuccess, isLoading, error
-    } = useQuery({
-        queryKey: [`spendingOverTimeSearch${code}${visualizationPeriod}`],
-        queryFn: () => performSpendingOverTimeSearch(apiParams).promise,
-        enabled: !!apiParams,
-        staleTime: 60000
-    });
 
-    const generateTime = (group, timePeriod, type) => {
+    const generateTime = useCallback((group, timePeriod, type) => {
         const month = convertNumToShortMonth(timePeriod.month);
         const year = convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);
 
@@ -35,7 +28,7 @@ export const useFetchSpendingOverTime = (apiParams, visualizationPeriod, code) =
                 { period: `Q${timePeriod.quarter}`, year: `${timePeriod.fiscal_year}` };
         }
         return type === 'label' ? `${month} ${year}` : { period: `${month}`, year: `${year}` };
-    };
+    });
 
     const parseData = useCallback((res) => {
         const groupsLocal = [];
@@ -71,13 +64,23 @@ export const useFetchSpendingOverTime = (apiParams, visualizationPeriod, code) =
             combinedOutlayLocal,
             ySeriesOutlayLocal
         });
-    }, [visualizationPeriod]);
+    }, [generateTime, visualizationPeriod]);
+
+    const {
+        data, isSuccess, isLoading, error
+    } = useQuery({
+        queryKey: [`spendingOverTimeSearch${code}${visualizationPeriod}`],
+        queryFn: () => performSpendingOverTimeSearch(createApiParams(code, visualizationPeriod)).promise,
+        enabled: !!(code && visualizationPeriod),
+        staleTime: 60000
+    });
 
     useEffect(() => {
         if (isSuccess && Object.keys(data?.data).length > 0) {
             parseData(data?.data);
         }
-    }, [data, isSuccess, parseData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data, isSuccess]);
 
     return {
         parsedData, isSuccess, isLoading, error
