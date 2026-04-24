@@ -9,15 +9,17 @@
   **/
 
 import React, { memo, useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import TopFilterGroupGenerator from './TopFilterGroupGenerator';
 import BarHeader from "./header/BarHeader";
-import PropTypes from 'prop-types';
 
 const propTypes = {
     filters: PropTypes.array,
     filterCount: PropTypes.number,
     resultsView: PropTypes.bool
 };
+
+
 
 // eslint-disable-next-line prefer-arrow-callback
 const TopFilterBar = memo(function TopFilterBar({ filters, filterCount, resultsView }) {
