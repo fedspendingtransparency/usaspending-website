@@ -67,7 +67,7 @@ jobs:
     if: ${{ !failure() && !cancelled() }}
     secrets:
       FASECRET: ${{ secrets.FASECRET }}
-    uses: ./.github/workflows/test-lighthouse-mobile.yaml  
+    uses: ./.github/workflows/test-lighthouse-mobile.yaml
 
   Run-Broken-Link-Check:
     name: Run Broken Link Checker
@@ -75,4 +75,4 @@ jobs:
       fail-fast: true    
     needs: Cancel-If-Draft-Pull-Request
     if: ${{ !failure() && !cancelled() }}
-    uses: ./.github/workflows/broken-link-check.yaml
+    uses: ./.github/workflows/broken-link-check.yaml  
