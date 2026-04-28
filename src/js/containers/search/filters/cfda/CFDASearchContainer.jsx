@@ -216,7 +216,7 @@ const CFDASearchContainer = () => {
                     <ShownValue
                         label={`${value.program_number} | ${value.program_title}`}
                         key={key}
-                        removeValue={() => dispatch(updateSelectedCFDA({ value }))} />
+                        removeValue={() => dispatch(updateSelectedCFDA({ cfda: value }))} />
                 ))}
             </div>
         </div>
