@@ -11,8 +11,23 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
-      - name: Link Checker
-        id: lychee
-        uses: lycheeverse/lychee-action@v2
+      - name: urls-checker
+        uses: urlstechie/urlchecker-action@master
         with:
-          fail: false
+        # A subfolder or path to navigate to in the present or cloned repository
+        subfolder: docs
+
+        # A comma-separated list of file types to cover in the URL checks
+        file_types: .md,.js, .jsx
+
+        # Choose whether to include file with no URLs in the prints.
+        print_all: false
+
+        # The timeout seconds to provide to requests, defaults to 5 seconds
+        timeout: 5
+
+        # How many times to retry a failed request (each is logged, defaults to 1)
+        retry_count: 3
+
+        # choose if the force pass or not
+        force_pass : true
