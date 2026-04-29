@@ -148,7 +148,8 @@ module.exports = {
             ]
         }),
         new webpack.DefinePlugin({
-            'process.env.ENV': process.env.ENV ? JSON.stringify(process.env.ENV) : JSON.stringify('qat')
+            'process.env.ENV': process.env.ENV ? JSON.stringify(process.env.ENV) : JSON.stringify('qat'),
+            'process.env.FILES_SERVER_BASE_URL': JSON.stringify(process.env.FILES_SERVER_BASE_URL || '')
         })
     ]
 
