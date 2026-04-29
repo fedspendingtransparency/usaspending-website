@@ -158,9 +158,8 @@ const InteractiveDataSourcesPage = () => {
 
         setActiveSection(section);
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
-
         window.scrollTo({
-            top: sectionTop - 25,
+            top: sectionTop + 200,
             left: 0,
             behavior: 'smooth'
         });
