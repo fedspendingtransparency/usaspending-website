@@ -7,9 +7,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from "axios";
 
-import {
-    updateSelectedRecipients, updateSearchedFilterValues
-} from 'redux/actions/search/searchFilterActions';
+import { updateSelectedRecipients } from 'redux/actions/search/searchFilterActions';
 import { fetchRecipientsAutocomplete } from 'helpers/searchHelper';
 import replaceString from 'helpers/replaceString';
 import AutocompleteWithCheckboxList from
@@ -23,7 +21,6 @@ const RecipientSearchContainer = () => {
     const [noResults, setNoResults] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
     const selectedRecipients = useSelector((state) => state.filters.selectedRecipients);
-    const searchedFilterValues = useSelector((state) => state.filters.searchedFilterValues);
 
     const recipientRequest = useRef(null);
     const dispatch = useDispatch();
@@ -57,12 +54,6 @@ const RecipientSearchContainer = () => {
         else {
             updatedSelected.push(isUei ? value.uei : value.name);
         }
-
-        dispatch(updateSearchedFilterValues({
-            filterType: "recipient",
-            input: searchString,
-            selected: updatedSelected
-        }));
     };
 
 
@@ -137,12 +128,6 @@ const RecipientSearchContainer = () => {
                 setIsLoading(false);
                 setMaxRecipients(res.data.count === maxRecipientsAllowed);
                 setNoResults(!res.data.count);
-                // wait until results are processed to set redux state.
-                dispatch(updateSearchedFilterValues({
-                    filterType: "recipient",
-                    input: term,
-                    selected: selectedRecipients
-                }));
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -233,41 +218,13 @@ const RecipientSearchContainer = () => {
                     currentlyChecked.push(rep.recipient_name);
                 }
             });
-            dispatch(updateSearchedFilterValues({
-                filterType: "recipient",
-                input: searchString,
-                selected: currentlyChecked,
-                allSelected: true
-            }));
         }
         else {
             selectedRecipients.forEach((rep) => {
                 dispatch(updateSelectedRecipients(rep));
             });
-            dispatch(updateSearchedFilterValues({
-                filterType: "recipient",
-                input: searchString,
-                selected: []
-            }));
         }
     };
-
-    useEffect(() => {
-        let searchValues = null;
-        if (searchedFilterValues?.recipient) {
-            searchValues = searchedFilterValues.recipient;
-        }
-        else if ((searchedFilterValues?.get === 'function')
-            && (searchedFilterValues.get('recipient'))
-        ) {
-            searchValues = searchedFilterValues.get('recipient');
-        }
-        if (searchValues && (!searchString || searchString !== searchValues?.input)) {
-            setSearchString(searchValues.input);
-            getRecipientsFromSearchString(searchValues.input);
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchedFilterValues]);
 
     useEffect(() => {
         if (searchString?.length >= 3) {

@@ -9,9 +9,7 @@ import { isCancel } from 'axios';
 
 import { fetchCFDA } from 'helpers/searchHelper';
 import replaceString from 'helpers/replaceString';
-import {
-    updateSearchedFilterValues, updateSelectedCFDA
-} from 'redux/actions/search/searchFilterActions';
+import { updateSelectedCFDA } from 'redux/actions/search/searchFilterActions';
 import AutocompleteWithCheckboxList from
     'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
 
@@ -23,9 +21,7 @@ const CFDASearchContainer = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const selectedCFDA = useSelector((state) => state.filters.selectedCFDA);
-    const searchedFilterValues = useSelector(
-        (state) => state.appliedFilters.filters.searchedFilterValues
-    );
+
     const cfdaSearchRequest = useRef(null);
     const dispatch = useDispatch();
 
@@ -49,12 +45,6 @@ const CFDASearchContainer = () => {
         else {
             updatedSelected.push(value);
         }
-
-        dispatch(updateSearchedFilterValues({
-            filterType: "cfda",
-            input: cfdaSearchString,
-            selected: updatedSelected
-        }));
     };
 
     const parseAutocompleteCFDA = (cfda) => {
@@ -142,52 +132,17 @@ const CFDASearchContainer = () => {
             filteredList.forEach((fcfda) => {
                 dispatch(updateSelectedCFDA({ cfda: fcfda.data }));
             });
-
-            dispatch(updateSearchedFilterValues({
-                filterType: "cfda",
-                input: cfdaSearchString,
-                selected: selectedArray,
-                allSelected: true
-            }));
         }
         else {
             selectedCFDA.forEach((cfda) => {
                 dispatch(updateSelectedCFDA({ cfda }));
             });
-            dispatch(updateSearchedFilterValues({
-                filterType: "cfda",
-                input: cfdaSearchString,
-                selected: []
-            }));
         }
     };
-
-
-    useEffect(() => {
-        let searchValues = null;
-        if (searchedFilterValues?.cfda) {
-            searchValues = searchedFilterValues.cfda;
-        }
-        else if ((searchedFilterValues?.get === 'function')
-            && (searchedFilterValues.get('cfda'))
-        ) {
-            searchValues = searchedFilterValues.get('cfda');
-        }
-        if (searchValues && (!cfdaSearchString || cfdaSearchString !== searchValues?.input)) {
-            setCfdaSearchString(searchValues.input);
-            queryAutocompleteCFDA();
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchedFilterValues]);
 
     useEffect(() => {
         if (cfdaSearchString?.length >= 3) {
             queryAutocompleteCFDA();
-            dispatch(updateSearchedFilterValues({
-                filterType: "cfda",
-                input: cfdaSearchString,
-                selected: selectedCFDA
-            }));
         }
         else if (cfdaSearchString?.length === 0) setNoResults(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
