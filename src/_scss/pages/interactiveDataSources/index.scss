@@ -13,29 +13,32 @@
   @include flex-direction(column);
 
   min-height: 100vh;
-  width: 100%;
 
   .site-header,
   .sticky-header,
   .page__loading,
-  .main-content,
   .footer-container {
     width: 100%;
+  }
+
+  .main-content {
+    justify-content: center;
+    margin: auto;
   }
 
   .usda__flex-row {
     @include display(flex);
     @include flex-wrap(wrap);
-    width: 100%;
+    
 
     .usda__flex-col {
-      @include flex(1 1 auto);
+      display:flex;
+      margin: auto;
     }
   }
 
   .main-content {
     @include display(flex);
-    width: 100%;
     @include flex-grow(1);
     @include flex-wrap(wrap);
     max-width: rem(1400);
@@ -59,7 +62,6 @@
 
     .body {
       @include display(flex);
-      width: 100%;
       @include flex-direction(column);
       padding: 0px;
       background: $color-white;

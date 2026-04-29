@@ -90,6 +90,8 @@
       color: $theme-color-headline;
       font-size: $font-size-16;
       font-weight: $font-semibold;
+      display: flex;
+      flex-wrap: wrap;
 
       .fa-filter {
         color: $blue-60v;
@@ -98,9 +100,40 @@
       }
 
       .link {
+        width: 100%;
         margin: 8px 0;
         font-size: $font-size-14;
         font-weight: $font-normal;
+      }
+      .collapsible-sidebar-group {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        justify-content: space-between;
+        .sub--header {
+          line-height: 1.5;
+          color: $gray-90;
+          background-color: unset;
+          #collapsible-mobile-close-button {
+            @media(min-width: $medium-screen) {
+              display: none;
+            }
+            padding: 0;
+
+            width: rem(16);
+            height: rem(16);
+            background-color: white;
+            margin: 0;
+            stroke-width: rem(2);
+            svg {
+              width: rem(12);
+              height: rem(12);
+              color: $gray-90;
+              padding: 0;
+              background-color: white;
+            }
+          }
+        }
       }
     }
 
@@ -140,33 +173,7 @@
       border: none;
     }
 
-    .collapsible-sidebar--header {
-      padding: rem(20) rem(20) 0 rem(32);
-      line-height: 1.5;
-      color: $gray-90;
-      background-color: unset;
-      display: flex;
-      justify-content: flex-end;
-      #collapsible-mobile-close-button {
-        @media(min-width: $medium-screen) {
-          display: none;
-        }
 
-        width: rem(10);
-        height: rem(10);
-        background-color: white;
-        margin: 0;
-        stroke-width: rem(2);
-        padding: 0;
-        padding-bottom: $global-padding * 4;
-        svg {
-          width: rem(10);
-          height: rem(10);
-          color: $gray-90;
-          background-color: white;
-        }
-      }
-    }
 
     .collapsible-sidebar--main-menu {
       overflow-y: auto;
@@ -179,6 +186,10 @@
         // This should be for mobile
         @media(max-width: $medium-screen - 1) {
           height: calc(100vh - 400px);
+
+          .keyword-filter .filter-item-wrap:first-of-type {
+                margin-top: rem(8);
+          }
         }
 
 
@@ -229,7 +240,6 @@
 
               .filter-item-wrap {
                 padding: 0;
-                
                 .filter-description {
                   color: $gray-90;
                   font-size: $smallest-font-size;
@@ -241,6 +251,7 @@
               .agency-filter .filter-item-wrap:first-of-type {
                 padding-bottom: rem(16);
               }
+
             }
           }
         }

@@ -2,6 +2,9 @@
 
 .landing-page {
     padding: $global-padding * 2;
+    max-width: 1400px;
+    margin: auto;
+
     .landing-page__overview {
         h2.landing-page__title {
             font-weight: $font-semibold;

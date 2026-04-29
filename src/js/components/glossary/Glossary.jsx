@@ -5,8 +5,10 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { hideGlossary } from 'redux/actions/glossary/glossaryActions';
 
 import { getQueryParamString } from 'helpers/queryParams';
 import GlossaryHeader from './GlossaryHeader';
@@ -19,11 +21,15 @@ const propTypes = {
     glossary: PropTypes.object,
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    hideGlossary: PropTypes.func,
-    zIndexClass: PropTypes.string
+    zIndexClass: PropTypes.string,
+    performSearch: PropTypes.func,
+    glossaryResults: PropTypes.object,
+    searchLoading: PropTypes.bool
 };
 
-const Glossary = (props) => {
+const Glossary = ({
+    glossary, glossaryResults, searchLoading, loading, error, zIndexClass, performSearch
+}) => {
     const history = useNavigate();
     const query = useQueryParams();
     const [contentHeight, setContentHeight] = useState(0);
@@ -32,6 +38,7 @@ const Glossary = (props) => {
     const [scrollbar, setScrollbar] = useState(null);
     const [firstMount, setFirstMount] = useState(true);
 
+    const dispatch = useDispatch();
     const measureAvailableHeight = (useCallback(() => {
         const sidebarHeight = document.getElementById('glossary-sidebar')?.getBoundingClientRect().height || 0;
         const headerHeight = document.getElementById('glossary-sidebar-header')?.getBoundingClientRect().height || 0;
@@ -40,14 +47,14 @@ const Glossary = (props) => {
     }));
 
     useEffect(() => {
-        if (props.glossary.display) {
+        if (glossary?.display) {
             setFirstMount(false);
         }
-    }, [props.glossary.display]);
+    }, [glossary.display]);
 
     const closeGlossary = useCallback((e) => {
         if (e.key === 'Escape' || (e.type === 'click')) {
-            props.hideGlossary();
+            dispatch(hideGlossary());
 
             // remove search param from url
             if (window.location.href.includes('glossary')) {
@@ -66,7 +73,7 @@ const Glossary = (props) => {
             }
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props]);
+    }, []);
 
     const track = () => <div className="glossary-scrollbar-track" />;
     const thumb = () => <div className="glossary-scrollbar-thumb" />;
@@ -74,32 +81,30 @@ const Glossary = (props) => {
     useEffect(() => {
         measureAvailableHeight();
 
-        if (props.glossary.search.results.length === 0) {
-            setContent(<NoResults {...props} />);
+        if (glossaryResults?.length === 0) {
+            setContent(<NoResults glossary={glossary} searchLoading={searchLoading} />);
             setLoadingContent(null);
         }
-        else if (props.glossary.term.slug && props.glossary.term.slug !== '') {
-            setContent(<GlossaryDefinition {...props} />);
+        else if (glossary?.term.slug && glossary?.term.slug !== '') {
+            setContent(<GlossaryDefinition glossary={glossary} />);
             setLoadingContent(null);
         }
         else {
-            setContent(<GlossarySearchResults {...props} />);
+            setContent(<GlossarySearchResults glossary={glossary} searchLoading={searchLoading} glossaryResults={glossaryResults} />);
             setLoadingContent(null);
         }
 
-
-        if (props.loading) {
+        if (loading) {
             setLoadingContent(<div className="glossary-loading-content">Loading Glossary...</div>);
             setContent(null);
         }
-        else if (props.error) {
+        else if (error) {
             setLoadingContent(<div className="glossary-loading-content">Error: Could not load Glossary.</div>);
             setContent(null);
         }
 
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.loading, props.error, props.glossary.search.results, props.glossary.term.slug]);
+    }, [loading, error, glossaryResults, glossary?.term.slug]);
 
     useEffect(() => {
         window.addEventListener('keyup', closeGlossary);
@@ -116,15 +121,15 @@ const Glossary = (props) => {
     }, [measureAvailableHeight, scrollbar]);
 
     useEffect(() => {
-        if (props.glossary.term) {
+        if (glossary?.term) {
             scrollbar?.scrollToTop();
         }
-    }, [props.glossary.term, scrollbar]);
+    }, [scrollbar]);
 
     return (
         <div
             style={{ visibility: firstMount ? "hidden" : "" }}
-            className={props.glossary.display ? `opened usa-da-glossary-wrapper ${props.zIndexClass}` : `usa-da-glossary-wrapper ${props.zIndexClass}`}>
+            className={glossary?.display ? `opened usa-da-glossary-wrapper ${zIndexClass}` : `usa-da-glossary-wrapper ${zIndexClass}`}>
             <aside
                 id="glossary-sidebar"
                 role="dialog"
@@ -134,7 +139,8 @@ const Glossary = (props) => {
                     id="glossary-sidebar-header"
                     className="glossary-header-wrapper">
                     <GlossaryHeader
-                        {...props}
+                        glossary={glossary}
+                        performSearch={performSearch}
                         closeGlossary={closeGlossary} />
                 </div>
                 {loadingContent}

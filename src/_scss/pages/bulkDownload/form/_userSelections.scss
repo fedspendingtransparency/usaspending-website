@@ -1,29 +1,42 @@
 .download-user-selections {
+    position: sticky;
+    top: 100px;
+
     border: rem(2) solid $color-gray-lightest;
     border-radius: rem(8);
     padding: rem(20);
+
     @import "mixins/fullSectionWrap";
     @include fullSectionWrap((rem(40)), (rem(30)));
+
     @media(max-width: $medium-screen) {
         padding: 30px 20px;
         width: 78%;
     }
+
+    @media(max-width: $tablet-screen) {
+        position: unset;
+    }
+
     .download-user-selections__left-col {
         @include grid-column(16);
         @include media($medium-screen) {
             @include grid-column(8);
         }
     }
+
     .download-user-selections__right-col {
         @include grid-column(16);
         @include media($medium-screen) {
             @include grid-column(8);
         }
     }
+
     h3.download-user-selections__title {
         @include h5;
         margin: 0;
     }
+
     .selection {
         .selection__heading {
             @include h6;
@@ -42,5 +55,13 @@
                 line-height: rem(23);
             }
         }
+    }
+
+    margin: 0;
+    @include media($medium-screen) {
+        margin: rem(45) rem(20) rem(20) rem(20);
+    }
+    @include media($x-large-screen) {
+        margin: rem(40) rem(30);
     }
 }

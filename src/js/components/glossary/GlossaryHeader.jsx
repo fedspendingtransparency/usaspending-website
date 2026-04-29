@@ -6,14 +6,16 @@
 import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import { Close } from 'components/sharedComponents/icons/Icons';
 import GlossarySearchBar from './GlossarySearchBar';
 
 const propTypes = {
-    closeGlossary: PropTypes.func
+    closeGlossary: PropTypes.func,
+    glossary: PropTypes.object,
+    performSearch: PropTypes.func
 };
 
-const GlossaryHeader = (props) => {
+const GlossaryHeader = ({ closeGlossary, glossary, performSearch }) => {
     const closeButtonRef = useRef(null);
     useEffect(() => {
         if (closeButtonRef.current) {
@@ -29,9 +31,9 @@ const GlossaryHeader = (props) => {
                     id="glossary-close-button"
                     aria-label="Close Glossary"
                     title="Close Glossary"
-                    onClick={props.closeGlossary}
+                    onClick={closeGlossary}
                     ref={closeButtonRef}>
-                    <Icons.Close alt="Close Glossary" />
+                    <Close alt="Close Glossary" />
                 </button>
             </div>
             <h1
@@ -41,7 +43,7 @@ const GlossaryHeader = (props) => {
                 Glossary
             </h1>
 
-            <GlossarySearchBar {...props} />
+            <GlossarySearchBar glossary={glossary} performSearch={performSearch} />
 
             <div className="glossary-example">
                 Example: &quot;Obligation&quot;

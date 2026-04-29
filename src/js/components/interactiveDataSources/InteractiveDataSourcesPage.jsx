@@ -158,9 +158,8 @@ const InteractiveDataSourcesPage = () => {
 
         setActiveSection(section);
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
-
         window.scrollTo({
-            top: sectionTop - 25,
+            top: sectionTop + 200,
             left: 0,
             behavior: 'smooth'
         });
@@ -201,7 +200,6 @@ const InteractiveDataSourcesPage = () => {
         <PageWrapper
             pageName="interactive-data-sources"
             classNames="usa-da-interactive-data-sources-page"
-            overLine="resources"
             metaTagProps={interactiveDataSourcesPageMetaTags}
             title="Data Sources"
             toolBarComponents={[
@@ -216,10 +214,9 @@ const InteractiveDataSourcesPage = () => {
             sections={sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
-            threshold="0"
             inPageNav>
             <main id="main-content" className="main-content usda__flex-row">
-                <FlexGridCol className="body usda__flex-col">
+                <FlexGridCol width={12} className="body usda__flex-col">
                     {sections.map((section) => (
                         <InteractiveDataSourcesSection
                             key={section.section}

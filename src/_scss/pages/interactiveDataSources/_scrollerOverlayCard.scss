@@ -3,12 +3,12 @@ $mobile-large: 500px;
 .scroller-overlay-card-content {
     width: 100%;
     background-color: $color-primary-darker;
-    margin: 0 0 $global-margin * 4;
+    margin: 0;
     padding-top: $global-padding * 3;
     padding-bottom: $global-padding * 3;
     padding-left: $global-padding * 4;
     padding-right: $global-padding * 4;
-    border-radius: 6px;
+    border-radius: 12px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
     @media (min-width: $medium-screen) {
       display: flex;
@@ -47,6 +47,7 @@ $mobile-large: 500px;
       line-height: 1.25;
       letter-spacing: normal;
       color: $color-white;
+
       @media (min-width: $medium-screen) {
         padding-bottom: 2px;
       }
@@ -75,6 +76,14 @@ $mobile-large: 500px;
           font-size: $h5-font-size;
         }
       }
+    }
+    .blue-section-heading {
+      display: flex;
+      justify-content: center;
+    }
+    .blue-section-content {
+      display:flex;
+      justify-content: center;
     }
   
     .scroller-overlay-card__content-wrapper {

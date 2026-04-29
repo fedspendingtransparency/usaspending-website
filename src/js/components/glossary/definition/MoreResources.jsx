@@ -13,14 +13,14 @@ const propTypes = {
     resources: PropTypes.string
 };
 
-const MoreResources = (props) => (
+const MoreResources = ({ resources }) => (
     <div className="glossary-resources">
         <h3 className="title">
-                    More Resources
+            More Resources
         </h3>
         <hr />
         <ReactMarkdown
-            source={props.resources}
+            source={resources}
             renderers={Object.assign({}, ReactMarkdown.renderers, {
                 Link: SmartLink
             })} />

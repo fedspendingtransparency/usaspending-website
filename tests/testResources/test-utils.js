@@ -5,7 +5,8 @@ import React from "react";
 import { render as rtlRender } from "@testing-library/react";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
-import { BrowserRouter, Routes, MemoryRouter } from 'react-router';
+import { BrowserRouter } from 'react-router';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 // Import your own reducer
 import reducer from "../../src/js/redux/reducers/index";
@@ -18,13 +19,17 @@ function render(
         ...renderOptions
     } = {}
 ) {
+    const queryClient = new QueryClient();
+
     function Wrapper({ children }) {
         return (
-            <Provider store={store}>
-                <BrowserRouter>
-                    {children}
-                </BrowserRouter>
-            </Provider>
+            <QueryClientProvider client={queryClient}>
+                <Provider store={store}>
+                    <BrowserRouter>
+                        {children}
+                    </BrowserRouter>
+                </Provider>
+            </QueryClientProvider>
         );
     }
     return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });

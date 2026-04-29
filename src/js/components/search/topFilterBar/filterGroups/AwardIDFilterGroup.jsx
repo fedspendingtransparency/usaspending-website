@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { name: PropTypes.string };
+const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };
 
 const AwardIDFilterGroup = ({ name, resultsView }) => {
     const selectedAwardIDs = useSelector((state) => state.filters.selectedAwardIDs);

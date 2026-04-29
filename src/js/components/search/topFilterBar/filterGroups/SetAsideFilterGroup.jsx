@@ -11,7 +11,7 @@ import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import { setAsideDefinitions } from "dataMapping/search/contractFields";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { name: PropTypes.string };
+const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };
 
 const SetAsideFilterGroup = ({ name, resultsView }) => {
     const setAside = useSelector((state) => state.filters.setAside);

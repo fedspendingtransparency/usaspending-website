@@ -15,23 +15,25 @@ const propTypes = {
     selectTerm: PropTypes.func
 };
 
-const ResultGroup = (props) => {
-    const items = props.items.map((item) => (
+const ResultGroup = ({
+    items, title, search, selectTerm
+}) => {
+    const resultItems = items.map((item) => (
         <ResultItem
             item={item}
-            search={props.search}
-            selectTerm={props.selectTerm}
+            search={search}
+            selectTerm={selectTerm}
             key={item.term} />
     ));
 
     return (
         <div className="glossary-result-group">
             <h2 className="group-title">
-                {props.title}
+                {title}
             </h2>
             <hr className="group-divider" />
             <ul className="group-items">
-                {items}
+                {resultItems}
             </ul>
         </div>
     );
