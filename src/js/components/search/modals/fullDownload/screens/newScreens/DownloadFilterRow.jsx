@@ -14,6 +14,7 @@ const propTypes = {
 const DownloadFilterRow = ({
     filter
 }) => {
+    console.debug("DOWNLOAD FILTER ROW: ", filter, filter.name === 'Place of Performance');
     // depending on API structure/Redux state we should be able pull from Redux
     const [limit, setLimit] = useState(300);
     const tdRef = useRef(null);
@@ -38,51 +39,61 @@ const DownloadFilterRow = ({
         window.addEventListener('resize', checkOverflow);
         return () => window.removeEventListener('resize', checkOverflow);
     }, [filter]);
+
+
     // every filter value/name has a completely different format ( array of strings, array of objects, object, object of arrays), these have to be formatted before they
     // are passed into ReadMore because if you don't format it there is no comma separation
     let formatted = null;
-
-    if (filter.name === 'Awarding Agency') {
+    if (filter.name === 'Place of Performance') {
+        
+    }
+    else if (filter.name === 'Awarding Agency') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
                 return `${filterTemp.toptier_agency.name} `;
             }
             return `${filterTemp.toptier_agency.name}, `;
         });
-    } else if (filter.name === 'Award Amounts') {
+    }
+    else if (filter.name === 'Award Amounts') {
         formatted = Object.entries(filter.values).map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
                 return `${filterTemp[1][0]} - ${filterTemp[1][1]}`;
             }
             return `${filterTemp[1][0]} - ${filterTemp[1][1]}, `;
         });
-    } else if (filter.name === 'NAICS') {
+    }
+    else if (filter.name === 'NAICS') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
                 return `${filterTemp.label} `;
             }
             return `${filterTemp.label}, `;
         });
-    } else if (filter.name === 'Treasury Account') {
+    }
+    else if (filter.name === 'Treasury Account') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
                 return `${filterTemp.label} `;
             }
             return `${filterTemp.label}, `;
         });
-    } else if (filter.name === 'PSC') {
+    }
+    else if (filter.name === 'PSC') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
                 return `${filterTemp.value} `;
             }
             return `${filterTemp.value}, `;
         });
-    } else if (filter.name === 'Type of Contract Pricing' || 'Type of Set Aside') {
+    }
+    else if (filter.name === 'Type of Contract Pricing' || 'Type of Set Aside') {
         formatted = Object.values(filter.values).join(", ");
     }
-    else {
-        formatted = filter.values.join(", ");
-    }
+
+    // else {
+    //     formatted = filter.values.join(", ");
+    // }
     return (
         <tr>
             <th>{filter.name}:</th>

@@ -37,10 +37,8 @@ const NewDownloadModal = (props) => {
     }, [props]);
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
 
-    const { filters, filterCount } = useMemo(
+    const { filters } = useMemo(
         () => getFilters(reduxFilters), [reduxFilters]);
-
-    console.debug("REDUX FILTERS: ", filters, filterCount);
 
     useEffect(() => {
         if (!props?.pendingDownload && prevProps?.pendingDownload) {
