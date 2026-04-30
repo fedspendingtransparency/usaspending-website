@@ -1,75 +1,75 @@
 .map-container {
-    position: relative;
+  position: relative;
 
-    @media (max-width: $tablet-screen) {
-        display: flex;
-    }
+  @media (max-width: $tablet-screen) {
+    display: flex;
+  }
 
-    .mapboxgl-ctrl {
-        margin-right: rem(8);
-        margin-top: rem(8);
-    }
-    .mapbox-item {
+  .mapboxgl-ctrl {
+    margin-right: rem(8);
+    margin-top: rem(8);
+  }
+  .mapbox-item {
+    display: block;
+    height: 100%;
+    width: 100%;
+
+    .mapboxgl-ctrl-group {
+      button {
+        // button element is overridden by the site base styles, so we need to manually
+        // re-override the button element to the original mapbox style
+        width: 30px;
+        height: 30px;
         display: block;
-        height: 100%;
-        width: 100%;
+        padding: 0;
+        outline: none;
+        border: none;
+        border-bottom: 1px solid #ddd;
+        box-sizing: border-box;
+        background-color: rgba(0, 0, 0, 0);
+        cursor: pointer;
+        margin: 0;
+      }
 
-        .mapboxgl-ctrl-group {
-            button {
-                // button element is overridden by the site base styles, so we need to manually
-                // re-override the button element to the original mapbox style
-                width: 30px;
-                height: 30px;
-                display: block;
-                padding: 0;
-                outline: none;
-                border: none;
-                border-bottom: 1px solid #ddd;
-                box-sizing: border-box;
-                background-color: rgba(0,0,0,0);
-                cursor: pointer;
-                margin: 0;
-            }
-
-            .mapboxgl-ctrl-zoom-in {
-                .mapboxgl-ctrl-icon {
-                    background-image: url(../../../../../../../img/map/zoom-in.svg);
-                }
-            }
-            .mapboxgl-ctrl-zoom-out {
-                .mapboxgl-ctrl-icon {
-                    background-image: url(../../../../../../../img/map/zoom-out.svg);
-                }
-            }
+      .mapboxgl-ctrl-zoom-in {
+        .mapboxgl-ctrl-icon {
+          background-image: url(../../../../../../../img/map/zoom-in.svg);
         }
-
-        .map-buttons {
-            position: absolute;
-            float: left;
-            left: rem(5);
-            bottom: rem(40);
-            z-index: 2;
-            .first-row,
-            .second-row {
-                @include display(flex);
-                @include justify-content(center);
-                @include flex-direction(row);
-                @include align-items(center);
-            }
-            button {
-                background-color: $color-white;
-                box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
-                color: $color-gray;
-                padding: rem(5) rem(10);
-                margin-bottom: 0;
-                svg {
-                    fill: $color-gray;
-                    height: rem(10);
-                    width: rem(10);
-                }
-            }
+      }
+      .mapboxgl-ctrl-zoom-out {
+        .mapboxgl-ctrl-icon {
+          background-image: url(../../../../../../../img/map/zoom-out.svg);
         }
+      }
     }
-    @import "./_legend";
-    @import "./_toggle";
+
+    .map-buttons {
+      position: absolute;
+      float: left;
+      left: rem(5);
+      bottom: rem(40);
+      z-index: 2;
+      .first-row,
+      .second-row {
+        @include display(flex);
+        @include justify-content(center);
+        @include flex-direction(row);
+        @include align-items(center);
+      }
+      button {
+        background-color: $color-white;
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
+        color: $color-gray;
+        padding: rem(5) rem(10);
+        margin-bottom: 0;
+        svg {
+          fill: $color-gray;
+          height: rem(10);
+          width: rem(10);
+        }
+      }
+    }
+  }
+  @import "./_legend";
+  @import "./_toggle";
 }

@@ -2,102 +2,104 @@
 @import "../../../elements/typography";
 
 // feature content may style header per article
-.usda-page-header:not(.featured-content-page >.usda-page-header ) {
-    background-color: $blue-80v !important;
+.usda-page-header:not(.featured-content-page > .usda-page-header) {
+  background-color: $blue-80v !important;
 }
 
 .usda-page-header {
-    h1 {
-        @include h1();
-        font-weight: $font-normal;
-    }
+  h1 {
+    @include h1();
+    font-weight: $font-normal;
+  }
 
-    @include display(flex);
-    min-height: rem(60);
+  @include display(flex);
+  min-height: rem(60);
 
-    @import "../../../mixins/fullSectionWrap.scss";
-    @import "../../../components/numericPickerWrapper";
+  @import "../../../mixins/fullSectionWrap.scss";
+  @import "../../../components/numericPickerWrapper";
 
-    .usda-page-header__container {
-        .usda-page-header__header,
-        .usda-page-header__toolbar {
-            border-bottom: none;
-            background-color: $blue-80v;
+  .usda-page-header__container {
+    .usda-page-header__header,
+    .usda-page-header__toolbar {
+      border-bottom: none;
+      background-color: $blue-80v;
 
-            @media (max-width: $medium-screen) {
-                .usda-fy-picker__container {
-                    padding-left: 0;
-                }
-
-                padding-left: math.div($outer-gutter, 2);
-            }
-
-            .usda-fy-picker__container {
-                margin-right: rem(40);
-
-                .usa-dt-picker.usda-fy-picker .usa-dt-picker__button {
-                    background-color: $blue-80v !important;
-                    
-                    .usa-dt-picker__button-text {
-                        background-color: $blue-80v !important;
-                        min-width: 126px;
-                        width: auto;
-                    }
-                }
-            }
-
-            // this block only applies to the download icon on the interactive data sources page
-            .download_static-file__container {
-                display: none;
-
-                @media(min-width:$medium-screen) {
-                    display: flex;
-                    padding: rem(4);
-                    margin: 0 rem(24);
-
-                    a {
-                        .download_static-file__button-content {
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            color: $theme-color-accent-vivid;
-
-                            svg {
-                                width: rem(15);
-                                height: rem(16);
-                                margin-bottom: rem(4);
-                            }
-
-                            span {
-                                line-height: rem(18);
-                                font-size: $smallest-font-size;
-                                font-weight: $font-semibold;
-                            }
-                            
-                            svg, span {
-                                color: $theme-color-accent-vivid;
-                                &:hover, &:active {
-                                    &:not(:disabled) {
-                                        color: $yellow-10v;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+      @media (max-width: $medium-screen) {
+        .usda-fy-picker__container {
+          padding-left: 0;
         }
 
-        @media(min-width: $medium-screen) {
-            @include fullSectionWrap(0, 0);
+        padding-left: math.div($outer-gutter, 2);
+      }
+
+      .usda-fy-picker__container {
+        margin-right: rem(40);
+
+        .usa-dt-picker.usda-fy-picker .usa-dt-picker__button {
+          background-color: $blue-80v !important;
+
+          .usa-dt-picker__button-text {
+            background-color: $blue-80v !important;
+            min-width: 126px;
+            width: auto;
+          }
         }
+      }
+
+      // this block only applies to the download icon on the interactive data sources page
+      .download_static-file__container {
+        display: none;
+
+        @media (min-width: $medium-screen) {
+          display: flex;
+          padding: rem(4);
+          margin: 0 rem(24);
+
+          a {
+            .download_static-file__button-content {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              color: $theme-color-accent-vivid;
+
+              svg {
+                width: rem(15);
+                height: rem(16);
+                margin-bottom: rem(4);
+              }
+
+              span {
+                line-height: rem(18);
+                font-size: $smallest-font-size;
+                font-weight: $font-semibold;
+              }
+
+              svg,
+              span {
+                color: $theme-color-accent-vivid;
+                &:hover,
+                &:active {
+                  &:not(:disabled) {
+                    color: $yellow-10v;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
 
-    .usda-page-header__mobile-top{
-        .usa-share-icon-508 {
-            @media(min-width: $medium-screen) {
-                display: none;
-            }
-        }
+    @media (min-width: $medium-screen) {
+      @include fullSectionWrap(0, 0);
     }
+  }
+
+  .usda-page-header__mobile-top {
+    .usa-share-icon-508 {
+      @media (min-width: $medium-screen) {
+        display: none;
+      }
+    }
+  }
 }

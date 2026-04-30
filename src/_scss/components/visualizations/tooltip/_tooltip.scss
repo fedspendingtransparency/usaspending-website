@@ -1,83 +1,83 @@
 .tooltip {
-    @import "mixins/setText";
-    $color-title-background: #F0F0F0;
-    $color-tooltip-border: #ADAFB4;
-    max-width: 75%;
-    pointer-events: none;
-    position: absolute;
-    z-index: 3;
+  @import "mixins/setText";
+  $color-title-background: #f0f0f0;
+  $color-tooltip-border: #adafb4;
+  max-width: 75%;
+  pointer-events: none;
+  position: absolute;
+  z-index: 3;
+  @include media($tablet-screen) {
+    max-width: auto;
+  }
+  border: 1px solid $color-tooltip-border;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.5);
+  background-color: $color-white;
+  @import "./_arrow";
+  .tooltip-title {
+    background-color: $color-title-background;
+    color: $gray-90;
+    font-size: $font-size-16;
+    font-weight: $font-semibold;
+    padding: $global-padding * 2 ($global-padding * 4);
+    text-align: center;
+    z-index: 9;
+  }
+  .tooltip-body {
+    @include display(flex);
+    @include flex-flow(row wrap);
+    @include justify-content(space-between);
+    padding: rem(15) ($global-padding * 4);
+    &.center {
+      width: 100%;
+    }
+  }
+  .tooltip-full {
+    @include flex(1 1 auto);
+  }
+  .tooltip-left,
+  .tooltip-right {
+    display: block;
+    @include flex(1 1 auto);
     @include media($tablet-screen) {
-        max-width: auto;
+      @include flex(1 1 auto);
+      margin: 0 rem(10) 0 0;
     }
-    border: 1px solid $color-tooltip-border;
-    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.5);
-    background-color: $color-white;
-    @import "./_arrow";
-    .tooltip-title {
-        background-color: $color-title-background;
-        color: $gray-90;
-        font-size: $font-size-16;
-        font-weight: $font-semibold;
-        padding: $global-padding * 2 ($global-padding * 4);
-        text-align: center;
-        z-index: 9;
+  }
+  .tooltip-right {
+    @include media($tablet-screen) {
+      margin: 0 0 0 rem(10);
     }
-    .tooltip-body {
-        @include display(flex);
-        @include flex-flow(row wrap);
-        @include justify-content(space-between);
-        padding: rem(15) ($global-padding * 4);
-        &.center {
-            width: 100%;
-        }
-    }
-    .tooltip-full {
-        @include flex(1 1 auto);
-    }
-    .tooltip-left,
-    .tooltip-right {
-        display: block;
-        @include flex(1 1 auto);
-        @include media($tablet-screen) {
-            @include flex(1 1 auto);
-            margin: 0 rem(10) 0 0;
-        }
-    }
-    .tooltip-right {
-        @include media($tablet-screen) {
-            margin: 0 0 0 rem(10);
-        }
-    }
-    .tooltip-value,
-    .tooltip-description,
-    .tooltip-label {
-        color: $color-base;
-        text-align: center;
-    }
-    .tooltip-value {
-        border-bottom: 1px solid #D5D6D8;
-        font-size: $font-size-24;
-        font-weight: $font-normal;
-        line-height: 1;
-        padding: 0 0 rem(10) 0;
-    }
-    .tooltip-description {
-        font-size: $font-size-14;
-        font-weight: $font-normal;
-        line-height: rem(23);
-        padding: rem(5) 0 0 0;
-        text-align: center;
-    }
-    .tooltip-label {
-        font-weight: $font-normal;
-        padding: rem(10) rem(0) rem(0) rem(0);
-    }
-    .tooltip-footer {
-        background-color: $color-gold-lightest;
-        font-size: $font-size-14;
-        margin: 0 5%;
-        padding: rem(16) rem(15) rem(14);
-        text-align: center;
-        width: 90%;
-    }
+  }
+  .tooltip-value,
+  .tooltip-description,
+  .tooltip-label {
+    color: $color-base;
+    text-align: center;
+  }
+  .tooltip-value {
+    border-bottom: 1px solid #d5d6d8;
+    font-size: $font-size-24;
+    font-weight: $font-normal;
+    line-height: 1;
+    padding: 0 0 rem(10) 0;
+  }
+  .tooltip-description {
+    font-size: $font-size-14;
+    font-weight: $font-normal;
+    line-height: rem(23);
+    padding: rem(5) 0 0 0;
+    text-align: center;
+  }
+  .tooltip-label {
+    font-weight: $font-normal;
+    padding: rem(10) rem(0) rem(0) rem(0);
+  }
+  .tooltip-footer {
+    background-color: $color-gold-lightest;
+    font-size: $font-size-14;
+    margin: 0 5%;
+    padding: rem(16) rem(15) rem(14);
+    text-align: center;
+    width: 90%;
+  }
 }

@@ -1,13 +1,13 @@
 .award-search__section {
-  @media (min-width:1400px) and (max-width: 1600px) {
+  @media (min-width: 1400px) and (max-width: 1600px) {
     flex-direction: column;
-    display:flex;
+    display: flex;
   }
 
   .award-search__topdiv {
-    @media(min-width:1600px) {
+    @media (min-width: 1600px) {
       justify-content: center;
-      display:flex;
+      display: flex;
     }
   }
 
@@ -24,11 +24,11 @@
     .award-search__col1 {
       align-items: center;
 
-      @media (max-width:1400px) {
+      @media (max-width: 1400px) {
         width: 100%;
       }
 
-      @media(min-width:1400px) {
+      @media (min-width: 1400px) {
         padding-right: 32px;
         width: 33%;
       }
@@ -79,7 +79,7 @@
       letter-spacing: normal;
       color: $body-color;
 
-      @media(min-width: 320px) {
+      @media (min-width: 320px) {
         margin-bottom: 40px;
       }
     }
@@ -97,7 +97,7 @@
         justify-self: right;
       }
 
-      @media(min-width:320px) {
+      @media (min-width: 320px) {
         height: 500px;
       }
     }
@@ -106,14 +106,16 @@
       background-color: $gray-cool-60;
     }
 
-    .swiper-slide-prev, .swiper-slide-next {
-      opacity: .5;
+    .swiper-slide-prev,
+    .swiper-slide-next {
+      opacity: 0.5;
 
       .card-container {
-          box-shadow: none;
+        box-shadow: none;
       }
 
-      .card__button, .usda-glossary-link {
+      .card__button,
+      .usda-glossary-link {
         cursor: not-allowed;
         pointer-events: none;
       }
@@ -136,9 +138,9 @@
       width: 48px;
       box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
       color: $color-white;
-      
-      svg{
-        height: rem(20); 
+
+      svg {
+        height: rem(20);
       }
 
       &:hover {
@@ -146,9 +148,7 @@
       }
     }
 
-
     .award-search__col2 {
-
       @media (min-width: 1400px) {
         display: inline;
         width: 67%;
@@ -169,7 +169,7 @@
         }
 
         .award-search__card2 {
-          @media (max-width:500px) {
+          @media (max-width: 500px) {
             .text {
               height: rem(96);
             }
@@ -192,7 +192,7 @@
           .card__body {
             .text {
               margin-bottom: rem(4);
-              @media (min-width:450px) and (max-width: $tablet-screen) {
+              @media (min-width: 450px) and (max-width: $tablet-screen) {
                 margin-bottom: 0;
               }
               @media (min-width: $tablet-screen) {
@@ -232,7 +232,7 @@
               margin-right: 0;
             }
 
-            .button-type__primary-light{
+            .button-type__primary-light {
               width: 100%;
               justify-content: center;
             }
