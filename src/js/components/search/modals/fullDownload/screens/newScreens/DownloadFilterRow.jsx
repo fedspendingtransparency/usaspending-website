@@ -17,7 +17,6 @@ const propTypes = {
 const DownloadFilterRow = ({
     filter
 }) => {
-    console.debug("DOWNLOAD FILTER ROW: ", filter);
     // depending on API structure/Redux state we should be able pull from Redux
     const [limit, setLimit] = useState(300);
     const tdRef = useRef(null);
@@ -129,8 +128,40 @@ const DownloadFilterRow = ({
             return `${filterTemp.psc_description}, `;
         });
     }
-    else if (filter.name === 'Type of Contract Pricing' || 'Type of Set Aside') {
-        formatted = Object.values(filter.values).join(", ");
+    else if (filter.name === 'Type of Contract Pricing') {
+        formatted = Object.values(filter.values).map((filterTemp, i, row) => {
+            if (i + 1 === row.length) {
+                return `${pricingTypeDefinitions[filterTemp]}`;
+            }
+
+            return `${pricingTypeDefinitions[filterTemp]}, `;
+        });
+    }
+    else if (filter.name === 'Type of Set Aside') {
+        formatted = Object.values(filter.values).map((filterTemp, i, row) => {
+            if (i + 1 === row.length) {
+                return `${setAsideDefinitions[filterTemp]}`;
+            }
+
+            return `${setAsideDefinitions[filterTemp]}, `;
+        });
+    }
+    else if (filter.name === 'Extent Competed') {
+        formatted = Object.values(filter.values).map((filterTemp, i, row) => {
+            if (i + 1 === row.length) {
+                return `${extentCompetedDefinitions[filterTemp]}`;
+            }
+
+            return `${extentCompetedDefinitions[filterTemp]}, `;
+        });
+    }
+    else if (filter.name === 'Assistance Listing') {
+        formatted = filter.values.map((filterTemp, i, row) => {
+            if (i + 1 === row.length) {
+                return `${filterTemp.identifier}|${filterTemp.program_title}`;
+            }
+            return `${filterTemp.identifier}|${filterTemp.program_title}, `;
+        });
     }
     else {
         formatted = filter.values.join(", ");
