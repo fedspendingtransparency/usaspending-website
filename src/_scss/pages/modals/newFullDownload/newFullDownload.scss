@@ -1,31 +1,29 @@
 .search-section-new-download-modal {
-    // override the modal widths
-    width: 60%;
-    border-radius: rem(12);
-    min-width: rem(700);
-
+  // override the modal widths
+  width: 60%;
+  border-radius: rem(12);
+  min-width: rem(700);
 }
 
 .new-full-download-modal {
-    @import "./_header";
-    background-color: $color-white;
-    border-radius: rem(12);
-    .download-body {
-        padding: rem(24);
-    }
+  @import "./_header";
+  background-color: $color-white;
+  border-radius: rem(12);
+  .download-body {
+    padding: rem(24);
+  }
 
-
-    .main-title {
-        h3 {
-            text-align: left;
-            font-size: rem(20);
-            font-weight: $font-normal;
-            margin-bottom: rem(12);
-            margin-top: 0;
-            line-height: 120%;
-            color: $gray-90;
-        }
+  .main-title {
+    h3 {
+      text-align: left;
+      font-size: rem(20);
+      font-weight: $font-normal;
+      margin-bottom: rem(12);
+      margin-top: 0;
+      line-height: 120%;
+      color: $gray-90;
     }
-    @import "./_levelScreen";
-    @import "./_summaryScreen";
+  }
+  @import "./_levelScreen";
+  @import "./_summaryScreen";
 }

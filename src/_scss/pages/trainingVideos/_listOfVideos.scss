@@ -22,9 +22,9 @@
 
   .list-of-videos__video {
     margin-bottom: rem(32);
-    @media (max-width:$medium-screen) {
-      display:flex;
-      justify-content:center;
+    @media (max-width: $medium-screen) {
+      display: flex;
+      justify-content: center;
       flex-direction: column;
     }
     .card__hero.expanded {
@@ -37,28 +37,26 @@
         border-radius: rem(8) rem(8) 0 0;
         width: 100%;
       }
-
     }
     .video-card__headline {
-      &:hover{
+      &:hover {
         text-decoration: underline;
         cursor: pointer;
       }
     }
     .list-of-videos__inline {
-      display:inline-flex;
+      display: inline-flex;
       width: 100%;
     }
     .list-of-videos__column-share-icon {
-
       // this to to place the msg on top of the 'copy link' item in dropdown
       .usda-share-icon .copy-confirmation {
         top: rem(48);
         left: rem(20);
       }
 
-      .svg-inline--fa{
-        &:hover{
+      .svg-inline--fa {
+        &:hover {
           color: $theme-color-1-dark;
         }
       }
@@ -74,11 +72,11 @@
       -webkit-line-clamp: 4;
       line-clamp: 4;
 
-      @media(min-width: 768px) and (max-width:992px) {
+      @media (min-width: 768px) and (max-width: 992px) {
         -webkit-line-clamp: 2;
         line-clamp: 2;
       }
-      @media(min-width:992px) and (max-width: 1200px) {
+      @media (min-width: 992px) and (max-width: 1200px) {
         -webkit-line-clamp: 3;
         line-clamp: 3;
       }
@@ -94,7 +92,7 @@
       color: $gray-60;
       font-size: rem(14);
       text-align: left;
-      width: 100%
+      width: 100%;
     }
   }
 }

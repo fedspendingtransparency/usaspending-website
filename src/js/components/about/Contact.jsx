@@ -25,7 +25,7 @@ const Contact = () => (
                     <a
                         target="_blank"
                         rel="noopener noreferrer"
-                        href="https://fiscalservice.force.com/usaspending/s/">
+                        href="https://onevoicecrm.my.site.com/usaspending/s/">
                         <button
                             className="usa-button-outline"
                             aria-label="Visit Our Community Page"

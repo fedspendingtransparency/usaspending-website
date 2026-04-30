@@ -1,69 +1,70 @@
 .usa-da-about-article {
-    @import "all";
-    @import "./article";
-    .breadcrumbs {
-        & ul {
-            list-style: none;
-        }
-        & li {
-            display: inline-block;
-            font-size: $small-font-size;
-            & a{
-                color: $color-link;
-            &:visited{
-                color: $color-link;
-            }}
-        }
-        & svg:not(:root) {
-            fill: $color-gray-medium;
-            padding: 0 $global-padding * 2;
-        }
-        & .breadcrumb-arrow {
-            display: inline-block;
-            & svg {
-                height: rem(12);
-                margin-bottom: rem(-2)
-            }
-        }
-        @include media($medium-screen) {
-            @include grid-column(12);
-            @include grid-shift(2);
-            float: none;
-            & ul {
-                padding-left: 0;
-                margin: ($global-margin * 4) 0 0 0;
-            }
-        }
-        @include media($large-screen) {
-            @include grid-column(10);
-            @include grid-shift(3);
-            float: none;
-            & ul {
-                padding-left: 0;
-                margin: ($global-margin * 4) 0 0 0;
-            }
-        }
-        @include media($x-large-screen) {
-            max-width: $site-max-width;
-            padding-left: 0;
-            @include grid-column(8);
-            @include grid-shift(4);
-            float: none;
-            & ul {
-                padding-left: 0;
-                margin-bottom: 0;
-            }
-        }
+  @import "all";
+  @import "./article";
+  .breadcrumbs {
+    & ul {
+      list-style: none;
     }
-    .article-wrapper {
-        margin-top: $global-margin * 2;
-
-        h1 {
-            margin: ($global-margin * 4) 0 ($global-margin * 2) 0;
+    & li {
+      display: inline-block;
+      font-size: $small-font-size;
+      & a {
+        color: $color-link;
+        &:visited {
+          color: $color-link;
         }
-
-        hr.results-divider {
-            margin: 0 0 ($global-margin * 6) 0;
-        }
+      }
     }
+    & svg:not(:root) {
+      fill: $color-gray-medium;
+      padding: 0 $global-padding * 2;
+    }
+    & .breadcrumb-arrow {
+      display: inline-block;
+      & svg {
+        height: rem(12);
+        margin-bottom: rem(-2);
+      }
+    }
+    @include media($medium-screen) {
+      @include grid-column(12);
+      @include grid-shift(2);
+      float: none;
+      & ul {
+        padding-left: 0;
+        margin: ($global-margin * 4) 0 0 0;
+      }
+    }
+    @include media($large-screen) {
+      @include grid-column(10);
+      @include grid-shift(3);
+      float: none;
+      & ul {
+        padding-left: 0;
+        margin: ($global-margin * 4) 0 0 0;
+      }
+    }
+    @include media($x-large-screen) {
+      max-width: $site-max-width;
+      padding-left: 0;
+      @include grid-column(8);
+      @include grid-shift(4);
+      float: none;
+      & ul {
+        padding-left: 0;
+        margin-bottom: 0;
+      }
+    }
+  }
+  .article-wrapper {
+    margin-top: $global-margin * 2;
+
+    h1 {
+      margin: ($global-margin * 4) 0 ($global-margin * 2) 0;
+    }
+
+    hr.results-divider {
+      margin: 0 0 ($global-margin * 6) 0;
+    }
+  }
 }
