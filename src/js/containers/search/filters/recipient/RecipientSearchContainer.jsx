@@ -3,7 +3,7 @@
  * Created by michaelbray on 2/16/17.
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from "axios";
 
@@ -25,6 +25,7 @@ const RecipientSearchContainer = () => {
     const recipientRequest = useRef(null);
     const dispatch = useDispatch();
 
+    let timeout;
     const maxRecipientsAllowed = 500;
     const maxRecipientTitle = `Only ${maxRecipientsAllowed} recipients can be displayed at once`;
     // eslint-disable-next-line max-len
@@ -111,36 +112,42 @@ const RecipientSearchContainer = () => {
             recipientRequest.current.cancel();
         }
 
-        const paramObj = {
-            search_text: term,
-            limit: maxRecipientsAllowed
-        };
+        if (term.length >= 3) {
+            const paramObj = {
+                search_text: term,
+                limit: maxRecipientsAllowed
+            };
 
-        recipientRequest.current = fetchRecipientsAutocomplete(paramObj);
+            recipientRequest.current = fetchRecipientsAutocomplete(paramObj);
 
-        setIsLoading(true);
+            setIsLoading(true);
 
-        recipientRequest.current.promise
-            .then((res) => {
-                sortResults(res.data.results);
-                setRecipients(res.data.results);
-                setErrorMessage('');
-                setIsLoading(false);
-                setMaxRecipients(res.data.count === maxRecipientsAllowed);
-                setNoResults(!res.data.count);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(`Recipient Request Error: ${err}`);
-                    setErrorMessage(err.message);
+            recipientRequest.current.promise
+                .then((res) => {
+                    sortResults(res.data.results);
+                    setRecipients(res.data.results);
+                    setErrorMessage('');
                     setIsLoading(false);
-                }
-            });
+                    setMaxRecipients(res.data.count === maxRecipientsAllowed);
+                    setNoResults(!res.data.count);
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        console.log(`Recipient Request Error: ${err}`);
+                        setErrorMessage(err.message);
+                        setIsLoading(false);
+                    }
+                });
+        }
     };
 
-    const handleTextInputChange = useCallback((e) => {
+    const handleTextInputChange = (e) => {
+        window.clearTimeout(timeout);
         setSearchString(e.target.value);
-    }, []);
+        timeout = window.setTimeout(() => {
+            getRecipientsFromSearchString(e.target.value);
+        });
+    };
 
     const handleSearchClear = () => {
         setSearchString('');
@@ -225,14 +232,6 @@ const RecipientSearchContainer = () => {
             });
         }
     };
-
-    useEffect(() => {
-        if (searchString?.length >= 3) {
-            getRecipientsFromSearchString(searchString);
-        }
-        else if (searchString?.length === 0) setNoResults(false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchString]);
 
     return (
         <div className="recipient-filter">
