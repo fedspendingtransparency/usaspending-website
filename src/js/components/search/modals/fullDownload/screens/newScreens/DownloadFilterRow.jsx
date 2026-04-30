@@ -44,16 +44,16 @@ const DownloadFilterRow = ({
     // every filter value/name has a completely different format ( array of strings, array of objects, object, object of arrays), these have to be formatted before they
     // are passed into ReadMore because if you don't format it there is no comma separation
     let formatted = null;
+
     if (filter.name === 'Place of Performance' || filter.name === 'Recipient Location') {
         formatted = filter.values.map((filterTemp, i, row) => {
-            console.debug(filterTemp);
             if (i + 1 === row.length) {
                 return `${filterTemp.display.entity}:  ${filterTemp.display.title}`;
             }
             return `${filterTemp.display.entity}:  ${filterTemp.display.title}, `;
         });
     }
-    else if (filter.name === 'Awarding Agency') {
+    else if (filter.name === 'Awarding Agency' || filter.name === 'Funding Agency') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
                 return `${filterTemp.toptier_agency.name} `;
@@ -64,8 +64,23 @@ const DownloadFilterRow = ({
     else if (filter.name === 'Award Amounts') {
         formatted = Object.entries(filter.values).map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
+                if (filterTemp[1][0] === null) {
+                    return `${filterTemp[1][1]} and below`;
+                }
+                else if (filterTemp[1][1] === null) {
+                    return `${filterTemp[1][0]} and above`;
+                }
+
                 return `${filterTemp[1][0]} - ${filterTemp[1][1]}`;
             }
+
+            if (filterTemp[1][0] === null) {
+                return `${filterTemp[1][1]} and below, `;
+            }
+            else if (filterTemp[1][1] === null) {
+                return `${filterTemp[1][0]} and above, `;
+            }
+
             return `${filterTemp[1][0]} - ${filterTemp[1][1]}, `;
         });
     }
