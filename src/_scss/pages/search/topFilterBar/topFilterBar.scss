@@ -1,156 +1,157 @@
 .search-top-filter-bar {
-    display: none;
+  display: none;
+
+  @include media($medium-screen) {
+    display: block;
+  }
+
+  $top-background-color: #dddddd;
+  $top-text-color: #4a4a4a;
+  $top-item-border-color: #cacaca;
+  $top-clear-button-background-color: #cbccce;
+  $top-clear-button-color: $color-gray;
+  $top-header-color: #525252;
+  $top-divider-color: $color-gray-border;
+  $top-group-color: #e2e3e4;
+  width: 100%;
+  font-size: rem(12);
+
+  .search-top-filter-header {
+    border-bottom: 1px solid $top-divider-color;
+    padding-bottom: rem(7);
+    display: flex;
+    justify-content: space-between;
 
     @include media($medium-screen) {
-        display: block;
+      display: flex;
     }
 
-    $top-background-color: #DDDDDD;
-    $top-text-color: #4A4A4A;
-    $top-item-border-color: #CACACA;
-    $top-clear-button-background-color: #CBCCCE;
-    $top-clear-button-color: $color-gray;
-    $top-header-color: #525252;
-    $top-divider-color: $color-gray-border;
-    $top-group-color: #E2E3E4;
-    width: 100%;
-    font-size: rem(12);
+    .header-title {
+      font-weight: 600;
+      font-size: rem(14);
+      line-height: rem(18);
+      color: $top-header-color;
+      margin: 0;
+    }
 
-    .search-top-filter-header {
-        border-bottom: 1px solid $top-divider-color;
-        padding-bottom: rem(7);
+    .button-type__text-right-icon-light {
+      margin: 0;
+      padding: 0;
+      height: auto;
+    }
+
+    @import "./_clearAllButton";
+
+    &.advanced-search {
+      display: block;
+      padding-bottom: rem(5);
+      border: none;
+
+      .title-container,
+      .below-line,
+      .filter-buttons {
         display: flex;
         justify-content: space-between;
+      }
 
-        @include media($medium-screen) {
-            display: flex;
+      .above-line {
+        padding: 0 ($global-padding * 2) rem(20);
+        border-bottom: rem(1) solid $color-gray-border;
+
+        h1 {
+          color: $gray-cool-90;
+          font-size: $lead-font-size;
+          line-height: 1.25;
+          margin: 0 0 $global-margin;
+          font-weight: $font-semibold;
         }
+
+        h2 {
+          color: $color-black;
+          font-size: $base-font-size;
+          line-height: 1.5;
+          margin: 0;
+          font-weight: $font-normal;
+
+          span {
+            font-weight: $font-semibold;
+          }
+
+          svg {
+            color: $blue-60v;
+          }
+        }
+      }
+
+      .below-line {
+        margin: $global-margin ($global-margin * 2) 0;
 
         .header-title {
-            font-weight: 600;
-            font-size: rem(14);
-            line-height: rem(18);
-            color: $top-header-color;
-            margin: 0;
+          margin-top: rem(4);
+          color: $gray-cool-90;
+          font-size: $base-font-size;
+          line-height: 1.5;
         }
 
-        .button-type__text-right-icon-light {
-            margin: 0;
-            padding: 0;
-            height: auto;
+        .filter-buttons button {
+          border: rem(2) solid $blue-60v;
+          border-radius: rem(4);
+          padding: rem(6) rem(10);
+          font-size: $small-font-size;
+          line-height: rem(18);
+
+          &:last-of-type {
+            margin-left: rem(20);
+          }
+
+          svg {
+            height: rem(13);
+          }
         }
+      }
+    }
+  }
 
-        @import "./_clearAllButton";
+  .search-top-filters {
+    display: table-cell;
+    vertical-align: middle;
 
-        &.advanced-search {
-            display: block;
-            padding-bottom: rem(5);
-            border: none;
+    .search-top-filters-content {
+      display: block;
+      margin-right: rem(10);
+      margin-bottom: rem(15);
+      margin-left: $global-margin * 2;
 
-            .title-container, .below-line, .filter-buttons {
-                display: flex;
-                justify-content: space-between;
-            }
+      &.collapsed {
+        max-height: 150px;
+        overflow: hidden;
+      }
 
-            .above-line {
-                padding: 0 ($global-padding * 2) rem(20);
-                border-bottom: rem(1) solid $color-gray-border;
+      &.expanded {
+        max-height: 280px;
+        overflow: auto;
+      }
 
-                h1 {
-                    color: $gray-cool-90;
-                    font-size: $lead-font-size;
-                    line-height: 1.25;
-                    margin: 0 0 $global-margin;
-                    font-weight: $font-semibold;
-                }
+      &.fade {
+        mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 1) 40%);
+      }
 
-                h2 {
-                    color: $color-black;
-                    font-size: $base-font-size;
-                    line-height: 1.5;
-                    margin: 0;
-                    font-weight: $font-normal;
-
-                    span {
-                        font-weight: $font-semibold;
-                    }
-
-                    svg {
-                        color: $blue-60v;
-                    }
-                }
-            }
-
-            .below-line {
-                margin: $global-margin ($global-margin * 2) 0;
-
-                .header-title {
-                    margin-top: rem(4);
-                    color: $gray-cool-90;
-                    font-size: $base-font-size;
-                    line-height: 1.5;
-                }
-
-                .filter-buttons button {
-                    border: rem(2) solid $blue-60v;
-                    border-radius: rem(4);
-                    padding: rem(6) rem(10);
-                    font-size: $small-font-size;
-                    line-height: rem(18);
-
-                    &:last-of-type {
-                        margin-left: rem(20);
-                    }
-
-                    svg {
-                        height: rem(13);
-                    }
-                }
-            }
+      .filter-group-container:first-child {
+        margin-left: 0;
+      }
+      &.newAwardsOnlyPresent {
+        .filter-group-container:nth-child(2) {
+          margin-left: 0;
         }
+      }
+      // New Awards Only chip has to disappear if subawards is also selected
+      &.subAward.newAwardsOnlyPresent {
+        .filter-group-container:nth-child(2) {
+          display: none;
+        }
+      }
     }
 
-    .search-top-filters {
-        display: table-cell;
-        vertical-align: middle;
-
-        .search-top-filters-content {
-            display: block;
-            margin-right: rem(10);
-            margin-bottom: rem(15);
-            margin-left: $global-margin * 2;
-
-            &.collapsed {
-                max-height: 150px;
-                overflow: hidden;
-            }
-
-            &.expanded {
-                max-height: 280px;
-                overflow: auto;
-
-            }
-
-            &.fade {
-                mask-image: linear-gradient(to top, transparent, rgba(0, 0, 0, 1) 40%);
-            }
-
-            .filter-group-container:first-child {
-                margin-left: 0;
-            }
-            &.newAwardsOnlyPresent {
-                .filter-group-container:nth-child(2) {
-                    margin-left: 0;
-                }
-            }
-            // New Awards Only chip has to disappear if subawards is also selected
-            &.subAward.newAwardsOnlyPresent {
-                .filter-group-container:nth-child(2) {
-                    display: none;
-                }
-            }
-        }
-
-        @import "./_group";
-    }
+    @import "./_group";
+  }
 }

@@ -1,39 +1,40 @@
 .spending-by-agency {
-    width: 100%;
+  width: 100%;
 
-    .spending-by-agency__content {
-        @include display(block);
+  .spending-by-agency__content {
+    @include display(block);
 
-        .usda-table {
-            margin-top: 0;
-            td {
-                &:first-child {
-                    p {
-                        a {
-                            // IE11 fix for td not having the correct width
-                            @media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
-                                max-width: 50%;
-                            }
-                        }
-                    }
-                }
+    .usda-table {
+      margin-top: 0;
+      td {
+        &:first-child {
+          p {
+            a {
+              // IE11 fix for td not having the correct width
+              @media all and (-ms-high-contrast: none),
+                (-ms-high-contrast: active) {
+                max-width: 50%;
+              }
             }
-            .usda-table__body {
-                tr.usda-table__row {
-                    td.usda-table__cell {
-                        &:first-of-type {
-                            margin-left: 0;
-                        }
-    
-                        margin-left: 0;
-                        vertical-align: middle;
-                    }
-                    td.usda-table__cell_right:last-of-type {
-                        width: 100%;
-                    }
-                }
-            }
+          }
         }
+      }
+      .usda-table__body {
+        tr.usda-table__row {
+          td.usda-table__cell {
+            &:first-of-type {
+              margin-left: 0;
+            }
+
+            margin-left: 0;
+            vertical-align: middle;
+          }
+          td.usda-table__cell_right:last-of-type {
+            width: 100%;
+          }
+        }
+      }
     }
+  }
 }
-@import 'pages/covid19/_unlinkedData';
+@import "pages/covid19/_unlinkedData";

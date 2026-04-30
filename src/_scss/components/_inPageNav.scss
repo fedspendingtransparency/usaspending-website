@@ -15,58 +15,106 @@
     list-style-type: none;
     max-width: 100%;
 
-    @media(min-width: $medium-screen) {
+    @media (min-width: $medium-screen) {
       margin: 0 rem(20);
     }
-    @media(min-width: $large-screen) {
+    @media (min-width: $large-screen) {
       margin: 0 rem(40);
     }
-    @media(min-width: $x-large-screen) {
+    @media (min-width: $x-large-screen) {
       margin: 0 auto;
       width: rem(1600);
     }
 
     // for some reason IntelliJ thinks this linear-gradient is not valid, but it does compile and it does work
     &.left-fade-effect {
-      @media(min-width: $medium-screen) {
+      @media (min-width: $medium-screen) {
         margin: 0 rem(2);
       }
-      @media(min-width: $large-screen) {
+      @media (min-width: $large-screen) {
         margin: 0 rem(8);
       }
-      @media(min-width: $x-large-screen) {
+      @media (min-width: $x-large-screen) {
         margin: 0 auto;
         width: rem(1600);
       }
       ul {
-        @media(min-width: $medium-screen) {
-          -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 20px);
-          mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 20px);
+        @media (min-width: $medium-screen) {
+          -webkit-mask-image: linear-gradient(
+            to right,
+            transparent,
+            rgba(0, 0, 0, 1) 20px
+          );
+          mask-image: linear-gradient(
+            to right,
+            transparent,
+            rgba(0, 0, 0, 1) 20px
+          );
         }
-        @media(min-width: $large-screen) {
-          -webkit-mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 40px);
-          mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 40px);
+        @media (min-width: $large-screen) {
+          -webkit-mask-image: linear-gradient(
+            to right,
+            transparent,
+            rgba(0, 0, 0, 1) 40px
+          );
+          mask-image: linear-gradient(
+            to right,
+            transparent,
+            rgba(0, 0, 0, 1) 40px
+          );
         }
       }
     }
 
     &.right-fade-effect {
       ul {
-        -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
-        mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
+        -webkit-mask-image: linear-gradient(
+          to left,
+          transparent,
+          rgba(0, 0, 0, 1) 16px
+        );
+        mask-image: linear-gradient(
+          to left,
+          transparent,
+          rgba(0, 0, 0, 1) 16px
+        );
 
-        @media(min-width: $tablet-screen) {
-          -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 32px);
-          mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 32px);
+        @media (min-width: $tablet-screen) {
+          -webkit-mask-image: linear-gradient(
+            to left,
+            transparent,
+            rgba(0, 0, 0, 1) 32px
+          );
+          mask-image: linear-gradient(
+            to left,
+            transparent,
+            rgba(0, 0, 0, 1) 32px
+          );
         }
 
-        @media(min-width: $medium-screen) {
-          -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 20px);
-          mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 20px);
+        @media (min-width: $medium-screen) {
+          -webkit-mask-image: linear-gradient(
+            to left,
+            transparent,
+            rgba(0, 0, 0, 1) 20px
+          );
+          mask-image: linear-gradient(
+            to left,
+            transparent,
+            rgba(0, 0, 0, 1) 20px
+          );
         }
-        @media(min-width: $large-screen) {
-          -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 40px);
-          mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 40px);
+        @media (min-width: $large-screen) {
+          -webkit-mask-image: linear-gradient(
+            to left,
+            transparent,
+            rgba(0, 0, 0, 1) 40px
+          );
+          mask-image: linear-gradient(
+            to left,
+            transparent,
+            rgba(0, 0, 0, 1) 40px
+          );
         }
       }
     }
@@ -77,28 +125,68 @@
     // we're removing the left fade effect up to 992px
     &.left-fade-effect.right-fade-effect {
       ul {
-        -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
-        mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 16px);
+        -webkit-mask-image: linear-gradient(
+          to left,
+          transparent,
+          rgba(0, 0, 0, 1) 16px
+        );
+        mask-image: linear-gradient(
+          to left,
+          transparent,
+          rgba(0, 0, 0, 1) 16px
+        );
 
-        @media(min-width: $tablet-screen) {
-          -webkit-mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 32px);
-          mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 32px);
+        @media (min-width: $tablet-screen) {
+          -webkit-mask-image: linear-gradient(
+            to left,
+            transparent,
+            rgba(0, 0, 0, 1) 32px
+          );
+          mask-image: linear-gradient(
+            to left,
+            transparent,
+            rgba(0, 0, 0, 1) 32px
+          );
         }
 
-        @media(min-width: $medium-screen) {
-          -webkit-mask-image: linear-gradient(to left, transparent, black 6%, black 94%, transparent 100%);
-          mask-image: linear-gradient(to left, transparent, black 6%, black 94%, transparent 100%);
+        @media (min-width: $medium-screen) {
+          -webkit-mask-image: linear-gradient(
+            to left,
+            transparent,
+            black 6%,
+            black 94%,
+            transparent 100%
+          );
+          mask-image: linear-gradient(
+            to left,
+            transparent,
+            black 6%,
+            black 94%,
+            transparent 100%
+          );
         }
 
-        @media(min-width: $large-screen) {
-          -webkit-mask-image: linear-gradient(to left, transparent, black 8%, black 92%, transparent 100%);;
-          mask-image: linear-gradient(to left, transparent, black 8%, black 92%, transparent 100%);;
+        @media (min-width: $large-screen) {
+          -webkit-mask-image: linear-gradient(
+            to left,
+            transparent,
+            black 8%,
+            black 92%,
+            transparent 100%
+          );
+          mask-image: linear-gradient(
+            to left,
+            transparent,
+            black 8%,
+            black 92%,
+            transparent 100%
+          );
         }
       }
     }
 
     .usda-in-page-nav__paginator {
-      @media(max-width: 991px) {
+      @media (max-width: 991px) {
         display: none;
       }
       display: flex;
@@ -110,7 +198,8 @@
       border-radius: 50%;
       cursor: pointer;
 
-      &:hover, &:focus {
+      &:hover,
+      &:focus {
         background-color: $theme-color-body-inverse;
       }
 

@@ -1,66 +1,66 @@
 .date-range-wrapper {
-    position: relative;
-    @include display(flex);
-    @include flex-direction(column);
-    @include align-items(flex-start);
-    @include justify-content(flex-start);
+  position: relative;
+  @include display(flex);
+  @include flex-direction(column);
+  @include align-items(flex-start);
+  @include justify-content(flex-start);
 
-    @media(min-width: 1356px) {
-        @include flex-direction(row);
-    }
+  @media (min-width: 1356px) {
+    @include flex-direction(row);
+  }
 }
 
 .generate-datepicker-wrap {
-    @include flex(1 1 auto);
-    width: rem(250);
-    position: relative;
-    @include media($large-screen) {
-        width: auto;
-        &:last-child{
-            margin-right: 0;
-        }
+  @include flex(1 1 auto);
+  width: rem(250);
+  position: relative;
+  @include media($large-screen) {
+    width: auto;
+    &:last-child {
+      margin-right: 0;
     }
-    @media(min-width: $medium-screen) and (max-width: 1355px) {
-        width: 100%;
-    }
+  }
+  @media (min-width: $medium-screen) and (max-width: 1355px) {
+    width: 100%;
+  }
 
-    @media(min-width: 1355px) {
-        margin-right: rem(5);
-    }
-    .generate-datepicker {
-        input {
-            @import "../../elements/_inputs";
-            @include usa-input;
-            width: 100%;
-            font-size: 1.2rem;
-            text-indent: 0.5rem;
-            color: $color-base;
-            @include media($medium-screen) {
-                padding-left: .25rem;
-            }
+  @media (min-width: 1355px) {
+    margin-right: rem(5);
+  }
+  .generate-datepicker {
+    input {
+      @import "../../elements/_inputs";
+      @include usa-input;
+      width: 100%;
+      font-size: 1.2rem;
+      text-indent: 0.5rem;
+      color: $color-base;
+      @include media($medium-screen) {
+        padding-left: 0.25rem;
+      }
 
-            @include placeholder {
-                color: $color-gray-light;
-            }
+      @include placeholder {
+        color: $color-gray-light;
+      }
 
-            &:focus-visible {
-                outline: 1px solid $color-focus;
-            }
-        }
+      &:focus-visible {
+        outline: 1px solid $color-focus;
+      }
     }
+  }
 }
 
 .set-date-submit {
-    @include flex(0 0 auto);
-    height: rem(42);
-    width: 100%;
-    margin-left: 0;
-    margin-right: 0;
+  @include flex(0 0 auto);
+  height: rem(42);
+  width: 100%;
+  margin-left: 0;
+  margin-right: 0;
 
-    @include media($large-screen) {
-        @include flex(0 0 auto);
-        margin: 0;
-        margin-bottom: rem(3);
-        width: rem(15);
-    }
+  @include media($large-screen) {
+    @include flex(0 0 auto);
+    margin: 0;
+    margin-bottom: rem(3);
+    width: rem(15);
+  }
 }

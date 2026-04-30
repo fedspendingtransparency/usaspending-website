@@ -2,7 +2,7 @@
   display: block;
   width: 100%;
 
-  @media(min-width: $medium-screen) {
+  @media (min-width: $medium-screen) {
     display: flex;
     width: 100%;
   }
@@ -12,7 +12,7 @@
   margin-top: rem(30);
   width: 100%;
 
-  &>div {
+  & > div {
     display: grid;
     height: 100%;
     grid-auto-rows: 0fr 1fr 1fr 1fr;
@@ -22,7 +22,7 @@
     @include flex(0 0 50%);
   }
 
-  @media(min-width: $medium-screen) {
+  @media (min-width: $medium-screen) {
     // Evenly distribute padding between tables
     &:nth-child(odd) {
       padding-right: rem(15);
@@ -35,27 +35,27 @@
 
   // dtui table overrides
   .topfive-table__table {
-      .usda-table__cell {
-          a {
-            cursor: pointer;
-          }
-
-          &:first-child {
-            width: 40%;
-          }
-
-          &:nth-child(2) {
-            width: 15%;
-          }
-
-          &:nth-child(3) {
-            width: 20%;
-          }
-
-          &:last-child {
-            width: 25%;
-          }
+    .usda-table__cell {
+      a {
+        cursor: pointer;
       }
+
+      &:first-child {
+        width: 40%;
+      }
+
+      &:nth-child(2) {
+        width: 15%;
+      }
+
+      &:nth-child(3) {
+        width: 20%;
+      }
+
+      &:last-child {
+        width: 25%;
+      }
+    }
 
     .table-header .table-header__content {
       .table-header__label {
@@ -69,7 +69,6 @@
   }
 
   .category-table__title {
-
     @include display(flex);
     @include justify-content(flex-start);
     @include align-items(center);
@@ -108,7 +107,7 @@
           left: calc(50% - 20px);
         }
 
-        @media(max-width: 767px) {
+        @media (max-width: 767px) {
           position: absolute;
           left: 0 !important;
           transform: translateX(-224px);

@@ -20,7 +20,7 @@
           border-left: none;
         }
 
-        .rct-node.def-checkbox-label--covid  {
+        .rct-node.def-checkbox-label--covid {
           &.rct-node-parent {
             margin-left: 0;
           }
@@ -33,7 +33,11 @@
             }
           }
 
-          .rct-node-leaf .rct-text .rct-title .checkbox-tree-label .checkbox-tree-label__label {
+          .rct-node-leaf
+            .rct-text
+            .rct-title
+            .checkbox-tree-label
+            .checkbox-tree-label__label {
             &.multiple-label {
               padding-bottom: rem(10);
               &:last-of-type {
@@ -95,7 +99,8 @@
               }
             }
 
-            .rct-bare-label, label:hover {
+            .rct-bare-label,
+            label:hover {
               background-color: transparent;
             }
 
