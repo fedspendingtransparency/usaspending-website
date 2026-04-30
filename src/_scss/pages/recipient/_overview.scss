@@ -1,165 +1,165 @@
 .recipient-overview {
-	h2.recipient-overview__title {
-		@include h3;
-		margin: rem(5) 0;
-        font-weight: $font-semibold;
-        font-size: rem(36);
+  h2.recipient-overview__title {
+    @include h3;
+    margin: rem(5) 0;
+    font-weight: $font-semibold;
+    font-size: rem(36);
+  }
+  .recipient-overview__alternate-names-button {
+    @include display(flex);
+    @include flex(0 0 auto);
+    @include align-items(center);
+    @include button-unstyled;
+    color: $theme-color-1;
+    padding: rem(5);
+    svg {
+      height: rem(15);
+      width: rem(15);
+      fill: $theme-color-1;
     }
-    .recipient-overview__alternate-names-button {
+    &:hover {
+      color: $theme-color-1-dark;
+      svg {
+        fill: $theme-color-1-dark;
+      }
+    }
+  }
+  .recipient-overview__content {
+    width: 100%;
+    h3.recipient-overview__heading {
+      @include h4;
+      font-size: rem(19);
+      font-weight: 600;
+      margin: 0;
+    }
+    h5.recipient-overview__heading-subset {
+      @include h5;
+      font-size: $small-font-size;
+      font-weight: 600;
+      margin: 0;
+    }
+    .recipient-overview__parent {
+      font-size: $small-font-size;
+      @import "components/visualizations/tooltip/_csstooltip.scss";
+      .tooltip-popover-container .tooltip-popover {
+        width: 415px;
+        bottom: 35px;
+        left: -200px;
+        font-style: italic;
+        font-size: rem(12);
+        svg {
+          margin-left: 2px;
+          height: rem(15);
+          width: rem(15);
+          fill: $color-gray-medium;
+        }
+        div:first-child {
+          width: 6%;
+          float: left;
+        }
+        div:last-child {
+          width: 90%;
+          float: left;
+        }
+        .title {
+          color: $color-gray-medium;
+          font-weight: $font-semibold;
+          &:first-child {
+            font-style: normal;
+          }
+        }
+
+        p {
+          line-height: 1.25;
+          margin-top: 0;
+          margin-bottom: 15px;
+          &:first-child {
+            margin-top: 3px;
+          }
+        }
+      }
+      svg {
+        width: 13px;
+        top: 2px;
+        fill: $color-gray-light;
+        margin-left: 5px;
+        position: relative;
+
+        &:hover {
+          fill: $color-gray-medium;
+        }
+      }
+      a {
+        width: fit-content;
+      }
+      .recipient-overview__multiparents {
+        display: block;
+      }
+      .recipient-overview__parent-link {
+        font-weight: $font-semibold;
+        color: $color-primary;
+      }
+      .usa-button-link svg {
+        width: 10px;
+        top: 1px;
+        fill: $color-primary;
+      }
+    }
+    .recipient-overview__children {
+      @include display(flex);
+      @include align-items(center);
+      padding: rem(10) 0 rem(30);
+      .recipient-overview__label {
+        @include display(flex);
+        @include align-items(center);
+        @include flex(0 0 auto);
+        color: $color-white;
+        background-color: $color-gray;
+        text-transform: uppercase;
+        border-radius: rem(5);
+        padding: rem(5) rem(10);
+        font-size: $smallest-font-size;
+        font-weight: $font-semibold;
+        svg {
+          @include flex(0 0 auto);
+          margin-left: rem(5);
+          height: rem(12);
+          width: rem(12);
+          fill: $color-white;
+        }
+        &:hover {
+          text-decoration: none;
+        }
+        &.recipient-overview__label_parent {
+          background-color: $color-primary-darker;
+        }
+        &.recipient-overview__label_child {
+          background-color: $color-primary-alt-dark;
+        }
+      }
+      .recipient-overview__children-button {
         @include display(flex);
         @include flex(0 0 auto);
         @include align-items(center);
         @include button-unstyled;
-        color: $theme-color-1;
+        color: $color-primary;
         padding: rem(5);
+        margin-left: rem(10);
         svg {
-            height: rem(15);
-            width: rem(15);
-            fill: $theme-color-1;
+          height: rem(15);
+          width: rem(15);
+          fill: $color-primary;
         }
         &:hover {
-            color: $theme-color-1-dark;
-            svg {
-                fill: $theme-color-1-dark;
-            }
+          color: $color-primary-darker;
+          svg {
+            fill: $color-primary-darker;
+          }
         }
+      }
     }
-	.recipient-overview__content {
-        width:100%;
-		h3.recipient-overview__heading {
-			@include h4;
-			font-size: rem(19);
-			font-weight: 600;
-			margin: 0;
-        }
-        h5.recipient-overview__heading-subset {
-            @include h5;
-            font-size: $small-font-size;
-            font-weight: 600;
-            margin: 0;
-        }
-        .recipient-overview__parent {
-            font-size: $small-font-size;
-			@import "components/visualizations/tooltip/_csstooltip.scss";
-			.tooltip-popover-container .tooltip-popover {
-				width: 415px;
-				bottom: 35px;
-				left: -200px;
-				font-style: italic;
-				font-size: rem(12);
-				svg {
-					margin-left: 2px;
-					height: rem(15);
-					width: rem(15);
-					fill: $color-gray-medium;
-				}
-				div:first-child {
-					width: 6%;
-					float: left;
-				}
-				div:last-child {
-					width: 90%;
-					float: left;
-				}
-				.title {
-					color: $color-gray-medium;
-					font-weight: $font-semibold;
-					&:first-child {
-						font-style: normal;
-					}
-				}
 
-				p {
-				    line-height: 1.25;
-				    margin-top: 0;
-					margin-bottom: 15px;
-					&:first-child {
-					    margin-top: 3px;
-					}
-				}
-			}
-			svg {
-			    width: 13px;
-			    top: 2px;
-				fill: $color-gray-light;
-			    margin-left: 5px;
-			    position: relative;
-
-				&:hover {
-					fill: $color-gray-medium;
-				}
-			}
-			a {
-				width: fit-content;
-			}
-			.recipient-overview__multiparents {
-				display: block;
-			}
-            .recipient-overview__parent-link {
-                font-weight: $font-semibold;
-                color: $color-primary;
-            }
-            .usa-button-link svg {
-                width: 10px;
-                top: 1px;
-                fill: $color-primary;
-            }
-        }
-        .recipient-overview__children {
-            @include display(flex);
-            @include align-items(center);
-            padding: rem(10) 0 rem(30);
-            .recipient-overview__label {
-                @include display(flex);
-                @include align-items(center);
-                @include flex(0 0 auto);
-                color: $color-white;
-                background-color: $color-gray;
-                text-transform: uppercase;
-                border-radius: rem(5);
-                padding: rem(5) rem(10);
-                font-size: $smallest-font-size;
-                font-weight: $font-semibold;
-                svg {
-                    @include flex(0 0 auto);
-                    margin-left: rem(5);
-                    height: rem(12);
-                    width: rem(12);
-                    fill: $color-white;
-                }
-                &:hover {
-                    text-decoration: none;
-                }
-                &.recipient-overview__label_parent {
-                    background-color: $color-primary-darker;
-                }
-                &.recipient-overview__label_child {
-                    background-color: $color-primary-alt-dark;
-                }
-            }
-            .recipient-overview__children-button {
-                @include display(flex);
-                @include flex(0 0 auto);
-                @include align-items(center);
-                @include button-unstyled;
-                color: $color-primary;
-                padding: rem(5);
-                margin-left: rem(10);
-                svg {
-                    height: rem(15);
-                    width: rem(15);
-                    fill: $color-primary;
-                }
-                &:hover {
-                    color: $color-primary-darker;
-                    svg {
-                        fill: $color-primary-darker;
-                    }
-                }
-            }
-        }
-
-        @import "pages/state/overview/totals";
-		@import "pages/state/overview/details";
-	}
+    @import "pages/state/overview/totals";
+    @import "pages/state/overview/details";
+  }
 }

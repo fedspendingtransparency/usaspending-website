@@ -3,7 +3,7 @@
   z-index: 3;
   width: rem(375);
   background-color: $color-white;
-  box-shadow: 0 0 2px rgba(0, 0, 0, .3);
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.3);
   border: solid rem(1) $color-gray-light;
 
   .tooltip-pointer {
@@ -32,7 +32,7 @@
       width: 100%;
       color: $color-gray-dark;
       text-align: center;
-      background: #F0F0F0;
+      background: #f0f0f0;
       line-height: rem(42);
       z-index: 2;
     }

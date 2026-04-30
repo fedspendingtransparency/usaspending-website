@@ -686,17 +686,17 @@ const articles = [
         ],
         related_terms: [
             {
-                term: "Award",
+                term: "award",
                 type: "glossary",
                 label: "Award"
             },
             {
-                term: "Contract",
+                term: "contract",
                 type: "glossary",
                 label: "Contract"
             },
             {
-                term: "Grant",
+                term: "grant",
                 type: "glossary",
                 label: "Grant"
             }

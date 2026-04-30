@@ -1,29 +1,29 @@
 .archive-info {
-    @media(max-width: 992px) {
-        width: 76%;
-    }
-    @include display(flex);
-    background-color: $color-primary-alt-lightest;
-    border: solid 1px $color-primary-alt-light;
-    padding: rem(20);
-    .archive-info__icon {
-        margin-right: rem(10);
-        width: rem(20);
-        height: rem(20);
+  @media (max-width: 992px) {
+    width: 76%;
+  }
+  @include display(flex);
+  background-color: $color-primary-alt-lightest;
+  border: solid 1px $color-primary-alt-light;
+  padding: rem(20);
+  .archive-info__icon {
+    margin-right: rem(10);
+    width: rem(20);
+    height: rem(20);
 
-        svg {
-            width: rem(20);
-            height: rem(20);
-            fill: $color-primary-alt-dark;
-        }
+    svg {
+      width: rem(20);
+      height: rem(20);
+      fill: $color-primary-alt-dark;
     }
-    .archive-info__content {
-        .archive-info__heading {
-            font-weight: 600;
-            margin-bottom: rem(15);
-        }
-        a {
-            text-decoration: underline;
-        }
+  }
+  .archive-info__content {
+    .archive-info__heading {
+      font-weight: 600;
+      margin-bottom: rem(15);
     }
+    a {
+      text-decoration: underline;
+    }
+  }
 }

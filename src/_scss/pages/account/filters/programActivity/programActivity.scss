@@ -1,36 +1,36 @@
 .account-program-activity-filter {
-    padding-left: 0;
-    margin: 0.75rem 2.0rem 1rem;
+  padding-left: 0;
+  margin: 0.75rem 2rem 1rem;
 
-    > div {
-        padding-left: 0rem;
+  > div {
+    padding-left: 0rem;
+  }
+
+  .shown {
+    min-height: 18rem;
+  }
+
+  ul.program-activities {
+    @include unstyled-list;
+
+    li {
+      min-height: rem(28);
     }
 
-    .shown {
-        min-height: 18rem;
+    div.account-program-activity-loading {
+      font-size: $small-font-size;
+      line-height: $small-font-size;
+      margin: 2rem 0 0.7rem;
     }
+  }
 
-    ul.program-activities {
-        @include unstyled-list;
+  @import "./pages/award/_moreButton";
 
-        li {
-            min-height: rem(28);
-        }
-
-        div.account-program-activity-loading {
-            font-size: $small-font-size;
-            line-height: $small-font-size;
-            margin: 2rem 0 0.7rem;
-        }
-    }
-
-    @import './pages/award/_moreButton';
-
-    button.account-program-activity-toggle-button {
-        background-color: $color-white;
-        color: $color-focus;
-        padding: 0.7rem 0 0;
-        margin: 0.7rem 0 0 0;
-        font-weight: normal;
-    }
+  button.account-program-activity-toggle-button {
+    background-color: $color-white;
+    color: $color-focus;
+    padding: 0.7rem 0 0;
+    margin: 0.7rem 0 0 0;
+    font-weight: normal;
+  }
 }

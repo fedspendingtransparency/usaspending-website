@@ -1,128 +1,129 @@
 .search-visualizations {
+  position: relative;
+  margin-top: rem(20);
+
+  @include media($medium-screen) {
+    margin-top: 0;
+  }
+
+  .visualization-content-wrapper {
     position: relative;
-    margin-top: rem(20);
-
-    @include media($medium-screen) {
-        margin-top: 0;
-    }
-
-    .visualization-content-wrapper {
-        position: relative;
-    }
-
+  }
 }
 
 .visualization-tabs {
-    position: relative;
-    @include display(flex);
-    @include justify-content(space-between);
-    @include align-items(flex-end);
+  position: relative;
+  @include display(flex);
+  @include justify-content(space-between);
+  @include align-items(flex-end);
 }
 
 .visualization-tabs__toggle {
   display: none;
   @include flex(0 0 auto);
   @include align-self(center);
-  @media(min-width: $tablet-screen) {
+  @media (min-width: $tablet-screen) {
     display: flex;
   }
 }
 
 .visualization-tabs__list {
-    @include flex(1 1 auto);
-    @include unstyled-list;
+  @include flex(1 1 auto);
+  @include unstyled-list;
+  @include display(flex);
+  @include justify-content(flex-start);
+  @include align-items(center);
+  position: relative;
+
+  .visualization-type-tab {
+    @include button-unstyled;
     @include display(flex);
-    @include justify-content(flex-start);
+    @include justify-content(center);
     @include align-items(center);
     position: relative;
+    margin-right: rem(4);
+    padding: rem(20);
+    background-color: $gray-cool-10;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border: 1px solid $color-gray-lighter;
+    border-bottom: 1px solid $gray-cool-10;
+    // special boxshadow to not cast shadow below (since the tab is supposed to be
+    // visually the same object as the rest of the visualization box)
+    box-shadow:
+      -2px 0 2px -2px $color-shadow,
+      2px 0 2px -3px $color-shadow;
+    // this makes the active tab overlap the border of the container below
+    // so it appears to be connected to it
+    // this is a remnant of the original design
+    top: rem(1);
 
-    .visualization-type-tab {
-        @include button-unstyled;
-        @include display(flex);
-        @include justify-content(center);
-        @include align-items(center);
-        position: relative;
-        margin-right: rem(4);
-        padding: rem(20);
-        background-color: $gray-cool-10;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        border: 1px solid $color-gray-lighter;
-        border-bottom: 1px solid $gray-cool-10;
-        // special boxshadow to not cast shadow below (since the tab is supposed to be
-        // visually the same object as the rest of the visualization box)
-        box-shadow: -2px 0 2px -2px $color-shadow, 2px 0 2px -3px $color-shadow;
-        // this makes the active tab overlap the border of the container below
-        // so it appears to be connected to it
-        // this is a remnant of the original design
-        top: rem(1);
-
-        @include media($tablet-screen) {
-            padding: rem(20) rem(30);
-        }
-
-        .icon {
-            @include flex(0 0 auto);
-            width: rem(20);
-            height: rem(20);
-
-            svg {
-                fill: $theme-color-body;
-                width: rem(20);
-                height: rem(20);
-            }
-
-            @include media($tablet-screen) {
-                margin-right: rem(9);
-                width: rem(25);
-                height: rem(25);
-
-                svg {
-                    width: rem(25);
-                    height: rem(25);
-                }
-            }
-        }
-
-        .label {
-            @include flex(1 1 auto);
-            display: none;
-
-            @include media($tablet-screen) {
-                display: block;
-                color: $theme-color-body;
-                text-transform: uppercase;
-                line-height: rem(18);
-                letter-spacing: rem(2);
-            }
-        }
-
-        &:focus {
-            outline: lighten($color-primary, 30%) auto 1px;
-        }
-
-        &.active {
-            background-color: $color-white;
-            border-bottom: none;
-
-            .label {
-                font-weight: $font-semibold;
-            }
-
-            .icon {
-                svg {
-                    font-weight: $font-semibold;
-                }
-            }
-        }
-
-        &[disabled] {
-            opacity: 0.5;
-            cursor: not-allowed;
-
-            &.active {
-                opacity: 1;
-            }
-        }
+    @include media($tablet-screen) {
+      padding: rem(20) rem(30);
     }
+
+    .icon {
+      @include flex(0 0 auto);
+      width: rem(20);
+      height: rem(20);
+
+      svg {
+        fill: $theme-color-body;
+        width: rem(20);
+        height: rem(20);
+      }
+
+      @include media($tablet-screen) {
+        margin-right: rem(9);
+        width: rem(25);
+        height: rem(25);
+
+        svg {
+          width: rem(25);
+          height: rem(25);
+        }
+      }
+    }
+
+    .label {
+      @include flex(1 1 auto);
+      display: none;
+
+      @include media($tablet-screen) {
+        display: block;
+        color: $theme-color-body;
+        text-transform: uppercase;
+        line-height: rem(18);
+        letter-spacing: rem(2);
+      }
+    }
+
+    &:focus {
+      outline: lighten($color-primary, 30%) auto 1px;
+    }
+
+    &.active {
+      background-color: $color-white;
+      border-bottom: none;
+
+      .label {
+        font-weight: $font-semibold;
+      }
+
+      .icon {
+        svg {
+          font-weight: $font-semibold;
+        }
+      }
+    }
+
+    &[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+
+      &.active {
+        opacity: 1;
+      }
+    }
+  }
 }

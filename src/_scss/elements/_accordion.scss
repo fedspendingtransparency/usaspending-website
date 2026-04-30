@@ -36,9 +36,9 @@
         font-weight: normal;
         line-height: 1.5;
         padding: 2px 6px;
-        border: 1px solid #EDEFF0FF;
+        border: 1px solid #edeff0ff;
         border-radius: 4px;
-        background-color: #F7F9FAFF;
+        background-color: #f7f9faff;
         white-space: nowrap;
         margin: 0 4px;
       }
@@ -59,7 +59,9 @@
     color: #1b1b1b;
     text-align: left;
     visibility: hidden;
-    transition: ease-in-out max-height 50ms, visibility 50ms;
+    transition:
+      ease-in-out max-height 50ms,
+      visibility 50ms;
   }
 
   .plus {
@@ -104,6 +106,9 @@
 }
 
 // searchV2
-.collapsible-sidebar--search-filters-list .search-filters-list .accordion-container:last-of-type .accordion {
+.collapsible-sidebar--search-filters-list
+  .search-filters-list
+  .accordion-container:last-of-type
+  .accordion {
   padding-bottom: 0;
 }

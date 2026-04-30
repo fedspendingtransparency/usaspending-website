@@ -10,11 +10,12 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     label: PropTypes.string,
-    url: PropTypes.string
+    url: PropTypes.string,
+    className: PropTypes.string
 };
 
-const ProfileBackLink = ({ label, url }) => (
-    <div className="usa-profile-back-link__container">
+const ProfileBackLink = ({ label, url, className = "" }) => (
+    <div className={`usa-profile-back-link__container ${className}`}>
         <div className="usa-profile-back-link__wrapper">
             <Link
                 to={url}

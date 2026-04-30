@@ -22,9 +22,9 @@
 
   .list-of-articles__article {
     margin-bottom: rem(32);
-    @media (max-width:$medium-screen) {
-      display:flex;
-      justify-content:center;
+    @media (max-width: $medium-screen) {
+      display: flex;
+      justify-content: center;
       flex-direction: column;
     }
     .card__hero.expanded {
@@ -38,16 +38,15 @@
         width: 100%;
         margin-bottom: rem(-7);
       }
-
     }
     .article-card__headline {
-      &:hover{
+      &:hover {
         text-decoration: underline;
         cursor: pointer;
       }
     }
     .list-of-articles__inline {
-      display:inline-flex;
+      display: inline-flex;
       width: 100%;
     }
 
@@ -61,11 +60,11 @@
       -webkit-line-clamp: 4;
       line-clamp: 4;
 
-      @media(min-width: 768px) and (max-width:992px) {
+      @media (min-width: 768px) and (max-width: 992px) {
         -webkit-line-clamp: 2;
         line-clamp: 2;
       }
-      @media(min-width:992px) and (max-width: 1200px) {
+      @media (min-width: 992px) and (max-width: 1200px) {
         -webkit-line-clamp: 3;
         line-clamp: 3;
       }
@@ -81,7 +80,7 @@
       color: $gray-60;
       font-size: rem(14);
       text-align: left;
-      width: 100%
+      width: 100%;
     }
   }
 }

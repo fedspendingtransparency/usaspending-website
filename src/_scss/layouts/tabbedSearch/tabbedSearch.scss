@@ -2,19 +2,19 @@
 @import "layouts/default/default";
 
 #main-content {
-    @import "../default/stickyHeader/header";
+  @import "../default/stickyHeader/header";
 
-    .search-contents {
-        @include grid-container;
-        max-width: 100%;
-        margin: 0 math.div($outer-gutter, 2);
-        display: flex;
-        @include media($large-screen) {
-            margin: 0 $outer-gutter;
-        }
-        @include media($x-large-screen) {
-            max-width: $site-max-width;
-            margin: 0 auto;
-        }
+  .search-contents {
+    @include grid-container;
+    max-width: 100%;
+    margin: 0 math.div($outer-gutter, 2);
+    display: flex;
+    @include media($large-screen) {
+      margin: 0 $outer-gutter;
     }
+    @include media($x-large-screen) {
+      max-width: $site-max-width;
+      margin: 0 auto;
+    }
+  }
 }

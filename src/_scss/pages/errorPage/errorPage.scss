@@ -1,56 +1,56 @@
 .usa-da-error-page {
-    @import "all";
-    @import "layouts/default/default";
+  @import "all";
+  @import "layouts/default/default";
 
-    .main-content {
-        @import "../../mixins/fullSectionWrap";
-        text-align: center;
-        @include fullSectionWrap(($global-margin * 2), ($global-margin * 2));
-        padding: 2.5rem 2rem;
-        background-color: $color-white;
-        box-shadow: $container-shadow;
-        color: $color-base;
-        border-top: 1px solid $color-gray-border;
-        border-right: 1px solid $color-gray-border;
-        border-bottom: 1px solid $color-gray-border;
+  .main-content {
+    @import "../../mixins/fullSectionWrap";
+    text-align: center;
+    @include fullSectionWrap(($global-margin * 2), ($global-margin * 2));
+    padding: 2.5rem 2rem;
+    background-color: $color-white;
+    box-shadow: $container-shadow;
+    color: $color-base;
+    border-top: 1px solid $color-gray-border;
+    border-right: 1px solid $color-gray-border;
+    border-bottom: 1px solid $color-gray-border;
 
-        font-size: 1.8rem;
-        h2 {
-            margin: 0 0 2.8rem;
-            font-size: 2.7rem;
-            line-height: 3.4rem;
-        }
-        img {
-            width: 210px;
-            height: 120px;
-        }
-        p {
-            font-weight: $font-semibold;
-            font-size: 1.6rem;
-            margin-top: 5rem;
-        }
-        ul {
-            @include unstyled-list;
-            li {
-                padding: 0.8rem 0; 
-            }
-        }
-        @media (min-width: $tablet-screen) {
-            padding: 7.8rem;
-            h2 {
-                font-size: $h2-font-size;
-                line-height: 6rem;
-                margin-bottom: 5.9rem;
-            }
-            img {
-                width: 300px;
-                height: 150px;
-            }
-            p {
-                font-size: 1.8rem;
-                max-width: 45.2rem;
-                margin: 5rem auto 1.8rem;
-            }
-        }
+    font-size: 1.8rem;
+    h2 {
+      margin: 0 0 2.8rem;
+      font-size: 2.7rem;
+      line-height: 3.4rem;
     }
+    img {
+      width: 210px;
+      height: 120px;
+    }
+    p {
+      font-weight: $font-semibold;
+      font-size: 1.6rem;
+      margin-top: 5rem;
+    }
+    ul {
+      @include unstyled-list;
+      li {
+        padding: 0.8rem 0;
+      }
+    }
+    @media (min-width: $tablet-screen) {
+      padding: 7.8rem;
+      h2 {
+        font-size: $h2-font-size;
+        line-height: 6rem;
+        margin-bottom: 5.9rem;
+      }
+      img {
+        width: 300px;
+        height: 150px;
+      }
+      p {
+        font-size: 1.8rem;
+        max-width: 45.2rem;
+        margin: 5rem auto 1.8rem;
+      }
+    }
+  }
 }

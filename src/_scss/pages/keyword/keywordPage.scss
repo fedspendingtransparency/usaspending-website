@@ -1,25 +1,25 @@
 .usa-da-keyword-page {
-    @import "all";
-    @import "layouts/default/default";
-    @import "layouts/default/stickyHeader/header";
-    @import "./header/header";
+  @import "all";
+  @import "layouts/default/default";
+  @import "layouts/default/stickyHeader/header";
+  @import "./header/header";
 
-    .keyword-content {
-        @import "../../mixins/fullSectionWrap";
-        @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
-        padding:  $global-padding * 3;
-        background-color: $color-white;
-        box-shadow: $container-shadow;
-        color: $color-base;
-        border-top: 1px solid $color-gray-border;
-        border-right: 1px solid $color-gray-border;
-        border-bottom: 1px solid $color-gray-border;
+  .keyword-content {
+    @import "../../mixins/fullSectionWrap";
+    @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
+    padding: $global-padding * 3;
+    background-color: $color-white;
+    box-shadow: $container-shadow;
+    color: $color-base;
+    border-top: 1px solid $color-gray-border;
+    border-right: 1px solid $color-gray-border;
+    border-bottom: 1px solid $color-gray-border;
 
-        .keyword-search-bar {
-            margin-bottom: rem(22);
-        }
-        @import "searchBar";
-        @import "table/resultsTable";
-        @import "table/tableStyle";
+    .keyword-search-bar {
+      margin-bottom: rem(22);
     }
+    @import "searchBar";
+    @import "table/resultsTable";
+    @import "table/tableStyle";
+  }
 }

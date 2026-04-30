@@ -11,7 +11,7 @@
     .search-contents {
       max-width: 1600px !important; //TODO: Remove after search 2.0 is released
 
-      @media(min-width: $medium-screen) {
+      @media (min-width: $medium-screen) {
         border-left: 1px solid $gray-cool-10;
       }
     }
@@ -21,7 +21,7 @@
       padding-bottom: 16px;
       padding-top: 32px;
 
-      @media(min-width:  $medium-screen) {
+      @media (min-width: $medium-screen) {
         border-left: 1px solid $gray-cool-10;
       }
     }

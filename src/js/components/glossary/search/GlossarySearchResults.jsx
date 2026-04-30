@@ -7,17 +7,21 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { concat, sortBy } from 'lodash-es';
 import Analytics from 'helpers/analytics/Analytics';
+import { useDispatch } from "react-redux";
+import { setGlossaryTerm } from 'redux/actions/glossary/glossaryActions';
 
 import ResultGroup from './ResultGroup';
 
 const propTypes = {
     glossary: PropTypes.object,
-    searchLoading: PropTypes.bool,
-    setGlossaryTerm: PropTypes.func
+    // not sure about this search loading
+    searchLoading: PropTypes.bool
 };
 
-const GlossarySearchResults = (props) => {
+const GlossarySearchResults = ({ glossary, glossaryResults, searchLoading }) => {
     const [results, setResults] = useState([]);
+
+    const dispatch = useDispatch();
 
     const logGlossaryTermEvent = (term) => {
         Analytics.event({
@@ -29,8 +33,7 @@ const GlossarySearchResults = (props) => {
     };
 
     const selectTerm = (term) => {
-        props.setGlossaryTerm(term);
-
+        dispatch(setGlossaryTerm(term));
         // Analytics
         logGlossaryTermEvent(term.term);
     };
@@ -39,7 +42,7 @@ const GlossarySearchResults = (props) => {
     // we need to group the results by their starting letter
         const groups = {};
 
-        props.glossary.search.results.forEach((result) => {
+        glossaryResults?.forEach((result) => {
             const startingLetter = result.term.charAt(0).toUpperCase();
             // check if we already have the character
             if (Object.hasOwnProperty.call(groups, startingLetter)) {
@@ -65,7 +68,7 @@ const GlossarySearchResults = (props) => {
                 key={group.letter}
                 title={group.letter}
                 items={group.terms}
-                search={props.glossary.search.input}
+                search={glossary.search.input}
                 selectTerm={selectTerm} />
         ));
 
@@ -75,15 +78,15 @@ const GlossarySearchResults = (props) => {
     useEffect(() => {
         groupResults();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.glossary.search.results]);
+    }, [glossaryResults]);
 
-    let searchLoading = '';
-    if (props.searchLoading) {
-        searchLoading = ' loading';
+    let searchLoadingLocal = '';
+    if (searchLoading) {
+        searchLoadingLocal = ' loading';
     }
 
     return (
-        <div className={`glossary-search-results ${searchLoading}`}>
+        <div className={`glossary-search-results ${searchLoadingLocal}`}>
             {results}
         </div>
     );
