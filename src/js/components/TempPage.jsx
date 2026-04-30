@@ -8,6 +8,7 @@ import Alert from "./sharedComponents/Alert";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 import Accordion from "./sharedComponents/accordion/Accordion";
+import BannerPageHeader from "./sharedComponents/header/BannerPageHeader";
 
 require("pages/search/searchPage.scss");
 
@@ -25,6 +26,7 @@ const TempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
+                    <BannerPageHeader />
                     <h1>Alert Variants</h1>
                     <div
                         style={{
