@@ -1,14 +1,14 @@
 .site-logo {
-    .site-logo__wrapper {
-        max-width: rem(300);
-        margin: rem(16)  rem(0);
-        position: relative;
-    }
-    a.site-logo__link {
-        display: block;
-    }
+  .site-logo__wrapper {
+    max-width: rem(300);
+    margin: rem(16) rem(0);
+    position: relative;
+  }
+  a.site-logo__link {
+    display: block;
+  }
 
-    img.site-logo__image {
-        max-height: rem(32);
-    }
+  img.site-logo__image {
+    max-height: rem(32);
+  }
 }

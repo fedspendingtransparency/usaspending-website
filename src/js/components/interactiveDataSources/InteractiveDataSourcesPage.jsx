@@ -2,16 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import { find, throttle, uniqueId } from 'lodash-es';
 import { useDispatch } from 'react-redux';
-import { ComingSoon, ShareIcon, FlexGridCol } from 'data-transparency-ui';
+import { ComingSoon, FlexGridCol } from 'data-transparency-ui';
 
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+import { interactiveDataSourcesPageMetaTags } from 'helpers/metaTagHelper';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import DownloadStaticFile from "components/sharedComponents/DownloadStaticFile";
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+import { showModal } from 'redux/actions/modal/modalActions';
+import useQueryParams from "hooks/useQueryParams";
 import InteractiveDataSourcesSection from './InteractiveDataSourcesSection';
-import { interactiveDataSourcesPageMetaTags } from '../../helpers/metaTagHelper';
 import AboutSection from './sections/AboutSection';
 import IntroSection from './sections/IntroSection';
 import FederalSpendingOverview from './scrollerSections/FederalSpendingOverview';
@@ -26,9 +28,6 @@ import DataSourceSystems from './scrollerSections/DataSourceSystems';
 import AccountData from './scrollerSections/AccountData';
 import AwardData from './scrollerSections/AwardData';
 import AdditionalData from './scrollerSections/AdditionalData';
-import DownloadStaticFile from "../sharedComponents/DownloadStaticFile";
-import { showModal } from '../../redux/actions/modal/modalActions';
-import useQueryParams from "../../hooks/useQueryParams";
 
 require('pages/interactiveDataSources/index.scss');
 
@@ -36,8 +35,6 @@ const InteractiveDataSourcesPage = () => {
     const [activeSection, setActiveSection] = useState('intro-section');
     const query = useQueryParams();
     const history = useNavigate();
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const dispatch = useDispatch();
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
@@ -160,12 +157,9 @@ const InteractiveDataSourcesPage = () => {
         }, { replace: true });
 
         setActiveSection(section);
-        // add offsets
-        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
-
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
         window.scrollTo({
-            top: sectionTop - 25,
+            top: sectionTop + 200,
             left: 0,
             behavior: 'smooth'
         });
@@ -193,19 +187,6 @@ const InteractiveDataSourcesPage = () => {
         };
     }, 100), [history, query.section]);
 
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
-
-
     const emailData = {
         subject: "USAspending Data Sources",
         body: "View a visualization of USAspending data sources on this interactive page: https://www.usaspending.gov/data-sources"
@@ -219,25 +200,23 @@ const InteractiveDataSourcesPage = () => {
         <PageWrapper
             pageName="interactive-data-sources"
             classNames="usa-da-interactive-data-sources-page"
-            overLine="resources"
             metaTagProps={interactiveDataSourcesPageMetaTags}
             title="Data Sources"
             toolBarComponents={[
-                <ShareIcon
-                    key={uniqueId()}
-                    url={getBaseUrl('data-sources')}
-                    onShareOptionClick={handleShare}
-                    classNames={!isMobile ? "margin-right" : ""} />,
                 <DownloadStaticFile
                     key={uniqueId()}
-                    path="/data/data-sources-download.pdf" />
+                    path="/data/data-sources-download.pdf" />,
+                <ShareIcon508
+                    key={uniqueId()}
+                    url={getBaseUrl('data-sources')}
+                    onShareOptionClick={handleShare} />
             ]}
             sections={sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
             inPageNav>
             <main id="main-content" className="main-content usda__flex-row">
-                <FlexGridCol className="body usda__flex-col">
+                <FlexGridCol width={12} className="body usda__flex-col">
                     {sections.map((section) => (
                         <InteractiveDataSourcesSection
                             key={section.section}

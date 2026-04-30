@@ -39,6 +39,7 @@ const AccountTimeVisualizationSectionContainer = ({ reduxFilters, account }) => 
     const [visualizationPeriod, setVisualizationPeriod] = useState('quarter');
     const [hasFilteredObligated, setHasFilteredObligated] = useState(false);
 
+    const baRef = useRef(null);
     const balanceRequests = useRef([]);
 
     const setUpdateStateAndFetch = () => {
@@ -94,15 +95,23 @@ const AccountTimeVisualizationSectionContainer = ({ reduxFilters, account }) => 
         // Ensure the group labels are in chronological order
         groupLabels.sort();
 
+        if (baRef.current === null) {
+            baRef.current = Object.fromEntries(groupLabels
+                .map((key) => [key.replace(/\s/g, ''), 0]));
+        }
+
         groupLabels.forEach((group) => {
             xSeries.push(`${group}`);
             if (hasFilteredObligated) {
-                const budgetAuthority = yData[group].budgetAuthority;
                 const unobligated = yData[group].unobligated;
                 const obligatedFiltered = yData[group].obligatedFiltered;
                 const outlay = yData[group].outlay;
                 // Calculate Obligated (Other)
-                const obligatedOther = budgetAuthority - unobligated - obligatedFiltered;
+                let totalObligations = yData[group].obligatedFiltered;
+                if (baRef.current?.[group.replace(/\s/g, '')]) {
+                    totalObligations = baRef.current[group.replace(/\s/g, '')].totalObligations;
+                }
+                const obligatedOther = totalObligations - obligatedFiltered;
 
                 const period = {
                     obligatedFiltered: {
@@ -113,13 +122,13 @@ const AccountTimeVisualizationSectionContainer = ({ reduxFilters, account }) => 
                     },
                     obligatedOther: {
                         bottom: obligatedFiltered,
-                        top: obligatedFiltered + obligatedOther,
+                        top: totalObligations,
                         value: obligatedOther,
                         description: 'Obligations Incurred (Other)'
                     },
                     unobligated: {
-                        bottom: budgetAuthority - unobligated,
-                        top: budgetAuthority,
+                        bottom: totalObligations,
+                        top: totalObligations + unobligated,
                         value: unobligated,
                         description: 'Unobligated Balance'
                     },
@@ -155,11 +164,31 @@ const AccountTimeVisualizationSectionContainer = ({ reduxFilters, account }) => 
                     }
                 };
 
+                if (baRef.current?.[group.replace(/\s/g, '')]) {
+                    baRef.current[group.replace(/\s/g, '')] = {
+                        budgetAuthority: yData[group].budgetAuthority,
+                        totalObligations: yData[group].obligated
+                    };
+                }
+                else {
+                    baRef.current = {
+                        ...baRef.current,
+                        [group.replace(/\s/g, '')]: {
+                            budgetAuthority: yData[group].budgetAuthority,
+                            totalObligations: yData[group].obligated
+                        }
+                    };
+                }
+
                 ySeries.push(period);
                 allY.push(yData[group].obligated);
             }
+            let baToPush = yData[group].budgetAuthority;
+            if (baRef.current) {
+                baToPush = baRef.current[group.replace(/\s/g, '')].budgetAuthority;
+            }
             allY.push(yData[group].outlay);
-            allY.push(yData[group].budgetAuthority);
+            allY.push(baToPush);
             allY.push(yData[group].unobligated);
         });
 

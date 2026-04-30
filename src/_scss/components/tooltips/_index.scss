@@ -1,46 +1,46 @@
 .tooltip-wrapper {
-    @include media($tablet-screen) {
-        @include display(flex);
+  @include media($tablet-screen) {
+    @include display(flex);
+  }
+  div:first-of-type {
+    .tooltip-spacer .tooltip .tooltip__interior .tooltip-pointer {
+      &.left {
+        left: rem(-8);
+      }
+      &.right {
+        right: rem(-8);
+      }
     }
-    div:first-of-type {
-        .tooltip-spacer .tooltip .tooltip__interior .tooltip-pointer {
-            &.left {
-                left: rem(-8);
-            }
-            &.right {
-                right: rem(-8);
-            }
-        }
-    }
-    &.award-amounts-tt__wrapper div:first-of-type {
-        width: 100%;
-        height: 100%;
-    }
-    &.award-section-tt div:first-of-type {
-        @include flex-direction(column)
-    }
-    .tooltip__content {
-        @import './customTooltipContent';
+  }
+  &.award-amounts-tt__wrapper div:first-of-type {
+    width: 100%;
+    height: 100%;
+  }
+  &.award-section-tt div:first-of-type {
+    @include flex-direction(column);
+  }
+  .tooltip__content {
+    @import "./customTooltipContent";
 
-        // dtui override to fix 7px to 8px
-        .tooltip__text {
-            p,
-            strong {
-                margin: rem(8) 0;
-            }
-            > *:first-child,
-            > *:last-child {
-                margin: 0;
-            }
-            > *:first-child:nth-last-child(2) { // if only two items
-                // set first childs margin bottom
-                margin-bottom: rem(8);
-            }
-        }
+    // dtui override to fix 7px to 8px
+    .tooltip__text {
+      p,
+      strong {
+        margin: rem(8) 0;
+      }
+      > *:first-child,
+      > *:last-child {
+        margin: 0;
+      }
+      > *:first-child:nth-last-child(2) {
+        // if only two items
+        // set first childs margin bottom
+        margin-bottom: rem(8);
+      }
     }
+  }
 
-    .tooltip .tooltip__interior .tooltip-pointer.bottom {
-        top: rem(-8);
-    }
+  .tooltip .tooltip__interior .tooltip-pointer.bottom {
+    top: rem(-8);
+  }
 }
-

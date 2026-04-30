@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 9/11/2025
  **/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FlexGridCol, FlexGridRow, ErrorMessage } from 'data-transparency-ui';
 import { throttle } from 'lodash-es';
 import { Navigate, useLocation } from 'react-router';
@@ -40,9 +40,6 @@ const FeaturedContentArticle = () => {
     const [sections, setSections] = useState([]);
     const [activeSection, setActiveSection] = useState([]);
     const [isFound, setIsFound] = useState(false);
-
-    const contentRef = useRef(null);
-
 
     const jumpToSection = (section = '') => {
         // find the section in dom
@@ -144,7 +141,7 @@ const FeaturedContentArticle = () => {
 
     const Article = () => {
         if (chosenArticle && typeof MarkdownContent === "function") {
-            return <MarkdownContent ref={contentRef} components={components} />;
+            return <MarkdownContent components={components} />;
         }
         return <></>;
     };
@@ -180,8 +177,9 @@ const FeaturedContentArticle = () => {
             sections={sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
-            inPageNav={isInfographicTemplate && sections?.length > 2}
-            metaTagProps={{ ...homePageMetaTags }}>
+            inPageNav={isInfographicTemplate && sections?.length > 2 && chosenArticle && typeof MarkdownContent === "function"}
+            metaTagProps={{ ...homePageMetaTags }}
+            rootMargin="-240px 0px 0px 0px">
             <main
                 id="main-content"
                 className="main-content featured-content">

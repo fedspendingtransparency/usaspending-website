@@ -6,19 +6,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
-
+import { handleNewCheckedIds } from 'helpers/checkboxTreeHelper';
+import {
+    setCheckedNaics,
+    setUncheckedNaics,
+    setExpandedNaics
+} from 'redux/actions/search/naicsActions';
 import { updateNaics } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { name: PropTypes.string };
+const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };
 
 const getUniqueValues = (value, index, array) => array.indexOf(value) === index;
 
-const NAICSFilterGroup = ({ name }) => {
+const NAICSFilterGroup = ({ name, resultsView }) => {
     const { require, counts } = useSelector((state) => state.filters.naicsCodes);
     const { require: appliedRequire, counts: appliedCounts } = useSelector(
         (state) => state.appliedFilters.filters.naicsCodes
     );
+    const nodes = useSelector((state) => state.naics.naics.toJS());
+    const checked = useSelector((state) => state.naics.checked.toJS());
+    const unchecked = useSelector((state) => state.naics.unchecked.toJS());
+
     const dispatch = useDispatch();
 
     const toggleFilter = ({ value, array }, staged) => {
@@ -37,6 +46,34 @@ const NAICSFilterGroup = ({ name }) => {
             [],
             newNAICS.counts
         ));
+
+        if (nodes.length !== 0) {
+            const { newChecked, newUnchecked } = handleNewCheckedIds(
+                nodes,
+                value.value,
+                [...checked, ...array],
+                unchecked,
+                staged
+            );
+
+            const filteredChecked = newChecked.filter((c) => (
+                !c.includes('children_of_') || array.includes(c)
+            ));
+
+            const toExpand = filteredChecked.flatMap((f) => {
+                if (f.length === 6) {
+                    return [f, f.substring(0, 2), f.substring(0, 4)];
+                }
+                if (f.length === 4) {
+                    return [f, f.substring(0, 2)];
+                }
+                return [f];
+            });
+
+            dispatch(setCheckedNaics(newChecked));
+            dispatch(setUncheckedNaics(newUnchecked));
+            dispatch(setExpandedNaics(toExpand));
+        }
     };
 
     const keys = counts.map((t) => `${t.value}-${t.count}`);
@@ -52,7 +89,7 @@ const NAICSFilterGroup = ({ name }) => {
         };
     });
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 NAICSFilterGroup.propTypes = propTypes;

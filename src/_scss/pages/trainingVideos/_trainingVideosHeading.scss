@@ -10,7 +10,6 @@
   @media (min-width: $medium-screen) {
     padding: $global-padding * 4 0;
     height: 468px;
-
   }
 
   @media (max-width: $small-screen) {
@@ -41,13 +40,11 @@
       .training-videos__img-container {
         display: flex;
         justify-content: center;
-
       }
 
       .training-videos__img {
         margin: auto;
         max-height: 400px;
-
       }
     }
 
@@ -67,7 +64,8 @@
       }
 
       @media (min-width: $large-screen) {
-        padding: $global-padding * 8 0 $global-padding * 8 $global-padding * 13.75;
+        padding: $global-padding * 8 0 $global-padding * 8 $global-padding *
+          13.75;
       }
 
       .training-videos__column-two-container {

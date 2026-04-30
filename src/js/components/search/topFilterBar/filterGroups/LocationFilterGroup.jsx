@@ -12,7 +12,7 @@ import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string, code: PropTypes.string };
 
-const LocationFilterGroup = ({ name, code }) => {
+const LocationFilterGroup = ({ name, code, resultsView }) => {
     const foreignLocationsCode = code === 'selectedLocations' ?
         'locationDomesticForeign' : 'recipientDomesticForeign';
 
@@ -70,7 +70,7 @@ const LocationFilterGroup = ({ name, code }) => {
         tags.push(tag);
     }
 
-    return (<BaseTopFilterGroup tags={tags} name={name} />);
+    return (<BaseTopFilterGroup resultsView={resultsView} tags={tags} name={name} />);
 };
 
 LocationFilterGroup.propTypes = propTypes;

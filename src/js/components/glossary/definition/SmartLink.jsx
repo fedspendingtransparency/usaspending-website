@@ -6,18 +6,16 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router';
-import usePrevious from "../../../hooks/usePrevious";
 
 const propTypes = {
     href: PropTypes.string,
     children: PropTypes.node
 };
 
-const SmartLink = (props) => {
-    const [href, setHref] = useState('');
+const SmartLink = ({ href, children }) => {
+    const [localHref, setLocalHref] = useState('');
     const [isLocal, setIsLocal] = useState(false);
     const location = useLocation();
-    const prevProps = usePrevious(props);
 
     const transformLink = (url) => {
         let tempHref = url;
@@ -36,21 +34,19 @@ const SmartLink = (props) => {
             tempIsLocal = true;
         }
 
-        setHref(tempHref);
+        setLocalHref(tempHref);
         setIsLocal(tempIsLocal);
     };
 
     useEffect(() => {
-        if (prevProps !== props) {
-            transformLink(props.href);
-        }
-    });
+        transformLink(href);
+    }, [href]);
 
     if (isLocal) {
         return (
             <Link
-                to={href}>
-                {props.children}
+                to={localHref}>
+                {children}
             </Link>
         );
     }
@@ -61,7 +57,7 @@ const SmartLink = (props) => {
             href={href}
             target="_blank"
             rel="noopener noreferrer">
-            {props.children}
+            {children}
         </a>
     );
 };

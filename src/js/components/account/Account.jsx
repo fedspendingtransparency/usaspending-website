@@ -5,13 +5,15 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
 
 import AccountOverview from './AccountOverview';
 import SearchSidebar from './SearchSidebar';
@@ -41,17 +43,19 @@ const Account = ({ account, currentFiscalYear }) => {
         <PageWrapper
             pageName="Federal Account Profile"
             classNames="usa-da-account-page"
-            overLine="Federal Account Profile"
             title={`Federal Account Symbol: ${accountSymbol}`}
             metaTagProps={account ? MetaTagHelper.federalAccountPageMetaTags(account) : {}}
             toolBarComponents={[
-                <ShareIcon
+                <ShareIcon508
                     url={getBaseUrl(fedAccountSlug)}
                     onShareOptionClick={(name) => handleShare(name, fedAccountSlug)} />
             ]}>
             <main
                 id="main-content"
                 className="main-content">
+                <ProfileBackLink
+                    label="Back to Federal Account Profile Page"
+                    url="/federal_account" />
                 <FlexGridRow className="fed-account-content__row" >
                     <FlexGridCol className="fed-account-content__col" >
                         <AccountOverview account={account} currentFiscalYear={currentFiscalYear} />

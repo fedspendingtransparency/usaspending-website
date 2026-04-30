@@ -8,41 +8,78 @@
   * @extends React.Component
   **/
 
-import React, { memo, useCallback, useMemo } from 'react';
+import React, { memo, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
-import { Button } from 'data-transparency-ui';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { showModal } from 'redux/actions/modal/modalActions';
-import topFilterGroupGenerator from './TopFilterGroupGenerator';
+import TopFilterGroupGenerator from './TopFilterGroupGenerator';
+import BarHeader from "./header/BarHeader";
 
 const propTypes = {
     filters: PropTypes.array,
-    filterCount: PropTypes.number
+    filterCount: PropTypes.number,
+    resultsView: PropTypes.bool
 };
 
 // eslint-disable-next-line prefer-arrow-callback
-const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
+const TopFilterBar = memo(function TopFilterBar({ filters, filterCount, resultsView }) {
+    const [expandedFilters, setExpandedFilters] = useState(false);
+    const [fadeClass, setFadeClass] = useState('');
+    const [bottom, setBottom] = useState(false);
+    const contentRef = useRef(null);
+
     const newAwardsOnlyPresent = filters.find(({ code }) => code === 'newAwardsOnly');
 
-    const groups = filters.map((filter) => topFilterGroupGenerator(filter));
+    useEffect(() => {
+        // max heights of the .search-top-filters-content (located in topFilterBar.scss)
+        const filtersMaxHeight = expandedFilters ? 280 : 150;
+        const offsetHeight = contentRef.current?.offsetHeight;
+        const atMaxHeight = filtersMaxHeight <= offsetHeight;
 
-    const dispatch = useDispatch();
+        let newClass = '';
 
-    const onClick = useCallback((e) => {
-        e.persist();
-        dispatch(showModal(window.location.href, 'filter'));
-    }, [dispatch]);
+        // if either
+        //         - the active filters are expanded,
+        //           and the div is at max height,
+        //           and not scrolled to the bottom
+        //      0R
+        //         - the filters are not expanded
+        //           and the div is at max height
+        //    then add .fade to the div
+        if (
+            (expandedFilters && atMaxHeight && !bottom) ||
+            (!expandedFilters && atMaxHeight)
+        ) newClass = ' fade';
 
-    const onKeyUp = useCallback((e) => {
-        e.persist();
-        if (e.key === 'Enter') {
-            dispatch(showModal(window.location.href, 'filter'));
-        }
-    }, [dispatch]);
+        setFadeClass(newClass);
+    }, [bottom, expandedFilters, filters]);
 
-    const image = useMemo(() => (<FontAwesomeIcon icon="window-restore" />), []);
+    /**
+    *   useEffect for adding an eventListener that detects when the user has
+     *   scrolled to the bottom of .search-top-filters-content
+    * */
+    useEffect(() => {
+        const ref = contentRef.current;
+        const onscroll = () => {
+            const scrollTop = contentRef.current?.scrollTop;
+            const scrollHeight = contentRef.current?.scrollHeight;
+            const clientHeight = contentRef.current?.clientHeight;
+
+            const scrolledTo = scrollHeight - clientHeight;
+            const isReachBottom = scrollTop === scrolledTo;
+
+            if (isReachBottom) setBottom(true);
+            else setBottom(false);
+        };
+
+        contentRef.current.addEventListener("scroll", onscroll);
+
+        return () => {
+            ref.removeEventListener("scroll", onscroll);
+        };
+    }, []);
+
+    const groups = filters.map(({ code, name }) => (
+        <TopFilterGroupGenerator resultsView={resultsView} code={code} name={name} />
+    ));
 
     return (
         <div>
@@ -50,28 +87,21 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
                 className="search-top-filter-bar"
                 role="complementary"
                 aria-label="Currently applied search filters">
-                <div className="search-top-filter-header">
-                    <h2
-                        className="header-title"
-                        id="top-filter-bar-title">
-                        {`${filterCount} Active Filter${filterCount !== 1 ? 's' : ''}:`}
-                    </h2>
-                    <Button
-                        onClick={onClick}
-                        onKeyUp={onKeyUp}
-                        copy="Learn how active filters work"
-                        buttonTitle="filter modal"
-                        buttonSize="sm"
-                        buttonType="text"
-                        backgroundColor="light"
-                        imageAlignment="right"
-                        image={image} />
-                </div>
+                <BarHeader
+                    resultsView={resultsView}
+                    filterCount={filterCount}
+                    expandedFilters={expandedFilters}
+                    setExpandedFilters={setExpandedFilters} />
                 <div className="search-top-filters">
                     <div
-                        className={`search-top-filters-content ${
-                            newAwardsOnlyPresent ? 'newAwardsOnlyPresent' : ''
-                        }`}>
+                        className={`search-top-filters-content${
+                            newAwardsOnlyPresent ? ' newAwardsOnlyPresent' : ''
+                        }${
+                            expandedFilters ? ' expanded' : ' collapsed'
+                        }${
+                            fadeClass
+                        }`}
+                        ref={contentRef} >
                         {groups}
                     </div>
                 </div>
@@ -81,5 +111,4 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount }) {
 });
 
 TopFilterBar.propTypes = propTypes;
-
 export default TopFilterBar;

@@ -8,16 +8,15 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { find, throttle, uniqueId } from 'lodash-es';
-import { ShareIcon, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import Covid19Section from 'components/covid19/Covid19Section';
 import Heading from 'components/covid19/Heading';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
@@ -97,11 +96,10 @@ const Covid19Page = ({ loading }) => {
         setActiveSection(section);
 
         // add offsets
-        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+        const sectionTop = sectionDom.offsetTop;
 
         window.scrollTo({
-            top: sectionTop - 25,
+            top: sectionTop + 120,
             left: 0,
             behavior: 'smooth'
         });
@@ -157,16 +155,17 @@ const Covid19Page = ({ loading }) => {
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
             toolBarComponents={[
-                <ShareIcon
+                <DownloadButtonContainer />,
+                <ShareIcon508
                     key={uniqueId()}
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare}
-                    classNames={!isMobile ? "margin-right" : ""} />,
-                <DownloadButtonContainer />
+                    classNames={!isMobile ? "margin-right" : ""} />
             ]}
             sections={covid19Sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
+            loading={loading}
             inPageNav>
             <LoadingWrapper isLoading={loading}>
                 <Helmet>

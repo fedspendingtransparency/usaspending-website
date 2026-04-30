@@ -5,18 +5,18 @@
 
 // TODO: DEV-7122 Move to new Page Header Component
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import { DownloadIconButton } from 'data-transparency-ui';
 
 import Analytics from 'helpers/analytics/Analytics';
 
-import * as MetaTagHelper from 'helpers/metaTagHelper';
+import { keywordPageMetaTags } from 'helpers/metaTagHelper';
 
 import ResultsTableContainer from 'containers/keyword/table/ResultsTableContainer';
 import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import DownloadIconButton508 from 'components/sharedComponents/buttons/DownloadButton508';
 
 import KeywordSearchBar from './KeywordSearchBar';
 import SearchSummary from './SearchSummary';
@@ -33,95 +33,93 @@ const propTypes = {
     downloadAvailable: PropTypes.bool
 };
 
-export default class KeywordPage extends React.Component {
-    constructor(props) {
-        super(props);
+const KeywordPage = ({
+    updateKeyword,
+    keyword,
+    summary,
+    summaryInFlight,
+    fetchSummary,
+    download,
+    startDownload,
+    downloadAvailable
+}) => {
+    const [showModal, setShowModal] = useState(false);
 
-        this.state = {
-            showModal: false
-        };
+    const hideModal = () => setShowModal(false);
 
-        this.hideModal = this.hideModal.bind(this);
-        this.showModal = this.showModal.bind(this);
-        this.clickedDownload = this.clickedDownload.bind(this);
-    }
-
-    componentDidUpdate() {
-    // Need to close the modal once the download is completed
-        if (this.state.showModal && this.props.download.expectedUrl === ""
-            && !this.props.download.showCollapsedProgress) {
-            this.hideModal();
+    useEffect(() => {
+        // Need to close the modal once the download is completed
+        if (
+            showModal &&
+            download.expectedUrl === "" &&
+            !download.showCollapsedProgress
+        ) {
+            hideModal();
         }
-    }
+    }, [download.expectedUrl, download.showCollapsedProgress, showModal]);
 
-    hideModal() {
-        this.setState({
-            showModal: false
-        });
-    }
-
-    showModal() {
-        this.setState({
-            showModal: true
-        });
-    }
-
-    clickedDownload() {
-        this.props.startDownload();
-        this.showModal();
+    const clickedDownload = () => {
+        startDownload();
+        setShowModal(true);
         Analytics.event({
             event: 'keyword-download',
             category: 'Keyword Search - Download',
-            action: this.props.keyword
+            action: keyword
         });
-    }
+    };
 
-    render() {
-        return (
-            <PageWrapper
-                pageName="Keyword Search"
-                classNames="usa-da-keyword-page"
-                title="Keyword Search"
-                metaTagProps={MetaTagHelper.keywordPageMetaTags}
-                toolBarComponents={[
-                    <SearchSummary
-                        primeAwardTotal={this.props.summary?.primeAmount}
-                        primeTransactionCount={this.props.summary?.primeCount}
-                        inFlight={this.props.summaryInFlight} />,
-                    <DownloadIconButton
-                        tooltipComponent={(!this.props.downloadAvailable && this.props.keyword)
-                            ? <NoDownloadHover />
-                            : null
-                        }
-                        isEnabled={this.props.downloadAvailable}
-                        onClick={this.clickedDownload} />
-                ]
-                    .filter((c, i) => (
-                        (i === 1 && !this.props.keyword) || this.props.keyword)
-                    )}>
-                <main id="main-content">
-                    <div className="keyword-content">
-                        <div className="keyword-search-bar">
-                            <KeywordSearchBar
-                                keyword={this.props.keyword}
-                                updateKeyword={this.props.updateKeyword} />
-                            <div className="keyword-search-bar__info">
-                                Use the Keyword Search to get a broad picture of award data on a given theme. To learn more about the fields the Keyword search matches to, read our <a href="https://fiscalservice.force.com/usaspending/s/article/FAQ-How-does-the-Keyword-Search-work" target="_blank" rel="noopener noreferrer">FAQ entry</a> on the topic. For a more targeted search, try our <Link to="/search">Advanced Search tool</Link>,
-                                whose extensive filters let you find more precise data sets.
-                            </div>
+    return (
+        <PageWrapper
+            pageName="Keyword Search"
+            classNames="usa-da-keyword-page"
+            title="Keyword Search"
+            metaTagProps={keywordPageMetaTags}
+            toolBarComponents={[
+                <SearchSummary
+                    primeAwardTotal={summary?.primeAmount}
+                    primeTransactionCount={summary?.primeCount}
+                    inFlight={summaryInFlight} />,
+                <DownloadIconButton508
+                    tooltipComponent={(!downloadAvailable && keyword)
+                        ? <NoDownloadHover />
+                        : null
+                    }
+                    isEnabled={downloadAvailable}
+                    onClick={clickedDownload} />
+            ]
+                .filter((c, i) => (
+                    (i === 1 && !keyword) || keyword)
+                )}>
+            <main id="main-content">
+                <div className="keyword-content">
+                    <div className="keyword-search-bar">
+                        <KeywordSearchBar
+                            keyword={keyword}
+                            updateKeyword={updateKeyword} />
+                        <div className="keyword-search-bar__info">
+                            Use the Keyword Search to get a broad picture of award data on a given theme.
+                            To learn more about the fields the Keyword search matches to, read our{" "}
+                            <a
+                                href="https://onevoicecrm.my.site.com/usaspending/s/recordlist/Knowledge__kav/00B3d000000V4WDEA0"
+                                target="_blank"
+                                rel="noopener noreferrer">
+                                FAQ entry
+                            </a> on the topic. For a more targeted search, try our
+                            <Link to="/search"> Advanced Search tool</Link>,
+                            whose extensive filters let you find more precise data sets.
                         </div>
-                        <ResultsTableContainer
-                            keyword={this.props.keyword}
-                            fetchSummary={this.props.fetchSummary} />
                     </div>
-                    <BulkDownloadModalContainer
-                        mounted={this.state.showModal}
-                        hideModal={this.hideModal} />
-                </main>
-            </PageWrapper>
-        );
-    }
-}
-
+                    <ResultsTableContainer
+                        keyword={keyword}
+                        fetchSummary={fetchSummary} />
+                </div>
+                <BulkDownloadModalContainer
+                    mounted={showModal}
+                    hideModal={hideModal} />
+            </main>
+        </PageWrapper>
+    );
+};
 
 KeywordPage.propTypes = propTypes;
+export default KeywordPage;

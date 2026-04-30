@@ -3,7 +3,9 @@
  * Created by Max Kendall 12/8/2020
  */
 import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
+import { faLightbulb as falLightbulb } from "@fortawesome/pro-light-svg-icons";
 import { library } from '@fortawesome/fontawesome-svg-core';
+import { faXmark, faLightbulb as farLightbulb } from '@fortawesome/pro-regular-svg-icons';
 import {
     faAngleDown,
     faAngleUp,
@@ -17,6 +19,7 @@ import {
     faArrowRight,
     faBan,
     faBars,
+    faBluetooth,
     faBullhorn,
     faBook,
     faBookOpen,
@@ -60,6 +63,7 @@ import {
     faLaptop,
     faLevelUpAlt,
     faLightbulb,
+    faLightbulbCfl,
     faLink,
     faMapMarkedAlt,
     faMapMarkerAlt,
@@ -94,8 +98,9 @@ import {
     faGraduationCap,
     faCodeBranch,
     faLongArrowAltUp,
-    faLongArrowAltDown
-} from "@fortawesome/free-solid-svg-icons";
+    faLongArrowAltDown,
+    faCircleQuestion
+} from "@fortawesome/pro-solid-svg-icons";
 
 export default function registerIcons() {
     library.add(
@@ -109,6 +114,7 @@ export default function registerIcons() {
         faArrowRight,
         faBan,
         faBars,
+        faBluetooth,
         faBullhorn,
         faBook,
         faBookOpen,
@@ -153,7 +159,10 @@ export default function registerIcons() {
         faLaptop,
         faLevelUpAlt,
         faLightbulb,
+        farLightbulb,
+        faLightbulbCfl,
         faLink,
+        falLightbulb,
         faMapMarkedAlt,
         faMapMarkerAlt,
         faMinus,
@@ -192,6 +201,8 @@ export default function registerIcons() {
         faYoutube,
         faLinkedin,
         faGithub,
-        faArrowDown
+        faArrowDown,
+        faXmark,
+        faCircleQuestion
     );
 }

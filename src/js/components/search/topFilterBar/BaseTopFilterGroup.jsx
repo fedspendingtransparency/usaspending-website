@@ -11,17 +11,20 @@ import TopFilterItem from './TopFilterItem';
 
 const propTypes = {
     name: PropTypes.string,
-    tags: PropTypes.array
+    tags: PropTypes.array,
+    resultsView: PropTypes.bool
 };
 
 const BaseTopFilterGroup = ({
     name,
-    tags = []
+    tags = [],
+    resultsView
 }) => {
     const tagsArray = tags.map(({
         title, toggleFilter, staged, value
     }) => (
         <TopFilterItem
+            resultsView={resultsView}
             title={title}
             toggleFilter={toggleFilter}
             staged={staged}

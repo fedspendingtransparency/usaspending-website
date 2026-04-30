@@ -11,15 +11,17 @@ const partition = (array, isValid) => array.reduce(
 const fallbackMarketingArticle = {
     title: "Exploring America's Finances Has Never Been Easier",
     fill: '#1b2b85',
-    thumbnail_path: "../../img/featuredContent/cards/exploring-americas-finances.webp",
-    taxonomy: "Exploring America's Finances"
+    thumbnail_path: "../../img/featuredContent/thumbnails/exploring-americas-finances-has-never-been-easier-thumbnail.webp",
+    taxonomy: "Exploring America's Finances",
+    slug: "exploring-americas-finances-has-never-been-easier"
 };
 
 const fallbackOtherArticle = {
     title: "What is an Award?",
     fill: '#783cb9',
-    thumbnail_path: "../../img/featuredContent/cards/data-definitions.webp",
-    taxonomy: "Data Definitions"
+    thumbnail_path: "../../img/featuredContent/thumbnails/what-is-an-award-thumbnail.webp",
+    taxonomy: "Data Definitions",
+    slug: "what-is-an-award"
 };
 
 const getOtherArticle = (otherArticleCadence, otherArticles, featureWeekNum, featureSprintNum) => {
@@ -45,10 +47,10 @@ const getOtherArticle = (otherArticleCadence, otherArticles, featureWeekNum, fea
 /**
  *
  * @param otherArticleCadence - determines the cadence calculation based on a `week` or `sprint`
- * @param dayOneString - determines the start date for the date calculations
+ * @param dayOneString - determines the start date for the date calculations, new sprints start on Thursdays
  * @returns {[(*&{url: string, title: *, overline: *})|(*&{url: string, overline: *})|*|{title: string, fill: string, thumbnail_path: string, taxonomy: string},(*&{url: string, title: *, overline: *})|(*&{url: string, overline: *})|*|{title: string, fill: string, thumbnail_path: string, taxonomy: string}]}
  */
-const getCurrentArticles = (otherArticleCadence = 'sprint', dayOneString = '11/13/2025') => {
+const getCurrentArticles = (otherArticleCadence, dayOneString = '11/13/2025') => {
     /* eslint-enable max-len */
     // get the sprint number and week number from today's date and start date
     const today = new Date();

@@ -49,9 +49,9 @@ const articles = [
         content_type: 'Featured Content',
         banner_subtitle: "Award Has a Very Specific Meaning in Government Spending",
         title: "What is an Award?",
-        created_date: "09/29/2025",
+        created_date: "04/30/2026",
         description: "When you think of the word “award,” you might picture an actor receiving an Oscar, an athlete earning a medal at the Olympics, or even yourself earning a gold.",
-        feature_sprint: 1,
+        feature_sprint: 9,
         feature_week: 1,
         slug: "what-is-an-award",
         explore_more: [
@@ -248,9 +248,9 @@ const articles = [
         content_type: 'Featured Content',
         title: "Grants vs. Contracts",
         banner_subtitle: "What's the Difference Between Grants and Contracts?",
-        created_date: "12/25/25",
-        feature_sprint: 3,
-        feature_week: 1,
+        created_date: "05/14/26",
+        feature_sprint: 9,
+        feature_week: 3,
         description: "If you want to build a house, you must know what kind of material to use. Lest you end up like two of the three little pigs, building a house out of straw or",
         slug: "grants-vs-contracts",
         explore_more: [
@@ -283,8 +283,8 @@ const articles = [
         content_type: 'Marketing',
         title: "Discover How Government Spending Supports Causes You Care About",
         banner_subtitle: "Explore How the Federal Government Spends Money on a Particular Topic",
-        created_date: "12/25/25",
-        feature_sprint: 3,
+        created_date: "4/30/2026",
+        feature_sprint: 9,
         feature_week: 1,
         description: "If you’re passionate about a cause—whether it’s education, environmental protection, public health, or national security—you can use Advanced Search to explore",
         slug: "discover-how-government-spending-supports-causes-you-care-about",
@@ -525,6 +525,180 @@ const articles = [
                 term: "agency",
                 type: "glossary",
                 label: "Agency"
+            }
+        ]
+    },
+    {
+        taxonomy: "Data You Can Trust",
+        isInfographicTemplate: false,
+        content_type: 'Marketing',
+        title: "The Story of Spending Transparency",
+        banner_subtitle: "Learn How USAspending.gov Came to Be",
+        created_date: "03/19/2026",
+        feature_sprint: 7,
+        feature_week: 1,
+        description: "The U.S. is one of the few countries worldwide that makes federal spending data accessible to the public. But before USAspending.gov existed, much",
+        slug: "the-story-of-spending-transparency",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: []
+    },
+    {
+        taxonomy: "My USAspending Search",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "Keon's USAspending Search",
+        banner_subtitle: "Learn How to Search Government Contracts for Local Businesses",
+        created_date: "03/19/2026",
+        feature_sprint: 7,
+        feature_week: 1,
+        description: "In our feature, “My USAspending Search,” we highlight one of our users and their unique approach to searching government spending open data.",
+        slug: "keons-usaspending-search",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "USAspending YouTube",
+                slug: "https://www.youtube.com/@usaspendinggov",
+                type: "external"
+            }
+        ],
+        related_terms: [
+            {
+                term: "naics",
+                type: "glossary",
+                label: "NAICS"
+            },
+            {
+                term: "product-or-service-code-psc",
+                type: "glossary",
+                label: "Product or Service Code (PSC)"
+            },
+            {
+                term: "fiscal-year-fy",
+                type: "glossary",
+                label: "Fiscal Year (FY)"
+            }
+        ]
+    },
+    {
+        taxonomy: "Spending Stories",
+        isInfographicTemplate: false,
+        content_type: 'Marketing',
+        title: "Preserving America’s Story",
+        banner_subtitle: "How Federal Spending Protects America’s Parks and Monuments",
+        created_date: "04/09/2026",
+        feature_sprint: 8,
+        feature_week: 1,
+        description: "When you hear the term federal spending, you may think of big-ticket items like military, healthcare, or social services. But did you know that every year,",
+        slug: "preserving-americas-story",
+        explore_more: [
+            {
+                label: "Department of the Interior Agency Profile",
+                slug: "/agency/department-of-the-interior?fy=2025",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "agency",
+                type: "glossary",
+                label: "Agency"
+            }
+        ]
+    },
+    {
+        taxonomy: "Data Definitions",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "What Is a Loan?",
+        banner_subtitle: "Learn About the Types of Loans on USAspending.gov",
+        created_date: "04/09/2026",
+        feature_sprint: 8,
+        feature_week: 1,
+        description: "On USAspending's Advanced Search, loans are found under Award Type; users can search for two different types of loans: direct loans and guaranteed/insured loans",
+        slug: "what-is-a-loan",
+        explore_more: [
+            {
+                label: "Federal Spending Guide",
+                slug: "/federal-spending-guide",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "loan",
+                type: "glossary",
+                label: "Loan"
+            },
+            {
+                term: "obligation",
+                type: "glossary",
+                label: "Obligation"
+            },
+            {
+                term: "outlay",
+                type: "glossary",
+                label: "Outlay"
+            }
+        ]
+    },
+    {
+        taxonomy: "Spending Stories",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "Celebrating Small Business Week",
+        banner_subtitle: "Small Business Spending on USAspending.gov",
+        created_date: "05/07/2026",
+        feature_sprint: 9,
+        feature_week: 2,
+        description: "National Small Business Week shines a spotlight on the entrepreneurs and innovators who drive America’s economy. From neighborhood start-ups",
+        slug: "celebrating-small-business-week",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "National Small Business Week",
+                slug: "https://www.sba.gov/national-small-business-week",
+                type: "external"
+            }
+        ],
+        related_terms: [
+            {
+                term: "award",
+                type: "glossary",
+                label: "Award"
+            },
+            {
+                term: "contract",
+                type: "glossary",
+                label: "Contract"
+            },
+            {
+                term: "grant",
+                type: "glossary",
+                label: "Grant"
             }
         ]
     },

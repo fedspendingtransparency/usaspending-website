@@ -1,5 +1,5 @@
 .usa-da-analyst-guide-page {
-  @import 'all';
+  @import "all";
   @import "./_analystGuideHeader.scss";
   @import "../../shareIcon-dtui-overrides";
 
@@ -40,7 +40,7 @@
     }
 
     .analyst-guide__download-wrapper {
-      display:inline-block;
+      display: inline-block;
       color: $color-primary;
       background-color: white;
       margin-top: $global-margin * 4;
@@ -49,7 +49,6 @@
       &:hover {
         color: $color-primary-darker;
       }
-
 
       .analyst-guide__download-button {
         @include button-link;
@@ -67,7 +66,7 @@
 
         .analyst-guide__download-icon {
           width: 25px;
-          height:25px;
+          height: 25px;
           color: $color-primary;
           &:hover {
             color: $color-primary-darker;
@@ -109,21 +108,21 @@
         color: $color-primary;
       }
     }
-    
+
     a {
-        font-weight: $font-semibold;
+      font-weight: $font-semibold;
     }
   }
 
   .analyst-guide__questionSections {
-      margin: 40px 0px 2px;
-      font-size: rem(20);
-      font-weight: $font-semibold;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: $heading-line-height;
-      letter-spacing: normal;
-      color: $gray-90;
+    margin: 40px 0px 2px;
+    font-size: rem(20);
+    font-weight: $font-semibold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: $heading-line-height;
+    letter-spacing: normal;
+    color: $gray-90;
   }
 
   .analyst-guide__answerSection {
@@ -139,8 +138,8 @@
   }
 
   .analyst-guide__questionLine {
-      margin: 2px 0px 20px;
-      border-bottom: 2px solid black;
+    margin: 2px 0px 20px;
+    border-bottom: 2px solid black;
   }
 
   h4.analyst-guide-citation {

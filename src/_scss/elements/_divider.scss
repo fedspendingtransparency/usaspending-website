@@ -1,11 +1,11 @@
 hr.results-divider {
-    border: none;
-    border-bottom: 1px solid $color-gray-border;
-    position: relative;
-    margin-bottom: 2.6rem;
-    margin-top: 1.1rem;
-    width: 98.9%;
-    @media(min-width: $large-screen) {
-        width: 99.0%;
-    }
+  border: none;
+  border-bottom: 1px solid $color-gray-border;
+  position: relative;
+  margin-bottom: 2.6rem;
+  margin-top: 1.1rem;
+  width: 98.9%;
+  @media (min-width: $large-screen) {
+    width: 99%;
+  }
 }

@@ -24,10 +24,12 @@
 
   .main-content {
     .covid-content__row {
-      padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4) ($global-spacing-unit * 4) ($global-spacing-unit * 4);
+      padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4)
+        ($global-spacing-unit * 4) ($global-spacing-unit * 4);
 
       @media (max-width: $tablet-screen) {
-        padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2) ($global-spacing-unit * 2) ($global-spacing-unit * 2);
+        padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2)
+          ($global-spacing-unit * 2) ($global-spacing-unit * 2);
       }
 
       .covid-content__col {
@@ -35,8 +37,6 @@
         margin: auto;
       }
     }
-
-
 
     ul {
       padding: 0;
@@ -72,7 +72,7 @@
         @include display(flex);
         @include flex-wrap(wrap);
         margin-bottom: 5rem;
-        padding: 0 $global-padding*2;
+        padding: 0 $global-padding * 2;
 
         .body__header {
           width: 100%;
@@ -132,7 +132,7 @@
             font-size: 2rem;
             @include profile-page-wrap;
 
-            @media (min-width:$large-screen) {
+            @media (min-width: $large-screen) {
               text-align: center;
               width: 50%;
               margin: 2rem auto 0 auto;
@@ -145,7 +145,7 @@
             padding-bottom: 2.5rem;
             @include profile-page-wrap;
 
-            @media (min-width:$large-screen) {
+            @media (min-width: $large-screen) {
               width: 50%;
               margin: auto;
             }
@@ -157,7 +157,7 @@
               }
             }
             p a {
-                font-weight: $font-semibold;
+              font-weight: $font-semibold;
             }
             .glossary-term {
               font-weight: $font-semibold;
@@ -168,7 +168,6 @@
 
           .default-note {
             font-size: $small-font-size;
-            
           }
 
           .loading-animation {
@@ -177,14 +176,16 @@
         }
 
         .information-body {
-          background: linear-gradient(225deg,
-              rgba(220, 201, 229, 0.1) 0%,
-              rgba(182, 153, 198, 0.1) 100%,
-              rgba(182, 153, 198, 0.1) 100%);
+          background: linear-gradient(
+            225deg,
+            rgba(220, 201, 229, 0.1) 0%,
+            rgba(182, 153, 198, 0.1) 100%,
+            rgba(182, 153, 198, 0.1) 100%
+          );
         }
 
         .information-body-arp {
-          background-color: #EBEFF4;
+          background-color: #ebeff4;
         }
 
         .information-top {
@@ -201,7 +202,7 @@
         .information-top-arp {
           width: 100%;
           transform: scaleY(-1);
-          background-color: #B9C5D2;
+          background-color: #b9c5d2;
 
           @media (min-width: $medium-screen) {
             border-radius: 0 0 rem(5) rem(5);
@@ -214,7 +215,7 @@
         }
 
         .color-blue-arp {
-          color: #0A2F5A;
+          color: #0a2f5a;
           font-weight: $font-bold;
         }
 
@@ -267,7 +268,6 @@
               p {
                 width: 75%;
               }
-
             }
 
             @media (max-width: $tablet-screen) {

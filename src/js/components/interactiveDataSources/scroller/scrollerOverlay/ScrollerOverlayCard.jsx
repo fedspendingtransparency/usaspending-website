@@ -6,11 +6,13 @@ const propTypes = {
     icon: PropTypes.object,
     heading: PropTypes.object,
     content: PropTypes.object,
-    link: PropTypes.object
+    link: PropTypes.object,
+    extraClassNameHeading: PropTypes.string,
+    extraClassNameContent: PropTypes.string
 };
 
 const ScrollerOverlayCard = ({
-    icon, heading, content, overline
+    icon, heading, content, overline, extraClassNameHeading = "", extraClassNameContent = ""
 }) => (
     <FlexGridRow className="scroller-overlay-card-content" tabIndex="0">
         {icon &&
@@ -24,11 +26,11 @@ const ScrollerOverlayCard = ({
             </FlexGridCol>
         }
         {heading &&
-            <FlexGridCol width={12} desktop={icon ? 10 : 12} className="scroller-overlay-card__heading-wrapper">
+            <FlexGridCol width={12} desktop={icon ? 10 : 12} className={`scroller-overlay-card__heading-wrapper ${extraClassNameHeading}`}>
                 {heading}
             </FlexGridCol>
         }
-        <FlexGridCol width={12} desktop={12} className="scroller-overlay-card__content-wrapper">
+        <FlexGridCol width={12} desktop={12} className={`scroller-overlay-card__content-wrapper ${extraClassNameContent}`}>
             {content}
         </FlexGridCol>
     </FlexGridRow>

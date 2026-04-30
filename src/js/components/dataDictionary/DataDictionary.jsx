@@ -10,6 +10,7 @@ import { SearchBar } from 'data-transparency-ui';
 
 import Analytics from 'helpers/analytics/Analytics';
 import DataDictionaryTable from './table/DataDictionaryTable';
+import H2PageHeader from '../sharedComponents/header/H2PageHeader';
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -33,39 +34,55 @@ const handleDownloadClick = () => {
     });
 };
 
-export default class DataDictionary extends React.Component {
-    render() {
-        return (
-            <div className="data-dictionary">
-                <h2 className="data-dictionary__title">Data Dictionary</h2>
-                <p className="data-dictionary__intro">
-                    The data dictionary below shows detailed information about the data available in our download
-                    files, including the definition of each element and its element name on the legacy USAspending.gov
-                    website.
-                </p>
-                <div className="data-dictionary__search-download">
-                    <SearchBar
-                        onSearch={this.props.setSearchString}
-                        placeholder="Search by Term" />
-                    <div className="data-dictionary__download">
-                        <a
-                            className="data-dictionary__download-link"
-                            onClick={handleDownloadClick}
-                            href={this.props.downloadLocation}>
-                            <div className="data-dictionary__download-icon">
-                                <FontAwesomeIcon icon="file-excel" />
-                            </div>
-                        Download
-                        </a>
-                    </div>
-                </div>
-                <div className="data-dictionary__table-wrapper">
-                    <DataDictionaryTable
-                        {...this.props} />
+const DataDictionary = ({
+    inFlight,
+    error,
+    sections,
+    columns,
+    rows,
+    sort,
+    changeSort,
+    setSearchString,
+    searchTerm,
+    downloadLocation
+
+}) => {
+    // eslint-disable-next-line max-len
+    const subtitle = (<p>The data dictionary below shows detailed information about the data available in our download files, including the definition of each element and its element name on the legacy USAspending.gov website.</p>);
+
+    return (
+        <div className="data-dictionary">
+            <H2PageHeader title="Data Dictionary" subtitle={subtitle} />
+            <div className="data-dictionary__search-download">
+                <SearchBar
+                    onSearch={setSearchString}
+                    placeholder="Search by Term" />
+                <div className="data-dictionary__download">
+                    <a
+                        className="data-dictionary__download-link"
+                        onClick={handleDownloadClick}
+                        href={downloadLocation}>
+                        <div className="data-dictionary__download-icon">
+                            <FontAwesomeIcon icon="file-excel" />
+                        </div>
+                    Download
+                    </a>
                 </div>
             </div>
-        );
-    }
-}
+            <div className="data-dictionary__table-wrapper">
+                <DataDictionaryTable
+                    searchTerm={searchTerm}
+                    inFlight={inFlight}
+                    error={error}
+                    sections={sections}
+                    columns={columns}
+                    rows={rows}
+                    sort={sort}
+                    changeSort={changeSort} />
+            </div>
+        </div>
+    );
+};
 
 DataDictionary.propTypes = propTypes;
+export default DataDictionary;

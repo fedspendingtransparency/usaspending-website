@@ -5,37 +5,24 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import { QAT } from 'GlobalConstants';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     title: PropTypes.string.isRequired,
     toggleFilter: PropTypes.func,
     staged: PropTypes.bool,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    resultsView: PropTypes.bool
 };
 
 const TopFilterItem = ({
-    title = 'Filter', toggleFilter, staged, value
+    title = 'Filter', toggleFilter, staged, value, resultsView
 }) => {
-    // TODO: remove feature flag for clickable chips
-    if (!QAT) {
-        return (
-            <div className="filter-item-container">
-                <div
-                    className="filter-item"
-                    role="listitem">
-                    <div className="filter-item-title">
-                        {title}
-                    </div>
-                </div>
-            </div>
-        );
-    }
-
     const onClick = () => {
-        if (value) toggleFilter(value, staged);
-        else toggleFilter();
+        if (resultsView) {
+            if (value) toggleFilter(value, staged);
+            else toggleFilter();
+        }
     };
 
     const onKeyUp = (e) => {
@@ -44,7 +31,7 @@ const TopFilterItem = ({
     };
 
     return (
-        <div className="filter-item-container">
+        <div className="filter-item-container" role="listitem">
             <button
                 onClick={onClick}
                 onKeyUp={onKeyUp}
@@ -55,6 +42,9 @@ const TopFilterItem = ({
                 tabIndex="0">
                 <div className="filter-item-title">
                     {title}
+                    {resultsView && <FontAwesomeIcon
+                        icon={staged ? "times" : "plus"}
+                        className="filter-item-icon" />}
                 </div>
             </button>
         </div>

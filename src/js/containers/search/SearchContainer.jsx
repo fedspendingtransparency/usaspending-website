@@ -33,6 +33,7 @@ import {
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
+import GlobalConstants from "../../GlobalConstants";
 
 require('pages/search/searchPage.scss');
 
@@ -75,6 +76,7 @@ export const parseRemoteFilters = (data) => {
 };
 
 const SearchContainer = () => {
+    const [downloadAvailable, setDownloadAvailable] = useState(false);
     const location = useLocation();
     const { hash: urlHash } = getObjFromQueryParams(location.search);
     const query = useQueryParams();
@@ -89,10 +91,17 @@ const SearchContainer = () => {
             _empty: areAppliedFiltersEmpty
         }
     } = useSelector((state) => state);
-    const [downloadAvailable, setDownloadAvailable] = useState(false);
     const [downloadInFlight, setDownloadInFlight] = useState(false);
     const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
+
+    const [awardsCount, setAwardsCount] = useState();
+    const [transactionsCount, setTransactionsCount] = useState();
+    const [subawardsCount, setSubawardsCount] = useState();
+
     const request = useRef(null);
+    const requestAwards = useRef(null);
+    const requestTransactions = useRef(null);
+    const requestSubawards = useRef(null);
     const areAppliedFiltersEmptyRef = useRef();
     const prevAppliedFiltersRef = useRef();
 
@@ -118,6 +127,84 @@ const SearchContainer = () => {
             .catch(() => {
                 setDownloadInFlight(false);
                 request.current = null;
+            });
+    }, [stagedFilters]);
+
+    const setDownloadAvailabilityAwards = useCallback((filters = stagedFilters) => {
+        setDownloadInFlight(true);
+
+        const operation = new SearchAwardsOperation();
+        operation.fromState(filters);
+        const searchParams = operation.toParams();
+        // generate the API parameters
+        const apiParams = {
+            filters: searchParams,
+            spending_level: "awards",
+            auditTrail: 'Download Availability Count Awards'
+        };
+
+        requestAwards.current = DownloadHelper.requestDownloadCount(apiParams);
+        requestAwards.current.promise
+            .then((res) => {
+                setDownloadInFlight(false);
+                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
+                setAwardsCount(res.data.calculated_count);
+            })
+            .catch(() => {
+                setDownloadInFlight(false);
+                requestAwards.current = null;
+            });
+    }, [stagedFilters]);
+
+    const setDownloadAvailabilityTransactions = useCallback((filters = stagedFilters) => {
+        setDownloadInFlight(true);
+
+        const operation = new SearchAwardsOperation();
+        operation.fromState(filters);
+        const searchParams = operation.toParams();
+        // generate the API parameters
+        const apiParams = {
+            filters: searchParams,
+            spending_level: "transactions",
+            auditTrail: 'Download Availability Count Transactions'
+        };
+
+        requestTransactions.current = DownloadHelper.requestDownloadCount(apiParams);
+        requestTransactions.current.promise
+            .then((res) => {
+                setDownloadInFlight(false);
+                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
+                setTransactionsCount(res.data.calculated_count);
+            })
+            .catch(() => {
+                setDownloadInFlight(false);
+                requestTransactions.current = null;
+            });
+    }, [stagedFilters]);
+
+    const setDownloadAvailabilitySubawards = useCallback((filters = stagedFilters) => {
+        setDownloadInFlight(true);
+
+        const operation = new SearchAwardsOperation();
+        operation.fromState(filters);
+        const searchParams = operation.toParams();
+        // generate the API parameters
+        const apiParams = {
+            filters: searchParams,
+            spending_level: "subawards",
+            auditTrail: 'Download Availability Count Subawards'
+        };
+
+        requestSubawards.current = DownloadHelper.requestDownloadCount(apiParams);
+        requestSubawards.current.promise
+            .then((res) => {
+                setDownloadInFlight(false);
+                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
+                setSubawardsCount(res.data.calculated_count);
+            })
+            .catch(() => {
+                setDownloadInFlight(false);
+                requestSubawards.current = null;
             });
     }, [stagedFilters]);
 
@@ -149,8 +236,16 @@ const SearchContainer = () => {
                         // apply the filters to both the staged and applied stores
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
                         dispatch(setAppliedFilterEmptiness(false));
-                        // set download availability
+
+                        // delete once we deploy
                         setDownloadAvailability(filtersInImmutableStructure);
+
+                        // TODO:  Disabling for 14913 hotfix
+                        if (GlobalConstants.IS_NEW_DOWNLOAD) {
+                            setDownloadAvailabilityAwards(filtersInImmutableStructure);
+                            setDownloadAvailabilitySubawards(filtersInImmutableStructure);
+                            setDownloadAvailabilityTransactions(filtersInImmutableStructure);
+                        }
                     }
                     request.current = null;
                 })
@@ -191,9 +286,9 @@ const SearchContainer = () => {
             // all the filters were cleared, reset to a blank hash
             searchURLParams.delete("hash");
             setSearchURLParams(searchURLParams);
-            setDownloadAvailable(false);
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
+            setDownloadAvailable(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [areAppliedFiltersEmpty, urlHash]);
@@ -244,7 +339,15 @@ const SearchContainer = () => {
         );
         if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && areFiltersSelected(prevAppliedFilters))) {
             generateHash();
+            // delete once we deploy
             setDownloadAvailability();
+
+            // TODO:  Disabling for 14913 hotfix
+            if (GlobalConstants.IS_NEW_DOWNLOAD) {
+                setDownloadAvailabilityAwards();
+                setDownloadAvailabilityTransactions();
+                setDownloadAvailabilitySubawards();
+            }
         } else if (!urlHash) {
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
@@ -270,6 +373,9 @@ const SearchContainer = () => {
             downloadInFlight={downloadInFlight}
             noFiltersApplied={areAppliedFiltersEmpty}
             hash={urlHash}
+            awardsCount={awardsCount}
+            transactionsCount={transactionsCount}
+            subawardsCount={subawardsCount}
             queryParam={location.state} />
     );
 };

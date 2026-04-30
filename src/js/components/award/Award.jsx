@@ -7,15 +7,15 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
-import { ShareIcon, DownloadIconButton } from 'data-transparency-ui';
 import { find, startCase, throttle, uniqueId } from 'lodash-es';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import Error from 'components/sharedComponents/Error';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
+import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+import DownloadIconButton508 from 'components/sharedComponents/buttons/DownloadButton508';
 
 import ContractContent from './contract/ContractContent';
 import IdvContent from './idv/IdvContent';
@@ -64,7 +64,6 @@ const awardSections = [
 
 const Award = (props) => {
     const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(false);
     const dispatch = useDispatch();
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
@@ -74,7 +73,6 @@ const Award = (props) => {
         const local = window.innerWidth;
         if (windowWidth !== local) {
             setWindowWidth(local);
-            setIsMobile(local < mediumScreen);
         }
     }, 50);
 
@@ -187,20 +185,18 @@ const Award = (props) => {
         <PageWrapper
             pageName="Award Profile"
             classNames="usa-da-award-v2-page"
-            overLine="Award Profile"
             metaTagProps={overview ? MetaTagHelper.awardPageMetaTags(overview) : {}}
             title={isLoading ? '--' : title}
             toolBarComponents={[
-                <ShareIcon
-                    key={uniqueId()}
-                    url={getBaseUrl(slug)}
-                    onShareOptionClick={onShareClick}
-                    classNames={!isMobile ? "margin-right" : ""} />,
-                <DownloadIconButton
+                <DownloadIconButton508
                     key={uniqueId()}
                     isEnabled={!props.noAward}
                     downloadInFlight={props.isDownloadPending}
-                    onClick={props.downloadData} />
+                    onClick={props.downloadData} />,
+                <ShareIcon508
+                    key={uniqueId()}
+                    url={getBaseUrl(slug)}
+                    onShareOptionClick={onShareClick} />
             ]}>
             <LoadingWrapper isLoading={isLoading}>
                 <main className={!props.noAward ? 'award-content' : ''}>

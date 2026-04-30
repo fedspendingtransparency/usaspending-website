@@ -15,30 +15,27 @@ const propTypes = {
     hasOfficial: PropTypes.bool
 };
 
-const defaultProps = {
-    hasPlain: true,
-    hasOfficial: true
-};
-
-const DefinitionTabs = (props) => {
+const DefinitionTabs = ({
+    hasPlain = true, activeTab, hasOfficial = true, clickedTab
+}) => {
     const items = [];
 
-    if (props.hasPlain) {
+    if (hasPlain) {
         items.push(<TabItem
             key="plain"
             label="Plain Language"
             type="plain"
-            active={props.activeTab === "plain"}
-            clickedTab={props.clickedTab} />);
+            active={activeTab === "plain"}
+            clickedTab={clickedTab} />);
     }
 
-    if (props.hasOfficial) {
+    if (hasOfficial) {
         items.push(<TabItem
             key="official"
             label="Official Definition"
             type="official"
-            active={props.activeTab === "official"}
-            clickedTab={props.clickedTab} />);
+            active={activeTab === "official"}
+            clickedTab={clickedTab} />);
     }
 
     return (
@@ -49,5 +46,4 @@ const DefinitionTabs = (props) => {
 };
 
 DefinitionTabs.propTypes = propTypes;
-DefinitionTabs.defaultProps = defaultProps;
 export default DefinitionTabs;
