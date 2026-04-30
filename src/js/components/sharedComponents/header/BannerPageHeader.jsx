@@ -16,17 +16,17 @@ const BannerPageHeader = ({
     body = 'Need short description here',
     className
 }) => {
-    const iconStyle = { backgroundColor: "red" };
+    const iconStyle = { backgroundColor: "red", width: '20px' };
     const textStyle = { backgroundColor: "blue" };
 
     return (
-        <FlexGridRow className="grid-content">
+        <FlexGridRow className={`banner-page-header${className ? ` ${className}` : ''}`}>
             <FlexGridCol
                 desktop={6}
                 tablet={0}
                 mobile={0}>
                 <div
-                    className={`icon-container${className ? ` ${className}` : ''}`}
+                    className="icon-container"
                     style={iconStyle}>
                     <FontAwesomeIcon icon="chevron-left" />
                 </div>
@@ -36,11 +36,11 @@ const BannerPageHeader = ({
                 tablet={12}
                 mobile={12}>
                 <div
-                    className={`text-container ${className ? ` ${className}` : ''}`}
+                    className="text-container"
                     style={textStyle}>
-                    <div className={`${className}__column-two-kicker`}>{kicker}</div>
-                    <div className={`${className}__column-two-title`}>{title}</div>
-                    <div className={`${className}__column-two-body`}>{body}</div>
+                    <div className="text_kicker">{kicker}</div>
+                    <div className="text_title">{title}</div>
+                    <div className="text_body">{body}</div>
                 </div>
             </FlexGridCol>
         </FlexGridRow>
