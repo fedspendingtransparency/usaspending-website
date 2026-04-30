@@ -12,7 +12,7 @@ const propTypes = {
 };
 
 const BannerPageHeader = ({
-    kicker = 'Profiles',
+    kicker = 'PROFILES',
     title = 'Federal Response to COVID-19',
     body = 'Need short description here',
     backgroundColor = '#39215E',
@@ -25,16 +25,18 @@ const BannerPageHeader = ({
             className={`banner-page-header${className ? ` ${className}` : ''}`}
             style={{ backgroundColor }}>
             <FlexGridRow className="banner-page-header__row">
-                <FlexGridCol width="auto">
+                <FlexGridCol width="auto" className="icon-column">
                     <div className="icon-container">
                         <FontAwesomeIcon icon="chevron-left" color={backgroundColor} />
                     </div>
                 </FlexGridCol>
-                <FlexGridCol width="fill">
+                <FlexGridCol width="fill" className="text-column">
                     <div className="text-container">
-                        <div className="text_kicker">{kicker}</div>
-                        <div className="text_title">{title}</div>
-                        <div className="text_body">{body}</div>
+                        <div className="text__kicker" style={{ color: backgroundColor }}>
+                            {kicker}
+                        </div>
+                        <div className="text__title">{title}</div>
+                        <div className="text__body">{body}</div>
                     </div>
                 </FlexGridCol>
             </FlexGridRow>

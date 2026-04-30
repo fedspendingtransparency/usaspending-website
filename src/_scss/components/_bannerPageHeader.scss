@@ -4,15 +4,37 @@
     margin: auto;
     padding: rem(55) 0;
 
-    .icon-container {
+    .icon-column .icon-container {
       background-color: $color-white;
+      border-radius: rem(20);
       width: rem(140);
       height: rem(140);
+      display: flex;
+
+      svg {
+        font-size: rem(60);
+        margin: auto;
+      }
     }
 
-    .text-container {
-      color: $color-white;
-      margin-left: rem(40);
+    .text-column {
+      align-content: center;
+
+      .text-container {
+        color: $color-white;
+        margin-left: rem(40);
+
+        .text__kicker {
+          background-color: $color-white;
+          width: fit-content;
+          border-radius: rem(2);
+          padding: 0 rem(4);
+          font-size: $smallest-font-size;
+          line-height: 1.5;
+          font-weight: $font-semibold;
+          margin-bottom: rem(12);
+        }
+      }
     }
   }
 }
