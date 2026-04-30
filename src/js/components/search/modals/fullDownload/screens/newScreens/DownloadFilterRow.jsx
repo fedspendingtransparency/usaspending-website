@@ -44,8 +44,14 @@ const DownloadFilterRow = ({
     // every filter value/name has a completely different format ( array of strings, array of objects, object, object of arrays), these have to be formatted before they
     // are passed into ReadMore because if you don't format it there is no comma separation
     let formatted = null;
-    if (filter.name === 'Place of Performance') {
-        
+    if (filter.name === 'Place of Performance' || filter.name === 'Recipient Location') {
+        formatted = filter.values.map((filterTemp, i, row) => {
+            console.debug(filterTemp);
+            if (i + 1 === row.length) {
+                return `${filterTemp.display.entity}:  ${filterTemp.display.title}`;
+            }
+            return `${filterTemp.display.entity}:  ${filterTemp.display.title}, `;
+        });
     }
     else if (filter.name === 'Awarding Agency') {
         formatted = filter.values.map((filterTemp, i, row) => {
