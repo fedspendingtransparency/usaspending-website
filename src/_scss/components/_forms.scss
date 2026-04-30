@@ -1,61 +1,61 @@
 $usa-form-width: 32rem;
 
-@import './forms/_formsChecklist';
-@import './forms/_formsGrids';
-@import './forms/_formsInputSizes';
+@import "./forms/_formsChecklist";
+@import "./forms/_formsGrids";
+@import "./forms/_formsInputSizes";
 
 @mixin usa-form {
+  @include media($medium-screen) {
+    max-width: $usa-form-width;
+  }
+
+  a {
+    border-bottom: 0;
+  }
+
+  fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  [type="submit"] {
+    display: block;
+    margin-bottom: 1.5em;
+    margin-top: 2.5rem;
+
     @include media($medium-screen) {
-        max-width: $usa-form-width;
+      padding-left: 2.7em;
+      padding-right: 2.7em;
+      width: auto;
     }
+  }
 
-    a {
-        border-bottom: 0;
-    }
-
-    fieldset {
-        border: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    [type="submit"] {
-        display: block;
-        margin-bottom: 1.5em;
-        margin-top: 2.5rem;
-
-        @include media($medium-screen) {
-            padding-left: 2.7em;
-            padding-right: 2.7em;
-            width: auto;
-        }
-    }
-
-    [name="password"],
-    [name="confirmPassword"] {
-        margin-bottom: 1.1rem;
-    }
+  [name="password"],
+  [name="confirmPassword"] {
+    margin-bottom: 1.1rem;
+  }
 }
 
 @mixin usa-form-large {
-    @include media($medium-screen) {
-        max-width: 46rem;
-    }
+  @include media($medium-screen) {
+    max-width: 46rem;
+  }
 }
 
 @mixin usa-form-note {
-    float: right;
-    font-family: $font-sans;
-    font-size: $h5-font-size;
-    margin: 0 0 1.5rem;
+  float: right;
+  font-family: $font-sans;
+  font-size: $h5-font-size;
+  margin: 0 0 1.5rem;
 
-    + * {
-        clear: both;
-    }
+  + * {
+    clear: both;
+  }
 }
 
 @mixin usa-additional-text {
-    float: right;
-    font-style: italic;
-    font-weight: normal;
+  float: right;
+  font-style: italic;
+  font-weight: normal;
 }

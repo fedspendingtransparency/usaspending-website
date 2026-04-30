@@ -1,30 +1,29 @@
 .search-section-extra-modal {
-    // override the modal widths
-    width: 50%;
+  // override the modal widths
+  width: 50%;
 }
 
 .full-download-modal {
-    $filter-bar-gray: #DDDDDD;
-    @import "./_header";
-    background-color: $color-white;
+  $filter-bar-gray: #dddddd;
+  @import "./_header";
+  background-color: $color-white;
 
-    .download-body {
-        padding: rem(20) rem(60) rem(40);
+  .download-body {
+    padding: rem(20) rem(60) rem(40);
 
-        @import "./_filterBar";
+    @import "./_filterBar";
 
-        .search-top-filter-header .advanced-search h2.subtitle {
-            display: none;
-        }
-
-        .filter-buttons {
-          display: none;
-        }
+    .search-top-filter-header .advanced-search h2.subtitle {
+      display: none;
     }
 
+    .filter-buttons {
+      display: none;
+    }
+  }
 
-    @import "./_breadcrumb";
+  @import "./_breadcrumb";
 
-    @import "./_levelScreen";
-    @import "./_progressScreen";
+  @import "./_levelScreen";
+  @import "./_progressScreen";
 }

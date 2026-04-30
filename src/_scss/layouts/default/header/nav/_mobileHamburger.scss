@@ -1,30 +1,29 @@
 .mobile-hamburger {
+  height: rem(45);
+  width: rem(45);
+
+  .mobile-hamburger__wrapper {
+    position: absolute;
+    right: 0;
+  }
+
+  .mobile-hamburger__button {
+    @include button-unstyled;
+    @include transition(all 0.75s $ease-in-out-sine);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: right;
     height: rem(45);
-    width: rem(45);
-
-    .mobile-hamburger__wrapper {
-        position: absolute;
-        right: 0;
+    position: relative;
+    width: rem(48);
+    .svg {
+      color: $gray-cool-90;
     }
 
-    .mobile-hamburger__button {
-        @include button-unstyled;
-        @include transition(all 0.75s $ease-in-out-sine);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: right;
-        height: rem(45);
-        position: relative;
-        width: rem(48);
-        .svg {
-            color: $gray-cool-90;
-        }
-
-        .mobile-hamburger__buns {
-            color: $gray-cool-90;
-            width: rem(16);
-        }
+    .mobile-hamburger__buns {
+      color: $gray-cool-90;
+      width: rem(16);
     }
-
+  }
 }

@@ -1,48 +1,49 @@
 .usa-atd-header {
-    width: 100%;
-    padding: 24px;
-    background-color: $cyan-vivid-80;
-    color: $theme-color-headline-inverse;
+  width: 100%;
+  padding: 24px;
+  background-color: $cyan-vivid-80;
+  color: $theme-color-headline-inverse;
 
-    @include clearfix();
+  @include clearfix();
 
-    .close-button {
-        @include button-unstyled;
-        width: rem(30);
-        height: rem(30);
-        float: right;
-        text-align: center;
-        svg {
-            width: 16px;
-            height: 16px;
-            fill: $color-white;
-        }
-
-        &:hover, &:active {
-            svg {
-                fill: $color-gold;
-            }
-        }
+  .close-button {
+    @include button-unstyled;
+    width: rem(30);
+    height: rem(30);
+    float: right;
+    text-align: center;
+    svg {
+      width: 16px;
+      height: 16px;
+      fill: $color-white;
     }
 
-    h1.usa-atd-header__title {
-        font-weight: $font-semibold;
-        font-size: rem(32);
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.25;
-        letter-spacing: normal;
-
-        margin: 0;
-        padding: 0;
+    &:hover,
+    &:active {
+      svg {
+        fill: $color-gold;
+      }
     }
+  }
 
-    .usa-atd-example {
-        font-size: 14px;
-        line-height: 1.5;
-        color: $theme-color-body-inverse;
-        font-style: italic;
-    }
+  h1.usa-atd-header__title {
+    font-weight: $font-semibold;
+    font-size: rem(32);
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
 
-    @import "./_searchBar";
+    margin: 0;
+    padding: 0;
+  }
+
+  .usa-atd-example {
+    font-size: 14px;
+    line-height: 1.5;
+    color: $theme-color-body-inverse;
+    font-style: italic;
+  }
+
+  @import "./_searchBar";
 }
