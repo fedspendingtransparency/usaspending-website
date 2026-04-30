@@ -6,6 +6,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import ReadMore from 'components/sharedComponents/ReadMore';
+import { awardTypeCodes } from '../../../../../../dataMapping/search/awardType';
+import { pricingTypeDefinitions, setAsideDefinitions, extentCompetedDefinitions } from '../../../../../../dataMapping/search/contractFields';
+import { defCodes } from '../../../../../../dataMapping/search/defCodes';
 
 const propTypes = {
     filter: PropTypes.object
@@ -14,7 +17,7 @@ const propTypes = {
 const DownloadFilterRow = ({
     filter
 }) => {
-    console.debug("DOWNLOAD FILTER ROW: ", filter, filter.name === 'Place of Performance');
+    console.debug("DOWNLOAD FILTER ROW: ", filter);
     // depending on API structure/Redux state we should be able pull from Redux
     const [limit, setLimit] = useState(300);
     const tdRef = useRef(null);
@@ -53,6 +56,24 @@ const DownloadFilterRow = ({
             return `${filterTemp.display.entity}:  ${filterTemp.display.title}, `;
         });
     }
+    else if (filter.name === 'Disaster Emergency Fund Code (DEFC)') {
+        formatted = filter.values.map((filterTemp, i, row) => {
+            if (i + 1 === row.length) {
+                return `${defCodes[filterTemp].title}`;
+            }
+
+            return `${defCodes[filterTemp].title}, `;
+        });
+    }
+    else if (filter.name === 'Award Type') {
+        formatted = filter.values.map((filterTemp, i, row) => {
+            if (i + 1 === row.length) {
+                return `${awardTypeCodes[filterTemp]}`;
+            }
+
+            return `${awardTypeCodes[filterTemp]}, `;
+        });
+    }
     else if (filter.name === 'Awarding Agency' || filter.name === 'Funding Agency') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
@@ -87,34 +108,34 @@ const DownloadFilterRow = ({
     else if (filter.name === 'NAICS') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
-                return `${filterTemp.label} `;
+                return `${filterTemp.identifier} - ${filterTemp.naics_description} `;
             }
-            return `${filterTemp.label}, `;
+            return `${filterTemp.identifier} - ${filterTemp.naics_description}, `;
         });
     }
     else if (filter.name === 'Treasury Account') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
-                return `${filterTemp.label} `;
+                return `${filterTemp.tas_description} `;
             }
-            return `${filterTemp.label}, `;
+            return `${filterTemp.tas_description}, `;
         });
     }
     else if (filter.name === 'PSC') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
-                return `${filterTemp.value} `;
+                return `${filterTemp.psc_description} `;
             }
-            return `${filterTemp.value}, `;
+            return `${filterTemp.psc_description}, `;
         });
     }
     else if (filter.name === 'Type of Contract Pricing' || 'Type of Set Aside') {
         formatted = Object.values(filter.values).join(", ");
     }
+    else {
+        formatted = filter.values.join(", ");
+    }
 
-    // else {
-    //     formatted = filter.values.join(", ");
-    // }
     return (
         <tr>
             <th>{filter.name}:</th>
