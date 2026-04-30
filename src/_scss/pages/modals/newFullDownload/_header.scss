@@ -1,34 +1,33 @@
 .download-header {
-    background-color: $theme-color-dark-blue-bg;
-    border-radius: rem(12) rem(12) 0 0;
-    .header-content {
-        display:flex;
-        align-items: center;
-        position: relative;
+  background-color: $theme-color-dark-blue-bg;
+  border-radius: rem(12) rem(12) 0 0;
+  .header-content {
+    display: flex;
+    align-items: center;
+    position: relative;
 
-        padding: rem(16) rem(24);
+    padding: rem(16) rem(24);
 
-        h1.modal__header {
-            color: $color-white;
-            font-size: rem(28);
-            margin: 0;
-            height: rem(34);
-            line-height: 120%;
-        }
-
-        .close-wrapper {
-            display: flex;
-            position: absolute;
-            right: 24px;
-            height: rem(24);
-            width: rem(24);
-
-            .close-button {
-                color: $color-white;
-                font-size: rem(20);
-                padding-top: rem(4);
-            }
-        }
-
+    h1.modal__header {
+      color: $color-white;
+      font-size: rem(28);
+      margin: 0;
+      height: rem(34);
+      line-height: 120%;
     }
+
+    .close-wrapper {
+      display: flex;
+      position: absolute;
+      right: 24px;
+      height: rem(24);
+      width: rem(24);
+
+      .close-button {
+        color: $color-white;
+        font-size: rem(20);
+        padding-top: rem(4);
+      }
+    }
+  }
 }

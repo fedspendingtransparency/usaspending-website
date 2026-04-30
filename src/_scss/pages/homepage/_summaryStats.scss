@@ -24,7 +24,7 @@ $largeMobile: 576px;
   .summary-stats-desktop {
     display: none;
 
-    @media(min-width: $stackedShort) {
+    @media (min-width: $stackedShort) {
       display: block;
     }
   }
@@ -32,7 +32,7 @@ $largeMobile: 576px;
   .summary-stats-mobile {
     display: block;
 
-    @media(min-width: $stackedShort) {
+    @media (min-width: $stackedShort) {
       display: none;
     }
   }
@@ -79,11 +79,11 @@ $largeMobile: 576px;
         margin: rem(24) rem(92) rem(24) 0;
       }
 
-      @media(min-width: 1229px) and (max-width: $maxWidth - 1) {
+      @media (min-width: 1229px) and (max-width: $maxWidth - 1) {
         margin: rem(24) 4.5% rem(24) 0;
       }
 
-      @media(min-width: $stackedShort) and (max-width: 1228px) {
+      @media (min-width: $stackedShort) and (max-width: 1228px) {
         margin: rem(24) 3% rem(24) 0;
       }
 
@@ -101,17 +101,17 @@ $largeMobile: 576px;
       display: flex;
       flex-direction: column;
 
-      @media(max-width: $stackedShort - 1) {
+      @media (max-width: $stackedShort - 1) {
         min-width: rem(470);
         padding: 0;
         margin-bottom: rem(16);
       }
 
-      @media(min-width: $stackedTall) {
+      @media (min-width: $stackedTall) {
         flex-direction: row;
       }
 
-      @media(min-width: $stackedTall) and (max-width: $stackedShort - 1) {
+      @media (min-width: $stackedTall) and (max-width: $stackedShort - 1) {
         margin-bottom: rem(24);
       }
 
@@ -120,7 +120,7 @@ $largeMobile: 576px;
         height: rem(48);
         overflow: hidden;
 
-        @media(min-width: $maxWidth) {
+        @media (min-width: $maxWidth) {
           margin: rem(24) rem(92) rem(24) 0;
 
           &:last-child {
@@ -128,7 +128,7 @@ $largeMobile: 576px;
           }
         }
 
-        @media(min-width: 1425px) and (max-width: $maxWidth - 1) {
+        @media (min-width: 1425px) and (max-width: $maxWidth - 1) {
           margin: rem(24) rem(56) rem(24) 0;
 
           &:last-child {
@@ -136,15 +136,15 @@ $largeMobile: 576px;
           }
         }
 
-        @media(min-width: 1229px) and (max-width: 1424px) {
-            margin: rem(24) rem(56) rem(24) 0;
+        @media (min-width: 1229px) and (max-width: 1424px) {
+          margin: rem(24) rem(56) rem(24) 0;
 
           &:last-child {
             margin-right: rem(36);
           }
         }
 
-        @media(min-width: $stackedShort - 1) and (max-width: 1228px) {
+        @media (min-width: $stackedShort - 1) and (max-width: 1228px) {
           margin: rem(24) rem(56) rem(24) 0;
 
           &:last-child {
@@ -152,7 +152,7 @@ $largeMobile: 576px;
           }
         }
 
-        @media(min-width: $stackedTall) and (max-width: $stackedShort - 1) {
+        @media (min-width: $stackedTall) and (max-width: $stackedShort - 1) {
           margin: 0 rem(24);
         }
 
@@ -180,7 +180,7 @@ $largeMobile: 576px;
     .summary-stats__vertical-border {
       margin: rem(18) rem(8);
       padding: rem(8) 0;
-      border-left: rem(1) solid rgba(255, 255, 255, .5);
+      border-left: rem(1) solid rgba(255, 255, 255, 0.5);
       height: rem(60);
     }
 
@@ -188,15 +188,14 @@ $largeMobile: 576px;
       cursor: pointer;
       margin: 0;
 
-
-      @media(min-width: $stackedShort) {
+      @media (min-width: $stackedShort) {
         margin: auto 0;
       }
 
       .usa-dt-flex-grid__row {
         justify-content: center;
 
-        @media(min-width: $stackedTall) and (max-width: $stackedShort - 1) {
+        @media (min-width: $stackedTall) and (max-width: $stackedShort - 1) {
           padding-right: rem(16);
         }
       }
@@ -216,7 +215,6 @@ $largeMobile: 576px;
         @media (min-width: $stackedTall) {
           display: block;
         }
-
       }
 
       .arrow-circle-right {

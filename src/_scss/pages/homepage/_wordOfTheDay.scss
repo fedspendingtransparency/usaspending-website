@@ -56,7 +56,7 @@
       height: 150px;
       overflow: hidden;
 
-      @media(min-width: $large-screen) {
+      @media (min-width: $large-screen) {
         height: unset;
       }
 
@@ -65,12 +65,12 @@
         -webkit-line-clamp: 5;
         -webkit-box-orient: vertical;
 
-        @media(min-width: $medium-screen) {
+        @media (min-width: $medium-screen) {
           -webkit-line-clamp: 4;
           overflow: hidden;
         }
 
-        @media(min-width: $large-screen) {
+        @media (min-width: $large-screen) {
           -webkit-line-clamp: 6;
         }
       }
@@ -81,7 +81,7 @@
     height: calc(100% - 100px);
 
     .page__loading {
-      @media(min-width: $large-screen) {
+      @media (min-width: $large-screen) {
         min-height: unset;
       }
 
@@ -108,10 +108,10 @@
     margin-top: rem(32);
     justify-content: flex-start;
 
-    @media(min-width: $medium-screen) {
+    @media (min-width: $medium-screen) {
       margin-top: 0;
     }
-    .button-type__secondary-dark{
+    .button-type__secondary-dark {
       width: rem(106) !important;
     }
   }

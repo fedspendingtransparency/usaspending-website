@@ -1,34 +1,34 @@
 .usa-da-state-landing {
-    @import "all";
-    @import "layouts/landingPage/landingPage";
-    @import "layouts/default/stickyHeader/header";
-    @import "pages/accountLanding/searchSection";
-    @import "./_table";
+  @import "all";
+  @import "layouts/landingPage/landingPage";
+  @import "layouts/default/stickyHeader/header";
+  @import "pages/accountLanding/searchSection";
+  @import "./_table";
 
-    .state-landing__results {
-        @media (max-width: $large-screen) {
-            overflow-x: auto;
-        }
-
-        .state-list {
-            margin-top: rem(15);
-        }
-        .state-list__message {
-            margin: rem(90) auto;
-            font-size: rem(36);
-            font-weight: 300;
-            color: $color-base;
-            text-align: center;
-            .state-list__message_highlight {
-                color: $color-active;
-                font-weight: normal;
-            }
-        }
+  .state-landing__results {
+    @media (max-width: $large-screen) {
+      overflow-x: auto;
     }
 
-    .results-count {
-        font-style: italic;
-        padding: rem(20) 0;
-        font-size: rem(16);
+    .state-list {
+      margin-top: rem(15);
     }
+    .state-list__message {
+      margin: rem(90) auto;
+      font-size: rem(36);
+      font-weight: 300;
+      color: $color-base;
+      text-align: center;
+      .state-list__message_highlight {
+        color: $color-active;
+        font-weight: normal;
+      }
+    }
+  }
+
+  .results-count {
+    font-style: italic;
+    padding: rem(20) 0;
+    font-size: rem(16);
+  }
 }

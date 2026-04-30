@@ -29,10 +29,9 @@
   .usda__flex-row {
     @include display(flex);
     @include flex-wrap(wrap);
-    
 
     .usda__flex-col {
-      display:flex;
+      display: flex;
       margin: auto;
     }
   }
@@ -69,7 +68,6 @@
       @media (min-width: $tablet-screen) {
         margin: rem(20) rem(32) rem(20) rem(32);
       }
-
 
       .usda-message {
         &.usda-message_error {
@@ -121,14 +119,14 @@
       }
 
       // Lottie Animation styles
-      @import './_lottieAnimation.scss';
+      @import "./_lottieAnimation.scss";
       // Scroller styles
       @import "./_scroller.scss";
       @import "./_scrollerOverlay.scss";
       // Other Page Portion styles
-      @import './_introSection.scss';
-      @import './_aboutSection.scss';
-      @import './_dataSourcesTitles.scss';
+      @import "./_introSection.scss";
+      @import "./_aboutSection.scss";
+      @import "./_dataSourcesTitles.scss";
 
       .default-note {
         @include profile-page-wrap;

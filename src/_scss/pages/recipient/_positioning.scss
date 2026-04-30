@@ -1,14 +1,16 @@
 .recipient-content-wrapper {
-    width: 100%;
-    padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4) ($global-spacing-unit * 4) ($global-spacing-unit * 4);
-    
-    @media (max-width: $tablet-screen) {
-        padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2) ($global-spacing-unit * 2) ($global-spacing-unit * 2);
-    }
+  width: 100%;
+  padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4)
+    ($global-spacing-unit * 4) ($global-spacing-unit * 4);
 
-    .recipient-content {
-        width: 100%;
-        max-width: rem(1400);
-        margin: auto;
-    }
+  @media (max-width: $tablet-screen) {
+    padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2)
+      ($global-spacing-unit * 2) ($global-spacing-unit * 2);
+  }
+
+  .recipient-content {
+    width: 100%;
+    max-width: rem(1400);
+    margin: auto;
+  }
 }

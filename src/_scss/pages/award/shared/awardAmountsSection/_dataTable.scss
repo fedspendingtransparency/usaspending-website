@@ -1,136 +1,136 @@
 .award-amounts__data-wrapper {
-    margin-top: 3rem;
+  margin-top: 3rem;
 
-    &.contract {
-        margin-top: 1.5rem;
+  &.contract {
+    margin-top: 1.5rem;
+  }
+
+  .award-amounts__data-content {
+    @extend %column-less-table__row;
+    flex-wrap: wrap;
+    border-bottom: 0;
+    padding-left: 2.3rem;
+    &:nth-of-type(1) {
+      border-radius: rem(5) rem(5) 0 0;
+    }
+    &:last-of-type {
+      border-radius: 0 0 rem(5) rem(5);
+      border-bottom: solid rem(1) $border-light-gray;
     }
 
-    .award-amounts__data-content {
-        @extend %column-less-table__row;
-        flex-wrap: wrap;
-        border-bottom: 0;
-        padding-left: 2.3rem;
-        &:nth-of-type(1) {
-            border-radius: rem(5) rem(5) 0 0;
-        }
-        &:last-of-type {
-            border-radius: 0 0 rem(5) rem(5);
-            border-bottom: solid rem(1) $border-light-gray;
-        }
+    .remove-indent {
+      text-indent: -1.5rem;
 
-        .remove-indent {
-            text-indent: -1.5rem;
+      @media (max-width: $tablet-screen) {
+        padding-bottom: $global-margin * 0.5;
+        flex-basis: 100%;
+      }
+    }
+    @import "components/glossaryLink";
+    .usda-glossary-link svg {
+      margin-left: $global-margin;
+    }
+  }
 
-            @media (max-width: $tablet-screen) {
-                padding-bottom: $global-margin * .5;
-                flex-basis: 100%;
-            }
-        }
-        @import 'components/glossaryLink';
-        .usda-glossary-link svg {
-            margin-left: $global-margin;
-        }
-    }
+  .award-amounts__data-icon {
+    height: rem(10);
+    min-width: rem(10);
+    border-radius: 50%;
+    display: inline-block;
+    margin-top: rem(5);
+    margin-right: rem(5);
+  }
 
-    .award-amounts__data-icon {
-        height: rem(10);
-        min-width: rem(10);
-        border-radius: 50%;
-        display: inline-block;
-        margin-top: rem(5);
-        margin-right: rem(5);
-    }
+  .award-amounts__data-icon_blue {
+    background-color: $color-cool-blue-light;
+  }
 
-    .award-amounts__data-icon_blue {
-        background-color: $color-cool-blue-light;
-    }
+  .award-amounts__data-icon-dark-blue {
+    background-color: $colors-outlayed;
+  }
 
-    .award-amounts__data-icon-dark-blue {
-        background-color: $colors-outlayed;
-    }
+  .award-amounts__data-icon_green {
+    background-color: $colors-grants-nff;
+  }
 
-    .award-amounts__data-icon_green {
-        background-color: $colors-grants-nff;
-    }
+  .award-amounts__data-icon_gray {
+    background-color: $colors-potential;
+  }
 
-    .award-amounts__data-icon_gray {
-        background-color: $colors-potential;
-    }
+  .award-amounts__data-icon_subsidy {
+    background-color: $colors-loans-subsidy;
+  }
 
-    .award-amounts__data-icon_subsidy {
-        background-color: $colors-loans-subsidy;
-    }
+  .award-amounts__data-icon_face-value {
+    background-color: $colors-loans-face-value;
+  }
 
-    .award-amounts__data-icon_face-value {
-        background-color: $colors-loans-face-value;
-    }
+  .award-amounts__data-icon_transparent {
+    background-color: white;
+    border: rem(2) solid #bbbbbb;
+  }
 
-    .award-amounts__data-icon_transparent {
-        background-color: white;
-        border: rem(2) solid #BBBBBB;
-    }
+  .award-amounts__data-icon_transparent-green {
+    background-color: white;
+    border: rem(2) solid $colors-grants-nff;
+  }
 
-    .award-amounts__data-icon_transparent-green {
-        background-color: white;
-        border: rem(2) solid $colors-grants-nff;
-    }
+  .award-amounts__file-c-outlays {
+    background-color: $color-disaster-covid-19;
+    border: rem(2) solid $color-disaster-covid-19;
+  }
 
-    .award-amounts__file-c-outlays {
-        background-color: $color-disaster-covid-19;
-        border: rem(2) solid $color-disaster-covid-19;
-    }
+  .award-amounts__potential {
+    background-color: $colors-potential;
+  }
 
-    .award-amounts__potential {
-        background-color: $colors-potential;
-    }
+  .award-amounts__current {
+    background-color: $colors-current;
+  }
 
-    .award-amounts__current {
-        background-color: $colors-current;
-    }
+  .award-amounts__obligated {
+    background-color: $colors-obligated;
+  }
 
-    .award-amounts__obligated {
-        background-color: $colors-obligated;
-    }
+  .award-amounts__outlayed {
+    background-color: $colors-outlayed;
+  }
 
-    .award-amounts__outlayed {
-        background-color: $colors-outlayed;
-    }
+  .award-amounts__file-c-obligations {
+    background-color: $color-covid-19-obligations;
+    border: rem(2) solid $color-covid-19-obligations;
+  }
 
-    .award-amounts__file-c-obligations {
-        background-color: $color-covid-19-obligations;
-        border: rem(2) solid $color-covid-19-obligations;
-    }
+  .award-amounts__infrastructure-obligated {
+    background-color: $color-infrastructure-obligations;
+    border: rem(2) solid $color-infrastructure-obligations;
+  }
 
-    .award-amounts__infrastructure-obligated {
-        background-color: $color-infrastructure-obligations;
-        border: rem(2) solid $color-infrastructure-obligations;
-    }
+  .award-amounts__infrastructure-outlays {
+    background-color: $color-infrastructure-outlays;
+    border: rem(2) solid $color-infrastructure-outlays;
+  }
 
-    .award-amounts__infrastructure-outlays {
-        background-color: $color-infrastructure-outlays;
-        border: rem(2) solid $color-infrastructure-outlays;
-    }
-
-    .award-amounts__data-icon_overspending {
-        background: repeating-linear-gradient(
-            45deg,
-            $color-white,
-            $color-white rem(5),
-            $color-gold rem(2),
-            $color-gold rem(7)
-        );
-        border: rem(1) solid $color-gold;
-    }
-    .award-amounts__data-icon_extreme-overspending {
-        background: repeating-linear-gradient(
-            45deg,
-            $color-white,
-            $color-white rem(5),
-            $color-secondary rem(2),
-            $color-secondary rem(7)
-        );
-        border: rem(1) solid $color-secondary;
-    }
+  .award-amounts__data-icon_overspending {
+    background: repeating-linear-gradient(
+      45deg,
+      $color-white,
+      $color-white rem(5),
+      $color-gold rem(2),
+      $color-gold rem(7)
+    );
+    border: rem(1) solid $color-gold;
+  }
+  .award-amounts__data-icon_extreme-overspending {
+    background: repeating-linear-gradient(
+      45deg,
+      $color-white,
+      $color-white rem(5),
+      $color-secondary rem(2),
+      $color-secondary rem(7)
+    );
+    border: rem(1) solid $color-secondary;
+  }
 }
 
 .award-amounts-children__data-wrapper {
@@ -138,42 +138,42 @@
   margin-bottom: rem(15);
 
   strong {
-      font-weight: 600;
+    font-weight: 600;
   }
 
   .count-of-awards-title-text {
-      line-height: 0;
+    line-height: 0;
   }
   .total-title-text {
-      line-height: 0;
-      margin-right: 0.8rem;
-      float: right;
+    line-height: 0;
+    margin-right: 0.8rem;
+    float: right;
   }
   .award-viz__button {
-      margin-right: 0;
-      margin-left: auto;
-      margin-top: 0.8rem;
-      @media (max-width: 510px) {
-        margin-left: 0;
-      }
+    margin-right: 0;
+    margin-left: auto;
+    margin-top: 0.8rem;
+    @media (max-width: 510px) {
+      margin-left: 0;
+    }
   }
   .title-and-link-span {
-      width: 100%;
-      display: inline-flex;
-      @media (max-width: 510px) {
-        display: block;
-      }
+    width: 100%;
+    display: inline-flex;
+    @media (max-width: 510px) {
+      display: block;
+    }
   }
 
   .award-amounts-children__data-content {
-      @extend %column-less-table__row;
-      border-bottom: 0;
-      &:nth-of-type(1) {
-          border-radius: rem(5) rem(5) 0 0;
-      }
-      &:last-of-type {
-          border-radius: 0 0 rem(5) rem(5);
-          border-bottom: solid rem(1) $border-light-gray;
-      }
+    @extend %column-less-table__row;
+    border-bottom: 0;
+    &:nth-of-type(1) {
+      border-radius: rem(5) rem(5) 0 0;
+    }
+    &:last-of-type {
+      border-radius: 0 0 rem(5) rem(5);
+      border-bottom: solid rem(1) $border-light-gray;
+    }
   }
 }

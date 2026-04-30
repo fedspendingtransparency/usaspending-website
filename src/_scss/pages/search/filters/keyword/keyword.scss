@@ -1,111 +1,111 @@
 .keyword-filter {
-    @import "elements/filters/_selectedFilterBtn";
-    @import "mixins/selectedFilterWrap";
-    @import "../_singleSubmit";
+  @import "elements/filters/_selectedFilterBtn";
+  @import "mixins/selectedFilterWrap";
+  @import "../_singleSubmit";
 
-    form {
-        width: 100%;
+  form {
+    width: 100%;
+  }
+
+  .keyword-input-wrapper {
+    @include display(flex);
+    @include justify-content(center);
+    @include align-items(center);
+  }
+
+  .keyword-input {
+    @include flex(1 1 auto);
+    margin-right: rem(4);
+    font-size: $small-font-size;
+    color: $color-base;
+    line-height: rem(36);
+    height: rem(40);
+
+    @include placeholder {
+      color: $color-placeholder;
     }
+  }
 
-    .keyword-input-wrapper {
-        @include display(flex);
-        @include justify-content(center);
-        @include align-items(center);
-    }
+  .keyword-submit {
+    @include flex(0 0 auto);
+    @include singleSubmit();
+  }
 
-    .keyword-input {
-        @include flex(1 1 auto);
-        margin-right: rem(4);
-        font-size: $small-font-size;
-        color: $color-base;
-        line-height: rem(36);
-        height: rem(40);
-
-        @include placeholder {
-            color: $color-placeholder;
-        }
-    }
-
-    .keyword-submit {
-        @include flex(0 0 auto);
-        @include singleSubmit();
-    }
-
-    .selected-filters {
-        @include selected-filter-wrap;
-    }
+  .selected-filters {
+    @include selected-filter-wrap;
+  }
 }
 
 // searchV2
 .collapsible-sidebar--search-filters-list .keyword-filter {
-    .category-header {
-        @import '../../_tooltips.scss';
+  .category-header {
+    @import "../../_tooltips.scss";
 
-        display: flex;
-        margin-bottom: $global-margin;
+    display: flex;
+    margin-bottom: $global-margin;
 
-        &--title {
-            font-size: $smallest-font-size;
-            font-weight: $font-semibold;
-            line-height: 1.5;
-            color: $gray-90;
-            align-content: center;
-        }
-
-        .tooltip__hover-wrapper svg {
-            height: rem(16);
-            width: rem(16);
-        }
-
-        .new-tooltip-spacer {
-            margin: 0 $global-margin;
-
-            .new-tooltip__icon {
-                color: $color-gray-lighter;
-                max-width: rem(16);
-                max-height: rem(16);
-
-                &:hover {
-                    color: $color-base;
-                }
-
-                &:focus {
-                    color: $color-base;
-                }
-            }
-        }
+    &--title {
+      font-size: $smallest-font-size;
+      font-weight: $font-semibold;
+      line-height: 1.5;
+      color: $gray-90;
+      align-content: center;
     }
 
-    .keyword-input {
-        @include flex(1 1 auto);
-        margin: 0 rem(4) 0 0;
-        font-size: $smallest-font-size;
-        line-height: 1.5;
-        height: rem(32);
-        border-radius: rem(3);
-        border: rem(1) solid $gray-cool-10;
+    .tooltip__hover-wrapper svg {
+      height: rem(16);
+      width: rem(16);
+    }
 
-        @include placeholder {
-            color: $gray-60;
+    .new-tooltip-spacer {
+      margin: 0 $global-margin;
+
+      .new-tooltip__icon {
+        color: $color-gray-lighter;
+        max-width: rem(16);
+        max-height: rem(16);
+
+        &:hover {
+          color: $color-base;
         }
-    }
 
-    .keyword-input-wrapper .button__sm {
-        font-size: $smallest-font-size;
-        padding: rem(7) rem(12);
-        margin: 0;
-    }
-
-    .shown-filter-button {
-        margin-bottom: 0;
-    }
-
-    .filter-item-wrap {
-        padding: 0;
-        margin: $global-margin ($global-margin * 4);
-
-        @media(max-width: $medium-screen - 1) {
-            margin-top: 0;
+        &:focus {
+          color: $color-base;
         }
+      }
     }
+  }
+
+  .keyword-input {
+    @include flex(1 1 auto);
+    margin: 0 rem(4) 0 0;
+    font-size: $smallest-font-size;
+    line-height: 1.5;
+    height: rem(32);
+    border-radius: rem(3);
+    border: rem(1) solid $gray-cool-10;
+
+    @include placeholder {
+      color: $gray-60;
+    }
+  }
+
+  .keyword-input-wrapper .button__sm {
+    font-size: $smallest-font-size;
+    padding: rem(7) rem(12);
+    margin: 0;
+  }
+
+  .shown-filter-button {
+    margin-bottom: 0;
+  }
+
+  .filter-item-wrap {
+    padding: 0;
+    margin: $global-margin ($global-margin * 4);
+
+    @media (max-width: $medium-screen - 1) {
+      margin-top: 0;
+    }
+  }
 }

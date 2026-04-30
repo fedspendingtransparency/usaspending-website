@@ -1,21 +1,21 @@
 .agency-filter {
-    @import "elements/filters/_errorMessage";
-    @import "elements/filters/_typeahead";
-    @import "elements/filters/_selectedFilterBtn";
-    @import "mixins/selectedFilterWrap";
-    .shown {
-        min-height: rem(180);
-    }
-    .visually-hidden {
-        display: none;
-    }
-    .selected-filters {
-        @include selected-filter-wrap;
-    }
+  @import "elements/filters/_errorMessage";
+  @import "elements/filters/_typeahead";
+  @import "elements/filters/_selectedFilterBtn";
+  @import "mixins/selectedFilterWrap";
+  .shown {
+    min-height: rem(180);
+  }
+  .visually-hidden {
+    display: none;
+  }
+  .selected-filters {
+    @include selected-filter-wrap;
+  }
 
-    .usa-da-typeahead__input .autocomplete-md {
-        @import "dtui-overrides";
+  .usa-da-typeahead__input .autocomplete-md {
+    @import "dtui-overrides";
 
-        @include new-search-button;
-    }
+    @include new-search-button;
+  }
 }

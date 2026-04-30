@@ -1,37 +1,36 @@
 .search-clear-wrapper {
-    float: right;
+  float: right;
 
-    .search-clear-button {
-        @include button-unstyled();
+  .search-clear-button {
+    @include button-unstyled();
 
-        color: $top-clear-button-color;
-        font-size: 12px;
-        font-weight: 600;
-        line-height: 15px;
+    color: $top-clear-button-color;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 15px;
 
-        padding: 0px 15px;
+    padding: 0px 15px;
 
-        .close-icon {
-            margin-left: 5px;
-            height: 2rem;
-            width: 2rem;
-            
-            position: relative;
+    .close-icon {
+      margin-left: 5px;
+      height: 2rem;
+      width: 2rem;
 
-            svg {
-                fill: $top-clear-button-color;
-                height: 1.2rem;
-                width: 1.2rem;
+      position: relative;
 
-                position: absolute;
-                top: 2px;
-                left: 5px;
-            }
-        }
+      svg {
+        fill: $top-clear-button-color;
+        height: 1.2rem;
+        width: 1.2rem;
 
-        .sr-only {
-            @include sr-only();
-        }
-
+        position: absolute;
+        top: 2px;
+        left: 5px;
+      }
     }
+
+    .sr-only {
+      @include sr-only();
+    }
+  }
 }
