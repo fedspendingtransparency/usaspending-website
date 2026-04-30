@@ -1,3 +1,18 @@
 .banner-page-header {
-  background-color: green;
+  .banner-page-header__row {
+    max-width: $m-large-screen;
+    margin: auto;
+    padding: rem(55) 0;
+
+    .icon-container {
+      background-color: $color-white;
+      width: rem(140);
+      height: rem(140);
+    }
+
+    .text-container {
+      color: $color-white;
+      margin-left: rem(40);
+    }
+  }
 }
