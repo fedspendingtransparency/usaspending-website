@@ -1,4 +1,9 @@
 .def-code-filter-download {
+  margin-bottom: rem(12);
+  padding: rem(12);
+  padding-left: 0;
+  padding-bottom: 0;
+  
   .filter-item-wrap {
     padding: 0;  // we want padding for search container but not here 
     

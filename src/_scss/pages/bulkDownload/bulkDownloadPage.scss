@@ -17,30 +17,19 @@
     margin-left: rem(16);
     margin-right: rem(16);
 
-    @media (min-width: $tablet-screen) {
+    @media(min-width: $tablet-screen) {
       margin-left: rem(32);
       margin-right: rem(32);
     }
 
-    .bulk-download {
-      padding: 0;
-      margin-left: rem(16);
-      margin-right: rem(16);
-
-      @media(min-width: $tablet-screen) {
-        margin-left: rem(32);
-        margin-right: rem(32);
-      }
-
-      .bulk-download__data {
-        @import "downloadData";
-        @import "archive/archive";
-        @import "../../components/checkbox/filterCheckbox";
-        @import "../../components/checkboxTree/defCodeBulkDownload.scss";
-        @import "metadataPage";
-        background-color: $color-white;
-        padding: rem(30) 0;
-      }
+    .bulk-download__data {
+      @import "downloadData";
+      @import "archive/archive";
+      @import "../../components/checkbox/filterCheckbox";
+      @import "../../components/checkboxTree/defCodeBulkDownload.scss";
+      @import "metadataPage";
+      background-color: $color-white;
+      padding: rem(30) 0;
     }
   }
 }
