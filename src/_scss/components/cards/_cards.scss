@@ -59,7 +59,6 @@
     @include outline-style;
     @include border-radius($size);
   }
-
 }
 
 @mixin box-shadow($size) {
@@ -71,7 +70,8 @@
     box-shadow: $shadow-lg;
   }
 }
-a:hover, a:active {
+a:hover,
+a:active {
   text-decoration: none;
 
   .card-container {
@@ -168,17 +168,18 @@ a:hover, a:active {
       border-color: $color-primary;
       border-radius: rem(4);
       width: 100%;
-     &.card__button--borderless {
-       height: unset;
-       border: unset;
-       text-align: left;
-       justify-content: left !important;
-     }
+      &.card__button--borderless {
+        height: unset;
+        border: unset;
+        text-align: left;
+        justify-content: left !important;
+      }
       @media (min-width: $medium-screen) {
         border-radius: rem(6);
       }
 
-      &:hover, &:active {
+      &:hover,
+      &:active {
         text-decoration: none;
         border-color: darken($color-primary, 10%);
         color: darken($color-primary, 10%);
@@ -192,7 +193,8 @@ a:hover, a:active {
         background-color: $color-primary;
       }
 
-      &:hover, &:active {
+      &:hover,
+      &:active {
         text-decoration: none;
         background-color: darken($color-primary, 10%);
         color: $color-white;

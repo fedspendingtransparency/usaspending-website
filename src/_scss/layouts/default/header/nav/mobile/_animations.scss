@@ -1,17 +1,17 @@
 .mobile-nav {
-    &.opened {
-        transition: height 0.5s ease-in;
-        -webkit-transition: height 0.5s ease-in;
-        -o-transition: height 0.5s ease-in;
-        -moz-transition: height 0.5s ease-in;
-        height: 100%;
-    }
+  &.opened {
+    transition: height 0.5s ease-in;
+    -webkit-transition: height 0.5s ease-in;
+    -o-transition: height 0.5s ease-in;
+    -moz-transition: height 0.5s ease-in;
+    height: 100%;
+  }
 
-    &:not(.opened) {
-        transition: height 0.5s ease-out;
-        -webkit-transition: height 0.5s ease-out;
-        -moz-transition: height 0.5s ease-out;
-        -o-transition: height 0.5s ease-out;
-        height: 0;
-    }
+  &:not(.opened) {
+    transition: height 0.5s ease-out;
+    -webkit-transition: height 0.5s ease-out;
+    -moz-transition: height 0.5s ease-out;
+    -o-transition: height 0.5s ease-out;
+    height: 0;
+  }
 }

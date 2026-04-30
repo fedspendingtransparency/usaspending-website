@@ -83,7 +83,7 @@
       font-size: $font-size-12;
       line-height: 1.5;
       color: $theme-color-body;
-      margin-top: $global-margin * .5;
+      margin-top: $global-margin * 0.5;
 
       &.search-filter__description__bottom-margin {
         margin: ($global-margin * 2) 0 $global-margin 0;
@@ -99,15 +99,29 @@
 
       @media (min-width: $medium-screen) {
         &.right-fade {
-          mask-image: linear-gradient(to left, transparent, rgba(0, 0, 0, 1) 8px);
+          mask-image: linear-gradient(
+            to left,
+            transparent,
+            rgba(0, 0, 0, 1) 8px
+          );
         }
 
         &.left-fade {
-          mask-image: linear-gradient(to right, transparent, rgba(0, 0, 0, 1) 8px);
+          mask-image: linear-gradient(
+            to right,
+            transparent,
+            rgba(0, 0, 0, 1) 8px
+          );
         }
 
         &.right-fade.left-fade {
-          mask-image: linear-gradient(to left, transparent, black 4%, black 96%, transparent 100%);
+          mask-image: linear-gradient(
+            to left,
+            transparent,
+            black 4%,
+            black 96%,
+            transparent 100%
+          );
         }
       }
 

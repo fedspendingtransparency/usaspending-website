@@ -1,47 +1,49 @@
 .mobile-nav-content {
-    ul.mobile-nav-content__list {
-        @include unstyled-list;
+  ul.mobile-nav-content__list {
+    @include unstyled-list;
 
-        li.mobile-nav-content__list-item {
-            text-align: left;
-            margin: rem(0) rem(16) rem(24) rem(16);
-            @media (min-width: $tablet-screen) {
-                margin: rem(0) rem(32) rem(24) rem(32);
-            }
-        }
-
-        a.mobile-nav-content__link {
-            color: $gray-90;
-            font-weight: $font-semibold;
-            font-size: $font-size-16;
-            line-height: 1.25;
-            &:active, &:hover {
-                text-decoration: none;
-                opacity: 1;
-            }
-        }
-
-        button.mobile-nav-content__glossary {
-            @include button-unstyled;
-
-            color: $color-gray;
-            font-size: rem(30);
-            line-height: rem(36);
-            opacity: 0.6;
-
-            &:active, &:hover {
-                opacity: 1;
-            }
-        }
-
-        hr.mobile-nav-content__divider {
-            border: none;
-            border-bottom: 2px solid $gray-cool-10;
-            width: auto;
-            margin: rem(0) rem(16) rem(24) rem(16);
-            @media (min-width: $tablet-screen) {
-                margin: rem(0) rem(32) rem(24) rem(32);
-            }
-        }
+    li.mobile-nav-content__list-item {
+      text-align: left;
+      margin: rem(0) rem(16) rem(24) rem(16);
+      @media (min-width: $tablet-screen) {
+        margin: rem(0) rem(32) rem(24) rem(32);
+      }
     }
+
+    a.mobile-nav-content__link {
+      color: $gray-90;
+      font-weight: $font-semibold;
+      font-size: $font-size-16;
+      line-height: 1.25;
+      &:active,
+      &:hover {
+        text-decoration: none;
+        opacity: 1;
+      }
+    }
+
+    button.mobile-nav-content__glossary {
+      @include button-unstyled;
+
+      color: $color-gray;
+      font-size: rem(30);
+      line-height: rem(36);
+      opacity: 0.6;
+
+      &:active,
+      &:hover {
+        opacity: 1;
+      }
+    }
+
+    hr.mobile-nav-content__divider {
+      border: none;
+      border-bottom: 2px solid $gray-cool-10;
+      width: auto;
+      margin: rem(0) rem(16) rem(24) rem(16);
+      @media (min-width: $tablet-screen) {
+        margin: rem(0) rem(32) rem(24) rem(32);
+      }
+    }
+  }
 }

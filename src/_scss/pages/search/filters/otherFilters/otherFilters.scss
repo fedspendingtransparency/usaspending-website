@@ -1,32 +1,32 @@
 .cfda-filter {
-    @import "elements/filters/_errorMessage";
-    @import "elements/filters/_typeahead";
-    @import "elements/filters/_selectedFilterBtn";
-    @import './pages/award/_moreButton';
-    @import "components/search/_autocompleteCheckbox";
+  @import "elements/filters/_errorMessage";
+  @import "elements/filters/_typeahead";
+  @import "elements/filters/_selectedFilterBtn";
+  @import "./pages/award/_moreButton";
+  @import "components/search/_autocompleteCheckbox";
 
-    .shown {
-        min-height: rem(18);
-    }
-    .visually-hidden {
-        display: none;
-    }
+  .shown {
+    min-height: rem(18);
+  }
+  .visually-hidden {
+    display: none;
+  }
 
-    .filter-item-wrap {
-        padding-left: 0 !important;
-    }
+  .filter-item-wrap {
+    padding-left: 0 !important;
+  }
 
-    .selected-filters {
-        margin-top: rem(20);
-    }
+  .selected-filters {
+    margin-top: rem(20);
+  }
 
-    .usa-da-typeahead__input .autocomplete-md {
-        @import "dtui-overrides";
+  .usa-da-typeahead__input .autocomplete-md {
+    @import "dtui-overrides";
 
-        @include new-search-button;
-    }
+    @include new-search-button;
+  }
 }
 
 .award-type-filter .filter-submit-hint {
-    padding: 0 rem(20);
+  padding: 0 rem(20);
 }
