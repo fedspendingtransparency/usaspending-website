@@ -33,7 +33,8 @@ const BannerPageHeader = ({
     overrideBoxTwoColor,
     className
 }) => {
-    const { isMedium } = useContext(IsMobileContext);
+    const { isTablet } = useContext(IsMobileContext);
+
     // if no override, default to primary color
     const bannerColor = overrideBackgroundColor || primaryColor;
     const iconColor = overrideIconColor || primaryColor;
@@ -48,7 +49,7 @@ const BannerPageHeader = ({
             className={`banner-page-header${className ? ` ${className}` : ''}`}
             style={{ backgroundColor: bannerColor }}>
             <FlexGridRow className="banner-page-header__row">
-                { !isMedium &&
+                { !isTablet &&
                     <FlexGridCol width="auto" className="icon-column">
                         <div className="accent-box-one" style={{ backgroundColor: boxOneColor }} />
                         <div className="accent-box-two" style={{ backgroundColor: boxTwoColor }} />
@@ -59,7 +60,7 @@ const BannerPageHeader = ({
                 }
                 <FlexGridCol width="fill" className="text-column">
                     <div className="text-container">
-                        { isMedium &&
+                        { isTablet &&
                             <div className="icon-container__mobile">
                                 <FontAwesomeIcon icon={faIcon} color={iconColor} />
                             </div>

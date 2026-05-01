@@ -54,7 +54,7 @@
         font-weight: $font-semibold;
         line-height: 1.5;
 
-        @media (max-width: $tablet-screen) {
+        @media (max-width: $tablet-screen - 1) {
           margin-left: rem(20);
         }
 
