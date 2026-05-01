@@ -94,6 +94,13 @@
         .text__body {
           font-size: $lead-font-size;
           font-weight: normal;
+          overflow: visible;
+          max-height: rem(68);
+
+          @media (max-width: $tablet-screen - 1) {
+            overflow: unset;
+            max-height: none;
+          }
         }
       }
     }
