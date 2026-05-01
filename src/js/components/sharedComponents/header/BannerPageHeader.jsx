@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import IsMobileContext from "context/IsMobileContext";
 
 const propTypes = {
     kicker: PropTypes.string,
@@ -32,6 +33,7 @@ const BannerPageHeader = ({
     overrideBoxTwoColor,
     className
 }) => {
+    const { isMedium } = useContext(IsMobileContext);
     // if no override, default to primary color
     const bannerColor = overrideBackgroundColor || primaryColor;
     const iconColor = overrideIconColor || primaryColor;
@@ -46,15 +48,22 @@ const BannerPageHeader = ({
             className={`banner-page-header${className ? ` ${className}` : ''}`}
             style={{ backgroundColor: bannerColor }}>
             <FlexGridRow className="banner-page-header__row">
-                <FlexGridCol width="auto" className="icon-column">
-                    <div className="accent-box-one" style={{ backgroundColor: boxOneColor }} />
-                    <div className="accent-box-two" style={{ backgroundColor: boxTwoColor }} />
-                    <div className="icon-container">
-                        <FontAwesomeIcon icon={faIcon} color={iconColor} />
-                    </div>
-                </FlexGridCol>
+                { !isMedium &&
+                    <FlexGridCol width="auto" className="icon-column">
+                        <div className="accent-box-one" style={{ backgroundColor: boxOneColor }} />
+                        <div className="accent-box-two" style={{ backgroundColor: boxTwoColor }} />
+                        <div className="icon-container">
+                            <FontAwesomeIcon icon={faIcon} color={iconColor} />
+                        </div>
+                    </FlexGridCol>
+                }
                 <FlexGridCol width="fill" className="text-column">
                     <div className="text-container">
+                        { isMedium &&
+                            <div className="icon-container__mobile">
+                                <FontAwesomeIcon icon={faIcon} color={iconColor} />
+                            </div>
+                        }
                         <div className="text__kicker" style={{ color: kickerColor }}>
                             {kicker}
                         </div>

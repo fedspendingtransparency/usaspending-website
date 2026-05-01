@@ -1,4 +1,10 @@
 .banner-page-header {
+  padding-left: rem(100);
+
+  @media (max-width: $medium-screen) {
+    padding-left: 0;
+  }
+
   .banner-page-header__row {
     max-width: $m-large-screen;
     margin: auto;
@@ -47,6 +53,24 @@
         margin-left: rem(40);
         font-weight: $font-semibold;
         line-height: 1.5;
+
+        @media (max-width: $medium-screen) {
+          margin-left: rem(20);
+        }
+
+        .icon-container__mobile {
+          background-color: $color-white;
+          border-radius: rem(4);
+          width: rem(40);
+          height: rem(40);
+          display: flex;
+          margin-bottom: rem(12);
+
+          svg {
+            font-size: $lead-font-size;
+            margin: auto;
+          }
+        }
 
         .text__kicker {
           background-color: $color-white;
