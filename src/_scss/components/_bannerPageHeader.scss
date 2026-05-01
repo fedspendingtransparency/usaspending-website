@@ -1,7 +1,7 @@
 .banner-page-header {
   padding-left: rem(100);
 
-  @media (max-width: $medium-screen) {
+  @media (max-width: $tablet-screen - 1) {
     padding-left: 0;
   }
 
@@ -54,7 +54,7 @@
         font-weight: $font-semibold;
         line-height: 1.5;
 
-        @media (max-width: $medium-screen) {
+        @media (max-width: $tablet-screen) {
           margin-left: rem(20);
         }
 
