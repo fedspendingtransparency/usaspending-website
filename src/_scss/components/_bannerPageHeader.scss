@@ -1,5 +1,5 @@
 .banner-page-header {
-  padding-left: rem(100);
+  padding-left: rem(40);
 
   @media (max-width: $tablet-screen - 1) {
     padding-left: 0;
@@ -9,6 +9,10 @@
     max-width: $m-large-screen;
     margin: auto;
     padding: rem(55) 0;
+
+    @media (max-width: $tablet-screen - 1) {
+      padding: rem(40) 0;
+    }
 
     .icon-column {
       div[class^="accent-box"] {
@@ -55,7 +59,7 @@
         line-height: 1.5;
 
         @media (max-width: $tablet-screen - 1) {
-          margin-left: rem(20);
+          margin-left: rem(16);
         }
 
         .icon-container__mobile {

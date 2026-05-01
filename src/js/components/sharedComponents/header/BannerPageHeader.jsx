@@ -21,7 +21,7 @@ const propTypes = {
 
 const BannerPageHeader = ({
     kicker = 'KICKER',
-    title = 'This is the Title',
+    title = 'Title',
     body = 'Body: Need short description here',
     faIcon = 'chevron-up',
     primaryColor = 'blue',
