@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { memo, useContext } from "react";
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,7 +19,8 @@ const propTypes = {
     className: PropTypes.string
 };
 
-const BannerPageHeader = ({
+// eslint-disable-next-line prefer-arrow-callback
+const BannerPageHeader = memo(function BannerPageHeader({
     kicker = 'KICKER',
     title = 'Title',
     body = 'Body: Need short description here',
@@ -32,7 +33,7 @@ const BannerPageHeader = ({
     overrideBoxOneColor,
     overrideBoxTwoColor,
     className
-}) => {
+}) {
     const { isTablet } = useContext(IsMobileContext);
 
     // if no override, default to primary color
@@ -75,7 +76,7 @@ const BannerPageHeader = ({
             </FlexGridRow>
         </section>
     );
-};
+});
 
 BannerPageHeader.propTypes = propTypes;
 export default BannerPageHeader;
