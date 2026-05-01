@@ -20,12 +20,12 @@ const propTypes = {
 };
 
 const BannerPageHeader = ({
-    kicker = 'PROFILES',
-    title = 'Federal Response to COVID-19',
-    body = 'Need short description here',
-    faIcon = "virus-covid",
-    primaryColor = '#39215E',
-    secondaryColor = '#783CB9',
+    kicker = 'KICKER',
+    title = 'This is the Title',
+    body = 'Body: Need short description here',
+    faIcon = 'chevron-up',
+    primaryColor = 'blue',
+    secondaryColor = 'cornflowerblue',
     overrideBackgroundColor,
     overrideIconColor,
     overrideKickerColor,
