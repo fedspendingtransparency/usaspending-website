@@ -9,9 +9,11 @@ const propTypes = {
     body: PropTypes.string,
     faIcon: PropTypes.string,
     primaryColor: PropTypes.string,
+    secondaryColor: PropTypes.string,
     overrideBackgroundColor: PropTypes.string,
     overrideIconColor: PropTypes.string,
     overrideKickerColor: PropTypes.string,
+    overrideBoxOneColor: PropTypes.string,
     className: PropTypes.string
 };
 
@@ -21,22 +23,30 @@ const BannerPageHeader = ({
     body = 'Need short description here',
     faIcon = "virus-covid",
     primaryColor = '#39215E',
+    secondaryColor = '#783CB9',
     overrideBackgroundColor,
     overrideIconColor,
     overrideKickerColor,
+    overrideBoxOneColor,
     className
 }) => {
     // if no override, default to primary color
-    const backgroundColor = overrideBackgroundColor || primaryColor;
+    const bannerColor = overrideBackgroundColor || primaryColor;
     const iconColor = overrideIconColor || primaryColor;
     const kickerColor = overrideKickerColor || primaryColor;
+
+    const boxOneColor = overrideBoxOneColor || secondaryColor;
+
+    // TODO: consider inverting the hierarchy.
+    //  Maybe the icon container should be a child of the accent?
 
     return (
         <section
             className={`banner-page-header${className ? ` ${className}` : ''}`}
-            style={{ backgroundColor }}>
+            style={{ backgroundColor: bannerColor }}>
             <FlexGridRow className="banner-page-header__row">
                 <FlexGridCol width="auto" className="icon-column">
+                    <div className="accent-box-one" style={{ backgroundColor: boxOneColor }} />
                     <div className="icon-container">
                         <FontAwesomeIcon icon={faIcon} color={iconColor} />
                     </div>

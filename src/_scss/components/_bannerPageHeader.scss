@@ -4,16 +4,29 @@
     margin: auto;
     padding: rem(55) 0;
 
-    .icon-column .icon-container {
-      background-color: $color-white;
-      border-radius: rem(20);
-      width: rem(140);
-      height: rem(140);
-      display: flex;
+    .icon-column {
+      .accent-box-one {
+        height: rem(108);
+        width: rem(147);
+        position: absolute;
+        border-radius: 0 0 rem(20) rem(20);
+        top: rem(-55);
+        left: rem(-70);
+      }
 
-      svg {
-        font-size: rem(60);
-        margin: auto;
+      .icon-container {
+        background-color: $color-white;
+        border-radius: rem(20);
+        width: rem(140);
+        height: rem(140);
+        display: flex;
+        position: relative;
+        z-index: 1;
+
+        svg {
+          font-size: rem(60);
+          margin: auto;
+        }
       }
     }
 
