@@ -5,6 +5,12 @@
 
   $color-gray-border: $color-gray-lighter;
 
+  @media (max-width: $medium-screen) {
+    .usda-in-page-nav__container {
+      top: 121px;
+    }
+  }
+  
   .main-content {
     @import "../../mixins/fullSectionWrap";
     @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
