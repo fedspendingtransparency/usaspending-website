@@ -7,7 +7,10 @@ const propTypes = {
     kicker: PropTypes.string,
     title: PropTypes.string,
     body: PropTypes.string,
-    backgroundColor: PropTypes.string,
+    primaryColor: PropTypes.string,
+    overrideBackgroundColor: PropTypes.string,
+    overrideIconColor: PropTypes.string,
+    overrideKickerColor: PropTypes.string,
     className: PropTypes.string
 };
 
@@ -15,10 +18,16 @@ const BannerPageHeader = ({
     kicker = 'PROFILES',
     title = 'Federal Response to COVID-19',
     body = 'Need short description here',
-    backgroundColor = '#39215E',
+    primaryColor = '#39215E',
+    overrideBackgroundColor,
+    overrideIconColor,
+    overrideKickerColor,
     className
 }) => {
-    let stuff;
+    // if no override, default to primary color
+    const backgroundColor = overrideBackgroundColor || primaryColor;
+    const iconColor = overrideIconColor || primaryColor;
+    const kickerColor = overrideKickerColor || primaryColor;
 
     return (
         <section
@@ -27,12 +36,12 @@ const BannerPageHeader = ({
             <FlexGridRow className="banner-page-header__row">
                 <FlexGridCol width="auto" className="icon-column">
                     <div className="icon-container">
-                        <FontAwesomeIcon icon="chevron-left" color={backgroundColor} />
+                        <FontAwesomeIcon icon="chevron-left" color={iconColor} />
                     </div>
                 </FlexGridCol>
                 <FlexGridCol width="fill" className="text-column">
                     <div className="text-container">
-                        <div className="text__kicker" style={{ color: backgroundColor }}>
+                        <div className="text__kicker" style={{ color: kickerColor }}>
                             {kicker}
                         </div>
                         <div className="text__title">{title}</div>
