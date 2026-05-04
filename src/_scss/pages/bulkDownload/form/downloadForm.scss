@@ -127,6 +127,34 @@
         }
       }
 
+      &.file-type {
+        display: flex;
+        padding: 0;
+
+        .radio {
+          padding: 0;
+          margin: 0 ($global-margin * 3) 0 0;
+
+          label {
+            display: flex;
+            font-size: $base-font-size;
+            line-height: 1.5;
+            color: $gray-90;
+
+            input {
+              margin: 0 $global-margin 0 0;
+              height: rem(24);
+              min-width: rem(24);
+
+              &:before {
+                height: rem(18);
+                width: rem(18);
+              }
+            }
+          }
+        }
+      }
+
       input[type="checkbox"] {
         @include usa-input-checkbox;
       }

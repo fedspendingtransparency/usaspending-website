@@ -40,17 +40,17 @@ const FileFormatFilter = memo(function FileFormatFilter({ updateFilter }) {
         <div
             className="radio"
             key={fileFormat.name}>
-            <input
-                type="radio"
-                aria-label={fileFormat.name}
-                value={fileFormat.name}
-                name="fileFormat"
-                checked={currentFileFormat === fileFormat.name}
-                onChange={onChange}
-                disabled={fileFormat.disabled} />
             <label
                 className={`radio-label ${fileFormat.disabled ? 'disabled' : ''}`}
                 htmlFor="fileFormat">
+                <input
+                    type="radio"
+                    aria-label={fileFormat.name}
+                    value={fileFormat.name}
+                    name="fileFormat"
+                    checked={currentFileFormat === fileFormat.name}
+                    onChange={onChange}
+                    disabled={fileFormat.disabled} />
                 {fileFormat.label}
             </label>
         </div>
@@ -61,7 +61,7 @@ const FileFormatFilter = memo(function FileFormatFilter({ updateFilter }) {
             <h3 className="download-filter__title">
                 {icon} Select a <span className="download-filter__title_em">file format</span>.
             </h3>
-            <div className="download-filter__content">
+            <div className="download-filter__content file-type">
                 {fileFormats}
             </div>
         </div>
