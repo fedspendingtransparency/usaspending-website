@@ -343,79 +343,43 @@
           }
 
           .award-question__container {
-            @include display(flex);
-            flex-wrap: wrap;
-            text-align: left;
-            width: 100%;
-
-            .information-top {
-              height: 0.5rem;
-              width: 100%;
-              border-radius: 0;
+            display: flex;
+            max-width: rem(1399);
+            padding: rem(40);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-height: rem(324);
+            gap: rem(10);
+            border-radius: rem(8);
+            background: $gray-2;
+            
+            @media (min-width: $m-large-screen) {
+              padding: rem(118) rem(356) rem(119);
             }
-
-            .information-top-arp {
-              height: 0.5rem;
-              width: 100%;
-              border-radius: 0;
-            }
-
-            .glossary-term {
-              font-weight: $font-semibold;
-            }
-
+            
             .award-question__title {
-              margin: 0;
-              font-size: 3.6rem;
               font-weight: $font-semibold;
-              letter-spacing: 0;
-              line-height: 4.5rem;
+              line-height: $heading-line-height;
+              align-self: stretch;
               text-align: left;
-              padding-left: 7rem;
-              padding-right: 5rem;
-              padding-top: 5rem;
-              padding-bottom: 2rem;
-
-              @media (max-width: $tablet-screen) {
-                padding-left: 6rem;
-              }
-
-              @media (min-width: $large-screen) {
-                margin: auto;
-                width: 50%;
-              }
-
-              width: 100%;
+              color: $headline-color;
+              margin: 0;
+              padding: 0;
             }
-
+            
             .award-question__sub-section {
-              font-size: 1.4rem;
-              letter-spacing: 0;
-              line-height: 2.2rem;
+              font-size: $base-font-size;
+              line-height: $base-line-height;
               text-align: left;
-              width: 100%;
-
-              .award-question__sub-section_paragraph:first-of-type {
-                margin-top: 1.6rem;
-                padding-left: 7rem;
-                padding-bottom: 5rem;
-                padding-right: 5rem;
-
-                @media (max-width: $tablet-screen) {
-                  padding-left: 6rem;
-                }
-
-                @media (min-width: $large-screen) {
-                  margin: auto;
-                  width: 50%;
-                }
+              align-self: stretch;
+              color: $body-color;
+              
+              .glossary-term {
+                font-weight: $font-semibold;
               }
-
-              .award-question__sub-section_paragraph {
-                @media (min-width: $large-screen) {
-                  margin: auto;
-                  width: 50%;
-                }
+              p {
+                margin: 0;
               }
             }
           }
