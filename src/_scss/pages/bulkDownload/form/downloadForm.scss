@@ -73,11 +73,58 @@
         padding-left: rem(30);
         width: 96%;
       }
+
       .radio {
         input[type="radio"] {
           @include usa-input-radio;
         }
       }
+
+      &.date-type {
+        display: flex;
+        padding: 0;
+
+        .radio {
+          padding: 0;
+
+          &:first-of-type {
+            // 3 of 8 columns available to the form
+            min-width: 37.5%;
+          }
+
+          &:last-of-type {
+            width: stretch;
+          }
+
+          label {
+            display: flex;
+            font-size: $base-font-size;
+            font-weight: $font-semibold;
+            line-height: 1.5;
+            color: $gray-90;
+
+            input {
+              margin: 0 $global-margin 0 0;
+              height: rem(24);
+              min-width: rem(24);
+
+              &:before {
+                height: rem(18);
+                width: rem(18);
+              }
+            }
+
+            .radio-description {
+              font-size: $base-font-size;
+              font-weight: normal;
+              color: $gray-60;
+              font-style: normal;
+              margin: 0;
+            }
+          }
+        }
+      }
+
       input[type="checkbox"] {
         @include usa-input-checkbox;
       }

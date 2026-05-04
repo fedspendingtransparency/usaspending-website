@@ -5,10 +5,10 @@
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from "react-redux";
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
-import { useSelector } from "react-redux";
 
 const propTypes = { updateFilter: PropTypes.func };
 
@@ -41,19 +41,21 @@ const DateTypeFilter = memo(function DateTypeFilter({
         <div
             className="radio"
             key={dateType.name}>
-            <input
-                type="radio"
-                aria-label={dateType.name}
-                value={dateType.name}
-                name="dateType"
-                checked={currentDateType === dateType.name}
-                onChange={onChange} />
             <label className="radio-label" htmlFor="dateType">
-                {dateType.label}
+                <input
+                    type="radio"
+                    aria-label={dateType.name}
+                    value={dateType.name}
+                    name="dateType"
+                    checked={currentDateType === dateType.name}
+                    onChange={onChange} />
+                <div className="text-container">
+                    {dateType.label}
+                    <div className="radio-description">
+                        {dateType.description}
+                    </div>
+                </div>
             </label>
-            <div className="radio-description">
-                {dateType.description}
-            </div>
         </div>
     ));
 
@@ -64,7 +66,7 @@ const DateTypeFilter = memo(function DateTypeFilter({
                 <span className="download-filter__title_em"> date type </span>
                 for the date range below.
             </h3>
-            <div className="download-filter__content">
+            <div className="download-filter__content date-type">
                 {dateTypes}
             </div>
         </div>
