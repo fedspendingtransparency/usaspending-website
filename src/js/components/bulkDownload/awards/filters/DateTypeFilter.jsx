@@ -13,9 +13,7 @@ import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icon
 const propTypes = { updateFilter: PropTypes.func };
 
 // eslint-disable-next-line prefer-arrow-callback
-const DateTypeFilter = memo(function DateTypeFilter({
-    updateFilter
-}) {
+const DateTypeFilter = memo(function DateTypeFilter({ updateFilter }) {
     const currentDateType = useSelector((state) => state.bulkDownload.awards.dateType);
 
     const valid = currentDateType !== '';

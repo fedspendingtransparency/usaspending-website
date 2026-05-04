@@ -4,7 +4,6 @@
  */
 
 import React, { memo } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
@@ -19,11 +18,6 @@ const awardTypeLabels = Object.assign(
     ...Object.entries(awardDownloadOptions.awardTypeLookups)
         .map(([key, value]) => ({ [key]: value.label }))
 );
-
-const propTypes = {
-    bulkAwardTypeChange: PropTypes.func,
-    toggleAwardTypeChange: PropTypes.func
-};
 
 // eslint-disable-next-line prefer-arrow-callback
 const AwardLevelAndTypeFilter = memo(function AwardLevelAndTypeFilter() {
@@ -92,5 +86,4 @@ const AwardLevelAndTypeFilter = memo(function AwardLevelAndTypeFilter() {
     );
 });
 
-AwardLevelAndTypeFilter.propTypes = propTypes;
 export default AwardLevelAndTypeFilter;

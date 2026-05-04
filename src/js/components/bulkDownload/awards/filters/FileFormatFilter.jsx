@@ -3,76 +3,70 @@
  * Created by Lizzie Salita 11/3/17
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-
+import { useSelector } from "react-redux";
+import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
-const propTypes = {
-    fileFormats: PropTypes.array,
-    currentFileFormat: PropTypes.string,
-    updateFilter: PropTypes.func,
-    valid: PropTypes.bool
-};
+const propTypes = { updateFilter: PropTypes.func };
 
-export default class FileFormatFilter extends React.Component {
-    constructor(props) {
-        super(props);
+// eslint-disable-next-line prefer-arrow-callback
+const FileFormatFilter = memo(function FileFormatFilter({ updateFilter }) {
+    const currentFileFormat = useSelector((state) => state.bulkDownload.awards.fileFormat);
 
-        this.onChange = this.onChange.bind(this);
-    }
+    const valid = currentFileFormat !== '';
 
-    onChange(e) {
+    const onChange = (e) => {
         const target = e.target;
-        this.props.updateFilter('fileFormat', target.value);
-    }
+        updateFilter('fileFormat', target.value);
+    };
 
-    render() {
-        let icon = (
-            <div className="icon valid">
-                <CheckCircle />
-            </div>
-        );
+    let icon = (
+        <div className="icon valid">
+            <CheckCircle />
+        </div>
+    );
 
-        if (!this.props.valid) {
-            icon = (
-                <div className="icon invalid">
-                    <ExclamationCircle />
-                </div>
-            );
-        }
-
-        const fileFormats = this.props.fileFormats.map((fileFormat) => (
-            <div
-                className="radio"
-                key={fileFormat.name}>
-                <input
-                    type="radio"
-                    aria-label={fileFormat.name}
-                    value={fileFormat.name}
-                    name="fileFormat"
-                    checked={this.props.currentFileFormat === fileFormat.name}
-                    onChange={this.onChange}
-                    disabled={fileFormat.disabled} />
-                <label
-                    className={`radio-label ${fileFormat.disabled ? 'disabled' : ''}`}
-                    htmlFor="fileFormat">
-                    {fileFormat.label}
-                </label>
-            </div>
-        ));
-
-        return (
-            <div className="download-filter">
-                <h3 className="download-filter__title">
-                    {icon} Select a <span className="download-filter__title_em">file format</span>.
-                </h3>
-                <div className="download-filter__content">
-                    {fileFormats}
-                </div>
+    if (!valid) {
+        icon = (
+            <div className="icon invalid">
+                <ExclamationCircle />
             </div>
         );
     }
-}
+
+    const fileFormats = awardDownloadOptions.fileFormats.map((fileFormat) => (
+        <div
+            className="radio"
+            key={fileFormat.name}>
+            <input
+                type="radio"
+                aria-label={fileFormat.name}
+                value={fileFormat.name}
+                name="fileFormat"
+                checked={currentFileFormat === fileFormat.name}
+                onChange={onChange}
+                disabled={fileFormat.disabled} />
+            <label
+                className={`radio-label ${fileFormat.disabled ? 'disabled' : ''}`}
+                htmlFor="fileFormat">
+                {fileFormat.label}
+            </label>
+        </div>
+    ));
+
+    return (
+        <div className="download-filter">
+            <h3 className="download-filter__title">
+                {icon} Select a <span className="download-filter__title_em">file format</span>.
+            </h3>
+            <div className="download-filter__content">
+                {fileFormats}
+            </div>
+        </div>
+    );
+});
 
 FileFormatFilter.propTypes = propTypes;
+export default FileFormatFilter;

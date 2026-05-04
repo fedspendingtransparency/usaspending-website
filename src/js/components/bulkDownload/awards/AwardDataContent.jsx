@@ -134,11 +134,7 @@ const AwardDataContent = ({
                         setValidDates={setValidDates}
                         filterTimePeriodStart={awards.dateRange.startDate}
                         filterTimePeriodEnd={awards.dateRange.endDate} />
-                    <FileFormatFilter
-                        fileFormats={awardDownloadOptions.fileFormats}
-                        currentFileFormat={awards.fileFormat}
-                        updateFilter={updateFilter}
-                        valid={awards.fileFormat !== ''} />
+                    <FileFormatFilter updateFilter={updateFilter} />
                     { isTablet && <AwardsUserSelections />}
                     <SubmitButton
                         filters={awards}
