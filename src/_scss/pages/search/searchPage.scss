@@ -18,6 +18,12 @@
   @import "filters";
   @import "collapsibleSidebar";
 
+  #main-content {
+    @media(min-width: $medium-screen) {
+      padding-left: 0 !important;
+    }
+  }
+
   div.filter-award-toggle__container {
     display: flex;
     height: rem(21);
