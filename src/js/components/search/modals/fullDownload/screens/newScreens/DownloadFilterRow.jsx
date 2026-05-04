@@ -18,19 +18,26 @@ const DownloadFilterRow = ({
     filter
 }) => {
     // depending on API structure/Redux state we should be able pull from Redux
-    const [limit, setLimit] = useState(300);
+    const [limit, setLimit] = useState(115);
+    let formatted = null;
     const tdRef = useRef(null);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+    const handleResize = () => {
+        const newWidth = window.innerWidth;
 
+        if (windowWidth !== newWidth) {
+            setWindowWidth(newWidth);
+        }
+    };
     useEffect(() => {
+        handleResize();
         const checkOverflow = () => {
             const td = tdRef.current;
             if (td) {
                 // account for 32px of padding
                 const clientWidth = td.clientWidth - 32;
-                const strWidth = filter.values.length;
-                // approximate character length to px conversion
-                const maxWidth = Math.floor(clientWidth / 9);
-
+                const strWidth = formatted.length;
+                const maxWidth = Math.floor(clientWidth / 7.5);
                 if (strWidth > maxWidth) {
                     setLimit(maxWidth);
                 }
@@ -40,13 +47,11 @@ const DownloadFilterRow = ({
         checkOverflow();
         window.addEventListener('resize', checkOverflow);
         return () => window.removeEventListener('resize', checkOverflow);
-    }, [filter]);
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filter, windowWidth, formatted]);
 
     // every filter value/name has a completely different format ( array of strings, array of objects, object, object of arrays), these have to be formatted before they
     // are passed into ReadMore because if you don't format it there is no comma separation
-    let formatted = null;
-
     if (filter.name === 'Place of Performance' || filter.name === 'Recipient Location') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
