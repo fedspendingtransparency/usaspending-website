@@ -126,11 +126,7 @@ const AwardDataContent = ({
                         currentLocation={awards.location}
                         updateFilter={updateFilter}
                         currentLocationType={awards.locationType} />
-                    <DateTypeFilter
-                        dateTypes={awardDownloadOptions.dateTypes}
-                        currentDateType={awards.dateType}
-                        updateFilter={updateFilter}
-                        valid={awards.dateType !== ''} />
+                    <DateTypeFilter updateFilter={updateFilter} />
                     <TimePeriodFilter
                         updateStartDate={updateStartDate}
                         updateEndDate={updateEndDate}
