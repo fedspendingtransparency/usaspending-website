@@ -31,9 +31,7 @@ const propTypes = {
     subAgencies: PropTypes.array,
     setSubAgencyList: PropTypes.func,
     states: PropTypes.array,
-    clickedDownload: PropTypes.func,
-    bulkAwardTypeChange: PropTypes.func,
-    toggleAwardTypeChange: PropTypes.func
+    clickedDownload: PropTypes.func
 };
 
 const AwardDataContent = ({
@@ -46,9 +44,7 @@ const AwardDataContent = ({
     subAgencies,
     setSubAgencyList,
     states,
-    clickedDownload,
-    bulkAwardTypeChange,
-    toggleAwardTypeChange
+    clickedDownload
 }) => {
     const { isTablet } = useContext(IsMobileContext);
     const [validDates, setValidDates] = useState(false);
@@ -114,9 +110,7 @@ const AwardDataContent = ({
                 <form
                     className="download-center-form"
                     onSubmit={handleSubmit}>
-                    <AwardLevelAndTypeFilter
-                        bulkAwardTypeChange={bulkAwardTypeChange}
-                        toggleAwardTypeChange={toggleAwardTypeChange} />
+                    <AwardLevelAndTypeFilter />
                     <AgencyFilter
                         currentAgencyType={awards.agencyType}
                         agencyTypes={awardDownloadOptions.agencyTypes}

@@ -5,9 +5,13 @@
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
-import { useSelector } from "react-redux";
-import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
+import { useDispatch, useSelector } from "react-redux";
+
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import {
+    bulkAwardTypeChange, toggleAwardTypeChange
+} from "redux/actions/bulkDownload/bulkDownloadActions";
+import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const awardTypeLabels = Object.assign(
@@ -22,11 +26,12 @@ const propTypes = {
 };
 
 // eslint-disable-next-line prefer-arrow-callback
-const AwardLevelAndTypeFilter = memo(function AwardLevelAndTypeFilter({
-    bulkAwardTypeChange,
-    toggleAwardTypeChange
-}) {
+const AwardLevelAndTypeFilter = memo(function AwardLevelAndTypeFilter() {
     const currentAwardTypes = useSelector((state) => state.bulkDownload.awards.awardTypes);
+    const dispatch = useDispatch();
+
+    const bulkTypeChange = (selection) => dispatch(bulkAwardTypeChange(selection));
+    const toggleCheckboxType = (selection) => dispatch(toggleAwardTypeChange(selection));
 
     const isValid = (
         currentAwardTypes.primeAwards.size > 0 ||
@@ -64,8 +69,8 @@ const AwardLevelAndTypeFilter = memo(function AwardLevelAndTypeFilter({
                     arrowState="expanded"
                     selectedCheckboxes={selectedAwardTypes}
                     isCollapsable={false}
-                    bulkTypeChange={bulkAwardTypeChange}
-                    toggleCheckboxType={toggleAwardTypeChange}
+                    bulkTypeChange={bulkTypeChange}
+                    toggleCheckboxType={toggleCheckboxType}
                     key={`award-type__${id}`} />
             );
         });
