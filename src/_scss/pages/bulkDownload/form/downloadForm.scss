@@ -167,11 +167,22 @@
 
     .download-filter__unordered-list {
       list-style-type: none;
-      margin-top: 0;
       color: $gray-90;
+      display: flex;
+      margin: 0;
+      padding: 0;
 
       li {
         list-style-type: none;
+
+        &:first-of-type {
+          // 3 of 8 columns available to the form
+          min-width: 37.5%;
+        }
+
+        &:last-of-type {
+          width: stretch;
+        }
       }
 
       input {
