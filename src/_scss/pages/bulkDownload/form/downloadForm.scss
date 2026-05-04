@@ -164,17 +164,25 @@
         margin-right: rem(5);
       }
     }
+
     .download-filter__unordered-list {
       list-style-type: none;
       margin-top: 0;
+      color: $gray-90;
+
       li {
         list-style-type: none;
       }
+
       input {
-        margin-right: rem(5);
+        margin-right: $global-margin;
       }
+
       input[type="checkbox"] {
         @include usa-input-checkbox;
+
+        border: rem(2) solid $gray-70;
+        border-radius: rem(4);
       }
     }
     @import "agencyPicker";
