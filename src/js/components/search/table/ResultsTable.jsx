@@ -179,8 +179,7 @@ const ResultsTable = (props) => {
         <>
             <div
                 className="advanced-search__table-wrapper"
-                id="advanced-search__table-wrapper"
-                style={props.resultsCount >= props.resultsLimit ? { height: '638px' } : {}}>
+                id="advanced-search__table-wrapper">
                 <Table
                     classNames="table-for-new-search-page award-results-table-dtui"
                     stickyFirstColumn={!props.isMobile}
