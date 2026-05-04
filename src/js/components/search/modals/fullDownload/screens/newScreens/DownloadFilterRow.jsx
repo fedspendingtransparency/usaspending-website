@@ -52,8 +52,9 @@ const DownloadFilterRow = ({
             if (i + 1 === row.length) {
                 return `${filterTemp.display.entity}:  ${filterTemp.display.title}`;
             }
-            return `${filterTemp.display.entity}:  ${filterTemp.display.title}, `;
+            return `${filterTemp.display.entity}:  ${filterTemp.display.title},`;
         });
+        formatted = formatted.join(" ");
     }
     else if (filter.name === 'Disaster Emergency Fund Code (DEFC)') {
         formatted = filter.values.map((filterTemp, i, row) => {
@@ -61,8 +62,9 @@ const DownloadFilterRow = ({
                 return `${defCodes[filterTemp].title}`;
             }
 
-            return `${defCodes[filterTemp].title}, `;
+            return `${defCodes[filterTemp].title},`;
         });
+        formatted = formatted.join(" ");
     }
     else if (filter.name === 'Award Type') {
         formatted = filter.values.map((filterTemp, i, row) => {
@@ -70,16 +72,18 @@ const DownloadFilterRow = ({
                 return `${awardTypeCodes[filterTemp]}`;
             }
 
-            return `${awardTypeCodes[filterTemp]}, `;
+            return `${awardTypeCodes[filterTemp]},`;
         });
+        formatted = formatted.join(" ");
     }
     else if (filter.name === 'Awarding Agency' || filter.name === 'Funding Agency') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
-                return `${filterTemp.toptier_agency.name} `;
+                return `${filterTemp.toptier_agency.name}`;
             }
-            return `${filterTemp.toptier_agency.name}, `;
+            return `${filterTemp.toptier_agency.name},`;
         });
+        formatted = formatted.join(" ");
     }
     else if (filter.name === 'Award Amounts') {
         formatted = Object.entries(filter.values).map((filterTemp, i, row) => {
@@ -95,38 +99,42 @@ const DownloadFilterRow = ({
             }
 
             if (filterTemp[1][0] === null) {
-                return `${filterTemp[1][1]} and below, `;
+                return `${filterTemp[1][1]} and below,`;
             }
             else if (filterTemp[1][1] === null) {
-                return `${filterTemp[1][0]} and above, `;
+                return `${filterTemp[1][0]} and above,`;
             }
 
-            return `${filterTemp[1][0]} - ${filterTemp[1][1]}, `;
+            return `${filterTemp[1][0]} - ${filterTemp[1][1]},`;
         });
+        formatted = formatted.join(" ");
     }
     else if (filter.name === 'NAICS') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
                 return `${filterTemp.identifier} - ${filterTemp.naics_description} `;
             }
-            return `${filterTemp.identifier} - ${filterTemp.naics_description}, `;
+            return `${filterTemp.identifier} - ${filterTemp.naics_description},`;
         });
+        formatted = formatted.join(" ");
     }
     else if (filter.name === 'Treasury Account') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
                 return `${filterTemp.tas_description} `;
             }
-            return `${filterTemp.tas_description}, `;
+            return `${filterTemp.tas_description},`;
         });
+        formatted = formatted.join(" ");
     }
     else if (filter.name === 'PSC') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
                 return `${filterTemp.psc_description} `;
             }
-            return `${filterTemp.psc_description}, `;
+            return `${filterTemp.psc_description},`;
         });
+        formatted = formatted.join(" ");
     }
     else if (filter.name === 'Type of Contract Pricing') {
         formatted = Object.values(filter.values).map((filterTemp, i, row) => {
@@ -134,8 +142,9 @@ const DownloadFilterRow = ({
                 return `${pricingTypeDefinitions[filterTemp]}`;
             }
 
-            return `${pricingTypeDefinitions[filterTemp]}, `;
+            return `${pricingTypeDefinitions[filterTemp]},`;
         });
+        formatted = formatted.join(" ");
     }
     else if (filter.name === 'Type of Set Aside') {
         formatted = Object.values(filter.values).map((filterTemp, i, row) => {
@@ -143,8 +152,9 @@ const DownloadFilterRow = ({
                 return `${setAsideDefinitions[filterTemp]}`;
             }
 
-            return `${setAsideDefinitions[filterTemp]}, `;
+            return `${setAsideDefinitions[filterTemp]},`;
         });
+        formatted = formatted.join(" ");
     }
     else if (filter.name === 'Extent Competed') {
         formatted = Object.values(filter.values).map((filterTemp, i, row) => {
@@ -152,21 +162,22 @@ const DownloadFilterRow = ({
                 return `${extentCompetedDefinitions[filterTemp]}`;
             }
 
-            return `${extentCompetedDefinitions[filterTemp]}, `;
+            return `${extentCompetedDefinitions[filterTemp]},`;
         });
+        formatted = formatted.join(" ");
     }
     else if (filter.name === 'Assistance Listing') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
                 return `${filterTemp.identifier}|${filterTemp.program_title}`;
             }
-            return `${filterTemp.identifier}|${filterTemp.program_title}, `;
+            return `${filterTemp.identifier}|${filterTemp.program_title},`;
         });
+        formatted = formatted.join(" ");
     }
     else {
         formatted = filter.values.join(", ");
     }
-
     return (
         <tr>
             <th>{filter.name}:</th>
