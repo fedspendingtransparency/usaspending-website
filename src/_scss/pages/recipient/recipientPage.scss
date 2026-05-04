@@ -30,6 +30,12 @@
     width: 100%;
   }
 
+  @media (max-width: $medium-screen) {
+    .usda-in-page-nav__container {
+      top: 121px;
+    }
+  }
+
   .topfive .topfive__content .category-table .category-table__title {
     height: unset;
   }
