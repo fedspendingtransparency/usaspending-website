@@ -90,13 +90,6 @@ const AwardDataContent = ({
         agency: awards.agency,
         subAgency: awards.subAgency
     };
-
-    const awardTypeLabels = Object.assign(
-        {},
-        ...Object.entries(awardDownloadOptions.awardTypeLookups)
-            .map(([key, value]) => ({ [key]: value.label }))
-    );
-
     return (
         <div className="download-center">
             <div className="download-center__filters">
@@ -122,9 +115,6 @@ const AwardDataContent = ({
                     className="download-center-form"
                     onSubmit={handleSubmit}>
                     <AwardLevelAndTypeFilter
-                        awardLevels={awardDownloadOptions.awardLevels}
-                        awardTypeLabels={awardTypeLabels}
-                        currentAwardTypes={awards.awardTypes}
                         bulkAwardTypeChange={bulkAwardTypeChange}
                         toggleAwardTypeChange={toggleAwardTypeChange} />
                     <AgencyFilter
