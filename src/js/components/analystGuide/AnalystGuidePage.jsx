@@ -88,7 +88,7 @@ const AnalystGuidePage = () => {
                             </div>
                         </div>
                         <AnalystGuideIntro onExternalLinkClick={onExternalLinkClick} />
-                        <AnalystGuideQuestions onExternalLinkClick={onExternalLinkClick} />
+                        <AnalystGuideQuestions />
                     </FlexGridCol>
                 </FlexGridRow>
             </main>
