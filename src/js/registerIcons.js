@@ -99,7 +99,8 @@ import {
     faCodeBranch,
     faLongArrowAltUp,
     faLongArrowAltDown,
-    faCircleQuestion
+    faCircleQuestion,
+    faVirusCovid
 } from "@fortawesome/pro-solid-svg-icons";
 
 export default function registerIcons() {
@@ -203,6 +204,7 @@ export default function registerIcons() {
         faGithub,
         faArrowDown,
         faXmark,
-        faCircleQuestion
+        faCircleQuestion,
+        faVirusCovid
     );
 }

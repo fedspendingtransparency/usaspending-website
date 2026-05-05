@@ -6,7 +6,7 @@ import AboutTheDataListenerContainer from 'containers/aboutTheDataSidebar/AboutT
 import useIsMobile from "hooks/useIsMobile";
 import IsMobileContext from "context/IsMobileContext";
 
-const WithUrlListener = (component, props) => {
+const WithUrlListener = (component) => {
     const { search } = useLocation();
     const ListenerContainer = search.includes('about-the-data') ?
         AboutTheDataListenerContainer :
@@ -15,7 +15,7 @@ const WithUrlListener = (component, props) => {
 
     return (
         <IsMobileContext value={isMobileObject}>
-            <ListenerContainer {...props} Child={component} />
+            <ListenerContainer search={search} Child={component} />
         </IsMobileContext>
     );
 };

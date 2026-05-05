@@ -12,10 +12,13 @@ import { showModal } from 'redux/actions/modal/modalActions';
 const propTypes = {
     url: PropTypes.string.isRequired,
     children: PropTypes.oneOfType([PropTypes.element, PropTypes.string, PropTypes.node]),
-    isCard: PropTypes.bool
+    isCard: PropTypes.bool,
+    showIcon: PropTypes.bool
 };
 
-const ExternalLink = ({ url, children, isCard }) => {
+const ExternalLink = ({
+    url, children, isCard, showIcon = false
+}) => {
     const dispatch = useDispatch();
     const redirect = () => {
         dispatch(showModal(url));
@@ -27,14 +30,16 @@ const ExternalLink = ({ url, children, isCard }) => {
             dispatch(showModal(url));
         }
     };
-    return (<>
-        {isCard ?
-            <a className="usda-external-link__card" role="link" onClick={redirect} onKeyPress={keyPressHandler} tabIndex={0}>{children}</a>
-            :
-            <button className="usda-external-link" onClick={redirect}>
-                {children || url} <FontAwesomeIcon icon="external-link-alt" />
-            </button>}
-    </>);
+    if (isCard) {
+        if (showIcon) {
+            return <a className="usda-external-link__card" role="link" onClick={redirect} onKeyPress={keyPressHandler} tabIndex={0}>{children} <FontAwesomeIcon icon="external-link-alt" /></a>;
+        }
+        return <a className="usda-external-link__card" role="link" onClick={redirect} onKeyPress={keyPressHandler} tabIndex={0}>{children}</a>;
+    }
+    return (
+        <button className="usda-external-link" onClick={redirect}>
+            {children || url} <FontAwesomeIcon icon="external-link-alt" />
+        </button>);
 };
 
 ExternalLink.propTypes = propTypes;

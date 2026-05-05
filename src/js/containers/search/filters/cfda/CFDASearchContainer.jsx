@@ -14,6 +14,7 @@ import {
 } from 'redux/actions/search/searchFilterActions';
 import AutocompleteWithCheckboxList from
     'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
+import ShownValue from 'components/search/filters/ShownValue';
 
 
 const CFDASearchContainer = () => {
@@ -209,6 +210,15 @@ const CFDASearchContainer = () => {
                 errorMessage={errorMessage}
                 isLoading={isLoading}
                 limit={1000} />
+
+            <div className="selected-filters" role="status">
+                {Array.from(selectedCFDA).map(([key, value]) => (
+                    <ShownValue
+                        label={`${value.program_number} | ${value.program_title}`}
+                        key={key}
+                        removeValue={() => dispatch(updateSelectedCFDA({ cfda: value }))} />
+                ))}
+            </div>
         </div>
     );
 };
