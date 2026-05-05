@@ -21,7 +21,8 @@
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -c .storybook -o docs",
-    "build-sb-artifacts": "npm run prod && npm run build-storybook"
+    "build-sb-artifacts": "npm run prod && npm run build-storybook",
+    "fixLint": "npx prettier --write \"**/*.{scss,css}\" && eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" --fix" 
   },
   "author": "",
   "engines": {
@@ -124,8 +125,8 @@
     "webpack-merge": "^6.0.1"
   },
   "resolutions": {
-    "node-forge":"1.4.0",
-    "flatted":"3.4.2",
+    "node-forge": "1.4.0",
+    "flatted": "3.4.2",
     "serve-static": "1.16.0",
     "**/serve-static": "1.16.0",
     "micromatch": "4.0.8",
@@ -310,6 +311,7 @@
     "mapbox-gl": "^2.11.1",
     "mockdate": "^3.0.5",
     "postcss": "^8.5.10",
+    "prettier": "^3.8.3",
     "prop-types": "^15.7.2",
     "react": "^19.2.4",
     "react-aria-modal": "^5.0.2",

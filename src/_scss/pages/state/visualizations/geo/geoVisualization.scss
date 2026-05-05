@@ -1,244 +1,246 @@
 .geo__map-section {
-    position: relative;
-    @import "loading";
-    .map-container {
-        height: rem(475);
-        width: 100%;
+  position: relative;
+  @import "loading";
+  .map-container {
+    height: rem(475);
+    width: 100%;
 
-        .map__filters-toggle {
-            background-color: $color-white;
-            width: rem(16);
-            height: rem(35);
-            top: rem(24);
-            position: absolute;
-            z-index: 2;
-            border: solid 1px $gray-cool-10;
-            padding: rem(10) rem(4);
-            display: flex;
-            align-items: center;
-            border-radius: 0 4px 4px 0;
+    .map__filters-toggle {
+      background-color: $color-white;
+      width: rem(16);
+      height: rem(35);
+      top: rem(24);
+      position: absolute;
+      z-index: 2;
+      border: solid 1px $gray-cool-10;
+      padding: rem(10) rem(4);
+      display: flex;
+      align-items: center;
+      border-radius: 0 4px 4px 0;
 
-            &.closed {
-                left: 0;
-                transition: left;
+      &.closed {
+        left: 0;
+        transition: left;
+      }
+
+      &.open {
+        left: 25rem;
+        transition: left;
+        @media (min-width: $large-screen) {
+          left: 345px;
+        }
+      }
+
+      svg {
+        width: rem(6);
+        height: rem(14);
+        color: $theme-color-1;
+      }
+    }
+
+    .map__filters-container {
+      background-color: $color-white;
+      top: rem(8);
+      border-top-right-radius: 4px;
+      border-bottom-right-radius: 4px;
+      position: absolute;
+      width: 25rem;
+      z-index: 2;
+      transition: 1s;
+      opacity: 1;
+      border: solid 1px $gray-cool-10;
+      box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
+      padding: rem(16) rem(20);
+
+      &.closed {
+        opacity: 0;
+        display: none;
+        transition:
+          opacity 1s,
+          display 1s;
+      }
+
+      &.open {
+        opacity: 1;
+        display: block;
+        transition:
+          opacity 1s,
+          display 1s;
+        z-index: 3;
+        @media (min-width: $large-screen) {
+          width: 345px;
+        }
+      }
+
+      .map__filters-header {
+        @include display(flex);
+        font-size: $font-size-14;
+        font-weight: $font-semibold;
+        letter-spacing: 0;
+        line-height: 1.5rem;
+        transition: 2s;
+
+        .map__filters-header__title {
+          @include display(flex);
+          font-size: 1.4rem;
+          letter-spacing: 0;
+          line-height: 1.8rem;
+          color: #1b1b1b;
+          font-weight: $font-normal;
+        }
+      }
+
+      .map__filters-body {
+        transition: 2s;
+
+        .map__filters-filter__container {
+          transition: 2s;
+
+          button .filter__dropdown-button-text {
+            max-width: 165px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+
+            @media (min-width: $large-screen) {
+              max-width: 260px;
+            }
+          }
+
+          .map__filters-wrapper {
+            .map__filters-label {
+              font-size: $font-size-12;
+              letter-spacing: 0;
+              line-height: 1.25;
+              white-space: nowrap;
+              color: $gray-cool-60;
+              display: flex;
+              margin-top: $global-margin * 2;
+              align-items: baseline;
+              text-transform: uppercase;
             }
 
-            &.open {
-                left: 25rem;
-                transition: left;
-                @media(min-width: $large-screen) {
-                    left: 345px;
+            .map__filters-button {
+              height: auto;
+
+              button[class^="filter__dropdown-button"] {
+                border: solid 2px $gray-cool-10;
+                white-space: nowrap;
+                margin-top: $global-margin * 0.5;
+                margin-bottom: $global-margin;
+
+                .filter__dropdown-button-text {
+                  color: $gray-cool-60;
                 }
-            }
 
-            svg {
-                width: rem(6);
-                height: rem(14);
-                color: $theme-color-1;
-            }
-        }
-
-        .map__filters-container {
-            background-color: $color-white;
-            top: rem(8);
-            border-top-right-radius: 4px;
-            border-bottom-right-radius: 4px;
-            position: absolute;
-            width: 25rem;
-            z-index: 2;
-            transition: 1s;
-            opacity: 1;
-            border: solid 1px $gray-cool-10;
-            box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-            padding: rem(16) rem(20);
-
-            &.closed {
-                opacity: 0;
-                display: none;
-                transition: opacity 1s, display 1s;
-            }
-
-            &.open {
-                opacity: 1;
-                display: block;
-                transition: opacity 1s, display 1s;
-                z-index: 3;
-                @media(min-width: $large-screen) {
-                    width: 345px;
+                .filter__dropdown-chevron {
+                  svg {
+                    color: $theme-color-1;
+                  }
                 }
-            }
 
-            .map__filters-header {
-                @include display(flex);
-                font-size: $font-size-14;
-                font-weight: $font-semibold;
-                letter-spacing: 0;
-                line-height: 1.5rem;
-                transition: 2s;
-
-                .map__filters-header__title {
-                    @include display(flex);
-                    font-size: 1.4rem;
-                    letter-spacing: 0;
-                    line-height: 1.8rem;
-                    color: #1b1b1b;
-                    font-weight: $font-normal;
+                &:last-of-type {
+                  margin-bottom: 0;
                 }
-            }
+              }
 
-            .map__filters-body {
-                transition: 2s;
+              .map__filters-dropdown {
+                width: max-content;
 
-                .map__filters-filter__container {
-                    transition: 2s;
-
-
-                    button .filter__dropdown-button-text {
-                        max-width: 165px;
-                        overflow: hidden;
-                        text-overflow: ellipsis;
-
-                        @media (min-width: $large-screen) {
-                            max-width: 260px;
-                        }
-                    }
-
-                    .map__filters-wrapper {
-                        .map__filters-label {
-                            font-size: $font-size-12;
-                            letter-spacing: 0;
-                            line-height: 1.25;
-                            white-space: nowrap;
-                            color: $gray-cool-60;
-                            display: flex;
-                            margin-top: $global-margin * 2;
-                            align-items: baseline;
-                            text-transform: uppercase;
-                        }
-
-                        .map__filters-button {
-                            height: auto;
-
-                            button[class^='filter__dropdown-button'] {
-                                border: solid 2px $gray-cool-10;
-                                white-space: nowrap;
-                                margin-top: $global-margin * 0.5;
-                                margin-bottom: $global-margin;
-
-                                .filter__dropdown-button-text {
-                                    color: $gray-cool-60;
-                                }
-
-                                .filter__dropdown-chevron {
-                                    svg {
-                                        color: $theme-color-1;
-                                    }
-                                }
-
-                                &:last-of-type {
-                                    margin-bottom: 0;
-                                }
-                            }
-
-                            .map__filters-dropdown {
-                                width: max-content;
-
-                                li {
-                                    button {
-                                        padding-left: 1.5 * $global-padding !important;
-                                        padding-right: 1.5 * $global-padding !important;
-                                    }
-                                }
-                            }
-                        }
-
-                        .map__filters-button.defc {
-
-                            .map__filters-dropdown {
-                                width: unset;
-                                height: 300px;
-                                max-width: 300px;
-                                line-height: 1.5;
-                                overflow: hidden;
-                                overflow-y: scroll;
-
-                                ul {
-                                    max-width: 165px;
-                                }
-
-                                li {
-                                    height: unset;
-                                    min-height: rem(32);
-                                    margin-bottom: rem(5.5);
-
-                                    button {
-                                        padding-left: 1.5 * $global-padding !important;
-                                        padding-right: 1.5 * $global-padding !important;
-                                        height: auto;
-                                    }
-                                }
-                            }
-                        }
-
-                        .map__filters-dropdown {
-                            min-width: 100%;
-                            max-width: 500px;
-                        }
-                    }
-
-                    .map__filters-filter__container:last-of-type {
-                        padding-bottom: 0;
-                    }
+                li {
+                  button {
+                    padding-left: 1.5 * $global-padding !important;
+                    padding-right: 1.5 * $global-padding !important;
+                  }
                 }
+              }
             }
+
+            .map__filters-button.defc {
+              .map__filters-dropdown {
+                width: unset;
+                height: 300px;
+                max-width: 300px;
+                line-height: 1.5;
+                overflow: hidden;
+                overflow-y: scroll;
+
+                ul {
+                  max-width: 165px;
+                }
+
+                li {
+                  height: unset;
+                  min-height: rem(32);
+                  margin-bottom: rem(5.5);
+
+                  button {
+                    padding-left: 1.5 * $global-padding !important;
+                    padding-right: 1.5 * $global-padding !important;
+                    height: auto;
+                  }
+                }
+              }
+            }
+
+            .map__filters-dropdown {
+              min-width: 100%;
+              max-width: 500px;
+            }
+          }
+
+          .map__filters-filter__container:last-of-type {
+            padding-bottom: 0;
+          }
         }
+      }
+    }
+  }
+
+  @import "../../../../pages/search/results/visualizations/geo/map/map.scss";
+
+  .visualization-tooltip {
+    @import "components/visualizations/tooltip/_dataVizTooltip";
+  }
+
+  .tooltip-spacer {
+    @media (min-width: $small-screen) {
+      top: rem(36);
+      left: rem(-16);
     }
 
-    @import "../../../../pages/search/results/visualizations/geo/map/map.scss";
-
-    .visualization-tooltip {
-        @import "components/visualizations/tooltip/_dataVizTooltip";
+    @media (min-width: $tablet-screen) {
+      top: rem(36);
+      left: rem(84);
     }
 
-    .tooltip-spacer {
-        @media(min-width: $small-screen) {
-            top: rem(36);
-            left: rem(-16);
-        }
-
-        @media(min-width: $tablet-screen) {
-            top: rem(36);
-            left: rem(84);
-        }
-
-        @media(min-width: $medium-screen) {
-            top: rem(36);
-            left: rem(88);
-        }
-
-        @media(min-width: $large-screen) {
-            top: rem(36);
-            left: rem(98);
-        }
+    @media (min-width: $medium-screen) {
+      top: rem(36);
+      left: rem(88);
     }
 
-    //HIDE THE MAPBOX COMPASS CONTROLS
-    & .mapboxgl-ctrl-compass {
-        display: none !important;
+    @media (min-width: $large-screen) {
+      top: rem(36);
+      left: rem(98);
     }
+  }
 
-    //Hide info button that was added after mapbox package update to v1.13.0
-    & .mapboxgl-ctrl-attrib-button {
-        display: none !important;
-    }
+  //HIDE THE MAPBOX COMPASS CONTROLS
+  & .mapboxgl-ctrl-compass {
+    display: none !important;
+  }
 
-    & .mapboxgl-ctrl-attrib {
-        display: none !important;
-    }
+  //Hide info button that was added after mapbox package update to v1.13.0
+  & .mapboxgl-ctrl-attrib-button {
+    display: none !important;
+  }
 
-    @import "./_message";
+  & .mapboxgl-ctrl-attrib {
+    display: none !important;
+  }
 
-    .default-note {
-        padding-top: 0;
-    }
+  @import "./_message";
+
+  .default-note {
+    padding-top: 0;
+  }
 }

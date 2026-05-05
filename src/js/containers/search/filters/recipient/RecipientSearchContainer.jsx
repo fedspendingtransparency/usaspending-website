@@ -14,6 +14,7 @@ import { fetchRecipientsAutocomplete } from 'helpers/searchHelper';
 import replaceString from 'helpers/replaceString';
 import AutocompleteWithCheckboxList from
     'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
+import ShownValue from 'components/search/filters/ShownValue';
 
 const RecipientSearchContainer = () => {
     const [recipients, setRecipients] = useState([]);
@@ -295,6 +296,15 @@ const RecipientSearchContainer = () => {
                 isLoading={isLoading}
                 errorMessage={errorMessage}
                 searchId="recipient-autocomplete-input" />
+
+            <div className="selected-filters" role="status">
+                {selectedRecipients.map((rec) => (
+                    <ShownValue
+                        label={rec}
+                        key={rec}
+                        removeValue={() => dispatch(updateSelectedRecipients(rec))} />
+                ))}
+            </div>
         </div>
     );
 };

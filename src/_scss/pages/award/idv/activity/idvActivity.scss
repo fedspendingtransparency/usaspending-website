@@ -1,10 +1,10 @@
 .idv-activity {
   width: 100%;
-  @import '../../../../components/SVGLine';
-  @import '../../../../components/Note';
+  @import "../../../../components/SVGLine";
+  @import "../../../../components/Note";
 
   .award__col__content {
-    @import '../../../search/results/table/tableMessages';
+    @import "../../../search/results/table/tableMessages";
 
     .results-table-message-container {
       position: relative;
@@ -78,10 +78,10 @@
           }
 
           .default-picker__button {
-              @include button-unstyled;
-              @include display(inline-flex);
-              border-bottom: 1px solid $color-link;
-              height: auto;
+            @include button-unstyled;
+            @include display(inline-flex);
+            border-bottom: 1px solid $color-link;
+            height: auto;
             .filter__dropdown-button-text {
               margin-right: rem(5);
               margin-left: rem(5);
@@ -102,7 +102,7 @@
         }
       }
 
-      @import '../../../../components/visualizations/legend';
+      @import "../../../../components/visualizations/legend";
 
       .activity-visualization-title {
         width: 100%;
@@ -205,7 +205,7 @@
 
       .visualization-legend {
         width: 100%;
-        background-color: #F4F3F3;
+        background-color: #f4f3f3;
         border-radius: 3px;
         margin-top: rem(35);
         @include display(flex);
@@ -230,11 +230,13 @@
             }
 
             &.visualization-legend__circle_overspent {
-              background: repeating-linear-gradient(45deg,
-                  $color-vis-green-light,
-                  $color-vis-green-light 4px,
-                  rgb(188, 92, 35) 4px,
-                  rgb(188, 92, 35) 6px);
+              background: repeating-linear-gradient(
+                45deg,
+                $color-vis-green-light,
+                $color-vis-green-light 4px,
+                rgb(188, 92, 35) 4px,
+                rgb(188, 92, 35) 6px
+              );
             }
           }
 
@@ -249,7 +251,8 @@
 
         .activity-chart-body {
           .activity-chart-data {
-            .activity-chart-bar-container:hover .activity-chart-bar__awarded-content {
+            .activity-chart-bar-container:hover
+              .activity-chart-bar__awarded-content {
               stroke: #3676b6;
               stroke-width: 1;
             }

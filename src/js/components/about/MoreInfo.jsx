@@ -20,7 +20,7 @@ const MoreInfo = () => (
                 <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://fiscalservice.force.com/usaspending/s/">
+                    href="https://onevoicecrm.my.site.com/usaspending/s/recordlist/Knowledge__kav/00B3d000000V4WDEA0">
                     FAQs
                 </a>
                 &nbsp;and the{' '}
