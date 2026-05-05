@@ -271,6 +271,17 @@
 
         border: rem(2) solid $gray-70;
         border-radius: rem(4);
+
+        &:indeterminate {
+          background-color: $blue-50;
+          border-color: $blue-50;
+        }
+
+        &:indeterminate:before {
+          width: rem(10);
+          margin: rem(6) auto;
+          border-bottom: rem(2) solid #fff;
+        }
       }
     }
     @import "agencyPicker";
