@@ -104,13 +104,13 @@
             color: $gray-90;
 
             input {
-              margin: 0 $global-margin 0 0;
-              height: rem(24);
-              min-width: rem(24);
+              margin: rem(2) $global-margin 0 0;
+              height: rem(20);
+              min-width: rem(20);
 
               &:before {
-                height: rem(18);
-                width: rem(18);
+                height: rem(14);
+                width: rem(14);
               }
 
               &:checked {
@@ -150,13 +150,13 @@
             color: $gray-90;
 
             input {
-              margin: 0 $global-margin 0 0;
-              height: rem(24);
-              min-width: rem(24);
+              margin: rem(2) $global-margin 0 0;
+              height: rem(20);
+              min-width: rem(20);
 
               &:before {
-                height: rem(18);
-                width: rem(18);
+                height: rem(14);
+                width: rem(14);
               }
 
               &:checked {
