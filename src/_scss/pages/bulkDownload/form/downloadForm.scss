@@ -251,6 +251,12 @@
 
       li {
         list-style-type: none;
+        margin-bottom: rem(12);
+
+        ul {
+          margin: rem(12) 0 0 rem(32);
+          padding: 0;
+        }
 
         &:first-of-type {
           // 3 of 8 columns available to the form
@@ -262,13 +268,10 @@
         }
       }
 
-      input {
-        margin-right: $global-margin;
-      }
-
       input[type="checkbox"] {
         @include usa-input-checkbox;
 
+        margin-right: $global-margin;
         border: rem(2) solid $gray-70;
         border-radius: rem(4);
 
