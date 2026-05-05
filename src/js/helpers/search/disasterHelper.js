@@ -2,6 +2,7 @@
  * disasterHelper.js
  * Created by Jonathan Hill 06/11/20
  */
+import { sortAlphaNumbersLast } from "./collapsiblesidebarHelper";
 
 export const defCodeQueryString = (defCodes) => defCodes.sort().reduce((acc, code, i, array) => {
     let currentString = acc;
@@ -9,3 +10,9 @@ export const defCodeQueryString = (defCodes) => defCodes.sort().reduce((acc, cod
     if (i + 1 !== array.length) currentString += ',';
     return currentString;
 }, '');
+
+export const parseCodes = (codes, type) => sortAlphaNumbersLast(
+    codes.filter(((code) => code.disaster === type))
+        .map((code) => code.code)
+);
+

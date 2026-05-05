@@ -1,3 +1,6 @@
+
+import { parseCodes } from "helpers/search/disasterHelper";
+
 export const defCodes = {
     L: {
         title: "Coronavirus Preparedness and Response Supplemental Appropriations Act, 2020",
@@ -46,3 +49,17 @@ export const groupLabels = {
     covid: 'COVID-19 Spending',
     infrastructure: 'Infrastructure Spending'
 };
+
+export const defcDataByType = (codes) => (
+    [
+        {
+            id: "covid",
+            name: "COVID-19 Spending",
+            filters: parseCodes(codes, "covid_19")
+        },
+        {
+            id: 'infrastructure',
+            name: 'Infrastructure Spending',
+            filters: parseCodes(codes, "infrastructure")
+        }
+    ]);
