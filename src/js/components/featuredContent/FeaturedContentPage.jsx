@@ -10,7 +10,7 @@ import ArticleMetadata from '../../models/v2/featuredContent/ArticleMetadata';
 import articles from '../../../config/featuredContent/featuredContentMetadata';
 import ArticleList from './list/ArticleList';
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
-import ContentPageHeader from '../sharedComponents/header/ContentPageHeader';
+import BannerPageHeader from '../sharedComponents/header/BannerPageHeader';
 
 require('pages/featuredContent/featuredContent.scss');
 
@@ -34,13 +34,14 @@ const FeaturedContentPage = () => {
             <main
                 id="main-content"
                 className="main-content featured-content">
-                <ContentPageHeader
+                <BannerPageHeader
                     className="content-page-header"
                     kicker="RESOURCES"
                     title="Featured Content"
                     body="Read the latest featured content to learn more about government spending."
-                    image="img/featuredContent/featured-content-landing-page-banner-2x.webp"
-                    slug="featured-content" />
+                    faIcon="graduation-cap"
+                    primaryColor="#00687D"
+                    secondaryColor="#0081A1" />
                 <ArticleList articles={articlesList} />
             </main>
         </PageWrapper>
