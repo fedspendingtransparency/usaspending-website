@@ -10,7 +10,7 @@
       top: 121px;
     }
   }
-  
+
   .main-content {
     @import "../../mixins/fullSectionWrap";
     @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
