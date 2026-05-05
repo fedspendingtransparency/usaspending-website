@@ -112,6 +112,14 @@
                 height: rem(18);
                 width: rem(18);
               }
+
+              &:checked {
+                border-color: $blue-60v;
+
+                &:before {
+                  background-color: $blue-60v;
+                }
+              }
             }
 
             .radio-description {
@@ -149,6 +157,14 @@
               &:before {
                 height: rem(18);
                 width: rem(18);
+              }
+
+              &:checked {
+                  border-color: $blue-60v;
+
+                &:before {
+                  background-color: $blue-60v;
+                }
               }
             }
           }
@@ -276,8 +292,13 @@
         border-radius: rem(4);
 
         &:indeterminate {
-          background-color: $blue-50;
-          border-color: $blue-50;
+          background-color: $blue-60v;
+          border-color: $blue-60v;
+        }
+
+        &:checked {
+          background-color: $blue-60v;
+          border-color: $blue-60v;
         }
 
         &:indeterminate:before {
