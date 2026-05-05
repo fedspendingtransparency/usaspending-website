@@ -59,7 +59,7 @@
         line-height: 1.5;
 
         @media (max-width: $tablet-screen - 1) {
-          margin-left: rem(16);
+          margin: 0 rem(16);
         }
 
         .icon-container__mobile {
