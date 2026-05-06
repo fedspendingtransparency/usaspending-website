@@ -138,14 +138,21 @@ const PrimaryCheckboxType = ({
         }
     };
 
-    let primaryTypes = (<CollapsedCheckboxType
-        toggleExpand={toggleSubItems}
-        toggleChildren={toggleChildren}
-        name={name}
-        selected={allChildren}
-        hideArrow={selectedChildren || restrictChildren}
-        arrowState={arrowState}
-        isCollapsable={isCollapsable} />);
+    const indeterminate = filters.length !== selectedCheckboxes.size &&
+        selectedCheckboxes.size !== 0;
+
+    let primaryTypes = (
+        <CollapsedCheckboxType
+            toggleExpand={toggleSubItems}
+            toggleChildren={toggleChildren}
+            name={name}
+            selected={allChildren}
+            hideArrow={selectedChildren || restrictChildren}
+            arrowState={arrowState}
+            isCollapsable={isCollapsable}
+            id={id}
+            indeterminate={indeterminate} />
+    );
 
     let secondaryTypes = null;
 

@@ -10,9 +10,6 @@ import { showSlideout } from '../../helpers/slideoutHelper';
 import useQueryParams from "../../hooks/useQueryParams";
 
 const AboutTheDataListener = ({
-    history,
-    match,
-    location,
     Child
 }) => {
     const { search } = useLocation();
@@ -24,15 +21,12 @@ const AboutTheDataListener = ({
             showSlideout('atd', { url: term });
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [history?.location?.search]);
+    }, [search]);
 
-    return <Child {...{ history, match, location }} />;
+    return <Child />;
 };
 
 AboutTheDataListener.propTypes = {
-    history: PropTypes.object,
-    match: PropTypes.object,
-    location: PropTypes.object,
     Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node])
 };
 
