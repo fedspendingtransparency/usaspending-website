@@ -121,20 +121,22 @@ const AgencyFilter = memo(function AgencyFilter({
                 <span className="download-filter__title_em"> agency </span>
                 and <span>sub-agency</span>.
             </h3>
-            <div className="download-filter__content">
+            <div className="download-filter__content agency">
                 {agencyTypesList}
-                <ComboBox
-                    optionsArray={agenciesOptions}
-                    onSelect={handleAgencySelect}
-                    label={(<>Awarding Agency <span>(Required)</span></>)}
-                    placeholder="Select agency"
-                    disabled={agenciesOptions.length === 3} />
-                <ComboBox
-                    optionsArray={subAgenciesOptions}
-                    onSelect={handleSubAgencySelect}
-                    label="Sub-agency"
-                    placeholder="Select sub-agency"
-                    disabled={subAgenciesOptions.length === 0} />
+                <div className="combo-box-container">
+                    <ComboBox
+                        optionsArray={agenciesOptions}
+                        onSelect={handleAgencySelect}
+                        label={(<>Awarding Agency <span>(Required)</span></>)}
+                        placeholder="Select agency"
+                        disabled={agenciesOptions.length === 3} />
+                    <ComboBox
+                        optionsArray={subAgenciesOptions}
+                        onSelect={handleSubAgencySelect}
+                        label="Sub-agency"
+                        placeholder="Select sub-agency"
+                        disabled={subAgenciesOptions.length === 0} />
+                </div>
                 <p className="download-filter__content-note">
                     <span className="download-filter__content-note_bold">Note: </span>
                     Prior to FY19, Financial Assistance awards

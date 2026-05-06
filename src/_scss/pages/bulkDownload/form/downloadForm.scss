@@ -80,6 +80,25 @@
         }
       }
 
+      &.agency {
+        padding: 0;
+
+        .combo-box-container {
+          display: flex;
+          margin: 0 0 rem(12) 0;
+
+          .combo-box {
+            margin: 0;
+            // 3 of 8 columns available to the form
+            min-width: 37.5%;
+
+            &:first-of-type {
+              margin-right: rem(24);
+            }
+          }
+        }
+      }
+
       &.date-type {
         display: flex;
         padding: 0;
@@ -236,13 +255,11 @@
     }
 
     .download-filter__content-note {
-      font-style: italic;
       font-size: rem(14);
-      line-height: rem(18);
+      line-height: 1.5;
+      color: $gray-90;
+      margin: 0 0 rem(12) 0;
 
-      &:first-of-type {
-        margin-top: rem(10);
-      }
       @media (max-width: $medium-screen) {
         max-width: 75%;
       }
