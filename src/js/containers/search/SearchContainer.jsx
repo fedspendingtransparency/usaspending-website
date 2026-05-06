@@ -147,7 +147,6 @@ const SearchContainer = () => {
         requestAwards.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
-                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
                 setAwardsCount(res.data.calculated_count);
             })
             .catch(() => {
@@ -173,7 +172,6 @@ const SearchContainer = () => {
         requestTransactions.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
-                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
                 setTransactionsCount(res.data.calculated_count);
             })
             .catch(() => {
@@ -199,7 +197,6 @@ const SearchContainer = () => {
         requestSubawards.current.promise
             .then((res) => {
                 setDownloadInFlight(false);
-                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
                 setSubawardsCount(res.data.calculated_count);
             })
             .catch(() => {
@@ -207,7 +204,11 @@ const SearchContainer = () => {
                 requestSubawards.current = null;
             });
     }, [stagedFilters]);
-
+    const downloadButtonEnabled = useCallback(() => {
+        if (awardsCount === 0 && transactionsCount === 0 && subawardsCount === 0) {
+            setDownloadAvailable(false);
+        }
+    }, [transactionsCount, awardsCount, subawardsCount]);
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
         prevAppliedFiltersRef.current = appliedFilters;
@@ -365,6 +366,9 @@ const SearchContainer = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appliedFilters, stagedFilters]);
 
+    useEffect(() => {
+        downloadButtonEnabled();
+    }, [transactionsCount, subawardsCount, awardsCount, downloadButtonEnabled]);
     return (
         <SearchPage
             download={download}
