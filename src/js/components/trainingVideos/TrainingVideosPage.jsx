@@ -36,8 +36,8 @@ const TrainingVideosPage = ({ featuredVideo, videos }) => (
                 title="Training Videos"
                 body={body}
                 faIcon="graduation-cap"
-                primaryColor="#0B4778"
-                secondaryColor="#005EA2" />
+                primaryColor="#00687D"
+                secondaryColor="#0081A1" />
             <FeaturedVideo featuredVideo={featuredVideo} />
             <ListOfVideos videos={videos} />
         </main>
