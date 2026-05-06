@@ -76,17 +76,20 @@ const AgencyFilter = memo(function AgencyFilter({
         <div
             className="radio"
             key={agencyType.name}>
-            <input
-                type="radio"
-                aria-label={agencyType.name}
-                value={agencyType.name}
-                name="agencyType"
-                checked={currentAgencyType === agencyType.name}
-                onChange={onChange} />
-            <label
-                className="radio-label"
-                htmlFor="locationType">
-                {agencyType.label}
+            <label className="radio-label" htmlFor="agencyType">
+                <input
+                    type="radio"
+                    aria-label={agencyType.name}
+                    value={agencyType.name}
+                    name="agencyType"
+                    checked={currentAgencyType === agencyType.name}
+                    onChange={onChange} />
+                <div className="radio-container">
+                    {agencyType.label}
+                    <div className="radio-description">
+                        {agencyType.description}
+                    </div>
+                </div>
             </label>
         </div>
     ));
@@ -122,7 +125,9 @@ const AgencyFilter = memo(function AgencyFilter({
                 and <span>sub-agency</span>.
             </h3>
             <div className="download-filter__content agency">
-                {agencyTypesList}
+                <div className="input-container">
+                    {agencyTypesList}
+                </div>
                 <div className="combo-box-container">
                     <ComboBox
                         optionsArray={agenciesOptions}

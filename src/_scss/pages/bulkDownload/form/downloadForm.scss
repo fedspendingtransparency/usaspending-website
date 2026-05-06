@@ -83,6 +83,59 @@
       &.agency {
         padding: 0;
 
+        .input-container {
+          display: flex;
+          margin: 0 0 rem(12) 0;
+
+          .radio {
+            padding: 0;
+            // 3 of 8 columns available to the form
+            width: 37.5%;
+
+            &:first-of-type {
+              margin-right: rem(24);
+            }
+
+            label {
+              display: flex;
+
+              input {
+                margin: rem(2) $global-margin 0 0;
+                height: rem(20);
+                min-width: rem(20);
+
+                &:before {
+                  height: rem(14);
+                  width: rem(14);
+                }
+
+                &:checked {
+                  border-color: $blue-60v;
+
+                  &:before {
+                    background-color: $blue-60v;
+                  }
+                }
+              }
+
+              .radio-container {
+                font-size: $base-font-size;
+                line-height: 1.5;
+                color: $gray-90;
+                font-weight: $font-semibold;
+
+                .radio-description {
+                  font-weight: normal;
+                  color: $gray-60;
+                  font-style: normal;
+                  margin: 0;
+                  width: 100%;
+                }
+              }
+            }
+          }
+        }
+
         .combo-box-container {
           display: flex;
           margin: 0 0 rem(12) 0;
