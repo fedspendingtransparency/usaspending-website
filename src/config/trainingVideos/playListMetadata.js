@@ -1434,73 +1434,62 @@ const metaData = {
             }
         },
         {
-  "kind": "youtube#videoListResponse",
-  "etag": "KDdhR23kZoFDYvCWe02gqUdtbZU",
-  "items": [
-    {
-      "kind": "youtube#video",
-      "etag": "2C7GftuAA7wjFAbfFmTxzdRYW80",
-      "id": "J1-xg6CXDUE",
-      "snippet": {
-        "publishedAt": "2026-03-06T21:32:35Z",
-        "channelId": "UCyDn83O-0XC98H3TCV-VCGQ",
-        "title": "Your Data, Your Story: Jean-Claude Ndongo, Ph.D.",
-        "description": "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from Jean-Claude Ndongo, Ph.D., an instructor at Florida Atlantic University. Learn more about how Dr. Ndongo and his students use USAspending.gov for their research on public budgeting and finance.\n\nCHAPTERS:\n0:26 Tell us about yourself\n0:52 Why is federal spending data important to you?\n1:32 What features on USAspending.gov provide the most value to you?\n2:06 What have you made using data from USAspending.gov?\n3:00 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\n-Visit USAspending.gov: https://www.usaspending.gov/.\n-Sign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov.\n-Ask questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov.\n\nWe look forward to hearing from you! #YourDataYourStory #USAspending #governmentspending \n\nPlease Note: Screenshots in the video may not be exactly as-is on the live site since improvements are consistently being deployed.",
-        "thumbnails": {
-          "default": {
-            "url": "https://i9.ytimg.com/vi/J1-xg6CXDUE/default.jpg?sqp=COjkzs8G&rs=AOn4CLBpo08AfuZiwQe0uc5TDeTCI4rHGA",
-            "width": 120,
-            "height": 90
-          },
-          "medium": {
-            "url": "https://i9.ytimg.com/vi/J1-xg6CXDUE/mqdefault.jpg?sqp=COjkzs8G&rs=AOn4CLANtVDIq7YvOsMxQllNM0_k6Q9HJg",
-            "width": 320,
-            "height": 180
-          },
-          "high": {
-            "url": "https://i9.ytimg.com/vi/J1-xg6CXDUE/hqdefault.jpg?sqp=COjkzs8G&rs=AOn4CLBRFOEzADx6LhNhX1b9zL9aP4Mlow",
-            "width": 480,
-            "height": 360
-          },
-          "standard": {
-            "url": "https://i9.ytimg.com/vi/J1-xg6CXDUE/sddefault.jpg?sqp=COjkzs8G&rs=AOn4CLCwvok8zyneXNbG6Nf-04wo7LqdrA",
-            "width": 640,
-            "height": 480
-          },
-          "maxres": {
-            "url": "https://i9.ytimg.com/vi/J1-xg6CXDUE/maxresdefault.jpg?sqp=COjkzs8G&rs=AOn4CLAdx81BErNBDHJX6FAVo5wktutSog",
-            "width": 1280,
-            "height": 720
-          }
-        },
-        "channelTitle": "USAspending",
-        "categoryId": "27",
-        "liveBroadcastContent": "none",
-        "defaultLanguage": "en",
-        "localized": {
-          "title": "Your Data, Your Story: Jean-Claude Ndongo, Ph.D.",
-          "description": "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from Jean-Claude Ndongo, Ph.D., an instructor at Florida Atlantic University. Learn more about how Dr. Ndongo and his students use USAspending.gov for their research on public budgeting and finance.\n\nCHAPTERS:\n0:26 Tell us about yourself\n0:52 Why is federal spending data important to you?\n1:32 What features on USAspending.gov provide the most value to you?\n2:06 What have you made using data from USAspending.gov?\n3:00 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\n-Visit USAspending.gov: https://www.usaspending.gov/.\n-Sign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov.\n-Ask questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov.\n\nWe look forward to hearing from you! #YourDataYourStory #USAspending #governmentspending \n\nPlease Note: Screenshots in the video may not be exactly as-is on the live site since improvements are consistently being deployed."
-        },
-        "defaultAudioLanguage": "en"
-      },
-      "contentDetails": {
-        "duration": "PT3M32S",
-        "dimension": "2d",
-        "definition": "hd",
-        "caption": "true",
-        "licensedContent": false,
-        "contentRating": {},
-        "projection": "rectangular",
-        "hasCustomThumbnail": true
-      }
-    }
-  ],
-  "pageInfo": {
-    "totalResults": 1,
-    "resultsPerPage": 1
-  }
-}
-
+            kind: "youtube#video",
+            etag: "2C7GftuAA7wjFAbfFmTxzdRYW80",
+            id: "J1-xg6CXDUE",
+            snippet: {
+                publishedAt: "2026-03-06T21:32:35Z",
+                channelId: "UCyDn83O-0XC98H3TCV-VCGQ",
+                title: "Your Data, Your Story: Jean-Claude Ndongo, Ph.D.",
+                description: "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from Jean-Claude Ndongo, Ph.D., an instructor at Florida Atlantic University. Learn more about how Dr. Ndongo and his students use USAspending.gov for their research on public budgeting and finance.\n\nCHAPTERS:\n0:26 Tell us about yourself\n0:52 Why is federal spending data important to you?\n1:32 What features on USAspending.gov provide the most value to you?\n2:06 What have you made using data from USAspending.gov?\n3:00 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\n-Visit USAspending.gov: https://www.usaspending.gov/.\n-Sign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov.\n-Ask questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov.\n\nWe look forward to hearing from you! #YourDataYourStory #USAspending #governmentspending \n\nPlease Note: Screenshots in the video may not be exactly as-is on the live site since improvements are consistently being deployed.",
+                thumbnails: {
+                    default: {
+                        url: "https://i9.ytimg.com/vi/J1-xg6CXDUE/default.jpg?sqp=COjkzs8G&rs=AOn4CLBpo08AfuZiwQe0uc5TDeTCI4rHGA",
+                        width: 120,
+                        height: 90
+                    },
+                    medium: {
+                        url: "https://i9.ytimg.com/vi/J1-xg6CXDUE/mqdefault.jpg?sqp=COjkzs8G&rs=AOn4CLANtVDIq7YvOsMxQllNM0_k6Q9HJg",
+                        width: 320,
+                        height: 180
+                    },
+                    high: {
+                        url: "https://i9.ytimg.com/vi/J1-xg6CXDUE/hqdefault.jpg?sqp=COjkzs8G&rs=AOn4CLBRFOEzADx6LhNhX1b9zL9aP4Mlow",
+                        width: 480,
+                        height: 360
+                    },
+                    standard: {
+                        url: "https://i9.ytimg.com/vi/J1-xg6CXDUE/sddefault.jpg?sqp=COjkzs8G&rs=AOn4CLCwvok8zyneXNbG6Nf-04wo7LqdrA",
+                        width: 640,
+                        height: 480
+                    },
+                    maxres: {
+                        url: "https://i9.ytimg.com/vi/J1-xg6CXDUE/maxresdefault.jpg?sqp=COjkzs8G&rs=AOn4CLAdx81BErNBDHJX6FAVo5wktutSog",
+                        width: 1280,
+                        height: 720
+                    }
+                },
+                channelTitle: "USAspending",
+                categoryId: "27",
+                liveBroadcastContent: "none",
+                defaultLanguage: "en",
+                localized: {
+                    title: "Your Data, Your Story: Jean-Claude Ndongo, Ph.D.",
+                    description: "Everyone has a data story. What's yours? The \"Your Data, Your Story\" campaign continues with a testimonial from Jean-Claude Ndongo, Ph.D., an instructor at Florida Atlantic University. Learn more about how Dr. Ndongo and his students use USAspending.gov for their research on public budgeting and finance.\n\nCHAPTERS:\n0:26 Tell us about yourself\n0:52 Why is federal spending data important to you?\n1:32 What features on USAspending.gov provide the most value to you?\n2:06 What have you made using data from USAspending.gov?\n3:00 What is the best advice that you have for using USAspending.gov?\n\nLINKS:\n-Visit USAspending.gov: https://www.usaspending.gov/.\n-Sign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov.\n-Ask questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov.\n\nWe look forward to hearing from you! #YourDataYourStory #USAspending #governmentspending \n\nPlease Note: Screenshots in the video may not be exactly as-is on the live site since improvements are consistently being deployed."
+                },
+                defaultAudioLanguage: "en"
+            },
+            contentDetails: {
+                duration: "PT3M32S",
+                dimension: "2d",
+                definition: "hd",
+                caption: "true",
+                licensedContent: false,
+                contentRating: {},
+                projection: "rectangular",
+                hasCustomThumbnail: true
+            }
+        }
         // put a comma at the end of the brace above this line, then paste what you copied from the response above this comment
     ]
 };
