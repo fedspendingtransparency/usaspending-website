@@ -39,9 +39,9 @@ const FeaturedContentPage = () => {
                     kicker="RESOURCES"
                     title="Featured Content"
                     body="Read the latest featured content to learn more about government spending."
-                    faIcon="graduation-cap"
-                    primaryColor="#00687D"
-                    secondaryColor="#0081A1" />
+                    faIcon="chart-simple"
+                    primaryColor="#0B4778"
+                    secondaryColor="#005EA2" />
                 <ArticleList articles={articlesList} />
             </main>
         </PageWrapper>
