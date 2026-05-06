@@ -117,6 +117,13 @@ const AgencyFilter = memo(function AgencyFilter({
     const subAgenciesOptions = subAgencies
         .map(({ subtier_agency_name: name }) => ({ text: name, value: name }));
 
+    const agencyLabel = (
+        <>
+            {currentAgencyType === "awarding_agency" ? "Awarding " : "Funding "}Agency
+            <span> (Required)</span>
+        </>
+    );
+
     return (
         <div className="download-filter">
             <h3 className="download-filter__title">
@@ -132,7 +139,7 @@ const AgencyFilter = memo(function AgencyFilter({
                     <ComboBox
                         optionsArray={agenciesOptions}
                         onSelect={handleAgencySelect}
-                        label={(<>Awarding Agency <span>(Required)</span></>)}
+                        label={agencyLabel}
                         placeholder="Select agency"
                         disabled={agenciesOptions.length === 3} />
                     <ComboBox
