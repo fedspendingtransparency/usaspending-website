@@ -15,6 +15,7 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Covid19Section from 'components/covid19/Covid19Section';
 import Heading from 'components/covid19/Heading';
+import BannerPageHeader from "components/sharedComponents/header/BannerPageHeader";
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
@@ -75,7 +76,6 @@ const Covid19Page = ({ loading }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
-
 
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
@@ -173,12 +173,16 @@ const Covid19Page = ({ loading }) => {
                 </Helmet>
 
                 <main id="main-content" className="main-content">
+                    <BannerPageHeader
+                        kicker="PROFILES"
+                        title="Federal Response to COVID-19"
+                        body="Need short description text here"
+                        faIcon="virus-covid"
+                        primaryColor="#39215E"
+                        secondaryColor="#783CB9" />
                     <FlexGridRow className="body covid-content__row">
                         <FlexGridCol className="covid-content__col" width="fill">
-                            <section className="body__section">
-                                <Heading publicLaw={query.publicLaw} />
-                            </section>
-
+                            <Heading publicLaw={query.publicLaw} />
                             {Object.keys(componentByCovid19Section())
                                 .filter((section) => componentByCovid19Section()[section].showInMainSection)
                                 .map((section) => (

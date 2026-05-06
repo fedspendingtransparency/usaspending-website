@@ -302,39 +302,6 @@
             }
           }
 
-          .heading__img-arp {
-            display: flex;
-            align-items: flex-end;
-
-            img {
-              max-height: 30rem;
-            }
-
-            @media (max-width: 560px) {
-              img {
-                display: block;
-                margin-left: auto;
-                max-height: 12rem;
-              }
-            }
-          }
-
-          .heading__img-all {
-            display: flex;
-            align-items: flex-end;
-
-            img {
-              max-height: 40rem;
-            }
-
-            @media (max-width: 560px) {
-              img {
-                display: block;
-                margin-left: auto;
-                max-height: 12rem;
-              }
-            }
-          }
         }
 
         &.award_question {
