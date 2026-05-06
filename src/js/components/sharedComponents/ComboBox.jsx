@@ -41,7 +41,8 @@ const ComboBox = memo(function ComboBox({
                 setOpenOptions(false);
             };
 
-            const disabled = value.indexOf('disabled') !== -1;
+            // primarily used for title options within dropdown
+            const disabledOption = value.indexOf('disabled') !== -1;
 
             return (
                 <li value={value} className="combo-box__options-item" key={value}>
@@ -50,7 +51,7 @@ const ComboBox = memo(function ComboBox({
                         type="button"
                         aria-label={`${formName}-option-item`}
                         onClick={onClick}
-                        disabled={disabled}>
+                        disabled={disabledOption}>
                         {text}
                     </button>
                 </li>
