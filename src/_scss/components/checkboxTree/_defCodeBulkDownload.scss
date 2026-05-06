@@ -16,7 +16,7 @@
         justify-content: center;
         
         .checkbox-filter__header-icon {
-          margin: 0 rem(9) 0 0;
+          margin: 0 rem(4) 0 0;
           line-height: $base-line-height;
           width: auto;
           display: flex;
@@ -31,9 +31,9 @@
           svg {
             font-weight: 900;
             color: $blue-50;
-            height: rem(18);
-            max-height: rem(24);
-            max-width: rem(24);
+            height: rem(12);
+            max-height: rem(20);
+            max-width: rem(20);
           }
         }
         
@@ -46,8 +46,8 @@
           gap: rem(8);
 
           input {    
-            width: rem(20);
-            height: rem(20);
+            width: rem(16);
+            height: rem(16);
             border: solid rem(2) $gray-70; 
             border-radius: rem(4);
             margin-right: 0;
@@ -58,24 +58,18 @@
             }
             
             &:checked {
-              background-color: $blue-60v !important;
-              border-color: $blue-60v !important;
+              background-color: $blue-60v;
+              border-color: $blue-60v;
             }
-            
-            &:checked:before {
-              width: rem(6);
-              height: rem(12);
-              margin: rem(0) rem(6);
-            }
-            
+                       
             &:indeterminate {
-              background-color: $blue-60v !important;
-              border-color: $blue-60v !important;
+              background-color: $blue-60v;
+              border-color: $blue-60v;
             }
             
             &:indeterminate:before {
-              width: rem(14);
-              margin: rem(9) auto;
+              width: rem(10);
+              margin: rem(6) auto;
               border-bottom: rem(2) solid #fff;
             }
           }
@@ -105,11 +99,10 @@
             gap: rem(8);
 
             input {    
-              width: rem(20);
-              height: rem(20);
+              width: rem(16);
+              height: rem(16);
               border: solid rem(2) $gray-70; 
               border-radius: rem(4);
-              flex-shrink: 0;
               margin-right: 0;
               
               &:disabled {
@@ -118,15 +111,10 @@
               }
               
               &:checked {
-                background-color: $blue-60v !important;
-                border-color: $blue-60v !important;
+                background-color: $blue-60v;
+                border-color: $blue-60v;
               }
-              
-              &:checked:before {
-                width: rem(6);
-                height: rem(12);
-                margin: rem(0) rem(6);
-              }
+
             }
 
             .checkbox-filter__item-label {

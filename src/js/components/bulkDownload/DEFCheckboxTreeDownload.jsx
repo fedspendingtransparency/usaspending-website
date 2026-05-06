@@ -5,7 +5,7 @@ import { useDefCodes } from 'hooks/WithDefCodes';
 import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AccordionCheckbox from "components/sharedComponents/checkbox/AccordionCheckbox";
-import { defcDataByType, defCodeGroups } from 'dataMapping/search/defCodes';
+import { defcDataByType } from 'dataMapping/search/defCodes';
 import DEFCheckboxTreeDownloadLabel from "./DEFCheckboxTreeDownloadLabel";
 
 const DEFCheckboxTreeDownload = ({
@@ -34,31 +34,6 @@ const DEFCheckboxTreeDownload = ({
         return obj;
     }, {});
 
-    const handleIndeterminateAncestor = (value) => {
-        // get parent
-        const isCovid = defCodeGroups.covid.includes(value);
-        let allChecked = false;
-        let checkbox;
-
-        if (isCovid) {
-            allChecked = defCodeGroups.covid.every((c) => (
-                defCodes.includes(c))
-            );
-            checkbox = document.getElementById('primary-checkbox__covid');
-        }
-        else {
-            allChecked = defCodeGroups.infrastructure.every((c) => (
-                defCodes.includes(c))
-            );
-            checkbox = document.getElementById('primary-checkbox__infrastructure');
-        }
-
-        if (checkbox) {
-            checkbox.indeterminate = !allChecked;
-            checkbox.checked = allChecked;
-        }
-    };
-
     const toggleDefc = (selection) => {
         const value = selection.value;
         let newCheck = new Set([...defCodes]);
@@ -74,8 +49,6 @@ const DEFCheckboxTreeDownload = ({
         else {
             dispatch(setDefCodes(type, selection.value));
         }
-
-        handleIndeterminateAncestor(value);
     };
 
     const bulkChangeDefc = (selection) => {

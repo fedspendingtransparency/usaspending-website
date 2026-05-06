@@ -12,7 +12,6 @@ import kGlobalConstants from 'GlobalConstants';
 import { areDefCodesDisabled } from 'helpers/bulkDownloadHelper';
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
-import DefCodeFilter from 'components/bulkDownload/sharedFilters/DefCodeFilter';
 import IsMobileContext from "context/IsMobileContext";
 
 import AccountLevelFilter from './filters/AccountLevelFilter';
@@ -21,9 +20,11 @@ import BudgetFunctionFilter from './filters/BudgetFunctionFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
 import AccountUserSelections from './AccountUserSelections';
+import DefCodeFilter from './filters/DefCodeFilter';
+import FilterSelection from './filters/FilterSelection';
+
 import SubmitButton from '../awards/SubmitButton';
 
-import FilterSelection from './filters/FilterSelection';
 
 const propTypes = {
     accounts: PropTypes.object,
