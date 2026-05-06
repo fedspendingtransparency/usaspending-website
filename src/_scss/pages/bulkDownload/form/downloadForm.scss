@@ -86,15 +86,8 @@
 
         .radio {
           padding: 0;
-
-          &:first-of-type {
-            // 3 of 8 columns available to the form
-            min-width: 37.5%;
-          }
-
-          &:last-of-type {
-            width: stretch;
-          }
+          // 3 of 8 columns available to the form
+          width: 37.5%;
 
           label {
             display: flex;
