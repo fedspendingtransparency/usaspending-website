@@ -38,11 +38,6 @@ const AgencyFilter = memo(function AgencyFilter({
 
     const onChange = (e) => updateFilter('agencyType', e.target.value);
 
-    const toggleAgencyPicker = (e) => {
-        e.preventDefault();
-        setShowAgencyPicker((state) => !state);
-    };
-
     const toggleSubAgencyPicker = (e) => {
         e.preventDefault();
         // Disable the button if there are no sub-agencies
@@ -52,6 +47,7 @@ const AgencyFilter = memo(function AgencyFilter({
     const handleAgencySelect = (e) => {
         e.preventDefault();
         const target = e.target;
+        console.log({ target });
         updateFilter('agency', {
             id: target.value,
             name: target.name
@@ -63,8 +59,6 @@ const AgencyFilter = memo(function AgencyFilter({
         else {
             setSubAgencyList(target.value);
         }
-
-        setShowAgencyPicker(false);
     };
 
     const handleSubAgencySelect = (e) => {
@@ -108,23 +102,6 @@ const AgencyFilter = memo(function AgencyFilter({
         </li>
     ));
 
-    // Create the other agencies options
-    const otherAgencies = agencies.otherAgencies.map((agency) => (
-        <li
-            className="field-item indent"
-            key={`field-${agency.toptier_agency_id}`}>
-            <button
-                className="item-button"
-                title={agency.name}
-                aria-label={agency.name}
-                value={agency.toptier_agency_id}
-                name={agency.name}
-                onClick={handleAgencySelect}>
-                {agency.name}
-            </button>
-        </li>
-    ));
-
     // Create the sub-agency options
     const subAgenciesList = subAgencies.map((subAgency, i) => (
         <li
@@ -140,13 +117,6 @@ const AgencyFilter = memo(function AgencyFilter({
             </button>
         </li>
     ));
-
-    let showAgencyClass = ' hide';
-    let agencyIcon = <AngleDown alt="Pick an agency" />;
-    if (showAgencyPicker) {
-        showAgencyClass = '';
-        agencyIcon = <AngleUp alt="Pick an agency" />;
-    }
 
     let showSubAgencyClass = ' hide';
     let subAgencyIcon = <AngleDown alt="Pick a sub-agency" />;
@@ -182,7 +152,11 @@ const AgencyFilter = memo(function AgencyFilter({
     let test = [{ name: 'All', toptier_agency_id: 'all', toptier_code: 'all' }];
 
     Object.entries(agencies).forEach(([key, value]) => {
-        const title = { name: key, toptier_agency_id: key, toptier_code: null };
+        const title = {
+            name: key === "cfoAgencies" ? "CFO Agencies" : "Other Agencies",
+            toptier_agency_id: key,
+            toptier_code: null
+        };
         test = [...test, title, ...value];
     });
 
@@ -191,9 +165,8 @@ const AgencyFilter = memo(function AgencyFilter({
         toptier_agency_id: id,
         toptier_code: code
     }) => (
-        { text: name, value: code ? `${code}-${id}` : `${id}-disabled` }
+        { text: name, value: code ? id.toString() : `${id}-disabled` }
     ));
-    console.log({ test, optionsArray });
 
     return (
         <div className="download-filter">
@@ -214,7 +187,8 @@ const AgencyFilter = memo(function AgencyFilter({
                 <ComboBox
                     inputValue={inputValue}
                     setInputValue={setInputValue}
-                    optionsArray={optionsArray} />
+                    optionsArray={optionsArray}
+                    onSelect={handleAgencySelect} />
                 <div className="filter-picker">
                     <label
                         className="select-label"

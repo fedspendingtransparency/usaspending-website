@@ -23,6 +23,7 @@ const propTypes = {
 const ComboBox = memo(function ComboBox({
     inputValue,
     setInputValue,
+    onSelect,
     optionsArray,
     label,
     placeholder,
@@ -36,13 +37,14 @@ const ComboBox = memo(function ComboBox({
     const options = optionsArray
         .filter(({ text }) => text?.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1)
         .map(({ value, text }) => {
-            const onClick = () => {
+            const onClick = (e) => {
                 setInputValue(text);
                 setOpenOptions(false);
+                onSelect(e);
             };
 
             // primarily used for title options within dropdown
-            const disabledOption = value.indexOf('disabled') !== -1;
+            const disabledOption = value?.indexOf('disabled') !== -1;
 
             return (
                 <li value={value} className="combo-box__options-item" key={value}>
@@ -51,6 +53,8 @@ const ComboBox = memo(function ComboBox({
                         type="button"
                         aria-label={`${formName}-option-item`}
                         onClick={onClick}
+                        name={text}
+                        value={value}
                         disabled={disabledOption}>
                         {text}
                     </button>
