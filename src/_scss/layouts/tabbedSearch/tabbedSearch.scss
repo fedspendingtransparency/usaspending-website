@@ -9,9 +9,5 @@
     max-width: 100%;
     display: flex;
     margin: 0 math.div($outer-gutter, 2);
-
-    @include media($x-large-screen) {
-      max-width: $site-max-width;
-    }
   }
 }
