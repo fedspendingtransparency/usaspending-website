@@ -99,7 +99,7 @@ const AgencyFilter = memo(function AgencyFilter({
 
     Object.entries(agencies).forEach(([key, value]) => {
         const title = {
-            name: key === "cfoAgencies" ? "CFO Agencies" : "Other Agencies",
+            name: key === "cfoAgencies" ? "CFO AGENCIES" : "OTHER AGENCIES",
             toptier_agency_id: key,
             toptier_code: null
         };

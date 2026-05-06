@@ -149,10 +149,18 @@
               margin-right: rem(24);
             }
 
-            &:last-of-type {
-              .combo-box__input {
-                padding-right: rem(60);
-                text-overflow: ellipsis;
+            .combo-box__input {
+              padding-right: rem(60);
+              text-overflow: ellipsis;
+            }
+
+            .combo-box__option {
+              font-weight: normal;
+
+              &:disabled {
+                font-size: $smallest-font-size;
+                font-weight: $font-semibold;
+                background-color: $blue-vivid-5v;
               }
             }
           }
