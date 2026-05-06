@@ -191,7 +191,7 @@ const AgencyFilter = memo(function AgencyFilter({
         toptier_agency_id: id,
         toptier_code: code
     }) => (
-        { text: name, value: `${code}-${id}` }
+        { text: name, value: code ? `${code}-${id}` : `${id}-disabled` }
     ));
     console.log({ test, optionsArray });
 
