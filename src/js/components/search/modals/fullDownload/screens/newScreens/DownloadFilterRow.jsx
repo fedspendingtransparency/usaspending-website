@@ -53,13 +53,18 @@ const DownloadFilterRow = ({
     // every filter value/name has a completely different format ( array of strings, array of objects, object, object of arrays), these have to be formatted before they
     // are passed into ReadMore because if you don't format it there is no comma separation
     if (filter.name === 'Place of Performance' || filter.name === 'Recipient Location') {
-        formatted = filter.values.map((filterTemp, i, row) => {
-            if (i + 1 === row.length) {
-                return `${filterTemp.display.entity}:  ${filterTemp.display.title}`;
-            }
-            return `${filterTemp.display.entity}:  ${filterTemp.display.title},`;
-        });
-        formatted = formatted.join(" ");
+        if (filter.scope === 'foreign') {
+            formatted = "ALL FOREIGN LOCATIONS";
+        }
+        else if (filter.scope === 'all') {
+            formatted = filter.values.map((filterTemp, i, row) => {
+                if (i + 1 === row.length) {
+                    return `${filterTemp.display.entity}:  ${filterTemp.display.title}`;
+                }
+                return `${filterTemp.display.entity}:  ${filterTemp.display.title},`;
+            });
+            formatted = formatted.join(" ");
+        }
     }
     else if (filter.name === 'Disaster Emergency Fund Code (DEFC)') {
         formatted = filter.values.map((filterTemp, i, row) => {
