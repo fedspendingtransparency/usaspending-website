@@ -148,6 +148,13 @@
             &:first-of-type {
               margin-right: rem(24);
             }
+
+            &:last-of-type {
+              .combo-box__input {
+                padding-right: rem(160);
+                text-overflow: ellipsis;
+              }
+            }
           }
         }
       }
