@@ -29,11 +29,9 @@ const AgencyFilter = memo(function AgencyFilter({
     const currentAgencyType = useSelector((state) => state.bulkDownload.awards.agencyType);
     const currentAgency = useSelector((state) => state.bulkDownload.awards.agency);
     const currentSubAgencyName = useSelector((state) => state.bulkDownload.awards.subAgency.name);
-    const [showAgencyPicker, setShowAgencyPicker] = useState(false);
     const [showSubAgencyPicker, setShowSubAgencyPicker] = useState(false);
     const [inputValue, setInputValue] = useState('');
 
-    const currentAgencyName = currentAgency.name;
     const valid = currentAgency.id !== '';
 
     const onChange = (e) => updateFilter('agencyType', e.target.value);
@@ -47,7 +45,6 @@ const AgencyFilter = memo(function AgencyFilter({
     const handleAgencySelect = (e) => {
         e.preventDefault();
         const target = e.target;
-        console.log({ target });
         updateFilter('agency', {
             id: target.value,
             name: target.name
@@ -84,23 +81,6 @@ const AgencyFilter = memo(function AgencyFilter({
             </div>
         );
     }
-
-    // Create the CFO agencies options
-    const cfoAgencies = agencies.cfoAgencies.map((agency) => (
-        <li
-            className="field-item indent"
-            key={`field-${agency.toptier_agency_id}`}>
-            <button
-                className="item-button"
-                title={agency.name}
-                aria-label={agency.name}
-                value={agency.toptier_agency_id}
-                name={agency.name}
-                onClick={handleAgencySelect}>
-                {agency.name}
-            </button>
-        </li>
-    ));
 
     // Create the sub-agency options
     const subAgenciesList = subAgencies.map((subAgency, i) => (
@@ -177,18 +157,14 @@ const AgencyFilter = memo(function AgencyFilter({
             </h3>
             <div className="download-filter__content">
                 {agencyTypesList}
-                <div className="filter-picker">
-                    <label
-                        className="select-label"
-                        htmlFor="agency-select">
-                            Agency
-                    </label>
-                </div>
                 <ComboBox
                     inputValue={inputValue}
                     setInputValue={setInputValue}
                     optionsArray={optionsArray}
-                    onSelect={handleAgencySelect} />
+                    onSelect={handleAgencySelect}
+                    label={(<>Awarding Agency <span>(Required)</span></>)}
+                    placeholder="Select agency"
+                    disabled={optionsArray.length === 3} />
                 <div className="filter-picker">
                     <label
                         className="select-label"
