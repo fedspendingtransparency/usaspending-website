@@ -133,6 +133,13 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
         );
     };
 
+    const handleTextInput = (e) => {
+        if (handleTextInputChange) {
+            handleTextInputChange(e);
+        }
+        setIsOpen(true);
+    };
+
     const resultsContainer = () => {
         if (noResults) {
             const alertBody = (
@@ -231,7 +238,7 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
                 placeholder={placeholder}
                 searchString={searchString}
                 enabled
-                handleTextInputChange={handleTextInputChange}
+                handleTextInputChange={handleTextInput}
                 loading={false}
                 isClearable
                 openDropdown={toggleDropdown}
