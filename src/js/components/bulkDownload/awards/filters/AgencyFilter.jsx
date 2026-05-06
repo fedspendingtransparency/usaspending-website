@@ -10,6 +10,7 @@ import {
     AngleDown, AngleUp, CheckCircle, ExclamationCircle
 } from "components/sharedComponents/icons/Icons";
 import { awardDownloadOptions } from "dataMapping/bulkDownload/bulkDownloadOptions";
+import ComboBox from "../../../sharedComponents/ComboBox";
 
 const propTypes = {
     agencies: PropTypes.object,
@@ -30,6 +31,7 @@ const AgencyFilter = memo(function AgencyFilter({
     const currentSubAgencyName = useSelector((state) => state.bulkDownload.awards.subAgency.name);
     const [showAgencyPicker, setShowAgencyPicker] = useState(false);
     const [showSubAgencyPicker, setShowSubAgencyPicker] = useState(false);
+    const [inputValue, setInputValue] = useState('');
 
     const currentAgencyName = currentAgency.name;
     const valid = currentAgency.id !== '';
@@ -177,6 +179,22 @@ const AgencyFilter = memo(function AgencyFilter({
         </div>
     ));
 
+    let test = [{ name: 'All', toptier_agency_id: 'all', toptier_code: 'all' }];
+
+    Object.entries(agencies).forEach(([key, value]) => {
+        const title = { name: key, toptier_agency_id: key, toptier_code: null };
+        test = [...test, title, ...value];
+    });
+
+    const optionsArray = test.map(({
+        name,
+        toptier_agency_id: id,
+        toptier_code: code
+    }) => (
+        { text: name, value: `${code}-${id}` }
+    ));
+    console.log({ test, optionsArray });
+
     return (
         <div className="download-filter">
             <h3 className="download-filter__title">
@@ -192,57 +210,11 @@ const AgencyFilter = memo(function AgencyFilter({
                         htmlFor="agency-select">
                             Agency
                     </label>
-                    <div className="field-picker">
-                        <button
-                            className="selected-button"
-                            title={currentAgencyName}
-                            aria-label={currentAgencyName}
-                            onClick={toggleAgencyPicker}>
-                            <div className="label">
-                                {currentAgencyName}
-                            </div>
-                            <div className="arrow-icon">
-                                {agencyIcon}
-                            </div>
-                        </button>
-
-                        <div className={`field-list${showAgencyClass}`}>
-                            <ul>
-                                <li className="field-item">
-                                    <button
-                                        className="item-button"
-                                        title="All"
-                                        aria-label="all"
-                                        name="All"
-                                        value="all"
-                                        onClick={handleAgencySelect}>
-                                            All
-                                    </button>
-                                </li>
-                                <li className="field-item">
-                                    <button
-                                        className="item-button group-label"
-                                        title="CFO Agencies"
-                                        aria-label="CFO Agencies"
-                                        disabled >
-                                            CFO Agencies
-                                    </button>
-                                </li>
-                                {cfoAgencies}
-                                <li className="field-item">
-                                    <button
-                                        className="item-button group-label"
-                                        title="Other Agencies"
-                                        aria-label="Other Agencies"
-                                        disabled >
-                                            Other Agencies
-                                    </button>
-                                </li>
-                                {otherAgencies}
-                            </ul>
-                        </div>
-                    </div>
                 </div>
+                <ComboBox
+                    inputValue={inputValue}
+                    setInputValue={setInputValue}
+                    optionsArray={optionsArray} />
                 <div className="filter-picker">
                     <label
                         className="select-label"

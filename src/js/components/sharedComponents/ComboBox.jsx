@@ -34,7 +34,7 @@ const ComboBox = memo(function ComboBox({
 
     // 1) filter for inputValue 2) map to list item element
     const options = optionsArray
-        .filter(({ value }) => value.indexOf(inputValue.toLowerCase()) !== -1)
+        .filter(({ text }) => text?.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1)
         .map(({ value, text }) => {
             const onClick = () => {
                 setInputValue(text);
