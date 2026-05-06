@@ -3,14 +3,15 @@
  * Created by Lizzie Salita 11/2/17
  */
 
-import React, { memo, useState } from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
-import {
-    AngleDown, AngleUp, CheckCircle, ExclamationCircle
-} from "components/sharedComponents/icons/Icons";
+
 import { awardDownloadOptions } from "dataMapping/bulkDownload/bulkDownloadOptions";
-import ComboBox from "../../../sharedComponents/ComboBox";
+import {
+    CheckCircle, ExclamationCircle
+} from "components/sharedComponents/icons/Icons";
+import ComboBox from "components/sharedComponents/ComboBox";
 
 const propTypes = {
     agencies: PropTypes.object,
@@ -28,19 +29,10 @@ const AgencyFilter = memo(function AgencyFilter({
 }) {
     const currentAgencyType = useSelector((state) => state.bulkDownload.awards.agencyType);
     const currentAgency = useSelector((state) => state.bulkDownload.awards.agency);
-    const currentSubAgencyName = useSelector((state) => state.bulkDownload.awards.subAgency.name);
-    const [showSubAgencyPicker, setShowSubAgencyPicker] = useState(false);
-    const [inputValue, setInputValue] = useState('');
 
     const valid = currentAgency.id !== '';
 
     const onChange = (e) => updateFilter('agencyType', e.target.value);
-
-    const toggleSubAgencyPicker = (e) => {
-        e.preventDefault();
-        // Disable the button if there are no sub-agencies
-        if (subAgencies.length > 0) setShowSubAgencyPicker((state) => !state);
-    };
 
     const handleAgencySelect = (e) => {
         e.preventDefault();
@@ -64,8 +56,6 @@ const AgencyFilter = memo(function AgencyFilter({
         updateFilter('subAgency', {
             name: target.value
         });
-
-        setShowSubAgencyPicker(false);
     };
 
     let icon = (
@@ -80,34 +70,6 @@ const AgencyFilter = memo(function AgencyFilter({
                 <ExclamationCircle />
             </div>
         );
-    }
-
-    // Create the sub-agency options
-    const subAgenciesList = subAgencies.map((subAgency, i) => (
-        <li
-            className="field-item"
-            key={`field-${subAgency.subtier_agency_name}-${i}`}>
-            <button
-                className="item-button"
-                title={subAgency.subtier_agency_name}
-                aria-label={subAgency.subtier_agency_name}
-                value={subAgency.subtier_agency_name}
-                onClick={handleSubAgencySelect}>
-                {subAgency.subtier_agency_name}
-            </button>
-        </li>
-    ));
-
-    let showSubAgencyClass = ' hide';
-    let subAgencyIcon = <AngleDown alt="Pick a sub-agency" />;
-    if (showSubAgencyPicker) {
-        showSubAgencyClass = '';
-        subAgencyIcon = <AngleUp alt="Pick a sub-agency" />;
-    }
-
-    let subAgencyDisabledClass = '';
-    if (subAgencies.length === 0) {
-        subAgencyDisabledClass = 'disabled';
     }
 
     const agencyTypesList = awardDownloadOptions.agencyTypes.map((agencyType) => (
@@ -129,7 +91,8 @@ const AgencyFilter = memo(function AgencyFilter({
         </div>
     ));
 
-    let test = [{ name: 'All', toptier_agency_id: 'all', toptier_code: 'all' }];
+    // data manipulation for combo boxes
+    let agenciesArray = [{ name: 'All', toptier_agency_id: 'all', toptier_code: 'all' }];
 
     Object.entries(agencies).forEach(([key, value]) => {
         const title = {
@@ -137,16 +100,19 @@ const AgencyFilter = memo(function AgencyFilter({
             toptier_agency_id: key,
             toptier_code: null
         };
-        test = [...test, title, ...value];
+        agenciesArray = [...agenciesArray, title, ...value];
     });
 
-    const optionsArray = test.map(({
+    const agenciesOptions = agenciesArray.map(({
         name,
         toptier_agency_id: id,
         toptier_code: code
     }) => (
         { text: name, value: code ? id.toString() : `${id}-disabled` }
     ));
+
+    const subAgenciesOptions = subAgencies
+        .map(({ subtier_agency_name: name }) => ({ text: name, value: name }));
 
     return (
         <div className="download-filter">
@@ -158,44 +124,17 @@ const AgencyFilter = memo(function AgencyFilter({
             <div className="download-filter__content">
                 {agencyTypesList}
                 <ComboBox
-                    inputValue={inputValue}
-                    setInputValue={setInputValue}
-                    optionsArray={optionsArray}
+                    optionsArray={agenciesOptions}
                     onSelect={handleAgencySelect}
                     label={(<>Awarding Agency <span>(Required)</span></>)}
                     placeholder="Select agency"
-                    disabled={optionsArray.length === 3} />
-                <div className="filter-picker">
-                    <label
-                        className="select-label"
-                        htmlFor="sub-agency-select"
-                        tabIndex={-1}>
-                            Sub-Agency
-                    </label>
-                    <div className="field-picker">
-                        <button
-                            className={`selected-button ${subAgencyDisabledClass}`}
-                            title={currentSubAgencyName}
-                            aria-label={currentSubAgencyName}
-                            onClick={toggleSubAgencyPicker}
-                            disabled={subAgencyDisabledClass === 'disabled'}
-                            tabIndex={subAgencyDisabledClass === 'disabled' ? -1 : 0}>
-                            <div className="label">
-                                {currentSubAgencyName}
-                            </div>
-                            <div className="arrow-icon">
-                                {subAgencyIcon}
-                            </div>
-                        </button>
-
-                        <div
-                            className={`field-list${showSubAgencyClass}`}>
-                            <ul>
-                                {subAgenciesList}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
+                    disabled={agenciesOptions.length === 3} />
+                <ComboBox
+                    optionsArray={subAgenciesOptions}
+                    onSelect={handleSubAgencySelect}
+                    label="Sub-agency"
+                    placeholder="Select sub-agency"
+                    disabled={subAgenciesOptions.length === 0} />
                 <p className="download-filter__content-note">
                     <span className="download-filter__content-note_bold">Note: </span>
                     Prior to FY19, Financial Assistance awards
