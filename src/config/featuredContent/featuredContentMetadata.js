@@ -365,7 +365,7 @@ const articles = [
         banner_subtitle: "Learn Where USAspending.gov Data Comes From",
         created_date: "05/28/26",
         feature_sprint: 10,
-        feature_week: 1,
+        feature_week: 2,
         description: "You might be wondering: where does the data on USAspending.gov come from? Since our goal is to promote open data and foster open government, we'd love to tell",
         slug: "understanding-four-government-data-source-systems",
         explore_more: [
@@ -405,7 +405,7 @@ const articles = [
         banner_subtitle: "Follow the Money Using USAspending.gov’s Spending Explorer",
         created_date: "06/04/2026",
         feature_sprint: 10,
-        feature_week: 1,
+        feature_week: 3,
         description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
         slug: "johns-usaspending-search",
         isInfographicTemplate: false,
