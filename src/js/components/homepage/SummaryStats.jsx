@@ -3,38 +3,25 @@
  * Created by Andrea Blackwell 07/18/22
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { isCancel } from "axios";
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import { Link } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { fetchBreakdown } from 'helpers/explorerHelper';
+import { REQUEST_VERSION } from "GlobalConstants";
 import { formatMoneyWithUnits } from "helpers/moneyFormatter";
-import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import Analytics from 'helpers/analytics/Analytics';
 import { generateUrlHash } from "helpers/searchHelper";
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
-import { REQUEST_VERSION } from "GlobalConstants";
-
+import useFetchBreakdown from "hooks/useFetchBreakdown";
+import { useLatestAccountData } from 'containers/account/WithLatestFy';
 
 const SummaryStats = () => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-    const request = useRef(null);
-    const [budgetData, setBudgetData] = useState([]);
-    const [budgetTotal, setBudgetTotal] = useState([]);
-    const [randomIndex, setRandomIndex] = useState(0);
-    const budgetCategories = [
-        { name: "Medicare" },
-        { name: "National Defense" },
-        { name: "Social Security" },
-        { name: "Transportation" },
-        { name: "Agriculture" },
-        { name: "Veterans Benefits and Services", label: "Veterans Benefits" },
-        { name: "Energy" }, { name: "Net Interest" }
-    ];
     const [, , { year: latestFy, period: latestPeriod }] = useLatestAccountData();
+    const {
+        budgetData, budgetTotal, randomIndex, error, loading
+    } = useFetchBreakdown(latestFy, latestPeriod);
 
     const trackExplorerLink = () => Analytics.event({
         event: 'homepage-summary-stats',
@@ -49,8 +36,6 @@ const SummaryStats = () => {
         action: 'Link',
         label: `clicked - ${title}`
     });
-
-    const selectRandomIndex = () => Math.floor(Math.random() * 10);
 
     const performSearch = (title, e) => {
         e.preventDefault();
@@ -75,7 +60,7 @@ const SummaryStats = () => {
             .catch((hashError) => {
                 console.log(hashError);
                 if (isCancel(hashError)) {
-                    // Got cancelled
+                    // Got canceled
                 }
                 else if (error.response) {
                     // Errored out but got response, toggle noAward flag
@@ -89,49 +74,6 @@ const SummaryStats = () => {
             });
     };
 
-    const fetchBudgetFunctions = () => {
-        if (request.current) {
-            request.current.cancel();
-        }
-        if (error) {
-            setError(false);
-        }
-        if (!loading) {
-            setLoading(true);
-        }
-
-        const params = {
-            type: "budget_function",
-            filters: {
-                fy: latestFy,
-                period: latestPeriod
-            }
-        };
-
-        request.current = fetchBreakdown(params);
-        request.current.promise
-            .then((res) => {
-                const budgetDataArr = [];
-                setBudgetTotal(res?.data?.total);
-                res?.data?.results?.forEach((item) => {
-                    const budgetCategoriesIndex = budgetCategories.map((e) => e.name).indexOf(item.name);
-                    if (budgetCategoriesIndex > -1) {
-                        const name = 'label' in budgetCategories[budgetCategoriesIndex] ? budgetCategories[budgetCategoriesIndex].label : budgetCategories[budgetCategoriesIndex].name;
-                        budgetDataArr.push({
-                            name,
-                            amount: item.amount
-                        });
-                    }
-                });
-                setRandomIndex(selectRandomIndex());
-                setBudgetData(budgetDataArr);
-                setLoading(false);
-            }).catch((err) => {
-                setError(true);
-                setLoading(false);
-                console.error(err);
-            });
-    };
 
     const renderLink = (name) => (
         <a
@@ -162,13 +104,6 @@ const SummaryStats = () => {
                 </span>
             </>);
     };
-
-    useEffect(() => {
-        if (latestFy && latestPeriod) {
-            fetchBudgetFunctions();
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [latestFy, latestPeriod]);
 
     return (
         <section className="summary-stats">
