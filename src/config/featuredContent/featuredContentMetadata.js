@@ -121,7 +121,7 @@ const articles = [
         created_date: "05/21/2026",
         description: "For this series, we asked our Transparency Experience Desk to answer the most commonly-asked questions about USAspending.gov’s open data.",
         feature_sprint: 10,
-        feature_week: 2,
+        feature_week: 1,
         slug: "obligations-vs-outlays",
         explore_more: [
             {
