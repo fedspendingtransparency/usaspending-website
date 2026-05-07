@@ -3,290 +3,162 @@
  * Created by Lizzie Salita 11/2/17
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from "react-redux";
 
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import { awardDownloadOptions } from "dataMapping/bulkDownload/bulkDownloadOptions";
+import {
+    CheckCircle, ExclamationCircle
+} from "components/sharedComponents/icons/Icons";
+import ComboBox from "components/sharedComponents/ComboBox";
 
 const propTypes = {
     agencies: PropTypes.object,
-    agencyTypes: PropTypes.array,
-    currentAgencyType: PropTypes.string,
     subAgencies: PropTypes.array,
     setSubAgencyList: PropTypes.func,
-    currentAgencies: PropTypes.object,
-    updateFilter: PropTypes.func,
-    valid: PropTypes.bool
+    updateFilter: PropTypes.func
 };
 
-export default class AgencyFilter extends React.Component {
-    constructor(props) {
-        super(props);
+// eslint-disable-next-line prefer-arrow-callback
+const AgencyFilter = memo(function AgencyFilter({
+    agencies,
+    subAgencies,
+    setSubAgencyList,
+    updateFilter
+}) {
+    const currentAgencyType = useSelector((state) => state.bulkDownload.awards.agencyType);
+    const currentAgency = useSelector((state) => state.bulkDownload.awards.agency);
 
-        this.state = {
-            showAgencyPicker: false,
-            showSubAgencyPicker: false
-        };
+    const valid = currentAgency.id !== '';
 
-        this.onChange = this.onChange.bind(this);
-        this.toggleAgencyPicker = this.toggleAgencyPicker.bind(this);
-        this.toggleSubAgencyPicker = this.toggleSubAgencyPicker.bind(this);
-        this.handleAgencySelect = this.handleAgencySelect.bind(this);
-        this.handleSubAgencySelect = this.handleSubAgencySelect.bind(this);
-    }
+    const onChange = (e) => updateFilter('agencyType', e.target.value);
 
-    onChange(e) {
-        const target = e.target;
-        this.props.updateFilter('agencyType', target.value);
-    }
-
-    toggleAgencyPicker(e) {
-        e.preventDefault();
-        this.setState({
-            showAgencyPicker: !this.state.showAgencyPicker
-        });
-    }
-
-    toggleSubAgencyPicker(e) {
-        e.preventDefault();
-        // Disable the button if there are no sub-agencies
-        if (this.props.subAgencies.length > 0) {
-            this.setState({
-                showSubAgencyPicker: !this.state.showSubAgencyPicker
-            });
-        }
-    }
-
-    handleAgencySelect(e) {
+    const handleAgencySelect = (e) => {
         e.preventDefault();
         const target = e.target;
-        this.props.updateFilter('agency', {
+        updateFilter('agency', {
             id: target.value,
             name: target.name
         });
 
         if (target.value === 'all') {
-            this.props.setSubAgencyList('');
+            setSubAgencyList('');
         }
         else {
-            this.props.setSubAgencyList(target.value);
+            setSubAgencyList(target.value);
         }
+    };
 
-        this.setState({
-            showAgencyPicker: false
-        });
-    }
-
-    handleSubAgencySelect(e) {
+    const handleSubAgencySelect = (e) => {
         e.preventDefault();
         const target = e.target;
-        this.props.updateFilter('subAgency', {
+        updateFilter('subAgency', {
             name: target.value
         });
+    };
 
-        this.setState({
-            showSubAgencyPicker: false
-        });
-    }
+    let icon = (
+        <div className="icon valid">
+            <CheckCircle />
+        </div>
+    );
 
-    render() {
-        let icon = (
-            <div className="icon valid">
-                <Icons.CheckCircle />
+    if (!valid) {
+        icon = (
+            <div className="icon invalid">
+                <ExclamationCircle />
             </div>
         );
+    }
 
-        if (!this.props.valid) {
-            icon = (
-                <div className="icon invalid">
-                    <Icons.ExclamationCircle />
-                </div>
-            );
-        }
-
-        // Create the CFO agencies options
-        const cfoAgencies = this.props.agencies.cfoAgencies.map((agency) => (
-            <li
-                className="field-item indent"
-                key={`field-${agency.toptier_agency_id}`}>
-                <button
-                    className="item-button"
-                    title={agency.name}
-                    aria-label={agency.name}
-                    value={agency.toptier_agency_id}
-                    name={agency.name}
-                    onClick={this.handleAgencySelect}>
-                    {agency.name}
-                </button>
-            </li>
-        ));
-
-        // Create the other agencies options
-        const otherAgencies = this.props.agencies.otherAgencies.map((agency) => (
-            <li
-                className="field-item indent"
-                key={`field-${agency.toptier_agency_id}`}>
-                <button
-                    className="item-button"
-                    title={agency.name}
-                    aria-label={agency.name}
-                    value={agency.toptier_agency_id}
-                    name={agency.name}
-                    onClick={this.handleAgencySelect}>
-                    {agency.name}
-                </button>
-            </li>
-        ));
-
-        // Create the sub-agency options
-        const subAgencies = this.props.subAgencies.map((subAgency, i) => (
-            <li
-                className="field-item"
-                key={`field-${subAgency.subtier_agency_name}-${i}`}>
-                <button
-                    className="item-button"
-                    title={subAgency.subtier_agency_name}
-                    aria-label={subAgency.subtier_agency_name}
-                    value={subAgency.subtier_agency_name}
-                    onClick={this.handleSubAgencySelect}>
-                    {subAgency.subtier_agency_name}
-                </button>
-            </li>
-        ));
-
-        const currentAgencyName = this.props.currentAgencies.agency.name;
-        const currentSubAgencyName = this.props.currentAgencies.subAgency.name;
-
-        let showAgencyPicker = 'hide';
-        let agencyIcon = <Icons.AngleDown alt="Pick an agency" />;
-        if (this.state.showAgencyPicker) {
-            showAgencyPicker = '';
-            agencyIcon = <Icons.AngleUp alt="Pick an agency" />;
-        }
-
-        let showSubAgencyPicker = 'hide';
-        let subAgencyIcon = <Icons.AngleDown alt="Pick a sub-agency" />;
-        if (this.state.showSubAgencyPicker) {
-            showSubAgencyPicker = '';
-            subAgencyIcon = <Icons.AngleUp alt="Pick a sub-agency" />;
-        }
-
-        let subAgencyDisabledClass = '';
-        if (this.props.subAgencies.length === 0) {
-            subAgencyDisabledClass = 'disabled';
-        }
-
-        const agencyTypes = this.props.agencyTypes.map((agencyType) => (
-            <div
-                className="radio"
-                key={agencyType.name}>
+    const agencyTypesList = awardDownloadOptions.agencyTypes.map((agencyType) => (
+        <div
+            className="radio"
+            key={agencyType.name}>
+            <label className="radio-label" htmlFor="agencyType">
                 <input
                     type="radio"
                     aria-label={agencyType.name}
                     value={agencyType.name}
                     name="agencyType"
-                    checked={this.props.currentAgencyType === agencyType.name}
-                    onChange={this.onChange} />
-                <label className="radio-label" htmlFor="locationType">{agencyType.label}</label>
-            </div>
-        ));
-
-        return (
-            <div className="download-filter">
-                <h3 className="download-filter__title">
-                    {icon} Select an awarding or funding <span className="download-filter__title_em">agency</span> and <span>sub-agency</span>.
-                </h3>
-                <div className="download-filter__content">
-                    {agencyTypes}
-                    <div className="filter-picker">
-                        <label className="select-label" htmlFor="agency-select">
-                            Agency
-                        </label>
-
-                        <div className="field-picker">
-                            <button
-                                className="selected-button"
-                                title={currentAgencyName}
-                                aria-label={currentAgencyName}
-                                onClick={this.toggleAgencyPicker}>
-                                <div className="label">
-                                    {currentAgencyName}
-                                </div>
-                                <div className="arrow-icon">
-                                    {agencyIcon}
-                                </div>
-                            </button>
-
-                            <div className={`field-list ${showAgencyPicker}`}>
-                                <ul>
-                                    <li className="field-item">
-                                        <button
-                                            className="item-button"
-                                            title="All"
-                                            aria-label="all"
-                                            name="All"
-                                            value="all"
-                                            onClick={this.handleAgencySelect}>
-                                            All
-                                        </button>
-                                    </li>
-                                    <li className="field-item">
-                                        <button
-                                            className="item-button group-label"
-                                            title="CFO Agencies"
-                                            aria-label="CFO Agencies"
-                                            disabled >
-                                            CFO Agencies
-                                        </button>
-                                    </li>
-                                    {cfoAgencies}
-                                    <li className="field-item">
-                                        <button
-                                            className="item-button group-label"
-                                            title="Other Agencies"
-                                            aria-label="Other Agencies"
-                                            disabled >
-                                            Other Agencies
-                                        </button>
-                                    </li>
-                                    {otherAgencies}
-                                </ul>
-                            </div>
-                        </div>
+                    checked={currentAgencyType === agencyType.name}
+                    onChange={onChange} />
+                <div className="radio-container">
+                    {agencyType.label}
+                    <div className="radio-description">
+                        {agencyType.description}
                     </div>
-                    <div className="filter-picker">
-                        <label className="select-label" htmlFor="sub-agency-select" tabIndex={-1}>
-                            Sub-Agency
-                        </label>
-                        <div className="field-picker">
-                            <button
-                                className={`selected-button ${subAgencyDisabledClass}`}
-                                title={currentSubAgencyName}
-                                aria-label={currentSubAgencyName}
-                                onClick={this.toggleSubAgencyPicker}
-                                disabled={subAgencyDisabledClass === 'disabled'}
-                                tabIndex={subAgencyDisabledClass === 'disabled' ? -1 : 0}>
-                                <div className="label">
-                                    {currentSubAgencyName}
-                                </div>
-                                <div className="arrow-icon">
-                                    {subAgencyIcon}
-                                </div>
-                            </button>
-
-                            <div
-                                className={`field-list ${showSubAgencyPicker}`}>
-                                <ul>
-                                    {subAgencies}
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <p className="download-filter__content-note"><span className="download-filter__content-note_bold">Note:</span> Prior to FY19, Financial Assistance awards (grants, direct payments, loans, insurance, and other financial assistance) only sporadically include Funding Agency data.</p>
                 </div>
+            </label>
+        </div>
+    ));
+
+    // data manipulation for combo boxes
+    let agenciesArray = [{ name: 'All', toptier_agency_id: 'all', toptier_code: 'all' }];
+
+    Object.entries(agencies).forEach(([key, value]) => {
+        const title = {
+            name: key === "cfoAgencies" ? "CFO AGENCIES" : "OTHER AGENCIES",
+            toptier_agency_id: key,
+            toptier_code: null
+        };
+        agenciesArray = [...agenciesArray, title, ...value];
+    });
+
+    const agenciesOptions = agenciesArray.map(({
+        name,
+        toptier_agency_id: id,
+        toptier_code: code
+    }) => (
+        { text: name, value: code ? id.toString() : `${id}-disabled` }
+    ));
+
+    const subAgenciesOptions = subAgencies
+        .map(({ subtier_agency_name: name }) => ({ text: name, value: name }));
+
+    const agencyLabel = (
+        <>
+            {currentAgencyType === "awarding_agency" ? "Awarding " : "Funding "}Agency
+            <span> (Required)</span>
+        </>
+    );
+
+    return (
+        <div className="download-filter">
+            <h3 className="download-filter__title">
+                {icon} Select an awarding or funding
+                <span className="download-filter__title_em"> agency </span>
+                and <span>sub-agency</span>.
+            </h3>
+            <div className="download-filter__content agency">
+                <div className="input-container">
+                    {agencyTypesList}
+                </div>
+                <div className="combo-box-container">
+                    <ComboBox
+                        optionsArray={agenciesOptions}
+                        onSelect={handleAgencySelect}
+                        label={agencyLabel}
+                        placeholder="Select agency"
+                        disabled={agenciesOptions.length === 3} />
+                    <ComboBox
+                        optionsArray={subAgenciesOptions}
+                        onSelect={handleSubAgencySelect}
+                        label="Sub-agency"
+                        placeholder="Select sub-agency"
+                        disabled={subAgenciesOptions.length === 0} />
+                </div>
+                <p className="download-filter__content-note">
+                    <span className="download-filter__content-note_bold">Note: </span>
+                    Prior to FY19, Financial Assistance awards
+                    (grants, direct payments, loans, insurance, and other financial assistance)
+                    only sporadically include Funding Agency data.
+                </p>
             </div>
-        );
-    }
-}
+        </div>
+    );
+});
 
 AgencyFilter.propTypes = propTypes;
+export default AgencyFilter;

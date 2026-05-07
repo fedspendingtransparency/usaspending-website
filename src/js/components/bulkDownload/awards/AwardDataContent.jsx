@@ -82,10 +82,6 @@ const AwardDataContent = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => () => clearAwardFilters(), []);
 
-    const currentAgencies = {
-        agency: awards.agency,
-        subAgency: awards.subAgency
-    };
     return (
         <div className="download-center">
             <div className="download-center__filters">
@@ -112,11 +108,8 @@ const AwardDataContent = ({
                     onSubmit={handleSubmit}>
                     <AwardLevelAndTypeFilter />
                     <AgencyFilter
-                        currentAgencyType={awards.agencyType}
-                        agencyTypes={awardDownloadOptions.agencyTypes}
                         agencies={agencies}
                         subAgencies={subAgencies}
-                        currentAgencies={currentAgencies}
                         updateFilter={updateFilter}
                         setSubAgencyList={setSubAgencyList}
                         valid={awards.agency.id !== ''} />
