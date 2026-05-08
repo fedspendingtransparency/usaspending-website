@@ -35,6 +35,18 @@
       .covid-content__col {
         max-width: rem(1400);
         margin: auto;
+
+        .heading__container {
+          p {
+            font-size: $base-font-size;
+            font-weight: $font-normal;
+            color: $headline-color;
+
+            .usa-button-link {
+              font-size: $base-font-size;
+            }
+          }
+        }
       }
     }
 
@@ -74,46 +86,27 @@
         margin-bottom: 5rem;
         padding: 0 $global-padding * 2;
 
-        .body__header {
-          width: 100%;
-          @include display(flex);
-          flex-wrap: wrap;
-          align-items: center;
-          @include justify-content(space-between);
-          border-bottom: rem(3) solid $color-base;
+        
+        .usda-section-title__title-icon { 
+          width: rem(24);
+          height: rem(24)
+        }
+        
+        .usda-section-title__header{
+          margin-left: rem(4);
+        }
 
-          .body__header-left {
-            @include display(flex);
-            padding-bottom: math.div($global-padding, 2);
+        .usda-section-title__desc {
+          font-size: $smallest-font-size;
+          color: $body-color;
 
-            @media (min-width: $tablet-screen) {
-              padding-bottom: 0;
-            }
+          svg {
+            height: rem(16);
+            width: rem(16);
+            color: $body-color;
+            margin: 0 rem(4);
           }
-
-          .body__header-tooltip {
-            margin-top: $global-margin;
-          }
-
-          .body__header-right {
-            @include display(flex);
-          }
-
-          .body__header-icon {
-            margin-right: math.div($global-margin, 2);
-          }
-
-          .body__header-text {
-            font-size: 1.4rem;
-          }
-
-          h2 {
-            @include display(flex);
-            margin: 0;
-            line-height: $base-line-height;
-            font-size: rem(18);
-            font-weight: $font-semibold;
-          }
+          
         }
 
         hr {
@@ -135,7 +128,7 @@
             @media (min-width: $large-screen) {
               text-align: center;
               width: 50%;
-              margin: 2rem auto 0 auto;
+              margin: rem(24) auto 0 auto;
             }
           }
 
