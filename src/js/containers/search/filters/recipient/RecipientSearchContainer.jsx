@@ -128,7 +128,6 @@ const RecipientSearchContainer = () => {
                     sortResults(res.data.results);
                     setRecipients(res.data.results);
                     setErrorMessage('');
-                    setIsLoading(false);
                     setMaxRecipients(res.data.count === maxRecipientsAllowed);
                     setNoResults(!res.data.count);
                 })
@@ -136,10 +135,11 @@ const RecipientSearchContainer = () => {
                     if (!isCancel(err)) {
                         console.log(`Recipient Request Error: ${err}`);
                         setErrorMessage(err.message);
-                        setIsLoading(false);
                     }
                 });
         }
+
+        setIsLoading(false);
     };
 
     const handleTextInputChange = (e) => {
@@ -147,7 +147,7 @@ const RecipientSearchContainer = () => {
         setSearchString(e.target.value);
         timeout = window.setTimeout(() => {
             getRecipientsFromSearchString(e.target.value);
-        });
+        }, 1000);
     };
 
     const handleSearchClear = () => {
