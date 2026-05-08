@@ -21,7 +21,6 @@ const NewDownloadSummary = ({
     downloadData
 }) => {
     const startDownload = () => {
-        console.log("downloading ....... ");
         if (beginDownload) {
             beginDownload();
         }

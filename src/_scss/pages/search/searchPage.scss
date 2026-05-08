@@ -18,6 +18,12 @@
   @import "filters";
   @import "collapsibleSidebar";
 
+  #main-content {
+    @media(min-width: $medium-screen) {
+      padding-left: 0 !important;
+    }
+  }
+
   div.filter-award-toggle__container {
     display: flex;
     height: rem(21);
@@ -81,8 +87,7 @@
     }
 
     .search-contents {
-      max-width: $homepage-max-width;
-      margin: auto;
+      margin: 0;
       padding: 0;
 
       .full-search-sidebar {
