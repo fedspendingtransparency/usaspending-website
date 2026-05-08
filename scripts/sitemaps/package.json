@@ -21,7 +21,7 @@
     "dayjs": "^1.11.10"
   },
   "resolutions": {
-    "axios": "1.15.0",
+    "axios": "1.15.2",
     "follow-redirects": "1.16.0",
     "**/follow-redirects": "1.15.11",
     "form-data": "4.0.5",
