@@ -6,17 +6,19 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-import PageWrapper from "../sharedComponents/PageWrapper";
-import { homePageMetaTags } from "../../helpers/metaTagHelper";
+import PageWrapper from "components/sharedComponents/PageWrapper";
+import { homePageMetaTags } from "helpers/metaTagHelper";
+import BannerPageHeader from "components/sharedComponents/header/BannerPageHeader";
 import FeaturedVideo from "./featuredVideo/FeaturedVideo";
 import ListOfVideos from "./listOfVideos/ListOfVideos";
-import ContentPageHeader from '../sharedComponents/header/ContentPageHeader';
-import { getBaseUrl } from '../../helpers/socialShare';
 
 const propTypes = {
     featuredVideo: PropTypes.object,
     videos: PropTypes.array
 };
+
+// eslint-disable-next-line max-len
+const body = "Learn how to use USAspending.gov and understand the data. Subscribe to our YouTube for the latest videos!";
 
 require('pages/trainingVideos/trainingVideos.scss');
 
@@ -29,17 +31,13 @@ const TrainingVideosPage = ({ featuredVideo, videos }) => (
         <main
             id="main-content"
             className="main-content training-videos-content">
-            <ContentPageHeader
-                className="training-videos"
+            <BannerPageHeader
                 kicker="RESOURCES"
                 title="Training Videos"
-                body="Learn how to use USAspending.gov and understand the data. Subscribe to our YouTube channel for the latest videos!"
-                image="img/youtube-page/youtube-landing-page-hero-image@2x.webp"
-                shareOptions={{
-                    emailSubject: "Training Videos for USAspending.gov",
-                    emailBody: ` Watch training videos about USAspending.gov: ${getBaseUrl("training-videos")}`
-                }}
-                slug="training-videos" />
+                body={body}
+                faIcon="graduation-cap"
+                primaryColor="#00687D"
+                secondaryColor="#0081A1" />
             <FeaturedVideo featuredVideo={featuredVideo} />
             <ListOfVideos videos={videos} />
         </main>
