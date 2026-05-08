@@ -295,27 +295,52 @@
     }
   
     .recipient-spending-notes {
+      width: 100%;
+      color: $body-color;
+      font-style: normal;
+      font-weight: $font-normal;
+      line-height: $base-line-height;
+
       h4 {
-        width: 100%;
+        margin: 0;
         padding: 0;
         text-align: left;
+        color: $headline-color;
+        font-size: $h4-font-size;
+        font-weight: $font-semibold;
+        font-style: normal;
+        line-height: $heading-line-height;
       }
 
       p {
-        margin-top: 0;
+        margin: 0;
+        font-size: $base-font-size;
       }
 
       ul {
-        padding-left: rem(16);
-        font-size: rem(14);
-        margin-left: rem(16);
+        padding-left: rem(10);
+        margin-left: rem(12);
+        font-size: $small-font-size;
 
         li {
           list-style: disc;
+          margin: 0;
+
+          &::marker{
+            font-weight: $font-light;
+            font-size: $font-size-10;
+          }
 
           a {
             word-break: break-word;
-            font-weight: $font-semibold;
+            font-size: $small-font-size;
+            color: $blue-60v;
+            text-decoration-line: underline;
+            text-decoration-style: solid;
+            text-decoration-skip-ink: none;
+            text-decoration-thickness: auto;
+            text-underline-offset: auto;
+            text-underline-position: from-font;
           }
         }
       }
