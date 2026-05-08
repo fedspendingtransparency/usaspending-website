@@ -360,7 +360,7 @@ const DetailContentContainer = ({
 
         resetTable();
 
-        setTransition(1);
+        setTransitionSteps(1);
         setFilters((state) => Object.assign({}, state, newFilter));
         loadData(request, false, false, Object.assign({}, filters, newFilter));
 
@@ -373,7 +373,7 @@ const DetailContentContainer = ({
     };
 
     const changeSubdivisionType = (type) => {
-        // if we're skipping levels, then we are not adding filters, we're simply revisualizating
+        // if we're skipping levels, then we are not adding filters, we're simply re-visualizing
         // the data that is already filtered.
         // This means we don't need to modify the trail or the redux filter set.
         // This also means we shouldn't show an animation.
