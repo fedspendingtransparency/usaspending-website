@@ -6,7 +6,7 @@
  */
 
 
-import { defCodeQueryString, parseCodes } from "helpers/search/disasterHelper";
+import { defCodeQueryString, parseCodes } from "helpers/disasterHelper";
 import { validDefCodes } from '../mockData/helpers/disasterHelper';
 
 const defCodes = ['O', 'M', 'P', 'N', 'L'];

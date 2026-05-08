@@ -1,5 +1,5 @@
 
-import { parseCodes } from "helpers/search/disasterHelper";
+import { parseCodes } from "helpers/disasterHelper";
 
 export const defCodes = {
     L: {

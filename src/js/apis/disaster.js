@@ -4,7 +4,7 @@
  */
 
 import { apiRequest } from 'helpers/apiRequest';
-import { defCodeQueryString } from 'helpers/search/disasterHelper';
+import { defCodeQueryString } from 'helpers/disasterHelper';
 
 export const fetchDEFCodes = () => apiRequest({
     url: 'v2/references/def_codes/'
