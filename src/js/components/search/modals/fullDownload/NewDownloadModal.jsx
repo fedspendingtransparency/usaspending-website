@@ -3,12 +3,15 @@
  * Created by Nick Torres 2/27/26
  */
 
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
+import { useDispatch, useSelector } from 'react-redux';
+import { isCancel } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useSelector } from 'react-redux';
-
+import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
+import * as downloadActions from 'redux/actions/search/downloadActions';
+import * as DownloadHelper from 'helpers/downloadHelper';
 import NewDownloadContainer from
     'containers/search/modals/fullDownload/screens/newScreens/NewDownloadContainer';
 import usePrevious from 'hooks/usePrevious';
@@ -30,6 +33,13 @@ const NewDownloadModal = (props) => {
     const [downloadStep, setDownloadStep] = useState(1);
     const [downloadType, setDownloadType] = useState([]);
     const prevProps = usePrevious(props);
+    const dispatch = useDispatch();
+    const downloadRequest = useRef();
+    const statusRequest = useRef();
+
+
+
+    
     const resetModal = useCallback(() => {
         setDownloadStep(1);
         setDownloadType([]);
@@ -74,6 +84,51 @@ const NewDownloadModal = (props) => {
             }
             return [...prevState, type];
         });
+    };
+
+    const beginDownload = () => {
+        console.debug("download button clicked");
+
+        if (downloadRequest.current) {
+            downloadRequest.current.cancel();
+        }
+
+
+        let filterSet = {};
+        if (reduxFilters) {
+            const operation = new SearchAwardsOperation();
+            operation.fromState(reduxFilters);
+
+            filterSet = operation.toParams();
+        }
+
+        const params = {
+            filters: filterSet
+        };
+
+        downloadRequest.current = DownloadHelper.requestFullDownloadNew(params);
+
+        downloadRequest.current.promise
+            .then((res) => {
+                console.debug("downloading...", res);
+                dispatch(downloadActions.setDownloadPending(true));
+                dispatch(downloadActions.setDownloadExpectedFile(res.data.file_name));
+                dispatch(downloadActions.setDownloadExpectedUrl(res.data.file_url));
+                checkStatus();
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    // something went wrong
+                    console.log(err);
+
+                    if (err.response) {
+                        console.error(err.response.data.message);
+                    }
+                    else {
+                        console.error(err.message);
+                    }
+                }
+            });
     };
 
     // eslint-disable-next-line prefer-const
@@ -131,7 +186,8 @@ const NewDownloadModal = (props) => {
                         transactionsCount={props.transactionsCount}
                         subawardsCount={props.subawardsCount}
                         downloadData={downloadData}
-                        toggleDownloadType={toggleDownloadType} />
+                        toggleDownloadType={toggleDownloadType}
+                        beginDownload={beginDownload} />
                 </div>
             </div>
         </Modal>
