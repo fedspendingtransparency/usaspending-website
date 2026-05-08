@@ -5,51 +5,41 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { List } from 'immutable';
 
-import Analytics from 'helpers/analytics/Analytics';
-
 import { dropdownScopes } from 'dataMapping/explorer/dropdownScopes';
-
-import * as explorerActions from 'redux/actions/explorer/explorerActions';
-import * as ExplorerHelper from 'helpers/explorerHelper';
-
+import {
+    addExplorerTrail,
+    overwriteExplorerTrail,
+    resetExplorerTable,
+    setExplorerActive,
+    setExplorerPeriod
+} from "redux/actions/explorer/explorerActions";
+import Analytics from 'helpers/analytics/Analytics';
+import {
+    appendCellForDataOutsideTree, fetchBreakdown, truncateDataForTreemap
+} from "helpers/explorerHelper";
 import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
 import withAgencySlugs from "containers/agency/WithAgencySlugs";
 
 const propTypes = {
-    explorer: PropTypes.object,
-    setExplorerActive: PropTypes.func,
-    setExplorerPeriod: PropTypes.func,
-    overwriteExplorerTrail: PropTypes.func,
-    addExplorerTrail: PropTypes.func,
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    resetExplorerTable: PropTypes.func,
-    history: PropTypes.object,
-    agencySlugs: PropTypes.object,
-    loading: PropTypes.bool,
     error: PropTypes.bool
 };
 
 const DetailContentContainer = ({
-    explorer,
-    setExplorerActive,
-    setExplorerPeriod,
-    overwriteExplorerTrail,
-    addExplorerTrail,
     showTooltip,
     hideTooltip,
-    resetExplorerTable,
-    history,
-    agencySlugs,
-    loading,
     error
 }) => {
+    const {
+        root, active, fy, period, quarter, trail
+    } = useSelector((state) => state.explorer);
+    const dispatch = useDispatch();
     const [data, setData] = useState(new List());
     const [lastUpdate, setLastUpdate] = useState('');
     const [filters, setFilters] = useState({});
@@ -59,29 +49,36 @@ const DetailContentContainer = ({
     const [transition, setTransition] = useState('');
     const requestRef = useRef(null);
 
+    const setActive = (state) => dispatch(setExplorerActive(state));
+    const overwriteTrail = (state) => dispatch(overwriteExplorerTrail(state));
+    const addTrail = (state) => dispatch(addExplorerTrail(state));
+    const resetTable = () => dispatch(resetExplorerTable());
+    // TODO: Move setExplorerPeriod down to child component? It's not used in this component
+    const setPeriod = (state) => dispatch(setExplorerPeriod(state));
+
     const parseRootData = ({ total, results, end_date: endDate }) => {
         // build the active screen root object
         const activeScreen = {
             total,
             within: 'root',
-            subdivision: explorer.root
+            subdivision: root
         };
 
         // update the trail to consist of only this screen (since we are at the root, there cannot
         //  be anything else in the trail)
-        const trail = [
+        const explorerTrail = [
             {
                 total,
                 within: 'root',
-                subdivision: explorer.root,
+                subdivision: root,
                 title: '',
                 id: ''
             }
         ];
 
-        overwriteExplorerTrail(trail);
+        overwriteTrail(explorerTrail);
 
-        resetExplorerTable();
+        resetTable();
 
         const updateState = () => {
             setData(new List(results));
@@ -96,7 +93,7 @@ const DetailContentContainer = ({
             // so the entry animation occurs with the new data
             setTransition('start');
             window.setTimeout(() => {
-                setExplorerActive(activeScreen);
+                setActive(activeScreen);
 
                 // save the data as an Immutable object for easy change comparison within
                 // the treemap
@@ -106,7 +103,7 @@ const DetailContentContainer = ({
         }
         else {
             // there are no transition steps, so apply changes immediately
-            setExplorerActive(activeScreen);
+            setActive(activeScreen);
 
             // save the data as an Immutable object for easy change comparison within
             // the treemap
@@ -117,7 +114,7 @@ const DetailContentContainer = ({
 
     const parseData = ({ total, results, end_date: endDate }, request, isRewind) => {
         let truncated = false;
-        let parsedResults = ExplorerHelper.truncateDataForTreemap(results);
+        let parsedResults = truncateDataForTreemap(results);
 
         if (request.subdivision === 'award') {
             // link to award page using new human legible id
@@ -131,7 +128,7 @@ const DetailContentContainer = ({
         }
 
         if (truncated) {
-            parsedResults = ExplorerHelper.appendCellForDataOutsideTree(
+            parsedResults = appendCellForDataOutsideTree(
                 parsedResults, total, request.subdivision
             )
                 .sort((a, b) => b.amount - a.amount);
@@ -147,8 +144,8 @@ const DetailContentContainer = ({
         // Also, if the data load was part of a rewind operation (going back up the path via
         // the sidebar), the sidebar is already rendered with the correct items, so don't add
         // anything
-        if (request.within !== explorer.active.within && !isRewind) {
-            addExplorerTrail(trailItem);
+        if (request.within !== active.within && !isRewind) {
+            addTrail(trailItem);
         }
 
         // update the active screen within and subdivision values using the request object
@@ -172,7 +169,7 @@ const DetailContentContainer = ({
             // so the entry animation occurs with the new data
             setTransition('start');
             window.setTimeout(() => {
-                setExplorerActive(activeScreen);
+                setActive(activeScreen);
 
                 // save the data as an Immutable object for easy change comparison within
                 // the treemap
@@ -182,7 +179,7 @@ const DetailContentContainer = ({
         }
         else {
             // no animation required if there are 0 transition steps
-            setExplorerActive(activeScreen);
+            setActive(activeScreen);
 
             // save the data as an Immutable object for easy change comparison within the treemap
             updateState();
@@ -209,10 +206,10 @@ const DetailContentContainer = ({
         }
 
         if (
-            !explorer.fy ||
+            !fy ||
             (
-                !explorer.period &&
-                !explorer.quarter
+                !period &&
+                !quarter
             )
         ) {
             return Promise.resolve();
@@ -227,7 +224,7 @@ const DetailContentContainer = ({
         if (requestFilters.period == null) {
             delete requestFilters.period;
         }
-        requestRef.current = ExplorerHelper.fetchBreakdown({
+        requestRef.current = fetchBreakdown({
             type: request.subdivision,
             filters: requestFilters
         });
@@ -250,11 +247,11 @@ const DetailContentContainer = ({
             });
     };
 
-    const prepareRootRequest = (rootType, fy, quarter, period) => {
+    const prepareRootRequest = (rootType, newFy, newQuarter, newPeriod) => {
         // we need to make a root request
         // at the root level, ignore all filters except for the root
         // in fact, just to be safe, let's overwrite the filter props
-        const resetFilters = { fy, quarter, period };
+        const resetFilters = { fy: newFy, quarter: newQuarter, period: newPeriod };
 
         setFilters(resetFilters);
         loadData(
@@ -274,17 +271,17 @@ const DetailContentContainer = ({
 
     useEffect(() => {
         prepareRootRequest(
-            explorer.root,
-            explorer.fy,
-            explorer.quarter,
-            explorer.period
+            root,
+            fy,
+            quarter,
+            period
         );
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
-        explorer.root,
-        explorer.fy,
-        explorer.quarter,
-        explorer.period
+        root,
+        fy,
+        quarter,
+        period
     ]);
 
     const goDeeper = (id, {
@@ -298,7 +295,7 @@ const DetailContentContainer = ({
         // determine how we are currently subdividing the data
         // determine the data element we should filter by
         // this is equal to how we are currently subdividing the spending
-        const filterBy = explorer.active.subdivision;
+        const filterBy = active.subdivision;
         if (filterBy === 'award') {
             // we are at the bottom of the path, go to the award page
             // and open in new tab
@@ -319,8 +316,8 @@ const DetailContentContainer = ({
         // generate a trail object representing the current filter that is being applied
         // the new "within" value is the old subdivision unit
         // given this, determine how far down the path we are
-        const path = dropdownScopes[explorer.root];
-        const currentDepth = path.indexOf(explorer.active.subdivision);
+        const path = dropdownScopes[root];
+        const currentDepth = path.indexOf(active.subdivision);
 
         // By default, the next subdivision unit is the next step down the path
         let nextSubdivision = path[currentDepth + 1];
@@ -334,7 +331,7 @@ const DetailContentContainer = ({
             // scope if it's not already there
             if (programActivityIndex === -1) {
                 let index = 3;
-                if (explorer.root === 'agency') {
+                if (root === 'agency') {
                     index = 2;
                 }
                 // Insert program activity
@@ -353,7 +350,7 @@ const DetailContentContainer = ({
         // the total amount represents)
         // the next item in the path will be the new subdivision unit
         const request = {
-            within: explorer.active.subdivision,
+            within: active.subdivision,
             subdivision: nextSubdivision,
             title: name,
             id: dataId,
@@ -361,7 +358,7 @@ const DetailContentContainer = ({
             link
         };
 
-        resetExplorerTable();
+        resetTable();
 
         setTransition(1);
         setFilters((state) => Object.assign({}, state, newFilter));
@@ -384,46 +381,46 @@ const DetailContentContainer = ({
         // the selected type. We'll pass this on as the request object to loadData.
         // loadData has internal logic that will just change the redux Active Screen and not add
         // anything to the sidebar trail
-        const request = Object.assign({}, explorer.active.toJS(), {
+        const request = Object.assign({}, active.toJS(), {
             subdivision: type
         });
 
-        resetExplorerTable();
+        resetTable();
         setTransitionSteps(0);
         loadData(request, false);
     };
 
     const rewindToFilter = (index) => {
-        const trail = explorer.trail.toJS();
+        const trailJS = trail.toJS();
         const oldFilters = filters;
         // don't do anything if this is the current filter (ie, the last one in the trail)
-        if (index === trail.length - 1) {
+        if (index === trailJS.length - 1) {
             return;
         }
 
         // determine how many steps we need to rewind
-        const steps = index - (trail.length - 1);
+        const steps = index - (trailJS.length - 1);
 
 
         if (index === 0) {
             // we are going all the way back to the start
             setTransitionSteps(steps);
-            prepareRootRequest(explorer.root, explorer.fy, explorer.quarter, explorer.period);
+            prepareRootRequest(root, fy, quarter, period);
             return;
         }
 
         // iterate through the trail to rebuild the filter set
         const newFilters = {
-            fy: explorer.fy,
-            quarter: explorer.quarter,
-            period: explorer.period
+            fy,
+            quarter,
+            period
         };
         const newTrail = [];
 
         // iterate through the trail and include only those filters up to the point we are rewinding
         // to
         for (let i = 0; i <= index; i++) {
-            const filterType = trail[i].within;
+            const filterType = trailJS[i].within;
             if (filterType !== 'root') {
                 // root filters are not real filters, so ignore them
                 // get the filter type and fetch its ID from the current filter set
@@ -431,18 +428,18 @@ const DetailContentContainer = ({
             }
 
             // add the old item back into the new trail
-            newTrail.push(trail[i]);
+            newTrail.push(trailJS[i]);
         }
 
         // determine if we are jumping back to the root
         const isRoot = index === 0;
 
         // the request object will essentially match the trail item from the selected index
-        const selectedTrailItem = trail[index];
+        const selectedTrailItem = trailJS[index];
 
-        overwriteExplorerTrail(newTrail);
+        overwriteTrail(newTrail);
 
-        resetExplorerTable();
+        resetTable();
 
         setTransitionSteps(steps);
         setFilters(newFilters);
@@ -455,13 +452,13 @@ const DetailContentContainer = ({
         // generate a trail object representing the current filter that is being applied
         // the new "within" value is the old subdivision unit
         // given this, determine how far down the path we are
-        const path = dropdownScopes[explorer.root];
-        const currentDepth = path.indexOf(explorer.active.subdivision);
+        const path = dropdownScopes[root];
+        const currentDepth = path.indexOf(active.subdivision);
 
         const currentSubdivision = path[currentDepth];
 
         const trailDisplay = {
-            within: explorer.active.subdivision,
+            within: active.subdivision,
             title: d.name,
             subdivision: currentSubdivision
         };
@@ -478,7 +475,7 @@ const DetailContentContainer = ({
             total
         });
 
-        addExplorerTrail(trailItem);
+        addTrail(trailItem);
 
         // update the active screen within and subdivision values using the request object
         const activeScreen = {
@@ -493,7 +490,7 @@ const DetailContentContainer = ({
         setTransition('start');
 
         window.setTimeout(() => {
-            setExplorerActive(activeScreen);
+            setActive(activeScreen);
 
             // save the data as an Immutable object for easy change comparison within
             // the treemap
@@ -503,27 +500,27 @@ const DetailContentContainer = ({
             setTransition('end');
         }, 250);
 
-        resetExplorerTable();
+        resetTable();
     };
 
     return (
         <div className="explorer-detail">
             <ExplorerSidebar
-                fy={explorer.fy}
-                quarter={explorer.quarter}
-                period={explorer.period}
-                trail={explorer.trail}
-                setExplorerPeriod={setExplorerPeriod}
+                fy={fy}
+                quarter={quarter}
+                period={period}
+                trail={trail}
+                setExplorerPeriod={setPeriod}
                 rewindToFilter={rewindToFilter} />
             <DetailContent
-                isRoot={explorer.active.within === 'root'}
+                isRoot={active.within === 'root'}
                 isLoading={inFlight || error}
                 isTruncated={isTruncated}
-                root={explorer.root}
-                fy={explorer.fy}
-                active={explorer.active}
-                trail={explorer.trail.toJS()}
-                total={explorer.active.total}
+                root={root}
+                fy={fy}
+                active={active}
+                trail={trail.toJS()}
+                total={active.total}
                 data={data}
                 lastUpdate={lastUpdate}
                 transitionSteps={transitionSteps}
@@ -540,8 +537,4 @@ const DetailContentContainer = ({
 
 DetailContentContainer.propTypes = propTypes;
 const DetailContentContainerWithSlugs = withAgencySlugs(DetailContentContainer);
-
-export default connect(
-    (state) => ({ explorer: state.explorer }),
-    (dispatch) => bindActionCreators(explorerActions, dispatch)
-)(DetailContentContainerWithSlugs);
+export default DetailContentContainerWithSlugs;
