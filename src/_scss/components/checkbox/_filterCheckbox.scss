@@ -40,7 +40,7 @@
         margin-bottom: $global-margin;
         display: flex;
         align-items: flex-start;
-        
+
         .checkbox-filter__item-label-container {
           display: flex;
           flex: 1 0 0;
@@ -49,7 +49,7 @@
           &:last-of-type {
             margin-bottom: 0;
           }
-          
+
           input {
             @include usa-input-checkbox;
             margin: 0;
@@ -58,23 +58,23 @@
             height: rem(12);
             min-width: rem(12);
             top: rem(3);
-            
+
             &:checked {
               background-color: $blue-50;
               border-color: $blue-50;
             }
-            
+
             &:checked:before {
               width: rem(4);
               height: rem(8);
               margin: rem(0) rem(3);
             }
           }
-          
+
           .checkbox-filter__item-label {
             margin: rem(1) 0 0 rem(6);
             color: $gray-80;
-            
+
             span.highlight {
               background-color: $yellow-10;
             }
