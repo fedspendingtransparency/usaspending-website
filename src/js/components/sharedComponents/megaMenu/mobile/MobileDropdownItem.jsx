@@ -7,7 +7,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Analytics from 'helpers/analytics/Analytics';
 import { uniqueId } from 'lodash-es';
-import { Link, useNavigate } from "react-router";
+import { Link } from "react-router";
 import PropTypes from 'prop-types';
 import isRedirectNeeded from '../../../../helpers/url';
 import ExternalLink from '../../ExternalLink';
@@ -46,9 +46,6 @@ const MobileDropdownItem = ({
     index,
     type
 }) => {
-
-    const { navigate } = useNavigate();
-
     const clickedLink = (e) => {
         const route = e.target.name;
         clickedHeaderLink(route);
@@ -57,7 +54,6 @@ const MobileDropdownItem = ({
 
     const clickedSection2Link = (e, item) => {
         const route = e.target.name;
-        console.log(e, item, route);
         hideMobileNav();
         e.preventDefault();
         clickedHeaderLink(route);
@@ -66,19 +62,20 @@ const MobileDropdownItem = ({
             if (item?.url?.includes("about-the-data")) {
                 showSlideout('atd');
                 e.preventDefault();
-            } else if (item?.url?.includes("glossary")) {
+            }
+            else if (item?.url?.includes("glossary")) {
                 showSlideout('glossary');
                 e.preventDefault();
-            } else {
+            }
+            else {
                 // navigate(item.url);
             }
         }
-
     };
 
     const updateString = (s) => {
         if (typeof s === "string" && (s.includes("about-the-data") || s.includes("glossary"))) {
-            return "#";
+            return "";
         }
         // need to add case to construct the link
         return s;
