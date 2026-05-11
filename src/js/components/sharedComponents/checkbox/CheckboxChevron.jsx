@@ -1,21 +1,20 @@
-import React, { useRef } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-
-import useEventListener from "../../../hooks/useEventListener";
 
 const propTypes = {
     category: PropTypes.string,
     toggleExpanded: PropTypes.func,
-    icon: PropTypes.string
+    expanded: PropTypes.bool
 };
 
 const CheckboxChevron = ({
     category,
     toggleExpanded,
-    icon = 'chevron-right'
+    expanded
 }) => {
-    const iconRef = useRef(null);
+    const icon = expanded ? "chevron-down" : "chevron-right";
+    const buttonAriaLabel = expanded ? 'Close toggle' : 'Open toggle';
     const onClick = () => toggleExpanded(category);
 
     const onKeydown = (e) => {
@@ -25,14 +24,17 @@ const CheckboxChevron = ({
         }
     };
 
-    useEventListener('keydown', onKeydown, iconRef);
 
     return (
-        <FontAwesomeIcon
+        <button
             onClick={onClick}
-            tabIndex={0}
-            icon={icon}
-            ref={iconRef} />
+            onKeyDown={onKeydown}
+            className="toggle"
+            aria-label={buttonAriaLabel}>
+            <FontAwesomeIcon
+                icon={icon}
+                key={`${category}-${expanded ? "close" : "open"}`} />
+        </button>
     );
 };
 

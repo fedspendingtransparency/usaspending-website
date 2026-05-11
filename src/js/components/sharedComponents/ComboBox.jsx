@@ -1,10 +1,8 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 const propTypes = {
-    inputValue: PropTypes.string.isRequired,
-    setInputValue: PropTypes.func.isRequired,
     optionsArray: PropTypes.arrayOf(
         PropTypes.shape(
             {
@@ -21,8 +19,7 @@ const propTypes = {
 
 // eslint-disable-next-line prefer-arrow-callback
 const ComboBox = memo(function ComboBox({
-    inputValue,
-    setInputValue,
+    onSelect,
     optionsArray,
     label,
     placeholder,
@@ -30,16 +27,28 @@ const ComboBox = memo(function ComboBox({
     disabled,
     className
 }) {
+    const [inputValue, setInputValue] = useState('');
     const [openOptions, setOpenOptions] = useState(false);
+
+    const optionsArrayDep = JSON.stringify(optionsArray);
+
+    // reset input if there's a change in options array
+    useEffect(() => {
+        setInputValue('');
+    }, [optionsArrayDep]);
 
     // 1) filter for inputValue 2) map to list item element
     const options = optionsArray
-        .filter(({ value }) => value.indexOf(inputValue.toLowerCase()) !== -1)
+        .filter(({ text }) => text?.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1)
         .map(({ value, text }) => {
-            const onClick = () => {
+            const onClick = (e) => {
                 setInputValue(text);
                 setOpenOptions(false);
+                onSelect(e);
             };
+
+            // primarily used for title options within dropdown
+            const disabledOption = value?.indexOf('disabled') !== -1;
 
             return (
                 <li value={value} className="combo-box__options-item" key={value}>
@@ -47,7 +56,10 @@ const ComboBox = memo(function ComboBox({
                         className="combo-box__option"
                         type="button"
                         aria-label={`${formName}-option-item`}
-                        onClick={onClick}>
+                        onClick={onClick}
+                        name={text}
+                        value={value}
+                        disabled={disabledOption}>
                         {text}
                     </button>
                 </li>

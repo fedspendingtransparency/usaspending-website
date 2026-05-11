@@ -10,6 +10,7 @@ import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 import Accordion from "./sharedComponents/accordion/Accordion";
 import ComboBox from "./sharedComponents/ComboBox";
 import { mockComboBox } from "../../../tests/mockData";
+import BannerPageHeader from "./sharedComponents/header/BannerPageHeader";
 
 require("pages/search/searchPage.scss");
 
@@ -46,6 +47,7 @@ const TempPage = () => {
                 classNames="usa-da-search-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
+                    <BannerPageHeader />
                     <h1>New 508 Typography</h1>
                     <Accordion title="Headings">
                         <h1>h1: A quick brown fox jumps over the lazy dog.</h1>

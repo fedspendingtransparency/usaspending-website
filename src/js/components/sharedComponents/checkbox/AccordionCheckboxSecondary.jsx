@@ -15,11 +15,19 @@ const propTypes = {
     filters: PropTypes.object,
     customLabels: PropTypes.object,
     expanded: PropTypes.bool,
-    searchString: PropTypes.string
+    searchString: PropTypes.string,
+    isDisabled: PropTypes.bool
 };
 
 const AccordionCheckboxSecondary = ({
-    category, selectedFilters, singleFilterChange, filters, customLabels, expanded, searchString
+    category,
+    selectedFilters,
+    singleFilterChange,
+    filters,
+    customLabels,
+    expanded,
+    searchString,
+    isDisabled = false
 }) => {
     const items = category.filters?.map((filter) => {
         const label = filters[filter];
@@ -32,7 +40,8 @@ const AccordionCheckboxSecondary = ({
                 label={label}
                 customLabel={customLabel}
                 searchString={searchString}
-                singleFilterChange={singleFilterChange} />
+                singleFilterChange={singleFilterChange}
+                isDisabled={isDisabled} />
         );
     });
 

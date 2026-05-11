@@ -12,7 +12,7 @@ import { getThumbnailPath, getPrimaryFill } from "helpers/featuredContent/featur
 import FeaturedContentCard from "./FeaturedContentCard";
 
 // currently a weekly cadence, but just switch argument to "sprint" for a sprint cadence
-const [marketingArticle, otherArticle] = getCurrentArticles("sprint");
+const [marketingArticle, otherArticle] = getCurrentArticles("week");
 
 const propTypes = {
     leftCard: PropTypes.shape({
