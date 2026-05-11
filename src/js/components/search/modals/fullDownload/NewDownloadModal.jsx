@@ -3,20 +3,17 @@
  * Created by Nick Torres 2/27/26
  */
 
-import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { useDispatch, useSelector } from 'react-redux';
-import { isCancel } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import * as downloadActions from 'redux/actions/search/downloadActions';
-import * as DownloadHelper from 'helpers/downloadHelper';
 import NewDownloadContainer from
     'containers/search/modals/fullDownload/screens/newScreens/NewDownloadContainer';
 import usePrevious from 'hooks/usePrevious';
-
 import getFilters from '../../../../containers/search/topFilterBar/getFilters';
+import NewDownloadProgress from './screens/NewDownloadProgress';
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -34,17 +31,13 @@ const NewDownloadModal = (props) => {
     const [downloadType, setDownloadType] = useState([]);
     const prevProps = usePrevious(props);
     const dispatch = useDispatch();
-    const downloadRequest = useRef();
-    const statusRequest = useRef();
-
-
-
-    
     const resetModal = useCallback(() => {
         setDownloadStep(1);
         setDownloadType([]);
         props.hideModal();
     }, [props]);
+    let content = null;
+
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
 
     const { filters } = useMemo(
@@ -58,7 +51,7 @@ const NewDownloadModal = (props) => {
     }, [prevProps?.pendingDownload, props?.pendingDownload, resetModal]);
 
 
-    const hideModal = () => {
+    const hideModal = useCallback(() => {
     // reset the state before closing, but only if we're not on the download screen
         if (downloadStep === 3 || props.pendingDownload) {
             props.setDownloadCollapsed(true);
@@ -67,15 +60,15 @@ const NewDownloadModal = (props) => {
         }
 
         resetModal(1);
-    };
+    });
 
-    const goToStep = (step, override = false) => {
+    const goToStep = useCallback((step, override = false) => {
         if (step >= downloadStep && !override) {
             return;
         }
 
         setDownloadStep(step);
-    };
+    });
 
     const toggleDownloadType = (type) => {
         setDownloadType((prevState) => {
@@ -86,50 +79,11 @@ const NewDownloadModal = (props) => {
         });
     };
 
-    const beginDownload = () => {
-        console.debug("download button clicked");
-
-        if (downloadRequest.current) {
-            downloadRequest.current.cancel();
-        }
-
-
-        let filterSet = {};
-        if (reduxFilters) {
-            const operation = new SearchAwardsOperation();
-            operation.fromState(reduxFilters);
-
-            filterSet = operation.toParams();
-        }
-
-        const params = {
-            filters: filterSet
-        };
-
-        downloadRequest.current = DownloadHelper.requestFullDownloadNew(params);
-
-        downloadRequest.current.promise
-            .then((res) => {
-                console.debug("downloading...", res);
-                dispatch(downloadActions.setDownloadPending(true));
-                dispatch(downloadActions.setDownloadExpectedFile(res.data.file_name));
-                dispatch(downloadActions.setDownloadExpectedUrl(res.data.file_url));
-                checkStatus();
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    // something went wrong
-                    console.log(err);
-
-                    if (err.response) {
-                        console.error(err.response.data.message);
-                    }
-                    else {
-                        console.error(err.message);
-                    }
-                }
-            });
-    };
+    const beginDownload = useCallback(() => {
+        dispatch(downloadActions.setDownloadColumns([]));
+        dispatch(downloadActions.setDownloadPending(true));
+        goToStep(3, true);
+    });
 
     // eslint-disable-next-line prefer-const
     let headerContent = "Step 1 of 2: Select which data you'd like to download";
@@ -152,7 +106,14 @@ const NewDownloadModal = (props) => {
             };
         }
     }
-
+    else if (downloadStep === 3) {
+        headerContent = "Step 2 of 2: Review and begin download";
+        content = (<NewDownloadProgress
+            hideModal={hideModal}
+            download={props.download}
+            setDownloadCollapsed={props.setDownloadCollapsed}
+            expectedUrl={props.download.expectedUrl} />);
+    }
 
     return (
         <Modal
@@ -176,7 +137,6 @@ const NewDownloadModal = (props) => {
                         </div>
                     </div>
                 </div>
-
                 <div className="download-body">
                     <NewDownloadContainer
                         goToStep={goToStep}
@@ -187,7 +147,8 @@ const NewDownloadModal = (props) => {
                         subawardsCount={props.subawardsCount}
                         downloadData={downloadData}
                         toggleDownloadType={toggleDownloadType}
-                        beginDownload={beginDownload} />
+                        beginDownload={beginDownload}
+                        content={content} />
                 </div>
             </div>
         </Modal>
