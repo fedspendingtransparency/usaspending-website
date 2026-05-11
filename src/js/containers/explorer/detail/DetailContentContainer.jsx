@@ -92,14 +92,11 @@ const DetailContentContainer = ({
             // then, 250ms later (after the exit animation completes), apply the props and state
             // so the entry animation occurs with the new data
             setTransition('start');
-            window.setTimeout(() => {
-                setActive(activeScreen);
 
-                // save the data as an Immutable object for easy change comparison within
-                // the treemap
-                updateState();
-                setTransition('end');// root will never be truncated
-            }, 250);
+            setActive(activeScreen);
+            // save the data as an Immutable object
+            // for easy change comparison within the treemap
+            updateState();
         }
         else {
             // there are no transition steps, so apply changes immediately
@@ -168,14 +165,11 @@ const DetailContentContainer = ({
             // then, 250ms later (after the exit animation completes), apply the props and state
             // so the entry animation occurs with the new data
             setTransition('start');
-            window.setTimeout(() => {
-                setActive(activeScreen);
 
-                // save the data as an Immutable object for easy change comparison within
-                // the treemap
-                updateState();
-                setTransition('end');
-            }, 250);
+            // save the data as an Immutable object for
+            // easy change comparison within the treemap
+            setActive(activeScreen);
+            updateState();
         }
         else {
             // no animation required if there are 0 transition steps
@@ -489,19 +483,21 @@ const DetailContentContainer = ({
         // so the entry animation occurs with the new data
         setTransition('start');
 
-        window.setTimeout(() => {
-            setActive(activeScreen);
-
-            // save the data as an Immutable object for easy change comparison within
-            // the treemap
-            setData(new List(dataArr));
-            setLastUpdate((state) => state);
-            setInFlight(false);
-            setTransition('end');
-        }, 250);
+        setActive(activeScreen);
+        // save the data as an Immutable object for
+        // easy change comparison within the treemap
+        setData(new List(dataArr));
+        setLastUpdate((state) => state);
+        setInFlight(false);
 
         resetTable();
     };
+
+    useEffect(() => {
+        if (transition === 'start') {
+            window.setTimeout(() => setTransition('end'), 250);
+        }
+    }, [transition]);
 
     return (
         <div className="explorer-detail">
