@@ -17,11 +17,38 @@ import { initialState as defaultFilters } from 'redux/reducers/search/searchFilt
 import useFetchBreakdown from "hooks/useFetchBreakdown";
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
 
+const budgetCategories = [
+    { name: "Medicare" },
+    { name: "National Defense" },
+    { name: "Social Security" },
+    { name: "Transportation" },
+    { name: "Agriculture" },
+    { name: "Veterans Benefits and Services", label: "Veterans Benefits" },
+    { name: "Energy" }, { name: "Net Interest" }
+];
+
+
 const SummaryStats = () => {
     const [, , { year: latestFy, period: latestPeriod }] = useLatestAccountData();
     const {
-        budgetData, budgetTotal, randomIndex, error, loading
+        data, total: budgetTotal, randomIndex, error, loading
     } = useFetchBreakdown(latestFy, latestPeriod);
+
+    const budgetData = [];
+
+    data.forEach((item) => {
+        const budgetCategoriesIndex = budgetCategories
+            .map((e) => e.name).indexOf(item.name);
+        if (budgetCategoriesIndex > -1) {
+            const name = 'label' in budgetCategories[budgetCategoriesIndex] ?
+                budgetCategories[budgetCategoriesIndex].label :
+                budgetCategories[budgetCategoriesIndex].name;
+            budgetData.push({
+                name,
+                amount: item.amount
+            });
+        }
+    });
 
     const trackExplorerLink = () => Analytics.event({
         event: 'homepage-summary-stats',
