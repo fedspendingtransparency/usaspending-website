@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 07/18/22
  */
 
-import React from 'react';
+import React, { useRef } from 'react';
 import { isCancel } from "axios";
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import { Link } from "react-router";
@@ -27,12 +27,26 @@ const budgetCategories = [
     { name: "Energy" }, { name: "Net Interest" }
 ];
 
+const trackExplorerLink = () => Analytics.event({
+    event: 'homepage-summary-stats',
+    category: 'Homepage',
+    action: 'Link',
+    label: 'explorer'
+});
+
+const trackBudgetFunctionLink = (title) => Analytics.event({
+    event: 'homepage-summary-stats',
+    category: 'Homepage - Summary Stats Budget Function Title Click',
+    action: 'Link',
+    label: `clicked - ${title}`
+});
 
 const SummaryStats = () => {
     const [, , { year: latestFy, period: latestPeriod }] = useLatestAccountData();
     const {
         data, total: budgetTotal, randomIndex, error, loading
     } = useFetchBreakdown(latestFy, latestPeriod);
+    const hashRef = useRef(null);
 
     const budgetData = [];
 
@@ -50,20 +64,6 @@ const SummaryStats = () => {
         }
     });
 
-    const trackExplorerLink = () => Analytics.event({
-        event: 'homepage-summary-stats',
-        category: 'Homepage',
-        action: 'Link',
-        label: 'explorer'
-    });
-
-    const trackBudgetFunctionLink = (title) => Analytics.event({
-        event: 'homepage-summary-stats',
-        category: 'Homepage - Summary Stats Budget Function Title Click',
-        action: 'Link',
-        label: `clicked - ${title}`
-    });
-
     const performSearch = (title, e) => {
         e.preventDefault();
 
@@ -75,27 +75,23 @@ const SummaryStats = () => {
             version: REQUEST_VERSION
         };
 
-        let tempHash = generateUrlHash(filterValue);
-        tempHash.promise
+        hashRef.current = generateUrlHash(filterValue);
+        hashRef.current.promise
             .then((results) => {
                 const hashData = results.data;
                 trackBudgetFunctionLink(title);
                 window.open(`/search?hash=${hashData.hash}`, '_blank');
                 // operation has resolved
-                tempHash = null;
+                hashRef.current = null;
             })
             .catch((hashError) => {
                 console.log(hashError);
                 if (isCancel(hashError)) {
                     // Got canceled
                 }
-                else if (error.response) {
-                    // Errored out but got response, toggle noAward flag
-                    this.hash = null;
-                }
                 else {
                     // Request failed
-                    tempHash = null;
+                    hashRef.current = null;
                     console.log(error);
                 }
             });
@@ -122,8 +118,8 @@ const SummaryStats = () => {
         }
         return (
             <>
-                <span
-                    className="budget-item__amount">{formatMoneyWithUnits(budgetData[index % budgetData?.length]?.amount)}
+                <span className="budget-item__amount">
+                    {formatMoneyWithUnits(budgetData[index % budgetData?.length]?.amount)}
                 </span><br />
                 <span className="budget-item__name">
                     {!error ? 'on ' : ''}
@@ -140,7 +136,9 @@ const SummaryStats = () => {
                         <span>So far this year, the federal government</span><br />
                         <span>plans to spend {loading ? <span className="dot-pulse" />
                             :
-                            <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…
+                            <span className="summary-stats__budget-total">
+                                {formatMoneyWithUnits(budgetTotal)}
+                            </span>} including…
                         </span>
                     </FlexGridCol>
                     <FlexGridCol className="summary-stats__budget-items">
@@ -154,7 +152,9 @@ const SummaryStats = () => {
                             {loadBudgetItem(randomIndex + 2)}
                         </div>
                     </FlexGridCol>
-                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                    <div style={{
+                        display: "flex", flexDirection: "row", justifyContent: "center"
+                    }}>
                         <div className="summary-stats__vertical-border">&nbsp;</div>
                     </div>
                     <FlexGridCol width={2} className="summary-stats__spending-link">
@@ -170,10 +170,21 @@ const SummaryStats = () => {
                                 <div
                                     className="icon-stack"
                                     style={{
-                                        position: "relative", justifyContent: "center", alignItems: "center", marginTop: "8px"
+                                        position: "relative",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        marginTop: "8px"
                                     }}>
-                                    <FontAwesomeIcon color="white" icon="circle" style={{ position: "absolute", width: "24", height: "24" }} />
-                                    <FontAwesomeIcon className="arrow-circle-right" icon="arrow-circle-right" style={{ position: "absolute" }} />
+                                    <FontAwesomeIcon
+                                        color="white"
+                                        icon="circle"
+                                        style={{
+                                            position: "absolute", width: "24", height: "24"
+                                        }} />
+                                    <FontAwesomeIcon
+                                        className="arrow-circle-right"
+                                        icon="arrow-circle-right"
+                                        style={{ position: "absolute" }} />
                                 </div>
                             </Link>
                         </FlexGridRow>
@@ -183,8 +194,21 @@ const SummaryStats = () => {
             <div className="summary-stats-mobile">
                 <FlexGridRow className="grid-content">
                     <FlexGridCol width={12} className="summary-stats__budget-total-container">
-                        <span>So far this year, <span style={{ whiteSpace: "nowrap" }}>the federal government</span></span><br />
-                        <span>plans to spend {loading ? <span className="dot-pulse" /> : <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
+                        <span>So far this year,
+                            <span style={{ whiteSpace: "nowrap" }}>
+                                the federal government
+                            </span>
+                        </span>
+                        <br />
+                        <span>
+                            plans to spend
+                            { loading ?
+                                <span className="dot-pulse" /> :
+                                <span className="summary-stats__budget-total">
+                                    {formatMoneyWithUnits(budgetTotal)}
+                                </span>}
+                            including…
+                        </span>
                     </FlexGridCol>
                     <FlexGridCol
                         width={12}
@@ -205,9 +229,25 @@ const SummaryStats = () => {
                                 <div className="summary-stats__spending-link-text">
                                     See more breakdowns of federal spending
                                 </div>
-                                <div className="icon-stack" style={{ position: "relative", justifyContent: "center", alignItems: "center" }}>
-                                    <FontAwesomeIcon color="white" icon="circle" style={{ position: "absolute", width: "24", height: "24" }} />
-                                    <FontAwesomeIcon className="arrow-circle-right" icon="arrow-circle-right" style={{ position: "absolute" }} />
+                                <div
+                                    className="icon-stack"
+                                    style={{
+                                        position: "relative",
+                                        justifyContent: "center",
+                                        alignItems: "center"
+                                    }}>
+                                    <FontAwesomeIcon
+                                        color="white"
+                                        icon="circle"
+                                        style={{
+                                            position: "absolute",
+                                            width: "24",
+                                            height: "24"
+                                        }} />
+                                    <FontAwesomeIcon
+                                        className="arrow-circle-right"
+                                        icon="arrow-circle-right"
+                                        style={{ position: "absolute" }} />
                                 </div>
                             </Link>
                         </FlexGridRow>
