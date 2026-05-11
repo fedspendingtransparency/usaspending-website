@@ -94,7 +94,6 @@ const NewDownloadModal = (props) => {
         // dummy data for now
         // need to figure out data structure for step 2
         downloadData = {
-            expectedFile: "sampleFileName_DDMMYYYY.zip",
             selections: downloadType,
             filters
         };
