@@ -24,6 +24,7 @@ import {
 import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
 import withAgencySlugs from "containers/agency/WithAgencySlugs";
+import useFetchBreakdown from "../../../hooks/useFetchBreakdown";
 
 const propTypes = {
     showTooltip: PropTypes.func,
@@ -36,6 +37,7 @@ const DetailContentContainer = ({
     hideTooltip,
     error
 }) => {
+    // TODO: is quarter being set or used anywhere???
     const {
         root, active, fy, period, quarter, trail
     } = useSelector((state) => state.explorer);
@@ -47,6 +49,13 @@ const DetailContentContainer = ({
     const [inFlight, setInFlight] = useState(true);
     const [isTruncated, setIsTruncated] = useState(false);
     const [transition, setTransition] = useState('');
+    const [requestTest, setRequestTest] = useState({});
+    const [rootTest, setRootTest] = useState(true);
+    const [rewind, setRewind] = useState(false);
+    const [params, setParams] = useState({});
+    const {
+        data: fetchData
+    } = useFetchBreakdown(params);
     const requestRef = useRef(null);
 
     const setActive = (state) => dispatch(setExplorerActive(state));
@@ -241,6 +250,15 @@ const DetailContentContainer = ({
             });
     };
 
+    useEffect(() => {
+        // if (rootTest) parseRootData(data);
+        // else parseData(data, requestTest, rewind);
+        console.log({
+            rootTest, fetchData, params, rewind, requestTest
+        });
+        // eslint-disable-next-line
+    }, [rootTest, fetchData, params, rewind, requestTest]);
+
     const prepareRootRequest = (rootType, newFy, newQuarter, newPeriod) => {
         // we need to make a root request
         // at the root level, ignore all filters except for the root
@@ -254,6 +272,13 @@ const DetailContentContainer = ({
             false,
             resetFilters
         );
+
+        delete resetFilters.quarter;
+
+        setRequestTest({ within: 'root', subdivision: rootType });
+        setRootTest(true);
+        setRewind(false);
+        setParams({ type: rootType, filters: resetFilters });
 
         // log the analytics event for a Spending Explorer starting point
         Analytics.event({
@@ -358,6 +383,18 @@ const DetailContentContainer = ({
         setFilters((state) => Object.assign({}, state, newFilter));
         loadData(request, false, false, Object.assign({}, filters, newFilter));
 
+        setRequestTest(request);
+        setRootTest(false);
+        setRewind(false);
+        setParams((prevState) =>
+            ({
+                ...prevState,
+                type: request.subdivision,
+                filters: Object.assign({}, prevState.filters, newFilter)
+            })
+        );
+
+
         Analytics.event({
             event: 'Spending Explorer - Drilldown',
             category: 'Spending Explorer - Drilldown',
@@ -382,6 +419,9 @@ const DetailContentContainer = ({
         resetTable();
         setTransitionSteps(0);
         loadData(request, false);
+
+        setRequestTest(request);
+        setParams((prevState) => ({ ...prevState, type }));
     };
 
     const rewindToFilter = (index) => {
@@ -438,6 +478,13 @@ const DetailContentContainer = ({
         setTransitionSteps(steps);
         setFilters(newFilters);
         loadData(selectedTrailItem, isRoot, true, newFilters);
+
+        delete newFilters.quarter;
+
+        setRequestTest(selectedTrailItem);
+        setRootTest(isRoot);
+        setRewind(true);
+        setParams({ type: selectedTrailItem.subdivision, filters: newFilters });
     };
 
     const goToUnreported = (d) => {
