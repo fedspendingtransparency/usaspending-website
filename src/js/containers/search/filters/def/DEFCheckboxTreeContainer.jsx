@@ -10,15 +10,13 @@ import { bulkDefCodeChange, toggleDefCode } from 'redux/actions/search/searchFil
 import { useDefCodes } from 'hooks/WithDefCodes';
 import AccordionCheckbox from "components/sharedComponents/checkbox/AccordionCheckbox";
 import DEFCheckboxTreeLabelv2 from "components/search/filters/defc/DEFCheckboxTreeLabelv2";
-import { sortAlphaNumbersLast } from "helpers/search/collapsiblesidebarHelper";
+import { defcDataByType } from 'dataMapping/search/defCodes';
 
 const DEFCheckboxTreeContainer = () => {
     const [defSearchString, setDefSearchString] = useState('');
     const [errorMsg, isLoading, defCodes] = useDefCodes();
     const selectedDefCodes = useSelector((state) => state.filters.defCode);
     const dispatch = useDispatch();
-
-    const parseCodes = (codes, type) => sortAlphaNumbersLast(codes.filter(((code) => code.disaster === type)).map((code) => code.code));
 
     const titlesByCode = (codes) => codes.reduce((obj, item) => {
         // eslint-disable-next-line no-param-reassign
@@ -36,20 +34,6 @@ const DEFCheckboxTreeContainer = () => {
                 defSearchString={defSearchString} />);
         return obj;
     }, {});
-
-    const defcDataByType = (codes) => (
-        [
-            {
-                id: "covid",
-                name: "COVID-19 Spending",
-                filters: parseCodes(codes, "covid_19")
-            },
-            {
-                id: 'infrastructure',
-                name: 'Infrastructure Spending',
-                filters: parseCodes(codes, "infrastructure")
-            }
-        ]);
 
     const toggleDefc = (selection) => {
         dispatch(toggleDefCode(selection));

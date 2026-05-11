@@ -19,7 +19,7 @@
   @import "collapsibleSidebar";
 
   #main-content {
-    @media(min-width: $medium-screen) {
+    @media (min-width: $medium-screen) {
       padding-left: 0 !important;
     }
   }
