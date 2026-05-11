@@ -106,7 +106,7 @@ const NewDownloadModal = (props) => {
         }
     }
     else if (downloadStep === 3) {
-        headerContent = "Step 2 of 2: Review and begin download";
+        headerContent = "We're preparing your download.";
         content = (<NewDownloadProgress
             hideModal={hideModal}
             download={props.download}
