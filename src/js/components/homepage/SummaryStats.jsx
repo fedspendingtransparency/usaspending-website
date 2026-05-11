@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 07/18/22
  */
 
-import React, { useRef } from 'react';
+import React, { useRef, useMemo } from 'react';
 import { isCancel } from "axios";
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import { Link } from "react-router";
@@ -43,9 +43,16 @@ const trackBudgetFunctionLink = (title) => Analytics.event({
 
 const SummaryStats = () => {
     const [, , { year: latestFy, period: latestPeriod }] = useLatestAccountData();
+    const params = useMemo(() => ({
+        type: "budget_function",
+        filters: {
+            fy: latestFy,
+            period: latestPeriod
+        }
+    }), [latestFy, latestPeriod]);
     const {
         data, total: budgetTotal, randomIndex, error, loading
-    } = useFetchBreakdown(latestFy, latestPeriod);
+    } = useFetchBreakdown(params);
     const hashRef = useRef(null);
 
     const budgetData = [];

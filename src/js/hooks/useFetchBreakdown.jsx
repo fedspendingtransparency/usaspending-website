@@ -3,7 +3,7 @@ import { fetchBreakdown } from "helpers/explorerHelper";
 
 const selectRandomIndex = () => Math.floor(Math.random() * 10);
 
-const useFetchBreakdown = (fy, period) => {
+const useFetchBreakdown = (params) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [data, setData] = useState([]);
@@ -11,7 +11,10 @@ const useFetchBreakdown = (fy, period) => {
     const [randomIndex, setRandomIndex] = useState(0);
     const request = useRef(null);
 
-    const fetchData = useCallback((latestFy, latestPeriod) => {
+    const fy = params.filters?.fy;
+    const period = params.filters?.period;
+
+    const fetchData = useCallback((p) => {
         if (request.current) {
             request.current.cancel();
         }
@@ -23,15 +26,7 @@ const useFetchBreakdown = (fy, period) => {
             if (!state) return true;
         });
 
-        const params = {
-            type: "budget_function",
-            filters: {
-                fy: latestFy,
-                period: latestPeriod
-            }
-        };
-
-        request.current = fetchBreakdown(params);
+        request.current = fetchBreakdown(p);
         request.current.promise
             .then((res) => {
                 setTotal(res?.data?.total);
@@ -47,9 +42,9 @@ const useFetchBreakdown = (fy, period) => {
 
     useEffect(() => {
         if (fy && period) {
-            fetchData(fy, period);
+            fetchData(params);
         }
-    }, [fy, period, fetchData]);
+    }, [fetchData, fy, params, period]);
 
     return {
         data, total, randomIndex, error, loading
