@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import * as downloadActions from 'redux/actions/search/downloadActions';
+import { setDownloadColumns, setDownloadPending } from 'redux/actions/search/downloadActions';
 import NewDownloadContainer from
     'containers/search/modals/fullDownload/screens/newScreens/NewDownloadContainer';
 import usePrevious from 'hooks/usePrevious';
@@ -80,8 +80,8 @@ const NewDownloadModal = (props) => {
     };
 
     const beginDownload = useCallback(() => {
-        dispatch(downloadActions.setDownloadColumns([]));
-        dispatch(downloadActions.setDownloadPending(true));
+        dispatch(setDownloadColumns([]));
+        dispatch(setDownloadPending(true));
         goToStep(3, true);
     });
 
