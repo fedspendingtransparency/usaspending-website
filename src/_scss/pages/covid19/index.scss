@@ -78,7 +78,6 @@
         @import "./awardSpendingAgency/awardSpendingAgency";
         @import "./assistanceListing/assistanceListing";
         @import "./linkToAdvancedSearch";
-        @import "./dataSourcesAndMethodology";
         @import "../../components/tooltips/customTooltipContent";
 
         @include display(flex);
@@ -165,40 +164,6 @@
 
           .loading-animation {
             @import "../../loading";
-          }
-        }
-
-        .information-body {
-          background: linear-gradient(
-            225deg,
-            rgba(220, 201, 229, 0.1) 0%,
-            rgba(182, 153, 198, 0.1) 100%,
-            rgba(182, 153, 198, 0.1) 100%
-          );
-        }
-
-        .information-body-arp {
-          background-color: #ebeff4;
-        }
-
-        .information-top {
-          width: 100%;
-          opacity: 0.2;
-          transform: scaleY(-1);
-          background-color: #763e94;
-
-          @media (min-width: $medium-screen) {
-            border-radius: 0 0 rem(5) rem(5);
-          }
-        }
-
-        .information-top-arp {
-          width: 100%;
-          transform: scaleY(-1);
-          background-color: #b9c5d2;
-
-          @media (min-width: $medium-screen) {
-            border-radius: 0 0 rem(5) rem(5);
           }
         }
 
@@ -359,7 +324,11 @@
         margin-bottom: 0;
         padding: 0;
       }
+      
     }
+
+    @import "./bottomSection";
+
   }
 
   .footer-reference {

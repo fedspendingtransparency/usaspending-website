@@ -100,7 +100,8 @@ import {
     faLongArrowAltUp,
     faLongArrowAltDown,
     faCircleQuestion,
-    faVirusCovid
+    faVirusCovid,
+    faFilterList
 } from "@fortawesome/pro-solid-svg-icons";
 
 export default function registerIcons() {
@@ -205,6 +206,7 @@ export default function registerIcons() {
         faArrowDown,
         faXmark,
         faCircleQuestion,
-        faVirusCovid
+        faVirusCovid,
+        faFilterList
     );
 }

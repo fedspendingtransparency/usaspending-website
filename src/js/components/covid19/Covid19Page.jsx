@@ -19,18 +19,16 @@ import BannerPageHeader from "components/sharedComponents/header/BannerPageHeade
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
 import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
-import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { slug, getEmailSocialShareData } from 'dataMapping/covid19/covid19';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { showModal } from 'redux/actions/modal/modalActions';
-import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
-import OtherResources from 'components/covid19/OtherResources';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
 import Analytics from 'helpers/analytics/Analytics';
 import useQueryParams from "../../hooks/useQueryParams";
+import Covid19BottomSection from './Covid19BottomSection';
 
 require('pages/covid19/index.scss');
 
@@ -97,7 +95,7 @@ const Covid19Page = ({ loading }) => {
 
         // add offsets
         const sectionTop = sectionDom.offsetTop;
-
+        console.log("checking sectionDom ", sectionDom);
         window.scrollTo({
             top: sectionTop + 120,
             left: 0,
@@ -198,20 +196,11 @@ const Covid19Page = ({ loading }) => {
                                         {componentByCovid19Section(query.publicLaw, handleExternalLinkClick)[section].component}
                                     </Covid19Section>
                                 ))}
-                            <section className="body__section" id="covid19-data_sources_and_methodology">
-                                <DataSourcesAndMethodology
-                                    handleExternalLinkClick={handleExternalLinkClick}
-                                    publicLaw={query.publicLaw} />
-                            </section>
-                            <section className="body__section" id="covid19-other_resources">
-                                <OtherResources
-                                    handleExternalLinkClick={handleExternalLinkClick}
-                                    publicLaw={query.publicLaw} />
-                                <LinkToAdvancedSearchContainer />
-                            </section>
                             <GlobalModalContainer />
                         </FlexGridCol>
                     </FlexGridRow>
+                    <Covid19BottomSection
+                        handleExternalLinkClick={handleExternalLinkClick} />
                 </main>
             </LoadingWrapper>
         </PageWrapper>
