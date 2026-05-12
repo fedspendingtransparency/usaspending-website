@@ -118,10 +118,10 @@ const articles = [
         taxonomy: "Recently Answered Questions",
         banner_subtitle: "How are Obligations and Outlays Different?",
         title: "Obligations vs. Outlays",
-        created_date: "09/29/2025",
+        created_date: "05/21/2026",
         description: "For this series, we asked our Transparency Experience Desk to answer the most commonly-asked questions about USAspending.gov’s open data.",
-        feature_sprint: 1,
-        feature_week: 2,
+        feature_sprint: 10,
+        feature_week: 1,
         slug: "obligations-vs-outlays",
         explore_more: [
             {
@@ -363,9 +363,9 @@ const articles = [
         content_type: 'Featured Content',
         title: "Understanding Four Government Data Source Systems",
         banner_subtitle: "Learn Where USAspending.gov Data Comes From",
-        created_date: "01/15/26",
-        feature_sprint: 4,
-        feature_week: 1,
+        created_date: "05/28/26",
+        feature_sprint: 10,
+        feature_week: 2,
         description: "You might be wondering: where does the data on USAspending.gov come from? Since our goal is to promote open data and foster open government, we'd love to tell",
         slug: "understanding-four-government-data-source-systems",
         explore_more: [
@@ -403,9 +403,9 @@ const articles = [
         content_type: 'Featured Content',
         title: "John’s USAspending Search",
         banner_subtitle: "Follow the Money Using USAspending.gov’s Spending Explorer",
-        created_date: "02/05/2026",
-        feature_sprint: 5,
-        feature_week: 1,
+        created_date: "06/04/2026",
+        feature_sprint: 10,
+        feature_week: 3,
         description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
         slug: "johns-usaspending-search",
         isInfographicTemplate: false,
@@ -534,8 +534,8 @@ const articles = [
         content_type: 'Marketing',
         title: "The Story of Spending Transparency",
         banner_subtitle: "Learn How USAspending.gov Came to Be",
-        created_date: "03/19/2026",
-        feature_sprint: 7,
+        created_date: "05/21/2026",
+        feature_sprint: 10,
         feature_week: 1,
         description: "The U.S. is one of the few countries worldwide that makes federal spending data accessible to the public. But before USAspending.gov existed, much",
         slug: "the-story-of-spending-transparency",
@@ -686,17 +686,17 @@ const articles = [
         ],
         related_terms: [
             {
-                term: "Award",
+                term: "award",
                 type: "glossary",
                 label: "Award"
             },
             {
-                term: "Contract",
+                term: "contract",
                 type: "glossary",
                 label: "Contract"
             },
             {
-                term: "Grant",
+                term: "grant",
                 type: "glossary",
                 label: "Grant"
             }

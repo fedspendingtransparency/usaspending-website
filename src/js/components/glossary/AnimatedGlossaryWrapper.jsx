@@ -9,10 +9,17 @@ import PropTypes from 'prop-types';
 import Glossary from './Glossary';
 
 const propTypes = {
-    glossary: PropTypes.object
+    glossary: PropTypes.object,
+    glossaryResults: PropTypes.object,
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    searchLoading: PropTypes.bool,
+    performSearch: PropTypes.func
 };
 
-const AnimatedGlossaryWrapper = (props) => {
+const AnimatedGlossaryWrapper = ({
+    glossary, glossaryResults, loading, error, searchLoading, performSearch
+}) => {
     const [zIndexClass, setZIndexClass] = useState(null);
 
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
@@ -23,7 +30,14 @@ const AnimatedGlossaryWrapper = (props) => {
 
     return (
         <div className="usa-da-glossary-animations">
-            <Glossary {...props} zIndexClass={zIndexClass} />
+            <Glossary
+                glossary={glossary}
+                glossaryResults={glossaryResults}
+                loading={loading}
+                error={error}
+                searchLoading={searchLoading}
+                performSearch={performSearch}
+                zIndexClass={zIndexClass} />
         </div>
     );
 };

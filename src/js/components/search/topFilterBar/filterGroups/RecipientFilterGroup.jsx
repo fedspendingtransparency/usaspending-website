@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
-const propTypes = { name: PropTypes.string };
+const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };
 
 const RecipientFilterGroup = ({ name, resultsView }) => {
     const selectedRecipients = useSelector((state) => state.filters.selectedRecipients);
@@ -35,7 +35,7 @@ const RecipientFilterGroup = ({ name, resultsView }) => {
     appliedRecipientType.forEach((value) => {
         const tag = {
             value,
-            title: `RECIPIENT | ${value}`,
+            title: value,
             toggleFilter: removeFilter,
             staged: selectedRecipients.has(value)
         };

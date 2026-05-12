@@ -20,7 +20,7 @@
 
   // handling the invalid award id error message
   .wrapper {
-      min-height: 36vh;
+    min-height: 36vh;
   }
   .award-hr-margin-bottom {
     margin-bottom: rem(3);
@@ -29,241 +29,240 @@
     margin-top: 0;
   }
   .award-content {
-      @import "mixins/fullSectionWrap";
-      @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
-      background-color: $color-white;
+    @import "mixins/fullSectionWrap";
+    @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
+    background-color: $color-white;
 
-      // Shared award summary styles
-      .award {
-          padding: $global-padding * 2;
-        @media (min-width: $tablet-screen) {
-          padding: rem(24) rem(30);
+    // Shared award summary styles
+    .award {
+      padding: $global-padding * 2;
+      @media (min-width: $tablet-screen) {
+        padding: rem(24) rem(30);
+      }
+      .award__heading {
+        @include media($medium-screen) {
+          @include display(flex);
+          @include justify-content(space-between);
         }
-          .award__heading {
-              @include media($medium-screen) {
-                @include display(flex);
-                @include justify-content(space-between);
-              }
-              .award__info {
-                  @include align-items(center);
-                  @include justify-content(flex-start);
-                  @include media($medium-screen) {
-                    @include display(flex);
-                    @include flex-wrap(wrap);
-                  }
-                  .award__heading-text {
-                    @include display(flex);
-                    @include flex(0 0 auto);
-                    font-weight: $font-semibold;
-                    padding-right: rem(10);
-                    margin: 0;
-                    font-size: $h5-font-size;
-                    line-height: normal;
-                  }
-                  .award__heading-icon {
-                      @include display(flex);
-                      @include flex(0 0 auto);
-                      padding-right: rem(10);
-                      @media (max-width: $medium-screen) {
-                          margin: rem(4) 0;
-                      }
-                      svg {
-                          @include display(flex);
-                          height: rem(20);
-                          width: rem(20);
-                      }
-                      &:focus {
-                          svg {
-                              fill: $color-gray;
-                          }
-                      }
-                  }
-                  .award__heading-id,
-                  .award__heading-id--financial-assistance {
-                      @include display(flex);
-                      font-weight: $font-light;
-                      @include flex-wrap(wrap);
-                      h3 {
-                        font-weight: $font-normal;
-                        display: flex;
-                        padding-right: rem(10);
-                        font-size: $h5-font-size;
-                        margin: 0;
-                        line-height: normal;
-                      }
-                      p {
-                        margin: 0;
-                        @include display(flex);
-                        @include align-items(center);
-                        line-height: normal;
-                        font-size: $h5-font-size;
-                      }
-                  }
-              }
-              .award-status-container {
-                @include media($medium-screen) {
-                  @include display(inline-flex);
-                  @include justify-content(flex-end);
-                }
-                .award-status__text {
-                  margin: 0;
-                }
-                .award-status-container__status {
-                  &.award-status__text-space {
-                    padding-right: rem(5);
-                  }
-                }
-                .award-status-container__time-remaining {
-                  font-weight: $font-normal;
-                }
-              }
+        .award__info {
+          @include align-items(center);
+          @include justify-content(flex-start);
+          @include media($medium-screen) {
+            @include display(flex);
+            @include flex-wrap(wrap);
           }
-        .award-summary__covid-19-flag {
-          padding: rem(3) rem(7);
-          @include display(flex);
-          @include flex-wrap(wrap);
-          @include justify-content(center);
-          @include align-items(center);
-          background: $color-disaster-covid-19;
-          color: $color-white;
-          font-size: rem(14);
-          font-weight: 600;
-          text-align: center;
-          height: rem(25);
-          border-radius: rem(4);
-          width: rem(200);
-          margin: rem(8) 0 rem(12);
+          .award__heading-text {
+            @include display(flex);
+            @include flex(0 0 auto);
+            font-weight: $font-semibold;
+            padding-right: rem(10);
+            margin: 0;
+            font-size: $h5-font-size;
+            line-height: normal;
+          }
+          .award__heading-icon {
+            @include display(flex);
+            @include flex(0 0 auto);
+            padding-right: rem(10);
+            @media (max-width: $medium-screen) {
+              margin: rem(4) 0;
+            }
+            svg {
+              @include display(flex);
+              height: rem(20);
+              width: rem(20);
+            }
+            &:focus {
+              svg {
+                fill: $color-gray;
+              }
+            }
+          }
+          .award__heading-id,
+          .award__heading-id--financial-assistance {
+            @include display(flex);
+            font-weight: $font-light;
+            @include flex-wrap(wrap);
+            h3 {
+              font-weight: $font-normal;
+              display: flex;
+              padding-right: rem(10);
+              font-size: $h5-font-size;
+              margin: 0;
+              line-height: normal;
+            }
+            p {
+              margin: 0;
+              @include display(flex);
+              @include align-items(center);
+              line-height: normal;
+              font-size: $h5-font-size;
+            }
+          }
         }
+        .award-status-container {
+          @include media($medium-screen) {
+            @include display(inline-flex);
+            @include justify-content(flex-end);
+          }
+          .award-status__text {
+            margin: 0;
+          }
+          .award-status-container__status {
+            &.award-status__text-space {
+              padding-right: rem(5);
+            }
+          }
+          .award-status-container__time-remaining {
+            font-weight: $font-normal;
+          }
+        }
+      }
+      .award-summary__covid-19-flag {
+        padding: rem(3) rem(7);
+        @include display(flex);
+        @include flex-wrap(wrap);
+        @include justify-content(center);
+        @include align-items(center);
+        background: $color-disaster-covid-19;
+        color: $color-white;
+        font-size: rem(14);
+        font-weight: 600;
+        text-align: center;
+        height: rem(25);
+        border-radius: rem(4);
+        width: rem(200);
+        margin: rem(8) 0 rem(12);
+      }
 
-        .award-summary__unlinked-flag {
-          cursor: pointer;
-          padding: rem(3) rem(7);
-          @include display(flex);
-          @include flex-wrap(wrap);
-          @include justify-content(center);
-          @include align-items(center);
-          background: $color-gray-lightest;
-          color: $color-primary;
-          font-size: rem(14);
-          font-weight: 600;
-          text-align: center;
-          height: rem(24);
-          border-radius: rem(4);
-          width: rem(112);
-          margin: rem(8) 0 rem(12);
+      .award-summary__unlinked-flag {
+        cursor: pointer;
+        padding: rem(3) rem(7);
+        @include display(flex);
+        @include flex-wrap(wrap);
+        @include justify-content(center);
+        @include align-items(center);
+        background: $color-gray-lightest;
+        color: $color-primary;
+        font-size: rem(14);
+        font-weight: 600;
+        text-align: center;
+        height: rem(24);
+        border-radius: rem(4);
+        width: rem(112);
+        margin: rem(8) 0 rem(12);
 
-          .tooltip-spacer {
-            transform: translate(-24px, 8px);
+        .tooltip-spacer {
+          transform: translate(-24px, 8px);
+          @media (min-width: $medium-screen) {
+            transform: translate(-8px, 20px);
+          }
+
+          @media (max-width: $medium-screen) {
+            margin-left: $global-margin * 2;
+            margin-right: $global-margin * 2;
+            max-width: 335px;
+          }
+          @media (max-width: 400px) {
+            transform: translate(-38px, 0);
+          }
+
+          .tooltip-pointer.bottom {
             @media (min-width: $medium-screen) {
-              transform: translate(-8px, 20px);
+              transform: rotate(90deg) translate(-8px, 140px);
             }
 
             @media (max-width: $medium-screen) {
-              margin-left: $global-margin*2;
-              margin-right: $global-margin*2;
-              max-width: 335px;
+              transform: rotate(90deg) translate(-3px, 140px);
             }
-            @media (max-width: 400px) {
-              transform: translate(-38px, 0);
-            }
-
-            .tooltip-pointer.bottom {
-              @media (min-width: $medium-screen) {
-                transform: rotate(90deg) translate(-8px, 140px);
-              }
-
-              @media (max-width: $medium-screen) {
-                transform: rotate(90deg) translate(-3px, 140px);
-              }
-
-            }
-          }
-          &:hover {
-            color: $color-cool-blue;
           }
         }
-          .award__row {
-              @include display(flex);
-              @include flex-wrap(wrap);
-              padding: rem(40) 0 rem(60);
-              @include media($medium-screen) {
-                  @include flex-wrap(nowrap)
-              }
-              &.award-history-section {
-                padding-bottom: 0;
-              }
-              &.award-cfda-section {
-                padding-bottom: 0;
-              }
-              &.award-contract-activity-section {
-                padding-bottom: 0;
-              }
-              &.federal-accounts-section {
-                padding-bottom: 0;
-              }
-              &.award-overview {
-                padding-top: 0;
-              }
-              .award__col {
-                  @include flex(1 1 auto);
-                  // Add padding between columns when they are stacked in mobile
-                  &:first-child {
-                      padding-bottom: rem(60);
-                  }
-                  &:last-child {
-                      padding-top: rem(40);
-                  }
-                  @include media($medium-screen) {
-                      @include flex(0 0 50%);
-                      &:first-child {
-                          padding-right: rem(15);
-                          padding-bottom: 0;
-                      }
-                      &:last-child {
-                          padding-left: rem(15);
-                          padding-top: 0;
-                      }
-                  }
-                  @include media(700px) {
-                      // forces content to go to single column layout
-                      min-width: 470px;
-                  }
-                  .award__col__content {
-                      height: 100%;
-                      @include display(flex);
-                      @include flex-direction(column);
-                      h4 {
-                          font-size: rem(16px);
-                          font-weight: $font-semibold;
-                      }
-                      h5 {
-                          font-size: rem(14px);
-                          font-weight: $font-semibold;
-                      }
-                  }
-                @import "./shared/expandableAwardSection";
-              }
-          }
-          hr,
-          .award-row hr {
-              width: 100%;
-              height: 2px;
-              background: $color-base;
-              border: none;
-              margin-bottom: rem(35);
-          }
-          @import "./visualizations/awardViz";
-          @import "./visualizations/overview/overview";
-          @import "./visualizations/description/description";
-          @import "./visualizations/additionalInfo";
-          @import "./visualizations/awardFundingSummary";
-          @import "./shared/awardAmountsSection/index";
-          @import "./shared/awardHistorySection";
+        &:hover {
+          color: $color-cool-blue;
+        }
       }
-      @import "./comingSoon";
-      @import "./awardContract";
-      @import "./awardFinancialAssistance";
-      @import "./idv/awardIdv";
-      @import "../../components/unlinkedAwardWarning";
+      .award__row {
+        @include display(flex);
+        @include flex-wrap(wrap);
+        padding: rem(40) 0 rem(60);
+        @include media($medium-screen) {
+          @include flex-wrap(nowrap);
+        }
+        &.award-history-section {
+          padding-bottom: 0;
+        }
+        &.award-cfda-section {
+          padding-bottom: 0;
+        }
+        &.award-contract-activity-section {
+          padding-bottom: 0;
+        }
+        &.federal-accounts-section {
+          padding-bottom: 0;
+        }
+        &.award-overview {
+          padding-top: 0;
+        }
+        .award__col {
+          @include flex(1 1 auto);
+          // Add padding between columns when they are stacked in mobile
+          &:first-child {
+            padding-bottom: rem(60);
+          }
+          &:last-child {
+            padding-top: rem(40);
+          }
+          @include media($medium-screen) {
+            @include flex(0 0 50%);
+            &:first-child {
+              padding-right: rem(15);
+              padding-bottom: 0;
+            }
+            &:last-child {
+              padding-left: rem(15);
+              padding-top: 0;
+            }
+          }
+          @include media(700px) {
+            // forces content to go to single column layout
+            min-width: 470px;
+          }
+          .award__col__content {
+            height: 100%;
+            @include display(flex);
+            @include flex-direction(column);
+            h4 {
+              font-size: rem(16px);
+              font-weight: $font-semibold;
+            }
+            h5 {
+              font-size: rem(14px);
+              font-weight: $font-semibold;
+            }
+          }
+          @import "./shared/expandableAwardSection";
+        }
+      }
+      hr,
+      .award-row hr {
+        width: 100%;
+        height: 2px;
+        background: $color-base;
+        border: none;
+        margin-bottom: rem(35);
+      }
+      @import "./visualizations/awardViz";
+      @import "./visualizations/overview/overview";
+      @import "./visualizations/description/description";
+      @import "./visualizations/additionalInfo";
+      @import "./visualizations/awardFundingSummary";
+      @import "./shared/awardAmountsSection/index";
+      @import "./shared/awardHistorySection";
+    }
+    @import "./comingSoon";
+    @import "./awardContract";
+    @import "./awardFinancialAssistance";
+    @import "./idv/awardIdv";
+    @import "../../components/unlinkedAwardWarning";
   }
 }

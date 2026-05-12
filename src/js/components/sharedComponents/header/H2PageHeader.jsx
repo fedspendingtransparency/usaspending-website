@@ -1,17 +1,18 @@
-import React from 'react';
+import React from "react";
 import PropTypes from "prop-types";
+import { FlexGridCol } from 'data-transparency-ui';
 
 const propTypes = {
-    headerText: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-    body: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+    subtitle: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     className: PropTypes.string
 };
 
-const H2PageHeader = ({ headerText, body, className }) => (
-    <div className={className}>
-        <h2>{headerText}</h2>
-        {typeof body === 'string' ? (<p>{body}</p>) : body}
-    </div>
+const H2PageHeader = ({ title, subtitle, className = "" }) => (
+    <FlexGridCol width={9} className={`h2-page-header ${className}`} >
+        <h2 className="h2-page-header__title">{title}</h2>
+        <div className="h2-page-header__subtitle">{subtitle}</div>
+    </FlexGridCol>
 );
 
 H2PageHeader.propTypes = propTypes;

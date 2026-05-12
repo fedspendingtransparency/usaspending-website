@@ -618,6 +618,14 @@ const getFilters = (filters) => {
     const prepareFilters = () => {
         const filterArray = [];
 
+        if (filters?.awardDescription) {
+            filterArray.push({
+                code: "description",
+                name: "Award Description",
+                values: filters.awardDescription
+            });
+        }
+
         // prepare the keyword filters
         const keywordFilters = prepareKeywords();
         if (keywordFilters) {

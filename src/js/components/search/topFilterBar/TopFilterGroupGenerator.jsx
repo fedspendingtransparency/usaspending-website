@@ -24,11 +24,14 @@ import SetAsideFilterGroup from './filterGroups/SetAsideFilterGroup';
 import ExtentCompetedFilterGroup from './filterGroups/ExtentCompetedFilterGroup';
 import TASFilterGroup from './filterGroups/TASFilterGroup';
 import DefCodesFilterGroup from "./filterGroups/DefCodesFilterGroup";
+import AwardDescriptionFilterGroup from './filterGroups/AwardDescriptionFilterGroup';
 
-const propTypes = { code: PropTypes.string, name: PropTypes.string };
+const propTypes = { code: PropTypes.string, name: PropTypes.string, resultsView: PropTypes.bool };
 
 // eslint-disable-next-line prefer-arrow-callback
-const TopFilterGroupGenerator = memo(function TopFilterGroupGenerator({ code = '', name, resultsView }) {
+const TopFilterGroupGenerator = memo(function TopFilterGroupGenerator({
+    code = '', name, resultsView
+}) {
     const groupKey = `top-filter-group-${code}`;
 
     switch (code) {
@@ -41,23 +44,64 @@ const TopFilterGroupGenerator = memo(function TopFilterGroupGenerator({ code = '
         case 'awardType':
             return <AwardTypeFilterGroup resultsView={resultsView} name={name} key={groupKey} />;
         case 'selectedLocations':
-            return (<LocationFilterGroup resultsView={resultsView} name={name} code={code} key={groupKey} />);
+            return (
+                <LocationFilterGroup
+                    resultsView={resultsView}
+                    name={name}
+                    code={code}
+                    key={groupKey} />
+            );
         case 'selectedFundingAgencies':
-            return <AgencyFilterGroup resultsView={resultsView} name={name} code={code} key={groupKey} />;
+            return (
+                <AgencyFilterGroup
+                    resultsView={resultsView}
+                    name={name}
+                    code={code}
+                    key={groupKey} />);
         case 'selectedAwardingAgencies':
-            return <AgencyFilterGroup resultsView={resultsView} name={name} code={code} key={groupKey} />;
+            return (
+                <AgencyFilterGroup
+                    resultsView={resultsView}
+                    name={name}
+                    code={code}
+                    key={groupKey} />
+            );
         case 'selectedRecipients':
             return <RecipientFilterGroup resultsView={resultsView} name={name} key={groupKey} />;
         case 'selectedRecipientLocations':
-            return (<LocationFilterGroup resultsView={resultsView} name={name} code={code} key={groupKey} />);
+            return (
+                <LocationFilterGroup
+                    resultsView={resultsView}
+                    name={name}
+                    code={code}
+                    key={groupKey} />
+            );
         case 'treasuryAccounts':
             return <TASFilterGroup resultsView={resultsView} name={name} key={groupKey} />;
         case 'recipientType':
-            return <RecipientTypeFilterGroup resultsView={resultsView} name={name} key={groupKey} />;
+            return (
+                <RecipientTypeFilterGroup
+                    resultsView={resultsView}
+                    name={name}
+                    key={groupKey} />
+            );
+        case 'description': return (
+            <AwardDescriptionFilterGroup
+                resultsView={resultsView}
+                name={name}
+                key={groupKey} />
+        );
         case 'selectedAwardIDs':
-            return (<AwardIDFilterGroup resultsView={resultsView} name={name} key={groupKey} />);
+            return (<AwardIDFilterGroup resultsView={resultsView} name={name} key={groupKey} />
+
+            );
         case 'awardAmounts':
-            return (<AwardAmountFilterGroup resultsView={resultsView} name={name} key={groupKey} />);
+            return (
+                <AwardAmountFilterGroup
+                    resultsView={resultsView}
+                    name={name}
+                    key={groupKey} />
+            );
         case 'selectedCFDA':
             return (<CFDAFilterGroup resultsView={resultsView} name={name} key={groupKey} />);
         case 'selectedNAICS':
@@ -65,11 +109,21 @@ const TopFilterGroupGenerator = memo(function TopFilterGroupGenerator({ code = '
         case 'selectedPSC':
             return (<PSCFilterGroup resultsView={resultsView} name={name} key={groupKey} />);
         case 'pricingType':
-            return (<PricingTypeFilterGroup resultsView={resultsView} name={name} key={groupKey} />);
+            return (
+                <PricingTypeFilterGroup
+                    resultsView={resultsView}
+                    name={name}
+                    key={groupKey} />);
         case 'setAside':
-            return (<SetAsideFilterGroup resultsView={resultsView} name={name} key={groupKey} />);
+            return (<SetAsideFilterGroup resultsView={resultsView} name={name} key={groupKey} />
+
+            );
         case 'extentCompeted':
-            return (<ExtentCompetedFilterGroup resultsView={resultsView} name={name} key={groupKey} />);
+            return (
+                <ExtentCompetedFilterGroup
+                    resultsView={resultsView}
+                    name={name}
+                    key={groupKey} />);
         case 'defCodes':
             return (<DefCodesFilterGroup resultsView={resultsView} name={name} key={groupKey} />);
         default:

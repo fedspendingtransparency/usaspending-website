@@ -17,6 +17,7 @@ const propTypes = {
     resources: PropTypes.string
 };
 
+// TODO: Fix prop types
 const ItemDefinition = (props) => {
     let resources = null;
     if (props.resources && props.resources !== '') {

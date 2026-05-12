@@ -1,17 +1,17 @@
 .secondary-award-type {
-    .award-type-item-wrapper {
-        padding: 0 1rem 0 4rem;
+  .award-type-item-wrapper {
+    padding: 0 1rem 0 4rem;
 
-        input[type=checkbox] {
-            // CSS hack to allow for indented line wraps on the label
-            margin-right: -2rem;
-            margin-top: 1.2rem;
-            vertical-align: top;
-        }
-
-        label {
-            margin-left: 2rem;
-            vertical-align: top;
-        }
+    input[type="checkbox"] {
+      // CSS hack to allow for indented line wraps on the label
+      margin-right: -2rem;
+      margin-top: 1.2rem;
+      vertical-align: top;
     }
+
+    label {
+      margin-left: 2rem;
+      vertical-align: top;
+    }
+  }
 }

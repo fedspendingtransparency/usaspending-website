@@ -7,10 +7,16 @@ import { is } from 'immutable';
 import { isEqual, sortBy } from 'lodash-es';
 import dayjs from "dayjs";
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
-import { checkboxTreeFilters } from 'dataMapping/shared/checkboxTree/checkboxTree';
 
 import { apiRequest } from './apiRequest';
 import dateRangeDropdownTimePeriods from "./search/dateRangeDropdownHelper";
+
+const checkboxTreeFilters = [
+    'defCodes',
+    'pscCodes',
+    'naicsCodes',
+    'tasCodes'
+];
 
 // Agency search for autocomplete
 export const fetchLocations = (req) => apiRequest({

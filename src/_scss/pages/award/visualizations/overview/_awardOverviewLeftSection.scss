@@ -1,56 +1,56 @@
 .award-overview__left-section {
-    &.award__col {
-      padding-bottom: 0;
+  &.award__col {
+    padding-bottom: 0;
+  }
+  @include display(flex);
+  @include flex-wrap(wrap);
+  @include media($tablet-screen) {
+    @include flex-wrap(nowrap);
+  }
+  .award__heading-icon {
+    @include display(inline-flex);
+    padding-left: rem(10);
+    svg {
+      @include display(flex);
+      height: rem(20);
+      width: rem(20);
     }
-    @include display(flex);
-    @include flex-wrap(wrap);
-    @include media($tablet-screen) {
-      @include flex-wrap(nowrap);
+    &:focus {
+      svg {
+        fill: $color-gray;
+      }
     }
-    .award__heading-icon {
-        @include display(inline-flex);
-        padding-left: rem(10);
+  }
+  .award-overview__left-section__agency-name {
+    margin-top: 0;
+    font-weight: $font-semibold;
+  }
+  .award-overview__left-section__agency-name__recipient {
+    margin-bottom: rem(2.5);
+  }
+  // recipient address
+  .award-overview__left-section__recipient-address-container {
+    display: flex;
+    flex-flow: row nowrap;
+    .award-overview__left-section__recipient-tooltip {
+      align-self: flex-end;
+      .tooltip-wrapper {
+        .tooltip__icon {
+          height: rem(14);
+          width: rem(14);
+        }
         svg {
-            @include display(flex);
-            height: rem(20);
-            width: rem(20);
+          margin: 0 rem(7.5);
         }
-        &:focus {
-            svg {
-                fill: $color-gray;
-            }
-        }
+      }
     }
-    .award-overview__left-section__agency-name {
-        margin-top: 0;
-        font-weight: $font-semibold;
-    }
-    .award-overview__left-section__agency-name__recipient {
-        margin-bottom: rem(2.5);
-    }
-    // recipient address
-    .award-overview__left-section__recipient-address-container {
-        display: flex;
-        flex-flow: row nowrap;
-        .award-overview__left-section__recipient-tooltip {
-            align-self: flex-end;
-            .tooltip-wrapper {
-                .tooltip__icon {
-                    height: rem(14);
-                    width: rem(14);
-                }
-                svg {
-                    margin: 0 rem(7.5);
-                }
-            }
-        }
-    }
-    // recipient text
-    .award-overview__left-section__aggregated-text {
-        font-size: rem(14);
-        font-weight: $font-light;
-    }
-    .award-overview__left-section__aggregated-text:last-of-type {
-        padding-top: 5px;
-    }
+  }
+  // recipient text
+  .award-overview__left-section__aggregated-text {
+    font-size: rem(14);
+    font-weight: $font-light;
+  }
+  .award-overview__left-section__aggregated-text:last-of-type {
+    padding-top: 5px;
+  }
 }

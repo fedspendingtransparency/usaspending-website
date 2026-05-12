@@ -31,7 +31,7 @@ const propTypes = {
     })
 };
 
-const FeaturedContent = ({ leftCard = marketingArticle, rightCard = otherArticle }) => (
+const FeaturedContent = (({ leftCard = marketingArticle, rightCard = otherArticle }) => (
     <section className="featured-content__section">
         <div className="featured-content__heading">
             <div className="featured-content__heading--background">
@@ -55,7 +55,7 @@ const FeaturedContent = ({ leftCard = marketingArticle, rightCard = otherArticle
                 taxonomy={rightCard.taxonomy}
                 externalLink={rightCard?.externalLink} />
         </div>
-    </section>);
+    </section>));
 
 FeaturedContent.propTypes = propTypes;
 export default FeaturedContent;

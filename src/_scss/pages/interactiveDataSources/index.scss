@@ -13,29 +13,37 @@
   @include flex-direction(column);
 
   min-height: 100vh;
-  width: 100%;
 
   .site-header,
   .sticky-header,
   .page__loading,
-  .main-content,
   .footer-container {
     width: 100%;
+  }
+
+  @media (max-width: $medium-screen) {
+    .usda-in-page-nav__container {
+      top: 121px;
+    }
+  }
+
+  .main-content {
+    justify-content: center;
+    margin: auto;
   }
 
   .usda__flex-row {
     @include display(flex);
     @include flex-wrap(wrap);
-    width: 100%;
 
     .usda__flex-col {
-      @include flex(1 1 auto);
+      display: flex;
+      margin: auto;
     }
   }
 
   .main-content {
     @include display(flex);
-    width: 100%;
     @include flex-grow(1);
     @include flex-wrap(wrap);
     max-width: rem(1400);
@@ -59,7 +67,6 @@
 
     .body {
       @include display(flex);
-      width: 100%;
       @include flex-direction(column);
       padding: 0px;
       background: $color-white;
@@ -67,7 +74,6 @@
       @media (min-width: $tablet-screen) {
         margin: rem(20) rem(32) rem(20) rem(32);
       }
-
 
       .usda-message {
         &.usda-message_error {
@@ -119,14 +125,14 @@
       }
 
       // Lottie Animation styles
-      @import './_lottieAnimation.scss';
+      @import "./_lottieAnimation.scss";
       // Scroller styles
       @import "./_scroller.scss";
       @import "./_scrollerOverlay.scss";
       // Other Page Portion styles
-      @import './_introSection.scss';
-      @import './_aboutSection.scss';
-      @import './_dataSourcesTitles.scss';
+      @import "./_introSection.scss";
+      @import "./_aboutSection.scss";
+      @import "./_dataSourcesTitles.scss";
 
       .default-note {
         @include profile-page-wrap;

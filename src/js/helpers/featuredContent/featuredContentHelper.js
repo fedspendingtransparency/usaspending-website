@@ -70,8 +70,8 @@ export const getSecondaryFill = (article) => {
 };
 
 export const getThumbnailPath = (article) => {
-    const slug = transformString(article?.taxonomy);
-    const thumbnailPath = "../../img/featuredContent/cards/";
-    return `${thumbnailPath}${slug}.webp`;
+    const slug = article.slug;
+    const thumbnailPath = "../../img/featuredContent/thumbnails/";
+    return `${thumbnailPath}${slug}-thumbnail.webp`;
 };
 
