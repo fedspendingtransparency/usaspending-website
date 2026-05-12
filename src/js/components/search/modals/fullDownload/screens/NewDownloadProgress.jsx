@@ -17,9 +17,10 @@ const propTypes = {
     download: PropTypes.object
 };
 
-const NewDownloadProgress = (download, expectedUrl, hideModal, setDownloadCollapsed) => {
+const NewDownloadProgress = ({
+    download, expectedUrl, setDownloadCollapsed
+}) => {
     const [copied, setCopied] = useState(false);
-
     useEffect(() => {
         setDownloadCollapsed(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
