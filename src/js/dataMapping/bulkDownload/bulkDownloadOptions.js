@@ -86,13 +86,15 @@ export const awardDownloadOptions = {
             name: 'awarding_agency',
             label: 'Awarding Agency',
             apiName: 'awarding',
-            apiScopeName: 'awarding_agency_scope'
+            apiScopeName: 'awarding_agency_scope',
+            description: "Issues and administers the award, usually paying for funding out of its own budget"
         },
         {
             name: 'funding_agency',
             label: 'Funding Agency',
             apiName: 'funding',
-            apiScopeName: 'funding_agency_scope'
+            apiScopeName: 'funding_agency_scope',
+            description: "Pays for the majority of funds for an award out of its budget"
         }
     ],
     locationTypes: [

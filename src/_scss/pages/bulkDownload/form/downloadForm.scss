@@ -80,6 +80,95 @@
         }
       }
 
+      &.agency {
+        padding: 0;
+
+        .input-container {
+          display: flex;
+          margin: 0 0 rem(12) 0;
+
+          .radio {
+            padding: 0;
+            // 3 of 8 columns available to the form
+            width: 37.5%;
+
+            &:first-of-type {
+              margin-right: rem(24);
+            }
+
+            label {
+              display: flex;
+
+              input {
+                margin: rem(2) $global-margin 0 0;
+                height: rem(20);
+                min-width: rem(20);
+
+                &:before {
+                  height: rem(14);
+                  width: rem(14);
+                }
+
+                &:checked {
+                  border-color: $blue-60v;
+
+                  &:before {
+                    background-color: $blue-60v;
+                  }
+                }
+              }
+
+              .radio-container {
+                font-size: $base-font-size;
+                line-height: 1.5;
+                color: $gray-90;
+                font-weight: $font-semibold;
+
+                .radio-description {
+                  line-height: 1.5;
+                  font-size: $base-font-size;
+                  font-weight: normal;
+                  color: $gray-60;
+                  font-style: normal;
+                  margin: 0;
+                  width: 100%;
+                }
+              }
+            }
+          }
+        }
+
+        .combo-box-container {
+          display: flex;
+          margin: 0 0 rem(12) 0;
+
+          .combo-box {
+            margin: 0;
+            // 3 of 8 columns available to the form
+            min-width: 37.5%;
+
+            &:first-of-type {
+              margin-right: rem(24);
+            }
+
+            .combo-box__input {
+              padding-right: rem(60);
+              text-overflow: ellipsis;
+            }
+
+            .combo-box__option {
+              font-weight: normal;
+
+              &:disabled {
+                font-size: $smallest-font-size;
+                font-weight: $font-semibold;
+                background-color: $blue-vivid-5v;
+              }
+            }
+          }
+        }
+      }
+
       &.date-type {
         display: flex;
         padding: 0;
@@ -153,7 +242,7 @@
               }
 
               &:checked {
-                  border-color: $blue-60v;
+                border-color: $blue-60v;
 
                 &:before {
                   background-color: $blue-60v;
@@ -229,13 +318,11 @@
     }
 
     .download-filter__content-note {
-      font-style: italic;
       font-size: rem(14);
-      line-height: rem(18);
+      line-height: 1.5;
+      color: $gray-90;
+      margin: 0 0 rem(12) 0;
 
-      &:first-of-type {
-        margin-top: rem(10);
-      }
       @media (max-width: $medium-screen) {
         max-width: 75%;
       }
