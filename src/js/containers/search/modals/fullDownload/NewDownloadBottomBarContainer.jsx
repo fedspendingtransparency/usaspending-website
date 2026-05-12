@@ -5,32 +5,22 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect, useSelector } from 'react-redux';
+import { connect, useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
 import { isEmpty } from 'lodash-es';
-import * as downloadActions from 'redux/actions/search/downloadActions';
+import { setDownloadExpectedFile, setDownloadExpectedUrl, setDownloadPending, setDownloadCollapsed, resetDownload } from 'redux/actions/search/downloadActions';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadHelper';
 
 const propTypes = {
     download: PropTypes.object,
-    setDownloadPending: PropTypes.func,
-    setDownloadCollapsed: PropTypes.func,
-    setDownloadColumns: PropTypes.func,
-    setDownloadType: PropTypes.func,
-    setDownloadExpectedFile: PropTypes.func,
-    setDownloadExpectedUrl: PropTypes.func,
-    resetDownload: PropTypes.func,
     filters: PropTypes.object,
     columns: PropTypes.array
 };
 
-const NewDownloadBottomBarContainer = ({
-    resetDownload, setDownloadExpectedFile, setDownloadExpectedUrl, setDownloadPending, setDownloadCollapsed, download, filters, columns
-}) => {
+const NewDownloadBottomBarContainer = ({ download, filters, columns }) => {
     const [visible, setVisible] = useState(false);
     const [showError, setShowError] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
@@ -40,6 +30,7 @@ const NewDownloadBottomBarContainer = ({
     const [descriptionTwo, setDescriptionTwo] = useState(' in your browser\'s address bar before closing this page.');
     const downloadRequest = useRef(null);
     const statusRequest = useRef(null);
+    const dispatch = useDispatch();
     let statusTimer = null;
     let statusCount = 0;
     const windowWillClose = (e) => {
@@ -53,12 +44,12 @@ will no longer download to your computer. Are you sure you want to do this?`;
     const closeBar = () => {
     // stop monitoring for window close events
         window.removeEventListener('beforeunload', windowWillClose);
-        resetDownload();
+        dispatch(resetDownload());
         setVisible(false);
         setShowError(false);
         setShowSuccess(false);
-        setDownloadExpectedFile('');
-        setDownloadExpectedUrl('');
+        dispatch(setDownloadExpectedFile(''));
+        dispatch(setDownloadExpectedUrl(''));
     };
 
     const downloadFile = (fileUrl) => {
@@ -69,8 +60,8 @@ will no longer download to your computer. Are you sure you want to do this?`;
         window.open(fileUrl, '_self');
 
         // update redux
-        setDownloadPending(false);
-        setDownloadCollapsed(false);
+        dispatch(setDownloadPending(false));
+        dispatch(setDownloadCollapsed(false));
 
         setShowSuccess(true);
         setTitle('Your file is ready for download.');
@@ -80,8 +71,8 @@ will no longer download to your computer. Are you sure you want to do this?`;
 
     const displayError = (message) => {
         // update redux
-        setDownloadPending(false);
-        setDownloadCollapsed(false);
+        dispatch(setDownloadPending(false));
+        dispatch(setDownloadCollapsed(false));
 
         setShowError(true);
         setTitle('An error occurred while generating your file.');
@@ -193,8 +184,8 @@ will no longer download to your computer. Are you sure you want to do this?`;
 
         downloadRequest.current.promise
             .then((res) => {
-                setDownloadExpectedFile(res.data.file_name);
-                setDownloadExpectedUrl(res.data.file_url);
+                dispatch(setDownloadExpectedFile(res.data.file_name));
+                dispatch(setDownloadExpectedUrl(res.data.file_url));
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -255,6 +246,5 @@ will no longer download to your computer. Are you sure you want to do this?`;
 NewDownloadBottomBarContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ download: state.download }),
-    (dispatch) => bindActionCreators(downloadActions, dispatch)
+    (state) => ({ download: state.download })
 )(NewDownloadBottomBarContainer);
