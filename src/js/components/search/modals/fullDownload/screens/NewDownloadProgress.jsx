@@ -17,13 +17,13 @@ const propTypes = {
     download: PropTypes.object
 };
 
-const NewDownloadProgress = (props) => {
+const NewDownloadProgress = (download, expectedUrl, hideModal, setDownloadCollapsed) => {
     const [copied, setCopied] = useState(false);
 
     useEffect(() => {
-        props.setDownloadCollapsed(true);
+        setDownloadCollapsed(true);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.download?.expectedFile, props.download?.expectedUrl]);
+    }, [download?.expectedFile, download?.expectedUrl]);
 
 
     const onCopy = useCallback(() => {
@@ -44,10 +44,10 @@ const NewDownloadProgress = (props) => {
                 </div>
                 <div className="link-box">
                     <p>Action Required: Once your download is ready, the link below is required to access your file. Be sure to copy your link; this download link is temporary and will expire.</p>
-                    <div className="link">{props.expectedUrl}</div>
+                    <div className="link">{expectedUrl}</div>
 
                     <CopyToClipboard
-                        text={props.expectedUrl}
+                        text={expectedUrl}
                         onCopy={onCopy}>
                         <button>
                             {copied ? <span>{icon}</span> : null}
