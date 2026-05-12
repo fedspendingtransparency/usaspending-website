@@ -25,6 +25,15 @@ import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
 import withAgencySlugs from "containers/agency/WithAgencySlugs";
 
+const trackSpendingEvent = ({
+    event, category, action, label = false
+}) => Analytics.event({
+    event: `Spending Explorer - ${event}`,
+    category: `Spending Explorer - ${category || event}`,
+    action,
+    ...(label ? { label } : {})
+});
+
 const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
@@ -46,8 +55,8 @@ const DetailContentContainer = ({
     const [transitionSteps, setTransitionSteps] = useState(0);
     const [isTruncated, setIsTruncated] = useState(false);
     const [transition, setTransition] = useState('');
-    const [requestTest, setRequestTest] = useState({});
-    const [rootTest, setRootTest] = useState(true);
+    const [requestObj, setRequestObject] = useState({});
+    const [rootLocal, setRootLocal] = useState(true);
     const [rewind, setRewind] = useState(false);
     const [params, setParams] = useState({});
     const {
@@ -183,20 +192,16 @@ const DetailContentContainer = ({
             setTransition('');
         }
 
-        Analytics.event({
-            event: 'Spending Explorer - Data Type',
-            category: 'Spending Explorer - Data Type',
-            action: request.subdivision
-        });
+        trackSpendingEvent({ event: 'Data Type', action: request.subdivision });
     };
 
     useEffect(() => {
         if (fetchData?.results.length > 0) {
-            if (rootTest) parseRootData(fetchData);
-            else parseData(fetchData, requestTest, rewind);
+            if (rootLocal) parseRootData(fetchData);
+            else parseData(fetchData, requestObj, rewind);
         }
         // eslint-disable-next-line
-    }, [rootTest, fetchData, params, rewind, requestTest]);
+    }, [rootLocal, fetchData, params, rewind, requestObj]);
 
     const prepareRootRequest = (rootType, newFy, newQuarter, newPeriod) => {
         // we need to make a root request
@@ -206,17 +211,13 @@ const DetailContentContainer = ({
 
         delete resetFilters.quarter;
 
-        setRequestTest({ within: 'root', subdivision: rootType });
-        setRootTest(true);
+        setRequestObject({ within: 'root', subdivision: rootType });
+        setRootLocal(true);
         setRewind(false);
         setParams({ type: rootType, filters: resetFilters });
 
         // log the analytics event for a Spending Explorer starting point
-        Analytics.event({
-            event: 'Spending Explorer - Starting Point',
-            category: 'Spending Explorer - Starting Point',
-            action: rootType
-        });
+        trackSpendingEvent({ event: 'Starting Point', action: rootType });
     };
 
     useEffect(() => {
@@ -251,11 +252,10 @@ const DetailContentContainer = ({
             // and open in new tab
             window.open(`/award/${id}`, "_blank");
 
-            Analytics.event({
-                event: 'Spending Explorer - Award Click Exit',
-                category: 'Spending Explorer - Exit',
-                action: `/award/${id}`
+            trackSpendingEvent({
+                event: 'Award Click Exit', category: 'Exit', action: `/award/${id}`
             });
+
             return;
         }
 
@@ -312,8 +312,8 @@ const DetailContentContainer = ({
 
         setTransitionSteps(1);
 
-        setRequestTest(request);
-        setRootTest(false);
+        setRequestObject(request);
+        setRootLocal(false);
         setRewind(false);
         setParams((prevState) =>
             ({
@@ -324,11 +324,8 @@ const DetailContentContainer = ({
         );
 
 
-        Analytics.event({
-            event: 'Spending Explorer - Drilldown',
-            category: 'Spending Explorer - Drilldown',
-            action: filterBy,
-            label: `${name} - ${dataId}`
+        trackSpendingEvent({
+            event: 'Drilldown', action: filterBy, label: `${name} - ${dataId}`
         });
     };
 
@@ -347,10 +344,9 @@ const DetailContentContainer = ({
 
         resetTable();
         setTransitionSteps(0);
-        // loadData(request, false);
 
-        setRequestTest(request);
-        setRootTest(false);
+        setRequestObject(request);
+        setRootLocal(false);
         setRewind(false);
         setParams((prevState) => ({ ...prevState, type }));
     };
@@ -410,8 +406,8 @@ const DetailContentContainer = ({
 
         delete newFilters.quarter;
 
-        setRequestTest(selectedTrailItem);
-        setRootTest(isRoot);
+        setRequestObject(selectedTrailItem);
+        setRootLocal(isRoot);
         setRewind(true);
         setParams({ type: selectedTrailItem.subdivision, filters: newFilters });
     };
