@@ -19,13 +19,18 @@ const propTypes = {
     download: PropTypes.object,
     setDownloadPending: PropTypes.func,
     setDownloadCollapsed: PropTypes.func,
+    setDownloadColumns: PropTypes.func,
+    setDownloadType: PropTypes.func,
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func,
     resetDownload: PropTypes.func,
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    columns: PropTypes.array
 };
 
-const NewDownloadBottomBarContainer = (props) => {
+const NewDownloadBottomBarContainer = ({
+    resetDownload, setDownloadExpectedFile, setDownloadExpectedUrl, setDownloadPending, setDownloadCollapsed, download, filters, columns
+}) => {
     const [visible, setVisible] = useState(false);
     const [showError, setShowError] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
@@ -48,12 +53,12 @@ will no longer download to your computer. Are you sure you want to do this?`;
     const closeBar = () => {
     // stop monitoring for window close events
         window.removeEventListener('beforeunload', windowWillClose);
-        props.resetDownload();
+        resetDownload();
         setVisible(false);
         setShowError(false);
         setShowSuccess(false);
-        props.setDownloadExpectedFile('');
-        props.setDownloadExpectedUrl('');
+        setDownloadExpectedFile('');
+        setDownloadExpectedUrl('');
     };
 
     const downloadFile = (fileUrl) => {
@@ -64,8 +69,8 @@ will no longer download to your computer. Are you sure you want to do this?`;
         window.open(fileUrl, '_self');
 
         // update redux
-        props.setDownloadPending(false);
-        props.setDownloadCollapsed(false);
+        setDownloadPending(false);
+        setDownloadCollapsed(false);
 
         setShowSuccess(true);
         setTitle('Your file is ready for download.');
@@ -75,8 +80,8 @@ will no longer download to your computer. Are you sure you want to do this?`;
 
     const displayError = (message) => {
         // update redux
-        props.setDownloadPending(false);
-        props.setDownloadCollapsed(false);
+        setDownloadPending(false);
+        setDownloadCollapsed(false);
 
         setShowError(true);
         setTitle('An error occurred while generating your file.');
@@ -161,7 +166,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
         setDescriptionTwo(' in your browser\'s address bar before closing this page.');
     };
 
-    const requestDownload = (filters, columns) => {
+    const requestDownload = () => {
         if (downloadRequest.current) {
             downloadRequest.current.cancel();
         }
@@ -180,7 +185,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
             filters: filterSet
         };
 
-        if (columns.length > 0) {
+        if (columns?.length > 0) {
             params.columns = columns;
         }
 
@@ -188,8 +193,8 @@ will no longer download to your computer. Are you sure you want to do this?`;
 
         downloadRequest.current.promise
             .then((res) => {
-                props.setDownloadExpectedFile(res.data.file_name);
-                props.setDownloadExpectedUrl(res.data.file_url);
+                setDownloadExpectedFile(res.data.file_name);
+                setDownloadExpectedUrl(res.data.file_url);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -208,9 +213,9 @@ will no longer download to your computer. Are you sure you want to do this?`;
 
 
     useEffect(() => {
-        if (props.download?.pendingDownload && props.download?.showCollapsedProgress &&
-            !visible && !isEmpty(props.filters)) {
-            requestDownload(props.filters, props.download.columns);
+        if (download?.pendingDownload && download?.showCollapsedProgress &&
+            !visible && !isEmpty(filters)) {
+            requestDownload(filters, download.columns);
             displayBar();
         }
 
@@ -219,7 +224,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
             window.clearTimeout(statusTimer);
         };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.download?.pendingDownload, props.download?.showCollapsedProgress]);
+    }, [download?.pendingDownload, download?.showCollapsedProgress]);
 
     useEffect(() => {
         checkStatus();
@@ -234,12 +239,12 @@ will no longer download to your computer. Are you sure you want to do this?`;
                     timeout={500}
                     exit>
                     <DownloadBottomBar
-                        {...props}
                         showError={showError}
                         showSuccess={showSuccess}
                         title={title}
                         descriptionOne={descriptionOne}
-                        descriptionTwo={descriptionTwo} />
+                        descriptionTwo={descriptionTwo}
+                        download={download} />
                 </CSSTransition>
             </TransitionGroup>
         );
