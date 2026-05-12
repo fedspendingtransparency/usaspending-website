@@ -3,10 +3,9 @@
  * Created by Kevin Li 8/16/17
  */
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { isCancel } from 'axios';
 import { List } from 'immutable';
 
 import { dropdownScopes } from 'dataMapping/explorer/dropdownScopes';
@@ -19,12 +18,12 @@ import {
 } from "redux/actions/explorer/explorerActions";
 import Analytics from 'helpers/analytics/Analytics';
 import {
-    appendCellForDataOutsideTree, fetchBreakdown, truncateDataForTreemap
+    appendCellForDataOutsideTree, truncateDataForTreemap
 } from "helpers/explorerHelper";
+import useFetchBreakdown from "hooks/useFetchBreakdown";
 import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
 import withAgencySlugs from "containers/agency/WithAgencySlugs";
-import useFetchBreakdown from "../../../hooks/useFetchBreakdown";
 
 const propTypes = {
     showTooltip: PropTypes.func,
@@ -44,9 +43,7 @@ const DetailContentContainer = ({
     const dispatch = useDispatch();
     const [data, setData] = useState(new List());
     const [lastUpdate, setLastUpdate] = useState('');
-    const [filters, setFilters] = useState({});
     const [transitionSteps, setTransitionSteps] = useState(0);
-    const [inFlight, setInFlight] = useState(true);
     const [isTruncated, setIsTruncated] = useState(false);
     const [transition, setTransition] = useState('');
     const [requestTest, setRequestTest] = useState({});
@@ -54,9 +51,8 @@ const DetailContentContainer = ({
     const [rewind, setRewind] = useState(false);
     const [params, setParams] = useState({});
     const {
-        data: fetchData
+        data: fetchData, loading
     } = useFetchBreakdown(params);
-    const requestRef = useRef(null);
 
     const setActive = (state) => dispatch(setExplorerActive(state));
     const overwriteTrail = (state) => dispatch(overwriteExplorerTrail(state));
@@ -74,7 +70,7 @@ const DetailContentContainer = ({
         };
 
         // update the trail to consist of only this screen (since we are at the root, there cannot
-        //  be anything else in the trail)
+        // be anything else in the trail)
         const explorerTrail = [
             {
                 total,
@@ -92,7 +88,6 @@ const DetailContentContainer = ({
         const updateState = () => {
             setData(new List(results));
             setLastUpdate(endDate);
-            setInFlight(false);
             setIsTruncated(false);
         };
 
@@ -166,7 +161,6 @@ const DetailContentContainer = ({
             setIsTruncated(truncated);
             setData(new List(parsedResults));
             setLastUpdate(endDate);
-            setInFlight(false);
         };
 
         if (transitionSteps !== 0) {
@@ -196,66 +190,11 @@ const DetailContentContainer = ({
         });
     };
 
-    const loadData = (
-        request,
-        isRoot = false,
-        isRewind = false,
-        tempFilters = filters
-    ) => {
-        setInFlight(true);
-
-        if (requestRef.current) {
-            requestRef.current.cancel();
-        }
-
-        if (
-            !fy ||
-            (
-                !period &&
-                !quarter
-            )
-        ) {
-            return Promise.resolve();
-        }
-
-        // perform the API request
-        const requestFilters = Object.assign({}, tempFilters);
-
-        if (requestFilters.quarter == null) {
-            delete requestFilters.quarter;
-        }
-        if (requestFilters.period == null) {
-            delete requestFilters.period;
-        }
-        requestRef.current = fetchBreakdown({
-            type: request.subdivision,
-            filters: requestFilters
-        });
-
-        return requestRef.current.promise
-            .then((res) => {
-                if (isRoot) {
-                    parseRootData(res.data);
-                }
-                else {
-                    parseData(res.data, request, isRewind);
-                }
-                requestRef.current = null;
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.error(err);
-                    requestRef.current = null;
-                }
-            });
-    };
-
     useEffect(() => {
-        // if (rootTest) parseRootData(data);
-        // else parseData(data, requestTest, rewind);
-        console.log({
-            rootTest, fetchData, params, rewind, requestTest
-        });
+        if (fetchData?.results.length > 0) {
+            if (rootTest) parseRootData(fetchData);
+            else parseData(fetchData, requestTest, rewind);
+        }
         // eslint-disable-next-line
     }, [rootTest, fetchData, params, rewind, requestTest]);
 
@@ -264,14 +203,6 @@ const DetailContentContainer = ({
         // at the root level, ignore all filters except for the root
         // in fact, just to be safe, let's overwrite the filter props
         const resetFilters = { fy: newFy, quarter: newQuarter, period: newPeriod };
-
-        setFilters(resetFilters);
-        loadData(
-            { within: 'root', subdivision: rootType },
-            true,
-            false,
-            resetFilters
-        );
 
         delete resetFilters.quarter;
 
@@ -306,7 +237,7 @@ const DetailContentContainer = ({
     const goDeeper = (id, {
         name, id: dataId, account_number: accountNumber, link
     }) => {
-        if (inFlight) {
+        if (loading) {
             // API call is in progress, don't allow clicks
             return;
         }
@@ -380,8 +311,6 @@ const DetailContentContainer = ({
         resetTable();
 
         setTransitionSteps(1);
-        setFilters((state) => Object.assign({}, state, newFilter));
-        loadData(request, false, false, Object.assign({}, filters, newFilter));
 
         setRequestTest(request);
         setRootTest(false);
@@ -418,15 +347,17 @@ const DetailContentContainer = ({
 
         resetTable();
         setTransitionSteps(0);
-        loadData(request, false);
+        // loadData(request, false);
 
         setRequestTest(request);
+        setRootTest(false);
+        setRewind(false);
         setParams((prevState) => ({ ...prevState, type }));
     };
 
     const rewindToFilter = (index) => {
         const trailJS = trail.toJS();
-        const oldFilters = filters;
+        const oldFilters = params.filters;
         // don't do anything if this is the current filter (ie, the last one in the trail)
         if (index === trailJS.length - 1) {
             return;
@@ -476,8 +407,6 @@ const DetailContentContainer = ({
         resetTable();
 
         setTransitionSteps(steps);
-        setFilters(newFilters);
-        loadData(selectedTrailItem, isRoot, true, newFilters);
 
         delete newFilters.quarter;
 
@@ -535,7 +464,6 @@ const DetailContentContainer = ({
         // easy change comparison within the treemap
         setData(new List(dataArr));
         setLastUpdate((state) => state);
-        setInFlight(false);
 
         resetTable();
     };
@@ -556,8 +484,8 @@ const DetailContentContainer = ({
                 setExplorerPeriod={setPeriod}
                 rewindToFilter={rewindToFilter} />
             <DetailContent
-                isRoot={active.within === 'root'}
-                isLoading={inFlight || error}
+                isRoot={active.within === 'root' || active.within === ''}
+                isLoading={loading || error}
                 isTruncated={isTruncated}
                 root={root}
                 fy={fy}

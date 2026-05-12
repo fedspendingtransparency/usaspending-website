@@ -57,7 +57,7 @@ const SummaryStats = () => {
 
     const budgetData = [];
 
-    data.forEach((item) => {
+    data?.results.forEach((item) => {
         const budgetCategoriesIndex = budgetCategories
             .map((e) => e.name).indexOf(item.name);
         if (budgetCategoriesIndex > -1) {

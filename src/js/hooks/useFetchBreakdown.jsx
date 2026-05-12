@@ -6,7 +6,7 @@ const selectRandomIndex = () => Math.floor(Math.random() * 10);
 const useFetchBreakdown = (params) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [data, setData] = useState([]);
+    const [data, setData] = useState({ results: [] });
     const [total, setTotal] = useState([]);
     const [randomIndex, setRandomIndex] = useState(0);
     const request = useRef(null);
@@ -30,7 +30,7 @@ const useFetchBreakdown = (params) => {
         request.current.promise
             .then((res) => {
                 setTotal(res?.data?.total);
-                setData(res?.data?.results);
+                setData(res?.data);
                 setLoading(false);
                 setRandomIndex(selectRandomIndex());
             }).catch((err) => {
