@@ -1,53 +1,37 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+/**
+ * useFetchBreakdown.jsx
+ * Created by Josue Aguilar on 05/07/2026
+ */
+
+import { useEffect, useState } from "react";
 import { fetchBreakdown } from "helpers/explorerHelper";
+import { useQuery } from "@tanstack/react-query";
 
 const selectRandomIndex = () => Math.floor(Math.random() * 10);
 
 const useFetchBreakdown = (params) => {
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(false);
-    const [data, setData] = useState({ results: [] });
-    const [total, setTotal] = useState([]);
     const [randomIndex, setRandomIndex] = useState(0);
-    const request = useRef(null);
 
     const fy = params.filters?.fy;
     const period = params.filters?.period;
 
-    const fetchData = useCallback((p) => {
-        if (request.current) {
-            request.current.cancel();
-        }
+    const { data: res, isLoading, error } = useQuery({
+        queryKey: ['fetchBreakdown', fy, period, params],
+        queryFn: () => fetchBreakdown(params).promise,
+        enabled: !!fy && !!period,
+        staleTime: 60000,
+        refetchOnWindowFocus: false
+    });
 
-        setError((state) => {
-            if (state) return false;
-        });
-        setLoading((state) => {
-            if (!state) return true;
-        });
-
-        request.current = fetchBreakdown(p);
-        request.current.promise
-            .then((res) => {
-                setTotal(res?.data?.total);
-                setData(res?.data);
-                setLoading(false);
-                setRandomIndex(selectRandomIndex());
-            }).catch((err) => {
-                setError(true);
-                setLoading(false);
-                console.error(err);
-            });
-    }, []);
+    const data = res?.data || { results: [] };
+    const total = data?.total || [];
 
     useEffect(() => {
-        if (fy && period) {
-            fetchData(params);
-        }
-    }, [fetchData, fy, params, period]);
+        if (data) setRandomIndex(selectRandomIndex());
+    }, [data]);
 
     return {
-        data, total, randomIndex, error, loading
+        data, total, randomIndex, error, loading: isLoading
     };
 };
 
