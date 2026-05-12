@@ -13,7 +13,7 @@ import { isEmpty } from 'lodash-es';
 import * as downloadActions from 'redux/actions/search/downloadActions';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
-import * as DownloadHelper from 'helpers/downloadHelper';
+import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadHelper';
 
 const propTypes = {
     download: PropTypes.object,
@@ -125,7 +125,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
             expectedFileTemp = expectedFile.file;
         }
         if (expectedFileTemp !== '') {
-            statusRequest.current = DownloadHelper.requestDownloadStatus({
+            statusRequest.current = requestDownloadStatus({
                 file_name: expectedFileTemp
             });
 
@@ -184,7 +184,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
             params.columns = columns;
         }
 
-        downloadRequest.current = DownloadHelper.requestFullDownloadNew(params);
+        downloadRequest.current = requestFullDownloadNew(params);
 
         downloadRequest.current.promise
             .then((res) => {
