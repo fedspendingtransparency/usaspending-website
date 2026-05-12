@@ -95,9 +95,19 @@ const Covid19Page = ({ loading }) => {
 
         // add offsets
         const sectionTop = sectionDom.offsetTop;
-        console.log("checking sectionDom ", sectionDom);
+        let top = sectionTop + 120;
+
+        // required to adjust offset for sections outside top Covid Sections FlexRow
+        if (section === "data_sources_and_methodology") {
+            top -= 400;
+        }
+
+        if (section === "other_resources") {
+            top -= 500;
+        }
+
         window.scrollTo({
-            top: sectionTop + 120,
+            top,
             left: 0,
             behavior: 'smooth'
         });
