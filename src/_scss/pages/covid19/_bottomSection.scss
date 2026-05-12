@@ -1,8 +1,6 @@
 .bottom-section{
   display: flex;
   width: 100%;
-  padding-top: rem(60);
-  padding-bottom: rem(100);
   flex-direction: column;
   align-items: flex-start;
   background-color: $gray-2;
@@ -13,7 +11,7 @@
   @media (max-width: $tablet-screen) {
     padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2);
   }
-
+  
   section {
     max-width: rem(1400);
     width: 100%;
@@ -113,7 +111,7 @@
 
 
   .more-information__container {
-    display: flex;
+    @include display(flex);
     flex-direction: column;
     align-items: flex-start;
     gap: rem(24);
@@ -131,7 +129,7 @@
     }
 
     .covid__card-row {
-      @media (max-width: $medium-screen) {
+      @media (max-width: $tablet-screen) {
         gap: rem(24);
       }
 
@@ -144,7 +142,7 @@
         border: rem(1) solid $gray-20;
         background-color: $color-white;
 
-        @media (min-width: $medium-screen) {
+        @media (min-width: $tablet-screen) {
           max-width: rem(330);
           margin-right: rem(24);
         }

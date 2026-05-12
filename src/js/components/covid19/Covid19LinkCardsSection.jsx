@@ -111,6 +111,7 @@ const FooterCovid19LinkCardsSection = () => {
                         className="covid__card-col"
                         key={card.headline}
                         mobile={12}
+                        tablet={6}
                         desktop={6}>
                         <CardContainer>
                             {card.icon}
