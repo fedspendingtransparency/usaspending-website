@@ -22,7 +22,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -c .storybook -o docs",
     "build-sb-artifacts": "npm run prod && npm run build-storybook",
-    "fixLint": "npx prettier --write \"**/*.{scss,css}\" && eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" --fix" 
+    "fixLint": "npx prettier --write \"**/*.{scss,css}\" && eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" --fix"
   },
   "author": "",
   "engines": {
@@ -60,8 +60,8 @@
     "ansi-regex": "^3.0.1",
     "ansi-styles": "^4.3.0",
     "argparse": "^2.0.1",
-    "babel-jest": "^29.7.0",
-    "babel-loader": "^9.1.0",
+    "babel-jest": "^30.4.1",
+    "babel-loader": "^10.1.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "browserify-sign": "^4.2.2",
     "chalk": "^4.1.2",
