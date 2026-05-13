@@ -12,12 +12,11 @@ import { Link } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { showModal } from 'redux/actions/modal/modalActions';
 import Analytics from 'helpers/analytics/Analytics';
-import DownloadBottomBarContainer from
-    'containers/search/modals/fullDownload/DownloadBottomBarContainer';
 import BulkDownloadBottomBarContainer from
     'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
 import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
 import StayInTouch from "../components/sharedComponents/StayInTouch";
+import NewDownloadBottomBarContainer from './search/modals/fullDownload/NewDownloadBottomBarContainer';
 
 const propTypes = {
     pageName: PropTypes.string.isRequired,
@@ -64,8 +63,7 @@ const Footer = ({
 
     return (
         <footer>
-            <DownloadBottomBarContainer
-                filters={filters} />
+            <NewDownloadBottomBarContainer filters={filters} />
             <BulkDownloadBottomBarContainer />
             <StayInTouch pageName={pageName} />
             <div className="footer-container">
