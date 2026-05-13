@@ -7,7 +7,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Analytics from 'helpers/analytics/Analytics';
 import { uniqueId } from 'lodash-es';
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import PropTypes from 'prop-types';
 import isRedirectNeeded from '../../../../helpers/url';
 import ExternalLink from '../../ExternalLink';
@@ -46,6 +46,8 @@ const MobileDropdownItem = ({
     index,
     type
 }) => {
+    const navigate = useNavigate();
+
     const clickedLink = (e) => {
         const route = e.target.name;
         clickedHeaderLink(route);
@@ -58,27 +60,19 @@ const MobileDropdownItem = ({
         e.preventDefault();
         clickedHeaderLink(route);
 
-        if (item && item.url) {
+        if (item && item.url && typeof item.url === "string") {
             if (item?.url?.includes("about-the-data")) {
                 showSlideout('atd');
-                e.preventDefault();
             }
             else if (item?.url?.includes("glossary")) {
                 showSlideout('glossary');
-                e.preventDefault();
             }
             else {
-                // navigate(item.url);
+                navigate(item.url);
             }
+        } else if (typeof item.url === "object") {
+            navigate(item.url);
         }
-    };
-
-    const updateString = (s) => {
-        if (typeof s === "string" && (s.includes("about-the-data") || s.includes("glossary"))) {
-            return "";
-        }
-        // need to add case to construct the link
-        return s;
     };
 
     return (
@@ -158,9 +152,10 @@ const MobileDropdownItem = ({
                         <li className="mobile-dropdown__section" key={uniqueId()}>
                             <a
                                 className="mobile-dropdown__section-link"
-                                href={updateString(item.url)}
-                                onClick={(e) => clickedSection2Link(e, item)}
-                                onMouseUp={(e) => clickedSection2Link(e, item)}>
+                                href="#"
+                                onClick={(e) => {
+                                    clickedSection2Link(e, item);
+                                }}>
                                 <div className="mobile-dropdown__section-etd-label">
                                     {item.label}
                                 </div>
