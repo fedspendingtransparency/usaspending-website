@@ -7,12 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-
 import * as downloadActions from 'redux/actions/search/downloadActions';
-
-import FullDownloadModal from 'components/search/modals/fullDownload/FullDownloadModal';
 import NewDownloadModal from '../../../../components/search/modals/fullDownload/NewDownloadModal';
-import GlobalConstants from '../../../../GlobalConstants';
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -27,25 +23,15 @@ const propTypes = {
 
 export class FullDownloadModalContainer extends React.Component {
     render() {
-        if (GlobalConstants.IS_NEW_DOWNLOAD) {
-            return (<NewDownloadModal
-                setDownloadCollapsed={this.props.setDownloadCollapsed}
-                pendingDownload={this.props.pendingDownload}
-                download={this.props.download}
-                mounted={this.props.mounted}
-                hideModal={this.props.hideModal}
-                awardsCount={this.props.awardsCount}
-                subawardsCount={this.props.subawardsCount}
-                transactionsCount={this.props.transactionsCount} />);
-        }
-        return (
-            <FullDownloadModal
-                setDownloadCollapsed={this.props.setDownloadCollapsed}
-                pendingDownload={this.props.pendingDownload}
-                download={this.props.download}
-                mounted={this.props.mounted}
-                hideModal={this.props.hideModal} />
-        );
+        return (<NewDownloadModal
+            setDownloadCollapsed={this.props.setDownloadCollapsed}
+            pendingDownload={this.props.pendingDownload}
+            download={this.props.download}
+            mounted={this.props.mounted}
+            hideModal={this.props.hideModal}
+            awardsCount={this.props.awardsCount}
+            subawardsCount={this.props.subawardsCount}
+            transactionsCount={this.props.transactionsCount} />);
     }
 }
 
