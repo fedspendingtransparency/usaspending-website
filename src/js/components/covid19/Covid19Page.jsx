@@ -184,7 +184,7 @@ const Covid19Page = ({ loading }) => {
                     <BannerPageHeader
                         kicker="PROFILES"
                         title="Federal Response to COVID-19"
-                        body="Need short description text here"
+                        body="Learn about total spending and award spending in response to COVID-19"
                         faIcon="virus-covid"
                         primaryColor="#39215E"
                         secondaryColor="#783CB9" />

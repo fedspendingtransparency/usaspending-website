@@ -109,7 +109,7 @@ const OtherResources = ({ handleExternalLinkClick }) => {
                                     className="usda-external-link indent-link"
                                     href="https://home.treasury.gov/system/files/136/ERA-Subawards-USASpending-File.xlsx">
                                         ERA -Subawards (Excel)&nbsp;
-                                    <FontAwesomeIcon icon="external-link-alt" />
+                                    <FontAwesomeIcon icon="fa-regular fa-file-excel" />
                                 </a>
                             </li>
                             <li>
@@ -117,7 +117,7 @@ const OtherResources = ({ handleExternalLinkClick }) => {
                                     className="usda-external-link indent-link"
                                     href="https://home.treasury.gov/system/files/136/SLFRF-Subaward-USASpending-File.xlsx">
                                         SLFRF Subaward (Excel)&nbsp;
-                                    <FontAwesomeIcon icon="external-link-alt" />
+                                    <FontAwesomeIcon icon="fa-regular fa-file-excel" />
                                 </a>
                             </li>
                         </ul>
