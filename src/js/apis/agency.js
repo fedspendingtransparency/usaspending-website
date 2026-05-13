@@ -46,7 +46,7 @@ export const fetchSubagencySummary = (code, fy, params) => apiRequest({
 });
 
 export const fetchAgencySlugs = () => apiRequest({
-    url: 'v2/references/toptier_agencies'
+    url: 'v2/references/toptier_agencies/'
 });
 
 export const fetchSubcomponentsList = (code, fy, page) => apiRequest({
