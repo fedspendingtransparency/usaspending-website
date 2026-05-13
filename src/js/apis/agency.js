@@ -2,7 +2,7 @@
  * agency.js
  * Created by Lizzie Salita 5/26/20
  */
-
+/* eslint-disable max-len */
 import { apiRequest } from '../helpers/apiRequest';
 
 export const fetchSpendingCount = (agencyId, fy, type) => apiRequest({
