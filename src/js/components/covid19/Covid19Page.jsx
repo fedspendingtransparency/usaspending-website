@@ -3,16 +3,16 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { find, throttle, uniqueId } from 'lodash-es';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
+import IsMobileContext from "context/IsMobileContext";
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Covid19Section from 'components/covid19/Covid19Section';
 import Heading from 'components/covid19/Heading';
 import BannerPageHeader from "components/sharedComponents/header/BannerPageHeader";
@@ -70,8 +70,7 @@ const Covid19Page = ({ loading }) => {
     const query = useQueryParams();
     const history = useNavigate();
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const { isTablet } = useContext(IsMobileContext);
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
 
@@ -144,18 +143,6 @@ const Covid19Page = ({ loading }) => {
         handleShareOptionClick(name, slug, getEmailSocialShareData, handleExternalLinkClick);
     };
 
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
-
     return (
         <PageWrapper
             pageName="covid19"
@@ -168,7 +155,7 @@ const Covid19Page = ({ loading }) => {
                     key={uniqueId()}
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare}
-                    classNames={!isMobile ? "margin-right" : ""} />
+                    classNames={!isTablet ? "margin-right" : ""} />
             ]}
             sections={covid19Sections}
             activeSection={activeSection}

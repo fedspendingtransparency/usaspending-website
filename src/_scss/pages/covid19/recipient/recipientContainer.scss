@@ -25,7 +25,7 @@
           width: 100%;
           // margin: rem(20) rem(20) 0 0;
 
-          // begin add 
+          // begin add
           .map-legend {
             bottom: rem(8);
             right: rem(8);
@@ -293,7 +293,7 @@
         }
       }
     }
-  
+
     .recipient-spending-notes {
       width: 100%;
       color: $body-color;
@@ -327,7 +327,7 @@
           list-style: disc;
           margin: 0;
 
-          &::marker{
+          &::marker {
             font-weight: $font-light;
             font-size: $font-size-10;
           }

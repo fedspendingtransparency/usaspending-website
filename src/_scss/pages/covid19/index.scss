@@ -85,13 +85,12 @@
         margin-bottom: 5rem;
         padding: 0 $global-padding * 2;
 
-        
-        .usda-section-title__title-icon { 
+        .usda-section-title__title-icon {
           width: rem(24);
-          height: rem(24)
+          height: rem(24);
         }
-        
-        .usda-section-title__header{
+
+        .usda-section-title__header {
           margin-left: rem(4);
         }
 
@@ -105,7 +104,6 @@
             color: $body-color;
             margin: 0 rem(4);
           }
-          
         }
 
         hr {
@@ -259,10 +257,11 @@
               align-items: flex-end;
             }
           }
-
         }
 
         &.award_question {
+          padding: 0;
+
           .body__header {
             display: none;
           }
@@ -278,11 +277,11 @@
             gap: rem(10);
             border-radius: rem(8);
             background: $gray-2;
-            
+
             @media (min-width: $m-large-screen) {
               padding: rem(118) rem(356) rem(119);
             }
-            
+
             .award-question__title {
               font-weight: $font-semibold;
               line-height: $heading-line-height;
@@ -292,14 +291,14 @@
               margin: 0;
               padding: 0;
             }
-            
+
             .award-question__sub-section {
               font-size: $base-font-size;
               line-height: $base-line-height;
               text-align: left;
               align-self: stretch;
               color: $body-color;
-              
+
               .glossary-term {
                 font-weight: $font-semibold;
               }
@@ -324,11 +323,9 @@
         margin-bottom: 0;
         padding: 0;
       }
-      
     }
 
     @import "./bottomSection";
-
   }
 
   .footer-reference {
