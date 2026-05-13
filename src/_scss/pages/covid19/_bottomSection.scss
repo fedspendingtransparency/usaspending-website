@@ -1,0 +1,206 @@
+.bottom-section {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  background-color: $gray-2;
+  border-top: rem(6) solid $violet-70v;
+  padding: rem(60) ($global-spacing-unit * 4) rem(100);
+
+  @media (max-width: $tablet-screen) {
+    padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2);
+  }
+
+  section {
+    max-width: rem(1400);
+    width: 100%;
+    margin: auto;
+  }
+
+  .dsm__container,
+  .resources__container {
+    @include display(flex);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem(12);
+    align-self: stretch;
+
+    h4 {
+      color: $headline-color;
+      font-size: $h4-font-size;
+      font-style: normal;
+      font-weight: $font-semibold;
+      line-height: $heading-line-height;
+      text-align: left;
+      margin: 0;
+    }
+
+    hr {
+      width: 100%;
+      height: rem(1);
+      background: $gray-20;
+      border: none;
+      margin: 0;
+    }
+
+    .dsm__topSection {
+      p:first-of-type {
+        margin-top: 0;
+      }
+
+      p {
+        color: $gray-70;
+        font-size: $small-font-size;
+        font-style: normal;
+        font-weight: $font-normal;
+        line-height: $base-line-height;
+
+        strong {
+          font-weight: $font-semibold;
+        }
+
+        a {
+          color: $blue-60v;
+        }
+      }
+    }
+
+    .other-resources__link__container {
+      @include display(flex);
+      align-items: flex-start;
+      gap: rem(24);
+      padding-left: rem(10);
+      margin-left: rem(12);
+
+      .otherResources__list {
+        font-size: $small-font-size;
+        margin-right: rem(24);
+      }
+
+      @media (max-width: $tablet-screen) {
+        display: inline;
+
+        .otherResources__list:first-of-type {
+          margin-bottom: rem(5);
+        }
+        .otherResources__list:not(:first-child) {
+          margin-top: rem(5);
+        }
+      }
+
+      li {
+        list-style: disc;
+
+        &::marker {
+          font-weight: $font-normal;
+          font-size: $font-size-10;
+          color: $gray-90;
+        }
+      }
+
+      ul.indent-link {
+        margin: 0 0 0 rem(24);
+
+        svg {
+          height: rem(12);
+          width: rem(12);
+          color: $blue-60v;
+          // fill: $gray-2;
+        }
+      }
+    }
+  }
+
+  .more-information__container {
+    @include display(flex);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem(24);
+    align-self: stretch;
+    margin-top: rem(40);
+
+    h4 {
+      color: $headline-color;
+      font-size: $h4-font-size;
+      font-style: normal;
+      font-weight: $font-semibold;
+      line-height: $heading-line-height;
+      text-align: left;
+      margin: 0;
+    }
+
+    .covid__card-row {
+      @media (max-width: $tablet-screen) {
+        gap: rem(24);
+      }
+
+      .card-column {
+        display: flex;
+        padding: rem(24);
+        align-items: flex-start;
+        gap: rem(10);
+        border-radius: rem(8);
+        border: rem(1) solid $gray-20;
+        background-color: $color-white;
+
+        @media (min-width: $tablet-screen) {
+          max-width: rem(330);
+          margin-right: rem(24);
+        }
+
+        .card-container {
+          flex-direction: column;
+          justify-content: center;
+          align-items: flex-start;
+          gap: rem(10);
+          flex: 1 0 0;
+
+          .covid__icon-container {
+            width: rem(24);
+            height: rem(24);
+            aspect-ratio: 1/1;
+            margin-bottom: rem(10);
+          }
+
+          .card__body {
+            padding: 0;
+            margin: 0;
+
+            .headline {
+              color: $headline-color;
+              font-size: $h4-font-size;
+              font-style: normal;
+              font-weight: $font-semibold;
+              line-height: $heading-line-height;
+              text-align: left;
+              margin-bottom: rem(4);
+            }
+
+            .text {
+              color: $gray-70;
+              font-size: $small-font-size;
+              font-style: normal;
+              font-weight: $font-normal;
+              line-height: $base-line-height;
+              margin-bottom: rem(10);
+            }
+
+            .card__button {
+              display: flex;
+              gap: rem(8);
+              padding: 0;
+              margin: 0;
+              justify-content: flex-start;
+
+              button {
+                padding: 0;
+                margin: 0;
+                align-items: center;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
