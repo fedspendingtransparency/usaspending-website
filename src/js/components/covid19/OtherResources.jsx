@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
     handleExternalLinkClick: PropTypes.func
@@ -105,16 +106,18 @@ const OtherResources = ({ handleExternalLinkClick }) => {
                             </li>
                             <li>
                                 <a
-                                    className="indent-link"
+                                    className="usda-external-link indent-link"
                                     href="https://home.treasury.gov/system/files/136/ERA-Subawards-USASpending-File.xlsx">
-                                        ERA -Subawards (Excel)
+                                        ERA -Subawards (Excel)&nbsp;
+                                    <FontAwesomeIcon icon="external-link-alt" />
                                 </a>
                             </li>
                             <li>
                                 <a
-                                    className="indent-link"
+                                    className="usda-external-link indent-link"
                                     href="https://home.treasury.gov/system/files/136/SLFRF-Subaward-USASpending-File.xlsx">
-                                        SLFRF Subaward (Excel)
+                                        SLFRF Subaward (Excel)&nbsp;
+                                    <FontAwesomeIcon icon="external-link-alt" />
                                 </a>
                             </li>
                         </ul>

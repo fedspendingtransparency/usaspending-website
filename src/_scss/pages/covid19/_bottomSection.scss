@@ -104,6 +104,12 @@
       
       ul.indent-link {
         margin: 0 0 0 rem(24);
+
+        svg {
+          height: rem(12);
+          width: rem(12);
+          fill: $blue-60v;
+        }
       }
     }
 
