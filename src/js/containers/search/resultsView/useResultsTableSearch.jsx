@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import React from "react";
+import { useQuery } from "@tanstack/react-query";
 import { intersection, uniqueId } from 'lodash-es';
 
 import {
@@ -119,26 +119,64 @@ const getSortOrder = (searchOrder, grouped) => {
 const useResultsTableSearch = (
     searchFilters, tableType, spendingLevel, limit, searchOrder, grouped, page
 ) => {
-    const [data, setData] = useState([]);
+    const fields = getFields(tableType);
+
+    const { sort, order } = getSortOrder(searchOrder, grouped);
+
+    const filtersTemp = new SearchAwardsOperation();
+
+    // get initial searchParams from state
+    filtersTemp.fromState(searchFilters);
+
+    // if subawards is true, newAwardsOnly cannot be true, so we remove
+    // dateType for this request; also has to be done for the tabCounts request
+    if (spendingLevel === "subaward" && filtersTemp.dateType) {
+        delete filtersTemp.dateType;
+    }
+
+    filtersTemp.awardType = getAwardTypeGroup(
+        spendingLevel, tableType, searchFilters.awardType
+    );
+
+    const filters = filtersTemp.toParams();
+
+    const params = {
+        auditTrail: 'Results Table - Spending by award search',
+        filters,
+        limit,
+        order,
+        page,
+        sort
+    };
 
     const {
-        isPending, error, mutate
-    } = useMutation({
-        mutationKey: [
+        isPending, error, data
+    } = useQuery({
+        queryKey: [
             'resultsTableData',
             limit,
             page,
-            searchOrder,
+            sort,
+            order,
             spendingLevel,
             grouped,
             tableType,
             searchFilters
         ],
-        mutationFn: (request) => request,
-        onSuccess: async (d) => {
-            await d.promise.then((res) => setData(res));
+        queryFn: () => {
+            if (grouped) {
+                return performSpendingBySubawardGrouped(params).promise;
+            }
+
+            return performSpendingByAwardSearch({
+                ...params,
+                fields,
+                spending_level: spendingLevel
+            }).promise;
         },
-        gcTime: 60000
+        staleTime: 60000,
+        refetchOnWindowFocus: false,
+        enabled: !!filtersTemp.awardType
     });
 
     const results = data?.data ?
@@ -147,49 +185,6 @@ const useResultsTableSearch = (
             generated_internal_id: encodeURIComponent(result.generated_internal_id)
         })) :
         [];
-
-    useEffect(() => {
-        let request;
-        const fields = getFields(tableType);
-
-        const { sort, order } = getSortOrder(searchOrder, grouped);
-
-        const filtersTemp = new SearchAwardsOperation();
-
-        // get initial searchParams from state
-        filtersTemp.fromState(searchFilters);
-
-        // if subawards is true, newAwardsOnly cannot be true, so we remove
-        // dateType for this request; also has to be done for the tabCounts request
-        if (spendingLevel === "subaward" && filtersTemp.dateType) {
-            delete filtersTemp.dateType;
-        }
-
-        filtersTemp.awardType = getAwardTypeGroup(
-            spendingLevel, tableType, searchFilters.awardType
-        );
-
-        const filters = filtersTemp.toParams();
-
-        const params = {
-            auditTrail: 'Results Table - Spending by award search',
-            filters,
-            limit,
-            order,
-            page,
-            sort
-        };
-
-        if (filtersTemp.awardType) {
-            if (grouped) request = performSpendingBySubawardGrouped(params);
-            else {
-                request = performSpendingByAwardSearch({
-                    ...params, fields, spending_level: spendingLevel
-                });
-            }
-            mutate(request);
-        }
-    }, [mutate, grouped, tableType, searchOrder, searchFilters, spendingLevel, limit, page]);
 
     return {
         isLoading: isPending,
