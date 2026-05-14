@@ -113,7 +113,7 @@ const useResultsTableSearch = (
         isPending, error, data
     } = useQuery({
         queryKey: [
-            'resultsTableData',
+            grouped ? 'performSpendingBySubawardGrouped' : 'performSpendingByAwardSearch',
             limit,
             page,
             sort,
