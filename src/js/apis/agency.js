@@ -2,7 +2,7 @@
  * agency.js
  * Created by Lizzie Salita 5/26/20
  */
-
+/* eslint-disable max-len */
 import { apiRequest } from '../helpers/apiRequest';
 
 export const fetchSpendingCount = (agencyId, fy, type) => apiRequest({
@@ -46,7 +46,7 @@ export const fetchSubagencySummary = (code, fy, params) => apiRequest({
 });
 
 export const fetchAgencySlugs = () => apiRequest({
-    url: 'v2/references/toptier_agencies'
+    url: 'v2/references/toptier_agencies/'
 });
 
 export const fetchSubcomponentsList = (code, fy, page) => apiRequest({

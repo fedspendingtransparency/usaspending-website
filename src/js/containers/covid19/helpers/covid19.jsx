@@ -59,7 +59,7 @@ export const componentByCovid19Section = (publicLaw, handleExternalLinkClick) =>
         title: 'Overview'
     },
     total_spending_by_budget_categories: {
-        icon: 'cubes',
+        icon: 'money-check-dollar',
         component: <BudgetCategories publicLaw={publicLaw} />,
         headerText: totalSpendingText,
         showInMenu: true,

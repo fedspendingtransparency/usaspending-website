@@ -39,10 +39,6 @@ const NewDownloadSummary = ({
                     className="download-summary__details-table">
                     <tbody>
                         <tr>
-                            <th className="download-summary__th">File Name:</th>
-                            <td className="download-summary__td">{downloadData.expectedFile}</td>
-                        </tr>
-                        <tr>
                             <th>Data Selections:</th>
                             <td>{downloadData.selections.map(upperFirst).join(", ")}</td>
                         </tr>

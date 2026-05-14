@@ -7,7 +7,7 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Analytics from 'helpers/analytics/Analytics';
 import { uniqueId } from 'lodash-es';
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import PropTypes from 'prop-types';
 import isRedirectNeeded from '../../../../helpers/url';
 import ExternalLink from '../../ExternalLink';
@@ -46,14 +46,33 @@ const MobileDropdownItem = ({
     index,
     type
 }) => {
-    const openATD = (e) => {
-        showSlideout('atd');
-        e.preventDefault();
-    };
+    const navigate = useNavigate();
+
     const clickedLink = (e) => {
         const route = e.target.name;
         clickedHeaderLink(route);
         hideMobileNav();
+    };
+
+    const clickedSection2Link = (e, item) => {
+        const route = e.target.name;
+        hideMobileNav();
+        e.preventDefault();
+        clickedHeaderLink(route);
+
+        if (item && item.url && typeof item.url === "string") {
+            if (item?.url?.includes("about-the-data")) {
+                showSlideout('atd');
+            }
+            else if (item?.url?.includes("glossary")) {
+                showSlideout('glossary');
+            }
+            else {
+                navigate(item.url);
+            }
+        } else if (typeof item.url === "object") {
+            navigate(item.url);
+        }
     };
 
     return (
@@ -128,63 +147,25 @@ const MobileDropdownItem = ({
                 {section2Options[index].sub}
             </div>
             <div className="mobile-dropdown__section-container">
-                {type === "secondary" ?
-                    <ul>
-                        {section2Items.map((item) => (
-                            <li key={uniqueId()}>
-                                <Link
-                                    className="mobile-dropdown__section-link"
-                                    to={item.url}
-                                    onClick={clickedLink}>
-                                    <div className={item.icon && item.icon !== '' && item.icon !== null ? "mobile-dropdown__section-icon" : ""}>
-                                        <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "100%" }} />
-                                    </div>
-                                    <div className="mobile-dropdown__section-etd-label">
-                                        {item.label}
-                                    </div>
-                                </Link>
-                                <div className="mobile-dropdown__section-etd-description">
-                                    {item.description}
+                <ul>
+                    {section2Items.map((item) => (
+                        <li className="mobile-dropdown__section" key={uniqueId()}>
+                            <a
+                                className="mobile-dropdown__section-link"
+                                href="#"
+                                onClick={(e) => {
+                                    clickedSection2Link(e, item);
+                                }}>
+                                <div className="mobile-dropdown__section-etd-label">
+                                    {item.label}
                                 </div>
-                            </li>
-                        ))}
-                    </ul>
-                    :
-                    <>
-                        <ul>
-                            {section2Items.map((item) => (
-                                <li className="mobile-dropdown__section" key={uniqueId()}>
-                                    <Link
-                                        className="mobile-dropdown__section-link"
-                                        to={item.url !== "?about-the-data" ? item.url : ''}
-                                        onClick={(e) => {
-                                            if (item.url === '?about-the-data') {
-                                                openATD(e);
-                                            }
-                                            clickedLink(e);
-                                        }
-                                        }
-                                        onMouseUp={(e) => {
-                                            if (item.url === '?about-the-data') {
-                                                openATD(e);
-                                                clickedLink(e);
-                                            }
-                                        }
-                                        }>
-                                        <div className="mobile-dropdown__section-label">
-                                            {item.label}
-                                            <span className="mobile-dropdown__section-description">
-                                                {item.description}
-                                            </span>
-                                        </div>
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                        <hr />
-                    </>
-
-                }
+                            </a>
+                            <div className="mobile-dropdown__section-etd-description">
+                                {item.description}
+                            </div>
+                        </li>
+                    ))}
+                </ul>
             </div>
             {index > 0 &&
                 <div className="mobile-dropdown_main-container">
