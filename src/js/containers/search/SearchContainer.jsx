@@ -33,7 +33,6 @@ import {
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
-import GlobalConstants from "../../GlobalConstants";
 
 require('pages/search/searchPage.scss');
 
@@ -104,31 +103,6 @@ const SearchContainer = () => {
     const requestSubawards = useRef(null);
     const areAppliedFiltersEmptyRef = useRef();
     const prevAppliedFiltersRef = useRef();
-
-    const setDownloadAvailability = useCallback((filters = stagedFilters) => {
-        setDownloadInFlight(true);
-
-        const operation = new SearchAwardsOperation();
-        operation.fromState(filters);
-        const searchParams = operation.toParams();
-
-        // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            auditTrail: 'Download Availability Count'
-        };
-
-        request.current = DownloadHelper.requestDownloadCount(apiParams);
-        request.current.promise
-            .then((res) => {
-                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
-                setDownloadInFlight(false);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                request.current = null;
-            });
-    }, [stagedFilters]);
 
     const setDownloadAvailabilityAwards = useCallback((filters = stagedFilters) => {
         setDownloadInFlight(true);
@@ -208,6 +182,7 @@ const SearchContainer = () => {
         if (awardsCount === 0 && transactionsCount === 0 && subawardsCount === 0) {
             setDownloadAvailable(false);
         }
+        setDownloadAvailable(true);
     }, [transactionsCount, awardsCount, subawardsCount]);
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
@@ -238,15 +213,9 @@ const SearchContainer = () => {
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
                         dispatch(setAppliedFilterEmptiness(false));
 
-                        // delete once we deploy
-                        setDownloadAvailability(filtersInImmutableStructure);
-
-                        // TODO:  Disabling for 14913 hotfix
-                        if (GlobalConstants.IS_NEW_DOWNLOAD) {
-                            setDownloadAvailabilityAwards(filtersInImmutableStructure);
-                            setDownloadAvailabilitySubawards(filtersInImmutableStructure);
-                            setDownloadAvailabilityTransactions(filtersInImmutableStructure);
-                        }
+                        setDownloadAvailabilityAwards(filtersInImmutableStructure);
+                        setDownloadAvailabilitySubawards(filtersInImmutableStructure);
+                        setDownloadAvailabilityTransactions(filtersInImmutableStructure);
                     }
                     request.current = null;
                 })
@@ -340,16 +309,12 @@ const SearchContainer = () => {
         );
         if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && areFiltersSelected(prevAppliedFilters))) {
             generateHash();
-            // delete once we deploy
-            setDownloadAvailability();
 
-            // TODO:  Disabling for 14913 hotfix
-            if (GlobalConstants.IS_NEW_DOWNLOAD) {
-                setDownloadAvailabilityAwards();
-                setDownloadAvailabilityTransactions();
-                setDownloadAvailabilitySubawards();
-            }
-        } else if (!urlHash) {
+            setDownloadAvailabilityAwards();
+            setDownloadAvailabilityTransactions();
+            setDownloadAvailabilitySubawards();
+        }
+        else if (!urlHash) {
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
         }
