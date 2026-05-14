@@ -181,8 +181,9 @@ const SearchContainer = () => {
     const downloadButtonEnabled = useCallback(() => {
         if (awardsCount === 0 && transactionsCount === 0 && subawardsCount === 0) {
             setDownloadAvailable(false);
+        } else if (awardsCount !== 0 || transactionsCount !== 0 || subawardsCount !== 0) {
+            setDownloadAvailable(true);
         }
-        setDownloadAvailable(true);
     }, [transactionsCount, awardsCount, subawardsCount]);
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
