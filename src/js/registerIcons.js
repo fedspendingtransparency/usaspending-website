@@ -5,7 +5,11 @@
 import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { faLightbulb as falLightbulb } from "@fortawesome/pro-light-svg-icons";
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faXmark, faLightbulb as farLightbulb } from '@fortawesome/pro-regular-svg-icons';
+import {
+    faXmark,
+    faLightbulb as farLightbulb,
+    faFileExcel as faFileExcelLight
+} from '@fortawesome/pro-regular-svg-icons';
 import {
     faAngleDown,
     faAngleUp,
@@ -32,6 +36,7 @@ import {
     faChartArea,
     faChartBar,
     faChartPie,
+    faChartSimple,
     faCheckSquare,
     faCheckCircle,
     faChevronDown,
@@ -99,7 +104,9 @@ import {
     faCodeBranch,
     faLongArrowAltUp,
     faLongArrowAltDown,
-    faCircleQuestion
+    faCircleQuestion,
+    faVirusCovid,
+    faFilterList
 } from "@fortawesome/pro-solid-svg-icons";
 
 export default function registerIcons() {
@@ -127,6 +134,7 @@ export default function registerIcons() {
         faChartArea,
         faChartBar,
         faChartPie,
+        faChartSimple,
         faCheckSquare,
         faCheckCircle,
         faChevronDown,
@@ -203,6 +211,9 @@ export default function registerIcons() {
         faGithub,
         faArrowDown,
         faXmark,
-        faCircleQuestion
+        faCircleQuestion,
+        faVirusCovid,
+        faFilterList,
+        faFileExcelLight
     );
 }

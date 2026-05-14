@@ -1,15 +1,15 @@
 .transactions-over-time {
-    @import "../../state/spendingovertime/chart/barChart";
-    @import 'pages/search/results/visualizations/messages';
-    @import "loading";
-    @import "./_period";
+  @import "../../state/spendingovertime/chart/barChart";
+  @import "pages/search/results/visualizations/messages";
+  @import "loading";
+  @import "./_period";
 
-    .visualization-tooltip {
-        @import "components/visualizations/tooltip/_tooltip";
-    }
+  .visualization-tooltip {
+    @import "components/visualizations/tooltip/_tooltip";
+  }
 
-    .recipient-visualization__time-wrapper {
-        min-height: rem(304);
-        margin: auto;
-    }
+  .recipient-visualization__time-wrapper {
+    min-height: rem(304);
+    margin: auto;
+  }
 }

@@ -238,12 +238,3 @@ export const bulkDefCodeChange = (state) => ({
 export const resetSearchOrder = () => ({
     type: 'RESET_SEARCH_ORDER'
 });
-
-export const updateSearchedFilterValues = (state) => ({
-    type: 'UPDATE_SEARCH_FILTER_VALUES',
-    filterType: state.filterType,
-    input: state.input,
-    selected: state.selected,
-    allSelected: state.allSelected ? state.allSelected : false
-});
-

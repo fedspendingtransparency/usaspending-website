@@ -2,53 +2,12 @@
   width: 100%;
   @import "../../search/results/table/tableMessages";
 
-  .count-tabs {
-    &.recipient__tabs-container {
-      width: 100%;
+  .recipient__tabs-container {
+    width: 100%;
 
-      .recipient__content {
-        @import './awardFilterButtons';
-        @import './spendingByRecipient';
-
-        .results-visualization-geo-section {
-          position: relative;
-
-          .map-container {
-            margin-top: rem(20);
-
-            .map-message-container {
-              .map-message {
-                flex: 0 1 auto;
-              }
-            }
-          }
-
-          h2.visualization-title {
-            @include h3;
-            margin: 0;
-          }
-
-          button {
-            border-bottom: 0.3rem solid transparent;
-            transition: border-bottom .1s ease-in-out;
-
-            &:hover {
-              border-bottom-color: $color-primary-alt-light;
-            }
-
-            &.disabled {
-              border: none;
-            }
-          }
-
-          &.active {
-            button {
-              font-weight: $font-semibold;
-              border-bottom: 0.3rem solid $color-primary;
-            }
-          }
-        }
-      }
+    .recipient__content {
+      @import "./awardFilterButtons";
+      @import "./spendingByRecipient";
 
       .results-visualization-geo-section {
         position: relative;
@@ -60,11 +19,13 @@
 
         @import "pages/search/results/visualizations/geo/map/map";
 
-        // styles the legend on the covid page
         .map-container {
+          margin-top: rem(20);
           height: rem(475);
           width: 100%;
+          // margin: rem(20) rem(20) 0 0;
 
+          // begin add
           .map-legend {
             bottom: rem(8);
             right: rem(8);
@@ -309,44 +270,24 @@
               }
             }
           }
-        }
-      }
 
-      .table-types {
-        .table-type-toggle {
-          padding: rem(15) rem(20);
-          margin-right: rem(5);
+          button {
+            border-bottom: 0.3rem solid transparent;
+            transition: border-bottom 0.1s ease-in-out;
 
-          .tab-content {
-            font-size: rem(18);
+            &:hover {
+              border-bottom-color: $color-primary-alt-light;
+            }
+
+            &.disabled {
+              border: none;
+            }
           }
 
           &.active {
-            .tab-content {
+            button {
               font-weight: $font-semibold;
-            }
-          }
-        }
-      }
-    }
-  }
-
-  .recipient__tabs-container {
-    &.count-tabs {
-      .count-tabs__buttons {
-        button.count-tabs__button {
-          @include flex(0 1 auto);
-
-          .count-button {
-            @include media($medium-screen) {
-              padding: 2.1rem;
-            }
-
-            .count-button__label {
-              font-size: 1.8rem;
-              font-weight: $font-semibold;
-              letter-spacing: 0;
-              line-height: 2.3rem;
+              border-bottom: 0.3rem solid $color-primary;
             }
           }
         }
@@ -354,31 +295,56 @@
     }
 
     .recipient-spending-notes {
+      width: 100%;
+      color: $body-color;
+      font-style: normal;
+      font-weight: $font-normal;
+      line-height: $base-line-height;
+      margin-top: rem(21);
+
       h4 {
-        width: 100%;
+        margin: 0;
         padding: 0;
         text-align: left;
+        color: $headline-color;
+        font-size: $h4-font-size;
+        font-weight: $font-semibold;
+        font-style: normal;
+        line-height: $heading-line-height;
       }
 
       p {
-        margin-top: 0;
+        margin: 0;
+        font-size: $base-font-size;
       }
 
       ul {
-        padding-left: rem(16);
-        font-size: rem(14);
-        margin-left: rem(16);
-    
+        padding-left: rem(10);
+        margin-left: rem(12);
+        font-size: $small-font-size;
+
         li {
           list-style: disc;
+          margin: 0;
+
+          &::marker {
+            font-weight: $font-light;
+            font-size: $font-size-10;
+          }
 
           a {
             word-break: break-word;
-            font-weight: $font-semibold;
+            font-size: $small-font-size;
+            color: $blue-60v;
+            text-decoration-line: underline;
+            text-decoration-style: solid;
+            text-decoration-skip-ink: none;
+            text-decoration-thickness: auto;
+            text-underline-offset: auto;
+            text-underline-position: from-font;
           }
         }
       }
-    
     }
   }
 }

@@ -40,7 +40,6 @@ const ResultsView = React.memo(function ResultsView({
     const [inFlight, setInFlight] = useState(false);
     const [error, setError] = useState(false);
 
-    let mobileFilters = '';
     const filters = useSelector((state) => state.appliedFilters.filters);
     const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
 
@@ -120,15 +119,6 @@ const ResultsView = React.memo(function ResultsView({
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [filters, spendingLevel]);
-
-
-    useEffect(() => {
-        if (showMobileFilters && isMobile) {
-            mobileFilters = 'behind-filters';
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [showMobileFilters, isMobile]);
-
     useEffect(() => {
         let content = null;
 
@@ -160,7 +150,7 @@ const ResultsView = React.memo(function ResultsView({
         <div className="search-results-view-container">
             <div className="search-results-wrapper">
                 <TopFilterBarContainer resultsView filters={filters} setFilterCount={setFilterCount} />
-                <div className={`search-results ${mobileFilters}`}>
+                <div className={`search-results ${showMobileFilters && isMobile ? 'behind-filters' : ''}`}>
                     {resultContent}
                 </div>
             </div>

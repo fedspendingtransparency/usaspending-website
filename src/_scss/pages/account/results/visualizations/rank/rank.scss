@@ -1,25 +1,25 @@
 .results-visualization-rank-section {
-    margin-top: ($global-margin * 8);
-    @import "./_topSection";
-    .results-visualization-rank-container {
-        position: relative;
-        .visualization-tooltip {
-            @import "components/visualizations/tooltip/_tooltip";
-        }
+  margin-top: ($global-margin * 8);
+  @import "./_topSection";
+  .results-visualization-rank-container {
+    position: relative;
+    .visualization-tooltip {
+      @import "components/visualizations/tooltip/_tooltip";
     }
-    .results-visualization-message {
-        margin-top: 1rem;
-        font-size: $small-font-size;
-        color: $color-base;
-        text-align: center;
-    }
+  }
+  .results-visualization-message {
+    margin-top: 1rem;
+    font-size: $small-font-size;
+    color: $color-base;
+    text-align: center;
+  }
 
-    @import '../../../../../components/visualizations/legend';
-    .visualization-legend {
-        .visualization-legend__label {
-            color: #666;
-        }
+  @import "../../../../../components/visualizations/legend";
+  .visualization-legend {
+    .visualization-legend__label {
+      color: #666;
     }
+  }
 
-    @import "./_pager";
+  @import "./_pager";
 }

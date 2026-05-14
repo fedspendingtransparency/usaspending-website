@@ -113,7 +113,7 @@ const DetailContent = ({
             else if (transition === 'end') finishTransition();
             else setShowFakes(false);
         }
-    }, [data, transition, transitionSteps]);
+    }, [transition, transitionSteps]);
 
     useEffect(() => {
         if (showFakes) {

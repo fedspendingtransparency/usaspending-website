@@ -9,7 +9,8 @@
       width: 100%;
       height: rem(32);
       margin: 0;
-      padding: $global-spacing-unit $global-spacing-unit $global-spacing-unit ($global-spacing-unit * 4);
+      padding: $global-spacing-unit $global-spacing-unit $global-spacing-unit
+        ($global-spacing-unit * 4);
       font-size: $smallest-font-size;
       line-height: 1.5;
       color: $gray-60;
@@ -60,6 +61,13 @@
 
       .checkbox-filter__header-icon {
         width: rem(10);
+
+        button.toggle {
+          @include button-unstyled;
+          @include display(flex);
+          @include align-items(center);
+          @include flex(1 1 auto);
+        }
 
         svg {
           color: $blue-50;

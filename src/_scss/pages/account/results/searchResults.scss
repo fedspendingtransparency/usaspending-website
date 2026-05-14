@@ -1,46 +1,46 @@
 .filter-results {
-    @import "pages/search/searchSidebar";
+  @import "pages/search/searchSidebar";
+  @include media($medium-screen) {
+    display: block;
+    float: left;
+    width: 100%;
+  }
+  .search-sidebar {
+    display: none;
+    margin-top: 0;
     @include media($medium-screen) {
-        display: block;
-        float: left;
-        width: 100%;
+      @include grid-column(4);
+      margin-left: 0;
+      width: 23.125%;
+      float: left;
+      margin-right: 2.5%;
+      display: block;
     }
-    .search-sidebar {
-        display: none;
-        margin-top: 0;
-        @include media($medium-screen) {
-            @include grid-column(4);
-            margin-left: 0;
-            width: 23.125%;
-            float: left;
-            margin-right: 2.5%;
-            display: block;
-        }
-        @import "../filters/filters";
+    @import "../filters/filters";
+  }
+  .search-results-wrapper {
+    @import "pages/search/topFilterBar/topFilterBar";
+    @include media($medium-screen) {
+      margin-left: 0;
+      width: 74.375%;
+      float: right;
+      margin-right: 0;
     }
-    .search-results-wrapper {
-        @import "pages/search/topFilterBar/topFilterBar";
-        @include media($medium-screen) {
-            margin-left: 0;
-            width: 74.375%;
-            float: right;
-            margin-right: 0;
-        }
-        .search-results {
-            background-color: $color-white;
-            box-shadow: $container-shadow;
-            padding: rem(30);
-            h3 {
-                margin: 0;
-                color: $color-base;
-            }
-            @import "elements/_divider";
-            @import "./visualizations/visualizations";
-            @import "../../search/results/table/resultsTable";
+    .search-results {
+      background-color: $color-white;
+      box-shadow: $container-shadow;
+      padding: rem(30);
+      h3 {
+        margin: 0;
+        color: $color-base;
+      }
+      @import "elements/_divider";
+      @import "./visualizations/visualizations";
+      @import "../../search/results/table/resultsTable";
 
-            .usa-dt-pagination {
-                margin-top: $global-margin;
-            }
-        }
+      .usa-dt-pagination {
+        margin-top: $global-margin;
+      }
     }
+  }
 }

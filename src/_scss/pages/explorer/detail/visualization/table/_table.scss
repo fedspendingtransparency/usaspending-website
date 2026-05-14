@@ -1,175 +1,175 @@
 .explorer-table {
-    background-color: $color-white;
-    border-left: 1px solid $color-gray-border;
-    border-right: 1px solid $color-gray-border;
-    border-bottom: 1px solid $color-gray-border;
-    position: relative;
-    display: block;
-    overflow: auto;
+  background-color: $color-white;
+  border-left: 1px solid $color-gray-border;
+  border-right: 1px solid $color-gray-border;
+  border-bottom: 1px solid $color-gray-border;
+  position: relative;
+  display: block;
+  overflow: auto;
 
-    .usa-dt-table__stacked-picker {
-        label {
-            margin: 0 rem(6) 0 rem(25);
-            font-size: $small-font-size;
-            line-height: 1.5;
+  .usa-dt-table__stacked-picker {
+    label {
+      margin: 0 rem(6) 0 rem(25);
+      font-size: $small-font-size;
+      line-height: 1.5;
+      font-weight: $font-semibold;
+    }
+
+    .usa-dt-picker {
+      background-color: $color-white !important;
+    }
+
+    .usa-dt-picker__dropdown-container {
+      background-color: $color-white !important;
+
+      button {
+        background-color: $color-white !important;
+        border: rem(2) solid $gray-cool-10;
+        border-radius: rem(3);
+
+        .usa-dt-picker__button-text {
+          background-color: $color-white !important;
+          font-weight: $font-semibold;
+          color: $gray-60;
+          font-size: $small-font-size;
+        }
+      }
+
+      ul {
+        overflow-y: auto;
+        background-color: #fff;
+        border: 0.2rem solid #dfe1e2;
+        border-radius: 0.4rem;
+        box-shadow: 0 0.1rem 0.4rem 0 rgba(0, 0, 0, 0.1);
+
+        li {
+          border: none;
+
+          button {
+            border: none;
             font-weight: $font-semibold;
-        }
+            color: $gray-60;
+            font-size: $small-font-size;
 
-        .usa-dt-picker {
-            background-color: $color-white !important;
-        }
-
-        .usa-dt-picker__dropdown-container {
-            background-color: $color-white !important;
-
-            button {
-                background-color: $color-white !important;
-                border: rem(2) solid $gray-cool-10;
-                border-radius: rem(3);
-
-                .usa-dt-picker__button-text {
-                    background-color: $color-white !important;
-                    font-weight: $font-semibold;
-                    color: $gray-60;
-                    font-size: $small-font-size;
-                }
+            &:hover {
+              background-color: $gray-cool-3 !important;
             }
 
-            ul {
-                overflow-y: auto;
-                background-color: #fff;
-                border: .2rem solid #dfe1e2;
-                border-radius: .4rem;
-                box-shadow: 0 .1rem .4rem 0 rgba(0, 0, 0, .1);
-
-                li {
-                    border: none;
-
-                    button {
-                        border: none;
-                        font-weight: $font-semibold;
-                        color: $gray-60;
-                        font-size: $small-font-size;
-
-                        &:hover {
-                            background-color: $gray-cool-3 !important;
-                        }
-
-                        &:focus {
-                            background-color: $gray-cool-3 !important;
-                        }
-                    }
-                }
+            &:focus {
+              background-color: $gray-cool-3 !important;
             }
+          }
         }
+      }
+    }
+  }
+
+  .mobile-table-rows {
+    display: table;
+    width: 100%;
+
+    .cell-content {
+      button {
+        margin: 0;
+        padding: 0;
+        font-size: $lead-font-size;
+        line-height: 1.5;
+        background-color: unset;
+      }
+    }
+  }
+
+  .usa-dt-pagination {
+    margin: rem(15);
+  }
+
+  &.no-results {
+    border: none;
+  }
+  table {
+    margin-top: 0;
+    width: rem(500);
+
+    @include media($tablet-screen) {
+      width: auto;
     }
 
-    .mobile-table-rows {
-        display: table;
-        width: 100%;
+    .usda-table__head {
+      .usda-table__row {
+        border-bottom: solid 1px $color-gray-lighter;
 
-        .cell-content {
-            button {
-                margin: 0;
-                padding: 0;
-                font-size: $lead-font-size;
-                line-height: 1.5;
-                background-color: unset;
+        .table-header {
+          background-color: $color-white;
+          border: 0;
+
+          &:first-child {
+            width: 55%;
+          }
+
+          &:nth-child(2) {
+            width: 25%;
+
+            .cell-content {
+              float: right;
             }
+          }
+
+          &:last-child {
+            width: 20%;
+
+            .cell-content {
+              float: right;
+            }
+          }
         }
+      }
+      .award-result-header-cell {
+        @import "./cells/_explorerHeaderCell";
+      }
     }
 
-    .usa-dt-pagination {
-        margin: rem(15);
-    }
+    .usda-table__body {
+      .usda-table__row {
+        .usda-table__cell {
+          border: 0;
+          background-color: inherit;
 
-    &.no-results {
-        border: none;
-    }
-    table {
-        margin-top: 0;
-        width: rem(500);
+          &:first-child {
+            width: 55%;
+          }
 
-        @include media($tablet-screen) {
-            width: auto;
+          &:nth-child(2) {
+            width: 25%;
+
+            .cell-content {
+              float: right;
+            }
+          }
+
+          &:last-child {
+            width: 20%;
+
+            .cell-content {
+              float: right;
+            }
+          }
+        }
+        .explorer-link-cell {
+          .cell-content {
+            .go-deeper-link {
+              @include button-unstyled;
+              color: $blue-50;
+              font-size: $font-size-16;
+              line-height: $base-line-height;
+            }
+          }
         }
 
-        .usda-table__head {
-            .usda-table__row {
-                border-bottom: solid 1px $color-gray-lighter;
-
-                .table-header {
-                    background-color: $color-white;
-                    border: 0;
-
-                    &:first-child {
-                        width: 55%;
-                    }
-
-                    &:nth-child(2) {
-                        width: 25%;
-
-                        .cell-content {
-                            float: right;
-                        }
-                    }
-
-                    &:last-child {
-                        width: 20%;
-
-                        .cell-content {
-                            float: right;
-                        }
-                    }
-                }
-            }
-            .award-result-header-cell {
-                @import "./cells/_explorerHeaderCell";
-            }
+        // gray out even rows
+        &.usda-table__row_odd {
+          background-color: #f7f7f7;
         }
-
-        .usda-table__body {
-            .usda-table__row {
-                .usda-table__cell {
-                    border: 0;
-                    background-color: inherit;
-
-                    &:first-child {
-                        width: 55%;
-                    }
-
-                    &:nth-child(2) {
-                        width: 25%;
-
-                        .cell-content {
-                            float: right;
-                        }
-                    }
-
-                    &:last-child {
-                        width: 20%;
-
-                        .cell-content {
-                            float: right;
-                        }
-                    }
-                }
-                .explorer-link-cell {
-                    .cell-content {
-                        .go-deeper-link {
-                            @include button-unstyled;
-                            color: $blue-50;
-                            font-size: $font-size-16;
-                            line-height: $base-line-height;
-                        }
-                    }
-                }
-
-                // gray out even rows
-                &.usda-table__row_odd {
-                    background-color: #f7f7f7;
-                }
-            }
-        }
+      }
     }
+  }
 }

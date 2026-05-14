@@ -2,12 +2,12 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable max-len */
 import React from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router";
 import Accordion from "../sharedComponents/accordion/Accordion";
 import GlossaryLink from '../sharedComponents/GlossaryLink';
+import ExternalLink from '../sharedComponents/ExternalLink';
 
-const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
+const AnalystGuideQuestions = () => {
     const jumpToSection = (section = '') => {
         const sectionDom = document.querySelector(`#${section}`);
         if (!sectionDom) {
@@ -79,19 +79,15 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The award_unique_key field contains both financial assistance and contract prime award summary identifier information. This field is available in Treasury and federal account level account breakdown by award account download files. The assistance_award_unique_key field contains financial assistance prime award summary identifier information. This field is available in financial assistance prime award transaction and summary download files. The contract_award_unique_key field contains contract prime award summary identifier information. This field is available in contract prime award transaction and summary download files. </p>
             <p className="analyst-guide__answerStyle">These fields may be used to aggregate, filter, or join account breakdown by award, prime award summary, and prime award transaction download files by prime award summary.</p>
             <p className="analyst-guide__answerStyle">More information about these identifiers is{' '}
-                <button
-                    value="https://github.com/fedspendingtransparency/usaspending-api/wiki/Award-Identifiers"
-                    role="link"
+                <ExternalLink
+
+                    url="https://github.com/fedspendingtransparency/usaspending-api/wiki/Award-Identifiers"
                     className="analyst-guide__external-link"
-                    onClick={onExternalLinkClick}>
+                    isCard
+                    showIcon>
                         available online{' '}
-                    <span
-                        data-href="https://github.com/fedspendingtransparency/usaspending-api/wiki/Award-Identifiers"
-                        className="usa-button-link__icon">
-                        <FontAwesomeIcon data-href="https://github.com/fedspendingtransparency/usaspending-api/wiki/Award-Identifiers" icon="external-link-alt" />
-                    </span>
-                        .
-                </button>
+                </ExternalLink>
+                .
             </p>
             <p className="analyst-guide__answerStyle">The Award ID filter on <Link to="/search">Advanced Search</Link> can be used to filter award spending by the PIID, FAIN and URI data elements. These data elements are important components of prime award summary identifier information.</p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <Link to="/data-dictionary">Data Dictionary</Link> and the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a>.</p>
@@ -361,7 +357,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
     {
         question: "How can I download a copy of the full database?",
         answer: (<>
-            <p className="analyst-guide__answerStyle">The USAspending <a href="https://files.usaspending.gov/database_download/">SQL Database Downloads page</a> includes instructions and links to help download snapshots of the USAspending database as a PostgreSQL archive. This resource is intended for advanced users. The full database is over 1.5 terabytes and will continue to increase in size. The process to complete a full database restore can take many hours to complete.</p>
+            <p className="analyst-guide__answerStyle">The USAspending <a href="https://onevoicecrm.my.site.com/usaspending/s/database-download">SQL Database Downloads page</a> includes instructions and links to help download snapshots of the USAspending database as a PostgreSQL archive. This resource is intended for advanced users. The full database is over 1.5 terabytes and will continue to increase in size. The process to complete a full database restore can take many hours to complete.</p>
         </>)
     }];
 
@@ -725,18 +721,13 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
         question: "What other resources are available to help understand the data in USAspending?",
         answer: (<>
             <p className="analyst-guide__answerStyle">The github{' '}
-                <button
-                    value="https://github.com/fedspendingtransparency/usaspending-api/wiki"
-                    role="link"
+                <ExternalLink
+                    url="https://github.com/fedspendingtransparency/usaspending-api/wiki"
                     className="analyst-guide__external-link"
-                    onClick={onExternalLinkClick}>
-                    wiki{' '}
-                    <span
-                        data-href="https://github.com/fedspendingtransparency/usaspending-api/wiki"
-                        className="usa-button-link__icon">
-                        <FontAwesomeIcon data-href="https://github.com/fedspendingtransparency/usaspending-api/wiki" icon="external-link-alt" />
-                    </span>
-                </button>
+                    isCard
+                    showIcon>
+                        wiki{' '}
+                </ExternalLink>
                 {' '}provides information for developers on how the USAspending application works.
             </p>
             <p className="analyst-guide__answerStyle">The USAspending&apos;s{' '}<a href="https://onevoicecrm.my.site.com/usaspending/s/recordlist/Knowledge__kav/00B3d000000V4WDEA0">FAQ page{' '}</a>provides additional advice for getting the most out of the site.

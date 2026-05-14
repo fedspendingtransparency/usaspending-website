@@ -1,42 +1,42 @@
 ul.toggle-buttons {
-    list-style-type: none;
-    margin-bottom: 0;
-    margin-left: -2rem;
-    li {
-        display: inline;
-        .tab-toggle {
-            border: 1px solid $color-gray-lighter;
-            border-bottom: 1px solid $color-white;
-            background-color: $color-white;
-            color: $color-gray;
-            font-size: $smallest-font-size;
-            font-weight: normal;
-            height: rem(35);
-            margin-bottom: 0;
-            padding: 0 rem(15);
-            z-index: 9000;
-            @import 'components/glossaryLink';
-            .usda-glossary-link svg {
-                margin-left: rem(6);
-            }
-        }
-        .inactive {
-            background-color: $color-tab-inactive;
-            border: 1px solid $color-tab-inactive;
-            border-bottom: 1px solid $color-gray-lighter;
-            color: $color-gray-dark;
-            &:hover {
-                @include transition(all 0.3s ease-in-out);
-                background-color: darken($color-tab-inactive, 10%);
-            }
-        }
-        .hidden {
-            display: none;
-        }
-        @include media($large-screen) {
-            .tab-toggle {
-                font-size: $small-font-size;
-            }
-        }
+  list-style-type: none;
+  margin-bottom: 0;
+  margin-left: -2rem;
+  li {
+    display: inline;
+    .tab-toggle {
+      border: 1px solid $color-gray-lighter;
+      border-bottom: 1px solid $color-white;
+      background-color: $color-white;
+      color: $color-gray;
+      font-size: $smallest-font-size;
+      font-weight: normal;
+      height: rem(35);
+      margin-bottom: 0;
+      padding: 0 rem(15);
+      z-index: 9000;
+      @import "components/glossaryLink";
+      .usda-glossary-link svg {
+        margin-left: rem(6);
+      }
     }
+    .inactive {
+      background-color: $color-tab-inactive;
+      border: 1px solid $color-tab-inactive;
+      border-bottom: 1px solid $color-gray-lighter;
+      color: $color-gray-dark;
+      &:hover {
+        @include transition(all 0.3s ease-in-out);
+        background-color: darken($color-tab-inactive, 10%);
+      }
+    }
+    .hidden {
+      display: none;
+    }
+    @include media($large-screen) {
+      .tab-toggle {
+        font-size: $small-font-size;
+      }
+    }
+  }
 }
