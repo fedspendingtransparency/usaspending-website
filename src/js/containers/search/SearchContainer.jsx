@@ -161,27 +161,35 @@ const SearchContainer = () => {
         operation.fromState(filters);
         const searchParams = operation.toParams();
         // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            spending_level: "subawards",
-            auditTrail: 'Download Availability Count Subawards'
-        };
+        if (appliedFilters.filterNewAwardsOnlyActive || filters.filterNewAwardsOnlyActive) {
+            setDownloadInFlight(false);
+            setSubawardsCount(0);
+        }
+        else {
+            const apiParams = {
+                filters: searchParams,
+                spending_level: "subawards",
+                auditTrail: 'Download Availability Count Subawards'
+            };
 
-        requestSubawards.current = DownloadHelper.requestDownloadCount(apiParams);
-        requestSubawards.current.promise
-            .then((res) => {
-                setDownloadInFlight(false);
-                setSubawardsCount(res.data.calculated_count);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                requestSubawards.current = null;
-            });
-    }, [stagedFilters]);
+            requestSubawards.current = DownloadHelper.requestDownloadCount(apiParams);
+            requestSubawards.current.promise
+                .then((res) => {
+                    setDownloadInFlight(false);
+                    setSubawardsCount(res.data.calculated_count);
+                })
+                .catch(() => {
+                    setDownloadInFlight(false);
+                    requestSubawards.current = null;
+                });
+        }
+    }, [stagedFilters, appliedFilters]);
+
     const downloadButtonEnabled = useCallback(() => {
-        if (awardsCount === 0 && transactionsCount === 0 && subawardsCount === 0) {
+        if ((awardsCount === 0 || awardsCount >= 500000) && (transactionsCount === 0 || transactionsCount >= 500000) && (subawardsCount === 0 || subawardsCount >= 500000)) {
             setDownloadAvailable(false);
-        } else if (awardsCount !== 0 || transactionsCount !== 0 || subawardsCount !== 0) {
+        }
+        else if (awardsCount !== 0 || transactionsCount !== 0 || subawardsCount !== 0) {
             setDownloadAvailable(true);
         }
     }, [transactionsCount, awardsCount, subawardsCount]);
@@ -334,7 +342,7 @@ const SearchContainer = () => {
 
     useEffect(() => {
         downloadButtonEnabled();
-    }, [transactionsCount, subawardsCount, awardsCount, downloadButtonEnabled]);
+    }, [transactionsCount, subawardsCount, awardsCount, appliedFilters, downloadButtonEnabled]);
     return (
         <SearchPage
             download={download}
