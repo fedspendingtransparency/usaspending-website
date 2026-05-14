@@ -138,7 +138,7 @@ const useResultsTableSearch = (
         onSuccess: async (d) => {
             await d.promise.then((res) => setData(res));
         },
-        staleTime: 60000
+        gcTime: 60000
     });
 
     const results = data?.data ?
@@ -180,14 +180,15 @@ const useResultsTableSearch = (
             sort
         };
 
-        if (grouped) request = performSpendingBySubawardGrouped(params);
-        else {
-            request = performSpendingByAwardSearch({
-                ...params, fields, spending_level: spendingLevel
-            });
+        if (filtersTemp.awardType) {
+            if (grouped) request = performSpendingBySubawardGrouped(params);
+            else {
+                request = performSpendingByAwardSearch({
+                    ...params, fields, spending_level: spendingLevel
+                });
+            }
+            mutate(request);
         }
-
-        mutate(request);
     }, [mutate, grouped, tableType, searchOrder, searchFilters, spendingLevel, limit, page]);
 
     return {
