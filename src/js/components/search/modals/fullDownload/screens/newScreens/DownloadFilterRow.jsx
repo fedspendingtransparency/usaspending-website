@@ -195,9 +195,9 @@ const DownloadFilterRow = ({
     else if (filter.name === 'Assistance Listing') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
-                return `${filterTemp.identifier}|${filterTemp.program_title}`;
+                return `${filterTemp.identifier}| ${filterTemp.program_title}`;
             }
-            return `${filterTemp.identifier}|${filterTemp.program_title},`;
+            return `${filterTemp.identifier}| ${filterTemp.program_title},`;
         });
         formatted = formatted.join(" ");
     }
