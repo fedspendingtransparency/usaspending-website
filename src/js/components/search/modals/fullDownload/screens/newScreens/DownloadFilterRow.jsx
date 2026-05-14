@@ -53,7 +53,10 @@ const DownloadFilterRow = ({
 
     // every filter value/name has a completely different format ( array of strings, array of objects, object, object of arrays), these have to be formatted before they
     // are passed into ReadMore because if you don't format it there is no comma separation
-    if (filter.name === 'Recipient Type') {
+    if (filter.name === 'Award Description') {
+        formatted = filter.values;
+    }
+    else if (filter.name === 'Recipient Type') {
         formatted = filter.values.map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
                 return `${recipientTypes[filterTemp]}`;
