@@ -394,7 +394,7 @@ const getFilters = (filters) => {
 
         if (selected) {
             filter.code = 'awardAmounts';
-            filter.name = 'Award Amounts';
+            filter.name = 'Award Amount';
             return filter;
         }
         return null;

@@ -10,6 +10,7 @@ import { awardTypeCodes } from '../../../../../../dataMapping/search/awardType';
 import { recipientTypes } from '../../../../../../dataMapping/search/recipientType';
 import { pricingTypeDefinitions, setAsideDefinitions, extentCompetedDefinitions } from '../../../../../../dataMapping/search/contractFields';
 import { defCodes } from '../../../../../../dataMapping/search/defCodes';
+import { formatMoneyWithPrecision } from '../../../../../../helpers/moneyFormatter';
 
 const propTypes = {
     filter: PropTypes.object
@@ -53,6 +54,7 @@ const DownloadFilterRow = ({
 
     // every filter value/name has a completely different format ( array of strings, array of objects, object, object of arrays), these have to be formatted before they
     // are passed into ReadMore because if you don't format it there is no comma separation
+    console.debug("filter: ", filter.name);
     if (filter.name === 'Award Description') {
         formatted = filter.values;
     }
@@ -109,27 +111,27 @@ const DownloadFilterRow = ({
         });
         formatted = formatted.join(" ");
     }
-    else if (filter.name === 'Award Amounts') {
+    else if (filter.name === 'Award Amount') {
         formatted = Object.entries(filter.values).map((filterTemp, i, row) => {
             if (i + 1 === row.length) {
                 if (filterTemp[1][0] === null) {
-                    return `${filterTemp[1][1]} and below`;
+                    return `${formatMoneyWithPrecision(filterTemp[1][1])} and below`;
                 }
                 else if (filterTemp[1][1] === null) {
-                    return `${filterTemp[1][0]} and above`;
+                    return `${formatMoneyWithPrecision(filterTemp[1][0])} and above`;
                 }
 
-                return `${filterTemp[1][0]} - ${filterTemp[1][1]}`;
+                return `${formatMoneyWithPrecision(filterTemp[1][0])} - ${formatMoneyWithPrecision(filterTemp[1][1])}`;
             }
 
             if (filterTemp[1][0] === null) {
-                return `${filterTemp[1][1]} and below,`;
+                return `${formatMoneyWithPrecision(filterTemp[1][1])} and below,`;
             }
             else if (filterTemp[1][1] === null) {
-                return `${filterTemp[1][0]} and above,`;
+                return `${formatMoneyWithPrecision(filterTemp[1][0])} and above,`;
             }
 
-            return `${filterTemp[1][0]} - ${filterTemp[1][1]},`;
+            return `${formatMoneyWithPrecision(filterTemp[1][0])} - ${formatMoneyWithPrecision(filterTemp[1][1])},`;
         });
         formatted = formatted.join(" ");
     }
