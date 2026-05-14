@@ -6,13 +6,11 @@ import { intersection, uniqueId } from 'lodash-es';
 import {
     performSpendingByAwardSearch, performSpendingBySubawardGrouped
 } from "helpers/searchHelper";
-import { measureTableHeader } from 'helpers/textMeasurement';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import {
     awardTypeGroups, subawardTypeGroups
 } from 'dataMapping/search/awardType';
-import { tableTypes, subTypes, transactionTypes } from 'dataMapping/search/resultsView/table';
-import { defaultColumns, apiFieldByTableColumnName } from 'dataMapping/search/awardTableColumns';
+import { apiFieldByTableColumnName } from 'dataMapping/search/awardTableColumns';
 
 const getAwardTypeGroup = (spendingLevel, tableType, awardType) => {
     // generate an array of award type codes representing the current table tab we're showing
@@ -35,45 +33,7 @@ const getAwardTypeGroup = (spendingLevel, tableType, awardType) => {
     return intersectingTypes;
 };
 
-const createColumn = (col) => {
-    // create an object that integrates with the expected column data structure used by
-    // the table component
-
-    // BODGE: Temporarily only allow descending columns
-    const direction = 'desc';
-    const width = col.customWidth || measureTableHeader(col.displayName || col.title);
-
-    return {
-        columnName: col.title,
-        displayName: col.displayName || col.title,
-        subtitle: col.subtitle || '',
-        width,
-        background: col.background || '',
-        defaultDirection: direction,
-        right: col.right || false
-    };
-};
-
-const getColumns = () => tableTypes
-    .concat(subTypes)
-    .concat(transactionTypes)
-    .reduce((cols, type) => {
-        const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
-        const parsedColumns = defaultColumns(type.internal)
-            .reduce((parsedCols, data) => Object.assign({}, parsedCols, {
-                [data.title]: createColumn(data)
-            }), {});
-
-        return Object.assign(cols, {
-            [type.internal]: {
-                visibleOrder: visibleColumns,
-                data: parsedColumns
-            }
-        });
-    }, {});
-
-const getFields = (tableType) => {
-    const columns = getColumns();
+const getFields = (tableType, columns) => {
     const fields = [];
 
     // Request fields for visible columns only
@@ -117,9 +77,9 @@ const getSortOrder = (searchOrder, grouped) => {
 };
 
 const useResultsTableSearch = (
-    searchFilters, tableType, spendingLevel, limit, searchOrder, grouped, page
+    searchFilters, tableType, spendingLevel, limit, searchOrder, grouped, page, columns
 ) => {
-    const fields = getFields(tableType);
+    const fields = getFields(tableType, columns);
 
     const { sort, order } = getSortOrder(searchOrder, grouped);
 

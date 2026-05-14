@@ -23,6 +23,46 @@ import SearchSectionWrapper from
     "components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import useResultsTableSearch from './useResultsTableSearch';
 
+const createColumn = (col) => {
+    // create an object that integrates with the expected column data structure used by
+    // the table component
+
+    // BODGE: Temporarily only allow descending columns
+    const direction = 'desc';
+    const width = col.customWidth || measureTableHeader(col.displayName || col.title);
+
+    return {
+        columnName: col.title,
+        displayName: col.displayName || col.title,
+        subtitle: col.subtitle || '',
+        width,
+        background: col.background || '',
+        defaultDirection: direction,
+        right: col.right || false
+    };
+};
+
+// in the future, this will be an API call, but for now, read the local data file
+// load every possible table column up front, so we don't need to deal with this when
+// switching tabs
+const columns = tableTypes
+    .concat(subTypes)
+    .concat(transactionTypes)
+    .reduce((cols, type) => {
+        const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
+        const parsedColumns = defaultColumns(type.internal)
+            .reduce((parsedCols, data) => Object.assign({}, parsedCols, {
+                [data.title]: createColumn(data)
+            }), {});
+
+        return Object.assign(cols, {
+            [type.internal]: {
+                visibleOrder: visibleColumns,
+                data: parsedColumns
+            }
+        });
+    }, {});
+
 const propTypes = {
     tabData: PropTypes.object,
     spendingLevel: PropTypes.string,
@@ -74,48 +114,9 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
         resultLimit,
         sort,
         loadExpandableData,
-        page
+        page,
+        columns
     );
-
-    const createColumn = (col) => {
-        // create an object that integrates with the expected column data structure used by
-        // the table component
-
-        // BODGE: Temporarily only allow descending columns
-        const direction = 'desc';
-        const width = col.customWidth || measureTableHeader(col.displayName || col.title);
-
-        return {
-            columnName: col.title,
-            displayName: col.displayName || col.title,
-            subtitle: col.subtitle || '',
-            width,
-            background: col.background || '',
-            defaultDirection: direction,
-            right: col.right || false
-        };
-    };
-
-    // in the future, this will be an API call, but for now, read the local data file
-    // load every possible table column up front, so we don't need to deal with this when
-    // switching tabs
-    const columns = tableTypes
-        .concat(subTypes)
-        .concat(transactionTypes)
-        .reduce((cols, type) => {
-            const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
-            const parsedColumns = defaultColumns(type.internal)
-                .reduce((parsedCols, data) => Object.assign({}, parsedCols, {
-                    [data.title]: createColumn(data)
-                }), {});
-
-            return Object.assign(cols, {
-                [type.internal]: {
-                    visibleOrder: visibleColumns,
-                    data: parsedColumns
-                }
-            });
-        }, {});
 
     const updateFilters = throttle(() => setPage(1), 350);
 
