@@ -147,6 +147,7 @@ const NewDownloadModal = (props) => {
                         downloadData={downloadData}
                         toggleDownloadType={toggleDownloadType}
                         beginDownload={beginDownload}
+                        downloadType={downloadType}
                         content={content} />
                 </div>
             </div>
