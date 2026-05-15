@@ -33,7 +33,6 @@ import {
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
-import GlobalConstants from "../../GlobalConstants";
 
 require('pages/search/searchPage.scss');
 
@@ -105,31 +104,6 @@ const SearchContainer = () => {
     const areAppliedFiltersEmptyRef = useRef();
     const prevAppliedFiltersRef = useRef();
 
-    const setDownloadAvailability = useCallback((filters = stagedFilters) => {
-        setDownloadInFlight(true);
-
-        const operation = new SearchAwardsOperation();
-        operation.fromState(filters);
-        const searchParams = operation.toParams();
-
-        // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            auditTrail: 'Download Availability Count'
-        };
-
-        request.current = DownloadHelper.requestDownloadCount(apiParams);
-        request.current.promise
-            .then((res) => {
-                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
-                setDownloadInFlight(false);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                request.current = null;
-            });
-    }, [stagedFilters]);
-
     const setDownloadAvailabilityAwards = useCallback((filters = stagedFilters) => {
         setDownloadInFlight(true);
 
@@ -187,26 +161,36 @@ const SearchContainer = () => {
         operation.fromState(filters);
         const searchParams = operation.toParams();
         // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            spending_level: "subawards",
-            auditTrail: 'Download Availability Count Subawards'
-        };
+        if (appliedFilters.filterNewAwardsOnlyActive || filters.filterNewAwardsOnlyActive) {
+            setDownloadInFlight(false);
+            setSubawardsCount(0);
+        }
+        else {
+            const apiParams = {
+                filters: searchParams,
+                spending_level: "subawards",
+                auditTrail: 'Download Availability Count Subawards'
+            };
 
-        requestSubawards.current = DownloadHelper.requestDownloadCount(apiParams);
-        requestSubawards.current.promise
-            .then((res) => {
-                setDownloadInFlight(false);
-                setSubawardsCount(res.data.calculated_count);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                requestSubawards.current = null;
-            });
-    }, [stagedFilters]);
+            requestSubawards.current = DownloadHelper.requestDownloadCount(apiParams);
+            requestSubawards.current.promise
+                .then((res) => {
+                    setDownloadInFlight(false);
+                    setSubawardsCount(res.data.calculated_count);
+                })
+                .catch(() => {
+                    setDownloadInFlight(false);
+                    requestSubawards.current = null;
+                });
+        }
+    }, [stagedFilters, appliedFilters]);
+
     const downloadButtonEnabled = useCallback(() => {
-        if (awardsCount === 0 && transactionsCount === 0 && subawardsCount === 0) {
+        if ((awardsCount === 0 || awardsCount >= 500000) && (transactionsCount === 0 || transactionsCount >= 500000) && (subawardsCount === 0 || subawardsCount >= 500000)) {
             setDownloadAvailable(false);
+        }
+        else if (awardsCount !== 0 || transactionsCount !== 0 || subawardsCount !== 0) {
+            setDownloadAvailable(true);
         }
     }, [transactionsCount, awardsCount, subawardsCount]);
     useEffect(() => {
@@ -238,15 +222,9 @@ const SearchContainer = () => {
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
                         dispatch(setAppliedFilterEmptiness(false));
 
-                        // delete once we deploy
-                        setDownloadAvailability(filtersInImmutableStructure);
-
-                        // TODO:  Disabling for 14913 hotfix
-                        if (GlobalConstants.IS_NEW_DOWNLOAD) {
-                            setDownloadAvailabilityAwards(filtersInImmutableStructure);
-                            setDownloadAvailabilitySubawards(filtersInImmutableStructure);
-                            setDownloadAvailabilityTransactions(filtersInImmutableStructure);
-                        }
+                        setDownloadAvailabilityAwards(filtersInImmutableStructure);
+                        setDownloadAvailabilitySubawards(filtersInImmutableStructure);
+                        setDownloadAvailabilityTransactions(filtersInImmutableStructure);
                     }
                     request.current = null;
                 })
@@ -340,16 +318,12 @@ const SearchContainer = () => {
         );
         if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && areFiltersSelected(prevAppliedFilters))) {
             generateHash();
-            // delete once we deploy
-            setDownloadAvailability();
 
-            // TODO:  Disabling for 14913 hotfix
-            if (GlobalConstants.IS_NEW_DOWNLOAD) {
-                setDownloadAvailabilityAwards();
-                setDownloadAvailabilityTransactions();
-                setDownloadAvailabilitySubawards();
-            }
-        } else if (!urlHash) {
+            setDownloadAvailabilityAwards();
+            setDownloadAvailabilityTransactions();
+            setDownloadAvailabilitySubawards();
+        }
+        else if (!urlHash) {
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
         }
@@ -368,7 +342,7 @@ const SearchContainer = () => {
 
     useEffect(() => {
         downloadButtonEnabled();
-    }, [transactionsCount, subawardsCount, awardsCount, downloadButtonEnabled]);
+    }, [transactionsCount, subawardsCount, awardsCount, appliedFilters, downloadButtonEnabled]);
     return (
         <SearchPage
             download={download}
