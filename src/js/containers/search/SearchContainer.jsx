@@ -93,9 +93,9 @@ const SearchContainer = () => {
     const [downloadInFlight, setDownloadInFlight] = useState(false);
     const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
 
-    const [awardsCount, setAwardsCount] = useState();
-    const [transactionsCount, setTransactionsCount] = useState();
-    const [subawardsCount, setSubawardsCount] = useState();
+    const [awardsCount, setAwardsCount] = useState(0);
+    const [transactionsCount, setTransactionsCount] = useState(0);
+    const [subawardsCount, setSubawardsCount] = useState(0);
 
     const request = useRef(null);
     const requestAwards = useRef(null);
@@ -155,8 +155,6 @@ const SearchContainer = () => {
     }, [stagedFilters]);
 
     const setDownloadAvailabilitySubawards = useCallback((filters = stagedFilters) => {
-        setDownloadInFlight(true);
-
         const operation = new SearchAwardsOperation();
         operation.fromState(filters);
         const searchParams = operation.toParams();
@@ -172,6 +170,7 @@ const SearchContainer = () => {
                 auditTrail: 'Download Availability Count Subawards'
             };
 
+            setDownloadInFlight(true);
             requestSubawards.current = DownloadHelper.requestDownloadCount(apiParams);
             requestSubawards.current.promise
                 .then((res) => {
@@ -186,13 +185,18 @@ const SearchContainer = () => {
     }, [stagedFilters, appliedFilters]);
 
     const downloadButtonEnabled = useCallback(() => {
-        if ((awardsCount === 0 || awardsCount >= 500000) && (transactionsCount === 0 || transactionsCount >= 500000) && (subawardsCount === 0 || subawardsCount >= 500000)) {
+        if (
+            (awardsCount === 0 || awardsCount >= 500000) &&
+            (transactionsCount === 0 || transactionsCount >= 500000) &&
+            (subawardsCount === 0 || subawardsCount >= 500000)
+        ) {
             setDownloadAvailable(false);
         }
         else if (awardsCount !== 0 || transactionsCount !== 0 || subawardsCount !== 0) {
             setDownloadAvailable(true);
         }
     }, [transactionsCount, awardsCount, subawardsCount]);
+
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
         prevAppliedFiltersRef.current = appliedFilters;
