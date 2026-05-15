@@ -38,7 +38,7 @@ const DownloadOption = ({
                 </label>
 
                 <div className={`download-record-count ${!isEnabled ? "disabled" : ''}`}>
-                    {`${count.toLocaleString()} ${count === "1" ? "record" : "records"}`}
+                    {`${count?.toLocaleString()} ${count === "1" ? "record" : "records"}`}
                 </div>
 
             </div>
