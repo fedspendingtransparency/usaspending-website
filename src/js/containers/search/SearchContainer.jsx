@@ -159,30 +159,25 @@ const SearchContainer = () => {
         operation.fromState(filters);
         const searchParams = operation.toParams();
         // generate the API parameters
-        if (appliedFilters.filterNewAwardsOnlyActive) {
-            setDownloadInFlight(false);
-            setSubawardsCount(0);
-        }
-        else {
-            const apiParams = {
-                filters: searchParams,
-                spending_level: "subawards",
-                auditTrail: 'Download Availability Count Subawards'
-            };
+        const apiParams = {
+            filters: searchParams,
+            spending_level: "subawards",
+            auditTrail: 'Download Availability Count Subawards'
+        };
 
-            setDownloadInFlight(true);
-            requestSubawards.current = DownloadHelper.requestDownloadCount(apiParams);
-            requestSubawards.current.promise
-                .then((res) => {
-                    setDownloadInFlight(false);
-                    setSubawardsCount(res.data.calculated_count);
-                })
-                .catch(() => {
-                    setDownloadInFlight(false);
-                    requestSubawards.current = null;
-                });
-        }
-    }, [stagedFilters, appliedFilters]);
+        setDownloadInFlight(true);
+        requestSubawards.current = DownloadHelper.requestDownloadCount(apiParams);
+        requestSubawards.current.promise
+            .then((res) => {
+                setDownloadInFlight(false);
+                setSubawardsCount(res.data.calculated_count);
+            })
+            .catch(() => {
+                setDownloadInFlight(false);
+                setSubawardsCount(0);
+                requestSubawards.current = null;
+            });
+    }, [stagedFilters]);
 
     const downloadButtonEnabled = useCallback(() => {
         if (
