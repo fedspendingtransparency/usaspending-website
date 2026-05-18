@@ -268,7 +268,7 @@
     "picomatch": "4.0.4"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.17.0",
+    "@babel/eslint-parser": "^7.28.6",
     "@chromatic-com/storybook": "^4.1.1",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
     "@fortawesome/free-brands-svg-icons": "^7.2.0",

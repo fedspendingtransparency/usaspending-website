@@ -2,6 +2,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import js from "@eslint/js";
 
+import bableParser from '@babel/eslint-parser';
 import react from "eslint-plugin-react";
 import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -28,7 +29,10 @@ export default defineConfig([
             jsxA11y.flatConfigs.recommended,
             pluginImport.flatConfigs.recommended
         ],
-        languageOptions: { globals: globals.browser },
+        languageOptions: {
+            globals: globals.browser,
+            parser: bableParser
+        },
         rules: {
             // disabling class method "this" requirement to avoid React conflicts
             "class-methods-use-this": [0],
@@ -98,6 +102,13 @@ export default defineConfig([
             // downgrading export default preference to warning,
             // since we may add additional exports to files in the future
             "import/prefer-default-export": [1]
+        },
+        settings: {
+            "import/resolver": {
+                typescript: {
+                    project: "<root>/packages/web/tsconfig.json",
+                },
+            },
         }
     }
 ]);
