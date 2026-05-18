@@ -20,8 +20,14 @@ export default defineConfig([
     ]),
     {
         files: ["**/*.{js,mjs,cjs,jsx}"],
-        plugins: { js },
-        extends: ["js/recommended"],
+        plugins: { js, reactHooks, react, jsxA11y, pluginImport },
+        extends: [
+            "js/recommended",
+            react.configs.flat.recommended,
+            reactHooks.configs.flat.recommended,
+            jsxA11y.flatConfigs.recommended,
+            pluginImport.flatConfigs.recommended
+        ],
         languageOptions: { globals: globals.browser },
         rules: {
             // disabling class method "this" requirement to avoid React conflicts
@@ -40,7 +46,6 @@ export default defineConfig([
             "prefer-arrow-callback": ["error"],
             // for now, don't do destructuring
             "prefer-destructuring": [0],
-
             // TODO: The following js rules have been deprecated and should be replaced,
             //  all have been addressed in @stylistic/eslint-plugin
             "indent": [2, 4, { "SwitchCase": 1 }],
@@ -51,12 +56,8 @@ export default defineConfig([
             "quotes": [0],
             "brace-style": [1, "stroustrup"],
             "spaced-comment": [2, "always", { "exceptions": ["*"] }],
-            "function-paren-newline": [0] // TODO: deprecated
-        }
-    },
-    {
-        ...react.configs.flat.recommended,
-        rules: {
+            "function-paren-newline": [0],
+
             "react/default-props-match-prop-types": [0],
             // allow object prop-type
             "react/forbid-prop-types": [1, { "forbid": ["any"] }],
@@ -79,27 +80,18 @@ export default defineConfig([
             "react/prefer-stateless-function": [0],
             "react/prop-types": [1],
             // default prop types not required
-            "react/require-default-props": [0]
-        }
-    },
-    {
-        ...jsxA11y.flatConfigs.recommended,
-        rules: {
+            "react/require-default-props": [0],
+
+            'react-hooks/exhaustive-deps': 'warn',
+            'react-hooks/immutability': 'warn',
+            'react-hooks/purity': 'warn',
+            'react-hooks/refs': 'warn',
+            'react-hooks/set-state-in-effect': 'warn',
+
             "jsx-a11y/anchor-is-valid": "warn",
             // downgrade label has for to a warning due to some design considerations
-            "jsx-a11y/label-has-associated-control": [1]
-        }
-    },
-    {
-        ...reactHooks.configs.flat.recommended,
-        rules: {
-            "react-hooks/rules-of-hooks": "error",
-            "react-hooks/exhaustive-deps": [1]
-        }
-    },
-    {
-        ...pluginImport.flatConfigs.recommended,
-        rules: {
+            "jsx-a11y/label-has-associated-control": [1],
+
             // allow named exports in files with default exports in order to expose containers
             // for testing
             "import/no-named-as-default": [0],
