@@ -1,8 +1,9 @@
-import js from "@eslint/js";
-import globals from "globals";
 import { defineConfig, globalIgnores } from "eslint/config";
+import globals from "globals";
+import js from "@eslint/js";
 
-import pluginReact from "eslint-plugin-react";
+import react from "eslint-plugin-react";
+import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 
 export default defineConfig([
@@ -22,6 +23,7 @@ export default defineConfig([
         extends: ["js/recommended"],
         languageOptions: { globals: globals.browser }
     },
-    pluginReact.configs.flat.recommended,
-    jsxA11y.flatConfigs.recommended
+    react.configs.flat.recommended,
+    jsxA11y.flatConfigs.recommended,
+    reactHooks.configs.flat.recommended
 ]);
