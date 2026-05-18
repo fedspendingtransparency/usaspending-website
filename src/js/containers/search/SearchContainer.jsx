@@ -159,7 +159,7 @@ const SearchContainer = () => {
         operation.fromState(filters);
         const searchParams = operation.toParams();
         // generate the API parameters
-        if (appliedFilters.filterNewAwardsOnlyActive || filters.filterNewAwardsOnlyActive) {
+        if (appliedFilters.filterNewAwardsOnlyActive) {
             setDownloadInFlight(false);
             setSubawardsCount(0);
         }
