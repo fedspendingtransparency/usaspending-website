@@ -87,7 +87,7 @@ export default defineConfig([
         rules: {
             "jsx-a11y/anchor-is-valid": "warn",
             // downgrade label has for to a warning due to some design considerations
-            "jsx-a11y/label-has-for": [1]
+            "jsx-a11y/label-has-associated-control": [1]
         }
     },
     {
