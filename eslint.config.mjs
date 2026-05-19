@@ -48,6 +48,8 @@ export default defineConfig([
             "prefer-arrow-callback": ["error"],
             // for now, don't do destructuring
             "prefer-destructuring": [0],
+            "no-nested-ternary": "error",
+            "camelcase": ["error", { properties: "never" }],
             // TODO: The following js rules have been deprecated and should be replaced,
             //  all have been addressed in @stylistic/eslint-plugin
             "indent": [2, 4, { "SwitchCase": 1 }],
