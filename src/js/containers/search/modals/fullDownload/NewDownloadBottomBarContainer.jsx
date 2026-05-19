@@ -24,15 +24,14 @@ const NewDownloadBottomBarContainer = ({ download, filters, columns }) => {
     const [visible, setVisible] = useState(false);
     const [showError, setShowError] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
-    const { expectedFile, expectedUrl } = useSelector((state) => state.download);
+    const [statusCount, setStatusCount] = useState(0);
+    const { expectedFile } = useSelector((state) => state.download);
     const [title, setTitle] = useState('We\'re preparing your download(s)...');
     const [descriptionOne, setDescriptionOne] = useState('Action Required: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. Copy the ');
     const [descriptionTwo, setDescriptionTwo] = useState(' in your browser\'s address bar before closing this page.');
     const downloadRequest = useRef(null);
     const statusRequest = useRef(null);
     const dispatch = useDispatch();
-    const statusTimer = useRef(null);
-    const statusCount = useRef(0);
     const windowWillClose = (e) => {
     /* eslint-disable no-param-reassign */
     // we need to modify the browser event to trigger a warning message
@@ -80,23 +79,15 @@ will no longer download to your computer. Are you sure you want to do this?`;
         window.setTimeout(closeBar, 5000);
     }, [closeBar, dispatch]);
 
-    const scheduleNextStatus = useCallback(() => {
-    // determine when the next status check should be
-    // it should be 15 seconds for the first minute, then 30 seconds after that
-        let timeToWait = 15;
-        if (statusCount.current >= 4) {
-            timeToWait = 30;
+    const parseStatus = useCallback((data) => {
+        if (data.status === 'finished') {
+            // download is ready
+            downloadFile(data.file_url);
         }
-
-        if (statusTimer.current) {
-            window.clearTimeout(statusTimer.current);
+        else if (data.status === 'failed') {
+            displayError(data.message);
         }
-
-        // eslint-disable-next-line no-use-before-define
-        statusTimer.current = window.setTimeout(checkStatus, timeToWait * 1000);
-        statusCount.current += 1;
-    // eslint-disable-next-line no-use-before-define
-    }, [checkStatus]);
+    }, [displayError, downloadFile]);
 
     const checkStatus = useCallback(() => {
         if (statusRequest.current) {
@@ -106,7 +97,10 @@ will no longer download to your computer. Are you sure you want to do this?`;
         if (expectedFile !== '') {
             expectedFileTemp = expectedFile;
         }
-        else if ((typeof expectedFile) === "object" && Object.prototype.hasOwnProperty.call(expectedFile, "file")) {
+        else if (
+            (typeof expectedFile) === "object" &&
+            Object.prototype.hasOwnProperty.call(expectedFile, "file")
+        ) {
             expectedFileTemp = expectedFile.file;
         }
         if (expectedFileTemp !== '') {
@@ -118,6 +112,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
                 .then((res) => {
                     // eslint-disable-next-line no-use-before-define
                     parseStatus(res.data);
+                    setStatusCount((c) => c + 1);
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -133,23 +128,9 @@ will no longer download to your computer. Are you sure you want to do this?`;
                     }
                 });
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [expectedFile, expectedUrl]);
+    }, [displayError, expectedFile, parseStatus]);
 
-    const parseStatus = useCallback((data) => {
-        if (data.status === 'finished') {
-            // download is ready
-            downloadFile(data.file_url);
-            return;
-        }
-        else if (data.status === 'failed') {
-            displayError(data.message);
-            return;
-        }
-        scheduleNextStatus();
-    }, [displayError, downloadFile, scheduleNextStatus]);
-
-    const displayBar = () => {
+    const displayBar = useCallback(() => {
         // monitor for window close events
         window.addEventListener('beforeunload', windowWillClose);
         setVisible(true);
@@ -158,14 +139,14 @@ will no longer download to your computer. Are you sure you want to do this?`;
         setTitle('We\'re preparing your download(s)...');
         setDescriptionOne('Action Required: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. Copy the ');
         setDescriptionTwo(' in your browser\'s address bar before closing this page.');
-    };
+    }, []);
 
-    const requestDownload = () => {
+    const requestDownload = useCallback(() => {
         if (downloadRequest.current) {
             downloadRequest.current.cancel();
         }
 
-        statusCount.current = 0;
+        setStatusCount(0);
 
         let filterSet = {};
         if (filters) {
@@ -203,7 +184,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
                     }
                 }
             });
-    };
+    }, [columns, dispatch, displayError, filters]);
 
 
     useEffect(() => {
@@ -215,15 +196,27 @@ will no longer download to your computer. Are you sure you want to do this?`;
 
         return () => {
             window.removeEventListener('beforeunload', windowWillClose);
-            window.clearTimeout(statusTimer.current);
         };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [download?.pendingDownload, download?.showCollapsedProgress]);
+    }, [
+        displayBar,
+        download.columns,
+        download.pendingDownload,
+        download.showCollapsedProgress,
+        filters,
+        requestDownload,
+        visible
+    ]);
 
     useEffect(() => {
-        checkStatus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [expectedFile, expectedUrl]);
+        let timeToWait = 15;
+        if (statusCount >= 4) {
+            timeToWait = 30;
+        }
+
+        const timer = setInterval(checkStatus, timeToWait * 1000);
+
+        return () => clearInterval(timer);
+    }, [checkStatus, statusCount]);
 
     if (visible) {
         return (
