@@ -80,6 +80,7 @@ const NewDownloadModal = (props) => {
     };
 
     const beginDownload = useCallback(() => {
+        reduxFilters.spending_level = downloadType;
         dispatch(setDownloadColumns([]));
         dispatch(setDownloadPending(true));
         goToStep(3, true);

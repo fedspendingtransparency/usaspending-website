@@ -57,6 +57,7 @@ class SearchAwardsOperation {
         this.extentCompeted = [];
 
         this.awardDescription = '';
+        this.spending_level = [];
     }
 
     fromState(state) {
@@ -65,7 +66,7 @@ class SearchAwardsOperation {
         this.timePeriodFY = state.timePeriodFY?.toArray();
         this.timePeriodRange = [];
         this.timePeriodType = state.timePeriodType;
-
+        this.spending_level = state.spending_level;
         this.dateType = state.filterNewAwardsOnlySelected;
 
         this.awardType = state.awardType?.toArray();
@@ -210,6 +211,10 @@ class SearchAwardsOperation {
         // Add award types
         if (this.awardType?.length > 0) {
             filters[rootKeys.awardType] = this.awardType;
+        }
+
+        if (this.spending_level?.length > 0) {
+            filters[rootKeys.spending_level] = this.spending_level;
         }
 
         // Add Agencies
