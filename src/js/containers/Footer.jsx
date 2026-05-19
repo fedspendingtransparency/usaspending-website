@@ -17,7 +17,7 @@ import BulkDownloadBottomBarContainer from
 import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
 import StayInTouch from "../components/sharedComponents/StayInTouch";
 import NewDownloadBottomBarContainer from './search/modals/fullDownload/NewDownloadBottomBarContainer';
-import DownloadBottomBarContainer from './search/modals/fullDownload/DownloadBottomBarContainer';
+
 const propTypes = {
     pageName: PropTypes.string.isRequired,
     filters: PropTypes.object,
