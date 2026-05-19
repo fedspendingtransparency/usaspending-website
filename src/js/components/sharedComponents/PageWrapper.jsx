@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * Page.jsx
  * Created by Max Kendall 04/23/2021
@@ -53,7 +54,7 @@ const PageWrapper = ({
                     ''
             }`
         })}
-        <Footer pageName={pageName} filters={filters} />
+        <Footer pageName={pageName} filters={filters} spending_level={spending_level} />
     </div>
 );
 

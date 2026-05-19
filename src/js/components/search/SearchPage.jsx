@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * SearchPage.jsx
  * * Created by Andrea Blackwell November 4, 2024
@@ -147,7 +148,8 @@ const SearchPage = ({
                     hideModal={hideDownloadModal}
                     awardsCount={awardsCount}
                     transactionsCount={transactionsCount}
-                    subawardsCount={subawardsCount} />
+                    subawardsCount={subawardsCount}
+                    spending_level={spending_level} />
             </div>
         </PageWrapper>
     );
