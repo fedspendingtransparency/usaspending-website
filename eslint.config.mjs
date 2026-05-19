@@ -48,8 +48,6 @@ export default defineConfig([
             "prefer-arrow-callback": ["error"],
             // for now, don't do destructuring
             "prefer-destructuring": [0],
-            "no-nested-ternary": "error",
-            "camelcase": ["error", { properties: "never" }],
             // TODO: The following js rules have been deprecated and should be replaced,
             //  all have been addressed in @stylistic/eslint-plugin
             "indent": [2, 4, { "SwitchCase": 1 }],
@@ -106,3 +104,19 @@ export default defineConfig([
         }
     }
 ]);
+
+// following rules noted as having eslint-disable lines
+// "no-nested-ternary": "error",
+// "camelcase": ["error", { properties: "never" }],
+// "consistent-return": "error",
+// "no-unused-expressions": "error",
+// "no-param-reassign": "error",
+// "one-var": "error",
+// "no-shadow": "error",
+// "no-return-assign": "error",
+// "array-callback-return": "error",
+// "prefer-const": "error",
+// "react/no-danger": "error",
+// "eqeqeq": "error",
+// "arrow-body-style": "error",
+// "no-confusing-arrow": "error", // deprecated (in @stylistic/eslint-plugin)
