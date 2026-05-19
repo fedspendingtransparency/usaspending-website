@@ -133,8 +133,8 @@ will no longer download to your computer. Are you sure you want to do this?`;
                     }
                 });
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [expectedFile, expectedUrl]);
+    // eslint-disable-next-line no-use-before-define
+    }, [displayError, expectedFile, parseStatus]);
 
     const parseStatus = useCallback((data) => {
         if (data.status === 'finished') {
@@ -217,13 +217,11 @@ will no longer download to your computer. Are you sure you want to do this?`;
             window.removeEventListener('beforeunload', windowWillClose);
             window.clearTimeout(statusTimer.current);
         };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [download?.pendingDownload, download?.showCollapsedProgress]);
+    }, [displayBar, download.columns, download.pendingDownload, download.showCollapsedProgress, filters, requestDownload, visible]);
 
     useEffect(() => {
         checkStatus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [expectedFile, expectedUrl]);
+    }, [checkStatus, expectedFile, expectedUrl]);
 
     if (visible) {
         return (

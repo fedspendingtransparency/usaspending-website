@@ -16,18 +16,17 @@ const propTypes = {
 };
 
 const NewDownloadProgress = ({
-    download, expectedUrl, setDownloadCollapsed
+    expectedUrl, setDownloadCollapsed
 }) => {
     const [copied, setCopied] = useState(false);
     useEffect(() => {
         setDownloadCollapsed(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [download?.expectedFile, download?.expectedUrl]);
+    }, [setDownloadCollapsed]);
 
 
     const onCopy = useCallback(() => {
         setCopied(true);
-    });
+    }, []);
 
 
     const icon = (
