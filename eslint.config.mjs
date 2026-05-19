@@ -85,6 +85,7 @@ export default defineConfig([
             "react/prop-types": [1],
             // default prop types not required
             "react/require-default-props": [0],
+            "react/jsx-key": "warn",
 
             'react-hooks/exhaustive-deps': 'warn',
             'react-hooks/immutability': 'warn',
