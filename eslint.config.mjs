@@ -2,7 +2,7 @@ import { defineConfig, globalIgnores } from "eslint/config";
 import globals from "globals";
 import js from "@eslint/js";
 
-import bableParser from '@babel/eslint-parser';
+// import babelParser from '@babel/eslint-parser';
 import react from "eslint-plugin-react";
 import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
@@ -30,8 +30,11 @@ export default defineConfig([
             pluginImport.flatConfigs.recommended
         ],
         languageOptions: {
-            globals: globals.browser,
-            parser: bableParser
+            globals: globals.browser
+            // parser: babelParser,
+            // parserOptions: {
+            //     babelOptions: { presets: ["@babel/preset-react"] }
+            // }
         },
         rules: {
             // disabling class method "this" requirement to avoid React conflicts
@@ -102,13 +105,13 @@ export default defineConfig([
             // downgrading export default preference to warning,
             // since we may add additional exports to files in the future
             "import/prefer-default-export": [1]
-        },
-        settings: {
-            "import/resolver": {
-                typescript: {
-                    project: "<root>/packages/web/tsconfig.json",
-                },
-            },
         }
+        // settings: {
+        //     "import/resolver": {
+        //         "node": {
+        //             "moduleDirectory": ["node_modules", "src/js", "src/_scss"]
+        //         }
+        //     }
+        // }
     }
 ]);
