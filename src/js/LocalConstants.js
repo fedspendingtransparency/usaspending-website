@@ -4,6 +4,6 @@
  */
 
 export const localConstants = {
-    API: "https://staging-api.usaspending.gov/api",
+    API: null,
     MAPBOX_TOKEN: null
 };
