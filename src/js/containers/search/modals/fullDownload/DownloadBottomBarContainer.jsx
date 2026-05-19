@@ -107,7 +107,7 @@ export class DownloadBottomBarContainer extends React.Component {
             params.columns = columns;
         }
 
-        this.request = DownloadHelper.requestFullDownload(params, type);
+        this.request = DownloadHelper.requestFullDownloadNew(params, type);
 
         this.request.promise
             .then((res) => {
