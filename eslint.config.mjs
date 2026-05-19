@@ -104,14 +104,16 @@ export default defineConfig([
             "import/no-named-as-default": [0],
             // downgrading export default preference to warning,
             // since we may add additional exports to files in the future
-            "import/prefer-default-export": [1]
+            "import/prefer-default-export": ["warn"]
+        },
+        settings: {
+            "import/resolver": {
+                "node": {
+                    "moduleDirectory": ["node_modules", "src/js", "src/_scss"],
+                    "map": [["./src", "@"]],
+                    "extensions": [".js", ".jsx", ".d.ts", ".tsx"]
+                }
+            }
         }
-        // settings: {
-        //     "import/resolver": {
-        //         "node": {
-        //             "moduleDirectory": ["node_modules", "src/js", "src/_scss"]
-        //         }
-        //     }
-        // }
     }
 ]);
