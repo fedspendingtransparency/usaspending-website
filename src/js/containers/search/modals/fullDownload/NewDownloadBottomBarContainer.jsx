@@ -9,7 +9,13 @@ import { connect, useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
 import { isEmpty } from 'lodash-es';
-import { setDownloadExpectedFile, setDownloadExpectedUrl, setDownloadPending, setDownloadCollapsed, resetDownload } from 'redux/actions/search/downloadActions';
+import {
+    setDownloadExpectedFile,
+    setDownloadExpectedUrl,
+    setDownloadPending,
+    setDownloadCollapsed,
+    resetDownload
+} from 'redux/actions/search/downloadActions';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadHelper';
@@ -26,13 +32,16 @@ const NewDownloadBottomBarContainer = ({ download, filters, columns }) => {
     const [showSuccess, setShowSuccess] = useState(false);
     const { expectedFile, expectedUrl } = useSelector((state) => state.download);
     const [title, setTitle] = useState('We\'re preparing your download(s)...');
+    // eslint-disable-next-line max-len
     const [descriptionOne, setDescriptionOne] = useState('Action Required: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. Copy the ');
+    // eslint-disable-next-line max-len
     const [descriptionTwo, setDescriptionTwo] = useState(' in your browser\'s address bar before closing this page.');
+    const [statusCount, setStatusCount] = useState(null);
     const downloadRequest = useRef(null);
     const statusRequest = useRef(null);
     const dispatch = useDispatch();
     const statusTimer = useRef(null);
-    const statusCount = useRef(0);
+
     const windowWillClose = (e) => {
     /* eslint-disable no-param-reassign */
     // we need to modify the browser event to trigger a warning message
@@ -42,7 +51,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
     };
 
     const closeBar = useCallback(() => {
-    // stop monitoring for window close events
+        // stop monitoring for window close events
         window.removeEventListener('beforeunload', windowWillClose);
         dispatch(resetDownload());
         setVisible(false);
@@ -53,7 +62,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
     }, [dispatch]);
 
     const downloadFile = useCallback((fileUrl) => {
-    // stop monitoring for window close events
+        // stop monitoring for window close events
         window.removeEventListener('beforeunload', windowWillClose);
 
         // start the download
@@ -80,24 +89,6 @@ will no longer download to your computer. Are you sure you want to do this?`;
         window.setTimeout(closeBar, 5000);
     }, [closeBar, dispatch]);
 
-    const scheduleNextStatus = useCallback(() => {
-    // determine when the next status check should be
-    // it should be 15 seconds for the first minute, then 30 seconds after that
-        let timeToWait = 15;
-        if (statusCount.current >= 4) {
-            timeToWait = 30;
-        }
-
-        if (statusTimer.current) {
-            window.clearTimeout(statusTimer.current);
-        }
-
-        // eslint-disable-next-line no-use-before-define
-        statusTimer.current = window.setTimeout(checkStatus, timeToWait * 1000);
-        statusCount.current += 1;
-    // eslint-disable-next-line no-use-before-define
-    }, [checkStatus]);
-
     const checkStatus = useCallback(() => {
         if (statusRequest.current) {
             statusRequest.current.cancel();
@@ -106,7 +97,10 @@ will no longer download to your computer. Are you sure you want to do this?`;
         if (expectedFile !== '') {
             expectedFileTemp = expectedFile;
         }
-        else if ((typeof expectedFile) === "object" && Object.prototype.hasOwnProperty.call(expectedFile, "file")) {
+        else if (
+            (typeof expectedFile) === "object" &&
+            Object.prototype.hasOwnProperty.call(expectedFile, "file")
+        ) {
             expectedFileTemp = expectedFile.file;
         }
         if (expectedFileTemp !== '') {
@@ -116,8 +110,21 @@ will no longer download to your computer. Are you sure you want to do this?`;
 
             statusRequest.current.promise
                 .then((res) => {
-                    // eslint-disable-next-line no-use-before-define
-                    parseStatus(res.data);
+                    if (res.data.status === 'finished') {
+                        // download is ready
+                        downloadFile(res.data.file_url);
+
+                        // disable useEffect
+                        setStatusCount(null);
+                        return;
+                    }
+                    else if (res.data.status === 'failed') {
+                        displayError(res.data.message);
+                        return;
+                    }
+                    // trigger useEffect by starting a count
+                    setStatusCount((prevState) => (prevState ? prevState + 1 : 1));
+                    // scheduleNextStatus();
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -133,22 +140,28 @@ will no longer download to your computer. Are you sure you want to do this?`;
                     }
                 });
         }
-    // eslint-disable-next-line no-use-before-define
-    }, [displayError, expectedFile, parseStatus]);
+    }, [displayError, downloadFile, expectedFile]);
 
-    const parseStatus = useCallback((data) => {
-        if (data.status === 'finished') {
-            // download is ready
-            downloadFile(data.file_url);
-            return;
-        }
-        else if (data.status === 'failed') {
-            displayError(data.message);
-            return;
-        }
-        scheduleNextStatus();
-    }, [displayError, downloadFile, scheduleNextStatus]);
+    useEffect(() => {
+        if (statusCount) {
+            // determine when the next status check should be
+            // it should be 15 seconds for the first minute, then 30 seconds after that
+            let timeToWait = 15;
+            if (statusCount >= 4) {
+                timeToWait = 30;
+            }
 
+            if (statusTimer.current) {
+                window.clearTimeout(statusTimer.current);
+            }
+
+            // eslint-disable-next-line no-use-before-define
+            statusTimer.current = window.setTimeout(checkStatus, timeToWait * 1000);
+        }
+        return () => window.clearTimeout(statusTimer.current);
+    }, [statusCount, checkStatus]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const displayBar = () => {
         // monitor for window close events
         window.addEventListener('beforeunload', windowWillClose);
@@ -156,16 +169,16 @@ will no longer download to your computer. Are you sure you want to do this?`;
         setShowError(false);
         setShowSuccess(false);
         setTitle('We\'re preparing your download(s)...');
+        // eslint-disable-next-line max-len
         setDescriptionOne('Action Required: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. Copy the ');
         setDescriptionTwo(' in your browser\'s address bar before closing this page.');
     };
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const requestDownload = () => {
         if (downloadRequest.current) {
             downloadRequest.current.cancel();
         }
-
-        statusCount.current = 0;
 
         let filterSet = {};
         if (filters) {
@@ -217,7 +230,15 @@ will no longer download to your computer. Are you sure you want to do this?`;
             window.removeEventListener('beforeunload', windowWillClose);
             window.clearTimeout(statusTimer.current);
         };
-    }, [displayBar, download.columns, download.pendingDownload, download.showCollapsedProgress, filters, requestDownload, visible]);
+    }, [
+        displayBar,
+        download.columns,
+        download.pendingDownload,
+        download.showCollapsedProgress,
+        filters,
+        requestDownload,
+        visible
+    ]);
 
     useEffect(() => {
         checkStatus();
