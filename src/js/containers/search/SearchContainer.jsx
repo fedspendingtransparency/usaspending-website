@@ -33,7 +33,6 @@ import {
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
-import GlobalConstants from "../../GlobalConstants";
 
 require('pages/search/searchPage.scss');
 
@@ -94,9 +93,9 @@ const SearchContainer = () => {
     const [downloadInFlight, setDownloadInFlight] = useState(false);
     const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
 
-    const [awardsCount, setAwardsCount] = useState();
-    const [transactionsCount, setTransactionsCount] = useState();
-    const [subawardsCount, setSubawardsCount] = useState();
+    const [awardsCount, setAwardsCount] = useState(0);
+    const [transactionsCount, setTransactionsCount] = useState(0);
+    const [subawardsCount, setSubawardsCount] = useState(0);
 
     const request = useRef(null);
     const requestAwards = useRef(null);
@@ -104,31 +103,6 @@ const SearchContainer = () => {
     const requestSubawards = useRef(null);
     const areAppliedFiltersEmptyRef = useRef();
     const prevAppliedFiltersRef = useRef();
-
-    const setDownloadAvailability = useCallback((filters = stagedFilters) => {
-        setDownloadInFlight(true);
-
-        const operation = new SearchAwardsOperation();
-        operation.fromState(filters);
-        const searchParams = operation.toParams();
-
-        // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            auditTrail: 'Download Availability Count'
-        };
-
-        request.current = DownloadHelper.requestDownloadCount(apiParams);
-        request.current.promise
-            .then((res) => {
-                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
-                setDownloadInFlight(false);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                request.current = null;
-            });
-    }, [stagedFilters]);
 
     const setDownloadAvailabilityAwards = useCallback((filters = stagedFilters) => {
         setDownloadInFlight(true);
@@ -181,8 +155,6 @@ const SearchContainer = () => {
     }, [stagedFilters]);
 
     const setDownloadAvailabilitySubawards = useCallback((filters = stagedFilters) => {
-        setDownloadInFlight(true);
-
         const operation = new SearchAwardsOperation();
         operation.fromState(filters);
         const searchParams = operation.toParams();
@@ -193,6 +165,7 @@ const SearchContainer = () => {
             auditTrail: 'Download Availability Count Subawards'
         };
 
+        setDownloadInFlight(true);
         requestSubawards.current = DownloadHelper.requestDownloadCount(apiParams);
         requestSubawards.current.promise
             .then((res) => {
@@ -201,14 +174,24 @@ const SearchContainer = () => {
             })
             .catch(() => {
                 setDownloadInFlight(false);
+                setSubawardsCount(0);
                 requestSubawards.current = null;
             });
     }, [stagedFilters]);
+
     const downloadButtonEnabled = useCallback(() => {
-        if (awardsCount === 0 && transactionsCount === 0 && subawardsCount === 0) {
+        if (
+            (awardsCount === 0 || awardsCount >= 500000) &&
+            (transactionsCount === 0 || transactionsCount >= 500000) &&
+            (subawardsCount === 0 || subawardsCount >= 500000)
+        ) {
             setDownloadAvailable(false);
         }
+        else if (awardsCount !== 0 || transactionsCount !== 0 || subawardsCount !== 0) {
+            setDownloadAvailable(true);
+        }
     }, [transactionsCount, awardsCount, subawardsCount]);
+
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
         prevAppliedFiltersRef.current = appliedFilters;
@@ -238,15 +221,9 @@ const SearchContainer = () => {
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
                         dispatch(setAppliedFilterEmptiness(false));
 
-                        // delete once we deploy
-                        setDownloadAvailability(filtersInImmutableStructure);
-
-                        // TODO:  Disabling for 14913 hotfix
-                        if (GlobalConstants.IS_NEW_DOWNLOAD) {
-                            setDownloadAvailabilityAwards(filtersInImmutableStructure);
-                            setDownloadAvailabilitySubawards(filtersInImmutableStructure);
-                            setDownloadAvailabilityTransactions(filtersInImmutableStructure);
-                        }
+                        setDownloadAvailabilityAwards(filtersInImmutableStructure);
+                        setDownloadAvailabilitySubawards(filtersInImmutableStructure);
+                        setDownloadAvailabilityTransactions(filtersInImmutableStructure);
                     }
                     request.current = null;
                 })
@@ -340,16 +317,12 @@ const SearchContainer = () => {
         );
         if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && areFiltersSelected(prevAppliedFilters))) {
             generateHash();
-            // delete once we deploy
-            setDownloadAvailability();
 
-            // TODO:  Disabling for 14913 hotfix
-            if (GlobalConstants.IS_NEW_DOWNLOAD) {
-                setDownloadAvailabilityAwards();
-                setDownloadAvailabilityTransactions();
-                setDownloadAvailabilitySubawards();
-            }
-        } else if (!urlHash) {
+            setDownloadAvailabilityAwards();
+            setDownloadAvailabilityTransactions();
+            setDownloadAvailabilitySubawards();
+        }
+        else if (!urlHash) {
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
         }
@@ -368,7 +341,7 @@ const SearchContainer = () => {
 
     useEffect(() => {
         downloadButtonEnabled();
-    }, [transactionsCount, subawardsCount, awardsCount, downloadButtonEnabled]);
+    }, [transactionsCount, subawardsCount, awardsCount, appliedFilters, downloadButtonEnabled]);
     return (
         <SearchPage
             download={download}

@@ -16,7 +16,7 @@ import BulkDownloadBottomBarContainer from
     'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
 import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
 import StayInTouch from "../components/sharedComponents/StayInTouch";
-import NewDownloadBottomBarContainer from './search/modals/fullDownload/NewDownloadBottomBarContainer';
+import DownloadBottomBarContainer from './search/modals/fullDownload/DownloadBottomBarContainer';
 
 const propTypes = {
     pageName: PropTypes.string.isRequired,
@@ -63,7 +63,7 @@ const Footer = ({
 
     return (
         <footer>
-            <NewDownloadBottomBarContainer filters={filters} />
+            <DownloadBottomBarContainer filters={filters} />
             <BulkDownloadBottomBarContainer />
             <StayInTouch pageName={pageName} />
             <div className="footer-container">
