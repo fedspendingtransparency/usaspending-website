@@ -27,8 +27,7 @@ export const rootKeys = {
     contractPricing: 'contract_pricing_type_codes',
     setAsideType: 'set_aside_type_codes',
     extentCompeted: 'extent_competed_type_codes',
-    awardDescription: 'description',
-    spending_level: 'spending_level'
+    awardDescription: 'description'
 };
 
 export const checkboxTreeKeys = {

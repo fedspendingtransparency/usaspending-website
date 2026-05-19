@@ -25,6 +25,7 @@ const PageWrapper = ({
     overLine,
     toolBarComponents = [],
     filters = {},
+    spending_level = [],
     sections,
     activeSection,
     jumpToSection,
@@ -71,7 +72,8 @@ PageWrapper.propTypes = {
     activeSection: PropTypes.string,
     jumpToSection: PropTypes.func,
     inPageNav: PropTypes.bool,
-    backgroundColor: PropTypes.string
+    backgroundColor: PropTypes.string,
+    spending_level: PropTypes.array
 };
 
 export default PageWrapper;

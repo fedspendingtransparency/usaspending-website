@@ -34,7 +34,8 @@ const propTypes = {
     queryParam: PropTypes.object,
     awardsCount: PropTypes.number,
     transactionsCount: PropTypes.number,
-    subawardsCount: PropTypes.number
+    subawardsCount: PropTypes.number,
+    spending_level: PropTypes.array
 };
 
 const SearchPage = ({
@@ -47,7 +48,8 @@ const SearchPage = ({
     queryParam,
     awardsCount,
     transactionsCount,
-    subawardsCount
+    subawardsCount,
+    spending_level
 }) => {
     const [tooltipData, setTooltipData] = useState({
         top: 0, left: 0, display: 'none', tooltip: <></>

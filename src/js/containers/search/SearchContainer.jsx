@@ -88,7 +88,9 @@ const SearchContainer = () => {
         appliedFilters: {
             filters: appliedFilters,
             _empty: areAppliedFiltersEmpty
-        }
+        },
+        // eslint-disable-next-line camelcase
+        spending_level
     } = useSelector((state) => state);
     const [downloadInFlight, setDownloadInFlight] = useState(false);
     const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
@@ -353,7 +355,9 @@ const SearchContainer = () => {
             awardsCount={awardsCount}
             transactionsCount={transactionsCount}
             subawardsCount={subawardsCount}
-            queryParam={location.state} />
+            queryParam={location.state}
+            // eslint-disable-next-line camelcase
+            spending_level={spending_level} />
     );
 };
 
