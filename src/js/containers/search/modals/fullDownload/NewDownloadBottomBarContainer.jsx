@@ -28,7 +28,9 @@ const propTypes = {
     spending_level: PropTypes.array
 };
 
-const NewDownloadBottomBarContainer = ({ download, filters, columns, spending_level }) => {
+const NewDownloadBottomBarContainer = ({
+    download, filters, columns, spending_level
+}) => {
     const [visible, setVisible] = useState(false);
     const [showError, setShowError] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
@@ -192,7 +194,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
 
         const params = {
             filters: filterSet,
-            spending_level: spending_level
+            spending_level
         };
 
         if (columns?.length > 0) {
