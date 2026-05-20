@@ -1,15 +1,15 @@
 .content {
-    @import "../../elements/underlineButton";
-    padding: rem(15);
-    background-color: rgba($color-primary-alt-lightest, .5);
-    ul {
-        @include unstyled-list;
-        margin-left: auto;
-        margin-right: auto;
-        text-align: center;
-        li {
-            margin-bottom: rem(9);
-            @include underlineButton();
-        }
+  @import "../../elements/underlineButton";
+  padding: rem(15);
+  background-color: rgba($color-primary-alt-lightest, 0.5);
+  ul {
+    @include unstyled-list;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    li {
+      margin-bottom: rem(9);
+      @include underlineButton();
     }
+  }
 }

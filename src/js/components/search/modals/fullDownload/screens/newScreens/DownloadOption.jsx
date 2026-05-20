@@ -21,7 +21,7 @@ const DownloadOption = ({
     checkboxId,
     toggleOption
 }) => {
-    const isEnabled = count <= 500000;
+    const isEnabled = count <= 500000 && count !== 0;
     return (
         <div className={`download-item ${!isEnabled ? "disabled" : ''}`}>
             <div className={`download-item-top ${!isEnabled ? "disabled" : ''}`}>
@@ -38,7 +38,7 @@ const DownloadOption = ({
                 </label>
 
                 <div className={`download-record-count ${!isEnabled ? "disabled" : ''}`}>
-                    {`${count} ${count === "1" ? "record" : "records"}`}
+                    {`${count?.toLocaleString()} ${count === "1" ? "record" : "records"}`}
                 </div>
 
             </div>

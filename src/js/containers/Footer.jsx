@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * Footer.jsx
  * Created by Brian Petway 04/14/23
@@ -12,17 +13,17 @@ import { Link } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { showModal } from 'redux/actions/modal/modalActions';
 import Analytics from 'helpers/analytics/Analytics';
-import DownloadBottomBarContainer from
-    'containers/search/modals/fullDownload/DownloadBottomBarContainer';
 import BulkDownloadBottomBarContainer from
     'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
 import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
 import StayInTouch from "../components/sharedComponents/StayInTouch";
+import DownloadBottomBarContainer from './search/modals/fullDownload/DownloadBottomBarContainer';
 
 const propTypes = {
     pageName: PropTypes.string.isRequired,
     filters: PropTypes.object,
-    redirectUser: PropTypes.func
+    redirectUser: PropTypes.func,
+    spending_level: PropTypes.array
 };
 
 const clickedFooterLink = (route) => {
@@ -36,7 +37,8 @@ const clickedFooterLink = (route) => {
 const Footer = ({
     pageName,
     filters,
-    redirectUser
+    redirectUser,
+    spending_level
 }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
@@ -64,8 +66,7 @@ const Footer = ({
 
     return (
         <footer>
-            <DownloadBottomBarContainer
-                filters={filters} />
+            <DownloadBottomBarContainer filters={filters} spending_level={spending_level} />
             <BulkDownloadBottomBarContainer />
             <StayInTouch pageName={pageName} />
             <div className="footer-container">

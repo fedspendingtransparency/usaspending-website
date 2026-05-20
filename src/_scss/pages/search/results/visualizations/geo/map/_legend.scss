@@ -54,7 +54,7 @@
 
   .map-legend-body {
     @include unstyled-list;
-    padding: $global-padding*2;
+    padding: $global-padding * 2;
 
     li {
       margin-bottom: rem(4);
@@ -82,7 +82,6 @@
         font-size: $font-size-12;
         line-height: 1.33;
         float: left;
-
       }
     }
   }
@@ -93,7 +92,7 @@
     padding: 0.65rem $global-padding * 2;
 
     .map-legend-gradient {
-      background: linear-gradient(rgba(1, 43, 58, 1), #FFF);
+      background: linear-gradient(rgba(1, 43, 58, 1), #fff);
       height: rem(100);
       width: rem(20);
       margin: rem(7) auto;

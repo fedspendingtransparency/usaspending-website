@@ -24,12 +24,16 @@ const propTypes = {
     downloadData: PropTypes.object,
     awardsCount: PropTypes.number,
     transactionsCount: PropTypes.number,
-    subawardsCount: PropTypes.number
+    subawardsCount: PropTypes.number,
+    content: PropTypes.element,
+    downloadType: PropTypes.array
 };
 
 const NewDownloadContainer = (props) => {
     if (props.step === 2) {
         return <NewDownloadSummary {...props} />;
+    } else if (props.step === 3) {
+        return props.content;
     }
 
     return <NewDownloadLevel {...props} />;

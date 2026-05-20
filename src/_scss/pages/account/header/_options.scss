@@ -1,103 +1,103 @@
 .summary-status {
-    @import "../../../mixins/moreOptionsBtn";
-    @include display(flex);
-    @include justify-content(flex-end);
+  @import "../../../mixins/moreOptionsBtn";
+  @include display(flex);
+  @include justify-content(flex-end);
 
-    @include flex(1 1 auto);
+  @include flex(1 1 auto);
+
+  ul.summary-status-items {
+    @include unstyled-list;
+    padding: rem(5) 0;
+
+    li {
+      @include display(flex);
+      @include justify-content(flex-start);
+      padding: 0 0 rem(4);
+      width: 100%;
+
+      .format-item {
+        @include display(flex);
+        @include flex-direction(row);
+
+        .item-label {
+          color: #cef233;
+          font-weight: $font-semibold;
+          margin: 0 rem(5) 0 0;
+          &:after {
+            content: (":");
+          }
+        }
+        .item-value {
+          text-transform: uppercase;
+          float: left;
+        }
+      }
+    }
+  }
+  @include media($tablet-screen) {
+    padding-top: 0;
+    margin-top: 0;
+    border-top: none;
 
     ul.summary-status-items {
-        @include unstyled-list;
-        padding: rem(5) 0;
+      li {
+        @include justify-content(flex-start);
+        padding: rem(16) 0;
 
-        li {
-            @include display(flex);
-            @include justify-content(flex-start);
-            padding: 0 0 rem(4);
+        .format-item {
+          @include display(flex);
+          @include flex-direction(row);
+
+          .item-label {
+            color: #cef233;
+            font-weight: $font-semibold;
+            margin: 0 rem(5) 0 0;
+            &:after {
+              content: (":");
+            }
+          }
+          .item-value {
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+  }
+  @include media($medium-screen) {
+    width: auto;
+    ul.summary-status-items {
+      @include display(flex);
+      @include flex(0 0 auto);
+      @include align-items(flex-end);
+
+      li {
+        border-right: 1px solid rgba($color-white, 0.3);
+        min-width: rem(150);
+        padding: 0;
+
+        .format-item {
+          @include display(flex);
+          @include flex-direction(column);
+          @include flex(1 0 rem(180));
+
+          padding: 0 $global-padding * 4;
+          .item-label {
+            text-align: center;
             width: 100%;
-
-            .format-item {
-                @include display(flex);
-                @include flex-direction(row);
-
-                .item-label {
-                    color: #CEF233;
-                    font-weight: $font-semibold;
-                    margin: 0 rem(5) 0 0;
-                    &:after {
-                        content: (":");
-                    }
-                }
-                .item-value {
-                    text-transform: uppercase;
-                    float: left;
-                }
+            &:after {
+              content: ("");
             }
+          }
+          .item-value {
+            text-transform: uppercase;
+            text-align: center;
+            width: 100%;
+          }
         }
-    }
-    @include media($tablet-screen) {
-        padding-top: 0;
-        margin-top: 0;
-        border-top: none;
-
-        ul.summary-status-items {
-            li {
-                @include justify-content(flex-start);
-                padding: rem(16) 0;
-
-                .format-item {
-                    @include display(flex);
-                    @include flex-direction(row);
-
-                    .item-label {
-                        color: #CEF233;
-                        font-weight: $font-semibold;
-                        margin: 0 rem(5) 0 0;
-                        &:after {
-                            content: (":");
-                        }
-                    }
-                    .item-value {
-                        text-transform: uppercase;
-                    }
-                }
-            }
+        &:last-child {
+          border-right: none;
         }
+      }
     }
-    @include media($medium-screen) {
-        width: auto;
-        ul.summary-status-items {
-            @include display(flex);
-            @include flex(0 0 auto);
-            @include align-items(flex-end);
-
-            li {
-                border-right: 1px solid rgba($color-white, .3);
-                min-width: rem(150);
-                padding: 0;
-
-                .format-item {
-                    @include display(flex);
-                    @include flex-direction(column);
-                    @include flex(1 0 rem(180));
-
-                    padding: 0 $global-padding * 4;
-                    .item-label {
-                        text-align: center;
-                        width: 100%;
-                        &:after {
-                            content: ("");
-                        }
-                    }
-                    .item-value {
-                        text-transform: uppercase;
-                        text-align: center;
-                        width: 100%;
-                    }
-                }
-                &:last-child {
-                    border-right: none;
-                }
-            }
-        }
-    }
+  }
 }

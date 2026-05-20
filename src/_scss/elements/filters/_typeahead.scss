@@ -1,114 +1,114 @@
 .usa-da-typeahead {
-    .usa-da-typeahead__input {
-        position: relative;
-    }
+  .usa-da-typeahead__input {
+    position: relative;
+  }
 
-    p {
-        color: $color-gray;
-        font-size: $small-font-size;
-        margin-top: 0;
-        margin-bottom: .5rem;
-    }
+  p {
+    color: $color-gray;
+    font-size: $small-font-size;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+  }
 
-    input {
-        line-height: 1.5;
-        height: rem(32);
-        margin: 0 auto;
-        width: 100%;
-        border-color: $gray-cool-10;
-        border-radius: rem(3);
-        color: $gray-60;
-    }
+  input {
+    line-height: 1.5;
+    height: rem(32);
+    margin: 0 auto;
+    width: 100%;
+    border-color: $gray-cool-10;
+    border-radius: rem(3);
+    color: $gray-60;
+  }
 
-    .autocomplete-md {
-        font-size: $small-font-size;
-        padding: rem(6) rem(12);
+  .autocomplete-md {
+    font-size: $small-font-size;
+    padding: rem(6) rem(12);
+    color: $theme-color-headline;
+
+    &:focus-visible {
+      outline: 1px solid $color-focus;
+    }
+  }
+
+  .autocomplete-sm {
+    font-size: $smallest-font-size;
+    padding: rem(8);
+    color: $theme-color-headline;
+
+    &:focus-visible {
+      outline: 1px solid $color-focus;
+    }
+  }
+
+  .icon {
+    padding-left: rem(32);
+  }
+
+  .screen-reader-description {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+  }
+
+  ul.autocomplete {
+    background-color: $color-white;
+    border: 1px solid $gray-cool-3;
+    cursor: default;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    max-height: rem(300);
+    overflow-y: auto;
+    overflow-x: hidden;
+    border-radius: 3px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+
+    li {
+      font-size: $small-font-size;
+      line-height: 1.5;
+      font-weight: normal;
+      padding: rem(5.5) rem(12);
+      color: $gray-60;
+      margin-bottom: 0;
+      width: 100%;
+      vertical-align: middle;
+      word-wrap: break-word;
+
+      &:hover,
+      &.hover,
+      &[aria-selected="true"] {
+        background-color: $gray-cool-3;
+        cursor: pointer;
+      }
+
+      span.semibold {
+        font-weight: $font-semibold;
+      }
+
+      span {
         color: $theme-color-headline;
-
-        &:focus-visible {
-            outline: 1px solid $color-focus;
-        }
+      }
     }
 
-    .autocomplete-sm {
-        font-size: $smallest-font-size;
-        padding: rem(8);
-        color: $theme-color-headline;
-
-        &:focus-visible {
-            outline: 1px solid $color-focus;
-        }
+    .unselectable {
+      pointer-events: none;
     }
+  }
 
-    .icon {
-        padding-left: rem(32);
+  .hide {
+    display: none;
+  }
+
+  .autocomplete-filter-message-container {
+    font-size: rem(30);
+    text-align: center;
+    margin-top: $global-margin;
+    .autocomplete-filter-message-container__text {
+      font-size: 2rem;
+      padding-bottom: 2rem;
     }
-
-    .screen-reader-description {
-        position:absolute;
-        left:-10000px;
-        top:auto;
-        width:1px;
-        height:1px;
-        overflow:hidden;
-    }
-
-    ul.autocomplete {
-        background-color: $color-white;
-        border: 1px solid $gray-cool-3;
-        cursor: default;
-        list-style-type: none;
-        margin: 0;
-        padding: 0;
-        max-height: rem(300);
-        overflow-y: auto;
-        overflow-x: hidden;
-        border-radius: 3px;
-        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
-
-        li {
-            font-size: $small-font-size;
-            line-height: 1.5;
-            font-weight: normal;
-            padding: rem(5.5) rem(12);
-            color: $gray-60;
-            margin-bottom: 0;
-            width: 100%;
-            vertical-align: middle;
-            word-wrap: break-word;
-
-            &:hover,
-            &.hover,
-            &[aria-selected="true"] {
-                background-color: $gray-cool-3;
-                cursor: pointer;
-            }
-
-            span.semibold {
-                font-weight: $font-semibold;
-            }
-
-            span {
-                color: $theme-color-headline;
-            }
-        }
-
-        .unselectable {
-            pointer-events: none;
-        }
-    }
-
-    .hide {
-        display: none;
-    }
-
-    .autocomplete-filter-message-container {
-        font-size: rem(30);
-        text-align: center;
-        margin-top: $global-margin;
-        .autocomplete-filter-message-container__text {
-          font-size: 2rem;
-          padding-bottom: 2rem;
-        }
-    }
+  }
 }

@@ -24,19 +24,31 @@
 
   .main-content {
     .covid-content__row {
-      padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4) ($global-spacing-unit * 4) ($global-spacing-unit * 4);
+      padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4)
+        ($global-spacing-unit * 4) ($global-spacing-unit * 4);
 
       @media (max-width: $tablet-screen) {
-        padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2) ($global-spacing-unit * 2) ($global-spacing-unit * 2);
+        padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2)
+          ($global-spacing-unit * 2) ($global-spacing-unit * 2);
       }
 
       .covid-content__col {
         max-width: rem(1400);
         margin: auto;
+
+        .heading__container {
+          p {
+            font-size: $base-font-size;
+            font-weight: $font-normal;
+            color: $headline-color;
+
+            .usa-button-link {
+              font-size: $base-font-size;
+            }
+          }
+        }
       }
     }
-
-
 
     ul {
       padding: 0;
@@ -66,53 +78,31 @@
         @import "./awardSpendingAgency/awardSpendingAgency";
         @import "./assistanceListing/assistanceListing";
         @import "./linkToAdvancedSearch";
-        @import "./dataSourcesAndMethodology";
         @import "../../components/tooltips/customTooltipContent";
 
         @include display(flex);
         @include flex-wrap(wrap);
         margin-bottom: 5rem;
-        padding: 0 $global-padding*2;
+        padding: 0 $global-padding * 2;
 
-        .body__header {
-          width: 100%;
-          @include display(flex);
-          flex-wrap: wrap;
-          align-items: center;
-          @include justify-content(space-between);
-          border-bottom: rem(3) solid $color-base;
+        .usda-section-title__title-icon {
+          width: rem(24);
+          height: rem(24);
+        }
 
-          .body__header-left {
-            @include display(flex);
-            padding-bottom: math.div($global-padding, 2);
+        .usda-section-title__header {
+          margin-left: rem(4);
+        }
 
-            @media (min-width: $tablet-screen) {
-              padding-bottom: 0;
-            }
-          }
+        .usda-section-title__desc {
+          font-size: $smallest-font-size;
+          color: $body-color;
 
-          .body__header-tooltip {
-            margin-top: $global-margin;
-          }
-
-          .body__header-right {
-            @include display(flex);
-          }
-
-          .body__header-icon {
-            margin-right: math.div($global-margin, 2);
-          }
-
-          .body__header-text {
-            font-size: 1.4rem;
-          }
-
-          h2 {
-            @include display(flex);
-            margin: 0;
-            line-height: $base-line-height;
-            font-size: rem(18);
-            font-weight: $font-semibold;
+          svg {
+            height: rem(16);
+            width: rem(16);
+            color: $body-color;
+            margin: 0 rem(4);
           }
         }
 
@@ -132,10 +122,10 @@
             font-size: 2rem;
             @include profile-page-wrap;
 
-            @media (min-width:$large-screen) {
+            @media (min-width: $large-screen) {
               text-align: center;
               width: 50%;
-              margin: 2rem auto 0 auto;
+              margin: rem(24) auto 0 auto;
             }
           }
 
@@ -145,7 +135,7 @@
             padding-bottom: 2.5rem;
             @include profile-page-wrap;
 
-            @media (min-width:$large-screen) {
+            @media (min-width: $large-screen) {
               width: 50%;
               margin: auto;
             }
@@ -157,7 +147,7 @@
               }
             }
             p a {
-                font-weight: $font-semibold;
+              font-weight: $font-semibold;
             }
             .glossary-term {
               font-weight: $font-semibold;
@@ -168,43 +158,10 @@
 
           .default-note {
             font-size: $small-font-size;
-            
           }
 
           .loading-animation {
             @import "../../loading";
-          }
-        }
-
-        .information-body {
-          background: linear-gradient(225deg,
-              rgba(220, 201, 229, 0.1) 0%,
-              rgba(182, 153, 198, 0.1) 100%,
-              rgba(182, 153, 198, 0.1) 100%);
-        }
-
-        .information-body-arp {
-          background-color: #EBEFF4;
-        }
-
-        .information-top {
-          width: 100%;
-          opacity: 0.2;
-          transform: scaleY(-1);
-          background-color: #763e94;
-
-          @media (min-width: $medium-screen) {
-            border-radius: 0 0 rem(5) rem(5);
-          }
-        }
-
-        .information-top-arp {
-          width: 100%;
-          transform: scaleY(-1);
-          background-color: #B9C5D2;
-
-          @media (min-width: $medium-screen) {
-            border-radius: 0 0 rem(5) rem(5);
           }
         }
 
@@ -214,7 +171,7 @@
         }
 
         .color-blue-arp {
-          color: #0A2F5A;
+          color: #0a2f5a;
           font-weight: $font-bold;
         }
 
@@ -267,7 +224,6 @@
               p {
                 width: 75%;
               }
-
             }
 
             @media (max-width: $tablet-screen) {
@@ -301,121 +257,53 @@
               align-items: flex-end;
             }
           }
-
-          .heading__img-arp {
-            display: flex;
-            align-items: flex-end;
-
-            img {
-              max-height: 30rem;
-            }
-
-            @media (max-width: 560px) {
-              img {
-                display: block;
-                margin-left: auto;
-                max-height: 12rem;
-              }
-            }
-          }
-
-          .heading__img-all {
-            display: flex;
-            align-items: flex-end;
-
-            img {
-              max-height: 40rem;
-            }
-
-            @media (max-width: 560px) {
-              img {
-                display: block;
-                margin-left: auto;
-                max-height: 12rem;
-              }
-            }
-          }
         }
 
         &.award_question {
+          padding: 0;
+
           .body__header {
             display: none;
           }
 
           .award-question__container {
-            @include display(flex);
-            flex-wrap: wrap;
-            text-align: left;
-            width: 100%;
+            display: flex;
+            max-width: rem(1399);
+            padding: rem(40);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            max-height: rem(324);
+            gap: rem(10);
+            border-radius: rem(8);
+            background: $gray-2;
 
-            .information-top {
-              height: 0.5rem;
-              width: 100%;
-              border-radius: 0;
-            }
-
-            .information-top-arp {
-              height: 0.5rem;
-              width: 100%;
-              border-radius: 0;
-            }
-
-            .glossary-term {
-              font-weight: $font-semibold;
+            @media (min-width: $m-large-screen) {
+              padding: rem(118) rem(356) rem(119);
             }
 
             .award-question__title {
-              margin: 0;
-              font-size: 3.6rem;
               font-weight: $font-semibold;
-              letter-spacing: 0;
-              line-height: 4.5rem;
+              line-height: $heading-line-height;
+              align-self: stretch;
               text-align: left;
-              padding-left: 7rem;
-              padding-right: 5rem;
-              padding-top: 5rem;
-              padding-bottom: 2rem;
-
-              @media (max-width: $tablet-screen) {
-                padding-left: 6rem;
-              }
-
-              @media (min-width: $large-screen) {
-                margin: auto;
-                width: 50%;
-              }
-
-              width: 100%;
+              color: $headline-color;
+              margin: 0;
+              padding: 0;
             }
 
             .award-question__sub-section {
-              font-size: 1.4rem;
-              letter-spacing: 0;
-              line-height: 2.2rem;
+              font-size: $base-font-size;
+              line-height: $base-line-height;
               text-align: left;
-              width: 100%;
+              align-self: stretch;
+              color: $body-color;
 
-              .award-question__sub-section_paragraph:first-of-type {
-                margin-top: 1.6rem;
-                padding-left: 7rem;
-                padding-bottom: 5rem;
-                padding-right: 5rem;
-
-                @media (max-width: $tablet-screen) {
-                  padding-left: 6rem;
-                }
-
-                @media (min-width: $large-screen) {
-                  margin: auto;
-                  width: 50%;
-                }
+              .glossary-term {
+                font-weight: $font-semibold;
               }
-
-              .award-question__sub-section_paragraph {
-                @media (min-width: $large-screen) {
-                  margin: auto;
-                  width: 50%;
-                }
+              p {
+                margin: 0;
               }
             }
           }
@@ -423,10 +311,6 @@
       }
 
       .body__section:first-of-type {
-        padding: 0;
-      }
-
-      .body__section:nth-child(4) {
         padding: 0;
       }
 
@@ -440,6 +324,8 @@
         padding: 0;
       }
     }
+
+    @import "./bottomSection";
   }
 
   .footer-reference {

@@ -57,8 +57,6 @@ class SearchAwardsOperation {
         this.extentCompeted = [];
 
         this.awardDescription = '';
-
-        this.searchedFilterValues = [];
     }
 
     fromState(state) {
@@ -67,7 +65,6 @@ class SearchAwardsOperation {
         this.timePeriodFY = state.timePeriodFY?.toArray();
         this.timePeriodRange = [];
         this.timePeriodType = state.timePeriodType;
-
         this.dateType = state.filterNewAwardsOnlySelected;
 
         this.awardType = state.awardType?.toArray();
@@ -135,7 +132,6 @@ class SearchAwardsOperation {
         this.extentCompeted = state.extentCompeted?.toArray();
 
         this.awardDescription = state.awardDescription;
-        this.searchedFilterValues = state.searchedFilterValues;
     }
 
     toParams() {
@@ -274,14 +270,6 @@ class SearchAwardsOperation {
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
         if (this.selectedRecipients?.length > 0) {
             filters[rootKeys.recipients] = this.selectedRecipients;
-        }
-
-        if (this.searchedFilterValues?.recipient) {
-            const recipientFilter = this.searchedFilterValues.recipient;
-            // user selected all or no selected recipients use search text.
-            if (recipientFilter.allSelected || recipientFilter.selected?.size <= 0) {
-                filters[rootKeys.recipients] = [recipientFilter.input];
-            }
         }
 
         if (this.selectedRecipientLocations?.length > 0) {

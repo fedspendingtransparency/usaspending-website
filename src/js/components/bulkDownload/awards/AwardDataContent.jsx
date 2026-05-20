@@ -31,9 +31,7 @@ const propTypes = {
     subAgencies: PropTypes.array,
     setSubAgencyList: PropTypes.func,
     states: PropTypes.array,
-    clickedDownload: PropTypes.func,
-    bulkAwardTypeChange: PropTypes.func,
-    toggleAwardTypeChange: PropTypes.func
+    clickedDownload: PropTypes.func
 };
 
 const AwardDataContent = ({
@@ -46,9 +44,7 @@ const AwardDataContent = ({
     subAgencies,
     setSubAgencyList,
     states,
-    clickedDownload,
-    bulkAwardTypeChange,
-    toggleAwardTypeChange
+    clickedDownload
 }) => {
     const { isTablet } = useContext(IsMobileContext);
     const [validDates, setValidDates] = useState(false);
@@ -86,17 +82,6 @@ const AwardDataContent = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => () => clearAwardFilters(), []);
 
-    const currentAgencies = {
-        agency: awards.agency,
-        subAgency: awards.subAgency
-    };
-
-    const awardTypeLabels = Object.assign(
-        {},
-        ...Object.entries(awardDownloadOptions.awardTypeLookups)
-            .map(([key, value]) => ({ [key]: value.label }))
-    );
-
     return (
         <div className="download-center">
             <div className="download-center__filters">
@@ -121,18 +106,10 @@ const AwardDataContent = ({
                 <form
                     className="download-center-form"
                     onSubmit={handleSubmit}>
-                    <AwardLevelAndTypeFilter
-                        awardLevels={awardDownloadOptions.awardLevels}
-                        awardTypeLabels={awardTypeLabels}
-                        currentAwardTypes={awards.awardTypes}
-                        bulkAwardTypeChange={bulkAwardTypeChange}
-                        toggleAwardTypeChange={toggleAwardTypeChange} />
+                    <AwardLevelAndTypeFilter />
                     <AgencyFilter
-                        currentAgencyType={awards.agencyType}
-                        agencyTypes={awardDownloadOptions.agencyTypes}
                         agencies={agencies}
                         subAgencies={subAgencies}
-                        currentAgencies={currentAgencies}
                         updateFilter={updateFilter}
                         setSubAgencyList={setSubAgencyList}
                         valid={awards.agency.id !== ''} />
@@ -142,11 +119,7 @@ const AwardDataContent = ({
                         currentLocation={awards.location}
                         updateFilter={updateFilter}
                         currentLocationType={awards.locationType} />
-                    <DateTypeFilter
-                        dateTypes={awardDownloadOptions.dateTypes}
-                        currentDateType={awards.dateType}
-                        updateFilter={updateFilter}
-                        valid={awards.dateType !== ''} />
+                    <DateTypeFilter updateFilter={updateFilter} />
                     <TimePeriodFilter
                         updateStartDate={updateStartDate}
                         updateEndDate={updateEndDate}
@@ -154,11 +127,7 @@ const AwardDataContent = ({
                         setValidDates={setValidDates}
                         filterTimePeriodStart={awards.dateRange.startDate}
                         filterTimePeriodEnd={awards.dateRange.endDate} />
-                    <FileFormatFilter
-                        fileFormats={awardDownloadOptions.fileFormats}
-                        currentFileFormat={awards.fileFormat}
-                        updateFilter={updateFilter}
-                        valid={awards.fileFormat !== ''} />
+                    <FileFormatFilter updateFilter={updateFilter} />
                     { isTablet && <AwardsUserSelections />}
                     <SubmitButton
                         filters={awards}

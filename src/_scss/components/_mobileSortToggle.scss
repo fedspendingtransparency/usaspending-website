@@ -3,14 +3,14 @@
   border-radius: 4px;
   border: 1px solid $gray-cool-10;
   right: rem(24);
-  position:absolute;
+  position: absolute;
 
-  @media(min-width: $tablet-screen) {
+  @media (min-width: $tablet-screen) {
     max-height: rem(46);
     margin-left: rem(20);
   }
 
-  @media(min-width: $medium-screen) {
+  @media (min-width: $medium-screen) {
     margin-top: 0;
   }
 

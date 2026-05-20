@@ -1,177 +1,176 @@
 .info-banner {
-    // left-aligned message
-    @import "mixins/fullSectionWrap";
-    background: $color-primary-alt-lightest;
-    width: 100%;
+  // left-aligned message
+  @import "mixins/fullSectionWrap";
+  background: $color-primary-alt-lightest;
+  width: 100%;
+  .info-banner__content {
+    @include display(flex);
+    @include align-items(baseline);
+    @media (max-width: $tablet-screen) {
+      margin: rem(16) rem(16) rem(16) rem(20);
+    }
+    @media (min-width: $tablet-screen) {
+      margin: rem(16) rem(16) rem(16) rem(20);
+    }
+    @media (min-width: $large-screen) {
+      margin: rem(16) rem(36) rem(16) rem(40);
+    }
+    @media (min-width: $x-large-screen) {
+      margin: rem(16) auto;
+      max-width: rem(1600);
+    }
+
+    .info-banner__icon {
+      height: 100%;
+    }
+
+    .info-banner__hyphen {
+      padding: 0 rem(2);
+    }
+    .info-banner__alert-text {
+      @include flex(1 1 auto);
+      @include align-self(center);
+      margin-left: $global-margin * 2;
+      font-size: $small-font-size;
+      line-height: rem(21);
+      color: $theme-color-body;
+      .info-banner__title-text {
+        color: $theme-color-headline;
+        font-size: rem(20);
+        font-weight: 600;
+        line-height: rem(25);
+        margin-bottom: rem(4);
+        margin-top: 0;
+
+        .info-banner__linebreak {
+          @media (min-width: 576px) {
+            display: none;
+          }
+        }
+      }
+      p {
+        margin: 0;
+        button {
+          border: none;
+          color: $color-primary;
+          background-color: transparent;
+          margin: 0;
+          padding: 0;
+          padding-left: rem(2);
+        }
+      }
+      a {
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .info-banner__text-content {
+        font-size: $font-size-14;
+        line-height: 1.5;
+        color: $gray-60;
+      }
+    }
+    .info-banner__description-external-link {
+      color: $color-link;
+      padding-left: rem(5);
+    }
+    .info-banner__close-button {
+      @include flex(0 0 auto);
+      @include button-unstyled;
+      padding: rem(5) 0;
+      color: $gray-cool-90;
+    }
+  }
+
+  &.general {
+    border-top: 4px solid $blue-cool-30v;
+    background-color: $blue-cool-5v;
+    border-bottom: 1px solid $blue-cool-20v;
+  }
+  &.warning {
+    border-top: 4px solid $orange-30v;
+    background-color: $orange-5v;
+    border-bottom: 1px solid $orange-20v;
+  }
+  &.warning-resolved {
+    border-top: 4px solid $green-cool-30v;
+    background-color: $green-cool-5v;
+    border-bottom: 1px solid $green-cool-20v;
+  }
+
+  &.info-banner_warning {
+    background: $color-warning;
+    border-top: none;
+  }
+
+  // Data Disclaimer Banner for COVID Profile
+  &.data-disclaimer {
+    border-top: none;
+    background: $color-gold-lightest;
+    &.sticky-banner {
+      @media (min-width: $medium-screen) {
+        position: fixed;
+        // right underneath the site header @ 60px
+        top: rem(60);
+        z-index: 4;
+        left: 0;
+      }
+    }
+    .info-top {
+      width: 100%;
+      transform: scaleY(-1);
+      border-radius: 0 0 0.5rem 0.5rem;
+      background-color: $color-gold-light;
+      height: rem(6);
+    }
     .info-banner__content {
+      @include flex-wrap(wrap);
+      margin: rem(10);
+      @media (min-width: $tablet-screen) {
+        margin: rem(0) rem(25) rem(10) rem(25);
+      }
+      @media (min-width: $medium-screen) {
+        // fixed height so we know how much to offset for the sidebar.
+        height: rem(75);
+      }
+      @media (min-width: $large-screen) {
+        margin: rem(0) rem(40) rem(10) rem(40);
+      }
+      @media (min-width: $x-large-screen) {
+        margin: auto;
+        max-width: rem(1600);
+      }
+      .info-banner__content--title {
         @include display(flex);
-        @include align-items(baseline);
-        @media(max-width: $tablet-screen) {
-            margin: rem(16) rem(16) rem(16) rem(20);
+        margin-top: rem(10);
+        width: 100%;
+        svg {
+          @include align-self(center);
         }
-        @media(min-width: $tablet-screen) {
-            margin: rem(16) rem(16) rem(16) rem(20);
+        .fa-times {
+          margin-left: auto;
+          @include align-self(flex-start);
+          &:hover {
+            cursor: pointer;
+          }
         }
-        @media(min-width: $large-screen) {
-            margin: rem(16) rem(36) rem(16) rem(40);
+        h2 {
+          margin: 0;
+          font-size: $h6-font-size;
+          font-weight: $font-semibold;
+          margin-left: rem(10);
+          line-height: rem(21);
         }
-        @media(min-width: $x-large-screen) {
-            margin: rem(16) auto;
-            max-width: rem(1600);
-        }
-
-        .info-banner__icon {
-            height: 100%;
-        }
-
-        .info-banner__hyphen {
-          padding: 0 rem(2);
-        }
-        .info-banner__alert-text {
-            @include flex(1 1 auto);
-            @include align-self(center);
-            margin-left: $global-margin * 2;
-            font-size: $small-font-size;
-            line-height: rem(21);
-            color: $theme-color-body;
-            .info-banner__title-text {
-                color: $theme-color-headline;
-                font-size: rem(20);
-                font-weight: 600;
-                line-height: rem(25);
-                margin-bottom: rem(4);
-                margin-top: 0;
-
-                .info-banner__linebreak {
-                    @media (min-width: 576px) {
-                        display: none;
-                    }
-                }
-            }
-            p {
-                margin: 0;
-                button {
-                    border: none;
-                    color: $color-primary;
-                    background-color: transparent;
-                    margin: 0;
-                    padding: 0;
-                    padding-left: rem(2);
-                }
-            }
-            a {
-                text-decoration: none;
-                cursor: pointer;
-            }
-            .info-banner__text-content {
-                font-size: $font-size-14;
-                line-height: 1.5;
-                color: $gray-60;
-            }
-        }
-        .info-banner__description-external-link {
+      }
+      p {
+        width: 100%;
+        font-size: $small-font-size;
+        margin: rem(8) 0 rem(14) rem(35);
+        a {
+          @include button-unstyled;
+          font-weight: $font-semibold;
           color: $color-link;
-          padding-left: rem(5);
         }
-        .info-banner__close-button {
-            @include flex(0 0 auto);
-            @include button-unstyled;
-            padding: rem(5) 0;
-            color: $gray-cool-90;
-        }
-
+      }
     }
-
-    &.general {
-        border-top: 4px solid $blue-cool-30v;
-        background-color: $blue-cool-5v;
-        border-bottom: 1px solid $blue-cool-20v;
-    }
-    &.warning {
-        border-top: 4px solid $orange-30v;
-        background-color: $orange-5v;
-        border-bottom: 1px solid $orange-20v;
-    }
-    &.warning-resolved {
-        border-top: 4px solid $green-cool-30v;
-        background-color: $green-cool-5v;
-        border-bottom: 1px solid $green-cool-20v;
-    }
-
-    &.info-banner_warning {
-        background: $color-warning;
-        border-top: none;
-    }
-
-    // Data Disclaimer Banner for COVID Profile
-    &.data-disclaimer {
-        border-top: none;
-        background: $color-gold-lightest;
-        &.sticky-banner {
-            @media (min-width: $medium-screen) {
-                position: fixed;
-                // right underneath the site header @ 60px
-                top: rem(60);
-                z-index: 4;
-                left: 0;
-            }
-        }
-        .info-top {
-            width: 100%;
-            transform: scaleY(-1);
-            border-radius: 0 0 0.5rem 0.5rem;
-            background-color: $color-gold-light;
-            height: rem(6);
-        }
-        .info-banner__content {
-            @include flex-wrap(wrap);
-            margin: rem(10);
-            @media(min-width: $tablet-screen) {
-                margin: rem(0) rem(25) rem(10) rem(25);
-            }
-            @media(min-width: $medium-screen) {
-                // fixed height so we know how much to offset for the sidebar.
-                height: rem(75);
-            }
-            @media(min-width: $large-screen) {
-                margin: rem(0) rem(40) rem(10) rem(40);
-            }
-            @media(min-width: $x-large-screen) {
-                margin: auto;
-                max-width: rem(1600);
-            }
-            .info-banner__content--title {
-                @include display(flex);
-                margin-top: rem(10);
-                width: 100%;
-                svg {
-                    @include align-self(center);
-                }
-                .fa-times {
-                    margin-left: auto;
-                    @include align-self(flex-start);
-                    &:hover {
-                        cursor: pointer;
-                    }
-                }
-                h2 {
-                    margin: 0;
-                    font-size: $h6-font-size;
-                    font-weight: $font-semibold;
-                    margin-left: rem(10);
-                    line-height: rem(21);
-                }
-            }
-            p {
-                width: 100%;
-                font-size: $small-font-size;
-                margin: rem(8) 0 rem(14) rem(35);
-                a {
-                    @include button-unstyled;
-                    font-weight: $font-semibold;
-                    color: $color-link;
-                }
-            }
-        }
-    }
+  }
 }
