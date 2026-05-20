@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * Page.jsx
  * Created by Max Kendall 04/23/2021
@@ -25,6 +26,7 @@ const PageWrapper = ({
     overLine,
     toolBarComponents = [],
     filters = {},
+    spending_level = [],
     sections,
     activeSection,
     jumpToSection,
@@ -52,7 +54,7 @@ const PageWrapper = ({
                     ''
             }`
         })}
-        <Footer pageName={pageName} filters={filters} />
+        <Footer pageName={pageName} filters={filters} spending_level={spending_level} />
     </div>
 );
 
@@ -71,7 +73,8 @@ PageWrapper.propTypes = {
     activeSection: PropTypes.string,
     jumpToSection: PropTypes.func,
     inPageNav: PropTypes.bool,
-    backgroundColor: PropTypes.string
+    backgroundColor: PropTypes.string,
+    spending_level: PropTypes.array
 };
 
 export default PageWrapper;

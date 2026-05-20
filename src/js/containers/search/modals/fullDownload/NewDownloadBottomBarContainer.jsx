@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * NewDownloadBottomBarContainer.jsx
  * Created by Kevin Li 8/8/17
@@ -23,10 +24,11 @@ import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadH
 const propTypes = {
     download: PropTypes.object,
     filters: PropTypes.object,
-    columns: PropTypes.array
+    columns: PropTypes.array,
+    spending_level: PropTypes.array
 };
 
-const NewDownloadBottomBarContainer = ({ download, filters, columns }) => {
+const NewDownloadBottomBarContainer = ({ download, filters, columns, spending_level }) => {
     const [visible, setVisible] = useState(false);
     const [showError, setShowError] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
@@ -189,7 +191,8 @@ will no longer download to your computer. Are you sure you want to do this?`;
         }
 
         const params = {
-            filters: filterSet
+            filters: filterSet,
+            spending_level: spending_level
         };
 
         if (columns?.length > 0) {
@@ -268,5 +271,5 @@ will no longer download to your computer. Are you sure you want to do this?`;
 NewDownloadBottomBarContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ download: state.download })
+    (state) => ({ download: state.download, spending_level: state.spending_level })
 )(NewDownloadBottomBarContainer);

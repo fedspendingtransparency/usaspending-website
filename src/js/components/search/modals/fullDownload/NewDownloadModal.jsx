@@ -14,6 +14,7 @@ import NewDownloadContainer from
 import usePrevious from 'hooks/usePrevious';
 import getFilters from '../../../../containers/search/topFilterBar/getFilters';
 import NewDownloadProgress from './screens/NewDownloadProgress';
+import { setSpendingLevelDownload } from '../../../../redux/actions/search/spendingLevelActions';
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -80,6 +81,7 @@ const NewDownloadModal = (props) => {
     };
 
     const beginDownload = useCallback(() => {
+        dispatch(setSpendingLevelDownload(downloadType));
         dispatch(setDownloadColumns([]));
         dispatch(setDownloadPending(true));
         goToStep(3, true);
