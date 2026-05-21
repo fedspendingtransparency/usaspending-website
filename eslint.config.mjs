@@ -105,6 +105,12 @@ export default defineConfig([
     }
 ]);
 
+// following rules erroring
+// no-undef 'require' is not defined
+// no-useless-assignment
+// react/no-unescaped-entities
+// react/no-unknown-property
+
 // following rules noted as having eslint-disable lines
 // "no-nested-ternary": "error",
 // "camelcase": ["error", { properties: "never" }],
