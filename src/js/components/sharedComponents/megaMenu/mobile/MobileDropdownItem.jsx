@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * MobileDropdownItem.jsx
  * Created by Chas 6/1/2023
@@ -70,7 +71,8 @@ const MobileDropdownItem = ({
             else {
                 navigate(item.url);
             }
-        } else if (typeof item.url === "object") {
+        }
+        else if (typeof item.url === "object") {
             navigate(item.url);
         }
     };
@@ -97,7 +99,8 @@ const MobileDropdownItem = ({
                             {section1Items.map((item) => (
                                 <li key={uniqueId()}>
                                     <Link
-                                        to={item.url}
+                                        prefetch={!item.shouldOpenNewTab ? "viewport" : "none"}
+                                        href={item.url}
                                         onClick={clickedLink}
                                         className="mobile-dropdown__section-link">
                                         <div className="mobile-dropdown__section-icon">
@@ -120,7 +123,7 @@ const MobileDropdownItem = ({
                         <ul>
                             {section1Items.map((item) => (
                                 <li className="mobile-dropdown__section" key={uniqueId()}>
-                                    <Link to={item.url} onClick={clickedLink} className="mobile-dropdown__section-link" state={item.queryParam}>
+                                    <Link prefetch={!item.shouldOpenNewTab ? "viewport" : "none"} href={item.url} onClick={clickedLink} className="mobile-dropdown__section-link" state={item.queryParam}>
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
                                         </div>
@@ -150,7 +153,8 @@ const MobileDropdownItem = ({
                 <ul>
                     {section2Items.map((item) => (
                         <li className="mobile-dropdown__section" key={uniqueId()}>
-                            <a
+                            <Link
+                                prefetch={!item.shouldOpenNewTab ? "viewport" : "none"}
                                 className="mobile-dropdown__section-link"
                                 href="#"
                                 onClick={(e) => {
@@ -159,7 +163,7 @@ const MobileDropdownItem = ({
                                 <div className="mobile-dropdown__section-etd-label">
                                     {item.label}
                                 </div>
-                            </a>
+                            </Link>
                             <div className="mobile-dropdown__section-etd-description">
                                 {item.description}
                             </div>
@@ -196,14 +200,14 @@ const MobileDropdownItem = ({
                                                         </div>
                                                     </div>
                                                 </ExternalLink> :
-                                                <a href={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} className="mobile-dropdown__section-link">
+                                                <Link href={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} className="mobile-dropdown__section-link">
                                                     <div className="mobile-dropdown__section-label">
                                                         {item.label}
                                                         <span className="mobile-dropdown__section-description">
                                                             {item.description}
                                                         </span>
                                                     </div>
-                                                </a>
+                                                </Link>
                                             }
                                         </li>
                                     ))}
