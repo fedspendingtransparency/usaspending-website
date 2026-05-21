@@ -5,7 +5,7 @@
  * 1. Decouple this component from the fy/period data for accounts. 😰
  **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { QuarterPicker } from 'data-transparency-ui';
 
@@ -24,12 +24,10 @@ const QuarterPickerWithFY = ({
     handleQuarterPickerSelection,
     latestSelectedTimeInterval
 }) => {
-    const [periodsPerQuarter, setPeriodsPerQuarter] = useState(getPeriodsPerQuarterByFy(parseInt(selectedFy, 10)));
-    const [disabledPeriodsInFy, setDisabledPeriodsInFy] = useState([]);
     const [, allPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
 
     const pickedYear = (year) => {
-    // 2020 is when we started receiving federal submissions on a per-period basis.
+        // 2020 is when we started receiving federal submissions on a per-period basis.
         if (parseInt(year, 10) >= 2020) {
             const { period: latestSubmission } = getLatestSubmissionPeriodInFy(year, allPeriods);
             handlePickedYear(year, latestSubmission);
@@ -39,21 +37,24 @@ const QuarterPickerWithFY = ({
         }
     };
 
-    useEffect(() => {
-        setPeriodsPerQuarter(getPeriodsPerQuarterByFy(parseInt(selectedFy, 10)));
-    }, [selectedFy]);
+    const periodsPerQuarter = useMemo(() =>
+        getPeriodsPerQuarterByFy(parseInt(selectedFy, 10)),
+    [selectedFy]);
 
-    useEffect(() => {
-    //  when the selectedFY changes or the periods change, update the disabled periods/quarters
+    const disabledPeriodsInFy = useMemo(() => {
+        //  when the selectedFY changes or the periods change, update the disabled periods/quarters
         if (parseInt(selectedFy, 10) === earliestExplorerYear) {
-            setDisabledPeriodsInFy(['1']);
+            return ['1'];
         }
         else if (selectedFy && allPeriods.size) {
             const latestAvailablePeriodInFy = getLatestSubmissionPeriodInFy(selectedFy, allPeriods);
-            const allAvailablePeriodsInFy = periods.filter((period) => parseInt(period, 10) <= latestAvailablePeriodInFy.period);
-            setDisabledPeriodsInFy(periods.filter((period) => !allAvailablePeriodsInFy.includes(period)));
+            const allAvailablePeriodsInFy = periods.filter(
+                (period) => parseInt(period, 10) <= latestAvailablePeriodInFy.period
+            );
+
+            return periods.filter((period) => !allAvailablePeriodsInFy.includes(period));
         }
-    }, [selectedFy, allPeriods]);
+    }, [selectedFy, allPeriods])
 
     useEffect(() => {
     // fetch periods on first render
