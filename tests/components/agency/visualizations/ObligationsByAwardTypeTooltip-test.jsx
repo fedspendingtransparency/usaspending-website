@@ -1,6 +1,6 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * ObligationsByAwardTypeTooltip-test.jsx
  * Created by Lizzie Salita 7/22/21
  */
@@ -60,8 +60,7 @@ test('displays the currently selected fiscal year in the tooltip heading', () =>
             awardTypes={mockAwardTypes}
             fiscalYear={1999}
             activeType="Contracts"
-            categoryType="contracts"
-        />,
+            categoryType="contracts" />,
         { initialState: mockStore }
     );
     const heading = screen.queryByText(/^FY1999/);
@@ -75,8 +74,7 @@ test('formats the award obligations', () => {
             awardTypes={mockAwardTypes}
             fiscalYear={1999}
             activeType="Direct Payments"
-            categoryType="financial"
-        />,
+            categoryType="financial" />,
         { initialState: mockStore }
     );
     const loansValue = screen.queryByText('$4,567,890');
@@ -89,8 +87,7 @@ test('formats the percent of total', () => {
             awardTypes={mockAwardTypes}
             fiscalYear={1999}
             activeType="Loans"
-            categoryType="financial"
-        />,
+            categoryType="financial" />,
         { initialState: mockStore }
     );
     const directPaymentsPercent = screen.queryByText('30.0%');
@@ -103,8 +100,7 @@ test('adds an active class to the hovered award type', () => {
             awardTypes={mockAwardTypes}
             fiscalYear={1999}
             activeType="Contracts"
-            categoryType="contracts"
-        />,
+            categoryType="contracts" />,
         { initialState: mockStore }
     );
     const contractsAmount = screen.queryByText('$10');
@@ -117,8 +113,7 @@ test('displays -- as the percent for negative obligations', () => {
             awardTypes={mockAwardTypes}
             fiscalYear={1999}
             activeType="Loans"
-            categoryType="financial"
-        />,
+            categoryType="financial" />,
         { initialState: mockStore }
     );
     expect(screen.queryByText('--')).toBeTruthy();
