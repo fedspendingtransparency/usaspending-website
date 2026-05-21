@@ -15,7 +15,7 @@ describe('pscHelper', () => {
         it.each([
             ['RESEARCH AND DEVELOPMENT', 'A'],
             ['SERVICES', 'Z'],
-            ['PRODUCTS', '1'],
+            ['PRODUCTS', '1']
         ])(
             ('psc.toptier_code.description should be %s when %s is the psc.toptier_code.code'),
             (result, code) => {

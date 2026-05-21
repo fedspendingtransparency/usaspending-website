@@ -15,8 +15,7 @@ export default defineConfig([
         "**/__mocks__",
         "**/.storybook/",
         "**/coverage/",
-        "**/scripts/",
-        "**/tests/" // TODO: don"t forget to remove this line
+        "**/scripts/"
     ]),
     {
         files: ["**/*.{js,mjs,cjs,jsx}"],
@@ -28,7 +27,7 @@ export default defineConfig([
             jsxA11y.flatConfigs.recommended,
             pluginImport.flatConfigs.react
         ],
-        languageOptions: { globals: { ...globals.node, ...globals.browser } },
+        languageOptions: { globals: { ...globals.node, ...globals.browser, ...globals.jest } },
         rules: {
             // disabling class method "this" requirement to avoid React conflicts
             "class-methods-use-this": [0],
