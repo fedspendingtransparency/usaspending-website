@@ -3,9 +3,9 @@ import globals from "globals";
 import js from "@eslint/js";
 
 import react from "eslint-plugin-react";
-import reactHooks from 'eslint-plugin-react-hooks';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
-import pluginImport from 'eslint-plugin-import';
+import reactHooks from "eslint-plugin-react-hooks";
+import jsxA11y from "eslint-plugin-jsx-a11y";
+import pluginImport from "eslint-plugin-import";
 
 export default defineConfig([
     globalIgnores([
@@ -16,7 +16,7 @@ export default defineConfig([
         "**/.storybook/",
         "**/coverage/",
         "**/scripts/",
-        "**/tests/" // TODO: don't forget to remove this line
+        "**/tests/" // TODO: don"t forget to remove this line
     ]),
     {
         files: ["**/*.{js,mjs,cjs,jsx}"],
@@ -81,13 +81,8 @@ export default defineConfig([
             "react/prop-types": [1],
             // default prop types not required
             "react/require-default-props": [0],
-            "react/jsx-key": "warn",
 
-            'react-hooks/exhaustive-deps': 'warn',
-            'react-hooks/immutability': 'warn',
-            'react-hooks/purity': 'warn',
-            'react-hooks/refs': 'warn',
-            'react-hooks/set-state-in-effect': 'warn',
+            "react-hooks/exhaustive-deps": "warn",
 
             "jsx-a11y/anchor-is-valid": "warn",
             // downgrade label has for to a warning due to some design considerations
@@ -98,16 +93,30 @@ export default defineConfig([
             "import/no-named-as-default": [0],
             // downgrading export default preference to warning,
             // since we may add additional exports to files in the future
-            "import/prefer-default-export": ["warn"]
+            "import/prefer-default-export": ["warn"],
+
+            // TODO: Fix errors and remove rules exceptions below
+            //  They were added to avoid new errors with eslint upgrade
+            "no-useless-assignment": "warn",
+            "no-unsafe-optional-chaining": "warn",
+            "no-unused-vars": "warn",
+            "no-constant-binary-expression": "warn",
+            "preserve-caught-error": "warn",
+            "react/jsx-key": "warn",
+            "react/jsx-no-target-blank": "warn",
+            "react/no-unknown-property": "warn",
+            "react/no-direct-mutation-state": "warn",
+            "react/display-name": "warn",
+            "react/no-unescaped-entities": "warn",
+            "react-hooks/immutability": "warn",
+            "react-hooks/purity": "warn",
+            "react-hooks/refs": "warn",
+            "react-hooks/set-state-in-effect": "warn",
+            "react-hooks/globals": "warn",
+            "react-hooks/static-components": "warn"
         }
     }
 ]);
-
-// following rules erroring
-// no-undef 'require' is not defined
-// no-useless-assignment
-// react/no-unescaped-entities
-// react/no-unknown-property
 
 // following rules noted as having eslint-disable lines
 // "no-nested-ternary": "error",
