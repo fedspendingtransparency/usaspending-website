@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * SearchPage.jsx
  * * Created by Andrea Blackwell November 4, 2024
@@ -34,7 +35,8 @@ const propTypes = {
     queryParam: PropTypes.object,
     awardsCount: PropTypes.number,
     transactionsCount: PropTypes.number,
-    subawardsCount: PropTypes.number
+    subawardsCount: PropTypes.number,
+    spending_level: PropTypes.array
 };
 
 const SearchPage = ({
@@ -47,7 +49,8 @@ const SearchPage = ({
     queryParam,
     awardsCount,
     transactionsCount,
-    subawardsCount
+    subawardsCount,
+    spending_level
 }) => {
     const [tooltipData, setTooltipData] = useState({
         top: 0, left: 0, display: 'none', tooltip: <></>
@@ -145,7 +148,8 @@ const SearchPage = ({
                     hideModal={hideDownloadModal}
                     awardsCount={awardsCount}
                     transactionsCount={transactionsCount}
-                    subawardsCount={subawardsCount} />
+                    subawardsCount={subawardsCount}
+                    spending_level={spending_level} />
             </div>
         </PageWrapper>
     );

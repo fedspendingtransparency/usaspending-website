@@ -65,7 +65,6 @@ class SearchAwardsOperation {
         this.timePeriodFY = state.timePeriodFY?.toArray();
         this.timePeriodRange = [];
         this.timePeriodType = state.timePeriodType;
-
         this.dateType = state.filterNewAwardsOnlySelected;
 
         this.awardType = state.awardType?.toArray();

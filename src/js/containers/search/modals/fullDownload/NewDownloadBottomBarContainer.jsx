@@ -31,8 +31,8 @@ const NewDownloadBottomBarContainer = ({ download, filters, columns }) => {
     const downloadRequest = useRef(null);
     const statusRequest = useRef(null);
     const dispatch = useDispatch();
-    let statusTimer = null;
-    let statusCount = 0;
+    const statusTimer = useRef(null);
+    const statusCount = useRef(0);
     const windowWillClose = (e) => {
     /* eslint-disable no-param-reassign */
     // we need to modify the browser event to trigger a warning message
@@ -41,7 +41,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
     /* eslint-enable no-param-reassign */
     };
 
-    const closeBar = () => {
+    const closeBar = useCallback(() => {
     // stop monitoring for window close events
         window.removeEventListener('beforeunload', windowWillClose);
         dispatch(resetDownload());
@@ -50,9 +50,9 @@ will no longer download to your computer. Are you sure you want to do this?`;
         setShowSuccess(false);
         dispatch(setDownloadExpectedFile(''));
         dispatch(setDownloadExpectedUrl(''));
-    };
+    }, [dispatch]);
 
-    const downloadFile = (fileUrl) => {
+    const downloadFile = useCallback((fileUrl) => {
     // stop monitoring for window close events
         window.removeEventListener('beforeunload', windowWillClose);
 
@@ -67,9 +67,9 @@ will no longer download to your computer. Are you sure you want to do this?`;
         setTitle('Your file is ready for download.');
         setDescriptionOne('Your download should begin automatically.');
         window.setTimeout(closeBar, 5000);
-    };
+    }, [closeBar, dispatch]);
 
-    const displayError = (message) => {
+    const displayError = useCallback((message) => {
         // update redux
         dispatch(setDownloadPending(false));
         dispatch(setDownloadCollapsed(false));
@@ -78,36 +78,25 @@ will no longer download to your computer. Are you sure you want to do this?`;
         setTitle('An error occurred while generating your file.');
         setDescriptionOne(message);
         window.setTimeout(closeBar, 5000);
-    };
+    }, [closeBar, dispatch]);
+
     const scheduleNextStatus = useCallback(() => {
     // determine when the next status check should be
     // it should be 15 seconds for the first minute, then 30 seconds after that
         let timeToWait = 15;
-        if (statusCount >= 4) {
+        if (statusCount.current >= 4) {
             timeToWait = 30;
         }
 
-        if (statusTimer) {
-            window.clearTimeout(statusTimer);
+        if (statusTimer.current) {
+            window.clearTimeout(statusTimer.current);
         }
 
         // eslint-disable-next-line no-use-before-define
-        statusTimer = window.setTimeout(checkStatus, timeToWait * 1000);
-        statusCount += 1;
-    });
-    const parseStatus = useCallback((data) => {
-        if (data.status === 'finished') {
-            // download is ready
-            downloadFile(data.file_url);
-            return;
-        }
-        else if (data.status === 'failed') {
-            displayError(data.message);
-            return;
-        }
-        scheduleNextStatus();
-    }, []);
-
+        statusTimer.current = window.setTimeout(checkStatus, timeToWait * 1000);
+        statusCount.current += 1;
+    // eslint-disable-next-line no-use-before-define
+    }, [checkStatus]);
 
     const checkStatus = useCallback(() => {
         if (statusRequest.current) {
@@ -127,6 +116,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
 
             statusRequest.current.promise
                 .then((res) => {
+                    // eslint-disable-next-line no-use-before-define
                     parseStatus(res.data);
                 })
                 .catch((err) => {
@@ -146,6 +136,19 @@ will no longer download to your computer. Are you sure you want to do this?`;
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [expectedFile, expectedUrl]);
 
+    const parseStatus = useCallback((data) => {
+        if (data.status === 'finished') {
+            // download is ready
+            downloadFile(data.file_url);
+            return;
+        }
+        else if (data.status === 'failed') {
+            displayError(data.message);
+            return;
+        }
+        scheduleNextStatus();
+    }, [displayError, downloadFile, scheduleNextStatus]);
+
     const displayBar = () => {
         // monitor for window close events
         window.addEventListener('beforeunload', windowWillClose);
@@ -162,7 +165,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
             downloadRequest.current.cancel();
         }
 
-        statusCount = 0;
+        statusCount.current = 0;
 
         let filterSet = {};
         if (filters) {
@@ -212,7 +215,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
 
         return () => {
             window.removeEventListener('beforeunload', windowWillClose);
-            window.clearTimeout(statusTimer);
+            window.clearTimeout(statusTimer.current);
         };
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [download?.pendingDownload, download?.showCollapsedProgress]);
