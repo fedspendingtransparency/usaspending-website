@@ -15,7 +15,8 @@ export default defineConfig([
         "**/__mocks__",
         "**/.storybook/",
         "**/coverage/",
-        "**/scripts/"
+        "**/scripts/",
+        "**/*.md"
     ]),
     {
         files: ["**/*.{js,mjs,cjs,jsx}"],
