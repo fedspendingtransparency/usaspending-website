@@ -28,9 +28,7 @@ export default defineConfig([
             jsxA11y.flatConfigs.recommended,
             pluginImport.flatConfigs.react
         ],
-        languageOptions: {
-            globals: globals.browser
-        },
+        languageOptions: { globals: { ...globals.node, ...globals.browser } },
         rules: {
             // disabling class method "this" requirement to avoid React conflicts
             "class-methods-use-this": [0],
