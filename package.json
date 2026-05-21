@@ -9,11 +9,11 @@
     "start": "webpack serve --open --history-api-fallback --progress --config ./webpack/webpack.local.config.js",
     "sass": "webpack serve --open --progress --config ./webpack/webpack.sass.config.js",
     "test": "jest; exit 0;",
-    "lint": "eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
-    "errors": "eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
+    "lint": "eslint --config eslint.config.mjs --ext .jsx,.js \"src/js/**\"; exit 0;",
+    "errors": "eslint --config eslint.config.mjs --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
     "dev": "webpack --progress --config ./webpack/webpack.dev.config.js",
     "prod": "webpack --progress --config ./webpack/webpack.prod.config.js",
-    "auditLintTest": "npm audit --audit-level=critical --production && eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" && jest --maxWorkers=2 --silent",
+    "auditLintTest": "npm audit --audit-level=critical --production && eslint --quiet --config eslint.config.mjs --ext .jsx,.js \"src/js/**\" && jest --maxWorkers=2 --silent",
     "lhci:wizard": "lhci wizard",
     "lhci:server": "lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
     "lhci:desktop": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci --config=./lighthousercdesktop.js autorun --chrome-flags=\"--headless\"",
@@ -22,7 +22,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -c .storybook -o docs",
     "build-sb-artifacts": "npm run prod && npm run build-storybook",
-    "fixLint": "npx prettier --write \"**/*.{scss,css}\" && eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" --fix"
+    "fixLint": "npx prettier --write \"**/*.{scss,css}\" && eslint --quiet --config eslint.config.mjs --ext .jsx,.js \"src/js/**\" --fix"
   },
   "author": "",
   "engines": {
@@ -267,7 +267,6 @@
     "picomatch": "4.0.4"
   },
   "dependencies": {
-    "@babel/eslint-parser": "^7.28.6",
     "@babel/preset-react": "^7.28.5",
     "@chromatic-com/storybook": "^4.1.1",
     "@fortawesome/fontawesome-svg-core": "^7.2.0",
