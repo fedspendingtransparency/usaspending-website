@@ -1,11 +1,9 @@
 /**
  * QuarterPickerWithFY
  * Created by Max Kendall 10/25/2020
- * TODOs:
- * 1. Decouple this component from the fy/period data for accounts. 😰
  **/
 
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { QuarterPicker } from 'data-transparency-ui';
 
@@ -17,6 +15,13 @@ import {
     getPeriodsPerQuarterByFy
 } from 'containers/explorer/detail/helpers/explorerQuarters';
 import FYPicker from 'components/sharedComponents/pickers/FYPicker';
+
+const propTypes = {
+    handlePickedYear: PropTypes.func,
+    handleQuarterPickerSelection: PropTypes.func,
+    selectedFy: PropTypes.string,
+    latestSelectedTimeInterval: PropTypes.string
+};
 
 const QuarterPickerWithFY = ({
     handlePickedYear,
@@ -43,9 +48,7 @@ const QuarterPickerWithFY = ({
 
     const disabledPeriodsInFy = useMemo(() => {
         //  when the selectedFY changes or the periods change, update the disabled periods/quarters
-        if (parseInt(selectedFy, 10) === earliestExplorerYear) {
-            return ['1'];
-        }
+        if (parseInt(selectedFy, 10) === earliestExplorerYear) return ['1'];
         else if (selectedFy && allPeriods.size) {
             const latestAvailablePeriodInFy = getLatestSubmissionPeriodInFy(selectedFy, allPeriods);
             const allAvailablePeriodsInFy = periods.filter(
@@ -57,11 +60,11 @@ const QuarterPickerWithFY = ({
     }, [selectedFy, allPeriods])
 
     useEffect(() => {
-    // fetch periods on first render
+        // fetch periods on first render
         if (latestFy && latestPeriod) {
             handlePickedYear(`${latestFy}`, `${latestPeriod}`);
         }
-    }, [latestFy, latestPeriod]);
+    }, [latestFy, latestPeriod, handlePickedYear]);
 
     return (
         <div className="quarter-picker">
@@ -82,11 +85,5 @@ const QuarterPickerWithFY = ({
     );
 };
 
-QuarterPickerWithFY.propTypes = {
-    handlePickedYear: PropTypes.func,
-    handleQuarterPickerSelection: PropTypes.func,
-    selectedFy: PropTypes.string,
-    latestSelectedTimeInterval: PropTypes.string
-};
-
+QuarterPickerWithFY.propTypes = propTypes;
 export default QuarterPickerWithFY;
