@@ -28,7 +28,8 @@ const propTypes = {
     setDownloadExpectedFile: PropTypes.func,
     setDownloadExpectedUrl: PropTypes.func,
     resetDownload: PropTypes.func,
-    filters: PropTypes.object
+    filters: PropTypes.object,
+    spending_level: PropTypes.array
 };
 
 export class DownloadBottomBarContainer extends React.Component {
@@ -100,14 +101,15 @@ export class DownloadBottomBarContainer extends React.Component {
         }
 
         const params = {
-            filters: filterSet
+            filters: filterSet,
+            spending_level: this.props.spending_level
         };
 
         if (columns.length > 0) {
             params.columns = columns;
         }
 
-        this.request = DownloadHelper.requestFullDownload(params, type);
+        this.request = DownloadHelper.requestFullDownloadNew(params, type);
 
         this.request.promise
             .then((res) => {
@@ -294,6 +296,6 @@ will no longer download to your computer. Are you sure you want to do this?`;
 DownloadBottomBarContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ download: state.download }),
+    (state) => ({ download: state.download, spending_level: state.spending_level }),
     (dispatch) => bindActionCreators(downloadActions, dispatch)
 )(DownloadBottomBarContainer);
