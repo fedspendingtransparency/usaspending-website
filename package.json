@@ -269,6 +269,7 @@
     "@fortawesome/react-fontawesome": "^3.2.0",
     "@jest/globals": "^29.7.0",
     "@react-hook/resize-observer": "^2.0.2",
+    "@storybook/react-vite": "^10.4.1",
     "@tanstack/react-query": "^5.90.16",
     "@tanstack/react-query-devtools": "^5.91.2",
     "@tanstack/react-table": "^8.21.3",
