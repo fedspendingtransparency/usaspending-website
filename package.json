@@ -118,6 +118,7 @@
     "terser-webpack-plugin": "^5.3.17",
     "trim": "1.0.1",
     "trim-newlines": "^4.0.2",
+    "vite": "^8.0.14",
     "webidl-conversions": "^6.1.0",
     "webpack": "^5.105.0",
     "webpack-cli": "^5.1.4",
