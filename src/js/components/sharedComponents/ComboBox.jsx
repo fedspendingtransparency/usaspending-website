@@ -91,7 +91,7 @@ const ComboBox = memo(function ComboBox({
             <label
                 className="combo-box__label"
                 id={`${formName}-label`}
-                htmlFor={formName}>
+                htmlFor={`${formName}-combo`}>
                 {label}
                 <div className="combo-box__input-container">
                     <input
@@ -99,6 +99,7 @@ const ComboBox = memo(function ComboBox({
                         type="text"
                         className="combo-box__input"
                         name={formName}
+                        id={`${formName}-combo`}
                         onChange={onChange}
                         placeholder={placeholder}
                         disabled={isDisabledAndEmpty} />

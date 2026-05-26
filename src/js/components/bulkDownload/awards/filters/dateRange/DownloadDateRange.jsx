@@ -25,13 +25,13 @@ const DownloadDateRange = ({
             value={startDate}
             type="startDateBulk"
             onDateChange={onDateChange}
-            title="Start Date"
+            title={<>Start Date <span className="required"> (Required)</span></>}
             hideError={hideError}
             min="2000-10-01" />
         <DatePicker
             value={endDate}
             type="endDateBulk"
-            title="End Date"
+            title={<>End Date <span className="required"> (Required)</span></>}
             onDateChange={onDateChange}
             hideError={hideError}
             min="2000-10-01" />
