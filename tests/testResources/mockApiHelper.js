@@ -9,8 +9,8 @@
  * @param {response} object which mocks the response
 */
 export const mockApiCall = (mod, method, response) => {
-  return jest.spyOn(mod, method).mockReturnValue({
-      promise: Promise.resolve(response),
-      cancel: () => { }
-  });
+    return jest.spyOn(mod, method).mockReturnValue({
+        promise: Promise.resolve(response),
+        cancel: () => { }
+    });
 };

@@ -1,6 +1,6 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * WithLatestFy-test.js
  * Created by Max Kendall 02/5/2021
 * */
@@ -78,6 +78,7 @@ xtest.each([
     'useValidTimeBasedQueryParams: when fy is %s and period is %s, URL is updated 👌👌👌',
     (currentFy, currentPeriod, latestFy, latestPeriod, requiredParams) => {
         // reset history before each test
+        // eslint-disable-next-line no-unassigned-vars
         let location;
         <Router>
             const navigate = useNavigate();

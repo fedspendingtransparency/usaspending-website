@@ -66,7 +66,7 @@ describe('Contract Grant Activity Helper', () => {
             // 3
             it('should return true when there is no start date and end date exists and only one transaction', () => {
                 const data = cloneDeep(badStartDate);
-                data._endDate = dayjs('05/25/2011', 'MM/DD/YYYY'); 
+                data._endDate = dayjs('05/25/2011', 'MM/DD/YYYY');
                 expect(areTransactionDatesOrAwardAmountsInvalid(data, 'grant', oneTransaction)).toBe(true);
             });
             // 4.b
@@ -282,7 +282,7 @@ describe(' Filtered and Sorted Lines First To Last', () => {
 describe('Date Matching First Line Value', () => {
     it('should match today line date', () => {
         const lines = [
-            goodDates._startDate.valueOf(), 
+            goodDates._startDate.valueOf(),
             goodDates._endDate.valueOf(),
             goodDates._potentialEndDate.valueOf()
         ];
@@ -291,7 +291,7 @@ describe('Date Matching First Line Value', () => {
     });
     it('should match end line date', () => {
         const lines = [
-            null, 
+            null,
             goodDates._endDate.valueOf(),
             goodDates._potentialEndDate.valueOf()
         ];
@@ -301,7 +301,7 @@ describe('Date Matching First Line Value', () => {
 });
 
 describe('Should Extend Area Path Y Value Change', () => {
-  // transactions, areaPathExtensionToTodayLine
+    // transactions, areaPathExtensionToTodayLine
     it('should return false when transactions <= 1', () => {
         expect(shouldExtendAreaPathWhenLastDataPointYValueChange([], '')).toEqual(false);
     });
@@ -364,7 +364,7 @@ describe('Create Stepped Area Path', () => {
             [transactions[0].running_obligation_total, transactions[2].running_obligation_total],
             [0, 400]
         );
-        
+
         const path = createSteppedAreaPath(
             mockTransactions,
             xScale, // d3 linear scale
