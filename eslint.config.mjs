@@ -29,6 +29,7 @@ export default defineConfig([
             pluginImport.flatConfigs.react
         ],
         languageOptions: { globals: { ...globals.node, ...globals.browser, ...globals.jest } },
+        settings: { react: { version: "19" } },
         rules: {
             // disabling class method "this" requirement to avoid React conflicts
             "class-methods-use-this": [0],
