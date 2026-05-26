@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from "lodash-es";
-import Quarters from "./QuartersNoPeriods";
+import Quarters from "./Quarters";
 
 // import '../../styles/components/quarterPicker/_quarterPicker.scss';
 
