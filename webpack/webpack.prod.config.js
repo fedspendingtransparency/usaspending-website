@@ -1,11 +1,12 @@
-const { merge } = require('webpack-merge');
-const webpack = require('webpack');
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-const TerserPlugin = require('terser-webpack-plugin');
+import webpack from "webpack";
+import { merge } from 'webpack-merge';
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import CssMinimizerPlugin from "css-minimizer-webpack-plugin";
+import TerserPlugin from "terser-webpack-plugin";
+import common from './webpack.common.mjs';
 
-const common = require('./webpack.common');
+const __dirname = import.meta.dirname;
+const __filename = import.meta.filename;
 
 module.exports = merge(common, {
     mode: "production",

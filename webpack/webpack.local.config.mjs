@@ -1,11 +1,13 @@
-const webpack = require('webpack');
-const path = require('path');
-const { merge } = require('webpack-merge');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
-const common = require('./webpack.common');
+import webpack from "webpack";
+import path from 'path';
+import { merge } from 'webpack-merge';
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import common from './webpack.common.mjs';
 
-module.exports = merge(common, {
+const __dirname = import.meta.dirname;
+const __filename = import.meta.filename;
+
+export default merge(common, {
     mode: "development",
     devtool: "eval",
     optimization: {

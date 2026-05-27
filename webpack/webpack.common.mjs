@@ -1,18 +1,20 @@
-const webpack = require('webpack');
-const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { GitRevisionPlugin } = require('git-revision-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+import webpack from 'webpack';
+import path from 'path';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import { CleanWebpackPlugin } from 'clean-webpack-plugin';
+import MiniCssExtractPlugin from 'mini-css-extract-plugin';
+import { GitRevisionPlugin } from 'git-revision-webpack-plugin';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 
+const __dirname = import.meta.dirname;
+const __filename = import.meta.filename;
 // const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
 
 // console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
 // console.log("Branch for this build: ", gitRevisionPlugin.branch());
 console.log("GA_TRACKING_ID", process.env.GA_TRACKING_ID);
 
-module.exports = {
+export default {
     entry: {
         app: "./index.js"
     },
@@ -26,7 +28,7 @@ module.exports = {
     resolve: {
         extensions: [".js", ".jsx", ".md", ".mdx"],
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],
-        fallback: { querystring: require.resolve("querystring-es3") },
+        fallback: { querystring: import.meta.resolve("querystring-es3") },
         alias: {
             lodash: 'lodash-es'
         }
@@ -36,6 +38,11 @@ module.exports = {
         usedExports: true
     },
     module: {
+        parser: {
+            javascript: {
+                importMeta: false,
+            },
+        },
         noParse: /(mapbox-gl)\.js$/,
         rules: [
             {

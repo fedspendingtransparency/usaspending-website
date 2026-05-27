@@ -31,7 +31,7 @@ const plugins = [
     "react-hot-loader/babel"
 ];
 
-module.exports = {
+export default {
     presets,
     plugins
 };
