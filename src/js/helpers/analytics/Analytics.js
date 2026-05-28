@@ -3,13 +3,13 @@
  * Created by Kevin Li 2/2/18
  */
 
-import kGlobalConstants from 'GlobalConstants';
+import globalConstants from '../../GlobalConstants';
 import doParamsContainInitialApplicationLoadForDAPGoogleAnalytics from './doParamsContainInitialApplicationLoadForDAPGoogleAnalytics';
 
 const Analytics = {
     _prefix: 'USAspending - ',
     _execute(...args) {
-        if (this.isDAP && !kGlobalConstants.QAT) {
+        if (this.isDAP && !globalConstants.QAT) {
             /**
              * This conditional prevents this code base from sending DAP GA pageview on application load.
              * DAP's GA scripts will send their own pageview when the app loads.
@@ -56,7 +56,7 @@ const Analytics = {
         );
     },
     pageview(pathname, pagename, isInitialApplicationLoadForDAPGoogleAnalytics) {
-        if (kGlobalConstants.QAT) {
+        if (globalConstants.QAT) {
             window.dataLayer = window.dataLayer || [];
             window.dataLayer.push({
                 event: 'pageview',

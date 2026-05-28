@@ -3,7 +3,7 @@
  * Created by Maxwell Kendall 7/8/19
 */
 
-const local = require('./LocalConstants');
+import local from "./LocalConstants";
 
 const filesServerUrlByEnv = {
     sandbox: 'https://files-nonprod.usaspending.gov',
@@ -26,5 +26,5 @@ const globalConstants = {
     IS_NEW_DOWNLOAD: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox')
 };
 
-module.exports = globalConstants;
+export default globalConstants;
 
