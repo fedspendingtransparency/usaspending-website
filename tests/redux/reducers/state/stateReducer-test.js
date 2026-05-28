@@ -1,6 +1,6 @@
 /**
  * @jest-environment jsdom
- * 
+ *
  * stateReducer-test.js
  * Created by Lizzie Salita 5/7/18
  */
@@ -37,16 +37,16 @@ describe('stateReducer', () => {
     });
     describe('SET_STATE_FY', () => {
         it('should set the fiscal year to the provided value', () => {
-           let state = stateReducer(undefined, {});
+            let state = stateReducer(undefined, {});
 
-           const action = {
-               type: 'SET_STATE_FY',
-               fy: 'all'
-           };
+            const action = {
+                type: 'SET_STATE_FY',
+                fy: 'all'
+            };
 
-           state = stateReducer(state, action);
+            state = stateReducer(state, action);
 
-           expect(state.fy).toEqual('all');
+            expect(state.fy).toEqual('all');
         });
     });
     describe('SET_STATE_CENTER', () => {
