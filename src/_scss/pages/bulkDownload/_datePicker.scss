@@ -1,28 +1,9 @@
 @import "elements/filters/_errorMessage";
 @import "components/datePicker/_datePicker";
 .date-pickers {
-  display: flex;
-  gap: rem(24);
-  align-items: center;
-
+  margin-top: rem(25);
+  display: initial;
   .generate-datepicker-wrap {
-    display: flex;
-    max-width: rem(331);
-    flex-direction: column;
-    align-items: flex-start;
-    gap: rem(4);
-
-    .generate-datepicker__label{
-      display: flex;
-      font-size: $base-font-size;
-      font-weight: $font-semibold;
-      line-height: 1.5;
-      color: $gray-90;
-
-      span.required {
-        color: $red-cool-50v;
-        font-weight: $font-normal;
-      }
-    }
+    display: inline-flex;
   }
 }

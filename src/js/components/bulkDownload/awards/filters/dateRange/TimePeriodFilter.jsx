@@ -149,7 +149,7 @@ const TimePeriodFilter = (props) => {
                             placeholder="Select time period" />
                     </div>
                 ) : (
-                    <div className="date-range-wrapper">
+                    <>
                         <DownloadDateRange
                             datePlaceholder=""
                             startDate={startDateBulkUI}
@@ -158,7 +158,7 @@ const TimePeriodFilter = (props) => {
                             showError={handleError}
                             hideError={handleError} />
                         { errorDetails }
-                    </div>
+                    </>
                 )}
                 <p className="download-filter__content-note">
                     <span className="download-filter__content-note_bold">Note: </span>

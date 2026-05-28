@@ -5,7 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import DatePicker from 'components/sharedComponents/DatePicker';
+// import DatePicker from 'components/sharedComponents/DatePicker';
+import CustomDatePicker from './CustomDatePicker';
 
 const propTypes = {
     startDate: PropTypes.object,
@@ -20,15 +21,15 @@ const DownloadDateRange = ({
     onDateChange,
     hideError
 }) => (
-    <div className="date-pickers">
-        <DatePicker
+    <div className="datepicker-container">
+        <CustomDatePicker
             value={startDate}
             type="startDateBulk"
             onDateChange={onDateChange}
             title={<>Start Date <span className="required"> (Required)</span></>}
             hideError={hideError}
             min="2000-10-01" />
-        <DatePicker
+        <CustomDatePicker
             value={endDate}
             type="endDateBulk"
             title={<>End Date <span className="required"> (Required)</span></>}
