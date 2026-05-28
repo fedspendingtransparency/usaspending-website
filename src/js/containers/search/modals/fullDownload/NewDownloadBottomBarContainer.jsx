@@ -126,7 +126,6 @@ will no longer download to your computer. Are you sure you want to do this?`;
                     }
                     // trigger useEffect by starting a count
                     setStatusCount((prevState) => (prevState ? prevState + 1 : 1));
-                    // scheduleNextStatus();
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
