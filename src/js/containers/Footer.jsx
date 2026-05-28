@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+ 
 /**
  * Footer.jsx
  * Created by Brian Petway 04/14/23
@@ -17,7 +17,8 @@ import BulkDownloadBottomBarContainer from
     'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
 import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
 import StayInTouch from "../components/sharedComponents/StayInTouch";
-import NewDownloadBottomBarContainer from './search/modals/fullDownload/NewDownloadBottomBarContainer';
+import NewDownloadBottomBarContainer
+    from './search/modals/fullDownload/NewDownloadBottomBarContainer';
 
 const propTypes = {
     pageName: PropTypes.string.isRequired,

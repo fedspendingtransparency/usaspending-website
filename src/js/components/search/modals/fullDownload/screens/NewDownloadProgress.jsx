@@ -11,8 +11,7 @@ import { CheckCircle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     setDownloadCollapsed: PropTypes.func,
-    expectedUrl: PropTypes.string,
-    download: PropTypes.object
+    expectedUrl: PropTypes.string
 };
 
 const NewDownloadProgress = ({

@@ -46,9 +46,9 @@ const NewDownloadModal = (props) => {
 
     useEffect(() => {
         if (!props?.pendingDownload && prevProps?.pendingDownload) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             resetModal();
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [prevProps?.pendingDownload, props?.pendingDownload, resetModal]);
 
 
@@ -85,9 +85,9 @@ const NewDownloadModal = (props) => {
         dispatch(setDownloadColumns([]));
         dispatch(setDownloadPending(true));
         goToStep(3, true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch, goToStep]);
 
-    // eslint-disable-next-line prefer-const
     let headerContent = "Step 1 of 2: Select which data you'd like to download";
     let downloadData = {};
 

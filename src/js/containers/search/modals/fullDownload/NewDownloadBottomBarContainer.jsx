@@ -1,4 +1,4 @@
-/* eslint-disable camelcase */
+ 
 /**
  * NewDownloadBottomBarContainer.jsx
  * Created by Kevin Li 8/8/17
@@ -47,11 +47,9 @@ const NewDownloadBottomBarContainer = ({
     const statusTimer = useRef(null);
 
     const windowWillClose = (e) => {
-    /* eslint-disable no-param-reassign */
     // we need to modify the browser event to trigger a warning message
         e.returnValue = `You have a file that is still being generated. If you leave, the file \
 will no longer download to your computer. Are you sure you want to do this?`;
-    /* eslint-enable no-param-reassign */
     };
 
     const closeBar = useCallback(() => {
@@ -159,13 +157,12 @@ will no longer download to your computer. Are you sure you want to do this?`;
                 window.clearTimeout(statusTimer.current);
             }
 
-            // eslint-disable-next-line no-use-before-define
             statusTimer.current = window.setTimeout(checkStatus, timeToWait * 1000);
         }
         return () => window.clearTimeout(statusTimer.current);
     }, [statusCount, checkStatus]);
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+     
     const displayBar = () => {
         // monitor for window close events
         window.addEventListener('beforeunload', windowWillClose);
@@ -178,53 +175,53 @@ will no longer download to your computer. Are you sure you want to do this?`;
         setDescriptionTwo(' in your browser\'s address bar before closing this page.');
     };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const requestDownload = () => {
-        if (downloadRequest.current) {
-            downloadRequest.current.cancel();
-        }
 
-        let filterSet = {};
-        if (filters) {
-            const operation = new SearchAwardsOperation();
-            operation.fromState(filters);
-
-            filterSet = operation.toParams();
-        }
-
-        const params = {
-            filters: filterSet,
-            spending_level
-        };
-
-        if (columns?.length > 0) {
-            params.columns = columns;
-        }
-
-        downloadRequest.current = requestFullDownloadNew(params);
-
-        downloadRequest.current.promise
-            .then((res) => {
-                dispatch(setDownloadExpectedFile(res.data.file_name));
-                dispatch(setDownloadExpectedUrl(res.data.file_url));
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    // something went wrong
-                    console.log(err);
-
-                    if (err.response) {
-                        displayError(err.response.data.message);
-                    }
-                    else {
-                        displayError(err.message);
-                    }
-                }
-            });
-    };
 
 
     useEffect(() => {
+        const requestDownload = () => {
+            if (downloadRequest.current) {
+                downloadRequest.current.cancel();
+            }
+
+            let filterSet = {};
+            if (filters) {
+                const operation = new SearchAwardsOperation();
+                operation.fromState(filters);
+
+                filterSet = operation.toParams();
+            }
+
+            const params = {
+                filters: filterSet,
+                spending_level
+            };
+
+            if (columns?.length > 0) {
+                params.columns = columns;
+            }
+
+            downloadRequest.current = requestFullDownloadNew(params);
+
+            downloadRequest.current.promise
+                .then((res) => {
+                    dispatch(setDownloadExpectedFile(res.data.file_name));
+                    dispatch(setDownloadExpectedUrl(res.data.file_url));
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                    // something went wrong
+                        console.log(err);
+
+                        if (err.response) {
+                            displayError(err.response.data.message);
+                        }
+                        else {
+                            displayError(err.message);
+                        }
+                    }
+                });
+        };
         if (download?.pendingDownload && download?.showCollapsedProgress &&
             !visible && !isEmpty(filters)) {
             requestDownload(filters, download.columns);
@@ -235,13 +232,13 @@ will no longer download to your computer. Are you sure you want to do this?`;
             window.removeEventListener('beforeunload', windowWillClose);
             window.clearTimeout(statusTimer.current);
         };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         displayBar,
         download.columns,
         download.pendingDownload,
         download.showCollapsedProgress,
         filters,
-        requestDownload,
         visible
     ]);
 
