@@ -26,7 +26,7 @@ export const mockTabCount = {
 export const mockApi = {
     page_metadata: {
         page: 1,
-        hasNext: true,
+        hasNext: true
     },
     req: "0b48d0f0ec8",
     results: [{

@@ -31,10 +31,11 @@ const awardObject = {
 
 describe('Award Summary Chart Table', () => {
     it('- should show infrastructure spending.', () => {
-        const renderComponent = () =>
-        render(<AwardAmountsTable
+        const renderComponent = () => render(
+            <AwardAmountsTable
                 {...awardObject}
-                fileCType={'infrastructure'} />);
+                fileCType={'infrastructure'} />
+        );
 
         const {getByTestId} = renderComponent();
         expect(getByTestId('award-amounts__data-wrapper')).toHaveTextContent('Infrastructure Obligated Amount');
