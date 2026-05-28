@@ -15,6 +15,7 @@ import {
     getPeriodsPerQuarterByFy
 } from 'containers/explorer/detail/helpers/explorerQuarters';
 import FYPicker from 'components/sharedComponents/pickers/FYPicker';
+import NewQuarterPicker from "./pickers/NewQuarterPicker";
 
 const propTypes = {
     handlePickedYear: PropTypes.func,
@@ -75,12 +76,18 @@ const QuarterPickerWithFY = ({
                     fy={selectedFy}
                     onClick={pickedYear} />
             </div>
-            <QuarterPicker
+            {/* <QuarterPicker */}
+            {/*     showPeriods */}
+            {/*     periodsPerQuarter={periodsPerQuarter} */}
+            {/*     selectedPeriods={[latestSelectedTimeInterval]} */}
+            {/*     disabledPeriods={disabledPeriodsInFy} */}
+            {/*     handleSelection={handleQuarterPickerSelection} /> */}
+            <NewQuarterPicker
                 showPeriods
                 periodsPerQuarter={periodsPerQuarter}
-                selectedPeriods={[latestSelectedTimeInterval]}
+                selectedPeriods={[latestFy]}
                 disabledPeriods={disabledPeriodsInFy}
-                handleSelection={handleQuarterPickerSelection} />
+                handleSelection={handlePickedYear} />
         </div>
     );
 };
