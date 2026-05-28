@@ -11,23 +11,21 @@ import { CheckCircle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     setDownloadCollapsed: PropTypes.func,
-    expectedUrl: PropTypes.string,
-    download: PropTypes.object
+    expectedUrl: PropTypes.string
 };
 
 const NewDownloadProgress = ({
-    download, expectedUrl, setDownloadCollapsed
+    expectedUrl, setDownloadCollapsed
 }) => {
     const [copied, setCopied] = useState(false);
     useEffect(() => {
         setDownloadCollapsed(true);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [download?.expectedFile, download?.expectedUrl]);
+    }, [setDownloadCollapsed]);
 
 
     const onCopy = useCallback(() => {
         setCopied(true);
-    });
+    }, []);
 
 
     const icon = (
