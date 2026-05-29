@@ -60,6 +60,7 @@ const TimePeriodFilter = ({
     const [endDateBulkUI, setEndDateBulkUI] = useState(filterTimePeriodEnd);
     const [error, setError] = useState(errorTypes.empty);
     const [currentTimeType, setCurrentTimeType] = useState("time_period");
+    let persistedValue = '';
 
     let icon = (
         <div className="icon valid">
@@ -111,12 +112,15 @@ const TimePeriodFilter = ({
             // open-ended date range
             let startValue = null;
             let endValue = null;
-            if (start) {
+
+            if (start.isValid()) {
                 startValue = start.format('YYYY-MM-DD');
                 updateStartDate(startValue);
                 setValidDates(true);
             }
             else {
+                // already checked if end is valid above
+                // if start is not valid end must be.
                 endValue = end.format('YYYY-MM-DD');
                 updateEndDate(endValue);
                 setValidDates(true);
@@ -183,6 +187,24 @@ const TimePeriodFilter = ({
         });
     }
 
+    if (startDateBulkUI && endDateBulkUI) {
+        const start = dayjs.isDayjs(startDateBulkUI)
+            ? startDateBulkUI.format('YYYY-MM-DD')
+            : startDateBulkUI;
+        const end = dayjs.isDayjs(endDateBulkUI)
+            ? endDateBulkUI.format('YYYY-MM-DD')
+            : endDateBulkUI;
+
+        const searchValue = `${start} - ${end}`;
+        const persistedOption = periodOptions.find((option) => option.value === searchValue);
+
+        if (persistedOption) {
+            persistedValue = persistedOption.text;
+        }
+    }
+
+    // end comboBox options data manipulation
+
     useEffect(() => {
         setStartDateBulkUI(filterTimePeriodStart);
     }, [filterTimePeriodStart]);
@@ -247,7 +269,8 @@ const TimePeriodFilter = ({
                             onClearSelect={handleDateUpdate}
                             formName="time-period-combo"
                             label={<>Time Period <span className="required">(Required)</span></>}
-                            placeholder="Select time period" />
+                            placeholder="Select time period"
+                            persistedValue={persistedValue} />
                     </div>
                 ) : (
                     <DownloadDateRange

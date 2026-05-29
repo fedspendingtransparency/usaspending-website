@@ -48,8 +48,8 @@
         }
 
         .custom-datepicker__icon {
-          width: rem(24);
-          height: rem(24);
+          width: rem(20);
+          height: rem(20);
           aspect-ratio: 1/1;
           color: $blue-60v;
         }
@@ -123,8 +123,13 @@
             }
 
             &.isSelected {
-              border: rem(1) solid $blue-60v;
-              border-radius: rem(4);
+              border: rem(2) solid $blue-40v;
+              background-color: $cyan-60v;
+              color: $gray-2;
+            }
+
+            &:hover {
+              background-color: $gray-10;
             }
           }
         }
