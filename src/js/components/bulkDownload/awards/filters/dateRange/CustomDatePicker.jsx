@@ -87,12 +87,16 @@ const CustomDatePicker = memo(function CustomDatePicker({
     onDateChange,
     title,
     min,
-    error = { active: false }
+    error = {
+        active: false,
+        type: null
+    }
 }) {
     const [inputValue, setInputValue] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [viewDate, setViewDate] = useState(dayjs().startOf("month"));
     const [selectedDate, setSelectedDate] = useState("");
+    const [showError, setShowError] = useState(false)
 
     const pickerRef = useRef(null);
 
@@ -138,7 +142,8 @@ const CustomDatePicker = memo(function CustomDatePicker({
         const parsed = parseInputDate(formatted);
         if (parsed) {
             setSelectedDate(parsed);
-            setViewDate(parsed.startOf("month"));
+            setViewDate(parsed.startOf("month")); 
+            onDateChange(e.target.value, type);
         }
     };
 
@@ -201,6 +206,10 @@ const CustomDatePicker = memo(function CustomDatePicker({
         </>
     );
 
+    useEffect(() => {
+        setShowError(error?.active && type.startsWith(error?.type))
+    }, [error]);
+
     return (
         <div
             className="custom-datepicker"
@@ -210,7 +219,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
                 htmlFor={`${type}-input-field`}>
                 {title}
                 <div className={`custom-datepicker__input-container
-                     ${error.active ? "input-error" : ""}`}>
+                     ${showError ? "input-error" : ""}`}>
                     <input
                         className="custom-datepicker__input-field"
                         id={`${type}-input-field`}
@@ -264,7 +273,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
                     </div>
                 )}
 
-                {error.active && (
+                {showError && (
                     <div className="date-error">
                         <ExclamationCircle alt="An error occurred" />
                         {error.message}

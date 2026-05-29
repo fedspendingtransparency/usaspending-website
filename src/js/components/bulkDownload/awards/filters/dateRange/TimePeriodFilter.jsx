@@ -34,16 +34,30 @@ const errorTypes = {
     order: {
         title: 'Invalid Dates',
         message: 'The end date cannot be earlier than the start date.',
+        type: 'end',
         active: true
     },
     range: {
         title: 'Invalid Date Range',
         message: 'Date range cannot span more than one year.',
+        type: 'end',
+        active: true
+    },
+    invalid: {
+        title: 'Invalid Date',
+        message: 'Invalid date',
+        active: true
+    },
+    incomplete: {
+        title: 'Incomplete',
+        message: 'Date range must have a state date and end date.',
+        type: null,
         active: true
     },
     empty: {
         type: "",
         message: "",
+        type: null,
         active: false
     }
 };
@@ -112,16 +126,27 @@ const TimePeriodFilter = ({
             // open-ended date range
             let startValue = null;
             let endValue = null;
+            let errorMessage = errorTypes.incomplete;
 
             if (start.isValid()) {
                 startValue = start.format('YYYY-MM-DD');
+                errorMessage = {
+                    ...errorMessage,
+                    type: 'end'
+                };
                 updateStartDate(startValue);
                 setValidDates(true);
+                setError(errorMessage);
             }
             else {
                 // already checked if end is valid above
                 // if start is not valid end must be.
-                endValue = end.format('YYYY-MM-DD');
+                endValue = end.format('YYYY-MM-DD');       
+                errorMessage = {
+                    ...errorMessage,
+                    type: 'start'
+                };
+                setError(errorMessage);
                 updateEndDate(endValue);
                 setValidDates(true);
             }
@@ -158,16 +183,35 @@ const TimePeriodFilter = ({
 
     const handleDateChange = (date, dateType) => {
         let value = dayjs(date);
+        let errorMessage = errorTypes.invalid;
         if (!date) {
             value = null;
         }
 
         if (dateType === "startDateBulk") {
-            setStartDateBulkUI(value);
+            if (value.isValid()) {
+                setStartDateBulkUI(value);
+            }
+            else {
+                errorMessage = {
+                    ...errorMessage,
+                    type: 'start'
+                };
+                setError(errorMessage);
+            } 
         }
-
+        
         if (dateType === "endDateBulk") {
-            setEndDateBulkUI(value);
+            if (value.isValid()) {
+                setEndDateBulkUI(value);
+            }
+            else {
+                errorMessage = {
+                    ...errorMessage,
+                    type: 'end'
+                };
+                setError(errorMessage);
+            } 
         }
     };
 

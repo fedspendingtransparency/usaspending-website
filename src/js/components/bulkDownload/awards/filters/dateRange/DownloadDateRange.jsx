@@ -28,7 +28,8 @@ const DownloadDateRange = memo(function DownloadDateRange({
                 type="startDateBulk"
                 onDateChange={onDateChange}
                 title={<>Start Date <span className="required"> (Required)</span></>}
-                min="2000-10-01" />
+                min="2000-10-01"
+                error={error} />
             <CustomDatePicker
                 value={endDate}
                 type="endDateBulk"

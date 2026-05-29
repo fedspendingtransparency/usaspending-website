@@ -99,7 +99,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: $small-font-size;
+            font-size: $base-font-size;
             color: $gray-90;
             line-height: $base-line-height;
             height: rem(40);
@@ -119,7 +119,7 @@
             padding: rem(10);
 
             &.outside {
-              color: $gray-20;
+              color: $color-gray-medium;
             }
 
             &.isSelected {
