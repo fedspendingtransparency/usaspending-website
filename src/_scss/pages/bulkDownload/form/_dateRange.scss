@@ -2,6 +2,7 @@
   display: flex;
   align-items: flex-start;
   gap: rem(24);
+  margin: 0 0 rem(12) 0;
 
     .custom-datepicker {
       margin: 0;
@@ -32,6 +33,10 @@
           border: rem(1) solid $gray-20;
           border-radius: rem(4);
           padding: rem(4) rem(8);
+
+          &.input-error {
+            border: rem(1) solid $error;
+          }
           
           .custom-datepicker__input-field {
             flex: 1 0 0;
@@ -73,7 +78,6 @@
 
             .custom-datepicker__header-icon{
               display: flex;
-              // padding: rem(10);
               align-items: center;
               color: $blue-60v;
             }
@@ -127,49 +131,27 @@
             }
           }
         }
+
+        .date-error {
+          display: flex;
+          width: rem(332);
+          flex-direction: row;
+          align-items: flex-start;
+          gap: rem(4);
+          color: $error;
+          font-size: $small-font-size;
+          font-style: normal;
+          font-weight: $font-normal;
+          line-height: $base-line-height;
+          margin-top: rem(12);
+            
+            svg {
+              fill: $error;
+              width: rem(16);
+              height: rem(24);
+              margin-bottom: rem(4);
+            }
       }
     }
   }
-
-
-
-
-
-
-
-  // @import "../datePicker";
-  // .time-period-buttons {
-  //   @include display(flex);
-  //   @include flex-direction(row);
-  //   @include flex-wrap(wrap);
-  //   @include media($medium-screen) {
-  //     @include flex-wrap(nowrap);
-  //   }
-  //   .column {
-  //     margin-right: rem(20);
-  //     .time-period-button {
-  //       @include button-unstyled();
-  //       width: 100%;
-  //       display: block;
-  //       color: $color-gray;
-  //       font-size: rem(20);
-  //       font-weight: 300;
-  //       line-height: rem(37);
-  //       margin: rem(5) 0;
-  //       padding: 0 rem(5);
-  //       &.active,
-  //       &:hover {
-  //         background-color: $color-primary;
-  //         color: $color-white;
-  //         border-radius: rem(5);
-  //       }
-  //     }
-  //   }
-  // }
-  // .data-note {
-  //   font-style: italic;
-  //   @media (max-width: $medium-screen) {
-  //     max-width: 75%;
-  //   }
-  // }
-
+}

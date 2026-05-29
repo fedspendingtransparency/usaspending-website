@@ -3,12 +3,11 @@
   * Created by JD House 5/22/2026
   **/
 
-import React, { useCallback, useRef, useState } from 'react';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import useEventListener from 'hooks/useEventListener';
 import { uniqueId } from 'lodash-es';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
 const dayjs = require('dayjs');
 
@@ -17,10 +16,9 @@ const propTypes = {
     value: PropTypes.string,
     type: PropTypes.string,
     onDateChange: PropTypes.func,
-    hideError: PropTypes.func,
     title: PropTypes.string,
-    id: PropTypes.string,
-    min: PropTypes.string
+    min: PropTypes.string,
+    error: PropTypes.object
 };
 
 
@@ -60,7 +58,7 @@ const autoFormatInput = (text) => {
     if (digits.length >= 3) {
         formatted = `${formatted}/${digits.substring(2, 4)}`;
     }
-    // double check this
+
     if (digits.length >= 5) {
         formatted = `${formatted}/${digits.substring(4, 8)}`;
     }
@@ -76,29 +74,27 @@ const parseInputDate = (value) => {
     const parsed = dayjs(
         `${digits.substring(4, 8)}-${digits.substring(0, 2)}-${digits.substring(2, 4)}`
     );
-
     return parsed.isValid() ? parsed : null;
 };
 
 // end possibly move to helpers
 
 
-const CustomDatePicker = ({
+// eslint-disable-next-line prefer-arrow-callback
+const CustomDatePicker = memo(function CustomDatePicker({
     value,
     type = 'startDate',
     onDateChange,
-    hideError,
     title,
-    id,
-    min
-}) => {
-    const [inputValue, setInputValue] = useState(value || "");
+    min,
+    error = { active: false }
+}) {
+    const [inputValue, setInputValue] = useState("");
     const [isOpen, setIsOpen] = useState(false);
     const [viewDate, setViewDate] = useState(dayjs().startOf("month"));
-    const [selectedDate, setSelectedDate] = useState(null);
+    const [selectedDate, setSelectedDate] = useState("");
 
     const pickerRef = useRef(null);
-    const inputRef = useRef(null);
 
     const calendarDays = buildCalendarDays(viewDate);
 
@@ -134,8 +130,7 @@ const CustomDatePicker = ({
         setViewDate(date.startOf("month"));
         setIsOpen(false);
         onDateChange(date, type);
-        hideError();
-    }, [hideError, onDateChange, type]);
+    }, [onDateChange, type]);
 
     const handleInputChange = (e) => {
         const formatted = autoFormatInput(e.target.value);
@@ -147,13 +142,28 @@ const CustomDatePicker = ({
         }
     };
 
-    const handleMouseDown = (e) => {
-        e.stopPropagation();
-        // setIsOpen(!isOpen);
-    };
+    useEffect(() => {
+        const handleOutsideClick = (e) => {
+            if (pickerRef.current && !pickerRef.current.contains(e.target)) {
+                setIsOpen(false);
+            }
+        };
+        if (isOpen) {
+            document.addEventListener('click', handleOutsideClick);
+        }
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, [pickerRef, isOpen]);
 
-    useEventListener("mousedown", handleMouseDown, pickerRef);
-    useEventListener("keydown", () => setIsOpen(true), inputRef);
+    useEffect(() => {
+        if (value) {
+            const dayValue = dayjs(value);
+            setInputValue(dayValue.format("MM/DD/YYYY"));
+            setViewDate(dayValue.startOf("month"));
+            setSelectedDate(dayValue);
+        }
+    }, [value]);
 
     const datepickerHeader = () => (
         <>
@@ -191,19 +201,19 @@ const CustomDatePicker = ({
         </>
     );
 
-
     return (
         <div
             className="custom-datepicker"
             ref={pickerRef}>
             <label
                 className="custom-datepicker__label"
-                htmlFor={id}>
+                htmlFor={`${type}-input-field`}>
                 {title}
-                <div className="custom-datepicker__input-container">
+                <div className={`custom-datepicker__input-container
+                     ${error.active ? "input-error" : ""}`}>
                     <input
                         className="custom-datepicker__input-field"
-                        id={id}
+                        id={`${type}-input-field`}
                         name={`${type}-input-field`}
                         type="text"
                         placeholder="mm/dd/yyyy"
@@ -232,21 +242,18 @@ const CustomDatePicker = ({
                                 </div>
                             ))}
                             {calendarDays.map(({ date, outside }) => {
-                                let outsideClass = "";
-                                if (outside) {
-                                    outsideClass = " outside";
-                                }
-                                let isSelectedClass = "";
-                                if (selectedDate && date.isSame(selectedDate)) {
-                                    isSelectedClass = " isSelected";
-                                }
+                                const outsideClass = outside ? " outside" : "";
+                                const selectedClass = date.isSame(selectedDate)
+                                    ? " isSelected"
+                                    : "";
+
                                 return (
                                     <button
                                         key={uniqueId()}
                                         aria-label={`datepicker-date-${date.date()}`}
                                         className={`custom-datepicker__date
                                         ${outsideClass}
-                                        ${isSelectedClass}`
+                                        ${selectedClass}`
                                         }
                                         onClick={() => selectDay(dayjs(date))} >
                                         {date.date()}
@@ -257,11 +264,17 @@ const CustomDatePicker = ({
                     </div>
                 )}
 
+                {error.active && (
+                    <div className="date-error">
+                        <ExclamationCircle alt="An error occurred" />
+                        {error.message}
+                    </div>
+                )}
             </label>
 
         </div>
     );
-};
+});
 CustomDatePicker.propTypes = propTypes;
 
 export default CustomDatePicker;

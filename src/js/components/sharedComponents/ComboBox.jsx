@@ -14,7 +14,9 @@ const propTypes = {
     placeholder: PropTypes.string,
     formName: PropTypes.string,
     disabled: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onSelect: PropTypes.func,
+    onClearSelect: PropTypes.func
 };
 
 // eslint-disable-next-line prefer-arrow-callback
@@ -25,7 +27,8 @@ const ComboBox = memo(function ComboBox({
     placeholder,
     formName,
     disabled,
-    className
+    className,
+    onClearSelect = () => {}
 }) {
     const [inputValue, setInputValue] = useState('');
     const [openOptions, setOpenOptions] = useState(false);
@@ -74,6 +77,7 @@ const ComboBox = memo(function ComboBox({
     const onClickClear = () => {
         setInputValue('');
         setOpenOptions(false);
+        onClearSelect();
     };
 
     const onClickToggle = () => setOpenOptions((prevState) => !prevState);
