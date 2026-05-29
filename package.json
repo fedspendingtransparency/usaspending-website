@@ -287,6 +287,7 @@
     "@storybook/addon-docs": "^10.4.1",
     "@storybook/addon-vitest": "^10.4.1",
     "@storybook/builder-vite": "^10.4.1",
+    "@storybook/preset-scss": "^1.0.3",
     "@storybook/react-vite": "^10.4.1",
     "@tanstack/react-query": "^5.90.16",
     "@tanstack/react-query-devtools": "^5.91.2",
