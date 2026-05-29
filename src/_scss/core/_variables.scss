@@ -115,6 +115,7 @@ $violet-60v: #783cb9;
 $violet-70v: #54278f;
 $gray-cool-1: #fbfcfd;
 $gray-2: #f9f9f9;
+$gray-5: #f0f0f0;
 $gray-10: #e6e6e6;
 $gray-20: #c9c9c9;
 $gray-cool-30: #a9aeb1;
@@ -180,7 +181,7 @@ $theme-color-another-underline: $gray-cool-50;
 $theme-color-vertical-pipe: $gray-cool-30;
 
 $theme-color-homepage-hero: rgba(136, 180, 192, 0.15);
-$theme-color-background: #f0f0f0;
+$theme-color-background: $gray-5;
 
 $info-lighter: $cyan-5;
 $info-dark: $cyan-40v;

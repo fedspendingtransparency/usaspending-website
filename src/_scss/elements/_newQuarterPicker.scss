@@ -1,9 +1,7 @@
-//@import "../../global/index";
-
-$button-color:rgba(0, 113, 187, 0.5);
-$active-button-color: #0071BC;
-$button-text-color: $color-white;
-$button-text-disabled: #9B9B9B;
+$button-color: $blue-vivid-5v;
+$active-button-color: $blue-60v;
+$button-text-color: $gray-5;
+$button-text-disabled:$gray-60;
 
 .quarter-picker {
   .warning-tooltip {
@@ -21,7 +19,6 @@ $button-text-disabled: #9B9B9B;
 
     li.quarter-picker__list-item {
       margin-right: rem(2);
-      margin-left: rem(1);
 
       &:first-child {
         margin-left: 0;
@@ -48,11 +45,11 @@ $button-text-disabled: #9B9B9B;
           width: rem(72);
         }
         &.quarter-picker__quarter_first {
-          border-radius: rem(30) 0 0 rem(30);
+          border-radius: rem(4) 0 0 rem(4);
         }
 
         &.quarter-picker__quarter_last {
-          border-radius: 0 rem(30) rem(30) 0;
+          border-radius: 0 rem(4) rem(4) 0;
         }
 
         &:active, &.quarter-picker__quarter_active {
@@ -112,12 +109,12 @@ $button-text-disabled: #9B9B9B;
         }
         &:first-of-type {
           .quarter-picker__list-item:first-of-type .quarter-picker__quarter:first-of-type {
-            border-radius: rem(30) 0 0 rem(30);
+            border-radius: rem(4) 0 0 rem(4);
           }
         }
         &:last-of-type {
           .quarter-picker__list-item:last-of-type .quarter-picker__quarter:last-of-type {
-            border-radius: 0 rem(30) rem(30) 0;
+            border-radius: 0 rem(4) rem(4) 0;
           }
         }
       }
