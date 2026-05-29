@@ -1,28 +1,5 @@
 import GlobalConstants from 'GlobalConstants';
 
-/* eslint-disable max-len */
-const contentMap = {
-    dataDefinition: '#783CB9',
-    search: '#D54309',
-    seeforyourself: '#E66F0E',
-    questions: '#864381',
-    finances: '#1B2B85',
-    trust: '#73B3E7',
-    stories: '#2378C3',
-    difference: '#5ABF95'
-};
-
-const secondary = {
-    dataDefinition: '#D5BFFF',
-    search: '#F6BD9C',
-    seeforyourself: '#FFBC78',
-    questions: '#E2BEE4',
-    finances: '#628EF4',
-    trust: '#D9E8F6',
-    stories: '#73B3E7',
-    difference: '#DBF6ED'
-};
-
 // the first entry has what is necessary for a full article
 
 /**
@@ -44,6 +21,34 @@ const secondary = {
 // ]
 
 const articles = [
+    {
+        taxonomy: "See 4 Yourself",
+        isInfographicTemplate: true,
+        content_type: 'Featured Content',
+        title: "QAT ONLY Test",
+        banner_subtitle: "How People Use USAspending.gov Data",
+        created_date: "02/29/2026",
+        feature_sprint: 5,
+        feature_week: 1,
+        sections: ["Federal Spending Transparency and Accountability", "Market Research", "Grant Opportunities and Compliance", "Federal Spending Trends and Stories"],
+        description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
+        slug: "qat-only-test",
+        black_text: true,
+        hidden: !GlobalConstants.QAT,
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            }
+        ],
+        related_terms: []
+    },
     {
         taxonomy: "Data Definitions",
         content_type: 'Featured Content',
@@ -492,8 +497,8 @@ const articles = [
         content_type: 'Featured Content',
         title: "Awarding Agency vs. Funding Agency",
         banner_subtitle: "What's the Difference Between Awarding Agency and Funding Agency?",
-        created_date: "02/26/2026",
-        feature_sprint: 6,
+        created_date: "06/11/2026",
+        feature_sprint: 10,
         feature_week: 1,
         sections: ["Federal Spending Transparency and Accountability", "Market Research", "Grant Opportunities and Compliance", "Federal Spending Trends and Stories"],
         description: "In the “Agency” section of USAspending’s advanced search, you’ll see the option to search by Awarding Agency or Funding Agency. But what’s the difference?",
@@ -703,19 +708,41 @@ const articles = [
         ]
     },
     {
-        taxonomy: "See 4 Yourself",
-        isInfographicTemplate: true,
-        content_type: 'Featured Content',
-        title: "QAT ONLY Test",
-        banner_subtitle: "How People Use USAspending.gov Data",
-        created_date: "02/29/2026",
-        feature_sprint: 5,
+        taxonomy: "America250",
+        isInfographicTemplate: false,
+        content_type: 'Marketing',
+        title: "Government Financial Transparency: From Parchment to Digital Data",
+        banner_subtitle: "Exploring the Foundations of Government Spending Data",
+        created_date: "06/11/2026",
+        feature_sprint: 10,
         feature_week: 1,
-        sections: ["Federal Spending Transparency and Accountability", "Market Research", "Grant Opportunities and Compliance", "Federal Spending Trends and Stories"],
-        description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
-        slug: "qat-only-test",
-        black_text: true,
-        hidden: !GlobalConstants.QAT,
+        description: "The phrase “government transparency” has become a modern buzzword, dominating headlines and conversations across all forms of media and at every level of government.",
+        slug: "government-financial-transparency-from-parchment-to-digital-data",
+        explore_more: [
+            {
+                label: "FiscalData.Treasury.gov",
+                slug: "https://fiscaldata.treasury.gov/",
+                type: "internal"
+            },
+            {
+                label: "U.S. Constitution Transcript ",
+                slug: "https://fiscaldata.treasury.gov/",
+                type: "internal"
+            }
+        ],
+        related_terms: []
+    },
+    {
+        taxonomy: "America250",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "Building America: 250 Years of Investment",
+        banner_subtitle: "How U.S. Government Spending Shaped the Nation’s Icons",
+        created_date: "06/18/2026",
+        feature_sprint: 10,
+        feature_week: 2,
+        description: "Whether you’re visiting an American icon like the Hoover Dam, traveling to a different state on a highway, or watching a tiny version of Earth from outer space",
+        slug: "building-america-250-years-of-investment",
         explore_more: [
             {
                 label: "Advanced Search",
@@ -723,12 +750,69 @@ const articles = [
                 type: "internal"
             },
             {
-                label: "Data Sources",
-                slug: "/data-sources",
+                label: "Training Videos",
+                slug: "/training-videos",
+                type: "internal"
+            },
+            {
+                label: "Agency Profiles",
+                slug: "/agency-profiles",
                 type: "internal"
             }
         ],
-        related_terms: []
+        related_terms: [
+            {
+                term: "awarding-agency",
+                type: "glossary",
+                label: "Awarding Agency"
+            },
+            {
+                term: "assistance-listings-cfda-program",
+                type: "glossary",
+                label: "Assistance Listings"
+            }
+        ]
+    },
+    {
+        taxonomy: "My USAspending Search",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "Michael’s USAspending Search",
+        banner_subtitle: "Using USAspending.gov for Market Research",
+        created_date: "06/25/2026",
+        feature_sprint: 10,
+        feature_week: 3,
+        description: "In “My USAspending Search,” we highlight one of our users and their unique approach to searching government spending open data. Meet Michael LeJeune.",
+        slug: "michaels-usaspending-search",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "USAspending on YouTube",
+                slug: "https://www.youtube.com/@usaspendinggov",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "agency",
+                type: "glossary",
+                label: "Agency"
+            },
+            {
+                term: "naics",
+                type: "glossary",
+                label: "NAICS"
+            },
+            {
+                term: "assistance-listings-cfda-program",
+                type: "glossary",
+                label: "Assistance Listings"
+            }
+        ]
     }
 ];
 
