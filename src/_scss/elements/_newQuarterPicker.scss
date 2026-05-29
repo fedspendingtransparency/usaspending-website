@@ -34,15 +34,16 @@ $button-text-disabled: #9B9B9B;
       button.quarter-picker__quarter {
         @include button-unstyled;
         color: $color-white;
-        text-align: center;
-        line-height: rem(22);
-        font-weight: $font-bold;
+        line-height: 1.5;
+        font-weight: $font-semibold;
         background-color: $button-color;
-        padding: rem(3) rem(18);
-        font-family: 'Source Sans Pro';
+        padding: rem(4) 8px;
         display: flex;
+        text-align: center;
         justify-content: center;
         cursor: pointer;
+        font-size: $small-font-size;
+
         &.quarter-picker__quarter_double {
           width: rem(72);
         }
