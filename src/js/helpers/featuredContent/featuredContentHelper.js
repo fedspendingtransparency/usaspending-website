@@ -13,7 +13,8 @@ const primaryFill = {
     finances: '#1B2B85',
     trust: '#73B3E7',
     stories: '#2378C3',
-    difference: '#5ABF95'
+    difference: '#5ABF95',
+    america250: '#0b4678'
 };
 
 const secondaryFill = {
@@ -24,7 +25,8 @@ const secondaryFill = {
     finances: '#628EF4',
     trust: '#D9E8F6',
     stories: '#73B3E7',
-    difference: '#DBF6ED'
+    difference: '#DBF6ED',
+    america250: '#69B3E3'
 };
 
 const contentTaxonomyNameToKey = {
@@ -35,7 +37,8 @@ const contentTaxonomyNameToKey = {
     "Exploring America's Finances": "finances",
     "Data You Can Trust": "trust",
     "Spending Stories": "stories",
-    "What's the Difference?": "difference"
+    "What's the Difference?": "difference",
+    "America250": "america250"
 };
 
 export const transformString = (input) => {
