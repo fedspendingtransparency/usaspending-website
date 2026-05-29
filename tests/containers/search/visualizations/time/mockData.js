@@ -7,7 +7,7 @@ export const mockApi = {
             aggregated_amount: 123,
             group: 'fiscal_Year'
         },
-         {
+        {
             time_period: {
                 fiscal_year: '1980'
             },

@@ -12,7 +12,7 @@ export const mockCount = {
 export const mockAward = {
     "page_metadata": {
         "page": 1,
-        "hasNext": true,
+        "hasNext": true
     },
     "results": [
         {
