@@ -52,19 +52,19 @@ const QuarterButton = ({
         }
     };
 
-    let additionalClasses = disabled ? 'usa-dt-quarter-picker__quarter_disabled ' : '';
+    let additionalClasses = disabled ? 'quarter-picker__quarter_disabled ' : '';
     if (quarter === '1') {
-        additionalClasses += 'usa-dt-quarter-picker__quarter_first';
+        additionalClasses += 'quarter-picker__quarter_first';
     }
     else if (quarter === '4') {
-        additionalClasses += 'usa-dt-quarter-picker__quarter_last';
+        additionalClasses += 'quarter-picker__quarter_last';
     }
     else if (title.includes('-')) {
-        additionalClasses += 'usa-dt-quarter-picker__quarter_double';
+        additionalClasses += 'quarter-picker__quarter_double';
     }
 
     if (!disabled && active) {
-        additionalClasses += ' usa-dt-quarter-picker__quarter_active';
+        additionalClasses += ' quarter-picker__quarter_active';
     }
 
     return (
@@ -72,7 +72,7 @@ const QuarterButton = ({
         // so that the disabled buttons are still focusable to display
         // the warning tooltip
         <button
-            className={`usa-dt-quarter-picker__quarter ${additionalClasses}`}
+            className={`quarter-picker__quarter ${additionalClasses}`}
             onMouseDown={handleClick}
             onClick={handleClick}
             onMouseOver={onMouseEnter}

@@ -61,6 +61,8 @@ const QuarterPicker = ({
     showPeriods = false,
     isCumulative = false
 }) => {
+    // I truly don't know what this state is actually doing
+    // Might be able to remove both
     const [periodHoverState, setPeriodHoverState] = useState('');
     const [quarterHoverState, setQuarterHoverState] = useState('');
 

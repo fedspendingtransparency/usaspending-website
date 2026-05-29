@@ -85,9 +85,9 @@ const QuarterPickerWithFY = ({
             <NewQuarterPicker
                 showPeriods
                 periodsPerQuarter={periodsPerQuarter}
-                selectedPeriods={[latestFy]}
+                selectedPeriods={[latestSelectedTimeInterval]}
                 disabledPeriods={disabledPeriodsInFy}
-                handleSelection={handlePickedYear} />
+                handleSelection={handleQuarterPickerSelection} />
         </div>
     );
 };
