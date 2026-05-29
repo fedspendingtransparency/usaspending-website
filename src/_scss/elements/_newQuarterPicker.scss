@@ -30,7 +30,7 @@ $button-text-disabled:$gray-60;
 
       button.quarter-picker__quarter {
         @include button-unstyled;
-        color: $color-white;
+        color: $button-text-disabled;
         line-height: 1.5;
         font-weight: $font-semibold;
         background-color: $button-color;
@@ -54,19 +54,19 @@ $button-text-disabled:$gray-60;
 
         &:active, &.quarter-picker__quarter_active {
           background-color: $active-button-color;
-          color: $color-white;
+          color: $button-text-color;
         }
 
         &:hover {
           background-color: $active-button-color;
-          color: $color-white;
+          color: $button-text-color;
         }
 
         &.quarter-picker__quarter_disabled {
           background-color: $color-gray-lightest;
           cursor: not-allowed;
-          color: $button-text-disabled;
           opacity: 0.90;
+          color: $button-text-disabled;
         }
       }
 
@@ -76,6 +76,7 @@ $button-text-disabled:$gray-60;
         flex-direction: column;
         list-style: none;
         height: auto;
+
         // the nested list
         p {
           font-size: rem(14);
@@ -83,6 +84,7 @@ $button-text-disabled:$gray-60;
           text-align: center;
           font-weight: $font-normal;
           margin: rem(6);
+
           &.disabled {
             color: $button-text-disabled;
           }
