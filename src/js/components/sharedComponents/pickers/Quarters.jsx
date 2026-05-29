@@ -43,10 +43,6 @@ const propTypes = {
     disabledPeriods: PropTypes.arrayOf(PropTypes.string),
     showPeriods: PropTypes.bool,
     isCumulative: PropTypes.bool,
-    periodHoverState: PropTypes.string,
-    handleHover: PropTypes.func,
-    handleBlur: PropTypes.func,
-    quarterHoverState: PropTypes.string,
     index: PropTypes.number
 };
 
@@ -60,11 +56,7 @@ const Quarters = ({
     disabledPeriods,
     showPeriods,
     isCumulative,
-    index,
-    periodHoverState,
-    handleHover,
-    handleBlur,
-    quarterHoverState
+    index
 }) => {
     const quarterNumber = index + 1;
     const quarterNumberAsString = `${quarterNumber}`;
@@ -89,18 +81,11 @@ const Quarters = ({
                             className={className(period)}
                             key={uniqueId()}>
                             <QuarterButton
-                                showPeriods={showPeriods}
                                 quarter={period.id}
                                 title={getTitle(period.title)}
                                 disabled={disabledPeriods.includes(period.id)}
-                                active={(
-                                    isIdOrGreaterInArray(period.id, selectedPeriods) ||
-                                    parseInt(periodHoverState, 10) >= parseInt(period.id, 10)
-                                )}
-                                handleHover={handleHover}
-                                handleBlur={handleBlur}
-                                handleSelection={handleSelection}
-                                toggleTooltip={() => {}} />
+                                active={isIdOrGreaterInArray(period.id, selectedPeriods)}
+                                handleSelection={handleSelection} />
                         </li>
                     ))}
                 </ul>
@@ -110,14 +95,8 @@ const Quarters = ({
 
     const disabled = disabledQuarters.includes(quarterNumberAsString)
     const active = isCumulative ?
-        (
-            isIdOrGreaterInArray(quarterNumberAsString, selectedQuarters) ||
-            parseInt(quarterHoverState, 10) >= quarterNumber
-        )
-        : (
-            selectedQuarters.includes(quarterNumberAsString) ||
-            quarterHoverState === quarterNumberAsString
-        )
+        isIdOrGreaterInArray(quarterNumberAsString, selectedQuarters) :
+        selectedQuarters.includes(quarterNumberAsString);
 
     return (
         <li className="quarter-picker__list-item" key={uniqueId()}>
@@ -125,10 +104,7 @@ const Quarters = ({
                 quarter={quarterNumberAsString}
                 disabled={disabled}
                 active={active}
-                handleSelection={handleSelection}
-                handleHover={handleHover}
-                handleBlur={handleBlur}
-                toggleTooltip={() => {}}/>
+                handleSelection={handleSelection} />
         </li>
     );
 };

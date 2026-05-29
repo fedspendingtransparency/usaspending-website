@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 10/15/19
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from "lodash-es";
 import Quarters from "./Quarters";
@@ -61,29 +61,6 @@ const QuarterPicker = ({
     showPeriods = false,
     isCumulative = false
 }) => {
-    // I truly don't know what this state is actually doing
-    // Might be able to remove both
-    const [periodHoverState, setPeriodHoverState] = useState('');
-    const [quarterHoverState, setQuarterHoverState] = useState('');
-
-    const handleHover = (str, type = 'quarter') => {
-        if (type === 'quarter') {
-            setQuarterHoverState(str);
-        }
-        else {
-            setPeriodHoverState(str);
-        }
-    };
-
-    const handleBlur = (type = 'quarter') => {
-        if (type === 'quarter') {
-            setQuarterHoverState('');
-        }
-        else {
-            setPeriodHoverState('');
-        }
-    };
-
     return (
         <div className="quarter-picker">
             <ul className="quarter-picker__list">
@@ -100,10 +77,6 @@ const QuarterPicker = ({
                             showPeriods={showPeriods}
                             isCumulative={isCumulative}
                             index={quarterIndex}
-                            periodHoverState={periodHoverState}
-                            handleHover={handleHover}
-                            handleBlur={handleBlur}
-                            quarterHoverState={quarterHoverState}
                             key={uniqueId('quarter_')}/>
 
                     ))

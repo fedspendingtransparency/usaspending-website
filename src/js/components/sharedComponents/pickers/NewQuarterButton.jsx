@@ -9,12 +9,8 @@ import PropTypes from 'prop-types';
 const propTypes = {
     disabled: PropTypes.bool,
     active: PropTypes.bool,
-    showPeriods: PropTypes.bool,
     quarter: PropTypes.string,
     handleSelection: PropTypes.func,
-    handleHover: PropTypes.func,
-    handleBlur: PropTypes.func,
-    toggleTooltip: PropTypes.func,
     title: PropTypes.string
 };
 
@@ -23,27 +19,9 @@ const QuarterButton = ({
     active,
     quarter,
     handleSelection,
-    toggleTooltip,
-    title = '',
-    handleHover,
-    handleBlur,
-    showPeriods = false
+    title = ''
 }) => {
     const quarterTitle = title || `Q ${quarter}`;
-
-    const onMouseEnter = () => {
-        if (disabled) {
-            toggleTooltip(quarter);
-        }
-        else {
-            handleHover(quarter, showPeriods ? 'period' : 'quarter');
-        }
-    };
-
-    const onMouseLeave = () => {
-        toggleTooltip(0);
-        handleBlur(showPeriods ? 'period' : 'quarter');
-    };
 
     const handleClick = (e) => {
         e.preventDefault();
@@ -75,11 +53,6 @@ const QuarterButton = ({
             className={`quarter-picker__quarter ${additionalClasses}`}
             onMouseDown={handleClick}
             onClick={handleClick}
-            onMouseOver={onMouseEnter}
-            onMouseEnter={onMouseEnter}
-            onFocus={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            onBlur={onMouseLeave}
             aria-disabled={disabled}>
             {quarterTitle}
         </button>
