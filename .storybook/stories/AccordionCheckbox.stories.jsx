@@ -4,14 +4,16 @@ import { within, userEvent, expect } from "storybook/test"
 import AccordionCheckbox from "../../src/js/components/sharedComponents/checkbox/AccordionCheckbox";
 import { awardTypesData } from "../../src/js/helpers/search/filterCheckboxHelper";
 import { awardTypeCodes } from "../../src/js/dataMapping/search/awardType";
+import registerIcons from '../../src/js/registerIcons';
 
 export default {
     title: "Accordion Checkbox",
-    component: AccordionCheckbox
+    component: AccordionCheckbox,
+    tags: ['autodocs'],
 };
 
 const delay = 100;
-
+registerIcons();
 const Template = (args) => {
     const [awardType, setAwardType] = useState(new Set());
     const singleFilterChange = ({ value }) => {
@@ -72,21 +74,21 @@ Default.play = async({ canvasElement, step }) => {
 
         // Assert: 'Definitive Contracts' should be visible and all checkboxes checked
         await expect(canvas.getByText('Definitive', { exact: false })).toBeTruthy();
-        await expect(document.getElementById('primary-checkbox-0')).toBeChecked();
-        await expect(document.getElementById('primary-checkbox-1')).toBeChecked();
-        await expect(document.getElementById('primary-checkbox-2')).toBeChecked();
-        await expect(document.getElementById('primary-checkbox-3')).toBeChecked();
+        await expect(document.getElementById('primary-checkbox-A')).toBeChecked();
+        await expect(document.getElementById('primary-checkbox-B')).toBeChecked();
+        await expect(document.getElementById('primary-checkbox-C')).toBeChecked();
+        await expect(document.getElementById('primary-checkbox-D')).toBeChecked();
 
         // Act: uncheck 'Definitive Contracts'
-        await userEvent.click(document.getElementById('primary-checkbox-3'), { delay })
+        await userEvent.click(document.getElementById('primary-checkbox-D'), { delay })
 
         // Assert: Expect the 'Contracts' checkbox to be unchecked
         await expect(parentCheckbox).not.toBeChecked();
 
         // Act: Uncheck the rest of the child checkboxes
-        await userEvent.click(document.getElementById('primary-checkbox-0'), { delay })
-        await userEvent.click(document.getElementById('primary-checkbox-1'), { delay })
-        await userEvent.click(document.getElementById('primary-checkbox-2'), { delay })
+        await userEvent.click(document.getElementById('primary-checkbox-A'), { delay })
+        await userEvent.click(document.getElementById('primary-checkbox-B'), { delay })
+        await userEvent.click(document.getElementById('primary-checkbox-C'), { delay })
 
         // Assert: 'Contracts' should still be unchecked
         await expect(parentCheckbox).not.toBeChecked();
@@ -101,8 +103,8 @@ Default.play = async({ canvasElement, step }) => {
 
         // Arrange
         const parentCheckbox = document.getElementById('primary-checkbox__award-contracts');
-        const definitiveContractsCheckbox = document.getElementById('primary-checkbox-0');
-        const clearOutButton = document.getElementsByClassName('fa-times');
+        const definitiveContractsCheckbox = document.getElementById('primary-checkbox-D');
+        const clearOutButton = document.getElementsByClassName('fa-xmark');
 
         // Act: click on definitive contracts checkbox
         await userEvent.click(definitiveContractsCheckbox, { delay });
