@@ -55,7 +55,7 @@ const errorTypes = {
         active: true
     },
     empty: {
-        type: "",
+        title: "",
         message: "",
         type: null,
         active: false
