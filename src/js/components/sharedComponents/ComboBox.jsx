@@ -3,7 +3,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
 const propTypes = {
-    onSelect: PropTypes.func,
     optionsArray: PropTypes.arrayOf(
         PropTypes.shape(
             {
@@ -16,7 +15,10 @@ const propTypes = {
     defaultValue: PropTypes.string,
     formName: PropTypes.string,
     disabled: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onSelect: PropTypes.func,
+    onClearSelect: PropTypes.func,
+    persistedValue: PropTypes.string
 };
 
 // eslint-disable-next-line prefer-arrow-callback
@@ -28,7 +30,9 @@ const ComboBox = memo(function ComboBox({
     defaultValue,
     formName,
     disabled,
-    className
+    className,
+    onClearSelect = () => {},
+    persistedValue = ''
 }) {
     const [inputValue, setInputValue] = useState(defaultValue || '');
     const [openOptions, setOpenOptions] = useState(false);
@@ -39,6 +43,10 @@ const ComboBox = memo(function ComboBox({
     useEffect(() => {
         setInputValue(defaultValue || '');
     }, [optionsArrayDep, defaultValue]);
+        // persisted value defaults to an empty string
+        // if persisted value passed set to is.
+        setInputValue(persistedValue)
+    }, [optionsArrayDep]);
 
     // 1) filter for inputValue 2) map to list item element
     const options = optionsArray
@@ -79,6 +87,7 @@ const ComboBox = memo(function ComboBox({
     const onClickClear = () => {
         setInputValue('');
         setOpenOptions(false);
+        onClearSelect();
     };
 
     const onClickToggle = () => setOpenOptions((prevState) => !prevState);
@@ -96,7 +105,7 @@ const ComboBox = memo(function ComboBox({
             <label
                 className="combo-box__label"
                 id={`${formName}-label`}
-                htmlFor={formName}>
+                htmlFor={`${formName}-combo`}>
                 {label}
                 <div className="combo-box__input-container">
                     <input
@@ -104,6 +113,7 @@ const ComboBox = memo(function ComboBox({
                         type="text"
                         className="combo-box__input"
                         name={formName}
+                        id={`${formName}-combo`}
                         onChange={onChange}
                         placeholder={placeholder}
                         disabled={isDisabledAndEmpty} />

@@ -128,62 +128,70 @@ export const awardDownloadOptions = {
             disabled: false
         }
     ],
-    dateRangeButtons: {
-        column3: [
-            {
-                label: 'yesterday',
-                startDate: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
-                endDate: dayjs().subtract(1, 'day').format('YYYY-MM-DD')
-            },
-            {
-                label: 'last 7 days',
-                startDate: dayjs().subtract(1, 'week').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'last 15 days',
-                startDate: dayjs().subtract(15, 'day').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'last 30 days',
-                startDate: dayjs().subtract(30, 'day').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'last 60 days',
-                startDate: dayjs().subtract(60, 'day').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            }
-        ],
-        column4: [
-            {
-                label: 'this month',
-                startDate: dayjs().startOf('month').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'last 3 months',
-                startDate: dayjs().subtract(3, 'month').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'last 6 months',
-                startDate: dayjs().subtract(6, 'month').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'this year',
-                startDate: dayjs().startOf('year').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'last year',
-                startDate: dayjs().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
-                endDate: dayjs().subtract(1, 'year').endOf('year').format('YYYY-MM-DD')
-            }
-        ]
-    }
+    timePeriodTypes: [
+        {
+            name: 'time_period',
+            label: 'Time Period',
+            description: 'Time Period Pre-selected periods of time, including government fiscal year (FY)'
+        },
+        {
+            name: 'date_picker',
+            label: 'Date Picker',
+            description: 'Date Picker Date ranges may span up to one year'
+        }
+    ],
+    dateRangeButtons: [
+        {
+            label: 'yesterday',
+            startDate: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
+            endDate: dayjs().subtract(1, 'day').format('YYYY-MM-DD')
+        },
+        {
+            label: 'last 7 days',
+            startDate: dayjs().subtract(1, 'week').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'last 15 days',
+            startDate: dayjs().subtract(15, 'day').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'last 30 days',
+            startDate: dayjs().subtract(30, 'day').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'last 60 days',
+            startDate: dayjs().subtract(60, 'day').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'this month',
+            startDate: dayjs().startOf('month').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'last 3 months',
+            startDate: dayjs().subtract(3, 'month').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'last 6 months',
+            startDate: dayjs().subtract(6, 'month').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'this year',
+            startDate: dayjs().startOf('year').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'last year',
+            startDate: dayjs().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
+            endDate: dayjs().subtract(1, 'year').endOf('year').format('YYYY-MM-DD')
+        }
+    ]
 };
 
 export const accountDownloadOptions = {
