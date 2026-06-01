@@ -15,37 +15,29 @@ const propTypes = {
     currentEndDate: PropTypes.string
 };
 
-export default class FiscalYearButton extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.onClick = this.onClick.bind(this);
+const FiscalYearButton = (props) => {
+    let activeClass = '';
+    const dates = fiscalYearHelper.convertFYToDateRange(props.year);
+    if (props.currentStartDate === dates[0]
+        && props.currentEndDate === dates[1]) {
+        activeClass = 'active';
     }
+    const label = `FY ${props.year}`;
 
-    onClick(e) {
+    const onClick = (e) => {
         e.preventDefault();
 
-        const dates = fiscalYearHelper.convertFYToDateRange(this.props.year);
-        this.props.handleDateChange(dates[0], 'startDateBulk');
-        this.props.handleDateChange(dates[1], 'endDateBulk');
-    }
+        props.handleDateChange(dates[0], 'startDateBulk');
+        props.handleDateChange(dates[1], 'endDateBulk');
+    };
 
-    render() {
-        let activeClass = '';
-        const dates = fiscalYearHelper.convertFYToDateRange(this.props.year);
-        if (this.props.currentStartDate === dates[0]
-            && this.props.currentEndDate === dates[1]) {
-            activeClass = 'active';
-        }
-        const label = `FY ${this.props.year}`;
-        return (
-            <button
-                className={`time-period-button ${activeClass}`}
-                onClick={this.onClick}>
-                {label}
-            </button>
-        );
-    }
-}
+    return (
+        <button
+            className={`time-period-button ${activeClass}`}
+            onClick={onClick}>
+            {label}
+        </button>
+    );
+};
 
 FiscalYearButton.propTypes = propTypes;
