@@ -62,6 +62,14 @@ const FiscalYearFilter = ({ updateFilter }) => {
                 and <span className="download-filter__title_em">quarter</span>.
             </h3>
             <div className="download-filter__content new">
+                <p className={"download-filter__content-description"}>
+                    The government
+                    <span> Fiscal Year (FY) </span>
+                    from October 1 through September 30 of the following year.
+                    <span> Period </span>
+                    refers to an individual month within the FY,
+                    as agencies have a monthly reporting requirement.
+                </p>
                 <QuarterPickerWithFY
                     selectedFy={fy}
                     handlePickedYear={pickedYear}
