@@ -17,8 +17,7 @@ const propTypes = {
     disabled: PropTypes.bool,
     className: PropTypes.string,
     onSelect: PropTypes.func,
-    onClearSelect: PropTypes.func,
-    persistedValue: PropTypes.string
+    onClearSelect: PropTypes.func
 };
 
 // eslint-disable-next-line prefer-arrow-callback
@@ -27,26 +26,23 @@ const ComboBox = memo(function ComboBox({
     optionsArray,
     label,
     placeholder,
-    defaultValue,
+    defaultValue = '',
     formName,
     disabled,
-    className,
     onClearSelect = () => {},
-    persistedValue = ''
+    className
 }) {
-    const [inputValue, setInputValue] = useState(defaultValue || '');
+    const [inputValue, setInputValue] = useState(defaultValue);
     const [openOptions, setOpenOptions] = useState(false);
 
     const optionsArrayDep = JSON.stringify(optionsArray);
 
     // reset input if there's a change in options array
     useEffect(() => {
-        setInputValue(defaultValue || '');
+        // default value defaults to an empty string
+        // if default value passed set to it.
+        setInputValue(defaultValue);
     }, [optionsArrayDep, defaultValue]);
-        // persisted value defaults to an empty string
-        // if persisted value passed set to is.
-        setInputValue(persistedValue)
-    }, [optionsArrayDep]);
 
     // 1) filter for inputValue 2) map to list item element
     const options = optionsArray
