@@ -80,13 +80,11 @@ const QuarterPickerWithFY = ({
 
     return (
         <div className="quarter-picker">
-            <div className="quarter-picker__fy">
-                <ComboBox
-                    optionsArray={optionsArray}
-                    onSelect={onSelect}
-                    defaultValue={`FY ${defaultFy}`}
-                    disabled={!latestFy} />
-            </div>
+            <ComboBox
+                optionsArray={optionsArray}
+                onSelect={onSelect}
+                defaultValue={`FY ${defaultFy}`}
+                disabled={!latestFy} />
             <NewQuarterPicker
                 showPeriods
                 periodsPerQuarter={periodsPerQuarter}

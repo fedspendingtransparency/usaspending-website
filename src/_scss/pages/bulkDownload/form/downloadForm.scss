@@ -257,10 +257,6 @@
         @include usa-input-checkbox;
       }
       .download-filter__fy {
-        .quarter-picker .quarter-picker__fy {
-          @include flex(0 0 auto);
-          padding-right: rem(20);
-        }
         .usa-dt-quarter-picker__list {
           @include flex-wrap(wrap);
           @media (min-width: $tablet-screen) {
