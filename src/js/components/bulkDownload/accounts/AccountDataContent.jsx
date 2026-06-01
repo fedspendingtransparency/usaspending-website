@@ -15,16 +15,13 @@ import { Glossary } from 'components/sharedComponents/icons/Icons';
 import IsMobileContext from "context/IsMobileContext";
 
 import AccountLevelFilter from './filters/AccountLevelFilter';
-import AgencyFilter from './filters/AgencyFilter';
-import BudgetFunctionFilter from './filters/BudgetFunctionFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
 import AccountUserSelections from './AccountUserSelections';
 import DefCodeFilter from './filters/DefCodeFilter';
 
 import SubmitButton from '../awards/SubmitButton';
-import BudgetAgencyComboFilter from './filters/BudgetAgencyComboFilter';
-
+import BudgetAgencyGroup from './filters/BudgetAgencyGroup';
 
 const propTypes = {
     accounts: PropTypes.object,
@@ -82,7 +79,7 @@ const AccountDataContent = ({
             <div className="download-center__filters">
                 <h2 className="download-center__title">Custom Account Data</h2>
                 <div className="download-center-form">
-                    <BudgetAgencyComboFilter
+                    <BudgetAgencyGroup
                         budgetFunctions={budgetFunctions}
                         budgetSubfunctions={budgetSubfunctions}
                         currentBudgetFunction={accounts.budgetFunction}
@@ -91,7 +88,6 @@ const AccountDataContent = ({
                         federalAccounts={federalAccounts}
                         currentAgency={accounts.agency}
                         currentFederalAccount={accounts.federalAccount}
-                        // setSubList={setSubList}
                         setBudgetSubfunctionList={setBudgetSubfunctionList}
                         setFederalAccountList={setFederalAccountList}
                         updateFilter={updateFilter}

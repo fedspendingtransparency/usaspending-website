@@ -1,5 +1,5 @@
 /**
- * BudgetAgencyComboFilter.jsx
+ * BudgetAgencyGroup.jsx
  * Created by JD House 5/28/2026
  */
 
@@ -18,19 +18,29 @@ const propTypes = {
     budgetSubfunctions: PropTypes.array,
     currentBudgetFunction: PropTypes.object,
     currentBudgetSubfunction: PropTypes.object,
+    agencies: PropTypes.array,
+    federalAccounts: PropTypes.array,
+    currentAgency: PropTypes.object,
+    currentFederalAccount: PropTypes.object,
+    setBudgetSubfunctionList: PropTypes.func,
+    setFederalAccountList: PropTypes.func,
     updateFilter: PropTypes.func,
-    valid: PropTypes.bool,
-    setBudgetSubfunctionList: PropTypes.func
+    valid: PropTypes.bool
 };
 
-const BudgetAgencyComboFilter = memo(function BudgetAgencyComboFilter({
+const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
     budgetFunctions,
     budgetSubfunctions,
     currentBudgetFunction,
     currentBudgetSubfunction,
-    updateFilter,
-    valid,
+    agencies,
+    federalAccounts,
+    currentAgency,
+    currentFederalAccount,
     setBudgetSubfunctionList,
+    setFederalAccountList,
+    updateFilter,
+    valid
 }) {
 
     let icon = (
@@ -63,10 +73,89 @@ const BudgetAgencyComboFilter = memo(function BudgetAgencyComboFilter({
 
     }
 
-    const budgetOptions = [];
-    const subBudgetOptions = [];
-    const agenciesOptions = [];
-    const subAgenciesOptions = [];
+
+// copy over 
+
+    // const onChange = (e) => updateFilter('agencyType', e.target.value);
+
+    // const handleAgencySelect = (e) => {
+    //     e.preventDefault();
+    //     const target = e.target;
+    //     updateFilter('agency', {
+    //         id: target.value,
+    //         name: target.name
+    //     });
+
+    //     if (target.value === 'all') {
+    //         setSubAgencyList('');
+    //     }
+    //     else {
+    //         setSubAgencyList(target.value);
+    //     }
+    // };
+
+    // const handleSubAgencySelect = (e) => {
+    //     e.preventDefault();
+    //     const target = e.target;
+    //     updateFilter('subAgency', {
+    //         name: target.value
+    //     });
+    // };
+
+    let budgetArray = [{ name: 'All', id: 'all', code: 'all'}];
+
+    Object.entries(budgetFunctions).forEach((item) => {
+        const bf = {
+            name: item.budget_function_title,
+            code: item.budget_function_code
+        }
+   
+        budgetArray = [...budgetArray, ...item];
+    });
+
+    const budgetOptions = budgetArray.map(({
+        name,
+        code
+    }) => (
+        { text: name, value: code }
+    ));
+
+
+    let subBudgetOptions = [{ name: 'All', id: 'all', code: 'all'}];
+
+    
+    // data manipulation for combo boxes
+    let agenciesArray = [{ name: 'All', toptier_agency_id: 'all', toptier_code: 'all' }];
+
+    Object.entries(agencies).forEach(([key, value]) => {
+        const title = {
+            name: key === "cfoAgencies" ? "CFO AGENCIES" : "OTHER AGENCIES",
+            toptier_agency_id: key,
+            toptier_code: null
+        };
+        agenciesArray = [...agenciesArray, title, ...value];
+    });
+
+    const agenciesOptions = agenciesArray.map(({
+        name,
+        toptier_agency_id: id,
+        toptier_code: code
+    }) => (
+        { text: name, value: code ? id.toString() : `${id}-disabled` }
+    ));
+
+    let federalAccountOptions = [{ name: 'All', id: 'all', code: 'all'}]
+
+
+
+
+
+// end copy over 
+
+
+
+
+
 
     return (
         <div className="download-filter">
@@ -112,11 +201,11 @@ const BudgetAgencyComboFilter = memo(function BudgetAgencyComboFilter({
                         label="Agency"
                         placeholder="Select agency" />
                     <ComboBox
-                        optionsArray={subAgenciesOptions}
+                        optionsArray={federalAccountOptions}
                         onSelect={handleSubAgencySelect}
                         label="Federal Account"
                         placeholder="Select federal account"
-                        disabled={subAgenciesOptions.length === 0} />
+                        disabled={federalAccountOptions.length === 0} />
                 </div>
             </div>
         </div>
@@ -327,5 +416,5 @@ const BudgetAgencyComboFilter = memo(function BudgetAgencyComboFilter({
 //     }
 // }
 
-BudgetAgencyComboFilter.propTypes = propTypes;
-export default BudgetAgencyComboFilter;
+BudgetAgencyGroup.propTypes = propTypes;
+export default BudgetAgencyGroup;
