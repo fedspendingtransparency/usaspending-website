@@ -139,7 +139,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
     }, [onDateChange, type]);
 
     const handleInputChange = (e) => {
-          // allow for type clear 
+        // allow for type clear 
         if (e.target.value === "") {
             onDateChange(e.target.value, type);
         }
