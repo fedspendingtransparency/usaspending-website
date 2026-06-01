@@ -257,7 +257,6 @@
         @include usa-input-checkbox;
       }
       .download-filter__fy {
-        @import "fyPicker";
         .quarter-picker .quarter-picker__fy {
           @include flex(0 0 auto);
           padding-right: rem(20);

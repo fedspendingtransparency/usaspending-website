@@ -76,12 +76,6 @@ const QuarterPickerWithFY = ({
                     fy={selectedFy}
                     onClick={pickedYear} />
             </div>
-            {/* <QuarterPicker */}
-            {/*     showPeriods */}
-            {/*     periodsPerQuarter={periodsPerQuarter} */}
-            {/*     selectedPeriods={[latestSelectedTimeInterval]} */}
-            {/*     disabledPeriods={disabledPeriodsInFy} */}
-            {/*     handleSelection={handleQuarterPickerSelection} /> */}
             <NewQuarterPicker
                 showPeriods
                 periodsPerQuarter={periodsPerQuarter}

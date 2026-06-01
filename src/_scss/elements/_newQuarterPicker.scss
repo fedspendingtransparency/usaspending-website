@@ -9,7 +9,6 @@ $quarter-text-color: $gray-90;
     @include unstyled-list;
     display: flex;
     flex: 1 1 auto;
-
     padding: rem(5) 0;
 
     li.quarter-picker__list-item {
