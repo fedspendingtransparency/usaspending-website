@@ -18,14 +18,14 @@ const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(file
 export default defineConfig({
     resolve: {
         alias: {
-      '@': path.resolve(__dirname, './src'),
+            '@': path.resolve(__dirname, './src'),
         }
     },
     build: {
         commonjsOptions: { transformMixedEsModules: true },
-        outDir: path.resolve(__dirname, "./docs"),
+        outDir: path.resolve(__dirname, "../public"),
         rolldownOptions: {
-            input: "index.js",
+            input: "./src/index.js",
             external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types']
         }
     },
