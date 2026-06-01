@@ -7,7 +7,6 @@ import React, { useCallback, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import Note, { dodNote } from 'components/sharedComponents/Note';
 import IsMobileContext from "context/IsMobileContext";
@@ -113,12 +112,7 @@ const AwardDataContent = ({
                         updateFilter={updateFilter}
                         setSubAgencyList={setSubAgencyList}
                         valid={awards.agency.id !== ''} />
-                    <LocationFilter
-                        locationTypes={awardDownloadOptions.locationTypes}
-                        states={states}
-                        currentLocation={awards.location}
-                        updateFilter={updateFilter}
-                        currentLocationType={awards.locationType} />
+                    <LocationFilter states={states} updateFilter={updateFilter} />
                     <DateTypeFilter updateFilter={updateFilter} />
                     <TimePeriodFilter
                         updateStartDate={updateStartDate}

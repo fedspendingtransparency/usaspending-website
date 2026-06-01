@@ -5,16 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { CheckCircle } from 'components/sharedComponents/icons/Icons';
 import EntityDropdown from 'components/bulkDownload/awards/filters/EntityDropdown';
-
-const propTypes = {
-    locationTypes: PropTypes.array,
-    states: PropTypes.array,
-    currentLocation: PropTypes.object,
-    updateFilter: PropTypes.func,
-    currentLocationType: PropTypes.string
-};
+import { useSelector } from "react-redux";
 
 const countryOptions = [
     {
@@ -31,20 +25,27 @@ const countryOptions = [
     }
 ];
 
+const { locationTypes } = awardDownloadOptions;
+
+const propTypes = {
+    states: PropTypes.array,
+    updateFilter: PropTypes.func
+};
+
 const LocationFilter = ({
-    locationTypes,
     states,
-    currentLocation,
-    updateFilter,
-    currentLocationType
+    updateFilter
 }) => {
+    const location = useSelector((state) => state.bulkDownload.awards.location);
+    const locationType = useSelector((state) => state.bulkDownload.awards.locationType);
+
     const onChange = (e) => {
         const target = e.target;
         updateFilter('locationType', target.value);
     };
 
     const generateDisclaimer = (field) => {
-        if (!currentLocation.country.code) {
+        if (!location.country.code) {
             // no country provided
             return (
                 <span>
@@ -74,7 +75,7 @@ const LocationFilter = ({
             });
         }
         else if (locationType === 'state') {
-            const updatedLocation = Object.assign({}, currentLocation, {
+            const updatedLocation = Object.assign({}, location, {
                 state: selectedLocation
             });
 
@@ -89,18 +90,18 @@ const LocationFilter = ({
         name: 'All'
     });
 
-    const locationTypesArray = locationTypes.map((locationType) => (
+    const locationTypesArray = locationTypes.map((type) => (
         <div
             className="radio"
-            key={locationType.name}>
+            key={type.name}>
             <input
                 type="radio"
-                aria-label={locationType.name}
-                value={locationType.name}
+                aria-label={type.name}
+                value={type.name}
                 name="locationType"
-                checked={currentLocationType === locationType.name}
+                checked={locationType === type.name}
                 onChange={onChange} />
-            <label className="radio-label" htmlFor="locationType">{locationType.label}</label>
+            <label className="radio-label" htmlFor="locationType">{type.label}</label>
         </div>
     ));
 
@@ -118,7 +119,7 @@ const LocationFilter = ({
                     scope="country"
                     placeholder="Select a Country"
                     title="Country"
-                    value={currentLocation.country}
+                    value={location.country}
                     selectEntity={updateLocationFilter}
                     options={countryOptions}
                     field="country"
@@ -127,11 +128,11 @@ const LocationFilter = ({
                     scope="state"
                     placeholder="Select a State"
                     title="State"
-                    value={currentLocation.state}
+                    value={location.state}
                     selectEntity={updateLocationFilter}
                     options={stateOptions}
                     field="state"
-                    enabled={currentLocation.country.code === 'USA'}
+                    enabled={location.country.code === 'USA'}
                     generateDisclaimer={generateDisclaimer} />
             </div>
         </div>
