@@ -61,7 +61,7 @@ const FiscalYearFilter = ({ updateFilter }) => {
                 <span className="download-filter__title_em"> fiscal year </span>
                 and <span className="download-filter__title_em">quarter</span>.
             </h3>
-            <div className="download-filter__content">
+            <div className="download-filter__content new">
                 <QuarterPickerWithFY
                     selectedFy={fy}
                     handlePickedYear={pickedYear}

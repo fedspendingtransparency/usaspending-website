@@ -71,7 +71,11 @@
     .download-filter__content {
       @include media($medium-screen) {
         padding-left: rem(30);
-        //width: 96%;
+      }
+
+      // TODO: remove additional .new class once download page update is done (DEV-15082)
+      &.new {
+        padding-left: 0;
       }
 
       .radio {
@@ -259,6 +263,7 @@
       .download-filter__fy {
         display: flex;
         flex-wrap: wrap;
+        margin-bottom: rem(12);
 
         .combo-box {
           min-width: 37.5%;
