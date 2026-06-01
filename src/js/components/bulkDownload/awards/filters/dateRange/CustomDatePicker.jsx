@@ -134,9 +134,16 @@ const CustomDatePicker = memo(function CustomDatePicker({
         setViewDate(date.startOf("month"));
         setIsOpen(false);
         onDateChange(date, type);
+        setIsOpen(false);
+
     }, [onDateChange, type]);
 
     const handleInputChange = (e) => {
+          // allow for type clear 
+        if (e.target.value === "") {
+            onDateChange(e.target.value, type);
+        }
+
         const formatted = autoFormatInput(e.target.value);
         setInputValue(formatted);
         const parsed = parseInputDate(formatted);
@@ -230,7 +237,6 @@ const CustomDatePicker = memo(function CustomDatePicker({
                         value={inputValue}
                         min={min}
                         onChange={handleInputChange}
-                        onBlur={handleInputChange}
                         onClick={() => setIsOpen(!isOpen)} />
                     <FontAwesomeIcon
                         icon="calendar"

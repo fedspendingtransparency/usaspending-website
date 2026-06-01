@@ -135,7 +135,7 @@ const TimePeriodFilter = ({
                     type: 'end'
                 };
                 updateStartDate(startValue);
-                setValidDates(true);
+                setValidDates(false);
                 setError(errorMessage);
             }
             else {
@@ -148,7 +148,7 @@ const TimePeriodFilter = ({
                 };
                 setError(errorMessage);
                 updateEndDate(endValue);
-                setValidDates(true);
+                setValidDates(false);
             }
         }
         else {
@@ -189,8 +189,14 @@ const TimePeriodFilter = ({
         }
 
         if (dateType === "startDateBulk") {
-            if (value.isValid()) {
+            if (value?.isValid()) {
                 setStartDateBulkUI(value);
+            }
+            else if (date === "") {
+                // user want to clear picker
+                setStartDateBulkUI('');
+                updateStartDate('');
+                setValidDates(false);
             }
             else {
                 errorMessage = {
@@ -198,12 +204,19 @@ const TimePeriodFilter = ({
                     type: 'start'
                 };
                 setError(errorMessage);
+                setValidDates(false);
             } 
         }
         
         if (dateType === "endDateBulk") {
-            if (value.isValid()) {
+            if (value?.isValid()) {
                 setEndDateBulkUI(value);
+            }
+            else if (date === "") {
+                // user want to clear picker
+                setEndDateBulkUI('');
+                updateEndDate('');
+                setValidDates(false);
             }
             else {
                 errorMessage = {
@@ -211,6 +224,7 @@ const TimePeriodFilter = ({
                     type: 'end'
                 };
                 setError(errorMessage);
+                setValidDates(false);
             } 
         }
     };
