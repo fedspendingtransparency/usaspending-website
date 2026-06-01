@@ -62,13 +62,11 @@ const FiscalYearFilter = ({ updateFilter }) => {
                 and <span className="download-filter__title_em">quarter</span>.
             </h3>
             <div className="download-filter__content">
-                <div className="download-filter__fy">
-                    <QuarterPickerWithFY
-                        selectedFy={fy}
-                        handlePickedYear={pickedYear}
-                        handleQuarterPickerSelection={quarterPickerSelection}
-                        latestSelectedTimeInterval={latestSelectedTimeInterval} />
-                </div>
+                <QuarterPickerWithFY
+                    selectedFy={fy}
+                    handlePickedYear={pickedYear}
+                    handleQuarterPickerSelection={quarterPickerSelection}
+                    latestSelectedTimeInterval={latestSelectedTimeInterval} />
                 <p className="download-filter__content-note">
                     <span className="download-filter__content-note_bold">Note: </span>
                     {noteOne}

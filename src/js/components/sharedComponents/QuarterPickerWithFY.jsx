@@ -79,11 +79,13 @@ const QuarterPickerWithFY = ({
     }, [defaultFy]);
 
     return (
-        <div className="quarter-picker">
+        <div className="download-filter__fy">
             <ComboBox
                 optionsArray={optionsArray}
                 onSelect={onSelect}
                 defaultValue={`FY ${defaultFy}`}
+                label={"Fiscal Year"}
+                formName={"download-filter__fy"}
                 disabled={!latestFy} />
             <NewQuarterPicker
                 showPeriods
