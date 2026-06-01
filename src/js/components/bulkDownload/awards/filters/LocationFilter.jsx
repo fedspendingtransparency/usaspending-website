@@ -95,14 +95,21 @@ const LocationFilter = memo(function LocationFilter({
         <div
             className="radio"
             key={type.name}>
-            <input
-                type="radio"
-                aria-label={type.name}
-                value={type.name}
-                name="locationType"
-                checked={locationType === type.name}
-                onChange={onChange} />
-            <label className="radio-label" htmlFor="locationType">{type.label}</label>
+            <label className={"radio-label"} htmlFor={"locationType"}>
+                <input
+                    type="radio"
+                    aria-label={type.name}
+                    value={type.name}
+                    name="locationType"
+                    checked={locationType === type.name}
+                    onChange={onChange} />
+                <div className="radio-container">
+                    {type.label}
+                    <div className="radio-description">
+                        {type.description}
+                    </div>
+                </div>
+            </label>
         </div>
     ));
 
