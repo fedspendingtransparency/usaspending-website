@@ -80,7 +80,8 @@
         }
       }
 
-      &.agency {
+      &.agency,
+      &.budget-function {
         padding: 0;
 
         .input-container {
@@ -399,6 +400,8 @@
     @import "downloadButtons";
     @import "dateRange";
     @import "locationFilter";
+    @import "budgetAgencyComboFilter";
+
   }
 
   @import "defCodeFilter";
