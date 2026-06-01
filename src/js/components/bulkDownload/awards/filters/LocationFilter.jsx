@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/23/18
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { CheckCircle } from 'components/sharedComponents/icons/Icons';
@@ -32,10 +32,11 @@ const propTypes = {
     updateFilter: PropTypes.func
 };
 
-const LocationFilter = ({
+// eslint-disable-next-line prefer-arrow-callback
+const LocationFilter = memo(function LocationFilter({
     states,
     updateFilter
-}) => {
+}) {
     const location = useSelector((state) => state.bulkDownload.awards.location);
     const locationType = useSelector((state) => state.bulkDownload.awards.locationType);
 
@@ -137,7 +138,7 @@ const LocationFilter = ({
             </div>
         </div>
     );
-}
+});
 
 LocationFilter.propTypes = propTypes;
 export default LocationFilter;
