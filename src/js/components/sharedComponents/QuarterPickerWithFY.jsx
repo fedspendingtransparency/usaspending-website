@@ -3,19 +3,18 @@
  * Created by Max Kendall 10/25/2020
  **/
 
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
-import { QuarterPicker } from 'data-transparency-ui';
 
-import { earliestExplorerYear } from 'helpers/fiscalYearHelper';
+import { allFiscalYears, currentFiscalYear, earliestExplorerYear } from 'helpers/fiscalYearHelper';
 import { getLatestSubmissionPeriodInFy } from 'helpers/downloadHelper';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import {
     periods,
     getPeriodsPerQuarterByFy
 } from 'containers/explorer/detail/helpers/explorerQuarters';
-import FYPicker from 'components/sharedComponents/pickers/FYPicker';
 import NewQuarterPicker from "./pickers/NewQuarterPicker";
+import ComboBox from "./ComboBox";
 
 const propTypes = {
     handlePickedYear: PropTypes.func,
@@ -32,7 +31,9 @@ const QuarterPickerWithFY = ({
 }) => {
     const [, allPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
 
-    const pickedYear = (year) => {
+    const onSelect = useCallback((e) => {
+        const year = e.target.value;
+
         // 2020 is when we started receiving federal submissions on a per-period basis.
         if (parseInt(year, 10) >= 2020) {
             const { period: latestSubmission } = getLatestSubmissionPeriodInFy(year, allPeriods);
@@ -41,7 +42,7 @@ const QuarterPickerWithFY = ({
         else {
             handlePickedYear(year, 4);
         }
-    };
+    }, [allPeriods, handlePickedYear]);
 
     const periodsPerQuarter = useMemo(() =>
         getPeriodsPerQuarterByFy(parseInt(selectedFy, 10)),
@@ -67,14 +68,23 @@ const QuarterPickerWithFY = ({
         }
     }, [latestFy, latestPeriod, handlePickedYear]);
 
+    const defaultFy = useMemo( () => latestFy || currentFiscalYear(), [latestFy]);
+
+    const optionsArray = useMemo(() => {
+        return allFiscalYears(earliestExplorerYear, defaultFy)
+            .map((fy) => ({
+                text: `FY ${fy}`,
+                value: fy
+            }));
+    }, [defaultFy]);
+
     return (
         <div className="quarter-picker">
             <div className="quarter-picker__fy">
-                <FYPicker
-                    isLoading={!latestFy}
-                    latestFy={latestFy}
-                    fy={selectedFy}
-                    onClick={pickedYear} />
+                <ComboBox
+                    optionsArray={optionsArray}
+                    onSelect={onSelect}
+                    defaultValue={`FY ${defaultFy}`}/>
             </div>
             <NewQuarterPicker
                 showPeriods
