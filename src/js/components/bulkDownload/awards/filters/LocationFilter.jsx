@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { CheckCircle } from 'components/sharedComponents/icons/Icons';
 import EntityDropdown from 'components/bulkDownload/awards/filters/EntityDropdown';
 
@@ -32,22 +31,20 @@ const countryOptions = [
     }
 ];
 
-export default class LocationFilter extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.onChange = this.onChange.bind(this);
-        this.updateLocationFilter = this.updateLocationFilter.bind(this);
-        this.generateDisclaimer = this.generateDisclaimer.bind(this);
-    }
-
-    onChange(e) {
+const LocationFilter = ({
+    locationTypes,
+    states,
+    currentLocation,
+    updateFilter,
+    currentLocationType
+}) => {
+    const onChange = (e) => {
         const target = e.target;
-        this.props.updateFilter('locationType', target.value);
-    }
+        updateFilter('locationType', target.value);
+    };
 
-    generateDisclaimer(field) {
-        if (!this.props.currentLocation.country.code) {
+    const generateDisclaimer = (field) => {
+        if (!currentLocation.country.code) {
             // no country provided
             return (
                 <span>
@@ -59,14 +56,16 @@ export default class LocationFilter extends React.Component {
         }
         return (
             <span>
-                Filtering by <span className="field">{field}</span> is only available for locations within the United States.
+                Filtering by
+                <span className="field"> {field} </span>
+                is only available for locations within the United States.
             </span>
         );
-    }
+    };
 
-    updateLocationFilter(locationType, selectedLocation) {
+    const updateLocationFilter = (locationType, selectedLocation) => {
         if (locationType === 'country') {
-            this.props.updateFilter('location', {
+            updateFilter('location', {
                 country: selectedLocation,
                 state: {
                     code: '',
@@ -75,72 +74,69 @@ export default class LocationFilter extends React.Component {
             });
         }
         else if (locationType === 'state') {
-            const updatedLocation = Object.assign({}, this.props.currentLocation, {
+            const updatedLocation = Object.assign({}, currentLocation, {
                 state: selectedLocation
             });
 
-            this.props.updateFilter('location', updatedLocation);
+            updateFilter('location', updatedLocation);
         }
-    }
+    };
 
-    render() {
-        const icon = (
-            <div className="icon valid">
-                <CheckCircle />
-            </div>
-        );
+    const stateOptions = states.slice();
 
-        const states = this.props.states.slice();
-        states.unshift({
-            code: 'all',
-            name: 'All'
-        });
+    stateOptions.unshift({
+        code: 'all',
+        name: 'All'
+    });
 
-        const locationTypes = this.props.locationTypes.map((locationType) => (
-            <div
-                className="radio"
-                key={locationType.name}>
-                <input
-                    type="radio"
-                    aria-label={locationType.name}
-                    value={locationType.name}
-                    name="locationType"
-                    checked={this.props.currentLocationType === locationType.name}
-                    onChange={this.onChange} />
-                <label className="radio-label" htmlFor="locationType">{locationType.label}</label>
-            </div>
-        ));
+    const locationTypesArray = locationTypes.map((locationType) => (
+        <div
+            className="radio"
+            key={locationType.name}>
+            <input
+                type="radio"
+                aria-label={locationType.name}
+                value={locationType.name}
+                name="locationType"
+                checked={currentLocationType === locationType.name}
+                onChange={onChange} />
+            <label className="radio-label" htmlFor="locationType">{locationType.label}</label>
+        </div>
+    ));
 
-        return (
-            <div className="download-filter">
-                <h3 className="download-filter__title">
-                    {icon} Select a <span className="download-filter__title_em">location</span>.
-                </h3>
-                <div className="download-filter__content">
-                    {locationTypes}
-                    <EntityDropdown
-                        scope="country"
-                        placeholder="Select a Country"
-                        title="Country"
-                        value={this.props.currentLocation.country}
-                        selectEntity={this.updateLocationFilter}
-                        options={countryOptions}
-                        field="country"
-                        generateDisclaimer={this.generateDisclaimer} />
-                    <EntityDropdown
-                        scope="state"
-                        placeholder="Select a State"
-                        title="State"
-                        value={this.props.currentLocation.state}
-                        selectEntity={this.updateLocationFilter}
-                        options={states}
-                        field="state"
-                        enabled={this.props.currentLocation.country.code === 'USA'}
-                        generateDisclaimer={this.generateDisclaimer} />
+    return (
+        <div className="download-filter">
+            <h3 className="download-filter__title">
+                <div className="icon valid">
+                    <CheckCircle />
                 </div>
+                {' '}Select a <span className="download-filter__title_em">location</span>.
+            </h3>
+            <div className="download-filter__content">
+                {locationTypesArray}
+                <EntityDropdown
+                    scope="country"
+                    placeholder="Select a Country"
+                    title="Country"
+                    value={currentLocation.country}
+                    selectEntity={updateLocationFilter}
+                    options={countryOptions}
+                    field="country"
+                    generateDisclaimer={generateDisclaimer} />
+                <EntityDropdown
+                    scope="state"
+                    placeholder="Select a State"
+                    title="State"
+                    value={currentLocation.state}
+                    selectEntity={updateLocationFilter}
+                    options={stateOptions}
+                    field="state"
+                    enabled={currentLocation.country.code === 'USA'}
+                    generateDisclaimer={generateDisclaimer} />
             </div>
-        );
-    }
+        </div>
+    );
 }
 
 LocationFilter.propTypes = propTypes;
+export default LocationFilter;
