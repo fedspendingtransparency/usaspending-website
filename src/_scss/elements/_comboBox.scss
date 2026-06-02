@@ -36,6 +36,15 @@
       &:focus-visible {
         outline-color: $blue-50v;
       }
+
+      &:disabled {
+        background-color: $theme-color-background;
+        color: $gray-70;
+      }
+
+      #placeholder {
+        color: $gray-60;
+      }
     }
 
     .combo-box__buttons-container {
