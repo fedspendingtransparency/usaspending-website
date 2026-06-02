@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/23/18
  */
 
-import React, { memo, useMemo } from 'react';
+import React, { memo, useMemo, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
@@ -13,7 +13,7 @@ import ComboBox from "components/sharedComponents/ComboBox";
 const countryOptions = [
     {
         value: 'all',
-        text: 'All'
+        text: 'All Countries'
     },
     {
         value: 'USA',
@@ -45,15 +45,12 @@ const LocationFilter = memo(function LocationFilter({
         updateFilter('locationType', target.value);
     };
 
-    const updateCountry = (e) => {
+    const updateCountry = useCallback((e) => {
         updateFilter('location', {
-            country: e.target.value,
-            state: {
-                code: '',
-                name: ''
-            }
+            country: e.target.value || 'all',
+            state: { code: '', name: '' }
         });
-    };
+    }, [updateFilter]);
 
     const updateState = (e) => {
         const updatedLocation = Object.assign({}, location, {
@@ -93,6 +90,11 @@ const LocationFilter = memo(function LocationFilter({
         </div>
     ));
 
+    // set location to all on render
+    useEffect(() => updateCountry({ target: 'all' }), [updateCountry]);
+
+    console.log({ location });
+
     return (
         <div className="download-filter">
             <h3 className="download-filter__title">
@@ -110,7 +112,8 @@ const LocationFilter = memo(function LocationFilter({
                         optionsArray={countryOptions}
                         onSelect={updateCountry}
                         label={"Country"}
-                        placeholder={"Select a Country"} />
+                        placeholder={"Select a Country"}
+                        defaultValue={'All Countries'} />
                     <ComboBox
                         optionsArray={stateOptions}
                         onSelect={updateState}
