@@ -152,7 +152,6 @@ const InteractiveDataSourcesPage = () => {
         // find the section in dom
         const sectionDom = document.querySelector(`#interactive-data-sources-${sectionObj.section}`);
         if (!sectionDom) return;
-
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
         history(`${getQueryParamString(newQueryParams)}`, { replace: true });
@@ -175,6 +174,7 @@ const InteractiveDataSourcesPage = () => {
             const urlSection = query.section;
             if (urlSection) {
                 setActiveSection(urlSection);
+                setTimeout(() => jumpToSection(urlSection), 100);
             }
         }
         return () => {
