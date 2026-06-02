@@ -172,6 +172,7 @@ const InteractiveDataSourcesPage = () => {
         if (isMounted) {
             const urlSection = query.section;
             if (urlSection) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setActiveSection(urlSection);
                 setTimeout(() => jumpToSection(urlSection), 100);
             }
