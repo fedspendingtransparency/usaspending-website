@@ -51,16 +51,6 @@ const AccountDataContent = ({
     const { isTablet } = useContext(IsMobileContext);
     const [validForm, setValidForm] = useState(false);
 
-    // const setSubList = (type, value) => {
-    //     if (type === "budget") {
-    //         setBudgetSubfunctionList(value);
-    //     }
-
-    //     if ( type === "account") {
-    //         setFederalAccountList(value)
-    //     }
-    // } 
-
     useEffect(() => {
         setValidForm((
             (accounts.budgetFunction.code !== '')
@@ -82,16 +72,13 @@ const AccountDataContent = ({
                     <BudgetAgencyGroup
                         budgetFunctions={budgetFunctions}
                         budgetSubfunctions={budgetSubfunctions}
-                        currentBudgetFunction={accounts.budgetFunction}
-                        currentBudgetSubfunction={accounts.budgetSubfunction}
                         agencies={agencies}
                         federalAccounts={federalAccounts}
-                        currentAgency={accounts.agency}
-                        currentFederalAccount={accounts.federalAccount}
                         setBudgetSubfunctionList={setBudgetSubfunctionList}
                         setFederalAccountList={setFederalAccountList}
                         updateFilter={updateFilter}
-                        valid={accounts.budgetFunction.code !== '' || accounts.agency.id !== ''} />
+                        valid={accounts.budgetFunction.code !== '' || accounts.agency.id !== ''}
+                        accounts={accounts} />
                     <AccountLevelFilter
                         accountLevels={accountDownloadOptions.accountLevels}
                         currentAccountLevel={accounts.accountLevel}

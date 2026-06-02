@@ -74,7 +74,7 @@ const TimePeriodFilter = ({
     const [endDateBulkUI, setEndDateBulkUI] = useState(filterTimePeriodEnd);
     const [error, setError] = useState(errorTypes.empty);
     const [currentTimeType, setCurrentTimeType] = useState("time_period");
-    let persistedValue = '';
+    let defaultValue = '';
 
     let icon = (
         <div className="icon valid">
@@ -124,12 +124,10 @@ const TimePeriodFilter = ({
         }
         else if (start.isValid() || end.isValid()) {
             // open-ended date range
-            let startValue = null;
-            let endValue = null;
             let errorMessage = errorTypes.incomplete;
 
             if (start.isValid()) {
-                startValue = start.format('YYYY-MM-DD');
+                const startValue = start.format('YYYY-MM-DD');
                 errorMessage = {
                     ...errorMessage,
                     type: 'end'
@@ -141,7 +139,7 @@ const TimePeriodFilter = ({
             else {
                 // already checked if end is valid above
                 // if start is not valid end must be.
-                endValue = end.format('YYYY-MM-DD');       
+                const endValue = end.format('YYYY-MM-DD');       
                 errorMessage = {
                     ...errorMessage,
                     type: 'start'
@@ -257,7 +255,7 @@ const TimePeriodFilter = ({
         const persistedOption = periodOptions.find((option) => option.value === searchValue);
 
         if (persistedOption) {
-            persistedValue = persistedOption.text;
+            defaultValue = persistedOption.text;
         }
     }
 
@@ -328,7 +326,7 @@ const TimePeriodFilter = ({
                             formName="time-period-combo"
                             label={<>Time Period <span className="required">(Required)</span></>}
                             placeholder="Select time period"
-                            persistedValue={persistedValue} />
+                            defaultValue={defaultValue} />
                     </div>
                 ) : (
                     <DownloadDateRange

@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from 'react';
+import React, { memo, useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
@@ -17,7 +17,7 @@ const propTypes = {
     className: PropTypes.string,
     onSelect: PropTypes.func,
     onClearSelect: PropTypes.func,
-    persistedValue: PropTypes.string
+    defaultValue: PropTypes.string
 };
 
 // eslint-disable-next-line prefer-arrow-callback
@@ -30,19 +30,11 @@ const ComboBox = memo(function ComboBox({
     disabled,
     className,
     onClearSelect = () => {},
-    persistedValue = ''
+    defaultValue = ''
 }) {
     const [inputValue, setInputValue] = useState('');
     const [openOptions, setOpenOptions] = useState(false);
-
-    const optionsArrayDep = JSON.stringify(optionsArray);
-
-    // reset input if there's a change in options array
-    useEffect(() => {
-        // persisted value defaults to an empty string
-        // if persisted value passed set to is.
-        setInputValue(persistedValue)
-    }, [optionsArrayDep]);
+    const comboRef = useRef(null)
 
     // 1) filter for inputValue 2) map to list item element
     const options = optionsArray
@@ -94,8 +86,33 @@ const ComboBox = memo(function ComboBox({
 
     const noSearchResults = options.length === 0 && !inputValueEmpty;
 
+    const optionsArrayDep = JSON.stringify(optionsArray);
+
+    // reset input if there's a change in options array
+    useEffect(() => {
+        // persisted value defaults to an empty string
+        // if persisted value passed set to is.
+        setInputValue(defaultValue)
+    }, [defaultValue, optionsArrayDep]);
+
+    useEffect(() => {
+        const handleOutsideClick = (e) => {
+            if (comboRef.current && !comboRef.current.contains(e.target)) {
+                setOpenOptions(false);
+            }
+        };
+        if (openOptions) {
+            document.addEventListener('click', handleOutsideClick);
+        }
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, [comboRef, openOptions]);
+
     return (
-        <div className={`combo-box${className ? ` ${className}` : ''}`}>
+        <div 
+            className={`combo-box${className ? ` ${className}` : ''}`}
+            ref={comboRef}>
             <label
                 className="combo-box__label"
                 id={`${formName}-label`}

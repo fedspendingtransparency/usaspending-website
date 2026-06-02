@@ -74,10 +74,16 @@ const AccountUserSelections = () => {
             })
         }
 
-        if (selectedFilterValues.length) {
-            return selectedFilterValues.map((filter) => {
-                <div className="selection__content">{filter.title}: {filter.value}</div>
-            });
+        if (selectedFilterValues.length > 0) {
+            return (
+                <>
+                    {selectedFilterValues.map((filter) => (
+                        <div className="selection__content" key={filter.title}>
+                            {`${filter.title}: ${filter.value}`}
+                        </div>
+                    ))}
+                </>
+            );
         }
             
         return (

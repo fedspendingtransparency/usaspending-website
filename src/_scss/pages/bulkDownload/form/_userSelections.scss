@@ -39,14 +39,15 @@
       @include h6;
       padding-top: rem(18);
       padding-bottom: rem(6);
-      color: $color-gray;
-      font-size: rem(12);
-      font-weight: 600;
+      color: $gray-90;
+      font-size: $base-font-size;
+      font-weight: $font-semibold;
       line-height: rem(15);
     }
     .selection__content {
-      font-weight: 300;
-      font-size: rem(18);
+      font-weight: $font-normal;
+      font-size: $base-font-size;
+      color: $gray-90;
       &.selection__content-required {
         color: $color-secondary;
         line-height: rem(23);
