@@ -204,11 +204,10 @@ const MobileDropdownItem = ({
                                                         </div>
                                                     </div>
                                                 </ExternalLink> :
-                                                <Link 
-                                                    prefetch={!item?.shouldOpenNewTab ? "viewport" : "none"}
+                                                <a 
                                                     href={item.url} 
                                                     target={item.shouldOpenNewTab ? "_blank" : null} 
-                                                    rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} 
+                                                    rel={item.shouldOpenNewTab ? "noopener noreferrer" : "prefetch"} 
                                                     className="mobile-dropdown__section-link">
                                                     <div className="mobile-dropdown__section-label">
                                                         {item.label}
@@ -216,7 +215,7 @@ const MobileDropdownItem = ({
                                                             {item.description}
                                                         </span>
                                                     </div>
-                                                </Link>
+                                                </a>
                                             }
                                         </li>
                                     ))}
