@@ -141,7 +141,7 @@ const TimePeriodFilter = ({
             else {
                 // already checked if end is valid above
                 // if start is not valid end must be.
-                endValue = end.format('YYYY-MM-DD');       
+                endValue = end.format('YYYY-MM-DD');
                 errorMessage = {
                     ...errorMessage,
                     type: 'start'
@@ -205,9 +205,9 @@ const TimePeriodFilter = ({
                 };
                 setError(errorMessage);
                 setValidDates(false);
-            } 
+            }
         }
-        
+
         if (dateType === "endDateBulk") {
             if (value?.isValid()) {
                 setEndDateBulkUI(value);
@@ -225,7 +225,7 @@ const TimePeriodFilter = ({
                 };
                 setError(errorMessage);
                 setValidDates(false);
-            } 
+            }
         }
     };
 
@@ -318,7 +318,6 @@ const TimePeriodFilter = ({
                 <div className="input-container">
                     {timePeriodTypeList}
                 </div>
-
                 {currentTimeType === "time_period" ? (
                     <div className="combo-box-container">
                         <ComboBox

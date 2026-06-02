@@ -121,8 +121,10 @@ const LocationFilter = memo(function LocationFilter({
                 </div>
                 {' '}Select a <span className="download-filter__title_em">location</span>.
             </h3>
-            <div className="download-filter__content">
-                {locationTypesArray}
+            <div className="download-filter__content location">
+                <div className="input-container">
+                    {locationTypesArray}
+                </div>
                 <EntityDropdown
                     scope="country"
                     placeholder="Select a Country"
