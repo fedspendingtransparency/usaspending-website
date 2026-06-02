@@ -157,8 +157,8 @@ const MobileDropdownItem = ({
                 <ul>
                     {section2Items.map((item) => (
                         <li className="mobile-dropdown__section" key={uniqueId()}>
-                            <Link
-                                prefetch={!item?.shouldOpenNewTab ? "viewport" : "none"}
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                            <a
                                 className="mobile-dropdown__section-link"
                                 href="#"
                                 onClick={(e) => {
@@ -167,7 +167,7 @@ const MobileDropdownItem = ({
                                 <div className="mobile-dropdown__section-etd-label">
                                     {item.label}
                                 </div>
-                            </Link>
+                            </a>
                             <div className="mobile-dropdown__section-etd-description">
                                 {item.description}
                             </div>
