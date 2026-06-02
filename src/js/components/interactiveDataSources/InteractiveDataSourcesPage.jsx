@@ -32,16 +32,13 @@ import AdditionalData from './scrollerSections/AdditionalData';
 require('pages/interactiveDataSources/index.scss');
 
 const InteractiveDataSourcesPage = () => {
+    const [isLoaded, setIsLoaded] = useState(false);
     const [activeSection, setActiveSection] = useState('intro-section');
     const query = useQueryParams();
     const history = useNavigate();
     const dispatch = useDispatch();
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
-    };
-    const [observerSupported, setObserverSupported] = useState(false);
-    const observerOptions = {
-        threshold: 0.1
     };
 
     const sections = useMemo(() => [
@@ -145,28 +142,43 @@ const InteractiveDataSourcesPage = () => {
         }
     ], []);
 
-    const jumpToSection = useCallback((section = '') => {
+    useEffect(() => {
+        window.addEventListener('load', (event) => {
+            console.debug(event);
+            setIsLoaded(true);
+        });
+        return () => window.removeEventListener('load', (event) => {
+            console.debug(event);
+            setIsLoaded(false);
+        });
+    });
+
+    const jumpToSection = useCallback((section = '') => {      
+        if (isLoaded) {
         // we've been provided a section to jump to
         // check if it's a valid section
-        const sectionObj = find(sections, ['section', section]);
-        if (!sectionObj) return;
+            const sectionObj = find(sections, ['section', section]);
+            if (!sectionObj) return;
 
-        // find the section in dom
-        const sectionDom = document.querySelector(`#interactive-data-sources-${sectionObj.section}`);
-        if (!sectionDom) return;
+            // find the section in dom
+            const sectionDom = document.querySelector(`#interactive-data-sources-${sectionObj.section}`);
+            if (!sectionDom) return;
+            console.debug(sectionObj, sectionDom);
+            // add section to url
+            const newQueryParams = combineQueryParams(query, { section: `${section}` });
+            history(`${getQueryParamString(newQueryParams)}`, { replace: true });
 
-        // add section to url
-        const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history(`${getQueryParamString(newQueryParams)}`, { replace: true });
-
-        setActiveSection(section);
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
-        window.scrollTo({
-            top: sectionTop + 200,
-            left: 0,
-            behavior: 'smooth'
-        });
-    }, [history, query, sections]);
+            setActiveSection(section);
+            const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
+            console.debug(sectionTop);
+            window.scrollTo({
+                top: sectionTop + 200,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [history]);
 
     useEffect(() => {
         if (query.section) {
@@ -191,10 +203,6 @@ const InteractiveDataSourcesPage = () => {
             isMounted = false;
         };
     }, 100), [history, query.section]);
-
-    useEffect(() => {
-        setObserverSupported('IntersectionObserver' in window);
-    }, []);
 
     const emailData = {
         subject: "USAspending Data Sources",
