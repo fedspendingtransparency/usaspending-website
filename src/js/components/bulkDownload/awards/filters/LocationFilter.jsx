@@ -25,6 +25,14 @@ const countryOptions = [
     }
 ];
 
+const getCountryOption = (v) => {
+    switch (v) {
+        case 'USA': return { code: countryOptions[1].value, name: countryOptions[1].text };
+        case 'FOREIGN': return { code: countryOptions[2].value, name: countryOptions[2].text };
+        default: return { code: countryOptions[0].value, name: countryOptions[0].text };
+    }
+}
+
 const { locationTypes } = awardDownloadOptions;
 
 const propTypes = {
@@ -33,10 +41,7 @@ const propTypes = {
 };
 
 // eslint-disable-next-line prefer-arrow-callback
-const LocationFilter = memo(function LocationFilter({
-    states,
-    updateFilter
-}) {
+const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
     const location = useSelector((state) => state.bulkDownload.awards.location);
     const locationType = useSelector((state) => state.bulkDownload.awards.locationType);
 
@@ -47,7 +52,7 @@ const LocationFilter = memo(function LocationFilter({
 
     const updateCountry = useCallback((e) => {
         updateFilter('location', {
-            country: e.target.value,
+            country: getCountryOption(e.target.value),
             state: { code: '', name: '' }
         });
     }, [updateFilter]);
@@ -93,8 +98,6 @@ const LocationFilter = memo(function LocationFilter({
     // set location to all on render
     useEffect(() => updateCountry({ target: { value: 'all' } }), [updateCountry]);
 
-    console.log({ location });
-
     return (
         <div className="download-filter">
             <h3 className="download-filter__title">
@@ -119,7 +122,7 @@ const LocationFilter = memo(function LocationFilter({
                         onSelect={updateState}
                         label={"State"}
                         placeholder={"Select a State"}
-                        disabled={location.country !== "USA"} />
+                        disabled={location.country.code !== "USA"} />
                 </div>
             </div>
         </div>
