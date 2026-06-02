@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { find, throttle, uniqueId } from 'lodash-es';
 import { useDispatch } from 'react-redux';
@@ -39,7 +39,12 @@ const InteractiveDataSourcesPage = () => {
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };
-    const sections = [
+    const [observerSupported, setObserverSupported] = useState(false);
+    const observerOptions = {
+        threshold: 0.1
+    };
+
+    const sections = useMemo(() => [
         {
             section: 'intro-section',
             label: 'Introduction',
@@ -138,9 +143,9 @@ const InteractiveDataSourcesPage = () => {
             scroller: true,
             component: <DataUseCases title="Use Cases" subtitle="What can I do with the data on USAspending.gov?" />
         }
-    ];
+    ], []);
 
-    const jumpToSection = (section = '') => {
+    const jumpToSection = useCallback((section = '') => {
         // we've been provided a section to jump to
         // check if it's a valid section
         const sectionObj = find(sections, ['section', section]);
@@ -152,9 +157,7 @@ const InteractiveDataSourcesPage = () => {
 
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history({
-            path: `${getQueryParamString(newQueryParams)}`
-        }, { replace: true });
+        history(`${getQueryParamString(newQueryParams)}`, { replace: true });
 
         setActiveSection(section);
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
@@ -163,7 +166,7 @@ const InteractiveDataSourcesPage = () => {
             left: 0,
             behavior: 'smooth'
         });
-    };
+    }, [history, query, sections]);
 
     useEffect(() => {
         if (query.section) {
@@ -172,11 +175,13 @@ const InteractiveDataSourcesPage = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query.section]);
 
+
     useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
         let isMounted = true;
         if (isMounted) {
             const urlSection = query.section;
+            console.debug("url section: ", urlSection);
             if (urlSection) {
                 setActiveSection(urlSection);
                 jumpToSection(urlSection);
@@ -187,8 +192,13 @@ const InteractiveDataSourcesPage = () => {
         };
     }, 100), [history, query.section]);
 
+    useEffect(() => {
+        setObserverSupported('IntersectionObserver' in window);
+    }, []);
+
     const emailData = {
         subject: "USAspending Data Sources",
+        // eslint-disable-next-line max-len
         body: "View a visualization of USAspending data sources on this interactive page: https://www.usaspending.gov/data-sources"
     };
 
