@@ -166,8 +166,7 @@ const InteractiveDataSourcesPage = () => {
     }, [history, query, sections]);
 
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(throttle(() => {
+    useEffect(() => {
         // prevents a console error about react unmounted component leak
         let isMounted = true;
         if (isMounted) {
@@ -180,7 +179,8 @@ const InteractiveDataSourcesPage = () => {
         return () => {
             isMounted = false;
         };
-    }, 100), [query.section]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query.section]);
 
     const emailData = {
         subject: "USAspending Data Sources",
