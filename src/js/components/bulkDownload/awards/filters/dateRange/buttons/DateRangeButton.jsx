@@ -14,30 +14,23 @@ const propTypes = {
     active: PropTypes.bool
 };
 
-export default class DateRangeButton extends React.Component {
-    constructor(props) {
-        super(props);
+const DateRangeButton = (props) => {
+    const activeClass = props.active ? 'active' : '';
 
-        this.onClick = this.onClick.bind(this);
-    }
-
-    onClick(e) {
+    const onClick = (e) => {
         e.preventDefault();
 
-        this.props.handleDateChange(this.props.startDate, 'startDateBulk');
-        this.props.handleDateChange(this.props.endDate, 'endDateBulk');
-    }
+        props.handleDateChange(props.startDate, 'startDateBulk');
+        props.handleDateChange(props.endDate, 'endDateBulk');
+    };
 
-    render() {
-        const activeClass = this.props.active ? 'active' : '';
-        return (
-            <button
-                className={`time-period-button ${activeClass}`}
-                onClick={this.onClick}>
-                {this.props.label}
-            </button>
-        );
-    }
-}
+    return (
+        <button
+            className={`time-period-button ${activeClass}`}
+            onClick={onClick}>
+            {props.label}
+        </button>
+    );
+};
 
 DateRangeButton.propTypes = propTypes;
