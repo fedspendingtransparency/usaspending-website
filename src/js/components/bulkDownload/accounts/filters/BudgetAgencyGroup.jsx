@@ -286,7 +286,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         optionsArray={budgetOptions}
                         onSelect={handleBudgetSelect}
                         label="Budget Function"
-                        formName="budget-function-combo"
+                        formName="download-filter__budget-function"
                         onClearSelect={() => handleClear("budgetFunction")}
                         defaultValue={accounts.budgetFunction.code
                             ? accounts.budgetFunction.title 
@@ -297,7 +297,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         optionsArray={subBudgetOptions}
                         onSelect={handleBudgetSubfunctionSelect}
                         label="Budget Sub-Function"
-                        formName="budget-sub-function-combo"
+                        formName="download-filter__budget-sub-function"
                         placeholder="Select budget sub-function"
                         onClearSelect={() => handleClear("budgetSubfunction")}
                         defaultValue={accounts.budgetSubfunctions?.code
@@ -311,7 +311,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         optionsArray={agenciesOptions}
                         onSelect={handleAgencySelect}
                         label="Agency"
-                        formName="agency-combo"
+                        formName="download-filter__agency"
                         onClearSelect={() => handleClear("agency")}
                         defaultValue={accounts.agency.id
                             ? accounts.agency.name
@@ -322,7 +322,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         optionsArray={federalAccountOptions}
                         onSelect={handleFederalAccountSelect}
                         label="Federal Account"
-                        formName="federal-account-combo"
+                        formName="download-filter__federal-account"
                         placeholder="Select federal account"
                         onClearSelect={() => handleClear("federalAccount")}
                         defaultValue={accounts.federalAccount?.id
