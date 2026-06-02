@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router';
 import { find, throttle, uniqueId } from 'lodash-es';
@@ -32,7 +33,6 @@ import AdditionalData from './scrollerSections/AdditionalData';
 require('pages/interactiveDataSources/index.scss');
 
 const InteractiveDataSourcesPage = () => {
-    const [isLoaded, setIsLoaded] = useState(false);
     const [activeSection, setActiveSection] = useState('intro-section');
     const query = useQueryParams();
     const history = useNavigate();
@@ -142,52 +142,31 @@ const InteractiveDataSourcesPage = () => {
         }
     ], []);
 
-    useEffect(() => {
-        window.addEventListener('load', (event) => {
-            console.debug(event);
-            setIsLoaded(true);
-        });
-        return () => window.removeEventListener('load', (event) => {
-            console.debug(event);
-            setIsLoaded(false);
-        });
-    });
-
-    const jumpToSection = useCallback((section = '') => {      
-        if (isLoaded) {
+    const jumpToSection = useCallback((section = '') => {   
         // we've been provided a section to jump to
         // check if it's a valid section
-            const sectionObj = find(sections, ['section', section]);
-            if (!sectionObj) return;
+        const sectionObj = find(sections, ['section', section]);
+        if (!sectionObj) return;
 
-            // find the section in dom
-            const sectionDom = document.querySelector(`#interactive-data-sources-${sectionObj.section}`);
-            if (!sectionDom) return;
-            console.debug(sectionObj, sectionDom);
-            // add section to url
-            const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history(`${getQueryParamString(newQueryParams)}`, { replace: true });
+        // find the section in dom
+        const sectionDom = document.querySelector(`#interactive-data-sources-${sectionObj.section}`);
+        if (!sectionDom) return;
+        // add section to url
+        const newQueryParams = combineQueryParams(query, { section: `${section}` });
+        history(`${getQueryParamString(newQueryParams)}`, { replace: true });
 
-            setActiveSection(section);
-            const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
-            console.debug(sectionTop);
-            window.scrollTo({
-                top: sectionTop + 200,
-                left: 0,
-                behavior: 'smooth'
-            });
-        }
+        setActiveSection(section);
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
+        console.debug(sectionTop);
+        window.scrollTo({
+            top: sectionTop + 200,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }, [history, query, sections]);
+
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [history]);
-
-    useEffect(() => {
-        if (query.section) {
-            jumpToSection(query.section);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query.section]);
-
-
     useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
         let isMounted = true;
@@ -196,17 +175,15 @@ const InteractiveDataSourcesPage = () => {
             console.debug("url section: ", urlSection);
             if (urlSection) {
                 setActiveSection(urlSection);
-                jumpToSection(urlSection);
             }
         }
         return () => {
             isMounted = false;
         };
-    }, 100), [history, query.section]);
+    }, 100), [query.section]);
 
     const emailData = {
         subject: "USAspending Data Sources",
-        // eslint-disable-next-line max-len
         body: "View a visualization of USAspending data sources on this interactive page: https://www.usaspending.gov/data-sources"
     };
 
