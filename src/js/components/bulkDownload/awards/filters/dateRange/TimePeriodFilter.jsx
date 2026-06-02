@@ -74,7 +74,7 @@ const TimePeriodFilter = ({
     const [endDateBulkUI, setEndDateBulkUI] = useState(filterTimePeriodEnd);
     const [error, setError] = useState(errorTypes.empty);
     const [currentTimeType, setCurrentTimeType] = useState("time_period");
-    let persistedValue = '';
+    let defaultValue = '';
 
     let icon = (
         <div className="icon valid">
@@ -257,7 +257,7 @@ const TimePeriodFilter = ({
         const persistedOption = periodOptions.find((option) => option.value === searchValue);
 
         if (persistedOption) {
-            persistedValue = persistedOption.text;
+            defaultValue = persistedOption.text;
         }
     }
 
@@ -327,7 +327,7 @@ const TimePeriodFilter = ({
                             formName="time-period-combo"
                             label={<>Time Period <span className="required">(Required)</span></>}
                             placeholder="Select time period"
-                            persistedValue={persistedValue} />
+                            defaultValue={defaultValue} />
                     </div>
                 ) : (
                     <DownloadDateRange

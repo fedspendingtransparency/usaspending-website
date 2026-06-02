@@ -3,86 +3,89 @@
  * Created by Lizzie Salita 4/24/18
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback } from 'react';
+import PropTypes from "prop-types";
+import { useSelector } from "react-redux";
 
 import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 import { handlePotentialStrings } from 'containers/explorer/detail/helpers/explorerQuarters';
 import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
 
-const propTypes = {
-    currentFy: PropTypes.string,
-    latestSelectedTimePeriod: PropTypes.string,
-    updateFilter: PropTypes.func,
-    valid: PropTypes.string
-};
+/* eslint-disable max-len */
+const noteOne = 'The data included in the Custom Account Download was first collected in the second quarter of fiscal year 2017, per the Digital Accountability and Transparency Act of 2014 (DATA Act). Financial data will not be available prior to that timeframe.';
+const noteTwo = 'Account Balances and Account Breakdown by Program Activity & Object Class files contain cumulative financial balances at the account and agency levels, as of the end of the quarter selected. The Account Breakdown by Award file contains every transaction reported at the account and agency levels, for the fiscal year through the end of the quarter selected.';
+/* eslint-enable max-len */
 
-export default class FiscalYearFilter extends React.Component {
-    constructor(props) {
-        super(props);
+const propTypes = { updateFilter: PropTypes.func };
 
-        this.quarterPickerSelection = this.quarterPickerSelection.bind(this);
-        this.pickedYear = this.pickedYear.bind(this);
-    }
+const FiscalYearFilter = ({ updateFilter }) => {
+    const fy = useSelector((state) => state.bulkDownload.accounts.fy);
+    const period = useSelector((state) => state.bulkDownload.accounts.period);
+    const quarter = useSelector((state) => state.bulkDownload.accounts.quarter);
 
-    quarterPickerSelection(selectedOption) {
-        if (parseInt(this.props.currentFy, 10) >= 2020) {
-            this.props.updateFilter('period', `${selectedOption}`);
-            this.props.updateFilter('quarter', null);
+    const latestSelectedTimeInterval = period || quarter;
+    const valid = fy && latestSelectedTimeInterval;
+
+    const quarterPickerSelection = useCallback((selectedOption) => {
+        if (parseInt(fy, 10) >= 2020) {
+            updateFilter('period', `${selectedOption}`);
+            updateFilter('quarter', null);
         }
         else {
-            this.props.updateFilter('quarter', `${selectedOption}`);
-            this.props.updateFilter('period', null);
+            updateFilter('quarter', `${selectedOption}`);
+            updateFilter('period', null);
         }
-    }
+    }, [fy, updateFilter]);
 
-    pickedYear(year, period = null) {
-        this.props.updateFilter('fy', `${year}`);
+    const pickedYear = useCallback((year, period = null) => {
+        updateFilter('fy', `${year}`);
 
         if (handlePotentialStrings(year) >= 2020) {
-            this.props.updateFilter('period', period);
-            this.props.updateFilter('quarter', null);
+            updateFilter('period', period);
+            updateFilter('quarter', null);
         }
         else {
-            this.props.updateFilter('quarter', `4`);
-            this.props.updateFilter('period', null);
+            updateFilter('quarter', `4`);
+            updateFilter('period', null);
         }
-    }
+    }, [updateFilter]);
 
-    render() {
-        let icon = (
-            <div className="icon valid">
-                <CheckCircle />
+    let icon = <div className="icon valid"><CheckCircle /></div>;
+
+    if (!valid) icon = <div className="icon invalid"><ExclamationCircle /></div>;
+
+    return (
+        <div className="download-filter">
+            <h3 className="download-filter__title">
+                {icon} Select a
+                <span className="download-filter__title_em"> fiscal year </span>
+                and <span className="download-filter__title_em">quarter</span>.
+            </h3>
+            <div className="download-filter__content new">
+                <p className={"download-filter__content-description"}>
+                    The government
+                    <span> Fiscal Year (FY) </span>
+                    from October 1 through September 30 of the following year.
+                    <span> Period </span>
+                    refers to an individual month within the FY,
+                    as agencies have a monthly reporting requirement.
+                </p>
+                <QuarterPickerWithFY
+                    selectedFy={fy}
+                    handlePickedYear={pickedYear}
+                    handleQuarterPickerSelection={quarterPickerSelection}
+                    latestSelectedTimeInterval={latestSelectedTimeInterval} />
+                <p className="download-filter__content-note">
+                    <span className="download-filter__content-note_bold">Note: </span>
+                    {noteOne}
+                </p>
+                <p className="download-filter__content-note">
+                    {noteTwo}
+                </p>
             </div>
-        );
-
-        if (!this.props.valid) {
-            icon = (
-                <div className="icon invalid">
-                    <ExclamationCircle />
-                </div>
-            );
-        }
-
-        return (
-            <div className="download-filter">
-                <h3 className="download-filter__title">
-                    {icon} Select a <span className="download-filter__title_em">fiscal year</span> and <span className="download-filter__title_em">quarter</span>.
-                </h3>
-                <div className="download-filter__content">
-                    <div className="download-filter__fy">
-                        <QuarterPickerWithFY
-                            selectedFy={this.props.currentFy}
-                            handlePickedYear={this.pickedYear}
-                            handleQuarterPickerSelection={this.quarterPickerSelection}
-                            latestSelectedTimeInterval={this.props.latestSelectedTimePeriod} />
-                    </div>
-                    <p className="download-filter__content-note"><span className="download-filter__content-note_bold">Note:</span> The data included in the Custom Account Download was first collected in the second quarter of fiscal year 2017, per the Digital Accountability and Transparency Act of 2014 (DATA Act). Financial data will not be available prior to that timeframe.</p>
-                    <p className="download-filter__content-note">The Account Balances and Account Breakdown by Program Activity & Object Class files contain cumulative financial balances at the account and agency levels, as of the end of the quarter selected. The Account Breakdown by Award file contains every transaction reported at the account and agency levels, for the fiscal year through the end of the quarter selected.</p>
-                </div>
-            </div>
-        );
-    }
+        </div>
+    );
 }
 
 FiscalYearFilter.propTypes = propTypes;
+export default FiscalYearFilter;
