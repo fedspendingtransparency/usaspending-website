@@ -58,8 +58,9 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
     }, [updateFilter]);
 
     const updateState = (e) => {
+        const filtered = states.filter(({ code }) => code === e.target.value);
         const updatedLocation = Object.assign({}, location, {
-            state: e.target.value
+            state: filtered[0]
         });
 
         updateFilter('location', updatedLocation);
