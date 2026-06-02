@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router';
-import { find, throttle, uniqueId } from 'lodash-es';
+import { find, uniqueId } from 'lodash-es';
 import { useDispatch } from 'react-redux';
 import { ComingSoon, FlexGridCol } from 'data-transparency-ui';
 
