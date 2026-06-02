@@ -44,55 +44,57 @@ const AccountUserSelections = () => {
         );
     };
 
-
-    const generateBudgetAgencyFunctionString = () => {
-        let selectedFilterValues = [];
-
-        if (accounts.budgetFunction.title !== 'Select a Budget Function') {
-            selectedFilterValues.push({
-                title: "Budget Function",
-                value: accounts.budgetFunction.title
-            })
-        }
-        if (accounts.budgetSubfunction.title !== 'Select a Budget Sub-Function') {
-            selectedFilterValues.push({
-                title: "Budget Sub-function",
-                value: accounts.budgetSubfunction.title
-            })
-        }
-        
+    const generateAgencyString = () => {
         if (accounts.agency.name !== 'Select an Agency') {
-            selectedFilterValues.push({
-                title: "Agency",
-                value: accounts.agency.name
-            })
-        }
-        if (accounts.federalAccount.name !== 'Select a Federal Account') {
-            selectedFilterValues.push({
-                title: "Federal Account",
-                value: accounts.federalAccount.name
-            })
-        }
-
-        if (selectedFilterValues.length > 0) {
             return (
-                <>
-                    {selectedFilterValues.map((filter) => (
-                        <div className="selection__content" key={filter.title}>
-                            {`${filter.title}: ${filter.value}`}
-                        </div>
-                    ))}
-                </>
+                <div className="selection__content">{accounts.agency.name}</div>
             );
         }
-            
+
         return (
             <div className="selection__content selection__content-required">
-                Required
+                Budget function or Agency required
             </div>
         );
     };
 
+    const generateBudgetFunctionString = () => {
+        if (accounts.budgetFunction.title !== 'Select a Budget Function') {
+            return (
+                <div className="selection__content">{accounts.budgetFunction.title}</div>
+            );
+        }
+
+        return (
+            <div className="selection__content selection__content-required">
+                Budget function or Agency required
+            </div>
+        );
+    };
+
+    const generateFederalAccountString = () => {
+        if (accounts.federalAccount.name !== 'Select a Federal Account') {
+            return (
+                <div className="selection__content">{accounts.federalAccount.name}</div>
+            );
+        }
+
+        return (
+            <div className="selection__content">Federal account not selected</div>
+        );
+    };
+
+    const generateBudgetSubfunctionString = () => {
+        if (accounts.budgetSubfunction.title !== 'Select a Budget Sub-Function') {
+            return (
+                <div className="selection__content">{accounts.budgetSubfunction.title}</div>
+            );
+        }
+
+        return (
+            <div className="selection__content">Budget sub-function not selected</div>
+        );
+    };
 
     const generateSubmissionTypeString = () => {
         if (accounts.submissionTypes.length > 0) {
@@ -135,9 +137,26 @@ const AccountUserSelections = () => {
                 <div className="selection">
                     <div className="selection__heading">Budget Function</div>
                     <div className="selection__content">
-                        {generateBudgetAgencyFunctionString()}
+                        {generateBudgetFunctionString()}
                     </div>
                 </div>
+                <div className="selection">
+                    <div className="selection__heading">Budget Sub-Function</div>
+                    <div className="selection__content">
+                        {generateBudgetSubfunctionString()}
+                    </div>
+                </div>
+                <div className="selection">
+                    <div className="selection__heading">Agency</div>
+                    {generateAgencyString()}
+                </div>
+                <div className="selection">
+                    <div className="selection__heading">Federal Account</div>
+                    <div className="selection__content">
+                        {generateFederalAccountString()}
+                    </div>
+                </div>
+
                 <div className="selection">
                     <div className="selection__heading">Account Level</div>
                     <div className="selection__content">
