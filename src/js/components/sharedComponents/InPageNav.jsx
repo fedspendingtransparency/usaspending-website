@@ -245,7 +245,6 @@ const InPageNav = (props) => {
             const observer = new IntersectionObserver(callbackFunction, observerOptions);
             targets.forEach((i) => {
                 if (i) {
-
                     observer.observe(i);
                 }
             });
