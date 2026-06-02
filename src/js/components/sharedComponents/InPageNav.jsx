@@ -244,7 +244,6 @@ const InPageNav = (props) => {
             // eslint-disable-next-line no-undef
             const observer = new IntersectionObserver(callbackFunction, observerOptions);
             targets.forEach((i) => {
-                console.debug("i: ", i);
                 if (i) {
 
                     observer.observe(i);
