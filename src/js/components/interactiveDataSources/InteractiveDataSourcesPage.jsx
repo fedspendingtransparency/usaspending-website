@@ -142,7 +142,8 @@ const InteractiveDataSourcesPage = () => {
         }
     ], []);
 
-    const jumpToSection = useCallback((section = '') => {   
+    const jumpToSection = useCallback((section = '') => {  
+
         // we've been provided a section to jump to
         // check if it's a valid section
         const sectionObj = find(sections, ['section', section]);
@@ -151,13 +152,13 @@ const InteractiveDataSourcesPage = () => {
         // find the section in dom
         const sectionDom = document.querySelector(`#interactive-data-sources-${sectionObj.section}`);
         if (!sectionDom) return;
+
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
         history(`${getQueryParamString(newQueryParams)}`, { replace: true });
 
         setActiveSection(section);
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
-        console.debug(sectionTop);
         window.scrollTo({
             top: sectionTop + 200,
             left: 0,
@@ -172,7 +173,6 @@ const InteractiveDataSourcesPage = () => {
         let isMounted = true;
         if (isMounted) {
             const urlSection = query.section;
-            console.debug("url section: ", urlSection);
             if (urlSection) {
                 setActiveSection(urlSection);
             }
