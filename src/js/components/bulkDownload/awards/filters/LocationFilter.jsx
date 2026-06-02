@@ -47,7 +47,7 @@ const LocationFilter = memo(function LocationFilter({
 
     const updateCountry = useCallback((e) => {
         updateFilter('location', {
-            country: e.target.value || 'all',
+            country: e.target.value,
             state: { code: '', name: '' }
         });
     }, [updateFilter]);
@@ -91,7 +91,7 @@ const LocationFilter = memo(function LocationFilter({
     ));
 
     // set location to all on render
-    useEffect(() => updateCountry({ target: 'all' }), [updateCountry]);
+    useEffect(() => updateCountry({ target: { value: 'all' } }), [updateCountry]);
 
     console.log({ location });
 
