@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/23/18
  */
 
-import React, { memo } from 'react';
+import React, { memo, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
@@ -45,26 +45,6 @@ const LocationFilter = memo(function LocationFilter({
         updateFilter('locationType', target.value);
     };
 
-    const generateDisclaimer = (field) => {
-        if (!location.country.code) {
-            // no country provided
-            return (
-                <span>
-                    Please select a&nbsp;
-                    <span className="field">country</span> before selecting a&nbsp;
-                    <span className="field">{field}</span>.
-                </span>
-            );
-        }
-        return (
-            <span>
-                Filtering by
-                <span className="field"> {field} </span>
-                is only available for locations within the United States.
-            </span>
-        );
-    };
-
     const updateCountry = (e) => {
         updateFilter('location', {
             country: e.target.value,
@@ -83,12 +63,13 @@ const LocationFilter = memo(function LocationFilter({
         updateFilter('location', updatedLocation);
     };
 
-    const stateOptions = states.slice();
+    const stateOptions = useMemo(() => {
+        const tempArr = states.slice();
 
-    stateOptions.unshift({
-        code: 'all',
-        name: 'All'
-    });
+        tempArr.unshift({ code: 'all', name: 'All' });
+
+        return tempArr.map(({ code, name }) => ({ value: code, text: name }));
+    }, [states])
 
     const locationTypesArray = locationTypes.map((type) => (
         <div
