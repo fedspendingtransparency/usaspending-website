@@ -132,12 +132,12 @@ export const awardDownloadOptions = {
         {
             name: 'time_period',
             label: 'Time Period',
-            description: 'Time Period Pre-selected periods of time, including government fiscal year (FY)'
+            description: 'Pre-selected periods of time, including government fiscal year (FY)'
         },
         {
             name: 'date_picker',
             label: 'Date Picker',
-            description: 'Date Picker Date ranges may span up to one year'
+            description: 'Date ranges may span up to one year'
         }
     ],
     dateRangeButtons: [

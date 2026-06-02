@@ -1,8 +1,9 @@
+/* eslint-disable max-len */
 import React from "react";
 import { FlexGridRow } from 'data-transparency-ui';
-import { Link } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { uniqueId } from 'lodash-es';
+import { Link } from "react-router";
 import FadeContents from "./FadeContents";
 import isRedirectNeeded from '../../../../helpers/url';
 import ExternalLink from "../../ExternalLink";
@@ -69,7 +70,7 @@ const MenuDropdown = React.memo(({
                                             <li
                                                 key={`link-${uniqueId(index)}`}
                                                 className="list__extra-padding">
-                                                <Link prefetch={menuIndex === 0 ? "intent" : "none"} className="dropdown--item__link" to={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} state={item.queryParam}>
+                                                <Link prefetch={!item.shouldOpenNewTab ? "intent" : "none"} className="dropdown--item__link" to={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} as="document" state={item.queryParam}>
                                                     {item.icon && item.icon !== '' && item.icon !== null ?
                                                         <FontAwesomeIcon
                                                             role="presentation"
@@ -108,7 +109,7 @@ const MenuDropdown = React.memo(({
                                                     key={`second-section-link-${uniqueId(index)}`}
                                                     className="list__extra-padding">
                                                     <Link
-                                                        prefetch={menuIndex === 0 ? "intent" : "none"}
+                                                        prefetch={!item.shouldOpenNewTab ? "intent" : "none"}
                                                         className="dropdown--item__link"
                                                         to={item.url === "?about-the-data" || item.url === "?glossary" ? '' : item.url}
                                                         onClick={(e) => {
@@ -194,9 +195,10 @@ const MenuDropdown = React.memo(({
                                                                     </div>
                                                                 </div>
                                                             </ExternalLink> :
-                                                            <a
+                                                            <Link
+                                                                prefetch={!item.shouldOpenNewTab ? "intent" : "none"}
                                                                 className="dropdown--item__link"
-                                                                href={item.url}
+                                                                to={item.url}
                                                                 onKeyDown={(e) => {
                                                                     if (item.label === 'Release Notes' && e.key === 'Tab' && !e.shiftKey) {
                                                                         closeDropdown();
@@ -217,7 +219,7 @@ const MenuDropdown = React.memo(({
                                                                         </span>
                                                                     </div>
                                                                 </div>
-                                                            </a>
+                                                            </Link>
                                                         }
                                                     </FlexGridRow>
                                                 </li>
