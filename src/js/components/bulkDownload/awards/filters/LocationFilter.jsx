@@ -5,23 +5,23 @@
 
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from "react-redux";
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { CheckCircle } from 'components/sharedComponents/icons/Icons';
-import EntityDropdown from 'components/bulkDownload/awards/filters/EntityDropdown';
-import { useSelector } from "react-redux";
+import ComboBox from "components/sharedComponents/ComboBox";
 
 const countryOptions = [
     {
-        code: 'all',
-        name: 'All'
+        value: 'all',
+        text: 'All'
     },
     {
-        code: 'USA',
-        name: 'United States'
+        value: 'USA',
+        text: 'United States'
     },
     {
-        code: 'FOREIGN',
-        name: 'All Foreign Countries'
+        value: 'FOREIGN',
+        text: 'All Foreign Countries'
     }
 ];
 
@@ -65,23 +65,22 @@ const LocationFilter = memo(function LocationFilter({
         );
     };
 
-    const updateLocationFilter = (locationType, selectedLocation) => {
-        if (locationType === 'country') {
-            updateFilter('location', {
-                country: selectedLocation,
-                state: {
-                    code: '',
-                    name: ''
-                }
-            });
-        }
-        else if (locationType === 'state') {
-            const updatedLocation = Object.assign({}, location, {
-                state: selectedLocation
-            });
+    const updateCountry = (e) => {
+        updateFilter('location', {
+            country: e.target.value,
+            state: {
+                code: '',
+                name: ''
+            }
+        });
+    };
 
-            updateFilter('location', updatedLocation);
-        }
+    const updateState = (e) => {
+        const updatedLocation = Object.assign({}, location, {
+            state: e.target.value
+        });
+
+        updateFilter('location', updatedLocation);
     };
 
     const stateOptions = states.slice();
@@ -125,25 +124,19 @@ const LocationFilter = memo(function LocationFilter({
                 <div className="input-container">
                     {locationTypesArray}
                 </div>
-                <EntityDropdown
-                    scope="country"
-                    placeholder="Select a Country"
-                    title="Country"
-                    value={location.country}
-                    selectEntity={updateLocationFilter}
-                    options={countryOptions}
-                    field="country"
-                    generateDisclaimer={generateDisclaimer} />
-                <EntityDropdown
-                    scope="state"
-                    placeholder="Select a State"
-                    title="State"
-                    value={location.state}
-                    selectEntity={updateLocationFilter}
-                    options={stateOptions}
-                    field="state"
-                    enabled={location.country.code === 'USA'}
-                    generateDisclaimer={generateDisclaimer} />
+                <div className="combo-box-container">
+                    <ComboBox
+                        optionsArray={countryOptions}
+                        onSelect={updateCountry}
+                        label={"Country"}
+                        placeholder={"Select a Country"} />
+                    <ComboBox
+                        optionsArray={stateOptions}
+                        onSelect={updateState}
+                        label={"State"}
+                        placeholder={"Select a State"}
+                        disabled={location.country !== "USA"} />
+                </div>
             </div>
         </div>
     );
