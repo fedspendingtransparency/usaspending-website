@@ -726,7 +726,7 @@ const articles = [
             },
             {
                 label: "U.S. Constitution Transcript ",
-                slug: "https://fiscaldata.treasury.gov/",
+                slug: "https://www.archives.gov/founding-docs/constitution-transcript",
                 type: "internal"
             }
         ],
@@ -756,7 +756,7 @@ const articles = [
             },
             {
                 label: "Agency Profiles",
-                slug: "/agency-profiles",
+                slug: "/agency",
                 type: "internal"
             }
         ],
