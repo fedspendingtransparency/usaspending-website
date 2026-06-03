@@ -57,14 +57,27 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
         });
     }, [updateFilter]);
 
+    const onCountryClearSelect = () => updateFilter('location', '');
+
     const updateState = (e) => {
-        const filtered = states.filter(({ code }) => code === e.target.value);
+        const getState = (v) => {
+            switch (v) {
+                case '':return [{ code: '', name: '' }];
+                case 'all':return [{ code: 'all', name: 'All' }];
+                default: return states.filter(({ code }) => code === e.target.value);
+            }
+        }
+
         const updatedLocation = Object.assign({}, location, {
-            state: filtered[0]
+            state: getState(e.target.value)[0]
         });
 
         updateFilter('location', updatedLocation);
     };
+
+    const onStateClearSelect = () => updateState({ target: { value: '' }});
+
+    console.log({ states });
 
     const stateOptions = useMemo(() => {
         const tempArr = states.slice();
@@ -117,13 +130,15 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
                         onSelect={updateCountry}
                         label={"Country"}
                         placeholder={"Select a Country"}
-                        defaultValue={'All Countries'} />
+                        defaultValue={'All Countries'}
+                        onClearSelect={onCountryClearSelect} />
                     <ComboBox
                         optionsArray={stateOptions}
                         onSelect={updateState}
                         label={"State"}
                         placeholder={"Select a State"}
-                        disabled={location.country.code !== "USA"} />
+                        disabled={location.country?.code !== "USA"}
+                        onClearSelect={onStateClearSelect} />
                 </div>
             </div>
         </div>
