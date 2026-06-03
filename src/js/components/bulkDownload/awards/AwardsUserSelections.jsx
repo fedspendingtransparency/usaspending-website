@@ -121,7 +121,7 @@ const AwardsUserSelections = () => {
     };
 
     const generateLocationString = () => {
-        if (awards.location.country.code && awards.location.country.code !== 'all') {
+        if (awards.location?.country?.code && awards.location?.country?.code !== 'all') {
             if (awards.location.state.code && awards.location.state.code !== 'all') {
                 return (
                     <div className="selection__content">
@@ -133,7 +133,7 @@ const AwardsUserSelections = () => {
                 <div className="selection__content">{awards.location.country.name}</div>
             );
         }
-        else if (awards.location.country.code === 'all') {
+        else if (awards.location?.country?.code === 'all') {
             return (
                 <div className="selection__content">All</div>
             );
