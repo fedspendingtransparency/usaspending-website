@@ -340,7 +340,7 @@ const TimePeriodFilter = ({
 
                 <p className="download-filter__content-note">
                     <span className="download-filter__content-note_bold">Note: </span>
-                        data is available for download from 10/01/2000 (FY 2001) - present.
+                        Data is available for download from 10/01/2000 (FY 2001) - present.
                 </p>
             </div>
         </div>

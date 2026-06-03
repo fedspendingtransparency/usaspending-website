@@ -20,14 +20,16 @@ const propTypes = {
     handlePickedYear: PropTypes.func,
     handleQuarterPickerSelection: PropTypes.func,
     selectedFy: PropTypes.string,
-    latestSelectedTimeInterval: PropTypes.string
+    latestSelectedTimeInterval: PropTypes.string,
+    updateFilter: PropTypes.func
 };
 
 const QuarterPickerWithFY = ({
     handlePickedYear,
     selectedFy,
     handleQuarterPickerSelection,
-    latestSelectedTimeInterval
+    latestSelectedTimeInterval,
+    updateFilter
 }) => {
     const [, allPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
 
@@ -43,6 +45,12 @@ const QuarterPickerWithFY = ({
             handlePickedYear(year, 4);
         }
     }, [allPeriods, handlePickedYear]);
+
+    const onClearSelect = () => {
+        updateFilter('fy', '');
+        updateFilter('period', null);
+        updateFilter('quarter', null);
+    }
 
     const periodsPerQuarter = useMemo(() =>
         getPeriodsPerQuarterByFy(parseInt(selectedFy, 10)),
@@ -86,6 +94,7 @@ const QuarterPickerWithFY = ({
                 defaultValue={`FY ${defaultFy}`}
                 label={"Fiscal Year"}
                 formName={"download-filter__fy"}
+                onClearSelect={onClearSelect}
                 disabled={!latestFy} />
             <NewQuarterPicker
                 showPeriods

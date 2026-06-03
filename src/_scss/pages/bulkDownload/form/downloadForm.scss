@@ -309,10 +309,6 @@
       line-height: 1.5;
       color: $gray-90;
       margin: 0 0 rem(12) 0;
-
-      @media (max-width: $medium-screen) {
-        max-width: 75%;
-      }
     }
 
     .download-filter__content-note_bold {

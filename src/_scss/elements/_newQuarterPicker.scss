@@ -1,6 +1,7 @@
 $button-color: $blue-vivid-5v;
 $active-button-color: $blue-60v;
-$button-text-color: $gray-5;
+$button-color-disabled: $gray-5;
+$button-text-color: $color-white;
 $button-text-disabled: $gray-60;
 $quarter-text-color: $gray-90;
 
@@ -59,7 +60,7 @@ $quarter-text-color: $gray-90;
         }
 
         &.quarter-picker__quarter_disabled {
-          background-color: $color-gray-lightest;
+          background-color: $button-color-disabled;
           cursor: not-allowed;
           opacity: 0.90;
           color: $button-text-disabled;
