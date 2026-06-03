@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable max-len */
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router';
-import { find, throttle, uniqueId } from 'lodash-es';
+import { find, uniqueId } from 'lodash-es';
 import { useDispatch } from 'react-redux';
 import { ComingSoon, FlexGridCol } from 'data-transparency-ui';
 
@@ -39,7 +40,8 @@ const InteractiveDataSourcesPage = () => {
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };
-    const sections = [
+
+    const sections = useMemo(() => [
         {
             section: 'intro-section',
             label: 'Introduction',
@@ -138,9 +140,10 @@ const InteractiveDataSourcesPage = () => {
             scroller: true,
             component: <DataUseCases title="Use Cases" subtitle="What can I do with the data on USAspending.gov?" />
         }
-    ];
+    ], []);
 
-    const jumpToSection = (section = '') => {
+    const jumpToSection = useCallback((section = '') => {  
+
         // we've been provided a section to jump to
         // check if it's a valid section
         const sectionObj = find(sections, ['section', section]);
@@ -149,12 +152,9 @@ const InteractiveDataSourcesPage = () => {
         // find the section in dom
         const sectionDom = document.querySelector(`#interactive-data-sources-${sectionObj.section}`);
         if (!sectionDom) return;
-
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history({
-            path: `${getQueryParamString(newQueryParams)}`
-        }, { replace: true });
+        history(`${getQueryParamString(newQueryParams)}`, { replace: true });
 
         setActiveSection(section);
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
@@ -163,29 +163,25 @@ const InteractiveDataSourcesPage = () => {
             left: 0,
             behavior: 'smooth'
         });
-    };
+    }, [history, query, sections]);
+
 
     useEffect(() => {
-        if (query.section) {
-            jumpToSection(query.section);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query.section]);
-
-    useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
         let isMounted = true;
         if (isMounted) {
             const urlSection = query.section;
             if (urlSection) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setActiveSection(urlSection);
-                jumpToSection(urlSection);
+                setTimeout(() => jumpToSection(urlSection), 100);
             }
         }
         return () => {
             isMounted = false;
         };
-    }, 100), [history, query.section]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query.section]);
 
     const emailData = {
         subject: "USAspending Data Sources",

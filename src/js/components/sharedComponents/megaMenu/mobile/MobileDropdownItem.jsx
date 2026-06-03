@@ -70,7 +70,8 @@ const MobileDropdownItem = ({
             else {
                 navigate(item.url);
             }
-        } else if (typeof item.url === "object") {
+        }
+        else if (typeof item.url === "object") {
             navigate(item.url);
         }
     };
@@ -98,6 +99,7 @@ const MobileDropdownItem = ({
                                 <li key={uniqueId()}>
                                     <Link
                                         to={item.url}
+                                        prefetch={!item?.shouldOpenNewTab ? "viewport" : "none"}
                                         onClick={clickedLink}
                                         className="mobile-dropdown__section-link">
                                         <div className="mobile-dropdown__section-icon">
@@ -120,7 +122,12 @@ const MobileDropdownItem = ({
                         <ul>
                             {section1Items.map((item) => (
                                 <li className="mobile-dropdown__section" key={uniqueId()}>
-                                    <Link to={item.url} onClick={clickedLink} className="mobile-dropdown__section-link" state={item.queryParam}>
+                                    <Link
+                                        to={item.url}
+                                        prefetch={!item?.shouldOpenNewTab ? "viewport" : "none"}
+                                        onClick={clickedLink} 
+                                        className="mobile-dropdown__section-link" 
+                                        state={item.queryParam}>
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
                                         </div>
@@ -150,6 +157,7 @@ const MobileDropdownItem = ({
                 <ul>
                     {section2Items.map((item) => (
                         <li className="mobile-dropdown__section" key={uniqueId()}>
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                             <a
                                 className="mobile-dropdown__section-link"
                                 href="#"
@@ -196,7 +204,11 @@ const MobileDropdownItem = ({
                                                         </div>
                                                     </div>
                                                 </ExternalLink> :
-                                                <a href={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} className="mobile-dropdown__section-link">
+                                                <a 
+                                                    href={item.url} 
+                                                    target={item.shouldOpenNewTab ? "_blank" : null} 
+                                                    rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} 
+                                                    className="mobile-dropdown__section-link">
                                                     <div className="mobile-dropdown__section-label">
                                                         {item.label}
                                                         <span className="mobile-dropdown__section-description">

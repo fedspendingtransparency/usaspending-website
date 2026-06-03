@@ -25,9 +25,9 @@ $output-bourbon-deprecation-warnings: false !default;
 @import "elements/accordion";
 @import "elements/alert";
 @import "elements/comboBox";
+@import "elements/newQuarterPicker";
 
 // Components -------------- //
-
 @import "components/accordions";
 @import "components/alerts";
 @import "components/disclaimer";
