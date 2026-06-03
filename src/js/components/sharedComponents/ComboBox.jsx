@@ -97,15 +97,6 @@ const ComboBox = memo(function ComboBox({
 
     const noSearchResults = options.length === 0 && !inputValueEmpty;
 
-    const optionsArrayDep = JSON.stringify(optionsArray);
-
-    // reset input if there's a change in options array
-    useEffect(() => {
-        // persisted value defaults to an empty string
-        // if persisted value passed set to is.
-        setInputValue(defaultValue)
-    }, [defaultValue, optionsArrayDep]);
-
     useEffect(() => {
         const handleOutsideClick = (e) => {
             if (comboRef.current && !comboRef.current.contains(e.target)) {
