@@ -40,6 +40,13 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
 
     const [hasSelectedBudgetFunction, setHasSelectedBudgetFunction] = useState(false);
     const [hasSelectedAgency, setHasSelectedAgency] = useState(false);
+    const {
+        budgetFunction,
+        budgetSubfunction,
+        agency,
+        federalAccount
+    } = accounts
+
     let icon = (
         <div className="icon valid">
             <CheckCircle />
@@ -75,7 +82,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
         });
         setHasSelectedBudgetFunction(true);
 
-        if (accounts.agency.id === ''){
+        if (agency.id === ''){
             updateFilter('agency', {
                 id: 'all',
                 name: 'All'
@@ -94,7 +101,6 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
         }
     }
     
-
     // Sub Budget Functions
     const subBudgetOptions = budgetSubfunctions.map((option) => (
         {
@@ -141,7 +147,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
         e.preventDefault();
         const target = e.target;
         const fedCode = agenciesOptions
-            .find((agency) => agency.value === target.value)
+            .find((a) => a.value === target.value)
             .fedCode;
 
         updateFilter('agency', {
@@ -150,7 +156,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
         });
         setHasSelectedAgency(true);
 
-        if (accounts.budgetFunction.code === '') {
+        if (budgetFunction.code === '') {
             updateFilter('budgetFunction', {
                 code: 'all',
                 title: 'All'
@@ -162,6 +168,10 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
         }
         else {
             setFederalAccountList(fedCode);
+            updateFilter('federalAccount', {
+                id: 'all',
+                name: 'All'
+            });
         }
     };
 
@@ -199,12 +209,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                     code: '',
                     title: 'Select a Budget Function'
                 });
-                updateFilter('budgetSubfunction', {
-                    code: '',
-                    title: 'Select a Budget Sub-Function'
-                });
 
-                if (!hasSelectedAgency) {
+                if (!hasSelectedAgency || agency.id === 'all') {
                     // Agency was set by default with budgetFunction click
                     // clear Agency too.
                     updateFilter('agency', {
@@ -227,11 +233,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                     id: '',
                     name: 'Select an Agency'
                 });
-                updateFilter('federalAccount', {
-                    id: '',
-                    name: 'Select a Federal Account'
-                });
-                if (!hasSelectedBudgetFunction) {
+                if (!hasSelectedBudgetFunction || budgetFunction.code === 'all') {
                     // Budget Function was set by default with agency click
                     // clear Budget Function too.
                     updateFilter('budgetFunction', {
@@ -276,9 +278,6 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                     agency
                     </Link>. Select Agency to view spending distributed to a particular agency.
                 </p>
-                <p className="download-filter__subtitle">
-                    You must select at least one of these filters to continue.
-                </p>
             </div>
             <div className="download-filter__content budget-function">
                 <div className="combo-box-container">
@@ -288,10 +287,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         label="Budget Function"
                         formName="download-filter__budget-function"
                         onClearSelect={() => handleClear("budgetFunction")}
-                        defaultValue={accounts.budgetFunction.code
-                            ? accounts.budgetFunction.title 
-                            : ""
-                        }
+                        defaultValue={budgetFunction.code ? budgetFunction.title : ""}
+                        filterInput={budgetFunction.code !== 'all'}
                         placeholder="Select budget Function" />
                     <ComboBox
                         optionsArray={subBudgetOptions}
@@ -300,10 +297,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         formName="download-filter__budget-sub-function"
                         placeholder="Select budget sub-function"
                         onClearSelect={() => handleClear("budgetSubfunction")}
-                        defaultValue={accounts.budgetSubfunctions?.code
-                            ? accounts.budgetSubfunctions.title
-                            : ""
-                        }
+                        defaultValue={budgetSubfunction?.code ? budgetSubfunction.title : ""}
+                        filterInput={budgetSubfunction?.code !== 'all'}
                         disabled={subBudgetOptions.length <= 1} />
                 </div>
                 <div className="combo-box-container">
@@ -313,10 +308,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         label="Agency"
                         formName="download-filter__agency"
                         onClearSelect={() => handleClear("agency")}
-                        defaultValue={accounts.agency.id
-                            ? accounts.agency.name
-                            : ""
-                        }
+                        defaultValue={agency.id ? agency.name : ""}
+                        filterInput={agency.id !== 'all'}
                         placeholder="Select agency" />
                     <ComboBox
                         optionsArray={federalAccountOptions}
@@ -325,10 +318,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         formName="download-filter__federal-account"
                         placeholder="Select federal account"
                         onClearSelect={() => handleClear("federalAccount")}
-                        defaultValue={accounts.federalAccount?.id
-                            ? accounts.federalAccount.name
-                            : ""
-                        }
+                        defaultValue={federalAccount?.id ? federalAccount.name : ""}
+                        filterInput={federalAccount?.id !== 'all'}
                         disabled={federalAccountOptions.length <= 1} />
                 </div>
             </div>
