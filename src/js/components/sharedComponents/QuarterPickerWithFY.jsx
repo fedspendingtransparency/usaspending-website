@@ -23,7 +23,8 @@ const propTypes = {
     handleQuarterPickerSelection: PropTypes.func,
     selectedFy: PropTypes.string,
     latestSelectedTimeInterval: PropTypes.string,
-    updateFilter: PropTypes.func
+    updateFilter: PropTypes.func,
+    newPicker: PropTypes.bool
 };
 
 const QuarterPickerWithFY = ({
