@@ -75,7 +75,8 @@ const FiscalYearFilter = ({ updateFilter }) => {
                     handlePickedYear={pickedYear}
                     handleQuarterPickerSelection={quarterPickerSelection}
                     latestSelectedTimeInterval={latestSelectedTimeInterval}
-                    updateFilter={updateFilter} />
+                    updateFilter={updateFilter}
+                    newPicker />
                 <p className="download-filter__content-note">
                     <span className="download-filter__content-note_bold">Note: </span>
                     {noteOne}
