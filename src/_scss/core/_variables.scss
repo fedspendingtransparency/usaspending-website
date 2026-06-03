@@ -81,6 +81,7 @@ $cyan-vivid-80: #093b44;
 $blue-5: #eff6fb;
 $blue-10: #d9e8f6;
 $blue-20: #aacdec;
+$blue-40v: #2491ff;
 $blue-50: #2378c3;
 $blue-50v: #0076d6;
 $blue-60: #2c608a;
@@ -115,6 +116,7 @@ $violet-60v: #783cb9;
 $violet-70v: #54278f;
 $gray-cool-1: #fbfcfd;
 $gray-2: #f9f9f9;
+$gray-5: #f0f0f0;
 $gray-10: #e6e6e6;
 $gray-20: #c9c9c9;
 $gray-cool-30: #a9aeb1;
@@ -180,7 +182,7 @@ $theme-color-another-underline: $gray-cool-50;
 $theme-color-vertical-pipe: $gray-cool-30;
 
 $theme-color-homepage-hero: rgba(136, 180, 192, 0.15);
-$theme-color-background: #f0f0f0;
+$theme-color-background: $gray-5;
 
 $info-lighter: $cyan-5;
 $info-dark: $cyan-40v;

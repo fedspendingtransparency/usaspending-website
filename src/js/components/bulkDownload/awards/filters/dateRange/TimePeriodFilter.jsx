@@ -3,15 +3,18 @@
  * Created by Lizzie Salita 11/1/17
  **/
 
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
+import ComboBox from "components/sharedComponents/ComboBox";
 
-import * as fiscalYearHelper from 'helpers/fiscalYearHelper';
+import {
+    allFiscalYears,
+    convertFYToDateRange
+} from 'helpers/fiscalYearHelper';
+import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 
-import DateRangeError from 'components/search/filters/timePeriod/DateRangeError';
 import DownloadDateRange from './DownloadDateRange';
-import TimePeriodButtons from './TimePeriodButtons';
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -30,241 +33,319 @@ const propTypes = {
 const errorTypes = {
     order: {
         title: 'Invalid Dates',
-        message: 'The end date cannot be earlier than the start date.'
+        message: 'The end date cannot be earlier than the start date.',
+        type: 'end',
+        active: true
     },
     range: {
         title: 'Invalid Date Range',
-        message: 'Choose one of the ranges below or set your own range of one year or less.'
+        message: 'Date range cannot span more than one year.',
+        type: 'end',
+        active: true
+    },
+    invalid: {
+        title: 'Invalid Date',
+        message: 'Invalid date',
+        active: true
+    },
+    incomplete: {
+        title: 'Incomplete',
+        message: 'Date range must have a state date and end date.',
+        type: null,
+        active: true
+    },
+    empty: {
+        title: "",
+        message: "",
+        type: null,
+        active: false
     }
 };
 
-export default class TimePeriodFilter extends React.Component {
-    constructor(props) {
-        super(props);
+const TimePeriodFilter = ({
+    filterTimePeriodStart,
+    filterTimePeriodEnd,
+    updateStartDate,
+    updateEndDate,
+    valid,
+    setValidDates
+}) => {
+    const [startDateBulkUI, setStartDateBulkUI] = useState(filterTimePeriodStart);
+    const [endDateBulkUI, setEndDateBulkUI] = useState(filterTimePeriodEnd);
+    const [error, setError] = useState(errorTypes.empty);
+    const [currentTimeType, setCurrentTimeType] = useState("time_period");
+    let defaultValue = '';
 
-        this.state = {
-            startDateBulkUI: null,
-            endDateBulkUI: null,
-            showError: false,
-            header: '',
-            description: '',
-            isActive: false
-        };
+    let icon = (
+        <div className="icon valid">
+            <CheckCircle />
+        </div>
+    );
 
-        // bind functions
-        this.handleDateChange = this.handleDateChange.bind(this);
-        this.showError = this.showError.bind(this);
-        this.hideError = this.hideError.bind(this);
-        this.validateDates = this.validateDates.bind(this);
+    if (!valid || error.active) {
+        icon = (
+            <div className="icon invalid">
+                <ExclamationCircle />
+            </div>
+        );
     }
 
-    componentDidMount() {
-        this.prepopulateDatePickers();
-    }
-
-    componentDidUpdate() {
-        this.synchronizeDatePickers(this.props);
-    }
-
-    prepopulateDatePickers() {
-    // prepopulate the date pickers with the current filter values
-        const startDate = dayjs(this.props.filterTimePeriodStart, 'YYYY-MM-DD');
-        const endDate = dayjs(this.props.filterTimePeriodEnd, 'YYYY-MM-DD');
-
-        if (startDate.isValid() && endDate.isValid()) {
-            this.setState({
-                startDateBulkUI: startDate,
-                endDateBulkUI: endDate
-            });
-        }
-    }
-
-    synchronizeDatePickers(nextProps) {
-    // synchronize the date picker state to Redux controlled props
-    // convert start/end date strings to dayjs objects
-        let datesChanged = false;
-        const newState = {};
-
-        // check if the start date changed
-        if (nextProps.filterTimePeriodStart !== this.props.filterTimePeriodStart) {
-            const startDate = dayjs(nextProps.filterTimePeriodStart, 'YYYY-MM-DD');
-            // start date did change and it is a valid date (not null)
-            if (startDate.isValid()) {
-                datesChanged = true;
-                newState.startDateBulkUI = startDate;
-            }
-            else {
-                // value became null
-                datesChanged = true;
-                newState.startDateBulkUI = null;
-            }
-        }
-
-        // check if the end date changed
-        if (nextProps.filterTimePeriodEnd !== this.props.filterTimePeriodEnd) {
-            const endDate = dayjs(nextProps.filterTimePeriodEnd, 'YYYY-MM-DD');
-            if (endDate.isValid()) {
-                // end date did change and it is a valid date (not null)
-                datesChanged = true;
-                newState.endDateBulkUI = endDate;
-            }
-            else if (this.props.filterTimePeriodEnd) {
-                // value became null
-                datesChanged = true;
-                newState.endDateBulkUI = null;
-            }
-        }
-
-        if (datesChanged) {
-            this.setState(newState);
-        }
-    }
-
-    handleDateChange(date, dateType) {
-    // the component will hold values of the start/end dates for use by the UI only
-    // this is because the start/end range will be incomplete during the time the user has only
-    // picked one date, or if they have picked an invalid range
-    // additional logic is required to keep these values in sync with Redux
-        let value = dayjs(date);
-        if (!date) {
-            value = null;
-        }
-        this.setState({
-            [`${dateType}UI`]: value
-        }, () => {
-            this.validateDates();
-        });
-    }
-
-    validateDates() {
-    // validate that dates are provided for both fields and the end dates
-    // don't come before the start dates, and that the range is less than one year
-
+    const validateDates = useCallback(() => {
         // validate the date ranges
-        const start = this.state.startDateBulkUI;
-        const end = this.state.endDateBulkUI;
+        const start = dayjs.isDayjs(startDateBulkUI)
+            ? startDateBulkUI
+            : dayjs(startDateBulkUI);
+        const end = dayjs.isDayjs(endDateBulkUI)
+            ? endDateBulkUI
+            : dayjs(endDateBulkUI);
 
-        const yearBeforeEnd = dayjs(this.state.endDateBulkUI).subtract(1, 'y');
+        const yearBeforeEnd = dayjs(endDateBulkUI).subtract(1, 'y');
 
-        if (start && end) {
+        if (start.isValid() && end.isValid()) {
             // both sets of dates exist
             if (!end.isSameOrAfter(start)) {
                 // end date comes before start date, invalid
                 // show an error message
-                const error = errorTypes.order;
-                this.showError(error.title, error.message);
+                setError(errorTypes.order);
             }
             else if (!start.isSameOrAfter(yearBeforeEnd)) {
                 // Start date is more than one year before the end date
                 // show an error message
-                const error = errorTypes.range;
-                this.showError(error.title, error.message);
+                setError(errorTypes.range);
             }
             else {
                 // valid!
-                this.hideError();
+                setError(errorTypes.empty);
                 // update the filter parameters
-                this.props.updateStartDate(start.format('YYYY-MM-DD'));
-                this.props.updateEndDate(end.format('YYYY-MM-DD'));
-                this.props.setValidDates(true);
+                updateStartDate(start.format('YYYY-MM-DD'));
+                updateEndDate(end.format('YYYY-MM-DD'));
+                setValidDates(true);
             }
         }
-        else if (start || end) {
+        else if (start.isValid() || end.isValid()) {
             // open-ended date range
             let startValue = null;
             let endValue = null;
-            if (start) {
+            let errorMessage = errorTypes.incomplete;
+
+            if (start.isValid()) {
                 startValue = start.format('YYYY-MM-DD');
-                this.props.updateStartDate(startValue);
-                this.props.setValidDates(true);
+                errorMessage = {
+                    ...errorMessage,
+                    type: 'end'
+                };
+                updateStartDate(startValue);
+                setValidDates(false);
+                setError(errorMessage);
             }
             else {
+                // already checked if end is valid above
+                // if start is not valid end must be.
                 endValue = end.format('YYYY-MM-DD');
-                this.props.updateEndDate(endValue);
-                this.props.setValidDates(true);
+                errorMessage = {
+                    ...errorMessage,
+                    type: 'start'
+                };
+                setError(errorMessage);
+                updateEndDate(endValue);
+                setValidDates(false);
             }
         }
         else {
             // user has cleared the dates, which means we should clear the date range filter
-            this.props.updateStartDate('');
-            this.props.updateEndDate('');
-            this.props.setValidDates(false);
+            updateStartDate('');
+            updateEndDate('');
+            setValidDates(false);
+        }
+    }, [endDateBulkUI, setValidDates, startDateBulkUI, updateEndDate, updateStartDate]);
+
+    const handleDateUpdate = (start = "", end = "") => {
+        setStartDateBulkUI(start);
+        setEndDateBulkUI(end);
+        if (start === "" && end === "") {
+            // allow for users to clear combo selection
+            updateStartDate('');
+            updateEndDate('');
+            setValidDates(false);
+        }
+    };
+
+    const handleComboDateChange = (e) => {
+        e.preventDefault();
+        const value = e.target.value;
+        if (value) {
+            const [start, end] = value.split(" - ")
+                .map((date) => dayjs(date.trim()));
+
+            handleDateUpdate(start, end);
+        }
+    };
+
+    const handleDateChange = (date, dateType) => {
+        let value = dayjs(date);
+        let errorMessage = errorTypes.invalid;
+        if (!date) {
+            value = null;
+        }
+
+        if (dateType === "startDateBulk") {
+            if (value?.isValid()) {
+                setStartDateBulkUI(value);
+            }
+            else if (date === "") {
+                // user want to clear picker
+                setStartDateBulkUI('');
+                updateStartDate('');
+                setValidDates(false);
+            }
+            else {
+                errorMessage = {
+                    ...errorMessage,
+                    type: 'start'
+                };
+                setError(errorMessage);
+                setValidDates(false);
+            }
+        }
+
+        if (dateType === "endDateBulk") {
+            if (value?.isValid()) {
+                setEndDateBulkUI(value);
+            }
+            else if (date === "") {
+                // user want to clear picker
+                setEndDateBulkUI('');
+                updateEndDate('');
+                setValidDates(false);
+            }
+            else {
+                errorMessage = {
+                    ...errorMessage,
+                    type: 'end'
+                };
+                setError(errorMessage);
+                setValidDates(false);
+            }
+        }
+    };
+
+    // comboBox options data manipulation
+    const periodOptions = awardDownloadOptions.dateRangeButtons.map((range) => (
+        {
+            text: range.label,
+            value: `${range.startDate} - ${range.endDate}`
+        }
+    ));
+
+    for (const year of allFiscalYears(2001)) {
+        const fyDateRange = convertFYToDateRange(year);
+        periodOptions.push({
+            text: `FY ${year}`,
+            value: `${fyDateRange[0]} - ${fyDateRange[1]}`
+        });
+    }
+
+    if (startDateBulkUI && endDateBulkUI) {
+        const start = dayjs.isDayjs(startDateBulkUI)
+            ? startDateBulkUI.format('YYYY-MM-DD')
+            : startDateBulkUI;
+        const end = dayjs.isDayjs(endDateBulkUI)
+            ? endDateBulkUI.format('YYYY-MM-DD')
+            : endDateBulkUI;
+
+        const searchValue = `${start} - ${end}`;
+        const persistedOption = periodOptions.find((option) => option.value === searchValue);
+
+        if (persistedOption) {
+            defaultValue = persistedOption.text;
         }
     }
 
-    showError(error, message) {
-        this.setState({
-            showError: true,
-            header: error,
-            errorMessage: message
-        });
-    }
-    hideError() {
-        this.setState({
-            showError: false,
-            header: '',
-            errorMessage: ''
-        });
-    }
+    // end comboBox options data manipulation
 
-    render() {
-        let errorDetails = null;
+    useEffect(() => {
+        setStartDateBulkUI(filterTimePeriodStart);
+    }, [filterTimePeriodStart]);
 
-        if (this.state.showError) {
-            errorDetails = (<DateRangeError
-                header={this.state.header}
-                message={this.state.errorMessage} />);
-        }
+    useEffect(() => {
+        setEndDateBulkUI(filterTimePeriodEnd);
+    }, [filterTimePeriodEnd]);
 
-        let icon = (
-            <div className="icon valid">
-                <CheckCircle />
-            </div>
+    useEffect(() => {
+        const isSameAsRedux = (
+            startDateBulkUI === filterTimePeriodStart
+            &&
+            endDateBulkUI === filterTimePeriodEnd
         );
-        if (!this.props.valid || this.state.showError) {
-            icon = (
-                <div className="icon invalid">
-                    <ExclamationCircle />
+
+        if (isSameAsRedux) return;
+
+        validateDates();
+    // don't need prop validation here.
+    // handled in above useEffects
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [startDateBulkUI, endDateBulkUI, validateDates]);
+
+    const timePeriodTypeList = awardDownloadOptions.timePeriodTypes.map((periodType) => (
+        <div
+            className="radio"
+            key={periodType.name}>
+            <label className="radio-label" htmlFor="periodType">
+                <input
+                    type="radio"
+                    aria-label={periodType.name}
+                    value={periodType.name}
+                    name="periodType"
+                    checked={currentTimeType === periodType.name}
+                    onChange={() => setCurrentTimeType(periodType.name)} />
+                <div className="radio-container">
+                    {periodType.label}
+                    <div className="radio-description">
+                        {periodType.description}
+                    </div>
                 </div>
-            );
-        }
+            </label>
+        </div>
+    ));
 
-        let start = '';
-        if (this.state.startDateBulkUI !== null) {
-            start = this.state.startDateBulkUI.format('YYYY-MM-DD');
-        }
-        let end = '';
-        if (this.state.endDateBulkUI !== null) {
-            end = this.state.endDateBulkUI.format('YYYY-MM-DD');
-        }
-        const earliestFY = fiscalYearHelper.currentFiscalYear() - 9;
+    return (
 
-        return (
-            <div className="download-filter">
-                <h3 className="download-filter__title">
-                    {icon} Select a <span className="download-filter__title_em">date range</span>.
-                </h3>
-                <div className="download-filter__content date-range-wrapper">
+        <div className="download-filter">
+            <h3 className="download-filter__title">
+                {icon} Select a <span className="download-filter__title_em">date range</span>.
+            </h3>
+            <div className="download-filter__content time-period">
+                <div className="input-container">
+                    {timePeriodTypeList}
+                </div>
+                {currentTimeType === "time_period" ? (
+                    <div className="combo-box-container">
+                        <ComboBox
+                            optionsArray={periodOptions}
+                            onSelect={handleComboDateChange}
+                            onClearSelect={handleDateUpdate}
+                            formName="time-period-combo"
+                            label={<>Time Period <span className="required">(Required)</span></>}
+                            placeholder="Select time period"
+                            defaultValue={defaultValue} />
+                    </div>
+                ) : (
                     <DownloadDateRange
                         datePlaceholder=""
-                        startDate={this.state.startDateBulkUI}
-                        endDate={this.state.endDateBulkUI}
-                        onDateChange={this.handleDateChange}
-                        showError={this.showError}
-                        hideError={this.hideError} />
-                    { errorDetails }
-                    <p className="data-note">
-                        Note: data is available for download from FY 2001 - present.
-                        To select data prior to FY {earliestFY}, enter an appropriate date range. Date ranges may span up to one year.
-                    </p>
-                    <TimePeriodButtons
-                        currentStartDate={start}
-                        currentEndDate={end}
-                        handleDateChange={this.handleDateChange} />
-                </div>
+                        startDate={startDateBulkUI}
+                        endDate={endDateBulkUI}
+                        onDateChange={handleDateChange}
+                        error={error} />
+                )}
+
+                <p className="download-filter__content-note">
+                    <span className="download-filter__content-note_bold">Note: </span>
+                        Data is available for download from 10/01/2000 (FY 2001) - present.
+                </p>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 TimePeriodFilter.propTypes = propTypes;
+export default TimePeriodFilter;
