@@ -15,13 +15,16 @@ import {
 } from 'containers/explorer/detail/helpers/explorerQuarters';
 import NewQuarterPicker from "./pickers/NewQuarterPicker";
 import ComboBox from "./ComboBox";
+import { QuarterPicker } from "data-transparency-ui";
+import FYPicker from 'components/sharedComponents/pickers/FYPicker';
 
 const propTypes = {
     handlePickedYear: PropTypes.func,
     handleQuarterPickerSelection: PropTypes.func,
     selectedFy: PropTypes.string,
     latestSelectedTimeInterval: PropTypes.string,
-    updateFilter: PropTypes.func
+    updateFilter: PropTypes.func,
+    newPicker: PropTypes.bool
 };
 
 const QuarterPickerWithFY = ({
@@ -29,7 +32,8 @@ const QuarterPickerWithFY = ({
     selectedFy,
     handleQuarterPickerSelection,
     latestSelectedTimeInterval,
-    updateFilter
+    updateFilter,
+    newPicker
 }) => {
     const [, allPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
 
@@ -86,7 +90,7 @@ const QuarterPickerWithFY = ({
             }));
     }, [defaultFy]);
 
-    return (
+    if (newPicker) return (
         <div className="download-filter__fy">
             <ComboBox
                 optionsArray={optionsArray}
@@ -104,6 +108,35 @@ const QuarterPickerWithFY = ({
                 handleSelection={handleQuarterPickerSelection} />
         </div>
     );
+
+    const pickedYear = (year) => {
+        // 2020 is when we started receiving federal submissions on a per-period basis.
+        if (parseInt(year, 10) >= 2020) {
+            const { period: latestSubmission } = getLatestSubmissionPeriodInFy(year, allPeriods);
+            handlePickedYear(year, latestSubmission);
+        }
+        else {
+            handlePickedYear(year, 4);
+        }
+    };
+
+    return (
+        <div className="quarter-picker">
+            <div className="quarter-picker__fy">
+                <FYPicker
+                    isLoading={!latestFy}
+                    latestFy={latestFy}
+                    fy={selectedFy}
+                    onClick={pickedYear} />
+            </div>
+            <QuarterPicker
+                showPeriods
+                periodsPerQuarter={periodsPerQuarter}
+                selectedPeriods={[latestSelectedTimeInterval]}
+                disabledPeriods={disabledPeriodsInFy}
+                handleSelection={handleQuarterPickerSelection} />
+        </div>
+    )
 };
 
 QuarterPickerWithFY.propTypes = propTypes;

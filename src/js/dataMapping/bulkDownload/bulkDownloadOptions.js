@@ -102,13 +102,15 @@ export const awardDownloadOptions = {
             name: 'recipient_location',
             label: 'Recipient Location',
             apiName: 'recipient_locations',
-            apiScopeName: 'recipient_scope'
+            apiScopeName: 'recipient_scope',
+            description: "Legal business address of the recipient"
         },
         {
             name: 'place_of_performance',
             label: 'Place of Performance',
             apiName: 'place_of_performance_locations',
-            apiScopeName: 'place_of_performance_scope'
+            apiScopeName: 'place_of_performance_scope',
+            description: "Principal place of business, where the majority of the work is performed"
         }
     ],
     fileFormats: [

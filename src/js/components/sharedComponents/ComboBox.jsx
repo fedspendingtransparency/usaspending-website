@@ -1,6 +1,7 @@
 import React, { memo, useState, useEffect, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
+import { uniqueId } from "lodash-es";
 
 const propTypes = {
     optionsArray: PropTypes.arrayOf(
@@ -68,7 +69,10 @@ const ComboBox = memo(function ComboBox({
                 value?.indexOf('disabled') !== -1;
 
             return (
-                <li value={value} className="combo-box__options-item" key={value}>
+                <li
+                    value={value}
+                    className="combo-box__options-item"
+                    key={uniqueId('combobox-option__')}>
                     <button
                         className="combo-box__option"
                         type="button"

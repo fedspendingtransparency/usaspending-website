@@ -316,7 +316,6 @@ const TimePeriodFilter = ({
                 <div className="input-container">
                     {timePeriodTypeList}
                 </div>
-
                 {currentTimeType === "time_period" ? (
                     <div className="combo-box-container">
                         <ComboBox
