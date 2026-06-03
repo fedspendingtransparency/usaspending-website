@@ -73,8 +73,8 @@ const Glossary = ({
                 mainContent.focus();
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        
+    }, [dispatch, history, query]);
 
     const track = () => <div className="glossary-scrollbar-track" />;
     const thumb = () => <div className="glossary-scrollbar-thumb" />;

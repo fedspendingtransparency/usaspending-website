@@ -92,13 +92,7 @@ const AccountDataContent = ({
                     <DefCodeFilter
                         type="accounts"
                         isDisabled={areDefCodesDisabled(accounts.submissionTypes)} />
-                    <FiscalYearFilter
-                        currentFy={accounts.fy}
-                        latestSelectedTimePeriod={
-                            accounts.period ? accounts.period : accounts.quarter
-                        }
-                        updateFilter={updateFilter}
-                        valid={(accounts.fy && (accounts.quarter || accounts.period))} />
+                    <FiscalYearFilter updateFilter={updateFilter} />
                     { isTablet && <AccountUserSelections /> }
                     <SubmitButton
                         handleSubmit={clickedDownload}
