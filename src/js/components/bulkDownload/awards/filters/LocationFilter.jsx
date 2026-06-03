@@ -77,8 +77,6 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
 
     const onStateClearSelect = () => updateState({ target: { value: '' }});
 
-    console.log({ states });
-
     const stateOptions = useMemo(() => {
         const tempArr = states.slice();
 
