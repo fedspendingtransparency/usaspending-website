@@ -49,7 +49,8 @@ $quarter-text-color: $gray-90;
           border-radius: 0 rem(4) rem(4) 0;
         }
 
-        &:active, &.quarter-picker__quarter_active {
+        &:active,
+        &.quarter-picker__quarter_active {
           background-color: $active-button-color;
           color: $button-text-color;
         }
@@ -62,7 +63,7 @@ $quarter-text-color: $gray-90;
         &.quarter-picker__quarter_disabled {
           background-color: $button-color-disabled;
           cursor: not-allowed;
-          opacity: 0.90;
+          opacity: 0.9;
           color: $button-text-disabled;
         }
       }
@@ -104,13 +105,15 @@ $quarter-text-color: $gray-90;
         }
 
         &:first-of-type {
-          .quarter-picker__list-item:first-of-type .quarter-picker__quarter:first-of-type {
+          .quarter-picker__list-item:first-of-type
+            .quarter-picker__quarter:first-of-type {
             border-radius: rem(4) 0 0 rem(4);
           }
         }
 
         &:last-of-type {
-          .quarter-picker__list-item:last-of-type .quarter-picker__quarter:last-of-type {
+          .quarter-picker__list-item:last-of-type
+            .quarter-picker__quarter:last-of-type {
             border-radius: 0 rem(4) rem(4) 0;
           }
         }

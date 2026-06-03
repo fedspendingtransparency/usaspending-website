@@ -85,6 +85,7 @@
       }
 
       &.agency,
+      &.budget-function,
       &.time-period,
       &.location {
         padding: 0;
@@ -382,6 +383,7 @@
     @import "downloadButtons";
     @import "dateRange";
     @import "locationFilter";
+    @import "budgetAgencyComboFilter";
   }
 
   @import "defCodeFilter";

@@ -15,16 +15,13 @@ import { Glossary } from 'components/sharedComponents/icons/Icons';
 import IsMobileContext from "context/IsMobileContext";
 
 import AccountLevelFilter from './filters/AccountLevelFilter';
-import AgencyFilter from './filters/AgencyFilter';
-import BudgetFunctionFilter from './filters/BudgetFunctionFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';
 import FiscalYearFilter from './filters/FiscalYearFilter';
 import AccountUserSelections from './AccountUserSelections';
 import DefCodeFilter from './filters/DefCodeFilter';
-import FilterSelection from './filters/FilterSelection';
 
 import SubmitButton from '../awards/SubmitButton';
-
+import BudgetAgencyGroup from './filters/BudgetAgencyGroup';
 
 const propTypes = {
     accounts: PropTypes.object,
@@ -71,27 +68,17 @@ const AccountDataContent = ({
         <div className="download-center">
             <div className="download-center__filters">
                 <h2 className="download-center__title">Custom Account Data</h2>
-                <FilterSelection
-                    valid={accounts.budgetFunction.code !== '' || accounts.agency.id !== ''} />
                 <div className="download-center-form">
-                    <BudgetFunctionFilter
+                    <BudgetAgencyGroup
                         budgetFunctions={budgetFunctions}
                         budgetSubfunctions={budgetSubfunctions}
-                        currentBudgetFunction={accounts.budgetFunction}
-                        currentBudgetSubfunction={accounts.budgetSubfunction}
-                        setBudgetSubfunctionList={setBudgetSubfunctionList}
-                        updateFilter={updateFilter}
-                        validAgencyId={accounts.agency.id !== ''}
-                        valid={accounts.budgetFunction.code !== ''} />
-                    <AgencyFilter
                         agencies={agencies}
                         federalAccounts={federalAccounts}
-                        currentAgency={accounts.agency}
-                        currentFederalAccount={accounts.federalAccount}
+                        setBudgetSubfunctionList={setBudgetSubfunctionList}
                         setFederalAccountList={setFederalAccountList}
                         updateFilter={updateFilter}
-                        validBudgetFunctionCode={accounts.budgetFunction.code !== ''}
-                        valid={accounts.agency.id !== ''} />
+                        valid={accounts.budgetFunction.code !== '' || accounts.agency.id !== ''}
+                        accounts={accounts} />
                     <AccountLevelFilter
                         accountLevels={accountDownloadOptions.accountLevels}
                         currentAccountLevel={accounts.accountLevel}
