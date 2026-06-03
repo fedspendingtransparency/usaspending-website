@@ -70,13 +70,11 @@ const SectionsContent = ({
         setObserverSupported('IntersectionObserver' in window);
     }, []);
 
-    // eslint-disable-next-line consistent-return
     useEffect(() => {
         if (observerSupported) {
             const target = '#search-page-component';
             const targets = document.querySelectorAll(target);
 
-            // eslint-disable-next-line no-undef
             const observer = new IntersectionObserver(callbackFunction, observerOptions);
 
             targets.forEach((i) => {
