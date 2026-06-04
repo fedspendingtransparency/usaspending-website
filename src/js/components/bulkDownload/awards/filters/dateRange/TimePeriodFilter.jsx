@@ -124,12 +124,10 @@ const TimePeriodFilter = ({
         }
         else if (start.isValid() || end.isValid()) {
             // open-ended date range
-            let startValue = null;
-            let endValue = null;
             let errorMessage = errorTypes.incomplete;
 
             if (start.isValid()) {
-                startValue = start.format('YYYY-MM-DD');
+                const startValue = start.format('YYYY-MM-DD');
                 errorMessage = {
                     ...errorMessage,
                     type: 'end'
@@ -141,7 +139,7 @@ const TimePeriodFilter = ({
             else {
                 // already checked if end is valid above
                 // if start is not valid end must be.
-                endValue = end.format('YYYY-MM-DD');
+                const endValue = end.format('YYYY-MM-DD');       
                 errorMessage = {
                     ...errorMessage,
                     type: 'start'
