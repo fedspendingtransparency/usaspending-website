@@ -2,8 +2,6 @@
  * useFetchAwardBreakdown.jsx
  * Created by Andrea Blackwell 02/15/26
  */
-
-// eslint-disable-next-line import/no-extraneous-dependencies
 import { useQuery } from "@tanstack/react-query";
 import { fetchAwardBreakdown } from 'apis/state';
 

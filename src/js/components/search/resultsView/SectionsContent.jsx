@@ -6,13 +6,22 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
+import Analytics from "helpers/analytics/Analytics";
 import TableSection from "./table/TableSection";
 import CategoriesSection from "./categories/CategoriesSection";
 import TimeSection from "./time/TimeSection";
 import MapSection from "./map/MapSection";
-import Analytics from "../../../helpers/analytics/Analytics";
 
 require("pages/search/searchPage.scss");
+
+const logVisualizationViewEvent = (action, label) => window.setTimeout(
+    () => Analytics.event({
+        event: 'search_visualization_type',
+        category: 'Advanced Search - Visualization Type',
+        action,
+        gtm: true,
+        label
+    }), 15 * 1000);
 
 const propTypes = {
     tabData: PropTypes.object,
@@ -20,7 +29,11 @@ const propTypes = {
     spendingLevel: PropTypes.string
 };
 
-const SectionsContent = (props) => {
+const SectionsContent = ({
+    tabData,
+    hash,
+    spendingLevel
+}) => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [timeHasLoaded, setTimeHasLoaded] = useState(false);
     const [categoriesHasLoaded, setCategoriesHasLoaded] = useState(false);
@@ -30,36 +43,24 @@ const SectionsContent = (props) => {
         threshold: 0.1
     };
 
-    const logVisualizationViewEvent = (activeLabel) => {
-        window.setTimeout(() => {
-            Analytics.event({
-                event: 'search_visualization_type',
-                category: 'Advanced Search - Visualization Type',
-                action: activeLabel,
-                gtm: true,
-                label: props.hash
-            });
-        }, 15 * 1000);
-    };
-
     const callbackFunction = (entries) => {
         entries.forEach((entry) => {
             const section = entry.target.className;
             if (entry.isIntersecting) {
                 if (section === 'awards') {
-                    logVisualizationViewEvent("awards");
+                    logVisualizationViewEvent("awards", hash);
                 }
                 else if (section === 'time') {
                     setTimeHasLoaded(true);
-                    logVisualizationViewEvent("time");
+                    logVisualizationViewEvent("time", hash);
                 }
                 else if (section === 'categories') {
                     setCategoriesHasLoaded(true);
-                    logVisualizationViewEvent("categories");
+                    logVisualizationViewEvent("categories", hash);
                 }
                 else if (section === "map") {
                     setMapHasLoaded(true);
-                    logVisualizationViewEvent("map");
+                    logVisualizationViewEvent("map", hash);
                 }
             }
         });
@@ -67,16 +68,13 @@ const SectionsContent = (props) => {
 
     useEffect(() => {
         setObserverSupported('IntersectionObserver' in window);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // eslint-disable-next-line consistent-return
     useEffect(() => {
         if (observerSupported) {
             const target = '#search-page-component';
             const targets = document.querySelectorAll(target);
 
-            // eslint-disable-next-line no-undef
             const observer = new IntersectionObserver(callbackFunction, observerOptions);
 
             targets.forEach((i) => {
@@ -88,25 +86,28 @@ const SectionsContent = (props) => {
             return () => observer.disconnect();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [observerSupported, props.hash]);
+    }, [observerSupported, hash]);
 
     return (
         <>
-            <TableSection {...props} />
+            <TableSection
+                tabData={tabData}
+                hash={hash}
+                spendingLevel={spendingLevel} />
             <CategoriesSection
-                spendingLevel={props.spendingLevel}
+                spendingLevel={spendingLevel}
                 categoriesHasLoaded={categoriesHasLoaded}
                 setSelectedDropdown={setSelectedDropdown}
                 selectedDropdown={selectedDropdown}
-                hash={props.hash} />
+                hash={hash} />
             <TimeSection
                 timeHasLoaded={timeHasLoaded}
-                hash={props.hash}
-                spendingLevel={props.spendingLevel} />
+                hash={hash}
+                spendingLevel={spendingLevel} />
             <MapSection
-                spendingLevel={props.spendingLevel}
+                spendingLevel={spendingLevel}
                 mapHasLoaded={mapHasLoaded}
-                hash={props.hash} />
+                hash={hash} />
         </>
     );
 };

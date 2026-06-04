@@ -19,8 +19,9 @@ describe('About Page content', () => {
             <QueryClientProvider client={queryClient}>
                 <MemoryRouter initialEntries={['/about/?section=licensing']}>
                     <Routes>
-                        <Route path="/about"
-                               element={<AboutPage />} />
+                        <Route
+                            path="/about"
+                            element={<AboutPage />} />
                     </Routes>
                 </MemoryRouter>
             </QueryClientProvider>

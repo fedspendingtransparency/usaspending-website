@@ -105,7 +105,7 @@ export const tasLevel = {
             "description": "Treasury Account of Donald Trump II",
             "ancestors": ["1", "11"],
             "count": "100"
-        },
+        }
     ]
 };
 
