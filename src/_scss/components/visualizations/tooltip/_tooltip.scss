@@ -1,5 +1,5 @@
 .tooltip {
-  @import "mixins/setText";
+  @import "../../../mixins/setText";
   $color-title-background: #f0f0f0;
   $color-tooltip-border: #adafb4;
   max-width: 75%;

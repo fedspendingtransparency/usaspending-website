@@ -2,7 +2,7 @@
   @import "./_topSection";
   @import "./chart/barChart";
 
-  @import "components/visualizations/tooltip/_tooltip";
+  @import "../../../../../components/visualizations/tooltip/_tooltip";
 
   .tooltip-items {
     @include unstyled-list;

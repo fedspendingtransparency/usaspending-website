@@ -1,51 +1,51 @@
 // Vendor -------------- //
 $output-bourbon-deprecation-warnings: false !default;
-@import "~data-transparency-ui/dist/data-transparency-ui.css";
+@import "../../node_modules/data-transparency-ui/dist/data-transparency-ui.css";
 @import "bourbon/app/assets/stylesheets/_bourbon";
 @import "bourbon-neat/core/_neat";
 @import "lib/normalize";
 
 // Core -------------- //
-@import "core/variables";
+@import "../_scss/core/variables";
 @import "dtui-overrides";
-@import "core/deprecated";
-@import "core/fonts";
-@import "core/base";
-@import "core/utilities";
+@import "../_scss/core/deprecated";
+@import "../_scss/core/fonts";
+@import "../_scss/core/base";
+@import "../_scss/core/utilities";
 
 // Elements -------------- //
 // Styles basic HTML elements
-@import "elements/buttons";
-@import "elements/figure";
-@import "elements/inputs";
-@import "elements/labels";
-@import "elements/list";
-@import "elements/table";
-@import "elements/typography";
-@import "elements/accordion";
-@import "elements/alert";
-@import "elements/comboBox";
-@import "elements/newQuarterPicker";
+@import "../_scss/elements/buttons";
+@import "../_scss/elements/figure";
+@import "../_scss/elements/inputs";
+@import "../_scss/elements/labels";
+@import "../_scss/elements/list";
+@import "../_scss/elements/table";
+@import "../_scss/elements/typography";
+@import "../_scss/elements/accordion";
+@import "../_scss/elements/alert";
+@import "../_scss/elements/comboBox";
+@import "../_scss/elements/newQuarterPicker";
 
 // Components -------------- //
-@import "components/accordions";
-@import "components/alerts";
-@import "components/disclaimer";
-@import "components/forms";
-@import "components/sidenav";
-@import "components/search";
-@import "components/skipnav";
-@import "components/tooltips/index";
-@import "components/baseModal";
-@import "components/cards/cards";
-@import "components/buttons/index";
-@import "components/h2PageHeader";
-@import "components/bannerPageHeader";
+@import "../_scss/components/accordions";
+@import "../_scss/components/alerts";
+@import "../_scss/components/disclaimer";
+@import "../_scss/components/forms";
+@import "../_scss/components/sidenav";
+@import "../_scss/components/search";
+@import "../_scss/components/skipnav";
+@import "../_scss/components/tooltips/index";
+@import "../_scss/components/baseModal";
+@import "../_scss/components/cards/cards";
+@import "../_scss/components/buttons/index";
+@import "../_scss/components/h2PageHeader";
+@import "../_scss/components/bannerPageHeader";
 
 // Mixins ------------------ //
-@import "mixins/background";
-@import "mixins/error";
-@import "pages/modals/all";
+@import "./mixins/background";
+@import "./mixins/error";
+@import "../_scss/pages/modals/all.scss";
 
 // Selectors --------------- //
-@import "selectors/idv";
+@import "../_scss/selectors/idv";

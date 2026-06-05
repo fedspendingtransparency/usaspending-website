@@ -1,27 +1,79 @@
 // / <reference types="@vitest/browser-playwright" />
-import { path, resolve } from 'path';
+import path, { extname } from 'path';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
-import babel from '@rolldown/plugin-babel';
 import htmlPurge from 'vite-plugin-purgecss';
 import { defineConfig, loadEnv } from 'vite';
 import { fileURLToPath } from 'url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import { createHtmlPlugin } from 'vite-plugin-html';
+import { viteStaticCopy } from 'vite-plugin-static-copy';
+import autoprefixer from 'autoprefixer';
+import mdx from "@mdx-js/rollup";
+import babel from 'vite-plugin-babel';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
+
+
 
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
 
 export default defineConfig(({ command, mode }) => {
   // Load environment variables based on the current mode (e.g., .env.production)
   const env = loadEnv(mode, process.cwd(), '')
-
+  
   // Shared options used in both development and production
   const sharedConfig = {
-    plugins: [react()],
+    css: {
+      postcss: {
+        plugins: [
+          autoprefixer,
+        ],
+      }
+    },
+    root: 'src',
+    define: {
+      'process.env.ENV': process.env.ENV ? JSON.stringify(process.env.ENV) : JSON.stringify('qat'),
+      'process.env.FILES_SERVER_BASE_URL': JSON.stringify(process.env.FILES_SERVER_BASE_URL || '')
+    },
+    plugins: [
+      react(),
+      mdx(),
+      createHtmlPlugin({
+        template: path.resolve(__dirname, "./index.js"),
+        chunksSortMode: "none",
+        templateParameters: {
+          GA_TRACKING_ID: process.env.GA_TRACKING_ID || '',
+          USE_GTM: (
+            process.env.ENV === 'qat' ||
+            process.env.ENV === 'sandbox'
+          ),
+          GTM_ID: process.env.GTM_ID || '',
+          IS_PROD: (
+            process.env.ENV === 'prod'
+      )}}),
+      viteStaticCopy({
+        targets: [
+        {
+          src: '*.xml',
+          dest: path.resolve(__dirname, "../public"),
+        },
+        {
+          src: '*.xml',
+          dest: path.resolve(__dirname, "../public"),
+        },
+        {
+          src: 'robots.txt',
+          dest: path.resolve(__dirname, "../public"),
+        },
+        {
+          src: 'redirect-config.json',
+          dest: path.resolve(__dirname, "../public"),
+        }]})
+    ],
     server: {
       watch: {
         usePolling: true
@@ -29,7 +81,8 @@ export default defineConfig(({ command, mode }) => {
     },
     resolve: {
       alias: {
-        '@': resolve(__dirname, './src'),
+        '@': path.resolve(__dirname, './src/_scss'),
+        '~': path.resolve(__dirname, './node_modules'),
         lodash: 'lodash-es',
       },
       modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],
@@ -38,15 +91,18 @@ export default defineConfig(({ command, mode }) => {
     build: {
         commonjsOptions: { transformMixedEsModules: true },
         outDir: path.resolve(__dirname, "../public"),
+        emptyOutDir: true,
         rollupOptions: {
+            input: "./index.js",
             output: {
                 entryFileNames: "[name].[contenthash].js", 
             },
             splitChunks: { chunks: 'all' },
-            usedExports: true
+            usedExports: true,
+            external: [/^moment\/locale\//]
         },
         rolldownOptions: {
-            input: "./src/index.js",
+            input: "index.js",
             external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types']
         }
     },
@@ -55,10 +111,15 @@ export default defineConfig(({ command, mode }) => {
             resolve: {
                 extensions: ['.js', '.jsx']
             },
-            plugins: [react(), babel({ presets: [reactCompilerPreset()] }), htmlPurge(), nodePolyfills()]
-        }
+            plugins: [react(), htmlPurge(), nodePolyfills(), mdx()]
+        },
+        esbuildOptions: {
+          loader: {
+            '.js': 'jsx',
+          },
+        },
     },
-    plugins: [react(), babel({ presets: [reactCompilerPreset()] }), htmlPurge(), nodePolyfills()],
+    plugins: [react(), htmlPurge(), nodePolyfills(), mdx()],
   }
 
   // Development-specific configurations
@@ -86,14 +147,11 @@ export default defineConfig(({ command, mode }) => {
     build: {
       outDir: 'dist',
       sourcemap: false,
-      minify: 'esbuild',
+      minify: false,
       cssCodeSplit: true,
       rolldownOptions: { 
-        output: {
-          manualChunks: {
-            vendor: ['react', 'react-dom'],
-          },
-        },
+        input: "index.js",
+        external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types']
       },
     },
   }

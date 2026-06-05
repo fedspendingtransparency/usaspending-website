@@ -1,10 +1,10 @@
 @use "sass:math";
 
 .usa-da-covid19-page {
-  @import "all";
-  @import "layouts/default/default";
-  @import "layouts/default/stickyHeader/header";
-  @import "components/pageLoading";
+  @import "../../all";
+  @import "../../layouts/default/default";
+  @import "../../layouts/default/stickyHeader/header";
+  @import "../../components/pageLoading";
   @import "./header";
 
   @include display(flex);
@@ -69,8 +69,8 @@
       }
 
       .body__section {
-        @import "components/glossaryLink";
-        @import "components/externalLink";
+        @import "../../components/glossaryLink";
+        @import "../../components/externalLink";
         // Import specific styles for each section
         @import "./visualizations/amounts";
         @import "./budgetCategoriesTable";

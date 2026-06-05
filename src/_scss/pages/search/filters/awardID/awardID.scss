@@ -2,7 +2,7 @@
   @import "elements/filters/_errorMessage";
   @import "elements/filters/_typeahead";
   @import "elements/filters/_selectedFilterBtn";
-  @import "mixins/selectedFilterWrap";
+  @import "../../../../mixins/selectedFilterWrap";
   @import "../_singleSubmit";
 
   .shown {

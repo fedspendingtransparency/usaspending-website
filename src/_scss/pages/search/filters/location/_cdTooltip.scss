@@ -51,7 +51,7 @@
 
     // inherit from the standard tooltip arrow style
     $color-tooltip-border: $color-gray-light;
-    @import "components/visualizations/tooltip/_arrow";
+    @import "../../../../components/visualizations/tooltip/_arrow";
     .tooltip-pointer {
       &.top {
         left: calc(93% - 5px);

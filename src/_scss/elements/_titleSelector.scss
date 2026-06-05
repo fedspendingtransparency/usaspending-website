@@ -31,7 +31,7 @@
     box-shadow: 0 rem(5) rem(5) 0 rgba($color-black, 0.2);
     ul {
       @include unstyled-list;
-      @import "components/_comingSoon";
+      @import "../components/_comingSoon";
       @include comingSoon;
       width: 100%;
       li.field-item {

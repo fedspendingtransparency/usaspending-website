@@ -1,11 +1,11 @@
 .usa-da-agency-page-v2 {
   @import "all";
   @import "layouts/default/default";
-  @import "components/pageLoading";
+  @import "../../components/pageLoading";
   @import "layouts/default/stickyHeader/header";
-  @import "mixins/profilePage";
+  @import "../../mixins/profilePage";
   @import "./dtuiOverrides";
-  @import "components/profileBackLink";
+  @import "../../components/profileBackLink";
 
   @include display(flex);
   @include justify-content(flex-start);
@@ -170,7 +170,7 @@
 
       @import "./statusOfFunds/statusOfFunds";
       @import "./statusOfFunds/introSection";
-      @import "components/Note";
+      @import "../../components/Note";
 
       .default-note {
         @include profile-page-wrap;

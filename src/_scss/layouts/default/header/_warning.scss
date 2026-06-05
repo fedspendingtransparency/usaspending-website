@@ -1,6 +1,6 @@
 .info-banner {
   // left-aligned message
-  @import "mixins/fullSectionWrap";
+  @import "../../../mixins/fullSectionWrap";
   background: $color-primary-alt-lightest;
   width: 100%;
   .info-banner__content {

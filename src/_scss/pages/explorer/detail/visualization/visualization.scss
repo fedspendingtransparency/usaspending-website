@@ -19,7 +19,7 @@
     font-weight: $font-normal;
     line-height: $base-line-height;
     margin-top: rem(16);
-    @import "components/externalLink";
+    @import "../../../../components/externalLink";
 
     strong,
     b {

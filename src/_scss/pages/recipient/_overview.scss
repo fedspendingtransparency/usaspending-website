@@ -40,7 +40,7 @@
     }
     .recipient-overview__parent {
       font-size: $small-font-size;
-      @import "components/visualizations/tooltip/_csstooltip.scss";
+      @import "../../components/visualizations/tooltip/_csstooltip.scss";
       .tooltip-popover-container .tooltip-popover {
         width: 415px;
         bottom: 35px;

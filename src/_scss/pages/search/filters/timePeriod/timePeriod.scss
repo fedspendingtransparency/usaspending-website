@@ -1,15 +1,15 @@
 .tab-filter-wrap {
   .filter-item-wrap {
-    @import "elements/_inputs";
-    @import "elements/_labels";
-    @import "elements/filters/_errorMessage";
-    @import "components/_alerts";
-    @import "components/datePicker/_datePicker";
+    @import "../../../../elements/_inputs";
+    @import "../../../../elements/_labels";
+    @import "../../../../elements/filters/_errorMessage";
+    @import "../../../../components/_alerts";
+    @import "../../../../components/datePicker/_datePicker";
     @import "./_toggleButtons";
-    @import "elements/filters/_selectedFilterBtn";
-    @import "mixins/selectedFilterWrap";
+    @import "../../../../elements/filters/_selectedFilterBtn";
+    @import "../../../../mixins/selectedFilterWrap";
     @import "../_singleSubmit";
-    @import "components/_filterTabs.scss";
+    @import "../../../../components/_filterTabs.scss";
 
     padding: 0 $global-padding * 2 rem(20);
 

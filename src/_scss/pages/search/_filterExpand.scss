@@ -42,13 +42,13 @@
   .filter-toggle__accessory {
     @include display(flex);
     @include align-items(flex-start);
-    @import "components/newBadge";
+    @import "../../components/newBadge";
   }
   .filter-toggle__glossary {
     @include display(flex);
     @include flex(0 0 auto);
     padding-right: rem(15);
     padding-left: rem(5);
-    @import "components/glossaryLink";
+    @import "../../components/glossaryLink";
   }
 }

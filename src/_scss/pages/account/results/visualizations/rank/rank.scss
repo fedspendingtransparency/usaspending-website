@@ -4,7 +4,7 @@
   .results-visualization-rank-container {
     position: relative;
     .visualization-tooltip {
-      @import "components/visualizations/tooltip/_tooltip";
+      @import "../../../../../components/visualizations/tooltip/_tooltip";
     }
   }
   .results-visualization-message {

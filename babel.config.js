@@ -1,5 +1,6 @@
 const presets = [
     [
+        ["@babel/preset-react", { "runtime": "automatic" }],
         "@babel/preset-env",
         {
             useBuiltIns: "entry",
@@ -12,8 +13,7 @@ const presets = [
                 node: "10"
             }
         }
-    ],
-    "@babel/preset-react"
+    ]
 ];
 
 const plugins = [
@@ -23,6 +23,7 @@ const plugins = [
             root: ["src/js"]
         }
     ],
+    "@babel/plugin-syntax-jsx",
     "@babel/plugin-transform-runtime",
     "@babel/plugin-transform-object-rest-spread",
     "@babel/plugin-transform-class-properties",

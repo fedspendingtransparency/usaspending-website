@@ -1,6 +1,6 @@
 .usa-da-treemap-section {
-  @import "mixins/moreOptionsBtn";
-  @import "mixins/fullSectionWrap";
+  @import "../../../../mixins/moreOptionsBtn";
+  @import "../../../../mixins/fullSectionWrap";
   background-color: #ececec;
   & .treemap-inner-wrap {
     @include fullSectionWrap(0, 0);
@@ -53,7 +53,7 @@
     .visualization-tooltip {
       position: relative;
       width: 100%;
-      @import "components/visualizations/tooltip/_dataVizTooltip";
+      @import "../../../../components/visualizations/tooltip/_dataVizTooltip";
       .tooltip {
         &.small {
           width: rem(230);

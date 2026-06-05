@@ -7,28 +7,26 @@ import React, { useEffect, Suspense } from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import perflogger from 'redux-perf-middleware';
-import kGlobalConstants from 'GlobalConstants';
+import globalConstants from '../GlobalConstants';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router';
 
-import storeSingleton from 'redux/storeSingleton';
-import WithUrlListener from 'containers/WithUrlListener';
-import reducers from 'redux/reducers/index';
+import storeSingleton from '../redux/storeSingleton';
+import WithUrlListener from './WithUrlListener';
+import reducers from '../redux/reducers/index';
 
-import { LoadingWrapper as Loading } from 'components/sharedComponents/Loading';
-import MobileMessage from 'components/sharedComponents/MobileMessage';
-
-import '_global.scss';
-
+import { LoadingWrapper as Loading } from '../components/sharedComponents/Loading';
+import MobileMessage from '../components/sharedComponents/MobileMessage';
+import '../../_scss/_global.scss';
 import { routes } from './router/RouterRoutes';
 
 let devExtension;
 let store;
-if (kGlobalConstants.QAT) {
+if (globalConstants.QAT) {
     // only enable Redux debugging in qat mode
     devExtension = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 25 }) : undefined;
 }
 
-if (kGlobalConstants.PERF_LOG) {
+if (globalConstants.PERF_LOG) {
     // enable performance logging
     const createStoreWithMiddleware = applyMiddleware(perflogger)(createStore);
     store = createStoreWithMiddleware(reducers, devExtension);

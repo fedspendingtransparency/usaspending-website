@@ -1,5 +1,5 @@
 .recipient-visualization-period {
-  @import "components/visualizations/_period";
+  @import "../../../components/visualizations/_period";
   width: 100%;
   @include display(flex);
   @include justify-content(flex-end);

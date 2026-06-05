@@ -2,7 +2,7 @@ import React from 'react';
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-import AppContainer from 'containers/AppContainer';
+import AppContainer from './containers/AppContainer';
 import registerIcons from './registerIcons';
 
 /**
@@ -11,7 +11,7 @@ import registerIcons from './registerIcons';
  * Also using the transform-runtime plugin for the test env.
 */
 require("core-js");
-require('helpers/rafPolyfill');
+require('./helpers/rafPolyfill');
 
 registerIcons();
 

@@ -125,7 +125,6 @@ export default {
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
-        // new webpack.HashedModuleIdsPlugin(),
         new CopyWebpackPlugin({
             patterns: [
                 {

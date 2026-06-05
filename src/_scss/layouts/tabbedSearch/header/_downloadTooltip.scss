@@ -65,7 +65,7 @@
 
   // inherit from the standard tooltip arrow style
   $color-tooltip-border: $color-gold-light;
-  @import "components/visualizations/tooltip/_arrow";
+  @import "../../../components/visualizations/tooltip/_arrow";
   .tooltip-pointer {
     // override the coloring
     &:after {

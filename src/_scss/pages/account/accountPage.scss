@@ -11,7 +11,7 @@
   .main-content {
     @import "./overview/overview";
     @import "./results/searchResults";
-    @import "components/profileBackLink";
+    @import "../../components/profileBackLink";
 
     .fed-account-content__row {
       padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4)

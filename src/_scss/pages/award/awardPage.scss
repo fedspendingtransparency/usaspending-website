@@ -3,8 +3,8 @@
   @import "layouts/summary/summary";
   @import "layouts/default/stickyHeader/header";
   @import "layouts/tabbedSearch/header/downloadButton";
-  @import "components/pageLoading";
-  @import "components/_glossaryLink";
+  @import "../../components/pageLoading";
+  @import "../../components/_glossaryLink";
 
   @include display(flex);
   @include flex-direction(column);
@@ -29,7 +29,7 @@
     margin-top: 0;
   }
   .award-content {
-    @import "mixins/fullSectionWrap";
+    @import "../../mixins/fullSectionWrap";
     @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
     background-color: $color-white;
 

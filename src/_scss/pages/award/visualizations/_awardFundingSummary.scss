@@ -1,8 +1,8 @@
 .federal-accounts {
   width: 100%;
-  @import "components/Note";
+  @import "../../../components/Note";
   .visualization-tooltip {
-    @import "components/visualizations/tooltip/_tooltip";
+    @import "../../../components/visualizations/tooltip/_tooltip";
     position: fixed;
     top: 0;
     left: 0;

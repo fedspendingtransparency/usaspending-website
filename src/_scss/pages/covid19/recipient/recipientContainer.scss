@@ -223,7 +223,7 @@
           }
 
           .visualization-tooltip {
-            @import "components/visualizations/tooltip/_tooltip";
+            @import "../../../components/visualizations/tooltip/_tooltip";
 
             .tooltip {
               .tooltip-body {

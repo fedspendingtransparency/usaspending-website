@@ -1,11 +1,11 @@
 @use "sass:math";
 
 .usa-da-interactive-data-sources-page {
-  @import "all";
-  @import "layouts/default/default";
-  @import "components/pageLoading";
-  @import "layouts/default/stickyHeader/header";
-  @import "mixins/profilePage";
+  @import "../../all";
+  @import "../../layouts/default/default";
+  @import "../../components/pageLoading";
+  @import "../../layouts/default/stickyHeader/header";
+  @import "../../mixins/profilePage";
 
   @include display(flex);
   @include justify-content(flex-start);

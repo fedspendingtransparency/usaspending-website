@@ -1,6 +1,6 @@
 .extent-competed-filter {
   @import "elements/filters/_selectedFilterBtn";
-  @import "mixins/selectedFilterWrap";
+  @import "../../mixins/selectedFilterWrap";
 
   .autocomplete__input {
     padding-bottom: 0 !important;

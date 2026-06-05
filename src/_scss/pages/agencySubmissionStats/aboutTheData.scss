@@ -52,7 +52,7 @@
     @import "./_agencyDetailsPage";
   }
 
-  @import "components/Note";
+  @import "../../components/Note";
 
   .default-note {
     font-style: italic;
@@ -66,7 +66,7 @@
     @media (min-width: $tablet-screen) {
       margin-bottom: rem(30);
     }
-    @import "components/externalLink";
+    @import "../../components/externalLink";
   }
 
   .table-container {
@@ -78,7 +78,7 @@
     width: 100vw;
   }
 
-  @import "components/stickyTable";
+  @import "../../components/stickyTable";
 
   .agency-table-download {
     svg {

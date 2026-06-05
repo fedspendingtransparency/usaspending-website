@@ -1,5 +1,5 @@
 .award-amount-filter {
-  @import "mixins/selectedFilterWrap";
+  @import "../../../../mixins/selectedFilterWrap";
   @import "elements/filters/_selectedFilterBtn";
   ul.award-amounts {
     @include unstyled-list;

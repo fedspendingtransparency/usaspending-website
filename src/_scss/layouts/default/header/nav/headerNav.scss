@@ -13,7 +13,7 @@ header.site-header__wrapper {
       background: $theme-color-homepage-hero;
     }
     .site-navigation__wrapper {
-      @import "mixins/fullSectionWrap";
+      @import "../../../../mixins/fullSectionWrap";
       @include fullSectionWrap(0, 0);
       @include display(flex);
       @include justify-content(space-between);

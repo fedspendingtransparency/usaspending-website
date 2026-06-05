@@ -6,7 +6,7 @@
   border-radius: rem(8);
   padding: rem(20);
 
-  @import "mixins/fullSectionWrap";
+  @import "../../../mixins/fullSectionWrap";
   @include fullSectionWrap((rem(40)), (rem(30)));
 
   @media (max-width: $medium-screen) {

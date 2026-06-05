@@ -1,5 +1,5 @@
 .agency-overview {
-  @import "mixins/profilePage";
+  @import "../../../mixins/profilePage";
   @import "./fySummary";
   .agency-overview__row {
     @include profile-page-wrap;

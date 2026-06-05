@@ -1,9 +1,9 @@
 .usa-da-recipient-page {
-  @import "all";
-  @import "layouts/default/default";
-  @import "layouts/default/stickyHeader/header";
-  @import "pages/state/topFive/topFive";
-  @import "components/profileBackLink";
+  @import "../../all";
+  @import "../../layouts/default/default";
+  @import "../../layouts/default/stickyHeader/header";
+  @import "../../pages/state/topFive/topFive";
+  @import "../../components/profileBackLink";
 
   $color-gray-border: #d8d8d8;
   $color-blue-background: #f5fbfc;

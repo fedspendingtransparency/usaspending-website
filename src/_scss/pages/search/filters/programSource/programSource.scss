@@ -1,6 +1,6 @@
 .cfda-filter {
-  @import "components/search/_autocompleteCheckbox";
-  @import "elements/filters/_selectedFilterBtn";
+  @import "../../../../components/search/_autocompleteCheckbox";
+  @import "../../../../elements/filters/_selectedFilterBtn";
 
   .selected-filters {
     @include selected-filter-wrap;

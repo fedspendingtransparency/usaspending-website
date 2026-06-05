@@ -246,7 +246,7 @@ dfn {
   margin-top: 0;
 }
 
-@import "mixins/profilePage";
+@import "../mixins/profilePage";
 .section__date-note {
   @include display(flex);
   width: 100%;

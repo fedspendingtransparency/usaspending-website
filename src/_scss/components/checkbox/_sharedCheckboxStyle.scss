@@ -1,4 +1,4 @@
-@import "mixins/setText";
+@import "../../mixins/setText";
 @mixin sharedCheckboxStyle {
   label.checkbox-item-wrapper {
     cursor: pointer;

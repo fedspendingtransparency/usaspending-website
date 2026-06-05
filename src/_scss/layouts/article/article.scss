@@ -1,5 +1,5 @@
 @import "layouts/default/default";
-@import "mixins/elementContainerWrap";
+@import "../../mixins/elementContainerWrap";
 
 .main-content {
   @import "../../mixins/fullSectionWrap";
@@ -7,7 +7,7 @@
 
   .article-wrapper {
     @import "elements/_divider";
-    @import "mixins/setText";
+    @import "../../mixins/setText";
     @include elementContainerWrap();
 
     h1 {

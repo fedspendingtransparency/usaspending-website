@@ -7,8 +7,8 @@
       background-color: $color-white;
       border: none;
 
-      @import "pages/stateLanding/_header";
-      @import "pages/stateLanding/_sorter";
+      @import "../../../pages/stateLanding/_header";
+      @import "../../../pages/stateLanding/_sorter";
     }
   }
 
