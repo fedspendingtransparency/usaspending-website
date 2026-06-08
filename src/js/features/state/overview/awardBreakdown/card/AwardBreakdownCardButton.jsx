@@ -8,10 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardButton } from "data-transparency-ui";
 import PropTypes from "prop-types";
 
-import { initialState as defaultFilters } from "redux/reducers/search/searchFiltersReducer";
-import { REQUEST_VERSION } from "GlobalConstants";
-import { generateUrlHash } from "helpers/searchHelper";
-import useQueryTemp from "hooks/useQueryTemp";
+import { initialState as defaultFilters } from "../../../../../redux/reducers/search/searchFiltersReducer";
+import globalConstants from "../../../../../GlobalConstants";
+import { generateUrlHash } from "../../../../../helpers/searchHelper";
+import useQueryTemp from "../../../../../hooks/useQueryTemp";
 
 const propTypes = {
     code: PropTypes.string,
@@ -52,7 +52,7 @@ const AwardBreakdownCardButton = ({
                     }
                 }
             },
-            version: REQUEST_VERSION
+            version: globalConstants.REQUEST_VERSION
         };
 
         fetchData(generateUrlHash, filterValue);

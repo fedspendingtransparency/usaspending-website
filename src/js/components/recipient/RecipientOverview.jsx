@@ -17,7 +17,7 @@ import { idList } from 'dataMapping/shared/recipientIdentifiers';
 import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
-import { REQUEST_VERSION } from "../../GlobalConstants";
+import globalConstants from "../../GlobalConstants";
 import { CondensedCDTooltip } from '../../components/award/shared/InfoTooltipContent';
 
 const propTypes = {
@@ -123,7 +123,7 @@ const RecipientOverview = (props) => {
                     ...defaultFilters,
                     keyword: { [uei]: uei }
                 },
-                version: REQUEST_VERSION
+                version: globalConstants.REQUEST_VERSION
             };
         }
         else {

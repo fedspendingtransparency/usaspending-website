@@ -9,7 +9,7 @@ import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import { Link } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { REQUEST_VERSION } from "GlobalConstants";
+import globalConstants from "GlobalConstants";
 import { formatMoneyWithUnits } from "helpers/moneyFormatter";
 import Analytics from 'helpers/analytics/Analytics';
 import { generateUrlHash } from "helpers/searchHelper";
@@ -79,7 +79,7 @@ const SummaryStats = () => {
                 ...defaultFilters,
                 keyword: { [title]: title }
             },
-            version: REQUEST_VERSION
+            version: globalConstants.REQUEST_VERSION
         };
 
         hashRef.current = generateUrlHash(filterValue);

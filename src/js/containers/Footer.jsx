@@ -8,14 +8,14 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { throttle } from "lodash-es";
-import { tabletScreen, mLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { tabletScreen, mLargeScreen } from '../dataMapping/shared/mobileBreakpoints';
 import { Link } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { showModal } from 'redux/actions/modal/modalActions';
-import Analytics from 'helpers/analytics/Analytics';
+import { showModal } from '../redux/actions/modal/modalActions';
+import Analytics from '../helpers/analytics/Analytics';
 import BulkDownloadBottomBarContainer from
-    'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
-import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
+    '../containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
+import FooterExternalLink from '../components/sharedComponents/FooterExternalLink';
 import StayInTouch from "../components/sharedComponents/StayInTouch";
 import NewDownloadBottomBarContainer
     from './search/modals/fullDownload/NewDownloadBottomBarContainer';

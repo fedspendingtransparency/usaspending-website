@@ -12,7 +12,7 @@ import { categoryTitles } from 'dataMapping/topCategories';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { CondensedCDTooltip } from '../award/shared/InfoTooltipContent';
 import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../dataMapping/state/stateNames";
-import { REQUEST_VERSION } from "../../GlobalConstants";
+import globalConstants from "../../GlobalConstants";
 import { generateUrlHash } from "../../helpers/searchHelper";
 
 const propTypes = {
@@ -336,7 +336,7 @@ const TopFive = (props) => {
                 time_period: timePeriodFilter,
                 ...awardTypeFilter
             },
-            version: REQUEST_VERSION
+            version: globalConstants.REQUEST_VERSION
         };
 
         let tempHash = generateUrlHash(filterValue);
