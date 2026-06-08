@@ -30,7 +30,7 @@ import AccountData from './scrollerSections/AccountData';
 import AwardData from './scrollerSections/AwardData';
 import AdditionalData from './scrollerSections/AdditionalData';
 
-require('pages/interactiveDataSources/index.scss');
+require('../../../_scss/pages/interactiveDataSources/index.scss');
 
 const InteractiveDataSourcesPage = () => {
     const [activeSection, setActiveSection] = useState('intro-section');

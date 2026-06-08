@@ -28,7 +28,7 @@ import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
 import PageTitle from './overview/PageTitle';
 
-require('pages/agency/index.scss');
+require('../../../_scss/pages/agency/index.scss');
 
 const propTypes = {
     selectedFy: PropTypes.string,

@@ -18,7 +18,7 @@ import MainCards from "./shared/MainCards";
 import EquityHeading from "./shared/DataDiveHeading";
 import EquitySpotlightCards from "./equity/EquitySpotlightCards";
 
-require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
+require('../../../_scss/pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
 const EquityCovidSpendingPage = () => {
     const analyticsEvent = (action) => {

@@ -27,7 +27,7 @@ import InvalidAccount from '../../components/account/InvalidAccount';
 import LoadingAccount from '../../components/account/LoadingAccount';
 
 
-require('pages/account/accountPage.scss');
+require('../../../_scss/pages/account/accountPage.scss');
 
 const propTypes = {
     account: PropTypes.object,

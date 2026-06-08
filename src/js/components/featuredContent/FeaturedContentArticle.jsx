@@ -17,7 +17,7 @@ import FeaturedContentArticleSidebar from "./FeaturedContentArticleSidebar";
 import articles from '../../../config/featuredContent/featuredContentMetadata';
 import FeaturedContentHeader from "./FeaturedContentHeader";
 
-require('pages/featuredContent/featuredContent.scss');
+require('../../../_scss/pages/featuredContent/featuredContent.scss');
 
 const components = {
     GlossaryLink,

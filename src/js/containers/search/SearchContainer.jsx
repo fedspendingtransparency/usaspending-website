@@ -34,7 +34,7 @@ import {
     sendFieldCombinations
 } from './helpers/searchAnalytics';
 
-require('pages/search/searchPage.scss');
+require('../../../_scss/pages/search/searchPage.scss');
 
 /**
  * Takes Filter Object from API and transforms it to Immutable Data Structures

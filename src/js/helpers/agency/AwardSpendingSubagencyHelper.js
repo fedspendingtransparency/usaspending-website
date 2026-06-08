@@ -1,5 +1,5 @@
-import BaseSubagencySpendingRow from 'models/v2/agency/BaseSubagencySpendingRow';
-import BaseSubagencySpendingRowChildren from 'models/v2/agency/BaseSubagencySpendingRowChildren';
+import BaseSubagencySpendingRow from '../../models/v2/agency/BaseSubagencySpendingRow';
+import BaseSubagencySpendingRowChildren from '../../models/v2/agency/BaseSubagencySpendingRowChildren';
 
 // eslint-disable-next-line import/prefer-default-export
 export const parseRows = (data) => {

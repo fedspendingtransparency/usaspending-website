@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 04/09/2021
  */
 
-import { normalStoppingPoints } from 'dataMapping/agency/visualizations/totalObligationsOverTime';
+import { normalStoppingPoints } from '../../../dataMapping/agency/visualizations/totalObligationsOverTime';
 
 export const getYDomain = (data, agencyBudget) => {
     const obligatedAmounts = data.map((x) => x.obligated);

@@ -1,6 +1,6 @@
 /* eslint-disable linebreak-style */
 
-import storeSingleton from 'redux/storeSingleton';
+import storeSingleton from '../redux/storeSingleton';
 import * as slideoutActions from '../redux/actions/slideouts/slideoutActions';
 import * as aboutTheDataActions from '../redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import * as glossaryActions from '../redux/actions/glossary/glossaryActions';

@@ -22,7 +22,7 @@ import CollapsibleSidebar from "./collapsibleSidebar/SidebarWrapper";
 import MobileFilterButton from "./mobile/MobileFilterButton";
 import searchPageToolBarComponents from "./header/SearchPageToolBarComponents";
 
-require('pages/search/searchPage.scss');
+require('../../../_scss/pages/search/searchPage.scss');
 
 
 const propTypes = {

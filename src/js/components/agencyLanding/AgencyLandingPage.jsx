@@ -15,7 +15,7 @@ import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import AgencyLandingContainer from 'containers/agencyLanding/AgencyLandingContainer';
 import { showModal } from '../../redux/actions/modal/modalActions';
 
-require('pages/agencyLanding/agencyLandingPage.scss');
+require('../../../_scss/pages/agencyLanding/agencyLandingPage.scss');
 
 const emailSubject = 'USAspending.gov Agency Profiles';
 

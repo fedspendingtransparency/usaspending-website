@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'redux/actions/modal/modalActions';
 
-require('pages/covid19/opportunityProject.scss');
+require('../../../_scss/pages/covid19/opportunityProject.scss');
 
 const OpportunityProjectPage = () => {
     const dispatch = useDispatch();

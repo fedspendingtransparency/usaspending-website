@@ -3,7 +3,7 @@
  * Created by JD House on 7/17/2025.
  */
 
-import * as SearchHelper from 'helpers/searchHelper';
+import * as SearchHelper from '../../../helpers/searchHelper';
 import { performKeywordSearch } from '../../../helpers/keywordHelper';
 import { subawardTypeGroups, transactionTypeGroups } from '../../../dataMapping/search/awardType';
 import SearchAwardsOperation from '../../../models/v1/search/SearchAwardsOperation';

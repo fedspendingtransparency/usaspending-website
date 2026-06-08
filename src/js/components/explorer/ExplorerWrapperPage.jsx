@@ -18,7 +18,7 @@ const propTypes = {
     showShareIcon: PropTypes.bool
 };
 
-require('pages/explorer/explorerPage.scss');
+require('../../../_scss/pages/explorer/explorerPage.scss');
 
 const slug = 'explorer';
 const emailSubject = 'USAspending.gov Federal Spending Explorer';

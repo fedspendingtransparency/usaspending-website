@@ -13,7 +13,7 @@ import NewSearchScreen from "./NewSearchScreen";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";
 
-require("pages/search/searchPage.scss");
+require("../../../../_scss/pages/search/searchPage.scss");
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,

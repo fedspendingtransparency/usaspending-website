@@ -14,7 +14,7 @@ import { getDrilldownEntry } from 'helpers/aboutTheDataSidebarHelper';
 import Analytics from 'helpers/analytics/Analytics';
 import schema from '../../../config/aboutTheData/aboutTheDataSchema';
 
-require('components/aboutTheDataSidebar/aboutTheData.scss');
+require('../../../_scss/components/aboutTheDataSidebar/aboutTheData.scss');
 
 const propTypes = {
     aboutTheDataSidebar: PropTypes.object,

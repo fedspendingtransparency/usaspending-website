@@ -17,7 +17,7 @@ import { downloadOptions } from '../../../config/megaMenu/megaMenuOptions';
 
 import { logAwardDownload, logAccountDownload } from './helpers/downloadAnalytics';
 
-require('pages/bulkDownload/bulkDownloadPage.scss');
+require('../../../_scss/pages/bulkDownload/bulkDownloadPage.scss');
 
 const propTypes = {
     bulkDownload: PropTypes.object,

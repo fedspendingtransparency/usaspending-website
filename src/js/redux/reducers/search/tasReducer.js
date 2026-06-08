@@ -1,12 +1,12 @@
 import { List } from 'immutable';
 
-import { addSearchResultsToTree, populateChildNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
+import { addSearchResultsToTree, populateChildNodes, showAllNodes } from '../../../helpers/checkboxTreeHelper';
 import {
     getTasNodeFromTree,
     getHighestTasAncestorCode,
     getImmediateTasAncestorCode,
     tasSortFn
-} from 'helpers/tasHelper';
+} from '../../../helpers/tasHelper';
 
 
 const populateTasBranchOrLeafLevelNodes = (nodes, key, newNodes) => populateChildNodes(

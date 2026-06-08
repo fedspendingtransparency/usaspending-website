@@ -11,7 +11,7 @@ import Header from 'containers/shared/HeaderContainer';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
-require('pages/dbInfo/dbInfoPage.scss');
+require('../../../_scss/pages/dbInfo/dbInfoPage.scss');
 
 const DBInfo = () => (
     <div className="usa-da-db-info">

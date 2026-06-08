@@ -20,7 +20,7 @@ const propTypes = {
 // eslint-disable-next-line max-len
 const body = "Learn how to use USAspending.gov and understand the data. Subscribe to our YouTube for the latest videos!";
 
-require('pages/trainingVideos/trainingVideos.scss');
+require('../../../_scss/pages/trainingVideos/trainingVideos.scss');
 
 const TrainingVideosPage = ({ featuredVideo, videos }) => (
     <PageWrapper

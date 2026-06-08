@@ -12,7 +12,7 @@ import CategoriesSection from "./categories/CategoriesSection";
 import TimeSection from "./time/TimeSection";
 import MapSection from "./map/MapSection";
 
-require("pages/search/searchPage.scss");
+require("../../../_scss/pages/search/searchPage.scss");
 
 const logVisualizationViewEvent = (action, label) => window.setTimeout(
     () => Analytics.event({

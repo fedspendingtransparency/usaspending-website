@@ -15,7 +15,7 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 
 import LegalContent from './LegalContent';
 
-require('pages/about/aboutPage.scss');
+require('../../../../../_scss/pages/about/aboutPage.scss');
 
 const propTypes = {
     activePage: PropTypes.string,

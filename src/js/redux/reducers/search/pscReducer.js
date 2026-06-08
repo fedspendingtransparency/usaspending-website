@@ -5,8 +5,8 @@
 
 import { List } from 'immutable';
 
-import { addSearchResultsToTree, populateChildNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
-import { getHighestPscAncestor, getImmediatePscAncestor, getPscNodeFromTree } from 'helpers/pscHelper';
+import { addSearchResultsToTree, populateChildNodes, showAllNodes } from '../../../helpers/checkboxTreeHelper';
+import { getHighestPscAncestor, getImmediatePscAncestor, getPscNodeFromTree } from '../../../helpers/pscHelper';
 
 export const initialState = {
     psc: new List(),

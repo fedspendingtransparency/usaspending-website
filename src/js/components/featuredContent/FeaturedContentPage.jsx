@@ -12,7 +12,7 @@ import ArticleList from './list/ArticleList';
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import BannerPageHeader from '../sharedComponents/header/BannerPageHeader';
 
-require('pages/featuredContent/featuredContent.scss');
+require('../../../_scss/pages/featuredContent/featuredContent.scss');
 
 const FeaturedContentPage = () => {
     const articlesList = [];

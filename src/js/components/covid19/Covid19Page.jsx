@@ -30,7 +30,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import useQueryParams from "../../hooks/useQueryParams";
 import Covid19BottomSection from './Covid19BottomSection';
 
-require('pages/covid19/index.scss');
+require('../../../_scss/pages/covid19/index.scss');
 
 const propTypes = {
     loading: PropTypes.bool

@@ -10,7 +10,7 @@ import { Definition } from '../../redux/reducers/glossary/glossaryReducer';
 import { setGlossaryCache, setGlossaryTerm, setTermFromUrl } from "../../redux/actions/glossary/glossaryActions";
 import useFetchAllTerms from './useFetchAllTerms';
 
-require('pages/glossary/glossaryPage.scss');
+require('../../../_scss/pages/glossary/glossaryPage.scss');
 
 const GlossaryContainer = () => {
     const [loading, setLoading] = useState(true);

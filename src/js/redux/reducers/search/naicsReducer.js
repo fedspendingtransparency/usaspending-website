@@ -5,8 +5,8 @@
 
 import { List } from 'immutable';
 
-import { addSearchResultsToTree, populateChildNodes, showAllNodes } from 'helpers/checkboxTreeHelper';
-import { getHighestAncestorNaicsCode, getNaicsNodeFromTree, getImmediateAncestorNaicsCode } from 'helpers/naicsHelper';
+import { addSearchResultsToTree, populateChildNodes, showAllNodes } from '../../../helpers/checkboxTreeHelper';
+import { getHighestAncestorNaicsCode, getNaicsNodeFromTree, getImmediateAncestorNaicsCode } from '../../../helpers/naicsHelper';
 
 export const initialState = {
     naics: new List(),

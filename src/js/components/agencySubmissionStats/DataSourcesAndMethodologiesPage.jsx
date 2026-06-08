@@ -19,7 +19,7 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useQueryParams from "../../hooks/useQueryParams";
 
-require('pages/data-sources/index.scss');
+require('../../../_scss/pages/data-sources/index.scss');
 
 const emailData = {
     subject: "Agency Submission Statistics: Data Sources and Methodology",

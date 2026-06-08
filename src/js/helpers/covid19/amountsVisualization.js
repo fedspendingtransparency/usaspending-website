@@ -6,7 +6,7 @@ import {
     spacingBetweenLineAndText,
     labelTextAdjustment,
     rectangleHeight
-} from 'dataMapping/covid19/amountsVisualization';
+} from '../../dataMapping/covid19/amountsVisualization';
 
 export const defaultTextState = (dataId, type) => ({
     y: 0,

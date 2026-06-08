@@ -16,7 +16,7 @@ import StateLandingContainer from 'containers/stateLanding/StateLandingContainer
 import { showModal } from 'redux/actions/modal/modalActions';
 import H2PageHeader from '../sharedComponents/header/H2PageHeader';
 
-require('pages/stateLanding/stateLandingPage.scss');
+require('../../../_scss/pages/stateLanding/stateLandingPage.scss');
 
 const slug = 'state';
 const emailSubject = 'USAspending.gov State Profiles';

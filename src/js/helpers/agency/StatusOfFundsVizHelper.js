@@ -1,4 +1,4 @@
-import BaseAgencySubcomponentsList from 'models/v2/agency/BaseAgencySubcomponentsList';
+import BaseAgencySubcomponentsList from '../../models/v2/agency/BaseAgencySubcomponentsList';
 
 // eslint-disable-next-line import/prefer-default-export
 export const parseRows = (data, id) => {

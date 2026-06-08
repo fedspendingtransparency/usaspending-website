@@ -1,5 +1,5 @@
 import React from 'react';
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '../helpers/analytics/Analytics';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faFacebook,

@@ -12,7 +12,7 @@ import ComboBox from "./sharedComponents/ComboBox";
 import { mockComboBox } from "../../../tests/mockData";
 import BannerPageHeader from "./sharedComponents/header/BannerPageHeader";
 
-require("pages/search/searchPage.scss");
+require("../../_scss/pages/search/searchPage.scss");
 
 const TempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";

@@ -4,7 +4,7 @@
  */
 
 import { useEffect, useState } from "react";
-import { fetchBreakdown } from "helpers/explorerHelper";
+import { fetchBreakdown } from "../helpers/explorerHelper";
 import { useQuery } from "@tanstack/react-query";
 
 const selectRandomIndex = () => Math.floor(Math.random() * 10);
