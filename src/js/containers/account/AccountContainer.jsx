@@ -14,17 +14,17 @@ import { useMatch } from 'react-router';
 
 import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';
 
-import * as AccountHelper from 'apis/account';
-import * as accountActions from 'redux/actions/account/accountActions';
-import * as filterActions from 'redux/actions/account/accountFilterActions';
+import * as AccountHelper from '../../apis/account';
+import * as accountActions from '../../redux/actions/account/accountActions';
+import * as filterActions from '../../redux/actions/account/accountFilterActions';
 
-import FederalAccount from 'models/v1/account/FederalAccount';
-import { fiscalYearSnapshotFields } from 'dataMapping/accounts/accountFields';
+import FederalAccount from '../../models/v1/account/FederalAccount';
+import { fiscalYearSnapshotFields } from '../../dataMapping/accounts/accountFields';
 
-import withLatestFy from 'containers/account/WithLatestFy';
-import Account from 'components/account/Account';
-import InvalidAccount from 'components/account/InvalidAccount';
-import LoadingAccount from 'components/account/LoadingAccount';
+import withLatestFy from '../../containers/account/WithLatestFy';
+import Account from '../../components/account/Account';
+import InvalidAccount from '../../components/account/InvalidAccount';
+import LoadingAccount from '../../components/account/LoadingAccount';
 
 
 require('pages/account/accountPage.scss');

@@ -11,15 +11,15 @@ import { isCancel } from 'axios';
 import { TooltipWrapper, Tabs } from 'data-transparency-ui';
 import { flowRight } from 'lodash-es';
 
-import * as IdvHelper from 'helpers/idvHelper';
-import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
-import * as awardActions from 'redux/actions/award/awardActions';
+import * as IdvHelper from '../../../helpers/idvHelper';
+import { determineSpendingScenarioByAwardType } from '../../../helpers/awardAmountHelper';
+import * as awardActions from '../../../redux/actions/award/awardActions';
 
-import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
+import BaseAwardAmounts from '../../../models/v2/award/BaseAwardAmounts';
 
-import AggregatedAwardAmounts from 'components/award/idv/amounts/AggregatedAwardAmountsSection';
-import { awardAmountsInfo } from 'components/award/shared/InfoTooltipContent';
-import withDefCodes from 'hooks/WithDefCodes';
+import AggregatedAwardAmounts from '../../../components/award/idv/amounts/AggregatedAwardAmountsSection';
+import { awardAmountsInfo } from '../../../components/award/shared/InfoTooltipContent';
+import withDefCodes from '../../../hooks/WithDefCodes';
 import AggregatedAwardAmountsTableWrapper
     from "../../../components/award/idv/amounts/AggregatedAwardAmountsTableWrapper";
 

@@ -1,10 +1,10 @@
 import React from "react";
 import { useLocation } from 'react-router';
 
-import GlossaryListenerContainer from 'containers/glossary/GlossaryListener';
-import AboutTheDataListenerContainer from 'containers/aboutTheDataSidebar/AboutTheDataListener';
-import useIsMobile from "hooks/useIsMobile";
-import IsMobileContext from "context/IsMobileContext";
+import GlossaryListenerContainer from '../containers/glossary/GlossaryListener';
+import AboutTheDataListenerContainer from '../containers/aboutTheDataSidebar/AboutTheDataListener';
+import useIsMobile from "../hooks/useIsMobile";
+import IsMobileContext from "../context/IsMobileContext";
 
 const WithUrlListener = (component) => {
     const { search } = useLocation();

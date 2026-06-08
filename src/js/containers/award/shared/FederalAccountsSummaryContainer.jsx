@@ -9,11 +9,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { isCancel } from 'axios';
 
-import { fetchIdvFundingSummary } from 'helpers/idvHelper';
-import { fetchAwardFundingSummary } from 'helpers/awardSummaryHelper';
-import { setTotalTransactionObligatedAmount } from 'redux/actions/award/awardActions';
-import BaseFundingRollup from 'models/v2/award/BaseFundingRollup';
-import FederalAccountsSummary from 'components/award/shared/federalAccounts/FederalAccountsSummary';
+import { fetchIdvFundingSummary } from '../../../helpers/idvHelper';
+import { fetchAwardFundingSummary } from '../../../helpers/awardSummaryHelper';
+import { setTotalTransactionObligatedAmount } from '../../../redux/actions/award/awardActions';
+import BaseFundingRollup from '../../../models/v2/award/BaseFundingRollup';
+import FederalAccountsSummary from '../../../components/award/shared/federalAccounts/FederalAccountsSummary';
 
 const propTypes = {
     awardId: PropTypes.string,

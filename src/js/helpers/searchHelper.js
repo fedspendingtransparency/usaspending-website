@@ -6,7 +6,7 @@
 import { is } from 'immutable';
 import { isEqual, sortBy } from 'lodash-es';
 import dayjs from "dayjs";
-import { initialState } from 'redux/reducers/search/searchFiltersReducer';
+import { initialState } from '../redux/reducers/search/searchFiltersReducer';
 
 import { apiRequest } from './apiRequest';
 import dateRangeDropdownTimePeriods from "./search/dateRangeDropdownHelper";

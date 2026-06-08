@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import { fetchIdvActivity } from 'helpers/idvHelper';
-import IdvActivity from 'components/award/idv/activity/IdvActivity';
-import BaseIdvActivityBar from 'models/v2/award/BaseIdvActivityBar';
+import { fetchIdvActivity } from '../../../helpers/idvHelper';
+import IdvActivity from '../../../components/award/idv/activity/IdvActivity';
+import BaseIdvActivityBar from '../../../models/v2/award/BaseIdvActivityBar';
 
 const propTypes = {
     awardId: PropTypes.string

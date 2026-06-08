@@ -8,13 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Carousel, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
-import { fetchBudgetaryResources } from 'apis/agency';
-import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
-import { setBudgetaryResources, setDataThroughDates } from 'redux/actions/agency/agencyActions';
-import { calculatePercentage, formatMoneyWithUnits } from 'helpers/moneyFormatter';
-import { useLatestAccountData } from 'containers/account/WithLatestFy';
-import TotalObligationsOverTimeContainer from 'containers/agency/visualizations/TotalObligationsOverTimeContainer';
-import ObligationsByAwardTypeContainer from 'containers/agency/visualizations/ObligationsByAwardTypeContainer';
+import { fetchBudgetaryResources } from '../../../apis/agency';
+import BaseAgencyBudgetaryResources from '../../../models/v2/agency/BaseAgencyBudgetaryResources';
+import { setBudgetaryResources, setDataThroughDates } from '../../../redux/actions/agency/agencyActions';
+import { calculatePercentage, formatMoneyWithUnits } from '../../../helpers/moneyFormatter';
+import { useLatestAccountData } from '../../../containers/account/WithLatestFy';
+import TotalObligationsOverTimeContainer from '../../../containers/agency/visualizations/TotalObligationsOverTimeContainer';
+import ObligationsByAwardTypeContainer from '../../../containers/agency/visualizations/ObligationsByAwardTypeContainer';
 
 import VisualizationSection from './VisualizationSection';
 import BarChart from './BarChart';

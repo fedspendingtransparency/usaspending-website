@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { throttle } from 'lodash-es';
 import Cookies from 'js-cookie';
-import { globalBannerHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { globalCovidBannerCookie } from 'dataMapping/covid19/covid19';
+import { globalBannerHeight } from '../dataMapping/stickyHeader/stickyHeader';
+import { globalCovidBannerCookie } from '../dataMapping/covid19/covid19';
 
 export const getStickyBreakPointForSidebar = () => {
     const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';

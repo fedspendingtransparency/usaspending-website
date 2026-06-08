@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/1/18
  */
 
-import BaseStateProfile from 'models/v2/state/BaseStateProfile';
+import BaseStateProfile from '../../../models/v2/state/BaseStateProfile';
 
 const stateProfile = Object.create(BaseStateProfile);
 stateProfile.populate({});

@@ -8,7 +8,7 @@ import FederalAccountsVizContainer, { parseFederalAccounts } from "../../../../s
 import { mockAwardFederalAccounts, mockAwardFundingMetaData } from "../../../models/award/mockAwardApi";
 import * as idvHelper from "../../../../src/js/helpers/idvHelper";
 import * as awardHelper from "../../../../src/js/helpers/awardSummaryHelper";
-import BaseFederalAccount from 'models/v2/award/BaseFederalAccount';
+import BaseFederalAccount from '../../../models/v2/award/BaseFederalAccount';
 import { screen } from "@testing-library/react";
 
 const mockedProps = {

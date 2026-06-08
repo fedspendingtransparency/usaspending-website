@@ -9,9 +9,9 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { isEqual, pick, findKey } from 'lodash-es';
 
-import * as IdvHelper from 'helpers/idvHelper';
-import BaseReferencedAwardResult from 'models/v2/award/BaseReferencedAwardResult';
-import ReferencedAwardsSection from 'components/award/idv/referencedAwards/ReferencedAwardsSection';
+import * as IdvHelper from '../../../helpers/idvHelper';
+import BaseReferencedAwardResult from '../../../models/v2/award/BaseReferencedAwardResult';
+import ReferencedAwardsSection from '../../../components/award/idv/referencedAwards/ReferencedAwardsSection';
 
 const propTypes = {
     award: PropTypes.object,

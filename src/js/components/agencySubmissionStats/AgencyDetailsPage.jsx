@@ -8,17 +8,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, ErrorMessage, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
 
-import { fetchAgencyOverview } from 'apis/agency';
-import { agencyPageMetaTags } from 'helpers/metaTagHelper';
-import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { fetchAgencyOverview } from '../../apis/agency';
+import { agencyPageMetaTags } from '../../helpers/metaTagHelper';
+import { getAgencyDetailEmail } from '../../helpers/aboutTheDataHelper';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
 
-import Note from 'components/sharedComponents/Note';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
-import AgencyDetailsContainer from 'containers/agencySubmissionStats/AgencyDetailsContainer';
-import { modalTitles, modalClassNames } from 'dataMapping/agencySubmissionStats/modals';
-import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
+import Note from '../../components/sharedComponents/Note';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import ShareIcon508 from '../../components/sharedComponents/buttons/ShareIcon508';
+import AgencyDetailsContainer from '../../containers/agencySubmissionStats/AgencyDetailsContainer';
+import { modalTitles, modalClassNames } from '../../dataMapping/agencySubmissionStats/modals';
+import BaseAgencyOverview from '../../models/v2/agency/BaseAgencyOverview';
 import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
 import { showModal } from '../../redux/actions/modal/modalActions';

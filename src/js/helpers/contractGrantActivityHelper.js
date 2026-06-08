@@ -3,7 +3,7 @@
  */
 
 import { cloneDeep } from 'lodash-es';
-import { isAwardFinancialAssistance } from 'helpers/awardSummaryHelper';
+import { isAwardFinancialAssistance } from '../helpers/awardSummaryHelper';
 import { badPotentialEndDate } from '../../../tests/testResources/mockContractGrantActivityHelper';
 
 const dayjs = require('dayjs');

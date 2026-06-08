@@ -8,15 +8,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId } from 'lodash-es';
-import { measureTableHeader } from 'helpers/textMeasurement';
-import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
-import * as SearchHelper from 'helpers/searchHelper';
-import { defaultColumns, defaultSort } from 'dataMapping/search/awardTableColumns';
-import AccountAwardSearchOperation from 'models/v1/account/queries/AccountAwardSearchOperation';
-import ResultsTableSection from 'components/search/resultsView/table/ResultsTableSection';
-import { tableTypes, subTypes } from 'dataMapping/search/resultsView/table';
 import { SectionHeader } from "data-transparency-ui";
+import { measureTableHeader } from '../../../helpers/textMeasurement';
+import { awardTableColumnTypes } from '../../../dataMapping/search/awardTableColumnTypes';
+import { awardTypeGroups } from '../../../dataMapping/search/awardType';
+import * as SearchHelper from '../../../helpers/searchHelper';
+import { defaultColumns, defaultSort } from '../../../dataMapping/search/awardTableColumns';
+import AccountAwardSearchOperation from '../../../models/v1/account/queries/AccountAwardSearchOperation';
+import ResultsTableSection from '../../../components/search/resultsView/table/ResultsTableSection';
+import { tableTypes, subTypes } from '../../../dataMapping/search/resultsView/table';
 
 const propTypes = {
     account: PropTypes.object,

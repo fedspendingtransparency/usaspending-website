@@ -4,7 +4,7 @@
  */
 
 import { includes } from 'lodash-es';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
+import { awardTypeGroups } from '../dataMapping/search/awardType';
 
 
 export const awardType = (code) => {

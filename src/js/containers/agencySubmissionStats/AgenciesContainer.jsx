@@ -4,18 +4,18 @@ import { Table, Pagination } from 'data-transparency-ui';
 import { throttle, isNull } from 'lodash-es';
 import { useDispatch, useSelector } from 'react-redux';
 
-import DrilldownCell from 'components/agencySubmissionStats/DrilldownCell';
-import CellWithModal from 'components/agencySubmissionStats/CellWithModal';
-import { setTableData, setTableSort, setTotals, setSearchResults, setSearchTerm } from 'redux/actions/agencySubmissionStats';
-import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates } from 'apis/agencyReporting';
+import DrilldownCell from '../../components/agencySubmissionStats/DrilldownCell';
+import CellWithModal from '../../components/agencySubmissionStats/CellWithModal';
+import { setTableData, setTableSort, setTotals, setSearchResults, setSearchTerm } from '../../redux/actions/agencySubmissionStats';
+import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates } from '../../apis/agencyReporting';
 import {
     usePagination,
     isPeriodSelectable,
     getFederalBudget
-} from 'helpers/aboutTheDataHelper';
-import { getLatestPeriod } from 'helpers/accountHelper';
-import BaseAgencyRow from 'models/v2/agencySubmissionStats/BaseAgencyRow';
-import PublicationOverviewRow from 'models/v2/agencySubmissionStats/PublicationOverviewRow';
+} from '../../helpers/aboutTheDataHelper';
+import { getLatestPeriod } from '../../helpers/accountHelper';
+import BaseAgencyRow from '../../models/v2/agencySubmissionStats/BaseAgencyRow';
+import PublicationOverviewRow from '../../models/v2/agencySubmissionStats/PublicationOverviewRow';
 import { agenciesTableColumns, parsePeriods } from './AgencyTableMapping';
 
 const propTypes = {

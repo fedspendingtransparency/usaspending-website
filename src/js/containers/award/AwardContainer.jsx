@@ -11,29 +11,29 @@ import { isCancel } from 'axios';
 import { flowRight } from 'lodash-es';
 import { useMatch } from 'react-router';
 
-import Award from 'components/award/Award';
-import * as SearchHelper from 'helpers/searchHelper';
-import { setAward, resetAward } from 'redux/actions/award/awardActions';
+import Award from '../../components/award/Award';
+import * as SearchHelper from '../../helpers/searchHelper';
+import { setAward, resetAward } from '../../redux/actions/award/awardActions';
 import {
     setDownloadCollapsed,
     setDownloadPending,
     setDownloadExpectedFile,
     setDownloadExpectedUrl
-} from 'redux/actions/bulkDownload/bulkDownloadActions';
-import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
-import { setDEFCodes } from 'redux/actions/covid19/covid19Actions';
+} from '../../redux/actions/bulkDownload/bulkDownloadActions';
+import { subAwardIdClicked } from '../../redux/actions/search/searchSubAwardTableActions';
+import { setDEFCodes } from '../../redux/actions/covid19/covid19Actions';
 
-import BaseContract from 'models/v2/award/BaseContract';
-import BaseIdv from 'models/v2/award/BaseIdv';
-import BaseFinancialAssistance from 'models/v2/award/BaseFinancialAssistance';
+import BaseContract from '../../models/v2/award/BaseContract';
+import BaseIdv from '../../models/v2/award/BaseIdv';
+import BaseFinancialAssistance from '../../models/v2/award/BaseFinancialAssistance';
 import {
     fetchIdvDownloadFile,
     fetchContractDownloadFile,
     fetchAssistanceDownloadFile
-} from 'helpers/downloadHelper';
-import withDefCodes from 'hooks/WithDefCodes';
-import { getAwardHistoryCounts } from "helpers/awardHistoryHelper";
-import Analytics from "helpers/analytics/Analytics";
+} from '../../helpers/downloadHelper';
+import withDefCodes from '../../hooks/WithDefCodes';
+import { getAwardHistoryCounts } from "../../helpers/awardHistoryHelper";
+import Analytics from "../../helpers/analytics/Analytics";
 
 require('pages/award/awardPage.scss');
 

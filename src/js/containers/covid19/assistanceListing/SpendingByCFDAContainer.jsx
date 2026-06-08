@@ -12,22 +12,22 @@ import { Table, Pagination, SearchBar } from 'data-transparency-ui';
 import { useNavigate } from 'react-router';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import replaceString from 'helpers/replaceString';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
-import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
-import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
-import { fetchSpendingByCfda, fetchCfdaLoans } from 'apis/disaster';
-import ResultsTableLoadingMessage from 'components/keyword/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
-import ResultsTableNoResults from 'components/keyword/table/ResultsTableNoResults';
-import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
-import { resetAppliedFilters, applyStagedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
-import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
-import Analytics from 'helpers/analytics/Analytics';
-import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
+import replaceString from '../helpers/replaceString';
+import { awardTypeGroups } from '../../../dataMapping/search/awardType';
+import BaseSpendingByCfdaRow from '../../../models/v2/covid19/BaseSpendingByCfdaRow';
+import { spendingTableSortFields } from '../../../dataMapping/covid19/covid19';
+import { fetchSpendingByCfda, fetchCfdaLoans } from '../../../apis/disaster';
+import ResultsTableLoadingMessage from '../../../components/keyword/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from '../../../components/keyword/table/ResultsTableErrorMessage';
+import ResultsTableNoResults from '../../../components/keyword/table/ResultsTableNoResults';
+import { clearAllFilters } from '../../../redux/actions/search/searchFilterActions';
+import { resetAppliedFilters, applyStagedFilters, setAppliedFilterCompletion } from '../../../redux/actions/search/appliedFilterActions';
+import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from '../../../redux/reducers/search/searchFiltersReducer';
+import Analytics from '../../../helpers/analytics/Analytics';
+import { calculateUnlinkedTotals } from '../../../helpers/covid19Helper';
 
-import CFDADetailModal from 'components/covid19/assistanceListing/CFDADetailModal';
-import { showModal } from 'redux/actions/modal/modalActions';
+import CFDADetailModal from '../../../components/covid19/assistanceListing/CFDADetailModal';
+import { showModal } from '../../../redux/actions/modal/modalActions';
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,

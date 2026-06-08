@@ -8,9 +8,9 @@ import { isCancel } from 'axios';
 import { Table, Pagination } from 'data-transparency-ui';
 import { throttle, isNull } from 'lodash-es';
 
-import { fetchAgency } from 'apis/agencyReporting';
-import BaseReportingPeriodRow from 'models/v2/agencySubmissionStats/BaseReportingPeriodRow';
-import CellWithModal from 'components/agencySubmissionStats/CellWithModal';
+import { fetchAgency } from '../../apis/agencyReporting';
+import BaseReportingPeriodRow from '../../models/v2/agencySubmissionStats/BaseReportingPeriodRow';
+import CellWithModal from '../../components/agencySubmissionStats/CellWithModal';
 import { agencyDetailsColumns } from './AgencyTableMapping';
 
 const propTypes = {

@@ -6,11 +6,11 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 
-import { calculatePercentage, formatMoney, formatNumber, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import { calculatePercentage, formatMoney, formatNumber, formatMoneyWithPrecision } from '../helpers/moneyFormatter';
 import {
     periodsPerQuarter,
     lastPeriods
-} from 'dataMapping/agencySubmissionStats/timeFilters';
+} from '../dataMapping/agencySubmissionStats/timeFilters';
 
 export const getSelectedPeriodTitle = (str) => (
     str.includes('Q')

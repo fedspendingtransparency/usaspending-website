@@ -8,13 +8,13 @@ import React from 'react';
 import { isCancel } from 'axios';
 import { flowRight, inRange } from 'lodash-es';
 
-import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
-import * as AccountLandingHelper from 'helpers/accountLandingHelper';
+import AccountsTableFields from '../../dataMapping/accountLanding/accountsTableFields';
+import * as AccountLandingHelper from '../../helpers/accountLandingHelper';
 
-import withLatestFy from 'containers/account/WithLatestFy';
-import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
+import withLatestFy from '../../containers/account/WithLatestFy';
+import AccountLandingContent from '../../components/accountLanding/AccountLandingContent';
 
-import BaseFederalAccountLandingRow from 'models/v1/accountLanding/BaseFederalAccountLandingRow';
+import BaseFederalAccountLandingRow from '../../models/v1/accountLanding/BaseFederalAccountLandingRow';
 import { LATEST_PERIOD_PROPS, SUBMISSION_PERIOD_PROPS } from 'propTypes';
 
 require('pages/accountLanding/accountLandingPage.scss');

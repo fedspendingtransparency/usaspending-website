@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 
 import { InformationBoxes } from "data-transparency-ui";
-import { awardTypeGroups } from 'dataMapping/search/awardType';
-import { fetchSubagencyNewAwardsCount, fetchSubagencySummary } from 'apis/agency';
-import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
-import { setDataThroughDates } from 'redux/actions/agency/agencyActions';
+import { awardTypeGroups } from '../../../dataMapping/search/awardType';
+import { fetchSubagencyNewAwardsCount, fetchSubagencySummary } from '../../../apis/agency';
+import BaseAgencySubagencyCount from '../../../models/v2/agency/BaseAgencySubagencyCount';
+import { setDataThroughDates } from '../../../redux/actions/agency/agencyActions';
 
 const dayjs = require('dayjs');
 

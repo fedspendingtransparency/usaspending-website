@@ -12,7 +12,7 @@ import { initialState as defaultFilters } from 'redux/reducers/search/searchFilt
 import { throttle } from 'lodash-es';
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 import { generateUrlHash } from "../../../helpers/searchHelper";
-import { REQUEST_VERSION } from "../../../GlobalConstants";
+import globalConstants from "../../../GlobalConstants";
 import Analytics from '../../../helpers/analytics/Analytics';
 
 /* eslint-disable */
@@ -101,7 +101,7 @@ const AwardSearch = () => {
                     }
                 }
             },
-            version: REQUEST_VERSION
+            version: globalConstants.REQUEST_VERSION
         };
 
         if (section === "map") {

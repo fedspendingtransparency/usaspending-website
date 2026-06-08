@@ -11,14 +11,14 @@ import { isCancel } from 'axios';
 import { Record } from 'immutable';
 
 import AccountTimeVisualizationSection from
-    'components/account/visualizations/time/AccountTimeVisualizationSection';
-import * as AccountHelper from 'apis/account';
-import * as AccountQuartersHelper from 'helpers/accountQuartersHelper';
-import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
-import AccountSearchBalanceOperation from 'models/v1/account/queries/AccountSearchBalanceOperation';
-import AccountSearchCategoryOperation from 'models/v1/account/queries/AccountSearchCategoryOperation';
+    '../../../components/account/visualizations/time/AccountTimeVisualizationSection';
+import * as AccountHelper from '../../../apis/account';
+import * as AccountQuartersHelper from '../../../helpers/accountQuartersHelper';
+import * as accountFilterActions from '../../../redux/actions/account/accountFilterActions';
+import AccountSearchBalanceOperation from '../../../models/v1/account/queries/AccountSearchBalanceOperation';
+import AccountSearchCategoryOperation from '../../../models/v1/account/queries/AccountSearchCategoryOperation';
 import { balanceFields, balanceFieldsFiltered, balanceFieldsNonfiltered } from
-    'dataMapping/accounts/accountFields';
+    '../../../dataMapping/accounts/accountFields';
 
 const propTypes = {
     reduxFilters: PropTypes.object,

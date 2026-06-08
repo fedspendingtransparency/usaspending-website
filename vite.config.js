@@ -40,7 +40,10 @@ export default defineConfig(({ command, mode }) => {
       'process.env.FILES_SERVER_BASE_URL': JSON.stringify(process.env.FILES_SERVER_BASE_URL || '')
     },
     plugins: [
-      react(),
+      react({
+        // Tell the React plugin to handle JSX inside regular .js files
+        include: /\.(jsx|tsx|js)$/,
+      }),
       mdx(),
       createHtmlPlugin({
         template: path.resolve(__dirname, "./index.js"),

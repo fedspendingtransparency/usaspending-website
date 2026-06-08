@@ -5,9 +5,9 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import AnimatedGlossaryWrapper from 'components/glossary/AnimatedGlossaryWrapper';
-import { Definition } from 'redux/reducers/glossary/glossaryReducer';
-import { setGlossaryCache, setGlossaryTerm, setTermFromUrl } from "redux/actions/glossary/glossaryActions";
+import AnimatedGlossaryWrapper from '../../components/glossary/AnimatedGlossaryWrapper';
+import { Definition } from '../../redux/reducers/glossary/glossaryReducer';
+import { setGlossaryCache, setGlossaryTerm, setTermFromUrl } from "../../redux/actions/glossary/glossaryActions";
 import useFetchAllTerms from './useFetchAllTerms';
 
 require('pages/glossary/glossaryPage.scss');

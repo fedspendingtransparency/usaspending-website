@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PageHeader } from 'data-transparency-ui';
 
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+import { getStickyBreakPointForSidebar } from '../../helpers/stickyHeaderHelper';
 
-import Header from 'components/sharedComponents/header/Header';
-import Footer from 'containers/Footer';
+import Header from '../../components/sharedComponents/header/Header';
+import Footer from '../../containers/Footer';
 
 // eslint-disable-next-line import/prefer-default-export
 export const LoadingWrapper = ({

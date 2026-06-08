@@ -18,7 +18,7 @@ import {
     // Offsets per DEV-5242:
     lineOffsetsBySpendingCategory,
     defcTypes
-} from 'dataMapping/award/awardAmountsSection';
+} from '../dataMapping/award/awardAmountsSection';
 
 import { covidColor, covidObligatedColor } from 'dataMapping/covid19/covid19';
 

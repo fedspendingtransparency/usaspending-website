@@ -2,8 +2,8 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { showGlossary, setTermFromUrl } from 'redux/actions/glossary/glossaryActions';
-import { setLastOpenedSlideout } from 'redux/actions/slideouts/slideoutActions';
+import { showGlossary, setTermFromUrl } from '../../redux/actions/glossary/glossaryActions';
+import { setLastOpenedSlideout } from '../../redux/actions/slideouts/slideoutActions';
 import useQueryParams from "../../hooks/useQueryParams";
 
 const GlossaryListener = ({

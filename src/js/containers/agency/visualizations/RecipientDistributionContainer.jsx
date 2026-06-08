@@ -9,10 +9,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 
 import { LoadingMessage, ErrorMessage } from 'data-transparency-ui';
-import { fetchRecipientDistribution } from 'apis/agency';
-import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
-import { setAgencyRecipients, resetAgencyRecipients } from 'redux/actions/agency/agencyActions';
-import RecipientDistribution from 'components/agency/visualizations/RecipientDistribution';
+import { fetchRecipientDistribution } from '../../../apis/agency';
+import BaseAgencyRecipients from '../../../models/v2/agency/BaseAgencyRecipients';
+import { setAgencyRecipients, resetAgencyRecipients } from '../../../redux/actions/agency/agencyActions';
+import RecipientDistribution from '../../../components/agency/visualizations/RecipientDistribution';
 
 const propTypes = {
     fiscalYear: PropTypes.string.isRequired,

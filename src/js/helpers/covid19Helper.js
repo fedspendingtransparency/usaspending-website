@@ -5,18 +5,18 @@
 import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { snakeCase } from 'lodash-es';
-import { apiRequest } from 'helpers/apiRequest';
+import { apiRequest } from '../helpers/apiRequest';
 import {
     dataDisclaimerHeight,
     globalBannerHeight,
     siteHeaderHeight,
     globalCovidBannerCookie,
     dataDisclaimerBannerCookie
-} from 'dataMapping/covid19/covid19';
+} from '../dataMapping/covid19/covid19';
 
-import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
-import { formatMoneyWithPrecision, calculateUnitForSingleValue } from 'helpers/moneyFormatter';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { componentByCovid19Section } from '../containers/covid19/helpers/covid19';
+import { formatMoneyWithPrecision, calculateUnitForSingleValue } from '../helpers/moneyFormatter';
+import { stickyHeaderHeight } from '../dataMapping/stickyHeader/stickyHeader';
 
 export const fetchOpportunityTotals = (code) => apiRequest({
     url: code ? `v2/references/cfda/totals/${code}/` : `v2/references/cfda/totals/`
