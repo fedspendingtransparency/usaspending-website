@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import VideoMetadata from 'models/v2/video/VideoMetadata';
+import VideoMetadata from '../../models/v2/video/VideoMetadata';
 import metadata from '../../../config/trainingVideos/playListMetadata';
 import TrainingVideosPage from "../../components/trainingVideos/TrainingVideosPage";
 

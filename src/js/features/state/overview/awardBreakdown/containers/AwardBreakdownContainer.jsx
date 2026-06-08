@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { ErrorMessage, FlexGridCol, GenericMessage, LoadingMessage } from "data-transparency-ui";
 import { reduce } from "lodash-es";
-import BaseAwardBreakdownRow from "models/v2/state/BaseAwardBreakdownRow";
+import BaseAwardBreakdownRow from "../../../../../models/v2/state/BaseAwardBreakdownRow";
 
 import AwardBreakdownTreeMap from '../treemap/AwardBreakdownTreeMap';
 import AwardBreakdownTable from '../AwardBreakdownTable';

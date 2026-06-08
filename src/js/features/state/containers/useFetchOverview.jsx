@@ -5,8 +5,8 @@
 
 import { useCallback, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchStateOverview } from 'apis/state';
-import BaseStateProfile from "models/v2/state/BaseStateProfile";
+import { fetchStateOverview } from '../../../apis/state';
+import BaseStateProfile from "../../../models/v2/state/BaseStateProfile";
 
 export const useFetchOverview = (stateId, fy) => {
     const [stateProfileData, setStateProfileData] = useState(null);

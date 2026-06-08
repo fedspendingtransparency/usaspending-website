@@ -5,8 +5,8 @@
 
 import { useState, useEffect, useCallback, useMemo } from "react";
 import { useQuery } from '@tanstack/react-query';
-import { performSpendingByAwardSearch, performSpendingByCategorySearch } from "helpers/searchHelper";
-import BaseStateCategoryResult from "models/v2/state/BaseStateCategoryResult";
+import { performSpendingByAwardSearch, performSpendingByCategorySearch } from "../../../../helpers/searchHelper";
+import BaseStateCategoryResult from "../../../../models/v2/state/BaseStateCategoryResult";
 import { convertFYToDateRange, getTrailingTwelveMonths } from "../../../../helpers/fiscalYearHelper";
 import { awardTypeGroups } from "../../../../dataMapping/search/awardType";
 

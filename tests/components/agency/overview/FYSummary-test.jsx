@@ -10,11 +10,11 @@ import { render, waitFor } from 'test-utils';
 import * as redux from 'react-redux';
 import { List } from "immutable";
 
-import * as helpers from 'apis/agency';
-import * as accountHooks from 'containers/account/WithLatestFy';
+import * as helpers from '../../../apis/agency';
+import * as accountHooks from '../../../containers/account/WithLatestFy';
 
-import FYSummary from 'components/agency/overview/FySummary';
-import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
+import FYSummary from '../../../components/agency/overview/FySummary';
+import BaseAgencyRecipients from '../../../models/v2/agency/BaseAgencyRecipients';
 
 import { mockTotalBudgetaryResources } from './mockData';
 

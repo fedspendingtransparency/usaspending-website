@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 7/1/21
  */
 
-import { formatNumber, calculatePercentage } from 'helpers/moneyFormatter';
+import { formatNumber, calculatePercentage } from '../../../helpers/moneyFormatter';
 
 const BaseAgencyRecipients = {
     populate(data) {

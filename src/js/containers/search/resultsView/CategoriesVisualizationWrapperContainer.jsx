@@ -10,16 +10,16 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { useSearchParams } from "react-router";
 import { max, get } from 'lodash-es';
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
+import * as searchFilterActions from '../../../redux/actions/search/searchFilterActions';
+import { setAppliedFilterCompletion } from '../../../redux/actions/search/appliedFilterActions';
 
-import Analytics from 'helpers/analytics/Analytics';
-import * as SearchHelper from 'helpers/searchHelper';
+import Analytics from '../../../helpers/analytics/Analytics';
+import * as SearchHelper from '../../../helpers/searchHelper';
 
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
+import SearchAwardsOperation from '../../../models/v1/search/SearchAwardsOperation';
+import BaseSpendingByCategoryResult from '../../../models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
 
-import { categoryNames } from 'dataMapping/search/spendingByCategory';
+import { categoryNames } from '../../../dataMapping/search/spendingByCategory';
 import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import SpendingByCategoriesChart
     from "../../../components/search/resultsView/categories/SpendingByCategoriesChart";

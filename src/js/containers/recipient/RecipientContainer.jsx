@@ -10,12 +10,12 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { useNavigate, useMatch } from 'react-router';
 
-import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
-import * as recipientActions from 'redux/actions/recipient/recipientActions';
-import * as RecipientHelper from 'helpers/recipientHelper';
-import { isFyValid } from 'helpers/fiscalYearHelper';
+import BaseRecipientOverview from '../../models/v2/recipient/BaseRecipientOverview';
+import * as recipientActions from '../../redux/actions/recipient/recipientActions';
+import * as RecipientHelper from '../../helpers/recipientHelper';
+import { isFyValid } from '../../helpers/fiscalYearHelper';
 
-import RecipientPage from 'components/recipient/RecipientPage';
+import RecipientPage from '../../components/recipient/RecipientPage';
 
 require('pages/recipient/recipientPage.scss');
 

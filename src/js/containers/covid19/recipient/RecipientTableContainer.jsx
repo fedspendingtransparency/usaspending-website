@@ -11,15 +11,15 @@ import replaceString from 'helpers/replaceString';
 import { Table, Pagination, SearchBar } from 'data-transparency-ui';
 import { Link } from 'react-router';
 
-import { awardTypeGroups } from 'dataMapping/search/awardType';
-import BaseSpendingByRecipientRow from 'models/v2/covid19/BaseSpendingByRecipientRow';
-import { spendingTableSortFields } from 'dataMapping/covid19/covid19';
-import { fetchDisasterSpending, fetchLoanSpending } from 'apis/disaster';
-import Note from 'components/sharedComponents/Note';
-import noteText from 'dataMapping/covid19/recipient/recipient';
-import TableDownloadLink from 'containers/covid19/TableDownloadLink';
-import Analytics from 'helpers/analytics/Analytics';
-import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
+import { awardTypeGroups } from '../../../dataMapping/search/awardType';
+import BaseSpendingByRecipientRow from '../../../models/v2/covid19/BaseSpendingByRecipientRow';
+import { spendingTableSortFields } from '../../../dataMapping/covid19/covid19';
+import { fetchDisasterSpending, fetchLoanSpending } from '../../../apis/disaster';
+import Note from '../../../components/sharedComponents/Note';
+import noteText from '../../../dataMapping/covid19/recipient/recipient';
+import TableDownloadLink from '../../../containers/covid19/TableDownloadLink';
+import Analytics from '../../../helpers/analytics/Analytics';
+import { calculateUnlinkedTotals } from '../../../helpers/covid19Helper';
 import usePrevious from "../../../hooks/usePrevious";
 import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 

@@ -9,10 +9,10 @@ import { isCancel } from 'axios';
 import { Search } from 'js-search';
 import { orderBy } from 'lodash-es';
 
-import { fetchStateList } from 'apis/state';
-import BaseStateLandingItem from 'models/v2/state/BaseStateLandingItem';
+import { fetchStateList } from '../../../apis/state';
+import BaseStateLandingItem from '../../../models/v2/state/BaseStateLandingItem';
 
-import StateLandingContent from 'components/stateLanding/StateLandingContent';
+import StateLandingContent from '../../../components/stateLanding/StateLandingContent';
 
 export default class StateLandingContainer extends React.Component {
     constructor(props) {

@@ -5,12 +5,12 @@ import { intersection, uniqueId } from 'lodash-es';
 
 import {
     performSpendingByAwardSearch, performSpendingBySubawardGrouped
-} from "helpers/searchHelper";
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
+} from "../../../helpers/searchHelper";
+import SearchAwardsOperation from '../../../models/v1/search/SearchAwardsOperation';
 import {
     awardTypeGroups, subawardTypeGroups
-} from 'dataMapping/search/awardType';
-import { apiFieldByTableColumnName } from 'dataMapping/search/awardTableColumns';
+} from '../../../dataMapping/search/awardType';
+import { apiFieldByTableColumnName } from '../../../dataMapping/search/awardTableColumns';
 
 const getAwardTypeGroup = (spendingLevel, tableType, awardType) => {
     // generate an array of award type codes representing the current table tab we're showing

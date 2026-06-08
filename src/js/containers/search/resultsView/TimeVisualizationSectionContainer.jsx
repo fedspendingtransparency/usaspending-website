@@ -8,13 +8,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
+import * as searchFilterActions from '../../../redux/actions/search/searchFilterActions';
+import { setAppliedFilterCompletion } from '../../../redux/actions/search/appliedFilterActions';
 
-import * as SearchHelper from 'helpers/searchHelper';
-import * as MonthHelper from 'helpers/monthHelper';
+import * as SearchHelper from '../../../helpers/searchHelper';
+import * as MonthHelper from '../../../helpers/monthHelper';
 
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
+import SearchAwardsOperation from '../../../models/v1/search/SearchAwardsOperation';
 import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import BaseSpendingOverTimeRow from "../../../models/v2/search/visualizations/time/BaseSpendingOverTimeRow";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";

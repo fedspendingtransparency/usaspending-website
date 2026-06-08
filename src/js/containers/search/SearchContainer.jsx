@@ -8,26 +8,26 @@ import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
-import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { combineQueryParams, getQueryParamString } from '../../helpers/queryParams';
 import {
     filterStoreVersion, requiredTypes, initialState
-} from 'redux/reducers/search/searchFiltersReducer';
-import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
-import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
+} from '../../redux/reducers/search/searchFiltersReducer';
+import { restoreHashedFilters } from '../../redux/actions/search/searchHashActions';
+import { clearAllFilters } from '../../redux/actions/search/searchFilterActions';
 import {
     setAppliedFilterEmptiness, resetAppliedFilters
-} from 'redux/actions/search/appliedFilterActions';
+} from '../../redux/actions/search/appliedFilterActions';
 import {
     areFiltersDifferent,
     areFiltersEmpty, areFiltersEqual,
     areFiltersSelected,
     generateUrlHash, getObjFromQueryParams,
     restoreUrlHash
-} from "helpers/searchHelper";
-import * as DownloadHelper from 'helpers/downloadHelper';
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import useQueryParams from "hooks/useQueryParams";
-import SearchPage from 'components/search/SearchPage';
+} from "../../helpers/searchHelper";
+import * as DownloadHelper from '../../helpers/downloadHelper';
+import SearchAwardsOperation from '../../models/v1/search/SearchAwardsOperation';
+import useQueryParams from "../../hooks/useQueryParams";
+import SearchPage from '../../components/search/SearchPage';
 import {
     convertFiltersToAnalyticEvents,
     sendAnalyticEvents,

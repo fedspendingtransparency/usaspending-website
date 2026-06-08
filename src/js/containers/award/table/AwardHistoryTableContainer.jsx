@@ -5,15 +5,15 @@ import { bindActionCreators } from "redux";
 import { isCancel } from "axios";
 import { Table, Pagination, InformationBoxes } from "data-transparency-ui";
 
-import ReadMore from "components/sharedComponents/ReadMore";
-import * as awardActions from 'redux/actions/award/awardActions';
-import { fetchAwardTransaction, performSubawardSearch } from 'helpers/searchHelper';
-import { transactionsTableMapping, federalAccountsTableMapping, subawardTableMapping } from "dataMapping/award/transactionHistoryTable/tableMapping";
-import BaseFederalAccountFunding, { AwardHistoryTransactionsTableRow } from "models/v2/award/BaseFederalAccountFunding";
-import BaseSubawardRow from "models/v2/award/subawards/BaseSubawardRow";
-import { fetchFederalAccountFunding } from "helpers/awardHistoryHelper";
-import { fetchAwardFedAccountFunding } from 'helpers/idvHelper';
-import { formatMoney } from 'helpers/moneyFormatter';
+import ReadMore from "../../../components/sharedComponents/ReadMore";
+import * as awardActions from '../../../redux/actions/award/awardActions';
+import { fetchAwardTransaction, performSubawardSearch } from '../../../helpers/searchHelper';
+import { transactionsTableMapping, federalAccountsTableMapping, subawardTableMapping } from "../../../dataMapping/award/transactionHistoryTable/tableMapping";
+import BaseFederalAccountFunding, { AwardHistoryTransactionsTableRow } from "../../../models/v2/award/BaseFederalAccountFunding";
+import BaseSubawardRow from "../../../models/v2/award/subawards/BaseSubawardRow";
+import { fetchFederalAccountFunding } from "../../../helpers/awardHistoryHelper";
+import { fetchAwardFedAccountFunding } from '../../../helpers/idvHelper';
+import { formatMoney } from '../../../helpers/moneyFormatter';
 
 const propTypes = {
     award: PropTypes.object,

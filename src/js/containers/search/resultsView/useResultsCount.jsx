@@ -1,8 +1,8 @@
 // eslint-disable-next-line no-unused-vars
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { areFiltersEqual, performSpendingByAwardTabCountSearch } from "helpers/searchHelper";
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
+import { areFiltersEqual, performSpendingByAwardTabCountSearch } from "../../../helpers/searchHelper";
+import SearchAwardsOperation from '../../../models/v1/search/SearchAwardsOperation';
 
 const useResultsCount = (filters, spendingLevel, hash) => {
     const filtersParamsTemp = new SearchAwardsOperation();

@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
 import { Link } from 'react-router';
 
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '../../../helpers/analytics/Analytics';
 
 import {
     budgetColumns,
@@ -19,12 +19,12 @@ import {
     defaultSort,
     budgetCategoriesNameSort,
     apiSpendingTypes
-} from 'dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
-import { fetchDisasterSpending, fetchLoanSpending } from 'apis/disaster';
-import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
+} from '../../../dataMapping/covid19/budgetCategories/BudgetCategoriesTableColumns';
+import { fetchDisasterSpending, fetchLoanSpending } from '../../../apis/disaster';
+import { handleSort, calculateUnlinkedTotals } from '../../../helpers/covid19Helper';
 
-import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
-import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
+import BaseBudgetCategoryRow from '../../../models/v2/covid19/BaseBudgetCategoryRow';
+import { SpendingTypesTT } from '../../../components/covid19/Covid19Tooltips';
 import useAgencySlugs from "../../../hooks/useAgencySlugs";
 
 const propTypes = {
