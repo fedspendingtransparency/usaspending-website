@@ -5,6 +5,11 @@ $output-bourbon-deprecation-warnings: false !default;
 @import "bourbon-neat/core/_neat";
 @import "lib/normalize";
 
+// Mixins ------------------ //
+@import "mixins/background";
+@import "mixins/error";
+@import "mixins/responsive";
+
 // Core -------------- //
 @import "core/variables";
 @import "dtui-overrides";
@@ -13,7 +18,7 @@ $output-bourbon-deprecation-warnings: false !default;
 @import "core/base";
 @import "core/utilities";
 @import "core/grid";
-@import "core/mobile-utilities";
+@import "core/mobile_utilities";
 
 
 // Elements -------------- //
@@ -47,12 +52,7 @@ $output-bourbon-deprecation-warnings: false !default;
 @import "components/responsiveTable";
 @import "components/mobilePageHeader";
 @import "components/mobileFilterPanel";
-
-// Mixins ------------------ //
-@import "mixins/background";
-@import "mixins/error";
 @import "pages/modals/all";
-@import "mixins/responsive";
 
 // Selectors --------------- //
 @import "selectors/idv";
