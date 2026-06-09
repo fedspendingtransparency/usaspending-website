@@ -12,6 +12,9 @@ $output-bourbon-deprecation-warnings: false !default;
 @import "core/fonts";
 @import "core/base";
 @import "core/utilities";
+@import "core/grid";
+@import "core/mobile-utilities";
+
 
 // Elements -------------- //
 // Styles basic HTML elements
@@ -41,11 +44,15 @@ $output-bourbon-deprecation-warnings: false !default;
 @import "components/buttons/index";
 @import "components/h2PageHeader";
 @import "components/bannerPageHeader";
+@import "components/responsiveTable";
+@import "components/mobilePageHeader";
+@import "components/mobileFilterPanel";
 
 // Mixins ------------------ //
 @import "mixins/background";
 @import "mixins/error";
 @import "pages/modals/all";
+@import "mixins/responsive";
 
 // Selectors --------------- //
 @import "selectors/idv";

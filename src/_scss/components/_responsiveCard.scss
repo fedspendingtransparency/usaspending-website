@@ -1,0 +1,182 @@
+// src/_scss/components/_responsiveCard.scss
+
+.responsive-card {
+    background: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: 0.5rem;
+    padding: $global-spacing-unit * 3;
+    margin-bottom: $global-spacing-unit * 2;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.2s ease-in-out;
+    
+    @include mobile-only {
+        padding: $global-spacing-unit * 2;
+        margin-bottom: $global-spacing-unit * 1.5;
+    }
+
+    // Variants
+    &--bordered {
+        border: 2px solid #dee2e6;
+    }
+
+    &--highlighted {
+        border: 2px solid #0071bc;
+        background: #f0f7ff;
+    }
+
+    &--warning {
+        border-left: 4px solid #ffbe2e;
+        background: #fffbf0;
+    }
+
+    &--success {
+        border-left: 4px solid #2e8540;
+        background: #f0f9f3;
+    }
+
+    &--error {
+        border-left: 4px solid #e31c3d;
+        background: #fef0f2;
+    }
+
+    &--elevated {
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+    }
+    
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: $global-spacing-unit * 2;
+        
+        @include mobile-only {
+            flex-direction: column;
+            gap: $global-spacing-unit;
+        }
+    }
+
+    &__title-section {
+        flex: 1;
+        min-width: 0; // Allow text truncation
+    }
+    
+    &__title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #212529;
+        margin: 0;
+        line-height: 1.3;
+        
+        @include mobile-only {
+            font-size: 1.125rem;
+        }
+    }
+    
+    &__subtitle {
+        font-size: 0.875rem;
+        color: #6c757d;
+        margin: $global-spacing-unit 0 0 0;
+        line-height: 1.4;
+    }
+    
+    &__actions {
+        display: flex;
+        gap: $global-spacing-unit;
+        flex-shrink: 0;
+        
+        @include mobile-only {
+            width: 100%;
+            flex-direction: column;
+        }
+    }
+
+    // Mobile stacked actions (separate from header)
+    &__mobile-actions {
+        display: flex;
+        flex-direction: column;
+        gap: $global-spacing-unit;
+        margin-bottom: $global-spacing-unit * 2;
+        padding-bottom: $global-spacing-unit * 2;
+        border-bottom: 1px solid #e9ecef;
+
+        button,
+        a {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    // Toggle button for collapsible cards
+    &__toggle {
+        @include touch-target;
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        padding: $global-spacing-unit;
+        margin: -#{$global-spacing-unit} 0;
+        color: #495057;
+        transition: color 0.15s ease-in-out;
+
+        &:hover {
+            color: #212529;
+        }
+
+        &:focus {
+            outline: 2px solid #0071bc;
+            outline-offset: 2px;
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+    }
+
+    &__toggle-icon {
+        display: inline-block;
+        transition: transform 0.2s ease-in-out;
+        font-size: 0.75rem;
+
+        &.expanded {
+            transform: rotate(180deg);
+        }
+    }
+    
+    &__body {
+        color: #495057;
+        line-height: 1.6;
+
+        // Remove bottom margin from last child
+        > *:last-child {
+            margin-bottom: 0;
+        }
+    }
+    
+    &__footer {
+        margin-top: $global-spacing-unit * 2;
+        padding-top: $global-spacing-unit * 2;
+        border-top: 1px solid #e9ecef;
+    }
+
+    // Collapsible states
+    &--collapsible {
+        .responsive-card__toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    }
+
+    &--collapsed {
+        .responsive-card__body {
+            display: none;
+        }
+
+        .responsive-card__mobile-actions {
+            display: none;
+        }
+    }
+}

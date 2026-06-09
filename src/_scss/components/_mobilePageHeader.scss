@@ -1,0 +1,73 @@
+.mobile-page-header {
+    background: #fff;
+    border-bottom: 1px solid #dee2e6;
+    padding: $global-spacing-unit * 2 $site-margins;
+
+    @include mobile-only {
+        padding: $global-spacing-unit * 1.5 $site-margins-mobile;
+    }
+
+    &--sticky {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    &__inner {
+        display: flex;
+        align-items: center;
+        gap: $global-spacing-unit * 2;
+        max-width: $site-max-width;
+        margin: 0 auto;
+    }
+
+    &__back {
+        @include touch-target;
+        background: none;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: $global-spacing-unit;
+        margin-left: -$global-spacing-unit;
+        
+        &:hover {
+            background: #f8f9fa;
+            border-radius: 0.25rem;
+        }
+    }
+
+    &__back-icon {
+        font-size: 1.5rem;
+        line-height: 1;
+    }
+
+    &__content {
+        flex: 1;
+        min-width: 0;
+    }
+
+    &__title {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #212529;
+        
+        @include mobile-only {
+            font-size: 1.25rem;
+        }
+    }
+
+    &__subtitle {
+        margin: $global-spacing-unit 0 0;
+        font-size: 0.875rem;
+        color: #6c757d;
+    }
+
+    &__actions {
+        display: flex;
+        gap: $global-spacing-unit;
+        flex-shrink: 0;
+    }
+}

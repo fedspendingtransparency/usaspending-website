@@ -1,0 +1,101 @@
+.mobile-filter-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 85%;
+    max-width: 400px;
+    background: #fff;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    box-shadow: -2px 0 8px rgba(0, 0, 0, 0.15);
+
+    &--open {
+        transform: translateX(0);
+    }
+
+    &__overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+        &--open {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+    &__header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: $global-spacing-unit * 2 $site-margins-mobile;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    &__title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+    }
+
+    &__close {
+        @include touch-target;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        padding: $global-spacing-unit;
+        margin-right: -$global-spacing-unit;
+    }
+
+    &__content {
+        flex: 1;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        padding: $global-spacing-unit * 2 $site-margins-mobile;
+    }
+
+    &__footer {
+        display: flex;
+        gap: $global-spacing-unit;
+        padding: $global-spacing-unit * 2 $site-margins-mobile;
+        border-top: 1px solid #dee2e6;
+        @include safe-area-insets(padding, 0, 0, $global-spacing-unit * 2, 0);
+    }
+
+    &__button {
+        @include touch-target;
+        flex: 1;
+        border: none;
+        border-radius: 0.25rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.15s;
+
+        &--primary {
+            background: #0071bc;
+            color: #fff;
+
+            &:active {
+                background: #005a94;
+            }
+        }
+
+        &--secondary {
+            background: #f1f3f5;
+            color: #495057;
+
+            &:active {
+                background: #dee2e6;
+            }
+        }
+    }
+}

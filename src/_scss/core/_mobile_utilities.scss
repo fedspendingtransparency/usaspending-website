@@ -1,0 +1,198 @@
+// src/_scss/core/_mobile_utilities.scss
+// Mobile-specific utility classes for responsive design
+
+// Display utilities
+.mobile-only {
+    @include tablet-and-up {
+        display: none !important;
+    }
+}
+
+.tablet-and-up {
+    @include mobile-only {
+        display: none !important;
+    }
+}
+
+.desktop-only {
+    @include mobile-only {
+        display: none !important;
+    }
+    @include tablet-only {
+        display: none !important;
+    }
+}
+
+// Touch target sizing
+.touch-target {
+    @include touch-target;
+}
+
+// Button touch targets
+button,
+.button,
+a.button,
+[role="button"] {
+    @include mobile-only {
+        @include touch-target;
+    }
+}
+
+// Mobile text alignment
+.text-center-mobile {
+    @include mobile-only {
+        text-align: center !important;
+    }
+}
+
+.text-left-mobile {
+    @include mobile-only {
+        text-align: left !important;
+    }
+}
+
+.text-right-mobile {
+    @include mobile-only {
+        text-align: right !important;
+    }
+}
+
+// Mobile spacing utilities - Margin Top
+.mt-mobile-0 { @include mobile-only { margin-top: 0 !important; } }
+.mt-mobile-1 { @include mobile-only { margin-top: $global-spacing-unit !important; } }
+.mt-mobile-2 { @include mobile-only { margin-top: $global-spacing-unit * 2 !important; } }
+.mt-mobile-3 { @include mobile-only { margin-top: $global-spacing-unit * 3 !important; } }
+.mt-mobile-4 { @include mobile-only { margin-top: $global-spacing-unit * 4 !important; } }
+
+// Margin Bottom
+.mb-mobile-0 { @include mobile-only { margin-bottom: 0 !important; } }
+.mb-mobile-1 { @include mobile-only { margin-bottom: $global-spacing-unit !important; } }
+.mb-mobile-2 { @include mobile-only { margin-bottom: $global-spacing-unit * 2 !important; } }
+.mb-mobile-3 { @include mobile-only { margin-bottom: $global-spacing-unit * 3 !important; } }
+.mb-mobile-4 { @include mobile-only { margin-bottom: $global-spacing-unit * 4 !important; } }
+
+// Margin Horizontal
+.mx-mobile-0 {
+    @include mobile-only {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+    }
+}
+
+.mx-mobile-auto {
+    @include mobile-only {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+}
+
+// Padding Top
+.pt-mobile-0 { @include mobile-only { padding-top: 0 !important; } }
+.pt-mobile-1 { @include mobile-only { padding-top: $global-spacing-unit !important; } }
+.pt-mobile-2 { @include mobile-only { padding-top: $global-spacing-unit * 2 !important; } }
+.pt-mobile-3 { @include mobile-only { padding-top: $global-spacing-unit * 3 !important; } }
+.pt-mobile-4 { @include mobile-only { padding-top: $global-spacing-unit * 4 !important; } }
+
+// Padding Bottom
+.pb-mobile-0 { @include mobile-only { padding-bottom: 0 !important; } }
+.pb-mobile-1 { @include mobile-only { padding-bottom: $global-spacing-unit !important; } }
+.pb-mobile-2 { @include mobile-only { padding-bottom: $global-spacing-unit * 2 !important; } }
+.pb-mobile-3 { @include mobile-only { padding-bottom: $global-spacing-unit * 3 !important; } }
+.pb-mobile-4 { @include mobile-only { padding-bottom: $global-spacing-unit * 4 !important; } }
+
+// Padding Horizontal
+.px-mobile-0 {
+    @include mobile-only {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+}
+
+.px-mobile-1 {
+    @include mobile-only {
+        padding-left: $global-spacing-unit !important;
+        padding-right: $global-spacing-unit !important;
+    }
+}
+
+// Mobile width utilities
+.w-mobile-full {
+    @include mobile-only {
+        width: 100% !important;
+    }
+}
+
+.w-mobile-auto {
+    @include mobile-only {
+        width: auto !important;
+    }
+}
+
+// Mobile flex utilities
+.flex-mobile-column {
+    @include mobile-only {
+        flex-direction: column !important;
+    }
+}
+
+.flex-mobile-row {
+    @include mobile-only {
+        flex-direction: row !important;
+    }
+}
+
+.flex-mobile-wrap {
+    @include mobile-only {
+        flex-wrap: wrap !important;
+    }
+}
+
+// Mobile overflow
+.overflow-mobile-auto {
+    @include mobile-only {
+        overflow: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+.overflow-mobile-hidden {
+    @include mobile-only {
+        overflow: hidden !important;
+    }
+}
+
+// Mobile font sizes
+.text-mobile-sm {
+    @include mobile-only {
+        font-size: 0.875rem !important; // 14px
+    }
+}
+
+.text-mobile-md {
+    @include mobile-only {
+        font-size: 1rem !important; // 16px
+    }
+}
+
+.text-mobile-lg {
+    @include mobile-only {
+        font-size: 1.125rem !important; // 18px
+    }
+}
+
+// Prevent text selection (useful for interactive components)
+.no-select-mobile {
+    @include mobile-only {
+        user-select: none;
+        -webkit-user-select: none;
+    }
+}
+
+// Mobile position utilities
+.sticky-mobile-top {
+    @include mobile-only {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+}

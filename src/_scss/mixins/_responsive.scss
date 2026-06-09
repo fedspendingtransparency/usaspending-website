@@ -1,0 +1,137 @@
+// src/_scss/mixins/_responsive.scss
+// Mobile-first media query mixins for responsive design
+// Usage: @include mobile-only { styles }
+
+// Mobile only (< 768px)
+@mixin mobile-only {
+    @media (max-width: #{$tablet-screen - 1}) {
+        @content;
+    }
+}
+
+// Tablet and up (>= 768px)
+@mixin tablet-and-up {
+    @media (min-width: $tablet-screen) {
+        @content;
+    }
+}
+
+// Tablet only (768px - 991px)
+@mixin tablet-only {
+    @media (min-width: $tablet-screen) and (max-width: #{$medium-screen - 1}) {
+        @content;
+    }
+}
+
+// Desktop and up (>= 992px)
+@mixin desktop-and-up {
+    @media (min-width: $medium-screen) {
+        @content;
+    }
+}
+
+// Large desktop and up (>= 1200px)
+@mixin large-desktop-and-up {
+    @media (min-width: $large-screen) {
+        @content;
+    }
+}
+
+// Extra large desktop and up (>= 1640px)
+@mixin xl-desktop-and-up {
+    @media (min-width: $x-large-screen) {
+        @content;
+    }
+}
+
+// Touch device detection (for hover states)
+@mixin touch-device {
+    @media (hover: none) and (pointer: coarse) {
+        @content;
+    }
+}
+
+// Non-touch device (mouse/trackpad)
+@mixin pointer-device {
+    @media (hover: hover) and (pointer: fine) {
+        @content;
+    }
+}
+
+// Orientation queries
+@mixin landscape {
+    @media (orientation: landscape) {
+        @content;
+    }
+}
+
+@mixin portrait {
+    @media (orientation: portrait) {
+        @content;
+    }
+}
+
+// Container with responsive padding
+@mixin mobile-container {
+    padding-left: $site-margins-mobile;
+    padding-right: $site-margins-mobile;
+
+    @include tablet-and-up {
+        padding-left: $site-margins;
+        padding-right: $site-margins;
+    }
+}
+
+// Responsive typography helper
+@mixin responsive-font($mobile-size, $desktop-size, $tablet-size: null) {
+    font-size: $mobile-size;
+
+    @if $tablet-size {
+        @include tablet-and-up {
+            font-size: $tablet-size;
+        }
+    }
+
+    @include desktop-and-up {
+        font-size: $desktop-size;
+    }
+}
+
+// Visibility helpers
+@mixin hide-on-mobile {
+    @include mobile-only {
+        display: none !important;
+    }
+}
+
+@mixin show-on-mobile-only {
+    @include tablet-and-up {
+        display: none !important;
+    }
+}
+
+@mixin hide-on-desktop {
+    @include desktop-and-up {
+        display: none !important;
+    }
+}
+
+// Touch target helper (44x44px minimum)
+@mixin touch-target {
+    min-height: $hit-area;
+    min-width: $hit-area;
+    
+    @include touch-device {
+        // Slightly larger on actual touch devices
+        min-height: calc(#{$hit-area} + 0.4rem);
+        min-width: calc(#{$hit-area} + 0.4rem);
+    }
+}
+
+// Safe area insets for notched devices (iPhone X+)
+@mixin safe-area-insets($property: padding, $top: 0, $right: 0, $bottom: 0, $left: 0) {
+    #{$property}-top: max(#{$top}, env(safe-area-inset-top));
+    #{$property}-right: max(#{$right}, env(safe-area-inset-right));
+    #{$property}-bottom: max(#{$bottom}, env(safe-area-inset-bottom));
+    #{$property}-left: max(#{$left}, env(safe-area-inset-left));
+}

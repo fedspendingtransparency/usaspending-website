@@ -1,0 +1,237 @@
+// src/_scss/core/_grid.scss
+// Mobile-first flexbox grid system
+// Compatible with existing Bourbon Neat but provides modern flex alternative
+
+// Container
+.grid-container {
+    width: 100%;
+    max-width: $site-max-width;
+    margin: 0 auto;
+    @include mobile-container;
+}
+
+// Homepage specific container
+.grid-container--homepage {
+    max-width: $homepage-max-width;
+}
+
+// Full width container (no max-width)
+.grid-container--fluid {
+    max-width: none;
+}
+
+// Row
+.grid-row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: -$global-spacing-unit;
+    margin-right: -$global-spacing-unit;
+}
+
+// Column base
+.grid-col {
+    flex: 1 0 0%;
+    padding-left: $global-spacing-unit;
+    padding-right: $global-spacing-unit;
+}
+
+// Auto-width columns
+.grid-col--auto {
+    flex: 0 0 auto;
+    width: auto;
+}
+
+// Mobile: stack columns by default
+@include mobile-only {
+    .grid-col {
+        flex-basis: 100%;
+        max-width: 100%;
+    }
+    
+    // Unless explicitly told not to
+    .grid-col--no-stack-mobile {
+        flex-basis: auto;
+        max-width: none;
+    }
+}
+
+// Column widths (1-12)
+@for $i from 1 through 12 {
+    .grid-col-#{$i} {
+        flex: 0 0 auto;
+        width: percentage($i / 12);
+        padding-left: $global-spacing-unit;
+        padding-right: $global-spacing-unit;
+    }
+
+    // Mobile override: full width
+    @include mobile-only {
+        .grid-col-#{$i} {
+            width: 100%;
+        }
+    }
+
+    // Tablet-specific widths
+    .grid-col-tablet-#{$i} {
+        @include tablet-and-up {
+            flex: 0 0 auto;
+            width: percentage($i / 12);
+        }
+    }
+
+    // Desktop-specific widths
+    .grid-col-desktop-#{$i} {
+        @include desktop-and-up {
+            flex: 0 0 auto;
+            width: percentage($i / 12);
+        }
+    }
+    
+    // Large desktop widths
+    .grid-col-lg-#{$i} {
+        @include large-desktop-and-up {
+            flex: 0 0 auto;
+            width: percentage($i / 12);
+        }
+    }
+}
+
+// Gap utilities
+.grid-gap-none {
+    gap: 0;
+}
+
+.grid-gap-sm {
+    gap: $global-spacing-unit;
+}
+
+.grid-gap-md {
+    gap: $global-spacing-unit * 2;
+}
+
+.grid-gap-lg {
+    gap: $global-spacing-unit * 3;
+}
+
+.grid-gap-xl {
+    gap: $global-spacing-unit * 4;
+}
+
+// Row gap only
+.grid-row-gap-sm {
+    row-gap: $global-spacing-unit;
+}
+
+.grid-row-gap-md {
+    row-gap: $global-spacing-unit * 2;
+}
+
+.grid-row-gap-lg {
+    row-gap: $global-spacing-unit * 3;
+}
+
+// Column gap only
+.grid-col-gap-sm {
+    column-gap: $global-spacing-unit;
+}
+
+.grid-col-gap-md {
+    column-gap: $global-spacing-unit * 2;
+}
+
+.grid-col-gap-lg {
+    column-gap: $global-spacing-unit * 3;
+}
+
+// Alignment utilities
+.grid-row--align-start {
+    align-items: flex-start;
+}
+
+.grid-row--align-center {
+    align-items: center;
+}
+
+.grid-row--align-end {
+    align-items: flex-end;
+}
+
+.grid-row--align-stretch {
+    align-items: stretch;
+}
+
+.grid-row--justify-start {
+    justify-content: flex-start;
+}
+
+.grid-row--justify-center {
+    justify-content: center;
+}
+
+.grid-row--justify-end {
+    justify-content: flex-end;
+}
+
+.grid-row--justify-between {
+    justify-content: space-between;
+}
+
+.grid-row--justify-around {
+    justify-content: space-around;
+}
+
+// No wrap
+.grid-row--no-wrap {
+    flex-wrap: nowrap;
+}
+
+// Reverse
+.grid-row--reverse {
+    flex-direction: row-reverse;
+}
+
+// Column direction
+.grid-row--column {
+    flex-direction: column;
+}
+
+// Individual column alignment
+.grid-col--align-self-start {
+    align-self: flex-start;
+}
+
+.grid-col--align-self-center {
+    align-self: center;
+}
+
+.grid-col--align-self-end {
+    align-self: flex-end;
+}
+
+.grid-col--align-self-stretch {
+    align-self: stretch;
+}
+
+// Order utilities
+@for $i from 0 through 12 {
+    .grid-col--order-#{$i} {
+        order: $i;
+    }
+}
+
+// Responsive order
+@include tablet-and-up {
+    @for $i from 0 through 12 {
+        .grid-col--order-tablet-#{$i} {
+            order: $i;
+        }
+    }
+}
+
+@include desktop-and-up {
+    @for $i from 0 through 12 {
+        .grid-col--order-desktop-#{$i} {
+            order: $i;
+        }
+    }
+}

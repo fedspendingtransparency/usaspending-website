@@ -1,7 +1,7 @@
 /**
- * AppContainer.jsx
- * Created by Emily Gullo 9/26/2016
- **/
+  AppContainer.jsx
+  Created by Emily Gullo 9/26/2016
+ */
 
 import React, { useEffect, Suspense } from 'react';
 import { createStore, applyMiddleware } from 'redux';
@@ -16,6 +16,7 @@ import reducers from 'redux/reducers/index';
 
 import { LoadingWrapper as Loading } from 'components/sharedComponents/Loading';
 import MobileMessage from 'components/sharedComponents/MobileMessage';
+import { IsMobileProvider } from 'context/IsMobileContext'; // ✅ FIXED IMPORT
 
 import '_global.scss';
 
@@ -53,30 +54,31 @@ const ScrollToTop = () => {
         window.scrollTo(0, 0);
     }, [pathname]);
 
-
     return null;
 };
 
 const AppContainer = () => (
     <Provider store={store}>
         <BrowserRouter>
-            <Suspense fallback={<Loading isLoading includeHeader includeFooter />}>
-                <ScrollToTop />
-                <Routes>
-                    {routes.filter((route) => !route.hide).map(({ path, component }) => {
-                        const Component = (routerProps) => WithUrlListener(component, routerProps);
-                        return (
-                            <Route
-                                caseSensitive
-                                path={path}
-                                element={<Component />}
-                                key={path} />
-                        );
-                    }
-                    )}
-                </Routes>
-                {window.outerWidth < 768 && <MobileMessage />}
-            </Suspense>
+            <IsMobileProvider>
+                <Suspense fallback={<Loading isLoading includeHeader includeFooter />}>
+                    <ScrollToTop />
+                    <Routes>
+                        {routes.filter((route) => !route.hide).map(({ path, component }) => {
+                            const Component = (routerProps) => WithUrlListener(component, routerProps);
+                            return (
+                                <Route
+                                    caseSensitive
+                                    path={path}
+                                    element={<Component />}
+                                    key={path} />
+                            );
+                        }
+                        )}
+                    </Routes>
+                    {window.outerWidth < 768 && <MobileMessage />}
+                </Suspense>
+            </IsMobileProvider>
         </BrowserRouter>
     </Provider>
 );
