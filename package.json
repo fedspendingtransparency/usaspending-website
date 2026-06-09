@@ -248,6 +248,7 @@
     "**/sorcery": "1.0.0",
     "**/eventsource": "3.0.5",
     "**/shell-quote": "1.8.4",
+     "*/shell-quote": "1.8.4",
     "*/@babel/helpers": "7.27.0",
     "tar-fs": "3.1.2",
     "**/tar-fs": "3.1.2",
