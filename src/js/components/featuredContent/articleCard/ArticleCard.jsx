@@ -40,19 +40,7 @@ const ArticleCard = ({
         }
     }, [isIntersecting, title]);
 
-    let changedTitle;
-    let overline;
-
-    const titleIndex = title.indexOf(":");
-
-    if (titleIndex > 0 && (titleIndex + 2) < title.length) {
-        changedTitle = title.substring(titleIndex + 2);
-        overline = title.substring(0, titleIndex);
-    }
-    else {
-        changedTitle = title;
-        overline = taxonomy.toUpperCase();
-    }
+    const overline = taxonomy.toUpperCase();
 
     return (
         <div ref={ref}>
@@ -65,7 +53,7 @@ const ArticleCard = ({
                     onKeyUp={onKeyUp}>
                     <ArticleThumbnail
                         thumbnailUrl={thumbnailUrl}
-                        title={changedTitle} />
+                        title={title} />
                 </CardHero>
                 <CardBody
                     overline={overline}
@@ -73,7 +61,7 @@ const ArticleCard = ({
                         <div>
                             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                             <div className="article-card__headline" onClick={onClick} >
-                                {changedTitle}
+                                {title}
                             </div>
                         </div>
                     }

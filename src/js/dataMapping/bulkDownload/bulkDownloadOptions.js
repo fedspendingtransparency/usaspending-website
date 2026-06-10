@@ -2,6 +2,7 @@
  * bulkDownloadOptions.js
  * Created by Lizzie Salita 11/1/17
  */
+import {awardTypeGroups, bulkDownloadAwardTypeGroups} from "../search/awardType";
 
 const dayjs = require('dayjs');
 
@@ -34,31 +35,31 @@ export const awardDownloadOptions = {
     awardTypeLookups: {
         contracts: {
             label: 'Contracts',
-            apiValues: ['A', 'B', 'C', 'D']
+            apiValues: bulkDownloadAwardTypeGroups.contracts
         },
         direct_payments: {
             label: 'Direct Payments',
-            apiValues: ['10', '06']
+            apiValues: bulkDownloadAwardTypeGroups.direct_payments
         },
         grants: {
             label: 'Grants',
-            apiValues: ['02', '03', '04', '05']
+            apiValues: bulkDownloadAwardTypeGroups.grants
         },
         idvs: {
             label: 'Contract IDVs',
-            apiValues: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E']
+            apiValues: bulkDownloadAwardTypeGroups.idvs
         },
         loans: {
             label: 'Loans',
-            apiValues: ['07', '08']
+            apiValues: bulkDownloadAwardTypeGroups.loans
         },
         insurance: {
             label: 'Insurance',
-            apiValues: ['09']
+            apiValues: bulkDownloadAwardTypeGroups.insurance
         },
         other: {
             label: 'Other Financial Assistance',
-            apiValues: ['11']
+            apiValues: bulkDownloadAwardTypeGroups.other
         },
         sub_grants: {
             label: 'Sub-Grants',
@@ -102,13 +103,15 @@ export const awardDownloadOptions = {
             name: 'recipient_location',
             label: 'Recipient Location',
             apiName: 'recipient_locations',
-            apiScopeName: 'recipient_scope'
+            apiScopeName: 'recipient_scope',
+            description: "Legal business address of the recipient"
         },
         {
             name: 'place_of_performance',
             label: 'Place of Performance',
             apiName: 'place_of_performance_locations',
-            apiScopeName: 'place_of_performance_scope'
+            apiScopeName: 'place_of_performance_scope',
+            description: "Principal place of business, where the majority of the work is performed"
         }
     ],
     fileFormats: [
@@ -128,62 +131,70 @@ export const awardDownloadOptions = {
             disabled: false
         }
     ],
-    dateRangeButtons: {
-        column3: [
-            {
-                label: 'yesterday',
-                startDate: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
-                endDate: dayjs().subtract(1, 'day').format('YYYY-MM-DD')
-            },
-            {
-                label: 'last 7 days',
-                startDate: dayjs().subtract(1, 'week').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'last 15 days',
-                startDate: dayjs().subtract(15, 'day').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'last 30 days',
-                startDate: dayjs().subtract(30, 'day').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'last 60 days',
-                startDate: dayjs().subtract(60, 'day').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            }
-        ],
-        column4: [
-            {
-                label: 'this month',
-                startDate: dayjs().startOf('month').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'last 3 months',
-                startDate: dayjs().subtract(3, 'month').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'last 6 months',
-                startDate: dayjs().subtract(6, 'month').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'this year',
-                startDate: dayjs().startOf('year').format('YYYY-MM-DD'),
-                endDate: dayjs().format('YYYY-MM-DD')
-            },
-            {
-                label: 'last year',
-                startDate: dayjs().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
-                endDate: dayjs().subtract(1, 'year').endOf('year').format('YYYY-MM-DD')
-            }
-        ]
-    }
+    timePeriodTypes: [
+        {
+            name: 'time_period',
+            label: 'Time Period',
+            description: 'Pre-selected periods of time, including government fiscal year (FY)'
+        },
+        {
+            name: 'date_picker',
+            label: 'Date Picker',
+            description: 'Date ranges may span up to one year'
+        }
+    ],
+    dateRangeButtons: [
+        {
+            label: 'yesterday',
+            startDate: dayjs().subtract(1, 'day').format('YYYY-MM-DD'),
+            endDate: dayjs().subtract(1, 'day').format('YYYY-MM-DD')
+        },
+        {
+            label: 'last 7 days',
+            startDate: dayjs().subtract(1, 'week').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'last 15 days',
+            startDate: dayjs().subtract(15, 'day').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'last 30 days',
+            startDate: dayjs().subtract(30, 'day').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'last 60 days',
+            startDate: dayjs().subtract(60, 'day').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'this month',
+            startDate: dayjs().startOf('month').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'last 3 months',
+            startDate: dayjs().subtract(3, 'month').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'last 6 months',
+            startDate: dayjs().subtract(6, 'month').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'this year',
+            startDate: dayjs().startOf('year').format('YYYY-MM-DD'),
+            endDate: dayjs().format('YYYY-MM-DD')
+        },
+        {
+            label: 'last year',
+            startDate: dayjs().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
+            endDate: dayjs().subtract(1, 'year').endOf('year').format('YYYY-MM-DD')
+        }
+    ]
 };
 
 export const accountDownloadOptions = {

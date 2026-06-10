@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
+
 import { renderWithoutRouter, waitFor } from 'test-utils';
 import { Route, Routes, MemoryRouter } from 'react-router';
 import * as reactRedux from 'react-redux';
@@ -26,6 +26,7 @@ let spy;
 const mockDispatch = jest.fn();
 
 beforeAll(() => {
+    // eslint-disable-next-line no-import-assign
     reactRedux.useDispatch = jest.fn().mockImplementation(() => mockDispatch);
 });
 
@@ -60,7 +61,7 @@ test('an API request is made for the agency code mapped to the slug in the URL',
     };
     spy = jest.spyOn(agency, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
 
-    /* eslint-disable function-paren-newline */
+
     renderWithoutRouter(
         <MemoryRouter initialEntries={['/agency/department-of-sandwiches']}>
             <Routes>
@@ -70,7 +71,7 @@ test('an API request is made for the agency code mapped to the slug in the URL',
             </Routes>
         </MemoryRouter>
     );
-    /* eslint-enable function-paren-newline */
+
 
     return waitFor(async () => {
         // TODO: update expected FY param when picker is fixed
@@ -80,7 +81,7 @@ test('an API request is made for the agency code mapped to the slug in the URL',
 });
 
 xtest('reset agency is called when the agency slug in the URL changes', () => {
-    /* eslint-disable function-paren-newline */
+
     const { rerender } = renderWithoutRouter(
         <MemoryRouter initialEntries={['/agency/department-of-sandwiches', '/agency/ministry-of-magic']}>
             <Routes>
@@ -90,11 +91,11 @@ xtest('reset agency is called when the agency slug in the URL changes', () => {
             </Routes>
         </MemoryRouter>
     );
-    /* eslint-enable function-paren-newline */
+
 
     expect(mockDispatch).not.toHaveBeenCalled();
 
-    /* eslint-disable function-paren-newline */
+
     rerender(
         <MemoryRouter initialEntries={['/agency/ministry-of-magic']}>
             <Routes>
@@ -104,13 +105,13 @@ xtest('reset agency is called when the agency slug in the URL changes', () => {
             </Routes>
         </MemoryRouter>
     );
-    /* eslint-enable function-paren-newline */
+
 
     expect(mockDispatch).toHaveBeenCalledWith({ type: 'RESET_AGENCY' });
 });
 
 test('reset agency is called on unmount', () => {
-    /* eslint-disable function-paren-newline */
+
     const { unmount } = renderWithoutRouter(
         <MemoryRouter initialEntries={['/agency/department-of-sandwiches']}>
             <Routes>
@@ -120,7 +121,7 @@ test('reset agency is called on unmount', () => {
             </Routes>
         </MemoryRouter>
     );
-    /* eslint-enable function-paren-newline */
+
     unmount();
     expect(mockDispatch).toHaveBeenLastCalledWith({ type: 'RESET_AGENCY' });
 });
