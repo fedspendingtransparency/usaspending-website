@@ -1,5 +1,5 @@
 const axios = require('axios');
-const axios = require('https');
+const https = require('https');
 
 const pages = require('./pages');
 
