@@ -1,4 +1,6 @@
 const axios = require('axios');
+const axios = require('https');
+
 const pages = require('./pages');
 
 const fs = require('fs');
