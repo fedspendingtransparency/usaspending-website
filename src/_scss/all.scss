@@ -1,6 +1,6 @@
 // Vendor -------------- //
 $output-bourbon-deprecation-warnings: false !default;
-@import "~data-transparency-ui/dist/data-transparency-ui.css";
+@import "../../node_modules/data-transparency-ui/dist/data-transparency-ui.css";
 @import "bourbon/app/assets/stylesheets/_bourbon";
 @import "bourbon-neat/core/_neat";
 @import "lib/normalize";
