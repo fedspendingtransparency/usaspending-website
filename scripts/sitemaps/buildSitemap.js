@@ -16,10 +16,15 @@ const xmlEnd = `</urlset>`;
 const indexedSitemapXmlEnd = `</sitemapindex>`;
 const forbiddenChars = ['&', "'", '"', '<', '>'];
 
-const agent = (process.env.NPC) ?
-    new httpsAgent({
+const agent = (process.env.PROXY_HOST && process.env.PROXY_PORT) ?
+    tunnel.httpsOverHttp({
+        proxy: {
+            host: process.env.PROXY_HOST,
+            port: process.env.PROXY_PORT
+        }
+    }) : new httpsAgent({
         rejectUnauthorized: false
-    }) : null;
+    });
 
 /**
  * @param {string} xml string of xml, previous xml entries from current sitemap
