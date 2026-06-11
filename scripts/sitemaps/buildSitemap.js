@@ -22,7 +22,9 @@ const agent = (process.env.PROXY_HOST && process.env.PROXY_PORT) ?
             host: process.env.PROXY_HOST,
             port: process.env.PROXY_PORT
         }
-    }) : null;
+    }) : new https.Agent({
+        rejectUnauthorized: false
+    });
 
 /**
  * @param {string} xml string of xml, previous xml entries from current sitemap
