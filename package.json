@@ -126,6 +126,7 @@
     "zod": "4.4.3"
   },
   "resolutions": {
+    "shell-quote": "1.8.4",
     "node-forge": "1.4.0",
     "flatted": "3.4.2",
     "serve-static": "1.16.0",
@@ -248,7 +249,7 @@
     "**/sorcery": "1.0.0",
     "**/eventsource": "3.0.5",
     "**/shell-quote": "1.8.4",
-     "*/shell-quote": "1.8.4",
+    "*/shell-quote": "1.8.4",
     "*/@babel/helpers": "7.27.0",
     "tar-fs": "3.1.2",
     "**/tar-fs": "3.1.2",
