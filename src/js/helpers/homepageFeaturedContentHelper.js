@@ -11,9 +11,9 @@ const partition = (array, isValid) => array.reduce(
 const fallbackMarketingArticle = {
     title: "Exploring America's Finances Has Never Been Easier",
     fill: '#1b2b85',
-    thumbnail_path: "../../img/featuredContent/thumbnails/exploring-americas-finances-has-never-been-easier-thumbnail.webp",
+    thumbnail_path: "../../img/featuredContent/thumbnails/exploring-americas-finances-thumbnail.webp",
     taxonomy: "Exploring America's Finances",
-    slug: "exploring-americas-finances-has-never-been-easier"
+    slug: "exploring-americas-finances"
 };
 
 const fallbackOtherArticle = {
@@ -96,7 +96,7 @@ const getCurrentArticles = (otherArticleCadence, dayOneString = '11/13/2025') =>
                 return {
                     url: `/featured-content/${
                         transformString(article.taxonomy)
-                    }/${transformString(article.title)}`,
+                    }/${article.slug}`,
                     overline: article.taxonomy.toUpperCase(),
                     ...article
                 };
