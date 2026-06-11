@@ -22,7 +22,7 @@ const agent = (process.env.PROXY_HOST && process.env.PROXY_PORT) ?
             host: process.env.PROXY_HOST,
             port: process.env.PROXY_PORT
         }
-    }) : new httpsAgent({
+    }) : new https.Agent({
         rejectUnauthorized: false
     });
 
