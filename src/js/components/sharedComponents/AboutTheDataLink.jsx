@@ -33,12 +33,12 @@ const AboutTheDataLink = ({ slug, children }) => {
     // there is already a search query
     if (search && !search.includes('about-the-data')) {
         // url with original search &about-the-data={term}
-        newUrl = `${pathname}${search}&about-the-data=${entry.slug}`;
+        newUrl = `${pathname}${search}`;
     }
     else {
         // url with search term as query
         newUrl = getNewUrlForGlossary(
-            pathname, `?about-the-data=${entry.slug}`, urlSearchParam
+            pathname, urlSearchParam
         );
     }
 
