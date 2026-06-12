@@ -9,7 +9,7 @@ const partition = (array, isValid) => array.reduce(
 );
 
 const fallbackMarketingArticle = {
-    title: "Exploring America's Finances Has Never Been Easier",
+    title: "Exploring America's Finances",
     fill: '#1b2b85',
     thumbnail_path: "../../img/featuredContent/thumbnails/exploring-americas-finances-thumbnail.webp",
     taxonomy: "Exploring America's Finances",
