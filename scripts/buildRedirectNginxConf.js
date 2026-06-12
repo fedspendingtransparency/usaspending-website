@@ -68,10 +68,10 @@ const renderNginxConf = (legacy, states, agencies) => {
         '',
         '# --- State FIPS → slug redirects ---',
         // prefix match (^~) — catches /state/01 and /state/01/anything
-        ...states.map(([src, dst]) => `    location ^~ ${src} { return 301 ${dst}; }`),
+        ...states.map(([src, dst]) => `    location = ${src} { return 301 ${dst}; }`),
         '',
         '# --- Agency ID → slug redirects ---',
-        ...agencies.map(([src, dst]) => `    location ^~ ${src} { return 301 ${dst}; }`),
+        ...agencies.map(([src, dst]) => `    location = ${src} { return 301 ${dst}; }`),
         '',
     ];
 
