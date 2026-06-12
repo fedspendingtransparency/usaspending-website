@@ -99,7 +99,7 @@ const getCurrentArticles = (otherArticleCadence, dayOneString = publishedDate) =
                 return {
                     url: `/featured-content/${
                         transformString(article.taxonomy)
-                    }/${article.slug}`,
+                    }/${transformString(article.title)}`,
                     overline: article.taxonomy.toUpperCase(),
                     ...article
                 };
