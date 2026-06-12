@@ -68,12 +68,20 @@ const AccordionCheckbox = ({
     };
 
     useEffect(() => {
-        if (isExpanded) {
+        if (isDisabled && expandedCategories?.length) {
+            // have to check expandeCategories instead of isExpanded.
+            // isExpanded might not be known by parent
+            // collapse expandedCategories
+            expandedCategories.forEach((ec) => toggleExpanded({id: ec}));
+
+        }
+        else if (isExpanded) {
             const category = filterCategoryMapping.find((item) => item.id === selectedCategory);
             toggleExpanded(category);
         }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filterCategoryMapping, isExpanded, selectedCategory]);
+    }, [filterCategoryMapping, isExpanded, selectedCategory, isDisabled]);
 
     const handleTextInputChange = (e) => {
         setSearchString(e.target.value);
