@@ -22,6 +22,7 @@ import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardData
 import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import AwardsUserSelections from './awards/AwardsUserSelections';
 import AccountUserSelections from './accounts/AccountUserSelections';
+import AwardDataArchiveUserSelections from "./archive/AwardDataArchiveUserSelections";
 
 const propTypes = {
     dataType: PropTypes.string,
@@ -73,7 +74,10 @@ const BulkDownloadPage = ({
     let userSelections;
 
     switch (dataType) {
-        case 'award_data_archive': downloadDataContent = (<AwardDataArchiveContainer />); break;
+        case 'award_data_archive':
+            downloadDataContent = (<AwardDataArchiveContainer />);
+            userSelections = (<AwardDataArchiveUserSelections />);
+            break;
         case 'accounts':
             downloadDataContent = (<AccountDataContainer clickedDownload={clickedDownload} />);
             userSelections = (<AccountUserSelections />);
@@ -99,17 +103,11 @@ const BulkDownloadPage = ({
                     <FlexGridCol
                         width={isTablet || !userSelections ? 12 : 8}
                         className="bulk-download">
-                        <div className="bulk-download__data">
-                            {downloadDataContent}
-                        </div>
-                        <BulkDownloadModalContainer
-                            mounted={showModal}
-                            hideModal={hideModal} />
+                        <div className="bulk-download__data">{downloadDataContent}</div>
+                        <BulkDownloadModalContainer mounted={showModal} hideModal={hideModal} />
                     </FlexGridCol>
                     { userSelections && !isTablet &&
-                        <FlexGridCol width={4} >
-                            {userSelections}
-                        </FlexGridCol>
+                        <FlexGridCol width={4} >{userSelections}</FlexGridCol>
                     }
                 </FlexGridRow>
             </main>
