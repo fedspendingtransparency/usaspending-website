@@ -19,6 +19,7 @@
     "lhci:desktop": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci --config=./lighthousercdesktop.js autorun --chrome-flags=\"--headless\"",
     "lhci:mobile": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci autorun --config=./lighthouserc.js --chrome-flags=\"--headless\";",
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
+    "build-nginx-redirect-config": "npx babel-node scripts/buildRedirectNginxConf.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build -c .storybook -o docs",
     "build-sb-artifacts": "npm run prod && npm run build-storybook",
