@@ -47,7 +47,7 @@ describe('getCurrentArticles', () => {
         expect(fill).toBe('#1b2b85');
         expect(thumbnailPath).toBe('../../img/featuredContent/thumbnails/exploring-americas-finances-thumbnail.webp');
         expect(taxonomy).toBe('Exploring America\'s Finances');
-        expect(title).toBe('Exploring America\'s Finances Has Never Been Easier');
+        expect(title).toBe('Exploring America\'s Finances');
 
         const {
             url: urlOther,
