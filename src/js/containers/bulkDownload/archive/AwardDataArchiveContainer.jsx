@@ -4,9 +4,10 @@
  */
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
-import { requestAgenciesList, requestArchiveFiles } from 'helpers/bulkDownloadHelper';
+import { requestArchiveFiles } from 'helpers/bulkDownloadHelper';
 import { currentFiscalYear} from 'helpers/fiscalYearHelper';
 import AwardDataArchiveContent from 'components/bulkDownload/archive/AwardDataArchiveContent';
+import useRequestAgenciesList from "hooks/useRequestAgenciesList";
 
 const dayjs = require('dayjs');
 
@@ -32,38 +33,19 @@ const columns = [
 ];
 
 const AwardDataArchiveContainer = () => {
-    const [agencies, setAgencies] = useState({ cfoAgencies: [], otherAgencies: [] });
     const [results, setResults] = useState([]);
     const [filters, setFilters] = useState({
         agency: { id: 'all', name: 'All' },
         type: { name: 'contracts', display: 'Contracts' },
         fy: `${currentFY}`
     });
-
-    const agencyListRequest = useRef(null);
+    const { data } = useRequestAgenciesList("award_agencies");
     const resultsRequest = useRef(null);
 
-    const requestAgencyList = useCallback(() => {
-        if (agencyListRequest.current) agencyListRequest.current.cancel();
-
-        // perform the API request
-        agencyListRequest.current = requestAgenciesList({
-            type: "award_agencies",
-            agency: 0
-        });
-
-        agencyListRequest.current.promise
-            .then((res) => {
-                const cfoAgencies = res.data.agencies.cfo_agencies;
-                const otherAgencies = res.data.agencies.other_agencies;
-
-                setAgencies({ cfoAgencies, otherAgencies });
-            })
-            .catch((err) => {
-                console.log(err);
-                agencyListRequest.current = null;
-            });
-    }, []);
+    const agencies = {
+        cfoAgencies: data?.data.agencies.cfo_agencies || [],
+        otherAgencies: data?.data.agencies.other_agencies || []
+    };
 
     const updateFilter = (name, value) => setFilters(
         (prevState) => ({ ...prevState, [name]: value })
@@ -124,9 +106,8 @@ const AwardDataArchiveContainer = () => {
     }, [filters.agency.id, filters.fy, filters.type.name]);
 
     useEffect(() => {
-        requestAgencyList();
         requestResults();
-    }, [requestAgencyList, requestResults]);
+    }, [requestResults]);
 
     return (
         <AwardDataArchiveContent
