@@ -1,6 +1,9 @@
 import articles from "../../config/featuredContent/featuredContentMetadata";
 import { transformString } from "./featuredContent/featuredContentHelper";
 
+const publishedSprint = 211;
+const publishedDate = '11/13/2025';
+
 // TODO: move partition to a more general helper file
 const partition = (array, isValid) => array.reduce(
     ([pass, fail], elem) => (isValid(elem) ?
@@ -9,7 +12,7 @@ const partition = (array, isValid) => array.reduce(
 );
 
 const fallbackMarketingArticle = {
-    title: "Exploring America's Finances Has Never Been Easier",
+    title: "Exploring America's Finances",
     fill: '#1b2b85',
     thumbnail_path: "../../img/featuredContent/thumbnails/exploring-americas-finances-thumbnail.webp",
     taxonomy: "Exploring America's Finances",
@@ -50,20 +53,20 @@ const getOtherArticle = (otherArticleCadence, otherArticles, featureWeekNum, fea
  * @param dayOneString - determines the start date for the date calculations, new sprints start on Thursdays
  * @returns {[(*&{url: string, title: *, overline: *})|(*&{url: string, overline: *})|*|{title: string, fill: string, thumbnail_path: string, taxonomy: string},(*&{url: string, title: *, overline: *})|(*&{url: string, overline: *})|*|{title: string, fill: string, thumbnail_path: string, taxonomy: string}]}
  */
-const getCurrentArticles = (otherArticleCadence, dayOneString = '11/13/2025') => {
+const getCurrentArticles = (otherArticleCadence, dayOneString = publishedDate) => {
     /* eslint-enable max-len */
     // get the sprint number and week number from today's date and start date
     const today = new Date();
     const dayOne = new Date(dayOneString);
     const weekDifference = (today - dayOne) > 0 ?
-        Math.ceil(((today - dayOne) / 604800000)) :
-        1;
+        Math.ceil(((today - dayOne) / 604800000)) :  1;
+
     const featureSprintNum = weekDifference > 0 ? Math.ceil(weekDifference / 3) : 1;
     const featureWeekNum = weekDifference - ((featureSprintNum - 1) * 3);
 
     // get the current sprint's articles and partition based on content_type === 'Marketing'
     const currentArticles = articles
-        .filter((article) => article.feature_sprint === featureSprintNum);
+        .filter((article) => article.feature_sprint - publishedSprint === featureSprintNum);
     const [marketingArticles, otherArticles] = partition(
         currentArticles,
         (article) => article.content_type === 'Marketing'
