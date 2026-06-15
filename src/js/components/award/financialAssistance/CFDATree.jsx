@@ -9,11 +9,11 @@ import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
 import { remove } from 'lodash-es';
 
-import Note from 'components/sharedComponents/Note';
-import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-import TreemapCell from 'components/sharedComponents/TreemapCell';
-import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
+import Note from '../../../components/sharedComponents/Note';
+import { measureTreemapHeader, measureTreemapValue } from '../../../helpers/textMeasurement';
+import * as MoneyFormatter from '../../../helpers/moneyFormatter';
+import TreemapCell from '../../../components/sharedComponents/TreemapCell';
+import NoResultsMessage from '../../../components/sharedComponents/NoResultsMessage';
 
 const propTypes = {
     data: PropTypes.array,

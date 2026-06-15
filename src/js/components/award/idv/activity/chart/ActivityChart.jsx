@@ -10,10 +10,10 @@ import { scaleLinear } from 'd3-scale';
 
 import { calculatePercentage } from '../../../../../helpers/moneyFormatter';
 import { nearestQuarterDate } from '../../../../../helpers/fiscalYearHelper';
-import RectanglePattern from 'components/sharedComponents/patterns/RectanglePattern';
-import SVGLine from 'components/sharedComponents/SVGLine';
-import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
-import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
+import RectanglePattern from '../../../../../components/sharedComponents/patterns/RectanglePattern';
+import SVGLine from '../../../../../components/sharedComponents/SVGLine';
+import ActivityXAxis from '../../../../../components/award/shared/activity/ActivityXAxis';
+import ActivityYAxis from '../../../../../components/award/shared/activity/ActivityYAxis';
 import ActivityChartBar from './ActivityChartBar';
 
 const propTypes = {

@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 import { map, uniqueId } from 'lodash-es';
 import { Pagination } from 'data-transparency-ui';
 
-import tableMapping from 'dataMapping/award/cfdaSectionTable';
-import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
-import ResultsTableLoadingMessage from 'components/keyword/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
-import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
+import tableMapping from '../../../dataMapping/award/cfdaSectionTable';
+import StateLandingTableSorter from '../../../components/stateLanding/table/StateLandingTableSorter';
+import ResultsTableLoadingMessage from '../../../components/keyword/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from '../../../components/keyword/table/ResultsTableErrorMessage';
+import NoResultsMessage from '../../../components/sharedComponents/NoResultsMessage';
 
 const propTypes = {
     page: PropTypes.number,

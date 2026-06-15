@@ -24,12 +24,15 @@ module.exports = {
     },
     context: path.resolve(__dirname, "../src"),
     resolve: {
+        alias: {
+            lodash: 'lodash-es',
+            'components': '../src/js/components',
+            'containers': '../src/js/containers',
+            'helpers': '../src/js/helpers',
+        },
         extensions: [".js", ".jsx", ".md", ".mdx"],
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],
         fallback: { querystring: require.resolve("querystring-es3") },
-        alias: {
-            lodash: 'lodash-es'
-        }
     },
     optimization: {
         splitChunks: { chunks: 'all' },
