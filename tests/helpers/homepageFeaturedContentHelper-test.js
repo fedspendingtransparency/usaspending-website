@@ -43,11 +43,11 @@ describe('getCurrentArticles', () => {
             url, fill, thumbnail_path: thumbnailPath, taxonomy, title
         } = marketing;
 
-        expect(url).toBe('/featured-content/exploring-americas-finances/exploring-americas-finances-has-never-been-easier');
+        expect(url).toBe('/featured-content/exploring-americas-finances/exploring-americas-finances');
         expect(fill).toBe('#1b2b85');
-        expect(thumbnailPath).toBe('../../img/featuredContent/thumbnails/exploring-americas-finances-has-never-been-easier-thumbnail.webp');
+        expect(thumbnailPath).toBe('../../img/featuredContent/thumbnails/exploring-americas-finances-thumbnail.webp');
         expect(taxonomy).toBe('Exploring America\'s Finances');
-        expect(title).toBe('Exploring America\'s Finances Has Never Been Easier');
+        expect(title).toBe('Exploring America\'s Finances');
 
         const {
             url: urlOther,
