@@ -114,7 +114,8 @@ import {
     faFileSignature,
     faFileCsv,
     faList,
-    faMoneyCheckDollar
+    faMoneyCheckDollar,
+    faFolder
 } from "@fortawesome/pro-solid-svg-icons";
 
 export default function registerIcons() {
@@ -230,6 +231,7 @@ export default function registerIcons() {
         faFileSignature,
         faFileCsv,
         faList,
-        faMoneyCheckDollar
+        faMoneyCheckDollar,
+        faFolder
     );
 }

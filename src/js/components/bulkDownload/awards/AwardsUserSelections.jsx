@@ -170,7 +170,7 @@ const AwardsUserSelections = () => {
     return (
         <div className="download-user-selections">
             <h3 className="download-user-selections__title">Your selected options are...</h3>
-            <div className="download-user-selections__left_col">
+            <div className="download-user-selections__left-col">
                 <div className="selection">
                     <div className="selection__heading">Award Types</div>
                     {generateAwardTypeString()}

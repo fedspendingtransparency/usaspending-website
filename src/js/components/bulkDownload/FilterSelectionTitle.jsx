@@ -96,6 +96,41 @@ const titleData = {
         background: '#E5FAFF',
         fill: '#0E4F5C',
         addClassName: "no-right-margin"
+    },
+    fileType: {
+        icon: "folder",
+        preSpan: "Select a",
+        span: "File Type",
+        postSpan: ".",
+        showRequired: true,
+        background: '#FEF2E4',
+        fill: '#E66F0E',
+        addClassName: "no-right-margin"
+    },
+    defc: {
+        icon: "hand-holding-medical",
+        preSpan: "Filter by",
+        span: "Disaster Emergency Fund Codes (DEFCs)",
+        postSpan: ".",
+        showRequired: false,
+        background: '#E3F5E1',
+        fill: '#216E1F',
+        addClassName: "no-right-margin"
+    },
+    fy: {
+        icon: "calendar",
+        preSpan: "Select a",
+        span: "Fiscal Year",
+        postSpan: <> and <span 
+            className={`download-filter__title_em no-right-margin`}
+            style={{backgroundColor: '#E8F5FF'}} >
+            Period
+        </span>.
+        </>,
+        showRequired: false,
+        background: '#E8F5FF',
+        fill: '#0B4778',
+        addClassName: ""
     }
 }
 
