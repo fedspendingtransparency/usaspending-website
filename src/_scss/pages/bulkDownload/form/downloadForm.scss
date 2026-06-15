@@ -8,39 +8,8 @@
     &.width-96 {
       width: 96%;
     }
-    h3.download-filter__title {
-      @include h5;
-      margin: 0;
-      font-weight: 400;
-      padding-bottom: rem(35);
-      .download-filter__title_em {
-        color: $color-primary;
-        font-weight: 600;
-      }
-      .icon {
-        float: left;
-        margin-right: rem(10);
-        width: rem(18);
-        height: rem(18);
-
-        svg {
-          width: rem(18);
-          height: rem(18);
-          fill: $color-green;
-        }
-        &.invalid {
-          svg {
-            fill: $color-secondary;
-          }
-        }
-      }
-    }
-
-    h4.download-filter__title {
-      font-size: rem(18);
-      font-weight: 400;
-      padding-left: rem(30);
-    }
+    
+    @import "filterSectionTitle";
 
     .download-filter__container {
       display: flex;
@@ -49,29 +18,9 @@
     .download-filter__info {
       padding-left: rem(30);
       font-weight: 200;
-      .icon {
-        float: left;
-        margin-right: rem(10);
-        width: rem(18);
-        height: rem(18);
-
-        svg {
-          width: rem(18);
-          height: rem(18);
-          fill: $color-green;
-        }
-        &.invalid {
-          svg {
-            fill: $color-secondary;
-          }
-        }
-      }
     }
 
     .download-filter__content {
-      @include media($medium-screen) {
-        padding-left: rem(30);
-      }
 
       // TODO: remove additional .new class once download page update is done (DEV-15082)
       &.new {
