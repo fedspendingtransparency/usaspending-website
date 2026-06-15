@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as downloadActions from 'redux/actions/search/downloadActions';
+import * as downloadActions from '../../../../../../redux/actions/search/downloadActions';
 
 import NewDownloadLevel from
-    'components/search/modals/fullDownload/screens/newScreens/NewDownloadLevel';
+    '../../../../../../components/search/modals/fullDownload/screens/newScreens/NewDownloadLevel';
 import NewDownloadSummary from
-    'components/search/modals/fullDownload/screens/newScreens/NewDownloadSummary';
+    '../../../../../../components/search/modals/fullDownload/screens/newScreens/NewDownloadSummary';
 
 const propTypes = {
     download: PropTypes.object,

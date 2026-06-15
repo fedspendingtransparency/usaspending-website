@@ -5,13 +5,13 @@
 
 import React from 'react';
 
-import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
-import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
+import { Filter as FilterIcon } from '../../components/sharedComponents/icons/Icons';
+import FilterSidebar from '../../components/sharedComponents/filterSidebar/FilterSidebar';
 
-import AccountTimePeriodContainer from 'containers/account/filters/AccountTimePeriodContainer';
-import AccountObjectClassContainer from 'containers/account/filters/AccountObjectClassContainer';
+import AccountTimePeriodContainer from '../../containers/account/filters/AccountTimePeriodContainer';
+import AccountObjectClassContainer from '../../containers/account/filters/AccountObjectClassContainer';
 import AccountProgramActivityContainer
-    from 'containers/account/filters/AccountProgramActivityContainer';
+    from '../../containers/account/filters/AccountProgramActivityContainer';
 
 const filters = {
     options: [

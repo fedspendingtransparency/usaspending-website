@@ -9,10 +9,10 @@ import GlobalConstants from 'GlobalConstants';
 
 import {
     calculateRange, visualizationColors, firstSymbolId, mapboxSources
-} from "helpers/mapHelper";
-import MapBox from 'components/sharedComponents/map/MapBox';
-import MapLegend from 'components/sharedComponents/map/MapLegend';
-import MapFiltersToggle from "components/sharedComponents/map/MapFiltersToggle";
+} from "../../../../helpers/mapHelper";
+import MapBox from '../../../../components/sharedComponents/map/MapBox';
+import MapLegend from '../../../../components/sharedComponents/map/MapLegend';
+import MapFiltersToggle from "../../../../components/sharedComponents/map/MapFiltersToggle";
 import StateProfileMapFilters from "./filters/StateProfileMapFilters";
 import StateGeoTooltip from "./StateGeoTooltip";
 

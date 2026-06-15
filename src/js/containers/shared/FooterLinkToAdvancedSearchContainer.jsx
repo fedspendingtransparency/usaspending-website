@@ -7,9 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
-import { resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
-import FooterLinkToAdvancedSearch from 'components/sharedComponents/FooterLinkToAdvancedSearch';
+import { clearAllFilters } from '../../redux/actions/search/searchFilterActions';
+import { resetAppliedFilters } from '../../redux/actions/search/appliedFilterActions';
+import FooterLinkToAdvancedSearch from '../../components/sharedComponents/FooterLinkToAdvancedSearch';
 
 const propTypes = {
     title: PropTypes.string,

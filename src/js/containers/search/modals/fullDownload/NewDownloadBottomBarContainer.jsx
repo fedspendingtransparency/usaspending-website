@@ -16,10 +16,10 @@ import {
     setDownloadPending,
     setDownloadCollapsed,
     resetDownload
-} from 'redux/actions/search/downloadActions';
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
-import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadHelper';
+} from '../../../../redux/actions/search/downloadActions';
+import SearchAwardsOperation from '../../../../models/v1/search/SearchAwardsOperation';
+import DownloadBottomBar from '../../../../components/search/modals/fullDownload/DownloadBottomBar';
+import { requestDownloadStatus, requestFullDownloadNew } from '../../../../helpers/downloadHelper';
 
 const propTypes = {
     download: PropTypes.object,

@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { List } from "immutable";
 
-import { allFiscalYears } from "helpers/fiscalYearHelper";
+import { allFiscalYears } from "../../helpers/fiscalYearHelper";
 import {
     isPeriodVisible,
     isPeriodSelectable

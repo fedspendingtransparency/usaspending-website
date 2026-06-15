@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as downloadActions from 'redux/actions/search/downloadActions';
+import * as downloadActions from '../../../../../redux/actions/search/downloadActions';
 
-import DownloadLevel from 'components/search/modals/fullDownload/screens/DownloadLevel';
+import DownloadLevel from '../../../../../components/search/modals/fullDownload/screens/DownloadLevel';
 
 const propTypes = {
     download: PropTypes.object

@@ -5,9 +5,7 @@
  * by Maxwell Kendall
  * 05/19/2020
  */
-import {
-    getBaseUrl
-} from 'helpers/socialShare';
+import { getBaseUrl } from "../../src/js/helpers/socialShare";
 import "../testResources/mockGlobalConstants";
 
 describe('socialShare helper', () => {

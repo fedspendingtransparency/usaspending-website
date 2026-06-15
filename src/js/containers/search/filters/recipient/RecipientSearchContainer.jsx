@@ -7,12 +7,12 @@ import React, { useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from "axios";
 
-import { updateSelectedRecipients } from 'redux/actions/search/searchFilterActions';
-import { fetchRecipientsAutocomplete } from 'helpers/searchHelper';
-import replaceString from 'helpers/replaceString';
+import { updateSelectedRecipients } from '../../../../redux/actions/search/searchFilterActions';
+import { fetchRecipientsAutocomplete } from '../../../../helpers/searchHelper';
+import replaceString from '../../../../helpers/replaceString';
 import AutocompleteWithCheckboxList from
-    'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
-import ShownValue from 'components/search/filters/ShownValue';
+    '../../../../components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
+import ShownValue from '../../../../components/search/filters/ShownValue';
 
 const RecipientSearchContainer = () => {
     const [recipients, setRecipients] = useState([]);

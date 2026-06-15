@@ -5,13 +5,13 @@
 
 import React from 'react';
 
-import * as MetaTagHelper from 'helpers/metaTagHelper';
-import Footer from 'containers/Footer';
-import Header from 'containers/shared/HeaderContainer';
+import * as MetaTagHelper from '../../helpers/metaTagHelper';
+import Footer from '../../containers/Footer';
+import Header from '../../containers/shared/HeaderContainer';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 
-require('pages/dbInfo/dbInfoPage.scss');
+require('../../../_scss/pages/dbInfo/dbInfoPage.scss');
 
 const DBInfo = () => (
     <div className="usa-da-db-info">

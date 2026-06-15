@@ -7,10 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
-import { explorerPageMetaTags } from 'helpers/metaTagHelper';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+import { explorerPageMetaTags } from '../../helpers/metaTagHelper';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import ShareIcon508 from '../../components/sharedComponents/buttons/ShareIcon508';
 import { showModal } from '../../redux/actions/modal/modalActions';
 
 const propTypes = {
@@ -18,7 +18,7 @@ const propTypes = {
     showShareIcon: PropTypes.bool
 };
 
-require('pages/explorer/explorerPage.scss');
+require('../../../_scss/pages/explorer/explorerPage.scss');
 
 const slug = 'explorer';
 const emailSubject = 'USAspending.gov Federal Spending Explorer';

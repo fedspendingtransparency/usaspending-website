@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import GenericCell from 'components/agencyLanding/table/cells/GenericCell';
+import GenericCell from '../../../components/agencyLanding/table/cells/GenericCell';
 import AccountLinkCell from './cells/AccountLinkCell';
 import HighlightedCell from './cells/HighlightedCell';
 

@@ -5,15 +5,15 @@ import { find, uniqueId } from 'lodash-es';
 import { useDispatch } from 'react-redux';
 import { ComingSoon, FlexGridCol } from 'data-transparency-ui';
 
-import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { interactiveDataSourcesPageMetaTags } from 'helpers/metaTagHelper';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import DownloadStaticFile from "components/sharedComponents/DownloadStaticFile";
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
-import { showModal } from 'redux/actions/modal/modalActions';
-import useQueryParams from "hooks/useQueryParams";
+import { combineQueryParams, getQueryParamString } from '../../helpers/queryParams';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
+import { stickyHeaderHeight } from '../../dataMapping/stickyHeader/stickyHeader';
+import { interactiveDataSourcesPageMetaTags } from '../../helpers/metaTagHelper';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import DownloadStaticFile from "../../components/sharedComponents/DownloadStaticFile";
+import ShareIcon508 from '../../components/sharedComponents/buttons/ShareIcon508';
+import { showModal } from '../../redux/actions/modal/modalActions';
+import useQueryParams from "../../hooks/useQueryParams";
 import InteractiveDataSourcesSection from './InteractiveDataSourcesSection';
 import AboutSection from './sections/AboutSection';
 import IntroSection from './sections/IntroSection';
@@ -30,7 +30,7 @@ import AccountData from './scrollerSections/AccountData';
 import AwardData from './scrollerSections/AwardData';
 import AdditionalData from './scrollerSections/AdditionalData';
 
-require('pages/interactiveDataSources/index.scss');
+require('../../../_scss/pages/interactiveDataSources/index.scss');
 
 const InteractiveDataSourcesPage = () => {
     const [activeSection, setActiveSection] = useState('intro-section');

@@ -9,13 +9,13 @@ import { Link, useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import { find, throttle } from 'lodash-es';
 
-import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
-import { agencySubmissionDataSourcesMetaTags } from 'helpers/metaTagHelper';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
+import { combineQueryParams, getQueryParamString } from '../../helpers/queryParams';
+import { agencySubmissionDataSourcesMetaTags } from '../../helpers/metaTagHelper';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import ShareIcon508 from '../../components/sharedComponents/buttons/ShareIcon508';
+import { stickyHeaderHeight } from '../../dataMapping/stickyHeader/stickyHeader';
+import { getStickyBreakPointForSidebar } from '../../helpers/stickyHeaderHelper';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useQueryParams from "../../hooks/useQueryParams";
 

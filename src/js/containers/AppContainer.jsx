@@ -10,14 +10,14 @@ import perflogger from 'redux-perf-middleware';
 import kGlobalConstants from 'GlobalConstants';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router';
 
-import storeSingleton from 'redux/storeSingleton';
-import WithUrlListener from 'containers/WithUrlListener';
+import storeSingleton from '../redux/storeSingleton';
+import WithUrlListener from '../containers/WithUrlListener';
 import reducers from 'redux/reducers/index';
 
-import { LoadingWrapper as Loading } from 'components/sharedComponents/Loading';
-import MobileMessage from 'components/sharedComponents/MobileMessage';
+import { LoadingWrapper as Loading } from '../components/sharedComponents/Loading';
+import MobileMessage from '../components/sharedComponents/MobileMessage';
 
-import '_global.scss';
+import '../../_scss/_global.scss';
 
 import { routes } from './router/RouterRoutes';
 

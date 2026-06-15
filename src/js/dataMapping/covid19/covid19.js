@@ -3,8 +3,8 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import { getBaseUrl } from 'helpers/socialShare';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { getBaseUrl } from '../../helpers/socialShare';
+import { stickyHeaderHeight } from '../../dataMapping/stickyHeader/stickyHeader';
 
 export const slug = 'disaster/covid-19';
 

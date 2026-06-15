@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 
-import LandingSearchBar from 'components/sharedComponents/LandingSearchBar';
+import LandingSearchBar from '../../components/sharedComponents/LandingSearchBar';
 import AgencyLandingResultsSection from './AgencyLandingResultsSection';
 import H2PageHeader from '../sharedComponents/header/H2PageHeader';
 

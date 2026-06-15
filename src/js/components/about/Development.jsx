@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import * as redirectHelper from 'helpers/redirectHelper';
+import * as redirectHelper from '../../helpers/redirectHelper';
 
 const Development = () => {
     const clickedLink = () => {

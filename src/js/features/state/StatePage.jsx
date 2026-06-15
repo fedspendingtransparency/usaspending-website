@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 
-import Error from 'components/sharedComponents/Error';
-import { LoadingWrapper } from "components/sharedComponents/Loading";
-import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
-import StateOverview from "features/state/overview/StateOverview";
+import Error from '../../components/sharedComponents/Error';
+import { LoadingWrapper } from "../../components/sharedComponents/Loading";
+import ProfileBackLink from '../../components/sharedComponents/ProfileBackLink';
+import StateOverview from "../../features/state/overview/StateOverview";
 import StateTimeVisualizationSectionContainer from
-    "features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer";
-import StateFooter from "features/state/StateFooter";
+    "../../features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer";
+import StateFooter from "../../features/state/StateFooter";
 import StatePageWrapper from "./StatePageWrapper";
 import TopFiveSectionContainer from "./topFive/containers/TopFiveSectionContainer";
 

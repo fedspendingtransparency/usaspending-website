@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import { min, max } from 'lodash-es';
 import { scaleLinear } from 'd3-scale';
 
-import { calculatePercentage } from 'helpers/moneyFormatter';
-import { nearestQuarterDate } from 'helpers/fiscalYearHelper';
+import { calculatePercentage } from '../../../../../helpers/moneyFormatter';
+import { nearestQuarterDate } from '../../../../../helpers/fiscalYearHelper';
 import RectanglePattern from 'components/sharedComponents/patterns/RectanglePattern';
 import SVGLine from 'components/sharedComponents/SVGLine';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import { showModal } from 'redux/actions/modal/modalActions';
-import Header from 'components/sharedComponents/header/Header';
+import { showModal } from '../../redux/actions/modal/modalActions';
+import Header from '../../components/sharedComponents/header/Header';
 
 export default connect(
     null,

@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
-import LegacyTableHeaderCell from 'components/account/awards/LegacyTableHeaderCell';
+import AccountsTableFields from '../../../dataMapping/accountLanding/accountsTableFields';
+import LegacyTableHeaderCell from '../../../components/account/awards/LegacyTableHeaderCell';
 import TableRow from './TableRow';
 
 const propTypes = {

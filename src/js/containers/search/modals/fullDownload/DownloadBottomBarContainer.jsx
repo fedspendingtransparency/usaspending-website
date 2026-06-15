@@ -11,15 +11,15 @@ import { isCancel } from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
 import { isEmpty } from 'lodash-es';
 
-import Analytics from 'helpers/analytics/Analytics';
-import { uniqueFilterFields } from 'containers/search/helpers/searchAnalytics';
+import Analytics from '../../../../helpers/analytics/Analytics';
+import { uniqueFilterFields } from '../../../../containers/search/helpers/searchAnalytics';
 
-import * as downloadActions from 'redux/actions/search/downloadActions';
+import * as downloadActions from '../../../../redux/actions/search/downloadActions';
 
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
+import SearchAwardsOperation from '../../../../models/v1/search/SearchAwardsOperation';
+import DownloadBottomBar from '../../../../components/search/modals/fullDownload/DownloadBottomBar';
 
-import * as DownloadHelper from 'helpers/downloadHelper';
+import * as DownloadHelper from '../../../../helpers/downloadHelper';
 
 const propTypes = {
     download: PropTypes.object,

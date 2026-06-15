@@ -10,17 +10,17 @@ import { Link, useNavigate } from 'react-router';
 import { uniqueId } from 'lodash-es';
 import { useDispatch } from 'react-redux';
 
-import { covidDataSourcesMetaTags } from 'helpers/metaTagHelper';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { useDynamicStickyClass } from 'helpers/stickyHeaderHelper';
+import { covidDataSourcesMetaTags } from '../../helpers/metaTagHelper';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
+import { useDynamicStickyClass } from '../../helpers/stickyHeaderHelper';
 import {
     getStickyBreakPointForCovidBanner,
     createJumpToSectionForSidebar
-} from 'helpers/covid19Helper';
-import { combineQueryParams, getQueryParamString } from "helpers/queryParams";
-import { useDefCodes } from 'hooks/WithDefCodes';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+} from '../../helpers/covid19Helper';
+import { combineQueryParams, getQueryParamString } from "../../helpers/queryParams";
+import { useDefCodes } from '../../hooks/WithDefCodes';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import ShareIcon508 from '../../components/sharedComponents/buttons/ShareIcon508';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useQueryParams from "../../hooks/useQueryParams";
 

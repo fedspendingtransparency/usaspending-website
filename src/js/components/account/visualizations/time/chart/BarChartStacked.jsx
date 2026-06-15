@@ -7,9 +7,9 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear, scaleBand } from 'd3-scale';
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as MoneyFormatter from '../../../../../helpers/moneyFormatter';
 
-import BarChartLegend from 'components/sharedComponents/timeChart/chart/BarChartLegend';
+import BarChartLegend from '../../../../../components/sharedComponents/timeChart/chart/BarChartLegend';
 
 import { buildYRange } from './calculations';
 

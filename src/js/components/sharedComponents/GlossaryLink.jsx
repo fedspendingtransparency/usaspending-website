@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { showSlideout } from 'helpers/slideoutHelper';
+import { showSlideout } from '../../helpers/slideoutHelper';
 import { Glossary } from './icons/Icons';
 
 

@@ -18,12 +18,6 @@ const presets = [
 
 const plugins = [
     'babel-plugin-react-compiler',
-    [
-        "module-resolver",
-        {
-            root: ["src/js"]
-        }
-    ],
     "@babel/plugin-transform-runtime",
     "@babel/plugin-transform-object-rest-spread",
     "@babel/plugin-transform-class-properties",

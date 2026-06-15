@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle, min } from 'lodash-es';
 
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import * as Icons from '../../../../../components/sharedComponents/icons/Icons';
 
 import RankVisualization from '../RankVisualization';
 

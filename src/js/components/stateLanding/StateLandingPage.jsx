@@ -7,16 +7,16 @@ import React from 'react';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
 
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
-import { stateLandingPageMetaTags } from 'helpers/metaTagHelper';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import ShareIcon508 from "../../components/sharedComponents/buttons/ShareIcon508";
+import { stateLandingPageMetaTags } from '../../helpers/metaTagHelper';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
 
-import StateLandingContainer from 'containers/stateLanding/StateLandingContainer';
-import { showModal } from 'redux/actions/modal/modalActions';
+import StateLandingContainer from '../../containers/stateLanding/StateLandingContainer';
+import { showModal } from '../../redux/actions/modal/modalActions';
 import H2PageHeader from '../sharedComponents/header/H2PageHeader';
 
-require('pages/stateLanding/stateLandingPage.scss');
+require('../../../_scss/pages/stateLanding/stateLandingPage.scss');
 
 const slug = 'state';
 const emailSubject = 'USAspending.gov State Profiles';

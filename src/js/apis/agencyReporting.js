@@ -4,7 +4,7 @@
  */
 
 import { stringify } from 'querystring';
-import { apiRequest } from 'helpers/apiRequest';
+import { apiRequest } from '../helpers/apiRequest';
 
 export const getTotalBudgetaryResources = (fy = '', period = '') => {
     if (fy && period) {

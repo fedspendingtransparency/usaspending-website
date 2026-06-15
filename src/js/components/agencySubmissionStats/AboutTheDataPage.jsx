@@ -7,23 +7,23 @@ import React, { useEffect, useState } from 'react';
 import { Tabs, FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import { useDispatch } from 'react-redux';
 import { Link, useLocation, useNavigate } from "react-router";
-import { getAllAgenciesEmail } from "helpers/aboutTheDataHelper";
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import AboutTheDataModal from "components/agencySubmissionStats/AboutTheDataModal";
-import { LoadingWrapper } from "components/sharedComponents/Loading";
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
-import AgenciesContainer from 'containers/agencySubmissionStats/AgenciesContainer';
+import { getAllAgenciesEmail } from "../../helpers/aboutTheDataHelper";
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
+import AboutTheDataModal from "../../components/agencySubmissionStats/AboutTheDataModal";
+import { LoadingWrapper } from "../../components/sharedComponents/Loading";
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import ShareIcon508 from '../../components/sharedComponents/buttons/ShareIcon508';
+import AgenciesContainer from '../../containers/agencySubmissionStats/AgenciesContainer';
 import { useLatestAccountData, useValidTimeBasedQueryParams } from
-    'containers/account/WithLatestFy';
-import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
-import { modalTitles, modalClassNames } from 'dataMapping/agencySubmissionStats/modals';
+    '../../containers/account/WithLatestFy';
+import { combineQueryParams, getQueryParamString } from '../../helpers/queryParams';
+import { modalTitles, modalClassNames } from '../../dataMapping/agencySubmissionStats/modals';
 import TimeFilters from './TimeFilters';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useQueryParams from "../../hooks/useQueryParams";
 import H2PageHeader from '../sharedComponents/header/H2PageHeader';
 
-require('pages/agencySubmissionStats/aboutTheData.scss');
+require('../../../_scss/pages/agencySubmissionStats/aboutTheData.scss');
 
 /*
 This page is called Agency Submission Statistics IRL

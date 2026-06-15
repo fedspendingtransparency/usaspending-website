@@ -10,8 +10,8 @@ import {
     accessibilityPageMetaTags,
     privacyPageMetaTags,
     foiaPageMetaTags
-} from 'helpers/metaTagHelper';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
+} from '../../../../helpers/metaTagHelper';
+import PageWrapper from '../../../../components/sharedComponents/PageWrapper';
 
 import LegalContent from './LegalContent';
 

@@ -7,8 +7,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
-import { fetchProgramActivity } from "helpers/searchHelper";
-import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
+import { fetchProgramActivity } from "../../../helpers/searchHelper";
+import Autocomplete from '../../../../../components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
     changeScope: PropTypes.func,

@@ -5,11 +5,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { showTrainingVideoModal, showModal } from 'redux/actions/modal/modalActions';
+import { showTrainingVideoModal, showModal } from '../../../redux/actions/modal/modalActions';
 import PropTypes, { oneOfType } from "prop-types";
 import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { handleShareOptionClick } from 'helpers/socialShare';
+import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
+import { handleShareOptionClick } from '../../../helpers/socialShare';
 import { throttle } from 'lodash-es';
 import VideoThumbnail from '../videoThumbnails/VideoThumbnail';
 

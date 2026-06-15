@@ -39,9 +39,23 @@ module.exports = {
         noParse: /(mapbox-gl)\.js$/,
         rules: [
             {
-                test: /\.js$|jsx$/,
-                exclude: /node_modules\.*/,
-                loader: "babel-loader"
+                test: /\.(?:jsx|js|mjs|cjs)$/,
+                exclude: {
+                    and: [/node_modules/], // Exclude libraries in node_modules ...
+                    not: [
+                        // Except for a few of them that needs to be transpiled because they use modern syntax
+                        /data-transparency-ui/,
+                    ]
+                },
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        targets: "defaults",
+                        presets: [
+                            ['@babel/preset-env']
+                        ],
+                    }
+                }
             },
             {
                 test: /\.css$/,
@@ -76,7 +90,10 @@ module.exports = {
                 use: [
                     // Note that Webpack runs right-to-left: `@mdx-js/loader` is used first, then
                     // `babel-loader`.
-                    { loader: 'babel-loader', options: {} },
+                    { loader: 'babel-loader', options: {
+                        presets: ['@babel/preset-react']
+                    } 
+                    },
                     {
                         loader: '@mdx-js/loader',
                         /** @type {import('@mdx-js/loader').Options} */

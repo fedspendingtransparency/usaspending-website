@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { SectionHeader } from "data-transparency-ui";
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as MoneyFormatter from '../../helpers/moneyFormatter';
 
 import SankeyVisualization from './visualizations/sankey/SankeyVisualization';
 

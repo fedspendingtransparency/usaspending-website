@@ -4,11 +4,11 @@
  */
 
 import React from 'react';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { pickLocationFormat } from 'helpers/locationFormatter';
-import { twoVariableFormat } from 'helpers/search/table/tableUtilsHelper';
-import { convertToTitleCase } from 'helpers/searchHelper';
-import ReadMore from 'components/sharedComponents/ReadMore';
+import * as MoneyFormatter from '../../helpers/moneyFormatter';
+import { pickLocationFormat } from '../../helpers/locationFormatter';
+import { twoVariableFormat } from '../../helpers/search/table/tableUtilsHelper';
+import { convertToTitleCase } from '../../helpers/searchHelper';
+import ReadMore from '../../components/sharedComponents/ReadMore';
 
 export const subAwardDefaultColumns = [
     {

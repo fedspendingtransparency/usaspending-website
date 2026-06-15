@@ -6,15 +6,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { recipientLandingPageMetaTags } from 'helpers/metaTagHelper';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { recipientLandingPageMetaTags } from '../../helpers/metaTagHelper';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
 
-import RecipientLandingContainer from 'containers/recipientLanding/RecipientLandingContainer';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
-import { showModal } from 'redux/actions/modal/modalActions';
+import RecipientLandingContainer from '../../containers/recipientLanding/RecipientLandingContainer';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import ShareIcon508 from "../../components/sharedComponents/buttons/ShareIcon508";
+import { showModal } from '../../redux/actions/modal/modalActions';
 
-require('pages/recipientLanding/recipientLandingPage.scss');
+require('../../../_scss/pages/recipientLanding/recipientLandingPage.scss');
 
 const slug = 'recipient';
 const emailSubject = 'USAspending.gov Recipient Profiles';

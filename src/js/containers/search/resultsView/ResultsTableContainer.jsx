@@ -9,18 +9,18 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { throttle } from 'lodash-es';
 
-import { subAwardIdClicked } from 'redux/actions/search/searchSubAwardTableActions';
-import { measureTableHeader } from 'helpers/textMeasurement';
-import Analytics from 'helpers/analytics/Analytics';
-import { tableTypes, subTypes, transactionTypes } from 'dataMapping/search/resultsView/table';
+import { subAwardIdClicked } from '../../../redux/actions/search/searchSubAwardTableActions';
+import { measureTableHeader } from '../../../helpers/textMeasurement';
+import Analytics from '../../../helpers/analytics/Analytics';
+import { tableTypes, subTypes, transactionTypes } from '../../../dataMapping/search/resultsView/table';
 import {
     defaultColumns,
     defaultSort
-} from 'dataMapping/search/awardTableColumns';
-import { awardTableColumnTypes } from 'dataMapping/search/awardTableColumnTypes';
-import ResultsTableSection from 'components/search/resultsView/table/ResultsTableSection';
+} from '../../../dataMapping/search/awardTableColumns';
+import { awardTableColumnTypes } from '../../../dataMapping/search/awardTableColumnTypes';
+import ResultsTableSection from '../../../components/search/resultsView/table/ResultsTableSection';
 import SearchSectionWrapper from
-    "components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
+    "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import useResultsTableSearch from './useResultsTableSearch';
 
 const createColumn = (col) => {

@@ -12,17 +12,17 @@ import {
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router';
 
-import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
-import { agencyPageMetaTags } from 'helpers/metaTagHelper';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { showModal } from 'redux/actions/modal/modalActions';
-import useQueryParams from "hooks/useQueryParams";
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
-import NumericPickerWrapper from 'components/sharedComponents/dropdowns/NumericPickerWrapper';
-import StatusOfFundsContainer from 'containers/agency/statusOfFunds/StatusOfFundsContainer';
+import { combineQueryParams, getQueryParamString } from '../../helpers/queryParams';
+import { agencyPageMetaTags } from '../../helpers/metaTagHelper';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
+import { stickyHeaderHeight } from '../../dataMapping/stickyHeader/stickyHeader';
+import { showModal } from '../../redux/actions/modal/modalActions';
+import useQueryParams from "../../hooks/useQueryParams";
+import ShareIcon508 from '../../components/sharedComponents/buttons/ShareIcon508';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import ProfileBackLink from '../../components/sharedComponents/ProfileBackLink';
+import NumericPickerWrapper from '../../components/sharedComponents/dropdowns/NumericPickerWrapper';
+import StatusOfFundsContainer from '../../containers/agency/statusOfFunds/StatusOfFundsContainer';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';

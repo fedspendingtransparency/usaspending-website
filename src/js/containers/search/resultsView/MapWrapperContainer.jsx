@@ -5,17 +5,17 @@ import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash-es';
 
-import { territories, countries, counties, congressionalDistricts } from "dataMapping/search/geoTable";
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
-import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
-import { stateFIPSByAbbreviation, stateNameFromFips, stateAbbreviationFromFips } from 'dataMapping/state/stateNames';
-import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
-import MapBroadcaster from 'helpers/mapBroadcaster';
-import Analytics from 'helpers/analytics/Analytics';
-import { performSpendingByGeographySearch } from 'apis/search';
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
-import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
+import { territories, countries, counties, congressionalDistricts } from "../../../dataMapping/search/geoTable";
+import * as searchFilterActions from '../../../redux/actions/search/searchFilterActions';
+import { setAppliedFilterCompletion } from '../../../redux/actions/search/appliedFilterActions';
+import { updateMapLegendToggle } from '../../../redux/actions/search/mapLegendToggleActions';
+import { stateFIPSByAbbreviation, stateNameFromFips, stateAbbreviationFromFips } from '../../../dataMapping/state/stateNames';
+import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from '../../../helpers/mapHelper';
+import MapBroadcaster from '../../../helpers/mapBroadcaster';
+import Analytics from '../../../helpers/analytics/Analytics';
+import { performSpendingByGeographySearch } from '../../../apis/search';
+import SearchAwardsOperation from '../../../models/v1/search/SearchAwardsOperation';
+import GeoVisualizationSection from '../../../components/search/visualizations/geo/GeoVisualizationSection';
 import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 

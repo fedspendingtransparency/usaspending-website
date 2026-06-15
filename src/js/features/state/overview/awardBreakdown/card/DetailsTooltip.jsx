@@ -6,7 +6,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import { InfoCircle } from '../../../../../components/sharedComponents/icons/Icons';
 
 const propTypes = {
     closeTooltip: PropTypes.func

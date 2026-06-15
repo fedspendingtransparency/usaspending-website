@@ -8,9 +8,9 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { Tabs } from 'data-transparency-ui';
-import SubAgencySummaryContainer from 'containers/agency/awardSpending/SubAgencySummaryContainer';
-import SubagencyTableContainer from 'containers/agency/awardSpending/SubagencyTableContainer';
-import Note from 'components/sharedComponents/Note';
+import SubAgencySummaryContainer from '../../../containers/agency/awardSpending/SubAgencySummaryContainer';
+import SubagencyTableContainer from '../../../containers/agency/awardSpending/SubagencyTableContainer';
+import Note from '../../../components/sharedComponents/Note';
 import AwardSpendingIntro from "./AwardSpendingIntro";
 import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 

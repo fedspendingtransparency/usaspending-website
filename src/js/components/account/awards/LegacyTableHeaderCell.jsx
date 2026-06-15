@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ArrowUp, ArrowDown } from 'components/sharedComponents/icons/Icons';
+import { ArrowUp, ArrowDown } from '../../../components/sharedComponents/icons/Icons';
 
 const propTypes = {
     isLast: PropTypes.bool,
