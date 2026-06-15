@@ -64,14 +64,14 @@ const renderNginxConf = (legacy, states, agencies) => {
         '',
         '# --- Legacy redirects ---',
         // exact match (=) — fastest, no trailing-path ambiguity for fixed URLs
-        ...legacy.map(([src, dst]) => `    location = ${src} { return 301 ${dst}; }`),
+        ...legacy.map(([src, dst]) => `    location = ${src} { return 301 $host${dst}; }`),
         '',
         '# --- State FIPS → slug redirects ---',
         // prefix match (^~) — catches /state/01 and /state/01/anything
-        ...states.map(([src, dst]) => `    location = ${src} { return 301 ${dst}; }`),
+        ...states.map(([src, dst]) => `    location = ${src} { return 301 $host${dst}; }`),
         '',
         '# --- Agency ID → slug redirects ---',
-        ...agencies.map(([src, dst]) => `    location = ${src} { return 301 ${dst}; }`),
+        ...agencies.map(([src, dst]) => `    location = ${src} { return 301 $host${dst}; }`),
         '',
     ];
 
