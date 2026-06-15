@@ -1,0 +1,2460 @@
+
+[1m[31mERROR[39m[22m in [1m./js/components/dataDives/shared/MainCards.jsx[39m[22m [1m[32m16:0-67[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/shared/mobileBreakpoints' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\dataDives\shared'[39m[22m
+ @ ./js/components/dataDives/EquityCovidSpendingPage.jsx 27:0-43 231:41-50
+ @ ./js/containers/router/RouterRoutes.jsx 46:62-122
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/dataDives/shared/MainCards.jsx[39m[22m [1m[32m17:0-68[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/ExternalLink' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\dataDives\shared'[39m[22m
+ @ ./js/components/dataDives/EquityCovidSpendingPage.jsx 27:0-43 231:41-50
+ @ ./js/containers/router/RouterRoutes.jsx 46:62-122
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/dataDives/shared/MainCards.jsx[39m[22m [1m[32m18:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\dataDives\shared'[39m[22m
+ @ ./js/components/dataDives/EquityCovidSpendingPage.jsx 27:0-43 231:41-50
+ @ ./js/containers/router/RouterRoutes.jsx 46:62-122
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/errorPage/ErrorPage.jsx[39m[22m [1m[32m16:0-66[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/PageWrapper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\errorPage'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 42:48-94
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/errorPage/ErrorPage.jsx[39m[22m [1m[32m17:0-58[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/metaTagHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\errorPage'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 42:48-94
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/explorer/landing/ExplorerLandingOption.jsx[39m[22m [1m[32m17:0-60[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/explorer/dropdownScopes' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\explorer\landing'[39m[22m
+ @ ./js/components/explorer/landing/ExplorerLanding.jsx 17:0-60 195:40-61 202:41-62 209:41-62
+ @ ./js/containers/router/RouterRoutes.jsx 19:54-113
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/featuredContent/FeaturedContentHeader.jsx[39m[22m [1m[32m11:0-97[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/featuredContent/featuredContentHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\featuredContent'[39m[22m
+ @ ./js/components/featuredContent/FeaturedContentArticle.jsx 27:0-60 116:44-65
+ @ ./js/containers/router/RouterRoutes.jsx 50:61-126
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/featuredContent/list/ArticleList.jsx[39m[22m [1m[32m17:0-114[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/featuredContent/featuredContentHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\featuredContent\list'[39m[22m
+ @ ./js/components/featuredContent/FeaturedContentPage.jsx 22:0-45 67:41-52
+ @ ./js/containers/router/RouterRoutes.jsx 49:58-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/featuredContent/list/ArticleList.jsx[39m[22m [1m[32m18:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\featuredContent\list'[39m[22m
+ @ ./js/components/featuredContent/FeaturedContentPage.jsx 22:0-45 67:41-52
+ @ ./js/containers/router/RouterRoutes.jsx 49:58-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/AwardSearch/AwardSearch.jsx[39m[22m [1m[32m17:0-61[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/fiscalYearHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage\AwardSearch'[39m[22m
+ @ ./js/components/homepage/Homepage.jsx 23:0-52 56:198-209
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/AwardSearch/AwardSearch.jsx[39m[22m [1m[32m21:0-92[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/reducers/search/searchFiltersReducer' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage\AwardSearch'[39m[22m
+ @ ./js/components/homepage/Homepage.jsx 23:0-52 56:198-209
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/FeaturedContent/FeaturedContent.jsx[39m[22m [1m[32m17:0-71[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/homepageFeaturedContentHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage\FeaturedContent'[39m[22m
+ @ ./js/components/homepage/HomepageFirstRow/HomepageFirstRow.jsx 16:0-65 27:40-55
+ @ ./js/components/homepage/Homepage.jsx 27:0-67 56:140-156
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/FeaturedContent/FeaturedContent.jsx[39m[22m [1m[32m18:0-97[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/featuredContent/featuredContentHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage\FeaturedContent'[39m[22m
+ @ ./js/components/homepage/HomepageFirstRow/HomepageFirstRow.jsx 16:0-65 27:40-55
+ @ ./js/components/homepage/Homepage.jsx 27:0-67 56:140-156
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/FeaturedContent/FeaturedContentCard.jsx[39m[22m [1m[32m17:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage\FeaturedContent'[39m[22m
+ @ ./js/components/homepage/FeaturedContent/FeaturedContent.jsx 19:0-56 82:42-61 121:43-62
+ @ ./js/components/homepage/HomepageFirstRow/HomepageFirstRow.jsx 16:0-65 27:40-55
+ @ ./js/components/homepage/Homepage.jsx 27:0-67 56:140-156
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/FeaturedContent/FeaturedContentCard.jsx[39m[22m [1m[32m18:0-68[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/ExternalLink' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage\FeaturedContent'[39m[22m
+ @ ./js/components/homepage/FeaturedContent/FeaturedContent.jsx 19:0-56 82:42-61 121:43-62
+ @ ./js/components/homepage/HomepageFirstRow/HomepageFirstRow.jsx 16:0-65 27:40-55
+ @ ./js/components/homepage/Homepage.jsx 27:0-67 56:140-156
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/Hero/Hero.jsx[39m[22m [1m[32m19:0-68[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/shared/mobileBreakpoints' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage\Hero'[39m[22m
+ @ ./js/components/homepage/Homepage.jsx 21:0-31 56:40-44
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/Hero/Hero.jsx[39m[22m [1m[32m20:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage\Hero'[39m[22m
+ @ ./js/components/homepage/Homepage.jsx 21:0-31 56:40-44
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/SummaryStats.jsx[39m[22m [1m[32m22:0-50[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'GlobalConstants' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage'[39m[22m
+ @ ./js/components/homepage/Homepage.jsx 22:0-42 56:86-98
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/SummaryStats.jsx[39m[22m [1m[32m23:0-62[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/moneyFormatter' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage'[39m[22m
+ @ ./js/components/homepage/Homepage.jsx 22:0-42 56:86-98
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/SummaryStats.jsx[39m[22m [1m[32m24:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage'[39m[22m
+ @ ./js/components/homepage/Homepage.jsx 22:0-42 56:86-98
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/SummaryStats.jsx[39m[22m [1m[32m25:0-55[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/searchHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage'[39m[22m
+ @ ./js/components/homepage/Homepage.jsx 22:0-42 56:86-98
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/SummaryStats.jsx[39m[22m [1m[32m26:0-92[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/reducers/search/searchFiltersReducer' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage'[39m[22m
+ @ ./js/components/homepage/Homepage.jsx 22:0-42 56:86-98
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/SummaryStats.jsx[39m[22m [1m[32m27:0-56[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'hooks/useFetchBreakdown' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage'[39m[22m
+ @ ./js/components/homepage/Homepage.jsx 22:0-42 56:86-98
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/SummaryStats.jsx[39m[22m [1m[32m28:0-71[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/account/WithLatestFy' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage'[39m[22m
+ @ ./js/components/homepage/Homepage.jsx 22:0-42 56:86-98
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/homepage/WordOfTheDay/WordOfTheDay.jsx[39m[22m [1m[32m18:0-55[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/glossaryHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\homepage\WordOfTheDay'[39m[22m
+ @ ./js/components/homepage/HomepageFirstRow/HomepageFirstRow.jsx 17:0-56 43:40-52
+ @ ./js/components/homepage/Homepage.jsx 27:0-67 56:140-156
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/interactiveDataSources/sections/AboutSection.jsx[39m[22m [1m[32m13:0-60[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/ReadMore' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\interactiveDataSources\sections'[39m[22m
+ @ ./js/components/interactiveDataSources/InteractiveDataSourcesPage.jsx 24:0-51 58:48-60
+ @ ./js/containers/router/RouterRoutes.jsx 47:65-141
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/keyword/table/ResultsTableErrorMessage.jsx[39m[22m [1m[32m16:0-78[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/icons/Icons' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\keyword\table'[39m[22m
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 20:0-101 117:42-66
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/search/modals/fullDownload/DownloadBottomBar.jsx[39m[22m [1m[32m17:0-89[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/icons/Icons' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\search\modals\fullDownload'[39m[22m
+ @ ./js/containers/search/modals/fullDownload/NewDownloadBottomBarContainer.jsx 21:0-100 210:40-57
+ @ ./js/containers/Footer.jsx 26:0-103 103:42-71
+ @ ./js/components/about/DBInfo.jsx 16:0-45 42:2428-2434
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/Alert.jsx[39m[22m [1m[32m17:0-46[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'hooks/useOnKeydown' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/components/TempPage.jsx 12:0-45 202:40-45 208:41-46 238:40-45 243:41-46 247:41-46 251:41-46 254:41-46 258:41-46 261:41-46 264:41-46 284:40-45 290:41-46 295:41-46 300:41-46 304:41-46 309:41-46 313:41-46 317:41-46 338:40-45 344:41-46 349:41-46 354:41-46 358:41-46 363:41-46 367:41-46 371:41-46 393:40-45 399:41-46 404:41-46 409:41-46 413:41-46 418:41-46 422:41-46 426:41-46
+ @ ./js/containers/router/RouterRoutes.jsx 51:47-82
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/ExternalLink.jsx[39m[22m [1m[32m18:0-61[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/modal/modalActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/components/analystGuide/AnalystGuideQuestions.jsx 16:0-60 156:92-104 2083:59-71
+ @ ./js/components/analystGuide/AnalystGuidePage.jsx 28:0-60 169:43-64
+ @ ./js/containers/router/RouterRoutes.jsx 45:55-111
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/Loading.jsx[39m[22m [1m[32m13:0-75[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/stickyHeaderHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/containers/AppContainer.jsx 23:0-83 76:42-49
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/Loading.jsx[39m[22m [1m[32m14:0-63[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/header/Header' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/containers/AppContainer.jsx 23:0-83 76:42-49
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/Loading.jsx[39m[22m [1m[32m15:0-39[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/Footer' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/containers/AppContainer.jsx 23:0-83 76:42-49
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/PageFeatureFlag.jsx[39m[22m [1m[32m16:0-46[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'GlobalConstants' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/components/TempPage.jsx 14:0-65 1782:44-59
+ @ ./js/containers/router/RouterRoutes.jsx 51:47-82
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/PageWrapper.jsx[39m[22m [1m[32m18:0-75[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/stickyHeaderHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/components/TempPage.jsx 13:0-57 1782:100-111
+ @ ./js/containers/router/RouterRoutes.jsx 51:47-82
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/PageWrapper.jsx[39m[22m [1m[32m19:0-69[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/metaTags/MetaTags' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/components/TempPage.jsx 13:0-57 1782:100-111
+ @ ./js/containers/router/RouterRoutes.jsx 51:47-82
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/PageWrapper.jsx[39m[22m [1m[32m20:0-55[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/shared/HeaderContainer' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/components/TempPage.jsx 13:0-57 1782:100-111
+ @ ./js/containers/router/RouterRoutes.jsx 51:47-82
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/PageWrapper.jsx[39m[22m [1m[32m21:0-39[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/Footer' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/components/TempPage.jsx 13:0-57 1782:100-111
+ @ ./js/containers/router/RouterRoutes.jsx 51:47-82
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/PageWrapper.jsx[39m[22m [1m[32m22:0-62[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/InPageNav' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/components/TempPage.jsx 13:0-57 1782:100-111
+ @ ./js/containers/router/RouterRoutes.jsx 51:47-82
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/StayInTouch.jsx[39m[22m [1m[32m16:0-61[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/modal/modalActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/containers/Footer.jsx 25:0-69 122:42-53
+ @ ./js/components/about/DBInfo.jsx 16:0-45 42:2428-2434
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/StayInTouch.jsx[39m[22m [1m[32m19:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents'[39m[22m
+ @ ./js/containers/Footer.jsx 25:0-69 122:42-53
+ @ ./js/components/about/DBInfo.jsx 16:0-45 42:2428-2434
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/buttons/ShareIcon508.jsx[39m[22m [1m[32m22:0-68[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/socialShare' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\buttons'[39m[22m
+ @ ./js/components/interactiveDataSources/InteractiveDataSourcesPage.jsx 20:0-82 223:41-53
+ @ ./js/containers/router/RouterRoutes.jsx 47:65-141
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/header/BannerPageHeader.jsx[39m[22m [1m[32m13:0-54[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'context/IsMobileContext' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\header'[39m[22m
+ @ ./js/components/TempPage.jsx 18:0-74 56:42-58
+ @ ./js/containers/router/RouterRoutes.jsx 51:47-82
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/header/GovBanner.jsx[39m[22m [1m[32m11:0-65[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/icons/Icons' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\header'[39m[22m
+ @ ./js/components/sharedComponents/header/Header.jsx 16:0-36 101:38-47
+ @ ./js/containers/shared/HeaderContainer.jsx 10:0-69 13:4-10
+ @ ./js/components/about/DBInfo.jsx 17:0-61 26:42-48
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/header/GovBanner.jsx[39m[22m [1m[32m13:0-68[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/shared/mobileBreakpoints' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\header'[39m[22m
+ @ ./js/components/sharedComponents/header/Header.jsx 16:0-36 101:38-47
+ @ ./js/containers/shared/HeaderContainer.jsx 10:0-69 13:4-10
+ @ ./js/components/about/DBInfo.jsx 17:0-61 26:42-48
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/header/Header.jsx[39m[22m [1m[32m11:0-70[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/glossary/GlossaryContainer' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\header'[39m[22m
+ @ ./js/containers/shared/HeaderContainer.jsx 10:0-69 13:4-10
+ @ ./js/components/about/DBInfo.jsx 17:0-61 26:42-48
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/header/Header.jsx[39m[22m [1m[32m12:0-79[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/globalModal/GlobalModalContainer' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\header'[39m[22m
+ @ ./js/containers/shared/HeaderContainer.jsx 10:0-69 13:4-10
+ @ ./js/components/about/DBInfo.jsx 17:0-61 26:42-48
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/header/Header.jsx[39m[22m [1m[32m13:0-89[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/aboutTheDataSidebar/AboutTheDataContainer' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\header'[39m[22m
+ @ ./js/containers/shared/HeaderContainer.jsx 10:0-69 13:4-10
+ @ ./js/components/about/DBInfo.jsx 17:0-61 26:42-48
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/header/Header.jsx[39m[22m [1m[32m14:0-42[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'ActiveBanners' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\header'[39m[22m
+ @ ./js/containers/shared/HeaderContainer.jsx 10:0-69 13:4-10
+ @ ./js/components/about/DBInfo.jsx 17:0-61 26:42-48
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/map/MapBox.jsx[39m[22m [1m[32m17:0-47[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'GlobalConstants' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\map'[39m[22m
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 20:0-72 293:70-76
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/map/MapBox.jsx[39m[22m [1m[32m18:0-62[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/state/statesBySqMile' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\map'[39m[22m
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 20:0-72 293:70-76
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/map/MapBox.jsx[39m[22m [1m[32m19:0-54[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'context/IsMobileContext' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\map'[39m[22m
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 20:0-72 293:70-76
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/map/MapBoxNavButtons.jsx[39m[22m [1m[32m15:0-100[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/icons/Icons' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\map'[39m[22m
+ @ ./js/components/sharedComponents/map/MapBox.jsx 20:0-50 216:40-56
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 20:0-72 293:70-76
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/map/MapLegend.jsx[39m[22m [1m[32m17:0-66[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/moneyFormatter' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\map'[39m[22m
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 21:0-78 311:39-48
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/map/MapLegend.jsx[39m[22m [1m[32m18:0-56[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/mapHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\map'[39m[22m
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 21:0-78 311:39-48
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/megaMenu/MegaMenuWrapper.jsx[39m[22m [1m[32m11:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\megaMenu'[39m[22m
+ @ ./js/components/sharedComponents/header/Header.jsx 15:0-58 101:89-104
+ @ ./js/containers/shared/HeaderContainer.jsx 10:0-69 13:4-10
+ @ ./js/components/about/DBInfo.jsx 17:0-61 26:42-48
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/megaMenu/mobile/MobileDropdownItem.jsx[39m[22m [1m[32m16:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\megaMenu\mobile'[39m[22m
+ @ ./js/components/sharedComponents/megaMenu/mobile/MobileNav.jsx 22:0-54 153:38-56
+ @ ./js/components/sharedComponents/megaMenu/MegaMenuWrapper.jsx 12:0-43 95:42-51
+ @ ./js/components/sharedComponents/header/Header.jsx 15:0-58 101:89-104
+ @ ./js/containers/shared/HeaderContainer.jsx 10:0-69 13:4-10
+ @ ./js/components/about/DBInfo.jsx 17:0-61 26:42-48
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/megaMenu/mobile/MobileNav.jsx[39m[22m [1m[32m19:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\megaMenu\mobile'[39m[22m
+ @ ./js/components/sharedComponents/megaMenu/MegaMenuWrapper.jsx 12:0-43 95:42-51
+ @ ./js/components/sharedComponents/header/Header.jsx 15:0-58 101:89-104
+ @ ./js/containers/shared/HeaderContainer.jsx 10:0-69 13:4-10
+ @ ./js/components/about/DBInfo.jsx 17:0-61 26:42-48
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/megaMenu/mobile/MobileTop.jsx[39m[22m [1m[32m16:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\megaMenu\mobile'[39m[22m
+ @ ./js/components/sharedComponents/megaMenu/mobile/MobileNav.jsx 21:0-36 109:38-47
+ @ ./js/components/sharedComponents/megaMenu/MegaMenuWrapper.jsx 12:0-43 95:42-51
+ @ ./js/components/sharedComponents/header/Header.jsx 15:0-58 101:89-104
+ @ ./js/containers/shared/HeaderContainer.jsx 10:0-69 13:4-10
+ @ ./js/components/about/DBInfo.jsx 17:0-61 26:42-48
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/metaTags/MetaTags.jsx[39m[22m [1m[32m17:0-88[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/googleAnalytics/googleAnalytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\metaTags'[39m[22m
+ @ ./js/components/about/DBInfo.jsx 18:0-61 25:42-50
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/metaTags/MetaTags.jsx[39m[22m [1m[32m18:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\metaTags'[39m[22m
+ @ ./js/components/about/DBInfo.jsx 18:0-61 25:42-50
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/sharedComponents/metaTags/MetaTags.jsx[39m[22m [1m[32m20:0-82[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/metaTagHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\sharedComponents\metaTags'[39m[22m
+ @ ./js/components/about/DBInfo.jsx 18:0-61 25:42-50
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/stateLanding/StateLandingContent.jsx[39m[22m [1m[32m15:0-76[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/LandingSearchBar' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\stateLanding'[39m[22m
+ @ ./js/containers/stateLanding/StateLandingContainer.jsx 21:0-84 129:44-63
+ @ ./js/components/stateLanding/StateLandingPage.jsx 21:0-88 78:41-62
+ @ ./js/containers/router/RouterRoutes.jsx 32:55-111
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/stateLanding/table/StateLandingTableSorter.jsx[39m[22m [1m[32m16:0-77[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/icons/Icons' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\stateLanding\table'[39m[22m
+ @ ./js/components/stateLanding/table/StateLandingTable.jsx 16:0-64 146:44-67 189:44-67 232:44-67
+ @ ./js/components/stateLanding/StateLandingContent.jsx 16:0-58 29:65-82
+ @ ./js/containers/stateLanding/StateLandingContainer.jsx 21:0-84 129:44-63
+ @ ./js/components/stateLanding/StateLandingPage.jsx 21:0-88 78:41-62
+ @ ./js/containers/router/RouterRoutes.jsx 32:55-111
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/stateLanding/table/StateLinkCell.jsx[39m[22m [1m[32m15:0-50[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/replaceString' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\stateLanding\table'[39m[22m
+ @ ./js/components/stateLanding/table/StateLandingTable.jsx 17:0-44 38:42-55
+ @ ./js/components/stateLanding/StateLandingContent.jsx 16:0-58 29:65-82
+ @ ./js/containers/stateLanding/StateLandingContainer.jsx 21:0-84 129:44-63
+ @ ./js/components/stateLanding/StateLandingPage.jsx 21:0-88 78:41-62
+ @ ./js/containers/router/RouterRoutes.jsx 32:55-111
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/stateLanding/table/StateLinkCell.jsx[39m[22m [1m[32m17:0-61[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'features/state/stateHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\stateLanding\table'[39m[22m
+ @ ./js/components/stateLanding/table/StateLandingTable.jsx 17:0-44 38:42-55
+ @ ./js/components/stateLanding/StateLandingContent.jsx 16:0-58 29:65-82
+ @ ./js/containers/stateLanding/StateLandingContainer.jsx 21:0-84 129:44-63
+ @ ./js/components/stateLanding/StateLandingPage.jsx 21:0-88 78:41-62
+ @ ./js/containers/router/RouterRoutes.jsx 32:55-111
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/stateLanding/table/StateLinkCell.jsx[39m[22m [1m[32m18:0-65[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/state/stateNames' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\stateLanding\table'[39m[22m
+ @ ./js/components/stateLanding/table/StateLandingTable.jsx 17:0-44 38:42-55
+ @ ./js/components/stateLanding/StateLandingContent.jsx 16:0-58 29:65-82
+ @ ./js/containers/stateLanding/StateLandingContainer.jsx 21:0-84 129:44-63
+ @ ./js/components/stateLanding/StateLandingPage.jsx 21:0-88 78:41-62
+ @ ./js/containers/router/RouterRoutes.jsx 32:55-111
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/trainingVideos/TrainingVideosPage.jsx[39m[22m [1m[32m19:0-66[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/PageWrapper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\trainingVideos'[39m[22m
+ @ ./js/containers/trainingVideos/TrainingVideosContainer.jsx 17:0-84 43:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 48:62-127
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/trainingVideos/TrainingVideosPage.jsx[39m[22m [1m[32m20:0-57[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/metaTagHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\trainingVideos'[39m[22m
+ @ ./js/containers/trainingVideos/TrainingVideosContainer.jsx 17:0-84 43:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 48:62-127
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/trainingVideos/TrainingVideosPage.jsx[39m[22m [1m[32m21:0-83[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/header/BannerPageHeader' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\trainingVideos'[39m[22m
+ @ ./js/containers/trainingVideos/TrainingVideosContainer.jsx 17:0-84 43:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 48:62-127
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/components/trainingVideos/listOfVideos/ListOfVideos.jsx[39m[22m [1m[32m17:0-74[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/modal/modalActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\components\trainingVideos\listOfVideos'[39m[22m
+ @ ./js/components/trainingVideos/TrainingVideosPage.jsx 23:0-55 71:42-54
+ @ ./js/containers/trainingVideos/TrainingVideosContainer.jsx 17:0-84 43:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 48:62-127
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/AppContainer.jsx[39m[22m [1m[32m18:0-47[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'GlobalConstants' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers'[39m[22m
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/AppContainer.jsx[39m[22m [1m[32m22:0-44[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/reducers/index' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers'[39m[22m
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/Footer.jsx[39m[22m [1m[32m18:0-82[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/shared/mobileBreakpoints' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers'[39m[22m
+ @ ./js/components/about/DBInfo.jsx 16:0-45 42:2428-2434
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/Footer.jsx[39m[22m [1m[32m21:0-61[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/modal/modalActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers'[39m[22m
+ @ ./js/components/about/DBInfo.jsx 16:0-45 42:2428-2434
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/Footer.jsx[39m[22m [1m[32m22:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers'[39m[22m
+ @ ./js/components/about/DBInfo.jsx 16:0-45 42:2428-2434
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/Footer.jsx[39m[22m [1m[32m23:0-106[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/bulkDownload/modal/BulkDownloadBottomBarContainer' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers'[39m[22m
+ @ ./js/components/about/DBInfo.jsx 16:0-45 42:2428-2434
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/Footer.jsx[39m[22m [1m[32m24:0-80[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/FooterExternalLink' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers'[39m[22m
+ @ ./js/components/about/DBInfo.jsx 16:0-45 42:2428-2434
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/WithUrlListener.jsx[39m[22m [1m[32m11:0-77[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/glossary/GlossaryListener' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers'[39m[22m
+ @ ./js/containers/AppContainer.jsx 21:0-60 120:35-50
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/WithUrlListener.jsx[39m[22m [1m[32m12:0-96[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/aboutTheDataSidebar/AboutTheDataListener' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers'[39m[22m
+ @ ./js/containers/AppContainer.jsx 21:0-60 120:35-50
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/WithUrlListener.jsx[39m[22m [1m[32m13:0-44[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'hooks/useIsMobile' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers'[39m[22m
+ @ ./js/containers/AppContainer.jsx 21:0-60 120:35-50
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/WithUrlListener.jsx[39m[22m [1m[32m14:0-54[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'context/IsMobileContext' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers'[39m[22m
+ @ ./js/containers/AppContainer.jsx 21:0-60 120:35-50
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/accountLanding/AccountLandingContainer.jsx[39m[22m [1m[32m16:0-81[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/accountLanding/accountsTableFields' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\accountLanding'[39m[22m
+ @ ./js/components/accountLanding/AccountLandingPage.jsx 20:0-94 67:40-63
+ @ ./js/containers/router/RouterRoutes.jsx 31:57-117
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/accountLanding/AccountLandingContainer.jsx[39m[22m [1m[32m17:0-69[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/accountLandingHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\accountLanding'[39m[22m
+ @ ./js/components/accountLanding/AccountLandingPage.jsx 20:0-94 67:40-63
+ @ ./js/containers/router/RouterRoutes.jsx 31:57-117
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/accountLanding/AccountLandingContainer.jsx[39m[22m [1m[32m18:0-59[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/account/WithLatestFy' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\accountLanding'[39m[22m
+ @ ./js/components/accountLanding/AccountLandingPage.jsx 20:0-94 67:40-63
+ @ ./js/containers/router/RouterRoutes.jsx 31:57-117
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/accountLanding/AccountLandingContainer.jsx[39m[22m [1m[32m19:0-84[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/accountLanding/AccountLandingContent' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\accountLanding'[39m[22m
+ @ ./js/components/accountLanding/AccountLandingPage.jsx 20:0-94 67:40-63
+ @ ./js/containers/router/RouterRoutes.jsx 31:57-117
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/accountLanding/AccountLandingContainer.jsx[39m[22m [1m[32m20:0-97[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v1/accountLanding/BaseFederalAccountLandingRow' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\accountLanding'[39m[22m
+ @ ./js/components/accountLanding/AccountLandingPage.jsx 20:0-94 67:40-63
+ @ ./js/containers/router/RouterRoutes.jsx 31:57-117
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/accountLanding/AccountLandingContainer.jsx[39m[22m [1m[32m21:0-73[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'propTypes' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\accountLanding'[39m[22m
+ @ ./js/components/accountLanding/AccountLandingPage.jsx 20:0-94 67:40-63
+ @ ./js/containers/router/RouterRoutes.jsx 31:57-117
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/AccountContainer.jsx[39m[22m [1m[32m21:0-73[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'propTypes' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 22:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/AccountContainer.jsx[39m[22m [1m[32m22:0-46[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'apis/account' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 22:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/AccountContainer.jsx[39m[22m [1m[32m23:0-71[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/account/accountActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 22:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/AccountContainer.jsx[39m[22m [1m[32m24:0-76[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/account/accountFilterActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 22:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/AccountContainer.jsx[39m[22m [1m[32m25:0-62[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v1/account/FederalAccount' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 22:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/AccountContainer.jsx[39m[22m [1m[32m26:0-78[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/accounts/accountFields' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 22:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/AccountContainer.jsx[39m[22m [1m[32m27:0-59[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/account/WithLatestFy' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 22:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/AccountContainer.jsx[39m[22m [1m[32m28:0-49[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/account/Account' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 22:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/AccountContainer.jsx[39m[22m [1m[32m29:0-63[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/account/InvalidAccount' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 22:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/AccountContainer.jsx[39m[22m [1m[32m30:0-63[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/account/LoadingAccount' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 22:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/WithLatestFy.jsx[39m[22m [1m[32m14:0-76[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/account/accountActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 28:0-107 54:36-56 59:48-76 420:243-263 420:265-293
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/WithLatestFy.jsx[39m[22m [1m[32m15:0-80[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/accountHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 28:0-107 54:36-56 59:48-76 420:243-263 420:265-293
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/WithLatestFy.jsx[39m[22m [1m[32m16:0-55[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'apis/account' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 28:0-107 54:36-56 59:48-76 420:243-263 420:265-293
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/WithLatestFy.jsx[39m[22m [1m[32m17:0-141[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/aboutTheDataHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 28:0-107 54:36-56 59:48-76 420:243-263 420:265-293
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/account/WithLatestFy.jsx[39m[22m [1m[32m18:0-78[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/queryParams' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\account'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 28:0-107 54:36-56 59:48-76 420:243-263 420:265-293
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencyLanding/AgencyLandingContainer.jsx[39m[22m [1m[32m20:0-80[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/agencyLanding/agenciesTableFields' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencyLanding'[39m[22m
+ @ ./js/components/agencyLanding/AgencyLandingPage.jsx 20:0-91 67:40-62
+ @ ./js/containers/router/RouterRoutes.jsx 28:56-114
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencyLanding/AgencyLandingContainer.jsx[39m[22m [1m[32m21:0-67[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/agencyLandingHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencyLanding'[39m[22m
+ @ ./js/components/agencyLanding/AgencyLandingPage.jsx 20:0-91 67:40-62
+ @ ./js/containers/router/RouterRoutes.jsx 28:56-114
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencyLanding/AgencyLandingContainer.jsx[39m[22m [1m[32m22:0-57[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/moneyFormatter' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencyLanding'[39m[22m
+ @ ./js/components/agencyLanding/AgencyLandingPage.jsx 20:0-91 67:40-62
+ @ ./js/containers/router/RouterRoutes.jsx 28:56-114
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencyLanding/AgencyLandingContainer.jsx[39m[22m [1m[32m23:0-81[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/agencyLanding/AgencyLandingContent' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencyLanding'[39m[22m
+ @ ./js/components/agencyLanding/AgencyLandingPage.jsx 20:0-91 67:40-62
+ @ ./js/containers/router/RouterRoutes.jsx 28:56-114
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencySubmissionStats/AgenciesContainer.jsx[39m[22m [1m[32m16:0-75[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/agencySubmissionStats/DrilldownCell' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencySubmissionStats'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 27:0-89 315:43-60
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencySubmissionStats/AgenciesContainer.jsx[39m[22m [1m[32m17:0-75[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/agencySubmissionStats/CellWithModal' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencySubmissionStats'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 27:0-89 315:43-60
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencySubmissionStats/AgenciesContainer.jsx[39m[22m [1m[32m18:0-125[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/agencySubmissionStats' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencySubmissionStats'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 27:0-89 315:43-60
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencySubmissionStats/AgenciesContainer.jsx[39m[22m [1m[32m19:0-123[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'apis/agencyReporting' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencySubmissionStats'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 27:0-89 315:43-60
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencySubmissionStats/AgenciesContainer.jsx[39m[22m [1m[32m20:0-97[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/aboutTheDataHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencySubmissionStats'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 27:0-89 315:43-60
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencySubmissionStats/AgenciesContainer.jsx[39m[22m [1m[32m21:0-56[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/accountHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencySubmissionStats'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 27:0-89 315:43-60
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencySubmissionStats/AgenciesContainer.jsx[39m[22m [1m[32m22:0-74[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/agencySubmissionStats/BaseAgencyRow' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencySubmissionStats'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 27:0-89 315:43-60
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencySubmissionStats/AgenciesContainer.jsx[39m[22m [1m[32m23:0-92[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/agencySubmissionStats/PublicationOverviewRow' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencySubmissionStats'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 27:0-89 315:43-60
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencySubmissionStats/AgencyDetailsContainer.jsx[39m[22m [1m[32m17:0-51[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'apis/agencyReporting' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencySubmissionStats'[39m[22m
+ @ ./js/components/agencySubmissionStats/AgencyDetailsPage.jsx 24:0-99 150:64-86
+ @ ./js/containers/router/RouterRoutes.jsx 41:56-122
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencySubmissionStats/AgencyDetailsContainer.jsx[39m[22m [1m[32m18:0-92[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/agencySubmissionStats/BaseReportingPeriodRow' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencySubmissionStats'[39m[22m
+ @ ./js/components/agencySubmissionStats/AgencyDetailsPage.jsx 24:0-99 150:64-86
+ @ ./js/containers/router/RouterRoutes.jsx 41:56-122
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencySubmissionStats/AgencyDetailsContainer.jsx[39m[22m [1m[32m19:0-75[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/agencySubmissionStats/CellWithModal' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencySubmissionStats'[39m[22m
+ @ ./js/components/agencySubmissionStats/AgencyDetailsPage.jsx 24:0-99 150:64-86
+ @ ./js/containers/router/RouterRoutes.jsx 41:56-122
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agencySubmissionStats/AgencyTableMapping.jsx[39m[22m [1m[32m20:0-105[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/agencySubmissionStats/componentMapping/tooltipContentMapping' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agencySubmissionStats'[39m[22m
+ @ ./js/containers/agencySubmissionStats/AgencyDetailsContainer.jsx 20:0-60 203:13-33
+ @ ./js/components/agencySubmissionStats/AgencyDetailsPage.jsx 24:0-99 150:64-86
+ @ ./js/containers/router/RouterRoutes.jsx 41:56-122
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agency/AgencyContainer.jsx[39m[22m [1m[32m18:0-50[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'apis/agency' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agency'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 36:52-101
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agency/AgencyContainer.jsx[39m[22m [1m[32m19:0-69[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/agency/BaseAgencyOverview' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agency'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 36:52-101
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agency/AgencyContainer.jsx[39m[22m [1m[32m20:0-84[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/agency/agencyActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agency'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 36:52-101
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agency/AgencyContainer.jsx[39m[22m [1m[32m21:0-101[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/account/WithLatestFy' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agency'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 36:52-101
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/agency/AgencyContainer.jsx[39m[22m [1m[32m22:0-54[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/agency/AgencyPage' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\agency'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 36:52-101
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m20:0-43[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/award/Award' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m21:0-53[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/searchHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m22:0-72[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/award/awardActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m23:0-155[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/bulkDownload/bulkDownloadActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m24:0-84[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/search/searchSubAwardTableActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m25:0-67[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/covid19/covid19Actions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m26:0-56[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/award/BaseContract' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m27:0-46[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/award/BaseIdv' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m28:0-78[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/award/BaseFinancialAssistance' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m29:0-118[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/downloadHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m30:0-46[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'hooks/WithDefCodes' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m31:0-67[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/awardHistoryHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/award/AwardContainer.jsx[39m[22m [1m[32m32:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\award'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 21:53-100
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/bulkDownload/BulkDownloadPageContainer.jsx[39m[22m [1m[32m19:0-108[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/bulkDownload/bulkDownloadOptions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\bulkDownload'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 29:64-129
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/bulkDownload/BulkDownloadPageContainer.jsx[39m[22m [1m[32m20:0-72[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/bulkDownload/BulkDownloadPage' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\bulkDownload'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 29:64-129
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/bulkDownload/BulkDownloadPageContainer.jsx[39m[22m [1m[32m21:0-86[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/bulkDownload/bulkDownloadActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\bulkDownload'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 29:64-129
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/bulkDownload/BulkDownloadPageContainer.jsx[39m[22m [1m[32m22:0-65[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/bulkDownloadHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\bulkDownload'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 29:64-129
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/bulkDownload/helpers/downloadAnalytics.js[39m[22m [1m[32m16:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\bulkDownload\helpers'[39m[22m
+ @ ./js/containers/bulkDownload/BulkDownloadPageContainer.jsx 24:0-83 157:4-20 189:4-22
+ @ ./js/containers/router/RouterRoutes.jsx 29:64-129
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/covid19/Covid19Container.jsx[39m[22m [1m[32m16:0-58[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/covid19/BaseOverview' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\covid19'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 39:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/covid19/Covid19Container.jsx[39m[22m [1m[32m17:0-65[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'apis/disaster' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\covid19'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 39:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/covid19/Covid19Container.jsx[39m[22m [1m[32m18:0-49[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'hooks/WithDefCodes' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\covid19'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 39:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/covid19/Covid19Container.jsx[39m[22m [1m[32m19:0-108[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/covid19/covid19Actions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\covid19'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 39:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/covid19/Covid19Container.jsx[39m[22m [1m[32m20:0-57[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/covid19/Covid19Page' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\covid19'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 39:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/explorer/detail/ExplorerDetailPageContainer.jsx[39m[22m [1m[32m18:0-74[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/explorer/explorerActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\explorer\detail'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 20:66-136
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/explorer/detail/ExplorerDetailPageContainer.jsx[39m[22m [1m[32m19:0-79[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/explorer/detail/ExplorerDetailPage' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\explorer\detail'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 20:66-136
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/keyword/KeywordContainer.jsx[39m[22m [1m[32m17:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\keyword'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 30:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/keyword/KeywordContainer.jsx[39m[22m [1m[32m18:0-133[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/bulkDownload/bulkDownloadActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\keyword'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 30:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/keyword/KeywordContainer.jsx[39m[22m [1m[32m19:0-65[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/bulkDownloadHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\keyword'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 30:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/keyword/KeywordContainer.jsx[39m[22m [1m[32m20:0-55[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/keywordHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\keyword'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 30:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/keyword/KeywordContainer.jsx[39m[22m [1m[32m21:0-57[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/keyword/KeywordPage' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\keyword'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 30:55-106
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/recipientLanding/RecipientLandingContainer.jsx[39m[22m [1m[32m16:0-73[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/recipientLandingHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\recipientLanding'[39m[22m
+ @ ./js/components/recipientLanding/RecipientLandingPage.jsx 18:0-100 69:40-65
+ @ ./js/containers/router/RouterRoutes.jsx 34:59-123
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/recipientLanding/RecipientLandingContainer.jsx[39m[22m [1m[32m17:0-90[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/recipientLanding/RecipientLandingContent' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\recipientLanding'[39m[22m
+ @ ./js/components/recipientLanding/RecipientLandingPage.jsx 18:0-100 69:40-65
+ @ ./js/containers/router/RouterRoutes.jsx 34:59-123
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/recipientLanding/RecipientLandingContainer.jsx[39m[22m [1m[32m18:0-82[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/recipient/BaseRecipientLandingRow' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\recipientLanding'[39m[22m
+ @ ./js/components/recipientLanding/RecipientLandingPage.jsx 18:0-100 69:40-65
+ @ ./js/containers/router/RouterRoutes.jsx 34:59-123
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/recipient/RecipientContainer.jsx[39m[22m [1m[32m19:0-78[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/recipient/BaseRecipientOverview' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\recipient'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 35:57-112
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/recipient/RecipientContainer.jsx[39m[22m [1m[32m20:0-77[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/recipient/recipientActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\recipient'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 35:57-112
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/recipient/RecipientContainer.jsx[39m[22m [1m[32m21:0-59[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/recipientHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\recipient'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 35:57-112
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/recipient/RecipientContainer.jsx[39m[22m [1m[32m22:0-53[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/fiscalYearHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\recipient'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 35:57-112
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/recipient/RecipientContainer.jsx[39m[22m [1m[32m23:0-63[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/recipient/RecipientPage' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\recipient'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 35:57-112
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/SearchContainer.jsx[39m[22m [1m[32m18:0-78[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/queryParams' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/SearchContainer.jsx[39m[22m [1m[32m19:0-109[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/reducers/search/searchFiltersReducer' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/SearchContainer.jsx[39m[22m [1m[32m20:0-78[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/search/searchHashActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/SearchContainer.jsx[39m[22m [1m[32m21:0-75[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/search/searchFilterActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/SearchContainer.jsx[39m[22m [1m[32m22:0-107[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/search/appliedFilterActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/SearchContainer.jsx[39m[22m [1m[32m23:0-169[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/searchHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/SearchContainer.jsx[39m[22m [1m[32m24:0-57[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/downloadHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/SearchContainer.jsx[39m[22m [1m[32m25:0-75[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v1/search/SearchAwardsOperation' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/SearchContainer.jsx[39m[22m [1m[32m26:0-50[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'hooks/useQueryParams' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/SearchContainer.jsx[39m[22m [1m[32m27:0-54[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/search/SearchPage' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/helpers/searchAnalytics.js[39m[22m [1m[32m15:0-110[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/search/awardType' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search\helpers'[39m[22m
+ @ ./js/containers/search/SearchContainer.jsx 28:0-118 61:17-47 62:2-23 63:2-20
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/helpers/searchAnalytics.js[39m[22m [1m[32m16:0-79[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/search/recipientType' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search\helpers'[39m[22m
+ @ ./js/containers/search/SearchContainer.jsx 28:0-118 61:17-47 62:2-23 63:2-20
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/helpers/searchAnalytics.js[39m[22m [1m[32m17:0-123[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/search/contractFields' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search\helpers'[39m[22m
+ @ ./js/containers/search/SearchContainer.jsx 28:0-118 61:17-47 62:2-23 63:2-20
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/search/helpers/searchAnalytics.js[39m[22m [1m[32m18:0-52[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/analytics/Analytics' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\search\helpers'[39m[22m
+ @ ./js/containers/search/SearchContainer.jsx 28:0-118 61:17-47 62:2-23 63:2-20
+ @ ./js/containers/router/RouterRoutes.jsx 16:62-111 15:54-103
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/containers/trainingVideos/TrainingVideosContainer.jsx[39m[22m [1m[32m15:0-58[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/video/VideoMetadata' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\containers\trainingVideos'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 48:62-127
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/StatePageNavigation.jsx[39m[22m [1m[32m16:0-82[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/state/stateActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state'[39m[22m
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/StatePageWrapper.jsx[39m[22m [1m[32m13:0-58[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/metaTagHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state'[39m[22m
+ @ ./js/features/state/StatePage.jsx 24:0-50 112:42-58
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/StatePageWrapper.jsx[39m[22m [1m[32m14:0-78[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/queryParams' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state'[39m[22m
+ @ ./js/features/state/StatePage.jsx 24:0-50 112:42-58
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/StatePageWrapper.jsx[39m[22m [1m[32m15:0-75[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/stickyHeader/stickyHeader' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state'[39m[22m
+ @ ./js/features/state/StatePage.jsx 24:0-50 112:42-58
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/StatePageWrapper.jsx[39m[22m [1m[32m16:0-50[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'hooks/useQueryParams' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state'[39m[22m
+ @ ./js/features/state/StatePage.jsx 24:0-50 112:42-58
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/StatePageWrapper.jsx[39m[22m [1m[32m17:0-61[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/modal/modalActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state'[39m[22m
+ @ ./js/features/state/StatePage.jsx 24:0-50 112:42-58
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/StatePageWrapper.jsx[39m[22m [1m[32m18:0-54[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'context/IsMobileContext' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state'[39m[22m
+ @ ./js/features/state/StatePage.jsx 24:0-50 112:42-58
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/StatePageWrapper.jsx[39m[22m [1m[32m19:0-66[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/PageWrapper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state'[39m[22m
+ @ ./js/features/state/StatePage.jsx 24:0-50 112:42-58
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/containers/StatePageContainer.jsx[39m[22m [1m[32m17:0-104[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/state/stateActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\containers'[39m[22m
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/containers/StatePageContainer.jsx[39m[22m [1m[32m18:0-56[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/mapHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\containers'[39m[22m
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/containers/useFetchOverview.jsx[39m[22m [1m[32m16:0-48[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'apis/state' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\containers'[39m[22m
+ @ ./js/features/state/containers/StatePageContainer.jsx 19:0-50 43:6-22 113:145-161
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/containers/useFetchOverview.jsx[39m[22m [1m[32m17:0-64[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/state/BaseStateProfile' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\containers'[39m[22m
+ @ ./js/features/state/containers/StatePageContainer.jsx 19:0-50 43:6-22 113:145-161
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/AwardBreakdownHeader.jsx[39m[22m [1m[32m18:0-70[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/RoundedToggle' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown'[39m[22m
+ @ ./js/features/state/overview/StateOverview.jsx 21:0-73 151:43-63
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/AwardBreakdownHeader.jsx[39m[22m [1m[32m19:0-72[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/accordion/Accordion' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown'[39m[22m
+ @ ./js/features/state/overview/StateOverview.jsx 21:0-73 151:43-63
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/AwardBreakdownHeader.jsx[39m[22m [1m[32m20:0-68[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/GlossaryLink' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown'[39m[22m
+ @ ./js/features/state/overview/StateOverview.jsx 21:0-73 151:43-63
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/card/AwardBreakdownCardButton.jsx[39m[22m [1m[32m21:0-92[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/reducers/search/searchFiltersReducer' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown\card'[39m[22m
+ @ ./js/features/state/overview/awardBreakdown/card/AwardBreakdownCard.jsx 18:0-66 135:43-67
+ @ ./js/features/state/overview/StateOverview.jsx 22:0-74 176:43-61
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/card/AwardBreakdownCardButton.jsx[39m[22m [1m[32m22:0-50[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'GlobalConstants' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown\card'[39m[22m
+ @ ./js/features/state/overview/awardBreakdown/card/AwardBreakdownCard.jsx 18:0-66 135:43-67
+ @ ./js/features/state/overview/StateOverview.jsx 22:0-74 176:43-61
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/card/AwardBreakdownCardButton.jsx[39m[22m [1m[32m23:0-55[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/searchHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown\card'[39m[22m
+ @ ./js/features/state/overview/awardBreakdown/card/AwardBreakdownCard.jsx 18:0-66 135:43-67
+ @ ./js/features/state/overview/StateOverview.jsx 22:0-74 176:43-61
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/card/AwardBreakdownCardButton.jsx[39m[22m [1m[32m24:0-46[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'hooks/useQueryTemp' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown\card'[39m[22m
+ @ ./js/features/state/overview/awardBreakdown/card/AwardBreakdownCard.jsx 18:0-66 135:43-67
+ @ ./js/features/state/overview/StateOverview.jsx 22:0-74 176:43-61
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/card/AwardBreakdownCardHeadline.jsx[39m[22m [1m[32m15:0-69[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/icons/Icons' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown\card'[39m[22m
+ @ ./js/features/state/overview/awardBreakdown/card/AwardBreakdownCard.jsx 17:0-70 128:42-68
+ @ ./js/features/state/overview/StateOverview.jsx 22:0-74 176:43-61
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/containers/AwardBreakdownContainer.jsx[39m[22m [1m[32m17:0-74[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/state/BaseAwardBreakdownRow' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown\containers'[39m[22m
+ @ ./js/features/state/overview/StateOverview.jsx 20:0-90 162:43-66
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/containers/useFetchAwardBreakdown.jsx[39m[22m [1m[32m14:0-49[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'apis/state' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown\containers'[39m[22m
+ @ ./js/features/state/overview/awardBreakdown/containers/AwardBreakdownContainer.jsx 20:0-62 40:6-28 98:344-366
+ @ ./js/features/state/overview/StateOverview.jsx 20:0-90 162:43-66
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/treemap/AwardBreakdownTreeMap.jsx[39m[22m [1m[32m17:0-55[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/treemapHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown\treemap'[39m[22m
+ @ ./js/features/state/overview/awardBreakdown/containers/AwardBreakdownContainer.jsx 18:0-69 87:165-186
+ @ ./js/features/state/overview/StateOverview.jsx 20:0-90 162:43-66
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/treemap/AwardBreakdownTreeMap.jsx[39m[22m [1m[32m18:0-63[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/state/awardTypes' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown\treemap'[39m[22m
+ @ ./js/features/state/overview/awardBreakdown/containers/AwardBreakdownContainer.jsx 18:0-69 87:165-186
+ @ ./js/features/state/overview/StateOverview.jsx 20:0-90 162:43-66
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/treemap/AwardBreakdownTreeMap.jsx[39m[22m [1m[32m19:0-54[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'hooks/useEventListener' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown\treemap'[39m[22m
+ @ ./js/features/state/overview/awardBreakdown/containers/AwardBreakdownContainer.jsx 18:0-69 87:165-186
+ @ ./js/features/state/overview/StateOverview.jsx 20:0-90 162:43-66
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/treemap/CreateAwardTypeTooltip.jsx[39m[22m [1m[32m16:0-63[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/state/awardTypes' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown\treemap'[39m[22m
+ @ ./js/features/state/overview/awardBreakdown/treemap/AwardBreakdownTreeMap.jsx 21:0-62 150:38-60
+ @ ./js/features/state/overview/awardBreakdown/containers/AwardBreakdownContainer.jsx 18:0-69 87:165-186
+ @ ./js/features/state/overview/StateOverview.jsx 20:0-90 162:43-66
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/awardBreakdown/treemap/CreateAwardTypeTooltip.jsx[39m[22m [1m[32m17:0-72[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/moneyFormatter' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\awardBreakdown\treemap'[39m[22m
+ @ ./js/features/state/overview/awardBreakdown/treemap/AwardBreakdownTreeMap.jsx 21:0-62 150:38-60
+ @ ./js/features/state/overview/awardBreakdown/containers/AwardBreakdownContainer.jsx 18:0-69 87:165-186
+ @ ./js/features/state/overview/StateOverview.jsx 20:0-90 162:43-66
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/geo/StateGeoTooltip.jsx[39m[22m [1m[32m11:0-99[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/search/visualizations/geo/GeoVisualizationTooltip' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\geo'[39m[22m
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 24:0-48 314:39-54
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/geo/StateProfileMapWrapper.jsx[39m[22m [1m[32m18:0-46[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'GlobalConstants' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\geo'[39m[22m
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx[39m[22m [1m[32m21:0-89[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/fiscalYearHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\geo\containers'[39m[22m
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx[39m[22m [1m[32m22:0-72[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/searchHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\geo\containers'[39m[22m
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx[39m[22m [1m[32m23:0-46[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/mapHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\geo\containers'[39m[22m
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/geo/filters/ProgramActivityList.jsx[39m[22m [1m[32m16:0-69[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve '../../../helpers/searchHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\geo\filters'[39m[22m
+ @ ./js/features/state/overview/geo/filters/StateMapFiltersAutocomplete.jsx 13:0-56 71:40-59
+ @ ./js/features/state/overview/geo/filters/StateProfileMapFilters.jsx 17:0-72 68:42-69
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 23:0-70 303:39-61
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/geo/filters/StateAgencyList.jsx[39m[22m [1m[32m19:0-70[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve '../../../helpers/searchHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\geo\filters'[39m[22m
+ @ ./js/features/state/overview/geo/filters/StateMapFiltersAutocomplete.jsx 12:0-48 43:40-55
+ @ ./js/features/state/overview/geo/filters/StateProfileMapFilters.jsx 17:0-72 68:42-69
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 23:0-70 303:39-61
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/geo/filters/StateMapFiltersDropdown.jsx[39m[22m [1m[32m16:0-51[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/covid19Helper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\geo\filters'[39m[22m
+ @ ./js/features/state/overview/geo/filters/StateProfileMapFilters.jsx 18:0-64 52:42-65
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 23:0-70 303:39-61
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/geo/filters/StateMapFiltersDropdown.jsx[39m[22m [1m[32m17:0-108[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/state/stateMap' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\geo\filters'[39m[22m
+ @ ./js/features/state/overview/geo/filters/StateProfileMapFilters.jsx 18:0-64 52:42-65
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 23:0-70 303:39-61
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/overview/geo/filters/StateMapFiltersDropdown.jsx[39m[22m [1m[32m18:0-49[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'hooks/WithDefCodes' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\overview\geo\filters'[39m[22m
+ @ ./js/features/state/overview/geo/filters/StateProfileMapFilters.jsx 18:0-64 52:42-65
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 23:0-70 303:39-61
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/stateHelper.js[39m[22m [1m[32m12:0-84[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/state/stateNames' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state'[39m[22m
+ @ ./js/features/state/StatePageNavigation.jsx 17:0-54 27:50-71
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/statePageToolbarComponents.jsx[39m[22m [1m[32m10:0-73[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/socialShare' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state'[39m[22m
+ @ ./js/features/state/StatePageWrapper.jsx 20:0-70 100:23-49
+ @ ./js/features/state/StatePage.jsx 24:0-50 112:42-58
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/statePageToolbarComponents.jsx[39m[22m [1m[32m11:0-113[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/fiscalYearHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state'[39m[22m
+ @ ./js/features/state/StatePageWrapper.jsx 20:0-70 100:23-49
+ @ ./js/features/state/StatePage.jsx 24:0-50 112:42-58
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/statePageToolbarComponents.jsx[39m[22m [1m[32m12:0-76[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/buttons/ShareIcon508' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state'[39m[22m
+ @ ./js/features/state/StatePageWrapper.jsx 20:0-70 100:23-49
+ @ ./js/features/state/StatePage.jsx 24:0-50 112:42-58
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/topFive/TopFiveSection.jsx[39m[22m [1m[32m19:0-55[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/topCategories' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\topFive'[39m[22m
+ @ ./js/features/state/topFive/containers/TopFiveSectionContainer.jsx 11:0-47 22:42-56
+ @ ./js/features/state/StatePage.jsx 25:0-83 57:175-198
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/topFive/containers/TopFiveContainer.jsx[39m[22m [1m[32m17:0-58[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/TopFive' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\topFive\containers'[39m[22m
+ @ ./js/features/state/topFive/TopFiveSection.jsx 20:0-61 36:56-72
+ @ ./js/features/state/topFive/containers/TopFiveSectionContainer.jsx 11:0-47 22:42-56
+ @ ./js/features/state/StatePage.jsx 25:0-83 57:175-198
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/topFive/containers/TopFiveSectionContainer.jsx[39m[22m [1m[32m10:0-50[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'hooks/useAgencySlugs' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\topFive\containers'[39m[22m
+ @ ./js/features/state/StatePage.jsx 25:0-83 57:175-198
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/topFive/containers/useFetchSpendingBy.jsx[39m[22m [1m[32m19:0-101[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/searchHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\topFive\containers'[39m[22m
+ @ ./js/features/state/topFive/containers/TopFiveContainer.jsx 18:0-54 55:6-24 109:132-150
+ @ ./js/features/state/topFive/TopFiveSection.jsx 20:0-61 36:56-72
+ @ ./js/features/state/topFive/containers/TopFiveSectionContainer.jsx 11:0-47 22:42-56
+ @ ./js/features/state/StatePage.jsx 25:0-83 57:175-198
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/topFive/containers/useFetchSpendingBy.jsx[39m[22m [1m[32m20:0-78[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'models/v2/state/BaseStateCategoryResult' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\topFive\containers'[39m[22m
+ @ ./js/features/state/topFive/containers/TopFiveContainer.jsx 18:0-54 55:6-24 109:132-150
+ @ ./js/features/state/topFive/TopFiveSection.jsx 20:0-61 36:56-72
+ @ ./js/features/state/topFive/containers/TopFiveSectionContainer.jsx 11:0-47 22:42-56
+ @ ./js/features/state/StatePage.jsx 25:0-83 57:175-198
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/transactionsOverTime/chart/CustomLegend.jsx[39m[22m [1m[32m16:0-88[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/timeChart/chart/BarChartLegend' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\transactionsOverTime\chart'[39m[22m
+ @ ./js/features/state/transactionsOverTime/chart/StateTimeVisualizationChart.jsx 22:0-42 156:50-62
+ @ ./js/features/state/transactionsOverTime/StateTimeVisualizationSection.jsx 16:0-78 50:42-69
+ @ ./js/features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer.jsx 16:0-77 131:42-71
+ @ ./js/features/state/StatePage.jsx 22:0-145 57:95-133
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/transactionsOverTime/chart/CustomTooltip.jsx[39m[22m [1m[32m16:0-72[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/moneyFormatter' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\transactionsOverTime\chart'[39m[22m
+ @ ./js/features/state/transactionsOverTime/chart/StateTimeVisualizationChart.jsx 21:0-44 149:50-63
+ @ ./js/features/state/transactionsOverTime/StateTimeVisualizationSection.jsx 16:0-78 50:42-69
+ @ ./js/features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer.jsx 16:0-77 131:42-71
+ @ ./js/features/state/StatePage.jsx 22:0-145 57:95-133
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/transactionsOverTime/chart/CustomYTick.jsx[39m[22m [1m[32m16:0-72[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/moneyFormatter' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\transactionsOverTime\chart'[39m[22m
+ @ ./js/features/state/transactionsOverTime/chart/StateTimeVisualizationChart.jsx 20:0-40 142:47-58
+ @ ./js/features/state/transactionsOverTime/StateTimeVisualizationSection.jsx 16:0-78 50:42-69
+ @ ./js/features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer.jsx 16:0-77 131:42-71
+ @ ./js/features/state/StatePage.jsx 22:0-145 57:95-133
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/transactionsOverTime/containers/useFetchSpendingOverTime.jsx[39m[22m [1m[32m15:0-69[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/searchHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\transactionsOverTime\containers'[39m[22m
+ @ ./js/features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer.jsx 17:0-66 70:6-30 146:228-252
+ @ ./js/features/state/StatePage.jsx 22:0-145 57:95-133
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/transactionsOverTime/containers/useFetchSpendingOverTime.jsx[39m[22m [1m[32m16:0-79[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/monthHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\transactionsOverTime\containers'[39m[22m
+ @ ./js/features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer.jsx 17:0-66 70:6-30 146:228-252
+ @ ./js/features/state/StatePage.jsx 22:0-145 57:95-133
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/transactionsOverTime/header/OutlaysExplanation.jsx[39m[22m [1m[32m16:0-68[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/GlossaryLink' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\transactionsOverTime\header'[39m[22m
+ @ ./js/features/state/transactionsOverTime/header/StateTimeVisualizationHeader.jsx 18:0-54
+ @ ./js/features/state/transactionsOverTime/StateTimeVisualizationSection.jsx 17:0-81 35:42-70
+ @ ./js/features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer.jsx 16:0-77 131:42-71
+ @ ./js/features/state/StatePage.jsx 22:0-145 57:95-133
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/transactionsOverTime/header/OutlaysToggle.jsx[39m[22m [1m[32m15:0-70[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/RoundedToggle' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\transactionsOverTime\header'[39m[22m
+ @ ./js/features/state/transactionsOverTime/header/StateTimeVisualizationHeader.jsx 17:0-44
+ @ ./js/features/state/transactionsOverTime/StateTimeVisualizationSection.jsx 17:0-81 35:42-70
+ @ ./js/features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer.jsx 16:0-77 131:42-71
+ @ ./js/features/state/StatePage.jsx 22:0-145 57:95-133
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/features/state/transactionsOverTime/header/OutlaysToggle.jsx[39m[22m [1m[32m16:0-72[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'components/sharedComponents/accordion/Accordion' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\features\state\transactionsOverTime\header'[39m[22m
+ @ ./js/features/state/transactionsOverTime/header/StateTimeVisualizationHeader.jsx 17:0-44
+ @ ./js/features/state/transactionsOverTime/StateTimeVisualizationSection.jsx 17:0-81 35:42-70
+ @ ./js/features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer.jsx 16:0-77 131:42-71
+ @ ./js/features/state/StatePage.jsx 22:0-145 57:95-133
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/aboutTheDataHelper.js[39m[22m [1m[32m19:0-114[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/moneyFormatter' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 21:0-71 146:41-60
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/aboutTheDataHelper.js[39m[22m [1m[32m20:0-95[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/agencySubmissionStats/timeFilters' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/components/agencySubmissionStats/AboutTheDataPage.jsx 21:0-71 146:41-60
+ @ ./js/containers/router/RouterRoutes.jsx 40:55-120
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/analytics/Analytics.js[39m[22m [1m[32m13:0-47[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'GlobalConstants' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers\analytics'[39m[22m
+ @ ./js/components/dataDives/EquityCovidSpendingPage.jsx 20:0-58 261:2-17
+ @ ./js/containers/router/RouterRoutes.jsx 46:62-122
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/covid19Helper.js[39m[22m [1m[32m16:0-48[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/apiRequest' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/components/covid19/DataSourcesAndMethodologiesPage.jsx 25:0-111 95:22-51 108:101-134
+ @ ./js/containers/router/RouterRoutes.jsx 37:70-136
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/covid19Helper.js[39m[22m [1m[32m17:0-158[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/covid19/covid19' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/components/covid19/DataSourcesAndMethodologiesPage.jsx 25:0-111 95:22-51 108:101-134
+ @ ./js/containers/router/RouterRoutes.jsx 37:70-136
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/covid19Helper.js[39m[22m [1m[32m18:0-79[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'containers/covid19/helpers/covid19' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/components/covid19/DataSourcesAndMethodologiesPage.jsx 25:0-111 95:22-51 108:101-134
+ @ ./js/containers/router/RouterRoutes.jsx 37:70-136
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/covid19Helper.js[39m[22m [1m[32m19:0-95[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/moneyFormatter' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/components/covid19/DataSourcesAndMethodologiesPage.jsx 25:0-111 95:22-51 108:101-134
+ @ ./js/containers/router/RouterRoutes.jsx 37:70-136
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/covid19Helper.js[39m[22m [1m[32m20:0-75[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/stickyHeader/stickyHeader' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/components/covid19/DataSourcesAndMethodologiesPage.jsx 25:0-111 95:22-51 108:101-134
+ @ ./js/containers/router/RouterRoutes.jsx 37:70-136
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/mapHelper.js[39m[22m [1m[32m15:0-47[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'GlobalConstants' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/features/state/overview/geo/StateProfileMapWrapper.jsx 19:0-114 77:19-32 96:21-34 117:4-31 129:9-22 175:21-34 181:16-29 248:21-34 251:18-32 254:25-48
+ @ ./js/features/state/overview/geo/GeoVisualizationSection.jsx 21:0-62 184:40-62
+ @ ./js/features/state/overview/geo/containers/GeoVisualizationSectionContainer.jsx 24:0-65 316:45-68
+ @ ./js/features/state/overview/StateOverview.jsx 18:0-97 195:43-75
+ @ ./js/features/state/StatePage.jsx 21:0-72 57:40-53
+ @ ./js/features/state/containers/StatePageContainer.jsx 20:0-37 96:42-51
+ @ ./js/features/state/StatePageNavigation.jsx 18:0-65 52:42-60
+ @ ./js/containers/router/RouterRoutes.jsx 33:58-108
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/redirectHelper.js[39m[22m [1m[32m13:0-50[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/storeSingleton' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/components/about/Development.jsx 15:0-63 58:2-34
+ @ ./js/components/about/AboutPage.jsx 27:0-40 134:141-152
+ @ ./js/containers/router/RouterRoutes.jsx 23:48-90
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/redirectHelper.js[39m[22m [1m[32m14:0-73[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/modal/modalActions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/components/about/Development.jsx 15:0-63 58:2-34
+ @ ./js/components/about/AboutPage.jsx 27:0-40 134:141-152
+ @ ./js/containers/router/RouterRoutes.jsx 23:48-90
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/searchHelper.js[39m[22m [1m[32m16:0-74[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/reducers/search/searchFiltersReducer' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/components/homepage/AwardSearch/AwardSearch.jsx 24:0-64 120:19-34
+ @ ./js/components/homepage/Homepage.jsx 23:0-52 56:198-209
+ @ ./js/containers/router/RouterRoutes.jsx 14:47-91
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/stickyHeaderHelper.js[39m[22m [1m[32m11:0-75[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/stickyHeader/stickyHeader' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/components/agencySubmissionStats/DataSourcesAndMethodologiesPage.jsx 24:0-81 93:47-76
+ @ ./js/containers/router/RouterRoutes.jsx 43:70-150
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/helpers/stickyHeaderHelper.js[39m[22m [1m[32m12:0-70[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/covid19/covid19' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\helpers'[39m[22m
+ @ ./js/components/agencySubmissionStats/DataSourcesAndMethodologiesPage.jsx 24:0-81 93:47-76
+ @ ./js/containers/router/RouterRoutes.jsx 43:70-150
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/hooks/WithDefCodes.jsx[39m[22m [1m[32m13:0-67[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'redux/actions/covid19/covid19Actions' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\hooks'[39m[22m
+ @ ./js/components/covid19/DataSourcesAndMethodologiesPage.jsx 27:0-55 104:42-53 348:532-543
+ @ ./js/containers/router/RouterRoutes.jsx 37:70-136
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/hooks/WithDefCodes.jsx[39m[22m [1m[32m14:0-46[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'apis/disaster' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\hooks'[39m[22m
+ @ ./js/components/covid19/DataSourcesAndMethodologiesPage.jsx 27:0-55 104:42-53 348:532-543
+ @ ./js/containers/router/RouterRoutes.jsx 37:70-136
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/models/v1/search/SearchAwardsOperation.js[39m[22m [1m[32m13:0-129[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'dataMapping/search/awardsOperationKeys' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\models\v1\search'[39m[22m
+ @ ./js/containers/search/modals/fullDownload/NewDownloadBottomBarContainer.jsx 20:0-87 165:30-51
+ @ ./js/containers/Footer.jsx 26:0-103 103:42-71
+ @ ./js/components/about/DBInfo.jsx 16:0-45 42:2428-2434
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/models/v1/search/SearchAwardsOperation.js[39m[22m [1m[32m14:0-61[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/fiscalYearHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\models\v1\search'[39m[22m
+ @ ./js/containers/search/modals/fullDownload/NewDownloadBottomBarContainer.jsx 20:0-87 165:30-51
+ @ ./js/containers/Footer.jsx 26:0-103 103:42-71
+ @ ./js/components/about/DBInfo.jsx 16:0-45 42:2428-2434
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/models/v1/search/SearchAwardsOperation.js[39m[22m [1m[32m15:0-74[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/checkboxTreeHelper' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\models\v1\search'[39m[22m
+ @ ./js/containers/search/modals/fullDownload/NewDownloadBottomBarContainer.jsx 20:0-87 165:30-51
+ @ ./js/containers/Footer.jsx 26:0-103 103:42-71
+ @ ./js/components/about/DBInfo.jsx 16:0-45 42:2428-2434
+ @ ./js/containers/router/RouterRoutes.jsx 27:45-84
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./js/models/v2/state/BaseStateLandingItem.js[39m[22m [1m[32m13:0-57[39m[22m
+[1mModule [1m[31mnot found[39m[22m[1m: [1m[31mError[39m[22m[1m: Can't resolve 'helpers/moneyFormatter' in 'C:\Users\j1nxt02\develop\usaspending-website\src\js\models\v2\state'[39m[22m
+ @ ./js/containers/stateLanding/StateLandingContainer.jsx 20:0-78 80:33-53
+ @ ./js/components/stateLanding/StateLandingPage.jsx 21:0-88 78:41-62
+ @ ./js/containers/router/RouterRoutes.jsx 32:55-111
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./_scss/pages/covid19/opportunityProject.scss[39m[22m (./_scss/pages/covid19/opportunityProject.scss.webpack[javascript/auto]!=!../node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].use[1]!../node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[5].use[2]!./_scss/pages/covid19/opportunityProject.scss)
+[1mModule build [1m[31mfailed[39m[22m[1m (from ../node_modules/css-loader/dist/cjs.js):
+[1m[31mError[39m[22m[1m: Can't resolve '../../node_modules/data-transparency-ui/dist/data-transparency-ui.css' in 'C:\Users\j1nxt02\develop\usaspending-website\src\_scss\pages\covid19'
+    at finishWithoutResolve (C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:586:18)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:678:14
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:27:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\DescriptionFilePlugin.js:89:43
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\forEachBail.js:39:13
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\AliasUtils.js:166:11
+    at next (C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\forEachBail.js:35:3)
+    at forEachBail (C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\forEachBail.js:49:9)
+    at aliasResolveHandler (C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\AliasUtils.js:62:2)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\AliasPlugin.js:37:5
+    at _next0 (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:8:1)
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:30:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\RootsPlugin.js:38:38
+    at _next2 (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:8:1)
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:31:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\ConditionalPlugin.js:40:47
+    at _next1 (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:23:1)
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:46:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\ConditionalPlugin.js:40:47
+    at _next0 (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:38:1)
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:60:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:27:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\DescriptionFilePlugin.js:89:43
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:15:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\DirectoryExistsPlugin.js:43:15
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)[39m[22m
+ @ ./_scss/pages/covid19/opportunityProject.scss
+ @ ./js/components/covid19/OpportunityProjectPage.jsx 21:0-48
+ @ ./js/containers/router/RouterRoutes.jsx 38:61-118
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[31mERROR[39m[22m in [1m./_scss/pages/covid19/opportunityProject.scss[39m[22m
+[1mModule build [1m[31mfailed[39m[22m[1m (from ../node_modules/mini-css-extract-plugin/dist/loader.js):
+HookWebpackError: Module build [1m[31mfailed[39m[22m[1m (from ../node_modules/css-loader/dist/cjs.js):
+[1m[31mError[39m[22m[1m: Can't resolve '../../node_modules/data-transparency-ui/dist/data-transparency-ui.css' in 'C:\Users\j1nxt02\develop\usaspending-website\src\_scss\pages\covid19'
+    at finishWithoutResolve (C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:586:18)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:678:14
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:27:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\DescriptionFilePlugin.js:89:43
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\forEachBail.js:39:13
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\AliasUtils.js:166:11
+    at next (C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\forEachBail.js:35:3)
+    at forEachBail (C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\forEachBail.js:49:9)
+    at aliasResolveHandler (C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\AliasUtils.js:62:2)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\AliasPlugin.js:37:5
+    at _next0 (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:8:1)
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:30:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\RootsPlugin.js:38:38
+    at _next2 (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:8:1)
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:31:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\ConditionalPlugin.js:40:47
+    at _next1 (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:23:1)
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:46:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\ConditionalPlugin.js:40:47
+    at _next0 (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:38:1)
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:60:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:27:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\DescriptionFilePlugin.js:89:43
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:15:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\DirectoryExistsPlugin.js:43:15
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+    at tryRunOrWebpackError (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\HookWebpackError.js:116:9)
+    at __webpack_require_module__ (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5624:14)
+    at __webpack_require__ (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5568:20)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5659:22
+    at symbolIterator (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3485:9)
+    at done (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3527:9)
+    at Hook.eval [as callAsync] (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:15:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5543:45
+    at symbolIterator (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3482:9)
+    at timesSync (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:2297:7)
+    at Object.eachLimit (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3463:5)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5500:18
+    at symbolIterator (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3485:9)
+    at timesSync (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:2297:7)
+    at Object.eachLimit (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3463:5)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5462:16
+    at symbolIterator (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3485:9)
+    at done (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3527:9)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5402:8
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:3799:6
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\HookWebpackError.js:96:2
+    at Hook.eval [as callAsync] (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:15:1)
+    at Cache.store (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Cache.js:114:20)
+    at ItemCacheFacade.store (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\CacheFacade.js:141:15)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:3798:11
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Cache.js:98:34
+    at Array.<anonymous> (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\cache\MemoryCachePlugin.js:44:13)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Cache.js:98:19
+    at Hook.eval [as callAsync] (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:19:1)
+    at Cache.get (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Cache.js:82:18)
+    at ItemCacheFacade.get (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\CacheFacade.js:115:15)
+    at Compilation._codeGenerationModule (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:3764:9)
+    at codeGen (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5390:11)
+    at symbolIterator (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3482:9)
+    at timesSync (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:2297:7)
+    at Object.eachLimit (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3463:5)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5420:14
+    at processQueue (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\util\processAsyncTree.js:61:4)
+    at processTicksAndRejections (node:internal/process/task_queues:85:11)
+    at runNextTicks (node:internal/process/task_queues:69:3)
+    at process.processImmediate (node:internal/timers:472:9)
+-- inner [1m[31merror[39m[22m[1m --
+[1m[31mError[39m[22m[1m: Module build [1m[31mfailed[39m[22m[1m (from ../node_modules/css-loader/dist/cjs.js):
+[1m[31mError[39m[22m[1m: Can't resolve '../../node_modules/data-transparency-ui/dist/data-transparency-ui.css' in 'C:\Users\j1nxt02\develop\usaspending-website\src\_scss\pages\covid19'
+    at finishWithoutResolve (C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:586:18)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:678:14
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:27:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\DescriptionFilePlugin.js:89:43
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\forEachBail.js:39:13
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\AliasUtils.js:166:11
+    at next (C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\forEachBail.js:35:3)
+    at forEachBail (C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\forEachBail.js:49:9)
+    at aliasResolveHandler (C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\AliasUtils.js:62:2)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\AliasPlugin.js:37:5
+    at _next0 (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:8:1)
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:30:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\RootsPlugin.js:38:38
+    at _next2 (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:8:1)
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:31:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\ConditionalPlugin.js:40:47
+    at _next1 (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:23:1)
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:46:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\ConditionalPlugin.js:40:47
+    at _next0 (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:38:1)
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:60:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:27:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\DescriptionFilePlugin.js:89:43
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:16:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\Resolver.js:739:5
+    at eval (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:15:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\enhanced-resolve\lib\DirectoryExistsPlugin.js:43:15
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)
+    at Object.<anonymous> (C:\Users\j1nxt02\develop\usaspending-website\node_modules\css-loader\dist\cjs.js??ruleSet[1].rules[5].use[1]!C:\Users\j1nxt02\develop\usaspending-website\node_modules\sass-loader\dist\cjs.js??ruleSet[1].rules[5].use[2]!C:\Users\j1nxt02\develop\usaspending-website\src\_scss\pages\covid19\opportunityProject.scss:1:7)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\javascript\JavascriptModulesPlugin.js:557:10
+    at Hook.eval [as call] (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:19:10), <anonymous>:7:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5626:41
+    at tryRunOrWebpackError (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\HookWebpackError.js:111:7)
+    at __webpack_require_module__ (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5624:14)
+    at __webpack_require__ (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5568:20)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5659:22
+    at symbolIterator (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3485:9)
+    at done (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3527:9)
+    at Hook.eval [as callAsync] (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:15:1)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5543:45
+    at symbolIterator (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3482:9)
+    at timesSync (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:2297:7)
+    at Object.eachLimit (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3463:5)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5500:18
+    at symbolIterator (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3485:9)
+    at timesSync (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:2297:7)
+    at Object.eachLimit (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3463:5)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5462:16
+    at symbolIterator (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3485:9)
+    at done (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3527:9)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5402:8
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:3799:6
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\HookWebpackError.js:96:2
+    at Hook.eval [as callAsync] (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:15:1)
+    at Cache.store (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Cache.js:114:20)
+    at ItemCacheFacade.store (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\CacheFacade.js:141:15)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:3798:11
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Cache.js:98:34
+    at Array.<anonymous> (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\cache\MemoryCachePlugin.js:44:13)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Cache.js:98:19
+    at Hook.eval [as callAsync] (eval at create (C:\Users\j1nxt02\develop\usaspending-website\node_modules\tapable\lib\HookCodeFactory.js:31:10), <anonymous>:19:1)
+    at Cache.get (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Cache.js:82:18)
+    at ItemCacheFacade.get (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\CacheFacade.js:115:15)
+    at Compilation._codeGenerationModule (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:3764:9)
+    at codeGen (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5390:11)
+    at symbolIterator (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3482:9)
+    at timesSync (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:2297:7)
+    at Object.eachLimit (C:\Users\j1nxt02\develop\usaspending-website\node_modules\neo-async\async.js:3463:5)
+    at C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\Compilation.js:5420:14
+    at processQueue (C:\Users\j1nxt02\develop\usaspending-website\node_modules\webpack\lib\util\processAsyncTree.js:61:4)
+    at processTicksAndRejections (node:internal/process/task_queues:85:11)
+    at runNextTicks (node:internal/process/task_queues:69:3)
+    at process.processImmediate (node:internal/timers:472:9)
+
+Generated code for C:\Users\j1nxt02\develop\usaspending-website\node_modules\css-loader\dist\cjs.js??ruleSet[1].rules[5].use[1]!C:\Users\j1nxt02\develop\usaspending-website\node_modules\sass-loader\dist\cjs.js??ruleSet[1].rules[5].use[2]!C:\Users\j1nxt02\develop\usaspending-website\src\_scss\pages\covid19\opportunityProject.scss
+1 | throw new [1m[31mError[39m[22m[1m("Module build [1m[31mfailed[39m[22m[1m (from ../node_modules/css-loader/dist/cjs.js):\nError: Can't resolve '../../node_modules/data-transparency-ui/dist/data-transparency-ui.css' in 'C:\\Users\\j1nxt02\\develop\\usaspending-website\\src\\_scss\\pages\\covid19'\n    at finishWithoutResolve (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\Resolver.js:586:18)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\Resolver.js:678:14\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\Resolver.js:739:5\n    at eval (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:16:1)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\Resolver.js:739:5\n    at eval (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:27:1)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\DescriptionFilePlugin.js:89:43\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\Resolver.js:739:5\n    at eval (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:16:1)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\forEachBail.js:39:13\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\AliasUtils.js:166:11\n    at next (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\forEachBail.js:35:3)\n    at forEachBail (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\forEachBail.js:49:9)\n    at aliasResolveHandler (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\AliasUtils.js:62:2)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\AliasPlugin.js:37:5\n    at _next0 (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:8:1)\n    at eval (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:30:1)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\Resolver.js:739:5\n    at eval (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:16:1)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\Resolver.js:739:5\n    at eval (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:16:1)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\RootsPlugin.js:38:38\n    at _next2 (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:8:1)\n    at eval (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:31:1)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\ConditionalPlugin.js:40:47\n    at _next1 (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:23:1)\n    at eval (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:46:1)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\ConditionalPlugin.js:40:47\n    at _next0 (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:38:1)\n    at eval (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:60:1)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\Resolver.js:739:5\n    at eval (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:27:1)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\DescriptionFilePlugin.js:89:43\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\Resolver.js:739:5\n    at eval (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:16:1)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\Resolver.js:739:5\n    at eval (eval at create (C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\tapable\\lib\\HookCodeFactory.js:31:10), <anonymous>:15:1)\n    at C:\\Users\\j1nxt02\\develop\\usaspending-website\\node_modules\\enhanced-resolve\\lib\\DirectoryExistsPlugin.js:43:15\n    at process.processTicksAndRejections (node:internal/process/task_queues:89:21)");[39m[22m
+ @ ./js/components/covid19/OpportunityProjectPage.jsx 21:0-48
+ @ ./js/containers/router/RouterRoutes.jsx 38:61-118
+ @ ./js/containers/AppContainer.jsx 26:0-47 94:58-71
+ @ ./js/app.jsx 11:0-53 29:36-48
+ @ ./index.js 23:0-19
+
+[1m[33m265 errors have detailed information that is not shown.
+Use 'stats.errorDetails: true' resp. '--stats-error-details' to show it.[39m[22m
+
+webpack 5.105.1 compiled with [1m[31m267 errors[39m[22m and [1m[33m863 warnings[39m[22m in 35414 ms
