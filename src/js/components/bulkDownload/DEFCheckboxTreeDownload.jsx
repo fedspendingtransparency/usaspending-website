@@ -87,6 +87,12 @@ const DEFCheckboxTreeDownload = ({
         detailsDisplay(validDefCodes);
     }, [validDefCodes]);
 
+    useEffect(() => {
+        if (isDisabled && defCodes.length){
+            dispatch(setDefCodes(type, []));
+        }
+    }, [defCodes, dispatch, isDisabled, type])
+
     return (
         <div className="def-code-filter-download">
             {isLoading && loadingIndicator }

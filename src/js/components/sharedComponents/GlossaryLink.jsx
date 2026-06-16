@@ -34,9 +34,10 @@ const GlossaryLink = ({
     const { pathname, search } = useLocation();
     const params = new URLSearchParams(search);
     params.set('glossary', term)
-    const glossaryUrl = `${pathname}?${params.toString()}`
+    const glossaryUrl = `${pathname}`
 
     const stopBubble = (e) => {
+        e.preventDefault();
         e.stopPropagation();
         showSlideout('glossary', { url: term });
     };
