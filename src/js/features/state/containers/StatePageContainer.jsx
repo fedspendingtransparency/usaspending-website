@@ -4,11 +4,9 @@
  */
 
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from "prop-types";
-
+import { useDispatch, useSelector } from 'react-redux';
 import {
-    setStateOverview,
     setStateFiscalYear,
     setStateCenter
 } from 'redux/actions/state/stateActions';
@@ -31,20 +29,12 @@ const StatePageContainer = ({
     const stateProfile = useSelector((s) => s.stateProfile);
     const dispatch = useDispatch();
 
-    const {
-        stateProfileData, isSuccess, isLoading, error
+    const { isLoading, error
     } = useFetchOverview(stateId, fy);
-
-    useEffect(() => {
-        if (isSuccess && stateProfileData && Object.keys(stateProfileData).length > 0) {
-            dispatch(setStateOverview(stateProfileData));
-        }
-    }, [isSuccess, stateProfileData]);
 
     useEffect(() => {
         // Reset the FY
         dispatch(setStateFiscalYear(fy));
-
         // Update the map center
         const center = stateCenterFromFips(stateId);
         dispatch(setStateCenter(center));
