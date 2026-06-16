@@ -5,13 +5,10 @@
 
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { requestArchiveFiles } from 'helpers/bulkDownloadHelper';
-import { currentFiscalYear} from 'helpers/fiscalYearHelper';
 import AwardDataArchiveContent from 'components/bulkDownload/archive/AwardDataArchiveContent';
 import useRequestAgenciesList from "hooks/useRequestAgenciesList";
 
 const dayjs = require('dayjs');
-
-const currentFY = currentFiscalYear();
 
 const columns = [
     {
@@ -32,13 +29,7 @@ const columns = [
     }
 ];
 
-const AwardDataArchiveContainer = () => {
-    const [results, setResults] = useState([]);
-    const [filters, setFilters] = useState({
-        agency: { id: 'all', name: 'All' },
-        type: { name: 'contracts', display: 'Contracts' },
-        fy: `${currentFY}`
-    });
+const AwardDataArchiveContainer = ({ filters, setFilters, results, setResults }) => {
     const { data } = useRequestAgenciesList("award_agencies");
     const resultsRequest = useRef(null);
 

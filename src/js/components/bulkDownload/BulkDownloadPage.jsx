@@ -23,6 +23,7 @@ import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownlo
 import AwardsUserSelections from './awards/AwardsUserSelections';
 import AccountUserSelections from './accounts/AccountUserSelections';
 import AwardDataArchiveUserSelections from "./archive/AwardDataArchiveUserSelections";
+import { currentFiscalYear } from "helpers/fiscalYearHelper";
 
 const propTypes = {
     dataType: PropTypes.string,
@@ -30,6 +31,8 @@ const propTypes = {
     startAwardDownload: PropTypes.func,
     startAccountDownload: PropTypes.func
 };
+
+const currentFY = currentFiscalYear();
 
 const metaTagsByDataType = {
     awards: downloadAwardPageMetaTags,
@@ -46,6 +49,13 @@ const BulkDownloadPage = ({
 }) => {
     const { isTablet } = useContext(IsMobileContext);
     const [showModal, setShowModal] = useState(false);
+    // filters and results for Award Data Archive
+    const [filters, setFilters] = useState({
+        agency: { id: 'all', name: 'All' },
+        type: { name: 'contracts', display: 'Contracts' },
+        fy: `${currentFY}`
+    });
+    const [results, setResults] = useState([]);
 
     const hideModal = () => setShowModal(false);
 
@@ -75,8 +85,14 @@ const BulkDownloadPage = ({
 
     switch (dataType) {
         case 'award_data_archive':
-            downloadDataContent = (<AwardDataArchiveContainer />);
-            userSelections = (<AwardDataArchiveUserSelections />);
+            downloadDataContent = (
+                <AwardDataArchiveContainer
+                    filters={filters}
+                    setFilters={setFilters}
+                    results={results}
+                    setResults={setResults}/>
+            );
+            userSelections = (<AwardDataArchiveUserSelections filters={filters} results={results} />);
             break;
         case 'accounts':
             downloadDataContent = (<AccountDataContainer clickedDownload={clickedDownload} />);
