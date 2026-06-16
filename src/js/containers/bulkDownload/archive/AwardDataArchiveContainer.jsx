@@ -3,10 +3,11 @@
  * Created by Lizzie Salita 12/14/17
  */
 
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback } from 'react';
 import { requestArchiveFiles } from 'helpers/bulkDownloadHelper';
 import AwardDataArchiveContent from 'components/bulkDownload/archive/AwardDataArchiveContent';
 import useRequestAgenciesList from "hooks/useRequestAgenciesList";
+import PropTypes from "prop-types";
 
 const dayjs = require('dayjs');
 
@@ -29,6 +30,13 @@ const columns = [
     }
 ];
 
+const propTypes = {
+    filters: PropTypes.object,
+    setFilters: PropTypes.func,
+    results: PropTypes.array,
+    setResults: PropTypes.func
+}
+
 const AwardDataArchiveContainer = ({ filters, setFilters, results, setResults }) => {
     const { data } = useRequestAgenciesList("award_agencies");
     const resultsRequest = useRef(null);
@@ -43,7 +51,7 @@ const AwardDataArchiveContainer = ({ filters, setFilters, results, setResults })
     );
 
     const parseResults = (data) => {
-        const results = [];
+        const res = [];
 
         data.forEach((item) => {
             // Format Agency String
@@ -72,10 +80,10 @@ const AwardDataArchiveContainer = ({ filters, setFilters, results, setResults })
                 fy: formattedFY,
                 date: formattedDate
             };
-            results.push(file);
+            res.push(file);
         });
 
-        setResults(results);
+        setResults(res);
     };
 
     const requestResults = useCallback(() => {
@@ -111,4 +119,5 @@ const AwardDataArchiveContainer = ({ filters, setFilters, results, setResults })
     );
 }
 
+AwardDataArchiveContainer.propTypes = propTypes;
 export default AwardDataArchiveContainer;
