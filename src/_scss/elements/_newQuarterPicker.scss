@@ -1,0 +1,123 @@
+$button-color: $blue-vivid-5v;
+$active-button-color: $blue-60v;
+$button-color-disabled: $gray-5;
+$button-text-color: $color-white;
+$button-text-disabled: $gray-60;
+$quarter-text-color: $gray-90;
+
+.quarter-picker {
+  ul.quarter-picker__list {
+    @include unstyled-list;
+    display: flex;
+    flex: 1 1 auto;
+    padding: rem(5) 0;
+
+    li.quarter-picker__list-item {
+      margin-right: rem(2);
+      margin-bottom: 0;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      button.quarter-picker__quarter {
+        @include button-unstyled;
+        color: $button-text-disabled;
+        line-height: 1.5;
+        font-weight: $font-semibold;
+        background-color: $button-color;
+        padding: rem(4) $global-padding;
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: $small-font-size;
+
+        &.quarter-picker__quarter_double {
+          width: rem(72);
+        }
+
+        &.quarter-picker__quarter_first {
+          border-radius: rem(4) 0 0 rem(4);
+        }
+
+        &.quarter-picker__quarter_last {
+          border-radius: 0 rem(4) rem(4) 0;
+        }
+
+        &:active,
+        &.quarter-picker__quarter_active {
+          background-color: $active-button-color;
+          color: $button-text-color;
+        }
+
+        &:hover {
+          background-color: $active-button-color;
+          color: $button-text-color;
+        }
+
+        &.quarter-picker__quarter_disabled {
+          background-color: $button-color-disabled;
+          cursor: not-allowed;
+          opacity: 0.9;
+          color: $button-text-disabled;
+        }
+      }
+
+      // when the list item is the container for a list
+      &.quarter-picker__period-list-container {
+        display: flex;
+        flex-direction: column;
+        list-style: none;
+        height: auto;
+
+        // the nested list
+        p {
+          font-size: $base-font-size;
+          line-height: 1.5;
+          font-weight: $font-semibold;
+          margin: 0 0 $global-margin 0;
+          color: $quarter-text-color;
+        }
+
+        .quarter-picker__period-list {
+          display: flex;
+          flex-direction: row;
+          padding: 0;
+          margin: 0;
+
+          li {
+            list-style: none;
+
+            .quarter-picker__quarter_first,
+            .quarter-picker__quarter_last {
+              border-radius: 0;
+            }
+
+            .quarter-picker__quarter {
+              width: fit-content;
+            }
+          }
+        }
+
+        &:first-of-type {
+          .quarter-picker__list-item:first-of-type
+            .quarter-picker__quarter:first-of-type {
+            border-radius: rem(4) 0 0 rem(4);
+          }
+        }
+
+        &:last-of-type {
+          .quarter-picker__list-item:last-of-type
+            .quarter-picker__quarter:last-of-type {
+            border-radius: 0 rem(4) rem(4) 0;
+          }
+        }
+      }
+    }
+  }
+}

@@ -8,31 +8,28 @@
 import React from 'react';
 import { mockData, standardTerm } from '../../components/aboutTheDataSidebar/mockAboutTheDataSidebarFn';
 import { render, screen, act } from '../../testResources/test-utils';
-import { AboutTheDataContainer } from "../../../src/js/containers/aboutTheDataSidebar/AboutTheDataContainer";
 import aboutTheDataReducer from "../../../src/js/redux/reducers/aboutTheDataSidebar/aboutTheDataReducer";
 import slideoutReducer from "../../../src/js/redux/reducers/slideouts/slideoutReducer";
-
+import AboutTheDataContainer from '../../../src/js/containers/aboutTheDataSidebar/AboutTheDataContainer';
 beforeEach(() => {
     jest.clearAllMocks();
 });
 
-const mockATDContainerProps = {
-    aboutTheDataSidebar: mockData,
-    showAboutTheData: jest.fn(),
-    setAboutTheDataTerm: jest.fn(),
-    setAboutTheDataTermFromUrl: jest.fn(),
-    clearAboutTheDataTerm: jest.fn()
-};
-jest.mock("../../../src/js/components/aboutTheDataSidebar/AboutTheDataDrilldown", () => {
-    const ComponentToMock = () => <div id="atd-drilldown" />;
-    return ComponentToMock;
-});
+const mockDrilldown = () => <div id="atd-drilldown" />;
+
+
+jest.mock("../../../src/js/components/aboutTheDataSidebar/AboutTheDataDrilldown", () => mockDrilldown);
 
 describe('About The Data Sidebar Container Test', () => {
     it(`Render ATD Container with appropriate props`, () => {
-        act(() => {
-            render(<AboutTheDataContainer {...mockATDContainerProps} />);
-        });
+        const mockATDContainerProps = {
+            aboutTheDataSidebar: mockData,
+            showAboutTheData: jest.fn(),
+            setAboutTheDataTerm: jest.fn(),
+            setAboutTheDataTermFromUrl: jest.fn(),
+            clearAboutTheDataTerm: jest.fn()
+        };
+        render(<AboutTheDataContainer {...mockATDContainerProps} />);
         const header = screen.queryByText('About the Data');
         expect(header).toBeTruthy();
     });

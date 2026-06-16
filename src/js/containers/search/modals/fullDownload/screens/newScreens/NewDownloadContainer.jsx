@@ -25,7 +25,8 @@ const propTypes = {
     awardsCount: PropTypes.number,
     transactionsCount: PropTypes.number,
     subawardsCount: PropTypes.number,
-    content: PropTypes.element
+    content: PropTypes.element,
+    downloadType: PropTypes.array
 };
 
 const NewDownloadContainer = (props) => {

@@ -20,7 +20,7 @@ const mockProps = {
 describe('setTableTabsAndGetCounts', () => {
     it('changes tabs and get the table count', () => {
         const getAwardHistoryCountSpy = jest.spyOn(awardHistoryHelper, "getAwardHistoryCounts").mockReturnValue({
-            count: 1,
+            count: 1
         })
         expect(getAwardHistoryCountSpy).toHaveBeenCalledTimes(0)
         render(<AwardHistory {...mockProps}/>);

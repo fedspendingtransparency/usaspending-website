@@ -1,6 +1,8 @@
 .download-progress-screen {
   text-align: center;
   display: flex;
+  margin: auto;
+  justify-content: center;
   .main-title {
     text-align: center;
     h2 {
@@ -37,7 +39,7 @@
       margin-right: auto;
     }
     .download-progress-title {
-        text-align: center;
+      text-align: center;
     }
     button {
       @include button-unstyled;

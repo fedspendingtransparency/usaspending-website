@@ -1,28 +1,5 @@
 import GlobalConstants from 'GlobalConstants';
 
-/* eslint-disable max-len */
-const contentMap = {
-    dataDefinition: '#783CB9',
-    search: '#D54309',
-    seeforyourself: '#E66F0E',
-    questions: '#864381',
-    finances: '#1B2B85',
-    trust: '#73B3E7',
-    stories: '#2378C3',
-    difference: '#5ABF95'
-};
-
-const secondary = {
-    dataDefinition: '#D5BFFF',
-    search: '#F6BD9C',
-    seeforyourself: '#FFBC78',
-    questions: '#E2BEE4',
-    finances: '#628EF4',
-    trust: '#D9E8F6',
-    stories: '#73B3E7',
-    difference: '#DBF6ED'
-};
-
 // the first entry has what is necessary for a full article
 
 /**
@@ -41,9 +18,37 @@ const secondary = {
 //     related_terms: [
 //     { term: "prime-award", type: "glossary", label: "prime award" },
 //     { term: "subaward-data-quality", type: "atd", label: "subaward data quality" }
-// ]
+//
 
 const articles = [
+    {
+        taxonomy: "See 4 Yourself",
+        isInfographicTemplate: true,
+        content_type: 'Featured Content',
+        title: "QAT ONLY Test",
+        banner_subtitle: "How People Use USAspending.gov Data",
+        created_date: "09/29/2025",
+        feature_sprint: 212,
+        feature_week: 1,
+        sections: ["Federal Spending Transparency and Accountability", "Market Research", "Grant Opportunities and Compliance", "Federal Spending Trends and Stories"],
+        description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
+        slug: "qat-only-test",
+        black_text: true,
+        hidden: !GlobalConstants.QAT,
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Data Sources",
+                slug: "/data-sources",
+                type: "internal"
+            }
+        ],
+        related_terms: []
+    },
     {
         taxonomy: "Data Definitions",
         content_type: 'Featured Content',
@@ -51,7 +56,7 @@ const articles = [
         title: "What is an Award?",
         created_date: "04/30/2026",
         description: "When you think of the word “award,” you might picture an actor receiving an Oscar, an athlete earning a medal at the Olympics, or even yourself earning a gold.",
-        feature_sprint: 9,
+        feature_sprint: 220,
         feature_week: 1,
         slug: "what-is-an-award",
         explore_more: [
@@ -92,7 +97,7 @@ const articles = [
         created_date: "09/29/2025",
         description: "Behind every dollar the U.S. government spends, there is a story. But how can you discover that story? What tools do you need to understand it?",
         slug: "exploring-americas-finances",
-        feature_sprint: 5,
+        feature_sprint: 216,
         feature_week: 1,
         related_terms: [],
         explore_more: [
@@ -120,7 +125,7 @@ const articles = [
         title: "Obligations vs. Outlays",
         created_date: "05/21/2026",
         description: "For this series, we asked our Transparency Experience Desk to answer the most commonly-asked questions about USAspending.gov’s open data.",
-        feature_sprint: 10,
+        feature_sprint: 221,
         feature_week: 1,
         slug: "obligations-vs-outlays",
         explore_more: [
@@ -164,7 +169,7 @@ const articles = [
         banner_subtitle: "How People Use USAspending.gov Data",
         title: "Ways to Use Our Data",
         created_date: "09/29/2025",
-        feature_sprint: 1,
+        feature_sprint: 212,
         feature_week: 3,
         description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
         slug: "ways-to-use-our-data",
@@ -189,7 +194,7 @@ const articles = [
         banner_subtitle: "What makes our data different, where does it come from, and what makes it trustworthy?",
         title: "Understanding Our Trusted Data",
         created_date: "12/04/25",
-        feature_sprint: 2,
+        feature_sprint: 213,
         feature_week: 1,
         description: "USAspending.gov is the official source for tracking federal government spending—but what makes our data different, where does it come from, and what makes it",
         slug: "understanding-our-trusted-data",
@@ -214,7 +219,7 @@ const articles = [
         banner_subtitle: "How Does USAspending.gov Define Recipients?",
         title: "What Is a Recipient",
         created_date: "12/04/25",
-        feature_sprint: 2,
+        feature_sprint: 213,
         feature_week: 1,
         description: "When searching for government spending data on USAspending.gov, you’re very likely to see the word “recipient. Whether you’re using our filters to refine your",
         slug: "what-is-a-recipient",
@@ -249,7 +254,7 @@ const articles = [
         title: "Grants vs. Contracts",
         banner_subtitle: "What's the Difference Between Grants and Contracts?",
         created_date: "05/14/26",
-        feature_sprint: 9,
+        feature_sprint: 220,
         feature_week: 3,
         description: "If you want to build a house, you must know what kind of material to use. Lest you end up like two of the three little pigs, building a house out of straw or",
         slug: "grants-vs-contracts",
@@ -284,7 +289,7 @@ const articles = [
         title: "Discover How Government Spending Supports Causes You Care About",
         banner_subtitle: "Explore How the Federal Government Spends Money on a Particular Topic",
         created_date: "4/30/2026",
-        feature_sprint: 9,
+        feature_sprint: 220,
         feature_week: 1,
         description: "If you’re passionate about a cause—whether it’s education, environmental protection, public health, or national security—you can use Advanced Search to explore",
         slug: "discover-how-government-spending-supports-causes-you-care-about",
@@ -329,7 +334,7 @@ const articles = [
         title: "Exploring Spending in Your Community",
         banner_subtitle: "Learn How to Search for Federal Spending Where You Live",
         created_date: "01/15/26",
-        feature_sprint: 4,
+        feature_sprint: 215,
         feature_week: 1,
         description: "Federal government spending may seem like a distant or complicated topic – one that is best understood by government officials or journalists.",
         slug: "exploring-spending-in-your-community",
@@ -364,7 +369,7 @@ const articles = [
         title: "Understanding Four Government Data Source Systems",
         banner_subtitle: "Learn Where USAspending.gov Data Comes From",
         created_date: "05/28/26",
-        feature_sprint: 10,
+        feature_sprint: 221,
         feature_week: 2,
         description: "You might be wondering: where does the data on USAspending.gov come from? Since our goal is to promote open data and foster open government, we'd love to tell",
         slug: "understanding-four-government-data-source-systems",
@@ -404,7 +409,7 @@ const articles = [
         title: "John’s USAspending Search",
         banner_subtitle: "Follow the Money Using USAspending.gov’s Spending Explorer",
         created_date: "06/04/2026",
-        feature_sprint: 10,
+        feature_sprint: 221,
         feature_week: 3,
         description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
         slug: "johns-usaspending-search",
@@ -446,7 +451,7 @@ const articles = [
         title: "Using Popular Filters on USAspending.gov",
         banner_subtitle: "Unlocking the Power of USAspending’s Advanced Search",
         created_date: "02/26/2026",
-        feature_sprint: 6,
+        feature_sprint: 217,
         feature_week: 1,
         sections: ["Federal Spending Transparency and Accountability", "Market Research", "Grant Opportunities and Compliance", "Federal Spending Trends and Stories"],
         description: "USAspending’s Advanced Search is designed to change that. With a set of powerful filters, you can pinpoint exactly where and how federal dollars are spent.",
@@ -492,8 +497,8 @@ const articles = [
         content_type: 'Featured Content',
         title: "Awarding Agency vs. Funding Agency",
         banner_subtitle: "What's the Difference Between Awarding Agency and Funding Agency?",
-        created_date: "02/26/2026",
-        feature_sprint: 6,
+        created_date: "06/11/2026",
+        feature_sprint: 222,
         feature_week: 1,
         sections: ["Federal Spending Transparency and Accountability", "Market Research", "Grant Opportunities and Compliance", "Federal Spending Trends and Stories"],
         description: "In the “Agency” section of USAspending’s advanced search, you’ll see the option to search by Awarding Agency or Funding Agency. But what’s the difference?",
@@ -535,7 +540,7 @@ const articles = [
         title: "The Story of Spending Transparency",
         banner_subtitle: "Learn How USAspending.gov Came to Be",
         created_date: "05/21/2026",
-        feature_sprint: 10,
+        feature_sprint: 221,
         feature_week: 1,
         description: "The U.S. is one of the few countries worldwide that makes federal spending data accessible to the public. But before USAspending.gov existed, much",
         slug: "the-story-of-spending-transparency",
@@ -555,7 +560,7 @@ const articles = [
         title: "Keon's USAspending Search",
         banner_subtitle: "Learn How to Search Government Contracts for Local Businesses",
         created_date: "03/19/2026",
-        feature_sprint: 7,
+        feature_sprint: 218,
         feature_week: 1,
         description: "In our feature, “My USAspending Search,” we highlight one of our users and their unique approach to searching government spending open data.",
         slug: "keons-usaspending-search",
@@ -596,7 +601,7 @@ const articles = [
         title: "Preserving America’s Story",
         banner_subtitle: "How Federal Spending Protects America’s Parks and Monuments",
         created_date: "04/09/2026",
-        feature_sprint: 8,
+        feature_sprint: 219,
         feature_week: 1,
         description: "When you hear the term federal spending, you may think of big-ticket items like military, healthcare, or social services. But did you know that every year,",
         slug: "preserving-americas-story",
@@ -627,7 +632,7 @@ const articles = [
         title: "What Is a Loan?",
         banner_subtitle: "Learn About the Types of Loans on USAspending.gov",
         created_date: "04/09/2026",
-        feature_sprint: 8,
+        feature_sprint: 219,
         feature_week: 1,
         description: "On USAspending's Advanced Search, loans are found under Award Type; users can search for two different types of loans: direct loans and guaranteed/insured loans",
         slug: "what-is-a-loan",
@@ -668,7 +673,7 @@ const articles = [
         title: "Celebrating Small Business Week",
         banner_subtitle: "Small Business Spending on USAspending.gov",
         created_date: "05/07/2026",
-        feature_sprint: 9,
+        feature_sprint: 220,
         feature_week: 2,
         description: "National Small Business Week shines a spotlight on the entrepreneurs and innovators who drive America’s economy. From neighborhood start-ups",
         slug: "celebrating-small-business-week",
@@ -703,19 +708,41 @@ const articles = [
         ]
     },
     {
-        taxonomy: "See 4 Yourself",
-        isInfographicTemplate: true,
-        content_type: 'Featured Content',
-        title: "QAT ONLY Test",
-        banner_subtitle: "How People Use USAspending.gov Data",
-        created_date: "02/29/2026",
-        feature_sprint: 5,
+        taxonomy: "America250",
+        isInfographicTemplate: false,
+        content_type: 'Marketing',
+        title: "Government Financial Transparency: From Parchment to Digital Data",
+        banner_subtitle: "Exploring the Foundations of Government Spending Data",
+        created_date: "06/11/2026",
+        feature_sprint: 222,
         feature_week: 1,
-        sections: ["Federal Spending Transparency and Accountability", "Market Research", "Grant Opportunities and Compliance", "Federal Spending Trends and Stories"],
-        description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
-        slug: "qat-only-test",
-        black_text: true,
-        hidden: !GlobalConstants.QAT,
+        description: "The phrase “government transparency” has become a modern buzzword, dominating headlines and conversations across all forms of media and at every level of government.",
+        slug: "government-financial-transparency-from-parchment-to-digital-data",
+        explore_more: [
+            {
+                label: "FiscalData.Treasury.gov",
+                slug: "https://fiscaldata.treasury.gov/",
+                type: "internal"
+            },
+            {
+                label: "U.S. Constitution Transcript ",
+                slug: "https://www.archives.gov/founding-docs/constitution-transcript",
+                type: "internal"
+            }
+        ],
+        related_terms: []
+    },
+    {
+        taxonomy: "America250",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "Building America: 250 Years of Investment",
+        banner_subtitle: "How U.S. Government Spending Shaped the Nation’s Icons",
+        created_date: "06/18/2026",
+        feature_sprint: 222,
+        feature_week: 2,
+        description: "Whether you’re visiting an American icon like the Hoover Dam, traveling to a different state on a highway, or watching a tiny version of Earth from outer space",
+        slug: "building-america-250-years-of-investment",
         explore_more: [
             {
                 label: "Advanced Search",
@@ -723,12 +750,69 @@ const articles = [
                 type: "internal"
             },
             {
-                label: "Data Sources",
-                slug: "/data-sources",
+                label: "Training Videos",
+                slug: "/training-videos",
+                type: "internal"
+            },
+            {
+                label: "Agency Profiles",
+                slug: "/agency",
                 type: "internal"
             }
         ],
-        related_terms: []
+        related_terms: [
+            {
+                term: "awarding-agency",
+                type: "glossary",
+                label: "Awarding Agency"
+            },
+            {
+                term: "assistance-listings-cfda-program",
+                type: "glossary",
+                label: "Assistance Listings"
+            }
+        ]
+    },
+    {
+        taxonomy: "My USAspending Search",
+        isInfographicTemplate: false,
+        content_type: 'Featured Content',
+        title: "Michael’s USAspending Search",
+        banner_subtitle: "Using USAspending.gov for Market Research",
+        created_date: "06/25/2026",
+        feature_sprint: 222,
+        feature_week: 3,
+        description: "In “My USAspending Search,” we highlight one of our users and their unique approach to searching government spending open data. Meet Michael LeJeune.",
+        slug: "michaels-usaspending-search",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "USAspending on YouTube",
+                slug: "https://www.youtube.com/@usaspendinggov",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "agency",
+                type: "glossary",
+                label: "Agency"
+            },
+            {
+                term: "naics",
+                type: "glossary",
+                label: "NAICS"
+            },
+            {
+                term: "assistance-listings-cfda-program",
+                type: "glossary",
+                label: "Assistance Listings"
+            }
+        ]
     }
 ];
 

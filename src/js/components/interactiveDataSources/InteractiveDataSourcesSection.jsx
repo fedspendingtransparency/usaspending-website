@@ -8,7 +8,6 @@ const propTypes = {
         label: PropTypes.string.isRequired,
         showSectionWrapper: PropTypes.bool
     }),
-    icon: PropTypes.string,
     children: PropTypes.element
 };
 

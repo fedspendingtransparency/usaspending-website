@@ -1,0 +1,18 @@
+.budget-agency-heading__container {
+  margin-top: rem(40);
+  font-size: $base-font-size;
+  font-weight: $font-normal;
+
+  h3.download-filter__title {
+    padding-bottom: rem(12);
+
+    .required {
+      color: $red-cool-50v;
+    }
+  }
+  p.download-filter__subtitle {
+    margin-bottom: rem(12);
+    margin-top: 0;
+    color: $gray-90;
+  }
+}

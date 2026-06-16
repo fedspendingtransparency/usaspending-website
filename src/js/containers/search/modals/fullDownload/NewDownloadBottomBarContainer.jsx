@@ -1,3 +1,4 @@
+ 
 /**
  * NewDownloadBottomBarContainer.jsx
  * Created by Kevin Li 8/8/17
@@ -9,7 +10,13 @@ import { connect, useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transitioning';
 import { isEmpty } from 'lodash-es';
-import { setDownloadExpectedFile, setDownloadExpectedUrl, setDownloadPending, setDownloadCollapsed, resetDownload } from 'redux/actions/search/downloadActions';
+import {
+    setDownloadExpectedFile,
+    setDownloadExpectedUrl,
+    setDownloadPending,
+    setDownloadCollapsed,
+    resetDownload
+} from 'redux/actions/search/downloadActions';
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import DownloadBottomBar from 'components/search/modals/fullDownload/DownloadBottomBar';
 import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadHelper';
@@ -17,32 +24,36 @@ import { requestDownloadStatus, requestFullDownloadNew } from 'helpers/downloadH
 const propTypes = {
     download: PropTypes.object,
     filters: PropTypes.object,
-    columns: PropTypes.array
+    columns: PropTypes.array,
+    spending_level: PropTypes.array
 };
 
-const NewDownloadBottomBarContainer = ({ download, filters, columns }) => {
+const NewDownloadBottomBarContainer = ({
+    download, filters, columns, spending_level
+}) => {
     const [visible, setVisible] = useState(false);
     const [showError, setShowError] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
     const { expectedFile, expectedUrl } = useSelector((state) => state.download);
     const [title, setTitle] = useState('We\'re preparing your download(s)...');
+    // eslint-disable-next-line max-len
     const [descriptionOne, setDescriptionOne] = useState('Action Required: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. Copy the ');
+    // eslint-disable-next-line max-len
     const [descriptionTwo, setDescriptionTwo] = useState(' in your browser\'s address bar before closing this page.');
+    const [statusCount, setStatusCount] = useState(null);
     const downloadRequest = useRef(null);
     const statusRequest = useRef(null);
     const dispatch = useDispatch();
-    let statusTimer = null;
-    let statusCount = 0;
+    const statusTimer = useRef(null);
+
     const windowWillClose = (e) => {
-    /* eslint-disable no-param-reassign */
     // we need to modify the browser event to trigger a warning message
         e.returnValue = `You have a file that is still being generated. If you leave, the file \
 will no longer download to your computer. Are you sure you want to do this?`;
-    /* eslint-enable no-param-reassign */
     };
 
-    const closeBar = () => {
-    // stop monitoring for window close events
+    const closeBar = useCallback(() => {
+        // stop monitoring for window close events
         window.removeEventListener('beforeunload', windowWillClose);
         dispatch(resetDownload());
         setVisible(false);
@@ -50,10 +61,10 @@ will no longer download to your computer. Are you sure you want to do this?`;
         setShowSuccess(false);
         dispatch(setDownloadExpectedFile(''));
         dispatch(setDownloadExpectedUrl(''));
-    };
+    }, [dispatch]);
 
-    const downloadFile = (fileUrl) => {
-    // stop monitoring for window close events
+    const downloadFile = useCallback((fileUrl) => {
+        // stop monitoring for window close events
         window.removeEventListener('beforeunload', windowWillClose);
 
         // start the download
@@ -67,9 +78,9 @@ will no longer download to your computer. Are you sure you want to do this?`;
         setTitle('Your file is ready for download.');
         setDescriptionOne('Your download should begin automatically.');
         window.setTimeout(closeBar, 5000);
-    };
+    }, [closeBar, dispatch]);
 
-    const displayError = (message) => {
+    const displayError = useCallback((message) => {
         // update redux
         dispatch(setDownloadPending(false));
         dispatch(setDownloadCollapsed(false));
@@ -78,36 +89,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
         setTitle('An error occurred while generating your file.');
         setDescriptionOne(message);
         window.setTimeout(closeBar, 5000);
-    };
-    const scheduleNextStatus = useCallback(() => {
-    // determine when the next status check should be
-    // it should be 15 seconds for the first minute, then 30 seconds after that
-        let timeToWait = 15;
-        if (statusCount >= 4) {
-            timeToWait = 30;
-        }
-
-        if (statusTimer) {
-            window.clearTimeout(statusTimer);
-        }
-
-        // eslint-disable-next-line no-use-before-define
-        statusTimer = window.setTimeout(checkStatus, timeToWait * 1000);
-        statusCount += 1;
-    });
-    const parseStatus = useCallback((data) => {
-        if (data.status === 'finished') {
-            // download is ready
-            downloadFile(data.file_url);
-            return;
-        }
-        else if (data.status === 'failed') {
-            displayError(data.message);
-            return;
-        }
-        scheduleNextStatus();
-    }, []);
-
+    }, [closeBar, dispatch]);
 
     const checkStatus = useCallback(() => {
         if (statusRequest.current) {
@@ -117,7 +99,10 @@ will no longer download to your computer. Are you sure you want to do this?`;
         if (expectedFile !== '') {
             expectedFileTemp = expectedFile;
         }
-        else if ((typeof expectedFile) === "object" && Object.prototype.hasOwnProperty.call(expectedFile, "file")) {
+        else if (
+            (typeof expectedFile) === "object" &&
+            Object.prototype.hasOwnProperty.call(expectedFile, "file")
+        ) {
             expectedFileTemp = expectedFile.file;
         }
         if (expectedFileTemp !== '') {
@@ -127,7 +112,20 @@ will no longer download to your computer. Are you sure you want to do this?`;
 
             statusRequest.current.promise
                 .then((res) => {
-                    parseStatus(res.data);
+                    if (res.data.status === 'finished') {
+                        // download is ready
+                        downloadFile(res.data.file_url);
+
+                        // disable useEffect
+                        setStatusCount(null);
+                        return;
+                    }
+                    else if (res.data.status === 'failed') {
+                        displayError(res.data.message);
+                        return;
+                    }
+                    // trigger useEffect by starting a count
+                    setStatusCount((prevState) => (prevState ? prevState + 1 : 1));
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
@@ -143,9 +141,27 @@ will no longer download to your computer. Are you sure you want to do this?`;
                     }
                 });
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [expectedFile, expectedUrl]);
+    }, [displayError, downloadFile, expectedFile]);
 
+    useEffect(() => {
+        if (statusCount) {
+            // determine when the next status check should be
+            // it should be 15 seconds for the first minute, then 30 seconds after that
+            let timeToWait = 15;
+            if (statusCount >= 4) {
+                timeToWait = 30;
+            }
+
+            if (statusTimer.current) {
+                window.clearTimeout(statusTimer.current);
+            }
+
+            statusTimer.current = window.setTimeout(checkStatus, timeToWait * 1000);
+        }
+        return () => window.clearTimeout(statusTimer.current);
+    }, [statusCount, checkStatus]);
+
+     
     const displayBar = () => {
         // monitor for window close events
         window.addEventListener('beforeunload', windowWillClose);
@@ -153,57 +169,58 @@ will no longer download to your computer. Are you sure you want to do this?`;
         setShowError(false);
         setShowSuccess(false);
         setTitle('We\'re preparing your download(s)...');
+        // eslint-disable-next-line max-len
         setDescriptionOne('Action Required: This download link is temporary and will expire. Be sure to download your files before the link becomes inactive. Copy the ');
         setDescriptionTwo(' in your browser\'s address bar before closing this page.');
     };
 
-    const requestDownload = () => {
-        if (downloadRequest.current) {
-            downloadRequest.current.cancel();
-        }
 
-        statusCount = 0;
-
-        let filterSet = {};
-        if (filters) {
-            const operation = new SearchAwardsOperation();
-            operation.fromState(filters);
-
-            filterSet = operation.toParams();
-        }
-
-        const params = {
-            filters: filterSet
-        };
-
-        if (columns?.length > 0) {
-            params.columns = columns;
-        }
-
-        downloadRequest.current = requestFullDownloadNew(params);
-
-        downloadRequest.current.promise
-            .then((res) => {
-                dispatch(setDownloadExpectedFile(res.data.file_name));
-                dispatch(setDownloadExpectedUrl(res.data.file_url));
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    // something went wrong
-                    console.log(err);
-
-                    if (err.response) {
-                        displayError(err.response.data.message);
-                    }
-                    else {
-                        displayError(err.message);
-                    }
-                }
-            });
-    };
 
 
     useEffect(() => {
+        const requestDownload = () => {
+            if (downloadRequest.current) {
+                downloadRequest.current.cancel();
+            }
+
+            let filterSet = {};
+            if (filters) {
+                const operation = new SearchAwardsOperation();
+                operation.fromState(filters);
+
+                filterSet = operation.toParams();
+            }
+
+            const params = {
+                filters: filterSet,
+                spending_level
+            };
+
+            if (columns?.length > 0) {
+                params.columns = columns;
+            }
+
+            downloadRequest.current = requestFullDownloadNew(params);
+
+            downloadRequest.current.promise
+                .then((res) => {
+                    dispatch(setDownloadExpectedFile(res.data.file_name));
+                    dispatch(setDownloadExpectedUrl(res.data.file_url));
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                    // something went wrong
+                        console.log(err);
+
+                        if (err.response) {
+                            displayError(err.response.data.message);
+                        }
+                        else {
+                            displayError(err.message);
+                        }
+                    }
+                });
+        };
         if (download?.pendingDownload && download?.showCollapsedProgress &&
             !visible && !isEmpty(filters)) {
             requestDownload(filters, download.columns);
@@ -212,15 +229,21 @@ will no longer download to your computer. Are you sure you want to do this?`;
 
         return () => {
             window.removeEventListener('beforeunload', windowWillClose);
-            window.clearTimeout(statusTimer);
+            window.clearTimeout(statusTimer.current);
         };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [download?.pendingDownload, download?.showCollapsedProgress]);
+    }, [
+        displayBar,
+        download.columns,
+        download.pendingDownload,
+        download.showCollapsedProgress,
+        filters,
+        visible
+    ]);
 
     useEffect(() => {
         checkStatus();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [expectedFile, expectedUrl]);
+    }, [checkStatus, expectedFile, expectedUrl]);
 
     if (visible) {
         return (
@@ -246,5 +269,5 @@ will no longer download to your computer. Are you sure you want to do this?`;
 NewDownloadBottomBarContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ download: state.download })
+    (state) => ({ download: state.download, spending_level: state.spending_level })
 )(NewDownloadBottomBarContainer);
