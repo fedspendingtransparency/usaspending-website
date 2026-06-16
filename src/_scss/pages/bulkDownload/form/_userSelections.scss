@@ -1,58 +1,75 @@
 .download-user-selections {
   position: sticky;
   top: 100px;
-
   border: rem(2) solid $color-gray-lightest;
   border-radius: rem(8);
-  padding: rem(20);
+  padding: 0;
+  background: $color-white;
+  
 
-  @import "mixins/fullSectionWrap";
-  @include fullSectionWrap((rem(40)), (rem(30)));
-
-  @media (max-width: $medium-screen) {
-    padding: 30px 20px;
-    width: 78%;
+  .header-bar {
+    height: rem(7);
+    width: 100%;
+    background-color: $cyan-50v;
+    border-radius: rem(8) rem(8) 0 0;
+    margin-bottom: rem(16);
   }
 
-  @media (max-width: $tablet-screen) {
-    position: unset;
-  }
+  .download-user-selections__title-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem(4);
+    margin: rem(16) rem(24);
+    
+    .download-user-selections__title {
+      display: flex;
+      line-height: $heading-line-height;
+      font-weight: $font-semibold;
+      color: $gray-90;
+      font-size: $h3-font-size;
+      margin: 0;
 
-  .download-user-selections__left-col {
-    @include grid-column(16);
-    @include media($medium-screen) {
-      @include grid-column(8);
+      .title-icon {
+        display: flex;
+        padding: rem(4);
+        align-items: center;
+        gap: rem(10);
+        border-radius: rem(4);
+        background: $gray-5;
+        align-items: center;
+        justify-content: center;
+        margin-right: rem(4);
+        
+        svg {
+          width: rem(18);
+          height: rem(18);
+        }
+      }
     }
-  }
-
-  .download-user-selections__right-col {
-    @include grid-column(16);
-    @include media($medium-screen) {
-      @include grid-column(8);
+    .download-user-selections__subtitle {
+      margin: 0;
+      padding-left: rem(30);
     }
-  }
-
-  h3.download-user-selections__title {
-    @include h5;
-    margin: 0;
   }
 
   .selection {
+    color: $gray-90;
+    font-size: $base-font-size;
+    line-height: $base-line-height;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin: rem(16) rem(24);
+
     .selection__heading {
-      @include h6;
-      padding-top: rem(18);
-      padding-bottom: rem(6);
-      color: $color-gray;
-      font-size: rem(12);
-      font-weight: 600;
-      line-height: rem(15);
+      font-weight: $font-semibold;
     }
     .selection__content {
-      font-weight: 300;
-      font-size: rem(18);
+      font-weight: $font-normal;
+
       &.selection__content-required {
         color: $color-secondary;
-        line-height: rem(23);
       }
     }
   }
