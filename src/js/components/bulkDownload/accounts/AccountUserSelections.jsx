@@ -6,6 +6,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
+import { getPeriodTitle } from 'helpers/shared/dateHelper';
 import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -119,15 +120,15 @@ const AccountUserSelections = () => {
 
     const generateFyString = () => {
         const { fy, quarter, period } = accounts;
-        const timePeriodSelection = quarter ? `Q${quarter}` : `P${period}`;
+        const timePeriodSelection = quarter ? `(Q${quarter})` : `(P${period})`;
         if (fy) {
             return (
-                <div className="selection__content">{fy} - {timePeriodSelection}</div>
+                <div className="selection__content">FY {fy} - {getPeriodTitle(period.toString())} {timePeriodSelection}</div>
             );
         }
 
         return (
-            <div className="selection__content selection__content-required">required</div>
+            <div className="selection__content selection__content-required">Required</div>
         );
     };
 
