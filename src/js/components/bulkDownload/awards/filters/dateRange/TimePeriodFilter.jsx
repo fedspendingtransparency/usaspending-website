@@ -49,7 +49,7 @@ const errorTypes = {
     },
     incomplete: {
         title: 'Incomplete',
-        message: 'Date range must have a state date and end date.',
+        message: 'Date range must have a start date and end date.',
         type: null,
         active: true
     },
