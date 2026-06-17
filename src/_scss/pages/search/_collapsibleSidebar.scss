@@ -271,6 +271,21 @@
       }
     }
   }
+
+
+  .sidebar-nl-buttons-container {
+    background-color: $cyan-50v;
+
+    .sidebar-nl-buttons {
+      color: $color-white;
+      background-color: $cyan-50v;
+
+      &.selected {
+        color: $cyan-50v;
+        background-color: $color-white;
+      }
+    }
+  }
 }
 
 .search-contents.v2 {

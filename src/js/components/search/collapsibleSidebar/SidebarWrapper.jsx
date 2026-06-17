@@ -10,6 +10,7 @@ import PropTypes from "prop-types";
 import useIsMobile from "hooks/useIsMobile";
 import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
+import NLSidebarButtons from "./NLSidebarButtons";
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func
@@ -37,10 +38,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     return (
         <>
-            <div className="sidebar-natural-language-button" style={{ backgroundColor: "teal"}}>
-                <button onClick={() => setSidebarContent('filters')}>filters</button>
-                <button onClick={() => setSidebarContent('natural language')}>NL</button>
-            </div>
+            <NLSidebarButtons
+                sidebarContent={sidebarContent}
+                setSidebarContent={setSidebarContent} />
             {/* Eventually remove search-sidebar css */}
             { sidebarContent === 'filters' ?
                 <div
