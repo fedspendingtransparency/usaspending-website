@@ -156,25 +156,26 @@ const TimePeriod = ({
     }, []);
 
     const removeDateRange = useCallback((newValue) => {
-        updateGenericFilter({
-            type: 'timePeriodType',
-            value: 'dr'
-        });
-
         setDateRangeChipRemoved(true);
         setStartDateUI(null);
         setEndDateUI(null);
         setStartDateDropdown(null);
         setEndDateDropdown(null);
 
-        if (activeTab === 'dr') {
-            updateGenericFilter({
-                type: 'timePeriodType',
-                value: 'dr'
-            });
+        if (newValue?.size >= 1) {
             updateGenericFilter({
                 type: 'time_period',
                 value: newValue
+            });
+        }
+        else {
+            updateGenericFilter({
+                type: 'time_period',
+                value: Set()
+            });
+            updateGenericFilter({
+                type: 'timePeriodType',
+                value: 'fy'
             });
         }
     }, [activeTab, updateGenericFilter]);
