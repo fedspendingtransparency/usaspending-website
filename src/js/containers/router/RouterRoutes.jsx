@@ -22,7 +22,7 @@ const BulkDownloadPageContainer = React.lazy(() => import('containers/bulkDownlo
 const KeywordContainer = React.lazy(() => import('containers/keyword/KeywordContainer').then((comp) => comp));
 const AccountLandingPage = React.lazy(() => import('components/accountLanding/AccountLandingPage').then((comp) => comp));
 const StateLandingPage = React.lazy(() => import('components/stateLanding/StateLandingPage').then((comp) => comp));
-const StatePageNavigation = React.lazy(() => import('features/state/StatePageNavigation').then((comp) => comp));
+const StatePage = React.lazy(() => import('features/state/StatePage').then((comp) => comp));
 const RecipientLandingPage = React.lazy(() => import('components/recipientLanding/RecipientLandingPage').then((comp) => comp));
 const RecipientContainer = React.lazy(() => import('containers/recipient/RecipientContainer').then((comp) => comp));
 const AgencyProfile = React.lazy(() => import('containers/agency/AgencyContainer').then((comp) => comp));
@@ -140,13 +140,13 @@ export const routes = [
     {
     // could be state name or fips code
         path: '/state/:state/:fy?',
-        component: StatePageNavigation,
+        component: StatePage,
         exact: true
     },
     {
     // could be state name or fips code
         path: '/state/:state',
-        component: StatePageNavigation,
+        component: StatePage,
         exact: true
     },
     {

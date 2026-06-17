@@ -14,6 +14,8 @@ import { setStateOverview } from 'redux/actions/state/stateActions';
 export const useFetchOverview = (stateId, fy) => {
     const dispatch = useDispatch();
 
+    console.log("hello");
+
     const loadStateOverview = useCallback((d) => {
         const data = d?.data;
         if (Object.keys(data).length === 0) {
@@ -29,9 +31,10 @@ export const useFetchOverview = (stateId, fy) => {
     return useQuery({
         queryKey: [`stateProfileData${stateId}${fy}`],
         queryFn: () => fetchStateOverview(stateId, fy).promise,
-        staleTime: 60000,
         select: loadStateOverview,
-        enabled: stateId && fy && !!stateId && !!fy
+        enabled: stateId && fy && !!stateId && !!fy,
+        refetchOnMount: false,
+        refetchOnWindowFocus: false
     });
 
 };
