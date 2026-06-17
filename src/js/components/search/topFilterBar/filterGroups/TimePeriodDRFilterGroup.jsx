@@ -34,10 +34,6 @@ const TimePeriodDRFilterGroup = ({ name, resultsView }) => {
         if (!staged) newValue = newValue.add({ end_date: endDate, start_date: startDate });
 
         dispatch(updateGenericFilter({
-            type: 'timePeriodType',
-            value: 'dr'
-        }));
-        dispatch(updateGenericFilter({
             type: 'time_period',
             value: newValue
         }));

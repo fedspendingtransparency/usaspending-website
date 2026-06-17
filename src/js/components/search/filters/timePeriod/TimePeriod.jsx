@@ -171,11 +171,11 @@ const TimePeriod = ({
         else {
             updateGenericFilter({
                 type: 'time_period',
-                value: Set()
+                value: new Set()
             });
             updateGenericFilter({
                 type: 'timePeriodType',
-                value: 'fy'
+                value: activeTab
             });
         }
     }, [activeTab, updateGenericFilter]);
