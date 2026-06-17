@@ -4,7 +4,7 @@
  */
 
 import React, {useEffect} from 'react';
-GeoVisualizationSectionContainerimport { Helmet } from 'react-helmet';
+import { Helmet } from 'react-helmet';
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 
 import Error from 'components/sharedComponents/Error';
