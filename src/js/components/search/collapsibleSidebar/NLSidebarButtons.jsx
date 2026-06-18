@@ -1,10 +1,17 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { QAT } from "GlobalConstants";
 
-const propTypes = { sidebarContent: PropTypes.string, setSidebarContent: PropTypes.func };
+const propTypes = {
+    sidebarContent: PropTypes.string,
+    setSidebarContent: PropTypes.func,
+    isMedium: PropTypes.bool
+};
 
-const NLSidebarButtons = ({ sidebarContent, setSidebarContent }) => {
+const NLSidebarButtons = ({ sidebarContent, setSidebarContent, isMedium }) => {
+    if (isMedium || !QAT) return;
+
     const primaryFill = sidebarContent === 'filters' ? '#FFF' : '#0081A1';
     const secondaryFill = sidebarContent === 'filters' ? '#0081A1' : '#FFF';
 
