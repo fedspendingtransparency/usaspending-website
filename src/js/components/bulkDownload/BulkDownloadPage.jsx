@@ -110,7 +110,8 @@ const BulkDownloadPage = ({
                             hideModal={hideModal} />
                     </FlexGridCol>
                     { userSelections && !isTablet &&
-                        <FlexGridCol width={4} >
+                        <FlexGridCol width={4} 
+                            className="bulk-download">
                             {userSelections}
                         </FlexGridCol>
                     }

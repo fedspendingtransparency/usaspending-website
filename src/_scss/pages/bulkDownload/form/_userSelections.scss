@@ -5,7 +5,7 @@
   border-radius: rem(8);
   padding: 0;
   background: $color-white;
-  
+  margin-top: rem(40);
 
   .header-bar {
     height: rem(7);
@@ -74,11 +74,11 @@
     }
   }
 
-  margin: 0;
-  @include media($medium-screen) {
-    margin: rem(45) rem(20) rem(20) rem(20);
+  @media (max-width: $tablet-screen) {
+    margin: rem(20) auto;
   }
+
   @include media($x-large-screen) {
-    margin: rem(40) rem(30);
+    margin: rem(40) auto;
   }
 }
