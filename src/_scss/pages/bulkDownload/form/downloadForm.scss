@@ -7,7 +7,7 @@
     &.width-96 {
       width: 96%;
     }
-    
+
     @import "filterSectionTitle";
 
     .download-filter__container {
@@ -15,7 +15,6 @@
     }
 
     .download-filter__content {
-
       // TODO: remove additional .new class once download page update is done (DEV-15082)
       &.new {
         padding-left: 0;
