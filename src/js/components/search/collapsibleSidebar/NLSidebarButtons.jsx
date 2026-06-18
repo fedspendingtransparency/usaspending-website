@@ -5,12 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const propTypes = { sidebarContent: PropTypes.string, setSidebarContent: PropTypes.func };
 
 const NLSidebarButtons = ({ sidebarContent, setSidebarContent }) => {
-    const primaryFill = sidebarContent === 'filters' ? '#FFF' : '#0081A1'
-    const secondaryFill = sidebarContent === 'filters' ? '#0081A1' : '#FFF'
+    const primaryFill = sidebarContent === 'filters' ? '#FFF' : '#0081A1';
+    const secondaryFill = sidebarContent === 'filters' ? '#0081A1' : '#FFF';
 
     return (
         <div className="sidebar-nl-buttons-container">
             <button
+                aria-label="Button to change the content of the sidebar to advanced search filters"
                 className={`sidebar-nl-buttons ${
                     sidebarContent === 'filters' ? 'selected' : ''
                 }`}
@@ -18,6 +19,7 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarContent }) => {
                 <FontAwesomeIcon icon="filter-list"/>
             </button>
             <button
+                aria-label="Button to change the content of the sidebar to natural language search"
                 className={`sidebar-nl-buttons ${
                     sidebarContent === 'natural language' ? 'selected' : ''
                 }`}
