@@ -18,14 +18,15 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarContent, isMedium }) => {
 
     // icon and button colors
     const primaryColorNL = sidebarContent === 'natural language' ? cyan50v : colorWhite;
-    const secondaryColorNL = sidebarContent === 'natural language' ? colorWhite : cyan60v;
-    const primaryColorAS = sidebarContent === 'filters' ? cyan60v : colorWhite;
-    const secondaryColorAS = sidebarContent === 'filters' ? colorWhite : cyan50v;
+    const secondaryColorNL = sidebarContent === 'natural language' ? colorWhite : 'transparent';
+    const primaryColorAS = sidebarContent === 'filters' ? cyan50v : colorWhite;
+    const secondaryColorAS = sidebarContent === 'filters' ? colorWhite : 'transparent';
 
     return (
-        <div
-            className="sidebar-nl-buttons-container"
-            style={{ backgroundColor: sidebarContent === 'filters' ? cyan60v : cyan50v }}>
+        <div className={
+            `sidebar-nl-buttons-container${
+                sidebarContent === 'natural language' ? ' gradient' : ''
+            }`}>
             <button
                 style={{ backgroundColor: secondaryColorAS }}
                 aria-label="Button to change the content of the sidebar to advanced search filters"

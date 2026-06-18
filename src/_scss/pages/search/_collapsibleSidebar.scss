@@ -274,8 +274,12 @@
 
 
   .sidebar-nl-buttons-container {
-    background-color: $cyan-50v;
+    background-color: $cyan-60v;
     width: min-content;
+
+    &.gradient {
+      background: linear-gradient(179deg, $cyan-60v 1%, $cyan-50v 37.92%, $blue-60v 106.49%);
+    }
 
     .sidebar-nl-buttons {
       padding: rem(12);
