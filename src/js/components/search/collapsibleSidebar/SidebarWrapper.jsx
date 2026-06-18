@@ -36,9 +36,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     return (
         <>
-            <NLSidebarButtons
-                sidebarContent={sidebarContent}
-                setSidebarContent={setSidebarContent} />
+            { !isMedium &&
+                <NLSidebarButtons
+                    sidebarContent={sidebarContent}
+                    setSidebarContent={setSidebarContent} />
+            }
             {/* Eventually remove search-sidebar css */}
             { sidebarContent === 'filters' ?
                 <div
