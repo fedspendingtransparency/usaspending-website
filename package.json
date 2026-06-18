@@ -4,6 +4,7 @@
   "description": "USAspending Website",
   "repository": "fedspendingtransparency/usaspending-website",
   "main": "src/index.js",
+  "type": "module",
   "scripts": {
     "preinstall": "npx npm-force-resolutions@0.0.3",
     "start": "webpack serve --open --history-api-fallback --progress --config ./webpack/webpack.local.config.js",
@@ -20,8 +21,11 @@
     "lhci:mobile": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci autorun --config=./lighthouserc.js --chrome-flags=\"--headless\";",
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -c .storybook -o docs",
+    "build-storybook": "storybook build",
     "build-sb-artifacts": "npm run prod && npm run build-storybook",
+    "build-vite": "vite build",
+    "build": "npm run build-vite && npm run build-storybook",
+    "preview": "vite preview",
     "fixLint": "npx prettier --write \"**/*.{scss,css}\" && eslint --quiet --config eslint.config.mjs --ext .jsx,.js \"src/js/**\" --fix"
   },
   "author": "",
@@ -48,8 +52,6 @@
     "@mdx-js/react": "^2.1.5",
     "@storybook/addon-docs": "^10.4.6",
     "@storybook/addon-links": "^10.4.6",
-    "@storybook/addon-styling-webpack": "^2.0.0",
-    "@storybook/react-webpack5": "^10.4.6",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.1.4",
     "@testing-library/react": "^16.3.0",
@@ -278,7 +280,10 @@
     "@fortawesome/react-fontawesome": "^3.2.0",
     "@jest/globals": "^29.7.0",
     "@react-hook/resize-observer": "^2.0.2",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
+    "@storybook/addon-a11y": "^10.4.6",
+    "@storybook/addon-vitest": "^10.4.6",
+    "@storybook/builder-vite": "^10.4.6",
+    "@storybook/react-vite": "^10.4.6",
     "@tanstack/react-query": "^5.90.16",
     "@tanstack/react-query-devtools": "^5.91.2",
     "@tanstack/react-table": "^8.21.3",
@@ -348,6 +353,8 @@
     "tinycolor2": "^1.3.0",
     "tunnel": "^0.0.6",
     "validator": "^13.15.23",
+    "vite": "^8.0.16",
+    "vite-plugin-html-purgecss": "^0.1.1",
     "xmldoc": "^0.4.0"
   }
 }
