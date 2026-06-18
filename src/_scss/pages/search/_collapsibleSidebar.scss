@@ -275,14 +275,27 @@
 
   .sidebar-nl-buttons-container {
     background-color: $cyan-50v;
+    width: min-content;
 
     .sidebar-nl-buttons {
       color: $color-white;
       background-color: $cyan-50v;
+      padding: rem(12);
+      margin: 0 0 $global-margin $global-margin;
+      border-radius: rem(4) 0 0 rem(4);
 
       &.selected {
         color: $cyan-50v;
         background-color: $color-white;
+      }
+
+      &:first-of-type {
+        margin-top: 3 * $global-margin;
+      }
+
+      svg {
+        min-width: rem(24);
+        min-height: rem(24);
       }
     }
   }

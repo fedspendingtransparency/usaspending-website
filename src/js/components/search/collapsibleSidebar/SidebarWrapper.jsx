@@ -34,8 +34,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
     };
 
-    console.log({ sidebarContent });
-
     return (
         <>
             <NLSidebarButtons
