@@ -843,11 +843,11 @@ const articles = [
             }
         ],
         related_terms: [
-            // {
-            //     term: "time-period",
-            //     type: "atd",
-            //     label: "Time Period"
-            // }
+            {
+                term: "time-period-filter",
+                type: "atd",
+                label: "Time Period"
+            }
         ]
     }
 ];
