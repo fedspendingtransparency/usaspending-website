@@ -168,8 +168,8 @@ const articles = [
         content_type: 'Featured Content',
         banner_subtitle: "How People Use USAspending.gov Data",
         title: "Ways to Use Our Data",
-        created_date: "09/29/2025",
-        feature_sprint: 212,
+        created_date: "07/16/2026",
+        feature_sprint: 223,
         feature_week: 3,
         description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
         slug: "ways-to-use-our-data",
@@ -536,12 +536,12 @@ const articles = [
     {
         taxonomy: "Data You Can Trust",
         isInfographicTemplate: false,
-        content_type: 'Marketing',
+        content_type: 'Featured Content',
         title: "The Story of Spending Transparency",
         banner_subtitle: "Learn How USAspending.gov Came to Be",
-        created_date: "05/21/2026",
-        feature_sprint: 221,
-        feature_week: 1,
+        created_date: "07/09/2026",
+        feature_sprint: 223,
+        feature_week: 2,
         description: "The U.S. is one of the few countries worldwide that makes federal spending data accessible to the public. But before USAspending.gov existed, much",
         slug: "the-story-of-spending-transparency",
         explore_more: [
@@ -738,9 +738,9 @@ const articles = [
         content_type: 'Featured Content',
         title: "Building America: 250 Years of Investment",
         banner_subtitle: "How U.S. Government Spending Shaped the Nation’s Icons",
-        created_date: "06/18/2026",
-        feature_sprint: 222,
-        feature_week: 2,
+        created_date: "07/02/2026",
+        feature_sprint: 223,
+        feature_week: 1,
         description: "Whether you’re visiting an American icon like the Hoover Dam, traveling to a different state on a highway, or watching a tiny version of Earth from outer space",
         slug: "building-america-250-years-of-investment",
         explore_more: [
@@ -812,6 +812,42 @@ const articles = [
                 type: "glossary",
                 label: "Assistance Listings"
             }
+        ]
+    },
+    {
+        taxonomy: "America250",
+        isInfographicTemplate: false,
+        content_type: 'Marketing',
+        title: "Bringing Data to Life",
+        banner_subtitle: "Hackathon Draws Attention to Government Spending Projects and Infrastructure",
+        created_date: "07/02/2026",
+        feature_sprint: 223,
+        feature_week: 1,
+        description: "Planes, trains, and automobiles can get you where you need to go. But what if there’s no roads, bridges, or airports? America’s infrastructure is a key part of",
+        slug: "bringing-data-to-life",
+        explore_more: [
+            {
+                label: "U.S. State Spending Profiles",
+                slug: "/state",
+                type: "internal"
+            },
+            {
+                label: "Interactive Map",
+                slug: "/search?hash=3bc28fab31cedcf467b9346afab31efd&section=map",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            // {
+            //     term: "time-period",
+            //     type: "atd",
+            //     label: "Time Period"
+            // }
         ]
     }
 ];
