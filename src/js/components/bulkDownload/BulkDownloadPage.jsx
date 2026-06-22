@@ -82,6 +82,7 @@ const BulkDownloadPage = ({
 
     let downloadDataContent;
     let userSelections;
+    let title;
 
     switch (dataType) {
         case 'award_data_archive':
@@ -97,18 +98,20 @@ const BulkDownloadPage = ({
         case 'accounts':
             downloadDataContent = (<AccountDataContainer clickedDownload={clickedDownload} />);
             userSelections = (<AccountUserSelections />);
+            title = "Custom Account Data";
             break;
         case 'dataset_metadata': downloadDataContent = (<MetadataDownload />); break;
         default:
             downloadDataContent = (<AwardDataContainer clickedDownload={clickedDownload} />);
             userSelections = (<AwardsUserSelections />);
+            title = "Custom Award Data";
     }
 
     return (
         <PageWrapper
-            pageName="Download Center"
+            pageName={title}
             classNames="usa-da-bulk-download-page"
-            title="Download Center"
+            title={title}
             metaTagProps={
                 dataType in metaTagsByDataType ?
                     metaTagsByDataType[dataType] :
@@ -123,7 +126,11 @@ const BulkDownloadPage = ({
                         <BulkDownloadModalContainer mounted={showModal} hideModal={hideModal} />
                     </FlexGridCol>
                     { userSelections && !isTablet &&
-                        <FlexGridCol width={4} >{userSelections}</FlexGridCol>
+                        <FlexGridCol
+                            width={4}
+                            className="bulk-download">
+                            {userSelections}
+                        </FlexGridCol>
                     }
                 </FlexGridRow>
             </main>

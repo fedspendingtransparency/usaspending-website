@@ -2,30 +2,10 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { uniqueId } from "lodash-es";
 import QuarterButton from "./NewQuarterButton";
+import { getPeriodTitle } from 'helpers/shared/dateHelper';
 
 const isIdOrGreaterInArray = (idStr, arr) => arr
     .some((periodOrQuarter) => parseInt(periodOrQuarter, 10) >= parseInt(idStr, 10));
-
-const getTitle = (title) => {
-    switch (title) {
-        case "1 - 2": return "Oct-Nov";
-        case "3": return "Dec";
-        case "4": return "Jan";
-        case "5": return "Feb";
-        case "6": return "Mar";
-        case "7": return "Apr";
-        case "8": return "May";
-        case "9": return "Jun";
-        case "10": return "Jul";
-        case "11": return "Aug";
-        case "12": return "Sep";
-        case "1 - 3": return "Oct-Dec";
-        case "4 - 6": return "Jan-Mar";
-        case "7 - 9": return "Apr-Jun";
-        case "10 - 12": return "Jul-Sep";
-        default: return title;
-    }
-}
 
 const propTypes = {
     periodsPerQuarter: PropTypes.arrayOf(
@@ -82,7 +62,7 @@ const Quarters = ({
                             key={uniqueId()}>
                             <QuarterButton
                                 quarter={period.id}
-                                title={getTitle(period.title)}
+                                title={getPeriodTitle(period.title)}
                                 disabled={disabledPeriods.includes(period.id)}
                                 active={isIdOrGreaterInArray(period.id, selectedPeriods)}
                                 handleSelection={handleSelection} />

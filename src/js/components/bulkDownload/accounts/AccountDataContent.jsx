@@ -67,7 +67,16 @@ const AccountDataContent = ({
     return (
         <div className="download-center">
             <div className="download-center__filters">
-                <h2 className="download-center__title">Custom Account Data</h2>
+                <div className="download-center-title-wrapper">
+                    <h2 className="download-center__title">Download spending data, including non-award spending.</h2>
+                    <p>
+                        To download award transaction data for each major agency by fiscal year, visit&nbsp;
+                        <Link to="/download_center/award_data_archive">
+                            Award Data Archive page
+                        </Link>
+                        .
+                    </p>
+                </div>
                 <div className="download-center-form">
                     <BudgetAgencyGroup
                         budgetFunctions={budgetFunctions}

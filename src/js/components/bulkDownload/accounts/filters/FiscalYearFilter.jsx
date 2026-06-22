@@ -7,9 +7,9 @@ import React, { useCallback } from 'react';
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 import { handlePotentialStrings } from 'containers/explorer/detail/helpers/explorerQuarters';
 import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 
 const propTypes = { updateFilter: PropTypes.func };
 
@@ -33,7 +33,6 @@ const FiscalYearFilter = ({ updateFilter }) => {
     /* eslint-enable max-len */
 
     const latestSelectedTimeInterval = period || quarter;
-    const valid = fy && latestSelectedTimeInterval;
 
     const quarterPickerSelection = useCallback((selectedOption) => {
         if (parseInt(fy, 10) >= 2020) {
@@ -59,17 +58,9 @@ const FiscalYearFilter = ({ updateFilter }) => {
         }
     }, [updateFilter]);
 
-    let icon = <div className="icon valid"><CheckCircle /></div>;
-
-    if (!valid) icon = <div className="icon invalid"><ExclamationCircle /></div>;
-
     return (
         <div className="download-filter">
-            <h3 className="download-filter__title">
-                {icon} Select a
-                <span className="download-filter__title_em"> fiscal year </span>
-                and <span className="download-filter__title_em">quarter</span>.
-            </h3>
+            <FilterSectionTitle type="fy" />
             <div className="download-filter__content new">
                 <p className={"download-filter__content-description"}>
                     The government
