@@ -1,4 +1,5 @@
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 /* eslint-disable react/prop-types */
 const AwardDataArchiveUserSelections = ({
@@ -43,7 +44,14 @@ const AwardDataArchiveUserSelections = ({
 
     return (
         <div className="download-user-selections">
-            <h3 className="download-user-selections__title">Your selected options are...</h3>
+            <div className="header-bar" />
+            <div className="download-user-selections__title-wrapper">
+                <h3 className="download-user-selections__title">
+                    <FontAwesomeIcon icon="file-arrow-down" className="title-icon" />
+                    Download Summary
+                </h3>
+                <h5 className="download-user-selections__subtitle">Your selected options are...</h5>
+            </div>
             <div className="download-user-selections__left-col">
                 <div className="selection">
                     <div className="selection__heading">Agency</div>

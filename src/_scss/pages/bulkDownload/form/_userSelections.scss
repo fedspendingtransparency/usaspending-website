@@ -71,6 +71,10 @@
       &.selection__content-required {
         color: $color-secondary;
       }
+
+      ul {
+        @include unstyled-list;
+      }
     }
   }
 
