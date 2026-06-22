@@ -82,7 +82,7 @@ const BulkDownloadPage = ({
 
     let downloadDataContent;
     let userSelections;
-    let title = "Download Center";
+    let title;
 
     switch (dataType) {
         case 'award_data_archive':
@@ -96,6 +96,7 @@ const BulkDownloadPage = ({
             userSelections = (
                 <AwardDataArchiveUserSelections filters={filters} results={results} />
             );
+            title = "Award Data Archive";
             break;
         case 'accounts':
             downloadDataContent = (<AccountDataContainer clickedDownload={clickedDownload} />);

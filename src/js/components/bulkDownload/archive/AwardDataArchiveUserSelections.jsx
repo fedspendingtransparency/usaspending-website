@@ -1,11 +1,10 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
 
-/* eslint-disable react/prop-types */
-const AwardDataArchiveUserSelections = ({
-    results,
-    filters
-}) => {
+const propTypes = { results: PropTypes.array, filters: PropTypes.object };
+
+const AwardDataArchiveUserSelections = ({ results, filters }) => {
     const { agency, type, fy } = filters;
 
     const generateFyString = () => {
@@ -74,4 +73,5 @@ const AwardDataArchiveUserSelections = ({
     );
 }
 
+AwardDataArchiveUserSelections.propTypes = propTypes;
 export default AwardDataArchiveUserSelections;
