@@ -36,24 +36,7 @@ const GlossaryDefinition = ({ glossary }) => {
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };
-    // preserving in case it is needed
-    // let copyConfirmation = null;
-
-    // const getCopyFn = () => {
-    //     const separator = window.location.href.includes('?') ? '&' : '?';
-    //     const slug = `${separator}glossary=${props.glossary.term.toJS().slug}`;
-    //     const value = window.location.href.includes("glossary") ? window.location.href : window.location.href + slug;
-    //     if (window.navigator && window.navigator.clipboard && window.navigator.clipboard.writeText) {
-    //         window.navigator.clipboard.writeText(value);
-    //         setShowCopiedConfirmation(true);
-    //         copyConfirmation = window.setTimeout(() => {
-    //             setShowCopiedConfirmation(false);
-    //         }, 1750);
-    //     }
-    // };
-    // useEffect(() => window.clearTimeout(copyConfirmation), []);
-
-
+    
     const checkDefinitions = () => {
         let hasPlainLocal = false;
         let hasOfficialLocal = false;
