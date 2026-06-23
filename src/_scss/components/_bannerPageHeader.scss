@@ -42,6 +42,10 @@
         position: relative;
         z-index: 1;
 
+        &.no-hightlight {
+          width: rem(60);
+          height: rem(60);
+        }
         svg {
           font-size: rem(60);
           margin: auto;
@@ -87,8 +91,12 @@
 
         .text__title {
           font-size: $h2-font-size;
-          line-height: 1.2;
+          line-height: $heading-line-height;
           margin-bottom: $global-margin;
+
+          &.title-only {
+            font-size: $h1-font-size;
+          }
         }
 
         .text__body {

@@ -16,7 +16,9 @@ const propTypes = {
     overrideKickerColor: PropTypes.string,
     overrideBoxOneColor: PropTypes.string,
     overrideBoxTwoColor: PropTypes.string,
-    className: PropTypes.string
+    className: PropTypes.string,
+    titleOnly: PropTypes.bool,
+    showIconHighlight: PropTypes.bool
 };
 
 // eslint-disable-next-line prefer-arrow-callback
@@ -32,7 +34,9 @@ const BannerPageHeader = memo(function BannerPageHeader({
     overrideKickerColor,
     overrideBoxOneColor,
     overrideBoxTwoColor,
-    className
+    className,
+    titleOnly = false,
+    showIconHighlight = true
 }) {
     const { isTablet } = useContext(IsMobileContext);
 
@@ -52,11 +56,19 @@ const BannerPageHeader = memo(function BannerPageHeader({
             <FlexGridRow className="banner-page-header__row">
                 { !isTablet &&
                     <FlexGridCol width="auto" className="icon-column">
-                        <div className="accent-box-one" style={{ backgroundColor: boxOneColor }} />
-                        <div className="accent-box-two" style={{ backgroundColor: boxTwoColor }} />
-                        <div className="icon-container">
-                            <FontAwesomeIcon icon={faIcon} color={iconColor} />
-                        </div>
+                        {showIconHighlight ? (
+                            <>
+                                <div className="accent-box-one" style={{ backgroundColor: boxOneColor }} />
+                                <div className="accent-box-two" style={{ backgroundColor: boxTwoColor }} />
+                                <div className="icon-container">
+                                    <FontAwesomeIcon icon={faIcon} color={iconColor} />
+                                </div>
+                            </>
+                        ): (
+                            <div className="icon-container" style={{backgroundColor: bannerColor}}>
+                                <FontAwesomeIcon icon={faIcon} color={iconColor} />
+                            </div>
+                        )}
                     </FlexGridCol>
                 }
                 <FlexGridCol width="fill" className="text-column">
@@ -66,11 +78,17 @@ const BannerPageHeader = memo(function BannerPageHeader({
                                 <FontAwesomeIcon icon={faIcon} color={iconColor} />
                             </div>
                         }
-                        <div className="text__kicker" style={{ color: kickerColor }}>
-                            {kicker}
-                        </div>
-                        <div className="text__title">{title}</div>
-                        <div className="text__body">{body}</div>
+                        {titleOnly ? (
+                            <div className="text__title title-only">{title}</div>
+                        ) : (
+                            <>
+                                <div className="text__kicker" style={{ color: kickerColor }}>
+                                    {kicker}
+                                </div>
+                                <div className="text__title">{title}</div>
+                                <div className="text__body">{body}</div>
+                            </>
+                        )}
                     </div>
                 </FlexGridCol>
             </FlexGridRow>

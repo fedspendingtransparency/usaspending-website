@@ -7,7 +7,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { find, throttle, uniqueId } from 'lodash-es';
+import { find, throttle } from 'lodash-es';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 import IsMobileContext from "context/IsMobileContext";
@@ -17,6 +17,7 @@ import Covid19Section from 'components/covid19/Covid19Section';
 import Heading from 'components/covid19/Heading';
 import BannerPageHeader from "components/sharedComponents/header/BannerPageHeader";
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
+import InPageNav from 'components/sharedComponents/InPageNav';
 // import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
@@ -29,7 +30,6 @@ import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import Analytics from 'helpers/analytics/Analytics';
 import useQueryParams from "../../hooks/useQueryParams";
 import Covid19BottomSection from './Covid19BottomSection';
-import InPageNav from 'components/sharedComponents/InPageNav';
 
 require('pages/covid19/index.scss');
 
@@ -149,7 +149,8 @@ const Covid19Page = ({ loading }) => {
             pageName="covid19"
             classNames="usa-da-covid19-page"
             metaTagProps={covidPageMetaTags}
-            title="COVID-19 Spending" >
+            title="COVID-19 Spending"
+            noHeader >
             <LoadingWrapper isLoading={loading}>
                 <Helmet>
                     <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
