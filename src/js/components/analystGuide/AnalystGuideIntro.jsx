@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import React, { useContext } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ShareIcon } from "data-transparency-ui";
+import { FlexGridCol, FlexGridRow, ShareIcon } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 
 import 'pages/analystGuide/analystGuide.scss';
@@ -31,9 +31,18 @@ const AnalystGuideIntro = () => {
 
 
     return (
-        <>
-            <div className="analyst-guide__title-wrapper">
-                <h2 className="analyst-guide__topTitle">What is the Federal Spending Guide?</h2>
+        <FlexGridRow className="analyst-guide__intro">
+            <FlexGridCol width={10}>
+                <div className="analyst-guide__title-wrapper">
+                    <h2 className="analyst-guide__topTitle">What is the Federal Spending Guide?</h2>
+                </div>
+                <div className="analyst-guide__bodyText">
+                    <p>Welcome to the Federal Spending Guide. You&apos;ll find answers here to commonly asked questions about federal spending concepts and USAspending data. We hope this guide makes it easier for you to conduct your own analyses and develop your own tools.</p>
+                    <p>If you&apos;d like to recommend a question to be added to this guide, please share it on our <a href="https://onevoicecrm.my.site.com/usaspending/s/" alt="Community Page" target="_blank" rel="noopener noreferrer">Community page</a> or send an email to <a href="mailto:USAspending.Help@fiscal.treasury.gov" alt="email link USAspending.help@fiscal.treasury.gov">USAspending.Help@fiscal.treasury.gov</a>. We look forward to hearing from you!
+                    </p>
+                </div>
+            </FlexGridCol>
+            <FlexGridCol width={2}>
                 <div className="analyst-guide__share-dl-wrapper">
                     <div className="analyst-guide__download-wrapper">
                         <a
@@ -62,18 +71,12 @@ const AnalystGuideIntro = () => {
                                 confirmationBackgroundColor: "white"
                             }}
                             dropdownDirection={dropdownDirection}
-                            keepText
                             pickerButtonClassNames="side-margin"
                             pickerListClassNames="padding top-margin min-width" />
                     </div>
                 </div>
-            </div>
-            <div className="analyst-guide__bodyText">
-                <p>Welcome to the Federal Spending Guide. You&apos;ll find answers here to commonly asked questions about federal spending concepts and USAspending data. We hope this guide makes it easier for you to conduct your own analyses and develop your own tools.</p>
-                <p>If you&apos;d like to recommend a question to be added to this guide, please share it on our <a href="https://onevoicecrm.my.site.com/usaspending/s/" alt="Community Page" target="_blank" rel="noopener noreferrer">Community page</a> or send an email to <a href="mailto:USAspending.Help@fiscal.treasury.gov" alt="email link USAspending.help@fiscal.treasury.gov">USAspending.Help@fiscal.treasury.gov</a>. We look forward to hearing from you!
-                </p>
-            </div>
-        </>
+            </FlexGridCol>
+        </FlexGridRow>
     );
 
 };

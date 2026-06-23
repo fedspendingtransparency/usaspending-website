@@ -27,47 +27,48 @@
     }
   }
 
-  .analyst-guide__title-wrapper {
-    display: flex;
-    justify-content: space-between;
-    line-height: $heading-line-height;
-    margin: rem(24) 0 rem(20);
+  .analyst-guide__intro {
+    margin-top: rem(24);
 
-    .analyst-guide__topTitle {
-      font-weight: $font-semibold;
-      color: $gray-90;
-      font-size: $h2-font-size;
-      margin: 0;
+    .analyst-guide__title-wrapper {
+      line-height: $heading-line-height;
+      margin-bottom: rem(20);
+      
+      .analyst-guide__topTitle {
+        font-weight: $font-semibold;
+        color: $gray-90;
+        font-size: $h2-font-size;
+        margin: 0;
+      }
     }
-
+    
     .analyst-guide__share-dl-wrapper {
       display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
       font-size: $small-font-size;
       font-weight: $font-normal;
-
+      
       .analyst-guide__download-wrapper {
         color: $color-primary;
         background-color: white;
         margin-right: rem(24);
         display: flex;
         flex-direction: column;
-        align-items: center;
         gap: rem(1);
-
+        
         &:hover {
           color: $color-primary-darker;
         }
-
+        
         .analyst-guide__download-button {
           @include button-link;
-          padding: 0px 20px 0px 20px;
-          @media (min-width: $medium-screen) {
-            padding: 0px 20px 7px 20px;
-          }
+          padding: 0 rem(20) rem(7) rem(20);
+
           &:hover {
             color: $color-primary-darker;
           }
-
+          
           .analyst-guide__download-icon {
             width: 25px;
             height: 25px;
@@ -78,49 +79,53 @@
             }
           }
         }
-      }
 
+        @media (max-width: $medium-screen) {
+          display: none;
+        }
+      }
+      
       .analyst-guide__share-wrapper {
         display: flex;
         width: rem(34);
         flex-direction: column;
-        align-items: center;
         gap: rem(1);
 
+        .usda-share-icon {
+          margin-left: 0;
+        }
+        
         &:hover {
           color: $color-primary-darker;
         }
         color: $color-primary;
       }
-
     }
-  }
 
-
-
-  .analyst-guide__bodyText {
-    margin-bottom: rem(20);
-    font-size: $base-font-size;
-    font-weight: $font-normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: $base-line-height;
-    letter-spacing: normal;
-    color: $color-base;
-
-    .analyst-guide__external-link {
-      @include button-unstyled;
-      color: $color-primary;
-      font-size: inherit;
-      cursor: pointer;
-      width: fit-content;
-      &:hover {
+    .analyst-guide__bodyText {
+      margin-bottom: rem(20);
+      font-size: $base-font-size;
+      font-weight: $font-normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: $base-line-height;
+      letter-spacing: normal;
+      color: $color-base;
+      
+      .analyst-guide__external-link {
+        @include button-unstyled;
         color: $color-primary;
+        font-size: inherit;
+        cursor: pointer;
+        width: fit-content;
+        &:hover {
+          color: $color-primary;
+        }
       }
-    }
-
-    a {
-      font-weight: $font-semibold;
+      
+      a {
+        font-weight: $font-semibold;
+      }
     }
   }
 
