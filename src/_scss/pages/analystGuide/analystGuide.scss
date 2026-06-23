@@ -42,65 +42,6 @@
       }
     }
     
-    .analyst-guide__share-dl-wrapper {
-      display: flex;
-      justify-content: flex-end;
-      align-items: flex-end;
-      font-size: $small-font-size;
-      font-weight: $font-normal;
-      
-      .analyst-guide__download-wrapper {
-        color: $color-primary;
-        background-color: white;
-        margin-right: rem(24);
-        display: flex;
-        flex-direction: column;
-        gap: rem(1);
-        
-        &:hover {
-          color: $color-primary-darker;
-        }
-        
-        .analyst-guide__download-button {
-          @include button-link;
-          padding: 0 rem(20) rem(7) rem(20);
-
-          &:hover {
-            color: $color-primary-darker;
-          }
-          
-          .analyst-guide__download-icon {
-            width: 25px;
-            height: 25px;
-            color: $color-primary;
-            &:hover {
-              color: $color-primary-darker;
-              text-decoration: underline;
-            }
-          }
-        }
-
-        @media (max-width: $medium-screen) {
-          display: none;
-        }
-      }
-      
-      .analyst-guide__share-wrapper {
-        display: flex;
-        width: rem(34);
-        flex-direction: column;
-        gap: rem(1);
-
-        .usda-share-icon {
-          margin-left: 0;
-        }
-        
-        &:hover {
-          color: $color-primary-darker;
-        }
-        color: $color-primary;
-      }
-    }
 
     .analyst-guide__bodyText {
       margin-bottom: rem(20);

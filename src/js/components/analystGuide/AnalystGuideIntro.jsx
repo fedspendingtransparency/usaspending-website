@@ -1,13 +1,13 @@
 /* eslint-disable max-len */
 import React, { useContext } from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FlexGridCol, FlexGridRow, ShareIcon } from "data-transparency-ui";
+import { FlexGridCol, FlexGridRow  } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 
 import 'pages/analystGuide/analystGuide.scss';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { showModal } from 'redux/actions/modal/modalActions';
 import IsMobileContext from "context/IsMobileContext";
+import ShareDownloadButtonGroup from 'components/sharedComponents/buttons/ShareDownloadButtonGroup';
 
 const AnalystGuideIntro = () => {
     const { isMedium } = useContext(IsMobileContext);
@@ -43,38 +43,11 @@ const AnalystGuideIntro = () => {
                 </div>
             </FlexGridCol>
             <FlexGridCol width={2}>
-                <div className="analyst-guide__share-dl-wrapper">
-                    <div className="analyst-guide__download-wrapper">
-                        <a
-                            href="/data/Federal-Spending-Guide.pdf"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="analyst-guide__download-button"
-                            aria-label="download"
-                            download>
-                            <FontAwesomeIcon
-                                data-href="/data/Federal-Spending-Guide.pdf"
-                                icon="file-download"
-                                className="analyst-guide__download-icon" />
-                        </a>
-                        <div>
-                            <span>Download</span>
-                        </div>
-                    </div>
-                    <div className="analyst-guide__share-wrapper">
-                        <ShareIcon
-                            url={getBaseUrl(slug)}
-                            onShareOptionClick={onShareClick}
-                            colors={{
-                                backgroundColor: "white",
-                                color: "#0071bc",
-                                confirmationBackgroundColor: "white"
-                            }}
-                            dropdownDirection={dropdownDirection}
-                            pickerButtonClassNames="side-margin"
-                            pickerListClassNames="padding top-margin min-width" />
-                    </div>
-                </div>
+                <ShareDownloadButtonGroup
+                    url={getBaseUrl(slug)}
+                    downloadLink={"/data/Federal-Spending-Guide.pdf"}
+                    dropdownDirection={dropdownDirection}
+                    onShareClick={onShareClick} />
             </FlexGridCol>
         </FlexGridRow>
     );
