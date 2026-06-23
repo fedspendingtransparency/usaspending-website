@@ -84,23 +84,15 @@ const AwardDataContent = ({
     return (
         <div className="download-center">
             <div className="download-center__filters">
-                <h2 className="download-center__title">Custom Award Data</h2>
-                <div className="archive-info">
-                    <div className="archive-info__icon">
-                        <InfoCircle />
-                    </div>
-                    <div className="archive-info__content">
-                        <div className="archive-info__heading">
-                            A faster way to download yearly award data by agency.
-                        </div>
-                        <div>
-                            Award downloads for entire fiscal years are available for each major agency on our&nbsp;
-                            <Link to="/download_center/award_data_archive">
-                                Award Data Archive
-                            </Link>
-                            &nbsp;page.
-                        </div>
-                    </div>
+                <div className="download-center-title-wrapper">
+                    <h2 className="download-center__title">A faster way to download yearly award data by agency.</h2>
+                    <p>
+                        Award downloads for entire fiscal years are available for each major agency on our&nbsp;
+                        <Link to="/download_center/award_data_archive">
+                            Award Data Archive
+                        </Link>
+                        &nbsp;page.
+                    </p>
                 </div>
                 <form
                     className="download-center-form"
