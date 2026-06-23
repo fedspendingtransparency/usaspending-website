@@ -1,25 +1,28 @@
 .download-center {
-  @import "./archiveInfoBox";
-  .archive-info {
-    margin: rem(30) 0;
-    @include media($medium-screen) {
-      margin: rem(30) rem(20) rem(30) rem(30);
-    }
-  }
   .download-center__filters {
     @include media($medium-screen) {
       width: 100%;
     }
-    margin-bottom: rem(30);
-    .download-center__title {
-      @include display(flex);
-      @include flex(1 1 auto);
-      margin: 0;
-      font-weight: 400;
-      @include media($medium-screen) {
-        padding-left: rem(30);
+
+    .download-center-title-wrapper {
+      font-size: $base-font-size;
+      line-height: $base-line-height;
+      color: $gray-90;
+      font-weight: $font-normal;
+      margin-bottom: rem(40);
+
+      .download-center__title {
+        @include display(flex);
+        margin: 0;
+        font-weight: $font-semibold;
+        font-size: $lead-font-size;
+      }
+
+      p {
+        margin: 0;
       }
     }
+
     @import "./form/downloadForm";
     .download-center__reset-container {
       .download-center__reset {

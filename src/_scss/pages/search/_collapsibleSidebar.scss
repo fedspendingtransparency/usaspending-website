@@ -271,6 +271,44 @@
       }
     }
   }
+
+
+  .sidebar-nl-buttons-container {
+    width: min-content;
+    position: relative;
+    background: linear-gradient(179deg, $cyan-60v 1%, $cyan-50v 37.92%, $blue-60v 106.49%);
+
+
+    .color-overlay-element {
+      background-color: $cyan-60v;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+
+      &.gradient {
+        opacity: 0;
+        transition: opacity 1s ease-in-out;
+      }
+    }
+    .sidebar-nl-buttons {
+      position: relative;
+      z-index: 1;
+      padding: rem(12);
+      margin: 0 0 $global-margin $global-margin;
+      border-radius: rem(4) 0 0 rem(4);
+
+      &:first-of-type {
+        margin-top: 3 * $global-margin;
+      }
+
+      svg {
+        min-width: rem(24);
+        min-height: rem(24);
+      }
+    }
+  }
 }
 
 .search-contents.v2 {
