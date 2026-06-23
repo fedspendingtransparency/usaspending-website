@@ -15,6 +15,10 @@
     margin-bottom: rem(16);
   }
 
+  @media (max-width: $tablet-screen) {
+    position: unset;
+  }
+  
   .download-user-selections__title-wrapper {
     display: flex;
     flex-direction: column;
