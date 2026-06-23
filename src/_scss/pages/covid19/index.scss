@@ -24,11 +24,11 @@
 
   .main-content {
     .covid-content__row {
-      padding: ($global-spacing-unit * 5) ($global-spacing-unit * 4)
+      padding: ($global-spacing-unit * 3) ($global-spacing-unit * 4)
         ($global-spacing-unit * 4) ($global-spacing-unit * 4);
 
       @media (max-width: $tablet-screen) {
-        padding: ($global-spacing-unit * 5) ($global-spacing-unit * 2)
+        padding: ($global-spacing-unit * 3) ($global-spacing-unit * 2)
           ($global-spacing-unit * 2) ($global-spacing-unit * 2);
       }
 

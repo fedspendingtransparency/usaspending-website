@@ -1,22 +1,19 @@
 /* eslint-disable max-len */
-import React, { useContext } from 'react';
+import React from 'react';
 import { FlexGridCol, FlexGridRow  } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 
 import 'pages/analystGuide/analystGuide.scss';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { showModal } from 'redux/actions/modal/modalActions';
-import IsMobileContext from "context/IsMobileContext";
 import ShareDownloadButtonGroup from 'components/sharedComponents/buttons/ShareDownloadButtonGroup';
 
 const AnalystGuideIntro = () => {
-    const { isMedium } = useContext(IsMobileContext);
     const dispatch = useDispatch();
     const onExternalLinkClick = (e) => {
         dispatch(showModal(e));
     };
 
-    const dropdownDirection = isMedium ? 'right' : 'left';
     const slug = 'federal-spending-guide';
 
     const onShareClick = (name) => {
@@ -46,7 +43,6 @@ const AnalystGuideIntro = () => {
                 <ShareDownloadButtonGroup
                     url={getBaseUrl(slug)}
                     downloadLink={"/data/Federal-Spending-Guide.pdf"}
-                    dropdownDirection={dropdownDirection}
                     onShareClick={onShareClick} />
             </FlexGridCol>
         </FlexGridRow>

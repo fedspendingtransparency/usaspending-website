@@ -17,7 +17,7 @@ import Covid19Section from 'components/covid19/Covid19Section';
 import Heading from 'components/covid19/Heading';
 import BannerPageHeader from "components/sharedComponents/header/BannerPageHeader";
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+// import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
@@ -25,10 +25,11 @@ import { slug, getEmailSocialShareData } from 'dataMapping/covid19/covid19';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { showModal } from 'redux/actions/modal/modalActions';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
-import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
+// import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
 import Analytics from 'helpers/analytics/Analytics';
 import useQueryParams from "../../hooks/useQueryParams";
 import Covid19BottomSection from './Covid19BottomSection';
+import InPageNav from 'components/sharedComponents/InPageNav';
 
 require('pages/covid19/index.scss');
 
@@ -148,20 +149,7 @@ const Covid19Page = ({ loading }) => {
             pageName="covid19"
             classNames="usa-da-covid19-page"
             metaTagProps={covidPageMetaTags}
-            title="COVID-19 Spending"
-            toolBarComponents={[
-                <DownloadButtonContainer />,
-                <ShareIcon508
-                    key={uniqueId()}
-                    url={getBaseUrl(slug)}
-                    onShareOptionClick={handleShare}
-                    classNames={!isTablet ? "margin-right" : ""} />
-            ]}
-            sections={covid19Sections}
-            activeSection={activeSection}
-            jumpToSection={jumpToSection}
-            loading={loading}
-            inPageNav>
+            title="COVID-19 Spending" >
             <LoadingWrapper isLoading={loading}>
                 <Helmet>
                     <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
@@ -175,9 +163,16 @@ const Covid19Page = ({ loading }) => {
                         faIcon="virus-covid"
                         primaryColor="#39215E"
                         secondaryColor="#783CB9" />
+                    <InPageNav
+                        sections={covid19Sections}
+                        loading={loading}
+                        activeSection={activeSection}
+                        pageName="covid19"
+                        detectActiveSection
+                        jumpToSection={jumpToSection} />
                     <FlexGridRow className="body covid-content__row">
                         <FlexGridCol className="covid-content__col" width="fill">
-                            <Heading publicLaw={query.publicLaw} />
+                            <Heading publicLaw={query.publicLaw} url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
                             {Object.keys(componentByCovid19Section())
                                 .filter((section) => componentByCovid19Section()[section].showInMainSection)
                                 .map((section) => (

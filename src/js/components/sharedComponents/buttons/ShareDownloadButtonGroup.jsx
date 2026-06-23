@@ -3,32 +3,55 @@
  * Created by JD House 6/22/2026
  **/
 
-import React from "react";
+import React, { useContext } from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ShareIcon } from 'data-transparency-ui';
+import IsMobileContext from "context/IsMobileContext";
+import DownloadIconButton508 from 'components/sharedComponents/buttons/DownloadButton508';
 
 const propTypes = {
     url: PropTypes.string.isRequired,
     onShareClick: PropTypes.func.isRequired,
-    classNames: PropTypes.string,
-    dropdownDirection: PropTypes.string,
+    className: PropTypes.string,
     hideDownload: PropTypes.bool,
-    downloadLink: PropTypes.string
+    downloadLink: PropTypes.string,
+    showDownloadBtn: PropTypes.bool,
+    onDownloadClick: PropTypes.func,
+    downloadInFlight: PropTypes.bool,
+    downloadIcon: PropTypes.string
 };
 
 const ShareDownloadButtonGroup = ({
     url = '',
     onShareClick = () => {},
-    classNames = '',
-    dropdownDirection = 'left',
+    className = '',
     hideDownload = false,
-    downloadLink = ''
+    downloadLink = '',
+    showDownloadBtn = false,
+    onDownloadClick = () => {},
+    downloadInFlight,
+    downloadIcon
 }) => {
+    const { isMedium } = useContext(IsMobileContext);
+    const dropdownDirection = isMedium ? 'right' : 'left';
 
-    return (
-        <div className="share-dl-group">
-            {!hideDownload && <div className="share-dl-group__download-wrapper">
+    const getDownloadOption = () => {
+        if (showDownloadBtn) {
+            return (
+                <div className="share-dl-group__download-wrapper">
+                    <DownloadIconButton508
+                        downloadInFlight={downloadInFlight}
+                        onClick={onDownloadClick}
+                        downloadIcon={downloadIcon}
+                        className={className} />
+                
+                </div>
+            );
+        }
+
+        return (
+            <div className="share-dl-group__download-wrapper">
                 <a
                     href={downloadLink}
                     target="_blank"
@@ -44,7 +67,13 @@ const ShareDownloadButtonGroup = ({
                 <div>
                     <span>Download</span>
                 </div>
-            </div>}
+            </div>
+        );
+    };
+    
+    return (
+        <div className="share-dl-group">
+            {!hideDownload && getDownloadOption() }
             <div className="share-dl-group__share-wrapper">
                 <ShareIcon
                     url={url}
