@@ -56,7 +56,7 @@ const getOtherArticle = (otherArticleCadence, otherArticles, featureWeekNum, fea
 const getCurrentArticles = (otherArticleCadence, dayOneString = publishedDate) => {
     /* eslint-enable max-len */
     // get the sprint number and week number from today's date and start date
-    const today = new Date("7/9/26");
+    const today = new Date();
     const dayOne = new Date(dayOneString);
     const weekDifference = (today - dayOne) > 0 ?
         Math.ceil(((today - dayOne) / 604800000)) :  1;
