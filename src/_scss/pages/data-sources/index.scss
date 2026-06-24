@@ -25,7 +25,7 @@
 
   .main-content {
     @import "../../mixins/fullSectionWrap";
-    @include fullSectionWrap(($global-margin * 3), ($global-margin * 4));
+    @include fullSectionWrap(0, ($global-margin * 4));
     padding: 0;
 
     @import "elements/_divider";

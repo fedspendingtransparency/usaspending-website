@@ -1,17 +1,17 @@
 /* eslint-disable max-len */
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router';
-import { find, uniqueId } from 'lodash-es';
+import { find } from 'lodash-es';
 import { useDispatch } from 'react-redux';
-import { ComingSoon, FlexGridCol } from 'data-transparency-ui';
+import { ComingSoon, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { interactiveDataSourcesPageMetaTags } from 'helpers/metaTagHelper';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import DownloadStaticFile from "components/sharedComponents/DownloadStaticFile";
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+import BannerPageHeader from "components/sharedComponents/header/BannerPageHeader";
+import InPageNav from 'components/sharedComponents/InPageNav';
 import { showModal } from 'redux/actions/modal/modalActions';
 import useQueryParams from "hooks/useQueryParams";
 import InteractiveDataSourcesSection from './InteractiveDataSourcesSection';
@@ -47,7 +47,7 @@ const InteractiveDataSourcesPage = () => {
             label: 'Introduction',
             showSectionWrapper: false,
             scroller: false,
-            component: <IntroSection />
+            component: <IntroSection url={getBaseUrl('data-sources')} onShareClick={handleShare} downloadLink="/data/data-sources-download.pdf" />
         },
         {
             section: 'history-section',
@@ -142,6 +142,7 @@ const InteractiveDataSourcesPage = () => {
         }
     ], []);
 
+    // eslint-disable-next-line react-hooks/preserve-manual-memoization
     const jumpToSection = useCallback((section = '') => {  
 
         // we've been provided a section to jump to
@@ -198,30 +199,35 @@ const InteractiveDataSourcesPage = () => {
             classNames="usa-da-interactive-data-sources-page"
             metaTagProps={interactiveDataSourcesPageMetaTags}
             title="Data Sources"
-            toolBarComponents={[
-                <DownloadStaticFile
-                    key={uniqueId()}
-                    path="/data/data-sources-download.pdf" />,
-                <ShareIcon508
-                    key={uniqueId()}
-                    url={getBaseUrl('data-sources')}
-                    onShareOptionClick={handleShare} />
-            ]}
-            sections={sections}
-            activeSection={activeSection}
-            jumpToSection={jumpToSection}
-            inPageNav>
-            <main id="main-content" className="main-content usda__flex-row">
-                <FlexGridCol width={12} className="body usda__flex-col">
-                    {sections.map((section) => (
-                        <InteractiveDataSourcesSection
-                            key={section.section}
-                            section={section}>
-                            {section.component || <ComingSoon />}
-                        </InteractiveDataSourcesSection>
-                    ))}
-                </FlexGridCol>
-            </main>
+            noHeader>
+            <>
+                <BannerPageHeader
+                    kicker="RESOURCES"
+                    title="USAspending Data Sources"
+                    body="A journey through government spending data"
+                    faIcon="database"
+                    primaryColor="#005EA2"
+                    secondaryColor="#0076D6" />
+                <InPageNav
+                    sections={sections}
+                    activeSection={activeSection}
+                    pageName="interactive-data-sources"
+                    detectActiveSection
+                    jumpToSection={jumpToSection} />
+                <main id="main-content" className="main-content">
+                    <FlexGridRow className="usa-da-interactive-data-sources-page">
+                        <FlexGridCol width={12} className="body usda__flex-col">
+                            {sections.map((section) => (
+                                <InteractiveDataSourcesSection
+                                    key={section.section}
+                                    section={section}>
+                                    {section.component || <ComingSoon />}
+                                </InteractiveDataSourcesSection>
+                            ))}
+                        </FlexGridCol>
+                    </FlexGridRow>
+                </main>
+            </>
         </PageWrapper>
     );
 };

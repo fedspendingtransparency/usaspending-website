@@ -21,10 +21,12 @@
     width: 100%;
   }
 
-  @media (max-width: $medium-screen) {
-    .usda-in-page-nav__container {
-      top: 121px;
-    }
+  .usda-in-page-nav__container {
+    top: 0;
+  }
+
+  .banner-page-header {
+    width: stretch;
   }
 
   .main-content {
@@ -88,22 +90,7 @@
           overflow-x: auto;
         }
       }
-
-      .intro-padded__content {
-        @import "./_scrollerOverlayCard.scss";
-        padding: 2.5% 8% 0% 8%;
-
-        h1,
-        h2,
-        h3 {
-          margin-top: 0;
-        }
-
-        @media (max-width: $tablet-screen) {
-          padding: 2.5% 8% 8% 8%;
-        }
-      }
-
+      
       .body-padded__content {
         @import "./_scrollerOverlayCard.scss";
         margin-top: 0;

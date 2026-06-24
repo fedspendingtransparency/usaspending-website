@@ -7,7 +7,6 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
-import DownloadIconButton508 from 'components/sharedComponents/buttons/DownloadButton508';
 import { requestFullDownload } from 'helpers/downloadHelper';
 import {
     setDownloadCollapsed,
@@ -21,7 +20,9 @@ import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import ShareDownloadButtonGroup from 'components/sharedComponents/buttons/ShareDownloadButtonGroup';
 
 const propTypes = {
-    publicLaw: PropTypes.string
+    publicLaw: PropTypes.string,
+    url: PropTypes.string,
+    onShareClick: PropTypes.func
 };
 
 const Heading = ({ publicLaw, url, onShareClick }) => {

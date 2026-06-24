@@ -1,20 +1,8 @@
-.body__content.intro-padded__content.interactive-data-sources-intro-section {
+.body__content.interactive-data-sources-intro-section {
   color: $color-white;
   padding-bottom: 0px;
   margin-top: 0px;
 
-  .interactive-data-sources-intro-animation {
-    // gets rid of weird gap between bottom of animation and container
-    .lottie-animation-container > div {
-      font-size: 0px;
-    }
-    @media (max-width: $tablet-screen) and (min-width: $small-screen) {
-      margin-top: 15%;
-    }
-    @media (max-width: $small-screen) {
-      margin-top: 10%;
-    }
-  }
 }
 
 .hero-container {

@@ -23,6 +23,10 @@
   }
 
   .main-content {
+    .usda-in-page-nav__container{
+      top: 0;
+    }
+
     .covid-content__row {
       padding: ($global-spacing-unit * 3) ($global-spacing-unit * 4)
         ($global-spacing-unit * 4) ($global-spacing-unit * 4);
