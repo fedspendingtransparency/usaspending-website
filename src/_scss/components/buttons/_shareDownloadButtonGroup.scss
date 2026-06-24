@@ -1,7 +1,7 @@
     .share-dl-group {
       display: flex;
       justify-content: flex-end;
-      align-items: baseline;
+      align-items: flex-start;
       font-size: $small-font-size;
       font-weight: $font-normal;
       
@@ -86,17 +86,26 @@
 
         .usda-share-icon {
           margin-left: 0;
-          :not(li button) > svg {
-            width: rem(25);
-            height: rem(25);
-            color: $color-primary;
+          display: flex;
+          flex-direction: column;
 
-            &:hover,
-            &:active {
-              color: $color-primary-darker;
+          .usa-dt-picker__dropdown-container {
+            .usa-dt-picker__button {
+              padding-top: 0;
+
+              svg {
+                width: rem(25);
+                height: rem(25);
+                color: $color-primary;
+      
+                &:hover,
+                &:active {
+                  color: $color-primary-darker;
+                }
+
+              }
             }
           }
-          
           .usda-share-icon__share-text {
             font-size: $small-font-size;
             font-weight: $font-normal;

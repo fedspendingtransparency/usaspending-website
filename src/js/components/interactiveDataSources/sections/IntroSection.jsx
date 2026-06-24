@@ -15,10 +15,10 @@ const IntroSection = ({
     onShareClick,
     downloadLink
 }) => (
-    <FlexGridRow>
+    <FlexGridRow className="interactive-data-sources__intro-section">
         <FlexGridCol width={10}>
-            <div className="body__content intro__content interactive-data-sources-intro-section">
-                <p data-testid="paragraphText">
+            <div className="interactive-data-sources__bodyText ">
+                <p>
                     USAspending.gov links data from many government systems, including agency financial systems and governmentwide award systems. Scroll below to learn more about these systems, as well as the context for this historic initiative to provide federal spending transparency.
                 </p>
             </div>

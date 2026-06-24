@@ -216,7 +216,7 @@ const InteractiveDataSourcesPage = () => {
                     jumpToSection={jumpToSection} />
                 <main id="main-content" className="main-content">
                     <FlexGridRow className="usa-da-interactive-data-sources-page">
-                        <FlexGridCol width={12} className="body usda__flex-col">
+                        <FlexGridCol width={12} className="body">
                             {sections.map((section) => (
                                 <InteractiveDataSourcesSection
                                     key={section.section}

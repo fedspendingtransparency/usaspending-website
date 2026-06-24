@@ -4,18 +4,17 @@
 
   $color-gray-border: $color-gray-lighter;
 
-  @media (max-width: $medium-screen) {
-    .usda-in-page-nav__container {
-      top: 121px;
-    }
+  .usda-in-page-nav__container {
+    top: 0;
   }
-   .back-link {
-    font-size: $font-size-18;
-    font-weight: $font-semibold;
-    line-height: $heading-line-height;
-    display: flex;
-    align-items: center;
-    a {
+
+  .back-link {
+     display: flex;
+     align-items: center;
+     a {
+      font-size: $font-size-18;
+      font-weight: $font-semibold;
+      line-height: $heading-line-height;
       text-decoration: none;
       svg {
         margin-right: rem(8);
@@ -88,4 +87,8 @@
   }
 
   @import "../../layouts/default/header/warning";
+
+  .info-banner .data-disclaimer .sticky-banner {
+    top: 0;
+  }
 }

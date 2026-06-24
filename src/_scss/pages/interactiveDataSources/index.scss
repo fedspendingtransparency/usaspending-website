@@ -29,11 +29,6 @@
     width: stretch;
   }
 
-  .main-content {
-    justify-content: center;
-    margin: auto;
-  }
-
   .usda__flex-row {
     @include display(flex);
     @include flex-wrap(wrap);
@@ -49,7 +44,11 @@
     @include flex-grow(1);
     @include flex-wrap(wrap);
     max-width: rem(1400);
-
+    margin: rem(24) rem(16) rem(20) rem(16);
+    @media (min-width: $tablet-screen) {
+      margin: rem(24) rem(32) rem(20) rem(32);
+    }
+    
     ul {
       padding: 0;
 
@@ -72,10 +71,7 @@
       @include flex-direction(column);
       padding: 0px;
       background: $color-white;
-      margin: rem(20) rem(16) rem(20) rem(16);
-      @media (min-width: $tablet-screen) {
-        margin: rem(20) rem(32) rem(20) rem(32);
-      }
+
 
       .usda-message {
         &.usda-message_error {
@@ -84,25 +80,11 @@
       }
 
       .body__content {
-        margin-top: rem(32);
-
         .table-wrapper {
           overflow-x: auto;
         }
       }
       
-      .body-padded__content {
-        @import "./_scrollerOverlayCard.scss";
-        margin-top: 0;
-        padding: 0 0 10% 0;
-
-        h1,
-        h2,
-        h3 {
-          margin-top: 0;
-        }
-      }
-
       .usda-section__container {
         @include display(flex);
 

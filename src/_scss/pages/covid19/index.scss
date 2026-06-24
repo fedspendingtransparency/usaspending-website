@@ -45,10 +45,14 @@
             font-size: $base-font-size;
             font-weight: $font-normal;
             color: $headline-color;
-
+            
             .usa-button-link {
               font-size: $base-font-size;
             }
+          }
+          
+          p:first-of-type {
+            margin-top: 0;
           }
         }
       }
