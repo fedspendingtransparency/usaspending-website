@@ -28,6 +28,7 @@ const StatePage = () => {
     const { handleFyChange, state, stateId, fy } = useStateNavigation();
     const stateProfile = useSelector((s) => s.stateProfile);
 
+    console.log("1");
     const { isLoading, error
     } = useFetchOverview(stateId, fy);
 
@@ -44,7 +45,7 @@ const StatePage = () => {
             <FlexGridCol className="state-content">
                 <StateOverview />
                 <StateTimeVisualizationSectionContainer />
-                <TopFiveSectionContainer />
+                {/*<TopFiveSectionContainer />*/}
                 <StateFooter />
             </FlexGridCol>
         </FlexGridRow>

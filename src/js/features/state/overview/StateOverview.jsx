@@ -67,7 +67,7 @@ const StateOverview = () => {
                         toggleState={toggle} />
                     <AwardBreakdownCard overview={overview} />
                 </FlexGridRow>
-                <GeoVisualizationSectionContainer />
+                {/*<GeoVisualizationSectionContainer />*/}
             </div>
         </div>
     );
