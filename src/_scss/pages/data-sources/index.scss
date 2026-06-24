@@ -75,20 +75,11 @@
         width: 100%;
       }
     }
-  }
 
-  .sticky-header {
-    .sticky-header__toolbar {
-      .copy-confirmation {
-        right: rem(83);
-        z-index: 1;
-      }
+    .usa-dt-picker {
+      z-index: 3;
     }
   }
 
   @import "../../layouts/default/header/warning";
-
-  .info-banner .data-disclaimer .sticky-banner {
-    top: 0;
-  }
 }
