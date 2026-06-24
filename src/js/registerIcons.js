@@ -110,7 +110,13 @@ import {
     faVirusCovid,
     faFilterList,
     faCalendar,
-    faSackDollar
+    faSackDollar,
+    faFileCertificate,
+    faFileSignature,
+    faFileCsv,
+    faList,
+    faMoneyCheckDollar,
+    faFolder
 } from "@fortawesome/pro-solid-svg-icons";
 
 export default function registerIcons() {
@@ -222,6 +228,12 @@ export default function registerIcons() {
         faFilterList,
         faFileExcelLight,
         faCalendar,
-        faSackDollar
+        faSackDollar,
+        faFileCertificate,
+        faFileSignature,
+        faFileCsv,
+        faList,
+        faMoneyCheckDollar,
+        faFolder
     );
 }
