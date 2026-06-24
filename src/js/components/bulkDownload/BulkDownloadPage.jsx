@@ -22,6 +22,8 @@ import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardData
 import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
 import AwardsUserSelections from './awards/AwardsUserSelections';
 import AccountUserSelections from './accounts/AccountUserSelections';
+import AwardDataArchiveUserSelections from "./archive/AwardDataArchiveUserSelections";
+import { currentFiscalYear } from "helpers/fiscalYearHelper";
 
 const propTypes = {
     dataType: PropTypes.string,
@@ -29,6 +31,8 @@ const propTypes = {
     startAwardDownload: PropTypes.func,
     startAccountDownload: PropTypes.func
 };
+
+const currentFY = currentFiscalYear();
 
 const metaTagsByDataType = {
     awards: downloadAwardPageMetaTags,
@@ -45,6 +49,13 @@ const BulkDownloadPage = ({
 }) => {
     const { isTablet } = useContext(IsMobileContext);
     const [showModal, setShowModal] = useState(false);
+    // filters and results for Award Data Archive
+    const [filters, setFilters] = useState({
+        agency: { id: 'all', name: 'All' },
+        type: { name: 'contracts', display: 'Contracts' },
+        fy: `${currentFY}`
+    });
+    const [results, setResults] = useState([]);
 
     const hideModal = () => setShowModal(false);
 
@@ -74,7 +85,19 @@ const BulkDownloadPage = ({
     let title;
 
     switch (dataType) {
-        case 'award_data_archive': downloadDataContent = (<AwardDataArchiveContainer />); break;
+        case 'award_data_archive':
+            downloadDataContent = (
+                <AwardDataArchiveContainer
+                    filters={filters}
+                    setFilters={setFilters}
+                    results={results}
+                    setResults={setResults}/>
+            );
+            userSelections = (
+                <AwardDataArchiveUserSelections filters={filters} results={results} />
+            );
+            title = "Award Data Archive";
+            break;
         case 'accounts':
             downloadDataContent = (<AccountDataContainer clickedDownload={clickedDownload} />);
             userSelections = (<AccountUserSelections />);
@@ -102,15 +125,12 @@ const BulkDownloadPage = ({
                     <FlexGridCol
                         width={isTablet || !userSelections ? 12 : 8}
                         className="bulk-download">
-                        <div className="bulk-download__data">
-                            {downloadDataContent}
-                        </div>
-                        <BulkDownloadModalContainer
-                            mounted={showModal}
-                            hideModal={hideModal} />
+                        <div className="bulk-download__data">{downloadDataContent}</div>
+                        <BulkDownloadModalContainer mounted={showModal} hideModal={hideModal} />
                     </FlexGridCol>
                     { userSelections && !isTablet &&
-                        <FlexGridCol width={4} 
+                        <FlexGridCol
+                            width={4}
                             className="bulk-download">
                             {userSelections}
                         </FlexGridCol>

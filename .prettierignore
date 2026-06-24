@@ -1,3 +1,4 @@
 # Ignore all HTML files:
 **/*.html
 **/*.min.css
+**/data-transparency-ui.css
