@@ -289,6 +289,9 @@
     "@tanstack/react-query": "^5.90.16",
     "@tanstack/react-query-devtools": "^5.91.2",
     "@tanstack/react-table": "^8.21.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "@vitest/browser-playwright": "^4.1.9",
+    "@vitest/coverage-v8": "^4.1.9",
     "accounting": "^0.4.1",
     "ajv": "^8.18.0",
     "axios": "^1.16.0",
@@ -356,7 +359,12 @@
     "tunnel": "^0.0.6",
     "validator": "^13.15.23",
     "vite": "^8.0.16",
+    "vite-plugin-babel": "^1.7.3",
+    "vite-plugin-dts": "^5.0.2",
     "vite-plugin-html-purgecss": "^0.1.1",
+    "vite-plugin-node-polyfills": "^0.28.0",
+    "vite-plugin-purgecss": "^0.2.13",
+    "vitest": "^4.1.9",
     "xmldoc": "^0.4.0"
   }
 }
