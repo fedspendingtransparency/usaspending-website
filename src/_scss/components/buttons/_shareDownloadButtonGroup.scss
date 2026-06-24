@@ -86,20 +86,23 @@
 
         .usda-share-icon {
           margin-left: 0;
-          svg {
+          :not(li button) > svg {
             width: rem(25);
             height: rem(25);
+            color: $color-primary;
+
+            &:hover,
+            &:active {
+              color: $color-primary-darker;
+            }
           }
           
-          span {
+          .usda-share-icon__share-text {
             font-size: $small-font-size;
             font-weight: $font-normal;
             line-height: $base-line-height;
-          }
-          
-          svg,
-          span {
             color: $color-primary;
+  
             &:hover,
             &:active {
               color: $color-primary-darker;
