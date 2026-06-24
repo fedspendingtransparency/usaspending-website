@@ -10,55 +10,66 @@ import reactHooks from "eslint-plugin-react-hooks";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import pluginImport from "eslint-plugin-import";
 
-export default defineConfig([globalIgnores([
-    "**/webpack/",
-    "**/storybook-static/",
-    "**/docs/",
-    "**/__mocks__",
-    "**/.storybook/",
-    "**/coverage/",
-    "**/scripts/",
-    "**/*.md"
-]), {
-    files: ["**/*.{js,mjs,cjs,jsx}"],
-    plugins: { js, reactHooks, react, jsxA11y, pluginImport },
-    extends: [
-        "js/recommended",
-        react.configs.flat.recommended,
-        reactHooks.configs.flat.recommended,
-        jsxA11y.flatConfigs.recommended,
-        pluginImport.flatConfigs.react
-    ],
-    languageOptions: { sourceType: "module", globals: { ...globals.node, ...globals.browser, ...globals.jest } },
-    settings: { react: { version: "19" } },
-    rules: {
-        // disabling class method "this" requirement to avoid React conflicts
-        "class-methods-use-this": [0],
-        // allow await in for-await-in loops
-        "no-await-in-loop": [0],
-        // allow continue statements
-        "no-continue": [0],
-        // allow ++ and --
-        "no-plusplus": [0],
-        // allow some globals
-        "no-restricted-globals": [0],
-        // allow for loops
-        "no-restricted-syntax": [2, "LabeledStatement", "WithStatement"],
-        "no-underscore-dangle": [0, { "allowAfterThis": true }],
-        "prefer-arrow-callback": ["error"],
-        // for now, don't do destructuring
-        "prefer-destructuring": [0],
-        // TODO: The following js rules have been deprecated and should be replaced,
-        //  all have been addressed in @stylistic/eslint-plugin
-        "indent": [2, 4, { "SwitchCase": 1 }],
-        "max-len": [1, 100, { "tabWidth": 4 }],
-        "comma-dangle": [2, "never"],
-        "no-extra-semi": [1],
-        "arrow-parens": [2, "always"],
-        "quotes": [0],
-        "brace-style": [1, "stroustrup"],
-        "spaced-comment": [2, "always", { "exceptions": ["*"] }],
-        "function-paren-newline": [0],
+export default defineConfig([
+    globalIgnores([
+        "**/webpack/",
+        "**/storybook-static/",
+        "**/docs/",
+        "**/__mocks__",
+        "**/.storybook/",
+        "**/coverage/",
+        "**/scripts/",
+        "**/*.md"
+    ]),
+    {
+        files: ["**/*.{js,mjs,cjs,jsx}"],
+        plugins: { js, reactHooks, react, jsxA11y, pluginImport },
+        extends: [
+            "js/recommended",
+            react.configs.flat.recommended,
+            reactHooks.configs.flat.recommended,
+            jsxA11y.flatConfigs.recommended,
+            pluginImport.flatConfigs.react
+        ],
+        languageOptions: { 
+            globals: { ...globals.node, ...globals.browser, ...globals.jest },
+            ecmaVersion: "latest", // Or "2024", "2025", etc.
+            sourceType: "module",
+            parserOptions: {
+                ecmaFeatures: {
+                    jsx: true
+                }
+            }
+        },
+        settings: { react: { version: "19" } },
+        rules: {
+            // disabling class method "this" requirement to avoid React conflicts
+            "class-methods-use-this": [0],
+            // allow await in for-await-in loops
+            "no-await-in-loop": [0],
+            // allow continue statements
+            "no-continue": [0],
+            // allow ++ and --
+            "no-plusplus": [0],
+            // allow some globals
+            "no-restricted-globals": [0],
+            // allow for loops
+            "no-restricted-syntax": [2, "LabeledStatement", "WithStatement"],
+            "no-underscore-dangle": [0, { "allowAfterThis": true }],
+            "prefer-arrow-callback": ["error"],
+            // for now, don't do destructuring
+            "prefer-destructuring": [0],
+            // TODO: The following js rules have been deprecated and should be replaced,
+            //  all have been addressed in @stylistic/eslint-plugin
+            "indent": [2, 4, { "SwitchCase": 1 }],
+            "max-len": [1, 100, { "tabWidth": 4 }],
+            "comma-dangle": [2, "never"],
+            "no-extra-semi": [1],
+            "arrow-parens": [2, "always"],
+            "quotes": [0],
+            "brace-style": [1, "stroustrup"],
+            "spaced-comment": [2, "always", { "exceptions": ["*"] }],
+            "function-paren-newline": [0],
 
         "react/default-props-match-prop-types": [0],
         // allow object prop-type

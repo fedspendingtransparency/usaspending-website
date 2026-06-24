@@ -23,7 +23,7 @@ const getAwardTypeGroup = (spendingLevel, tableType, awardType) => {
         return awardTypeGroup;
     }
 
-    let intersectingTypes = intersection(awardTypeGroup, awardType);
+    let intersectingTypes = intersection(awardTypeGroup, [...awardType]);
     if (!intersectingTypes || intersectingTypes.length === 0) {
         // the filtered types and the table type do not align
         // in this case, send an array of non-existent types because the endpoint requires

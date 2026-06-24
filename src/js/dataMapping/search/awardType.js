@@ -103,6 +103,16 @@ export const awardTypeGroups = {
     other: ['09', '11', '-1', 'F005', 'F010']
 };
 
+export const bulkDownloadAwardTypeGroups = {
+    contracts: awardTypeGroups.contracts,
+    idvs: awardTypeGroups.idvs,
+    grants: awardTypeGroups.grants,
+    direct_payments: awardTypeGroups.direct_payments,
+    loans: awardTypeGroups.loans,
+    insurance: ['09', 'F005'],
+    other: ['11', 'F010']
+};
+
 export const transactionTypeGroups = {
     transaction_contracts: ['A', 'B', 'C', 'D'],
     transaction_idvs: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E'],

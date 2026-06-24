@@ -17,6 +17,7 @@ const presets = [
 ];
 
 const plugins = [
+    // 'babel-plugin-react-compiler',
     [
         "module-resolver",
         {

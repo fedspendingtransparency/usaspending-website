@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect, useRef } from 'react';
+import React, { memo, useState, useEffect, useRef, useCallback } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { uniqueId } from "lodash-es";
@@ -38,7 +38,7 @@ const ComboBox = memo(function ComboBox({
     const [inputValue, setInputValue] = useState('');
     const [openOptions, setOpenOptions] = useState(false);
     const comboRef = useRef(null)
-    
+
     const optionsArrayDep = JSON.stringify(optionsArray);
 
     // reset input if there's a change in options array
@@ -92,11 +92,15 @@ const ComboBox = memo(function ComboBox({
         setOpenOptions(e.target.value !== 0);
     };
 
-    const onClickClear = () => {
+    const onClickClear = useCallback(() => {
         setInputValue('');
         setOpenOptions(false);
         onClearSelect();
-    };
+    }, []);
+
+    useEffect(() => {
+        if (disabled) onClickClear();
+    }, [disabled, onClickClear])
 
     const onClickToggle = () => setOpenOptions((prevState) => !prevState);
 
@@ -123,7 +127,7 @@ const ComboBox = memo(function ComboBox({
     }, [comboRef, openOptions]);
 
     return (
-        <div 
+        <div
             className={`combo-box${className ? ` ${className}` : ''}`}
             ref={comboRef}>
             <label

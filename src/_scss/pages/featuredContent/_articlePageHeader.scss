@@ -17,8 +17,9 @@
     min-height: inherit;
   }
 
-  img.featured-content-hero {
+  #featured-content-hero {
     width: 100%;
+    border-radius: rem(12);
   }
 
   .featured-content__header-block {

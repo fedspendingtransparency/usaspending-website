@@ -7,14 +7,9 @@ import React, { useCallback } from 'react';
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 import { handlePotentialStrings } from 'containers/explorer/detail/helpers/explorerQuarters';
 import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
-
-/* eslint-disable max-len */
-const noteOne = 'The data included in the Custom Account Download was first collected in the second quarter of fiscal year 2017, per the Digital Accountability and Transparency Act of 2014 (DATA Act). Financial data will not be available prior to that timeframe.';
-const noteTwo = 'Account Balances and Account Breakdown by Program Activity & Object Class files contain cumulative financial balances at the account and agency levels, as of the end of the quarter selected. The Account Breakdown by Award file contains every transaction reported at the account and agency levels, for the fiscal year through the end of the quarter selected.';
-/* eslint-enable max-len */
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 
 const propTypes = { updateFilter: PropTypes.func };
 
@@ -23,8 +18,21 @@ const FiscalYearFilter = ({ updateFilter }) => {
     const period = useSelector((state) => state.bulkDownload.accounts.period);
     const quarter = useSelector((state) => state.bulkDownload.accounts.quarter);
 
+    /* eslint-disable max-len */
+    const noteOne = (<>
+        The data included in the Custom Account Download was first collected in the second quarter of fiscal year 2017, per the{' '}
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={'https://www.congress.gov/113/plaws/publ101/PLAW-113publ101.pdf'}>
+            Digital Accountability and Transparency Act of 2014 (DATA Act)
+        </a>
+        . Financial data will not be available prior to that timeframe.
+    </>);
+    const noteTwo = 'Account Balances and Account Breakdown by Program Activity & Object Class files contain cumulative financial balances at the account and agency levels, as of the end of the quarter selected. The Account Breakdown by Award file contains every transaction reported at the account and agency levels, for the fiscal year through the end of the quarter selected.';
+    /* eslint-enable max-len */
+
     const latestSelectedTimeInterval = period || quarter;
-    const valid = fy && latestSelectedTimeInterval;
 
     const quarterPickerSelection = useCallback((selectedOption) => {
         if (parseInt(fy, 10) >= 2020) {
@@ -50,17 +58,9 @@ const FiscalYearFilter = ({ updateFilter }) => {
         }
     }, [updateFilter]);
 
-    let icon = <div className="icon valid"><CheckCircle /></div>;
-
-    if (!valid) icon = <div className="icon invalid"><ExclamationCircle /></div>;
-
     return (
         <div className="download-filter">
-            <h3 className="download-filter__title">
-                {icon} Select a
-                <span className="download-filter__title_em"> fiscal year </span>
-                and <span className="download-filter__title_em">quarter</span>.
-            </h3>
+            <FilterSectionTitle type="fy" />
             <div className="download-filter__content new">
                 <p className={"download-filter__content-description"}>
                     The government

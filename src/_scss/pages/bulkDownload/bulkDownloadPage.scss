@@ -3,6 +3,10 @@
   @import "layouts/default/stickyHeader/header";
   @import "./form/downloadForm";
 
+  .usda-page-header__title h1 {
+    color: $gray-5;
+  }
+
   .usa-dt-flex-grid__row {
     max-width: rem(1400);
     justify-content: center;
@@ -13,13 +17,16 @@
   }
 
   .bulk-download {
-    padding: 0;
-    margin-left: rem(16);
-    margin-right: rem(16);
+    padding-left: rem(16);
+    padding-right: rem(16);
 
     @media (min-width: $tablet-screen) {
-      margin-left: rem(32);
-      margin-right: rem(32);
+      padding-left: rem(32);
+      padding-right: rem(32);
+    }
+
+    @media (min-width: $x-large-screen) {
+      margin: 0 auto;
     }
 
     .bulk-download__data {
@@ -29,7 +36,11 @@
       @import "../../components/checkboxTree/defCodeBulkDownload.scss";
       @import "metadataPage";
       background-color: $color-white;
-      padding: rem(30) 0;
+      padding: rem(40) 0;
+
+      .filter-item-wrap {
+        padding: 0;
+      }
     }
   }
 }

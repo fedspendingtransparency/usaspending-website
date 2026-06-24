@@ -2,6 +2,7 @@
  * bulkDownloadOptions.js
  * Created by Lizzie Salita 11/1/17
  */
+import {awardTypeGroups, bulkDownloadAwardTypeGroups} from "../search/awardType";
 
 const dayjs = require('dayjs');
 
@@ -34,31 +35,31 @@ export const awardDownloadOptions = {
     awardTypeLookups: {
         contracts: {
             label: 'Contracts',
-            apiValues: ['A', 'B', 'C', 'D']
+            apiValues: bulkDownloadAwardTypeGroups.contracts
         },
         direct_payments: {
             label: 'Direct Payments',
-            apiValues: ['10', '06']
+            apiValues: bulkDownloadAwardTypeGroups.direct_payments
         },
         grants: {
             label: 'Grants',
-            apiValues: ['02', '03', '04', '05']
+            apiValues: bulkDownloadAwardTypeGroups.grants
         },
         idvs: {
             label: 'Contract IDVs',
-            apiValues: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E']
+            apiValues: bulkDownloadAwardTypeGroups.idvs
         },
         loans: {
             label: 'Loans',
-            apiValues: ['07', '08']
+            apiValues: bulkDownloadAwardTypeGroups.loans
         },
         insurance: {
             label: 'Insurance',
-            apiValues: ['09']
+            apiValues: bulkDownloadAwardTypeGroups.insurance
         },
         other: {
             label: 'Other Financial Assistance',
-            apiValues: ['11']
+            apiValues: bulkDownloadAwardTypeGroups.other
         },
         sub_grants: {
             label: 'Sub-Grants',
