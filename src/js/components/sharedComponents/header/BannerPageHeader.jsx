@@ -49,9 +49,14 @@ const BannerPageHeader = memo(function BannerPageHeader({
     const boxOneColor = overrideBoxOneColor || secondaryColor;
     const boxTwoColor = overrideBoxTwoColor || secondaryColor;
 
+    let sectionHeaderClass = `banner-page-header${className ? ` ${className}` : ''}`;
+    if (titleOnly) {
+        sectionHeaderClass += " title-only";
+    }
+
     return (
         <section
-            className={`banner-page-header${className ? ` ${className}` : ''}`}
+            className={sectionHeaderClass}
             style={{ backgroundColor: bannerColor }}>
             <FlexGridRow className="banner-page-header__row">
                 { !isTablet &&
@@ -65,7 +70,7 @@ const BannerPageHeader = memo(function BannerPageHeader({
                                 </div>
                             </>
                         ): (
-                            <div className="icon-container" style={{backgroundColor: bannerColor}}>
+                            <div className="icon-container no-hightlight" style={{backgroundColor: bannerColor}}>
                                 <FontAwesomeIcon icon={faIcon} color={iconColor} />
                             </div>
                         )}
@@ -73,8 +78,8 @@ const BannerPageHeader = memo(function BannerPageHeader({
                 }
                 <FlexGridCol width="fill" className="text-column">
                     <div className="text-container">
-                        { isTablet &&
-                            <div className="icon-container__mobile">
+                        { isTablet && 
+                            <div className="icon-container__mobile " style={{ backgroundColor: titleOnly ? bannerColor : "#FFF"}}>
                                 <FontAwesomeIcon icon={faIcon} color={iconColor} />
                             </div>
                         }
