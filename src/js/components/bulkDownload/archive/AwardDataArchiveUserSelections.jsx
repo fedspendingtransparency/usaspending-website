@@ -61,7 +61,7 @@ const AwardDataArchiveUserSelections = ({ results, filters }) => {
                     {generateFyString()}
                 </div>
                 <div className="selection">
-                    <div className="selection__heading">Award Types</div>
+                    <div className="selection__heading">Award Type:</div>
                     {generateAwardTypeString()}
                 </div>
                 <div className="selection">
