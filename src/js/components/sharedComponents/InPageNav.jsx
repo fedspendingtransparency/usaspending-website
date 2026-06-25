@@ -209,7 +209,7 @@ const InPageNav = (props) => {
                     return null;
                 }
 
-                const verticalSectionOffset = document.querySelector('.usda-page-header')?.offsetHeight || 0;
+                const verticalSectionOffset = document.querySelector('.usda-page-header')?.offsetHeight || 60;
                 // Subtracting summed height of elements w/ fixed positioning
                 const topPos = domElement.offsetTop - verticalSectionOffset;
                 const bottomPos = (domElement.offsetHeight + topPos) - verticalSectionOffset;
