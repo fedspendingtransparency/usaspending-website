@@ -6,11 +6,8 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
-
 import { awardDownloadOptions } from "dataMapping/bulkDownload/bulkDownloadOptions";
-import {
-    CheckCircle, ExclamationCircle
-} from "components/sharedComponents/icons/Icons";
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 import ComboBox from "components/sharedComponents/ComboBox";
 
 const propTypes = {
@@ -29,8 +26,6 @@ const AgencyFilter = memo(function AgencyFilter({
 }) {
     const currentAgencyType = useSelector((state) => state.bulkDownload.awards.agencyType);
     const currentAgency = useSelector((state) => state.bulkDownload.awards.agency);
-
-    const valid = currentAgency.id !== '';
 
     const onChange = (e) => updateFilter('agencyType', e.target.value);
 
@@ -57,20 +52,6 @@ const AgencyFilter = memo(function AgencyFilter({
             name: target.value
         });
     };
-
-    let icon = (
-        <div className="icon valid">
-            <CheckCircle />
-        </div>
-    );
-
-    if (!valid) {
-        icon = (
-            <div className="icon invalid">
-                <ExclamationCircle />
-            </div>
-        );
-    }
 
     const agencyTypesList = awardDownloadOptions.agencyTypes.map((agencyType) => (
         <div
@@ -126,11 +107,7 @@ const AgencyFilter = memo(function AgencyFilter({
 
     return (
         <div className="download-filter">
-            <h3 className="download-filter__title">
-                {icon} Select an awarding or funding
-                <span className="download-filter__title_em"> agency </span>
-                and <span>sub-agency</span>.
-            </h3>
+            <FilterSectionTitle type="agency" />
             <div className="download-filter__content agency">
                 <div className="input-container">
                     {agencyTypesList}

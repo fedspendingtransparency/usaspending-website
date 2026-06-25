@@ -6,12 +6,8 @@
 import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-
-import {
-    CheckCircle, ExclamationCircle
-} from "components/sharedComponents/icons/Icons";
-
 import ComboBox from 'components/sharedComponents/ComboBox';
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 
 const propTypes = {
     budgetFunctions: PropTypes.array,
@@ -21,7 +17,6 @@ const propTypes = {
     setBudgetSubfunctionList: PropTypes.func,
     setFederalAccountList: PropTypes.func,
     updateFilter: PropTypes.func,
-    valid: PropTypes.bool,
     accounts: PropTypes.object
 };
 
@@ -34,7 +29,6 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
     setBudgetSubfunctionList,
     setFederalAccountList,
     updateFilter,
-    valid,
     accounts
 }) {
 
@@ -46,20 +40,6 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
         agency,
         federalAccount
     } = accounts
-
-    let icon = (
-        <div className="icon valid">
-            <CheckCircle />
-        </div>
-    );
-
-    if (!valid) {
-        icon = (
-            <div className="icon invalid">
-                <ExclamationCircle />
-            </div>
-        );
-    }
 
     // Budget Functions
     const budgetOptions = budgetFunctions.map((option) => (
@@ -258,13 +238,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
     return (
         <div className="download-filter">
             <div className="budget-agency-heading__container">
-                <h3 className="download-filter__title">
-                    {icon} Select a&nbsp;
-                    <span className="download-filter__title_em">
-                        Budget Function and/or Agency.&nbsp;
-                    </span>
-                    <span className='required'> (Required) </span>
-                </h3>
+                <FilterSectionTitle type="budget"/>
                 <p className="download-filter__subtitle">
                     The federal budget is divided into categories known as&nbsp;
                     <Link to="/download_center/custom_account_data?glossary=budget-function">
