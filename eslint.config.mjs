@@ -28,7 +28,16 @@ export default defineConfig([
             jsxA11y.flatConfigs.recommended,
             pluginImport.flatConfigs.react
         ],
-        languageOptions: { globals: { ...globals.node, ...globals.browser, ...globals.jest } },
+        languageOptions: { 
+            globals: { ...globals.node, ...globals.browser, ...globals.jest },
+            ecmaVersion: "latest", // Or "2024", "2025", etc.
+            sourceType: "module",
+            parserOptions: {
+                ecmaFeatures: {
+                    jsx: true
+                }
+            }
+        },
         settings: { react: { version: "19" } },
         rules: {
             // disabling class method "this" requirement to avoid React conflicts

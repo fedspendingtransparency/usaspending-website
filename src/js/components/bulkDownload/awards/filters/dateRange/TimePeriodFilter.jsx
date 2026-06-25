@@ -5,8 +5,8 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 import ComboBox from "components/sharedComponents/ComboBox";
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 
 import {
     allFiscalYears,
@@ -26,7 +26,6 @@ const propTypes = {
     filterTimePeriodEnd: PropTypes.string,
     updateStartDate: PropTypes.func,
     updateEndDate: PropTypes.func,
-    valid: PropTypes.bool,
     setValidDates: PropTypes.func
 };
 
@@ -50,7 +49,7 @@ const errorTypes = {
     },
     incomplete: {
         title: 'Incomplete',
-        message: 'Date range must have a state date and end date.',
+        message: 'Date range must have a start date and end date.',
         type: null,
         active: true
     },
@@ -67,7 +66,6 @@ const TimePeriodFilter = ({
     filterTimePeriodEnd,
     updateStartDate,
     updateEndDate,
-    valid,
     setValidDates
 }) => {
     const [startDateBulkUI, setStartDateBulkUI] = useState(filterTimePeriodStart);
@@ -76,19 +74,6 @@ const TimePeriodFilter = ({
     const [currentTimeType, setCurrentTimeType] = useState("time_period");
     let defaultValue = '';
 
-    let icon = (
-        <div className="icon valid">
-            <CheckCircle />
-        </div>
-    );
-
-    if (!valid || error.active) {
-        icon = (
-            <div className="icon invalid">
-                <ExclamationCircle />
-            </div>
-        );
-    }
 
     const validateDates = useCallback(() => {
         // validate the date ranges
@@ -309,9 +294,7 @@ const TimePeriodFilter = ({
     return (
 
         <div className="download-filter">
-            <h3 className="download-filter__title">
-                {icon} Select a <span className="download-filter__title_em">date range</span>.
-            </h3>
+            <FilterSectionTitle type="dateRange" />
             <div className="download-filter__content time-period">
                 <div className="input-container">
                     {timePeriodTypeList}
