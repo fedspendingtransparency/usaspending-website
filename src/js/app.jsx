@@ -1,9 +1,6 @@
 import React from 'react';
 import { createRoot } from "react-dom/client";
-import { TanStackDevtools } from '@tanstack/react-devtools';
-import { ReactQueryDevtoolsPanel } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import GlobalConstants from "./GlobalConstants";
 
 import AppContainer from 'containers/AppContainer';
 import registerIcons from './registerIcons';
@@ -25,13 +22,6 @@ const appDiv = document.getElementById("app");
 const root = createRoot(appDiv);
 const App = root.render(
     <QueryClientProvider client={queryClient}>
-        {GlobalConstants.QAT && <TanStackDevtools
-            plugins={[
-                {
-                    name: 'TanStack Query',
-                    render: <ReactQueryDevtoolsPanel />
-                }
-            ]} />}
         <AppContainer />
     </QueryClientProvider>
 );
