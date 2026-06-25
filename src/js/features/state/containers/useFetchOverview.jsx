@@ -3,39 +3,34 @@
  * Created by Andrea Blackwell 02/15/26
  */
 
-import { useCallback, useState, useEffect } from "react";
+import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { fetchStateOverview } from '../../../apis/state';
 import BaseStateProfile from "../../../models/v2/state/BaseStateProfile";
 
 export const useFetchOverview = (stateId, fy) => {
-    const [stateProfileData, setStateProfileData] = useState(null);
+    const loadStateOverview = useCallback((d) => {
+        if (Object.keys(d?.data).length === 0) {
+            return;
+        }
+        const newStateProfile = Object.create(BaseStateProfile);
+        newStateProfile.populate(d.data);
+        return newStateProfile;
+    }, []);
 
     const {
         data, isSuccess, isLoading, error
     } = useQuery({
         queryKey: [`stateProfileData${stateId}${fy}`],
         queryFn: () => fetchStateOverview(stateId, fy).promise,
-        staleTime: 60000
+        select: loadStateOverview,
+        enabled: !!stateId && !!fy,
+        staleTime: Infinity,
+        refetchOnWindowRefocus: false
     });
 
-    const loadStateOverview = useCallback((d) => {
-        if (Object.keys(d).length === 0) {
-            return;
-        }
-        const newStateProfile = Object.create(BaseStateProfile);
-        newStateProfile.populate(d);
-        setStateProfileData(newStateProfile);
-    }, []);
-
-    useEffect(() => {
-        if (isSuccess && Object.keys(data?.data).length > 0) {
-            loadStateOverview(data?.data);
-        }
-    }, [data, isSuccess]);
-
     return {
-        stateProfileData, isSuccess, isLoading, error
+        stateProfileData: data, isSuccess, isLoading, error
     };
 };
 
