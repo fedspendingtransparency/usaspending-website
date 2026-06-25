@@ -181,7 +181,7 @@ const DataSourcesAndMethodologiesPage = () => {
             title="COVID-19 Spending"
             metaTagProps={covidDataSourcesMetaTags}
             noHeader >
-            <>
+            <div>
                 {dataDisclaimerBanner !== 'hide' && (
                     <div className={`info-banner data-disclaimer${isBannerSticky ? ' sticky-banner' : ''}`}>
                         <div className="info-top" />
@@ -807,7 +807,7 @@ const DataSourcesAndMethodologiesPage = () => {
                         </div>
                     </div>
                 </main>
-            </>
+            </div>
         </PageWrapper>
     );
 };
