@@ -20,11 +20,7 @@
     .training-videos__main-share-col {
       max-width: $homepage-max-width;
       margin: rem(24) rem(16);
-      // padding: ($global-spacing-unit * 3) ($global-spacing-unit * 4);
 
-      // @media (max-width: $tablet-screen) {
-      //   padding: ($global-spacing-unit * 3) ($global-spacing-unit * 2);
-      // }
       @media (min-width: $tablet-screen) {
         margin: rem(24) rem(32);
       }
