@@ -1,7 +1,7 @@
 .award-id-filter {
-  @import "elements/filters/_errorMessage";
-  @import "elements/filters/_typeahead";
-  @import "elements/filters/_selectedFilterBtn";
+  @import "../../../../elements/filters/_errorMessage";
+  @import "../../../../elements/filters/_typeahead";
+  @import "../../../../elements/filters/_selectedFilterBtn";
   @import "../../../../mixins/selectedFilterWrap";
   @import "../_singleSubmit";
 
@@ -56,7 +56,7 @@
       }
     }
     .award-id-filter__add-button {
-      @import "dtui-overrides";
+      @import "../../../../dtui-overrides";
 
       &:hover {
         cursor: pointer;

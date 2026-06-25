@@ -8,14 +8,14 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import { find, startCase, throttle, uniqueId } from 'lodash-es';
-import * as MetaTagHelper from 'helpers/metaTagHelper';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import * as MetaTagHelper from '../../helpers/metaTagHelper';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
 
-import Error from 'components/sharedComponents/Error';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import { LoadingWrapper } from 'components/sharedComponents/Loading';
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
-import DownloadIconButton508 from 'components/sharedComponents/buttons/DownloadButton508';
+import Error from '../../components/sharedComponents/Error';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import { LoadingWrapper } from '../../components/sharedComponents/Loading';
+import ShareIcon508 from '../../components/sharedComponents/buttons/ShareIcon508';
+import DownloadIconButton508 from '../../components/sharedComponents/buttons/DownloadButton508';
 
 import ContractContent from './contract/ContractContent';
 import IdvContent from './idv/IdvContent';

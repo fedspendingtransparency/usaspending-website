@@ -1,5 +1,5 @@
 @import "../../../mixins/selectedFilterWrap";
-@import "elements/filters/_selectedFilterBtn";
+@import "../../../elements/filters/_selectedFilterBtn";
 
 .award-description-filter {
   &__form {
@@ -36,7 +36,7 @@
     }
 
     .award-desscription-filter__add-button {
-      @import "dtui-overrides";
+      @import "../../../dtui-overrides";
 
       &:hover {
         cursor: pointer;

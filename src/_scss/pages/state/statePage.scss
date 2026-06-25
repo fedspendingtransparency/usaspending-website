@@ -1,7 +1,7 @@
 .usa-da-state-page {
-  @import "all";
-  @import "layouts/default/default";
-  @import "layouts/default/stickyHeader/header";
+  @import "../../all";
+  @import "../../layouts/default/default";
+  @import "../../layouts/default/stickyHeader/header";
 
   $color-gray-border: #d8d8d8;
   $color-blue-background: #f5fbfc;
@@ -42,7 +42,7 @@
     @import "./_positioning";
     @import "./_contentWrap";
     @import "../../elements/_divider";
-    @import "../../elements/filters/_typeahead";
+    @import "../../elements/filters/typeahead";
     @import "../../components/pageLoading";
     @import "./footer/footer";
     @import "../../components/profileBackLink";

@@ -1,6 +1,6 @@
 .usa-da-error-page {
-  @import "all";
-  @import "layouts/default/default";
+  @import "../../all";
+  @import "../../layouts/default/default";
 
   .main-content {
     @import "../../mixins/fullSectionWrap";

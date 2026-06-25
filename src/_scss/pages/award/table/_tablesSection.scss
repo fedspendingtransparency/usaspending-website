@@ -58,9 +58,9 @@
     text-align: center;
   }
 
-  @import "pages/award/table/_table";
-  @import "pages/search/results/table/_tableTypes";
-  @import "resultsTablePicker";
+  @import "../../../pages/award/table/_table";
+  @import "../../../pages/search/results/table/_tableTypes";
+  @import "./resultsTablePicker";
   @import "../../search/results/table/tableMessages";
 
   .table-types {

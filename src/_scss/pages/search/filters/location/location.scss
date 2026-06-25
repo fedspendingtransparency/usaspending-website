@@ -242,7 +242,7 @@
     }
 
     .submit-button {
-      @import "dtui-overrides";
+      @import "../../../../dtui-overrides";
       @include new-search-button;
     }
 

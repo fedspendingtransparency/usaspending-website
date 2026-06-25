@@ -17,7 +17,7 @@
     height: rem(350);
 
     // Applies styles to the tooltip
-    @import "pages/search/results/visualizations/time/timeVisualization";
+    @import "../../../pages/search/results/visualizations/time/timeVisualization";
 
     .recharts-cartesian-axis-line {
       stroke: $gray-cool-10;

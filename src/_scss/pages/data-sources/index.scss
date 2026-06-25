@@ -1,7 +1,7 @@
 .usa-da-dsm-page {
-  @import "all";
-  @import "layouts/default/default";
-  @import "layouts/default/stickyHeader/header";
+  @import "../../all";
+  @import "../../layouts/default/default";
+  @import "../../layouts/default/stickyHeader/header";
 
   $color-gray-border: $color-gray-lighter;
 
@@ -17,7 +17,7 @@
     padding: 0;
 
     @import "../about/_contentWrap";
-    @import "elements/_divider";
+    @import "../../elements/_divider";
     @import "../about/_section";
 
     .about-content-wrapper {

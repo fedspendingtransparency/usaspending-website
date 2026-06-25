@@ -1,5 +1,5 @@
 .filter-results {
-  @import "pages/search/searchSidebar";
+  @import "../../../pages/search/searchSidebar";
   @include media($medium-screen) {
     display: block;
     float: left;
@@ -19,7 +19,7 @@
     @import "../filters/filters";
   }
   .search-results-wrapper {
-    @import "pages/search/topFilterBar/topFilterBar";
+    @import "../../../pages/search/topFilterBar/topFilterBar";
     @include media($medium-screen) {
       margin-left: 0;
       width: 74.375%;
@@ -34,7 +34,7 @@
         margin: 0;
         color: $color-base;
       }
-      @import "elements/_divider";
+      @import "../../../elements/divider";
       @import "./visualizations/visualizations";
       @import "../../search/results/table/resultsTable";
 

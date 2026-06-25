@@ -1,8 +1,8 @@
 .usa-da-about-page,
 .usa-da-legal-page {
-  @import "all";
-  @import "layouts/default/default";
-  @import "layouts/default/stickyHeader/header";
+  @import "../../all";
+  @import "../../layouts/default/default";
+  @import "../../layouts/default/stickyHeader/header";
 
   $color-gray-border: #d8d8d8;
   $color-blue-background: #f5fbfc;
@@ -13,7 +13,7 @@
     padding: 0;
 
     @import "./_contentWrap";
-    @import "elements/_divider";
+    @import "../../elements/divider";
     @import "./_section";
 
     .about-content-wrapper {

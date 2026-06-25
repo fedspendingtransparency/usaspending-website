@@ -22,11 +22,12 @@
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
     "fixLint": "npx prettier --write \"**/*.{scss,css}\" && eslint --quiet --config eslint.config.mjs --ext .jsx,.js \"src/js/**\" --fix",
     "devVite": "vite",
-    "build": "vite build",
+    "build-vite": "vite build",
     "preview": "vite preview",
     "build-nginx-redirect-config": "npx babel-node scripts/buildRedirectNginxConf.js",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-sb": "storybook build",
+    "build": "npm run build-vite && npm run build-sb"
   },
   "author": "",
   "engines": {

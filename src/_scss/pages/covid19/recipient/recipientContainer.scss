@@ -17,7 +17,7 @@
           margin: 0;
         }
 
-        @import "pages/search/results/visualizations/geo/map/map";
+        @import "../../../pages/search/results/visualizations/geo/map/map";
 
         .map-container {
           margin-top: rem(20);
@@ -254,7 +254,7 @@
             display: none !important;
           }
 
-          @import "pages/search/results/visualizations/geo/_message";
+          @import "../../../pages/search/results/visualizations/geo/_message";
 
           .map-message-container {
             .map-message {

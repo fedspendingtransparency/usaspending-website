@@ -135,7 +135,7 @@
       }
 
       .visualization-tooltip {
-        @import "../../components/visualizations/tooltip/_tooltip";
+        @import "../../../../components/visualizations/tooltip/_tooltip";
 
         .tooltip {
           box-shadow: 0 0 10px rgba(174, 176, 180, 0.9);

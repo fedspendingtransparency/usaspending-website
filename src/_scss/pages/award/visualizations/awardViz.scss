@@ -1,8 +1,8 @@
 /* Shared Award Visualization styles */
 .award-viz {
-  @import "pages/search/results/table/_tableTypes";
+  @import "../../../pages/search/results/table/_tableTypes";
   @import "../table/resultsTablePicker";
-  @import "pages/search/results/visualizations/_messages";
+  @import "../../../pages/search/results/visualizations/_messages";
 
   .visualization-message-container {
     margin-top: rem(30);

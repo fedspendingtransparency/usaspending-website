@@ -4,13 +4,13 @@ import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
-import { statePageMetaTags } from "helpers/metaTagHelper";
-import { combineQueryParams, getQueryParamString } from "helpers/queryParams";
-import { stickyHeaderHeight } from "dataMapping/stickyHeader/stickyHeader";
-import useQueryParams from "hooks/useQueryParams";
-import { showModal } from "redux/actions/modal/modalActions";
-import IsMobileContext from "context/IsMobileContext";
-import PageWrapper from "components/sharedComponents/PageWrapper";
+import { statePageMetaTags } from "../../helpers/metaTagHelper";
+import { combineQueryParams, getQueryParamString } from "../../helpers/queryParams";
+import { stickyHeaderHeight } from "../../dataMapping/stickyHeader/stickyHeader";
+import useQueryParams from "../../hooks/useQueryParams";
+import { showModal } from "../../redux/actions/modal/modalActions";
+import IsMobileContext from "../../context/IsMobileContext";
+import PageWrapper from "../../components/sharedComponents/PageWrapper";
 import statePageToolbarComponents from "./statePageToolbarComponents";
 
 const stateSections = [

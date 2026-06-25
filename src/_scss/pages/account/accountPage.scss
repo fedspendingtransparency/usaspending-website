@@ -1,6 +1,6 @@
 .usa-da-account-page {
-  @import "all";
-  @import "layouts/default/stickyHeader/header";
+  @import "../../all";
+  @import "../../layouts/default/stickyHeader/header";
   @import "./header/options";
 
   @import "../search/resultsView/dtuiOverrides";

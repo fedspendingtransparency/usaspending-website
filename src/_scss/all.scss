@@ -7,7 +7,7 @@ $output-bourbon-deprecation-warnings: false !default;
 
 // Core -------------- //
 @import "../_scss/core/variables";
-@import "dtui-overrides";
+@import "./dtui-overrides";
 @import "../_scss/core/deprecated";
 @import "../_scss/core/fonts";
 @import "../_scss/core/base";

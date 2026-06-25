@@ -6,9 +6,9 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-import PageWrapper from "components/sharedComponents/PageWrapper";
-import { homePageMetaTags } from "helpers/metaTagHelper";
-import BannerPageHeader from "components/sharedComponents/header/BannerPageHeader";
+import PageWrapper from "../../components/sharedComponents/PageWrapper";
+import { homePageMetaTags } from "../../helpers/metaTagHelper";
+import BannerPageHeader from "../../components/sharedComponents/header/BannerPageHeader";
 import FeaturedVideo from "./featuredVideo/FeaturedVideo";
 import ListOfVideos from "./listOfVideos/ListOfVideos";
 

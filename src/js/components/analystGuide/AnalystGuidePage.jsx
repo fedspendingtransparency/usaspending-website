@@ -8,11 +8,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridRow, FlexGridCol, ShareIcon } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 
-import 'pages/analystGuide/analystGuide.scss';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { showModal } from 'redux/actions/modal/modalActions';
-import { analystGuideMetaTags } from "helpers/metaTagHelper";
-import IsMobileContext from "context/IsMobileContext";
+import '../../../_scss/pages/analystGuide/analystGuide.scss';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
+import { showModal } from '../../redux/actions/modal/modalActions';
+import { analystGuideMetaTags } from "../../helpers/metaTagHelper";
+import IsMobileContext from "../../context/IsMobileContext";
 import AnalystGuideHeader from './AnalystGuideHeader';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import AnalystGuideQuestions from "./AnalystGuideQuestions";

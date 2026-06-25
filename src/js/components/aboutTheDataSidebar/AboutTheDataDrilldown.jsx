@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState, Suspense } from 'react';
-import { handleShareOptionClick } from 'helpers/socialShare';
+import { handleShareOptionClick } from '../../helpers/socialShare';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router';
 

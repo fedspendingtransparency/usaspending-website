@@ -1,4 +1,4 @@
-@import "layouts/default/default";
+@import "../../layouts/default/default";
 @import "../../mixins/elementContainerWrap";
 
 .main-content {
@@ -6,7 +6,7 @@
   @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
 
   .article-wrapper {
-    @import "elements/_divider";
+    @import "../../elements/divider";
     @import "../../mixins/setText";
     @include elementContainerWrap();
 

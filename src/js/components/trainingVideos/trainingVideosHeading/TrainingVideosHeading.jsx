@@ -11,8 +11,8 @@ import React, { useState, useEffect } from 'react';
 import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
 
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
+import { getBaseUrl, handleShareOptionClick } from '../../../helpers/socialShare';
 import { throttle } from 'lodash-es';
 import { showModal } from '../../../redux/actions/modal/modalActions';
 

@@ -6,12 +6,12 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { accountLandingPageMetaTags } from 'helpers/metaTagHelper';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { accountLandingPageMetaTags } from '../../helpers/metaTagHelper';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
 
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
-import AccountLandingContainer from 'containers/accountLanding/AccountLandingContainer';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import ShareIcon508 from '../../components/sharedComponents/buttons/ShareIcon508';
+import AccountLandingContainer from '../../containers/accountLanding/AccountLandingContainer';
 import { showModal } from '../../redux/actions/modal/modalActions';
 
 const slug = 'federal_account';

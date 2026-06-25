@@ -6,13 +6,13 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { agencyLandingPageMetaTags } from 'helpers/metaTagHelper';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { agencyLandingPageMetaTags } from '../../helpers/metaTagHelper';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
 
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import ShareIcon508 from '../../components/sharedComponents/buttons/ShareIcon508';
 
-import AgencyLandingContainer from 'containers/agencyLanding/AgencyLandingContainer';
+import AgencyLandingContainer from '../../containers/agencyLanding/AgencyLandingContainer';
 import { showModal } from '../../redux/actions/modal/modalActions';
 
 require('../../../_scss/pages/agencyLanding/agencyLandingPage.scss');

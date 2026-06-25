@@ -31,7 +31,7 @@
       }
     }
 
-    @import "./components/_comingSoon";
+    @import "../../components/comingSoon";
     @include comingSoon;
     .coming-soon {
       .coming-soon-container {

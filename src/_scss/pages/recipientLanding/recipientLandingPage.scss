@@ -1,12 +1,12 @@
 .usa-da-recipient-landing {
-  @import "all";
-  @import "layouts/landingPage/landingPage";
-  @import "layouts/default/stickyHeader/header";
-  @import "pages/accountLanding/searchSection";
+  @import "../../all";
+  @import "../../layouts/landingPage/landingPage";
+  @import "../../layouts/default/stickyHeader/header";
+  @import "../../pages/accountLanding/searchSection";
 
   @import "./_table";
-  @import "pages/search/results/table/_tableMessages";
-  @import "pages/search/results/screens/screens";
+  @import "../../pages/search/results/table/_tableMessages";
+  @import "../../pages/search/results/screens/screens";
 
   .recipient-landing__icon {
     color: $color-white;

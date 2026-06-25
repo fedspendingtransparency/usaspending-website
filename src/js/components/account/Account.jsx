@@ -8,12 +8,12 @@ import PropTypes from 'prop-types';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { useDispatch } from 'react-redux';
 
-import * as MetaTagHelper from 'helpers/metaTagHelper';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import * as MetaTagHelper from '../../helpers/metaTagHelper';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
 
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
-import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import ShareIcon508 from '../../components/sharedComponents/buttons/ShareIcon508';
+import ProfileBackLink from '../../components/sharedComponents/ProfileBackLink';
 
 import AccountOverview from './AccountOverview';
 import SearchSidebar from './SearchSidebar';

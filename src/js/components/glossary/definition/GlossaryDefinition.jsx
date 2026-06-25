@@ -10,8 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { startCase } from "lodash-es";
 import { useDispatch } from 'react-redux';
 
-import { handleShareOptionClick } from 'helpers/socialShare';
-import { clearGlossaryTerm } from 'redux/actions/glossary/glossaryActions';
+import { handleShareOptionClick } from '../../../helpers/socialShare';
+import { clearGlossaryTerm } from '../../../redux/actions/glossary/glossaryActions';
 
 import DefinitionTabs from './DefinitionTabs';
 import ItemDefinition from './ItemDefinition';

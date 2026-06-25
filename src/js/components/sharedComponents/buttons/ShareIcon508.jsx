@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { debounce } from "lodash-es";
 import { Picker } from 'data-transparency-ui';
-import { newSocialShareOptionsWithCopy } from "helpers/socialShare";
+import { newSocialShareOptionsWithCopy } from "../../../helpers/socialShare";
 
 const propTypes = {
     url: PropTypes.string.isRequired,

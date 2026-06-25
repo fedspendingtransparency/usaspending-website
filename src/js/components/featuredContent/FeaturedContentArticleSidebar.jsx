@@ -1,7 +1,7 @@
 import React from 'react';
 import { FlexGridCol } from "data-transparency-ui";
 import PropTypes from "prop-types";
-import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
+import { handleShareOptionClick, getBaseUrl } from '../../helpers/socialShare';
 import { useDispatch } from 'react-redux';
 import ExploreMore from "./ExploreMore";
 import RelatedTerms from "./RelatedTerms";

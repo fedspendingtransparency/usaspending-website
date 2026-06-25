@@ -5,9 +5,9 @@
 
 import React from "react";
 
-import { getBaseUrl, handleShareOptionClick } from "helpers/socialShare";
-import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
-import DownloadIconButton508 from "components/sharedComponents/buttons/DownloadButton508";
+import { getBaseUrl, handleShareOptionClick } from "../../../helpers/socialShare";
+import ShareIcon508 from "../../../components/sharedComponents/buttons/ShareIcon508";
+import DownloadIconButton508 from "../../../components/sharedComponents/buttons/DownloadButton508";
 import FilterAwardToggle from "../FilterAwardToggle";
 import NoDownloadHover from "./NoDownloadHover";
 

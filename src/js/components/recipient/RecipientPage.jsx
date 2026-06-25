@@ -9,23 +9,23 @@ import { FiscalYearPicker } from 'data-transparency-ui';
 import { find } from 'lodash-es';
 import { useNavigate } from "react-router";
 import { useDispatch } from 'react-redux';
-import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { combineQueryParams, getQueryParamString } from '../../helpers/queryParams';
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from
-    'helpers/fiscalYearHelper';
-import { recipientPageMetaTags } from 'helpers/metaTagHelper';
-import { LoadingWrapper } from "components/sharedComponents/Loading";
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import ChildRecipientModalContainer from 'containers/recipient/modal/ChildRecipientModalContainer';
+    '../../helpers/fiscalYearHelper';
+import { recipientPageMetaTags } from '../../helpers/metaTagHelper';
+import { LoadingWrapper } from "../../components/sharedComponents/Loading";
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
+import { stickyHeaderHeight } from '../../dataMapping/stickyHeader/stickyHeader';
+import ChildRecipientModalContainer from '../../containers/recipient/modal/ChildRecipientModalContainer';
 import { AlternateNamesRecipientModalContainer } from
-    'containers/recipient/modal/AlternateNamesRecipientModalContainer';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import Error from 'components/sharedComponents/Error';
-import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
-import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
+    '../../containers/recipient/modal/AlternateNamesRecipientModalContainer';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import Error from '../../components/sharedComponents/Error';
+import ShareIcon508 from "../../components/sharedComponents/buttons/ShareIcon508";
+import ProfileBackLink from '../../components/sharedComponents/ProfileBackLink';
 
-import { showModal } from 'redux/actions/modal/modalActions';
-import useQueryParams from "hooks/useQueryParams";
+import { showModal } from '../../redux/actions/modal/modalActions';
+import useQueryParams from "../../hooks/useQueryParams";
 import RecipientContent from './RecipientContent';
 
 const propTypes = {

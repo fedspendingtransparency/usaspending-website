@@ -8,11 +8,11 @@ import { FlexGridCol, FlexGridRow, ErrorMessage } from 'data-transparency-ui';
 import { throttle } from 'lodash-es';
 import { Navigate, useLocation } from 'react-router';
 
-import { homePageMetaTags } from "helpers/metaTagHelper";
-import PageWrapper from "components/sharedComponents/PageWrapper";
-import { mediumScreen, tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { transformString, getPrimaryFill, CustomA, CustomImg } from 'helpers/featuredContent/featuredContentHelper';
-import GlossaryLink from "components/sharedComponents/GlossaryLink";
+import { homePageMetaTags } from "../../helpers/metaTagHelper";
+import PageWrapper from "../../components/sharedComponents/PageWrapper";
+import { mediumScreen, tabletScreen } from '../../dataMapping/shared/mobileBreakpoints';
+import { transformString, getPrimaryFill, CustomA, CustomImg } from '../../helpers/featuredContent/featuredContentHelper';
+import GlossaryLink from "../../components/sharedComponents/GlossaryLink";
 import FeaturedContentArticleSidebar from "./FeaturedContentArticleSidebar";
 import articles from '../../../config/featuredContent/featuredContentMetadata';
 import FeaturedContentHeader from "./FeaturedContentHeader";
