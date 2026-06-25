@@ -5,8 +5,8 @@
 
 import React from 'react';
 import { Link } from 'react-router';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import { errorPageMetaTags } from 'helpers/metaTagHelper';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import { errorPageMetaTags } from '../../helpers/metaTagHelper';
 
 require('../../../_scss/pages/errorPage/errorPage.scss');
 

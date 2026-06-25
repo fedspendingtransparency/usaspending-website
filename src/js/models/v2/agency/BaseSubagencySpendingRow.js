@@ -1,4 +1,4 @@
-import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
+import { formatMoney, formatNumber } from '../../../helpers/moneyFormatter';
 
 const BaseSubagencySpendingRow = {
     populateCore(data) {
