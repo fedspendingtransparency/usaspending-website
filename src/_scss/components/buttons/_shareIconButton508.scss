@@ -1,7 +1,7 @@
 .usa-share-icon-508 {
   position: relative;
-  padding: rem(4);
-  margin: 0;
+  padding: rem(4) !important;
+  margin: 0 !important;
 
   .share-icon-link {
     position: absolute;
@@ -19,19 +19,19 @@
   .usa-dt-picker {
     .usa-dt-picker__dropdown-container {
       .usa-dt-picker__button {
-        color: $theme-color-accent-vivid;
+        color: $theme-color-accent-vivid !important;
 
         svg {
-          width: rem(16);
-          height: rem(16);
-          margin-bottom: rem(4);
+          width: rem(16) !important;
+          height: rem(16) !important;
+          margin-bottom: rem(4) !important;
         }
         span,
         svg {
           &:hover,
           &:active {
             &:not(:disabled) {
-              color: $yellow-10v;
+              color: $yellow-10v !important;
             }
           }
         }
