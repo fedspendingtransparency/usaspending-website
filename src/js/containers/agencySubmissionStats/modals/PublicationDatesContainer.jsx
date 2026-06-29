@@ -9,17 +9,17 @@ import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 
-import { publicationDatesColumns } from 'dataMapping/agencySubmissionStats/modals';
-import { fetchPublishDates } from 'apis/agencyReporting';
+import { publicationDatesColumns } from '../../../dataMapping/agencySubmissionStats/modals';
+import { fetchPublishDates } from '../../../apis/agencyReporting';
 import {
     formatPublicationDates,
     convertDatesToMilliseconds,
     renderDeadline
-} from 'helpers/aboutTheDataHelper';
-import { pageAndSort } from 'helpers/pageAndSortHelper';
-import { getSubmissionDeadlines } from 'helpers/accountHelper';
-import { fetchAllSubmissionDates } from 'apis/account';
-import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
+} from '../../../helpers/aboutTheDataHelper';
+import { pageAndSort } from '../../../helpers/pageAndSortHelper';
+import { getSubmissionDeadlines } from '../../../helpers/accountHelper';
+import { fetchAllSubmissionDates } from '../../../apis/account';
+import { setSubmissionPeriods } from '../../../redux/actions/account/accountActions';
 
 const propTypes = {
     agencyData: PropTypes.shape({

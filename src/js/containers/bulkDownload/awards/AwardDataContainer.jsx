@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
-import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
-import { fetchLocationList } from 'helpers/mapHelper';
+import * as BulkDownloadHelper from '../../../helpers/bulkDownloadHelper';
+import * as bulkDownloadActions from '../../../redux/actions/bulkDownload/bulkDownloadActions';
+import { fetchLocationList } from '../../../helpers/mapHelper';
 
-import AwardDataContent from 'components/bulkDownload/awards/AwardDataContent';
+import AwardDataContent from '../../../components/bulkDownload/awards/AwardDataContent';
 
 const propTypes = {
     updateDownloadFilter: PropTypes.func,

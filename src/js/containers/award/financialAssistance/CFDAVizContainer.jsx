@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import CFDAViz from 'components/award/financialAssistance/CFDAViz';
+import CFDAViz from '../../../components/award/financialAssistance/CFDAViz';
 import { isEqual } from 'lodash-es';
 
 const propTypes = {

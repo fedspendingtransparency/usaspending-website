@@ -4,9 +4,9 @@
  */
 
 import React, { useRef, useEffect, useCallback } from 'react';
-import { requestArchiveFiles } from 'helpers/bulkDownloadHelper';
-import AwardDataArchiveContent from 'components/bulkDownload/archive/AwardDataArchiveContent';
-import useRequestAgenciesList from "hooks/useRequestAgenciesList";
+import { requestArchiveFiles } from '../../../helpers/bulkDownloadHelper';
+import AwardDataArchiveContent from '../../../components/bulkDownload/archive/AwardDataArchiveContent';
+import useRequestAgenciesList from "../../../hooks/useRequestAgenciesList";
 import PropTypes from "prop-types";
 
 const dayjs = require('dayjs');

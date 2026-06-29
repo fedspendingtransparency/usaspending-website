@@ -9,9 +9,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { useMatch, useNavigate } from 'react-router';
 
-import * as explorerActions from 'redux/actions/explorer/explorerActions';
+import * as explorerActions from '../../../redux/actions/explorer/explorerActions';
 
-import ExplorerDetailPage from 'components/explorer/detail/ExplorerDetailPage';
+import ExplorerDetailPage from '../../../components/explorer/detail/ExplorerDetailPage';
 
 const propTypes = {
     setExplorerRoot: PropTypes.func

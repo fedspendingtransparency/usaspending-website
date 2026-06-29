@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 
-import ObligationsByAwardType from 'components/agency/visualizations/ObligationsByAwardType';
+import ObligationsByAwardType from '../../../components/agency/visualizations/ObligationsByAwardType';
 import { LoadingMessage, ErrorMessage, GenericMessage } from 'data-transparency-ui';
-import { fetchObligationsByAwardType } from 'apis/agency';
-import { setAwardObligations, resetAwardObligations } from 'redux/actions/agency/agencyActions';
-import { calculatePercentage } from 'helpers/moneyFormatter';
+import { fetchObligationsByAwardType } from '../../../apis/agency';
+import { setAwardObligations, resetAwardObligations } from '../../../redux/actions/agency/agencyActions';
+import { calculatePercentage } from '../../../helpers/moneyFormatter';
 
 const propTypes = {
     fiscalYear: PropTypes.number.isRequired,

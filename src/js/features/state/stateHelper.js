@@ -2,7 +2,7 @@
  * stateHelper.js
  * Created by Lizzie Salita 5/1/18
  */
-import { stateNameByFipsId, fipsIdByStateName } from "dataMapping/state/stateNames";
+import { stateNameByFipsId, fipsIdByStateName } from "../../dataMapping/state/stateNames";
 import { convertFYToDateRange, currentFiscalYear, earliestFiscalYear } from "../../helpers/fiscalYearHelper";
 
 export const createApiParams = (stateCode, period) => {

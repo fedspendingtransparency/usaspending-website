@@ -3,8 +3,8 @@
  * Created by Lizzie Salita 5/17/18
  */
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { awardTypeLabels } from 'dataMapping/state/awardTypes';
+import * as MoneyFormatter from '../../../helpers/moneyFormatter';
+import { awardTypeLabels } from '../../../dataMapping/state/awardTypes';
 
 const BaseAwardBreakdownRow = {
     populate(data) {

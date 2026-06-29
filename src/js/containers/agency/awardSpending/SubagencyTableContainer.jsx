@@ -6,14 +6,14 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
-import { subagencyColumns, subagencyFields } from 'dataMapping/agency/tableColumns';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
+import { subagencyColumns, subagencyFields } from '../../../dataMapping/agency/tableColumns';
+import { awardTypeGroups } from '../../../dataMapping/search/awardType';
 import {
     setSubagencyTotals,
     resetSubagencyTotals
-} from 'redux/actions/agency/agencyActions';
-import { fetchSubagencySpendingList } from 'apis/agency';
-import { parseRows } from 'helpers/agency/AwardSpendingSubagencyHelper';
+} from '../../../redux/actions/agency/agencyActions';
+import { fetchSubagencySpendingList } from '../../../apis/agency';
+import { parseRows } from '../../../helpers/agency/AwardSpendingSubagencyHelper';
 import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 
 const propTypes = {

@@ -6,7 +6,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { showModal } from 'redux/actions/modal/modalActions';
+import { showModal } from '../../redux/actions/modal/modalActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Licensing = () => {

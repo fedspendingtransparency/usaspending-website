@@ -2,19 +2,19 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { cloneDeep } from 'lodash-es';
 
-import { fetchAwardTransaction } from 'helpers/searchHelper';
-import { areTransactionDatesOrAwardAmountsInvalid } from 'helpers/contractGrantActivityHelper';
-import ResultsTableLoadingMessage from 'components/keyword/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
-import NoResultsMessage from 'components/sharedComponents/NoResultsMessage';
-import ContractGrantActivity from 'components/award/shared/activity/ContractGrantActivity';
+import { fetchAwardTransaction } from '../../../helpers/searchHelper';
+import { areTransactionDatesOrAwardAmountsInvalid } from '../../../helpers/contractGrantActivityHelper';
+import ResultsTableLoadingMessage from '../../../components/keyword/table/ResultsTableLoadingMessage';
+import ResultsTableErrorMessage from '../../../components/keyword/table/ResultsTableErrorMessage';
+import NoResultsMessage from '../../../components/sharedComponents/NoResultsMessage';
+import ContractGrantActivity from '../../../components/award/shared/activity/ContractGrantActivity';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TooltipWrapper } from 'data-transparency-ui';
 import {
     contractActivityGrants,
     contractActivityInfoContracts
-} from 'components/award/shared/InfoTooltipContent';
-import JumpToSectionButton from 'components/award/shared/awardAmounts/JumpToSectionButton';
+} from '../../../components/award/shared/InfoTooltipContent';
+import JumpToSectionButton from '../../../components/award/shared/awardAmounts/JumpToSectionButton';
 
 const dayjs = require('dayjs');
 

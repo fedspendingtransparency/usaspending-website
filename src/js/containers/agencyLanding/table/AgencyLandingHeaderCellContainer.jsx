@@ -9,9 +9,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 // just import the relevant action(s)
-import { setAgenciesOrder } from 'redux/actions/agencyLanding/agencyLandingActions';
+import { setAgenciesOrder } from '../../../redux/actions/agencyLanding/agencyLandingActions';
 
-import LegacyTableHeaderCell from 'components/account/awards/LegacyTableHeaderCell';
+import LegacyTableHeaderCell from '../../../components/account/awards/LegacyTableHeaderCell';
 
 // combine the action functions into an object for the react-redux bindings
 const actions = {

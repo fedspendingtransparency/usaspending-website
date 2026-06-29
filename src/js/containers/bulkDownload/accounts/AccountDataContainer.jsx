@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
-import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
+import * as BulkDownloadHelper from '../../../helpers/bulkDownloadHelper';
+import * as bulkDownloadActions from '../../../redux/actions/bulkDownload/bulkDownloadActions';
 
-import AccountDataContent from 'components/bulkDownload/accounts/AccountDataContent';
+import AccountDataContent from '../../../components/bulkDownload/accounts/AccountDataContent';
 
 const propTypes = {
     updateDownloadFilter: PropTypes.func,

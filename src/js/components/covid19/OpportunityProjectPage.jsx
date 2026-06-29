@@ -4,12 +4,12 @@
  */
 
 import React from 'react';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import { topPageMetaTags } from 'helpers/metaTagHelper';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import { topPageMetaTags } from '../../helpers/metaTagHelper';
 import { FlexGridContainer, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
-import { showModal } from 'redux/actions/modal/modalActions';
+import { showModal } from '../../redux/actions/modal/modalActions';
 
 require('../../../_scss/pages/covid19/opportunityProject.scss');
 

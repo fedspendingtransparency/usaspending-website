@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { List } from 'immutable';
 
-import { dropdownScopes } from 'dataMapping/explorer/dropdownScopes';
+import { dropdownScopes } from '../../../dataMapping/explorer/dropdownScopes';
 import {
     addExplorerTrail,
     overwriteExplorerTrail,

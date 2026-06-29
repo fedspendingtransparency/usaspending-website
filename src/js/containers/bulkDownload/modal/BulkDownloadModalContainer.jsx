@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
+import * as bulkDownloadActions from '../../../redux/actions/bulkDownload/bulkDownloadActions';
 
-import BulkDownloadModal from 'components/bulkDownload/modal/BulkDownloadModal';
+import BulkDownloadModal from '../../../components/bulkDownload/modal/BulkDownloadModal';
 
 const propTypes = {
     mounted: PropTypes.bool,

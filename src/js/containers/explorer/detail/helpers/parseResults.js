@@ -1,5 +1,5 @@
 import { orderBy } from "lodash-es";
-import { formatMoneyWithPrecision } from "helpers/moneyFormatter";
+import { formatMoneyWithPrecision } from "../../../../helpers/moneyFormatter";
 
 const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
     const resultsArray = [];

@@ -8,17 +8,17 @@ import { useMatch, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '../../helpers/analytics/Analytics';
 
 import {
     setDownloadExpectedUrl,
     setDownloadExpectedFile,
     setDownloadPending
-} from 'redux/actions/bulkDownload/bulkDownloadActions';
-import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
-import * as KeywordHelper from 'helpers/keywordHelper';
+} from '../../redux/actions/bulkDownload/bulkDownloadActions';
+import * as BulkDownloadHelper from '../../helpers/bulkDownloadHelper';
+import * as KeywordHelper from '../../helpers/keywordHelper';
 
-import KeywordPage from 'components/keyword/KeywordPage';
+import KeywordPage from '../../components/keyword/KeywordPage';
 
 require('../../../_scss/pages/keyword/keywordPage.scss');
 

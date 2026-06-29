@@ -9,10 +9,10 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { useNavigate, useMatch } from 'react-router';
-import { awardDownloadOptions, accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
-import BulkDownloadPage from 'components/bulkDownload/BulkDownloadPage';
-import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
-import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
+import { awardDownloadOptions, accountDownloadOptions } from '../../dataMapping/bulkDownload/bulkDownloadOptions';
+import BulkDownloadPage from '../../components/bulkDownload/BulkDownloadPage';
+import * as bulkDownloadActions from '../../redux/actions/bulkDownload/bulkDownloadActions';
+import * as BulkDownloadHelper from '../../helpers/bulkDownloadHelper';
 import { downloadOptions } from '../../../config/megaMenu/megaMenuOptions';
 
 import { logAwardDownload, logAccountDownload } from './helpers/downloadAnalytics';

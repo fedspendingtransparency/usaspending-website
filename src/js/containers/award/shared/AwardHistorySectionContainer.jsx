@@ -6,10 +6,10 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { tabs, awardTypesWithSubawards } from 'dataMapping/award/awardHistorySection';
+import { tabs, awardTypesWithSubawards } from '../../../dataMapping/award/awardHistorySection';
 import { Tabs } from "data-transparency-ui";
-import { AwardLoop } from 'components/sharedComponents/icons/Icons';
-import AwardSectionHeader from 'components/award/shared/AwardSectionHeader';
+import { AwardLoop } from '../../../components/sharedComponents/icons/Icons';
+import AwardSectionHeader from '../../../components/award/shared/AwardSectionHeader';
 import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
 import AwardHistoryTableContainer from "../table/AwardHistoryTableContainer";
 

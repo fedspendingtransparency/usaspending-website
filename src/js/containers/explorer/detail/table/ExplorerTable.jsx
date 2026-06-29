@@ -7,8 +7,8 @@ import React, { memo, useContext, useMemo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Pagination, Table } from "data-transparency-ui";
 
-import IsMobileContext from "context/IsMobileContext";
-import { columns } from 'dataMapping/explorer/explorerTableFields';
+import IsMobileContext from "../../../../context/IsMobileContext";
+import { columns } from '../../../../dataMapping/explorer/explorerTableFields';
 import parseResults from "../helpers/parseResults";
 
 const propTypes = {

@@ -5,10 +5,10 @@
 
 import React from 'react';
 
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import { dataDictionaryPageMetaTags } from 'helpers/metaTagHelper';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import { dataDictionaryPageMetaTags } from '../../helpers/metaTagHelper';
 
-import DataDictionaryContainer from 'containers/dataDictionary/DataDictionaryContainer';
+import DataDictionaryContainer from '../../containers/dataDictionary/DataDictionaryContainer';
 
 require('../../../_scss/pages/dataDictionary/dataDictionaryPage.scss');
 

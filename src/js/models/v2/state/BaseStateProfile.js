@@ -3,8 +3,8 @@
  * Created by Lizzie Salita 5/1/18
  */
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-import kGlobalConstants from 'GlobalConstants';
+import * as MoneyFormatter from '../../../helpers/moneyFormatter';
+import kGlobalConstants from '../../../GlobalConstants';
 
 const BaseStateProfile = {
     populate(data) {

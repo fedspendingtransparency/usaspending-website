@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as MoneyFormatter from '../../../helpers/moneyFormatter';
 
 export const defaultNameTemplate = (code, name) => {
     if (code) {
