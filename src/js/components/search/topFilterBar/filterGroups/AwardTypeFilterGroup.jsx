@@ -10,8 +10,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 import {
     awardTypeCodes, awardTypeGroups, analyticsAwardTypeGroupLabels as groupLabels
-} from "dataMapping/search/awardType";
-import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
+} from "../../../../dataMapping/search/awardType";
+import { updateGenericFilter } from "../../../../redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };

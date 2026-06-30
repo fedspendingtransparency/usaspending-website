@@ -7,10 +7,10 @@ import React from 'react';
 import { reduce } from 'lodash-es';
 import { useDispatch, useSelector } from "react-redux";
 
-import { awardRanges } from 'dataMapping/search/awardAmount';
-import { formatAwardAmountRange } from 'helpers/awardAmountHelper';
-import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
-import { updateAwardAmounts, updateGenericFilter } from "redux/actions/search/searchFilterActions";
+import { awardRanges } from '../../../../dataMapping/search/awardAmount';
+import { formatAwardAmountRange } from '../../../../helpers/awardAmountHelper';
+import PrimaryCheckboxType from '../../../../components/sharedComponents/checkbox/PrimaryCheckboxType';
+import { updateAwardAmounts, updateGenericFilter } from "../../../../redux/actions/search/searchFilterActions";
 import SpecificAwardAmountItem from './SpecificAwardAmountItem';
 import SelectedAwardAmountBound from "./SelectedAwardAmountBound";
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as MoneyFormatter from '../../helpers/moneyFormatter';
 
 const SearchSummary = ({
     primeAwardTotal,

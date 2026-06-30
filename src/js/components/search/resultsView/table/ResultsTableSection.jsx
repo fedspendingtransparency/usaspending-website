@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, NoResultsMessage } from 'data-transparency-ui';
 
-import IsMobileContext from "context/IsMobileContext";
+import IsMobileContext from "../../../../context/IsMobileContext";
 import ResultsTable from '../../table/ResultsTable';
 import GroupedAwardTable from '../../table/groupedTable/GroupedAwardTable';
 

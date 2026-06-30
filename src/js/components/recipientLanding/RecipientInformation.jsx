@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
+import { InfoCircle } from '../../components/sharedComponents/icons/Icons';
 import RecipientLandingTooltip from './RecipientLandingTooltip';
 
 const propTypes = {

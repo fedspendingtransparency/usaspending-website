@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { formatNumber } from 'helpers/moneyFormatter';
-import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
+import { formatNumber } from '../../../helpers/moneyFormatter';
+import { createOnKeyDownHandler } from '../../../helpers/keyboardEventsHelper';
 
 const propTypes = {
     label: PropTypes.string,

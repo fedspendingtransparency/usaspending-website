@@ -8,7 +8,7 @@ import { CSSTransition, TransitionGroup } from "react-transitioning";
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '../../../../helpers/analytics/Analytics';
 import {
     searchSection1Options,
     searchSection2Options,

@@ -6,10 +6,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { recipientTypeMapping } from "helpers/search/filterCheckboxHelper";
-import { recipientTypes } from 'dataMapping/search/recipientType';
-import ListCheckbox from "components/sharedComponents/checkbox/ListCheckbox";
-import { toggleRecipientType } from "redux/actions/search/searchFilterActions";
+import { recipientTypeMapping } from "../../../helpers/search/filterCheckboxHelper";
+import { recipientTypes } from '../../../dataMapping/search/recipientType';
+import ListCheckbox from "../../../components/sharedComponents/checkbox/ListCheckbox";
+import { toggleRecipientType } from "../../../redux/actions/search/searchFilterActions";
 
 const RecipientType = () => {
     const recipientType = useSelector((state) => state.filters.recipientType);

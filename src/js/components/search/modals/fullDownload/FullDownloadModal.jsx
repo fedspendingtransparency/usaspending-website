@@ -7,13 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 
-import { Close } from 'components/sharedComponents/icons/Icons';
+import { Close } from '../../../../components/sharedComponents/icons/Icons';
 
-import TopFilterBarContainer from 'containers/search/topFilterBar/TopFilterBarContainer';
+import TopFilterBarContainer from '../../../../containers/search/topFilterBar/TopFilterBarContainer';
 import DownloadLevelContainer from
-    'containers/search/modals/fullDownload/screens/DownloadLevelContainer';
+    '../../../../containers/search/modals/fullDownload/screens/DownloadLevelContainer';
 import DownloadScopeContainer from
-    'containers/search/modals/fullDownload/screens/DownloadScopeContainer';
+    '../../../../containers/search/modals/fullDownload/screens/DownloadScopeContainer';
 
 import DownloadBreadcrumb from './breadcrumb/DownloadBreadcrumb';
 

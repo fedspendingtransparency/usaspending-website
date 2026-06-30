@@ -8,15 +8,15 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { useDispatch } from "react-redux";
-import useIsMobile from "hooks/useIsMobile";
+import useIsMobile from "../../hooks/useIsMobile";
 
-import * as MetaTagHelper from 'helpers/metaTagHelper';
+import * as MetaTagHelper from '../../helpers/metaTagHelper';
 import FullDownloadModalContainer from
-    'containers/search/modals/fullDownload/FullDownloadModalContainer';
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import { showModal } from "redux/actions/modal/modalActions";
+    '../../containers/search/modals/fullDownload/FullDownloadModalContainer';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import { showModal } from "../../redux/actions/modal/modalActions";
 
-import TooltipContext from "context/TooltipContext";
+import TooltipContext from "../../context/TooltipContext";
 import ResultsView from "./resultsView/ResultsView";
 import CollapsibleSidebar from "./collapsibleSidebar/SidebarWrapper";
 import MobileFilterButton from "./mobile/MobileFilterButton";

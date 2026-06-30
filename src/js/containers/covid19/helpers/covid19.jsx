@@ -4,17 +4,17 @@
  */
 
 import React from 'react';
-import AwardSpendingAgency from 'components/covid19/awardSpendingAgency/AwardSpendingAgency';
-import BudgetCategories from 'components/covid19/budgetCategories/BudgetCategories';
-import AwardQuestion from 'components/covid19/AwardQuestions';
-import OverviewContainer from 'containers/covid19/OverviewContainer';
-import RecipientSection from 'components/covid19/recipient/RecipientSection';
-import SpendingByCFDA from 'components/covid19/assistanceListing/SpendingByCFDA';
+import AwardSpendingAgency from '../../../components/covid19/awardSpendingAgency/AwardSpendingAgency';
+import BudgetCategories from '../../../components/covid19/budgetCategories/BudgetCategories';
+import AwardQuestion from '../../../components/covid19/AwardQuestions';
+import OverviewContainer from '../../../containers/covid19/OverviewContainer';
+import RecipientSection from '../../../components/covid19/recipient/RecipientSection';
+import SpendingByCFDA from '../../../components/covid19/assistanceListing/SpendingByCFDA';
 import { TooltipWrapper } from 'data-transparency-ui';
 import {
     AwardSpendingTT,
     TotalSpendingTT
-} from 'components/covid19/Covid19Tooltips';
+} from '../../../components/covid19/Covid19Tooltips';
 
 const totalSpendingText = (
     <div className="body__header-text">

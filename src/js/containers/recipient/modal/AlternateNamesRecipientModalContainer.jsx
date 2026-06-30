@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import AlternateNamesRecipientModal from 'components/recipient/modal/AlternateNamesRecipientModal';
+import AlternateNamesRecipientModal from '../../../components/recipient/modal/AlternateNamesRecipientModal';
 
 const propTypes = {
     recipient: PropTypes.object,

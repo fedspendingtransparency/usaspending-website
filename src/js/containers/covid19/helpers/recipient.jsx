@@ -4,8 +4,8 @@
  */
 
 import React from 'react';
-import MapContainer from 'containers/covid19/recipient/map/MapContainer';
-import SpendingByRecipientContainer from 'containers/covid19/recipient/SpendingByRecipientContainer';
+import MapContainer from '../../../containers/covid19/recipient/map/MapContainer';
+import SpendingByRecipientContainer from '../../../containers/covid19/recipient/SpendingByRecipientContainer';
 
 const tabs = [
     {

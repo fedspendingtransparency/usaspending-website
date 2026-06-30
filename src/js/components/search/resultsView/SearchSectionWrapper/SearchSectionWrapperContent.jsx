@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { ErrorMessage, LoadingMessage, NoResultsMessage } from "data-transparency-ui";
 import PropTypes from "prop-types";
 
-import IsMobileContext from "context/IsMobileContext";
+import IsMobileContext from "../../../../context/IsMobileContext";
 import MobileSort from "../../mobile/MobileSort";
 import SectionDataTable from "./SectionDataTable";
 

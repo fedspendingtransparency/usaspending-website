@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { useLocation } from "react-router";
-import { getDrilldownEntrySectionAndId } from "helpers/aboutTheDataSidebarHelper";
+import { getDrilldownEntrySectionAndId } from "../../helpers/aboutTheDataSidebarHelper";
 import { showSlideout } from '../../helpers/slideoutHelper';
 import { getNewUrlForGlossary } from "../../helpers/glossaryHelper";
 import schema from "../../../config/aboutTheData/aboutTheDataSchema";

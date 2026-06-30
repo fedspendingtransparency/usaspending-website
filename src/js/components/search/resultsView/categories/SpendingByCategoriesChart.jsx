@@ -6,9 +6,9 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, LabelList, Text } from 'recharts';
 import PropTypes from "prop-types";
-import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
-import Analytics from 'helpers/analytics/Analytics';
-import { tabletScreen, smTabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { formatMoneyWithUnitsShortLabel } from '../../../../helpers/moneyFormatter';
+import Analytics from '../../../../helpers/analytics/Analytics';
+import { tabletScreen, smTabletScreen } from '../../../../dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash-es";
 
 const propTypes = {

@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
+import LoadingSpinner from '../../../components/sharedComponents/LoadingSpinner';
 
 const ResultsTableLoadingMessage = () => (
     <div className="results-table-loading">

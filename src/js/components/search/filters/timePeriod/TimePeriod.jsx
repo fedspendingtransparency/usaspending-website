@@ -7,8 +7,8 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
-import FilterTabs from 'components/sharedComponents/filterSidebar/FilterTabs';
-import usePrevious from "hooks/usePrevious";
+import FilterTabs from '../../../../components/sharedComponents/filterSidebar/FilterTabs';
+import usePrevious from "../../../../hooks/usePrevious";
 import DateRange from './DateRange';
 import AllFiscalYearsWithChips from "./AllFiscalYearsWithChips";
 import DateRangeError from './DateRangeError';

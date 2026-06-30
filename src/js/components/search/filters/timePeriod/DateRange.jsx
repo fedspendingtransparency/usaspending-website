@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 import { Button, NewPicker } from "data-transparency-ui";
 
-import Analytics from 'helpers/analytics/Analytics';
-import DatePicker from 'components/sharedComponents/DatePicker';
+import Analytics from '../../../../helpers/analytics/Analytics';
+import DatePicker from '../../../../components/sharedComponents/DatePicker';
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
 import ShownValue from "../ShownValue";
 import { dateRangeChipLabel } from "../../../../helpers/searchHelper";

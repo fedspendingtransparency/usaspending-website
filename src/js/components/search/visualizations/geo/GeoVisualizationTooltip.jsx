@@ -6,7 +6,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
+import { formatMoneyWithUnitsShortLabel } from '../../../../helpers/moneyFormatter';
 
 const propTypes = {
     label: PropTypes.string,

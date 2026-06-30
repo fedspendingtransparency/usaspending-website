@@ -5,8 +5,8 @@
 
 import React from 'react';
 
-import { recipientCategories as topCategories } from 'dataMapping/topCategories';
-import TopFiveContainer from 'containers/recipient/topFive/TopFiveContainer';
+import { recipientCategories as topCategories } from '../../../dataMapping/topCategories';
+import TopFiveContainer from '../../../containers/recipient/topFive/TopFiveContainer';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SectionHeader, FlexGridRow } from "data-transparency-ui";
 import useAgencySlugs from "../../../hooks/useAgencySlugs";

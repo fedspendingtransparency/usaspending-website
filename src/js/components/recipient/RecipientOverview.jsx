@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 import { isCancel } from 'axios';
 import { TooltipWrapper, SectionHeader, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
-import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
+import { initialState as defaultFilters } from '../../redux/reducers/search/searchFiltersReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router';
-import { recipientOverviewLoanInfo } from 'components/recipient/InfoTooltipContent';
-import { idList } from 'dataMapping/shared/recipientIdentifiers';
+import { recipientOverviewLoanInfo } from '../../components/recipient/InfoTooltipContent';
+import { idList } from '../../dataMapping/shared/recipientIdentifiers';
 
 import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';

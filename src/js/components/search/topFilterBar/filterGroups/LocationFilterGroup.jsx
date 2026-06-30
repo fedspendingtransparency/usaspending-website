@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
+import { updateGenericFilter } from "../../../../redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string, code: PropTypes.string };

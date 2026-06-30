@@ -7,8 +7,8 @@ import React, { useState, useCallback, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from "react-router";
-import Analytics from 'helpers/analytics/Analytics';
-import { setSearchViewSubaward, setSpendingLevel } from "redux/actions/search/searchViewActions";
+import Analytics from '../../helpers/analytics/Analytics';
+import { setSearchViewSubaward, setSpendingLevel } from "../../redux/actions/search/searchViewActions";
 
 const propTypes = {
     selectedValue: PropTypes.string,

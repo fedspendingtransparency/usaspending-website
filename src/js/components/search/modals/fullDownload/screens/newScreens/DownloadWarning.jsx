@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+import { ExclamationTriangle } from '../../../../../../components/sharedComponents/icons/Icons';
 
 const propTypes = {
     message: PropTypes.oneOfType([PropTypes.element, PropTypes.string])

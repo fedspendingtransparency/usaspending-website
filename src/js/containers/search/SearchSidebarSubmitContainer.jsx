@@ -7,16 +7,16 @@ import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { areFiltersEqual } from 'helpers/searchHelper';
-import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
-import { initialState, initialStateFY } from 'redux/reducers/search/searchFiltersReducer';
-import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
-import { resetMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
+import { areFiltersEqual } from '../../helpers/searchHelper';
+import SearchSidebarSubmit from '../../components/search/SearchSidebarSubmit';
+import { initialState, initialStateFY } from '../../redux/reducers/search/searchFiltersReducer';
+import { clearAllFilters as clearStagedFilters } from '../../redux/actions/search/searchFilterActions';
+import { resetMapLegendToggle } from '../../redux/actions/search/mapLegendToggleActions';
 import {
     applyStagedFilters,
     resetAppliedFilters, setAppliedFilterCompletion
-} from "redux/actions/search/appliedFilterActions";
-import usePrevious from "hooks/usePrevious";
+} from "../../redux/actions/search/appliedFilterActions";
+import usePrevious from "../../hooks/usePrevious";
 import {
     convertFiltersToAnalyticEvents,
     sendAnalyticEvents,

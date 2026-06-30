@@ -1,9 +1,9 @@
 import React from "react";
 import { useSelector } from "react-redux";
 
-import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
-import GlossaryLink from "components/sharedComponents/GlossaryLink";
-import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
+import { getAtdDefcText } from "../../../../helpers/aboutTheDataSidebarHelper";
+import GlossaryLink from "../../../../components/sharedComponents/GlossaryLink";
+import AboutTheDataLink from "../../../../components/sharedComponents/AboutTheDataLink";
 
 const MapDsm = ({ spendingLevel }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);

@@ -12,13 +12,13 @@ import {
     expandNaicsAndAllDescendantParents,
     getFormatedNaicsDataForCheckboxTree,
     getAllUniqueAncestors
-} from 'helpers/naicsHelper';
+} from '../../../../helpers/naicsHelper';
 import {
     removePlaceholderString,
     getAllDescendants,
     stateEqualityCheck
-} from 'helpers/checkboxTreeHelper';
-import { naicsRequest } from 'helpers/searchHelper';
+} from '../../../../helpers/checkboxTreeHelper';
+import { naicsRequest } from '../../../../helpers/searchHelper';
 import {
     setNaicsNodes,
     setExpandedNaics,
@@ -27,11 +27,11 @@ import {
     showNaicsTree,
     setUncheckedNaics,
     setNaicsCounts
-} from 'redux/actions/search/naicsActions';
-import { updateNaics } from 'redux/actions/search/searchFilterActions';
-import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
+} from '../../../../redux/actions/search/naicsActions';
+import { updateNaics } from '../../../../redux/actions/search/searchFilterActions';
+import CheckboxTree from '../../../../components/sharedComponents/checkboxTree/CheckboxTree';
 import EntityDropdownAutocomplete from
-    'components/sharedComponents/EntityDropdownAutocomplete';
+    '../../../../components/sharedComponents/EntityDropdownAutocomplete';
 
 
 const NAICSCheckboxTree = () => {

@@ -6,9 +6,9 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { pricingTypeDefinitions, pricingTypeMapping } from "dataMapping/search/contractFields";
-import ListCheckbox from "components/sharedComponents/checkbox/ListCheckbox";
-import { updatePricingType } from "redux/actions/search/searchFilterActions";
+import { pricingTypeDefinitions, pricingTypeMapping } from "../../../dataMapping/search/contractFields";
+import ListCheckbox from "../../../components/sharedComponents/checkbox/ListCheckbox";
+import { updatePricingType } from "../../../redux/actions/search/searchFilterActions";
 
 const PricingType = () => {
     const pricingType = useSelector((state) => state.filters.pricingType);

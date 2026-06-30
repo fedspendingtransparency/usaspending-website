@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '../../../../helpers/analytics/Analytics';
 import SearchSectionWrapperHeader from "./SearchSectionWrapperHeader";
 import SearchSectionWrapperAccordion from "./SearchSectionWrapperAccordion";
 import SearchSectionWrapperContent from "./SearchSectionWrapperContent";

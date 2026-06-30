@@ -7,13 +7,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 
-import { updatePSC } from "redux/actions/search/searchFilterActions";
+import { updatePSC } from "../../../../redux/actions/search/searchFilterActions";
 import {
     setCheckedPsc,
     setUncheckedPsc,
     setExpandedPsc
-} from "redux/actions/search/pscActions";
-import { handleNewCheckedIds } from 'helpers/checkboxTreeHelper';
+} from "../../../../redux/actions/search/pscActions";
+import { handleNewCheckedIds } from '../../../../helpers/checkboxTreeHelper';
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };

@@ -2,7 +2,7 @@ import { Button } from "data-transparency-ui";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
-import Analytics from "helpers/analytics/Analytics";
+import Analytics from "../../../../helpers/analytics/Analytics";
 
 const logExpandEvent = (type) => {
     Analytics.event({

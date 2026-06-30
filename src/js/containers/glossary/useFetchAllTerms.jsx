@@ -5,8 +5,8 @@
 
 import { useEffect, useState } from "react";
 import { useQuery } from '@tanstack/react-query';
-import { fetchAllTerms } from 'helpers/glossaryHelper';
-import { Definition } from 'redux/reducers/glossary/glossaryReducer';
+import { fetchAllTerms } from '../../helpers/glossaryHelper';
+import { Definition } from '../../redux/reducers/glossary/glossaryReducer';
 
 const useFetchAllTerms = () => {
     const [allTerms, setAllTerms] = useState(null);

@@ -8,7 +8,7 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { FlexGridRow, FlexGridCol, CardContainer, CardButton, CardBody } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
+import { initialState as defaultFilters } from '../../../redux/reducers/search/searchFiltersReducer';
 import { throttle } from 'lodash-es';
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 import { generateUrlHash } from "../../../helpers/searchHelper";

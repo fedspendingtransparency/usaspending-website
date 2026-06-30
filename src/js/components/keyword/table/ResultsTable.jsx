@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { keywordTableColumnTypes } from 'dataMapping/keyword/keywordTableColumnTypes';
+import { keywordTableColumnTypes } from '../../../dataMapping/keyword/keywordTableColumnTypes';
 import IBTable from '../IBTable/IBTable';
 import ResultsTableFormattedCell from './ResultsTableFormattedCell';
 import ResultsTableLinkCell from './ResultsTableLinkCell';

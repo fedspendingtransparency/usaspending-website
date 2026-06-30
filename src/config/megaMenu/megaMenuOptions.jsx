@@ -3,7 +3,7 @@
  * Created by Kevin Li 1/18/18
  */
 
-import GlobalConstants from 'GlobalConstants';
+import GlobalConstants from '../../js/GlobalConstants';
 
 const { FILES_SERVER_BASE_URL } = GlobalConstants;
 

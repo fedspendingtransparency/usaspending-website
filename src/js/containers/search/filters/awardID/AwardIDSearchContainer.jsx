@@ -6,8 +6,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { OrderedMap } from 'immutable';
-import { updateGenericFilter } from 'redux/actions/search/searchFilterActions';
-import AwardIDSearch from 'components/search/filters/awardID/AwardIDSearch';
+import { updateGenericFilter } from '../../../../redux/actions/search/searchFilterActions';
+import AwardIDSearch from '../../../../components/search/filters/awardID/AwardIDSearch';
 
 const AwardIDSearchContainer = () => {
     const dispatch = useDispatch();

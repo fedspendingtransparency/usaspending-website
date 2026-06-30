@@ -13,7 +13,7 @@ import {
     convertFYToDateRange,
     currentFiscalYear,
     earliestFiscalYear
-} from 'helpers/fiscalYearHelper';
+} from '../../../helpers/fiscalYearHelper';
 import * as SearchHelper from '../../../helpers/searchHelper';
 import BaseStateCategoryResult from '../../../models/v2/state/BaseStateCategoryResult';
 import TopFive from '../../../components/sharedComponents/TopFive';

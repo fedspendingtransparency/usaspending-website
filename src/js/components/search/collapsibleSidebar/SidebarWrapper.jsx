@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
 
-import useIsMobile from "hooks/useIsMobile";
+import useIsMobile from "../../../hooks/useIsMobile";
 import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
 import NLSidebarButtons from "./NLSidebarButtons";

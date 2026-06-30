@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router";
 
-import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
+import { getAtdDefcText } from "../../../../helpers/aboutTheDataSidebarHelper";
 import { showSlideout } from "helpers/slideoutHelper";
 import GlossaryLink from "components/sharedComponents/GlossaryLink";
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { QAT } from "GlobalConstants";
+import globalConstants from "../../../GlobalConstants";
 
 const cyan60v = '#00687D';
 const cyan50v = '#0081A1';
@@ -14,7 +14,7 @@ const propTypes = {
 };
 
 const NLSidebarButtons = ({ sidebarContent, setSidebarContent, isMedium }) => {
-    if (isMedium || !QAT) return;
+    if (isMedium || !globalConstants.QAT) return;
 
     // icon and button colors
     const primaryColorNL = sidebarContent === 'natural language' ? cyan50v : colorWhite;

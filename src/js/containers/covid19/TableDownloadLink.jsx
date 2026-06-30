@@ -6,15 +6,15 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { requestFullDownloadRecipient } from 'helpers/downloadHelper';
+import { requestFullDownloadRecipient } from '../../helpers/downloadHelper';
 import {
     setDownloadCollapsed,
     setDownloadPending,
     setDownloadExpectedFile,
     setDownloadExpectedUrl
-} from 'redux/actions/bulkDownload/bulkDownloadActions';
-import TableDownloadIconButton from 'components/covid19/TableDownloadIconButton';
-import Analytics from 'helpers/analytics/Analytics';
+} from '../../redux/actions/bulkDownload/bulkDownloadActions';
+import TableDownloadIconButton from '../../components/covid19/TableDownloadIconButton';
+import Analytics from '../../helpers/analytics/Analytics';
 
 const propTypes = {
     defCodes: PropTypes.array.isRequired,

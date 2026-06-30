@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from "react-redux";
 
-import { formatAwardAmountRange } from "helpers/awardAmountHelper";
-import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
+import { formatAwardAmountRange } from "../../../../helpers/awardAmountHelper";
+import { updateGenericFilter } from "../../../../redux/actions/search/searchFilterActions";
 import ShownValue from '../ShownValue';
 
 const propTypes = {

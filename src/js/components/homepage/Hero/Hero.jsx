@@ -8,8 +8,8 @@ import { useNavigate } from "react-router";
 import { throttle } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from 'data-transparency-ui';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import Analytics from 'helpers/analytics/Analytics';
+import { mediumScreen } from '../../../dataMapping/shared/mobileBreakpoints';
+import Analytics from '../../../helpers/analytics/Analytics';
 import AnimatedHeading from './AnimatedHeading';
 
 const Hero = () => {

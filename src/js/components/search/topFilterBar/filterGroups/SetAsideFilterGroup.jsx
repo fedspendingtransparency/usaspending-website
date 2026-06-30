@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
-import { setAsideDefinitions } from "dataMapping/search/contractFields";
+import { updateGenericFilter } from "../../../../redux/actions/search/searchFilterActions";
+import { setAsideDefinitions } from "../../../../dataMapping/search/contractFields";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };

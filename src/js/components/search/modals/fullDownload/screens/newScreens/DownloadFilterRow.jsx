@@ -5,7 +5,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import ReadMore from 'components/sharedComponents/ReadMore';
+import ReadMore from '../../../../../../components/sharedComponents/ReadMore';
 import { awardTypeCodes } from '../../../../../../dataMapping/search/awardType';
 import { recipientTypes } from '../../../../../../dataMapping/search/recipientType';
 import { pricingTypeDefinitions, setAsideDefinitions, extentCompetedDefinitions } from '../../../../../../dataMapping/search/contractFields';

@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { fetchOpportunityTotals } from 'helpers/covid19Helper';
+import { fetchOpportunityTotals } from '../../../helpers/covid19Helper';
 
 const propTypes = {
     code: PropTypes.string

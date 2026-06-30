@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Search } from 'components/sharedComponents/icons/Icons';
+import { Search } from '../../components/sharedComponents/icons/Icons';
 
 export default class LandingSearchBar extends React.Component {
     static propTypes = {

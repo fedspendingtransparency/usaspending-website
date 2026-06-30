@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 
-import { formatAwardAmountRange } from "helpers/awardAmountHelper";
-import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
+import { formatAwardAmountRange } from "../../../../helpers/awardAmountHelper";
+import { updateGenericFilter } from "../../../../redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };

@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 import { difference, indexOf } from "lodash-es";
 
-import { defCodes as defCodeLabels, defCodeGroups, groupLabels } from 'dataMapping/search/defCodes';
-import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
+import { defCodes as defCodeLabels, defCodeGroups, groupLabels } from '../../../../dataMapping/search/defCodes';
+import { updateGenericFilter } from "../../../../redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };

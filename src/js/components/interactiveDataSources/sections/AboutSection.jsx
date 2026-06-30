@@ -2,7 +2,7 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
 import { FlexGridCol } from 'data-transparency-ui';
-import ReadMore from 'components/sharedComponents/ReadMore';
+import ReadMore from '../../../components/sharedComponents/ReadMore';
 import { Link } from "react-router";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';

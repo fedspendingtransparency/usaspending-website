@@ -7,18 +7,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { cloneDeep, uniq } from 'lodash-es';
-import GlobalConstants from 'GlobalConstants';
+import GlobalConstants from '../../../../GlobalConstants';
 
-import { setMapHasLoaded } from "redux/actions/search/searchViewActions";
-import { stateFIPSByAbbreviation } from "dataMapping/state/stateNames";
+import { setMapHasLoaded } from "../../../../redux/actions/search/searchViewActions";
+import { stateFIPSByAbbreviation } from "../../../../dataMapping/state/stateNames";
 import {
     calculateRange, firstSymbolId, mapboxSources, visualizationColors
-} from 'helpers/mapHelper';
-import { prohibitedCountryCodes } from 'helpers/search/visualizations/geoHelper';
-import MapBroadcaster from 'helpers/mapBroadcaster';
-import MapBox from 'components/sharedComponents/map/MapBox';
-import MapLegend from 'components/sharedComponents/map/MapLegend';
-import MapFiltersToggle from "components/sharedComponents/map/MapFiltersToggle";
+} from '../../../../helpers/mapHelper';
+import { prohibitedCountryCodes } from '../../../../helpers/search/visualizations/geoHelper';
+import MapBroadcaster from '../../../../helpers/mapBroadcaster';
+import MapBox from '../../../../components/sharedComponents/map/MapBox';
+import MapLegend from '../../../../components/sharedComponents/map/MapLegend';
+import MapFiltersToggle from "../../../../components/sharedComponents/map/MapFiltersToggle";
 import AdvancedSearchMapFilters from "./AdvancedSearchMapFilters";
 
 const propTypes = {

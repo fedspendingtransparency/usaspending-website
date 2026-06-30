@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateGenericFilter } from 'redux/actions/search/searchFilterActions';
+import { updateGenericFilter } from '../../../redux/actions/search/searchFilterActions';
 import AwardDescriptionFilter from "../../../components/search/filters/description/AwardDescriptionFilter";
 
 const AwardDescriptionFilterContainer = () => {

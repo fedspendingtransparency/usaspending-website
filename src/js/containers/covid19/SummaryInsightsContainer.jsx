@@ -7,11 +7,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { setTotals } from 'redux/actions/covid19/covid19Actions';
-import { awardTypeGroups, awardTypeGroupLabels } from 'dataMapping/search/awardType';
-import { fetchAwardAmounts } from 'apis/disaster';
+import { setTotals } from '../../redux/actions/covid19/covid19Actions';
+import { awardTypeGroups, awardTypeGroupLabels } from '../../dataMapping/search/awardType';
+import { fetchAwardAmounts } from '../../apis/disaster';
 import { InformationBoxes } from "data-transparency-ui";
-import { useInFlightList } from 'helpers/covid19Helper';
+import { useInFlightList } from '../../helpers/covid19Helper';
 import { isEqual } from 'lodash-es';
 
 const propTypes = {

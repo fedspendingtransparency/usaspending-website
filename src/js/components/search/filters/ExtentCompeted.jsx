@@ -6,11 +6,11 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import ListCheckbox from 'components/sharedComponents/checkbox/ListCheckbox';
+import ListCheckbox from '../../../components/sharedComponents/checkbox/ListCheckbox';
 import {
     extentCompetedDefinitions, extentCompetedTypeMapping
-} from 'dataMapping/search/contractFields';
-import { updateExtentCompeted } from "redux/actions/search/searchFilterActions";
+} from '../../../dataMapping/search/contractFields';
+import { updateExtentCompeted } from "../../../redux/actions/search/searchFilterActions";
 
 const ExtentCompeted = () => {
     const extentCompeted = useSelector((state) => state.filters.extentCompeted);

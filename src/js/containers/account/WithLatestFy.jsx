@@ -12,8 +12,8 @@ import {
     isPeriodSelectable,
     getLastPeriodWithinQuarterByPeriod,
     getPeriodWithTitleById
-} from "helpers/aboutTheDataHelper";
-import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+} from "../../helpers/aboutTheDataHelper";
+import { combineQueryParams, getQueryParamString } from '../../helpers/queryParams';
 import useQueryParams from "../../hooks/useQueryParams";
 
 // TODO: Refactor existing consumers of WithLatestFy to use this custom hook

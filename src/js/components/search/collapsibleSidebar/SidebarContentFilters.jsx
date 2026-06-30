@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
-import { searchFilterCategoryTree } from "dataMapping/search/searchFilterCategories";
-import { getFilterCount } from "helpers/search/filterCheckboxHelper";
-import Keyword from "components/search/filters/keyword/Keyword";
+import { searchFilterCategoryTree } from "../../../dataMapping/search/searchFilterCategories";
+import { getFilterCount } from "../../../helpers/search/filterCheckboxHelper";
+import Keyword from "../../../components/search/filters/keyword/Keyword";
 import SidebarContentFilterAccordion from "./SidebarContentFilterAccordion";
 
 const propTypes = {

@@ -6,16 +6,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 
-import { awardTypeTabs } from 'dataMapping/covid19/covid19';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
-import { fetchDisasterSpendingCount } from 'apis/disaster';
-import { areCountsDefined } from 'helpers/covid19Helper';
-import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
-import RecipientTableContainer from 'containers/covid19/recipient/RecipientTableContainer';
-import GlossaryLink from 'components/sharedComponents/GlossaryLink';
-import Analytics from 'helpers/analytics/Analytics';
+import { awardTypeTabs } from '../../../dataMapping/covid19/covid19';
+import { awardTypeGroups } from '../../../dataMapping/search/awardType';
+import { fetchDisasterSpendingCount } from '../../../apis/disaster';
+import { areCountsDefined } from '../../../helpers/covid19Helper';
+import SummaryInsightsContainer from '../../../containers/covid19/SummaryInsightsContainer';
+import RecipientTableContainer from '../../../containers/covid19/recipient/RecipientTableContainer';
+import GlossaryLink from '../../../components/sharedComponents/GlossaryLink';
+import Analytics from '../../../helpers/analytics/Analytics';
 import { Tabs } from "data-transparency-ui";
-import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
+import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 
 const overviewData = [

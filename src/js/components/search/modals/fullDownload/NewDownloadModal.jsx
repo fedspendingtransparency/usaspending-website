@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { setDownloadColumns, setDownloadPending } from 'redux/actions/search/downloadActions';
+import { setDownloadColumns, setDownloadPending } from '../../../../redux/actions/search/downloadActions';
 import NewDownloadContainer from
-    'containers/search/modals/fullDownload/screens/newScreens/NewDownloadContainer';
-import usePrevious from 'hooks/usePrevious';
+    '../../../../containers/search/modals/fullDownload/screens/newScreens/NewDownloadContainer';
+import usePrevious from '../../../../hooks/usePrevious';
 import getFilters from '../../../../containers/search/topFilterBar/getFilters';
 import NewDownloadProgress from './screens/NewDownloadProgress';
 import { setSpendingLevelDownload } from '../../../../redux/actions/search/spendingLevelActions';

@@ -4,8 +4,8 @@
  */
 
 import React from 'react';
-import DataDictionary from 'components/dataDictionary/DataDictionary';
-import { fetchDataDictionary } from 'apis/dataDictionary';
+import DataDictionary from '../../components/dataDictionary/DataDictionary';
+import { fetchDataDictionary } from '../../apis/dataDictionary';
 
 export default class DataDictionaryContainer extends React.Component {
     constructor(props) {

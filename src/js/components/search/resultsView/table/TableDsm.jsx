@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router";
 
-import { showSlideout } from "helpers/slideoutHelper";
-import GlossaryLink from "components/sharedComponents/GlossaryLink";
+import { showSlideout } from "../../../../helpers/slideoutHelper";
+import GlossaryLink from "../../../../components/sharedComponents/GlossaryLink";
 
 const TableDsm = ({ spendingLevel }) => {
     const openAboutTheDataSidebar = (e, entry) => {

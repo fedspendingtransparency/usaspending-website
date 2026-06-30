@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+import { ExclamationTriangle } from '../../components/sharedComponents/icons/Icons';
 
 const ChartError = () => (
     <div className="visualization-message-container">

@@ -1,6 +1,6 @@
 import React from "react";
-import GlossaryLink from "components/sharedComponents/GlossaryLink";
-import { DUNS_LABEL } from "GlobalConstants";
+import GlossaryLink from "../../components/sharedComponents/GlossaryLink";
+import globalConstants from "../../GlobalConstants";
 
 /**
  * Create array of entity IDs (UEI and/or DUNS) formatted for Additional Information sections
@@ -23,7 +23,7 @@ export const idList = (duns, uei) => {
     if (duns) {
         ids.push(
             <div key="overview__duns">
-                {duns} ({DUNS_LABEL}DUNS <GlossaryLink term="duns" />)<br />
+                {duns} ({globalConstants.DUNS_LABEL}DUNS <GlossaryLink term="duns" />)<br />
             </div>
         );
     }

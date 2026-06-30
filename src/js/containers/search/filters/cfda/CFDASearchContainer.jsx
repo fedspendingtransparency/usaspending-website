@@ -7,12 +7,12 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 
-import { fetchCFDA } from 'helpers/searchHelper';
-import replaceString from 'helpers/replaceString';
-import { updateSelectedCFDA } from 'redux/actions/search/searchFilterActions';
+import { fetchCFDA } from '../../../../helpers/searchHelper';
+import replaceString from '../../../../helpers/replaceString';
+import { updateSelectedCFDA } from '../../../../redux/actions/search/searchFilterActions';
 import AutocompleteWithCheckboxList from
-    'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
-import ShownValue from 'components/search/filters/ShownValue';
+    '../../../../components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
+import ShownValue from '../../../../components/search/filters/ShownValue';
 
 
 const CFDASearchContainer = () => {

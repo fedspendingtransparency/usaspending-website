@@ -5,7 +5,7 @@
 
 // eslint-disable-next-line no-unused-vars
 import React from 'react';
-import GlobalConstants from "GlobalConstants";
+import GlobalConstants from "../../GlobalConstants";
 
 const FeatureFlag = ({ children }) => {
     const isQAT = GlobalConstants.QAT;

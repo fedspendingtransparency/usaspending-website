@@ -4,7 +4,7 @@
 
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import ResultsTableContainer from "containers/search/resultsView/ResultsTableContainer";
+import ResultsTableContainer from "../../../../containers/search/resultsView/ResultsTableContainer";
 
 import TableDsm from "./TableDsm";
 

@@ -7,7 +7,7 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
-import replaceString from 'helpers/replaceString';
+import replaceString from '../../../helpers/replaceString';
 import { Table, Pagination, SearchBar } from 'data-transparency-ui';
 import { Link } from 'react-router';
 

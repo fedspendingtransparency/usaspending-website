@@ -7,7 +7,7 @@ import React, { memo, useRef, useState } from 'react';
 import { Button } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 
-import { updateTextSearchInput } from "redux/actions/search/searchFilterActions";
+import { updateTextSearchInput } from "../../../../redux/actions/search/searchFilterActions";
 import SelectedKeywords from './SelectedKeywords';
 import { KeyWordTooltip } from "../tooltips/AdvancedSearchTooltip";
 import ContextTooltip from "../ContextTooltip";

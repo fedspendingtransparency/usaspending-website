@@ -4,15 +4,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
-import { areFiltersEqual } from "helpers/searchHelper";
+import { areFiltersEqual } from "../../../../helpers/searchHelper";
 import {
     applyStagedFilters,
     resetAppliedFilters,
     setAppliedFilterCompletion
-} from "redux/actions/search/appliedFilterActions";
-import { clearAllFilters as clearStagedFilters } from "redux/actions/search/searchFilterActions";
-import { resetMapLegendToggle } from "redux/actions/search/mapLegendToggleActions";
-import { convertFiltersToAnalyticEvents, sendFieldCombinationsOnUpdate } from "containers/search/helpers/searchAnalytics";
+} from "../../../../redux/actions/search/appliedFilterActions";
+import { clearAllFilters as clearStagedFilters } from "../../../../redux/actions/search/searchFilterActions";
+import { resetMapLegendToggle } from "../../../../redux/actions/search/mapLegendToggleActions";
+import { convertFiltersToAnalyticEvents, sendFieldCombinationsOnUpdate } from "../../../../containers/search/helpers/searchAnalytics";
 
 const propTypes = { appliedFilters: PropTypes.object };
 

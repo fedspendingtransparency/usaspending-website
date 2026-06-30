@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import * as Icons from '../../components/sharedComponents/icons/Icons';
 
 export default class ComingSoonLabel extends React.Component {
     render() {

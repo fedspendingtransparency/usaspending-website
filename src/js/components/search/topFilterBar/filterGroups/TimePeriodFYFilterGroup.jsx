@@ -7,7 +7,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
 
-import { updateTimePeriod } from "redux/actions/search/searchFilterActions";
+import { updateTimePeriod } from "../../../../redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 import useNewAwardsOnly from "./useNewAwardsOnly";
 

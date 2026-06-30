@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
-import { updateNewAwardsOnlySelected } from "redux/actions/search/searchFilterActions";
+import { updateNewAwardsOnlySelected } from "../../../../redux/actions/search/searchFilterActions";
 import { NewAwardsTooltip } from "../tooltips/AdvancedSearchTooltip";
 import ContextTooltip from "../ContextTooltip";
 

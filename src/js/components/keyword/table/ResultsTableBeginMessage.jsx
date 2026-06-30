@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { CircleArrowUp } from 'components/sharedComponents/icons/Icons';
+import { CircleArrowUp } from '../../../components/sharedComponents/icons/Icons';
 
 const ResultsTableBeginMessage = () => (
     <div className="results-table-begin">

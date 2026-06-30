@@ -6,15 +6,15 @@
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import DownloadIconButton508 from 'components/sharedComponents/buttons/DownloadButton508';
-import { requestFullDownload } from 'helpers/downloadHelper';
+import DownloadIconButton508 from '../../components/sharedComponents/buttons/DownloadButton508';
+import { requestFullDownload } from '../../helpers/downloadHelper';
 import {
     setDownloadCollapsed,
     setDownloadPending,
     setDownloadExpectedFile,
     setDownloadExpectedUrl
-} from 'redux/actions/bulkDownload/bulkDownloadActions';
-import Analytics from 'helpers/analytics/Analytics';
+} from '../../redux/actions/bulkDownload/bulkDownloadActions';
+import Analytics from '../../helpers/analytics/Analytics';
 
 const DownloadButtonContainer = () => {
     const dispatch = useDispatch();

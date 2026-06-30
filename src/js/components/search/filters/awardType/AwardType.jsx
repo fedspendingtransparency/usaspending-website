@@ -6,9 +6,9 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
-import { awardTypesData, awardTypeCodes } from 'dataMapping/search/awardType';
-import AccordionCheckbox from "components/sharedComponents/checkbox/AccordionCheckbox";
-import { bulkAwardTypeChange, toggleAwardType } from "redux/actions/search/searchFilterActions";
+import { awardTypesData, awardTypeCodes } from '../../../../dataMapping/search/awardType';
+import AccordionCheckbox from "../../../../components/sharedComponents/checkbox/AccordionCheckbox";
+import { bulkAwardTypeChange, toggleAwardType } from "../../../../redux/actions/search/searchFilterActions";
 
 const AwardType = () => {
     const awardType = useSelector((state) => state.filters.awardType);

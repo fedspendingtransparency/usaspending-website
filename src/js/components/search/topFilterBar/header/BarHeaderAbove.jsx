@@ -2,7 +2,7 @@ import React, { memo, useCallback, useMemo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
-import { showModal } from "redux/actions/modal/modalActions";
+import { showModal } from "../../../../redux/actions/modal/modalActions";
 import PropTypes from "prop-types";
 
 const propTypes = {

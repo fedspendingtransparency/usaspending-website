@@ -7,8 +7,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 
-import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
-import useResultsCount from "containers/search/resultsView/useResultsCount";
+import TopFilterBarContainer from "../../../containers/search/topFilterBar/TopFilterBarContainer";
+import useResultsCount from "../../../containers/search/resultsView/useResultsCount";
 import NewSearchScreen from "./NewSearchScreen";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";

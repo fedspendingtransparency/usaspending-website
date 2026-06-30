@@ -6,13 +6,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
-import { handleNewCheckedIds } from 'helpers/checkboxTreeHelper';
+import { handleNewCheckedIds } from '../../../../helpers/checkboxTreeHelper';
 import {
     setCheckedNaics,
     setUncheckedNaics,
     setExpandedNaics
-} from 'redux/actions/search/naicsActions';
-import { updateNaics } from "redux/actions/search/searchFilterActions";
+} from '../../../../redux/actions/search/naicsActions';
+import { updateNaics } from "../../../../redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };

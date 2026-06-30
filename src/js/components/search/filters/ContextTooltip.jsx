@@ -7,7 +7,7 @@ import React, { useContext, useRef } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
-import TooltipContext from "context/TooltipContext";
+import TooltipContext from "../../../context/TooltipContext";
 
 const propTypes = {
     tooltip: PropTypes.element,

@@ -7,7 +7,7 @@ import React, { useEffect, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-import TopFilterBar from 'components/search/topFilterBar/TopFilterBar';
+import TopFilterBar from '../../../components/search/topFilterBar/TopFilterBar';
 import getFilters from './getFilters';
 
 const propTypes = {

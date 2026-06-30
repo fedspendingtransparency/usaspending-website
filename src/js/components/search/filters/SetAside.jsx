@@ -6,9 +6,9 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { setAsideDefinitions, setAsideTypeMapping } from 'dataMapping/search/contractFields';
-import ListCheckbox from "components/sharedComponents/checkbox/ListCheckbox";
-import { updateSetAside } from "redux/actions/search/searchFilterActions";
+import { setAsideDefinitions, setAsideTypeMapping } from '../../../dataMapping/search/contractFields';
+import ListCheckbox from "../../../components/sharedComponents/checkbox/ListCheckbox";
+import { updateSetAside } from "../../../redux/actions/search/searchFilterActions";
 
 const SetAside = () => {
     const setAside = useSelector((state) => state.filters.setAside);

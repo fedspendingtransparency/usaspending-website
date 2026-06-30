@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-import { InfoCircle, AngleDown } from 'components/sharedComponents/icons/Icons';
+import { InfoCircle, AngleDown } from '../../components/sharedComponents/icons/Icons';
 
 const propTypes = {
     parents: PropTypes.array

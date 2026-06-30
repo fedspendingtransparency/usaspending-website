@@ -11,15 +11,15 @@ import {
     expandTasNodeAndAllDescendantParents,
     getTasNodeFromTree,
     getTasAncestryPathForChecked
-} from 'helpers/tasHelper';
-import { fetchTas } from 'helpers/searchHelper';
+} from '../../../../helpers/tasHelper';
+import { fetchTas } from '../../../../helpers/searchHelper';
 import {
     removePlaceholderString,
     getUniqueAncestorPaths,
     getAllDescendants,
     trimCheckedToCommonAncestors,
     stateEqualityCheck
-} from 'helpers/checkboxTreeHelper';
+} from '../../../../helpers/checkboxTreeHelper';
 import {
     setTasNodes,
     showTasTree,
@@ -28,13 +28,13 @@ import {
     setUncheckedTas,
     setSearchedTas,
     setTasCounts
-} from 'redux/actions/search/tasActions';
-import { updateTAS } from 'redux/actions/search/searchFilterActions';
+} from '../../../../redux/actions/search/tasActions';
+import { updateTAS } from '../../../../redux/actions/search/searchFilterActions';
 
-import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
+import CheckboxTree from '../../../../components/sharedComponents/checkboxTree/CheckboxTree';
 import EntityDropdownAutocomplete from
-    'components/sharedComponents/EntityDropdownAutocomplete';
-import { autocompletePlaceholder } from "helpers/search/filterCheckboxHelper";
+    '../../../../components/sharedComponents/EntityDropdownAutocomplete';
+import { autocompletePlaceholder } from "../../../../helpers/search/filterCheckboxHelper";
 
 const TASCheckboxTree = () => {
     const [searchString, setSearchString] = useState('');

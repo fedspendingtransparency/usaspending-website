@@ -9,13 +9,13 @@ import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import { Link } from "react-router";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import globalConstants from "GlobalConstants";
-import { formatMoneyWithUnits } from "helpers/moneyFormatter";
-import Analytics from 'helpers/analytics/Analytics';
-import { generateUrlHash } from "helpers/searchHelper";
-import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
-import useFetchBreakdown from "hooks/useFetchBreakdown";
-import { useLatestAccountData } from 'containers/account/WithLatestFy';
+import globalConstants from "../../GlobalConstants";
+import { formatMoneyWithUnits } from "../../helpers/moneyFormatter";
+import Analytics from '../../helpers/analytics/Analytics';
+import { generateUrlHash } from "../../helpers/searchHelper";
+import { initialState as defaultFilters } from '../../redux/reducers/search/searchFiltersReducer';
+import useFetchBreakdown from "../../hooks/useFetchBreakdown";
+import { useLatestAccountData } from '../../containers/account/WithLatestFy';
 
 const budgetCategories = [
     { name: "Medicare" },

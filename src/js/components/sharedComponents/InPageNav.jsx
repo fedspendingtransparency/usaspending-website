@@ -9,8 +9,8 @@ import React, {
 import PropTypes from 'prop-types';
 import { throttle } from "lodash-es";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { mediumScreen, largeScreen, xLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { checkIsOverflow, getElementData, reset } from 'helpers/inPageNavHelper';
+import { mediumScreen, largeScreen, xLargeScreen } from '../../dataMapping/shared/mobileBreakpoints';
+import { checkIsOverflow, getElementData, reset } from '../../helpers/inPageNavHelper';
 
 const propTypes = {
     sections: PropTypes.array,

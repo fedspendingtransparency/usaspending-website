@@ -7,8 +7,8 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
-import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
-import { dateRangeChipLabel } from "helpers/searchHelper";
+import { updateGenericFilter } from "../../../../redux/actions/search/searchFilterActions";
+import { dateRangeChipLabel } from "../../../../helpers/searchHelper";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 import useNewAwardsOnly from "./useNewAwardsOnly";
 

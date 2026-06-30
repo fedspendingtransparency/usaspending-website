@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 
-import { Close } from 'components/sharedComponents/icons/Icons';
+import { Close } from '../../../components/sharedComponents/icons/Icons';
 import ChildRecipientModalTable from './table/ChildRecipientModalTable';
 
 const propTypes = {

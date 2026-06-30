@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
 import Cookies from 'js-cookie';
 
-import { getObjFromQueryParams } from "helpers/searchHelper";
-import Analytics from 'helpers/analytics/Analytics';
+import { getObjFromQueryParams } from "../../helpers/searchHelper";
+import Analytics from '../../helpers/analytics/Analytics';
 
 const propTypes = {
     stagedFiltersAreEmpty: PropTypes.bool,

@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import { ExclamationCircle, CheckCircle } from 'components/sharedComponents/icons/Icons';
+import { ExclamationCircle, CheckCircle } from '../../../../components/sharedComponents/icons/Icons';
 
 const propTypes = {
     showError: PropTypes.bool,

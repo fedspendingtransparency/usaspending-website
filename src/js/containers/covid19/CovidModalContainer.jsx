@@ -5,9 +5,9 @@ import { useNavigate, Link } from 'react-router';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
-import { applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
-import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import { clearAllFilters } from '../../redux/actions/search/searchFilterActions';
+import { applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion } from '../../redux/actions/search/appliedFilterActions';
+import { initialState as defaultFilters, CheckboxTreeSelections } from '../../redux/reducers/search/searchFiltersReducer';
 
 const CovidModalContainer = ({
     mounted,

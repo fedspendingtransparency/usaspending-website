@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { useLocation } from "react-router";
 import { useQuery } from "@tanstack/react-query";
-import { fetchAllTerms } from "helpers/glossaryHelper";
+import { fetchAllTerms } from "../../../helpers/glossaryHelper";
 import Analytics from '../../../helpers/analytics/Analytics';
 import { LoadingWrapper } from "../../sharedComponents/Loading";
 import ErrorWordOfTheDay from "./ErrorWordOfTheDay";

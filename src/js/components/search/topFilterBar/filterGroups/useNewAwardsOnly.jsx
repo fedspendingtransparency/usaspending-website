@@ -4,7 +4,7 @@
  */
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from 'prop-types';
-import { updateNewAwardsOnlySelected } from "redux/actions/search/searchFilterActions";
+import { updateNewAwardsOnlySelected } from "../../../../redux/actions/search/searchFilterActions";
 
 const propTypes = { name: PropTypes.string };
 

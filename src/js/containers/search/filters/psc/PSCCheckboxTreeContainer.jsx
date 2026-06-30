@@ -11,25 +11,25 @@ import {
     expandPscNodeAndAllDescendantParents,
     getPscNodeFromTree,
     getPscAncestryPathForChecked
-} from 'helpers/pscHelper';
-import { fetchPsc } from 'helpers/searchHelper';
+} from '../../../../helpers/pscHelper';
+import { fetchPsc } from '../../../../helpers/searchHelper';
 import {
     getAllDescendants,
     removePlaceholderString,
     getUniqueAncestorPaths,
     trimCheckedToCommonAncestors,
     stateEqualityCheck
-} from 'helpers/checkboxTreeHelper';
-import { updatePSC } from 'redux/actions/search/searchFilterActions';
-import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree';
-import EntityDropdownAutocomplete from 'components/sharedComponents/EntityDropdownAutocomplete';
+} from '../../../../helpers/checkboxTreeHelper';
+import { updatePSC } from '../../../../redux/actions/search/searchFilterActions';
+import CheckboxTree from '../../../../components/sharedComponents/checkboxTree/CheckboxTree';
+import EntityDropdownAutocomplete from '../../../../components/sharedComponents/EntityDropdownAutocomplete';
 import {
     setCheckedPsc,
     setExpandedPsc,
     setPscCounts,
     setPscNodes,
     setSearchedPsc, setUncheckedPsc, showPscTree
-} from "redux/actions/search/pscActions";
+} from "../../../../redux/actions/search/pscActions";
 
 const PSCCheckboxTreeContainer = () => {
     const nodes = useSelector((state) => state.psc.psc.toJS());

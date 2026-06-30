@@ -1,11 +1,11 @@
 import { Button } from "data-transparency-ui";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import * as fiscalYearHelper from "helpers/fiscalYearHelper";
-import { updateTimePeriod } from "redux/actions/search/searchFilterActions";
+import * as fiscalYearHelper from "../../../helpers/fiscalYearHelper";
+import { updateTimePeriod } from "../../../redux/actions/search/searchFilterActions";
 import {
     applyStagedFilters, setAppliedFilterCompletion
-} from "redux/actions/search/appliedFilterActions";
+} from "../../../redux/actions/search/appliedFilterActions";
 
 const NewSearchScreenButton = () => {
     const dispatch = useDispatch();

@@ -10,9 +10,9 @@ import {
     setCheckedTas,
     setUncheckedTas,
     setExpandedTas
-} from 'redux/actions/search/tasActions';
-import { updateTAS } from "redux/actions/search/searchFilterActions";
-import { handleNewCheckedIds } from 'helpers/checkboxTreeHelper';
+} from '../../../../redux/actions/search/tasActions';
+import { updateTAS } from "../../../../redux/actions/search/searchFilterActions";
+import { handleNewCheckedIds } from '../../../../helpers/checkboxTreeHelper';
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
 
 const propTypes = { name: PropTypes.string, resultsView: PropTypes.bool };

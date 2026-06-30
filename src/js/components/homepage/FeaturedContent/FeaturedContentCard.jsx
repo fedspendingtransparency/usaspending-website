@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { CardBody, CardContainer, CardHero, FlexGridCol } from "data-transparency-ui";
 
-import Analytics from "helpers/analytics/Analytics";
-import ExternalLink from "components/sharedComponents/ExternalLink";
+import Analytics from "../../../helpers/analytics/Analytics";
+import ExternalLink from "../../../components/sharedComponents/ExternalLink";
 
 const trackHomePageLink = (
     title,

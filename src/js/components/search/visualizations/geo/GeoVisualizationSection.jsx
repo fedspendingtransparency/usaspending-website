@@ -7,16 +7,16 @@ import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 
-import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
-import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
-import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
-import Note from 'components/sharedComponents/Note';
-import { noteMessage } from 'dataMapping/search/geoVisualizationSection';
+import ResultsTableErrorMessage from '../../../../components/keyword/table/ResultsTableErrorMessage';
+import LoadingSpinner from '../../../../components/sharedComponents/LoadingSpinner';
+import { ExclamationTriangle } from '../../../../components/sharedComponents/icons/Icons';
+import Note from '../../../../components/sharedComponents/Note';
+import { noteMessage } from '../../../../dataMapping/search/geoVisualizationSection';
 import {
     advancedSearchFilters,
     filtersOnClickHandler
-} from 'dataMapping/covid19/recipient/map/map';
-import { awardTypeTabs } from 'dataMapping/covid19/covid19';
+} from '../../../../dataMapping/covid19/recipient/map/map';
+import { awardTypeTabs } from '../../../../dataMapping/covid19/covid19';
 import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
 import MapMessage from './MapMessage';

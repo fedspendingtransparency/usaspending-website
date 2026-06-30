@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash-es';
 
-import Sorter from 'components/stateLanding/table/StateLandingTableSorter';
+import Sorter from '../../../../components/stateLanding/table/StateLandingTableSorter';
 
 const propTypes = {
     alternateNames: PropTypes.array,

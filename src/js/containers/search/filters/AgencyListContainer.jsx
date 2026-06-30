@@ -9,8 +9,8 @@ import { isCancel } from 'axios';
 import { filter, sortBy, slice, concat } from 'lodash-es';
 import { Search } from 'js-search';
 
-import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
-import { autocompletePlaceholder } from "helpers/search/filterCheckboxHelper";
+import Autocomplete from '../../../components/sharedComponents/autocomplete/Autocomplete';
+import { autocompletePlaceholder } from "../../../helpers/search/filterCheckboxHelper";
 
 const propTypes = {
     toggleAgency: PropTypes.func,

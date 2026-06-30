@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import GlobalConstants from 'GlobalConstants';
+import GlobalConstants from '../../../GlobalConstants';
 
-import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
+import StateLandingTableSorter from '../../../components/stateLanding/table/StateLandingTableSorter';
 import RecipientLinkCell from './RecipientLinkCell';
 
 const propTypes = {

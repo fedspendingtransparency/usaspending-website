@@ -6,12 +6,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
-import AgencyListContainer from "containers/search/filters/AgencyListContainer";
-import { fetchAwardingAgencies, fetchFundingAgencies } from "helpers/searchHelper";
+import AgencyListContainer from "../../../../containers/search/filters/AgencyListContainer";
+import { fetchAwardingAgencies, fetchFundingAgencies } from "../../../../helpers/searchHelper";
 import {
     updateSelectedAwardingAgencies,
     updateSelectedFundingAgencies
-} from "redux/actions/search/searchFilterActions";
+} from "../../../../redux/actions/search/searchFilterActions";
 import SelectedAgencies from "./SelectedAgencies";
 
 
