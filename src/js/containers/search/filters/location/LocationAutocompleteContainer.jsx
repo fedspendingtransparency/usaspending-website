@@ -105,6 +105,7 @@ const LocationAutocompleteContainer = ({
     ]);
 
     const addLocation = () => {
+        console.log(selectedItem);
         getLocationObject(selectedItem, countriesList, createLocationObjectByType);
         clearAutocompleteSuggestions();
     };
