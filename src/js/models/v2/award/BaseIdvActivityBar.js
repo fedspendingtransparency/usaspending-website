@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/13/19
  */
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as MoneyFormatter from '../../../helpers/moneyFormatter';
 import { parseDate, formatDate } from './CorePeriodOfPerformance';
 
 const BaseIdvActivityBar = {

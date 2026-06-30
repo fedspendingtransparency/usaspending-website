@@ -5,10 +5,10 @@
 
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { showModal } from 'redux/actions/modal/modalActions';
+import { showModal } from '../../redux/actions/modal/modalActions';
 import { FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
 import PropTypes from "prop-types";
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '../../helpers/analytics/Analytics';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {

@@ -4,7 +4,7 @@
   **/
 
 import { Set } from 'immutable';
-import { awardTypeNewLinkCodes } from 'dataMapping/search/awardType';
+import { awardTypeNewLinkCodes } from '../../../../dataMapping/search/awardType';
 
 export const handleChangeAwardTypeCodes = (initialSet, value, isRemove = false) => {
     let updatedSet = initialSet;

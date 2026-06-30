@@ -8,10 +8,10 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import AboutTheData from 'components/aboutTheDataSidebar/AboutTheData';
-import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import { getDrilldownEntry } from 'helpers/aboutTheDataSidebarHelper';
-import Analytics from 'helpers/analytics/Analytics';
+import AboutTheData from '../../components/aboutTheDataSidebar/AboutTheData';
+import * as aboutTheDataActions from '../../redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import { getDrilldownEntry } from '../../helpers/aboutTheDataSidebarHelper';
+import Analytics from '../../helpers/analytics/Analytics';
 import schema from '../../../config/aboutTheData/aboutTheDataSchema';
 
 require('../../../_scss/components/aboutTheDataSidebar/aboutTheData.scss');

@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 2/20/19
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney } from '../../../helpers/moneyFormatter';
 import { parseDate } from '../utils';
 
 const BaseReferencedAwardResult = {

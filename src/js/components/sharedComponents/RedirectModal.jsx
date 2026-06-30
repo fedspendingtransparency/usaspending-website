@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { Button } from 'data-transparency-ui';
-import { Close, ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+import { Close, ExclamationTriangle } from '../../components/sharedComponents/icons/Icons';
 
 const propTypes = {
     mounted: PropTypes.bool,

@@ -3,8 +3,8 @@
  * Created by Jonathan Hill 06/11/20
  */
 
-import { apiRequest } from 'helpers/apiRequest';
-import { defCodeQueryString } from 'helpers/disasterHelper';
+import { apiRequest } from '../helpers/apiRequest';
+import { defCodeQueryString } from '../helpers/disasterHelper';
 
 export const fetchDEFCodes = () => apiRequest({
     url: 'v2/references/def_codes/'

@@ -3,7 +3,7 @@
   * Created by Kevin Li
   **/
 
-import * as FilterFields from 'dataMapping/search/filterFields';
+import * as FilterFields from '../../../../dataMapping/search/filterFields';
 
 const buildFYRangeQuery = (fyRange, endpoint) => {
     const fyFilters = [];

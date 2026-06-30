@@ -16,21 +16,21 @@ import { setDataThroughDates,
     setCurrentLevelNameAndId,
     setLevel4ApiResponse,
     setIsSofChartLoaded }
-    from "redux/actions/agency/agencyActions";
+    from "../../../redux/actions/agency/agencyActions";
 import {
     fetchSubcomponentsList,
     fetchFederalAccountsList,
     fetchTasList,
     fetchProgramActivityByTas,
     fetchObjectClassByTas
-} from 'apis/agency';
-import { parseRows, getLevel5Data } from 'helpers/agency/StatusOfFundsVizHelper';
-import { useLatestAccountData } from 'containers/account/WithLatestFy';
-import Note from 'components/sharedComponents/Note';
-import useStateWithPrevious from "hooks/useStateWithPrevious";
-import StatusOfFunds from 'components/agency/statusOfFunds/StatusOfFunds';
-import IntroSection from 'components/agency/statusOfFunds/IntroSection';
-import DrilldownSidebar from 'components/agency/statusOfFunds/DrilldownSidebar';
+} from '../../../apis/agency';
+import { parseRows, getLevel5Data } from '../../../helpers/agency/StatusOfFundsVizHelper';
+import { useLatestAccountData } from '../../../containers/account/WithLatestFy';
+import Note from '../../../components/sharedComponents/Note';
+import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
+import StatusOfFunds from '../../../components/agency/statusOfFunds/StatusOfFunds';
+import IntroSection from '../../../components/agency/statusOfFunds/IntroSection';
+import DrilldownSidebar from '../../../components/agency/statusOfFunds/DrilldownSidebar';
 
 const propTypes = {
     fy: PropTypes.string

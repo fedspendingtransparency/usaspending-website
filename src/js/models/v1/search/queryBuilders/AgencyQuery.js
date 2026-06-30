@@ -3,7 +3,7 @@
 * Created by Emily Gullo
 **/
 
-import * as FilterFields from 'dataMapping/search/filterFields';
+import * as FilterFields from '../../../../dataMapping/search/filterFields';
 
 export const buildAgencyQuery = (funding, awarding, searchContext = 'award') => {
     const toptierFundingSet = [];

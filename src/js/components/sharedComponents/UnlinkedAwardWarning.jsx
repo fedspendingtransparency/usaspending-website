@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
+import { ExclamationTriangle } from '../../components/sharedComponents/icons/Icons';
 import PropTypes from "prop-types";
 
 const propTypes = {

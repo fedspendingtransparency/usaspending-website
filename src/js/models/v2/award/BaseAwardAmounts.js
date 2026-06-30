@@ -3,7 +3,7 @@
  * Created by David Trinh 12/19/18
  */
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as MoneyFormatter from '../../../helpers/moneyFormatter';
 
 const getCovid19Totals = (arr, defCodes = []) => arr.filter((obj) => defCodes.filter((d) => d?.disaster === "covid_19")?.map((defc) => defc.code).includes(obj?.code)).reduce((acc, obj) => acc + obj?.amount || 0, 0);
 const getInfrastructureTotals = (arr, defCodes = []) => arr.filter((obj) => defCodes.filter((d) => d?.disaster === "infrastructure")?.map((defc) => defc.code).includes(obj?.code)).reduce((acc, obj) => acc + obj?.amount || 0, 0);

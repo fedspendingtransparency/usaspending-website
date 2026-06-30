@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation } from 'react-router';
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '../../../helpers/analytics/Analytics';
 import MobileNav from './mobile/MobileNav';
 import MegaMenu from "./MegaMenu";
 

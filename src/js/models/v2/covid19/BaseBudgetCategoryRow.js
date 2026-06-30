@@ -3,7 +3,7 @@
  * Created by James Lee 6/05/20
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney } from '../../../helpers/moneyFormatter';
 import CoreSpendingTableRow from './CoreSpendingTableRow';
 
 const BaseBudgetCategoryRow = Object.create(CoreSpendingTableRow);

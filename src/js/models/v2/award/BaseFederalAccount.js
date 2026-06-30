@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 04/25/19
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney } from '../../../helpers/moneyFormatter';
 
 export default class BaseFederalAccount {
     constructor(data, total) {

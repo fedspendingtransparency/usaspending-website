@@ -5,8 +5,8 @@
 
 import { concat, map } from 'lodash-es';
 
-import * as AwardTypeQuery from 'models/v1/search/queryBuilders/AwardTypeQuery';
-import { convertFYToDateRange } from 'helpers/fiscalYearHelper';
+import * as AwardTypeQuery from '../../../v1/search/queryBuilders/AwardTypeQuery';
+import { convertFYToDateRange } from '../../../../helpers/fiscalYearHelper';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as ObjectClassQuery from './queryBuilders/ObjectClassQuery';
 import * as ProgramActivityQuery from './queryBuilders/ProgramActivityQuery';

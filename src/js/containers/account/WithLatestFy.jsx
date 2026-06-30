@@ -4,9 +4,9 @@ import { isCancel } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { get } from 'lodash-es';
 
-import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
-import { getLatestPeriodAsDayjs, getLatestPeriod } from 'helpers/accountHelper';
-import { fetchAllSubmissionDates } from 'apis/account';
+import { setSubmissionPeriods } from '../../redux/actions/account/accountActions';
+import { getLatestPeriodAsDayjs, getLatestPeriod } from '../../helpers/accountHelper';
+import { fetchAllSubmissionDates } from '../../apis/account';
 import {
     isPeriodVisible,
     isPeriodSelectable,

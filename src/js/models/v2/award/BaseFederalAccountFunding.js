@@ -3,7 +3,7 @@
  * Created by Kwadwo Opoku-Debrah 03/04/19
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney } from '../../../helpers/moneyFormatter';
 import dayjs from "dayjs";
 
 const monthToPeriod = {

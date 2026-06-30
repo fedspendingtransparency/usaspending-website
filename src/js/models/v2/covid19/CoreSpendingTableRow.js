@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 7/8/20
  */
 
-import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
+import { formatMoney, formatNumber } from '../../../helpers/moneyFormatter';
 
 const CoreSpendingTableRow = {
     populateCore(data) {

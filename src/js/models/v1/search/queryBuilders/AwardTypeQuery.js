@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/7/16
   **/
 
-import * as FilterFields from 'dataMapping/search/filterFields';
+import * as FilterFields from '../../../../dataMapping/search/filterFields';
 
 const buildFieldQuery = (field, values) => ({
     field,

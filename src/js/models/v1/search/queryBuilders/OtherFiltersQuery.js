@@ -2,7 +2,7 @@
  * Created by Emily Gullo 07/12/2017
  */
 
-import * as FilterFields from 'dataMapping/search/filterFields';
+import * as FilterFields from '../../../../dataMapping/search/filterFields';
 
 export const buildCFDAQuery = (cfdaGroup, searchContext = 'award') => {
     const field = FilterFields[`${searchContext}Fields`].cfdaNumber;

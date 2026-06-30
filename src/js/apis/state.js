@@ -1,4 +1,4 @@
-import { apiRequest } from 'helpers/apiRequest';
+import { apiRequest } from '../helpers/apiRequest';
 
 export const fetchStateOverview = (id, year) => apiRequest({
     url: `v2/recipient/state/${id}/`,

@@ -4,7 +4,7 @@
 
 import { concat } from 'lodash-es';
 
-import * as FilterFields from 'dataMapping/search/filterFields';
+import * as FilterFields from '../../../../dataMapping/search/filterFields';
 
 export const buildRecipientQuery = (recipients, searchContext = 'award') => {
     const recipientSet = [];

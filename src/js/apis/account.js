@@ -1,4 +1,4 @@
-import { apiRequest } from 'helpers/apiRequest';
+import { apiRequest } from '../helpers/apiRequest';
 
 export const fetchFederalAccount = (accountNumber) => apiRequest({
     url: `v2/federal_accounts/${accountNumber}/`

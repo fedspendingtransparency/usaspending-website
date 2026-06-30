@@ -2,7 +2,7 @@
  * Created by michaelbray on 3/8/17.
  */
 
-import * as FilterFields from 'dataMapping/search/filterFields';
+import * as FilterFields from '../../../../dataMapping/search/filterFields';
 
 const parseAwardAmount = (amount, searchContext = 'award') => {
     const field = FilterFields[`${searchContext}Fields`].awardAmount;

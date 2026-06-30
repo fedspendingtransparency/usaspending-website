@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/18/20
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney } from '../../../helpers/moneyFormatter';
 
 const BaseOverview = {
     populate(data) {

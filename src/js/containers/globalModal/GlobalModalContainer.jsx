@@ -7,11 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { hideModal } from 'redux/actions/modal/modalActions';
-import FilterModal from "components/sharedComponents/FilterModal";
-import RedirectModal from 'components/sharedComponents/RedirectModal';
-import InterimDataDisclaimerModal from 'components/covid19/InterimDataDisclaimerModal';
-import CovidModalContainer from 'containers/covid19/CovidModalContainer';
+import { hideModal } from '../../redux/actions/modal/modalActions';
+import FilterModal from "../../components/sharedComponents/FilterModal";
+import RedirectModal from '../../components/sharedComponents/RedirectModal';
+import InterimDataDisclaimerModal from '../../components/covid19/InterimDataDisclaimerModal';
+import CovidModalContainer from '../../containers/covid19/CovidModalContainer';
 import TrainingVideoModal from "../../components/sharedComponents/TrainingVideoModal";
 import { globalModalProps } from '../../propTypes';
 import UEIModalContainer from "../shared/UEIModalContainer";

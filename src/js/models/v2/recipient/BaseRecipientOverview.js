@@ -3,9 +3,9 @@
  * Created by Lizzie Salita 6/14/18
  */
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-import CoreLocation from 'models/v2/CoreLocation';
-import { recipientTypes } from 'dataMapping/search/recipientType';
+import * as MoneyFormatter from '../../../helpers/moneyFormatter';
+import CoreLocation from '../../../models/v2/CoreLocation';
+import { recipientTypes } from '../../../dataMapping/search/recipientType';
 
 const convertRecipientType = (type) => recipientTypes[type] || null;
 

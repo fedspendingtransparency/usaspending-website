@@ -3,8 +3,8 @@
  * Created by Lizzie Salita 12/3/18
  */
 
-import * as pscHelper from 'helpers/pscHelper';
-import CoreLocation from 'models/v2/CoreLocation';
+import * as pscHelper from '../../../helpers/pscHelper';
+import CoreLocation from '../../../models/v2/CoreLocation';
 import CoreAward from './CoreAward';
 import CoreAwardAgency from './CoreAwardAgency';
 import CorePeriodOfPerformance from "./CorePeriodOfPerformance";

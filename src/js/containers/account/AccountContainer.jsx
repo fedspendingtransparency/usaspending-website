@@ -12,7 +12,7 @@ import { flowRight } from 'lodash-es';
 import { useMatch } from 'react-router';
 
 
-import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';
+import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from '../../propTypes/index';
 
 import * as AccountHelper from '../../apis/account';
 import * as accountActions from '../../redux/actions/account/accountActions';

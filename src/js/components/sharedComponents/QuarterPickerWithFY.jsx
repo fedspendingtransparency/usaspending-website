@@ -6,17 +6,17 @@
 import React, { useEffect, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { allFiscalYears, currentFiscalYear, earliestExplorerYear } from 'helpers/fiscalYearHelper';
-import { getLatestSubmissionPeriodInFy } from 'helpers/downloadHelper';
-import { useLatestAccountData } from 'containers/account/WithLatestFy';
+import { allFiscalYears, currentFiscalYear, earliestExplorerYear } from '../../helpers/fiscalYearHelper';
+import { getLatestSubmissionPeriodInFy } from '../../helpers/downloadHelper';
+import { useLatestAccountData } from '../../containers/account/WithLatestFy';
 import {
     periods,
     getPeriodsPerQuarterByFy
-} from 'containers/explorer/detail/helpers/explorerQuarters';
+} from '../../containers/explorer/detail/helpers/explorerQuarters';
 import NewQuarterPicker from "./pickers/NewQuarterPicker";
 import ComboBox from "./ComboBox";
 import { QuarterPicker } from "data-transparency-ui";
-import FYPicker from 'components/sharedComponents/pickers/FYPicker';
+import FYPicker from '../../components/sharedComponents/pickers/FYPicker';
 
 const propTypes = {
     handlePickedYear: PropTypes.func,

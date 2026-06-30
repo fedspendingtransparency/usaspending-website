@@ -9,7 +9,7 @@ import {
     formatMoney,
     calculateUnitForSingleValue,
     formatMoneyWithPrecision
-} from 'helpers/moneyFormatter';
+} from '../../../helpers/moneyFormatter';
 
 // export default BaseCFDA;
 export default class BaseCFDA {

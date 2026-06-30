@@ -9,9 +9,9 @@ import {
     agencyKeys,
     awardAmountKeys,
     checkboxTreeKeys
-} from 'dataMapping/search/awardsOperationKeys';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-import { trimCheckedToCommonAncestors } from 'helpers/checkboxTreeHelper';
+} from '../../../dataMapping/search/awardsOperationKeys';
+import * as FiscalYearHelper from '../../../helpers/fiscalYearHelper';
+import { trimCheckedToCommonAncestors } from '../../../helpers/checkboxTreeHelper';
 
 class SearchAwardsOperation {
     constructor() {

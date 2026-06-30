@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import { Table, TooltipWrapper } from 'data-transparency-ui';
 import { isCancel } from "axios";
 
-import { categoryTitles } from 'dataMapping/topCategories';
-import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
+import { categoryTitles } from '../../dataMapping/topCategories';
+import { initialState as defaultFilters } from '../../redux/reducers/search/searchFiltersReducer';
 import { CondensedCDTooltip } from '../award/shared/InfoTooltipContent';
 import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../dataMapping/state/stateNames";
 import globalConstants from "../../GlobalConstants";

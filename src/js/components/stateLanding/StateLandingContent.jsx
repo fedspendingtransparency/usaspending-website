@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import LandingSearchBar from 'components/sharedComponents/LandingSearchBar';
+import LandingSearchBar from '../../components/sharedComponents/LandingSearchBar';
 import StateLandingTable from './table/StateLandingTable';
 
 const propTypes = {

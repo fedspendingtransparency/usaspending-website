@@ -3,7 +3,7 @@
   * Created by Kevin Li 1/26/17
   **/
 
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import * as FiscalYearHelper from '../../../../helpers/fiscalYearHelper';
 
 const txnDateField = 'action_date';
 

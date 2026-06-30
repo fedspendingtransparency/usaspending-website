@@ -4,7 +4,7 @@
  */
 
 import React, { useCallback, useState } from 'react';
-import DetailContentContainer from 'containers/explorer/detail/DetailContentContainer';
+import DetailContentContainer from '../../../containers/explorer/detail/DetailContentContainer';
 import ExplorerWrapperPage from '../ExplorerWrapperPage';
 import ExplorerTooltip from './visualization/ExplorerTooltip';
 import ExplorerAwardTooltip from './visualization/ExplorerAwardTooltip';

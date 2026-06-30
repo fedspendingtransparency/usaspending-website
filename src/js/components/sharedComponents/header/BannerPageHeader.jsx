@@ -2,7 +2,7 @@ import React, { memo, useContext } from "react";
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import IsMobileContext from "context/IsMobileContext";
+import IsMobileContext from "../../../context/IsMobileContext";
 
 const propTypes = {
     kicker: PropTypes.string,

@@ -8,11 +8,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { PageHeader } from 'data-transparency-ui';
 
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import Header from 'containers/shared/HeaderContainer';
-import Footer from 'containers/Footer';
-import InPageNav from 'components/sharedComponents/InPageNav';
+import { getStickyBreakPointForSidebar } from '../../helpers/stickyHeaderHelper';
+import MetaTags from '../../components/sharedComponents/metaTags/MetaTags';
+import Header from '../../containers/shared/HeaderContainer';
+import Footer from '../../containers/Footer';
+import InPageNav from '../../components/sharedComponents/InPageNav';
 
 
 const PageWrapper = ({

@@ -3,7 +3,7 @@
  * Created by Lizzie Salita on 2/8/18
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney } from '../../../helpers/moneyFormatter';
 
 /* eslint-disable object-shorthand */
 const BaseFederalAccountLandingRow = {

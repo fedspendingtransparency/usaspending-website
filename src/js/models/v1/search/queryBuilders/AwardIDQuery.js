@@ -2,7 +2,7 @@
  * Created by michaelbray on 3/2/17.
  */
 
-import * as FilterFields from 'dataMapping/search/filterFields';
+import * as FilterFields from '../../../../dataMapping/search/filterFields';
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other queries
 export const buildAwardIDQuery = (awardIDs, searchContext = 'award') => {
