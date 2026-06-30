@@ -10,8 +10,8 @@ import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptio
 import {
     bulkAwardTypeChange, toggleAwardTypeChange
 } from "redux/actions/bulkDownload/bulkDownloadActions";
-import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 
 const awardTypeLabels = Object.assign(
     {},
@@ -26,25 +26,6 @@ const AwardLevelAndTypeFilter = memo(function AwardLevelAndTypeFilter() {
 
     const bulkTypeChange = (selection) => dispatch(bulkAwardTypeChange(selection));
     const toggleCheckboxType = (selection) => dispatch(toggleAwardTypeChange(selection));
-
-    const isValid = (
-        currentAwardTypes.primeAwards.size > 0 ||
-        currentAwardTypes.subAwards.size > 0
-    );
-
-    let icon = (
-        <div className="icon valid">
-            <CheckCircle />
-        </div>
-    );
-
-    if (!isValid) {
-        icon = (
-            <div className="icon invalid">
-                <ExclamationCircle />
-            </div>
-        );
-    }
 
     const awardLevelCheckboxes = awardDownloadOptions.awardLevels
         .map(({
@@ -70,11 +51,7 @@ const AwardLevelAndTypeFilter = memo(function AwardLevelAndTypeFilter() {
         });
     return (
         <div className="download-filter">
-            <h3 className="download-filter__title">
-                {icon} Select the
-                <span className="download-filter__title_em"> award types </span>
-                to include.
-            </h3>
+            <FilterSectionTitle type="awardType" />
             <div className="checkbox-type-filter">
                 <div className="filter-item-wrap">
                     <ul className="download-filter__unordered-list">

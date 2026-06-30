@@ -7,9 +7,8 @@ import React, { memo, useMemo, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
-import { CheckCircle } from 'components/sharedComponents/icons/Icons';
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 import ComboBox from "components/sharedComponents/ComboBox";
-
 const countryOptions = [
     {
         value: 'all',
@@ -112,12 +111,7 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
 
     return (
         <div className="download-filter">
-            <h3 className="download-filter__title">
-                <div className="icon valid">
-                    <CheckCircle />
-                </div>
-                {' '}Select a <span className="download-filter__title_em">location</span>.
-            </h3>
+            <FilterSectionTitle type="location" />
             <div className="download-filter__content location">
                 <div className="input-container">
                     {locationTypesArray}
