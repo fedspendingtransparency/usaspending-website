@@ -62,7 +62,7 @@ const AccountUserSelections = () => {
                 value: accounts.budgetSubfunction.title
             })
         }
-        
+
         if (accounts.agency.name !== 'Select an Agency') {
             selectedFilterValues.push({
                 title: "Agency",
@@ -87,7 +87,7 @@ const AccountUserSelections = () => {
                 </>
             );
         }
-            
+
         return (
             <div className="selection__content selection__content-required">
                 Required
@@ -123,7 +123,9 @@ const AccountUserSelections = () => {
         const timePeriodSelection = quarter ? `(Q${quarter})` : `(P${period})`;
         if (fy) {
             return (
-                <div className="selection__content">FY {fy} - {getPeriodTitle(period.toString())} {timePeriodSelection}</div>
+                <div className="selection__content">
+                    FY {fy} - {getPeriodTitle(period.toString())} {timePeriodSelection}
+                </div>
             );
         }
 

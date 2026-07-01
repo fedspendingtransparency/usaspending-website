@@ -72,9 +72,19 @@
     }
     .selection__content {
       font-weight: $font-normal;
+      width: 100%;
 
       &.selection__content-required {
         color: $color-secondary;
+      }
+
+      ul {
+        @include unstyled-list;
+
+        li {
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
       }
     }
   }
