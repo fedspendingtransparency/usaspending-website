@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/2/16
   **/
 
-import { is } from 'immutable';
+import { is as immutableIs, Iterable } from 'immutable';
 import { isEqual, sortBy } from 'lodash-es';
 import dayjs from "dayjs";
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
@@ -182,12 +182,20 @@ export const fetchLastUpdate = () => apiRequest({
     url: 'v2/awards/last_updated/'
 });
 
+// eslint-disable-next-line max-len
 const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { exclude: exclude2, require: require2 }) => {
     if (!isEqual(sortBy(require1), sortBy(require2))) return false;
     if (!isEqual(sortBy(exclude1), sortBy(exclude2))) return false;
     return true;
 };
 
+const valuesAreEqual = (a, b) => {
+    if(Iterable.isIterable(a) || Iterable.isIterable(b)) {
+        return immutableIs(a, b);
+    }
+
+    return isEqual(a, b);
+}
 /**
  * Equality Comparison of two objects:
  * @param {Object} filters object to be measured for equality
@@ -228,7 +236,7 @@ export const areFiltersEqual = (filters = initialState, filterReference = initia
         const key = value;
         const unfilteredValue = comparisonObject[key];
         const currentValue = referenceObject[key];
-        if (!is(unfilteredValue, currentValue)) {
+        if (!valuesAreEqual(unfilteredValue, currentValue)) {
             return false;
         }
     }
