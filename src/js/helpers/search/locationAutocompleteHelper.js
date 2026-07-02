@@ -91,16 +91,17 @@ export const addCountry = (country, countryAbbreviation) => ({
     }
 });
 
-export const addDistrict = (district, type) => {
+export const addDistrict = (district, category, type) => {
     const districtArray = district.split('-');
     const stateAbbreviation = districtArray[0];
     const districtNumber = districtArray[1];
+    const districtType = category || "district_current";
     return {
         identifier: `USA_${stateAbbreviation}_${districtNumber}`,
         filter: {
             country: "USA",
             state: stateAbbreviation,
-            district_current: districtNumber
+            [districtType]: districtNumber
         },
         display: {
             entity: type,
@@ -261,10 +262,10 @@ export const getLocationObject = (selectedItem, countriesList, createLocationObj
         location = addCountry(item.data.country_name, countryAbbreviation);
     }
     else if (item.category === "current_cd") {
-        location = addDistrict(item.data.current_cd, "Current congressional district");
+        location = addDistrict(item.data.current_cd, "district_current", "Current congressional district");
     }
     else if (item.category === "original_cd") {
-        location = addDistrict(item.data.original_cd, "Original congressional district");
+        location = addDistrict(item.data.original_cd, "district_original", "Original congressional district");
     }
 
     if (item.category !== "county") {
