@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { areFiltersEqual } from 'helpers/searchHelper';
 import SearchSidebarSubmit from 'components/search/SearchSidebarSubmit';
-import { initialState, initialStateFY } from 'redux/reducers/search/searchFiltersReducer';
+import { initialState, initialStateDR } from 'redux/reducers/search/searchFiltersReducer';
 import { clearAllFilters as clearStagedFilters } from 'redux/actions/search/searchFilterActions';
 import { resetMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 import {
@@ -34,7 +34,7 @@ const SearchSidebarSubmitContainer = ({ setShowMobileFilters }) => {
 
     const filtersChanged = !areFiltersEqual(stagedFilters, appliedFilters);
     const areStagedFiltersEmpty = areFiltersEqual(stagedFilters, initialState) ||
-            areFiltersEqual(stagedFilters, initialStateFY);
+            areFiltersEqual(stagedFilters, initialStateDR);
 
     const resetFilters = useCallback(() => {
         dispatch(clearStagedFilters());
