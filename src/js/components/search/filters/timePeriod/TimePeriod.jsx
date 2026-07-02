@@ -162,22 +162,16 @@ const TimePeriod = ({
         setStartDateDropdown(null);
         setEndDateDropdown(null);
 
-        if (newValue?.size >= 1) {
-            updateGenericFilter({
-                type: 'time_period',
-                value: newValue
-            });
-        }
-        else {
-            updateGenericFilter({
-                type: 'time_period',
-                value: new Set()
-            });
-            updateGenericFilter({
-                type: 'timePeriodType',
-                value: activeTab
-            });
-        }
+        const newDRValue = newValue?.size ? newValue : new Set();
+
+        updateGenericFilter({
+            type: 'time_period',
+            value: newDRValue
+        });
+        updateGenericFilter({
+            type: 'timePeriodType',
+            value: activeTab
+        });
     }, [activeTab, updateGenericFilter]);
 
     const showErrorFunc = useCallback((error, message) => {

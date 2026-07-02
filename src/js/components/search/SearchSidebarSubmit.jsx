@@ -34,11 +34,11 @@ const SearchSidebarSubmit = ({
     let title = 'Click to submit your search.';
     const { hash: urlHash } = getObjFromQueryParams(useLocation().search);
 
-    if (stagedFiltersAreEmpty) {
+    if (stagedFiltersAreEmpty || !filtersChanged) {
         title = 'Add or update a filter to submit.';
         disabled = true;
     }
-    else if (!requestsComplete || !filtersChanged) {
+    else if (!requestsComplete ) {
         title = 'Add or update a filter to submit.';
         disabled = true;
     }
