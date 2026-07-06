@@ -33,10 +33,10 @@ const AwardDataArchiveContent = ({
 
     return (
         <div className="award-data-archive-content">
-            <h2>Award Data Archive</h2>
+            <h2>Download major agencies’ award transaction data for full fiscal years.</h2>
             <p>
                 A great way to get a view into broad spending trends and, best of all,
-                the files are already prepaid — you can access them instantaneously.
+                the files are already prepared — you can access them instantaneously.
             </p>
             <p>
                 New files are uploaded by the 15th of each month.
