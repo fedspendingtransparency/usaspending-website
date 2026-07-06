@@ -6,11 +6,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-import ArchiveAgencyFilter from './filters/AgencyFilter';
+import { currentFiscalYear, earliestFiscalYear } from "helpers/fiscalYearHelper";
+import ComboBox from "components/sharedComponents/ComboBox";
 import ArchiveTypeFilter from './filters/TypeFilter';
-import ArchiveFiscalYearFilter from './filters/FiscalYearFilter';
 import FilterSelectionTitle from "../FilterSelectionTitle";
-import ComboBox from "../../sharedComponents/ComboBox";
+
+const currentFY = currentFiscalYear();
+const fyOptions = [];
+
+for (let year = currentFY; year >= earliestFiscalYear; year--) {
+    fyOptions.push({ value: `FY ${year}`, text: `FY ${year}` });
+}
 
 const propTypes = {
     filters: PropTypes.object,
@@ -51,8 +57,6 @@ const AwardDataArchiveForm = ({
         return () => window.removeEventListener('resize', setWidth);
     }, []);
 
-    console.log({ agencies });
-
     // Agency Options
     let agenciesArray = [{ name: 'All', toptier_agency_id: 'all', toptier_code: 'all' }];
 
@@ -80,7 +84,13 @@ const AwardDataArchiveForm = ({
             id: target.value,
             name: target.name
         });
-    }
+    };
+
+    const onFYSelect = (e) => {
+        e.preventDefault();
+        const target = e.target;
+        updateFilter('fy', target.value);
+    };
 
     return (
         <>
@@ -94,15 +104,16 @@ const AwardDataArchiveForm = ({
                         label={"Agency"}
                         placeholder={"Select an Agency"}
                         defaultValue={"All"} />
+                    <ComboBox
+                        optionsArray={fyOptions}
+                        onSelect={onFYSelect}
+                        label={"Fiscal Year (FY)"}
+                        placeholder={"Select a Fiscal Year"}
+                        defaultValue={`FY ${currentFY}`} />
                     <ArchiveTypeFilter
                         formWidth={formWidth}
                         windowWidth={windowWidth}
                         currentType={filters.type.display}
-                        updateFilter={updateFilter} />
-                    <ArchiveFiscalYearFilter
-                        formWidth={formWidth}
-                        windowWidth={windowWidth}
-                        currentFY={filters.fy}
                         updateFilter={updateFilter} />
                     <div className="form__button" />
                 </form>
