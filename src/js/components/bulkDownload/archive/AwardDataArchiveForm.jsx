@@ -9,6 +9,7 @@ import PropTypes from 'prop-types';
 import ArchiveAgencyFilter from './filters/AgencyFilter';
 import ArchiveTypeFilter from './filters/TypeFilter';
 import ArchiveFiscalYearFilter from './filters/FiscalYearFilter';
+import FilterSelectionTitle from "../FilterSelectionTitle";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -50,37 +51,40 @@ const AwardDataArchiveForm = ({
     }, []);
 
     return (
-        <div className="award-data-archive-form">
-            <div className="form-title__wrapper">
-                <div className="form-title">
-                    Filter by
+        <>
+            <FilterSelectionTitle type="agencyFy" />
+            <div className="award-data-archive-form">
+                <div className="form-title__wrapper">
+                    <div className="form-title">
+                        Filter by
+                    </div>
                 </div>
+                <div
+                    className="form-width-master"
+                    ref={divRef} />
+                <form
+                    className="archive-form"
+                    onSubmit={handleSubmit}>
+                    <ArchiveAgencyFilter
+                        formWidth={formWidth}
+                        windowWidth={windowWidth}
+                        agency={filters.agency}
+                        updateFilter={updateFilter}
+                        agencies={agencies} />
+                    <ArchiveTypeFilter
+                        formWidth={formWidth}
+                        windowWidth={windowWidth}
+                        currentType={filters.type.display}
+                        updateFilter={updateFilter} />
+                    <ArchiveFiscalYearFilter
+                        formWidth={formWidth}
+                        windowWidth={windowWidth}
+                        currentFY={filters.fy}
+                        updateFilter={updateFilter} />
+                    <div className="form__button" />
+                </form>
             </div>
-            <div
-                className="form-width-master"
-                ref={divRef} />
-            <form
-                className="archive-form"
-                onSubmit={handleSubmit}>
-                <ArchiveAgencyFilter
-                    formWidth={formWidth}
-                    windowWidth={windowWidth}
-                    agency={filters.agency}
-                    updateFilter={updateFilter}
-                    agencies={agencies} />
-                <ArchiveTypeFilter
-                    formWidth={formWidth}
-                    windowWidth={windowWidth}
-                    currentType={filters.type.display}
-                    updateFilter={updateFilter} />
-                <ArchiveFiscalYearFilter
-                    formWidth={formWidth}
-                    windowWidth={windowWidth}
-                    currentFY={filters.fy}
-                    updateFilter={updateFilter} />
-                <div className="form__button" />
-            </form>
-        </div>
+        </>
     );
 }
 
