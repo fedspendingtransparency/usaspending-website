@@ -3,14 +3,13 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { find, throttle } from 'lodash-es';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
-import IsMobileContext from "context/IsMobileContext";
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Covid19Section from 'components/covid19/Covid19Section';
@@ -69,7 +68,6 @@ const Covid19Page = ({ loading }) => {
     const query = useQueryParams();
     const history = useNavigate();
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
-    const { isTablet } = useContext(IsMobileContext);
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
 
@@ -93,15 +91,11 @@ const Covid19Page = ({ loading }) => {
 
         // add offsets
         const sectionTop = sectionDom.offsetTop;
-        let top = sectionTop + 120;
+        let top = sectionTop + 380;
 
         // required to adjust offset for sections outside top Covid Sections FlexRow
-        if (section === "data_sources_and_methodology") {
-            top -= 400;
-        }
-
-        if (section === "other_resources") {
-            top -= 500;
+        if (section === "data_sources_and_methodology" || section === "other_resources") {
+            top = sectionTop - 75;
         }
 
         window.scrollTo({
@@ -168,7 +162,8 @@ const Covid19Page = ({ loading }) => {
                         activeSection={activeSection}
                         pageName="covid19"
                         detectActiveSection
-                        jumpToSection={jumpToSection} />
+                        jumpToSection={jumpToSection}
+                        rootMargin={`-80px 0px 0px 0px`} />
                     <FlexGridRow className="body covid-content__row">
                         <FlexGridCol className="covid-content__col" width="fill">
                             <Heading publicLaw={query.publicLaw} url={getBaseUrl(slug)} onShareOptionClick={handleShare} />

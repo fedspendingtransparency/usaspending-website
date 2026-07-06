@@ -17,7 +17,10 @@ const propTypes = {
     activeSection: PropTypes.string,
     jumpToSection: PropTypes.func,
     detectActiveSection: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-    pageName: PropTypes.string
+    pageName: PropTypes.string,
+    rootMargin: PropTypes.string,
+    threshold: PropTypes.array,
+    loading: PropTypes.bool
 };
 
 const InPageNav = (props) => {
@@ -209,7 +212,7 @@ const InPageNav = (props) => {
                     return null;
                 }
 
-                const verticalSectionOffset = document.querySelector('.usda-page-header')?.offsetHeight || 60;
+                const verticalSectionOffset = document.querySelector('.usda-page-header')?.offsetHeight || 0;
                 // Subtracting summed height of elements w/ fixed positioning
                 const topPos = domElement.offsetTop - verticalSectionOffset;
                 const bottomPos = (domElement.offsetHeight + topPos) - verticalSectionOffset;
