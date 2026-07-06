@@ -4,7 +4,10 @@
   }
   h2 {
     margin-top: 0;
-    font-weight: 400;
+    font-size: $lead-font-size;
+    color: $gray-90;
+    line-height: 1.5;
+    font-weight: $font-semibold;
   }
   @import "archiveForm";
   @import "archiveTable";
