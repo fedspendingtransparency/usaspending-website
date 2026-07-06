@@ -10,6 +10,7 @@ import { currentFiscalYear, earliestFiscalYear } from "helpers/fiscalYearHelper"
 import ComboBox from "components/sharedComponents/ComboBox";
 import ArchiveTypeFilter from './filters/TypeFilter';
 import FilterSelectionTitle from "../FilterSelectionTitle";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const currentFY = currentFiscalYear();
 const fyOptions = [];
@@ -71,6 +72,15 @@ const AwardDataArchiveForm = ({
         updateFilter('fy', target.value);
     };
 
+    const onAwardTypeSelect = (e) => {
+        e.preventDefault();
+        const target = e.target;
+        updateFilter('type', {
+            name: target.value,
+            display: target.name
+        });
+    }
+
     return (
         <>
             <FilterSelectionTitle type="agencyFy" />
@@ -89,11 +99,33 @@ const AwardDataArchiveForm = ({
                         placeholder={"Select a Fiscal Year"}
                         defaultValue={`FY ${currentFY}`} />
                 </div>
-                <ArchiveTypeFilter
-                    formWidth={100}
-                    windowWidth={100}
-                    currentType={filters.type.display}
-                    updateFilter={updateFilter} />
+                <div className="award-type__container">
+                    View Award Type:
+                    <div className="award-type__buttons">
+                        <button
+                            className={`view-button${
+                                filters.type.name === "contracts" ? " active" : ""
+                            }`}
+                            value={"contracts"}
+                            title={"Contracts"}
+                            aria-label={"Contracts"}
+                            name={"Contracts"}
+                            onClick={onAwardTypeSelect}>
+                            Contracts
+                        </button>
+                        <button
+                            className={`view-button${
+                                filters.type.name === "assistance" ? " active" : ""
+                            }`}
+                            value={"assistance"}
+                            title={"Financial Assistance"}
+                            aria-label={"Financial Assistance"}
+                            name={"Financial Assistance"}
+                            onClick={onAwardTypeSelect}>
+                            Financial Assistance
+                        </button>
+                    </div>
+                </div>
             </form>
         </>
     );
