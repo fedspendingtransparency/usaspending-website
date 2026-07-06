@@ -15,7 +15,7 @@ const currentFY = currentFiscalYear();
 const fyOptions = [];
 
 for (let year = currentFY; year >= earliestFiscalYear; year--) {
-    fyOptions.push({ value: `FY ${year}`, text: `FY ${year}` });
+    fyOptions.push({ value: year, text: `FY ${year}` });
 }
 
 const propTypes = {
@@ -31,31 +31,10 @@ const AwardDataArchiveForm = ({
     agencies,
     requestResults
 }) => {
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [formWidth, setFormWidth] = useState(0);
-
-    const divRef = useRef(null);
-
     const handleSubmit = (e) => {
         e.preventDefault();
         requestResults();
     };
-
-    useEffect(() => {
-        const setWidth = () => {
-            const windowW = window.innerWidth;
-            const formW = divRef.current.clientWidth - 1;
-
-            setWindowWidth(windowW)
-            setFormWidth(formW)
-        };
-
-        setWidth();
-
-        window.addEventListener('resize', setWidth);
-
-        return () => window.removeEventListener('resize', setWidth);
-    }, []);
 
     // Agency Options
     let agenciesArray = [{ name: 'All', toptier_agency_id: 'all', toptier_code: 'all' }];
@@ -95,9 +74,8 @@ const AwardDataArchiveForm = ({
     return (
         <>
             <FilterSelectionTitle type="agencyFy" />
-            <div className="award-data-archive-form">
-                <div className="form-width-master" ref={divRef} />
-                <form className="archive-form" onSubmit={handleSubmit}>
+            <form className="archive-form" onSubmit={handleSubmit}>
+                <div className="award-data-archive-form">
                     <ComboBox
                         optionsArray={agenciesOptions}
                         onSelect={onAgencySelect}
@@ -110,14 +88,13 @@ const AwardDataArchiveForm = ({
                         label={"Fiscal Year (FY)"}
                         placeholder={"Select a Fiscal Year"}
                         defaultValue={`FY ${currentFY}`} />
-                    <ArchiveTypeFilter
-                        formWidth={formWidth}
-                        windowWidth={windowWidth}
-                        currentType={filters.type.display}
-                        updateFilter={updateFilter} />
-                    <div className="form__button" />
-                </form>
-            </div>
+                </div>
+                <ArchiveTypeFilter
+                    formWidth={100}
+                    windowWidth={100}
+                    currentType={filters.type.display}
+                    updateFilter={updateFilter} />
+            </form>
         </>
     );
 }
