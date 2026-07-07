@@ -19,7 +19,7 @@ export const getEmailSocialShareData = {
 export const dataDisclaimerHeight = 75;
 export const globalBannerHeight = 90;
 // result of document.querySelector('.site-header').clientHeight + sticky header height when not sticky
-export const siteHeaderHeight = 97 + stickyHeaderHeight;
+export const siteHeaderHeight = 89;
 
 export const allDefCAwardTypeCodes = ['02', '03', '04', '05', '06', '07', '08', '09', '10', '11'];
 
