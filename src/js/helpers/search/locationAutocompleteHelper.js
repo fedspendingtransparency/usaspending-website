@@ -63,7 +63,8 @@ export const addCity = (city, state, countryAbbreviation) => {
 };
 
 export const addState = (state, countryAbbreviation) => {
-    const fipsCode = fipsIdByStateName[state?.toLowerCase()];
+    const cleanState = state.replace(/[^\w\s]|_/g, "");
+    const fipsCode = fipsIdByStateName[cleanState?.toLowerCase()];
     const stateAbbreviation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
     return {
         identifier: `${countryAbbreviation}_${stateAbbreviation}`,
