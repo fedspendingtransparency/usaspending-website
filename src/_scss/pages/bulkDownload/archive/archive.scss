@@ -12,8 +12,12 @@
     font-weight: $font-semibold;
   }
 
-  p:first-of-type {
-    margin: 0 0 rem(24) 0;
+  p {
+    margin: 0;
+
+    &:first-of-type {
+      margin: 0 0 rem(24) 0;
+    }
   }
 
   ul {
@@ -26,6 +30,7 @@
 
   .download-filter__title-wrapper {
     margin-top: rem(40);
+
     .download-filter__title {
       font-size: $base-font-size;
     }
