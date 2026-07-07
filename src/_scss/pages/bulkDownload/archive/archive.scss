@@ -17,11 +17,15 @@
   }
 
   ul {
-    margin: 0 0 rem(40) 0;
+    margin: 0;
 
     li {
       margin: 0;
     }
+  }
+
+  .download-filter__title-wrapper {
+    margin-top: rem(40);
   }
 
   @import "archiveForm";
