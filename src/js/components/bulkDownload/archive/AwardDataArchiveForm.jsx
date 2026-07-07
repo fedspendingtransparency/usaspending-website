@@ -10,6 +10,7 @@ import { currentFiscalYear, earliestFiscalYear } from "helpers/fiscalYearHelper"
 import ComboBox from "components/sharedComponents/ComboBox";
 import FilterSelectionTitle from "../FilterSelectionTitle";
 import AwardTypeToggle from "./filters/AwardTypeToggle";
+import AgencyComboBox from "./filters/AgencyComboBox";
 
 const currentFY = currentFiscalYear();
 const fyOptions = [];
@@ -36,35 +37,6 @@ const AwardDataArchiveForm = ({
         requestResults();
     };
 
-    // Agency Options
-    let agenciesArray = [{ name: 'All', toptier_agency_id: 'all', toptier_code: 'all' }];
-
-    Object.entries(agencies).forEach(([key, value]) => {
-        const title = {
-            name: key === "cfoAgencies" ? "CFO AGENCIES" : "OTHER AGENCIES",
-            toptier_agency_id: key,
-            toptier_code: null
-        };
-        agenciesArray = [...agenciesArray, title, ...value];
-    });
-
-    const agenciesOptions = agenciesArray.map(({
-        name,
-        toptier_agency_id: id,
-        toptier_code: code
-    }) => (
-        { text: name, value: code ? id.toString() : `${id}-disabled`, fedCode: code }
-    ));
-
-    const onAgencySelect = (e) => {
-        e.preventDefault();
-        const target = e.target;
-        updateFilter('agency', {
-            id: target.value,
-            name: target.name
-        });
-    };
-
     const onFYSelect = (e) => {
         e.preventDefault();
         const target = e.target;
@@ -76,12 +48,7 @@ const AwardDataArchiveForm = ({
             <FilterSelectionTitle type="agencyFy" />
             <form className="archive-form" onSubmit={handleSubmit}>
                 <div className="award-data-archive-form">
-                    <ComboBox
-                        optionsArray={agenciesOptions}
-                        onSelect={onAgencySelect}
-                        label={"Agency"}
-                        placeholder={"Select an Agency"}
-                        defaultValue={"All"} />
+                    <AgencyComboBox agencies={agencies} updateFilter={updateFilter} />
                     <ComboBox
                         optionsArray={fyOptions}
                         onSelect={onFYSelect}

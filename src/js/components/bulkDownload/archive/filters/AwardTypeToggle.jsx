@@ -7,7 +7,7 @@ const propTypes = {
 };
 
 const AwardTypeToggle = ({ updateFilter, filters }) => {
-    const onAwardTypeSelect = (e) => {
+    const onClick = (e) => {
         e.preventDefault();
         const target = e.target;
         updateFilter('type', {
@@ -28,7 +28,7 @@ const AwardTypeToggle = ({ updateFilter, filters }) => {
                     title={"Contracts"}
                     aria-label={"Contracts"}
                     name={"Contracts"}
-                    onClick={onAwardTypeSelect}>
+                    onClick={onClick}>
                     Contracts
                 </button>
                 <button
@@ -39,7 +39,7 @@ const AwardTypeToggle = ({ updateFilter, filters }) => {
                     title={"Financial Assistance"}
                     aria-label={"Financial Assistance"}
                     name={"Financial Assistance"}
-                    onClick={onAwardTypeSelect}>
+                    onClick={onClick}>
                     Financial Assistance
                 </button>
             </div>
