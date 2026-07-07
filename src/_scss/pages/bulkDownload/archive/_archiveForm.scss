@@ -19,8 +19,8 @@ form {
     display: flex;
     align-items: center;
     margin: rem(24) 0 rem(12) 0;
-    color: $color-black;
-    font-size: $base-font-size;
+    font-size: $small-font-size;
+    font-weight: $font-semibold;
     line-height: 1.5;
 
     .award-type__buttons {
@@ -34,7 +34,7 @@ form {
         color: $blue-60v;
 
         &.active {
-          background-color: $blue-60;
+          background-color: $blue-60v;
           color: $color-white;
         }
 

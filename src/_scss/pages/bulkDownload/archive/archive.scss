@@ -26,6 +26,9 @@
 
   .download-filter__title-wrapper {
     margin-top: rem(40);
+    .download-filter__title {
+      font-size: $base-font-size;
+    }
   }
 
   @import "archiveForm";
