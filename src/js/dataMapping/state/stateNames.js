@@ -177,7 +177,7 @@ export const fipsIdByStateName = {
     guam: "66",
     "northern mariana islands": "69",
     "puerto rico": "72",
-    "u.s. virgin islands": "78"
+    "us virgin islands": "78"
 };
 
 export const stateNameFromFips = (fips) => {
