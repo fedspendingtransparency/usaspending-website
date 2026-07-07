@@ -14,4 +14,37 @@ form {
       }
     }
   }
+
+  .award-type__container {
+    display: flex;
+    margin: rem(24) 0 rem(12) 0;
+    color: $color-black;
+    font-size: $base-font-size;
+    line-height: 1.5;
+
+    .award-type__buttons {
+      margin-left: $global-margin;
+
+      button {
+        margin: 0;
+        padding: rem(10);
+        border: rem(2) solid $blue-60v;
+        background-color: transparent;
+        color: $blue-60v;
+
+        &.active {
+          background-color: $blue-60;
+          color: $color-white;
+        }
+
+        &:first-of-type {
+          border-radius: rem(4) 0 0 rem(4);
+        }
+
+        &:last-of-type {
+          border-radius: 0 rem(4) rem(4) 0;
+        }
+      }
+    }
+  }
 }
