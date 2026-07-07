@@ -58,7 +58,8 @@ export const stateFIPSByAbbreviation = {
     WA: "53",
     WI: "55",
     WV: "54",
-    WY: "56"
+    WY: "56",
+    MP: "69"
 };
 
 export const stateNameByFipsId = {
@@ -176,7 +177,7 @@ export const fipsIdByStateName = {
     guam: "66",
     "northern mariana islands": "69",
     "puerto rico": "72",
-    "us virgin islands": "78"
+    "u.s. virgin islands": "78"
 };
 
 export const stateNameFromFips = (fips) => {
