@@ -199,7 +199,7 @@ const InteractiveDataSourcesPage = () => {
             metaTagProps={interactiveDataSourcesPageMetaTags}
             title="Data Sources"
             noHeader>
-            <>
+            <main id="main-content" className="main-content">
                 <BannerPageHeader
                     kicker="RESOURCES"
                     title="USAspending Data Sources"
@@ -213,20 +213,18 @@ const InteractiveDataSourcesPage = () => {
                     pageName="interactive-data-sources"
                     detectActiveSection
                     jumpToSection={jumpToSection} />
-                <main id="main-content" className="main-content">
-                    <FlexGridRow className="usa-da-interactive-data-sources-page">
-                        <FlexGridCol width={12} className="body">
-                            {sections.map((section) => (
-                                <InteractiveDataSourcesSection
-                                    key={section.section}
-                                    section={section}>
-                                    {section.component || <ComingSoon />}
-                                </InteractiveDataSourcesSection>
-                            ))}
-                        </FlexGridCol>
-                    </FlexGridRow>
-                </main>
-            </>
+                <FlexGridRow className="interactive-data-sources__row">
+                    <FlexGridCol width={12} className="interactive-data-sources__col">
+                        {sections.map((section) => (
+                            <InteractiveDataSourcesSection
+                                key={section.section}
+                                section={section}>
+                                {section.component || <ComingSoon />}
+                            </InteractiveDataSourcesSection>
+                        ))}
+                    </FlexGridCol>
+                </FlexGridRow>
+            </main>
         </PageWrapper>
     );
 };
