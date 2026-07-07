@@ -79,7 +79,18 @@
             overflow-x: auto;
           }
         }
+        
+        .body-padded__content {
+          @import "./_scrollerOverlayCard.scss";
+          margin-top: 0;
+          padding: 0 0 10% 0;
 
+          h1,
+          h2,
+          h3 {
+            margin-top: 0;
+          }
+        }
         .usda-section__container {
           @include display(flex);
 
