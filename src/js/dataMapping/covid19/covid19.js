@@ -4,7 +4,6 @@
  */
 
 import { getBaseUrl } from 'helpers/socialShare';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 
 export const slug = 'disaster/covid-19';
 
