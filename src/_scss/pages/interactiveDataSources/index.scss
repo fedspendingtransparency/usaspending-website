@@ -5,32 +5,32 @@
   @import "layouts/default/default";
   @import "components/pageLoading";
   @import "layouts/default/stickyHeader/header";
-  
+
   @include display(flex);
   @include justify-content(flex-start);
   @include align-items(center);
   @include flex-direction(column);
-  
+
   min-height: 100vh;
-  
+
   .site-header,
   .sticky-header,
   .page__loading,
   .footer-container {
     width: 100%;
   }
-  
+
   .main-content {
     width: 100%;
 
     .usda-in-page-nav__container {
       top: 0;
     }
-    
+
     .banner-page-header {
       width: stretch;
     }
-    
+
     .usda__flex-row {
       @include display(flex);
 
@@ -40,107 +40,106 @@
       }
     }
 
-    .interactive-data-sources__row {   
+    .interactive-data-sources__row {
       @include display(flex);
       max-width: rem(1400);
       margin: auto;
-      
+
       ul {
         padding: 0;
-        
+
         li {
           list-style: none;
         }
-        
+
         &.interactives-guide_bullet-points {
           padding-top: 8px;
           padding-left: 5px;
-        
-        li {
-          list-style: disc;
+
+          li {
+            list-style: disc;
+          }
         }
       }
-    }
-    
-    .interactive-data-sources__col {
-      @include display(flex);
-      @include flex-direction(column);
-      padding: 0px;
-      background: $color-white;
-      
-      
-      .usda-message {
-        &.usda-message_error {
-          background-color: $color-white;
-        }
-      }
-      
-      .body__content {
-        .table-wrapper {
-          overflow-x: auto;
-        }
-      }
-      
-      .usda-section__container {
+
+      .interactive-data-sources__col {
         @include display(flex);
-        
-        hr {
-          height: rem(2);
+        @include flex-direction(column);
+        padding: 0px;
+        background: $color-white;
+
+        .usda-message {
+          &.usda-message_error {
+            background-color: $color-white;
+          }
         }
-      }
-      
-      // Lottie Animation styles
-      @import "./_lottieAnimation.scss";
-      // Scroller styles
-      @import "./_scroller.scss";
-      @import "./_scrollerOverlay.scss";
-      // Other Page Portion styles
-      @import "./_introSection.scss";
-      @import "./_aboutSection.scss";
-      @import "./_dataSourcesTitles.scss";
-      
-      .default-note {
-        @include profile-page-wrap;
-        a {
-          font-weight: $font-semibold;
+
+        .body__content {
+          .table-wrapper {
+            overflow-x: auto;
+          }
         }
-      }
-      
-      .position {
-        display: flex;
-        align-items: center;
-        height: 100%;
-        
-        &--center {
-          justify-content: center;
+
+        .usda-section__container {
+          @include display(flex);
+
+          hr {
+            height: rem(2);
+          }
         }
-        
-        &--left {
-          justify-content: flex-start;
+
+        // Lottie Animation styles
+        @import "./_lottieAnimation.scss";
+        // Scroller styles
+        @import "./_scroller.scss";
+        @import "./_scrollerOverlay.scss";
+        // Other Page Portion styles
+        @import "./_introSection.scss";
+        @import "./_aboutSection.scss";
+        @import "./_dataSourcesTitles.scss";
+
+        .default-note {
+          @include profile-page-wrap;
+          a {
+            font-weight: $font-semibold;
+          }
         }
-        
-        &--right {
-          justify-content: flex-end;
+
+        .position {
+          display: flex;
+          align-items: center;
+          height: 100%;
+
+          &--center {
+            justify-content: center;
+          }
+
+          &--left {
+            justify-content: flex-start;
+          }
+
+          &--right {
+            justify-content: flex-end;
+          }
         }
-      }
-      
-      // to overlay animations on top of each other
-      .top-animation {
-        position: absolute;
-        z-index: 100;
-      }
-      
-      .bottom-animation {
-        position: absolute;
-        z-index: 50;
-      }
-      
-      /* Fixes known sizing inconsistency bug for lottie web on safari browsers */
-      .top-animation,
-      .bottom-animation {
-        width: 100%;
+
+        // to overlay animations on top of each other
+        .top-animation {
+          position: absolute;
+          z-index: 100;
+        }
+
+        .bottom-animation {
+          position: absolute;
+          z-index: 50;
+        }
+
+        /* Fixes known sizing inconsistency bug for lottie web on safari browsers */
+        .top-animation,
+        .bottom-animation {
+          width: 100%;
+        }
       }
     }
-  }
   }
 }

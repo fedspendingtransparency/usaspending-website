@@ -33,7 +33,7 @@
     .analyst-guide__title-wrapper {
       line-height: $heading-line-height;
       margin-bottom: rem(20);
-      
+
       .analyst-guide__topTitle {
         font-weight: $font-semibold;
         color: $gray-90;
@@ -41,7 +41,6 @@
         margin: 0;
       }
     }
-    
 
     .analyst-guide__bodyText {
       margin-bottom: rem(20);
@@ -52,7 +51,7 @@
       line-height: $base-line-height;
       letter-spacing: normal;
       color: $color-base;
-      
+
       .analyst-guide__external-link {
         @include button-unstyled;
         color: $color-primary;
@@ -63,7 +62,7 @@
           color: $color-primary;
         }
       }
-      
+
       a {
         font-weight: $font-semibold;
       }

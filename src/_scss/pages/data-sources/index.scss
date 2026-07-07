@@ -9,9 +9,9 @@
   }
 
   .back-link {
-     display: flex;
-     align-items: center;
-     a {
+    display: flex;
+    align-items: center;
+    a {
       font-size: $font-size-18;
       font-weight: $font-semibold;
       line-height: $heading-line-height;
@@ -31,14 +31,14 @@
     @import "../about/_section";
 
     .about-content-wrapper {
-       padding: ($global-spacing-unit * 3) ($global-spacing-unit * 4)
+      padding: ($global-spacing-unit * 3) ($global-spacing-unit * 4)
         ($global-spacing-unit * 4) ($global-spacing-unit * 4);
 
       @media (max-width: $tablet-screen) {
         padding: ($global-spacing-unit * 3) ($global-spacing-unit * 2)
           ($global-spacing-unit * 2) ($global-spacing-unit * 2);
       }
-      
+
       .about-section-content .usda-external-link {
         @include button-unstyled;
         display: inline;
