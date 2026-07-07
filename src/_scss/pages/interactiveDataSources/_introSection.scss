@@ -1,10 +1,17 @@
 .interactive-data-sources__intro-section {
   padding-bottom: 0px;
-  margin-top: rem(24);
+  padding: ($global-padding * 3) ($global-padding * 4);
 
-  .interactive-data-sources__bodyText {
+  @media (max-width: $tablet-screen) {
+    padding: ($global-padding * 3) ($global-padding * 2);
+  }
+
+  .interactive-data-sources__body-text {
     color: $gray-90;
     font-size: $base-font-size;
     line-height: $base-line-height;
+  }
+  .interactive-data-sources__share-group {
+    padding-top: ($global-padding * 2);
   }
 }
