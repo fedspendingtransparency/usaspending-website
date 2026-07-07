@@ -17,6 +17,7 @@ form {
 
   .award-type__container {
     display: flex;
+    align-items: center;
     margin: rem(24) 0 rem(12) 0;
     color: $color-black;
     font-size: $base-font-size;
