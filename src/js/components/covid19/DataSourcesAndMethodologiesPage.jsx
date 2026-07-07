@@ -128,7 +128,7 @@ const DataSourcesAndMethodologiesPage = () => {
     const query = useQueryParams();
     const dispatch = useDispatch();
     const [errorMsg, isLoading, defCodes] = useDefCodes();
-    const [activeSection, setActiveSection] = useState(sections[0].section);
+    const [activeSection, setActiveSection] = useState(sections[0]);
     const dataDisclaimerBannerRef = useRef(null);
     const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
     const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, getStickyBreakPointForCovidBanner(Cookies.get('usaspending_covid_homepage')));
@@ -154,9 +154,10 @@ const DataSourcesAndMethodologiesPage = () => {
         // we've been provided a section to jump to
         // check if it's a valid section
         const matchedSection = sections.find((obj) => obj.section === section);
-        jumpToSection(section);
-        setActiveSection(matchedSection.section);
+        if (!matchedSection) return;
 
+        setActiveSection(matchedSection);
+        jumpToSection(section);
         // add section to url
         if (!window.location.href.includes(`section=${section}`)) {
             const newQueryParams = combineQueryParams(query, { section: `${section}` });
@@ -207,7 +208,7 @@ const DataSourcesAndMethodologiesPage = () => {
                 <InPageNav
                     sections={sections}
                     activeSection={activeSection}
-                    pageName="covid19"
+                    pageName="data-sources"
                     detectActiveSection
                     jumpToSection={jumpToDataSourcesSection} />
                 <main id="main-content" className="main-content">
