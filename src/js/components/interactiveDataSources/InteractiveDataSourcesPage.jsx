@@ -7,7 +7,6 @@ import { ComingSoon, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { interactiveDataSourcesPageMetaTags } from 'helpers/metaTagHelper';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import BannerPageHeader from "components/sharedComponents/header/BannerPageHeader";
@@ -158,9 +157,9 @@ const InteractiveDataSourcesPage = () => {
         history(`${getQueryParamString(newQueryParams)}`, { replace: true });
 
         setActiveSection(section);
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
+        const sectionTop = sectionDom.offsetTop;
         window.scrollTo({
-            top: sectionTop + 200,
+            top: sectionTop + 300,
             left: 0,
             behavior: 'smooth'
         });
