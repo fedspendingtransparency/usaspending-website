@@ -42,6 +42,16 @@
         position: relative;
         z-index: 1;
 
+        &.no-hightlight {
+          width: rem(60);
+          height: rem(60);
+          padding: rem(6);
+
+          svg {
+            width: rem(48);
+            height: rem(48);
+          }
+        }
         svg {
           font-size: rem(60);
           margin: auto;
@@ -87,8 +97,13 @@
 
         .text__title {
           font-size: $h2-font-size;
-          line-height: 1.2;
+          line-height: $heading-line-height;
           margin-bottom: $global-margin;
+
+          &.title-only {
+            font-size: $h1-font-size;
+            font-weight: $font-normal;
+          }
         }
 
         .text__body {
@@ -100,6 +115,27 @@
           @media (max-width: $tablet-screen - 1) {
             overflow: unset;
             max-height: none;
+          }
+        }
+      }
+    }
+  }
+
+  &.title-only {
+    .banner-page-header__row {
+      padding: rem(46) 0;
+      max-height: rem(140);
+
+      @media (max-width: $tablet-screen - 1) {
+        padding: rem(12) 0;
+      }
+
+      .text-column {
+        .text-container {
+          margin: 0 rem(16);
+
+          .icon-container__mobile {
+            margin-bottom: rem(4);
           }
         }
       }
