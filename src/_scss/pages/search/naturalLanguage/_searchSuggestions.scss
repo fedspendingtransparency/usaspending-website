@@ -11,7 +11,7 @@
 
   .search-suggestions__title {
     color: $gray-80;
-    font-family: 'Source Sans 3', sans-serif;
+    font-family: $font-sans-3;
     font-size: $h3-font-size;
     font-weight: $font-semibold;
     line-height: $heading-line-height;
@@ -22,7 +22,7 @@
 
   .search-suggestions__link {
     color: $blue-60v;
-    font-family: 'Source Sans 3', sans-serif;
+    font-family: $font-sans-3;
     font-size: $small-font-size;
     font-weight: $font-semibold;
     line-height: $base-line-height;
@@ -31,11 +31,11 @@
   .search-suggestions__card-row {
     .search-suggestions__card {
       .search-suggestions__card-body {
-        height: auto;
+        height: 100%;
       }
       .overline {
           color: $cyan-60v;
-          font-family: 'Source Sans 3', sans-serif;
+          font-family: $font-sans-3;
           font-size: $smallest-font-size ;
           font-weight: $font-semibold;
           line-height: $base-line-height;
@@ -43,18 +43,94 @@
         }
       .headline {
         color: $gray-90;
-        font-family: 'Source Sans Pro', sans-serif;
+        font-family: $font-sans;
         font-size: $h4-font-size;
         font-weight: $font-normal;
         line-height: $heading-line-height;
       }
       .text {
         color: $gray-90;
-        font-family: 'Source Sans 3', sans-serif;
+        font-family: $font-sans-3;
         font-size: $smallest-font-size;
         font-weight: $font-normal;
         line-height: $base-line-height;
       }
+
+      .search-suggestions__icon-row {
+          display: flex;
+          align-items: center;
+          gap: $font-size-10;
+          margin-bottom: rem(12);
+
+          .label {
+            color: $gray-90;
+            font-family: $font-sans-3;
+            font-size: $small-font-size;
+            font-weight: $font-semibold;
+            line-height: $base-line-height;
+          }
+          
+          .search-suggestions__icon-container {
+          display: flex;
+          flex-shrink: 0;
+          padding: rem(6);
+          border-radius: rem(4);
+
+          &--time-period {
+            background: $blue-vivid-5v;
+          }
+
+          &--location {
+            background: $orange-5v;
+          }
+
+          &--keyword {
+            background: $cyan-5v;
+          }
+
+          &--recipient {
+            background: $green-cool-5v;
+          }
+          
+          &--award-type {
+            background: $violet-5v;
+          }
+
+          &--award-description {
+            background: $yellow-5v;
+          }
+
+          .icon {
+            width: $smallest-font-size;
+            height: $smallest-font-size;
+
+            &--time-period {
+              color: $blue-vivid-70;
+            }
+
+            &--location {
+              color: $orange-40v;
+            }
+
+            &--keyword {
+              color: $cyan-70v;
+            }
+
+            &--recipient {
+              color: $green-cool-60v;
+            }
+
+            &--award-type {
+              color: $violet-70v;
+            }
+
+            &--award-description {
+              color: $brown-warm-40;
+            }
+          }
+       
+        }
+      } 
     }
   }
 }

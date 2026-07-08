@@ -96,6 +96,7 @@ import {
     faTimes,
     faUniversity,
     faUserTie,
+    faUser,
     faWindowRestore,
     faFingerprint,
     faScroll,
@@ -116,7 +117,8 @@ import {
     faFileCsv,
     faList,
     faMoneyCheckDollar,
-    faFolder
+    faFolder,
+    faLocationDot
 } from "@fortawesome/pro-solid-svg-icons";
 
 export default function registerIcons() {
@@ -207,6 +209,7 @@ export default function registerIcons() {
         faTimes,
         faUniversity,
         faUserTie,
+        faUser,
         faWindowRestore,
         faAngleDoubleDown,
         faScroll,
@@ -234,6 +237,7 @@ export default function registerIcons() {
         faFileCsv,
         faList,
         faMoneyCheckDollar,
-        faFolder
+        faFolder,
+        faLocationDot
     );
 }
