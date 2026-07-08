@@ -1,3 +1,8 @@
+/**
+ * NLData.js
+ * Created by Trey Morgan 7/8/2026
+ */
+
 /* eslint-disable import/prefer-default-export */
 import React from "react";
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
