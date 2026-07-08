@@ -32,7 +32,7 @@ const useRequestDownloadCount = (filters, hash, areAppliedFiltersEmpty) => {
             }).promise,
             staleTime: Infinity,
             refetchOnWindowFocus: false,
-            enabled: !areFiltersEqual(filters) || !hash || !areAppliedFiltersEmpty
+            enabled: (!areFiltersEqual(filters) || !hash) && !areAppliedFiltersEmpty
         })),
         combine
     });
