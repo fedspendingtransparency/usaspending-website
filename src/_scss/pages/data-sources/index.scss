@@ -35,7 +35,7 @@
           margin: auto;
         }
         .about-section-content .usda-external-link {
-          @include button-unstyled;
+          @include button-link;
           display: inline;
           padding: 0 rem(5);
           font-size: rem(18);

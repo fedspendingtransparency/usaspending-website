@@ -143,11 +143,17 @@
               font-size: $smallest-font-size;
 
               .usda-external-link {
+                @include button-link;
                 font-size: $smallest-font-size;
               }
             }
-            p a {
-              font-weight: $font-semibold;
+            p {
+              a,
+              .usda-external-link,
+              .usda-external-link__card {
+                @include button-link;
+                font-weight: $font-semibold;
+              }
             }
             .glossary-term {
               font-weight: $font-semibold;
@@ -240,6 +246,7 @@
               font-size: $smallest-font-size;
 
               .usda-external-link {
+                @include button-link;
                 font-size: $smallest-font-size;
               }
             }

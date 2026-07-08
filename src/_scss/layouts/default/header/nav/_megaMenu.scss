@@ -101,6 +101,7 @@
 
         // button overrides for the external links
         .usda-external-link {
+          @include button-link;
           background-color: $gray-cool-2;
           margin: 0;
           padding: 0;
