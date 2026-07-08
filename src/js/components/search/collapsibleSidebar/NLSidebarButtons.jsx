@@ -1,7 +1,10 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QAT } from "GlobalConstants";
+import { setSidebarContent } from '../../../redux/actions/sidebar/sidebarActions'
+import { NATURAL_LANGUAGE, FILTERS } from './SidebarConstants';
 
 const cyan60v = '#00687D';
 const cyan50v = '#0081A1';
@@ -9,40 +12,41 @@ const colorWhite = '#FFF';
 
 const propTypes = {
     sidebarContent: PropTypes.string,
-    setSidebarContent: PropTypes.func,
     isMedium: PropTypes.bool
 };
 
-const NLSidebarButtons = ({ sidebarContent, setSidebarContent, isMedium }) => {
+const NLSidebarButtons = ({ sidebarContent, isMedium }) => {
+    const dispatch = useDispatch();
+
     if (isMedium || !QAT) return;
 
     // icon and button colors
-    const primaryColorNL = sidebarContent === 'natural language' ? cyan50v : colorWhite;
-    const secondaryColorNL = sidebarContent === 'natural language' ? colorWhite : 'transparent';
-    const primaryColorAS = sidebarContent === 'filters' ? cyan50v : colorWhite;
-    const secondaryColorAS = sidebarContent === 'filters' ? colorWhite : 'transparent';
+    const primaryColorNL = sidebarContent === NATURAL_LANGUAGE ? cyan50v : colorWhite;
+    const secondaryColorNL = sidebarContent === NATURAL_LANGUAGE ? colorWhite : 'transparent';
+    const primaryColorAS = sidebarContent === FILTERS ? cyan50v : colorWhite;
+    const secondaryColorAS = sidebarContent === FILTERS ? colorWhite : 'transparent';
 
     return (
         <div className={"sidebar-nl-buttons-container"}>
             <div className={`color-overlay-element ${
-                sidebarContent === 'natural language' ? ' gradient' : ''
+                sidebarContent === NATURAL_LANGUAGE ? ' gradient' : ''
             }`} />
             <button
                 style={{ backgroundColor: secondaryColorAS }}
                 aria-label="Button to change the content of the sidebar to advanced search filters"
                 className={`sidebar-nl-buttons ${
-                    sidebarContent === 'filters' ? 'selected' : ''
+                    sidebarContent === FILTERS ? 'selected' : ''
                 }`}
-                onClick={() => setSidebarContent('filters')}>
+                onClick={() => dispatch(setSidebarContent(FILTERS))}>
                 <FontAwesomeIcon icon="filter-list" color={primaryColorAS}/>
             </button>
             <button
                 style={{ backgroundColor: secondaryColorNL }}
                 aria-label="Button to change the content of the sidebar to natural language search"
                 className={`sidebar-nl-buttons ${
-                    sidebarContent === 'natural language' ? 'selected' : ''
+                    sidebarContent === NATURAL_LANGUAGE ? 'selected' : ''
                 }`}
-                onClick={() => setSidebarContent('natural language')}>
+                onClick={() => dispatch(setSidebarContent(NATURAL_LANGUAGE))}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill={secondaryColorNL} xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M10.1331 3.06836C10.4348 3.06836 10.7252 3.08021 11.0149 3.11719L9.85571 5.62012C6.85045 5.76811 4.49648 8.17109 4.49634 11.3633C4.49634 14.5556 6.99524 17.1074 10.1213 17.1074C13.0784 17.1074 15.4804 14.8272 15.7219 11.8691L18.2083 10.6729C18.2444 10.8946 18.2444 11.1292 18.2444 11.3633C18.2444 13.1998 17.6654 14.8767 16.6877 16.2695L21.6487 21.2979V21.3105C22.1192 21.8282 22.1193 22.6299 21.6487 23.1475C21.1418 23.6281 20.3568 23.628 19.8499 23.1475L14.925 18.0811C13.5612 19.0671 11.9197 19.6709 10.1213 19.6709C5.63135 19.6709 1.99833 15.9735 1.99829 11.376C1.99829 6.77858 5.63114 3.06859 10.1331 3.06836Z"
