@@ -18,7 +18,7 @@ const NLSearchSuggestions = memo(function SearchSuggestionsSection() {
             action: 'Link',
             label: 'Search Suggestions'
         });
-        window.open("/usaspending.gov/training-videos")
+        window.open("/training-videos")
 
     }
 
@@ -63,12 +63,9 @@ const NLSearchSuggestions = memo(function SearchSuggestionsSection() {
                                     </CardBody>
                                 </CardContainer>
                             </FlexGridCol>
-                        ))
-                           
+                        ))   
                         }
                     </FlexGridRow>
-                   
-                    
                 </FlexGridRow>
                 
             </div>
