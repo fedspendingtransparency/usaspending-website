@@ -17,6 +17,7 @@
   @import "resultsView/dtuiOverrides";
   @import "filters";
   @import "collapsibleSidebar";
+  @import "./naturalLanguage/searchSuggestions";
 
   #main-content {
     @media (min-width: $medium-screen) {

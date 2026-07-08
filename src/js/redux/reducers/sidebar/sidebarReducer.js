@@ -1,3 +1,8 @@
+/**
+ * sidebarReducer.js
+ * Created by Trey Morgan 7/2/2026
+ */
+
 import * as sidebarActions from '../../actions/sidebar/sidebarActions'
 
 export const initialState = {

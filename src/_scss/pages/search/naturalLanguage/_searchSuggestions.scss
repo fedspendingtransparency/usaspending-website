@@ -1,0 +1,61 @@
+.search-suggestions__section {
+  display: flex;
+  padding: $global-spacing-unit * 5;
+  align-items: flex-start;
+  gap: rem(50);
+  align-self: stretch;
+  border-radius: $border-radius * 4;
+  border: rem(1) solid $gray-10;
+  box-shadow: $shadow-3;
+  margin-top: $global-spacing-unit * 5;
+
+  .search-suggestions__title {
+    color: $gray-80;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: $h3-font-size;
+    font-weight: $font-semibold;
+    line-height: $heading-line-height;
+    margin-bottom: $global-margin * 3;
+    flex: 1 0 0;
+   
+  }
+
+  .search-suggestions__link {
+    color: $blue-60v;
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: $small-font-size;
+    font-weight: $font-semibold;
+    line-height: $base-line-height;
+  }
+
+  .search-suggestions__card-row {
+    .search-suggestions__card {
+      .search-suggestions__card-body {
+        height: auto;
+      }
+      .overline {
+          color: $cyan-60v;
+          font-family: 'Source Sans 3', sans-serif;
+          font-size: $smallest-font-size ;
+          font-weight: $font-semibold;
+          line-height: $base-line-height;
+
+        }
+      .headline {
+        color: $gray-90;
+        font-family: 'Source Sans Pro', sans-serif;
+        font-size: $h4-font-size;
+        font-weight: $font-normal;
+        line-height: $heading-line-height;
+      }
+      .text {
+        color: $gray-90;
+        font-family: 'Source Sans 3', sans-serif;
+        font-size: $smallest-font-size;
+        font-weight: $font-normal;
+        line-height: $base-line-height;
+      }
+    }
+  }
+}
+
