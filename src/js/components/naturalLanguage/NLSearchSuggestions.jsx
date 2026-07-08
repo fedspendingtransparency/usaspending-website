@@ -5,30 +5,9 @@
 
 import React, { memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
 import Analytics from 'helpers/analytics/Analytics';
-
-
-const overline = 'IF YOU WANT TO KNOW:';
-const text = 'FILTER BY:'
-
-const searchCardData = [
-    {
-        overline,
-        headline: <>How much federal funding did <strong>my state</strong> receive last year?</>,
-        text
-    },
-    {
-        overline,
-        headline: <>How much federal funding are <strong>national defense corporations</strong> receiving?</>,
-        text
-    },
-    {
-        overline,
-        headline: <>What federal <strong>grants</strong> have been awarded for <strong>health care</strong>?</>,
-        text
-    }
-]
+import { searchCardData } from "./NLData";
 
 // eslint-disable-next-line prefer-arrow-callback
 const NLSearchSuggestions = memo(function SearchSuggestionsSection() {
@@ -61,14 +40,16 @@ const NLSearchSuggestions = memo(function SearchSuggestionsSection() {
                                 backgroundColor="light"
                                 textAlignment="left"
                                 imageAlignment="right"
-                                image={<FontAwesomeIcon icon="arrow-up-right" style={{height: '16px', width: '16px'}} />}/>
+                                image={<FontAwesomeIcon 
+                                    className="search-suggestions__card-row icon"
+                                    icon="arrow-up-right"/>}/>
                         </FlexGridCol>
                     </div>
                     <FlexGridRow className="search-suggestions__card-row" hasGutter gutterSize="lg">
-                        {searchCardData.map((card, index) => (
+                        {searchCardData.map((card) => (
                             <FlexGridCol 
                                 className="search-suggestions__card" 
-                                key={index}
+                                key={`search-suggestions-card-${card.id}`}
                                 mobile={12}
                                 tablet={12}
                                 desktop={4}>
@@ -77,9 +58,8 @@ const NLSearchSuggestions = memo(function SearchSuggestionsSection() {
                                         customClassName="search-suggestions__card-body"
                                         overline={card.overline} 
                                         headline={card.headline}
-                                        text={card.text}>
-                                        
-                                        Card Body
+                                        text={card.filterByHeader}>
+                                        {card.icons.map((icon) => icon)}
                                     </CardBody>
                                 </CardContainer>
                             </FlexGridCol>
