@@ -6,6 +6,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { Set } from 'immutable';
 
 import { updateGenericFilter } from "redux/actions/search/searchFilterActions";
 import { dateRangeChipLabel } from "helpers/searchHelper";
@@ -33,14 +34,15 @@ const TimePeriodDRFilterGroup = ({ name, resultsView }) => {
 
         if (!staged) newValue = newValue.add({ end_date: endDate, start_date: startDate });
 
+        const newDRValue = newValue?.size >= 1 ? newValue : new Set();
+        dispatch(updateGenericFilter({
+            type: 'time_period',
+            value: newDRValue
+        }));
         dispatch(updateGenericFilter({
             type: 'timePeriodType',
             value: 'dr'
-        }));
-        dispatch(updateGenericFilter({
-            type: 'time_period',
-            value: newValue
-        }));
+        })); 
     };
 
     const filters = {

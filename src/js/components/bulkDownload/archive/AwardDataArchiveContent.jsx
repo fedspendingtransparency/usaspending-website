@@ -40,16 +40,16 @@ const AwardDataArchiveContent = ({
                 New files are uploaded by the 15th of each month.
                 Check the &#39;Data As Of&#39; column to see the last time files were generated.
                 There are two downloadable archive file types:
-                <ul>
-                    <li>
-                        <b> Full files</b> - data for the fiscal year up until the date the file was prepared
-                    </li>
-                    <li>
-                        <b>Delta files</b> - only new, modified, and deleted data since the date the last month&#39;s files were generated.
-                        The `correction_delete_ind` column in the delta files indicates whether a record has been modified (C), deleted (D), or added (blank).
-                    </li>
-                </ul>
             </p>
+            <ul>
+                <li>
+                    <b> Full files</b> - data for the fiscal year up until the date the file was prepared
+                </li>
+                <li>
+                    <b>Delta files</b> - only new, modified, and deleted data since the date the last month&#39;s files were generated.
+                    The `correction_delete_ind` column in the delta files indicates whether a record has been modified (C), deleted (D), or added (blank).
+                </li>
+            </ul>
             <AwardDataArchiveForm
                 filters={filters}
                 updateFilter={updateFilter}
