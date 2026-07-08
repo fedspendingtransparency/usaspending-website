@@ -3,7 +3,7 @@
  * Created by Kevin Li 5/30/17
  */
 
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
@@ -74,7 +74,6 @@ export const parseRemoteFilters = (data) => {
 };
 
 const SearchContainer = () => {
-    const [downloadAvailable, setDownloadAvailable] = useState(false);
     const location = useLocation();
     const { hash: urlHash } = getObjFromQueryParams(location.search);
     const query = useQueryParams();
@@ -96,20 +95,26 @@ const SearchContainer = () => {
     const areAppliedFiltersEmptyRef = useRef(null);
     const prevAppliedFiltersRef = useRef(null);
 
-    const { data, downloadInFlight } = useRequestDownloadCount(stagedFilters, urlHash);
+    const { data, downloadInFlight } = useRequestDownloadCount(
+        stagedFilters, urlHash, areAppliedFiltersEmpty
+    );
     const [awardsCount, subawardsCount, transactionsCount] = data;
     console.log({ data, downloadInFlight });
 
-    const downloadButtonEnabled = useCallback(() => {
+    const downloadAvailable = useMemo(() => {
         if (
             (awardsCount === 0 || awardsCount >= 500000) &&
             (transactionsCount === 0 || transactionsCount >= 500000) &&
             (subawardsCount === 0 || subawardsCount >= 500000)
         ) {
-            setDownloadAvailable(false);
+            return false;
         }
-        else if (awardsCount !== 0 || transactionsCount !== 0 || subawardsCount !== 0) {
-            setDownloadAvailable(true);
+        else if (
+            awardsCount !== 0 ||
+            transactionsCount !== 0 ||
+            subawardsCount !== 0
+        ) {
+            return true;
         }
     }, [transactionsCount, awardsCount, subawardsCount]);
 
@@ -182,7 +187,6 @@ const SearchContainer = () => {
             setSearchURLParams(searchURLParams);
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
-            setDownloadAvailable(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [areAppliedFiltersEmpty, urlHash]);
@@ -259,9 +263,6 @@ const SearchContainer = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appliedFilters, stagedFilters]);
 
-    useEffect(() => {
-        downloadButtonEnabled();
-    }, [transactionsCount, subawardsCount, awardsCount, appliedFilters, downloadButtonEnabled]);
     return (
         <SearchPage
             download={download}

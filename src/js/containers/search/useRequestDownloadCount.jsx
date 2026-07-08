@@ -14,7 +14,7 @@ const combine = (results) => ({
     downloadInFlight: results.some((result) => result.isLoading)
 })
 
-const useRequestDownloadCount = (filters, hash) => {
+const useRequestDownloadCount = (filters, hash, areAppliedFiltersEmpty) => {
     const operation = new SearchAwardsOperation();
     operation.fromState(filters);
     const searchParams = operation.toParams();
@@ -32,7 +32,7 @@ const useRequestDownloadCount = (filters, hash) => {
             }).promise,
             staleTime: Infinity,
             refetchOnWindowFocus: false,
-            enabled: !areFiltersEqual(filters) || !hash
+            enabled: !areFiltersEqual(filters) || !hash || !areAppliedFiltersEmpty
         })),
         combine
     });
