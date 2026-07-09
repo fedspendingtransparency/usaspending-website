@@ -99,7 +99,6 @@ const SearchContainer = () => {
         stagedFilters, urlHash, areAppliedFiltersEmpty
     );
     const [awardsCount, subawardsCount, transactionsCount] = data;
-    console.log({ data, downloadInFlight });
 
     const downloadAvailable = useMemo(() => {
         if (
