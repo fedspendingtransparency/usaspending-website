@@ -4,8 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash-es';
-
-import { territories, countries, counties, congressionalDistricts } from "dataMapping/search/geoTable";
+import { countries, counties, congressionalDistricts } from "dataMapping/search/geoTable";
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
@@ -101,7 +100,7 @@ const MapWrapperContainer = React.memo((props) => {
 
     const completeDataSet = {
         country: countries,
-        state: territories,
+        state: Object.keys(stateFIPSByAbbreviation),
         county: counties,
         congressionalDistrict: congressionalDistricts
     };

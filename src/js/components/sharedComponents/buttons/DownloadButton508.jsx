@@ -11,14 +11,16 @@ const propTypes = {
     onClick: PropTypes.func.isRequired,
     downloadInFlight: PropTypes.bool,
     isEnabled: PropTypes.bool,
-    key: PropTypes.string
+    key: PropTypes.string,
+    downloadIcon: PropTypes.string
 };
 
 const DownloadIconButton508 = ({
     onClick,
     downloadInFlight,
     isEnabled = true,
-    key
+    key,
+    downloadIcon="download"
 }) => {
     const startDownload = (e) => {
         e.preventDefault();
@@ -27,12 +29,12 @@ const DownloadIconButton508 = ({
         }
     };
 
-    let wrapperclass = 'usa-download-icon';
+    let wrapperclass = "usa-download-icon ";
     if (downloadInFlight || !isEnabled) {
         wrapperclass += " disabled";
     }
     const buttonText = downloadInFlight ? 'Preparing Download...' : 'Download';
-    const icon = downloadInFlight ? "spinner" : "download";
+    const icon = downloadInFlight ? "spinner" : downloadIcon;
 
     const downloadButton = () => (
         <button
