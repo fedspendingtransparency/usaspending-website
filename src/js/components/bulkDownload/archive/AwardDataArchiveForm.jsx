@@ -14,34 +14,25 @@ import FYComboBox from "./filters/FYComboBox";
 const propTypes = {
     filters: PropTypes.object,
     updateFilter: PropTypes.func,
-    agencies: PropTypes.object,
-    requestResults: PropTypes.func
+    agencies: PropTypes.object
 };
 
 const AwardDataArchiveForm = ({
     filters,
     updateFilter,
-    agencies,
-    requestResults
-}) => {
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        requestResults();
-    };
-
-    return (
-        <>
-            <FilterSelectionTitle type="agencyFy" />
-            <form className="archive-form" onSubmit={handleSubmit}>
-                <div className="award-data-archive-form">
-                    <AgencyComboBox agencies={agencies} updateFilter={updateFilter} />
-                    <FYComboBox updateFilter={updateFilter} />
-                </div>
-                <AwardTypeToggle filters={filters} updateFilter={updateFilter} />
-            </form>
-        </>
-    );
-}
+    agencies
+}) => (
+    <>
+        <FilterSelectionTitle type="agencyFy" />
+        <form className="archive-form">
+            <div className="award-data-archive-form">
+                <AgencyComboBox agencies={agencies} updateFilter={updateFilter} />
+                <FYComboBox updateFilter={updateFilter} />
+            </div>
+            <AwardTypeToggle filters={filters} updateFilter={updateFilter} />
+        </form>
+    </>
+);
 
 AwardDataArchiveForm.propTypes = propTypes;
 export default AwardDataArchiveForm;
