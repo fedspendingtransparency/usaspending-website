@@ -325,15 +325,12 @@ export const incrementCountAndUpdateUnchecked = (
                 });
             }
             else if (isParentInArray) {
-                 
                 newState[indexInArray].count += amountToIncrement;
             }
             if (isParentInArray && parentNode.count && parentNode.count < newState[indexInArray].count) {
-                 
                 newState[indexInArray].count = parentNode.count;
             }
             else if (isParentInArray && newState[indexInArray].count < 1) {
-                 
                 newState[indexInArray].count = 1;
             }
             return newState;
