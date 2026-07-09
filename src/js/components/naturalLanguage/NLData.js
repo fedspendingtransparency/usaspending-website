@@ -25,12 +25,14 @@ export const searchCardData = [
             <NLSearchSuggestionsIcon 
                 key={`time-period-${iconId}`}  
                 variant="time-period" 
-                label="Time Period" 
-                icon="calendar" />,
+                label="Time Period"
+                labelVariant="search-suggestions" 
+                icon="calendar"/>,
             <NLSearchSuggestionsIcon 
                 key={`location-${iconId}`} variant="location" 
-                label="Location" 
-                icon="location-dot" /> 
+                label="Location"
+                labelVariant="search-suggestions"  
+                icon="location-dot"/> 
         ]
     },
     {
@@ -38,8 +40,7 @@ export const searchCardData = [
         overline,
         headline: ( 
             <>
-                How much federal funding are <strong>national defense corporations</strong> 
-                receiving?
+                How much federal funding are <strong>national defense corporations</strong> receiving?
             </>
         ),
         filterByHeader,
@@ -47,11 +48,13 @@ export const searchCardData = [
             <NLSearchSuggestionsIcon 
                 key={`keyword-${iconId}`}  
                 variant="keyword" 
-                label="Keyword" 
+                label="Keyword"
+                labelVariant="search-suggestions"  
                 icon="search" />,
             <NLSearchSuggestionsIcon 
                 key={`recipient-${iconId}`} variant="recipient" 
-                label="Recipient" 
+                label="Recipient"
+                labelVariant="search-suggestions"  
                 icon="user" /> 
         ]
     },
@@ -60,8 +63,7 @@ export const searchCardData = [
         overline,
         headline: (
             <>
-                What federal <strong>grants</strong> have been awarded for 
-                <strong>health care</strong>?
+                What federal <strong>grants</strong> have been awarded for <strong>health care</strong>?
             </>
         ),
         filterByHeader,
@@ -69,11 +71,13 @@ export const searchCardData = [
             <NLSearchSuggestionsIcon 
                 key={`award-type-${iconId}`}  
                 variant="award-type" 
-                label="Award Type" 
+                label="Award Type"
+                labelVariant="search-suggestions"  
                 icon="file-certificate" />,
             <NLSearchSuggestionsIcon 
                 key={`award-description-${iconId}`} variant="award-description" 
-                label="Award Description" 
+                label="Award Description"
+                labelVariant="search-suggestions" 
                 icon="building" /> 
         ]
     }

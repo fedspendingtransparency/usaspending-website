@@ -1,3 +1,5 @@
+@import "./searchIcons";
+
 .search-suggestions__section {
   display: flex;
   padding: $global-spacing-unit * 5;
@@ -8,6 +10,16 @@
   border: rem(1) solid $gray-10;
   box-shadow: $shadow-3;
   margin-top: $global-spacing-unit * 5;
+
+  .button-icon-container {
+    border-radius: rem(4);
+    background: $blue-vivid-5v;
+    margin-left: rem(4);
+  }
+  .button-icon {
+    @include icon-styles;
+    margin-right: rem(5);
+  }
 
   .search-suggestions__title {
     color: $gray-80;
@@ -55,82 +67,6 @@
         font-weight: $font-normal;
         line-height: $base-line-height;
       }
-
-      .search-suggestions__icon-row {
-          display: flex;
-          align-items: center;
-          gap: $font-size-10;
-          margin-bottom: rem(12);
-
-          .label {
-            color: $gray-90;
-            font-family: $font-sans-3;
-            font-size: $small-font-size;
-            font-weight: $font-semibold;
-            line-height: $base-line-height;
-          }
-          
-          .search-suggestions__icon-container {
-          display: flex;
-          flex-shrink: 0;
-          padding: rem(6);
-          border-radius: rem(4);
-
-          &--time-period {
-            background: $blue-vivid-5v;
-          }
-
-          &--location {
-            background: $orange-5v;
-          }
-
-          &--keyword {
-            background: $cyan-5v;
-          }
-
-          &--recipient {
-            background: $green-cool-5v;
-          }
-          
-          &--award-type {
-            background: $violet-5v;
-          }
-
-          &--award-description {
-            background: $yellow-5v;
-          }
-
-          .icon {
-            width: $smallest-font-size;
-            height: $smallest-font-size;
-
-            &--time-period {
-              color: $blue-vivid-70;
-            }
-
-            &--location {
-              color: $orange-40v;
-            }
-
-            &--keyword {
-              color: $cyan-70v;
-            }
-
-            &--recipient {
-              color: $green-cool-60v;
-            }
-
-            &--award-type {
-              color: $violet-70v;
-            }
-
-            &--award-description {
-              color: $brown-warm-40;
-            }
-          }
-       
-        }
-      } 
     }
   }
 }

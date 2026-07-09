@@ -14,15 +14,14 @@ const propTypes = {
     icon: PropTypes.string
 };
 
-const NLSearchSuggestionsIcon = ({ variant, label, icon }) => (
-    <div className="search-suggestions__icon-row">
-        <div className={`search-suggestions__icon-container search-suggestions__icon-container--${variant}`}>
+const NLSearchSuggestionsIcon = ({ variant, label, icon}) => (
+    <div className={`icon-row icon-row--${variant}`}>
+        <div className={`icon-container icon-container--${variant}`}>
             <FontAwesomeIcon className={`icon icon--${variant}`} icon={icon} />
         </div>
-        <span className="label">{label}</span>
+        <span className={`icon-label icon-label--${variant}`}>{label}</span>
     </div>
 )
 
-
 NLSearchSuggestionsIcon.propTypes = propTypes;
-export default NLSearchSuggestionsIcon
+export default NLSearchSuggestionsIcon;

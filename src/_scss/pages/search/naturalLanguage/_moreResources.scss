@@ -1,0 +1,33 @@
+.more-resources__section {
+  display: flex;
+  align-items: flex-start;
+  gap: $global-spacing-unit * 3;
+  margin-top: $global-spacing-unit * 5;
+
+  .more-resources__row {
+    display: flex;
+    gap: $global-spacing-unit * 3;
+  }
+
+  .more-resources__label {
+    font-family: $font-sans-3;
+    font-size: $small-font-size;
+    font-weight: $font-semibold;
+    line-height: $base-line-height;
+    color: $gray-70;
+    padding: rem(12);
+  }
+
+  .more-resources__col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: rem(220);
+    padding: rem(12);
+    gap: rem(10);
+
+    border-radius: rem(4);
+    border: rem(1) solid $gray-10;
+    background: $gray-5;
+  }
+}
