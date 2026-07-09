@@ -77,7 +77,7 @@ const TimePeriodDRFilterGroup = ({ name, resultsView }) => {
     const drCount = timePeriod.size;
 
     useEffect(() => {
-        // if there are no fy filters, then remove new awards filter
+        // if there are no dr filters, then remove new awards filter
         if (drCount === 0 && newAwards) newAwards.toggleFilter(true);
     }, [drCount, newAwards]);
 

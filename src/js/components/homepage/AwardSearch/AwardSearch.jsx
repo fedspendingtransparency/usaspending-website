@@ -128,13 +128,13 @@ const AwardSearch = () => {
                 const hashData = results.data;
                 if (rankType === "naics" || rankType === "psc") {
                     // eslint-disable-next-line no-unused-expressions
-                    window.open(`/search?hash=${hashData.hash}&section=${section}&type=${rankType}`, "_self");
+                    window.open(`/search?hash=${encodeURIComponent(hashData.hash)}&section=${encodeURIComponent(section)}&type=${encodeURIComponent(rankType)}`, "_self");
                 } else if (section === "time") {
-                    window.open(`/search?hash=${hashData.hash}&section=${section}&by=fiscal_year`, "_self");
+                    window.open(`/search?hash=${encodeURIComponent(hashData.hash)}&section=${encodeURIComponent(section)}&by=${encodeURIComponent("fiscal_year")}`, "_self");
                 }
                 else {
                     // eslint-disable-next-line no-unused-expressions
-                    window.open(`/search?hash=${hashData.hash}&section=${section}`, "_self");
+                    window.open(`/search?hash=${encodeURIComponent(hashData.hash)}&section=${encodeURIComponent(section)}`, "_self");
                 }
                 // operation has resolved
                 tempHash = null;
