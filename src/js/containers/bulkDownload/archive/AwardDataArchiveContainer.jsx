@@ -8,6 +8,7 @@ import { requestArchiveFiles } from 'helpers/bulkDownloadHelper';
 import AwardDataArchiveContent from 'components/bulkDownload/archive/AwardDataArchiveContent';
 import useRequestAgenciesList from "hooks/useRequestAgenciesList";
 import PropTypes from "prop-types";
+import { sanitizeUrl } from 'helpers/url';
 
 const dayjs = require('dayjs');
 
@@ -76,7 +77,7 @@ const AwardDataArchiveContainer = ({ filters, setFilters, results, setResults })
             const file = {
                 agency: formattedAgency,
                 fileName: item.file_name,
-                url: item.url,
+                url: sanitizeUrl(item.url) || 'not available',
                 fy: formattedFY,
                 date: formattedDate
             };
