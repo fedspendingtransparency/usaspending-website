@@ -714,50 +714,49 @@ export const showAllNodes = (tree) => tree
 export const getUniqueAncestorPaths = (
     checkedAncestorPaths,
     uncheckedAncestorPaths = []
-) => {
-    checkedAncestorPaths.concat(uncheckedAncestorPaths)
-        .reduce((listOfUniqueAncestors, ancestryPath) => {
-            // we don't need to fetch the last item of the array because we only need the *ancestors* of the ancestorPaths.
-            const numberOfAncestors = ancestryPath.length === 1
-                ? 1
-                : ancestryPath.length - 1;
-            const uniqueAncestors = [...new Array(numberOfAncestors)]
-                .reduce((ancestors, _, i) => {
-                    const currentAncestor = ancestryPath[i];
-                    // already have this ancestor, move to the next.
-                    if (i === 0 && listOfUniqueAncestors.includes(currentAncestor)) {
-                        return ancestors;
-                    }
-                    // top level ancestor does not exist, add it and move to the next.
-                    if (i === 0 && !listOfUniqueAncestors.includes(currentAncestor)) {
-                        return ancestors.concat([currentAncestor]);
-                    }
+) => checkedAncestorPaths.concat(uncheckedAncestorPaths)
+    .reduce((listOfUniqueAncestors, ancestryPath) => {
+    // we don't need to fetch the last item of the array because we only need the *ancestors* of the ancestorPaths.
+        const numberOfAncestors = ancestryPath.length === 1
+            ? 1
+            : ancestryPath.length - 1;
+        const uniqueAncestors = [...new Array(numberOfAncestors)]
+            .reduce((ancestors, _, i) => {
+                const currentAncestor = ancestryPath[i];
+                // already have this ancestor, move to the next.
+                if (i === 0 && listOfUniqueAncestors.includes(currentAncestor)) {
+                    return ancestors;
+                }
+                // top level ancestor does not exist, add it and move to the next.
+                if (i === 0 && !listOfUniqueAncestors.includes(currentAncestor)) {
+                    return ancestors.concat([currentAncestor]);
+                }
 
-                    // ancestor string like parentX/parentY/parentZ
-                    const ancestorString = [...new Array(i + 1)]
-                        .reduce((str, __, index) => {
-                            if (index === 0) {
-                                return `${ancestryPath[index]}`;
-                            }
-                            return `${str}/${ancestryPath[index]}`;
-                        }, '');
+                // ancestor string like parentX/parentY/parentZ
+                const ancestorString = [...new Array(i + 1)]
+                    .reduce((str, __, index) => {
+                        if (index === 0) {
+                            return `${ancestryPath[index]}`;
+                        }
+                        return `${str}/${ancestryPath[index]}`;
+                    }, '');
 
-                    if (listOfUniqueAncestors.includes(ancestorString)) return ancestors;
+                if (listOfUniqueAncestors.includes(ancestorString)) return ancestors;
 
-                    return ancestors.concat([ancestorString]);
-                }, []);
+                return ancestors.concat([ancestorString]);
+            }, []);
 
-            return listOfUniqueAncestors.concat(uniqueAncestors);
-        }, [])
-        .sort((param1, param2) => {
-            const a = param1.split('/').length;
-            const b = param2.split('/').length;
-            // smaller the length, the higher up on the tree. Fetch the highest nodes first.
-            if (b > a) return -1;
-            if (a > b) return 1;
-            return 0;
-        });
-}
+        return listOfUniqueAncestors.concat(uniqueAncestors);
+    }, [])
+    .sort((param1, param2) => {
+        const a = param1.split('/').length;
+        const b = param2.split('/').length;
+        // smaller the length, the higher up on the tree. Fetch the highest nodes first.
+        if (b > a) return -1;
+        if (a > b) return 1;
+        return 0;
+    });
+
 
 export const getAncestryPathOfNodes = (checked, nodes, traverseTreeByCodeFn) => [
     ...new Set(
