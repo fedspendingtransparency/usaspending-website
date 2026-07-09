@@ -114,7 +114,7 @@ const CovidModalContainer = ({
                             <p>USAspending is working with federal agencies to address known limitations in COVID-19 spending data. See <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">a full description</a> of the issue.</p>
                         </div>
                     </div>
-                    <h2 className="covid-modal-h2"><span className="covid-modal-bold">We will update the site with new COVID-19 spending data and release more related features in the coming months. <a href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.">Sign up</a></span> to receive email updates about when these new features, and more, are added!</h2>
+                    <h2 className="covid-modal-h2"><span className="covid-modal-bold">We will update the site with new COVID-19 spending data and release more related features in the coming months. <a href={`mailto:join-usaspending@lists.fiscal.treasury.gov?subject=${encodeURIComponent("Yes! I'd like to receive updates.")}`}>Sign up</a></span> to receive email updates about when these new features, and more, are added!</h2>
                     <div className="usa-dt-modal__link covid-modal-button">
                         <button onClick={hideModal}>Close</button>
                     </div>

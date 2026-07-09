@@ -31,7 +31,7 @@ const ErrorPage = () => (
                     <Link to="/">Back to Home</Link>
                 </li>
                 <li>
-                    <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Report%20an%20Error">Report Problem</a>
+                    <a href={`mailto:usaspending.help@fiscal.treasury.gov?subject=${encodeURIComponent("Report an Error")}`}>Report Problem</a>
                 </li>
                 <li>
                     <Link to="/search">Search Award Data</Link>
