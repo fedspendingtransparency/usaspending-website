@@ -770,7 +770,7 @@ export const getAncestryPathOfNodes = (checked, nodes, traverseTreeByCodeFn) => 
     .map((node) => ([...node.ancestors, node?.value]));
 
 export const trimCheckedToCommonAncestors = (arrayOfAncestryPaths) => {
-    arrayOfAncestryPaths = arrayOfAncestryPaths.splice(arrayOfAncestryPaths.length);
+    arrayOfAncestryPaths.splice(arrayOfAncestryPaths.length);
     return arrayOfAncestryPaths
         .sort((a, b) => a.length - b.length)
         .reduce((leanArrayOfAncestryPaths, ancestryPath) => {
