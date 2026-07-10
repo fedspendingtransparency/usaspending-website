@@ -21,14 +21,18 @@ import useStateNavigation from "./useStateNavigation";
 import useFetchOverview from "./useFetchOverview";
 import { setStateFiscalYear, setStateCenter } from "redux/actions/state/stateActions";
 import { stateCenterFromFips } from 'helpers/mapHelper';
+import TopFiveSection from "./topFive/TopFiveSection";
+import useAgencySlugs from "../../hooks/useAgencySlugs";
 
+require('pages/state/statePage.scss');
 
 const StatePage = () => {
     const dispatch = useDispatch();
     const { handleFyChange, state, stateId, fy } = useStateNavigation();
     const stateProfile = useSelector((s) => s.stateProfile);
+    const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
+    const agencyData = { agencySlugs, slugsLoading, slugsError };
 
-    console.log("1");
     const { isLoading, error
     } = useFetchOverview(stateId, fy);
 
@@ -45,7 +49,7 @@ const StatePage = () => {
             <FlexGridCol className="state-content">
                 <StateOverview />
                 <StateTimeVisualizationSectionContainer />
-                {/*<TopFiveSectionContainer />*/}
+                <TopFiveSection agencyData={agencyData} />
                 <StateFooter />
             </FlexGridCol>
         </FlexGridRow>

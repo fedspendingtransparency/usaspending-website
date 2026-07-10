@@ -10,7 +10,7 @@ import { Link } from "react-router";
 import PropTypes from "prop-types";
 
 import { categories } from 'dataMapping/topCategories';
-import TopFiveContainer from './containers/TopFiveContainer';
+import TopFiveContainer from './TopFiveContainer';
 import { tabTypes } from "../stateHelper";
 
 const propTypes = { agencyData: PropTypes.object };
