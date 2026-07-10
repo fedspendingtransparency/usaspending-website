@@ -9,7 +9,10 @@
   border-radius: $border-radius * 4;
   border: rem(1) solid $gray-10;
   box-shadow: $shadow-3;
-  margin-top: $global-spacing-unit * 5;
+  margin-top: $global-spacing-unit * 38;
+  // TODO: Uncomment and remove above version
+  // once Search Gov Spending section is added
+  // margin-top: $global-spacing-unit * 5;
 
   .button-icon-container {
     border-radius: rem(4);
