@@ -821,7 +821,7 @@ const articles = [
         title: "Bringing Data to Life",
         banner_subtitle: "Hackathon Draws Attention to Government Spending Projects and Infrastructure",
         created_date: "07/02/2026",
-        feature_sprint: 222,
+        feature_sprint: 223,
         feature_week: 1,
         description: "Planes, trains, and automobiles can get you where you need to go. But what if there’s no roads, bridges, or airports? America’s infrastructure is a key part of",
         slug: "bringing-data-to-life",
