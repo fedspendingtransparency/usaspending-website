@@ -25,7 +25,7 @@ describe('SearchAwardsOperation', () => {
                 })
             });
             const requestObject = model.toParams();
-            expect(Object.keys(requestObject).includes('tas_codes')).toEqual(true);
+            expect(Object.keys(requestObject).includes('tas_codes')).toStrictEqual(true);
             expect(Object.keys(requestObject)).toEqual(['time_period', 'tas_codes']);
             expect(requestObject.tas_codes.counts).toBeFalsy();
         });
