@@ -1,11 +1,9 @@
 @import "./searchIcons";
 
 .more-resources__section {
-  width: 100%;
-  
   .more-resources__row {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     gap: $global-spacing-unit * 3;
     margin-top: $global-spacing-unit * 5;
   }
@@ -20,6 +18,7 @@
     display: flex;
     flex-direction: column;
     flex: 1 1 0;
+    justify-content: center;
     min-width: 0;
     box-sizing: border-box;
     padding: rem(12);
