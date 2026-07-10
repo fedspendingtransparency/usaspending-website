@@ -89,9 +89,9 @@ const SearchContainer = () => {
             filters: appliedFilters,
             _empty: areAppliedFiltersEmpty
         },
-        // eslint-disable-next-line camelcase
         spending_level
     } = useSelector((state) => state);
+    const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
     const [downloadInFlight, setDownloadInFlight] = useState(false);
     const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
 
@@ -181,18 +181,30 @@ const SearchContainer = () => {
             });
     }, [stagedFilters]);
 
+    useEffect(() => {
+        areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
+        prevAppliedFiltersRef.current = appliedFilters;
+    }, [areAppliedFiltersEmpty, appliedFilters]);
+
     const downloadButtonEnabled = useCallback(() => {
         if (
             (awardsCount === 0 || awardsCount >= 500000) &&
             (transactionsCount === 0 || transactionsCount >= 500000) &&
-            (subawardsCount === 0 || subawardsCount >= 500000)
+            (
+                spendingLevel === 'awards' ||
+                (subawardsCount === 0 || subawardsCount >= 500000)
+            )
         ) {
             setDownloadAvailable(false);
         }
-        else if (awardsCount !== 0 || transactionsCount !== 0 || subawardsCount !== 0) {
+        else if (
+            awardsCount !== 0 ||
+            transactionsCount !== 0 ||
+            (spendingLevel === 'subawards' && subawardsCount !== 0)
+        ) {
             setDownloadAvailable(true);
         }
-    }, [transactionsCount, awardsCount, subawardsCount]);
+    }, [transactionsCount, awardsCount, subawardsCount, spendingLevel]);
 
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
@@ -231,7 +243,7 @@ const SearchContainer = () => {
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
-                        // eslint-disable-next-line no-console
+
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
                         searchURLParams.delete("hash");
@@ -356,7 +368,7 @@ const SearchContainer = () => {
             transactionsCount={transactionsCount}
             subawardsCount={subawardsCount}
             queryParam={location.state}
-            // eslint-disable-next-line camelcase
+
             spending_level={spending_level} />
     );
 };

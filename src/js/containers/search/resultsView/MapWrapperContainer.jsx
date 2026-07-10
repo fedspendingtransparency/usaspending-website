@@ -101,7 +101,7 @@ const MapWrapperContainer = React.memo((props) => {
 
     const completeDataSet = {
         country: countries,
-        state: territories,
+        state: Object.keys(stateFIPSByAbbreviation),
         county: counties,
         congressionalDistrict: congressionalDistricts
     };

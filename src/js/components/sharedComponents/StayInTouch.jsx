@@ -39,7 +39,7 @@ const StayInTouch = ({ pageName }) => {
 
     const handleSignUp = () => {
         trackLinkSignUp();
-        window.location.href = "mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.";
+        window.location.href = `mailto:join-usaspending@lists.fiscal.treasury.gov?subject=${encodeURIComponent("Yes! I'd like to receive updates.")}`;
     };
     const handleLearnMore = () => {
         trackLinkLearnMore();

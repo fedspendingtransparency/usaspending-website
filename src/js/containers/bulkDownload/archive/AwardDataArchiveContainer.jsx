@@ -8,6 +8,9 @@ import { requestArchiveFiles } from '../../../helpers/bulkDownloadHelper';
 import AwardDataArchiveContent from '../../../components/bulkDownload/archive/AwardDataArchiveContent';
 import useRequestAgenciesList from "../../../hooks/useRequestAgenciesList";
 import PropTypes from "prop-types";
+import React, { useEffect, useCallback, memo } from 'react';
+import PropTypes from "prop-types";
+import useRequestArchiveFiles from "./useRequestArchiveFiles";
 
 const dayjs = require('dayjs');
 
@@ -37,20 +40,22 @@ const propTypes = {
     setResults: PropTypes.func
 }
 
-const AwardDataArchiveContainer = ({ filters, setFilters, results, setResults }) => {
-    const { data } = useRequestAgenciesList("award_agencies");
-    const resultsRequest = useRef(null);
+// eslint-disable-next-line prefer-arrow-callback
+const AwardDataArchiveContainer = memo(function AwardDataArchiveContainer(
+    { filters, setFilters, results, setResults }
+) {
+    const { data: agencyData } = useRequestAgenciesList("award_agencies");
 
     const agencies = {
-        cfoAgencies: data?.data.agencies.cfo_agencies || [],
-        otherAgencies: data?.data.agencies.other_agencies || []
+        cfoAgencies: agencyData?.data.agencies.cfo_agencies || [],
+        otherAgencies: agencyData?.data.agencies.other_agencies || []
     };
 
     const updateFilter = (name, value) => setFilters(
         (prevState) => ({ ...prevState, [name]: value })
     );
 
-    const parseResults = (data) => {
+    const parseResults = useCallback((data) => {
         const res = [];
 
         data.forEach((item) => {
@@ -84,29 +89,17 @@ const AwardDataArchiveContainer = ({ filters, setFilters, results, setResults })
         });
 
         setResults(res);
-    };
+    }, [setResults]);
 
-    const requestResults = useCallback(() => {
-        if (resultsRequest.current) resultsRequest.current.cancel();
-
-        // perform the API request
-        resultsRequest.current = requestArchiveFiles({
-            agency: filters.agency.id,
-            fiscal_year: parseInt(filters.fy, 10),
-            type: filters.type.name
-        });
-
-        resultsRequest.current.promise
-            .then((res) => parseResults(res.data.monthly_files))
-            .catch((err) => {
-                console.log(err);
-                resultsRequest.current = null;
-            });
-    }, [filters.agency.id, filters.fy, filters.type.name]);
+    const requestData = useRequestArchiveFiles(
+        filters.agency.id,
+        parseInt(filters.fy, 10),
+        filters.type.name
+    );
 
     useEffect(() => {
-        requestResults();
-    }, [requestResults]);
+        if (requestData.length !== 0) parseResults(requestData);
+    }, [requestData, parseResults]);
 
     return (
         <AwardDataArchiveContent
@@ -114,10 +107,9 @@ const AwardDataArchiveContainer = ({ filters, setFilters, results, setResults })
             updateFilter={updateFilter}
             agencies={agencies}
             columns={columns}
-            results={results}
-            requestResults={requestResults} />
+            results={results} />
     );
-}
+});
 
 AwardDataArchiveContainer.propTypes = propTypes;
 export default AwardDataArchiveContainer;

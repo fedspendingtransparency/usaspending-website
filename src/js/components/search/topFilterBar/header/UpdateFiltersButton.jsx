@@ -13,6 +13,7 @@ import {
 import { clearAllFilters as clearStagedFilters } from "../../../../redux/actions/search/searchFilterActions";
 import { resetMapLegendToggle } from "../../../../redux/actions/search/mapLegendToggleActions";
 import { convertFiltersToAnalyticEvents, sendFieldCombinationsOnUpdate } from "../../../../containers/search/helpers/searchAnalytics";
+import { initialState, initialStateDR } from '../../../../redux/reducers/search/searchFiltersReducer';
 
 const propTypes = { appliedFilters: PropTypes.object };
 
@@ -21,7 +22,8 @@ const UpdateFiltersButton = ({ appliedFilters }) => {
     const stagedFilters = useSelector((state) => state.filters);
 
     const closeIcon = useMemo(() => (<FontAwesomeIcon icon="times" />), []);
-    const emptyFilters = areFiltersEqual(stagedFilters);
+    const emptyFilters = areFiltersEqual(stagedFilters, initialState) ||
+            areFiltersEqual(stagedFilters, initialStateDR);
     const equalFilters = areFiltersEqual(stagedFilters, appliedFilters);
 
     const onClick = useCallback(() => {
@@ -46,7 +48,7 @@ const UpdateFiltersButton = ({ appliedFilters }) => {
         if (e.key === 'Enter') onClick();
     }, [onClick]);
 
-    if (equalFilters) return (<></>);
+    if (equalFilters || emptyFilters) return (<></>);
 
     return (
         <Button

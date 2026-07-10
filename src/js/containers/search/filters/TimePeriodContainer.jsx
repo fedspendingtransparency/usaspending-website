@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/21/16
   **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -50,11 +50,11 @@ const TimePeriodContainer = (props) => {
         setTimePeriods(timePeriodArr);
     };
 
-    const changeTab = (tab) => {
+    const changeTab = useCallback((tab) => {
         setActiveTab(tab);
-    };
+    }, []);
 
-    const updateFilter = (params) => {
+    const updateFilter = useCallback((params) => {
         const newFilters = Object.assign({}, params);
 
         if (activeTab === 'fy') {
@@ -67,7 +67,7 @@ const TimePeriodContainer = (props) => {
             newFilters.fy = [];
             props.updateTimePeriodArray(newFilters);
         }
-    };
+    }, [activeTab]);
 
     const dirtyFilters = () => {
         const appliedFields = [

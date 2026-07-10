@@ -90,7 +90,7 @@ const useResultsTableSearch = (
 
     // if subawards is true, newAwardsOnly cannot be true, so we remove
     // dateType for this request; also has to be done for the tabCounts request
-    if (spendingLevel === "subaward" && filtersTemp.dateType) {
+    if (spendingLevel === "subawards" && filtersTemp.dateType) {
         delete filtersTemp.dateType;
     }
 

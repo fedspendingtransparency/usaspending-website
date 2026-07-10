@@ -3,10 +3,8 @@
  * Created by Andrea Blackwell 03/29/22
  */
 
-import React, { useContext } from 'react';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FlexGridRow, FlexGridCol, ShareIcon } from "data-transparency-ui";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 
 import '../../../_scss/pages/analystGuide/analystGuide.scss';
 import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
@@ -14,30 +12,13 @@ import { showModal } from '../../redux/actions/modal/modalActions';
 import { analystGuideMetaTags } from "../../helpers/metaTagHelper";
 import IsMobileContext from "../../context/IsMobileContext";
 import AnalystGuideHeader from './AnalystGuideHeader';
+import 'pages/analystGuide/analystGuide.scss';
+import BannerPageHeader from "../../components/sharedComponents/header/BannerPageHeader";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import AnalystGuideQuestions from "./AnalystGuideQuestions";
 import AnalystGuideIntro from "./AnalystGuideIntro";
 
 const AnalystGuidePage = () => {
-    const { isMedium } = useContext(IsMobileContext);
-    const dispatch = useDispatch();
-    const onExternalLinkClick = (e) => {
-        dispatch(showModal(e));
-    };
-
-    const dropdownDirection = isMedium ? 'right' : 'left';
-    const slug = 'federal-spending-guide';
-
-    const onShareClick = (name) => {
-        const emailSubject = `USAspending.gov Federal Spending Guide`;
-        const emailArgs = {
-            subject: `${emailSubject}`,
-            // eslint-disable-next-line max-len
-            body: `Interested in learning how to effectively use Federal Spending Data? Check out #USAspending Federal Spending Guide! ${getBaseUrl(slug)}`
-        };
-        handleShareOptionClick(name, slug, emailArgs, onExternalLinkClick);
-    };
-
     return (
         <PageWrapper
             pageName="FederalSpendingGuide"
@@ -45,49 +26,16 @@ const AnalystGuidePage = () => {
             noHeader
             metaTagProps={{ ...analystGuideMetaTags }}>
             <main id="main-content" className="main-content">
-                <section>
-                    <AnalystGuideHeader
-                        title="Federal Spending Guide"
-                        // eslint-disable-next-line max-len
-                        subtitle="Questions and answers about USAspending data and federal spending concepts" />
-                </section>
+                <BannerPageHeader
+                    kicker="RESOURCES"
+                    title="Federal Spending Guide"
+                    body="Questions and answers about USAspending data and federal spending concepts"
+                    faIcon="sack-dollar"
+                    primaryColor="#0081A1"
+                    secondaryColor="#00687D" />
                 <FlexGridRow style={{ justifyContent: 'center' }}>
                     <FlexGridCol desktop={6} tablet={12} className="analyst-guide-body">
-                        <div className="analyst-guide__share-dl-wrapper">
-                            <div className="analyst-guide__share-wrapper">
-                                <ShareIcon
-                                    url={getBaseUrl(slug)}
-                                    onShareOptionClick={onShareClick}
-                                    colors={{
-                                        backgroundColor: "white",
-                                        color: "#0071bc",
-                                        confirmationBackgroundColor: "white"
-                                    }}
-                                    dropdownDirection={dropdownDirection}
-                                    keepText
-                                    classNames="margin-right no-margin-left"
-                                    pickerButtonClassNames="side-margin"
-                                    pickerListClassNames="padding top-margin min-width" />
-                            </div>
-                            <div className="analyst-guide__download-wrapper">
-                                <a
-                                    href="/data/Federal-Spending-Guide.pdf"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="analyst-guide__download-button"
-                                    aria-label="download"
-                                    download>
-                                    <FontAwesomeIcon
-                                        data-href="/data/Federal-Spending-Guide.pdf"
-                                        icon="file-download"
-                                        className="analyst-guide__download-icon" />
-                                </a>
-                                <div>
-                                    <span>Download</span>
-                                </div>
-                            </div>
-                        </div>
-                        <AnalystGuideIntro onExternalLinkClick={onExternalLinkClick} />
+                        <AnalystGuideIntro />
                         <AnalystGuideQuestions />
                     </FlexGridCol>
                 </FlexGridRow>

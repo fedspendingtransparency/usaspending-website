@@ -10,6 +10,7 @@ const propTypes = { name: PropTypes.string };
 
 const useNewAwardsOnly = () => {
     const dispatch = useDispatch();
+    const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
     const newAwards = useSelector((state) => state.filters.filterNewAwardsOnlySelected);
     const newAwardsApplied = useSelector(
         (state) => state.appliedFilters.filters.filterNewAwardsOnlySelected
@@ -18,6 +19,11 @@ const useNewAwardsOnly = () => {
     const toggleFilter = (value) => {
         dispatch(updateNewAwardsOnlySelected(!value));
     };
+
+    // if subawards is true, newAwardsOnly cannot be true, so we remove
+    if (spendingLevel === "subawards") {
+        return null;
+    }
 
     return newAwardsApplied && {
         value: newAwards,

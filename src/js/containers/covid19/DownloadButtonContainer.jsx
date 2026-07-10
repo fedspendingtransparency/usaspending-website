@@ -15,8 +15,17 @@ import {
     setDownloadExpectedUrl
 } from '../../redux/actions/bulkDownload/bulkDownloadActions';
 import Analytics from '../../helpers/analytics/Analytics';
+import PropTypes from 'prop-types';
 
-const DownloadButtonContainer = () => {
+const propTypes = {
+    icon: PropTypes.string,
+    className: PropTypes.string
+};
+
+const DownloadButtonContainer = ({
+    icon = "download",
+    className =''
+}) => {
     const dispatch = useDispatch();
     const downloadInFlight = useSelector((state) => state.bulkDownload.download.pendingDownload);
     const downloadRequest = useRef(null);
@@ -54,8 +63,11 @@ const DownloadButtonContainer = () => {
     return (
         <DownloadIconButton508
             downloadInFlight={downloadInFlight}
-            onClick={downloadData} />
+            onClick={downloadData}
+            downloadIcon={icon}
+            className={className} />
     );
 };
 
+DownloadButtonContainer.propTypes = propTypes;
 export default DownloadButtonContainer;

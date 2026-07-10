@@ -56,10 +56,10 @@ export const RecipientPage = ({
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };
-    const slug = `recipient/${id}/${recipient.fy}`;
+    const slug = `recipient/${encodeURIComponent(id)}/${encodeURIComponent(recipient.fy)}`;
     const emailArgs = {
-        subject: `USAspending.gov Recipient Profile: ${recipient.overview.name}`,
-        body: `View the spending activity for this recipient on USAspending.gov: ${getBaseUrl(slug)}`
+        subject: encodeURIComponent(`USAspending.gov Recipient Profile: ${recipient.overview.name}`),
+        body: encodeURIComponent(`View the spending activity for this recipient on USAspending.gov: ${getBaseUrl(slug)}`)
     };
 
     const handleShare = (name) => {

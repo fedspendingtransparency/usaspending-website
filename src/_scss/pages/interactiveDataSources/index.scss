@@ -5,7 +5,6 @@
   @import "../../layouts/default/default";
   @import "../../components/pageLoading";
   @import "../../layouts/default/stickyHeader/header";
-  @import "../../mixins/profilePage";
 
   @include display(flex);
   @include justify-content(flex-start);
@@ -21,159 +20,136 @@
     width: 100%;
   }
 
-  @media (max-width: $medium-screen) {
+  .main-content {
+    width: 100%;
+
     .usda-in-page-nav__container {
-      top: 121px;
+      top: 0;
     }
-  }
 
-  .main-content {
-    justify-content: center;
-    margin: auto;
-  }
-
-  .usda__flex-row {
-    @include display(flex);
-    @include flex-wrap(wrap);
-
-    .usda__flex-col {
-      display: flex;
-      margin: auto;
+    .banner-page-header {
+      width: stretch;
     }
-  }
 
-  .main-content {
-    @include display(flex);
-    @include flex-grow(1);
-    @include flex-wrap(wrap);
-    max-width: rem(1400);
+    .usda__flex-row {
+      @include display(flex);
 
-    ul {
-      padding: 0;
-
-      li {
-        list-style: none;
+      .usda__flex-col {
+        display: flex;
+        margin: auto;
       }
+    }
 
-      &.interactives-guide_bullet-points {
-        padding-top: 8px;
-        padding-left: 5px;
+    .interactive-data-sources__row {
+      @include display(flex);
+      max-width: rem(1400);
+      margin: auto;
+
+      ul {
+        padding: 0;
 
         li {
-          list-style: disc;
+          list-style: none;
         }
-      }
-    }
 
-    .body {
-      @include display(flex);
-      @include flex-direction(column);
-      padding: 0px;
-      background: $color-white;
-      margin: rem(20) rem(16) rem(20) rem(16);
-      @media (min-width: $tablet-screen) {
-        margin: rem(20) rem(32) rem(20) rem(32);
-      }
+        &.interactives-guide_bullet-points {
+          padding-top: 8px;
+          padding-left: 5px;
 
-      .usda-message {
-        &.usda-message_error {
-          background-color: $color-white;
+          li {
+            list-style: disc;
+          }
         }
       }
 
-      .body__content {
-        margin-top: rem(32);
-
-        .table-wrapper {
-          overflow-x: auto;
-        }
-      }
-
-      .intro-padded__content {
-        @import "./_scrollerOverlayCard.scss";
-        padding: 2.5% 8% 0% 8%;
-
-        h1,
-        h2,
-        h3 {
-          margin-top: 0;
-        }
-
-        @media (max-width: $tablet-screen) {
-          padding: 2.5% 8% 8% 8%;
-        }
-      }
-
-      .body-padded__content {
-        @import "./_scrollerOverlayCard.scss";
-        margin-top: 0;
-        padding: 0 0 10% 0;
-
-        h1,
-        h2,
-        h3 {
-          margin-top: 0;
-        }
-      }
-
-      .usda-section__container {
+      .interactive-data-sources__col {
         @include display(flex);
+        @include flex-direction(column);
+        padding: 0px;
+        background: $color-white;
 
-        hr {
-          height: rem(2);
-        }
-      }
-
-      // Lottie Animation styles
-      @import "./_lottieAnimation.scss";
-      // Scroller styles
-      @import "./_scroller.scss";
-      @import "./_scrollerOverlay.scss";
-      // Other Page Portion styles
-      @import "./_introSection.scss";
-      @import "./_aboutSection.scss";
-      @import "./_dataSourcesTitles.scss";
-
-      .default-note {
-        @include profile-page-wrap;
-        a {
-          font-weight: $font-semibold;
-        }
-      }
-
-      .position {
-        display: flex;
-        align-items: center;
-        height: 100%;
-
-        &--center {
-          justify-content: center;
+        .usda-message {
+          &.usda-message_error {
+            background-color: $color-white;
+          }
         }
 
-        &--left {
-          justify-content: flex-start;
+        .body__content {
+          .table-wrapper {
+            overflow-x: auto;
+          }
         }
 
-        &--right {
-          justify-content: flex-end;
+        .body-padded__content {
+          @import "./_scrollerOverlayCard.scss";
+          margin-top: 0;
+          padding: 0 0 10% 0;
+
+          h1,
+          h2,
+          h3 {
+            margin-top: 0;
+          }
         }
-      }
+        .usda-section__container {
+          @include display(flex);
 
-      // to overlay animations on top of each other
-      .top-animation {
-        position: absolute;
-        z-index: 100;
-      }
+          hr {
+            height: rem(2);
+          }
+        }
 
-      .bottom-animation {
-        position: absolute;
-        z-index: 50;
-      }
+        // Lottie Animation styles
+        @import "./_lottieAnimation.scss";
+        // Scroller styles
+        @import "./_scroller.scss";
+        @import "./_scrollerOverlay.scss";
+        // Other Page Portion styles
+        @import "./_introSection.scss";
+        @import "./_aboutSection.scss";
+        @import "./_dataSourcesTitles.scss";
 
-      /* Fixes known sizing inconsistency bug for lottie web on safari browsers */
-      .top-animation,
-      .bottom-animation {
-        width: 100%;
+        .default-note {
+          @include profile-page-wrap;
+          a {
+            font-weight: $font-semibold;
+          }
+        }
+
+        .position {
+          display: flex;
+          align-items: center;
+          height: 100%;
+
+          &--center {
+            justify-content: center;
+          }
+
+          &--left {
+            justify-content: flex-start;
+          }
+
+          &--right {
+            justify-content: flex-end;
+          }
+        }
+
+        // to overlay animations on top of each other
+        .top-animation {
+          position: absolute;
+          z-index: 100;
+        }
+
+        .bottom-animation {
+          position: absolute;
+          z-index: 50;
+        }
+
+        /* Fixes known sizing inconsistency bug for lottie web on safari browsers */
+        .top-animation,
+        .bottom-animation {
+          width: 100%;
+        }
       }
     }
   }

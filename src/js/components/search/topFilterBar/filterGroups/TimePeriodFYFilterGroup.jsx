@@ -6,6 +6,7 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from "react-redux";
+import { Set } from 'immutable';
 
 import { updateTimePeriod } from "../../../../redux/actions/search/searchFilterActions";
 import BaseTopFilterGroup from '../BaseTopFilterGroup';
@@ -23,8 +24,9 @@ const TimePeriodFYFilterGroup = ({ name, resultsView }) => {
             timePeriodFY.delete(value) :
             timePeriodFY.add(value);
 
+        const newStateValue = newValue?.size ? newValue : new Set();
         dispatch(updateTimePeriod({
-            fy: newValue,
+            fy: newStateValue,
             dateType: 'fy'
         }));
     };

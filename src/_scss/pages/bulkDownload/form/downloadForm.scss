@@ -1,5 +1,7 @@
 .download-center-form,
 .bulk-download {
+  @import "filterSectionTitle";
+
   .download-filter {
     padding: 0;
     padding-bottom: rem(40);
@@ -7,8 +9,6 @@
     &.width-96 {
       width: 96%;
     }
-
-    @import "filterSectionTitle";
 
     .download-filter__container {
       display: flex;

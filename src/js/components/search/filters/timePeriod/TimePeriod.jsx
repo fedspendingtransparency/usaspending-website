@@ -3,7 +3,7 @@
  * Created by Emily Gullo 11/03/2016
  **/
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
@@ -129,7 +129,7 @@ const TimePeriod = ({
         }
     };
 
-    const handleDateChange = (date, dateType) => {
+    const handleDateChange = useCallback((date, dateType) => {
         // the component will hold values of the start/end dates for use by the UI only
         // this is because the start/end range will be incomplete during the time the user has only
         // picked one date, or if they have picked an invalid range
@@ -153,42 +153,37 @@ const TimePeriod = ({
                 break;
             // no default
         }
-    };
+    }, []);
 
-    const removeDateRange = (newValue) => {
-        updateGenericFilter({
-            type: 'timePeriodType',
-            value: 'dr'
-        });
-
+    const removeDateRange = useCallback((newValue) => {
         setDateRangeChipRemoved(true);
         setStartDateUI(null);
         setEndDateUI(null);
         setStartDateDropdown(null);
         setEndDateDropdown(null);
 
-        if (activeTab === 'dr') {
-            updateGenericFilter({
-                type: 'timePeriodType',
-                value: 'dr'
-            });
-            updateGenericFilter({
-                type: 'time_period',
-                value: newValue
-            });
-        }
-    };
+        const newDRValue = newValue?.size ? newValue : new Set();
 
-    const showErrorFunc = (error, message) => {
+        updateGenericFilter({
+            type: 'time_period',
+            value: newDRValue
+        });
+        updateGenericFilter({
+            type: 'timePeriodType',
+            value: activeTab
+        });
+    }, [activeTab, updateGenericFilter]);
+
+    const showErrorFunc = useCallback((error, message) => {
         setShowError(true);
         setHeader(error);
         setErrorMessage(message);
-    };
+    }, []);
 
-    const hideError = () => {
+    const hideError = useCallback(() => {
         setShowError(false);
         setHeader('');
-    };
+    }, []);
 
     let errorDetails;
     let showFilter;

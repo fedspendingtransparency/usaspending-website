@@ -58,7 +58,8 @@ export const stateFIPSByAbbreviation = {
     WA: "53",
     WI: "55",
     WV: "54",
-    WY: "56"
+    WY: "56",
+    MP: "69"
 };
 
 export const stateNameByFipsId = {

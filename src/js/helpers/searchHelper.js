@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/2/16
   **/
 
-import { is } from 'immutable';
+import { is as immutableIs, Iterable } from 'immutable';
 import { isEqual, sortBy } from 'lodash-es';
 import dayjs from "dayjs";
 import { initialState } from '../redux/reducers/search/searchFiltersReducer';
@@ -182,12 +182,20 @@ export const fetchLastUpdate = () => apiRequest({
     url: 'v2/awards/last_updated/'
 });
 
+// eslint-disable-next-line max-len
 const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { exclude: exclude2, require: require2 }) => {
     if (!isEqual(sortBy(require1), sortBy(require2))) return false;
     if (!isEqual(sortBy(exclude1), sortBy(exclude2))) return false;
     return true;
 };
 
+const valuesAreEqual = (a, b) => {
+    if(Iterable.isIterable(a) || Iterable.isIterable(b)) {
+        return immutableIs(a, b);
+    }
+
+    return isEqual(a, b);
+}
 /**
  * Equality Comparison of two objects:
  * @param {Object} filters object to be measured for equality
@@ -196,8 +204,10 @@ const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { 
  */
 export const areFiltersEqual = (filters = initialState, filterReference = initialState) => {
     if (!filterReference && filters) return false;
-    const referenceObject = Object.assign({}, filterReference);
-    const comparisonObject = Object.assign({}, filters);
+
+    const referenceObject = {...filterReference};
+    const comparisonObject = {...filters};
+
     if (referenceObject.timePeriodType === 'fy') {
     // if the time period is fiscal year, we don't care about the date range values, even
     // if they're provided because the date range tab isn't selected
@@ -209,8 +219,8 @@ export const areFiltersEqual = (filters = initialState, filterReference = initia
         delete referenceObject.filterNaoActiveFromFyOrDateRange;
     }
     else if (referenceObject.timePeriodType === 'dr') {
-    // if the time period is date range, we don't care about the fiscal year values, even
-    // if they're provided because the fiscal year tab isn't selected
+        // if the time period is date range, we don't care about the fiscal year values, even
+        // if they're provided because the fiscal year tab isn't selected
         delete comparisonObject.timePeriodFY;
         delete referenceObject.timePeriodFY;
         delete comparisonObject.filterNewAwardsOnlyActive;
@@ -218,17 +228,17 @@ export const areFiltersEqual = (filters = initialState, filterReference = initia
         delete comparisonObject.filterNaoActiveFromFyOrDateRange;
         delete referenceObject.filterNaoActiveFromFyOrDateRange;
     }
+
     // we need to iterate through each of the filter Redux keys in order to perform equality
     // comparisons on Immutable children (via the Immutable is() function)
     const immutableFilterKeys = Object
         .keys(comparisonObject)
         .filter((k) => !checkboxTreeFilters.includes(k));
 
-    for (const value of immutableFilterKeys) {
-        const key = value;
+    for (const key of immutableFilterKeys) {
         const unfilteredValue = comparisonObject[key];
         const currentValue = referenceObject[key];
-        if (!is(unfilteredValue, currentValue)) {
+        if (!valuesAreEqual(unfilteredValue, currentValue)) {
             return false;
         }
     }

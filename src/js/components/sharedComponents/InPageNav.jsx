@@ -17,7 +17,10 @@ const propTypes = {
     activeSection: PropTypes.string,
     jumpToSection: PropTypes.func,
     detectActiveSection: PropTypes.oneOfType([PropTypes.bool, PropTypes.func]),
-    pageName: PropTypes.string
+    pageName: PropTypes.string,
+    rootMargin: PropTypes.string,
+    threshold: PropTypes.array,
+    loading: PropTypes.bool
 };
 
 const InPageNav = (props) => {
