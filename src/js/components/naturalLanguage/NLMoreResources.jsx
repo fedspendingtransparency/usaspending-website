@@ -5,8 +5,8 @@
  */
 
 import React from "react";
-import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
+import { FlexGridRow, FlexGridCol, Button } from 'data-transparency-ui';
+import { moreResourcesBtnData } from "./NLData";
 
 const NLMoreResources = () => (
     <section className="more-resources__section">
@@ -14,36 +14,28 @@ const NLMoreResources = () => (
             <FlexGridCol className="more-resources__label">
                 MORE RESOURCES:
             </FlexGridCol>
-            <FlexGridCol className="more-resources__col">
-                <NLSearchSuggestionsIcon 
-                    variant="glossary" 
-                    label="Glossary" 
-                    icon="book"/>
-            </FlexGridCol>
-
-            <FlexGridCol className="more-resources__col">
-                <NLSearchSuggestionsIcon 
-                    variant="about-the-data" 
-                    label="About the Data " 
-                    icon="database"/>
-            </FlexGridCol>
-
-            <FlexGridCol className="more-resources__col">
-                <NLSearchSuggestionsIcon 
-                    variant="data-dictionary" 
-                    label="Data Dictionary" 
-                    icon="book-open"/>
-            </FlexGridCol>
-
-            <FlexGridCol className="more-resources__col">
-                <NLSearchSuggestionsIcon 
-                    variant="federal-spending-guide" 
-                    label="Federal Spending Guide" 
-                    icon="money-check-dollar"/>
-            </FlexGridCol>
+            {moreResourcesBtnData.map((btn) => (
+                <FlexGridCol 
+                    className="more-resources__col"
+                    key={`more-resources-${btn.id}`}  
+                    mobile={12}
+                    tablet={12}
+                    desktop={4}>
+                    <Button
+                        copy=""
+                        onClick={btn.action}
+                        buttonTitle=""
+                        buttonSize="md"
+                        buttonType="text"
+                        backgroundColor="light"
+                        textAlignment="left"
+                        imageAlignment="right"
+                        image={btn.image}/>
+                </FlexGridCol>
+            ))
+            }
         </FlexGridRow>
     </section>
-)
-
+);
 
 export default NLMoreResources;

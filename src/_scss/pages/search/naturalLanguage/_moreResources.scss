@@ -18,10 +18,7 @@
     display: flex;
     flex-direction: column;
     flex: 1 1 0;
-    justify-content: center;
-    min-width: 0;
-    box-sizing: border-box;
-    padding: rem(12);
+    align-items: flex-start;
     border-radius: rem(4);
     border: rem(1) solid $gray-10;
     background: $gray-5;

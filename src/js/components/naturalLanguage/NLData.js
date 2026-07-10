@@ -3,17 +3,18 @@
  * Created by Trey Morgan 7/8/2026
  */
 
-/* eslint-disable import/prefer-default-export */
 import React from "react";
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
+import Analytics from 'helpers/analytics/Analytics';
+import { showSlideout } from "../../helpers/slideoutHelper";
 
 const overline = 'IF YOU WANT TO KNOW:';
 const filterByHeader = 'FILTER BY:'
-const iconId = crypto.randomUUID();
+const id = crypto.randomUUID();
 
 export const searchCardData = [
     {
-        id: iconId + 1,
+        id: id + 1,
         overline,
         headline: (
             <>
@@ -23,20 +24,20 @@ export const searchCardData = [
         filterByHeader,
         icons: [
             <NLSearchSuggestionsIcon 
-                key={`time-period-${iconId}`}  
+                key={`time-period-${id}`}  
                 variant="time-period" 
                 label="Time Period"
                 labelVariant="search-suggestions" 
                 icon="calendar"/>,
             <NLSearchSuggestionsIcon 
-                key={`location-${iconId}`} variant="location" 
+                key={`location-${id}`} variant="location" 
                 label="Location"
                 labelVariant="search-suggestions"  
                 icon="location-dot"/> 
         ]
     },
     {
-        id: iconId + 2,
+        id: id + 2,
         overline,
         headline: ( 
             <>
@@ -46,20 +47,20 @@ export const searchCardData = [
         filterByHeader,
         icons: [
             <NLSearchSuggestionsIcon 
-                key={`keyword-${iconId}`}  
+                key={`keyword-${id}`}  
                 variant="keyword" 
                 label="Keyword"
                 labelVariant="search-suggestions"  
                 icon="search" />,
             <NLSearchSuggestionsIcon 
-                key={`recipient-${iconId}`} variant="recipient" 
+                key={`recipient-${id}`} variant="recipient" 
                 label="Recipient"
                 labelVariant="search-suggestions"  
                 icon="user" /> 
         ]
     },
     {
-        id: iconId + 3,
+        id: id + 3,
         overline,
         headline: (
             <>
@@ -69,16 +70,91 @@ export const searchCardData = [
         filterByHeader,
         icons: [
             <NLSearchSuggestionsIcon 
-                key={`award-type-${iconId}`}  
+                key={`award-type-${id}`}  
                 variant="award-type" 
                 label="Award Type"
                 labelVariant="search-suggestions"  
                 icon="file-certificate" />,
             <NLSearchSuggestionsIcon 
-                key={`award-description-${iconId}`} variant="award-description" 
+                key={`award-description-${id}`} variant="award-description" 
                 label="Award Description"
                 labelVariant="search-suggestions" 
                 icon="building" /> 
         ]
+    }
+]
+
+export const moreResourcesBtnData = [
+    {
+        id: id + 1,
+        action: () => { 
+            Analytics.event({
+                event: 'natural-language_glossary',
+                category: 'Natural Language More Resources',
+                action: 'Link',
+                label: 'glossary button'
+            });
+            showSlideout('glossary', {clear: true});
+        },
+        image: (
+            <NLSearchSuggestionsIcon 
+                variant="glossary" 
+                label="Glossary" 
+                icon="book"/>
+        )
+    },
+    {
+        id: id + 2,
+        action: () => { 
+            Analytics.event({
+                event: 'natural-language_about-the-data',
+                category: 'Natural Language More Resources',
+                action: 'Link',
+                label: 'about the data button'
+            });
+            showSlideout('atd');
+        },
+        image: (
+            <NLSearchSuggestionsIcon 
+                variant="about-the-data" 
+                label="About the Data" 
+                icon="database"/>
+        ) 
+    },
+    {
+        id: id + 3,
+        action: () => { 
+            Analytics.event({
+                event: 'natural-language_data-dictionary',
+                category: 'Natural Language More Resources',
+                action: 'Link',
+                label: 'data dictionary button'
+            });
+            window.open("/data-dictionary");
+        },
+        image: (
+            <NLSearchSuggestionsIcon 
+                variant="data-dictionary" 
+                label="Data Dictionary" 
+                icon="book-open"/>
+        ) 
+    },
+    {
+        id: id + 4,
+        action: () => { 
+            Analytics.event({
+                event: 'natural-language_fed-spending-guide',
+                category: 'Natural Language More Resources',
+                action: 'Link',
+                label: 'federal spending guide button'
+            });
+            window.open("/federal-spending-guide");
+        },
+        image: (
+            <NLSearchSuggestionsIcon 
+                variant="federal-spending-guide" 
+                label="Federal Spending Guide" 
+                icon="money-check-dollar"/>
+        ) 
     }
 ]

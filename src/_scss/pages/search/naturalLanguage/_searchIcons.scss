@@ -10,12 +10,13 @@
   height: $base-font-size;
 }
 
-@mixin icon-variant($label-color, $icon-bkg, $icon-color, $gap: $font-size-10) {
+@mixin icon-variant($label-color, $icon-bkg, $icon-color, $gap: $font-size-10, $label-margin-top: 0) {
   gap: $gap;
   
   .icon-label {
     @include label-styles;
     color: $label-color;
+    margin-top: $label-margin-top;
   }
 
   .icon-container {
@@ -75,6 +76,6 @@
   &--about-the-data,
   &--data-dictionary,
   &--federal-spending-guide {
-    @include icon-variant($gray-80, none, $gray-80, 0);
+    @include icon-variant($gray-80, none, $gray-80, 0, rem(2));
   }
 } 

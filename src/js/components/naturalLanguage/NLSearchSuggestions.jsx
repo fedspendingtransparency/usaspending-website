@@ -16,10 +16,9 @@ const NLSearchSuggestions = () => {
             event: 'watch-training-videos',
             category: 'Natural Language Search Page',
             action: 'Link',
-            label: 'Search Suggestions'
+            label: 'search suggestions'
         });
-        window.open("/training-videos")
-
+        window.open("/training-videos");
     }
 
     return (
