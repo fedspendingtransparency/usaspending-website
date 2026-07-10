@@ -89,10 +89,11 @@ class SearchAwardsOperation {
 
         this.tasSources = state.treasuryAccounts?.toArray();
         this.tasCheckbox = {
-            require: state.tasCodes?.toObject().require.splice(state.tasCodes?.toObject().require.length),
-            exclude: state.tasCodes?.toObject().exclude.splice(state.tasCodes?.toObject().exclude.length)
+            require: state.tasCodes?.toObject().require,
+            exclude: state.tasCodes?.toObject().exclude
         };
-
+        this.tasCheckbox.require.splice(this.tasCheckbox.require.length);
+        this.tasCheckbox.exclude.splice(this.tasCheckbox.exclude.length);
         this.selectedRecipients = state.selectedRecipients?.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
         this.selectedRecipientLocations = state.selectedRecipientLocations?.toArray();
@@ -110,15 +111,22 @@ class SearchAwardsOperation {
             require: state.naicsCodes?.toObject().require.splice(state.naicsCodes?.toObject().require.length),
             exclude: state.naicsCodes?.toObject().exclude.splice(state.naicsCodes?.toObject().exclude.length)
         };
+        this.naicsCodes.require.splice(this.naicsCodes.require.length);
+        this.naicsCodes.exclude.splice(this.naicsCodes.exclude.length);
+
         this.pscCheckbox = {
             require: state.pscCodes?.toObject().require.splice(state.pscCodes?.toObject().require.length),
             exclude: state.pscCodes?.toObject().exclude.splice(state.pscCodes?.toObject().exclude.length)
         };
+        this.pscCheckbox.require.splice(this.pscCheckbox.require.length);
+        this.pscCheckbox.exclude.splice(this.pscCheckbox.exclude.length);
 
         this.defCodes = {
             require: state.defCodes?.toObject().require.splice(state.defCodes?.toObject().require.length),
             exclude: state.defCodes?.toObject().exclude.splice(state.defCodes?.toObject().exclude.length)
         };
+        this.defCodes.require.splice(this.defCodes.require.length);
+        this.defCodes.exclude.splice(this.defCodes.exclude.length);
 
         this.defCode = state.defCode?.toArray();
 
