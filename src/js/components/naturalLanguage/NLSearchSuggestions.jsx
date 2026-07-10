@@ -6,7 +6,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from "../../helpers/analytics/Analytics";
 import { searchCardData } from "./NLData";
 import NLMoreResources from "./NLMoreResources";
 

@@ -5,7 +5,7 @@
 
 import React from "react";
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from "../../helpers/analytics/Analytics";
 import { showSlideout } from "../../helpers/slideoutHelper";
 
 const overline = 'IF YOU WANT TO KNOW:';
