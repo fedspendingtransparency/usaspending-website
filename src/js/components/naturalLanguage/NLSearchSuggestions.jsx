@@ -3,15 +3,14 @@
  * Created by Trey Morgan 7/2/2026
  */
 
-import React, { memo } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
 import Analytics from 'helpers/analytics/Analytics';
 import { searchCardData } from "./NLData";
 import NLMoreResources from "./NLMoreResources";
 
-// eslint-disable-next-line prefer-arrow-callback
-const NLSearchSuggestions = memo(function SearchSuggestionsSection() {
+const NLSearchSuggestions = () => {
     const handleWatchVideosClick = () => {
         Analytics.event({
             event: 'watch-training-videos',
@@ -73,6 +72,6 @@ const NLSearchSuggestions = memo(function SearchSuggestionsSection() {
             <NLMoreResources />
         </>
     );
-});
+};
 
 export default NLSearchSuggestions;

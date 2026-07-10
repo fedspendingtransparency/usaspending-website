@@ -8,13 +8,11 @@ import React from "react";
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 
-const label = 'MORE RESOURCES';
-
 const NLMoreResources = () => (
     <section className="more-resources__section">
         <FlexGridRow className="more-resources__row">
             <FlexGridCol className="more-resources__label">
-                {label}:
+                MORE RESOURCES:
             </FlexGridCol>
             <FlexGridCol className="more-resources__col">
                 <NLSearchSuggestionsIcon 
