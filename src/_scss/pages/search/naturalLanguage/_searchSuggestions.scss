@@ -21,6 +21,12 @@
     margin-right: rem(5);
   }
 
+  .search-suggestions__row {
+    display: flex;
+    flex: 1 0 0;
+    align-items: baseline;
+  }
+
   .search-suggestions__title {
     color: $gray-80;
     font-family: $font-sans-3;

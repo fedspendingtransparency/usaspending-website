@@ -10,7 +10,6 @@ import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 
 const label = 'MORE RESOURCES';
 
-
 const NLMoreResources = () => (
     <section className="more-resources__section">
         <FlexGridRow className="more-resources__row">
