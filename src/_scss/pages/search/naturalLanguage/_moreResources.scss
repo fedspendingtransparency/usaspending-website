@@ -17,10 +17,14 @@
   .more-resources__col {
     display: flex;
     flex-direction: column;
-    flex: 1 1 0;
+    flex: 1 1 100%;
     align-items: flex-start;
     border-radius: rem(4);
     border: rem(1) solid $gray-10;
     background: $gray-5;
+
+    @media (min-width: $medium-screen) {
+     flex: 1 1 0;
+    }
   }
 }

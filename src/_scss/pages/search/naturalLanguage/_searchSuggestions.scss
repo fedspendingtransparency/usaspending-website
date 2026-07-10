@@ -1,12 +1,11 @@
 @import "./searchIcons";
 
 .search-suggestions__section {
-  display: flex;
+  display: inline-flex;
   padding: $global-spacing-unit * 5;
   align-items: flex-start;
-  gap: rem(50);
   align-self: stretch;
-  border-radius: $border-radius * 4;
+  border-radius: rem(8);
   border: rem(1) solid $gray-10;
   box-shadow: $shadow-3;
   margin-top: $global-spacing-unit * 5;
@@ -47,6 +46,15 @@
   }
 
   .search-suggestions__card-row {
+     display: flex;
+     flex-wrap: wrap;
+     gap: rem(12);
+
+     @media (min-width: $medium-screen) {
+      flex-wrap: nowrap;
+      gap: rem(50);
+    }
+   
     .search-suggestions__card {
       .search-suggestions__card-body {
         height: 100%;
