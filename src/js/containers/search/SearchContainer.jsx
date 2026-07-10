@@ -89,6 +89,7 @@ const SearchContainer = () => {
         },
         spending_level
     } = useSelector((state) => state);
+    const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
     const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
 
     const request = useRef(null);
@@ -104,18 +105,21 @@ const SearchContainer = () => {
         if (
             (awardsCount === 0 || awardsCount >= 500000) &&
             (transactionsCount === 0 || transactionsCount >= 500000) &&
-            (subawardsCount === 0 || subawardsCount >= 500000)
+            (
+                spendingLevel === 'awards' ||
+                (subawardsCount === 0 || subawardsCount >= 500000)
+            )
         ) {
             return false;
         }
         else if (
             awardsCount !== 0 ||
             transactionsCount !== 0 ||
-            subawardsCount !== 0
+            (spendingLevel === 'subawards' && subawardsCount !== 0)
         ) {
             return true;
         }
-    }, [transactionsCount, awardsCount, subawardsCount]);
+    }, [transactionsCount, awardsCount, subawardsCount, spendingLevel]);
 
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
