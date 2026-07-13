@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 11/20/20
  */
 
-import { calculatePercentage } from 'helpers/moneyFormatter';
+import { calculatePercentage } from '../../../helpers/moneyFormatter';
 import CoreReportingRow from './CoreReportingRow';
 
 const BaseAgencyRow = Object.create(CoreReportingRow);

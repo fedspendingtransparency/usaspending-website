@@ -3,7 +3,7 @@
  * Created by David Trinh on 7/3/18
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney } from '../../../helpers/moneyFormatter';
 
 /* eslint-disable object-shorthand */
 const BaseRecipientLandingRow = {

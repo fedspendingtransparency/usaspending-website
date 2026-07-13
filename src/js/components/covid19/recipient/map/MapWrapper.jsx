@@ -7,12 +7,12 @@ import React, { createRef } from 'react';
 import PropTypes from 'prop-types';
 import { uniq, cloneDeep } from 'lodash-es';
 import { scaleQuantile, scaleLinear } from 'd3-scale';
-import GlobalConstants from 'GlobalConstants';
+import GlobalConstants from '../../../../GlobalConstants';
 
-import MapBroadcaster from 'helpers/mapBroadcaster';
-import { firstSymbolId, getColors, mapboxSources } from "helpers/mapHelper";
-import MapBox from 'components/sharedComponents/map/MapBox';
-import MapFiltersToggle from 'components/sharedComponents/map/MapFiltersToggle';
+import MapBroadcaster from '../../../../helpers/mapBroadcaster';
+import { firstSymbolId, getColors, mapboxSources } from "../../../../helpers/mapHelper";
+import MapBox from '../../../../components/sharedComponents/map/MapBox';
+import MapFiltersToggle from '../../../../components/sharedComponents/map/MapFiltersToggle';
 import MapFilters from './MapFilters';
 import MapLegend from './MapLegend';
 

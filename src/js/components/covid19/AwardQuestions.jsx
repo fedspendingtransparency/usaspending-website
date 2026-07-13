@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import GlossaryLink from 'components/sharedComponents/GlossaryLink';
+import GlossaryLink from '../../components/sharedComponents/GlossaryLink';
 
 const propTypes = {
     publicLaw: PropTypes.string

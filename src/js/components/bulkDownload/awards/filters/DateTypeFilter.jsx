@@ -7,8 +7,8 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 
-import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
-import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+import { awardDownloadOptions } from '../../../../dataMapping/bulkDownload/bulkDownloadOptions';
+import FilterSectionTitle from '../../../../components/bulkDownload/FilterSelectionTitle';
 
 const propTypes = { updateFilter: PropTypes.func };
 

@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { startCase } from 'lodash-es';
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '../../../../helpers/analytics/Analytics';
 
 const propTypes = {
     columns: PropTypes.array.isRequired,

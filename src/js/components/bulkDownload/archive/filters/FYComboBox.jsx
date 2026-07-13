@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import { currentFiscalYear, earliestFiscalYear } from "helpers/fiscalYearHelper";
-import ComboBox from "components/sharedComponents/ComboBox";
+import { currentFiscalYear, earliestFiscalYear } from "../../../../helpers/fiscalYearHelper";
+import ComboBox from "../../../../components/sharedComponents/ComboBox";
 
 const currentFY = currentFiscalYear();
 const fyOptions = [];

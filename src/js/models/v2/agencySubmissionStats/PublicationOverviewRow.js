@@ -2,7 +2,7 @@
  * PublicationOverviewRow.js
  */
 
-import { formatMoney, formatNumber, calculatePercentage } from 'helpers/moneyFormatter';
+import { formatMoney, formatNumber, calculatePercentage } from '../../../helpers/moneyFormatter';
 
 const dayjs = require('dayjs');
 

@@ -3,7 +3,7 @@
   * Created by Jonathan Hill 12/30/19
   **/
 
-import { cleanNaicsData } from "helpers/naicsHelper";
+import { cleanNaicsData } from "../../../helpers/naicsHelper";
 import {
     setNodes,
     showTree,

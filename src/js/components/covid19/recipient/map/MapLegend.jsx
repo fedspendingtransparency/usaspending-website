@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatMoneyWithPrecision, calculateUnitForSingleValue } from "helpers/moneyFormatter";
+import { formatMoneyWithPrecision, calculateUnitForSingleValue } from "../../../../helpers/moneyFormatter";
 
 const propTypes = {
     units: PropTypes.shape({

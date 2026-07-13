@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Search } from 'components/sharedComponents/icons/Icons';
+import { Search } from '../../components/sharedComponents/icons/Icons';
 
 const propTypes = {
     keyword: PropTypes.string,

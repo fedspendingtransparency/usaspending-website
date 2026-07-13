@@ -9,9 +9,9 @@ import { uniqueId } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TooltipWrapper } from "data-transparency-ui";
 
-import EntityDropdownAutocomplete from 'components/sharedComponents/EntityDropdownAutocomplete';
-import { CDTooltip } from "components/search/filters/tooltips/AdvancedSearchTooltip";
-import defaultLocationValues from "dataMapping/bulkDownload/defaultLocationValues";
+import EntityDropdownAutocomplete from '../../../../components/sharedComponents/EntityDropdownAutocomplete';
+import { CDTooltip } from "../../../../components/search/filters/tooltips/AdvancedSearchTooltip";
+import defaultLocationValues from "../../../../dataMapping/bulkDownload/defaultLocationValues";
 import EntityWarning from './EntityWarning';
 import EntityDropdownList from './EntityDropdownList';
 

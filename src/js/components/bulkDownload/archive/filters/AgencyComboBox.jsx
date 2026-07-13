@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import ComboBox from "components/sharedComponents/ComboBox";
+import ComboBox from "../../../../components/sharedComponents/ComboBox";
 
 const propTypes = {
     updateFilter: PropTypes.func,

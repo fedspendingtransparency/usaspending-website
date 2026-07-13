@@ -3,7 +3,7 @@
  * Created by Afna Saifudeen 12/14/21
  */
 
-import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
+import { formatMoneyWithUnitsShortLabel } from '../../../helpers/moneyFormatter';
 
 const BaseAgencySubcomponentsList = {
     populate(data, id) {

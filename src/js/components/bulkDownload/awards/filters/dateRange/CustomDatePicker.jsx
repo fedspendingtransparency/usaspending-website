@@ -7,7 +7,7 @@ import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash-es';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { ExclamationCircle } from 'components/sharedComponents/icons/Icons';
+import { ExclamationCircle } from '../../../../../components/sharedComponents/icons/Icons';
 
 const dayjs = require('dayjs');
 

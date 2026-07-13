@@ -1,6 +1,6 @@
 import React from "react";
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
-import { getPrimaryFill, getSecondaryFill } from 'helpers/featuredContent/featuredContentHelper';
+import { getPrimaryFill, getSecondaryFill } from '../../helpers/featuredContent/featuredContentHelper';
 
 const heroPath = "../../img/featuredContent/banner/desktop/banner-";
 

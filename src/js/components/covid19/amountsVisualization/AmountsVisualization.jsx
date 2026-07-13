@@ -7,22 +7,22 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash-es';
 import { scaleLinear } from 'd3-scale';
-import Note from 'components/sharedComponents/Note';
-import DefaultAmountViz from 'components/covid19/amountsVisualization/amounts/shared/DefaultAmountViz';
+import Note from '../../../components/sharedComponents/Note';
+import DefaultAmountViz from '../../../components/covid19/amountsVisualization/amounts/shared/DefaultAmountViz';
 import { TooltipWrapper, Carousel, LoadingMessage } from 'data-transparency-ui';
-import PaginatedTooltipContainer from 'components/award/shared/activity/PaginatedTooltipContainer';
-import Tooltip from 'components/award/shared/activity/Tooltip';
+import PaginatedTooltipContainer from '../../../components/award/shared/activity/PaginatedTooltipContainer';
+import Tooltip from '../../../components/award/shared/activity/Tooltip';
 
 import {
     amountsHeight,
     amountsPadding,
     defaultTooltipWidth,
     tooltipMapping
-} from 'dataMapping/covid19/amountsVisualization';
+} from '../../../dataMapping/covid19/amountsVisualization';
 import {
     formatMoney,
     calculatePercentage
-} from 'helpers/moneyFormatter';
+} from '../../../helpers/moneyFormatter';
 
 const propTypes = {
     overviewData: PropTypes.object,

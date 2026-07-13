@@ -7,16 +7,16 @@ import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
-import { fetchAgencyCount } from 'apis/disaster';
-import DateNote from 'components/covid19/DateNote';
-import Note, { dodNote } from 'components/sharedComponents/Note';
-import { areCountsDefined } from 'helpers/covid19Helper';
-import { awardTypeTabs } from 'dataMapping/covid19/covid19';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
-import AwardSpendingAgencyTableContainer from 'containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
-import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
+import { fetchAgencyCount } from '../../../apis/disaster';
+import DateNote from '../../../components/covid19/DateNote';
+import Note, { dodNote } from '../../../components/sharedComponents/Note';
+import { areCountsDefined } from '../../../helpers/covid19Helper';
+import { awardTypeTabs } from '../../../dataMapping/covid19/covid19';
+import { awardTypeGroups } from '../../../dataMapping/search/awardType';
+import AwardSpendingAgencyTableContainer from '../../../containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer';
+import SummaryInsightsContainer from '../../../containers/covid19/SummaryInsightsContainer';
 import { Tabs } from "data-transparency-ui";
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '../../../helpers/analytics/Analytics';
 
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 

@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/8/18
  */
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as MoneyFormatter from '../../../../helpers/moneyFormatter';
 
 const dayjs = require('dayjs');
 

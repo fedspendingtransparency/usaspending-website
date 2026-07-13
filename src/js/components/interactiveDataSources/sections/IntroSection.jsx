@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
-import ShareDownloadButtonGroup from 'components/sharedComponents/buttons/ShareDownloadButtonGroup';
+import ShareDownloadButtonGroup from '../../../components/sharedComponents/buttons/ShareDownloadButtonGroup';
 
 const propTypes = {
     url: PropTypes.string,

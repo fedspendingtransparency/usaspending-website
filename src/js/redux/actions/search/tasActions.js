@@ -1,4 +1,4 @@
-import { cleanTasData } from "helpers/tasHelper";
+import { cleanTasData } from "../../../helpers/tasHelper";
 import {
     setNodes,
     showTree,

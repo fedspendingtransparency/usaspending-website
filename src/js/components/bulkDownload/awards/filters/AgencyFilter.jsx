@@ -6,9 +6,9 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
-import { awardDownloadOptions } from "dataMapping/bulkDownload/bulkDownloadOptions";
-import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
-import ComboBox from "components/sharedComponents/ComboBox";
+import { awardDownloadOptions } from "../../../../dataMapping/bulkDownload/bulkDownloadOptions";
+import FilterSectionTitle from '../../../../components/bulkDownload/FilterSelectionTitle';
+import ComboBox from "../../../../components/sharedComponents/ComboBox";
 
 const propTypes = {
     agencies: PropTypes.object,

@@ -7,10 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '../../../../helpers/analytics/Analytics';
 
-import { Home } from 'components/sharedComponents/icons/Icons';
-import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
+import { Home } from '../../../../components/sharedComponents/icons/Icons';
+import QuarterPickerWithFY from '../../../../components/sharedComponents/QuarterPickerWithFY';
 import VerticalTrail from './VerticalTrail';
 
 

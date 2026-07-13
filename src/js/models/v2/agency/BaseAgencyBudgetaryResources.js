@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/26/20
  */
 
-import { formatMoneyWithUnits, calculatePercentage, formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
+import { formatMoneyWithUnits, calculatePercentage, formatMoneyWithUnitsShortLabel } from '../../../helpers/moneyFormatter';
 
 const BaseAgencyBudgetaryResources = {
     populate(data) {

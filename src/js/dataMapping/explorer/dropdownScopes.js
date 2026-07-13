@@ -4,7 +4,7 @@
  */
 
 import { BudgetFunction, FederalAccount, ProgramActivity, ObjectClass, Recipient, Award, Agency }
-    from 'components/sharedComponents/icons/Icons';
+    from '../../components/sharedComponents/icons/Icons';
 
 export const dropdownScopes = {
     budget_function: [

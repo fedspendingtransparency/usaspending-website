@@ -14,9 +14,9 @@ import {
     defaultLineData,
     rectangleColorMapping,
     rectangleColorMappingArp
-} from 'dataMapping/covid19/amountsVisualization';
+} from '../../dataMapping/covid19/amountsVisualization';
 
-import { lineXPosition } from 'helpers/covid19/amountsVisualization';
+import { lineXPosition } from '../../../../../helpers/covid19/amountsVisualization';
 
 const propTypes = {
     scale: PropTypes.func,

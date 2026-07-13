@@ -11,17 +11,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { List } from "immutable";
 
-import { allFiscalYears } from "helpers/fiscalYearHelper";
+import { allFiscalYears } from "../../helpers/fiscalYearHelper";
 import {
     isPeriodVisible,
     isPeriodSelectable
-} from "helpers/aboutTheDataHelper";
-import { setSearchTerm } from "redux/actions/agencySubmissionStats";
+} from "../../helpers/aboutTheDataHelper";
+import { setSearchTerm } from "../../redux/actions/agencySubmissionStats";
 import {
     periodsPerQuarter,
     lastPeriods,
     cssOrderClassByPeriodId
-} from 'dataMapping/agencySubmissionStats/timeFilters';
+} from '../../dataMapping/agencySubmissionStats/timeFilters';
 import PeriodComponent from './PeriodComponent';
 
 const dayjs = require('dayjs');

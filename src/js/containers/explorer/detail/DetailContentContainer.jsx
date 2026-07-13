@@ -16,14 +16,14 @@ import {
     setExplorerActive,
     setExplorerPeriod
 } from "redux/actions/explorer/explorerActions";
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '../../../helpers/analytics/Analytics';
 import {
     appendCellForDataOutsideTree, truncateDataForTreemap
-} from "helpers/explorerHelper";
-import useFetchBreakdown from "hooks/useFetchBreakdown";
-import DetailContent from 'components/explorer/detail/DetailContent';
-import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
-import withAgencySlugs from "containers/agency/WithAgencySlugs";
+} from "../../../helpers/explorerHelper";
+import useFetchBreakdown from "../../../hooks/useFetchBreakdown";
+import DetailContent from '../../../components/explorer/detail/DetailContent';
+import ExplorerSidebar from '../../../components/explorer/detail/sidebar/ExplorerSidebar';
+import withAgencySlugs from "../../../containers/agency/WithAgencySlugs";
 
 const trackSpendingEvent = ({
     event, category, action, label = false

@@ -6,7 +6,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import isMobileContext from "context/IsMobileContext";
+import isMobileContext from "../../../context/IsMobileContext";
 import AwardDataArchiveForm from './AwardDataArchiveForm';
 import AwardDataArchiveTable from './table/AwardDataArchiveTable';
 import AwardDataArchiveUserSelections from "./AwardDataArchiveUserSelections";

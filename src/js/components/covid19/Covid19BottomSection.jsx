@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
-import OtherResources from 'components/covid19/OtherResources';
-import Covid19LinkCardsSection from 'components/covid19/Covid19LinkCardsSection';
+import DataSourcesAndMethodology from '../../components/covid19/DataSourcesAndMethodology';
+import OtherResources from '../../components/covid19/OtherResources';
+import Covid19LinkCardsSection from '../../components/covid19/Covid19LinkCardsSection';
 
 
 const propTypes = {

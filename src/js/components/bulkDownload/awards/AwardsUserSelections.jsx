@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import { awardDownloadOptions } from '../../../dataMapping/bulkDownload/bulkDownloadOptions';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 

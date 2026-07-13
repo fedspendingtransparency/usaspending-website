@@ -6,17 +6,17 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { financialAssistanceTabs } from 'dataMapping/covid19/covid19';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
-import { fetchCfdaCount } from 'apis/disaster';
-import { areCountsDefined } from 'helpers/covid19Helper';
+import { financialAssistanceTabs } from '../../../dataMapping/covid19/covid19';
+import { awardTypeGroups } from '../../../dataMapping/search/awardType';
+import { fetchCfdaCount } from '../../../apis/disaster';
+import { areCountsDefined } from '../../../helpers/covid19Helper';
 import { Tabs } from "data-transparency-ui";
-import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
-import SpendingByCFDAContainer from 'containers/covid19/assistanceListing/SpendingByCFDAContainer';
-import GlossaryLink from 'components/sharedComponents/GlossaryLink';
-import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
-import Analytics from 'helpers/analytics/Analytics';
-import Note, { dodNote } from 'components/sharedComponents/Note';
+import SummaryInsightsContainer from '../../../containers/covid19/SummaryInsightsContainer';
+import SpendingByCFDAContainer from '../../../containers/covid19/assistanceListing/SpendingByCFDAContainer';
+import GlossaryLink from '../../../components/sharedComponents/GlossaryLink';
+import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
+import Analytics from '../../../helpers/analytics/Analytics';
+import Note, { dodNote } from '../../../components/sharedComponents/Note';
 import DateNote from '../DateNote';
 
 const overviewData = [

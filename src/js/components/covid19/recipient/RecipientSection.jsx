@@ -5,12 +5,12 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import tabs from 'containers/covid19/helpers/recipient';
-import DateNote from 'components/covid19/DateNote';
+import tabs from '../../../containers/covid19/helpers/recipient';
+import DateNote from '../../../components/covid19/DateNote';
 import { Tabs } from "data-transparency-ui";
-import ReadMore from 'components/sharedComponents/ReadMore';
-import Analytics from 'helpers/analytics/Analytics';
-import Note, { dodNote } from 'components/sharedComponents/Note';
+import ReadMore from '../../../components/sharedComponents/ReadMore';
+import Analytics from '../../../helpers/analytics/Analytics';
+import Note, { dodNote } from '../../../components/sharedComponents/Note';
 
 const propTypes = {
     publicLaw: PropTypes.string

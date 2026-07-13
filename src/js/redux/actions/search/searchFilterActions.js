@@ -3,8 +3,8 @@
   * Created by Kevin Li 11/1/16
   **/
 
-import { removePlaceholderString } from "helpers/checkboxTreeHelper";
-import { CheckboxTreeSelections } from "redux/reducers/search/searchFiltersReducer";
+import { removePlaceholderString } from "../../../helpers/checkboxTreeHelper";
+import { CheckboxTreeSelections } from "../../reducers/search/searchFiltersReducer";
 
 // Keyword Filter
 export const updateTextSearchInput = (textInput) => ({

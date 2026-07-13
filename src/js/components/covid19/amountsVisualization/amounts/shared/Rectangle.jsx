@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import {
     calculateUnits,
     formatMoneyWithPrecision
-} from 'helpers/moneyFormatter';
+} from '../../../../../helpers/moneyFormatter';
 import {
     amountsPadding,
     rectangleMapping,
@@ -20,9 +20,9 @@ import {
     rectangleHeight,
     defaultRectangleData,
     lineStrokeWidth
-} from 'dataMapping/covid19/amountsVisualization';
+} from '../../../../../dataMapping/covid19/amountsVisualization';
 
-import { rectangleWidth } from 'helpers/covid19/amountsVisualization';
+import { rectangleWidth } from '../../../../../helpers/covid19/amountsVisualization';
 
 
 const propTypes = {

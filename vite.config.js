@@ -83,6 +83,7 @@ export default defineConfig(({ command, mode }) => {
       }
     },
     resolve: {
+      tsconfigPaths: true,
       alias: {
         '@': path.resolve(__dirname, './src/_scss'),
         '~': path.resolve(__dirname, './node_modules'),

@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary } from 'd3-hierarchy';
 import { scaleLinear } from 'd3-scale';
 
-import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
+import { measureTreemapHeader, measureTreemapValue } from '../../../../../helpers/textMeasurement';
 
 
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';

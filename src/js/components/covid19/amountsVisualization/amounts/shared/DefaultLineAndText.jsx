@@ -10,11 +10,11 @@ import PropTypes from 'prop-types';
 import {
     calculateUnits,
     formatMoneyWithPrecision
-} from 'helpers/moneyFormatter';
+} from '../../helpers/moneyFormatter';
 
-import { rectangleMapping } from 'dataMapping/covid19/amountsVisualization';
+import { rectangleMapping } from '../../../../../dataMapping/covid19/amountsVisualization';
 
-import { defaultTextState, textXPosition, textYPosition } from 'helpers/covid19/amountsVisualization';
+import { defaultTextState, textXPosition, textYPosition } from '../../../../../helpers/covid19/amountsVisualization';
 
 import DefaultLine from './DefaultLine';
 import TextGroup from './TextGroup';

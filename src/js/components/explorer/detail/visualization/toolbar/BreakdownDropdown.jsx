@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router';
 
-import { dropdownScopes, rootScopes, icons } from 'dataMapping/explorer/dropdownScopes';
-import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
-import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
+import { dropdownScopes, rootScopes, icons } from '../../../../../dataMapping/explorer/dropdownScopes';
+import { sidebarTypes } from '../../../../../dataMapping/explorer/sidebarStrings';
+import ViewTypeButton from '../../../../../components/sharedComponents/buttons/ViewTypeButton';
 import DropdownItem from './DropdownItem';
 import usePrevious from "../../../../../hooks/usePrevious";
 

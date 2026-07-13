@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { formatNumber } from 'helpers/moneyFormatter';
+import { formatNumber } from '../../../helpers/moneyFormatter';
 
 const propTypes = {
     onClick: PropTypes.func,

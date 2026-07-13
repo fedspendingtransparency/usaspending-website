@@ -6,10 +6,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import Analytics from 'helpers/analytics/Analytics';
-import UnreportedErrorScreen from 'components/explorer/detail/UnreportedErrorScreen';
-import ExplorerTable from 'containers/explorer/detail/table/ExplorerTable';
-import Note, { dodNote } from 'components/sharedComponents/Note';
+import Analytics from '../../../../helpers/analytics/Analytics';
+import UnreportedErrorScreen from '../../../../components/explorer/detail/UnreportedErrorScreen';
+import ExplorerTable from '../../../../containers/explorer/detail/table/ExplorerTable';
+import Note, { dodNote } from '../../../../components/sharedComponents/Note';
 import BreakdownDropdown from './toolbar/BreakdownDropdown';
 import ExplorerTreemap from './treemap/ExplorerTreemap';
 

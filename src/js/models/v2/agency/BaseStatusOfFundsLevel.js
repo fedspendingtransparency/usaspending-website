@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 11/23/21
  */
 
-import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
+import { formatMoneyWithUnitsShortLabel } from '../../../helpers/moneyFormatter';
 
 const BaseStatusOfFundsLevel = {
     populate(data) {

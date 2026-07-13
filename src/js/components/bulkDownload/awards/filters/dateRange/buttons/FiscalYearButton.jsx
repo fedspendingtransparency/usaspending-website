@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import * as fiscalYearHelper from 'helpers/fiscalYearHelper';
+import * as fiscalYearHelper from '../../../../../../helpers/fiscalYearHelper';
 
 const propTypes = {
     handleDateChange: PropTypes.func,

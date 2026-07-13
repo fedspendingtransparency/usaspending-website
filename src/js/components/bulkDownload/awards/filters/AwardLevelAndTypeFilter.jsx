@@ -6,12 +6,12 @@
 import React, { memo } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 
-import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import { awardDownloadOptions } from '../../../../dataMapping/bulkDownload/bulkDownloadOptions';
 import {
     bulkAwardTypeChange, toggleAwardTypeChange
-} from "redux/actions/bulkDownload/bulkDownloadActions";
-import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
-import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+} from "../../../../redux/actions/bulkDownload/bulkDownloadActions";
+import PrimaryCheckboxType from '../../../../components/sharedComponents/checkbox/PrimaryCheckboxType';
+import FilterSectionTitle from '../../../../components/bulkDownload/FilterSelectionTitle';
 
 const awardTypeLabels = Object.assign(
     {},

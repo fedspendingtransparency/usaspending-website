@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 6/20/18
  */
 
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as MoneyFormatter from '../../../helpers/moneyFormatter';
 
 const BaseChildRecipient = {
     populate(data) {

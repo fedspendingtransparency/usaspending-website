@@ -3,8 +3,8 @@
  * Created by Lizzie Salita 3/8/18
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
-import { actionTypes } from 'dataMapping/financialAssistance/assistanceActionTypes';
+import { formatMoney } from '../../../../helpers/moneyFormatter';
+import { actionTypes } from '../../../../dataMapping/financialAssistance/assistanceActionTypes';
 import CoreTransaction from './CoreTransaction';
 
 const BaseLoanTransaction = Object.create(CoreTransaction);

@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 1/12/21
  */
 
-import { formatNumber, formatMoneyWithPrecision } from 'helpers/moneyFormatter';
+import { formatNumber, formatMoneyWithPrecision } from '../../../helpers/moneyFormatter';
 import { isNull } from 'lodash-es';
 import { format } from 'date-fns';
 

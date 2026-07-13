@@ -5,14 +5,14 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import ComboBox from "components/sharedComponents/ComboBox";
-import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+import ComboBox from "../../../../../components/sharedComponents/ComboBox";
+import FilterSectionTitle from '../../../../../components/bulkDownload/FilterSelectionTitle';
 
 import {
     allFiscalYears,
     convertFYToDateRange
-} from 'helpers/fiscalYearHelper';
-import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+} from '../../../../../helpers/fiscalYearHelper';
+import { awardDownloadOptions } from '../../../../../dataMapping/bulkDownload/bulkDownloadOptions';
 
 import DownloadDateRange from './DownloadDateRange';
 

@@ -6,8 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { icons } from 'dataMapping/explorer/dropdownScopes';
-import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
+import { icons } from '../../../../../dataMapping/explorer/dropdownScopes';
+import { sidebarTypes } from '../../../../../dataMapping/explorer/sidebarStrings';
 
 const propTypes = {
     value: PropTypes.string,

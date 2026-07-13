@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/8/18
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney } from '../../../../helpers/moneyFormatter';
 import CoreTransaction from './CoreTransaction';
 
 const BaseContractTransaction = Object.create(CoreTransaction);
