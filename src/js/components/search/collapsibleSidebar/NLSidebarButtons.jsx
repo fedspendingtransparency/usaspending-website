@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QAT } from "GlobalConstants";
-import { setSidebarContent } from '../../../redux/actions/sidebar/sidebarActions'
 import { NATURAL_LANGUAGE, FILTERS } from './SidebarConstants';
 
 const cyan60v = '#00687D';
@@ -12,12 +10,11 @@ const colorWhite = '#FFF';
 
 const propTypes = {
     sidebarContent: PropTypes.string,
+    setSidebarContent: PropTypes.func,
     isMedium: PropTypes.bool
 };
 
-const NLSidebarButtons = ({ sidebarContent, isMedium }) => {
-    const dispatch = useDispatch();
-
+const NLSidebarButtons = ({ sidebarContent, setSidebarContent, isMedium }) => {
     if (isMedium || !QAT) return;
 
     // icon and button colors
@@ -37,7 +34,7 @@ const NLSidebarButtons = ({ sidebarContent, isMedium }) => {
                 className={`sidebar-nl-buttons ${
                     sidebarContent === FILTERS ? 'selected' : ''
                 }`}
-                onClick={() => dispatch(setSidebarContent(FILTERS))}>
+                onClick={() => setSidebarContent(FILTERS)}>
                 <FontAwesomeIcon icon="filter-list" color={primaryColorAS}/>
             </button>
             <button
@@ -46,7 +43,7 @@ const NLSidebarButtons = ({ sidebarContent, isMedium }) => {
                 className={`sidebar-nl-buttons ${
                     sidebarContent === NATURAL_LANGUAGE ? 'selected' : ''
                 }`}
-                onClick={() => dispatch(setSidebarContent(NATURAL_LANGUAGE))}>
+                onClick={() => setSidebarContent(NATURAL_LANGUAGE)}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill={secondaryColorNL} xmlns="http://www.w3.org/2000/svg">
                     <path
                         d="M10.1331 3.06836C10.4348 3.06836 10.7252 3.08021 11.0149 3.11719L9.85571 5.62012C6.85045 5.76811 4.49648 8.17109 4.49634 11.3633C4.49634 14.5556 6.99524 17.1074 10.1213 17.1074C13.0784 17.1074 15.4804 14.8272 15.7219 11.8691L18.2083 10.6729C18.2444 10.8946 18.2444 11.1292 18.2444 11.3633C18.2444 13.1998 17.6654 14.8767 16.6877 16.2695L21.6487 21.2979V21.3105C22.1192 21.8282 22.1193 22.6299 21.6487 23.1475C21.1418 23.6281 20.3568 23.628 19.8499 23.1475L14.925 18.0811C13.5612 19.0671 11.9197 19.6709 10.1213 19.6709C5.63135 19.6709 1.99833 15.9735 1.99829 11.376C1.99829 6.77858 5.63114 3.06859 10.1331 3.06836Z"

@@ -31,7 +31,6 @@ import aboutTheDataSidebarReducer from './aboutTheDataSidebar/aboutTheDataReduce
 import slideoutReducer from './slideouts/slideoutReducer';
 import titleBarFilterReducer from './search/titleBarFilterReducer';
 import spendingLevelReducer from './search/spendingLevelReducer';
-import sidebarReducer from './sidebar/sidebarReducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
@@ -63,8 +62,7 @@ const appReducer = combineReducers({
     googleAnalytics: googleAnalyticsReducer,
     aboutTheDataSidebar: aboutTheDataSidebarReducer,
     slideouts: slideoutReducer,
-    spending_level: spendingLevelReducer,
-    sidebar: sidebarReducer
+    spending_level: spendingLevelReducer
 });
 
 export default appReducer;

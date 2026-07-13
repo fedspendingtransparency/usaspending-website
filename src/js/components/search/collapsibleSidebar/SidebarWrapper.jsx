@@ -3,11 +3,9 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React from 'react';
+import React, {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
-import { useSelector } from 'react-redux';
-
 import useIsMobile from "hooks/useIsMobile";
 import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
@@ -23,7 +21,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     showMobileFilters, setShowMobileFilters, sidebarIsOpen, setSidebarIsOpen
 }) {
     const { isMedium } = useIsMobile();
-    const sidebarContent = useSelector((state) => state.sidebar.sidebarContent)
+    const [sidebarContent, setSidebarContent] = useState(FILTERS);
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -40,6 +38,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         <>
             <NLSidebarButtons
                 sidebarContent={sidebarContent}
+                setSidebarContent={setSidebarContent}
                 isMedium={isMedium} />
             {/* Eventually remove search-sidebar css */}
             { sidebarContent === FILTERS ?

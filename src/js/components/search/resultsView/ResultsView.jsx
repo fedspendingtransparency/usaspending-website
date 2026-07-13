@@ -9,11 +9,9 @@ import { useSelector } from "react-redux";
 
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import useResultsCount from "containers/search/resultsView/useResultsCount";
-import NewSearchScreen from "./NewSearchScreen";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";
 import NLSearchSuggestions from "../../naturalLanguage/NLSearchSuggestions";
-import { NATURAL_LANGUAGE } from "../collapsibleSidebar/SidebarConstants";
 
 require("pages/search/searchPage.scss");
 
@@ -35,8 +33,6 @@ const ResultsView = React.memo(function ResultsView({
 }) {
     const filters = useSelector((state) => state.appliedFilters.filters);
     const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
-    const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
-
     const { data, error } = useResultsCount(filters, spendingLevel, hash);
 
     let content = null;
@@ -55,11 +51,8 @@ const ResultsView = React.memo(function ResultsView({
         const hasResults = resCount > 0;
         /* eslint-enable camelcase */
 
-        if (!hash && noFiltersApplied && sidebarContent !== NATURAL_LANGUAGE) {
-            content = <NewSearchScreen />;
-        }
-        else {
-            content = <NLSearchSuggestions />
+        if (!hash && noFiltersApplied) {
+            content = <NLSearchSuggestions />;
         }
 
         if (!noFiltersApplied) {
