@@ -12,6 +12,7 @@
     .search-results-view-container {
       padding-bottom: 16px;
       padding-top: 32px;
+      background: $gray-2;
 
       @media (min-width: $medium-screen) {
         padding-left: 32px;
