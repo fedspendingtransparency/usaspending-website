@@ -6,7 +6,7 @@
  */
 
 import { Set, OrderedMap } from 'immutable';
-import * as searchAnalytics from 'containers/search/helpers/searchAnalytics';
+import * as searchAnalytics from '-containers/search/helpers/searchAnalytics';
 
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('helpers/analytics/Analytics', () => ({

@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 
-import TopFive from "components/sharedComponents/TopFive";
+import TopFive from "-components/sharedComponents/TopFive";
 import useFetchSpendingBy from "./useFetchSpendingBy";
 
 const propTypes = {

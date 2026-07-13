@@ -6,7 +6,7 @@
 */
 
 import React from 'react';
-import { getIndexesToDelete, adaptTabs, selectOptionDecision } from 'helpers/moreOptionsTabs/moreOptionsTabsHelper';
+import { getIndexesToDelete, adaptTabs, selectOptionDecision } from '-helpers/moreOptionsTabs/moreOptionsTabsHelper';
 
 const mockHtmlCollection = [
     {

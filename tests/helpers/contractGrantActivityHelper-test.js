@@ -16,7 +16,7 @@ import {
     dateMatchingFirstLineValue,
     shouldExtendAreaPathWhenLastDataPointYValueChange,
     createSteppedAreaPath
-} from 'helpers/contractGrantActivityHelper';
+} from '-helpers/contractGrantActivityHelper';
 import {
     goodDates,
     badDates,

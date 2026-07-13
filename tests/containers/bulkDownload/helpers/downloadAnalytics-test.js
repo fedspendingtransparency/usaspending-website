@@ -5,9 +5,9 @@
  * Created by Kevin Li 2/8/18
  */
 
-import * as downloadAnalytics from 'containers/bulkDownload/helpers/downloadAnalytics';
+import * as downloadAnalytics from '-containers/bulkDownload/helpers/downloadAnalytics';
 import { initialState } from 'redux/reducers/bulkDownload/bulkDownloadReducer';
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '-helpers/analytics/Analytics';
 
 jest.mock('helpers/analytics/Analytics', () => ({
     event: jest.fn()

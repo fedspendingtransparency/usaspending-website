@@ -5,7 +5,7 @@
  * Created by Kevin Li 1/25/17
  */
 
-import { formatMoney, formatMoneyWithPrecision, calculatePercentage, formatTreemapValues, formatMoneyWithUnits, formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
+import { formatMoney, formatMoneyWithPrecision, calculatePercentage, formatTreemapValues, formatMoneyWithUnits, formatMoneyWithUnitsShortLabel } from '-helpers/moneyFormatter';
 
 test.each([
     [123.45, '$123'],

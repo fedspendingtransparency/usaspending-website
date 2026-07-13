@@ -7,7 +7,7 @@
  */
 import {
     getBaseUrl
-} from 'helpers/socialShare';
+} from '-helpers/socialShare';
 import "../testResources/mockGlobalConstants";
 
 describe('socialShare helper', () => {

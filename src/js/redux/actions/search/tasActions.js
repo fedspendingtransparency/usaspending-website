@@ -8,7 +8,7 @@ import {
     setUnchecked,
     setSearchedNodes,
     setCounts
-} from "helpers/checkboxTreeHelper";
+} from "-helpers/checkboxTreeHelper";
 
 const treeName = 'TAS';
 

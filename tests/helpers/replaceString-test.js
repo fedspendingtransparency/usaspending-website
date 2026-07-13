@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import replaceString from 'helpers/replaceString';
+import replaceString from '-helpers/replaceString';
 
 describe('replaceString', () => {
     it('should not replace part of a string with a span with a classname', () => {

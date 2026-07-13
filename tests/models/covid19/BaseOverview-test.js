@@ -5,7 +5,7 @@
  * Created by Jonathan Hill 06/18/20
  */
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney } from '-helpers/moneyFormatter';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { overviewAPIResponse, overviewAPIResponseWithAdditional } from './mockData';
 

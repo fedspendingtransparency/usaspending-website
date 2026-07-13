@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 6/20/19
  */
 
-import { getSubmittingAgencyId } from "helpers/awardSummaryHelper";
+import { getSubmittingAgencyId } from "-helpers/awardSummaryHelper";
 import { idList } from '../shared/recipientIdentifiers';
 
 const additionalDetails = (awardData) => {

@@ -6,7 +6,7 @@
  */
 
 import { cloneDeep } from 'lodash-es';
-import { calculatePercentage } from 'helpers/moneyFormatter';
+import { calculatePercentage } from '-helpers/moneyFormatter';
 import BaseCFDA from 'models/v2/award/BaseCFDA';
 import { mockLoan } from './mockAwardApi';
 

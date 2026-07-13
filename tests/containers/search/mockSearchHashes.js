@@ -1,6 +1,6 @@
 import { initialState, filterStoreVersion } from 'redux/reducers/search/searchFiltersReducer';
 import { initialState as initialApplied } from 'redux/reducers/search/appliedFiltersReducer';
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import * as FiscalYearHelper from '-helpers/fiscalYearHelper';
 
 export const mockHash = {
     hash: 'abcd1234'

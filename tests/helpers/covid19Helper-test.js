@@ -7,7 +7,7 @@
 import {
     areCountsDefined,
     calculateUnlinkedTotals
-} from 'helpers/covid19Helper';
+} from '-helpers/covid19Helper';
 
 describe('Covid 19 Helper', () => {
     describe('areCountsDefined', () => {

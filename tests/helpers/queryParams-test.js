@@ -5,7 +5,7 @@
  * Created by Maxwell Kendall
 */
 
-import { combineQueryParams, stripUrlParams } from 'helpers/queryParams';
+import { combineQueryParams, stripUrlParams } from '-helpers/queryParams';
 
 // NOTE: Not testing the helper fns that utilize URLSearchParams because that is not defined outside the browser.
 

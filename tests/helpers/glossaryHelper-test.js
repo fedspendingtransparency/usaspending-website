@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
+import { getNewUrlForGlossary } from '-helpers/glossaryHelper';
 
 const glossaryFragment = '?glossary=';
 

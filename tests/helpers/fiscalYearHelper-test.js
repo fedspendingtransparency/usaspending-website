@@ -5,7 +5,7 @@
  * Created by Kevin Li 1/25/17
  */
 
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import * as FiscalYearHelper from '-helpers/fiscalYearHelper';
 import MockDate from 'mockdate';
 
 const dayjs = require('dayjs');

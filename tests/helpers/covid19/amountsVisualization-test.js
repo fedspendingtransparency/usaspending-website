@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 import { scaleLinear } from 'd3-scale';
-import { defaultTextState, lineXPosition } from 'helpers/covid19/amountsVisualization';
-import { rectangleMapping } from 'dataMapping/covid19/amountsVisualization';
+import { defaultTextState, lineXPosition } from '-helpers/covid19/amountsVisualization';
+import { rectangleMapping } from '-dataMapping/covid19/amountsVisualization';
 
 describe('Amounts Visualization', () => {
     it('should return default state for text elements', () => {

@@ -5,7 +5,7 @@
  * Created by Lizzie Salita 3/19/18.
  */
 
-import * as TimeRangeHelper from 'helpers/timeRangeHelper';
+import * as TimeRangeHelper from '-helpers/timeRangeHelper';
 
 const dayjs = require('dayjs');
 

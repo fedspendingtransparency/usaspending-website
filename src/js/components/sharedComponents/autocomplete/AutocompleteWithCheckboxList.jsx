@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import EntityDropdownAutocomplete from
-    'components/sharedComponents/EntityDropdownAutocomplete';
+    '-components/sharedComponents/EntityDropdownAutocomplete';
 import PrimaryCheckboxType from
-    'components/sharedComponents/checkbox/PrimaryCheckboxType';
+    '-components/sharedComponents/checkbox/PrimaryCheckboxType';
 import Analytics from '-helpers/analytics/Analytics';
 import Alert from "../Alert";
 

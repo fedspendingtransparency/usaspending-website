@@ -5,7 +5,7 @@ import { List } from 'immutable';
 import explorerReducer, { initialState, ActiveScreen } from 'redux/reducers/explorer/explorerReducer';
 
 jest.mock('helpers/fiscalYearHelper', () => require('./mockCurrentFiscalYear'));
-jest.mock('containers/explorer/detail/helpers/explorerQuarters', () => require('./mockQuarterHelper'));
+jest.mock('-containers/explorer/detail/helpers/explorerQuarters', () => require('./mockQuarterHelper'));
 
 describe('explorerReducer', () => {
     describe('SET_EXPLORER_TIME_PERIOD', () => {

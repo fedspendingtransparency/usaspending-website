@@ -4,7 +4,7 @@
 import {
     getAllNetPositiveIdvFileCDefCodes,
     getChildAwardFileCDetails
-} from 'helpers/idvHelper';
+} from '-helpers/idvHelper';
 
 const createMockArrayItem = (code, amount) => ({ code, amount });
 

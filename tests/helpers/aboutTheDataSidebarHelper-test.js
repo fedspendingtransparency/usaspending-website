@@ -5,7 +5,7 @@
  * Created by Andrea Blackwell 12/07/2022
  */
 
-import { getDrilldownEntry, getDrilldownEntrySectionAndId, escapeRegExp } from 'helpers/aboutTheDataSidebarHelper';
+import { getDrilldownEntry, getDrilldownEntrySectionAndId, escapeRegExp } from '-helpers/aboutTheDataSidebarHelper';
 import schema from '../../src/config/aboutTheData/aboutTheDataSchema';
 
 describe('About the Data Sidebar Helpers', () => {

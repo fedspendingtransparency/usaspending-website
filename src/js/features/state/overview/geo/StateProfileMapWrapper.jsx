@@ -12,7 +12,7 @@ import {
 } from "-helpers/mapHelper";
 import MapBox from '-components/sharedComponents/map/MapBox';
 import MapLegend from '-components/sharedComponents/map/MapLegend';
-import MapFiltersToggle from "components/sharedComponents/map/MapFiltersToggle";
+import MapFiltersToggle from "-components/sharedComponents/map/MapFiltersToggle";
 import StateProfileMapFilters from "./filters/StateProfileMapFilters";
 import StateGeoTooltip from "./StateGeoTooltip";
 

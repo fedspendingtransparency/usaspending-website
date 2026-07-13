@@ -20,14 +20,14 @@ import {
     getUniqueAncestorPaths,
     trimCheckedToCommonAncestors,
     doesMeetMinimumCharsRequiredForSearch
-} from 'helpers/checkboxTreeHelper';
+} from '-helpers/checkboxTreeHelper';
 import {
     getHighestAncestorNaicsCode,
     getImmediateAncestorNaicsCode,
     getNaicsNodeFromTree,
     naicsKeyMap,
     shouldNaicsNodeHaveChildren
-} from 'helpers/naicsHelper';
+} from '-helpers/naicsHelper';
 
 import {
     getPscNodeFromTree,
@@ -35,7 +35,7 @@ import {
     getImmediatePscAncestor,
     cleanPscData,
     getPscAncestryPathForChecked
-} from 'helpers/pscHelper';
+} from '-helpers/pscHelper';
 import { isEqual } from 'lodash-es';
 
 import * as mockData from '../containers/search/filters/naics/mockNAICS';

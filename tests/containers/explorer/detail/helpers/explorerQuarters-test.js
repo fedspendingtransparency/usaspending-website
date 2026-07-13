@@ -5,7 +5,7 @@
  * Created by Kevin Li 2/16/18
  */
 
-import * as explorerQuarters from 'containers/explorer/detail/helpers/explorerQuarters';
+import * as explorerQuarters from '-containers/explorer/detail/helpers/explorerQuarters';
 import { getPeriodsPerQuarterByFy } from '../../../../../src/js/containers/explorer/detail/helpers/explorerQuarters';
 
 const nativeDate = Date.now;

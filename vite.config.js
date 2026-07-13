@@ -96,6 +96,8 @@ export default defineConfig(({ command, mode }) => {
         '-context': path.resolve(__dirname, './src/js/context'),
         'GlobalConstants': path.resolve(__dirname, './src/js/GlobalConstants.js'),
         'propTypes' : path.resolve(__dirname, "./src/js/propTypes/index.js"),
+        "hooks": path.resolve(__dirname, "./src/js/hooks"),
+        "features": path.resolve(__dirname, "./src/js/features"),
         lodash: 'lodash-es',
       },
       modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],

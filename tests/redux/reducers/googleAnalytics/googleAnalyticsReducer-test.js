@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import googleAnalyticsReducer from "redux/reducers/googleAnalytics/googleAnalyticsReducer";
+import googleAnalyticsReducer from "-redux/reducers/googleAnalytics/googleAnalyticsReducer";
 
 describe('isInitialApplicationLoadForDAPGoogleAnalytics', () => {
     let state;

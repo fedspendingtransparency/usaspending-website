@@ -1,5 +1,5 @@
 import { OrderedMap } from 'immutable';
-import defaultLocationValues from "dataMapping/bulkDownload/defaultLocationValues";
+import defaultLocationValues from "-dataMapping/bulkDownload/defaultLocationValues";
 
 export const mockRedux = {
     addPOPLocationObject: jest.fn(),

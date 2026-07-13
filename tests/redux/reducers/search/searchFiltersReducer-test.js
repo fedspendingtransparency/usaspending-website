@@ -8,7 +8,7 @@
 import { Set, OrderedMap } from 'immutable';
 
 import searchFiltersReducer, { initialState } from 'redux/reducers/search/searchFiltersReducer';
-import { awardRanges } from 'dataMapping/search/awardAmount';
+import { awardRanges } from '-dataMapping/search/awardAmount';
 
 import { mockRecipient, mockAgency, mockTreasuryAccount } from './mock/mockFilters';
 

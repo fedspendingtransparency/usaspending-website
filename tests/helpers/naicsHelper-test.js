@@ -5,7 +5,7 @@ import {
     getNaicsNodeFromTree,
     getHighestAncestorNaicsCode,
     getImmediateAncestorNaicsCode
-} from 'helpers/naicsHelper';
+} from '-helpers/naicsHelper';
 
 import * as mockData from '../containers/search/filters/naics/mockNAICS';
 

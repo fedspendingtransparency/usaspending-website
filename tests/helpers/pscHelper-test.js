@@ -7,7 +7,7 @@ import {
     shouldPscNodeHaveChildren,
     getImmediatePscAncestor,
     getHighestPscAncestor
-} from 'helpers/pscHelper';
+} from '-helpers/pscHelper';
 import { reallyBigTree } from "../containers/search/filters/psc/mockPSC";
 
 describe('pscHelper', () => {

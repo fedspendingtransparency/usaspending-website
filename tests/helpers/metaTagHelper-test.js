@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { isCustomPageTitleDefined, getCanonicalUrl } from 'helpers/metaTagHelper';
+import { isCustomPageTitleDefined, getCanonicalUrl } from '-helpers/metaTagHelper';
 
 test.each([
     ['Test Page | USAspending.gov', true],

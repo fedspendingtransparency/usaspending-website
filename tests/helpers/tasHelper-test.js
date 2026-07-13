@@ -9,7 +9,7 @@ import {
     getHighestTasAncestorCode,
     getImmediateTasAncestorCode,
     getTasNodeFromTree
-} from 'helpers/tasHelper';
+} from '-helpers/tasHelper';
 
 import { treePopulatedToFederalAccountLevel } from '../containers/search/filters/programSource/mockTas';
 

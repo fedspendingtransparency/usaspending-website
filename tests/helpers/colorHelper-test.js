@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import tinycolor from 'tinycolor2';
-import * as colorHelper from 'helpers/colorHelper';
+import * as colorHelper from '-helpers/colorHelper';
 
 describe('colorHelper', () => {
     describe('isContrastCompliant', () => {

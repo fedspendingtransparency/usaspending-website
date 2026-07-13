@@ -8,7 +8,7 @@ import {
     filtersOnClickHandler,
     mapFilterSortOrderByValue,
     stateFilters
-} from "dataMapping/state/stateMap";
+} from "-dataMapping/state/stateMap";
 import { useDefCodes } from "hooks/WithDefCodes";
 
 const propTypes = {

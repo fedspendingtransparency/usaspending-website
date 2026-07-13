@@ -5,7 +5,7 @@
  * Created by Lizzie Salita 6/13/19
  */
 
-import * as PaginationHelper from 'helpers/paginationHelper';
+import * as PaginationHelper from '-helpers/paginationHelper';
 
 describe('Pagination helper functions', () => {
     it('should calculate the start range for a page number, given page size and number of results', () => {
