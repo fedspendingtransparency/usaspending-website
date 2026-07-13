@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { showModal } from 'redux/actions/modal/modalActions';
+import { sanitizeUrl } from '../../helpers/url';
 
 const propTypes = {
     url: PropTypes.string.isRequired,
@@ -19,26 +20,57 @@ const propTypes = {
 const ExternalLink = ({
     url, children, isCard, showIcon = false
 }) => {
+    const sanitized = sanitizeUrl(url);
+    const isSafe = sanitized !== null;
+    const href = isSafe ? sanitized : 'not available';
+    
     const dispatch = useDispatch();
     const redirect = () => {
-        dispatch(showModal(url));
+        dispatch(showModal(href));
     };
 
     const keyPressHandler = (e) => {
         if (e.key === 'Enter') {
             e.preventDefault();
-            dispatch(showModal(url));
+            dispatch(showModal(href));
         }
     };
     if (isCard) {
         if (showIcon) {
-            return <a className="usda-external-link__card" role="link" onClick={redirect} onKeyPress={keyPressHandler} tabIndex={0}>{children} <FontAwesomeIcon icon="external-link-alt" /></a>;
+            return (
+                <button
+                    className="usda-external-link__card"
+                    role="link"
+                    onClick={redirect}
+                    onKeyPress={keyPressHandler}
+                    tabIndex={0}
+                    disabled={!isSafe}
+                    aria-disabled={!isSafe}>
+                    {children} 
+                    <FontAwesomeIcon icon="external-link-alt" />
+                </button>
+            );
         }
-        return <a className="usda-external-link__card" role="link" onClick={redirect} onKeyPress={keyPressHandler} tabIndex={0}>{children}</a>;
+        return (
+            <button
+                className="usda-external-link__card"
+                role="link"
+                onClick={redirect}
+                onKeyPress={keyPressHandler}
+                tabIndex={0} 
+                disabled={!isSafe}
+                aria-disabled={!isSafe}>
+                {children}
+            </button>
+        );
     }
     return (
-        <button className="usda-external-link" onClick={redirect}>
-            {children || url} <FontAwesomeIcon icon="external-link-alt" />
+        <button
+            className="usda-external-link"
+            onClick={redirect}
+            disabled={!isSafe}
+            aria-disabled={!isSafe}>
+            {children || href} <FontAwesomeIcon icon="external-link-alt" />
         </button>);
 };
 
