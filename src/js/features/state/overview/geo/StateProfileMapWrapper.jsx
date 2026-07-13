@@ -5,13 +5,13 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import GlobalConstants from 'GlobalConstants';
+import GlobalConstants from "GlobalConstants";
 
 import {
     calculateRange, visualizationColors, firstSymbolId, mapboxSources
-} from "helpers/mapHelper";
-import MapBox from 'components/sharedComponents/map/MapBox';
-import MapLegend from 'components/sharedComponents/map/MapLegend';
+} from "-helpers/mapHelper";
+import MapBox from '-components/sharedComponents/map/MapBox';
+import MapLegend from '-components/sharedComponents/map/MapLegend';
 import MapFiltersToggle from "components/sharedComponents/map/MapFiltersToggle";
 import StateProfileMapFilters from "./filters/StateProfileMapFilters";
 import StateGeoTooltip from "./StateGeoTooltip";

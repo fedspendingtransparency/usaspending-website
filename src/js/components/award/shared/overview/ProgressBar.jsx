@@ -7,7 +7,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
 import { pull, compact, uniqueId, isEmpty } from 'lodash-es';
-import RectanglePattern from 'components/sharedComponents/patterns/RectanglePattern';
+import RectanglePattern from '../../../../components/sharedComponents/patterns/RectanglePattern';
 
 const propTypes = {
     heightOfSVG: PropTypes.number,

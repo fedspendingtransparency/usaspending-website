@@ -9,7 +9,7 @@ import { map } from 'lodash-es';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { Link } from 'react-router';
 
-import { formatNumber } from 'helpers/moneyFormatter';
+import { formatNumber } from '../../../../helpers/moneyFormatter';
 
 import {
     summaryRelatedAwardsInfoIdv,

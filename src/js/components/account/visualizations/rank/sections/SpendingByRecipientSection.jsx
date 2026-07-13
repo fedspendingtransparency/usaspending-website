@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
+import { getAtdDefcText } from "-helpers/aboutTheDataSidebarHelper";
 import RankVisualizationSection from './RankVisualizationSection';
 import GlossaryLink from '../../../../sharedComponents/GlossaryLink';
 import ReadMore from '../../../../sharedComponents/ReadMore';

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+import FilterSectionTitle from '-components/bulkDownload/FilterSelectionTitle';
 
 const propTypes = {
     accountLevels: PropTypes.array,

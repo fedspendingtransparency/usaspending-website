@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import ReadMore from 'components/sharedComponents/ReadMore';
+import ReadMore from '-components/sharedComponents/ReadMore';
 import { render, screen, fireEvent } from '@test-utils';
 
 const mockText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';

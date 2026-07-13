@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash-es';
 
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '-helpers/analytics/Analytics';
 
 const propTypes = {
     id: PropTypes.string,

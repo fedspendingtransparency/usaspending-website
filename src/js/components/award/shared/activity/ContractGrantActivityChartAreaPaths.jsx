@@ -10,7 +10,7 @@ import {
     filteredAndSortedLinesFirstToLast,
     dateMatchingFirstLineValue,
     shouldExtendAreaPathWhenLastDataPointYValueChange
-} from 'helpers/contractGrantActivityHelper';
+} from '../../../../helpers/contractGrantActivityHelper';
 
 const dayjs = require('dayjs');
 

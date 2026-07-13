@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs } from "data-transparency-ui";
 
-import { determineSpendingScenarioByAwardType, generateDefcTabs } from 'helpers/awardAmountHelper';
-import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
+import { determineSpendingScenarioByAwardType, generateDefcTabs } from '../../../../helpers/awardAmountHelper';
+import { getToolTipBySectionAndAwardType } from '../../../../dataMapping/award/tooltips';
 
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';

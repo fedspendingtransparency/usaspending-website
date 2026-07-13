@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { render } from '@test-utils';
-import FederalSpendingOverview from 'components/interactiveDataSources/scrollerSections/FederalSpendingOverview';
+import FederalSpendingOverview from '-components/interactiveDataSources/scrollerSections/FederalSpendingOverview';
 
 
 describe('FederalSpendingOverview', () => {

@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { useSearchParams } from "react-router";

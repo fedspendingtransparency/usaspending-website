@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { render } from '@test-utils';
-import DataValidation from 'components/interactiveDataSources/scrollerSections/DataValidation';
+import DataValidation from '-components/interactiveDataSources/scrollerSections/DataValidation';
 
 
 describe('DataValidation', () => {

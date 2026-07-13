@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash-es';
 import { TooltipComponent } from 'data-transparency-ui';
-import * as Icons from 'components/sharedComponents/icons/Icons';
+import * as Icons from '../../../components/sharedComponents/icons/Icons';
 import AboutTheDataLink from "../../sharedComponents/AboutTheDataLink";
 
 // Mapping of section identifier to tooltip content JSX

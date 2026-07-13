@@ -7,11 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import FederalAccountsVizContainer from 'containers/award/shared/FederalAccountsVizContainer';
-import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
+import FederalAccountsVizContainer from '../../../../containers/award/shared/FederalAccountsVizContainer';
+import { getToolTipBySectionAndAwardType } from '../../../../dataMapping/award/tooltips';
 // eslint-disable-next-line max-len
-import FederalAccountsSummaryContainer from 'containers/award/shared/FederalAccountsSummaryContainer';
-import Note from 'components/sharedComponents/Note';
+import FederalAccountsSummaryContainer from '../../../../containers/award/shared/FederalAccountsSummaryContainer';
+import Note from '../../../../components/sharedComponents/Note';
 
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';

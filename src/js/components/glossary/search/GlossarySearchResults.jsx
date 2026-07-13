@@ -6,9 +6,9 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { concat, sortBy } from 'lodash-es';
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '-helpers/analytics/Analytics';
 import { useDispatch } from "react-redux";
-import { setGlossaryTerm } from 'redux/actions/glossary/glossaryActions';
+import { setGlossaryTerm } from '-redux/actions/glossary/glossaryActions';
 
 import ResultGroup from './ResultGroup';
 

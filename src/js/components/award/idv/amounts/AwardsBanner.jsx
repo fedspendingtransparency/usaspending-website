@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InfoCircle, Close } from 'components/sharedComponents/icons/Icons';
+import { InfoCircle, Close } from '../../../../components/sharedComponents/icons/Icons';
 
 const propTypes = {
     jumpToReferencedAwardsTable: PropTypes.func

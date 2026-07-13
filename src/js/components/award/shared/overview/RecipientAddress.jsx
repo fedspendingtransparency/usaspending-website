@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { AddresskeysByAwardType } from 'dataMapping/award/awardOverview';
+import { AddresskeysByAwardType } from '../../../../dataMapping/award/awardOverview';
 import { TooltipWrapper } from "data-transparency-ui";
-import { CondensedCDTooltip } from 'components/award/shared/InfoTooltipContent';
+import { CondensedCDTooltip } from '../../../../components/award/shared/InfoTooltipContent';
 
 const propTypes = {
     aggregateRecordType: PropTypes.string,

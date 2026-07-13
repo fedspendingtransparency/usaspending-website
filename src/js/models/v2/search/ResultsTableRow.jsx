@@ -3,9 +3,9 @@
  * Created by Nick Torres 8/4/2025
  */
 import React from 'react';
-import Analytics from 'helpers/analytics/Analytics';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-import { pickLocationFormat } from 'helpers/locationFormatter';
+import Analytics from '-helpers/analytics/Analytics';
+import * as MoneyFormatter from '-helpers/moneyFormatter';
+import { pickLocationFormat } from '-helpers/locationFormatter';
 import ReadMore from '../../../components/sharedComponents/ReadMore';
 import { twoVariableFormat } from '../../../helpers/search/table/tableUtilsHelper';
 import { convertToTitleCase } from "../../../helpers/searchHelper";

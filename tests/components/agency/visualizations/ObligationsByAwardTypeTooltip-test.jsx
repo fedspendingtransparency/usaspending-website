@@ -7,7 +7,7 @@
 
 import React from 'react';
 import { render, screen } from 'test-utils';
-import ObligationsByAwardTypeTooltip from 'components/agency/visualizations/ObligationsByAwardTypeTooltip';
+import ObligationsByAwardTypeTooltip from '-components/agency/visualizations/ObligationsByAwardTypeTooltip';
 
 const mockAwardTypes = [
     {

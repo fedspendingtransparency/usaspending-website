@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Search, Close } from 'components/sharedComponents/icons/Icons';
+import { Search, Close } from '-components/sharedComponents/icons/Icons';
 
 const propTypes = {
     setAccountSearchString: PropTypes.func.isRequired

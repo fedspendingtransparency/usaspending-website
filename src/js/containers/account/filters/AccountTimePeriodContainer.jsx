@@ -5,21 +5,21 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { currentFiscalYear } from 'helpers/fiscalYearHelper';
-import { bindActionCreators } from 'redux';
+import { currentFiscalYear } from '-helpers/fiscalYearHelper';
+import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import Immutable from 'immutable';
 import { flowRight } from 'lodash-es';
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+import * as searchFilterActions from '-redux/actions/search/searchFilterActions';
 
 import { LATEST_PERIOD_PROPS, SUBMISSION_PERIOD_PROPS } from "propTypes";
 
-import * as accountFilterActions from 'redux/actions/account/accountFilterActions';
+import * as accountFilterActions from '-redux/actions/account/accountFilterActions';
 
-import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
+import * as FiscalYearHelper from '-helpers/fiscalYearHelper';
 
-import withLatestFy from 'containers/account/WithLatestFy';
-import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
+import withLatestFy from '-containers/account/WithLatestFy';
+import TimePeriod from '-components/search/filters/timePeriod/TimePeriod';
 
 
 const startYear = FiscalYearHelper.earliestFederalAccountYear;

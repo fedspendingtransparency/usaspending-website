@@ -8,8 +8,8 @@ import PropTypes from 'prop-types';
 import { hierarchy, treemap, treemapBinary, treemapSlice } from 'd3-hierarchy';
 import { remove } from 'lodash-es';
 
-import * as TreemapHelper from 'helpers/treemapHelper';
-import { awardTypeLabels } from 'dataMapping/state/awardTypes';
+import * as TreemapHelper from '-helpers/treemapHelper';
+import { awardTypeLabels } from '-dataMapping/state/awardTypes';
 import useEventListener from "hooks/useEventListener";
 import AwardBreakdownTreeMapCells from "./AwardBreakdownTreeMapCells";
 import CreateAwardTypeTooltip from "./CreateAwardTypeTooltip";

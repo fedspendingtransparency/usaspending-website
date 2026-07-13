@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { render } from '@test-utils';
-import DataAvailable from 'components/interactiveDataSources/scrollerSections/DataAvailable';
+import DataAvailable from '-components/interactiveDataSources/scrollerSections/DataAvailable';
 
 
 describe('DataAvailable', () => {

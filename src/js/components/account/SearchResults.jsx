@@ -6,14 +6,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import AccountTopFilterBarContainer from
-    'containers/account/topFilterBar/AccountTopFilterBarContainer';
-import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+    '-containers/account/topFilterBar/AccountTopFilterBarContainer';
+import { tabletScreen } from '-dataMapping/shared/mobileBreakpoints';
 import AccountTimeVisualizationContainer from
-    'containers/account/visualizations/AccountTimeVisualizationContainer';
+    '-containers/account/visualizations/AccountTimeVisualizationContainer';
 import AccountRankVisualizationContainer from
-    'containers/account/visualizations/AccountRankVisualizationContainer';
-import Note, { dodNote } from 'components/sharedComponents/Note';
-import AccountAwardsContainer from 'containers/account/awards/AccountAwardsContainer';
+    '-containers/account/visualizations/AccountRankVisualizationContainer';
+import Note, { dodNote } from '-components/sharedComponents/Note';
+import AccountAwardsContainer from '-containers/account/awards/AccountAwardsContainer';
 
 const propTypes = {
     showNote: PropTypes.bool

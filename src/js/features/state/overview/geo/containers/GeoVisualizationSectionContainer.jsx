@@ -8,9 +8,9 @@ import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { cloneDeep } from "lodash-es";
 
-import { convertFYToDateRange, getTrailingTwelveMonths } from "helpers/fiscalYearHelper";
-import { performSpendingByGeographySearch } from "helpers/searchHelper";
-import { pluralize } from "helpers/mapHelper";
+import { convertFYToDateRange, getTrailingTwelveMonths } from "-helpers/fiscalYearHelper";
+import { performSpendingByGeographySearch } from "-helpers/searchHelper";
+import { pluralize } from "-helpers/mapHelper";
 import GeoVisualizationSection from '../GeoVisualizationSection';
 
 const apiScopes = {

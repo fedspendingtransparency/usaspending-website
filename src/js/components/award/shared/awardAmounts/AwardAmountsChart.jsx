@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { asstAwardTypesWithSimilarAwardAmountData } from 'dataMapping/award/awardAmountsSection';
-import { buildGrantsDirectOtherProps, buildLoanProps, buildContractIDVProps } from "helpers/awardAmountChartHelper";
+import { asstAwardTypesWithSimilarAwardAmountData } from '../../../../dataMapping/award/awardAmountsSection';
+import { buildGrantsDirectOtherProps, buildLoanProps, buildContractIDVProps } from "../../../../helpers/awardAmountChartHelper";
 
 import NoResultsMessage from '../../../sharedComponents/NoResultsMessage';
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS } from '../../../../propTypes/index';

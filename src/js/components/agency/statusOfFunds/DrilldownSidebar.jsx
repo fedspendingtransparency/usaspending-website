@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
+import * as MoneyFormatter from '-helpers/moneyFormatter';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import DrilldownSidebarLevel from './DrilldownSidebarLevel';

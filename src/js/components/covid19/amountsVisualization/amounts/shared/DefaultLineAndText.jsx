@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import {
     calculateUnits,
     formatMoneyWithPrecision
-} from '../../helpers/moneyFormatter';
+} from '../../../../../helpers/moneyFormatter';
 
 import { rectangleMapping } from '../../../../../dataMapping/covid19/amountsVisualization';
 

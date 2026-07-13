@@ -9,7 +9,7 @@ import React from 'react';
 import { expect } from "@jest/globals";
 import { waitFor } from "@testing-library/react";
 
-import PSCCheckboxTreeContainer from "containers/search/filters/psc/PSCCheckboxTreeContainer";
+import PSCCheckboxTreeContainer from "-containers/search/filters/psc/PSCCheckboxTreeContainer";
 import { render, screen, act, fireEvent } from '../../../../testResources/test-utils';
 import { initialMockResponse, agriMockResponse, accordionOpenMockResponse } from './mockPSC';
 import * as searchHelper from "../../../../../src/js/helpers/searchHelper";

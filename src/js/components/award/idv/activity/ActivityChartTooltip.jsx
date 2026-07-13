@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash-es';
 import { Link } from 'react-router';
 
-import { formatMoney } from 'helpers/moneyFormatter';
+import { formatMoney } from '../../../../helpers/moneyFormatter';
 
 // current list of properties we might truncate
 const arrayOfProperties = [

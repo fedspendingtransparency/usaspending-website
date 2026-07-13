@@ -16,7 +16,7 @@ import { awardTypeGroups } from '../../../dataMapping/search/awardType';
 import { fetchAwardSpendingByAgency, fetchLoansByAgency } from '../../../apis/disaster';
 import CoreSpendingTableRow from '../../../models/v2/covid19/CoreSpendingTableRow';
 import Analytics from '../../../helpers/analytics/Analytics';
-import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
+import { calculateUnlinkedTotals } from '../../../helpers/covid19Helper';
 import useAgencySlugs from "../../../hooks/useAgencySlugs";
 
 const propTypes = {

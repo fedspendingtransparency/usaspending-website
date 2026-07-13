@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { render } from '@test-utils';
-import DataSubmissionExtraction from 'components/interactiveDataSources/scrollerSections/DataSubmissionExtraction';
+import DataSubmissionExtraction from '-components/interactiveDataSources/scrollerSections/DataSubmissionExtraction';
 
 
 describe('DataSubmissionExtraction', () => {

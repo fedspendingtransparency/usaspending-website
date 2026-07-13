@@ -7,10 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Tabs } from "data-transparency-ui";
 
-import { formatNumber } from 'helpers/moneyFormatter';
+import { formatNumber } from '../../../../helpers/moneyFormatter';
 
-import ChartError from 'components/sharedComponents/ChartError';
-import { determineSpendingScenarioByAwardType, generateDefcTabs } from 'helpers/awardAmountHelper';
+import ChartError from '../../../../components/sharedComponents/ChartError';
+import { determineSpendingScenarioByAwardType, generateDefcTabs } from '../../../../helpers/awardAmountHelper';
 
 import AwardsBanner from './AwardsBanner';
 

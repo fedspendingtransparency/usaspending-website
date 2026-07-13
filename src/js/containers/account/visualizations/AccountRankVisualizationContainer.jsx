@@ -5,7 +5,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { max } from 'lodash-es';

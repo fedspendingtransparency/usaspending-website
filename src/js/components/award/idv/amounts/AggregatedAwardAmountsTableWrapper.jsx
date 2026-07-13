@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs } from "data-transparency-ui";
 
-import { generateDefcTabs } from 'helpers/awardAmountHelper';
+import { generateDefcTabs } from '../../../../helpers/awardAmountHelper';
 
 import AwardAmountsTable from "../../shared/awardAmounts/AwardAmountsTable";
 import { AWARD_AMOUNT_TYPE_PROPS } from "../../../../propTypes";

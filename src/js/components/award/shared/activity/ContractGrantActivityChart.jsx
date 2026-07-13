@@ -3,15 +3,15 @@ import PropTypes from 'prop-types';
 import { cloneDeep, compact, sum } from 'lodash-es';
 import { scaleLinear } from 'd3-scale';
 
-import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
-import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
-import SVGLine from 'components/sharedComponents/SVGLine';
+import ActivityYAxis from '../../../../components/award/shared/activity/ActivityYAxis';
+import ActivityXAxis from '../../../../components/award/shared/activity/ActivityXAxis';
+import SVGLine from '../../../../components/sharedComponents/SVGLine';
 import {
     getXDomain,
     getLineValue
-} from 'helpers/contractGrantActivityHelper';
-import { convertDateToFY } from 'helpers/fiscalYearHelper';
-import { formatMoney } from 'helpers/moneyFormatter';
+} from '../../../../helpers/contractGrantActivityHelper';
+import { convertDateToFY } from '../../../../helpers/fiscalYearHelper';
+import { formatMoney } from '../../../../helpers/moneyFormatter';
 import ContractGrantActivityChartVerticalLines from './ContractGrantActivityChartVerticalLines';
 import ContractGrantActivityChartCircles from './ContractGrantActivityChartCircles';
 import ContractGrantActivityChartAreaPaths from './ContractGrantActivityChartAreaPaths';

@@ -9,7 +9,7 @@ import {
     caresActSpendingCategories,
     orderedTableTitles,
     defcTypes
-} from "dataMapping/award/awardAmountsSection";
+} from "../../../../dataMapping/award/awardAmountsSection";
 
 import { AWARD_AMOUNT_TYPE_PROPS } from "../../../../propTypes";
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import SVGLine from 'components/sharedComponents/SVGLine';
+import SVGLine from '../../../../components/sharedComponents/SVGLine';
 
 const dayjs = require('dayjs');
 

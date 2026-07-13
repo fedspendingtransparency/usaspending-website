@@ -9,9 +9,9 @@ import React, {
 import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 
-import kGlobalConstants from 'GlobalConstants';
+import kGlobalConstants from "GlobalConstants";
 import statesBySqMile from "dataMapping/state/statesBySqMile";
-import IsMobileContext from "context/IsMobileContext";
+import IsMobileContext from "-context/IsMobileContext";
 import MapBoxNavButtons from "./MapBoxNavButtons";
 
 const propTypes = {

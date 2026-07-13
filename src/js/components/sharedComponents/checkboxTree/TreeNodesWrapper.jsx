@@ -6,7 +6,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { removePlaceholderString } from 'helpers/checkboxTreeHelper';
+import { removePlaceholderString } from '-helpers/checkboxTreeHelper';
 import TreeNodes from './TreeNodes';
 
 const propTypes = {

@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 import { uniqueId } from 'lodash-es';
 
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '-helpers/analytics/Analytics';
 
 import SecondaryCheckboxType from './SecondaryCheckboxType';
 import CollapsedCheckboxType from './CollapsedCheckboxType';

@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import searchFiltersReducer, { initialState } from 'redux/reducers/search/searchFiltersReducer';
+import searchFiltersReducer, { initialState } from '-redux/reducers/search/searchFiltersReducer';
 
 import { render } from '../../../../testResources/test-utils';
 import TimePeriodContainer from "../../../../../src/js/containers/search/filters/TimePeriodContainer";

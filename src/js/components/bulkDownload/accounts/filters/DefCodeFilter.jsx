@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-import DEFCheckboxTreeDownload from 'components/bulkDownload/DEFCheckboxTreeDownload';
-import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+import DEFCheckboxTreeDownload from '../../../../components/bulkDownload/DEFCheckboxTreeDownload';
+import FilterSectionTitle from '../../../../components/bulkDownload/FilterSelectionTitle';
 
 const DefCodeFilter = ({ type, isDisabled = false }) => (
     <div className="download-filter def-code-filter">

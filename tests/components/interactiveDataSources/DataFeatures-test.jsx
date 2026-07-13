@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { render } from '@test-utils';
-import DataFeatures from 'components/interactiveDataSources/scrollerSections/DataFeatures';
+import DataFeatures from '-components/interactiveDataSources/scrollerSections/DataFeatures';
 
 
 describe('DataFeatures', () => {

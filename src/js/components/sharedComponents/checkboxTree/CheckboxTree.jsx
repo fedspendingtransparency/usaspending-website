@@ -7,9 +7,9 @@ import React, { cloneElement } from 'react';
 import PropTypes from 'prop-types';
 import { difference } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import replaceString from 'helpers/replaceString';
-import CheckboxTreeLabel from 'components/sharedComponents/CheckboxTreeLabel';
-import TreeNodes from 'components/sharedComponents/checkboxTree/TreeNodesWrapper';
+import replaceString from '-helpers/replaceString';
+import CheckboxTreeLabel from '-components/sharedComponents/CheckboxTreeLabel';
+import TreeNodes from '-components/sharedComponents/checkboxTree/TreeNodesWrapper';
 
 const propTypes = {
     data: PropTypes.array,

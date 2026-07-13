@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import InfoBanner from 'components/sharedComponents/header/InfoBanner';
+import InfoBanner from '-components/sharedComponents/header/InfoBanner';
 import { render, screen, fireEvent } from '@test-utils';
 
 const closeBanner = jest.fn();

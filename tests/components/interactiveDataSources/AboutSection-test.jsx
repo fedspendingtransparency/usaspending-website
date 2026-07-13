@@ -4,7 +4,7 @@
 import React from 'react';
 import { render } from '@test-utils';
 import { fireEvent } from '@testing-library/react';
-import AboutSection from 'components/interactiveDataSources/sections/AboutSection';
+import AboutSection from '-components/interactiveDataSources/sections/AboutSection';
 
 describe('AboutSection', () => {
     test('should display the card in the about section with text', () => {

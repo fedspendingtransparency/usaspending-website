@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Table } from 'data-transparency-ui';
-import { calculatePercentage, formatMoney, formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
+import { calculatePercentage, formatMoney, formatMoneyWithUnitsShortLabel } from '-helpers/moneyFormatter';
 
 const propTypes = {
     awardTypes: PropTypes.array,

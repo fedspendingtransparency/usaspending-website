@@ -11,7 +11,7 @@ import EntityDropdownAutocomplete from
     'components/sharedComponents/EntityDropdownAutocomplete';
 import PrimaryCheckboxType from
     'components/sharedComponents/checkbox/PrimaryCheckboxType';
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '-helpers/analytics/Analytics';
 import Alert from "../Alert";
 
 const propTypes = {

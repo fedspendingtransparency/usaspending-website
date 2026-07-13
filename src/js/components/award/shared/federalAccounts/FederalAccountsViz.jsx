@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
+import ViewTypeButton from '../../../../components/sharedComponents/buttons/ViewTypeButton';
 import FederalAccountsTreeTooltip from
     './FederalAccountsTreeTooltip';
 import FederalAccountsTable from './FederalAccountsTable';

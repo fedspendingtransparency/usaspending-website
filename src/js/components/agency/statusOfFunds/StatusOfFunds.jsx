@@ -7,7 +7,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
-import IsMobileContext from "context/IsMobileContext";
+import IsMobileContext from "-context/IsMobileContext";
 import VisualizationSection from './VisualizationSection';
 
 const propTypes = {

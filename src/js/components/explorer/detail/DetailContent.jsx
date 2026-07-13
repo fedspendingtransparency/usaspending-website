@@ -6,7 +6,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
+import LoadingSpinner from '-components/sharedComponents/LoadingSpinner';
 import RootHeader from './header/RootHeader';
 import DetailHeader from './header/DetailHeader';
 import ExplorerVisualization from './visualization/ExplorerVisualization';

@@ -7,12 +7,12 @@ import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-import kGlobalConstants from 'GlobalConstants';
+import kGlobalConstants from '../../../GlobalConstants';
 
-import { areDefCodesDisabled } from 'helpers/bulkDownloadHelper';
-import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
-import { Glossary } from 'components/sharedComponents/icons/Icons';
-import IsMobileContext from "context/IsMobileContext";
+import { areDefCodesDisabled } from '../../../helpers/bulkDownloadHelper';
+import { accountDownloadOptions } from '../../../dataMapping/bulkDownload/bulkDownloadOptions';
+import { Glossary } from '../../../components/sharedComponents/icons/Icons';
+import IsMobileContext from "../../../context/IsMobileContext";
 
 import AccountLevelFilter from './filters/AccountLevelFilter';
 import SubmissionTypeFilter from './filters/SubmissionTypeFilter';

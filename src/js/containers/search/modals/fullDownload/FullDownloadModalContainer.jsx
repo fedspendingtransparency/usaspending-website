@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import * as downloadActions from '../../../../redux/actions/search/downloadActions';
 import NewDownloadModal from '../../../../components/search/modals/fullDownload/NewDownloadModal';

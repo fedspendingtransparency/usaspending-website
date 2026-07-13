@@ -6,7 +6,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators } from "redux";
 import { isCancel } from 'axios';
 
 import { fetchIdvFundingSummary } from '../../../helpers/idvHelper';

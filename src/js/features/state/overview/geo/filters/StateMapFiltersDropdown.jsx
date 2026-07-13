@@ -3,7 +3,7 @@ import { uniqueId } from "lodash-es";
 import { NewPicker } from "data-transparency-ui";
 import PropTypes from "prop-types";
 
-import { handleSort } from "helpers/covid19Helper";
+import { handleSort } from "-helpers/covid19Helper";
 import {
     filtersOnClickHandler,
     mapFilterSortOrderByValue,

@@ -7,8 +7,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 
-import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
-import { fetchCFDA } from "helpers/searchHelper";
+import Autocomplete from '-components/sharedComponents/autocomplete/Autocomplete';
+import { fetchCFDA } from "-helpers/searchHelper";
 
 const propTypes = {
     searchParams: PropTypes.string,

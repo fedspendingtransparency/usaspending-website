@@ -13,23 +13,23 @@ import { LoadingMessage, Tabs } from 'data-transparency-ui';
 import MapWrapper from '../../../../components/covid19/recipient/map/MapWrapper';
 
 
-import { setIsMapLoaded } from 'redux/actions/covid19/covid19Actions';
-import MapBroadcaster from 'helpers/mapBroadcaster';
+import { setIsMapLoaded } from '../../../../redux/actions/covid19/covid19Actions';
+import MapBroadcaster from '../../../../helpers/mapBroadcaster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import MapMessage from 'components/search/visualizations/geo/MapMessage';
-import RecipientMapTooltip from 'components/covid19/recipient/map/RecipientMapTooltip';
-import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
+import MapMessage from '../../../../components/search/visualizations/geo/MapMessage';
+import RecipientMapTooltip from '../../../../components/covid19/recipient/map/RecipientMapTooltip';
+import ResultsTableErrorMessage from '../../../../components/keyword/table/ResultsTableErrorMessage';
 import {
     centerOfMap,
     filters,
     logMapLayerEvent,
     filtersOnClickHandler,
     tooltipLabels
-} from 'dataMapping/covid19/recipient/map/map';
-import { awardTypeTabs } from 'dataMapping/covid19/covid19';
-import { awardTypeGroups } from 'dataMapping/search/awardType';
-import { fetchRecipientSpendingByGeography } from 'apis/disaster';
-import Analytics from 'helpers/analytics/Analytics';
+} from '-dataMapping/covid19/recipient/map/map';
+import { awardTypeTabs } from '-dataMapping/covid19/covid19';
+import { awardTypeGroups } from '-dataMapping/search/awardType';
+import { fetchRecipientSpendingByGeography } from '-apis/disaster';
+import Analytics from '-helpers/analytics/Analytics';
 import SummaryInsightsContainer from '../SummaryInsightsContainer';
 
 const propTypes = {

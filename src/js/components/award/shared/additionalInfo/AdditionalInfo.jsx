@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import additionalDetailsContract from 'dataMapping/award/additionalDetailsContract';
-import additionalDetailsFinancialAssistance from 'dataMapping/award/additionalDetailsFinancialAssistance';
-import additionalDetailsIdv from 'dataMapping/award/additionalDetailsIdv';
+import additionalDetailsContract from '../../../../dataMapping/award/additionalDetailsContract';
+import additionalDetailsFinancialAssistance from '../../../../dataMapping/award/additionalDetailsFinancialAssistance';
+import additionalDetailsIdv from '../../../../dataMapping/award/additionalDetailsIdv';
 import Accordion from './Accordion';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 

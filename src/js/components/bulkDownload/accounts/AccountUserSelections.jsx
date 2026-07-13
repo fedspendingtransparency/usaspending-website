@@ -6,8 +6,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { getPeriodTitle } from 'helpers/shared/dateHelper';
-import { accountDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import { getPeriodTitle } from '../../../helpers/shared/dateHelper';
+import { accountDownloadOptions } from '../../../dataMapping/bulkDownload/bulkDownloadOptions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AccountUserSelections = () => {

@@ -6,8 +6,8 @@
  */
 
 import { expect } from '@jest/globals';
-import * as apis from 'apis/disaster';
-import * as actions from 'redux/actions/covid19/covid19Actions';
+import * as apis from '-apis/disaster';
+import * as actions from '-redux/actions/covid19/covid19Actions';
 import React from 'react';
 import { render } from "../../testResources/test-utils";
 import { useQueryParams } from "../../../src/js/helpers/queryParams";

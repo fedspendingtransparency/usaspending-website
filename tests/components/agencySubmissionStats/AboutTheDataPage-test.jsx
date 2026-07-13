@@ -6,11 +6,11 @@ import { List } from 'immutable';
 // eslint-disable-next-line import/no-unresolved
 import { render, screen, waitFor } from '@test-utils';
 
-import AboutTheDataPage from 'components/agencySubmissionStats/AboutTheDataPage';
-import * as accountHelpers from 'apis/account';
-import * as helpers from "containers/account/WithLatestFy";
-import * as glossaryHelpers from 'helpers/glossaryHelper';
-import * as agencyReportingAPI from 'apis/agencyReporting';
+import AboutTheDataPage from '-components/agencySubmissionStats/AboutTheDataPage';
+import * as accountHelpers from '-apis/account';
+import * as helpers from "-containers/account/WithLatestFy";
+import * as glossaryHelpers from '-helpers/glossaryHelper';
+import * as agencyReportingAPI from '-apis/agencyReporting';
 import * as useQueryParams from "../../../src/js/hooks/useQueryParams";
 import { mockAPI } from '../../containers/agencySubmissionStats/mockData';
 import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';

@@ -6,7 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
 import { useDispatch } from 'react-redux';
-import { showTrainingVideoModal } from 'redux/actions/modal/modalActions';
+import { showTrainingVideoModal } from '-redux/actions/modal/modalActions';
 import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
 import VideoCard from '../videoCard/VideoCard';
 

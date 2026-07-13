@@ -12,7 +12,7 @@ import { Table, Pagination, SearchBar } from 'data-transparency-ui';
 import { useNavigate } from 'react-router';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import replaceString from '../helpers/replaceString';
+import replaceString from '../../../helpers/replaceString';
 import { awardTypeGroups } from '../../../dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from '../../../models/v2/covid19/BaseSpendingByCfdaRow';
 import { spendingTableSortFields } from '../../../dataMapping/covid19/covid19';

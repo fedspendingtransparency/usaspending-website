@@ -6,7 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
+import ComingSoonLabel from '-components/sharedComponents/ComingSoonLabel';
 import FilterExpandButton from './FilterExpandButton';
 
 const propTypes = {

@@ -4,8 +4,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { endsWith } from 'lodash-es';
 
-import { convertDatesToRange } from 'helpers/timeRangeHelper';
-import { datesByDateType, isContract, isBadDates } from 'helpers/awardSummaryHelper';
+import { convertDatesToRange } from '../../../helpers/timeRangeHelper';
+import { datesByDateType, isContract, isBadDates } from '../../../helpers/awardSummaryHelper';
 
 const dayjs = require('dayjs');
 

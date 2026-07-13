@@ -6,17 +6,17 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isEqual } from 'lodash-es';
-import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
+import { clearAllFilters } from '-redux/actions/search/searchFilterActions';
 import {
     resetAppliedFilters,
     applyStagedFilters,
     setAppliedFilterCompletion
-} from 'redux/actions/search/appliedFilterActions';
+} from '-redux/actions/search/appliedFilterActions';
 import {
     initialState as defaultAdvancedSearchFilters,
     CheckboxTreeSelections
-} from 'redux/reducers/search/searchFiltersReducer';
-import Analytics from 'helpers/analytics/Analytics';
+} from '-redux/reducers/search/searchFiltersReducer';
+import Analytics from '-helpers/analytics/Analytics';
 import {
     FlexGridRow,
     FlexGridCol,

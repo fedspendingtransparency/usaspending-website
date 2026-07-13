@@ -6,8 +6,8 @@
 import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-import ComboBox from 'components/sharedComponents/ComboBox';
-import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+import ComboBox from '../../../../components/sharedComponents/ComboBox';
+import FilterSectionTitle from '../../../../components/bulkDownload/FilterSelectionTitle';
 
 const propTypes = {
     budgetFunctions: PropTypes.array,

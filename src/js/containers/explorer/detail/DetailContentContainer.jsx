@@ -15,7 +15,7 @@ import {
     resetExplorerTable,
     setExplorerActive,
     setExplorerPeriod
-} from "redux/actions/explorer/explorerActions";
+} from "../../../redux/actions/explorer/explorerActions";
 import Analytics from '../../../helpers/analytics/Analytics';
 import {
     appendCellForDataOutsideTree, truncateDataForTreemap

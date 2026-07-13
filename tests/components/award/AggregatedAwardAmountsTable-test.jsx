@@ -4,7 +4,7 @@
 import React from 'react';
 import { expect } from '@jest/globals';
 import { render, screen, fireEvent } from '@test-utils';
-import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
+import { determineSpendingScenarioByAwardType } from '-helpers/awardAmountHelper';
 import AggregatedAwardAmountsTableWrapper
     from "../../../src/js/components/award/idv/amounts/AggregatedAwardAmountsTableWrapper";
 import AwardAmountsTable from "../../../src/js/components/award/shared/awardAmounts/AwardAmountsTable";

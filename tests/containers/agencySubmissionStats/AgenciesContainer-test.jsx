@@ -3,14 +3,14 @@
  */
 import React from 'react';
 import { render, waitFor } from 'test-utils';
-import { createStore } from 'redux';
+import { createStore } from '-redux';
 import { Provider } from 'react-redux';
 
 import * as redux from 'react-redux';
 import { List } from 'immutable';
 
-import * as agencyReportingAPI from 'apis/agencyReporting';
-import AgenciesContainer from 'containers/agencySubmissionStats/AgenciesContainer';
+import * as agencyReportingAPI from '-apis/agencyReporting';
+import AgenciesContainer from '-containers/agencySubmissionStats/AgenciesContainer';
 import { mockAPI } from './mockData';
 
 const defaultProps = {

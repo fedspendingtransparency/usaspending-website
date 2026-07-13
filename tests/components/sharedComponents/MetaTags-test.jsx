@@ -3,8 +3,8 @@
  */
 import React from 'react';
 import { render } from 'test-utils';
-import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
-import * as actions from 'redux/actions/googleAnalytics/googleAnalytics';
+import MetaTags from '-components/sharedComponents/metaTags/MetaTags';
+import * as actions from '-redux/actions/googleAnalytics/googleAnalytics';
 import { defaultState } from '../../testResources/defaultReduxFilters';
 
 const defaultProps = {

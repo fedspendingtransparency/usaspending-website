@@ -7,8 +7,8 @@ import React from "react";
 import { find } from "lodash-es";
 
 import { awardTypeLabels } from "dataMapping/state/awardTypes";
-import { formatMoneyWithUnitsShortLabel } from "helpers/moneyFormatter";
-import * as MoneyFormatter from "helpers/moneyFormatter";
+import { formatMoneyWithUnitsShortLabel } from "-helpers/moneyFormatter";
+import * as MoneyFormatter from "-helpers/moneyFormatter";
 import AwardTypeTooltip from "./AwardTypeTooltip";
 
 

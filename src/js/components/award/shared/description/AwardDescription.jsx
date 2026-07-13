@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FlexGridRow, FlexGridCol, NoResultsMessage } from 'data-transparency-ui';
 
-import { SpeechBubble } from 'components/sharedComponents/icons/Icons';
-import GlossaryLink from 'components/sharedComponents/GlossaryLink';
+import { SpeechBubble } from '../../../../components/sharedComponents/icons/Icons';
+import GlossaryLink from '../../../../components/sharedComponents/GlossaryLink';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 import ExpandableAwardSection from '../ExpandableAwardSection';

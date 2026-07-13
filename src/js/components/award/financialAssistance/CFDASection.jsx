@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import CFDAVizContainer from 'containers/award/financialAssistance/CFDAVizContainer';
+import CFDAVizContainer from '-containers/award/financialAssistance/CFDAVizContainer';
 import AwardSection from '../shared/AwardSection';
 import AwardSectionHeader from '../shared/AwardSectionHeader';
 import { CFDASectionInfo } from "../shared/InfoTooltipContent";

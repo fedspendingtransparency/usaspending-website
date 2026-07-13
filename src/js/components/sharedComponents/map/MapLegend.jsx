@@ -7,8 +7,8 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from "lodash-es";
 
-import { formatMoneyWithPrecision } from "helpers/moneyFormatter";
-import { visualizationColors } from "helpers/mapHelper";
+import { formatMoneyWithPrecision } from "-helpers/moneyFormatter";
+import { visualizationColors } from "-helpers/mapHelper";
 import MapLegendItem from './MapLegendItem';
 
 const propTypes = {

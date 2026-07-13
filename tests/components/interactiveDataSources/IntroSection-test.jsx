@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { render, screen } from '@test-utils';
-import IntroSection from 'components/interactiveDataSources/sections/IntroSection';
+import IntroSection from '-components/interactiveDataSources/sections/IntroSection';
 
 describe('IntroSection', () => {
     test('should display the intro section with text', () => {

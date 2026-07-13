@@ -6,12 +6,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { getAllNetPositiveIdvFileCDefCodes } from 'helpers/idvHelper';
-import ReferencedAwardsContainer from 'containers/award/idv/ReferencedAwardsContainer';
-import IdvActivityContainer from 'containers/award/idv/IdvActivityContainer';
-import { glossaryLinks } from 'dataMapping/search/awardType';
-import AwardHistory from 'containers/award/shared/AwardHistorySectionContainer';
-import IdvAwardAmountsSectionContainer from 'containers/award/idv/IdvAwardAmountsSectionContainer';
+import { getAllNetPositiveIdvFileCDefCodes } from '../../../helpers/idvHelper';
+import ReferencedAwardsContainer from '../../../containers/award/idv/ReferencedAwardsContainer';
+import IdvActivityContainer from '../../../containers/award/idv/IdvActivityContainer';
+import { glossaryLinks } from '../../../dataMapping/search/awardType';
+import AwardHistory from '../../../containers/award/shared/AwardHistorySectionContainer';
+import IdvAwardAmountsSectionContainer from '../../../containers/award/idv/IdvAwardAmountsSectionContainer';
 
 import AwardOverviewLeftSection from '../shared/overview/AwardOverviewLeftSection';
 import AwardOverviewRightSection from '../shared/overview/AwardOverviewRightSection';

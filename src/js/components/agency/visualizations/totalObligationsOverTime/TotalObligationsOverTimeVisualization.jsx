@@ -9,10 +9,10 @@ import { scaleLinear } from 'd3-scale';
 import { format, getYear } from 'date-fns';
 import { TooltipWrapper } from "data-transparency-ui";
 
-import { formatMoney, formatNumber, calculatePercentage } from 'helpers/moneyFormatter';
-import { getYDomain, getMilliseconds, determineScenario } from 'helpers/agency/visualizations/TotalObligationsOverTimeVisualizationHelper';
-import { xLabelHeightPlusPadding, yOffsetForPathStrokeWidth, defaultPadding, defaultHeight } from 'dataMapping/agency/visualizations/totalObligationsOverTime';
-import Paths from 'components/agency/visualizations/totalObligationsOverTime/paths/Paths';
+import { formatMoney, formatNumber, calculatePercentage } from '-helpers/moneyFormatter';
+import { getYDomain, getMilliseconds, determineScenario } from '-helpers/agency/visualizations/TotalObligationsOverTimeVisualizationHelper';
+import { xLabelHeightPlusPadding, yOffsetForPathStrokeWidth, defaultPadding, defaultHeight } from '-dataMapping/agency/visualizations/totalObligationsOverTime';
+import Paths from '-components/agency/visualizations/totalObligationsOverTime/paths/Paths';
 import Axis from './axis/Axis';
 import TodayLineAndtext from './TodayLineAndtext';
 import AgencyBudgetLine from './AgencyBudgetLine';

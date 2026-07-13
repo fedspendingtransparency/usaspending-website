@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper } from 'data-transparency-ui';
-import GlossaryLink from 'components/sharedComponents/GlossaryLink';
+import GlossaryLink from '-components/sharedComponents/GlossaryLink';
 
 const propTypes = {
     toggleFilter: PropTypes.func,

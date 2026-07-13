@@ -8,9 +8,9 @@ import PropTypes from 'prop-types';
 import { compact } from 'lodash-es';
 import { Link } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
+import { createOnKeyDownHandler } from '../../../../helpers/keyboardEventsHelper';
 import { TooltipWrapper } from "data-transparency-ui";
-import { CondensedCDTooltip } from 'components/award/shared/InfoTooltipContent';
+import { CondensedCDTooltip } from '../../../../components/award/shared/InfoTooltipContent';
 
 const awardIdField = 'Unique Award Key';
 

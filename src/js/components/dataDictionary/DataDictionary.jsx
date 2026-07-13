@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SearchBar } from 'data-transparency-ui';
 
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from '../../helpers/analytics/Analytics';
 import DataDictionaryTable from './table/DataDictionaryTable';
 import H2PageHeader from '../sharedComponents/header/H2PageHeader';
 

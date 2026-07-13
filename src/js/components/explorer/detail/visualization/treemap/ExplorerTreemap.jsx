@@ -12,8 +12,8 @@ import { scaleLinear } from 'd3-scale';
 import { measureTreemapHeader, measureTreemapValue } from '../../../../../helpers/textMeasurement';
 
 
-import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
-import TreemapCell from 'components/sharedComponents/TreemapCell';
+import LoadingSpinner from '-components/sharedComponents/LoadingSpinner';
+import TreemapCell from '-components/sharedComponents/TreemapCell';
 
 const propTypes = {
     isLoading: PropTypes.bool,
