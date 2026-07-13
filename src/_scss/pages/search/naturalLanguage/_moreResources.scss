@@ -3,7 +3,7 @@
 .more-resources__section {
   .more-resources__row {
     display: flex;
-    align-items: stretch;
+    align-items: flex-start;
     gap: $global-spacing-unit * 3;
     margin-top: $global-spacing-unit * 5;
   }
@@ -16,15 +16,17 @@
 
   .more-resources__col {
     display: flex;
-    flex-direction: column;
     flex: 1 1 100%;
-    align-items: flex-start;
     border-radius: rem(4);
     border: rem(1) solid $gray-10;
     background: $gray-5;
 
     @media (min-width: $medium-screen) {
-     flex: 1 1 0;
+      flex: 1 1 0;
+      min-width: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: rem(20);
     }
   }
 }

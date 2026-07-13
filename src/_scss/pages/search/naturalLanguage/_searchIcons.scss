@@ -10,9 +10,10 @@
   height: $base-font-size;
 }
 
-@mixin icon-variant($label-color, $icon-bkg, $icon-color, $gap: $font-size-10, $label-margin-top: 0) {
+@mixin icon-variant($label-color, $icon-bkg, $icon-color, $gap: $font-size-10, $label-margin-top: 0, $margin-bottom: rem(12)) {
   gap: $gap;
-  
+  margin-bottom: $margin-bottom;
+
   .icon-label {
     @include label-styles;
     color: $label-color;
@@ -31,16 +32,15 @@
 .icon-row {
   display: flex;
   align-items: center;
-  margin-bottom: rem(12);
 
   .icon-label {
     @include label-styles;
+    white-space: nowrap;
   }
 
   .icon-container {
     display: flex;
     flex-shrink: 0;
-    padding: rem(6);
     border-radius: rem(4);
 
     .icon {
@@ -76,6 +76,6 @@
   &--about-the-data,
   &--data-dictionary,
   &--federal-spending-guide {
-    @include icon-variant($gray-80, none, $gray-80, 0, rem(2));
+    @include icon-variant($gray-80, none, $gray-80, rem(6), rem(2), 0);
   }
 } 
