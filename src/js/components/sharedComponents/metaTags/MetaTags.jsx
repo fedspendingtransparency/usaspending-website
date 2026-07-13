@@ -8,13 +8,13 @@ import PropTypes from 'prop-types';
 import { useLocation } from 'react-router';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { setInitialAppLoadForDAP } from 'redux/actions/googleAnalytics/googleAnalytics';
-import Analytics from 'helpers/analytics/Analytics';
+import { setInitialAppLoadForDAP } from '../../../redux/actions/googleAnalytics/googleAnalytics';
+import Analytics from '../../../helpers/analytics/Analytics';
 import { Helmet } from 'react-helmet';
 import {
     isCustomPageTitleDefined,
     getCanonicalUrl
-} from 'helpers/metaTagHelper';
+} from '../../../helpers/metaTagHelper';
 
 const propTypes = {
     og_url: PropTypes.string,

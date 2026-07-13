@@ -7,8 +7,8 @@ import React, { useContext } from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ShareIcon } from 'data-transparency-ui';
-import IsMobileContext from "context/IsMobileContext";
-import DownloadIconButton508 from 'components/sharedComponents/buttons/DownloadButton508';
+import IsMobileContext from "../../../context/IsMobileContext";
+import DownloadIconButton508 from '../../../components/sharedComponents/buttons/DownloadButton508';
 
 const propTypes = {
     url: PropTypes.string.isRequired,

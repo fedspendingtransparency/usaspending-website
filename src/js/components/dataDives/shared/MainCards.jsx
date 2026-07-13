@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
-import ExternalLink from 'components/sharedComponents/ExternalLink';
-import Analytics from 'helpers/analytics/Analytics';
+import { largeScreen } from '../../../dataMapping/shared/mobileBreakpoints';
+import ExternalLink from '../../../components/sharedComponents/ExternalLink';
+import Analytics from '../../../helpers/analytics/Analytics';
 
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import ReadMore from '../../sharedComponents/ReadMore';

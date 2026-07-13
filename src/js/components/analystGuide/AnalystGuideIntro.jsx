@@ -3,10 +3,10 @@ import React from 'react';
 import { FlexGridCol, FlexGridRow  } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 
-import 'pages/analystGuide/analystGuide.scss';
-import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { showModal } from 'redux/actions/modal/modalActions';
-import ShareDownloadButtonGroup from 'components/sharedComponents/buttons/ShareDownloadButtonGroup';
+import '../../../_scss/pages/analystGuide/analystGuide.scss';
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
+import { showModal } from '../../redux/actions/modal/modalActions';
+import ShareDownloadButtonGroup from '../../components/sharedComponents/buttons/ShareDownloadButtonGroup';
 
 const AnalystGuideIntro = () => {
     const dispatch = useDispatch();

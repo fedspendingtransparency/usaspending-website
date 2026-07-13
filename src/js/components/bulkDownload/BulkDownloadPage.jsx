@@ -6,24 +6,24 @@
 import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 
-import IsMobileContext from "context/IsMobileContext";
+import IsMobileContext from "../../context/IsMobileContext";
 import {
     downloadArchivePageMetaTags,
     downloadAwardPageMetaTags,
     downloadAccountPageMetaTags,
     metadataDownloadPageMetaTags
-} from 'helpers/metaTagHelper';
+} from '../../helpers/metaTagHelper';
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
-import PageWrapper from 'components/sharedComponents/PageWrapper';
-import MetadataDownload from 'components/bulkDownload/MetadataDownload';
-import AwardDataContainer from 'containers/bulkDownload/awards/AwardDataContainer';
-import AccountDataContainer from 'containers/bulkDownload/accounts/AccountDataContainer';
-import AwardDataArchiveContainer from 'containers/bulkDownload/archive/AwardDataArchiveContainer';
-import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownloadModalContainer';
+import PageWrapper from '../../components/sharedComponents/PageWrapper';
+import MetadataDownload from '../../components/bulkDownload/MetadataDownload';
+import AwardDataContainer from '../../containers/bulkDownload/awards/AwardDataContainer';
+import AccountDataContainer from '../../containers/bulkDownload/accounts/AccountDataContainer';
+import AwardDataArchiveContainer from '../../containers/bulkDownload/archive/AwardDataArchiveContainer';
+import BulkDownloadModalContainer from '../../containers/bulkDownload/modal/BulkDownloadModalContainer';
 import AwardsUserSelections from './awards/AwardsUserSelections';
 import AccountUserSelections from './accounts/AccountUserSelections';
 import AwardDataArchiveUserSelections from "./archive/AwardDataArchiveUserSelections";
-import { currentFiscalYear } from "helpers/fiscalYearHelper";
+import { currentFiscalYear } from "../../helpers/fiscalYearHelper";
 
 const propTypes = {
     dataType: PropTypes.string,

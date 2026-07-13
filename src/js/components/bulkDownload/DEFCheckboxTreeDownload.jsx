@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useDefCodes } from 'hooks/WithDefCodes';
-import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
+import { useDefCodes } from '../../hooks/WithDefCodes';
+import { setDefCodes } from '../../redux/actions/bulkDownload/bulkDownloadActions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import AccordionCheckbox from "components/sharedComponents/checkbox/AccordionCheckbox";
-import { defcDataByType } from 'dataMapping/search/defCodes';
+import AccordionCheckbox from "../../components/sharedComponents/checkbox/AccordionCheckbox";
+import { defcDataByType } from '../../dataMapping/search/defCodes';
 import DEFCheckboxTreeDownloadLabel from "./DEFCheckboxTreeDownloadLabel";
 
 const DEFCheckboxTreeDownload = ({

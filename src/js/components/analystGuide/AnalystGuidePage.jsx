@@ -11,8 +11,6 @@ import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import { analystGuideMetaTags } from "../../helpers/metaTagHelper";
 import IsMobileContext from "../../context/IsMobileContext";
-import AnalystGuideHeader from './AnalystGuideHeader';
-import 'pages/analystGuide/analystGuide.scss';
 import BannerPageHeader from "../../components/sharedComponents/header/BannerPageHeader";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import AnalystGuideQuestions from "./AnalystGuideQuestions";

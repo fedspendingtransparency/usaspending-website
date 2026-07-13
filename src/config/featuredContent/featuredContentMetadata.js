@@ -1,4 +1,4 @@
-import GlobalConstants from 'GlobalConstants';
+import GlobalConstants from '../../js/GlobalConstants';
 
 // the first entry has what is necessary for a full article
 

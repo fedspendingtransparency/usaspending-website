@@ -6,8 +6,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
 import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
-import { transformString, getPrimaryFill, getThumbnailPath } from 'helpers/featuredContent/featuredContentHelper';
-import Analytics from "helpers/analytics/Analytics";
+import { transformString, getPrimaryFill, getThumbnailPath } from '../../../helpers/featuredContent/featuredContentHelper';
+import Analytics from "../../../helpers/analytics/Analytics";
 import ArticleCard from '../articleCard/ArticleCard';
 
 const propTypes = {

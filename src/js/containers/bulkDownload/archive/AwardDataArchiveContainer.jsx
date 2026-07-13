@@ -3,12 +3,10 @@
  * Created by Lizzie Salita 12/14/17
  */
 
-import React, { useRef, useEffect, useCallback } from 'react';
+import React, { useRef, useEffect, useCallback, memo } from 'react';
 import { requestArchiveFiles } from '../../../helpers/bulkDownloadHelper';
 import AwardDataArchiveContent from '../../../components/bulkDownload/archive/AwardDataArchiveContent';
 import useRequestAgenciesList from "../../../hooks/useRequestAgenciesList";
-import PropTypes from "prop-types";
-import React, { useEffect, useCallback, memo } from 'react';
 import PropTypes from "prop-types";
 import useRequestArchiveFiles from "./useRequestArchiveFiles";
 

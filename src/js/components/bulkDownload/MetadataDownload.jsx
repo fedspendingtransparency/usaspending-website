@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import kGlobalConstants from 'GlobalConstants';
+import kGlobalConstants from '../../GlobalConstants';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const downloadLocation = `${kGlobalConstants.FILES_SERVER_BASE_URL}/docs/USAspending-data-catalog.json`;
