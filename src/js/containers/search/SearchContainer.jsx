@@ -159,8 +159,13 @@ const SearchContainer = () => {
     const setDownloadAvailabilitySubawards = useCallback((filters = stagedFilters) => {
         const operation = new SearchAwardsOperation();
         operation.fromState(filters);
+
+        // for subawards newAwardsOnly cannot be true, so we remove dateType
+        delete operation.dateType;
+
         const searchParams = operation.toParams();
         // generate the API parameters
+
         const apiParams = {
             filters: searchParams,
             spending_level: "subawards",
