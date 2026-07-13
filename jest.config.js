@@ -32,7 +32,8 @@ module.exports = {
         ".*GlobalConstants$": "<rootDir>/tests/testResources/mockGlobalConstants.js",
         '@test-utils': "<rootDir>/tests/testResources/test-utils.js",
         d3: '<rootDir>/node_modules/d3/dist/d3.min.js',
-        "lodash-es": "lodash"
+        "lodash-es": "lodash",
+        'react-markdown': '<rootDir>/tests/EmptyMock.js'
     },
     setupFiles: ["<rootDir>/tests/rejection.js"],
     setupFilesAfterEnv: [
@@ -43,7 +44,7 @@ module.exports = {
         "^.+\\.jsx$|js$": "babel-jest"
     },
     transformIgnorePatterns: [
-        "node_modules/(?!(data-transparency-ui))"],
+        "node_modules/(?!(data-transparency-ui))", "node_modules/(?!(react-markdown))/"],
     modulePaths: ["<rootDir>/tests/testResources", "<rootDir>/src/js"],
     moduleFileExtensions: ['js', 'jsx', 'json', 'md', 'mdx']
 };

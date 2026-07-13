@@ -82,9 +82,9 @@ export const initialState = {
     awardDescription: ''
 };
 
-export const initialStateFY = {
+export const initialStateDR = {
     keyword: OrderedMap(),
-    timePeriodType: 'fy',
+    timePeriodType: 'dr',
     timePeriodFY: Set(),
     time_period: Set(),
     filterNewAwardsOnlySelected: false,

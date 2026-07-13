@@ -88,7 +88,7 @@ const CovidModalContainer = ({
                         The UEI for an awardee or recipient is an alphanumeric code created in the System for Award Management (SAM) that is used to uniquely identify specific commercial, nonprofit, or business entities registered to do business with the federal government.
                     </p>
                     <p>
-                        <a href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.">Sign up</a> to receive email notifications of future updates, new features, and more!
+                        <a href={`mailto:join-usaspending@lists.fiscal.treasury.gov?subject=${encodeURIComponent("Yes! I'd like to receive updates.")}`}>Sign up</a> to receive email notifications of future updates, new features, and more!
                     </p>
                 </div>
             </div>
