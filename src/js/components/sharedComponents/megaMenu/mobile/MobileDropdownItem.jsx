@@ -9,7 +9,7 @@ import Analytics from '-helpers/analytics/Analytics';
 import { uniqueId } from 'lodash-es';
 import { Link, useNavigate } from "react-router";
 import PropTypes from 'prop-types';
-import isRedirectNeeded from '../../../../helpers/url';
+import { isRedirectNeeded } from '../../../../helpers/url';
 import ExternalLink from '../../ExternalLink';
 import { showSlideout } from '../../../../helpers/slideoutHelper';
 

@@ -7,8 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ReadMore from '../../../components/sharedComponents/ReadMore';
-import CFDAOpportunityTotals from '../../../containers/covid19/assistanceListing/CFDAOpportunityTotals';
+import ReadMore from '-components/sharedComponents/ReadMore';
+import CFDAOpportunityTotals from '-containers/covid19/assistanceListing/CFDAOpportunityTotals';
+import { sanitizeUrl } from '../../../helpers/url';
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -69,7 +70,7 @@ const CFDADetailModal = ({
                             <h6>Program Website</h6>
                         </div>
                         <div className="usa-dt-modal__section__description">
-                            {data.cfda_website ?
+                            {sanitizeUrl(data.cfda_website) ?
                                 <button
                                     onClick={displayRedirectModal}
                                     value={data.cfda_website}>
@@ -84,7 +85,7 @@ const CFDADetailModal = ({
                             <h6>Assistance Listing on SAM.gov</h6>
                         </div>
                         <div className="usa-dt-modal__section__description">
-                            {data.resource_link ?
+                            {sanitizeUrl(data.resource_link) ?
                                 <button
                                     onClick={displayRedirectModal}
                                     value={data.resource_link}>
