@@ -1,19 +1,17 @@
 const presets = [
-    [
-        ["@babel/preset-react", { "runtime": "automatic" }],
-        "@babel/preset-env",
-        {
-            useBuiltIns: "entry",
-            corejs: {
-                version: 3,
-                proposals: true
-            },
-            targets: {
-                ie: "10",
-                node: "10"
-            }
+    ["@babel/preset-react", { "runtime": "automatic" }],
+    ["@babel/preset-env",
+    {
+        useBuiltIns: "entry",
+        corejs: {
+            version: 3,
+            proposals: true
+        },
+        targets: {
+            ie: "10",
+            node: "10"
         }
-    ]
+    }]
 ];
 
 const plugins = [
