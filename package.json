@@ -10,6 +10,10 @@
     "start": "webpack serve --open --history-api-fallback --progress --config ./webpack/webpack.local.config.mjs",
     "sass": "webpack serve --open --progress --config ./webpack/webpack.sass.config.js",
     "test": "jest; exit 0;",
+    "devVite": "vite",
+    "build-vite": "vite build",
+    "preview": "vite preview",
+    "build": "npm run build-vite && npm run build-sb",
     "lint": "eslint --config eslint.config.mjs --ext .jsx,.js \"src/js/**\"; exit 0;",
     "errors": "eslint --config eslint.config.mjs --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
     "dev": "webpack --progress --config ./webpack/webpack.dev.config.js",
@@ -21,13 +25,9 @@
     "lhci:mobile": "npx webpack --progress --config ./webpack/webpack.dev.config.js ; npx lhci autorun --config=./lighthouserc.js --chrome-flags=\"--headless\";",
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
     "fixLint": "npx prettier --write \"**/*.{scss,css}\" && eslint --quiet --config eslint.config.mjs --ext .jsx,.js \"src/js/**\" --fix",
-    "devVite": "vite",
-    "build-vite": "vite build",
-    "preview": "vite preview",
     "build-nginx-redirect-config": "npx babel-node scripts/buildRedirectNginxConf.js",
     "storybook": "storybook dev -p 6006",
-    "build-sb": "storybook build",
-    "build": "npm run build-vite && npm run build-sb"
+    "build-sb": "storybook build"
   },
   "author": "",
   "engines": {

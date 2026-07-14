@@ -12,6 +12,7 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 import autoprefixer from 'autoprefixer';
 import mdx from "@mdx-js/rollup";
 import babel from 'vite-plugin-babel';
+import { configDefaults } from 'vitest/config';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -50,8 +51,10 @@ export default defineConfig(({ command, mode }) => {
         include: /\.(jsx|tsx|js)$/,
       }),
       mdx(),
+      htmlPurge(),
+      nodePolyfills(),
       createHtmlPlugin({
-        template: path.resolve(__dirname, "./index.js"),
+        template: path.resolve(__dirname, "./src/index.js"),
         chunksSortMode: "none",
         templateParameters: {
           GA_TRACKING_ID: process.env.GA_TRACKING_ID || '',
@@ -67,20 +70,25 @@ export default defineConfig(({ command, mode }) => {
         targets: [
         {
           src: '*.xml',
-          dest: path.resolve(__dirname, "../public"),
+          dest: path.resolve(__dirname, "./public"),
+          suppressError: true
         },
         {
           src: '*.xml',
-          dest: path.resolve(__dirname, "../public"),
+          dest: path.resolve(__dirname, "./public"),
+          suppressError: true
         },
         {
           src: 'robots.txt',
-          dest: path.resolve(__dirname, "../public"),
+          dest: path.resolve(__dirname, "./public"),
+          suppressError: true
         },
         {
           src: 'redirect-config.json',
-          dest: path.resolve(__dirname, "../public"),
-        }]})
+          dest: path.resolve(__dirname, "./public"),
+          suppressError: true
+        }],
+        silent: true})
     ],
     server: {
       watch: {
@@ -110,7 +118,7 @@ export default defineConfig(({ command, mode }) => {
     },
     build: {
         commonjsOptions: { transformMixedEsModules: true },
-        outDir: path.resolve(__dirname, "../usaspending-website/dist"),
+        outDir: path.resolve(__dirname, "../usaspending-website/public"),
         emptyOutDir: true,
         rollupOptions: {
             input: "./src/index.js",
@@ -129,6 +137,9 @@ export default defineConfig(({ command, mode }) => {
             }
         }
     },
+    server: {
+      static: './dist',
+    },
     optimizeDeps: {
         rolldownOptions: {
             resolve: {
@@ -140,7 +151,17 @@ export default defineConfig(({ command, mode }) => {
             plugins: [react(), htmlPurge(), nodePolyfills(), mdx()]
         },
     },
-    plugins: [react(), htmlPurge(), nodePolyfills(), mdx()],
+    test: {
+      dir: './tests',
+      globals: true, // Enables Jest-like global APIs (describe, test, expect)
+      environment: 'jsdom', // Simulates browser DOM for UI tests
+      setupFiles: ['./tests/setup.js'], // Runs before each test file
+      exclude: [...configDefaults.exclude], // Ignores specific folders
+      coverage: {
+        provider: 'v8', // Code coverage tool
+        reporter: ['text', 'json', 'html'],
+      },
+    },
   }
 
   // Development-specific configurations
@@ -171,7 +192,7 @@ export default defineConfig(({ command, mode }) => {
       minify: false,
       cssCodeSplit: true,
       rolldownOptions: { 
-        input: "index.js",
+        input: "./src/index.js",
         external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types']
       },
     },
