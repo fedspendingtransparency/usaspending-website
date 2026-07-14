@@ -108,7 +108,9 @@
     color: $color-base;
     font-weight: $font-normal;
     word-break: break-word;
-    .analyst-guide__external-link {
+    .analyst-guide__external-link,
+    .usda-external-link,
+    .usda-external-link__card {
       @include button-unstyled;
       color: $theme-color-1;
       font-size: inherit;
