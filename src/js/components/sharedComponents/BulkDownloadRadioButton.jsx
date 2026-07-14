@@ -25,7 +25,7 @@ const BulkDownloadRadioButton = ({
 
     return (
         <div className="radio">
-            <label className="radio-label" htmlFor="periodType">
+            <label className="radio-label" htmlFor={name}>
                 <input
                     type="radio"
                     aria-label={value}
