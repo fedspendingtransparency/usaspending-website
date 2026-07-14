@@ -26,7 +26,7 @@ const NLSearchSuggestions = () => {
             <section className="search-suggestions__section"> 
                 <FlexGridRow className="search-suggestions__row">
                     <div className="search-suggestions__title">
-                            Learn how to build USAspending search
+                            Learn how to build your USAspending search
                     </div>
                     <div className="search-suggestions__link">
                         <Button
