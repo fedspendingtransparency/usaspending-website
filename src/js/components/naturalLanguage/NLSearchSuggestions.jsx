@@ -25,10 +25,10 @@ const NLSearchSuggestions = () => {
         <>
             <section className="search-suggestions__section"> 
                 <FlexGridRow className="search-suggestions__row">
-                    <FlexGridCol className="search-suggestions__title">
+                    <div className="search-suggestions__title">
                             Learn how to build USAspending search
-                    </FlexGridCol>
-                    <FlexGridCol className="search-suggestions__link">
+                    </div>
+                    <div className="search-suggestions__link">
                         <Button
                             copy="Watch training videos"
                             onClick={handleWatchVideosClick}
@@ -44,8 +44,8 @@ const NLSearchSuggestions = () => {
                                         className="button-icon"
                                         icon="arrow-up-right"/>
                                 </div>}/>
-                    </FlexGridCol>
-                    <FlexGridRow className="search-suggestions__card-row" hasGutter gutterSize="lg">
+                    </div>
+                    <FlexGridRow className="search-suggestions__card-row">
                         {searchCardData.map((card) => (
                             <FlexGridCol 
                                 className="search-suggestions__card" 
