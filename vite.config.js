@@ -27,6 +27,7 @@ export default defineConfig(({ command, mode }) => {
   
   // Shared options used in both development and production
   const sharedConfig = {
+    publicDir: false,
     loglevel: "error",
     css: {
       postcss: {
@@ -109,10 +110,10 @@ export default defineConfig(({ command, mode }) => {
     },
     build: {
         commonjsOptions: { transformMixedEsModules: true },
-        outDir: path.resolve(__dirname, "../public"),
+        outDir: path.resolve(__dirname, "../dist"),
         emptyOutDir: true,
         rollupOptions: {
-            input: "./index.js",
+            input: "./src/index.js",
             output: {
                 entryFileNames: "[name].[contenthash].js", 
             },
@@ -122,7 +123,10 @@ export default defineConfig(({ command, mode }) => {
         },
         rolldownOptions: {
             input: "./src/index.js",
-            external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types']
+            external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types'],
+            output: {
+              codeSplitting: true
+            }
         }
     },
     optimizeDeps: {
