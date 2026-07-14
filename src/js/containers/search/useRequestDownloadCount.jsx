@@ -14,11 +14,11 @@ const combine = (results) => ({
     downloadInFlight: results.some((result) => result.isLoading)
 })
 
-const useRequestDownloadCount = (filters, hash, areAppliedFiltersEmpty) => {
+const useRequestDownloadCount = (filters, hash, areAppliedFiltersEmpty, spendingLevel) => {
     const operation = new SearchAwardsOperation();
     operation.fromState(filters);
 
-    return useQueries({
+    const { data, downloadInFlight} = useQueries({
         queries: spendingLevels.map(({
             level,
             auditText
@@ -39,6 +39,36 @@ const useRequestDownloadCount = (filters, hash, areAppliedFiltersEmpty) => {
         }),
         combine
     });
+
+    const [awardsCount, subawardsCount, transactionsCount] = data;
+
+    const downloadAvailable = () => {
+        if (
+            (awardsCount === 0 || awardsCount >= 500000) &&
+            (transactionsCount === 0 || transactionsCount >= 500000) &&
+            (
+                spendingLevel === 'awards' ||
+                (subawardsCount === 0 || subawardsCount >= 500000)
+            )
+        ) {
+            return false;
+        }
+        else if (
+            awardsCount !== 0 ||
+            transactionsCount !== 0 ||
+            (spendingLevel === 'subawards' && subawardsCount !== 0)
+        ) {
+            return true;
+        }
+    }
+
+    return {
+        awardsCount,
+        subawardsCount,
+        transactionsCount,
+        downloadInFlight,
+        downloadAvailable: downloadAvailable()
+    }
 }
 
 export default useRequestDownloadCount;

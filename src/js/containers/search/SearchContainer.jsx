@@ -3,7 +3,7 @@
  * Created by Kevin Li 5/30/17
  */
 
-import React, { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
@@ -96,30 +96,15 @@ const SearchContainer = () => {
     const areAppliedFiltersEmptyRef = useRef(null);
     const prevAppliedFiltersRef = useRef(null);
 
-    const { data, downloadInFlight } = useRequestDownloadCount(
-        appliedFilters, urlHash, areAppliedFiltersEmpty
+    const {
+        awardsCount,
+        subawardsCount,
+        transactionsCount,
+        downloadInFlight,
+        downloadAvailable
+    } = useRequestDownloadCount(
+        appliedFilters, urlHash, areAppliedFiltersEmpty, spendingLevel
     );
-    const [awardsCount, subawardsCount, transactionsCount] = data;
-
-    const downloadAvailable = useMemo(() => {
-        if (
-            (awardsCount === 0 || awardsCount >= 500000) &&
-            (transactionsCount === 0 || transactionsCount >= 500000) &&
-            (
-                spendingLevel === 'awards' ||
-                (subawardsCount === 0 || subawardsCount >= 500000)
-            )
-        ) {
-            return false;
-        }
-        else if (
-            awardsCount !== 0 ||
-            transactionsCount !== 0 ||
-            (spendingLevel === 'subawards' && subawardsCount !== 0)
-        ) {
-            return true;
-        }
-    }, [transactionsCount, awardsCount, subawardsCount, spendingLevel]);
 
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
