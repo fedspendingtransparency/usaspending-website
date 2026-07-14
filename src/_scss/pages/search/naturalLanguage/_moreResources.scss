@@ -11,8 +11,11 @@
   .more-resources__label {
     @include label-styles;
     color: $gray-70;
-    padding: rem(12);
-  }
+
+    @media (min-width: $large-screen) {
+      padding-top: rem(12);
+    }
+   }
 
   .more-resources__col {
     display: flex;
@@ -21,13 +24,11 @@
     border: rem(1) solid $gray-10;
     background: $gray-5;
 
-    @media (min-width: $medium-screen) {
+    @media (min-width: $large-screen) {
       flex: 1 1 0;
-      min-width: 0;
       flex-direction: column;
       align-items: flex-start;
       min-height: rem(20);
-      padding: rem(4);
     }
   }
 }

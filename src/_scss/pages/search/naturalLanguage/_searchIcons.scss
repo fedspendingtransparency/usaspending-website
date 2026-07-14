@@ -10,24 +10,32 @@
   height: $base-font-size;
 }
 
-@mixin icon-variant($label-color, $icon-bkg, $icon-color, $gap: $font-size-10, $label-margin-top: 0, $margin-bottom: rem(12), $padding: rem(6) ) {
-  gap: $gap;
-  margin-bottom: $margin-bottom;
+@mixin icon-variant(
+  $label-color, 
+  $icon-bkg, 
+  $icon-color, 
+  $gap: $font-size-10, 
+  $label-margin-top: 0, 
+  $margin-bottom: rem(12), 
+  $padding: rem(6) 
+  ) {
+    gap: $gap;
+    margin-bottom: $margin-bottom;
 
-  .icon-label {
-    @include label-styles;
-    color: $label-color;
-    margin-top: $label-margin-top;
-  }
+    .icon-label {
+      @include label-styles;
+      color: $label-color;
+      margin-top: $label-margin-top;
+    }
 
-  .icon-container {
-    background: $icon-bkg;
-    padding: $padding;
-  }
+    .icon-container {
+      background: $icon-bkg;
+      padding: $padding;
+    }
 
-  .icon {
-    color: $icon-color;
-  }
+    .icon {
+      color: $icon-color;
+    }
 }
 
 .icon-row {
