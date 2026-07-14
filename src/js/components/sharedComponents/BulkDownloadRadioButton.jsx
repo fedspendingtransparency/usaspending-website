@@ -7,16 +7,18 @@ const propTypes = {
     checked: PropTypes.bool,
     onChange: PropTypes.func,
     label: PropTypes.string,
-    description: PropTypes.string
+    description: PropTypes.string,
+    disabled: PropTypes.bool
 }
 
 const BulkDownloadRadioButton = ({
     name,
     value,
     checked,
-    onChange,
+    onChange = () => {},
     label,
-    description = false
+    description = false,
+    disabled = false
 }) => {
     // prevents submission on enter keydown
     const onKeyDown = (e) => {
@@ -33,15 +35,17 @@ const BulkDownloadRadioButton = ({
                     name={name}
                     onKeyDown={onKeyDown}
                     checked={checked}
-                    onChange={onChange}/>
-                <div className="radio-container">
-                    {label}
-                    {description &&
+                    onChange={onChange}
+                    disabled={disabled} />
+                {description ?
+                    <div className="radio-container">
+                        {label}
                         <div className="radio-description">
                             {description}
                         </div>
-                    }
-                </div>
+                    </div> :
+                    label
+                }
             </label>
         </div>
     );
