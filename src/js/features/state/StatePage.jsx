@@ -15,7 +15,6 @@ import StateTimeVisualizationSectionContainer from
     "features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer";
 import StateFooter from "features/state/StateFooter";
 import StatePageWrapper from "./StatePageWrapper";
-import TopFiveSectionContainer from "./topFive/containers/TopFiveSectionContainer";
 import {useDispatch, useSelector} from "react-redux";
 import useStateNavigation from "./useStateNavigation";
 import useFetchOverview from "./useFetchOverview";
