@@ -17,23 +17,26 @@ const combine = (results) => ({
 const useRequestDownloadCount = (filters, hash, areAppliedFiltersEmpty) => {
     const operation = new SearchAwardsOperation();
     operation.fromState(filters);
-    const searchParams = operation.toParams();
 
     return useQueries({
         queries: spendingLevels.map(({
             level,
             auditText
-        }) => ({
-            queryKey: ['requestDownloadCount', level, searchParams],
-            queryFn: () => requestDownloadCount({
-                filters: searchParams,
-                spending_level: level,
-                auditTrail: `Download Availability Count ${auditText}`
-            }).promise,
-            staleTime: Infinity,
-            refetchOnWindowFocus: false,
-            enabled: (!areFiltersEqual(filters) || !hash) && !areAppliedFiltersEmpty
-        })),
+        }) => {
+            if (level === "subawards") delete operation.dateType;
+            const searchParams = operation.toParams();
+            return ({
+                queryKey: ['requestDownloadCount', level, searchParams],
+                queryFn: () => requestDownloadCount({
+                    filters: searchParams,
+                    spending_level: level,
+                    auditTrail: `Download Availability Count ${auditText}`
+                }).promise,
+                staleTime: Infinity,
+                refetchOnWindowFocus: false,
+                enabled: (!areFiltersEqual(filters) || !hash) && !areAppliedFiltersEmpty
+            });
+        }),
         combine
     });
 }
