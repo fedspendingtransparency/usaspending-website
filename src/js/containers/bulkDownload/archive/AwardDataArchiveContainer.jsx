@@ -8,9 +8,6 @@ import { requestArchiveFiles } from '../../../helpers/bulkDownloadHelper';
 import AwardDataArchiveContent from '../../../components/bulkDownload/archive/AwardDataArchiveContent';
 import useRequestAgenciesList from "../../../hooks/useRequestAgenciesList";
 import PropTypes from "prop-types";
-
-import AwardDataArchiveContent from '-components/bulkDownload/archive/AwardDataArchiveContent';
-import useRequestAgenciesList from "-hooks/useRequestAgenciesList";
 import { sanitizeUrl } from '-helpers/url';
 import useRequestArchiveFiles from "./useRequestArchiveFiles";
 
