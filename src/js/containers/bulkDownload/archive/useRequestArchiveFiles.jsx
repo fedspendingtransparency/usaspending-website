@@ -4,7 +4,7 @@
  */
 
 import { useQuery } from "@tanstack/react-query";
-import { requestArchiveFiles } from "-helpers/bulkDownloadHelper";
+import { requestArchiveFiles } from "helpers/bulkDownloadHelper";
 
 const useRequestArchiveFiles = (id, fy, type) => {
 

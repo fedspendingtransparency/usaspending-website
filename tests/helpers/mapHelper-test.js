@@ -5,7 +5,7 @@
  * Created by Lizzie Salita 12/30/20
  */
 
-import * as MapHelper from '-helpers/mapHelper';
+import * as MapHelper from 'helpers/mapHelper';
 
 describe('Map helper functions', () => {
     describe('calculateRange', () => {

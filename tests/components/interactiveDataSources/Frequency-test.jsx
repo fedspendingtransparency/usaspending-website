@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { render } from '@test-utils';
-import Frequency from '-components/interactiveDataSources/scrollerSections/Frequency';
+import Frequency from 'components/interactiveDataSources/scrollerSections/Frequency';
 
 describe('Frequency', () => {
     beforeEach(() => {

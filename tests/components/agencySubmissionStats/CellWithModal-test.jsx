@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import CellWithModal from '-components/agencySubmissionStats/CellWithModal';
+import CellWithModal from 'components/agencySubmissionStats/CellWithModal';
 import { render, screen, fireEvent } from '@test-utils';
 
 const openModal = jest.fn();

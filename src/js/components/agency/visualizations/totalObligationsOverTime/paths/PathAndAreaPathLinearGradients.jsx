@@ -1,14 +1,14 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { stoppingPoints } from '-helpers/agency/visualizations/TotalObligationsOverTimeVisualizationHelper';
+import { stoppingPoints } from 'helpers/agency/visualizations/TotalObligationsOverTimeVisualizationHelper';
 import {
     pathStopColorRed,
     pathStopColorBlue,
     areaPathStopColorRed,
     areaPathStopColorBlue,
     normalStoppingPoints
-} from '-dataMapping/agency/visualizations/totalObligationsOverTime';
+} from 'dataMapping/agency/visualizations/totalObligationsOverTime';
 
 const propTypes = {
     agencyBudget: PropTypes.number.isRequired,

@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { render } from '@test-utils';
-import DataTypes from '-components/interactiveDataSources/scrollerSections/DataTypes';
+import DataTypes from 'components/interactiveDataSources/scrollerSections/DataTypes';
 
 
 describe('DataTypes', () => {

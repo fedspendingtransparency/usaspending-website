@@ -9,9 +9,9 @@ import { useSelector } from 'react-redux';
 import { Link } from 'react-router';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
-import ReadMore from '-components/sharedComponents/ReadMore';
-import { showSlideout } from '-helpers/slideoutHelper';
-import IsMobileContext from "-context/IsMobileContext";
+import ReadMore from 'components/sharedComponents/ReadMore';
+import { showSlideout } from 'helpers/slideoutHelper';
+import IsMobileContext from "context/IsMobileContext";
 import FySummary from './FySummary';
 
 const propTypes = {

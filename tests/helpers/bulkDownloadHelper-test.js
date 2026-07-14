@@ -5,7 +5,7 @@
  * Created by Max Kendall 03/30/2021
  */
 
-import { areDefCodesDisabled } from '-helpers/bulkDownloadHelper';
+import { areDefCodesDisabled } from 'helpers/bulkDownloadHelper';
 
 test.each([
     [['accountBalances'], true],

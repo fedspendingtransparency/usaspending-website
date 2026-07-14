@@ -6,7 +6,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import GlossaryLink from "-components/sharedComponents/GlossaryLink";
+import GlossaryLink from "components/sharedComponents/GlossaryLink";
 
 
 const OutlaysExplanation = ({ outlayWhatOpen }) => (

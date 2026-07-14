@@ -15,7 +15,7 @@ import {
     getAllAgenciesEmail,
     getAgencyDetailEmail,
     getFederalBudget
-} from '-helpers/aboutTheDataHelper';
+} from 'helpers/aboutTheDataHelper';
 
 import {
     mockBalanceData,

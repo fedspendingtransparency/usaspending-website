@@ -9,7 +9,7 @@ import React from "react";
 // eslint-disable-next-line import/no-unresolved
 import { render, waitFor, screen } from "test-utils";
 import { expect } from '@jest/globals';
-import AwardSpendingAgencyTableContainer from "-containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer";
+import AwardSpendingAgencyTableContainer from "containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer";
 import * as api from "apis/disaster";
 import { defaultState } from "../../../testResources/defaultReduxFilters";
 import * as useAgencySlugs from "../../../../src/js/hooks/useAgencySlugs";

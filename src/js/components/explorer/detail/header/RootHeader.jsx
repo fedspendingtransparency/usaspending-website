@@ -7,10 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 
-import { sidebarTypes } from '-dataMapping/explorer/sidebarStrings';
+import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { formatTreemapValues } from '-helpers/moneyFormatter';
-import { generateSingular } from '-helpers/singularityHelper';
+import { formatTreemapValues } from 'helpers/moneyFormatter';
+import { generateSingular } from 'helpers/singularityHelper';
 import { ExplorerInfoToolTip } from './../../../award/shared/InfoTooltipContent';
 
 const dayjs = require('dayjs');

@@ -8,7 +8,7 @@ import { requestArchiveFiles } from '../../../helpers/bulkDownloadHelper';
 import AwardDataArchiveContent from '../../../components/bulkDownload/archive/AwardDataArchiveContent';
 import useRequestAgenciesList from "../../../hooks/useRequestAgenciesList";
 import PropTypes from "prop-types";
-import { sanitizeUrl } from '-helpers/url';
+import { sanitizeUrl } from 'helpers/url';
 import useRequestArchiveFiles from "./useRequestArchiveFiles";
 
 const dayjs = require('dayjs');

@@ -12,7 +12,7 @@ import {
     transactionsDefaultColumns,
     expandedTransactionColumns,
     expandedSubawardColumns
-} from '-dataMapping/search/groupedAwardTableColumns';
+} from 'dataMapping/search/groupedAwardTableColumns';
 
 
 const getColumnArray = (type) => {

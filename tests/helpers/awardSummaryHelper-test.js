@@ -8,7 +8,7 @@ import {
     isBadDates,
     isUSAAward,
     getSubmittingAgencyId
-} from '-helpers/awardSummaryHelper';
+} from 'helpers/awardSummaryHelper';
 
 const dayjs = require('dayjs');
 

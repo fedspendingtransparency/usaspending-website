@@ -4,7 +4,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from 'test-utils';
 import { act } from '@testing-library/react';
-import LottieAnimation from '-components/interactiveDataSources/lottieAnimation/LottieAnimation';
+import LottieAnimation from 'components/interactiveDataSources/lottieAnimation/LottieAnimation';
 
 describe('Lottie Animation', () => {
     it('should render LottieAnimation component', () => {

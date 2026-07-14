@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { OrderedSet } from 'immutable';
 
-import PrimaryCheckboxType from '-components/sharedComponents/checkbox/PrimaryCheckboxType';
+import PrimaryCheckboxType from 'components/sharedComponents/checkbox/PrimaryCheckboxType';
 
 const propTypes = {
     availableObjectClasses: PropTypes.array,

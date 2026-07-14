@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import MainCard from '-components/dataDives/shared/MainCard';
+import MainCard from 'components/dataDives/shared/MainCard';
 import { render, screen } from '../../testResources/test-utils';
 
 const testHdg = "This is a test heading";

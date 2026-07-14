@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { awardTypeCodes, glossaryLinks } from '-dataMapping/search/awardType';
+import { awardTypeCodes, glossaryLinks } from 'dataMapping/search/awardType';
 import { useDefCodes } from 'hooks/WithDefCodes';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 import AwardStatus from './AwardStatus';

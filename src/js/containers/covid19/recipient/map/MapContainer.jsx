@@ -25,11 +25,11 @@ import {
     logMapLayerEvent,
     filtersOnClickHandler,
     tooltipLabels
-} from '-dataMapping/covid19/recipient/map/map';
-import { awardTypeTabs } from '-dataMapping/covid19/covid19';
-import { awardTypeGroups } from '-dataMapping/search/awardType';
-import { fetchRecipientSpendingByGeography } from '-apis/disaster';
-import Analytics from '-helpers/analytics/Analytics';
+} from 'dataMapping/covid19/recipient/map/map';
+import { awardTypeTabs } from 'dataMapping/covid19/covid19';
+import { awardTypeGroups } from 'dataMapping/search/awardType';
+import { fetchRecipientSpendingByGeography } from 'apis/disaster';
+import Analytics from 'helpers/analytics/Analytics';
 import SummaryInsightsContainer from '../SummaryInsightsContainer';
 
 const propTypes = {

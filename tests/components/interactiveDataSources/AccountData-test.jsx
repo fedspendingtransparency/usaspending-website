@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { render } from '@test-utils';
-import AccountData from '-components/interactiveDataSources/scrollerSections/AccountData';
+import AccountData from 'components/interactiveDataSources/scrollerSections/AccountData';
 
 
 describe('AccountData', () => {

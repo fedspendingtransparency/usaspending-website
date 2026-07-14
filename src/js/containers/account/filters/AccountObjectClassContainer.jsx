@@ -11,9 +11,9 @@ import { isCancel } from 'axios';
 
 import * as accountFilterActions from '-redux/actions/account/accountFilterActions';
 
-import * as AccountHelper from '-apis/account';
+import * as AccountHelper from 'apis/account';
 
-import ObjectClassFilter from '-components/account/filters/objectClass/ObjectClassFilter';
+import ObjectClassFilter from 'components/account/filters/objectClass/ObjectClassFilter';
 
 const propTypes = {
     accountId: PropTypes.number,

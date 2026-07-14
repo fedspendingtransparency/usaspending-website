@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 import { Button } from 'data-transparency-ui';
-import { Check } from '-components/sharedComponents/icons/Icons';
+import { Check } from 'components/sharedComponents/icons/Icons';
 
 
 const propTypes = {

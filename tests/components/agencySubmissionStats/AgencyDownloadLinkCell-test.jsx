@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import AgencyDownloadLinkCell from '-components/agencySubmissionStats/AgencyDownloadLinkCell';
+import AgencyDownloadLinkCell from 'components/agencySubmissionStats/AgencyDownloadLinkCell';
 import { render, screen } from '@test-utils';
 
 describe('AgencyDownloadLinkCell', () => {

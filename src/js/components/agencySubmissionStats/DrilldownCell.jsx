@@ -8,7 +8,7 @@ import PropTypes, { oneOfType } from 'prop-types';
 import { Link } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import replaceString from '-helpers/replaceString';
+import replaceString from 'helpers/replaceString';
 
 const propTypes = {
     id: PropTypes.string,

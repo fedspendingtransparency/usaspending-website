@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ReadMore from '-components/sharedComponents/ReadMore';
-import CFDAOpportunityTotals from '-containers/covid19/assistanceListing/CFDAOpportunityTotals';
+import ReadMore from 'components/sharedComponents/ReadMore';
+import CFDAOpportunityTotals from 'containers/covid19/assistanceListing/CFDAOpportunityTotals';
 import { sanitizeUrl } from '../../../helpers/url';
 
 const propTypes = {

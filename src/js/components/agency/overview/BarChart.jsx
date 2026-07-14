@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { LoadingMessage, ErrorMessage, TooltipWrapper } from 'data-transparency-ui';
-import { formatMoney } from '-helpers/moneyFormatter';
+import { formatMoney } from 'helpers/moneyFormatter';
 
 export const getLastFourYears = ({ year }, selectedFy) => {
     const fy = parseInt(selectedFy, 10);

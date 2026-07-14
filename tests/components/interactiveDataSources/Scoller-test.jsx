@@ -3,9 +3,9 @@
  */
 /* eslint-disable react/jsx-indent */
 import React from 'react';
-import Scroller from '-components/interactiveDataSources/scroller/Scroller';
+import Scroller from 'components/interactiveDataSources/scroller/Scroller';
 import ScrollerOverlay from "components/interactiveDataSources/scroller/scrollerOverlay/ScrollerOverlay";
-import ScrollerOverlayCard from '-components/interactiveDataSources/scroller/scrollerOverlay/ScrollerOverlayCard';
+import ScrollerOverlayCard from 'components/interactiveDataSources/scroller/scrollerOverlay/ScrollerOverlayCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { render, screen } from '@test-utils';
 

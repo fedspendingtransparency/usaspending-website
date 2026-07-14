@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
-import ChartMessage from '-components/sharedComponents/timeChart/TimeVisualizationChartMessage';
+import ChartMessage from 'components/sharedComponents/timeChart/TimeVisualizationChartMessage';
 import BarChartStacked from './chart/BarChartStacked';
 import TimeTooltip from './TimeTooltip';
 

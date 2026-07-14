@@ -5,8 +5,8 @@
 
 import React from "react";
 
-import RoundedToggle from "-components/sharedComponents/RoundedToggle";
-import Accordion from "-components/sharedComponents/accordion/Accordion";
+import RoundedToggle from "components/sharedComponents/RoundedToggle";
+import Accordion from "components/sharedComponents/accordion/Accordion";
 import PropTypes from "prop-types";
 
 const propTypes = {

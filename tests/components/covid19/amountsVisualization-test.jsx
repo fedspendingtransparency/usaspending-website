@@ -3,8 +3,8 @@
  */
 import React from 'react';
 import { render, screen } from 'test-utils';
-import AmountsVisualization from '-components/covid19/amountsVisualization/AmountsVisualization';
-import { rectangleMapping } from '-dataMapping/covid19/amountsVisualization';
+import AmountsVisualization from 'components/covid19/amountsVisualization/AmountsVisualization';
+import { rectangleMapping } from 'dataMapping/covid19/amountsVisualization';
 import { mockProps } from '../../mockData/components/covid19/amountsVisualization';
 
 describe('COVID-19 Amounts Visualization', () => {

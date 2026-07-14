@@ -7,7 +7,7 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash-es';
 
-import Analytics from '-helpers/analytics/Analytics';
+import Analytics from 'helpers/analytics/Analytics';
 import useEventListener from "../../../hooks/useEventListener";
 
 const propTypes = {

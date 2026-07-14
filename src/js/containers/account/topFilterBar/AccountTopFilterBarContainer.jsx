@@ -9,9 +9,9 @@ import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { orderBy } from 'lodash-es';
 
-import LegacyTopFilterBar from '-components/account/topFilterBar/LegacyTopFilterBar';
+import LegacyTopFilterBar from 'components/account/topFilterBar/LegacyTopFilterBar';
 import { topFilterGroupGenerator } from
-    '-components/account/topFilterBar/filterGroups/AccountTopFilterGroupGenerator';
+    'components/account/topFilterBar/filterGroups/AccountTopFilterGroupGenerator';
 
 import * as accountFilterActions from '-redux/actions/account/accountFilterActions';
 

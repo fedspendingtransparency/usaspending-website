@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { initialState, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
-import { areFiltersEqual, isSearchHashReady } from '-helpers/searchHelper';
+import { areFiltersEqual, isSearchHashReady } from 'helpers/searchHelper';
 
 test.each([
     ['obj1 & obj2 are both initial state', true, initialState, initialState],

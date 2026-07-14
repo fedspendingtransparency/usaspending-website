@@ -5,7 +5,7 @@
  * created by Jonathan Hill 01/07/2020
  */
 
-import { pageAndSort } from '-helpers/pageAndSortHelper';
+import { pageAndSort } from 'helpers/pageAndSortHelper';
 
 const mockData = () => {
     const data = [];

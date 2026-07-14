@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import GeoVisualizationTooltip from "-components/search/visualizations/geo/GeoVisualizationTooltip";
+import GeoVisualizationTooltip from "components/search/visualizations/geo/GeoVisualizationTooltip";
 
 const propTypes = {
     selectedItem: PropTypes.string,

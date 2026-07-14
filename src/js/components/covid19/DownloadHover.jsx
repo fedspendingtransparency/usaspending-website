@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { ExclamationTriangle } from '-components/sharedComponents/icons/Icons';
+import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 import { Link } from 'react-router';
 
 const DownloadHover = () => (

@@ -6,12 +6,12 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { hideModal } from '-redux/actions/modal/modalActions';
-import FilterModal from "-components/sharedComponents/FilterModal";
-import RedirectModal from '-components/sharedComponents/RedirectModal';
-import InterimDataDisclaimerModal from '-components/covid19/InterimDataDisclaimerModal';
-import CovidModalContainer from '-containers/covid19/CovidModalContainer';
-import TrainingVideoModal from "-components/sharedComponents/TrainingVideoModal";
-import UEIModalContainer from "-containers/shared/UEIModalContainer";
+import FilterModal from "components/sharedComponents/FilterModal";
+import RedirectModal from 'components/sharedComponents/RedirectModal';
+import InterimDataDisclaimerModal from 'components/covid19/InterimDataDisclaimerModal';
+import CovidModalContainer from 'containers/covid19/CovidModalContainer';
+import TrainingVideoModal from "components/sharedComponents/TrainingVideoModal";
+import UEIModalContainer from "containers/shared/UEIModalContainer";
 
 
 

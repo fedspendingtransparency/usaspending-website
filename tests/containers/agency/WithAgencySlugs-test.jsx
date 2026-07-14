@@ -5,7 +5,7 @@
  * Created by Lizzie Salita 11/8/21
 * */
 
-import { mapSlugToTopTierCode, mapTopTierCodeToSlug, mapIdToSlug, mapTopTierCodeToOutlay } from '-containers/agency/WithAgencySlugs';
+import { mapSlugToTopTierCode, mapTopTierCodeToSlug, mapIdToSlug, mapTopTierCodeToOutlay } from 'containers/agency/WithAgencySlugs';
 import { renderHook } from '@testing-library/react-hooks';
 import * as redux from 'react-redux';
 import * as api from '-apis/agency';

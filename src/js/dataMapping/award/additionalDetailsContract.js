@@ -2,7 +2,7 @@
  * additionalDetails.js -> additonalDetailsContracts.js
  * Created by Kwadwo Opoku-Debrah 12/17/18
  */
-import { getSubmittingAgencyId } from "-helpers/awardSummaryHelper";
+import { getSubmittingAgencyId } from "helpers/awardSummaryHelper";
 import { idList } from '../shared/recipientIdentifiers';
 
 const additionalDetailsContracts = (awardData) => {

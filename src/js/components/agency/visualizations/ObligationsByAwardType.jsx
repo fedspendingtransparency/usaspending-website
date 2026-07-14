@@ -9,7 +9,7 @@ import * as d3 from 'd3';
 import { TooltipWrapper } from 'data-transparency-ui';
 import {
     mapToFullCategoryName, getCategoryNameByAwardType, getActiveCategoryType, getOuterCategoryId
-} from '-helpers/agency/visualizations/ObligationsByAwardTypeHelper';
+} from 'helpers/agency/visualizations/ObligationsByAwardTypeHelper';
 import ObligationsByAwardTypeTooltip from './ObligationsByAwardTypeTooltip';
 import useWindowWidth from "../../../hooks/useWindowWidth";
 

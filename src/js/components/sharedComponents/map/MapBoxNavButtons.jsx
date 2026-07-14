@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { AngleUp, AngleLeft, AngleDown, AngleRight } from "-components/sharedComponents/icons/Icons";
+import { AngleUp, AngleLeft, AngleDown, AngleRight } from "components/sharedComponents/icons/Icons";
 import PropTypes from "prop-types";
 
 // Define map movement increment

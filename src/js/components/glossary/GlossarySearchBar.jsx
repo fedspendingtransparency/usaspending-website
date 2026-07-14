@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { setSearchValue } from "-redux/actions/glossary/glossaryActions";
-import { Search } from '-components/sharedComponents/icons/Icons';
+import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
     glossary: PropTypes.object,

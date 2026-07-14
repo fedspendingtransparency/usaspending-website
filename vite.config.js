@@ -27,12 +27,16 @@ export default defineConfig(({ command, mode }) => {
   
   // Shared options used in both development and production
   const sharedConfig = {
+    loglevel: "error",
     css: {
       postcss: {
         plugins: [
           autoprefixer,
         ],
       }
+    },
+    oxc: {
+      logOverride: { 'css-syntax-error': 'silent' }, // Mute specific esbuild warnings
     },
     root: 'src',
     define: {
@@ -87,13 +91,13 @@ export default defineConfig(({ command, mode }) => {
       alias: {
         '@': path.resolve(__dirname, './src/_scss'),
         '~': path.resolve(__dirname, './node_modules'),
-        '-components': path.resolve(__dirname, './src/js/components'),
-        '-helpers': path.resolve(__dirname, './src/js/helpers'),
-        '-containers': path.resolve(__dirname, './src/js/containers'),
-        '-apis': path.resolve(__dirname, './src/js/apis'),
-        '-dataMapping': path.resolve(__dirname, './src/js/dataMapping'),
+        'components': path.resolve(__dirname, './src/js/components'),
+        'helpers': path.resolve(__dirname, './src/js/helpers'),
+        'containers': path.resolve(__dirname, './src/js/containers'),
+        'apis': path.resolve(__dirname, './src/js/apis'),
+        'dataMapping': path.resolve(__dirname, './src/js/dataMapping'),
         '-redux': path.resolve(__dirname, './src/js/redux'),
-        '-context': path.resolve(__dirname, './src/js/context'),
+        'context': path.resolve(__dirname, './src/js/context'),
         'GlobalConstants': path.resolve(__dirname, './src/js/GlobalConstants.js'),
         'propTypes' : path.resolve(__dirname, "./src/js/propTypes/index.js"),
         "hooks": path.resolve(__dirname, "./src/js/hooks"),
@@ -117,7 +121,7 @@ export default defineConfig(({ command, mode }) => {
             external: [/^moment\/locale\//]
         },
         rolldownOptions: {
-            input: "index.js",
+            input: "./src/index.js",
             external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types']
         }
     },
@@ -126,12 +130,10 @@ export default defineConfig(({ command, mode }) => {
             resolve: {
                 extensions: ['.js', '.jsx']
             },
+            loader: {
+              '.js': 'jsx',
+            },
             plugins: [react(), htmlPurge(), nodePolyfills(), mdx()]
-        },
-        esbuildOptions: {
-          loader: {
-            '.js': 'jsx',
-          },
         },
     },
     plugins: [react(), htmlPurge(), nodePolyfills(), mdx()],

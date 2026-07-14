@@ -16,7 +16,7 @@ import {
     initialState as defaultAdvancedSearchFilters,
     CheckboxTreeSelections
 } from '-redux/reducers/search/searchFiltersReducer';
-import Analytics from '-helpers/analytics/Analytics';
+import Analytics from 'helpers/analytics/Analytics';
 import {
     FlexGridRow,
     FlexGridCol,

@@ -10,12 +10,12 @@ import { Link } from 'react-router';
 import {
     getAwardTypeByRecordtypeCountyAndState,
     isAwardFinancialAssistance
-} from '-helpers/awardSummaryHelper';
+} from 'helpers/awardSummaryHelper';
 import {
     aggregateTextRecipientSection,
     aggregateGlossaryLinks,
     aggregateGlossaryText
-} from '-dataMapping/award/awardOverview';
+} from 'dataMapping/award/awardOverview';
 import AwardSection from '../AwardSection';
 import RecipientAddress from './RecipientAddress';
 import GlossaryLink from '../../../sharedComponents/GlossaryLink';

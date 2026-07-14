@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from "react";
-import { InfoCircle } from "-components/sharedComponents/icons/Icons";
+import { InfoCircle } from "components/sharedComponents/icons/Icons";
 import DetailsTooltip from "./DetailsTooltip";
 
 const AwardBreakdownCardHeadline = () => {

@@ -9,8 +9,8 @@ import { isCancel } from 'axios';
 import { filter, sortBy, slice, concat } from 'lodash-es';
 import { Search } from 'js-search';
 
-import { fetchAwardingAgencies } from "-helpers/searchHelper";
-import Autocomplete from '-components/sharedComponents/autocomplete/Autocomplete';
+import { fetchAwardingAgencies } from "helpers/searchHelper";
+import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
     searchParams: PropTypes.string,

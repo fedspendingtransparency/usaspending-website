@@ -11,7 +11,7 @@ import {
     getAscendingSpendingCategoriesByAwardType,
     determineFileCSpendingScenario,
     determineSpendingScenarioByAwardType
-} from '-helpers/awardAmountHelper';
+} from 'helpers/awardAmountHelper';
 
 const contractAwardAmounts = {
     _totalObligation: 0,

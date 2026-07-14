@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/30/18
  */
 
-import * as MoneyFormatter from '-helpers/moneyFormatter';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 
 export const defaultNameTemplate = (code, name) => {

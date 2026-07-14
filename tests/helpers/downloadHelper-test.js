@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import { getLatestSubmissionPeriodInFy } from '-helpers/downloadHelper';
+import { getLatestSubmissionPeriodInFy } from 'helpers/downloadHelper';
 
 const dayjs = require('dayjs');
 

@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { scaleLinear } from 'd3-scale';
-import { formatNumber, formatMoneyWithUnitsShortLabel, formatMoneyWithUnits } from '-helpers/moneyFormatter';
+import { formatNumber, formatMoneyWithUnitsShortLabel, formatMoneyWithUnits } from 'helpers/moneyFormatter';
 
 const propTypes = {
     height: PropTypes.number,

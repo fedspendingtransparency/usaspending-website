@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import AgencyLandingHeaderCellContainer from
-    '-containers/agencyLanding/table/AgencyLandingHeaderCellContainer';
+    'containers/agencyLanding/table/AgencyLandingHeaderCellContainer';
 
 const propTypes = {
     columns: PropTypes.array

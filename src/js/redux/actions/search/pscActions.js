@@ -1,4 +1,4 @@
-import { cleanPscData } from "-helpers/pscHelper";
+import { cleanPscData } from "helpers/pscHelper";
 import {
     setNodes,
     showTree,
@@ -8,7 +8,7 @@ import {
     setUnchecked,
     setSearchedNodes,
     setCounts
-} from "-helpers/checkboxTreeHelper";
+} from "helpers/checkboxTreeHelper";
 
 const treeName = 'PSC';
 

@@ -7,17 +7,17 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { requestFullDownload } from '-helpers/downloadHelper';
+import { requestFullDownload } from 'helpers/downloadHelper';
 import {
     setDownloadCollapsed,
     setDownloadPending,
     setDownloadExpectedFile,
     setDownloadExpectedUrl
 } from '-redux/actions/bulkDownload/bulkDownloadActions';
-import Analytics from '-helpers/analytics/Analytics';
-import { jumpToSection } from '-helpers/covid19Helper';
+import Analytics from 'helpers/analytics/Analytics';
+import { jumpToSection } from 'helpers/covid19Helper';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
-import ShareDownloadButtonGroup from '-components/sharedComponents/buttons/ShareDownloadButtonGroup';
+import ShareDownloadButtonGroup from 'components/sharedComponents/buttons/ShareDownloadButtonGroup';
 
 const propTypes = {
     publicLaw: PropTypes.string,

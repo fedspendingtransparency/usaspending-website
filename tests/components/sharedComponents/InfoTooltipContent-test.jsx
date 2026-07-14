@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import { UnlinkedTooltip } from '-components/award/shared/InfoTooltipContent';
+import { UnlinkedTooltip } from 'components/award/shared/InfoTooltipContent';
 import { render, screen } from '@test-utils';
 
 const mockText = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';

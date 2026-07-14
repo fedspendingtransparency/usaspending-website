@@ -5,9 +5,9 @@ import React from 'react';
 import { List } from 'immutable';
 import { render, screen } from '@test-utils';
 
-import TimeFilters from '-components/agencySubmissionStats/TimeFilters';
+import TimeFilters from 'components/agencySubmissionStats/TimeFilters';
 import * as accountHelpers from '-apis/account';
-import * as glossaryHelpers from '-helpers/glossaryHelper';
+import * as glossaryHelpers from 'helpers/glossaryHelper';
 import { mockGlossary } from '../../mockData';
 import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';
 

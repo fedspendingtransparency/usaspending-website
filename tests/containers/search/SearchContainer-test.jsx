@@ -10,7 +10,7 @@ import { Set } from 'immutable';
 import { MemoryRouter, Router, Route } from 'react-router';
 import * as redux from 'react-redux';
 
-import SearchContainer, { parseRemoteFilters } from '-containers/search/SearchContainer';
+import SearchContainer, { parseRemoteFilters } from 'containers/search/SearchContainer';
 import * as appliedFilterActions from '-redux/actions/search/appliedFilterActions';
 
 import { mockFilters, mockRedux } from './mockSearchHashes';

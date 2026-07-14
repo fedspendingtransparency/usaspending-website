@@ -5,7 +5,7 @@
  * Created by Max Kendall 10/23/2020
  */
 
-import { getLatestPeriodAsDayjs, getSubmissionDeadlines } from '-helpers/accountHelper";
+import { getLatestPeriodAsDayjs, getSubmissionDeadlines } from 'helpers/accountHelper";
 import { mockSubmissions } from '../mockData/helpers/aboutTheDataHelper';
 
 describe("accountHelper", () => {

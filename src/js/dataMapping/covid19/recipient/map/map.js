@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/09/20
  */
 
-import Analytics from '-helpers/analytics/Analytics';
+import Analytics from 'helpers/analytics/Analytics';
 
 export const centerOfMap = [-95.569430, 38.852892];
 

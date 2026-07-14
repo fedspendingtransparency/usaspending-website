@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { uniqueId } from "lodash-es";
 import QuarterButton from "./NewQuarterButton";
-import { getPeriodTitle } from '-helpers/shared/dateHelper';
+import { getPeriodTitle } from 'helpers/shared/dateHelper';
 
 const isIdOrGreaterInArray = (idStr, arr) => arr
     .some((periodOrQuarter) => parseInt(periodOrQuarter, 10) >= parseInt(idStr, 10));

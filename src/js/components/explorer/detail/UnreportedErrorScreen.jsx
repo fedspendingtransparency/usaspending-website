@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { InfoCircle } from '-components/sharedComponents/icons/Icons';
+import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
 
 export default class UnreportedErrorScreen extends React.Component {

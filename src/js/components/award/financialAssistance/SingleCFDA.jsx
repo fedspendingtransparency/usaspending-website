@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { showModal } from '-redux/actions/modal/modalActions';
-import CFDAOpportunityTotals from '-containers/covid19/assistanceListing/CFDAOpportunityTotals';
+import CFDAOpportunityTotals from 'containers/covid19/assistanceListing/CFDAOpportunityTotals';
 import AwardSection from '../shared/AwardSection';
 import ExpandableAwardSection from '../shared/ExpandableAwardSection';
 

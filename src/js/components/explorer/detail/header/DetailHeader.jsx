@@ -7,10 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-import Analytics from '-helpers/analytics/Analytics';
-import { sidebarTypes } from '-dataMapping/explorer/sidebarStrings';
-import { formatTreemapValues } from '-helpers/moneyFormatter';
-import { generateSingular } from '-helpers/singularityHelper';
+import Analytics from 'helpers/analytics/Analytics';
+import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
+import { formatTreemapValues } from 'helpers/moneyFormatter';
+import { generateSingular } from 'helpers/singularityHelper';
 import TruncationWarning from './TruncationWarning';
 import useAgencySlugs from "../../../../hooks/useAgencySlugs";
 

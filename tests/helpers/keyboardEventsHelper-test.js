@@ -5,7 +5,7 @@
  * Created by Lizzie Salita 6/27/19
  */
 
-import * as keyboardEventsHelper from '-helpers/keyboardEventsHelper';
+import * as keyboardEventsHelper from 'helpers/keyboardEventsHelper';
 
 describe('createOnKeyDownHandler', () => {
     it('returns a function that is only invoked when it is passed an event with the space/enter keycodes', () => {

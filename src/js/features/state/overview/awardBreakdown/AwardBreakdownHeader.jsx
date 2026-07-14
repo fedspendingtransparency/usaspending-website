@@ -8,9 +8,9 @@ import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 
-import RoundedToggle from "-components/sharedComponents/RoundedToggle";
-import Accordion from "-components/sharedComponents/accordion/Accordion";
-import GlossaryLink from "-components/sharedComponents/GlossaryLink";
+import RoundedToggle from "components/sharedComponents/RoundedToggle";
+import Accordion from "components/sharedComponents/accordion/Accordion";
+import GlossaryLink from "components/sharedComponents/GlossaryLink";
 
 const propTypes = {
     toggle: PropTypes.bool,

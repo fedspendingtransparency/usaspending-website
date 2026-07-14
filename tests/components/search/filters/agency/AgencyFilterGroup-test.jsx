@@ -7,7 +7,7 @@ import { Provider } from "react-redux";
 import { OrderedMap } from "immutable";
 import { legacy_createStore as createStore } from "redux";
 
-import AgencyFilterGroup from '-components/search/topFilterBar/filterGroups/AgencyFilterGroup';
+import AgencyFilterGroup from 'components/search/topFilterBar/filterGroups/AgencyFilterGroup';
 
 jest.mock('react-redux', () => ({
     ...jest.requireActual('react-redux'),

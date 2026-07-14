@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { hideGlossary, clearGlossaryTerm } from '-redux/actions/glossary/glossaryActions';
 
-import { getQueryParamString } from '-helpers/queryParams';
+import { getQueryParamString } from 'helpers/queryParams';
 import GlossaryHeader from './GlossaryHeader';
 import GlossarySearchResults from './search/GlossarySearchResults';
 import GlossaryDefinition from './definition/GlossaryDefinition';

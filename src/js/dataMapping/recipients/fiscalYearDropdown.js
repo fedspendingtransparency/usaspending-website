@@ -3,7 +3,7 @@
  * Created by Maxwell Kendall 01/21/2020
  */
 
-import { currentFiscalYear, earliestFiscalYear } from '-helpers/fiscalYearHelper";
+import { currentFiscalYear, earliestFiscalYear } from 'helpers/fiscalYearHelper";
 
 const dayjs = require('dayjs');
 

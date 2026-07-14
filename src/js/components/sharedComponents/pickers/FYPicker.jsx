@@ -7,7 +7,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import * as FiscalYearHelper from '-helpers/fiscalYearHelper';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 const propTypes = {
     fy: PropTypes.string,

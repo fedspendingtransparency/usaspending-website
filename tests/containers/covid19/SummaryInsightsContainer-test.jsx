@@ -10,7 +10,7 @@ import { render } from 'test-utils';
 import { expect } from '@jest/globals';
 import * as redux from 'react-redux';
 import * as apis from '-apis/disaster';
-import SummaryInsightsContainer from '-containers/covid19/SummaryInsightsContainer';
+import SummaryInsightsContainer from 'containers/covid19/SummaryInsightsContainer';
 import { mockDefcParams } from '../../mockData/helpers/disasterHelper';
 
 describe('COVID-19 Summary Insights Container', () => {

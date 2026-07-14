@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'data-transparency-ui';
 import PropTypes from 'prop-types';
-import { formatMoneyWithPrecision } from '-helpers/moneyFormatter';
+import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 
 const propTypes = {
     fy: PropTypes.string,

@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 09/19/19
  */
 
-import { isAwardAggregate, getSubmittingAgencyId } from '-helpers/awardSummaryHelper';
+import { isAwardAggregate, getSubmittingAgencyId } from 'helpers/awardSummaryHelper';
 import { idList } from '../shared/recipientIdentifiers';
 
 const getUriOrFain = ({

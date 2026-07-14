@@ -5,7 +5,7 @@
  * Created by Jonathan Hill on 12/12/19.
 */
 
-import { apiRequest } from '-helpers/apiRequest';
+import { apiRequest } from 'helpers/apiRequest';
 import { encodedAwardId, decodedAwardId } from "../mockData";
 
 describe('API Request', () => {

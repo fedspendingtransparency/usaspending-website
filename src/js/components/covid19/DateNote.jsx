@@ -6,8 +6,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
-import { getLatestPeriodAsDayjs } from '-helpers/accountHelper';
-import { fetchAllSubmissionDates } from '-apis/account';
+import { getLatestPeriodAsDayjs } from 'helpers/accountHelper';
+import { fetchAllSubmissionDates } from 'apis/account';
 
 const propTypes = {
     styles: PropTypes.object,

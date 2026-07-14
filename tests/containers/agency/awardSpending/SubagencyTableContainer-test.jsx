@@ -6,8 +6,8 @@ import React from 'react';
 import { render, waitFor } from 'test-utils';
 import * as redux from 'react-redux';
 import * as apis from '-apis/agency';
-import * as helpers from '-helpers/agency/AwardSpendingSubagencyHelper';
-import SubagencyTableContainer from '-containers/agency/awardSpending/SubagencyTableContainer';
+import * as helpers from 'helpers/agency/AwardSpendingSubagencyHelper';
+import SubagencyTableContainer from 'containers/agency/awardSpending/SubagencyTableContainer';
 
 // eslint-disable-next-line import/prefer-default-export
 export const mockResponse = {

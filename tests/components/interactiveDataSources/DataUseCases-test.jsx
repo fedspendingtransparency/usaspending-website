@@ -3,7 +3,7 @@
  */
 import React from 'react';
 import { render } from '@test-utils';
-import DataUseCases from '-components/interactiveDataSources/scrollerSections/DataUseCases';
+import DataUseCases from 'components/interactiveDataSources/scrollerSections/DataUseCases';
 
 
 describe('DataUseCases', () => {

@@ -9,7 +9,7 @@ import CoreAward from 'models/v2/award/CoreAward';
 import { each, upperFirst } from 'lodash-es';
 import { descriptionsForAwardTypes }
     from '-dataMapping/award/descriptionsForAwardTypes';
-import { formatNumberWithPrecision } from '-helpers/moneyFormatter';
+import { formatNumberWithPrecision } from 'helpers/moneyFormatter';
 import { decodedAwardId, encodedAwardId } from "../../mockData";
 
 const awardData = {

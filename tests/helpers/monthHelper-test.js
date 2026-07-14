@@ -5,8 +5,8 @@
  * Created by michaelbray on 8/24/17.
  */
 
-import * as MonthHelper from '-helpers/monthHelper';
-import * as FiscalYearHelper from '-helpers/fiscalYearHelper';
+import * as MonthHelper from 'helpers/monthHelper';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 
 describe('Month helper functions', () => {
     describe('convertNumToMonth', () => {

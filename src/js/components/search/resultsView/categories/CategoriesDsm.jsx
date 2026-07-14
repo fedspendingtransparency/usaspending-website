@@ -3,8 +3,8 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router";
 
 import { getAtdDefcText } from "../../../../helpers/aboutTheDataSidebarHelper";
-import { showSlideout } from "-helpers/slideoutHelper";
-import GlossaryLink from "-components/sharedComponents/GlossaryLink";
+import { showSlideout } from "helpers/slideoutHelper";
+import GlossaryLink from "components/sharedComponents/GlossaryLink";
 
 const CategoriesDsm = ({ spendingLevel }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);

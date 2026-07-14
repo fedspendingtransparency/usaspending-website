@@ -1,6 +1,6 @@
 import React from 'react';
 import { TooltipWrapper } from 'data-transparency-ui';
-import TooltipComponent from '-components/award/shared/activity/Tooltip';
+import TooltipComponent from 'components/award/shared/activity/Tooltip';
 
 const tooltipContent = () => ({
     loans: {
