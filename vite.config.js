@@ -110,7 +110,7 @@ export default defineConfig(({ command, mode }) => {
     },
     build: {
         commonjsOptions: { transformMixedEsModules: true },
-        outDir: path.resolve(__dirname, "../dist"),
+        outDir: path.resolve(__dirname, "../usaspending-website/dist"),
         emptyOutDir: true,
         rollupOptions: {
             input: "./src/index.js",
