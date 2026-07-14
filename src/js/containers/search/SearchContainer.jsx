@@ -97,7 +97,7 @@ const SearchContainer = () => {
     const prevAppliedFiltersRef = useRef(null);
 
     const { data, downloadInFlight } = useRequestDownloadCount(
-        stagedFilters, urlHash, areAppliedFiltersEmpty
+        appliedFilters, urlHash, areAppliedFiltersEmpty
     );
     const [awardsCount, subawardsCount, transactionsCount] = data;
 

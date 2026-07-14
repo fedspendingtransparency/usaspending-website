@@ -24,7 +24,7 @@ const useRequestDownloadCount = (filters, hash, areAppliedFiltersEmpty) => {
             level,
             auditText
         }) => ({
-            queryKey: ['requestDownloadCount', level, hash, searchParams],
+            queryKey: ['requestDownloadCount', level, searchParams],
             queryFn: () => requestDownloadCount({
                 filters: searchParams,
                 spending_level: level,
