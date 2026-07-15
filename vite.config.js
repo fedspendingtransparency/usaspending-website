@@ -28,7 +28,7 @@ export default defineConfig(({ command, mode }) => {
   
   // Shared options used in both development and production
   const sharedConfig = {
-    publicDir: false,
+    base: '/',
     loglevel: "error",
     css: {
       postcss: {
@@ -91,6 +91,7 @@ export default defineConfig(({ command, mode }) => {
         silent: true})
     ],
     server: {
+      open: './dist',
       watch: {
         usePolling: true
       }
@@ -119,7 +120,7 @@ export default defineConfig(({ command, mode }) => {
     },
     build: {
         commonjsOptions: { transformMixedEsModules: true },
-        outDir: path.resolve(__dirname, "../usaspending-website/public"),
+        outDir: path.resolve(__dirname, "./public"),
         emptyOutDir: true,
         rollupOptions: {
             input: "./src/index.js",
