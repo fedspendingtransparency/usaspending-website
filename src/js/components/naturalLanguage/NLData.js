@@ -6,7 +6,7 @@
 import React from "react";
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import Analytics from "../../helpers/analytics/Analytics";
-import { showSlideout } from "../../helpers/slideoutHelper";
+import { showSlideout, closeAllSlideouts } from "../../helpers/slideoutHelper";
 
 const overline = 'IF YOU WANT TO KNOW:';
 const filterByHeader = 'FILTER BY:'
@@ -123,14 +123,15 @@ export const moreResourcesBtnData = [
     },
     {
         id: id + 3,
-        action: () => { 
+        action: ({navigate}) => { 
             Analytics.event({
                 event: 'natural-language_data-dictionary',
                 category: 'Natural Language More Resources',
                 action: 'Link',
                 label: 'data dictionary button'
             });
-            window.open("/data-dictionary");
+            closeAllSlideouts();
+            navigate("/data-dictionary");
         },
         image: (
             <NLSearchSuggestionsIcon 
@@ -141,14 +142,15 @@ export const moreResourcesBtnData = [
     },
     {
         id: id + 4,
-        action: () => { 
+        action: ({navigate}) => { 
             Analytics.event({
                 event: 'natural-language_fed-spending-guide',
                 category: 'Natural Language More Resources',
                 action: 'Link',
                 label: 'federal spending guide button'
             });
-            window.open("/federal-spending-guide");
+            closeAllSlideouts();
+            navigate("/federal-spending-guide");
         },
         image: (
             <NLSearchSuggestionsIcon 

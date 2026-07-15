@@ -4,6 +4,7 @@
  */
 
 import React from "react";
+import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
 import Analytics from "../../helpers/analytics/Analytics";
@@ -11,6 +12,8 @@ import { searchCardData } from "./NLData";
 import NLMoreResources from "./NLMoreResources";
 
 const NLSearchSuggestions = () => {
+    const navigate = useNavigate();
+    
     const handleWatchVideosClick = () => {
         Analytics.event({
             event: 'watch-training-videos',
@@ -18,7 +21,7 @@ const NLSearchSuggestions = () => {
             action: 'Link',
             label: 'search suggestions'
         });
-        window.open("/training-videos");
+        navigate("/training-videos");
     }
 
     return (
