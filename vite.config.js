@@ -157,6 +157,7 @@ export default defineConfig(({ command, mode }) => {
       environment: 'jsdom', // Simulates browser DOM for UI tests
       setupFiles: ['./tests/setup.js'], // Runs before each test file
       exclude: [...configDefaults.exclude], // Ignores specific folders
+      include: ['**/*-{test,spec}.?(c|m)[jt]s?(x)'],
       coverage: {
         provider: 'v8', // Code coverage tool
         reporter: ['text', 'json', 'html'],
