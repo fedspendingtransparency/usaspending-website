@@ -22,7 +22,7 @@ const NLMoreResources = () => {
                         className="more-resources__col"
                         key={`more-resources-${btn.id}`}  
                         mobile={12}
-                        tablet={12}
+                        tablet={6}
                         desktop={4}>
                         <Button
                             copy=""
