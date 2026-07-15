@@ -120,7 +120,7 @@ const AccountUserSelections = () => {
 
     const generateFyString = () => {
         const { fy, quarter, period } = accounts;
-        const timePeriodSelection = quarter ? `Q${quarter}` : `(P${period})`;
+        const timePeriodSelection = quarter ? `(Q${quarter})` : `(P${period})`;
         if (fy) {
             return (
                 <div className="selection__content">
