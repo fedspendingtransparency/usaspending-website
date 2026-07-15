@@ -23,16 +23,15 @@ import {
     areFiltersSelected,
     generateUrlHash, getObjFromQueryParams,
     restoreUrlHash
-} from "../../helpers/searchHelper";
-import * as DownloadHelper from '../../helpers/downloadHelper';
-import SearchAwardsOperation from '../../models/v1/search/SearchAwardsOperation';
-import useQueryParams from "../../hooks/useQueryParams";
-import SearchPage from '../../components/search/SearchPage';
+} from "helpers/searchHelper";
+import useQueryParams from "hooks/useQueryParams";
+import SearchPage from 'components/search/SearchPage';
 import {
     convertFiltersToAnalyticEvents,
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
+import useRequestDownloadCount from "./useRequestDownloadCount";
 
 require('../../../_scss/pages/search/searchPage.scss');
 
@@ -75,7 +74,6 @@ export const parseRemoteFilters = (data) => {
 };
 
 const SearchContainer = () => {
-    const [downloadAvailable, setDownloadAvailable] = useState(false);
     const location = useLocation();
     const { hash: urlHash } = getObjFromQueryParams(location.search);
     const query = useQueryParams();
@@ -92,124 +90,21 @@ const SearchContainer = () => {
         spending_level
     } = useSelector((state) => state);
     const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
-    const [downloadInFlight, setDownloadInFlight] = useState(false);
     const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
 
-    const [awardsCount, setAwardsCount] = useState(0);
-    const [transactionsCount, setTransactionsCount] = useState(0);
-    const [subawardsCount, setSubawardsCount] = useState(0);
-
     const request = useRef(null);
-    const requestAwards = useRef(null);
-    const requestTransactions = useRef(null);
-    const requestSubawards = useRef(null);
-    const areAppliedFiltersEmptyRef = useRef();
-    const prevAppliedFiltersRef = useRef();
+    const areAppliedFiltersEmptyRef = useRef(null);
+    const prevAppliedFiltersRef = useRef(null);
 
-    const setDownloadAvailabilityAwards = useCallback((filters = stagedFilters) => {
-        setDownloadInFlight(true);
-
-        const operation = new SearchAwardsOperation();
-        operation.fromState(filters);
-        const searchParams = operation.toParams();
-        // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            spending_level: "awards",
-            auditTrail: 'Download Availability Count Awards'
-        };
-
-        requestAwards.current = DownloadHelper.requestDownloadCount(apiParams);
-        requestAwards.current.promise
-            .then((res) => {
-                setDownloadInFlight(false);
-                setAwardsCount(res.data.calculated_count);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                requestAwards.current = null;
-            });
-    }, [stagedFilters]);
-
-    const setDownloadAvailabilityTransactions = useCallback((filters = stagedFilters) => {
-        setDownloadInFlight(true);
-
-        const operation = new SearchAwardsOperation();
-        operation.fromState(filters);
-        const searchParams = operation.toParams();
-        // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            spending_level: "transactions",
-            auditTrail: 'Download Availability Count Transactions'
-        };
-
-        requestTransactions.current = DownloadHelper.requestDownloadCount(apiParams);
-        requestTransactions.current.promise
-            .then((res) => {
-                setDownloadInFlight(false);
-                setTransactionsCount(res.data.calculated_count);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                requestTransactions.current = null;
-            });
-    }, [stagedFilters]);
-
-    const setDownloadAvailabilitySubawards = useCallback((filters = stagedFilters) => {
-        const operation = new SearchAwardsOperation();
-        operation.fromState(filters);
-
-        // for subawards newAwardsOnly cannot be true, so we remove dateType
-        delete operation.dateType;
-
-        const searchParams = operation.toParams();
-        // generate the API parameters
-
-        const apiParams = {
-            filters: searchParams,
-            spending_level: "subawards",
-            auditTrail: 'Download Availability Count Subawards'
-        };
-
-        setDownloadInFlight(true);
-        requestSubawards.current = DownloadHelper.requestDownloadCount(apiParams);
-        requestSubawards.current.promise
-            .then((res) => {
-                setDownloadInFlight(false);
-                setSubawardsCount(res.data.calculated_count);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                setSubawardsCount(0);
-                requestSubawards.current = null;
-            });
-    }, [stagedFilters]);
-
-    useEffect(() => {
-        areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
-        prevAppliedFiltersRef.current = appliedFilters;
-    }, [areAppliedFiltersEmpty, appliedFilters]);
-
-    const downloadButtonEnabled = useCallback(() => {
-        if (
-            (awardsCount === 0 || awardsCount >= 500000) &&
-            (transactionsCount === 0 || transactionsCount >= 500000) &&
-            (
-                spendingLevel === 'awards' ||
-                (subawardsCount === 0 || subawardsCount >= 500000)
-            )
-        ) {
-            setDownloadAvailable(false);
-        }
-        else if (
-            awardsCount !== 0 ||
-            transactionsCount !== 0 ||
-            (spendingLevel === 'subawards' && subawardsCount !== 0)
-        ) {
-            setDownloadAvailable(true);
-        }
-    }, [transactionsCount, awardsCount, subawardsCount, spendingLevel]);
+    const {
+        awardsCount,
+        subawardsCount,
+        transactionsCount,
+        downloadInFlight,
+        downloadAvailable
+    } = useRequestDownloadCount(
+        appliedFilters, urlHash, areAppliedFiltersEmpty, spendingLevel
+    );
 
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
@@ -239,16 +134,11 @@ const SearchContainer = () => {
                         // apply the filters to both the staged and applied stores
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
                         dispatch(setAppliedFilterEmptiness(false));
-
-                        setDownloadAvailabilityAwards(filtersInImmutableStructure);
-                        setDownloadAvailabilitySubawards(filtersInImmutableStructure);
-                        setDownloadAvailabilityTransactions(filtersInImmutableStructure);
                     }
                     request.current = null;
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
-
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
                         searchURLParams.delete("hash");
@@ -285,7 +175,6 @@ const SearchContainer = () => {
             setSearchURLParams(searchURLParams);
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
-            setDownloadAvailable(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [areAppliedFiltersEmpty, urlHash]);
@@ -328,18 +217,22 @@ const SearchContainer = () => {
          * (2) Subsequent Searches: same as above except:
          *      (a) urlHash is present and
          *      (b) previous search was not empty
-         * NOTE: additional logic is necessary to avoid false positive where we're loading a previous hash
+         * NOTE: additional logic is necessary to avoid
+         *      false positive where we're loading a previous hash
          * */
         const filtersChangedAndAreSelected = (
             areFiltersSelected(appliedFilters) &&
             areFiltersDifferent(appliedFilters, prevAppliedFilters)
         );
-        if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && areFiltersSelected(prevAppliedFilters))) {
+        if (
+            (!urlHash && filtersChangedAndAreSelected) ||
+            (
+                urlHash &&
+                filtersChangedAndAreSelected &&
+                areFiltersSelected(prevAppliedFilters)
+            )
+        ) {
             generateHash();
-
-            setDownloadAvailabilityAwards();
-            setDownloadAvailabilityTransactions();
-            setDownloadAvailabilitySubawards();
         }
         else if (!urlHash) {
             dispatch(resetAppliedFilters());
@@ -358,9 +251,6 @@ const SearchContainer = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appliedFilters, stagedFilters]);
 
-    useEffect(() => {
-        downloadButtonEnabled();
-    }, [transactionsCount, subawardsCount, awardsCount, appliedFilters, downloadButtonEnabled]);
     return (
         <SearchPage
             download={download}
@@ -373,7 +263,6 @@ const SearchContainer = () => {
             transactionsCount={transactionsCount}
             subawardsCount={subawardsCount}
             queryParam={location.state}
-
             spending_level={spending_level} />
     );
 };

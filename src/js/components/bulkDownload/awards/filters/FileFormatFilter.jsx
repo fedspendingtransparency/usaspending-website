@@ -6,8 +6,9 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
-import { awardDownloadOptions } from '../../../../dataMapping/bulkDownload/bulkDownloadOptions';
-import FilterSectionTitle from '../../../../components/bulkDownload/FilterSelectionTitle';
+import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+import BulkDownloadRadioButton from "../../../sharedComponents/BulkDownloadRadioButton";
 
 const propTypes = { updateFilter: PropTypes.func };
 
@@ -20,24 +21,15 @@ const FileFormatFilter = memo(function FileFormatFilter({ updateFilter }) {
         updateFilter('fileFormat', target.value);
     };
 
-    const fileFormats = awardDownloadOptions.fileFormats.map((fileFormat) => (
-        <div
-            className="radio"
-            key={fileFormat.name}>
-            <label
-                className={`radio-label ${fileFormat.disabled ? 'disabled' : ''}`}
-                htmlFor="fileFormat">
-                <input
-                    type="radio"
-                    aria-label={fileFormat.name}
-                    value={fileFormat.name}
-                    name="fileFormat"
-                    checked={currentFileFormat === fileFormat.name}
-                    onChange={onChange}
-                    disabled={fileFormat.disabled} />
-                {fileFormat.label}
-            </label>
-        </div>
+    const fileFormats = awardDownloadOptions.fileFormats.map(({ name, label, disabled }) => (
+        <BulkDownloadRadioButton
+            name="fileFormat"
+            value={name}
+            checked={currentFileFormat === name}
+            onChange={onChange}
+            label={label}
+            disabled={disabled}
+            key={name} />
     ));
 
     return (

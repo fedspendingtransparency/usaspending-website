@@ -6,9 +6,10 @@
 import React, { memo, useMemo, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
-import { awardDownloadOptions } from '../../../../dataMapping/bulkDownload/bulkDownloadOptions';
-import FilterSectionTitle from '../../../../components/bulkDownload/FilterSelectionTitle';
-import ComboBox from "../../../../components/sharedComponents/ComboBox";
+import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+import ComboBox from "components/sharedComponents/ComboBox";
+import BulkDownloadRadioButton from "../../../sharedComponents/BulkDownloadRadioButton";
 const countryOptions = [
     {
         value: 'all',
@@ -84,26 +85,15 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
         return tempArr.map(({ code, name }) => ({ value: code, text: name }));
     }, [states])
 
-    const locationTypesArray = locationTypes.map((type) => (
-        <div
-            className="radio"
-            key={type.name}>
-            <label className={"radio-label"} htmlFor={"locationType"}>
-                <input
-                    type="radio"
-                    aria-label={type.name}
-                    value={type.name}
-                    name="locationType"
-                    checked={locationType === type.name}
-                    onChange={onChange} />
-                <div className="radio-container">
-                    {type.label}
-                    <div className="radio-description">
-                        {type.description}
-                    </div>
-                </div>
-            </label>
-        </div>
+    const locationTypesArray = locationTypes.map(({ name, label, description }) => (
+        <BulkDownloadRadioButton
+            name="locationType"
+            value={name}
+            checked={locationType === name}
+            onChange={onChange}
+            label={label}
+            description={description}
+            key={name} />
     ));
 
     // set location to all on render

@@ -124,7 +124,7 @@ const AccountUserSelections = () => {
         if (fy) {
             return (
                 <div className="selection__content">
-                    FY {fy} - {getPeriodTitle(period.toString())} {timePeriodSelection}
+                    FY {fy} - {getPeriodTitle(period?.toString())} {timePeriodSelection}
                 </div>
             );
         }

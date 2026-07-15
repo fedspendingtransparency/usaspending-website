@@ -51,6 +51,14 @@ const AccountDataContent = ({
     const { isTablet } = useContext(IsMobileContext);
     const [validForm, setValidForm] = useState(false);
 
+    // prevents submission on enter keydown
+    const onKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            clearAccountFilters();
+        }
+    };
+
     useEffect(() => {
         setValidForm((
             (accounts.budgetFunction.code !== '')
@@ -110,8 +118,11 @@ const AccountDataContent = ({
                         validDates
                         dataType="accounts" />
                     <div className="download-center__reset-container">
-                        <button className="download-center__reset" onClick={clearAccountFilters}>
-                    Reset form and start over
+                        <button
+                            className="download-center__reset"
+                            onClick={clearAccountFilters}
+                            onKeyDown={onKeyDown}>
+                            Reset form and start over
                         </button>
                     </div>
                 </div>

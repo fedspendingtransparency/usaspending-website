@@ -15,6 +15,7 @@ import {
 import { awardDownloadOptions } from '../../../../../dataMapping/bulkDownload/bulkDownloadOptions';
 
 import DownloadDateRange from './DownloadDateRange';
+import BulkDownloadRadioButton from "../../../../sharedComponents/BulkDownloadRadioButton";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -124,7 +125,7 @@ const TimePeriodFilter = ({
             else {
                 // already checked if end is valid above
                 // if start is not valid end must be.
-                const endValue = end.format('YYYY-MM-DD');       
+                const endValue = end.format('YYYY-MM-DD');
                 errorMessage = {
                     ...errorMessage,
                     type: 'start'
@@ -269,27 +270,18 @@ const TimePeriodFilter = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [startDateBulkUI, endDateBulkUI, validateDates]);
 
-    const timePeriodTypeList = awardDownloadOptions.timePeriodTypes.map((periodType) => (
-        <div
-            className="radio"
-            key={periodType.name}>
-            <label className="radio-label" htmlFor="periodType">
-                <input
-                    type="radio"
-                    aria-label={periodType.name}
-                    value={periodType.name}
-                    name="periodType"
-                    checked={currentTimeType === periodType.name}
-                    onChange={() => setCurrentTimeType(periodType.name)} />
-                <div className="radio-container">
-                    {periodType.label}
-                    <div className="radio-description">
-                        {periodType.description}
-                    </div>
-                </div>
-            </label>
-        </div>
-    ));
+    const timePeriodTypeList = awardDownloadOptions
+        .timePeriodTypes
+        .map(({ name, label, description }) => (
+            <BulkDownloadRadioButton
+                name="periodType"
+                value={name}
+                checked={currentTimeType === name}
+                onChange={() => setCurrentTimeType(name)}
+                label={label}
+                description={description}
+                key={name} />
+        ));
 
     return (
 
