@@ -123,7 +123,7 @@ export const moreResourcesBtnData = [
     },
     {
         id: id + 3,
-        action: ({navigate}) => { 
+        action: (navigate) => { 
             Analytics.event({
                 event: 'natural-language_data-dictionary',
                 category: 'Natural Language More Resources',
@@ -142,7 +142,7 @@ export const moreResourcesBtnData = [
     },
     {
         id: id + 4,
-        action: ({navigate}) => { 
+        action: (navigate) => { 
             Analytics.event({
                 event: 'natural-language_fed-spending-guide',
                 category: 'Natural Language More Resources',

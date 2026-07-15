@@ -26,7 +26,7 @@ const NLMoreResources = () => {
                         desktop={4}>
                         <Button
                             copy=""
-                            onClick={() => btn.action({navigate})}
+                            onClick={() => btn.action(navigate)}
                             buttonTitle=""
                             buttonSize="md"
                             buttonType="text"
