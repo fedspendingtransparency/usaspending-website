@@ -77,6 +77,5 @@ export const closeAllSlideouts = () => {
     storeSingleton.store.dispatch(glossaryActions.hideGlossary());
     storeSingleton.store.dispatch(aboutTheDataActions.hideAboutTheData());
     storeSingleton.store.dispatch(slideoutActions.setLastOpenedSlideout(''));
-    return true;
 };
 
