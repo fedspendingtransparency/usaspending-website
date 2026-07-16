@@ -11,6 +11,7 @@ import useIsMobile from "hooks/useIsMobile";
 import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
 import NLSidebarButtons from "./NLSidebarButtons";
+import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func
@@ -18,7 +19,7 @@ const propTypes = {
 
 // eslint-disable-next-line prefer-arrow-callback
 const SidebarWrapper = React.memo(function SidebarWrapper({
-    showMobileFilters, setShowMobileFilters, sidebarIsOpen, setSidebarIsOpen
+    showMobileFilters, setShowMobileFilters, mobileSidebarContent, sidebarIsOpen, setSidebarIsOpen
 }) {
     const { isMedium } = useIsMobile();
     const [sidebarContent, setSidebarContent] = useState('filters');
@@ -38,6 +39,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         <>
             <NLSidebarButtons
                 sidebarContent={sidebarContent}
+                setSidebarIsOpen={toggleOpened}
+                sidebarIsOpen={sidebarIsOpen}
                 setSidebarContent={setSidebarContent}
                 isMedium={isMedium} />
             {/* Eventually remove search-sidebar css */}
@@ -48,33 +51,64 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     } ${
                         showMobileFilters ? "mobile" : ""}`
                     }>
-                    <div
-                        className="collapsible-sidebar--toggle"
-                        onClick={(e) => {
-                            toggleOpened(e);
-                        }}
-                        onKeyDown={(e) => {
-                            keyHandler(e, toggleOpened);
-                        }}
-                        role="button"
-                        aria-label={sidebarIsOpen ? "Close" : "Open"}
-                        focusable="true"
-                        tabIndex={0}>
-                        {sidebarIsOpen ?
-                            <FontAwesomeIcon className="chevron" icon="chevron-left" />
-                            :
-                            <FontAwesomeIcon className="chevron" icon="chevron-right" />
-                        }
-                    </div>
-                    { sidebarIsOpen && !isMedium &&
-                        <SidebarContent />
+                    { sidebarIsOpen && !isMedium &&  
+                        <div className="collapsible-sidebar-header">
+                            <div className="sidebar-title-row">
+                                <h2 className="sidebar-title">Filter</h2>
+                                <div
+                                   onClick={(e) => {
+                                        toggleOpened(e);
+                                    }}
+                                    onKeyDown={(e) => {
+                                        keyHandler(e, toggleOpened);
+                                    }}
+                                    role="button"
+                                    className="sidebar-close"
+                                    aria-label={sidebarIsOpen ? "Close" : "Open"}
+                                    focusable="true"
+                                    tabIndex={0}
+                                >
+                                    <FontAwesomeIcon className="close" icon="close" />
+                                </div>
+                                
+                            </div>
+                            <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
+                            
+                          
+                            <SidebarContent />
+                        </div>  
                     }
                     { sidebarIsOpen && showMobileFilters &&
-                        <MobileSidebarContent setShowMobileFilters={setShowMobileFilters} />
-                    }
-                    { !sidebarIsOpen && !isMedium &&
-                        <div style={{ margin: "18px 16px" }}>
-                            <FontAwesomeIcon title="Filters" icon="filter" />
+                        <div className="collapsible-sidebar-header">
+                            <div className="sidebar-title-row">
+                                <h2 className="sidebar-title">{mobileSidebarContent === "natural language" ? "AI Search" : "Filter"}</h2>
+                                <div
+                                    onClick={() => {
+                                        setShowMobileFilters(false);
+                                    }}
+                                    onKeyDown={() => {
+                                        setShowMobileFilters(false);
+                                    }}
+                                    role="button"
+                                    className="sidebar-close"
+                                    aria-label={sidebarIsOpen ? "Close" : "Open"}
+                                    focusable="true"
+                                    tabIndex={0}
+                                >
+                                    <FontAwesomeIcon className="close" icon="close" />
+                                </div>
+                                
+                            </div>
+                            {mobileSidebarContent === 'filters' &&
+                                <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
+                            }
+                            {mobileSidebarContent === 'natural language' &&
+               
+                                 <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
+                
+                            }
+
+                            <MobileSidebarContent setShowMobileFilters={setShowMobileFilters} mobileSidebarContent={mobileSidebarContent} />
                         </div>
                     }
                 </div>
@@ -85,7 +119,31 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     } ${
                         showMobileFilters ? "mobile" : ""}`
                     }>
-                    natural language sidebar goes here
+                    { sidebarIsOpen && 
+                        <div className="collapsible-sidebar-header">
+                            <div className="sidebar-title-row">
+                                <h2 className="sidebar-title">AI Search</h2>
+                                <div
+                                   onClick={(e) => {
+                                        toggleOpened(e);
+                                    }}
+                                    onKeyDown={(e) => {
+                                        keyHandler(e, toggleOpened);
+                                    }}
+                                    role="button"
+                                    className="sidebar-close"
+                                    aria-label={sidebarIsOpen ? "Close" : "Open"}
+                                    focusable="true"
+                                    tabIndex={0}
+                                >
+                                    <FontAwesomeIcon className="close" icon="close" />
+                                </div>
+                                
+                            </div>
+                            <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
+                       </div>
+                    }
+
                 </div>
             }
         </>

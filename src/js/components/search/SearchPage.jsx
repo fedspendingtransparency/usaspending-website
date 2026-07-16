@@ -56,6 +56,7 @@ const SearchPage = ({
         top: 0, left: 0, display: 'none', tooltip: <></>
     });
     const [showMobileFilters, setShowMobileFilters] = useState(false);
+    const [mobileSidebarContent, setMobileSidebarContent] = useState("filters");
     const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
     const [filterCount, setFilterCount] = useState(0);
     const [showFullDownload, setShowFullDownload] = useState(false);
@@ -71,6 +72,7 @@ const SearchPage = ({
 
     // Toggle whether or not to show the mobile filter view
     const toggleMobileFilters = () => {
+        console.log(showMobileFilters, mobileSidebarContent)
         setShowMobileFilters((prevState) => !prevState);
     };
 
@@ -110,6 +112,7 @@ const SearchPage = ({
                             hash={hash}
                             showMobileFilters={showMobileFilters}
                             setShowMobileFilters={setShowMobileFilters}
+                            mobileSidebarContent={mobileSidebarContent}
                             sidebarIsOpen={sidebarIsOpen}
                             setSidebarIsOpen={setSidebarIsOpen} />
                     </TooltipContext>
@@ -129,6 +132,9 @@ const SearchPage = ({
                         filterCount={filterCount}
                         showMobileFilters={showMobileFilters}
                         sidebarOpen={sidebarIsOpen}
+                        setSidebarIsOpen={setSidebarIsOpen}
+                        mobileSidebarContent={mobileSidebarContent}
+                        setMobileSidebarContent={setMobileSidebarContent}
                         toggleMobileFilters={toggleMobileFilters} />
                     <Helmet>
                         <link

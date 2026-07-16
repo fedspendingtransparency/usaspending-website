@@ -79,7 +79,7 @@
 
   #main-content {
     width: 100%;
-    padding: 0 rem(16) rem(16) rem(16);
+    padding: 0 rem(16) rem(8) rem(16);
     @import "components/aboutTheDataSidebar/aboutTheData";
 
     @media (min-width: $medium-screen) {
