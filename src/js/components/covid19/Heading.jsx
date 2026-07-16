@@ -22,10 +22,10 @@ import ShareDownloadButtonGroup from 'components/sharedComponents/buttons/ShareD
 const propTypes = {
     publicLaw: PropTypes.string,
     url: PropTypes.string,
-    onShareClick: PropTypes.func
+    onShareOptionClick: PropTypes.func
 };
 
-const Heading = ({ publicLaw, url, onShareClick }) => {
+const Heading = ({ publicLaw, url, onShareOptionClick }) => {
     const jumpToDataSources = () => {
         jumpToSection('data_sources_and_methodology');
     };
@@ -93,7 +93,7 @@ const Heading = ({ publicLaw, url, onShareClick }) => {
                     onDownloadClick={downloadData}
                     downloadInFlight={downloadInFlight}
                     downloadIcon="file-download"
-                    onShareClick={onShareClick}
+                    onShareClick={onShareOptionClick}
                     className="blue-share" />
             </FlexGridCol>
         </FlexGridRow>
