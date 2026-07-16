@@ -1062,6 +1062,10 @@
         {
             "code": "ZWE",
             "name": "ZIMBABWE"
+        },
+        {
+            "code": "FSM",
+            "name": "MICRONESIA, FEDERATED STATES OF"
         }
     ]
 }
