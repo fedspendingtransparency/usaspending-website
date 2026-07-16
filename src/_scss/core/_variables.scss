@@ -306,6 +306,9 @@ $large-screen: 1200px;
 $m-large-screen: 1400px;
 $x-large-screen: 1640px;
 
+// moblie retina display variable
+$retina: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
+
 // Magic Numbers
 $text-max-width: rem(530);
 $lead-max-width: rem(770);
