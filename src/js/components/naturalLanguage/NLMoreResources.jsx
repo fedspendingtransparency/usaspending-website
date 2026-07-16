@@ -20,13 +20,13 @@ const NLMoreResources = () => {
                 {moreResourcesBtnData.map((btn) => (
                     <FlexGridCol 
                         className="more-resources__col"
-                        key={`more-resources-${btn.id}`}  
+                        key={`more-resources-${btn.id}`} 
+                        onClick={() => btn.action(navigate)}
                         mobile={12}
                         tablet={6}
                         desktop={4}>
                         <Button
                             copy=""
-                            onClick={() => btn.action(navigate)}
                             buttonTitle=""
                             buttonSize="md"
                             buttonType="text"

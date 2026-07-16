@@ -13,7 +13,13 @@
     border-radius: rem(4);
     background: $blue-vivid-5v;
     margin-left: rem(4);
+
+    &:hover {
+      background: $blue-70v;
+      color: $color-white;
+    }
   }
+
   .button-icon {
     @include icon-styles;
     margin-right: rem(5);
