@@ -2,7 +2,7 @@
 import path, { extname } from 'path';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
 import htmlPurge from 'vite-plugin-purgecss';
-import { defineConfig, loadEnv } from 'vite';
+import { defineConfig, loadEnv, createLogger } from 'vite';
 import { fileURLToPath } from 'url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import { playwright } from '@vitest/browser-playwright';
@@ -17,20 +17,37 @@ import { configDefaults } from 'vitest/config';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
+// Get the default Vite logger instance
+const logger = createLogger();
+const originalWarn = logger.warn;
 
 
-
+// Override the warn method to filter out targeted messages
+logger.warn = (msg, options) => {
+  // Suppress generic vite:css warnings or specific sub-messages
+  if (msg.includes('vite:css') || msg.includes('EVAL') || msg.includes('global-builtin') || msg.includes('color-functions') || msg.includes('slash-div')) {
+    // Optional: Only suppress a specific pattern (e.g., 'is empty')
+    // if (msg.includes('is empty')) return; 
+    return; 
+  }
+  originalWarn(msg, options);
+};
 // More info at: https://storybook.js.org/docs/next/writing-tests/integrations/vitest-addon
-
 export default defineConfig(({ command, mode }) => {
   // Load environment variables based on the current mode (e.g., .env.production)
   const env = loadEnv(mode, process.cwd(), '')
   
   // Shared options used in both development and production
   const sharedConfig = {
-    base: '/',
     loglevel: "error",
+    customLogger: logger,
     css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler', // Eliminates the legacy JS API warning
+          quietDeps: true,         // Silences warnings coming from node_modules (e.g., Bootstrap, Vuetify)
+        },
+      },
       postcss: {
         plugins: [
           autoprefixer,
@@ -120,23 +137,16 @@ export default defineConfig(({ command, mode }) => {
     },
     build: {
         commonjsOptions: { transformMixedEsModules: true },
-        outDir: path.resolve(__dirname, "./public"),
+        outDir: "../public",
         emptyOutDir: true,
-        rollupOptions: {
+        rolldownOptions: {
             input: "./src/index.js",
+            external: [/^moment\/locale\//,'react', 'react-dom', 'lodash-es', 'accounting', 'prop-types'],
             output: {
-                entryFileNames: "[name].[contenthash].js", 
+              codeSplitting: true
             },
             splitChunks: { chunks: 'all' },
             usedExports: true,
-            external: [/^moment\/locale\//]
-        },
-        rolldownOptions: {
-            input: "./src/index.js",
-            external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types'],
-            output: {
-              codeSplitting: true
-            }
         }
     },
     server: {
@@ -171,6 +181,7 @@ export default defineConfig(({ command, mode }) => {
   if (command === 'serve') {
     return {
       ...sharedConfig,
+      emptyOutDir: true,
       server: {
         port: 3000,
         open: true,
@@ -188,9 +199,9 @@ export default defineConfig(({ command, mode }) => {
   // Production-specific configurations (command === 'build')
   return {
     ...sharedConfig,
-    base: '/production-sub-path/', 
     build: {
-      outDir: 'dist',
+      emptyOutDir: true,
+      outDir: '../public',
       sourcemap: false,
       minify: false,
       cssCodeSplit: true,
