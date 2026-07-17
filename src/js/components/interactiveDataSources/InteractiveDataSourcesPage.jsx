@@ -43,6 +43,15 @@ const InteractiveDataSourcesPage = () => {
         dispatch(showModal(url));
     };
 
+    const emailData = {
+        subject: "USAspending Data Sources",
+        body: "View a visualization of USAspending data sources on this interactive page: https://www.usaspending.gov/data-sources"
+    };
+
+    const handleShare = (name) => {
+        handleShareOptionClick(name, `data-sources`, emailData, handleShareDispatch);
+    };
+
     const sections = useMemo(() => [
         {
             section: 'intro-section',
@@ -186,14 +195,6 @@ const InteractiveDataSourcesPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [query.section]);
 
-    const emailData = {
-        subject: "USAspending Data Sources",
-        body: "View a visualization of USAspending data sources on this interactive page: https://www.usaspending.gov/data-sources"
-    };
-
-    const handleShare = (name) => {
-        handleShareOptionClick(name, `data-sources`, emailData, handleShareDispatch);
-    };
 
     return (
         <PageWrapper

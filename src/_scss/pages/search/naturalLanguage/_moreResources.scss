@@ -1,0 +1,39 @@
+@import "./searchIcons";
+
+.more-resources__section {
+  .more-resources__row {
+    display: flex;
+    align-items: flex-start;
+    gap: $global-spacing-unit * 3;
+    margin-top: $global-spacing-unit * 5;
+  }
+
+  .more-resources__label {
+    @include label-styles;
+    color: $gray-70;
+
+    @media (min-width: $large-screen) {
+      padding-top: rem(12);
+    }
+   }
+
+  .more-resources__col {
+    display: flex;
+    flex: 1 1 100%;
+    border-radius: rem(4);
+    border: rem(1) solid $gray-10;
+    background: $gray-5;
+
+    &:hover {
+      cursor: pointer;
+      background: $gray-10;
+    }
+
+    @media (min-width: $large-screen) {
+      flex: 1 1 0;
+      flex-direction: column;
+      align-items: flex-start;
+      min-height: rem(20);
+    }
+  }
+}
