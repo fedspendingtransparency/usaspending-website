@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { QAT } from "GlobalConstants";
 import { NATURAL_LANGUAGE, FILTERS } from './SidebarConstants';
+import globalConstants from '../../../GlobalConstants';
 
 const cyan60v = '#00687D';
 const cyan50v = '#0081A1';

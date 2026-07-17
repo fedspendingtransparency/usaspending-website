@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-import { hideModal } from 'redux/actions/modal/modalActions';
+import { hideModal } from '-redux/actions/modal/modalActions';
 import FilterModal from "components/sharedComponents/FilterModal";
 import RedirectModal from 'components/sharedComponents/RedirectModal';
 import InterimDataDisclaimerModal from 'components/covid19/InterimDataDisclaimerModal';

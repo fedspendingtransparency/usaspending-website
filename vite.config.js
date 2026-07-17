@@ -39,8 +39,10 @@ export default defineConfig(({ command, mode }) => {
   
   // Shared options used in both development and production
   const sharedConfig = {
+    base: "./",
     loglevel: "error",
     customLogger: logger,
+    root: 'src',
     css: {
       preprocessorOptions: {
         scss: {
@@ -54,22 +56,25 @@ export default defineConfig(({ command, mode }) => {
         ],
       }
     },
-    oxc: {
-      logOverride: { 'css-syntax-error': 'silent' }, // Mute specific esbuild warnings
-    },
-    root: 'src',
     define: {
       'process.env.ENV': process.env.ENV ? JSON.stringify(process.env.ENV) : JSON.stringify('qat'),
       'process.env.FILES_SERVER_BASE_URL': JSON.stringify(process.env.FILES_SERVER_BASE_URL || '')
     },
     plugins: [
+      nodePolyfills({
+        include: ['buffer', 'process', 'util'],
+        globals: {
+          Buffer: true,
+          process: true,
+          global: true,
+        }
+      }),
       react({
         // Tell the React plugin to handle JSX inside regular .js files
         include: /\.(jsx|tsx|js)$/,
       }),
       mdx(),
       htmlPurge(),
-      nodePolyfills(),
       createHtmlPlugin({
         template: path.resolve(__dirname, "./src/index.js"),
         chunksSortMode: "none",
@@ -108,7 +113,6 @@ export default defineConfig(({ command, mode }) => {
         silent: true})
     ],
     server: {
-      open: './dist',
       watch: {
         usePolling: true
       }
@@ -137,31 +141,12 @@ export default defineConfig(({ command, mode }) => {
     },
     build: {
         commonjsOptions: { transformMixedEsModules: true },
-        outDir: "../public",
         emptyOutDir: true,
         rolldownOptions: {
             input: "./src/index.js",
             external: [/^moment\/locale\//,'react', 'react-dom', 'lodash-es', 'accounting', 'prop-types'],
-            output: {
-              codeSplitting: true
-            },
-            splitChunks: { chunks: 'all' },
             usedExports: true,
         }
-    },
-    server: {
-      static: './dist',
-    },
-    optimizeDeps: {
-        rolldownOptions: {
-            resolve: {
-                extensions: ['.js', '.jsx']
-            },
-            loader: {
-              '.js': 'jsx',
-            },
-            plugins: [react(), htmlPurge(), nodePolyfills(), mdx()]
-        },
     },
     test: {
       dir: './tests',
@@ -178,30 +163,29 @@ export default defineConfig(({ command, mode }) => {
   }
 
   // Development-specific configurations
-  if (command === 'serve') {
-    return {
-      ...sharedConfig,
-      emptyOutDir: true,
-      server: {
-        port: 3000,
-        open: true,
-        proxy: {
-          '/api': {
-            target: env.VITE_DEV_API_URL || 'http://localhost:8080',
-            changeOrigin: true,
-            rewrite: (path) => path.replace(/^\/api/, ''),
-          },
-        },
-      },
-    }
-  }
+  // if (command === 'serve') {
+  //   return {
+  //     ...sharedConfig,
+  //     emptyOutDir: true,
+  //     server: {
+  //       port: 3000,
+  //       open: true,
+  //       proxy: {
+  //         '/api': {
+  //           target: env.VITE_DEV_API_URL || 'http://localhost:8080',
+  //           changeOrigin: true,
+  //           rewrite: (path) => path.replace(/^\/api/, ''),
+  //         },
+  //       },
+  //     },
+  //   }
+  // }
 
   // Production-specific configurations (command === 'build')
   return {
     ...sharedConfig,
     build: {
       emptyOutDir: true,
-      outDir: '../public',
       sourcemap: false,
       minify: false,
       cssCodeSplit: true,
@@ -210,11 +194,18 @@ export default defineConfig(({ command, mode }) => {
         external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types']
       },
     },
+    emptyOutDir: true,
+    logLevel: 'info',
+    server: {
+      port: 3000,
+      open: true,
+      proxy: {
+        '/api': {
+          target: env.VITE_DEV_API_URL || 'http://localhost:8080',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      },
+    },
   }
 });
-
-/*
-
-
-
-*/
