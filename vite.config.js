@@ -185,6 +185,7 @@ export default defineConfig(({ command, mode }) => {
   return {
     ...sharedConfig,
     build: {
+      outDir: path.resolve(__dirname, "./public"),
       emptyOutDir: true,
       sourcemap: false,
       minify: false,
