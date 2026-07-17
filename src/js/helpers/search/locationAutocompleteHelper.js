@@ -241,7 +241,6 @@ export const getLocationObject = (selectedItem, countriesList, createLocationObj
                     return country.name === item.data.country_name; 
                 }
             )?.code;
-    console.debug("location object: ", selectedItem, countriesList, createLocationObjectByType);
     if (item.category === "zip_code") {
         location = addZip(item.data.zip_code);
     }
