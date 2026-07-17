@@ -175,16 +175,18 @@ const PrimaryCheckboxType = ({
     }
 
     if (filters.length === 0) {
-        primaryTypes = (<SingleCheckboxType
-            name={name}
-            toggleCheckboxType={toggleCheckboxType}
-            filterType={filterType}
-            selectedCheckboxes={selectedCheckboxes}
-            enableAnalytics={enableAnalytics}
-            value={value}
-            code={value}
-            key={`${id} - ${value}`}
-            id={`primary-checkbox-${uniqueId()}`} />);
+        primaryTypes = (
+            <SingleCheckboxType
+                name={name}
+                toggleCheckboxType={toggleCheckboxType}
+                filterType={filterType}
+                selectedCheckboxes={selectedCheckboxes}
+                enableAnalytics={enableAnalytics}
+                value={value}
+                code={value}
+                key={`${id} - ${value}`}
+                id={`primary-checkbox-${uniqueId()}`} />
+        );
     }
 
     useEffect(() => {

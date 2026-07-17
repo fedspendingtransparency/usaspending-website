@@ -62,7 +62,9 @@ const StatePage = ({
                 <Helmet>
                     <link
                         href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css"
-                        rel="stylesheet" />
+                        rel="stylesheet"
+                        crossOrigin="anonymous"
+                        integrity="sha384-JnF4GvwrnLggHxx0ORCeHombtPxfqigY/GeEvbdv0Uy5qrCAuAyN3AulKRA+VAPr" />
                 </Helmet>
                 <LoadingWrapper isLoading={loading}>
                     {content}

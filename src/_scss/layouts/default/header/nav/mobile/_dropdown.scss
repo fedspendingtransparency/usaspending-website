@@ -20,6 +20,7 @@
 
     // button overrides for the external links
     .usda-external-link {
+      @include button-link;
       background-color: white;
       margin: 0;
       padding: 0;

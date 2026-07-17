@@ -75,6 +75,14 @@ const SecondaryCheckboxType = ({
         }
     };
 
+    // prevents submission on enter keydown
+    const onKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            toggleFilter();
+        }
+    };
+
     return (
         <li key={id} className="secondary-checkbox-type">
             <label
@@ -85,6 +93,7 @@ const SecondaryCheckboxType = ({
                     id={elementId}
                     value={code}
                     checked={checked}
+                    onKeyDown={onKeyDown}
                     onChange={toggleFilter}
                     disabled={restrictChildren} />
                 <span className="checkbox-item-label">

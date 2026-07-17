@@ -12,6 +12,24 @@
     min-height: 6rem;
   }
 
+  .training-videos__main-share-row {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+    .training-videos__main-share-col {
+      max-width: $homepage-max-width;
+      margin: rem(24) rem(16);
+
+      @media (min-width: $tablet-screen) {
+        margin: rem(24) rem(32);
+      }
+      @media (min-width: 1400px) {
+        margin: rem(24) $grid-column;
+      }
+    }
+  }
+
   .training-videos-content {
     background-color: white;
     display: flex;

@@ -1,0 +1,124 @@
+.share-dl-group {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-start;
+  font-size: $small-font-size;
+  font-weight: $font-normal;
+
+  .share-dl-group__download-wrapper {
+    color: $blue-60v;
+    background-color: white;
+    margin-right: rem(24);
+    display: flex;
+    flex-direction: column;
+    gap: rem(1);
+    line-height: $base-line-height;
+    text-align: center;
+
+    .share-dl-group__download-button {
+      @include button-link;
+      padding: 0 rem(20) rem(5);
+
+      .share-dl-group__download-icon {
+        width: rem(25);
+        height: rem(25);
+
+        span {
+          font-size: $small-font-size;
+          font-weight: $font-normal;
+          line-height: $base-line-height;
+        }
+
+        svg,
+        span {
+          color: $blue-60v;
+          &:hover,
+          &:active {
+            color: $blue-70v;
+          }
+        }
+      }
+    }
+
+    .usa-download-icon {
+      padding: 0;
+      margin: 0;
+
+      button {
+        @include button-link;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: rem(1);
+        color: $blue-60v;
+
+        svg {
+          width: rem(25);
+          height: rem(25);
+          margin: 0 rem(20) rem(8);
+        }
+
+        span {
+          font-size: $small-font-size;
+          font-weight: $font-normal;
+          line-height: $base-line-height;
+        }
+
+        svg,
+        span {
+          color: $blue-60v;
+          &:hover,
+          &:active {
+            color: $blue-70v;
+          }
+        }
+      }
+    }
+
+    @media (max-width: $medium-screen) {
+      display: none;
+    }
+  }
+
+  .share-dl-group__share-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: rem(1);
+    line-height: $base-line-height;
+
+    .usda-share-icon {
+      margin-left: 0;
+      display: flex;
+      flex-direction: column;
+
+      .usa-dt-picker__dropdown-container {
+        .usa-dt-picker__button {
+          padding-top: 0;
+
+          svg {
+            color: $blue-60v;
+            width: rem(25);
+            height: rem(25);
+
+            &:hover,
+            &:active {
+              color: $blue-70v;
+            }
+          }
+        }
+      }
+      .usda-share-icon__share-text {
+        font-size: $small-font-size;
+        font-weight: $font-normal;
+        line-height: $base-line-height;
+        color: $blue-60v;
+
+        &:hover,
+        &:active {
+          color: $blue-70v;
+        }
+      }
+    }
+  }
+}

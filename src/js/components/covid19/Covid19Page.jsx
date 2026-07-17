@@ -3,21 +3,20 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { find, throttle, uniqueId } from 'lodash-es';
+import { find, throttle } from 'lodash-es';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
-import IsMobileContext from "context/IsMobileContext";
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Covid19Section from 'components/covid19/Covid19Section';
 import Heading from 'components/covid19/Heading';
 import BannerPageHeader from "components/sharedComponents/header/BannerPageHeader";
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+import InPageNav from 'components/sharedComponents/InPageNav';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
@@ -25,7 +24,6 @@ import { slug, getEmailSocialShareData } from 'dataMapping/covid19/covid19';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { showModal } from 'redux/actions/modal/modalActions';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
-import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
 import Analytics from 'helpers/analytics/Analytics';
 import useQueryParams from "../../hooks/useQueryParams";
 import Covid19BottomSection from './Covid19BottomSection';
@@ -70,7 +68,6 @@ const Covid19Page = ({ loading }) => {
     const query = useQueryParams();
     const history = useNavigate();
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
-    const { isTablet } = useContext(IsMobileContext);
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
 
@@ -94,15 +91,11 @@ const Covid19Page = ({ loading }) => {
 
         // add offsets
         const sectionTop = sectionDom.offsetTop;
-        let top = sectionTop + 120;
+        let top = sectionTop + 380;
 
         // required to adjust offset for sections outside top Covid Sections FlexRow
-        if (section === "data_sources_and_methodology") {
-            top -= 400;
-        }
-
-        if (section === "other_resources") {
-            top -= 500;
+        if (section === "data_sources_and_methodology" || section === "other_resources") {
+            top = sectionTop - 75;
         }
 
         window.scrollTo({
@@ -149,22 +142,10 @@ const Covid19Page = ({ loading }) => {
             classNames="usa-da-covid19-page"
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
-            toolBarComponents={[
-                <DownloadButtonContainer />,
-                <ShareIcon508
-                    key={uniqueId()}
-                    url={getBaseUrl(slug)}
-                    onShareOptionClick={handleShare}
-                    classNames={!isTablet ? "margin-right" : ""} />
-            ]}
-            sections={covid19Sections}
-            activeSection={activeSection}
-            jumpToSection={jumpToSection}
-            loading={loading}
-            inPageNav>
+            noHeader >
             <LoadingWrapper isLoading={loading}>
                 <Helmet>
-                    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
+                    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" crossOrigin="anonymous" integrity="sha384-JnF4GvwrnLggHxx0ORCeHombtPxfqigY/GeEvbdv0Uy5qrCAuAyN3AulKRA+VAPr"/>
                 </Helmet>
 
                 <main id="main-content" className="main-content">
@@ -175,9 +156,17 @@ const Covid19Page = ({ loading }) => {
                         faIcon="virus-covid"
                         primaryColor="#39215E"
                         secondaryColor="#783CB9" />
+                    <InPageNav
+                        sections={covid19Sections}
+                        loading={loading}
+                        activeSection={activeSection}
+                        pageName="covid19"
+                        detectActiveSection
+                        jumpToSection={jumpToSection}
+                        rootMargin={`-80px 0px 0px 0px`} />
                     <FlexGridRow className="body covid-content__row">
                         <FlexGridCol className="covid-content__col" width="fill">
-                            <Heading publicLaw={query.publicLaw} />
+                            <Heading publicLaw={query.publicLaw} url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
                             {Object.keys(componentByCovid19Section())
                                 .filter((section) => componentByCovid19Section()[section].showInMainSection)
                                 .map((section) => (

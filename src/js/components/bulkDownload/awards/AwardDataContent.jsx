@@ -60,6 +60,14 @@ const AwardDataContent = ({
         setValidDates(false);
     };
 
+    // prevents submission on enter keydown
+    const onKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            resetForm();
+        }
+    };
+
     const validateForm = useCallback((award, dates) => {
         const primeAwards = award.awardTypes.primeAwards.size > 0;
         const subAwards = award.awardTypes.subAwards.size > 0;
@@ -121,7 +129,10 @@ const AwardDataContent = ({
                         validDates={validDates}
                         dataType="awards" />
                     <div className="download-center__reset-container">
-                        <button className="download-center__reset" onClick={resetForm}>
+                        <button
+                            className="download-center__reset"
+                            onClick={resetForm}
+                            onKeyDown={onKeyDown}>
                         Reset form and start over
                         </button>
                     </div>

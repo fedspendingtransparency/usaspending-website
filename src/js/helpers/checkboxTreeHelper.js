@@ -325,15 +325,12 @@ export const incrementCountAndUpdateUnchecked = (
                 });
             }
             else if (isParentInArray) {
-                // eslint-disable-next-line no-param-reassign
                 newState[indexInArray].count += amountToIncrement;
             }
             if (isParentInArray && parentNode.count && parentNode.count < newState[indexInArray].count) {
-                // eslint-disable-next-line no-param-reassign
                 newState[indexInArray].count = parentNode.count;
             }
             else if (isParentInArray && newState[indexInArray].count < 1) {
-                // eslint-disable-next-line no-param-reassign
                 newState[indexInArray].count = 1;
             }
             return newState;
@@ -760,6 +757,7 @@ export const getUniqueAncestorPaths = (
         return 0;
     });
 
+
 export const getAncestryPathOfNodes = (checked, nodes, traverseTreeByCodeFn) => [
     ...new Set(
         checked.map((code) => removePlaceholderString(code))
@@ -767,21 +765,24 @@ export const getAncestryPathOfNodes = (checked, nodes, traverseTreeByCodeFn) => 
     .map((code) => traverseTreeByCodeFn(nodes, code))
     .map((node) => ([...node.ancestors, node?.value]));
 
-export const trimCheckedToCommonAncestors = (arrayOfAncestryPaths) => arrayOfAncestryPaths
-    .sort((a, b) => a.length - b.length)
-    .reduce((leanArrayOfAncestryPaths, ancestryPath) => {
-        const ancestorsForCheckedDescendant = ancestryPath.slice(0, ancestryPath.length - 1);
-        const isSomeAncestorAlreadyChecked = ancestorsForCheckedDescendant
-            .some((ancestor, i, listOfAncestors) => leanArrayOfAncestryPaths.some((arr) => (
-                isEqual(arr, [ancestor]) ||
+export const trimCheckedToCommonAncestors = (arrayOfAncestryPaths) => {
+    arrayOfAncestryPaths.splice(arrayOfAncestryPaths.length);
+    return arrayOfAncestryPaths
+        .sort((a, b) => a.length - b.length)
+        .reduce((leanArrayOfAncestryPaths, ancestryPath) => {
+            const ancestorsForCheckedDescendant = ancestryPath.slice(0, ancestryPath.length - 1);
+            const isSomeAncestorAlreadyChecked = ancestorsForCheckedDescendant
+                .some((ancestor, i, listOfAncestors) => leanArrayOfAncestryPaths.some((arr) => (
+                    isEqual(arr, [ancestor]) ||
                 isEqual(arr, listOfAncestors.slice(0, i + 1)) ||
                 isEqual(arr, listOfAncestors)
-            )));
-        if (isSomeAncestorAlreadyChecked) {
-            return leanArrayOfAncestryPaths;
-        }
-        return leanArrayOfAncestryPaths.concat([ancestryPath]);
-    }, []);
+                )));
+            if (isSomeAncestorAlreadyChecked) {
+                return leanArrayOfAncestryPaths;
+            }
+            return leanArrayOfAncestryPaths.concat([ancestryPath]);
+        }, []);
+}
 
 export const setNodes = (key, nodes, treeName, cleanNodesFn) => ({
     type: `SET_${treeName}_NODES`,

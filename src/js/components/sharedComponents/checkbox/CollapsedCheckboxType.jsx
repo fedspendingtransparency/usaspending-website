@@ -35,6 +35,14 @@ const CollapsedCheckboxType = ({
 
     if (ref.current) ref.current.indeterminate = indeterminate;
 
+    // prevents submission on enter keydown
+    const onKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            toggleChildren();
+        }
+    };
+
     return (
         <div className="primary-checkbox-type">
             <div className="checkbox-type-item-wrapper">
@@ -53,6 +61,7 @@ const CollapsedCheckboxType = ({
                         id={inputId}
                         value={name}
                         checked={selected}
+                        onKeyDown={onKeyDown}
                         onChange={toggleChildren}
                         ref={ref} />
                     <span className="checkbox-item-label">

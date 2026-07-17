@@ -3,14 +3,14 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
-
 import useIsMobile from "hooks/useIsMobile";
 import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
 import NLSidebarButtons from "./NLSidebarButtons";
+import { FILTERS } from './SidebarConstants';
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func
@@ -21,7 +21,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     showMobileFilters, setShowMobileFilters, sidebarIsOpen, setSidebarIsOpen
 }) {
     const { isMedium } = useIsMobile();
-    const [sidebarContent, setSidebarContent] = useState('filters');
+    const [sidebarContent, setSidebarContent] = useState(FILTERS);
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -41,7 +41,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 setSidebarContent={setSidebarContent}
                 isMedium={isMedium} />
             {/* Eventually remove search-sidebar css */}
-            { sidebarContent === 'filters' ?
+            { sidebarContent === FILTERS ?
                 <div
                     className={`search-collapsible-sidebar-container search-sidebar sticky ${
                         sidebarIsOpen ? "opened" : ""
