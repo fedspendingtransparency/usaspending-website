@@ -10,7 +10,7 @@ import {
 export const socialUrls = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=`,
     twitter: `https://twitter.com/intent/tweet?url=`,
-    reddit: `http://www.reddit.com/submit?url=`,
+    reddit: `https://www.reddit.com/submit?url=`,
     linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=`
 };
 
@@ -35,7 +35,9 @@ const handleShareClickTwitter = (url, handleShareDispatch) => {
 };
 
 const handleShareClickLinkedin = (url, handleShareDispatch) => {
+    console.log("checking handleShareClickLinkedin ===== ", url);
     const finalUrl = `${socialUrls.linkedin}${encodeURIComponent(url)}`;
+    console.log("checking finalUrl ===== ", finalUrl);
     openShareWindowExternal(finalUrl, handleShareDispatch);
     Analytics.event({
         event: 'Social Share LinkedIn', category: `${url}`, action: 'share link click', label: 'linkedIn'
@@ -43,7 +45,9 @@ const handleShareClickLinkedin = (url, handleShareDispatch) => {
 };
 
 const handleShareClickReddit = (url, handleShareDispatch) => {
+    console.log("checking handleShareClickReddit ===== ", url);
     const finalUrl = `${socialUrls.reddit}${encodeURIComponent(url)}`;
+    console.log("checking finalUrl ===== ", finalUrl);
     openShareWindowExternal(finalUrl, handleShareDispatch);
     Analytics.event({
         event: 'Social Share Reddit', category: `${url}`, action: 'share link click', label: 'reddit'
