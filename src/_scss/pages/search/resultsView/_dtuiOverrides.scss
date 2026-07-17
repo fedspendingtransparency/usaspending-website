@@ -39,6 +39,11 @@
   .button__md {
     padding: 0;
     margin: 0;
+    gap: rem(8);
+  }
+
+  .button-type__text-right-icon-light svg {
+    margin: 0;
   }
 }
 

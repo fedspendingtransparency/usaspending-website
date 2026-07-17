@@ -24,6 +24,11 @@
     border: rem(1) solid $gray-10;
     background: $gray-5;
 
+    &:hover {
+      cursor: pointer;
+      background: $gray-10;
+    }
+
     @media (min-width: $large-screen) {
       flex: 1 1 0;
       flex-direction: column;
