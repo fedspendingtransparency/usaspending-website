@@ -1,0 +1,797 @@
+import { n as __esmMin } from "./rolldown-runtime-D1cXj70v.js";
+import { Ba as init_GlobalConstants, za as globalConstants } from "./index.js-CgeUxZJy.js";
+//#region src/config/featuredContent/featuredContentMetadata.js
+var articles;
+var init_featuredContentMetadata = __esmMin((() => {
+	init_GlobalConstants();
+	articles = [
+		{
+			taxonomy: "See 4 Yourself",
+			isInfographicTemplate: true,
+			content_type: "Featured Content",
+			title: "QAT ONLY Test",
+			banner_subtitle: "How People Use USAspending.gov Data",
+			created_date: "09/29/2025",
+			feature_sprint: 212,
+			feature_week: 1,
+			sections: [
+				"Federal Spending Transparency and Accountability",
+				"Market Research",
+				"Grant Opportunities and Compliance",
+				"Federal Spending Trends and Stories"
+			],
+			description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
+			slug: "qat-only-test",
+			black_text: true,
+			hidden: !globalConstants.QAT,
+			explore_more: [{
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}, {
+				label: "Data Sources",
+				slug: "/data-sources",
+				type: "internal"
+			}],
+			related_terms: []
+		},
+		{
+			taxonomy: "Data Definitions",
+			content_type: "Featured Content",
+			banner_subtitle: "Award Has a Very Specific Meaning in Government Spending",
+			title: "What is an Award?",
+			created_date: "04/30/2026",
+			description: "When you think of the word “award,” you might picture an actor receiving an Oscar, an athlete earning a medal at the Olympics, or even yourself earning a gold.",
+			feature_sprint: 220,
+			feature_week: 1,
+			slug: "what-is-an-award",
+			explore_more: [{
+				label: "Federal Spending Guide",
+				slug: "/federal-spending-guide",
+				type: "internal"
+			}, {
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}],
+			related_terms: [
+				{
+					term: "award",
+					type: "glossary",
+					label: "Award"
+				},
+				{
+					term: "obligation",
+					type: "glossary",
+					label: "Obligation"
+				},
+				{
+					term: "recipient",
+					type: "glossary",
+					label: "Recipient"
+				}
+			]
+		},
+		{
+			content_type: "Marketing",
+			taxonomy: "Exploring America's Finances",
+			banner_subtitle: "Learning About Government Spending Has Never Been Easier",
+			title: "Exploring America's Finances",
+			created_date: "09/29/2025",
+			description: "Behind every dollar the U.S. government spends, there is a story. But how can you discover that story? What tools do you need to understand it?",
+			slug: "exploring-americas-finances",
+			feature_sprint: 216,
+			feature_week: 1,
+			related_terms: [],
+			explore_more: [
+				{
+					label: "Fiscal Data",
+					slug: "https://fiscaldata.treasury.gov/",
+					type: "government"
+				},
+				{
+					label: "YouTube: Exploring America's Finances",
+					slug: "https://youtu.be/pRGY0VfQ4II",
+					type: "external"
+				},
+				{
+					label: "Advanced Search",
+					slug: "/search",
+					type: "internal"
+				}
+			]
+		},
+		{
+			content_type: "Featured Content",
+			taxonomy: "Recently Answered Questions",
+			banner_subtitle: "How are Obligations and Outlays Different?",
+			title: "Obligations vs. Outlays",
+			created_date: "05/21/2026",
+			description: "For this series, we asked our Transparency Experience Desk to answer the most commonly-asked questions about USAspending.gov’s open data.",
+			feature_sprint: 221,
+			feature_week: 1,
+			slug: "obligations-vs-outlays",
+			explore_more: [
+				{
+					label: "USAspending Community",
+					slug: "https://onevoicecrm.my.site.com/usaspending/s/",
+					type: "external"
+				},
+				{
+					label: "Advanced Search",
+					slug: "/search",
+					type: "internal"
+				},
+				{
+					label: "Data Sources",
+					slug: "/data-sources",
+					type: "internal"
+				}
+			],
+			related_terms: [
+				{
+					term: "loan-subsidy-cost",
+					type: "glossary",
+					label: "Loan Subsidy Cost"
+				},
+				{
+					term: "obligation",
+					type: "glossary",
+					label: "Obligation"
+				},
+				{
+					term: "outlay",
+					type: "glossary",
+					label: "Outlay"
+				}
+			]
+		},
+		{
+			taxonomy: "See 4 Yourself",
+			content_type: "Featured Content",
+			banner_subtitle: "How People Use USAspending.gov Data",
+			title: "Ways to Use Our Data",
+			created_date: "07/16/2026",
+			feature_sprint: 223,
+			feature_week: 3,
+			description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
+			slug: "ways-to-use-our-data",
+			black_text: true,
+			explore_more: [{
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}, {
+				label: "Data Sources",
+				slug: "/data-sources",
+				type: "internal"
+			}],
+			related_terms: []
+		},
+		{
+			taxonomy: "Data You Can Trust",
+			content_type: "Marketing",
+			banner_subtitle: "What makes our data different, where does it come from, and what makes it trustworthy?",
+			title: "Understanding Our Trusted Data",
+			created_date: "12/04/25",
+			feature_sprint: 213,
+			feature_week: 1,
+			description: "USAspending.gov is the official source for tracking federal government spending—but what makes our data different, where does it come from, and what makes it",
+			slug: "understanding-our-trusted-data",
+			black_text: true,
+			explore_more: [{
+				label: "USAspending Community",
+				slug: "https://onevoicecrm.my.site.com/usaspending/s/",
+				type: "external"
+			}, {
+				label: "Data Sources",
+				slug: "/data-sources",
+				type: "internal"
+			}],
+			related_terms: []
+		},
+		{
+			taxonomy: "Data Definitions",
+			content_type: "Featured Content",
+			banner_subtitle: "How Does USAspending.gov Define Recipients?",
+			title: "What Is a Recipient?",
+			created_date: "07/30/26",
+			feature_sprint: 224,
+			feature_week: 2,
+			description: "When searching for government spending data on USAspending.gov, you’re very likely to see the word “recipient. Whether you’re using our filters to refine your",
+			slug: "what-is-a-recipient",
+			explore_more: [{
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}, {
+				label: "Federal Spending Guide",
+				slug: "/federal-spending-guide",
+				type: "internal"
+			}],
+			related_terms: [{
+				term: "recipient",
+				type: "glossary",
+				label: "Recipient"
+			}, {
+				term: "outlay",
+				type: "glossary",
+				label: "Outlay"
+			}]
+		},
+		{
+			taxonomy: "What's the Difference?",
+			content_type: "Featured Content",
+			title: "Grants vs. Contracts",
+			banner_subtitle: "What's the Difference Between Grants and Contracts?",
+			created_date: "08/06/26",
+			feature_sprint: 224,
+			feature_week: 3,
+			description: "If you want to build a house, you must know what kind of material to use. Lest you end up like two of the three little pigs, building a house out of straw or",
+			slug: "grants-vs-contracts",
+			explore_more: [{
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}],
+			related_terms: [
+				{
+					term: "contract",
+					type: "glossary",
+					label: "Contract"
+				},
+				{
+					term: "grant",
+					type: "glossary",
+					label: "Grant"
+				},
+				{
+					term: "contract-pricing-type",
+					type: "glossary",
+					label: "Contract Pricing Type"
+				}
+			]
+		},
+		{
+			taxonomy: "Spending Stories",
+			content_type: "Marketing",
+			title: "Discover How Government Spending Supports Causes You Care About",
+			banner_subtitle: "Explore How the Federal Government Spends Money on a Particular Topic",
+			created_date: "4/30/2026",
+			feature_sprint: 220,
+			feature_week: 1,
+			description: "If you’re passionate about a cause—whether it’s education, environmental protection, public health, or national security—you can use Advanced Search to explore",
+			slug: "discover-how-government-spending-supports-causes-you-care-about",
+			explore_more: [
+				{
+					label: "Advanced Search",
+					slug: "/search",
+					type: "internal"
+				},
+				{
+					label: "What is a Recipient",
+					slug: "/featured-content/data-definitions/what-is-a-recipient",
+					type: "internal"
+				},
+				{
+					label: "Spending by Agency",
+					slug: "/explorer/agency",
+					type: "internal"
+				}
+			],
+			related_terms: [
+				{
+					term: "fiscal-year-fy",
+					type: "glossary",
+					label: "Fiscal Year"
+				},
+				{
+					term: "agency",
+					type: "glossary",
+					label: "Agency"
+				},
+				{
+					term: "recipient-location",
+					type: "glossary",
+					label: "Recipient Location"
+				}
+			]
+		},
+		{
+			taxonomy: "Spending Stories",
+			content_type: "Marketing",
+			title: "Exploring Spending in Your Community",
+			banner_subtitle: "Learn How to Search for Federal Spending Where You Live",
+			created_date: "01/15/26",
+			feature_sprint: 215,
+			feature_week: 1,
+			description: "Federal government spending may seem like a distant or complicated topic – one that is best understood by government officials or journalists.",
+			slug: "exploring-spending-in-your-community",
+			explore_more: [
+				{
+					label: "Data Sources",
+					slug: "/data-sources",
+					type: "internal"
+				},
+				{
+					label: "State Spending Profiles",
+					slug: "/state",
+					type: "internal"
+				},
+				{
+					label: "Advanced Search",
+					slug: "/search",
+					type: "internal"
+				}
+			],
+			related_terms: [{
+				term: "award",
+				type: "glossary",
+				label: "Award"
+			}]
+		},
+		{
+			taxonomy: "See 4 Yourself",
+			content_type: "Featured Content",
+			title: "Understanding Four Government Data Source Systems",
+			banner_subtitle: "Learn Where USAspending.gov Data Comes From",
+			created_date: "05/28/26",
+			feature_sprint: 221,
+			feature_week: 2,
+			description: "You might be wondering: where does the data on USAspending.gov come from? Since our goal is to promote open data and foster open government, we'd love to tell",
+			slug: "understanding-four-government-data-source-systems",
+			explore_more: [{
+				label: "Data Sources",
+				slug: "/data-sources",
+				type: "internal"
+			}, {
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}],
+			related_terms: [
+				{
+					term: "transaction",
+					type: "glossary",
+					label: "Transaction"
+				},
+				{
+					term: "award-id",
+					type: "glossary",
+					label: "Award ID"
+				},
+				{
+					term: "contract",
+					type: "glossary",
+					label: "Contract"
+				}
+			]
+		},
+		{
+			taxonomy: "My USAspending Search",
+			content_type: "Featured Content",
+			title: "John’s USAspending Search",
+			banner_subtitle: "Follow the Money Using USAspending.gov’s Spending Explorer",
+			created_date: "06/04/2026",
+			feature_sprint: 221,
+			feature_week: 3,
+			description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
+			slug: "johns-usaspending-search",
+			isInfographicTemplate: false,
+			explore_more: [
+				{
+					label: "Spending Explorer",
+					slug: "/explorer/agency",
+					type: "internal"
+				},
+				{
+					label: "Advanced Search",
+					slug: "/search",
+					type: "internal"
+				},
+				{
+					label: "USAspending on YouTube",
+					slug: "https://www.youtube.com/@usaspendinggov",
+					type: "external"
+				}
+			],
+			related_terms: [{
+				term: "awarding-agency",
+				type: "glossary",
+				label: "Awarding Agency"
+			}, {
+				term: "naics",
+				type: "glossary",
+				label: "NAICS"
+			}]
+		},
+		{
+			taxonomy: "Exploring America's Finances",
+			isInfographicTemplate: false,
+			content_type: "Marketing",
+			title: "Using Popular Filters on USAspending.gov",
+			banner_subtitle: "Unlocking the Power of USAspending’s Advanced Search",
+			created_date: "02/26/2026",
+			feature_sprint: 217,
+			feature_week: 1,
+			sections: [
+				"Federal Spending Transparency and Accountability",
+				"Market Research",
+				"Grant Opportunities and Compliance",
+				"Federal Spending Trends and Stories"
+			],
+			description: "USAspending’s Advanced Search is designed to change that. With a set of powerful filters, you can pinpoint exactly where and how federal dollars are spent.",
+			slug: "using-popular-filters-on-usaspendinggov",
+			explore_more: [
+				{
+					label: "What is a Recipient?",
+					slug: "/featured-content/data-definitions/what-is-a-recipient",
+					type: "internal"
+				},
+				{
+					label: "Advanced Search",
+					slug: "/search",
+					type: "internal"
+				},
+				{
+					label: "Spending Explorer",
+					slug: "/explorer",
+					type: "internal"
+				}
+			],
+			related_terms: [
+				{
+					term: "recipient",
+					type: "glossary",
+					label: "Recipient"
+				},
+				{
+					term: "fiscal-year-fy",
+					type: "glossary",
+					label: "Fiscal Year"
+				},
+				{
+					term: "sub-award",
+					type: "glossary",
+					label: "Sub-Award"
+				}
+			]
+		},
+		{
+			taxonomy: "What's the Difference?",
+			isInfographicTemplate: false,
+			content_type: "Featured Content",
+			title: "Awarding Agency vs. Funding Agency",
+			banner_subtitle: "What's the Difference Between Awarding Agency and Funding Agency?",
+			created_date: "06/11/2026",
+			feature_sprint: 222,
+			feature_week: 1,
+			sections: [
+				"Federal Spending Transparency and Accountability",
+				"Market Research",
+				"Grant Opportunities and Compliance",
+				"Federal Spending Trends and Stories"
+			],
+			description: "In the “Agency” section of USAspending’s advanced search, you’ll see the option to search by Awarding Agency or Funding Agency. But what’s the difference?",
+			slug: "awarding-agency-vs-funding-agency",
+			explore_more: [{
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}, {
+				label: "Agency Profiles",
+				slug: "/agency",
+				type: "internal"
+			}],
+			related_terms: [
+				{
+					term: "awarding-agency",
+					type: "glossary",
+					label: "Awarding Agency"
+				},
+				{
+					term: "funding-agency",
+					type: "glossary",
+					label: "Funding Agency"
+				},
+				{
+					term: "agency",
+					type: "glossary",
+					label: "Agency"
+				}
+			]
+		},
+		{
+			taxonomy: "Data You Can Trust",
+			isInfographicTemplate: false,
+			content_type: "Featured Content",
+			title: "The Story of Spending Transparency",
+			banner_subtitle: "Learn How USAspending.gov Came to Be",
+			created_date: "07/09/2026",
+			feature_sprint: 223,
+			feature_week: 2,
+			description: "The U.S. is one of the few countries worldwide that makes federal spending data accessible to the public. But before USAspending.gov existed, much",
+			slug: "the-story-of-spending-transparency",
+			explore_more: [{
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}],
+			related_terms: []
+		},
+		{
+			taxonomy: "My USAspending Search",
+			isInfographicTemplate: false,
+			content_type: "Featured Content",
+			title: "Keon's USAspending Search",
+			banner_subtitle: "Learn How to Search Government Contracts for Local Businesses",
+			created_date: "07/23/2026",
+			feature_sprint: 224,
+			feature_week: 1,
+			description: "In our feature, “My USAspending Search,” we highlight one of our users and their unique approach to searching government spending open data.",
+			slug: "keons-usaspending-search",
+			explore_more: [{
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}, {
+				label: "USAspending YouTube",
+				slug: "https://www.youtube.com/@usaspendinggov",
+				type: "external"
+			}],
+			related_terms: [
+				{
+					term: "naics",
+					type: "glossary",
+					label: "NAICS"
+				},
+				{
+					term: "product-or-service-code-psc",
+					type: "glossary",
+					label: "Product or Service Code (PSC)"
+				},
+				{
+					term: "fiscal-year-fy",
+					type: "glossary",
+					label: "Fiscal Year (FY)"
+				}
+			]
+		},
+		{
+			taxonomy: "Spending Stories",
+			isInfographicTemplate: false,
+			content_type: "Marketing",
+			title: "Preserving America’s Story",
+			banner_subtitle: "How Federal Spending Protects America’s Parks and Monuments",
+			created_date: "04/09/2026",
+			feature_sprint: 219,
+			feature_week: 1,
+			description: "When you hear the term federal spending, you may think of big-ticket items like military, healthcare, or social services. But did you know that every year,",
+			slug: "preserving-americas-story",
+			explore_more: [{
+				label: "Department of the Interior Agency Profile",
+				slug: "/agency/department-of-the-interior?fy=2025",
+				type: "internal"
+			}, {
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}],
+			related_terms: [{
+				term: "agency",
+				type: "glossary",
+				label: "Agency"
+			}]
+		},
+		{
+			taxonomy: "Data Definitions",
+			isInfographicTemplate: false,
+			content_type: "Featured Content",
+			title: "What Is a Loan?",
+			banner_subtitle: "Learn About the Types of Loans on USAspending.gov",
+			created_date: "04/09/2026",
+			feature_sprint: 219,
+			feature_week: 1,
+			description: "On USAspending's Advanced Search, loans are found under Award Type; users can search for two different types of loans: direct loans and guaranteed/insured loans",
+			slug: "what-is-a-loan",
+			explore_more: [{
+				label: "Federal Spending Guide",
+				slug: "/federal-spending-guide",
+				type: "internal"
+			}, {
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}],
+			related_terms: [
+				{
+					term: "loan",
+					type: "glossary",
+					label: "Loan"
+				},
+				{
+					term: "obligation",
+					type: "glossary",
+					label: "Obligation"
+				},
+				{
+					term: "outlay",
+					type: "glossary",
+					label: "Outlay"
+				}
+			]
+		},
+		{
+			taxonomy: "Spending Stories",
+			isInfographicTemplate: false,
+			content_type: "Featured Content",
+			title: "Celebrating Small Business Week",
+			banner_subtitle: "Small Business Spending on USAspending.gov",
+			created_date: "05/07/2026",
+			feature_sprint: 220,
+			feature_week: 2,
+			description: "National Small Business Week shines a spotlight on the entrepreneurs and innovators who drive America’s economy. From neighborhood start-ups",
+			slug: "celebrating-small-business-week",
+			explore_more: [{
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}, {
+				label: "National Small Business Week",
+				slug: "https://www.sba.gov/national-small-business-week",
+				type: "external"
+			}],
+			related_terms: [
+				{
+					term: "award",
+					type: "glossary",
+					label: "Award"
+				},
+				{
+					term: "contract",
+					type: "glossary",
+					label: "Contract"
+				},
+				{
+					term: "grant",
+					type: "glossary",
+					label: "Grant"
+				}
+			]
+		},
+		{
+			taxonomy: "America250",
+			isInfographicTemplate: false,
+			content_type: "Marketing",
+			title: "Government Financial Transparency: From Parchment to Digital Data",
+			banner_subtitle: "Exploring the Foundations of Government Spending Data",
+			created_date: "07/23/2026",
+			feature_sprint: 224,
+			feature_week: 1,
+			description: "The phrase “government transparency” has become a modern buzzword, dominating headlines and conversations across all forms of media and at every level of government.",
+			slug: "government-financial-transparency-from-parchment-to-digital-data",
+			explore_more: [{
+				label: "FiscalData.Treasury.gov",
+				slug: "https://fiscaldata.treasury.gov/",
+				type: "internal"
+			}, {
+				label: "U.S. Constitution Transcript ",
+				slug: "https://www.archives.gov/founding-docs/constitution-transcript",
+				type: "internal"
+			}],
+			related_terms: []
+		},
+		{
+			taxonomy: "America250",
+			isInfographicTemplate: false,
+			content_type: "Featured Content",
+			title: "Building America: 250 Years of Investment",
+			banner_subtitle: "How U.S. Government Spending Shaped the Nation’s Icons",
+			created_date: "07/02/2026",
+			feature_sprint: 223,
+			feature_week: 1,
+			description: "Whether you’re visiting an American icon like the Hoover Dam, traveling to a different state on a highway, or watching a tiny version of Earth from outer space",
+			slug: "building-america-250-years-of-investment",
+			explore_more: [
+				{
+					label: "Advanced Search",
+					slug: "/search",
+					type: "internal"
+				},
+				{
+					label: "Training Videos",
+					slug: "/training-videos",
+					type: "internal"
+				},
+				{
+					label: "Agency Profiles",
+					slug: "/agency",
+					type: "internal"
+				}
+			],
+			related_terms: [{
+				term: "awarding-agency",
+				type: "glossary",
+				label: "Awarding Agency"
+			}, {
+				term: "assistance-listings-cfda-program",
+				type: "glossary",
+				label: "Assistance Listings"
+			}]
+		},
+		{
+			taxonomy: "My USAspending Search",
+			isInfographicTemplate: false,
+			content_type: "Featured Content",
+			title: "Michael’s USAspending Search",
+			banner_subtitle: "Using USAspending.gov for Market Research",
+			created_date: "06/25/2026",
+			feature_sprint: 222,
+			feature_week: 3,
+			description: "In “My USAspending Search,” we highlight one of our users and their unique approach to searching government spending open data. Meet Michael LeJeune.",
+			slug: "michaels-usaspending-search",
+			explore_more: [{
+				label: "Advanced Search",
+				slug: "/search",
+				type: "internal"
+			}, {
+				label: "USAspending on YouTube",
+				slug: "https://www.youtube.com/@usaspendinggov",
+				type: "internal"
+			}],
+			related_terms: [
+				{
+					term: "agency",
+					type: "glossary",
+					label: "Agency"
+				},
+				{
+					term: "naics",
+					type: "glossary",
+					label: "NAICS"
+				},
+				{
+					term: "assistance-listings-cfda-program",
+					type: "glossary",
+					label: "Assistance Listings"
+				}
+			]
+		},
+		{
+			taxonomy: "America250",
+			isInfographicTemplate: false,
+			content_type: "Marketing",
+			title: "Bringing Data to Life",
+			banner_subtitle: "Hackathon Draws Attention to Government Spending Projects and Infrastructure",
+			created_date: "07/02/2026",
+			feature_sprint: 223,
+			feature_week: 1,
+			description: "Planes, trains, and automobiles can get you where you need to go. But what if there’s no roads, bridges, or airports? America’s infrastructure is a key part of",
+			slug: "bringing-data-to-life",
+			explore_more: [
+				{
+					label: "U.S. State Spending Profiles",
+					slug: "/state",
+					type: "internal"
+				},
+				{
+					label: "Interactive Map",
+					slug: "/search?hash=3bc28fab31cedcf467b9346afab31efd&section=map",
+					type: "internal"
+				},
+				{
+					label: "Advanced Search",
+					slug: "/search",
+					type: "internal"
+				}
+			],
+			related_terms: [{
+				term: "time-period-filter",
+				type: "atd",
+				label: "Time Period"
+			}]
+		}
+	];
+}));
+//#endregion
+export { init_featuredContentMetadata as n, articles as t };

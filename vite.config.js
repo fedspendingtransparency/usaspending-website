@@ -12,6 +12,7 @@ import autoprefixer from 'autoprefixer';
 import mdx from "@mdx-js/rollup";
 import babel from 'vite-plugin-babel';
 import { configDefaults } from 'vitest/config';
+import {ViteEjsPlugin} from "vite-plugin-ejs";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -41,7 +42,6 @@ export default defineConfig(({ command, mode }) => {
     base: "./",
     loglevel: "error",
     customLogger: logger,
-    root: 'src',
     css: {
       preprocessorOptions: {
         scss: {
@@ -60,6 +60,7 @@ export default defineConfig(({ command, mode }) => {
       'import.meta.env.FILES_SERVER_BASE_URL': JSON.stringify(import.meta.env?.FILES_SERVER_BASE_URL || '')
     },
     plugins: [
+      ViteEjsPlugin(),
       nodePolyfills({
         include: ['buffer', 'process', 'util'],
         globals: {
@@ -74,9 +75,10 @@ export default defineConfig(({ command, mode }) => {
       }),
       mdx(),
       createHtmlPlugin({
-        template: path.resolve(__dirname, "./src/index.js"),
+        template: path.resolve(__dirname, "index.html"),
+        entry: path.resolve(__dirname, "./src/js/app.jsx"),
         chunksSortMode: "",
-        templateParameters: {
+        inject: {
           GA_TRACKING_ID: import.meta.env?.GA_TRACKING_ID || '',
           USE_GTM: (
             import.meta.env?.ENV === 'qat' ||
@@ -90,17 +92,17 @@ export default defineConfig(({ command, mode }) => {
         targets: [
         {
           src: '**/*.xml',
-          dest: path.resolve(__dirname, "./public"),
+          dest: path.resolve(__dirname, "./dist"),
           suppressError: true
         },
         {
           src: 'robots.txt',
-          dest: path.resolve(__dirname, "./public"),
+          dest: path.resolve(__dirname, "./dist"),
           suppressError: true
         },
         {
           src: 'redirect-config.json',
-          dest: path.resolve(__dirname, "./public"),
+          dest: path.resolve(__dirname, "./dist"),
           suppressError: true
         }],
         silent: true})
@@ -135,9 +137,7 @@ export default defineConfig(({ command, mode }) => {
     build: {
         assetsInlineLimit: 0,
         commonjsOptions: { transformMixedEsModules: true },
-        emptyOutDir: true,
         rolldownOptions: {
-            input: "./src/index.js",
             external: [/^moment\/locale\//,'react', 'react-dom', 'lodash-es', 'accounting', 'prop-types'],
             usedExports: true,
         }
@@ -159,7 +159,6 @@ export default defineConfig(({ command, mode }) => {
   if (mode === 'development') {
     return {
       ...sharedConfig,
-      publicDir: path.resolve(__dirname, "./public"),
       devtools: true,
       server: {
         host: '0.0.0.0',
@@ -171,19 +170,19 @@ export default defineConfig(({ command, mode }) => {
       },
       define: {
             'import.meta.env': {
-                USASPENDING_API: import.meta.env.USASPENDING_API
-                    ? JSON.stringify(import.meta.env.USASPENDING_API)
+                USASPENDING_API: import.meta.env?.USASPENDING_API
+                    ? JSON.stringify(import.meta.env?.USASPENDING_API)
                     : JSON.stringify("https://api.usaspending.gov/api/"),
-                MAPBOX_TOKEN: import.meta.env.MAPBOX_TOKEN
-                    ? JSON.stringify(import.meta.env.MAPBOX_TOKEN)
+                MAPBOX_TOKEN: import.meta.env?.MAPBOX_TOKEN
+                    ? JSON.stringify(import.meta.env?.MAPBOX_TOKEN)
                     : JSON.stringify("")
             }
       },
       build: {
         rolldownOptions: {
-          output: {
-            codeSplitting: true
-          }
+          // output: {
+          //   codeSplitting: true
+          // }
         }
       }
     };
@@ -211,17 +210,15 @@ export default defineConfig(({ command, mode }) => {
   return {
     ...sharedConfig,
     build: {
-      outDir: path.resolve(__dirname, "./public"),
+      publicDir: path.resolve(__dirname, "./public"),
+      sourcemap: true,
       emptyOutDir: true,
-      sourcemap: false,
       minify: false,
       cssCodeSplit: true,
       rolldownOptions: { 
-        input: "./src/index.js",
         external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types']
       },
     },
-    emptyOutDir: true,
     logLevel: 'info',
       define: {
         'import.meta.env': {
@@ -236,6 +233,10 @@ export default defineConfig(({ command, mode }) => {
     server: {
       port: 3000,
       open: true,
+      fs: {
+        allow: [".."]
+      },
+      cors: true
       // proxy: {
       //   '/api': {
       //     target: import.meta.env.USASPENDING_API,

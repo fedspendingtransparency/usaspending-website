@@ -127,7 +127,7 @@
     "terser-webpack-plugin": "^5.3.17",
     "trim": "1.0.1",
     "trim-newlines": "^4.0.2",
-    "vite": "^8.1.4",
+    "vite": "^8.1.5",
     "vite-plugin-babel": "^1.7.3",
     "vite-plugin-html": "^3.2.2",
     "vite-plugin-html-purgecss": "^0.1.1",
@@ -332,6 +332,7 @@
     "dayjs": "^1.11.10",
     "dompurify": "^3.4.11",
     "dottie": "^2.0.7",
+    "ejs": "^6.0.1",
     "file-loader": "^6.2.0",
     "focus-trap-react": "^11.0.3",
     "history": "^4.6.1",
@@ -379,6 +380,7 @@
     "tinycolor2": "^1.3.0",
     "tunnel": "^0.0.6",
     "validator": "^13.15.23",
+    "vite-plugin-ejs": "^2.0.0",
     "xmldoc": "^0.4.0"
   }
 }
