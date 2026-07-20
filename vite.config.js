@@ -89,12 +89,7 @@ export default defineConfig(({ command, mode }) => {
       viteStaticCopy({
         targets: [
         {
-          src: '*.xml',
-          dest: path.resolve(__dirname, "./public"),
-          suppressError: true
-        },
-        {
-          src: '*.xml',
+          src: '**/*.xml',
           dest: path.resolve(__dirname, "./public"),
           suppressError: true
         },
@@ -228,16 +223,26 @@ export default defineConfig(({ command, mode }) => {
     },
     emptyOutDir: true,
     logLevel: 'info',
+      define: {
+        'import.meta.env': {
+            USASPENDING_API: import.meta.env?.USASPENDING_API
+              ? JSON.stringify(import.meta.env?.USASPENDING_API)
+              : JSON.stringify("https://api.usaspending.gov/api/"),
+            MAPBOX_TOKEN: import.meta.env?.MAPBOX_TOKEN
+              ? JSON.stringify(import.meta.env?.MAPBOX_TOKEN)
+              : JSON.stringify("")
+        }
+      },
     server: {
       port: 3000,
       open: true,
-      proxy: {
-        '/api': {
-          target: env.VITE_DEV_API_URL || 'http://localhost:8080',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        },
-      },
+      // proxy: {
+      //   '/api': {
+      //     target: import.meta.env.USASPENDING_API,
+      //     changeOrigin: true,
+      //     rewrite: (path) => path.replace(/^\/api/, ''),
+      //   },
+      // },
     },
   }
 });
