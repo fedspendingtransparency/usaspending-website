@@ -96,12 +96,12 @@ const RedirectModal = ({
                                 buttonType="primary"
                                 backgroundColor="light"
                                 onClick={() => {
-                                    window.open(isSafeUrl, "_blank");
+                                    window.open(isSafeUrl, "_blank", 'noopener,noreferrer');
                                     hideModal();
                                 }}
                                 onKeyUp={(e) => {
                                     if (e.key === 'Enter') {
-                                        window.open(isSafeUrl, "_blank");
+                                        window.open(isSafeUrl, "_blank", 'noopener,noreferrer');
                                         hideModal();
                                     }
                                 }} />
