@@ -23,10 +23,9 @@ import {
     cssOrderClassByPeriodId
 } from '../../dataMapping/agencySubmissionStats/timeFilters';
 import PeriodComponent from './PeriodComponent';
-
-const dayjs = require('dayjs');
-const utc = require('dayjs/plugin/utc');
-const isSameOrBefore = require('dayjs/plugin/isSameOrBefore');
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 
 dayjs.extend(isSameOrBefore);
 dayjs.extend(utc);

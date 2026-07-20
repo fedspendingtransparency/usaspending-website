@@ -3,7 +3,7 @@
  * Created by Brian Petway
  */
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 export const dateRangeDropdownTimePeriods = [
     {

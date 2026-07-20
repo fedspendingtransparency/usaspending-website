@@ -20,7 +20,7 @@ import Contact from './Contact';
 import Development from './Development';
 import Licensing from './Licensing';
 
-require('../../../_scss/pages/about/aboutPage.scss');
+import '../../../_scss/pages/about/aboutPage.scss';
 
 const aboutSections = [
     {

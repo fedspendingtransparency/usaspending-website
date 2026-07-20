@@ -17,7 +17,7 @@ import { isFyValid } from '../../helpers/fiscalYearHelper';
 
 import RecipientPage from '../../components/recipient/RecipientPage';
 
-require('../../../_scss/pages/recipient/recipientPage.scss');
+import '../../../_scss/pages/recipient/recipientPage.scss';
 
 const defaultFy = 'latest';
 

@@ -5,7 +5,7 @@
 
 import * as FiscalYearHelper from './fiscalYearHelper';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 // Months are 1-indexed strings, starting with the first month in the fiscal year, which is October
 // We parse the month, using 1 by default if the month is not a number

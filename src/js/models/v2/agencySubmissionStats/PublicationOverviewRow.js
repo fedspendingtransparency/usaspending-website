@@ -4,7 +4,7 @@
 
 import { formatMoney, formatNumber, calculatePercentage } from '../../../helpers/moneyFormatter';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const PublicationOverviewRow = {
     populate(data, federalTotal) {

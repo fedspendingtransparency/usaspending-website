@@ -17,7 +17,7 @@ import AccountLandingContent from '../../components/accountLanding/AccountLandin
 import BaseFederalAccountLandingRow from '../../models/v1/accountLanding/BaseFederalAccountLandingRow';
 import { LATEST_PERIOD_PROPS, SUBMISSION_PERIOD_PROPS } from '../../propTypes/index';
 
-require('../../../_scss/pages/accountLanding/accountLandingPage.scss');
+import '../../../_scss/pages/accountLanding/accountLandingPage.scss';
 
 export class AccountLandingContainer extends React.Component {
     constructor(props) {

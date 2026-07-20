@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash-es';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const propTypes = {
     value: PropTypes.string,

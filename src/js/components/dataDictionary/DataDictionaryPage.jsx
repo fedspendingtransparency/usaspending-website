@@ -10,7 +10,7 @@ import { dataDictionaryPageMetaTags } from '../../helpers/metaTagHelper';
 
 import DataDictionaryContainer from '../../containers/dataDictionary/DataDictionaryContainer';
 
-require('../../../_scss/pages/dataDictionary/dataDictionaryPage.scss');
+import '../../../_scss/pages/dataDictionary/dataDictionaryPage.scss';
 
 export default class DataDictionaryPage extends React.Component {
     render = () => (

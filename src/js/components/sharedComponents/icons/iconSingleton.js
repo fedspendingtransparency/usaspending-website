@@ -35,6 +35,7 @@ export class IconSingleton {
 
     parseSvg(rawSvg) {
     // downloaded raw SVG data, send it through an XML parser
+        console.debug(rawSvg);
         const data = new xmldoc.XmlDocument(rawSvg);
 
         // iterate through each symbol and extract the symbol's content XML as a string and

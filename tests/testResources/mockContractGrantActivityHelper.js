@@ -2,7 +2,7 @@
  * Created by Jonathan Hill 03/26/20
  */
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 export const goodDates = {
     _startDate: dayjs('01/25/2011', 'MM/DD/YYYY'),

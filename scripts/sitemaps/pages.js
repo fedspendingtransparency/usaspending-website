@@ -1,4 +1,4 @@
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 const apiUrl = process.env.API_URL || 'https://api.usaspending.gov:443';
 const siteUrl = process.env.SITE_URL || 'https://www.usaspending.gov';
 

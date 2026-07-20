@@ -3,7 +3,7 @@
  * Created by michaelbray on 1/19/18.
  */
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 export const parseDate = (dateString, format = 'YYYY-MM-DD') => {
     if (dateString) {

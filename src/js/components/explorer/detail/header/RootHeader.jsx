@@ -13,7 +13,7 @@ import { formatTreemapValues } from 'helpers/moneyFormatter';
 import { generateSingular } from 'helpers/singularityHelper';
 import { ExplorerInfoToolTip } from './../../../award/shared/InfoTooltipContent';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const propTypes = {
     isLoading: PropTypes.bool,

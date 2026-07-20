@@ -14,7 +14,7 @@ import PageWrapper from '../../components/sharedComponents/PageWrapper';
 import ShareIcon508 from "../../components/sharedComponents/buttons/ShareIcon508";
 import { showModal } from '../../redux/actions/modal/modalActions';
 
-require('../../../_scss/pages/recipientLanding/recipientLandingPage.scss');
+import '../../../_scss/pages/recipientLanding/recipientLandingPage.scss';
 
 const slug = 'recipient';
 const emailSubject = 'USAspending.gov Recipient Profiles';

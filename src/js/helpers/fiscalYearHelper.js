@@ -3,7 +3,7 @@
  * Created by Kevin Li 1/24/17
  */
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 export const earliestFiscalYear = 2008;
 export const earliestExplorerYear = 2017;

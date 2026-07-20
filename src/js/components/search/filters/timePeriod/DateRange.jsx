@@ -15,9 +15,8 @@ import ShownValue from "../ShownValue";
 import { dateRangeChipLabel } from "../../../../helpers/searchHelper";
 import usePrevious from "../../../../hooks/usePrevious";
 
-const dayjs = require('dayjs');
-const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
-
+import dayjs from "dayjs";
+import isSameOrAfter from "dayjs/plugin/isSameOrAfter";
 dayjs.extend(isSameOrAfter);
 
 const propTypes = {

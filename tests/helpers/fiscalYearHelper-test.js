@@ -8,7 +8,7 @@
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import MockDate from 'mockdate';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const expectedStartYear = 2008;
 describe('Fiscal Year helper functions', () => {

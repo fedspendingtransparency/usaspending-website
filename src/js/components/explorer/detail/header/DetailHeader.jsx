@@ -14,7 +14,7 @@ import { generateSingular } from 'helpers/singularityHelper';
 import TruncationWarning from './TruncationWarning';
 import useAgencySlugs from "../../../../hooks/useAgencySlugs";
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const propTypes = {
     within: PropTypes.string,

@@ -12,7 +12,7 @@ import {
     shouldExtendAreaPathWhenLastDataPointYValueChange
 } from '../../../../helpers/contractGrantActivityHelper';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const propTypes = {
     xScale: PropTypes.func,

@@ -7,7 +7,7 @@
 
 import * as TimeRangeHelper from 'helpers/timeRangeHelper';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 describe('Time Range Helper functions', () => {
     describe('convertDatesToRange', () => {

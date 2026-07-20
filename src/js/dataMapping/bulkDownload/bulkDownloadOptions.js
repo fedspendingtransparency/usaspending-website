@@ -4,7 +4,7 @@
  */
 import {awardTypeGroups, bulkDownloadAwardTypeGroups} from "../search/awardType";
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 export const awardDownloadOptions = {
     awardLevels: [

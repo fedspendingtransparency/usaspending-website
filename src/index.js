@@ -14,7 +14,7 @@ require.context('./data', true);
 require.context('./content', true);
 
 // require the CSS
-require('./css/main.scss');
+import './css/main.scss';
 
 // require the main JS file
-require('./js/app');
+import './js/app';

@@ -20,7 +20,7 @@ const useFetchAllTerms = () => {
     });
 
     useEffect(() => {
-        if (data?.data?.results.length > 0) {
+        if (data?.data?.results?.length > 0) {
             setAllTerms(data?.data.results.map((result) => new Definition(result)));
         }
     }, [data]);

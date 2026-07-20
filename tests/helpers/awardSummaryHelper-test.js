@@ -10,7 +10,7 @@ import {
     getSubmittingAgencyId
 } from 'helpers/awardSummaryHelper';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 
 describe('awardSummaryHelper', () => {

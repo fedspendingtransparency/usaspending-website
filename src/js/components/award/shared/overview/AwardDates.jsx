@@ -13,7 +13,7 @@ import { titles } from '../../../../dataMapping/award/datesSection';
 import { datesByDateType, isContract, isBadDates } from '../../../../helpers/awardSummaryHelper';
 import ProgressBar from './ProgressBar';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const propTypes = {
     dates: PropTypes.object,

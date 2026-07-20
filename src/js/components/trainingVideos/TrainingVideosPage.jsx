@@ -16,6 +16,7 @@ import ShareDownloadButtonGroup from '../../components/sharedComponents/buttons/
 import FeaturedVideo from "./featuredVideo/FeaturedVideo";
 import ListOfVideos from "./listOfVideos/ListOfVideos";
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
+import '../../../_scss/pages/trainingVideos/trainingVideos.scss';
 
 const propTypes = {
     featuredVideo: PropTypes.object,
@@ -25,7 +26,6 @@ const propTypes = {
 // eslint-disable-next-line max-len
 const body = "Learn how to use USAspending.gov and understand the data. Subscribe to our YouTube for the latest videos!";
 
-require('../../../_scss/pages/trainingVideos/trainingVideos.scss');
 const getEmailSocialShareData = {
     subject: "USAspending.gov Training Videos",
     body: "View the training videos on USAspending.gov: https://www.usaspending.gov/training-videos"

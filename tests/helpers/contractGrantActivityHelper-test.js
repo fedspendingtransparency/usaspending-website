@@ -29,7 +29,7 @@ import {
     mockTransactions
 } from '../testResources/mockContractGrantActivityHelper';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 describe('Contract Grant Activity Helper', () => {
     describe('Is Bad Data', () => {

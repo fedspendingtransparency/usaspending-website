@@ -31,7 +31,7 @@ import InPageNav from '../../components/sharedComponents/InPageNav';
 import useQueryParams from "../../hooks/useQueryParams";
 import Covid19BottomSection from './Covid19BottomSection';
 
-require('../../../_scss/pages/covid19/index.scss');
+import '../../../_scss/pages/covid19/index.scss';
 
 const propTypes = {
     loading: PropTypes.bool

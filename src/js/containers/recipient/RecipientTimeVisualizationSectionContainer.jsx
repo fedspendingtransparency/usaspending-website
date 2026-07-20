@@ -15,7 +15,7 @@ import * as SearchHelper from "../../helpers/searchHelper";
 import * as RecipientHelper from "../../helpers/recipientHelper";
 import * as MonthHelper from "../../helpers/monthHelper";
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const propTypes = {
     recipient: PropTypes.object

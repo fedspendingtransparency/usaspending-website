@@ -4,8 +4,8 @@
  */
 import { apiRequest } from './apiRequest';
 
-const dayjs = require('dayjs');
-const isSameOrBefore = require('dayjs/plugin/isSameOrBefore');
+import dayjs from "dayjs";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 
 dayjs.extend(isSameOrBefore);
 export const requestFullDownload = (params, type) => apiRequest({

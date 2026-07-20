@@ -16,7 +16,7 @@ import { stateCenterFromFips } from '../../../helpers/mapHelper';
 import useFetchOverview from "./useFetchOverview";
 import StatePage from '../StatePage';
 
-require('../../../../_scss/pages/state/statePage.scss');
+import '../../../../_scss/pages/state/statePage.scss';
 
 const propTypes = {
     handleFyChange: PropTypes.func,

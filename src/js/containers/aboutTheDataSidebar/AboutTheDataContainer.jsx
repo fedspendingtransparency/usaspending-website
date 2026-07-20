@@ -13,8 +13,7 @@ import * as aboutTheDataActions from '../../redux/actions/aboutTheDataSidebar/ab
 import { getDrilldownEntry } from '../../helpers/aboutTheDataSidebarHelper';
 import Analytics from '../../helpers/analytics/Analytics';
 import schema from '../../../config/aboutTheData/aboutTheDataSchema';
-
-require('../../../_scss/components/aboutTheDataSidebar/aboutTheData.scss');
+import '../../../_scss/components/aboutTheDataSidebar/aboutTheData.scss';
 
 const propTypes = {
     aboutTheDataSidebar: PropTypes.object,

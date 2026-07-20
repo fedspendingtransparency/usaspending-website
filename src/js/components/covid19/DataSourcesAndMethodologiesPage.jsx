@@ -28,6 +28,7 @@ import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import ShareDownloadButtonGroup from '../../components/sharedComponents/buttons/ShareDownloadButtonGroup';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useQueryParams from "../../hooks/useQueryParams";
+import '../../../_scss/pages/data-sources/index.scss';
 
 const getEmailSocialShareData = {
     subject: "COVID-19 Spending: Data Sources and Methodology",
@@ -73,7 +74,6 @@ const sections = [
     }
 ];
 
-require('../../../_scss/pages/data-sources/index.scss');
 
 const getDefCValues = (errorMsg, isLoading, codes) => {
     if (isLoading) return "Loading...";

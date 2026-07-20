@@ -76,7 +76,6 @@ export default defineConfig(({ command, mode }) => {
       mdx(),
       createHtmlPlugin({
         template: path.resolve(__dirname, "index.html"),
-        entry: path.resolve(__dirname, "./src/js/app.jsx"),
         chunksSortMode: "",
         inject: {
           GA_TRACKING_ID: import.meta.env?.GA_TRACKING_ID || '',

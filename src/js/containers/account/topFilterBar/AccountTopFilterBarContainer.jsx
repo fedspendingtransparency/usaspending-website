@@ -15,7 +15,7 @@ import { topFilterGroupGenerator } from
 
 import * as accountFilterActions from '-redux/actions/account/accountFilterActions';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const propTypes = {
     reduxFilters: PropTypes.object,

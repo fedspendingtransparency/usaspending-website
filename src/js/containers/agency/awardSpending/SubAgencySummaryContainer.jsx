@@ -9,7 +9,7 @@ import { fetchSubagencyNewAwardsCount, fetchSubagencySummary } from '../../../ap
 import BaseAgencySubagencyCount from '../../../models/v2/agency/BaseAgencySubagencyCount';
 import { setDataThroughDates } from '../../../redux/actions/agency/agencyActions';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const propTypes = {
     fy: PropTypes.string,

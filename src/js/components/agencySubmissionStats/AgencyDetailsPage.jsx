@@ -24,7 +24,7 @@ import AboutTheDataModal from './AboutTheDataModal';
 import { showModal } from '../../redux/actions/modal/modalActions';
 import useAgencySlugs from "../../hooks/useAgencySlugs";
 
-require('../../../_scss/pages/agencySubmissionStats/aboutTheData.scss');
+import '../../../_scss/pages/agencySubmissionStats/aboutTheData.scss';
 
 const AgencyDetailsPage = () => {
     const { agencyCode } = useParams();

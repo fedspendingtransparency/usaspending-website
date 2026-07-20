@@ -16,7 +16,7 @@ import ContractGrantActivityChartVerticalLines from './ContractGrantActivityChar
 import ContractGrantActivityChartCircles from './ContractGrantActivityChartCircles';
 import ContractGrantActivityChartAreaPaths from './ContractGrantActivityChartAreaPaths';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const propTypes = {
     height: PropTypes.number,

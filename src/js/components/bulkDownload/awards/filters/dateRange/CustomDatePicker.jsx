@@ -9,7 +9,7 @@ import { uniqueId } from 'lodash-es';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ExclamationCircle } from '../../../../../components/sharedComponents/icons/Icons';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 
 const propTypes = {

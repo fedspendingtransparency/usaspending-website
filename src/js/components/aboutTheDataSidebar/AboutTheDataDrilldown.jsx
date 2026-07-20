@@ -79,7 +79,7 @@ const AboutTheDataDrilldown = ({
     useEffect(() => {
         if (slug?.length > 0) {
             // lazy load the md files
-            const Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}`).catch((err) => {
+            const Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}.mdx`).catch((err) => {
                 setIsError(true);
                 console.log(err);
             }));

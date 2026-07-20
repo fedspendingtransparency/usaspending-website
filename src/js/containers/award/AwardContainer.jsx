@@ -35,7 +35,7 @@ import withDefCodes from '../../hooks/WithDefCodes';
 import { getAwardHistoryCounts } from "../../helpers/awardHistoryHelper";
 import Analytics from "../../helpers/analytics/Analytics";
 
-require('../../../_scss/pages/award/awardPage.scss');
+import '../../../_scss/pages/award/awardPage.scss';
 
 const propTypes = {
     subAwardIdClicked: PropTypes.func,

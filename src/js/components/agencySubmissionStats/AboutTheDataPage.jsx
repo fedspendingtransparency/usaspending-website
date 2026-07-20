@@ -23,7 +23,7 @@ import { showModal } from '../../redux/actions/modal/modalActions';
 import useQueryParams from "../../hooks/useQueryParams";
 import H2PageHeader from '../sharedComponents/header/H2PageHeader';
 
-require('../../../_scss/pages/agencySubmissionStats/aboutTheData.scss');
+import '../../../_scss/pages/agencySubmissionStats/aboutTheData.scss';
 
 /*
 This page is called Agency Submission Statistics IRL

@@ -3,7 +3,7 @@
  */
 import { getLatestSubmissionPeriodInFy } from 'helpers/downloadHelper';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const mockPeriods = [
     {

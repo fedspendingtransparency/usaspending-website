@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, SectionWrapper } from 'data-transparency-ui';
-
-const dayjs = require('dayjs');
+import dayjs from 'dayjs';
 
 const propTypes = {
     section: PropTypes.shape({

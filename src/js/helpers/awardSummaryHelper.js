@@ -5,7 +5,7 @@
 
 import { apiRequest } from "./apiRequest";
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 /**
 //  * https://github.com/fedspendingtransparency/data-act-documentation/blob/master/usaspending_api/what-is-an-award.mdhttps://github.com/fedspendingtransparency/data-act-documentation/blob/master/usaspending_api/what-is-an-award.md
  * @param {String} awardId - human readable generated unique award ID

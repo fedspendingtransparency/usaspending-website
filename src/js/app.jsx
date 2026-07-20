@@ -10,9 +10,8 @@ import registerIcons from './registerIcons';
  * See link here for this implementation: https://babeljs.io/docs/en/v7-migration
  * Also using the transform-runtime plugin for the test env.
 */
-require("core-js");
-require('./helpers/rafPolyfill');
-
+import "core-js";
+import './helpers/rafPolyfill';
 registerIcons();
 
 // Create a QueryClient instance

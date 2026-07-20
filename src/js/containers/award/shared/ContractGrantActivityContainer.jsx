@@ -16,7 +16,7 @@ import {
 } from '../../../components/award/shared/InfoTooltipContent';
 import JumpToSectionButton from '../../../components/award/shared/awardAmounts/JumpToSectionButton';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const propTypes = {
     awardId: PropTypes.string,

@@ -15,7 +15,7 @@ import * as useQueryParams from "../../../src/js/hooks/useQueryParams";
 import { mockAPI } from '../../containers/agencySubmissionStats/mockData';
 import { mockSubmissions } from '../../mockData/helpers/aboutTheDataHelper';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 // latest fy of 2020; latest period is 12
 const q4Fy2020 = {

@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 import { sanitizeUrl } from 'helpers/url';
 import useRequestArchiveFiles from "./useRequestArchiveFiles";
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const columns = [
     {

@@ -7,7 +7,7 @@
 
 import { Set, OrderedMap } from 'immutable';
 import * as searchAnalytics from '-containers/search/helpers/searchAnalytics';
-
+import Analytics from '../../../../src/js/helpers/analytics/Analytics';
 // mock the child component by replacing it with a function that returns a null element
 jest.mock('helpers/analytics/Analytics', () => ({
     event: jest.fn(),
@@ -228,7 +228,6 @@ describe('searchAnalytics', () => {
                 label: 'label'
             }];
 
-            const Analytics = require('helpers/analytics/Analytics');
 
             searchAnalytics.sendAnalyticEvents(events);
             expect(Analytics.event).toHaveBeenCalledTimes(1);
@@ -254,8 +253,6 @@ describe('searchAnalytics', () => {
                 action: 'z',
                 label: '123'
             }];
-
-            const Analytics = require('helpers/analytics/Analytics');
 
             searchAnalytics.sendFieldCombinations(events);
             expect(Analytics.event).toHaveBeenCalledTimes(1);

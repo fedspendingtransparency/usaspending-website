@@ -5,7 +5,7 @@
 
 import * as MoneyFormatter from '../../../../helpers/moneyFormatter';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 export const parseDate = (string) => dayjs(string, 'YYYY-MM-DD');
 export const formatDate = (date) => date.format('MM/DD/YYYY');

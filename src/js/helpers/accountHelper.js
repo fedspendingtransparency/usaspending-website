@@ -3,9 +3,9 @@
  * Created by Kevin Li 3/24/17
  */
 
-const dayjs = require('dayjs');
-const utc = require('dayjs/plugin/utc');
-const isSameOrBefore = require('dayjs/plugin/isSameOrBefore');
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import isSameOrBefore from "dayjs/plugin/isSameOrBefore";
 
 dayjs.extend(isSameOrBefore);
 dayjs.extend(utc);

@@ -7,7 +7,7 @@ import { endsWith } from 'lodash-es';
 import { convertDatesToRange } from '../../../helpers/timeRangeHelper';
 import { datesByDateType, isContract, isBadDates } from '../../../helpers/awardSummaryHelper';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const propTypes = {
     dates: PropTypes.object,

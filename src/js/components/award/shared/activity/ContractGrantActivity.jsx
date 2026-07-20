@@ -9,7 +9,7 @@ import ContractGrantActivityChart from './ContractGrantActivityChart';
 import PaginatedTooltipContainer from './PaginatedTooltipContainer';
 import Tooltip from './Tooltip';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const propTypes = {
     transactions: PropTypes.array,

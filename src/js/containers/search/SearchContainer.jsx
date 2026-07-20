@@ -33,7 +33,7 @@ import {
 } from './helpers/searchAnalytics';
 import useRequestDownloadCount from "./useRequestDownloadCount";
 
-require('../../../_scss/pages/search/searchPage.scss');
+import '../../../_scss/pages/search/searchPage.scss';
 
 /**
  * Takes Filter Object from API and transforms it to Immutable Data Structures

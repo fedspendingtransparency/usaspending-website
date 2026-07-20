@@ -8,7 +8,7 @@ import { Link } from 'react-router';
 import PageWrapper from '../../components/sharedComponents/PageWrapper';
 import { errorPageMetaTags } from '../../helpers/metaTagHelper';
 
-require('../../../_scss/pages/errorPage/errorPage.scss');
+import '../../../_scss/pages/errorPage/errorPage.scss';
 
 const ErrorPage = () => (
     <PageWrapper

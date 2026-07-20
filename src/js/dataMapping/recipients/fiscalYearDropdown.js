@@ -5,7 +5,7 @@
 
 import { currentFiscalYear, earliestFiscalYear } from 'helpers/fiscalYearHelper";
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const earliestFY = dayjs(`10-01-${earliestFiscalYear}`);
 const currentFY = dayjs(`10-01-${currentFiscalYear()}`);

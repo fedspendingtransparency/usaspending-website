@@ -9,7 +9,7 @@ import { awardDownloadOptions } from '../../../dataMapping/bulkDownload/bulkDown
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const dayjs = require('dayjs');
+import dayjs from "dayjs";
 
 const AwardsUserSelections = () => {
     const awards = useSelector((state) => state.bulkDownload.awards);

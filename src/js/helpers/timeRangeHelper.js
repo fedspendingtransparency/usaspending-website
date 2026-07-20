@@ -3,8 +3,7 @@
  * Created by Lizzie Salita 3/8/18
  */
 
-const dayjs = require('dayjs');
-const duration = require('dayjs/plugin/duration');
+import dayjs, { duration} from "dayjs";
 
 dayjs.extend(duration);
 // eslint-disable-next-line import/prefer-default-export
