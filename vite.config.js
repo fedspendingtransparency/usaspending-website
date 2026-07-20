@@ -1,7 +1,6 @@
 // / <reference types="@vitest/browser-playwright" />
 import path, { extname } from 'path';
 import react, { reactCompilerPreset } from '@vitejs/plugin-react';
-import htmlPurge from 'vite-plugin-purgecss';
 import { defineConfig, loadEnv, createLogger } from 'vite';
 import { fileURLToPath } from 'url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
@@ -57,8 +56,8 @@ export default defineConfig(({ command, mode }) => {
       }
     },
     define: {
-      'process.env.ENV': process.env.ENV ? JSON.stringify(process.env.ENV) : JSON.stringify('qat'),
-      'process.env.FILES_SERVER_BASE_URL': JSON.stringify(process.env.FILES_SERVER_BASE_URL || '')
+      'import.meta.env.ENV': import.meta.env?.ENV ? JSON.stringify(import.meta.env?.ENV) : JSON.stringify('qat'),
+      'import.meta.env.FILES_SERVER_BASE_URL': JSON.stringify(import.meta.env?.FILES_SERVER_BASE_URL || '')
     },
     plugins: [
       nodePolyfills({
@@ -74,19 +73,18 @@ export default defineConfig(({ command, mode }) => {
         include: /\.(jsx|tsx|js)$/,
       }),
       mdx(),
-      htmlPurge(),
       createHtmlPlugin({
         template: path.resolve(__dirname, "./src/index.js"),
-        chunksSortMode: "none",
+        chunksSortMode: "",
         templateParameters: {
-          GA_TRACKING_ID: process.env.GA_TRACKING_ID || '',
+          GA_TRACKING_ID: import.meta.env?.GA_TRACKING_ID || '',
           USE_GTM: (
-            process.env.ENV === 'qat' ||
-            process.env.ENV === 'sandbox'
+            import.meta.env?.ENV === 'qat' ||
+            import.meta.env?.ENV === 'sandbox'
           ),
-          GTM_ID: process.env.GTM_ID || '',
+          GTM_ID: import.meta.env?.GTM_ID || '',
           IS_PROD: (
-            process.env.ENV === 'prod'
+            import.meta.env?.ENV === 'prod'
       )}}),
       viteStaticCopy({
         targets: [
@@ -140,6 +138,7 @@ export default defineConfig(({ command, mode }) => {
       fallback: { querystring: import.meta.resolve("querystring-es3") },
     },
     build: {
+        assetsInlineLimit: 0,
         commonjsOptions: { transformMixedEsModules: true },
         emptyOutDir: true,
         rolldownOptions: {
@@ -162,6 +161,38 @@ export default defineConfig(({ command, mode }) => {
     },
   }
 
+  if (mode === 'development') {
+    return {
+      ...sharedConfig,
+      publicDir: path.resolve(__dirname, "./public"),
+      devtools: true,
+      server: {
+        host: '0.0.0.0',
+        port: 3000,
+        open: true,
+        hmr: {
+          overlay: false
+        }
+      },
+      define: {
+            'import.meta.env': {
+                USASPENDING_API: import.meta.env.USASPENDING_API
+                    ? JSON.stringify(import.meta.env.USASPENDING_API)
+                    : JSON.stringify("https://api.usaspending.gov/api/"),
+                MAPBOX_TOKEN: import.meta.env.MAPBOX_TOKEN
+                    ? JSON.stringify(import.meta.env.MAPBOX_TOKEN)
+                    : JSON.stringify("")
+            }
+      },
+      build: {
+        rolldownOptions: {
+          output: {
+            codeSplitting: true
+          }
+        }
+      }
+    };
+  }
   // Development-specific configurations
   // if (command === 'serve') {
   //   return {

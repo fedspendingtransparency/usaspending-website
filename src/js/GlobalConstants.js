@@ -13,17 +13,17 @@ const filesServerUrlByEnv = {
 };
 
 const globalConstants = {
-    API: local?.localConstants?.API || process.env.USASPENDING_API,
+    API: local?.localConstants?.API || import.meta.env.USASPENDING_API,
     LOCAL: false,
-    QAT: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
-    STAGING: (process.env.ENV === 'staging'),
+    QAT: (import.meta.env.ENV === 'qat' || import.meta.env.ENV === 'sandbox'),
+    STAGING: (import.meta.env.ENV === 'staging'),
     PERF_LOG: false,
-    MAPBOX_TOKEN: local?.localConstants?.MAPBOX_TOKEN || process.env.MAPBOX_TOKEN,
-    PROD: process.env.ENV === 'prod',
-    FILES_SERVER_BASE_URL: process.env.FILES_SERVER_BASE_URL || filesServerUrlByEnv[process.env.ENV],
+    MAPBOX_TOKEN: local?.localConstants?.MAPBOX_TOKEN || import.meta.env.MAPBOX_TOKEN,
+    PROD: import.meta.env.ENV === 'prod',
+    FILES_SERVER_BASE_URL: import.meta.env.FILES_SERVER_BASE_URL || filesServerUrlByEnv[import.meta.env.ENV],
     DUNS_LABEL: 'Legacy ',
     REQUEST_VERSION: '2020-06-01',
-    IS_NEW_DOWNLOAD: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
+    IS_NEW_DOWNLOAD: (import.meta.env.ENV === 'qat' || import.meta.env.ENV === 'sandbox'),
     FEATURED_CONTENT_ROTATION: "week"   // "week" or "sprint"
 };
 
