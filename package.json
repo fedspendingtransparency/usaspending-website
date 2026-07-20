@@ -12,7 +12,7 @@
     "sass": "webpack serve --open --progress --config ./webpack/webpack.sass.config.js",
     "test": "jest; exit 0;",
     "testVite": "vitest",
-    "build-vite-dev": "vite build",
+    "build-vite-dev": "cp ./index.html dist/index-original.html && vite build",
     "preview": "vite preview",
     "lint": "eslint --config eslint.config.mjs --ext .jsx,.js \"src/js/**\"; exit 0;",
     "errors": "eslint --config eslint.config.mjs --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
