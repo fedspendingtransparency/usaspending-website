@@ -21,9 +21,9 @@ const RedirectModal = ({
     hideModal,
     url
 }) => {
-    const isSafe = sanitizeUrl(url);
+    const isSafeUrl = sanitizeUrl(url);
 
-    if (!isSafe) {
+    if (!isSafeUrl) {
         // modal shouldn't have shown.
         // clean up and return
         hideModal();
@@ -66,11 +66,11 @@ const RedirectModal = ({
                         </div>
                         <div className="usa-dt-modal__link">
                             <a
-                                href={url}
+                                href={isSafeUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 tabIndex="-1">
-                                {url}
+                                {isSafeUrl}
                             </a>
                         </div>
                         <div className="usa-dt-modal__explanation">
@@ -96,12 +96,12 @@ const RedirectModal = ({
                                 buttonType="primary"
                                 backgroundColor="light"
                                 onClick={() => {
-                                    window.open(url, "_blank");
+                                    window.open(isSafeUrl, "_blank", 'noopener,noreferrer');
                                     hideModal();
                                 }}
                                 onKeyUp={(e) => {
                                     if (e.key === 'Enter') {
-                                        window.open(url, "_blank");
+                                        window.open(isSafeUrl, "_blank", 'noopener,noreferrer');
                                         hideModal();
                                     }
                                 }} />

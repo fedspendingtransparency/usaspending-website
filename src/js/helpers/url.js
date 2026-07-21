@@ -1,6 +1,6 @@
 export const isRedirectNeeded = (item) => item.externalLink && !item.url.includes('.gov');
 
-const commonAttackParams = [
+const commonAttackParams = new Set([
     "redirect",
     "redirect_url",
     "next",
@@ -17,9 +17,9 @@ const commonAttackParams = [
     "user_name",
     "password",
     "login"
-];
+]);
 
-export const sanitizeUrl = (rawURL, blockRedirect = true) => {
+const isRealUrl = (rawURL) => {
     // must be non-empty string
     if (typeof rawURL !== "string" || rawURL.trim() === "") return null;
 
@@ -37,6 +37,22 @@ export const sanitizeUrl = (rawURL, blockRedirect = true) => {
         return null
         
     }
+
+    return parsed;
+
+};
+
+const isBaseURL = (val) => {
+    if (!isRealUrl(val)) return false;
+
+    return val.startsWith('https://www.usaspending.gov/');
+}
+
+export const sanitizeUrl = (rawURL, blockRedirect = true) => {
+    let parsed = isRealUrl(rawURL);
+
+    // not a real url
+    if (!parsed) return null;
     
     // https only
     if (parsed.protocol !== "https:") return null;
@@ -45,8 +61,15 @@ export const sanitizeUrl = (rawURL, blockRedirect = true) => {
     if (!parsed.hostname || parsed.hostname.trim() === "") return null;
 
     if (blockRedirect) {
+        const params = [...parsed.searchParams.entries()];
+        
         // remove open-direct query params
-        commonAttackParams.forEach((param) => parsed.searchParams.delete(param));
+        // allow valid urls.
+        for( const [key, value] of params) {
+            if (commonAttackParams.has(key.toLowerCase()) && !isBaseURL(value)){
+                parsed.searchParams.delete(key);
+            }
+        }
     }
 
     return encodeURI(parsed.toString());

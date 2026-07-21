@@ -33,6 +33,11 @@ describe('sanitizeUrl()', () => {
         expect(sanitizeUrl("https://api.usaspending.gov/?redirect=http://evil-route.com"))
             .toBe('https://api.usaspending.gov/');
     });
+    
+    it('does not remove expected query params', () => {
+        expect(sanitizeUrl("https://www.reddit.com/submit?url=https://www.usaspending.gov/disaster/covid-19"))
+            .toBe('https://www.reddit.com/submit?url=https://www.usaspending.gov/disaster/covid-19');
+    });
 
     it('removes multiple common known open-direct attack query params', () => {
         expect(sanitizeUrl("https://api.usaspending.gov/?redirect=http://evil-route.com/?url=/moreEvil&safe=yes"))
