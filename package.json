@@ -3,7 +3,6 @@
   "version": "3.0.0",
   "description": "USAspending Website",
   "repository": "fedspendingtransparency/usaspending-website",
-  "main": "src/index.js",
   "type": "module",
   "scripts": {
     "preinstall": "npx npm-force-resolutions@0.0.3",
@@ -310,6 +309,7 @@
     "@tanstack/react-query-devtools": "^5.91.2",
     "@tanstack/react-table": "^8.21.3",
     "@vitejs/devtools": "^0.4.1",
+    "@vitejs/devtools-vite": "^0.0.0-alpha.26",
     "@vitejs/plugin-react": "^6.0.1",
     "accounting": "^0.4.1",
     "ajv": "^8.18.0",

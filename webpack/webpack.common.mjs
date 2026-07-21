@@ -158,5 +158,4 @@ export default {
             'process.env.FILES_SERVER_BASE_URL': JSON.stringify(process.env.FILES_SERVER_BASE_URL || '')
         })
     ]
-
 };

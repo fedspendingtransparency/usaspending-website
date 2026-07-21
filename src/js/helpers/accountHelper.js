@@ -18,7 +18,7 @@ export const getSubmissionDeadlines = (fiscalYear, fiscalPeriod, submissionPerio
 };
 
 export const getLatestPeriod = (availablePeriods, fy = null) => {
-    if (availablePeriods.length) {
+    if (availablePeriods?.length) {
         return availablePeriods
             .filter((s) => {
                 if (fy) {
@@ -47,7 +47,7 @@ export const getLatestPeriod = (availablePeriods, fy = null) => {
 };
 
 export const getLatestPeriodAsDayjs = (availablePeriods) => {
-    if (availablePeriods.length) {
+    if (availablePeriods?.length) {
         return getLatestPeriod(availablePeriods).asOfDate;
     }
     return {

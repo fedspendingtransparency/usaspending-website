@@ -158,7 +158,6 @@ export default defineConfig(({ command, mode }) => {
   if (mode === 'development') {
     return {
       ...sharedConfig,
-      devtools: true,
       server: {
         host: '0.0.0.0',
         port: 3000,
@@ -205,6 +204,54 @@ export default defineConfig(({ command, mode }) => {
   //   }
   // }
 
+  if (mode === 'development') {
+      return {
+    ...sharedConfig,
+    devtools: {
+      enabled: true
+    },
+    build: {
+      assetsInlineLimit: 0,
+      publicDir: path.resolve(__dirname, "./public"),
+      sourcemap: true,
+      emptyOutDir: true,
+      minify: false,
+      cssCodeSplit: true,
+      rolldownOptions: { 
+        external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types'],
+        output: {
+          codeSplitting: true
+        }
+      },
+    },
+    logLevel: 'info',
+      define: {
+        'import.meta.env': {
+            USASPENDING_API: import.meta.env?.USASPENDING_API
+              ? JSON.stringify(import.meta.env?.USASPENDING_API)
+              : JSON.stringify("https://api.usaspending.gov/api/"),
+            MAPBOX_TOKEN: import.meta.env?.MAPBOX_TOKEN
+              ? JSON.stringify(import.meta.env?.MAPBOX_TOKEN)
+              : JSON.stringify("")
+        }
+      },
+    server: {
+      port: 3000,
+      open: true,
+      fs: {
+        allow: [".."]
+      },
+      cors: true
+      // proxy: {
+      //   '/api': {
+      //     target: import.meta.env.USASPENDING_API,
+      //     changeOrigin: true,
+      //     rewrite: (path) => path.replace(/^\/api/, ''),
+      //   },
+      // },
+    },
+  }
+  }
   // Production-specific configurations (command === 'build')
   return {
     ...sharedConfig,
