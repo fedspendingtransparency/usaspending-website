@@ -76,7 +76,7 @@ const MegaMenuWrapper = React.memo(() => {
                             onClick={clickedHeaderLink}>
                             <img
                                 className="site-logo__image"
-                                src="img/logo.png"
+                                src="../../../../img/logo.png"
                                 srcSet="img/logo.png 1x, img/logo@2x.png 2x"
                                 alt="USAspending.gov" />
                         </Link>

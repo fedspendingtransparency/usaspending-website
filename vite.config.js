@@ -77,7 +77,7 @@ export default defineConfig(({ command, mode }) => {
       }),
       mdx(),
       createHtmlPlugin({
-        entry: path.resolve(__dirname, "index.html"),
+        template: path.resolve(__dirname, "index.html"),
         chunksSortMode: "",
         inject: {
           GA_TRACKING_ID: import.meta.env?.GA_TRACKING_ID || '',
@@ -130,6 +130,7 @@ export default defineConfig(({ command, mode }) => {
         "hooks": path.resolve(__dirname, "./src/js/hooks"),
         "features": path.resolve(__dirname, "./src/js/features"),
         "models": path.resolve(__dirname, "./src/js/models"),
+        "img": path.resolve(__dirname, "./src/img"),
         lodash: 'lodash-es',
       },
       modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],

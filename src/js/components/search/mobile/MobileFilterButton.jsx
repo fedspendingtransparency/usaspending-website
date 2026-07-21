@@ -47,7 +47,7 @@ const MobileFilterButton = ({
                             className="usa-da-mobile-filter-icon"
                             alt="Toggle filters"
                             aria-label="Toggle filters"
-                            src="img/Add-search-filters-icon.svg" />
+                            src="../../../../img/Add-search-filters-icon.svg" />
                     </div>
                     <div className="mobile-filter-button-label">
                         {pluralizeFilterLabel(filterCount)}
