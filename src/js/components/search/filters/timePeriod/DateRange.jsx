@@ -225,14 +225,7 @@ const DateRange = (props) => {
                 }
             });
 
-            if (timePeriodApplied.size > 0 && !matchFound) {
-                props.updateFilter({
-                    dateType: 'dr',
-                    startDate: startValue,
-                    endDate: endValue
-                });
-            }
-            else if (!matchFound && !matchFoundApplied) {
+            if (!matchFound && (timePeriodApplied?.size > 0 || !matchFoundApplied)) {
                 props.updateFilter({
                     dateType: 'dr',
                     startDate: startValue,

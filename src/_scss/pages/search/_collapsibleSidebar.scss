@@ -25,7 +25,6 @@
   justify-content: flex-start;
   box-shadow: none;
   border-radius: unset;
-  background-color: unset;
   flex-grow: 1;
   min-height: calc(100vh - 16px);
 
@@ -272,12 +271,15 @@
     }
   }
 
-
   .sidebar-nl-buttons-container {
     width: min-content;
     position: relative;
-    background: linear-gradient(179deg, $cyan-60v 1%, $cyan-50v 37.92%, $blue-60v 106.49%);
-
+    background: linear-gradient(
+      179deg,
+      $cyan-60v 1%,
+      $cyan-50v 37.92%,
+      $blue-60v 106.49%
+    );
 
     .color-overlay-element {
       background-color: $cyan-60v;

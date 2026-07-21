@@ -40,7 +40,7 @@ const InterimDataModal = ({
                 </div>
                 <h2 className="covid-modal-h2 covid-modal-bold">Questions about the Data</h2>
                 <p>
-                    If you have questions about the data on this page, we want to hear from you. Please send an email to <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=COVID-19%20Spending%20Data">usaspending.help@fiscal.treasury.gov</a>.
+                    If you have questions about the data on this page, we want to hear from you. Please send an email to <a href={`mailto:usaspending.help@fiscal.treasury.gov?subject=${encodeURIComponent("COVID-19 Spending Data")}`}>usaspending.help@fiscal.treasury.gov</a>.
                 </p>
             </div>
         </div>

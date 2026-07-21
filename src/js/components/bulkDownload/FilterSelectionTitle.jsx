@@ -76,7 +76,7 @@ const titleData = {
         icon: "list",
         preSpan: "Select a",
         span: "Budget Function",
-        postSpan: <> and/or <span 
+        postSpan: <> and/or <span
             className={`download-filter__title_em no-right-margin`}
             style={{backgroundColor: '#F7F2FF'}} >
             Agency
@@ -121,7 +121,7 @@ const titleData = {
         icon: "calendar",
         preSpan: "Select a",
         span: "Fiscal Year",
-        postSpan: <> and <span 
+        postSpan: <> and <span
             className={`download-filter__title_em no-right-margin`}
             style={{backgroundColor: '#E8F5FF'}} >
             Period
@@ -130,6 +130,26 @@ const titleData = {
         showRequired: false,
         background: '#E8F5FF',
         fill: '#0B4778',
+        addClassName: ""
+    },
+    agencyFy: {
+        icon: "building-columns",
+        preSpan: "Select an ",
+        span: "Agency",
+        postSpan: (
+            <>
+                and
+                <span
+                    className={`download-filter__title_em no-right-margin`}
+                    style={{backgroundColor: '#E5FAFF'}} >
+                    Fiscal Year
+                </span>
+                &nbsp;to filter the table below.
+            </>
+        ),
+        showRequired: false,
+        background: '#E5FAFF',
+        fill: '#0E4F5C',
         addClassName: ""
     }
 }
@@ -152,13 +172,13 @@ const FilterSectionTitle = ({
     return (
         <div className="download-filter__title-wrapper">
             <h4 className="download-filter__title">
-                <div 
-                    className="title-icon" 
+                <div
+                    className="title-icon"
                     style={{backgroundColor: background}} >
                     <FontAwesomeIcon icon={icon} color={fill} />
                 </div>
                 {preSpan}
-                <span 
+                <span
                     className={`download-filter__title_em ${addClassName}`}
                     style={{backgroundColor: background}} >
                     {span}

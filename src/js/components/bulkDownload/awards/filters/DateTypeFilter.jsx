@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+import BulkDownloadRadioButton from "../../../sharedComponents/BulkDownloadRadioButton";
 
 const propTypes = { updateFilter: PropTypes.func };
 
@@ -21,26 +22,15 @@ const DateTypeFilter = memo(function DateTypeFilter({ updateFilter }) {
         updateFilter('dateType', target.value);
     };
 
-    const dateTypes = awardDownloadOptions.dateTypes.map((dateType) => (
-        <div
-            className="radio"
-            key={dateType.name}>
-            <label className="radio-label" htmlFor="dateType">
-                <input
-                    type="radio"
-                    aria-label={dateType.name}
-                    value={dateType.name}
-                    name="dateType"
-                    checked={currentDateType === dateType.name}
-                    onChange={onChange} />
-                <div className="text-container">
-                    {dateType.label}
-                    <div className="radio-description">
-                        {dateType.description}
-                    </div>
-                </div>
-            </label>
-        </div>
+    const dateTypes = awardDownloadOptions.dateTypes.map(({ name, label, description }) => (
+        <BulkDownloadRadioButton
+            name="dateType"
+            value={name}
+            checked={currentDateType === name}
+            onChange={onChange}
+            label={label}
+            description={description}
+            key={name} />
     ));
 
     return (
