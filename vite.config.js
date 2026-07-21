@@ -13,6 +13,7 @@ import mdx from "@mdx-js/rollup";
 import babel from 'vite-plugin-babel';
 import { configDefaults } from 'vitest/config';
 import {ViteEjsPlugin} from "vite-plugin-ejs";
+import svgr from 'vite-plugin-svgr';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -60,6 +61,7 @@ export default defineConfig(({ command, mode }) => {
       'import.meta.env.FILES_SERVER_BASE_URL': JSON.stringify(import.meta.env?.FILES_SERVER_BASE_URL || '')
     },
     plugins: [
+      svgr(),
       ViteEjsPlugin(),
       nodePolyfills({
         include: ['buffer', 'process', 'util'],
@@ -75,7 +77,7 @@ export default defineConfig(({ command, mode }) => {
       }),
       mdx(),
       createHtmlPlugin({
-        template: path.resolve(__dirname, "index.html"),
+        entry: path.resolve(__dirname, "index.html"),
         chunksSortMode: "",
         inject: {
           GA_TRACKING_ID: import.meta.env?.GA_TRACKING_ID || '',
