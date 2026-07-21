@@ -23,7 +23,6 @@ export class IconSingleton {
         Axios.get(this.svgPath)
             .then((res) => {
                 // parse the response
-                console.debug("debug: ", res.data);
                 this.parseSvg(res.data);
 
                 // mark the SVG as loaded
@@ -37,8 +36,6 @@ export class IconSingleton {
     parseSvg(rawSvg) {
     // downloaded raw SVG data, send it through an XML parser
         const data = new xmldoc.XmlDocument(rawSvg);
-        console.debug(data);
-
         // iterate through each symbol and extract the symbol's content XML as a string and
         // also its viewbox attribute
         data.childrenNamed('symbol').forEach((symbol) => {

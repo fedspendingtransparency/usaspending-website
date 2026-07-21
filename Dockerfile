@@ -5,7 +5,7 @@ ARG FATOKEN
 ARG FABASEENCODE
 
 # Default environment variables
-ENV ENV=prod USASPENDING_API=https://api.usaspending.gov/api/ MAPBOX_TOKEN='' GA_TRACKING_ID=''
+ENV ENV=prod VITE_USASPENDING_API=https://api.usaspending.gov/api/ MAPBOX_TOKEN='' GA_TRACKING_ID=''
 
 RUN mkdir /node-workspace && mkdir /test-results
 

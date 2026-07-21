@@ -51,7 +51,7 @@ Our site makes use of certain environment variables. Defaults are provided, but 
 | ENV VAR           | DEFAULT VALUE (if not set)       | PURPOSE 
 |-------------------|----------------------------------|-----------------------------------------------------|
 | `ENV`             | prod                             | Determine bundling optimizations and feature flags  | 
-| `USASPENDING_API` | https://api.usaspending.gov/api/ | API URL to get backend data                         |
+| `VITE_USASPENDING_API` | https://api.usaspending.gov/api/ | API URL to get backend data                         |
 | `MAPBOX_TOKEN`    | ''                               | Product key for use of MapBox features              |
 | `GA_TRACKING_ID`  | ''                               | Google Analytics key for anonymously tracking usage |
 
@@ -78,7 +78,7 @@ Docker can be used to build static site artifacts and/or run the site locally. E
 docker build -t usaspending-website . && \
 docker run --rm -v $(pwd)/public:/node-workspace/public \
   -e ENV \
-  -e USASPENDING_API \
+  -e VITE_USASPENDING_API \
   -e MAPBOX_TOKEN \
   -e GA_TRACKING_ID \
   usaspending-website npm run ${ENV} && \

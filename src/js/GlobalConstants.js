@@ -11,9 +11,9 @@ const filesServerUrlByEnv = {
     staging: 'https://files-staging.usaspending.gov',
     prod: 'https://files.usaspending.gov'
 };
-
+console.debug("IN CONSTANTS: ", import.meta.env, process.env);
 const globalConstants = {
-    API: local?.localConstants?.API || import.meta.env.USASPENDING_API,
+    API: local?.localConstants?.API || import.meta.env.VITE_USASPENDING_API,
     LOCAL: false,
     QAT: (import.meta.env.ENV === 'qat' || import.meta.env.ENV === 'sandbox'),
     STAGING: (import.meta.env.ENV === 'staging'),

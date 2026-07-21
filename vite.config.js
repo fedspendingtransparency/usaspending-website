@@ -37,11 +37,12 @@ logger.warn = (msg, options) => {
 export default defineConfig(({ command, mode }) => {
   // Load environment variables based on the current mode (e.g., .env.production)
   const env = loadEnv(mode, process.cwd(), '')
-  
+  console.info("CURRENT ENV: ", env.VITE_USASPENDING_API);
   // Shared options used in both development and production
   const sharedConfig = {
     base: "./",
     loglevel: "error",
+    emptyOutDir: true,
     customLogger: logger,
     css: {
       preprocessorOptions: {
@@ -57,8 +58,8 @@ export default defineConfig(({ command, mode }) => {
       }
     },
     define: {
-      'import.meta.env.ENV': import.meta.env?.ENV ? JSON.stringify(import.meta.env?.ENV) : JSON.stringify('qat'),
-      'import.meta.env.FILES_SERVER_BASE_URL': JSON.stringify(import.meta.env?.FILES_SERVER_BASE_URL || '')
+      'import.meta.env.ENV': env?.ENV ? JSON.stringify(env?.ENV) : JSON.stringify('qat'),
+      'import.meta.env.FILES_SERVER_BASE_URL': JSON.stringify(env?.FILES_SERVER_BASE_URL || '')
     },
     plugins: [
       svgr(),
@@ -140,6 +141,9 @@ export default defineConfig(({ command, mode }) => {
         assetsInlineLimit: 0,
         commonjsOptions: { transformMixedEsModules: true },
         rolldownOptions: {
+            input: {
+              main: path.resolve(__dirname, "index.html")
+            },
             external: [/^moment\/locale\//,'react', 'react-dom', 'lodash-es', 'accounting', 'prop-types'],
             usedExports: true,
         }
@@ -159,61 +163,10 @@ export default defineConfig(({ command, mode }) => {
   }
 
   if (mode === 'development') {
-    return {
-      ...sharedConfig,
-      server: {
-        host: '0.0.0.0',
-        port: 3000,
-        open: true,
-        hmr: {
-          overlay: false
-        }
-      },
-      define: {
-            'import.meta.env': {
-                USASPENDING_API: import.meta.env?.USASPENDING_API
-                    ? JSON.stringify(import.meta.env?.USASPENDING_API)
-                    : JSON.stringify("https://api.usaspending.gov/api/"),
-                MAPBOX_TOKEN: import.meta.env?.MAPBOX_TOKEN
-                    ? JSON.stringify(import.meta.env?.MAPBOX_TOKEN)
-                    : JSON.stringify("")
-            }
-      },
-      build: {
-        rolldownOptions: {
-          // output: {
-          //   codeSplitting: true
-          // }
-        }
-      }
-    };
-  }
-  // Development-specific configurations
-  // if (command === 'serve') {
-  //   return {
-  //     ...sharedConfig,
-  //     emptyOutDir: true,
-  //     server: {
-  //       port: 3000,
-  //       open: true,
-  //       proxy: {
-  //         '/api': {
-  //           target: env.VITE_DEV_API_URL || 'http://localhost:8080',
-  //           changeOrigin: true,
-  //           rewrite: (path) => path.replace(/^\/api/, ''),
-  //         },
-  //       },
-  //     },
-  //   }
-  // }
-
-  if (mode === 'development') {
       return {
     ...sharedConfig,
-    devtools: {
-      enabled: true
-    },
     build: {
+      emptyOutDir: true,
       assetsInlineLimit: 0,
       publicDir: path.resolve(__dirname, "./public"),
       sourcemap: true,
@@ -221,6 +174,7 @@ export default defineConfig(({ command, mode }) => {
       minify: false,
       cssCodeSplit: true,
       rolldownOptions: { 
+        input: path.resolve(__dirname, "index.html"),
         external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types'],
         output: {
           codeSplitting: true
@@ -228,41 +182,45 @@ export default defineConfig(({ command, mode }) => {
       },
     },
     logLevel: 'info',
-      define: {
+    define: {
         'import.meta.env': {
-            USASPENDING_API: import.meta.env?.USASPENDING_API
-              ? JSON.stringify(import.meta.env?.USASPENDING_API)
+            VITE_USASPENDING_API: env?.VITE_USASPENDING_API
+              ? JSON.stringify(env?.VITE_USASPENDING_API)
               : JSON.stringify("https://api.usaspending.gov/api/"),
-            MAPBOX_TOKEN: import.meta.env?.MAPBOX_TOKEN
-              ? JSON.stringify(import.meta.env?.MAPBOX_TOKEN)
+            MAPBOX_TOKEN: env?.MAPBOX_TOKEN
+              ? JSON.stringify(env?.MAPBOX_TOKEN)
               : JSON.stringify("")
         }
       },
     server: {
+      hmr: {
+        overlay: false
+      },
       port: 3000,
       open: true,
       fs: {
         allow: [".."]
       },
-      cors: true
-      // proxy: {
-      //   '/api': {
-      //     target: import.meta.env.USASPENDING_API,
-      //     changeOrigin: true,
-      //     rewrite: (path) => path.replace(/^\/api/, ''),
-      //   },
-      // },
+      cors: true,
+      proxy: {
+        '/api': {
+          target: env.VITE_USASPENDING_API,
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      },
     },
   }
   }
   // Production-specific configurations (command === 'build')
+  // production build
   return {
     ...sharedConfig,
     build: {
       publicDir: path.resolve(__dirname, "./public"),
       sourcemap: true,
       emptyOutDir: true,
-      minify: false,
+      minify: true,
       cssCodeSplit: true,
       rolldownOptions: { 
         external: ['react', 'react-dom', 'lodash-es', 'accounting', 'prop-types']
@@ -271,13 +229,15 @@ export default defineConfig(({ command, mode }) => {
     logLevel: 'info',
       define: {
         'import.meta.env': {
-            USASPENDING_API: import.meta.env?.USASPENDING_API
-              ? JSON.stringify(import.meta.env?.USASPENDING_API)
+            VITE_USASPENDING_API: env?.VITE_USASPENDING_API
+              ? JSON.stringify(env?.VITE_USASPENDING_API)
               : JSON.stringify("https://api.usaspending.gov/api/"),
-            MAPBOX_TOKEN: import.meta.env?.MAPBOX_TOKEN
-              ? JSON.stringify(import.meta.env?.MAPBOX_TOKEN)
+            MAPBOX_TOKEN: env?.MAPBOX_TOKEN
+              ? JSON.stringify(env?.MAPBOX_TOKEN)
               : JSON.stringify("")
-        }
+        },
+        MAPBOX_TOKEN: env.MAPBOX_TOKEN,
+        VITE_USASPENDING_API: env.VITE_USASPENDING_API
       },
     server: {
       port: 3000,
@@ -285,14 +245,14 @@ export default defineConfig(({ command, mode }) => {
       fs: {
         allow: [".."]
       },
-      cors: true
-      // proxy: {
-      //   '/api': {
-      //     target: import.meta.env.USASPENDING_API,
-      //     changeOrigin: true,
-      //     rewrite: (path) => path.replace(/^\/api/, ''),
-      //   },
-      // },
+      cors: true,
+      proxy: {
+        '/api': {
+          target: "https://api.usaspending.gov/",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, ''),
+        },
+      },
     },
   }
 });
