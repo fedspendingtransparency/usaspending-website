@@ -105,13 +105,10 @@ class SearchAwardsOperation {
         this.selectedAwardIDs = state.selectedAwardIDs?.toArray();
 
         this.selectedCFDA = state.selectedCFDA?.toArray();
-        console.debug("NAICS: ", state.naicsCodes?.toObject().require.length);
         this.naicsCodes = {
             require: state.naicsCodes?.toObject().require,
             exclude: state.naicsCodes?.toObject().exclude
         };
-
-        console.debug("PSC: ", state.pscCodes?.toObject().require.length);
 
         this.pscCheckbox = {
             require: state.pscCodes?.toObject().require,
