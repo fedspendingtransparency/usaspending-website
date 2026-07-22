@@ -10,7 +10,7 @@ import {
 export const socialUrls = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=`,
     twitter: `https://twitter.com/intent/tweet?url=`,
-    reddit: `http://www.reddit.com/submit?url=`,
+    reddit: `https://www.reddit.com/submit?url=`,
     linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=`
 };
 
