@@ -6,7 +6,7 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useMatch, useNavigate } from "react-router";
-
+import DOMPurify from 'dompurify';
 import { resetState, setStateFiscalYear } from "redux/actions/state/stateActions";
 import { parseStateDataFromUrl } from "./stateHelper";
 import StatePageContainer from "./containers/StatePageContainer";
@@ -16,11 +16,14 @@ const StatePageNavigation = () => {
     const navigate = useNavigate();
     const match = useMatch(`/state/:state/:fyParam?`);
     const { state, fyParam } = match.params;
-
-    const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
-    const fy = fyParam;
+    const safeState = encodeURIComponent(state);
+    const safeFyParam = encodeURIComponent(DOMPurify.sanitize(fyParam));
+    const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(safeState);
+    const fy = safeFyParam;
+    console.debug("state stuff: ", safeState,stateName,wasInputStateName, stateId, safeFyParam);
 
     const handleFyChange = (newFy) => {
+        console.debug("fy stuff: ", newFy);
         navigate(`/state/${stateName}/${newFy}`);
         dispatch(setStateFiscalYear(newFy));
     };
@@ -42,13 +45,13 @@ const StatePageNavigation = () => {
             dispatch(resetState());
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [fy, state]);
 
     return (
         <StatePageContainer
             handleFyChange={handleFyChange}
             stateId={stateId}
-            state={state}
+            state={safeState}
             fy={fy} />
     );
 };
