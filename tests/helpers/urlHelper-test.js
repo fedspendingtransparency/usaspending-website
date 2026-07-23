@@ -5,7 +5,7 @@
  * Created by JD House 7/7/2026
 */
 
-import { sanitizeUrl } from "../../src/js/helpers/url";
+import { sanitizeUrl, sanitizeMailUrl } from "../../src/js/helpers/url";
 
 
 describe('sanitizeUrl()', () => {
@@ -55,4 +55,18 @@ describe('sanitizeUrl()', () => {
         expect(sanitizeUrl("javascript:alert(1"))
             .toBeNull();
     })
+});
+
+describe('sanitizeMailUrl()', () => {
+    it('returns clean mailto url without hidden bcc', () => {
+        const encodedText = encodeURIComponent('Contact Us');
+        expect(sanitizeMailUrl(`mailto:usaspending.help@fiscal.treasury.gov?bcc=evil@evil.com&subject=${encodedText}&body=${encodedText}`))
+            .toBe('mailto:usaspending.help@fiscal.treasury.gov?subject=Contact+Us&body=Contact+Us');
+    });
+    it('returns clean mailto url without hidden bcc and cc', () => {
+        const encodedText = encodeURIComponent('Contact Us');
+        expect(sanitizeMailUrl(`mailto:usaspending.help@fiscal.treasury.gov?cc=evil@bad.com&bcc=evil@evil.com&subject=${encodedText}&body=${encodedText}`))
+            .toBe('mailto:usaspending.help@fiscal.treasury.gov?subject=Contact+Us&body=Contact+Us');
+    });
+        
 });
