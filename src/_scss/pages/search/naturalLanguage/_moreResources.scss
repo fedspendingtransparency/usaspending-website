@@ -1,39 +1,72 @@
 @import "./searchIcons";
 
 .more-resources__section {
-  .more-resources__row {
-    display: flex;
-    align-items: flex-start;
-    gap: $global-spacing-unit * 3;
-    margin-top: $global-spacing-unit * 5;
-  }
 
-  .more-resources__label {
+   .more-resources__label {
     @include label-styles;
     color: $gray-70;
 
-    @media (min-width: $large-screen) {
-      padding-top: rem(12);
+    @media (min-width: $small-screen) {
+      margin-top: rem(42);
     }
-   }
 
-  .more-resources__col {
-    display: flex;
-    flex: 1 1 100%;
-    border-radius: rem(4);
-    border: rem(1) solid $gray-10;
-    background: $gray-5;
-
-    &:hover {
-      cursor: pointer;
-      background: $gray-10;
+    @media (min-width: $tablet-screen) {
+      margin-top: $global-spacing-unit * 3;
     }
 
     @media (min-width: $large-screen) {
-      flex: 1 1 0;
-      flex-direction: column;
+      margin-top: rem(34);
+    }
+  }
+
+  .more-resources__row {
+    gap: $global-spacing-unit * 3;
+    margin-top: $global-spacing-unit;
+
+    @media (min-width: $small-screen) {
+      gap: $font-size-12;
+      margin-top: $font-size-12;
+    }
+
+    @media (min-width: $tablet-screen) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: $font-size-20;
+      margin-top: $global-spacing-unit;
+    }
+
+    @media (min-width: $medium-screen) {
+      display: flex;
       align-items: flex-start;
-      min-height: rem(20);
+      gap: $font-size-20;
     }
+
+    @media (min-width: $large-screen) {
+      gap: $global-spacing-unit * 3;
+    }
+
+    .more-resources__col {
+      display: flex;
+      flex: 1 1 100%;
+      border-radius: rem(4);
+      border: rem(1) solid $gray-10;
+      background: $gray-5;
+
+      &:hover {
+        cursor: pointer;
+        background: $gray-10;
+      }
+
+      @media (min-width: $tablet-screen) {
+        width: 100%;
+      }
+
+      @media (min-width: $medium-screen) {
+        flex: 1 1 0;
+        flex-direction: column;
+        align-items: flex-start;
+        min-height: $font-size-20;
+      }
+    } 
   }
 }
