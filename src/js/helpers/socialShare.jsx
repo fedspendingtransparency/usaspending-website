@@ -6,11 +6,12 @@ import {
     faLinkedin,
     faReddit
 } from '@fortawesome/free-brands-svg-icons';
+import { sanitizeMailUrl } from './url';
 
 export const socialUrls = {
     facebook: `https://www.facebook.com/sharer/sharer.php?u=`,
     twitter: `https://twitter.com/intent/tweet?url=`,
-    reddit: `http://www.reddit.com/submit?url=`,
+    reddit: `https://www.reddit.com/submit?url=`,
     linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=`
 };
 
@@ -52,7 +53,7 @@ const handleShareClickReddit = (url, handleShareDispatch) => {
 
 const handleShareClickEmail = (subject, body) => {
     const finalUrl = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = finalUrl;
+    window.location.href = sanitizeMailUrl(finalUrl);
     Analytics.event({
         event: 'Social Share Email', category: `${subject}`, action: 'share link click', label: 'email'
     });

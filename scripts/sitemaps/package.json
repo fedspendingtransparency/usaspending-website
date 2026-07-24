@@ -15,7 +15,7 @@
     "@babel/node": "^7.14.2"
   },
   "dependencies": {
-    "axios": "^1.16.0",
+    "axios": "^1.18.0",
     "moment": "^2.29.1",
     "tunnel": "0.0.6",
     "dayjs": "^1.11.10"

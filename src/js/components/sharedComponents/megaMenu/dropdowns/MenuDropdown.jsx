@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { uniqueId } from 'lodash-es';
 import { Link } from "react-router";
 import FadeContents from "./FadeContents";
-import isRedirectNeeded from '../../../../helpers/url';
+import { isRedirectNeeded } from '../../../../helpers/url';
 import ExternalLink from "../../ExternalLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
 

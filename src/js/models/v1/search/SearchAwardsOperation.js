@@ -92,8 +92,6 @@ class SearchAwardsOperation {
             require: state.tasCodes?.toObject().require,
             exclude: state.tasCodes?.toObject().exclude
         };
-        this.tasCheckbox.require.splice(this.tasCheckbox.require.length);
-        this.tasCheckbox.exclude.splice(this.tasCheckbox.exclude.length);
         this.selectedRecipients = state.selectedRecipients?.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
         this.selectedRecipientLocations = state.selectedRecipientLocations?.toArray();
@@ -108,25 +106,19 @@ class SearchAwardsOperation {
 
         this.selectedCFDA = state.selectedCFDA?.toArray();
         this.naicsCodes = {
-            require: state.naicsCodes?.toObject().require.splice(state.naicsCodes?.toObject().require.length),
-            exclude: state.naicsCodes?.toObject().exclude.splice(state.naicsCodes?.toObject().exclude.length)
+            require: state.naicsCodes?.toObject().require,
+            exclude: state.naicsCodes?.toObject().exclude
         };
-        this.naicsCodes.require.splice(this.naicsCodes.require.length);
-        this.naicsCodes.exclude.splice(this.naicsCodes.exclude.length);
 
         this.pscCheckbox = {
-            require: state.pscCodes?.toObject().require.splice(state.pscCodes?.toObject().require.length),
-            exclude: state.pscCodes?.toObject().exclude.splice(state.pscCodes?.toObject().exclude.length)
+            require: state.pscCodes?.toObject().require,
+            exclude: state.pscCodes?.toObject().exclude
         };
-        this.pscCheckbox.require.splice(this.pscCheckbox.require.length);
-        this.pscCheckbox.exclude.splice(this.pscCheckbox.exclude.length);
 
         this.defCodes = {
-            require: state.defCodes?.toObject().require.splice(state.defCodes?.toObject().require.length),
-            exclude: state.defCodes?.toObject().exclude.splice(state.defCodes?.toObject().exclude.length)
+            require: state.defCodes?.toObject().require,
+            exclude: state.defCodes?.toObject().exclude
         };
-        this.defCodes.require.splice(this.defCodes.require.length);
-        this.defCodes.exclude.splice(this.defCodes.exclude.length);
 
         this.defCode = state.defCode?.toArray();
 
@@ -140,6 +132,27 @@ class SearchAwardsOperation {
         this.extentCompeted = state.extentCompeted?.toArray();
 
         this.awardDescription = state.awardDescription;
+
+        let naics1 = this.naicsCodes.require.length;
+        let naics2 = this.naicsCodes.exclude.length;
+
+        let psc1 = this.pscCheckbox.require.length;
+        let psc2 = this.pscCheckbox.exclude.length;
+
+        let tas1 = this.tasCheckbox.require.length;
+        let tas2 = this.tasCheckbox.exclude.length;
+
+        let def1 = this.defCodes.require.length;
+        let def2 = this.defCodes.exclude.length;
+
+        this.naicsCodes.require.splice(naics1,0);
+        this.naicsCodes.exclude.splice(naics2,0);
+        this.pscCheckbox.require.splice(psc1, 0);
+        this.pscCheckbox.exclude.splice(psc2, 0);
+        this.tasCheckbox.require.splice(tas1, 0);
+        this.tasCheckbox.exclude.splice(tas2, 0);
+        this.defCodes.require.splice(def1, 0);
+        this.defCodes.exclude.splice(def2, 0);
     }
 
     toParams() {

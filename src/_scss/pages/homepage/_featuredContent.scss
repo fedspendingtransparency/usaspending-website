@@ -44,6 +44,7 @@
   }
 
   .usda-external-link__card {
+    @include button-link;
     &:focus,
     &:active {
       cursor: pointer;

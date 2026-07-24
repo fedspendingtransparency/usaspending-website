@@ -21,6 +21,7 @@ import {
     faArrowDown,
     faArrowLeft,
     faArrowRight,
+    faArrowUpRight,
     faBan,
     faBars,
     faBluetooth,
@@ -84,6 +85,7 @@ import {
     faLink,
     faList,
     faListAlt,
+    faLocationDot,
     faLongArrowAltDown,
     faLongArrowAltUp,
     faMapMarkedAlt,
@@ -115,9 +117,9 @@ import {
     faTimes,
     faUniversity,
     faUserTie,
-    faVirusCovid,
-    faWindowRestore
-
+    faUser,
+    faWindowRestore,
+    faVirusCovid
 } from "@fortawesome/pro-solid-svg-icons";
 
 export default function registerIcons() {
@@ -132,6 +134,7 @@ export default function registerIcons() {
         faArrowDown,
         faArrowLeft,
         faArrowRight,
+        faArrowUpRight,
         faBan,
         faBars,
         faBluetooth,
@@ -170,6 +173,7 @@ export default function registerIcons() {
         faExclamationTriangle,
         faExpandAlt,
         faExternalLinkAlt,
+        faFacebookSquare,
         faFileAlt,
         faFileCertificate,
         faFileCsv,
@@ -181,6 +185,7 @@ export default function registerIcons() {
         faFingerprint,
         faFolder,
         faFunnelDollar,
+        faGithub,
         faGraduationCap,
         faHandHoldingMedical,
         faHandHoldingUsd,
@@ -193,8 +198,10 @@ export default function registerIcons() {
         faLightbulb,
         faLightbulbCfl,
         faLink,
+        faLinkedin,
         faList,
         faListAlt,
+        faLocationDot,
         faLongArrowAltDown,
         faLongArrowAltUp,
         faMapMarkedAlt,
@@ -226,7 +233,10 @@ export default function registerIcons() {
         faTimes,
         faUniversity,
         faUserTie,
+        faUser,
         faVirusCovid,
-        faWindowRestore
+        faWindowRestore,
+        faXmark,
+        faYoutube  
     );
 }

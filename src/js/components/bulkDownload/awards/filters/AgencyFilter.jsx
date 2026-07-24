@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import { awardDownloadOptions } from "dataMapping/bulkDownload/bulkDownloadOptions";
 import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 import ComboBox from "components/sharedComponents/ComboBox";
+import BulkDownloadRadioButton from "../../../sharedComponents/BulkDownloadRadioButton";
 
 const propTypes = {
     agencies: PropTypes.object,
@@ -25,7 +26,6 @@ const AgencyFilter = memo(function AgencyFilter({
     updateFilter
 }) {
     const currentAgencyType = useSelector((state) => state.bulkDownload.awards.agencyType);
-    const currentAgency = useSelector((state) => state.bulkDownload.awards.agency);
 
     const onChange = (e) => updateFilter('agencyType', e.target.value);
 
@@ -53,26 +53,15 @@ const AgencyFilter = memo(function AgencyFilter({
         });
     };
 
-    const agencyTypesList = awardDownloadOptions.agencyTypes.map((agencyType) => (
-        <div
-            className="radio"
-            key={agencyType.name}>
-            <label className="radio-label" htmlFor="agencyType">
-                <input
-                    type="radio"
-                    aria-label={agencyType.name}
-                    value={agencyType.name}
-                    name="agencyType"
-                    checked={currentAgencyType === agencyType.name}
-                    onChange={onChange} />
-                <div className="radio-container">
-                    {agencyType.label}
-                    <div className="radio-description">
-                        {agencyType.description}
-                    </div>
-                </div>
-            </label>
-        </div>
+    const agencyTypesList = awardDownloadOptions.agencyTypes.map(({ name, label, description }) => (
+        <BulkDownloadRadioButton
+            name="agencyType"
+            value={name}
+            checked={currentAgencyType === name}
+            onChange={onChange}
+            label={label}
+            description={description}
+            key={name} />
     ));
 
     // data manipulation for combo boxes

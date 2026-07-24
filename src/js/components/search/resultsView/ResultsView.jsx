@@ -9,9 +9,9 @@ import { useSelector } from "react-redux";
 
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import useResultsCount from "containers/search/resultsView/useResultsCount";
-import NewSearchScreen from "./NewSearchScreen";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";
+import NLSearchSuggestions from "../../naturalLanguage/NLSearchSuggestions";
 
 require("pages/search/searchPage.scss");
 
@@ -33,7 +33,6 @@ const ResultsView = React.memo(function ResultsView({
 }) {
     const filters = useSelector((state) => state.appliedFilters.filters);
     const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
-
     const { data, error } = useResultsCount(filters, spendingLevel, hash);
 
     let content = null;
@@ -53,7 +52,7 @@ const ResultsView = React.memo(function ResultsView({
         /* eslint-enable camelcase */
 
         if (!hash && noFiltersApplied) {
-            content = <NewSearchScreen />;
+            content = <NLSearchSuggestions />;
         }
 
         if (!noFiltersApplied) {
