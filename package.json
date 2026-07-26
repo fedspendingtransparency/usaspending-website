@@ -321,7 +321,7 @@
     "lottie-web": "^5.9.6",
     "mapbox-gl": "^2.11.1",
     "mockdate": "^3.0.5",
-    "postcss": "^8.5.10",
+    "postcss": "^8.5.18",
     "prettier": "^3.8.3",
     "prop-types": "^15.7.2",
     "react": "^19.2.7",
