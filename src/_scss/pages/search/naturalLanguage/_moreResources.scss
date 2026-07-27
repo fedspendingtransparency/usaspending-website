@@ -24,6 +24,7 @@
     margin-top: $global-spacing-unit;
 
     @media (min-width: $small-screen) {
+      align-items: center;
       gap: $font-size-12;
       margin-top: $font-size-12;
     }
@@ -38,6 +39,7 @@
     @media (min-width: $medium-screen) {
       display: flex;
       align-items: flex-start;
+      flex-wrap: nowrap;
       gap: $font-size-20;
     }
 
