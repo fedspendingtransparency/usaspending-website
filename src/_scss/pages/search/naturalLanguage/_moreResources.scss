@@ -27,6 +27,7 @@
       align-items: center;
       gap: $font-size-12;
       margin-top: $font-size-12;
+      margin-bottom: rem(50);
     }
 
     @media (min-width: $tablet-screen) {
@@ -34,6 +35,7 @@
       grid-template-columns: repeat(2, 1fr);
       gap: $font-size-20;
       margin-top: $global-spacing-unit;
+      margin-bottom: rem(68);
     }
 
     @media (min-width: $medium-screen) {
@@ -41,6 +43,8 @@
       align-items: flex-start;
       flex-wrap: nowrap;
       gap: $font-size-20;
+      margin-bottom: rem(68);
+
     }
 
     @media (min-width: $large-screen) {
