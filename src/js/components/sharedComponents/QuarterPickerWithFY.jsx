@@ -50,11 +50,11 @@ const QuarterPickerWithFY = ({
         }
     }, [allPeriods, handlePickedYear]);
 
-    const onClearSelect = () => {
+    const onClearSelect = useCallback(() => {
         updateFilter('fy', '');
         updateFilter('period', null);
         updateFilter('quarter', null);
-    }
+    }, []);
 
     const periodsPerQuarter = useMemo(() =>
         getPeriodsPerQuarterByFy(parseInt(selectedFy, 10)),
