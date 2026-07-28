@@ -1,8 +1,7 @@
 @import "./searchIcons";
 
 .more-resources__section {
-
-   .more-resources__label {
+  .more-resources__label {
     @include label-styles;
     color: $gray-70;
 
@@ -44,7 +43,6 @@
       flex-wrap: nowrap;
       gap: $font-size-20;
       margin-bottom: rem(68);
-
     }
 
     @media (min-width: $large-screen) {
@@ -73,6 +71,6 @@
         align-items: flex-start;
         min-height: $font-size-20;
       }
-    } 
+    }
   }
 }
