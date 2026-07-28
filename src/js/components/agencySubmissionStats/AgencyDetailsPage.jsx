@@ -28,6 +28,7 @@ require('pages/agencySubmissionStats/aboutTheData.scss');
 
 const AgencyDetailsPage = () => {
     const { agencyCode } = useParams();
+    const safeAgencyCode = encodeURIComponent(agencyCode);
     const [, topTierCodes] = useAgencySlugs();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -62,7 +63,7 @@ const AgencyDetailsPage = () => {
         }
         if (overviewRequest.current) overviewRequest.current.cancel();
         try {
-            overviewRequest.current = fetchAgencyOverview(agencyCode);
+            overviewRequest.current = fetchAgencyOverview(safeAgencyCode);
             const { data } = await overviewRequest.current.promise;
             const agency = Object.create(BaseAgencyOverview);
             agency.populate(data);
@@ -88,10 +89,10 @@ const AgencyDetailsPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [agencyCode]);
 
-    const message = agencyNotes[agencyCode] || '';
+    const message = agencyNotes[safeAgencyCode] || '';
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, `submission-statistics/agency/${agencyCode}`, getAgencyDetailEmail(agencyOverview?.name, agencyCode), handleShareDispatch);
+        handleShareOptionClick(name, `submission-statistics/agency/${agencyCode}`, getAgencyDetailEmail(agencyOverview?.name, safeAgencyCode), handleShareDispatch);
     };
 
     return (
@@ -103,7 +104,7 @@ const AgencyDetailsPage = () => {
             title={agencyOverview?.name}
             toolBarComponents={[
                 <ShareIcon508
-                    url={getBaseUrl(`submission-statistics/agency/${agencyCode}`)}
+                    url={getBaseUrl(`submission-statistics/agency/${safeAgencyCode}`)}
                     onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content">
@@ -149,7 +150,7 @@ const AgencyDetailsPage = () => {
                                 <AgencyDetailsContainer
                                     agencyName={agencyOverview?.name}
                                     modalClick={modalClick}
-                                    agencyCode={agencyCode} />
+                                    agencyCode={safeAgencyCode} />
                                 {message && <Note message={message} />}
                             </>
                         )}
