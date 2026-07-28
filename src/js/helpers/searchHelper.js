@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/2/16
   **/
 
-import { is as immutableIs, isCollection } from 'immutable';
+import { is as immutableIs, Iterable } from 'immutable';
 import { isEqual, sortBy } from 'lodash-es';
 import dayjs from "dayjs";
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
@@ -191,7 +191,7 @@ const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { 
 
 const valuesAreEqual = (a, b) => {
     
-    if(isCollection(a) || isCollection(b)) {
+    if(Iterable.isIterable(a) || Iterable.isIterable(b)) {
         return immutableIs(a, b);
     }
 
