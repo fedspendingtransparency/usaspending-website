@@ -85,20 +85,26 @@ export const useLatestAccountData = () => {
 export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = null, requiredParams = ['fy', 'period']) => {
     const history = useNavigate();
     const existingParams = useQueryParams();
-    // eslint-disable-next-line eqeqeq
-    if (existingParams.fy && existingParams.fy != parseInt(existingParams.fy, 10)) {
-        existingParams.fy = null;
-    }
-    // eslint-disable-next-line eqeqeq
-    if (existingParams.period && existingParams.period != parseInt(existingParams.period, 10)) {
-        existingParams.period = null;
-    }
+
+    const parsedExistingParams = {
+        fy: existingParams.fy && Object.prototype.hasOwnProperty.call(existingParams, "fy") ? parseInt(existingParams.fy, 10) : null,
+        period: existingParams.period && Object.prototype.hasOwnProperty.call(existingParams, "period") ? parseInt(existingParams.period, 10) : null
+    };
+
+    // // eslint-disable-next-line eqeqeq
+    // if (existingParams.fy && existingParams.fy !== parseInt(existingParams.fy, 10)) {
+    //     existingParams.fy = null;
+    // }
+    // // eslint-disable-next-line eqeqeq
+    // if (existingParams.period && existingParams.period !== parseInt(existingParams.period, 10)) {
+    //     existingParams.period = null;
+    // }
     const [, submissionPeriods, latestSubmission] = useLatestAccountData();
     const { year: latestFy, period: latestPeriod } = latestSubmission;
     const [{ period, fy }, setYearAndPeriod] = useState({ period: '', fy: '' });
 
     const updateUrl = (newParamsAsObj) => {
-        const newQueryParams = combineQueryParams(existingParams, newParamsAsObj);
+        const newQueryParams = combineQueryParams(parsedExistingParams, newParamsAsObj);
         setYearAndPeriod(newParamsAsObj);
         history(`${getQueryParamString(newQueryParams)}`, { replace: true });
     };
@@ -119,22 +125,22 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
     // Handles defining undefined params
         const isDataReadyForLatest = (submissionPeriods.size && latestFy && latestPeriod);
         const periodAndFyRequired = (requiredParams.includes('fy') && requiredParams.includes('period'));
-        if (isDataReadyForLatest && requiredParams.some((p) => !existingParams[p])) {
-            if (periodAndFyRequired && !existingParams.fy && existingParams.period) {
+        if (isDataReadyForLatest && requiredParams.some((p) => !parsedExistingParams[p])) {
+            if (periodAndFyRequired && !parsedExistingParams.fy && parsedExistingParams.period) {
                 handleTimeChange(latestFy);
             }
             // only need to update the fy
-            else if (periodAndFyRequired && existingParams.fy && !existingParams.period) {
+            else if (periodAndFyRequired && parsedExistingParams.fy && !parsedExistingParams.period) {
                 handleTimeChange(null, latestPeriod);
             }
             // only need to update the period
-            else if (periodAndFyRequired && !existingParams.fy && !existingParams.period) {
+            else if (periodAndFyRequired && !parsedExistingParams.fy && !parsedExistingParams.period) {
                 handleTimeChange(latestFy, latestPeriod);
             }
-            else if (isDataReadyForLatest && requiredParams.includes('fy') && !existingParams.fy) {
+            else if (isDataReadyForLatest && requiredParams.includes('fy') && !parsedExistingParams.fy) {
                 handleTimeChange(latestFy);
             }
-            else if (isDataReadyForLatest && requiredParams.includes('period') && !existingParams.period) {
+            else if (isDataReadyForLatest && requiredParams.includes('period') && !parsedExistingParams.period) {
                 handleTimeChange(null, latestPeriod);
             }
         }
@@ -144,7 +150,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
 
     useEffect(() => {
     // Handles validating defined params
-        if (submissionPeriods.size && latestFy && latestPeriod && requiredParams.every((p) => existingParams[p])) {
+        if (submissionPeriods.size && latestFy && latestPeriod && requiredParams.every((p) => parsedExistingParams[p])) {
             const availablePeriodsInFy = submissionPeriods.toJS().filter(({ submission_fiscal_year: y }) => parseInt(currentUrlFy, 10) === y);
             if (availablePeriodsInFy.length && currentUrlPeriod) {
                 // fy selection is valid but what about the period? 🤔

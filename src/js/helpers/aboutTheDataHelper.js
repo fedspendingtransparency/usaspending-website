@@ -24,10 +24,12 @@ export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
     const period = periodsPerQuarter
         .find((arr) => arr.some(({ id }) => {
             if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
+            console.log("test", arr, id, urlPeriod); 
             return id === urlPeriod;
         }))
         .filter(({ id }) => {
             if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
+            console.log("test", id, urlPeriod);
             return id === urlPeriod;
         })[0];
     if (period) return { ...period, title: getSelectedPeriodTitle(period.title) };
