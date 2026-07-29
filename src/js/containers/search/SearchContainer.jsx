@@ -32,6 +32,7 @@ import {
     sendFieldCombinations
 } from './helpers/searchAnalytics';
 import useRequestDownloadCount from "./useRequestDownloadCount";
+import { storeStructuresAreEqual } from '../../helpers/searchHelper';
 
 require('pages/search/searchPage.scss');
 
@@ -66,6 +67,13 @@ export const parseRemoteFilters = (data) => {
         }
     });
 
+    if (!storeStructuresAreEqual(reduxValues, initialState)) {
+        // Redux structure and URL hash data mis match
+        // return null and send user to error page.
+        console.info("store structure mis match.")
+        return null;
+    }
+    
     // send the selected filters to Google Analytics
     const events = convertFiltersToAnalyticEvents(reduxValues);
     sendFieldCombinations(events);
@@ -134,6 +142,11 @@ const SearchContainer = () => {
                         // apply the filters to both the staged and applied stores
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
                         dispatch(setAppliedFilterEmptiness(false));
+                    }
+                    else {
+                        console.error('Error fetching filters from hash');
+                        // corrupt hash redirect to error page.
+                        navigate("/hash-error", { replace: true });
                     }
                     request.current = null;
                 })
