@@ -37,15 +37,10 @@
       margin-bottom: rem(68);
     }
 
-    @media (min-width: $medium-screen) {
+    @media (min-width: $large-screen) {
       display: flex;
       align-items: flex-start;
       flex-wrap: nowrap;
-      gap: $font-size-20;
-      margin-bottom: rem(68);
-    }
-
-    @media (min-width: $large-screen) {
       gap: $global-spacing-unit * 3;
     }
 
