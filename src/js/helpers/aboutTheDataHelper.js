@@ -21,17 +21,16 @@ export const getSelectedPeriodTitle = (str) => (
 // returns the correct string representing the title of the period; for example '1' or '2' === 'P01 - P02'
 export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
     if (parseInt(urlPeriod, 10) > 12) return getPeriodWithTitleById(`${latestPeriod.period}`);
-    const period = periodsPerQuarter
-        .find((arr) => arr.some(({ id }) => {
-            if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
-            console.log("test", periodsPerQuarter, arr, id, urlPeriod);
-            return id === urlPeriod;
-        }))
-        .filter(({ id }) => {
-            if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
-            console.log("test", id, urlPeriod);
-            return id === urlPeriod;
-        })[0];
+    const quarter = periodsPerQuarter?.find((arr) => arr?.some(({ id }) => {
+        if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
+        return id === urlPeriod;
+    }));
+
+    const period = quarter?.filter(({ id }) => {
+        if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
+        return id === urlPeriod;
+    })?.[0];
+
     if (period) return { ...period, title: getSelectedPeriodTitle(period.title) };
     return getPeriodWithTitleById(`${latestPeriod.period}`);
 };
@@ -175,6 +174,6 @@ export const getAllAgenciesEmail = (fy, period, tab) => {
 export const getFederalBudget = (federalTotals, latestPeriod) => {
     const parsedFederalTotals = federalTotals
         .find(({ fiscal_period: p, fiscal_year: y }) => (p === latestPeriod.period && y === latestPeriod.year));
-    // eslint-disable-next-line camelcase
+     
     return parsedFederalTotals?.total_budgetary_resources;
 };
