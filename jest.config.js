@@ -40,11 +40,13 @@ module.exports = {
         "<rootDir>/tests/setup.js",
         "jest-canvas-mock"
     ],
+    testEnvironment: 'jsdom',
     transform: {
         "^.+\\.jsx$|js$": "babel-jest"
     },
     transformIgnorePatterns: [
-        "node_modules/(?!(data-transparency-ui))", "node_modules/(?!(react-markdown))/"],
+        "node_modules/(?!(data-transparency-ui))",
+        "node_modules/(?!(react-markdown))/"],
     modulePaths: ["<rootDir>/tests/testResources", "<rootDir>/src/js"],
     moduleFileExtensions: ['js', 'jsx', 'json', 'md', 'mdx']
 };
