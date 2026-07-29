@@ -92,7 +92,7 @@ export const sanitizeMailUrl = (rawURL) => {
 
         if (params.toString() && params.toString() !== '' ) {
             // add wanted params back
-            cleanMailto = `${prefix}?${params.toString()}`
+            cleanMailto = `${prefix}?${params.toString().replace(/\+/g, '%20')}`
         }
     }
 
