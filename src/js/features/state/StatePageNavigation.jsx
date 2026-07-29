@@ -20,30 +20,35 @@ const StatePageNavigation = () => {
     const fy = fyParam;
 
     const handleFyChange = (newFy) => {
-        if (Object.keys(fipsIdByStateName).includes(state)) {
-            navigate(`/state/${stateName}/${newFy}`);
-            dispatch(setStateFiscalYear(newFy));
-        }
+
+        navigate(`/state/${stateName}/${newFy}`);
+        dispatch(setStateFiscalYear(newFy));
+
     };
 
     useEffect(() => {
-        if (!fy) {
+        if (Object.keys(fipsIdByStateName).includes(stateName)) {
+            if (!fy) {
             // this may be an issue on the first day of 2026 fiscal year
             // history(`/state/${stateName}/latest`, { replace: true });
-            navigate(`/state/${stateName}/2026`, { replace: true });
-        }
-        else if (!wasInputStateName) {
-            navigate(`/state/${stateName}/${fy}`, { replace: true });
+                navigate(`/state/${stateName}/2026`, { replace: true });
+            }
+            else if (!wasInputStateName) {
+                navigate(`/state/${stateName}/${fy}`, { replace: true });
+            }
+            else {
+                dispatch(setStateFiscalYear(fy));
+            }
         }
         else {
-            dispatch(setStateFiscalYear(fy));
+            navigate(`/state`);
         }
 
         return () => {
             dispatch(resetState());
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fy, state]);
+    }, []);
 
     return (
         <StatePageContainer
