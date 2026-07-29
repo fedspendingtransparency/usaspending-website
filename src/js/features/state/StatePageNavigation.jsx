@@ -20,10 +20,8 @@ const StatePageNavigation = () => {
     const fy = fyParam;
 
     const handleFyChange = (newFy) => {
-
         navigate(`/state/${stateName}/${newFy}`);
         dispatch(setStateFiscalYear(newFy));
-
     };
 
     useEffect(() => {
