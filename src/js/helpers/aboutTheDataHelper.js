@@ -24,7 +24,7 @@ export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
     const period = periodsPerQuarter
         .find((arr) => arr.some(({ id }) => {
             if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
-            console.log("test", arr, id, urlPeriod); 
+            console.log("test", periodsPerQuarter, arr, id, urlPeriod);
             return id === urlPeriod;
         }))
         .filter(({ id }) => {
