@@ -6,26 +6,24 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useMatch, useNavigate } from "react-router";
-import DOMPurify from 'dompurify';
 import { resetState, setStateFiscalYear } from "redux/actions/state/stateActions";
 import { parseStateDataFromUrl } from "./stateHelper";
 import StatePageContainer from "./containers/StatePageContainer";
+import { fipsIdByStateName } from "../../dataMapping/state/stateNames";
 
 const StatePageNavigation = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const match = useMatch(`/state/:state/:fyParam?`);
     const { state, fyParam } = match.params;
-    const safeState = encodeURIComponent(state);
-    const safeFyParam = encodeURIComponent(DOMPurify.sanitize(fyParam));
-    const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(safeState);
-    const fy = safeFyParam;
-    console.debug("state stuff: ", safeState,stateName,wasInputStateName, stateId, safeFyParam);
+    const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
+    const fy = fyParam;
 
     const handleFyChange = (newFy) => {
-        console.debug("fy stuff: ", newFy);
-        navigate(`/state/${stateName}/${newFy}`);
-        dispatch(setStateFiscalYear(newFy));
+        if (Object.keys(fipsIdByStateName).includes(state)) {
+            navigate(`/state/${stateName}/${newFy}`);
+            dispatch(setStateFiscalYear(newFy));
+        }
     };
 
     useEffect(() => {
@@ -51,7 +49,7 @@ const StatePageNavigation = () => {
         <StatePageContainer
             handleFyChange={handleFyChange}
             stateId={stateId}
-            state={safeState}
+            state={state}
             fy={fy} />
     );
 };
