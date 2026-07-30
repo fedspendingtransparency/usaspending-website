@@ -190,10 +190,9 @@
         }
       }
 
-      // account for zoom  
+      // account for zoom
       @media (max-width: $small-screen) and #{$retina} {
         height: clamp(150px, calc(100dvh - 450px), 600px);
-        
       }
 
       .search-filters-list {
