@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 12/13/17
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
 import TableRow from './TableRow';
@@ -30,37 +30,43 @@ const columns = [
 const propTypes = { results: PropTypes.array };
 
 const AwardDataArchiveTable = ({ results }) => {
-    let noResultsClass = '';
+    const [selectedFiles, setSelectedFiles] = useState(new Set());
 
-    // remove duplicated bottom border
-    if (results.length === 0) noResultsClass = ' no-results';
+    const onChange = ({ target }) => {
+        setSelectedFiles((prevState) => {
+            const newState = new Set(prevState);
 
-    // const rows = results.map((file, index) => (
-    //     <TableRow
-    //         key={file.url}
-    //         file={file}
-    //         rowIndex={index}
-    //         columns={columns} />
-    // ));
+            newState.has(target.value) ?
+                newState.delete(target.value) :
+                newState.add(target.value);
+
+            return newState;
+        });
+    };
+
+    console.log({ selectedFiles })
 
     const rows = results.map((file) => ([
-        file.agency,
-        file.fileName,
+        (
+            <div key={file.agency}>
+                <input
+                    type="checkbox"
+                    aria-label={file.agency}
+                    value={file.fileName}
+                    name="file-agency"
+                    checked={selectedFiles.has(file.fileName)}
+                    onChange={onChange}/>
+                {file.agency === "All" ? "All Agenices" : file.agency}
+            </div>
+        ),
+        file.fileName.toLowerCase().indexOf("delta") >= 0 ? "Delta Files" : "Full File",
         file.fy,
         file.date
     ]))
 
-    console.log({ rows, results })
-
     return (
-        // <div className={`award-data-archive-table${noResultsClass}`}>
-        //     <table>
-        //         <thead><tr>{headers}</tr></thead>
-        //         <tbody>{rows}</tbody>
-        //     </table>
-        // </div>
         <Table
-            classNames={`award-data-archive-table${noResultsClass}`}
+            classNames="award-data-archive-table"
             columns={columns}
             rows={rows} />
     );
