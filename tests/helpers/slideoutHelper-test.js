@@ -9,7 +9,7 @@ import { combineReducers, createStore } from 'redux';
 import storeSingleton from 'redux/storeSingleton';
 import { beforeEach, expect } from '@jest/globals';
 import { render, waitFor } from '../testResources/test-utils';
-import { showSlideout, closeOtherSlideOuts } from "../../src/js/helpers/slideoutHelper";
+import { showSlideout, closeOtherSlideouts } from "../../src/js/helpers/slideoutHelper";
 import * as glossaryReducer from "../../src/js/redux/reducers/glossary/glossaryReducer";
 import * as atdReducer from "../../src/js/redux/reducers/aboutTheDataSidebar/aboutTheDataReducer";
 import * as slideoutReducer from "../../src/js/redux/reducers/slideouts/slideoutReducer";
@@ -101,7 +101,7 @@ describe('slideoutHelper', () => {
             });
         });
     });
-    describe('closeOtherSlideOuts', () => {
+    describe('closeOtherSlideouts', () => {
         let mockDispatch;
 
         beforeEach(() => {
@@ -116,14 +116,14 @@ describe('slideoutHelper', () => {
             mockDispatch = jest.spyOn(store, 'dispatch').mockReturnValue(() => (fn) => fn()).mockClear();
         });
 
-        it('should only dispatch hideAboutTheData and setLastOpenSlideout when closeOtherSlideOuts is called with glossary arg', () => {
+        it('should only dispatch hideAboutTheData and setLastOpenSlideout when closeOtherSlideouts is called with glossary arg', () => {
             render(<></>, { initialState: mockAPPReducer, store });
 
             const mockHideATDAction = jest.spyOn(atdActions, 'hideAboutTheData').mockClear();
             const mockSetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
             const mockHideGlossaryAction = jest.spyOn(glossaryActions, 'hideGlossary').mockClear();
 
-            closeOtherSlideOuts('glossary');
+            closeOtherSlideouts('glossary');
 
             console.log({getState: store.getState()});
 
@@ -134,14 +134,14 @@ describe('slideoutHelper', () => {
 
         })
 
-        it('should dispatch hideGlossary, hideAboutTheData, and setLastOpenSlideout when closeOtherSlideOuts helper function is called with no args', () => {
+        it('should dispatch hideGlossary, hideAboutTheData, and setLastOpenSlideout when closeOtherSlideouts helper function is called with no args', () => {
             render(<></>, { initialState: mockAPPReducer, store });
 
             const mockHideATDAction = jest.spyOn(atdActions, 'hideAboutTheData').mockClear();
             const mockHideGlossaryAction = jest.spyOn(glossaryActions, 'hideGlossary').mockClear();
             const mockSetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
 
-            closeOtherSlideOuts();
+            closeOtherSlideouts();
 
             expect(mockDispatch).toHaveBeenCalledTimes(3);
             expect(mockHideATDAction).toHaveBeenCalledTimes(1);

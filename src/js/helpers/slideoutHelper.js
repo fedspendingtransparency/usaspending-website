@@ -73,7 +73,7 @@ export const showSlideout = (type, options = {}) => {
     return true;
 };
 
-const slideOutsLookup = {
+const slideoutsLookup = {
     glossary: () => glossaryActions.hideGlossary(),
     atd: () => aboutTheDataActions.hideAboutTheData()
 }
@@ -84,8 +84,8 @@ const slideOutsLookup = {
  * Can also be used to close all slideouts when called
  * with no arg
  */
-export const closeOtherSlideOuts = (currentType) => {
-    Object.entries(slideOutsLookup).forEach(([type, hideAction]) => {
+export const closeOtherSlideouts = (currentType) => {
+    Object.entries(slideoutsLookup).forEach(([type, hideAction]) => {
         if (type !== currentType) {
             storeSingleton.store.dispatch(hideAction());
         }
