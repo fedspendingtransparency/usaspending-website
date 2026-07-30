@@ -10,6 +10,7 @@ import { resetState, setStateFiscalYear } from "redux/actions/state/stateActions
 import { parseStateDataFromUrl } from "./stateHelper";
 import StatePageContainer from "./containers/StatePageContainer";
 import { fipsIdByStateName } from "../../dataMapping/state/stateNames";
+import { allFiscalYears } from "../../helpers/fiscalYearHelper";
 
 const StatePageNavigation = () => {
     const dispatch = useDispatch();
@@ -18,7 +19,6 @@ const StatePageNavigation = () => {
     const { state, fyParam } = match.params;
     const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
     const fy = fyParam;
-
     const handleFyChange = (newFy) => {
         navigate(`/state/${stateName}/${newFy}`);
         dispatch(setStateFiscalYear(newFy));
@@ -30,6 +30,9 @@ const StatePageNavigation = () => {
             // this may be an issue on the first day of 2026 fiscal year
             // history(`/state/${stateName}/latest`, { replace: true });
                 navigate(`/state/${stateName}/2026`, { replace: true });
+            } 
+            else if (!allFiscalYears().includes(parseInt(fyParam, 10))) {
+                navigate(`/state/${stateName}/2026`, { replace: true} );
             }
             else if (!wasInputStateName) {
                 navigate(`/state/${stateName}/${fy}`, { replace: true });
