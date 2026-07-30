@@ -6,7 +6,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
-import TableRow from './TableRow';
 
 const columns = [
     {
@@ -27,11 +26,13 @@ const columns = [
     }
 ];
 
-const propTypes = { results: PropTypes.array };
+const propTypes = {
+    results: PropTypes.array,
+    selectedFiles: PropTypes.object,
+    setSelectedFiles: PropTypes.func
+};
 
-const AwardDataArchiveTable = ({ results }) => {
-    const [selectedFiles, setSelectedFiles] = useState(new Set());
-
+const AwardDataArchiveTable = ({ results, selectedFiles, setSelectedFiles }) => {
     const onChange = ({ target }) => {
         setSelectedFiles((prevState) => {
             const newState = new Set(prevState);
@@ -44,17 +45,15 @@ const AwardDataArchiveTable = ({ results }) => {
         });
     };
 
-    console.log({ selectedFiles })
-
     const rows = results.map((file) => ([
         (
             <div key={file.agency}>
                 <input
                     type="checkbox"
                     aria-label={file.agency}
-                    value={file.fileName}
+                    value={file.url}
                     name="file-agency"
-                    checked={selectedFiles.has(file.fileName)}
+                    checked={selectedFiles.has(file.url)}
                     onChange={onChange}/>
                 {file.agency === "All" ? "All Agenices" : file.agency}
             </div>
