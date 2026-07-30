@@ -42,6 +42,12 @@ require('pages/search/searchPage.scss');
  * @returns {Object} Object where every property is an immutable data structure
  */
 export const parseRemoteFilters = (data) => {
+    // data type check
+    if (typeof data !== 'object') {
+        console.info("bad data");
+        return null;
+    }
+
     const newFilters = data.filters;
     const version = data.version;
 
@@ -50,6 +56,12 @@ export const parseRemoteFilters = (data) => {
     // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
     //  a URL hash contains data that no longer applies to the current site
         console.info("version mismatch");
+        return null;
+    }
+
+    // filter type check/null check
+    if (!newFilters || typeof newFilters !== 'object') {
+        console.info("bad filters")
         return null;
     }
 
