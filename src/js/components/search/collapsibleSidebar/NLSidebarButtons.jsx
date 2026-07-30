@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QAT } from "GlobalConstants";
+import { NATURAL_LANGUAGE, FILTERS } from './SidebarConstants';
 
 const cyan60v = '#00687D';
 const cyan50v = '#0081A1';
@@ -27,12 +28,12 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, set
     return (
         <div className={"sidebar-nl-buttons-container"}>
             <div className={`color-overlay-element ${sidebarContent === 'natural language' ? ' gradient' : ''
-                }`} />
+            }`} />
             <button
                 style={{ backgroundColor: secondaryColorAS }}
                 aria-label="Button to change the content of the sidebar to advanced search filters"
                 className={`sidebar-nl-buttons ${sidebarContent === 'filters' && sidebarIsOpen  ? 'selected' : ''
-                    }`}
+                }`}
                 onClick={(e) => {
                     setSidebarContent('filters');
                     sidebarIsOpen ? null : setSidebarIsOpen(e);
@@ -43,7 +44,7 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, set
                 style={{ backgroundColor: secondaryColorNL }}
                 aria-label="Button to change the content of the sidebar to natural language search"
                 className={`sidebar-nl-buttons ${sidebarContent === 'natural language' && sidebarIsOpen ? 'selected' : ''
-                    }`}
+                }`}
                 onClick={(e) => {
                     setSidebarContent('natural language');
                     sidebarIsOpen ? console.log(sidebarIsOpen) : setSidebarIsOpen(e);
@@ -66,4 +67,4 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, set
 };
 
 NLSidebarButtons.propTypes = propTypes;
-export default NLSidebarButtons
+export default NLSidebarButtons;

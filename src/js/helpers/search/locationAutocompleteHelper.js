@@ -63,7 +63,8 @@ export const addCity = (city, state, countryAbbreviation) => {
 };
 
 export const addState = (state, countryAbbreviation) => {
-    const fipsCode = fipsIdByStateName[state?.toLowerCase()];
+    const cleanState = state.replace(/[^\w\s]|_/g, "");
+    const fipsCode = fipsIdByStateName[cleanState?.toLowerCase()];
     const stateAbbreviation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
     return {
         identifier: `${countryAbbreviation}_${stateAbbreviation}`,
@@ -79,17 +80,19 @@ export const addState = (state, countryAbbreviation) => {
     };
 };
 
-export const addCountry = (country, countryAbbreviation) => ({
-    identifier: countryAbbreviation,
-    display: {
-        title: country,
-        entity: "Country/Entity",
-        standalone: country
-    },
-    filter: {
-        country: countryAbbreviation
-    }
-});
+export const addCountry = (country, countryAbbreviation) => {    
+    return ({
+        identifier: countryAbbreviation,
+        display: {
+            title: country,
+            entity: "Country/Entity",
+            standalone: country
+        },
+        filter: {
+            country: countryAbbreviation
+        }
+    });
+}
 
 export const addDistrict = (district, category, type) => {
     const districtArray = district.split('-');
@@ -114,7 +117,6 @@ export const addDistrict = (district, category, type) => {
 export const locationSort = (array, key) => array.sort((a, b) => a[key].localeCompare(b[key]));
 
 export const citySort = (cityArray) => {
-    /* eslint-disable camelcase */
     const newCityArray = cityArray.map((city) => {
         if (city.country_name === 'UNITED STATES') {
             return {
@@ -128,7 +130,6 @@ export const citySort = (cityArray) => {
             city_name_update: `${city.city_name}, ${city.country_name}`
         };
     });
-    /* eslint-enable camelcase */
     return locationSort(newCityArray, 'city_name_update');
 };
 
@@ -236,9 +237,10 @@ export const getLocationObject = (selectedItem, countriesList, createLocationObj
     const countryAbbreviation =
         item.data.country_name === 'UNITED STATES' ? 'USA' :
             countriesList?.find(
-                (country) => country.name === item.data.country_name
+                (country) => {
+                    return country.name === item.data.country_name; 
+                }
             )?.code;
-
     if (item.category === "zip_code") {
         location = addZip(item.data.zip_code);
     }

@@ -3,15 +3,15 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
-
 import useIsMobile from "hooks/useIsMobile";
 import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
 import NLSidebarButtons from "./NLSidebarButtons";
 import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
+import { FILTERS } from './SidebarConstants';
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func
@@ -22,7 +22,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     showMobileFilters, setShowMobileFilters, mobileSidebarContent, sidebarIsOpen, setSidebarIsOpen
 }) {
     const { isMedium } = useIsMobile();
-    const [sidebarContent, setSidebarContent] = useState('filters');
+    const [sidebarContent, setSidebarContent] = useState(FILTERS);
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -44,7 +44,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 setSidebarContent={setSidebarContent}
                 isMedium={isMedium} />
             {/* Eventually remove search-sidebar css */}
-            { sidebarContent === 'filters' ?
+            { sidebarContent === FILTERS ?
                 <div
                     className={`search-collapsible-sidebar-container search-sidebar sticky ${
                         sidebarIsOpen ? "opened" : ""
@@ -56,7 +56,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                             <div className="sidebar-title-row">
                                 <h2 className="sidebar-title">Filter</h2>
                                 <div
-                                   onClick={(e) => {
+                                    onClick={(e) => {
                                         toggleOpened(e);
                                     }}
                                     onKeyDown={(e) => {
@@ -65,9 +65,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                                     role="button"
                                     className="sidebar-close"
                                     aria-label={sidebarIsOpen ? "Close" : "Open"}
-                                    focusable="true"
-                                    tabIndex={0}
-                                >
+                                    tabIndex={0}>
                                     <FontAwesomeIcon className="close" icon="close" />
                                 </div>
                                 
@@ -92,9 +90,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                                     role="button"
                                     className="sidebar-close"
                                     aria-label={sidebarIsOpen ? "Close" : "Open"}
-                                    focusable="true"
-                                    tabIndex={0}
-                                >
+                                    tabIndex={0}>
                                     <FontAwesomeIcon className="close" icon="close" />
                                 </div>
                                 
@@ -124,7 +120,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                             <div className="sidebar-title-row">
                                 <h2 className="sidebar-title">AI Search</h2>
                                 <div
-                                   onClick={(e) => {
+                                    onClick={(e) => {
                                         toggleOpened(e);
                                     }}
                                     onKeyDown={(e) => {
@@ -133,15 +129,13 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                                     role="button"
                                     className="sidebar-close"
                                     aria-label={sidebarIsOpen ? "Close" : "Open"}
-                                    focusable="true"
-                                    tabIndex={0}
-                                >
+                                    tabIndex={0}>
                                     <FontAwesomeIcon className="close" icon="close" />
                                 </div>
                                 
                             </div>
                             <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
-                       </div>
+                        </div>
                     }
 
                 </div>

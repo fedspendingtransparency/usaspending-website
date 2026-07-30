@@ -5,51 +5,39 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import TableRow from './TableRow';
 
-const propTypes = {
-    results: PropTypes.array,
-    columns: PropTypes.array
-};
+const propTypes = { results: PropTypes.array, columns: PropTypes.array };
 
-export default class AwardDataArchiveTable extends React.Component {
-    render() {
-        let noResultsClass = '';
-        if (this.props.results.length === 0) {
-            // remove duplicated bottom border
-            noResultsClass = ' no-results';
-        }
+const AwardDataArchiveTable = ({ results, columns }) => {
+    let noResultsClass = '';
 
-        const headers = this.props.columns.map((column) => (
-            <th key={column.columnName}>
-                {column.displayName}
-            </th>
-        ));
+    // remove duplicated bottom border
+    if (results.length === 0) noResultsClass = ' no-results';
 
-        const rows = this.props.results.map((file, index) => (
-            <TableRow
-                key={file.url}
-                file={file}
-                rowIndex={index}
-                columns={this.props.columns} />
-        ));
+    const headers = columns.map((column) => (
+        <th key={column.columnName}>
+            {column.displayName}
+        </th>
+    ));
 
-        return (
-            <div className={`award-data-archive-table${noResultsClass}`}>
-                <table>
-                    <thead>
-                        <tr>
-                            {headers}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rows}
-                    </tbody>
-                </table>
-            </div>
-        );
-    }
+    const rows = results.map((file, index) => (
+        <TableRow
+            key={file.url}
+            file={file}
+            rowIndex={index}
+            columns={columns} />
+    ));
+
+    return (
+        <div className={`award-data-archive-table${noResultsClass}`}>
+            <table>
+                <thead><tr>{headers}</tr></thead>
+                <tbody>{rows}</tbody>
+            </table>
+        </div>
+    );
 }
 
 AwardDataArchiveTable.propTypes = propTypes;
+export default AwardDataArchiveTable;
