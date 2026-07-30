@@ -66,9 +66,6 @@
   }
 
   &:not(.opened) {
-
-    // flex: 0 0 48px;
-    // width: 48px;
     .sidebar-top-submit,
     .search-filter__container,
     .collapsible-sidebar--main-menu {
@@ -259,7 +256,6 @@
       }
 
       .search-filters-list {
-        // margin: 0 ($global-padding * 4);
         border-bottom: rem(1) solid $gray-cool-10;
 
         &:last-of-type {
@@ -396,8 +392,7 @@
     min-width: 0;
   }
 
-  //
-  //// TODO remove when search v2 is released and remove tooltips from filter code
+  // TODO remove when search v2 is released and remove tooltips from filter code
   .tooltip-popover-container {
     display: none !important;
   }
