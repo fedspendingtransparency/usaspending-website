@@ -12,6 +12,7 @@
 
     .download-filter__container {
       display: flex;
+      justify-content: flex-start;
     }
 
     .download-filter__content {
@@ -93,9 +94,9 @@
 
           .combo-box {
             margin: 0;
-            // 3 of 8 columns available to the form
-            min-width: 37.5%;
-
+            flex: 1 1 0%;
+            min-width: 0;
+           
             &:first-of-type {
               margin-right: rem(24);
             }

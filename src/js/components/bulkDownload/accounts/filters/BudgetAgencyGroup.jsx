@@ -4,6 +4,7 @@
  */
 
 import React, { memo, useState } from 'react';
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import ComboBox from 'components/sharedComponents/ComboBox';
@@ -253,50 +254,55 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                     </Link>. Select Agency to view spending distributed to a particular agency.
                 </p>
             </div>
-            <div className="download-filter__content budget-function">
-                <div className="combo-box-container">
-                    <ComboBox
-                        optionsArray={budgetOptions}
-                        onSelect={handleBudgetSelect}
-                        label="Budget Function"
-                        formName="download-filter__budget-function"
-                        onClearSelect={() => handleClear("budgetFunction")}
-                        defaultValue={budgetFunction.code ? budgetFunction.title : ""}
-                        filterInput={budgetFunction.code !== 'all'}
-                        placeholder="Select budget Function" />
-                    <ComboBox
-                        optionsArray={subBudgetOptions}
-                        onSelect={handleBudgetSubfunctionSelect}
-                        label="Budget Sub-Function"
-                        formName="download-filter__budget-sub-function"
-                        placeholder="Select budget sub-function"
-                        onClearSelect={() => handleClear("budgetSubfunction")}
-                        defaultValue={budgetSubfunction?.code ? budgetSubfunction.title : ""}
-                        filterInput={budgetSubfunction?.code !== 'all'}
-                        disabled={subBudgetOptions.length <= 1} />
-                </div>
-                <div className="combo-box-container">
-                    <ComboBox
-                        optionsArray={agenciesOptions}
-                        onSelect={handleAgencySelect}
-                        label="Agency"
-                        formName="download-filter__agency"
-                        onClearSelect={() => handleClear("agency")}
-                        defaultValue={agency.id ? agency.name : ""}
-                        filterInput={agency.id !== 'all'}
-                        placeholder="Select agency" />
-                    <ComboBox
-                        optionsArray={federalAccountOptions}
-                        onSelect={handleFederalAccountSelect}
-                        label="Federal Account"
-                        formName="download-filter__federal-account"
-                        placeholder="Select federal account"
-                        onClearSelect={() => handleClear("federalAccount")}
-                        defaultValue={federalAccount?.id ? federalAccount.name : ""}
-                        filterInput={federalAccount?.id !== 'all'}
-                        disabled={federalAccountOptions.length <= 1} />
-                </div>
-            </div>
+            <FlexGridRow className="download-filter__container">
+                <FlexGridCol >
+                    <div className="download-filter__content budget-function">
+                        <div className="combo-box-container">
+                            <ComboBox
+                                optionsArray={budgetOptions}
+                                onSelect={handleBudgetSelect}
+                                label="Budget Function"
+                                formName="download-filter__budget-function"
+                                onClearSelect={() => handleClear("budgetFunction")}
+                                defaultValue={budgetFunction.code ? budgetFunction.title : ""}
+                                filterInput={budgetFunction.code !== 'all'}
+                                placeholder="Select budget Function" />
+                            <ComboBox
+                                optionsArray={subBudgetOptions}
+                                onSelect={handleBudgetSubfunctionSelect}
+                                label="Budget Sub-Function"
+                                formName="download-filter__budget-sub-function"
+                                placeholder="Select budget sub-function"
+                                onClearSelect={() => handleClear("budgetSubfunction")}
+                                defaultValue={budgetSubfunction?.code ? budgetSubfunction.title : ""}
+                                filterInput={budgetSubfunction?.code !== 'all'}
+                                disabled={subBudgetOptions.length <= 1} />
+                        </div>
+                        <div className="combo-box-container">
+                            <ComboBox
+                                optionsArray={agenciesOptions}
+                                onSelect={handleAgencySelect}
+                                label="Agency"
+                                formName="download-filter__agency"
+                                onClearSelect={() => handleClear("agency")}
+                                defaultValue={agency.id ? agency.name : ""}
+                                filterInput={agency.id !== 'all'}
+                                placeholder="Select agency" />
+                            <ComboBox
+                                optionsArray={federalAccountOptions}
+                                onSelect={handleFederalAccountSelect}
+                                label="Federal Account"
+                                formName="download-filter__federal-account"
+                                placeholder="Select federal account"
+                                onClearSelect={() => handleClear("federalAccount")}
+                                defaultValue={federalAccount?.id ? federalAccount.name : ""}
+                                filterInput={federalAccount?.id !== 'all'}
+                                disabled={federalAccountOptions.length <= 1} />
+                        </div>
+                    </div>
+                </FlexGridCol>
+            </FlexGridRow>
+           
         </div>
     );
 });
