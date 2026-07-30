@@ -13,25 +13,6 @@ import useRequestArchiveFiles from "./useRequestArchiveFiles";
 
 const dayjs = require('dayjs');
 
-const columns = [
-    {
-        columnName: 'agency',
-        displayName: 'Agency'
-    },
-    {
-        columnName: 'fileName',
-        displayName: 'Archive File'
-    },
-    {
-        columnName: 'fy',
-        displayName: 'Fiscal Year'
-    },
-    {
-        columnName: 'date',
-        displayName: 'Data As Of'
-    }
-];
-
 const propTypes = {
     filters: PropTypes.object,
     setFilters: PropTypes.func,
@@ -105,7 +86,6 @@ const AwardDataArchiveContainer = memo(function AwardDataArchiveContainer(
             filters={filters}
             updateFilter={updateFilter}
             agencies={agencies}
-            columns={columns}
             results={results} />
     );
 });

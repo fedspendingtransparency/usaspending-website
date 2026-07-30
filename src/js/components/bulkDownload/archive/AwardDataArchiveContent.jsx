@@ -15,8 +15,7 @@ const propTypes = {
     filters: PropTypes.object,
     updateFilter: PropTypes.func,
     agencies: PropTypes.object,
-    results: PropTypes.array,
-    columns: PropTypes.array
+    results: PropTypes.array
 };
 
 /* eslint-disable max-len */
@@ -24,8 +23,7 @@ const AwardDataArchiveContent = ({
     filters,
     updateFilter,
     agencies,
-    results,
-    columns
+    results
 }) => {
     const { isTablet } = useContext(isMobileContext);
 
@@ -54,9 +52,7 @@ const AwardDataArchiveContent = ({
                 filters={filters}
                 updateFilter={updateFilter}
                 agencies={agencies} />
-            <AwardDataArchiveTable
-                columns={columns}
-                results={results}/>
+            <AwardDataArchiveTable results={results}/>
             {isTablet && <AwardDataArchiveUserSelections filters={filters} results={results}/>}
         </div>
     );
