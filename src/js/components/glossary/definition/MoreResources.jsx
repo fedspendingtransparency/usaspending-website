@@ -19,7 +19,7 @@ const MoreResources = ({ resources }) => (
             More Resources
         </h3>
         <hr />
-        <Markdown components={{Link: SmartLink, a: SmartLink}}>{resources}</Markdown>
+        <Markdown components={{Link: SmartLink, a: SmartLink}} skipHtml>{resources}</Markdown>
     </div>
 );
 

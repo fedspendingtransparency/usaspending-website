@@ -11,6 +11,10 @@ export const hideAboutTheData = () => ({
     type: 'HIDE_ABOUT_THE_DATA'
 });
 
+export const toggleAboutTheData = () => ({
+    type: 'TOGGLE_ABOUT_THE_DATA'
+});
+
 export const setAboutTheDataSearchValue = (state) => ({
     type: 'SET_ABOUT_THE_DATA_SEARCH_VALUE',
     value: state
