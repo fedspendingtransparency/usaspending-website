@@ -128,6 +128,7 @@ describe('slideoutHelper', () => {
             expect(mockDispatch).toHaveBeenCalledTimes(2);
             expect(mockHideATDAction).toHaveBeenCalledTimes(1);
             expect(mockSetLastAction).toHaveBeenCalledTimes(1);
+            expect(mockSetLastAction).toBeCalledWith('glossary');
             expect(mockHideGlossaryAction).toHaveBeenCalledTimes(0);
 
         })
