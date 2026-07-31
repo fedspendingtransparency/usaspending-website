@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 /**
  * SearchPage.jsx
  * * Created by Andrea Blackwell November 4, 2024
