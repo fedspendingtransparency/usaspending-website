@@ -98,6 +98,7 @@
     "locate-path": "^5.0.0",
     "mini-css-extract-plugin": "^2.6.1",
     "minimist": "1.2.8",
+    "morgan": "1.11.0",
     "ms": "^2.0.0",
     "p-locate": "^4.1.0",
     "path-exists": "^4.0.0",
@@ -124,9 +125,8 @@
     "webpack-cli": "^5.1.4",
     "webpack-dev-server": "^5.2.6",
     "webpack-merge": "^6.0.1",
-    "zod": "4.4.3",
     "websocket-driver": "0.7.5",
-    "morgan": "1.11.0"
+    "zod": "4.4.3"
   },
   "resolutions": {
     "brace-expansion": "5.0.5",
@@ -302,7 +302,7 @@
     "d3-hierarchy": "^3.1.2",
     "d3-interpolate": "^3.0.1",
     "d3-scale": "^4.0.2",
-    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v7.3.3",
+    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v7.3.4",
     "date-fns": "^2.16.1",
     "dayjs": "^1.11.10",
     "dompurify": "^3.4.12",
