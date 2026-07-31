@@ -18,12 +18,18 @@
         display: flex;
         justify-content: flex-start;
         flex-wrap: wrap;
+      }
 
+      .download-filter__col {
         .combo-box {
-          margin-top: 0;
-          flex: 1 1 0%;
-          min-width: 0;
+          margin: 0 0 rem(12) rem(12);
+        }
 
+        &:nth-child(odd) {
+          .combo-box {
+            margin-left: 0;
+            margin-right: rem(12);
+          }
         }
       }
     }

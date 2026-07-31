@@ -255,7 +255,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                 </p>
             </div>
             <FlexGridRow className="download-filter__container">
-                <FlexGridCol mobile={12} tablet={6} desktop={6} >
+                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6} >
                     <ComboBox
                         optionsArray={budgetOptions}
                         onSelect={handleBudgetSelect}
@@ -265,6 +265,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         defaultValue={budgetFunction.code ? budgetFunction.title : ""}
                         filterInput={budgetFunction.code !== 'all'}
                         placeholder="Select budget Function" />
+                </FlexGridCol>
+                <FlexGridCol className="download-filter__col"  mobile={12} tablet={6} desktop={6} >
                     <ComboBox
                         optionsArray={subBudgetOptions}
                         onSelect={handleBudgetSubfunctionSelect}
@@ -277,7 +279,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         disabled={subBudgetOptions.length <= 1} />
                 </FlexGridCol>
                 
-                <FlexGridCol mobile={12} tablet={6} desktop={6}>
+                <FlexGridCol className="download-filter__col"  mobile={12} tablet={6} desktop={6}>
                     <ComboBox
                         optionsArray={agenciesOptions}
                         onSelect={handleAgencySelect}
@@ -287,6 +289,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         defaultValue={agency.id ? agency.name : ""}
                         filterInput={agency.id !== 'all'}
                         placeholder="Select agency" />
+                </FlexGridCol>
+                <FlexGridCol className="download-filter__col"  mobile={12} tablet={6} desktop={6} >
                     <ComboBox
                         optionsArray={federalAccountOptions}
                         onSelect={handleFederalAccountSelect}
