@@ -94,26 +94,6 @@
     border: 1px solid $theme-color-2;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
 
-    //Changes to colors when filter is open
-    &.opened {
-        color: $color-white;
-        background-color: $theme-color-2;
-      .mobile-filter-button-content {
-        .mobile-filter-button-icon {
-          svg {
-            fill: $color-white;
-            path{
-              fill: $color-white;
-            }
-          }
-        }
-        .mobile-filter-button-label {
-          color: $color-white;
-        }
-      }
-
-    }
-
     &:hover,
     &:active {
       background-color: $color-primary-alt;
@@ -171,6 +151,21 @@
 
   .mobile-filter-button-v2.opened.natural-language { 
     background: linear-gradient(91deg, $cyan-60v 0%, $cyan-50v 35%, $blue-60v 100%);
+    .mobile-filter-button-label {
+      color: $color-white;
+    }
+  }
+
+  .mobile-filter-button-v2.opened.filters { 
+    background: $cyan-60v;
+    .mobile-filter-button-icon {
+      path {
+        fill: $color-white;
+      }
+    }
+    .mobile-filter-button-label {
+      color: $color-white;
+    }
   }
 
   button.mobile-clear-all {
