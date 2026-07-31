@@ -13,6 +13,19 @@
     .download-filter__container {
       display: flex;
       justify-content: flex-start;
+
+      @media (min-width: $small-screen) {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+
+        .combo-box {
+          margin-top: 0;
+          flex: 1 1 0%;
+          min-width: 0;
+
+        }
+      }
     }
 
     .download-filter__content {
