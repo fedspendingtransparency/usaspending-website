@@ -125,8 +125,6 @@ describe('slideoutHelper', () => {
 
             closeOtherSlideouts('glossary');
 
-            console.log({getState: store.getState()});
-
             expect(mockDispatch).toHaveBeenCalledTimes(2);
             expect(mockHideATDAction).toHaveBeenCalledTimes(1);
             expect(mockSetLastAction).toHaveBeenCalledTimes(1);

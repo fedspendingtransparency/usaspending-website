@@ -90,7 +90,7 @@ export const closeOtherSlideouts = (currentType) => {
             storeSingleton.store.dispatch(hideAction());
         }
     });
-    storeSingleton.store.dispatch(slideoutActions.setLastOpenedSlideout(''));
+    storeSingleton.store.dispatch(slideoutActions.setLastOpenedSlideout(currentType));
 }
 
 
