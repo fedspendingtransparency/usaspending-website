@@ -84,7 +84,7 @@ const slideoutsLookup = {
  * Can also be used to close all slideouts when called
  * with no arg
  */
-export const closeOtherSlideouts = (currentType) => {
+export const closeOtherSlideouts = (currentType = '') => {
     Object.entries(slideoutsLookup).forEach(([type, hideAction]) => {
         if (type !== currentType) {
             storeSingleton.store.dispatch(hideAction());

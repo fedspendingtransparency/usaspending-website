@@ -146,7 +146,7 @@ describe('slideoutHelper', () => {
             expect(mockHideATDAction).toHaveBeenCalledTimes(1);
             expect(mockHideGlossaryAction).toHaveBeenCalledTimes(1);
             expect(mockSetLastAction).toHaveBeenCalledTimes(1);
-            expect(mockSetLastAction).toBeCalledWith(undefined);
+            expect(mockSetLastAction).toBeCalledWith('');
 
         });
     });
