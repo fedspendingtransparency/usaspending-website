@@ -138,7 +138,7 @@ const SummaryStats = () => {
     return (
         <section className="summary-stats">
             <div className="summary-stats-desktop">
-                <FlexGridRow className="grid-content">
+                <FlexGridRow className="grid-content summary-stats__row">
                     <FlexGridCol width={4} className="summary-stats__budget-total-container">
                         <span>So far this year, the federal government</span><br />
                         <span>plans to spend {loading ? <span className="dot-pulse" />
@@ -165,7 +165,7 @@ const SummaryStats = () => {
                         <div className="summary-stats__vertical-border">&nbsp;</div>
                     </div>
                     <FlexGridCol width={2} className="summary-stats__spending-link">
-                        <FlexGridRow>
+                        <FlexGridRow className="summary-stats__row">
                             <Link
                                 to="/explorer/budget_function"
                                 onClick={trackExplorerLink}>
@@ -199,7 +199,7 @@ const SummaryStats = () => {
                 </FlexGridRow>
             </div>
             <div className="summary-stats-mobile">
-                <FlexGridRow className="grid-content">
+                <FlexGridRow className="grid-content summary-stats__row">
                     <FlexGridCol width={12} className="summary-stats__budget-total-container">
                         <span>So far this year,
                             <span style={{ whiteSpace: "nowrap" }}>
@@ -231,7 +231,7 @@ const SummaryStats = () => {
                         </div>
                     </FlexGridCol>
                     <FlexGridCol width={12} className="summary-stats__spending-link">
-                        <FlexGridRow>
+                        <FlexGridRow className="summary-stats__row">
                             <Link to="/explorer/budget_function">
                                 <div className="summary-stats__spending-link-text">
                                     See more breakdowns of federal spending
