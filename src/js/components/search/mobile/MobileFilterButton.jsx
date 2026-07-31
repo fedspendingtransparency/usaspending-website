@@ -33,10 +33,9 @@ const MobileFilterButton = ({
     if (filterCount === 0) {
         showCountBadge = 'hide';
     }
-
     return (
         <div className={
-            `mobile-filter-button-wrapper`
+            `mobile-filter-button-wrapper ${!showMobileFilters && 'mobile-filter-closed-shadow'}`
         } >
             <button
                 className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "filters" ? 'opened' : ''}`}
@@ -51,9 +50,9 @@ const MobileFilterButton = ({
                 onKeyUp={(e) => {
                     if (e.key === "Escape" && showMobileFilters) {
                         setMobileSidebarContent("filters")
-                    if(!showMobileFilters){
-                        toggleMobileFilters();
-                    }
+                        if(!showMobileFilters){
+                            toggleMobileFilters();
+                        }
                     }
                 }}>
                 <div className="mobile-filter-button-content">
@@ -69,7 +68,7 @@ const MobileFilterButton = ({
                 </div>
             </button>
             <button
-                className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "natural language" ? 'opened' : ''}`}
+                className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "natural language" ? 'opened natural-language' : ''}`}
                 onClick={() => {
                     setMobileSidebarContent("natural language");
                     if(!showMobileFilters){
@@ -80,9 +79,9 @@ const MobileFilterButton = ({
                 onKeyUp={(e) => {
                     if (e.key === "Escape" && showMobileFilters) {
                         setMobileSidebarContent("natural language");
-                    if(!showMobileFilters){
-                        toggleMobileFilters();
-                    }
+                        if(!showMobileFilters){
+                            toggleMobileFilters();
+                        }
                     }
                 }}>
                 <div className="mobile-filter-button-content">

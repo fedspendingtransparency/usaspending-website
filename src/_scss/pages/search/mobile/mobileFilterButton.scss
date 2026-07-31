@@ -2,7 +2,7 @@
   // this is specifically to overlap the footer
   z-index: 1;
   position: fixed;
-  border-top: 1px solid black;
+  border-top: 1px solid $gray-10;
   width: 100%;
   bottom: 0;
   left: 0;
@@ -169,6 +169,10 @@
     }
   }
 
+  .mobile-filter-button-v2.opened.natural-language { 
+    background: linear-gradient(91deg, $cyan-60v 0%, $cyan-50v 35%, $blue-60v 100%);
+  }
+
   button.mobile-clear-all {
     @include button-unstyled;
     margin-left: rem(20);
@@ -200,4 +204,7 @@
       }
     }
   }
+}
+.mobile-filter-button-wrapper.mobile-filter-closed-shadow {
+  box-shadow: 2px 0 8px 0 rgba(0, 0, 0, 0.10);
 }
