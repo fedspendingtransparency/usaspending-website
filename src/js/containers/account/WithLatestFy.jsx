@@ -77,6 +77,12 @@ export const useLatestAccountData = () => {
     ];
 };
 
+const isValidateParam = (param) => {
+    const value = parseInt(param, 10);
+    const isValid = !isNaN(value) && isFinite(value) && param.trim() !== '';
+    return isValid;
+};
+
 /*
     * useValidTimeBasedQueryParams
     * this function enforces validation logic for fiscal years and fiscal periods in the URL as query params
@@ -85,14 +91,15 @@ export const useLatestAccountData = () => {
 export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = null, requiredParams = ['fy', 'period']) => {
     const history = useNavigate();
     const existingParams = useQueryParams();
-    // eslint-disable-next-line eqeqeq
-    if (existingParams.fy && existingParams.fy != parseInt(existingParams.fy, 10)) {
+
+    if (!isValidateParam(existingParams.fy)) {
         existingParams.fy = null;
     }
-    // eslint-disable-next-line eqeqeq
-    if (existingParams.period && existingParams.period != parseInt(existingParams.period, 10)) {
+
+    if (!isValidateParam(existingParams.period)) {
         existingParams.period = null;
     }
+
     const [, submissionPeriods, latestSubmission] = useLatestAccountData();
     const { year: latestFy, period: latestPeriod } = latestSubmission;
     const [{ period, fy }, setYearAndPeriod] = useState({ period: '', fy: '' });
