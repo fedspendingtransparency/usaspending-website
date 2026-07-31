@@ -39,6 +39,7 @@ const StatePageContainer = ({
         if (isSuccess && stateProfileData && Object.keys(stateProfileData).length > 0) {
             dispatch(setStateOverview(stateProfileData));
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSuccess, stateProfileData]);
 
     useEffect(() => {
@@ -48,6 +49,7 @@ const StatePageContainer = ({
         // Update the map center
         const center = stateCenterFromFips(stateId);
         dispatch(setStateCenter(center));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [state, stateProfile.fy, fy, stateId]);
 
     return (

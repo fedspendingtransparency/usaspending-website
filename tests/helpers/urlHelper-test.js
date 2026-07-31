@@ -61,12 +61,12 @@ describe('sanitizeMailUrl()', () => {
     it('returns clean mailto url without hidden bcc', () => {
         const encodedText = encodeURIComponent('Contact Us');
         expect(sanitizeMailUrl(`mailto:usaspending.help@fiscal.treasury.gov?bcc=evil@evil.com&subject=${encodedText}&body=${encodedText}`))
-            .toBe('mailto:usaspending.help@fiscal.treasury.gov?subject=Contact+Us&body=Contact+Us');
+            .toBe('mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us&body=Contact%20Us');
     });
     it('returns clean mailto url without hidden bcc and cc', () => {
         const encodedText = encodeURIComponent('Contact Us');
         expect(sanitizeMailUrl(`mailto:usaspending.help@fiscal.treasury.gov?cc=evil@bad.com&bcc=evil@evil.com&subject=${encodedText}&body=${encodedText}`))
-            .toBe('mailto:usaspending.help@fiscal.treasury.gov?subject=Contact+Us&body=Contact+Us');
+            .toBe('mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us&body=Contact%20Us');
     });
         
 });

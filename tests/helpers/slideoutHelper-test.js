@@ -9,7 +9,7 @@ import { combineReducers, createStore } from 'redux';
 import storeSingleton from 'redux/storeSingleton';
 import { beforeEach, expect } from '@jest/globals';
 import { render, waitFor } from '../testResources/test-utils';
-import { showSlideout, closeAllSlideouts } from "../../src/js/helpers/slideoutHelper";
+import { showSlideout, closeOtherSlideouts } from "../../src/js/helpers/slideoutHelper";
 import * as glossaryReducer from "../../src/js/redux/reducers/glossary/glossaryReducer";
 import * as atdReducer from "../../src/js/redux/reducers/aboutTheDataSidebar/aboutTheDataReducer";
 import * as slideoutReducer from "../../src/js/redux/reducers/slideouts/slideoutReducer";
@@ -31,8 +31,7 @@ const mockData = {
     }
 };
 
-const store = createStore(mockAPPReducer, mockData);
-storeSingleton.setStore(store);
+let store;
 
 const updateLastAction = (last) => {
     store.dispatch(slideoutActions.setLastOpenedSlideout(last));
@@ -43,6 +42,8 @@ describe('slideoutHelper', () => {
         let mockDispatch;
 
         beforeEach(() => {
+            store = createStore(mockAPPReducer, mockData);
+            storeSingleton.setStore(store);
             mockDispatch = jest.spyOn(store, 'dispatch').mockReturnValue(() => (fn) => fn()).mockClear();
         });
 
@@ -100,27 +101,54 @@ describe('slideoutHelper', () => {
             });
         });
     });
-    describe('closeAllSlideouts', () => {
+    describe('closeOtherSlideouts', () => {
         let mockDispatch;
 
         beforeEach(() => {
+            store = createStore(mockAPPReducer, {
+                ...mockData,
+                slideouts: {
+                    ...mockData.slideouts,
+                    lastOpenedSlideout: ''
+                }
+            });
+            storeSingleton.setStore(store);
             mockDispatch = jest.spyOn(store, 'dispatch').mockReturnValue(() => (fn) => fn()).mockClear();
         });
 
-        it('should dispatch hideGlossary, hideAboutTheData, and setLastOpenSlideout when closeAllSlideouts helper function is called', () => {
+        it('should only dispatch hideAboutTheData and setLastOpenSlideout when closeOtherSlideouts is called with glossary arg', () => {
+            render(<></>, { initialState: mockAPPReducer, store });
+
+            const mockHideATDAction = jest.spyOn(atdActions, 'hideAboutTheData').mockClear();
+            const mockSetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
+            const mockHideGlossaryAction = jest.spyOn(glossaryActions, 'hideGlossary').mockClear();
+
+            closeOtherSlideouts('glossary');
+
+            expect(mockDispatch).toHaveBeenCalledTimes(2);
+            expect(mockHideATDAction).toHaveBeenCalledTimes(1);
+            expect(mockSetLastAction).toHaveBeenCalledTimes(1);
+            expect(mockSetLastAction).toBeCalledWith('glossary');
+            expect(mockHideGlossaryAction).toHaveBeenCalledTimes(0);
+
+        })
+
+        it('should dispatch hideGlossary, hideAboutTheData, and setLastOpenSlideout when closeOtherSlideouts helper function is called with no args', () => {
             render(<></>, { initialState: mockAPPReducer, store });
 
             const mockHideATDAction = jest.spyOn(atdActions, 'hideAboutTheData').mockClear();
             const mockHideGlossaryAction = jest.spyOn(glossaryActions, 'hideGlossary').mockClear();
             const mockSetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
 
-            closeAllSlideouts();
+            closeOtherSlideouts();
 
             expect(mockDispatch).toHaveBeenCalledTimes(3);
             expect(mockHideATDAction).toHaveBeenCalledTimes(1);
             expect(mockHideGlossaryAction).toHaveBeenCalledTimes(1);
             expect(mockSetLastAction).toHaveBeenCalledTimes(1);
-        })
-    })
+            expect(mockSetLastAction).toBeCalledWith('');
+
+        });
+    });
 });
 

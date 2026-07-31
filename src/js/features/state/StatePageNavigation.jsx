@@ -6,36 +6,43 @@
 import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useMatch, useNavigate } from "react-router";
-
 import { resetState, setStateFiscalYear } from "redux/actions/state/stateActions";
 import { parseStateDataFromUrl } from "./stateHelper";
 import StatePageContainer from "./containers/StatePageContainer";
+import { fipsIdByStateName } from "../../dataMapping/state/stateNames";
+import { allFiscalYears } from "../../helpers/fiscalYearHelper";
 
 const StatePageNavigation = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const match = useMatch(`/state/:state/:fyParam?`);
     const { state, fyParam } = match.params;
-
     const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
     const fy = fyParam;
-
     const handleFyChange = (newFy) => {
         navigate(`/state/${stateName}/${newFy}`);
         dispatch(setStateFiscalYear(newFy));
     };
 
     useEffect(() => {
-        if (!fy) {
+        if (Object.keys(fipsIdByStateName).includes(stateName)) {
+            if (!fy) {
             // this may be an issue on the first day of 2026 fiscal year
             // history(`/state/${stateName}/latest`, { replace: true });
-            navigate(`/state/${stateName}/2026`, { replace: true });
-        }
-        else if (!wasInputStateName) {
-            navigate(`/state/${stateName}/${fy}`, { replace: true });
+                navigate(`/state/${stateName}/2026`, { replace: true });
+            } 
+            else if (!allFiscalYears().includes(parseInt(fyParam, 10))) {
+                navigate(`/state/${stateName}/2026`, { replace: true} );
+            }
+            else if (!wasInputStateName) {
+                navigate(`/state/${stateName}/${fy}`, { replace: true });
+            }
+            else {
+                dispatch(setStateFiscalYear(fy));
+            }
         }
         else {
-            dispatch(setStateFiscalYear(fy));
+            navigate(`/state`);
         }
 
         return () => {
