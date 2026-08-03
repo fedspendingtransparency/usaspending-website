@@ -73,9 +73,26 @@ export const showSlideout = (type, options = {}) => {
     return true;
 };
 
-export const closeAllSlideouts = () => {
-    storeSingleton.store.dispatch(glossaryActions.hideGlossary());
-    storeSingleton.store.dispatch(aboutTheDataActions.hideAboutTheData());
-    storeSingleton.store.dispatch(slideoutActions.setLastOpenedSlideout(''));
-};
+const slideoutsLookup = {
+    glossary: () => glossaryActions.hideGlossary(),
+    atd: () => aboutTheDataActions.hideAboutTheData()
+}
+
+/**
+ * 
+ * Closes all slideouts except the current. 
+ * Can also be used to close all slideouts when called
+ * with no arg
+ */
+export const closeOtherSlideouts = (currentType = '') => {
+    Object.entries(slideoutsLookup).forEach(([type, hideAction]) => {
+        if (type !== currentType) {
+            storeSingleton.store.dispatch(hideAction());
+        }
+    });
+    storeSingleton.store.dispatch(slideoutActions.setLastOpenedSlideout(currentType));
+}
+
+
+
 
