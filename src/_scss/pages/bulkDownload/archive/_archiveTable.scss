@@ -1,27 +1,59 @@
-.award-data-archive-table {
+table.award-data-archive-table {
   overflow-x: auto;
-  table {
-    margin-top: 0;
-    thead {
-      tr {
-        th {
-          font-size: rem(14);
-          font-weight: 600;
-          line-height: rem(18);
-          color: $color-white;
-          background-color: $color-base;
-          border: solid 1px $color-gray-light;
+  margin-top: 0;
+  thead {
+    tr {
+      th {
+        font-size: rem(14);
+        font-weight: 600;
+        line-height: rem(18);
+        color: $color-white;
+        background-color: $color-base;
+        border: none;
+        //border: solid 1px red;
+        //border-radius: 10px;
+        .table-header__content {
+          border: 1px solid black;
+          border-radius: 4px;
         }
       }
     }
-    tbody {
-      tr {
-        td {
-          border-color: $color-gray-light;
+  }
+
+  tbody {
+    tr {
+      td {
+        border: none;
+        padding: 0;
+
+        div:last-of-type {
+          width: 100%;
+          height: 100%;
+          border: 1px solid black;
+          border-top: none;
+          border-right: none;
+          padding: rem(16);
+
+          div {
+            border: none;
+            padding: 0;
+          }
         }
-        // gray out even rows
-        .row-even {
-          background-color: #f7f7f7;
+
+        &:last-of-type div:last-of-type {
+          border-right: 1px solid black;
+        }
+      }
+
+      &:last-of-type {
+        td {
+          &:first-of-type div:last-of-type {
+            border-radius: 0 0 0 4px;
+          }
+
+          &:last-of-type div:last-of-type {
+            border-radius: 0 0 4px 0;
+          }
         }
       }
     }

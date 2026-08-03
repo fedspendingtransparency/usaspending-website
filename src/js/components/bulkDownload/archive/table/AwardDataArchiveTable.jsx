@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 12/13/17
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
 

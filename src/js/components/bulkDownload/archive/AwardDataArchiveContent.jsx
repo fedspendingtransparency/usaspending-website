@@ -100,7 +100,10 @@ const AwardDataArchiveContent = ({
                 filters={filters}
                 updateFilter={updateFilter}
                 agencies={agencies} />
-            <AwardDataArchiveTable results={results} selectedFiles={selectedFiles} setSelectedFiles={setSelectedFiles} />
+            <AwardDataArchiveTable
+                results={results}
+                selectedFiles={selectedFiles}
+                setSelectedFiles={setSelectedFiles} />
             {isTablet && <AwardDataArchiveUserSelections filters={filters} results={results}/>}
             <button
                 className="reset-button"
