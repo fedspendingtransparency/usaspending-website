@@ -1,4 +1,6 @@
-$border-color: black;
+$border-color: $gray-20;
+$header-background-color: $gray-5;
+$header-color: $gray-90;
 
 table.award-data-archive-table {
   overflow-x: auto;
@@ -9,13 +11,14 @@ table.award-data-archive-table {
     tr {
       th {
         font-size: rem(14);
+        line-height: 1.5;
         font-weight: 600;
-        line-height: rem(18);
-        color: $color-white;
-        background-color: $color-base;
+        color: $header-color;
+        background-color: $header-background-color;
         border: none;
 
         .table-header__content {
+          padding: $global-padding $global-padding * 2;
           border: 1px solid $border-color;
           border-right: none;
         }
@@ -52,7 +55,7 @@ table.award-data-archive-table {
           border: 1px solid $border-color;
           border-top: none;
           border-right: none;
-          padding: rem(16);
+          padding: $global-padding $global-padding * 2;
 
           div {
             border: none;
