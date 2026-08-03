@@ -61,7 +61,9 @@ table.award-data-archive-table {
           padding: $global-padding $global-padding * 2;
 
           div {
-            //display: flex;
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
             border: none;
             padding: 0;
           }
@@ -69,7 +71,8 @@ table.award-data-archive-table {
           input[type="checkbox"] {
             appearance: none;
             margin-right: $global-margin;
-            padding: $global-padding;
+            height: rem(16);
+            width: rem(16);
             border: rem(2) solid $gray-70;
             border-radius: rem(4);
           }
