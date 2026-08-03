@@ -1,11 +1,11 @@
 $border-color: $gray-20;
 $header-background-color: $gray-5;
-$header-color: $gray-90;
+$text-color: $gray-90;
+$border-radius: rem(8);
 
 table.award-data-archive-table {
   overflow-x: auto;
   margin-top: 0;
-  border-radius: 4px;
 
   thead {
     tr {
@@ -13,7 +13,7 @@ table.award-data-archive-table {
         font-size: rem(14);
         line-height: 1.5;
         font-weight: 600;
-        color: $header-color;
+        color: $text-color;
         background-color: $header-background-color;
         border: none;
 
@@ -24,19 +24,19 @@ table.award-data-archive-table {
         }
 
         &:first-of-type {
-          border-radius: 4px 0 0 0;
+          border-radius: $border-radius 0 0 0;
 
           .table-header__content {
-            border-radius: 4px 0 0 0;
+            border-radius: $border-radius 0 0 0;
           }
         }
 
         &:last-of-type {
-          border-radius: 0 4px 0 0;
+          border-radius: 0 $border-radius 0 0;
 
           .table-header__content {
             border-right: 1px solid $border-color;
-            border-radius: 0 4px 0 0;
+            border-radius: 0 $border-radius 0 0;
           }
         }
       }
@@ -50,6 +50,9 @@ table.award-data-archive-table {
         padding: 0;
 
         div:last-of-type {
+          color: $text-color;
+          font-size: $small-font-size;
+          line-height: 1.5;
           width: 100%;
           height: 100%;
           border: 1px solid $border-color;
@@ -58,8 +61,17 @@ table.award-data-archive-table {
           padding: $global-padding $global-padding * 2;
 
           div {
+            //display: flex;
             border: none;
             padding: 0;
+          }
+
+          input[type="checkbox"] {
+            appearance: none;
+            margin-right: $global-margin;
+            padding: $global-padding;
+            border: rem(2) solid $gray-70;
+            border-radius: rem(4);
           }
         }
 
@@ -71,11 +83,11 @@ table.award-data-archive-table {
       &:last-of-type {
         td {
           &:first-of-type div:last-of-type {
-            border-radius: 0 0 0 4px;
+            border-radius: 0 0 0 $border-radius;
           }
 
           &:last-of-type div:last-of-type {
-            border-radius: 0 0 4px 0;
+            border-radius: 0 0 $border-radius 0;
           }
         }
       }
