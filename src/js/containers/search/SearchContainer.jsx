@@ -32,6 +32,7 @@ import {
     sendFieldCombinations
 } from './helpers/searchAnalytics';
 import useRequestDownloadCount from "./useRequestDownloadCount";
+import { storeStructuresAreEqual } from '../../helpers/searchHelper';
 
 require('pages/search/searchPage.scss');
 
@@ -41,6 +42,12 @@ require('pages/search/searchPage.scss');
  * @returns {Object} Object where every property is an immutable data structure
  */
 export const parseRemoteFilters = (data) => {
+    // data type check
+    if (typeof data !== 'object') {
+        console.info("bad data");
+        return null;
+    }
+
     const newFilters = data.filters;
     const version = data.version;
 
@@ -49,6 +56,12 @@ export const parseRemoteFilters = (data) => {
     // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
     //  a URL hash contains data that no longer applies to the current site
         console.info("version mismatch");
+        return null;
+    }
+
+    // filter type check/null check
+    if (!newFilters || typeof newFilters !== 'object') {
+        console.info("bad filters")
         return null;
     }
 
@@ -66,6 +79,13 @@ export const parseRemoteFilters = (data) => {
         }
     });
 
+    if (!storeStructuresAreEqual(reduxValues, initialState)) {
+        // Redux structure and URL hash data mis match
+        // return null and send user to error page.
+        console.info("store structure mis match.")
+        return null;
+    }
+    
     // send the selected filters to Google Analytics
     const events = convertFiltersToAnalyticEvents(reduxValues);
     sendFieldCombinations(events);
@@ -134,6 +154,11 @@ const SearchContainer = () => {
                         // apply the filters to both the staged and applied stores
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
                         dispatch(setAppliedFilterEmptiness(false));
+                    }
+                    else {
+                        console.error('Error fetching filters from hash');
+                        // corrupt hash redirect to error page.
+                        navigate("/hash-error", { replace: true });
                     }
                     request.current = null;
                 })
