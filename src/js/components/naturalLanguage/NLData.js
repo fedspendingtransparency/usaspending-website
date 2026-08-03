@@ -6,7 +6,7 @@
 import React from "react";
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import Analytics from "../../helpers/analytics/Analytics";
-import { closeAllSlideouts } from "../../helpers/slideoutHelper";
+import { closeOtherSlideouts } from "../../helpers/slideoutHelper";
 import storeSingleton from 'redux/storeSingleton';
 import * as glossaryActions from "../../redux/actions/glossary/glossaryActions"
 import * as aboutTheDataActions from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions"
@@ -99,6 +99,7 @@ export const moreResourcesBtnData = [
                 action: 'Link',
                 label: 'glossary button'
             });
+            closeOtherSlideouts('glossary');
             dispatch(glossaryActions.toggleGlossary());
         },
         image: (
@@ -117,6 +118,7 @@ export const moreResourcesBtnData = [
                 action: 'Link',
                 label: 'about the data button'
             });
+            closeOtherSlideouts('atd');
             dispatch(aboutTheDataActions.toggleAboutTheData());
         },
         image: (
@@ -135,7 +137,7 @@ export const moreResourcesBtnData = [
                 action: 'Link',
                 label: 'data dictionary button'
             });
-            closeAllSlideouts();
+            closeOtherSlideouts();
             navigate("/data-dictionary");
         },
         image: (
@@ -154,7 +156,7 @@ export const moreResourcesBtnData = [
                 action: 'Link',
                 label: 'federal spending guide button'
             });
-            closeAllSlideouts();
+            closeOtherSlideouts();
             navigate("/federal-spending-guide");
         },
         image: (
