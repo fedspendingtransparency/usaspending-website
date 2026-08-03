@@ -75,6 +75,25 @@ table.award-data-archive-table {
             width: rem(16);
             border: rem(2) solid $gray-70;
             border-radius: rem(4);
+
+            &:before {
+              content: "";
+              display: block;
+            }
+
+            &:checked {
+              background-color: $blue-60v;
+              border-color: $blue-60v;
+            }
+
+            &:checked::before {
+              width: 5px;
+              height: 9px;
+              margin: 1px 4px;
+              border-bottom: 2px solid $color-white;
+              border-right: 2px solid $color-white;
+              transform: rotate(45deg);
+            }
           }
         }
 
