@@ -47,6 +47,10 @@ $button-color-primary: $blue-60v;
     span {
       font-weight: $font-semibold;
     }
+
+    a {
+      text-decoration: underline;
+    }
   }
 
   .reset-button {
