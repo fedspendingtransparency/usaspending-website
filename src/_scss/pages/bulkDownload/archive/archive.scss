@@ -55,6 +55,10 @@ $button-color-primary: $blue-60v;
     border: 2px solid $button-color-primary;
     padding: rem(10) rem(14);
     margin: 0 $global-margin * 3 0 0;
+
+    &.buttons-tablet {
+      margin: 0 0 rem(20) 0;
+    }
   }
 
   .download-button {
@@ -67,6 +71,10 @@ $button-color-primary: $blue-60v;
       background-color: $gray-20;
       color: $gray-70;
     }
+  }
+
+  .buttons-tablet {
+    width: 100%;
   }
 
   @import "archiveForm";

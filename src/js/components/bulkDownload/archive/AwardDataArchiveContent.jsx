@@ -118,7 +118,7 @@ const AwardDataArchiveContent = ({
             </div>
             {isTablet && <AwardDataArchiveUserSelections filters={filters} results={results}/>}
             <button
-                className="reset-button"
+                className={`reset-button${isTablet ? " buttons-tablet" : ""}`}
                 id="reset-button"
                 aria-label="Reset File Selections"
                 title="Reset File Selections"
@@ -126,7 +126,7 @@ const AwardDataArchiveContent = ({
                 Reset
             </button>
             <button
-                className="download-button"
+                className={`download-button${isTablet ? " buttons-tablet" : ""}`}
                 id="download-button"
                 aria-label="Download File Selections"
                 title="Download File Selections"
