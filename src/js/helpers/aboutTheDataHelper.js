@@ -21,16 +21,21 @@ export const getSelectedPeriodTitle = (str) => (
 // returns the correct string representing the title of the period; for example '1' or '2' === 'P01 - P02'
 export const getPeriodWithTitleById = (urlPeriod, latestPeriod) => {
     if (parseInt(urlPeriod, 10) > 12) return getPeriodWithTitleById(`${latestPeriod.period}`);
-    const period = periodsPerQuarter
-        .find((arr) => arr.some(({ id }) => {
-            if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
-            return id === urlPeriod;
-        }))
-        .filter(({ id }) => {
-            if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
-            return id === urlPeriod;
-        })[0];
-    if (period) return { ...period, title: getSelectedPeriodTitle(period.title) };
+
+    const quarter = periodsPerQuarter.find((arr) => arr.some(({ id }) => {
+        if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
+        return id === urlPeriod;
+    }));
+
+    const period = quarter.filter(({ id }) => {
+        if (urlPeriod === "1" || urlPeriod === "2") return id === "2";
+        return id === urlPeriod;
+    })[0];
+
+    if (period) {
+        return { ...period, title: getSelectedPeriodTitle(period.title) };
+    }
+
     return getPeriodWithTitleById(`${latestPeriod.period}`);
 };
 

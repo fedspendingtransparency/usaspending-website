@@ -93,11 +93,11 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
     const existingParams = useQueryParams();
 
     if (!isValidateParam(existingParams.fy)) {
-        existingParams.fy = null;
+        delete existingParams.fy;
     }
 
     if (!isValidateParam(existingParams.period)) {
-        existingParams.period = null;
+        delete existingParams.period;
     }
 
     const [, submissionPeriods, latestSubmission] = useLatestAccountData();
