@@ -65,7 +65,7 @@ const AwardDataArchiveTable = ({ results, selectedFiles, setSelectedFiles }) => 
 
     return (
         <Table
-            classNames="award-data-archive-table"
+            classNames={`award-data-archive-table${rows.length !== 0 ? ' no-results': ''}`}
             columns={columns}
             rows={rows} />
     );

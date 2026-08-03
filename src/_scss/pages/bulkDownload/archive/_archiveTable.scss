@@ -81,6 +81,18 @@ table.award-data-archive-table {
         &:last-of-type div:last-of-type {
           border-right: 1px solid $border-color;
         }
+
+        .usda-message.usda-message_no-results {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          padding: rem(32);
+
+          .usda-message__description {
+            justify-content: center;
+            border: none;
+          }
+        }
       }
 
       &:last-of-type {
