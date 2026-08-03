@@ -13,10 +13,10 @@ const NLMoreResources = () => {
     const navigate = useNavigate();
     return (
         <section className="more-resources__section">
-            <FlexGridRow className="more-resources__row">
-                <FlexGridCol className="more-resources__label">
+            <FlexGridCol className="more-resources__label">
                 MORE RESOURCES:
-                </FlexGridCol>
+            </FlexGridCol>
+            <FlexGridRow className="more-resources__row">
                 {moreResourcesBtnData.map((btn) => (
                     <FlexGridCol 
                         className="more-resources__col"

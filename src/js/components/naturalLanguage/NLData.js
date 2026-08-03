@@ -6,11 +6,16 @@
 import React from "react";
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import Analytics from "../../helpers/analytics/Analytics";
-import { showSlideout, closeAllSlideouts } from "../../helpers/slideoutHelper";
+import { closeOtherSlideouts } from "../../helpers/slideoutHelper";
+import storeSingleton from 'redux/storeSingleton';
+import * as glossaryActions from "../../redux/actions/glossary/glossaryActions"
+import * as aboutTheDataActions from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions"
 
 const overline = 'IF YOU WANT TO KNOW:';
 const filterByHeader = 'FILTER BY:'
 const id = crypto.randomUUID();
+
+const { dispatch } = storeSingleton.store || {};
 
 export const searchCardData = [
     {
@@ -94,7 +99,8 @@ export const moreResourcesBtnData = [
                 action: 'Link',
                 label: 'glossary button'
             });
-            showSlideout('glossary', {clear: true});
+            closeOtherSlideouts('glossary');
+            dispatch(glossaryActions.toggleGlossary());
         },
         image: (
             <NLSearchSuggestionsIcon 
@@ -112,7 +118,8 @@ export const moreResourcesBtnData = [
                 action: 'Link',
                 label: 'about the data button'
             });
-            showSlideout('atd');
+            closeOtherSlideouts('atd');
+            dispatch(aboutTheDataActions.toggleAboutTheData());
         },
         image: (
             <NLSearchSuggestionsIcon 
@@ -130,7 +137,7 @@ export const moreResourcesBtnData = [
                 action: 'Link',
                 label: 'data dictionary button'
             });
-            closeAllSlideouts();
+            closeOtherSlideouts();
             navigate("/data-dictionary");
         },
         image: (
@@ -149,7 +156,7 @@ export const moreResourcesBtnData = [
                 action: 'Link',
                 label: 'federal spending guide button'
             });
-            closeAllSlideouts();
+            closeOtherSlideouts();
             navigate("/federal-spending-guide");
         },
         image: (
