@@ -1,6 +1,9 @@
 .sidebar-submit {
   padding: rem(8) rem(32);
-
+  @include media($small-screen) {
+    // no padding in mobile
+    padding: rem(12) rem(0);
+  }
   .screen-reader-submit-header {
     position: absolute;
     left: -10000px;
