@@ -12,6 +12,7 @@ import Analytics from "../../../helpers/analytics/Analytics";
 import AwardDataArchiveForm from './AwardDataArchiveForm';
 import AwardDataArchiveTable from './table/AwardDataArchiveTable';
 import AwardDataArchiveUserSelections from "./AwardDataArchiveUserSelections";
+import {Link} from "react-router";
 
 const propTypes = {
 
@@ -104,6 +105,17 @@ const AwardDataArchiveContent = ({
                 results={results}
                 selectedFiles={selectedFiles}
                 setSelectedFiles={setSelectedFiles} />
+            <div className="note-text">
+                <span>
+                    Note:{" "}
+                </span>
+                To download data prior to FY 2008, visit our{" "}
+                <Link
+                    to="/download_center/custom_award_data">
+                    Custom Award Data
+                </Link>
+                {" "}page.
+            </div>
             {isTablet && <AwardDataArchiveUserSelections filters={filters} results={results}/>}
             <button
                 className="reset-button"

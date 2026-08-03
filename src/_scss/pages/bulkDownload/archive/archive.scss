@@ -36,6 +36,16 @@
     }
   }
 
+  .note-text {
+    font-size: $small-font-size;
+    line-height: 1.5;
+    color: $gray-90;
+
+    span {
+      font-weight: $font-semibold;
+    }
+  }
+
   @import "archiveForm";
   @import "archiveTable";
 }
