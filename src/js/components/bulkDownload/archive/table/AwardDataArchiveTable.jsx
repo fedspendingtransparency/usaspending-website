@@ -55,7 +55,7 @@ const AwardDataArchiveTable = ({ results, selectedFiles, setSelectedFiles }) => 
                     name="file-agency"
                     checked={selectedFiles.has(file.url)}
                     onChange={onChange}/>
-                {file.agency === "All" ? "All Agenices" : file.agency}
+                {file.agency === "All" ? "All Agencies" : file.agency}
             </div>
         ),
         file.fileName.toLowerCase().indexOf("delta") >= 0 ? "Delta Files" : "Full File",

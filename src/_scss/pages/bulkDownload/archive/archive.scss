@@ -42,14 +42,14 @@ $button-color-primary: $blue-60v;
     font-size: $small-font-size;
     line-height: 1.5;
     color: $gray-90;
-    margin-bottom: rem(20);
+    margin-bottom: rem(24);
 
     span {
       font-weight: $font-semibold;
     }
 
     a {
-      text-decoration: underline;
+      font-weight: $font-semibold;
     }
   }
 
