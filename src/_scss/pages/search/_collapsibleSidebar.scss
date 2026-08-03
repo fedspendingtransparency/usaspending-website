@@ -136,7 +136,7 @@
       font-size: $font-size-14;
       font-weight: $font-normal;
       padding: 0 rem(24);
-
+      margin-top: rem(4);
       @media (max-width: $medium-screen){
         padding: 0 rem(16);
       }
