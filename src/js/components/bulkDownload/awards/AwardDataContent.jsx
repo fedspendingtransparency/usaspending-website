@@ -7,7 +7,6 @@ import React, { useCallback, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import Note, { dodNote } from 'components/sharedComponents/Note';
 import IsMobileContext from "context/IsMobileContext";
 

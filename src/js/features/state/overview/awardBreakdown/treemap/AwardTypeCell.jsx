@@ -63,6 +63,7 @@ const AwardTypeCell = ({
     }
     catch (e) {
         // Firefox can't compute bbox
+        console.log({ e })
     }
 
     // accounting for 15px margin

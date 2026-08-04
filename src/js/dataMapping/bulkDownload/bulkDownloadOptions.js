@@ -2,7 +2,7 @@
  * bulkDownloadOptions.js
  * Created by Lizzie Salita 11/1/17
  */
-import {awardTypeGroups, bulkDownloadAwardTypeGroups} from "../search/awardType";
+import { bulkDownloadAwardTypeGroups } from "../search/awardType";
 
 const dayjs = require('dayjs');
 
