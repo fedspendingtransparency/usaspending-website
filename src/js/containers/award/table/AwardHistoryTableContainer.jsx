@@ -158,7 +158,7 @@ const AwardHistoryTableContainer = ({
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
                         }}>{obj.fedAccount}
-                    </a> || '--' || '--',
+                    </a> || '--',
                     <ReadMore
                         text={obj.programActivity || '--'}
                         limit={50} /> || '--',
