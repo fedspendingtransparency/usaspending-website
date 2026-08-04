@@ -67,7 +67,6 @@ const AwardTypeCell = ({
 
     // accounting for 15px margin
     const maxWidth = labelWidth / 1.5;
-    let maxChars = 0;
 
     let truncatedLabel = initialLabel;
 
@@ -78,7 +77,7 @@ const AwardTypeCell = ({
         const avgCharWidth = (fullWidth / initialLabel.length);
 
         // determine how many characters can fit in the available space
-        maxChars = Math.floor((maxWidth) / avgCharWidth);
+        const maxChars = Math.floor((maxWidth) / avgCharWidth);
 
         // truncate the label
         truncatedLabel = truncate(initialLabel, {

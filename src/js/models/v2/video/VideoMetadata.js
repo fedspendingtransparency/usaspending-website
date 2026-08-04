@@ -22,7 +22,9 @@ const VideoMetadata = {
     },
     get durationInSecs() {
         const str = this._duration.toUpperCase();
-        let hours = ''; let min = ''; let sec = '';
+        let hours;
+        let min;
+        let sec;
         let duration = str.replace('PT', '');
         let totalDuration = 0;
 
@@ -49,7 +51,9 @@ const VideoMetadata = {
     },
     get duration() {
         const str = this._duration.toUpperCase();
-        let hours = ''; let min = ''; let sec = '';
+        let hours;
+        let min;
+        let sec;
         let duration = str.replace('PT', '');
 
         // if hours exist get value, add colon
