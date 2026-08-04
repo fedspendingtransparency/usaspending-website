@@ -58,7 +58,7 @@ const AwardDataArchiveTable = ({ results, selectedFiles, setSelectedFiles }) => 
                 {file.agency === "All" ? "All Agencies" : file.agency}
             </div>
         ),
-        file.fileName.toLowerCase().indexOf("delta") >= 0 ? "Delta Files" : "Full File",
+        file.fileName.toLowerCase().indexOf("delta") >= 0 ? "Delta File" : "Full File",
         file.fy,
         file.date
     ]))
