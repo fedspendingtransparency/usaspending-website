@@ -153,7 +153,7 @@
           &:first-of-type {
             margin-right: rem(24);
           }
-          
+
           label {
             display: flex;
             font-size: $base-font-size;
@@ -365,6 +365,34 @@
   }
 
   @import "defCodeFilter";
+
+  .download-button-group{
+    justify-content: flex-start;
+    gap: rem(24);
+    
+    button {
+      margin: 0;
+
+      &:disabled {
+        background-color: $theme-color-base-light;
+        color: $gray-70;
+        font-weight: $font-semibold;
+      }
+    }
+
+    @media (max-width: $mobile-only) {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+        justify-content: center;
+      }
+      
+    }
+  }
+
+
+
 
   .submit-wrapper {
     margin: rem(24) rem(16);

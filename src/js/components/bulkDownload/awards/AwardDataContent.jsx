@@ -6,19 +6,15 @@
 import React, { useCallback, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
-import Note, { dodNote } from 'components/sharedComponents/Note';
 import IsMobileContext from "context/IsMobileContext";
-
 import AwardLevelAndTypeFilter from './filters/AwardLevelAndTypeFilter';
 import AgencyFilter from './filters/AgencyFilter';
 import LocationFilter from './filters/LocationFilter';
 import DateTypeFilter from './filters/DateTypeFilter';
 import TimePeriodFilter from './filters/dateRange/TimePeriodFilter';
 import FileFormatFilter from './filters/FileFormatFilter';
-import SubmitButton from './SubmitButton';
 import AwardsUserSelections from './AwardsUserSelections';
+import { Button, FlexGridRow } from 'data-transparency-ui';
 
 const propTypes = {
     awards: PropTypes.object,
@@ -96,7 +92,7 @@ const AwardDataContent = ({
                     <h2 className="download-center__title">A faster way to download yearly award data by agency.</h2>
                     <p>
                         Award downloads for entire fiscal years are available for each major agency on our&nbsp;
-                        <Link to="/download_center/award_data_archive">
+                        <Link to="/download_center/award_data_archive" className='usa-bold-link'>
                             Award Data Archive
                         </Link>
                         &nbsp;page.
@@ -123,49 +119,29 @@ const AwardDataContent = ({
                         filterTimePeriodEnd={awards.dateRange.endDate} />
                     <FileFormatFilter updateFilter={updateFilter} />
                     { isTablet && <AwardsUserSelections />}
-                    <SubmitButton
-                        filters={awards}
-                        validForm={validForm}
-                        validDates={validDates}
-                        dataType="awards" />
-                    <div className="download-center__reset-container">
-                        <button
-                            className="download-center__reset"
+                    <FlexGridRow className='download-button-group'>
+                        <Button
+                            additionalClassnames="download-reset"
+                            copy="Reset Form"
+                            buttonTitle="Reset Form"
+                            buttonSize="md"
+                            buttonType="secondary"
+                            backgroundColor="light"
                             onClick={resetForm}
-                            onKeyDown={onKeyDown}>
-                        Reset form and start over
-                        </button>
-                    </div>
+                            onKeyDown={onKeyDown}/>
+                        <Button
+                            additionalClassnames="download-button"
+                            copy="Download"
+                            buttonTitle="Download"
+                            buttonSize="md"
+                            buttonType="primary"
+                            backgroundColor="light"
+                            onClick={handleSubmit}
+                            disabled={!validForm} />
+              
+                    </FlexGridRow>
                 </form>
 
-            </div>
-            <div className="download-info">
-                <h3 className="download-info__title">About Award Data</h3>
-                <div className="download-info__section">
-                    <h4 className="download-info__section-heading">What is award data?</h4>
-                    <p>
-                        Award data contains all the details of our prime award and sub-award records.
-                    </p>
-                </div>
-                <div className="download-info__section">
-                    <h4 className="download-info__section-heading">Why would I be interested in this data?</h4>
-                    <p>
-                        Downloading this data gives you access to every attribute of any particular award, including
-                        data that may not be surfaced on this site.
-                    </p>
-                </div>
-                <div className="download-info__section">
-                    <h4 className="download-info__section-heading">How do I use this form?</h4>
-                    <p>
-                        This form allows you to select specific awards by type; agency and sub-agency; location; and date range.
-                        Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.
-                        <b> Please note that most fields are required.</b> You&#39;ll only be able to start the download when all required
-                        sections are properly filled in.
-                    </p>
-                </div>
-                <div className="download-info__section">
-                    <Note message={dodNote} />
-                </div>
             </div>
         </div>
     );

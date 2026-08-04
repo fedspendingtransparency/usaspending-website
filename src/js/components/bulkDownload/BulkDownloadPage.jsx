@@ -25,6 +25,8 @@ import AccountUserSelections from './accounts/AccountUserSelections';
 import AwardDataArchiveUserSelections from "./archive/AwardDataArchiveUserSelections";
 import { currentFiscalYear } from "helpers/fiscalYearHelper";
 
+import DownloadInfoSection from './DownloadInfoSection';
+
 const propTypes = {
     dataType: PropTypes.string,
     bulkDownload: PropTypes.object,
@@ -135,6 +137,14 @@ const BulkDownloadPage = ({
                             {userSelections}
                         </FlexGridCol>
                     }
+                </FlexGridRow>
+                <FlexGridRow className="download-info-wrapper">
+                    <hr />
+                    <FlexGridCol
+                        width={isTablet ? 12 : 8}
+                        className="download-info">
+                        <DownloadInfoSection dataType />
+                    </FlexGridCol>
                 </FlexGridRow>
             </main>
         </PageWrapper>

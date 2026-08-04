@@ -89,11 +89,11 @@
     }
   }
 
-  @media (max-width: $tablet-screen) {
+  @media (max-width: $mobile-only) {
     margin: rem(20) auto;
   }
 
   @include media($x-large-screen) {
-    margin: rem(40) auto;
+    margin: rem(40) auto 0;
   }
 }
