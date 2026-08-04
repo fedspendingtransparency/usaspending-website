@@ -16,7 +16,6 @@ import FiscalYearFilter from './filters/FiscalYearFilter';
 import AccountUserSelections from './AccountUserSelections';
 import DefCodeFilter from './filters/DefCodeFilter';
 
-import SubmitButton from '../awards/SubmitButton';
 import BudgetAgencyGroup from './filters/BudgetAgencyGroup';
 import { Button, FlexGridRow } from 'data-transparency-ui';
 

@@ -390,31 +390,4 @@
       
     }
   }
-
-
-
-
-  .submit-wrapper {
-    margin: rem(24) rem(16);
-    @media (max-width: $medium-screen) {
-      width: 75%;
-    }
-  }
-  .submit-button {
-    button,
-    input {
-      width: 100%;
-      font-size: rem(24);
-      font-weight: 600;
-    }
-    &.submit-button_disabled {
-      button {
-        margin: 0;
-        background-color: $color-white;
-        color: $color-gray-light;
-        border: solid rem(1) $color-gray-light;
-      }
-    }
-  }
-  @import "tooltip";
 }
