@@ -107,7 +107,6 @@ export default defineConfig([
 
             // TODO: Fix errors and remove rules exceptions below
             //  They were added to avoid new errors with eslint upgrade
-            "no-unsafe-optional-chaining": "warn",
             "no-unused-vars": "warn",
             "no-constant-binary-expression": "warn",
             "preserve-caught-error": "warn",
