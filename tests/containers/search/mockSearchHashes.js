@@ -33,7 +33,12 @@ export const mockFilters = {
             naicsCodes: { require: [], exclude: [], counts: [] },
             tasCodes: { require: [], exclude: [], counts: [] },
             pscCodes: { require: [], exclude: [], counts: [] },
-            defCodes: { require: [], exclude: [], counts: [] }
+            defCodes: { require: [], exclude: [], counts: [] },
+            defCode: [],
+            filterNewAwardsOnlySelected: false,
+            filterNewAwardsOnlyActive: false,
+            filterNaoActiveFromFyOrDateRange: false,
+            awardDescription: ''
         }
     },
     _empty: false,

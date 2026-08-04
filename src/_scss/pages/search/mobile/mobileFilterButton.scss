@@ -1,6 +1,20 @@
 .mobile-filter-button-wrapper {
   // this is specifically to overlap the footer
   z-index: 1;
+  position: fixed;
+  border-top: 1px solid $gray-10;
+  width: 100%;
+  bottom: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 56px;
+  padding: 1em 0.6em;
+  gap: 1.2rem;
+  background: $color-white;
+  
 
   &.hidden {
     display: none;
@@ -75,12 +89,11 @@
     @include button-unstyled;
     height: rem(40);
     border-radius: 4px;
-    color: $color-white;
-    background-color: $theme-color-1;
-    left: rem(16);
-    bottom: rem(16);
-    position: fixed;
+    color: $theme-color-2;
+    background-color: $color-white;
+    border: 1px solid $cyan-60v;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+
     &:hover,
     &:active {
       background-color: $color-primary-alt;
@@ -89,6 +102,7 @@
         color: $color-primary-alt;
       }
     }
+    
 
     .mobile-filter-button-content {
       @include display(flex);
@@ -117,20 +131,40 @@
       .mobile-filter-button-icon {
         @include flex(0 0 auto);
         margin-right: rem(8);
-        height: rem(20);
+        height: rem(24);
         svg {
-          fill: $color-white;
-          width: rem(20);
+          fill: $theme-color-2;
+          width: rem(24);
+          height: rem(24);
         }
       }
 
       .mobile-filter-button-label {
         @include flex(1 1 auto);
-        color: $color-white;
+        color: $theme-color-2;
         line-height: 1.5;
         font-size: $font-size-16;
         font-weight: $font-semibold;
       }
+    }
+  }
+
+  .mobile-filter-button-v2.opened.natural-language { 
+    background: linear-gradient(91deg, $cyan-60v 0%, $cyan-50v 35%, $blue-60v 100%);
+    .mobile-filter-button-label {
+      color: $color-white;
+    }
+  }
+
+  .mobile-filter-button-v2.opened.filters { 
+    background: $cyan-60v;
+    .mobile-filter-button-icon {
+      path {
+        fill: $color-white;
+      }
+    }
+    .mobile-filter-button-label {
+      color: $color-white;
     }
   }
 
@@ -165,4 +199,7 @@
       }
     }
   }
+}
+.mobile-filter-button-wrapper.mobile-filter-closed-shadow {
+  box-shadow: 2px 0 8px 0 rgba(0, 0, 0, 0.10);
 }

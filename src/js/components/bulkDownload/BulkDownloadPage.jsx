@@ -123,7 +123,7 @@ const BulkDownloadPage = ({
                     {}
             }>
             <main id="main-content">
-                <FlexGridRow >
+                <FlexGridRow className="bulk-download__row">
                     <FlexGridCol
                         width={isTablet || !userSelections ? 12 : 8}
                         className="bulk-download">

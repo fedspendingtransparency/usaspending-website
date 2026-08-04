@@ -1,13 +1,14 @@
 .usa-da-bulk-download-page {
   @import "all";
   @import "layouts/default/stickyHeader/header";
+  @import "layouts/default/default";
   @import "./form/downloadForm";
 
   .usda-page-header__title h1 {
     color: $gray-5;
   }
 
-  .usa-dt-flex-grid__row {
+  .bulk-download__row {
     max-width: rem(1400);
     justify-content: center;
     margin: auto;
