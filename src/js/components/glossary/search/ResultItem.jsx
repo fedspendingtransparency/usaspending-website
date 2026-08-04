@@ -18,7 +18,7 @@ const ResultItem = ({ item, search, selectTerm }) => {
 
     const prepareLabel = () => {
         const value = item.term.toLowerCase();
-        let labelLocal = null;
+        let labelLocal;
         if (!search || value.indexOf(search.toLowerCase()) === -1) {
             // nothing is being searched (or there are no matches), so nothing needs to be
             // highlighted

@@ -376,7 +376,7 @@ export default class ProgressBar extends Component {
         } = this.state;
         const { currentProgress } = this.props;
         if (this.textDiv && progressTextData.x) {
-            let textPosition = null;
+            let textPosition;
             const textDivDimensions = this.textDiv.getBoundingClientRect();
             const width = textDivDimensions.width;
             // first position text halfway

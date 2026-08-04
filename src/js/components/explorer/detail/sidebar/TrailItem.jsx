@@ -41,7 +41,7 @@ const TrailItem = (props) => {
 
     const formattedAmount = MoneyFormatter.formatTreemapValues(props.total);
 
-    let filterName = '';
+    let filterName;
     let title = props.title;
     let showAmountClass = '';
     let titleIsAmount = '';
