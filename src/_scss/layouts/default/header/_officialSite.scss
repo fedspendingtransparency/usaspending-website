@@ -15,7 +15,7 @@
   &.open {
     height: 100%;
 
-    @media (max-width: $tablet-screen - 1) {
+    @media (max-width: $mobile-only) {
       .usa-banner__button {
         display: none;
       }
@@ -108,7 +108,7 @@
       cursor: default;
     }
 
-    @media (max-width: $tablet-screen - 1) {
+    @media (max-width: $mobile-only) {
       .usa-banner__mobile-button-wrapper {
         position: absolute;
         top: 0;

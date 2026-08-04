@@ -55,7 +55,7 @@
         right: 0;
         font-family: $font-sans;
 
-        @media (max-width: $tablet-screen - 1) {
+        @media (max-width: $mobile-only) {
           display: none;
         }
 

@@ -38,8 +38,7 @@
 
           .radio {
             padding: 0;
-            // 3 of 8 columns available to the form
-            width: 37.5%;
+            width: 50%;
 
             &:first-of-type {
               margin-right: rem(24);
@@ -84,6 +83,19 @@
                 }
               }
             }
+
+          }
+          @media (max-width: $mobile-only) {
+            flex-wrap: wrap;
+
+            .radio {
+              width: 100%;
+              
+              &:first-of-type {
+                margin-right: 0;
+                margin-bottom: rem(20);
+              }
+            }
           }
         }
 
@@ -93,8 +105,7 @@
 
           .combo-box {
             margin: 0;
-            // 3 of 8 columns available to the form
-            min-width: 37.5%;
+            min-width: 50%;
 
             &:first-of-type {
               margin-right: rem(24);
@@ -115,6 +126,19 @@
               }
             }
           }
+
+          @media (max-width: $mobile-only) {
+            flex-wrap: wrap;
+
+            .combo-box  {
+              width: 100%;
+              
+              &:first-of-type {
+                margin-right: 0;
+                margin-bottom: rem(20);
+              }
+            }
+          }
         }
       }
 
@@ -124,9 +148,12 @@
 
         .radio {
           padding: 0;
-          // 3 of 8 columns available to the form
-          width: 37.5%;
+          width: 50%;
 
+          &:first-of-type {
+            margin-right: rem(24);
+          }
+          
           label {
             display: flex;
             font-size: $base-font-size;
@@ -161,6 +188,19 @@
               margin: 0;
               width: 100%;
               padding-right: rem(24);
+            }
+          }
+        }
+        
+        @media (max-width: $mobile-only) {
+          flex-wrap: wrap;
+
+          .radio  {
+            width: 100%;
+            
+            &:first-of-type {
+              margin-right: 0;
+              margin-bottom: rem(20);
             }
           }
         }
@@ -214,9 +254,6 @@
           min-width: 37.5%;
           margin: 0 rem(32) 0 0;
         }
-
-        .quarter-picker {
-        }
       }
     }
 
@@ -264,27 +301,32 @@
       display: flex;
       margin: 0;
       padding: 0;
-
+      
       li {
         list-style-type: none;
         margin-bottom: rem(12);
-
+        min-width: 50%;
+        
         ul {
           margin: rem(12) 0 0 rem(32);
           padding: 0;
         }
-
+        
         &:first-of-type {
-          // 3 of 8 columns available to the form
-          min-width: 37.5%;
+          margin-right: rem(12);
         }
-
-        &:last-of-type {
-          width: stretch;
-        }
-
+        
         label {
           display: flex;
+        }
+      }
+      
+      @media (max-width: $mobile-only) {
+        flex-wrap: wrap;
+
+        li {
+          width: 100%;
+          margin-right: 0;
         }
       }
 

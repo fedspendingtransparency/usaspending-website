@@ -1,7 +1,7 @@
 .banner-page-header {
   padding-left: rem(40);
 
-  @media (max-width: $tablet-screen - 1) {
+  @media (max-width: $mobile-only) {
     padding-left: 0;
   }
 
@@ -10,7 +10,7 @@
     margin: auto;
     padding: rem(55) 0;
 
-    @media (max-width: $tablet-screen - 1) {
+    @media (max-width: $mobile-only) {
       padding: rem(40) 0;
     }
 
@@ -68,7 +68,7 @@
         font-weight: $font-semibold;
         line-height: 1.5;
 
-        @media (max-width: $tablet-screen - 1) {
+        @media (max-width: $mobile-only) {
           margin: 0 rem(16);
         }
 
@@ -112,7 +112,7 @@
           overflow: visible;
           max-height: rem(68);
 
-          @media (max-width: $tablet-screen - 1) {
+          @media (max-width: $mobile-only) {
             overflow: unset;
             max-height: none;
           }
@@ -126,7 +126,7 @@
       padding: rem(46) 0;
       max-height: rem(140);
 
-      @media (max-width: $tablet-screen - 1) {
+      @media (max-width: $mobile-only) {
         padding: rem(12) 0;
       }
 
