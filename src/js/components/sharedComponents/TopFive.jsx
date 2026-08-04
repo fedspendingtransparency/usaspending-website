@@ -343,7 +343,7 @@ const TopFive = (props) => {
         tempHash.promise
             .then((results) => {
                 const hashData = results.data;
-                window.open(`/search?hash=${hashData.hash}`, '_blank');
+                window.open(`/search?hash=${encodeURIComponent(hashData.hash)}`, '_blank');
             })
             .catch((error) => {
                 if (isCancel(error)) {

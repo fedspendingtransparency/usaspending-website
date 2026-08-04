@@ -51,6 +51,14 @@ const AccountDataContent = ({
     const { isTablet } = useContext(IsMobileContext);
     const [validForm, setValidForm] = useState(false);
 
+    // prevents submission on enter keydown
+    const onKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            clearAccountFilters();
+        }
+    };
+
     useEffect(() => {
         setValidForm((
             (accounts.budgetFunction.code !== '')
@@ -67,7 +75,16 @@ const AccountDataContent = ({
     return (
         <div className="download-center">
             <div className="download-center__filters">
-                <h2 className="download-center__title">Custom Account Data</h2>
+                <div className="download-center-title-wrapper">
+                    <h2 className="download-center__title">Download spending data, including non-award spending.</h2>
+                    <p>
+                        To download award transaction data for each major agency by fiscal year, visit&nbsp;
+                        <Link to="/download_center/award_data_archive">
+                            Award Data Archive page
+                        </Link>
+                        .
+                    </p>
+                </div>
                 <div className="download-center-form">
                     <BudgetAgencyGroup
                         budgetFunctions={budgetFunctions}
@@ -101,8 +118,11 @@ const AccountDataContent = ({
                         validDates
                         dataType="accounts" />
                     <div className="download-center__reset-container">
-                        <button className="download-center__reset" onClick={clearAccountFilters}>
-                    Reset form and start over
+                        <button
+                            className="download-center__reset"
+                            onClick={clearAccountFilters}
+                            onKeyDown={onKeyDown}>
+                            Reset form and start over
                         </button>
                     </div>
                 </div>

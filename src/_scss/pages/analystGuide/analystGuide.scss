@@ -1,6 +1,5 @@
 .usa-da-analyst-guide-page {
   @import "all";
-  @import "./_analystGuideHeader.scss";
   @import "../../shareIcon-dtui-overrides";
 
   .usa-accordion__button.usa-banner__button {
@@ -28,89 +27,45 @@
     }
   }
 
-  .analyst-guide__share-dl-wrapper {
-    display: flex;
-    vertical-align: center;
-    .analyst-guide__share-wrapper {
-      &:hover {
-        color: $color-primary-darker;
-      }
-      color: $color-primary;
-      margin-top: $global-margin * 4;
-    }
+  .analyst-guide__intro {
+    margin-top: rem(24);
 
-    .analyst-guide__download-wrapper {
-      display: inline-block;
-      color: $color-primary;
-      background-color: white;
-      margin-top: $global-margin * 4;
-      margin-left: 0;
-      left: 10px;
-      &:hover {
-        color: $color-primary-darker;
-      }
+    .analyst-guide__title-wrapper {
+      line-height: $heading-line-height;
+      margin-bottom: rem(20);
 
-      .analyst-guide__download-button {
-        @include button-link;
-        padding: 0px 20px 0px 20px;
-        margin-top: 10px;
-        margin-bottom: 8px;
-        @media (min-width: $medium-screen) {
-          padding: 0px 20px 7px 20px;
-          margin-top: 10px;
-          margin-bottom: 0px;
-        }
-        &:hover {
-          color: $color-primary-darker;
-        }
-
-        .analyst-guide__download-icon {
-          width: 25px;
-          height: 25px;
-          color: $color-primary;
-          &:hover {
-            color: $color-primary-darker;
-            text-decoration: underline;
-          }
-        }
+      .analyst-guide__topTitle {
+        font-weight: $font-semibold;
+        color: $gray-90;
+        font-size: $h2-font-size;
+        margin: 0;
       }
     }
-  }
 
-  .analyst-guide__topTitle {
-    font-weight: $font-semibold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: $heading-line-height;
-    letter-spacing: normal;
-    color: $gray-90;
-    font-size: rem(28);
-    margin: 32px 0px 20px;
-  }
+    .analyst-guide__bodyText {
+      margin-bottom: rem(20);
+      font-size: $base-font-size;
+      font-weight: $font-normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: $base-line-height;
+      letter-spacing: normal;
+      color: $color-base;
 
-  .analyst-guide__bodyText {
-    margin: 36px 0px 20px;
-    font-size: $base-font-size;
-    font-weight: $font-normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: $base-line-height;
-    letter-spacing: normal;
-    color: $color-base;
-
-    .analyst-guide__external-link {
-      @include button-unstyled;
-      color: $color-primary;
-      font-size: inherit;
-      cursor: pointer;
-      width: fit-content;
-      &:hover {
+      .analyst-guide__external-link {
+        @include button-unstyled;
         color: $color-primary;
+        font-size: inherit;
+        cursor: pointer;
+        width: fit-content;
+        &:hover {
+          color: $color-primary;
+        }
       }
-    }
 
-    a {
-      font-weight: $font-semibold;
+      a {
+        font-weight: $font-semibold;
+      }
     }
   }
 
@@ -153,7 +108,9 @@
     color: $color-base;
     font-weight: $font-normal;
     word-break: break-word;
-    .analyst-guide__external-link {
+    .analyst-guide__external-link,
+    .usda-external-link,
+    .usda-external-link__card {
       @include button-unstyled;
       color: $theme-color-1;
       font-size: inherit;

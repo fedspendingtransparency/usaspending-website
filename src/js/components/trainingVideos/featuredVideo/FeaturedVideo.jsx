@@ -57,7 +57,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
         <section className="featured-video__section">
             <div
                 className="grid-content">
-                <FlexGridRow>
+                <FlexGridRow className="featured-video__row">
                     <FlexGridCol width={5} desktop={5} tablet={12} mobile={12}>
                         <div className="featured-video__text">
                             <div className="featured-video__heading">

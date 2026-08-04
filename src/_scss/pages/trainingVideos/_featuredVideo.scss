@@ -1,5 +1,5 @@
 .featured-video__section {
-  margin: $global-margin * 8 0;
+  margin: 0;
   display: flex;
   justify-content: center;
 
@@ -7,7 +7,7 @@
     font-size: $font-size-24;
     border-radius: 8px;
 
-    .usa-dt-flex-grid__row {
+    .featured-video__row {
       background-color: $indigo-cool-80v;
       border-radius: 8px;
       height: 100%;

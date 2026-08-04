@@ -1,27 +1,129 @@
-.award-data-archive-table {
-  overflow-x: scroll;
-  table {
-    margin-top: 0;
-    thead {
-      tr {
-        th {
-          font-size: rem(14);
-          font-weight: 600;
-          line-height: rem(18);
-          color: $color-white;
-          background-color: $color-base;
-          border: solid 1px $color-gray-light;
+$border-color: $gray-20;
+$header-background-color: $gray-5;
+$text-color: $gray-90;
+$border-radius: rem(8);
+
+table.award-data-archive-table {
+  overflow-x: auto;
+  margin-top: 0;
+  margin-bottom: rem(12);
+
+  thead {
+    tr {
+      th {
+        font-size: rem(14);
+        line-height: 1.5;
+        font-weight: 600;
+        color: $text-color;
+        background-color: $header-background-color;
+        border: none;
+
+        .table-header__content {
+          padding: $global-padding $global-padding * 2;
+          border: 1px solid $border-color;
+          border-right: none;
+        }
+
+        &:first-of-type {
+          border-radius: $border-radius 0 0 0;
+
+          .table-header__content {
+            border-radius: $border-radius 0 0 0;
+          }
+        }
+
+        &:last-of-type {
+          border-radius: 0 $border-radius 0 0;
+
+          .table-header__content {
+            border-right: 1px solid $border-color;
+            border-radius: 0 $border-radius 0 0;
+          }
         }
       }
     }
-    tbody {
-      tr {
-        td {
-          border-color: $color-gray-light;
+  }
+
+  tbody {
+    tr {
+      td {
+        border: none;
+        padding: 0;
+
+        div:last-of-type {
+          color: $text-color;
+          font-size: $small-font-size;
+          line-height: 1.5;
+          width: 100%;
+          height: 100%;
+          border: 1px solid $border-color;
+          border-top: none;
+          border-right: none;
+          padding: $global-padding $global-padding * 2;
+
+          div {
+            display: inline-flex;
+            align-items: center;
+            line-height: 1;
+            border: none;
+            padding: 0;
+          }
+
+          input[type="checkbox"] {
+            appearance: none;
+            margin-right: $global-margin;
+            height: rem(16);
+            width: rem(16);
+            border: rem(2) solid $gray-70;
+            border-radius: rem(4);
+
+            &:before {
+              content: "";
+              display: block;
+            }
+
+            &:checked {
+              background-color: $blue-60v;
+              border-color: $blue-60v;
+            }
+
+            &:checked::before {
+              width: 5px;
+              height: 9px;
+              margin: 1px 4px;
+              border-bottom: 2px solid $color-white;
+              border-right: 2px solid $color-white;
+              transform: rotate(45deg);
+            }
+          }
         }
-        // gray out even rows
-        .row-even {
-          background-color: #f7f7f7;
+
+        &:last-of-type div:last-of-type {
+          border-right: 1px solid $border-color;
+        }
+
+        .usda-message.usda-message_no-results {
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          padding: rem(32);
+
+          .usda-message__description {
+            justify-content: center;
+            border: none;
+          }
+        }
+      }
+
+      &:last-of-type {
+        td {
+          &:first-of-type div:last-of-type {
+            border-radius: 0 0 0 $border-radius;
+          }
+
+          &:last-of-type div:last-of-type {
+            border-radius: 0 0 $border-radius 0;
+          }
         }
       }
     }

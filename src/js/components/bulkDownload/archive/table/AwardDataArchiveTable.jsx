@@ -5,51 +5,71 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Table } from 'data-transparency-ui';
 
-import TableRow from './TableRow';
+const columns = [
+    {
+        title: 'agency',
+        displayName: 'Agency'
+    },
+    {
+        title: 'fileName',
+        displayName: 'Archive File'
+    },
+    {
+        title: 'fy',
+        displayName: 'Fiscal Year'
+    },
+    {
+        title: 'date',
+        displayName: 'Data As Of'
+    }
+];
 
 const propTypes = {
     results: PropTypes.array,
-    columns: PropTypes.array
+    selectedFiles: PropTypes.object,
+    setSelectedFiles: PropTypes.func
 };
 
-export default class AwardDataArchiveTable extends React.Component {
-    render() {
-        let noResultsClass = '';
-        if (this.props.results.length === 0) {
-            // remove duplicated bottom border
-            noResultsClass = ' no-results';
-        }
+const AwardDataArchiveTable = ({ results, selectedFiles, setSelectedFiles }) => {
+    const onChange = ({ target }) => {
+        setSelectedFiles((prevState) => {
+            const newState = new Set(prevState);
 
-        const headers = this.props.columns.map((column) => (
-            <th key={column.columnName}>
-                {column.displayName}
-            </th>
-        ));
+            newState.has(target.value) ?
+                newState.delete(target.value) :
+                newState.add(target.value);
 
-        const rows = this.props.results.map((file, index) => (
-            <TableRow
-                key={file.url}
-                file={file}
-                rowIndex={index}
-                columns={this.props.columns} />
-        ));
+            return newState;
+        });
+    };
 
-        return (
-            <div className={`award-data-archive-table${noResultsClass}`}>
-                <table>
-                    <thead>
-                        <tr>
-                            {headers}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rows}
-                    </tbody>
-                </table>
+    const rows = results.map((file) => ([
+        (
+            <div key={file.agency}>
+                <input
+                    type="checkbox"
+                    aria-label={file.agency}
+                    value={file.url}
+                    name="file-agency"
+                    checked={selectedFiles.has(file.url)}
+                    onChange={onChange}/>
+                {file.agency === "All" ? "All Agencies" : file.agency}
             </div>
-        );
-    }
+        ),
+        file.fileName.toLowerCase().indexOf("delta") >= 0 ? "Delta File" : "Full File",
+        file.fy,
+        file.date
+    ]))
+
+    return (
+        <Table
+            classNames={`award-data-archive-table${rows.length !== 0 ? ' no-results': ''}`}
+            columns={columns}
+            rows={rows} />
+    );
 }
 
 AwardDataArchiveTable.propTypes = propTypes;
+export default AwardDataArchiveTable;

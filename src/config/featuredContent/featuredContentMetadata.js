@@ -123,10 +123,10 @@ const articles = [
         taxonomy: "Recently Answered Questions",
         banner_subtitle: "How are Obligations and Outlays Different?",
         title: "Obligations vs. Outlays",
-        created_date: "05/21/2026",
+        created_date: "08/20/2026",
         description: "For this series, we asked our Transparency Experience Desk to answer the most commonly-asked questions about USAspending.gov’s open data.",
-        feature_sprint: 221,
-        feature_week: 1,
+        feature_sprint: 225,
+        feature_week: 2,
         slug: "obligations-vs-outlays",
         explore_more: [
             {
@@ -168,8 +168,8 @@ const articles = [
         content_type: 'Featured Content',
         banner_subtitle: "How People Use USAspending.gov Data",
         title: "Ways to Use Our Data",
-        created_date: "09/29/2025",
-        feature_sprint: 212,
+        created_date: "07/16/2026",
+        feature_sprint: 223,
         feature_week: 3,
         description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
         slug: "ways-to-use-our-data",
@@ -217,10 +217,10 @@ const articles = [
         taxonomy: "Data Definitions",
         content_type: 'Featured Content',
         banner_subtitle: "How Does USAspending.gov Define Recipients?",
-        title: "What Is a Recipient",
-        created_date: "12/04/25",
-        feature_sprint: 213,
-        feature_week: 1,
+        title: "What Is a Recipient?",
+        created_date: "07/30/26",
+        feature_sprint: 224,
+        feature_week: 2,
         description: "When searching for government spending data on USAspending.gov, you’re very likely to see the word “recipient. Whether you’re using our filters to refine your",
         slug: "what-is-a-recipient",
         explore_more: [
@@ -253,8 +253,8 @@ const articles = [
         content_type: 'Featured Content',
         title: "Grants vs. Contracts",
         banner_subtitle: "What's the Difference Between Grants and Contracts?",
-        created_date: "05/14/26",
-        feature_sprint: 220,
+        created_date: "08/06/26",
+        feature_sprint: 224,
         feature_week: 3,
         description: "If you want to build a house, you must know what kind of material to use. Lest you end up like two of the three little pigs, building a house out of straw or",
         slug: "grants-vs-contracts",
@@ -536,12 +536,12 @@ const articles = [
     {
         taxonomy: "Data You Can Trust",
         isInfographicTemplate: false,
-        content_type: 'Marketing',
+        content_type: 'Featured Content',
         title: "The Story of Spending Transparency",
         banner_subtitle: "Learn How USAspending.gov Came to Be",
-        created_date: "05/21/2026",
-        feature_sprint: 221,
-        feature_week: 1,
+        created_date: "07/09/2026",
+        feature_sprint: 223,
+        feature_week: 2,
         description: "The U.S. is one of the few countries worldwide that makes federal spending data accessible to the public. But before USAspending.gov existed, much",
         slug: "the-story-of-spending-transparency",
         explore_more: [
@@ -559,8 +559,8 @@ const articles = [
         content_type: 'Featured Content',
         title: "Keon's USAspending Search",
         banner_subtitle: "Learn How to Search Government Contracts for Local Businesses",
-        created_date: "03/19/2026",
-        feature_sprint: 218,
+        created_date: "07/23/2026",
+        feature_sprint: 224,
         feature_week: 1,
         description: "In our feature, “My USAspending Search,” we highlight one of our users and their unique approach to searching government spending open data.",
         slug: "keons-usaspending-search",
@@ -631,8 +631,8 @@ const articles = [
         content_type: 'Featured Content',
         title: "What Is a Loan?",
         banner_subtitle: "Learn About the Types of Loans on USAspending.gov",
-        created_date: "04/09/2026",
-        feature_sprint: 219,
+        created_date: "08/13/2026",
+        feature_sprint: 225,
         feature_week: 1,
         description: "On USAspending's Advanced Search, loans are found under Award Type; users can search for two different types of loans: direct loans and guaranteed/insured loans",
         slug: "what-is-a-loan",
@@ -713,8 +713,8 @@ const articles = [
         content_type: 'Marketing',
         title: "Government Financial Transparency: From Parchment to Digital Data",
         banner_subtitle: "Exploring the Foundations of Government Spending Data",
-        created_date: "06/11/2026",
-        feature_sprint: 222,
+        created_date: "07/23/2026",
+        feature_sprint: 224,
         feature_week: 1,
         description: "The phrase “government transparency” has become a modern buzzword, dominating headlines and conversations across all forms of media and at every level of government.",
         slug: "government-financial-transparency-from-parchment-to-digital-data",
@@ -738,9 +738,9 @@ const articles = [
         content_type: 'Featured Content',
         title: "Building America: 250 Years of Investment",
         banner_subtitle: "How U.S. Government Spending Shaped the Nation’s Icons",
-        created_date: "06/18/2026",
-        feature_sprint: 222,
-        feature_week: 2,
+        created_date: "07/02/2026",
+        feature_sprint: 223,
+        feature_week: 1,
         description: "Whether you’re visiting an American icon like the Hoover Dam, traveling to a different state on a highway, or watching a tiny version of Earth from outer space",
         slug: "building-america-250-years-of-investment",
         explore_more: [
@@ -779,8 +779,8 @@ const articles = [
         content_type: 'Featured Content',
         title: "Michael’s USAspending Search",
         banner_subtitle: "Using USAspending.gov for Market Research",
-        created_date: "06/25/2026",
-        feature_sprint: 222,
+        created_date: "08/27/2026",
+        feature_sprint: 225,
         feature_week: 3,
         description: "In “My USAspending Search,” we highlight one of our users and their unique approach to searching government spending open data. Meet Michael LeJeune.",
         slug: "michaels-usaspending-search",
@@ -811,6 +811,42 @@ const articles = [
                 term: "assistance-listings-cfda-program",
                 type: "glossary",
                 label: "Assistance Listings"
+            }
+        ]
+    },
+    {
+        taxonomy: "America250",
+        isInfographicTemplate: false,
+        content_type: 'Marketing',
+        title: "Bringing Data to Life",
+        banner_subtitle: "Hackathon Draws Attention to Government Spending Projects and Infrastructure",
+        created_date: "08/13/2026",
+        feature_sprint: 225,
+        feature_week: 1,
+        description: "Planes, trains, and automobiles can get you where you need to go. But what if there’s no roads, bridges, or airports? America’s infrastructure is a key part of",
+        slug: "bringing-data-to-life",
+        explore_more: [
+            {
+                label: "U.S. State Spending Profiles",
+                slug: "/state",
+                type: "internal"
+            },
+            {
+                label: "Interactive Map",
+                slug: "/search?hash=3bc28fab31cedcf467b9346afab31efd&section=map",
+                type: "internal"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "time-period-filter",
+                type: "atd",
+                label: "Time Period"
             }
         ]
     }

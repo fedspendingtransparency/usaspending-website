@@ -60,6 +60,14 @@ const AwardDataContent = ({
         setValidDates(false);
     };
 
+    // prevents submission on enter keydown
+    const onKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            resetForm();
+        }
+    };
+
     const validateForm = useCallback((award, dates) => {
         const primeAwards = award.awardTypes.primeAwards.size > 0;
         const subAwards = award.awardTypes.subAwards.size > 0;
@@ -84,23 +92,15 @@ const AwardDataContent = ({
     return (
         <div className="download-center">
             <div className="download-center__filters">
-                <h2 className="download-center__title">Custom Award Data</h2>
-                <div className="archive-info">
-                    <div className="archive-info__icon">
-                        <InfoCircle />
-                    </div>
-                    <div className="archive-info__content">
-                        <div className="archive-info__heading">
-                            A faster way to download yearly award data by agency.
-                        </div>
-                        <div>
-                            Award downloads for entire fiscal years are available for each major agency on our&nbsp;
-                            <Link to="/download_center/award_data_archive">
-                                Award Data Archive
-                            </Link>
-                            &nbsp;page.
-                        </div>
-                    </div>
+                <div className="download-center-title-wrapper">
+                    <h2 className="download-center__title">A faster way to download yearly award data by agency.</h2>
+                    <p>
+                        Award downloads for entire fiscal years are available for each major agency on our&nbsp;
+                        <Link to="/download_center/award_data_archive">
+                            Award Data Archive
+                        </Link>
+                        &nbsp;page.
+                    </p>
                 </div>
                 <form
                     className="download-center-form"
@@ -129,7 +129,10 @@ const AwardDataContent = ({
                         validDates={validDates}
                         dataType="awards" />
                     <div className="download-center__reset-container">
-                        <button className="download-center__reset" onClick={resetForm}>
+                        <button
+                            className="download-center__reset"
+                            onClick={resetForm}
+                            onKeyDown={onKeyDown}>
                         Reset form and start over
                         </button>
                     </div>

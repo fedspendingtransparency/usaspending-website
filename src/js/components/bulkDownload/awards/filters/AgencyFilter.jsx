@@ -6,12 +6,10 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
-
 import { awardDownloadOptions } from "dataMapping/bulkDownload/bulkDownloadOptions";
-import {
-    CheckCircle, ExclamationCircle
-} from "components/sharedComponents/icons/Icons";
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 import ComboBox from "components/sharedComponents/ComboBox";
+import BulkDownloadRadioButton from "../../../sharedComponents/BulkDownloadRadioButton";
 
 const propTypes = {
     agencies: PropTypes.object,
@@ -28,9 +26,6 @@ const AgencyFilter = memo(function AgencyFilter({
     updateFilter
 }) {
     const currentAgencyType = useSelector((state) => state.bulkDownload.awards.agencyType);
-    const currentAgency = useSelector((state) => state.bulkDownload.awards.agency);
-
-    const valid = currentAgency.id !== '';
 
     const onChange = (e) => updateFilter('agencyType', e.target.value);
 
@@ -58,40 +53,15 @@ const AgencyFilter = memo(function AgencyFilter({
         });
     };
 
-    let icon = (
-        <div className="icon valid">
-            <CheckCircle />
-        </div>
-    );
-
-    if (!valid) {
-        icon = (
-            <div className="icon invalid">
-                <ExclamationCircle />
-            </div>
-        );
-    }
-
-    const agencyTypesList = awardDownloadOptions.agencyTypes.map((agencyType) => (
-        <div
-            className="radio"
-            key={agencyType.name}>
-            <label className="radio-label" htmlFor="agencyType">
-                <input
-                    type="radio"
-                    aria-label={agencyType.name}
-                    value={agencyType.name}
-                    name="agencyType"
-                    checked={currentAgencyType === agencyType.name}
-                    onChange={onChange} />
-                <div className="radio-container">
-                    {agencyType.label}
-                    <div className="radio-description">
-                        {agencyType.description}
-                    </div>
-                </div>
-            </label>
-        </div>
+    const agencyTypesList = awardDownloadOptions.agencyTypes.map(({ name, label, description }) => (
+        <BulkDownloadRadioButton
+            name="agencyType"
+            value={name}
+            checked={currentAgencyType === name}
+            onChange={onChange}
+            label={label}
+            description={description}
+            key={name} />
     ));
 
     // data manipulation for combo boxes
@@ -126,11 +96,7 @@ const AgencyFilter = memo(function AgencyFilter({
 
     return (
         <div className="download-filter">
-            <h3 className="download-filter__title">
-                {icon} Select an awarding or funding
-                <span className="download-filter__title_em"> agency </span>
-                and <span>sub-agency</span>.
-            </h3>
+            <FilterSectionTitle type="agency" />
             <div className="download-filter__content agency">
                 <div className="input-container">
                     {agencyTypesList}

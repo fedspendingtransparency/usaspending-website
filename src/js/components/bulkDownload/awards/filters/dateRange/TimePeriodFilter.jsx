@@ -5,8 +5,8 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 import ComboBox from "components/sharedComponents/ComboBox";
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 
 import {
     allFiscalYears,
@@ -15,6 +15,7 @@ import {
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 
 import DownloadDateRange from './DownloadDateRange';
+import BulkDownloadRadioButton from "../../../../sharedComponents/BulkDownloadRadioButton";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -26,7 +27,6 @@ const propTypes = {
     filterTimePeriodEnd: PropTypes.string,
     updateStartDate: PropTypes.func,
     updateEndDate: PropTypes.func,
-    valid: PropTypes.bool,
     setValidDates: PropTypes.func
 };
 
@@ -50,7 +50,7 @@ const errorTypes = {
     },
     incomplete: {
         title: 'Incomplete',
-        message: 'Date range must have a state date and end date.',
+        message: 'Date range must have a start date and end date.',
         type: null,
         active: true
     },
@@ -67,7 +67,6 @@ const TimePeriodFilter = ({
     filterTimePeriodEnd,
     updateStartDate,
     updateEndDate,
-    valid,
     setValidDates
 }) => {
     const [startDateBulkUI, setStartDateBulkUI] = useState(filterTimePeriodStart);
@@ -76,19 +75,6 @@ const TimePeriodFilter = ({
     const [currentTimeType, setCurrentTimeType] = useState("time_period");
     let defaultValue = '';
 
-    let icon = (
-        <div className="icon valid">
-            <CheckCircle />
-        </div>
-    );
-
-    if (!valid || error.active) {
-        icon = (
-            <div className="icon invalid">
-                <ExclamationCircle />
-            </div>
-        );
-    }
 
     const validateDates = useCallback(() => {
         // validate the date ranges
@@ -139,7 +125,7 @@ const TimePeriodFilter = ({
             else {
                 // already checked if end is valid above
                 // if start is not valid end must be.
-                const endValue = end.format('YYYY-MM-DD');       
+                const endValue = end.format('YYYY-MM-DD');
                 errorMessage = {
                     ...errorMessage,
                     type: 'start'
@@ -284,34 +270,23 @@ const TimePeriodFilter = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [startDateBulkUI, endDateBulkUI, validateDates]);
 
-    const timePeriodTypeList = awardDownloadOptions.timePeriodTypes.map((periodType) => (
-        <div
-            className="radio"
-            key={periodType.name}>
-            <label className="radio-label" htmlFor="periodType">
-                <input
-                    type="radio"
-                    aria-label={periodType.name}
-                    value={periodType.name}
-                    name="periodType"
-                    checked={currentTimeType === periodType.name}
-                    onChange={() => setCurrentTimeType(periodType.name)} />
-                <div className="radio-container">
-                    {periodType.label}
-                    <div className="radio-description">
-                        {periodType.description}
-                    </div>
-                </div>
-            </label>
-        </div>
-    ));
+    const timePeriodTypeList = awardDownloadOptions
+        .timePeriodTypes
+        .map(({ name, label, description }) => (
+            <BulkDownloadRadioButton
+                name="periodType"
+                value={name}
+                checked={currentTimeType === name}
+                onChange={() => setCurrentTimeType(name)}
+                label={label}
+                description={description}
+                key={name} />
+        ));
 
     return (
 
         <div className="download-filter">
-            <h3 className="download-filter__title">
-                {icon} Select a <span className="download-filter__title_em">date range</span>.
-            </h3>
+            <FilterSectionTitle type="dateRange" />
             <div className="download-filter__content time-period">
                 <div className="input-container">
                     {timePeriodTypeList}

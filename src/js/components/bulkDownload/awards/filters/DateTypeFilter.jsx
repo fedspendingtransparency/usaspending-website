@@ -8,7 +8,8 @@ import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
-import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+import BulkDownloadRadioButton from "../../../sharedComponents/BulkDownloadRadioButton";
 
 const propTypes = { updateFilter: PropTypes.func };
 
@@ -16,54 +17,25 @@ const propTypes = { updateFilter: PropTypes.func };
 const DateTypeFilter = memo(function DateTypeFilter({ updateFilter }) {
     const currentDateType = useSelector((state) => state.bulkDownload.awards.dateType);
 
-    const valid = currentDateType !== '';
-
     const onChange = (e) => {
         const target = e.target;
         updateFilter('dateType', target.value);
     };
 
-    let icon = (
-        <div className="icon valid">
-            <CheckCircle />
-        </div>
-    );
-    if (!valid) {
-        icon = (
-            <div className="icon invalid">
-                <ExclamationCircle />
-            </div>
-        );
-    }
-    const dateTypes = awardDownloadOptions.dateTypes.map((dateType) => (
-        <div
-            className="radio"
-            key={dateType.name}>
-            <label className="radio-label" htmlFor="dateType">
-                <input
-                    type="radio"
-                    aria-label={dateType.name}
-                    value={dateType.name}
-                    name="dateType"
-                    checked={currentDateType === dateType.name}
-                    onChange={onChange} />
-                <div className="text-container">
-                    {dateType.label}
-                    <div className="radio-description">
-                        {dateType.description}
-                    </div>
-                </div>
-            </label>
-        </div>
+    const dateTypes = awardDownloadOptions.dateTypes.map(({ name, label, description }) => (
+        <BulkDownloadRadioButton
+            name="dateType"
+            value={name}
+            checked={currentDateType === name}
+            onChange={onChange}
+            label={label}
+            description={description}
+            key={name} />
     ));
 
     return (
         <div className="download-filter">
-            <h3 className="download-filter__title">
-                {icon} Select a
-                <span className="download-filter__title_em"> date type </span>
-                for the date range below.
-            </h3>
+            <FilterSectionTitle type="date" />
             <div className="download-filter__content date-type">
                 {dateTypes}
             </div>

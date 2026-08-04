@@ -2,16 +2,11 @@ import React from 'react';
 import PropTypes from "prop-types";
 
 import DEFCheckboxTreeDownload from 'components/bulkDownload/DEFCheckboxTreeDownload';
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 
 const DefCodeFilter = ({ type, isDisabled = false }) => (
     <div className="download-filter def-code-filter">
-        <h3 className="download-filter__title">
-            Filter by <span className="download-filter__title_em">Disaster Emergency Fund Codes (DEFCs).</span>
-        </h3>
-        <p className="download-filter__subtitle">(Optional)</p>
-        <div className="download-filter__info">
-            <span>Filter your data with codes related to supplemental appropriation bills targeting disasters and emergencies. </span>
-        </div>
+        <FilterSectionTitle type="defc" />
         <div className="download-filter__content">
             <DEFCheckboxTreeDownload type={type} isDisabled={isDisabled} />
             {type === "accounts"

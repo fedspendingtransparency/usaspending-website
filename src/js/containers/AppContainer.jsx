@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import perflogger from 'redux-perf-middleware';
 import kGlobalConstants from 'GlobalConstants';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router';
+import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
 
 import storeSingleton from 'redux/storeSingleton';
 import WithUrlListener from 'containers/WithUrlListener';
@@ -20,6 +21,7 @@ import MobileMessage from 'components/sharedComponents/MobileMessage';
 import '_global.scss';
 
 import { routes } from './router/RouterRoutes';
+import ErrorPage from '../components/errorPage/ErrorPage';
 
 let devExtension;
 let store;
@@ -57,25 +59,36 @@ const ScrollToTop = () => {
     return null;
 };
 
+
+const ErrorFallback = ({error, resetErrorBoundary}) => (
+    <ErrorPage
+        title='Something went wrong.'
+        heading='Sorry, something unexpected happened on this page'
+        resetErrorBoundary={resetErrorBoundary}
+        showResetErrorBoundary/>
+);
+
 const AppContainer = () => (
     <Provider store={store}>
         <BrowserRouter>
             <Suspense fallback={<Loading isLoading includeHeader includeFooter />}>
                 <ScrollToTop />
-                <Routes>
-                    {routes.filter((route) => !route.hide).map(({ path, component }) => {
-                        const Component = (routerProps) => WithUrlListener(component, routerProps);
-                        return (
-                            <Route
-                                caseSensitive
-                                path={path}
-                                element={<Component />}
-                                key={path} />
-                        );
-                    }
-                    )}
-                </Routes>
-                {window.outerWidth < 768 && <MobileMessage />}
+                <ErrorBoundary FallbackComponent={ErrorFallback} >
+                    <Routes>
+                        {routes.filter((route) => !route.hide).map(({ path, component }) => {
+                            const Component = (routerProps) => WithUrlListener(component, routerProps);
+                            return (
+                                <Route
+                                    caseSensitive
+                                    path={path}
+                                    element={<Component />}
+                                    key={path} />
+                            );
+                        }
+                        )}
+                    </Routes>
+                    {window.outerWidth < 768 && <MobileMessage />}
+                </ErrorBoundary>
             </Suspense>
         </BrowserRouter>
     </Provider>

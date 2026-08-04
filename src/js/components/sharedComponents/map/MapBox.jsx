@@ -131,7 +131,6 @@ const MapBox = ({
 
     const mountMap = useCallback((m, z, c, mounted, isMobile) => {
         MapboxGL.accessToken = kGlobalConstants.MAPBOX_TOKEN;
-        // eslint-disable-next-line no-param-reassign
         m.current = new MapboxGL.Map({
             container: mapDiv.current,
             style: mapStyle,
@@ -141,6 +140,8 @@ const MapBox = ({
             zoom: z,
             dragRotate: false // disable 3D view
         });
+
+        if (m.current === null) return;
 
         // add navigation controls
         m.current.addControl(new MapboxGL.NavigationControl());
@@ -180,7 +181,7 @@ const MapBox = ({
         if (map.current) {
             resizeMap(map, zoom, center, isTablet);
         }
-        else {
+        else if (center && center.length > 0) {
             mountMap(
                 map,
                 zoom,

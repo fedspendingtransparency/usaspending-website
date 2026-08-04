@@ -35,6 +35,7 @@ $heading-line-height: 1.2;
 $lead-line-height: 1.7;
 
 $font-sans: "Source Sans Pro", $helvetica;
+$font-sans-3: "Source Sans 3", $helvetica;
 $font-serif: "Merriweather", $georgia;
 $font-path: "./fonts";
 
@@ -50,12 +51,14 @@ $red-warm-20v: #f6bd9c;
 $red-warm-50v: #d54309;
 $red-cool-5v: #fff2f5;
 $red-cool-50v: #e41d3d;
+$yellow-5v: #fff5c2;
 $yellow-10: #f5e6af;
 $yellow-10v: #fee685;
 $yellow-20v: #face00;
 $orange-5v: #fef2e4;
 $orange-20v: #ffbc78;
 $orange-30v: #fa9441;
+$orange-40v: #e66f0e;
 $orange-warm-40v: #ff580a;
 $orange-warm-10v: #ffe2d1;
 $mint-5: #dbf6ed;
@@ -110,6 +113,7 @@ $indigo-60v: #4a50c4;
 $indigo-70v: #3333a3;
 $indigo-cool-40v: #628ef4;
 $indigo-cool-80v: #1b2b85;
+$violet-5v: #f7f2ff;
 $violet-20v: #d5bfff;
 $violet-50v: #9355dc;
 $violet-60v: #783cb9;
@@ -139,6 +143,7 @@ $green-cool-20v: #70e17b;
 $green-cool-30v: #21c834;
 $green-cool-50v: #008817;
 $green-cool-60v: #216e1f;
+$brown-warm-40: #422d19;
 
 // Theme Colors
 $theme-color-1: $blue-60v;
@@ -303,6 +308,9 @@ $medium-screen: 992px;
 $large-screen: 1200px;
 $m-large-screen: 1400px;
 $x-large-screen: 1640px;
+
+// moblie retina display variable
+$retina: "(-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi)";
 
 // Magic Numbers
 $text-max-width: rem(530);

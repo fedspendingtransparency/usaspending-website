@@ -1,31 +1,42 @@
 .usa-da-dsm-page {
   @import "all";
   @import "layouts/default/default";
-  @import "layouts/default/stickyHeader/header";
 
   $color-gray-border: $color-gray-lighter;
 
-  @media (max-width: $medium-screen) {
-    .usda-in-page-nav__container {
-      top: 121px;
+  .usda-in-page-nav__container {
+    top: 0;
+  }
+
+  .back-link {
+    display: flex;
+    align-items: center;
+    a {
+      font-size: $font-size-18;
+      font-weight: $font-semibold;
+      line-height: $heading-line-height;
+      text-decoration: none;
+      svg {
+        margin-right: rem(8);
+      }
     }
   }
 
   .main-content {
     @import "../../mixins/fullSectionWrap";
-    @include fullSectionWrap(($global-margin * 4), ($global-margin * 4));
+    @include fullSectionWrap(0, ($global-margin * 4));
     padding: 0;
 
-    @import "../about/_contentWrap";
     @import "elements/_divider";
     @import "../about/_section";
 
     .about-content-wrapper {
-      @include grid-column(16);
-      @media (min-width: $small-screen) {
-        margin-left: 0;
-        max-width: 160rem;
-        width: 100%;
+      padding: ($global-spacing-unit * 3) ($global-spacing-unit * 4)
+        ($global-spacing-unit * 4) ($global-spacing-unit * 4);
+
+      @media (max-width: $tablet-screen) {
+        padding: ($global-spacing-unit * 3) ($global-spacing-unit * 2)
+          ($global-spacing-unit * 2) ($global-spacing-unit * 2);
       }
       .about-padded-content {
         padding: 1rem 4rem;
@@ -35,7 +46,7 @@
           margin: auto;
         }
         .about-section-content .usda-external-link {
-          @include button-unstyled;
+          @include button-link;
           display: inline;
           padding: 0 rem(5);
           font-size: rem(18);
@@ -44,41 +55,36 @@
             color: $color-primary;
           }
         }
-        .about-section-content ol {
-          font-size: rem(18);
-          &.about-instructions {
-            font-family: monospace;
-            padding: 3rem 5rem;
-            background-color: $color-gray-lightest;
-          }
+      }
+      .about-section-content ol {
+        font-size: rem(18);
+        &.about-instructions {
+          font-family: monospace;
+          padding: 3rem 5rem;
+          background-color: $color-gray-lightest;
         }
-        .about-section-content ul {
-          margin: 0 0 3rem;
-        }
-        .about-section-content ul li {
-          margin: 1rem 0;
-        }
-        .about-section-content ul li ul {
-          margin-bottom: 3rem;
-        }
-        .about-section-content_custom-list {
-          list-style-type: none;
-          padding-left: 1.5rem;
-          font-style: italic;
-        }
+      }
+      .about-section-content ul {
+        margin: 0 0 3rem;
+      }
+      .about-section-content ul li {
+        margin: 1rem 0;
+      }
+      .about-section-content ul li ul {
+        margin-bottom: 3rem;
+      }
+      .about-section-content_custom-list {
+        list-style-type: none;
+        padding-left: 1.5rem;
+        font-style: italic;
       }
       .about-content {
         width: 100%;
       }
     }
-  }
 
-  .sticky-header {
-    .sticky-header__toolbar {
-      .copy-confirmation {
-        right: rem(83);
-        z-index: 1;
-      }
+    .usa-dt-picker {
+      z-index: 3;
     }
   }
 

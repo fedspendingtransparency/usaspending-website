@@ -2,7 +2,10 @@ import { useDispatch } from 'react-redux';
 import { useEffect } from "react";
 import { useMatch, useNavigate } from "react-router";
 import { parseStateDataFromUrl } from "./stateHelper";
-import {resetState, setStateFiscalYear} from "../../redux/actions/state/stateActions";
+import { resetState, setStateFiscalYear } from "../../redux/actions/state/stateActions";
+import StatePageContainer from "./containers/StatePageContainer";
+import { fipsIdByStateName } from "../../dataMapping/state/stateNames";
+import { allFiscalYears } from "../../helpers/fiscalYearHelper";
 
 export const useStateNavigation = () => {
     const dispatch = useDispatch();
@@ -18,16 +21,24 @@ export const useStateNavigation = () => {
     };
 
     useEffect(() => {
-        if (!fy) {
+        if (Object.keys(fipsIdByStateName).includes(stateName)) {
+            if (!fy) {
             // this may be an issue on the first day of 2026 fiscal year
             // history(`/state/${stateName}/latest`, { replace: true });
-            navigate(`/state/${stateName}/2026`, { replace: true });
-        }
-        else if (!wasInputStateName) {
-            navigate(`/state/${stateName}/${fy}`, { replace: true });
+                navigate(`/state/${stateName}/2026`, { replace: true });
+            }
+            else if (!allFiscalYears().includes(parseInt(fyParam, 10))) {
+                navigate(`/state/${stateName}/2026`, { replace: true} );
+            }
+            else if (!wasInputStateName) {
+                navigate(`/state/${stateName}/${fy}`, { replace: true });
+            }
+            else {
+                dispatch(setStateFiscalYear(fy));
+            }
         }
         else {
-            dispatch(setStateFiscalYear(fy));
+            navigate(`/state`);
         }
 
         return () => {

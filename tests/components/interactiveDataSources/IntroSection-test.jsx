@@ -8,13 +8,13 @@ import IntroSection from 'components/interactiveDataSources/sections/IntroSectio
 describe('IntroSection', () => {
     test('should display the intro section with text', () => {
         const { getByTestId } = render(<IntroSection />);
-        const introMainText = getByTestId('introText');
+        const introMainText = getByTestId('interactive-data-sources__bodyText');
         expect(introMainText.innerHTML.length).toBeGreaterThan(2);
     });
 
-    test('should display the body section with text', () => {
+    test('should display the download share button group with text', () => {
         const { getByTestId } = render(<IntroSection />);
-        const bodyText = getByTestId('paragraphText');
+        const bodyText = getByTestId('share-dl-group');
         expect(bodyText.innerHTML.length).toBeGreaterThan(2);
     });
 });

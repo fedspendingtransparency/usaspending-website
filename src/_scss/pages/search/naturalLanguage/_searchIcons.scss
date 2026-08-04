@@ -1,0 +1,90 @@
+@mixin label-styles {
+  font-family: $font-sans;
+  font-size: $small-font-size;
+  font-weight: $font-semibold;
+  line-height: $base-line-height;
+}
+
+@mixin icon-styles {
+  width: $base-font-size;
+  height: $base-font-size;
+}
+
+@mixin icon-variant(
+  $label-color,
+  $icon-bkg,
+  $icon-color,
+  $gap: $font-size-10,
+  $label-margin-top: 0,
+  $margin-bottom: rem(12),
+  $padding: rem(6)
+) {
+  gap: $gap;
+  margin-bottom: $margin-bottom;
+
+  .icon-label {
+    @include label-styles;
+    color: $label-color;
+    margin-top: $label-margin-top;
+  }
+
+  .icon-container {
+    background: $icon-bkg;
+    padding: $padding;
+  }
+
+  .icon {
+    color: $icon-color;
+  }
+}
+
+.icon-row {
+  display: flex;
+  align-items: center;
+
+  .icon-label {
+    @include label-styles;
+    white-space: nowrap;
+  }
+
+  .icon-container {
+    display: flex;
+    flex-shrink: 0;
+    border-radius: rem(4);
+
+    .icon {
+      @include icon-styles;
+    }
+  }
+
+  &--time-period {
+    @include icon-variant($gray-90, $blue-vivid-5v, $blue-vivid-70);
+  }
+
+  &--location {
+    @include icon-variant($gray-90, $orange-5v, $orange-40v);
+  }
+
+  &--keyword {
+    @include icon-variant($gray-90, $cyan-5v, $cyan-70v);
+  }
+
+  &--recipient {
+    @include icon-variant($gray-90, $green-cool-5v, $green-cool-60v);
+  }
+
+  &--award-type {
+    @include icon-variant($gray-90, $violet-5v, $violet-70v);
+  }
+
+  &--award-description {
+    @include icon-variant($gray-90, $yellow-5v, $brown-warm-40);
+  }
+
+  &--glossary,
+  &--about-the-data,
+  &--data-dictionary,
+  &--federal-spending-guide {
+    @include icon-variant($gray-80, none, $gray-80, rem(6), rem(2), 0, 0);
+  }
+}

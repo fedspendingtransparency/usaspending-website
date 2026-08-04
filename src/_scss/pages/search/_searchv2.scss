@@ -8,11 +8,7 @@
   }
   #main-content {
     padding-bottom: 0;
-    .search-contents {
-      @media (min-width: $medium-screen) {
-        border-left: 1px solid $gray-cool-10;
-      }
-    }
+    background: $gray-2;
 
     .search-results-view-container {
       padding-bottom: 16px;

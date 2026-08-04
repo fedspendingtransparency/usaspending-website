@@ -17,6 +17,9 @@
   @import "resultsView/dtuiOverrides";
   @import "filters";
   @import "collapsibleSidebar";
+  @import "./naturalLanguage/searchSuggestions";
+  @import "./naturalLanguage/moreResources";
+  @import "./naturalLanguage/searchIcons";
 
   #main-content {
     @media (min-width: $medium-screen) {
@@ -79,7 +82,7 @@
 
   #main-content {
     width: 100%;
-    padding: 0 rem(16) rem(16) rem(16);
+    padding: 0 rem(16) rem(8) rem(16);
     @import "components/aboutTheDataSidebar/aboutTheData";
 
     @media (min-width: $medium-screen) {

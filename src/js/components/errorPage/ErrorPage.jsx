@@ -7,17 +7,30 @@ import React from 'react';
 import { Link } from 'react-router';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { errorPageMetaTags } from 'helpers/metaTagHelper';
+import PropTypes from 'prop-types';
 
 require('pages/errorPage/errorPage.scss');
 
-const ErrorPage = () => (
+const propTypes = {
+    title: PropTypes.string,
+    heading: PropTypes.string,
+    showResetErrorBoundary: PropTypes.bool,
+    resetErrorBoundary: PropTypes.func
+};
+
+const ErrorPage = ({
+    title="Page Not Found",
+    heading="Sorry, the page you are looking for does not exist.",
+    showResetErrorBoundary=false,
+    resetErrorBoundary=() => {}
+}) => (
     <PageWrapper
         pageName="Error"
         classNames="usa-da-error-page"
         metaTagProps={errorPageMetaTags}
-        title="Page Not Found">
+        title={title}>
         <main id="main-content" className="main-content">
-            <h2>Sorry, the page you are looking for does not exist.</h2>
+            <h2>{heading}</h2>
             <picture>
                 <source srcSet="img/errorPage/ErrorPage404-mobile.webp 1x, img/errorPage/ErrorPage404-desktop.webp 2x" type="image/webp" />
                 <img src="img/errorPage/ErrorPage404-02.svg" alt="404" />
@@ -31,7 +44,7 @@ const ErrorPage = () => (
                     <Link to="/">Back to Home</Link>
                 </li>
                 <li>
-                    <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Report%20an%20Error">Report Problem</a>
+                    <a href={`mailto:usaspending.help@fiscal.treasury.gov?subject=${encodeURIComponent("Report an Error")}`}>Report Problem</a>
                 </li>
                 <li>
                     <Link to="/search">Search Award Data</Link>
@@ -43,8 +56,14 @@ const ErrorPage = () => (
                     <a href="https://fiscalservice.force.com/usaspending/s/" rel="noopener noreferrer" target="_blank">Visit our Community Page</a>
                 </li>
             </ul>
+            {showResetErrorBoundary && (
+                <button 
+                    className=''
+                    onClick={resetErrorBoundary}>Try again</button>
+            )}
         </main>
     </PageWrapper>
 );
 
+ErrorPage.propTypes = propTypes;
 export default ErrorPage;
