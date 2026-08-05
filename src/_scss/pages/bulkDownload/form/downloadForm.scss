@@ -1,3 +1,5 @@
+$download-filter-col-breakpoint: $mobile-only - 20;
+
 .download-center-form,
 .bulk-download {
   @import "filterSectionTitle";
@@ -13,14 +15,17 @@
     .download-filter__container {
       display: flex;
       justify-content: flex-start;
-
-      @media (min-width: $small-screen) {
-        display: flex;
-        justify-content: flex-start;
-        flex-wrap: wrap;
-      }
+      flex-wrap: wrap;
 
       .download-filter__col {
+        flex: 0 0 100%;
+        max-width: 50%;
+    
+        @media (max-width: $download-filter-col-breakpoint) {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+
         .combo-box {
           margin-left: 0;
 
