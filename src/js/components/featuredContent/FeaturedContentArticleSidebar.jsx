@@ -18,7 +18,6 @@ const FeaturedContentArticleSidebar = ({ chosenArticle }) => {
         dispatch(showModal(url));
     };
     const onShareClick = (optionName, url) => {
-        console.debug("chosenArticle: ", chosenArticle);
         const emailSubject = `${chosenArticle.title}`;
         const emailArgs = {
             subject: `${emailSubject}`,
