@@ -101,7 +101,7 @@
 
         .combo-box-container {
           display: flex;
-          margin: 0 0 rem(12) 0;
+          margin: 0 rem(20) rem(12) 0;
 
           .combo-box {
             margin: 0;
@@ -400,7 +400,7 @@
       }
     }
 
-    @media (max-width: $mobile-only) {
+    @media (max-width: $tablet-screen) {
       flex-direction: column;
 
       button {
