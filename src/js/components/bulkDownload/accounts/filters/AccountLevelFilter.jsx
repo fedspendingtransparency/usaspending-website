@@ -37,7 +37,8 @@ const AccountLevelFilter = ({
             <label
                 className="radio-label"
                 htmlFor="account-level">
-                {level.label} <span className="radio-label__subtext"> {level.description}</span>
+                {level.label} 
+                <div className="radio-label__subtext"> {level.description}</div>
             </label>
         </div>
     ));
@@ -45,7 +46,7 @@ const AccountLevelFilter = ({
     return (
         <div className="download-filter">
             <FilterSectionTitle type="account" />
-            <div className="download-filter__content">
+            <div className="download-filter__content account">
                 {accountLvls}
             </div>
         </div>

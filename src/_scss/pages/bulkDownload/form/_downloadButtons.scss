@@ -1,27 +1,43 @@
 .radio,
 .checkbox {
-  padding-top: rem(15);
-  &:first-child {
-    padding-top: 0;
-  }
-
   input {
     margin-right: rem(5);
   }
+
+  @media (max-width: $mobile-only) {
+    display: flex;
+    align-items: flex-start;
+    
+    &.submission {
+      margin-bottom: rem(12);
+    }
+    
+    input {
+      flex: 0 0 auto;
+    }
+    .checkbox-label {
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+  }
+  
   .radio-label,
   .checkbox-label {
     color: #4a4a4a;
     font-size: rem(18);
     line-height: rem(23);
+    margin-left: $global-spacing-unit;
+    
     &.disabled {
       color: $color-gray-light;
     }
     .radio-label__subtext {
-      padding-left: rem(15);
-      font-style: italic;
-      font-weight: 300;
-      line-height: rem(23);
-      white-space: nowrap;
+      color: $gray-90;
+      font-family: $font-sans;
+      font-size: $font-size-16;
+      font-style: normal;
+      font-weight: $font-normal;
+      line-height: $base-line-height;
     }
   }
   .radio-description {

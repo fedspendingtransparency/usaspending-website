@@ -9,8 +9,13 @@ $quarter-text-color: $gray-90;
   ul.quarter-picker__list {
     @include unstyled-list;
     display: flex;
+    flex-direction: row;
     flex: 1 1 auto;
     padding: rem(5) 0;
+
+    @media (max-width: $mobile-only) {
+      flex-direction: column;
+    }
 
     li.quarter-picker__list-item {
       margin-right: rem(2);
@@ -75,6 +80,10 @@ $quarter-text-color: $gray-90;
         list-style: none;
         height: auto;
 
+        @media (max-width: $mobile-only) {
+          flex-direction: row;
+        }
+
         // the nested list
         p {
           font-size: $base-font-size;
@@ -89,6 +98,10 @@ $quarter-text-color: $gray-90;
           flex-direction: row;
           padding: 0;
           margin: 0;
+
+          @media (max-width: $mobile-only) {
+            margin-left: rem(12);
+          }
 
           li {
             list-style: none;

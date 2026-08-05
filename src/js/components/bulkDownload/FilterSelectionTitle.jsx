@@ -177,13 +177,15 @@ const FilterSectionTitle = ({
                     style={{backgroundColor: background}} >
                     <FontAwesomeIcon icon={icon} color={fill} />
                 </div>
-                {preSpan}
-                <span
-                    className={`download-filter__title_em ${addClassName}`}
-                    style={{backgroundColor: background}} >
-                    {span}
+                <span className="title-content">
+                    {preSpan}
+                    <span
+                        className={`download-filter__title_em ${addClassName}`}
+                        style={{backgroundColor: background}} >
+                        {span}
+                    </span>
+                    {postSpan}
                 </span>
-                {postSpan}
                 {showRequired && <span className='required'>&nbsp;(Required)&nbsp;</span>}
             </h4>
         </div>

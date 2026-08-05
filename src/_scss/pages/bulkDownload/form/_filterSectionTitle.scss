@@ -13,6 +13,14 @@
     font-size: $h4-font-size;
     color: $gray-90;
 
+    @media (max-width: $mobile-only) {
+      flex-wrap: wrap;
+
+      .required {
+        flex-basis: 100%;
+      }
+    }
+
     .download-filter__title_em {
       font-weight: 600;
       margin-left: rem(4);

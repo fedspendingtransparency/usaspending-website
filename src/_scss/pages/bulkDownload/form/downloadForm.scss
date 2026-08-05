@@ -22,7 +22,11 @@
 
       .download-filter__col {
         .combo-box {
-          margin: 0 0 rem(12) rem(12);
+          margin-left: 0;
+
+          @media (min-width: $mobile-only) {
+            margin: 0 0 rem(12) rem(12);
+          }
         }
 
         &:nth-child(odd) {
@@ -43,6 +47,17 @@
       .radio {
         input[type="radio"] {
           @include usa-input-radio;
+        }
+      }
+
+      &.account {
+        display: flex;
+        flex-direction: column;
+        gap: rem(12);
+
+        @media (min-width: $mobile-only) {
+          flex-direction: row;
+          gap: rem(24);
         }
       }
 
@@ -233,9 +248,6 @@
         .combo-box {
           min-width: 37.5%;
           margin: 0 rem(32) 0 0;
-        }
-
-        .quarter-picker {
         }
       }
     }
