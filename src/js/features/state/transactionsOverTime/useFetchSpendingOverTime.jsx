@@ -7,7 +7,7 @@ import { useCallback, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { performSpendingOverTimeSearch } from "helpers/searchHelper";
 import { convertMonthToFY, convertNumToShortMonth } from "helpers/monthHelper";
-import { createApiParams } from "../../stateHelper";
+import { createApiParams } from "../stateHelper";
 
 export const useFetchSpendingOverTime = (visualizationPeriod, code) => {
     const [parsedData, setParsedData] = useState(null);

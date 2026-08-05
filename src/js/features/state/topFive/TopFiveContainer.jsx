@@ -30,6 +30,7 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
         <>
             {!noResults &&
                 <TopFive
+                    key={category}
                     category={category}
                     results={parsedData}
                     total={total}

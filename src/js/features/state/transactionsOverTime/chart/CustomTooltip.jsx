@@ -23,13 +23,14 @@ const CustomTooltip = ({
     textLabel
 }) => {
     if (active && payload && payload.length) {
+        console.log(textLabel);
         return (
             <div className="custom-tooltip" role="status" aria-live="assertive">
                 <div className="tooltip__title">
                     {label}
                 </div>
                 <div className="tooltip__text">
-                    <div className="tooltip__text-label">{textLabel}</div>
+                    <div className="tooltip__text-label">Obligations</div>
                     <div className="tooltip__text-amount">
                         {formatMoneyWithUnitsShortLabel(payload[0].value)}
                     </div>

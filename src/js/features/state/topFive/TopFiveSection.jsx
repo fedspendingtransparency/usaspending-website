@@ -22,23 +22,6 @@ const TopFiveSection = ({ agencyData }) => {
     const { overview, fy } = useSelector((state) => state.stateProfile);
     const { code, _totalAmount: total } = overview;
 
-    const topFiveWrapper = useCallback(() => {
-        return (
-            <>
-                {!noResults &&
-                    <TopFive
-                        category={category}
-                        results={parsedData}
-                        total={total}
-                        loading={isLoading}
-                        error={error}
-                        dataParams={dataParams}
-                        agencyData={agencyData} />
-                }
-            </>
-        );
-    });
-
     const content = categories[active].map((category) => (
         <TopFiveContainer
             agencyData={agencyData}

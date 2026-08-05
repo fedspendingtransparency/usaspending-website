@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useMatch, useNavigate } from "react-router";
 import { parseStateDataFromUrl } from "./stateHelper";
 import { resetState, setStateFiscalYear } from "../../redux/actions/state/stateActions";
-import StatePageContainer from "./containers/StatePageContainer";
 import { fipsIdByStateName } from "../../dataMapping/state/stateNames";
 import { allFiscalYears } from "../../helpers/fiscalYearHelper";
 

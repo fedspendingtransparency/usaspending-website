@@ -1,31 +1,33 @@
 /**
- * StatePage.jsx
+ * StatePageContainer.jsx
  * Created by Lizzie Salita 5/2/18
  */
 
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
+import { useDispatch, useSelector } from "react-redux";
 
 import Error from 'components/sharedComponents/Error';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
 import StateOverview from "features/state/overview/StateOverview";
 import StateTimeVisualizationSectionContainer from
-    "features/state/transactionsOverTime/containers/StateTimeVisualizationSectionContainer";
-import StateFooter from "features/state/StateFooter";
-import StatePageWrapper from "./StatePageWrapper";
-import {useDispatch, useSelector} from "react-redux";
-import useStateNavigation from "./useStateNavigation";
-import useFetchOverview from "./useFetchOverview";
+    "features/state/transactionsOverTime/StateTimeVisualizationSectionContainer";
 import { setStateFiscalYear, setStateCenter } from "redux/actions/state/stateActions";
 import { stateCenterFromFips } from 'helpers/mapHelper';
-import TopFiveSection from "./topFive/TopFiveSection";
-import useAgencySlugs from "../../hooks/useAgencySlugs";
+
+import StateFooter from "./StateFooter";
+import StatePageWrapper from "./StatePageWrapper";
+import useStateNavigation from "../useStateNavigation";
+import useFetchOverview from "./useFetchOverview";
+
+import TopFiveSection from "../topFive/TopFiveSection";
+import useAgencySlugs from "../../../hooks/useAgencySlugs";
 
 require('pages/state/statePage.scss');
 
-const StatePage = () => {
+const StatePageContainer = () => {
     const dispatch = useDispatch();
     const { handleFyChange, state, stateId, fy } = useStateNavigation();
     const stateProfile = useSelector((s) => s.stateProfile);
@@ -86,4 +88,4 @@ const StatePage = () => {
     );
 };
 
-export default StatePage;
+export default StatePageContainer;
