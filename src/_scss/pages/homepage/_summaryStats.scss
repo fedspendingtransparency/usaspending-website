@@ -192,7 +192,7 @@ $largeMobile: 576px;
         margin: auto 0;
       }
 
-      .usa-dt-flex-grid__row {
+      .summary-stats__row {
         justify-content: center;
 
         @media (min-width: $stackedTall) and (max-width: $stackedShort - 1) {

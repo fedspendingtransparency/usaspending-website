@@ -3,31 +3,78 @@
  * Created by Lizzie Salita 12/12/17
  */
 
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
+import {startCase} from "lodash-es";
 
 import isMobileContext from "context/IsMobileContext";
+import Analytics from "../../../helpers/analytics/Analytics";
 import AwardDataArchiveForm from './AwardDataArchiveForm';
 import AwardDataArchiveTable from './table/AwardDataArchiveTable';
 import AwardDataArchiveUserSelections from "./AwardDataArchiveUserSelections";
+import {Link} from "react-router";
 
 const propTypes = {
+
     filters: PropTypes.object,
     updateFilter: PropTypes.func,
     agencies: PropTypes.object,
-    results: PropTypes.array,
-    columns: PropTypes.array
+    results: PropTypes.array
 };
+
+const fileFieldsForAnalytics = ['fy', 'agency', 'date'];
+const archiveFileDownloadGACategory = 'Download Center - Archive Download';
+const getArchiveFileName = (file) => fileFieldsForAnalytics
+    .reduce((acc, key, i, arr) => {
+        const selection = file[key] !== 'N/A'
+            ? file[key]
+            : `AllFYs`;
+        if (i === 0) return `${selection}_`;
+        if (i === arr.length - 1) return `${acc}_${selection}`;
+        return `${acc}_${selection}_`;
+    }, '');
+
+const logArchiveDownload = (e, file) => {
+    Analytics.event({
+        event: 'archive_bulk_download',
+        category: archiveFileDownloadGACategory,
+        action: 'File Download',
+        label: `File Name: ${getArchiveFileName(file)}`,
+        gtm: true
+    });
+
+    fileFieldsForAnalytics
+        .forEach((key) => {
+            const label = file[key] !== 'N/A'
+                ? file[key]
+                : `AllFYs`;
+
+            Analytics.event({
+                event: 'archive_fields_for_download',
+                category: archiveFileDownloadGACategory,
+                action: `${startCase(key)} Download Criterion`,
+                label,
+                gtm: true
+            });
+        });
+}
 
 /* eslint-disable max-len */
 const AwardDataArchiveContent = ({
     filters,
     updateFilter,
     agencies,
-    results,
-    columns
+    results
 }) => {
     const { isTablet } = useContext(isMobileContext);
+    const [selectedFiles, setSelectedFiles] = useState(new Set());
+
+    const onClickReset = () => setSelectedFiles(new Set());
+
+    const onClickDownload = () => selectedFiles.forEach((url) => {
+        logArchiveDownload({}, results.find((file) => file.url === url))
+        window.open(url, '_blank');
+    });
 
     return (
         <div className="award-data-archive-content">
@@ -55,9 +102,38 @@ const AwardDataArchiveContent = ({
                 updateFilter={updateFilter}
                 agencies={agencies} />
             <AwardDataArchiveTable
-                columns={columns}
-                results={results}/>
+                results={results}
+                selectedFiles={selectedFiles}
+                setSelectedFiles={setSelectedFiles} />
+            <div className="note-text">
+                <span>
+                    Note:{" "}
+                </span>
+                To download data prior to FY 2008, visit our{" "}
+                <Link
+                    to="/download_center/custom_award_data">
+                    Custom Award Data
+                </Link>
+                {" "}page.
+            </div>
             {isTablet && <AwardDataArchiveUserSelections filters={filters} results={results}/>}
+            <button
+                className={`reset-button${isTablet ? " buttons-tablet" : ""}`}
+                id="reset-button"
+                aria-label="Reset File Selections"
+                title="Reset File Selections"
+                onClick={onClickReset}>
+                Reset
+            </button>
+            <button
+                className={`download-button${isTablet ? " buttons-tablet" : ""}`}
+                id="download-button"
+                aria-label="Download File Selections"
+                title="Download File Selections"
+                disabled={selectedFiles.size === 0}
+                onClick={onClickDownload}>
+                Download
+            </button>
         </div>
     );
 }
