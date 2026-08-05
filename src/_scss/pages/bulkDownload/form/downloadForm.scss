@@ -18,7 +18,7 @@ $download-filter-col-breakpoint: $mobile-only - 20;
       flex-wrap: wrap;
 
       .download-filter__col {
-        flex: 0 0 100%;
+        flex: 0 0 50%;
         max-width: 50%;
     
         @media (max-width: $download-filter-col-breakpoint) {
