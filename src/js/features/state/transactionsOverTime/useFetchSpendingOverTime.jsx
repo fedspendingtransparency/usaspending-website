@@ -72,7 +72,8 @@ export const useFetchSpendingOverTime = (visualizationPeriod, code) => {
         queryKey: [`spendingOverTimeSearch${code}${visualizationPeriod}`],
         queryFn: () => performSpendingOverTimeSearch(createApiParams(code, visualizationPeriod)).promise,
         enabled: !!(code && visualizationPeriod),
-        staleTime: 60000
+        refetchOnWindowFocus: false,
+        staleTime: Infinity
     });
 
     useEffect(() => {

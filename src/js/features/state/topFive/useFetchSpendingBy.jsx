@@ -136,7 +136,8 @@ export const useFetchSpendingBy = (category, code, fy, type) => {
         },
         select: parseData,
         enabled: !!(dataParams && code && type && fy),
-        staleTime: 60000
+        refetchOnWindowFocus: false,
+        staleTime: Infinity
     });
 
     return {
