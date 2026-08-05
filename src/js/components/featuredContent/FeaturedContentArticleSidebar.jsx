@@ -18,9 +18,10 @@ const FeaturedContentArticleSidebar = ({ chosenArticle }) => {
         dispatch(showModal(url));
     };
     const onShareClick = (optionName, url) => {
-        const emailSubject = `${chosenArticle.banner_title}`;
+        console.debug("chosenArticle: ", chosenArticle);
+        const emailSubject = `${chosenArticle.title}`;
         const emailArgs = {
-            subject: encodeURIComponent(`${emailSubject}`),
+            subject: `${emailSubject}`,
             body: `Check out this article from USAspending.gov: ${getBaseUrl(slug)}`
         };
         handleShareOptionClick(optionName, url, emailArgs, handleShareDispatch);
