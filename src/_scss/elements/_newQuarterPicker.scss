@@ -13,8 +13,12 @@ $quarter-text-color: $gray-90;
     flex: 1 1 auto;
     padding: rem(5) 0;
 
-    @media (max-width: $mobile-only) {
+     @media (max-width: $mobile-only) {
       flex-direction: column;
+    }
+
+    @media (min-width: $tablet-screen) {
+      flex-direction: row;
     }
 
     li.quarter-picker__list-item {
@@ -84,6 +88,10 @@ $quarter-text-color: $gray-90;
           flex-direction: row;
         }
 
+        @media (min-width: $tablet-screen) {
+          flex-direction: column;
+        }
+
         // the nested list
         p {
           font-size: $base-font-size;
@@ -101,6 +109,10 @@ $quarter-text-color: $gray-90;
 
           @media (max-width: $mobile-only) {
             margin-left: rem(12);
+          }
+
+          @media (min-width: $tablet-screen) {
+            margin: 0;
           }
 
           li {
