@@ -4,6 +4,7 @@ $button-color-disabled: $gray-5;
 $button-text-color: $color-white;
 $button-text-disabled: $gray-60;
 $quarter-text-color: $gray-90;
+$quarter-picker-mobile-breakpoint: 424px;
 
 .quarter-picker {
   ul.quarter-picker__list {
@@ -13,12 +14,8 @@ $quarter-text-color: $gray-90;
     flex: 1 1 auto;
     padding: rem(5) 0;
 
-     @media (max-width: $mobile-only) {
+    @media (max-width: $quarter-picker-mobile-breakpoint) {
       flex-direction: column;
-    }
-
-    @media (min-width: $tablet-screen) {
-      flex-direction: row;
     }
 
     li.quarter-picker__list-item {
@@ -84,12 +81,8 @@ $quarter-text-color: $gray-90;
         list-style: none;
         height: auto;
 
-        @media (max-width: $mobile-only) {
+        @media (max-width: $quarter-picker-mobile-breakpoint) {
           flex-direction: row;
-        }
-
-        @media (min-width: $tablet-screen) {
-          flex-direction: column;
         }
 
         // the nested list
@@ -107,12 +100,8 @@ $quarter-text-color: $gray-90;
           padding: 0;
           margin: 0;
 
-          @media (max-width: $mobile-only) {
+          @media (max-width: $quarter-picker-mobile-breakpoint) {
             margin-left: rem(12);
-          }
-
-          @media (min-width: $tablet-screen) {
-            margin: 0;
           }
 
           li {
