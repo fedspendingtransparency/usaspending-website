@@ -17,6 +17,8 @@
 
   @media (max-width: $tablet-screen) {
     position: unset;
+    margin-top: 0;
+    margin-bottom: rem(40);
   }
 
   .download-user-selections__title-wrapper {
