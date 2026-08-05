@@ -22,7 +22,7 @@
     padding-right: rem(16);
     padding-bottom: rem(60);
 
-    @media (min-width: $tablet-screen) {
+    @media (min-width: $medium-screen) {
       padding-left: rem(32);
       padding-right: rem(32);
     }
@@ -55,7 +55,7 @@
     padding-left: rem(16);
     padding-right: rem(16);
 
-    @media (min-width: $tablet-screen) {
+    @media (min-width: $medium-screen) {
       padding-left: rem(32);
       padding-right: rem(32);
     }

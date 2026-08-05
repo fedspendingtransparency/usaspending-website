@@ -400,7 +400,7 @@
       }
     }
 
-    @media (max-width: $tablet-screen) {
+    @media (max-width: $medium-screen - 1) {
       flex-direction: column;
 
       button {

@@ -15,7 +15,7 @@
     margin-bottom: rem(16);
   }
 
-  @media (max-width: $tablet-screen) {
+  @media (max-width: $medium-screen) {
     position: unset;
     margin-top: 0;
     margin-bottom: rem(40);
@@ -91,7 +91,7 @@
     }
   }
 
-  @media (max-width: $mobile-only) {
+  @media (max-width: $medium-screen - 1) {
     margin: rem(20) auto;
   }
 
