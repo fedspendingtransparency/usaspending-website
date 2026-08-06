@@ -15,8 +15,10 @@
     margin-bottom: rem(16);
   }
 
-  @media (max-width: $tablet-screen) {
+  @media (max-width: $medium-screen) {
     position: unset;
+    margin-top: 0;
+    margin-bottom: rem(40);
   }
 
   .download-user-selections__title-wrapper {
@@ -89,11 +91,11 @@
     }
   }
 
-  @media (max-width: $tablet-screen) {
+  @media (max-width: $medium-screen - 1) {
     margin: rem(20) auto;
   }
 
   @include media($x-large-screen) {
-    margin: rem(40) auto;
+    margin: rem(40) auto 0;
   }
 }

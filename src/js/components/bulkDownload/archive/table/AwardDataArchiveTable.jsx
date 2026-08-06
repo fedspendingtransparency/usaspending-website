@@ -5,37 +5,69 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import TableRow from './TableRow';
+import { Table } from 'data-transparency-ui';
 
-const propTypes = { results: PropTypes.array, columns: PropTypes.array };
+const columns = [
+    {
+        title: 'agency',
+        displayName: 'Agency'
+    },
+    {
+        title: 'fileName',
+        displayName: 'Archive File'
+    },
+    {
+        title: 'fy',
+        displayName: 'Fiscal Year'
+    },
+    {
+        title: 'date',
+        displayName: 'Data As Of'
+    }
+];
 
-const AwardDataArchiveTable = ({ results, columns }) => {
-    let noResultsClass = '';
+const propTypes = {
+    results: PropTypes.array,
+    selectedFiles: PropTypes.object,
+    setSelectedFiles: PropTypes.func
+};
 
-    // remove duplicated bottom border
-    if (results.length === 0) noResultsClass = ' no-results';
+const AwardDataArchiveTable = ({ results, selectedFiles, setSelectedFiles }) => {
+    const onChange = ({ target }) => {
+        setSelectedFiles((prevState) => {
+            const newState = new Set(prevState);
 
-    const headers = columns.map((column) => (
-        <th key={column.columnName}>
-            {column.displayName}
-        </th>
-    ));
+            newState.has(target.value) ?
+                newState.delete(target.value) :
+                newState.add(target.value);
 
-    const rows = results.map((file, index) => (
-        <TableRow
-            key={file.url}
-            file={file}
-            rowIndex={index}
-            columns={columns} />
-    ));
+            return newState;
+        });
+    };
+
+    const rows = results.map((file) => ([
+        (
+            <div key={file.agency}>
+                <input
+                    type="checkbox"
+                    aria-label={file.agency}
+                    value={file.url}
+                    name="file-agency"
+                    checked={selectedFiles.has(file.url)}
+                    onChange={onChange}/>
+                {file.agency === "All" ? "All Agencies" : file.agency}
+            </div>
+        ),
+        file.fileName.toLowerCase().indexOf("delta") >= 0 ? "Delta File" : "Full File",
+        file.fy,
+        file.date
+    ]))
 
     return (
-        <div className={`award-data-archive-table${noResultsClass}`}>
-            <table>
-                <thead><tr>{headers}</tr></thead>
-                <tbody>{rows}</tbody>
-            </table>
-        </div>
+        <Table
+            classNames={`award-data-archive-table${rows.length !== 0 ? ' no-results': ''}`}
+            columns={columns}
+            rows={rows} />
     );
 }
 
