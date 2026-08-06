@@ -34,7 +34,8 @@ const propTypes = {
     queryParam: PropTypes.object,
     awardsCount: PropTypes.number,
     transactionsCount: PropTypes.number,
-    subawardsCount: PropTypes.number
+    subawardsCount: PropTypes.number,
+    spending_level: PropTypes.array
 };
 
 const SearchPage = ({
@@ -47,12 +48,14 @@ const SearchPage = ({
     queryParam,
     awardsCount,
     transactionsCount,
-    subawardsCount
+    subawardsCount,
+    spending_level
 }) => {
     const [tooltipData, setTooltipData] = useState({
         top: 0, left: 0, display: 'none', tooltip: <></>
     });
     const [showMobileFilters, setShowMobileFilters] = useState(false);
+    const [mobileSidebarContent, setMobileSidebarContent] = useState("filters");
     const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
     const [filterCount, setFilterCount] = useState(0);
     const [showFullDownload, setShowFullDownload] = useState(false);
@@ -107,6 +110,7 @@ const SearchPage = ({
                             hash={hash}
                             showMobileFilters={showMobileFilters}
                             setShowMobileFilters={setShowMobileFilters}
+                            mobileSidebarContent={mobileSidebarContent}
                             sidebarIsOpen={sidebarIsOpen}
                             setSidebarIsOpen={setSidebarIsOpen} />
                     </TooltipContext>
@@ -126,11 +130,16 @@ const SearchPage = ({
                         filterCount={filterCount}
                         showMobileFilters={showMobileFilters}
                         sidebarOpen={sidebarIsOpen}
+                        setSidebarIsOpen={setSidebarIsOpen}
+                        mobileSidebarContent={mobileSidebarContent}
+                        setMobileSidebarContent={setMobileSidebarContent}
                         toggleMobileFilters={toggleMobileFilters} />
                     <Helmet>
                         <link
                             href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css"
-                            rel="stylesheet" />
+                            rel="stylesheet"
+                            crossOrigin="anonymous"
+                            integrity="sha384-JnF4GvwrnLggHxx0ORCeHombtPxfqigY/GeEvbdv0Uy5qrCAuAyN3AulKRA+VAPr" />
                     </Helmet>
                     <ResultsView
                         showMobileFilters={showMobileFilters}
@@ -145,7 +154,8 @@ const SearchPage = ({
                     hideModal={hideDownloadModal}
                     awardsCount={awardsCount}
                     transactionsCount={transactionsCount}
-                    subawardsCount={subawardsCount} />
+                    subawardsCount={subawardsCount}
+                    spending_level={spending_level} />
             </div>
         </PageWrapper>
     );

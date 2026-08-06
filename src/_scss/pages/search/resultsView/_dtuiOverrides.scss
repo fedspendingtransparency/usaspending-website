@@ -1,6 +1,6 @@
 // DTUI Table component overrides
 .usa-dt-table__stacked {
-  @media (max-width: $tablet-screen - 1) {
+  @media (max-width: $mobile-only) {
     .usda-table__cell {
       border: unset !important;
     }
@@ -32,5 +32,23 @@
         display: none;
       }
     }
+  }
+}
+
+.search-suggestions__row {
+  .button__md {
+    padding: 0;
+    margin: 0;
+    gap: rem(8);
+  }
+
+  .button-type__text-right-icon-light svg {
+    margin: 0;
+  }
+}
+
+.more-resources__col {
+  .button__md {
+    padding: 0;
   }
 }

@@ -138,14 +138,21 @@ const PrimaryCheckboxType = ({
         }
     };
 
-    let primaryTypes = (<CollapsedCheckboxType
-        toggleExpand={toggleSubItems}
-        toggleChildren={toggleChildren}
-        name={name}
-        selected={allChildren}
-        hideArrow={selectedChildren || restrictChildren}
-        arrowState={arrowState}
-        isCollapsable={isCollapsable} />);
+    const indeterminate = filters.length !== selectedCheckboxes.size &&
+        selectedCheckboxes.size !== 0;
+
+    let primaryTypes = (
+        <CollapsedCheckboxType
+            toggleExpand={toggleSubItems}
+            toggleChildren={toggleChildren}
+            name={name}
+            selected={allChildren}
+            hideArrow={selectedChildren || restrictChildren}
+            arrowState={arrowState}
+            isCollapsable={isCollapsable}
+            id={id}
+            indeterminate={indeterminate} />
+    );
 
     let secondaryTypes = null;
 
@@ -168,16 +175,18 @@ const PrimaryCheckboxType = ({
     }
 
     if (filters.length === 0) {
-        primaryTypes = (<SingleCheckboxType
-            name={name}
-            toggleCheckboxType={toggleCheckboxType}
-            filterType={filterType}
-            selectedCheckboxes={selectedCheckboxes}
-            enableAnalytics={enableAnalytics}
-            value={value}
-            code={value}
-            key={`${id} - ${value}`}
-            id={`primary-checkbox-${uniqueId()}`} />);
+        primaryTypes = (
+            <SingleCheckboxType
+                name={name}
+                toggleCheckboxType={toggleCheckboxType}
+                filterType={filterType}
+                selectedCheckboxes={selectedCheckboxes}
+                enableAnalytics={enableAnalytics}
+                value={value}
+                code={value}
+                key={`${id} - ${value}`}
+                id={`primary-checkbox-${uniqueId()}`} />
+        );
     }
 
     useEffect(() => {

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /**
  * Contact.jsx
  * Created by Mike Bray 11/20/20178
@@ -25,7 +26,7 @@ const Contact = () => (
                     <a
                         target="_blank"
                         rel="noopener noreferrer"
-                        href="https://fiscalservice.force.com/usaspending/s/">
+                        href="https://onevoicecrm.my.site.com/usaspending/s/">
                         <button
                             className="usa-button-outline"
                             aria-label="Visit Our Community Page"
@@ -35,7 +36,7 @@ const Contact = () => (
                     </a>
                 </div>
                 <div className="button-holder">
-                    <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us">
+                    <a href={`mailto:usaspending.help@fiscal.treasury.gov?subject=${encodeURIComponent('Contact Us')}`}>
                         <button
                             className="usa-button-outline"
                             aria-label="Send Us A Message"

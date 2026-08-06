@@ -3,142 +3,40 @@
  * Created by Lizzie Salita 12/14/17
  */
 
-import React from 'react';
-import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
-import * as fiscalYearHelper from 'helpers/fiscalYearHelper';
+import React, { useEffect, useCallback, memo } from 'react';
+import PropTypes from "prop-types";
+
 import AwardDataArchiveContent from 'components/bulkDownload/archive/AwardDataArchiveContent';
+import useRequestAgenciesList from "hooks/useRequestAgenciesList";
+import { sanitizeUrl } from 'helpers/url';
+import useRequestArchiveFiles from "./useRequestArchiveFiles";
 
 const dayjs = require('dayjs');
 
-const currentFY = fiscalYearHelper.currentFiscalYear();
+const propTypes = {
+    filters: PropTypes.object,
+    setFilters: PropTypes.func,
+    results: PropTypes.array,
+    setResults: PropTypes.func
+}
 
-const columns = [
-    {
-        columnName: 'agency',
-        displayName: 'Agency'
-    },
-    {
-        columnName: 'fileName',
-        displayName: 'Archive File'
-    },
-    {
-        columnName: 'fy',
-        displayName: 'Fiscal Year'
-    },
-    {
-        columnName: 'date',
-        displayName: 'Data As Of'
-    }
-];
+// eslint-disable-next-line prefer-arrow-callback
+const AwardDataArchiveContainer = memo(function AwardDataArchiveContainer(
+    { filters, setFilters, results, setResults }
+) {
+    const { data: agencyData } = useRequestAgenciesList("award_agencies");
 
-export default class AwardDataArchiveContainer extends React.Component {
-    constructor(props) {
-        super(props);
+    const agencies = {
+        cfoAgencies: agencyData?.data.agencies.cfo_agencies || [],
+        otherAgencies: agencyData?.data.agencies.other_agencies || []
+    };
 
-        this.state = {
-            inFlight: true,
-            agencies: {
-                cfoAgencies: [],
-                otherAgencies: []
-            },
-            filters: {
-                agency: {
-                    id: 'all',
-                    name: 'All'
-                },
-                type: {
-                    name: 'contracts',
-                    display: 'Contracts'
-                },
-                fy: `${currentFY}`
-            },
-            results: []
+    const updateFilter = (name, value) => setFilters(
+        (prevState) => ({ ...prevState, [name]: value })
+    );
 
-        };
-
-        this.agencyListRequest = null;
-        this.resultsRequest = null;
-
-        this.updateFilter = this.updateFilter.bind(this);
-        this.setAgencyList = this.setAgencyList.bind(this);
-        this.requestResults = this.requestResults.bind(this);
-    }
-
-    componentDidMount() {
-        this.setAgencyList();
-        this.requestResults();
-    }
-
-    setAgencyList() {
-        this.setState({
-            inFlight: true
-        });
-
-        if (this.agencyListRequest) {
-            this.agencyListRequest.cancel();
-        }
-
-        // perform the API request
-        this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
-            type: "award_agencies",
-            agency: 0
-        });
-
-        this.agencyListRequest.promise
-            .then((res) => {
-                const cfoAgencies = res.data.agencies.cfo_agencies;
-                const otherAgencies = res.data.agencies.other_agencies;
-                this.setState({
-                    agencies: {
-                        cfoAgencies,
-                        otherAgencies
-                    }
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-                this.agencyListRequest = null;
-            });
-    }
-
-    updateFilter(name, value) {
-        const filters = Object.assign({}, this.state.filters, {
-            [name]: value
-        });
-
-        this.setState({
-            filters
-        });
-    }
-
-    requestResults() {
-        this.setState({
-            inFlight: true
-        });
-
-        if (this.resultsRequest) {
-            this.resultsRequest.cancel();
-        }
-
-        // perform the API request
-        this.resultsRequest = BulkDownloadHelper.requestArchiveFiles({
-            agency: this.state.filters.agency.id,
-            fiscal_year: parseInt(this.state.filters.fy, 10),
-            type: this.state.filters.type.name
-        });
-
-        this.resultsRequest.promise
-            .then((res) => {
-                this.parseResults(res.data.monthly_files);
-            })
-            .catch((err) => {
-                console.log(err);
-                this.resultsRequest = null;
-            });
-    }
-
-    parseResults(data) {
-        const results = [];
+    const parseResults = useCallback((data) => {
+        const res = [];
 
         data.forEach((item) => {
             // Format Agency String
@@ -163,27 +61,34 @@ export default class AwardDataArchiveContainer extends React.Component {
             const file = {
                 agency: formattedAgency,
                 fileName: item.file_name,
-                url: item.url,
+                url: sanitizeUrl(item.url) || 'not available',
                 fy: formattedFY,
                 date: formattedDate
             };
-            results.push(file);
+            res.push(file);
         });
 
-        this.setState({
-            results
-        });
-    }
+        setResults(res);
+    }, [setResults]);
 
-    render() {
-        return (
-            <AwardDataArchiveContent
-                filters={this.state.filters}
-                updateFilter={this.updateFilter}
-                agencies={this.state.agencies}
-                columns={columns}
-                results={this.state.results}
-                requestResults={this.requestResults} />
-        );
-    }
-}
+    const requestData = useRequestArchiveFiles(
+        filters.agency.id,
+        parseInt(filters.fy, 10),
+        filters.type.name
+    );
+
+    useEffect(() => {
+        if (requestData.length !== 0) parseResults(requestData);
+    }, [requestData, parseResults]);
+
+    return (
+        <AwardDataArchiveContent
+            filters={filters}
+            updateFilter={updateFilter}
+            agencies={agencies}
+            results={results} />
+    );
+});
+
+AwardDataArchiveContainer.propTypes = propTypes;
+export default AwardDataArchiveContainer;

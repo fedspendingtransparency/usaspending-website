@@ -31,6 +31,8 @@ const propTypes = {
     selectedCategory: PropTypes.string,
     isExpanded: PropTypes.bool,
     setDefSearchString: PropTypes.func,
+    showSearch: PropTypes.bool,
+    isDisabled: PropTypes.bool,
     placeholder: PropTypes.string
 };
 
@@ -44,6 +46,8 @@ const AccordionCheckbox = ({
     selectedCategory,
     isExpanded,
     setDefSearchString = () => {},
+    showSearch = true,
+    isDisabled = false,
     placeholder = "Search filters..."
 }) => {
     const [searchString, setSearchString] = useState('');
@@ -64,12 +68,20 @@ const AccordionCheckbox = ({
     };
 
     useEffect(() => {
-        if (isExpanded) {
+        if (isDisabled && expandedCategories?.length) {
+            // have to check expandeCategories instead of isExpanded.
+            // isExpanded might not be known by parent
+            // collapse expandedCategories
+            expandedCategories.forEach((ec) => toggleExpanded({id: ec}));
+
+        }
+        else if (isExpanded) {
             const category = filterCategoryMapping.find((item) => item.id === selectedCategory);
             toggleExpanded(category);
         }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filterCategoryMapping, isExpanded, selectedCategory]);
+    }, [filterCategoryMapping, isExpanded, selectedCategory, isDisabled]);
 
     const handleTextInputChange = (e) => {
         setSearchString(e.target.value);
@@ -133,28 +145,38 @@ const AccordionCheckbox = ({
             toggleExpanded={toggleExpanded}
             bulkFilterChange={bulkFilterChange}
             key={category.id}
-            searchString={searchString} />
+            searchString={searchString}
+            isDisabled={isDisabled} />
     ));
 
     return (
         <div className="filter-item-wrap">
-            <EntityDropdownAutocomplete
-                placeholder={placeholder}
-                searchString={searchString}
-                enabled
-                handleTextInputChange={handleTextInputChange}
-                context={{}}
-                loading={false}
-                isClearable
-                onClear={onClear}
-                searchIcon />
-            {noResults ?
-                <div className="no-results">No results found.</div>
-                :
+            {showSearch ? (
+                <>
+                    <EntityDropdownAutocomplete
+                        placeholder={placeholder}
+                        searchString={searchString}
+                        enabled
+                        handleTextInputChange={handleTextInputChange}
+                        context={{}}
+                        loading={false}
+                        isClearable
+                        onClear={onClear}
+                        searchIcon />
+                    {noResults ?
+                        <div className="no-results">No results found.</div>
+                        :
+                        <div className="checkbox-categories-wrapper">
+                            {checkboxCategories}
+                        </div>
+                    }
+                </>
+            ) : (
                 <div className="checkbox-categories-wrapper">
                     {checkboxCategories}
                 </div>
-            }
+
+            )}
         </div>
     );
 };

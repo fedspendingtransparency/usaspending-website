@@ -3,9 +3,8 @@
  * Created by michaelbray on 5/18/17.
  */
 
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
-import { uniqueId } from 'lodash-es';
 import CheckboxExpandButton from './CheckboxExpandButton';
 
 const propTypes = {
@@ -15,7 +14,9 @@ const propTypes = {
     selected: PropTypes.bool,
     hideArrow: PropTypes.bool,
     arrowState: PropTypes.string,
-    isCollapsable: PropTypes.bool
+    isCollapsable: PropTypes.bool,
+    id: PropTypes.string,
+    indeterminate: PropTypes.bool
 };
 
 const CollapsedCheckboxType = ({
@@ -25,9 +26,23 @@ const CollapsedCheckboxType = ({
     selected = false,
     hideArrow = true,
     arrowState = 'collapsed',
-    isCollapsable = true
+    isCollapsable = true,
+    id,
+    indeterminate
 }) => {
-    const elementId = `checkbox-${uniqueId()}`;
+    const ref = useRef(null);
+    const inputId = `collapsed-checkbox__${id}`;
+
+    if (ref.current) ref.current.indeterminate = indeterminate;
+
+    // prevents submission on enter keydown
+    const onKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            toggleChildren();
+        }
+    };
+
     return (
         <div className="primary-checkbox-type">
             <div className="checkbox-type-item-wrapper">
@@ -40,13 +55,15 @@ const CollapsedCheckboxType = ({
                 }
                 <label
                     className="checkbox-item-wrapper"
-                    htmlFor={elementId}>
+                    htmlFor={inputId}>
                     <input
                         type="checkbox"
-                        id={elementId}
+                        id={inputId}
                         value={name}
                         checked={selected}
-                        onChange={toggleChildren} />
+                        onKeyDown={onKeyDown}
+                        onChange={toggleChildren}
+                        ref={ref} />
                     <span className="checkbox-item-label">
                         {name}
                     </span>

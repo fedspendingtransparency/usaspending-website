@@ -117,6 +117,7 @@ describe('downloadAnalytics', () => {
         };
         it('calls logSingleDownloadField with appropriate values', () => {
             const mockFn = jest.mock('');
+            // eslint-disable-next-line no-import-assign
             downloadAnalytics.logSingleDownloadField = mockFn;
 
             downloadAnalytics.logDownloadFields('award', mockAwardDownloadFilterObj);

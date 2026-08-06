@@ -7,9 +7,9 @@ import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Analytics from 'helpers/analytics/Analytics';
 import { uniqueId } from 'lodash-es';
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import PropTypes from 'prop-types';
-import isRedirectNeeded from '../../../../helpers/url';
+import { isRedirectNeeded } from '../../../../helpers/url';
 import ExternalLink from '../../ExternalLink';
 import { showSlideout } from '../../../../helpers/slideoutHelper';
 
@@ -46,14 +46,34 @@ const MobileDropdownItem = ({
     index,
     type
 }) => {
-    const openATD = (e) => {
-        showSlideout('atd');
-        e.preventDefault();
-    };
+    const navigate = useNavigate();
+
     const clickedLink = (e) => {
         const route = e.target.name;
         clickedHeaderLink(route);
         hideMobileNav();
+    };
+
+    const clickedSection2Link = (e, item) => {
+        const route = e.target.name;
+        hideMobileNav();
+        e.preventDefault();
+        clickedHeaderLink(route);
+
+        if (item && item.url && typeof item.url === "string") {
+            if (item?.url?.includes("about-the-data")) {
+                showSlideout('atd');
+            }
+            else if (item?.url?.includes("glossary")) {
+                showSlideout('glossary');
+            }
+            else {
+                navigate(item.url);
+            }
+        }
+        else if (typeof item.url === "object") {
+            navigate(item.url);
+        }
     };
 
     return (
@@ -79,6 +99,7 @@ const MobileDropdownItem = ({
                                 <li key={uniqueId()}>
                                     <Link
                                         to={item.url}
+                                        prefetch={!item?.shouldOpenNewTab ? "viewport" : "none"}
                                         onClick={clickedLink}
                                         className="mobile-dropdown__section-link">
                                         <div className="mobile-dropdown__section-icon">
@@ -101,7 +122,12 @@ const MobileDropdownItem = ({
                         <ul>
                             {section1Items.map((item) => (
                                 <li className="mobile-dropdown__section" key={uniqueId()}>
-                                    <Link to={item.url} onClick={clickedLink} className="mobile-dropdown__section-link" state={item.queryParam}>
+                                    <Link
+                                        to={item.url}
+                                        prefetch={!item?.shouldOpenNewTab ? "viewport" : "none"}
+                                        onClick={clickedLink} 
+                                        className="mobile-dropdown__section-link" 
+                                        state={item.queryParam}>
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
                                         </div>
@@ -128,63 +154,26 @@ const MobileDropdownItem = ({
                 {section2Options[index].sub}
             </div>
             <div className="mobile-dropdown__section-container">
-                {type === "secondary" ?
-                    <ul>
-                        {section2Items.map((item) => (
-                            <li key={uniqueId()}>
-                                <Link
-                                    className="mobile-dropdown__section-link"
-                                    to={item.url}
-                                    onClick={clickedLink}>
-                                    <div className={item.icon && item.icon !== '' && item.icon !== null ? "mobile-dropdown__section-icon" : ""}>
-                                        <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "100%" }} />
-                                    </div>
-                                    <div className="mobile-dropdown__section-etd-label">
-                                        {item.label}
-                                    </div>
-                                </Link>
-                                <div className="mobile-dropdown__section-etd-description">
-                                    {item.description}
+                <ul>
+                    {section2Items.map((item) => (
+                        <li className="mobile-dropdown__section" key={uniqueId()}>
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                            <a
+                                className="mobile-dropdown__section-link"
+                                href="#"
+                                onClick={(e) => {
+                                    clickedSection2Link(e, item);
+                                }}>
+                                <div className="mobile-dropdown__section-etd-label">
+                                    {item.label}
                                 </div>
-                            </li>
-                        ))}
-                    </ul>
-                    :
-                    <>
-                        <ul>
-                            {section2Items.map((item) => (
-                                <li className="mobile-dropdown__section" key={uniqueId()}>
-                                    <Link
-                                        className="mobile-dropdown__section-link"
-                                        to={item.url !== "?about-the-data" ? item.url : ''}
-                                        onClick={(e) => {
-                                            if (item.url === '?about-the-data') {
-                                                openATD(e);
-                                            }
-                                            clickedLink(e);
-                                        }
-                                        }
-                                        onMouseUp={(e) => {
-                                            if (item.url === '?about-the-data') {
-                                                openATD(e);
-                                                clickedLink(e);
-                                            }
-                                        }
-                                        }>
-                                        <div className="mobile-dropdown__section-label">
-                                            {item.label}
-                                            <span className="mobile-dropdown__section-description">
-                                                {item.description}
-                                            </span>
-                                        </div>
-                                    </Link>
-                                </li>
-                            ))}
-                        </ul>
-                        <hr />
-                    </>
-
-                }
+                            </a>
+                            <div className="mobile-dropdown__section-etd-description">
+                                {item.description}
+                            </div>
+                        </li>
+                    ))}
+                </ul>
             </div>
             {index > 0 &&
                 <div className="mobile-dropdown_main-container">
@@ -215,7 +204,11 @@ const MobileDropdownItem = ({
                                                         </div>
                                                     </div>
                                                 </ExternalLink> :
-                                                <a href={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} className="mobile-dropdown__section-link">
+                                                <a 
+                                                    href={item.url} 
+                                                    target={item.shouldOpenNewTab ? "_blank" : null} 
+                                                    rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} 
+                                                    className="mobile-dropdown__section-link">
                                                     <div className="mobile-dropdown__section-label">
                                                         {item.label}
                                                         <span className="mobile-dropdown__section-description">

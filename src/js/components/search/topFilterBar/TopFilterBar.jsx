@@ -31,7 +31,7 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount, resultsV
     useEffect(() => {
         // max heights of the .search-top-filters-content (located in topFilterBar.scss)
         const filtersMaxHeight = expandedFilters ? 280 : 150;
-        const offsetHeight = contentRef.current?.offsetHeight;
+        const offsetHeight = contentRef.current?.offsetHeight || 0;
         const atMaxHeight = filtersMaxHeight <= offsetHeight;
 
         let newClass = '';
@@ -59,9 +59,9 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount, resultsV
     useEffect(() => {
         const ref = contentRef.current;
         const onscroll = () => {
-            const scrollTop = contentRef.current?.scrollTop;
-            const scrollHeight = contentRef.current?.scrollHeight;
-            const clientHeight = contentRef.current?.clientHeight;
+            const scrollTop = ref?.scrollTop;
+            const scrollHeight = ref?.scrollHeight;
+            const clientHeight = ref?.clientHeight;
 
             const scrolledTo = scrollHeight - clientHeight;
             const isReachBottom = scrollTop === scrolledTo;
@@ -70,10 +70,14 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount, resultsV
             else setBottom(false);
         };
 
-        contentRef.current.addEventListener("scroll", onscroll);
+        if (ref) {
+            ref.addEventListener("scroll", onscroll);
+        }
 
         return () => {
-            ref.removeEventListener("scroll", onscroll);
+            if (ref) {
+                ref.removeEventListener("scroll", onscroll);
+            }
         };
     }, []);
 

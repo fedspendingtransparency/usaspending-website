@@ -3,6 +3,6 @@
 // CALL WITH -- @include setText(rem(42)); --
 
 @mixin setText($fontSize) {
-    font-size: $fontSize;
-    line-height: ($fontSize + rem(6%));
+  font-size: $fontSize;
+  line-height: ($fontSize + rem(6%));
 }

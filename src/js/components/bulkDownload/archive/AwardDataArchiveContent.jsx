@@ -3,47 +3,140 @@
  * Created by Lizzie Salita 12/12/17
  */
 
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router';
+import {startCase} from "lodash-es";
 
+import isMobileContext from "context/IsMobileContext";
+import Analytics from "../../../helpers/analytics/Analytics";
 import AwardDataArchiveForm from './AwardDataArchiveForm';
 import AwardDataArchiveTable from './table/AwardDataArchiveTable';
+import AwardDataArchiveUserSelections from "./AwardDataArchiveUserSelections";
+import {Link} from "react-router";
 
 const propTypes = {
+
     filters: PropTypes.object,
     updateFilter: PropTypes.func,
     agencies: PropTypes.object,
-    results: PropTypes.array,
-    columns: PropTypes.array,
-    requestResults: PropTypes.func
+    results: PropTypes.array
 };
 
-const AwardDataArchiveContent = (props) => (
-    <div className="award-data-archive-content">
-        <h2>Award Data Archive</h2>
-        <p>
-            Welcome to the <b>Award Data Archive</b>, which features major agencies&rsquo; award transaction data for full
-            fiscal years. They&rsquo;re a great way to get a view into broad spending trends and, best of all, the files
-            are already prepared &mdash; you can access them instantaneously.
-        </p>
-        <p>
-            New files are uploaded by the 15th of each month. Check the Data As Of column to see the last time files were generated. <b>Full files</b> feature data for the fiscal year up until the date the file was prepared, and <b>delta files</b> feature only new, modified, and deleted data since the date the last month&apos;s files were generated. The `correction_delete_ind` column in the delta files indicates whether a record has been modified (C), deleted (D), or added (blank).
-            To download data prior to FY 2008, visit our <Link className="usa-bold-link" to="/download_center/custom_award_data">Custom Award Data</Link> page.
-        </p>
-        <p>
-            Ready to grab your data? Complete the form below.
-        </p>
-        <AwardDataArchiveForm
-            filters={props.filters}
-            updateFilter={props.updateFilter}
-            agencies={props.agencies}
-            requestResults={props.requestResults} />
-        <AwardDataArchiveTable
-            columns={props.columns}
-            results={props.results} />
-    </div>
-);
+const fileFieldsForAnalytics = ['fy', 'agency', 'date'];
+const archiveFileDownloadGACategory = 'Download Center - Archive Download';
+const getArchiveFileName = (file) => fileFieldsForAnalytics
+    .reduce((acc, key, i, arr) => {
+        const selection = file[key] !== 'N/A'
+            ? file[key]
+            : `AllFYs`;
+        if (i === 0) return `${selection}_`;
+        if (i === arr.length - 1) return `${acc}_${selection}`;
+        return `${acc}_${selection}_`;
+    }, '');
+
+const logArchiveDownload = (e, file) => {
+    Analytics.event({
+        event: 'archive_bulk_download',
+        category: archiveFileDownloadGACategory,
+        action: 'File Download',
+        label: `File Name: ${getArchiveFileName(file)}`,
+        gtm: true
+    });
+
+    fileFieldsForAnalytics
+        .forEach((key) => {
+            const label = file[key] !== 'N/A'
+                ? file[key]
+                : `AllFYs`;
+
+            Analytics.event({
+                event: 'archive_fields_for_download',
+                category: archiveFileDownloadGACategory,
+                action: `${startCase(key)} Download Criterion`,
+                label,
+                gtm: true
+            });
+        });
+}
+
+/* eslint-disable max-len */
+const AwardDataArchiveContent = ({
+    filters,
+    updateFilter,
+    agencies,
+    results
+}) => {
+    const { isTablet } = useContext(isMobileContext);
+    const [selectedFiles, setSelectedFiles] = useState(new Set());
+
+    const onClickReset = () => setSelectedFiles(new Set());
+
+    const onClickDownload = () => selectedFiles.forEach((url) => {
+        logArchiveDownload({}, results.find((file) => file.url === url))
+        window.open(url, '_blank');
+    });
+
+    return (
+        <div className="award-data-archive-content">
+            <h2>Download major agencies’ award transaction data for full fiscal years.</h2>
+            <p>
+                A great way to get a view into broad spending trends and, best of all,
+                the files are already prepared — you can access them instantaneously.
+            </p>
+            <p>
+                New files are uploaded by the 15th of each month.
+                Check the &#39;Data As Of&#39; column to see the last time files were generated.
+                There are two downloadable archive file types:
+            </p>
+            <ul>
+                <li>
+                    <b> Full files</b> - data for the fiscal year up until the date the file was prepared
+                </li>
+                <li>
+                    <b>Delta files</b> - only new, modified, and deleted data since the date the last month&#39;s files were generated.
+                    The `correction_delete_ind` column in the delta files indicates whether a record has been modified (C), deleted (D), or added (blank).
+                </li>
+            </ul>
+            <AwardDataArchiveForm
+                filters={filters}
+                updateFilter={updateFilter}
+                agencies={agencies} />
+            <AwardDataArchiveTable
+                results={results}
+                selectedFiles={selectedFiles}
+                setSelectedFiles={setSelectedFiles} />
+            <div className="note-text">
+                <span>
+                    Note:{" "}
+                </span>
+                To download data prior to FY 2008, visit our{" "}
+                <Link
+                    to="/download_center/custom_award_data">
+                    Custom Award Data
+                </Link>
+                {" "}page.
+            </div>
+            {isTablet && <AwardDataArchiveUserSelections filters={filters} results={results}/>}
+            <button
+                className={`reset-button${isTablet ? " buttons-tablet" : ""}`}
+                id="reset-button"
+                aria-label="Reset File Selections"
+                title="Reset File Selections"
+                onClick={onClickReset}>
+                Reset
+            </button>
+            <button
+                className={`download-button${isTablet ? " buttons-tablet" : ""}`}
+                id="download-button"
+                aria-label="Download File Selections"
+                title="Download File Selections"
+                disabled={selectedFiles.size === 0}
+                onClick={onClickDownload}>
+                Download
+            </button>
+        </div>
+    );
+}
 
 AwardDataArchiveContent.propTypes = propTypes;
 export default AwardDataArchiveContent;

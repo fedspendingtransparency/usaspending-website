@@ -1,4 +1,6 @@
 const axios = require('axios');
+const https = require('https');
+
 const pages = require('./pages');
 
 const fs = require('fs');
@@ -22,7 +24,9 @@ const agent = (process.env.PROXY_HOST && process.env.PROXY_PORT) ?
             host: process.env.PROXY_HOST,
             port: process.env.PROXY_PORT
         }
-    }) : null;
+    }) : new https.Agent({
+        rejectUnauthorized: false
+    });
 
 /**
  * @param {string} xml string of xml, previous xml entries from current sitemap
@@ -58,9 +62,9 @@ const createSitemapEntry = (xml, pageData, pageInfo) => {
                 return `${str}<url><loc>${clientRoute}/${encodeURIComponent(page.value)}</loc><changefreq>${updatedFrequency}</changefreq><priority>${priority}</priority></url>`;
             }
             else if (pageInfo.name === 'recipient' || pageInfo.name === 'state') {
-                return `${str}<url><loc>${clientRoute}/${page.value}/latest</loc><changefreq>${updatedFrequency}</changefreq><priority>${priority}</priority></url>`;
+                return `${str}<url><loc>${clientRoute}/${encodeURIComponent(page.value)}/latest</loc><changefreq>${updatedFrequency}</changefreq><priority>${priority}</priority></url>`;
             }
-            return `${str}<url><loc>${clientRoute}/${page.value}</loc><changefreq>${updatedFrequency}</changefreq><priority>${priority}</priority></url>`;
+            return `${str}<url><loc>${clientRoute}/${encodeURIComponent(page.value)}</loc><changefreq>${updatedFrequency}</changefreq><priority>${priority}</priority></url>`;
         }, xml);
 };
 

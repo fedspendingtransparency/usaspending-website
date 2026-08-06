@@ -10,7 +10,7 @@
   color: $color-white;
   font-weight: 600;
   margin-right: rem(35);
-  @media(max-width: $medium-screen) {
+  @media (max-width: $medium-screen) {
     &.dropdown-item {
       margin: 0 0 0 rem(5);
     }
@@ -30,7 +30,7 @@
   margin-right: rem(4);
   margin-top: rem(4);
 
-  @media(max-width: $medium-screen) {
+  @media (max-width: $medium-screen) {
     margin-right: rem(8);
     margin-bottom: rem(4);
   }
@@ -40,14 +40,13 @@
     height: rem(10);
     width: rem(10);
 
-    @media(max-width: $medium-screen) {
+    @media (max-width: $medium-screen) {
       position: absolute;
       top: rem(1);
       left: rem(1);
       height: rem(16);
       width: rem(16);
       margin-right: 8px;
-    
     }
   }
 }

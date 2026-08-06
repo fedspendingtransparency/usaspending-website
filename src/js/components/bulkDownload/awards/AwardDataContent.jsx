@@ -6,20 +6,15 @@
 import React, { useCallback, useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
-
-import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
-import Note, { dodNote } from 'components/sharedComponents/Note';
 import IsMobileContext from "context/IsMobileContext";
-
 import AwardLevelAndTypeFilter from './filters/AwardLevelAndTypeFilter';
 import AgencyFilter from './filters/AgencyFilter';
 import LocationFilter from './filters/LocationFilter';
 import DateTypeFilter from './filters/DateTypeFilter';
 import TimePeriodFilter from './filters/dateRange/TimePeriodFilter';
 import FileFormatFilter from './filters/FileFormatFilter';
-import SubmitButton from './SubmitButton';
 import AwardsUserSelections from './AwardsUserSelections';
+import { Button, FlexGridRow } from 'data-transparency-ui';
 
 const propTypes = {
     awards: PropTypes.object,
@@ -31,9 +26,7 @@ const propTypes = {
     subAgencies: PropTypes.array,
     setSubAgencyList: PropTypes.func,
     states: PropTypes.array,
-    clickedDownload: PropTypes.func,
-    bulkAwardTypeChange: PropTypes.func,
-    toggleAwardTypeChange: PropTypes.func
+    clickedDownload: PropTypes.func
 };
 
 const AwardDataContent = ({
@@ -46,9 +39,7 @@ const AwardDataContent = ({
     subAgencies,
     setSubAgencyList,
     states,
-    clickedDownload,
-    bulkAwardTypeChange,
-    toggleAwardTypeChange
+    clickedDownload
 }) => {
     const { isTablet } = useContext(IsMobileContext);
     const [validDates, setValidDates] = useState(false);
@@ -63,6 +54,14 @@ const AwardDataContent = ({
     const resetForm = () => {
         clearAwardFilters();
         setValidDates(false);
+    };
+
+    // prevents submission on enter keydown
+    const onKeyDown = (e) => {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            resetForm();
+        }
     };
 
     const validateForm = useCallback((award, dates) => {
@@ -86,67 +85,31 @@ const AwardDataContent = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => () => clearAwardFilters(), []);
 
-    const currentAgencies = {
-        agency: awards.agency,
-        subAgency: awards.subAgency
-    };
-
-    const awardTypeLabels = Object.assign(
-        {},
-        ...Object.entries(awardDownloadOptions.awardTypeLookups)
-            .map(([key, value]) => ({ [key]: value.label }))
-    );
-
     return (
         <div className="download-center">
             <div className="download-center__filters">
-                <h2 className="download-center__title">Custom Award Data</h2>
-                <div className="archive-info">
-                    <div className="archive-info__icon">
-                        <InfoCircle />
-                    </div>
-                    <div className="archive-info__content">
-                        <div className="archive-info__heading">
-                            A faster way to download yearly award data by agency.
-                        </div>
-                        <div>
-                            Award downloads for entire fiscal years are available for each major agency on our&nbsp;
-                            <Link to="/download_center/award_data_archive">
-                                Award Data Archive
-                            </Link>
-                            &nbsp;page.
-                        </div>
-                    </div>
+                <div className="download-center-title-wrapper">
+                    <h2 className="download-center__title">A faster way to download yearly award data by agency.</h2>
+                    <p>
+                        Award downloads for entire fiscal years are available for each major agency on our&nbsp;
+                        <Link to="/download_center/award_data_archive" className='usa-bold-link'>
+                            Award Data Archive
+                        </Link>
+                        &nbsp;page.
+                    </p>
                 </div>
                 <form
                     className="download-center-form"
                     onSubmit={handleSubmit}>
-                    <AwardLevelAndTypeFilter
-                        awardLevels={awardDownloadOptions.awardLevels}
-                        awardTypeLabels={awardTypeLabels}
-                        currentAwardTypes={awards.awardTypes}
-                        bulkAwardTypeChange={bulkAwardTypeChange}
-                        toggleAwardTypeChange={toggleAwardTypeChange} />
+                    <AwardLevelAndTypeFilter />
                     <AgencyFilter
-                        currentAgencyType={awards.agencyType}
-                        agencyTypes={awardDownloadOptions.agencyTypes}
                         agencies={agencies}
                         subAgencies={subAgencies}
-                        currentAgencies={currentAgencies}
                         updateFilter={updateFilter}
                         setSubAgencyList={setSubAgencyList}
                         valid={awards.agency.id !== ''} />
-                    <LocationFilter
-                        locationTypes={awardDownloadOptions.locationTypes}
-                        states={states}
-                        currentLocation={awards.location}
-                        updateFilter={updateFilter}
-                        currentLocationType={awards.locationType} />
-                    <DateTypeFilter
-                        dateTypes={awardDownloadOptions.dateTypes}
-                        currentDateType={awards.dateType}
-                        updateFilter={updateFilter}
-                        valid={awards.dateType !== ''} />
+                    <LocationFilter states={states} updateFilter={updateFilter} />
+                    <DateTypeFilter updateFilter={updateFilter} />
                     <TimePeriodFilter
                         updateStartDate={updateStartDate}
                         updateEndDate={updateEndDate}
@@ -154,52 +117,31 @@ const AwardDataContent = ({
                         setValidDates={setValidDates}
                         filterTimePeriodStart={awards.dateRange.startDate}
                         filterTimePeriodEnd={awards.dateRange.endDate} />
-                    <FileFormatFilter
-                        fileFormats={awardDownloadOptions.fileFormats}
-                        currentFileFormat={awards.fileFormat}
-                        updateFilter={updateFilter}
-                        valid={awards.fileFormat !== ''} />
+                    <FileFormatFilter updateFilter={updateFilter} />
                     { isTablet && <AwardsUserSelections />}
-                    <SubmitButton
-                        filters={awards}
-                        validForm={validForm}
-                        validDates={validDates}
-                        dataType="awards" />
-                    <div className="download-center__reset-container">
-                        <button className="download-center__reset" onClick={resetForm}>
-                        Reset form and start over
-                        </button>
-                    </div>
+                    <FlexGridRow className='download-button-group'>
+                        <Button
+                            additionalClassnames="download-reset"
+                            copy="Reset Form"
+                            buttonTitle="Reset Form"
+                            buttonSize="md"
+                            buttonType="secondary"
+                            backgroundColor="light"
+                            onClick={resetForm}
+                            onKeyDown={onKeyDown}/>
+                        <Button
+                            additionalClassnames="download-button"
+                            copy="Download"
+                            buttonTitle="Download"
+                            buttonSize="md"
+                            buttonType="primary"
+                            backgroundColor="light"
+                            onClick={handleSubmit}
+                            disabled={!validForm} />
+              
+                    </FlexGridRow>
                 </form>
 
-            </div>
-            <div className="download-info">
-                <h3 className="download-info__title">About Award Data</h3>
-                <div className="download-info__section">
-                    <h4 className="download-info__section-heading">What is award data?</h4>
-                    <p>
-                        Award data contains all the details of our prime award and sub-award records.
-                    </p>
-                </div>
-                <div className="download-info__section">
-                    <h4 className="download-info__section-heading">Why would I be interested in this data?</h4>
-                    <p>
-                        Downloading this data gives you access to every attribute of any particular award, including
-                        data that may not be surfaced on this site.
-                    </p>
-                </div>
-                <div className="download-info__section">
-                    <h4 className="download-info__section-heading">How do I use this form?</h4>
-                    <p>
-                        This form allows you to select specific awards by type; agency and sub-agency; location; and date range.
-                        Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.
-                        <b> Please note that most fields are required.</b> You&#39;ll only be able to start the download when all required
-                        sections are properly filled in.
-                    </p>
-                </div>
-                <div className="download-info__section">
-                    <Note message={dodNote} />
-                </div>
             </div>
         </div>
     );

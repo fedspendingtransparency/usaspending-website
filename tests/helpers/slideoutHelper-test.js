@@ -9,7 +9,7 @@ import { combineReducers, createStore } from 'redux';
 import storeSingleton from 'redux/storeSingleton';
 import { beforeEach, expect } from '@jest/globals';
 import { render, waitFor } from '../testResources/test-utils';
-import { showSlideout } from "../../src/js/helpers/slideoutHelper";
+import { showSlideout, closeOtherSlideouts } from "../../src/js/helpers/slideoutHelper";
 import * as glossaryReducer from "../../src/js/redux/reducers/glossary/glossaryReducer";
 import * as atdReducer from "../../src/js/redux/reducers/aboutTheDataSidebar/aboutTheDataReducer";
 import * as slideoutReducer from "../../src/js/redux/reducers/slideouts/slideoutReducer";
@@ -31,71 +31,124 @@ const mockData = {
     }
 };
 
-const store = createStore(mockAPPReducer, mockData);
-storeSingleton.setStore(store);
+let store;
 
 const updateLastAction = (last) => {
     store.dispatch(slideoutActions.setLastOpenedSlideout(last));
 };
 
-describe('showSlideout', () => {
-    let mockDispatch;
+describe('slideoutHelper', () => {
+    describe('showSlideout', () => {
+        let mockDispatch;
 
-    beforeEach(() => {
-        mockDispatch = jest.spyOn(store, 'dispatch').mockReturnValue(() => (fn) => fn()).mockClear();
-    });
-
-
-    it('should dispatch showGlossary and setLastOpenedSlideout when showSlideout helper function is called with no options', () => {
-        render(<></>, { initialState: mockAPPReducer, store });
-        // console.log('\n Test show Glossary starting');
-        const mockShowGlossaryAction = jest.spyOn(glossaryActions, 'showGlossary').mockClear();
-        const mockSetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
-
-        showSlideout('glossary');
-
-        waitFor(() => {
-            expect(mockDispatch).toHaveBeenCalledTimes(2);
-            expect(mockShowGlossaryAction).toHaveBeenCalledTimes(1);
-            expect(mockSetLastAction).toHaveBeenCalledTimes(1);
+        beforeEach(() => {
+            store = createStore(mockAPPReducer, mockData);
+            storeSingleton.setStore(store);
+            mockDispatch = jest.spyOn(store, 'dispatch').mockReturnValue(() => (fn) => fn()).mockClear();
         });
-    });
 
-    it('should dispatch hideGlossary, showAboutTheData and setLastOpenedSlideout when showSlideout helper function is called with no options after glossary already opened.', () => {
-        render(<></>, { initialState: mockAPPReducer, store });
-        // console.log('\n Test hide Glossary and show atd starting');
-        const mockHideGlossaryAction = jest.spyOn(glossaryActions, 'hideGlossary').mockClear();
-        const mockShowATDAction = jest.spyOn(atdActions, 'showAboutTheData').mockClear();
-        const mockSetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
 
-        showSlideout('atd');
+        it('should dispatch showGlossary and setLastOpenedSlideout when showSlideout helper function is called with no options', () => {
+            render(<></>, { initialState: mockAPPReducer, store });
+            // console.log('\n Test show Glossary starting');
+            const mockShowGlossaryAction = jest.spyOn(glossaryActions, 'showGlossary').mockClear();
+            const mockSetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
 
-        waitFor(() => {
-            expect(mockDispatch).toHaveBeenCalledTimes(3);
-            expect(mockHideGlossaryAction).toHaveBeenCalledTimes(1);
-            expect(mockShowATDAction).toHaveBeenCalledTimes(1);
-            expect(mockSetLastAction).toHaveBeenCalledTimes(1);
+            showSlideout('glossary');
+
+            waitFor(() => {
+                expect(mockDispatch).toHaveBeenCalledTimes(2);
+                expect(mockShowGlossaryAction).toHaveBeenCalledTimes(1);
+                expect(mockSetLastAction).toHaveBeenCalledTimes(1);
+            });
         });
-    });
 
-    it('should dispatch hideAboutThe Data, showGlossary, setTermFromUrl and setLastOpenedSlideout when showSlideout helper function is called with no options', () => {
-        render(<></>, { initialState: mockAPPReducer, store });
-        updateLastAction('atd');// mimic opening about the data first
-        // console.log('\n Final: Test showing hide atd, show glossary, and set url starting');
+        it('should dispatch hideGlossary, showAboutTheData and setLastOpenedSlideout when showSlideout helper function is called with no options after glossary already opened.', () => {
+            render(<></>, { initialState: mockAPPReducer, store });
+            // console.log('\n Test hide Glossary and show atd starting');
+            const mockHideGlossaryAction = jest.spyOn(glossaryActions, 'hideGlossary').mockClear();
+            const mockShowATDAction = jest.spyOn(atdActions, 'showAboutTheData').mockClear();
+            const mockSetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
 
-        const mockHideATDAction = jest.spyOn(atdActions, 'hideAboutTheData').mockClear();
-        const mockShowGlossaryAction = jest.spyOn(glossaryActions, 'showGlossary').mockClear();
-        const mockSetURLTermGlossaryAction = jest.spyOn(glossaryActions, 'setTermFromUrl').mockClear();
-        const mockSetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
+            showSlideout('atd');
 
-        showSlideout('glossary', { url: 'test' });
+            waitFor(() => {
+                expect(mockDispatch).toHaveBeenCalledTimes(3);
+                expect(mockHideGlossaryAction).toHaveBeenCalledTimes(1);
+                expect(mockShowATDAction).toHaveBeenCalledTimes(1);
+                expect(mockSetLastAction).toHaveBeenCalledTimes(1);
+            });
+        });
 
-        waitFor(() => {
+        it('should dispatch hideAboutThe Data, showGlossary, setTermFromUrl and setLastOpenedSlideout when showSlideout helper function is called with no options', () => {
+            render(<></>, { initialState: mockAPPReducer, store });
+            updateLastAction('atd');// mimic opening about the data first
+            // console.log('\n Final: Test showing hide atd, show glossary, and set url starting');
+
+            const mockHideATDAction = jest.spyOn(atdActions, 'hideAboutTheData').mockClear();
+            const mockShowGlossaryAction = jest.spyOn(glossaryActions, 'showGlossary').mockClear();
+            const mockSetURLTermGlossaryAction = jest.spyOn(glossaryActions, 'setTermFromUrl').mockClear();
+            const mockSetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
+
+            showSlideout('glossary', { url: 'test' });
+
+            waitFor(() => {
             // expect(mockDispatch).toHaveBeenCalledTimes(4);
+                expect(mockHideATDAction).toHaveBeenCalledTimes(1);
+                expect(mockShowGlossaryAction).toHaveBeenCalledTimes(1);
+                expect(mockSetURLTermGlossaryAction).toHaveBeenCalledTimes(1);
+                expect(mockSetLastAction).toHaveBeenCalledTimes(1);
+            });
+        });
+    });
+    describe('closeOtherSlideouts', () => {
+        let mockDispatch;
+
+        beforeEach(() => {
+            store = createStore(mockAPPReducer, {
+                ...mockData,
+                slideouts: {
+                    ...mockData.slideouts,
+                    lastOpenedSlideout: ''
+                }
+            });
+            storeSingleton.setStore(store);
+            mockDispatch = jest.spyOn(store, 'dispatch').mockReturnValue(() => (fn) => fn()).mockClear();
+        });
+
+        it('should only dispatch hideAboutTheData and setLastOpenSlideout when closeOtherSlideouts is called with glossary arg', () => {
+            render(<></>, { initialState: mockAPPReducer, store });
+
+            const mockHideATDAction = jest.spyOn(atdActions, 'hideAboutTheData').mockClear();
+            const mockSetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
+            const mockHideGlossaryAction = jest.spyOn(glossaryActions, 'hideGlossary').mockClear();
+
+            closeOtherSlideouts('glossary');
+
+            expect(mockDispatch).toHaveBeenCalledTimes(2);
             expect(mockHideATDAction).toHaveBeenCalledTimes(1);
-            expect(mockShowGlossaryAction).toHaveBeenCalledTimes(1);
-            expect(mockSetURLTermGlossaryAction).toHaveBeenCalledTimes(1);
             expect(mockSetLastAction).toHaveBeenCalledTimes(1);
+            expect(mockSetLastAction).toBeCalledWith('glossary');
+            expect(mockHideGlossaryAction).toHaveBeenCalledTimes(0);
+
+        })
+
+        it('should dispatch hideGlossary, hideAboutTheData, and setLastOpenSlideout when closeOtherSlideouts helper function is called with no args', () => {
+            render(<></>, { initialState: mockAPPReducer, store });
+
+            const mockHideATDAction = jest.spyOn(atdActions, 'hideAboutTheData').mockClear();
+            const mockHideGlossaryAction = jest.spyOn(glossaryActions, 'hideGlossary').mockClear();
+            const mockSetLastAction = jest.spyOn(slideoutActions, 'setLastOpenedSlideout').mockClear();
+
+            closeOtherSlideouts();
+
+            expect(mockDispatch).toHaveBeenCalledTimes(3);
+            expect(mockHideATDAction).toHaveBeenCalledTimes(1);
+            expect(mockHideGlossaryAction).toHaveBeenCalledTimes(1);
+            expect(mockSetLastAction).toHaveBeenCalledTimes(1);
+            expect(mockSetLastAction).toBeCalledWith('');
+
         });
     });
 });
+

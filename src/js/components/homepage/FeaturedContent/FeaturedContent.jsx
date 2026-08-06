@@ -6,13 +6,14 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
+import GlobalConstants from "GlobalConstants";
 
 import getCurrentArticles from "helpers/homepageFeaturedContentHelper";
 import { getThumbnailPath, getPrimaryFill } from "helpers/featuredContent/featuredContentHelper";
 import FeaturedContentCard from "./FeaturedContentCard";
 
 // currently a weekly cadence, but just switch argument to "sprint" for a sprint cadence
-const [marketingArticle, otherArticle] = getCurrentArticles("sprint");
+const [marketingArticle, otherArticle] = getCurrentArticles(GlobalConstants.FEATURED_CONTENT_ROTATION);
 
 const propTypes = {
     leftCard: PropTypes.shape({

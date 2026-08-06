@@ -18,7 +18,8 @@ const propTypes = {
     setDownloadType: PropTypes.func,
     awardsCount: PropTypes.number,
     transactionsCount: PropTypes.number,
-    subawardsCount: PropTypes.number
+    subawardsCount: PropTypes.number,
+    downloadType: PropTypes.array
 };
 const ITEM_MAX = 500000;
 const NewDownloadLevel = ({
@@ -27,7 +28,8 @@ const NewDownloadLevel = ({
     hideModal,
     awardsCount,
     transactionsCount,
-    subawardsCount
+    subawardsCount,
+    downloadType
 }) => {
     // may need for follow up ticket
     const clickedAward = () => {
@@ -90,6 +92,7 @@ const NewDownloadLevel = ({
                     buttonSize="sm"
                     buttonTitle="Next"
                     buttonType="primary"
+                    disabled={!downloadType?.length}
                     copy="Next"
                     onClick={() => goToStep(2, true)}
                     onKeyUp={(e) => {

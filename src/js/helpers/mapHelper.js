@@ -10,7 +10,6 @@ import { apiRequest } from './apiRequest';
 
 import * as MoneyFormatter from './moneyFormatter';
 
-/* eslint-disable quote-props */
 const stateCodes = {
     'Alabama': 'AL',
     'Alaska': 'AK',
@@ -357,7 +356,6 @@ const stateCenters = {
         41.519813
     ]
 };
-/* eslint-enable quote-props */
 
 export const visualizationColors = [
     '#c7efe2',
@@ -513,6 +511,15 @@ export const mapboxSources = {
         long: 'INTPTLON'
     },
     congressionalDistrict: {
+        label: 'congressional district',
+        url: 'mapbox://usaspendingfrbkc.district-tileset',
+        layer: '118-CD',
+        filterKey: 'GEOID20', // the GEOID is state FIPS + district
+        lat: 'INTPTLAT',
+        long: 'INTPTLON'
+    },
+    // duplicate for COVID map
+    district: {
         label: 'congressional district',
         url: 'mapbox://usaspendingfrbkc.district-tileset',
         layer: '118-CD',

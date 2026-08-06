@@ -62,7 +62,7 @@ const AwardContainer = (props) => {
     const [inFlight, setInFlight] = useState(true);
     const [unlinked, setUnlinked] = useState(false);
     const match = useMatch(`/award/:awardId`);
-    const { awardId } = match.params;
+    const awardId  = encodeURIComponent(match.params.awardId);
 
     const parseAward = (data) => {
         countRequest = getAwardHistoryCounts("federal_account", data.id, data.category === 'idv');
@@ -100,7 +100,7 @@ const AwardContainer = (props) => {
 
         setInFlight(true);
 
-        awardRequest = SearchHelper.fetchAwardV2(id);
+        awardRequest = SearchHelper.fetchAwardV2(encodeURIComponent(id));
 
         awardRequest.promise
             .then((results) => {

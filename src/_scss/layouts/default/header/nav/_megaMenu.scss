@@ -40,8 +40,8 @@
     .navbar-chevron-icon {
       svg {
         width: 10.2px;
-        margin-top: $global-margin * .5;
-        margin-left: $global-margin * .5;
+        margin-top: $global-margin * 0.5;
+        margin-left: $global-margin * 0.5;
       }
 
       color: $theme-color-1;
@@ -69,7 +69,7 @@
     background-color: $color-white;
     border: solid 1px $gray-cool-5;
 
-    @media(min-width: $medium-screen) {
+    @media (min-width: $medium-screen) {
       width: rem(720);
       padding: $global-padding * 5;
     }
@@ -101,6 +101,7 @@
 
         // button overrides for the external links
         .usda-external-link {
+          @include button-link;
           background-color: $gray-cool-2;
           margin: 0;
           padding: 0;
@@ -115,7 +116,7 @@
 
         .dropdown-item__description {
           display: flex;
-          margin: $global-margin * .5 0 0 0;
+          margin: $global-margin * 0.5 0 0 0;
           font-size: $font-size-12;
           font-weight: normal;
           font-stretch: normal;
@@ -129,7 +130,7 @@
       svg {
         background-color: $blue-warm-5;
         color: $blue-warm-60;
-        padding: $global-padding * .5;
+        padding: $global-padding * 0.5;
         border-radius: rem(4);
 
         margin-right: $global-margin;
@@ -148,7 +149,7 @@
       }
 
       .dropdown-section__section-subtitle {
-        margin: $global-margin*.5 0 0;
+        margin: $global-margin * 0.5 0 0;
         font-size: $font-size-12;
         font-weight: normal;
         font-stretch: normal;
@@ -185,7 +186,7 @@
 
             .dropdown-item__description {
               display: flex;
-              margin: $global-margin * .5 0 0 0;
+              margin: $global-margin * 0.5 0 0 0;
               font-size: $font-size-12;
               font-weight: normal;
               font-stretch: normal;
@@ -223,7 +224,7 @@
           svg {
             background-color: $blue-warm-5;
             color: $blue-warm-60;
-            padding: $global-padding * .5;
+            padding: $global-padding * 0.5;
             border-radius: rem(4);
             margin-right: $global-margin;
           }
@@ -244,7 +245,7 @@
 
             .dropdown-item__description {
               display: flex;
-              margin: $global-margin * .5 0 0 0;
+              margin: $global-margin * 0.5 0 0 0;
               font-size: $font-size-12;
               font-weight: normal;
               font-stretch: normal;
@@ -331,8 +332,8 @@
     /* make sure it's above the main dropdown container so now box-shadow bleeds over it */
     z-index: 1;
     position: relative;
-    margin-top: $global-margin * .5;
-    margin-bottom:0;
+    margin-top: $global-margin * 0.5;
+    margin-bottom: 0;
     bottom: -5px;
   }
 
@@ -351,7 +352,8 @@
     }
 
     .dropdown-section__section-list-item {
-      padding: $global-padding $global-padding*2 $global-padding $global-padding*2;
+      padding: $global-padding $global-padding * 2 $global-padding
+        $global-padding * 2;
       border-radius: rem(8);
     }
 

@@ -1,209 +1,413 @@
-.download-center-form, .bulk-download {
-    .download-filter {
-        padding: rem(45) 0;
-        &:nth-of-type(1) {
+.download-center-form,
+.bulk-download {
+  @import "filterSectionTitle";
+
+  .download-filter {
+    padding: 0;
+    padding-bottom: rem(40);
+
+    &.width-96 {
+      width: 96%;
+    }
+
+    .download-filter__container {
+      display: flex;
+    }
+
+    .download-filter__content {
+      // TODO: remove additional .new class once download page update is done (DEV-15082)
+      &.new {
+        padding-left: 0;
+      }
+
+      .radio {
+        input[type="radio"] {
+          @include usa-input-radio;
+        }
+      }
+
+      &.agency,
+      &.budget-function,
+      &.time-period,
+      &.location {
+        padding: 0;
+
+        .input-container {
+          display: flex;
+          margin: 0 0 rem(12) 0;
+
+          .radio {
             padding: 0;
-        }
-        &.width-96 {
-            width: 96%
-        }
-        h3.download-filter__title {
-            @include h5;
-            margin: 0;
-            font-weight: 400;
-            padding-bottom: rem(35);
-            .download-filter__title_em {
-                color: $color-primary;
-                font-weight: 600;
-            }
-            .icon {
-                float: left;
-                margin-right: rem(10);
-                width: rem(18);
-                height: rem(18);
-
-                svg {
-                    width: rem(18);
-                    height: rem(18);
-                    fill: $color-green;
-                }
-                &.invalid {
-                    svg {
-                        fill: $color-secondary;
-                    }
-                }
-            }
-        }
-
-        h4.download-filter__title {
-            font-size: rem(18);
-            font-weight: 400;
-            padding-left: rem(30);
-        }
-
-        .download-filter__container {
-            display: flex;
-        }
-
-        .download-filter__info {
-            padding-left: rem(30);
-            font-weight: 200;
-            .icon {
-              float: left;
-              margin-right: rem(10);
-              width: rem(18);
-              height: rem(18);
-
-              svg {
-                width: rem(18);
-                height: rem(18);
-                fill: $color-green;
-              }
-              &.invalid {
-                svg {
-                  fill: $color-secondary;
-                }
-              }
-            }
-        }
-
-        .download-filter__content {
-            @include media($medium-screen) {
-                padding-left: rem(30);
-                width: 96%;
-            }
-            .radio {
-                input[type=radio] {
-                    @include usa-input-radio;
-                }
-            }
-            input[type=checkbox] {
-                @include usa-input-checkbox;
-            }
-            .download-filter__fy {
-                @import "fyPicker";
-                .quarter-picker .quarter-picker__fy {
-                    @include flex(0 0 auto);
-                    padding-right: rem(20);
-                }
-                .usa-dt-quarter-picker__list {
-                    @include flex-wrap(wrap);
-                    @media(min-width: $tablet-screen) {
-                        @include flex-wrap(nowrap);
-                    }
-                }
-                .usa-dt-quarter-picker__period-list-container {
-                    p {
-                        font-weight: 600;
-                    }
-                    .usa-dt-quarter-picker__period-list .usa-dt-quarter-picker__list-item {
-                        // the generic period styles
-                        margin: rem(0) rem(1);
-                        .usa-dt-quarter-picker__quarter {
-                            width: rem(24);
-                            font-weight: $font-bold;
-                            padding-right: 0;
-                            padding-left: 0;
-                        }
-                        // period representing two periods (1-2)
-                        &.double-period .usa-dt-quarter-picker__quarter {
-                            width: rem(48);
-                        }
-                        // period representing three periods (1-3)
-                        &.triple-period .usa-dt-quarter-picker__quarter {
-                            width: rem(72);
-                        }
-                        // period representing three periods w/ two-digit integers (10-12)
-                        &.triple-period--extra-wide .usa-dt-quarter-picker__quarter {
-                            width: rem(72);
-                        }
-                    }
-                }
-            }
-        }
-
-        &.download-filter-notice {
-          padding: 3rem 0 0 0;
-          .download-filter__title {
-            padding-left: rem(30);
-            padding-bottom: 0;
-          }
-          .download-filter__info {
-            padding-left: 0;
-            font-size: 1.8rem;
-            margin-top: rem(10);
-            span {
-              padding-left: rem(2.5);
-              position: relative;
-              bottom: 2.25px;
-            }
-          }
-        }
-
-        .download-filter__content-note {
-            font-style: italic;
-            font-size: rem(14);
-            line-height: rem(18);
+            width: 50%;
 
             &:first-of-type {
-                margin-top: rem(10);
+              margin-right: rem(24);
             }
-            @media(max-width: $medium-screen) {
-                max-width: 75%;
+
+            label {
+              display: flex;
+
+              input {
+                margin: rem(2) $global-margin 0 0;
+                height: rem(20);
+                min-width: rem(20);
+
+                &:before {
+                  height: rem(14);
+                  width: rem(14);
+                }
+
+                &:checked {
+                  border-color: $blue-60v;
+
+                  &:before {
+                    background-color: $blue-60v;
+                  }
+                }
+              }
+
+              .radio-container {
+                font-size: $base-font-size;
+                line-height: 1.5;
+                color: $gray-90;
+                font-weight: $font-semibold;
+
+                .radio-description {
+                  line-height: 1.5;
+                  font-size: $base-font-size;
+                  font-weight: normal;
+                  color: $gray-60;
+                  font-style: normal;
+                  margin: 0;
+                  width: 100%;
+                }
+              }
             }
+
+          }
+          @media (max-width: $mobile-only) {
+            flex-wrap: wrap;
+
+            .radio {
+              width: 100%;
+              
+              &:first-of-type {
+                margin-right: 0;
+                margin-bottom: rem(20);
+              }
+            }
+          }
         }
 
-        .download-filter__content-note_bold {
-            font-weight: 600;
+        .combo-box-container {
+          display: flex;
+          margin: 0 rem(20) rem(12) 0;
+
+          .combo-box {
+            margin: 0;
+            min-width: 50%;
+
+            &:first-of-type {
+              margin-right: rem(24);
+            }
+
+            .combo-box__input {
+              padding-right: rem(60);
+              text-overflow: ellipsis;
+            }
+
+            .combo-box__option {
+              font-weight: normal;
+
+              &:disabled {
+                font-size: $smallest-font-size;
+                font-weight: $font-semibold;
+                background-color: $blue-vivid-5v;
+              }
+            }
+          }
+
+          @media (max-width: $mobile-only) {
+            flex-wrap: wrap;
+
+            .combo-box  {
+              width: 100%;
+              
+              &:first-of-type {
+                margin-right: 0;
+                margin-bottom: rem(20);
+              }
+            }
+          }
         }
-        .download-checkbox {
-            padding: rem(10) 0;
+      }
+
+      &.date-type {
+        display: flex;
+        padding: 0;
+
+        .radio {
+          padding: 0;
+          width: 50%;
+
+          &:first-of-type {
+            margin-right: rem(24);
+          }
+
+          label {
+            display: flex;
+            font-size: $base-font-size;
+            font-weight: $font-semibold;
+            line-height: 1.5;
+            color: $gray-90;
+
             input {
-               margin-right: rem(5);
-            }
-        }
-        .download-filter__unordered-list {
-            list-style-type: none;
-            margin-top: 0;
-            li {
-                list-style-type: none;
-            }
-            input {
-                margin-right: rem(5);
-            }
-            input[type=checkbox] {
-                @include usa-input-checkbox;
-            }
-        }
-        @import "agencyPicker";
-        @import "federalPicker";
-        @import "downloadButtons";
-        @import "dateRange";
-        @import "locationFilter";
-    }
+              margin: rem(2) $global-margin 0 0;
+              height: rem(20);
+              min-width: rem(20);
 
-    @import "defCodeFilter";
+              &:before {
+                height: rem(14);
+                width: rem(14);
+              }
 
-    .submit-wrapper {
-        margin: rem(24) rem(16);
-        @media(max-width: $medium-screen) {
-            width: 75%;
+              &:checked {
+                border-color: $blue-60v;
+
+                &:before {
+                  background-color: $blue-60v;
+                }
+              }
+            }
+
+            .radio-description {
+              font-size: $base-font-size;
+              font-weight: normal;
+              color: $gray-60;
+              font-style: normal;
+              margin: 0;
+              width: 100%;
+              padding-right: rem(24);
+            }
+          }
         }
-    }
-    .submit-button {
-        button, input {
+        
+        @media (max-width: $mobile-only) {
+          flex-wrap: wrap;
+
+          .radio  {
             width: 100%;
-            font-size: rem(24);
-            font-weight: 600;
-        }
-        &.submit-button_disabled {
-            button {
-                margin: 0;
-                background-color: $color-white;
-                color: $color-gray-light;
-                border: solid rem(1) $color-gray-light;
+            
+            &:first-of-type {
+              margin-right: 0;
+              margin-bottom: rem(20);
             }
+          }
         }
+      }
+
+      &.file-type {
+        display: flex;
+        padding: 0;
+
+        .radio {
+          padding: 0;
+          margin: 0 ($global-margin * 3) 0 0;
+
+          label {
+            display: flex;
+            font-size: $base-font-size;
+            line-height: 1.5;
+            color: $gray-90;
+
+            input {
+              margin: rem(2) $global-margin 0 0;
+              height: rem(20);
+              min-width: rem(20);
+
+              &:before {
+                height: rem(14);
+                width: rem(14);
+              }
+
+              &:checked {
+                border-color: $blue-60v;
+
+                &:before {
+                  background-color: $blue-60v;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      input[type="checkbox"] {
+        @include usa-input-checkbox;
+      }
+      .download-filter__fy {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: rem(12);
+
+        .combo-box {
+          min-width: 37.5%;
+          margin: 0 rem(32) 0 0;
+        }
+      }
     }
-    @import "tooltip";
+
+    &.download-filter-notice {
+      padding: 3rem 0 0 0;
+      .download-filter__title {
+        padding-left: rem(30);
+        padding-bottom: 0;
+      }
+    }
+
+    .download-filter__content-description {
+      margin: 0 0 rem(12) 0;
+      color: $gray-90;
+
+      span {
+        font-weight: $font-semibold;
+      }
+    }
+
+    .download-filter__content-note {
+      font-size: rem(14);
+      line-height: 1.5;
+      color: $gray-90;
+      margin: 0 0 rem(12) 0;
+
+      &:first-of-type {
+        margin-top: rem(12);
+      }
+    }
+
+    .download-filter__content-note_bold {
+      font-weight: 600;
+    }
+    .download-checkbox {
+      padding: rem(10) 0;
+      input {
+        margin-right: rem(5);
+      }
+    }
+
+    .download-filter__unordered-list {
+      list-style-type: none;
+      color: $gray-90;
+      display: flex;
+      margin: 0;
+      padding: 0;
+      
+      li {
+        list-style-type: none;
+        margin-bottom: 0;
+        min-width: 50%;
+        
+        &:first-of-type {
+          margin-right: rem(12);
+        }
+
+        ul {
+          margin: rem(12) 0 0 rem(32);
+          padding: 0;
+          
+          li {
+            margin-bottom: rem(12);
+            
+            &.secondary-checkbox-type {
+              margin-right: 0;
+            }
+
+            &:last-of-type {
+              margin-bottom: 0;
+            }
+          }
+        }
+        
+        
+        label {
+          display: flex;
+        }
+      }
+      
+      @media (max-width: $mobile-only) {
+        flex-wrap: wrap;
+
+        li {
+          width: 100%;
+          margin-right: 0;
+
+          &.checkbox-set{
+            &:first-of-type {
+              margin-bottom: rem(20);
+              margin-right: 0;
+            }
+          }
+        }
+      }
+
+      input[type="checkbox"] {
+        @include usa-input-checkbox;
+
+        height: rem(16);
+        width: rem(16);
+        margin-right: $global-margin;
+        border: rem(2) solid $gray-70;
+        border-radius: rem(4);
+
+        &:indeterminate {
+          background-color: $blue-60v;
+          border-color: $blue-60v;
+        }
+
+        &:checked {
+          background-color: $blue-60v;
+          border-color: $blue-60v;
+        }
+
+        &:indeterminate:before {
+          width: rem(10);
+          margin: rem(6) auto;
+          border-bottom: rem(2) solid #fff;
+        }
+      }
+    }
+    @import "agencyPicker";
+    @import "federalPicker";
+    @import "downloadButtons";
+    @import "dateRange";
+    @import "locationFilter";
+    @import "budgetAgencyComboFilter";
+  }
+
+  @import "defCodeFilter";
+
+  .download-button-group{
+    justify-content: flex-start;
+    gap: rem(24);
+    
+    button {
+      margin: 0;
+
+      &:disabled {
+        background-color: $theme-color-base-light;
+        color: $gray-70;
+        font-weight: $font-semibold;
+      }
+    }
+
+    @media (max-width: $medium-screen - 1) {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+        justify-content: center;
+      }
+      
+    }
+  }
 }

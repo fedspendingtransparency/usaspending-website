@@ -3,76 +3,44 @@
  * Created by Lizzie Salita 11/3/17
  */
 
-import React from 'react';
+import React, { memo } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from "react-redux";
+import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+import BulkDownloadRadioButton from "../../../sharedComponents/BulkDownloadRadioButton";
 
-import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
+const propTypes = { updateFilter: PropTypes.func };
 
-const propTypes = {
-    fileFormats: PropTypes.array,
-    currentFileFormat: PropTypes.string,
-    updateFilter: PropTypes.func,
-    valid: PropTypes.bool
-};
+// eslint-disable-next-line prefer-arrow-callback
+const FileFormatFilter = memo(function FileFormatFilter({ updateFilter }) {
+    const currentFileFormat = useSelector((state) => state.bulkDownload.awards.fileFormat);
 
-export default class FileFormatFilter extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.onChange = this.onChange.bind(this);
-    }
-
-    onChange(e) {
+    const onChange = (e) => {
         const target = e.target;
-        this.props.updateFilter('fileFormat', target.value);
-    }
+        updateFilter('fileFormat', target.value);
+    };
 
-    render() {
-        let icon = (
-            <div className="icon valid">
-                <CheckCircle />
+    const fileFormats = awardDownloadOptions.fileFormats.map(({ name, label, disabled }) => (
+        <BulkDownloadRadioButton
+            name="fileFormat"
+            value={name}
+            checked={currentFileFormat === name}
+            onChange={onChange}
+            label={label}
+            disabled={disabled}
+            key={name} />
+    ));
+
+    return (
+        <div className="download-filter">
+            <FilterSectionTitle type="file" />
+            <div className="download-filter__content file-type">
+                {fileFormats}
             </div>
-        );
-
-        if (!this.props.valid) {
-            icon = (
-                <div className="icon invalid">
-                    <ExclamationCircle />
-                </div>
-            );
-        }
-
-        const fileFormats = this.props.fileFormats.map((fileFormat) => (
-            <div
-                className="radio"
-                key={fileFormat.name}>
-                <input
-                    type="radio"
-                    aria-label={fileFormat.name}
-                    value={fileFormat.name}
-                    name="fileFormat"
-                    checked={this.props.currentFileFormat === fileFormat.name}
-                    onChange={this.onChange}
-                    disabled={fileFormat.disabled} />
-                <label
-                    className={`radio-label ${fileFormat.disabled ? 'disabled' : ''}`}
-                    htmlFor="fileFormat">
-                    {fileFormat.label}
-                </label>
-            </div>
-        ));
-
-        return (
-            <div className="download-filter">
-                <h3 className="download-filter__title">
-                    {icon} Select a <span className="download-filter__title_em">file format</span>.
-                </h3>
-                <div className="download-filter__content">
-                    {fileFormats}
-                </div>
-            </div>
-        );
-    }
-}
+        </div>
+    );
+});
 
 FileFormatFilter.propTypes = propTypes;
+export default FileFormatFilter;

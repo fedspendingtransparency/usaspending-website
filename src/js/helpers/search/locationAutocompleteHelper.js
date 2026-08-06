@@ -63,7 +63,8 @@ export const addCity = (city, state, countryAbbreviation) => {
 };
 
 export const addState = (state, countryAbbreviation) => {
-    const fipsCode = fipsIdByStateName[state?.toLowerCase()];
+    const cleanState = state.replace(/[^\w\s]|_/g, "");
+    const fipsCode = fipsIdByStateName[cleanState?.toLowerCase()];
     const stateAbbreviation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
     return {
         identifier: `${countryAbbreviation}_${stateAbbreviation}`,
@@ -79,28 +80,31 @@ export const addState = (state, countryAbbreviation) => {
     };
 };
 
-export const addCountry = (country, countryAbbreviation) => ({
-    identifier: countryAbbreviation,
-    display: {
-        title: country,
-        entity: "Country/Entity",
-        standalone: country
-    },
-    filter: {
-        country: countryAbbreviation
-    }
-});
+export const addCountry = (country, countryAbbreviation) => {    
+    return ({
+        identifier: countryAbbreviation,
+        display: {
+            title: country,
+            entity: "Country/Entity",
+            standalone: country
+        },
+        filter: {
+            country: countryAbbreviation
+        }
+    });
+}
 
-export const addDistrict = (district, type) => {
+export const addDistrict = (district, category, type) => {
     const districtArray = district.split('-');
     const stateAbbreviation = districtArray[0];
     const districtNumber = districtArray[1];
+    const districtType = category || "district_current";
     return {
         identifier: `USA_${stateAbbreviation}_${districtNumber}`,
         filter: {
             country: "USA",
             state: stateAbbreviation,
-            district_current: districtNumber
+            [districtType]: districtNumber
         },
         display: {
             entity: type,
@@ -113,7 +117,6 @@ export const addDistrict = (district, type) => {
 export const locationSort = (array, key) => array.sort((a, b) => a[key].localeCompare(b[key]));
 
 export const citySort = (cityArray) => {
-    /* eslint-disable camelcase */
     const newCityArray = cityArray.map((city) => {
         if (city.country_name === 'UNITED STATES') {
             return {
@@ -127,7 +130,6 @@ export const citySort = (cityArray) => {
             city_name_update: `${city.city_name}, ${city.country_name}`
         };
     });
-    /* eslint-enable camelcase */
     return locationSort(newCityArray, 'city_name_update');
 };
 
@@ -235,9 +237,10 @@ export const getLocationObject = (selectedItem, countriesList, createLocationObj
     const countryAbbreviation =
         item.data.country_name === 'UNITED STATES' ? 'USA' :
             countriesList?.find(
-                (country) => country.name === item.data.country_name
+                (country) => {
+                    return country.name === item.data.country_name; 
+                }
             )?.code;
-
     if (item.category === "zip_code") {
         location = addZip(item.data.zip_code);
     }
@@ -261,10 +264,10 @@ export const getLocationObject = (selectedItem, countriesList, createLocationObj
         location = addCountry(item.data.country_name, countryAbbreviation);
     }
     else if (item.category === "current_cd") {
-        location = addDistrict(item.data.current_cd, "Current congressional district");
+        location = addDistrict(item.data.current_cd, "district_current", "Current congressional district");
     }
     else if (item.category === "original_cd") {
-        location = addDistrict(item.data.original_cd, "Original congressional district");
+        location = addDistrict(item.data.original_cd, "district_original", "Original congressional district");
     }
 
     if (item.category !== "county") {

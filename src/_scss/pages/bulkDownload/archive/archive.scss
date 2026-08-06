@@ -1,11 +1,86 @@
+$button-color-primary: $blue-60v;
+
 .award-data-archive-content {
-    @include media($medium-screen) {
-        padding: 0 rem(30);
+  color: $gray-90;
+
+  @include media($medium-screen) {
+    padding: 0 rem(30);
+  }
+
+  h2 {
+    margin: 0;
+    font-size: $lead-font-size;
+    line-height: 1.5;
+    font-weight: $font-semibold;
+  }
+
+  p {
+    margin: 0;
+
+    &:first-of-type {
+      margin: 0 0 rem(24) 0;
     }
-    h2 {
-        margin-top: 0;
-        font-weight: 400;
+  }
+
+  ul {
+    margin: 0;
+
+    li {
+      margin: 0;
     }
-    @import "archiveForm";
-    @import "archiveTable";
+  }
+
+  .download-filter__title-wrapper {
+    margin-top: rem(40);
+
+    .download-filter__title {
+      font-size: $base-font-size;
+    }
+  }
+
+  .note-text {
+    font-size: $small-font-size;
+    line-height: 1.5;
+    color: $gray-90;
+    margin-bottom: rem(24);
+
+    span {
+      font-weight: $font-semibold;
+    }
+
+    a {
+      font-weight: $font-semibold;
+    }
+  }
+
+  .reset-button {
+    background-color: transparent;
+    color: $button-color-primary;
+    border: 2px solid $button-color-primary;
+    padding: rem(10) rem(14);
+    margin: 0 $global-margin * 3 0 0;
+
+    &.buttons-tablet {
+      margin: 0 0 rem(20) 0;
+    }
+  }
+
+  .download-button {
+    padding: rem(10) rem(14);
+    background-color: $button-color-primary;
+    color: $color-white;
+    margin: 0;
+
+    &:disabled {
+      background-color: $gray-20;
+      color: $gray-70;
+    }
+  }
+
+  .buttons-tablet {
+    width: 100%;
+  }
+
+  @import "archiveForm";
+  @import "archiveTable";
 }

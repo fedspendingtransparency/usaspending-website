@@ -57,8 +57,6 @@ class SearchAwardsOperation {
         this.extentCompeted = [];
 
         this.awardDescription = '';
-
-        this.searchedFilterValues = [];
     }
 
     fromState(state) {
@@ -67,7 +65,6 @@ class SearchAwardsOperation {
         this.timePeriodFY = state.timePeriodFY?.toArray();
         this.timePeriodRange = [];
         this.timePeriodType = state.timePeriodType;
-
         this.dateType = state.filterNewAwardsOnlySelected;
 
         this.awardType = state.awardType?.toArray();
@@ -95,7 +92,6 @@ class SearchAwardsOperation {
             require: state.tasCodes?.toObject().require,
             exclude: state.tasCodes?.toObject().exclude
         };
-
         this.selectedRecipients = state.selectedRecipients?.toArray();
         this.recipientDomesticForeign = state.recipientDomesticForeign;
         this.selectedRecipientLocations = state.selectedRecipientLocations?.toArray();
@@ -113,6 +109,7 @@ class SearchAwardsOperation {
             require: state.naicsCodes?.toObject().require,
             exclude: state.naicsCodes?.toObject().exclude
         };
+
         this.pscCheckbox = {
             require: state.pscCodes?.toObject().require,
             exclude: state.pscCodes?.toObject().exclude
@@ -135,7 +132,27 @@ class SearchAwardsOperation {
         this.extentCompeted = state.extentCompeted?.toArray();
 
         this.awardDescription = state.awardDescription;
-        this.searchedFilterValues = state.searchedFilterValues;
+
+        let naics1 = this.naicsCodes.require.length;
+        let naics2 = this.naicsCodes.exclude.length;
+
+        let psc1 = this.pscCheckbox.require.length;
+        let psc2 = this.pscCheckbox.exclude.length;
+
+        let tas1 = this.tasCheckbox.require.length;
+        let tas2 = this.tasCheckbox.exclude.length;
+
+        let def1 = this.defCodes.require.length;
+        let def2 = this.defCodes.exclude.length;
+
+        this.naicsCodes.require.splice(naics1,0);
+        this.naicsCodes.exclude.splice(naics2,0);
+        this.pscCheckbox.require.splice(psc1, 0);
+        this.pscCheckbox.exclude.splice(psc2, 0);
+        this.tasCheckbox.require.splice(tas1, 0);
+        this.tasCheckbox.exclude.splice(tas2, 0);
+        this.defCodes.require.splice(def1, 0);
+        this.defCodes.exclude.splice(def2, 0);
     }
 
     toParams() {
@@ -274,14 +291,6 @@ class SearchAwardsOperation {
         // Add Recipients, Recipient Scope, Recipient Locations, and Recipient Types
         if (this.selectedRecipients?.length > 0) {
             filters[rootKeys.recipients] = this.selectedRecipients;
-        }
-
-        if (this.searchedFilterValues?.recipient) {
-            const recipientFilter = this.searchedFilterValues.recipient;
-            // user selected all or no selected recipients use search text.
-            if (recipientFilter.allSelected || recipientFilter.selected?.size <= 0) {
-                filters[rootKeys.recipients] = [recipientFilter.input];
-            }
         }
 
         if (this.selectedRecipientLocations?.length > 0) {

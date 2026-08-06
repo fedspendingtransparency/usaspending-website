@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable max-len */
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router';
-import { find, throttle, uniqueId } from 'lodash-es';
+import { find } from 'lodash-es';
 import { useDispatch } from 'react-redux';
-import { ComingSoon, FlexGridCol } from 'data-transparency-ui';
+import { ComingSoon, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { interactiveDataSourcesPageMetaTags } from 'helpers/metaTagHelper';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import DownloadStaticFile from "components/sharedComponents/DownloadStaticFile";
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+import BannerPageHeader from "components/sharedComponents/header/BannerPageHeader";
+import InPageNav from 'components/sharedComponents/InPageNav';
 import { showModal } from 'redux/actions/modal/modalActions';
 import useQueryParams from "hooks/useQueryParams";
 import InteractiveDataSourcesSection from './InteractiveDataSourcesSection';
@@ -39,13 +39,23 @@ const InteractiveDataSourcesPage = () => {
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };
-    const sections = [
+
+    const emailData = {
+        subject: "USAspending Data Sources",
+        body: "View a visualization of USAspending data sources on this interactive page: https://www.usaspending.gov/data-sources"
+    };
+
+    const handleShare = (name) => {
+        handleShareOptionClick(name, `data-sources`, emailData, handleShareDispatch);
+    };
+
+    const sections = useMemo(() => [
         {
             section: 'intro-section',
             label: 'Introduction',
             showSectionWrapper: false,
             scroller: false,
-            component: <IntroSection />
+            component: <IntroSection url={getBaseUrl('data-sources')} onShareClick={handleShare} downloadLink="/data/data-sources-download.pdf" />
         },
         {
             section: 'history-section',
@@ -138,9 +148,11 @@ const InteractiveDataSourcesPage = () => {
             scroller: true,
             component: <DataUseCases title="Use Cases" subtitle="What can I do with the data on USAspending.gov?" />
         }
-    ];
+    ], []);
 
-    const jumpToSection = (section = '') => {
+    // eslint-disable-next-line react-hooks/preserve-manual-memoization
+    const jumpToSection = useCallback((section = '') => {  
+
         // we've been provided a section to jump to
         // check if it's a valid section
         const sectionObj = find(sections, ['section', section]);
@@ -149,53 +161,37 @@ const InteractiveDataSourcesPage = () => {
         // find the section in dom
         const sectionDom = document.querySelector(`#interactive-data-sources-${sectionObj.section}`);
         if (!sectionDom) return;
-
         // add section to url
         const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history({
-            path: `${getQueryParamString(newQueryParams)}`
-        }, { replace: true });
+        history(`${getQueryParamString(newQueryParams)}`, { replace: true });
 
         setActiveSection(section);
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
-
+        const sectionTop = sectionDom.offsetTop;
         window.scrollTo({
-            top: sectionTop - 25,
+            top: sectionTop + 300,
             left: 0,
             behavior: 'smooth'
         });
-    };
+    }, [history, query, sections]);
+
 
     useEffect(() => {
-        if (query.section) {
-            jumpToSection(query.section);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query.section]);
-
-    useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
         let isMounted = true;
         if (isMounted) {
             const urlSection = query.section;
             if (urlSection) {
+                // eslint-disable-next-line react-hooks/set-state-in-effect
                 setActiveSection(urlSection);
-                jumpToSection(urlSection);
+                setTimeout(() => jumpToSection(urlSection), 100);
             }
         }
         return () => {
             isMounted = false;
         };
-    }, 100), [history, query.section]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [query.section]);
 
-    const emailData = {
-        subject: "USAspending Data Sources",
-        body: "View a visualization of USAspending data sources on this interactive page: https://www.usaspending.gov/data-sources"
-    };
-
-    const handleShare = (name) => {
-        handleShareOptionClick(name, `data-sources`, emailData, handleShareDispatch);
-    };
 
     return (
         <PageWrapper
@@ -203,29 +199,32 @@ const InteractiveDataSourcesPage = () => {
             classNames="usa-da-interactive-data-sources-page"
             metaTagProps={interactiveDataSourcesPageMetaTags}
             title="Data Sources"
-            toolBarComponents={[
-                <DownloadStaticFile
-                    key={uniqueId()}
-                    path="/data/data-sources-download.pdf" />,
-                <ShareIcon508
-                    key={uniqueId()}
-                    url={getBaseUrl('data-sources')}
-                    onShareOptionClick={handleShare} />
-            ]}
-            sections={sections}
-            activeSection={activeSection}
-            jumpToSection={jumpToSection}
-            inPageNav>
-            <main id="main-content" className="main-content usda__flex-row">
-                <FlexGridCol width={12} className="body usda__flex-col">
-                    {sections.map((section) => (
-                        <InteractiveDataSourcesSection
-                            key={section.section}
-                            section={section}>
-                            {section.component || <ComingSoon />}
-                        </InteractiveDataSourcesSection>
-                    ))}
-                </FlexGridCol>
+            noHeader>
+            <main id="main-content" className="main-content">
+                <BannerPageHeader
+                    kicker="RESOURCES"
+                    title="USAspending Data Sources"
+                    body="A journey through government spending data"
+                    faIcon="database"
+                    primaryColor="#005EA2"
+                    secondaryColor="#0076D6" />
+                <InPageNav
+                    sections={sections}
+                    activeSection={activeSection}
+                    pageName="interactive-data-sources"
+                    detectActiveSection
+                    jumpToSection={jumpToSection} />
+                <FlexGridRow className="interactive-data-sources__row">
+                    <FlexGridCol width={12} className="interactive-data-sources__col">
+                        {sections.map((section) => (
+                            <InteractiveDataSourcesSection
+                                key={section.section}
+                                section={section}>
+                                {section.component || <ComingSoon />}
+                            </InteractiveDataSourcesSection>
+                        ))}
+                    </FlexGridCol>
+                </FlexGridRow>
             </main>
         </PageWrapper>
     );

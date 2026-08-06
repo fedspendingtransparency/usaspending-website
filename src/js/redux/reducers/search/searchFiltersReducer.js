@@ -47,8 +47,7 @@ export const requiredTypes = {
     defCode: Set,
     pricingType: Set,
     setAside: Set,
-    extentCompeted: Set,
-    searchedFilterValues: OrderedMap
+    extentCompeted: Set
 };
 
 export const initialState = {
@@ -80,13 +79,12 @@ export const initialState = {
     extentCompeted: Set(),
     treasuryAccounts: OrderedMap(),
     tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
-    awardDescription: '',
-    searchedFilterValues: OrderedMap()
+    awardDescription: ''
 };
 
-export const initialStateFY = {
+export const initialStateDR = {
     keyword: OrderedMap(),
-    timePeriodType: 'fy',
+    timePeriodType: 'dr',
     timePeriodFY: Set(),
     time_period: Set(),
     filterNewAwardsOnlySelected: false,
@@ -113,8 +111,7 @@ export const initialStateFY = {
     extentCompeted: Set(),
     treasuryAccounts: OrderedMap(),
     tasCodes: CheckboxTreeSelections(defaultCheckboxTreeSelections),
-    awardDescription: '',
-    searchedFilterValues: OrderedMap()
+    awardDescription: ''
 };
 
 const searchFiltersReducer = (state = initialState, action) => {
@@ -374,21 +371,6 @@ const searchFiltersReducer = (state = initialState, action) => {
         }
         case 'CLEAR_SEARCH_FILTER_ALL': {
             return Object.assign({}, initialState);
-        }
-
-        case 'UPDATE_SEARCH_FILTER_VALUES': {
-            let updatedSet = state.searchedFilterValues;
-            const searchObj = {
-                [action.filterType]: {
-                    input: action.input,
-                    selected: action.selected,
-                    allSelected: action.allSelected
-                }
-            };
-            updatedSet = { ...updatedSet, ...searchObj };
-            return Object.assign({}, state, {
-                searchedFilterValues: updatedSet
-            });
         }
 
         default:

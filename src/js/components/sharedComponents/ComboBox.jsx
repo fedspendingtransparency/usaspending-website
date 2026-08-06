@@ -1,10 +1,9 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect, useRef, useCallback } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
+import { uniqueId } from "lodash-es";
 
 const propTypes = {
-    inputValue: PropTypes.string.isRequired,
-    setInputValue: PropTypes.func.isRequired,
     optionsArray: PropTypes.arrayOf(
         PropTypes.shape(
             {
@@ -14,40 +13,74 @@ const propTypes = {
         )).isRequired,
     label: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
     placeholder: PropTypes.string,
+    defaultValue: PropTypes.string,
     formName: PropTypes.string,
     disabled: PropTypes.bool,
-    className: PropTypes.string
+    className: PropTypes.string,
+    onSelect: PropTypes.func,
+    onClearSelect: PropTypes.func,
+    filterInput: PropTypes.bool
 };
 
 // eslint-disable-next-line prefer-arrow-callback
 const ComboBox = memo(function ComboBox({
-    inputValue,
-    setInputValue,
+    onSelect,
     optionsArray,
     label,
     placeholder,
+    defaultValue = '',
     formName,
     disabled,
-    className
+    onClearSelect = () => {},
+    className,
+    filterInput = true
 }) {
+    const [inputValue, setInputValue] = useState(defaultValue);
     const [openOptions, setOpenOptions] = useState(false);
+    const comboRef = useRef(null)
+
+    const optionsArrayDep = JSON.stringify(optionsArray);
+
+    // reset input if there's a change in options array
+    useEffect(() => {
+        // default value defaults to an empty string
+        // if default value passed set to it.
+        setInputValue(defaultValue);
+    }, [optionsArrayDep, defaultValue]);
 
     // 1) filter for inputValue 2) map to list item element
-    const options = optionsArray
-        .filter(({ value }) => value.indexOf(inputValue.toLowerCase()) !== -1)
+    let optionsArr = optionsArray;
+
+    if (filterInput) {
+        optionsArr = optionsArray
+            .filter(({ text }) => text?.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1);
+    }
+    const options = optionsArr
         .map(({ value, text }) => {
-            const onClick = () => {
+            const onClick = (e) => {
                 setInputValue(text);
                 setOpenOptions(false);
+                onSelect(e);
             };
 
+            // primarily used for title options within dropdown
+            const disabledOption = typeof value !== "string" ?
+                false :
+                value?.indexOf('disabled') !== -1;
+
             return (
-                <li value={value} className="combo-box__options-item" key={value}>
+                <li
+                    value={value}
+                    className="combo-box__options-item"
+                    key={uniqueId('combobox-option__')}>
                     <button
                         className="combo-box__option"
                         type="button"
                         aria-label={`${formName}-option-item`}
-                        onClick={onClick}>
+                        onClick={onClick}
+                        name={text}
+                        value={value}
+                        disabled={disabledOption}>
                         {text}
                     </button>
                 </li>
@@ -59,10 +92,11 @@ const ComboBox = memo(function ComboBox({
         setOpenOptions(e.target.value !== 0);
     };
 
-    const onClickClear = () => {
+    const onClickClear = useCallback(() => {
         setInputValue('');
         setOpenOptions(false);
-    };
+        onClearSelect();
+    }, []);
 
     const onClickToggle = () => setOpenOptions((prevState) => !prevState);
 
@@ -74,12 +108,28 @@ const ComboBox = memo(function ComboBox({
 
     const noSearchResults = options.length === 0 && !inputValueEmpty;
 
+    useEffect(() => {
+        const handleOutsideClick = (e) => {
+            if (comboRef.current && !comboRef.current.contains(e.target)) {
+                setOpenOptions(false);
+            }
+        };
+        if (openOptions) {
+            document.addEventListener('click', handleOutsideClick);
+        }
+        return () => {
+            document.removeEventListener('click', handleOutsideClick);
+        };
+    }, [comboRef, openOptions]);
+
     return (
-        <div className={`combo-box${className ? ` ${className}` : ''}`}>
+        <div
+            className={`combo-box${className ? ` ${className}` : ''}`}
+            ref={comboRef}>
             <label
                 className="combo-box__label"
                 id={`${formName}-label`}
-                htmlFor={formName}>
+                htmlFor={`${formName}-combo`}>
                 {label}
                 <div className="combo-box__input-container">
                     <input
@@ -87,6 +137,7 @@ const ComboBox = memo(function ComboBox({
                         type="text"
                         className="combo-box__input"
                         name={formName}
+                        id={`${formName}-combo`}
                         onChange={onChange}
                         placeholder={placeholder}
                         disabled={isDisabledAndEmpty} />

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown';
+import Markdown from 'react-markdown';
 
 import MoreResources from './MoreResources';
 import SmartLink from './SmartLink';
@@ -37,11 +37,7 @@ const ItemDefinition = (props) => {
             </h2>
 
             <div className="definition-content">
-                <ReactMarkdown
-                    source={props[props.type]}
-                    renderers={Object.assign({}, ReactMarkdown.renderers, {
-                        Link: SmartLink
-                    })} />
+                <Markdown components={{Link: SmartLink, a: SmartLink}} skipHtml>{props[props.type]}</Markdown>
             </div>
 
             {resources}

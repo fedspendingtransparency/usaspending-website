@@ -1,23 +1,23 @@
 @import "mixins/setText";
 @mixin sharedCheckboxStyle {
-    label.checkbox-item-wrapper {
-        cursor: pointer;
+  label.checkbox-item-wrapper {
+    cursor: pointer;
 
-        input[type=checkbox] {
-            @include usa-input-checkbox;
-            height: rem(14);
-            width: rem(14);
+    input[type="checkbox"] {
+      @include usa-input-checkbox;
+      height: rem(14);
+      width: rem(14);
 
-            cursor: pointer;
-        }
-        .checkbox-item-label {
-            margin-left: rem(6);
-            font-size: rem(12);
-            cursor: pointer;
-
-            @include media($large-screen) {
-                font-size: $small-font-size;
-            }
-        }
+      cursor: pointer;
     }
+    .checkbox-item-label {
+      margin-left: rem(6);
+      font-size: rem(12);
+      cursor: pointer;
+
+      @include media($large-screen) {
+        font-size: $small-font-size;
+      }
+    }
+  }
 }

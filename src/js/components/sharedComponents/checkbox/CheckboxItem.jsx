@@ -1,5 +1,4 @@
 import React, { useRef } from "react";
-import { uniqueId } from "lodash-es";
 import PropTypes from "prop-types";
 
 import replaceString from "../../../helpers/replaceString";
@@ -14,7 +13,8 @@ const propTypes = {
     label: PropTypes.string,
     customLabel: PropTypes.string,
     searchString: PropTypes.string,
-    singleFilterChange: PropTypes.func
+    singleFilterChange: PropTypes.func,
+    isDisabled: PropTypes.bool
 };
 
 const CheckboxItem = ({
@@ -23,7 +23,8 @@ const CheckboxItem = ({
     label,
     customLabel,
     searchString,
-    singleFilterChange
+    singleFilterChange,
+    isDisabled = false
 }) => {
     const inputRef = useRef(null);
     const highlightText = (text) => replaceString(text, searchString, 'highlight');
@@ -43,18 +44,23 @@ const CheckboxItem = ({
 
     return (
         <li className={`checkbox-filter__item ${filter === excludedSubFilters ? 'hidden' : ''}`}>
-            <input
-                type="checkbox"
-                id={`primary-checkbox-${uniqueId()}`}
-                value={filter}
-                checked={selectedFilters?.has(filter)}
-                onChange={toggleFilter}
-                ref={inputRef} />
-            {customLabel ?
-                <div className="checkbox-filter__item-label">{highlightText(customLabel)}</div>
-                :
-                <div className="checkbox-filter__item-label">{highlightText(label)}</div>
-            }
+            <label
+                htmlFor={`primary-checkbox__${filter}`}
+                className="checkbox-filter__item-label-container">
+                <input
+                    type="checkbox"
+                    id={`primary-checkbox-${filter}`}
+                    value={filter}
+                    checked={selectedFilters?.has(filter)}
+                    onChange={toggleFilter}
+                    disabled={isDisabled}
+                    ref={inputRef} />
+                {customLabel ?
+                    <div className="checkbox-filter__item-label">{highlightText(customLabel)}</div>
+                    :
+                    <div className="checkbox-filter__item-label">{highlightText(label)}</div>
+                }
+            </label>
         </li>
     );
 };

@@ -31,7 +31,6 @@ const ShareIcon508 = ({
     const hideConfirmationText = debounce(() => setConfirmationText(false), 1750);
 
     const copyLink = async () => {
-        // eslint-disable-next-line no-undef
         await navigator.clipboard.writeText(url);
         setConfirmationText(true);
         onShareOptionClick('copy');

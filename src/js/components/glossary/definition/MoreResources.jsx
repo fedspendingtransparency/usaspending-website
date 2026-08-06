@@ -5,9 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactMarkdown from 'react-markdown';
-
+import Markdown from 'react-markdown';
 import SmartLink from './SmartLink';
+
 
 const propTypes = {
     resources: PropTypes.string
@@ -19,11 +19,7 @@ const MoreResources = ({ resources }) => (
             More Resources
         </h3>
         <hr />
-        <ReactMarkdown
-            source={resources}
-            renderers={Object.assign({}, ReactMarkdown.renderers, {
-                Link: SmartLink
-            })} />
+        <Markdown components={{Link: SmartLink, a: SmartLink}} skipHtml>{resources}</Markdown>
     </div>
 );
 

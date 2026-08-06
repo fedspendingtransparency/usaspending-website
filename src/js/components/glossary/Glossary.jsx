@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
-import { hideGlossary } from 'redux/actions/glossary/glossaryActions';
+import { hideGlossary, clearGlossaryTerm } from 'redux/actions/glossary/glossaryActions';
 
 import { getQueryParamString } from 'helpers/queryParams';
 import GlossaryHeader from './GlossaryHeader';
@@ -54,6 +54,7 @@ const Glossary = ({
 
     const closeGlossary = useCallback((e) => {
         if (e.key === 'Escape' || (e.type === 'click')) {
+            dispatch(clearGlossaryTerm());
             dispatch(hideGlossary());
 
             // remove search param from url
@@ -72,8 +73,8 @@ const Glossary = ({
                 mainContent.focus();
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        
+    }, [dispatch, history, query]);
 
     const track = () => <div className="glossary-scrollbar-track" />;
     const thumb = () => <div className="glossary-scrollbar-thumb" />;

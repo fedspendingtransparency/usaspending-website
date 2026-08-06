@@ -3,144 +3,129 @@
  * Created by Lizzie Salita 3/23/18
  */
 
-import React from 'react';
+import React, { memo, useMemo, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-
-import { CheckCircle } from 'components/sharedComponents/icons/Icons';
-import EntityDropdown from 'components/bulkDownload/awards/filters/EntityDropdown';
-
-const propTypes = {
-    locationTypes: PropTypes.array,
-    states: PropTypes.array,
-    currentLocation: PropTypes.object,
-    updateFilter: PropTypes.func,
-    currentLocationType: PropTypes.string
-};
-
+import { useSelector } from "react-redux";
+import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
+import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+import ComboBox from "components/sharedComponents/ComboBox";
+import BulkDownloadRadioButton from "../../../sharedComponents/BulkDownloadRadioButton";
 const countryOptions = [
     {
-        code: 'all',
-        name: 'All'
+        value: 'all',
+        text: 'All Countries'
     },
     {
-        code: 'USA',
-        name: 'United States'
+        value: 'USA',
+        text: 'United States'
     },
     {
-        code: 'FOREIGN',
-        name: 'All Foreign Countries'
+        value: 'FOREIGN',
+        text: 'All Foreign Countries'
     }
 ];
 
-export default class LocationFilter extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.onChange = this.onChange.bind(this);
-        this.updateLocationFilter = this.updateLocationFilter.bind(this);
-        this.generateDisclaimer = this.generateDisclaimer.bind(this);
-    }
-
-    onChange(e) {
-        const target = e.target;
-        this.props.updateFilter('locationType', target.value);
-    }
-
-    generateDisclaimer(field) {
-        if (!this.props.currentLocation.country.code) {
-            // no country provided
-            return (
-                <span>
-                    Please select a&nbsp;
-                    <span className="field">country</span> before selecting a&nbsp;
-                    <span className="field">{field}</span>.
-                </span>
-            );
-        }
-        return (
-            <span>
-                Filtering by <span className="field">{field}</span> is only available for locations within the United States.
-            </span>
-        );
-    }
-
-    updateLocationFilter(locationType, selectedLocation) {
-        if (locationType === 'country') {
-            this.props.updateFilter('location', {
-                country: selectedLocation,
-                state: {
-                    code: '',
-                    name: ''
-                }
-            });
-        }
-        else if (locationType === 'state') {
-            const updatedLocation = Object.assign({}, this.props.currentLocation, {
-                state: selectedLocation
-            });
-
-            this.props.updateFilter('location', updatedLocation);
-        }
-    }
-
-    render() {
-        const icon = (
-            <div className="icon valid">
-                <CheckCircle />
-            </div>
-        );
-
-        const states = this.props.states.slice();
-        states.unshift({
-            code: 'all',
-            name: 'All'
-        });
-
-        const locationTypes = this.props.locationTypes.map((locationType) => (
-            <div
-                className="radio"
-                key={locationType.name}>
-                <input
-                    type="radio"
-                    aria-label={locationType.name}
-                    value={locationType.name}
-                    name="locationType"
-                    checked={this.props.currentLocationType === locationType.name}
-                    onChange={this.onChange} />
-                <label className="radio-label" htmlFor="locationType">{locationType.label}</label>
-            </div>
-        ));
-
-        return (
-            <div className="download-filter">
-                <h3 className="download-filter__title">
-                    {icon} Select a <span className="download-filter__title_em">location</span>.
-                </h3>
-                <div className="download-filter__content">
-                    {locationTypes}
-                    <EntityDropdown
-                        scope="country"
-                        placeholder="Select a Country"
-                        title="Country"
-                        value={this.props.currentLocation.country}
-                        selectEntity={this.updateLocationFilter}
-                        options={countryOptions}
-                        field="country"
-                        generateDisclaimer={this.generateDisclaimer} />
-                    <EntityDropdown
-                        scope="state"
-                        placeholder="Select a State"
-                        title="State"
-                        value={this.props.currentLocation.state}
-                        selectEntity={this.updateLocationFilter}
-                        options={states}
-                        field="state"
-                        enabled={this.props.currentLocation.country.code === 'USA'}
-                        generateDisclaimer={this.generateDisclaimer} />
-                </div>
-            </div>
-        );
+const getCountryOption = (v) => {
+    switch (v) {
+        case 'USA': return { code: countryOptions[1].value, name: countryOptions[1].text };
+        case 'FOREIGN': return { code: countryOptions[2].value, name: countryOptions[2].text };
+        default: return { code: countryOptions[0].value, name: countryOptions[0].text };
     }
 }
 
+const { locationTypes } = awardDownloadOptions;
+
+const propTypes = {
+    states: PropTypes.array,
+    updateFilter: PropTypes.func
+};
+
+// eslint-disable-next-line prefer-arrow-callback
+const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
+    const location = useSelector((state) => state.bulkDownload.awards.location);
+    const locationType = useSelector((state) => state.bulkDownload.awards.locationType);
+
+    const onChange = (e) => {
+        const target = e.target;
+        updateFilter('locationType', target.value);
+    };
+
+    const updateCountry = useCallback((e) => {
+        updateFilter('location', {
+            country: getCountryOption(e.target.value),
+            state: { code: '', name: '' }
+        });
+    }, [updateFilter]);
+
+    const onCountryClearSelect = () => updateFilter('location', '');
+
+    const updateState = (e) => {
+        const getState = (v) => {
+            switch (v) {
+                case '':return [{ code: '', name: '' }];
+                case 'all':return [{ code: 'all', name: 'All' }];
+                default: return states.filter(({ code }) => code === e.target.value);
+            }
+        }
+
+        const updatedLocation = Object.assign({}, location, {
+            state: getState(e.target.value)[0]
+        });
+
+        updateFilter('location', updatedLocation);
+    };
+
+    const onStateClearSelect = () => updateState({ target: { value: '' }});
+
+    const stateOptions = useMemo(() => {
+        const tempArr = states.slice();
+
+        tempArr.unshift({ code: 'all', name: 'All' });
+
+        return tempArr.map(({ code, name }) => ({ value: code, text: name }));
+    }, [states])
+
+    const locationTypesArray = locationTypes.map(({ name, label, description }) => (
+        <BulkDownloadRadioButton
+            name="locationType"
+            value={name}
+            checked={locationType === name}
+            onChange={onChange}
+            label={label}
+            description={description}
+            key={name} />
+    ));
+
+    // set location to all on render
+    useEffect(() => updateCountry({ target: { value: 'all' } }), [updateCountry]);
+
+    return (
+        <div className="download-filter">
+            <FilterSectionTitle type="location" />
+            <div className="download-filter__content location">
+                <div className="input-container">
+                    {locationTypesArray}
+                </div>
+                <div className="combo-box-container">
+                    <ComboBox
+                        optionsArray={countryOptions}
+                        onSelect={updateCountry}
+                        label={"Country"}
+                        placeholder={"Select a Country"}
+                        defaultValue={'All Countries'}
+                        onClearSelect={onCountryClearSelect} />
+                    <ComboBox
+                        optionsArray={stateOptions}
+                        onSelect={updateState}
+                        label={"State"}
+                        placeholder={"Select a State"}
+                        disabled={location.country?.code !== "USA"}
+                        onClearSelect={onStateClearSelect} />
+                </div>
+            </div>
+        </div>
+    );
+});
+
 LocationFilter.propTypes = propTypes;
+export default LocationFilter;

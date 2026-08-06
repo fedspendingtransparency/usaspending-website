@@ -3,13 +3,12 @@
  * Created by Lizzie Salita 7/24/20
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
-import { showSlideout } from '../../helpers/slideoutHelper';
+import { showSlideout } from 'helpers/slideoutHelper';
 import { Glossary } from './icons/Icons';
 
 
@@ -20,7 +19,7 @@ const propTypes = {
     alt: PropTypes.string,
     showHoverText: PropTypes.bool,
     displayIcon: PropTypes.bool,
-    boldLinkLink: PropTypes.bool
+    boldLink: PropTypes.bool
 };
 
 const GlossaryLink = ({
@@ -32,26 +31,13 @@ const GlossaryLink = ({
     displayIcon = true,
     boldLink = false
 }) => {
-    const [urlSearchParam, setUrlSearchParam] = useState(null);
     const { pathname, search } = useLocation();
-
-    useEffect(() => {
-        setUrlSearchParam(search.includes('glossary') ? '' : search);
-    }, [search]);
-
-    let newUrl;
-
-    // there is already a search query
-    if (search && !search.includes('glossary')) {
-        // url with original search &glossary={term}
-        newUrl = `${pathname}${search}&glossary=${term}`;
-    }
-    else {
-        // url with search term as query
-        newUrl = getNewUrlForGlossary(pathname, `?glossary=${term}`, urlSearchParam);
-    }
+    const params = new URLSearchParams(search);
+    params.set('glossary', term)
+    const glossaryUrl = `${pathname}`
 
     const stopBubble = (e) => {
+        e.preventDefault();
         e.stopPropagation();
         showSlideout('glossary', { url: term });
     };
@@ -74,7 +60,7 @@ const GlossaryLink = ({
 
     return (
         <Link
-            to={newUrl}
+            to={glossaryUrl}
             className={`usda-glossary-link ${boldLink ? "usa-bold-link" : ""}`}
             aria-label="Open the Glossary"
             tabIndex={hidden ? -1 : 0}

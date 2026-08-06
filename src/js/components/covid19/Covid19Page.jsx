@@ -7,29 +7,26 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { find, throttle, uniqueId } from 'lodash-es';
+import { find, throttle } from 'lodash-es';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Covid19Section from 'components/covid19/Covid19Section';
 import Heading from 'components/covid19/Heading';
+import BannerPageHeader from "components/sharedComponents/header/BannerPageHeader";
 import { LoadingWrapper } from 'components/sharedComponents/Loading';
-import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
+import InPageNav from 'components/sharedComponents/InPageNav';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
-import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
 import { slug, getEmailSocialShareData } from 'dataMapping/covid19/covid19';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { showModal } from 'redux/actions/modal/modalActions';
-import DataSourcesAndMethodology from 'components/covid19/DataSourcesAndMethodology';
-import OtherResources from 'components/covid19/OtherResources';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
-import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
 import Analytics from 'helpers/analytics/Analytics';
 import useQueryParams from "../../hooks/useQueryParams";
+import Covid19BottomSection from './Covid19BottomSection';
 
 require('pages/covid19/index.scss');
 
@@ -71,11 +68,8 @@ const Covid19Page = ({ loading }) => {
     const query = useQueryParams();
     const history = useNavigate();
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const dispatch = useDispatch();
     const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
-
 
     const jumpToSection = (section = '') => {
         // we've been provided a section to jump to
@@ -97,9 +91,15 @@ const Covid19Page = ({ loading }) => {
 
         // add offsets
         const sectionTop = sectionDom.offsetTop;
+        let top = sectionTop + 380;
+
+        // required to adjust offset for sections outside top Covid Sections FlexRow
+        if (section === "data_sources_and_methodology" || section === "other_resources") {
+            top = sectionTop - 75;
+        }
 
         window.scrollTo({
-            top: sectionTop + 120,
+            top,
             left: 0,
             behavior: 'smooth'
         });
@@ -136,49 +136,37 @@ const Covid19Page = ({ loading }) => {
         handleShareOptionClick(name, slug, getEmailSocialShareData, handleExternalLinkClick);
     };
 
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
-
     return (
         <PageWrapper
             pageName="covid19"
             classNames="usa-da-covid19-page"
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
-            toolBarComponents={[
-                <DownloadButtonContainer />,
-                <ShareIcon508
-                    key={uniqueId()}
-                    url={getBaseUrl(slug)}
-                    onShareOptionClick={handleShare}
-                    classNames={!isMobile ? "margin-right" : ""} />
-            ]}
-            sections={covid19Sections}
-            activeSection={activeSection}
-            jumpToSection={jumpToSection}
-            loading={loading}
-            inPageNav>
+            noHeader >
             <LoadingWrapper isLoading={loading}>
                 <Helmet>
-                    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
+                    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" crossOrigin="anonymous" integrity="sha384-JnF4GvwrnLggHxx0ORCeHombtPxfqigY/GeEvbdv0Uy5qrCAuAyN3AulKRA+VAPr"/>
                 </Helmet>
 
                 <main id="main-content" className="main-content">
+                    <BannerPageHeader
+                        kicker="PROFILES"
+                        title="Federal Response to COVID-19"
+                        body="Learn about total spending and award spending in response to COVID-19"
+                        faIcon="virus-covid"
+                        primaryColor="#39215E"
+                        secondaryColor="#783CB9" />
+                    <InPageNav
+                        sections={covid19Sections}
+                        loading={loading}
+                        activeSection={activeSection}
+                        pageName="covid19"
+                        detectActiveSection
+                        jumpToSection={jumpToSection}
+                        rootMargin={`-80px 0px 0px 0px`} />
                     <FlexGridRow className="body covid-content__row">
                         <FlexGridCol className="covid-content__col" width="fill">
-                            <section className="body__section">
-                                <Heading publicLaw={query.publicLaw} />
-                            </section>
-
+                            <Heading publicLaw={query.publicLaw} url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
                             {Object.keys(componentByCovid19Section())
                                 .filter((section) => componentByCovid19Section()[section].showInMainSection)
                                 .map((section) => (
@@ -194,20 +182,11 @@ const Covid19Page = ({ loading }) => {
                                         {componentByCovid19Section(query.publicLaw, handleExternalLinkClick)[section].component}
                                     </Covid19Section>
                                 ))}
-                            <section className="body__section" id="covid19-data_sources_and_methodology">
-                                <DataSourcesAndMethodology
-                                    handleExternalLinkClick={handleExternalLinkClick}
-                                    publicLaw={query.publicLaw} />
-                            </section>
-                            <section className="body__section" id="covid19-other_resources">
-                                <OtherResources
-                                    handleExternalLinkClick={handleExternalLinkClick}
-                                    publicLaw={query.publicLaw} />
-                                <LinkToAdvancedSearchContainer />
-                            </section>
                             <GlobalModalContainer />
                         </FlexGridCol>
                     </FlexGridRow>
+                    <Covid19BottomSection
+                        handleExternalLinkClick={handleExternalLinkClick} />
                 </main>
             </LoadingWrapper>
         </PageWrapper>

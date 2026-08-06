@@ -16,31 +16,29 @@ const SmartLink = ({ href, children }) => {
     const [localHref, setLocalHref] = useState('');
     const [isLocal, setIsLocal] = useState(false);
     const location = useLocation();
+    useEffect(() => {
+        const transformLink = (url) => {
+            let tempHref = url;
+            let tempIsLocal = false;
 
-    const transformLink = (url) => {
-        let tempHref = url;
-        let tempIsLocal = false;
-
-        // check if the link is a local glossary reference
-        if (url.indexOf('?glossary=') > -1) {
+            // check if the link is a local glossary reference
+            if (url.indexOf('?glossary=') > -1) {
             // it is a local glossary reference, get the current URL
-            const currentPath = location.pathname;
-            tempHref = `${currentPath}${url}`;
-            tempIsLocal = true;
-        }
-        else if (url.indexOf('/') === 0) {
+                const currentPath = location.pathname;
+                tempHref = `${currentPath}${url}`;
+                tempIsLocal = true;
+            }
+            else if (url.indexOf('/') === 0) {
             // link internal to the web site but not a glossary reference
             // don't open these in a new window, but keep the URL as provided
-            tempIsLocal = true;
-        }
+                tempIsLocal = true;
+            }
 
-        setLocalHref(tempHref);
-        setIsLocal(tempIsLocal);
-    };
-
-    useEffect(() => {
+            setLocalHref(tempHref);
+            setIsLocal(tempIsLocal);
+        };
         transformLink(href);
-    }, [href]);
+    }, [href, location.pathname]);
 
     if (isLocal) {
         return (

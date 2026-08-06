@@ -24,8 +24,6 @@ import {
     generateUrlHash, getObjFromQueryParams,
     restoreUrlHash
 } from "helpers/searchHelper";
-import * as DownloadHelper from 'helpers/downloadHelper';
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import useQueryParams from "hooks/useQueryParams";
 import SearchPage from 'components/search/SearchPage';
 import {
@@ -33,7 +31,8 @@ import {
     sendAnalyticEvents,
     sendFieldCombinations
 } from './helpers/searchAnalytics';
-import GlobalConstants from "../../GlobalConstants";
+import useRequestDownloadCount from "./useRequestDownloadCount";
+import { storeStructuresAreEqual } from '../../helpers/searchHelper';
 
 require('pages/search/searchPage.scss');
 
@@ -43,6 +42,12 @@ require('pages/search/searchPage.scss');
  * @returns {Object} Object where every property is an immutable data structure
  */
 export const parseRemoteFilters = (data) => {
+    // data type check
+    if (typeof data !== 'object') {
+        console.info("bad data");
+        return null;
+    }
+
     const newFilters = data.filters;
     const version = data.version;
 
@@ -51,6 +56,12 @@ export const parseRemoteFilters = (data) => {
     // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
     //  a URL hash contains data that no longer applies to the current site
         console.info("version mismatch");
+        return null;
+    }
+
+    // filter type check/null check
+    if (!newFilters || typeof newFilters !== 'object') {
+        console.info("bad filters")
         return null;
     }
 
@@ -68,6 +79,13 @@ export const parseRemoteFilters = (data) => {
         }
     });
 
+    if (!storeStructuresAreEqual(reduxValues, initialState)) {
+        // Redux structure and URL hash data mis match
+        // return null and send user to error page.
+        console.info("store structure mis match.")
+        return null;
+    }
+    
     // send the selected filters to Google Analytics
     const events = convertFiltersToAnalyticEvents(reduxValues);
     sendFieldCombinations(events);
@@ -76,7 +94,6 @@ export const parseRemoteFilters = (data) => {
 };
 
 const SearchContainer = () => {
-    const [downloadAvailable, setDownloadAvailable] = useState(false);
     const location = useLocation();
     const { hash: urlHash } = getObjFromQueryParams(location.search);
     const query = useQueryParams();
@@ -89,124 +106,25 @@ const SearchContainer = () => {
         appliedFilters: {
             filters: appliedFilters,
             _empty: areAppliedFiltersEmpty
-        }
+        },
+        spending_level
     } = useSelector((state) => state);
-    const [downloadInFlight, setDownloadInFlight] = useState(false);
+    const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
     const [generateHashInFlight, setGenerateHashInFlight] = useState(false);
 
-    const [awardsCount, setAwardsCount] = useState();
-    const [transactionsCount, setTransactionsCount] = useState();
-    const [subawardsCount, setSubawardsCount] = useState();
-
     const request = useRef(null);
-    const requestAwards = useRef(null);
-    const requestTransactions = useRef(null);
-    const requestSubawards = useRef(null);
-    const areAppliedFiltersEmptyRef = useRef();
-    const prevAppliedFiltersRef = useRef();
+    const areAppliedFiltersEmptyRef = useRef(null);
+    const prevAppliedFiltersRef = useRef(null);
 
-    const setDownloadAvailability = useCallback((filters = stagedFilters) => {
-        setDownloadInFlight(true);
-
-        const operation = new SearchAwardsOperation();
-        operation.fromState(filters);
-        const searchParams = operation.toParams();
-
-        // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            auditTrail: 'Download Availability Count'
-        };
-
-        request.current = DownloadHelper.requestDownloadCount(apiParams);
-        request.current.promise
-            .then((res) => {
-                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
-                setDownloadInFlight(false);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                request.current = null;
-            });
-    }, [stagedFilters]);
-
-    const setDownloadAvailabilityAwards = useCallback((filters = stagedFilters) => {
-        setDownloadInFlight(true);
-
-        const operation = new SearchAwardsOperation();
-        operation.fromState(filters);
-        const searchParams = operation.toParams();
-        // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            spending_level: "awards",
-            auditTrail: 'Download Availability Count Awards'
-        };
-
-        requestAwards.current = DownloadHelper.requestDownloadCount(apiParams);
-        requestAwards.current.promise
-            .then((res) => {
-                setDownloadInFlight(false);
-                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
-                setAwardsCount(res.data.calculated_count);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                requestAwards.current = null;
-            });
-    }, [stagedFilters]);
-
-    const setDownloadAvailabilityTransactions = useCallback((filters = stagedFilters) => {
-        setDownloadInFlight(true);
-
-        const operation = new SearchAwardsOperation();
-        operation.fromState(filters);
-        const searchParams = operation.toParams();
-        // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            spending_level: "transactions",
-            auditTrail: 'Download Availability Count Transactions'
-        };
-
-        requestTransactions.current = DownloadHelper.requestDownloadCount(apiParams);
-        requestTransactions.current.promise
-            .then((res) => {
-                setDownloadInFlight(false);
-                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
-                setTransactionsCount(res.data.calculated_count);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                requestTransactions.current = null;
-            });
-    }, [stagedFilters]);
-
-    const setDownloadAvailabilitySubawards = useCallback((filters = stagedFilters) => {
-        setDownloadInFlight(true);
-
-        const operation = new SearchAwardsOperation();
-        operation.fromState(filters);
-        const searchParams = operation.toParams();
-        // generate the API parameters
-        const apiParams = {
-            filters: searchParams,
-            spending_level: "subawards",
-            auditTrail: 'Download Availability Count Subawards'
-        };
-
-        requestSubawards.current = DownloadHelper.requestDownloadCount(apiParams);
-        requestSubawards.current.promise
-            .then((res) => {
-                setDownloadInFlight(false);
-                setDownloadAvailable(!res.data.transaction_rows_gt_limit);
-                setSubawardsCount(res.data.calculated_count);
-            })
-            .catch(() => {
-                setDownloadInFlight(false);
-                requestSubawards.current = null;
-            });
-    }, [stagedFilters]);
+    const {
+        awardsCount,
+        subawardsCount,
+        transactionsCount,
+        downloadInFlight,
+        downloadAvailable
+    } = useRequestDownloadCount(
+        appliedFilters, urlHash, areAppliedFiltersEmpty, spendingLevel
+    );
 
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
@@ -236,22 +154,16 @@ const SearchContainer = () => {
                         // apply the filters to both the staged and applied stores
                         dispatch(restoreHashedFilters(filtersInImmutableStructure));
                         dispatch(setAppliedFilterEmptiness(false));
-
-                        // delete once we deploy
-                        setDownloadAvailability(filtersInImmutableStructure);
-
-                        // TODO:  Disabling for 14913 hotfix
-                        if (GlobalConstants.IS_NEW_DOWNLOAD) {
-                            setDownloadAvailabilityAwards(filtersInImmutableStructure);
-                            setDownloadAvailabilitySubawards(filtersInImmutableStructure);
-                            setDownloadAvailabilityTransactions(filtersInImmutableStructure);
-                        }
+                    }
+                    else {
+                        console.error('Error fetching filters from hash');
+                        // corrupt hash redirect to error page.
+                        navigate("/hash-error", { replace: true });
                     }
                     request.current = null;
                 })
                 .catch((err) => {
                     if (!isCancel(err)) {
-                        // eslint-disable-next-line no-console
                         console.error('Error fetching filters from hash: ', err);
                         // remove hash since corresponding filter selections aren't retrievable.
                         searchURLParams.delete("hash");
@@ -288,7 +200,6 @@ const SearchContainer = () => {
             setSearchURLParams(searchURLParams);
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
-            setDownloadAvailable(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [areAppliedFiltersEmpty, urlHash]);
@@ -331,24 +242,24 @@ const SearchContainer = () => {
          * (2) Subsequent Searches: same as above except:
          *      (a) urlHash is present and
          *      (b) previous search was not empty
-         * NOTE: additional logic is necessary to avoid false positive where we're loading a previous hash
+         * NOTE: additional logic is necessary to avoid
+         *      false positive where we're loading a previous hash
          * */
         const filtersChangedAndAreSelected = (
             areFiltersSelected(appliedFilters) &&
             areFiltersDifferent(appliedFilters, prevAppliedFilters)
         );
-        if ((!urlHash && filtersChangedAndAreSelected) || (urlHash && filtersChangedAndAreSelected && areFiltersSelected(prevAppliedFilters))) {
+        if (
+            (!urlHash && filtersChangedAndAreSelected) ||
+            (
+                urlHash &&
+                filtersChangedAndAreSelected &&
+                areFiltersSelected(prevAppliedFilters)
+            )
+        ) {
             generateHash();
-            // delete once we deploy
-            setDownloadAvailability();
-
-            // TODO:  Disabling for 14913 hotfix
-            if (GlobalConstants.IS_NEW_DOWNLOAD) {
-                setDownloadAvailabilityAwards();
-                setDownloadAvailabilityTransactions();
-                setDownloadAvailabilitySubawards();
-            }
-        } else if (!urlHash) {
+        }
+        else if (!urlHash) {
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
         }
@@ -376,7 +287,8 @@ const SearchContainer = () => {
             awardsCount={awardsCount}
             transactionsCount={transactionsCount}
             subawardsCount={subawardsCount}
-            queryParam={location.state} />
+            queryParam={location.state}
+            spending_level={spending_level} />
     );
 };
 

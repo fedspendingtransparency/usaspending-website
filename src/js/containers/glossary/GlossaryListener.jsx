@@ -1,56 +1,33 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { useLocation } from 'react-router';
-import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
-import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
+import { useDispatch } from 'react-redux';
+import { showGlossary, setTermFromUrl } from 'redux/actions/glossary/glossaryActions';
+import { setLastOpenedSlideout } from 'redux/actions/slideouts/slideoutActions';
 import useQueryParams from "../../hooks/useQueryParams";
 
 const GlossaryListener = ({
-    history,
-    match,
-    location,
-    showGlossary,
-    setTermFromUrl,
-    Child,
-    setLastOpenedSlideout
+    Child
 }) => {
     const { search } = useLocation();
     const queryParams = useQueryParams();
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (search.includes('glossary')) {
             const { glossary: term } = queryParams;
-            showGlossary();
-            setTermFromUrl(term);
-            setLastOpenedSlideout('glossary');
+            dispatch(showGlossary());
+            dispatch(setTermFromUrl(term));
+            dispatch(setLastOpenedSlideout('glossary'));
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [history?.location?.search]);
+    }, [search]);
 
-    return <Child {...{ history, match, location }} />;
+    return <Child />;
 };
 
 GlossaryListener.propTypes = {
-    history: PropTypes.object,
-    match: PropTypes.object,
-    location: PropTypes.object,
-    glossary: PropTypes.object,
-    showGlossary: PropTypes.func,
-    setTermFromUrl: PropTypes.func,
-    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node]),
-    setLastOpenedSlideout: PropTypes.func
+    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node])
 };
 
-const GlossaryListenerContainer = connect(
-    (state) => ({
-        glossary: state.glossary
-    }),
-    (dispatch) => ({
-        showGlossary: () => dispatch(glossaryActions.showGlossary()),
-        setTermFromUrl: (term) => dispatch(glossaryActions.setTermFromUrl(term)),
-        setLastOpenedSlideout: (lastOpened) => dispatch(slideoutActions.setLastOpenedSlideout(lastOpened))
-    })
-)(GlossaryListener);
-
-export default GlossaryListenerContainer;
+export default GlossaryListener;
