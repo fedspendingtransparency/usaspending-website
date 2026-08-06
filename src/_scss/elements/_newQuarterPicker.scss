@@ -22,11 +22,6 @@ $quarter-picker-mobile-breakpoint: 424px;
       margin-right: rem(4);
       margin-bottom: 0;
 
-      @media (max-width: $quarter-picker-mobile-breakpoint) {
-        margin-right: rem(8);
-        margin-top: rem(12);
-      }
-
       &:first-child {
         margin-left: 0;
       }
@@ -90,6 +85,7 @@ $quarter-picker-mobile-breakpoint: 424px;
 
         @media (max-width: $quarter-picker-mobile-breakpoint) {
           flex-direction: row;
+          margin-top: rem(12);
         }
 
         // the nested list
@@ -99,10 +95,6 @@ $quarter-picker-mobile-breakpoint: 424px;
           font-weight: $font-semibold;
           margin: 0 0 $global-margin 0;
           color: $quarter-text-color;
-
-          @media (max-width: $quarter-picker-mobile-breakpoint) {
-            margin-top: rem(12);
-          }
         }
 
         .quarter-picker__period-list {
