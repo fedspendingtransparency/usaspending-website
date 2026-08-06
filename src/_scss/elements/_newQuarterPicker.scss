@@ -114,26 +114,22 @@ $quarter-picker-mobile-breakpoint: 424px;
             flex: 1 1 0;
             min-width: 0;
             margin-left: rem(12);
-            gap: rem(4);
-
-            &:first-of-type {
-              gap: rem(8);
-            }
+            gap: rem(2);
 
             li {
               flex: 1 1 0;
               min-width: 0;
-            }
 
-            .quarter-picker__quarter {
-              width: 100%;
-              min-width: 0;
-              box-sizing: border-box;
-              white-space: nowrap;
+              .quarter-picker__quarter {
+                width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+                white-space: nowrap;
+              }
             }
 
             .quarter-picker__quarter_double {
-              width: auto;
+              width: 100%;
             }
           }
 
