@@ -22,6 +22,11 @@ $quarter-picker-mobile-breakpoint: 424px;
       margin-right: rem(4);
       margin-bottom: 0;
 
+      @media (max-width: $quarter-picker-mobile-breakpoint) {
+        flex: 1 1 0;
+        margin-right: 0;
+      }
+
       &:first-child {
         margin-left: 0;
       }
@@ -84,8 +89,10 @@ $quarter-picker-mobile-breakpoint: 424px;
         height: auto;
 
         @media (max-width: $quarter-picker-mobile-breakpoint) {
+          flex: 1 1 0;
           flex-direction: row;
-          margin-top: rem(12);
+          min-width: 0;
+          margin-top: rem(12); 
         }
 
         // the nested list
@@ -104,7 +111,30 @@ $quarter-picker-mobile-breakpoint: 424px;
           margin: 0;
 
           @media (max-width: $quarter-picker-mobile-breakpoint) {
+            flex: 1 1 0;
+            min-width: 0;
             margin-left: rem(12);
+            gap: rem(4);
+
+            &:first-child {
+              gap: rem(8);
+            }
+
+            li {
+              flex: 1 1 0;
+              min-width: 0;
+            }
+
+            .quarter-picker__quarter {
+              width: 100%;
+              min-width: 0;
+              box-sizing: border-box;
+              white-space: nowrap;
+            }
+
+            .quarter-picker__quarter_double {
+              width: auto;
+            }
           }
 
           li {
@@ -113,10 +143,6 @@ $quarter-picker-mobile-breakpoint: 424px;
             .quarter-picker__quarter_first,
             .quarter-picker__quarter_last {
               border-radius: 0;
-            }
-
-            .quarter-picker__quarter {
-              width: fit-content;
             }
           }
         }
