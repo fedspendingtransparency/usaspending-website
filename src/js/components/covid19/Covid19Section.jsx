@@ -38,16 +38,13 @@ const Covid19Section = ({
         );
     }
 
-    const titleTooltip = tooltip && tooltipProps ?
-        { component: tooltip, props: tooltipProps } : null;
-
     return (
         <SectionWrapper
             id={`covid19-${snakeCase(section)}`}
             classNames={`body__section ${snakeCase(section)}`}
             icon={icon ? <FontAwesomeIcon size="2x" icon={icon} /> : null}
             title={title}
-            titleTooltip={titleTooltip}
+            titleTooltip={{ component: tooltip, props: tooltipProps }}
             overLine={section?.overLine}
             description={headerText}>
             {children}
