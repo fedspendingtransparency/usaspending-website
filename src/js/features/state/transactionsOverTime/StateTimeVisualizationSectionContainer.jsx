@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import StateTimeVisualizationSection from '../StateTimeVisualizationSection';
+import StateTimeVisualizationSection from './StateTimeVisualizationSection';
 import useFetchSpendingOverTime from "./useFetchSpendingOverTime";
 
 const StateTimeVisualizationSectionContainer = () => {

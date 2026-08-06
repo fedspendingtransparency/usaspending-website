@@ -3,7 +3,7 @@
  * Created by Kevin Li 5/1/17
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
 
@@ -16,7 +16,7 @@ const propTypes = {
 const ResultItem = ({ item, search, selectTerm }) => {
     const [label, setLabel] = useState(null);
 
-    const prepareLabel = () => {
+    const prepareLabel = useCallback(() => {
         const value = item.term.toLowerCase();
         let labelLocal = null;
         if (!search || value.indexOf(search.toLowerCase()) === -1) {
@@ -65,7 +65,7 @@ const ResultItem = ({ item, search, selectTerm }) => {
         }
 
         setLabel(labelLocal);
-    };
+    }, []);
 
     const clickedLink = (term) => {
         selectTerm(item);
@@ -80,7 +80,7 @@ const ResultItem = ({ item, search, selectTerm }) => {
     useEffect(() => {
         prepareLabel();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [item, search, selectTerm]);
+    }, [item, selectTerm]);
 
     return (
         <li>
