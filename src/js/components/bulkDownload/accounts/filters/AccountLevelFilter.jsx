@@ -25,7 +25,7 @@ const AccountLevelFilter = ({
 
     const accountLvls = accountLevels.map((level) => (
         <div className="radio" key={level.name}>
-            <label  className="radio-label account" htmlFor="account-level">
+            <label  className="radio-label" htmlFor="account-level">
                 <input
                     type="radio"
                     aria-label={level.name}
