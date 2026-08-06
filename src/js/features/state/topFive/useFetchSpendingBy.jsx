@@ -3,15 +3,14 @@
  * Created by Andrea Blackwell 03/19/26
  */
 
-import { useState, useEffect, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { useQuery } from '@tanstack/react-query';
 import { performSpendingByAwardSearch, performSpendingByCategorySearch } from "helpers/searchHelper";
 import BaseStateCategoryResult from "models/v2/state/BaseStateCategoryResult";
-import { convertFYToDateRange, getTrailingTwelveMonths } from "../../../../helpers/fiscalYearHelper";
-import { awardTypeGroups } from "../../../../dataMapping/search/awardType";
+import { convertFYToDateRange, getTrailingTwelveMonths } from "../../../helpers/fiscalYearHelper";
+import { awardTypeGroups } from "../../../dataMapping/search/awardType";
 
 export const useFetchSpendingBy = (category, code, fy, type) => {
-    const [parsedData, setParsedData] = useState(null);
     const [noResults, setNoResults] = useState(false);
 
     const getDataParams = useCallback(() => {
@@ -78,7 +77,9 @@ export const useFetchSpendingBy = (category, code, fy, type) => {
 
     const dataParams = useMemo(() => getDataParams(), [getDataParams]);
 
-    const parseData = (res) => {
+    const parseData = (d) => {
+        const res = d.data;
+
         if (!res) {
             setNoResults(true);
         }
@@ -120,7 +121,7 @@ export const useFetchSpendingBy = (category, code, fy, type) => {
             return result;
         });
 
-        setParsedData(dataResults);
+        return dataResults;
     };
 
     const {
@@ -133,18 +134,14 @@ export const useFetchSpendingBy = (category, code, fy, type) => {
             }
             return performSpendingByCategorySearch(dataParams).promise;
         },
+        select: parseData,
         enabled: !!(dataParams && code && type && fy),
-        staleTime: 60000
+        refetchOnWindowFocus: false,
+        staleTime: Infinity
     });
 
-    useEffect(() => {
-        if (isSuccess && Object.keys(data?.data).length > 0) {
-            parseData(data?.data);
-        }
-    }, [data, isSuccess]);
-
     return {
-        parsedData, noResults, isSuccess, isLoading, error, dataParams
+        parsedData: data, noResults, isSuccess, isLoading, error, dataParams
     };
 };
 

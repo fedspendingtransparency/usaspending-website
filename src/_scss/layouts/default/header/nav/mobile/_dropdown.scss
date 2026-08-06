@@ -3,7 +3,7 @@
   flex-direction: column;
   margin: rem(16) rem(0);
   padding: rem(0) rem(32);
-  @media (max-width: $tablet-screen - 1) {
+  @media (max-width: $mobile-only) {
     padding: rem(0) rem(16);
   }
   hr {
