@@ -9,8 +9,8 @@ import { ErrorMessage, FlexGridCol, GenericMessage, LoadingMessage } from "data-
 import { reduce } from "lodash-es";
 import BaseAwardBreakdownRow from "models/v2/state/BaseAwardBreakdownRow";
 
-import AwardBreakdownTreeMap from '../treemap/AwardBreakdownTreeMap';
-import AwardBreakdownTable from '../AwardBreakdownTable';
+import AwardBreakdownTreeMap from './treemap/AwardBreakdownTreeMap';
+import AwardBreakdownTable from './treemap/AwardBreakdownTable';
 import useFetchAwardBreakdown from "./useFetchAwardBreakdown";
 
 const propTypes = {

@@ -1,6 +1,6 @@
 // DTUI Table component overrides
 .usa-dt-table__stacked {
-  @media (max-width: $tablet-screen - 1) {
+  @media (max-width: $mobile-only) {
     .usda-table__cell {
       border: unset !important;
     }

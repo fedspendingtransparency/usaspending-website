@@ -7,7 +7,7 @@ import { useCallback, useState, useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { performSpendingOverTimeSearch } from "helpers/searchHelper";
 import { convertMonthToFY, convertNumToShortMonth } from "helpers/monthHelper";
-import { createApiParams } from "../../stateHelper";
+import { createApiParams } from "../stateHelper";
 
 export const useFetchSpendingOverTime = (visualizationPeriod, code) => {
     const [parsedData, setParsedData] = useState(null);
@@ -72,7 +72,8 @@ export const useFetchSpendingOverTime = (visualizationPeriod, code) => {
         queryKey: [`spendingOverTimeSearch${code}${visualizationPeriod}`],
         queryFn: () => performSpendingOverTimeSearch(createApiParams(code, visualizationPeriod)).promise,
         enabled: !!(code && visualizationPeriod),
-        staleTime: 60000
+        refetchOnWindowFocus: false,
+        staleTime: Infinity
     });
 
     useEffect(() => {
