@@ -5,33 +5,36 @@
 
 import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useDispatch } from 'react-redux';
+
 import { fetchStateOverview } from 'apis/state';
 import BaseStateProfile from "models/v2/state/BaseStateProfile";
+import { setStateOverview } from 'redux/actions/state/stateActions';
 
 export const useFetchOverview = (stateId, fy) => {
+    const dispatch = useDispatch();
+
     const loadStateOverview = useCallback((d) => {
-        if (Object.keys(d?.data).length === 0) {
+        const data = d?.data;
+        if (Object.keys(data).length === 0) {
             return;
         }
         const newStateProfile = Object.create(BaseStateProfile);
-        newStateProfile.populate(d.data);
+        newStateProfile.populate(data);
+        dispatch(setStateOverview(newStateProfile));
+
         return newStateProfile;
     }, []);
 
-    const {
-        data, isSuccess, isLoading, error
-    } = useQuery({
+    return useQuery({
         queryKey: [`stateProfileData${stateId}${fy}`],
         queryFn: () => fetchStateOverview(stateId, fy).promise,
         select: loadStateOverview,
         enabled: !!stateId && !!fy,
-        staleTime: Infinity,
-        refetchOnWindowRefocus: false
+        refetchOnWindowFocus: false,
+        staleTime: Infinity
     });
 
-    return {
-        stateProfileData: data, isSuccess, isLoading, error
-    };
 };
 
 export default useFetchOverview;
