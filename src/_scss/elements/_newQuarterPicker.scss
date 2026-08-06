@@ -116,7 +116,7 @@ $quarter-picker-mobile-breakpoint: 424px;
             margin-left: rem(12);
             gap: rem(4);
 
-            &:first-child {
+            &:first-of-type {
               gap: rem(8);
             }
 
