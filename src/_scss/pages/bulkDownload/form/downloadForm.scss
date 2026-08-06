@@ -1,4 +1,4 @@
-$download-filter-col-breakpoint: $mobile-only - 20;
+$download-filter-col-breakpoint: 600px;
 
 .download-center-form,
 .bulk-download {
@@ -16,10 +16,15 @@ $download-filter-col-breakpoint: $mobile-only - 20;
       display: flex;
       justify-content: flex-start;
       flex-wrap: wrap;
+      gap: rem(20);
+
+      @media (max-width: $download-filter-col-breakpoint) {
+        gap: rem(0);
+      }
 
       .download-filter__col {
-        flex: 0 0 50%;
-        max-width: 50%;
+        flex: 0 0 calc(50% - rem(10));
+        max-width: calc(50% - rem(10));
     
         @media (max-width: $download-filter-col-breakpoint) {
           flex: 0 0 100%;
@@ -28,16 +33,11 @@ $download-filter-col-breakpoint: $mobile-only - 20;
 
         .combo-box {
           margin-left: 0;
+          margin-right: 0;
 
-          @media (min-width: $mobile-only) {
-            margin: 0 0 rem(12) rem(12);
-          }
-        }
-
-        &:nth-child(odd) {
-          .combo-box {
-            margin-left: 0;
-            margin-right: rem(12);
+          @media (min-width: $download-filter-col-breakpoint) {
+            margin-top: 0;
+            margin-bottom: 0;
           }
         }
       }
@@ -60,7 +60,7 @@ $download-filter-col-breakpoint: $mobile-only - 20;
         flex-direction: column;
         gap: rem(12);
 
-        @media (min-width: $mobile-only) {
+        @media (min-width: $download-filter-col-breakpoint) {
           flex-direction: row;
           gap: rem(24);
         }
@@ -252,7 +252,7 @@ $download-filter-col-breakpoint: $mobile-only - 20;
 
         .combo-box {
           min-width: 37.5%;
-          margin: 0 rem(32) 0 0;
+          margin: 0 rem(24) 0 0;
         }
       }
     }
