@@ -27,6 +27,10 @@
     font-size: rem(18);
     line-height: rem(23);
     margin-left: $global-spacing-unit;
+
+    &.account {
+      margin-left: 0;
+    }
     
     &.disabled {
       color: $color-gray-light;

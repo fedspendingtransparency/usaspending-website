@@ -24,21 +24,21 @@ const AccountLevelFilter = ({
     }
 
     const accountLvls = accountLevels.map((level) => (
-        <div
-            className="radio"
-            key={level.name}>
-            <input
-                type="radio"
-                aria-label={level.name}
-                value={level.name}
-                name="account-level"
-                checked={currentAccountLevel === level.name}
-                onChange={onChange} />
-            <label
-                className="radio-label"
-                htmlFor="account-level">
-                {level.label} 
-                <div className="radio-label__subtext"> {level.description}</div>
+        <div className="radio" key={level.name}>
+            <label  className="radio-label account" htmlFor="account-level">
+                <input
+                    type="radio"
+                    aria-label={level.name}
+                    value={level.name}
+                    name="account-level"
+                    checked={currentAccountLevel === level.name}
+                    onChange={onChange} />
+                <div className="radio-container"> 
+                    {level.label}
+                    <div className="radio-description">
+                        {level.description}
+                    </div>  
+                </div>
             </label>
         </div>
     ));
@@ -47,7 +47,9 @@ const AccountLevelFilter = ({
         <div className="download-filter">
             <FilterSectionTitle type="account" />
             <div className="download-filter__content account">
-                {accountLvls}
+                <div className="input-container">
+                    {accountLvls}
+                </div>
             </div>
         </div>
     );

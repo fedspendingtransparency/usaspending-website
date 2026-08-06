@@ -14,17 +14,17 @@ $download-filter-col-breakpoint: 600px;
 
     .download-filter__container {
       display: flex;
-      justify-content: flex-start;
       flex-wrap: wrap;
-      gap: rem(20);
-
+      gap: rem(24);
+      
       @media (max-width: $download-filter-col-breakpoint) {
         gap: rem(0);
       }
 
       .download-filter__col {
-        flex: 0 0 calc(50% - rem(10));
-        max-width: calc(50% - rem(10));
+        flex: 0 0 calc(50% - rem(12));
+        max-width: calc(50% - rem(12));
+        min-width: 0;
     
         @media (max-width: $download-filter-col-breakpoint) {
           flex: 0 0 100%;
@@ -55,21 +55,11 @@ $download-filter-col-breakpoint: 600px;
         }
       }
 
-      &.account {
-        display: flex;
-        flex-direction: column;
-        gap: rem(12);
-
-        @media (min-width: $download-filter-col-breakpoint) {
-          flex-direction: row;
-          gap: rem(24);
-        }
-      }
-
       &.agency,
       &.budget-function,
       &.time-period,
-      &.location {
+      &.location,
+      &.account {
         padding: 0;
 
         .input-container {
@@ -145,8 +135,7 @@ $download-filter-col-breakpoint: 600px;
 
           .combo-box {
             margin: 0;
-            flex: 1 1 0%;
-            min-width: 0;
+            min-width: 50%;
            
             &:first-of-type {
               margin-right: rem(24);
