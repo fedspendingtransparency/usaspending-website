@@ -97,11 +97,18 @@ const ArticleList = ({ articles }) => {
                                 desktop={4}
                                 tablet={6}
                                 mobile={12}
-                                className="list-of-articles__article">
+                                className="list-of-articles__article"
+                                key={article.title}>
                                 <ArticleCard
                                     onKeyUp={(e) => {
                                         e.persist();
-                                        if (e.key === 'Enter' && (e.target.className !== 'usa-dt-picker__button' && !e.target.className.includes('text'))) {
+                                        if (
+                                            e.key === 'Enter' &&
+                                            (
+                                                e.target.className !== 'usa-dt-picker__button' &&
+                                                !e.target.className.includes('text')
+                                            )
+                                        ) {
                                             window.open(newUrl, "_self");
                                         }
                                     }}

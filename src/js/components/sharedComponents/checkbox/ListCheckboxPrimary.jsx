@@ -28,7 +28,8 @@ const ListCheckboxPrimary = ({
                 selectedFilters={selectedFilters}
                 singleFilterChange={singleFilterChange}
                 label={label}
-                searchString={searchString} />
+                searchString={searchString}
+                key={label} />
         );
     });
 

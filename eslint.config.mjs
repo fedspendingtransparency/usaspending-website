@@ -107,7 +107,6 @@ export default defineConfig([
 
             // TODO: Fix errors and remove rules exceptions below
             //  They were added to avoid new errors with eslint upgrade
-            // "react/jsx-key": "warn",
             "react/jsx-no-target-blank": "warn",
             "react/no-unknown-property": "warn",
             "react/no-direct-mutation-state": "warn",

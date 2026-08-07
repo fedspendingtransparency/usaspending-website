@@ -70,7 +70,9 @@ describe('RecipientTableContainer', () => {
                 ],
                 [
                     (
-                        <Link to="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R/latest">
+                        <Link
+                            to="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R/latest"
+                            key="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R/latest">
                             RECIPIENT 2
                         </Link>
                     ),
@@ -133,7 +135,9 @@ describe('RecipientTableContainer', () => {
                 ],
                 [
                     (
-                        <Link to="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R/latest">
+                        <Link
+                            to="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R/latest"
+                            key="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R/latest">
                             RECIPIENT 2
                         </Link>
                     ),
