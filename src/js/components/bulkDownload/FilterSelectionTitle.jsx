@@ -173,8 +173,6 @@ const FilterSectionTitle = ({
         optClassName = ""
     } = titleData[type];
 
-    console.log({addClassName});
-
     return (
         <div className="download-filter__title-wrapper">
             <h4 className="download-filter__title">
