@@ -11,16 +11,14 @@ const customTooltipPropTypes = {
     active: PropTypes.bool,
     payload: PropTypes.array,
     label: PropTypes.string,
-    onMouseLeave: PropTypes.func,
-    textLabel: PropTypes.string
+    onMouseLeave: PropTypes.func
 };
 
 const CustomTooltip = ({
     active,
     payload,
     label,
-    onMouseLeave,
-    textLabel
+    onMouseLeave
 }) => {
     if (active && payload && payload.length) {
         return (
@@ -29,7 +27,7 @@ const CustomTooltip = ({
                     {label}
                 </div>
                 <div className="tooltip__text">
-                    <div className="tooltip__text-label">{textLabel}</div>
+                    <div className="tooltip__text-label">Obligations</div>
                     <div className="tooltip__text-amount">
                         {formatMoneyWithUnitsShortLabel(payload[0].value)}
                     </div>

@@ -1,7 +1,6 @@
 .download-filter__title-wrapper {
   display: flex;
   align-items: flex-start;
-  align-self: stretch;
   gap: rem(4);
   margin-bottom: rem(12);
 
@@ -12,6 +11,7 @@
     font-weight: $font-normal;
     font-size: $h4-font-size;
     color: $gray-90;
+    flex-wrap: wrap;
 
     .download-filter__title_em {
       font-weight: 600;

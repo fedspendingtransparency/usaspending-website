@@ -35,7 +35,7 @@ const ComboBox = memo(function ComboBox({
     className,
     filterInput = true
 }) {
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState(defaultValue);
     const [openOptions, setOpenOptions] = useState(false);
     const comboRef = useRef(null)
 
@@ -97,10 +97,6 @@ const ComboBox = memo(function ComboBox({
         setOpenOptions(false);
         onClearSelect();
     }, []);
-
-    useEffect(() => {
-        if (disabled) onClickClear();
-    }, [disabled, onClickClear])
 
     const onClickToggle = () => setOpenOptions((prevState) => !prevState);
 

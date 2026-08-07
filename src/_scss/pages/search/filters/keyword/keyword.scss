@@ -102,7 +102,7 @@
 
   .filter-item-wrap {
     padding: 0;
-    margin: $global-margin ($global-margin * 4);
+    margin: $global-margin 0;
 
     @media (max-width: $medium-screen - 1) {
       margin-top: 0;

@@ -190,6 +190,7 @@ const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { 
 };
 
 const valuesAreEqual = (a, b) => {
+    
     if(Iterable.isIterable(a) || Iterable.isIterable(b)) {
         return immutableIs(a, b);
     }
@@ -409,4 +410,31 @@ export const dateRangeChipLabel = (timeInput) => {
     }
 
     return dateLabel;
+};
+
+export const storeStructuresAreEqual = (store1, store2) => {
+    // If both stores equal then simply return true.
+    if (store1 === store2) return true;
+    
+    // Check if types match or if one is null/undefined
+    if (!store1 || !store2 || typeof store1 !== 'object' || typeof store2 !== 'object') {
+        return typeof store1 === typeof store2;
+    }
+
+    const keys1 = Object.keys(store1).sort();
+    const keys2 = Object.keys(store2).sort();
+
+    // Check if key counts match
+    if (keys1.length !== keys2.length) return false;
+
+    // Check if all keys and their value types match
+    for (let key of keys1) {
+        if (!keys2.includes(key)) return false;
+
+        if (typeof store1[key] !== typeof store2[key]) {
+            return false;
+        }
+    }
+
+    return true;
 };

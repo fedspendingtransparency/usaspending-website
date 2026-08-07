@@ -110,7 +110,7 @@ export const bulkDownloadAwardTypeGroups = {
     direct_payments: awardTypeGroups.direct_payments,
     loans: awardTypeGroups.loans,
     insurance: ['09', 'F005'],
-    other: ['11', 'F010']
+    other: ['11', 'F010', '-1']
 };
 
 export const transactionTypeGroups = {

@@ -74,3 +74,27 @@ export const sanitizeUrl = (rawURL, blockRedirect = true) => {
 
     return encodeURI(parsed.toString());
 }
+
+
+export const sanitizeMailUrl = (rawURL) => {
+    let cleanMailto = rawURL;
+    const [prefix, queryString] = rawURL.split('?');
+
+    if (queryString) {
+        cleanMailto = prefix;
+
+        const params = new URLSearchParams(queryString);
+
+        // remove any unwanted copy emails
+        params.delete('cc');
+        params.delete('bcc');
+
+
+        if (params.toString() && params.toString() !== '' ) {
+            // add wanted params back
+            cleanMailto = `${prefix}?${params.toString().replace(/\+/g, '%20')}`
+        }
+    }
+
+    return cleanMailto;
+}

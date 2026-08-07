@@ -25,6 +25,8 @@ import AccountUserSelections from './accounts/AccountUserSelections';
 import AwardDataArchiveUserSelections from "./archive/AwardDataArchiveUserSelections";
 import { currentFiscalYear } from "helpers/fiscalYearHelper";
 
+import DownloadInfoSection from './DownloadInfoSection';
+
 const propTypes = {
     dataType: PropTypes.string,
     bulkDownload: PropTypes.object,
@@ -47,7 +49,7 @@ const BulkDownloadPage = ({
     startAwardDownload,
     startAccountDownload
 }) => {
-    const { isTablet } = useContext(IsMobileContext);
+    const { isMedium } = useContext(IsMobileContext);
     const [showModal, setShowModal] = useState(false);
     // filters and results for Award Data Archive
     const [filters, setFilters] = useState({
@@ -121,20 +123,28 @@ const BulkDownloadPage = ({
                     {}
             }>
             <main id="main-content">
-                <FlexGridRow >
+                <FlexGridRow className="bulk-download__row">
                     <FlexGridCol
-                        width={isTablet || !userSelections ? 12 : 8}
+                        width={isMedium || !userSelections ? 12 : 8}
                         className="bulk-download">
                         <div className="bulk-download__data">{downloadDataContent}</div>
                         <BulkDownloadModalContainer mounted={showModal} hideModal={hideModal} />
                     </FlexGridCol>
-                    { userSelections && !isTablet &&
+                    { userSelections && !isMedium &&
                         <FlexGridCol
                             width={4}
                             className="bulk-download">
                             {userSelections}
                         </FlexGridCol>
                     }
+                </FlexGridRow>
+                <FlexGridRow className="download-info-wrapper">
+                    <hr />
+                    <FlexGridCol
+                        width={isMedium ? 12 : 8}
+                        className="download-info">
+                        <DownloadInfoSection dataType />
+                    </FlexGridCol>
                 </FlexGridRow>
             </main>
         </PageWrapper>

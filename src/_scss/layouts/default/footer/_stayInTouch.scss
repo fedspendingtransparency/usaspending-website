@@ -10,6 +10,8 @@
   }
 
   .stay-in-touch__container-row {
+    flex-flow: row wrap;
+    
     @media (min-width: $medium-screen) {
       flex-flow: row nowrap;
       justify-content: space-between;

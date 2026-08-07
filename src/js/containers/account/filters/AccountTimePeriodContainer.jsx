@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { currentFiscalYear } from 'helpers/fiscalYearHelper';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Immutable from 'immutable';
+import { Set } from 'immutable';
 import { flowRight } from 'lodash-es';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
@@ -28,7 +28,7 @@ const propTypes = {
     updateLatestFy: PropTypes.func,
     updateTimePeriod: PropTypes.func,
     filterTimePeriodType: PropTypes.string,
-    filterTimePeriodFY: PropTypes.instanceOf(Immutable.Set),
+    filterTimePeriodFY: PropTypes.instanceOf(Set),
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
     submissionPeriods: SUBMISSION_PERIOD_PROPS,

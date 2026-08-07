@@ -48,4 +48,8 @@
     @import "elements/_divider";
     @import "./_overview";
   }
+
+  .usa-dt-picker__list {
+    height: rem(300);
+  }
 }
