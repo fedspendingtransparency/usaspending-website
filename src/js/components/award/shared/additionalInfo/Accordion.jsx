@@ -46,7 +46,6 @@ const Accordion = ({
     // pass an array of address lines
     // e.g. ['1234 Sleepy Ghost Lane', 'Las Vegas, Nevada', 'Some Country']
     const address = (arrayOfRows) => {
-        console.log({ arrayOfRows })
         // if no data return --
         const array = compact(arrayOfRows);
         if (array.length === 0) return '--';

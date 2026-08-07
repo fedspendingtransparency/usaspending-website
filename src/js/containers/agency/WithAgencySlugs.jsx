@@ -37,6 +37,7 @@ export const mapIdToSlug = (results) => (
     }, {})
 );
 
+// eslint-disable-next-line react/display-name
 const withAgencySlugs = (WrappedComponent) => (props) => {
     const [agencySlugs, , agencyIds, loading, error] = useAgencySlugs();
     return (

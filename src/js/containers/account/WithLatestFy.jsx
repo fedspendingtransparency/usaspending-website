@@ -186,8 +186,15 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
     ];
 };
 
+// eslint-disable-next-line react/display-name
 const withLatestFy = (WrappedComponent, format = null) => (props) => {
-    const [latestPeriodAsMoment, submissionPeriods, latestPeriod, isLoading, errorMsg] = useLatestAccountData();
+    const [
+        latestPeriodAsMoment,
+        submissionPeriods,
+        latestPeriod,
+        isLoading,
+        errorMsg
+    ] = useLatestAccountData();
     return (
         <WrappedComponent
             {...props}
