@@ -80,11 +80,11 @@ xtest.each([
         // reset history before each test
         // eslint-disable-next-line no-unassigned-vars
         let location;
-        <Router>
-            const navigate = useNavigate();
-            location = useLocation();
-            navigate('');
-        </Router>
+        // <Router>
+        //     const navigate = useNavigate();
+        //     location = useLocation();
+        //     navigate('');
+        // </Router>
         // history.push({ pathname: '', search: '' });
         jest.spyOn(queryParamHelpers, 'useQueryParams').mockImplementation(() => {
             if (requiredParams.includes('period')) {

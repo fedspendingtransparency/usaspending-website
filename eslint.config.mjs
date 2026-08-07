@@ -107,7 +107,7 @@ export default defineConfig([
 
             // TODO: Fix errors and remove rules exceptions below
             //  They were added to avoid new errors with eslint upgrade
-            "react/no-unescaped-entities": "warn",
+            // "react/no-unescaped-entities": "warn",
             "react-hooks/immutability": "warn",
             "react-hooks/purity": "warn",
             "react-hooks/refs": "warn",

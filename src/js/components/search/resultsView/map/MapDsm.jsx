@@ -12,7 +12,7 @@ const MapDsm = ({ spendingLevel }) => {
     /* eslint-disable max-len */
     return (
         <>
-            <h4>What's included in this view of the data?</h4>
+            <h4>What&#39;s included in this view of the data?</h4>
             <p style={{ marginBottom: '8px' }}>
                 Use the map to break down spending by state, county, or congressional district.
             </p>
@@ -74,8 +74,8 @@ const MapDsm = ({ spendingLevel }) => {
             <p style={{ marginTop: '8px' }}>
                 <span className="award-search__glossary-term">NOTE: </span>
                 Data reported by the Department of Health and Human Services (HHS) related
-                to Medicare payments does not reflect the place where "the majority of the work" occurs, as
-                required by USAspending's data model specifications. &nbsp;
+                to Medicare payments does not reflect the place where &#34;the majority of the work&#34; occurs, as
+                required by USAspending&#39;s data model specifications. &nbsp;
                 <AboutTheDataLink slug="medicare-location-data">
                     Learn about Medicare Location Data.
                 </AboutTheDataLink>

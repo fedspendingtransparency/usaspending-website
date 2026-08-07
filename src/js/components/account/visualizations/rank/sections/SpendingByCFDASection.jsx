@@ -60,7 +60,7 @@ export default class SpendingByCFDASection extends React.Component {
                                 this.props.togglePicker();
                             }
                         }}>
-                        <p className="award-search__what-title">What's included in this view of the data?</p>
+                        <p className="award-search__what-title">What&#39;s included in this view of the data?</p>
                         <p className="read-more__preview-lines">View a list of the top CFDA Programs from highest to lowest, and hover over the bars for more detailed information.</p>
                         {this.props.subaward ?
                             <ReadMore openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" additionalFunctionality={additionalFunctionality}>
