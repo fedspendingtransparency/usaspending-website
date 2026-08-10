@@ -112,9 +112,6 @@ const BulkDownloadPage = ({
             title = "Custom Award Data";
     }
 
-    console.log("checking isMedium ===== ", isMedium);
-    console.log("checking userSelections ===== ", userSelections);
-
     return (
         <PageWrapper
             pageName={title}
