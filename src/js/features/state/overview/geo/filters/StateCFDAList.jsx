@@ -59,7 +59,8 @@ const StateCFDAList = ({
 
     const onSelect = useCallback((cfda) => {
         const newTitle = `${cfda.program_number} - ${cfda.program_title}`;
-        const newSearch = searchParams;
+        const newSearch = { ...searchParams };
+
         newSearch.filters.program_numbers = [];
         newSearch.filters.program_numbers.push(cfda.program_number);
 
