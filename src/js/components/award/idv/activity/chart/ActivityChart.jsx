@@ -16,6 +16,8 @@ import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityChartBar from './ActivityChartBar';
 
+const currentDate = Date.now();
+
 const propTypes = {
     awards: PropTypes.array,
     height: PropTypes.number,
@@ -331,8 +333,6 @@ const ActivityChart = ({
     useEffect(() => {
         generateChartData();
     }, [awardIndexForTooltip, awards, width, generateChartData]);
-
-    const currentDate = Date.now();
 
     return (
         <svg
