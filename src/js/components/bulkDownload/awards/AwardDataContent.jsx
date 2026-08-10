@@ -41,7 +41,7 @@ const AwardDataContent = ({
     states,
     clickedDownload
 }) => {
-    const { isTablet } = useContext(IsMobileContext);
+    const { isMedium } = useContext(IsMobileContext);
     const [validDates, setValidDates] = useState(false);
     const [validForm, setValidForm] = useState(false);
 
@@ -118,7 +118,7 @@ const AwardDataContent = ({
                         filterTimePeriodStart={awards.dateRange.startDate}
                         filterTimePeriodEnd={awards.dateRange.endDate} />
                     <FileFormatFilter updateFilter={updateFilter} />
-                    { isTablet && <AwardsUserSelections />}
+                    { isMedium && <AwardsUserSelections />}
                     <FlexGridRow className='download-button-group'>
                         <Button
                             additionalClassnames="download-reset"
