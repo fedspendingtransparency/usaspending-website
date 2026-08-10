@@ -5,7 +5,16 @@
   $color-gray-border: $color-gray-lighter;
 
   .usda-in-page-nav__container {
-    top: 60px;
+    overflow: clip;
+    @media(min-width: $medium-screen) {
+      top: 60px;
+    }
+  }
+
+  .usda-page-header__toolbar {
+    @media(max-width: $medium-screen) {
+      display: none;
+    }
   }
 
   .back-link {
