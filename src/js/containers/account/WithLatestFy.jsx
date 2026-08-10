@@ -22,7 +22,9 @@ export const useLatestAccountData = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [errorMsg, setErrorMsg] = useState('');
     const { submissionPeriods } = useSelector((state) => state.account);
-    const [{ latestMoment, latestPeriod }, setLatestData] = useState({ latestPeriod: getLatestPeriod([]), latestMoment: null });
+    const [{latestMoment, latestPeriod }, setLatestData] = useState(
+        { latestPeriod: getLatestPeriod([]), latestMoment: null }
+    );
     const request = useRef();
 
     useEffect(() => {
@@ -47,7 +49,10 @@ export const useLatestAccountData = () => {
                 .catch((e) => {
                     if (!isCancel(e)) {
                         console.error('Error fetching active periods: ', e);
-                        setErrorMsg(get(e, 'message', 'Error fetching active periods. Please refresh your browser.'));
+                        setErrorMsg(get(
+                            e,
+                            'message', 'Error fetching active periods. Please refresh your browser.'
+                        ));
                         request.current = null;
                     }
                 });
@@ -85,12 +90,16 @@ const isValidateParam = (param) => {
 
 /*
     * useValidTimeBasedQueryParams
-    * this function enforces validation logic for fiscal years and fiscal periods in the URL as query params
+    * this function enforces validation logic for
+    * fiscal years and fiscal periods in the URL as query params
     * by using the latest submission periods as a reference.
 */
-export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = null, requiredParams = ['fy', 'period']) => {
+export const useValidTimeBasedQueryParams = (
+    currentUrlFy, currentUrlPeriod = null, requiredParams = ['fy', 'period']
+) => {
     const history = useNavigate();
-    const existingParams = useQueryParams();
+    const params = useQueryParams();
+    const existingParams = { ...params };
 
     if (!isValidateParam(existingParams.fy)) {
         delete existingParams.fy;
@@ -125,7 +134,11 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
     useEffect(() => {
     // Handles defining undefined params
         const isDataReadyForLatest = (submissionPeriods.size && latestFy && latestPeriod);
-        const periodAndFyRequired = (requiredParams.includes('fy') && requiredParams.includes('period'));
+        const periodAndFyRequired = (
+            requiredParams.includes('fy') &&
+            requiredParams.includes('period')
+        );
+
         if (isDataReadyForLatest && requiredParams.some((p) => !existingParams[p])) {
             if (periodAndFyRequired && !existingParams.fy && existingParams.period) {
                 handleTimeChange(latestFy);
@@ -141,7 +154,11 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
             else if (isDataReadyForLatest && requiredParams.includes('fy') && !existingParams.fy) {
                 handleTimeChange(latestFy);
             }
-            else if (isDataReadyForLatest && requiredParams.includes('period') && !existingParams.period) {
+            else if (
+                isDataReadyForLatest &&
+                requiredParams.includes('period') &&
+                existingParams.period
+            ) {
                 handleTimeChange(null, latestPeriod);
             }
         }
@@ -151,8 +168,16 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
 
     useEffect(() => {
     // Handles validating defined params
-        if (submissionPeriods.size && latestFy && latestPeriod && requiredParams.every((p) => existingParams[p])) {
-            const availablePeriodsInFy = submissionPeriods.toJS().filter(({ submission_fiscal_year: y }) => parseInt(currentUrlFy, 10) === y);
+        if (
+            submissionPeriods.size &&
+            latestFy &&
+            latestPeriod &&
+            requiredParams.every((p) => existingParams[p])
+        ) {
+            const availablePeriodsInFy = submissionPeriods.toJS().filter(
+                ({ submission_fiscal_year: y }) => parseInt(currentUrlFy, 10) === y
+            );
+
             if (availablePeriodsInFy.length && currentUrlPeriod) {
                 // fy selection is valid but what about the period? 🤔
                 const validPeriod = isPeriodVisible(availablePeriodsInFy, currentUrlPeriod)

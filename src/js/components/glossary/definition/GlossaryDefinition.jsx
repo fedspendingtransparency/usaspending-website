@@ -81,11 +81,12 @@ const GlossaryDefinition = ({ glossary }) => {
             // if glossary is already part of the query
             if (window.location.href.includes('&glossary=')) {
                 // remove the old glossary term
-                delete query.glossary;
+                const newQuery = { ...query }
+                delete newQuery.glossary;
 
                 // add back in all other queries
                 const queryArray = [];
-                Object.entries(query).forEach(([key, value], i) => {
+                Object.entries(newQuery).forEach(([key, value], i) => {
                     if (i === 0) {
                         queryArray.push(`?${key}=${value}`);
                     }
