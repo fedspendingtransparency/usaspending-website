@@ -59,7 +59,7 @@ export default defineConfig([
             // TODO: The following js rules have been deprecated and should be replaced,
             //  all have been addressed in @stylistic/eslint-plugin
             "indent": [2, 4, { "SwitchCase": 1 }],
-            "max-len": [1, 100, { "tabWidth": 4 }],
+            "max-len": [1, 120, { "tabWidth": 4 }],
             "comma-dangle": [2, "never"],
             "no-extra-semi": [1],
             "arrow-parens": [2, "always"],
