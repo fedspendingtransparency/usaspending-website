@@ -56,8 +56,8 @@ const ActivityChart = ({
     const [graphWidth, setGraphWidth] = useState(0);
     const [graphHeight, setGraphHeight] = useState(0);
     const [bars, setBars] = useState([]);
-    const xScaleRef = useRef(null);
-    const yScaleRef = useRef(null);
+    const [xScale, setXScale] = useState(null);
+    const [yScale, setYScale] = useState(null);
 
     const getXTickDateAndLabel = (date) => {
         const newDate = new Date(date);
@@ -179,11 +179,11 @@ const ActivityChart = ({
 
     const generateBarData = useCallback(() => {
         // Map each award to a "bar" component
-        if (!xScaleRef.current) return;
+        if (!xScale) return;
         const newBars = awards.map((bar, index) => {
             const data = bar;
-            const start = xScaleRef.current(bar._startDate.valueOf()) + padding.left;
-            const end = xScaleRef.current(bar._endDate.valueOf()) + padding.left;
+            const start = xScale(bar._startDate.valueOf()) + padding.left;
+            const end = xScale(bar._endDate.valueOf()) + padding.left;
             data.barWidth = end - start;
             if (data.barWidth < 1.5) data.barWidth = 1.5;
 
@@ -197,7 +197,7 @@ const ActivityChart = ({
             data.obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
             // -1 for the stroke covering the x-axis
             data.yPosition = (height - 30) -
-                yScaleRef.current(bar._obligatedAmount) -
+                yScale(bar._obligatedAmount) -
                 barHeight - 1;
 
             // adding these for the tooltip positioning
@@ -238,7 +238,9 @@ const ActivityChart = ({
         graphWidth,
         height,
         padding.left,
-        setOverspent
+        setOverspent,
+        xScale,
+        yScale
     ]);
 
     useEffect(() => {
@@ -321,8 +323,8 @@ const ActivityChart = ({
 
         const newXTicks = createXTicks(newXScale, newGraphWidth);
 
-        xScaleRef.current = newXScale;
-        yScaleRef.current = newYScale;
+        setXScale(() => newXScale);
+        setYScale(() => newYScale);
         setXRange(newXRange);
         setGraphWidth(newGraphWidth);
         setGraphHeight(newGraphHeight);
@@ -347,30 +349,34 @@ const ActivityChart = ({
                 <ActivityYAxis
                     height={height - padding.bottom}
                     padding={padding}
-                    scale={yScaleRef.current}
+                    scale={yScale}
                     ticks={yTicks} />
                 <ActivityXAxis
                     width={graphWidth}
                     height={height - padding.bottom}
                     padding={padding}
-                    scale={xScaleRef.current}
+                    scale={xScale}
                     ticks={xTicks}
                     line />
                 <g
                     className="activity-chart-data">
                     {createBars()}
                     {/* Today Line */}
-                    {xScaleRef.current && <SVGLine
-                        scale={xScaleRef.current}
-                        y1={-10}
-                        y2={height - padding.bottom}
-                        textY={0}
-                        text="Today"
-                        max={xRange[1]}
-                        min={xRange[0]}
-                        position={currentDate}
-                        showTextPosition="top"
-                        adjustmentX={padding.left} />}
+                    {
+                        xScale && (
+                            <SVGLine
+                                scale={xScale}
+                                y1={-10}
+                                y2={height - padding.bottom}
+                                textY={0}
+                                text="Today"
+                                max={xRange[1]}
+                                min={xRange[0]}
+                                position={currentDate}
+                                showTextPosition="top"
+                                adjustmentX={padding.left} />
+                        )
+                    }
                 </g>
             </g>
         </svg>
