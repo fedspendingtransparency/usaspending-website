@@ -73,7 +73,7 @@ export const useFetchSpendingBy = (category, code, fy, type) => {
         }
 
         return params;
-    }, [category, code, fy, type]);
+    }, []);
 
     const dataParams = useMemo(() => getDataParams(), [getDataParams]);
 
