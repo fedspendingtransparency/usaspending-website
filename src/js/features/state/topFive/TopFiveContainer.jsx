@@ -3,7 +3,7 @@
  * Created by Kevin Li 5/15/18
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 
@@ -18,29 +18,21 @@ const propTypes = {
 
 const TopFiveContainer = ({ category, type, agencyData }) => {
     const { overview, fy } = useSelector((state) => state.stateProfile);
-    const [parsedResults, setParsedResults] = useState([]);
-    const [noResultState, setNoResultState] = useState(false);
+
 
     const { code, _totalAmount: total } = overview;
 
     const {
-        parsedData, noResults, isSuccess, isLoading, error, dataParams
+        parsedData, noResults, isLoading, error, dataParams
     } = useFetchSpendingBy(category, code, fy, type);
-
-    useEffect(() => {
-        if (isSuccess && (noResults || parsedData?.length > 0)) {
-            setParsedResults(parsedData);
-            setNoResultState(noResults);
-        }
-    }, [isSuccess, noResults, parsedData]);
-
 
     return (
         <>
-            {!noResultState &&
+            {!noResults &&
                 <TopFive
+                    key={category}
                     category={category}
-                    results={parsedResults}
+                    results={parsedData}
                     total={total}
                     loading={isLoading}
                     error={error}

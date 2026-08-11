@@ -38,8 +38,7 @@
 
           .radio {
             padding: 0;
-            // 3 of 8 columns available to the form
-            width: 37.5%;
+            width: 50%;
 
             &:first-of-type {
               margin-right: rem(24);
@@ -84,17 +83,29 @@
                 }
               }
             }
+
+          }
+          @media (max-width: $mobile-only) {
+            flex-wrap: wrap;
+
+            .radio {
+              width: 100%;
+              
+              &:first-of-type {
+                margin-right: 0;
+                margin-bottom: rem(20);
+              }
+            }
           }
         }
 
         .combo-box-container {
           display: flex;
-          margin: 0 0 rem(12) 0;
+          margin: 0 rem(20) rem(12) 0;
 
           .combo-box {
             margin: 0;
-            // 3 of 8 columns available to the form
-            min-width: 37.5%;
+            min-width: 50%;
 
             &:first-of-type {
               margin-right: rem(24);
@@ -115,6 +126,19 @@
               }
             }
           }
+
+          @media (max-width: $mobile-only) {
+            flex-wrap: wrap;
+
+            .combo-box  {
+              width: 100%;
+              
+              &:first-of-type {
+                margin-right: 0;
+                margin-bottom: rem(20);
+              }
+            }
+          }
         }
       }
 
@@ -124,8 +148,11 @@
 
         .radio {
           padding: 0;
-          // 3 of 8 columns available to the form
-          width: 37.5%;
+          width: 50%;
+
+          &:first-of-type {
+            margin-right: rem(24);
+          }
 
           label {
             display: flex;
@@ -161,6 +188,19 @@
               margin: 0;
               width: 100%;
               padding-right: rem(24);
+            }
+          }
+        }
+        
+        @media (max-width: $mobile-only) {
+          flex-wrap: wrap;
+
+          .radio  {
+            width: 100%;
+            
+            &:first-of-type {
+              margin-right: 0;
+              margin-bottom: rem(20);
             }
           }
         }
@@ -214,9 +254,6 @@
           min-width: 37.5%;
           margin: 0 rem(32) 0 0;
         }
-
-        .quarter-picker {
-        }
       }
     }
 
@@ -264,27 +301,52 @@
       display: flex;
       margin: 0;
       padding: 0;
-
+      
       li {
         list-style-type: none;
-        margin-bottom: rem(12);
+        margin-bottom: 0;
+        min-width: 50%;
+        
+        &:first-of-type {
+          margin-right: rem(12);
+        }
 
         ul {
           margin: rem(12) 0 0 rem(32);
           padding: 0;
-        }
+          
+          li {
+            margin-bottom: rem(12);
+            
+            &.secondary-checkbox-type {
+              margin-right: 0;
+            }
 
-        &:first-of-type {
-          // 3 of 8 columns available to the form
-          min-width: 37.5%;
+            &:last-of-type {
+              margin-bottom: 0;
+            }
+          }
         }
-
-        &:last-of-type {
-          width: stretch;
-        }
-
+        
+        
         label {
           display: flex;
+        }
+      }
+      
+      @media (max-width: $mobile-only) {
+        flex-wrap: wrap;
+
+        li {
+          width: 100%;
+          margin-right: 0;
+
+          &.checkbox-set{
+            &:first-of-type {
+              margin-bottom: rem(20);
+              margin-right: 0;
+            }
+          }
         }
       }
 
@@ -324,27 +386,28 @@
 
   @import "defCodeFilter";
 
-  .submit-wrapper {
-    margin: rem(24) rem(16);
-    @media (max-width: $medium-screen) {
-      width: 75%;
-    }
-  }
-  .submit-button {
-    button,
-    input {
-      width: 100%;
-      font-size: rem(24);
-      font-weight: 600;
-    }
-    &.submit-button_disabled {
-      button {
-        margin: 0;
-        background-color: $color-white;
-        color: $color-gray-light;
-        border: solid rem(1) $color-gray-light;
+  .download-button-group{
+    justify-content: flex-start;
+    gap: rem(24);
+    
+    button {
+      margin: 0;
+
+      &:disabled {
+        background-color: $theme-color-base-light;
+        color: $gray-70;
+        font-weight: $font-semibold;
       }
     }
+
+    @media (max-width: $medium-screen - 1) {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+        justify-content: center;
+      }
+      
+    }
   }
-  @import "tooltip";
 }

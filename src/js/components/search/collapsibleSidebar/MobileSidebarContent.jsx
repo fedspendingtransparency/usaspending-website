@@ -22,50 +22,34 @@ const propTypes = {
 const MobileSidebarContent = ({
     sidebarContentHeight,
     setShowMobileFilters,
-    showMobileFilters
+    showMobileFilters,
+    mobileSidebarContent
 }) => {
     const colClassName = `mobile-search-sidebar-v2 ${showMobileFilters ? 'sidebar-opened' : ''}`;
     const className = "collapsible-sidebar--main-menu search-filters-wrapper opened";
     return (
         <>
-            <FlexGridCol className={colClassName}>
-                <TransitionGroup id="mobile-filter-div">
-                    <CSSTransition
-                        classNames="mobile-filter"
-                        timeout={195}
-                        exit>
-                        <div className="mobile-filter-content">
-                            <div className={className}>
-                                <div className="sidebar-top-submit">
-                                    <div className="collapsible-sidebar-header">
-                                        <div className="collapsible-sidebar-group">
-                                            <div className="collapsible-sidebar-left">
-                                                <FontAwesomeIcon icon="filter" />Filters
-                                            </div>
-                                            <div className="sub--header">
-                                                <button
-                                                    className="close-button"
-                                                    id="collapsible-mobile-close-button"
-                                                    aria-label="Close Filters"
-                                                    onClick={() => {
-                                                        setShowMobileFilters(false);
-                                                    }}>
-                                                    <Close alt="Close Filters" />
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
+            { mobileSidebarContent === "filters" && 
+                <FlexGridCol className={colClassName}>
+                    <TransitionGroup id="mobile-filter-div">
+                        <CSSTransition
+                            classNames="mobile-filter"
+                            timeout={195}
+                            exit>
+                            <div className="mobile-filter-content">
+                                <div className={className}>
+                                    <div className="sidebar-top-submit">
+                                        <SearchSidebarSubmitContainer
+                                            setShowMobileFilters={setShowMobileFilters} />
                                     </div>
-                                    <SearchSidebarSubmitContainer
-                                        setShowMobileFilters={setShowMobileFilters} />
+                                    <SidebarContentFilters
+                                        sidebarContentHeight={sidebarContentHeight} />
                                 </div>
-                                <SidebarContentFilters
-                                    sidebarContentHeight={sidebarContentHeight} />
                             </div>
-                        </div>
-                    </CSSTransition>
-                </TransitionGroup>
-            </FlexGridCol>
+                        </CSSTransition>
+                    </TransitionGroup>
+                </FlexGridCol>
+            }
         </>
     );
 };

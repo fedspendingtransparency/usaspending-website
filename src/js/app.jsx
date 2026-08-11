@@ -16,7 +16,14 @@ require('helpers/rafPolyfill');
 registerIcons();
 
 // Create a QueryClient instance
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+    defaultOptions: {
+        queries: {
+            refetchOnWindowFocus: false, // default: true
+            refetchOnMount: false
+        }
+    }
+});
 
 const appDiv = document.getElementById("app");
 const root = createRoot(appDiv);

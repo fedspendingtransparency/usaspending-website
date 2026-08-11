@@ -11,31 +11,31 @@
 }
 
 @mixin icon-variant(
-  $label-color, 
-  $icon-bkg, 
-  $icon-color, 
-  $gap: $font-size-10, 
-  $label-margin-top: 0, 
-  $margin-bottom: rem(12), 
-  $padding: rem(6) 
-  ) {
-    gap: $gap;
-    margin-bottom: $margin-bottom;
+  $label-color,
+  $icon-bkg,
+  $icon-color,
+  $gap: $font-size-10,
+  $label-margin-top: 0,
+  $margin-bottom: rem(12),
+  $padding: rem(6)
+) {
+  gap: $gap;
+  margin-bottom: $margin-bottom;
 
-    .icon-label {
-      @include label-styles;
-      color: $label-color;
-      margin-top: $label-margin-top;
-    }
+  .icon-label {
+    @include label-styles;
+    color: $label-color;
+    margin-top: $label-margin-top;
+  }
 
-    .icon-container {
-      background: $icon-bkg;
-      padding: $padding;
-    }
+  .icon-container {
+    background: $icon-bkg;
+    padding: $padding;
+  }
 
-    .icon {
-      color: $icon-color;
-    }
+  .icon {
+    color: $icon-color;
+  }
 }
 
 .icon-row {
@@ -53,7 +53,7 @@
     border-radius: rem(4);
 
     .icon {
-      @include icon-styles; 
+      @include icon-styles;
     }
   }
 
@@ -87,4 +87,4 @@
   &--federal-spending-guide {
     @include icon-variant($gray-80, none, $gray-80, rem(6), rem(2), 0, 0);
   }
-} 
+}

@@ -61,10 +61,13 @@ const StatusOfFundsTable = ({
         ];
 
     const rows = results.map((data) => (toggle ?
-        [data.name,
-            formatMoneyWithPrecision(data._outlays)]
+        [
+            data.name,
+            formatMoneyWithPrecision(data._outlays)
+        ]
         :
-        [data.name,
+        [
+            data.name,
             formatMoneyWithPrecision(data._budgetaryResources),
             formatMoneyWithPrecision(data._obligations)
         ]));

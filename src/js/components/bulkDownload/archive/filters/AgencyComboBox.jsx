@@ -9,7 +9,7 @@ const propTypes = {
 
 const AgencyComboBox = ({ updateFilter, agencies }) => {
     // Agency Options
-    let agenciesArray = [{ name: 'All', toptier_agency_id: 'all', toptier_code: 'all' }];
+    let agenciesArray = [{ name: 'All Agencies', toptier_agency_id: 'all', toptier_code: 'all' }];
 
     Object.entries(agencies).forEach(([key, value]) => {
         const title = {
@@ -43,7 +43,7 @@ const AgencyComboBox = ({ updateFilter, agencies }) => {
             onSelect={onSelect}
             label={"Agency"}
             placeholder={"Select an Agency"}
-            defaultValue={"All"} />
+            defaultValue={"All Agencies"} />
     )
 }
 
