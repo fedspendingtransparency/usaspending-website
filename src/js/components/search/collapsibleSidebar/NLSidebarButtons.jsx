@@ -52,7 +52,7 @@ const NLSidebarButtons = ({
                     }`}
                     onClick={(e) => {
                         setSidebarContent('natural language');
-                        sidebarIsOpen ? console.log(sidebarIsOpen) : setSidebarIsOpen(e);
+                        sidebarIsOpen ? null : setSidebarIsOpen(e);
                     }
                     }>
                     <svg width="24" height="24" viewBox="0 0 24 24" fill={secondaryColorNL} xmlns="http://www.w3.org/2000/svg">
