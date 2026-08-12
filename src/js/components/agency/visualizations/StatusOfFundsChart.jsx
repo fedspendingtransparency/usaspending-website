@@ -955,7 +955,7 @@ const StatusOfFundsChart = ({
         if (sortedNums?.length > 0) {
             renderChart(toggle);
         }
-    }, [sortedNums, textScale, hoverData, toggle]);
+    }, [renderChart, sortedNums, textScale, hoverData, toggle]);
 
     useEffect(() => {
         if (results?.length > 0) {
