@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/14/19
  **/
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { min, max } from 'lodash-es';
 import { scaleLinear } from 'd3-scale';
