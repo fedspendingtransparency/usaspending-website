@@ -47,11 +47,13 @@ const VideoMetadata = {
             }
         }
 
+        console.log({ totalDuration })
+
         return totalDuration;
     },
     get duration() {
         const str = this._duration.toUpperCase();
-        let hours;
+        let hours = '';
         let min;
         let sec;
         let duration = str.replace('PT', '');
@@ -92,6 +94,8 @@ const VideoMetadata = {
         else {
             sec = `00`;
         }
+
+        console.log({ test: `${hours}${min}${sec}` })
 
         return `${hours}${min}${sec}`;
     }
