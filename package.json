@@ -269,7 +269,8 @@
     "fast-uri": "3.1.2",
     "@babel/plugin-transform-modules-systemjs": "7.29.4",
     "picomatch": "4.0.4",
-    "launch-editor": "2.14.1"
+    "launch-editor": "2.14.1",
+    "ansi-regex": "6.3.0"
   },
   "dependencies": {
     "@babel/preset-react": "^7.28.5",
