@@ -15,7 +15,7 @@ const filesServerUrlByEnv = {
 const globalConstants = {
     API: local?.localConstants?.API || process.env.USASPENDING_API,
     LOCAL: false,
-    QAT: false,
+    QAT: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
     STAGING: (process.env.ENV === 'staging'),
     PERF_LOG: false,
     MAPBOX_TOKEN: local?.localConstants?.MAPBOX_TOKEN || process.env.MAPBOX_TOKEN,
