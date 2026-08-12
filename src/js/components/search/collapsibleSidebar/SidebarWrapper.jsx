@@ -118,7 +118,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     { sidebarIsOpen && 
                         <div className="collapsible-sidebar-header">
                             <div className="sidebar-title-row">
-                                <h2 className="sidebar-title">AI Search</h2>
+                                <h2 className="sidebar-title">Search Assist</h2>
                                 <div
                                     onClick={(e) => {
                                         toggleOpened(e);
@@ -134,7 +134,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                                 </div>
                                 
                             </div>
-                            <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
+                            <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p>
                         </div>
                     }
 
