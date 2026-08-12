@@ -78,7 +78,7 @@ const CFDASearchContainer = () => {
 
         const cfdaSearchParams = {
             search_text: cfdaSearchString,
-            limit: 1000
+            limit: 500
         };
 
         setIsLoading(true);
@@ -164,7 +164,7 @@ const CFDASearchContainer = () => {
                 noResults={noResults}
                 errorMessage={errorMessage}
                 isLoading={isLoading}
-                limit={1000} />
+                limit={500} />
 
             <div className="selected-filters" role="status">
                 {Array.from(selectedCFDA).map(([key, value]) => (
