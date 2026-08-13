@@ -152,6 +152,29 @@
       }
     }
 
+    .sidebar-example {
+      color: $gray-60;
+      font-size: $font-size-12;
+      text-transform: uppercase;
+      line-height: 150%;
+      font-weight: $font-semibold;
+      padding: 0 rem(24);
+      margin-bottom: rem(4);
+      width: 100%;
+    }
+
+    .sidebar-body-row {
+      padding: 0 rem(24);
+      .sidebar-textarea {
+        width: 100%;
+        resize: none;
+        padding: rem(8) rem(12);
+        border-radius: rem(4);
+        border: 1px solid $gray-60;
+      }
+    }
+
+
     .collapsible-sidebar-group {
       display: flex;
       align-items: center;

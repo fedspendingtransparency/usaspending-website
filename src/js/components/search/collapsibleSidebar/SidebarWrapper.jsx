@@ -118,7 +118,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     { sidebarIsOpen && 
                         <div className="collapsible-sidebar-header">
                             <div className="sidebar-title-row">
-                                <h2 className="sidebar-title">Search Assist</h2>
+                                <h2 className="sidebar-title">Smart Assist</h2>
                                 <div
                                     onClick={(e) => {
                                         toggleOpened(e);
@@ -135,6 +135,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                                 
                             </div>
                             <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p>
+                            <span className="sidebar-example">Example Prompts: </span>
+                            <div className='sidebar-body-row'>
+                                <textarea spellCheck className='sidebar-textarea' maxlength="500" rows="4" cols="50" placeholder="Type a question about government spending, or choose an example above" />
+                            </div>
                         </div>
                     }
 
