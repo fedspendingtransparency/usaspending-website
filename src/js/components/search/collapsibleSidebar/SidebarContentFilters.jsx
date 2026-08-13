@@ -17,7 +17,7 @@ const SidebarContentFilters = ({ isMobile }) => {
         "Time Period": true,
         "Award Description": false,
         "Award ID": false,
-        "Spending Amount": false,
+        "Award Amount": false,
         "Award Type": false,
         "North American Industry Classification System (NAICS)": false,
         "Product and Service Code (PSC)": false,

@@ -152,7 +152,7 @@ export const getFilterCount = (filters) => ({
         filters.timePeriodType === 'dr' ? filters.time_period.size : filters.timePeriodFY.size,
     'Award Description': filters.awardDescription ? 1 : 0,
     'Award ID': filters.selectedAwardIDs.size,
-    'Spending Amount': filters.awardAmounts.size,
+    'Award Amount': filters.awardAmounts.size,
     'Award Type': excludeIDVBandNewFCodes(filters.awardType),
     'North American Industry Classification System (NAICS)': generateCount(filters.naicsCodes),
     'Product and Service Code (PSC)': generateCount(filters.pscCodes),
