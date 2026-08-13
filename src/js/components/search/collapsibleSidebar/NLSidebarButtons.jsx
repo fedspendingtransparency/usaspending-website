@@ -40,7 +40,7 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, set
                     setSidebarContent('filters');
                     sidebarIsOpen ? null : setSidebarIsOpen(e);
                 }}>
-                <NLBadge color={primaryColorAS} />
+                <NLBadge />
                 <FontAwesomeIcon icon="filter-list" color={primaryColorAS} />
             </button>
             <button

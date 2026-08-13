@@ -1,23 +1,18 @@
-import React from 'react';
-import PropTypes from "prop-types";
+import React, { memo } from 'react';
 import { useSelector } from "react-redux";
 import getFilters from "../../containers/search/topFilterBar/getFilters";
 
-const propTypes = { color: PropTypes.string }
-
-const NLBadge = ({ color }) => {
-    const reduxFilters = useSelector((state) => state.filters);
+// eslint-disable-next-line prefer-arrow-callback
+const NLBadge = memo(function NLBadge() {
+    const reduxFilters = useSelector((state) => state.appliedFilters.filters);
 
     const { filterCount } =  getFilters(reduxFilters);
 
     if (filterCount === 0) return;
 
     return (
-        <div className="sidebar-filter-badge" style={{ color }}>
-            {filterCount}
-        </div>
+        <div className="sidebar-nl-buttons__badge">{filterCount}</div>
     )
-}
+});
 
-NLBadge.propTypes = propTypes;
 export default NLBadge;
