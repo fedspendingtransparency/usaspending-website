@@ -1,5 +1,5 @@
 .search-gov-spending__section {
-    display: flex;
+    display: flex;;
     align-items: flex-start;
     padding: $global-spacing-unit * 5;
     border-radius: rem(12);
@@ -10,12 +10,38 @@
     .search-gov-spending__row {
         display: flex;
         flex: 1 0 0;
-        align-items: flex-start;
+        align-items: center;
         justify-content: space-between;
     }
 
     .search-gov-spending__title {
-        @include title-styles;
-        color: $gray-90;
+        display: flex;
+        align-items: center;
+        margin-bottom: $global-margin * 3;
+    }
+
+    .search-gov-spending__link {
+        @include link-styles;
+        display: flex;
+        align-items: center;
+    }
+
+    .button-icon-container {
+        width: rem(24);
+        height: rem(24);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: rem(4);
+        background: $color-white;
+
+        &:hover {
+        background: $blue-70v;
+        color: $color-white;
+        }
+
+        .button-icon {
+            @include icon-styles;
+        }
     }
 }

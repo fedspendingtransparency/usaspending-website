@@ -32,12 +32,11 @@ export const searchCardData = [
                 key={`time-period-${id}`}  
                 variant="time-period" 
                 label="Time Period"
-                labelVariant="search-suggestions" 
                 icon="calendar"/>,
             <NLSearchSuggestionsIcon 
-                key={`location-${id}`} variant="location" 
+                key={`location-${id}`} 
+                variant="location" 
                 label="Location"
-                labelVariant="search-suggestions"  
                 icon="location-dot"/> 
         ]
     },
@@ -55,12 +54,10 @@ export const searchCardData = [
                 key={`keyword-${id}`}  
                 variant="keyword" 
                 label="Keyword"
-                labelVariant="search-suggestions"  
                 icon="search" />,
             <NLSearchSuggestionsIcon 
                 key={`recipient-${id}`} variant="recipient" 
                 label="Recipient"
-                labelVariant="search-suggestions"  
                 icon="user" /> 
         ]
     },
@@ -78,12 +75,11 @@ export const searchCardData = [
                 key={`award-type-${id}`}  
                 variant="award-type" 
                 label="Award Type"
-                labelVariant="search-suggestions"  
                 icon="file-certificate" />,
             <NLSearchSuggestionsIcon 
-                key={`award-description-${id}`} variant="award-description" 
+                key={`award-description-${id}`} 
+                variant="award-description" 
                 label="Award Description"
-                labelVariant="search-suggestions" 
                 icon="building" /> 
         ]
     }

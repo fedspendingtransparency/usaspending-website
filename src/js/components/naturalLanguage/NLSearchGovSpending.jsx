@@ -4,7 +4,9 @@
  */
 
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
+import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 
 const NLSearchGovSpending = () => {
 
@@ -12,7 +14,27 @@ const NLSearchGovSpending = () => {
         <section className="search-gov-spending__section">
             <FlexGridRow className="search-gov-spending__row">
                 <div className="search-gov-spending__title">
-                    Search government spending using AI
+                    <NLSearchSuggestionsIcon 
+                        variant="gov-spending"
+                        label="Search government spending using AI"
+                        icon="sparkles"/>
+                </div>
+                <div className="search-gov-spending__link">
+                    <Button 
+                        copy="Learn about Smart Assist"
+                        onClick={() => {}}
+                        buttonTitle="Learn about Smart Assist"
+                        buttonSize="md"
+                        buttonType="text"
+                        backgroundColor="light"
+                        textAlignment="left"
+                        imageAlignment="right"
+                        image={
+                            <div className="button-icon-container">
+                                <FontAwesomeIcon 
+                                    className="button-icon"
+                                    icon="arrow-up-right"/>
+                            </div>}/>
                 </div>
             </FlexGridRow>
         </section>

@@ -17,6 +17,14 @@
   height: $base-font-size;
 }
 
+@mixin link-styles {
+  color: $blue-60v;
+  font-family: $font-sans;
+  font-size: $small-font-size;
+  font-weight: $font-semibold;
+  line-height: $base-line-height;
+}
+
 @mixin icon-variant(
   $label-color,
   $icon-bkg,
@@ -24,7 +32,11 @@
   $gap: $font-size-10,
   $label-margin-top: 0,
   $margin-bottom: rem(12),
-  $padding: rem(6)
+  $padding: rem(6),
+  $label-font-size: $small-font-size,
+  $label-line-height: $base-line-height,
+  $icon-width: $base-font-size,
+  $icon-height: $base-font-size
 ) {
   gap: $gap;
   margin-bottom: $margin-bottom;
@@ -33,6 +45,12 @@
     @include label-styles;
     color: $label-color;
     margin-top: $label-margin-top;
+    font-size: $label-font-size;
+    line-height: $label-line-height;
+  }
+
+  .icon-title {
+    @include title-styles;
   }
 
   .icon-container {
@@ -42,6 +60,8 @@
 
   .icon {
     color: $icon-color;
+    width: $icon-width;
+    height: $icon-height;
   }
 }
 
@@ -93,5 +113,9 @@
   &--data-dictionary,
   &--federal-spending-guide {
     @include icon-variant($gray-80, none, $gray-80, rem(6), rem(2), 0, 0);
+  }
+
+  &--gov-spending {
+    @include icon-variant($gray-90, none, $cyan-60v, rem(8), 0, 0, 0, $h3-font-size, $heading-line-height, rem(24), rem(24));
   }
 }

@@ -25,11 +25,7 @@
   }
 
   .search-suggestions__link {
-    color: $blue-60v;
-    font-family: $font-sans;
-    font-size: $small-font-size;
-    font-weight: $font-semibold;
-    line-height: $base-line-height;
+    @include link-styles;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
