@@ -28,6 +28,11 @@
     width: 100%;
   }
 
+  // this ensures the fy picker list has a scroll
+  .usa-dt-picker__list {
+    max-height: 40vh;
+    overflow-y: scroll;
+  }
   @media (max-width: $medium-screen) {
     .usda-in-page-nav__container {
       top: 121px;
