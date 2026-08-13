@@ -3,3 +3,5 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"                
     target-branch: "qat"
+    schedule:
+      interval: "daily"
