@@ -3,15 +3,15 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, {useState} from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import useIsMobile from "hooks/useIsMobile";
 import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
 import NLSidebarButtons from "./NLSidebarButtons";
 import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
-import { FILTERS } from './SidebarConstants';
+import { FILTERS } from "./SidebarConstants";
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func
@@ -23,7 +23,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 }) {
     const { isMedium } = useIsMobile();
     const [sidebarContent, setSidebarContent] = useState(FILTERS);
-
+    const [text, setText] = useState("");
+    const MAX_CHARS = 500;
     const toggleOpened = (e) => {
         e.preventDefault();
         setSidebarIsOpen((prevState) => !prevState);
@@ -95,10 +96,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                                 </div>
                                 
                             </div>
-                            {mobileSidebarContent === 'filters' &&
+                            {mobileSidebarContent === "filters" &&
                                 <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
                             }
-                            {mobileSidebarContent === 'natural language' &&
+                            {mobileSidebarContent === "natural language" &&
                
                                  <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
                 
@@ -136,8 +137,20 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                             </div>
                             <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p>
                             <span className="sidebar-example">Example Prompts: </span>
-                            <div className='sidebar-body-row'>
-                                <textarea spellCheck className='sidebar-textarea' maxlength="500" rows="4" cols="50" placeholder="Type a question about government spending, or choose an example above" />
+                            <div className="sidebar-body-row">
+                                <textarea
+                                    onChange={(e) => setText(e.target.value)} 
+                                    value={text}
+                                    name="smart-assist-input" 
+                                    spellCheck 
+                                    className="sidebar-textarea" 
+                                    maxLength={MAX_CHARS} 
+                                    rows="4" cols="50" 
+                                    placeholder="Type a question about government spending, or choose an example above" />
+                                <div className="textarea-char-row">
+                                    <span className="textarea-char-count">{text.length} / {MAX_CHARS}</span>
+                                </div>
+                                <span className="sidebar-ai-blurb">This is a new AI feature on USAspending.gov. AI can make mistakes, so be sure to check the results.</span>
                             </div>
                         </div>
                     }
