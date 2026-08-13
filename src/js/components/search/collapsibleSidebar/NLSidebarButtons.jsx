@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QAT } from "GlobalConstants";
 import { NATURAL_LANGUAGE, FILTERS } from './SidebarConstants';
+import NLBadge from "../NLBadge";
 
 const cyan60v = '#00687D';
 const cyan50v = '#0081A1';
@@ -16,6 +17,7 @@ const propTypes = {
     isMedium: PropTypes.bool
 };
 
+/* eslint-disable max-len */
 const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, setSidebarContent, isMedium }) => {
     if (isMedium || !QAT) return;
 
@@ -38,6 +40,7 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, set
                     setSidebarContent('filters');
                     sidebarIsOpen ? null : setSidebarIsOpen(e);
                 }}>
+                <NLBadge color={primaryColorAS} />
                 <FontAwesomeIcon icon="filter-list" color={primaryColorAS} />
             </button>
             <button
