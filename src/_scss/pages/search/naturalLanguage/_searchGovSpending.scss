@@ -10,20 +10,26 @@
     .search-gov-spending__row {
         display: flex;
         flex: 1 0 0;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
     }
 
     .search-gov-spending__title {
         display: flex;
-        align-items: center;
-        margin-bottom: $global-margin * 3;
+        align-items: flex-start;
     }
 
     .search-gov-spending__link {
         @include link-styles;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
+
+        button {
+            margin: 0;
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
     }
 
     .button-icon-container {
