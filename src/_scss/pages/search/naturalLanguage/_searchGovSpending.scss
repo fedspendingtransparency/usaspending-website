@@ -1,0 +1,21 @@
+.search-gov-spending__section {
+    display: flex;
+    align-items: flex-start;
+    padding: $global-spacing-unit * 5;
+    border-radius: rem(12);
+    border: rem(1) solid $cyan-20v;
+    background: $cyan-vivid-40;
+    margin-top: $global-spacing-unit * 5;
+
+    .search-gov-spending__row {
+        display: flex;
+        flex: 1 0 0;
+        align-items: flex-start;
+        justify-content: space-between;
+    }
+
+    .search-gov-spending__title {
+        @include title-styles;
+        color: $gray-90;
+    }
+}

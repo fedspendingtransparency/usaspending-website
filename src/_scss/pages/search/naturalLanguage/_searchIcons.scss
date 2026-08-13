@@ -5,6 +5,13 @@
   line-height: $base-line-height;
 }
 
+@mixin title-styles {
+  font-family: $font-sans;
+  font-size: $h3-font-size;
+  font-weight: $font-semibold;
+  line-height: $heading-line-height;
+}
+
 @mixin icon-styles {
   width: $base-font-size;
   height: $base-font-size;
