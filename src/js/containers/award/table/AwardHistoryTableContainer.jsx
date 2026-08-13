@@ -8,8 +8,14 @@ import { Table, Pagination, InformationBoxes } from "data-transparency-ui";
 import ReadMore from "components/sharedComponents/ReadMore";
 import * as awardActions from 'redux/actions/award/awardActions';
 import { fetchAwardTransaction, performSubawardSearch } from 'helpers/searchHelper';
-import { transactionsTableMapping, federalAccountsTableMapping, subawardTableMapping } from "dataMapping/award/transactionHistoryTable/tableMapping";
-import BaseFederalAccountFunding, { AwardHistoryTransactionsTableRow } from "models/v2/award/BaseFederalAccountFunding";
+import {
+    transactionsTableMapping,
+    federalAccountsTableMapping,
+    subawardTableMapping
+} from "dataMapping/award/transactionHistoryTable/tableMapping";
+import BaseFederalAccountFunding, {
+    AwardHistoryTransactionsTableRow
+} from "models/v2/award/BaseFederalAccountFunding";
 import BaseSubawardRow from "models/v2/award/subawards/BaseSubawardRow";
 import { fetchFederalAccountFunding } from "helpers/awardHistoryHelper";
 import { fetchAwardFedAccountFunding } from 'helpers/idvHelper';
@@ -39,7 +45,7 @@ const AwardHistoryTableContainer = ({
 
     const tabCounts = useRef({});
 
-    let request = null;
+    const requestRef = useRef(null);
     const totalSubAwardLabel = 'Number of Sub-Award Transactions';
     const totalSubAwardAmountLabel = 'Sub-Award Obligations';
 
@@ -158,7 +164,7 @@ const AwardHistoryTableContainer = ({
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
                         }}>{obj.fedAccount}
-                    </a> || '--' || '--',
+                    </a> || '--',
                     <ReadMore
                         text={obj.programActivity || '--'}
                         limit={50} /> || '--',
@@ -260,8 +266,8 @@ const AwardHistoryTableContainer = ({
             return;
         }
 
-        if (request) {
-            request.cancel();
+        if (requestRef.current) {
+            requestRef.current.cancel();
         }
 
         setInFlight(true);
@@ -276,18 +282,18 @@ const AwardHistoryTableContainer = ({
         };
 
         switch (activeTab) {
-            case 'transaction': request = fetchAwardTransaction(params);
+            case 'transaction': requestRef.current = fetchAwardTransaction(params);
                 break;
-            case 'federal_account': request = (award.category === 'idv')
+            case 'federal_account': requestRef.current = (award.category === 'idv')
                 ? fetchAwardFedAccountFunding(params)
                 : fetchFederalAccountFunding(params);
                 break;
-            case 'subaward': request = performSubawardSearch(params);
+            case 'subaward': requestRef.current = performSubawardSearch(params);
                 break;
             default: break;
         }
 
-        request.promise
+        requestRef.current.promise
             .then((res) => {
                 if (activeTab === 'transaction') {
                     parseTransactionsData(res.data.results);
@@ -300,7 +306,7 @@ const AwardHistoryTableContainer = ({
                 }
             })
             .catch((err) => {
-                request = null;
+                requestRef.current = null;
                 if (!isCancel(err)) {
                     setInFlight(false);
                     setError(true);
@@ -313,12 +319,12 @@ const AwardHistoryTableContainer = ({
         fetchData(1);
 
         return () => {
-            if (request) {
-                request.cancel();
+            if (requestRef.current) {
+                requestRef.current.cancel();
             }
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [request]);
+    }, []);
 
     useEffect(() => {
         fetchData(1);

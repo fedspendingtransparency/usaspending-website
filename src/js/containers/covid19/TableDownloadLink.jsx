@@ -26,9 +26,9 @@ const TableDownloadLink = ({ defCodes, awardTypeCodes, query }) => {
     const dispatch = useDispatch();
     const downloadInFlight = useSelector((state) => state.bulkDownload.download.pendingDownload);
     const downloadRequest = useRef(null);
-    const params = {
+    const paramsRef = useRef({
         filters: {}
-    };
+    });
 
     const downloadData = async () => {
         dispatch(setDownloadCollapsed(true));
@@ -38,16 +38,16 @@ const TableDownloadLink = ({ defCodes, awardTypeCodes, query }) => {
         }
 
         if (defCodes) {
-            params.filters.def_codes = defCodes;
+            paramsRef.current.filters.def_codes = defCodes;
         }
         if (awardTypeCodes && awardTypeCodes.length > 0) {
-            params.filters.award_type_codes = awardTypeCodes;
+            paramsRef.current.filters.award_type_codes = awardTypeCodes;
         }
         if (query) {
-            params.filters.query = query;
+            paramsRef.current.filters.query = query;
         }
 
-        downloadRequest.current = requestFullDownloadRecipient(params);
+        downloadRequest.current = requestFullDownloadRecipient(paramsRef.current);
 
         try {
             const { data } = await downloadRequest.current.promise;

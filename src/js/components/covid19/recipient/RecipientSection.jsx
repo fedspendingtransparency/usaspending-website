@@ -126,7 +126,7 @@ const RecipientSection = ({ publicLaw }) => {
                                     About Page.
                                 </a>
                             </li>
-                            <li>For 'All Awards' we are showing the unique count of recipients across all award types, since some recipients receive multiple awards.</li>
+                            <li>For &#39;All Awards&#39; we are showing the unique count of recipients across all award types, since some recipients receive multiple awards.</li>
                         </ul>
                     </div>
                 ) }

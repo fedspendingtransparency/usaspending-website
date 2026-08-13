@@ -41,7 +41,8 @@ const AccordionCheckboxSecondary = ({
                 customLabel={customLabel}
                 searchString={searchString}
                 singleFilterChange={singleFilterChange}
-                isDisabled={isDisabled} />
+                isDisabled={isDisabled}
+                key={filter} />
         );
     });
 

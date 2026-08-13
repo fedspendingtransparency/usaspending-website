@@ -82,7 +82,7 @@ const TopFilterBar = memo(function TopFilterBar({ filters, filterCount, resultsV
     }, []);
 
     const groups = filters.map(({ code, name }) => (
-        <TopFilterGroupGenerator resultsView={resultsView} code={code} name={name} />
+        <TopFilterGroupGenerator resultsView={resultsView} code={code} name={name} key={name} />
     ));
 
     return (

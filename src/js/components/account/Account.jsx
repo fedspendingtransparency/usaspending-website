@@ -48,7 +48,8 @@ const Account = ({ account, currentFiscalYear }) => {
             toolBarComponents={[
                 <ShareIcon508
                     url={getBaseUrl(fedAccountSlug)}
-                    onShareOptionClick={(name) => handleShare(name, fedAccountSlug)} />
+                    onShareOptionClick={(name) => handleShare(name, fedAccountSlug)}
+                    key={fedAccountSlug} />
             ]}>
             <main
                 id="main-content"

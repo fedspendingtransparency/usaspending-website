@@ -3,7 +3,7 @@
  * Created by michaelbray on 4/3/17.
  */
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -137,7 +137,7 @@ const CategoriesVisualizationWrapperContainer = (props) => {
     const [hasPreviousPage, setHasPreviousPage] = useState(false);
     const [tableRows, setTableRows] = useState([]);
     const [searchParams] = useSearchParams();
-    let apiRequest;
+    const requestRef = useRef(null);
 
     const childProps = {
         spendingBy,
@@ -364,8 +364,8 @@ const CategoriesVisualizationWrapperContainer = (props) => {
         setError(false);
         setRecipientError(false);
 
-        if (apiRequest) {
-            apiRequest.cancel();
+        if (requestRef.current) {
+            requestRef.current.cancel();
         }
 
         const auditTrail = `${categoryNames[spendingBy]} Rank Visualization`;
@@ -392,11 +392,11 @@ const CategoriesVisualizationWrapperContainer = (props) => {
             spending_level: getSpendingLevel(props.spendingLevel)
         };
 
-        apiRequest = SearchHelper.performSpendingByCategorySearch(apiParams);
-        apiRequest.promise
+        requestRef.current = SearchHelper.performSpendingByCategorySearch(apiParams);
+        requestRef.current.promise
             .then((res) => {
                 parseData(res.data);
-                apiRequest = null;
+                requestRef.current = null;
             })
             .catch((err) => {
                 if (isCancel(err)) {
@@ -405,11 +405,13 @@ const CategoriesVisualizationWrapperContainer = (props) => {
 
                 const responseDetail = get(err, 'response.data.detail', '');
                 props.setAppliedFilterCompletion(true);
-                apiRequest = null;
+                requestRef.current = null;
                 console.log(err);
                 setLoading(false);
                 setError(true);
-                setRecipientError(responseDetail === 'Current filters return too many unique items. Narrow filters to return results.');
+                setRecipientError(
+                    responseDetail === 'Current filters return too many unique items. Narrow filters to return results.'
+                );
             });
     };
 

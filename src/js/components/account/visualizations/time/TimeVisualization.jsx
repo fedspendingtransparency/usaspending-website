@@ -35,7 +35,7 @@ const TimeVisualization = ({
     const [tooltipData, setTooltipData] = useState(null);
 
     let chart = (<ChartMessage message="No data to display" />);
-    let legend = [];
+    let legend;
     let tooltip = null;
 
     const showTooltipLocal = (localData) => {

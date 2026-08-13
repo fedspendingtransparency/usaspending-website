@@ -42,7 +42,7 @@ const LocationAutocompleteContainer = ({
     const dispatch = useDispatch();
 
     const listRequest = useRef(null);
-    let timeout;
+    const timeoutRef = useRef(null);
 
     const createLocationObjectByType = (location) => {
         if (activeTab === 'recipient') {
@@ -172,9 +172,9 @@ const LocationAutocompleteContainer = ({
 
     const handleTextInput = (locationInput) => {
         const input = locationInput.target.value;
-        window.clearTimeout(timeout);
+        window.clearTimeout(timeoutRef.current);
 
-        timeout = window.setTimeout(() => {
+        timeoutRef.current = window.setTimeout(() => {
             queryAutocompleteLocations(input);
         }, 1000);
     };

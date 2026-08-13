@@ -34,12 +34,17 @@ export default class ResultsTableTabItem extends React.Component {
 
     render() {
         let activeClass = '';
-        let disabledStatus = '';
-        let disabledClass = '';
+        let disabledStatus;
+        let disabledClass;
         if (this.props.active) {
             activeClass = ' active';
         }
-        if ((this.props.enabled === false) || (!this.props.hideCounts && (!this.props.count || this.props.count === 0))) {
+        if (
+            (this.props.enabled === false) ||
+            (
+                !this.props.hideCounts &&
+                (!this.props.count || this.props.count === 0))
+        ) {
             disabledStatus = true;
             disabledClass = ' disabled';
         }
