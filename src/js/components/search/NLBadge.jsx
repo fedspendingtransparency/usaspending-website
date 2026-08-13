@@ -11,7 +11,9 @@ const NLBadge = memo(function NLBadge() {
     if (filterCount === 0) return;
 
     return (
-        <div className="sidebar-nl-buttons__badge">{filterCount}</div>
+        <div className="sidebar-nl-buttons__badge">
+            {filterCount > 99 ? "99+" : filterCount}
+        </div>
     )
 });
 
