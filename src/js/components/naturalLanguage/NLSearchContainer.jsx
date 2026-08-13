@@ -13,12 +13,12 @@ import { FILTERS } from '../search/collapsibleSidebar/SidebarConstants';
 
 const NLSearchContainer = () => {
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
-    const isFilters = sidebarContent === FILTERS;
+    const hasFilters = sidebarContent === FILTERS;
 
     return (
         <>
-            { !isFilters && <NLSearchGovSpending /> }
-            { isFilters && <NLSearchSuggestions /> }
+            { !hasFilters && <NLSearchGovSpending /> }
+            { hasFilters && <NLSearchSuggestions /> }
             <NLMoreResources />
         </>
     )
