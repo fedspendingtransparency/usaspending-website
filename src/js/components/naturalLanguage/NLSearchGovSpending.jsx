@@ -13,7 +13,7 @@ const NLSearchGovSpending = () => {
     return (
         <section className="search-gov-spending__section">
             <FlexGridRow className="search-gov-spending__row">
-                <div className="search-gov-spending__title">
+                <div className="search-gov-spending__label-icon-container">
                     <NLSearchSuggestionsIcon 
                         variant="gov-spending"
                         label="Search government spending using AI"
