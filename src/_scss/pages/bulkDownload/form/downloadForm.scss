@@ -1,5 +1,3 @@
-$download-filter-col-breakpoint: 600px;
-
 .download-center-form,
 .bulk-download {
   @import "filterSectionTitle";
@@ -17,7 +15,7 @@ $download-filter-col-breakpoint: 600px;
       flex-wrap: wrap;
       gap: rem(24);
       
-      @media (max-width: $download-filter-col-breakpoint) {
+      @media (max-width: $mobile-only) {
         gap: rem(0);
       }
 
@@ -26,7 +24,7 @@ $download-filter-col-breakpoint: 600px;
         max-width: calc(50% - rem(12));
         min-width: 0;
     
-        @media (max-width: $download-filter-col-breakpoint) {
+        @media (max-width: $mobile-only) {
           flex: 0 0 100%;
           max-width: 100%;
         }
@@ -35,7 +33,7 @@ $download-filter-col-breakpoint: 600px;
           margin-left: 0;
           margin-right: 0;
 
-          @media (min-width: $download-filter-col-breakpoint) {
+          @media (min-width: $mobile-only) {
             margin-top: 0;
             margin-bottom: 0;
           }
@@ -285,7 +283,7 @@ $download-filter-col-breakpoint: 600px;
           margin: 0 rem(32) 0 0;
         }
 
-        @media (max-width: $download-filter-col-breakpoint) {
+        @media (max-width: $mobile-only) {
           flex-direction: column;
           width: 40%;
         }
