@@ -16,7 +16,7 @@ const propTypes = {
 
 export default class RecipientLinkCell extends React.Component {
     render() {
-        let labelType = '';
+        let labelType;
         if (this.props.type === 'P') {
             labelType = "recipient-landing__icon recipient-landing__icon_parent";
         }

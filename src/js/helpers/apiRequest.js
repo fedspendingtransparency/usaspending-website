@@ -59,7 +59,7 @@ export const apiRequest = (axiosParams = {}) => {
         }
         catch (e) {
             cancel();
-            throw new Error(e);
+            throw new Error(e, { cause: e });
         }
     };
     // execute the request

@@ -50,7 +50,8 @@ const MainCards = ({ contentObject }) => {
                             desktop={6}
                             tablet={12}
                             mobile={12}
-                            className={index % 2 === 0 ? `equity-main-card__col-one` : `equity-main-card__col-two`}>
+                            className={index % 2 === 0 ? `equity-main-card__col-one` : `equity-main-card__col-two`}
+                            key={key}>
                             <MainCard
                                 image={<img className="main-cards__svg" role="presentation" src={card.img} alt="" />}
                                 imageColor={card.color}

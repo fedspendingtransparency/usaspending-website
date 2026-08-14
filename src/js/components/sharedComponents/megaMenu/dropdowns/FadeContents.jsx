@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import PropTypes from "prop-types";
 
 const getFadeContainerKeyFrame = (animatingOut, direction) => {
@@ -49,18 +49,16 @@ const fadeContainer = (animatingOut, direction) => {
 
 const propTypes = {
     direction: PropTypes.string,
-    onLoad: PropTypes.bool,
     children: PropTypes.node,
-    innerRefFn: PropTypes.func
+    hide: PropTypes.bool
 };
 
-const FadeContents = React.memo((props) => {
-    const {
-        children,
-        direction,
-        hide
-    } = props;
-
+// eslint-disable-next-line prefer-arrow-callback
+const FadeContents = memo(function FadeContents ({
+    children,
+    direction,
+    hide
+}) {
     return (
         <div
             style={fadeContainer(hide, direction)}
@@ -73,4 +71,3 @@ const FadeContents = React.memo((props) => {
 
 FadeContents.propTypes = propTypes;
 export default FadeContents;
-

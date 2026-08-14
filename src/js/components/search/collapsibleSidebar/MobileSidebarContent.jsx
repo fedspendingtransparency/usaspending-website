@@ -5,12 +5,9 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TransitionGroup, CSSTransition } from "react-transitioning";
 import { FlexGridCol } from "data-transparency-ui";
-import { Close } from 'components/sharedComponents/icons/Icons';
 import SearchSidebarSubmitContainer from "containers/search/SearchSidebarSubmitContainer";
-import AboutTheDataLink from "../../sharedComponents/AboutTheDataLink";
 import SidebarContentFilters from "./SidebarContentFilters";
 
 const propTypes = {

@@ -18,7 +18,7 @@ const CategoriesDsm = ({ spendingLevel }) => {
     /* eslint-disable max-len */
     return (
         <>
-            <h4>What's included in this view of the data?</h4>
+            <h4>What&#39;s included in this view of the data?</h4>
             { spendingLevel === 'subawards' ?
                 <>
                     <p style={{ marginBottom: '8px' }}>

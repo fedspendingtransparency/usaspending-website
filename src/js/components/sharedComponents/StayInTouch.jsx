@@ -76,7 +76,7 @@ const StayInTouch = ({ pageName }) => {
                         Your USAspending ideas
                     </div>
                     <div className="stay-in-touch__second-row-text">
-                        We're looking for your ideas! Tell us what you want to see on USAspending.gov.
+                        We&#39;re looking for your ideas! Tell us what you want to see on USAspending.gov.
                     </div>
                     <div className="stay-in-touch__second-row-link">
                         <Button
@@ -124,7 +124,7 @@ const StayInTouch = ({ pageName }) => {
                         Sign up for release notes
                     </div>
                     <div className="stay-in-touch__second-row-text">
-                        Get release notes to your inbox to keep up with what's new on USAspending.gov.
+                        Get release notes to your inbox to keep up with what&#39;s new on USAspending.gov.
                     </div>
                     <div className="stay-in-touch__second-row-link">
                         <Button

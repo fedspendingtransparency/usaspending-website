@@ -4,7 +4,7 @@
  */
 import React from "react";
 import { Link } from 'react-router';
-import {awardTypeGroups, bulkDownloadAwardTypeGroups} from "../search/awardType";
+import {bulkDownloadAwardTypeGroups} from "../search/awardType";
 
 const dayjs = require('dayjs');
 

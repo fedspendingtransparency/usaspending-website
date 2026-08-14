@@ -1,8 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { QAT } from "GlobalConstants";
 import AIWhiteIcon from '../../../../img/AI_Search_white.svg';
 import AICyanIcon from '../../../../img/AI_Search_cyan.svg';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const pluralizeFilterLabel = (count) => {
     if (count === 1) {
         return 'Filter';
@@ -63,6 +66,7 @@ const MobileFilterButton = ({
                     </div>
                 </div>
             </button>
+            { QAT &&
             <button
                 className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "natural language" ? 'opened natural-language' : ''}`}
                 onClick={() => {
@@ -89,6 +93,7 @@ const MobileFilterButton = ({
                     </div>
                 </div>
             </button>
+            }
         </div>
     );
 };

@@ -46,6 +46,7 @@ export const useDefCodes = () => {
     return [error, loading, defCodes];
 };
 
+// eslint-disable-next-line react/display-name
 const withDefCodes = (WrappedComponent) => (props) => {
     const [errorMsg, isLoading, defCodes] = useDefCodes();
 

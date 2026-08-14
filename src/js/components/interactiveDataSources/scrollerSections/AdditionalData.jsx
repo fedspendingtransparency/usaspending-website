@@ -35,8 +35,8 @@ const AdditionalData = (props) => {
                 <p>
                     There are two federal hierarchies that relate agencies to their
                     subcomponents. USAspending.gov draws from the Office of Management and
-                    Budget's hierarchy for account data, and from the General Services
-                    Administration's hierarchy for award data. You can see these two
+                    Budget&#39;s hierarchy for account data, and from the General Services
+                    Administration&#39;s hierarchy for award data. You can see these two
                     hierarchies in any of the{" "}
                     <Link
                         className="scroller-overlay-card__link"

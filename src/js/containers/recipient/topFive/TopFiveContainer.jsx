@@ -3,7 +3,7 @@
  * Created by Kwadwo Opoku-Debrah 07/10/18
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
@@ -35,7 +35,7 @@ const TopFiveContainer = ({
     const [results, setResults] = useState([]);
     const [noResults, setNoResults] = useState(false);
 
-    let request = null;
+    const requestRef = useRef(null);
 
     const dataParams = () => {
         let timePeriod = null;
@@ -110,15 +110,15 @@ const TopFiveContainer = ({
     };
 
     const loadCategory = () => {
-        if (request) {
-            request.cancel();
+        if (requestRef.current) {
+            requestRef.current.cancel();
         }
 
         setLoading(true);
         setError(false);
 
-        request = SearchHelper.performSpendingByCategorySearch(dataParams());
-        request.promise
+        requestRef.current = SearchHelper.performSpendingByCategorySearch(dataParams());
+        requestRef.current.promise
             .then((res) => {
                 parseResults(res.data.results, res.data.category);
             })

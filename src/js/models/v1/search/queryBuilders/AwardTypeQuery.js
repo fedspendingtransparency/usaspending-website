@@ -12,12 +12,10 @@ const buildFieldQuery = (field, values) => ({
 });
 
 
-export const buildQuery = (awardType, searchContext = 'award') => {
-    let awardQuery = {};
-
+const buildQuery = (awardType, searchContext = 'award') => {
     const fieldName = FilterFields[`${searchContext}Fields`].awardType;
 
-    awardQuery = buildFieldQuery(fieldName, awardType);
-
-    return awardQuery;
+    return buildFieldQuery(fieldName, awardType);
 };
+
+export default buildQuery;
