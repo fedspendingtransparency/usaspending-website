@@ -12,6 +12,33 @@
 
     .download-filter__container {
       display: flex;
+      flex-wrap: wrap;
+      gap: rem(24);
+      
+      @media (max-width: $mobile-only) {
+        gap: rem(0);
+      }
+
+      .download-filter__col {
+        flex: 0 0 calc(50% - rem(12));
+        max-width: calc(50% - rem(12));
+        min-width: 0;
+    
+        @media (max-width: $mobile-only) {
+          flex: 0 0 100%;
+          max-width: 100%;
+        }
+
+        .combo-box {
+          margin-left: 0;
+          margin-right: 0;
+
+          @media (min-width: $mobile-only) {
+            margin-top: 0;
+            margin-bottom: 0;
+          }
+        }
+      }
     }
 
     .download-filter__content {
@@ -29,7 +56,8 @@
       &.agency,
       &.budget-function,
       &.time-period,
-      &.location {
+      &.location,
+      &.account {
         padding: 0;
 
         .input-container {
@@ -106,7 +134,7 @@
           .combo-box {
             margin: 0;
             min-width: 50%;
-
+           
             &:first-of-type {
               margin-right: rem(24);
             }
@@ -253,6 +281,11 @@
         .combo-box {
           min-width: 37.5%;
           margin: 0 rem(32) 0 0;
+        }
+
+        @media (max-width: $mobile-only) {
+          flex-direction: column;
+          width: 40%;
         }
       }
     }

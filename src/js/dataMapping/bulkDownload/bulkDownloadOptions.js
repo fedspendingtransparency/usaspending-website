@@ -2,7 +2,9 @@
  * bulkDownloadOptions.js
  * Created by Lizzie Salita 11/1/17
  */
-import { bulkDownloadAwardTypeGroups } from "../search/awardType";
+import React from "react";
+import { Link } from 'react-router';
+import {bulkDownloadAwardTypeGroups} from "../search/awardType";
 
 const dayjs = require('dayjs');
 
@@ -203,13 +205,24 @@ export const accountDownloadOptions = {
             name: 'federalAccount',
             label: 'Federal Account',
             apiName: 'federal_account',
-            description: 'Aggregate of Treasury Accounts'
+            description: (
+                <>
+                    A set of Treasury spending accounts that are group under <br/>
+                    a <Link style={{color: '#005ea2'}} to="/download_center/custom_account_data?glossary=federal-account">Federal Account Symbol</Link>   
+                </>
+            )
         },
         {
             name: 'treasuryAccount',
             label: 'Treasury Account',
             apiName: 'treasury_account',
-            description: 'Includes Period of Availability'
+            description: (
+                <>
+                    A <Link style={{color: '#005ea2'}} to="/download_center/custom_account_data?glossary=treasury-account-symbol-tas">Treasury Account Symbol</Link> code assigned to each <br/>
+                    appropriation, receipt, or fund account including Period of <br/>
+                    Availability.
+                </>
+            )
         }
     ],
     submissionTypes: [
