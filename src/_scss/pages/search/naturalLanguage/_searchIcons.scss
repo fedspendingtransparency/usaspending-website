@@ -32,11 +32,7 @@
   $gap: $font-size-10,
   $label-margin-top: 0,
   $margin-bottom: rem(12),
-  $padding: rem(6),
-  $label-font-size: $small-font-size,
-  $label-line-height: $base-line-height,
-  $icon-width: $base-font-size,
-  $icon-height: $base-font-size
+  $padding: rem(6)
 ) {
   gap: $gap;
   margin-bottom: $margin-bottom;
@@ -45,8 +41,6 @@
     @include label-styles;
     color: $label-color;
     margin-top: $label-margin-top;
-    font-size: $label-font-size;
-    line-height: $label-line-height;
   }
 
   .icon-title {
@@ -60,8 +54,6 @@
 
   .icon {
     color: $icon-color;
-    width: $icon-width;
-    height: $icon-height;
   }
 }
 
@@ -116,6 +108,37 @@
   }
 
   &--gov-spending {
-    @include icon-variant($gray-90, none, $cyan-60v, rem(8), 0, 0, 0, $h3-font-size, $heading-line-height, rem(24), rem(24));
+    @include icon-variant($gray-90, none, $cyan-60v, rem(8), 0, 0, 0);
+    
+    .icon-label {
+      font-size:  $h3-font-size;
+      line-height: $heading-line-height;
+    }
+
+    .icon {
+      width: rem(24);
+      height: rem(24);
+    }
+  }
+
+  &--ask-questions {
+    @include icon-variant($gray-80, $color-white, $cyan-60v, rem(10), 0, 0, 0);
+    
+    .icon-label {
+      font-size:  $font-size-16;
+      line-height: $base-line-height;
+    }
+
+    .icon {
+      width: rem(13);
+      height: rem(20);
+    }
+
+    .icon-container {
+      border: rem(1) solid $gray-5;
+      border-radius: rem(20); 
+      width: rem(40);
+      height: rem(40);
+    }
   }
 }

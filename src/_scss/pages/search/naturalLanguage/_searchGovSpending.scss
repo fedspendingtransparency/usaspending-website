@@ -1,6 +1,4 @@
 .search-gov-spending__section {
-    display: flex;;
-    align-items: flex-start;
     padding: $global-spacing-unit * 5;
     border-radius: rem(12);
     border: rem(1) solid $cyan-20v;
@@ -29,7 +27,6 @@
             padding-top: 0;
             padding-bottom: 0;
         }
-
     }
 
     .button-icon-container {
@@ -50,4 +47,12 @@
             @include icon-styles;
         }
     }
+
+    .search-gov-spending__header {
+        @include label-styles;
+        color: $gray-60;
+        margin-top: rem(24);
+    }
+
+   
 }
