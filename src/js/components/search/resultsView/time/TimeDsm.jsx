@@ -18,7 +18,7 @@ const TimeDsm = ({ spendingLevel }) => {
     /* eslint-disable max-len */
     return (
         <>
-            <h4>What's included in this view of the data?</h4>
+            <h4>What&#39;s included in this view of the data?</h4>
             <p style={{ marginBottom: '8px' }}>
                 Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months.
             </p>
@@ -71,7 +71,7 @@ const TimeDsm = ({ spendingLevel }) => {
                     <p className="award-search__body-text">
                         Obligations across the life of the award are aggregated and displayed under the latest month, quarter, or year of the latest transaction action date for each award.
                         For example, an award with obligations in FY 2023, 2024, and 2025 will aggregate all its obligations under FY 2025, the year that the award’s latest transaction action date falls under.
-                        (Note: These obligations will appear under FY 2025 even if the selected filtered time period does not include FY 2025.) To examine spending over time based on transaction dates, adjust your page-wide filter to the "Transactions" view.
+                        (Note: These obligations will appear under FY 2025 even if the selected filtered time period does not include FY 2025.) To examine spending over time based on transaction dates, adjust your page-wide filter to the &#34;Transactions&#34; view.
                     </p>
                     <p className="award-search__body-text">
                         Loan awards use the

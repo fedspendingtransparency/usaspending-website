@@ -59,11 +59,13 @@ const Glossary = ({
 
             // remove search param from url
             if (window.location.href.includes('glossary')) {
-                delete query.glossary;
-                const queryNew = getQueryParamString(query);
+                const newQuery = { ...query };
+                delete newQuery.glossary;
+                const newQueryParam = getQueryParamString(newQuery);
+
                 history({
                     pathname: '',
-                    search: queryNew
+                    search: newQueryParam
                 }, { replace: true });
             }
 

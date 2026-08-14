@@ -3,7 +3,7 @@
  * Created by Kevin Li 4/28/17
  */
 
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { setSearchValue } from "redux/actions/glossary/glossaryActions";
@@ -15,14 +15,14 @@ const propTypes = {
 };
 
 const GlossarySearchBar = ({ glossary, performSearch }) => {
-    let searchTimer = null;
+    const timerRef = useRef(null);
 
     const dispatch = useDispatch();
 
     const performSearchLocal = (term) => {
-        if (searchTimer) {
+        if (timerRef.current) {
             // clear any existing timers, it's old data
-            window.clearTimeout(searchTimer);
+            window.clearTimeout(timerRef.current);
         }
 
         dispatch(setSearchValue(term));
@@ -34,7 +34,7 @@ const GlossarySearchBar = ({ glossary, performSearch }) => {
         }
 
         // wait for typing to stop 300ms before performing search
-        searchTimer = window.setTimeout(() => {
+        timerRef.current = window.setTimeout(() => {
             performSearch(term);
         }, 300);
     };

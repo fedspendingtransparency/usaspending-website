@@ -80,8 +80,8 @@ export default class ReferencedAwardsTable extends React.Component {
     }
 
     render() {
-        let message = null;
-        let content = null;
+        let message;
+        let content;
 
         if (this.props.inFlight) {
             message = (<ResultsTableLoadingMessage />);

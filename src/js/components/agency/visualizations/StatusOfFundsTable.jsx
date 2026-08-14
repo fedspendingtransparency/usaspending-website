@@ -50,7 +50,9 @@ const StatusOfFundsTable = ({
             },
             {
                 title: 'totalBudgetaryResources',
-                displayName: isMobile ? `${fyString} Total Budgetary Resources` : [`${fyString} Total Budgetary`, <br />, 'Resources'],
+                displayName: isMobile ?
+                    `${fyString} Total Budgetary Resources` :
+                    [`${fyString} Total Budgetary`, <br key="br" />, 'Resources'],
                 right: true
             },
             {

@@ -14,7 +14,7 @@ const AwardIDSearchContainer = () => {
     const { selectedAwardIDs } = useSelector((state) => state.filters);
 
     const addAwardID = (inputStr) => {
-        let awardId = '';
+        let awardId;
         const isCommaSeparatedValues = inputStr.includes(',');
 
         if (isCommaSeparatedValues) {

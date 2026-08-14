@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import React from "react";
+import React, { memo } from "react";
 import { FlexGridRow } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { uniqueId } from 'lodash-es';
@@ -8,14 +8,24 @@ import FadeContents from "./FadeContents";
 import { isRedirectNeeded } from '../../../../helpers/url';
 import ExternalLink from "../../ExternalLink";
 import { showSlideout } from "../../../../helpers/slideoutHelper";
+import PropTypes from "prop-types";
 
-const MenuDropdown = React.memo(({
+const propTypes = {
+    navbarConfig: PropTypes.array,
+    menuIndex: PropTypes.number,
+    prevIndex: PropTypes.number,
+    closeDropdown: PropTypes.func,
+    direction: PropTypes.string
+}
+
+// eslint-disable-next-line prefer-arrow-callback
+const MenuDropdown = memo(function MenuDropdown({
     navbarConfig,
     menuIndex,
     prevIndex,
     closeDropdown,
     direction
-}) => {
+}) {
     const openATD = (e) => {
         showSlideout('atd');
         e.preventDefault();
@@ -45,7 +55,7 @@ const MenuDropdown = React.memo(({
 
             // eslint-disable-next-line consistent-return
             return (
-                <FadeContents hide={menuIndex !== i} direction={direction}>
+                <FadeContents hide={menuIndex !== i} direction={direction} key={section1Title}>
                     {/* the contents of the dropdown should be hidden if the content doesn't match to the prev or current menu item */}
                     <div
                         style={prevIndex !== i && menuIndex !== i ? { display: "none" } : {}}
@@ -235,4 +245,5 @@ const MenuDropdown = React.memo(({
     </>;
 });
 
+MenuDropdown.propTypes = propTypes;
 export default MenuDropdown;

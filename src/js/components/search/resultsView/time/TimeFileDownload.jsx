@@ -14,12 +14,16 @@ const propTypes = {
     visualizationPeriod: PropTypes.string
 };
 
+const today = Date.now();
+
 const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
     const getDownloadData = () => {
         const headers = [];
+
         headers.fiscal_year = 'fiscal_year,total_obligations\n';
         headers.quarter = 'fiscal_quarter,total_obligations\n';
         headers.month = 'month,total_obligations\n';
+
         return headers[visualizationPeriod].concat(downloadData.join('\n'));
     };
 
@@ -34,10 +38,12 @@ const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
         }
         return 'month';
     };
+
+    console.log({ today })
     const renderDownloadLink = () => (
         <a
             href={URL.createObjectURL(downloadBlob())}
-            download={`results-over-time-by-${visualizationPeriod}-${Date.now()}.csv`} >
+            download={`results-over-time-by-${visualizationPeriod}-${today}.csv`} >
             <FontAwesomeIcon icon="download" size="lg" />
             <span className="text">
                 Download data by {words(getPeriod()).map(upperFirst).join(' ')}
@@ -49,7 +55,9 @@ const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
         <>
             <div className="tooltip__title">Download data by {words(getPeriod()).map(upperFirst).join(' ')}</div>
             <div className="tooltip__text">
-                Download a CSV of award spending data that matches your search criteria, broken down by {getPeriod()}. For complete download results, click on the &quot;Download&quot; button on the top right of this page.
+                Download a CSV of award spending data that matches your search criteria,
+                broken down by {getPeriod()}. For complete download results,
+                click on the &quot;Download&quot; button on the top right of this page.
             </div>
         </>
     );

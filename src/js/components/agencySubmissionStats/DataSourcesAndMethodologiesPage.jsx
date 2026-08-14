@@ -146,7 +146,8 @@ const DataSourcesAndMethodologiesPage = () => {
             toolBarComponents={[
                 <ShareIcon508
                     url={getBaseUrl('submission-statistics')}
-                    onShareOptionClick={handleShare} />
+                    onShareOptionClick={handleShare}
+                    key={'submission-statistics'} />
             ]}
             sections={sections}
             activeSection={activeSection}

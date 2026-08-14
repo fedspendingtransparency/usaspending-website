@@ -1,12 +1,11 @@
-
-
+// TODO: Should be deleted? Not utilized since at least 8/7/2026
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Button } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { showModal } from "../../redux/actions/modal/modalActions";
 
-export default () => {
+const FilterModalMarkdownLink = () => {
     const dispatch = useDispatch();
 
     return (
@@ -35,3 +34,5 @@ export default () => {
         </div>
     );
 };
+
+export default FilterModalMarkdownLink;

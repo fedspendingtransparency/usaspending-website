@@ -1291,7 +1291,7 @@ export const ContractAwardAmountsInfo = (
         <div className="tooltip__text">
             <p>This section illustrates how much the government has spent on this award.</p>
             <p>The outlayed amount of a contract represents the amount an agency has paid the vendor as recorded in the agency’s financial system. Please note that the Office of Management and Budget (OMB) required agencies to provide outlay data at the award summary level for each award that received COVID-19 supplemental funding starting in Fiscal Year (FY) 2020, and for all awards starting in FY 2022. As a result, award-level outlay data are incomplete prior to FY 2022, and almost entirely absent prior to FY 2020.</p>
-            <p>The obligated amount of a contract represents the amount an agency has promised to pay the vendor as recorded in the agency's financial system. It usually matches the current value of the contract, but certain agencies (e.g., DOD) are allowed to incrementally fund some contracts in their financial systems. In these cases, the obligated amount may lag behind the current award amount.</p>
+            <p>The obligated amount of a contract represents the amount an agency has promised to pay the vendor as recorded in the agency&#39;s financial system. It usually matches the current value of the contract, but certain agencies (e.g., DOD) are allowed to incrementally fund some contracts in their financial systems. In these cases, the obligated amount may lag behind the current award amount.</p>
             <p>The current value of a contract (current award amount) represents the value of the base contract and any exercised options. </p>
             <p>The potential value of a contract (potential award amount) represents the value of the base contract and all options, if they happen to be exercised in the future. This is sometimes called the contract ceiling or capacity.</p>
             <p>If a recipient fails to deliver on the terms of the contract, the contract can end or be modified, reducing the current and potential value through a deobligation.</p>
@@ -1470,12 +1470,7 @@ export const UnlinkedTooltip = (props) => {
         }
     };
     return (
-        <div
-            className="award-summary-tooltip unlinked"
-            styles={{
-                position: 'absolute',
-                transform: `translate(0px,20px)`
-            }}>
+        <div className="award-summary-tooltip unlinked">
             <div className="tooltip__header">
                 <div className="tooltip__title">
                     This award has not been linked to any federal account
@@ -1514,7 +1509,7 @@ export const CondensedCDTooltip = ({ title }) => (
                 2023 – 2033.&#42;
             </p>
             <p>
-                Additional information can be found in the "Congressional District Data" section of the
+                Additional information can be found in the &#34;Congressional District Data&#34; section of the
                 <AboutTheDataLink slug="congressional-district-data"> About the Data </AboutTheDataLink>
                 module under Find Resources.
             </p>

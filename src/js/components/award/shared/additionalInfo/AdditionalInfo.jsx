@@ -49,12 +49,10 @@ export default class AdditionalInfo extends React.Component {
         const data = this.data();
         // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
-        let cdPOP = null;
-        let splitCDPOP = null;
 
         if (data.placeOfPerformance) {
-            cdPOP = data.placeOfPerformance["Congressional District"]?.data.pop().trim();
-            splitCDPOP = cdPOP?.split(": ");
+            const cdPOP = data.placeOfPerformance["Congressional District"]?.data.pop().trim();
+            const splitCDPOP = cdPOP?.split(": ");
             if (splitCDPOP?.length === 2) {
                 data.placeOfPerformance["Congressional District"] = splitCDPOP[1];
             }

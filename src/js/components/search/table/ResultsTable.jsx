@@ -66,7 +66,7 @@ const ResultsTable = (props) => {
         // (page * limit) - 1 end
         // (page - 1) * limit start
         const arrayOfObjects = props.results;
-        let values = null;
+        let values;
 
         // check for prime awards && loans
         if (

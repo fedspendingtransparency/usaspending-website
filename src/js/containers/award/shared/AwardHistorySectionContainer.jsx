@@ -3,7 +3,7 @@
  * Created by David Trinh 12/10/2018
  **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import { tabs, awardTypesWithSubawards } from 'dataMapping/award/awardHistorySection';
@@ -23,29 +23,32 @@ const AwardHistory = ({
     overview, setActiveTab, activeTab
 }) => {
     const [tabOptions, setTabOptions] = useState([]);
+    const requestRef = useRef(null);
 
     const sectionTitle = (overview.category === 'idv')
         ? "Award History for this IDV"
         : "Award History";
-    let countRequest = null;
 
     const setTableTabsAndGetCounts = (award = overview) => {
-        if (countRequest) {
-            countRequest.cancel();
+        if (requestRef.current) {
+            requestRef.current.cancel();
         }
 
         const tabsWithCounts = tabs(award.category)
             .filter((tab) => {
-                if (tab.internal === 'subaward' && !awardTypesWithSubawards.includes(award.category)) {
+                if (
+                    tab.internal === 'subaward' &&
+                    !awardTypesWithSubawards.includes(award.category)
+                ) {
                     return false;
                 }
                 return true;
             })
             .map(async (tab) => {
                 const isIdv = (award.category === 'idv');
-                countRequest = getAwardHistoryCounts(tab.internal, award.generatedId, isIdv);
+                requestRef.current = getAwardHistoryCounts(tab.internal, award.generatedId, isIdv);
                 try {
-                    const { data } = await countRequest.promise;
+                    const { data } = await requestRef.current.promise;
                     if (isIdv && tab.internal === 'federal_account') {
                         // response object for idv federal account endpoint is { count: int }
                         return { ...tab, count: data.count };
@@ -62,7 +65,7 @@ const AwardHistory = ({
         return Promise.all(tabsWithCounts)
             .then((result) => {
                 setTabOptions(result);
-                countRequest = null;
+                requestRef.current = null;
             });
     };
 

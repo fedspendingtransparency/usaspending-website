@@ -46,7 +46,7 @@ const TopFive = (props) => {
         },
         {
             title: 'link',
-            displayName: [<span>View in <span style={{ whiteSpace: "nowrap" }}>Award Search</span></span>]
+            displayName: [<span key={"award-search"}>View in <span style={{ whiteSpace: "nowrap" }}>Award Search</span></span>]
         }
     ];
 
@@ -78,7 +78,8 @@ const TopFive = (props) => {
                 onKeyDown={(e) => {
                     if (e.key === "Enter") getSelectedLink(e, result.name);
                 }}
-                onClick={(e) => getSelectedLink(e, result)}>
+                onClick={(e) => getSelectedLink(e, result)}
+                key={result.name}>
                 {linkText}
             </a>
         ];

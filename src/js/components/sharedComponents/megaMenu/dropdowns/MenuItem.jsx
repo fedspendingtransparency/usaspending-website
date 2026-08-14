@@ -1,33 +1,36 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from "prop-types";
 
-const MenuItem = (props) => {
+const propTypes = {
+    title: PropTypes.string,
+    children: PropTypes.string,
+    index: PropTypes.string,
+    onMouseEnter: PropTypes.string
+}
+
+const MenuItem = ({
+    title,
+    children,
+    index,
+    onMouseEnter
+}) => {
     let iconAlt = 'Collapsed menu';
     let navChevronDirection = "chevron-down";
-    if (document.querySelector(`button.navbar-item-title-${props.index}:hover`) != null ||
-        document.querySelector(`button.navbar-item-title-${props.index}:active`) != null) {
+
+    if (document.querySelector(`button.navbar-item-title-${index}:hover`) != null ||
+        document.querySelector(`button.navbar-item-title-${index}:active`) != null) {
         iconAlt = 'Expanded menu';
         navChevronDirection = "chevron-up";
     }
 
-    const onMouseEnter = () => {
-        props.onMouseEnter(props.index);
-    };
-
-    const onMouseLeave = () => {
-        navChevronDirection = "chevron-down";
-    };
-
-    const {
-        title, children, index
-    } = props;
-
     return (
         <li className="navbar-item-el">
             <button
-                className={`navbar-item-title navbar-item-title-${index} ${navChevronDirection === "chevron-up" ? "navbar-item-title-hover" : ""}`}
+                className={`navbar-item-title navbar-item-title-${index}${
+                    navChevronDirection === "chevron-up" ? " navbar-item-title-hover" : ""
+                }`}
                 onMouseEnter={() => onMouseEnter(index)}
-                onMouseLeave={() => onMouseLeave()}
                 onFocus={() => onMouseEnter(index)}>
                 {title}
                 <div className="navbar-chevron-icon">
@@ -39,4 +42,5 @@ const MenuItem = (props) => {
     );
 };
 
+MenuItem.propTypes = propTypes;
 export default MenuItem;

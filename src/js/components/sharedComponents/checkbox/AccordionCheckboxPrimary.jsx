@@ -61,7 +61,6 @@ const AccordionCheckboxPrimary = ({
     const [allChildren, setAllChildren] = useState(false);
     const inputRef = useRef(null);
 
-    const primaryCheckbox = document.getElementById(`primary-checkbox__${category.id}`);
     const count = category.id === 'indefinite-delivery-vehicle' ?
         category.filters?.length - 1 :
         category.filters?.length;
@@ -103,6 +102,7 @@ const AccordionCheckboxPrimary = ({
     const compareFiltersToChildren = useCallback(() => {
         let allSelected = true;
         let someSelected = false;
+        const primaryCheckbox = document.getElementById(`primary-checkbox__${category.id}`);
 
         for (const filter of category.filters) {
             if (!selectedFilters.has(filter)) {
@@ -123,11 +123,9 @@ const AccordionCheckboxPrimary = ({
         }
 
         setAllChildren(allSelected);
-    }, [category.filters, primaryCheckbox, selectedFilters]);
+    }, [category.filters, selectedFilters, category.id]);
 
-    useEffect(() => {
-        compareFiltersToChildren();
-    }, [compareFiltersToChildren, selectedFilters]);
+    useEffect(() => compareFiltersToChildren(), [compareFiltersToChildren]);
 
     return (
         <div className="checkbox-filter__wrapper">

@@ -44,14 +44,40 @@ const ContractGrantActivityContainer = ({
     // requests
     const request = useRef(null);
     const hasNext = useRef(true);
-    let previousRunningObligationTotalToDate = 0;
-    const createTransactionsRunningTotalObligationToDateAndSort = (data, runningObligationTotal) => {
-        const sortedTransactionsByModificationNumber = data.sort((a, b) => parseInt(a.modification_number ? a.modification_number.replace(/\D/g, '') : '', 10) - parseInt(b.modification_number ? b.modification_number.replace(/\D/g, '') : '', 10));
+    let previousRunningObligationTotalToDate = useRef(0);
+
+    const createTransactionsRunningTotalObligationToDateAndSort = (
+        data, runningObligationTotal
+    ) => {
+        const sortedTransactionsByModificationNumber = data.sort(
+            (a, b) => parseInt(
+                (
+                    a.modification_number ?
+                        a.modification_number.replace(/\D/g, '') :
+                        ''
+                ),
+                10
+            ) - parseInt(
+                (
+                    b.modification_number ?
+                        b.modification_number.replace(/\D/g, '') :
+                        ''
+                ),
+                10
+            )
+        );
+
         return sortedTransactionsByModificationNumber.map((transaction, i) => {
-            if (i === 0) previousRunningObligationTotalToDate = runningObligationTotal;
+            if (i === 0) previousRunningObligationTotalToDate.current = runningObligationTotal;
             const t = transaction;
-            t.running_obligation_total_to_date = previousRunningObligationTotalToDate + t.federal_action_obligation;
-            previousRunningObligationTotalToDate = t.running_obligation_total_to_date;
+
+            t.running_obligation_total_to_date = (
+                previousRunningObligationTotalToDate +
+                t.federal_action_obligation
+            );
+
+            previousRunningObligationTotalToDate.current = t.running_obligation_total_to_date;
+
             return t;
         });
     };
@@ -63,12 +89,14 @@ const ContractGrantActivityContainer = ({
     const addRunningObligationTotalToChildren = (data) => data.map((info) => {
         const aTransaction = info;
         if (aTransaction.allTransactionsOnTheSameDate.length > 1) {
-            aTransaction.allTransactionsOnTheSameDate = info.allTransactionsOnTheSameDate.map((t) => {
-                const newTransaction = t;
-                newTransaction.running_obligation_total_to_date = info.running_obligation_total;
-                return newTransaction;
-            });
+            aTransaction.allTransactionsOnTheSameDate = info
+                .allTransactionsOnTheSameDate.map((t) => {
+                    const newTransaction = t;
+                    newTransaction.running_obligation_total_to_date = info.running_obligation_total;
+                    return newTransaction;
+                });
         }
+
         return aTransaction;
     });
     /**
@@ -85,17 +113,26 @@ const ContractGrantActivityContainer = ({
             .reduce((acc, data) => {
                 const updatedData = { ...data };
                 updatedData.action_date = dayjs(updatedData.action_date, 'YYYY-MM-DD');
-                const currentTransactionIndex = acc.findIndex((x) => x.action_date.valueOf() === updatedData.action_date.valueOf());
+                const currentTransactionIndex = acc.findIndex(
+                    (x) => x.action_date.valueOf() === updatedData.action_date.valueOf()
+                );
+
                 /**
-                 * When we have multiple transactions on the same day, we will sum their obligation and
-                 * we will keep track of all the transactions on the same date for the tooltips in the
+                 * When we have multiple transactions on the same day,
+                 * we will sum their obligation and
+                 * we will keep track of all the transactions on the
+                 * same date for the tooltips in the
                  * allTransactions property.
                  */
                 if (currentTransactionIndex !== -1) {
                     // we have a transaction with a duplicate date so we add it to all transactions
                     acc[currentTransactionIndex].allTransactionsOnTheSameDate.push(updatedData);
-                    const sumOfObligations = acc[currentTransactionIndex].federal_action_obligation + updatedData.federal_action_obligation;
-                    acc[currentTransactionIndex].federal_action_obligation = sumOfObligations;
+
+                    acc[currentTransactionIndex].federal_action_obligation = (
+                        acc[currentTransactionIndex].federal_action_obligation +
+                        updatedData.federal_action_obligation
+                    );
+
                     return acc;
                 }
                 /**
@@ -115,19 +152,34 @@ const ContractGrantActivityContainer = ({
             .sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf())
             .map((data, i) => {
                 const updatedData = data;
+
                 // handles missing federal action obligation
-                if (!updatedData.federal_action_obligation) updatedData.federal_action_obligation = 0;
+                if (!updatedData.federal_action_obligation) {
+                    updatedData.federal_action_obligation = 0;
+                }
+
                 if (i === 0) { // first one do not sum
                     updatedData.running_obligation_total = data.federal_action_obligation;
                     previousRunningObligationTotal = data.federal_action_obligation;
+
                     // sort and add running obligation to each transaction
-                    updatedData.allTransactionsOnTheSameDate = createTransactionsRunningTotalObligationToDateAndSort(updatedData.allTransactionsOnTheSameDate, 0);
+                    updatedData.allTransactionsOnTheSameDate = (
+                        createTransactionsRunningTotalObligationToDateAndSort(
+                            updatedData.allTransactionsOnTheSameDate, 0
+                        )
+                    );
                     return updatedData;
                 }
+
                 const total = previousRunningObligationTotal + data.federal_action_obligation;
                 updatedData.running_obligation_total = total;
+
                 // sort and add running obligation to each transaction
-                updatedData.allTransactionsOnTheSameDate = createTransactionsRunningTotalObligationToDateAndSort(updatedData.allTransactionsOnTheSameDate, previousRunningObligationTotal);
+                updatedData.allTransactionsOnTheSameDate = (
+                    createTransactionsRunningTotalObligationToDateAndSort(
+                        updatedData.allTransactionsOnTheSameDate, previousRunningObligationTotal
+                    )
+                );
                 previousRunningObligationTotal = total;
                 return updatedData;
             });

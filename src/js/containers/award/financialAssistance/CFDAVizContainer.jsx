@@ -83,7 +83,7 @@ export default class CFDAVizContainer extends React.Component {
             limit
         } = this.state;
         const { cfdas } = this.props;
-        let sortedCFDAs = null;
+        let sortedCFDAs;
         if (order === 'desc') {
             const sortFunction = sort === 'cfdaTitle' ?
                 (a, b) => (parseFloat(b.cfdaNumber) - parseFloat(a.cfdaNumber)) :

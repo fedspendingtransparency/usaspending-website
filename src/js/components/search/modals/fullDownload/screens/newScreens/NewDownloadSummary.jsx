@@ -43,7 +43,7 @@ const NewDownloadSummary = ({
                             <td>{downloadData.selections.map(upperFirst).join(", ")}</td>
                         </tr>
                         {downloadData.filters && downloadData.filters.map((filterGroup) => (
-                            <DownloadFilterRow filter={filterGroup} />
+                            <DownloadFilterRow filter={filterGroup} key={filterGroup.name} />
                         ))}
                     </tbody>
                 </table>

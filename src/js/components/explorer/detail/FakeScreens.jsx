@@ -8,8 +8,10 @@ import PropTypes from 'prop-types';
 import { sortBy } from 'lodash-es';
 import DetailHeader from './header/DetailHeader';
 
+const randomPercents = [Math.random(), Math.random()];
+const total = Math.random() * 10000000
+
 const FakeScreen = () => {
-    const randomPercents = [Math.random(), Math.random()];
     const remaining = 1 - (randomPercents[0] + randomPercents[1]);
     randomPercents.push(remaining);
 
@@ -24,7 +26,7 @@ const FakeScreen = () => {
                 type="agency"
                 title="Lorem Ipsum"
                 fy="1789"
-                total={Math.random() * 10000000} />
+                total={total} />
 
             <div className="explorer-visualization-wrapper">
                 <div className="toolbar">
