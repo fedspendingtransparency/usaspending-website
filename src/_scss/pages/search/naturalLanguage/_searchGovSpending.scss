@@ -54,5 +54,16 @@
         margin-top: rem(24);
     }
 
+    .search-gov-spending__card{
+        display: flex;
+
+        .card-body {
+            padding-left: 0;
+            padding-top: rem(16)
+        }
+
+
+    }
+
    
 }

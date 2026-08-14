@@ -7,6 +7,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
+import { searchGovSpendingData } from "./NLData";
 
 const NLSearchGovSpending = () => {
 
@@ -37,6 +38,24 @@ const NLSearchGovSpending = () => {
                             </div>}/>
                 </div>
             </FlexGridRow>
+            <div>
+                <div className="search-gov-spending__header">
+                    HOW IT WORKS:
+                </div>
+                {searchGovSpendingData.map((cardData) => (
+                    <FlexGridCol 
+                        className="search-gov-spending__card" 
+                        key={`search-gov-spending-card-${cardData.id}`}>
+                            
+                        <CardContainer variant="none">
+                            <CardBody customClassName="card-body">
+                                {cardData.icon}
+                            </CardBody>
+                        </CardContainer>
+                    </FlexGridCol>
+                ))
+                }              
+            </div>
         </section>
     )
 

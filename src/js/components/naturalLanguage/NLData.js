@@ -83,7 +83,7 @@ export const searchCardData = [
                 icon="building" /> 
         ]
     }
-]
+];
 
 export const moreResourcesBtnData = [
     {
@@ -161,5 +161,25 @@ export const moreResourcesBtnData = [
                 label="Federal Spending Guide" 
                 icon="money-check-dollar"/>
         ) 
+    }
+];
+
+
+
+export const searchGovSpendingData = [
+    {
+        id: id + 1,
+        icon: (
+            <NLSearchSuggestionsIcon
+                variant="ask-questions"
+                label="Ask questions"
+                icon="question"
+                description={
+                    <>
+                            Enter your <strong>question</strong> or select from <br/>
+                            our <strong>templates</strong> in the Smart Assist panel.
+                    </> 
+                }/>
+        )
     }
 ]

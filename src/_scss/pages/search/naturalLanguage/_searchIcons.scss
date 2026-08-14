@@ -76,6 +76,12 @@
     }
   }
 
+  .icon-description {
+    @include label-styles;
+    font-weight: $font-normal;
+    color: $gray-60;
+  }
+
   &--time-period {
     @include icon-variant($gray-90, $blue-vivid-5v, $blue-vivid-70);
   }
@@ -124,14 +130,18 @@
   &--ask-questions {
     @include icon-variant($gray-80, $color-white, $cyan-60v, rem(10), 0, 0, 0);
     
+    &.icon-row__with-description {
+      align-items: flex-start;
+    }
     .icon-label {
       font-size:  $font-size-16;
       line-height: $base-line-height;
     }
 
-    .icon {
-      width: rem(13);
-      height: rem(20);
+    .icon-label__with-description {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
     }
 
     .icon-container {
@@ -139,6 +149,15 @@
       border-radius: rem(20); 
       width: rem(40);
       height: rem(40);
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+    }
+    .icon {
+      width: rem(13);
+      height: rem(20);
     }
   }
 }
