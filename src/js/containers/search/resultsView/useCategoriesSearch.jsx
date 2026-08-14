@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 
+import Analytics from "../../../helpers/analytics/Analytics";
 import { areFiltersEqual, performSpendingByCategorySearch } from "../../../helpers/searchHelper";
 import SearchAwardsOperation from "../../../models/v1/search/SearchAwardsOperation";
 import { categoryNames } from "../../../dataMapping/search/spendingByCategory";
@@ -15,15 +16,15 @@ const getSpendingLevel = (spendingLevel) => {
 };
 
 // TODO: analytics
-const onClickHandler = (linkName) => {
-    // Analytics.event({
-    //     category: `Section ${props.wrapperProps.sectionName}: ${props.wrapperProps.selectedDropdownOption}`,
-    //     action: `Clicked ${linkName}`
-    // });
+const onClickHandler = (linkName, selectedDropdown) => {
+    Analytics.event({
+        category: `Section categories: ${selectedDropdown}`,
+        action: `Clicked ${linkName}`
+    });
 };
 
 
-const parseData = (data, scope, spendingLevel) => {
+const parseData = (data, selectedDropdown, spendingLevel) => {
     const labelSeries = [];
     const dataSeries = [];
     const descriptions = [];
@@ -48,7 +49,7 @@ const parseData = (data, scope, spendingLevel) => {
         const result = Object.create(BaseSpendingByCategoryResult);
         result.populate(item);
 
-        if (scope === 'awarding_agency' || scope === 'awarding_subagency') {
+        if (selectedDropdown === 'awarding_agency' || selectedDropdown === 'awarding_subagency') {
             result.nameTemplate = (code, name) => {
                 if (code) {
                     return `${name} (${code})`;
@@ -57,14 +58,14 @@ const parseData = (data, scope, spendingLevel) => {
             };
         }
 
-        if (scope === 'recipient') {
+        if (selectedDropdown === 'recipient') {
             result.nameTemplate = (code, name) => name;
         }
 
         labelSeries.push(result.name);
         dataSeries.push(result._amount);
 
-        if (scope === 'recipient' && spendingLevel !== 'subawards') {
+        if (selectedDropdown === 'recipient' && spendingLevel !== 'subawards') {
             const recipientLink = result.recipientId ?
                 `recipient/${result.recipientId}/latest`
                 :
@@ -78,7 +79,7 @@ const parseData = (data, scope, spendingLevel) => {
                         <a
                             href={recipientLink}
                             onClick={() => {
-                                onClickHandler(result.name);
+                                onClickHandler(result.name, selectedDropdown);
                             }}>
                             {result.name}
                         </a>
@@ -90,7 +91,7 @@ const parseData = (data, scope, spendingLevel) => {
                 tableDataRow.name = (result.name);
             }
         }
-        else if (scope === 'awarding_agency' && spendingLevel !== 'subawards') {
+        else if (selectedDropdown === 'awarding_agency' && spendingLevel !== 'subawards') {
             const awardingLink = `agency/${result._agencySlug}`;
             linkSeries.push(awardingLink);
             tableDataRow.name = {
@@ -98,7 +99,7 @@ const parseData = (data, scope, spendingLevel) => {
                     <a
                         href={awardingLink}
                         onClick={() => {
-                            onClickHandler(result.name);
+                            onClickHandler(result.name, selectedDropdown);
                         }} >
                         {result.name}
                     </a>),
@@ -133,16 +134,16 @@ const parseData = (data, scope, spendingLevel) => {
 
 const useCategoriesSearch = (
     spendingBy,
-    reduxFilters,
+    filters,
     spendingLevel,
-    category,
+    selectedDropdown,
     page
 ) => {
     const auditTrail = `${categoryNames[spendingBy]} Rank Visualization`;
 
     // Create Search Operation
     const operation = new SearchAwardsOperation();
-    operation.fromState(reduxFilters);
+    operation.fromState(filters);
 
     // if subawards is true, newAwardsOnly cannot be true, so we remove
     // dateType for this request
@@ -154,7 +155,7 @@ const useCategoriesSearch = (
 
     // generate the API parameters
     const apiParams = {
-        category,
+        category: selectedDropdown,
         filters: apiSearchParams,
         limit: 10,
         page,
@@ -165,10 +166,10 @@ const useCategoriesSearch = (
     const { data, isLoading, error } = useQuery({
         queryKey: ['performSpendingByCategorySearch', apiParams],
         queryFn: () => performSpendingByCategorySearch(apiParams).promise,
-        enabled: !areFiltersEqual(reduxFilters)
+        enabled: !areFiltersEqual(filters)
     })
 
-    const parsedData = parseData(data?.data, category, spendingLevel)
+    const parsedData = parseData(data?.data, selectedDropdown, spendingLevel)
 
     return { loading: isLoading, error, ...parsedData };
 }
