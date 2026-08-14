@@ -14,7 +14,6 @@ const getSpendingLevel = (spendingLevel) => {
 };
 
 const onClickHandler = (linkName) => {
-    console.log({ linkName })
     // Analytics.event({
     //     category: `Section ${props.wrapperProps.sectionName}: ${props.wrapperProps.selectedDropdownOption}`,
     //     action: `Clicked ${linkName}`
@@ -29,7 +28,7 @@ const parseData = (data, scope, spendingLevel, agencyIds, error) => {
     const linkSeries = [];
     const tableData = [];
 
-    if (!data?.result) return {
+    if (!data) return {
         labelSeries,
         dataSeries,
         descriptions,

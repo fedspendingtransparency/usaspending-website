@@ -87,7 +87,8 @@ const CategoriesSection = ({
                     categoriesHasLoaded={categoriesHasLoaded}
                     selectedDropdown={selectedDropdown}
                     setSelectedDropdown={setSelectedDropdown}
-                    hash={hash} />
+                    hash={hash}
+                    key={selectedDropdown} />
                 :
                 <PlaceholderComponent className="categories" />
             }
