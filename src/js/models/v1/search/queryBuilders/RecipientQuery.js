@@ -69,11 +69,7 @@ const buildFieldQuery = (field, values) => ({
 });
 
 export const buildRecipientTypeQuery = (recipientType, searchContext = 'award') => {
-    let awardQuery = {};
-
     const fieldName = FilterFields[`${searchContext}Fields`].recipientType;
 
-    awardQuery = buildFieldQuery(fieldName, recipientType);
-
-    return awardQuery;
+    return buildFieldQuery(fieldName, recipientType);
 };

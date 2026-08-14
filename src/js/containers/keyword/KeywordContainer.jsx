@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 1/4/18
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useMatch, useNavigate } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
@@ -33,8 +33,8 @@ const KeywordContainer = () => {
     const match = useMatch(`/keyword_search/:keyword`);
     const keywordUrl = match?.params.keyword;
 
-    let summaryRequest = null;
-    let downloadRequest = null;
+    const summaryRef = useRef(null);
+    const downloadRef = useRef(null);
 
     const downloadObject = useSelector((state) => state.bulkDownload.download);
 
@@ -69,13 +69,13 @@ const KeywordContainer = () => {
     };
 
     const requestDownload = (params) => {
-        if (downloadRequest) {
-            downloadRequest.cancel();
+        if (downloadRef.current) {
+            downloadRef.current.cancel();
         }
 
-        downloadRequest = BulkDownloadHelper.requestAwardsDownload(params);
+        downloadRef.current = BulkDownloadHelper.requestAwardsDownload(params);
 
-        downloadRequest.promise
+        downloadRef.current.promise
             .then((res) => {
                 dispatch(setDownloadExpectedUrl(res.data.file_url));
                 dispatch(setDownloadExpectedFile(res.data.file_name));
@@ -108,8 +108,8 @@ const KeywordContainer = () => {
     };
 
     const fetchSummary = () => {
-        if (summaryRequest) {
-            summaryRequest.cancel();
+        if (summaryRef.current) {
+            summaryRef.current.cancel();
         }
 
         setSummaryInFlight(true);
@@ -120,9 +120,9 @@ const KeywordContainer = () => {
             }
         };
 
-        summaryRequest = KeywordHelper.fetchSummary(params);
+        summaryRef.current = KeywordHelper.fetchSummary(params);
 
-        summaryRequest.promise
+        summaryRef.current.promise
             .then((res) => {
                 const results = res.data.results;
                 const recordLimit = 500000;
@@ -137,7 +137,7 @@ const KeywordContainer = () => {
                 if (!isCancel(err)) {
                     setSummaryInFlight(false);
                     console.log(err);
-                    summaryRequest.cancel();
+                    summaryRef.current.cancel();
                 }
             });
     };

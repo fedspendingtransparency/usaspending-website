@@ -12,7 +12,7 @@ export const recipientOverviewLoanInfo = (
             </p>
             <p><strong>What’s Included in Total Awarded Amount</strong></p>
             <p>
-                While the face value of loans amounts are not included in the total award amount, the loan subsidy cost is included. All subsidy costs associated with loans this recipient has received during the filtered time period are captured within the "Total Awarded Amount" number above and anywhere else on this page dollar amounts are mentioned.
+                While the face value of loans amounts are not included in the total award amount, the loan subsidy cost is included. All subsidy costs associated with loans this recipient has received during the filtered time period are captured within the &#34;Total Awarded Amount&#34; number above and anywhere else on this page dollar amounts are mentioned.
             </p>
             <p><strong>About Loan Subsidy Cost</strong></p>
             <p>

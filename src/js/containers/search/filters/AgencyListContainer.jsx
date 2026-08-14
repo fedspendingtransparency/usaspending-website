@@ -28,9 +28,8 @@ const AgencyListContainer = ({
     const [autocompleteAgencies, setAutocompleteAgencies] = useState([]);
     const [noResults, setNoResults] = useState(false);
     const request = useRef(null);
-
-    let agencySearchString;
-    let timeout = null;
+    const timeoutRef = useRef(null);
+    const searchStringRef = useRef(null);
 
     const parseAutocompleteAgencies = (results) => {
         let agencies = [];
@@ -83,8 +82,8 @@ const AgencyListContainer = ({
 
         // For searches for FEMA, leave the results in the same order as the API response
         if (
-            (agencySearchString.toLowerCase() !== 'fem') &&
-            (agencySearchString.toLowerCase() !== 'fema')
+            (searchStringRef.current.toLowerCase() !== 'fem') &&
+            (searchStringRef.current.toLowerCase() !== 'fema')
         ) {
             // Separate top and subtier agencies
             let toptierAgencies = filter(agencies, ['data.agencyType', 'toptier']);
@@ -103,8 +102,8 @@ const AgencyListContainer = ({
 
     const performSecondarySearch = (data) => {
         if (
-            (agencySearchString.toLowerCase() === 'fem') ||
-            (agencySearchString.toLowerCase() === 'fema')
+            (searchStringRef.current.toLowerCase() === 'fem') ||
+            (searchStringRef.current.toLowerCase() === 'fema')
         ) {
             // don't change the order of results returned from the API
             parseAutocompleteAgencies(slice(data, 0, 10));
@@ -122,7 +121,7 @@ const AgencyListContainer = ({
             search.addDocuments(data);
 
             // use the JS search library to search within the records
-            const results = search.search(agencySearchString);
+            const results = search.search(searchStringRef.current);
 
             const toptier = [];
             const subtier = [];
@@ -150,7 +149,7 @@ const AgencyListContainer = ({
 
         // Only search if search is 2 or more characters
         if (input.length >= 3) {
-            agencySearchString = input;
+            searchStringRef.current = input;
 
             if (request.current) {
                 // A request is currently in-flight, cancel it
@@ -192,10 +191,10 @@ const AgencyListContainer = ({
 
         // Grab input, clear any exiting timeout
         const input = agencyInput.target.value;
-        window.clearTimeout(timeout);
+        window.clearTimeout(timeoutRef.current);
 
         // Perform search if user doesn't type again for 300ms
-        timeout = window.setTimeout(() => {
+        timeoutRef.current = window.setTimeout(() => {
             queryAutocompleteAgencies(input);
         }, 300);
     };

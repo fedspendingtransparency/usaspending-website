@@ -141,7 +141,7 @@ const EquityCovidSpendingPage = () => {
             title="Equity in COVID-19 Spending"
             metaTagProps={{ ...equityPageMetaTags }}
             toolBarComponents={[
-                <ShareIcon508 url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
+                <ShareIcon508 url={getBaseUrl(slug)} onShareOptionClick={handleShare} key={slug} />
             ]}>
             <main id="main-content" className="main-content equity-content">
                 <EquityHeading content={HeadingContentObject} postCount={Object.keys(cardsContentObject).length} />

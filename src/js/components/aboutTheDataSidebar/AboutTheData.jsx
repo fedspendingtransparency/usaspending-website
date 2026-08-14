@@ -140,8 +140,9 @@ const AboutTheData = (props) => {
 
             // remove search param from url
             if (window.location.href.includes('about-the-data')) {
-                delete query['about-the-data'];
-                const newQueryParams = getQueryParamString(query);
+                const newQuery = { ...query };
+                delete newQuery['about-the-data'];
+                const newQueryParams = getQueryParamString(newQuery);
                 let newUrl = pathname + newQueryParams;
                 if (newUrl.split('').pop() === '?') {
                     newUrl = newUrl.substring(0, newUrl.length - 1);

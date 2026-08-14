@@ -112,7 +112,7 @@ const ProgramActivityList = ({
     }, []);
 
     const onSelect = useCallback((programActivity) => {
-        const newSearch = searchParams;
+        const newSearch = { ...searchParams };
 
         newSearch.filters.program_activities = [];
         newSearch.filters.program_activities.push({

@@ -21,7 +21,9 @@ const StatusOfFundsChart = ({
     const chartRef = useRef();
     const [windowWidth, setWindowWidth] = useState(0);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
-    const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < mediumScreen && window.innerWidth > smallScreen);
+    const [isMediumScreen, setIsMediumScreen] = useState(
+        window.innerWidth < mediumScreen && window.innerWidth > smallScreen
+    );
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
     const [negativeTbr, setNegativeTbr] = useState(false);
     const [negativeObl, setNegativeObl] = useState(false);
@@ -38,7 +40,6 @@ const StatusOfFundsChart = ({
     };
     const chartHeight = viewHeight - margins.top - margins.bottom;
     const chartWidth = (viewWidth - margins.left - margins.right) + 60;
-    let resultNames = [];
 
     const [textScale, setTextScale] = useState(viewWidth / viewWidth);
 
@@ -189,27 +190,29 @@ const StatusOfFundsChart = ({
         }
         return 18;
     };
-    let tooltipName = null;
-    const tooltip = (data) => {
-        if (hoverData) {
-            if (level < 3) {
-                if (data.name.length <= 33) {
-                    tooltipName = data.name.length + 230;
-                }
-                else if (data.name.length > 33 && data.name.length < 66) {
-                    tooltipName = data.name.length + 215;
-                }
-                else {
-                    tooltipName = data.name.length + 200;
-                }
-            }
-            else if (level === 3) {
-                tooltipName = data.name.length + 200;
-            }
-            else {
-                tooltipName = data.name.length + 125;
-            }
 
+    let tooltipName;
+
+    if (level < 3) {
+        if (hoverData?.name.length <= 33) {
+            tooltipName = hoverData?.name.length + 230;
+        }
+        else if (hoverData?.name.length > 33 && hoverData?.name.length < 66) {
+            tooltipName = hoverData?.name.length + 215;
+        }
+        else {
+            tooltipName = hoverData?.name.length + 200;
+        }
+    }
+    else if (level === 3) {
+        tooltipName = hoverData?.name.length + 200;
+    }
+    else {
+        tooltipName = hoverData?.name.length + 125;
+    }
+
+    const tooltip = (data) => {
+        if (data) {
             return (
                 <div className="sof-chart-tooltip">
                     <div className="tooltip__title">
@@ -250,6 +253,8 @@ const StatusOfFundsChart = ({
     };
 
     const renderChart = () => {
+        let resultNames = [];
+
         if (!toggle) {
             // setup x and y scales
             const y = scaleBand()

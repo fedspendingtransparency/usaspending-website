@@ -3,7 +3,7 @@
  * Created by Chas Stevens 5/10/2023
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import { CSSTransition, TransitionGroup } from "react-transitioning";
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router';
@@ -76,7 +76,8 @@ const navbarConfig = [
     }
 ];
 
-const MobileNav = React.memo((props) => {
+// eslint-disable-next-line prefer-arrow-callback
+const MobileNav = memo(function MobileNav(props) {
     const { mobileNavInitialState, setMobileNavInitialState } = props;
     const [url, setUrl] = useState('');
     const [detailMobileNavIsHidden, setDetailMobileNavIsHidden] = useState(true);

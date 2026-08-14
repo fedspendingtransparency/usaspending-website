@@ -3,7 +3,7 @@
   * Created by David Trinh 10/5/2018
   **/
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -12,7 +12,6 @@ import { flowRight } from 'lodash-es';
 import { useMatch } from 'react-router';
 
 import Award from 'components/award/Award';
-import * as SearchHelper from 'helpers/searchHelper';
 import { setAward, resetAward } from 'redux/actions/award/awardActions';
 import {
     setDownloadCollapsed,
@@ -34,6 +33,7 @@ import {
 import withDefCodes from 'hooks/WithDefCodes';
 import { getAwardHistoryCounts } from "helpers/awardHistoryHelper";
 import Analytics from "helpers/analytics/Analytics";
+import { fetchAwardV2 } from "../../helpers/searchHelper";
 
 require('pages/award/awardPage.scss');
 
@@ -55,9 +55,9 @@ const propTypes = {
 };
 
 const AwardContainer = (props) => {
-    let awardRequest = null;
-    let downloadRequest = null;
-    let countRequest = null;
+    const awardRequestRef = useRef(null);
+    const downloadRequestRef = useRef(null);
+    const countRequestRef = useRef(null);
     const [noAward, setNoAward] = useState(false);
     const [inFlight, setInFlight] = useState(true);
     const [unlinked, setUnlinked] = useState(false);
@@ -65,10 +65,16 @@ const AwardContainer = (props) => {
     const awardId  = encodeURIComponent(match.params.awardId);
 
     const parseAward = (data) => {
-        countRequest = getAwardHistoryCounts("federal_account", data.id, data.category === 'idv');
-        countRequest.promise
+        countRequestRef.current = getAwardHistoryCounts(
+            "federal_account", data.id, data.category === 'idv'
+        );
+
+        countRequestRef.current.promise
             .then((results) => {
-                const countDataBool = (results.data.federal_accounts === 0 || results.data.count === 0);
+                const countDataBool = (
+                    results.data.federal_accounts === 0 ||
+                    results.data.count === 0
+                );
 
                 setUnlinked(countDataBool);
             });
@@ -93,16 +99,16 @@ const AwardContainer = (props) => {
     };
 
     const getSelectedAward = (id) => {
-        if (awardRequest) {
+        if (awardRequestRef.current) {
             // A request is currently in-flight, cancel it
-            awardRequest.cancel();
+            awardRequestRef.current.cancel();
         }
 
         setInFlight(true);
 
-        awardRequest = SearchHelper.fetchAwardV2(encodeURIComponent(id));
+        awardRequestRef.current = fetchAwardV2(encodeURIComponent(id));
 
-        awardRequest.promise
+        awardRequestRef.current.promise
             .then((results) => {
                 const awardData = results.data;
 
@@ -110,7 +116,7 @@ const AwardContainer = (props) => {
                 parseAward(awardData);
 
                 // operation has resolved
-                awardRequest = null;
+                awardRequestRef.current = null;
             })
             .catch((error) => {
                 console.log(error);
@@ -119,13 +125,13 @@ const AwardContainer = (props) => {
                 }
                 else if (error.response) {
                     // Errored out but got response, toggle noAward flag
-                    awardRequest = null;
+                    awardRequestRef.current = null;
                     setNoAward(true);
                     setInFlight(false);
                 }
                 else {
                     // Request failed
-                    awardRequest = null;
+                    awardRequestRef.current = null;
                     console.log(error);
                     setInFlight(false);
                 }
@@ -154,23 +160,23 @@ const AwardContainer = (props) => {
         // don't show a modal about the download
         props.setDownloadCollapsed(true);
 
-        if (downloadRequest) {
-            downloadRequest.cancel();
+        if (downloadRequestRef.current) {
+            downloadRequestRef.current.cancel();
         }
 
-        downloadRequest = fetchAwardDownloadFile(awardCategory);
+        downloadRequestRef.current = fetchAwardDownloadFile(awardCategory);
 
         try {
-            const { data } = await downloadRequest.promise;
+            const { data } = await downloadRequestRef.current.promise;
             props.setDownloadExpectedUrl(data.file_url);
             props.setDownloadExpectedFile(data.file_name);
             // disable download button
             props.setDownloadPending(true);
-            downloadRequest = null;
+            downloadRequestRef.current = null;
         }
         catch (err) {
             console.log(err);
-            downloadRequest = null;
+            downloadRequestRef.current = null;
         }
     };
 
@@ -182,8 +188,8 @@ const AwardContainer = (props) => {
     // eslint-disable-next-line arrow-body-style
     useEffect(() => {
         return () => {
-            if (awardRequest) {
-                awardRequest.cancel();
+            if (awardRequestRef.current) {
+                awardRequestRef.current.cancel();
             }
             props.resetAward();
         };

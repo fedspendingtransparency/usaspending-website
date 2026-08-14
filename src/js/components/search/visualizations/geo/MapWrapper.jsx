@@ -91,9 +91,9 @@ const MapWrapper = ({
     const mapRef = useRef();
     const scopeRef = useRef(scope);
 
-    const broadcastReceivers = [];
-    let renderCallback = null;
-    let mapOperationQueue = {};
+    const broadcastRef = useRef([]);
+    const renderRef = useRef(null);
+    const mapQueueRef = useRef({});
 
     const hideSource = (type) => {
         const layers = mapLayers[type];
@@ -255,11 +255,11 @@ const MapWrapper = ({
     });
 
     const runMapOperationQueue = () => {
-        Object.keys(mapOperationQueue).forEach((key) => {
-            const op = mapOperationQueue[key];
+        Object.keys(mapQueueRef.current).forEach((key) => {
+            const op = mapQueueRef.current[key];
             op.call(this);
         });
-        mapOperationQueue = {};
+        mapQueueRef.current = {};
     };
 
     const prepareChangeListeners = () => {
@@ -274,12 +274,12 @@ const MapWrapper = ({
 
         // we need to hold a reference to the callback in order to remove the listener when
         // the component unmounts
-        renderCallback = () => {
+        renderRef.current = () => {
             mapRef?.current?.map?.current?.on('render', mapMovedCallback);
         };
-        mapRef?.current?.map?.current?.on('moveend', renderCallback);
+        mapRef?.current?.map?.current?.on('moveend', renderRef.current);
         // but also do it when the map resizes, since the view will be different
-        mapRef?.current?.map?.current?.on('resize', renderCallback);
+        mapRef?.current?.map?.current?.on('resize', renderRef.current);
     };
 
     const prepareMap = () => {
@@ -339,19 +339,19 @@ const MapWrapper = ({
 
     const prepareBroadcastReceivers = () => {
         const listenerRef = MapBroadcaster.on('measureMap', measureMap);
-        broadcastReceivers.push(listenerRef);
+        broadcastRef.current.push(listenerRef);
     };
 
     const removeChangeListeners = () => {
         // remove the render callbacks
         if (mapRef.current) {
-            mapRef.current.off('moveend', renderCallback);
-            mapRef.current.off('resize', renderCallback);
+            mapRef.current.off('moveend', renderRef.current);
+            mapRef.current.off('resize', renderRef.current);
         }
     };
 
     const queueMapOperation = (name, operation) => {
-        mapOperationQueue[name] = operation;
+        mapQueueRef.current[name] = operation;
     };
 
     const setCenterFromMapTiles = (value, filterKey, lat, long) => {
@@ -465,17 +465,17 @@ const MapWrapper = ({
     };
 
     const tooltipFunc = () => {
-        const selectedItemObj = selectedItem;
+        const newSelectedItem = { ...selectedItem };
 
-        if (scope === "country" && selectedItem.label === "United States") {
-            selectedItemObj.label = `${selectedItem.label} and Territories`;
+        if (scope === "country" && newSelectedItem.label === "United States") {
+            newSelectedItem.label = `${newSelectedItem.label} and Territories`;
         }
 
         if (showHover) {
             return (
                 <TooltipComponent
                     description={tooltipDescription()}
-                    {...selectedItemObj} />
+                    {...newSelectedItem} />
             );
         }
         return null;
@@ -535,6 +535,7 @@ const MapWrapper = ({
     };
 
     useEffect(() => {
+        const cleanUpRef = { ...broadcastRef.current }
         displayData();
         if (!stateProfile) {
             prepareBroadcastReceivers();
@@ -542,7 +543,7 @@ const MapWrapper = ({
         return () => {
             // remove any broadcast listeners
             removeChangeListeners();
-            broadcastReceivers.forEach((listenerRef) => {
+            cleanUpRef.forEach((listenerRef) => {
                 MapBroadcaster.off(listenerRef.event, listenerRef.id);
             });
         };

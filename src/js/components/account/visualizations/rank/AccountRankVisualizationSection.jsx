@@ -45,6 +45,7 @@ const AccountRankVisualizationSection = ({
     const [labelWidth, setLabelWidth] = useState(0);
 
     const sectionHr = useRef(null);
+
     const disableNext = !hasNextPage;
     const disablePrev = !hasPreviousPage;
     let hidePager = '';
@@ -53,23 +54,26 @@ const AccountRankVisualizationSection = ({
         hidePager = 'hide';
     }
 
-    const handleWindowResize = throttle(() => {
+    const handleWindowResize = throttle((ref) => {
         // determine if the width changed
         const windowWidthLocal = window.innerWidth;
         if (windowWidthLocal !== windowWidth) {
             // width changed, update the visualization width
             setWindowWidth(windowWidthLocal);
-            setVisualizationWidth(sectionHr.current.offsetWidth);
-            setLabelWidth(min([sectionHr.current.offsetWidth / 3, 270]));
+            setVisualizationWidth(ref.offsetWidth);
+            setLabelWidth(min([ref.offsetWidth / 3, 270]));
         }
     }, 50);
 
     useEffect(() => {
-        handleWindowResize();
-        window.addEventListener('resize', handleWindowResize);
+        const resize = () => handleWindowResize(sectionHr.current);
+
+        resize();
+
+        window.addEventListener('resize', resize);
 
         return () => {
-            window.removeEventListener('resize', handleWindowResize);
+            window.removeEventListener('resize', resize);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);

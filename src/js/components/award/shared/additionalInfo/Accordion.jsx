@@ -3,13 +3,14 @@
  * Created by Kwadwo Opoku-Debrah 10/13/2018
  **/
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { compact } from 'lodash-es';
+import {compact, uniqueId} from 'lodash-es';
 import { Link } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 import { TooltipWrapper } from "data-transparency-ui";
+
+import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 import { CondensedCDTooltip } from 'components/award/shared/InfoTooltipContent';
 
 const awardIdField = 'Unique Award Key';
@@ -22,105 +23,113 @@ const propTypes = {
     globalToggle: PropTypes.bool
 };
 
-export default class Accordion extends React.Component {
-    constructor(props) {
-        super(props);
+const Accordion = ({
+    accordionName,
+    accordionIcon,
+    iconClassName,
+    accordionData,
+    globalToggle
+}) => {
+    const [open, setOpen] = useState(false);
 
-        this.state = {
-            open: false,
-            showCDTooltip: false
-        };
+    const handleClick = () => setOpen((prevState) => !prevState);
 
-        this.handleClick = this.handleClick.bind(this);
-    }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.globalToggle !== prevProps.globalToggle) {
-            this.globalOverride();
-        }
-    }
-
-    handleClick() {
-        this.setState({ open: !this.state.open });
-    }
-
-    link(pathAndTitle) {
+    const link = (pathAndTitle) =>{
         const { path, title } = pathAndTitle;
         if (!path && !title) return '--';
         if (!path) return title;
         if (title && path) return (<Link to={path}>{title}</Link>);
         return (<Link to={path}>Unknown</Link>);
-    }
+    };
 
     // pass an array of address lines
     // e.g. ['1234 Sleepy Ghost Lane', 'Las Vegas, Nevada', 'Some Country']
-    address(arrayOfRows) {
-    // if no data return --
+    const address = (arrayOfRows) => {
+        // if no data return --
         const array = compact(arrayOfRows);
         if (array.length === 0) return '--';
         return (
             <div>
                 {
-                    arrayOfRows.map((addressLine, index) => (
-                        <div key={`addressline-${addressLine}-${index}`}>
+                    arrayOfRows.map((addressLine) => (
+                        <div key={`addressline-${addressLine}-${uniqueId()}`}>
                             {addressLine || '--'}
                         </div>
                     ))
                 }
             </div>
         );
-    }
+    };
 
     // pass an array of data
     // e.g. ['have', 'a', 'good', 'day']
-    list(arrayOfData) {
+    const list = (arrayOfData) => {
         const array = compact(arrayOfData);
         if (array.length === 0) return '--';
         return (
             <ul className="accordion-table__list">
-                {arrayOfData.map((type, index) => <li key={`list-${type}-${index}`}>{type}</li>)}
+                {arrayOfData.map((type) => <li key={`list-${type}-${uniqueId()}`}>{type}</li>)}
             </ul>
         );
-    }
+    };
 
-    globalOverride() {
-        this.setState({
-            open: this.props.globalToggle
-        });
-    }
-
-    accordionBody() {
-        const { accordionData } = this.props;
+    const accordionBody = () => {
         if (!accordionData) return null;
+
         return Object.keys(accordionData).map((key) => {
-            this.state.showCDTooltip = false;
+            let showCDTooltip = false;
+
             let data = accordionData[key] || '--';
+
             // display data as a link, address or list
             if (accordionData[key]) {
                 const awardInfo = accordionData[key];
                 const specialType = accordionData[key].type;
+
                 if (specialType) {
-                    data = this[awardInfo.type](awardInfo.data);
+                    const getData = () => {
+                        switch (specialType) {
+                            case "list":
+                                return list(awardInfo.data);
+                            case "address":
+                                return address(awardInfo.data);
+                            default:
+                                return link(awardInfo.data);
+                        }
+                    }
+
+                    data = getData();
                 }
-                if (specialType === 'address' || key === 'Congressional District') {
-                    this.state.showCDTooltip = true;
-                }
+
+                if (
+                    specialType === 'address' ||
+                    key === 'Congressional District'
+                ) showCDTooltip = true;
             }
+
             return (
                 <div
                     key={key}
                     className="accordion-row">
                     <div className="accordion-row__title">{key}</div>
-                    <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''}${this.state.showCDTooltip ? ' show-tooltip' : ''}`}>
-                        <div className={`${this.state.open ? 'tab-enabled' : 'tab-disabled'}`}>
+                    <div
+                        className={`accordion-row__data${
+                            key === awardIdField ? ' generated-id' : ''
+                        }${
+                            showCDTooltip ? ' show-tooltip' : ''
+                        }`}>
+                        <div className={`${open ? 'tab-enabled' : 'tab-disabled'}`}>
                             {data}
                         </div>
-                        {(key === 'Congressional District' && this.state.open && this.state.showCDTooltip) && (
+                        {(key === 'Congressional District' && open && showCDTooltip) && (
                             <div className="accordion-row__data-tooltip">
                                 <TooltipWrapper
                                     className="homepage__covid-19-tt"
                                     icon="info"
-                                    tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
+                                    tooltipComponent={
+                                        <CondensedCDTooltip title="Congressional District" />
+                                    } />
                             </div>
                         )}
                     </div>
@@ -129,37 +138,44 @@ export default class Accordion extends React.Component {
         });
     }
 
-    render() {
-        const { accordionName, accordionIcon, iconClassName } = this.props;
-        const onKeyDownHandler = createOnKeyDownHandler(this.handleClick);
-        const accordionBody = this.accordionBody();
-        const open = this.state.open ?
-            (<FontAwesomeIcon className="accordion-caret" size="lg" icon="angle-down" />) :
-            (<FontAwesomeIcon className="accordion-caret" size="lg" icon="angle-right" />);
-        const openClassName = this.state.open ? 'accordion accordion_open' : 'accordion';
-        return (
-            <div className={openClassName}>
-                <div
-                    className="accordion__bar"
-                    tabIndex={0}
-                    role="button"
-                    onKeyDown={onKeyDownHandler}
-                    onClick={this.handleClick}>
-                    <span>
-                        <FontAwesomeIcon className={iconClassName} size="lg" icon={accordionIcon} />
-                        {accordionName}
-                    </span>
-                    <span>
-                        {open}
-                    </span>
-                </div>
-                <div className="accordion__content">
-                    {accordionBody}
-                </div>
+    const onKeyDownHandler = createOnKeyDownHandler(handleClick);
+
+    const openClassName = open ? 'accordion accordion_open' : 'accordion';
+
+    useEffect(() => setOpen(globalToggle), [globalToggle]);
+
+    return (
+        <div className={openClassName}>
+            <div
+                className="accordion__bar"
+                tabIndex={0}
+                role="button"
+                onKeyDown={onKeyDownHandler}
+                onClick={handleClick}>
+                <span>
+                    <FontAwesomeIcon className={iconClassName} size="lg" icon={accordionIcon} />
+                    {accordionName}
+                </span>
+                <span>
+                    {
+                        open ?
+                            (<FontAwesomeIcon
+                                className="accordion-caret"
+                                size="lg"
+                                icon="angle-down" />) :
+                            (<FontAwesomeIcon
+                                className="accordion-caret"
+                                size="lg"
+                                icon="angle-right" />)
+                    }
+                </span>
             </div>
-        );
-    }
+            <div className="accordion__content">
+                {accordionBody()}
+            </div>
+        </div>
+    );
 }
 
 Accordion.propTypes = propTypes;
-
+export default Accordion;

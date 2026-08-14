@@ -51,7 +51,7 @@ export const convertDateToFY = (date) => {
 
 export const convertQuarterToDate = (qtr, year) => {
     // returns the last date of the fiscal quarter
-    let date = '';
+    let date;
     let outputYear = parseInt(year, 10);
     switch (qtr) {
         case 1:

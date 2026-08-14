@@ -66,7 +66,19 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
     const websiteBlock = (
         <div className="agency-overview__data">
             <h4>Website</h4>
-            {website ? <a className="usa-bold-link" href={website} target="_blank">{website}</a> : '--'}
+            {
+                website ?
+                    (
+                        <a
+                            className="usa-bold-link"
+                            href={website}
+                            target="_blank"
+                            rel="noreferrer">
+                            {website}
+                        </a>
+                    ) :
+                    '--'
+            }
         </div>
     );
 
@@ -75,10 +87,15 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
             <h4>Congressional Justification of Budget (CJ)</h4>
             {congressionalJustification ?
                 (
-                    <a className="usa-bold-link" href={congressionalJustification} target="_blank">
+                    <a
+                        className="usa-bold-link"
+                        href={congressionalJustification}
+                        target="_blank"
+                        rel="noreferrer">
                         {congressionalJustification}
                     </a>
-                ) : '--'}
+                ) :
+                '--'}
         </div>
     );
 

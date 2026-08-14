@@ -3,9 +3,8 @@
  * Created by Kevin Li 2/23/17
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-
 import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 const propTypes = {
@@ -13,27 +12,31 @@ const propTypes = {
     value: PropTypes.number,
     y: PropTypes.number,
     x: PropTypes.number,
-    visualization: PropTypes.object,
-    total: PropTypes.number,
     description: PropTypes.string
 };
 
-const GeoVisualizationTooltip = (props) => {
-    let containerDiv;
-    let tooltipDiv;
-    let pointerDiv;
+const GeoVisualizationTooltip = ({
+    label,
+    value,
+    y,
+    x,
+    description
+}) => {
+    const containerDiv = useRef(null);
+    const tooltipDiv = useRef(null);
+    const pointerDiv = useRef(null);
 
     const positionTooltip = () => {
         // we need to wait for the tooltip to render before we can full position it due to its
         // dynamic width
-        const tooltipWidth = tooltipDiv.offsetWidth;
-        const containerX = containerDiv.getBoundingClientRect().left;
+        const tooltipWidth = tooltipDiv.current.offsetWidth;
+        const containerX = containerDiv.current.getBoundingClientRect().left;
         const windowWidth = window.innerWidth;
 
         // determine the tooltip direction
         let direction = 'left';
         // // allow 20px padding
-        if (tooltipWidth + containerX + props.x >= windowWidth - 20) {
+        if (tooltipWidth + containerX + x >= windowWidth - 20) {
             direction = 'right';
         }
 
@@ -43,10 +46,10 @@ const GeoVisualizationTooltip = (props) => {
             offset = 9 + tooltipWidth;
         }
 
-        tooltipDiv.style.top = `${props.y - 15}px`;
-        tooltipDiv.style.left = `${props.x - offset}px`;
-        tooltipDiv.className = `tooltip ${direction}`;
-        pointerDiv.className = `tooltip-pointer ${direction}`;
+        tooltipDiv.current.style.top = `${y - 15}px`;
+        tooltipDiv.current.style.left = `${x - offset}px`;
+        tooltipDiv.current.className = `tooltip ${direction}`;
+        pointerDiv.current.className = `tooltip-pointer ${direction}`;
     };
 
     useEffect(() => {
@@ -56,29 +59,23 @@ const GeoVisualizationTooltip = (props) => {
     return (
         <div
             className="visualization-tooltip"
-            ref={(div) => {
-                containerDiv = div;
-            }}>
+            ref={containerDiv}>
             <div
                 className="tooltip"
-                ref={(div) => {
-                    tooltipDiv = div;
-                }}>
+                ref={tooltipDiv}>
                 <div
                     className="tooltip-pointer"
-                    ref={(div) => {
-                        pointerDiv = div;
-                    }} />
+                    ref={pointerDiv} />
                 <div className="tooltip-title">
-                    {props.label}
+                    {label}
                 </div>
                 <div className="tooltip-body">
-                    {props.description &&
+                    {description &&
                         <div className="tooltip-label">
-                            {props.description}
+                            {description}
                         </div>}
                     <div className="tooltip-value">
-                        {formatMoneyWithUnitsShortLabel(props.value)}
+                        {formatMoneyWithUnitsShortLabel(value)}
                     </div>
                 </div>
             </div>
@@ -87,5 +84,4 @@ const GeoVisualizationTooltip = (props) => {
 };
 
 GeoVisualizationTooltip.propTypes = propTypes;
-
 export default GeoVisualizationTooltip;

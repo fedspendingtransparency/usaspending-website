@@ -37,8 +37,8 @@ export default class DetailsTabItem extends React.Component {
         const comingSoonModule = (<ComingSoonLabel />);
         let activeClass = '';
         let comingSoon = '';
-        let disabledStatus = '';
-        let status = '';
+        let disabledStatus;
+        let status;
         if (this.props.active) {
             activeClass = ' active';
         }

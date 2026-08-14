@@ -3,7 +3,7 @@
  * Created by Kevin Li 3/17/17
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -48,8 +48,8 @@ const AccountContainer = (props) => {
     const match = useMatch('/federal_account/:accountNumber');
     const { accountNumber } = match.params;
 
-    let accountRequest = null;
-    let fiscalYearSnapshotRequest = null;
+    const accountRequestRef = useRef(null);
+    const FYRequestRef = useRef(null);
 
     const parseFYSnapshot = (data) => {
         const balances = {
@@ -70,25 +70,25 @@ const AccountContainer = (props) => {
     };
 
     const loadFiscalYearSnapshot = (id) => {
-        if (fiscalYearSnapshotRequest) {
-            fiscalYearSnapshotRequest.cancel();
+        if (FYRequestRef.current) {
+            FYRequestRef.current.cancel();
         }
 
-        fiscalYearSnapshotRequest = AccountHelper.fetchFederalAccountFYSnapshot(
+        FYRequestRef.current = AccountHelper.fetchFederalAccountFYSnapshot(
             id,
             props.latestPeriod.year
         );
 
-        fiscalYearSnapshotRequest.promise
+        FYRequestRef.current.promise
             .then((res) => {
-                fiscalYearSnapshotRequest = null;
+                FYRequestRef.current = null;
 
                 // update the redux store
                 parseFYSnapshot(res.data);
                 setLoading(false);
             })
             .catch((err) => {
-                fiscalYearSnapshotRequest = null;
+                FYRequestRef.current = null;
 
                 if (!isCancel(err)) {
                     setLoading(false);
@@ -107,17 +107,17 @@ const AccountContainer = (props) => {
 
 
     const loadData = () => {
-        if (accountRequest) {
-            accountRequest.cancel();
+        if (accountRequestRef.current) {
+            accountRequestRef.current.cancel();
         }
 
         setLoading(true);
 
-        accountRequest = AccountHelper.fetchFederalAccount(accountNumber);
+        accountRequestRef.current = AccountHelper.fetchFederalAccount(accountNumber);
 
-        accountRequest.promise
+        accountRequestRef.current.promise
             .then((res) => {
-                accountRequest = null;
+                accountRequestRef.current = null;
 
                 // update the redux store
                 parseAccount(res.data);
@@ -125,7 +125,7 @@ const AccountContainer = (props) => {
                 setValidAccount(true);
             })
             .catch((err) => {
-                accountRequest = null;
+                accountRequestRef.current = null;
 
                 if (!isCancel(err)) {
                     setLoading(false);

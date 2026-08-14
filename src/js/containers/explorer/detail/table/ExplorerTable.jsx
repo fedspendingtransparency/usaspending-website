@@ -58,7 +58,7 @@ const ExplorerTable = memo(function ExplorerTableContainer({
             Name: name, "Obligated Amount": obligatedAmount, "Percent of Total": percent, link
         }) => [
             (
-                <div className="explorer-link-cell">
+                <div className="explorer-link-cell" key={name}>
                     <div className="cell-content">
                         <button
                             className="go-deeper-link"
