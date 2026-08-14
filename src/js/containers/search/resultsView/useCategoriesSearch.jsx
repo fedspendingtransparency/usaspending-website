@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
+
 import { areFiltersEqual, performSpendingByCategorySearch } from "../../../helpers/searchHelper";
 import SearchAwardsOperation from "../../../models/v1/search/SearchAwardsOperation";
 import { categoryNames } from "../../../dataMapping/search/spendingByCategory";
@@ -13,6 +14,7 @@ const getSpendingLevel = (spendingLevel) => {
     return "transactions";
 };
 
+// TODO: analytics
 const onClickHandler = (linkName) => {
     // Analytics.event({
     //     category: `Section ${props.wrapperProps.sectionName}: ${props.wrapperProps.selectedDropdownOption}`,
@@ -21,7 +23,7 @@ const onClickHandler = (linkName) => {
 };
 
 
-const parseData = (data, scope, spendingLevel, agencyIds, error) => {
+const parseData = (data, scope, spendingLevel) => {
     const labelSeries = [];
     const dataSeries = [];
     const descriptions = [];
@@ -103,30 +105,6 @@ const parseData = (data, scope, spendingLevel, agencyIds, error) => {
                 title: result.name
             };
         }
-        else if (
-            scope === 'awarding_agency' &&
-            spendingLevel === 'subawards' &&
-            agencyIds
-        ) {
-            // this properly pulls in the slug from withAgencySlugs,
-            // as it is not provided though the API request for subawards
-            const agencyIdentifier = !error ?agencyIds[item.id] : '';
-            const awardingLink = `agency/${agencyIdentifier}`;
-
-            linkSeries.push(awardingLink);
-
-            tableDataRow.name = {
-                value: (
-                    <a
-                        href={awardingLink}
-                        onClick={() => {
-                            onClickHandler(result.name);
-                        }} >
-                        {result.name}
-                    </a>),
-                title: result.name
-            };
-        }
         else {
             tableDataRow.name = {
                 value: result.name,
@@ -158,9 +136,7 @@ const useCategoriesSearch = (
     reduxFilters,
     spendingLevel,
     category,
-    page,
-    agencyIds,
-    agencyError
+    page
 ) => {
     const auditTrail = `${categoryNames[spendingBy]} Rank Visualization`;
 
@@ -192,7 +168,7 @@ const useCategoriesSearch = (
         enabled: !areFiltersEqual(reduxFilters)
     })
 
-    const parsedData = parseData(data?.data, category, spendingLevel, agencyIds, agencyError)
+    const parsedData = parseData(data?.data, category, spendingLevel)
 
     return { loading: isLoading, error, ...parsedData };
 }

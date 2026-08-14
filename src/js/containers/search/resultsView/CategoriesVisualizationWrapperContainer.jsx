@@ -5,23 +5,17 @@
 
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useSearchParams } from "react-router";
 import { get, max } from 'lodash-es';
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
-import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 
+import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import SpendingByCategoriesChart
     from "../../../components/search/resultsView/categories/SpendingByCategoriesChart";
 import CategoriesSectionWrapper from "../../../components/search/resultsView/categories/CategoriesSectionWrapper";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 import useCategoriesSearch from "./useCategoriesSearch";
-
-const combinedActions = Object.assign({}, searchFilterActions, {
-    setAppliedFilterCompletion
-});
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -109,15 +103,23 @@ const columns = {
         }
     ]
 };
-const CategoriesVisualizationWrapperContainer = ({ selectedDropdown, setSelectedDropdown, ...props }) => {
+
+const CategoriesVisualizationWrapperContainer = ({
+    wrapperProps,
+    selectedDropdown,
+    setSelectedDropdown,
+    hash
+}) => {
+    const filters = useSelector((state) => state.appliedFilters.filters);
+    const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
+    const dispatch = useDispatch();
     const [sortDirection, setSortDirection] = useState('desc');
     const [activeField, setActiveField] = useState('obligations');
-    // eslint-disable-next-line no-unused-vars
-    const [spendingBy, setSpendingBy] = useState('awardingAgency');
     const [page, setPage] = useState(1);
-    // const [tableRows, setTableRows] = useState([]);
     const [searchParams] = useSearchParams();
 
+    // spendingBy used to be a state with no set state. Removed state for now.
+    const spendingBy = 'awardingAgency';
     let recipientError = false;
 
     const {
@@ -134,12 +136,10 @@ const CategoriesVisualizationWrapperContainer = ({ selectedDropdown, setSelected
         hasPreviousPage
     } = useCategoriesSearch(
         spendingBy,
-        props.reduxFilters,
-        props.spendingLevel,
+        filters,
+        spendingLevel,
         selectedDropdown,
-        page,
-        props.agencyIds,
-        props.error
+        page
     );
 
     // TODO: Does this error actually work?
@@ -224,9 +224,9 @@ const CategoriesVisualizationWrapperContainer = ({ selectedDropdown, setSelected
 
 
     useEffect(() => {
-        props.setAppliedFilterCompletion(true);
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+        dispatch(setAppliedFilterCompletion(true));
     }, [
+        dispatch,
         labelSeries,
         dataSeries,
         descriptions,
@@ -251,19 +251,12 @@ const CategoriesVisualizationWrapperContainer = ({ selectedDropdown, setSelected
         }
     }, [searchParams, setSelectedDropdown]);
 
-    // useEffect(() => {
-    //     if (!props.noApplied) {
-    //         setPage(1);
-    //     }
-    //     /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    // }, [props.reduxFilters, props.spendingLevel]);
-
     return (
         <div
             className="results-visualization-rank-section"
             id="results-section-rank">
             <SearchSectionWrapper
-                {...props.wrapperProps}
+                {...wrapperProps}
                 {...childProps}
                 page={page}
                 setPage={setPage}
@@ -277,7 +270,7 @@ const CategoriesVisualizationWrapperContainer = ({ selectedDropdown, setSelected
                 isLoading={childProps?.loading}
                 isError={childProps?.error}
                 hasNoData={childProps?.labelSeries?.length === 0}
-                hash={props.hash}
+                hash={hash}
                 hasNextPage={hasNextPage}
                 hasPreviousPage={hasPreviousPage}
                 nextPage={nextPage}
@@ -288,7 +281,7 @@ const CategoriesVisualizationWrapperContainer = ({ selectedDropdown, setSelected
                     previousPage={previousPage}>
                     <SpendingByCategoriesChart
                         {...childProps}
-                        hash={props.hash} />
+                        hash={hash} />
                 </CategoriesSectionWrapper>
             </SearchSectionWrapper>
         </div>
@@ -296,12 +289,4 @@ const CategoriesVisualizationWrapperContainer = ({ selectedDropdown, setSelected
 };
 
 CategoriesVisualizationWrapperContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        reduxFilters: state.appliedFilters.filters,
-        noApplied: state.appliedFilters._empty,
-        spendingLevel: state.searchView.spendingLevel
-    }),
-    (dispatch) => bindActionCreators(combinedActions, dispatch)
-)(CategoriesVisualizationWrapperContainer);
+export default CategoriesVisualizationWrapperContainer;

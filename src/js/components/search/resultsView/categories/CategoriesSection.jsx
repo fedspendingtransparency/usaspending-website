@@ -84,7 +84,6 @@ const CategoriesSection = ({
             {categoriesHasLoaded ?
                 <CategoriesVisualizationWrapperContainer
                     wrapperProps={wrapperProps}
-                    categoriesHasLoaded={categoriesHasLoaded}
                     selectedDropdown={selectedDropdown}
                     setSelectedDropdown={setSelectedDropdown}
                     hash={hash}
