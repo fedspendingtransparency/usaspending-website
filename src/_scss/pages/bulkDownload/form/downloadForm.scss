@@ -284,6 +284,11 @@ $download-filter-col-breakpoint: 600px;
           min-width: 37.5%;
           margin: 0 rem(32) 0 0;
         }
+
+        @media (max-width: $download-filter-col-breakpoint) {
+          flex-direction: column;
+          width: 40%;
+        }
       }
     }
 

@@ -4,13 +4,13 @@
     margin-right: rem(5);
   }
 
+  &.submission {
+    margin-bottom: rem(12);
+  }
+
   @media (max-width: $mobile-only) {
     display: flex;
     align-items: flex-start;
-    
-    &.submission {
-      margin-bottom: rem(12);
-    }
     
     input {
       flex: 0 0 auto;
