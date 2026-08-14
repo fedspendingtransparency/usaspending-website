@@ -71,8 +71,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                                 
                             </div>
                             <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
-                            
-                          
                             <SidebarContent />
                         </div>  
                     }
