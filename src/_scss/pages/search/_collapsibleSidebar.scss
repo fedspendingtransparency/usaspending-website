@@ -152,19 +152,61 @@
       }
     }
 
-    .sidebar-example {
-      color: $gray-60;
-      font-size: $font-size-12;
-      text-transform: uppercase;
-      line-height: 150%;
-      font-weight: $font-semibold;
-      padding: 0 rem(24);
-      margin-bottom: rem(4);
-      width: 100%;
-    }
-
     .sidebar-body-row {
       padding: 0 rem(24);
+      .sidebar-example {
+        color: $gray-60;
+        font-size: $font-size-12;
+        text-transform: uppercase;
+        line-height: 150%;
+        font-weight: $font-semibold;
+        width: 100%;
+      }
+      .sidebar-default-hint {
+        text-align: left;
+        margin: 0;
+        padding: rem(8);
+        margin-bottom: rem(8);
+        background-color: $color-white;
+        border: 1px solid transparent;
+        border-radius: rem(4);
+        background:
+          linear-gradient($color-white, $color-white) padding-box,
+          linear-gradient(92deg, #A8F2FF 0%, #4EB6CD 50.48%, #00687D 100%) border-box;
+        p {
+          margin: 0;
+          font-size: $font-size-14;
+          line-height: 150%;
+          color: $gray-90;
+          font-weight: $font-normal;
+          .hint-user-replace {
+            pointer-events: none;
+            font-weight: $font-semibold;
+            color: $blue-60v;
+          }
+        }
+        &:first-of-type {
+          margin-top: rem(4);
+        }
+        &:last-of-type {
+          margin-bottom: rem(24);
+        }
+        &:hover, &:active {
+          p {
+            color: $color-white;
+            .hint-user-replace {
+              pointer-events: none;
+              color: $color-white;
+            }
+          }
+        }
+        &:hover {
+          background: $cyan-50v;
+        }
+        &:active {
+          background: $cyan-60v;
+        }
+      }
       .sidebar-textarea {
         width: 100%;
         resize: none;
@@ -174,9 +216,19 @@
         border: 1px solid $gray-60;
       }
       .textarea-char-row {
-        text-align: end;
+        display: flex;
+        justify-content: space-between;
         margin-bottom: rem(12);
+        align-items: center;
+        .textarea-reset {
+          margin: 0;
+          background: $color-white;
+          padding: 0;
+          color: $blue-60v;
+        }
         .textarea-char-count {
+          position: absolute;
+          right: rem(24);
           font-weight: $font-normal;
         }
       }
@@ -185,7 +237,8 @@
         font-size: $font-size-12;
         font-weight: $font-normal;
         line-height: 150%;
-        margin-top: rem(2);
+        display:inline-block;
+        margin-top: rem(12);
       }
     }
     .collapsible-sidebar-group {
