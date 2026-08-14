@@ -24,12 +24,12 @@ const columns = [
     },
     {
         title: 'obligations',
-        displayName: ["Award", <br />, "Obligations"],
+        displayName: ["Award", <br key="br" />, "Obligations"],
         right: true
     },
     {
         title: 'percent',
-        displayName: ["% of", <br />, "Total"],
+        displayName: ["% of", <br key="br" />, "Total"],
         right: true
     }
 ];
@@ -54,7 +54,7 @@ const ObligationsByAwardTypeTooltip = ({
         }
         return [
             (
-                <div className={activeClass}>
+                <div className={activeClass} key={activeClass}>
                     <svg height="12" width="18">
                         <circle cx="6" cy="6" r="6" fill={type.color} />
                     </svg>
@@ -62,12 +62,12 @@ const ObligationsByAwardTypeTooltip = ({
                 </div>
             ),
             (
-                <div className={activeClass}>
+                <div className={activeClass} key={activeClass}>
                     {formatMoney(type.value)}
                 </div>
             ),
             (
-                <div className={activeClass}>
+                <div className={activeClass} key={activeClass}>
                     {type.value >= 0 ? calculatePercentage(type.value, _awardObligations, '--', 1) : '--'}
                 </div>
             )

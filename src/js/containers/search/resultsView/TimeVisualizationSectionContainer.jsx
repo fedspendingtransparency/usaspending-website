@@ -2,7 +2,7 @@
  * TimeVisualizationSectionContainer.jsx
  */
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -88,7 +88,7 @@ const TimeVisualizationSectionContainer = (props) => {
     const [tableData, setTableData] = useState([]);
     const [downloadData, setDownloadDataRows] = useState([]);
 
-    let apiRequest = null;
+    const requestRef = useRef(null);
 
     const generateTimeLabel = (group, timePeriod) => {
         if (group === 'fiscal_year') {
@@ -254,9 +254,9 @@ const TimeVisualizationSectionContainer = (props) => {
             apiParams.auditTrail = auditTrail;
         }
 
-        apiRequest = SearchHelper.performSpendingOverTimeSearch(apiParams);
+        requestRef.current = SearchHelper.performSpendingOverTimeSearch(apiParams);
 
-        apiRequest.promise
+        requestRef.current.promise
             .then((res) => {
                 const data = res.data;
                 parseData(data, props.visualizationPeriod);
@@ -268,7 +268,7 @@ const TimeVisualizationSectionContainer = (props) => {
                     return row;
                 });
                 setTableData(tempTableData);
-                apiRequest = null;
+                requestRef.current = null;
             })
             .catch((err) => {
                 if (isCancel(err)) {
@@ -276,7 +276,7 @@ const TimeVisualizationSectionContainer = (props) => {
                 }
 
                 props.setAppliedFilterCompletion(true);
-                apiRequest = null;
+                requestRef.current = null;
                 console.log(err);
                 setParsedData({ ...parseData, loading: false, error: true });
             });
@@ -286,8 +286,8 @@ const TimeVisualizationSectionContainer = (props) => {
         props.setAppliedFilterCompletion(false);
         setParsedData({ ...parseData, loading: true, error: false });
         // Cancel API request if it exists
-        if (apiRequest) {
-            apiRequest.cancel();
+        if (requestRef.current) {
+            requestRef.current.cancel();
         }
 
         // Fetch data from the Awards v2 endpoint

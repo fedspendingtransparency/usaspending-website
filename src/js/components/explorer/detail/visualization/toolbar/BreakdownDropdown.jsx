@@ -40,7 +40,7 @@ const BreakdownDropdown = (props) => {
     });
 
     const prepareOptions = () => {
-        let tempOptions = [];
+        let tempOptions;
         let tempActive = props.root;
         if (props.isRoot) {
             // we're at the root level, so populate the full list

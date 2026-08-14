@@ -19,7 +19,6 @@ const propTypes = {
     tooltipProps: PropTypes.object
 };
 
-// eslint-disable-next-line react/prop-types
 const Covid19Section = ({
     section,
     icon,
@@ -38,13 +37,14 @@ const Covid19Section = ({
             </section>
         );
     }
+
     return (
         <SectionWrapper
             id={`covid19-${snakeCase(section)}`}
             classNames={`body__section ${snakeCase(section)}`}
             icon={icon ? <FontAwesomeIcon size="2x" icon={icon} /> : null}
             title={title}
-            titleTooltip={{ component: tooltip, props: tooltipProps } || null}
+            titleTooltip={{ component: tooltip, props: tooltipProps }}
             overLine={section?.overLine}
             description={headerText}>
             {children}

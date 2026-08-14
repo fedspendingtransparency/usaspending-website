@@ -6,7 +6,7 @@
 export const checkIsOverflow = (ulEl, padding) => {
     let left = false;
     let right = false;
-    const elArray = [...ulEl?.childNodes];
+    const elArray = ulEl?.childNodes ? [...ulEl.childNodes] : [];
     const firstElPosition = elArray[0]?.getBoundingClientRect();
     const lastElPosition = elArray[elArray?.length - 1]?.getBoundingClientRect();
 
@@ -14,7 +14,10 @@ export const checkIsOverflow = (ulEl, padding) => {
         left = true;
     }
 
-    if (lastElPosition?.right > ulEl?.clientWidth + padding || lastElPosition?.right > ulEl?.scrollWidth) {
+    if (
+        lastElPosition?.right > ulEl?.clientWidth + padding ||
+        lastElPosition?.right > ulEl?.scrollWidth
+    ) {
         right = true;
     }
 

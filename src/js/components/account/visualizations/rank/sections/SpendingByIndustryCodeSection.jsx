@@ -65,7 +65,7 @@ export default class SpendingByIndustryCodeSection extends React.Component {
                                 this.props.togglePicker();
                             }
                         }}>
-                        <p className="award-search__what-title">What's included in this view of the data?</p>
+                        <p className="award-search__what-title">What&#39;s included in this view of the data?</p>
                         <p className="read-more__preview-lines">View a list of the top Industry Codes from highest to lowest.
                             View your results by NAICS Code or PSC Code, and hover over
                             the bars for more detailed information.

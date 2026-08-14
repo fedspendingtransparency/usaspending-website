@@ -1,22 +1,54 @@
 
-import React, { forwardRef } from 'react';
+import React from 'react';
+import PropTypes from "prop-types";
 
-const DefaultText = forwardRef((props, ref) => (
+const propTypes = {
+    text: PropTypes.string,
+    dataId: PropTypes.string,
+    tooltipId: PropTypes.string,
+    className: PropTypes.string,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    displayTooltip: PropTypes.func,
+    hideTooltip: PropTypes.func,
+    ref: PropTypes.object
+}
+
+const DefaultText = ({
+    text,
+    dataId,
+    tooltipId,
+    className,
+    x,
+    y,
+    displayTooltip,
+    hideTooltip,
+    ref
+}) => (
     <text
         tabIndex="-1"
-        aria-label={props.text}
+        aria-label={text}
         ref={ref}
-        data-id={props.dataId}
-        data-tooltip={props.tooltipId}
-        className={`amounts-text ${props.className}`}
-        x={props.x || 0}
-        y={props.y || 0}
-        onMouseMove={props.displayTooltip}
-        onMouseLeave={props.hideTooltip}>
-        {props.text}
+        data-id={dataId}
+        data-tooltip={tooltipId}
+        className={`amounts-text ${className}`}
+        x={x || 0}
+        y={y || 0}
+        onMouseMove={displayTooltip}
+        onMouseLeave={hideTooltip}>
+        {text}
     </text>
-));
+);
 
-const TextGroup = (data) => data.data.map((textData) => (<DefaultText key={`${textData.text}-${textData.dataId}`} {...textData} ref={textData.ref} />));
+DefaultText.propTypes = propTypes;
+
+const TextGroup = (data) => data.data.map(
+    (textData) => (
+        <DefaultText
+            key={`${textData.text}-${textData.dataId}`}
+            {...textData}
+            ref={textData.ref} />
+    )
+);
 
 export default TextGroup;

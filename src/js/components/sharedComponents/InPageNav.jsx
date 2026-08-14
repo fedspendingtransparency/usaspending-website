@@ -3,14 +3,12 @@
  * Created by Andrea Blackwell 08/09/2023
  **/
 
-import React, {
-    useEffect, useState, useRef, useCallback
-} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from "lodash-es";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { mediumScreen, largeScreen, xLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { checkIsOverflow, getElementData, reset } from 'helpers/inPageNavHelper';
+import {throttle} from "lodash-es";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {largeScreen, mediumScreen, xLargeScreen} from 'dataMapping/shared/mobileBreakpoints';
+import {checkIsOverflow, getElementData, reset} from 'helpers/inPageNavHelper';
 
 const propTypes = {
     sections: PropTypes.array,
@@ -45,7 +43,7 @@ const InPageNav = (props) => {
         threshold: threshold || [0, 0.25, 0.5, 0.75, 1]
     };
 
-    let initialPageLoad = true;
+    const initialLoadRef = useRef(true);
     const prefix = `${pageName}-`;
 
     const callbackFunction = useCallback((entries) => {
@@ -237,14 +235,10 @@ const InPageNav = (props) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    // eslint-disable-next-line consistent-return
     useEffect(() => {
-        // eslint-disable-next-line consistent-return
-        if (observerSupported && initialPageLoad) {
-            initialPageLoad = false;
-            const target = prefix;
-            const targets = document.querySelectorAll(`[id*='${target}']`);
-            // eslint-disable-next-line no-undef
+        if (observerSupported && initialLoadRef.current) {
+            initialLoadRef.current = false;
+            const targets = document.querySelectorAll(`[id*='${prefix}']`);
             const observer = new IntersectionObserver(callbackFunction, observerOptions);
             targets.forEach((i) => {
                 if (i) {

@@ -10,14 +10,6 @@ import { getPeriodsPerQuarterByFy } from '../../../../../src/js/containers/explo
 
 const nativeDate = Date.now;
 
-const mockDate = (date) => {
-    // mock the current date
-    const month = parseInt(date.substring(5, 7), 10) - 1; // month is zero-indexed
-    const day = parseInt(date.substring(8), 10);
-    const mock = new Date(date.substring(0, 4), month, day);
-    Date.now = () => mock;
-};
-
 afterAll(() => {
     // restore the original, native date function
     Date.now = nativeDate;

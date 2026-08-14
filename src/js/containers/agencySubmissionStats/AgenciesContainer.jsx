@@ -183,8 +183,12 @@ const AgenciesContainer = ({
             percentageOfTotalFederalBudget,
             periods
         }) => ([
-            (<DrilldownCell data={name} id={code} searchTerm={searchTerm} />),
-            (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
+            (<DrilldownCell data={name} id={code} searchTerm={searchTerm} key="DrilldownCell" />),
+            (
+                <div className="generic-cell-content" key="div">
+                    {percentageOfTotalFederalBudget}
+                </div>
+            ),
             ...parsePeriods(periods)
         ]));
 
@@ -205,8 +209,18 @@ const AgenciesContainer = ({
             _unlinkedAssistance,
             unlinkedAssistance
         }) => [
-            (<DrilldownCell data={agencyName} id={code} searchTerm={searchTerm} />),
-            (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
+            (<DrilldownCell
+                data={agencyName}
+                id={code}
+                searchTerm={searchTerm}
+                key="DrilldownCell" />),
+            (
+                <div
+                    className="generic-cell-content"
+                    key="div">
+                    {percentageOfTotalFederalBudget}
+                </div>
+            ),
             (!_mostRecentPublicationDate ?
                 <div className="generic-cell-content">{mostRecentPublicationDate}</div> :
                 <CellWithModal

@@ -100,10 +100,10 @@ const DataTypes = (props) => {
                             heading={<h4>Account Data</h4>}
                             content={
                                 <p>
-                                Account data contain information about an agency's overall
+                                Account data contain information about an agency&#39;s overall
                                 spending authority, obligations and outlays, including the subset of
                                 spending on federal awards. Account data provide the “big
-                                picture” of an agency's total spending. USAspending.gov receives account
+                                picture” of an agency&#39;s total spending. USAspending.gov receives account
                                 data from most federal agencies and supplements the data with
                                 authoritative agency budget execution data.
                                 </p>
@@ -134,8 +134,8 @@ const DataTypes = (props) => {
                                 <p>
                                 Award data contain rich details about individual federal awards,
                                 such as who received the award, when obligations were made,
-                                where the money went, and what the award's purpose is. Award
-                                spending is a subset of an agency's total spending.
+                                where the money went, and what the award&#39;s purpose is. Award
+                                spending is a subset of an agency&#39;s total spending.
                                 USAspending.gov receives award data from agency financial systems as
                                 well as governmentwide award systems.
                                 </p>

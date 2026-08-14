@@ -1,3 +1,4 @@
+// TODO: Needs to be deleted? Not in use as of 8/6/2026
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AboutTheDataLink from "./AboutTheDataLink";
@@ -9,7 +10,8 @@ const DsmCategoryIcons = ({ searchFilterCategoryTree }) => (
             {searchFilterCategoryTree.map((category) => (
                 <div
                     className="collapsible-sidebar--dsm-wrapper--icon-section--icon"
-                    style={{ backgroundColor: category.iconBackgroundColor }}>
+                    style={{ backgroundColor: category.iconBackgroundColor }}
+                    key={category.iconName}>
                     <FontAwesomeIcon
                         icon={category.iconName}
                         style={{ color: category.iconColor }} />
@@ -21,7 +23,7 @@ const DsmCategoryIcons = ({ searchFilterCategoryTree }) => (
         </div>
         <div className="collapsible-sidebar--dsm-wrapper--atd-links">
             {searchFilterCategoryTree.map((category) => (
-                <div className="collapsible-sidebar--dsm-wrapper--atd-link">
+                <div className="collapsible-sidebar--dsm-wrapper--atd-link" key={category.slug}>
                     <AboutTheDataLink slug={category.slug}>
                         {category.titleCapital}
                     </AboutTheDataLink>

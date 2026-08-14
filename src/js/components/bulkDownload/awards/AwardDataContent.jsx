@@ -138,7 +138,7 @@ const AwardDataContent = ({
                             backgroundColor="light"
                             onClick={handleSubmit}
                             disabled={!validForm} />
-              
+
                     </FlexGridRow>
                 </form>
 

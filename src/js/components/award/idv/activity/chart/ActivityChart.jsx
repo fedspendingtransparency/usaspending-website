@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 5/14/19
  **/
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { min, max } from 'lodash-es';
 import { scaleLinear } from 'd3-scale';
@@ -15,6 +15,8 @@ import SVGLine from 'components/sharedComponents/SVGLine';
 import ActivityXAxis from 'components/award/shared/activity/ActivityXAxis';
 import ActivityYAxis from 'components/award/shared/activity/ActivityYAxis';
 import ActivityChartBar from './ActivityChartBar';
+
+const currentDate = Date.now();
 
 const propTypes = {
     awards: PropTypes.array,
@@ -54,8 +56,8 @@ const ActivityChart = ({
     const [graphWidth, setGraphWidth] = useState(0);
     const [graphHeight, setGraphHeight] = useState(0);
     const [bars, setBars] = useState([]);
-    const xScaleRef = useRef(null);
-    const yScaleRef = useRef(null);
+    const [xScale, setXScale] = useState(null);
+    const [yScale, setYScale] = useState(null);
 
     const getXTickDateAndLabel = (date) => {
         const newDate = new Date(date);
@@ -157,7 +159,7 @@ const ActivityChart = ({
                     tabIndex="0"
                     className="activity-chart-bar-container"
                     key={`bar-${bar._awardedAmount}-${index}`}
-                    description={description} >
+                    aria-label={description} >
                     {/* awarded amount bar */}
                     <ActivityChartBar
                         style={style}
@@ -177,11 +179,11 @@ const ActivityChart = ({
 
     const generateBarData = useCallback(() => {
         // Map each award to a "bar" component
-        if (!xScaleRef.current) return;
+        if (!xScale) return;
         const newBars = awards.map((bar, index) => {
             const data = bar;
-            const start = xScaleRef.current(bar._startDate.valueOf()) + padding.left;
-            const end = xScaleRef.current(bar._endDate.valueOf()) + padding.left;
+            const start = xScale(bar._startDate.valueOf()) + padding.left;
+            const end = xScale(bar._endDate.valueOf()) + padding.left;
             data.barWidth = end - start;
             if (data.barWidth < 1.5) data.barWidth = 1.5;
 
@@ -195,7 +197,7 @@ const ActivityChart = ({
             data.obligatedAmountWidth = obligatedAmountScale(bar._obligatedAmount);
             // -1 for the stroke covering the x-axis
             data.yPosition = (height - 30) -
-                yScaleRef.current(bar._obligatedAmount) -
+                yScale(bar._obligatedAmount) -
                 barHeight - 1;
 
             // adding these for the tooltip positioning
@@ -236,7 +238,9 @@ const ActivityChart = ({
         graphWidth,
         height,
         padding.left,
-        setOverspent
+        setOverspent,
+        xScale,
+        yScale
     ]);
 
     useEffect(() => {
@@ -319,8 +323,8 @@ const ActivityChart = ({
 
         const newXTicks = createXTicks(newXScale, newGraphWidth);
 
-        xScaleRef.current = newXScale;
-        yScaleRef.current = newYScale;
+        setXScale(() => newXScale);
+        setYScale(() => newYScale);
         setXRange(newXRange);
         setGraphWidth(newGraphWidth);
         setGraphHeight(newGraphHeight);
@@ -331,8 +335,6 @@ const ActivityChart = ({
     useEffect(() => {
         generateChartData();
     }, [awardIndexForTooltip, awards, width, generateChartData]);
-
-    const currentDate = Date.now();
 
     return (
         <svg
@@ -347,30 +349,34 @@ const ActivityChart = ({
                 <ActivityYAxis
                     height={height - padding.bottom}
                     padding={padding}
-                    scale={yScaleRef.current}
+                    scale={yScale}
                     ticks={yTicks} />
                 <ActivityXAxis
                     width={graphWidth}
                     height={height - padding.bottom}
                     padding={padding}
-                    scale={xScaleRef.current}
+                    scale={xScale}
                     ticks={xTicks}
                     line />
                 <g
                     className="activity-chart-data">
                     {createBars()}
                     {/* Today Line */}
-                    {xScaleRef.current && <SVGLine
-                        scale={xScaleRef.current}
-                        y1={-10}
-                        y2={height - padding.bottom}
-                        textY={0}
-                        text="Today"
-                        max={xRange[1]}
-                        min={xRange[0]}
-                        position={currentDate}
-                        showTextPosition="top"
-                        adjustmentX={padding.left} />}
+                    {
+                        xScale && (
+                            <SVGLine
+                                scale={xScale}
+                                y1={-10}
+                                y2={height - padding.bottom}
+                                textY={0}
+                                text="Today"
+                                max={xRange[1]}
+                                min={xRange[0]}
+                                position={currentDate}
+                                showTextPosition="top"
+                                adjustmentX={padding.left} />
+                        )
+                    }
                 </g>
             </g>
         </svg>

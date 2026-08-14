@@ -94,7 +94,7 @@ const ContractGrantActivityChart = ({
         clonedTransactions.sort(
             (a, b) => a.running_obligation_total - b.running_obligation_total);
         const yZero = 0;
-        let yOne = 0;
+        let yOne;
         if (clonedTransactions.length > 1) { // multiple transactions
             // if the total obligation if bigger than any running obligation total, use total obligation
             yOne = totalObligation > clonedTransactions[clonedTransactions.length - 1].running_obligation_total

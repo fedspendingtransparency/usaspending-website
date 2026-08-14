@@ -136,7 +136,7 @@ const AmountsVisualization = ({
                 !loading &&
                 <Carousel
                     items={[
-                        <div tabIndex={-1}>
+                        <div tabIndex={-1} key="bar1">
                             {publicLaw === 'american-rescue-plan' ?
                                 <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
                                     This is how much was <strong>spent</strong> so far through the American Rescue Plan
@@ -186,7 +186,7 @@ const AmountsVisualization = ({
                                 : ''
                             }
                         </div>,
-                        <div>
+                        <div key="bar2">
                             <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
                                     Total Budgetary Resources
                             </h4>
@@ -208,7 +208,7 @@ const AmountsVisualization = ({
                                     spend based on legislation passed by Congress.
                             </div>
                         </div>,
-                        <div>
+                        <div key="bar3">
                             <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
                                     Total Obligations
                             </h4>
@@ -240,7 +240,7 @@ const AmountsVisualization = ({
                                     This is how much agencies have committed to spend.
                             </div>
                         </div>,
-                        <div>
+                        <div key="bar4">
                             <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
                                     Total Outlays
                             </h4>

@@ -194,7 +194,7 @@ export default class MapWrapper extends React.Component {
 
         // generate the highlight layers that will be shaded in when populated with data filters
         // set up temporary empty filters that will show nothing
-        let colors = [];
+        let colors;
         if (this.props.data.values.length !== 0) {
             if (this.props.activeFilters.territory === 'state') {
                 colors = getColors(numStateQuantiles);
@@ -204,7 +204,8 @@ export default class MapWrapper extends React.Component {
             }
         }
         else {
-            colors = getColors(numStateQuantiles); // in the case when the map has not recieved data yet
+            // in the case when the map has not recieved data yet
+            colors = getColors(numStateQuantiles);
         }
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
@@ -374,9 +375,10 @@ export default class MapWrapper extends React.Component {
         // load the data source
         const source = mapboxSources[this.props.activeFilters.territory];
 
-        // the d3 function takes a range array for the key/index for each quantile or segment in the case of a linear scale
-        let rangeArray = [];
-        let colors = [];
+        // the d3 function takes a range array for the key/index
+        // for each quantile or segment in the case of a linear scale
+        let rangeArray;
+        let colors;
         if (this.props.activeFilters.territory === 'state') {
             colors = getColors(numStateQuantiles);
             rangeArray = [...Array(numStateQuantiles).keys()];
@@ -406,7 +408,7 @@ export default class MapWrapper extends React.Component {
             let value = this.props.data.values[index];
             if (isNaN(value)) value = 0;
             // determine the group index
-            let group = 0;
+            let group;
             group = Math.floor(scale(value));
             if (group.toString().startsWith('-')) group = 0;
             // add it to the filter list
