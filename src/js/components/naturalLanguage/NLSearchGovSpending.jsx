@@ -37,25 +37,28 @@ const NLSearchGovSpending = () => {
                                     icon="arrow-up-right"/>
                             </div>}/>
                 </div>
-            </FlexGridRow>
-            <div>
-                <div className="search-gov-spending__header">
+                <div>
+                    <div className="search-gov-spending__header">
                     HOW IT WORKS:
+                    </div>
+                    <FlexGridRow className="search-gov-spending__card-row">
+                        {searchGovSpendingData.map((cardData) => (
+                            <FlexGridCol 
+                                className="search-gov-spending__card" 
+                                key={`search-gov-spending-card-${cardData.id}`}>
+
+                                <CardContainer variant="none">
+                                    <CardBody customClassName="card-body">
+                                        {cardData.icon}
+                                    </CardBody>
+                                </CardContainer>
+                            </FlexGridCol>
+                    
+                        ))
+                        }
+                    </FlexGridRow>              
                 </div>
-                {searchGovSpendingData.map((cardData) => (
-                    <FlexGridCol 
-                        className="search-gov-spending__card" 
-                        key={`search-gov-spending-card-${cardData.id}`}>
-                            
-                        <CardContainer variant="none">
-                            <CardBody customClassName="card-body">
-                                {cardData.icon}
-                            </CardBody>
-                        </CardContainer>
-                    </FlexGridCol>
-                ))
-                }              
-            </div>
+            </FlexGridRow>
         </section>
     )
 

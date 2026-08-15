@@ -121,7 +121,9 @@ import {
     faWindowRestore,
     faVirusCovid,
     faSparkles,
-    faQuestion
+    faQuestion,
+    faArrowsRotate,
+    faChartColumn
 } from "@fortawesome/pro-solid-svg-icons";
 
 export default function registerIcons() {
@@ -241,6 +243,8 @@ export default function registerIcons() {
         faXmark,
         faYoutube,
         faSparkles,
-        faQuestion  
+        faQuestion,
+        faArrowsRotate,
+        faChartColumn
     );
 }

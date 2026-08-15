@@ -176,8 +176,38 @@ export const searchGovSpendingData = [
                 icon="question"
                 description={
                     <>
-                            Enter your <strong>question</strong> or select from <br/>
-                            our <strong>templates</strong> in the Smart Assist panel.
+                        Enter your <strong>question</strong> or select from <br/>
+                        our <strong>templates</strong> in the Smart Assist panel.
+                    </> 
+                }/>
+        )
+    },
+    {
+        id: id + 2,
+        icon: (
+            <NLSearchSuggestionsIcon
+                variant="analyzing-response"
+                label="Analyzing Response"
+                icon="arrows-rotate"
+                description={
+                    <>
+                        Let our model do it’s work to <br/>
+                        generate your <strong>data.</strong>
+                    </> 
+                }/>
+        )
+    },
+    {
+        id: id + 3,
+        icon: (
+            <NLSearchSuggestionsIcon
+                variant="get-the-data"
+                label="Get the Data"
+                icon="chart-column"
+                description={
+                    <>
+                        Get downloadable <strong>federal award</strong><br />
+                        <strong>data</strong>relevant to your search!
                     </> 
                 }/>
         )

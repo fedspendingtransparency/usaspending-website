@@ -121,13 +121,17 @@
       line-height: $heading-line-height;
     }
 
-    .icon {
-      width: rem(24);
-      height: rem(24);
-    }
+    .icon-container {
+      .icon {
+        width: rem(24);
+        height: rem(24);
+      }
+    }  
   }
 
-  &--ask-questions {
+  &--ask-questions,
+  &--analyzing-response,
+  &--get-the-data {
     @include icon-variant($gray-80, $color-white, $cyan-60v, rem(10), 0, 0, 0);
     
     &.icon-row__with-description {
@@ -136,6 +140,7 @@
     .icon-label {
       font-size:  $font-size-16;
       line-height: $base-line-height;
+      color: $gray-80;
     }
 
     .icon-label__with-description {
@@ -154,10 +159,20 @@
       align-items: center;
       justify-content: center;
 
-    }
-    .icon {
-      width: rem(13);
-      height: rem(20);
+      .icon {
+        width: rem(20);
+        height: rem(20);
+      }
     }
   }
+
+  &--ask-questions {
+    .icon-container {
+      .icon {
+        width: rem(13);
+        height: rem(20);
+      }
+    }
+  }
+
 }
