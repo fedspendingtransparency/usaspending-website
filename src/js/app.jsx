@@ -19,6 +19,7 @@ registerIcons();
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
+            staleTime: 60000,
             refetchOnWindowFocus: false, // default: true
             refetchOnMount: false
         }

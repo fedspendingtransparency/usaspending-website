@@ -4,6 +4,7 @@
  */
 
 import React, { memo, useState } from 'react';
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import ComboBox from 'components/sharedComponents/ComboBox';
@@ -253,8 +254,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                     </Link>. Select Agency to view spending distributed to a particular agency.
                 </p>
             </div>
-            <div className="download-filter__content budget-function">
-                <div className="combo-box-container">
+            <FlexGridRow className="download-filter__container">
+                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6} >
                     <ComboBox
                         optionsArray={budgetOptions}
                         onSelect={handleBudgetSelect}
@@ -264,6 +265,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         defaultValue={budgetFunction.code ? budgetFunction.title : ""}
                         filterInput={budgetFunction.code !== 'all'}
                         placeholder="Select budget Function" />
+                </FlexGridCol>
+                <FlexGridCol className="download-filter__col"  mobile={12} tablet={6} desktop={6} >
                     <ComboBox
                         optionsArray={subBudgetOptions}
                         onSelect={handleBudgetSubfunctionSelect}
@@ -274,8 +277,9 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         defaultValue={budgetSubfunction?.code ? budgetSubfunction.title : ""}
                         filterInput={budgetSubfunction?.code !== 'all'}
                         disabled={subBudgetOptions.length <= 1} />
-                </div>
-                <div className="combo-box-container">
+                </FlexGridCol>
+                
+                <FlexGridCol className="download-filter__col"  mobile={12} tablet={6} desktop={6}>
                     <ComboBox
                         optionsArray={agenciesOptions}
                         onSelect={handleAgencySelect}
@@ -285,6 +289,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         defaultValue={agency.id ? agency.name : ""}
                         filterInput={agency.id !== 'all'}
                         placeholder="Select agency" />
+                </FlexGridCol>
+                <FlexGridCol className="download-filter__col"  mobile={12} tablet={6} desktop={6} >
                     <ComboBox
                         optionsArray={federalAccountOptions}
                         onSelect={handleFederalAccountSelect}
@@ -295,8 +301,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         defaultValue={federalAccount?.id ? federalAccount.name : ""}
                         filterInput={federalAccount?.id !== 'all'}
                         disabled={federalAccountOptions.length <= 1} />
-                </div>
-            </div>
+                </FlexGridCol>
+            </FlexGridRow>  
         </div>
     );
 });

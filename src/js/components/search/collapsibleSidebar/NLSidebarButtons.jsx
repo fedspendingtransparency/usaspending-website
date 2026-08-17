@@ -1,7 +1,14 @@
+/**
+ * NLBadge.jsx
+ * Created by Josue Aguilar
+ * on June 12th, 2026
+ **/
+
 import React from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QAT } from "GlobalConstants";
+import NLBadge from "../NLBadge";
 
 const cyan50v = '#0081A1';
 const colorWhite = '#FFF';
@@ -41,6 +48,7 @@ const NLSidebarButtons = ({
                     setSidebarContent('filters');
                     sidebarIsOpen ? null : setSidebarIsOpen(e);
                 }}>
+                <NLBadge />
                 <FontAwesomeIcon icon="filter-list" color={primaryColorAS} />
             </button>
             { QAT &&

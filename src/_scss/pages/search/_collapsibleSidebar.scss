@@ -481,6 +481,19 @@
         min-width: rem(24);
         min-height: rem(24);
       }
+
+      &__badge {
+        color: $gray-90;
+        background-color: $yellow-20v;
+        border: rem(1) solid $yellow-10v;
+        border-radius: rem(10);
+        position: absolute;
+        right: rem(2);
+        top: rem(4);
+        padding: 0 $global-padding;
+        font-size: $smallest-font-size;
+        line-height: 1.5;
+      }
     }
   }
 }
