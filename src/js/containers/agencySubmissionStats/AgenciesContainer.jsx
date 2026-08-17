@@ -6,8 +6,18 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import DrilldownCell from 'components/agencySubmissionStats/DrilldownCell';
 import CellWithModal from 'components/agencySubmissionStats/CellWithModal';
-import { setTableData, setTableSort, setTotals, setSearchResults, setSearchTerm } from 'redux/actions/agencySubmissionStats';
-import { getTotalBudgetaryResources, getAgenciesReportingData, getSubmissionPublicationDates } from 'apis/agencyReporting';
+import {
+    setTableData,
+    setTableSort,
+    setTotals,
+    setSearchResults,
+    setSearchTerm
+} from 'redux/actions/agencySubmissionStats';
+import {
+    getTotalBudgetaryResources,
+    getAgenciesReportingData,
+    getSubmissionPublicationDates
+} from 'apis/agencyReporting';
 import {
     usePagination,
     isPeriodSelectable,
@@ -43,7 +53,6 @@ const AgenciesContainer = ({
     const publicationsReq = useRef(null);
     const submissionsReq = useRef(null);
     const totalsReq = useRef(null);
-    const tableRef = useRef(null);
     const pageRef = useRef({ publications: null, submissions: null });
     const { current: { publications: prevPublicationsPg, submissions: prevSubmissionsPg } } = pageRef;
 
@@ -62,21 +71,27 @@ const AgenciesContainer = ({
         ]
     ] = [usePagination(), usePagination()];
 
-    const [{ vertical: isVerticalSticky, horizontal: isHorizontalSticky }, setIsSticky] = useState({ vertical: false, horizontal: false });
+    const [
+        { vertical: isVerticalSticky, horizontal: isHorizontalSticky },
+        setIsSticky
+    ] = useState({ vertical: false, horizontal: false });
     const [[, areSubmissionsLoading, arePublicationsLoading], setLoading] = useState([true, true, true]);
     const [error, setError] = useState(null);
 
     const verticalStickyClass = isVerticalSticky ? 'sticky-y-table' : '';
     const horizontalStickyClass = isHorizontalSticky ? 'sticky-x-table' : '';
 
-    const handleScroll = throttle(() => {
-        const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
+    const handleScroll = throttle((e) => {
+        const { scrollLeft: horizontal, scrollTop: vertical } = e.target;
+        console.log({ e, horizontal, vertical })
+
         const shouldUpdate = (
             (vertical && !isVerticalSticky) ||
             (!vertical && isVerticalSticky) ||
             (horizontal && !isHorizontalSticky) ||
             (!horizontal && isHorizontalSticky)
         );
+
         if (shouldUpdate) setIsSticky({ vertical, horizontal });
     }, 100);
 
@@ -87,13 +102,26 @@ const AgenciesContainer = ({
     const fetchTableData = useCallback((goToFirstPage = false) => {
         if (activeTab === 'submissions') {
             const newPage = goToFirstPage ? 1 : submissionsPage;
+
             const isPeriodValid = isPeriodSelectable(
                 submissionPeriods.toJS().filter(({ submission_fiscal_year: y }) => `${y}` === selectedFy),
                 selectedPeriod
             );
+
             if (!isPeriodValid) return Promise.resolve();
+
             setLoading([false, true, false]);
-            submissionsReq.current = getAgenciesReportingData(selectedFy, selectedPeriod, submissionsSort[0], submissionsSort[1], newPage, submissionsLimit, searchTerm);
+
+            submissionsReq.current = getAgenciesReportingData(
+                selectedFy,
+                selectedPeriod,
+                submissionsSort[0],
+                submissionsSort[1],
+                newPage,
+                submissionsLimit,
+                searchTerm
+            );
+
             return submissionsReq.current.promise
                 .then(({ data: { results, page_metadata: { total: totalItems } } }) => {
                     const parsedResults = results.map((d) => {
@@ -121,12 +149,24 @@ const AgenciesContainer = ({
                     setError(true);
                 });
         }
+
         const newPage = goToFirstPage ? 1 : publicationsPage;
+
         setLoading([false, false, true]);
+
         // Get the (cumulative) total budgetary resources from the latest (revealed) period
         const latestPeriod = getLatestPeriod(submissionPeriods.toJS(), selectedFy);
         const federalTotal = getFederalBudget(federalTotals, latestPeriod);
-        publicationsReq.current = getSubmissionPublicationDates(selectedFy, publicationsSort[0], publicationsSort[1], newPage, publicationsLimit, searchTerm);
+
+        publicationsReq.current = getSubmissionPublicationDates(
+            selectedFy,
+            publicationsSort[0],
+            publicationsSort[1],
+            newPage,
+            publicationsLimit,
+            searchTerm
+        );
+
         return publicationsReq.current.promise
             .then(({ data: { results, page_metadata: { total: totalItems } } }) => {
                 const parsedResults = results.map((d) => {
@@ -369,11 +409,13 @@ const AgenciesContainer = ({
 
     return (
         <>
-            <div className={`table-container table-container_${activeTab}`} ref={tableRef} onScroll={handleScroll}>
+            <div className={`table-container table-container_${activeTab}`} onScroll={handleScroll}>
                 {activeTab === 'submissions' && (
                     <Table
                         rows={searchTerm ? renderDetails(submissionsSearchResults) : renderDetails(allSubmissions)}
-                        classNames={`${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading' : ''}`}
+                        classNames={`${verticalStickyClass} ${horizontalStickyClass} ${
+                            areSubmissionsLoading ? 'table-loading' : ''
+                        }`}
                         columns={agenciesTableColumns[activeTab]}
                         updateSort={handleUpdateSort}
                         currentSort={{
@@ -385,8 +427,14 @@ const AgenciesContainer = ({
                 )}
                 {activeTab === 'publications' && (
                     <Table
-                        rows={searchTerm ? renderDates(publicationsSearchResults, selectedFy) : renderDates(allPublications, selectedFy)}
-                        classNames={`${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
+                        rows={
+                            searchTerm ?
+                                renderDates(publicationsSearchResults, selectedFy) :
+                                renderDates(allPublications, selectedFy)
+                        }
+                        classNames={`${verticalStickyClass} ${horizontalStickyClass} ${
+                            arePublicationsLoading ? 'table-loading' : ''
+                        }`}
                         columns={agenciesTableColumns[activeTab](selectedFy)}
                         updateSort={handleUpdateSort}
                         currentSort={{
