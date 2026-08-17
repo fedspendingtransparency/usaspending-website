@@ -153,7 +153,13 @@
     }
 
     .sidebar-body-row {
-      padding: 0 rem(24);
+      padding: 0 rem(16);
+      @media (min-width: $medium-screen) {
+        padding: 0 rem(24);
+      }
+      display: flex;
+      flex-direction: column;
+      width: 100%;
       .sidebar-example {
         color: $gray-60;
         font-size: $font-size-12;
@@ -220,15 +226,21 @@
         justify-content: space-between;
         margin-bottom: rem(12);
         align-items: center;
+        margin-top: rem(4);
         .textarea-reset {
           margin: 0;
           background: $color-white;
           padding: 0;
           color: $blue-60v;
+          font-weight: $font-normal;
+          visibility: visible;
         }
+
+        .text-area-reset-hidden {
+          visibility: hidden;
+        }
+
         .textarea-char-count {
-          position: absolute;
-          right: rem(24);
           font-weight: $font-normal;
         }
       }
