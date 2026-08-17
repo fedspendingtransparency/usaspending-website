@@ -44,7 +44,7 @@ const AccountDataContent = ({
     setBudgetSubfunctionList,
     budgetSubfunctions
 }) => {
-    const { isTablet } = useContext(IsMobileContext);
+    const { isMedium } = useContext(IsMobileContext);
     const [validForm, setValidForm] = useState(false);
 
     // prevents submission on enter keydown
@@ -106,7 +106,7 @@ const AccountDataContent = ({
                         type="accounts"
                         isDisabled={areDefCodesDisabled(accounts.submissionTypes)} />
                     <FiscalYearFilter updateFilter={updateFilter} />
-                    { isTablet && <AccountUserSelections /> }
+                    { isMedium && <AccountUserSelections /> }
                     <FlexGridRow className='download-button-group'>
                         <Button
                             additionalClassnames="download-reset"

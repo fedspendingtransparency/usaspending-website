@@ -95,7 +95,8 @@ const titleData = {
         showRequired: false,
         background: '#E5FAFF',
         fill: '#0E4F5C',
-        addClassName: "no-right-margin"
+        addClassName: "no-right-margin",
+        optClassName: "no-padding"
     },
     fileType: {
         icon: "folder",
@@ -105,7 +106,8 @@ const titleData = {
         showRequired: true,
         background: '#FEF2E4',
         fill: '#E66F0E',
-        addClassName: "no-right-margin"
+        addClassName: "no-right-margin",
+        optClassName: "no-padding"
     },
     defc: {
         icon: "hand-holding-medical",
@@ -130,7 +132,8 @@ const titleData = {
         showRequired: false,
         background: '#E8F5FF',
         fill: '#0B4778',
-        addClassName: ""
+        addClassName: "",
+        optClassName: "no-padding"
     },
     agencyFy: {
         icon: "building-columns",
@@ -166,24 +169,27 @@ const FilterSectionTitle = ({
         showRequired,
         addClassName,
         background,
-        fill
+        fill,
+        optClassName = ""
     } = titleData[type];
 
     return (
         <div className="download-filter__title-wrapper">
             <h4 className="download-filter__title">
                 <div
-                    className="title-icon"
+                    className={`title-icon ${optClassName}`}
                     style={{backgroundColor: background}} >
                     <FontAwesomeIcon icon={icon} color={fill} />
                 </div>
-                {preSpan}
-                <span
-                    className={`download-filter__title_em ${addClassName}`}
-                    style={{backgroundColor: background}} >
-                    {span}
+                <span>
+                    {preSpan}
+                    <span
+                        className={`download-filter__title_em ${addClassName}`}
+                        style={{backgroundColor: background}} >
+                        {span}
+                    </span>
+                    {postSpan}
                 </span>
-                {postSpan}
                 {showRequired && <span className='required'>&nbsp;(Required)&nbsp;</span>}
             </h4>
         </div>
