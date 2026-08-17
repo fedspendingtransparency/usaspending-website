@@ -1,3 +1,9 @@
+/**
+ * NLBadge.jsx
+ * Created by Josue Aguilar
+ * on June 12th, 2026
+ **/
+
 import React from 'react';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

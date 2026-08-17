@@ -1,3 +1,9 @@
+/**
+ * NLBadge.jsx
+ * Created by Josue Aguilar
+ * on August 13th, 2026
+ **/
+
 import React, { memo } from 'react';
 import { useSelector } from "react-redux";
 import getFilters from "../../containers/search/topFilterBar/getFilters";
