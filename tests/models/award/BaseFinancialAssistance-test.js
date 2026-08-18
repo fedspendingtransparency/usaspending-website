@@ -10,7 +10,6 @@ import CoreLocation from "models/v2/CoreLocation";
 import BaseAwardRecipient from "models/v2/award/BaseAwardRecipient";
 import CoreAwardAgency from "models/v2/award/CoreAwardAgency";
 import CorePeriodOfPerformance from 'models/v2/award/CorePeriodOfPerformance';
-import BaseCFDA from 'models/v2/award/BaseCFDA';
 import { mockLoan } from './mockAwardApi';
 
 const loan = Object.create(BaseFinancialAssistance);

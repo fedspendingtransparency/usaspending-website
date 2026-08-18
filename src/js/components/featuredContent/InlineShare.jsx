@@ -38,7 +38,12 @@ const InlineShare = ({
             </span>
             <FlexGridRow className="featured-content__share-wrapper">
                 {socialShareOptions.map((option) => (
-                    <FlexGridCol mobile={12} desktop={12} tablet={2} className="featured-content__share-option">
+                    <FlexGridCol
+                        mobile={12}
+                        desktop={12}
+                        tablet={2}
+                        className="featured-content__share-option"
+                        key={option.name}>
                         <div
                             className="featured-content__share-button"
                             role="button"

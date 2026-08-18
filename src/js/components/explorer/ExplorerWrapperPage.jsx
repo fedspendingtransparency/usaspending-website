@@ -47,7 +47,8 @@ const ExplorerWrapperPage = ({
             toolBarComponents={showShareIcon ? [
                 <ShareIcon508
                     onShareOptionClick={handleShare}
-                    url={getBaseUrl(slug)} />
+                    url={getBaseUrl(slug)}
+                    key={slug} />
             ] : []}>
             <main
                 id="main-content"

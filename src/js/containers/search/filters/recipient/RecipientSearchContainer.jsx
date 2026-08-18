@@ -21,15 +21,15 @@ const RecipientSearchContainer = () => {
     const [maxRecipients, setMaxRecipients] = useState(false);
     const [noResults, setNoResults] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
-    const selectedRecipients = useSelector((state) => state.filters.selectedRecipients);
 
-    const recipientRequest = useRef(null);
+    const selectedRecipients = useSelector((state) => state.filters.selectedRecipients);
     const dispatch = useDispatch();
 
-    let timeout;
+    const recipientRequest = useRef(null);
+    const timeoutRef = useRef(null);
+
     const maxRecipientsAllowed = 500;
     const maxRecipientTitle = `Only ${maxRecipientsAllowed} recipients can be displayed at once`;
-    // eslint-disable-next-line max-len
     const maxRecipientText = 'Please use the search bar to narrow your search and find additional recipients.';
     const highlightText = (text) => replaceString(text, searchString, 'bold-highlight');
 
@@ -143,9 +143,9 @@ const RecipientSearchContainer = () => {
     };
 
     const handleTextInputChange = (e) => {
-        window.clearTimeout(timeout);
+        window.clearTimeout(timeoutRef.current);
         setSearchString(e.target.value);
-        timeout = window.setTimeout(() => {
+        timeoutRef.current = window.setTimeout(() => {
             getRecipientsFromSearchString(e.target.value);
         }, 1000);
     };

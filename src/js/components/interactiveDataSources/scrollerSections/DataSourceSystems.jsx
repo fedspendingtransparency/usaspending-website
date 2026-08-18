@@ -100,10 +100,10 @@ const DataSourceSystems = (props) => {
                                 the federal government spend their funding, as required by the{" "}
                                     <a
                                         className="scroller-overlay-card__link"
-                                        href="https://www.whitehouse.gov/wp-content/uploads/2018/06/a11.pdf"
+                                        href="https://www.whitehouse.gov/wp-content/uploads/2025/08/a11.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer">
-                                Office of Management and Budget's Circular A-11
+                                Office of Management and Budget&#39;s Circular A-11
                                     </a>
                                 . Some smaller agencies do not submit their account data to
                                 USAspending.gov but nonetheless submit budget execution data to a
@@ -217,7 +217,7 @@ const DataSourceSystems = (props) => {
                                 <p>
                                 Certain agencies are considered authoritative sources for
                                 information related to the spending data that USAspending.gov
-                                publishes. USAspending.gov draws from these agencies' systems as
+                                publishes. USAspending.gov draws from these agencies&#39; systems as
                                 needed to provide standardized names, codes, and element
                                 relationships.
                                 </p>

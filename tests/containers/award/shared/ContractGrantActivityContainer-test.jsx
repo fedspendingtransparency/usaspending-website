@@ -5,8 +5,7 @@
 import React from 'react';
 import { screen } from '@testing-library/react';
 import ContractGrantActivityContainer from "../../../../src/js/containers/award/shared/ContractGrantActivityContainer";
-import { render, act } from '../../../testResources/test-utils';
-import { areTransactionDatesOrAwardAmountsInvalid } from "../../../../src/js/helpers/contractGrantActivityHelper";
+import { render } from '../../../testResources/test-utils';
 
 const mockJumpToTransactionHistoryTable = jest.fn();
 

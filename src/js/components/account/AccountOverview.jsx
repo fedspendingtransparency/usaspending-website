@@ -55,7 +55,7 @@ const AccountOverview = ({ account, currentFiscalYear }) => {
             flow: `No data is available for the current fiscal year (FY ${currentFiscalYear}).`,
             toDate: ''
         };
-        let newAmounts = {};
+        let newAmounts;
 
         if (!fiscalYearAvailable) {
             newAmounts = {

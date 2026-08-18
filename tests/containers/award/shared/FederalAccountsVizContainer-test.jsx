@@ -4,11 +4,10 @@
 
 import React from 'react';
 import { render, act } from '../../../testResources/test-utils';
-import FederalAccountsVizContainer, { parseFederalAccounts } from "../../../../src/js/containers/award/shared/FederalAccountsVizContainer";
-import { mockAwardFederalAccounts, mockAwardFundingMetaData } from "../../../models/award/mockAwardApi";
+import FederalAccountsVizContainer from "../../../../src/js/containers/award/shared/FederalAccountsVizContainer";
+import { mockAwardFundingMetaData } from "../../../models/award/mockAwardApi";
 import * as idvHelper from "../../../../src/js/helpers/idvHelper";
 import * as awardHelper from "../../../../src/js/helpers/awardSummaryHelper";
-import BaseFederalAccount from 'models/v2/award/BaseFederalAccount';
 import { screen } from "@testing-library/react";
 
 const mockedProps = {

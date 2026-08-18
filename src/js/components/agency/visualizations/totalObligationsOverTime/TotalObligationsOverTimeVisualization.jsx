@@ -37,14 +37,17 @@ const propTypes = {
     todaysDate: PropTypes.number
 };
 
+const today = Date.now();
+const year = getYear(new Date(today));
+
 const TotalObligationsOverTimeVisualization = ({
     height = defaultHeight,
     width = 0,
     padding = defaultPadding,
     agencyBudget,
     data = [],
-    fy = getYear(new Date(Date.now())),
-    todaysDate = Date.now()
+    fy = year,
+    todaysDate = today
 }) => {
     const [xDomain, setXDomain] = useState([]);
     const [yDomain, setYDomain] = useState([]);
@@ -58,6 +61,7 @@ const TotalObligationsOverTimeVisualization = ({
     const [scenario, setScenario] = useState('normal');
     const [showTodayLineAndText, setShowTodayLineAndText] = useState(false);
     const [tooltipIsVisible, setTooltipIsVisible] = useState(false);
+
     // x domain
     useEffect(() => {
     // start of the domain is October 1st of the prior selected fiscal year midnight local time
@@ -66,6 +70,7 @@ const TotalObligationsOverTimeVisualization = ({
         const end = new Date(`${fy}`, 8, 30);
         setXDomain([getMilliseconds(start), getMilliseconds(end)]);
     }, [fy]);
+
     // add first data point as start of graph and today's date
     useEffect(() => {
         if (xDomain.length && data.length) {
@@ -74,14 +79,20 @@ const TotalObligationsOverTimeVisualization = ({
             // add todays date
             if ((todaysDate >= xDomain[0]) && (todaysDate <= xDomain[1])) {
                 if (todaysDate > dataWithFirstCoordinate[dataWithFirstCoordinate.length - 1].endDate) {
-                    dataWithFirstCoordinate.push({ endDate: todaysDate, obligated: dataWithFirstCoordinate[dataWithFirstCoordinate.length - 1].obligated });
+                    dataWithFirstCoordinate.push({
+                        endDate: todaysDate,
+                        obligated: dataWithFirstCoordinate[dataWithFirstCoordinate.length - 1].obligated
+                    });
                 }
             }
             setDataWithFirstAndLastCoordinate(dataWithFirstCoordinate);
         }
     }, [xDomain, data]);
+
     // y domain
-    useEffect(() => setYDomain(getYDomain(dataWithFirstAndLastCoordinate, agencyBudget)), [dataWithFirstAndLastCoordinate, agencyBudget]);
+    useEffect(() => {
+        setYDomain(getYDomain(dataWithFirstAndLastCoordinate, agencyBudget))
+    }, [dataWithFirstAndLastCoordinate, agencyBudget]);
     /**
      * set x scale
      * - The range max value removes padding left and right since that is padding for the
@@ -93,6 +104,7 @@ const TotalObligationsOverTimeVisualization = ({
         setXScaleForPath(() => scaleLinear().domain(xDomain).range([0, width - padding.left - padding.right]));
     },
     [xDomain, width]);
+
     /**
      * set y scale
      * - The range max value removes padding top and bottom since that is padding for the top based on the mock and
@@ -100,7 +112,11 @@ const TotalObligationsOverTimeVisualization = ({
      */
     useEffect(() => {
         setYScale(() => scaleLinear().domain(yDomain).range([0, height - padding.top - padding.bottom]));
-        setYScaleForPath(() => scaleLinear().domain(yDomain).range([1, height - padding.top - padding.bottom - yOffsetForPathStrokeWidth]));
+        setYScaleForPath(
+            () => scaleLinear().domain(yDomain).range(
+                [1, height - padding.top - padding.bottom - yOffsetForPathStrokeWidth]
+            )
+        );
     }, [yDomain, data]);
 
     // set x ticks
@@ -124,12 +140,22 @@ const TotalObligationsOverTimeVisualization = ({
     useEffect(() => {
         setDescription(dataWithFirstAndLastCoordinate.reduce((acc, val, i, array) => {
             let newDescription = acc;
-            newDescription += `Period ${val?.period || 'unknown'} with end date ${format(val.endDate, 'MM/dd/yyyy')} and obligation $${formatNumber(val.obligated)}${i + 1 !== array.length ? ',' : ''}`;
+
+            newDescription += `Period ${
+                val?.period || 'unknown'
+            } with end date ${
+                format(val.endDate, 'MM/dd/yyyy')
+            } and obligation $${
+                formatNumber(val.obligated)}${i + 1 !== array.length ? ',' : ''
+            }`;
+
             return newDescription;
         }, ''));
     }, [dataWithFirstAndLastCoordinate]);
 
-    useEffect(() => setScenario(determineScenario(agencyBudget, dataWithFirstAndLastCoordinate)), [agencyBudget, dataWithFirstAndLastCoordinate]);
+    useEffect(() => {
+        setScenario(determineScenario(agencyBudget, dataWithFirstAndLastCoordinate))
+    }, [agencyBudget, dataWithFirstAndLastCoordinate]);
 
     useEffect(() => {
         if ((todaysDate >= xDomain[0]) && (todaysDate <= xDomain[1])) {

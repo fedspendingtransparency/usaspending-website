@@ -14,7 +14,7 @@ export const fetchBreakdown = (params) => apiRequest({
 });
 
 export const pluralizeSubdivision = (activeSubdivision) => {
-    let pluralText = '';
+    let pluralText;
     if (activeSubdivision === 'program_activity') {
         pluralText = 'Program Activities';
     }

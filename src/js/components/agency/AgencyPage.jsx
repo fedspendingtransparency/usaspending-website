@@ -161,8 +161,12 @@ export const AgencyProfileV2 = ({
                     enabled
                     selectedValue={selectedFy}
                     latestValue={latestFy}
-                    handleChange={(fy) => setSelectedFy({ fy })} />,
-                <ShareIcon508 url={getBaseUrl(path)} onShareOptionClick={handleShare} />
+                    handleChange={(fy) => setSelectedFy({ fy })}
+                    key={"NumericPickerWrapper"}/>,
+                <ShareIcon508
+                    url={getBaseUrl(path)}
+                    onShareOptionClick={handleShare}
+                    key={"ShareIcon508"} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
                 <ProfileBackLink

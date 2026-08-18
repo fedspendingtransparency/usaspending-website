@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import perflogger from 'redux-perf-middleware';
 import kGlobalConstants from 'GlobalConstants';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router';
-import { ErrorBoundary, getErrorMessage } from "react-error-boundary";
+import { ErrorBoundary } from "react-error-boundary";
 
 import storeSingleton from 'redux/storeSingleton';
 import WithUrlListener from 'containers/WithUrlListener';
@@ -60,7 +60,7 @@ const ScrollToTop = () => {
 };
 
 
-const ErrorFallback = ({error, resetErrorBoundary}) => (
+const ErrorFallback = ({ resetErrorBoundary }) => (
     <ErrorPage
         title='Something went wrong.'
         heading='Sorry, something unexpected happened on this page'

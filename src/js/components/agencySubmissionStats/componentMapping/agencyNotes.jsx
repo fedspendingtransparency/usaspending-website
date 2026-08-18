@@ -21,7 +21,7 @@ const opicNote = (
             href="https://www.congress.gov/115/plaws/publ254/PLAW-115publ254.pdf" >
                 https://www.congress.gov/115/plaws/publ254/PLAW-115publ254.pdf
         </a>
-        &nbsp;pg 29). For DATA Act reporting purposes, DFC continued to report as OPIC until its last submission in FY20Q4, and began to include the full set of DFC TAS in FY20Q3. DFC's first submission as DFC was in FY21Q1.
+        &nbsp;pg 29). For DATA Act reporting purposes, DFC continued to report as OPIC until its last submission in FY20Q4, and began to include the full set of DFC TAS in FY20Q3. DFC&#39;s first submission as DFC was in FY21Q1.
     </>
 );
 

@@ -3,10 +3,10 @@
  * Created by Kevin Li 4/13/17
  */
 
-import { concat, map } from 'lodash-es';
+import {concat, map} from 'lodash-es';
 
-import * as AwardTypeQuery from 'models/v1/search/queryBuilders/AwardTypeQuery';
-import { convertFYToDateRange } from 'helpers/fiscalYearHelper';
+import buildQuery from 'models/v1/search/queryBuilders/AwardTypeQuery';
+import {convertFYToDateRange} from 'helpers/fiscalYearHelper';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as ObjectClassQuery from './queryBuilders/ObjectClassQuery';
 import * as ProgramActivityQuery from './queryBuilders/ProgramActivityQuery';
@@ -66,7 +66,7 @@ export default class AccountAwardSearchOperation {
 
         // add award type to the filters
         if (this.awardType.length > 0) {
-            const typeFilter = AwardTypeQuery.buildQuery(this.awardType);
+            const typeFilter = buildQuery(this.awardType);
             filters.push(typeFilter);
         }
         // add an account ID to the filter
@@ -80,9 +80,7 @@ export default class AccountAwardSearchOperation {
     }
 
     uniqueParams() {
-        const filters = [];
-
-        return filters;
+        return [];
     }
 
     toParams() {
@@ -107,7 +105,8 @@ export default class AccountAwardSearchOperation {
             ];
         }
         else if (timePeriod.length === 2) {
-            // case #2 one date range spanning years e.g. 2017-2018 or multiple date ranges 2017, 2019
+            // case #2 one date range spanning years
+            // e.g. 2017-2018 or multiple date ranges 2017, 2019
             const numberedTimePeriod = timePeriod.map((fy) => parseInt(fy, 10));
             // one date range
             if ((numberedTimePeriod[1] - numberedTimePeriod[0]) === 1) {

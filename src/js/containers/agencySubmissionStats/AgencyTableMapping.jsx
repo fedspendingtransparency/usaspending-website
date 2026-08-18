@@ -52,7 +52,7 @@ const publicationsSubColumnFilterFunction = (fy) => (column) => {
 };
 
 export const parsePeriods = (periods) => periods.map(({ publicationDate }) => (
-    <div className="generic-cell-content">
+    <div className="generic-cell-content" key={publicationDate}>
         {(publicationDate) && publicationDate}
         {!publicationDate && "--"}
     </div>

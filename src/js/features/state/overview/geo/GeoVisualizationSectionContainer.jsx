@@ -54,10 +54,10 @@ const GeoVisualizationSectionContainer = () => {
     const getInitialApiParams = useCallback((params, year, state) => {
         // Create the time period filter
         let timePeriod = null;
-        let dateRange = [];
         let newParams;
 
         if (year !== 'all') {
+            let dateRange;
             if (year === 'latest') {
                 dateRange = getTrailingTwelveMonths();
             }

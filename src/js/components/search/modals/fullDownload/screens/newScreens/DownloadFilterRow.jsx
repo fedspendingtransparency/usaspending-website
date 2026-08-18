@@ -8,7 +8,11 @@ import PropTypes from 'prop-types';
 import ReadMore from 'components/sharedComponents/ReadMore';
 import { awardTypeCodes } from '../../../../../../dataMapping/search/awardType';
 import { recipientTypes } from '../../../../../../dataMapping/search/recipientType';
-import { pricingTypeDefinitions, setAsideDefinitions, extentCompetedDefinitions } from '../../../../../../dataMapping/search/contractFields';
+import {
+    pricingTypeDefinitions,
+    setAsideDefinitions,
+    extentCompetedDefinitions
+} from '../../../../../../dataMapping/search/contractFields';
 import { defCodes } from '../../../../../../dataMapping/search/defCodes';
 import { formatMoneyWithPrecision } from '../../../../../../helpers/moneyFormatter';
 
@@ -24,35 +28,10 @@ const DownloadFilterRow = ({
     let formatted = null;
     const tdRef = useRef(null);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const handleResize = () => {
-        const newWidth = window.innerWidth;
 
-        if (windowWidth !== newWidth) {
-            setWindowWidth(newWidth);
-        }
-    };
-    useEffect(() => {
-        handleResize();
-        const checkOverflow = () => {
-            const td = tdRef.current;
-            if (td) {
-                // account for 32px of padding
-                const clientWidth = td.clientWidth - 32;
-                const strWidth = formatted.length;
-                const maxWidth = Math.floor(clientWidth / 7.5);
-                if (strWidth > maxWidth) {
-                    setLimit(maxWidth);
-                }
-            }
-        };
-
-        checkOverflow();
-        window.addEventListener('resize', checkOverflow);
-        return () => window.removeEventListener('resize', checkOverflow);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filter, windowWidth, formatted]);
-
-    // every filter value/name has a completely different format ( array of strings, array of objects, object, object of arrays), these have to be formatted before they
+    // every filter value/name has a completely different format
+    // ( array of strings, array of objects, object, object of arrays),
+    // these have to be formatted before they
     // are passed into ReadMore because if you don't format it there is no comma separation
     if (filter.name === 'Award Description') {
         formatted = filter.values;
@@ -203,6 +182,36 @@ const DownloadFilterRow = ({
     else {
         formatted = filter.values.join(", ");
     }
+
+    const handleResize = () => {
+        const newWidth = window.innerWidth;
+
+        if (windowWidth !== newWidth) {
+            setWindowWidth(newWidth);
+        }
+    };
+
+    useEffect(() => {
+        handleResize();
+        const checkOverflow = () => {
+            const td = tdRef.current;
+            if (td) {
+                // account for 32px of padding
+                const clientWidth = td.clientWidth - 32;
+                const strWidth = formatted.length;
+                const maxWidth = Math.floor(clientWidth / 7.5);
+                if (strWidth > maxWidth) {
+                    setLimit(maxWidth);
+                }
+            }
+        };
+
+        checkOverflow();
+        window.addEventListener('resize', checkOverflow);
+        return () => window.removeEventListener('resize', checkOverflow);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filter, windowWidth, formatted]);
+
     return (
         <tr>
             <th>{filter.name}:</th>

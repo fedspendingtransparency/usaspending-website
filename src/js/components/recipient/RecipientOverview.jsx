@@ -116,7 +116,7 @@ const RecipientOverview = (props) => {
     }
 
     const getSelectedHash = (uei) => {
-        let filters = null;
+        let filters;
         if (recipient.level === 'P') {
             filters = {
                 filters: {

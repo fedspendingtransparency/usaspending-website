@@ -10,7 +10,6 @@ import PropTypes from 'prop-types';
 import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 
 import kGlobalConstants from 'GlobalConstants';
-import statesBySqMile from "dataMapping/state/statesBySqMile";
 import IsMobileContext from "context/IsMobileContext";
 import MapBoxNavButtons from "./MapBoxNavButtons";
 
@@ -69,22 +68,8 @@ const MapBox = ({
 
         if (isStateSelected) {
             if (stateCode && stateCode !== '') {
-                const stateMile = statesBySqMile.find((s) => s.code === stateCode);
-                if (stateMile?.size > 500000) {
-                    zoom = 3.0;
-                }
-                else if (stateMile?.size < 1000) {
-                    zoom = 9.6;
-                }
-                else if (stateMile?.size < 10000) {
-                    zoom = 6.2;
-                }
-                else if (stateMile?.size < 140000) {
-                    zoom = 4.8;
-                }
                 zoom = 4.2;
             }
-
             zoom += isCountyOrDistrict ? 1 : 0;
         }
 

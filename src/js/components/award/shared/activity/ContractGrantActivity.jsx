@@ -44,30 +44,37 @@ const ContractGrantActivity = ({
      * Circle tooltip data e.g. transaction object
      */
     const [tooltipData, setTooltipData] = useState(null);
+
     /**
      * handleWindowResize
      * - updates window and visualization width based on current window width.
      * @returns {null}
      */
-    const handleWindowResize = throttle(() => {
+    const handleWindowResize = throttle((ref) => {
         const wWidth = window.innerWidth;
         if (windowWidth !== wWidth) {
             setWindowWidth(windowWidth);
-            setVisualizationWidth(divReference.current.offsetWidth);
+            setVisualizationWidth(ref.offsetWidth);
         }
     }, 50);
+
     /**
      * hook - runs on mount and unmount.
      * Any updates to the width of the browser is handled by the
      * event listener.
      */
     useEffect(() => {
-        handleWindowResize();
-        window.addEventListener('resize', handleWindowResize);
+        const resize = () => handleWindowResize(divReference.current);
+
+        resize();
+
+        window.addEventListener('resize', resize);
+
         return () => {
-            window.removeEventListener('resize', handleWindowResize);
+            window.removeEventListener('resize', resize);
         };
     }, []);
+
     /**
      * X Translation
      * We are positioning the potential award amount line tooltip centered.
@@ -80,7 +87,11 @@ const ContractGrantActivity = ({
     const potentialAwardAmountLineTooltipData = (data) => ({
         tooltipPosition: 'bottom',
         styles: { // 8px is half the tooltip pointer, data.position is the y-position
-            transform: `translate(${((data.x2 / 2) + 8) - (defaultTooltipWidth / 2)}px,${(data.position + defaultPadding.bottom) - 8}px)`,
+            transform: `translate(${
+                ((data.x2 / 2) + 8) - (defaultTooltipWidth / 2)
+            }px,${
+                (data.position + defaultPadding.bottom) - 8
+            }px)`,
             position: 'absolute'
         },
         tooltipComponent: <RectanglePercentVizTooltip
@@ -174,12 +185,10 @@ const ContractGrantActivity = ({
     });
 
     const handleTooltipDataLine = (data, text) => {
-        let tooltipInfo = null;
-        if (text) { // all other award lines
-            tooltipInfo = verticalLinesTooltipData(data, text);
-        } else { // potential award amount line
-            tooltipInfo = potentialAwardAmountLineTooltipData(data);
-        }
+        const tooltipInfo = text ?
+            verticalLinesTooltipData(data, text) : // all other award lines
+            potentialAwardAmountLineTooltipData(data);// potential award amount line
+
         setTooltipData(tooltipInfo);
         setShowTooltipLine(true);
     };
@@ -243,5 +252,4 @@ const ContractGrantActivity = ({
 };
 
 ContractGrantActivity.propTypes = propTypes;
-
 export default ContractGrantActivity;

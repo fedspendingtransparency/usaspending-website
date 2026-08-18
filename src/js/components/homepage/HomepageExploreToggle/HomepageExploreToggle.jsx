@@ -104,7 +104,7 @@ const toggleTabs = [
     {
         internal: 'explore',
         label: [(
-            <div className="homepage-explore-toggle__text-container">
+            <div className="homepage-explore-toggle__text-container" key="text-container">
                 <div className="homepage-explore-toggle__icon-container">
                     <FontAwesomeIcon icon="chart-pie" className="homepage-explore-toggle__icon" />
                 </div>
@@ -115,7 +115,7 @@ const toggleTabs = [
     {
         internal: 'access',
         label: [(
-            <div className="homepage-explore-toggle__text-container">
+            <div className="homepage-explore-toggle__text-container" key="text-container">
                 <div className="homepage-explore-toggle__icon-container access">
                     <FontAwesomeIcon icon="file-download" className="homepage-explore-toggle__icon access" />
                 </div>
