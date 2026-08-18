@@ -16,7 +16,6 @@ import GlossaryLink from 'components/sharedComponents/GlossaryLink';
 import Analytics from 'helpers/analytics/Analytics';
 import { Tabs } from "data-transparency-ui";
 import { scrollIntoView } from 'containers/covid19/helpers/scrollHelper';
-import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 
 const overviewData = [
     {
@@ -51,8 +50,7 @@ const overviewData = [
 
 const SpendingByRecipientContainer = () => {
     const [inFlight, setInFlight] = useState(true);
-    const [prevActiveTab, activeTab, setActiveTab] =
-        useStateWithPrevious(awardTypeTabs[0].internal);
+    const [activeTab, setActiveTab] = useState()
     const { defcParams } = useSelector((state) => state.covid19);
     const awardFilterButtonsRef = useRef(null);
 
@@ -167,7 +165,6 @@ const SpendingByRecipientContainer = () => {
                 recipientOnly />
             <RecipientTableContainer
                 activeTab={activeTab}
-                prevActiveTab={prevActiveTab}
                 scrollIntoView={scrollIntoViewTable} />
         </div>
     );

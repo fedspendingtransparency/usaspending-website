@@ -6,8 +6,9 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import {isCancel} from "axios";
 
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { setDataThroughDates,
     setSelectedSubcomponent,
     setSelectedFederalAccount,
@@ -27,7 +28,6 @@ import {
 import { parseRows, getLevel5Data } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import Note from 'components/sharedComponents/Note';
-import useStateWithPrevious from "hooks/useStateWithPrevious";
 import StatusOfFunds from 'components/agency/statusOfFunds/StatusOfFunds';
 import IntroSection from 'components/agency/statusOfFunds/IntroSection';
 import DrilldownSidebar from 'components/agency/statusOfFunds/DrilldownSidebar';
@@ -37,7 +37,7 @@ const propTypes = {
 };
 
 const StatusOfFundsContainer = ({ fy }) => {
-    const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [level, setLevel] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
@@ -76,7 +76,6 @@ const StatusOfFundsContainer = ({ fy }) => {
     let statusDataThroughDate =
         useLatestAccountData()[1]
             .toArray()
-            // eslint-disable-next-line eqeqeq
             .filter((i) => i.submission_fiscal_year == fy)[0]?.period_end_date;
 
     const paginatedTasList = useCallback((list) => {
@@ -120,9 +119,11 @@ const StatusOfFundsContainer = ({ fy }) => {
 
                 setLoading(false);
             }).catch((err) => {
-                setError(true);
-                setLoading(false);
-                console.error(err);
+                if (!isCancel(err)) {
+                    setError(true);
+                    setLoading(false);
+                    console.error(err);
+                }
             });
     }, []);
 
@@ -185,7 +186,6 @@ const StatusOfFundsContainer = ({ fy }) => {
                 setResults(paginatedTasList(parsedData));
 
                 // Hack to make the status of funds chart show the labels per the mock
-                // eslint-disable-next-line no-param-reassign,no-return-assign
                 parsedData.map((item) => item.name = item.id);
 
                 setTotalItems(parsedData.length);
@@ -261,19 +261,19 @@ const StatusOfFundsContainer = ({ fy }) => {
             setResetPageChange(false);
         }
         else {
-            if (prevPage !== currentPage && level === 0) {
+            if (level === 0) {
                 fetchAgencySubcomponents(currentPage);
             }
-            if (prevPage !== currentPage && level === 1) {
+            if (level === 1) {
                 fetchFederalAccounts(selectedSubComponentNameAndId);
             }
-            if (prevPage !== currentPage && level === 2) {
+            if (level === 2) {
                 fetchTas(selectedFederalAccountNameId);
             }
-            if (prevPage !== currentPage && level === 3) {
+            if (level === 3) {
                 fetchDataByTas(selectedTasNameAndId, dropdownSelection === 'Object Class');
             }
-            if (prevPage !== currentPage && level === 4) {
+            if (level === 4) {
                 fetchLevel5Data(selectedTasNameAndId);
             }
         }
@@ -287,7 +287,7 @@ const StatusOfFundsContainer = ({ fy }) => {
                 setResetPageChange(false);
             }
             else {
-                changeCurrentPage(1);
+                setCurrentPage(1);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -367,7 +367,7 @@ const StatusOfFundsContainer = ({ fy }) => {
             // why don't we just call the fetch fn here no matter what currentPage is?
             // OR just set currentPage to 1 after setLevel and not call the apis here
             // i think we're calling the apis twice in these situations
-            changeCurrentPage(1);
+            setCurrentPage(1);
         }
     };
 
@@ -407,7 +407,7 @@ const StatusOfFundsContainer = ({ fy }) => {
                         dropdownSelection={dropdownSelection}
                         setDropdownSelection={setDropdownSelection}
                         currentPage={currentPage}
-                        changeCurrentPage={changeCurrentPage}
+                        changeCurrentPage={setCurrentPage}
                         totalItems={totalItems}
                         isLoading={loading}
                         isError={error} />
