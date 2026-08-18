@@ -13,7 +13,6 @@ import DatePicker from 'components/sharedComponents/DatePicker';
 import dateRangeDropdownTimePeriods from '../../../../helpers/search/dateRangeDropdownHelper';
 import ShownValue from "../ShownValue";
 import { dateRangeChipLabel } from "../../../../helpers/searchHelper";
-import usePrevious from "../../../../hooks/usePrevious";
 
 const dayjs = require('dayjs');
 const isSameOrAfter = require('dayjs/plugin/isSameOrAfter');
@@ -49,7 +48,6 @@ const DateRange = (props) => {
     const [dropdownOptionSelected, setDropdownOptionSelected] = useState(false);
     const [noDatesDR, setNoDatesDR] = useState(false);
     const [noDatesDropdown, setNoDatesDropdown] = useState(false);
-    const prevProps = usePrevious(props);
     const timePeriod = useSelector((state) => state.filters.time_period);
     const timePeriodApplied = useSelector((state) => state.appliedFilters.filters.time_period);
 
@@ -210,7 +208,7 @@ const DateRange = (props) => {
 
             let matchFound = false;
             let matchFoundApplied = false;
-            // eslint-disable-next-line camelcase
+
             timePeriod.forEach((item) => {
                 if (item.start_date === startValue && item.end_date === endValue) {
                     matchFound = true;
@@ -331,7 +329,7 @@ const DateRange = (props) => {
     }, [props.endDateDropdown, props.startDateDropdown]);
 
     useEffect(() => {
-        if (prevProps?.startDate !== props?.startDate && !props?.startDate) {
+        if (!props?.startDate) {
             // the start date was reset to null, clear the picker
             startPicker?.clearValue();
         }
@@ -339,7 +337,7 @@ const DateRange = (props) => {
     }, [props?.startDate]);
 
     useEffect(() => {
-        if (prevProps?.endDate !== props?.endDate && !props?.endDate) {
+        if (!props?.endDate) {
             // the end date was reset to null, clear the picker
             endPicker?.clearValue();
         }

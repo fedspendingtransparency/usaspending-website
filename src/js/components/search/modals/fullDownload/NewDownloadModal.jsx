@@ -30,13 +30,15 @@ const propTypes = {
 const NewDownloadModal = (props) => {
     const [downloadStep, setDownloadStep] = useState(1);
     const [downloadType, setDownloadType] = useState([]);
-    const prevProps = usePrevious(props);
+    const { current: prevPendingDownload } = usePrevious(props.pendingDownload);
     const dispatch = useDispatch();
+
     const resetModal = useCallback(() => {
         setDownloadStep(1);
         setDownloadType([]);
         props.hideModal();
     }, [props]);
+
     let content = null;
 
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
@@ -45,12 +47,11 @@ const NewDownloadModal = (props) => {
         () => getFilters(reduxFilters), [reduxFilters]);
 
     useEffect(() => {
-        if (!props?.pendingDownload && prevProps?.pendingDownload) {
+        if (!props?.pendingDownload && prevPendingDownload) {
             // eslint-disable-next-line react-hooks/set-state-in-effect
             resetModal();
         }
-    }, [prevProps?.pendingDownload, props?.pendingDownload, resetModal]);
-
+    }, [prevPendingDownload, props?.pendingDownload, resetModal]);
 
     const hideModal = useCallback(() => {
     // reset the state before closing, but only if we're not on the download screen
