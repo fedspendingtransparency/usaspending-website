@@ -45,7 +45,7 @@
       width: 100%;
     }
 
-    @media (max-width: calc($medium-screen - 1px)) {
+    @media (max-width: calc($m-large-screen - 1px)) {
       &.mobile {
         flex: 0 0 100%;
         width: 100%;
@@ -54,6 +54,7 @@
       &:not(.mobile) {
         flex: 0;
         width: 0;
+        display: none;
       }
     }
 
@@ -99,7 +100,6 @@
 
     @include media($small-screen) {
       padding: 2.4rem 0 0.8rem;
-
     }
 
     @include media($medium-screen) {
@@ -393,6 +393,10 @@
         font-size: $smallest-font-size;
         line-height: 1.5;
       }
+    }
+
+    @media (max-width: calc($m-large-screen - 1px)) {
+      display: none;
     }
   }
 }

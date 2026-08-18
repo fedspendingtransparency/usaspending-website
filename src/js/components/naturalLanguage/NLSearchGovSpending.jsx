@@ -37,7 +37,7 @@ const NLSearchGovSpending = () => {
                                     icon="arrow-up-right"/>
                             </div>}/>
                 </div>
-                <div>
+                <div className="search-gov-spending__container">
                     <div className="search-gov-spending__header">
                     HOW IT WORKS:
                     </div>

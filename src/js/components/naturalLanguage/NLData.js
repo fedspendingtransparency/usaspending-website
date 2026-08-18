@@ -176,7 +176,7 @@ export const searchGovSpendingData = [
                 icon="question"
                 description={
                     <>
-                        Enter your <strong>question</strong> or select from <br/>
+                        Enter your <strong>question</strong> or select from{' '}
                         our <strong>templates</strong> in the Smart Assist panel.
                     </> 
                 }/>
@@ -191,7 +191,7 @@ export const searchGovSpendingData = [
                 icon="arrows-rotate"
                 description={
                     <>
-                        Let our model do it’s work to <br/>
+                        Let our model do it’s work to{' '}
                         generate your <strong>data.</strong>
                     </> 
                 }/>
@@ -206,8 +206,8 @@ export const searchGovSpendingData = [
                 icon="chart-column"
                 description={
                     <>
-                        Get downloadable <strong>federal award</strong><br />
-                        <strong>data</strong>relevant to your search!
+                        Get downloadable <strong>federal award</strong>{' '}
+                        <strong>data</strong> relevant to your search!
                     </> 
                 }/>
         )

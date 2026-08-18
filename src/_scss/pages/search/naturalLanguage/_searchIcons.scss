@@ -80,6 +80,7 @@
     @include label-styles;
     font-weight: $font-normal;
     color: $gray-60;
+    white-space: normal;
   }
 
   &--time-period {
@@ -115,10 +116,17 @@
 
   &--gov-spending {
     @include icon-variant($gray-90, none, $cyan-60v, rem(8), 0, 0, 0);
+
+    &.icon-row {
+      @media (max-width: $mobile-only) {
+        align-items: flex-start;
+      }
+    }
     
     .icon-label {
       font-size:  $h3-font-size;
       line-height: $heading-line-height;
+      white-space: normal;
     }
 
     .icon-container {
@@ -141,6 +149,7 @@
       font-size:  $font-size-16;
       line-height: $base-line-height;
       color: $gray-80;
+      white-space: normal;
     }
 
     .icon-label__with-description {
@@ -150,14 +159,13 @@
     }
 
     .icon-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border: rem(1) solid $gray-5;
       border-radius: rem(20); 
       width: rem(40);
       height: rem(40);
-
-      display: flex;
-      align-items: center;
-      justify-content: center;
 
       .icon {
         width: rem(20);
