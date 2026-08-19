@@ -10,3 +10,16 @@ export const performSpendingByGeographySearch = (params) => apiRequest({
     method: 'post',
     data: params
 });
+
+export const nlSearch = (params) => {
+
+    apiRequest({
+        url: 'v2/llm/filter-search/',
+        method: 'post',
+        data: params
+    });
+
+    apiRequest.headers = ({"X-LLM-API-Key":"eae262ce-9ff8-416c-8965-84fdbb9034bf"});
+
+    return apiRequest;
+};

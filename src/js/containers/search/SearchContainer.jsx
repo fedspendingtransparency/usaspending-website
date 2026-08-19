@@ -33,6 +33,7 @@ import {
 } from './helpers/searchAnalytics';
 import useRequestDownloadCount from "./useRequestDownloadCount";
 import { storeStructuresAreEqual } from '../../helpers/searchHelper';
+import { nlSearch } from "../../apis/search";
 
 require('pages/search/searchPage.scss');
 
@@ -126,6 +127,8 @@ const SearchContainer = () => {
         appliedFilters, urlHash, areAppliedFiltersEmpty, spendingLevel
     );
 
+    nlSearch
+
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
         prevAppliedFiltersRef.current = appliedFilters;
@@ -140,37 +143,42 @@ const SearchContainer = () => {
             urlHash &&
             areFiltersEqual(stagedFilters, initialState)
         );
+
+        request.current = nlSearch({query: "hello world"});
+
         if (shouldFetchRemoteFilters) {
             if (request.current) {
                 request.current.cancel();
             }
-            request.current = restoreUrlHash({
-                hash: urlHash
-            });
-            request.current.promise
-                .then((res) => {
-                    const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
-                    if (filtersInImmutableStructure) {
-                        // apply the filters to both the staged and applied stores
-                        dispatch(restoreHashedFilters(filtersInImmutableStructure));
-                        dispatch(setAppliedFilterEmptiness(false));
-                    }
-                    else {
-                        console.error('Error fetching filters from hash');
-                        // corrupt hash redirect to error page.
-                        navigate("/hash-error", { replace: true });
-                    }
-                    request.current = null;
-                })
-                .catch((err) => {
-                    if (!isCancel(err)) {
-                        console.error('Error fetching filters from hash: ', err);
-                        // remove hash since corresponding filter selections aren't retrievable.
-                        searchURLParams.delete("hash");
-                        setSearchURLParams(searchURLParams);
-                        request.current = null;
-                    }
-                });
+
+            request.current = nlSearch({query: "hello world"});
+            // request.current = restoreUrlHash({
+            //     hash: urlHash
+            // });
+            // request.current.promise
+            //     .then((res) => {
+            //         const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
+            //         if (filtersInImmutableStructure) {
+            //             // apply the filters to both the staged and applied stores
+            //             dispatch(restoreHashedFilters(filtersInImmutableStructure));
+            //             dispatch(setAppliedFilterEmptiness(false));
+            //         }
+            //         else {
+            //             console.error('Error fetching filters from hash');
+            //             // corrupt hash redirect to error page.
+            //             navigate("/hash-error", { replace: true });
+            //         }
+            //         request.current = null;
+            //     })
+            //     .catch((err) => {
+            //         if (!isCancel(err)) {
+            //             console.error('Error fetching filters from hash: ', err);
+            //             // remove hash since corresponding filter selections aren't retrievable.
+            //             searchURLParams.delete("hash");
+            //             setSearchURLParams(searchURLParams);
+            //             request.current = null;
+            //         }
+            //     });
         }
         else if (areFiltersSelected(appliedFilters) && areFiltersEmpty(stagedFilters)) {
             dispatch(restoreHashedFilters(appliedFilters));
