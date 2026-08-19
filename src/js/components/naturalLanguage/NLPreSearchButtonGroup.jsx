@@ -38,20 +38,24 @@ const NLPreSearchButtonGroup = () => {
     }
 
     return (
-        <section className="landing-pre-search__section">
+        <div className="landing-pre-search__section">
             <FlexGridRow className="landing-pre-search__row">
                 {getQuestions.map((btn) => (
                     <FlexGridCol 
                         key={`landing-pre-search-${btn.id}`} 
                         className="landing-pre-search__col"
-                        mobile={12}
-                        tablet={6}
-                        desktop={4}>
+                        desktopxl={4} 
+                        desktop={12} 
+                        tablet={12}
+                        mobile={12}>
                         <CardContainer 
                             variant="outline"
-                            size="sm"
                             onClick={() => btn.action(fireSearchEvent)}
-                            onKeyUp={() => btn.action(fireSearchEvent)}>
+                            onKeyUp={(e) => {
+                                if (e.key === 'Enter'){
+                                    btn.action(fireSearchEvent)
+                                } 
+                            }}>
                             <div className="pre-search-icon">
                                 <FontAwesomeIcon icon="filter-list" />
                             </div>
@@ -61,7 +65,7 @@ const NLPreSearchButtonGroup = () => {
                     </FlexGridCol>
                 ))}
             </FlexGridRow>
-        </section>
+        </div>
     )};
 
 export default NLPreSearchButtonGroup;
