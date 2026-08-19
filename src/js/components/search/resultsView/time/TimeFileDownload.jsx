@@ -39,7 +39,6 @@ const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
         return 'month';
     };
 
-    console.log({ today })
     const renderDownloadLink = () => (
         <a
             href={URL.createObjectURL(downloadBlob())}
