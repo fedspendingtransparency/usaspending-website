@@ -12,7 +12,7 @@ import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
 import NLSidebarButtons from "./NLSidebarButtons";
 import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
-import { FILTERS } from './SidebarConstants';
+import { FILTERS, NATURAL_LANGUAGE } from './SidebarConstants';
 
 const propTypes = {
     setShowMobileFilters: PropTypes.func
@@ -74,10 +74,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                             <SidebarContent />
                         </div>  
                     }
-                    { sidebarIsOpen && showMobileFilters &&
+                    { showMobileFilters &&
                         <div className="collapsible-sidebar-header">
                             <div className="sidebar-title-row">
-                                <h2 className="sidebar-title">{mobileSidebarContent === "natural language" ? "AI Search" : "Filter"}</h2>
+                                <h2 className="sidebar-title">{mobileSidebarContent === NATURAL_LANGUAGE ? "AI Search" : "Filter"}</h2>
                                 <div
                                     onClick={() => {
                                         setShowMobileFilters(false);
@@ -93,10 +93,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                                 </div>
                                 
                             </div>
-                            {mobileSidebarContent === 'filters' &&
+                            {mobileSidebarContent === FILTERS &&
                                 <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
                             }
-                            {mobileSidebarContent === 'natural language' &&
+                            {mobileSidebarContent === NATURAL_LANGUAGE &&
                
                                  <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
                 
@@ -113,7 +113,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     } ${
                         showMobileFilters ? "mobile" : ""}`
                     }>
-                    { sidebarIsOpen && 
+                    { sidebarIsOpen && !showMobileFilters &&
                         <div className="collapsible-sidebar-header">
                             <div className="sidebar-title-row">
                                 <h2 className="sidebar-title">AI Search</h2>
@@ -135,7 +135,38 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                             <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
                         </div>
                     }
+                    { showMobileFilters &&
+                        <div className="collapsible-sidebar-header">
+                            <div className="sidebar-title-row">
+                                <h2 className="sidebar-title">{mobileSidebarContent === NATURAL_LANGUAGE ? "AI Search" : "Filter"}</h2>
+                                <div
+                                    onClick={() => {
+                                        setShowMobileFilters(false);
+                                    }}
+                                    onKeyDown={() => {
+                                        setShowMobileFilters(false);
+                                    }}
+                                    role="button"
+                                    className="sidebar-close"
+                                    aria-label={sidebarIsOpen ? "Close" : "Open"}
+                                    tabIndex={0}>
+                                    <FontAwesomeIcon className="close" icon="close" />
+                                </div>
+                                
+                            </div>
+                            {mobileSidebarContent === FILTERS &&
+                                <>
+                                    <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
+                                    <MobileSidebarContent setShowMobileFilters={setShowMobileFilters} mobileSidebarContent={mobileSidebarContent} />
+                                </>
+                            }
+                            { mobileSidebarContent === NATURAL_LANGUAGE &&
 
+                                 <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
+                
+                            }
+                        </div>
+                    }
                 </div>
             }
         </>

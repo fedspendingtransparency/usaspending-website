@@ -45,7 +45,7 @@
       width: 100%;
     }
 
-    @media (max-width: calc($m-large-screen - 1px)) {
+    @media (max-width: calc($medium-screen - 1px)) {
       &.mobile {
         flex: 0 0 100%;
         width: 100%;
@@ -64,6 +64,12 @@
         width: 352px;
       }
     }
+
+    @media (max-width: $m-large-screen) {
+      &:not(.mobile) {
+        display: none;
+      }
+    }
   }
 
   &:not(.opened) {
@@ -78,8 +84,6 @@
     left: 0;
     width: 100%;
   }
-
-
 
   .sidebar-top-submit {
     width: 100%;
@@ -122,7 +126,6 @@
       }
 
     }
-
 
     .fa-filter {
       color: $blue-60v;
@@ -395,7 +398,7 @@
       }
     }
 
-    @media (max-width: calc($m-large-screen - 1px)) {
+    @media (max-width: $m-large-screen) {
       display: none;
     }
   }

@@ -13,7 +13,8 @@ import SidebarContentFilters from "./SidebarContentFilters";
 const propTypes = {
     sidebarContentHeight: PropTypes.number,
     setShowMobileFilters: PropTypes.func,
-    showMobileFilters: PropTypes.bool
+    showMobileFilters: PropTypes.bool,
+    mobileSidebarContent: PropTypes.string
 };
 
 const MobileSidebarContent = ({
@@ -24,6 +25,7 @@ const MobileSidebarContent = ({
 }) => {
     const colClassName = `mobile-search-sidebar-v2 ${showMobileFilters ? 'sidebar-opened' : ''}`;
     const className = "collapsible-sidebar--main-menu search-filters-wrapper opened";
+
     return (
         <>
             { mobileSidebarContent === "filters" && 
