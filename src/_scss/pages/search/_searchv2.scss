@@ -19,5 +19,69 @@
         border-left: 1px solid $gray-cool-10;
       }
     }
+
+    .search-results-landing {
+
+      @media (min-width: $medium-screen) {
+        padding-left: $global-padding * 8;
+        // design wants 74 but main-content already has 32 
+        padding-right: rem(42);
+      }
+
+      .landing-title {
+        margin-top: rem(40);
+        margin-bottom: $global-margin;
+        font-family: $font-sans-3;
+        font-weight: $font-semibold;
+        color: $theme-color-headline;
+      }
+      
+      .landing-subTitle {
+        font-family: $font-sans-3;
+        margin: 0;
+        margin-bottom: rem(18);
+      }
+
+      .landing-pre-search__col {
+        display: inline-flex;
+        align-items: center;
+        gap: rem(14);
+                
+        .card-container {
+          display: flex;
+          width: rem(330);
+          padding: $global-padding * 2;
+          flex-direction: row;
+          align-items: flex-start;
+          gap: rem(10);
+          border: rem(1) solid $gray-10;
+          background: $cyan-5v;   
+          
+          .pre-search-icon {
+            display: flex;
+            align-items: flex-start;
+            gap: rem(8);
+            align-self: stretch;
+
+            svg {
+              width: rem(24);
+              height: rem(24);
+              color: $cyan-60v;
+            }
+          }
+          
+          .pre-search-text {
+            flex: 1 0 0;
+            color: $gray-90;
+            font-family: $font-sans-3;
+            font-size: $base-font-size;
+
+            span {
+              font-weight: $font-semibold;
+            }
+          }
+        }
+      }
+    }
   }
 }
