@@ -45,7 +45,7 @@
       width: 100%;
     }
 
-    @media (max-width: calc($medium-screen - 1px)) {
+    @media (max-width: $medium-screen - 1) {
       &.mobile {
         flex: 0 0 100%;
         width: 100%;
