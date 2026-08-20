@@ -28,26 +28,28 @@ const NLSearchSuggestions = () => {
         <>
             <section className="search-suggestions__section"> 
                 <FlexGridRow className="search-suggestions__row">
-                    <div className="search-suggestions__title">
-                            Learn how to build your USAspending search
-                    </div>
-                    <div className="search-suggestions__link">
-                        <Button
-                            copy="Watch training videos"
-                            onClick={handleWatchVideosClick}
-                            buttonTitle="Watch training videos"
-                            buttonSize="md"
-                            buttonType="text"
-                            backgroundColor="light"
-                            textAlignment="left"
-                            imageAlignment="right"
-                            image={
-                                <div className="button-icon-container">
-                                    <FontAwesomeIcon 
-                                        className="button-icon"
-                                        icon="arrow-up-right"/>
-                                </div>}/>
-                    </div>
+                    <FlexGridRow className="search-suggestions__title-row">
+                        <FlexGridCol mobile={12} tablet={12} desktop={8} className="search-suggestions__title">
+                                Learn how to build your USAspending search
+                        </FlexGridCol>
+                        <FlexGridCol mobile={12} tablet={12} desktop={4} className="search-suggestions__link">
+                            <Button
+                                copy="Watch training videos"
+                                onClick={handleWatchVideosClick}
+                                buttonTitle="Watch training videos"
+                                buttonSize="md"
+                                buttonType="text"
+                                backgroundColor="light"
+                                textAlignment="left"
+                                imageAlignment="right"
+                                image={
+                                    <div className="button-icon-container">
+                                        <FontAwesomeIcon 
+                                            className="button-icon"
+                                            icon="arrow-up-right"/>
+                                    </div>}/>
+                        </FlexGridCol>
+                    </FlexGridRow>
                     <FlexGridRow className="search-suggestions__card-row">
                         {searchCardData.map((card) => (
                             <FlexGridCol 
