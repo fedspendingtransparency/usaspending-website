@@ -1,8 +1,11 @@
 .search-gov-spending__section {
   padding: $global-spacing-unit * 5;
   border-radius: rem(12);
-  border: rem(1) solid $cyan-20v;
-  background: $cyan-vivid-40;
+  border: rem(1) solid transparent;
+  background: 
+    linear-gradient($cyan-light, $cyan-light) padding-box,
+    linear-gradient(92deg, $cyan-20v 0%, $cyan-medium 50%, $cyan-50v 100%)
+      border-box;
   margin-top: $global-spacing-unit * 5;
   overflow: hidden;
 
