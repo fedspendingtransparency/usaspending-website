@@ -4,6 +4,7 @@
  */
 
 import { apiRequest } from '../helpers/apiRequest';
+import GlobalConstants from "GlobalConstants";
 
 export const performSpendingByGeographySearch = (params) => apiRequest({
     url: 'v2/search/spending_by_geography/',
@@ -12,14 +13,13 @@ export const performSpendingByGeographySearch = (params) => apiRequest({
 });
 
 export const nlSearch = (params) => {
-
     apiRequest({
         url: 'v2/llm/filter-search/',
         method: 'post',
-        data: params
+        data: params,
+        headers: GlobalConstants.LLM_HEADER
     });
 
-    apiRequest.headers = ({"X-LLM-API-Key":"eae262ce-9ff8-416c-8965-84fdbb9034bf"});
 
     return apiRequest;
 };
