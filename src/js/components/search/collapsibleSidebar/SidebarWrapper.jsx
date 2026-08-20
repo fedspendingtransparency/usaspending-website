@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, {useEffect}  from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
@@ -12,28 +12,33 @@ import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
 import NLSidebarButtons from "./NLSidebarButtons";
 import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
-import { FILTERS, NATURAL_LANGUAGE } from './SidebarConstants';
+import { FILTERS} from './SidebarConstants';
 
 const propTypes = {
-    setShowMobileFilters: PropTypes.func
+    showMobileFilters: PropTypes.bool,
+    setShowMobileFilters: PropTypes.func,
+    mobileSidebarContent: PropTypes.string,
+    sidebarIsOpen: PropTypes.bool,
+    setSidebarIsOpen: PropTypes.func
+    
 };
 
 // eslint-disable-next-line prefer-arrow-callback
 const SidebarWrapper = React.memo(function SidebarWrapper({
-    showMobileFilters, setShowMobileFilters, mobileSidebarContent, sidebarIsOpen, setSidebarIsOpen
+    showMobileFilters, 
+    setShowMobileFilters, 
+    mobileSidebarContent, 
+    sidebarIsOpen, 
+    setSidebarIsOpen
 }) {
     const { isMedium } = useIsMobile();
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
 
-    const isFilters = sidebarContent === FILTERS;
+    const isDesktopFilters = sidebarContent === FILTERS;
+    const isMobileFilters = mobileSidebarContent === FILTERS;
+    const isSidebarVisible = isMedium ? showMobileFilters : sidebarIsOpen;
 
-    // useEffect(() => {
-    //     console.log({sidebarContent})
-    // });
-
-    const shouldShowSidebar = isMedium ? showMobileFilters : sidebarIsOpen;
-
-    console.log({isFilters, shouldShowSidebar, isMedium, sidebarContent, showMobileFilters});
+    console.log({isDesktopFilters, isSidebarVisible, isMedium, sidebarContent, showMobileFilters});
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -44,7 +49,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         if (isMedium) {
             setShowMobileFilters(false);
         } else {
-            setSidebarIsOpen(false)
+            setSidebarIsOpen(false);
         }
     }
 
@@ -54,38 +59,85 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
     };
 
-    const renderSidebarContent = () => {
-        if (isFilters) {
-            return (
+    const renderDesktopSidebar = () => (
+        <div className="collapsible-sidebar-header">
+            <div className="sidebar-title-row">
+                <h2 className="sidebar-title">
+                    {isDesktopFilters ? 'Filter' : 'AI Search'}
+                </h2>
+                <div
+                    onClick={toggleOpened}
+                    onKeyDown={(e) => {
+                        keyHandler(e, toggleOpened);
+                    }}
+                    role="button"
+                    className="sidebar-close"
+                    aria-label="Close"
+                    tabIndex={0}>
+                    <FontAwesomeIcon className="close" icon="close" />
+                </div>    
+            </div>
+
+            { isDesktopFilters ? (
                 <>
                     <div className="link">
                         <AboutTheDataLink slug="data-elements">
-                        Learn more about filters
+                                Learn more about filters
                         </AboutTheDataLink>
                     </div>
-
-                    {isMedium ? (
-                        <MobileSidebarContent 
-                            setShowMobileFilters={setShowMobileFilters} 
-                            mobileSidebarContent={mobileSidebarContent} />  
-                    ): (
-                        <SidebarContent />  
-                    )
-
-                    }
+                    <SidebarContent />
                 </>
-            );
-        }
-        
-        return (
-            <p className="sidebar-text">
-                This is placeholder text and will eventually be an intro 
-                that is succinct but very helpful. Learn more about AI Search 
-                on USAspending.
-            </p>
-        );
-    }
+            ): (
+                <p className="sidebar-text">
+                    This is placeholder text and will eventually be an intro 
+                    that is succinct but very helpful. Learn more about AI Search 
+                    on USAspending.
+                </p>
+            )}   
+        </div>    
+    );
 
+    const renderMobileSidebar = () => (
+        <div className="collapsible-sidebar-header">
+            <div className="sidebar-title-row">
+                <h2 className="sidebar-title">
+                    {isMobileFilters ? 'Filter' : 'AI Search'}
+                </h2>
+                <div
+                    onClick={closeSidebar}
+                    onKeyDown={(e) => {
+                        keyHandler(e, closeSidebar);
+                    }}
+                    role="button"
+                    className="sidebar-close"
+                    aria-label="Close"
+                    tabIndex={0}>
+                    <FontAwesomeIcon className="close" icon="close" />
+                </div>    
+            </div>
+
+            { isMobileFilters ? (
+                <>
+                    <div className="link">
+                        <AboutTheDataLink slug="data-elements">
+                                Learn more about filters
+                        </AboutTheDataLink>
+                    </div>
+                    <MobileSidebarContent 
+                        setShowMobileFilters={setShowMobileFilters} 
+                        mobileSidebarContent={mobileSidebarContent} 
+                        showMobileFilters={showMobileFilters}/>  
+                </>
+            ): (
+                <p className="sidebar-text">
+                    This is placeholder text and will eventually be an intro 
+                    that is succinct but very helpful. Learn more about AI Search 
+                    on USAspending.
+                </p>
+            )}
+        </div>
+    );
+    
     return (
         <>
             <NLSidebarButtons
@@ -95,37 +147,19 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 isMedium={isMedium} 
                 setShowMobileFilters={setShowMobileFilters}/>
             {/* Eventually remove search-sidebar css */}
-
             <div
                 className={`search-collapsible-sidebar-container search-sidebar sticky ${
                     sidebarIsOpen ? "opened" : ""
                 } ${
                     showMobileFilters ? "mobile" : ""}`
                 }>
-                { shouldShowSidebar && ( 
-                    <div className="collapsible-sidebar-header">
-                        <div className="sidebar-title-row">
-                            <h2 className="sidebar-title">
-                                {isFilters ? 'Filter' : 'AI Search'}
-                            </h2>
-                            <div
-                                onClick={closeSidebar}
-                                onKeyDown={(e) => {
-                                    keyHandler(e, closeSidebar);
-                                }}
-                                role="button"
-                                className="sidebar-close"
-                                aria-label="Close"
-                                tabIndex={0}>
-                                <FontAwesomeIcon className="close" icon="close" />
-                            </div>    
-                        </div>
-                        { renderSidebarContent() }
-                    </div>  
-                )}
-            </div>
-        </>
                 
+                { isMedium 
+                    ? showMobileFilters && renderMobileSidebar()
+                    : sidebarIsOpen && renderDesktopSidebar()
+                }
+            </div>
+        </>          
     );
 });
 

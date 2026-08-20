@@ -1,5 +1,5 @@
 /**
- * NLBadge.jsx
+ * NLSidebarButtons.jsx
  * Created by Josue Aguilar
  * on June 12th, 2026
  **/
