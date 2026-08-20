@@ -45,9 +45,14 @@
       }
 
       .landing-pre-search__row {
-        gap: rem(20);
+        gap: rem(14);
+        @media (min-width: $tablet-screen) {
+          gap: rem(20);
+        }
         @media (min-width: $medium-screen) {
           flex-wrap: nowrap;
+        }
+        @media (min-width: $m-large-screen) {
           gap: rem(14);
         }
 
