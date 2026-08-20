@@ -2,12 +2,12 @@
 
 .search-suggestions__section {
   display: inline-flex;
-  padding: $global-spacing-unit * 2;
+  padding: rem(20);
   align-items: flex-start;
   align-self: stretch;
   border-radius: rem(8);
   border: rem(1) solid $gray-10;
-  margin-top: $global-spacing-unit * 5;
+  margin-top: $global-margin * 3;
 
   .search-suggestions__title-row {
     display: flex;
@@ -111,6 +111,7 @@
   }
 
   @media (min-width: $m-large-screen) {
-    padding: $global-spacing-unit * 2;
+    padding: rem(40);
+    margin-top: $global-margin * 5;
   }
 }
