@@ -32,12 +32,11 @@ export const searchCardData = [
                 key={`time-period-${id}`}  
                 variant="time-period" 
                 label="Time Period"
-                labelVariant="search-suggestions" 
                 icon="calendar"/>,
             <NLSearchSuggestionsIcon 
-                key={`location-${id}`} variant="location" 
+                key={`location-${id}`} 
+                variant="location" 
                 label="Location"
-                labelVariant="search-suggestions"  
                 icon="location-dot"/> 
         ]
     },
@@ -55,12 +54,10 @@ export const searchCardData = [
                 key={`keyword-${id}`}  
                 variant="keyword" 
                 label="Keyword"
-                labelVariant="search-suggestions"  
                 icon="search" />,
             <NLSearchSuggestionsIcon 
                 key={`recipient-${id}`} variant="recipient" 
                 label="Recipient"
-                labelVariant="search-suggestions"  
                 icon="user" /> 
         ]
     },
@@ -78,16 +75,15 @@ export const searchCardData = [
                 key={`award-type-${id}`}  
                 variant="award-type" 
                 label="Award Type"
-                labelVariant="search-suggestions"  
                 icon="file-certificate" />,
             <NLSearchSuggestionsIcon 
-                key={`award-description-${id}`} variant="award-description" 
+                key={`award-description-${id}`} 
+                variant="award-description" 
                 label="Award Description"
-                labelVariant="search-suggestions" 
                 icon="building" /> 
         ]
     }
-]
+];
 
 export const moreResourcesBtnData = [
     {
@@ -165,5 +161,55 @@ export const moreResourcesBtnData = [
                 label="Federal Spending Guide" 
                 icon="money-check-dollar"/>
         ) 
+    }
+];
+
+
+
+export const searchGovSpendingData = [
+    {
+        id: id + 1,
+        icon: (
+            <NLSearchSuggestionsIcon
+                variant="ask-questions"
+                label="Ask questions"
+                icon="question"
+                description={
+                    <>
+                        Enter your <strong>question</strong> or select from{' '}
+                        our <strong>templates</strong> in the Smart Assist panel.
+                    </> 
+                }/>
+        )
+    },
+    {
+        id: id + 2,
+        icon: (
+            <NLSearchSuggestionsIcon
+                variant="analyzing-response"
+                label="Analyzing Response"
+                icon="arrows-rotate"
+                description={
+                    <>
+                        Let our model do it’s work to{' '}
+                        generate your <strong>data.</strong>
+                    </> 
+                }/>
+        )
+    },
+    {
+        id: id + 3,
+        icon: (
+            <NLSearchSuggestionsIcon
+                variant="get-the-data"
+                label="Get the Data"
+                icon="chart-column"
+                description={
+                    <>
+                        Get downloadable <strong>federal award</strong>{' '}
+                        <strong>data</strong> relevant to your search!
+                    </> 
+                }/>
+        )
     }
 ]
