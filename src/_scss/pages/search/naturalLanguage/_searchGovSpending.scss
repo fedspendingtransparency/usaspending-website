@@ -1,90 +1,90 @@
 .search-gov-spending__section {
-    padding: $global-spacing-unit * 5;
-    border-radius: rem(12);
-    border: rem(1) solid $cyan-20v;
-    background: $cyan-vivid-40;
-    margin-top: $global-spacing-unit * 5;
-    overflow: hidden;
+  padding: $global-spacing-unit * 5;
+  border-radius: rem(12);
+  border: rem(1) solid $cyan-20v;
+  background: $cyan-vivid-40;
+  margin-top: $global-spacing-unit * 5;
+  overflow: hidden;
 
-    .search-gov-spending__row {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
+  .search-gov-spending__row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .search-gov-spending__label-icon-container {
+    display: flex;
+    align-items: flex-start;
+
+    @media (max-width: $mobile-only) {
+      margin-bottom: rem(8);
+    }
+  }
+
+  .search-gov-spending__link {
+    @include link-styles;
+    display: flex;
+    align-items: flex-start;
+
+    button {
+      margin: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .button-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(24);
+    height: rem(24);
+    border-radius: rem(4);
+    background: $color-white;
+
+    &:hover {
+      background: $blue-70v;
+      color: $color-white;
     }
 
-    .search-gov-spending__label-icon-container {
-        display: flex;
-        align-items: flex-start;
+    .button-icon {
+      @include icon-styles;
+    }
+  }
 
-        @media (max-width: $mobile-only) {
-            margin-bottom: rem(8);
-        }
+  .search-gov-spending__container {
+    display: flex;
+    flex-direction: column;
+
+    .search-gov-spending__header {
+      @include label-styles;
+      color: $gray-60;
+      margin-top: rem(24);
     }
 
-    .search-gov-spending__link {
-        @include link-styles;
-        display: flex;
-        align-items: flex-start;
+    .search-gov-spending__card-row {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: rem(52);
 
-        button {
-            margin: 0;
-            padding-top: 0;
-            padding-bottom: 0;
-        }
-    }
+      @media (max-width: $medium-screen) {
+        gap: rem(24);
+      }
 
-    .button-icon-container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: rem(24);
-        height: rem(24);
-        border-radius: rem(4);
-        background: $color-white;
+      @media (max-width: $tablet-screen) {
+        gap: rem(16);
+      }
 
-        &:hover {
-        background: $blue-70v;
-        color: $color-white;
-        }
-
-        .button-icon {
-            @include icon-styles;
-        }
-    }
-
-    .search-gov-spending__container {
-        display: flex;
+      @media (max-width: $mobile-only) {
         flex-direction: column;
+        gap: rem(16);
+      }
 
-        .search-gov-spending__header {
-            @include label-styles;
-            color: $gray-60;
-            margin-top: rem(24);
+      .search-gov-spending__card {
+        .card-body {
+          padding: rem(16) 0 0 0;
         }
-
-        .search-gov-spending__card-row {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: rem(52);
-
-            @media(max-width: $medium-screen) {
-                gap: rem(24);
-            }
-
-            @media (max-width: $tablet-screen) {
-                gap: rem(16);
-            }
-
-            @media (max-width: $mobile-only) {
-                flex-direction: column;
-                gap: rem(16);
-            }
-    
-            .search-gov-spending__card{
-                .card-body {
-                    padding: rem(16) 0 0 0;
-                }
-            }
-        }
-    } 
+      }
+    }
+  }
 }

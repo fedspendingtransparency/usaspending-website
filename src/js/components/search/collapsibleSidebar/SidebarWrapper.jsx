@@ -141,8 +141,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         </div>
     );
     
-
-
     return (
         <>
             <NLSidebarButtons
