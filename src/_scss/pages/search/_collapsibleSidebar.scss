@@ -54,7 +54,6 @@
       &:not(.mobile) {
         flex: 0;
         width: 0;
-        // display: none;
       }
     }
 
@@ -64,12 +63,6 @@
         width: 352px;
       }
     }
-
-    // @media (max-width: $m-large-screen) {
-    //   &:not(.mobile) {
-    //     display: none;
-    //   }
-    // }
   }
 
   &:not(.opened) {
@@ -79,11 +72,6 @@
       display: none;
     }
   }
-
-  // @media (max-width: $medium-screen - 1) {
-  //   left: 0;
-  //   width: 100%;
-  // }
 
   .sidebar-top-submit {
     width: 100%;
@@ -397,10 +385,6 @@
         line-height: 1.5;
       }
     }
-
-    // @media (max-width: $m-large-screen) {
-    //   display: none;
-    // }
   }
 }
 
