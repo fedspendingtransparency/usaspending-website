@@ -136,7 +136,7 @@
     }
 
     .sidebar-text{
-      font-weight: 400;
+      font-weight: $font-normal;
       font-size: rem(14);
       padding: 0 rem(24);
 
@@ -145,6 +145,107 @@
       }
     }
 
+    .sidebar-body-row {
+      padding: 0 rem(16);
+      @media (min-width: $medium-screen) {
+        padding: 0 rem(24);
+      }
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      .sidebar-example {
+        color: $gray-60;
+        font-size: $font-size-12;
+        text-transform: uppercase;
+        line-height: 150%;
+        font-weight: $font-semibold;
+        width: 100%;
+      }
+      .sidebar-default-hint {
+        text-align: left;
+        margin: 0;
+        padding: rem(8);
+        margin-bottom: rem(8);
+        background-color: $color-white;
+        border: 1px solid transparent;
+        border-radius: rem(4);
+        background:
+          linear-gradient($color-white, $color-white) padding-box,
+          linear-gradient(92deg, #A8F2FF 0%, #4EB6CD 50.48%, #00687D 100%) border-box;
+        p {
+          margin: 0;
+          font-size: $font-size-14;
+          line-height: 150%;
+          color: $gray-90;
+          font-weight: $font-normal;
+          .hint-user-replace {
+            pointer-events: none;
+            font-weight: $font-semibold;
+            color: $blue-60v;
+          }
+        }
+        &:first-of-type {
+          margin-top: rem(4);
+        }
+        &:last-of-type {
+          margin-bottom: rem(24);
+        }
+        &:hover, &:active {
+          p {
+            color: $color-white;
+            .hint-user-replace {
+              pointer-events: none;
+              color: $color-white;
+            }
+          }
+        }
+        &:hover {
+          background: $cyan-50v;
+        }
+        &:active {
+          background: $cyan-60v;
+        }
+      }
+      .sidebar-textarea {
+        width: 100%;
+        resize: none;
+        font-weight: $font-normal;
+        padding: rem(8) rem(12);
+        border-radius: rem(4);
+        border: 1px solid $gray-60;
+      }
+      .textarea-char-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: rem(12);
+        align-items: center;
+        margin-top: rem(4);
+        .textarea-reset {
+          margin: 0;
+          background: $color-white;
+          padding: 0;
+          color: $blue-60v;
+          font-weight: $font-normal;
+          visibility: visible;
+        }
+
+        .text-area-reset-hidden {
+          visibility: hidden;
+        }
+
+        .textarea-char-count {
+          font-weight: $font-normal;
+        }
+      }
+      .sidebar-ai-blurb {
+        color: $gray-90;
+        font-size: $font-size-12;
+        font-weight: $font-normal;
+        line-height: 150%;
+        display:inline-block;
+        margin-top: rem(12);
+      }
+    }
     .collapsible-sidebar-group {
       display: flex;
       align-items: center;
@@ -372,6 +473,19 @@
       svg {
         min-width: rem(24);
         min-height: rem(24);
+      }
+
+      &__badge {
+        color: $gray-90;
+        background-color: $yellow-20v;
+        border: rem(1) solid $yellow-10v;
+        border-radius: rem(10);
+        position: absolute;
+        right: rem(2);
+        top: rem(4);
+        padding: 0 $global-padding;
+        font-size: $smallest-font-size;
+        line-height: 1.5;
       }
     }
   }

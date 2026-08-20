@@ -89,7 +89,7 @@ const MobileFilterButton = ({
                         <img src={showMobileFilters && mobileSidebarContent === "natural language"  ? AIWhiteIcon : AICyanIcon} alt="AI Search Icon" className={`mobile-filter-button-icon__svg ${showMobileFilters && 'opened'}`} />
                     </div>
                     <div className="mobile-filter-button-label">
-                        AI Search
+                        Smart Assist
                     </div>
                 </div>
             </button>
