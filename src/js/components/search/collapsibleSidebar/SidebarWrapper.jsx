@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React  from 'react';
+import React, {useEffect}  from 'react';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
@@ -23,12 +23,30 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     showMobileFilters, setShowMobileFilters, mobileSidebarContent, sidebarIsOpen, setSidebarIsOpen
 }) {
     const { isMedium } = useIsMobile();
-    const sidebarContent = useSelector((state) => state.sidebar.sidebarContent)
+    const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
+
+    const isFilters = sidebarContent === FILTERS;
+
+    // useEffect(() => {
+    //     console.log({sidebarContent})
+    // });
+
+    const shouldShowSidebar = isMedium ? showMobileFilters : sidebarIsOpen;
+
+    console.log({isFilters, shouldShowSidebar, isMedium, sidebarContent, showMobileFilters});
 
     const toggleOpened = (e) => {
         e.preventDefault();
         setSidebarIsOpen((prevState) => !prevState);
     };
+
+    const closeSidebar = () => {
+        if (isMedium) {
+            setShowMobileFilters(false);
+        } else {
+            setSidebarIsOpen(false)
+        }
+    }
 
     const keyHandler = (e, func) => {
         if (e.key === "Enter") {
@@ -36,140 +54,78 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
     };
 
+    const renderSidebarContent = () => {
+        if (isFilters) {
+            return (
+                <>
+                    <div className="link">
+                        <AboutTheDataLink slug="data-elements">
+                        Learn more about filters
+                        </AboutTheDataLink>
+                    </div>
+
+                    {isMedium ? (
+                        <MobileSidebarContent 
+                            setShowMobileFilters={setShowMobileFilters} 
+                            mobileSidebarContent={mobileSidebarContent} />  
+                    ): (
+                        <SidebarContent />  
+                    )
+
+                    }
+                </>
+            );
+        }
+        
+        return (
+            <p className="sidebar-text">
+                This is placeholder text and will eventually be an intro 
+                that is succinct but very helpful. Learn more about AI Search 
+                on USAspending.
+            </p>
+        );
+    }
+
     return (
         <>
             <NLSidebarButtons
                 sidebarContent={sidebarContent}
                 setSidebarIsOpen={toggleOpened}
                 sidebarIsOpen={sidebarIsOpen}
-                isMedium={isMedium} />
+                isMedium={isMedium} 
+                setShowMobileFilters={setShowMobileFilters}/>
             {/* Eventually remove search-sidebar css */}
-            { sidebarContent === FILTERS ?
-                <div
-                    className={`search-collapsible-sidebar-container search-sidebar sticky ${
-                        sidebarIsOpen ? "opened" : ""
-                    } ${
-                        showMobileFilters ? "mobile" : ""}`
-                    }>
-                    { sidebarIsOpen && !isMedium &&  
-                        <div className="collapsible-sidebar-header">
-                            <div className="sidebar-title-row">
-                                <h2 className="sidebar-title">Filter</h2>
-                                <div
-                                    onClick={(e) => {
-                                        toggleOpened(e);
-                                    }}
-                                    onKeyDown={(e) => {
-                                        keyHandler(e, toggleOpened);
-                                    }}
-                                    role="button"
-                                    className="sidebar-close"
-                                    aria-label={sidebarIsOpen ? "Close" : "Open"}
-                                    tabIndex={0}>
-                                    <FontAwesomeIcon className="close" icon="close" />
-                                </div>
-                                
-                            </div>
-                            <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
-                            <SidebarContent />
-                        </div>  
-                    }
-                    { showMobileFilters &&
-                        <div className="collapsible-sidebar-header">
-                            <div className="sidebar-title-row">
-                                <h2 className="sidebar-title">{mobileSidebarContent === NATURAL_LANGUAGE ? "AI Search" : "Filter"}</h2>
-                                <div
-                                    onClick={() => {
-                                        setShowMobileFilters(false);
-                                    }}
-                                    onKeyDown={() => {
-                                        setShowMobileFilters(false);
-                                    }}
-                                    role="button"
-                                    className="sidebar-close"
-                                    aria-label={sidebarIsOpen ? "Close" : "Open"}
-                                    tabIndex={0}>
-                                    <FontAwesomeIcon className="close" icon="close" />
-                                </div>
-                                
-                            </div>
-                            {mobileSidebarContent === FILTERS &&
-                                <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
-                            }
-                            {mobileSidebarContent === NATURAL_LANGUAGE &&
-               
-                                 <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
-                
-                            }
 
-                            <MobileSidebarContent setShowMobileFilters={setShowMobileFilters} mobileSidebarContent={mobileSidebarContent} />
+            <div
+                className={`search-collapsible-sidebar-container search-sidebar sticky ${
+                    sidebarIsOpen ? "opened" : ""
+                } ${
+                    showMobileFilters ? "mobile" : ""}`
+                }>
+                { shouldShowSidebar && ( 
+                    <div className="collapsible-sidebar-header">
+                        <div className="sidebar-title-row">
+                            <h2 className="sidebar-title">
+                                {isFilters ? 'Filter' : 'AI Search'}
+                            </h2>
+                            <div
+                                onClick={closeSidebar}
+                                onKeyDown={(e) => {
+                                    keyHandler(e, closeSidebar);
+                                }}
+                                role="button"
+                                className="sidebar-close"
+                                aria-label="Close"
+                                tabIndex={0}>
+                                <FontAwesomeIcon className="close" icon="close" />
+                            </div>    
                         </div>
-                    }
-                </div>
-                :
-                <div
-                    className={`search-collapsible-sidebar-container search-sidebar sticky ${
-                        sidebarIsOpen ? "opened" : ""
-                    } ${
-                        showMobileFilters ? "mobile" : ""}`
-                    }>
-                    { sidebarIsOpen && !showMobileFilters &&
-                        <div className="collapsible-sidebar-header">
-                            <div className="sidebar-title-row">
-                                <h2 className="sidebar-title">AI Search</h2>
-                                <div
-                                    onClick={(e) => {
-                                        toggleOpened(e);
-                                    }}
-                                    onKeyDown={(e) => {
-                                        keyHandler(e, toggleOpened);
-                                    }}
-                                    role="button"
-                                    className="sidebar-close"
-                                    aria-label={sidebarIsOpen ? "Close" : "Open"}
-                                    tabIndex={0}>
-                                    <FontAwesomeIcon className="close" icon="close" />
-                                </div>
-                                
-                            </div>
-                            <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
-                        </div>
-                    }
-                    { showMobileFilters &&
-                        <div className="collapsible-sidebar-header">
-                            <div className="sidebar-title-row">
-                                <h2 className="sidebar-title">{mobileSidebarContent === NATURAL_LANGUAGE ? "AI Search" : "Filter"}</h2>
-                                <div
-                                    onClick={() => {
-                                        setShowMobileFilters(false);
-                                    }}
-                                    onKeyDown={() => {
-                                        setShowMobileFilters(false);
-                                    }}
-                                    role="button"
-                                    className="sidebar-close"
-                                    aria-label={sidebarIsOpen ? "Close" : "Open"}
-                                    tabIndex={0}>
-                                    <FontAwesomeIcon className="close" icon="close" />
-                                </div>
-                                
-                            </div>
-                            {mobileSidebarContent === FILTERS &&
-                                <>
-                                    <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
-                                    <MobileSidebarContent setShowMobileFilters={setShowMobileFilters} mobileSidebarContent={mobileSidebarContent} />
-                                </>
-                            }
-                            { mobileSidebarContent === NATURAL_LANGUAGE &&
-
-                                 <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
-                
-                            }
-                        </div>
-                    }
-                </div>
-            }
+                        { renderSidebarContent() }
+                    </div>  
+                )}
+            </div>
         </>
+                
     );
 });
 
