@@ -19,5 +19,93 @@
         border-left: 1px solid $gray-cool-10;
       }
     }
+
+    .search-results-landing {
+      margin: 0 auto;
+      width: 100%;
+      min-width: 0;
+      padding: 0 $global-padding * 4;
+      
+      @media (max-width: $medium-screen - 1) {
+        padding: 0 $global-padding * 2;
+      }
+
+      .landing-title {
+        margin-top: rem(40);
+        margin-bottom: $global-margin;
+        font-family: $font-sans-3;
+        font-weight: $font-semibold;
+        color: $theme-color-headline;
+      }
+      
+      .landing-subTitle {
+        font-family: $font-sans-3;
+        margin: 0;
+        margin-bottom: rem(18);
+      }
+
+      .landing-pre-search__row {
+        gap: rem(20);
+        @media (min-width: $medium-screen) {
+          flex-wrap: nowrap;
+          gap: rem(14);
+        }
+        
+        .landing-pre-search__col {
+          display: inline-flex;
+          align-items: center;
+               
+          .card-container {
+            display: flex;
+            padding: $global-padding * 2;
+            flex-direction: row;
+            align-items: flex-start;
+            gap: rem(10);
+            border: rem(1) solid $gray-10;
+            background: $cyan-5v-40;   
+            
+            &:hover {
+              cursor: pointer;
+              border: rem(1) solid $cyan-50v;
+              background: $cyan-50v;
+
+              .pre-search-icon svg{
+                color: $color-white;
+              }
+
+              .pre-search-text {
+                color: $color-white;
+              }
+            }
+
+            .pre-search-icon {
+              display: flex;
+              align-items: flex-start;
+              gap: rem(8);
+              align-self: stretch;
+              
+              svg {
+                width: rem(24);
+                height: rem(24);
+                color: $cyan-60v;
+              }
+            }
+            
+            .pre-search-text {
+              flex: 1 0 0;
+              color: $gray-90;
+              font-family: $font-sans-3;
+              font-size: $base-font-size;
+              font-weight: $font-normal;
+              line-height: $base-line-height;
+              
+              span {
+                font-weight: $font-semibold;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }
