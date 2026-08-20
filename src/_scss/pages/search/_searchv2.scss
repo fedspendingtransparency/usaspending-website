@@ -25,7 +25,7 @@
       width: 100%;
       min-width: 0;
       padding: 0 $global-padding * 4;
-      
+
       @media (max-width: $medium-screen - 1) {
         padding: 0 $global-padding * 2;
       }
@@ -37,7 +37,7 @@
         font-weight: $font-semibold;
         color: $theme-color-headline;
       }
-      
+
       .landing-subTitle {
         font-family: $font-sans-3;
         margin: 0;
@@ -50,11 +50,11 @@
           flex-wrap: nowrap;
           gap: rem(14);
         }
-        
+
         .landing-pre-search__col {
           display: inline-flex;
           align-items: center;
-               
+
           .card-container {
             display: flex;
             padding: $global-padding * 2;
@@ -62,14 +62,14 @@
             align-items: flex-start;
             gap: rem(10);
             border: rem(1) solid $gray-10;
-            background: $cyan-5v-40;   
-            
+            background: $cyan-5v-40;
+
             &:hover {
               cursor: pointer;
               border: rem(1) solid $cyan-50v;
               background: $cyan-50v;
 
-              .pre-search-icon svg{
+              .pre-search-icon svg {
                 color: $color-white;
               }
 
@@ -83,14 +83,14 @@
               align-items: flex-start;
               gap: rem(8);
               align-self: stretch;
-              
+
               svg {
                 width: rem(24);
                 height: rem(24);
                 color: $cyan-60v;
               }
             }
-            
+
             .pre-search-text {
               flex: 1 0 0;
               color: $gray-90;
@@ -98,7 +98,7 @@
               font-size: $base-font-size;
               font-weight: $font-normal;
               line-height: $base-line-height;
-              
+
               span {
                 font-weight: $font-semibold;
               }
