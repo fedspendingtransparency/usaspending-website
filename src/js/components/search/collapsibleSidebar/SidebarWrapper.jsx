@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React from 'react';
+import React, {useState} from 'react';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
@@ -12,6 +12,7 @@ import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
 import NLSidebarButtons from "./NLSidebarButtons";
 import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
+import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS} from './SidebarConstants';
 
 const propTypes = {
@@ -21,7 +22,7 @@ const propTypes = {
     sidebarIsOpen: PropTypes.bool,
     setSidebarIsOpen: PropTypes.func
     
-};
+}
 
 // eslint-disable-next-line prefer-arrow-callback
 const SidebarWrapper = React.memo(function SidebarWrapper({
@@ -33,6 +34,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 }) {
     const { isMedium } = useIsMobile();
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
+    const [text, setText] = useState("");
 
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
@@ -56,11 +58,17 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
     };
 
+    const hintOnClick = (e) => {
+        if(e?.target.textContent) {
+            setText(e.target.textContent);
+        }
+    };
+
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">
             <div className="sidebar-title-row">
                 <h2 className="sidebar-title">
-                    {isDesktopFilters ? 'Filter' : 'AI Search'}
+                    {isDesktopFilters ? 'Filter' : 'Smart Assist'}
                 </h2>
                 <div
                     onClick={toggleOpened}
@@ -85,11 +93,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     <SidebarContent />
                 </>
             ): (
-                <p className="sidebar-text">
-                    This is placeholder text and will eventually be an intro 
-                    that is succinct but very helpful. Learn more about AI Search 
-                    on USAspending.
-                </p>
+                <NLSidebarContent
+                    hintOnClick={hintOnClick}
+                    text={text}
+                    setText={setText} />
             )}   
         </div>    
     );
@@ -98,7 +105,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         <div className="collapsible-sidebar-header">
             <div className="sidebar-title-row">
                 <h2 className="sidebar-title">
-                    {isMobileFilters ? 'Filter' : 'AI Search'}
+                    {isMobileFilters ? 'Filter' : 'Smart Assist'}
                 </h2>
                 <div
                     onClick={closeSidebar}
@@ -126,15 +133,16 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                         showMobileFilters={showMobileFilters}/>  
                 </>
             ): (
-                <p className="sidebar-text">
-                    This is placeholder text and will eventually be an intro 
-                    that is succinct but very helpful. Learn more about AI Search 
-                    on USAspending.
-                </p>
+                <NLSidebarContent
+                    hintOnClick={hintOnClick}
+                    text={text}
+                    setText={setText} />
             )}
         </div>
     );
     
+
+
     return (
         <>
             <NLSidebarButtons
@@ -156,8 +164,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     : sidebarIsOpen && renderDesktopSidebar()
                 }
             </div>
-        </>          
-    );
+        </> 
+    );                 
 });
 
 SidebarWrapper.propTypes = propTypes;
