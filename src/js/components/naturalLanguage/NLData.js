@@ -231,7 +231,7 @@ export const preSearchOptions = [
             },
             {
                 id: "ar-4",
-                text: (<>What funding went to <span>Verteran Owned Businessess</span> in <span>2026</span>?</>),
+                text: (<>What funding went to <span>Veteran Owned Businesses</span> in <span>2026</span>?</>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
