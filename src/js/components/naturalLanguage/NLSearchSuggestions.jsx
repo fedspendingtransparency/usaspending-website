@@ -82,6 +82,7 @@ const NLSearchSuggestions = () => {
                 slidesPerView={'auto'}
                 spaceBetween={16}
                 pagination={{
+                    el: '.custom-pagination', // Links to the custom pagination dots
                     clickable: true,
                 }}
                 keyboard
@@ -111,33 +112,32 @@ const NLSearchSuggestions = () => {
     };
 
     return (
-        <section className="search-suggestions__section"> 
-            <FlexGridRow className="search-suggestions__row">
-                <FlexGridRow className="search-suggestions__title-row">
-                    <FlexGridCol mobile={12} tablet={12} desktop={8} className="search-suggestions__title">
-                        Learn how to build your USAspending search
-                    </FlexGridCol>
-                    <FlexGridCol mobile={12} tablet={12} desktop={4} className="search-suggestions__link">
-                        <Button
-                            copy="Watch training videos"
-                            onClick={handleWatchVideosClick}
-                            buttonTitle="Watch training videos"
-                            buttonSize="md"
-                            buttonType="text"
-                            backgroundColor="light"
-                            textAlignment="left"
-                            imageAlignment="right"
-                            image={
-                                <div className="button-icon-container">
-                                    <FontAwesomeIcon 
-                                        className="button-icon"
-                                        icon="arrow-up-right"/>
-                                </div>}/>
-                    </FlexGridCol>
-                </FlexGridRow>
-                {getCardContent()}
+        <FlexGridRow className="search-suggestions__row">
+            <FlexGridRow className="search-suggestions__title-row">
+                <FlexGridCol mobile={12} tablet={12} desktop={8} className="search-suggestions__title">
+                    Learn how to build your USAspending search
+                </FlexGridCol>
+                <FlexGridCol mobile={12} tablet={12} desktop={4} className="search-suggestions__link">
+                    <Button
+                        copy="Watch training videos"
+                        onClick={handleWatchVideosClick}
+                        buttonTitle="Watch training videos"
+                        buttonSize="md"
+                        buttonType="text"
+                        backgroundColor="light"
+                        textAlignment="left"
+                        imageAlignment="right"
+                        image={
+                            <div className="button-icon-container">
+                                <FontAwesomeIcon 
+                                    className="button-icon"
+                                    icon="arrow-up-right"/>
+                            </div>}/>
+                </FlexGridCol>
             </FlexGridRow>
-        </section> 
+            {getCardContent()}
+            <div className="custom-pagination" />
+        </FlexGridRow>
     );
 };
 

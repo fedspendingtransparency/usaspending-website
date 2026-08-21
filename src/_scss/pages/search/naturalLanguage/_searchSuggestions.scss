@@ -1,6 +1,6 @@
 @import "./searchIcons";
 
-.search-suggestions__section {
+.search-suggestions__row {
   display: inline-flex;
   padding: rem(20);
   align-items: flex-start;
@@ -8,7 +8,8 @@
   border-radius: rem(8);
   border: rem(1) solid $gray-10;
   margin-top: $global-margin * 3;
-  max-width: 100%;
+  width: 100%;
+  min-width: 0; /* Prevents flex child from overflowing */
 
   .search-suggestions__title-row {
     display: flex;
@@ -36,10 +37,11 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      
-      
+      margin-top: rem(8);
+            
       @media (min-width: $medium-screen) {
         align-items: flex-end;
+        margin-top: 0;
       }
       
       .button-icon-container {
@@ -96,7 +98,6 @@
           font-size: $smallest-font-size;
           font-weight: $font-normal;
           line-height: $base-line-height;
-          
           margin-bottom: rem(12);
         }
       }
@@ -107,18 +108,67 @@
     .search-suggestions__slide {
       display: flex;
       width: rem(295);
-      height: rem(238);
-      padding: rem(24);
+      height: rem(268);
 
       @media (min-width: $medium-screen) {
         width: rem(325);
       }
 
+      .card-container {
+        .search-suggestions__card-body {
+          padding: $global-padding * 3 !important;
+
+          .overline {
+            color: $cyan-60v;
+            font-family: $font-sans;
+            font-size: $smallest-font-size;
+            font-weight: $font-semibold;
+            line-height: $base-line-height;
+            margin-bottom: rem(12);
+          }
+          .headline {
+            color: $gray-90;
+            font-family: $font-sans;
+            font-size: $h4-font-size;
+            font-weight: $font-normal;
+            line-height: $heading-line-height;
+            margin-bottom: rem(12);
+          }
+          .text {
+            color: $gray-90;
+            font-family: $font-sans;
+            font-size: $smallest-font-size;
+            font-weight: $font-normal;
+            line-height: $base-line-height;
+            margin-bottom: rem(12) !important;
+          }
+        }
+      }
     }
+  }
+
+  .custom-pagination {
+    margin-top: rem(8);
+    text-align: center;
+
+    span {
+      margin: rem(16);
+      height: rem(12);
+      width: rem(12);
+    }
+
+    .swiper-pagination-bullet-active {
+      background: $gray-60;
+    }
+
   }
 
   @media (min-width: $m-large-screen) {
     padding: rem(40);
     margin-top: $global-margin * 5;
+
+    .custom-pagination {
+      display: none;
+    }
   }
 }
