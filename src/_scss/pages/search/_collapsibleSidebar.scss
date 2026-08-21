@@ -2,7 +2,6 @@
 @import "../../components/checkboxTree/checkboxTree";
 
 &.v2 {
-
   // .usda-page-header style is a DTUI override that's specific to the search 2.0 page
   .usda-page-header,
   .usda-page-header--sticky {
@@ -13,7 +12,7 @@
   }
 }
 
-.usda-page-header--sticky+#main-content {
+.usda-page-header--sticky + #main-content {
   .search-collapsible-sidebar-container {
     top: 60px;
     min-height: calc(100vh - 62px);
@@ -24,7 +23,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  box-shadow: 2px 0 8px 0 rgba(0, 0, 0, 0.10);
+  box-shadow: 2px 0 8px 0 rgba(0, 0, 0, 0.1);
   border-radius: unset;
   flex-grow: 1;
   min-height: calc(100vh - 16px);
@@ -73,18 +72,11 @@
     }
   }
 
-  @media (max-width: $medium-screen - 1) {
-    left: 0;
-    width: 100%;
-  }
-
-
-
   .sidebar-top-submit {
     width: 100%;
     border-bottom: $gray-cool-10 1px solid;
     padding: 0 rem(24);
-    @media (max-width: $medium-screen){
+    @media (max-width: $medium-screen) {
       padding: 0 rem(16);
     }
   }
@@ -99,7 +91,6 @@
 
     @include media($small-screen) {
       padding: 2.4rem 0 0.8rem;
-
     }
 
     @include media($medium-screen) {
@@ -112,7 +103,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 rem(24);
-      @media (max-width: $medium-screen){
+      @media (max-width: $medium-screen) {
         padding: 0 rem(16);
       }
 
@@ -120,9 +111,7 @@
         margin-top: 0 !important;
         margin-bottom: 0 !important;
       }
-
     }
-
 
     .fa-filter {
       color: $blue-60v;
@@ -137,17 +126,17 @@
       font-weight: $font-normal;
       padding: 0 rem(24);
       margin-top: rem(4);
-      @media (max-width: $medium-screen){
+      @media (max-width: $medium-screen) {
         padding: 0 rem(16);
       }
     }
 
-    .sidebar-text{
+    .sidebar-text {
       font-weight: $font-normal;
       font-size: rem(14);
       padding: 0 rem(24);
 
-      @media (max-width: $medium-screen){
+      @media (max-width: $medium-screen) {
         padding: 0 rem(16);
       }
     }
@@ -197,7 +186,8 @@
         &:last-of-type {
           margin-bottom: rem(24);
         }
-        &:hover, &:active {
+        &:hover,
+        &:active {
           p {
             color: $color-white;
             .hint-user-replace {
@@ -266,7 +256,7 @@
         font-size: $font-size-12;
         font-weight: $font-normal;
         line-height: 150%;
-        display:inline-block;
+        display: inline-block;
         margin-top: rem(12);
       }
     }
@@ -355,7 +345,7 @@
       scrollbar-gutter: stable;
       flex-grow: 1;
       height: calc(100vh - 270px);
-      padding: 0 1.0rem 0 2.4rem;
+      padding: 0 1rem 0 2.4rem;
 
       // This should be for mobile
       @media (max-width: $medium-screen - 1) {
@@ -391,57 +381,52 @@
 
         .accordion {
           .heading {
-            padding: $global-padding (
-              $global-padding / 2
-            );
-          border: none;
-          font-size: $smallest-font-size;
-          line-height: 1.5;
+            padding: $global-padding ($global-padding / 2);
+            border: none;
+            font-size: $smallest-font-size;
+            line-height: 1.5;
 
-          button {
-            padding: 0;
-            margin: 0;
-            max-height: rem(18);
-            max-width: rem(18);
+            button {
+              padding: 0;
+              margin: 0;
+              max-height: rem(18);
+              max-width: rem(18);
 
-            svg {
-              color: $blue-50;
+              svg {
+                color: $blue-50;
+              }
+            }
+          }
+
+          .content {
+            border: none;
+            padding: $global-padding ($global-padding / 2);
+
+            &.hidden {
+              overflow: hidden;
+              padding: 0;
+            }
+
+            .filter-item-wrap {
+              padding: 0;
+
+              .filter-description {
+                color: $gray-90;
+                font-size: $smallest-font-size;
+                line-height: 1.5;
+                padding: 0 ($global-padding / 2) $global-padding
+                  ($global-padding / 2);
+              }
+            }
+
+            .agency-filter .filter-item-wrap:first-of-type {
+              padding-bottom: rem(16);
             }
           }
         }
-
-        .content {
-          border: none;
-          padding: $global-padding (
-            $global-padding / 2
-          );
-
-        &.hidden {
-          overflow: hidden;
-          padding: 0;
-        }
-
-        .filter-item-wrap {
-          padding: 0;
-
-          .filter-description {
-            color: $gray-90;
-            font-size: $smallest-font-size;
-            line-height: 1.5;
-            padding: 0 ($global-padding / 2) $global-padding (
-              $global-padding / 2
-            );
-        }
-      }
-
-      .agency-filter .filter-item-wrap:first-of-type {
-        padding-bottom: rem(16);
       }
     }
   }
-}
-}
-}
 }
 
 .search-contents.v2 {
