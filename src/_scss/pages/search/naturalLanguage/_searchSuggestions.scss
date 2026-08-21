@@ -8,6 +8,7 @@
   border-radius: rem(8);
   border: rem(1) solid $gray-10;
   margin-top: $global-margin * 3;
+  max-width: 100%;
 
   .search-suggestions__title-row {
     display: flex;
@@ -15,67 +16,59 @@
     justify-content: space-between;
     margin-bottom: $global-margin * 3;
     width: 100%;
-  }
-
-  .search-suggestions__title {
-    color: $gray-80;
-    font-family: $font-sans;
-    font-size: $h3-font-size;
-    font-weight: $font-semibold;
-    line-height: $heading-line-height;
-    display: flex;
-    flex-direction: column;
-  }
-
-  .search-suggestions__link {
-    color: $blue-60v;
-    font-family: $font-sans;
-    font-size: $small-font-size;
-    font-weight: $font-semibold;
-    line-height: $base-line-height;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
     
+    .search-suggestions__title {
+      color: $gray-80;
+      font-family: $font-sans;
+      font-size: $h3-font-size;
+      font-weight: $font-semibold;
+      line-height: $heading-line-height;
+      display: flex;
+      flex-direction: column;
+    }
     
-    @media (min-width: $medium-screen) {
-      align-items: flex-end;
+    .search-suggestions__link {
+      color: $blue-60v;
+      font-family: $font-sans;
+      font-size: $small-font-size;
+      font-weight: $font-semibold;
+      line-height: $base-line-height;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      
+      
+      @media (min-width: $medium-screen) {
+        align-items: flex-end;
+      }
+      
+      .button-icon-container {
+        width: rem(24);
+        height: rem(24);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: rem(4);
+        background: $blue-vivid-5v;
+    
+        &:hover {
+          background: $blue-70v;
+          color: $color-white;
+        }
+    
+        .button-icon {
+          @include icon-styles;
+        }
+      }
     }
 
   }
 
-  .button-icon-container {
-    width: rem(24);
-    height: rem(24);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: rem(4);
-    background: $blue-vivid-5v;
-
-    &:hover {
-      background: $blue-70v;
-      color: $color-white;
-    }
-
-    .button-icon {
-      @include icon-styles;
-    }
-  }
 
   .search-suggestions__card-row {
     display: flex;
-    flex-wrap: wrap;
-    gap: rem(14);
-
-    @media (min-width: $medium-screen) {
-      flex-wrap: nowrap;
-      gap: rem(16);
-    }
-
-    @media (min-width: $m-large-screen) {
-      gap: rem(50);
-    }
+    flex-wrap: nowrap;
+    gap: rem(50);
 
     .search-suggestions__card {
       .search-suggestions__card-body {
@@ -107,6 +100,20 @@
           margin-bottom: rem(12);
         }
       }
+    }
+  }
+
+  .search-suggestions__swiper {
+    .search-suggestions__slide {
+      display: flex;
+      width: rem(295);
+      height: rem(238);
+      padding: rem(24);
+
+      @media (min-width: $medium-screen) {
+        width: rem(325);
+      }
+
     }
   }
 
