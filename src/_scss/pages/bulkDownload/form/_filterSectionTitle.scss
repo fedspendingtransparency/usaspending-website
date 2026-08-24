@@ -13,7 +13,7 @@
     color: $gray-90;
     flex-wrap: wrap;
 
-    @media (max-width: 470px ) {
+    @media (max-width: 470px) {
       flex-wrap: wrap;
       .required {
         flex-basis: 100%;

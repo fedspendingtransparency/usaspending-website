@@ -3,18 +3,23 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, {useState} from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import useIsMobile from "hooks/useIsMobile";
 import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
 import NLSidebarButtons from "./NLSidebarButtons";
 import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
-import { FILTERS } from './SidebarConstants';
+import { FILTERS } from "./SidebarConstants";
+import NLSidebarContent from "./NLSidebarContent";
 
 const propTypes = {
-    setShowMobileFilters: PropTypes.func
+    setShowMobileFilters: PropTypes.func,
+    showMobileFilters: PropTypes.string,
+    mobileSidebarContent: PropTypes.string,
+    sidebarIsOpen: PropTypes.bool, 
+    setSidebarIsOpen: PropTypes.func
 };
 
 // eslint-disable-next-line prefer-arrow-callback
@@ -23,7 +28,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 }) {
     const { isMedium } = useIsMobile();
     const [sidebarContent, setSidebarContent] = useState(FILTERS);
-
+    const [text, setText] = useState("");
+    
     const toggleOpened = (e) => {
         e.preventDefault();
         setSidebarIsOpen((prevState) => !prevState);
@@ -32,6 +38,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const keyHandler = (e, func) => {
         if (e.key === "Enter") {
             func(e);
+        }
+    };
+
+    const hintOnClick = (e) => {
+        if(e?.target.textContent) {
+            setText(e.target.textContent);
         }
     };
 
@@ -77,7 +89,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     { sidebarIsOpen && showMobileFilters &&
                         <div className="collapsible-sidebar-header">
                             <div className="sidebar-title-row">
-                                <h2 className="sidebar-title">{mobileSidebarContent === "natural language" ? "AI Search" : "Filter"}</h2>
+                                <h2 className="sidebar-title">{mobileSidebarContent === "natural language" ? "Smart Assist" : "Filter"}</h2>
                                 <div
                                     onClick={() => {
                                         setShowMobileFilters(false);
@@ -93,12 +105,14 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                                 </div>
                                 
                             </div>
-                            {mobileSidebarContent === 'filters' &&
+                            {mobileSidebarContent === "filters" &&
                                 <div className="link"><AboutTheDataLink slug="data-elements">Learn more about filters</AboutTheDataLink></div>
                             }
-                            {mobileSidebarContent === 'natural language' &&
-               
-                                 <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
+                            {mobileSidebarContent === "natural language" &&
+                                <NLSidebarContent
+                                    hintOnClick={hintOnClick}
+                                    text={text}
+                                    setText={setText} />
                 
                             }
 
@@ -116,7 +130,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     { sidebarIsOpen && 
                         <div className="collapsible-sidebar-header">
                             <div className="sidebar-title-row">
-                                <h2 className="sidebar-title">AI Search</h2>
+                                <h2 className="sidebar-title">Smart Assist</h2>
                                 <div
                                     onClick={(e) => {
                                         toggleOpened(e);
@@ -132,7 +146,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                                 </div>
                                 
                             </div>
-                            <p className="sidebar-text">This is placeholder text and will eventually be an intro that is succinct but very helpful. Learn more about AI Search on USAspending.</p>
+                            <NLSidebarContent
+                                hintOnClick={hintOnClick}
+                                text={text}
+                                setText={setText} />            
                         </div>
                     }
 

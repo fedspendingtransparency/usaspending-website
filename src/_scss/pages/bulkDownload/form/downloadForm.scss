@@ -14,7 +14,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: rem(24);
-      
+
       @media (max-width: $mobile-only) {
         gap: rem(0);
       }
@@ -23,7 +23,7 @@
         flex: 0 0 calc(50% - rem(12));
         max-width: calc(50% - rem(12));
         min-width: 0;
-    
+
         @media (max-width: $mobile-only) {
           flex: 0 0 100%;
           max-width: 100%;
@@ -111,14 +111,13 @@
                 }
               }
             }
-
           }
           @media (max-width: $mobile-only) {
             flex-wrap: wrap;
 
             .radio {
               width: 100%;
-              
+
               &:first-of-type {
                 margin-right: 0;
                 margin-bottom: rem(20);
@@ -134,7 +133,7 @@
           .combo-box {
             margin: 0;
             min-width: 50%;
-           
+
             &:first-of-type {
               margin-right: rem(24);
             }
@@ -158,9 +157,9 @@
           @media (max-width: $mobile-only) {
             flex-wrap: wrap;
 
-            .combo-box  {
+            .combo-box {
               width: 100%;
-              
+
               &:first-of-type {
                 margin-right: 0;
                 margin-bottom: rem(20);
@@ -219,13 +218,13 @@
             }
           }
         }
-        
+
         @media (max-width: $mobile-only) {
           flex-wrap: wrap;
 
-          .radio  {
+          .radio {
             width: 100%;
-            
+
             &:first-of-type {
               margin-right: 0;
               margin-bottom: rem(20);
@@ -334,12 +333,12 @@
       display: flex;
       margin: 0;
       padding: 0;
-      
+
       li {
         list-style-type: none;
         margin-bottom: 0;
         min-width: 50%;
-        
+
         &:first-of-type {
           margin-right: rem(12);
         }
@@ -347,10 +346,10 @@
         ul {
           margin: rem(12) 0 0 rem(32);
           padding: 0;
-          
+
           li {
             margin-bottom: rem(12);
-            
+
             &.secondary-checkbox-type {
               margin-right: 0;
             }
@@ -360,13 +359,12 @@
             }
           }
         }
-        
-        
+
         label {
           display: flex;
         }
       }
-      
+
       @media (max-width: $mobile-only) {
         flex-wrap: wrap;
 
@@ -374,7 +372,7 @@
           width: 100%;
           margin-right: 0;
 
-          &.checkbox-set{
+          &.checkbox-set {
             &:first-of-type {
               margin-bottom: rem(20);
               margin-right: 0;
@@ -419,10 +417,10 @@
 
   @import "defCodeFilter";
 
-  .download-button-group{
+  .download-button-group {
     justify-content: flex-start;
     gap: rem(24);
-    
+
     button {
       margin: 0;
 
@@ -440,7 +438,6 @@
         width: 100%;
         justify-content: center;
       }
-      
     }
   }
 }
