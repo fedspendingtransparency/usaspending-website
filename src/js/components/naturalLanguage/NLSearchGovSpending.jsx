@@ -39,13 +39,16 @@ const NLSearchGovSpending = () => {
                 </div>
                 <div className="search-gov-spending__container">
                     <div className="search-gov-spending__header">
-                    HOW IT WORKS:
+                        HOW IT WORKS:
                     </div>
                     <FlexGridRow className="search-gov-spending__card-row">
                         {searchGovSpendingData.map((cardData) => (
-                            <FlexGridCol 
+                            <FlexGridCol
                                 className="search-gov-spending__card" 
-                                key={`search-gov-spending-card-${cardData.id}`}>
+                                key={`search-gov-spending-card-${cardData.id}`}
+                                mobile={12}
+                                tablet={12}
+                                desktop={4}>
 
                                 <CardContainer variant="none">
                                     <CardBody customClassName="card-body">

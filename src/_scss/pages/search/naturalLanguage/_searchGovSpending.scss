@@ -58,6 +58,7 @@
   .search-gov-spending__container {
     display: flex;
     flex-direction: column;
+    width: 100%;
 
     .search-gov-spending__header {
       @include label-styles;
