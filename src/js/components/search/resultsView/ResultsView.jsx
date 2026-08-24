@@ -11,7 +11,7 @@ import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarCo
 import useResultsCount from "containers/search/resultsView/useResultsCount";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";
-import NLSearchContainer from "../../naturalLanguage/NLSearchContainer";
+import SearchLanding from "./SearchLanding";
 
 require("pages/search/searchPage.scss");
 
@@ -52,7 +52,7 @@ const ResultsView = React.memo(function ResultsView({
         /* eslint-enable camelcase */
 
         if (!hash && noFiltersApplied) {
-            content = <NLSearchContainer />;
+            return <SearchLanding />;
         }
 
         if (!noFiltersApplied) {
