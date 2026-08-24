@@ -31,7 +31,7 @@ const NLSearchSuggestions = () => {
         navigate("/training-videos");
     }
 
-     const onSlideChange = (d) => {
+    const onSlideChange = (d) => {
         const currentIndex = d.realIndex;
 
         d.slides.forEach((slide, i) => {
@@ -70,7 +70,7 @@ const NLSearchSuggestions = () => {
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
-                        ))   
+                    ))   
                     }
                 </FlexGridRow>
             ); 
@@ -83,7 +83,7 @@ const NLSearchSuggestions = () => {
                 spaceBetween={16}
                 pagination={{
                     el: '.custom-pagination', // Links to the custom pagination dots
-                    clickable: true,
+                    clickable: true
                 }}
                 keyboard
                 a11y
@@ -95,17 +95,17 @@ const NLSearchSuggestions = () => {
                         tabIndex={activeCardIndex === i ? 0 : -1}
                         className="search-suggestions__slide" 
                         key={`search-suggestions-card-${card.id}`}>
-                            <CardContainer variant="outline" size="md">
-                                <CardBody
-                                    customClassName="search-suggestions__card-body"
-                                    overline={card.overline} 
-                                    headline={card.headline}
-                                    text={card.filterByHeader}>
-                                    {card.icons.map((icon) => icon)}
-                                </CardBody>
-                            </CardContainer>
-                        </SwiperSlide>
-                    ))   
+                        <CardContainer variant="outline" size="md">
+                            <CardBody
+                                customClassName="search-suggestions__card-body"
+                                overline={card.overline} 
+                                headline={card.headline}
+                                text={card.filterByHeader}>
+                                {card.icons.map((icon) => icon)}
+                            </CardBody>
+                        </CardContainer>
+                    </SwiperSlide>
+                ))   
                 }
             </Swiper>
         );

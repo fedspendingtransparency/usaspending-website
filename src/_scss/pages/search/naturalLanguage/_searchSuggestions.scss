@@ -17,7 +17,7 @@
     justify-content: space-between;
     margin-bottom: $global-margin * 3;
     width: 100%;
-    
+
     .search-suggestions__title {
       color: $gray-80;
       font-family: $font-sans;
@@ -27,7 +27,7 @@
       display: flex;
       flex-direction: column;
     }
-    
+
     .search-suggestions__link {
       color: $blue-60v;
       font-family: $font-sans;
@@ -38,12 +38,12 @@
       flex-direction: column;
       align-items: flex-start;
       margin-top: rem(8);
-            
+
       @media (min-width: $medium-screen) {
         align-items: flex-end;
         margin-top: 0;
       }
-      
+
       .button-icon-container {
         width: rem(24);
         height: rem(24);
@@ -52,20 +52,18 @@
         justify-content: center;
         border-radius: rem(4);
         background: $blue-vivid-5v;
-    
+
         &:hover {
           background: $blue-70v;
           color: $color-white;
         }
-    
+
         .button-icon {
           @include icon-styles;
         }
       }
     }
-
   }
-
 
   .search-suggestions__card-row {
     display: flex;
@@ -160,7 +158,6 @@
     .swiper-pagination-bullet-active {
       background: $gray-60;
     }
-
   }
 
   @media (min-width: $m-large-screen) {
