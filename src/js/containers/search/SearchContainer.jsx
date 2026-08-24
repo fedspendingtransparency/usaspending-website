@@ -33,7 +33,8 @@ import {
 } from './helpers/searchAnalytics';
 import useRequestDownloadCount from "./useRequestDownloadCount";
 import { storeStructuresAreEqual } from '../../helpers/searchHelper';
-import { nlSearch } from "../../apis/search";
+import { fetchNLSearch } from "../../apis/search";
+import useRequestNLSearch from "./nlSearch/useRequestNLSearch";
 
 require('pages/search/searchPage.scss');
 
@@ -127,8 +128,6 @@ const SearchContainer = () => {
         appliedFilters, urlHash, areAppliedFiltersEmpty, spendingLevel
     );
 
-    nlSearch
-
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
         prevAppliedFiltersRef.current = appliedFilters;
@@ -144,14 +143,22 @@ const SearchContainer = () => {
             areFiltersEqual(stagedFilters, initialState)
         );
 
-        request.current = nlSearch({query: "hello world"});
+        // request.current = nlSearch({query: "hello world"});
+
+        request.current = fetchNLSearch({query: "hello world"});
+
+        request.current.promise.then((res) => {
+            console.log("response", res);
+        });
 
         if (shouldFetchRemoteFilters) {
             if (request.current) {
                 request.current.cancel();
             }
 
-            request.current = nlSearch({query: "hello world"});
+
+
+
             // request.current = restoreUrlHash({
             //     hash: urlHash
             // });

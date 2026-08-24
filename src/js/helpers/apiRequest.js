@@ -27,7 +27,6 @@ export const apiRequest = (axiosParams = {}) => {
     };
 
     const headers = (additionalHeaders) => {
-        console.log("hello", additionalHeaders);
         if (additionalHeaders) return { ...defaultHeaders, ...additionalHeaders };
         return defaultHeaders;
     };

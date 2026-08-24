@@ -12,7 +12,7 @@ export const performSpendingByGeographySearch = (params) => apiRequest({
     data: params
 });
 
-export const nlSearch = (params) => {
+export const fetchNLSearch = (params) => {
     apiRequest({
         url: 'v2/llm/filter-search/',
         method: 'post',
