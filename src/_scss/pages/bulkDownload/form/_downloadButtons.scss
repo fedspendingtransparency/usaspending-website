@@ -11,7 +11,7 @@
   @media (max-width: $mobile-only) {
     display: flex;
     align-items: flex-start;
-    
+
     input {
       flex: 0 0 auto;
     }
@@ -20,13 +20,13 @@
       min-width: 0;
     }
   }
-  
+
   .radio-label,
   .checkbox-label {
     color: #4a4a4a;
     font-size: rem(18);
     line-height: rem(23);
-    
+
     &.disabled {
       color: $color-gray-light;
     }
