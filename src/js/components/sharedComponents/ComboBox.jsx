@@ -39,15 +39,6 @@ const ComboBox = memo(function ComboBox({
     const [openOptions, setOpenOptions] = useState(false);
     const comboRef = useRef(null)
 
-    const optionsArrayDep = JSON.stringify(optionsArray);
-
-    // reset input if there's a change in options array
-    useEffect(() => {
-        // default value defaults to an empty string
-        // if default value passed set to it.
-        setInputValue(defaultValue);
-    }, [optionsArrayDep, defaultValue]);
-
     // 1) filter for inputValue 2) map to list item element
     let optionsArr = optionsArray;
 
@@ -126,11 +117,15 @@ const ComboBox = memo(function ComboBox({
         <div
             className={`combo-box${className ? ` ${className}` : ''}`}
             ref={comboRef}>
-            <label
-                className="combo-box__label"
-                id={`${formName}-label`}
-                htmlFor={`${formName}-combo`}>
-                {label}
+            { label && (
+                <label
+                    className="combo-box__label"
+                    id={`${formName}-label`}
+                    htmlFor={`${formName}-combo`}>
+                    {label}
+                </label>
+            )}
+            <div className="combo-box__wrapper">
                 <div className="combo-box__input-container">
                     <input
                         value={inputValue}
@@ -141,9 +136,7 @@ const ComboBox = memo(function ComboBox({
                         onChange={onChange}
                         placeholder={placeholder}
                         disabled={isDisabledAndEmpty} />
-                    <div className={`combo-box__buttons-container${
-                        inputValueEmpty ? ' empty' : ''
-                    }`}>
+                    <div className="combo-box__buttons-container">
                         { !inputValueEmpty && !disabled &&
                             <button
                                 className="combo-box__button"
@@ -191,7 +184,7 @@ const ComboBox = memo(function ComboBox({
                         </ul>
                     }
                 </div>
-            </label>
+            </div>
         </div>
     );
 });
