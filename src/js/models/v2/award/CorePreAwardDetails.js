@@ -6,7 +6,7 @@
 const emptyPreAwardDetails = () => {
     const preAwardDetails = {
         "Funding Opportunity Number": '--',
-        Description: '--'
+        "Funding Opportunity Goal Description": '--'
     };
     return preAwardDetails;
 };
@@ -15,7 +15,7 @@ const parsePreAwardDetails = (data) => {
     const preAwardDetails = {};
     if (!data) return emptyPreAwardDetails();
     preAwardDetails["Funding Opportunity Number"] = data.number;
-    preAwardDetails.Description = data.goals;
+    preAwardDetails["Funding Opportunity Goal Description"] = data.goals;
     return preAwardDetails;
 };
 

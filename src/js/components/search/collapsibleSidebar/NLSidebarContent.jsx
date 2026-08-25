@@ -28,7 +28,7 @@ const NLSidebarContent = ({ hintOnClick, text, setText }) => {
                     className="sidebar-textarea"
                     maxLength={MAX_CHARS}
                     value={text}
-                    rows="4" cols="50"
+                    rows="3" cols="50"
                     placeholder="Type a question about government spending, or choose an example above" />
                 <div className="textarea-char-row">
                     <button type="reset" className={`textarea-reset ${text.length <= 0 && 'text-area-reset-hidden'}`} onClick={reset}>Clear Input</button>
@@ -51,7 +51,7 @@ const NLSidebarContent = ({ hintOnClick, text, setText }) => {
                             d="M18.3528 0.492188C18.4976 0.492188 18.6069 0.578521 18.6672 0.689453L19.2581 2.34082L20.8762 2.94531C20.9846 3.00699 21.0686 3.11792 21.0686 3.26562C21.0686 3.41331 20.9847 3.52429 20.8762 3.58594L19.2581 4.18945L18.6672 5.8418C18.6069 5.95271 18.4976 6.03906 18.3528 6.03906C18.2082 6.03892 18.0996 5.95257 18.0393 5.8418L17.4475 4.18945L15.8665 3.58594C15.7218 3.52431 15.637 3.41339 15.637 3.26562C15.637 3.11783 15.7218 3.00697 15.8665 2.94531L17.4475 2.34082L18.0393 0.689453C18.0996 0.578614 18.2081 0.492333 18.3528 0.492188Z"
                             fill="white" />
                     </svg>
-                    Submit
+                    Search
                 </button>
             </div>
             <div className="sidebar-body-row">
