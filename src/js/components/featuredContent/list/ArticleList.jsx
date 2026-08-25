@@ -9,15 +9,17 @@ import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
 import { transformString, getPrimaryFill, getThumbnailPath } from 'helpers/featuredContent/featuredContentHelper';
 import Analytics from "helpers/analytics/Analytics";
 import ArticleCard from '../articleCard/ArticleCard';
+import dayjs from 'dayjs';
 
 const propTypes = {
     articles: PropTypes.array
 };
 
 const ArticleList = ({ articles }) => {
+    const now = dayjs();
     const [sortOrder, setSortOrder] = useState();
     const [articleList, setArticleList] = useState(articles.filter((article) => !article?.hidden));
-    const originalArticleList = articles.filter((article) => !article?.hidden);
+    const originalArticleList = articles.filter((article) => now.isAfter(article.created_date));
     const prevSortRef = useRef();
 
     useEffect(() => {
