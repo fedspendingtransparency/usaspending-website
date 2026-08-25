@@ -19,21 +19,16 @@
     width: 100%;
 
     .search-suggestions__title {
+      @include title-styles;
       color: $gray-80;
-      font-family: $font-sans;
-      font-size: $h3-font-size;
-      font-weight: $font-semibold;
-      line-height: $heading-line-height;
+      margin-bottom: $global-margin * 3;
+      width: 100%;
       display: flex;
       flex-direction: column;
     }
 
     .search-suggestions__link {
-      color: $blue-60v;
-      font-family: $font-sans;
-      font-size: $small-font-size;
-      font-weight: $font-semibold;
-      line-height: $base-line-height;
+      @include link-styles;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
@@ -43,7 +38,7 @@
         align-items: flex-end;
         margin-top: 0;
       }
-
+      
       .button-icon-container {
         width: rem(24);
         height: rem(24);

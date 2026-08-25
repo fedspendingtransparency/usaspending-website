@@ -36,20 +36,16 @@ const NLSearchSuggestions = () => {
 
         d.slides.forEach((slide, i) => {
             if (i === currentIndex) {
-                // eslint-disable-next-line no-param-reassign
                 slide.ariaHidden = false;
                 setActiveCardIndex(currentIndex);
             }
             else {
-                // eslint-disable-next-line no-param-reassign
                 slide.ariaHidden = true;
             }
         });
     };
 
     const getCardContent = () => {
-        console.log("checking isMobile context ===== ", isDesktopSm);
-        
         if (!isDesktopSm) {
             return (
                 <FlexGridRow className="search-suggestions__card-row">
