@@ -83,8 +83,8 @@
         -mox-appearance: none;
         appearance: none;
 
-        // Firefox adds an internall dotted focus border + padding
-        // on buttos that other browser do not render;  without this
+        // Firefox adds an internal dotted focus border + padding
+        // on buttons that other browser do not render;  without this
         // icon buttons are a couple px larger/offset in FireFox.
         &::-moz-focus-inner {
           border: 0;
