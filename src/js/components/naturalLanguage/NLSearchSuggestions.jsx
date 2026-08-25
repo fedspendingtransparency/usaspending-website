@@ -18,7 +18,7 @@ import "swiper/css";
 
 const NLSearchSuggestions = () => {
     const navigate = useNavigate();
-    const { isDesktopSm } = useIsMobile();
+    const { isDesktop } = useIsMobile();
     const [activeCardIndex, setActiveCardIndex] = useState(0);
     
     const handleWatchVideosClick = () => {
@@ -46,7 +46,7 @@ const NLSearchSuggestions = () => {
     };
 
     const getCardContent = () => {
-        if (!isDesktopSm) {
+        if (!isDesktop) {
             return (
                 <FlexGridRow className="search-suggestions__card-row">
                     {searchCardData.map((card) => (

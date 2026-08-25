@@ -16,7 +16,8 @@ export const xLargeScreen = 1640;
 
 export const getScreenSize = (windowWidth) => {
     if (windowWidth >= mLargeScreen) return 'isDesktopLg';
-    else if ((windowWidth < mLargeScreen) && (windowWidth >= mediumScreen)) return 'isDesktopSm';
+    else if ((windowWidth < mLargeScreen) && (windowWidth >= largeScreen)) return 'isDesktopSm';
+    else if ((windowWidth < largeScreen) && (windowWidth >= mediumScreen)) return 'isDesktop';
     else if ((windowWidth < mediumScreen) && (windowWidth >= tabletScreen)) return 'isMedium';
     else if ((windowWidth < tabletScreen) && (windowWidth >= smTabletScreen)) return 'isTablet';
     return 'isMobile';
@@ -28,6 +29,15 @@ export const getScreenSizeTrue = (screenSize) => {
             isMobile: false,
             isTablet: false,
             isMedium: false,
+            isDesktop: false,
+            isDesktopSm: true,
+            isDesktopLg: false
+        };
+        case 'isDesktop': return {
+            isMobile: false,
+            isTablet: false,
+            isMedium: false,
+            isDesktop: true,
             isDesktopSm: true,
             isDesktopLg: false
         };
@@ -35,6 +45,7 @@ export const getScreenSizeTrue = (screenSize) => {
             isMobile: false,
             isTablet: false,
             isMedium: true,
+            isDesktop: true,
             isDesktopSm: true,
             isDesktopLg: false
         };
@@ -42,6 +53,7 @@ export const getScreenSizeTrue = (screenSize) => {
             isMobile: false,
             isTablet: true,
             isMedium: true,
+            isDesktop: true,
             isDesktopSm: true,
             isDesktopLg: false
         };
@@ -49,6 +61,7 @@ export const getScreenSizeTrue = (screenSize) => {
             isMobile: true,
             isTablet: true,
             isMedium: true,
+            isDesktop: true,
             isDesktopSm: true,
             isDesktopLg: false
         };
@@ -68,13 +81,23 @@ export const getScreenSizeFalse = (screenSize) => {
             isMobile: false,
             isTablet: false,
             isMedium: false,
+            isDesktop: false,
             isDesktopSm: false,
             isDesktopLg: true
+        };
+        case 'isDesktop': return {
+            isMobile: false,
+            isTablet: false,
+            isMedium: false,
+            isDesktop: false,
+            isDesktopSm: true,
+            isDesktopLg: false
         };
         case 'isMedium': return {
             isMobile: false,
             isTablet: false,
             isMedium: false,
+            isDesktop: true,
             isDesktopSm: true,
             isDesktopLg: false
         };
@@ -82,6 +105,7 @@ export const getScreenSizeFalse = (screenSize) => {
             isMobile: false,
             isTablet: false,
             isMedium: true,
+            isDesktop: true,
             isDesktopSm: true,
             isDesktopLg: false
         };
@@ -89,6 +113,7 @@ export const getScreenSizeFalse = (screenSize) => {
             isMobile: false,
             isTablet: true,
             isMedium: true,
+            isDesktop: true,
             isDesktopSm: true,
             isDesktopLg: false
         };
@@ -96,6 +121,7 @@ export const getScreenSizeFalse = (screenSize) => {
             isMobile: true,
             isTablet: true,
             isMedium: true,
+            isDesktop: true,
             isDesktopSm: true,
             isDesktopLg: false
         };
