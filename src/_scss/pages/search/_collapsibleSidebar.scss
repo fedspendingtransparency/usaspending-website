@@ -252,8 +252,12 @@
         font-size: $font-size-16;
         font-weight: $font-semibold;
         line-height: 150%; /* 24px */
-        background:
-          linear-gradient(91deg, $cyan-60v 0%, $cyan-50v 35%, $blue-60v 100%);
+        background: linear-gradient(
+          91deg,
+          $cyan-60v 0%,
+          $cyan-50v 35%,
+          $blue-60v 100%
+        );
         padding: rem(12) rem(8);
         width: 100%;
         svg {
