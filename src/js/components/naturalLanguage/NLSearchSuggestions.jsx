@@ -34,13 +34,9 @@ const NLSearchSuggestions = () => {
     const onSlideChange = (d) => {
         const currentIndex = d.realIndex;
 
-        d.slides.forEach((slide, i) => {
+        d.slides.forEach((i) => {
             if (i === currentIndex) {
-                slide.ariaHidden = false;
                 setActiveCardIndex(currentIndex);
-            }
-            else {
-                slide.ariaHidden = true;
             }
         });
     };
