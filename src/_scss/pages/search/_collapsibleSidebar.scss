@@ -227,6 +227,7 @@
           background: $color-white;
           padding: 0;
           color: $blue-60v;
+          font-size: $font-size-12;
           font-weight: $font-normal;
           visibility: visible;
         }
@@ -237,6 +238,9 @@
 
         .textarea-char-count {
           font-weight: $font-normal;
+          font-size: $font-size-12;
+          line-height: 150%;
+          color: $gray-90;
         }
       }
       .natural-language-submit {
@@ -248,13 +252,9 @@
         font-size: $font-size-16;
         font-weight: $font-semibold;
         line-height: 150%; /* 24px */
-        background: linear-gradient(
-          91deg,
-          $cyan-60v 0%,
-          $cyan-50v 35%,
-          $blue-60v 100%
-        );
-        padding: rem(8);
+        background:
+          linear-gradient(91deg, $cyan-60v 0%, $cyan-50v 35%, $blue-60v 100%);
+        padding: rem(12) rem(8);
         width: 100%;
         svg {
           margin-right: rem(8);
