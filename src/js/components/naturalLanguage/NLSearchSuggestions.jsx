@@ -12,7 +12,6 @@ import { searchCardData } from "./NLData";
 
 const NLSearchSuggestions = () => {
     const navigate = useNavigate();
-    
     const handleWatchVideosClick = () => {
         Analytics.event({
             event: 'watch-training-videos',
