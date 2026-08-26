@@ -47,11 +47,9 @@
         border-radius: rem(4);
         background: $blue-vivid-5v;
 
-        @media (min-width: $medium-screen) {
-          &:hover {
-            background: $blue-70v;
-            color: $color-white;
-          }
+        &:hover {
+          background: $blue-70v;
+          color: $color-white;
         }
 
         .button-icon {
