@@ -22,15 +22,15 @@ import {
  * @property {boolean} isMobile - `true` if window is less than 576px, `false` if greater than or equal to
  * @property {boolean} isTablet - `true` if window is less than 768px, `false` if greater than or equal to
  * @property {boolean} isMedium - `true` if window is less than 992px, `false` if greater than or equal to
- * @property {boolean} isDesktop - `true` if window is less than 1200px, `false` if greater than or equal to
- * @property {boolean} isDesktopSm - `true` if window is less than 1400px, `false` if greater than or equal to
+ * @property {boolean} isDesktopSm - `true` if window is less than 1200px, `false` if greater than or equal to
+ * @property {boolean} isDesktop - `true` if window is less than 1400px, `false` if greater than or equal to
  * @property {boolean} isDesktopLg - `false` if window is less than 1400px, `true` if greater than or equal to
  */
 
 /**
  * useIsMobile
  * - PLEASE USE useContext(IsMobileContext) INSTEAD. A custom hook for checking whether the window is below or above the standard project breakpoints
- * @returns {breakPoints} breakpoints - An object with the different breakpoint states, i.e., isMobile, isTablet, isMedium, isDesktopSm, & isDesktopLg
+ * @returns {breakPoints} breakpoints - An object with the different breakpoint states, i.e., isMobile, isTablet, isMedium, isDesktopSm, isDesktop, & isDesktopLg
  *
  */
 const useIsMobile = () => {
@@ -39,8 +39,8 @@ const useIsMobile = () => {
         isMobile: false,
         isTablet: false,
         isMedium: false,
-        isDesktop: false,
         isDesktopSm: false,
+        isDesktop: false,
         isDesktopLg: false
     });
 
@@ -71,8 +71,8 @@ const useIsMobile = () => {
         smTabletMatchMedia.addEventListener('change', (e) => onChange(e, 'isMobile'));
         tabletMatchMedia.addEventListener('change', (e) => onChange(e, 'isTablet'));
         mediumMatchMedia.addEventListener('change', (e) => onChange(e, 'isMedium'));
-        desktopSmMatchMedia.addEventListener('change', (e) => onChange(e, 'isDesktop'));
-        desktopMatchMedia.addEventListener('change', (e) => onChange(e, 'isDesktopSm'));
+        desktopSmMatchMedia.addEventListener('change', (e) => onChange(e, 'isDesktopSm'));
+        desktopMatchMedia.addEventListener('change', (e) => onChange(e, 'isDesktop'));
 
         onChange({ matches: true }, getScreenSize(window.innerWidth));
 
@@ -81,8 +81,8 @@ const useIsMobile = () => {
             smTabletMatchMedia.removeEventListener('change', (e) => onChange(e, 'isMobile'));
             tabletMatchMedia.removeEventListener('change', (e) => onChange(e, 'isTablet'));
             mediumMatchMedia.removeEventListener('change', (e) => onChange(e, 'isMedium'));
-            desktopSmMatchMedia.removeEventListener('change', (e) => onChange(e, 'isDesktop'));
-            desktopMatchMedia.removeEventListener('change', (e) => onChange(e, 'isDesktopSm'));
+            desktopSmMatchMedia.removeEventListener('change', (e) => onChange(e, 'isDesktopSm'));
+            desktopMatchMedia.removeEventListener('change', (e) => onChange(e, 'isDesktop'));
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
