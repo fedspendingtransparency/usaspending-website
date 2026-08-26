@@ -21,7 +21,8 @@ const MetadataDownload = () => (
                 target="_blank"
                 href={downloadLocation}
                 rel="noopener noreferrer"
-                aria-label="Dataset Metadata">
+                aria-label="Dataset Metadata"
+                download>
                 <button
                     className="full-menu__item--button">
                     <FontAwesomeIcon icon="file-code" />
