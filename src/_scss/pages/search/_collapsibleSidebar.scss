@@ -25,7 +25,6 @@
   justify-content: flex-start;
   box-shadow: 2px 0 8px 0 rgba(0, 0, 0, 0.1);
   border-radius: unset;
-  flex-grow: 1;
   min-height: calc(100vh - 16px);
 
   &.sticky {
@@ -167,7 +166,13 @@
         border-radius: rem(4);
         background:
           linear-gradient($color-white, $color-white) padding-box,
-          linear-gradient(92deg, $color-secondary-secondary-lighter 0%, #4EB6CD 50.48%, $cyan-60v 100%) border-box;
+          linear-gradient(
+              92deg,
+              $color-secondary-secondary-lighter 0%,
+              #4eb6cd 50.48%,
+              $cyan-60v 100%
+            )
+            border-box;
         p {
           margin: 0;
           font-size: $font-size-14;
@@ -247,8 +252,12 @@
         font-size: $font-size-16;
         font-weight: $font-semibold;
         line-height: 150%; /* 24px */
-        background:
-          linear-gradient(91deg, $cyan-60v 0%, $cyan-50v 35%, $blue-60v 100%);
+        background: linear-gradient(
+          91deg,
+          $cyan-60v 0%,
+          $cyan-50v 35%,
+          $blue-60v 100%
+        );
         padding: rem(12) rem(8);
         width: 100%;
         svg {

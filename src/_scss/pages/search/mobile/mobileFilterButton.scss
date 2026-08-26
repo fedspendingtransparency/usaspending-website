@@ -1,6 +1,7 @@
 .mobile-filter-button-wrapper {
   // this is specifically to overlap the footer
-  z-index: 1;
+  // and any swiper elements
+  z-index: 2;
   position: fixed;
   border-top: 1px solid $gray-10;
   width: 100%;
