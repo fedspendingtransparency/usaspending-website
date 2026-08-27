@@ -4,6 +4,7 @@
  */
 
 import React, { useMemo } from "react";
+import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isCancel } from 'axios';
 import { FlexGridRow, FlexGridCol, CardContainer } from 'data-transparency-ui';
@@ -11,6 +12,7 @@ import { preSearchOptions } from "./NLData";
 import { generateUrlHash } from "../../helpers/searchHelper";
 
 const NLPreSearchButtonGroup = () => {
+    const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
     const getRandomOption = ({options}) => {
         // eslint-disable-next-line react-hooks/purity
         const index = Math.floor(Math.random() * options.length);
@@ -24,7 +26,13 @@ const NLPreSearchButtonGroup = () => {
         tempHash.promise
             .then((results) => {
                 const hashData = results.data;
-                window.open(`/search?hash=${encodeURIComponent(hashData.hash)}`, "_self");
+                let url = `/search?hash=${encodeURIComponent(hashData.hash)}`;
+
+                if (spendingLevel === "subawards") {
+                    url += "&subawards=true";
+                }
+
+                window.open(url, "_self");
                 // operation has resolved
                 tempHash = null;
             })
