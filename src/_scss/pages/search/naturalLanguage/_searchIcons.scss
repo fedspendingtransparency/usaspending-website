@@ -182,4 +182,34 @@
       }
     }
   }
+
+  &--start {
+    @include icon-variant($gray-90, $color-white, $cyan-50v, 0);
+    margin: 0 rem(20) rem(12);
+    
+    .icon-label {
+      margin-top: rem(4);
+      font-weight: $font-normal;
+    }
+  }
+  
+  &--complete {
+    @include icon-variant($gray-90, $color-white, $green-cool-50v, 0);
+    margin: 0 rem(20) rem(12);
+
+    .icon-label {
+      margin-top: rem(4);
+      font-weight: $font-normal;
+    }
+  }
+
+  &--error {
+    @include icon-variant($gray-90, $color-white, $red-cool-50v, 0);
+    margin: 0 rem(20) rem(12);
+
+    .icon-label {
+      margin-top: rem(4);
+      font-weight: $font-normal;
+    }
+  }
 }
