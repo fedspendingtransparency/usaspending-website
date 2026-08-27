@@ -96,6 +96,13 @@
       padding: 2.4rem 0 0.8rem;
     }
 
+    &.is-nl {
+      overflow-y: auto;
+      max-height: calc(100vh - rem(282));
+    }
+
+
+
     .sidebar-title-row {
       width: 100%;
       display: flex;
