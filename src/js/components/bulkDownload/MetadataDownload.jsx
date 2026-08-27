@@ -18,9 +18,8 @@ const MetadataDownload = () => (
         </p>
         <div className="metadata-download-button">
             <a
-                target="_blank"
+                rel="noreferrer"
                 href={downloadLocation}
-                rel="noopener noreferrer"
                 aria-label="Dataset Metadata"
                 download>
                 <button
