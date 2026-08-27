@@ -20,6 +20,7 @@ const MetadataDownload = () => (
             <a
                 rel="noreferrer"
                 href={downloadLocation}
+                type="binary/octet-stream"
                 aria-label="Dataset Metadata"
                 download>
                 <button
