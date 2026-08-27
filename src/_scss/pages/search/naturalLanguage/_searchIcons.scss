@@ -188,12 +188,9 @@
   &--error {
     @include icon-variant($gray-90, $color-white, $cyan-50v, 0);
     margin: 0 rem(20) rem(12);
-
-    &.icon-row {
-      display: flex;
-      align-items: baseline;
-    }
-    
+    display: flex;
+    align-items: baseline;
+  
     .icon-label {
       font-weight: $font-normal;
       white-space: normal;
