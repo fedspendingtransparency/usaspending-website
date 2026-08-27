@@ -61,7 +61,7 @@ const SearchSectionWrapperContent = ({
 }) => {
     const { isTablet } = useContext(IsMobileContext);
 
-    const Message = () => {
+    const message = () => {
         if (isLoading) {
             return <LoadingMessage />;
         }
@@ -75,23 +75,25 @@ const SearchSectionWrapperContent = ({
         return <></>;
     };
 
-    const Content = () => {
+    const content = () => {
         if (table) {
             return table;
         }
 
-        return (<SectionDataTable
-            columns={columns}
-            rows={rows}
-            sortBy={sortBy}
-            activeField={activeField}
-            sortDirection={sortDirection}
-            manualSort
-            sectionName={sectionName}
-            nextPage={nextPage}
-            previousPage={previousPage}
-            hasNextPage={hasNextPage}
-            hasPreviousPage={hasPreviousPage} />);
+        return (
+            <SectionDataTable
+                columns={columns}
+                rows={rows}
+                sortBy={sortBy}
+                activeField={activeField}
+                sortDirection={sortDirection}
+                manualSort
+                sectionName={sectionName}
+                nextPage={nextPage}
+                previousPage={previousPage}
+                hasNextPage={hasNextPage}
+                hasPreviousPage={hasPreviousPage} />
+        );
     };
 
     return (
@@ -102,9 +104,8 @@ const SearchSectionWrapperContent = ({
                 `search__section-wrapper-content new-results-view search__${sectionName}`
             }>
             {
-                // eslint-disable-next-line no-nested-ternary
                 isError || isLoading || hasNoData ?
-                    <Message />
+                    message()
                     :
                     <>
                         {((viewType === "table" || sectionName === "table") && isTablet) ?
@@ -122,7 +123,7 @@ const SearchSectionWrapperContent = ({
                                 setSort={setSort} /> : null}
                         {downloadComponent}
                         {viewType === "table" ?
-                            <Content />
+                            content()
                             :
                             children}
                     </>

@@ -38,7 +38,7 @@ const propTypes = {
 const FeaturedContentCard = ({
     url, title, fill, img, taxonomy, externalLink = false
 }) => {
-    const Content = () => (
+    const content = () => (
         <CardContainer variant="outline" size="md">
             <CardHero
                 fill={fill}
@@ -59,7 +59,7 @@ const FeaturedContentCard = ({
         <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
             {externalLink ?
                 <ExternalLink isCard url={url}>
-                    <Content />
+                    {content()}
                 </ExternalLink>
                 :
                 <a
@@ -68,7 +68,7 @@ const FeaturedContentCard = ({
                     rel="noopener noreferrer"
                     onClick={() => trackHomePageLink(title)}
                     className="featured-content__section--link" >
-                    <Content />
+                    {content()}
                 </a>
             }
         </FlexGridCol>
