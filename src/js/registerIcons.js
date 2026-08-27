@@ -5,7 +5,7 @@
 import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-    faXmark, faCircleXmark
+    faXmark, faCircleCheck, faCircleXmark
 } from '@fortawesome/pro-regular-svg-icons';
 import {
     faAngleDoubleDown,
@@ -243,6 +243,7 @@ export default function registerIcons() {
         faQuestion,
         faArrowsRotate,
         faChartColumn,
+        faCircleCheck,
         faCircleXmark
     );
 }

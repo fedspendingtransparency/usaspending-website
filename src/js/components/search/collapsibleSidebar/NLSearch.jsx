@@ -13,7 +13,7 @@ const propTypes = {
 const NLSearch = ({type, message}) => {
     const lookup = {
         [START]: {variant: 'start', label: message, icon: 'sparkles'},
-        [COMPLETE]: {variant: 'complete', label: message, icon: 'check-circle'},
+        [COMPLETE]: {variant: 'complete', label: message, icon: ['far','circle-check']},
         [ERROR]: {variant: 'error', label: message, icon: ['far', 'circle-xmark']}
     };
 
