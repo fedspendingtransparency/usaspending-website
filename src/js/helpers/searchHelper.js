@@ -327,7 +327,7 @@ export const dateRangeChipLabel = (timeInput) => {
     let start = null;
     let end = null;
     let dateLabel;
-
+    
     if (timeInput.start_date) {
         start = dayjs(timeInput.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
     }

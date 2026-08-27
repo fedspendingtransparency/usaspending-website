@@ -26,7 +26,7 @@ const SubmissionTypeFilter = ({
 
     const submissions = submissionTypes.map((type) => (
         <div
-            className="checkbox"
+            className="checkbox submission"
             key={type.name}>
             <input
                 type="checkbox"

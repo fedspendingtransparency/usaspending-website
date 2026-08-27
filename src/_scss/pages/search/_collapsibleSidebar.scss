@@ -2,7 +2,6 @@
 @import "../../components/checkboxTree/checkboxTree";
 
 &.v2 {
-
   // .usda-page-header style is a DTUI override that's specific to the search 2.0 page
   .usda-page-header,
   .usda-page-header--sticky {
@@ -13,7 +12,7 @@
   }
 }
 
-.usda-page-header--sticky+#main-content {
+.usda-page-header--sticky + #main-content {
   .search-collapsible-sidebar-container {
     top: 60px;
     min-height: calc(100vh - 62px);
@@ -24,9 +23,8 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  box-shadow: 2px 0 8px 0 rgba(0, 0, 0, 0.10);
+  box-shadow: 2px 0 8px 0 rgba(0, 0, 0, 0.1);
   border-radius: unset;
-  flex-grow: 1;
   min-height: calc(100vh - 16px);
 
   &.sticky {
@@ -45,7 +43,7 @@
       width: 100%;
     }
 
-    @media (max-width: calc($medium-screen - 1px)) {
+    @media (max-width: $medium-screen - 1) {
       &.mobile {
         flex: 0 0 100%;
         width: 100%;
@@ -73,18 +71,11 @@
     }
   }
 
-  @media (max-width: $medium-screen - 1) {
-    left: 0;
-    width: 100%;
-  }
-
-
-
   .sidebar-top-submit {
     width: 100%;
     border-bottom: $gray-cool-10 1px solid;
     padding: 0 rem(24);
-    @media (max-width: $medium-screen){
+    @media (max-width: $medium-screen) {
       padding: 0 rem(16);
     }
   }
@@ -99,7 +90,6 @@
 
     @include media($small-screen) {
       padding: 2.4rem 0 0.8rem;
-
     }
 
     @include media($medium-screen) {
@@ -112,7 +102,7 @@
       align-items: center;
       justify-content: space-between;
       padding: 0 rem(24);
-      @media (max-width: $medium-screen){
+      @media (max-width: $medium-screen) {
         padding: 0 rem(16);
       }
 
@@ -120,9 +110,7 @@
         margin-top: 0 !important;
         margin-bottom: 0 !important;
       }
-
     }
-
 
     .fa-filter {
       color: $blue-60v;
@@ -137,21 +125,155 @@
       font-weight: $font-normal;
       padding: 0 rem(24);
       margin-top: rem(4);
-      @media (max-width: $medium-screen){
+      @media (max-width: $medium-screen) {
         padding: 0 rem(16);
       }
     }
 
-    .sidebar-text{
-      font-weight: 400;
+    .sidebar-text {
+      font-weight: $font-normal;
       font-size: rem(14);
       padding: 0 rem(24);
 
-      @media (max-width: $medium-screen){
+      @media (max-width: $medium-screen) {
         padding: 0 rem(16);
       }
     }
 
+    .sidebar-body-row {
+      padding: 0 rem(16);
+      @media (min-width: $medium-screen) {
+        padding: 0 rem(24);
+      }
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      .sidebar-example {
+        color: $gray-60;
+        font-size: $font-size-12;
+        text-transform: uppercase;
+        line-height: 150%;
+        font-weight: $font-semibold;
+        width: 100%;
+      }
+      .sidebar-default-hint {
+        text-align: left;
+        margin: 0;
+        padding: rem(8);
+        margin-bottom: rem(8);
+        background-color: $color-white;
+        border: 1px solid transparent;
+        border-radius: rem(4);
+        background:
+          linear-gradient($color-white, $color-white) padding-box,
+          linear-gradient(
+              92deg,
+              $color-secondary-secondary-lighter 0%,
+              #4eb6cd 50.48%,
+              $cyan-60v 100%
+            )
+            border-box;
+        p {
+          margin: 0;
+          font-size: $font-size-14;
+          line-height: 150%;
+          color: $gray-90;
+          font-weight: $font-normal;
+          .hint-user-replace {
+            pointer-events: none;
+            font-weight: $font-semibold;
+            color: $blue-60v;
+          }
+        }
+        &:first-of-type {
+          margin-top: rem(4);
+        }
+        &:last-of-type {
+          margin-bottom: rem(24);
+        }
+        &:hover,
+        &:active {
+          p {
+            color: $color-white;
+            .hint-user-replace {
+              pointer-events: none;
+              color: $color-white;
+            }
+          }
+        }
+        &:hover {
+          background: $cyan-50v;
+        }
+        &:active {
+          background: $cyan-60v;
+        }
+      }
+      .sidebar-textarea {
+        font-size: $font-size-14;
+        width: 100%;
+        resize: none;
+        font-weight: $font-normal;
+        padding: rem(8) rem(12);
+        border-radius: rem(4);
+        border: 1px solid $gray-60;
+      }
+      .textarea-char-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: rem(12);
+        align-items: center;
+        margin-top: rem(4);
+        .textarea-reset {
+          margin: 0;
+          background: $color-white;
+          padding: 0;
+          color: $blue-60v;
+          font-size: $font-size-12;
+          font-weight: $font-normal;
+          visibility: visible;
+        }
+
+        .text-area-reset-hidden {
+          visibility: hidden;
+        }
+
+        .textarea-char-count {
+          font-weight: $font-normal;
+          font-size: $font-size-12;
+          line-height: 150%;
+          color: $gray-90;
+        }
+      }
+      .natural-language-submit {
+        margin: 0;
+        display: flex;
+        color: $color-white;
+        justify-content: center;
+        text-align: center;
+        font-size: $font-size-16;
+        font-weight: $font-semibold;
+        line-height: 150%; /* 24px */
+        background: linear-gradient(
+          91deg,
+          $cyan-60v 0%,
+          $cyan-50v 35%,
+          $blue-60v 100%
+        );
+        padding: rem(12) rem(8);
+        width: 100%;
+        svg {
+          margin-right: rem(8);
+        }
+      }
+      .sidebar-ai-blurb {
+        color: $gray-90;
+        font-size: $font-size-12;
+        font-weight: $font-normal;
+        line-height: 150%;
+        display: inline-block;
+        margin-top: rem(12);
+      }
+    }
     .collapsible-sidebar-group {
       display: flex;
       align-items: center;
@@ -237,7 +359,7 @@
       scrollbar-gutter: stable;
       flex-grow: 1;
       height: calc(100vh - 270px);
-      padding: 0 1.0rem 0 2.4rem;
+      padding: 0 1rem 0 2.4rem;
 
       // This should be for mobile
       @media (max-width: $medium-screen - 1) {
@@ -273,57 +395,52 @@
 
         .accordion {
           .heading {
-            padding: $global-padding (
-              $global-padding / 2
-            );
-          border: none;
-          font-size: $smallest-font-size;
-          line-height: 1.5;
+            padding: $global-padding ($global-padding / 2);
+            border: none;
+            font-size: $smallest-font-size;
+            line-height: 1.5;
 
-          button {
-            padding: 0;
-            margin: 0;
-            max-height: rem(18);
-            max-width: rem(18);
+            button {
+              padding: 0;
+              margin: 0;
+              max-height: rem(18);
+              max-width: rem(18);
 
-            svg {
-              color: $blue-50;
+              svg {
+                color: $blue-50;
+              }
+            }
+          }
+
+          .content {
+            border: none;
+            padding: $global-padding ($global-padding / 2);
+
+            &.hidden {
+              overflow: hidden;
+              padding: 0;
+            }
+
+            .filter-item-wrap {
+              padding: 0;
+
+              .filter-description {
+                color: $gray-90;
+                font-size: $smallest-font-size;
+                line-height: 1.5;
+                padding: 0 ($global-padding / 2) $global-padding
+                  ($global-padding / 2);
+              }
+            }
+
+            .agency-filter .filter-item-wrap:first-of-type {
+              padding-bottom: rem(16);
             }
           }
         }
-
-        .content {
-          border: none;
-          padding: $global-padding (
-            $global-padding / 2
-          );
-
-        &.hidden {
-          overflow: hidden;
-          padding: 0;
-        }
-
-        .filter-item-wrap {
-          padding: 0;
-
-          .filter-description {
-            color: $gray-90;
-            font-size: $smallest-font-size;
-            line-height: 1.5;
-            padding: 0 ($global-padding / 2) $global-padding (
-              $global-padding / 2
-            );
-        }
-      }
-
-      .agency-filter .filter-item-wrap:first-of-type {
-        padding-bottom: rem(16);
       }
     }
   }
-}
-}
-}
 }
 
 .search-contents.v2 {
@@ -379,6 +496,19 @@
       svg {
         min-width: rem(24);
         min-height: rem(24);
+      }
+
+      &__badge {
+        color: $gray-90;
+        background-color: $yellow-20v;
+        border: rem(1) solid $yellow-10v;
+        border-radius: rem(10);
+        position: absolute;
+        right: rem(2);
+        top: rem(4);
+        padding: 0 $global-padding;
+        font-size: $smallest-font-size;
+        line-height: 1.5;
       }
     }
   }

@@ -1,0 +1,94 @@
+.search-gov-spending__section {
+  padding: $global-spacing-unit * 5;
+  border-radius: rem(12);
+  border: rem(1) solid transparent;
+  background:
+    linear-gradient($cyan-light, $cyan-light) padding-box,
+    linear-gradient(92deg, $cyan-20v 0%, $cyan-medium 50%, $cyan-50v 100%)
+      border-box;
+  margin-top: $global-spacing-unit * 5;
+  overflow: hidden;
+
+  .search-gov-spending__row {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .search-gov-spending__label-icon-container {
+    display: flex;
+    align-items: flex-start;
+
+    @media (max-width: $mobile-only) {
+      margin-bottom: rem(8);
+    }
+  }
+
+  .search-gov-spending__link {
+    @include link-styles;
+    display: flex;
+    align-items: flex-start;
+
+    button {
+      margin: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+  }
+
+  .button-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: rem(24);
+    height: rem(24);
+    border-radius: rem(4);
+    background: $color-white;
+
+    &:hover {
+      background: $blue-70v;
+      color: $color-white;
+    }
+
+    .button-icon {
+      @include icon-styles;
+    }
+  }
+
+  .search-gov-spending__container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .search-gov-spending__header {
+      @include label-styles;
+      color: $gray-60;
+      margin-top: rem(24);
+    }
+
+    .search-gov-spending__card-row {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: rem(52);
+
+      @media (max-width: $medium-screen) {
+        gap: rem(24);
+      }
+
+      @media (max-width: $tablet-screen) {
+        gap: rem(16);
+      }
+
+      @media (max-width: $mobile-only) {
+        flex-direction: column;
+        gap: rem(16);
+      }
+
+      .search-gov-spending__card {
+        .card-body {
+          padding: rem(16) 0 0 0;
+        }
+      }
+    }
+  }
+}

@@ -4,17 +4,28 @@ $button-color-disabled: $gray-5;
 $button-text-color: $color-white;
 $button-text-disabled: $gray-60;
 $quarter-text-color: $gray-90;
+$quarter-picker-mobile-breakpoint: 576px;
 
 .quarter-picker {
   ul.quarter-picker__list {
     @include unstyled-list;
     display: flex;
+    flex-direction: row;
     flex: 1 1 auto;
     padding: rem(5) 0;
 
+    @media (max-width: $quarter-picker-mobile-breakpoint) {
+      flex-direction: column;
+    }
+
     li.quarter-picker__list-item {
-      margin-right: rem(2);
+      margin-right: rem(4);
       margin-bottom: 0;
+
+      @media (max-width: $quarter-picker-mobile-breakpoint) {
+        flex: 1 1 0;
+        margin-right: 0;
+      }
 
       &:first-child {
         margin-left: 0;
@@ -26,10 +37,11 @@ $quarter-text-color: $gray-90;
 
       button.quarter-picker__quarter {
         @include button-unstyled;
-        color: $button-text-disabled;
+        color: $quarter-text-color;
         line-height: 1.5;
         font-weight: $font-semibold;
-        background-color: $button-color;
+        background-color: $color-white;
+        border: rem(1) solid $active-button-color;
         padding: rem(4) $global-padding;
         display: flex;
         text-align: center;
@@ -65,6 +77,7 @@ $quarter-text-color: $gray-90;
           cursor: not-allowed;
           opacity: 0.9;
           color: $button-text-disabled;
+          border: none;
         }
       }
 
@@ -74,6 +87,13 @@ $quarter-text-color: $gray-90;
         flex-direction: column;
         list-style: none;
         height: auto;
+
+        @media (max-width: $quarter-picker-mobile-breakpoint) {
+          flex: 1 1 0;
+          flex-direction: row;
+          min-width: 0;
+          margin-top: rem(12);
+        }
 
         // the nested list
         p {
@@ -90,16 +110,35 @@ $quarter-text-color: $gray-90;
           padding: 0;
           margin: 0;
 
+          @media (max-width: $quarter-picker-mobile-breakpoint) {
+            flex: 1 1 0;
+            min-width: 0;
+            margin-left: rem(12);
+            gap: rem(1);
+
+            li {
+              flex: 1 1 0;
+              min-width: 0;
+
+              .quarter-picker__quarter {
+                width: 100%;
+                min-width: 0;
+                box-sizing: border-box;
+                white-space: nowrap;
+              }
+            }
+
+            .quarter-picker__quarter_double {
+              width: 100%;
+            }
+          }
+
           li {
             list-style: none;
 
             .quarter-picker__quarter_first,
             .quarter-picker__quarter_last {
               border-radius: 0;
-            }
-
-            .quarter-picker__quarter {
-              width: fit-content;
             }
           }
         }
