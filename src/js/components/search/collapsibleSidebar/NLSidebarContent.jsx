@@ -44,6 +44,7 @@ const NLSidebarContent = ({ hintOnClick, text, setText }) => {
                 </div>
             </div>
             <div className="sidebar-body-row">
+                { /* We will have to make a couple adjustments to this when we have the api hooked up and are getting loading states back*/}
                 <NLSearchButton
                     text="Search"
                     icon={icon}

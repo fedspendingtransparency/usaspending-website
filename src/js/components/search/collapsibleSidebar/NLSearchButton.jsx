@@ -5,7 +5,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { library } from '@fortawesome/fontawesome-svg-core';
 
 const propTypes = {
     loadingState: PropTypes.string,
@@ -16,7 +15,6 @@ const propTypes = {
 };
 
 const NLSearchButton = ({loadingState, classname="default-search", icon="../../../../img/magnifying-glass-white.svg", text = "Search"}) => {
-    console.log(library);
 
     return (
         <button className={`natural-language-submit ${classname}`} onClick={()=> console.debug("clicked")}>
