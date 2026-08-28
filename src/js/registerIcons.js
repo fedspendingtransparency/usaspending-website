@@ -7,6 +7,7 @@ import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faXmark
 } from '@fortawesome/pro-regular-svg-icons';
+import { faWandMagicSparkles } from "@fortawesome/pro-regular-svg-icons";
 import {
     faAngleDoubleDown,
     faAngleDown,
@@ -238,6 +239,7 @@ export default function registerIcons() {
         faVirusCovid,
         faWindowRestore,
         faXmark,
+        faWandMagicSparkles,
         faYoutube,
         faSparkles,
         faQuestion,
