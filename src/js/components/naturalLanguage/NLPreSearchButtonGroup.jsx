@@ -4,15 +4,17 @@
  */
 
 import React, { useMemo } from "react";
-import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isCancel } from 'axios';
 import { FlexGridRow, FlexGridCol, CardContainer } from 'data-transparency-ui';
 import { preSearchOptions } from "./NLData";
 import { generateUrlHash } from "../../helpers/searchHelper";
+import { combineQueryParams, getQueryParamString } from "../../helpers/queryParams";
+import useQueryParams from "../../hooks/useQueryParams";
 
 const NLPreSearchButtonGroup = () => {
-    const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
+    const query = useQueryParams();
+
     const getRandomOption = ({options}) => {
         // eslint-disable-next-line react-hooks/purity
         const index = Math.floor(Math.random() * options.length);
@@ -25,14 +27,9 @@ const NLPreSearchButtonGroup = () => {
         let tempHash = generateUrlHash(filterValue);
         tempHash.promise
             .then((results) => {
-                const hashData = results.data;
-                let url = `/search?hash=${encodeURIComponent(hashData.hash)}`;
-
-                if (spendingLevel === "subawards") {
-                    url += "&subawards=true";
-                }
-
-                window.open(url, "_self");
+                const newQueryParams = combineQueryParams(query, {hash: encodeURIComponent(results.data.hash)});
+                window.open(`${'/search'}${getQueryParamString(newQueryParams)}`, "_self");
+                
                 // operation has resolved
                 tempHash = null;
             })
