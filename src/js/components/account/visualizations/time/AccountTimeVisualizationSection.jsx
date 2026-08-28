@@ -7,8 +7,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash-es';
 import { SectionHeader } from "data-transparency-ui";
-import AccountTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
 
+import AccountTimeVisualizationPeriodButton from './AccountTimeVisualizationPeriodButton';
 import TimeVisualization from './TimeVisualization';
 
 const propTypes = {
@@ -31,22 +31,25 @@ const AccountTimeVisualizationSection = ({
 
     const sectionHr = useRef(null);
 
-    const handleWindowResize = throttle(() => {
+    const handleWindowResize = throttle((ref) => {
     // determine if the width changed
         const windowWidthLocal = window.innerWidth;
         if (windowWidthLocal !== windowWidth) {
             // width changed, update the visualization width
             setWindowWidth(windowWidthLocal);
-            setVisualizationWidth(sectionHr.current.offsetWidth);
+            setVisualizationWidth(ref.offsetWidth);
         }
     }, 50);
 
     useEffect(() => {
-        handleWindowResize();
-        window.addEventListener('resize', handleWindowResize);
+        const resize = () => handleWindowResize(sectionHr.current);
+
+        resize();
+
+        window.addEventListener('resize', resize);
 
         return () => {
-            window.removeEventListener('resize', handleWindowResize);
+            window.removeEventListener('resize', resize);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -60,9 +63,7 @@ const AccountTimeVisualizationSection = ({
                 descTooltip={{ component: false }} />
             <hr
                 className="results-divider"
-                ref={(hr) => {
-                    sectionHr.current = hr;
-                }} />
+                ref={sectionHr} />
 
             <div className="visualization-top">
                 <div className="visualization-description">

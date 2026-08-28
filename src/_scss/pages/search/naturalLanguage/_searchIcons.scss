@@ -5,9 +5,24 @@
   line-height: $base-line-height;
 }
 
+@mixin title-styles {
+  font-family: $font-sans;
+  font-size: $h3-font-size;
+  font-weight: $font-semibold;
+  line-height: $heading-line-height;
+}
+
 @mixin icon-styles {
   width: $base-font-size;
   height: $base-font-size;
+}
+
+@mixin link-styles {
+  color: $blue-60v;
+  font-family: $font-sans;
+  font-size: $small-font-size;
+  font-weight: $font-semibold;
+  line-height: $base-line-height;
 }
 
 @mixin icon-variant(
@@ -26,6 +41,10 @@
     @include label-styles;
     color: $label-color;
     margin-top: $label-margin-top;
+  }
+
+  .icon-title {
+    @include title-styles;
   }
 
   .icon-container {
@@ -57,6 +76,13 @@
     }
   }
 
+  .icon-description {
+    @include label-styles;
+    font-weight: $font-normal;
+    color: $gray-60;
+    white-space: normal;
+  }
+
   &--time-period {
     @include icon-variant($gray-90, $blue-vivid-5v, $blue-vivid-70);
   }
@@ -86,5 +112,74 @@
   &--data-dictionary,
   &--federal-spending-guide {
     @include icon-variant($gray-80, none, $gray-80, rem(6), rem(2), 0, 0);
+  }
+
+  &--gov-spending {
+    @include icon-variant($gray-90, none, $cyan-60v, rem(8), 0, 0, 0);
+
+    &.icon-row {
+      @media (max-width: $mobile-only) {
+        align-items: flex-start;
+      }
+    }
+
+    .icon-label {
+      font-size: $h3-font-size;
+      line-height: $heading-line-height;
+      white-space: normal;
+    }
+
+    .icon-container {
+      .icon {
+        width: rem(24);
+        height: rem(24);
+      }
+    }
+  }
+
+  &--ask-questions,
+  &--analyzing-response,
+  &--get-the-data {
+    @include icon-variant($gray-80, $color-white, $cyan-60v, rem(10), 0, 0, 0);
+
+    &.icon-row__with-description {
+      align-items: flex-start;
+    }
+    .icon-label {
+      font-size: $font-size-16;
+      line-height: $base-line-height;
+      color: $gray-80;
+      white-space: normal;
+    }
+
+    .icon-label__with-description {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .icon-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: rem(1) solid $gray-5;
+      border-radius: rem(20);
+      width: rem(40);
+      height: rem(40);
+
+      .icon {
+        width: rem(20);
+        height: rem(20);
+      }
+    }
+  }
+
+  &--ask-questions {
+    .icon-container {
+      .icon {
+        width: rem(13);
+        height: rem(20);
+      }
+    }
   }
 }

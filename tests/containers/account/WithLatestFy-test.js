@@ -11,7 +11,7 @@
 */
 import React from 'react';
 import { createMemoryHistory } from 'history';
-import { Router, useNavigate, useLocation } from 'react-router';
+import { Router } from 'react-router';
 import { List } from 'immutable';
 import { renderHook } from '@testing-library/react-hooks';
 import * as redux from 'react-redux';
@@ -80,11 +80,11 @@ xtest.each([
         // reset history before each test
         // eslint-disable-next-line no-unassigned-vars
         let location;
-        <Router>
-            const navigate = useNavigate();
-            location = useLocation();
-            navigate('');
-        </Router>
+        // <Router>
+        //     const navigate = useNavigate();
+        //     location = useLocation();
+        //     navigate('');
+        // </Router>
         // history.push({ pathname: '', search: '' });
         jest.spyOn(queryParamHelpers, 'useQueryParams').mockImplementation(() => {
             if (requiredParams.includes('period')) {

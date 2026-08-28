@@ -3,12 +3,9 @@
  * Created by Max Kendall 12/8/2020
  */
 import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
-import { faLightbulb as falLightbulb } from "@fortawesome/pro-light-svg-icons";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-    faXmark,
-    faLightbulb as farLightbulb,
-    faFileExcel as faFileExcelLight
+    faXmark
 } from '@fortawesome/pro-regular-svg-icons';
 import {
     faAngleDoubleDown,
@@ -119,7 +116,11 @@ import {
     faUserTie,
     faUser,
     faWindowRestore,
-    faVirusCovid
+    faVirusCovid,
+    faSparkles,
+    faQuestion,
+    faArrowsRotate,
+    faChartColumn
 } from "@fortawesome/pro-solid-svg-icons";
 
 export default function registerIcons() {
@@ -237,6 +238,10 @@ export default function registerIcons() {
         faVirusCovid,
         faWindowRestore,
         faXmark,
-        faYoutube  
+        faYoutube,
+        faSparkles,
+        faQuestion,
+        faArrowsRotate,
+        faChartColumn
     );
 }

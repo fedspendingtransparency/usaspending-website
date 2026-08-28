@@ -56,7 +56,7 @@ export default class RelatedAwards extends React.Component {
     referencedAwardCounts() {
         const { details, overview } = this.props;
         if (!details) return null;
-        let childData = [];
+        let childData;
         if (overview.category === 'idv') {
             childData = [
                 {

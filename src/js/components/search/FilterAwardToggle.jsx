@@ -93,7 +93,8 @@ const FilterAwardToggle = memo(function FilterAwardToggle({
                         }`}
                         tabIndex="0"
                         onClick={() => onToggle(type.value)}
-                        onKeyDown={(e) => (e.key === "Enter" ? onToggle(type.value) : "")} >
+                        onKeyDown={(e) => (e.key === "Enter" ? onToggle(type.value) : "")}
+                        key={type.name}>
                         {type.name}
                     </button>
                 ))}

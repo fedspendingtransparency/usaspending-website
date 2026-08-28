@@ -57,10 +57,20 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             const rowData = Object.create(BaseReportingPeriodRow);
             rowData.populate(row);
             return [
-                <div className="generic-cell-content">{rowData.reportingPeriod}</div>,
-                <div className="generic-cell-content">{rowData.percentOfBudget}</div>,
+                <div
+                    className="generic-cell-content"
+                    key={rowData.reportingPeriod}>
+                    {rowData.reportingPeriod}
+                </div>,
+                <div
+                    className="generic-cell-content"
+                    key={rowData.percentOfBudget}>
+                    {rowData.percentOfBudget}
+                </div>,
                 !rowData._mostRecentPublicationDate ?
-                    <div className="generic-cell-content">{rowData.mostRecentPublicationDate}</div> :
+                    <div className="generic-cell-content">
+                        {rowData.mostRecentPublicationDate}
+                    </div> :
                     <CellWithModal
                         data={rowData.mostRecentPublicationDate}
                         openModal={modalClick}

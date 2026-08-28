@@ -5,10 +5,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
 import SearchSidebarSubmitContainer from "containers/search/SearchSidebarSubmitContainer";
-
 import SidebarContentFilters from "./SidebarContentFilters";
 
 const propTypes = {
@@ -16,10 +13,11 @@ const propTypes = {
     setShowMobileFilters: PropTypes.func
 };
 
-const SidebarContent = ({ sidebarContentHeight }) => (
+const SidebarContent = ({ sidebarContentHeight, setShowMobileFilters }) => (
     <>
         <div className="sidebar-top-submit">
-            <SearchSidebarSubmitContainer />
+            <SearchSidebarSubmitContainer 
+                setShowMobileFilters={setShowMobileFilters}/>
         </div>
         <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">
             <SidebarContentFilters sidebarContentHeight={sidebarContentHeight} />

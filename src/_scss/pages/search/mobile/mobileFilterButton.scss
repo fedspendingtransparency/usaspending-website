@@ -1,6 +1,7 @@
 .mobile-filter-button-wrapper {
   // this is specifically to overlap the footer
-  z-index: 1;
+  // and any swiper elements
+  z-index: 2;
   position: fixed;
   border-top: 1px solid $gray-10;
   width: 100%;
@@ -14,7 +15,6 @@
   padding: 1em 0.6em;
   gap: 1.2rem;
   background: $color-white;
-  
 
   &.hidden {
     display: none;
@@ -102,7 +102,6 @@
         color: $color-primary-alt;
       }
     }
-    
 
     .mobile-filter-button-content {
       @include display(flex);
@@ -149,14 +148,19 @@
     }
   }
 
-  .mobile-filter-button-v2.opened.natural-language { 
-    background: linear-gradient(91deg, $cyan-60v 0%, $cyan-50v 35%, $blue-60v 100%);
+  .mobile-filter-button-v2.opened.natural-language {
+    background: linear-gradient(
+      91deg,
+      $cyan-60v 0%,
+      $cyan-50v 35%,
+      $blue-60v 100%
+    );
     .mobile-filter-button-label {
       color: $color-white;
     }
   }
 
-  .mobile-filter-button-v2.opened.filters { 
+  .mobile-filter-button-v2.opened.filters {
     background: $cyan-60v;
     .mobile-filter-button-icon {
       path {
@@ -201,5 +205,5 @@
   }
 }
 .mobile-filter-button-wrapper.mobile-filter-closed-shadow {
-  box-shadow: 2px 0 8px 0 rgba(0, 0, 0, 0.10);
+  box-shadow: 2px 0 8px 0 rgba(0, 0, 0, 0.1);
 }

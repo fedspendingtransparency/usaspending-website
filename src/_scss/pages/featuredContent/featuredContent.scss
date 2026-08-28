@@ -24,6 +24,13 @@
         margin: 0 auto;
         width: 500px;
       }
+      @media (max-width: $tablet-screen - 1) {
+        width: 95dvw;
+
+        iframe {
+          width: 95dvw;
+        }
+      }
     }
 
     .grid-content {

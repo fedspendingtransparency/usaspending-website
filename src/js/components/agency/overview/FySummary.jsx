@@ -111,7 +111,8 @@ const FySummary = ({
                 subtitle={isMobile ? 'How much funding is available to this agency?' : (<>How much funding is available to this agency?</>)}
                 data={(<>{totalBudgetaryResources}<br />in budgetary resources</>)}
                 secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
-                label="Total Budgetary Resources Over Time">
+                label="Total Budgetary Resources Over Time"
+                key="Total Budgetary Resources Over Time" >
                 <BarChart
                     isLoading={isLoading}
                     isError={isError}
@@ -126,7 +127,8 @@ const FySummary = ({
                 subtitle={isMobile ? 'How much has this agency planned to spend?' : (<>How much has this agency planned to spend?</>)}
                 data={(<>{totalObligations}<br />in total obligations</>)}
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
-                label="Total Obligations Over Time" >
+                label="Total Obligations Over Time"
+                key="Total Obligations Over Time" >
                 <TotalObligationsOverTimeContainer
                     isLoading={isLoading}
                     isError={isError}
@@ -139,7 +141,8 @@ const FySummary = ({
                 subtitle={isMobile ? 'How much has this agency planned to spend on awards?' : (<>How much has this agency<br />planned to spend on awards?</>)}
                 data={(<>{awardObligations}<br /> in award obligations</>)}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
-                label="Award Obligations by Type" >
+                label="Award Obligations by Type"
+                key="Award Obligations by Type" >
                 <ObligationsByAwardTypeContainer fiscalYear={+fy} isMobile={isMobile} />
             </VisualizationSection>
         )

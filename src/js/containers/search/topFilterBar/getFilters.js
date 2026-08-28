@@ -213,7 +213,7 @@ const getFilters = (filters) => {
             selected = true;
             filter.values = [
                 ...filter.values,
-                ...filters.tasCodes?.counts.map((tas) => ({
+                ...filters.tasCodes.counts.map((tas) => ({
                     ...tas,
                     isCheckbox: true,
                     tas_description: `${tas.label} (${tas?.count})`
@@ -518,7 +518,7 @@ const getFilters = (filters) => {
             selected = true;
             filter.values = [
                 ...filter.values,
-                ...filters.pscCodes?.counts.map((psc) => ({
+                ...filters.pscCodes.counts.map((psc) => ({
                     ...psc,
                     psc_description: `${psc.value} (${psc?.count})`
                 }))

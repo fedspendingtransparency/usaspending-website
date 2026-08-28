@@ -38,7 +38,8 @@ const AccountLandingPage = () => {
             toolBarComponents={[
                 <ShareIcon508
                     onShareOptionClick={handleShare}
-                    url={getBaseUrl(slug)} />
+                    url={getBaseUrl(slug)}
+                    key={slug} />
             ]}>
             <main
                 id="main-content"

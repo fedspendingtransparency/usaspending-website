@@ -59,7 +59,7 @@ export default defineConfig([
             // TODO: The following js rules have been deprecated and should be replaced,
             //  all have been addressed in @stylistic/eslint-plugin
             "indent": [2, 4, { "SwitchCase": 1 }],
-            "max-len": [1, 100, { "tabWidth": 4 }],
+            "max-len": [1, 120, { "tabWidth": 4 }],
             "comma-dangle": [2, "never"],
             "no-extra-semi": [1],
             "arrow-parens": [2, "always"],
@@ -107,19 +107,6 @@ export default defineConfig([
 
             // TODO: Fix errors and remove rules exceptions below
             //  They were added to avoid new errors with eslint upgrade
-            "no-useless-assignment": "warn",
-            "no-unsafe-optional-chaining": "warn",
-            "no-unused-vars": "warn",
-            "no-constant-binary-expression": "warn",
-            "preserve-caught-error": "warn",
-            "react/jsx-key": "warn",
-            "react/jsx-no-target-blank": "warn",
-            "react/no-unknown-property": "warn",
-            "react/no-direct-mutation-state": "warn",
-            "react/display-name": "warn",
-            "react/no-unescaped-entities": "warn",
-            "react-hooks/immutability": "warn",
-            "react-hooks/purity": "warn",
             "react-hooks/refs": "warn",
             "react-hooks/set-state-in-effect": "warn",
             "react-hooks/globals": "warn",

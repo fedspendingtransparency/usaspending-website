@@ -4,8 +4,6 @@
  * aboutTheDataReducer-test.js
  * Created by Andrea Blackwell 12/14/2022
  */
-
-import { Map } from 'immutable';
 import aboutTheDataReducer, { initialState, Entry } from 'redux/reducers/aboutTheDataSidebar/aboutTheDataReducer';
 
 describe('aboutTheDataReducer', () => {

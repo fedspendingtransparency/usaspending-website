@@ -1,4 +1,3 @@
-import { List } from 'immutable';
 import { initialState } from 'redux/reducers/search/searchFiltersReducer';
 import { decodedAwardId } from '../../../mockData';
 

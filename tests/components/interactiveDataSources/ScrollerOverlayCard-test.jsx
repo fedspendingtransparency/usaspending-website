@@ -2,7 +2,6 @@
  * @jest-environment jsdom
  */
 import React from 'react';
-import { log } from "console";
 import { render, screen } from 'test-utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ScrollerOverlayCard from "components/interactiveDataSources/scroller/scrollerOverlay/ScrollerOverlayCard";

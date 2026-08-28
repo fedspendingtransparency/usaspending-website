@@ -1,3 +1,4 @@
+// TODO: Needs to be deleted? Not in use as of 8/6/26
 /**
  * DsmRelatedTerms
  * Created by Zoey Sears 3/28/25
@@ -27,12 +28,14 @@ const DsmRelatedTerms = ({ headingTitle, glossaryLinks, aboutTheData }) => (
         </div>
         <div className="collapsible-sidebar--dsm-wrapper--text-section">
             {glossaryLinks && glossaryLinks.map((glossaryLink) => (
-                <div className="collapsible-sidebar--dsm-wrapper--text-links">
+                <div
+                    className="collapsible-sidebar--dsm-wrapper--text-links"
+                    key={glossaryLink.term}>
                     <GlossaryLink term={glossaryLink.term} label={glossaryLink.text} />
                 </div>)
             )}
             {aboutTheData && aboutTheData.map((data) => (
-                <div className="collapsible-sidebar--dsm-wrapper--text-links">
+                <div className="collapsible-sidebar--dsm-wrapper--text-links" key="data.slug">
                     <AboutTheDataLink slug={data.slug}>
                         {data.name}
                     </AboutTheDataLink>

@@ -44,7 +44,6 @@
         padding: 0;
       }
     }
-    
   }
 
   .download-info-wrapper {
@@ -67,10 +66,10 @@
       width: 100%;
       margin: 0;
     }
-    
+
     .download-info {
       margin-top: rem(24);
-      
+
       h4.download-info__title {
         @include h4;
         font-weight: $font-semibold;
@@ -87,7 +86,7 @@
         p {
           margin: 0;
         }
-        
+
         .usa-da-icon-guide {
           height: rem(16);
           width: rem(16);
