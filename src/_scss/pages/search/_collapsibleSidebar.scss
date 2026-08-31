@@ -468,6 +468,7 @@
   .sidebar-nl-buttons-container {
     width: min-content;
     position: relative;
+    align-items: start;
     background: linear-gradient(
       179deg,
       $cyan-60v 1%,
@@ -489,33 +490,39 @@
       }
     }
 
-    .sidebar-nl-buttons {
-      position: relative;
-      z-index: 1;
-      padding: rem(12);
-      margin: 0 0 $global-margin $global-margin;
-      border-radius: rem(4) 0 0 rem(4);
-
-      &:first-of-type {
-        margin-top: 3 * $global-margin;
-      }
-
-      svg {
-        min-width: rem(24);
-        min-height: rem(24);
-      }
-
-      &__badge {
-        color: $gray-90;
-        background-color: $yellow-20v;
-        border: rem(1) solid $yellow-10v;
-        border-radius: rem(10);
-        position: absolute;
-        right: rem(2);
-        top: rem(4);
-        padding: 0 $global-padding;
-        font-size: $smallest-font-size;
-        line-height: 1.5;
+    .nl-buttons-wrapper {
+      position: sticky;
+      top: rem(60);
+      left: 0;
+      
+      .sidebar-nl-buttons {
+        position: relative;
+        z-index: 1;
+        padding: rem(12);
+        margin: 0 0 $global-margin $global-margin;
+        border-radius: rem(4) 0 0 rem(4);
+        
+        &:first-of-type {
+          margin-top: 3 * $global-margin;
+        }
+        
+        svg {
+          min-width: rem(24);
+          min-height: rem(24);
+        }
+        
+        &__badge {
+          color: $gray-90;
+          background-color: $yellow-20v;
+          border: rem(1) solid $yellow-10v;
+          border-radius: rem(10);
+          position: absolute;
+          right: rem(2);
+          top: rem(4);
+          padding: 0 $global-padding;
+          font-size: $smallest-font-size;
+          line-height: 1.5;
+        }
       }
     }
   }
