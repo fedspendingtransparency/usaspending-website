@@ -1,5 +1,5 @@
+import { useEffect, useCallback } from "react";
 import { useDispatch } from 'react-redux';
-import { useEffect } from "react";
 import { useMatch, useNavigate } from "react-router";
 import { parseStateDataFromUrl } from "./stateHelper";
 import { resetState, setStateFiscalYear } from "../../redux/actions/state/stateActions";
@@ -14,16 +14,16 @@ export const useStateNavigation = () => {
     const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
     const fy = fyParam;
 
-    const handleFyChange = (newFy) => {
+    const handleFyChange = useCallback((newFy) => {
         navigate(`/state/${stateName}/${newFy}`);
         dispatch(setStateFiscalYear(newFy));
-    };
+    }, [dispatch, navigate, stateName]);
 
     useEffect(() => {
-        if (Object.keys(fipsIdByStateName).includes(stateName)) {
+        if (Object.keys(fipsIdByStateName).includes(stateName.replaceAll('-', ' '))) {
             if (!fy) {
-            // this may be an issue on the first day of 2026 fiscal year
-            // history(`/state/${stateName}/latest`, { replace: true });
+                // this may be an issue on the first day of 2026 fiscal year
+                // history(`/state/${stateName}/latest`, { replace: true });
                 navigate(`/state/${stateName}/2026`, { replace: true });
             }
             else if (!allFiscalYears().includes(parseInt(fyParam, 10))) {
