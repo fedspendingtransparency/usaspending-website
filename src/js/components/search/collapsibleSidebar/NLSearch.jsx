@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import NLSearchSuggestionsIcon from "../../naturalLanguage/NLSearchSuggestionsIcon";
-import {START, COMPLETE, ERROR} from "../../naturalLanguage/NLConstants"
+import { START, COMPLETE, ERROR } from "../../../../../tests/mockData";
 
 
 
