@@ -136,6 +136,8 @@ const SearchContainer = () => {
     const { current: prevAreAppliedFiltersEmpty } = areAppliedFiltersEmptyRef;
     const { current: prevAppliedFilters } = prevAppliedFiltersRef;
 
+    useRequestNLSearch("hello world");
+
     useEffect(() => {
         // receiving filters from previous search via hash.
         const shouldFetchRemoteFilters = (
@@ -143,21 +145,18 @@ const SearchContainer = () => {
             areFiltersEqual(stagedFilters, initialState)
         );
 
+
         // request.current = nlSearch({query: "hello world"});
-
-        request.current = fetchNLSearch({query: "hello world"});
-
-        request.current.promise.then((res) => {
-            console.log("response", res);
-        });
+        // request.current = fetchNLSearch({query: "hello world"});
+        //
+        // request.current?.promise?.then((res) => {
+        //     // console.log("response", res);
+        // });
 
         if (shouldFetchRemoteFilters) {
-            if (request.current) {
-                request.current.cancel();
-            }
-
-
-
+            // if (request.current) {
+            //     request.current.cancel();
+            // }
 
             // request.current = restoreUrlHash({
             //     hash: urlHash
