@@ -18,7 +18,6 @@ const NLSearchButton = ({loadingState, classname="default-search", icon="../../.
 
     return (
         <button className={`natural-language-submit ${classname}`} onClick={()=> console.debug("clicked")}>
-            {/* white shimmer magnifying glass logo */}
             {!loadingState && <img src={icon} alt="Icon for Search Button"/>}
             {loadingState && <FontAwesomeIcon icon={['far', 'wand-magic-sparkles']} />}
             {text}

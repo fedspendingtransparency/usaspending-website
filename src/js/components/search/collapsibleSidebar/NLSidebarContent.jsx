@@ -12,6 +12,7 @@ const NLSidebarContent = ({ hintOnClick, text, setText }) => {
     const MAX_CHARS = 500;
     const reset = () => setText("");
     let searchClass = 'default-search';
+    // eslint-disable-next-line no-useless-assignment
     let icon = '';
     if (text.length === 0) {
         searchClass += " disabled";
