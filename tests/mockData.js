@@ -1,9 +1,11 @@
 export const encodedAwardId = encodeURIComponent('123/456');
 export const decodedAwardId = decodeURIComponent(encodedAwardId);
-export const START = 'tool_start';
-export const COMPLETE = 'tool_complete';
-export const ERROR = 'tool_error';
 
+export const RESPONSE_TYPE = {
+    TOOL_START: 'tool_start',
+    TOOL_COMPLETE: 'tool_complete',
+    TOOL_ERROR: 'tool_error' 
+};
 
 export const mockGlossary = {
     data: {
@@ -97,23 +99,23 @@ export const mockComboBox = [
 
 export const searchTestData = [
     {
-        type: [COMPLETE],
+        type: [RESPONSE_TYPE.TOOL_COMPLETE],
         message: "Thinking..."
     },
     {   
-        type: [ERROR],
+        type: [RESPONSE_TYPE.TOOL_ERROR],
         message: 'Selecting Anne Arundel, MD'
     },
     {
-        type: [COMPLETE],
+        type: [RESPONSE_TYPE.TOOL_COMPLETE],
         message: 'Selecting higher education and public schools'
     },
     {
-        type: [START],
+        type: [RESPONSE_TYPE.TOOL_START],
         message: 'Selecting funding over $500,000'
     },
     {
-        type: [COMPLETE],
+        type: [RESPONSE_TYPE.TOOL_COMPLETE],
         message: `Applying filters based on grants and loans that went
             to schools in Anne Arundel county, Maryland`
     }
