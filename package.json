@@ -346,7 +346,7 @@
     "react-transitioning": "^1.0.4",
     "react-youtube": "^10.1.0",
     "recharts": "^2.12.2",
-    "redux": "^4.0.1",
+    "redux": "^5.0.1",
     "redux-perf-middleware": "^1.2.2",
     "sass": "^1.69.4",
     "stream": "^0.0.2",
