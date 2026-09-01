@@ -95,7 +95,7 @@
     "jest-util": "^29.7.0",
     "json-loader": "^0.5.4",
     "kind-of": "^6.0.3",
-    "locate-path": "^5.0.0",
+    "locate-path": "^8.0.0",
     "mini-css-extract-plugin": "^2.6.1",
     "minimist": "1.2.8",
     "morgan": "1.11.0",
