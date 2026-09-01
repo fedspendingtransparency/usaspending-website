@@ -78,14 +78,16 @@ const KeywordPage = ({
                 <SearchSummary
                     primeAwardTotal={summary?.primeAmount}
                     primeTransactionCount={summary?.primeCount}
-                    inFlight={summaryInFlight} />,
+                    inFlight={summaryInFlight}
+                    key="SearchSummary"/>,
                 <DownloadIconButton508
                     tooltipComponent={(!downloadAvailable && keyword)
                         ? <NoDownloadHover />
                         : null
                     }
                     isEnabled={downloadAvailable}
-                    onClick={clickedDownload} />
+                    onClick={clickedDownload}
+                    key="DownloadIconButton508" />
             ]
                 .filter((c, i) => (
                     (i === 1 && !keyword) || keyword)

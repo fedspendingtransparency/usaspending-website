@@ -105,7 +105,8 @@ const AgencyDetailsPage = () => {
             toolBarComponents={[
                 <ShareIcon508
                     url={getBaseUrl(`submission-statistics/agency/${safeAgencyCode}`)}
-                    onShareOptionClick={handleShare} />
+                    onShareOptionClick={handleShare}
+                    key={safeAgencyCode} />
             ]}>
             <main id="main-content" className="main-content">
                 <FlexGridRow className="agency-submission-stat-row">

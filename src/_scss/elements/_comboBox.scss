@@ -19,13 +19,19 @@
     }
   }
 
+  .combo-box__wrapper {
+    position: relative;
+  }
+
   .combo-box__input-container {
     display: flex;
     align-items: center;
     margin-top: $global-margin;
+    position: relative;
 
     .combo-box__input {
       width: 100%;
+      box-sizing: border-box;
       font-size: $small-font-size;
       line-height: $base-line-height;
       color: $gray-60;
@@ -42,20 +48,18 @@
         color: $gray-70;
       }
 
-      #placeholder {
+      &::placeholder {
         color: $gray-60;
       }
     }
 
     .combo-box__buttons-container {
       display: flex;
+      align-items: center;
       position: absolute;
-      margin-left: rem(-60);
-      left: 100%;
-
-      &.empty {
-        margin-left: rem(-41);
-      }
+      top: 50%;
+      right: rem(4);
+      transform: translateY(-50%);
 
       .combo-box__vertical-line {
         width: rem(1);
@@ -65,10 +69,26 @@
       }
 
       .combo-box__button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         padding: rem(4);
         margin: 0;
+        border: 0;
         border-radius: 0;
         background-color: transparent;
+        box-sizing: border-box;
+        -webkit-appearance: none;
+        -mox-appearance: none;
+        appearance: none;
+
+        // Firefox adds an internal dotted focus border + padding
+        // on buttons that other browser do not render;  without this
+        // icon buttons are a couple px larger/offset in FireFox.
+        &::-moz-focus-inner {
+          border: 0;
+          padding: 0;
+        }
 
         svg {
           width: rem(11);
@@ -91,15 +111,11 @@
 
   .combo-box__options-container {
     position: absolute;
-    top: 0;
+    top: 100%;
+    left: 0;
     width: 100%;
     background-color: $color-white;
     z-index: 1;
-    margin-top: rem(47);
-
-    &.label {
-      margin-top: rem(69);
-    }
 
     ul {
       padding: 0;

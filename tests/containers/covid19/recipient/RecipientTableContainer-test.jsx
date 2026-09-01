@@ -6,7 +6,6 @@
  * */
 
 import React from 'react';
-// eslint-disable-next-line import/no-unresolved
 import { render, waitFor, screen, fireEvent, act } from 'test-utils';
 import { expect } from '@jest/globals';
 import { Link } from 'react-router';
@@ -48,8 +47,6 @@ describe('RecipientTableContainer', () => {
     describe('parseRows', () => {
         it('should parse returned recipient data', () => {
             /* eslint-disable indent */
-            /* eslint-disable react/jsx-indent */
-            /* eslint-disable react/jsx-closing-tag-location */
             const expected = [
                 [
                     (
@@ -70,6 +67,7 @@ describe('RecipientTableContainer', () => {
                 ],
                 [
                     (
+                        // eslint-disable-next-line react/jsx-key
                         <Link to="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R/latest">
                             RECIPIENT 2
                         </Link>
@@ -80,11 +78,10 @@ describe('RecipientTableContainer', () => {
                 ]
             ];
             /* eslint-enable indent */
-            /* eslint-enable react/jsx-indent */
-            /* eslint-enable react/jsx-closing-tag-location */
 
             const parsed = parseRows(mockResults, 'all', '');
-            // using toMatchObject for equality comparison that is more lenient than toEqual https://jestjs.io/docs/en/expect#tomatchobjectobject
+            // using toMatchObject for equality comparison that is
+            // more lenient than toEqual https://jestjs.io/docs/en/expect#tomatchobjectobject
             expect([...parsed]).toMatchObject(expected);
         });
         it('should parse returned recipient loans data', () => {
@@ -110,8 +107,6 @@ describe('RecipientTableContainer', () => {
             ];
 
             /* eslint-disable indent */
-            /* eslint-disable react/jsx-indent */
-            /* eslint-disable react/jsx-closing-tag-location */
             const expected = [
                 [
                     (
@@ -133,6 +128,7 @@ describe('RecipientTableContainer', () => {
                 ],
                 [
                     (
+                        // eslint-disable-next-line react/jsx-key
                         <Link to="/recipient/3c92491a-f2cd-ec7d-294b-7daf91511866-R/latest">
                             RECIPIENT 2
                         </Link>
@@ -144,8 +140,6 @@ describe('RecipientTableContainer', () => {
                 ]
             ];
             /* eslint-enable indent */
-            /* eslint-enable react/jsx-indent */
-            /* eslint-enable react/jsx-closing-tag-location */
 
             const parsed = parseRows(mockLoanResults, 'loans', '');
             expect([...parsed]).toMatchObject(expected);
@@ -252,7 +246,9 @@ describe('RecipientTableContainer', () => {
                 cancel: jest.fn()
             });
 
-            const { rerender } = render(<RecipientTableContainer activeTab="loans" prevActiveTab="loans" scrollIntoView={jest.fn()} />);
+            const { rerender } = render(
+                <RecipientTableContainer activeTab="loans" prevActiveTab="loans" scrollIntoView={jest.fn()} />
+            );
             waitFor(() => {
                 expect(spy).toHaveBeenCalledTimes(2);
             });

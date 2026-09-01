@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {memo, useState} from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
 import {
     spendingOptions,
@@ -56,7 +56,8 @@ const navbarConfig = [
     }
 ];
 
-const MenuDropdowns = React.memo(() => {
+// eslint-disable-next-line prefer-arrow-callback
+const MenuDropdowns = memo(function MenuDropdowns() {
     const [activeIndices, setActiveIndices] = useState([]);
     const [animatingOut, setAnimatingOut] = useState(false);
     let animatingOutTimeout = null;

@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 10/30/17
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -28,39 +28,46 @@ const propTypes = {
 };
 
 const BulkDownloadPageContainer = (props) => {
-    let request = null;
+    const requestRef = useRef(null);
     const history = useNavigate();
     const match = useMatch(`/download_center/:type`);
     const { type } = match.params;
 
     const requestDownload = (params, requestType) => {
-        if (request) {
-            request.cancel();
+        if (requestRef.current) {
+            requestRef.current.cancel();
         }
 
         const bulkParams = params;
 
-        // Prevent empty arrays in the download request; empty array defaults are defined by the reducer
+        // Prevent empty arrays in the download request;
+        // empty array defaults are defined by the reducer
         for (const filterType in bulkParams.filters) {
-            if (Array.isArray(bulkParams.filters[filterType]) && !bulkParams.filters[filterType].length) {
+            if (
+                Array.isArray(bulkParams.filters[filterType]) &&
+                !bulkParams.filters[filterType].length
+            ) {
                 delete bulkParams.filters[filterType];
             }
         }
 
         if (requestType === 'awards') {
             // Need to check if sub_agency is set or not
-            if (bulkParams.filters.sub_agency && bulkParams.filters.sub_agency.toLowerCase() === 'select a sub-agency') {
+            if (
+                bulkParams.filters.sub_agency &&
+                bulkParams.filters.sub_agency.toLowerCase() === 'select a sub-agency'
+            ) {
                 delete bulkParams.filters.sub_agency;
             }
 
-            request = BulkDownloadHelper.requestAwardsDownload(bulkParams);
+            requestRef.current = BulkDownloadHelper.requestAwardsDownload(bulkParams);
         }
 
         else if (requestType === 'accounts') {
-            request = BulkDownloadHelper.requestAccountsDownload(bulkParams);
+            requestRef.current = BulkDownloadHelper.requestAccountsDownload(bulkParams);
         }
 
-        request.promise
+        requestRef.current.promise
             .then((res) => {
                 props.setDownloadExpectedUrl(res.data.file_url);
                 props.setDownloadExpectedFile(res.data.file_name);
@@ -158,7 +165,11 @@ const BulkDownloadPageContainer = (props) => {
             }
         }
 
-        const agencyParams = { type: formState.agencyType === 'awarding_agency' ? 'awarding' : 'funding', tier: "toptier", name: formState.agency.name };
+        const agencyParams = {
+            type: formState.agencyType === 'awarding_agency' ? 'awarding' : 'funding', tier: "toptier",
+            name: formState.agency.name
+        };
+
         if (formState.subAgency.name && formState.subAgency.name !== 'Select a Sub-Agency') {
             agencyParams.name = formState.subAgency.name;
             agencyParams.tier = 'subtier';
@@ -232,12 +243,12 @@ const BulkDownloadPageContainer = (props) => {
 };
 
 BulkDownloadPageContainer.propTypes = propTypes;
-
 export default connect(
     // connects reduxStore to component as props (props.bulkDownload === reduxStore.bulkdDownload)
     (state) => ({
         bulkDownload: state.bulkDownload
     }),
-    // connects "action creator" fns which update the reduxStore via dispatch to the component as props (props.setDefcodes will invoke)
+    // connects "action creator" fns which update the reduxStore via
+    // dispatch to the component as props (props.setDefcodes will invoke)
     (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
 )(BulkDownloadPageContainer);

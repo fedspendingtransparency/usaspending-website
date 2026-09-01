@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -57,8 +57,8 @@ const logMapScopeEvent = (scope) => {
     });
 };
 
-
-const MapWrapperContainer = React.memo((props) => {
+// eslint-disable-next-line prefer-arrow-callback
+const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const USACenterPoint = [-95.569430, 38.852892];
 
     const [mapLayer, setMapLayer] = useState('state');

@@ -123,7 +123,7 @@ const ExplorerVisualization = ({
                                 href="https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">
                                 Report on Budget Execution and Budgetary Resources
                             </a>
-                            &nbsp;(excluding financing accounts) and the total obligated amount reported by agencies to USAspending.gov in 'Account Breakdown by Program Activity &amp; Object Class' data (also called 'File B' data).
+                            &nbsp;(excluding financing accounts) and the total obligated amount reported by agencies to USAspending.gov in &#39;Account Breakdown by Program Activity &amp; Object Class&#39; data (also called &#39;File B&#39; data).
                         </>
                     )} />
                 <Note message={dodNote} />

@@ -17,13 +17,13 @@ const TimeTooltip = ({
     barWidth,
     chartWidth
 }) => {
-    let divRef = useRef(null);
-    let pointerDivRef = useRef(null);
+    const divRef = useRef(null);
+    const pointerDivRef = useRef(null);
 
     const positionTooltip = useCallback(() => {
     // we need to wait for the tooltip to render before we can full position it due to its
     // dynamic width
-        const tooltipWidth = divRef.offsetWidth;
+        const tooltipWidth = divRef.current.offsetWidth;
 
         // determine the tooltip direction
         let direction = 'left';
@@ -38,10 +38,10 @@ const TimeTooltip = ({
             offset = -9 - tooltipWidth - barWidth;
         }
 
-        divRef.style.top = `${y}px`;
-        divRef.style.left = `${x + offset}px`;
-        divRef.className = `tooltip ${direction}`;
-        pointerDivRef.className = `tooltip-pointer ${direction}`;
+        divRef.current.style.top = `${y}px`;
+        divRef.current.style.left = `${x + offset}px`;
+        divRef.current.className = `tooltip ${direction}`;
+        pointerDivRef.current.className = `tooltip-pointer ${direction}`;
     }, [barWidth, chartWidth, x, y]);
 
     useEffect(() => {
@@ -55,14 +55,10 @@ const TimeTooltip = ({
         <div className="visualization-tooltip">
             <div
                 className="tooltip"
-                ref={(div) => {
-                    divRef = div;
-                }}>
+                ref={divRef}>
                 <div
                     className="tooltip-pointer"
-                    ref={(div) => {
-                        pointerDivRef = div;
-                    }} />
+                    ref={pointerDivRef} />
                 <div className="tooltip-title">
                     {data.xValue}
                 </div>

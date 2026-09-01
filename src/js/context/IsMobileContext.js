@@ -10,6 +10,7 @@ const IsMobileContext = createContext({
     isTablet: false,
     isMedium: false,
     isDesktopSm: false,
+    isDesktop: false,
     isDesktopLg: false
 });
 

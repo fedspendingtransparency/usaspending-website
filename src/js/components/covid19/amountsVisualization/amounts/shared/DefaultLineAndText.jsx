@@ -24,8 +24,6 @@ const propTypes = {
     overviewData: PropTypes.object,
     displayTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
-    lineData: PropTypes.object,
-    rectangleData: PropTypes.object,
     dataId: PropTypes.string,
     tooltipId: PropTypes.string,
     width: PropTypes.number,
@@ -48,6 +46,7 @@ const DefaultLineAndText = ({
     const [labelData, setLabelData] = useState(defaultTextState(dataId, 'label'));
     const labelTextRef = useRef(null);
     const valueTextRef = useRef(null);
+
     // value
     useEffect(() => {
         if (scale) {
@@ -65,6 +64,7 @@ const DefaultLineAndText = ({
             });
         }
     }, [width, scale, valueTextRef.current]);
+
     // label
     useEffect(() => {
         if (scale) {

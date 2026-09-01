@@ -3,7 +3,7 @@
  * Created by JD House July 2, 2025
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { throttle } from 'lodash-es';
@@ -19,6 +19,9 @@ const propTypes = {
     highlightedColumns: PropTypes.object
 };
 
+// TODO: eslint rule disabled as this component is currently not
+//  being used and therefore difficult to test a fix (DEV-15206)
+/* eslint-disable react-hooks/immutability */
 const NestedAwardTable = (props) => {
     const [subData, setSubData] = useState([]);
     const [subColumns, setSubColumns] = useState([]);
@@ -31,13 +34,13 @@ const NestedAwardTable = (props) => {
     const [subPage, setSubPage] = useState(props.page);
     const [subResultsLimit, setSubResultsLimit] = useState(props.resultsLimit);
     let columnSubType = props.currentType;
-    let searchRequest = null;
+    const requestRef = useRef(null);
 
     // consider pull out to helper fileor up to Container lv
     const getSubData = async () => {
-        if (searchRequest) {
+        if (requestRef.current) {
             // a request is currently in-flight, cancel it
-            searchRequest.cancel();
+            requestRef.current.cancel();
         }
 
         // indicate the request is about to start
@@ -50,14 +53,14 @@ const NestedAwardTable = (props) => {
             subResultsLimit
         };
 
-        searchRequest = await getNestedTableData(
+        requestRef.current = await getNestedTableData(
             props.columnType,
             props.awardId,
             props.filters,
             paramsOptions
         );
 
-        return searchRequest.promise
+        return requestRef.current.promise
             .then((res) => {
                 const parsedResults = res.data.results.map((result) => ({
                     ...result,
@@ -65,7 +68,7 @@ const NestedAwardTable = (props) => {
                 }));
 
                 // request is done
-                searchRequest = null;
+                requestRef.current = null;
                 setSubPage(res.data.page_metadata.page);
                 setSubData(parsedResults);
                 setIsLoading(false);
@@ -96,7 +99,7 @@ const NestedAwardTable = (props) => {
     };
 
     const formattedSubSort = () => {
-        const formattedSort = subSort;
+        const formattedSort = { ...subSort };
         if (formattedSort?.field === 'Sub-Award Date') {
             formattedSort.field = "Action Date";
         }
@@ -119,9 +122,9 @@ const NestedAwardTable = (props) => {
         getSubData();
 
         return () => {
-            if (searchRequest) {
+            if (requestRef.current) {
                 // a request is currently in-flight, cancel it
-                searchRequest.cancel();
+                requestRef.current.cancel();
             }
         };
     }, 400), [props.awardId, subSort, subPage, subResultsLimit]);
