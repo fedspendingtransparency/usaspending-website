@@ -14,8 +14,7 @@ const NLSearch = ({type, message}) => {
     const lookup = {
         [RESPONSE_TYPE.TOOL_START]: {variant: 'start', label: message, icon: 'sparkles'},
         [RESPONSE_TYPE.TOOL_COMPLETE]: {variant: 'complete', label: message, icon: ['far','circle-check']},
-        [RESPONSE_TYPE.TOOL_ERROR]: {variant: 'error', label: message, icon: ['far', 'circle-xmark']},
-
+        [RESPONSE_TYPE.TOOL_ERROR]: {variant: 'error', label: message, icon: ['far', 'circle-xmark']}
     };
 
     return (
