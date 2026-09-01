@@ -22,12 +22,11 @@
 
     .search-results-landing {
       margin: 0 auto;
-      width: 100%;
       min-width: 0;
-      padding: 0 $global-padding * 4;
+      padding-left: $global-padding * 4;
 
       @media (max-width: $medium-screen - 1) {
-        padding: 0 $global-padding * 2;
+        padding-left: $global-padding * 2;
       }
 
       .landing-title {
@@ -69,17 +68,20 @@
             border: rem(1) solid $gray-10;
             background: $cyan-5v-40;
 
-            &:hover {
-              cursor: pointer;
-              border: rem(1) solid $cyan-50v;
-              background: $cyan-50v;
+            /* Apply hover styles ONLY to devices that support a true mouse pointer */
+            @media (hover: hover) {
+              &:hover {
+                cursor: pointer;
+                border: rem(1) solid $cyan-50v;
+                background: $cyan-50v;
 
-              .pre-search-icon svg {
-                color: $color-white;
-              }
+                .pre-search-icon svg {
+                  color: $color-white;
+                }
 
-              .pre-search-text {
-                color: $color-white;
+                .pre-search-text {
+                  color: $color-white;
+                }
               }
             }
 

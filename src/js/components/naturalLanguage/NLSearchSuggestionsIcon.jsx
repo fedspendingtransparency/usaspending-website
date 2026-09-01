@@ -11,15 +11,26 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const propTypes = {
     variant: PropTypes.string,
     label: PropTypes.string,
-    icon: PropTypes.string
+    icon: PropTypes.string,
+    description: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
 };
 
-const NLSearchSuggestionsIcon = ({ variant, label, icon}) => (
-    <div className={`icon-row icon-row--${variant}`}>
+const NLSearchSuggestionsIcon = ({ variant, label, icon, description = ''}) => (
+    <div className={`icon-row icon-row--${variant}
+        ${description ? 'icon-row__with-description' : ''}`}>
+            
         <div className={`icon-container icon-container--${variant}`}>
             <FontAwesomeIcon className={`icon icon--${variant}`} icon={icon} />
         </div>
-        <span className={`icon-label icon-label--${variant}`}>{label}</span>
+        <div 
+            className={`icon-label icon-label--${variant} 
+                ${description ? 'icon-label__with-description' : ''}`} >
+            <span>{label}</span>
+            { description && 
+            <span className={`icon-description icon-description--${variant}`} >
+                {description}
+            </span>}
+        </div>
     </div>
 )
 
