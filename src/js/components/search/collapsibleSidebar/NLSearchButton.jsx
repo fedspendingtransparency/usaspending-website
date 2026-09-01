@@ -10,8 +10,8 @@ const propTypes = {
     loadingState: PropTypes.string,
     classname: PropTypes.string,
     icon: PropTypes.string,
-    text: PropTypes.string,
-    onclick: PropTypes.func
+    text: PropTypes.string
+    /* ,onclick: PropTypes.func */
 };
 
 const NLSearchButton = ({loadingState, classname="default-search", icon=DEFAULT_ICON_PATH, text = "Search"}) => {
