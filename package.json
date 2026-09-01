@@ -59,7 +59,7 @@
     "@webpack-cli/serve": "^2.0.5",
     "ajv-keywords": "5.1.0",
     "ansi-regex": "^3.0.1",
-    "ansi-styles": "^4.3.0",
+    "ansi-styles": "^7.0.0",
     "argparse": "^2.0.1",
     "babel-jest": "^29.7.0",
     "babel-loader": "^9.1.0",
