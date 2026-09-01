@@ -5,7 +5,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 const propTypes = {
     loadingState: PropTypes.string,
     classname: PropTypes.string,
@@ -14,10 +14,10 @@ const propTypes = {
     onclick: PropTypes.func
 };
 
-const NLSearchButton = ({loadingState, classname="default-search", icon="../../../../img/magnifying-glass-white.svg", text = "Search"}) => {
+const NLSearchButton = ({loadingState, classname="default-search", icon=DEFAULT_ICON_PATH, text = "Search"}) => {
 
     return (
-        <button className={`natural-language-submit ${classname}`} onClick={()=> console.debug("clicked")}>
+        <button className={`natural-language-submit ${classname}`} /* onClick={()=> console.debug("clicked")} */ >
             {!loadingState && <img src={icon} alt="Icon for Search Button"/>}
             {loadingState && <FontAwesomeIcon icon={['far', 'wand-magic-sparkles']} />}
             {text}
