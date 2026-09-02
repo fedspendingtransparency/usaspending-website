@@ -423,7 +423,7 @@ const StatusOfFundsContainer = ({ fy }) => {
                  correspond to the branches of the Armed Forces and accounts for the agency are attributed
                  to the appropriate branch/sub-component based on the Agency Codes found at the bottom of{ ' ' }
                 <a
-                    href="https://www.whitehouse.gov/wp-content/uploads/2018/06/app_c.pdf"
+                    href="https://www.whitehouse.gov/wp-content/uploads/2025/08/a11.pdf"
                     target="_blank"
                     rel="noopener noreferrer">
                         OMB Circular A-11 Appendix C
