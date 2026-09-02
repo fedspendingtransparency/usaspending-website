@@ -135,9 +135,9 @@ const MobileNav = memo(function MobileNav(props) {
                     className="mobile-nav-content__list"
                     style={detailMobileNavIsHidden ? {} : { display: "none" }}>
                     {navbarConfig.map((n, index) => (
-                        <div key={`item: ${navbarConfig[index].title}`}>
+                        <li key={`item: ${navbarConfig[index].title}`}>
                             <hr className={`mobile-nav-content__divider ${detailMobileNavIsHidden ? " animation-enter" : " "}`} />
-                            <li className={`mobile-nav-content__list-item ${detailMobileNavIsHidden ? " animation-enter" : " "}`}>
+                            <div className={`mobile-nav-content__list-item ${detailMobileNavIsHidden ? " animation-enter" : " "}`}>
                                 <div className="mobile-dropdown">
                                     <button
                                         className="mobile-dropdown__parent"
@@ -153,8 +153,8 @@ const MobileNav = memo(function MobileNav(props) {
                                         </span>
                                     </button>
                                 </div>
-                            </li>
-                        </div>
+                            </div>
+                        </li>
                     ))}
                 </ul>
                 <ul
