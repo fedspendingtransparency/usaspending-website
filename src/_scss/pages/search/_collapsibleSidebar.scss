@@ -87,6 +87,9 @@
     display: flex;
     flex-wrap: wrap;
     padding: 2.4rem 0 0.8rem;
+    position: sticky;
+    top: rem(6);
+    left: 0;
 
     @include media($small-screen) {
       padding: 2.4rem 0 0.8rem;
