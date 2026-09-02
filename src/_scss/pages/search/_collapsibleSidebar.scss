@@ -266,6 +266,13 @@
           $cyan-50v 35%,
           $blue-60v 100%
         );
+
+        &:hover {
+          background: $cyan-50v;
+        }
+        &:active {
+          background: $cyan-60v;
+        }
       }
       .natural-language-submit.loading {
         // to put loading state in 
