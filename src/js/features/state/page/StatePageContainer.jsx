@@ -29,7 +29,7 @@ require('pages/state/statePage.scss');
 
 const StatePageContainer = () => {
     const dispatch = useDispatch();
-    const { handleFyChange, state, stateId, fy } = useStateNavigation();
+    const { handleFyChange, stateId, fy } = useStateNavigation();
     const stateProfile = useSelector((s) => s.stateProfile);
     const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
     const agencyData = { agencySlugs, slugsLoading, slugsError };
@@ -43,7 +43,7 @@ const StatePageContainer = () => {
         // Update the map center
         const center = stateCenterFromFips(stateId);
         dispatch(setStateCenter(center));
-    }, [state, stateProfile.fy, fy, stateId]);
+    }, [fy, stateId, dispatch]);
 
     let content = (
         <FlexGridRow className="state-content-wrapper">
