@@ -9,8 +9,12 @@ import { isCancel } from 'axios';
 import { FlexGridRow, FlexGridCol, CardContainer } from 'data-transparency-ui';
 import { preSearchOptions } from "./NLData";
 import { generateUrlHash } from "../../helpers/searchHelper";
+import { combineQueryParams, getQueryParamString } from "../../helpers/queryParams";
+import useQueryParams from "../../hooks/useQueryParams";
 
 const NLPreSearchButtonGroup = () => {
+    const query = useQueryParams();
+
     const getRandomOption = ({options}) => {
         // eslint-disable-next-line react-hooks/purity
         const index = Math.floor(Math.random() * options.length);
@@ -23,8 +27,9 @@ const NLPreSearchButtonGroup = () => {
         let tempHash = generateUrlHash(filterValue);
         tempHash.promise
             .then((results) => {
-                const hashData = results.data;
-                window.open(`/search?hash=${encodeURIComponent(hashData.hash)}`, "_self");
+                const newQueryParams = combineQueryParams(query, {hash: encodeURIComponent(results.data.hash)});
+                window.open(`${'/search'}${getQueryParamString(newQueryParams)}`, "_self");
+                
                 // operation has resolved
                 tempHash = null;
             })
