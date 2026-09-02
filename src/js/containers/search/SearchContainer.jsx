@@ -33,8 +33,6 @@ import {
 } from './helpers/searchAnalytics';
 import useRequestDownloadCount from "./useRequestDownloadCount";
 import { storeStructuresAreEqual } from '../../helpers/searchHelper';
-import { fetchNLSearch } from "../../apis/search";
-import useRequestNLSearch from "./nlSearch/useRequestNLSearch";
 
 require('pages/search/searchPage.scss');
 
@@ -136,55 +134,43 @@ const SearchContainer = () => {
     const { current: prevAreAppliedFiltersEmpty } = areAppliedFiltersEmptyRef;
     const { current: prevAppliedFilters } = prevAppliedFiltersRef;
 
-    useRequestNLSearch("hello world");
-
     useEffect(() => {
         // receiving filters from previous search via hash.
         const shouldFetchRemoteFilters = (
             urlHash &&
             areFiltersEqual(stagedFilters, initialState)
         );
-
-
-        // request.current = nlSearch({query: "hello world"});
-        // request.current = fetchNLSearch({query: "hello world"});
-        //
-        // request.current?.promise?.then((res) => {
-        //     // console.log("response", res);
-        // });
-
         if (shouldFetchRemoteFilters) {
-            // if (request.current) {
-            //     request.current.cancel();
-            // }
-
-            // request.current = restoreUrlHash({
-            //     hash: urlHash
-            // });
-            // request.current.promise
-            //     .then((res) => {
-            //         const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
-            //         if (filtersInImmutableStructure) {
-            //             // apply the filters to both the staged and applied stores
-            //             dispatch(restoreHashedFilters(filtersInImmutableStructure));
-            //             dispatch(setAppliedFilterEmptiness(false));
-            //         }
-            //         else {
-            //             console.error('Error fetching filters from hash');
-            //             // corrupt hash redirect to error page.
-            //             navigate("/hash-error", { replace: true });
-            //         }
-            //         request.current = null;
-            //     })
-            //     .catch((err) => {
-            //         if (!isCancel(err)) {
-            //             console.error('Error fetching filters from hash: ', err);
-            //             // remove hash since corresponding filter selections aren't retrievable.
-            //             searchURLParams.delete("hash");
-            //             setSearchURLParams(searchURLParams);
-            //             request.current = null;
-            //         }
-            //     });
+            if (request.current) {
+                request.current.cancel();
+            }
+            request.current = restoreUrlHash({
+                hash: urlHash
+            });
+            request.current.promise
+                .then((res) => {
+                    const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
+                    if (filtersInImmutableStructure) {
+                        // apply the filters to both the staged and applied stores
+                        dispatch(restoreHashedFilters(filtersInImmutableStructure));
+                        dispatch(setAppliedFilterEmptiness(false));
+                    }
+                    else {
+                        console.error('Error fetching filters from hash');
+                        // corrupt hash redirect to error page.
+                        navigate("/hash-error", { replace: true });
+                    }
+                    request.current = null;
+                })
+                .catch((err) => {
+                    if (!isCancel(err)) {
+                        console.error('Error fetching filters from hash: ', err);
+                        // remove hash since corresponding filter selections aren't retrievable.
+                        searchURLParams.delete("hash");
+                        setSearchURLParams(searchURLParams);
+                        request.current = null;
+                    }
+                });
         }
         else if (areFiltersSelected(appliedFilters) && areFiltersEmpty(stagedFilters)) {
             dispatch(restoreHashedFilters(appliedFilters));
