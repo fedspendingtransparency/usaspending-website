@@ -160,7 +160,7 @@ const NAICSCheckboxTree = () => {
             })
             .catch((e) => {
                 if (!isCancel(e)) {
-                    console.log('Error NAICS Reponse : ', e);
+                    console.log('Error NAICS Response : ', e);
                     setIsError(true);
                     setErrorMessage(e.message);
                     setIsLoading(false);

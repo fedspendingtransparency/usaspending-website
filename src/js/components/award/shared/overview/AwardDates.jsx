@@ -149,7 +149,7 @@ export default class AwardDates extends Component {
                         <TooltipWrapper
                             className="award-section-tt"
                             icon="info"
-                            pointerPostion="left"
+                            pointerPosition="left"
                             tooltipComponent={tooltipInfo} />
                     </h6>
                 </div>

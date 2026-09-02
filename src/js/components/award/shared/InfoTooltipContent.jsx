@@ -602,7 +602,7 @@ export const descriptionInfoContract = (
             <p>
                 Also shown below the description are groups of codes from two systems of classification:
             </p>
-            <ul className="info-tooltip__list award-desciption-section">
+            <ul className="info-tooltip__list award-description-section">
                 <li>
                     <strong>North American Industry Classification System (NAICS) Code</strong>
                     <p>This code describes the primary industrial activity of the recipient of this award. It is six digits and has three levels of embedded granularity:</p>
