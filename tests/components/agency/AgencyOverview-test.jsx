@@ -14,10 +14,12 @@ import BaseAgencyBudgetaryResources from "../../../src/js/models/v2/agency/BaseA
 import BaseAgencyRecipients from "../../../src/js/models/v2/agency/BaseAgencyRecipients";
 import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
 import { mockTotalBudgetaryResources } from './overview/mockData';
-import { useLatestAccountData } from "../../../src/js/containers/account/WithLatestFy";
 import {List} from "immutable";
 import * as agency from 'apis/agency';
-import {mockApiCall} from "../../testResources/mockApiHelper";
+import { mockApiCall } from "../../testResources/mockApiHelper";
+// eslint-disable-next-line no-unused-vars
+import { useLatestAccountData } from "../../../src/js/containers/account/WithLatestFy";
+// eslint-disable-next-line no-unused-vars
 import useCallbackRef from "../../../src/js/hooks/useCallbackRef";
 
 const overviewDod = Object.create(BaseAgencyOverview);
