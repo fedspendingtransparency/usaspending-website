@@ -10,7 +10,7 @@ import {
     getNaicsNodeFromTree,
     autoCheckNaicsAfterExpand,
     expandNaicsAndAllDescendantParents,
-    getFormatedNaicsDataForCheckboxTree,
+    getFormattedNaicsDataForCheckboxTree,
     getAllUniqueAncestors
 } from 'helpers/naicsHelper';
 import {
@@ -350,7 +350,7 @@ const NAICSCheckboxTree = () => {
                     searchIcon />
                 <CheckboxTree
                     limit={3}
-                    data={getFormatedNaicsDataForCheckboxTree(nodes)}
+                    data={getFormattedNaicsDataForCheckboxTree(nodes)}
                     isError={isError}
                     errorMessage={errorMessage}
                     isLoading={isLoading}
