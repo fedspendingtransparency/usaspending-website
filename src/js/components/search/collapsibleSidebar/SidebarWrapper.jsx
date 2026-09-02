@@ -36,12 +36,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const { isMedium } = useIsMobile();
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
     const [text, setText] = useState("");
-    const [isSearching, setIsSearching] = useState(false);
 
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    useRequestNLSearch(text, isSearching);
+    const { data, status, refetch } = useRequestNLSearch(text);
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -69,8 +68,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     };
 
     const startNLSearch = () => {
-        if(text) {
-            setIsSearching(true);
+        if(text && typeof refetch === "function") {
+            refetch();
         }
     }
 
