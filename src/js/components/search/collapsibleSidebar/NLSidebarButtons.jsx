@@ -39,19 +39,20 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isM
         <div className={"sidebar-nl-buttons-container"}>
             <div className={`color-overlay-element ${sidebarContent === NATURAL_LANGUAGE ? ' gradient' : ''
             }`} />
-            <button
-                style={{ backgroundColor: secondaryColorAS }}
-                aria-label="Button to change the content of the sidebar to advanced search filters"
-                className={`sidebar-nl-buttons ${sidebarContent === FILTERS && sidebarIsOpen  ? 'selected' : ''
-                }`}
-                onClick={(e) => {
-                    dispatch(setSidebarContent(FILTERS));
-                    sidebarIsOpen ? null : setSidebarIsOpen(e);
-                }}>
-                <NLBadge />
-                <FontAwesomeIcon icon="filter-list" color={primaryColorAS} />
-            </button>
-            { QAT && 
+            <div className='nl-buttons-wrapper'>
+                <button
+                    style={{ backgroundColor: secondaryColorAS }}
+                    aria-label="Button to change the content of the sidebar to advanced search filters"
+                    className={`sidebar-nl-buttons ${sidebarContent === FILTERS && sidebarIsOpen  ? 'selected' : ''
+                    }`}
+                    onClick={(e) => {
+                        dispatch(setSidebarContent(FILTERS));
+                        sidebarIsOpen ? null : setSidebarIsOpen(e);
+                    }}>
+                    <NLBadge />
+                    <FontAwesomeIcon icon="filter-list" color={primaryColorAS} />
+                </button>
+                { QAT && 
                 <button
                     style={{ backgroundColor: secondaryColorNL }}
                     aria-label="Button to change the content of the sidebar to natural language search"
@@ -74,7 +75,8 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isM
                             fill={primaryColorNL} />
                     </svg>
                 </button>
-            }
+                }
+            </div>
         </div>
     );
 };
