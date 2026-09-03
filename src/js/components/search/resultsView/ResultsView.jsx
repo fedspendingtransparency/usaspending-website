@@ -39,7 +39,6 @@ const ResultsView = React.memo(function ResultsView({
     let content = null;
 
     if (isLoading) {
-        console.log("isLoading");
         content = (
             <div className="search-results-loading">
                 <LoadingSpinner />
