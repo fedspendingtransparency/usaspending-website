@@ -1,3 +1,4 @@
+import React from "react";
 export const encodedAwardId = encodeURIComponent('123/456');
 export const decodedAwardId = decodeURIComponent(encodedAwardId);
 
@@ -119,7 +120,12 @@ export const searchTestData = [
     },
     {
         type: [RESPONSE_TYPE.TOOL_COMPLETE],
-        message: `Applying filters based on grants and loans that went
-            to schools in Anne Arundel county, Maryland`
+        message: (
+            <>
+                Applying filters based on grants and loans that went <br /> 
+                to schools in Anne Arundel county, <br />8
+                Maryland
+            </>
+        )
     }
 ];

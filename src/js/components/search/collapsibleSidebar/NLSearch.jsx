@@ -7,7 +7,7 @@ import { RESPONSE_TYPE } from "../../../../../tests/mockData";
 
 const propTypes = {
     type: PropTypes.string,
-    message: PropTypes.string
+    message: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
 };
 
 const NLSearch = ({type, message}) => {
