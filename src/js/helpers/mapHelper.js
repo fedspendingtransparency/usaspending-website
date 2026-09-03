@@ -7,8 +7,8 @@ import { min, max } from 'lodash-es';
 import { scaleQuantize } from 'd3-scale';
 import kGlobalConstants from 'GlobalConstants';
 import { apiRequest } from './apiRequest';
-
 import * as MoneyFormatter from './moneyFormatter';
+
 
 const stateCodes = {
     'Alabama': 'AL',
@@ -545,3 +545,8 @@ export const pluralize = (string) => {
     }
     return `${string}s`;
 };
+
+export const fetchStateList = () => apiRequest({
+    url: 'v2/references/states/',
+    method: 'get'
+});

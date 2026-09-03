@@ -14,6 +14,7 @@ import { CondensedCDTooltip } from '../award/shared/InfoTooltipContent';
 import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../dataMapping/state/stateNames";
 import { REQUEST_VERSION } from "../../GlobalConstants";
 import { generateUrlHash } from "../../helpers/searchHelper";
+import useStateData from "../../hooks/useStateData";
 
 const propTypes = {
     category: PropTypes.string,
@@ -26,6 +27,8 @@ const propTypes = {
 };
 
 const TopFive = (props) => {
+    let { results } = useStateData();
+    console.debug("TESTING:", results);
     const [linkData, setLinkData] = useState();
 
     const { agencySlugs, slugsLoading, slugsError } = props.agencyData;
