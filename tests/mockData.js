@@ -123,7 +123,7 @@ export const searchTestData = [
         message: (
             <>
                 Applying filters based on grants and loans that went <br /> 
-                to schools in Anne Arundel county, <br />8
+                to schools in Anne Arundel county, <br />
                 Maryland
             </>
         )
