@@ -247,24 +247,55 @@
       .natural-language-submit {
         margin: 0;
         display: flex;
-        color: $color-white;
         justify-content: center;
         text-align: center;
+        align-items: center;
         font-size: $font-size-16;
         font-weight: $font-semibold;
         line-height: 150%; /* 24px */
-        background: linear-gradient(
-          91deg,
-          $cyan-60v 0%,
-          $cyan-50v 35%,
-          $blue-60v 100%
-        );
         padding: rem(12) rem(8);
         width: 100%;
         svg {
           margin-right: rem(8);
         }
       }
+      .natural-language-submit.default-search {
+        background: linear-gradient(
+          91deg,
+          $cyan-60v 0%,
+          $cyan-50v 35%,
+          $blue-60v 100%
+        );
+
+        &:hover {
+          background: $cyan-50v;
+        }
+        &:active {
+          background: $cyan-60v;
+        }
+      }
+      .natural-language-submit.loading {
+        // to put loading state in 
+        color: $cyan-50v;
+        background-color: $color-white;
+        border: 1px solid transparent;
+        border-radius: rem(4);
+        background:
+          linear-gradient($color-white, $color-white) padding-box,
+          linear-gradient(
+              92deg,
+              $color-secondary-secondary-lighter 0%,
+              #4eb6cd 50.48%,
+              $cyan-60v 100%
+            )
+            border-box;
+      }
+      .natural-language-submit.disabled {
+        pointer-events: none;
+        background: $gray-20;
+        color: $gray-70;
+      }
+
       .sidebar-ai-blurb {
         color: $gray-90;
         font-size: $font-size-12;
