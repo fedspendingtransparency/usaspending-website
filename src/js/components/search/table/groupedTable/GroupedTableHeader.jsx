@@ -17,6 +17,37 @@ const propTypes = {
     header: PropTypes.object
 };
 
+const SortIcon = ({ currentSort, title, handleClickedSort }) => {
+    // highlight the active arrow
+    const activeAsc = (currentSort?.field === title && currentSort?.direction === 'asc')
+        ? ' table-header__icon_active' : '';
+    const activeDesc = (currentSort?.field === title && currentSort?.direction === 'desc')
+        ? ' table-header__icon_active' : '';
+
+    return (
+        <div className="table-header__sort">
+            <button
+                type="button"
+                onClick={handleClickedSort}
+                className={`table-header__icon${activeAsc}`}
+                value="asc"
+                title={`Sort table by ascending ${title}`}
+                aria-label={`Sort table by ascending ${title}`}>
+                <FontAwesomeIcon size="2x" icon="caret-up" />
+            </button>
+            <button
+                type="button"
+                onClick={handleClickedSort}
+                className={`table-header__icon${activeDesc}`}
+                value="desc"
+                title={`Sort table by descending ${title}`}
+                aria-label={`Sort table by descending ${title}`}>
+                <FontAwesomeIcon size="2x" icon="caret-down" />
+            </button>
+        </div>
+    );
+};
+
 const GroupedTableHeader = ({
     index,
     updateSort,
@@ -29,37 +60,6 @@ const GroupedTableHeader = ({
         updateSort(sortOn, e.target.value);
     };
 
-    const SortIcon = () => {
-        // highlight the active arrow
-        const activeAsc = (currentSort?.field === title && currentSort?.direction === 'asc')
-            ? ' table-header__icon_active' : '';
-        const activeDesc = (currentSort?.field === title && currentSort?.direction === 'desc')
-            ? ' table-header__icon_active' : '';
-
-        return (
-            <div className="table-header__sort">
-                <button
-                    type="button"
-                    onClick={handleClickedSort}
-                    className={`table-header__icon${activeAsc}`}
-                    value="asc"
-                    title={`Sort table by ascending ${title}`}
-                    aria-label={`Sort table by ascending ${title}`}>
-                    <FontAwesomeIcon size="2x" icon="caret-up" />
-                </button>
-                <button
-                    type="button"
-                    onClick={handleClickedSort}
-                    className={`table-header__icon${activeDesc}`}
-                    value="desc"
-                    title={`Sort table by descending ${title}`}
-                    aria-label={`Sort table by descending ${title}`}>
-                    <FontAwesomeIcon size="2x" icon="caret-down" />
-                </button>
-            </div>
-        );
-    };
-
     return (
         <div className={`table-header__content${index > 0 ? ' table-header__content_right' : ''}`} >
             <div className="table-header__label">
@@ -69,7 +69,7 @@ const GroupedTableHeader = ({
                 )}
                 <></>
                 {(updateSort && title) && (
-                    <SortIcon />
+                    <SortIcon currentSort={currentSort} title={title} handleClickedSort={handleClickedSort} />
                 )}
             </div>
         </div>

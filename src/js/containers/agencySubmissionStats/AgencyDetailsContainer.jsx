@@ -35,13 +35,12 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
     const [currentPage, changeCurrentPage] = useState(1);
     const [pageSize, changePageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
-    const tableRef = useRef(null);
     const tableRequest = useRef(null);
     const prevPageRef = useRef(null);
     const { current: prevPage } = prevPageRef;
 
-    const handleScroll = throttle(() => {
-        const { scrollLeft: horizontal, scrollTop: vertical } = tableRef.current;
+    const handleScroll = throttle((e) => {
+        const { scrollLeft: horizontal, scrollTop: vertical } = e.target;
         setIsSticky({ vertical, horizontal });
     }, 100);
 
@@ -195,7 +194,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
 
     return (
         <>
-            <div className="table-container" ref={tableRef} onScroll={handleScroll}>
+            <div className="table-container" onScroll={handleScroll}>
                 <Table
                     rows={rows}
                     classNames={`${verticalStickyClass} ${horizontalStickyClass}`}

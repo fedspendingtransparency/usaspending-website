@@ -16,7 +16,6 @@ import { isEqual } from 'lodash-es';
 
 const propTypes = {
     activeTab: PropTypes.string,
-    prevTab: PropTypes.string,
     resultsCount: PropTypes.number,
     overviewData: PropTypes.arrayOf(PropTypes.shape({
         type: PropTypes.string,
@@ -31,7 +30,6 @@ const propTypes = {
 
 const SummaryInsightsContainer = ({
     activeTab,
-    prevTab,
     resultsCount,
     overviewData,
     areCountsLoading,
@@ -119,7 +117,7 @@ const SummaryInsightsContainer = ({
                     }
                 });
         }
-    }, [defcParams, activeTab, allAwardTypeTotals, assistanceOnly, prevTab, spendingByAgencyOnly, recipientOnly, dispatch]);
+    }, [defcParams, activeTab, allAwardTypeTotals, assistanceOnly, spendingByAgencyOnly, recipientOnly, dispatch]);
 
     useEffect(() => {
         if (awardOutlays === null && awardObligations === null && numberOfAwards === null && resultsCount === null) {

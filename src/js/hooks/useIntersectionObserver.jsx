@@ -29,10 +29,6 @@ const useIntersectionObserver = ({
         entry: undefined
     }));
 
-    const callbackRef = useRef();
-
-    callbackRef.current = onChange;
-
     const frozen = state.entry?.isIntersecting && freezeOnceVisible;
 
     useEffect(() => {
@@ -47,7 +43,6 @@ const useIntersectionObserver = ({
 
         let unobserve;
 
-        // eslint-disable-next-line no-undef
         const observer = new IntersectionObserver(
             (entries) => {
                 const thresholds = Array.isArray(observer.thresholds)
@@ -61,8 +56,8 @@ const useIntersectionObserver = ({
 
                     setState({ isIntersecting, entry });
 
-                    if (callbackRef.current) {
-                        callbackRef.current(isIntersecting, entry);
+                    if (onChange) {
+                        onChange(isIntersecting, entry);
                     }
 
                     if (isIntersecting && freezeOnceVisible && unobserve) {
@@ -76,7 +71,6 @@ const useIntersectionObserver = ({
 
         observer.observe(ref);
 
-        // eslint-disable-next-line consistent-return
         return () => {
             observer.disconnect();
         };

@@ -6,7 +6,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from "prop-types";
-import usePrevious from "../../hooks/usePrevious";
 import { setAboutTheDataSearchValue } from
     "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 import { Search } from '../sharedComponents/icons/Icons';
@@ -21,7 +20,6 @@ const propTypes = {
 const AboutTheDataSearchBar = ({
     searchTerm, setSearchTerm, performSearch, clearSearch
 }) => {
-    const prevTerm = usePrevious({ searchTerm });
     const dispatch = useDispatch();
 
     const changedSearchValue = (e) => {
@@ -37,16 +35,14 @@ const AboutTheDataSearchBar = ({
     };
 
     useEffect(() => {
-        if (prevTerm !== searchTerm) {
-            // do not perform a search if the search term is too short
-            if (searchTerm.length >= 0 && searchTerm.length < 3) {
-                // clear if there are already search results
-                clearSearch();
-                return;
-            }
-
-            performSearch(searchTerm);
+        // do not perform a search if the search term is too short
+        if (searchTerm.length >= 0 && searchTerm.length < 3) {
+            // clear if there are already search results
+            clearSearch();
+            return;
         }
+
+        performSearch(searchTerm);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTerm]);
 

@@ -12,6 +12,7 @@ import { Table, Pagination, SearchBar } from 'data-transparency-ui';
 import { useNavigate } from 'react-router';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import replaceString from 'helpers/replaceString';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import BaseSpendingByCfdaRow from 'models/v2/covid19/BaseSpendingByCfdaRow';
@@ -21,8 +22,15 @@ import ResultsTableLoadingMessage from 'components/keyword/table/ResultsTableLoa
 import ResultsTableErrorMessage from 'components/keyword/table/ResultsTableErrorMessage';
 import ResultsTableNoResults from 'components/keyword/table/ResultsTableNoResults';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
-import { resetAppliedFilters, applyStagedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
-import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import {
+    resetAppliedFilters,
+    applyStagedFilters,
+    setAppliedFilterCompletion
+} from 'redux/actions/search/appliedFilterActions';
+import {
+    initialState as defaultAdvancedSearchFilters,
+    CheckboxTreeSelections
+} from 'redux/reducers/search/searchFiltersReducer';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
@@ -33,8 +41,6 @@ const propTypes = {
     activeTab: PropTypes.string.isRequired,
     scrollIntoView: PropTypes.func.isRequired
 };
-
-let tableHeight = 'auto';
 
 const columns = [
     {
@@ -153,7 +159,12 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     const launchModal = (e) => {
         e.persist();
         if (e?.target) {
-            setModalData(() => results.find((cfda) => cfda.code === (e.target.parentNode.getAttribute('data-code') || e.target.getAttribute('data-code'))));
+            setModalData(() => results
+                .find((cfda) => cfda.code === (
+                    e.target.parentNode.getAttribute('data-code') ||
+                    e.target.getAttribute('data-code')
+                ))
+            );
             showCFDAModal(true);
         }
     };
@@ -234,7 +245,9 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                             data-code={rowData.code}
                             onClick={launchModal}>
                             {link}
-                            <span className="assistance-listing__button__icon"><FontAwesomeIcon data-code={rowData.code} icon="window-restore" /></span>
+                            <span className="assistance-listing__button__icon">
+                                <FontAwesomeIcon data-code={rowData.code} icon="window-restore" />
+                            </span>
                         </button>
                     </div>
                 );
@@ -349,17 +362,6 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [document]);
 
-    if (loading) {
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-    }
-    else if (error) {
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-    }
-
     return (
         <div ref={tableWrapperRef}>
             <SearchBar onSearch={setQuery} />
@@ -377,7 +379,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     classNames="table-message-fade"
                     timeout={{ exit: 225, enter: 195 }}
                     exit>
-                    <div className="results-table-message-container" style={{ height: tableHeight }}>
+                    <div className="results-table-message-container">
                         {error && <ResultsTableErrorMessage />}
                         {loading && <ResultsTableLoadingMessage />}
                         {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
@@ -386,13 +388,16 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             </TransitionGroup>
             }
             {!loading && !error && results.length > 0 &&
-            <div ref={tableRef} className={`table-wrapper spending-by-cfda ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
-                <Table
-                    columns={activeTab === 'loans' ? loanColumns : columns}
-                    rows={parseRows(results)}
-                    updateSort={updateSort}
-                    currentSort={{ field: sort, direction: order }} />
-            </div>}
+                <div
+                    ref={tableRef}
+                    className={`table-wrapper spending-by-cfda ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
+                    <Table
+                        columns={activeTab === 'loans' ? loanColumns : columns}
+                        rows={parseRows(results)}
+                        updateSort={updateSort}
+                        currentSort={{ field: sort, direction: order }} />
+                </div>
+            }
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
