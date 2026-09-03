@@ -78,7 +78,7 @@ export const updateDomesticForeignSelection = (state) => ({
 });
 
 export const updateRecipientDomesticForeignSelection = (state) => ({
-    type: 'UPDATE_RECIPIENT_DOMESTIC_FORIEGN',
+    type: 'UPDATE_RECIPIENT_DOMESTIC_FOREIGN',
     selection: state
 });
 

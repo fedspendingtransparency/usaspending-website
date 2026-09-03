@@ -217,7 +217,7 @@ const searchFiltersReducer = (state = initialState, action) => {
                     state.selectedRecipients, action.recipient)
             });
         }
-        case 'UPDATE_RECIPIENT_DOMESTIC_FORIEGN': {
+        case 'UPDATE_RECIPIENT_DOMESTIC_FOREIGN': {
             return Object.assign({}, state, {
                 recipientDomesticForeign: action.selection
             });

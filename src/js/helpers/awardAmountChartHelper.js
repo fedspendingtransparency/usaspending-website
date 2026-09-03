@@ -110,7 +110,7 @@ export const getAwardObligatedValue = (data, awardType, fileCType) => {
     return data.totalObligationAbbreviated;
 };
 
-/** The functions below build the props necessary for teh HorizontalSingleStackedBarViz (ie. the latest version of the bar chart).
+/** The functions below build the props necessary for the HorizontalSingleStackedBarViz (ie. the latest version of the bar chart).
     For each function the following is true -
         The numerator2 and numerator children should be displayed above the bars in the chart
             numerator2 => outlay
