@@ -3,16 +3,15 @@
  * Created by Kevin Li 8/17/17
  */
 
-import React, { useEffect, useState, useRef, useCallback } from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {useNavigate} from 'react-router';
 
-import { dropdownScopes, rootScopes, icons } from 'dataMapping/explorer/dropdownScopes';
-import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
+import {dropdownScopes, icons, rootScopes} from 'dataMapping/explorer/dropdownScopes';
+import {sidebarTypes} from 'dataMapping/explorer/sidebarStrings';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import DropdownItem from './DropdownItem';
-import usePrevious from "../../../../../hooks/usePrevious";
 
 const propTypes = {
     isRoot: PropTypes.bool,
@@ -29,7 +28,6 @@ const BreakdownDropdown = (props) => {
     const [options, setOptions] = useState([]);
     const [active, setActive] = useState(null);
     const history = useNavigate();
-    const prevProps = usePrevious(props);
 
     const wrapperRef = useRef(null);
 
@@ -67,9 +65,7 @@ const BreakdownDropdown = (props) => {
                 }
             }
 
-            const remainingTree = optionTree.slice(currentIndex);
-
-            tempOptions = remainingTree;
+            tempOptions = optionTree.slice(currentIndex);
 
             tempActive = props.active.subdivision;
         }
@@ -88,17 +84,13 @@ const BreakdownDropdown = (props) => {
     }, []);
 
     useEffect(() => {
-        if (prevProps?.active !== props.active) {
-            prepareOptions(props);
-        }
-        else if (prevProps?.root !== props.root) {
-            prepareOptions(props);
-        }
-        else if (prevProps?.isRoot !== props.isRoot) {
-            prepareOptions(props);
-        }
+        prepareOptions(props);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
         /* eslint-disable react-hooks/exhaustive-deps */
-    }, [props.active, props.root, props.isRoot, prevProps]);
+    }, [props.active, props.root, props.isRoot]);
 
     useEffect(() => {
         if (expanded) {

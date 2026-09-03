@@ -182,6 +182,7 @@ const NAICSCheckboxTree = () => {
         dispatch(showNaicsTree());
     };
 
+    // eslint-disable-next-line react-hooks/refs
     const onSearchChange = debounce(() => {
         if (!searchString) {
             onClear();

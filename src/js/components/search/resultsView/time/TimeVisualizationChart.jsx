@@ -35,12 +35,24 @@ const CustomShape = ({
     if (label === 'jump') {
         return (
             <g>
-                <line x1={x + (width / 2)} x2={x + (width / 2) + 1} y1={lineHeight} y2="6" stroke="#dfe1e2" strokeDasharray="5 3" />
+                <line
+                    x1={x + (width / 2)}
+                    x2={x + (width / 2) + 1}
+                    y1={lineHeight} y2="6"
+                    stroke="#dfe1e2"
+                    strokeDasharray="5 3" />
             </g>
         );
     }
     return (
-        <rect x={translateX} y={height < 0 ? y - Math.abs(height) : y} width={maxWidth} height={Math.abs(height)} fill={fill} fillOpacity={fillOpacity} className="recharts-bars" />
+        <rect
+            x={translateX}
+            y={height < 0 ? y - Math.abs(height) : y}
+            width={maxWidth}
+            height={Math.abs(height)}
+            fill={fill}
+            fillOpacity={fillOpacity}
+            className="recharts-bars" />
     );
 };
 
@@ -63,7 +75,30 @@ const CustomYTick = ({ x, y, payload }) => (
         <text x={0} y={0} dy={0} textAnchor="end" fill="#5C5C5C" fontSize={12} width="48px">
             {formatMoneyWithUnitsShortLabel(payload.value)}
         </text>
-    </g>);
+    </g>
+)
+
+const CustomTooltip = (args) => {
+    const { active, payload, label, onMouseLeave } = args;
+
+    if (active && payload && payload.length && payload[0].label !== "jump") {
+        return (
+            <div className="custom-tooltip" role="status" aria-live="assertive">
+                <div className="tooltip__title">
+                    {label}
+                </div>
+                <div className="tooltip__text">
+                    <div className="tooltip__text-label">Obligations</div>
+                    <div className="tooltip__text-amount">
+                        {formatMoneyWithUnitsShortLabel(payload[0].value)}
+                    </div>
+                </div>
+            </div>);
+    }
+
+    onMouseLeave();
+    return null;
+};
 
 
 const TimeVisualizationChart = (props) => {
@@ -73,7 +108,6 @@ const TimeVisualizationChart = (props) => {
     let label;
     let value;
     if (props.visualizationPeriod === 'fiscal_year') {
-        // eslint-disable-next-line no-nested-ternary
         props.combined.sort((a, b) => ((a.x > b.x) ? 1 : ((b.x > a.x) ? -1 : 0)));
     }
     for (let i = 0; i < props?.combined.length; i++) {
@@ -104,33 +138,11 @@ const TimeVisualizationChart = (props) => {
         }
     };
 
-    const CustomTooltip = (args) => {
-        // eslint-disable-next-line no-shadow
-        const { active, payload, label } = args;
-
-        if (active && payload && payload.length && payload[0].label !== "jump") {
-            return (
-                <div className="custom-tooltip" role="status" aria-live="assertive">
-                    <div className="tooltip__title">
-                        {label}
-                    </div>
-                    <div className="tooltip__text">
-                        <div className="tooltip__text-label">Obligations</div>
-                        <div className="tooltip__text-amount">
-                            {formatMoneyWithUnitsShortLabel(payload[0].value)}
-                        </div>
-                    </div>
-                </div>);
-        }
-
-        onMouseLeave();
-        return null;
-    };
     const onMouseMove = (state) => {
         setFocusBar(state.label);
     };
 
-    const Message = () => {
+    const message = () => {
         if (props.loading) {
             return <LoadingMessage />;
         }
@@ -147,7 +159,7 @@ const TimeVisualizationChart = (props) => {
     return (
         <div className="recharts-time-visualization-container">
             {props?.loading || props?.error || transformedData?.length === 0 ?
-                <><Message /></>
+                <>{message()}</>
                 :
                 <ResponsiveContainer>
                     <BarChart
@@ -164,7 +176,7 @@ const TimeVisualizationChart = (props) => {
                         <Tooltip
                             cursor={{ fill: '#fff' }}
                             filterNull
-                            content={<CustomTooltip />}
+                            content={<CustomTooltip onMouseLeave={onMouseLeave} />}
                             isAnimationActive={false} />
                         <ReferenceLine y={0} stroke="#dfe1e2" />
                         <Bar

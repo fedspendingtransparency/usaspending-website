@@ -3,9 +3,9 @@
   * Created by Kevin Li 11/8/16
   **/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Pagination } from 'data-transparency-ui';
+import { Pagination, Table } from 'data-transparency-ui';
 import ResultsTableRow from '../../../models/v2/search/ResultsTableRow';
 
 const propTypes = {
@@ -44,21 +44,18 @@ const ResultsTable = (props) => {
 
     const prepareDTUIColumns = () => {
         const columnOrder = props.columns.visibleOrder;
-        const orderedColumns = columnOrder.map((columnTitle) => {
-            const column = props.columns.data[columnTitle];
-            return column;
-        });
+        const orderedColumns = columnOrder.map((columnTitle) => props.columns.data[columnTitle]);
 
         // the columns passed in don't have the right properties, if we
         // don't do this sort won't work
-        const columns = orderedColumns.map((col) => ({
+        return orderedColumns.map((col) => ({
             title: col.columnName,
             displayName: col.displayName,
             columnWidth: col.width,
             right: col.right || false
         }));
-        return columns;
     };
+
     const prepareDTUIRows = () => {
         // limit = 10
         // page = 1, need 0-9
@@ -113,7 +110,11 @@ const ResultsTable = (props) => {
         // check for transactions
         else if (props.spendingLevel === 'transactions') {
             // check for contract or contract idv
-            if (props.currentType === "transaction_contracts" || props.currentType === "transaction_idvs" || props.currentType === "contracts") {
+            if (
+                props.currentType === "transaction_contracts" ||
+                props.currentType === "transaction_idvs" ||
+                props.currentType === "contracts"
+            ) {
                 values = arrayOfObjects.map((obj) => {
                     const transactionContractRow = Object.create(ResultsTableRow);
                     transactionContractRow.populateTransactionContract(obj);
@@ -134,7 +135,14 @@ const ResultsTable = (props) => {
         // subaward
         // TODO: i have a feeling this will need to be adjusted in the future for some group by options for subawards
         // the same may be true for transactions
-        if (props.currentType === "subcontracts" || (props.columnType === "subawards" && (props.currentType === "contracts" || props.currentType === "idvs"))) {
+        if (
+            props.currentType === "subcontracts" ||
+            (
+                props.columnType === "subawards" &&
+                (
+                    props.currentType === "contracts" || props.currentType === "idvs"
+                )
+            )) {
             values = arrayOfObjects.map((obj) => {
                 const subcontractRow = Object.create(ResultsTableRow);
                 subcontractRow.populateSubcontract(obj);
@@ -168,13 +176,13 @@ const ResultsTable = (props) => {
             setActivateRightFade(true);
         }
     }, [props.isMobile]);
-    const cols = useRef(prepareDTUIColumns());
-    const limitedRows = prepareDTUIRows();
+
     // for table height take the height of the viewport
     // subtract the sticky header part on the top of the page
     // tab height for the tables
     // 16 pixel space between the tabs
     // pagination on the bottom, so you can actually see the pages
+
     return (
         <>
             <div
@@ -183,8 +191,8 @@ const ResultsTable = (props) => {
                 <Table
                     classNames="table-for-new-search-page award-results-table-dtui"
                     stickyFirstColumn={!props.isMobile}
-                    columns={cols.current}
-                    rows={limitedRows}
+                    columns={prepareDTUIColumns()}
+                    rows={prepareDTUIRows()}
                     rowHeight={props.isMobile ? null : 58}
                     headerRowHeight={45}
                     highlightedColumns={props.spendingLevel === 'subawards' ? {

@@ -3,11 +3,11 @@
  * Created by Lizzie Salita 7/6/18
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from 'lodash-es';
 import { FlexGridRow } from "data-transparency-ui";
 
+import useCallbackRef from "../../../hooks/useCallbackRef";
 import RecipientTimeVisualization from './RecipientTimeVisualization';
 import RecipientTimeVisualizationSectionHeader from "./RecipientTimeVisualizationSectionHeader";
 import RecipientTimeVisualizationSectionButtons from "./RecipientTimeVisualizationSectionButtons";
@@ -23,34 +23,17 @@ const propTypes = {
 const RecipientTimeVisualizationSection = ({
     data, visualizationPeriod, updateVisualizationPeriod, loading, error
 }) => {
-    const [windowWidth, setWindowWidth] = useState(0);
-    const sectionHrRef = useRef(null);
+    const [width, setWidth] = useState(0);
 
-    // TODO: replace with useWindowWidth
-    useEffect(() => {
-        let isMounted = true;
+    const getWidth = (entry) => setWidth(entry.contentRect.width);
 
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-
-            if (windowWidth !== newWidth && isMounted) {
-                setWindowWidth(newWidth);
-            }
-        }, 50);
-
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            isMounted = false;
-            window.removeEventListener('resize', handleResize);
-        };
-    }, [windowWidth]);
+    const ref = useCallbackRef(getWidth);
 
     return (
         <FlexGridRow
             id="recipient-transactions-over-time"
             className="recipient-section transactions-over-time">
-            <RecipientTimeVisualizationSectionHeader sectionHrRef={sectionHrRef} />
+            <RecipientTimeVisualizationSectionHeader sectionHrRef={ref} />
             <RecipientTimeVisualizationSectionButtons
                 visualizationPeriod={visualizationPeriod}
                 updateVisualizationPeriod={updateVisualizationPeriod} />
@@ -59,7 +42,7 @@ const RecipientTimeVisualizationSection = ({
                 loading={loading}
                 error={error}
                 data={data}
-                width={sectionHrRef.current?.offsetWidth}
+                width={width}
                 color="#141D3B" />
         </FlexGridRow>
     );

@@ -20,12 +20,10 @@ import noteText from 'dataMapping/covid19/recipient/recipient';
 import TableDownloadLink from 'containers/covid19/TableDownloadLink';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
-import usePrevious from "../../../hooks/usePrevious";
 import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 
 const propTypes = {
     activeTab: PropTypes.string.isRequired,
-    prevActiveTab: PropTypes.string,
     scrollIntoView: PropTypes.func.isRequired
 };
 
@@ -162,9 +160,9 @@ export const parseRows = (rows, activeTab, query) => (
     })
 );
 
-const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) => {
+const RecipientTableContainer = ({ activeTab, scrollIntoView }) => {
     const [currentPage, changeCurrentPage] = useState(1);
-    const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
+    const [pageSize, setPageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
     const [results, setResults] = useState([]);
     const [parsedRows, setParsedRows] = useState([]); // finalized rows (including Unlinked Data)
@@ -172,15 +170,14 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [prevSort, sort, setSort] = useStateWithPrevious('obligation');
-    const [prevOrder, order, setOrder] = useStateWithPrevious('desc');
-    const [prevQuery, query, setQuery] = useStateWithPrevious('');
+    const [order, setOrder] = useState('desc');
+    const [query, setQuery] = useState('');
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
     const { recipientTotals, defcParams } = useSelector((state) => state.covid19);
-    const prevDefcParams = usePrevious(defcParams);
 
     const updateSort = (field, direction) => {
         setSort(field);
@@ -277,22 +274,12 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
             changeCurrentPage(1);
         }
         else {
-            const hasParamChanged = (
-                prevOrder !== order ||
-                prevSort !== sort ||
-                prevPageSize !== pageSize ||
-                prevQuery !== query ||
-                prevActiveTab !== activeTab ||
-                prevDefcParams !== defcParams
-            );
-            if (hasParamChanged) {
-                // when award type changes, if sort was on faceValueOfLoan, make it obligation instead to avoid API error
-                if (prevSort === 'faceValueOfLoan' && activeTab !== 'loans') {
-                    setSort('obligation');
-                    setOrder('desc');
-                }
-                fetchSpendingByRecipientCallback();
+            // when award type changes, if sort was on faceValueOfLoan, make it obligation instead to avoid API error
+            if (prevSort === 'faceValueOfLoan' && activeTab !== 'loans') {
+                setSort('obligation');
+                setOrder('desc');
             }
+            fetchSpendingByRecipientCallback();
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageSize, defcParams, sort, order, activeTab, query]);
@@ -324,7 +311,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
-                changeLimit={changePageSize}
+                changeLimit={setPageSize}
                 limitSelector
                 resultsText
                 pageSize={pageSize}
@@ -341,7 +328,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}
-                changeLimit={changePageSize}
+                changeLimit={setPageSize}
                 limitSelector
                 resultsText
                 pageSize={pageSize}

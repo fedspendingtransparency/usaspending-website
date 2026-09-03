@@ -3,7 +3,7 @@
  * Created by michaelbray on 5/18/17.
  */
 
-import React, { useRef } from 'react';
+import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import CheckboxExpandButton from './CheckboxExpandButton';
 
@@ -33,7 +33,9 @@ const CollapsedCheckboxType = ({
     const ref = useRef(null);
     const inputId = `collapsed-checkbox__${id}`;
 
-    if (ref.current) ref.current.indeterminate = indeterminate;
+    useEffect(() => {
+        if (ref.current) ref.current.indeterminate = indeterminate;
+    }, [indeterminate]);
 
     // prevents submission on enter keydown
     const onKeyDown = (e) => {
