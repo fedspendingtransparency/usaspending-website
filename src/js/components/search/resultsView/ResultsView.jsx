@@ -12,6 +12,7 @@ import useResultsCount from "containers/search/resultsView/useResultsCount";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";
 import SearchLanding from "./SearchLanding";
+import LoadingSpinner from '../../sharedComponents/LoadingSpinner';
 
 require("pages/search/searchPage.scss");
 
@@ -33,11 +34,22 @@ const ResultsView = React.memo(function ResultsView({
 }) {
     const filters = useSelector((state) => state.appliedFilters.filters);
     const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
-    const { data, error } = useResultsCount(filters, spendingLevel, hash);
+    const { data, error, isLoading } = useResultsCount(filters, spendingLevel, hash);
 
     let content = null;
 
-    if (!error && data) {
+    if (isLoading) {
+        console.log("isLoading");
+        content = (
+            <div className="search-results-loading">
+                <LoadingSpinner />
+                <div className="loading-message">
+                    Please wait while we load your results
+                </div>
+            </div>
+        );
+    }
+    else if(!error && data) {
         /* eslint-disable camelcase */
         const {
             contracts, direct_payments, grants, idvs, loans, other, subgrants, subcontracts
