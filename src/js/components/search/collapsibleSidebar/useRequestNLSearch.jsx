@@ -1,7 +1,7 @@
-import { useQuery, experimental_streamedQuery as streamedQuery } from "@tanstack/react-query";
-import { fetchNLSearch } from "apis/search";
-import {isCancel} from "axios";
-import {get} from "lodash-es";
+// import { useQuery, experimental_streamedQuery as streamedQuery } from "@tanstack/react-query";
+// import { fetchNLSearch } from "apis/search";
+// import {isCancel} from "axios";
+// import {get} from "lodash-es";
 
 const useRequestNLSearch = async function (prompt) {
     // const { data, status, refetch } = useQuery({
@@ -15,6 +15,7 @@ const useRequestNLSearch = async function (prompt) {
     //     })
     // });
     //
+    const results = [];
 
     if (prompt) {
         const request = await fetch('https://usaspending-api.dev01.dtas.ts.aws.frb.pvt/api/v2/llm/filter-search/', {
@@ -28,7 +29,6 @@ const useRequestNLSearch = async function (prompt) {
             })
         })
         let buffer ='';
-        const results = [];
 
         const reader = request.body.getReader();
         const decoder = new TextDecoder();
@@ -59,6 +59,7 @@ const useRequestNLSearch = async function (prompt) {
     }
 
     const data = results;
+    console.log(data);
 
     return data;
 }
