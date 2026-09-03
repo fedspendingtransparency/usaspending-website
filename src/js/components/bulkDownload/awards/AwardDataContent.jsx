@@ -43,7 +43,6 @@ const AwardDataContent = ({
 }) => {
     const { isMedium } = useContext(IsMobileContext);
     const [validDates, setValidDates] = useState(false);
-    const [validForm, setValidForm] = useState(false);
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -64,23 +63,20 @@ const AwardDataContent = ({
         }
     };
 
-    const validateForm = useCallback((award, dates) => {
-        const primeAwards = award.awardTypes.primeAwards.size > 0;
-        const subAwards = award.awardTypes.subAwards.size > 0;
-        const form = (
-            (primeAwards || subAwards)
-            && dates && (award.dateType !== '')
-            && (award.agency.id !== '')
-            && (award.location !== '')
-            && (award.fileFormat !== '')
-        );
+    let validForm = false;
 
-        setValidForm(form);
-    }, []);
+    const primeAwards = awards.awardTypes.primeAwards.size > 0;
+    const subAwards = awards.awardTypes.subAwards.size > 0;
 
-    useEffect(() => {
-        validateForm(awards, validDates);
-    }, [awards, validDates, validateForm]);
+    const form = (
+        (primeAwards || subAwards)
+        && validDates && (awards.dateType !== '')
+        && (awards.agency.id !== '')
+        && (awards.location.country.code !== '')
+        && (awards.fileFormat !== '')
+    );
+
+    if (form) validForm = true;
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => () => clearAwardFilters(), []);
