@@ -49,6 +49,7 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch }) => {
                 { /* We will have to make a couple adjustments to this when we have the api hooked up and are getting loading states back
                 on submit we have to sanitize the html*/}
                 <NLSearchButton
+                    onClick={startNLSearch}
                     text="Search"
                     icon={icon}
                     classname={searchClass} />
