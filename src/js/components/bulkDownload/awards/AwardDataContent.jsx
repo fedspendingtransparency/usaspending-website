@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 10/30/17
  */
 
-import React, { useCallback, useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 import IsMobileContext from "context/IsMobileContext";
