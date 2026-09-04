@@ -143,11 +143,11 @@
             @include display(flex);
             @include align-items(center);
             @include justify-content(center);
-            
+
             .search-results__loading-message {
               display: block;
               text-align: center;
-              
+
               .loading-animation {
                 width: rem(250);
                 height: rem(225);
@@ -178,10 +178,12 @@
                     fill: $gray-20;
                     width: rem(52);
                     height: rem(253);
-                    
+
                     // use new animation keyframes instead of default loading animation
-                    @include animation(loading-large-bar-animation 2s infinite ease-in-out both);
-                    
+                    @include animation(
+                      loading-large-bar-animation 2s infinite ease-in-out both
+                    );
+
                     &.bar-two {
                       x: 68;
                     }
