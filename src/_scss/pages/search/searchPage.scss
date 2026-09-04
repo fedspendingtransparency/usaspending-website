@@ -136,6 +136,75 @@
               color: $gray-60;
             }
           }
+
+          .search-results-loading {
+            height: 100%;
+            width: 100%;
+            margin-top: rem(40);
+            @include display(flex);
+            @include align-items(center);
+            @include justify-content(center);
+
+            .search-results__loading-message {
+              display: block;
+              text-align: center;
+
+              .loading-animation {
+                width: rem(250);
+                height: rem(225);
+                margin-left: auto;
+                margin-right: auto;
+
+                @import "../../loading";
+
+                // override size and speed of rectangles
+                svg.loading-bars {
+                  height: rem(200);
+                  width: rem(500);
+
+                  // create new animation keyframes for this animation only
+                  @keyframes loading-large-bar-animation {
+                    0% {
+                      transform: translate(0px, 100px) scaleY(25);
+                    }
+                    50% {
+                      transform: translate(0px, 15px) scaleY(10);
+                    }
+                    100% {
+                      transform: translate(0px, 100px) scaleY(25);
+                    }
+                  }
+
+                  rect {
+                    fill: $gray-20;
+                    width: rem(52);
+                    height: rem(253);
+
+                    // use new animation keyframes instead of default loading animation
+                    @include animation(
+                      loading-large-bar-animation 2s infinite ease-in-out both
+                    );
+
+                    &.bar-two {
+                      x: 68;
+                    }
+                    &.bar-three {
+                      x: 136;
+                    }
+                    &.bar-four {
+                      x: 204;
+                    }
+                  }
+                }
+              }
+
+              .loading-text {
+                font-size: $lead-font-size;
+                line-height: $base-line-height;
+                color: $headline-color;
+              }
+            }
+          }
         }
 
         .tablet-search__modal {
