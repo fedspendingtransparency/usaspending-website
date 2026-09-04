@@ -231,11 +231,8 @@ export const getParsedLocations = (
     return locationsList;
 };
 
-export const useLocationObject = (selectedItem, countriesList, createLocationObjectByType) => {
-    // Call hooks at the top level
-    const fipsIdByStateName = useFipsIdByStateName();
-    const stateFIPSByAbbreviation = useStateFIPSByAbbreviation();
-
+// Non-hook version that accepts data as parameters
+export const createLocationObject = (selectedItem, countriesList, createLocationObjectByType, fipsIdByStateName, stateFIPSByAbbreviation) => {
     const item = selectedItem;
     let location = {};
     const countryAbbreviation =
@@ -280,4 +277,13 @@ export const useLocationObject = (selectedItem, countriesList, createLocationObj
     }
 
     return location;
+};
+
+// Hook version that calls hooks at the top level
+export const useLocationObject = (selectedItem, countriesList, createLocationObjectByType) => {
+    // Call hooks at the top level
+    const fipsIdByStateName = useFipsIdByStateName();
+    const stateFIPSByAbbreviation = useStateFIPSByAbbreviation();
+
+    return createLocationObject(selectedItem, countriesList, createLocationObjectByType, fipsIdByStateName, stateFIPSByAbbreviation);
 };
