@@ -19,6 +19,7 @@ const getBaseUrl = (params) => {
 // eslint-disable-next-line import/prefer-default-export
 export const apiRequest = (axiosParams = {}) => {
     const defaultHeaders = { 'X-Requested-With': 'USASpendingFrontend' };
+    // const defaultHeaders = { "X-LLM-API-Key":"eae262ce-9ff8-416c-8965-84fdbb9034bf" };
     const cancelToken = CancelToken.source();
     const defaultParams = {
         baseURL: getBaseUrl(axiosParams),
