@@ -3,15 +3,16 @@ import { useDispatch } from 'react-redux';
 import { useMatch, useNavigate } from "react-router";
 import { parseStateDataFromUrl } from "./stateHelper";
 import { resetState, setStateFiscalYear } from "../../redux/actions/state/stateActions";
-import { fipsIdByStateName } from "../../dataMapping/state/stateNames";
 import { allFiscalYears } from "../../helpers/fiscalYearHelper";
-
+import { useFipsIdByStateName, useStateNameByFipsId } from "../../hooks/useStateData";
 export const useStateNavigation = () => {
+    const fipsIdByStateName = useFipsIdByStateName();
+    const stateNameByFipsId = useStateNameByFipsId();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const match = useMatch(`/state/:state/:fyParam?`);
     const { state, fyParam } = match.params;
-    const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state);
+    const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state, fipsIdByStateName, stateNameByFipsId);
     const fy = fyParam;
 
     const handleFyChange = useCallback((newFy) => {
@@ -20,7 +21,7 @@ export const useStateNavigation = () => {
     }, [dispatch, navigate, stateName]);
 
     useEffect(() => {
-        if (Object.keys(fipsIdByStateName).includes(stateName.replaceAll('-', ' '))) {
+        if (Object.keys(fipsIdByStateName ?? {}).includes(stateName?.replaceAll('-', ' '))) {
             if (!fy) {
                 // this may be an issue on the first day of 2026 fiscal year
                 // history(`/state/${stateName}/latest`, { replace: true });

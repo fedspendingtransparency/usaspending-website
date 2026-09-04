@@ -1,11 +1,11 @@
-import { fipsIdByStateName, stateFIPSByAbbreviation } from "../../dataMapping/state/stateNames";
+import { useFipsIdByStateName, useStateFIPSByAbbreviation } from "../../hooks/useStateData";
 import LocationEntity from "../../models/v2/search/LocationEntity";
 
 const getKeyByValue = (object, value) =>
     Object.keys(object).find((key) => object[key] === value);
 
 export const loadCounties = (
-    county, state, countryAbbreviation, stateFips, countyFips, createLocationObjectByType
+    county, state, countryAbbreviation, stateFips, countyFips, createLocationObjectByType, stateFIPSByAbbreviation
 ) => {
     const stateAbbreviation = getKeyByValue(
         stateFIPSByAbbreviation,
@@ -44,8 +44,8 @@ export const addZip = (zipCode) =>
         }
     });
 
-export const addCity = (city, state, countryAbbreviation) => {
-    const fipsCode = fipsIdByStateName[state.toLowerCase()];
+export const addCity = (city, state, countryAbbreviation, fipsIdByStateName, stateFIPSByAbbreviation) => {
+    const fipsCode = fipsIdByStateName?.[state.toLowerCase()];
     const stateAbbreviation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
     return {
         identifier: `${countryAbbreviation}_${stateAbbreviation}_${city}`,
@@ -62,9 +62,9 @@ export const addCity = (city, state, countryAbbreviation) => {
     };
 };
 
-export const addState = (state, countryAbbreviation) => {
+export const addState = (state, countryAbbreviation, fipsIdByStateName, stateFIPSByAbbreviation) => {
     const cleanState = state.replace(/[^\w\s]|_/g, "");
-    const fipsCode = fipsIdByStateName[cleanState?.toLowerCase()];
+    const fipsCode = fipsIdByStateName?.[cleanState?.toLowerCase()];
     const stateAbbreviation = getKeyByValue(stateFIPSByAbbreviation, fipsCode);
     return {
         identifier: `${countryAbbreviation}_${stateAbbreviation}`,
@@ -231,21 +231,25 @@ export const getParsedLocations = (
     return locationsList;
 };
 
-export const getLocationObject = (selectedItem, countriesList, createLocationObjectByType) => {
+export const useLocationObject = (selectedItem, countriesList, createLocationObjectByType) => {
+    // Call hooks at the top level
+    const fipsIdByStateName = useFipsIdByStateName();
+    const stateFIPSByAbbreviation = useStateFIPSByAbbreviation();
+
     const item = selectedItem;
     let location = {};
     const countryAbbreviation =
         item.data.country_name === 'UNITED STATES' ? 'USA' :
             countriesList?.find(
                 (country) => {
-                    return country.name === item.data.country_name; 
+                    return country.name === item.data.country_name;
                 }
             )?.code;
     if (item.category === "zip_code") {
         location = addZip(item.data.zip_code);
     }
     else if (item.category === "city") {
-        location = addCity(item.data.city_name, item.data.state_name, countryAbbreviation);
+        location = addCity(item.data.city_name, item.data.state_name, countryAbbreviation, fipsIdByStateName, stateFIPSByAbbreviation);
     }
     else if (item.category === "county") {
         loadCounties(
@@ -254,11 +258,12 @@ export const getLocationObject = (selectedItem, countriesList, createLocationObj
             countryAbbreviation,
             item.data.state_fips,
             item.data.county_fips,
-            createLocationObjectByType
+            createLocationObjectByType,
+            stateFIPSByAbbreviation
         );
     }
     else if (item.category === "state") {
-        location = addState(item.data.state_name, countryAbbreviation);
+        location = addState(item.data.state_name, countryAbbreviation, fipsIdByStateName, stateFIPSByAbbreviation);
     }
     else if (item.category === "country") {
         location = addCountry(item.data.country_name, countryAbbreviation);
