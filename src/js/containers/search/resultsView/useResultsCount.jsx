@@ -24,7 +24,6 @@ const useResultsCount = (filters, spendingLevel, hash) => {
             auditTrail: 'Results View - Tab Counts'
         }).promise,
         staleTime: 60000,
-        refetchOnWindowFocus: false,
         enabled: !areFiltersEqual(filters) || !hash
     });
 
