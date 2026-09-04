@@ -1,6 +1,6 @@
 /**
  * 
- * NLSearchSuggestions.jsx 
+ * NLSearchSuggestionsIcon.jsx 
  * Created by Trey Morgan 7/8/2026
  */
 
