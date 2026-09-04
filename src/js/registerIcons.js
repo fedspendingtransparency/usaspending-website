@@ -5,7 +5,7 @@
 import { faFacebookSquare, faLinkedin, faGithub, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-    faXmark
+    faXmark, faCircleCheck, faCircleXmark
 } from '@fortawesome/pro-regular-svg-icons';
 import { faWandMagicSparkles } from "@fortawesome/pro-regular-svg-icons";
 import {
@@ -244,6 +244,8 @@ export default function registerIcons() {
         faSparkles,
         faQuestion,
         faArrowsRotate,
-        faChartColumn
+        faChartColumn,
+        faCircleCheck,
+        faCircleXmark
     );
 }
