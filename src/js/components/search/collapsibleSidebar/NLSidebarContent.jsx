@@ -5,10 +5,11 @@ import NLSearchButton from "./NLSearchButton";
 const propTypes = {
     hintOnClick: PropTypes.func,
     text: PropTypes.string,
-    setText: PropTypes.func
+    setText: PropTypes.func,
+    startNLSearch: PropTypes.func
 };
 
-const NLSidebarContent = ({ hintOnClick, text, setText }) => {
+const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch }) => {
     const MAX_CHARS = 500;
     const reset = () => setText("");
     let searchClass = 'default-search';
@@ -48,6 +49,7 @@ const NLSidebarContent = ({ hintOnClick, text, setText }) => {
                 { /* We will have to make a couple adjustments to this when we have the api hooked up and are getting loading states back
                 on submit we have to sanitize the html*/}
                 <NLSearchButton
+                    onClick={startNLSearch}
                     text="Search"
                     icon={icon}
                     classname={searchClass} />

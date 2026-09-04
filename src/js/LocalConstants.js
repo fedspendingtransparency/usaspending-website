@@ -4,6 +4,6 @@
  */
 
 export const localConstants = {
-    API: null,
+    API: "https://usaspending-api.dev01.dtas.ts.aws.frb.pvt/api/",
     MAPBOX_TOKEN: null
 };
