@@ -101,10 +101,8 @@
 
     &.is-nl {
       overflow-y: auto;
-      max-height: calc(100vh - rem(282));
+      max-height: calc(100dvh - rem(282));
     }
-
-
 
     .sidebar-title-row {
       width: 100%;
