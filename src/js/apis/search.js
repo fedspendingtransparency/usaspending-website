@@ -12,10 +12,10 @@ export const performSpendingByGeographySearch = (params) => apiRequest({
     data: params
 });
 
-export const fetchNLSearch = (params) => apiRequest({
-    url: 'v2/llm/filter-search/',
-    method: 'post',
-    data: params,
-    headers: GlobalConstants.LLM_HEADER
-});
+// export const fetchNLSearch = (params) => apiRequest({
+//     url: 'v2/llm/filter-search/',
+//     method: 'post',
+//     data: {"query": params},
+//     headers: GlobalConstants.LLM_HEADER
+// });
 
