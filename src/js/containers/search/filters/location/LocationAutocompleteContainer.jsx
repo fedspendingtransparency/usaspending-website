@@ -19,7 +19,7 @@ import {
     updateRecipientDomesticForeignSelection
 } from "../../../../redux/actions/search/searchFilterActions";
 import {
-    getLocationObject,
+    useLocationObject,
     getParsedLocations
 } from "../../../../helpers/search/locationAutocompleteHelper";
 
@@ -105,7 +105,7 @@ const LocationAutocompleteContainer = ({
     ]);
 
     const addLocation = () => {
-        getLocationObject(selectedItem, countriesList, createLocationObjectByType);
+        useLocationObject(selectedItem, countriesList, createLocationObjectByType);
         clearAutocompleteSuggestions();
     };
 

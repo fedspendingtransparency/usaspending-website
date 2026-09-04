@@ -536,7 +536,9 @@ const MapWrapper = ({
     };
 
     useEffect(() => {
-        const cleanUpRef = { ...broadcastRef.current }
+        const cleanUpRef = Array.isArray(broadcastRef.current)
+            ? [...broadcastRef.current]
+            : [];
         displayData();
         if (!stateProfile) {
             prepareBroadcastReceivers();
@@ -548,8 +550,7 @@ const MapWrapper = ({
                 MapBroadcaster.off(listenerRef.event, listenerRef.id);
             });
         };
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, []);
+    }, [displayData, stateProfile, prepareBroadcastReceivers, removeChangeListeners]);
 
     useEffect(() => {
         if (scopeRef.current !== scope) {
