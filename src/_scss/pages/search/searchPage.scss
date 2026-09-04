@@ -138,57 +138,68 @@
           }
 
           .search-results-loading {
-            @include flex(1 1 auto);
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
+            height: 100%;
+            width: 100%;
+            @include display(flex);
+            @include align-items(center);
+            @include justify-content(center);
+            
+            .search-results__loading-message {
+              display: block;
+              text-align: center;
+              
+              .loading-animation {
+                width: rem(250);
+                height: rem(225);
+                margin-left: auto;
+                margin-right: auto;
 
-            .loading-animation {
-              width: rem(250);
-              height: rem(225);
-              margin-left: auto;
-              margin-right: auto;
+                @import "../../loading";
 
-              @import "../../loading";
+                // override size and speed of rectangles
+                svg.loading-bars {
+                  height: rem(200);
+                  width: rem(500);
 
-              svg.loading-bars {
-                height: rem(200);
-                width: rem(500);
-
-                @keyframes loading-bar-animation {
-                  0% {
-                    transform: translate(0px, 100px) scaleY(25);
+                  // create new animation keyframes for this animation only
+                  @keyframes loading-large-bar-animation {
+                    0% {
+                      transform: translate(0px, 100px) scaleY(25);
+                    }
+                    50% {
+                      transform: translate(0px, 15px) scaleY(10);
+                    }
+                    100% {
+                      transform: translate(0px, 100px) scaleY(25);
+                    }
                   }
-                  50% {
-                    transform: translate(0px, 15px) scaleY(10);
-                  }
-                  100% {
-                    transform: translate(0px, 100px) scaleY(25);
-                  }
-                }
 
-                rect {
-                  fill: $gray-20;
-                  width: rem(52);
-                  height: rem(253);
-
-                  &.bar-two {
-                    x: 68;
-                  }
-                  &.bar-three {
-                    x: 136;
-                  }
-                  &.bar-four {
-                    x: 204;
+                  rect {
+                    fill: $gray-20;
+                    width: rem(52);
+                    height: rem(253);
+                    
+                    // use new animation keyframes instead of default loading animation
+                    @include animation(loading-large-bar-animation 2s infinite ease-in-out both);
+                    
+                    &.bar-two {
+                      x: 68;
+                    }
+                    &.bar-three {
+                      x: 136;
+                    }
+                    &.bar-four {
+                      x: 204;
+                    }
                   }
                 }
               }
-            }
 
-            .loading-message {
-              font-size: $lead-font-size;
-              line-height: $base-line-height;
-              color: $headline-color;
+              .loading-text {
+                font-size: $lead-font-size;
+                line-height: $base-line-height;
+                color: $headline-color;
+              }
             }
           }
         }

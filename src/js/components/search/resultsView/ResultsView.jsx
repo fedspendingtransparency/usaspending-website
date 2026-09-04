@@ -41,9 +41,11 @@ const ResultsView = React.memo(function ResultsView({
     if (isLoading) {
         content = (
             <div className="search-results-loading">
-                <LoadingSpinner />
-                <div className="loading-message">
-                    Please wait while we load your results
+                <div className="search-results__loading-message">
+                    <LoadingSpinner />
+                    <div className="loading-text">
+                        Please wait while we load your results
+                    </div>
                 </div>
             </div>
         );
