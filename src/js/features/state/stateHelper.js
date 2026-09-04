@@ -2,7 +2,6 @@
  * stateHelper.js
  * Created by Lizzie Salita 5/1/18
  */
-import { stateNameByFipsId, fipsIdByStateName } from "dataMapping/state/stateNames";
 import { convertFYToDateRange, currentFiscalYear, earliestFiscalYear } from "../../helpers/fiscalYearHelper";
 
 export const createApiParams = (stateCode, period) => {
@@ -37,20 +36,22 @@ export const createApiParams = (stateCode, period) => {
 const acceptableChars = "abcdefghijklmnopqrstuvwxyz";
 
 export const URLifyStateName = (str) => str
-    .split(' ')
+    ?.split(' ')
     .map((s) => s.split('').filter((s2) => acceptableChars.includes(s2.toLowerCase())).join('').toLowerCase())
     .join('-');
 
 /**
  * parseStateDataFromUrl
  * @param {string} state the fragment of the url containing either state name or fips id
+ * @param {object} fipsIdByStateName mapping of state name to fips id
+ * @param {object} stateNameByFipsId mapping of fips id to state name
  * @returns {array} [isName, urlName, fipsId]; isName indicating if the input is the state name
 */
-export const parseStateDataFromUrl = (state) => {
+export const parseStateDataFromUrl = (state, fipsIdByStateName, stateNameByFipsId) => {
     const isName = Number.isNaN(parseInt(state, 10));
     if (isName) {
         const parsedName = state?.split('-').join(' ').toLowerCase();
-        if (fipsIdByStateName[parsedName]) {
+        if (fipsIdByStateName?.[parsedName]) {
             return [
                 isName,
                 state.toLowerCase(),
@@ -58,14 +59,14 @@ export const parseStateDataFromUrl = (state) => {
             ];
         }
     }
-    if (state.length === 1 && stateNameByFipsId[`0${state}`]) {
+    if (state?.length === 1 && stateNameByFipsId?.[`0${state}`]) {
         return [
             isName,
             URLifyStateName(stateNameByFipsId[`0${state}`]),
             `0${state}`
         ];
     }
-    if (stateNameByFipsId[`${state}`]) {
+    if (stateNameByFipsId?.[`${state}`]) {
         return [
             isName,
             URLifyStateName(stateNameByFipsId[`${state}`]),

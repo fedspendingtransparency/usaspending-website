@@ -7,128 +7,12 @@ import { min, max } from 'lodash-es';
 import { scaleQuantize } from 'd3-scale';
 import kGlobalConstants from 'GlobalConstants';
 import { apiRequest } from './apiRequest';
-
 import * as MoneyFormatter from './moneyFormatter';
-
-const stateCodes = {
-    'Alabama': 'AL',
-    'Alaska': 'AK',
-    'Arizona': 'AZ',
-    'Arkansas': 'AR',
-    'California': 'CA',
-    'Colorado': 'CO',
-    'Connecticut': 'CT',
-    'Delaware': 'DE',
-    'Florida': 'FL',
-    'Georgia': 'GA',
-    'Hawaii': 'HI',
-    'Idaho': 'ID',
-    'Illinois': 'IL',
-    'Indiana': 'IN',
-    'Iowa': 'IA',
-    'Kansas': 'KS',
-    'Kentucky': 'KY',
-    'Louisiana': 'LA',
-    'Maine': 'ME',
-    'Maryland': 'MD',
-    'Massachusetts': 'MA',
-    'Michigan': 'MI',
-    'Minnesota': 'MN',
-    'Mississippi': 'MS',
-    'Missouri': 'MO',
-    'Montana': 'MT',
-    'Nebraska': 'NE',
-    'Nevada': 'NV',
-    'New Hampshire': 'NH',
-    'New Jersey': 'NJ',
-    'New Mexico': 'NM',
-    'New York': 'NY',
-    'North Carolina': 'NC',
-    'North Dakota': 'ND',
-    'Northern Mariana Islands': 'MP',
-    'Ohio': 'OH',
-    'Oklahoma': 'OK',
-    'Oregon': 'OR',
-    'Pennsylvania': 'PA',
-    'Rhode Island': 'RI',
-    'South Carolina': 'SC',
-    'South Dakota': 'SD',
-    'Tennessee': 'TN',
-    'Texas': 'TX',
-    'Utah': 'UT',
-    'Vermont': 'VT',
-    'Virginia': 'VA',
-    'Washington': 'WA',
-    'West Virginia': 'WV',
-    'Wisconsin': 'WI',
-    'Wyoming': 'WY',
-    'District of Columbia': 'DC',
-    'Puerto Rico': 'PR',
-    'U.S. Virgin Islands': 'VI',
-    'American Samoa': 'AS',
-    'Guam': 'GU',
-    'U.S. Minor Outlying Islands': 'UM'
-};
-
-const stateNames = {
-    'AL': 'Alabama',
-    'AK': 'Alaska',
-    'AZ': 'Arizona',
-    'AR': 'Arkansas',
-    'CA': 'California',
-    'CO': 'Colorado',
-    'CT': 'Connecticut',
-    'DE': 'Delaware',
-    'FL': 'Florida',
-    'GA': 'Georgia',
-    'HI': 'Hawaii',
-    'ID': 'Idaho',
-    'IL': 'Illinois',
-    'IN': 'Indiana',
-    'IA': 'Iowa',
-    'KS': 'Kansas',
-    'KY': 'Kentucky',
-    'LA': 'Louisiana',
-    'ME': 'Maine',
-    'MD': 'Maryland',
-    'MA': 'Massachusetts',
-    'MI': 'Michigan',
-    'MN': 'Minnesota',
-    'MS': 'Mississippi',
-    'MP': 'Northern Mariana Islands',
-    'MO': 'Missouri',
-    'MT': 'Montana',
-    'NE': 'Nebraska',
-    'NV': 'Nevada',
-    'NH': 'New Hampshire',
-    'NJ': 'New Jersey',
-    'NM': 'New Mexico',
-    'NY': 'New York',
-    'NC': 'North Carolina',
-    'ND': 'North Dakota',
-    'OH': 'Ohio',
-    'OK': 'Oklahoma',
-    'OR': 'Oregon',
-    'PA': 'Pennsylvania',
-    'RI': 'Rhode Island',
-    'SC': 'South Carolina',
-    'SD': 'South Dakota',
-    'TN': 'Tennessee',
-    'TX': 'Texas',
-    'UT': 'Utah',
-    'VT': 'Vermont',
-    'VA': 'Virginia',
-    'WA': 'Washington',
-    'WV': 'West Virginia',
-    'WI': 'Wisconsin',
-    'WY': 'Wyoming',
-    'DC': 'District of Columbia',
-    'PR': 'Puerto Rico',
-    'VI': 'U.S. Virgin Islands',
-    'AS': 'American Samoa',
-    'GU': 'Guam',
-    'UM': 'U.S. Minor Outlying Islands'
-};
+import { useStatebyCode, useCodeByStateName } from "../hooks/useStateData";
+export const fetchStateList = () => apiRequest({
+    url: 'v2/references/states/',
+    method: 'get'
+});
 
 const stateCenters = {
     "10": [
@@ -367,15 +251,15 @@ export const visualizationColors = [
 ];
 
 export const stateNameFromCode = (code) => {
-    if ({}.hasOwnProperty.call(stateNames, code)) {
-        return stateNames[code];
+    if ({}.hasOwnProperty.call(useStatebyCode, code)) {
+        return useStatebyCode[code];
     }
     return null;
 };
 
 export const stateCodeFromName = (name) => {
-    if ({}.hasOwnProperty.call(stateCodes, name)) {
-        return stateCodes[name];
+    if ({}.hasOwnProperty.call(useCodeByStateName, name)) {
+        return useCodeByStateName[name];
     }
     return null;
 };
@@ -545,3 +429,4 @@ export const pluralize = (string) => {
     }
     return `${string}s`;
 };
+

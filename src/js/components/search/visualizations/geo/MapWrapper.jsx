@@ -10,7 +10,6 @@ import { cloneDeep, uniq } from 'lodash-es';
 import GlobalConstants from 'GlobalConstants';
 
 import { setMapHasLoaded } from "redux/actions/search/searchViewActions";
-import { stateFIPSByAbbreviation } from "dataMapping/state/stateNames";
 import {
     calculateRange, firstSymbolId, mapboxSources, visualizationColors
 } from 'helpers/mapHelper';
@@ -20,6 +19,7 @@ import MapBox from 'components/sharedComponents/map/MapBox';
 import MapLegend from 'components/sharedComponents/map/MapLegend';
 import MapFiltersToggle from "components/sharedComponents/map/MapFiltersToggle";
 import AdvancedSearchMapFilters from "./AdvancedSearchMapFilters";
+import { useStateFIPSByAbbreviation } from "../../../../hooks/useStateData";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -78,6 +78,7 @@ const MapWrapper = ({
     singleLocationSelected,
     tooltip: TooltipComponent
 }) => {
+    const stateFIPSByAbbreviation = useStateFIPSByAbbreviation();
     const [mapLayers, setMapLayers] = useState({});
     const [mapReady, setMapReady] = useState(false);
     const [spendingScale, setSpendingScale] = useState({
@@ -535,7 +536,9 @@ const MapWrapper = ({
     };
 
     useEffect(() => {
-        const cleanUpRef = { ...broadcastRef.current }
+        const cleanUpRef = Array.isArray(broadcastRef.current)
+            ? [...broadcastRef.current]
+            : [];
         displayData();
         if (!stateProfile) {
             prepareBroadcastReceivers();
@@ -547,8 +550,7 @@ const MapWrapper = ({
                 MapBroadcaster.off(listenerRef.event, listenerRef.id);
             });
         };
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, []);
+    }, [displayData, stateProfile, prepareBroadcastReceivers, removeChangeListeners]);
 
     useEffect(() => {
         if (scopeRef.current !== scope) {
@@ -570,8 +572,12 @@ const MapWrapper = ({
     }, [mapReady]);
 
     useEffect(() => {
-        setCenter(centerProp);
-    }, [centerProp]);
+        // Only update if centerProp actually changed
+        if (centerProp &&
+          (centerProp[0] !== center[0] || centerProp[1] !== center[1])) {
+            setCenter(centerProp);
+        }
+    }, [centerProp, center]);
 
     return (
         <div className="map-container">

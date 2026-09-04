@@ -8,7 +8,6 @@ import { countries, counties, congressionalDistricts } from "dataMapping/search/
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
-import { stateFIPSByAbbreviation, stateNameFromFips, stateAbbreviationFromFips } from 'dataMapping/state/stateNames';
 import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
@@ -17,6 +16,7 @@ import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
 import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
+import { useStateFIPSByAbbreviation, useStateNameByFipsId } from "../../../hooks/useStateData";
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -60,6 +60,13 @@ const logMapScopeEvent = (scope) => {
 // eslint-disable-next-line prefer-arrow-callback
 const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const USACenterPoint = [-95.569430, 38.852892];
+    const stateFIPSByAbbreviation = useStateFIPSByAbbreviation();
+    const stateNameByFipsId = useStateNameByFipsId();
+
+    // Create inverted mapping: FIPS -> Abbreviation
+    const stateAbbreviationByFipsId = stateFIPSByAbbreviation ?
+        Object.fromEntries(Object.entries(stateFIPSByAbbreviation).map(([abbr, fips]) => [fips, abbr])) :
+        {};
 
     const [mapLayer, setMapLayer] = useState('state');
     const [rawAPIData, setRawAPIData] = useState([]);
@@ -86,8 +93,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     });
 
     const [mapViewType, setMapViewType] = useState('chart');
-    let apiRequest = null;
-    const mapListeners = [];
+    const apiRequestRef = React.useRef(null);
+    const mapListenersRef = React.useRef([]);
 
     // this ref as been added to stop the related useEffect triggering on initial render
     const useEffectRef = React.useRef({
@@ -100,7 +107,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     const completeDataSet = {
         country: countries,
-        state: Object.keys(stateFIPSByAbbreviation),
+        state: stateFIPSByAbbreviation ? Object.keys(stateFIPSByAbbreviation) : [],
         county: counties,
         congressionalDistrict: congressionalDistricts
     };
@@ -130,7 +137,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     const findMapCenterPointByLocation = (locationAbbrev) => {
         if (apiScopes[mapLayer] !== 'country') {
-            setCenter(stateCenterFromFips(stateFIPSByAbbreviation[locationAbbrev]));
+            setCenter(stateCenterFromFips(stateFIPSByAbbreviation?.[locationAbbrev]));
         }
         else if (locationAbbrev !== 'USA') {
             calculateCenterPoint(locationAbbrev);
@@ -193,7 +200,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
                 }
                 else if (countyCheck) {
                     row.county = item.display_name;
-                    row.state_territory = stateNameFromFips(item.shape_code.substring(0, 2));
+                    row.state_territory = stateNameByFipsId?.[item.shape_code.substring(0, 2)];
                 }
                 else {
                     row.country = item.display_name;
@@ -206,8 +213,10 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         });
 
         if ((mapLayer === "county" || mapLayer === "congressionalDistrict") && areFirstTwoCharsEqual(locations)) {
-            const stateAbbreviation = stateAbbreviationFromFips(locations[0].substring(0, 2));
-            findMapCenterPointByLocation(stateAbbreviation);
+            const stateAbbreviation = stateAbbreviationByFipsId?.[locations[0].substring(0, 2)];
+            if (stateAbbreviation) {
+                findMapCenterPointByLocation(stateAbbreviation);
+            }
         }
         else if ((mapLayer === "country" || mapLayer === "state") && locations?.length === 1) {
             findMapCenterPointByLocation(locations[0]);
@@ -308,25 +317,25 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
             spending_level: getSpendingLevel(props.spendingLevel)
         };
 
-        if (apiRequest) {
-            apiRequest.cancel();
+        if (apiRequestRef.current) {
+            apiRequestRef.current.cancel();
         }
 
         setLoading(true);
         setError(false);
 
         props.setAppliedFilterCompletion(false);
-        apiRequest = performSpendingByGeographySearch(apiParams);
-        apiRequest.promise
+        apiRequestRef.current = performSpendingByGeographySearch(apiParams);
+        apiRequestRef.current.promise
             .then((res) => {
-                apiRequest = null;
+                apiRequestRef.current = null;
                 useEffectRef.current.rawAPIData = true;
                 setRawAPIData(res.data.results);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
                     console.log(err);
-                    apiRequest = null;
+                    apiRequestRef.current = null;
 
                     setLoading(false);
                     setError(true);
@@ -387,15 +396,15 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
             setSingleLocationSelected(onlyObject);
             if (onlyObject.district_current || onlyObject.district_original) {
                 changeMapLayer("congressionalDistrict");
-                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
+                setCenter(stateCenterFromFips(stateFIPSByAbbreviation?.[onlyObject.state]));
             }
             else if (onlyObject.county) {
                 changeMapLayer("county");
-                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
+                setCenter(stateCenterFromFips(stateFIPSByAbbreviation?.[onlyObject.state]));
             }
             else if (onlyObject.state) {
                 // do not change the map layer, it is already state
-                setCenter(stateCenterFromFips(stateFIPSByAbbreviation[onlyObject.state]));
+                setCenter(stateCenterFromFips(stateFIPSByAbbreviation?.[onlyObject.state]));
             }
             else if (onlyObject.country !== "USA") {
                 changeMapLayer("country");
@@ -602,13 +611,13 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     useEffect(() => {
         const doneListener = MapBroadcaster.on('mapMeasureDone', receivedEntities);
-        mapListeners.push(doneListener);
+        mapListenersRef.current.push(doneListener);
 
         const measureListener = MapBroadcaster.on('mapReady', mapLoaded);
-        mapListeners.push(measureListener);
+        mapListenersRef.current.push(measureListener);
 
         const movedListener = MapBroadcaster.on('mapMoved', prepareFetch);
-        mapListeners.push(movedListener);
+        mapListenersRef.current.push(movedListener);
 
         updateMapScope();
 
@@ -618,7 +627,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
         return () => {
             // remove any broadcast listeners
-            mapListeners.forEach((listenerRef) => {
+            mapListenersRef.current.forEach((listenerRef) => {
                 MapBroadcaster.off(listenerRef.event, listenerRef.id);
             });
         };
@@ -665,12 +674,10 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     useEffect(() => {
         prepareFetch(true);
         logMapScopeEvent(props.scope);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [props.scope]);
 
     useEffect(() => {
         prepareFetch(true);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapLayer, loadingTiles]);
 
     useEffect(() => {
@@ -693,7 +700,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
                 wrapperNoData: true
             });
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [mapViewType]);
 
     return (

@@ -7,6 +7,19 @@
 
 import { parseStateDataFromUrl, URLifyStateName } from 'features/state/stateHelper';
 
+// Mock state data for testing
+const mockFipsIdByStateName = {
+    'alabama': '01',
+    'district of columbia': '11',
+    'us virgin islands': '78'
+};
+
+const mockStateNameByFipsId = {
+    '01': 'Alabama',
+    '11': 'District of Columbia',
+    '78': 'US Virgin Islands'
+};
+
 test.each([
     ['1', false, 'alabama', '01'],
     ['01', false, 'alabama', '01'],
@@ -16,7 +29,7 @@ test.each([
     ['78', false, 'us-virgin-islands', '78'],
     ['us-virgin-islands', true, 'us-virgin-islands', '78']
 ])('parseStateDataFromURL fn: given the input %s -- wasInputStateName: %s; state name: %s; FIPS id: %s', (input, wasInputStateName, stateName, fipsId) => {
-    expect(parseStateDataFromUrl(input)).toEqual([wasInputStateName, stateName, fipsId]);
+    expect(parseStateDataFromUrl(input, mockFipsIdByStateName, mockStateNameByFipsId)).toEqual([wasInputStateName, stateName, fipsId]);
 });
 
 test.each([

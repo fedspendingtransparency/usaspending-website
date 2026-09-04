@@ -19,9 +19,10 @@ import {
     updateRecipientDomesticForeignSelection
 } from "../../../../redux/actions/search/searchFilterActions";
 import {
-    getLocationObject,
+    createLocationObject,
     getParsedLocations
 } from "../../../../helpers/search/locationAutocompleteHelper";
+import { useFipsIdByStateName, useStateFIPSByAbbreviation } from "../../../../hooks/useStateData";
 
 const propTypes = {
     activeTab: PropTypes.string
@@ -30,6 +31,10 @@ const propTypes = {
 const LocationAutocompleteContainer = ({
     activeTab
 }) => {
+    // Call hooks at top level
+    const fipsIdByStateName = useFipsIdByStateName();
+    const stateFIPSByAbbreviation = useStateFIPSByAbbreviation();
+
     const [locations, setLocations] = useState([]);
     const [noResults, setNoResults] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
@@ -105,7 +110,7 @@ const LocationAutocompleteContainer = ({
     ]);
 
     const addLocation = () => {
-        getLocationObject(selectedItem, countriesList, createLocationObjectByType);
+        createLocationObject(selectedItem, countriesList, createLocationObjectByType, fipsIdByStateName, stateFIPSByAbbreviation);
         clearAutocompleteSuggestions();
     };
 
