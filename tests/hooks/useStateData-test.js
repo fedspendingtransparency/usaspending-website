@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  *
  * useStateData-test.js
- * Created on 9/4/26
+ * Created on 9/4/26 Nick Torres
  */
 
 import { renderHook, waitFor } from '@testing-library/react';
