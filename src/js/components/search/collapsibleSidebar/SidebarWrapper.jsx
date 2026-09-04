@@ -102,7 +102,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     );
 
     const renderMobileSidebar = () => (
-        <div className="collapsible-sidebar-header">
+        <div className={`collapsible-sidebar-header ${isMobileFilters ? "" : "is-nl"}`}>
             <div className="sidebar-title-row">
                 <h2 className="sidebar-title">
                     {isMobileFilters ? 'Filter' : 'Smart Assist'}
