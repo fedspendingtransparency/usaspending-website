@@ -10,6 +10,7 @@ import { useSelector } from "react-redux";
 import { handlePotentialStrings } from 'containers/explorer/detail/helpers/explorerQuarters';
 import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
 import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
+import {useLatestAccountData} from "../../../../containers/account/WithLatestFy";
 
 const propTypes = { updateFilter: PropTypes.func };
 
@@ -17,6 +18,7 @@ const FiscalYearFilter = ({ updateFilter }) => {
     const fy = useSelector((state) => state.bulkDownload.accounts.fy);
     const period = useSelector((state) => state.bulkDownload.accounts.period);
     const quarter = useSelector((state) => state.bulkDownload.accounts.quarter);
+    const [, allPeriods, { year: latestFy }] = useLatestAccountData();
 
     /* eslint-disable max-len */
     const noteOne = (<>
@@ -76,6 +78,8 @@ const FiscalYearFilter = ({ updateFilter }) => {
                     handleQuarterPickerSelection={quarterPickerSelection}
                     latestSelectedTimeInterval={latestSelectedTimeInterval}
                     updateFilter={updateFilter}
+                    allPeriods={allPeriods}
+                    latestFy={latestFy}
                     newPicker />
                 <p className="download-filter__content-note">
                     <span className="download-filter__content-note_bold">Note: </span>
