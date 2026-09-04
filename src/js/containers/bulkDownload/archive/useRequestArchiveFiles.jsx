@@ -14,9 +14,7 @@ const useRequestArchiveFiles = (id, fy, type) => {
             agency: id,
             fiscal_year: fy,
             type
-        }).promise,
-        staleTime: Infinity,
-        refetchOnWindowFocus: false
+        }).promise
     })
 
     return data?.data?.monthly_files || [];
