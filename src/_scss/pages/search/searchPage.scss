@@ -140,6 +140,7 @@
           .search-results-loading {
             height: 100%;
             width: 100%;
+            margin-top: rem(40);
             @include display(flex);
             @include align-items(center);
             @include justify-content(center);
