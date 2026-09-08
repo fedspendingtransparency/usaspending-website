@@ -1,6 +1,6 @@
 /**
  * 
- * NLSearchSuggestions.jsx 
+ * NLSearchSuggestionsIcon.jsx 
  * Created by Trey Morgan 7/8/2026
  */
 
@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const propTypes = {
     variant: PropTypes.string,
     label: PropTypes.string,
-    icon: PropTypes.string,
+    icon: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     description: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
 };
 
