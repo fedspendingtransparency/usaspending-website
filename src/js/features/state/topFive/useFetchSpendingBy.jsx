@@ -135,9 +135,7 @@ export const useFetchSpendingBy = (category, code, fy, type) => {
             return performSpendingByCategorySearch(dataParams).promise;
         },
         select: parseData,
-        enabled: !!(dataParams && code && type && fy),
-        refetchOnWindowFocus: false,
-        staleTime: Infinity
+        enabled: !!(dataParams && code && type && fy)
     });
 
     return {
