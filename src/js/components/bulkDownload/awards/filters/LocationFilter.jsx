@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/23/18
  */
 
-import React, { memo, useMemo, useEffect, useCallback } from 'react';
+import React, { memo, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
@@ -96,9 +96,6 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
             key={name} />
     ));
 
-    // set location to all on render
-    useEffect(() => updateCountry({ target: { value: 'all' } }), [updateCountry]);
-
     return (
         <div className="download-filter">
             <FilterSectionTitle type="location" />
@@ -112,7 +109,6 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
                         onSelect={updateCountry}
                         label={"Country"}
                         placeholder={"Select a Country"}
-                        defaultValue={'All Countries'}
                         onClearSelect={onCountryClearSelect} />
                     <ComboBox
                         optionsArray={stateOptions}
