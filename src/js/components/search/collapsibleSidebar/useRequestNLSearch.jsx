@@ -1,10 +1,8 @@
 import { useQuery, experimental_streamedQuery as streamedQuery } from "@tanstack/react-query";
 import GlobalConstants from 'GlobalConstants';
 
-const LLM_KEY = GlobalConstants?.LLM?.HEADER_KEY;
 const LLM_VALUE = GlobalConstants?.LLM?.HEADER_VALUE;
-
-const sample = "Show me all contracts greater than $3M in California for IT services in 2023";
+// const sample = "Show me all contracts greater than $3M in California for IT services in 2023";
 
 const useRequestNLSearch = (prompt) => {
     const { data, refetch, status } = useQuery({
