@@ -9,8 +9,9 @@ import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 import Accordion from "./sharedComponents/accordion/Accordion";
 import ComboBox from "./sharedComponents/ComboBox";
-import { mockComboBox } from "../../../tests/mockData";
+import { mockComboBox, searchTestData } from "../../../tests/mockData";
 import BannerPageHeader from "./sharedComponents/header/BannerPageHeader";
+import NLSearch from "../components/search/collapsibleSidebar/NLSearch";
 
 require("pages/search/searchPage.scss");
 
@@ -893,6 +894,14 @@ const TempPage = () => {
                             backgroundColor="light"
                             to="https://usaspending.gov" />
                     </FlexGridRow>
+                    <h1>Smart Assist Tool State</h1>
+                    {searchTestData.map((data, index) => (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div key={`testId-${index}-${data.type}`}>
+                            <NLSearch {...data} />
+                        </div>  
+                    ))
+                    }
                 </main>
             </PageWrapper>
         </PageFeatureFlag>
