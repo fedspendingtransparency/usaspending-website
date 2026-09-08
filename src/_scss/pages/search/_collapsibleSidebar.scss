@@ -145,6 +145,10 @@
       font-size: rem(14);
       padding: 0 rem(24);
 
+      &.query-text {
+        font-weight: $font-semibold;
+      }
+
       @media (max-width: $medium-screen) {
         padding: 0 rem(16);
       }
@@ -158,6 +162,13 @@
       display: flex;
       flex-direction: column;
       width: 100%;
+
+      &.response {
+        padding: 0;
+        // this will be upadated with new stop generating button
+        margin-bottom: rem(46);
+      }
+
       .sidebar-example {
         color: $gray-60;
         font-size: $font-size-12;
@@ -299,6 +310,11 @@
               $cyan-60v 100%
             )
             border-box;
+
+        &:hover {
+          color: $color-white
+        }
+        
       }
       .natural-language-submit.disabled {
         pointer-events: none;
