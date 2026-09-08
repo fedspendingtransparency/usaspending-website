@@ -19,8 +19,7 @@ const useFetchBreakdown = (params) => {
         queryKey: ['fetchBreakdown', fy, period, params],
         queryFn: () => fetchBreakdown(params).promise,
         enabled: !!fy && !!period,
-        staleTime: 60000,
-        refetchOnWindowFocus: false
+        staleTime: 60000
     });
 
     const data = res?.data || { results: [] };
