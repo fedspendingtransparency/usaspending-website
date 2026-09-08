@@ -11,21 +11,16 @@ const propTypes = {
     classname: PropTypes.string,
     icon: PropTypes.string,
     text: PropTypes.string,
-    onClick: PropTypes.func
+    startNLSearch: PropTypes.func
 };
 
-const NLSearchButton = ({
-    loadingState,
-    classname="default-search",
-    icon=DEFAULT_ICON_PATH,
-    text = "Search", onClick
-}) => (
-    <button className={`natural-language-submit ${classname}`} onClick={onClick} >
+const NLSearchButton = ({loadingState, classname="default-search", icon=DEFAULT_ICON_PATH, text = "Search", startNLSearch}) => {
+    return <button className={`natural-language-submit ${classname}`} onClick={startNLSearch}>
         {!loadingState && <img src={icon} alt="Icon for Search Button"/>}
         {loadingState && <FontAwesomeIcon icon={['far', 'wand-magic-sparkles']} />}
         {text}
-    </button>
-);
+    </button>;
+};
 
 NLSearchButton.propTypes = propTypes;
 export default NLSearchButton;

@@ -23,10 +23,12 @@ const RESPONSE_TYPE = {
 const propTypes = {
     hintOnClick: PropTypes.func,
     text: PropTypes.string,
-    setText: PropTypes.func
+    setText: PropTypes.func,
+    startNLSearch: PropTypes.func,
+    status: PropTypes.string
 };
 
-const NLSidebarContent = ({ hintOnClick, text, setText }) => {
+const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, status, data }) => {
     // start api dummy states
     const [loading, setLoading] = useState(false);
     const queryText = "What schools in Anne Arundel, MD receive the most money in federal funding?";
@@ -67,6 +69,7 @@ const NLSidebarContent = ({ hintOnClick, text, setText }) => {
 
     const handleSubmit = () => {
         setLoading(true);
+        startNLSearch()
     }
 
     let content = (
@@ -117,9 +120,9 @@ const NLSidebarContent = ({ hintOnClick, text, setText }) => {
             <div className="sidebar-body-row">
                 <NLSearchButton
                     text={btnText}
+                    startNLSearch={handleSubmit}
                     icon={icon}
                     classname={searchClass}
-                    onClick={handleSubmit} 
                     loadingState={loading} />
             </div>
             <div className="sidebar-body-row">
