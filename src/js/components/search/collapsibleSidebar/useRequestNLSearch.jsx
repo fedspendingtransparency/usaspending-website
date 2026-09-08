@@ -4,12 +4,11 @@ import GlobalConstants from 'GlobalConstants';
 const LLM_KEY = GlobalConstants?.LLM?.HEADER_KEY;
 const LLM_VALUE = GlobalConstants?.LLM?.HEADER_VALUE;
 
-console.log(LLM_KEY, LLM_VALUE);
+const sample = "Show me all contracts greater than $3M in California for IT services in 2023";
 
-const useRequestNLSearch = function () {
-    const prompt = "Show me all contracts greater than $3M in California for IT services in 2023";
+const useRequestNLSearch = (prompt) => {
     const { data, refetch, status } = useQuery({
-        queryKey: ['nl-search-stream', prompt],
+        queryKey: ['nl-search-stream'],
         enabled: false,
         queryFn: streamedQuery({
             streamFn: async function* () {
@@ -19,7 +18,7 @@ const useRequestNLSearch = function () {
                         'Content-Type': 'application/json',
                         'X-LLM-API-Key': LLM_VALUE
                     },
-                    body: JSON.stringify({'query': "Show me all contracts greater than $3M in California for IT services in 2023"})
+                    body: JSON.stringify({'query': prompt})
                 });
 
                 const reader = request.body.getReader();
