@@ -301,11 +301,6 @@ export const calculateRange = (data) => {
     };
 };
 
-export const fetchLocationList = (fileName) => apiRequest({
-    baseURL: null,
-    url: `data/${fileName}.json`
-});
-
 export const performZIPGeocode = (zip) => apiRequest({
     baseURL: 'https://api.mapbox.com/',
     url: `geocoding/v5/mapbox.places/${zip}.json`,
