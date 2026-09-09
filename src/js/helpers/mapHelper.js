@@ -9,10 +9,6 @@ import kGlobalConstants from 'GlobalConstants';
 import { apiRequest } from './apiRequest';
 import * as MoneyFormatter from './moneyFormatter';
 import { useStatebyCode, useCodeByStateName } from "../hooks/useStateData";
-export const fetchStateList = () => apiRequest({
-    url: 'v2/references/states/',
-    method: 'get'
-});
 
 const stateCenters = {
     "10": [

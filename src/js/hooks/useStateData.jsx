@@ -4,7 +4,12 @@
  */
 
 import { useQuery } from "@tanstack/react-query";
-import { fetchStateList } from "../helpers/mapHelper";
+import { apiRequest } from "../helpers/apiRequest";
+
+export const fetchStateList = () => apiRequest({
+    url: 'v2/references/states/',
+    method: 'get'
+});
 
 const useStateData = () => {
     const { data, isSuccess, isLoading, error } = useQuery({
