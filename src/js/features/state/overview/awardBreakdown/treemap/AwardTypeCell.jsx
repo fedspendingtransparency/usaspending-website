@@ -72,16 +72,14 @@ const AwardTypeCell = ({
     // make sure that the max width is positive
     if (svgWidth > maxWidth && maxWidth > 0) {
         // the label is going to exceed the available space, truncate it
-        // calculate the average character width
-        const avgCharWidth = (svgWidth / initialLabel.length);
+        // average character width at 16px font size
+        const avgCharWidth = 8;
 
         // determine how many characters can fit in the available space
         const maxChars = Math.floor((maxWidth) / avgCharWidth);
 
         // truncate the label
-        truncatedLabel = truncate(initialLabel, {
-            length: maxChars
-        });
+        truncatedLabel = truncate(initialLabel, { length: maxChars });
     }
 
     return (
@@ -93,6 +91,7 @@ const AwardTypeCell = ({
                 className="tile"
                 width={width}
                 height={height}
+                ref={ref}
                 style={{
                     fill: color,
                     stroke: strokeColor,
@@ -106,7 +105,6 @@ const AwardTypeCell = ({
                 y={height / 2}
                 width={width}
                 textAnchor="middle"
-                ref={ref}
                 style={{
                     display: labelView,
                     fill: textColor,

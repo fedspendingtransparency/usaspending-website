@@ -101,10 +101,8 @@
 
     &.is-nl {
       overflow-y: auto;
-      max-height: calc(100vh - rem(282));
+      max-height: calc(100dvh - rem(292));
     }
-
-
 
     .sidebar-title-row {
       width: 100%;
@@ -285,7 +283,7 @@
         }
       }
       .natural-language-submit.loading {
-        // to put loading state in 
+        // to put loading state in
         color: $cyan-50v;
         background-color: $color-white;
         border: 1px solid transparent;

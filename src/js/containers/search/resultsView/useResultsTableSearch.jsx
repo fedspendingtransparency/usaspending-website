@@ -135,7 +135,6 @@ const useResultsTableSearch = (
             }).promise;
         },
         staleTime: 60000,
-        refetchOnWindowFocus: false,
         enabled: !!filtersTemp.awardType
     });
 
