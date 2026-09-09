@@ -3,15 +3,13 @@
  * Created by Josue Aguilar 8/15/2024
  */
 
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { isCancel } from "axios";
 import PropTypes from "prop-types";
 
 import { fetchLocations } from '../../../../helpers/searchHelper';
 import LocationAutocomplete from
     "../../../../components/search/filters/location/LocationAutocomplete";
-import { fetchLocationList } from "../../../../helpers/mapHelper";
 import {
     addPOPLocationObject,
     addRecipientLocationObject,
@@ -23,6 +21,7 @@ import {
     getParsedLocations
 } from "../../../../helpers/search/locationAutocompleteHelper";
 import { useFipsIdByStateName, useStateFIPSByAbbreviation } from "../../../../hooks/useStateData";
+import useFetchAllCountries from "../../resultsView/useFetchAllCountries";
 
 const propTypes = {
     activeTab: PropTypes.string
@@ -39,14 +38,13 @@ const LocationAutocompleteContainer = ({
     const [noResults, setNoResults] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
     const [readyToStage, setReadyToStage] = useState(false);
-    const [countriesList, setCountriesList] = useState([]);
     const {
         recipientDomesticForeign, locationDomesticForeign
     } = useSelector((state) => state.filters);
     const [isLoading, setIsLoading] = useState(false);
     const dispatch = useDispatch();
+    const { countries } = useFetchAllCountries();
 
-    const listRequest = useRef(null);
     const timeoutRef = useRef(null);
 
     const createLocationObjectByType = (location) => {
@@ -57,30 +55,6 @@ const LocationAutocompleteContainer = ({
             dispatch(addPOPLocationObject(location));
         }
     };
-
-    const loadCountries = () => {
-        if (listRequest.current) {
-            listRequest.current.cancel();
-            setIsLoading(false);
-        }
-
-        listRequest.current = fetchLocationList("countries");
-        listRequest.current.promise
-            .then((res) => {
-                listRequest.current = null;
-                setCountriesList(res?.data?.countries);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    setIsLoading(false);
-                }
-            });
-    };
-
-    useEffect(() => {
-        loadCountries();
-    }, []);
 
     const clearAutocompleteSuggestions = useCallback(() => {
         setLocations([]);
@@ -110,7 +84,7 @@ const LocationAutocompleteContainer = ({
     ]);
 
     const addLocation = () => {
-        createLocationObject(selectedItem, countriesList, createLocationObjectByType, fipsIdByStateName, stateFIPSByAbbreviation);
+        createLocationObject(selectedItem, countries, createLocationObjectByType, fipsIdByStateName, stateFIPSByAbbreviation);
         clearAutocompleteSuggestions();
     };
 
