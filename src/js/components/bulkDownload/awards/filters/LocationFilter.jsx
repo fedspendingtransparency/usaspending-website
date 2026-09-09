@@ -78,11 +78,11 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
     const onStateClearSelect = () => updateState({ target: { value: '' }});
 
     const stateOptions = useMemo(() => {
-        const tempArr = states.slice();
-
-        tempArr.unshift({ code: 'all', name: 'All' });
-
-        return tempArr.map(({ code, name }) => ({ value: code, text: name }));
+        const tempArr = states?.slice();
+        if(tempArr) {
+            tempArr?.unshift({ code: 'all', name: 'All' });
+            return tempArr.map(({ code, name }) => ({ value: code, text: name }));
+        }
     }, [states])
 
     const locationTypesArray = locationTypes.map(({ name, label, description }) => (
