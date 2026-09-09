@@ -43,6 +43,43 @@
     font-size: $font-size-16;
     color: $gray-60;
   }
+  .search-gov-spending__input-container {
+    display:flex;
+    flex: 1 1 0;
+    margin-top: rem(16);
+    .search-gov-spending__input {
+      line-height: 150%;
+      padding: rem(4) rem(16);
+      border-radius: rem(4) 0 0 rem(4);
+      border: 1px solid $gray-20;
+      background: $color-white;
+      color: $gray-60;
+      font-size: $font-size-14;
+      height: rem(40);
+      margin: 0;
+    }
+    .search-gov-spending__input-button {
+      margin: 0;
+      border-radius: 0 rem(4) rem(4) 0;
+      background: linear-gradient(134deg, $cyan-60v 0%, $cyan-50v 33.91%, $blue-60v 97.96%);
+      padding: rem(4) rem(12);
+      justify-content: center;
+      align-items: center;
+    }    
+  }
+  .search-gov-spending__input {
+    line-height: 150%;
+    padding: rem(4) rem(16);
+    border-radius: 4px 0 0 4px;
+    border: 1px solid $gray-20;
+    background: $color-white;
+    color: $gray-60;
+    font-size: $font-size-14;
+    margin-top: rem(16);
+    display:flex;
+    flex: 1 1 0;
+    height: rem(40);
+  }
 
   .button-icon-container {
     display: flex;

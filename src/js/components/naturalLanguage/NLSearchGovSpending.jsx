@@ -10,6 +10,7 @@ import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import { searchGovSpendingData } from "./NLData";
 import PropTypes from "prop-types";
 
+const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 const propTypes = {
     isFilters: PropTypes.bool
 
@@ -45,7 +46,15 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                 {isFilters && 
                 <>
                     <span className="search-gov-spending__question">What questions do you have about federal award spending data?</span>
-                    
+                    <div className="search-gov-spending__input-container">
+                        <input
+                            className="search-gov-spending__input"
+                            type="text"
+                            placeholder="Type a question about government spending, or choose an sample prompt below." />
+                        <button className="search-gov-spending__input-button">
+                            <img src={DEFAULT_ICON_PATH} alt="Icon for Search Button"/>
+                        </button>
+                    </div>
                 </>}
 
                 {!isFilters && <div className="search-gov-spending__container">
