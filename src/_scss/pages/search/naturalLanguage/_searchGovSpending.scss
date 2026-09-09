@@ -36,6 +36,14 @@
     }
   }
 
+  .search-gov-spending__question {
+    width: 100%;
+    margin-top: rem(8);
+    line-height: 150%;
+    font-size: $font-size-16;
+    color: $gray-60;
+  }
+
   .button-icon-container {
     display: flex;
     align-items: center;

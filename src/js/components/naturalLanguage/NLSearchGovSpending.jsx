@@ -8,8 +8,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import { searchGovSpendingData } from "./NLData";
+import PropTypes from "prop-types";
 
-const NLSearchGovSpending = () => {
+const propTypes = {
+    isFilters: PropTypes.bool
+
+};
+const NLSearchGovSpending = ({ isFilters=false }) => {
 
     return (
         <section className="search-gov-spending__section">
@@ -37,7 +42,13 @@ const NLSearchGovSpending = () => {
                                     icon="arrow-up-right"/>
                             </div>}/>
                 </div>
-                <div className="search-gov-spending__container">
+                {isFilters && 
+                <>
+                    <span className="search-gov-spending__question">What questions do you have about federal award spending data?</span>
+                    
+                </>}
+
+                {!isFilters && <div className="search-gov-spending__container">
                     <div className="search-gov-spending__header">
                         HOW IT WORKS:
                     </div>
@@ -56,16 +67,14 @@ const NLSearchGovSpending = () => {
                                     </CardBody>
                                 </CardContainer>
                             </FlexGridCol>
-                    
                         ))
                         }
                     </FlexGridRow>              
-                </div>
+                </div>}
             </FlexGridRow>
         </section>
     )
 
 }
-
-
+NLSearchGovSpending.propTypes = propTypes;
 export default NLSearchGovSpending;

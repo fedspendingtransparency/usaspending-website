@@ -10,6 +10,8 @@ import NLSearchSuggestions from "../../naturalLanguage/NLSearchSuggestions";
 import NLPreSearchButtonGroup from "../../naturalLanguage/NLPreSearchButtonGroup";
 import NLSearchGovSpending from "../../naturalLanguage/NLSearchGovSpending";
 import { FILTERS } from '../../search/collapsibleSidebar/SidebarConstants';
+import GlobalConstants from "../../../GlobalConstants";
+import FeatureFlag from "../../sharedComponents/FeatureFlag";
 
 
 const SearchLanding = () => {
@@ -18,7 +20,15 @@ const SearchLanding = () => {
 
     return (
         <div className="search-results-landing">
-            { isFilters ? (
+            {isFilters && 
+            <FeatureFlag>
+                <>
+                    <NLSearchGovSpending isFilters={isFilters} />
+                    <NLSearchSuggestions />
+                    <NLMoreResources />
+                </>
+            </FeatureFlag>}
+            {isFilters && !GlobalConstants.QAT &&
                 <>
                     <h3 className="landing-title">Start your USAspending search</h3>
                     <p className="landing-subTitle">
@@ -27,13 +37,12 @@ const SearchLanding = () => {
                     <NLPreSearchButtonGroup />
                     <NLSearchSuggestions />
                     <NLMoreResources />
-                </>
-            ): (
+                </>}
+            {!isFilters && 
                 <>
-                    <NLSearchGovSpending />
+                    <NLSearchGovSpending isFilters={isFilters} />
                     <NLMoreResources />
-                </>
-            )}
+                </>}
         </div>
     )
 };
