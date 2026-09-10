@@ -44,11 +44,13 @@
     color: $gray-60;
   }
   .search-gov-spending__input-container {
+    width: 100%;
     display:flex;
     flex: 1 1 0;
     margin-top: rem(16);
     margin-bottom: rem(16);
     .search-gov-spending__input {
+      width: 100%;
       line-height: 150%;
       padding: rem(4) rem(16);
       border-radius: rem(4) 0 0 rem(4);
@@ -68,20 +70,54 @@
       align-items: center;
     }    
   }
-  .search-gov-spending__input {
-    line-height: 150%;
-    padding: rem(4) rem(16);
-    border-radius: 4px 0 0 4px;
-    border: 1px solid $gray-20;
-    background: $color-white;
-    color: $gray-60;
-    font-size: $font-size-14;
-    margin-top: rem(16);
-    display:flex;
-    flex: 1 1 0;
-    height: rem(40);
-  }
 
+  .search-gov-spending__prompt-container {
+    width: 100%;
+    .search-gov-spending__prompt-title {
+      font-size: $font-size-12;
+      line-height: 150%;
+      font-weight: $font-semibold;
+      color: $gray-60;
+      margin-right: rem(16);
+
+      @media(max-width: $tablet-screen) {
+        width: 100%;
+        margin-right: 0;
+        display: flex;
+      }
+    }
+
+    .search-gov-spending__prompt-button {
+      background-color: transparent;
+      padding: rem(8) rem(16);
+      margin-right: rem(16);
+      margin-top: 0;
+      margin-bottom: 0;
+      border-radius: rem(4);
+      border: 1px solid $color-secondary-secondary-lighter;
+      font-size: $font-size-12;
+      color: $gray-60;
+
+      &:last-of-type {
+        margin-right: 0;
+      }
+      &:hover {
+        border: 1px solid $cyan-50v;
+        background: $cyan-50v;
+        color: $color-white;
+      }
+      &:active {
+        border: 1px solid $cyan-60v;
+        background: $cyan-60v;
+        color: $color-white;
+      }
+
+      @media(max-width: $tablet-screen) {
+        gap: rem(12);
+        display: grid;
+      }
+    }
+  }
   .button-icon-container {
     display: flex;
     align-items: center;
@@ -137,4 +173,8 @@
       }
     }
   }
+}
+
+.search-gov-spending__section.filter-spacing {
+  padding: rem(20);
 }

@@ -18,7 +18,7 @@ const propTypes = {
 const NLSearchGovSpending = ({ isFilters=false }) => {
 
     return (
-        <section className="search-gov-spending__section">
+        <section className={`search-gov-spending__section ${isFilters ? ' filter-spacing': ''}`}>
             <FlexGridRow className="search-gov-spending__row">
                 <div className="search-gov-spending__label-icon-container">
                     <NLSearchSuggestionsIcon 
@@ -54,6 +54,14 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                         <button className="search-gov-spending__input-button">
                             <img src={DEFAULT_ICON_PATH} alt="Icon for Search Button"/>
                         </button>
+                    </div>
+                    <div className="search-gov-spending__prompt-container">
+                        <span className="search-gov-spending__prompt-title">BUILD A PROMPT AROUND:</span>
+                        <button className="search-gov-spending__prompt-button">Recipient</button>
+                        <button className="search-gov-spending__prompt-button">Time Period</button>
+                        <button className="search-gov-spending__prompt-button">Location</button>
+                        <button className="search-gov-spending__prompt-button">Industry</button>
+                        <button className="search-gov-spending__prompt-button">Award Type</button>
                     </div>
                 </>}
 
