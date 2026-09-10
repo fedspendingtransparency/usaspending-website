@@ -15,10 +15,9 @@
 import fs from 'fs';
 import path from 'path';
 import { parseArgs } from 'util';
-import { stateNameByFipsId } from '../src/js/dataMapping/state/stateNames.js';
 import { URLifyStateName } from '../src/js/features/state/stateHelper.js';
 import agencyIdsToSlugs from '../src/js/dataMapping/agency/agencyIdsToSlugs.js';
-
+import { useStateNameByFipsId } from "../src/js/hooks/useStateData.jsx";
 const { values: args } = parseArgs({
     options: {
         'agency-file': { type: 'string' },
@@ -42,7 +41,7 @@ const legacyRedirects = [
 ];
 
 
-const stateRedirects = Object.entries(stateNameByFipsId).map(([fipsId, stateName]) => [
+const stateRedirects = Object.entries(useStateNameByFipsId()).map(([fipsId, stateName]) => [
     `/state/${fipsId}`,
     `/state/${URLifyStateName(stateName)}`,
 ]);

@@ -10,6 +10,8 @@ import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptio
 import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 import ComboBox from "components/sharedComponents/ComboBox";
 import BulkDownloadRadioButton from "../../../sharedComponents/BulkDownloadRadioButton";
+import { stateTitleCase } from "../../../../features/state/stateHelper";
+
 const countryOptions = [
     {
         value: 'all',
@@ -78,12 +80,16 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
     const onStateClearSelect = () => updateState({ target: { value: '' }});
 
     const stateOptions = useMemo(() => {
-        const tempArr = states.slice();
+        if (!states) {
+            return [];
+        }
+        const tempArr = [{ code: 'all', name: 'All' }, ...states];
 
-        tempArr.unshift({ code: 'all', name: 'All' });
-
-        return tempArr.map(({ code, name }) => ({ value: code, text: name }));
-    }, [states])
+        return tempArr.map(({ code, name }) => ({
+            value: code,
+            text: stateTitleCase(name)
+        }));
+    }, [states]);
 
     const locationTypesArray = locationTypes.map(({ name, label, description }) => (
         <BulkDownloadRadioButton
