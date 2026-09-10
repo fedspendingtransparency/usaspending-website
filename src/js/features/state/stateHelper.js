@@ -3,7 +3,8 @@
  * Created by Lizzie Salita 5/1/18
  */
 import { convertFYToDateRange, currentFiscalYear, earliestFiscalYear } from "../../helpers/fiscalYearHelper";
-
+const MINOR_WORDS = new Set(['of', 'the']);
+const ABBREVIATION = /^([a-z]\.)+$/i;
 export const createApiParams = (stateCode, period) => {
     const earliestYear = earliestFiscalYear;
     const thisYear = currentFiscalYear();
@@ -102,4 +103,17 @@ export const tabTypes = [
         label: 'Other Financial Assistance'
     }
 ];
+
+export const stateTitleCase = (state) => (state || '').toLowerCase()
+    .split(' ')
+    .map((state, index) => {
+        if (ABBREVIATION.test(state)) {
+            return state.toUpperCase();
+        }
+        if (index !== 0 && MINOR_WORDS.has(state)) {
+            return state;
+        }
+        return state.charAt(0).toUpperCase() + state.slice(1);
+    })
+    .join(' ');
 
