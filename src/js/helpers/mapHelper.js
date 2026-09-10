@@ -9,10 +9,6 @@ import kGlobalConstants from 'GlobalConstants';
 import { apiRequest } from './apiRequest';
 import * as MoneyFormatter from './moneyFormatter';
 import { useStatebyCode, useCodeByStateName } from "../hooks/useStateData";
-export const fetchStateList = () => apiRequest({
-    url: 'v2/references/states/',
-    method: 'get'
-});
 
 const stateCenters = {
     "10": [
@@ -304,11 +300,6 @@ export const calculateRange = (data) => {
         units
     };
 };
-
-export const fetchLocationList = (fileName) => apiRequest({
-    baseURL: null,
-    url: `data/${fileName}.json`
-});
 
 export const performZIPGeocode = (zip) => apiRequest({
     baseURL: 'https://api.mapbox.com/',

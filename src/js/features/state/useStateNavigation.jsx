@@ -5,6 +5,7 @@ import { parseStateDataFromUrl } from "./stateHelper";
 import { resetState, setStateFiscalYear } from "../../redux/actions/state/stateActions";
 import { allFiscalYears } from "../../helpers/fiscalYearHelper";
 import { useFipsIdByStateName, useStateNameByFipsId } from "../../hooks/useStateData";
+
 export const useStateNavigation = () => {
     const fipsIdByStateName = useFipsIdByStateName();
     const stateNameByFipsId = useStateNameByFipsId();

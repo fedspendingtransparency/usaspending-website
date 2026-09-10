@@ -3,15 +3,14 @@
  * Created by Lizzie Salita 10/30/17
  */
 
-import React from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as BulkDownloadHelper from 'helpers/bulkDownloadHelper';
 import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadActions';
-import { fetchLocationList } from 'helpers/mapHelper';
-
+import { useStateList } from "../../../hooks/useStateData";
 import AwardDataContent from 'components/bulkDownload/awards/AwardDataContent';
 
 const propTypes = {
@@ -22,191 +21,139 @@ const propTypes = {
     clickedDownload: PropTypes.func
 };
 
-export class AwardDataContainer extends React.Component {
-    constructor(props) {
-        super(props);
+export const AwardDataContainer = ({
+    updateDownloadFilter,
+    clearDownloadFilters,
+    updateAwardDateRange,
+    bulkDownload,
+    clickedDownload
+}) => {
+    const states = useStateList();
+    const [, setInFlight] = useState(true);
+    const [agencies, setAgencies] = useState({
+        cfoAgencies: [],
+        otherAgencies: []
+    });
+    const [subAgencies, setSubAgencies] = useState([]);
 
-        this.state = {
-            inFlight: true,
-            agencies: {
-                cfoAgencies: [],
-                otherAgencies: []
-            },
-            subAgencies: [],
-            states: []
-        };
+    const agencyListRequest = useRef(null);
 
-        this.agencyListRequest = null;
-        this.statesRequest = null;
-
-        this.updateFilter = this.updateFilter.bind(this);
-        this.updateStartDate = this.updateStartDate.bind(this);
-        this.updateEndDate = this.updateEndDate.bind(this);
-        this.clearAwardFilters = this.clearAwardFilters.bind(this);
-        this.setAgencyList = this.setAgencyList.bind(this);
-        this.setSubAgencyList = this.setSubAgencyList.bind(this);
-        this.loadStates = this.loadStates.bind(this);
-    }
-
-    componentDidMount() {
-        this.setAgencyList();
-        this.loadStates();
-    }
-
-    componentWillUnmount() {
-        if (this.agencyListRequest) {
-            this.agencyListRequest.cancel();
-        }
-        if (this.statesRequest) {
-            this.statesRequest.cancel();
-        }
-    }
-
-    setAgencyList() {
-        this.setState({
-            inFlight: true
-        });
-
-        if (this.agencyListRequest) {
-            this.agencyListRequest.cancel();
-        }
-
-        // perform the API request
-        this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
-            type: "award_agencies",
-            agency: 0
-        });
-
-        this.agencyListRequest.promise
-            .then((res) => {
-                const cfoAgencies = res.data.agencies.cfo_agencies;
-                const otherAgencies = res.data.agencies.other_agencies;
-                this.setState({
-                    agencies: {
-                        cfoAgencies,
-                        otherAgencies
-                    }
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-                this.agencyListRequest = null;
-            });
-    }
-
-    setSubAgencyList(id) {
-        if (id !== '') {
-            this.setState({
-                inFlight: true
-            });
-
-            if (this.agencyListRequest) {
-                this.agencyListRequest.cancel();
-            }
-
-            // perform the API request
-            this.agencyListRequest = BulkDownloadHelper.requestAgenciesList({
-                type: "award_agencies",
-                agency: parseInt(id, 10)
-            });
-
-            this.agencyListRequest.promise
-                .then((res) => {
-                    const subAgencies = res.data.sub_agencies;
-                    this.setState({
-                        subAgencies
-                    }, () => {
-                        this.resetSubAgency();
-                    });
-                })
-                .catch((err) => {
-                    console.log(err);
-                    this.agencyListRequest = null;
-                });
-        }
-
-        else {
-            this.setState({
-                subAgencies: []
-            }, () => {
-                this.resetSubAgency();
-            });
-        }
-    }
-
-    loadStates() {
-        this.setState({
-            inFlight: true
-        });
-
-        if (this.statesRequest) {
-            this.statesRequest.cancel();
-        }
-
-        // perform the API request
-        this.statesRequest = fetchLocationList('states');
-
-        this.statesRequest.promise
-            .then((res) => {
-                this.setState({
-                    states: res.data.states
-                });
-            })
-            .catch((err) => {
-                console.log(err);
-                this.statesRequest = null;
-            });
-    }
-
-    resetSubAgency() {
-        this.updateFilter('subAgency', {
-            id: '',
-            name: 'Select a Sub-Agency'
-        });
-    }
-
-    updateFilter(name, value) {
-        this.props.updateDownloadFilter({
+    const updateFilter = useCallback((name, value) => {
+        updateDownloadFilter({
             dataType: 'awards',
             name,
             value
         });
-    }
+    }, [updateDownloadFilter]);
 
-    updateStartDate(date) {
-        this.props.updateAwardDateRange({
+    const resetSubAgency = useCallback(() => {
+        updateFilter('subAgency', {
+            id: '',
+            name: 'Select a Sub-Agency'
+        });
+    }, [updateFilter]);
+
+    const setAgencyList = useCallback(() => {
+        setInFlight(true);
+
+        if (agencyListRequest.current) {
+            agencyListRequest.current.cancel();
+        }
+
+        // perform the API request
+        agencyListRequest.current = BulkDownloadHelper.requestAgenciesList({
+            type: "award_agencies",
+            agency: 0
+        });
+
+        agencyListRequest.current.promise
+            .then((res) => {
+                const cfoAgencies = res.data.agencies.cfo_agencies;
+                const otherAgencies = res.data.agencies.other_agencies;
+                setAgencies({
+                    cfoAgencies,
+                    otherAgencies
+                });
+            })
+            .catch((err) => {
+                console.log(err);
+                agencyListRequest.current = null;
+            });
+    }, []);
+
+    const setSubAgencyList = useCallback((id) => {
+        if (id !== '') {
+            setInFlight(true);
+
+            if (agencyListRequest.current) {
+                agencyListRequest.current.cancel();
+            }
+
+            // perform the API request
+            agencyListRequest.current = BulkDownloadHelper.requestAgenciesList({
+                type: "award_agencies",
+                agency: parseInt(id, 10)
+            });
+
+            agencyListRequest.current.promise
+                .then((res) => {
+                    setSubAgencies(res.data.sub_agencies);
+                    resetSubAgency();
+                })
+                .catch((err) => {
+                    console.log(err);
+                    agencyListRequest.current = null;
+                });
+        }
+        else {
+            setSubAgencies([]);
+            resetSubAgency();
+        }
+    }, [resetSubAgency]);
+
+    const updateStartDate = useCallback((date) => {
+        updateAwardDateRange({
             date,
             dateType: 'startDate'
         });
-    }
+    }, [updateAwardDateRange]);
 
-    updateEndDate(date) {
-        this.props.updateAwardDateRange({
+    const updateEndDate = useCallback((date) => {
+        updateAwardDateRange({
             date,
             dateType: 'endDate'
         });
-    }
+    }, [updateAwardDateRange]);
 
-    clearAwardFilters() {
-        this.props.clearDownloadFilters('awards');
-    }
+    const clearAwardFilters = useCallback(() => {
+        clearDownloadFilters('awards');
+    }, [clearDownloadFilters]);
 
-    render() {
-        return (
-            <AwardDataContent
-                awards={this.props.bulkDownload.awards}
-                updateFilter={this.updateFilter}
-                updateStartDate={this.updateStartDate}
-                updateEndDate={this.updateEndDate}
-                clearAwardFilters={this.clearAwardFilters}
-                agencies={this.state.agencies}
-                subAgencies={this.state.subAgencies}
-                setSubAgencyList={this.setSubAgencyList}
-                states={this.state.states}
-                clickedDownload={this.props.clickedDownload} />
-        );
-    }
-}
+    useEffect(() => {
+        setAgencyList();
+        return () => {
+            if (agencyListRequest.current) {
+                agencyListRequest.current.cancel();
+            }
+        };
+        // run once on mount/unmount, matching the previous componentDidMount/componentWillUnmount
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, []);
+
+    return (
+        <AwardDataContent
+            awards={bulkDownload.awards}
+            updateFilter={updateFilter}
+            updateStartDate={updateStartDate}
+            updateEndDate={updateEndDate}
+            clearAwardFilters={clearAwardFilters}
+            agencies={agencies}
+            subAgencies={subAgencies}
+            setSubAgencyList={setSubAgencyList}
+            states={states}
+            clickedDownload={clickedDownload} />
+    );
+};
 
 AwardDataContainer.propTypes = propTypes;
 

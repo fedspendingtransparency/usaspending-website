@@ -550,7 +550,11 @@ const MapWrapper = ({
                 MapBroadcaster.off(listenerRef.event, listenerRef.id);
             });
         };
-    }, [displayData, stateProfile, prepareBroadcastReceivers, removeChangeListeners]);
+        // run once on mount/unmount only; displayData, stateProfile, prepareBroadcastReceivers,
+        // and removeChangeListeners are recreated every render, so including them here would
+        // re-run this effect (and its setState calls) on every render, causing an infinite loop
+        /* eslint-disable-next-line react-hooks/exhaustive-deps */
+    }, []);
 
     useEffect(() => {
         if (scopeRef.current !== scope) {

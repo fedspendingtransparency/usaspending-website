@@ -8,7 +8,7 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
-import * as mapHelper from 'helpers/mapHelper';
+import * as apiRequestHelper from 'helpers/apiRequest';
 import {
     useStateList,
     useStateFIPSByAbbreviation,
@@ -63,7 +63,7 @@ const createWrapper = () => {
 
 describe('useStateData hooks', () => {
     beforeEach(() => {
-        jest.spyOn(mapHelper, 'fetchStateList').mockReturnValue({
+        jest.spyOn(apiRequestHelper, 'apiRequest').mockReturnValue({
             promise: Promise.resolve(mockStateData)
         });
     });
@@ -84,7 +84,7 @@ describe('useStateData hooks', () => {
         });
 
         it('should return undefined when data is not loaded', async () => {
-            jest.spyOn(mapHelper, 'fetchStateList').mockReturnValue({
+            jest.spyOn(apiRequestHelper, 'apiRequest').mockReturnValue({
                 promise: Promise.resolve({})
             });
 
@@ -114,7 +114,7 @@ describe('useStateData hooks', () => {
         });
 
         it('should return undefined when results are not available', async () => {
-            jest.spyOn(mapHelper, 'fetchStateList').mockReturnValue({
+            jest.spyOn(apiRequestHelper, 'apiRequest').mockReturnValue({
                 promise: Promise.resolve({})
             });
 
@@ -144,7 +144,7 @@ describe('useStateData hooks', () => {
         });
 
         it('should return undefined when results are not available', async () => {
-            jest.spyOn(mapHelper, 'fetchStateList').mockReturnValue({
+            jest.spyOn(apiRequestHelper, 'apiRequest').mockReturnValue({
                 promise: Promise.resolve({})
             });
 
@@ -174,7 +174,7 @@ describe('useStateData hooks', () => {
         });
 
         it('should return undefined when results are not available', async () => {
-            jest.spyOn(mapHelper, 'fetchStateList').mockReturnValue({
+            jest.spyOn(apiRequestHelper, 'apiRequest').mockReturnValue({
                 promise: Promise.resolve({})
             });
 
@@ -204,7 +204,7 @@ describe('useStateData hooks', () => {
         });
 
         it('should return undefined when results are not available', async () => {
-            jest.spyOn(mapHelper, 'fetchStateList').mockReturnValue({
+            jest.spyOn(apiRequestHelper, 'apiRequest').mockReturnValue({
                 promise: Promise.resolve({})
             });
 
@@ -234,7 +234,7 @@ describe('useStateData hooks', () => {
         });
 
         it('should return undefined when results are not available', async () => {
-            jest.spyOn(mapHelper, 'fetchStateList').mockReturnValue({
+            jest.spyOn(apiRequestHelper, 'apiRequest').mockReturnValue({
                 promise: Promise.resolve({})
             });
 
@@ -290,7 +290,7 @@ describe('useStateData hooks', () => {
         });
 
         it('should return empty array when stateNameByFipsId is undefined', async () => {
-            jest.spyOn(mapHelper, 'fetchStateList').mockReturnValue({
+            jest.spyOn(apiRequestHelper, 'apiRequest').mockReturnValue({
                 promise: Promise.resolve({})
             });
 
@@ -346,7 +346,7 @@ describe('useStateData hooks', () => {
         });
 
         it('should return null when stateFIPSByAbbreviation is undefined', async () => {
-            jest.spyOn(mapHelper, 'fetchStateList').mockReturnValue({
+            jest.spyOn(apiRequestHelper, 'apiRequest').mockReturnValue({
                 promise: Promise.resolve({})
             });
 

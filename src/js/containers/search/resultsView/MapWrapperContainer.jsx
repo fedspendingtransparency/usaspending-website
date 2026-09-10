@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash-es';
-import { countries, counties, congressionalDistricts } from "dataMapping/search/geoTable";
+
+import { counties, congressionalDistricts } from "dataMapping/search/geoTable";
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
@@ -12,11 +13,13 @@ import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'h
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
 import { performSpendingByGeographySearch } from 'apis/search';
+
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
 import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 import { useStateFIPSByAbbreviation, useStateNameByFipsId } from "../../../hooks/useStateData";
+import useFetchAllCountries from "./useFetchAllCountries";
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -95,6 +98,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const [mapViewType, setMapViewType] = useState('chart');
     const apiRequestRef = React.useRef(null);
     const mapListenersRef = React.useRef([]);
+
+    const { countryAbbreviations: countries } = useFetchAllCountries();
 
     // this ref as been added to stop the related useEffect triggering on initial render
     const useEffectRef = React.useRef({
