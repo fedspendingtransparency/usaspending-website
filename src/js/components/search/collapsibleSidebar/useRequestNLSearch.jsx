@@ -1,19 +1,22 @@
 import { useQuery, experimental_streamedQuery as streamedQuery } from "@tanstack/react-query";
+import GlobalConstants from 'GlobalConstants';
 
-const useRequestNLSearch = function () {
-    const prompt = "Show me all contracts greater than $3M in California for IT services in 2023";
+const LLM_VALUE = GlobalConstants?.LLM?.HEADER_VALUE;
+// const sample = "Show me all contracts greater than $3M in California for IT services in 2023";
+
+const useRequestNLSearch = (prompt) => {
     const { data, refetch, status } = useQuery({
-        queryKey: ['nl-search-stream', prompt],
+        queryKey: ['nl-search-stream'],
         enabled: false,
         queryFn: streamedQuery({
             streamFn: async function* () {
-                const request = await fetch('https://usaspending-api.dev01.dtas.ts.aws.frb.pvt/api/v2/llm/filter-search/', {
+                const request = await fetch(GlobalConstants.LLM.API, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-LLM-API-Key': 'eae262ce-9ff8-416c-8965-84fdbb9034bf'
+                        'X-LLM-API-Key': LLM_VALUE
                     },
-                    body: JSON.stringify({'query': "Show me all contracts greater than $3M in California for IT services in 2023"})
+                    body: JSON.stringify({'query': prompt})
                 });
 
                 const reader = request.body.getReader();

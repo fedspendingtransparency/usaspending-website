@@ -25,7 +25,10 @@ const globalConstants = {
     REQUEST_VERSION: '2020-06-01',
     IS_NEW_DOWNLOAD: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
     FEATURED_CONTENT_ROTATION: "week",   // "week" or "sprint"
-    LLM_HEADER: { "X-LLM-API-Key": "eae262ce-9ff8-416c-8965-84fdbb9034bf" }
+    LLM: {
+        API: local?.localConstants?.LLM_API,
+        HEADER_VALUE: local?.localConstants?.LLM_HEADER_VALUE
+    }
 };
 
 module.exports = globalConstants;
