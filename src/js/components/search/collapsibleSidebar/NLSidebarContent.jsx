@@ -1,10 +1,11 @@
 import React, {useMemo} from "react";
+import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import NLDefaultHint from "./NLDefaultHint";
 import NLSearchButton from "./NLSearchButton";
 import NLSearch from "./NLSearch";
 import { RESPONSE_TYPE, OPERATION } from "./NLConstants";
-
+import { setIsSearchActive } from "../../../redux/actions/sidebar/sidebarActions";
 
 const propTypes = {
     hintOnClick: PropTypes.func,
@@ -78,8 +79,8 @@ const buildResponseState = (data = []) => {
                 ...state.search,
                 searchId: search_id,
                 ...response,
-                ...(message && {
-                    label: response.variant ? message : '',
+                label: message ?? '',
+                ...(result && {
                     result
                 })
             };
@@ -109,6 +110,9 @@ const buildResponseState = (data = []) => {
 }
 
 const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) => {
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const dispatch = useDispatch();
+
     const MAX_CHARS = 500;
     const responseState = useMemo(
         () => buildResponseState(data), 
@@ -118,7 +122,22 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
     const reset = () => setText("");
     let searchClass = 'default-search';
     console.log('DATA:', data);
-    const searchText = data?.length ? 'Start a new search' : 'Search';
+    const searchText = isSearchActive ? 'Start a new search' : 'Search';
+
+    const handleStartNLSearch = () => {
+        dispatch(setIsSearchActive(true));
+        startNLSearch();
+    };
+
+    const handleNewNLSearch = () => {
+        dispatch(setIsSearchActive(false));
+        reset();
+    }
+
+    const handleNLSearch = isSearchActive ? handleNewNLSearch : handleStartNLSearch;
+
+    console.log({responseState});
+
 
     // eslint-disable-next-line no-useless-assignment
     let icon = '';
@@ -131,8 +150,8 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
     }
     return (
         <>
-            {data?.length &&  <p className="sidebar-text semibold">{text}</p> }
-            { data?.length ? (
+            {isSearchActive &&  <p className="sidebar-text semibold">{text}</p> }
+            { isSearchActive ? (
                 
                 <>
                     {responseState.search && (
@@ -173,7 +192,7 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
                 { /* We will have to make a couple adjustments to this when we have the api hooked up and are getting loading states back
                 on submit we have to sanitize the html*/}
                 <NLSearchButton
-                    startNLSearch={startNLSearch}
+                    startNLSearch={handleNLSearch}
                     text={searchText}
                     icon={icon}
                     classname={searchClass} />
