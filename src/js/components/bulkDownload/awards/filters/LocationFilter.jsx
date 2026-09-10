@@ -10,6 +10,8 @@ import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptio
 import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 import ComboBox from "components/sharedComponents/ComboBox";
 import BulkDownloadRadioButton from "../../../sharedComponents/BulkDownloadRadioButton";
+import { stateTitleCase } from "../../../../features/state/stateHelper";
+
 const countryOptions = [
     {
         value: 'all',
@@ -82,22 +84,10 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
             return [];
         }
         const tempArr = [{ code: 'all', name: 'All' }, ...states];
-        const MINOR_WORDS = new Set(['of', 'the']);
-        const ABBREVIATION = /^([a-z]\.)+$/i;
+
         return tempArr.map(({ code, name }) => ({
             value: code,
-            text: (name || '').toLowerCase()
-                .split(' ')
-                .map((state, index) => {
-                    if (ABBREVIATION.test(state)) {
-                        return state.toUpperCase();
-                    }
-                    if (index !== 0 && MINOR_WORDS.has(state)) {
-                        return state;
-                    }
-                    return state.charAt(0).toUpperCase() + state.slice(1);
-                })
-                .join(' ')
+            text: stateTitleCase(name)
         }));
     }, [states]);
 
