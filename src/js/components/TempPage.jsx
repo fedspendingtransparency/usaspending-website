@@ -9,7 +9,7 @@ import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
 import Accordion from "./sharedComponents/accordion/Accordion";
 import ComboBox from "./sharedComponents/ComboBox";
-import { mockComboBox, searchTestData } from "../../../tests/mockData";
+import { mockComboBox, searchTestData, buildSearchTestState } from "../../../tests/mockData";
 import BannerPageHeader from "./sharedComponents/header/BannerPageHeader";
 import NLSearch from "../components/search/collapsibleSidebar/NLSearch";
 
@@ -32,6 +32,9 @@ const TempPage = () => {
             setDisabled(false);
         }, 5000);
     }, []);
+
+    const searchTestState = buildSearchTestState(searchTestData);
+    
 
     const exampleLabel = (
         <>
@@ -895,13 +898,17 @@ const TempPage = () => {
                             to="https://usaspending.gov" />
                     </FlexGridRow>
                     <h1>Smart Assist Tool State</h1>
-                    {searchTestData.map((data, index) => (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <div key={`testId-${index}-${data.type}`}>
-                            <NLSearch {...data} />
-                        </div>  
-                    ))
-                    }
+                    <>
+                        {searchTestState.search && (
+                            <NLSearch responseData={searchTestState.search} />
+                        )}
+                        {Object.values(searchTestState.tools).map((tool, index) => (
+                            // eslint-disable-next-line react/no-array-index-key
+                            <div key={`testId-${tool.toolId}-${index}`}>
+                                <NLSearch responseData={tool} />
+                            </div> 
+                        ))}
+                    </>
                 </main>
             </PageWrapper>
         </PageFeatureFlag>

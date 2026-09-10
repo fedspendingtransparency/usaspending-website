@@ -11,6 +11,17 @@ export const RESPONSE_TYPE = {
     TOOL_ERROR: 'tool_error' 
 };
 
+export const OPERATION = {
+    SEARCH: 'search',
+    TOOL: 'tool'
+};
+
+export const VARIANT = {
+    START: 'start',
+    COMPLETE: 'complete',
+    ERROR: 'error'
+};
+
 export const mockGlossary = {
     data: {
         page_metadata: {
@@ -101,25 +112,144 @@ export const mockComboBox = [
     { value: "yuzu", text: "Yuzu" }
 ];
 
+const {SEARCH, TOOL} = OPERATION;
+const {START, COMPLETE, ERROR} = VARIANT;
+
+const responseLookup = {
+    [RESPONSE_TYPE.SEARCH_START]: {
+        operation: SEARCH,
+        variant: COMPLETE,
+        icon: ['far', 'circle-check']
+    },
+
+    [RESPONSE_TYPE.SEARCH_COMPLETE]: {
+        operation: SEARCH,
+        variant: COMPLETE
+    },
+
+    [RESPONSE_TYPE.SEARCH_ERROR]: {
+        operation: SEARCH,
+        variant: ERROR, 
+        icon: ['far','circle-xmark']
+    },
+
+    [RESPONSE_TYPE.TOOL_START]: {
+        operation: TOOL,
+        variant: START, 
+        icon: ['far', 'sparkles']
+    },
+
+    [RESPONSE_TYPE.TOOL_COMPLETE]: {
+        operation: TOOL,
+        variant: COMPLETE, 
+        icon: ['far','circle-check']
+    },
+
+    [RESPONSE_TYPE.TOOL_ERROR]: {
+        operation: TOOL,
+        variant: ERROR,
+        icon: ['far', 'circle-xmark']
+    }
+};
+
+export const buildSearchTestState = (data = []) => {
+    const state = {
+        search: null,
+        tools: {} 
+    };
+
+    data.forEach((event) => {
+        const {
+            search_id, 
+            tool_use_id, 
+            type, 
+            message, 
+            result
+        } = event ?? {};
+       
+        const response = responseLookup[type];
+
+        if (!response) {
+            return;
+        }
+
+        if (response.operation === SEARCH) {
+            state.search = {
+                ...state.search,
+                searchId: search_id,
+                ...response,
+                ...(message && {
+                    label: response.variant ? message : ''
+                }),
+                result
+            };
+            return;
+        }
+
+        const toolId = tool_use_id;
+
+        if (!toolId) {
+            return;
+        }
+
+        const existingTool = state.tools[tool_use_id];
+
+        state.tools[toolId] = {
+            ...existingTool,
+            searchId: search_id,
+            toolId,
+            ...response,
+            ...(message && {
+                label: message
+            })
+        }
+    });
+
+    return state;
+}
+
 export const searchTestData = [
     {
-        type: [RESPONSE_TYPE.TOOL_COMPLETE],
+        search_id: '502',
+        type: RESPONSE_TYPE.SEARCH_START,
         message: "Thinking..."
     },
     {   
-        type: [RESPONSE_TYPE.TOOL_ERROR],
+        search_id: '502',
+        tool_use_id: 1522,
+        type: RESPONSE_TYPE.TOOL_START,
         message: 'Selecting Anne Arundel, MD'
     },
     {
-        type: [RESPONSE_TYPE.TOOL_COMPLETE],
-        message: 'Selecting higher education and public schools'
+        search_id: '502',
+        tool_use_id: 1522,
+        type: RESPONSE_TYPE.TOOL_COMPLETE
     },
     {
-        type: [RESPONSE_TYPE.TOOL_START],
+        search_id: '502',
+        tool_use_id: 1523,
+        type: RESPONSE_TYPE.TOOL_START,
         message: 'Selecting funding over $500,000'
     },
     {
-        type: [RESPONSE_TYPE.TOOL_COMPLETE],
+        search_id: '502',
+        tool_use_id: 1523,
+        type: RESPONSE_TYPE.TOOL_ERROR  
+    },
+    {
+        search_id: '502',
+        tool_use_id: 1524,
+        type: RESPONSE_TYPE.TOOL_START,
+        message: 'Selecting higher education and public schools'
+    },
+    {
+        search_id: '502',
+        tool_use_id: 1524,
+        type: RESPONSE_TYPE.TOOL_COMPLETE
+    },
+    {
+        search_id: '502',
+        type: RESPONSE_TYPE.SEARCH_COMPLETE,
         message: (
             <>
                 Applying filters based on grants and loans that went <br /> 
@@ -128,4 +258,5 @@ export const searchTestData = [
             </>
         )
     }
+
 ];
