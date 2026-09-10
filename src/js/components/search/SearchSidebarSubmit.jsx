@@ -3,14 +3,10 @@
  * Created by Kevin Li 12/19/17
  */
 
-import React, { useEffect } from 'react';
-import { useLocation } from 'react-router';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
-import Cookies from 'js-cookie';
-
-import { getObjFromQueryParams } from "helpers/searchHelper";
-import Analytics from 'helpers/analytics/Analytics';
+import useFireQueryEvent from "../../hooks/useFireQueryEvent";
 
 const propTypes = {
     stagedFiltersAreEmpty: PropTypes.bool,
@@ -30,9 +26,9 @@ const SearchSidebarSubmit = ({
     applyStagedFilters,
     resetFilters
 }) => {
+    const fireSearchEvent = useFireQueryEvent();
     let disabled = false;
     let title = 'Click to submit your search.';
-    const { hash: urlHash } = getObjFromQueryParams(useLocation().search);
 
     if (stagedFiltersAreEmpty || !filtersChanged) {
         title = 'Add or update a filter to submit.';
@@ -42,56 +38,6 @@ const SearchSidebarSubmit = ({
         title = 'Add or update a filter to submit.';
         disabled = true;
     }
-
-    const fireSearchEvent = () => {
-        if (!urlHash) {
-            const now = new Date().getTime();
-            if (
-                Cookies.get("advanced_search_to_query_time") &&
-                !Cookies.get('has_logged_query_timer')
-            ) {
-                const timer = now - Cookies.get("advanced_search_to_query_time");
-                const timerInSeconds = Math.floor(timer / 1000);
-
-                if (timerInSeconds < 3600) {
-                    Analytics.event({
-                        category: 'Advanced Search - Time to First Query',
-                        action: 'query_submit',
-                        label: `${timerInSeconds} seconds`,
-                        time_to_query: timerInSeconds
-                    });
-                }
-
-                // clean up
-                Cookies.remove("advanced_search_to_query_time");
-            }
-
-            if (Cookies.get("homepage_to_query_time") && !Cookies.get('has_logged_query_timer')) {
-                const timerHomePage = now - Cookies.get("homepage_to_query_time");
-                const timerHomePageInSeconds = Math.floor(timerHomePage / 1000);
-
-                if (timerHomePageInSeconds < 3600) {
-                    Analytics.event({
-                        category: 'Homepage - Time to First Query',
-                        action: 'homepage_query_submit',
-                        label: `${timerHomePageInSeconds} seconds`,
-                        time_to_query: timerHomePageInSeconds
-                    });
-                }
-                // Cleanup
-                Cookies.remove("homepage_to_query_time");
-            }
-        }
-
-        // Sanity check
-        Cookies.set("has_logged_query_timer", true, { expires: 14 });
-    };
-
-    useEffect(() => {
-        // ok to rewrite with each page reload
-        // may need to check if timer already logged.
-        Cookies.set('advanced_search_to_query_time', new Date().getTime(), { expires: 14 });
-    }, []);
 
     return (
         <div
