@@ -78,12 +78,28 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
     const onStateClearSelect = () => updateState({ target: { value: '' }});
 
     const stateOptions = useMemo(() => {
-        const tempArr = states?.slice();
-        if(tempArr) {
-            tempArr?.unshift({ code: 'all', name: 'All' });
-            return tempArr.map(({ code, name }) => ({ value: code, text: name }));
+        if (!states) {
+            return [];
         }
-    }, [states])
+        const tempArr = [{ code: 'all', name: 'All' }, ...states];
+        const MINOR_WORDS = new Set(['of', 'the']);
+        const ABBREVIATION = /^([a-z]\.)+$/i;
+        return tempArr.map(({ code, name }) => ({
+            value: code,
+            text: (name || '').toLowerCase()
+                .split(' ')
+                .map((state, index) => {
+                    if (ABBREVIATION.test(state)) {
+                        return state.toUpperCase();
+                    }
+                    if (index !== 0 && MINOR_WORDS.has(state)) {
+                        return state;
+                    }
+                    return state.charAt(0).toUpperCase() + state.slice(1);
+                })
+                .join(' ')
+        }));
+    }, [states]);
 
     const locationTypesArray = locationTypes.map(({ name, label, description }) => (
         <BulkDownloadRadioButton
