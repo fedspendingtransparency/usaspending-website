@@ -11,9 +11,11 @@ import { preSearchOptions } from "./NLData";
 import { generateUrlHash } from "../../helpers/searchHelper";
 import { combineQueryParams, getQueryParamString } from "../../helpers/queryParams";
 import useQueryParams from "../../hooks/useQueryParams";
+import useFireQueryEvent from "../../hooks/useFireQueryEvent";
 
 const NLPreSearchButtonGroup = () => {
     const query = useQueryParams();
+    const test = useFireQueryEvent();
 
     const getRandomOption = ({options}) => {
         // eslint-disable-next-line react-hooks/purity
@@ -24,6 +26,7 @@ const NLPreSearchButtonGroup = () => {
     const getQuestions = useMemo(() => preSearchOptions.map((type) => getRandomOption(type)), []);
 
     const fireSearchEvent = (filterValue) => {
+        test();
         let tempHash = generateUrlHash(filterValue);
         tempHash.promise
             .then((results) => {

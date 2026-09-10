@@ -5,19 +5,33 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import useFireQueryEvent from "../../../hooks/useFireQueryEvent";
+
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
+
 const propTypes = {
     loadingState: PropTypes.string,
     classname: PropTypes.string,
     icon: PropTypes.string,
-    text: PropTypes.string
-    /* ,onclick: PropTypes.func */
+    text: PropTypes.string,
+    onClick: PropTypes.func
 };
 
-const NLSearchButton = ({loadingState, classname="default-search", icon=DEFAULT_ICON_PATH, text = "Search"}) => {
+const NLSearchButton = ({
+    loadingState,
+    classname="default-search",
+    icon=DEFAULT_ICON_PATH,
+    text = "Search",
+    onClick = ()=> console.debug("clicked")
+}) => {
+    const fireSearchEvent = useFireQueryEvent();
 
+    const test = () => {
+        onClick();
+        fireSearchEvent();
+    }
     return (
-        <button className={`natural-language-submit ${classname}`} /* onClick={()=> console.debug("clicked")} */ >
+        <button className={`natural-language-submit ${classname}`} onClick={test} >
             {!loadingState && <img src={icon} alt="Icon for Search Button"/>}
             {loadingState && <FontAwesomeIcon icon={['far', 'wand-magic-sparkles']} />}
             {text}
