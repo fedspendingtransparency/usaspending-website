@@ -1,8 +1,10 @@
-import React from "react";
+import React, {useMemo} from "react";
 import PropTypes from "prop-types";
 import NLDefaultHint from "./NLDefaultHint";
 import NLSearchButton from "./NLSearchButton";
 import NLSearch from "./NLSearch";
+import { RESPONSE_TYPE, OPERATION } from "./NLConstants";
+
 
 const propTypes = {
     hintOnClick: PropTypes.func,
@@ -12,8 +14,107 @@ const propTypes = {
     data: PropTypes.array
 };
 
+const {SEARCH, TOOL} = OPERATION;
+
+const responseLookup = {
+    [RESPONSE_TYPE.SEARCH_START]: {
+        operation: SEARCH,
+        variant: 'complete',
+        icon: ['far', 'circle-check']
+    },
+
+    [RESPONSE_TYPE.SEARCH_COMPLETE]: {
+        operation: SEARCH
+    },
+
+    [RESPONSE_TYPE.SEARCH_ERROR]: {
+        operation: SEARCH,
+        variant: 'error', 
+        icon: ['far','circle-xmark']
+    },
+
+    [RESPONSE_TYPE.TOOL_START]: {
+        operation: TOOL,
+        variant: 'start', 
+        icon: ['far', 'sparkles']
+    },
+
+    [RESPONSE_TYPE.TOOL_COMPLETE]: {
+        operation: TOOL,
+        variant: 'complete', 
+        icon: ['far','circle-check']
+    },
+
+    [RESPONSE_TYPE.TOOL_ERROR]: {
+        operation: TOOL,
+        variant: 'error',
+        icon: ['far', 'circle-xmark']
+    }
+};
+
+const buildResponseState = (data = []) => {
+    const state = {
+        search: null,
+        tools: {} 
+    };
+
+    data.forEach((event) => {
+        const {
+            search_id, 
+            tool_use_id, 
+            type, 
+            message, 
+            result
+        } = event ?? {};
+       
+        const response = responseLookup[type];
+
+        if (!response) {
+            return;
+        }
+
+        if (response.operation === SEARCH) {
+            state.search = {
+                ...state.search,
+                searchId: search_id,
+                ...response,
+                ...(message && {
+                    label: response.variant ? message : '',
+                    result
+                })
+            };
+            return;
+        }
+
+        const toolId = tool_use_id;
+
+        if (!toolId) {
+            return;
+        }
+
+        const existingTool = state.tools[tool_use_id];
+
+        state.tools[toolId] = {
+            ...existingTool,
+            searchId: search_id,
+            toolId,
+            ...response,
+            ...(message && {
+                label: message
+            })
+        }
+    });
+
+    return state;
+}
+
 const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) => {
     const MAX_CHARS = 500;
+    const responseState = useMemo(
+        () => buildResponseState(data), 
+        [data]
+    );
+
     const reset = () => setText("");
     let searchClass = 'default-search';
     console.log('DATA:', data);
@@ -30,15 +131,19 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
     }
     return (
         <>
-            {data?.length &&  <p className="sidebar-text">{text}</p> }
+            {data?.length &&  <p className="sidebar-text semibold">{text}</p> }
             { data?.length ? (
-                data.map((response, index) => (
-                    <>
-                        {/* eslint-disable-next-line react/no-array-index-key */}
-                        <NLSearch key={`${response.type}-${index}`} responseData={response}  />
-                    </>
-                    
-                ))  
+                
+                <>
+                    {responseState.search && (
+                        <NLSearch responseData={responseState.search} />
+                    )}
+                    {Object.values(responseState.tools).map((tool, index) => (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <NLSearch key={`${tool.toolId}-${index}`} responseData={tool}  />
+
+                    ))}
+                </>   
             ) :(
                 <>
                     <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p><div className="sidebar-body-row">
