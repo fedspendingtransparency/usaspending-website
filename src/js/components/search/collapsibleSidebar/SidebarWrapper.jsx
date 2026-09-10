@@ -48,8 +48,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         .filter((x) => x)
         .map((line) => JSON.parse(line));
 
-    console.log({parsedData});
-
     const toggleOpened = (e) => {
         e.preventDefault();
         setSidebarIsOpen((prevState) => !prevState);

@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import NLDefaultHint from "./NLDefaultHint";
 import NLSearchButton from "./NLSearchButton";
 import NLSearch from "./NLSearch";
-import { RESPONSE_TYPE, OPERATION, VARIANT } from "./NLConstants";
+import { RESPONSE_TYPE, OPERATION } from "./NLConstants";
 import { setIsSearchActive } from "../../../redux/actions/sidebar/sidebarActions";
 
 const propTypes = {
@@ -16,41 +16,39 @@ const propTypes = {
 };
 
 const {SEARCH, TOOL} = OPERATION;
-const {START, COMPLETE, ERROR} = VARIANT;
 
 const responseLookup = {
     [RESPONSE_TYPE.SEARCH_START]: {
         operation: SEARCH,
-        variant: COMPLETE,
+        variant: 'complete',
         icon: ['far', 'circle-check']
     },
 
     [RESPONSE_TYPE.SEARCH_COMPLETE]: {
-        operation: SEARCH,
-        variant: COMPLETE
+        operation: SEARCH
     },
 
     [RESPONSE_TYPE.SEARCH_ERROR]: {
         operation: SEARCH,
-        variant: ERROR, 
+        variant: 'error', 
         icon: ['far','circle-xmark']
     },
 
     [RESPONSE_TYPE.TOOL_START]: {
         operation: TOOL,
-        variant: START, 
+        variant: 'start', 
         icon: ['far', 'sparkles']
     },
 
     [RESPONSE_TYPE.TOOL_COMPLETE]: {
         operation: TOOL,
-        variant: COMPLETE, 
+        variant: 'complete', 
         icon: ['far','circle-check']
     },
 
     [RESPONSE_TYPE.TOOL_ERROR]: {
         operation: TOOL,
-        variant: ERROR,
+        variant: 'error',
         icon: ['far', 'circle-xmark']
     }
 };
@@ -81,10 +79,10 @@ const buildResponseState = (data = []) => {
                 ...state.search,
                 searchId: search_id,
                 ...response,
-                ...(message && {
-                    label: response.variant ? message : ''
-                }),
-                result
+                label: message ?? '',
+                ...(result && {
+                    result
+                })
             };
             return;
         }
@@ -120,8 +118,6 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
         () => buildResponseState(data), 
         [data]
     );
-
-    console.log({responseState});
 
     const reset = () => setText("");
     let searchClass = 'default-search';

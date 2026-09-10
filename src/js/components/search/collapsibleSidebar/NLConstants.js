@@ -12,9 +12,3 @@ export const OPERATION = {
     SEARCH: 'search',
     TOOL: 'tool'
 };
-
-export const VARIANT = {
-    START: 'start',
-    COMPLETE: 'complete',
-    ERROR: 'error'
-};
