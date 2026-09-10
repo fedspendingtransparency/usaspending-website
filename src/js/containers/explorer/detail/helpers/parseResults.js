@@ -8,7 +8,6 @@ const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
         // Format obligated amount
         const obligatedAmount =
             formatMoneyWithPrecision(item.amount, 0);
-        const obligatedAmountNumeric = parseInt(obligatedAmount.replace(/[^\d]/g, ""), 10);
         // Convert from decimal value to percentage and round to 2 decimal places
         const formattedPercentage = ((item.amount / total) * 100).toFixed(2);
 
@@ -25,7 +24,7 @@ const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
         const result = {
             Name: name,
             "Obligated Amount": obligatedAmount,
-            "Obligated Amount unformatted": obligatedAmountNumeric,
+            "Obligated Amount unformatted": item.amount,
             "Percent of Total": percent,
             link
         };
