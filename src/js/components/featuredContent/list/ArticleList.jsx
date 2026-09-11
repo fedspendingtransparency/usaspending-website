@@ -19,7 +19,7 @@ const ArticleList = ({ articles }) => {
     const now = dayjs();
     const [sortOrder, setSortOrder] = useState();
     const [articleList, setArticleList] = useState(articles.filter((article) => !article?.hidden));
-    const originalArticleList = articles.filter((article) => now.isAfter(article.created_date));
+    const originalArticleList = articles.filter((article) => now.isAfter(article.created_date) && !article?.hidden);
     const prevSortRef = useRef();
 
     useEffect(() => {

@@ -24,7 +24,11 @@ const globalConstants = {
     DUNS_LABEL: 'Legacy ',
     REQUEST_VERSION: '2020-06-01',
     IS_NEW_DOWNLOAD: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
-    FEATURED_CONTENT_ROTATION: "week"   // "week" or "sprint"
+    FEATURED_CONTENT_ROTATION: "week",   // "week" or "sprint"
+    LLM: {
+        API: local?.localConstants?.LLM_API,
+        HEADER_VALUE: local?.localConstants?.LLM_HEADER_VALUE
+    }
 };
 
 module.exports = globalConstants;
