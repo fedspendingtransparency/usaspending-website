@@ -44,10 +44,10 @@ const ComboBox = memo(function ComboBox({
 
     if (filterInput) {
         optionsArr = optionsArray
-            .filter(({ text }) => text?.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1);
+            ?.filter(({ text }) => text?.toLowerCase().indexOf(inputValue.toLowerCase()) !== -1);
     }
     const options = optionsArr
-        .map(({ value, text }) => {
+        ?.map(({ value, text }) => {
             const onClick = (e) => {
                 setInputValue(text);
                 setOpenOptions(false);
@@ -93,11 +93,11 @@ const ComboBox = memo(function ComboBox({
 
     const chevron = openOptions ? "chevron-up" : "chevron-down";
 
-    const isDisabledAndEmpty = disabled || optionsArray.length === 0;
+    const isDisabledAndEmpty = disabled || optionsArray?.length === 0;
 
     const inputValueEmpty = inputValue === '';
 
-    const noSearchResults = options.length === 0 && !inputValueEmpty;
+    const noSearchResults = options?.length === 0 && !inputValueEmpty;
 
     useEffect(() => {
         const handleOutsideClick = (e) => {

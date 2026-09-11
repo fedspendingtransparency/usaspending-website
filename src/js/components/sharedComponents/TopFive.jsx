@@ -11,10 +11,9 @@ import { isCancel } from "axios";
 import { categoryTitles } from 'dataMapping/topCategories';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { CondensedCDTooltip } from '../award/shared/InfoTooltipContent';
-import { stateFIPSByAbbreviation, stateNameByFipsId } from "../../dataMapping/state/stateNames";
 import { REQUEST_VERSION } from "../../GlobalConstants";
 import { generateUrlHash } from "../../helpers/searchHelper";
-
+import { useStateFIPSByAbbreviation, useStateNameByFipsId } from "../../hooks/useStateData";
 const propTypes = {
     category: PropTypes.string,
     results: PropTypes.array,
@@ -26,6 +25,8 @@ const propTypes = {
 };
 
 const TopFive = (props) => {
+    const stateFIPSByAbbreviation = useStateFIPSByAbbreviation();
+    const stateNameByFipsId = useStateNameByFipsId();
     const [linkData, setLinkData] = useState();
 
     const { agencySlugs, slugsLoading, slugsError } = props.agencyData;
