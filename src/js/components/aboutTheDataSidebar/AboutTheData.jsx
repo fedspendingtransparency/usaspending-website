@@ -28,9 +28,7 @@ const propTypes = {
     setAboutTheDataTerm: PropTypes.func
 };
 
-const AboutTheData = (props) => {
-    const { pathname } = useLocation();
-    const query = useQueryParams();
+const AboutTheData = ({ schema, ...props }) => {
     const [height, setHeight] = useState(0);
     const [drilldown, setDrilldown] = useState(null);
     const [drilldownItemId, setDrilldownItemId] = useState(null);
@@ -39,14 +37,15 @@ const AboutTheData = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [searchResultsPending, setSearchResultsPending] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
-    const { schema } = props;
     const [searchResults, setSearchResults] = useState(schema);
-    const dispatch = useDispatch();
-    const [zIndexClass, setZIndexClass] = useState(null);
+    const [firstMount] = useState(() => !props.aboutTheDataSidebar.display);
 
+    const { pathname } = useLocation();
+    const query = useQueryParams();
+    const dispatch = useDispatch();
     const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
-    const [firstMount] = useState(() => !props.aboutTheDataSidebar.display);
+    const zIndexClass = lastOpenedSlideout === 'atd' ? 'z-index-plus-one' : 'z-index';
 
     const clearDrilldown = () => {
         setDrilldownItemId(null);
@@ -69,46 +68,50 @@ const AboutTheData = (props) => {
         const resultItems = {};
 
         // look for search term in each 'fields.name' in each section
-        Object.entries(schema).filter(([, section]) => section.heading !== undefined).forEach(([sectionKey, section]) => {
-            const matchingFields = section.fields.filter((field) =>
-                field.name.toLowerCase()
-                    .includes(term.toLowerCase())
-            );
-            if (matchingFields.length) {
-                const markupFields = [];
-                matchingFields.forEach((field) => {
-                    // add classname to the search term in the results
-                    const regex = new RegExp(escapeRegExp(term), 'gi');
-                    const markupName = field.name.replace(regex, '<match>$&<match>');
-                    const parts = markupName.split('<match>');
-                    const markup = <>
-                        {parts.map((part) => (
-                            <>
-                                {part.toLowerCase() === term.toLowerCase() ? (
-                                    <span className="matched-highlight">
-                                        {part}
-                                    </span>
-                                )
-                                    :
-                                    <>
-                                        {part}
-                                    </>
-                                }
-                            </>
-                        ))}
-                    </>;
+        Object
+            .entries(schema)
+            .filter(([, section]) => section.heading !== undefined)
+            .forEach(([sectionKey, section]) => {
+                const matchingFields = section.fields.filter((field) =>
+                    field.name.toLowerCase()
+                        .includes(term.toLowerCase())
+                );
+                if (matchingFields.length) {
+                    const markupFields = [];
+                    matchingFields.forEach((field) => {
+                        // add classname to the search term in the results
+                        const regex = new RegExp(escapeRegExp(term), 'gi');
+                        const markupName = field.name.replace(regex, '<match>$&<match>');
+                        const parts = markupName.split('<match>');
+                        const markup = <>
+                            {parts.map((part) => (
+                                <>
+                                    {part.toLowerCase() === term.toLowerCase() ? (
+                                        <span className="matched-highlight">
+                                            {part}
+                                        </span>
+                                    )
+                                        :
+                                        <>
+                                            {part}
+                                        </>
+                                    }
+                                </>
+                            ))}
+                        </>;
 
-                    markupFields.push({
-                        name: markup,
-                        slug: field.slug
+                        markupFields.push({
+                            name: markup,
+                            slug: field.slug
+                        });
                     });
-                });
-                resultItems[sectionKey] = {
-                    fields: markupFields,
-                    heading: section.heading
-                };
-            }
-        });
+                    resultItems[sectionKey] = {
+                        fields: markupFields,
+                        heading: section.heading
+                    };
+                }
+            });
+
         // set results in local scope
         setSearchResults(resultItems);
         clearDrilldown();
@@ -235,15 +238,15 @@ const AboutTheData = (props) => {
         }
     }, [drilldownItemId, drilldownSection, scrollbar]);
 
-    useEffect(() => {
-        setZIndexClass(lastOpenedSlideout === 'atd' ? 'z-index-plus-one' : 'z-index');
-    }, [lastOpenedSlideout]);
-
     return (
         <div
             id="usa-atd-wrapper"
             style={{ visibility: firstMount ? "hidden" : "" }}
-            className={props.aboutTheDataSidebar.display ? `opened usa-atd-wrapper ${zIndexClass}` : `usa-atd-wrapper ${zIndexClass}`}>
+            className={
+                props.aboutTheDataSidebar.display ?
+                    `opened usa-atd-wrapper ${zIndexClass}` :
+                    `usa-atd-wrapper ${zIndexClass}`
+            }>
             <aside
                 role="dialog"
                 aria-labelledby="atd-title"
