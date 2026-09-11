@@ -143,6 +143,10 @@
       font-size: rem(14);
       padding: 0 rem(24);
 
+      &.semibold {
+        font-weight: $font-semibold;
+      }
+
       @media (max-width: $medium-screen) {
         padding: 0 rem(16);
       }

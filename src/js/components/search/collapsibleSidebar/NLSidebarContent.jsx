@@ -1,18 +1,152 @@
-import React from "react";
+import React, {useMemo} from "react";
+import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import NLDefaultHint from "./NLDefaultHint";
 import NLSearchButton from "./NLSearchButton";
+import NLSearch from "./NLSearch";
+import { RESPONSE_TYPE, OPERATION, VARIANT } from "./NLConstants";
+import { setIsSearchActive } from "../../../redux/actions/sidebar/sidebarActions";
+
 const propTypes = {
     hintOnClick: PropTypes.func,
     text: PropTypes.string,
     setText: PropTypes.func,
-    startNLSearch: PropTypes.func
+    startNLSearch: PropTypes.func,
+    data: PropTypes.array
 };
 
-const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch }) => {
+const {SEARCH, TOOL} = OPERATION;
+const {START, COMPLETE, ERROR} = VARIANT;
+
+const responseLookup = {
+    [RESPONSE_TYPE.SEARCH_START]: {
+        operation: SEARCH,
+        variant: COMPLETE,
+        icon: ['far', 'circle-check']
+    },
+
+    [RESPONSE_TYPE.SEARCH_COMPLETE]: {
+        operation: SEARCH,
+        variant: COMPLETE
+    },
+
+    [RESPONSE_TYPE.SEARCH_ERROR]: {
+        operation: SEARCH,
+        variant: ERROR, 
+        icon: ['far','circle-xmark']
+    },
+
+    [RESPONSE_TYPE.TOOL_START]: {
+        operation: TOOL,
+        variant: START, 
+        icon: ['far', 'sparkles']
+    },
+
+    [RESPONSE_TYPE.TOOL_COMPLETE]: {
+        operation: TOOL,
+        variant: COMPLETE, 
+        icon: ['far','circle-check']
+    },
+
+    [RESPONSE_TYPE.TOOL_ERROR]: {
+        operation: TOOL,
+        variant: ERROR,
+        icon: ['far', 'circle-xmark']
+    }
+};
+
+const buildResponseState = (data = []) => {
+    const state = {
+        items: []
+    };
+    
+    data.forEach((event) => {
+        const {
+            search_id, 
+            tool_use_id, 
+            type, 
+            message, 
+            result
+        } = event ?? {};
+           
+        const response = responseLookup[type];
+    
+        if (!response) {
+            return;
+        }
+    
+        const item = {
+            searchId: search_id,
+            ...(tool_use_id && {
+                toolId: tool_use_id
+            }),
+            ...response,
+            ...(message && {
+                label: message
+            }),
+            result
+        };
+    
+        // Search messages are always new display items
+        if (response.operation === SEARCH) {
+            state.items.push(item);
+            return; 
+        }
+    
+        const toolId = tool_use_id;
+    
+        if (!toolId) {
+            return;
+        }
+    
+        // Tool start creates a new display item
+        if (type === RESPONSE_TYPE.TOOL_START) {
+            state.items.push(item);
+            return;
+        }
+    
+        // Tool complete/error updates the existing item
+        const itemIndex = state.items.findIndex(
+            (item) => item.toolId === toolId
+        );
+    
+        if (itemIndex !== -1) {
+            state.items[itemIndex] = {
+                ...state.items[itemIndex],
+                ...item
+            };
+        }
+    });
+    
+    return state;
+}
+
+const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) => {
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const dispatch = useDispatch();
+
     const MAX_CHARS = 500;
+    const responseState = useMemo(
+        () => buildResponseState(data), 
+        [data]
+    );
+
     const reset = () => setText("");
     let searchClass = 'default-search';
+    const searchText = isSearchActive ? 'Start a new search' : 'Search';
+
+    const handleStartNLSearch = () => {
+        dispatch(setIsSearchActive(true));
+        startNLSearch();
+    };
+
+    const handleNewNLSearch = () => {
+        dispatch(setIsSearchActive(false));
+        reset();
+    }
+
+    const handleNLSearch = isSearchActive ? handleNewNLSearch : handleStartNLSearch;
+
     // eslint-disable-next-line no-useless-assignment
     let icon = '';
     if (text.length === 0) {
@@ -24,33 +158,48 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch }) => {
     }
     return (
         <>
-            <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p><div className="sidebar-body-row">
-                <span className="sidebar-example">Example Prompts: </span>
-                <NLDefaultHint onClick={hintOnClick} hint={<p>What schools in <span tabIndex={-1} className="hint-user-replace">[county, state]</span> receive the most money in federal funding?</p>} />
-                <NLDefaultHint onClick={hintOnClick} hint={<p>What programs received funding for veterans in <span tabIndex={-1} className="hint-user-replace">[state]</span> during <span tabIndex={-1} className="hint-user-replace">[time period]</span>?</p>} />
-                <NLDefaultHint onClick={hintOnClick} hint={<p>What’s the spending on <span tabIndex={-1} className="hint-user-replace">[topic of interest]</span> in <span tabIndex={-1} className="hint-user-replace">[location]</span> over the past decade?</p>} />
-            </div>
-            <div className="sidebar-body-row">
-                <textarea
-                    onChange={(e) => setText(e.target.value)}
-                    name="smart-assist-input"
-                    spellCheck
-                    className="sidebar-textarea"
-                    maxLength={MAX_CHARS}
-                    value={text}
-                    rows="3" cols="50"
-                    placeholder="Type a question about government spending, or choose an example above." />
-                <div className="textarea-char-row">
-                    <button type="reset" className={`textarea-reset ${text.length <= 0 && 'text-area-reset-hidden'}`} onClick={reset}>Clear Input</button>
-                    <span className="textarea-char-count">{text.length} / {MAX_CHARS}</span>
-                </div>
-            </div>
+            {isSearchActive &&  <p className="sidebar-text semibold">{text}</p> }
+            { isSearchActive ? (
+                
+                <>
+                    {responseState.items.map((item, index) => (
+                        // eslint-disable-next-line react/no-array-index-key
+                        <div key={`${item.toolId ?? 'search'}-${index}`}>
+                            <NLSearch responseData={item} />
+                        </div>
+                    ))}
+                </>   
+            ) :(
+                <>
+                    <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p><div className="sidebar-body-row">
+                        <span className="sidebar-example">Example Prompts: </span>
+                        <NLDefaultHint onClick={hintOnClick} hint={<p>What schools in <span tabIndex={-1} className="hint-user-replace">[county, state]</span> receive the most money in federal funding?</p>} />
+                        <NLDefaultHint onClick={hintOnClick} hint={<p>What programs received funding for veterans in <span tabIndex={-1} className="hint-user-replace">[state]</span> during <span tabIndex={-1} className="hint-user-replace">[time period]</span>?</p>} />
+                        <NLDefaultHint onClick={hintOnClick} hint={<p>What’s the spending on <span tabIndex={-1} className="hint-user-replace">[topic of interest]</span> in <span tabIndex={-1} className="hint-user-replace">[location]</span> over the past decade?</p>} />
+                    </div>
+                    <div className="sidebar-body-row">
+                        <textarea
+                            onChange={(e) => setText(e.target.value)}
+                            name="smart-assist-input"
+                            spellCheck
+                            className="sidebar-textarea"
+                            maxLength={MAX_CHARS}
+                            value={text}
+                            rows="3" cols="50"
+                            placeholder="Type a question about government spending, or choose an example above." />
+                        <div className="textarea-char-row">
+                            <button type="reset" className={`textarea-reset ${text.length <= 0 && 'text-area-reset-hidden'}`} onClick={reset}>Clear Input</button>
+                            <span className="textarea-char-count">{text.length} / {MAX_CHARS}</span>
+                        </div>
+                    </div>
+                </>
+            )}
             <div className="sidebar-body-row">
                 { /* We will have to make a couple adjustments to this when we have the api hooked up and are getting loading states back
                 on submit we have to sanitize the html*/}
                 <NLSearchButton
-                    startNLSearch={startNLSearch}
-                    text="Search"
+                    startNLSearch={handleNLSearch}
+                    text={searchText}
                     icon={icon}
                     classname={searchClass} />
             </div>
