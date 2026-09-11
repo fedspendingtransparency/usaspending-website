@@ -57,11 +57,6 @@ const responseLookup = {
 
 const buildResponseState = (data = []) => {
     const state = {
-        search: {
-            searchId: null,
-            messages: []
-        },
-        tools: {} ,
         items: []
     };
     
@@ -92,35 +87,25 @@ const buildResponseState = (data = []) => {
             result
         };
     
-        // SEARCH Operation
+        // Search messages are always new display items
         if (response.operation === SEARCH) {
-            state.search.searchId = search_id;
-            state.search.messages.push(item);
-    
             state.items.push(item);
-    
             return; 
         }
     
         const toolId = tool_use_id;
     
-        // TOOL Operation
         if (!toolId) {
             return;
         }
     
-        state.tools[toolId] = {
-            ...state.tools[toolId],
-            ...item
-        };
-    
-        // TOOL_START creates the item in the correct position
+        // Tool start creates a new display item
         if (type === RESPONSE_TYPE.TOOL_START) {
             state.items.push(item);
             return;
         }
     
-        // TOOL_COMPLETE / TOOL_ERROR updates the existing item
+        // Tool complete/error updates the existing item
         const itemIndex = state.items.findIndex(
             (item) => item.toolId === toolId
         );
