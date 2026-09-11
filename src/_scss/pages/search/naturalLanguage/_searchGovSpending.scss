@@ -36,6 +36,96 @@
     }
   }
 
+  .search-gov-spending__question {
+    width: 100%;
+    margin-top: rem(8);
+    line-height: 150%;
+    font-size: $font-size-16;
+    color: $gray-60;
+  }
+  .search-gov-spending__input-container {
+    width: 100%;
+    display:flex;
+    flex: 1 1 0;
+    margin-top: rem(16);
+    margin-bottom: rem(16);
+    .search-gov-spending__input {
+      width: 100%;
+      line-height: 150%;
+      padding: rem(4) rem(16);
+      border-radius: rem(4) 0 0 rem(4);
+      border: 1px solid $gray-20;
+      background: $color-white;
+      color: $gray-60;
+      font-size: $font-size-14;
+      height: rem(40);
+      margin: 0;
+    }
+    .search-gov-spending__input-button {
+      margin: 0;
+      border-radius: 0 rem(4) rem(4) 0;
+      background: linear-gradient(134deg, $cyan-60v 0%, $cyan-50v 33.91%, $blue-60v 97.96%);
+      padding: rem(4) rem(12);
+      justify-content: center;
+      align-items: center;
+    }    
+  }
+
+  .search-gov-spending__prompt-container {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    @media(max-width: $tablet-screen - 1) {
+      gap: 0 rem(12) rem(12) 0;
+      flex-wrap: wrap;
+    }
+    .search-gov-spending__prompt-title {
+      font-size: $font-size-12;
+      line-height: 150%;
+      font-weight: $font-semibold;
+      color: $gray-60;
+      margin-right: rem(16);
+    }
+    .search-gov-spending__prompt-button {
+      background-color: transparent;
+      padding: rem(8) rem(16);
+      margin-right: rem(16);
+      margin-top: 0;
+      margin-bottom: 0;
+      border-radius: rem(4);
+      border: 1px solid $color-secondary-secondary-lighter;
+      font-size: $font-size-12;
+      color: $gray-60;
+      
+      &:last-of-type {
+        margin-right: 0;
+      }
+      &:hover {
+        border: 1px solid $cyan-50v;
+        background: $cyan-50v;
+        color: $color-white;
+      }
+      &:active {
+        border: 1px solid $cyan-60v;
+        background: $cyan-60v;
+        color: $color-white;
+      }
+    }
+
+    .search-gov-spending__tablet-prompt-wrapper {
+      display: inline;
+      margin-bottom: rem(8);
+      width: 100%;
+    }
+    .search-gov-spending__button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: rem(12);
+      button {
+        margin: 0;
+      }
+    }
+  }
   .button-icon-container {
     display: flex;
     align-items: center;
@@ -91,4 +181,8 @@
       }
     }
   }
+}
+
+.search-gov-spending__section.filter-spacing {
+  padding: rem(20);
 }

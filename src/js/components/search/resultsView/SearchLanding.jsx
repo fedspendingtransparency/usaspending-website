@@ -3,22 +3,33 @@
  * Created by JD House 8/17/2026
  **/
 
-import React from "react";
+import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import NLMoreResources from "../../naturalLanguage/NLMoreResources";
 import NLSearchSuggestions from "../../naturalLanguage/NLSearchSuggestions";
 import NLPreSearchButtonGroup from "../../naturalLanguage/NLPreSearchButtonGroup";
 import NLSearchGovSpending from "../../naturalLanguage/NLSearchGovSpending";
 import { FILTERS } from '../../search/collapsibleSidebar/SidebarConstants';
-
+import GlobalConstants from "../../../GlobalConstants";
+import FeatureFlag from "../../sharedComponents/FeatureFlag";
+import IsMobileContext from "../../../context/IsMobileContext";
 
 const SearchLanding = () => {
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
     const isFilters = sidebarContent === FILTERS;
+    const { isTablet } = useContext(IsMobileContext);
 
     return (
         <div className="search-results-landing">
-            { isFilters ? (
+            {isFilters && 
+            <FeatureFlag>
+                <>
+                    <NLSearchGovSpending isFilters={isFilters} isTablet={isTablet} />
+                    <NLSearchSuggestions />
+                    <NLMoreResources />
+                </>
+            </FeatureFlag>}
+            {isFilters && !GlobalConstants.QAT &&
                 <>
                     <h3 className="landing-title">Start your USAspending search</h3>
                     <p className="landing-subTitle">
@@ -27,13 +38,12 @@ const SearchLanding = () => {
                     <NLPreSearchButtonGroup />
                     <NLSearchSuggestions />
                     <NLMoreResources />
-                </>
-            ): (
+                </>}
+            {!isFilters && 
                 <>
-                    <NLSearchGovSpending />
+                    <NLSearchGovSpending isFilters={isFilters} isTablet={isTablet} />
                     <NLMoreResources />
-                </>
-            )}
+                </>}
         </div>
     )
 };
