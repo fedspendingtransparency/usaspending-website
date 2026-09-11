@@ -26,7 +26,7 @@ const SearchSidebarSubmit = ({
     applyStagedFilters,
     resetFilters
 }) => {
-    const fireSearchEvent = useFireQueryEvent();
+    const fireQueryEvent = useFireQueryEvent();
     let disabled = false;
     let title = 'Click to submit your search.';
 
@@ -56,7 +56,7 @@ const SearchSidebarSubmit = ({
                     if (setShowMobileFilters) {
                         setShowMobileFilters();
                     }
-                    fireSearchEvent();
+                    fireQueryEvent();
                     applyStagedFilters();
                 }} />
             <Button

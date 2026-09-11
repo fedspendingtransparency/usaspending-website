@@ -15,7 +15,7 @@ import useFireQueryEvent from "../../hooks/useFireQueryEvent";
 
 const NLPreSearchButtonGroup = () => {
     const query = useQueryParams();
-    const test = useFireQueryEvent();
+    const fireQueryEvent = useFireQueryEvent();
 
     const getRandomOption = ({options}) => {
         // eslint-disable-next-line react-hooks/purity
@@ -26,7 +26,7 @@ const NLPreSearchButtonGroup = () => {
     const getQuestions = useMemo(() => preSearchOptions.map((type) => getRandomOption(type)), []);
 
     const fireSearchEvent = (filterValue) => {
-        test();
+        fireQueryEvent();
         let tempHash = generateUrlHash(filterValue);
         tempHash.promise
             .then((results) => {
