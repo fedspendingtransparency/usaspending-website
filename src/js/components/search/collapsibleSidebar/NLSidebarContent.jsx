@@ -57,10 +57,14 @@ const responseLookup = {
 
 const buildResponseState = (data = []) => {
     const state = {
-        search: null,
-        tools: {} 
+        search: {
+            searchId: null,
+            messages: []
+        },
+        tools: {} ,
+        items: []
     };
-
+    
     data.forEach((event) => {
         const {
             search_id, 
@@ -69,45 +73,66 @@ const buildResponseState = (data = []) => {
             message, 
             result
         } = event ?? {};
-       
+           
         const response = responseLookup[type];
-
+    
         if (!response) {
             return;
         }
-
-        if (response.operation === SEARCH) {
-            state.search = {
-                ...state.search,
-                searchId: search_id,
-                ...response,
-                ...(message && {
-                    label: response.variant ? message : ''
-                }),
-                result
-            };
-            return;
-        }
-
-        const toolId = tool_use_id;
-
-        if (!toolId) {
-            return;
-        }
-
-        const existingTool = state.tools[tool_use_id];
-
-        state.tools[toolId] = {
-            ...existingTool,
+    
+        const item = {
             searchId: search_id,
-            toolId,
+            ...(tool_use_id && {
+                toolId: tool_use_id
+            }),
             ...response,
             ...(message && {
                 label: message
-            })
+            }),
+            result
+        };
+    
+        // SEARCH Operation
+        if (response.operation === SEARCH) {
+            state.search.searchId = search_id;
+            state.search.messages.push(item);
+    
+            state.items.push(item);
+    
+            return; 
+        }
+    
+        const toolId = tool_use_id;
+    
+        // TOOL Operation
+        if (!toolId) {
+            return;
+        }
+    
+        state.tools[toolId] = {
+            ...state.tools[toolId],
+            ...item
+        };
+    
+        // TOOL_START creates the item in the correct position
+        if (type === RESPONSE_TYPE.TOOL_START) {
+            state.items.push(item);
+            return;
+        }
+    
+        // TOOL_COMPLETE / TOOL_ERROR updates the existing item
+        const itemIndex = state.items.findIndex(
+            (item) => item.toolId === toolId
+        );
+    
+        if (itemIndex !== -1) {
+            state.items[itemIndex] = {
+                ...state.items[itemIndex],
+                ...item
+            };
         }
     });
-
+    
     return state;
 }
 
@@ -158,13 +183,11 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
             { isSearchActive ? (
                 
                 <>
-                    {responseState.search && (
-                        <NLSearch responseData={responseState.search} />
-                    )}
-                    {Object.values(responseState.tools).map((tool, index) => (
+                    {responseState.items.map((item, index) => (
                         // eslint-disable-next-line react/no-array-index-key
-                        <NLSearch key={`${tool.toolId}-${index}`} responseData={tool}  />
-
+                        <div key={`${item.toolId ?? 'search'}-${index}`}>
+                            <NLSearch responseData={item} />
+                        </div>
                     ))}
                 </>   
             ) :(
