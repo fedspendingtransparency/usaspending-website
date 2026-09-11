@@ -12,8 +12,6 @@ const propTypes = {
 };
 
 const NLSearch = ({responseData}) => {
-    console.log({responseData});
-
     return (
         <NLSearchSuggestionsIcon { ...responseData} />
     );
