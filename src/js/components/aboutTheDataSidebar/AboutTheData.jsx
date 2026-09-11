@@ -46,13 +46,7 @@ const AboutTheData = (props) => {
 
     const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
-    const [firstMount, setFirstMount] = useState(true);
-
-    useEffect(() => {
-        if (props.aboutTheDataSidebar.display) {
-            setFirstMount(false);
-        }
-    }, [props.aboutTheDataSidebar.display]);
+    const [firstMount] = useState(() => !props.aboutTheDataSidebar.display);
 
     const clearDrilldown = () => {
         setDrilldownItemId(null);
