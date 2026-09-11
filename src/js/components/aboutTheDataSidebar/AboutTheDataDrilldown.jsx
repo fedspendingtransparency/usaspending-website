@@ -3,16 +3,20 @@
  * Created by Andrea Blackwell 11/14/22
  */
 
-import React, { useEffect, useState, Suspense } from 'react';
-import { handleShareOptionClick } from 'helpers/socialShare';
+import React, { useEffect, Suspense, useMemo, lazy } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router';
-
 import { ShareIcon } from "data-transparency-ui";
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { handleShareOptionClick } from 'helpers/socialShare';
 import { LoadingWrapper } from "../sharedComponents/Loading";
 import { showModal } from '../../redux/actions/modal/modalActions';
+
+const drilldownComponent = (slug) => lazy(() =>  import(
+    /* webpackPreload: true */ `../../../content/about-the-data/${slug}`
+));
 
 const propTypes = {
     section: PropTypes.string,
@@ -24,14 +28,14 @@ const propTypes = {
 const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
-    const [value, setValue] = useState();
     const [searchParams] = useSearchParams();
     const dispatch = useDispatch();
 
-    const stripUrl = () => {
+    const value = useMemo(() => {
         const newUrlString = searchParams ? `?${searchParams?.toString()}` : '';
         const url = window.location.href.split("?");
         const path = url[0];
+
         if (path) {
             if (searchParams?.size > 0) {
                 return `${path}${newUrlString}&about-the-data=`;
@@ -39,7 +43,7 @@ const AboutTheDataDrilldown = ({
             return `${path}?about-the-data=`;
         }
         return null;
-    };
+    }, [searchParams]);
 
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
@@ -56,9 +60,6 @@ const AboutTheDataDrilldown = ({
         handleShareOptionClick(optionName, placeholder, emailArgs, handleShareDispatch);
     };
 
-    const [drilldownComponent, setDrilldownComponent] = useState(null);
-    const [isError, setIsError] = useState(false);
-
     const handleKeyUp = (e) => {
         if (e.key === "Enter") {
             clearDrilldown();
@@ -71,54 +72,48 @@ const AboutTheDataDrilldown = ({
             searchParams.delete('glossary');
         }
 
-        setValue(stripUrl());
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchParams]);
 
-    useEffect(() => {
-        if (slug?.length > 0) {
-            // lazy load the md files
-            const Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}`).catch((err) => {
-                setIsError(true);
-                console.log(err);
-            }));
+    const DrilldownComponent = drilldownComponent(slug);
 
-            setDrilldownComponent(<Component />);
-        }
-    }, [slug]);
-
-    return (<>
-        <Suspense fallback={<LoadingWrapper isLoading />}>
-            <div className="atd__back" role="button" onKeyUp={(e) => handleKeyUp(e)} tabIndex="0" onClick={() => clearDrilldown()}>
-                <FontAwesomeIcon icon="chevron-left" className="left-chevron-icon" alt="Back" />
-                <span className="atd__back__label">
-                    Back
-                </span>
-            </div>
-            <div className="atd__share__icon">
-                <ShareIcon
-                    url={`${value}${slug}`}
-                    onShareOptionClick={onShareClick}
-                    onKeyUp={(e) => {
-                        if (e.key === 'Enter') {
-                            onShareClick();
-                        }
-                    }}
-                    colors={{ backgroundColor: "#00687d", color: "#dfe1e2" }}
-                    noShareText />
-            </div>
-            <div className="atd__drilldown">
-                <div className="atd__overline">{ section }</div>
-                <div className="atd__drilldown__heading">{ name }</div>
-                {isError ?
-                    <p>Error Loading Data</p>
-                    :
-                    <div className="atd__copy">{drilldownComponent}</div>
-                }
-            </div>
-        </Suspense>
-    </>);
+    return (
+        <>
+            <Suspense fallback={<LoadingWrapper isLoading />}>
+                <div
+                    className="atd__back"
+                    role="button"
+                    onKeyUp={handleKeyUp}
+                    tabIndex="0"
+                    onClick={clearDrilldown}>
+                    <FontAwesomeIcon icon="chevron-left" className="left-chevron-icon" alt="Back" />
+                    <span className="atd__back__label">
+                        Back
+                    </span>
+                </div>
+                <div className="atd__share__icon">
+                    <ShareIcon
+                        url={`${value}${slug}`}
+                        onShareOptionClick={onShareClick}
+                        onKeyUp={(e) => {
+                            if (e.key === 'Enter') {
+                                onShareClick();
+                            }
+                        }}
+                        colors={{ backgroundColor: "#00687d", color: "#dfe1e2" }}
+                        noShareText />
+                </div>
+                <div className="atd__drilldown">
+                    <div className="atd__overline">{ section }</div>
+                    <div className="atd__drilldown__heading">{ name }</div>
+                    <div className="atd__copy">
+                        {/* suppressing rule due to webpack exception */}
+                        {/* eslint-disable-next-line react-hooks/static-components */}
+                        <DrilldownComponent />
+                    </div>
+                </div>
+            </Suspense>
+        </>
+    );
 };
 
 AboutTheDataDrilldown.propTypes = propTypes;
