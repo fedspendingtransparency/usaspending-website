@@ -73,20 +73,19 @@
 
   .search-gov-spending__prompt-container {
     width: 100%;
+    align-items: center;
+    display: flex;
+    @media(max-width: $tablet-screen - 1) {
+      gap: 0 rem(12) rem(12) 0;
+      flex-wrap: wrap;
+    }
     .search-gov-spending__prompt-title {
       font-size: $font-size-12;
       line-height: 150%;
       font-weight: $font-semibold;
       color: $gray-60;
       margin-right: rem(16);
-
-      @media(max-width: $tablet-screen) {
-        width: 100%;
-        margin-right: 0;
-        display: flex;
-      }
     }
-
     .search-gov-spending__prompt-button {
       background-color: transparent;
       padding: rem(8) rem(16);
@@ -97,7 +96,7 @@
       border: 1px solid $color-secondary-secondary-lighter;
       font-size: $font-size-12;
       color: $gray-60;
-
+      
       &:last-of-type {
         margin-right: 0;
       }
@@ -111,10 +110,19 @@
         background: $cyan-60v;
         color: $color-white;
       }
+    }
 
-      @media(max-width: $tablet-screen) {
-        gap: rem(12);
-        display: grid;
+    .search-gov-spending__tablet-prompt-wrapper {
+      display: inline;
+      margin-bottom: rem(8);
+      width: 100%;
+    }
+    .search-gov-spending__button-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: rem(12);
+      button {
+        margin: 0;
       }
     }
   }

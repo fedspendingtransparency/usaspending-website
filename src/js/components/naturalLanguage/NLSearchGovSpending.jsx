@@ -12,10 +12,10 @@ import PropTypes from "prop-types";
 
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 const propTypes = {
-    isFilters: PropTypes.bool
-
+    isFilters: PropTypes.bool,
+    isTablet: PropTypes.bool
 };
-const NLSearchGovSpending = ({ isFilters=false }) => {
+const NLSearchGovSpending = ({ isTablet=false, isFilters=false }) => {
 
     return (
         <section className={`search-gov-spending__section ${isFilters ? ' filter-spacing': ''}`}>
@@ -55,14 +55,29 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                             <img src={DEFAULT_ICON_PATH} alt="Icon for Search Button"/>
                         </button>
                     </div>
-                    <div className="search-gov-spending__prompt-container">
+                    {!isTablet && <div className="search-gov-spending__prompt-container">
                         <span className="search-gov-spending__prompt-title">BUILD A PROMPT AROUND:</span>
                         <button className="search-gov-spending__prompt-button">Recipient</button>
                         <button className="search-gov-spending__prompt-button">Time Period</button>
                         <button className="search-gov-spending__prompt-button">Location</button>
                         <button className="search-gov-spending__prompt-button">Industry</button>
                         <button className="search-gov-spending__prompt-button">Award Type</button>
-                    </div>
+                    </div>}
+                    {isTablet && 
+                    <div className="search-gov-spending__prompt-container">
+                        <div className="search-gov-spending__tablet-prompt-wrapper">
+                            <span className="search-gov-spending__prompt-title">BUILD A PROMPT AROUND:</span>
+                        </div>
+
+                        <div className="search-gov-spending__button-container">
+                            <button className="search-gov-spending__prompt-button">Recipient</button>
+                            <button className="search-gov-spending__prompt-button">Time Period</button>
+                            <button className="search-gov-spending__prompt-button">Location</button>
+                            <button className="search-gov-spending__prompt-button">Industry</button>
+                            <button className="search-gov-spending__prompt-button">Award Type</button>
+                        </div>
+                    </div>}
+                    
                 </>}
 
                 {!isFilters && <div className="search-gov-spending__container">
