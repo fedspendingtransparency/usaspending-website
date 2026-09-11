@@ -106,7 +106,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     hintOnClick={hintOnClick}
                     text={text}
                     setText={setText}
-                    startNLSearch={startNLSearch} />
+                    startNLSearch={startNLSearch}
+                    data={data}
+                    status={status} />
             )}   
         </div>    
     );
