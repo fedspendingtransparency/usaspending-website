@@ -131,11 +131,8 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
         [data]
     );
 
-    console.log({responseState});
-
     const reset = () => setText("");
     let searchClass = 'default-search';
-    console.log('DATA:', data);
     const searchText = isSearchActive ? 'Start a new search' : 'Search';
 
     const handleStartNLSearch = () => {
@@ -149,9 +146,6 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
     }
 
     const handleNLSearch = isSearchActive ? handleNewNLSearch : handleStartNLSearch;
-
-    console.log({responseState});
-
 
     // eslint-disable-next-line no-useless-assignment
     let icon = '';
