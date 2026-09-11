@@ -33,8 +33,7 @@ const TempPage = () => {
         }, 5000);
     }, []);
 
-    const searchTestState = buildSearchTestState(searchTestData);
-    
+    const searchTestState = buildSearchTestState(searchTestData);    
 
     const exampleLabel = (
         <>
@@ -899,15 +898,26 @@ const TempPage = () => {
                     </FlexGridRow>
                     <h1>Smart Assist Tool State</h1>
                     <>
-                        {searchTestState.search && (
-                            <NLSearch responseData={searchTestState.search} />
-                        )}
+                        {searchTestState.items.map((item, index) => (
+                            // eslint-disable-next-line react/no-array-index-key
+                            <div key={`testId-${item.toolId ?? 'search'}-${index}`}>
+                                <NLSearch responseData={item} />
+                            </div>
+                        ))
+
+                        }
+                        {/* {searchTestState.search?.messages?.map((message, index) => (
+                            // eslint-disable-next-line react/no-array-index-key
+                            <div key={`search-message-${index}`}>
+                                <NLSearch responseData={message} />
+                            </div>
+                        ))}
                         {Object.values(searchTestState.tools).map((tool, index) => (
                             // eslint-disable-next-line react/no-array-index-key
                             <div key={`testId-${tool.toolId}-${index}`}>
                                 <NLSearch responseData={tool} />
                             </div> 
-                        ))}
+                        ))} */}
                     </>
                 </main>
             </PageWrapper>

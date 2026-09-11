@@ -154,8 +154,12 @@ const responseLookup = {
 
 export const buildSearchTestState = (data = []) => {
     const state = {
-        search: null,
-        tools: {} 
+        search: {
+            searchId: null,
+            messages: []
+        },
+        tools: {} ,
+        items: []
     };
 
     data.forEach((event) => {
@@ -173,40 +177,61 @@ export const buildSearchTestState = (data = []) => {
             return;
         }
 
+        const item = {
+            searchId: search_id,
+            ...(tool_use_id && {
+                toolId: tool_use_id
+            }),
+            ...response,
+            ...(message && {
+                label: message
+            }),
+            result
+        };
+
+        // SEARCH Operation
         if (response.operation === SEARCH) {
-            state.search = {
-                ...state.search,
-                searchId: search_id,
-                ...response,
-                ...(message && {
-                    label: response.variant ? message : ''
-                }),
-                result
-            };
-            return;
+            state.search.searchId = search_id;
+            state.search.messages.push(item);
+
+            state.items.push(item);
+
+            return; 
         }
 
         const toolId = tool_use_id;
 
+        // TOOL Operation
         if (!toolId) {
             return;
         }
 
-        const existingTool = state.tools[tool_use_id];
-
         state.tools[toolId] = {
-            ...existingTool,
-            searchId: search_id,
-            toolId,
-            ...response,
-            ...(message && {
-                label: message
-            })
+            ...state.tools[toolId],
+            ...item
+        };
+
+        // TOOL_START creates the item in the correct position
+        if (type === RESPONSE_TYPE.TOOL_START) {
+            state.items.push(item);
+            return;
+        }
+
+        // TOOL_COMPLETE / TOOL_ERROR updates the existing item
+        const itemIndex = state.items.findIndex(
+            (item) => item.toolId === toolId
+        );
+
+        if (itemIndex !== -1) {
+            state.items[itemIndex] = {
+                ...state.items[itemIndex],
+                ...item
+            };
         }
     });
 
     return state;
-}
+};
 
 export const searchTestData = [
     {
@@ -256,7 +281,8 @@ export const searchTestData = [
                 to schools in Anne Arundel county, <br />
                 Maryland
             </>
-        )
+        ),
+        result: '16ebdca405791cb0f23d4c7120606fa1'
     }
 
 ];
