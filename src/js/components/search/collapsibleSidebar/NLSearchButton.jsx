@@ -15,7 +15,7 @@ const propTypes = {
 };
 
 const NLSearchButton = ({loadingState, classname="default-search", icon=DEFAULT_ICON_PATH, text = "Search", startNLSearch}) => {
-    return <button className={`natural-language-submit ${classname}`} onClick={startNLSearch}>
+    return <button className={`natural-language-submit ${classname}`} onClick={startNLSearch} disabled={loadingState}>
         {!loadingState && <img src={icon} alt="Icon for Search Button"/>}
         {loadingState && <FontAwesomeIcon icon={['far', 'wand-magic-sparkles']} />}
         {text}

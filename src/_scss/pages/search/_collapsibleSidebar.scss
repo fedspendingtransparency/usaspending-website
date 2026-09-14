@@ -295,7 +295,6 @@
         }
       }
       .natural-language-submit.loading {
-        // to put loading state in
         color: $cyan-50v;
         background-color: $color-white;
         border: 1px solid transparent;
@@ -311,7 +310,16 @@
             border-box;
 
         &:hover {
-          color: $color-white
+          // prevent loading state hover style changes
+          background:
+            linear-gradient($color-white, $color-white) padding-box,
+            linear-gradient(
+                92deg,
+                $color-secondary-secondary-lighter 0%,
+                #4eb6cd 50.48%,
+                $cyan-60v 100%
+              )
+              border-box;
         }
         
       }

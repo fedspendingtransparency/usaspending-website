@@ -24,6 +24,7 @@ const propTypes = {
 
 const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) => {
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const isComplete = data?.some((res) => (res.type === "search_complete" || res.type === "search_error")) || false;
     const dispatch = useDispatch();
 
     const MAX_CHARS = 500;
@@ -38,15 +39,19 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
     let icon = '../../../../img/magnifying-glass-white.svg';
 
     if (isSearchActive) {
-        searchClass += " loading";
-        btnText = "Working...";
+        if (isComplete) {
+            searchClass +=  " complete";
+            btnText = "Start a new search";
+        }
+        else {
+            searchClass += " loading";
+            btnText = "Working...";
+        }
     }
     else if (text.length === 0) {
         searchClass += " disabled";
         icon = '../../../../img/magnifying-glass-disabled.svg';
     }
-
-    // const searchText = isSearchActive ? 'Start a new search' : 'Search';
 
     const handleStartNLSearch = () => {
         dispatch(setIsSearchActive(true));
@@ -104,7 +109,7 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
                     text={btnText}
                     icon={icon}
                     classname={searchClass}
-                    loadingState={isSearchActive} />
+                    loadingState={isSearchActive && !isComplete} />
             </div>
             <div className="sidebar-body-row">
                 <span className="sidebar-ai-blurb">This is a new AI feature on USAspending.gov. AI can make mistakes, so be sure to check the results.</span>

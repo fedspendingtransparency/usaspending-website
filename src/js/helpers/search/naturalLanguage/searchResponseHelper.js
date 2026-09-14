@@ -16,6 +16,7 @@ export const buildResponseState = (data = []) => {
         } = event ?? {};
            
         const response = responseLookup[type];
+        console.log( "checking message ====> ", message);
     
         if (!response) {
             return;
