@@ -53,11 +53,11 @@ export const buildResponseState = (data = []) => {
             return;
         }
     
-        // Tool complete/error updates the existing item
         const itemIndex = state.items.findIndex(
             (existingItem) => existingItem.toolId === toolId
         );
     
+        // Tool complete/error updates the existing item
         if (itemIndex !== -1) {
             state.items[itemIndex] = {
                 ...state.items[itemIndex],
