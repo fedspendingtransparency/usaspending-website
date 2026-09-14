@@ -247,8 +247,9 @@ export const searchTestData = [
     {
         search_id: '502',
         tool_use_id: 1523,
-        type: RESPONSE_TYPE.TOOL_ERROR  
+        type: RESPONSE_TYPE.TOOL_COMPLETE
     },
+  
     {
         search_id: '502',
         tool_use_id: 1524,
@@ -258,18 +259,38 @@ export const searchTestData = [
     {
         search_id: '502',
         tool_use_id: 1524,
-        type: RESPONSE_TYPE.TOOL_COMPLETE
+        type: RESPONSE_TYPE.TOOL_ERROR
     },
     {
         search_id: '502',
-        type: RESPONSE_TYPE.SEARCH_COMPLETE,
+        tool_use_id: 1525,
+        type: RESPONSE_TYPE.TOOL_START,
         message: (
             <>
                 Applying filters based on grants and loans that went <br /> 
                 to schools in Anne Arundel county, <br />
                 Maryland
             </>
+        )
+    },
+    {
+        search_id: '502',
+        tool_use_id: 1525,
+        type: RESPONSE_TYPE.TOOL_COMPLETE
+
+    },
+    {
+        search_id: '502',
+        type: RESPONSE_TYPE.SEARCH_COMPLETE,
+        message: (
+            <>
+                Showing results for schools in Anne Arundel county that <br />
+                receive over $500,000 in federal <br />
+                funding
+            </>
+            
         ),
+       
         result: '16ebdca405791cb0f23d4c7120606fa1'
     }
 
