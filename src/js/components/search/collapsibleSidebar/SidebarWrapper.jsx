@@ -44,7 +44,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const parsedData = data
         ?.split("\n")
-        .filter((x) => x)
+        .filter((line) => line.trim() !== '')
         .map((line) => JSON.parse(line));
 
     const toggleOpened = (e) => {
