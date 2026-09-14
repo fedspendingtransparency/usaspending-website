@@ -40,7 +40,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { data, refetch } = useRequestNLSearch(text);
+    const { data, refetch, status } = useRequestNLSearch(text);
 
     const parsedData = data
         ?.split('\n')
@@ -112,7 +112,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     text={text}
                     setText={setText}
                     startNLSearch={startNLSearch} 
-                    data={parsedData}/>
+                    data={parsedData}
+                    status={status} />
             )}   
         </div>    
     );
