@@ -155,14 +155,9 @@ const responseLookup = {
 
 export const buildSearchTestState = (data = []) => {
     const state = {
-        search: {
-            searchId: null,
-            messages: []
-        },
-        tools: {} ,
         items: []
     };
-
+        
     data.forEach((event) => {
         const {
             search_id, 
@@ -171,13 +166,13 @@ export const buildSearchTestState = (data = []) => {
             message, 
             result
         } = event ?? {};
-       
+               
         const response = responseLookup[type];
-
+        
         if (!response) {
             return;
         }
-
+        
         const item = {
             searchId: search_id,
             ...(tool_use_id && {
@@ -187,42 +182,34 @@ export const buildSearchTestState = (data = []) => {
             ...(message && {
                 label: message
             }),
-            result
+            ...(result && {
+                result
+            })
         };
-
-        // SEARCH Operation
-        if (response.operation === SEARCH) {
-            state.search.searchId = search_id;
-            state.search.messages.push(item);
-
+        
+        // Search messages are always new display items
+        if (response.operation === OPERATION.SEARCH) {
             state.items.push(item);
-
             return; 
         }
-
+        
         const toolId = tool_use_id;
-
-        // TOOL Operation
+        
         if (!toolId) {
             return;
         }
-
-        state.tools[toolId] = {
-            ...state.tools[toolId],
-            ...item
-        };
-
-        // TOOL_START creates the item in the correct position
+        
+        // Tool start creates a new display item
         if (type === RESPONSE_TYPE.TOOL_START) {
             state.items.push(item);
             return;
         }
-
-        // TOOL_COMPLETE / TOOL_ERROR updates the existing item
+        
+        // Tool complete/error updates the existing item
         const itemIndex = state.items.findIndex(
-            (item) => item.toolId === toolId
+            (existingItem) => existingItem.toolId === toolId
         );
-
+        
         if (itemIndex !== -1) {
             state.items[itemIndex] = {
                 ...state.items[itemIndex],
@@ -230,7 +217,7 @@ export const buildSearchTestState = (data = []) => {
             };
         }
     });
-
+        
     return state;
 };
 
