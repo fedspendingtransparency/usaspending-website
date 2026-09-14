@@ -45,8 +45,6 @@ const useRequestNLSearch = (prompt) => {
         })
     });
 
-    console.log({data, status, refetch})
-
     return { data, refetch, status };
 }
 
