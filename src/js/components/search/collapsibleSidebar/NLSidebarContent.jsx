@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import NLDefaultHint from "./NLDefaultHint";
 import NLSearchButton from "./NLSearchButton";
-import NLSearch from "./NLSearch";
+import NLSearchSuggestionsIcon from "../../naturalLanguage/NLSearchSuggestionsIcon";
 import { RESPONSE_TYPE, OPERATION, VARIANT } from "./NLConstants";
 import { setIsSearchActive } from "../../../redux/actions/sidebar/sidebarActions";
 
@@ -165,7 +165,7 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
                     {responseState.items.map((item, index) => (
                         // eslint-disable-next-line react/no-array-index-key
                         <div key={`${item.toolId ?? 'search'}-${index}`}>
-                            <NLSearch responseData={item} />
+                            <NLSearchSuggestionsIcon {...item} />
                         </div>
                     ))}
                 </>   

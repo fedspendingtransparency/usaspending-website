@@ -11,7 +11,7 @@ import Accordion from "./sharedComponents/accordion/Accordion";
 import ComboBox from "./sharedComponents/ComboBox";
 import { mockComboBox, searchTestData, buildSearchTestState } from "../../../tests/mockData";
 import BannerPageHeader from "./sharedComponents/header/BannerPageHeader";
-import NLSearch from "../components/search/collapsibleSidebar/NLSearch";
+import NLSearchSuggestionsIcon from "./naturalLanguage/NLSearchSuggestionsIcon";
 
 require("pages/search/searchPage.scss");
 
@@ -901,23 +901,9 @@ const TempPage = () => {
                         {searchTestState.items.map((item, index) => (
                             // eslint-disable-next-line react/no-array-index-key
                             <div key={`testId-${item.toolId ?? 'search'}-${index}`}>
-                                <NLSearch responseData={item} />
-                            </div>
-                        ))
-
-                        }
-                        {/* {searchTestState.search?.messages?.map((message, index) => (
-                            // eslint-disable-next-line react/no-array-index-key
-                            <div key={`search-message-${index}`}>
-                                <NLSearch responseData={message} />
+                                <NLSearchSuggestionsIcon {...item} />
                             </div>
                         ))}
-                        {Object.values(searchTestState.tools).map((tool, index) => (
-                            // eslint-disable-next-line react/no-array-index-key
-                            <div key={`testId-${tool.toolId}-${index}`}>
-                                <NLSearch responseData={tool} />
-                            </div> 
-                        ))} */}
                     </>
                 </main>
             </PageWrapper>
