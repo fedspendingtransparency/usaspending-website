@@ -14,7 +14,7 @@ const propTypes = {
     classname: PropTypes.string,
     icon: PropTypes.string,
     text: PropTypes.string,
-    onClick: PropTypes.func
+    startNLSearch: PropTypes.func
 };
 
 const NLSearchButton = ({
@@ -22,16 +22,17 @@ const NLSearchButton = ({
     classname="default-search",
     icon=DEFAULT_ICON_PATH,
     text = "Search",
-    onClick = ()=> console.debug("clicked")
+    startNLSearch
 }) => {
     const fireSearchEvent = useFireQueryEvent();
 
-    const test = () => {
-        onClick();
+    const onClick = () => {
+        startNLSearch();
         fireSearchEvent();
     }
+
     return (
-        <button className={`natural-language-submit ${classname}`} onClick={test} >
+        <button className={`natural-language-submit ${classname}`} onClick={onClick}>
             {!loadingState && <img src={icon} alt="Icon for Search Button"/>}
             {loadingState && <FontAwesomeIcon icon={['far', 'wand-magic-sparkles']} />}
             {text}

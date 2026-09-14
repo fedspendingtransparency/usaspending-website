@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
@@ -13,7 +13,8 @@ import MobileSidebarContent from "./MobileSidebarContent";
 import NLSidebarButtons from "./NLSidebarButtons";
 import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 import NLSidebarContent from "./NLSidebarContent";
-import { FILTERS} from './SidebarConstants';
+import { FILTERS } from './SidebarConstants';
+import useRequestNLSearch from "./useRequestNLSearch";
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
@@ -39,6 +40,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
+    const { data, refetch, status } = useRequestNLSearch(text);
+
     const toggleOpened = (e) => {
         e.preventDefault();
         setSidebarIsOpen((prevState) => !prevState);
@@ -63,6 +66,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             setText(e.target.textContent);
         }
     };
+
+    const startNLSearch = () => {
+        if(text && typeof refetch === "function") {
+            refetch();
+        }
+    }
 
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">
@@ -96,7 +105,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 <NLSidebarContent
                     hintOnClick={hintOnClick}
                     text={text}
-                    setText={setText} />
+                    setText={setText}
+                    startNLSearch={startNLSearch}
+                    data={data}
+                    status={status} />
             )}   
         </div>    
     );
@@ -136,7 +148,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 <NLSidebarContent
                     hintOnClick={hintOnClick}
                     text={text}
-                    setText={setText} />
+                    setText={setText}
+                    startNLSearch={startNLSearch} />
             )}
         </div>
     );
