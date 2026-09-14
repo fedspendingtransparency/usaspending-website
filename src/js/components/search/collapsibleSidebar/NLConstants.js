@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export const RESPONSE_TYPE = {
     SEARCH_START: 'search_start',
     SEARCH_COMPLETE: 'search_complete',
@@ -18,4 +17,44 @@ export const VARIANT = {
     START: 'start',
     COMPLETE: 'complete',
     ERROR: 'error'
+};
+
+const {SEARCH, TOOL} = OPERATION;
+const {START, COMPLETE, ERROR, INIT} = VARIANT;
+
+export const responseLookup = {
+    [RESPONSE_TYPE.SEARCH_START]: {
+        operation: SEARCH,
+        variant: INIT,
+        icon: ['far', 'circle-check']
+    },
+
+    [RESPONSE_TYPE.SEARCH_COMPLETE]: {
+        operation: SEARCH,
+        variant: COMPLETE
+    },
+
+    [RESPONSE_TYPE.SEARCH_ERROR]: {
+        operation: SEARCH,
+        variant: ERROR, 
+        icon: ['far','circle-xmark']
+    },
+
+    [RESPONSE_TYPE.TOOL_START]: {
+        operation: TOOL,
+        variant: START, 
+        icon: ['far', 'sparkles']
+    },
+
+    [RESPONSE_TYPE.TOOL_COMPLETE]: {
+        operation: TOOL,
+        variant: COMPLETE, 
+        icon: ['far','circle-check']
+    },
+
+    [RESPONSE_TYPE.TOOL_ERROR]: {
+        operation: TOOL,
+        variant: ERROR,
+        icon: ['far', 'circle-xmark']
+    }
 };

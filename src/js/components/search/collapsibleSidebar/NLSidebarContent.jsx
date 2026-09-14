@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import NLDefaultHint from "./NLDefaultHint";
 import NLSearchButton from "./NLSearchButton";
 import NLSearchSuggestionsIcon from "../../naturalLanguage/NLSearchSuggestionsIcon";
-import { RESPONSE_TYPE, OPERATION, VARIANT } from "./NLConstants";
+import { RESPONSE_TYPE, responseLookup, OPERATION } from "./NLConstants";
 import { setIsSearchActive } from "../../../redux/actions/sidebar/sidebarActions";
 
 const propTypes = {
@@ -13,46 +13,6 @@ const propTypes = {
     setText: PropTypes.func,
     startNLSearch: PropTypes.func,
     data: PropTypes.array
-};
-
-const {SEARCH, TOOL} = OPERATION;
-const {START, COMPLETE, ERROR, INIT} = VARIANT;
-
-const responseLookup = {
-    [RESPONSE_TYPE.SEARCH_START]: {
-        operation: SEARCH,
-        variant: INIT,
-        icon: ['far', 'circle-check']
-    },
-
-    [RESPONSE_TYPE.SEARCH_COMPLETE]: {
-        operation: SEARCH,
-        variant: COMPLETE
-    },
-
-    [RESPONSE_TYPE.SEARCH_ERROR]: {
-        operation: SEARCH,
-        variant: ERROR, 
-        icon: ['far','circle-xmark']
-    },
-
-    [RESPONSE_TYPE.TOOL_START]: {
-        operation: TOOL,
-        variant: START, 
-        icon: ['far', 'sparkles']
-    },
-
-    [RESPONSE_TYPE.TOOL_COMPLETE]: {
-        operation: TOOL,
-        variant: COMPLETE, 
-        icon: ['far','circle-check']
-    },
-
-    [RESPONSE_TYPE.TOOL_ERROR]: {
-        operation: TOOL,
-        variant: ERROR,
-        icon: ['far', 'circle-xmark']
-    }
 };
 
 const buildResponseState = (data = []) => {
@@ -90,7 +50,7 @@ const buildResponseState = (data = []) => {
         };
     
         // Search messages are always new display items
-        if (response.operation === SEARCH) {
+        if (response.operation === OPERATION.SEARCH) {
             state.items.push(item);
             return; 
         }
