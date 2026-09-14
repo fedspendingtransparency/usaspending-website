@@ -29,7 +29,7 @@ const useRequestNLSearch = (prompt) => {
         enabled: false,
         queryFn: streamedQuery({
             streamFn: async function* () {
-                const request = fetch(LLM_API, requestHeader);
+                const request = await fetch(LLM_API, requestHeader);
 
                 const reader = request.body.getReader();
                 const decoder = new TextDecoder();
