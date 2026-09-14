@@ -8,7 +8,7 @@ import React from 'react';
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { stateTitleCase } from "../../../features/state/stateHelper";
 const dayjs = require('dayjs');
 
 const AwardsUserSelections = () => {
@@ -117,7 +117,7 @@ const AwardsUserSelections = () => {
             if (awards.location.state.code && awards.location.state.code !== 'all') {
                 return (
                     <div className="selection__content">
-                        {`${locationType}: ${awards.location.state.name}, ${awards.location.country.name}`}
+                        {`${locationType}: ${stateTitleCase(awards.location.state.name)}, ${awards.location.country.name}`}
                     </div>
                 );
             }

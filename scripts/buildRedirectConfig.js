@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { stateNameByFipsId } from '../src/js/dataMapping/state/stateNames';
+import { useStateNameByFipsId } from "../src/js/hooks/useStateData";
 import { URLifyStateName } from '../src/js/features/state/stateHelper';
 import agencyIdsToSlugs from '../src/js/dataMapping/agency/agencyIdsToSlugs';
 
@@ -16,7 +16,7 @@ const legacyRedirects = {
     "^/analyst-guide/": "/federal-spending-guide"
 };
 
-const stateRedirects = Object.entries(stateNameByFipsId)
+const stateRedirects = Object.entries(useStateNameByFipsId())
     .reduce((acc, [fipsId, stateName]) => ({
         ...acc,
         [`^/state/${fipsId}`]: `/state/${URLifyStateName(stateName)}`

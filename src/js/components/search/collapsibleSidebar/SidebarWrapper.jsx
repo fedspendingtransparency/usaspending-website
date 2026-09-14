@@ -40,8 +40,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { data, refetch, status } = useRequestNLSearch(text);
-    console.log("data status", data, status);
+    const { data, refetch } = useRequestNLSearch(text);
+
+    const parsedData = data
+        ?.split("\n")
+        .filter((line) => line.trim() !== '')
+        .map((line) => JSON.parse(line));
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -69,7 +73,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     };
 
     const startNLSearch = () => {
-        console.log("start nl search");
         if(text && typeof refetch === "function") {
             refetch();
         }
@@ -108,9 +111,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     hintOnClick={hintOnClick}
                     text={text}
                     setText={setText}
-                    startNLSearch={startNLSearch}
-                    status={status}
-                    data={data} />
+                    startNLSearch={startNLSearch} 
+                    data={parsedData}/>
             )}   
         </div>    
     );
@@ -151,9 +153,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     hintOnClick={hintOnClick}
                     text={text}
                     setText={setText}
-                    startNLSearch={startNLSearch}
-                    status={status}
-                    data={data} />
+                    startNLSearch={startNLSearch} 
+                    data={parsedData}/>
             )}
         </div>
     );
