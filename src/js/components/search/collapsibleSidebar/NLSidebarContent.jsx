@@ -104,8 +104,8 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, status, d
             <>
                 <p className="sidebar-text query-text">{queryText}</p>
                 <div className="sidebar-body-row response">
-                    {searchResponse.map((response) => (
-                        <div key={`querysearch-feedback-${response.type}`}>
+                    {searchResponse.map((response, i) => (
+                        <div key={`querysearch-feedback-${response.type}-${i}`}>
                             <NLSearch {...response} />
                         </div>  
                     ))}
