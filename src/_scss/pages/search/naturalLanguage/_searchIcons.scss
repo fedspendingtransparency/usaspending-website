@@ -183,6 +183,7 @@
     }
   }
 
+  &--initialize,
   &--start,
   &--complete,
   &--error {
@@ -201,6 +202,7 @@
     }
   }
 
+  &--initialize,
   &--complete {
     .icon {
       color: $green-cool-50v;

@@ -16,12 +16,12 @@ const propTypes = {
 };
 
 const {SEARCH, TOOL} = OPERATION;
-const {START, COMPLETE, ERROR} = VARIANT;
+const {START, COMPLETE, ERROR, INIT} = VARIANT;
 
 const responseLookup = {
     [RESPONSE_TYPE.SEARCH_START]: {
         operation: SEARCH,
-        variant: COMPLETE,
+        variant: INIT,
         icon: ['far', 'circle-check']
     },
 
@@ -84,7 +84,9 @@ const buildResponseState = (data = []) => {
             ...(message && {
                 label: message
             }),
-            result
+            ...(result && {
+                result
+            })
         };
     
         // Search messages are always new display items
@@ -130,6 +132,8 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
         () => buildResponseState(data), 
         [data]
     );
+
+    console.log({responseState});
 
     const reset = () => setText("");
     let searchClass = 'default-search';

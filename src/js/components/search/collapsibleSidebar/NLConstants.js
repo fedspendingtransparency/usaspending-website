@@ -14,6 +14,7 @@ export const OPERATION = {
 };
 
 export const VARIANT = {
+    INIT: 'initialize',
     START: 'start',
     COMPLETE: 'complete',
     ERROR: 'error'
