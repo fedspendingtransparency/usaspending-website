@@ -133,8 +133,6 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
         [data]
     );
 
-    console.log({responseState});
-
     const reset = () => setText("");
     let searchClass = 'default-search';
     const searchText = isSearchActive ? 'Start a new search' : 'Search';
