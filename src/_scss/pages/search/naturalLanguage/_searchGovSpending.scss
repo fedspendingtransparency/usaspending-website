@@ -75,8 +75,9 @@
     width: 100%;
     align-items: center;
     display: flex;
+    flex-wrap: wrap;
     @media(max-width: $tablet-screen - 1) {
-      gap: 0 rem(12) rem(12) 0;
+      gap: rem(12);
       flex-wrap: wrap;
     }
     .search-gov-spending__prompt-title {
@@ -114,13 +115,17 @@
 
     .search-gov-spending__tablet-prompt-wrapper {
       display: inline;
-      margin-bottom: rem(8);
+      margin-bottom: rem(-4);
       width: 100%;
+      @media(min-width:$tablet-screen) {
+        margin-bottom: rem(8);
+      }
     }
     .search-gov-spending__button-container {
       display: flex;
       flex-wrap: wrap;
       gap: rem(12);
+
       button {
         margin: 0;
       }
@@ -185,4 +190,7 @@
 
 .search-gov-spending__section.filter-spacing {
   padding: rem(20);
+  @media (min-width: $large-screen) {
+    padding: rem(40);
+  }
 }
