@@ -28,8 +28,16 @@ const propTypes = {
     setAboutTheDataTerm: PropTypes.func
 };
 
+const getHeight = () => {
+    const paddingBottom = 200;
+    const wrapperHeight = document.getElementById('usa-atd-wrapper')?.getBoundingClientRect().height || 0;
+    const headerHeight = document.getElementById('usa-atd-header')?.getBoundingClientRect().height || 0;
+
+    return wrapperHeight - headerHeight - paddingBottom;
+}
+
 const AboutTheData = ({ schema, ...props }) => {
-    const [height, setHeight] = useState(0);
+    const [height, setHeight] = useState(getHeight());
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
     const [scrollbar, setScrollbar] = useState(null);
@@ -117,15 +125,7 @@ const AboutTheData = ({ schema, ...props }) => {
         dispatch(aboutTheDataActions.setAboutTheDataResults(resultItems));
     };
 
-    const measureAvailableHeight = () => {
-        const paddingBottom = 200;
-        const wrapperHeight = document.getElementById('usa-atd-wrapper')?.getBoundingClientRect().height || 0;
-        const headerHeight = document.getElementById('usa-atd-header')?.getBoundingClientRect().height || 0;
-
-        const sidebarHeight = wrapperHeight - headerHeight - paddingBottom;
-
-        setHeight(sidebarHeight);
-    };
+    const measureAvailableHeight = () => setHeight(getHeight());
 
     const closeAboutTheData = useCallback((e) => {
         if (e.key === 'Escape' || (e.type === 'click')) {
@@ -223,7 +223,6 @@ const AboutTheData = ({ schema, ...props }) => {
     }, [closeAboutTheData, props.aboutTheDataSidebar.term.slug, schema]);
 
     useEffect(() => {
-        measureAvailableHeight();
         if (scrollbar) {
             scrollbar.scrollToTop();
         }
