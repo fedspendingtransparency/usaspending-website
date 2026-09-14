@@ -17,6 +17,7 @@ export const OPERATION = {
 };
 
 export const VARIANT = {
+    INIT: 'initialize',
     START: 'start',
     COMPLETE: 'complete',
     ERROR: 'error'
@@ -113,12 +114,12 @@ export const mockComboBox = [
 ];
 
 const {SEARCH, TOOL} = OPERATION;
-const {START, COMPLETE, ERROR} = VARIANT;
+const {INIT, START, COMPLETE, ERROR} = VARIANT;
 
 const responseLookup = {
     [RESPONSE_TYPE.SEARCH_START]: {
         operation: SEARCH,
-        variant: COMPLETE,
+        variant: INIT,
         icon: ['far', 'circle-check']
     },
 
