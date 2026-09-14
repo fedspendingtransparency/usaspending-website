@@ -69,7 +69,7 @@ const buildResponseState = (data = []) => {
     
         // Tool complete/error updates the existing item
         const itemIndex = state.items.findIndex(
-            (item) => item.toolId === toolId
+            (existingItem) => existingItem.toolId === toolId
         );
     
         if (itemIndex !== -1) {
