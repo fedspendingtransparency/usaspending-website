@@ -17,7 +17,7 @@ const useRequestNLSearch = (prompt) => {
             headers: headers,
             body: JSON.stringify({'query': prompt})
         }
-    :
+        :
         {
             method: 'POST',
             body: JSON.stringify({'query': prompt})
@@ -46,6 +46,8 @@ const useRequestNLSearch = (prompt) => {
             initialValue: ''
         })
     });
+
+    console.log({data, status, refetch})
 
     return { data, refetch, status };
 }
