@@ -30,7 +30,6 @@ const propTypes = {
 
 const AboutTheData = ({ schema, ...props }) => {
     const [height, setHeight] = useState(0);
-    const [drilldown, setDrilldown] = useState(null);
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
     const [scrollbar, setScrollbar] = useState(null);
@@ -50,7 +49,6 @@ const AboutTheData = ({ schema, ...props }) => {
     const clearDrilldown = () => {
         setDrilldownItemId(null);
         setDrilldownSection(null);
-        setDrilldown(false);
         props.clearAboutTheDataTerm();
     };
 
@@ -229,12 +227,15 @@ const AboutTheData = ({ schema, ...props }) => {
         if (scrollbar) {
             scrollbar.scrollToTop();
         }
-    }, [drilldown, scrollbar]);
+    }, [scrollbar]);
 
     useEffect(() => {
-        if (drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection) {
+        if (
+            drilldownItemId !== null &&
+            drilldownItemId >= 0 &&
+            drilldownSection
+        ) {
             scrollbar?.scrollToTop();
-            setDrilldown(true);
         }
     }, [drilldownItemId, drilldownSection, scrollbar]);
 
@@ -266,7 +267,7 @@ const AboutTheData = ({ schema, ...props }) => {
                             renderTrackVertical={track}
                             renderThumbVertical={thumb}
                             ref={(s) => setScrollbar(s)}>
-                            {drilldown ?
+                            { drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection ?
                                 <div className="atd__body">
                                     <AboutTheDataDrilldown
                                         section={drilldownSection?.heading}
@@ -279,7 +280,8 @@ const AboutTheData = ({ schema, ...props }) => {
                                     <div className="atd__body">
                                         {content}
                                     </div>
-                                </>}
+                                </>
+                            }
                         </Scrollbars>
                     </>
                 }
