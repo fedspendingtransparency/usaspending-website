@@ -56,7 +56,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         ?.split('\n')
         .filter((line) => line.trim() !== '')
         .map((line) => JSON.parse(line));
-    
+
     const toggleOpened = (e) => {
         e.preventDefault();
         setSidebarIsOpen((prevState) => !prevState);
@@ -94,7 +94,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         if (parsedData) {
             dispatch(setIsNLSearchComplete(parsedData
                 .some((res) => (
-                    res.type === "search_complete" 
+                    res.type === "search_complete"
                     || res.type === "search_error"))
             || false));
 
