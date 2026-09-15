@@ -10,18 +10,14 @@ import { Scrollbars } from 'react-custom-scrollbars';
 
 import {
     clearAboutTheDataTerm,
-    hideAboutTheData,
-    setAboutTheDataTerm
+    hideAboutTheData
 } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import { getDrilldownEntrySectionAndId, escapeRegExp } from "../../helpers/aboutTheDataSidebarHelper";
+import { getDrilldownEntrySectionAndId } from "../../helpers/aboutTheDataSidebarHelper";
 import { getQueryParamString } from '../../helpers/queryParams';
 import schema from "../../../config/aboutTheData/aboutTheDataSchema";
 import useQueryParams from "../../hooks/useQueryParams";
 import AboutTheDataHeader from "./AboutTheDataHeader";
-import AboutTheDataListView from "./AboutTheDataListView";
-import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
-import DownloadButton from "./DownloadButton";
-import AboutTheDataNoResults from "./AboutTheDataNoResults";
+import AboutTheDataContent from "./AboutTheDataContent";
 
 const getHeight = () => {
     const paddingBottom = 200;
@@ -35,7 +31,6 @@ const AboutTheData = () => {
     const query = useQueryParams();
     const { pathname } = useLocation();
     const dispatch = useDispatch();
-    const input = useSelector((state) => state.aboutTheDataSidebar.search.input);
     const slug = useSelector((state) => state.aboutTheDataSidebar.term.slug);
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
     const display = useSelector((state) => state.aboutTheDataSidebar.display);
@@ -48,65 +43,10 @@ const AboutTheData = () => {
 
     const clearDrilldown = useCallback(() => dispatch(clearAboutTheDataTerm()), [dispatch]);
 
-    const { entryId: drilldownItemId, section: drilldownSection } = useMemo(() => {
+    const { entryId, section } = useMemo(() => {
         if (slug === "") return { entryId: null, section: null };
         return getDrilldownEntrySectionAndId(schema, slug)
     }, [slug]);
-
-    const searchResults = useMemo(() => {
-        if (!input || input.length < 3) return schema;
-
-        const resultItems = {};
-
-        // look for search term in each 'fields.name' in each section
-        Object
-            .entries(schema)
-            .filter(([, section]) => section.heading !== undefined)
-            .forEach(([sectionKey, section]) => {
-                const matchingFields = section.fields.filter((field) =>
-                    field.name.toLowerCase()
-                        .includes(input.toLowerCase())
-                );
-                if (matchingFields.length) {
-                    const markupFields = [];
-                    matchingFields.forEach((field) => {
-                        // add classname to the search term in the results
-                        const regex = new RegExp(escapeRegExp(input), 'gi');
-                        const markupName = field.name.replace(regex, '<match>$&<match>');
-                        const parts = markupName.split('<match>');
-                        const markup = <>
-                            {parts.map((part) => (
-                                <>
-                                    {part.toLowerCase() === input.toLowerCase() ? (
-                                        <span className="matched-highlight">
-                                            {part}
-                                        </span>
-                                    )
-                                        :
-                                        <>
-                                            {part}
-                                        </>
-                                    }
-                                </>
-                            ))}
-                        </>;
-
-                        markupFields.push({
-                            name: markup,
-                            slug: field.slug
-                        });
-                    });
-                    resultItems[sectionKey] = {
-                        fields: markupFields,
-                        heading: section.heading
-                    };
-                }
-            });
-
-        clearDrilldown();
-
-        return resultItems
-    }, [input, clearDrilldown])
 
     const measureAvailableHeight = () => setHeight(getHeight());
 
@@ -139,32 +79,10 @@ const AboutTheData = () => {
     const track = () => <div className="atd-scrollbar-track" />;
     const thumb = () => <div className="atd-scrollbar-thumb" />;
 
-    const selectItem = (index, section) => dispatch(setAboutTheDataTerm(section.fields[index]));
-
-    const content = Object.keys(searchResults).length === 0 ? (
-        <>
-            <DownloadButton />
-            <AboutTheDataNoResults searchTerm={input} />
-        </>
-    )
-        :
-        (
-            <>
-                <DownloadButton />
-                {Object.values(searchResults)
-                    .filter((section) => section.heading !== undefined)
-                    .map((section) => (
-                        <AboutTheDataListView
-                            key={`section-${section.heading}`}
-                            section={section}
-                            selectItem={selectItem} />
-                    ))}
-            </>
-        );
-
     useEffect(() => {
         window.addEventListener('resize', measureAvailableHeight);
         window.addEventListener('keyup', closeAboutTheData);
+
         return () => {
             window.removeEventListener('resize', measureAvailableHeight);
             window.removeEventListener('keyup', closeAboutTheData);
@@ -179,13 +97,13 @@ const AboutTheData = () => {
 
     useEffect(() => {
         if (
-            drilldownItemId !== null &&
-            drilldownItemId >= 0 &&
-            drilldownSection
+            entryId !== null &&
+            entryId >= 0 &&
+            section
         ) {
             scrollbar?.scrollToTop();
         }
-    }, [drilldownItemId, drilldownSection, scrollbar]);
+    }, [entryId, section, scrollbar]);
 
     return (
         <div
@@ -206,21 +124,7 @@ const AboutTheData = () => {
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}
                     ref={(s) => setScrollbar(s)}>
-                    { drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection ?
-                        <div className="atd__body">
-                            <AboutTheDataDrilldown
-                                section={drilldownSection?.heading}
-                                name={drilldownSection?.fields[drilldownItemId]?.name}
-                                clearDrilldown={clearDrilldown}
-                                slug={drilldownSection?.fields[drilldownItemId]?.slug} />
-                        </div>
-                        :
-                        <>
-                            <div className="atd__body">
-                                {content}
-                            </div>
-                        </>
-                    }
+                    <AboutTheDataContent clearDrilldown={clearDrilldown} entryId={entryId} section={section} />
                 </Scrollbars>
             </aside>
         </div>);
