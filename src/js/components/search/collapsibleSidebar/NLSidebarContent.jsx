@@ -31,7 +31,7 @@ const NLSidebarContent = ({
 }) => {
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
-    
+
     const dispatch = useDispatch();
 
     const MAX_CHARS = 500;
@@ -77,7 +77,7 @@ const NLSidebarContent = ({
             {isSearchActive &&  <p className="sidebar-text semibold">{text}</p> }
             { isSearchActive ? (
                 
-                <div className="sidebar-response-row">
+                <div className="sidebar-body-row response">
                     {responseState.items.map((item, index) => (
                         // eslint-disable-next-line react/no-array-index-key
                         <div key={`${item.toolId ?? 'search'}-${index}`}>
