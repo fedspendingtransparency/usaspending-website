@@ -67,7 +67,6 @@ const NLSidebarContent = ({
 
     const handleNewNLSearch = () => {
         dispatch(setIsSearchActive(false));
-        reset();
     }
 
     const handleNLSearch = isSearchActive ? handleNewNLSearch : handleStartNLSearch;

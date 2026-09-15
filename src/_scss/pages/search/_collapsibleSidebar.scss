@@ -102,6 +102,9 @@
     &.is-nl {
       overflow-y: auto;
       max-height: calc(100dvh - rem(292));
+      @media (min-width: $small-screen) {
+        flex-direction: column;
+      }
     }
 
     .sidebar-title-row {

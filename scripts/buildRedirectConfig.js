@@ -1,6 +1,6 @@
 import fs from 'fs';
 import path from 'path';
-import { useStateNameByFipsId } from "../src/js/hooks/useStateData";
+import { fetchStateList } from "../src/js/hooks/useStateData";
 import { URLifyStateName } from '../src/js/features/state/stateHelper';
 import agencyIdsToSlugs from '../src/js/dataMapping/agency/agencyIdsToSlugs';
 
@@ -16,18 +16,20 @@ const legacyRedirects = {
     "^/analyst-guide/": "/federal-spending-guide"
 };
 
-const stateRedirects = Object.entries(useStateNameByFipsId())
-    .reduce((acc, [fipsId, stateName]) => ({
-        ...acc,
-        [`^/state/${fipsId}`]: `/state/${URLifyStateName(stateName)}`
-    }), legacyRedirects);
+const buildPageRedirectByUrlRegex = async () => {
+    const { data } = await fetchStateList().promise;
 
-const agencyRedirects = {};
-agencyIdsToSlugs.forEach((a) => {
-    agencyRedirects[`^/agency/${a.agency_id}`] = `/agency/${a.agency_slug}`;
-});
+    const stateRedirects = data.results
+        .reduce((acc, { fips, name }) => ({
+            ...acc,
+            [`^/state/${fips}`]: `/state/${URLifyStateName(name)}`
+        }), legacyRedirects);
 
-const buildPageRedirectByUrlRegex = () => {
+    const agencyRedirects = {};
+    agencyIdsToSlugs.forEach((a) => {
+        agencyRedirects[`^/agency/${a.agency_id}`] = `/agency/${a.agency_slug}`;
+    });
+
     const file = fs.createWriteStream(path.resolve(__dirname, "../redirect-config.json"));
     file.write(JSON.stringify(Object.assign(stateRedirects, agencyRedirects)));
     file.on('error', (e) => {

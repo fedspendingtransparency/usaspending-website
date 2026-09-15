@@ -1,3 +1,8 @@
+/**
+ * searchResponseHelper.js
+ * Created by Trey Morgan 9/14/2026
+ */
+
 import {RESPONSE_TYPE, OPERATION, responseLookup } from "../../../components/search/collapsibleSidebar/NLConstants";
 
 // eslint-disable-next-line import/prefer-default-export
@@ -54,11 +59,11 @@ export const buildResponseState = (data = []) => {
             return;
         }
     
-        // Tool complete/error updates the existing item
         const itemIndex = state.items.findIndex(
             (existingItem) => existingItem.toolId === toolId
         );
     
+        // Tool complete/error updates the existing item
         if (itemIndex !== -1) {
             state.items[itemIndex] = {
                 ...state.items[itemIndex],

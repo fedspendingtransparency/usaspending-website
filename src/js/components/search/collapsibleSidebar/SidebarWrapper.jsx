@@ -45,9 +45,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
     const { data, refetch } = useRequestNLSearch(text);
-    
+
     const parsedData = data
-        ?.split("\n")
+        ?.split('\n')
         .filter((line) => line.trim() !== '')
         .map((line) => JSON.parse(line));
     
