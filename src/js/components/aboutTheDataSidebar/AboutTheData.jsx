@@ -3,18 +3,16 @@
  * Created by Nick Torres 11/2/22
  */
 
-import React, {useState, useEffect, useCallback, useMemo} from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from "react-router";
 import { Scrollbars } from 'react-custom-scrollbars';
-import { isEqual } from "lodash-es";
 
 import { clearAboutTheDataTerm } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 import { getDrilldownEntrySectionAndId, escapeRegExp } from "../../helpers/aboutTheDataSidebarHelper";
 import { getQueryParamString } from '../../helpers/queryParams';
 import useQueryParams from "../../hooks/useQueryParams";
-import { LoadingWrapper } from "../sharedComponents/Loading";
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
@@ -38,17 +36,17 @@ const getHeight = () => {
 }
 
 const AboutTheData = ({ schema, ...props }) => {
-    const [height, setHeight] = useState(getHeight());
-    const [scrollbar, setScrollbar] = useState(null);
-    const [searchResultsPending, setSearchResultsPending] = useState(false);
-    const [firstMount] = useState(() => !props.aboutTheDataSidebar.display);
+    const query = useQueryParams();
     const { pathname } = useLocation();
-
     const dispatch = useDispatch();
-    const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
+    const input = useSelector((state) => state.aboutTheDataSidebar.search.input);
     const slug = useSelector((state) => state.aboutTheDataSidebar.term.slug);
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
-    const query = useQueryParams();
+    const display = useSelector((state) => state.aboutTheDataSidebar.display);
+
+    const [firstMount] = useState(() => !display);
+    const [height, setHeight] = useState(getHeight());
+    const [scrollbar, setScrollbar] = useState(null);
 
     const zIndexClass = lastOpenedSlideout === 'atd' ? 'z-index-plus-one' : 'z-index';
 
@@ -140,7 +138,7 @@ const AboutTheData = ({ schema, ...props }) => {
                 mainContent.focus();
             }
         }
-    });
+    }, []);
 
     const track = () => <div className="atd-scrollbar-track" />;
     const thumb = () => <div className="atd-scrollbar-thumb" />;
@@ -169,25 +167,6 @@ const AboutTheData = ({ schema, ...props }) => {
                     ))}
             </>
         );
-
-    useEffect(() => {
-        if (input === null || input?.length === 0 || isEqual(results, searchResults)) {
-            setSearchResultsPending(false);
-        }
-
-        // if there are already results on redux set the UI to the results
-        if (input?.length > 0 && !isEqual(results, searchResults)) {
-            setSearchResultsPending(true);
-            // setSearchResults(results);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        if (searchResultsPending && isEqual(results, searchResults)) {
-            setSearchResultsPending(false);
-        }
-    }, [results, searchResults, searchResultsPending]);
 
     useEffect(() => {
         window.addEventListener('resize', measureAvailableHeight);
@@ -227,34 +206,28 @@ const AboutTheData = ({ schema, ...props }) => {
                 role="dialog"
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
-                {searchResultsPending ?
-                    <><LoadingWrapper isLoading /></>
-                    :
-                    <>
-                        <AboutTheDataHeader closeAboutTheData={closeAboutTheData} />
-                        <Scrollbars
-                            style={{ height }}
-                            renderTrackVertical={track}
-                            renderThumbVertical={thumb}
-                            ref={(s) => setScrollbar(s)}>
-                            { drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection ?
-                                <div className="atd__body">
-                                    <AboutTheDataDrilldown
-                                        section={drilldownSection?.heading}
-                                        name={drilldownSection?.fields[drilldownItemId]?.name}
-                                        clearDrilldown={clearDrilldown}
-                                        slug={drilldownSection?.fields[drilldownItemId]?.slug} />
-                                </div>
-                                :
-                                <>
-                                    <div className="atd__body">
-                                        {content}
-                                    </div>
-                                </>
-                            }
-                        </Scrollbars>
-                    </>
-                }
+                <AboutTheDataHeader closeAboutTheData={closeAboutTheData} />
+                <Scrollbars
+                    style={{ height }}
+                    renderTrackVertical={track}
+                    renderThumbVertical={thumb}
+                    ref={(s) => setScrollbar(s)}>
+                    { drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection ?
+                        <div className="atd__body">
+                            <AboutTheDataDrilldown
+                                section={drilldownSection?.heading}
+                                name={drilldownSection?.fields[drilldownItemId]?.name}
+                                clearDrilldown={clearDrilldown}
+                                slug={drilldownSection?.fields[drilldownItemId]?.slug} />
+                        </div>
+                        :
+                        <>
+                            <div className="atd__body">
+                                {content}
+                            </div>
+                        </>
+                    }
+                </Scrollbars>
             </aside>
         </div>);
 };
