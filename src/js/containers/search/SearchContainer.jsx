@@ -22,7 +22,7 @@ import {
     areFiltersEmpty, areFiltersEqual,
     areFiltersSelected,
     generateUrlHash, getObjFromQueryParams,
-    restoreUrlHash
+    restoreUrlHash, parseRemoteFilters
 } from "helpers/searchHelper";
 import useQueryParams from "hooks/useQueryParams";
 import SearchPage from 'components/search/SearchPage';
@@ -36,62 +36,6 @@ import { storeStructuresAreEqual } from '../../helpers/searchHelper';
 
 require('pages/search/searchPage.scss');
 
-/**
- * Takes Filter Object from API and transforms it to Immutable Data Structures
- * @param {Object} data object to be transformed
- * @returns {Object} Object where every property is an immutable data structure
- */
-export const parseRemoteFilters = (data) => {
-    // data type check
-    if (typeof data !== 'object') {
-        console.info("bad data");
-        return null;
-    }
-
-    const newFilters = data.filters;
-    const version = data.version;
-
-    if (version !== filterStoreVersion) {
-    // versions don't match, don't populate the filters
-    // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
-    //  a URL hash contains data that no longer applies to the current site
-        console.info("version mismatch");
-        return null;
-    }
-
-    // filter type check/null check
-    if (!newFilters || typeof newFilters !== 'object') {
-        console.info("bad filters")
-        return null;
-    }
-
-    // convert values to Immutable object types as necessary
-    const reduxValues = {};
-    Object.keys(newFilters).forEach((key) => {
-        const value = newFilters[key];
-        if (requiredTypes[key]) {
-            // Redux expects an Immutable-typed object
-            const ObjType = requiredTypes[key];
-            reduxValues[key] = new ObjType(value);
-        }
-        else {
-            reduxValues[key] = value;
-        }
-    });
-
-    if (!storeStructuresAreEqual(reduxValues, initialState)) {
-        // Redux structure and URL hash data mis match
-        // return null and send user to error page.
-        console.info("store structure mis match.")
-        return null;
-    }
-    
-    // send the selected filters to Google Analytics
-    const events = convertFiltersToAnalyticEvents(reduxValues);
-    sendFieldCombinations(events);
-    sendAnalyticEvents(events);
-    return reduxValues;
-};
 
 const SearchContainer = () => {
     const location = useLocation();

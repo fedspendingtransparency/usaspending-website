@@ -3,11 +3,17 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { navigate } from 'react-router';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { isCancel } from 'axios';
 import PropTypes from "prop-types";
 import useIsMobile from "hooks/useIsMobile";
+import { restoreHashedFilters, setAppliedFilterEmptiness } from 'redux/actions/search/searchHashActions';
+import { restoreUrlHash, parseRemoteFilters, searchURLParams } from "helpers/searchHelper";
+
 import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
 import NLSidebarButtons from "./NLSidebarButtons";
@@ -82,6 +88,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
     }
 
+    const request = useRef();
+
     useEffect(() => {
         if (parsedData) {
             dispatch(setIsNLSearchComplete(parsedData
@@ -89,6 +97,52 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     res.type === "search_complete" 
                     || res.type === "search_error"))
             || false));
+
+            const done = parsedData.find((res) => {
+                if (res.type === "search_complete") {
+                    return res;
+                }
+            });
+
+            const nlHash = "90e50821bf552b36f20c74de96262d27";
+            // const nlHash = done.result;  // this should work once we receive a value hash from the backend
+            console.log(parsedData, done);
+
+            if (done?.result) {
+                if (request.current) {
+                    request.current.cancel();
+                }
+
+                request.current = restoreUrlHash({
+                    hash: nlHash
+                });
+                request.current.promise
+                    .then((res) => {
+                        const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
+                        console.log(res, filtersInImmutableStructure);
+
+                        if (filtersInImmutableStructure) {
+                            // apply the filters to both the staged and applied stores
+                            dispatch(restoreHashedFilters(filtersInImmutableStructure));
+                        }
+                        else {
+                            console.error('Error fetching filters from hash');
+                            // corrupt hash redirect to error page.
+                            navigate("/hash-error", { replace: true });
+                        }
+                        request.current = null;
+                    })
+                    .catch((err) => {
+                        if (!isCancel(err)) {
+                            console.error('Error fetching filters from hash: ', err);
+                            // remove hash since corresponding filter selections aren't retrievable.
+                            searchURLParams.delete("hash");
+                            setSearchURLParams(searchURLParams);
+                            request.current = null;
+                        }
+                    });
+            }
+
         }
     })
 
