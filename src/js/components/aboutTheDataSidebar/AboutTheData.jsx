@@ -4,21 +4,22 @@
  */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from "react-router";
-import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { isEqual } from "lodash-es";
-import { getDrilldownEntrySectionAndId, escapeRegExp } from 'helpers/aboutTheDataSidebarHelper';
+
+import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import { getDrilldownEntrySectionAndId, escapeRegExp } from "../../helpers/aboutTheDataSidebarHelper";
+import { getQueryParamString } from '../../helpers/queryParams';
+import useQueryParams from "../../hooks/useQueryParams";
+import { LoadingWrapper } from "../sharedComponents/Loading";
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
-import { LoadingWrapper } from "../sharedComponents/Loading";
 import AboutTheDataNoResults from "./AboutTheDataNoResults";
-import { getQueryParamString } from '../../helpers/queryParams';
-import useQueryParams from "../../hooks/useQueryParams";
 
 const propTypes = {
     aboutTheDataSidebar: PropTypes.object,
@@ -43,14 +44,14 @@ const AboutTheData = ({ schema, ...props }) => {
     const [scrollbar, setScrollbar] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [searchResultsPending, setSearchResultsPending] = useState(false);
-    const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState(schema);
     const [firstMount] = useState(() => !props.aboutTheDataSidebar.display);
-
     const { pathname } = useLocation();
+
     const query = useQueryParams();
     const dispatch = useDispatch();
     const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
+    const [searchTerm, setSearchTerm] = useState(input || '');
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
     const zIndexClass = lastOpenedSlideout === 'atd' ? 'z-index-plus-one' : 'z-index';
 
@@ -184,8 +185,6 @@ const AboutTheData = ({ schema, ...props }) => {
         );
 
     useEffect(() => {
-        setSearchTerm(input);
-
         if (input === null || input?.length === 0 || isEqual(results, searchResults)) {
             setSearchResultsPending(false);
             setIsLoading(false);
