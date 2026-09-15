@@ -3,8 +3,8 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, {useState} from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
 import useIsMobile from "hooks/useIsMobile";
@@ -13,7 +13,9 @@ import MobileSidebarContent from "./MobileSidebarContent";
 import NLSidebarButtons from "./NLSidebarButtons";
 import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 import NLSidebarContent from "./NLSidebarContent";
-import { FILTERS} from './SidebarConstants';
+import { FILTERS } from './SidebarConstants';
+import useRequestNLSearch from "./useRequestNLSearch";
+import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
@@ -34,11 +36,21 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 }) {
     const { isMedium } = useIsMobile();
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
     const [text, setText] = useState("");
+    const dispatch = useDispatch();
 
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
+    const { data, refetch } = useRequestNLSearch(text);
+
+    const parsedData = data
+        ?.split('\n')
+        .filter((line) => line.trim() !== '')
+        .map((line) => JSON.parse(line));
+    
     const toggleOpened = (e) => {
         e.preventDefault();
         setSidebarIsOpen((prevState) => !prevState);
@@ -63,6 +75,22 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             setText(e.target.textContent);
         }
     };
+
+    const startNLSearch = () => {
+        if(text && typeof refetch === "function") {
+            refetch();
+        }
+    }
+
+    useEffect(() => {
+        if (parsedData) {
+            dispatch(setIsNLSearchComplete(parsedData
+                .some((res) => (
+                    res.type === "search_complete" 
+                    || res.type === "search_error"))
+            || false));
+        }
+    })
 
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">
@@ -96,7 +124,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 <NLSidebarContent
                     hintOnClick={hintOnClick}
                     text={text}
-                    setText={setText} />
+                    setText={setText}
+                    startNLSearch={startNLSearch} 
+                    data={parsedData} />
             )}   
         </div>    
     );
@@ -136,7 +166,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 <NLSidebarContent
                     hintOnClick={hintOnClick}
                     text={text}
-                    setText={setText} />
+                    setText={setText}
+                    startNLSearch={startNLSearch} 
+                    data={parsedData}/>
             )}
         </div>
     );
@@ -148,7 +180,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 setSidebarIsOpen={toggleOpened}
                 sidebarIsOpen={sidebarIsOpen}
                 isMedium={isMedium} 
-                setShowMobileFilters={setShowMobileFilters}/>
+                setShowMobileFilters={setShowMobileFilters}
+                isActiveNlSearch={isSearchActive && !isNLSearchComplete} />
             {/* Eventually remove search-sidebar css */}
             <div
                 className={`search-collapsible-sidebar-container search-sidebar sticky ${

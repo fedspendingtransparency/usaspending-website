@@ -103,6 +103,14 @@
       }
     }
 
+    &:disabled {
+      background-color: $color-white;
+
+      .mobile-filter-button-count {
+        color: $theme-color-2;
+      }
+    }
+
     .mobile-filter-button-content {
       @include display(flex);
       @include align-items(center);

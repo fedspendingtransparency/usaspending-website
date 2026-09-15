@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QAT } from "GlobalConstants";
 import AIWhiteIcon from '../../../../img/AI_Search_white.svg';
 import AICyanIcon from '../../../../img/AI_Search_cyan.svg';
+import { useSelector } from "react-redux";
 
 const pluralizeFilterLabel = (count) => {
     if (count === 1) {
@@ -32,6 +33,8 @@ const MobileFilterButton = ({
     if (filterCount === 0) {
         showCountBadge = 'hide';
     }
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
     return (
         <div className={
             `mobile-filter-button-wrapper ${!showMobileFilters && 'mobile-filter-closed-shadow'}`
@@ -53,7 +56,8 @@ const MobileFilterButton = ({
                             toggleMobileFilters();
                         }
                     }
-                }}>
+                }}
+                disabled={isSearchActive && !isNLSearchComplete}>
                 <div className="mobile-filter-button-content">
                     <div className={`mobile-filter-button-count ${showCountBadge}`}>
                         {filterCount}

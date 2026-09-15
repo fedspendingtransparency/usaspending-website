@@ -20,11 +20,12 @@ const propTypes = {
     sidebarContent: PropTypes.string,
     sidebarIsOpen: PropTypes.bool,
     setSidebarIsOpen: PropTypes.func,
-    isMedium: PropTypes.bool
+    isMedium: PropTypes.bool,
+    isActiveNlSearch: PropTypes.bool
 };
 
 /* eslint-disable max-len */
-const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isMedium }) => {
+const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isMedium, isActiveNlSearch }) => {
     const dispatch = useDispatch();
 
     if (isMedium) return;
@@ -48,7 +49,8 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isM
                     onClick={(e) => {
                         dispatch(setSidebarContent(FILTERS));
                         sidebarIsOpen ? null : setSidebarIsOpen(e);
-                    }}>
+                    }}
+                    disabled={isActiveNlSearch}>
                     <NLBadge />
                     <FontAwesomeIcon icon="filter-list" color={primaryColorAS} />
                 </button>

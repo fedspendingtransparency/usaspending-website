@@ -8,30 +8,30 @@ import PropTypes from 'prop-types';
 import replaceString from 'helpers/replaceString';
 import { Link } from 'react-router';
 import { URLifyStateName } from 'features/state/stateHelper';
-import { stateNameByFipsId } from 'dataMapping/state/stateNames';
-
+import { useStateNameByFipsId } from "../../../hooks/useStateData";
 const propTypes = {
     name: PropTypes.string,
     fips: PropTypes.string,
     searchString: PropTypes.string
 };
 
-export default class StateLinkCell extends React.Component {
-    render() {
-        let name = this.props.name;
-        // highlight the matched string if applicable
-        if (this.props.searchString !== '') {
-            name = replaceString(this.props.name, this.props.searchString, "state-list__matched");
-        }
-
-        return (
-            <td className="state-list__body-cell">
-                <Link to={`/state/${URLifyStateName(stateNameByFipsId[this.props.fips])}`}>
-                    {name}
-                </Link>
-            </td>
-        );
+const StateLinkCell = ({name, fips, searchString}) => {
+    let tempname = name;
+    let stateNameByFipsId = useStateNameByFipsId();
+    // highlight the matched string if applicable
+    if (searchString !== '') {
+        tempname = replaceString(name, searchString, "state-list__matched");
     }
-}
+
+    return (
+        <td className="state-list__body-cell">
+            <Link to={`/state/${URLifyStateName(stateNameByFipsId?.[fips])}`}>
+                {tempname}
+            </Link>
+        </td>
+    );
+    
+};
 
 StateLinkCell.propTypes = propTypes;
+export default StateLinkCell;

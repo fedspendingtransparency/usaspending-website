@@ -15,10 +15,9 @@
 import fs from 'fs';
 import path from 'path';
 import { parseArgs } from 'util';
-import { stateNameByFipsId } from '../src/js/dataMapping/state/stateNames.js';
 import { URLifyStateName } from '../src/js/features/state/stateHelper.js';
 import agencyIdsToSlugs from '../src/js/dataMapping/agency/agencyIdsToSlugs.js';
-
+import { fetchStateList } from "../src/js/hooks/useStateData.jsx";
 const { values: args } = parseArgs({
     options: {
         'agency-file': { type: 'string' },
@@ -40,12 +39,6 @@ const legacyRedirects = [
     ['/analyst-guide',                              '/federal-spending-guide'],
     ['/analyst-guide/',                             '/federal-spending-guide'],
 ];
-
-
-const stateRedirects = Object.entries(stateNameByFipsId).map(([fipsId, stateName]) => [
-    `/state/${fipsId}`,
-    `/state/${URLifyStateName(stateName)}`,
-]);
 
 
 const agencyRedirects = agencyIdsToSlugs.map((a) => [
@@ -79,7 +72,13 @@ const renderNginxConf = (legacy, states, agencies) => {
 };
 
 
-const buildNginxRedirects = () => {
+const buildNginxRedirects = async () => {
+    const { data } = await fetchStateList().promise;
+    const stateRedirects = data.results.map(({ fips, name }) => [
+        `/state/${fips}`,
+        `/state/${URLifyStateName(name)}`,
+    ]);
+
     const conf = renderNginxConf(legacyRedirects, stateRedirects, agencyRedirects);
     const total = legacyRedirects.length + stateRedirects.length + agencyRedirects.length;
 

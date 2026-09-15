@@ -183,6 +183,7 @@
     }
   }
 
+  &--initialize,
   &--start,
   &--complete,
   &--error {
@@ -190,6 +191,10 @@
     margin: 0 rem(20) rem(12);
     display: flex;
     align-items: flex-start;
+
+    @media (max-width: $medium-screen - 1) {
+      margin-left: 0;
+    }
 
     .icon-label {
       font-weight: $font-normal;
@@ -201,6 +206,7 @@
     }
   }
 
+  &--initialize,
   &--complete {
     .icon {
       color: $green-cool-50v;

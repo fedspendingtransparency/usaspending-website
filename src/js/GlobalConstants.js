@@ -13,7 +13,7 @@ const filesServerUrlByEnv = {
 };
 
 const globalConstants = {
-    API: local?.localConstants?.API || process.env.USASPENDING_API,
+    API: local?.localConstants?.API || process.env.USASPENDING_API || 'https://api.usaspending.gov/api/',
     LOCAL: false,
     QAT: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
     STAGING: (process.env.ENV === 'staging'),
@@ -24,7 +24,11 @@ const globalConstants = {
     DUNS_LABEL: 'Legacy ',
     REQUEST_VERSION: '2020-06-01',
     IS_NEW_DOWNLOAD: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
-    FEATURED_CONTENT_ROTATION: "week"   // "week" or "sprint"
+    FEATURED_CONTENT_ROTATION: "week",   // "week" or "sprint"
+    LLM: {
+        API: local?.localConstants?.LLM_API,
+        HEADER_VALUE: local?.localConstants?.LLM_HEADER_VALUE
+    }
 };
 
 module.exports = globalConstants;
