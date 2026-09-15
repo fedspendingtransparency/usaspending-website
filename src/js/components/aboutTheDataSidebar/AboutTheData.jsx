@@ -40,7 +40,6 @@ const getHeight = () => {
 const AboutTheData = ({ schema, ...props }) => {
     const [height, setHeight] = useState(getHeight());
     const [scrollbar, setScrollbar] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
     const [searchResultsPending, setSearchResultsPending] = useState(false);
     const [firstMount] = useState(() => !props.aboutTheDataSidebar.display);
     const { pathname } = useLocation();
@@ -174,7 +173,6 @@ const AboutTheData = ({ schema, ...props }) => {
     useEffect(() => {
         if (input === null || input?.length === 0 || isEqual(results, searchResults)) {
             setSearchResultsPending(false);
-            setIsLoading(false);
         }
 
         // if there are already results on redux set the UI to the results
@@ -188,16 +186,10 @@ const AboutTheData = ({ schema, ...props }) => {
     useEffect(() => {
         if (searchResultsPending && isEqual(results, searchResults)) {
             setSearchResultsPending(false);
-            setIsLoading(false);
         }
     }, [results, searchResults, searchResultsPending]);
 
     useEffect(() => {
-        if (props.aboutTheDataSidebar.term.slug && props.aboutTheDataSidebar.term.slug !== '') {
-            const entry = getDrilldownEntrySectionAndId(schema, props.aboutTheDataSidebar.term.slug);
-            setIsLoading(false);
-        }
-
         window.addEventListener('resize', measureAvailableHeight);
         window.addEventListener('keyup', closeAboutTheData);
         return () => {
@@ -235,7 +227,7 @@ const AboutTheData = ({ schema, ...props }) => {
                 role="dialog"
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
-                {isLoading || searchResultsPending ?
+                {searchResultsPending ?
                     <><LoadingWrapper isLoading /></>
                     :
                     <>
