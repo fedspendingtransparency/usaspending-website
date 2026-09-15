@@ -3,7 +3,7 @@
  * Created by Nick Torres 11/2/22
  */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {useState, useEffect, useCallback, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from "react-router";
@@ -44,14 +44,13 @@ const AboutTheData = ({ schema, ...props }) => {
     const [scrollbar, setScrollbar] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [searchResultsPending, setSearchResultsPending] = useState(false);
-    const [searchResults, setSearchResults] = useState(schema);
+    // const [searchResults, setSearchResults] = useState(schema);
     const [firstMount] = useState(() => !props.aboutTheDataSidebar.display);
     const { pathname } = useLocation();
 
     const query = useQueryParams();
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
     const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
-    const [searchTerm, setSearchTerm] = useState(input || '');
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
     const zIndexClass = lastOpenedSlideout === 'atd' ? 'z-index-plus-one' : 'z-index';
 
@@ -61,16 +60,8 @@ const AboutTheData = ({ schema, ...props }) => {
         props.clearAboutTheDataTerm();
     };
 
-    const clearSearch = () => {
-        setSearchResults(schema);
-        dispatch(aboutTheDataActions.setAboutTheDataResults(schema));
-    };
-
-    const performSearch = (term) => {
-        if (!term) {
-            setSearchResults(schema);
-            return;
-        }
+    const searchResults = useMemo(() => {
+        if (!input || input.length < 3) return schema;
 
         const resultItems = {};
 
@@ -81,19 +72,19 @@ const AboutTheData = ({ schema, ...props }) => {
             .forEach(([sectionKey, section]) => {
                 const matchingFields = section.fields.filter((field) =>
                     field.name.toLowerCase()
-                        .includes(term.toLowerCase())
+                        .includes(input.toLowerCase())
                 );
                 if (matchingFields.length) {
                     const markupFields = [];
                     matchingFields.forEach((field) => {
                         // add classname to the search term in the results
-                        const regex = new RegExp(escapeRegExp(term), 'gi');
+                        const regex = new RegExp(escapeRegExp(input), 'gi');
                         const markupName = field.name.replace(regex, '<match>$&<match>');
                         const parts = markupName.split('<match>');
                         const markup = <>
                             {parts.map((part) => (
                                 <>
-                                    {part.toLowerCase() === term.toLowerCase() ? (
+                                    {part.toLowerCase() === input.toLowerCase() ? (
                                         <span className="matched-highlight">
                                             {part}
                                         </span>
@@ -119,12 +110,10 @@ const AboutTheData = ({ schema, ...props }) => {
                 }
             });
 
-        // set results in local scope
-        setSearchResults(resultItems);
         clearDrilldown();
-        // and in redux
-        dispatch(aboutTheDataActions.setAboutTheDataResults(resultItems));
-    };
+
+        return resultItems
+    }, [input, schema])
 
     const measureAvailableHeight = () => setHeight(getHeight());
 
@@ -166,7 +155,7 @@ const AboutTheData = ({ schema, ...props }) => {
     const content = Object.keys(searchResults).length === 0 ? (
         <>
             <DownloadButton />
-            <AboutTheDataNoResults searchTerm={searchTerm} />
+            <AboutTheDataNoResults searchTerm={input} />
         </>
     )
         :
@@ -193,7 +182,7 @@ const AboutTheData = ({ schema, ...props }) => {
         // if there are already results on redux set the UI to the results
         if (input?.length > 0 && !isEqual(results, searchResults)) {
             setSearchResultsPending(true);
-            setSearchResults(results);
+            // setSearchResults(results);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -254,12 +243,7 @@ const AboutTheData = ({ schema, ...props }) => {
                     <><LoadingWrapper isLoading /></>
                     :
                     <>
-                        <AboutTheDataHeader
-                            closeAboutTheData={closeAboutTheData}
-                            searchTerm={searchTerm}
-                            setSearchTerm={setSearchTerm}
-                            performSearch={performSearch}
-                            clearSearch={clearSearch} />
+                        <AboutTheDataHeader closeAboutTheData={closeAboutTheData} />
                         <Scrollbars
                             style={{ height }}
                             renderTrackVertical={track}
