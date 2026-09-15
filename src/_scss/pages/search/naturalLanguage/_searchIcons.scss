@@ -192,6 +192,10 @@
     display: flex;
     align-items: flex-start;
 
+    @media (max-width: $medium-screen - 1) {
+      margin-left: 0;
+    }
+
     .icon-label {
       font-weight: $font-normal;
       white-space: normal;

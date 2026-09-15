@@ -1,3 +1,9 @@
+/**
+ * NLSidebarContent.jsx
+ * Created by Nick Torres 8/28/2026
+ */
+
+/* eslint-disable max-len */
 import React, {useMemo} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -15,8 +21,17 @@ const propTypes = {
     data: PropTypes.array
 };
 
-const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) => {
+
+const NLSidebarContent = ({
+    hintOnClick,
+    text,
+    setText,
+    startNLSearch,
+    data
+}) => {
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
+
     const dispatch = useDispatch();
 
     const MAX_CHARS = 500;
@@ -27,7 +42,23 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
 
     const reset = () => setText("");
     let searchClass = 'default-search';
-    const searchText = isSearchActive ? 'Start a new search' : 'Search';
+    let btnText = "Search";
+    let icon = '../../../../img/magnifying-glass-white.svg';
+
+    if (isSearchActive) {
+        if (isNLSearchComplete) {
+            searchClass +=  " complete";
+            btnText = "Start a new search";
+        }
+        else {
+            searchClass += " loading";
+            btnText = "Working...";
+        }
+    }
+    else if (text.length === 0) {
+        searchClass += " disabled";
+        icon = '../../../../img/magnifying-glass-disabled.svg';
+    }
 
     const handleStartNLSearch = () => {
         dispatch(setIsSearchActive(true));
@@ -40,31 +71,23 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
 
     const handleNLSearch = isSearchActive ? handleNewNLSearch : handleStartNLSearch;
 
-    // eslint-disable-next-line no-useless-assignment
-    let icon = '';
-    if (text.length === 0) {
-        searchClass += " disabled";
-        icon = '../../../../img/magnifying-glass-disabled.svg';
-    }
-    else {
-        icon = '../../../../img/magnifying-glass-white.svg';
-    }
     return (
         <>
             {isSearchActive &&  <p className="sidebar-text semibold">{text}</p> }
             { isSearchActive ? (
                 
-                <>
+                <div className="sidebar-body-row response">
                     {responseState.items.map((item, index) => (
                         // eslint-disable-next-line react/no-array-index-key
                         <div key={`${item.toolId ?? 'search'}-${index}`}>
                             <NLSearchSuggestionsIcon {...item} />
                         </div>
                     ))}
-                </>   
-            ) :(
+                </div>   
+            ) : (
                 <>
-                    <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p><div className="sidebar-body-row">
+                    <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p>
+                    <div className="sidebar-body-row">
                         <span className="sidebar-example">Example Prompts: </span>
                         <NLDefaultHint onClick={hintOnClick} hint={<p>What schools in <span tabIndex={-1} className="hint-user-replace">[county, state]</span> receive the most money in federal funding?</p>} />
                         <NLDefaultHint onClick={hintOnClick} hint={<p>What programs received funding for veterans in <span tabIndex={-1} className="hint-user-replace">[state]</span> during <span tabIndex={-1} className="hint-user-replace">[time period]</span>?</p>} />
@@ -88,13 +111,12 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
                 </>
             )}
             <div className="sidebar-body-row">
-                { /* We will have to make a couple adjustments to this when we have the api hooked up and are getting loading states back
-                on submit we have to sanitize the html*/}
                 <NLSearchButton
                     startNLSearch={handleNLSearch}
-                    text={searchText}
+                    text={btnText}
                     icon={icon}
-                    classname={searchClass} />
+                    classname={searchClass}
+                    loadingState={isSearchActive && !isNLSearchComplete} />
             </div>
             <div className="sidebar-body-row">
                 <span className="sidebar-ai-blurb">This is a new AI feature on USAspending.gov. AI can make mistakes, so be sure to check the results.</span>

@@ -6,7 +6,7 @@
  */
 
 import sidebarReducer, {initialState} from "../../../../src/js/redux/reducers/sidebar/sidebarReducer";
-import { SET_SIDEBAR_CONTENT, SET_IS_SEARCH_ACTIVE } from "../../../../src/js/redux/actions/sidebar/sidebarActions";
+import { SET_SIDEBAR_CONTENT, SET_IS_SEARCH_ACTIVE, SET_IS_NL_SEARCH_COMPLETE } from "../../../../src/js/redux/actions/sidebar/sidebarActions";
 import { NATURAL_LANGUAGE, FILTERS } from "../../../../src/js/components/search/collapsibleSidebar/SidebarConstants";
 
 describe('sidebarReducer', () => {
@@ -36,6 +36,17 @@ describe('sidebarReducer', () => {
 
             state = sidebarReducer(state, action);
             expect(state.isSearchActive).toBe(true);
+        })
+    });
+    describe('SET_IS_NL_SEARCH_COMPLETE', () => {
+        it('should set isSearchActive to true', () => {
+            const action = {
+                type: SET_IS_NL_SEARCH_COMPLETE,
+                isNLSearchComplete: true
+            };
+
+            state = sidebarReducer(state, action);
+            expect(state.isNLSearchComplete).toBe(true);
         })
     });
 });

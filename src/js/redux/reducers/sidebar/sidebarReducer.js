@@ -7,7 +7,8 @@ import * as sidebarActions from '../../actions/sidebar/sidebarActions'
 
 export const initialState = {
     sidebarContent: 'filters',
-    isSearchActive: false
+    isSearchActive: false,
+    isNLSearchComplete: false
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -17,6 +18,9 @@ const sidebarReducer = (state = initialState, action) => {
         }
         case sidebarActions.SET_IS_SEARCH_ACTIVE: {
             return {...state, isSearchActive: action.isSearchActive};
+        }
+        case sidebarActions.SET_IS_NL_SEARCH_COMPLETE: {
+            return {...state, isNLSearchComplete: action.isNLSearchComplete};
         }
         default: return state;
     }

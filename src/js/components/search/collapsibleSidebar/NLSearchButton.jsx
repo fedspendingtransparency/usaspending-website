@@ -32,7 +32,7 @@ const NLSearchButton = ({
     }
 
     return (
-        <button className={`natural-language-submit ${classname}`} onClick={onClick}>
+        <button className={`natural-language-submit ${classname}`} onClick={onClick} disabled={loadingState}>
             {!loadingState && <img src={icon} alt="Icon for Search Button"/>}
             {loadingState && <FontAwesomeIcon icon={['far', 'wand-magic-sparkles']} />}
             {text}
