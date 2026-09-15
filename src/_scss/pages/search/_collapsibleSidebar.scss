@@ -102,6 +102,9 @@
     &.is-nl {
       overflow-y: auto;
       max-height: calc(100dvh - rem(292));
+      @media (min-width: $small-screen) {
+        flex-direction: column;
+      }
     }
 
     .sidebar-title-row {
@@ -142,6 +145,10 @@
       font-weight: $font-normal;
       font-size: rem(14);
       padding: 0 rem(24);
+
+      &.semibold {
+        font-weight: $font-semibold;
+      }
 
       @media (max-width: $medium-screen) {
         padding: 0 rem(16);
