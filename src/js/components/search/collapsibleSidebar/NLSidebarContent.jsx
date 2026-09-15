@@ -18,7 +18,8 @@ const propTypes = {
     text: PropTypes.string,
     setText: PropTypes.func,
     startNLSearch: PropTypes.func,
-    data: PropTypes.array
+    data: PropTypes.array,
+    cancelQuery: PropTypes.func
 };
 
 
@@ -27,7 +28,8 @@ const NLSidebarContent = ({
     text,
     setText,
     startNLSearch,
-    data
+    data,
+    cancelQuery
 }) => {
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
@@ -71,6 +73,13 @@ const NLSidebarContent = ({
 
     const handleNLSearch = isSearchActive ? handleNewNLSearch : handleStartNLSearch;
 
+    const handleNLCancel = () => {
+        dispatch(setIsSearchActive(false));
+        if (cancelQuery) {
+            cancelQuery
+        }
+    }
+
     return (
         <>
             {isSearchActive &&  <p className="sidebar-text semibold">{text}</p> }
@@ -109,6 +118,13 @@ const NLSidebarContent = ({
                         </div>
                     </div>
                 </>
+            )}
+            {isSearchActive && !isNLSearchComplete && (
+                <div className="sidebar-body-row">
+                    <button className="natural-language-stop" onClick={handleNLCancel}>
+                        Stop generating
+                    </button>
+                </div>
             )}
             <div className="sidebar-body-row">
                 <NLSearchButton

@@ -1,4 +1,4 @@
-import { useQuery, experimental_streamedQuery as streamedQuery } from "@tanstack/react-query";
+import { useQuery, experimental_streamedQuery as streamedQuery, useQueryClient } from "@tanstack/react-query";
 import GlobalConstants from 'GlobalConstants';
 
 const headers = {
@@ -47,7 +47,14 @@ const useRequestNLSearch = (prompt) => {
         })
     });
 
-    return { data, refetch, status };
+    // allow cancel api request
+    const queryClient = useQueryClient();
+
+    const cancelQuery = () => {
+        queryClient.cancelQueries({queryKey: ['nl-search-stream']})
+    }
+
+    return { data, refetch, status, cancelQuery };
 }
 
 export default useRequestNLSearch;

@@ -340,6 +340,29 @@
         display: inline-block;
         margin-top: rem(12);
       }
+
+      .natural-language-stop {
+        margin: rem(16) 0 rem(12);
+        background: $color-white;
+        padding-left: rem(16);
+        color: $blue-60v;
+        font-size: $font-size-12;
+        font-weight: $font-normal;
+        visibility: visible;
+        position: relative;
+        display: flex;
+      }
+
+      .natural-language-stop::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: rem(10);
+        width: rem(12);
+        height: rem(12);
+        background-color: $blue-60v;
+        border-radius: rem(2);
+      }
     }
 
     .collapsible-sidebar-group {
