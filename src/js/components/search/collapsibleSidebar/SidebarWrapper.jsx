@@ -16,6 +16,7 @@ import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS } from './SidebarConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
 import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
+import { RESPONSE_TYPE } from './NLConstants';
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
@@ -86,8 +87,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         if (parsedData) {
             dispatch(setIsNLSearchComplete(parsedData
                 .some((res) => (
-                    res.type === "search_complete" 
-                    || res.type === "search_error"))
+                    res.type === RESPONSE_TYPE.SEARCH_COMPLETE 
+                    || res.type === RESPONSE_TYPE.SEARCH_ERROR))
             || false));
         }
     })
