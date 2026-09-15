@@ -18,8 +18,7 @@ const propTypes = {
     text: PropTypes.string,
     setText: PropTypes.func,
     startNLSearch: PropTypes.func,
-    data: PropTypes.array,
-    isNLSearchComplete: PropTypes.bool
+    data: PropTypes.array
 };
 
 
@@ -28,10 +27,11 @@ const NLSidebarContent = ({
     text,
     setText,
     startNLSearch,
-    data,
-    isNLSearchComplete
+    data
 }) => {
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
+    
     const dispatch = useDispatch();
 
     const MAX_CHARS = 500;

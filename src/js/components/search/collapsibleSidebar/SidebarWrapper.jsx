@@ -3,8 +3,8 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from "prop-types";
 import useIsMobile from "hooks/useIsMobile";
@@ -15,6 +15,7 @@ import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS } from './SidebarConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
+import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
@@ -36,7 +37,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const { isMedium } = useIsMobile();
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
     const [text, setText] = useState("");
+    const dispatch = useDispatch();
 
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
@@ -47,8 +50,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         ?.split("\n")
         .filter((line) => line.trim() !== '')
         .map((line) => JSON.parse(line));
-
-    const isNLSearchComplete = parsedData?.some((res) => (res.type === "search_complete" || res.type === "search_error")) || false;
     
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -80,6 +81,16 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             refetch();
         }
     }
+
+    useEffect(() => {
+        if (parsedData) {
+            dispatch(setIsNLSearchComplete(parsedData
+                .some((res) => (
+                    res.type === "search_complete" 
+                    || res.type === "search_error"))
+            || false));
+        }
+    })
 
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">
@@ -115,8 +126,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     text={text}
                     setText={setText}
                     startNLSearch={startNLSearch} 
-                    data={parsedData}
-                    isNLSearchComplete={isNLSearchComplete} />
+                    data={parsedData} />
             )}   
         </div>    
     );
@@ -158,8 +168,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     text={text}
                     setText={setText}
                     startNLSearch={startNLSearch} 
-                    data={parsedData}
-                    isNLSearchComplete={isNLSearchComplete} />
+                    data={parsedData}/>
             )}
         </div>
     );
