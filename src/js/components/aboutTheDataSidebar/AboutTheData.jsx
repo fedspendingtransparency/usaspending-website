@@ -10,7 +10,7 @@ import { useLocation } from "react-router";
 import { Scrollbars } from 'react-custom-scrollbars';
 import { isEqual } from "lodash-es";
 
-import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import { clearAboutTheDataTerm } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 import { getDrilldownEntrySectionAndId, escapeRegExp } from "../../helpers/aboutTheDataSidebarHelper";
 import { getQueryParamString } from '../../helpers/queryParams';
 import useQueryParams from "../../hooks/useQueryParams";
@@ -39,26 +39,26 @@ const getHeight = () => {
 
 const AboutTheData = ({ schema, ...props }) => {
     const [height, setHeight] = useState(getHeight());
-    const [drilldownItemId, setDrilldownItemId] = useState(null);
-    const [drilldownSection, setDrilldownSection] = useState(null);
     const [scrollbar, setScrollbar] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [searchResultsPending, setSearchResultsPending] = useState(false);
-    // const [searchResults, setSearchResults] = useState(schema);
     const [firstMount] = useState(() => !props.aboutTheDataSidebar.display);
     const { pathname } = useLocation();
 
-    const query = useQueryParams();
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
+    const slug = useSelector((state) => state.aboutTheDataSidebar.term.slug);
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
+    const query = useQueryParams();
+
     const zIndexClass = lastOpenedSlideout === 'atd' ? 'z-index-plus-one' : 'z-index';
 
-    const clearDrilldown = () => {
-        setDrilldownItemId(null);
-        setDrilldownSection(null);
-        props.clearAboutTheDataTerm();
-    };
+    const clearDrilldown = useCallback(() => dispatch(clearAboutTheDataTerm()), [dispatch]);
+
+    const { entryId: drilldownItemId, section: drilldownSection } = useMemo(() => {
+        if (slug === "") return { entryId: null, section: null };
+        return getDrilldownEntrySectionAndId(schema, slug)
+    }, [slug, schema]);
 
     const searchResults = useMemo(() => {
         if (!input || input.length < 3) return schema;
@@ -113,7 +113,7 @@ const AboutTheData = ({ schema, ...props }) => {
         clearDrilldown();
 
         return resultItems
-    }, [input, schema])
+    }, [input, schema, clearDrilldown])
 
     const measureAvailableHeight = () => setHeight(getHeight());
 
@@ -147,8 +147,6 @@ const AboutTheData = ({ schema, ...props }) => {
     const thumb = () => <div className="atd-scrollbar-thumb" />;
 
     const selectItem = (index, section) => {
-        setDrilldownItemId(index);
-        setDrilldownSection(section);
         props.setAboutTheDataTerm(section.fields[index]);
     };
 
@@ -197,8 +195,6 @@ const AboutTheData = ({ schema, ...props }) => {
     useEffect(() => {
         if (props.aboutTheDataSidebar.term.slug && props.aboutTheDataSidebar.term.slug !== '') {
             const entry = getDrilldownEntrySectionAndId(schema, props.aboutTheDataSidebar.term.slug);
-            setDrilldownItemId(entry.entryId);
-            setDrilldownSection(entry.section);
             setIsLoading(false);
         }
 
