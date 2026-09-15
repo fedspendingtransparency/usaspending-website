@@ -13,7 +13,7 @@ const filesServerUrlByEnv = {
 };
 
 const globalConstants = {
-    API: local?.localConstants?.API || process.env.USASPENDING_API,
+    API: local?.localConstants?.API || process.env.USASPENDING_API || 'https://api.usaspending.gov/api/',
     LOCAL: false,
     QAT: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
     STAGING: (process.env.ENV === 'staging'),
