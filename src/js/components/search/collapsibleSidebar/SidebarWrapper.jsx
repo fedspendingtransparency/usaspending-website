@@ -35,18 +35,21 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 }) {
     const { isMedium } = useIsMobile();
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const [text, setText] = useState("");
 
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
     const { data, refetch } = useRequestNLSearch(text);
-
+    
     const parsedData = data
         ?.split("\n")
         .filter((line) => line.trim() !== '')
         .map((line) => JSON.parse(line));
 
+    const isNLSearchComplete = parsedData?.some((res) => (res.type === "search_complete" || res.type === "search_error")) || false;
+    
     const toggleOpened = (e) => {
         e.preventDefault();
         setSidebarIsOpen((prevState) => !prevState);
@@ -112,7 +115,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     text={text}
                     setText={setText}
                     startNLSearch={startNLSearch} 
-                    data={parsedData}/>
+                    data={parsedData}
+                    isNLSearchComplete={isNLSearchComplete} />
             )}   
         </div>    
     );
@@ -154,7 +158,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     text={text}
                     setText={setText}
                     startNLSearch={startNLSearch} 
-                    data={parsedData}/>
+                    data={parsedData}
+                    isNLSearchComplete={isNLSearchComplete} />
             )}
         </div>
     );
@@ -166,7 +171,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 setSidebarIsOpen={toggleOpened}
                 sidebarIsOpen={sidebarIsOpen}
                 isMedium={isMedium} 
-                setShowMobileFilters={setShowMobileFilters}/>
+                setShowMobileFilters={setShowMobileFilters}
+                isActiveNlSearch={isSearchActive && !isNLSearchComplete} />
             {/* Eventually remove search-sidebar css */}
             <div
                 className={`search-collapsible-sidebar-container search-sidebar sticky ${

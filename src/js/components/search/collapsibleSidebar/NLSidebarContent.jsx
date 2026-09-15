@@ -18,13 +18,20 @@ const propTypes = {
     text: PropTypes.string,
     setText: PropTypes.func,
     startNLSearch: PropTypes.func,
-    data: PropTypes.array
+    data: PropTypes.array,
+    isNLSearchComplete: PropTypes.bool
 };
 
 
-const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) => {
+const NLSidebarContent = ({
+    hintOnClick,
+    text,
+    setText,
+    startNLSearch,
+    data,
+    isNLSearchComplete
+}) => {
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
-    const isComplete = data?.some((res) => (res.type === "search_complete" || res.type === "search_error")) || false;
     const dispatch = useDispatch();
 
     const MAX_CHARS = 500;
@@ -39,7 +46,7 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
     let icon = '../../../../img/magnifying-glass-white.svg';
 
     if (isSearchActive) {
-        if (isComplete) {
+        if (isNLSearchComplete) {
             searchClass +=  " complete";
             btnText = "Start a new search";
         }
@@ -70,17 +77,18 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
             {isSearchActive &&  <p className="sidebar-text semibold">{text}</p> }
             { isSearchActive ? (
                 
-                <>
+                <div className="sidebar-response-row">
                     {responseState.items.map((item, index) => (
                         // eslint-disable-next-line react/no-array-index-key
                         <div key={`${item.toolId ?? 'search'}-${index}`}>
                             <NLSearchSuggestionsIcon {...item} />
                         </div>
                     ))}
-                </>   
+                </div>   
             ) : (
                 <>
-                    <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p><div className="sidebar-body-row">
+                    <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p>
+                    <div className="sidebar-body-row">
                         <span className="sidebar-example">Example Prompts: </span>
                         <NLDefaultHint onClick={hintOnClick} hint={<p>What schools in <span tabIndex={-1} className="hint-user-replace">[county, state]</span> receive the most money in federal funding?</p>} />
                         <NLDefaultHint onClick={hintOnClick} hint={<p>What programs received funding for veterans in <span tabIndex={-1} className="hint-user-replace">[state]</span> during <span tabIndex={-1} className="hint-user-replace">[time period]</span>?</p>} />
@@ -109,7 +117,7 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
                     text={btnText}
                     icon={icon}
                     classname={searchClass}
-                    loadingState={isSearchActive && !isComplete} />
+                    loadingState={isSearchActive && !isNLSearchComplete} />
             </div>
             <div className="sidebar-body-row">
                 <span className="sidebar-ai-blurb">This is a new AI feature on USAspending.gov. AI can make mistakes, so be sure to check the results.</span>
