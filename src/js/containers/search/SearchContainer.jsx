@@ -10,7 +10,7 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router';
 
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import {
-    filterStoreVersion, requiredTypes, initialState
+    filterStoreVersion, initialState
 } from 'redux/reducers/search/searchFiltersReducer';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
@@ -26,13 +26,7 @@ import {
 } from "helpers/searchHelper";
 import useQueryParams from "hooks/useQueryParams";
 import SearchPage from 'components/search/SearchPage';
-import {
-    convertFiltersToAnalyticEvents,
-    sendAnalyticEvents,
-    sendFieldCombinations
-} from './helpers/searchAnalytics';
 import useRequestDownloadCount from "./useRequestDownloadCount";
-import { storeStructuresAreEqual } from '../../helpers/searchHelper';
 
 require('pages/search/searchPage.scss');
 

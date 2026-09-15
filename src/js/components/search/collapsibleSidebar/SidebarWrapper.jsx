@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isCancel } from 'axios';
 import PropTypes from "prop-types";
 import useIsMobile from "hooks/useIsMobile";
-import { restoreHashedFilters, setAppliedFilterEmptiness } from 'redux/actions/search/searchHashActions';
+import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
 import { restoreUrlHash, parseRemoteFilters, searchURLParams } from "helpers/searchHelper";
 
 import SidebarContent from "./SidebarContent";
@@ -104,11 +104,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 }
             });
 
-            const nlHash = "90e50821bf552b36f20c74de96262d27";
-            // const nlHash = done.result;  // this should work once we receive a value hash from the backend
-            console.log(parsedData, done);
-
             if (done?.result) {
+                const nlHash = "90e50821bf552b36f20c74de96262d27";
+                // const nlHash = done.result;  // this should work once we receive a value hash from the backend
                 if (request.current) {
                     request.current.cancel();
                 }
@@ -137,7 +135,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                             console.error('Error fetching filters from hash: ', err);
                             // remove hash since corresponding filter selections aren't retrievable.
                             searchURLParams.delete("hash");
-                            setSearchURLParams(searchURLParams);
                             request.current = null;
                         }
                     });
