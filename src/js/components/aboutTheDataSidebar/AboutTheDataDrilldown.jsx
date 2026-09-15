@@ -71,7 +71,6 @@ const AboutTheDataDrilldown = ({
             searchParams.delete('about-the-data');
             searchParams.delete('glossary');
         }
-
     }, [searchParams]);
 
     const DrilldownComponent = drilldownComponent(slug);

@@ -4,28 +4,24 @@
  */
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from "react-router";
 import { Scrollbars } from 'react-custom-scrollbars';
 
-import { clearAboutTheDataTerm } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
+import {
+    clearAboutTheDataTerm,
+    hideAboutTheData,
+    setAboutTheDataTerm
+} from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 import { getDrilldownEntrySectionAndId, escapeRegExp } from "../../helpers/aboutTheDataSidebarHelper";
 import { getQueryParamString } from '../../helpers/queryParams';
+import schema from "../../../config/aboutTheData/aboutTheDataSchema";
 import useQueryParams from "../../hooks/useQueryParams";
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
 import AboutTheDataNoResults from "./AboutTheDataNoResults";
-
-const propTypes = {
-    aboutTheDataSidebar: PropTypes.object,
-    hideAboutTheData: PropTypes.func,
-    schema: PropTypes.object,
-    clearAboutTheDataTerm: PropTypes.func,
-    setAboutTheDataTerm: PropTypes.func
-};
 
 const getHeight = () => {
     const paddingBottom = 200;
@@ -35,7 +31,7 @@ const getHeight = () => {
     return wrapperHeight - headerHeight - paddingBottom;
 }
 
-const AboutTheData = ({ schema, ...props }) => {
+const AboutTheData = () => {
     const query = useQueryParams();
     const { pathname } = useLocation();
     const dispatch = useDispatch();
@@ -55,7 +51,7 @@ const AboutTheData = ({ schema, ...props }) => {
     const { entryId: drilldownItemId, section: drilldownSection } = useMemo(() => {
         if (slug === "") return { entryId: null, section: null };
         return getDrilldownEntrySectionAndId(schema, slug)
-    }, [slug, schema]);
+    }, [slug]);
 
     const searchResults = useMemo(() => {
         if (!input || input.length < 3) return schema;
@@ -110,14 +106,14 @@ const AboutTheData = ({ schema, ...props }) => {
         clearDrilldown();
 
         return resultItems
-    }, [input, schema, clearDrilldown])
+    }, [input, clearDrilldown])
 
     const measureAvailableHeight = () => setHeight(getHeight());
 
     const closeAboutTheData = useCallback((e) => {
         if (e.key === 'Escape' || (e.type === 'click')) {
             // close the atd drawer when the escape key is pressed, for accessibility and general non-annoyance
-            props.hideAboutTheData();
+            dispatch(hideAboutTheData());
             clearDrilldown();
 
             // remove search param from url
@@ -138,14 +134,12 @@ const AboutTheData = ({ schema, ...props }) => {
                 mainContent.focus();
             }
         }
-    }, []);
+    }, [clearDrilldown, dispatch, pathname, query]);
 
     const track = () => <div className="atd-scrollbar-track" />;
     const thumb = () => <div className="atd-scrollbar-thumb" />;
 
-    const selectItem = (index, section) => {
-        props.setAboutTheDataTerm(section.fields[index]);
-    };
+    const selectItem = (index, section) => dispatch(setAboutTheDataTerm(section.fields[index]));
 
     const content = Object.keys(searchResults).length === 0 ? (
         <>
@@ -175,7 +169,7 @@ const AboutTheData = ({ schema, ...props }) => {
             window.removeEventListener('resize', measureAvailableHeight);
             window.removeEventListener('keyup', closeAboutTheData);
         };
-    }, [closeAboutTheData, props.aboutTheDataSidebar.term.slug, schema]);
+    }, [closeAboutTheData]);
 
     useEffect(() => {
         if (scrollbar) {
@@ -198,7 +192,7 @@ const AboutTheData = ({ schema, ...props }) => {
             id="usa-atd-wrapper"
             style={{ visibility: firstMount ? "hidden" : "" }}
             className={
-                props.aboutTheDataSidebar.display ?
+                display ?
                     `opened usa-atd-wrapper ${zIndexClass}` :
                     `usa-atd-wrapper ${zIndexClass}`
             }>
@@ -232,5 +226,4 @@ const AboutTheData = ({ schema, ...props }) => {
         </div>);
 };
 
-AboutTheData.propTypes = propTypes;
 export default AboutTheData;
