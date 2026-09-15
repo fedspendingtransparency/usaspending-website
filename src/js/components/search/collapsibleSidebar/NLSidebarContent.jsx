@@ -36,7 +36,6 @@ const NLSidebarContent = ({ hintOnClick, text, setText, startNLSearch, data }) =
 
     const handleNewNLSearch = () => {
         dispatch(setIsSearchActive(false));
-        reset();
     }
 
     const handleNLSearch = isSearchActive ? handleNewNLSearch : handleStartNLSearch;
