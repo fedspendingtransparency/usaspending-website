@@ -57,11 +57,6 @@ const useRequestNLSearch = (prompt) => {
         queryClient.cancelQueries({queryKey: ['nl-search-stream']})
     };
 
-console.log(data);
-//     useEffect(() => {
-//         dispatch(setIsNLSearchComplete(!isFetching));
-//     }, [dispatch, isFetching]);
-
     return { data, refetch, status, cancelQuery, isFetching};
 }
 

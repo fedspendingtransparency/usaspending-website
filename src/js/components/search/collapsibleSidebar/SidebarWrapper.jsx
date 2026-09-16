@@ -20,7 +20,6 @@ import NLSidebarButtons from "./NLSidebarButtons";
 import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS } from './SidebarConstants';
-import { SEARCH_COMPLETE } from './NLConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
 import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
 
@@ -59,8 +58,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             .filter((line) => line.trim() !== '')
             .map((line) => JSON.parse(line));
 
-    console.log(data);
-
     const toggleOpened = (e) => {
         e.preventDefault();
         setSidebarIsOpen((prevState) => !prevState);
@@ -95,17 +92,28 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const request = useRef();
 
     useEffect(() => {
-        console.log(data);
-
-        if (!isFetching && data) {
-            const done = data.find((res) => {
-                if (res.type === SEARCH_COMPLETE) {
+        if (isFetching) {
+            content = (
+                <div className="search-results-loading">
+                    <div className="search-results__loading-message">
+                        <LoadingSpinner />
+                        <div className="loading-text">
+                            Please wait while we load your results
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+        if (!isFetching && parsedData && Object.keys(parsedData).length > 0) {
+            const done = parsedData.find((res) => {
+                if (res.type === "search_complete") {
                     return res;
                 }
             });
 
             if (done?.result) {
-                const nlHash = done.result;  // this should work once we receive a value hash from the backend
+                // const nlHash = '90e50821bf552b36f20c74de96262d27';  // For testing purposes while NL is under development
+                const nlHash = done.result;
                 if (request.current) {
                     request.current.cancel();
                 }
@@ -121,11 +129,14 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                         if (filtersInImmutableStructure) {
                             // apply the filters to both the staged and applied stores
                             dispatch(restoreHashedFilters(filtersInImmutableStructure));
+                            dispatch(setIsNLSearchComplete(!isFetching));
                         }
                         else {
                             console.error('Error fetching filters from hash');
-                            // corrupt hash redirect to error page.
+                            // TODO: corrupt hash redirect to error page.
+                            // No such page as /hash-error, need to update
                             navigate("/hash-error", { replace: true });
+                            dispatch(setIsNLSearchComplete(!isFetching));
                         }
                         request.current = null;
                     })
@@ -133,13 +144,13 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                         if (!isCancel(err)) {
                             console.error('Error fetching filters from hash: ', err);
                             // remove hash since corresponding filter selections aren't retrievable.
-                            searchURLParams.delete("hash");
                             request.current = null;
+                            dispatch(setIsNLSearchComplete(!isFetching));
                         }
                     });
             }
         }
-    }, [data, isFetching]);
+    }, [parsedData, isFetching]);
 
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">
@@ -175,7 +186,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     text={text}
                     setText={setText}
                     startNLSearch={startNLSearch} 
-                    data={data}
+                    data={parsedData}
                     cancelQuery={cancelQuery} />
             )}   
         </div>    
@@ -218,7 +229,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     text={text}
                     setText={setText}
                     startNLSearch={startNLSearch} 
-                    data={data}
+                    data={parsedData}
                     cancelQuery={cancelQuery} />
             )}
         </div>

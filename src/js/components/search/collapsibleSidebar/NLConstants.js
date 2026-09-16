@@ -4,7 +4,7 @@ export const RESPONSE_TYPE = {
     SEARCH_ERROR: 'search_error',
     TOOL_START: 'tool_start',
     TOOL_COMPLETE: 'tool_complete',
-    TOOL_ERROR: 'tool_error' 
+    TOOL_ERROR: 'tool_error'
 };
 
 export const OPERATION = {
