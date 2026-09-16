@@ -20,7 +20,7 @@ import NLSidebarButtons from "./NLSidebarButtons";
 import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS } from './SidebarConstants';
-import { SEARCH_COMPLETE, SEARCH_ERROR } from './NLConstants';
+import { SEARCH_COMPLETE } from './NLConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
 import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
 
@@ -46,18 +46,20 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
     const [text, setText] = useState("");
+
     const dispatch = useDispatch();
-   const navigate = useNavigate();
+    const navigate = useNavigate();
 
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
     const { data, refetch, cancelQuery, isFetching } = useRequestNLSearch(text);
 
-    const parsedData = data
-        ?.split('\n')
-        .filter((line) => line.trim() !== '')
-        .map((line) => JSON.parse(line));
+    const parsedData = data?.split('\n')
+            .filter((line) => line.trim() !== '')
+            .map((line) => JSON.parse(line));
+
+    console.log(data);
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -93,14 +95,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const request = useRef();
 
     useEffect(() => {
-        if (parsedData) {
-            dispatch(setIsNLSearchComplete(parsedData
-                .some((res) => (
-                    res.type === SEARCH_COMPLETE
-                    || res.type === SEARCH_ERROR))
-            || false));
+        console.log(data);
 
-            const done = parsedData.find((res) => {
+        if (!isFetching && data) {
+            const done = data.find((res) => {
                 if (res.type === SEARCH_COMPLETE) {
                     return res;
                 }
@@ -115,6 +113,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 request.current = restoreUrlHash({
                     hash: nlHash
                 });
+
                 request.current.promise
                     .then((res) => {
                         const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
@@ -139,9 +138,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                         }
                     });
             }
-
         }
-    }, [parsedData, dispatch, isFetching]);
+    }, [data, isFetching]);
 
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">
@@ -177,7 +175,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     text={text}
                     setText={setText}
                     startNLSearch={startNLSearch} 
-                    data={parsedData}
+                    data={data}
                     cancelQuery={cancelQuery} />
             )}   
         </div>    
@@ -220,7 +218,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     text={text}
                     setText={setText}
                     startNLSearch={startNLSearch} 
-                    data={parsedData}
+                    data={data}
                     cancelQuery={cancelQuery} />
             )}
         </div>
