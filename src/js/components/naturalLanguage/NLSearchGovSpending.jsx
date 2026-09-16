@@ -49,7 +49,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                         <input
                             className="search-gov-spending__input"
                             type="text"
-                            placeholder="Type a question about government spending, or choose an sample prompt below." />
+                            placeholder="Type a question about government spending, or choose a sample prompt below." />
                         <button className="search-gov-spending__input-button">
                             <img src={DEFAULT_ICON_PATH} alt="Icon for Search Button"/>
                         </button>
