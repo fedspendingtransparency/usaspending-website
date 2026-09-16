@@ -12,7 +12,7 @@ import { isCancel } from 'axios';
 import PropTypes from "prop-types";
 import useIsMobile from "hooks/useIsMobile";
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
-import { restoreUrlHash, parseRemoteFilters, searchURLParams } from "helpers/searchHelper";
+import { restoreUrlHash, parseRemoteFilters } from "helpers/searchHelper";
 
 import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
@@ -55,8 +55,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const { data, refetch, cancelQuery, isFetching } = useRequestNLSearch(text);
 
     const parsedData = data?.split('\n')
-            .filter((line) => line.trim() !== '')
-            .map((line) => JSON.parse(line));
+        .filter((line) => line.trim() !== '')
+        .map((line) => JSON.parse(line));
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -92,18 +92,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const request = useRef();
 
     useEffect(() => {
-        if (isFetching) {
-            content = (
-                <div className="search-results-loading">
-                    <div className="search-results__loading-message">
-                        <LoadingSpinner />
-                        <div className="loading-text">
-                            Please wait while we load your results
-                        </div>
-                    </div>
-                </div>
-            );
-        }
         if (!isFetching && parsedData && Object.keys(parsedData).length > 0) {
             const done = parsedData.find((res) => {
                 if (res.type === "search_complete") {
