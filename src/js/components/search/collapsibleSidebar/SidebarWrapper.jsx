@@ -45,7 +45,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { data, refetch, cancelQuery } = useRequestNLSearch(text);
+    const { data, refetch, cancelQuery, isFetching } = useRequestNLSearch(text);
 
     const parsedData = data
         ?.split('\n')
@@ -84,14 +84,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     }
 
     useEffect(() => {
-        if (parsedData) {
-            dispatch(setIsNLSearchComplete(parsedData
-                .some((res) => (
-                    res.type === RESPONSE_TYPE.SEARCH_COMPLETE 
-                    || res.type === RESPONSE_TYPE.SEARCH_ERROR))
-            || false));
-        }
-    })
+        dispatch(setIsNLSearchComplete(!isFetching));
+    }, [dispatch, isFetching]);
 
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">
