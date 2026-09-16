@@ -850,46 +850,46 @@ const articles = [
             }
         ]
     },
-        {
-            taxonomy: "Spending Stories",
-            content_type: 'Marketing',
-            banner_subtitle: "How to Search for Emergency Funding on USAspending.gov",
-            title: "Tracking Emergency Government Spending",
-            created_date: "09/24/26",
-            feature_sprint: 227,
-            feature_week: 1,
-            description: "When disaster strikes, whether hurricanes, wildfires, floods, or public health emergencies, the federal government provides financial assistance to help communities respond and recover.",
-            slug: "tracking-emergency-government-spending",
-            explore_more: [
-                {
-                    label: "Advanced Search",
-                    slug: "/search",
-                    type: "internal"
-                },
-                {
-                    label: "Find Award Data by Pandemic Legislation",
-                    slug: "https://www.pandemicoversight.gov/data-interactive-tools/data-stories/how-find-award-data-pandemic-legislation",
-                    type: "external"
-                }
-            ],
-            related_terms: [
-                {
-                    term: "award",
-                    type: "glossary",
-                    label: "Award"
-                },
-                {
-                    term: "recipient",
-                    type: "glossary",
-                    label: "Recipient"
-                },
-                {
-                    term: "disaster-emergency-fund-code-defc",
-                    type: "glossary",
-                    label: "Disaster Emergency Fund Code"
-                }
-            ]
-        },
+    {
+        taxonomy: "Spending Stories",
+        content_type: 'Marketing',
+        banner_subtitle: "How to Search for Emergency Funding on USAspending.gov",
+        title: "Tracking Emergency Government Spending",
+        created_date: "09/24/26",
+        feature_sprint: 227,
+        feature_week: 1,
+        description: "When disaster strikes, whether hurricanes, wildfires, floods, or public health emergencies, the federal government provides financial assistance to help communities respond and recover.",
+        slug: "tracking-emergency-government-spending",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Find Award Data by Pandemic Legislation",
+                slug: "https://www.pandemicoversight.gov/data-interactive-tools/data-stories/how-find-award-data-pandemic-legislation",
+                type: "external"
+            }
+        ],
+        related_terms: [
+            {
+                term: "award",
+                type: "glossary",
+                label: "Award"
+            },
+            {
+                term: "recipient",
+                type: "glossary",
+                label: "Recipient"
+            },
+            {
+                term: "disaster-emergency-fund-code-defc",
+                type: "glossary",
+                label: "Disaster Emergency Fund Code"
+            }
+        ]
+    }
 ];
 
 export default articles;
