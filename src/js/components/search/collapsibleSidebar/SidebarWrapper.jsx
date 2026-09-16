@@ -94,12 +94,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         if (parsedData) {
             dispatch(setIsNLSearchComplete(parsedData
                 .some((res) => (
-                    res.type === "search_complete"
-                    || res.type === "search_error"))
+                    res.type === SEARCH_COMPLETE
+                    || res.type === SEARCH_ERROR))
             || false));
 
             const done = parsedData.find((res) => {
-                if (res.type === "search_complete") {
+                if (res.type === SEARCH_COMPLETE) {
                     return res;
                 }
             });
@@ -117,7 +117,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 request.current.promise
                     .then((res) => {
                         const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
-                        console.log(res, filtersInImmutableStructure);
 
                         if (filtersInImmutableStructure) {
                             // apply the filters to both the staged and applied stores
