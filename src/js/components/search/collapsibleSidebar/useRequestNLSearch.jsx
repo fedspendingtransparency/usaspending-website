@@ -8,8 +8,6 @@ const headers = {
 
 const LLM_API = GlobalConstants?.LLM?.API ? GlobalConstants?.LLM?.API + 'v2/llm/filter-search/' : '/v2/llm/filter-search/';
 
-// const sample = "Show me all contracts greater than $3M in California for IT services in 2023";
-
 const useRequestNLSearch = (prompt) => {
     const requestHeader = GlobalConstants?.LLM?.HEADER_VALUE ?
         {

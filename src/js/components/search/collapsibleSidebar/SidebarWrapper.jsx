@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { navigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isCancel } from 'axios';
@@ -20,6 +20,7 @@ import NLSidebarButtons from "./NLSidebarButtons";
 import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS } from './SidebarConstants';
+import { SEARCH_COMPLETE, SEARCH_ERROR } from './NLConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
 import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
 
@@ -46,6 +47,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
     const [text, setText] = useState("");
     const dispatch = useDispatch();
+   const navigate = useNavigate();
 
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
@@ -105,8 +107,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             });
 
             if (done?.result) {
-                const nlHash = "90e50821bf552b36f20c74de96262d27";
-                // const nlHash = done.result;  // this should work once we receive a value hash from the backend
+                const nlHash = done.result;  // this should work once we receive a value hash from the backend
                 if (request.current) {
                     request.current.cancel();
                 }
