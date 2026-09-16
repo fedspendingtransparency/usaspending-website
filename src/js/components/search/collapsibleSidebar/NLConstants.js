@@ -43,7 +43,7 @@ export const responseLookup = {
     [RESPONSE_TYPE.TOOL_START]: {
         operation: TOOL,
         variant: START, 
-        icon: ['far', 'sparkles']
+        icon: 'sparkles'
     },
 
     [RESPONSE_TYPE.TOOL_COMPLETE]: {

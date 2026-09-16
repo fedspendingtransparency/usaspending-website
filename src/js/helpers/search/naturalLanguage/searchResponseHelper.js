@@ -57,17 +57,22 @@ export const buildResponseState = (data = []) => {
             state.items.push(item);
             return;
         }
-    
+
         const itemIndex = state.items.findIndex(
-            (existingItem) => existingItem.toolId === toolId
+            (existingItem) => existingItem.toolId === toolId 
+                && message === undefined 
         );
     
-        // Tool complete/error updates the existing item
+        // Tool complete/error updates the existing item when the
+        // message is not included
         if (itemIndex !== -1) {
             state.items[itemIndex] = {
                 ...state.items[itemIndex],
                 ...item
             };
+        }
+        else {
+            state.items.push(item);
         }
     });
     
