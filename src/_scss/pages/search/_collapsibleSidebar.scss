@@ -102,9 +102,6 @@
     &.is-nl {
       overflow-y: auto;
       max-height: calc(100dvh - rem(292));
-      @media (min-width: $small-screen) {
-        flex-direction: column;
-      }
     }
 
     .sidebar-title-row {
@@ -141,10 +138,24 @@
       }
     }
 
+    .sidebar-nl-container {
+      min-height: rem(392);
+      margin: rem(12) 0;
+      overflow-y: auto;
+
+      &.response {
+        // adjust for stop generating button size
+        // to keep "Working....", "Start new Search" buttons in same position 
+        // as initial "Start search" button.
+        min-height: rem(356);
+      }
+    }
+
     .sidebar-text {
       font-weight: $font-normal;
       font-size: rem(14);
       padding: 0 rem(24);
+      margin: 0 0 rem(12) 0;
 
       &.semibold {
         font-weight: $font-semibold;
@@ -168,8 +179,6 @@
         @media (min-width: $medium-screen) {
           padding: 0;
         }
-        // this will be upadated with new stop generating button
-        margin-bottom: rem(46);
       }
 
       .sidebar-example {
@@ -342,9 +351,9 @@
       }
 
       .natural-language-stop {
-        margin: rem(16) 0 rem(12);
+        margin: 0;
         background: $color-white;
-        padding-left: rem(16);
+        padding: rem(12) 0 rem(12) rem(16);
         color: $blue-60v;
         font-size: $font-size-12;
         font-weight: $font-normal;

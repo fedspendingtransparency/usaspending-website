@@ -81,20 +81,21 @@ const NLSidebarContent = ({
     }
 
     return (
-        <>
-            {isSearchActive &&  <p className="sidebar-text semibold">{text}</p> }
+        <> 
             { isSearchActive ? (
-                
-                <div className="sidebar-body-row response">
-                    {responseState.items.map((item, index) => (
-                        // eslint-disable-next-line react/no-array-index-key
-                        <div key={`${item.toolId ?? 'search'}-${index}`}>
-                            <NLSearchSuggestionsIcon {...item} />
-                        </div>
-                    ))}
+                <div className="sidebar-nl-container response">
+                    <p className="sidebar-text semibold">{text}</p> 
+                    <div className="sidebar-body-row response">
+                        {responseState.items.map((item, index) => (
+                            // eslint-disable-next-line react/no-array-index-key
+                            <div key={`${item.toolId ?? 'search'}-${index}`}>
+                                <NLSearchSuggestionsIcon {...item} />
+                            </div>
+                        ))}
+                    </div>
                 </div>   
             ) : (
-                <>
+                <div className="sidebar-nl-container">
                     <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p>
                     <div className="sidebar-body-row">
                         <span className="sidebar-example">Example Prompts: </span>
@@ -117,7 +118,7 @@ const NLSidebarContent = ({
                             <span className="textarea-char-count">{text.length} / {MAX_CHARS}</span>
                         </div>
                     </div>
-                </>
+                </div>
             )}
             {isSearchActive && !isNLSearchComplete && (
                 <div className="sidebar-body-row">
