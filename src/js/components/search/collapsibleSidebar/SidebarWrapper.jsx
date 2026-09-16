@@ -16,7 +16,6 @@ import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS } from './SidebarConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
 import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
-import { RESPONSE_TYPE } from './NLConstants';
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
