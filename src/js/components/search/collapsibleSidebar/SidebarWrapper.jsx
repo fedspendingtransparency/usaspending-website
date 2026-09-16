@@ -21,7 +21,9 @@ import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS } from './SidebarConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
+import {RESPONSE_TYPE } from "./NLConstants";
 import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
+
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
@@ -94,7 +96,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     useEffect(() => {
         if (!isFetching && parsedData && Object.keys(parsedData).length > 0) {
             const done = parsedData.find((res) => {
-                if (res.type === "search_complete") {
+                if (res.type === RESPONSE_TYPE.SEARCH_COMPLETE) {
                     return res;
                 }
             });
