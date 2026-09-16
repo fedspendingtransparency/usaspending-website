@@ -38,7 +38,7 @@ const ResultsView = React.memo(function ResultsView({
 
     let content = null;
 
-    if (isLoading) {
+    if (isLoading && !noFiltersApplied) {
         content = (
             <div className="search-results-loading">
                 <div className="search-results__loading-message">
