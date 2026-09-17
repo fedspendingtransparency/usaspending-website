@@ -5,17 +5,12 @@
 
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { flowRight } from 'lodash-es';
 import { useMatch } from 'react-router';
 
-
 import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';
-
-import * as accountActions from 'redux/actions/account/accountActions';
-import * as filterActions from 'redux/actions/account/accountFilterActions';
-
+import { setSelectedAccount } from "../../redux/actions/account/accountActions";
 import withLatestFy from 'containers/account/WithLatestFy';
 import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
@@ -32,20 +27,16 @@ const propTypes = {
     isFetchLatestFyLoading: PropTypes.bool
 };
 
-const combinedActions = Object.assign({},
-    accountActions,
-    filterActions
-);
-
 const AccountContainer = (props) => {
+    const dispatch = useDispatch();
     const match = useMatch('/federal_account/:accountNumber');
     const { accountNumber } = match.params;
 
     const { account, loading, error } = useFetchFederalAccount(accountNumber);
 
     useEffect(() => {
-        props.setSelectedAccount(account);
-    }, [account]);
+        dispatch(setSelectedAccount(account));
+    }, [account, dispatch]);
 
     const renderAccount = () => {
         let output = <LoadingAccount />;
@@ -66,12 +57,5 @@ const AccountContainer = (props) => {
 AccountContainer.propTypes = propTypes;
 
 export default flowRight(
-    withLatestFy,
-    connect(
-        (state) => ({
-            account: state.account.account,
-            tas: state.account.tas
-        }),
-        (dispatch) => bindActionCreators(combinedActions, dispatch)
-    )
+    withLatestFy
 )(AccountContainer);
