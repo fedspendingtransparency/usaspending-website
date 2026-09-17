@@ -36,17 +36,7 @@ const AccountOverview = ({ account, currentFiscalYear }) => {
         toDate: ''
     });
 
-    const sankeyHr = useRef();
-
-    const handleWindowResize = () => {
-        // determine if the width changed
-        const currentWindowWidth = window.innerWidth;
-        if (windowWidth !== currentWindowWidth) {
-            // width changed, update the visualization width
-            setWindowWidth(currentWindowWidth);
-            setVisualizationWidth(Math.min(1200, sankeyHr.current.offsetWidth));
-        }
-    };
+    const sankeyHr = useRef(null);
 
     const generateSummary = (accountData) => {
     // determine the current fiscal year and get the associated values
@@ -128,8 +118,18 @@ ${authority} has been obligated.`;
     };
 
     useEffect(() => {
-        generateSummary(account);
+        const handleWindowResize = () => {
+            // determine if the width changed
+            const currentWindowWidth = window.innerWidth;
+            if (windowWidth !== currentWindowWidth) {
+                // width changed, update the visualization width
+                setWindowWidth(currentWindowWidth);
+                setVisualizationWidth(Math.min(1200, sankeyHr.current.offsetWidth));
+            }
+        };
+
         handleWindowResize();
+
         window.addEventListener('resize', handleWindowResize);
 
         return () => window.removeEventListener('resize', handleWindowResize);
