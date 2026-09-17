@@ -19,7 +19,6 @@ import * as accountActions from 'redux/actions/account/accountActions';
 import * as filterActions from 'redux/actions/account/accountFilterActions';
 
 import FederalAccount from 'models/v1/account/FederalAccount';
-import { fiscalYearSnapshotFields } from 'dataMapping/accounts/accountFields';
 
 import withLatestFy from 'containers/account/WithLatestFy';
 import Account from 'components/account/Account';
@@ -49,62 +48,11 @@ const AccountContainer = (props) => {
     const { accountNumber } = match.params;
 
     const accountRequestRef = useRef(null);
-    const FYRequestRef = useRef(null);
-
-    const parseFYSnapshot = (data) => {
-        const balances = {
-            available: false
-        };
-
-        if (Object.keys(data).length > 0 && data.results) {
-            Object.keys(fiscalYearSnapshotFields).forEach((key) => {
-                balances[fiscalYearSnapshotFields[key]] = data.results[key];
-            });
-            balances.available = true;
-        }
-
-        // update the Redux account model with balances
-        const account = Object.assign({}, props.account);
-        account.totals = balances;
-        props.setSelectedAccount(account);
-    };
-
-    const loadFiscalYearSnapshot = (id) => {
-        if (FYRequestRef.current) {
-            FYRequestRef.current.cancel();
-        }
-
-        FYRequestRef.current = AccountHelper.fetchFederalAccountFYSnapshot(
-            id,
-            props.latestPeriod.year
-        );
-
-        FYRequestRef.current.promise
-            .then((res) => {
-                FYRequestRef.current = null;
-
-                // update the redux store
-                parseFYSnapshot(res.data);
-                setLoading(false);
-            })
-            .catch((err) => {
-                FYRequestRef.current = null;
-
-                if (!isCancel(err)) {
-                    setLoading(false);
-                    console.log(err);
-                }
-            });
-    };
 
     const parseAccount = (data) => {
         const account = new FederalAccount(data);
         props.setSelectedAccount(account);
-        if (props.latestPeriod.year) {
-            loadFiscalYearSnapshot(props.account.id);
-        }
     };
-
 
     const loadData = () => {
         if (accountRequestRef.current) {
@@ -123,6 +71,7 @@ const AccountContainer = (props) => {
                 parseAccount(res.data);
 
                 setValidAccount(true);
+                setLoading(false);
             })
             .catch((err) => {
                 accountRequestRef.current = null;
@@ -139,13 +88,6 @@ const AccountContainer = (props) => {
         loadData();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [accountNumber]);
-
-    useEffect(() => {
-        if (props.latestPeriod?.year && props.account?.id) {
-            loadFiscalYearSnapshot(props.account.id);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.latestPeriod?.year, props.account?.id]);
 
     const renderAccount = () => {
         let output = <LoadingAccount />;
