@@ -1,8 +1,10 @@
 /**
  * @jest-environment jsdom
  */
+import { Set } from 'immutable';
 import { initialState, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
-import { areFiltersEqual, isSearchHashReady } from 'helpers/searchHelper';
+import { areFiltersEqual, isSearchHashReady, parseRemoteFilters, restoreUrlHash, generateUrlHash  } from 'helpers/searchHelper';
+import { mockFilters, mockRedux } from '../containers/search/mockSearchHashes';
 
 test.each([
     ['obj1 & obj2 are both initial state', true, initialState, initialState],
@@ -72,3 +74,27 @@ test.each([
     expect(isSearchHashReady({ search: input })).toEqual(rtrn);
 });
 
+test('parseRemoteFilters should return null if the versions do not match', () => {
+    const mockResponse = Object.assign({}, mockFilters, {
+        filter: {
+            version: -1000
+        }
+    });
+
+    expect(parseRemoteFilters(mockResponse)).toEqual(null);
+});
+
+test('parseRemoteFilters should return an immutable data structure when versions match', () => {
+    const expectedFilter = new Set(['1990']);
+    const mock = {
+        ...mockFilters,
+        filter: {
+            ...mockFilters.filter,
+            filters: {
+                ...mockFilters.filter.filters,
+                timePeriodFY: ['1990']
+            }
+        }
+    };
+    expect(parseRemoteFilters(mock.filter).timePeriodFY).toEqual(expectedFilter);
+});

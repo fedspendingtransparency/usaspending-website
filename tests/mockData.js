@@ -137,7 +137,7 @@ const responseLookup = {
     [RESPONSE_TYPE.TOOL_START]: {
         operation: TOOL,
         variant: START, 
-        icon: ['far', 'sparkles']
+        icon: 'sparkles'
     },
 
     [RESPONSE_TYPE.TOOL_COMPLETE]: {
@@ -208,6 +208,7 @@ export const buildSearchTestState = (data = []) => {
         // Tool complete/error updates the existing item
         const itemIndex = state.items.findIndex(
             (existingItem) => existingItem.toolId === toolId
+            && message === undefined
         );
         
         if (itemIndex !== -1) {
@@ -215,6 +216,9 @@ export const buildSearchTestState = (data = []) => {
                 ...state.items[itemIndex],
                 ...item
             };
+        }
+        else {
+            state.items.push(item);
         }
     });
         
@@ -276,8 +280,8 @@ export const searchTestData = [
     {
         search_id: '502',
         tool_use_id: 1525,
-        type: RESPONSE_TYPE.TOOL_COMPLETE
-
+        type: RESPONSE_TYPE.TOOL_COMPLETE,
+        message: 'Success'
     },
     {
         search_id: '502',
