@@ -3,7 +3,7 @@
  * Created by Trey Morgan 8/12/2026
  */
 
-import React from "react";
+import React, {useState} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
@@ -15,7 +15,15 @@ const propTypes = {
     isFilters: PropTypes.bool
 };
 const NLSearchGovSpending = ({ isFilters=false }) => {
+    const [inputValue, setInputValue] = useState('');
+    const handleClick = (event) => {
+        // alert("Click test");
+        setInputValue(event.target.value);
+    }
 
+    const handleInputChange = (event) => {
+        setInputValue(event.target.value);
+    };
     return (
         <section className={`search-gov-spending__section ${isFilters ? ' filter-spacing': ''}`}>
             <FlexGridRow className="search-gov-spending__row">
@@ -49,6 +57,8 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                         <input
                             className="search-gov-spending__input"
                             type="text"
+                            value={inputValue} 
+                            onChange={handleInputChange} 
                             placeholder="Type a question about government spending, or choose a sample prompt below." />
                         <button className="search-gov-spending__input-button">
                             <img src={DEFAULT_ICON_PATH} alt="Icon for Search Button"/>
@@ -60,11 +70,11 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                         </div>
 
                         <div className="search-gov-spending__button-container">
-                            <button className="search-gov-spending__prompt-button">Recipient</button>
-                            <button className="search-gov-spending__prompt-button">Time Period</button>
-                            <button className="search-gov-spending__prompt-button">Location</button>
-                            <button className="search-gov-spending__prompt-button">Industry</button>
-                            <button className="search-gov-spending__prompt-button">Award Type</button>
+                            <button value="What recipient has received the most federal funding?" onClick={handleClick} className="search-gov-spending__prompt-button">Recipient</button>
+                            <button value="How much federal funding has been spent during [Time Period]?" onClick={handleClick} className="search-gov-spending__prompt-button">Time Period</button>
+                            <button value="How much federal funding did [Location] receive?" onClick={handleClick} className="search-gov-spending__prompt-button">Location</button>
+                            <button value="How much federal funding has been spent on [Industry]?" onClick={handleClick} className="search-gov-spending__prompt-button">Industry</button>
+                            <button value="What federal [Award Type ] have been awarded?" onClick={handleClick} className="search-gov-spending__prompt-button">Award Type</button>
                         </div>
                     </div>
                     
