@@ -20,7 +20,6 @@ const useFetchFederalAccountFYSnapshot = (account, year) => {
         };
 
         if (Object.keys(data).length > 0 && results) {
-            // console.log(results)
             Object.keys(fiscalYearSnapshotFields).forEach((key) => {
                 balances[fiscalYearSnapshotFields[key]] = results[key];
             });
