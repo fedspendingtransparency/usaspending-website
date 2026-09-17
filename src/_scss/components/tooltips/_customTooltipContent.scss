@@ -96,7 +96,7 @@
     @include display(flex);
     @include flex-wrap(wrap);
     @include flex-direction(column);
-    &.award-desciption-section {
+    &.award-description-section {
       // the list in the award description section
       li:last-of-type {
         margin-top: rem(14);

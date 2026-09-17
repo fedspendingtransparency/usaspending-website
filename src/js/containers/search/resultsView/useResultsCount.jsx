@@ -16,7 +16,7 @@ const useResultsCount = (filters, spendingLevel, hash) => {
 
     const filtersParams = filtersParamsTemp.toParams();
 
-    const { data, error } = useQuery({
+    const { data, error, isLoading } = useQuery({
         queryKey: ['performSpendingByAwardTabCountSearch', filtersParams, spendingLevel],
         queryFn: () => performSpendingByAwardTabCountSearch({
             filters: filtersParams,
@@ -24,11 +24,10 @@ const useResultsCount = (filters, spendingLevel, hash) => {
             auditTrail: 'Results View - Tab Counts'
         }).promise,
         staleTime: 60000,
-        refetchOnWindowFocus: false,
         enabled: !areFiltersEqual(filters) || !hash
     });
 
-    return { data, error };
+    return { data, error, isLoading };
 };
 
 export default useResultsCount;

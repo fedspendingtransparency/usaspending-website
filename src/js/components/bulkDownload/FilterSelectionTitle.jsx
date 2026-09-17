@@ -37,7 +37,7 @@ const titleData = {
         preSpan: "Select a",
         span: "Location",
         postSpan: ".",
-        showRequired: false,
+        showRequired: true,
         background: '#fef2e4',
         fill: '#e66f0e',
         addClassName: "no-right-margin"
@@ -129,7 +129,7 @@ const titleData = {
             Period
         </span>.
         </>,
-        showRequired: false,
+        showRequired: true,
         background: '#E8F5FF',
         fill: '#0B4778',
         addClassName: "",

@@ -437,13 +437,13 @@ describe('searchFiltersReducer', () => {
         });
     });
 
-    describe('UPDATE_RECIPIENT_DOMESTIC_FORIEGN', () => {
+    describe('UPDATE_RECIPIENT_DOMESTIC_FOREIGN', () => {
         it(
             // eslint-disable-next-line no-useless-concat
             'should set the Recipient domestic/foreign filter ' + 'scope to the input string',
             () => {
                 const action = {
-                    type: 'UPDATE_RECIPIENT_DOMESTIC_FORIEGN',
+                    type: 'UPDATE_RECIPIENT_DOMESTIC_FOREIGN',
                     selection: 'domestic'
                 };
 

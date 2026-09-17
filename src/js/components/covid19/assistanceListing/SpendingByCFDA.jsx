@@ -69,15 +69,12 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
     const changeActiveTab = (tab) => {
         const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
         setActiveTab(selectedTab);
-        Analytics.event({ event: 'covid_award_spending_cfda', category: 'COVID-19 - Award Spending by CFDA', action: `${activeTab} - click` });
+        Analytics.event({
+            event: 'covid_award_spending_cfda',
+            category: 'COVID-19 - Award Spending by CFDA',
+            action: `${activeTab} - click`
+        });
     };
-
-    // Keep track of previous tab to prevent duplicate requests in summary
-    const prevTabRef = useRef();
-    useEffect(() => {
-        prevTabRef.current = activeTab;
-    });
-    const prevTab = prevTabRef.current;
 
     useEffect(() => {
         if (defcParams && defcParams.length > 0) {
@@ -158,7 +155,6 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
                 // pass CFDA count to the summary section so we don't have to make the same API request again
                 resultsCount={tabCounts[activeTab]}
                 activeTab={activeTab}
-                prevTab={prevTab}
                 areCountsLoading={inFlight}
                 overviewData={overviewData}
                 assistanceOnly />

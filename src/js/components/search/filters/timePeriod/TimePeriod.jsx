@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
 import FilterTabs from 'components/sharedComponents/filterSidebar/FilterTabs';
-import usePrevious from "hooks/usePrevious";
 import DateRange from './DateRange';
 import AllFiscalYearsWithChips from "./AllFiscalYearsWithChips";
 import DateRangeError from './DateRangeError';
@@ -64,10 +63,6 @@ const TimePeriod = ({
     const [errorMessage, setErrorMessage] = useState('');
     const [header, setHeader] = useState('');
     const [dateRangeChipRemoved, setDateRangeChipRemoved] = useState(false);
-    const prevProps = usePrevious({ filterTimePeriodFY, filterTimePeriod });
-    const prevState = usePrevious({
-        startDateUI, endDateUI, startDateDropdown, endDateDropdown
-    });
 
     const prepopulateDatePickers = () => {
         if ((!filterTimePeriodStart || !filterTimePeriodEnd) &&
@@ -265,29 +260,32 @@ const TimePeriod = ({
     }, [filterTimePeriodStart, filterTimePeriodEnd]);
 
     useEffect(() => {
-        // determineIfNaoIsActive
-        if (prevProps?.filterTimePeriodFY !== filterTimePeriodFY) {
-            updateNewAwardsOnlyActive(!!filterTimePeriodFY?.size);
-            updateNaoActiveFromFyOrDateRange(!!filterTimePeriodFY?.size);
-        }
-        else if (prevProps?.filterTime_Period !== filterTimePeriod) {
-            updateNewAwardsOnlyActive(false);
-            updateNaoActiveFromFyOrDateRange(false);
-        }
+        updateNewAwardsOnlyActive(!!filterTimePeriodFY?.size);
+        updateNaoActiveFromFyOrDateRange(!!filterTimePeriodFY?.size);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterTimePeriodFY]);
+
+    useEffect(() => {
+        updateNewAwardsOnlyActive(false);
+        updateNaoActiveFromFyOrDateRange(false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [filterTimePeriod]);
+
+    useEffect(() => {
         if (dirtyFilters) {
             updateNewAwardsOnlyActive(true);
             updateNaoActiveFromFyOrDateRange(true);
         }
-        else if ((prevState?.startDateUI !== startDateUI || prevState?.endDateUI !== endDateUI) && (!startDateUI && !endDateUI)) {
+        else if (!startDateUI && !endDateUI) {
             updateNewAwardsOnlyActive(false);
             updateNaoActiveFromFyOrDateRange(false);
         }
-        else if ((prevState?.startDateDropdown !== startDateDropdown || prevState?.endDateDropdown !== endDateDropdown) && (!startDateDropdown && !endDateDropdown)) {
+        else if (!startDateDropdown && !endDateDropdown) {
             updateNewAwardsOnlyActive(false);
             updateNaoActiveFromFyOrDateRange(false);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [filterTimePeriodFY, filterTimePeriod, startDateUI, endDateUI, startDateDropdown, endDateDropdown]);
+    }, [startDateUI, endDateUI, startDateDropdown, endDateDropdown]);
 
     return (
         <div className="tab-filter-wrap">

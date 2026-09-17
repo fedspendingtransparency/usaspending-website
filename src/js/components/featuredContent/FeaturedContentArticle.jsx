@@ -58,13 +58,15 @@ const FeaturedContentArticle = () => {
         });
     };
 
-    // eslint-disable-next-line consistent-return
     useEffect(() => {
         for (const article of articles) {
             if (transformString(article.title) === lastPortion) {
                 setIsFound(true);
                 setChosenArticle(article);
-                setIsInfographicTemplate(Object.prototype.hasOwnProperty.call(article, 'isInfographicTemplate') ? article.isInfographicTemplate : false);
+                setIsInfographicTemplate(
+                    Object.prototype.hasOwnProperty.call(
+                        article, 'isInfographicTemplate') ? article.isInfographicTemplate : false
+                );
                 const tempSections = [];
                 for (let i = 0; i < article?.sections?.length; i++) {
                     tempSections.push({
@@ -96,7 +98,6 @@ const FeaturedContentArticle = () => {
         }, 100);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowWidth]);
 
     useEffect(() => {
@@ -111,8 +112,8 @@ const FeaturedContentArticle = () => {
 
     const setNoHeader = () => {
         if (!isFound) return false;
-        if (!isInfographicTemplate) return true;
-        return false;
+        return !isInfographicTemplate;
+
     };
 
     const Hero = () => {
@@ -146,7 +147,7 @@ const FeaturedContentArticle = () => {
         return <></>;
     };
 
-    const PageContent = () => {
+    const pageContent = () => {
         if (!isFound) return <ErrorMessage />;
 
         return (<>
@@ -177,13 +178,18 @@ const FeaturedContentArticle = () => {
             sections={sections}
             activeSection={activeSection}
             jumpToSection={jumpToSection}
-            inPageNav={isInfographicTemplate && sections?.length > 2 && chosenArticle && typeof MarkdownContent === "function"}
+            inPageNav={
+                isInfographicTemplate &&
+                sections?.length > 2 &&
+                chosenArticle &&
+                typeof MarkdownContent === "function"
+            }
             metaTagProps={{ ...homePageMetaTags }}
             rootMargin="-240px 0px 0px 0px">
             <main
                 id="main-content"
                 className="main-content featured-content">
-                <PageContent />
+                {pageContent()}
             </main>
         </PageWrapper>
     </>;

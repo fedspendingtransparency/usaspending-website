@@ -394,7 +394,7 @@ export const preSearchOptions = [
             },
             {
                 id: "nal-4",
-                text: (<>Show me examples of financial assistance for <span>broad infrastructure</span></>),
+                text: (<>Show me financial assistance for <span>broadband infrastructure</span></>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {

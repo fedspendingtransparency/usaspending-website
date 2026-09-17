@@ -8,7 +8,7 @@ import React from 'react';
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
+import { stateTitleCase } from "../../../features/state/stateHelper";
 const dayjs = require('dayjs');
 
 const AwardsUserSelections = () => {
@@ -74,7 +74,7 @@ const AwardsUserSelections = () => {
             );
         }
         return (
-            <div className="selection__content selection__content-required">required</div>
+            <div className="selection__content selection__content-required">Required</div>
         );
     };
 
@@ -117,7 +117,7 @@ const AwardsUserSelections = () => {
             if (awards.location.state.code && awards.location.state.code !== 'all') {
                 return (
                     <div className="selection__content">
-                        {`${locationType}: ${awards.location.state.name}, ${awards.location.country.name}`}
+                        {`${locationType}: ${stateTitleCase(awards.location.state.name)}, ${awards.location.country.name}`}
                     </div>
                 );
             }
@@ -125,11 +125,13 @@ const AwardsUserSelections = () => {
                 <div className="selection__content">{locationType}: {awards.location.country.name}</div>
             );
         }
-        
-        // default or if all is selected
-        return (
-            <div className="selection__content">{locationType}: All countries</div>
-        );
+        else if (awards.location?.country?.code === 'all') {
+            return (
+                <div className="selection__content">{locationType}: All countries</div>
+            );
+        }
+
+        return  <div className="selection__content selection__content-required">Required</div>;
     };
 
     const generateDateRangeString = () => {

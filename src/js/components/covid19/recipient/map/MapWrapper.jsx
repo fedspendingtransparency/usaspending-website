@@ -204,7 +204,7 @@ export default class MapWrapper extends React.Component {
             }
         }
         else {
-            // in the case when the map has not recieved data yet
+            // in the case when the map has not received data yet
             colors = getColors(numStateQuantiles);
         }
         colors.forEach((color, index) => {

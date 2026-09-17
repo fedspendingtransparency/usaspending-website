@@ -397,7 +397,7 @@ export default class ProgressBar extends Component {
             // 3. Determine if half the text width (since we position the text directly in the
             // center of progress) is greater than the total pixels left in the SVG.
             // 4. If #3 is true, we must then determine the amount of pixel overflow by subtracting
-            // half the text width and the pixels available in the SVG and update the new postion of
+            // half the text width and the pixels available in the SVG and update the new position of
             // the text.
             const totalProgressionLength = xScaleWithinCircles(this.props.domain[1]);
             const currentProgressPosition = xScaleWithinCircles(currentProgress);

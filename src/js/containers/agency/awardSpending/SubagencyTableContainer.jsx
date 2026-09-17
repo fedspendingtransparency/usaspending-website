@@ -6,6 +6,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, Pagination } from 'data-transparency-ui';
+
 import { subagencyColumns, subagencyFields } from 'dataMapping/agency/tableColumns';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import {
@@ -14,7 +15,6 @@ import {
 } from 'redux/actions/agency/agencyActions';
 import { fetchSubagencySpendingList } from 'apis/agency';
 import { parseRows } from 'helpers/agency/AwardSpendingSubagencyHelper';
-import useStateWithPrevious from "../../../hooks/useStateWithPrevious";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -29,11 +29,11 @@ const SubagencyTableContainer = ({
     prevType,
     subHeading
 }) => {
-    const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
-    const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [pageSize, setPageSize] = useState(10);
     const [totalItems, setTotalItems] = useState(0);
-    const [prevSort, sort, setSort] = useStateWithPrevious('totalObligations');
-    const [prevOrder, order, setOrder] = useStateWithPrevious('desc');
+    const [sort, setSort] = useState('totalObligations');
+    const [order, setOrder] = useState('desc');
     const updateSort = (field, direction) => {
         setSort(field);
         setOrder(direction);
@@ -83,19 +83,12 @@ const SubagencyTableContainer = ({
     });
 
     useEffect(() => {
-    // Reset to the first page
+        // Reset to the first page
         if (currentPage !== 1) {
-            changeCurrentPage(1);
+            setCurrentPage(1);
         }
         else if (currentPage === 1) {
-            const hasParamChanged = (
-                prevSort !== sort ||
-                prevOrder !== order ||
-                prevPage !== currentPage ||
-                prevPageSize !== pageSize ||
-                (prevType !== type && prevType)
-            );
-            if (hasParamChanged) {
+            if (prevType !== type && prevType) {
                 fetchSpendingBySubagencyCallback();
             }
         }
@@ -122,8 +115,8 @@ const SubagencyTableContainer = ({
                 error={error} />
             <Pagination
                 currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
+                changePage={setCurrentPage}
+                changeLimit={setPageSize}
                 limitSelector
                 resultsText
                 pageSize={pageSize}

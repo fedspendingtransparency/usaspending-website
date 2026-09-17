@@ -3,12 +3,11 @@
  * Created by Max Kendall 10/25/2020
  **/
 
-import React, { useEffect, useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { allFiscalYears, currentFiscalYear, earliestExplorerYear } from 'helpers/fiscalYearHelper';
 import { getLatestSubmissionPeriodInFy } from 'helpers/downloadHelper';
-import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import {
     periods,
     getPeriodsPerQuarterByFy
@@ -24,7 +23,9 @@ const propTypes = {
     selectedFy: PropTypes.string,
     latestSelectedTimeInterval: PropTypes.string,
     updateFilter: PropTypes.func,
-    newPicker: PropTypes.bool
+    newPicker: PropTypes.bool,
+    allPeriods: PropTypes.array,
+    latestFy: PropTypes.number
 };
 
 const QuarterPickerWithFY = ({
@@ -33,10 +34,10 @@ const QuarterPickerWithFY = ({
     handleQuarterPickerSelection,
     latestSelectedTimeInterval,
     updateFilter,
-    newPicker
+    newPicker,
+    allPeriods,
+    latestFy
 }) => {
-    const [, allPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
-
     const onSelect = useCallback((e) => {
         const year = e.target.value;
 
@@ -73,13 +74,6 @@ const QuarterPickerWithFY = ({
         }
     }, [selectedFy, allPeriods])
 
-    useEffect(() => {
-        // fetch periods on first render
-        if (latestFy && latestPeriod) {
-            handlePickedYear(`${latestFy}`, `${latestPeriod}`);
-        }
-    }, [latestFy, latestPeriod, handlePickedYear]);
-
     const defaultFy = useMemo( () => latestFy || currentFiscalYear(), [latestFy]);
 
     const optionsArray = useMemo(() => {
@@ -95,10 +89,10 @@ const QuarterPickerWithFY = ({
             <ComboBox
                 optionsArray={optionsArray}
                 onSelect={onSelect}
-                defaultValue={`FY ${defaultFy}`}
                 label={"Fiscal Year"}
                 formName={"download-filter__fy"}
                 onClearSelect={onClearSelect}
+                placeholder="Select a FY"
                 disabled={!latestFy} />
             <NewQuarterPicker
                 showPeriods

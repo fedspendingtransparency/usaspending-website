@@ -2,7 +2,7 @@
   ul.mobile-nav-content__list {
     @include unstyled-list;
 
-    li.mobile-nav-content__list-item {
+    .mobile-nav-content__list-item {
       text-align: left;
       margin: rem(0) rem(16) rem(24) rem(16);
       @media (min-width: $tablet-screen) {

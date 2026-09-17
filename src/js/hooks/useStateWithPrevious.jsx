@@ -1,13 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
+import usePrevious from "./usePrevious";
 
 const useStateWithPrevious = (initialValue) => {
     const [state, updateState] = useState(initialValue);
-    const stateRef = useRef(state);
-    const { current: prevState } = stateRef;
-
-    useEffect(() => {
-        stateRef.current = state;
-    }, [state]);
+    const { current: prevState } = usePrevious(initialValue);
 
     return [
         prevState,

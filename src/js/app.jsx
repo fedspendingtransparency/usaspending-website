@@ -1,6 +1,7 @@
 import React from 'react';
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 import AppContainer from 'containers/AppContainer';
 import registerIcons from './registerIcons';
@@ -19,8 +20,8 @@ registerIcons();
 const queryClient = new QueryClient({
     defaultOptions: {
         queries: {
-            staleTime: 60000,
-            refetchOnWindowFocus: false, // default: true
+            staleTime: Infinity,
+            refetchOnWindowFocus: false,
             refetchOnMount: false
         }
     }
@@ -31,6 +32,7 @@ const root = createRoot(appDiv);
 const App = root.render(
     <QueryClientProvider client={queryClient}>
         <AppContainer />
+        <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
 );
 export default App;

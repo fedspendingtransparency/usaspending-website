@@ -25,6 +25,7 @@
     "follow-redirects": "1.16.0",
     "**/follow-redirects": "1.15.11",
     "form-data": "4.0.5",
-    "**/form-data": "4.0.5"
+    "**/form-data": "4.0.5",
+    "browserslist": "4.28.8"
   }
 }
