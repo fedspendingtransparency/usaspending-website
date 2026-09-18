@@ -83,7 +83,6 @@ const AgenciesContainer = ({
 
     const handleScroll = throttle((e) => {
         const { scrollLeft: horizontal, scrollTop: vertical } = e.target;
-        console.log({ e, horizontal, vertical })
 
         const shouldUpdate = (
             (vertical && !isVerticalSticky) ||
