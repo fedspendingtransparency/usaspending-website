@@ -19,6 +19,7 @@ import AccountSearchBalanceOperation from 'models/v1/account/queries/AccountSear
 import AccountSearchCategoryOperation from 'models/v1/account/queries/AccountSearchCategoryOperation';
 import { balanceFields, balanceFieldsFiltered, balanceFieldsNonfiltered } from
     'dataMapping/accounts/accountFields';
+import {useFetchQuarters} from "./useFetchAccountTimeVisualization";
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -247,6 +248,15 @@ const AccountTimeVisualizationSectionContainer = ({ reduxFilters, account }) => 
         setLoading(false);
     };
 
+    const test = useFetchQuarters(
+        account.id,
+        reduxFilters,
+        visualizationPeriod,
+        hasFilteredObligated
+    );
+
+    console.log({ test, visualizationPeriod, hasFilteredObligated })
+
     const fetchData = () => {
         if (balanceRequests.current.length > 0) {
             // cancel all previous requests
@@ -271,6 +281,7 @@ const AccountTimeVisualizationSectionContainer = ({ reduxFilters, account }) => 
 
         if (visualizationPeriod === 'quarter') {
             if (hasFilteredObligated) {
+                console.log("1")
                 Object.keys(balanceFieldsFiltered).forEach((balanceType) => {
                     // generate API call using helper for quarters with category filters
                     filters = categoryFilters;
@@ -305,6 +316,7 @@ const AccountTimeVisualizationSectionContainer = ({ reduxFilters, account }) => 
                 });
             }
             else {
+                console.log("2")
                 Object.keys(balanceFields).forEach((balanceType) => {
                     // generate API call using helper for quarters
                     const request = AccountQuartersHelper.fetchTasBalanceTotals({
