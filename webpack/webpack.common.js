@@ -150,8 +150,6 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.ENV': process.env.ENV ? JSON.stringify(process.env.ENV) : JSON.stringify('qat'),
             'process.env.FILES_SERVER_BASE_URL': JSON.stringify(process.env.FILES_SERVER_BASE_URL || '')
-            'process.env.X_LLM_API_KEY': JSON.stringify(process.env.X_LLM_API_KEY || '')
-
         })
     ]
 
