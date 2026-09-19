@@ -26,7 +26,7 @@ const globalConstants = {
     IS_NEW_DOWNLOAD: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
     FEATURED_CONTENT_ROTATION: "week",   // "week" or "sprint"
     LLM: {
-        API: local?.localConstants?.LLM_API,
+        API: local?.localConstants?.LLM_API ||  this.API,
         HEADER_VALUE: local?.localConstants?.LLM_HEADER_VALUE || process.env.X_LLM_API_KEY
     }
 };

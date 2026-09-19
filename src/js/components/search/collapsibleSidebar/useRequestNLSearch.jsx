@@ -6,21 +6,14 @@ const headers = {
     'X-LLM-API-Key': GlobalConstants?.LLM?.HEADER_VALUE
 };
 
-const LLM_API = GlobalConstants?.LLM?.API ? GlobalConstants?.LLM?.API + 'v2/llm/filter-search/' : '/v2/llm/filter-search/';
+const LLM_API = GlobalConstants?.LLM?.API + 'v2/llm/filter-search/';
 
 const useRequestNLSearch = (prompt) => {
-    const requestHeader = GlobalConstants?.LLM?.HEADER_VALUE ?
-        {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({'query': prompt})
-        }
-        :
-        {
-            method: 'POST',
-            body: JSON.stringify({'query': prompt})
-        }
-    ;
+    const requestHeader = {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({'query': prompt})
+    };
 
     const { data, refetch, status, isFetching } = useQuery({
         queryKey: ['nl-search-stream'],
