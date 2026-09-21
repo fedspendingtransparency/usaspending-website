@@ -25,10 +25,8 @@ const globalConstants = {
     REQUEST_VERSION: '2020-06-01',
     IS_NEW_DOWNLOAD: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
     FEATURED_CONTENT_ROTATION: "week",   // "week" or "sprint"
-    LLM: {
-        API: local?.localConstants?.LLM_API,
-        HEADER_VALUE: local?.localConstants?.LLM_HEADER_VALUE || process.env.X_LLM_API_KEY
-    }
+    LLM_API: local?.localConstants?.LLM_API ||  local?.localConstants?.API || process.env.USASPENDING_API || 'https://api.usaspending.gov/api/',
+    LLM_HEADER_VALUE: local?.localConstants?.LLM_HEADER_VALUE || process.env.X_LLM_API_KEY
 };
 
 module.exports = globalConstants;
