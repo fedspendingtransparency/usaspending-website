@@ -1,12 +1,18 @@
 import {useQueries} from "@tanstack/react-query";
 import AccountSearchBalanceOperation from "../../../models/v1/account/queries/AccountSearchBalanceOperation";
-import {balanceFields} from "../../../dataMapping/accounts/accountFields";
-import {fetchTasBalanceTotals} from "../../../helpers/accountQuartersHelper";
+import {
+    balanceFields,
+    balanceFieldsFiltered,
+    balanceFieldsNonfiltered
+} from "../../../dataMapping/accounts/accountFields";
+import {fetchTasBalanceTotals, fetchTasCategoryTotals} from "../../../helpers/accountQuartersHelper";
 import {initialState} from "../../../redux/reducers/account/accountReducer"
-import {Iterable} from "immutable";
+import {Iterable, Record} from "immutable";
 import {is as immutableIs} from "immutable/dist/immutable";
 import {isEqual} from "lodash-es";
 import {VisData} from "./AccountTimeVisualizationContainer";
+import AccountSearchCategoryOperation from "../../../models/v1/account/queries/AccountSearchCategoryOperation";
+import {useMemo} from "react";
 
 const group = [
     'submission__reporting_fiscal_year',
@@ -25,6 +31,8 @@ const valuesAreEqual = (a, b) => {
 
     return isEqual(a, b);
 }
+
+const responseHasData = (res) => res.some(({ data }) => data);
 
 const areFiltersEmpty = (filters = initialState.filters, filterReference = initialState.filters) => {
     if (!filterReference && filters) return false;
@@ -49,16 +57,18 @@ const areFiltersEmpty = (filters = initialState.filters, filterReference = initi
 };
 
 const parseBalances = (res, visualizationPeriod, hasFilteredObligated) => {
+    console.log({ res, visualizationPeriod, hasFilteredObligated })
     const xSeries = [];
     const ySeries = [];
     const allY = [];
     const yData = {};
     const groupLabels = [];
 
-    if (!res[0].data) return;
+    let ref;
+
+    if (!responseHasData(res)) return new VisData();
 
     res.forEach(({ data, type }) => {
-        console.log({ data })
         data?.results.forEach((group) => {
             let groupLabel = `${group.item}`;
             if (visualizationPeriod === 'quarter') {
@@ -89,8 +99,6 @@ const parseBalances = (res, visualizationPeriod, hasFilteredObligated) => {
 
     // Ensure the group labels are in chronological order
     groupLabels.sort();
-
-    let ref;
 
     if (ref === null) {
         ref = Object.fromEntries(groupLabels
@@ -241,58 +249,101 @@ const parseBalances = (res, visualizationPeriod, hasFilteredObligated) => {
     })
 };
 
-export const useFetchQuarters = (id, reduxFilters, visualizationPeriod, hasFilteredObligated) => {
+export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) => {
     const searchOperation = new AccountSearchBalanceOperation(id);
     searchOperation.fromState(reduxFilters);
     const balanceFilters = searchOperation.toParams();
 
-    // const categorySearchOperation = new AccountSearchCategoryOperation(id);
-    // categorySearchOperation.fromState(reduxFilters);
-    // const categoryFilters = categorySearchOperation.toParams();
+    const categorySearchOperation = new AccountSearchCategoryOperation(id);
+    categorySearchOperation.fromState(reduxFilters);
+    const categoryFilters = categorySearchOperation.toParams();
 
-    // const { data } = useQueries({
-    //     queries: Object.keys(balanceFieldsFiltered).map((balanceType) => ({
-    //         queryKey: ['fetchTasCategoryTotals', categoryFilters, balanceType],
-    //         query: () => fetchTasCategoryTotals({
-    //             filters: categoryFilters,
-    //             group,
-    //             field: balanceFieldsFiltered[balanceType],
-    //             aggregate,
-    //             order,
-    //             auditTrail: `Spending over Time (quarters) - obligated filter - ${balanceType}`
-    //         }).promise,
-    //         enabled: visualizationPeriod === 'quarter' && hasFilteredObligated
-    //     }))
-    // })
-
-    const emptyFilters = areFiltersEmpty(reduxFilters);
-
-    const data = useQueries({
-        queries: Object.keys(balanceFields).map((balanceType) => {
+    const quarterCategory = useQueries({
+        queries: Object.keys(balanceFieldsFiltered).map((balanceType) => {
             return {
-                queryKey: ['fetchTasBalanceTotals', balanceFilters, balanceType],
-                queryFn: () => fetchTasBalanceTotals({
-                    filters: balanceFilters,
+                queryKey: [
+                    'fetchTasCategoryTotals',
+                    balanceType,
+                    hasFilteredObligated,
+                    visualizationPeriod,
+                    categoryFilters
+                ],
+                queryFn: () => fetchTasCategoryTotals({
+                    filters: categoryFilters,
                     group,
-                    field: balanceFields[balanceType],
+                    field: balanceFieldsFiltered[balanceType],
                     aggregate,
                     order,
-                    auditTrail: `Spending over Time (quarters) - non-obligated filter - ${balanceType}`
+                    auditTrail: `Spending over Time (quarters) - obligated filter - ${balanceType}`
                 }).promise,
-                enabled: visualizationPeriod === 'quarter' && !hasFilteredObligated && !emptyFilters
+                enabled: visualizationPeriod === 'quarter' && !emptyFilters && hasFilteredObligated
             }
         }),
         combine: (result) => ({
             result: result.map((query, i) => ({
                 data: query.data?.data,
-                type: Object.keys(balanceFields)[i]
+                type: Object.keys(balanceFieldsFiltered)[i]
             })),
             isLoading: result.some((query) => query.isLoading),
             isError: result.some((query) => query.isError)
         })
     })
 
-    console.log({ parsed: parseBalances(data.result, visualizationPeriod, hasFilteredObligated) })
+    const emptyFilters = areFiltersEmpty(reduxFilters);
 
-    return data;
+    const quarterFields = hasFilteredObligated ? balanceFieldsNonfiltered : balanceFields;
+
+    const quarterBalance = useQueries({
+        queries: Object.keys(quarterFields).map((balanceType) => {
+            return {
+                queryKey: [
+                    'fetchTasBalanceTotals',
+                    balanceType,
+                    visualizationPeriod,
+                    hasFilteredObligated,
+                    balanceFilters
+                ],
+                queryFn: () => fetchTasBalanceTotals({
+                    filters: balanceFilters,
+                    group,
+                    field: quarterFields[balanceType],
+                    aggregate,
+                    order,
+                    auditTrail: `Spending over Time (quarters) - ${
+                        hasFilteredObligated ? '' : 'non-'
+                    }obligated filter - ${balanceType}`
+                }).promise,
+                enabled: visualizationPeriod === 'quarter' && !emptyFilters
+            }
+        }),
+        combine: (result) => ({
+            result: result.map((query, i) => ({
+                data: query.data?.data,
+                type: Object.keys(quarterFields)[i]
+            })),
+            isLoading: result.some((query) => query.isLoading),
+            isError: result.some((query) => query.isError)
+        })
+    })
+
+    const result = useMemo(() => {
+        let combinedResult = [];
+
+        if (responseHasData(quarterCategory.result)) combinedResult = [...quarterCategory.result];
+        if (responseHasData(quarterBalance.result)) combinedResult = [...combinedResult, ...quarterBalance.result];
+
+        console.log({ combinedResult, parsed: parseBalances(combinedResult)})
+
+        return parseBalances(combinedResult, visualizationPeriod, hasFilteredObligated);
+    }, [quarterCategory.result, quarterBalance.result, visualizationPeriod, hasFilteredObligated]);
+    
+    const loading = useMemo(() => {
+        return quarterCategory.isLoading || quarterBalance.isLoading
+    }, [quarterBalance.isLoading, quarterCategory.isLoading])
+    
+    const error = useMemo(() => {
+        return quarterCategory.isError || quarterBalance.isError
+    },  [quarterBalance.isError, quarterCategory.isError])
+
+    return { result, loading, error };
 }
