@@ -3,10 +3,10 @@ import GlobalConstants from 'GlobalConstants';
 
 const headers = {
     'Content-Type': 'application/json',
-    'X-LLM-API-Key': GlobalConstants?.LLM?.HEADER_VALUE
+    'X-LLM-API-Key': GlobalConstants?.LLM_HEADER_VALUE
 };
 
-const LLM_API = GlobalConstants?.LLM?.API + 'v2/llm/filter-search/';
+const LLM_API = GlobalConstants?.LLM_API + '/v2/llm/filter-search/';
 
 const useRequestNLSearch = (prompt) => {
     const requestHeader = {
