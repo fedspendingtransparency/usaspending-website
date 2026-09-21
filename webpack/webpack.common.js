@@ -25,7 +25,7 @@ module.exports = {
     context: path.resolve(__dirname, "../src"),
     resolve: {
         extensions: [".js", ".jsx", ".md", ".mdx"],
-        modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],
+        modules: ["node_modules", path.resolve(__dirname, "../src/js"), path.resolve(__dirname, "../src/_scss")],
         fallback: { querystring: require.resolve("querystring-es3") },
         alias: {
             lodash: 'lodash-es'
@@ -54,21 +54,25 @@ module.exports = {
                     }
                 ]
             },
-            // file-loader rules are being deprecated; https://webpack.js.org/guides/asset-modules/
+            // file-loader is deprecated in favor of webpack 5's native Asset Modules;
+            // https://webpack.js.org/guides/asset-modules/
+            // Note: asset module filename templates already include the leading dot in
+            // [ext], so '[path][name][ext]' is the equivalent of file-loader's '[path][name].[ext]'
             {
                 include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
-                loader: 'file-loader',
-                type: 'javascript/auto',
-                options: {
-                    name: '[path][name].[ext]'
+                type: 'asset/resource',
+                generator: {
+                    filename: '[path][name][ext]'
                 }
             },
             {
+                // webpack parses .json files as JS modules by default; these JSON files are
+                // referenced by URL at runtime, not imported as JS objects, so they must be
+                // emitted as static file assets instead of being parsed into the JS bundle.
                 test: /\.(json)$/,
-                type: 'javascript/auto',
-                loader: 'file-loader',
-                options: {
-                    name: '[path][name].[ext]'
+                type: 'asset/resource',
+                generator: {
+                    filename: '[path][name][ext]'
                 }
             },
             {

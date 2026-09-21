@@ -2,14 +2,9 @@ const presets = [
     [
         "@babel/preset-env",
         {
-            useBuiltIns: "entry",
-            corejs: {
-                version: 3,
-                proposals: true
-            },
             targets: {
-                ie: "10",
-                node: "10"
+                node: "22.14",
+                browsers: ["last 2 versions", "not dead", "not ie <= 11"]
             }
         }
     ],
@@ -25,11 +20,9 @@ const plugins = [
         }
     ],
     "@babel/plugin-transform-runtime",
-    "@babel/plugin-transform-object-rest-spread",
     "@babel/plugin-transform-class-properties",
     "@babel/plugin-transform-optional-chaining",
-    "@babel/plugin-syntax-dynamic-import",
-    "react-hot-loader/babel"
+    ["polyfill-corejs3", { method: "entry-global", version: "3.50" }]
 ];
 
 module.exports = {
