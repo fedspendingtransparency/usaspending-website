@@ -3,9 +3,11 @@
  * Created by Lizzie Salita 5/16/18
  */
 
-import React, { useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { truncate } from 'lodash-es';
+import { QAT } from "GlobalConstants";
+import useCallbackRef from "../../../../../hooks/useCallbackRef";
 
 const propTypes = {
     label: PropTypes.string,
@@ -44,7 +46,7 @@ const AwardTypeCell = ({
     width,
     labelView
 }) => {
-    const svgRef = useRef(null);
+    const [svgWidth, setSvgWidth] = useState(0);
 
     const onMouseEnter = () => {
         toggleTooltipIn(awardType);
@@ -52,19 +54,15 @@ const AwardTypeCell = ({
 
     const labelWidth = x1 - x0;
 
-    // determine if the text needs to be truncated
-    // get the current label width
-
-    // We have to wrap this in a try/catch to prevent Firefox from dying when trying
-    // to compute the bounded box of small SVG elements
-    let fullWidth = 0;
-    try {
-        fullWidth = svgRef.current.getBBox().width;
-    }
-    catch (e) {
-        // Firefox can't compute bbox
-        console.log({ e })
-    }
+    const ref = useCallbackRef((entry) => {
+        try {
+            setSvgWidth(entry.target.getBBox().width)
+        }
+        catch (e) {
+            // Firefox can't compute bbox
+            if (QAT) console.log({ e })
+        }
+    });
 
     // accounting for 15px margin
     const maxWidth = labelWidth / 1.5;
@@ -72,18 +70,16 @@ const AwardTypeCell = ({
     let truncatedLabel = initialLabel;
 
     // make sure that the max width is positive
-    if (fullWidth > maxWidth && maxWidth > 0) {
+    if (svgWidth > maxWidth && maxWidth > 0) {
         // the label is going to exceed the available space, truncate it
-        // calculate the average character width
-        const avgCharWidth = (fullWidth / initialLabel.length);
+        // average character width at 16px font size
+        const avgCharWidth = 8;
 
         // determine how many characters can fit in the available space
         const maxChars = Math.floor((maxWidth) / avgCharWidth);
 
         // truncate the label
-        truncatedLabel = truncate(initialLabel, {
-            length: maxChars
-        });
+        truncatedLabel = truncate(initialLabel, { length: maxChars });
     }
 
     return (
@@ -95,6 +91,7 @@ const AwardTypeCell = ({
                 className="tile"
                 width={width}
                 height={height}
+                ref={ref}
                 style={{
                     fill: color,
                     stroke: strokeColor,
@@ -108,7 +105,6 @@ const AwardTypeCell = ({
                 y={height / 2}
                 width={width}
                 textAnchor="middle"
-                ref={svgRef}
                 style={{
                     display: labelView,
                     fill: textColor,

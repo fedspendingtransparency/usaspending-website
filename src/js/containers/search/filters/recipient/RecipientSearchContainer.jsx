@@ -182,7 +182,7 @@ const RecipientSearchContainer = () => {
         return null;
     };
 
-    const getFormatedName = (recipient) => {
+    const getFormattedName = (recipient) => {
         if (recipient.uei && recipient.uei?.includes(searchString.toUpperCase())) {
             return (
                 <div className="recipient-checkbox__uei">
@@ -203,7 +203,7 @@ const RecipientSearchContainer = () => {
             formatedRecipients = recipients.toSorted((a, b) => (
                 a.name?.toUpperCase() < b.name?.toUpperCase() ? -1 : 1))
                 .map((recipient) => ({
-                    name: getFormatedName(recipient),
+                    name: getFormattedName(recipient),
                     value: {
                         name: recipient.name ? recipient.name : recipient.recipient_name,
                         uei: recipient.uei

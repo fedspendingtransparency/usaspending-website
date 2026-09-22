@@ -3,13 +3,15 @@
  * Created by Lizzie Salita 3/23/18
  */
 
-import React, { memo, useMemo, useEffect, useCallback } from 'react';
+import React, { memo, useMemo, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
 import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
 import ComboBox from "components/sharedComponents/ComboBox";
 import BulkDownloadRadioButton from "../../../sharedComponents/BulkDownloadRadioButton";
+import { stateTitleCase } from "../../../../features/state/stateHelper";
+
 const countryOptions = [
     {
         value: 'all',
@@ -78,12 +80,16 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
     const onStateClearSelect = () => updateState({ target: { value: '' }});
 
     const stateOptions = useMemo(() => {
-        const tempArr = states.slice();
+        if (!states) {
+            return [];
+        }
+        const tempArr = [{ code: 'all', name: 'All' }, ...states];
 
-        tempArr.unshift({ code: 'all', name: 'All' });
-
-        return tempArr.map(({ code, name }) => ({ value: code, text: name }));
-    }, [states])
+        return tempArr.map(({ code, name }) => ({
+            value: code,
+            text: stateTitleCase(name)
+        }));
+    }, [states]);
 
     const locationTypesArray = locationTypes.map(({ name, label, description }) => (
         <BulkDownloadRadioButton
@@ -95,9 +101,6 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
             description={description}
             key={name} />
     ));
-
-    // set location to all on render
-    useEffect(() => updateCountry({ target: { value: 'all' } }), [updateCountry]);
 
     return (
         <div className="download-filter">
@@ -112,7 +115,6 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
                         onSelect={updateCountry}
                         label={"Country"}
                         placeholder={"Select a Country"}
-                        defaultValue={'All Countries'}
                         onClearSelect={onCountryClearSelect} />
                     <ComboBox
                         optionsArray={stateOptions}

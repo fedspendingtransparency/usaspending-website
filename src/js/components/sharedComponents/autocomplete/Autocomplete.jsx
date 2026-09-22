@@ -2,7 +2,7 @@
  * Created by michaelbray on 1/27/17.
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
 import { find, uniqueId } from 'lodash-es';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -62,8 +62,8 @@ const Autocomplete = ({
     const [showWarning, setShowWarning] = useState(false);
     const [staged, setStaged] = useState(false);
 
-    const autocompleteIdRef = useRef(`autocomplete-${uniqueId()}`);
-    const autocompleteInputRef = useRef();
+    const autocompleteIdRef = useMemo(() => `autocomplete-${uniqueId()}`, []);
+    const autocompleteInputRef = useRef(null);
 
     const checkValidity = (input) => {
         // Hide any old warnings
@@ -112,7 +112,7 @@ const Autocomplete = ({
     };
 
     const scrollToSelectedId = (selectedId) => {
-        document.getElementById(`${autocompleteIdRef.current}__option_${selectedId}`)
+        document.getElementById(`${autocompleteIdRef}__option_${selectedId}`)
             .scrollIntoView({
                 behavior: 'auto',
                 block: 'nearest',
@@ -250,7 +250,7 @@ const Autocomplete = ({
     let status = '';
 
     if (shown && selectedIndex > -1) {
-        activeDescendant = `${autocompleteIdRef.current}__option-${selectedIndex}`;
+        activeDescendant = `${autocompleteIdRef}__option-${selectedIndex}`;
         if (values.length > selectedIndex) {
             const selectedString = values[selectedIndex].title;
             const valueCount = Math.min(maxSuggestions, values.length);
@@ -302,7 +302,7 @@ const Autocomplete = ({
         <div
             className="usa-da-typeahead-wrapper"
             role="combobox"
-            aria-controls={autocompleteIdRef.current}
+            aria-controls={autocompleteIdRef}
             aria-expanded={shown}
             aria-haspopup="true">
             <div className="usa-da-typeahead">
@@ -315,9 +315,9 @@ const Autocomplete = ({
                         ref={autocompleteInputRef}
                         type="text"
                         placeholder={placeholder}
-                        onChange={onChange.bind(this)}
+                        onChange={onChange}
                         tabIndex={0}
-                        aria-controls={autocompleteIdRef.current}
+                        aria-controls={autocompleteIdRef}
                         aria-activedescendant={activeDescendant}
                         aria-autocomplete="list"
                         onBlur={() => onBlur}
@@ -334,9 +334,9 @@ const Autocomplete = ({
                     suggestions={values}
                     shown={shown}
                     selectedIndex={selectedIndex}
-                    select={select.bind(this)}
+                    select={select}
                     maxSuggestions={maxSuggestions}
-                    autocompleteId={autocompleteIdRef.current}
+                    autocompleteId={autocompleteIdRef}
                     matchingString={value} />}
                 {generateWarning()}
             </div>

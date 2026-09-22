@@ -61,7 +61,7 @@ const SearchSectionWrapperContent = ({
 }) => {
     const { isTablet } = useContext(IsMobileContext);
 
-    const Message = () => {
+    const message = () => {
         if (isLoading) {
             return <LoadingMessage />;
         }
@@ -75,59 +75,61 @@ const SearchSectionWrapperContent = ({
         return <></>;
     };
 
-    const Content = () => {
+    const content = () => {
         if (table) {
             return table;
         }
 
-        return (<SectionDataTable
-            columns={columns}
-            rows={rows}
-            sortBy={sortBy}
-            activeField={activeField}
-            sortDirection={sortDirection}
-            manualSort
-            sectionName={sectionName}
-            nextPage={nextPage}
-            previousPage={previousPage}
-            hasNextPage={hasNextPage}
-            hasPreviousPage={hasPreviousPage} />);
+        return (
+            <SectionDataTable
+                columns={columns}
+                rows={rows}
+                sortBy={sortBy}
+                activeField={activeField}
+                sortDirection={sortDirection}
+                manualSort
+                sectionName={sectionName}
+                nextPage={nextPage}
+                previousPage={previousPage}
+                hasNextPage={hasNextPage}
+                hasPreviousPage={hasPreviousPage} />
+        );
     };
 
     return (
         <>
-            {!openAccordion &&
-        <div
-            className={
-                `search__section-wrapper-content new-results-view search__${sectionName}`
-            }>
-            {
-                // eslint-disable-next-line no-nested-ternary
-                isError || isLoading || hasNoData ?
-                    <Message />
-                    :
-                    <>
-                        {((viewType === "table" || sectionName === "table") && isTablet) ?
-                            <MobileSort
-                                columns={columns}
-                                options={mobileDropdownOptions}
-                                sortDirection={sortDirection}
-                                setSortDirection={setSortDirection}
-                                activeField={activeField}
-                                field={sort?.field}
-                                setActiveField={setActiveField}
-                                sortBy={sortBy}
-                                sort={sort}
-                                tableColumns={tableColumns?.data}
-                                setSort={setSort} /> : null}
-                        {downloadComponent}
-                        {viewType === "table" ?
-                            <Content />
-                            :
-                            children}
-                    </>
+            { !openAccordion &&
+            <div
+                className={
+                    `search__section-wrapper-content new-results-view search__${sectionName}`
+                }>
+                {
+                    isError || isLoading || hasNoData ?
+                        message()
+                        :
+                        <>
+                            {((viewType === "table" || sectionName === "table") && isTablet) ?
+                                <MobileSort
+                                    columns={columns}
+                                    options={mobileDropdownOptions}
+                                    sortDirection={sortDirection}
+                                    setSortDirection={setSortDirection}
+                                    activeField={activeField}
+                                    field={sort?.field}
+                                    setActiveField={setActiveField}
+                                    sortBy={sortBy}
+                                    sort={sort}
+                                    tableColumns={tableColumns?.data}
+                                    setSort={setSort} /> : null}
+                            {downloadComponent}
+                            {viewType === "table" ?
+                                content()
+                                :
+                                children}
+                        </>
+                }
+            </div>
             }
-        </div>}
         </>
     );
 };

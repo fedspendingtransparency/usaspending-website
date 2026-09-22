@@ -22,6 +22,10 @@ const propTypes = {
 // TODO: eslint rule disabled as this component is currently not
 //  being used and therefore difficult to test a fix (DEV-15206)
 /* eslint-disable react-hooks/immutability */
+
+// TODO: eslint rule disabled as this component is currently not
+//  being used and therefore difficult to test a fix (DEV-15914)
+/* eslint-disable react-hooks/refs */
 const NestedAwardTable = (props) => {
     const [subData, setSubData] = useState([]);
     const [subColumns, setSubColumns] = useState([]);

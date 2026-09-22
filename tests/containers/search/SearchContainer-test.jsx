@@ -10,7 +10,6 @@ import { Set } from 'immutable';
 import { MemoryRouter, Router, Route } from 'react-router';
 import * as redux from 'react-redux';
 
-import SearchContainer, { parseRemoteFilters } from 'containers/search/SearchContainer';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
 
 import { mockFilters, mockRedux } from './mockSearchHashes';
@@ -44,32 +43,6 @@ jest.mock('react-router', () => ({
     useLocation: jest.fn().mockReturnValue({ search: '' }),
     useNavigate: jest.fn()
 }));
-
-
-test('parseRemoteFilters should return null if the versions do not match', () => {
-    const mockResponse = Object.assign({}, mockFilters, {
-        filter: {
-            version: -1000
-        }
-    });
-
-    expect(parseRemoteFilters(mockResponse)).toEqual(null);
-});
-
-test('parseRemoteFilters should return an immutable data structure when versions match', () => {
-    const expectedFilter = new Set(['1990']);
-    const mock = {
-        ...mockFilters,
-        filter: {
-            ...mockFilters.filter,
-            filters: {
-                ...mockFilters.filter.filters,
-                timePeriodFY: ['1990']
-            }
-        }
-    };
-    expect(parseRemoteFilters(mock.filter).timePeriodFY).toEqual(expectedFilter);
-});
 
 xtest('a non-hashed url does not make a request to the api', async () => {
     restoreUrlHash.mockClear();

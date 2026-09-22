@@ -8,8 +8,7 @@ import { requestAgenciesList } from "../helpers/bulkDownloadHelper";
 const useRequestAgenciesList = (type, agency = 0) => {
     const { data, isSuccess, isLoading, error } = useQuery({
         queryKey: ['requestAgenciesList', type, agency],
-        queryFn: () => requestAgenciesList({ type, agency }).promise,
-        staleTime: Infinity
+        queryFn: () => requestAgenciesList({ type, agency }).promise
     })
 
     return { data, isSuccess, isLoading, error }

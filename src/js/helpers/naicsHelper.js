@@ -10,7 +10,7 @@ import {
     removeStagedFilter,
     autoCheckImmediateChildrenAfterDynamicExpand,
     expandNodeAndAllDescendantParents,
-    getFormatedDataForCheckboxTree
+    getFormattedDataForCheckboxTree
 } from './checkboxTreeHelper';
 
 export const formatSelectedNaics = (value, description, count) => `${value} | ${description} | ${count}`;
@@ -62,7 +62,7 @@ export const getNaicsNodeFromTree = (tree, nodeKey, treePropForKey = 'value') =>
     return { count: null };
 };
 
-export const getFormatedAncestors = (node) => {
+export const getFormattedAncestors = (node) => {
     const ancestors = [];
     let naicsCode = node;
     if (typeof node !== 'string') {
@@ -84,14 +84,14 @@ export const getFormatedAncestors = (node) => {
     return ancestors;
 };
 
-export const getFormatedChildren = (node) => {
+export const getFormattedChildren = (node) => {
     if (node?.children?.length) {
         return node.children.map((child) => (
             {
                 ...child,
-                ancestors: getFormatedAncestors(child),
+                ancestors: getFormattedAncestors(child),
                 id: child.id || child.value,
-                children: getFormatedChildren(child)
+                children: getFormattedChildren(child)
             }
         ));
     }
@@ -123,7 +123,7 @@ export const getAllUniqueAncestors = (ancestorArray) => {
 };
 
 
-export const getFormatedNaicsDataForCheckboxTree = (nodes) => getFormatedDataForCheckboxTree(nodes, 'naics', getFormatedChildren, getFormatedAncestors);
+export const getFormattedNaicsDataForCheckboxTree = (nodes) => getFormattedDataForCheckboxTree(nodes, 'naics', getFormattedChildren, getFormattedAncestors);
 
 export const decrementNaicsCountAndUpdateUnchecked = (
     uncheckedNode,

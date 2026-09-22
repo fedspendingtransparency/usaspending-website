@@ -249,7 +249,7 @@ export class MapContainer extends React.Component {
             visibleEntities,
             activeFilters
         } = this.state;
-        // if no entities are visible, don't make an API rquest because nothing in the US is visible
+        // if no entities are visible, don't make an API request because nothing in the US is visible
         if (visibleEntities.length === 0) {
             this.setState({
                 loading: false,

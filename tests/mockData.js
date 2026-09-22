@@ -1,5 +1,27 @@
+import React from "react";
 export const encodedAwardId = encodeURIComponent('123/456');
 export const decodedAwardId = decodeURIComponent(encodedAwardId);
+
+export const RESPONSE_TYPE = {
+    SEARCH_START: 'search_start',
+    SEARCH_COMPLETE: 'search_complete',
+    SEARCH_ERROR: 'search_error',
+    TOOL_START: 'tool_start',
+    TOOL_COMPLETE: 'tool_complete',
+    TOOL_ERROR: 'tool_error' 
+};
+
+export const OPERATION = {
+    SEARCH: 'search',
+    TOOL: 'tool'
+};
+
+export const VARIANT = {
+    INIT: 'initialize',
+    START: 'start',
+    COMPLETE: 'complete',
+    ERROR: 'error'
+};
 
 export const mockGlossary = {
     data: {
@@ -89,4 +111,191 @@ export const mockComboBox = [
     { value: "watermelon", text: "Watermelon" },
     { value: "white-current", text: "White currant" },
     { value: "yuzu", text: "Yuzu" }
+];
+
+const {SEARCH, TOOL} = OPERATION;
+const {INIT, START, COMPLETE, ERROR} = VARIANT;
+
+const responseLookup = {
+    [RESPONSE_TYPE.SEARCH_START]: {
+        operation: SEARCH,
+        variant: INIT,
+        icon: ['far', 'circle-check']
+    },
+
+    [RESPONSE_TYPE.SEARCH_COMPLETE]: {
+        operation: SEARCH,
+        variant: COMPLETE
+    },
+
+    [RESPONSE_TYPE.SEARCH_ERROR]: {
+        operation: SEARCH,
+        variant: ERROR, 
+        icon: ['far','circle-xmark']
+    },
+
+    [RESPONSE_TYPE.TOOL_START]: {
+        operation: TOOL,
+        variant: START, 
+        icon: 'sparkles'
+    },
+
+    [RESPONSE_TYPE.TOOL_COMPLETE]: {
+        operation: TOOL,
+        variant: COMPLETE, 
+        icon: ['far','circle-check']
+    },
+
+    [RESPONSE_TYPE.TOOL_ERROR]: {
+        operation: TOOL,
+        variant: ERROR,
+        icon: ['far', 'circle-xmark']
+    }
+};
+
+export const buildSearchTestState = (data = []) => {
+    const state = {
+        items: []
+    };
+        
+    data.forEach((event) => {
+        const {
+            search_id, 
+            tool_use_id, 
+            type, 
+            message, 
+            result
+        } = event ?? {};
+               
+        const response = responseLookup[type];
+        
+        if (!response) {
+            return;
+        }
+        
+        const item = {
+            searchId: search_id,
+            ...(tool_use_id && {
+                toolId: tool_use_id
+            }),
+            ...response,
+            ...(message && {
+                label: message
+            }),
+            ...(result && {
+                result
+            })
+        };
+        
+        // Search messages are always new display items
+        if (response.operation === OPERATION.SEARCH) {
+            state.items.push(item);
+            return; 
+        }
+        
+        const toolId = tool_use_id;
+        
+        if (!toolId) {
+            return;
+        }
+        
+        // Tool start creates a new display item
+        if (type === RESPONSE_TYPE.TOOL_START) {
+            state.items.push(item);
+            return;
+        }
+        
+        // Tool complete/error updates the existing item
+        const itemIndex = state.items.findIndex(
+            (existingItem) => existingItem.toolId === toolId
+            && message === undefined
+        );
+        
+        if (itemIndex !== -1) {
+            state.items[itemIndex] = {
+                ...state.items[itemIndex],
+                ...item
+            };
+        }
+        else {
+            state.items.push(item);
+        }
+    });
+        
+    return state;
+};
+
+export const searchTestData = [
+    {
+        search_id: '502',
+        type: RESPONSE_TYPE.SEARCH_START,
+        message: "Thinking..."
+    },
+    {   
+        search_id: '502',
+        tool_use_id: 1522,
+        type: RESPONSE_TYPE.TOOL_START,
+        message: 'Selecting Anne Arundel, MD'
+    },
+    {
+        search_id: '502',
+        tool_use_id: 1522,
+        type: RESPONSE_TYPE.TOOL_COMPLETE
+    },
+    {
+        search_id: '502',
+        tool_use_id: 1523,
+        type: RESPONSE_TYPE.TOOL_START,
+        message: 'Selecting funding over $500,000'
+    },
+    {
+        search_id: '502',
+        tool_use_id: 1523,
+        type: RESPONSE_TYPE.TOOL_COMPLETE
+    },
+  
+    {
+        search_id: '502',
+        tool_use_id: 1524,
+        type: RESPONSE_TYPE.TOOL_START,
+        message: 'Selecting higher education and public schools'
+    },
+    {
+        search_id: '502',
+        tool_use_id: 1524,
+        type: RESPONSE_TYPE.TOOL_ERROR
+    },
+    {
+        search_id: '502',
+        tool_use_id: 1525,
+        type: RESPONSE_TYPE.TOOL_START,
+        message: (
+            <>
+                Applying filters based on grants and loans that went <br /> 
+                to schools in Anne Arundel county, <br />
+                Maryland
+            </>
+        )
+    },
+    {
+        search_id: '502',
+        tool_use_id: 1525,
+        type: RESPONSE_TYPE.TOOL_COMPLETE,
+        message: 'Success'
+    },
+    {
+        search_id: '502',
+        type: RESPONSE_TYPE.SEARCH_COMPLETE,
+        message: (
+            <>
+                Showing results for schools in Anne Arundel county that <br />
+                receive over $500,000 in federal <br />
+                funding
+            </>
+            
+        ),
+       
+        result: '16ebdca405791cb0f23d4c7120606fa1'
+    }
+
 ];

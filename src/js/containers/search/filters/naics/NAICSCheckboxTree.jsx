@@ -10,7 +10,7 @@ import {
     getNaicsNodeFromTree,
     autoCheckNaicsAfterExpand,
     expandNaicsAndAllDescendantParents,
-    getFormatedNaicsDataForCheckboxTree,
+    getFormattedNaicsDataForCheckboxTree,
     getAllUniqueAncestors
 } from 'helpers/naicsHelper';
 import {
@@ -160,7 +160,7 @@ const NAICSCheckboxTree = () => {
             })
             .catch((e) => {
                 if (!isCancel(e)) {
-                    console.log('Error NAICS Reponse : ', e);
+                    console.log('Error NAICS Response : ', e);
                     setIsError(true);
                     setErrorMessage(e.message);
                     setIsLoading(false);
@@ -182,6 +182,7 @@ const NAICSCheckboxTree = () => {
         dispatch(showNaicsTree());
     };
 
+    // eslint-disable-next-line react-hooks/refs
     const onSearchChange = debounce(() => {
         if (!searchString) {
             onClear();
@@ -350,7 +351,7 @@ const NAICSCheckboxTree = () => {
                     searchIcon />
                 <CheckboxTree
                     limit={3}
-                    data={getFormatedNaicsDataForCheckboxTree(nodes)}
+                    data={getFormattedNaicsDataForCheckboxTree(nodes)}
                     isError={isError}
                     errorMessage={errorMessage}
                     isLoading={isLoading}

@@ -87,6 +87,9 @@
     display: flex;
     flex-wrap: wrap;
     padding: 2.4rem 0 0.8rem;
+    position: sticky;
+    top: rem(6);
+    left: 0;
 
     @include media($small-screen) {
       padding: 2.4rem 0 0.8rem;
@@ -94,6 +97,11 @@
 
     @include media($medium-screen) {
       padding: 2.4rem 0 0.8rem;
+    }
+
+    &.is-nl {
+      overflow-y: auto;
+      max-height: calc(100dvh - rem(292));
     }
 
     .sidebar-title-row {
@@ -130,12 +138,30 @@
       }
     }
 
+    .sidebar-nl-container {
+      min-height: rem(392);
+      margin: rem(12) 0;
+      overflow-y: auto;
+
+      &.response {
+        // adjust for stop generating button size
+        // to keep "Working....", "Start new Search" buttons in same position
+        // as initial "Start search" button.
+        min-height: rem(356);
+      }
+    }
+
     .sidebar-text {
       font-weight: $font-normal;
       font-size: rem(14);
       padding: 0 rem(24);
+      margin: 0 0 rem(12) 0;
 
-      @media (max-width: $medium-screen) {
+      &.semibold {
+        font-weight: $font-semibold;
+      }
+
+      @media (max-width: $medium-screen - 1) {
         padding: 0 rem(16);
       }
     }
@@ -148,6 +174,13 @@
       display: flex;
       flex-direction: column;
       width: 100%;
+
+      &.response {
+        @media (min-width: $medium-screen) {
+          padding: 0;
+        }
+      }
+
       .sidebar-example {
         color: $gray-60;
         font-size: $font-size-12;
@@ -247,24 +280,67 @@
       .natural-language-submit {
         margin: 0;
         display: flex;
-        color: $color-white;
         justify-content: center;
         text-align: center;
+        align-items: center;
         font-size: $font-size-16;
         font-weight: $font-semibold;
         line-height: 150%; /* 24px */
-        background: linear-gradient(
-          91deg,
-          $cyan-60v 0%,
-          $cyan-50v 35%,
-          $blue-60v 100%
-        );
         padding: rem(12) rem(8);
         width: 100%;
         svg {
           margin-right: rem(8);
         }
       }
+      .natural-language-submit.default-search {
+        background: linear-gradient(
+          91deg,
+          $cyan-60v 0%,
+          $cyan-50v 35%,
+          $blue-60v 100%
+        );
+
+        &:hover {
+          background: $cyan-50v;
+        }
+        &:active {
+          background: $cyan-60v;
+        }
+      }
+      .natural-language-submit.loading {
+        color: $cyan-50v;
+        background-color: $color-white;
+        border: 1px solid transparent;
+        border-radius: rem(4);
+        background:
+          linear-gradient($color-white, $color-white) padding-box,
+          linear-gradient(
+              92deg,
+              $color-secondary-secondary-lighter 0%,
+              #4eb6cd 50.48%,
+              $cyan-60v 100%
+            )
+            border-box;
+
+        &:hover {
+          // prevent loading state hover style changes
+          background:
+            linear-gradient($color-white, $color-white) padding-box,
+            linear-gradient(
+                92deg,
+                $color-secondary-secondary-lighter 0%,
+                #4eb6cd 50.48%,
+                $cyan-60v 100%
+              )
+              border-box;
+        }
+      }
+      .natural-language-submit.disabled {
+        pointer-events: none;
+        background: $gray-20;
+        color: $gray-70;
+      }
+
       .sidebar-ai-blurb {
         color: $gray-90;
         font-size: $font-size-12;
@@ -273,7 +349,31 @@
         display: inline-block;
         margin-top: rem(12);
       }
+
+      .natural-language-stop {
+        margin: 0;
+        background: $color-white;
+        padding: rem(12) 0 rem(12) rem(16);
+        color: $blue-60v;
+        font-size: $font-size-12;
+        font-weight: $font-normal;
+        visibility: visible;
+        position: relative;
+        display: flex;
+      }
+
+      .natural-language-stop::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: rem(10);
+        width: rem(12);
+        height: rem(12);
+        background-color: $blue-60v;
+        border-radius: rem(2);
+      }
     }
+
     .collapsible-sidebar-group {
       display: flex;
       align-items: center;
@@ -461,6 +561,7 @@
   .sidebar-nl-buttons-container {
     width: min-content;
     position: relative;
+    align-items: start;
     background: linear-gradient(
       179deg,
       $cyan-60v 1%,
@@ -482,33 +583,39 @@
       }
     }
 
-    .sidebar-nl-buttons {
-      position: relative;
-      z-index: 1;
-      padding: rem(12);
-      margin: 0 0 $global-margin $global-margin;
-      border-radius: rem(4) 0 0 rem(4);
+    .nl-buttons-wrapper {
+      position: sticky;
+      top: rem(60);
+      left: 0;
 
-      &:first-of-type {
-        margin-top: 3 * $global-margin;
-      }
+      .sidebar-nl-buttons {
+        position: relative;
+        z-index: 1;
+        padding: rem(12);
+        margin: 0 0 $global-margin $global-margin;
+        border-radius: rem(4) 0 0 rem(4);
 
-      svg {
-        min-width: rem(24);
-        min-height: rem(24);
-      }
+        &:first-of-type {
+          margin-top: 3 * $global-margin;
+        }
 
-      &__badge {
-        color: $gray-90;
-        background-color: $yellow-20v;
-        border: rem(1) solid $yellow-10v;
-        border-radius: rem(10);
-        position: absolute;
-        right: rem(2);
-        top: rem(4);
-        padding: 0 $global-padding;
-        font-size: $smallest-font-size;
-        line-height: 1.5;
+        svg {
+          min-width: rem(24);
+          min-height: rem(24);
+        }
+
+        &__badge {
+          color: $gray-90;
+          background-color: $yellow-20v;
+          border: rem(1) solid $yellow-10v;
+          border-radius: rem(10);
+          position: absolute;
+          right: rem(2);
+          top: rem(4);
+          padding: 0 $global-padding;
+          font-size: $smallest-font-size;
+          line-height: 1.5;
+        }
       }
     }
   }

@@ -218,9 +218,9 @@ const articles = [
         content_type: 'Featured Content',
         banner_subtitle: "How Does USAspending.gov Define Recipients?",
         title: "What Is a Recipient?",
-        created_date: "07/30/26",
-        feature_sprint: 224,
-        feature_week: 2,
+        created_date: "10/08/26",
+        feature_sprint: 227,
+        feature_week: 3,
         description: "When searching for government spending data on USAspending.gov, you’re very likely to see the word “recipient. Whether you’re using our filters to refine your",
         slug: "what-is-a-recipient",
         explore_more: [
@@ -408,9 +408,9 @@ const articles = [
         content_type: 'Featured Content',
         title: "John’s USAspending Search",
         banner_subtitle: "Follow the Money Using USAspending.gov’s Spending Explorer",
-        created_date: "06/04/2026",
-        feature_sprint: 221,
-        feature_week: 3,
+        created_date: "09/24/2026",
+        feature_sprint: 227,
+        feature_week: 1,
         description: "The reasons for visiting USAspending.gov are as unique and varied as the users themselves. Many of our users have specific, personalized searches",
         slug: "johns-usaspending-search",
         isInfographicTemplate: false,
@@ -710,12 +710,12 @@ const articles = [
     {
         taxonomy: "America250",
         isInfographicTemplate: false,
-        content_type: 'Marketing',
+        content_type: 'Featured Content',
         title: "Government Financial Transparency: From Parchment to Digital Data",
         banner_subtitle: "Exploring the Foundations of Government Spending Data",
-        created_date: "07/23/2026",
-        feature_sprint: 224,
-        feature_week: 1,
+        created_date: "10/01/2026",
+        feature_sprint: 227,
+        feature_week: 2,
         description: "The phrase “government transparency” has become a modern buzzword, dominating headlines and conversations across all forms of media and at every level of government.",
         slug: "government-financial-transparency-from-parchment-to-digital-data",
         explore_more: [
@@ -849,7 +849,47 @@ const articles = [
                 label: "Time Period"
             }
         ]
-    }
+    },
+        {
+            taxonomy: "Spending Stories",
+            content_type: 'Marketing',
+            banner_subtitle: "How to Search for Emergency Funding on USAspending.gov",
+            title: "Tracking Emergency Government Spending",
+            created_date: "09/24/26",
+            feature_sprint: 227,
+            feature_week: 1,
+            description: "When disaster strikes, whether hurricanes, wildfires, floods, or public health emergencies, the federal government provides financial assistance to help communities respond and recover.",
+            slug: "tracking-emergency-government-spending",
+            explore_more: [
+                {
+                    label: "Advanced Search",
+                    slug: "/search",
+                    type: "internal"
+                },
+                {
+                    label: "Find Award Data by Pandemic Legislation",
+                    slug: "https://www.pandemicoversight.gov/data-interactive-tools/data-stories/how-find-award-data-pandemic-legislation",
+                    type: "external"
+                }
+            ],
+            related_terms: [
+                {
+                    term: "award",
+                    type: "glossary",
+                    label: "Award"
+                },
+                {
+                    term: "recipient",
+                    type: "glossary",
+                    label: "Recipient"
+                },
+                {
+                    term: "disaster-emergency-fund-code-defc",
+                    type: "glossary",
+                    label: "Disaster Emergency Fund Code"
+                }
+            ]
+        },
 ];
 
 export default articles;
