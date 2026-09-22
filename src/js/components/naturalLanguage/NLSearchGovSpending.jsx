@@ -70,11 +70,31 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                         </div>
 
                         <div className="search-gov-spending__button-container">
-                            <button value="What recipient has received the most federal funding?" onClick={handleClick} className="search-gov-spending__prompt-button">Recipient</button>
-                            <button value="How much federal funding has been spent during [Time Period]?" onClick={handleClick} className="search-gov-spending__prompt-button">Time Period</button>
-                            <button value="How much federal funding did [Location] receive?" onClick={handleClick} className="search-gov-spending__prompt-button">Location</button>
-                            <button value="How much federal funding has been spent on [Industry]?" onClick={handleClick} className="search-gov-spending__prompt-button">Industry</button>
-                            <button value="What federal [Award Type ] have been awarded?" onClick={handleClick} className="search-gov-spending__prompt-button">Award Type</button>
+                            <button value="How much federal spending went to [recipient]?" 
+                                onClick={handleClick} 
+                                className="search-gov-spending__prompt-button">
+                                Recipient
+                            </button>
+                            <button value="What agencies received funding during [time period]?" 
+                                onClick={handleClick} 
+                                className="search-gov-spending__prompt-button">
+                                Time Period
+                            </button>
+                            <button value="How much federal funding did my [state] receive?"
+                                onClick={handleClick} 
+                                className="search-gov-spending__prompt-button">
+                                Location
+                            </button>
+                            <button value="How much federal funding went to [industry]?"
+                                onClick={handleClick}
+                                className="search-gov-spending__prompt-button">
+                                Industry
+                            </button>
+                            <button value="What [contracts/grants] did the Health Care Industry receive?"
+                                onClick={handleClick}
+                                className="search-gov-spending__prompt-button">
+                                Award Type
+                            </button>
                         </div>
                     </div>
                     
