@@ -42,17 +42,10 @@ const AccountTimeVisualizationSectionContainer = ({ reduxFilters, account }) => 
         hasFilteredObligated
     );
 
-    console.log({ data, loading })
-
     useEffect(() => {
         setUpdateStateAndFetch();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [reduxFilters, account.id]);
-
-    // useEffect(() => {
-    //     fetchData();
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, [hasFilteredObligated, visualizationPeriod, reduxFilters]);
 
     return (
         <AccountTimeVisualizationSection

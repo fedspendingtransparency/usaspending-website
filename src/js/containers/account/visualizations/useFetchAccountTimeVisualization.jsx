@@ -260,6 +260,11 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
     categorySearchOperation.fromState(reduxFilters);
     const categoryFilters = categorySearchOperation.toParams();
 
+    const emptyFilters = areFiltersEmpty(reduxFilters);
+
+    const fetchCategory = visualizationPeriod === 'quarter' ?
+        fetchTasCategoryTotals : AccountHelper.fetchTasCategoryTotals;
+
     const quarterCategory = useQueries({
         queries: Object.keys(balanceFieldsFiltered).map((balanceType) => {
             return {
@@ -270,15 +275,15 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
                     visualizationPeriod,
                     categoryFilters
                 ],
-                queryFn: () => fetchTasCategoryTotals({
+                queryFn: () => fetchCategory({
                     filters: categoryFilters,
                     group,
                     field: balanceFieldsFiltered[balanceType],
-                    aggregate,
-                    order,
-                    auditTrail: `Spending over Time (quarters) - obligated filter - ${balanceType}`
+                    aggregate: visualizationPeriod === 'sum' ? aggregate : '',
+                    order: group,
+                    auditTrail: `Spending over Time (${visualizationPeriod}) - obligated filter - ${balanceType}`
                 }).promise,
-                enabled: visualizationPeriod === 'quarter' && !emptyFilters && hasFilteredObligated
+                enabled: !emptyFilters && hasFilteredObligated
             }
         }),
         combine: (result) => ({
@@ -291,15 +296,13 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
         })
     })
 
-    const emptyFilters = areFiltersEmpty(reduxFilters);
-
-    const quarterFields = hasFilteredObligated ? balanceFieldsNonfiltered : balanceFields;
+    const tasBalanceFields = hasFilteredObligated ? balanceFieldsNonfiltered : balanceFields;
 
     const fetchBalance = visualizationPeriod === 'quarter' ?
         fetchTasBalanceTotals : AccountHelper.fetchTasBalanceTotals;
 
     const balanceQuery = useQueries({
-        queries: Object.keys(quarterFields).map((balanceType) => {
+        queries: Object.keys(tasBalanceFields).map((balanceType) => {
             return {
                 queryKey: [
                     'fetchTasBalanceTotals',
@@ -311,7 +314,7 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
                 queryFn: () => fetchBalance({
                     filters: balanceFilters,
                     group,
-                    field: quarterFields[balanceType],
+                    field: tasBalanceFields[balanceType],
                     aggregate: visualizationPeriod === 'quarter' ? aggregate : '',
                     order: visualizationPeriod === 'quarter' ? order : group,
                     auditTrail: `Spending over Time (${visualizationPeriod}) - ${
@@ -324,7 +327,7 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
         combine: (result) => ({
             result: result.map((query, i) => ({
                 data: query.data?.data,
-                type: Object.keys(quarterFields)[i]
+                type: Object.keys(tasBalanceFields)[i]
             })),
             isLoading: result.some((query) => query.isLoading),
             isError: result.some((query) => query.isError)
