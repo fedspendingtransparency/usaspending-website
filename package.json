@@ -27,7 +27,7 @@
   },
   "author": "",
   "engines": {
-    "node": ">=22.14.0",
+    "node": ">=24.18.1",
     "npm": ">=10.8.3"
   },
   "license": "SEE LICENSE IN LICENSE.MD",
