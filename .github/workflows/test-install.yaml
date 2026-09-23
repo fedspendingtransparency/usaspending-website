@@ -40,3 +40,7 @@ jobs:
 
       - name: Run NPM install
         run: npm ci --legacy-peer-deps --timeout=90000
+
+      - name: Remove FontAwesome token
+        if: always()
+        run: rm -f ~/.npmrc
