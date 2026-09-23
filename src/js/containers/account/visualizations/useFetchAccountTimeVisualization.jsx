@@ -1,18 +1,18 @@
-import {useQueries} from "@tanstack/react-query";
+import {useMemo, useRef} from "react";
+import { useQueries } from "@tanstack/react-query";
+import { Iterable, Record } from "immutable";
+import { is as immutableIs } from "immutable/dist/immutable";
+import { isEqual } from "lodash-es";
+
 import AccountSearchBalanceOperation from "../../../models/v1/account/queries/AccountSearchBalanceOperation";
 import {
     balanceFields,
     balanceFieldsFiltered,
     balanceFieldsNonfiltered
 } from "../../../dataMapping/accounts/accountFields";
-import {fetchTasBalanceTotals, fetchTasCategoryTotals} from "../../../helpers/accountQuartersHelper";
-import {initialState} from "../../../redux/reducers/account/accountReducer"
-import {Iterable, Record} from "immutable";
-import {is as immutableIs} from "immutable/dist/immutable";
-import {isEqual} from "lodash-es";
-import {VisData} from "./AccountTimeVisualizationContainer";
+import { fetchTasBalanceTotals, fetchTasCategoryTotals } from "../../../helpers/accountQuartersHelper";
+import { initialState } from "../../../redux/reducers/account/accountReducer"
 import AccountSearchCategoryOperation from "../../../models/v1/account/queries/AccountSearchCategoryOperation";
-import {useMemo} from "react";
 
 const group = [
     'submission__reporting_fiscal_year',
@@ -56,15 +56,19 @@ const areFiltersEmpty = (filters = initialState.filters, filterReference = initi
     return true;
 };
 
-const parseBalances = (res, visualizationPeriod, hasFilteredObligated) => {
-    console.log({ res, visualizationPeriod, hasFilteredObligated })
+const VisData = Record({
+    xSeries: [],
+    ySeries: [],
+    allY: [],
+    stacks: []
+});
+
+const parseBalances = (res, visualizationPeriod, hasFilteredObligated, ref) => {
     const xSeries = [];
     const ySeries = [];
     const allY = [];
     const yData = {};
     const groupLabels = [];
-
-    let ref;
 
     if (!responseHasData(res)) return new VisData();
 
@@ -100,23 +104,20 @@ const parseBalances = (res, visualizationPeriod, hasFilteredObligated) => {
     // Ensure the group labels are in chronological order
     groupLabels.sort();
 
-    if (ref === null) {
-        ref = Object.fromEntries(groupLabels
+    if (ref.current === null) {
+        ref.current = Object.fromEntries(groupLabels
             .map((key) => [key.replace(/\s/g, ''), 0]));
     }
 
     groupLabels.forEach((group) => {
         xSeries.push(`${group}`);
         if (hasFilteredObligated) {
-            const unobligated = yData[group].unobligated;
-            const obligatedFiltered = yData[group].obligatedFiltered;
-            const outlay = yData[group].outlay;
+            const { unobligated, obligatedFiltered, outlay, budgetAuthority } = yData[group];
+
             // Calculate Obligated (Other)
-            let totalObligations = yData[group].obligatedFiltered;
-            if (ref?.[group.replace(/\s/g, '')]) {
-                totalObligations = ref[group.replace(/\s/g, '')].totalObligations;
-            }
-            const obligatedOther = totalObligations - obligatedFiltered;
+            const totalObligations = budgetAuthority - unobligated;
+
+            const obligatedOther = budgetAuthority - obligatedFiltered - unobligated;
 
             const period = {
                 obligatedFiltered: {
@@ -169,15 +170,15 @@ const parseBalances = (res, visualizationPeriod, hasFilteredObligated) => {
                 }
             };
 
-            if (ref?.[group.replace(/\s/g, '')]) {
-                ref[group.replace(/\s/g, '')] = {
+            if (ref.current?.[group.replace(/\s/g, '')]) {
+                ref.current[group.replace(/\s/g, '')] = {
                     budgetAuthority: yData[group].budgetAuthority,
                     totalObligations: yData[group].obligated
                 };
             }
             else {
-                ref = {
-                    ...ref,
+                ref.current = {
+                    ...ref.current,
                     [group.replace(/\s/g, '')]: {
                         budgetAuthority: yData[group].budgetAuthority,
                         totalObligations: yData[group].obligated
@@ -189,8 +190,8 @@ const parseBalances = (res, visualizationPeriod, hasFilteredObligated) => {
             allY.push(yData[group].obligated);
         }
         let baToPush = yData[group].budgetAuthority;
-        if (ref) {
-            baToPush = ref[group.replace(/\s/g, '')].budgetAuthority;
+        if (ref.current) {
+            baToPush = ref.current[group.replace(/\s/g, '')]?.budgetAuthority;
         }
         allY.push(yData[group].outlay);
         allY.push(baToPush);
@@ -326,15 +327,15 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
         })
     })
 
+    const ref = useRef(null);
+
     const result = useMemo(() => {
         let combinedResult = [];
 
         if (responseHasData(quarterCategory.result)) combinedResult = [...quarterCategory.result];
         if (responseHasData(quarterBalance.result)) combinedResult = [...combinedResult, ...quarterBalance.result];
 
-        console.log({ combinedResult, parsed: parseBalances(combinedResult)})
-
-        return parseBalances(combinedResult, visualizationPeriod, hasFilteredObligated);
+        return parseBalances(combinedResult, visualizationPeriod, hasFilteredObligated, ref);
     }, [quarterCategory.result, quarterBalance.result, visualizationPeriod, hasFilteredObligated]);
     
     const loading = useMemo(() => {

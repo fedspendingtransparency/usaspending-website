@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Record } from 'immutable';
 
 import AccountTimeVisualizationSection from
     'components/account/visualizations/time/AccountTimeVisualizationSection';
@@ -18,14 +17,6 @@ const propTypes = {
     reduxFilters: PropTypes.object,
     account: PropTypes.object
 };
-
-// create an Immutable Record object to guarantee the existence of required visualization fields
-export const VisData = Record({
-    xSeries: [],
-    ySeries: [],
-    allY: [],
-    stacks: []
-});
 
 const AccountTimeVisualizationSectionContainer = ({ reduxFilters, account }) => {
     const [visualizationPeriod, setVisualizationPeriod] = useState('quarter');
@@ -43,7 +34,6 @@ const AccountTimeVisualizationSectionContainer = ({ reduxFilters, account }) => 
             setVisualizationPeriod(period);
         }
     };
-
 
     const { result: data, loading } = useFetchQuarters(
         account.id,
