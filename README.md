@@ -102,3 +102,4 @@ Common build issues
 1. npm install finishes with vulnerabilities:
     `npx force-resolutions` then `npm install`
    If there are still vulnerabilities after this, they may be newly discovered and we may have to update versions of packages, discuss with the team before doing so
+
