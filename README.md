@@ -72,13 +72,10 @@ _Custom and life-cycle scripts to execute, as defined under the `scripts` proper
 | `npm run storybook`     | starts storybook server so you can interact with stories   |
 
 ### Build and Run with Docker
-Docker can be used to build static site artifacts and/or run the site locally. Ensure your environment variables are configured and use this "one-liner" (or decompose and run each `docker` command separately). The image build requires FontAwesome Pro credentials, passed as BuildKit secrets (not `--build-arg`/`ENV`) so they never persist in the image layers or environment — set `FATOKEN` and `FABASEENCODE` in your shell first:
+Docker can be used to build static site artifacts and/or run the site locally. Ensure your environment variables are configured and use this "one-liner" (or decompose and run each `docker` command separately):
 
 ```bash
-DOCKER_BUILDKIT=1 docker build -t usaspending-website \
-  --secret id=fatoken,env=FATOKEN \
-  --secret id=fabaseencode,env=FABASEENCODE \
-  . && \
+docker build -t usaspending-website . && \
 docker run --rm -v $(pwd)/public:/node-workspace/public \
   -e ENV \
   -e USASPENDING_API \
@@ -105,4 +102,3 @@ Common build issues
 1. npm install finishes with vulnerabilities:
     `npx force-resolutions` then `npm install`
    If there are still vulnerabilities after this, they may be newly discovered and we may have to update versions of packages, discuss with the team before doing so
-
