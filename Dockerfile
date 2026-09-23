@@ -1,8 +1,5 @@
+# syntax=docker/dockerfile:1
 FROM node:22.14.0
-
-# font awesome token passed in
-ARG FATOKEN
-ARG FABASEENCODE
 
 # Default environment variables
 ENV ENV=prod USASPENDING_API=https://api.usaspending.gov/api/ MAPBOX_TOKEN='' GA_TRACKING_ID=''
@@ -30,15 +27,17 @@ RUN npm install -g npm@10.8.3
 RUN npm install -g webpack@5.105.0
 RUN npm install -g webpack-cli@5.1.4
 
-ENV FONTAWESOME_NPM_AUTH_TOKEN=$FATOKEN
-ENV FABASEENCODE=$FABASEENCODE
-RUN echo "@fortawesome:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
+# FontAwesome Pro credentials are passed via BuildKit secret mounts (not ARG/ENV) so they
+# never land in image layer history or the final image's environment. ~/.npmrc is removed
+# again immediately after npm ci, since npm lifecycle scripts of any (transitive) dependency
+# could otherwise read it while it exists.
+RUN --mount=type=secret,id=fatoken --mount=type=secret,id=fabaseencode \
+    echo "@fortawesome:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
     echo "@awesome.me:registry=https://npm.fontawesome.com/" >> ~/.npmrc && \
-    echo "//npm.fontawesome.com/:username=${FONTAWESOME_NPM_AUTH_TOKEN}" >> ~/.npmrc && \
-    echo "//npm.fontawesome.com/:_password=${FABASEENCODE}" >> ~/.npmrc
-
-## Add --dd to see verbose logs
-RUN npm ci --legacy-peer-deps 
+    echo "//npm.fontawesome.com/:username=$(cat /run/secrets/fatoken)" >> ~/.npmrc && \
+    echo "//npm.fontawesome.com/:_password=$(cat /run/secrets/fabaseencode)" >> ~/.npmrc && \
+    npm ci --legacy-peer-deps && \
+    rm -f ~/.npmrc
 
 # Now copy the remaining source files
 # Files in .dockerignore will not be copied
