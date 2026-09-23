@@ -13,6 +13,7 @@ import {
 import { fetchTasBalanceTotals, fetchTasCategoryTotals } from "../../../helpers/accountQuartersHelper";
 import { initialState } from "../../../redux/reducers/account/accountReducer"
 import AccountSearchCategoryOperation from "../../../models/v1/account/queries/AccountSearchCategoryOperation";
+import * as AccountHelper from "../../../apis/account";
 
 const group = [
     'submission__reporting_fiscal_year',
@@ -294,7 +295,10 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
 
     const quarterFields = hasFilteredObligated ? balanceFieldsNonfiltered : balanceFields;
 
-    const quarterBalance = useQueries({
+    const fetchBalance = visualizationPeriod === 'quarter' ?
+        fetchTasBalanceTotals : AccountHelper.fetchTasBalanceTotals;
+
+    const balanceQuery = useQueries({
         queries: Object.keys(quarterFields).map((balanceType) => {
             return {
                 queryKey: [
@@ -304,17 +308,17 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
                     hasFilteredObligated,
                     balanceFilters
                 ],
-                queryFn: () => fetchTasBalanceTotals({
+                queryFn: () => fetchBalance({
                     filters: balanceFilters,
                     group,
                     field: quarterFields[balanceType],
-                    aggregate,
-                    order,
-                    auditTrail: `Spending over Time (quarters) - ${
+                    aggregate: visualizationPeriod === 'quarter' ? aggregate : '',
+                    order: visualizationPeriod === 'quarter' ? order : group,
+                    auditTrail: `Spending over Time (${visualizationPeriod}) - ${
                         hasFilteredObligated ? '' : 'non-'
                     }obligated filter - ${balanceType}`
                 }).promise,
-                enabled: visualizationPeriod === 'quarter' && !emptyFilters
+                enabled: !emptyFilters
             }
         }),
         combine: (result) => ({
@@ -333,18 +337,18 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
         let combinedResult = [];
 
         if (responseHasData(quarterCategory.result)) combinedResult = [...quarterCategory.result];
-        if (responseHasData(quarterBalance.result)) combinedResult = [...combinedResult, ...quarterBalance.result];
+        if (responseHasData(balanceQuery.result)) combinedResult = [...combinedResult, ...balanceQuery.result];
 
         return parseBalances(combinedResult, visualizationPeriod, hasFilteredObligated, ref);
-    }, [quarterCategory.result, quarterBalance.result, visualizationPeriod, hasFilteredObligated]);
+    }, [quarterCategory.result, balanceQuery.result, visualizationPeriod, hasFilteredObligated]);
     
     const loading = useMemo(() => {
-        return quarterCategory.isLoading || quarterBalance.isLoading
-    }, [quarterBalance.isLoading, quarterCategory.isLoading])
+        return quarterCategory.isLoading || balanceQuery.isLoading
+    }, [balanceQuery.isLoading, quarterCategory.isLoading])
     
     const error = useMemo(() => {
-        return quarterCategory.isError || quarterBalance.isError
-    },  [quarterBalance.isError, quarterCategory.isError])
+        return quarterCategory.isError || balanceQuery.isError
+    },  [balanceQuery.isError, quarterCategory.isError])
 
     return { result, loading, error };
 }
