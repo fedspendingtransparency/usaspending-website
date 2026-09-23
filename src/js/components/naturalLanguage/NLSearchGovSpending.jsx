@@ -16,10 +16,6 @@ const propTypes = {
 };
 const NLSearchGovSpending = ({ isFilters=false }) => {
     const [inputValue, setInputValue] = useState('');
-    const handleClick = (event) => {
-        // alert("Click test");
-        setInputValue(event.target.value);
-    }
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
@@ -71,27 +67,27 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
 
                         <div className="search-gov-spending__button-container">
                             <button value="How much federal spending went to [recipient]?" 
-                                onClick={handleClick} 
+                                onClick={handleInputChange} 
                                 className="search-gov-spending__prompt-button">
                                 Recipient
                             </button>
                             <button value="What agencies received funding during [time period]?" 
-                                onClick={handleClick} 
+                                onClick={handleInputChange} 
                                 className="search-gov-spending__prompt-button">
                                 Time Period
                             </button>
                             <button value="How much federal funding did my [state] receive?"
-                                onClick={handleClick} 
+                                onClick={handleInputChange} 
                                 className="search-gov-spending__prompt-button">
                                 Location
                             </button>
                             <button value="How much federal funding went to [industry]?"
-                                onClick={handleClick}
+                                onClick={handleInputChange}
                                 className="search-gov-spending__prompt-button">
                                 Industry
                             </button>
                             <button value="What [contracts/grants] did the Health Care Industry receive?"
-                                onClick={handleClick}
+                                onClick={handleInputChange}
                                 className="search-gov-spending__prompt-button">
                                 Award Type
                             </button>
