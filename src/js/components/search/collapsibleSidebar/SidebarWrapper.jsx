@@ -119,14 +119,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                         if (filtersInImmutableStructure) {
                             // apply the filters to both the staged and applied stores
                             dispatch(restoreHashedFilters(filtersInImmutableStructure));
-                            dispatch(setIsNLSearchComplete(!isFetching));
                         }
                         else {
                             console.error('Error fetching filters from hash');
                             // TODO: corrupt hash redirect to error page.
                             // No such page as /hash-error, need to update
                             navigate("/hash-error", { replace: true });
-                            dispatch(setIsNLSearchComplete(!isFetching));
                         }
                         request.current = null;
                     })
@@ -135,11 +133,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                             console.error('Error fetching filters from hash: ', err);
                             // remove hash since corresponding filter selections aren't retrievable.
                             request.current = null;
-                            dispatch(setIsNLSearchComplete(!isFetching));
                         }
                     });
             }
         }
+
+        dispatch(setIsNLSearchComplete(!isFetching));
     }, [parsedData, isFetching]);
 
     const renderDesktopSidebar = () => (
