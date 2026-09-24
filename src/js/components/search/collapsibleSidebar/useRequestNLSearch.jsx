@@ -19,13 +19,15 @@ const useRequestNLSearch = (prompt) => {
         queryKey: ['nl-search-stream'],
         enabled: false,
         queryFn: streamedQuery({
-            streamFn: async function* () {
-                const request = await fetch(LLM_API, requestHeader);
+            streamFn: async function* ({ signal }) {
+                const request = await fetch(LLM_API, { ...requestHeader, signal });
 
                 const reader = request.body.getReader();
                 const decoder = new TextDecoder();
 
                 while (true) {
+                    if (signal.aborted) break;
+
                     const {value, done} = await reader.read();
 
                     if (done) break;
