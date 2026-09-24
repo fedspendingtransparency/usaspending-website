@@ -176,6 +176,8 @@
       width: 100%;
 
       &.response {
+        // to align response icons in mobile screens.
+        padding: 0 rem(10);
         @media (min-width: $medium-screen) {
           padding: 0;
         }
