@@ -8,7 +8,6 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { smartAssistIsVisible } from 'redux/actions/search/searchViewActions';
 import { setSidebarContent } from '../../../redux/actions/sidebar/sidebarActions';
 import { NATURAL_LANGUAGE, FILTERS } from './SidebarConstants';
 import NLBadge from "../NLBadge";

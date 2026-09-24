@@ -71,7 +71,7 @@ const SearchContainer = () => {
     }, [areAppliedFiltersEmpty, appliedFilters]);
 
     useEffect(() => {
-        if (QAT || (query?.hasOwnProperty('smart-assist') && query['smart-assist'] === LLM_HASH)) {
+        if (QAT || query && (Object.prototype.hasOwnProperty.call(query, 'smart-assist') && query['smart-assist'] === LLM_HASH)) {
             dispatch(setSmartAssistIsVisible(true));
         }
     }, []);
