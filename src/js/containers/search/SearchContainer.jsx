@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
-
+import { QAT, LLM_HASH } from 'GlobalConstants';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import {
     filterStoreVersion, initialState
@@ -17,6 +17,7 @@ import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import {
     setAppliedFilterEmptiness, resetAppliedFilters
 } from 'redux/actions/search/appliedFilterActions';
+import { setSmartAssistIsVisible } from 'redux/actions/search/searchViewActions';
 import {
     areFiltersDifferent,
     areFiltersEmpty, areFiltersEqual,
@@ -68,6 +69,12 @@ const SearchContainer = () => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
         prevAppliedFiltersRef.current = appliedFilters;
     }, [areAppliedFiltersEmpty, appliedFilters]);
+
+    useEffect(() => {
+        if (QAT || (query?.hasOwnProperty('smart-assist') && query['smart-assist'] === LLM_HASH)) {
+            dispatch(setSmartAssistIsVisible(true));
+        }
+    }, []);
 
     const { current: prevAreAppliedFiltersEmpty } = areAppliedFiltersEmptyRef;
     const { current: prevAppliedFilters } = prevAppliedFiltersRef;

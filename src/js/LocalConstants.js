@@ -7,5 +7,6 @@ export const localConstants = {
     API: null,
     MAPBOX_TOKEN: null,
     LLM_API: null,
-    LLM_HEADER_VALUE: null
+    LLM_HEADER_VALUE: null,
+    LLM_HASH: null
 };
