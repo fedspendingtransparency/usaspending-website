@@ -43,6 +43,7 @@ const useRequestNLSearch = (prompt) => {
 
     const cancelQuery = () => {
         queryClient.cancelQueries({queryKey: ['nl-search-stream']})
+            .then(() => queryClient.setQueryData(['nl-search-stream'], ''));
     };
 
     return { data, refetch, status, cancelQuery, isFetching};

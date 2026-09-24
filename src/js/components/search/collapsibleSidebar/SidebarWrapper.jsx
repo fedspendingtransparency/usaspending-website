@@ -87,13 +87,30 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const startNLSearch = () => {
         if(text && typeof refetch === "function") {
+            wasCancelled.current = false;
             refetch();
         }
     }
 
     const request = useRef();
+    const wasCancelled = useRef(false);
+
+    const handleCancelQuery = () => {
+        wasCancelled.current = true;
+        if (request.current) {
+            request.current.cancel();
+            request.current = null;
+        }
+        if (typeof cancelQuery === "function") {
+            cancelQuery();
+        }
+    };
 
     useEffect(() => {
+        if (wasCancelled.current) {
+            return;
+        }
+
         if (!isFetching && parsedData && Object.keys(parsedData).length > 0) {
             const done = parsedData.find((res) => {
                 if (res.type === RESPONSE_TYPE.SEARCH_COMPLETE) {
@@ -177,7 +194,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     setText={setText}
                     startNLSearch={startNLSearch} 
                     data={parsedData}
-                    cancelQuery={cancelQuery} />
+                    cancelQuery={handleCancelQuery} />
             )}   
         </div>    
     );
@@ -220,7 +237,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     setText={setText}
                     startNLSearch={startNLSearch} 
                     data={parsedData}
-                    cancelQuery={cancelQuery} />
+                    cancelQuery={handleCancelQuery} />
             )}
         </div>
     );
