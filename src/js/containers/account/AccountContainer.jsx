@@ -3,29 +3,19 @@
  * Created by Kevin Li 3/17/17
  */
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
-import { isCancel } from 'axios';
+import { useDispatch } from 'react-redux';
 import { flowRight } from 'lodash-es';
 import { useMatch } from 'react-router';
 
-
 import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';
-
-import * as AccountHelper from 'apis/account';
-import * as accountActions from 'redux/actions/account/accountActions';
-import * as filterActions from 'redux/actions/account/accountFilterActions';
-
-import FederalAccount from 'models/v1/account/FederalAccount';
-import { fiscalYearSnapshotFields } from 'dataMapping/accounts/accountFields';
-
+import { setSelectedAccount } from "../../redux/actions/account/accountActions";
 import withLatestFy from 'containers/account/WithLatestFy';
 import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
-
+import useFetchFederalAccount from "./useFetchFederalAccount";
 
 require('pages/account/accountPage.scss');
 
@@ -37,120 +27,21 @@ const propTypes = {
     isFetchLatestFyLoading: PropTypes.bool
 };
 
-const combinedActions = Object.assign({},
-    accountActions,
-    filterActions
-);
-
 const AccountContainer = (props) => {
-    const [loading, setLoading] = useState(true);
-    const [validAccount, setValidAccount] = useState(true);
+    const dispatch = useDispatch();
     const match = useMatch('/federal_account/:accountNumber');
     const { accountNumber } = match.params;
 
-    const accountRequestRef = useRef(null);
-    const FYRequestRef = useRef(null);
-
-    const parseFYSnapshot = (data) => {
-        const balances = {
-            available: false
-        };
-
-        if (Object.keys(data).length > 0 && data.results) {
-            Object.keys(fiscalYearSnapshotFields).forEach((key) => {
-                balances[fiscalYearSnapshotFields[key]] = data.results[key];
-            });
-            balances.available = true;
-        }
-
-        // update the Redux account model with balances
-        const account = Object.assign({}, props.account);
-        account.totals = balances;
-        props.setSelectedAccount(account);
-    };
-
-    const loadFiscalYearSnapshot = (id) => {
-        if (FYRequestRef.current) {
-            FYRequestRef.current.cancel();
-        }
-
-        FYRequestRef.current = AccountHelper.fetchFederalAccountFYSnapshot(
-            id,
-            props.latestPeriod.year
-        );
-
-        FYRequestRef.current.promise
-            .then((res) => {
-                FYRequestRef.current = null;
-
-                // update the redux store
-                parseFYSnapshot(res.data);
-                setLoading(false);
-            })
-            .catch((err) => {
-                FYRequestRef.current = null;
-
-                if (!isCancel(err)) {
-                    setLoading(false);
-                    console.log(err);
-                }
-            });
-    };
-
-    const parseAccount = (data) => {
-        const account = new FederalAccount(data);
-        props.setSelectedAccount(account);
-        if (props.latestPeriod.year) {
-            loadFiscalYearSnapshot(props.account.id);
-        }
-    };
-
-
-    const loadData = () => {
-        if (accountRequestRef.current) {
-            accountRequestRef.current.cancel();
-        }
-
-        setLoading(true);
-
-        accountRequestRef.current = AccountHelper.fetchFederalAccount(accountNumber);
-
-        accountRequestRef.current.promise
-            .then((res) => {
-                accountRequestRef.current = null;
-
-                // update the redux store
-                parseAccount(res.data);
-
-                setValidAccount(true);
-            })
-            .catch((err) => {
-                accountRequestRef.current = null;
-
-                if (!isCancel(err)) {
-                    setLoading(false);
-                    setValidAccount(false);
-                    console.log(err);
-                }
-            });
-    };
+    const { account, loading, error } = useFetchFederalAccount(accountNumber);
 
     useEffect(() => {
-        loadData();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [accountNumber]);
-
-    useEffect(() => {
-        if (props.latestPeriod?.year && props.account?.id) {
-            loadFiscalYearSnapshot(props.account.id);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.latestPeriod?.year, props.account?.id]);
+        dispatch(setSelectedAccount(account));
+    }, [account, dispatch]);
 
     const renderAccount = () => {
         let output = <LoadingAccount />;
 
-        if (!loading && !validAccount) {
+        if (!loading && error) {
             output = <InvalidAccount />;
         }
         else if (!loading && !props.isFetchLatestFyLoading) {
@@ -166,12 +57,5 @@ const AccountContainer = (props) => {
 AccountContainer.propTypes = propTypes;
 
 export default flowRight(
-    withLatestFy,
-    connect(
-        (state) => ({
-            account: state.account.account,
-            tas: state.account.tas
-        }),
-        (dispatch) => bindActionCreators(combinedActions, dispatch)
-    )
+    withLatestFy
 )(AccountContainer);
