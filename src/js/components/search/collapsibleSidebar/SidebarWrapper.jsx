@@ -56,7 +56,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { data, refetch, cancelQuery, isFetching } = useRequestNLSearch(text);
+    const { data, fetchNLSearch, cancelQuery, isFetching } = useRequestNLSearch(text);
 
     const parsedData = useMemo(() => data?.split('\n')
         .filter((line) => line.trim() !== '')
@@ -89,9 +89,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     };
 
     const startNLSearch = () => {
-        if(text && typeof refetch === "function") {
+        if(text && typeof fetchNLSearch === "function") {
             wasCancelled.current = false;
-            refetch();
+            fetchNLSearch();
         }
     }
 
@@ -109,7 +109,15 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
     };
 
-    const { results, error } = useFetchDataFromHash(hash);
+    const { results, error, loadResultsView } = useFetchDataFromHash(hash);
+
+    useEffect(() => {
+        // check if the results is a filter object if not, show the hash error page
+        if (results) {
+            dispatch(restoreHashedFilters(results));
+        }
+    }, [results]);
+
 
     useEffect(() => {
         if (wasCancelled.current) {
@@ -124,11 +132,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             });
 
             if (done?.result) {
-                setHash(done.result);
+                loadResultsView();
             }
+            dispatch(setIsNLSearchComplete(!isFetching));
         }
 
-        dispatch(setIsNLSearchComplete(!isFetching));
     }, [parsedData, isFetching]);
 
     const renderDesktopSidebar = () => (

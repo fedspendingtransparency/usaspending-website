@@ -48,7 +48,7 @@ const useRequestNLSearch = (prompt) => {
             .then(() => queryClient.setQueryData(['nl-search-stream'], ''));
     };
 
-    return { data, refetch, status, cancelQuery, isFetching};
+    return { data, fetchNLSearch: refetch, status, cancelQuery, isFetching};
 }
 
 export default useRequestNLSearch;

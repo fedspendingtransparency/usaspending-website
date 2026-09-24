@@ -12,33 +12,30 @@ import BaseStateProfile from "models/v2/state/BaseStateProfile";
 import { setStateOverview } from 'redux/actions/state/stateActions';
 import { restoreUrlHash, parseRemoteFilters } from "helpers/searchHelper";
 
-export const useFetchDataFromHash = (hash) => {
-    console.log("here1");
-
+export const useFetchDataFromHash = (nlHash) => {
+    const hash = '90e50821bf552b36f20c74de96262d27';
     const dispatch = useDispatch();
     const [hashError, setHashError] = useState(false);
 
     const parseFilters = useCallback((d) => {
-        console.log("here2");
         const filtersInImmutableStructure = parseRemoteFilters(d.data.filter);
-
-         if (filtersInImmutableStructure) {
-             // apply the filters to both the staged and applied stores
-             dispatch(restoreHashedFilters(filtersInImmutableStructure));
+         if (Object.keys(filtersInImmutableStructure).length > 0) {
+             return filtersInImmutableStructure;
          }
          else {
              setHashError(true);
+             // should this return an hash error?
          }
     }, []);
 
-    const { data, error, isLoading } = useQuery({
-        queryKey: [`hash: ${hash}`],
-        queryFn: () => restoreUrlHash({ hash: nlHash }).promise,
-        select: parseFilters,
-        enabled: !!hash
+    const { data, error, isLoading, refetch, isFetching } = useQuery({
+        queryKey: [`hash-${hash}`],
+        queryFn: () => restoreUrlHash({ hash: hash }).promise,
+        enabled: false,
+        select: parseFilters
     });
 
-    return { results: data, error, isLoading, hashError };
+    return { results: data, error, isLoading, hashError, loadResultsView: refetch, isFetchingHash: isFetching };
 
 };
 
