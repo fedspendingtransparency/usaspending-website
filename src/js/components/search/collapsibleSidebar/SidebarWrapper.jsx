@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
@@ -56,9 +56,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const { data, refetch, cancelQuery, isFetching } = useRequestNLSearch(text);
 
-    const parsedData = data?.split('\n')
+    const parsedData = useMemo(() => data?.split('\n')
         .filter((line) => line.trim() !== '')
-        .map((line) => JSON.parse(line));
+        .map((line) => JSON.parse(line)),
+    [data]);
 
     const toggleOpened = (e) => {
         e.preventDefault();
