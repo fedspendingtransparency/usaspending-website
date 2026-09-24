@@ -21,6 +21,7 @@ import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS } from './SidebarConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
+import useFetchDataFromHash from "./useFetchDataFromHash";
 import {RESPONSE_TYPE } from "./NLConstants";
 import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
 
@@ -47,6 +48,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
     const [text, setText] = useState("");
+    const [hash, setHash] = useState();
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -93,6 +95,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const request = useRef();
 
+    const { results, error } = useFetchDataFromHash(hash);
+
     useEffect(() => {
         if (!isFetching && parsedData && Object.keys(parsedData).length > 0) {
             const done = parsedData.find((res) => {
@@ -102,39 +106,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             });
 
             if (done?.result) {
-                // const nlHash = '90e50821bf552b36f20c74de96262d27';  // For testing purposes while NL is under development
-                const nlHash = done.result;
-                if (request.current) {
-                    request.current.cancel();
-                }
-
-                request.current = restoreUrlHash({
-                    hash: nlHash
-                });
-
-                request.current.promise
-                    .then((res) => {
-                        const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
-
-                        if (filtersInImmutableStructure) {
-                            // apply the filters to both the staged and applied stores
-                            dispatch(restoreHashedFilters(filtersInImmutableStructure));
-                        }
-                        else {
-                            console.error('Error fetching filters from hash');
-                            // TODO: corrupt hash redirect to error page.
-                            // No such page as /hash-error, need to update
-                            navigate("/hash-error", { replace: true });
-                        }
-                        request.current = null;
-                    })
-                    .catch((err) => {
-                        if (!isCancel(err)) {
-                            console.error('Error fetching filters from hash: ', err);
-                            // remove hash since corresponding filter selections aren't retrievable.
-                            request.current = null;
-                        }
-                    });
+                setHash(done.result);
             }
         }
 

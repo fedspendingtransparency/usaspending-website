@@ -6,6 +6,6 @@
 export const localConstants = {
     API: null,
     MAPBOX_TOKEN: null,
-    LLM_API: null,
-    LLM_HEADER_VALUE: null
+    LLM_API: 'https://usaspending-api.qa01.dtas.ts.aws.frb.pvt/api/',
+    LLM_HEADER_VALUE: 'eae262ce-9ff8-416c-8965-84fdbb9034bf'
 };
