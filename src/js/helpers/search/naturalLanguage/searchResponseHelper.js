@@ -57,19 +57,20 @@ export const buildResponseState = (data = []) => {
             state.items.push(item);
             return;
         }
-    
+
         const itemIndex = state.items.findIndex(
-            (existingItem) => existingItem.toolId === toolId
+            (existingItem) => existingItem.toolId === toolId 
         );
     
-        // Tool complete/error updates the existing item
+        // Tool complete/error updates the existing item's variant and icon
+        // It keeps the previous label
         if (itemIndex !== -1) {
             state.items[itemIndex] = {
                 ...state.items[itemIndex],
-                ...item
+                variant: item.variant,
+                icon: item.icon
             };
         }
-    });
-    
+    });    
     return state;
 }
