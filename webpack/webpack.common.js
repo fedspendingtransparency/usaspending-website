@@ -54,22 +54,13 @@ module.exports = {
                     }
                 ]
             },
-            // file-loader rules are being deprecated; https://webpack.js.org/guides/asset-modules/
             {
-                include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
-                loader: 'file-loader',
-                type: 'javascript/auto',
-                options: {
-                    name: '[path][name].[ext]'
-                }
+                test: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
+                type: 'asset/resource'
             },
             {
                 test: /\.(json)$/,
-                type: 'javascript/auto',
-                loader: 'file-loader',
-                options: {
-                    name: '[path][name].[ext]'
-                }
+                type: 'asset/resource',
             },
             {
                 test: /\.mdx?$/,
