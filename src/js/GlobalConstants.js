@@ -26,8 +26,7 @@ const globalConstants = {
     FEATURED_CONTENT_ROTATION: "week",   // "week" or "sprint"
     LLM_API: local?.localConstants?.LLM_API ||  local?.localConstants?.API || process.env.USASPENDING_API,
     LLM_HEADER_VALUE: local?.localConstants?.LLM_HEADER_VALUE || process.env.X_LLM_API_KEY,
-    SHOW_LLM: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
-    LLM_HASH: local.localConstants?.LLM_HASH
+    LLM_HASH: local.localConstants?.LLM_HASH || process.env.LLM_HASH
 };
 
 module.exports = globalConstants;
