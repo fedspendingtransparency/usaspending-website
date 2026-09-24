@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
@@ -58,9 +58,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const { data, refetch, cancelQuery, isFetching } = useRequestNLSearch(text);
 
-    const parsedData = data?.split('\n')
+    const parsedData = useMemo(() => data?.split('\n')
         .filter((line) => line.trim() !== '')
-        .map((line) => JSON.parse(line));
+        .map((line) => JSON.parse(line)),
+    [data]);
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -89,15 +90,32 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const startNLSearch = () => {
         if(text && typeof refetch === "function") {
+            wasCancelled.current = false;
             refetch();
         }
     }
 
     const request = useRef();
+    const wasCancelled = useRef(false);
+
+    const handleCancelQuery = () => {
+        wasCancelled.current = true;
+        if (request.current) {
+            request.current.cancel();
+            request.current = null;
+        }
+        if (typeof cancelQuery === "function") {
+            cancelQuery();
+        }
+    };
 
     const { results, error } = useFetchDataFromHash(hash);
 
     useEffect(() => {
+        if (wasCancelled.current) {
+            return;
+        }
+
         if (!isFetching && parsedData && Object.keys(parsedData).length > 0) {
             const done = parsedData.find((res) => {
                 if (res.type === RESPONSE_TYPE.SEARCH_COMPLETE) {
@@ -148,7 +166,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     setText={setText}
                     startNLSearch={startNLSearch} 
                     data={parsedData}
-                    cancelQuery={cancelQuery} />
+                    cancelQuery={handleCancelQuery} />
             )}   
         </div>    
     );
@@ -191,7 +209,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     setText={setText}
                     startNLSearch={startNLSearch} 
                     data={parsedData}
-                    cancelQuery={cancelQuery} />
+                    cancelQuery={handleCancelQuery} />
             )}
         </div>
     );
