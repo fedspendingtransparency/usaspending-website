@@ -76,7 +76,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                                 className="search-gov-spending__prompt-button">
                                 Time Period
                             </button>
-                            <button value="How much federal funding did my [state] receive?"
+                            <button value="How much federal funding did [my state] receive?"
                                 onClick={handleInputChange} 
                                 className="search-gov-spending__prompt-button">
                                 Location
