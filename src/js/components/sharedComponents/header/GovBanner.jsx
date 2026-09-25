@@ -71,16 +71,16 @@ const GovBanner = memo(function GovBanner() {
                                     </button>
                                 </div>
                             </div>
-                            <div
-                                className="usa-banner-close"
-                                tabIndex={!isTablet ? 0 : -1}
-                                role="button"
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter" && !isTablet) closeAccordion();
-                                }}
-                                onClick={() => (!isTablet ? closeAccordion() : "")}>
-                                <Icons.Close alt="Close Top Hat Mobile Menu" />
-                            </div>
+                            {/* <div */}
+                            {/*     className="usa-banner-close" */}
+                            {/*     tabIndex={!isTablet ? 0 : -1} */}
+                            {/*     role="button" */}
+                            {/*     onKeyDown={(e) => { */}
+                            {/*         if (e.key === "Enter" && !isTablet) closeAccordion(); */}
+                            {/*     }} */}
+                            {/*     onClick={() => (!isTablet ? closeAccordion() : "")}> */}
+                            {/*     <Icons.Close alt="Close Top Hat Mobile Menu" /> */}
+                            {/* </div> */}
                         </div>
                     </header>
                     <div

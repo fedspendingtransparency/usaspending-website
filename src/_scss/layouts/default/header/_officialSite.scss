@@ -17,7 +17,10 @@
 
     @media (max-width: $mobile-only) {
       .usa-banner__button {
-        display: none;
+        margin-top: 4px;
+      }
+      .usa-banner__header-text {
+        flex-direction: column;
       }
       .usa-banner__header-text > span {
         display: inline-block;
