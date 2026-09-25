@@ -7,7 +7,7 @@ export const initialState = {
     type: 'table',
     mapHasLoaded: false,
     spendingLevel: 'awards',
-    smartAssistVisible: false
+    smartAssistIsVisible: false
 };
 
 const searchViewReducer = (state = initialState, action) => {
