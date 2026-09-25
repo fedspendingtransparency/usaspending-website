@@ -102,7 +102,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             });
 
             if (done?.result) {
-//                 const nlHash = '90e50821bf552b36f20c74de96262d27';  // For testing purposes while NL is under development
                 const nlHash = done.result;
                 if (request.current) {
                     request.current.cancel();

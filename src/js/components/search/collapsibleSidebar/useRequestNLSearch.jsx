@@ -10,9 +10,9 @@ const LLM_API = GlobalConstants?.LLM_API + 'v2/llm/filter-search/';
 
 const useRequestNLSearch = (prompt) => {
     const requestHeader = {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({'query': prompt})
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({'query': prompt})
     };
 
     const { data, refetch, isFetching, isSuccess } = useQuery({
