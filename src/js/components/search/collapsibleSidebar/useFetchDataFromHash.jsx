@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 09/23/26
  */
 
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from 'react-redux';
 
@@ -13,9 +13,10 @@ import { setStateOverview } from 'redux/actions/state/stateActions';
 import { restoreUrlHash, parseRemoteFilters } from "helpers/searchHelper";
 
 export const useFetchDataFromHash = (nlHash) => {
-    const hash = '90e50821bf552b36f20c74de96262d27';
+//     const hash = '90e50821bf552b36f20c74de96262d27';
+    const hash = nlHash;
+
     const dispatch = useDispatch();
-    const [hashError, setHashError] = useState(false);
 
     const parseFilters = useCallback((d) => {
         const filtersInImmutableStructure = parseRemoteFilters(d.data.filter);
@@ -23,19 +24,19 @@ export const useFetchDataFromHash = (nlHash) => {
              return filtersInImmutableStructure;
          }
          else {
-             setHashError(true);
+             return {};
              // should this return an hash error?
          }
     }, []);
 
-    const { data, error, isLoading, refetch, isFetching } = useQuery({
+    const { data, error, isLoading, refetch, isSuccess } = useQuery({
         queryKey: [`hash-${hash}`],
         queryFn: () => restoreUrlHash({ hash: hash }).promise,
         enabled: false,
         select: parseFilters
     });
 
-    return { results: data, error, isLoading, hashError, loadResultsView: refetch, isFetchingHash: isFetching };
+    return { filterResults: data, hashError: error, loadResultsView: isLoading, loadResultsView: refetch, hashSuccess: isSuccess };
 
 };
 

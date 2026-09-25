@@ -110,14 +110,18 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
     };
 
-    const { results, error, loadResultsView } = useFetchDataFromHash(hash);
+    const { filterResults, hashError, loadResultsView, hashSuccess } = useFetchDataFromHash(hash);
 
     useEffect(() => {
         // check if the results is a filter object if not, show the hash error page
-        if (results) {
-            dispatch(restoreHashedFilters(results));
+        if (filterResults && Object.keys(filterResults).length > 0 && hashSuccess) {
+            dispatch(restoreHashedFilters(filterResults));
         }
-    }, [results]);
+
+        if (hashError) {
+            navigate("/hash-error", { replace: true });
+        }
+    }, [filterResults, hashSuccess, hashError]);
 
 
     useEffect(() => {
