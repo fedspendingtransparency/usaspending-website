@@ -10,24 +10,22 @@ import NLSearchSuggestions from "../../naturalLanguage/NLSearchSuggestions";
 import NLPreSearchButtonGroup from "../../naturalLanguage/NLPreSearchButtonGroup";
 import NLSearchGovSpending from "../../naturalLanguage/NLSearchGovSpending";
 import { FILTERS } from '../../search/collapsibleSidebar/SidebarConstants';
-import GlobalConstants from "../../../GlobalConstants";
-import FeatureFlag from "../../sharedComponents/FeatureFlag";
 
 const SearchLanding = () => {
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
+    const smartAssistIsVisible = useSelector((state) => state.searchView.smartAssistIsVisible);
+
     const isFilters = sidebarContent === FILTERS;
 
     return (
         <div className="search-results-landing">
-            {isFilters && 
-            <FeatureFlag>
+            {isFilters && smartAssistIsVisible &&
                 <>
                     <NLSearchGovSpending isFilters={isFilters} />
                     <NLSearchSuggestions />
                     <NLMoreResources />
-                </>
-            </FeatureFlag>}
-            {isFilters && !GlobalConstants.QAT &&
+                </>}
+            {isFilters && !smartAssistIsVisible &&
                 <>
                     <h3 className="landing-title">Start your USAspending search</h3>
                     <p className="landing-subTitle">

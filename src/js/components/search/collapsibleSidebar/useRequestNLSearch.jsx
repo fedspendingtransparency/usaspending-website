@@ -3,26 +3,19 @@ import GlobalConstants from 'GlobalConstants';
 
 const headers = {
     'Content-Type': 'application/json',
-    'X-LLM-API-Key': GlobalConstants?.LLM?.HEADER_VALUE
+    'X-LLM-API-Key': GlobalConstants?.LLM_HEADER_VALUE
 };
 
-const LLM_API = GlobalConstants?.LLM?.API ? GlobalConstants?.LLM?.API + 'v2/llm/filter-search/' : '/v2/llm/filter-search/';
+const LLM_API = GlobalConstants?.LLM_API + 'v2/llm/filter-search/';
 
 const useRequestNLSearch = (prompt) => {
-    const requestHeader = GlobalConstants?.LLM?.HEADER_VALUE ?
-        {
-            method: 'POST',
-            headers: headers,
-            body: JSON.stringify({'query': prompt})
-        }
-        :
-        {
-            method: 'POST',
-            body: JSON.stringify({'query': prompt})
-        }
-    ;
+    const requestHeader = {
+        method: 'POST',
+        headers: headers,
+        body: JSON.stringify({'query': prompt})
+    };
 
-    const { data, refetch, status, isFetching } = useQuery({
+    const { data, refetch, isFetching, isSuccess } = useQuery({
         queryKey: ['nl-search-stream'],
         enabled: false,
         queryFn: streamedQuery({
@@ -52,7 +45,7 @@ const useRequestNLSearch = (prompt) => {
         queryClient.cancelQueries({queryKey: ['nl-search-stream']})
     };
 
-    return { data, refetch, status, cancelQuery, isFetching};
+    return { data, refetch, cancelQuery, isFetching, isSuccess};
 }
 
 export default useRequestNLSearch;

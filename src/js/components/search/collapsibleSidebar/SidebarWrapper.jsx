@@ -54,7 +54,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { data, refetch, cancelQuery, isFetching } = useRequestNLSearch(text);
+    const { data, refetch, cancelQuery, isFetching, isSuccess } = useRequestNLSearch(text);
 
     const parsedData = data?.split('\n')
         .filter((line) => line.trim() !== '')
@@ -94,7 +94,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const request = useRef();
 
     useEffect(() => {
-        if (!isFetching && parsedData && Object.keys(parsedData).length > 0) {
+        if (isSuccess && parsedData && Object.keys(parsedData).length > 0) {
             const done = parsedData.find((res) => {
                 if (res.type === RESPONSE_TYPE.SEARCH_COMPLETE) {
                     return res;
@@ -102,7 +102,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             });
 
             if (done?.result) {
-                // const nlHash = '90e50821bf552b36f20c74de96262d27';  // For testing purposes while NL is under development
                 const nlHash = done.result;
                 if (request.current) {
                     request.current.cancel();
@@ -119,14 +118,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                         if (filtersInImmutableStructure) {
                             // apply the filters to both the staged and applied stores
                             dispatch(restoreHashedFilters(filtersInImmutableStructure));
-                            dispatch(setIsNLSearchComplete(!isFetching));
                         }
                         else {
                             console.error('Error fetching filters from hash');
                             // TODO: corrupt hash redirect to error page.
                             // No such page as /hash-error, need to update
                             navigate("/hash-error", { replace: true });
-                            dispatch(setIsNLSearchComplete(!isFetching));
                         }
                         request.current = null;
                     })
@@ -135,12 +132,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                             console.error('Error fetching filters from hash: ', err);
                             // remove hash since corresponding filter selections aren't retrievable.
                             request.current = null;
-                            dispatch(setIsNLSearchComplete(!isFetching));
                         }
                     });
             }
+            dispatch(setIsNLSearchComplete(!isFetching));
         }
-    }, [parsedData, isFetching]);
+    }, [isSuccess, isFetching]);
 
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">

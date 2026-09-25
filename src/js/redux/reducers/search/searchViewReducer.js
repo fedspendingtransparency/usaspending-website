@@ -6,7 +6,8 @@
 export const initialState = {
     type: 'table',
     mapHasLoaded: false,
-    spendingLevel: 'awards'
+    spendingLevel: 'awards',
+    smartAssistIsVisible: false
 };
 
 const searchViewReducer = (state = initialState, action) => {
@@ -24,6 +25,11 @@ const searchViewReducer = (state = initialState, action) => {
         case 'SET_SPENDING_LEVEL':
             return Object.assign({}, state, {
                 spendingLevel: action.value
+            });
+
+        case 'SET_SMART_ASSIST_IS_VISIBLE':
+            return Object.assign({}, state, {
+                smartAssistIsVisible: action.value
             });
 
         default:

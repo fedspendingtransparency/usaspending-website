@@ -5,11 +5,10 @@
  **/
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { QAT } from "GlobalConstants";
-import { setSidebarContent } from '../../../redux/actions/sidebar/sidebarActions'
+import { setSidebarContent } from '../../../redux/actions/sidebar/sidebarActions';
 import { NATURAL_LANGUAGE, FILTERS } from './SidebarConstants';
 import NLBadge from "../NLBadge";
 
@@ -27,6 +26,7 @@ const propTypes = {
 /* eslint-disable max-len */
 const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isMedium, isActiveNlSearch }) => {
     const dispatch = useDispatch();
+    const smartAssistIsVisible = useSelector((state) => state.searchView.smartAssistIsVisible);
 
     if (isMedium) return;
 
@@ -54,7 +54,7 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isM
                     <NLBadge />
                     <FontAwesomeIcon icon="filter-list" color={primaryColorAS} />
                 </button>
-                { QAT && 
+                { smartAssistIsVisible &&
                 <button
                     style={{ backgroundColor: secondaryColorNL }}
                     aria-label="Button to change the content of the sidebar to natural language search"
