@@ -19,6 +19,8 @@
   @import "../../../components/numericPickerWrapper";
 
   .usda-page-header__container {
+    margin: 0 ($global-margin * 2) !important;
+
     .usda-page-header__header,
     .usda-page-header__toolbar {
       border-bottom: none;
