@@ -92,6 +92,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         if(text && typeof fetchNLSearch === "function") {
             wasCancelled.current = false;
             fetchNLSearch();
+            // dispatch redux state
         }
     }
 
