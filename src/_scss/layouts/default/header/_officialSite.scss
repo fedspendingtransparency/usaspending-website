@@ -17,7 +17,10 @@
 
     @media (max-width: $mobile-only) {
       .usa-banner__button {
-        display: none;
+        margin-top: 4px;
+      }
+      .usa-banner__header-text {
+        flex-direction: column;
       }
       .usa-banner__header-text > span {
         display: inline-block;
@@ -45,17 +48,9 @@
 }
 
 .usa-banner {
-  @media (max-width: $tablet-screen) {
-    margin: 0 0 0 rem(20);
-  }
-  @media (min-width: $tablet-screen) {
-    margin: 0 0 0 rem(20);
-  }
-  @media (min-width: $large-screen) {
-    margin: 0 rem(36) 0 rem(40);
-  }
+  margin-left: rem(16);
+
   @media (min-width: $x-large-screen) {
-    margin: 0 auto;
     width: rem(1600);
   }
 

@@ -1,35 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, {memo, useContext, useState} from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import * as Icons from 'components/sharedComponents/icons/Icons';
-import { throttle } from "lodash-es";
-import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import IsMobileContext from "../../../context/IsMobileContext";
 
-
-const GovBanner = () => {
+// eslint-disable-next-line prefer-arrow-callback
+const GovBanner = memo(function GovBanner() {
+    const { isTablet } = useContext(IsMobileContext);
     const [accordionOpen, setAccordionOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
-    const [windowWidth, setWindowWidth] = useState(0);
-
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < tabletScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
 
     const toggleAccordion = (e) => {
         e.preventDefault();
         setAccordionOpen((prevState) => !prevState);
-    };
-
-    const closeAccordion = (e) => {
-        e.preventDefault();
-        setAccordionOpen(false);
     };
 
     const getMobileButton = () => (
@@ -45,12 +25,6 @@ const GovBanner = () => {
             aria-label="Toggle USA banner information" />
     );
 
-    useEffect(() => {
-        if (isMobile && document.querySelector(".usa-banner-close").style.display === "none") {
-            // isMobile
-        }
-    }, [isMobile]);
-
     return (
         <div className={`usa-banner__wrapper ${accordionOpen ? "open" : ""}`}>
             <section className="usa-banner" data-testid="govBanner">
@@ -60,18 +34,20 @@ const GovBanner = () => {
                             className="usa-banner__inner"
                             data-testid="banner-header-inner-div">
                             <div className="usa-banner__header-text-wrapper">
-                                {isMobile && getMobileButton()}
+                                {isTablet && getMobileButton()}
                                 <img
                                     className="usa-banner__header-flag"
                                     alt="U.S. flag"
                                     src="img/uswds/us_flag_small.png" />
                                 <div
                                     className="usa-banner__header-text">
-                                    <div className="usa-banner__header-sub-text">An official website of the United States government</div>
+                                    <div className="usa-banner__header-sub-text">
+                                        An official website of the United States government
+                                    </div>
                                     <button
                                         type="button"
-                                        tabIndex={!isMobile ? 0 : -1}
-                                        onClick={(e) => (!isMobile ? toggleAccordion(e) : "")}
+                                        tabIndex={!isTablet ? 0 : -1}
+                                        onClick={(e) => (!isTablet ? toggleAccordion(e) : "")}
                                         onKeyDown={(e) => {
                                             if (e.key === "Enter") toggleAccordion(e);
                                         }}
@@ -79,24 +55,22 @@ const GovBanner = () => {
                                         aria-expanded="false"
                                         aria-controls="gov-banner">
                                         <span className="usa-banner__button-text">Here’s how you know</span>
-                                        <div style={{ marginTop: "3px" }}><FontAwesomeIcon width="11.7px" height="6.9px" icon={accordionOpen === true ? "chevron-up" : "chevron-down"} alt="Expanded menu" /></div>
+                                        <div style={{ marginTop: "3px" }}>
+                                            <FontAwesomeIcon
+                                                width="11.7px"
+                                                height="6.9px"
+                                                icon={accordionOpen === true ? "chevron-up" : "chevron-down"}
+                                                alt="Expanded menu" />
+                                        </div>
                                     </button>
                                 </div>
-                            </div>
-                            <div
-                                className="usa-banner-close"
-                                tabIndex={!isMobile ? 0 : -1}
-                                role="button"
-                                onKeyDown={(e) => {
-                                    if (e.key === "Enter" && !isMobile) closeAccordion();
-                                }}
-                                onClick={() => (!isMobile ? closeAccordion() : "")}>
-                                <Icons.Close alt="Close Top Hat Mobile Menu" />
                             </div>
                         </div>
                     </header>
                     <div
-                        className={`usa-banner__content usa-accordion__content ${accordionOpen === true ? "" : "closed"}`}
+                        className={`usa-banner__content usa-accordion__content ${
+                            accordionOpen === true ? "" : "closed"
+                        }`}
                         hidden=""
                         id="gov-banner">
                         <div className="usa-banner__guidance">
@@ -105,7 +79,11 @@ const GovBanner = () => {
                                     className="usa-banner__content-icon"
                                     alt="Lock"
                                     src="img/uswds/icon-dot-gov.svg" />
-                                <p><strong>Official websites use .gov</strong><br />A <strong>.gov</strong> website belongs to an official government organization in the United States.</p>
+                                <p>
+                                    <strong>Official websites use .gov</strong>
+                                    <br />A <strong>.gov </strong>
+                                    website belongs to an official government organization in the United States.
+                                </p>
                             </div>
                         </div>
                         <div className="usa-banner__guidance">
@@ -122,8 +100,8 @@ const GovBanner = () => {
                                             src="img/uswds/lock.svg" />
                                         )
                                     </strong> or <strong>https://</strong> means
-                                    you’ve safely connected to the .gov website. Share sensitive information only on official,
-                                    secure websites.
+                                    you’ve safely connected to the .gov website.
+                                    Share sensitive information only on official, secure websites.
                                 </p>
                             </div>
                         </div>
@@ -132,6 +110,6 @@ const GovBanner = () => {
             </section>
         </div>
     );
-};
+});
 
 export default GovBanner;
