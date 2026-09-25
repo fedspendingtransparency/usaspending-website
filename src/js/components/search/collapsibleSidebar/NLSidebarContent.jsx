@@ -76,7 +76,7 @@ const NLSidebarContent = ({
     const handleNLCancel = () => {
         dispatch(setIsSearchActive(false));
         if (cancelQuery) {
-            cancelQuery
+            cancelQuery();
         }
     }
 

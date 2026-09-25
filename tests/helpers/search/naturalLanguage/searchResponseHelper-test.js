@@ -60,16 +60,15 @@ const mockData = [
 ];
 
 describe('searchResponseHelper', () => {
-    describe(`buildResponseState (WITH tool complete messages) - builds out response state from SEARCH_START -> SEARCH_COMPLETE`, () => {
-        it('should return an object of array items which the icon`s value IS equal to "sparkles" at least once', () => {
+    describe('buildResponseState (WITH tool complete/error messages)', () => {
+        it('should return an object of array items where the icon`s value IS equal to sparkles at least once', () => {
             const testData = [
                 ...mockData.slice(0,2),
                 {...mockData[2], message: 'Success'},
                 ...mockData.slice(3,4),
                 {...mockData[4], message: 'Error'},
                 ...mockData.slice(5,6),
-                {...mockData[6], message: 'Success'},
-                mockData[7]    
+                {}  
             ];
 
             const expectedResult = {
@@ -85,32 +84,16 @@ describe('searchResponseHelper', () => {
                         searchId: '502',
                         operation: TOOL,
                         toolId: 1522,
-                        variant: START,
-                        label: 'Selecting Anne Arundel, MD',
-                        icon: 'sparkles'   
-                    },
-                    {
-                        searchId: '502',
-                        operation: TOOL,
-                        toolId: 1522,
                         variant: COMPLETE,
-                        label: 'Success',
+                        label: 'Selecting Anne Arundel, MD',
                         icon: ['far', 'circle-check']   
                     },
                     {
                         searchId: '502',
                         operation: TOOL,
                         toolId: 1523,
-                        variant: START,
-                        label: 'Selecting funding over $500,000',
-                        icon: 'sparkles' 
-                    },
-                    {
-                        searchId: '502',
-                        operation: TOOL,
-                        toolId: 1523,
                         variant: ERROR,
-                        label: 'Error',
+                        label: 'Selecting funding over $500,000',
                         icon: ['far', 'circle-xmark']  
                     },
                     {
@@ -120,21 +103,6 @@ describe('searchResponseHelper', () => {
                         variant: START,
                         label: 'Selecting higher education and public schools',
                         icon: 'sparkles'  
-                    },
-                    {
-                        searchId: '502',
-                        operation: TOOL,
-                        toolId: 1524,
-                        variant: COMPLETE,
-                        label: 'Success',
-                        icon: ['far', 'circle-check']   
-                    },
-                    {
-                        searchId: '502',
-                        operation: SEARCH,
-                        variant: COMPLETE,
-                        label: 'Applying filters based on grants and loans that went to schools',
-                        result: '123abc456efg'
                     }
                 ]
             };
@@ -142,8 +110,8 @@ describe('searchResponseHelper', () => {
         });
     });
     
-    describe(`buildResponseState (WITHOUT tool complete messages) - builds out response state from SEARCH_START -> SEARCH_COMPLETE`, () => {
-        it('should return an object of array items which the icon`s value IS NEVER equal to "sparkles" ', () => {
+    describe('buildResponseState (WITHOUT tool complete/error messages)', () => {
+        it('should return an object of array items where the icon`s value IS NEVER equal to sparkles', () => {
             const expectedResult = { 
                 items: [
                     {

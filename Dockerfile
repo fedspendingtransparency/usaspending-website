@@ -1,4 +1,4 @@
-FROM node:22.14.0
+FROM node:24.18.1
 
 # font awesome token passed in
 ARG FATOKEN
