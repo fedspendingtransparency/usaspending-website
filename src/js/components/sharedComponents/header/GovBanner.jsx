@@ -1,6 +1,5 @@
 import React, {memo, useContext, useState} from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import * as Icons from 'components/sharedComponents/icons/Icons';
 import IsMobileContext from "../../../context/IsMobileContext";
 
 // eslint-disable-next-line prefer-arrow-callback
@@ -11,11 +10,6 @@ const GovBanner = memo(function GovBanner() {
     const toggleAccordion = (e) => {
         e.preventDefault();
         setAccordionOpen((prevState) => !prevState);
-    };
-
-    const closeAccordion = (e) => {
-        e.preventDefault();
-        setAccordionOpen(false);
     };
 
     const getMobileButton = () => (
@@ -71,16 +65,6 @@ const GovBanner = memo(function GovBanner() {
                                     </button>
                                 </div>
                             </div>
-                            {/* <div */}
-                            {/*     className="usa-banner-close" */}
-                            {/*     tabIndex={!isTablet ? 0 : -1} */}
-                            {/*     role="button" */}
-                            {/*     onKeyDown={(e) => { */}
-                            {/*         if (e.key === "Enter" && !isTablet) closeAccordion(); */}
-                            {/*     }} */}
-                            {/*     onClick={() => (!isTablet ? closeAccordion() : "")}> */}
-                            {/*     <Icons.Close alt="Close Top Hat Mobile Menu" /> */}
-                            {/* </div> */}
                         </div>
                     </header>
                     <div
