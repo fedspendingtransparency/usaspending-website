@@ -56,6 +56,12 @@
           font-size: rem(60);
           margin: auto;
         }
+         
+        &.nl-container {
+          svg {
+            height: rem(75);
+          }  
+        }
       }
     }
 
@@ -67,6 +73,11 @@
         margin-left: rem(40);
         font-weight: $font-semibold;
         line-height: 1.5;
+
+        &.nl-container {
+          font-weight: $font-normal;
+          font-family: $font-sans;
+        }
 
         @media (max-width: $mobile-only) {
           margin: 0 rem(16);

@@ -41,6 +41,7 @@ const TrainingVideosContainer = React.lazy(() => import('containers/trainingVide
 const FeaturedContentPage = React.lazy(() => import('components/featuredContent/FeaturedContentPage').then((comp) => comp));
 const FeaturedContentArticle = React.lazy(() => import('components/featuredContent/FeaturedContentArticle').then((comp) => comp));
 const TempPage = React.lazy(() => import('components/TempPage').then((comp) => comp));
+const NLInfoPage = React.lazy(() => import('components/search/NLInfoPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.
@@ -59,6 +60,11 @@ export const routes = [
     {
         path: `/search/:urlHash`,
         component: SearchContainerRedirect,
+        exact: true
+    },
+    {
+        path: '/search/smart-assist',
+        component: NLInfoPage,
         exact: true
     },
     {
