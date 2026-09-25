@@ -7,7 +7,7 @@ import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import { useLocation, useNavigate, useSearchParams } from 'react-router';
-import { QAT, LLM_HASH } from 'GlobalConstants';
+import { QAT, LLM_HEADER_VALUE } from 'GlobalConstants';
 import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import {
     filterStoreVersion, initialState
@@ -71,7 +71,7 @@ const SearchContainer = () => {
     }, [areAppliedFiltersEmpty, appliedFilters]);
 
     useEffect(() => {
-        if (QAT || query && (Object.prototype.hasOwnProperty.call(query, 'smart-assist') && query['smart-assist'] === LLM_HASH)) {
+        if (QAT || query && (Object.prototype.hasOwnProperty.call(query, 'smart-assist') && query['smart-assist'] === LLM_HEADER_VALUE)) {
             dispatch(setSmartAssistIsVisible(true));
         }
     }, []);
