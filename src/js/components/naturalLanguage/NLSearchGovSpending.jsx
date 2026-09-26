@@ -4,18 +4,31 @@
  */
 
 import React, {useState} from "react";
+import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import { searchGovSpendingData } from "./NLData";
 import PropTypes from "prop-types";
+import Analytics from "../../helpers/analytics/Analytics";
 
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 const propTypes = {
     isFilters: PropTypes.bool
 };
 const NLSearchGovSpending = ({ isFilters=false }) => {
+    const navigate = useNavigate();
     const [inputValue, setInputValue] = useState('');
+
+    const handleSmartAssistClick = () => {
+        Analytics.event({
+            event: 'learn-about-smart-assist',
+            category: 'Smart Assist Landing Page',
+            action: 'Link',
+            label: 'smart assist landing page'
+        });
+        navigate("/search/smart-assist");
+    };
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
@@ -32,7 +45,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                 <div className="search-gov-spending__link">
                     <Button 
                         copy="Learn about Smart Assist"
-                        onClick={() => {}}
+                        onClick={handleSmartAssistClick}
                         buttonTitle="Learn about Smart Assist"
                         buttonSize="md"
                         buttonType="text"

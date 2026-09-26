@@ -1,0 +1,23 @@
+.search-info-page__section {
+    padding: rem(40) rem(60);
+    border-radius: rem(12);
+    border: rem(1) solid $blue-light;
+    background: $blue-vivid-5v;
+    margin-top: rem(94);
+    width: rem(1300);
+    height: rem(320);
+    margin-left: rem(100);
+
+    .search-info-page__label {
+        color: $gray-90;
+        font-family: $font-sans;
+        font-size: $lead-font-size;
+        line-height: $base-line-height;
+        margin-bottom: rem(16);
+    }
+
+    .search-info-page__row {
+        display: flex;
+        align-items: flex-start;
+    }
+}

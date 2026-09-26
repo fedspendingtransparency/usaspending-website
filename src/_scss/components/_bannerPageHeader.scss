@@ -57,7 +57,7 @@
           margin: auto;
         }
          
-        &.nl-container {
+        &.nl-search-container {
           svg {
             height: rem(75);
           }  
@@ -74,7 +74,7 @@
         font-weight: $font-semibold;
         line-height: 1.5;
 
-        &.nl-container {
+        &.nl-search-container {
           font-weight: $font-normal;
           font-family: $font-sans;
         }
