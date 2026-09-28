@@ -1,6 +1,12 @@
 @import "searchFilter";
 @import "../../components/checkboxTree/checkboxTree";
 
+@keyframes nl-submit-border-spin {
+  to {
+    stroke-dashoffset: -100;
+  }
+}
+
 &.v2 {
   // .usda-page-header style is a DTUI override that's specific to the search 2.0 page
   .usda-page-header,
@@ -310,6 +316,7 @@
         }
       }
       .natural-language-submit.loading {
+        position: relative;
         color: $cyan-50v;
         background-color: $color-white;
         border: 1px solid transparent;
@@ -323,6 +330,19 @@
               $cyan-60v 100%
             )
             border-box;
+
+        // a light-to-dark-to-light segment, a third of the border's
+        // perimeter, traced as an SVG stroke that follows the button's
+        // actual rounded-rect outline, so it bends cleanly through
+        // every corner and can never extend past the button's
+        // silhouette. (stroke color is set on the element itself via
+        // the gradient defined in the markup.)
+        .natural-language-submit__spinner-track {
+          stroke-width: 2px;
+          stroke-linecap: round;
+          stroke-dasharray: 30 70;
+          animation: nl-submit-border-spin 3s linear infinite;
+        }
 
         &:hover {
           // prevent loading state hover style changes
