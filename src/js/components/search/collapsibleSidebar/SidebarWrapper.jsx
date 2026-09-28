@@ -22,8 +22,8 @@ import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS } from './SidebarConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
 import useFetchDataFromHash from "./useFetchDataFromHash";
-import {RESPONSE_TYPE } from "./NLConstants";
-import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
+import { RESPONSE_TYPE } from "./NLConstants";
+import { setIsSearchActive , setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
 
 
 const propTypes = {
@@ -92,7 +92,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         if(text && typeof fetchNLSearch === "function") {
             wasCancelled.current = false;
             fetchNLSearch();
-            // dispatch redux state
+            dispatch(setIsSearchActive(true));
         }
     }
 
@@ -107,6 +107,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
         if (typeof cancelQuery === "function") {
             cancelQuery();
+            dispatch(setIsSearchActive(false));
         }
     };
 
@@ -116,10 +117,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         // check if the results is a filter object if not, show the hash error page
         if (filterResults && Object.keys(filterResults).length > 0 && hashSuccess) {
             dispatch(restoreHashedFilters(filterResults));
+            dispatch(setIsSearchActive(false));
         }
 
         if (hashError) {
-            navigate("/hash-error", { replace: true });
+            // show error state UI here
+            dispatch(setIsSearchActive(false));
         }
     }, [filterResults, hashSuccess, hashError]);
 

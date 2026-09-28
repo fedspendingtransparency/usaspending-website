@@ -30,6 +30,8 @@ const useRequestNLSearch = (prompt) => {
 
                     const {value, done} = await reader.read();
 
+                    console.log(decoder.decode(value));
+
                     if (done) break;
 
                     yield decoder.decode(value);

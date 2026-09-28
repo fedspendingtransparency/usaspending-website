@@ -25,7 +25,6 @@ export const useFetchDataFromHash = (nlHash) => {
          }
          else {
              return {};
-             // should this return an hash error?
          }
     }, []);
 
