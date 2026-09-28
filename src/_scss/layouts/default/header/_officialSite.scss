@@ -17,7 +17,7 @@
 
     @media (max-width: $mobile-only) {
       .usa-banner__button {
-        margin-top: 4px;
+        margin-top: rem(4);
       }
       .usa-banner__header-text {
         flex-direction: column;
