@@ -121,8 +121,8 @@
     .search-gov-spending__tablet-prompt-wrapper {
       display: inline;
       margin-bottom: rem(-4);
-      width: 100%;
       @media (min-width: $tablet-screen) {
+        margin-top: rem(4);
         margin-bottom: rem(8);
       }
     }
