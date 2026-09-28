@@ -2,6 +2,12 @@
 const bannerContent = [
     {
         isActive: true,
+        content:'USAspending daily data refreshes will be paused temporarily starting Tuesday September 29, 2026 for planned maintenance. Daily updates are estimated to resume on October 14, 2026 at which time the data will be made current. Please contact the Service Desk at usaspending.help@fiscal.treasury.gov with any questions.',
+        page:'site wide',
+        type:'general'
+    },
+    {
+        isActive: true,
         title: 'Warning',
         content: 'This is a warning notice.',
         page: '/temp-page', // use 'site wide' to display a banner across the entire site
