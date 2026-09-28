@@ -33,6 +33,16 @@ export const awardTypeCodes = {
     '08': 'Guaranteed/Insured Loans',
     '09': 'Insurance',
     '11': 'Other Financial Assistance',
+    'F001': 'Grant',
+    'F002': 'Cooperative Agreement',
+    'F003': 'Direct Loans',
+    'F004': 'Loan Guarantee',
+    'F005': 'Indemnity/Insurance (non-loan)',
+    'F006': 'Direct Payment for Specified Use',
+    'F007': 'Direct Payment with Unrestricted Use',
+    'F008': 'Asset Forfeiture/Equitable Sharing',
+    'F009': 'Sale, Exchange, or Donation of Property and Goods',
+    'F010': 'Other Financial Assistance',
     '-1': 'Not Specified'
 };
 
@@ -98,9 +108,9 @@ export const awardTypeGroups = {
     contracts: ['A', 'B', 'C', 'D'],
     idvs: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E'],
     grants: ['02', '03', '04', '05', 'F001', 'F002'],
-    direct_payments: ['10', '06', 'F006', 'F007'],
-    loans: ['07', '08', 'F003', 'F004'],
-    other: ['09', '11', '-1', 'F005', 'F010']
+    direct_payments: ['F007', 'F006'],
+    loans: ['F003', 'F004'],
+    other: ['F005', 'F008', 'F009', 'F010', '-1' ]
 };
 
 export const bulkDownloadAwardTypeGroups = {
