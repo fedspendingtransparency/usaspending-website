@@ -1,0 +1,29 @@
+@mixin search-info-page__content-width {
+    width: 100%;
+    max-width: rem(1300);
+    padding: 0 rem(60);
+}
+
+.search-info-page__heading {
+    @include search-info-page__content-width;
+    padding-top: rem(40);
+    padding-bottom: rem(40);
+    border-radius: rem(12);
+    box-shadow: inset 0 0 0 rem(1) $blue-light;
+    background: $blue-vivid-5v;
+    height: rem(320);
+    margin: rem(94) auto 0;
+
+    .search-info-page__label {
+        color: $gray-90;
+        font-family: $font-sans;
+        font-size: $lead-font-size;
+        line-height: $base-line-height;
+        margin-bottom: rem(16);
+    }
+
+    .search-info-page__graphic-container{
+        display: flex;
+        align-items: flex-start;
+    }
+}
