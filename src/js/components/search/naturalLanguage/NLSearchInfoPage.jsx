@@ -1,17 +1,16 @@
-/* eslint-disable react/no-array-index-key */
 /**
- * NLInfoPage.jsx
+ * NLSearchInfoPage.jsx
  * Created by Trey Morgan 09/24/2026
  */
 
 import React from 'react';
 import PageWrapper from "../../sharedComponents/PageWrapper";
 import BannerPageHeader from '../../sharedComponents/header/BannerPageHeader';
-import Accordion from '../../sharedComponents/accordion/Accordion';
 import { smartAssistPageMetaTags } from '../../../helpers/metaTagHelper';
-import { FlexGridCol } from 'data-transparency-ui';
 import smartAssistGraphic from '../../../../img/smart-assist-graphic.png';
 import { smartAssistContent } from '../naturalLanguage/NLData';
+import NLSearchInfoSection from './NLSearchInfoSection';
+import NLSearchInfoResources from './NLSearchInfoResources';
 
 require("pages/search/naturalLanguage/searchInfoPage.scss");
 
@@ -24,8 +23,6 @@ const graphicLabel = (
 const { overview, search, results, limitations, feedback } = smartAssistContent ?? {};
 
 const NLSearchInfoPage = () => {
-    console.log({overview, search, results, limitations, feedback});
-
     return (
         <PageWrapper
             pageName="smart-assist"
@@ -51,43 +48,19 @@ const NLSearchInfoPage = () => {
                             alt="Smart Assist graphic"/>
                     </div>
                 </section>
-                <section className='search-info-page__content-section'>
-                    <div className="search-info-page__heading-section">
-                        <FlexGridCol
-                            className="search-info-page__content-col"
-                            desktop={{ span: 9, offset: 3 }}
-                            tablet={12}
-                            mobile={12}>
-                            <h3 className="search-info-page__top-content-heading">
-                                {overview.heading}
-                            </h3>
-                        </FlexGridCol>
-                    </div>
-                    <div className="search-info-page__accordion-section">
-                        <FlexGridCol
-                            className="search-info-page__accordion-list"
-                            desktop={{ span: 9, offset: 3 }}
-                            tablet={12}
-                            mobile={12}>
-                            {overview.items.map((item, i) => (
-                                <Accordion
-                                    containerClassName="search-info-page-container"
-                                    headingClassName="search-info-page-heading"
-                                    contentClassName="search-info-page-content"
-                                    faClassName="search-info-page-fa"
-                                    aria-label="Toggle Expansion"
-                                    aria-expanded="false"
-                                    key={`item-${i}`}
-                                    title={item.title}>
-                                    {item.content}
-                                </Accordion>
-                            ))}
-                        </FlexGridCol>
-                    </div>
+
+                <section className="search-info-page__content-section">
+                    <NLSearchInfoSection section={ overview } />
+                    <NLSearchInfoSection section={ search } />
+                    <NLSearchInfoSection section={ results } />
+                    <NLSearchInfoSection section={ limitations } />
+                    <NLSearchInfoSection section={ feedback } />
                 </section>
+
+                <NLSearchInfoResources />     
             </main>
         </PageWrapper>
     )
-}
+};
 
 export default NLSearchInfoPage;

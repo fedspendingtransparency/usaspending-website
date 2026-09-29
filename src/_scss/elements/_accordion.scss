@@ -4,12 +4,6 @@
     margin-right: 0;
   }
 
-  &.search-info-page-container {
-    &:last-of-type {
-      margin-bottom: 60px;
-    }
-  }
-
   .accordion {
     ul {
       list-style-type: disc;
@@ -115,6 +109,7 @@
       &.search-info-page-content {
         border: 2px solid #f0f0f0;
         border-radius: 0 0 4px 4px;
+        padding: 16px 20px;
       }
     }
 

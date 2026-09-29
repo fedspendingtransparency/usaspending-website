@@ -4,6 +4,7 @@
  */
 
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import Analytics from "../../../helpers/analytics/Analytics";
 import { closeOtherSlideouts } from "../../../helpers/slideoutHelper";
@@ -627,7 +628,7 @@ export const smartAssistContent = {
                 content: (
                     <>
                         <p>
-                            Your search will be used to find Awards, Subawards, and Transactions using the existing Advanced Search page filters ranging from time period to specific codes or categories.
+                            Your search will be used to find <span style={{color: '#005ea2'}}>Awards, Subawards, and Transactions</span> using the existing Advanced Search page filters ranging from time period to specific codes or categories.
                         </p>
                     </>
                 )
@@ -763,3 +764,86 @@ export const smartAssistContent = {
         ]
     }
 };
+
+export const smartAssistResources = [
+    {
+        icon: (
+            <div className="search-info-page__resources-icon-container glossary">
+                <FontAwesomeIcon icon="book" color="#0081a1" size="lg" />
+            </div>
+        ),
+        headline: 'Glossary',
+        text: 'Defines terminology found throughout USAspending',
+        buttonText: (
+            <div className="search-info-page__resources-link-container">
+                <div>View the glossary&nbsp;&nbsp;
+                    <FontAwesomeIcon icon="arrow-right" />
+                </div>
+            </div>
+        ),
+        action: () => { 
+            Analytics.event({
+                event: 'search-info-page_resources-glossary',
+                category: 'Natural Language Additional Resources',
+                action: 'Link',
+                label: 'glossary button'
+            });
+            
+            closeOtherSlideouts('glossary');
+            dispatch(glossaryActions.toggleGlossary());
+        },
+        govLink: false,
+        onlyPerformAction: true
+    },
+    {
+        icon: (
+            <div className="search-info-page__resources-icon-container articles">
+                <FontAwesomeIcon icon="graduation-cap" color="#0081a1" size="lg" />
+            </div>
+        ),
+        headline: 'Featured Content',
+        text: 'Read our articles and watch training videos about Smart Assist ',
+        buttonText: (
+            <div className="search-info-page__resources-link-container">
+                <div>View Smart Assist articles&nbsp;&nbsp;
+                    <FontAwesomeIcon icon="arrow-right" />
+                </div>
+            </div>
+        ),
+        action: () => { 
+            Analytics.event({
+                event: 'search-info-page_resources-featured-content',
+                category: 'Natural Language Additional Resources',
+                action: 'Link',
+                label: 'smart assist articles button'
+            })
+        },
+        govLink: false,
+        onlyPerformAction: true
+    },
+    {
+        icon: (
+            <div className="search-info-page__resources-icon-container guide">
+                <FontAwesomeIcon icon="money-check-dollar" color="#0081a1" size="lg" />
+            </div>
+        ),
+        headline: 'Federal Spending Guide',
+        text: 'Learn about Federal Spending and USAspending data',
+        buttonText: (
+            <div className="search-info-page__resources-link-container">
+                <div>View Federal Spending Guide&nbsp;&nbsp;
+                    <FontAwesomeIcon icon="arrow-right" />
+                </div>
+            </div>
+        ),
+        buttonLink: '/federal-spending-guide',
+        action: () => { 
+            Analytics.event({
+                event: 'search-info-page_resources-federal-spending-guide',
+                category: 'Natural Language Additional Resources',
+                action: 'Link',
+                label: 'smart assist federal spending guide button'
+            })
+        }
+    }
+];

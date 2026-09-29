@@ -7,8 +7,16 @@
         padding: 0;
     }
 
-    .search-info-page__content-col {
-        margin-top: rem(60);
+    .search-info-page-section:first-child {
+        .search-info-page__content-col {
+            margin-top: rem(60);
+        }
+    }
+
+    .search-info-page-section:last-child {
+        .search-info-page__accordion-section {
+            margin-bottom: rem(60);
+        }
     }
 
     .search-info-page__accordion-section {
