@@ -117,8 +117,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const { filterResults, hashError, loadResultsView, hashSuccess } = useFetchDataFromHash(hash);
 
     useEffect(() => {
-        if (hashError || fetchingError) {
-            // show error state UI here
+        if (fetchingError) {
+            dispatch(setIsNLSearchError(true));
+            handleCancelQuery();
+        }
+
+        if (hashError) {
             dispatch(setIsNLSearchError(true));
             dispatch(setIsNLSearchComplete(true));
         }

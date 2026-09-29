@@ -13,7 +13,6 @@ import { setStateOverview } from 'redux/actions/state/stateActions';
 import { restoreUrlHash, parseRemoteFilters } from "helpers/searchHelper";
 
 export const useFetchDataFromHash = (nlHash) => {
-//     const hash = '90e50821bf552b36f20c74de96262d27';
     const hash = nlHash;
 
     const dispatch = useDispatch();
