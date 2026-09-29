@@ -12,6 +12,8 @@ import NLSearchButton from "./NLSearchButton";
 import NLSearchSuggestionsIcon from "../../naturalLanguage/NLSearchSuggestionsIcon";
 import { setIsSearchActive } from "../../../redux/actions/sidebar/sidebarActions";
 import { buildResponseState } from "../../../helpers/search/naturalLanguage/searchResponseHelper";
+import { sanitizeNLInput } from "../../../helpers/search/naturalLanguage/sanitizeNLInput";
+import { NL_INPUT_MAX_CHARS } from "./NLConstants";
 
 const propTypes = {
     hintOnClick: PropTypes.func,
@@ -36,7 +38,7 @@ const NLSidebarContent = ({
 
     const dispatch = useDispatch();
 
-    const MAX_CHARS = 500;
+    const MAX_CHARS = NL_INPUT_MAX_CHARS;
     const responseState = useMemo(
         () => buildResponseState(data), 
         [data]
@@ -80,6 +82,10 @@ const NLSidebarContent = ({
         }
     }
 
+    const handleInput = (event) => {
+        setText(sanitizeNLInput(event.target.value).slice(0, MAX_CHARS));
+    };
+
     return (
         <> 
             { isSearchActive ? (
@@ -105,7 +111,7 @@ const NLSidebarContent = ({
                     </div>
                     <div className="sidebar-body-row">
                         <textarea
-                            onChange={(e) => setText(e.target.value)}
+                            onChange={handleInput}
                             name="smart-assist-input"
                             spellCheck
                             className="sidebar-textarea"
