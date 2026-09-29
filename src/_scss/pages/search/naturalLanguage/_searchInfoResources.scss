@@ -79,8 +79,11 @@
             .search-info-page__resources-link-container {
                 font-size: rem(16);
                 cursor: pointer;
+                
                 svg {
-                height: 16px;
+                    width: rem(14);
+                    height: rem(16);
+                    vertical-align: middle;
                 }
             }
         }
