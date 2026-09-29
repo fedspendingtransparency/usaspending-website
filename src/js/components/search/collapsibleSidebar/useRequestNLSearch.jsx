@@ -15,12 +15,12 @@ const useRequestNLSearch = (prompt) => {
         body: JSON.stringify({'query': prompt})
     };
 
-    const { data, refetch, status, isFetching } = useQuery({
+    const { data, refetch, status, isFetching, isError, error } = useQuery({
         queryKey: ['nl-search-stream'],
         enabled: false,
         queryFn: streamedQuery({
             streamFn: async function* ({ signal }) {
-                const request = await fetch(LLM_API, { ...requestHeader, signal });
+                const request = await fetch(LLM_API, { ...requestHeader, signal: AbortSignal.timeout(1_000) });
 
                 const reader = request.body.getReader();
                 const decoder = new TextDecoder();
@@ -29,8 +29,6 @@ const useRequestNLSearch = (prompt) => {
                     if (signal.aborted) break;
 
                     const {value, done} = await reader.read();
-
-                    console.log(decoder.decode(value));
 
                     if (done) break;
 
@@ -50,7 +48,9 @@ const useRequestNLSearch = (prompt) => {
             .then(() => queryClient.setQueryData(['nl-search-stream'], ''));
     };
 
-    return { data, fetchNLSearch: refetch, status, cancelQuery, isFetching};
+    console.log("error log", isError, error);
+
+    return { data, fetchNLSearch: refetch, status, cancelQuery, isFetching, fetchingError: isError};
 }
 
 export default useRequestNLSearch;

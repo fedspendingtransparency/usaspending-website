@@ -6,6 +6,7 @@
 export const SET_SIDEBAR_CONTENT = 'SET_SIDEBAR_CONTENT';
 export const SET_IS_SEARCH_ACTIVE = 'SET_IS_SEARCH_ACTIVE';
 export const SET_IS_NL_SEARCH_COMPLETE = 'SET_IS_NL_SEARCH_COMPLETE';
+export const SET_IS_NL_SEARCH_ERROR = 'SET_IS_NL_SEARCH_ERROR';
 
 export const setSidebarContent = (sidebarContent) => ({
     type: SET_SIDEBAR_CONTENT, 
@@ -20,4 +21,9 @@ export const setIsSearchActive = (isSearchActive) => ({
 export const setIsNLSearchComplete = (isNLSearchComplete) => ({
     type: SET_IS_NL_SEARCH_COMPLETE,
     isNLSearchComplete
+});
+
+export const setIsNLSearchError = (isNLSearchError) => ({
+    type: SET_IS_NL_SEARCH_ERROR,
+    isNLSearchError
 });

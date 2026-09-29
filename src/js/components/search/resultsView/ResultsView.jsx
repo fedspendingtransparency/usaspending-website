@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import useResultsCount from "containers/search/resultsView/useResultsCount";
+import { ErrorMessage } from "data-transparency-ui";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";
 import SearchLanding from "./SearchLanding";
@@ -35,10 +36,16 @@ const ResultsView = React.memo(function ResultsView({
     const filters = useSelector((state) => state.appliedFilters.filters);
     const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
     const { data, error, isLoading } = useResultsCount(filters, spendingLevel, hash);
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const isSearchComplete = useSelector((state) => state.sidebar.isSearchComplete);
+    const isNLSearchError = useSelector((state) => state.sidebar.isNLSearchError);
 
     let content = null;
 
-    if (isLoading && !noFiltersApplied) {
+    if(isNLSearchError) {
+        content = <ErrorMessage />;
+    }
+    else if ((isLoading && !noFiltersApplied) || (isSearchActive && !isSearchComplete)) {
         content = (
             <div className="search-results-loading">
                 <div className="search-results__loading-message">

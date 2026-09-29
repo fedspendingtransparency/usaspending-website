@@ -23,7 +23,7 @@ import { FILTERS } from './SidebarConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
 import useFetchDataFromHash from "./useFetchDataFromHash";
 import { RESPONSE_TYPE } from "./NLConstants";
-import { setIsSearchActive , setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
+import { setIsSearchActive , setIsNLSearchComplete, setIsNLSearchError } from '../../../redux/actions/sidebar/sidebarActions';
 
 
 const propTypes = {
@@ -47,6 +47,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
+    const isNLSearchError = useSelector((state) => state.sidebar.isNLSearchError);
+
     const [text, setText] = useState("");
     const [hash, setHash] = useState();
 
@@ -56,7 +58,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { data, fetchNLSearch, cancelQuery, isFetching } = useRequestNLSearch(text);
+    const { data, fetchNLSearch, cancelQuery, isFetching, fetchingError } = useRequestNLSearch(text);
 
     const parsedData = useMemo(() => data?.split('\n')
         .filter((line) => line.trim() !== '')
@@ -92,7 +94,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         if(text && typeof fetchNLSearch === "function") {
             wasCancelled.current = false;
             fetchNLSearch();
-            dispatch(setIsSearchActive(true));
+            dispatch(setIsNLSearchComplete(false));
+            dispatch(setIsNLSearchError(false));
         }
     }
 
@@ -107,24 +110,26 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
         if (typeof cancelQuery === "function") {
             cancelQuery();
-            dispatch(setIsSearchActive(false));
+            dispatch(setIsNLSearchComplete(true));
         }
     };
 
     const { filterResults, hashError, loadResultsView, hashSuccess } = useFetchDataFromHash(hash);
 
     useEffect(() => {
+        if (hashError || fetchingError) {
+            // show error state UI here
+            dispatch(setIsNLSearchError(true));
+            dispatch(setIsNLSearchComplete(true));
+        }
+
         // check if the results is a filter object if not, show the hash error page
         if (filterResults && Object.keys(filterResults).length > 0 && hashSuccess) {
             dispatch(restoreHashedFilters(filterResults));
-            dispatch(setIsSearchActive(false));
         }
 
-        if (hashError) {
-            // show error state UI here
-            dispatch(setIsSearchActive(false));
-        }
-    }, [filterResults, hashSuccess, hashError]);
+
+    }, [filterResults, hashSuccess, hashError, fetchingError]);
 
 
     useEffect(() => {
