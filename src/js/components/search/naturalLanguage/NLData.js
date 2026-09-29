@@ -5,14 +5,14 @@
 
 import React from "react";
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
-import Analytics from "../../helpers/analytics/Analytics";
-import { closeOtherSlideouts } from "../../helpers/slideoutHelper";
+import Analytics from "../../../helpers/analytics/Analytics";
+import { closeOtherSlideouts } from "../../../helpers/slideoutHelper";
 import storeSingleton from 'redux/storeSingleton';
-import * as glossaryActions from "../../redux/actions/glossary/glossaryActions"
-import * as aboutTheDataActions from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions"
-import { initialState as defaultFilters } from '../../redux/reducers/search/searchFiltersReducer';
-import { awardTypeGroups } from "../../dataMapping/search/awardType";
-import { REQUEST_VERSION } from "../../GlobalConstants";
+import * as glossaryActions from "../../../redux/actions/glossary/glossaryActions"
+import * as aboutTheDataActions from "../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions"
+import { initialState as defaultFilters } from '../../../redux/reducers/search/searchFiltersReducer';
+import { awardTypeGroups } from "../../../dataMapping/search/awardType";
+import { REQUEST_VERSION } from "../../../GlobalConstants";
 
 const overline = 'IF YOU WANT TO KNOW:';
 const filterByHeader = 'FILTER BY:'

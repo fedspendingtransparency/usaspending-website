@@ -1,15 +1,16 @@
+/* eslint-disable react/no-array-index-key */
 /**
  * NLInfoPage.jsx
  * Created by Trey Morgan 09/24/2026
  */
 
 import React from 'react';
-import PageWrapper from "../sharedComponents/PageWrapper";
-import BannerPageHeader from '../sharedComponents/header/BannerPageHeader';
-import Accordion from '../sharedComponents/accordion/Accordion';
-import { smartAssistPageMetaTags } from '../../helpers/metaTagHelper';
+import PageWrapper from "../../sharedComponents/PageWrapper";
+import BannerPageHeader from '../../sharedComponents/header/BannerPageHeader';
+import Accordion from '../../sharedComponents/accordion/Accordion';
+import { smartAssistPageMetaTags } from '../../../helpers/metaTagHelper';
 import { FlexGridCol } from 'data-transparency-ui';
-import smartAssistGraphic from '../../../img/smart-assist-graphic.png';
+import smartAssistGraphic from '../../../../img/smart-assist-graphic.png';
 import { smartAssistContent } from '../naturalLanguage/NLData';
 
 require("pages/search/naturalLanguage/searchInfoPage.scss");
@@ -70,9 +71,12 @@ const NLSearchInfoPage = () => {
                             mobile={12}>
                             {overview.items.map((item, i) => (
                                 <Accordion
+                                    containerClassName="search-info-page-container"
+                                    headingClassName="search-info-page-heading"
+                                    contentClassName="search-info-page-content"
+                                    faClassName="search-info-page-fa"
                                     aria-label="Toggle Expansion"
                                     aria-expanded="false"
-                                    // eslint-disable-next-line react/no-array-index-key
                                     key={`item-${i}`}
                                     title={item.title}>
                                     {item.content}

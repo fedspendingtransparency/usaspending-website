@@ -10,7 +10,7 @@ import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import { searchGovSpendingData } from "./NLData";
 import PropTypes from "prop-types";
-import Analytics from "../../helpers/analytics/Analytics";
+import Analytics from "../../../helpers/analytics/Analytics";
 
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 const propTypes = {

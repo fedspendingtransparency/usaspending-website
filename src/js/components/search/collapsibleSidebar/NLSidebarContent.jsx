@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import NLDefaultHint from "./NLDefaultHint";
 import NLSearchButton from "./NLSearchButton";
-import NLSearchSuggestionsIcon from "../../naturalLanguage/NLSearchSuggestionsIcon";
+import NLSearchSuggestionsIcon from "../naturalLanguage/NLSearchSuggestionsIcon";
 import { setIsSearchActive } from "../../../redux/actions/sidebar/sidebarActions";
 import { buildResponseState } from "../../../helpers/search/naturalLanguage/searchResponseHelper";
 

@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import useIsMobile from "hooks/useIsMobile";
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
-import Analytics from "../../helpers/analytics/Analytics";
+import Analytics from "../../../helpers/analytics/Analytics";
 import { searchCardData } from "./NLData";
 
 import { Swiper, SwiperSlide } from "swiper/react";
