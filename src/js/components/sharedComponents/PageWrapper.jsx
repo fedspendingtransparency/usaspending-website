@@ -1,10 +1,9 @@
- 
 /**
  * Page.jsx
  * Created by Max Kendall 04/23/2021
 */
 
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useContext, useState} from 'react';
 import PropTypes from 'prop-types';
 import { PageHeader } from 'data-transparency-ui';
 
@@ -70,14 +69,14 @@ const PageWrapper = ({
     const { isMedium } = useContext(IsMobileContext);
     const [activeSection, setActiveSection] = useState(query.section || 'overview');
 
-    useEffect(() => {
-        // ("passed section", pageName="state", sections="stateSections")
-
-        if (!loading && query.section) {
-            setActiveSection(jumpToSection(query.section, pageName, `${pageName}Sections`));
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query.section, loading, isMedium]);
+    // useEffect(() => {
+    //     // ("passed section", pageName="state", sections="stateSections")
+    //
+    //     if (!loading && query.section) {
+    //         setActiveSection(jumpToSection(query.section, pageName, `${pageName}Sections`));
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [query.section, loading, isMedium]);
 
     return (
         <div className={classNames} ref={ref}>
