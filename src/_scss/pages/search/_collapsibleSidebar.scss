@@ -140,11 +140,9 @@
       min-height: rem(392);
       margin: rem(12) 0;
       overflow-y: auto;
+      width: 100%;
 
       &.response {
-        // adjust for stop generating button size
-        // to keep "Working....", "Start new Search" buttons in same position
-        // as initial "Start search" button.
         min-height: rem(356);
       }
     }
