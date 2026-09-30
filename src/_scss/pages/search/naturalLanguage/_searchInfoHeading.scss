@@ -29,4 +29,12 @@
 .search-info-page__download-group {
     margin-top: rem(24);
     margin-right: rem(99);
+
+    .share-dl-group {
+        gap: rem(24);
+
+        .share-dl-group__download-wrapper {
+            margin-right: 0;
+        }
+    }
 }
