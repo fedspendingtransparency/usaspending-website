@@ -20,8 +20,8 @@
 
 .usda-page-header--sticky + #main-content {
   .search-collapsible-sidebar-container {
-    top: 60px;
-    min-height: calc(100vh - 62px);
+    top: rem(60);
+    min-height: calc(100vh - rem(62));
   }
 }
 
@@ -31,7 +31,7 @@
   justify-content: flex-start;
   box-shadow: rem(8) 0 rem(8) rem(-3) rgba(0, 0, 0, 0.1);
   border-radius: unset;
-  min-height: calc(100vh - 16px);
+  min-height: calc(100vh - rem(16));
 
   &.sticky {
     position: sticky;
@@ -41,8 +41,8 @@
   }
 
   &.opened {
-    flex: 0 0 352px;
-    width: 352px;
+    flex: 0 0 rem(352);
+    width: rem(352);
 
     &.mobile {
       flex: 0 0 100%;
@@ -63,8 +63,8 @@
 
     @media (min-width: $medium-screen) {
       &.mobile {
-        flex: 0 0 352px;
-        width: 352px;
+        flex: 0 0 rem(352);
+        width: rem(352);
       }
     }
   }
@@ -79,7 +79,7 @@
 
   .sidebar-top-submit {
     width: 100%;
-    border-bottom: $gray-cool-10 1px solid;
+    border-bottom: $gray-cool-10 rem(1) solid;
     padding: 0 rem(24);
     @media (max-width: $medium-screen) {
       padding: 0 rem(16);
@@ -92,18 +92,10 @@
     font-weight: $font-semibold;
     display: flex;
     flex-wrap: wrap;
-    padding: 2.4rem 0 0.8rem;
+    padding: rem(24) 0 rem(8);
     position: sticky;
     top: rem(6);
     left: 0;
-
-    @include media($small-screen) {
-      padding: 2.4rem 0 0.8rem;
-    }
-
-    @include media($medium-screen) {
-      padding: 2.4rem 0 0.8rem;
-    }
 
     &.is-nl {
       overflow-y: auto;
@@ -128,13 +120,13 @@
 
     .fa-filter {
       color: $blue-60v;
-      width: 15px;
-      margin-right: 8px;
+      width: rem(15);
+      margin-right: rem(8);
     }
 
     .link {
       width: 100%;
-      margin: 8px 0;
+      margin: rem(8) 0;
       font-size: $font-size-14;
       font-weight: $font-normal;
       padding: 0 rem(24);
@@ -203,7 +195,7 @@
         padding: rem(8);
         margin-bottom: rem(8);
         background-color: $color-white;
-        border: 1px solid transparent;
+        border: rem(1) solid transparent;
         border-radius: rem(4);
         background:
           linear-gradient($color-white, $color-white) padding-box,
@@ -256,7 +248,7 @@
         font-weight: $font-normal;
         padding: rem(8) rem(12);
         border-radius: rem(4);
-        border: 1px solid $gray-60;
+        border: rem(1) solid $gray-60;
       }
       .textarea-char-row {
         display: flex;
@@ -319,7 +311,7 @@
         position: relative;
         color: $cyan-50v;
         background-color: $color-white;
-        border: 1px solid transparent;
+        border: rem(1) solid transparent;
         border-radius: rem(4);
         background:
           linear-gradient($color-white, $color-white) padding-box,
@@ -439,13 +431,13 @@
   .chevron {
     margin: auto;
     color: $blue-50;
-    width: 6px;
+    width: rem(6);
     height: 100%;
   }
 
   .fa-filter {
     color: $blue-60v;
-    width: 15px;
+    width: rem(15);
   }
 
   .collapsible-sidebar--toggle {
@@ -454,13 +446,13 @@
     }
 
     position: absolute;
-    right: -12px;
-    top: 16px;
-    border-radius: 12px;
-    width: 24px;
-    height: 24px;
-    box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.1);
-    border: solid 1px $gray-cool-10;
+    right: rem(-12);
+    top: rem(16);
+    border-radius: rem(12);
+    width: rem(24);
+    height: rem(24);
+    box-shadow: 0 rem(1) rem(4) 0 rgba(0, 0, 0, 0.1);
+    border: solid rem(1) $gray-cool-10;
     background-color: $color-white;
     display: flex;
     align-items: center;
@@ -480,12 +472,12 @@
       overflow-y: auto;
       scrollbar-gutter: stable;
       flex-grow: 1;
-      height: calc(100vh - 270px);
+      height: calc(100vh - rem(270));
       padding: 0 1rem 0 2.4rem;
 
       // This should be for mobile
       @media (max-width: $medium-screen - 1) {
-        height: calc(100vh - 470px);
+        height: calc(100vh - rem(470));
         padding: 0 2.2rem 0 3.6rem;
 
         .keyword-filter .filter-item-wrap:first-of-type {
@@ -495,7 +487,7 @@
 
       // account for zoom
       @media (max-width: $small-screen) and #{$retina} {
-        height: clamp(150px, calc(100dvh - 450px), 600px);
+        height: clamp(rem(150), calc(100dvh - rem(450)), rem(600));
       }
 
       .search-filters-list {
@@ -569,13 +561,13 @@
   .search-collapsible-sidebar-container {
     @media (min-width: $large-screen) {
       .opened {
-        flex: 1 0 318px;
+        flex: 1 0 rem(318);
       }
     }
 
     @media (min-width: $medium-screen) and (max-width: $large-screen - 1) {
       .opened {
-        flex: 1 0 300px;
+        flex: 1 0 rem(300);
       }
     }
   }
