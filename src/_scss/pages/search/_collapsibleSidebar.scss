@@ -29,7 +29,7 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  box-shadow: 8px 0 8px -3px rgba(0, 0, 0, 0.1);
+  box-shadow: rem(8) 0 rem(8) rem(-3) rgba(0, 0, 0, 0.1);
   border-radius: unset;
   min-height: calc(100vh - 16px);
 
@@ -338,7 +338,7 @@
         // silhouette. (stroke color is set on the element itself via
         // the gradient defined in the markup.)
         .natural-language-submit__spinner-track {
-          stroke-width: 2px;
+          stroke-width: rem(2);
           stroke-linecap: round;
           stroke-dasharray: 30 70;
           animation: nl-submit-border-spin 1.5s linear infinite;
