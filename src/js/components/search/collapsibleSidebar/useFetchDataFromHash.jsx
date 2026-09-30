@@ -5,26 +5,20 @@
 
 import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { useDispatch } from 'react-redux';
 
-import { fetchStateOverview } from 'apis/state';
-import BaseStateProfile from "models/v2/state/BaseStateProfile";
-import { setStateOverview } from 'redux/actions/state/stateActions';
 import { restoreUrlHash, parseRemoteFilters } from "helpers/searchHelper";
 
 export const useFetchDataFromHash = (nlHash) => {
     const hash = nlHash;
 
-    const dispatch = useDispatch();
-
     const parseFilters = useCallback((d) => {
         const filtersInImmutableStructure = parseRemoteFilters(d.data.filter);
-         if (Object.keys(filtersInImmutableStructure).length > 0) {
-             return filtersInImmutableStructure;
-         }
-         else {
-             return {};
-         }
+        if (Object.keys(filtersInImmutableStructure).length > 0) {
+            return filtersInImmutableStructure;
+        }
+        else {
+            return {};
+        }
     }, []);
 
     const { data, error, isLoading, refetch, isSuccess } = useQuery({
@@ -34,7 +28,7 @@ export const useFetchDataFromHash = (nlHash) => {
         select: parseFilters
     });
 
-    return { filterResults: data, hashError: error, loadResultsView: isLoading, loadResultsView: refetch, hashSuccess: isSuccess };
+    return { filterResults: data, hashError: error, isLoadingFilters: isLoading, loadResultsView: refetch, hashSuccess: isSuccess };
 
 };
 

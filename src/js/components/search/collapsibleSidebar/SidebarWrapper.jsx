@@ -5,14 +5,11 @@
 
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { isCancel } from 'axios';
 import PropTypes from "prop-types";
 import useIsMobile from "hooks/useIsMobile";
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
-import { restoreUrlHash, parseRemoteFilters } from "helpers/searchHelper";
 
 import SidebarContent from "./SidebarContent";
 import MobileSidebarContent from "./MobileSidebarContent";
@@ -23,7 +20,7 @@ import { FILTERS } from './SidebarConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
 import useFetchDataFromHash from "./useFetchDataFromHash";
 import { RESPONSE_TYPE } from "./NLConstants";
-import { setIsSearchActive , setIsNLSearchComplete, setIsNLSearchError } from '../../../redux/actions/sidebar/sidebarActions';
+import { setIsNLSearchComplete, setIsNLSearchError } from '../../../redux/actions/sidebar/sidebarActions';
 
 
 const propTypes = {
@@ -47,13 +44,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
-    const isNLSearchError = useSelector((state) => state.sidebar.isNLSearchError);
 
     const [text, setText] = useState("");
     const [hash, setHash] = useState();
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
@@ -135,6 +130,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     }, [filterResults, hashSuccess, hashError, fetchingError]);
 
+    useEffect(() => {
+        if (hash) {
+            loadResultsView();
+        }
+    }, [hash]);
 
     useEffect(() => {
         if (wasCancelled.current) {
@@ -149,7 +149,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             });
 
             if (done?.result) {
-                loadResultsView();
+                setHash(done.result);
             }
             dispatch(setIsNLSearchComplete(!isFetching));
         }
