@@ -1,6 +1,7 @@
 import { useEffect, useCallback, useRef } from "react";
 import { find } from "lodash-es";
 import { useNavigate } from "react-router";
+
 import { combineQueryParams, getQueryParamString } from "helpers/queryParams";
 import { stickyHeaderHeight } from "dataMapping/stickyHeader/stickyHeader";
 import useQueryParams from "./useQueryParams";

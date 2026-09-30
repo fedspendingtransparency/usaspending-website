@@ -3,29 +3,25 @@
  * Created by Lizzie Salita 8/23/17
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FiscalYearPicker } from 'data-transparency-ui';
-import { find } from 'lodash-es';
-import { useNavigate } from "react-router";
 import { useDispatch } from 'react-redux';
-import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
+
+import { showModal } from 'redux/actions/modal/modalActions';
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from
     'helpers/fiscalYearHelper';
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
-import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import ChildRecipientModalContainer from 'containers/recipient/modal/ChildRecipientModalContainer';
-import { AlternateNamesRecipientModalContainer } from
-    'containers/recipient/modal/AlternateNamesRecipientModalContainer';
+import useJumpToSection from "../../hooks/useJumpToSection";
+import { LoadingWrapper } from "components/sharedComponents/Loading";
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Error from 'components/sharedComponents/Error';
 import ShareIcon508 from "components/sharedComponents/buttons/ShareIcon508";
 import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
-
-import { showModal } from 'redux/actions/modal/modalActions';
-import useQueryParams from "hooks/useQueryParams";
+import ChildRecipientModalContainer from 'containers/recipient/modal/ChildRecipientModalContainer';
+import { AlternateNamesRecipientModalContainer } from
+    'containers/recipient/modal/AlternateNamesRecipientModalContainer';
 import RecipientContent from './RecipientContent';
 
 const propTypes = {
@@ -43,11 +39,11 @@ export const RecipientPage = ({
     error,
     pickedFy
 }) => {
-    const history = useNavigate();
-    const query = useQueryParams();
+    // const history = useNavigate();
+    // const query = useQueryParams();
     const [isChildModalVisible, showChildModal] = useState(false);
     const [isAlternateModalVisible, showAlternateRecipientModal] = useState(false);
-    const [activeSection, setActiveSection] = useState(query.section || 'overview');
+    // const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const showAlternateModal = () => showAlternateRecipientModal(true);
     const hideAlternateModal = () => showAlternateRecipientModal(false);
     const showChildRecipientModal = () => showChildModal(true);
@@ -59,7 +55,9 @@ export const RecipientPage = ({
     const slug = `recipient/${encodeURIComponent(id)}/${encodeURIComponent(recipient.fy)}`;
     const emailArgs = {
         subject: encodeURIComponent(`USAspending.gov Recipient Profile: ${recipient.overview.name}`),
-        body: encodeURIComponent(`View the spending activity for this recipient on USAspending.gov: ${getBaseUrl(slug)}`)
+        body: encodeURIComponent(
+            `View the spending activity for this recipient on USAspending.gov: ${getBaseUrl(slug)}`
+        )
     };
 
     const handleShare = (name) => {
@@ -81,37 +79,7 @@ export const RecipientPage = ({
         }
     ];
 
-    const jumpToSection = (section = '') => {
-        // we've been provided a section to jump to
-        // check if it's a valid section
-        const sectionObj = find(recipientSections, ['section', section]);
-        if (!sectionObj) return;
-
-        // find the section in dom
-        const sectionDom = document.querySelector(`#recipient-${sectionObj.section}`);
-        if (!sectionDom) return;
-
-        // add section to url
-        const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history({
-            path: `${getQueryParamString(newQueryParams)}`
-        }, { replace: true });
-
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
-
-        window.scrollTo({
-            top: sectionTop - 55,
-            left: 0,
-            behavior: 'smooth'
-        });
-        setActiveSection(section);
-    };
-    useEffect(() => {
-        if (!loading && query.section) {
-            jumpToSection(query.section);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query.section, loading]);
+    const jumpToSection = useJumpToSection("#recipient-", recipientSections, loading);
 
     let content = (
         <RecipientContent
@@ -150,7 +118,6 @@ export const RecipientPage = ({
                     key="page-wrapper__share-icon" />
             ]}
             sections={recipientSections}
-            activeSection={activeSection}
             jumpToSection={jumpToSection}
             inPageNav>
             <main id="main-content" className="main-content">
