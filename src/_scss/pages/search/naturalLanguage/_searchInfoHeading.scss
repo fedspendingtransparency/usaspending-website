@@ -1,6 +1,5 @@
 @mixin search-info-page__content-width {
-    width: 100%;
-    max-width: rem(1300);
+    margin: 0 rem(100);
     padding: 0 rem(60);
 }
 
@@ -11,8 +10,7 @@
     border-radius: rem(12);
     box-shadow: inset 0 0 0 rem(1) $blue-light;
     background: $blue-vivid-5v;
-    height: rem(320);
-    margin: rem(94) auto 0;
+    margin-top: rem(24);
 
     .search-info-page__label {
         color: $gray-90;
@@ -26,4 +24,9 @@
         display: flex;
         align-items: flex-start;
     }
+}
+
+.search-info-page__download-group {
+    margin-top: rem(24);
+    margin-right: rem(99);
 }

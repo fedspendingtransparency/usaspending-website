@@ -11,6 +11,8 @@ import smartAssistGraphic from '../../../../img/smart-assist-graphic.png';
 import { smartAssistContent } from '../naturalLanguage/NLData';
 import NLSearchInfoSection from './NLSearchInfoSection';
 import NLSearchInfoResources from './NLSearchInfoResources';
+import { FlexGridCol} from 'data-transparency-ui';
+import ShareDownloadButtonGroup from '../../sharedComponents/buttons/ShareDownloadButtonGroup';
 
 require("pages/search/naturalLanguage/searchInfoPage.scss");
 
@@ -40,6 +42,16 @@ const NLSearchInfoPage = () => {
                     primaryColor="#0081a1"
                     secondaryColor= "#0081a1"
                     overrideBackgroundColor="linear-gradient(91deg,#00687d 0%, #0081a1 35%, #005ea2 100%)"/>
+                <FlexGridCol className="search-info-page__download-group">
+                    <ShareDownloadButtonGroup
+                        url={''}
+                        showDownloadBtn
+                        onDownloadClick={() => {}}
+                        downloadInFlight={false}
+                        downloadIcon="file-download"
+                        onShareClick={() => {}}
+                        className="blue-share" />
+                </FlexGridCol>
                 <section className="search-info-page__heading">
                     <div className="search-info-page__label">{graphicLabel}</div>
                     <div className="search-info-page__graphic-container">
@@ -48,7 +60,6 @@ const NLSearchInfoPage = () => {
                             alt="Smart Assist graphic"/>
                     </div>
                 </section>
-
                 <section className="search-info-page__content-section">
                     <NLSearchInfoSection section={ overview } />
                     <NLSearchInfoSection section={ search } />
@@ -56,7 +67,6 @@ const NLSearchInfoPage = () => {
                     <NLSearchInfoSection section={ limitations } />
                     <NLSearchInfoSection section={ feedback } />
                 </section>
-
                 <NLSearchInfoResources />     
             </main>
         </PageWrapper>

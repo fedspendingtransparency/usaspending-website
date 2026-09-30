@@ -10,6 +10,10 @@
     margin: auto;
     padding: rem(55) 0;
 
+    &.nl-search-container {
+      margin-bottom: rem(12);
+    }
+
     @media (max-width: $mobile-only) {
       padding: rem(40) 0;
     }

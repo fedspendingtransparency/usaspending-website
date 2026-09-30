@@ -58,7 +58,7 @@ const BannerPageHeader = memo(function BannerPageHeader({
         <section
             className={sectionHeaderClass}
             style={{ background: bannerColor }}>
-            <FlexGridRow className="banner-page-header__row">
+            <FlexGridRow className={`banner-page-header__row ${className ? `${className}` : ''}`}>
                 { !isTablet &&
                     <FlexGridCol width="auto" className="icon-column">
                         {showIconHighlight ? (

@@ -810,6 +810,7 @@ export const smartAssistResources = [
                 </div>
             </div>
         ),
+        buttonLink: '/featured-content',
         action: () => { 
             Analytics.event({
                 event: 'search-info-page_resources-featured-content',
@@ -817,9 +818,7 @@ export const smartAssistResources = [
                 action: 'Link',
                 label: 'smart assist articles button'
             })
-        },
-        govLink: false,
-        onlyPerformAction: true
+        }
     },
     {
         icon: (
