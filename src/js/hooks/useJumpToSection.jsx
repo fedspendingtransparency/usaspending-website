@@ -37,10 +37,8 @@ const useJumpToSection = (
             queryRef.current = section;
         }
 
-        const sectionTop = (sectionDom.offsetTop - headerOffset);
-
         window.scrollTo({
-            top: sectionTop,
+            top: (sectionDom.offsetTop - headerOffset),
             left: 0,
             behavior: 'smooth'
         });
