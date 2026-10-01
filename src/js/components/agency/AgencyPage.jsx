@@ -27,6 +27,7 @@ import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
 import PageTitle from './overview/PageTitle';
+import useJumpToSection from "../../hooks/useJumpToSection";
 
 require('pages/agency/index.scss');
 
@@ -99,49 +100,7 @@ export const AgencyProfileV2 = ({
         }
     ];
 
-    const jumpToSection = (section = '') => {
-        // we've been provided a section to jump to
-        // check if it's a valid section
-        const matchedSection = sections.find((obj) => obj.section === section);
-        if (!matchedSection) {
-            // no matching section
-            return;
-        }
-
-        // find the section in dom
-        const sectionDom = document.querySelector(`#agency-v2-${matchedSection.section}`);
-        if (!sectionDom) {
-            return;
-        }
-
-        // add section to url
-        if (!window.location.href.includes(`section=${section}`)) {
-            const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history({
-                path: `${getQueryParamString(newQueryParams)}`
-            }, { replace: true });
-        }
-
-        // update the state
-        setActiveSection(section);
-
-        // add offsets
-
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
-
-        window.scrollTo({
-            top: sectionTop - 55,
-            left: 0,
-            behavior: 'smooth'
-        });
-    };
-
-    useEffect(() => {
-        if (isStatusOfFundsChartLoaded && query.section) {
-            jumpToSection(query.section);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query.section, isStatusOfFundsChartLoaded]);
+    const jumpToSection = useJumpToSection("#agency-v2-", sections, isStatusOfFundsChartLoaded)
 
     return (
         <PageWrapper
