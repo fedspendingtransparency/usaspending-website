@@ -9,6 +9,7 @@ import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import { searchGovSpendingData } from "./NLData";
 import PropTypes from "prop-types";
+import { sanitizeNLInput } from "../../helpers/search/naturalLanguage/sanitizeNLInput";
 
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 const propTypes = {
@@ -18,7 +19,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
     const [inputValue, setInputValue] = useState('');
 
     const handleInputChange = (event) => {
-        setInputValue(event.target.value);
+        setInputValue(sanitizeNLInput(event.target.value));
     };
     return (
         <section className={`search-gov-spending__section ${isFilters ? ' filter-spacing': ''}`}>
