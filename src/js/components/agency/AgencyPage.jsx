@@ -3,21 +3,18 @@
  * Created by Maxwell Kendall 01/31/2020
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
     ComingSoon,
     ErrorMessage
 } from 'data-transparency-ui';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 
-import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { showModal } from 'redux/actions/modal/modalActions';
-import useQueryParams from "hooks/useQueryParams";
 import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
@@ -50,8 +47,6 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const history = useNavigate();
-    const query = useQueryParams();
     const dispatch = useDispatch();
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
@@ -59,7 +54,6 @@ export const AgencyProfileV2 = ({
     const { pathname, search } = useLocation();
     const path = `${pathname.substring(1)}${search}`;
 
-    const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const { name } = useSelector((state) => state.agency.overview);
     const { isStatusOfFundsChartLoaded } = useSelector((state) => state.agency);
 
@@ -71,7 +65,6 @@ export const AgencyProfileV2 = ({
     const handleShare = (optionName) => {
         handleShareOptionClick(optionName, path, {
             subject: `USAspending.gov Agency Profile: ${name}`,
-            // eslint-disable-next-line max-len
             body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(path)}`
         }, handleShareDispatch);
     };
@@ -112,7 +105,6 @@ export const AgencyProfileV2 = ({
             loading={isLoading}
             sections={sections}
             jumpToSection={jumpToSection}
-            activeSection={activeSection}
             toolBarComponents={[
                 <NumericPickerWrapper
                     size="sm"
