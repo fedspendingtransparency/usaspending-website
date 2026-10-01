@@ -21,18 +21,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "22.14.0"
-
-      - name: Install Lighthouse
-        run: npm install -g @lhci/cli@0.14.x          
+          cache: "npm"
 
       - name: Init NPM
         run: npm install -g npm@10.8.3
-
-      - name: Install webpack
-        run: npm install -g webpack@5.105.0
-
-      - name: Install webpack cli
-        run: npm install -g webpack-cli@5.1.4
 
       - name: Add FontAwesome Pro token
         env:
