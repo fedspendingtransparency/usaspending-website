@@ -24,6 +24,21 @@ import { AlternateNamesRecipientModalContainer } from
     'containers/recipient/modal/AlternateNamesRecipientModalContainer';
 import RecipientContent from './RecipientContent';
 
+const recipientSections = [
+    {
+        section: 'overview',
+        label: 'Overview'
+    },
+    {
+        section: 'transactions-over-time',
+        label: 'Transactions Over Time'
+    },
+    {
+        section: 'top-five',
+        label: 'Top 5'
+    }
+];
+
 const propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
@@ -64,21 +79,6 @@ export const RecipientPage = ({
         handleShareOptionClick(name, slug, emailArgs, handleShareDispatch);
     };
 
-    const recipientSections = [
-        {
-            section: 'overview',
-            label: 'Overview'
-        },
-        {
-            section: 'transactions-over-time',
-            label: 'Transactions Over Time'
-        },
-        {
-            section: 'top-five',
-            label: 'Top 5'
-        }
-    ];
-
     const jumpToSection = useJumpToSection("#recipient-", recipientSections, loading);
 
     let content = (
@@ -90,6 +90,7 @@ export const RecipientPage = ({
             loading={loading}
             error={error} />
     );
+
     if (error) {
         content = (<Error
             title="Invalid Recipient"

@@ -9,7 +9,8 @@ import useQueryParams from "./useQueryParams";
 const useJumpToSection = (
     pageName,
     sections,
-    loading = false
+    loading = false,
+    headerOffset = stickyHeaderHeight - 55
 ) => {
     const query = useQueryParams();
     const history = useNavigate();
@@ -36,10 +37,10 @@ const useJumpToSection = (
             queryRef.current = section;
         }
 
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
+        const sectionTop = (sectionDom.offsetTop - headerOffset);
 
         window.scrollTo({
-            top: sectionTop - 55,
+            top: sectionTop,
             left: 0,
             behavior: 'smooth'
         });
