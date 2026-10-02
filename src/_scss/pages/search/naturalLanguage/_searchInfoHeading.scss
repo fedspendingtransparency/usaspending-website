@@ -1,80 +1,80 @@
 @mixin search-info-page__content-width {
-    margin: 0 rem(100);
-    padding: 0 rem(60);
+  margin: 0 rem(100);
+  padding: 0 rem(60);
 
-    @media (max-width: $medium-screen) {
-        margin: 0 rem(32);
-    }
-    @media (max-width: $mobile-only) {
-        margin: 0 rem(16);
-    }
+  @media (max-width: $medium-screen) {
+    margin: 0 rem(32);
+  }
+  @media (max-width: $mobile-only) {
+    margin: 0 rem(16);
+  }
 }
 
 .search-info-page__heading {
-    @include search-info-page__content-width;
-    padding-top: rem(40);
-    padding-bottom: rem(40);
-    border-radius: rem(12);
-    box-shadow: inset 0 0 0 rem(1) $blue-light;
-    background: $blue-vivid-5v;
-    margin-top: rem(24);
+  @include search-info-page__content-width;
+  padding-top: rem(40);
+  padding-bottom: rem(40);
+  border-radius: rem(12);
+  box-shadow: inset 0 0 0 rem(1) $blue-light;
+  background: $blue-vivid-5v;
+  margin-top: rem(24);
 
-    .search-info-page__label {
-        color: $gray-90;
-        font-family: $font-sans;
-        font-size: $lead-font-size;
-        line-height: $base-line-height;
-        margin-bottom: rem(16);
+  .search-info-page__label {
+    color: $gray-90;
+    font-family: $font-sans;
+    font-size: $lead-font-size;
+    line-height: $base-line-height;
+    margin-bottom: rem(16);
+  }
+
+  .search-info-page__graphic-container {
+    display: flex;
+    align-items: flex-start;
+    width: 100%;
+
+    .search-info-page__graphic-swiper {
+      width: 100%;
+      min-width: 0;
+      overflow: hidden;
     }
 
-    .search-info-page__graphic-container{
-        display: flex;
-        align-items: flex-start;
-        width: 100%;
-
-        .search-info-page__graphic-swiper {
-            width: 100%;
-            min-width: 0;
-            overflow: hidden;
-        }
-
-        .search-info-page__graphic-slide {
-            width: 100%;
-            min-width: rem(1120);
-        }
-
-        img {
-            display: block;
-            width: 100%;
-            max-width: none;
-        }
+    .search-info-page__graphic-slide {
+      width: 100%;
+      min-width: rem(1120);
     }
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: none;
+    }
+  }
 }
 
 .search-info-page__download-group {
-    @include search-info-page__content-width;
-    display: flex;
-    justify-content: flex-end;
-    margin-top: rem(24);
-    padding: 0;
+  @include search-info-page__content-width;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: rem(24);
+  padding: 0;
 
-    .share-dl-group {
-        gap: rem(24);
+  .share-dl-group {
+    gap: rem(24);
 
-        .share-dl-group__download-wrapper {
-            margin-right: 0;
+    .share-dl-group__download-wrapper {
+      margin-right: 0;
 
-            @media (max-width: $medium-screen) {
-                display: flex;
+      @media (max-width: $medium-screen) {
+        display: flex;
 
-                .usa-download-icon {
-                    display: flex;
-                }
-            }
+        .usa-download-icon {
+          display: flex;
         }
-          
-        .usda-share-icon {
-            margin-right: 0;
-        }
+      }
     }
+
+    .usda-share-icon {
+      margin-right: 0;
+    }
+  }
 }
