@@ -3,15 +3,25 @@
  * Created by Trey Morgan 8/12/2026
  */
 
-import React, {useState} from "react";
+import React, {useState, useRef, useEffect, useMemo} from "react";
+import { isCancel } from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useSelector, useDispatch } from 'react-redux';
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import { searchGovSpendingData } from "./NLData";
 import PropTypes from "prop-types";
 import { sanitizeNLInput } from "../../helpers/search/naturalLanguage/sanitizeNLInput";
 import * as Icons from 'components/sharedComponents/icons/Icons';
-import { NL_INPUT_MAX_CHARS } from "../search/collapsibleSidebar/NLConstants";
+import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from "../search/collapsibleSidebar/NLConstants";
+import useRequestNLSearch from "../search/collapsibleSidebar/useRequestNLSearch";
+import { restoreUrlHash, parseRemoteFilters } from "helpers/searchHelper";
+import { setIsNLSearchComplete } from "../../redux/actions/sidebar/sidebarActions";
+import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
+import { useNavigate } from "react-router";
+import { setSidebarContent } from "../../redux/actions/sidebar/sidebarActions";
+import { NATURAL_LANGUAGE } from "../search/collapsibleSidebar/SidebarConstants";
+
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 
 const propTypes = {
@@ -19,6 +29,19 @@ const propTypes = {
 };
 const NLSearchGovSpending = ({ isFilters=false }) => {
     const [inputValue, setInputValue] = useState('');
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
+
+    const { data, refetch, cancelQuery, isFetching } = useRequestNLSearch(inputValue);
+    const startNLSearch = () => {
+        if(inputValue?.trim() && typeof refetch === "function") {
+            refetch();
+        }
+    }
+
     const MAX_CHARS = NL_INPUT_MAX_CHARS;
 
     const handleInputChange = (event) => {
@@ -27,6 +50,81 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
     const handleClear = (event) => {
         event.preventDefault();
         setInputValue('');
+    }
+
+    const request = useRef();
+    const wasCancelled = useRef(false);
+    
+    const handleCancelQuery = () => {
+        wasCancelled.current = true;
+        if (request.current) {
+            request.current.cancel();
+            request.current = null;
+        }
+        if (typeof cancelQuery === "function") {
+            cancelQuery();
+        }
+    };
+    const parsedData = useMemo(() => data?.split('\n')
+        .filter((line) => line.trim() !== '')
+        .map((line) => JSON.parse(line)),
+    [data]);
+    useEffect(() => {
+        if (wasCancelled.current) {
+            return;
+        }
+    
+        if (!isFetching && parsedData && Object.keys(parsedData).length > 0) {
+            const done = parsedData.find((res) => {
+                if (res.type === RESPONSE_TYPE.SEARCH_COMPLETE) {
+                    return res;
+                }
+            });
+    
+            if (done?.result) {
+                const nlHash = '90e50821bf552b36f20c74de96262d27';  // For testing purposes while NL is under development
+                // const nlHash = done.result;
+                if (request.current) {
+                    request.current.cancel();
+                }
+    
+                request.current = restoreUrlHash({
+                    hash: nlHash
+                });
+    
+                request.current.promise
+                    .then((res) => {
+                        const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
+    
+                        if (filtersInImmutableStructure) {
+                            // apply the filters to both the staged and applied stores
+                            dispatch(restoreHashedFilters(filtersInImmutableStructure));
+                        }
+                        else {
+                            console.error('Error fetching filters from hash');
+                            // TODO: corrupt hash redirect to error page.
+                            // No such page as /hash-error, need to update
+                            navigate("/hash-error", { replace: true });
+                        }
+                        request.current = null;
+                    })
+                    .catch((err) => {
+                        if (!isCancel(err)) {
+                            console.error('Error fetching filters from hash: ', err);
+                            // remove hash since corresponding filter selections aren't retrievable.
+                            request.current = null;
+                        }
+                    });
+            }
+        }
+    
+        dispatch(setIsNLSearchComplete(!isFetching));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [parsedData, isFetching]);
+
+    const onClick = () => {
+        startNLSearch();
+        dispatch(setSidebarContent(NATURAL_LANGUAGE));
     }
     return (
         <section className={`search-gov-spending__section ${isFilters ? ' filter-spacing': ''}`}>
@@ -77,7 +175,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                                 <Icons.Close alt="Clear search input" />
                             </button>}
                         </div>
-                        <button className="search-gov-spending__input-button">
+                        <button onClick={onClick} className="search-gov-spending__input-button">
                             <img src={DEFAULT_ICON_PATH} alt="Icon for Search Button"/>
                         </button>
                     </div>

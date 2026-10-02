@@ -70,7 +70,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const closeSidebar = () => {
         if (isMedium) {
             setShowMobileFilters(false);
-        } else {
+        } 
+        else {
             setSidebarIsOpen(false);
         }
     }
@@ -158,6 +159,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
 
         dispatch(setIsNLSearchComplete(!isFetching));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parsedData, isFetching]);
 
     const renderDesktopSidebar = () => (
