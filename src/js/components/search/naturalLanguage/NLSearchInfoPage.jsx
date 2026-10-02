@@ -55,6 +55,7 @@ const NLSearchInfoPage = () => {
                         downloadInFlight={false}
                         downloadIcon="file-download"
                         onShareClick={() => {}}
+                        keepShareText
                         className="blue-share" />
                 </FlexGridCol>
                 <section className="search-info-page__heading">

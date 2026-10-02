@@ -63,7 +63,7 @@
          
         &.nl-search-container {
           svg {
-            height: rem(75);
+            width: rem(60);
           }  
         }
       }
@@ -98,6 +98,12 @@
           svg {
             font-size: $lead-font-size;
             margin: auto;
+          }
+
+          &.nl-search-container {
+            svg {
+              width: rem(24);
+            }  
           }
         }
 
