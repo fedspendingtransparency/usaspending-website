@@ -11,7 +11,7 @@ import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import { searchGovSpendingData } from "./NLData";
 import PropTypes from "prop-types";
 import Analytics from "../../../helpers/analytics/Analytics";
-import { sanitizeNLInput } from "../../helpers/search/naturalLanguage/sanitizeNLInput";
+import { sanitizeNLInput } from "../../../helpers/search/naturalLanguage/sanitizeNLInput";
 
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 const propTypes = {
