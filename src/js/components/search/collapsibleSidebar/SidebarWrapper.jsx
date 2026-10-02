@@ -21,7 +21,8 @@ import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS } from './SidebarConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
-import {RESPONSE_TYPE } from "./NLConstants";
+import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from "./NLConstants";
+import { sanitizeNLInput } from "helpers/search/naturalLanguage/sanitizeNLInput";
 import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
 
 
@@ -82,12 +83,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const hintOnClick = (e) => {
         if(e?.target.textContent) {
-            setText(e.target.textContent);
+            setText(sanitizeNLInput(e.target.textContent).trim().slice(0, NL_INPUT_MAX_CHARS));
         }
     };
 
     const startNLSearch = () => {
-        if(text && typeof refetch === "function") {
+        if(text?.trim() && typeof refetch === "function") {
             wasCancelled.current = false;
             refetch();
         }

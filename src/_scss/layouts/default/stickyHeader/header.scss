@@ -19,6 +19,12 @@
   @import "../../../components/numericPickerWrapper";
 
   .usda-page-header__container {
+    margin: 0 ($global-margin * 2) !important;
+
+    hr {
+      margin: 0;
+    }
+
     .usda-page-header__header,
     .usda-page-header__toolbar {
       border-bottom: none;
@@ -29,7 +35,7 @@
           padding-left: 0;
         }
 
-        padding-left: math.div($outer-gutter, 2);
+        padding-left: 0;
       }
 
       .usda-fy-picker__container {
@@ -97,8 +103,12 @@
 
   .usda-page-header__mobile-top {
     .usa-share-icon-508 {
+
       @media (min-width: $medium-screen) {
         display: none;
+      }
+      .usa-dt-picker__button {
+        margin: 0;
       }
     }
   }

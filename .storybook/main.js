@@ -51,12 +51,8 @@ export default {
             ]
         },
         {
-            include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
-            loader: 'file-loader',
-            type: 'javascript/auto',
-            options: {
-                name: '[path][name].[ext]'
-            }
+            test: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
+            type: 'asset/resource'
         },
         {
             test: /\.scss$/,

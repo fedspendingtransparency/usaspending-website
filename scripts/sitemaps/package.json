@@ -4,7 +4,6 @@
   "description": "",
   "main": "buildSitemap.js",
   "scripts": {
-    "preinstall": "npx npm-force-resolutions@0.0.3",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-sitemaps": "npx babel-node --no-babelrc buildSitemap.js --only 'scripts/sitemaps/**'"
   },
@@ -20,12 +19,9 @@
     "tunnel": "0.0.6",
     "dayjs": "^1.11.10"
   },
-  "resolutions": {
-    "axios": "1.16.0",
+  "overrides": {
     "follow-redirects": "1.16.0",
-    "**/follow-redirects": "1.15.11",
     "form-data": "4.0.5",
-    "**/form-data": "4.0.5",
     "browserslist": "4.28.8"
   }
 }

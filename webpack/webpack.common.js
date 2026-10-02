@@ -20,7 +20,8 @@ module.exports = {
         // https://webpack.js.org/guides/caching/
         publicPath: "/",
         filename: "[name].[contenthash].js",
-        path: path.resolve(__dirname, "../public")
+        path: path.resolve(__dirname, "../public"),
+        assetModuleFilename: 'assets/[name][hash][ext]'
     },
     context: path.resolve(__dirname, "../src"),
     resolve: {
@@ -54,22 +55,13 @@ module.exports = {
                     }
                 ]
             },
-            // file-loader rules are being deprecated; https://webpack.js.org/guides/asset-modules/
             {
-                include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
-                loader: 'file-loader',
-                type: 'javascript/auto',
-                options: {
-                    name: '[path][name].[ext]'
-                }
+                test: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/i,
+                type: 'asset/resource'
             },
             {
                 test: /\.(json)$/,
-                type: 'javascript/auto',
-                loader: 'file-loader',
-                options: {
-                    name: '[path][name].[ext]'
-                }
+                type: 'asset/resource',
             },
             {
                 test: /\.mdx?$/,
@@ -143,6 +135,21 @@ module.exports = {
                     from: 'redirect-config.json',
                     to: path.resolve(__dirname, "../public"),
                     context: path.resolve(__dirname, '../'),
+                    noErrorOnMissing: true
+                },
+                {
+                    from: path.resolve(__dirname, "../src/img"),
+                    to: path.resolve(__dirname, "../public/img"),
+                    noErrorOnMissing: true
+                },
+                {
+                    from: path.resolve(__dirname, "../src/graphics"),
+                    to: path.resolve(__dirname, "../public/graphics"),
+                    noErrorOnMissing: true
+                },
+                {
+                    from: path.resolve(__dirname, "../src/fonts"),
+                    to: path.resolve(__dirname, "../public/fonts"),
                     noErrorOnMissing: true
                 }
             ]

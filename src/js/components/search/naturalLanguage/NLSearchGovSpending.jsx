@@ -11,6 +11,7 @@ import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import { searchGovSpendingData } from "./NLData";
 import PropTypes from "prop-types";
 import Analytics from "../../../helpers/analytics/Analytics";
+import { sanitizeNLInput } from "../../helpers/search/naturalLanguage/sanitizeNLInput";
 
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 const propTypes = {
@@ -31,7 +32,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
     };
 
     const handleInputChange = (event) => {
-        setInputValue(event.target.value);
+        setInputValue(sanitizeNLInput(event.target.value));
     };
     return (
         <section className={`search-gov-spending__section ${isFilters ? ' filter-spacing': ''}`}>
@@ -89,7 +90,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                                 className="search-gov-spending__prompt-button">
                                 Time Period
                             </button>
-                            <button value="How much federal funding did my [state] receive?"
+                            <button value="How much federal funding did [my state] receive?"
                                 onClick={handleInputChange} 
                                 className="search-gov-spending__prompt-button">
                                 Location
