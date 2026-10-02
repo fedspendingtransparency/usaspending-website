@@ -10,17 +10,24 @@ import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import { searchGovSpendingData } from "./NLData";
 import PropTypes from "prop-types";
 import { sanitizeNLInput } from "../../helpers/search/naturalLanguage/sanitizeNLInput";
-
+import * as Icons from 'components/sharedComponents/icons/Icons';
+import { NL_INPUT_MAX_CHARS } from "../search/collapsibleSidebar/NLConstants";
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
+
 const propTypes = {
     isFilters: PropTypes.bool
 };
 const NLSearchGovSpending = ({ isFilters=false }) => {
     const [inputValue, setInputValue] = useState('');
+    const MAX_CHARS = NL_INPUT_MAX_CHARS;
 
     const handleInputChange = (event) => {
         setInputValue(sanitizeNLInput(event.target.value));
     };
+    const handleClear = (event) => {
+        event.preventDefault();
+        setInputValue('');
+    }
     return (
         <section className={`search-gov-spending__section ${isFilters ? ' filter-spacing': ''}`}>
             <FlexGridRow className="search-gov-spending__row">
@@ -51,12 +58,25 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                 <>
                     <span className="search-gov-spending__question">What questions do you have about federal award spending data?</span>
                     <div className="search-gov-spending__input-container">
-                        <input
-                            className="search-gov-spending__input"
-                            type="text"
-                            value={inputValue} 
-                            onChange={handleInputChange} 
-                            placeholder="Type a question about government spending, or choose a sample prompt below." />
+                        <div className="search-gov-spending__clear-container">
+                            <input
+                                maxLength={MAX_CHARS}
+                                name="search gov spending input"
+                                className="search-gov-spending__input"
+                                type="text"
+                                id="nl-input"
+                                value={inputValue} 
+                                onChange={handleInputChange} 
+                                placeholder="Type a question about government spending, or choose a sample prompt below." />
+                            {inputValue.length > 0 && <button
+                                className="clear-button"
+                                id="nl-clear-button"
+                                aria-label="Clear Input"
+                                title="Clear Input"
+                                onClick={handleClear}>
+                                <Icons.Close alt="Clear search input" />
+                            </button>}
+                        </div>
                         <button className="search-gov-spending__input-button">
                             <img src={DEFAULT_ICON_PATH} alt="Icon for Search Button"/>
                         </button>
