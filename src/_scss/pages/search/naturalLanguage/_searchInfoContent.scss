@@ -23,6 +23,7 @@
         display: flex;
         justify-content: center;
         padding: 0;
+        margin-bottom: rem(32);
     }
 
     .search-info-page__accordion-list {
@@ -36,6 +37,7 @@
         font-size: $h3-font-size;
         font-weight: $font-semibold;
         line-height: $heading-line-height;
+        margin-top: 0;
         margin-bottom: rem(10);
     }
 }

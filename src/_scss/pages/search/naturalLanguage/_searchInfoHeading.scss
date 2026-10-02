@@ -19,11 +19,6 @@
     background: $blue-vivid-5v;
     margin-top: rem(24);
 
-    @media (max-width: $medium-screen) {
-        border-top-right-radius: 0;
-        border-bottom-right-radius: 0;
-    }
-
     .search-info-page__label {
         color: $gray-90;
         font-family: $font-sans;
