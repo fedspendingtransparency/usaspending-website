@@ -12,7 +12,7 @@ const expandCheckboxCategoryAccordions = (filterCategoryMapping, selectedFilters
     const toExpand = [];
     filterCategoryMapping?.forEach((category) => {
         category?.filters?.forEach((type) => {
-            if (selectedFilters?.has(type)) {
+            if (selectedFilters?.has(type) && !category?.singleitem ){
                 toExpand.push(category.id);
             }
         });
@@ -58,16 +58,22 @@ const AccordionCheckbox = ({
     );
 
     const toggleExpanded = (category) => {
+        console.log(category);
         const containsId = expandedCategories?.indexOf(category.id);
         if (containsId <= -1) {
+            if (!category.singleitem) {
             setExpandedCategories([...expandedCategories, category.id]);
+            }
         }
         else {
-            setExpandedCategories(expandedCategories.filter((item) => item !== category.id));
+            if (!category.singleitem) {
+                setExpandedCategories(expandedCategories.filter((item) => item !== category.id));
+            }
         }
     };
 
     useEffect(() => {
+        console.log(isExpanded);
         if (isDisabled && expandedCategories?.length) {
             // have to check expandeCategories instead of isExpanded.
             // isExpanded might not be known by parent

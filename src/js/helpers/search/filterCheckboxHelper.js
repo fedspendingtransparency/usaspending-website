@@ -1,5 +1,5 @@
 import { recipientTypeGroups } from 'dataMapping/search/recipientType';
-import { awardTypeGroups, awardTypeNewFCodes } from "../../dataMapping/search/awardType";
+import { awardTypeGroups, awardTypeNewFCodes, awardTypeSingleItems } from "../../dataMapping/search/awardType";
 
 export const awardTypesData = [
     {
@@ -15,7 +15,14 @@ export const awardTypesData = [
     {
         id: 'award-grants',
         name: 'Grants',
-        filters: awardTypeGroups.grants
+        filters: awardTypeGroups.grants,
+        singleitem: true
+    },
+    {     
+        id: 'award-cooperative-agreement',
+        name: 'Cooperative Agreement',
+        filters: awardTypeGroups.cooperative_agreement,
+        singleitem: true
     },
     {
         id: 'award-direct-payments',
@@ -97,15 +104,13 @@ export const excludeIDVBandNewFCodes = (awardTypes) => {
     let count = awardTypes.size;
     const newFCodeCount = Object.keys(awardTypeNewFCodes)
         .filter((key) => awardTypes.has(key)).length;
-
+        
     if (awardTypes.has("IDV_B")) {
         count -= 1;
     }
-
     if (newFCodeCount) {
         count -= newFCodeCount;
     }
-
     return count;
 };
 
