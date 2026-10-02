@@ -2,6 +2,14 @@
     padding: rem(40) rem(100);
     background: $gray-2;
 
+    @media (max-width: $medium-screen) {
+        padding: rem(40) rem(32);
+    }
+
+    @media (max-width: $mobile-only) {
+        padding: rem(40) rem(16);
+    }
+
     .search-info-page__resources-label {
         font-size: $font-size-20;
         font-family: $font-sans;
@@ -22,6 +30,10 @@
         gap: rem(26);
         margin-top: rem(24);
         flex-wrap: nowrap;
+
+        @media (max-width: $medium-screen) {
+            flex-direction: column;
+        }
 
         .search-info-page__resources-card-col {
             border-radius: rem(8);

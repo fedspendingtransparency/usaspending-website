@@ -23,7 +23,7 @@ const NLSearchInfoResources = () => {
                         // eslint-disable-next-line react/no-array-index-key
                         key={index}
                         mobile={12}
-                        tablet={6}
+                        tablet={12}
                         desktop={4}>
                         <CardContainer>
                             {card.icon}

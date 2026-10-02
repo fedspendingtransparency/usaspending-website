@@ -1,6 +1,13 @@
 @mixin search-info-page__content-width {
     margin: 0 rem(100);
-    padding: 0 rem(60);
+    padding: 0 rem(40);
+
+    @media (max-width: $medium-screen) {
+        margin: 0 rem(32);
+    }
+    @media (max-width: $mobile-only) {
+        margin: 0 rem(16);
+    }
 }
 
 .search-info-page__heading {
@@ -11,6 +18,11 @@
     box-shadow: inset 0 0 0 rem(1) $blue-light;
     background: $blue-vivid-5v;
     margin-top: rem(24);
+
+    @media (max-width: $medium-screen) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
 
     .search-info-page__label {
         color: $gray-90;
@@ -23,6 +35,24 @@
     .search-info-page__graphic-container{
         display: flex;
         align-items: flex-start;
+        width: 100%;
+
+        .search-info-page__graphic-swiper {
+            width: 100%;
+            min-width: 0;
+            overflow: hidden;
+        }
+
+        .search-info-page__graphic-slide {
+            width: 100%;
+            min-width: rem(1120);
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            max-width: none;
+        }
     }
 }
 

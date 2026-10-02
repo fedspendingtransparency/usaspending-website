@@ -14,6 +14,11 @@ import NLSearchInfoResources from './NLSearchInfoResources';
 import { FlexGridCol} from 'data-transparency-ui';
 import ShareDownloadButtonGroup from '../../sharedComponents/buttons/ShareDownloadButtonGroup';
 
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Keyboard, A11y, FreeMode } from 'swiper/modules';
+import "swiper/css/bundle";
+import "swiper/css";
+
 require("pages/search/naturalLanguage/searchInfoPage.scss");
 
 const graphicLabel = (
@@ -55,9 +60,20 @@ const NLSearchInfoPage = () => {
                 <section className="search-info-page__heading">
                     <div className="search-info-page__label">{graphicLabel}</div>
                     <div className="search-info-page__graphic-container">
-                        <img
-                            src={smartAssistGraphic}
-                            alt="Smart Assist graphic"/>
+                        <Swiper
+                            slidesPerView="auto"
+                            freeMode={{ enabled: true, momentum: false }}
+                            keyboard
+                            a11y
+                            grabCursor
+                            modules={[Keyboard, A11y, FreeMode]}
+                            className="search-info-page__graphic-swiper">
+                            <SwiperSlide className="search-info-page__graphic-slide">
+                                <img
+                                    src={smartAssistGraphic}
+                                    alt="Smart Assist graphic"/>
+                            </SwiperSlide>
+                        </Swiper>
                     </div>
                 </section>
                 <section className="search-info-page__content-section">
