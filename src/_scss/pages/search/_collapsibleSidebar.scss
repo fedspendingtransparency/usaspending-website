@@ -613,8 +613,16 @@
 
         &.selected {
           box-shadow: 0 0 0 rem(1) $color-white;
-        }
 
+          span {
+            color: $cyan-50v;
+          }
+        }
+        .sidebar-nl-text {
+          font-size: $font-size-14;
+          font-weight: $font-semibold;
+          line-height: 150%;
+        }
         svg {
           min-width: rem(24);
           min-height: rem(24);
