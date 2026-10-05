@@ -6,6 +6,7 @@ import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 import jsxA11y from "eslint-plugin-jsx-a11y";
 import pluginImport from "eslint-plugin-import";
+import stylistic from '@stylistic/eslint-plugin';
 
 export default defineConfig([
     globalIgnores([
@@ -20,15 +21,16 @@ export default defineConfig([
     ]),
     {
         files: ["**/*.{js,mjs,cjs,jsx}"],
-        plugins: { js, reactHooks, react, jsxA11y, pluginImport },
+        plugins: { js, reactHooks, react, jsxA11y, pluginImport, stylistic },
         extends: [
             "js/recommended",
             react.configs.flat.recommended,
             reactHooks.configs.flat.recommended,
             jsxA11y.flatConfigs.recommended,
-            pluginImport.flatConfigs.react
+            pluginImport.flatConfigs.react,
+            stylistic.configs.recommended
         ],
-        languageOptions: { 
+        languageOptions: {
             globals: { ...globals.node, ...globals.browser, ...globals.jest },
             ecmaVersion: "latest", // Or "2024", "2025", etc.
             sourceType: "module",
@@ -52,27 +54,63 @@ export default defineConfig([
             "no-restricted-globals": [0],
             // allow for loops
             "no-restricted-syntax": [2, "LabeledStatement", "WithStatement"],
-            "no-underscore-dangle": [0, { "allowAfterThis": true }],
+            "no-underscore-dangle": [0, { allowAfterThis: true }],
             "prefer-arrow-callback": ["error"],
             // for now, don't do destructuring
             "prefer-destructuring": [0],
             // TODO: The following js rules have been deprecated and should be replaced,
             //  all have been addressed in @stylistic/eslint-plugin
-            "indent": [2, 4, { "SwitchCase": 1 }],
-            "max-len": [1, 120, { "tabWidth": 4 }],
-            "comma-dangle": [2, "never"],
-            "no-extra-semi": [1],
-            "arrow-parens": [2, "always"],
-            "quotes": [0],
-            "brace-style": [1, "stroustrup"],
-            "spaced-comment": [2, "always", { "exceptions": ["*"] }],
-            "function-paren-newline": [0],
+            // "max-len": [1, 120, { "tabWidth": 4 }],
+            // "spaced-comment": [2, "always", { "exceptions": ["*"] }],
+
+            "@stylistic/indent": [2, 4, { SwitchCase: 1 }],
+            "@stylistic/jsx-indent-props": [2, 4],
+            "@stylistic/jsx-closing-bracket-location": ["error", "after-props"],
+            "@stylistic/quotes": [0],
+            "@stylistic/semi": ["error", "always"],
+            "@stylistic/comma-dangle": ["error", "never"],
+            "@stylistic/arrow-parens": ["error", "always"],
+            "@stylistic/brace-style": ["error", "stroustrup"],
+            "@stylistic/function-paren-newline": [0],
+
+            // TODO: address and turn back on:
+            "@stylistic/no-trailing-spaces": [0],
+            "@stylistic/no-multiple-empty-lines": [0],
+            "@stylistic/object-curly-spacing": [0],
+            "@stylistic/operator-linebreak": [0],
+            "@stylistic/eol-last": [0],
+            "@stylistic/indent-binary-ops": [0],
+            "@stylistic/no-multi-spaces": [0],
+            "@stylistic/jsx-one-expression-per-line": [0],
+            "@stylistic/quote-props": [0],
+            "@stylistic/padded-blocks": [0],
+            "@stylistic/jsx-tag-spacing": [0],
+            "@stylistic/jsx-wrap-multilines": [0],
+            "@stylistic/multiline-ternary": [0],
+            "@stylistic/comma-spacing": [0],
+            "@stylistic/no-extra-parens": [0],
+            "@stylistic/keyword-spacing": [0],
+            "@stylistic/space-before-blocks": [0],
+            "@stylistic/jsx-curly-newline": [0],
+            "@stylistic/comma-style": [0],
+            "@stylistic/jsx-closing-tag-location": [0],
+            "@stylistic/space-in-parens": [0],
+            "@stylistic/space-before-function-paren": [0],
+            "@stylistic/jsx-curly-brace-presence": [0],
+            "@stylistic/jsx-first-prop-new-line": [0],
+            "@stylistic/lines-between-class-members": [0],
+            "@stylistic/max-statements-per-line": [0],
+            "@stylistic/space-infix-ops": [0],
+            "@stylistic/jsx-function-call-newline": [0],
+            "@stylistic/jsx-quotes": [0],
+            "@stylistic/jsx-max-props-per-line": [0],
+            "@stylistic/arrow-spacing": [0],
 
             "react/default-props-match-prop-types": [0],
             // allow object prop-type
-            "react/forbid-prop-types": [1, { "forbid": ["any"] }],
+            "react/forbid-prop-types": [1, { forbid: ["any"] }],
             // closing brackets should be aligned with the final prop (props.. />)
-            "react/jsx-closing-bracket-location": [2, {"location": "after-props"}],
+            "react/jsx-closing-bracket-location": [2, { location: "after-props" }],
             // require 4 spaces in JSX as well
             "react/jsx-indent": [0],
             "react/jsx-indent-props": [0],
