@@ -3,21 +3,18 @@
  * Created by Maxwell Kendall 01/31/2020
  */
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
     ComingSoon,
     ErrorMessage
 } from 'data-transparency-ui';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
 
-import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { showModal } from 'redux/actions/modal/modalActions';
-import useQueryParams from "hooks/useQueryParams";
 import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
@@ -27,6 +24,7 @@ import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
 import PageTitle from './overview/PageTitle';
+import useJumpToSection from "../../hooks/useJumpToSection";
 
 require('pages/agency/index.scss');
 
@@ -49,8 +47,6 @@ export const AgencyProfileV2 = ({
     latestFy,
     agencySlug
 }) => {
-    const history = useNavigate();
-    const query = useQueryParams();
     const dispatch = useDispatch();
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
@@ -58,7 +54,6 @@ export const AgencyProfileV2 = ({
     const { pathname, search } = useLocation();
     const path = `${pathname.substring(1)}${search}`;
 
-    const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const { name } = useSelector((state) => state.agency.overview);
     const { isStatusOfFundsChartLoaded } = useSelector((state) => state.agency);
 
@@ -70,7 +65,6 @@ export const AgencyProfileV2 = ({
     const handleShare = (optionName) => {
         handleShareOptionClick(optionName, path, {
             subject: `USAspending.gov Agency Profile: ${name}`,
-            // eslint-disable-next-line max-len
             body: `View the spending activity for this Agency on USAspending.gov: ${getBaseUrl(path)}`
         }, handleShareDispatch);
     };
@@ -99,49 +93,7 @@ export const AgencyProfileV2 = ({
         }
     ];
 
-    const jumpToSection = (section = '') => {
-        // we've been provided a section to jump to
-        // check if it's a valid section
-        const matchedSection = sections.find((obj) => obj.section === section);
-        if (!matchedSection) {
-            // no matching section
-            return;
-        }
-
-        // find the section in dom
-        const sectionDom = document.querySelector(`#agency-v2-${matchedSection.section}`);
-        if (!sectionDom) {
-            return;
-        }
-
-        // add section to url
-        if (!window.location.href.includes(`section=${section}`)) {
-            const newQueryParams = combineQueryParams(query, { section: `${section}` });
-            history({
-                path: `${getQueryParamString(newQueryParams)}`
-            }, { replace: true });
-        }
-
-        // update the state
-        setActiveSection(section);
-
-        // add offsets
-
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
-
-        window.scrollTo({
-            top: sectionTop - 55,
-            left: 0,
-            behavior: 'smooth'
-        });
-    };
-
-    useEffect(() => {
-        if (isStatusOfFundsChartLoaded && query.section) {
-            jumpToSection(query.section);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query.section, isStatusOfFundsChartLoaded]);
+    const jumpToSection = useJumpToSection("#agency-v2-", sections, isStatusOfFundsChartLoaded)
 
     return (
         <PageWrapper
@@ -153,7 +105,6 @@ export const AgencyProfileV2 = ({
             loading={isLoading}
             sections={sections}
             jumpToSection={jumpToSection}
-            activeSection={activeSection}
             toolBarComponents={[
                 <NumericPickerWrapper
                     size="sm"
