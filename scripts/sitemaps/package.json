@@ -10,14 +10,14 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@babel/core": "^7.26.10",
-    "@babel/node": "^7.14.2"
+    "@babel/core": "^7.29.7",
+    "@babel/node": "^7.29.7"
   },
   "dependencies": {
-    "axios": "^1.18.0",
-    "moment": "^2.29.1",
+    "axios": "^1.20.0",
+    "moment": "^2.31.0",
     "tunnel": "0.0.6",
-    "dayjs": "^1.11.10"
+    "dayjs": "^1.11.23"
   },
   "overrides": {
     "follow-redirects": "1.16.0",
