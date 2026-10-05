@@ -106,7 +106,6 @@
       width: 100%;
       display: flex;
       align-items: center;
-      justify-content: space-between;
       padding: 0 rem(24);
       @media (max-width: $medium-screen) {
         padding: 0 rem(16);
@@ -115,6 +114,15 @@
       h2.sidebar-title {
         margin-top: 0 !important;
         margin-bottom: 0 !important;
+      }
+      .sidebar-beta-badge {
+        padding: rem(4) rem(8);
+        border-radius: rem(4);
+        background: $blue-vivid-5v;
+        font-size: $font-size-12;
+        font-weight: $font-semibold;
+        line-height: 150%;
+        margin-left: rem(8);
       }
     }
 
@@ -421,7 +429,9 @@
       }
     }
   }
-
+  .sidebar-close {
+    margin-left: auto;
+  }
   .sidebar-close:hover {
     cursor: pointer;
   }
