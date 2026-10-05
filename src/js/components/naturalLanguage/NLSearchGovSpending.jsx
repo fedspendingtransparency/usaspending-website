@@ -6,7 +6,7 @@
 import React, {useState, useRef, useEffect, useMemo} from "react";
 import { isCancel } from "axios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import { searchGovSpendingData } from "./NLData";
@@ -21,7 +21,7 @@ import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
 import { useNavigate } from "react-router";
 import { setSidebarContent } from "../../redux/actions/sidebar/sidebarActions";
 import { NATURAL_LANGUAGE } from "../search/collapsibleSidebar/SidebarConstants";
-
+import { setIsSearchActive } from "../../redux/actions/sidebar/sidebarActions";
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 
 const propTypes = {
@@ -31,11 +31,8 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
     const [inputValue, setInputValue] = useState('');
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
-    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
-    const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
 
-    const { data, refetch, cancelQuery, isFetching } = useRequestNLSearch(inputValue);
+    const { data, refetch, isFetching } = useRequestNLSearch(inputValue);
     const startNLSearch = () => {
         if(inputValue?.trim() && typeof refetch === "function") {
             refetch();
@@ -55,16 +52,6 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
     const request = useRef();
     const wasCancelled = useRef(false);
     
-    const handleCancelQuery = () => {
-        wasCancelled.current = true;
-        if (request.current) {
-            request.current.cancel();
-            request.current = null;
-        }
-        if (typeof cancelQuery === "function") {
-            cancelQuery();
-        }
-    };
     const parsedData = useMemo(() => data?.split('\n')
         .filter((line) => line.trim() !== '')
         .map((line) => JSON.parse(line)),
@@ -125,6 +112,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
     const onClick = () => {
         startNLSearch();
         dispatch(setSidebarContent(NATURAL_LANGUAGE));
+        dispatch(setIsSearchActive(true));
     }
     return (
         <section className={`search-gov-spending__section ${isFilters ? ' filter-spacing': ''}`}>
