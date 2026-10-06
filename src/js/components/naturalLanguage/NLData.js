@@ -741,7 +741,20 @@ export const preSearchOptions = [
             const filterValue = {
                 filters: {
                     ...defaultFilters,
-                    keyword: {"Social Security, Retirement & Disability" : "Social Security, Retirement & Disability"}
+                    selectedCFDA: {
+                        96.001: {
+                            identifier: "96.001",
+                            popular_name: "Social Security Disability Insurance",
+                            program_title: "Social Security Disability Insurance",
+                            program_number: "96.001"
+                        },
+                        96.002: {
+                            identifier: "96.002",
+                            popular_name: "Social Security Retirement Insurance",
+                            program_title: "Retirement (RIB",
+                            program_number: "96.002"
+                        }
+                    }
                 },
                 version: REQUEST_VERSION
             };
