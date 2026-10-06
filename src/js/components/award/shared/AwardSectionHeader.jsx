@@ -16,7 +16,7 @@ const AwardSectionHeader = ({
     const accordionTitle = <div className="action-type accordion-title"><FontAwesomeIcon icon="circle-info" /><span>Show Column Info</span></div>;
 
     const awardAccordionContent = (<div>
-        <p><span className="label">Modification Number:</span> Identifies the modification. Modification number increment from lower to higher as more mods  are made.</p>
+        <p><span className="label">Modification Number:</span> Identifies the modification. Modification numbers increment from lower to higher as more mods are made.</p>
         <p><span className="label">Action Date:</span> When the modification was issued.</p>
         <p><span className="label">Amount:</span> The amount of money added or subtracted from the initial awarded amounts by the modification, if any.</p>
         {category === "loan" && title.includes("Award History") &&
@@ -34,13 +34,19 @@ const AwardSectionHeader = ({
 
         <div className="accordion-body-copy__action-type">
             <span className="label">Action Type: </span>
-            Describes the type of modification. It uses a letter cord system that maps to the following descriptions:
-            <br/>
-            A 1 - New Award<br/>
-            B 1 - Continuation<br/>
-            EX - Other Action, Non-Financial<br/>
-            FX - Other Action, Financial<br/>
-            G1 - Mixed Aggregate<br/>
+            Describes the type of modification using a letter code system that maps to the following descriptions.<br/>
+            A1 – New Award<br/>
+            A2 – Renewal Award<br/>
+            B1 – Continuation<br/>
+            C1 – Termination Initiated: Material Failure to Comply<br/>
+            C2 – Termination Initiated: Mutual Consent<br/>
+            C3 – Termination Initiated: Recipient-Initiated<br/>
+            C4 – Termination Initiated: No Longer Effectuates Program Goals or Agency Priorities<br/>
+            D1 – Closeout<br/>
+            E1 – Recipient Change<br/>
+            EX – Other Action, Non-Financial<br/>
+            FX – Other Action, Financial<br/>
+            G1 – Mixed Aggregate<br/>
         </div>
 
         <p><span className="label">Transaction Description: </span> Describes modification, typically covering the effect on the contact.</p>
