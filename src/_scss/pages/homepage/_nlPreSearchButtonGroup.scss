@@ -7,7 +7,7 @@
         padding: rem(40) rem(16);
         flex-direction: column;
         align-items: flex-start;
-        color: white;
+        color: $color-white;
         max-height: rem(280);
         margin: 0 auto;
         max-width: $homepage-max-width;
@@ -137,6 +137,12 @@
                     font-weight: $font-normal;
                     line-height: $base-line-height;
                 }
+            }
+
+            &:hover,
+            &:active {
+                background-color: $cyan-5v;
+                border-color: $cyan-20v;
             }
         }
     }
