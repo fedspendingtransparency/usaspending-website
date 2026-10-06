@@ -58,7 +58,6 @@ const AccordionCheckbox = ({
     );
 
     const toggleExpanded = (category) => {
-        console.log(category);
         const containsId = expandedCategories?.indexOf(category.id);
         if (containsId <= -1) {
             if (!category.singleitem) {
@@ -73,7 +72,6 @@ const AccordionCheckbox = ({
     };
 
     useEffect(() => {
-        console.log(isExpanded);
         if (isDisabled && expandedCategories?.length) {
             // have to check expandeCategories instead of isExpanded.
             // isExpanded might not be known by parent
