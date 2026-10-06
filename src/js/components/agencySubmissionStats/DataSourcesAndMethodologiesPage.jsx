@@ -3,21 +3,18 @@
  * 02/18/2021
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useNavigate } from 'react-router';
+import { Link } from 'react-router';
 import { useDispatch } from 'react-redux';
-import { find, throttle } from 'lodash-es';
 
-import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { agencySubmissionDataSourcesMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import ShareIcon508 from 'components/sharedComponents/buttons/ShareIcon508';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { showModal } from '../../redux/actions/modal/modalActions';
-import useQueryParams from "../../hooks/useQueryParams";
+import useJumpToSection from "../../hooks/useJumpToSection";
 
 require('pages/data-sources/index.scss');
 
@@ -26,114 +23,57 @@ const emailData = {
     body: "View Agency Submission Statistics: Data Sources and Methodology on USAspending.gov: https://www.usaspending.gov/submission-statistics/data-sources"
 };
 
+const sections = [
+    {
+        label: 'Using this Table',
+        section: 'using_this_table',
+        show: true
+    },
+    {
+        label: 'Percent of Total Federal Budget',
+        section: 'percent_of_total',
+        show: true
+    },
+    {
+        label: 'Most Recent Update',
+        section: 'most_recent_update',
+        show: true
+    },
+    {
+        label: 'Number of TASs Missing from Account Balance Data',
+        section: 'missing_tas',
+        show: true
+    },
+    {
+        label: 'Reporting Difference in Obligations',
+        section: 'obligations_discrepancies',
+        show: true
+    },
+    {
+        label: 'Number of Unlinked Awards',
+        section: 'unlinked_awards',
+        show: true
+    },
+    {
+        label: 'Agency Comments',
+        section: 'agency_comments',
+        show: true
+    }
+];
+
 const DataSourcesAndMethodologiesPage = () => {
-    const [activeSection, setActiveSection] = useState('using_this_table');
-    const query = useQueryParams();
-    const history = useNavigate();
     const dispatch = useDispatch();
-    const handleShareDispatch = (url) => {
-        dispatch(showModal(url));
-    };
 
-    const sections = [
-        {
-            label: 'Using this Table',
-            section: 'using_this_table',
-            show: true
-        },
-        {
-            label: 'Percent of Total Federal Budget',
-            section: 'percent_of_total',
-            show: true
-        },
-        {
-            label: 'Most Recent Update',
-            section: 'most_recent_update',
-            show: true
-        },
-        {
-            label: 'Number of TASs Missing from Account Balance Data',
-            section: 'missing_tas',
-            show: true
-        },
-        {
-            label: 'Reporting Difference in Obligations',
-            section: 'obligations_discrepancies',
-            show: true
-        },
-        {
-            label: 'Number of Unlinked Awards',
-            section: 'unlinked_awards',
-            show: true
-        },
-        {
-            label: 'Agency Comments',
-            section: 'agency_comments',
-            show: true
-        }
-    ];
-
-    const handleShare = (name) => {
+    const handleShare = useCallback((name) => {
         handleShareOptionClick(
             name,
             `submission-statistics/data-sources`,
             emailData,
-            handleShareDispatch
+            (url) => dispatch(showModal(url))
         );
-    };
+    }, [dispatch]);
 
-    const jumpToSection = (section = '') => {
-        // we've been provided a section to jump to
-        // check if it's a valid section
-        const sectionObj = find(sections, ['section', section]);
-        if (!sectionObj) return;
-
-        // find the section in dom
-        const sectionDom = document.querySelector(
-            `#submissions-statistics-dsm-${sectionObj.section}`
-        );
-        if (!sectionDom) return;
-
-        // add section to url
-        const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history({
-            path: `${getQueryParamString(newQueryParams)}`
-        }, { replace: true });
-
-        setActiveSection(section);
-        // add offsets
-        const conditionalOffset =
-            window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight + 40 : 10;
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
-
-        window.scrollTo({
-            top: sectionTop - 25,
-            left: 0,
-            behavior: 'smooth'
-        });
-    };
-
-    useEffect(() => {
-        if (query.section) {
-            jumpToSection(query.section);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query.section]);
-
-    useEffect(throttle(() => {
-        // prevents a console error about react unmounted component leak
-        let isMounted = true;
-        if (isMounted) {
-            const urlSection = query.section;
-            if (urlSection) {
-                setActiveSection(urlSection);
-                jumpToSection(urlSection);
-            }
-        }
-        return () => {
-            isMounted = false;
-        };
-    }, 100), [history, query.section]);
+    const jumpToSection = useJumpToSection("#submissions-statistics-dsm-", sections, false, stickyHeaderHeight);
 
     /* eslint-disable max-len */
     return (
@@ -150,7 +90,6 @@ const DataSourcesAndMethodologiesPage = () => {
                     key={'submission-statistics'} />
             ]}
             sections={sections}
-            activeSection={activeSection}
             jumpToSection={jumpToSection}
             inPageNav>
             <main id="main-content" className="main-content">

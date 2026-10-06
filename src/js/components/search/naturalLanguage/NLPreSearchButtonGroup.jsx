@@ -9,14 +9,14 @@ import { isCancel } from 'axios';
 import { FlexGridRow, FlexGridCol, CardContainer } from 'data-transparency-ui';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, A11y } from 'swiper/modules';
+import PropTypes from "prop-types";
 import "swiper/css";
 import { preSearchOptionsToRemove, preSearchOptions } from "./NLData";
-import { generateUrlHash } from "../../helpers/searchHelper";
-import { combineQueryParams, getQueryParamString } from "../../helpers/queryParams";
-import useQueryParams from "../../hooks/useQueryParams";
-import useFireQueryEvent from "../../hooks/useFireQueryEvent";
-import useIsMobile from "../../hooks/useIsMobile";
-import PropTypes from "prop-types";
+import { generateUrlHash } from "../../../helpers/searchHelper";
+import { combineQueryParams, getQueryParamString } from "../../../helpers/queryParams";
+import useQueryParams from "../../../hooks/useQueryParams";
+import useFireQueryEvent from "../../../hooks/useFireQueryEvent";
+import useIsMobile from "../../../hooks/useIsMobile";
 
 const propTypes = {
     source: PropTypes.string
@@ -25,7 +25,7 @@ const propTypes = {
 const NLPreSearchButtonGroup = ({source = ""}) => {
     const query = useQueryParams();
     const fireQueryEvent = useFireQueryEvent();
-    const { isMobile, isMedium } = useIsMobile();
+    const { isMedium } = useIsMobile();
 
     const fireSearchEvent = (filterValue) => {
         fireQueryEvent();
