@@ -31,16 +31,24 @@
     }
   }
     .accordion-container {
-        // need to change this
         margin: rem(24) rem(0);
         .accordion {
+
+            p:first-of-type {
+                margin-top: 0;
+            }
+
+            p:last-of-type {
+                margin-bottom: 0;
+            }
+
             .heading {
                 height: rem(48);
                 padding: rem(12) rem(16);
                 background-color: $gray-5;
 
                 .accordion-title.action-type {
-                    .font-weight: $font-semibold;
+                    font-weight: $font-semibold;
 
                     .fa-circle-info {
                         height: rem(20);
@@ -53,11 +61,12 @@
             .content {
                 padding: rem(16) rem(20);
                 .label {
-                    .font-weight: $font-semibold;
+                    font-weight: $font-semibold;
                 }
 
                 .accordion-body-copy__action-type {
                     line-height: 1.5;
+                    color: $gray-60;
                 }
             }
         }
