@@ -68,7 +68,7 @@ export default class IdvPeriodOfPerformance extends React.Component {
                                         role="button">
                                         <FontAwesomeIcon icon="info-circle" />
                                         <span className="tooltip-popover">
-                                        Selected based on the earliest Start Date across all transactions on this IDV
+                                            Selected based on the earliest Start Date across all transactions on this IDV
                                         </span>
                                     </div>
                                 </td>

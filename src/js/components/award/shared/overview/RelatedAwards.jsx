@@ -29,11 +29,11 @@ export default class RelatedAwards extends React.Component {
         super(props);
 
         this.jumpToReferencedAwardsTableChildAwardsTab =
-        this.jumpToReferencedAwardsTableChildAwardsTab.bind(this);
+            this.jumpToReferencedAwardsTableChildAwardsTab.bind(this);
         this.jumpToReferencedAwardsTableChildIDVsTab =
-        this.jumpToReferencedAwardsTableChildIDVsTab.bind(this);
+            this.jumpToReferencedAwardsTableChildIDVsTab.bind(this);
         this.jumpToReferencedAwardsTableGrandchildAwardsTab =
-        this.jumpToReferencedAwardsTableGrandchildAwardsTab.bind(this);
+            this.jumpToReferencedAwardsTableGrandchildAwardsTab.bind(this);
     }
 
     jumpToReferencedAwardsTableChildAwardsTab() {

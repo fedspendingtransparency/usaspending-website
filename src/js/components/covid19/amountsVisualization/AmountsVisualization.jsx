@@ -188,7 +188,7 @@ const AmountsVisualization = ({
                         </div>,
                         <div key="bar2">
                             <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
-                                    Total Budgetary Resources
+                                Total Budgetary Resources
                             </h4>
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg" tabIndex={-1}>
                                 <DefaultAmountViz
@@ -204,13 +204,13 @@ const AmountsVisualization = ({
                                     tabIndex={-1} />
                             </svg>
                             <div className="amounts-viz__sub-title" tabIndex={-1}>
-                                    This is the total amount of funding that agencies have to
-                                    spend based on legislation passed by Congress.
+                                This is the total amount of funding that agencies have to
+                                spend based on legislation passed by Congress.
                             </div>
                         </div>,
                         <div key="bar3">
                             <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
-                                    Total Obligations
+                                Total Obligations
                             </h4>
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg" tabIndex={-1}>
                                 <DefaultAmountViz
@@ -237,12 +237,12 @@ const AmountsVisualization = ({
                                     tabIndex={-1} />
                             </svg>
                             <div className="amounts-viz__sub-title" tabIndex={-1}>
-                                    This is how much agencies have committed to spend.
+                                This is how much agencies have committed to spend.
                             </div>
                         </div>,
                         <div key="bar4">
                             <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
-                                    Total Outlays
+                                Total Outlays
                             </h4>
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg" tabIndex={-1}>
                                 <DefaultAmountViz
@@ -280,7 +280,7 @@ const AmountsVisualization = ({
                                     tabIndex={-1} />
                             </svg>
                             <div className="amounts-viz__sub-title" tabIndex={-1}>
-                                    This is how much agencies have paid out.
+                                This is how much agencies have paid out.
                             </div>
                         </div>
                     ]} />

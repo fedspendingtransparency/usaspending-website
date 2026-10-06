@@ -27,63 +27,63 @@ const OtherResources = ({ handleExternalLinkClick }) => {
                         <a
                             href="https://www.pandemicoversight.gov/"
                             onClick={handleClick}>
-                                        Pandemic Response Accountability Committee (PRAC)
+                            Pandemic Response Accountability Committee (PRAC)
                         </a>
                     </li>
                     <li>
                         <a
                             href="https://www.pandemicoversight.gov/media/file/american-rescue-plan-act-infographicpdf"
                             onClick={handleClick}>
-                                        American Rescue Plan Act Infographic (PRAC)
+                            American Rescue Plan Act Infographic (PRAC)
                         </a>
                     </li>
                     <li>
                         <a
                             href="https://www.federalreserve.gov/covid-19.htm"
                             onClick={handleClick}>
-                                        Federal Reserve Board
+                            Federal Reserve Board
                         </a>
                     </li>
                     <li>
                         <a
                             href="https://www.usda.gov/coronavirus"
                             onClick={handleClick}>
-                                    Department of Agriculture
+                            Department of Agriculture
                         </a>
                     </li>
                     <li>
                         <a
                             href="https://www.defense.gov/Explore/Spotlight/Coronavirus/"
                             onClick={handleClick}>
-                                    Department of Defense
+                            Department of Defense
                         </a>
                     </li>
                     <li>
                         <a
                             href="https://www.ed.gov/coronavirus"
                             onClick={handleClick}>
-                                    Department of Education
+                            Department of Education
                         </a>
                     </li>
                     <li>
                         <a
                             href="https://www.dhs.gov/coronavirus/overview-dhs-response"
                             onClick={handleClick}>
-                                    Department of Homeland Security
+                            Department of Homeland Security
                         </a>
                     </li>
                     <li>
                         <a
                             href="https://oui.doleta.gov/unemploy/docs/cares_act_funding_state.html"
                             onClick={handleClick}>
-                                    Department of Labor
+                            Department of Labor
                         </a>
                     </li>
                     <li>
                         <a
                             href="https://www.transportation.gov/coronavirus"
                             onClick={handleClick}>
-                                    Department of Transportation
+                            Department of Transportation
                         </a>
                     </li>
                 </ul>
@@ -94,21 +94,21 @@ const OtherResources = ({ handleExternalLinkClick }) => {
                         <a
                             href="https://home.treasury.gov/policy-issues/coronavirus"
                             onClick={handleClick}>
-                                    Department of the Treasury
+                            Department of the Treasury
                         </a>
                         <ul className="indent-link">
                             <li>
                                 <a
                                     href="https://www.irs.gov/statistics/soi-tax-stats-coronavirus-aid-relief-and-economic-security-act-cares-act-statistics"
                                     onClick={handleClick}>
-                                        Internal Revenue Service
+                                    Internal Revenue Service
                                 </a>
                             </li>
                             <li>
                                 <a
                                     className="usda-external-link indent-link"
                                     href="https://home.treasury.gov/system/files/136/ERA-Subawards-USASpending-File.xlsx">
-                                        ERA -Subawards (Excel)&nbsp;
+                                    ERA -Subawards (Excel)&nbsp;
                                     <FontAwesomeIcon icon="fa-regular fa-file-excel" />
                                 </a>
                             </li>
@@ -116,7 +116,7 @@ const OtherResources = ({ handleExternalLinkClick }) => {
                                 <a
                                     className="usda-external-link indent-link"
                                     href="https://home.treasury.gov/system/files/136/SLFRF-Subaward-USASpending-File.xlsx">
-                                        SLFRF Subaward (Excel)&nbsp;
+                                    SLFRF Subaward (Excel)&nbsp;
                                     <FontAwesomeIcon icon="fa-regular fa-file-excel" />
                                 </a>
                             </li>
@@ -126,26 +126,26 @@ const OtherResources = ({ handleExternalLinkClick }) => {
                         <a
                             href="https://www.publichealth.va.gov/n-coronavirus/"
                             onClick={handleClick}>
-                                    Department of Veterans Affairs
+                            Department of Veterans Affairs
                         </a>
                     </li>
                     <li>
                         <a
                             href="https://www.hhs.gov/coronavirus"
                             onClick={handleClick}>
-                                        Department of Health & Human Services
+                            Department of Health & Human Services
                         </a>
                     </li>
                     <li>
                         <a
                             href="https://www.sba.gov/funding-programs/loans/covid-19-relief-options"
                             onClick={handleClick}>
-                                    Small Business Administration
+                            Small Business Administration
                         </a>
                     </li>
                     <li>
                         <Link to="/disaster/covid-19/the-opportunity-project">
-                                    The Opportunity Project
+                            The Opportunity Project
                         </Link>
                     </li>
                 </ul>

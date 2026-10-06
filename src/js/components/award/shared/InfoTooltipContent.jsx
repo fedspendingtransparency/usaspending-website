@@ -10,34 +10,34 @@ export const transactionHistoryInfoGeneric = (
     <div className="award-summary-tooltip transaction-history-tt">
         <div className="tooltip__text">
             <p>
-               The Transaction History tab displays modification records
-               for an award.
+                The Transaction History tab displays modification records
+                for an award.
             </p>
             <p className="tooltip__text-section">
-               Each modification appears as a row in the table below.
-               Here&apos;s what each of the columns for each modification
-               (row) tell you:
+                Each modification appears as a row in the table below.
+                Here&apos;s what each of the columns for each modification
+                (row) tell you:
             </p>
             <ul>
                 <li>
                     <strong>Modification Number</strong> – This number
-                 identifies the modification with the lowest number
-                 representing the beginning of the award.
+                    identifies the modification with the lowest number
+                    representing the beginning of the award.
                 </li>
                 <li>
                     <strong>Action Date</strong> – This is when the
-                 modification was obligated.
+                    modification was obligated.
                 </li>
                 <li>
                     <strong>Amount</strong> – This refers to the amount of
-                 money added, or subtracted, from the initial awarded
-                 amount.
+                    money added, or subtracted, from the initial awarded
+                    amount.
                 </li>
             </ul>
             <p>
                 <strong>Action Type</strong> – This column describes the
-               reason behind a modification. It uses a letter code system
-               that maps to the following descriptions:
+                reason behind a modification. It uses a letter code system
+                that maps to the following descriptions:
             </p>
             <ul className="info-tooltip__list">
                 <li>
@@ -45,7 +45,7 @@ export const transactionHistoryInfoGeneric = (
                 </li>
                 <li>
                     <strong>B</strong> – Supplemental Agreement for work
-                 within scope
+                    within scope
                 </li>
                 <li>
                     <strong>C</strong> – Funding Only Action
@@ -55,11 +55,11 @@ export const transactionHistoryInfoGeneric = (
                 </li>
                 <li>
                     <strong>E</strong> – Terminate for Default (complete or
-                 partial)
+                    partial)
                 </li>
                 <li>
                     <strong>F</strong> – Terminate for Convenience (complete
-                 or partial)
+                    or partial)
                 </li>
                 <li>
                     <strong>G</strong> – Exercise an Option
@@ -82,8 +82,8 @@ export const transactionHistoryInfoGeneric = (
             </ul>
             <p className="tooltip__text-section">
                 <strong>Description</strong> – This is additional
-               information typically about the effects of the
-               modifications on the contract.
+                information typically about the effects of the
+                modifications on the contract.
             </p>
         </div>
     </div>
@@ -115,15 +115,15 @@ export const transactionHistoryInfoContract = (
                 </li>
                 <li>
                     <strong>Amount</strong> – This refers to the amount of
-                money added or subtracted from the initial awarded
-                amount by the modification, if any.
+                    money added or subtracted from the initial awarded
+                    amount by the modification, if any.
                 </li>
             </ul>
             <p>
                 <strong>Action Type</strong> – This column describes the
-              type of modification. It uses a letter code system
-              that maps to the following descriptions. For more on the
-              meaning of these descriptions, refer to Acquisition.gov:
+                type of modification. It uses a letter code system
+                that maps to the following descriptions. For more on the
+                meaning of these descriptions, refer to Acquisition.gov:
             </p>
             <ul className="info-tooltip__list">
                 <li>
@@ -131,7 +131,7 @@ export const transactionHistoryInfoContract = (
                 </li>
                 <li>
                     <strong>B</strong> – Supplemental Agreement for work
-                within scope
+                    within scope
                 </li>
                 <li>
                     <strong>C</strong> – Funding Only Action
@@ -141,11 +141,11 @@ export const transactionHistoryInfoContract = (
                 </li>
                 <li>
                     <strong>E</strong> – Terminate for Default (complete or
-                partial)
+                    partial)
                 </li>
                 <li>
                     <strong>F</strong> – Terminate for Convenience (complete
-                or partial)
+                    or partial)
                 </li>
                 <li>
                     <strong>G</strong> – Exercise an Option
@@ -200,14 +200,14 @@ export const transactionHistoryInfoFinancialAssistance = (
                 </li>
                 <li>
                     <strong>Amount</strong> – This refers to the amount of
-                money added or subtracted from the initial awarded
-                amount by the modification, if any.
+                    money added or subtracted from the initial awarded
+                    amount by the modification, if any.
                 </li>
             </ul>
             <p>
                 <strong>Action Type</strong> – This column describes the
-              type of modification. It uses a letter code system
-              that maps to the following descriptions:
+                type of modification. It uses a letter code system
+                that maps to the following descriptions:
             </p>
             <ul className="info-tooltip__list">
                 <li>
@@ -241,17 +241,17 @@ export const transactionHistoryInfoFinancialAssistance = (
             </p>
             <p>
                 <strong>Loan Subsidy Cost (Total Obligations To Date)</strong> - The implications of a loan or loan guarantee for the Federal Budget (and thus the
-            loan version of spending/obligations) are known as the loan&#39;s subsidy
-            cost. Subsidy cost is the calculated net present value of the loan to the
-            government, taking into account the interest rate and the modeled risk of the
-            recipient failing to pay back the loan in part or full; subsidy cost can be
-            positive (indicating that the government is likely to lose money on the loan) or
-            negative (indicating that the government is likely to make money on the
-            loan). Subsidy cost should never be larger in absolute value terms than
-            the face value itself. Administrative costs of running the loan or loan
-            guarantee program itself are excluded from subsidy cost calculations. Note
-            that a loan&#39;s face value is not considered Federal spending, since it
-            does not in itself represent a long-term cost to the government.
+                loan version of spending/obligations) are known as the loan&#39;s subsidy
+                cost. Subsidy cost is the calculated net present value of the loan to the
+                government, taking into account the interest rate and the modeled risk of the
+                recipient failing to pay back the loan in part or full; subsidy cost can be
+                positive (indicating that the government is likely to lose money on the loan) or
+                negative (indicating that the government is likely to make money on the
+                loan). Subsidy cost should never be larger in absolute value terms than
+                the face value itself. Administrative costs of running the loan or loan
+                guarantee program itself are excluded from subsidy cost calculations. Note
+                that a loan&#39;s face value is not considered Federal spending, since it
+                does not in itself represent a long-term cost to the government.
             </p>
         </div>
     </div>
@@ -259,7 +259,7 @@ export const transactionHistoryInfoFinancialAssistance = (
 
 export const modificationNumber = (
     <TooltipComponent title="Modification Number">This number identifies the modification. Modification numbers increment
-                    from lower to higher as more mods are made.
+        from lower to higher as more mods are made.
     </TooltipComponent>
 );
 export const actionDate = (
@@ -267,13 +267,13 @@ export const actionDate = (
 );
 export const amount = (
     <TooltipComponent title="Amount">This refers to the amount of
-                money added or subtracted from the initial awarded
-                amount by the modification, if any.
+        money added or subtracted from the initial awarded
+        amount by the modification, if any.
     </TooltipComponent>
 );
 export const actionType = (
     <TooltipComponent title="Action Type">
-         This column describes the type of modification. It uses a letter code system that maps to the following descriptions:
+        This column describes the type of modification. It uses a letter code system that maps to the following descriptions:
         <ul className="info-tooltip__list">
             <li>
                 <strong>A</strong> – Additional Work
@@ -319,7 +319,7 @@ export const actionType = (
 );
 export const actionTypeFA = (
     <TooltipComponent title="Action Type">
-                    This column describes the type of modification. It uses a letter code system that maps to the following descriptions:
+        This column describes the type of modification. It uses a letter code system that maps to the following descriptions:
         <ul className="info-tooltip__list">
             <li>
                 <strong>A</strong> – New assistance award
@@ -355,18 +355,18 @@ export const loanFaceValue = (
 );
 export const loanSubsidyCost = (
     <TooltipComponent title="Loan Subsidy Cost (Total Obligations To Date)">
-            The implications of a loan or loan guarantee for the Federal Budget (and thus the
-            loan version of spending/obligations) are known as the loan&#39;s subsidy
-            cost. Subsidy cost is the calculated net present value of the loan to the
-            government, taking into account the interest rate and the modeled risk of the
-            recipient failing to pay back the loan in part or full; subsidy cost can be
-            positive (indicating that the government is likely to lose money on the loan) or
-            negative (indicating that the government is likely to make money on the
-            loan). Subsidy cost should never be larger in absolute value terms than
-            the face value itself. Administrative costs of running the loan or loan
-            guarantee program itself are excluded from subsidy cost calculations. Note
-            that a loan&#39;s face value is not considered Federal spending, since it
-            does not in itself represent a long-term cost to the government.
+        The implications of a loan or loan guarantee for the Federal Budget (and thus the
+        loan version of spending/obligations) are known as the loan&#39;s subsidy
+        cost. Subsidy cost is the calculated net present value of the loan to the
+        government, taking into account the interest rate and the modeled risk of the
+        recipient failing to pay back the loan in part or full; subsidy cost can be
+        positive (indicating that the government is likely to lose money on the loan) or
+        negative (indicating that the government is likely to make money on the
+        loan). Subsidy cost should never be larger in absolute value terms than
+        the face value itself. Administrative costs of running the loan or loan
+        guarantee program itself are excluded from subsidy cost calculations. Note
+        that a loan&#39;s face value is not considered Federal spending, since it
+        does not in itself represent a long-term cost to the government.
     </TooltipComponent>
 );
 export const subawardID = (
@@ -383,7 +383,7 @@ export const amountSub = (
 );
 export const descriptionSub = (
     <TooltipComponent title="Description">The description of the sub-contract provided by the prime recipient.
-            The level of detail in descriptions varies and is dependent on the author.
+        The level of detail in descriptions varies and is dependent on the author.
     </TooltipComponent>
 );
 // export const transactionDescriptionFA = (
@@ -450,7 +450,7 @@ export const federalAccountFundingInfoGeneric = (
 export const relatedAwardsInfo = (
     <div className="award-summary-tooltip related-awards-tt">
         <div className="tooltip__title">
-             Orders Made Under this IDV
+            Orders Made Under this IDV
         </div>
         <div className="tooltip__text">
             <p>
@@ -500,7 +500,7 @@ export const relatedAwardsInfo = (
                     <em>
                         <strong>*Grandchild award order</strong> refers to award orders
                         made within a child IDV order (IDV &gt; IDV &gt;
-                          Award).
+                        Award).
                     </em>
                 </li>
                 <li>
@@ -554,18 +554,18 @@ export const summaryRelatedAwardsInfoIdv = (
                 <li>
                     <strong>Child Award Order</strong> – This refers to the count
                     of award orders made directly under this IDV (IDV &gt; Award).
-                     Click on the count to view the child award orders of this IDV.
+                    Click on the count to view the child award orders of this IDV.
                 </li>
                 <li>
                     <strong>Child IDV Order</strong> – This refers to the count
                     of IDVs made directly under this IDV (IDV &gt; IDV). Click
-                     on this count to view the child IDV orders of this IDV.
+                    on this count to view the child IDV orders of this IDV.
                 </li>
                 <li>
                     <strong>Grandchild Award Order</strong> – This refers to the
                     count of award orders made within child IDV Orders under this
                     IDV (IDV &gt; IDV &gt; Award). Click on this count to view
-                     the grandchild award orders of this IDV.
+                    the grandchild award orders of this IDV.
                 </li>
             </ul>
         </div>
@@ -1246,10 +1246,10 @@ export const subAwardsTabGrant = (
         <div className="tooltip__title">Sub-Awards</div>
         <div className="tooltip__text">
             <p>
-            The Sub-Awards tab displays any sub-grants reported by this grant&apos;s
-            recipient (the “prime recipient” in a sub-award context). Sub-grants
-            are awards of financial assistance made under a grant by
-            a prime grantee to an eligible subgrantee.
+                The Sub-Awards tab displays any sub-grants reported by this grant&apos;s
+                recipient (the “prime recipient” in a sub-award context). Sub-grants
+                are awards of financial assistance made under a grant by
+                a prime grantee to an eligible subgrantee.
             </p>
             <p>
                 Above the Sub-Award table, we display the total number of reported
@@ -1329,7 +1329,7 @@ export const LoanAwardAmountsInfo = (
 export const CFDAOverviewInfo = (
     <div className="award-summary-tooltip">
         <div className="tooltip__title">
-        Assistance Listing (CFDA Program)
+            Assistance Listing (CFDA Program)
         </div>
         <div className="tooltip__text">
             <p>
@@ -1343,7 +1343,7 @@ export const CFDAOverviewInfo = (
 export const CFDASectionInfo = (
     <div className="award-summary-tooltip">
         <div className="tooltip__title">
-        Assistance Listing (CFDA Program)
+            Assistance Listing (CFDA Program)
         </div>
         <div className="tooltip__text">
             <p>The Catalog of Federal Domestic Assistance (CFDA), also known as Assistance Listings, is a collection of federal financial assistance programs that provide benefits to the American public. Every assistance award must be categorized under a CFDA program, and every CFDA program must be specifically authorized by Congressional statute before an agency can begin to issue awards under it.</p>
@@ -1385,18 +1385,18 @@ export const CFDASectionInfo = (
 export const FilterTooltip = (
     <div className="award-summary-tooltip">
         <div className="tooltip__title">
-        Learn which data elements are associated with certain search filters
+            Learn which data elements are associated with certain search filters
         </div>
         <div className="tooltip__text ul-override_filter ul-override">
             <p className="award-summary__new-category">
-            The data in award search come primarily from governmentwide award systems in formats called File D1 (for <strong>contract award elements</strong>) and File D2 (for <strong>financial assistance award elements</strong>). If a filter is not listed below, then it applies to both contract and financial assistance award elements.
+                The data in award search come primarily from governmentwide award systems in formats called File D1 (for <strong>contract award elements</strong>) and File D2 (for <strong>financial assistance award elements</strong>). If a filter is not listed below, then it applies to both contract and financial assistance award elements.
             </p>
             <p>
-            Filters for <strong>agency account elements</strong> apply to both contract and financial assistance award elements, but they come from File C (award data from agency financial systems that are submitted directly to USAspending.gov) rather than from Files D1 or D2.
+                Filters for <strong>agency account elements</strong> apply to both contract and financial assistance award elements, but they come from File C (award data from agency financial systems that are submitted directly to USAspending.gov) rather than from Files D1 or D2.
             </p>
             <p className="award-summary__new-category"><strong>Contract Award Elements</strong></p>
             <p className="award-summary__new-category">
-            Contract award elements contain information from a governmentwide award system called the Federal Procurement Data System (FPDS). This information is extracted by USAspending.gov in a format called File D1.
+                Contract award elements contain information from a governmentwide award system called the Federal Procurement Data System (FPDS). This information is extracted by USAspending.gov in a format called File D1.
             </p>
             <p>
                 Filters that draw exclusively from contract award elements are:
@@ -1410,17 +1410,17 @@ export const FilterTooltip = (
             </ul>
             <p className="award-summary__new-category"><strong>Financial Assistance Award Elements</strong></p>
             <p className="award-summary__new-category">
-            Financial assistance award elements contain information from a governmentwide award system called the Financial Assistance Broker System (FABS). This information is submitted directly to USAspending.gov in a format called File D2.
+                Financial assistance award elements contain information from a governmentwide award system called the Financial Assistance Broker System (FABS). This information is submitted directly to USAspending.gov in a format called File D2.
             </p>
             <p>
-            The filter that draws exclusively from financial assistance award elements is:
+                The filter that draws exclusively from financial assistance award elements is:
             </p>
             <ul>
                 <li>Assistance Listing (CFDA Program)</li>
             </ul>
             <p className="award-summary__new-category"><strong>Agency Account Elements</strong></p>
             <p className="award-summary__new-category">
-            Agency account elements contain information from agency financial systems, and includes information about federal awards in a format called File C. Data in File C complement data in Files D1 and D2, which come from governmentwide award systems. If you select a filter that draws from agency account elements, then these data must be linked to data in governmentwide award systems before any results can be displayed. (The reverse is not true: you may see results from governmentwide award systems that are not linked to data in agency account elements.)
+                Agency account elements contain information from agency financial systems, and includes information about federal awards in a format called File C. Data in File C complement data in Files D1 and D2, which come from governmentwide award systems. If you select a filter that draws from agency account elements, then these data must be linked to data in governmentwide award systems before any results can be displayed. (The reverse is not true: you may see results from governmentwide award systems that are not linked to data in agency account elements.)
             </p>
             <p>
                 Filters that draw exclusively from agency account elements are:
@@ -1523,7 +1523,7 @@ export const CondensedCDTooltip = ({ title }) => (
 export const ExplorerInfoToolTip = (
     <div className="award-summary-tooltip">
         <div className="tooltip__title">
-                Data Source
+            Data Source
         </div>
         <div className="tooltip__text">
             <p>

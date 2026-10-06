@@ -91,7 +91,7 @@ export default class FederalAccountsTreeTooltip extends React.Component {
     render() {
         const { percent, obligatedAmount, _federalAccountName } = this.props;
         const subtitle =
-        `${this.props._fundingAgencyName} (${this.props._fundingAgencyAbbreviation})`;
+            `${this.props._fundingAgencyName} (${this.props._fundingAgencyAbbreviation})`;
 
         return (
             <div className="visualization-tooltip">

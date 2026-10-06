@@ -1,6 +1,6 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
+ 
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable max-len */
+ 
 import React from 'react';
 import { Link } from "react-router";
 import Accordion from "../sharedComponents/accordion/Accordion";
@@ -85,7 +85,7 @@ const AnalystGuideQuestions = () => {
                     className="analyst-guide__external-link"
                     isCard
                     showIcon>
-                        available online{' '}
+                    available online{' '}
                 </ExternalLink>
                 .
             </p>
@@ -166,7 +166,7 @@ const AnalystGuideQuestions = () => {
                     role="link"
                     className="analyst-guide__sectionJump"
                     onClick={() => jumpToSection("analyst-guide__Industry")}>
-                   INDUSTRY AND PRODUCT DATA ELEMENTS
+                    INDUSTRY AND PRODUCT DATA ELEMENTS
                 </button>{' '}section of this guide.
             </p>
             <p className="analyst-guide__answerStyle">More information about recipient data elements is discussed in the {' '}
@@ -218,7 +218,7 @@ const AnalystGuideQuestions = () => {
                     role="link"
                     className="analyst-guide__sectionJump"
                     onClick={() => jumpToSection("analyst-guide__Disaster")}>
-                  DISASTER AND EMERGENCY DATA ELEMENTS
+                    DISASTER AND EMERGENCY DATA ELEMENTS
                 </button>{' '}section of this guide.
             </p>
         </>)
@@ -311,7 +311,7 @@ const AnalystGuideQuestions = () => {
                     role="link"
                     className="analyst-guide__sectionJump"
                     onClick={() => jumpToSection("analyst-guide__AccountData")}>
-                  ACCOUNT DATA ELEMENTS
+                    ACCOUNT DATA ELEMENTS
                 </button>{' '}section of this guide.
             </p>
         </>)
@@ -726,7 +726,7 @@ const AnalystGuideQuestions = () => {
                     className="analyst-guide__external-link"
                     isCard
                     showIcon>
-                        wiki{' '}
+                    wiki{' '}
                 </ExternalLink>
                 {' '}provides information for developers on how the USAspending application works.
             </p>
