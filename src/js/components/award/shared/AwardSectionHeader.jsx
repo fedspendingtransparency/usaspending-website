@@ -71,6 +71,7 @@ const AwardSectionHeader = ({
                 {icon && <div className="award-viz__icon">{icon}</div>}
                 <h3 className="award-viz__title">{title}</h3>
                 {tooltip && !title.includes("Award History") &&
+//              TODO: TooltipWrapper may be able to remove?
                 <TooltipWrapper
                     className="award-section-tt"
                     icon="info"

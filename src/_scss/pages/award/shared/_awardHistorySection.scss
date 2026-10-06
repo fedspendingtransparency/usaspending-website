@@ -1,35 +1,41 @@
 .award-history {
-  padding: rem(40) 0 rem(60);
-  width: 100%;
+    padding: rem(40) 0 rem(60);
+    width: 100%;
 
-      .award-viz__break {
+    .award-viz__break {
         color: $gray-60;
         margin-bottom: rem(24);
-      }
-      span {
+    }
+
+    span {
         font-weight: $font-semibold;
         color: $gray-60;
-      }
-      p {
+    }
+
+    p {
         color: $gray-60;
         line-height: 150%;
-      }
-      @import "../table/_tablesSection";
-      .table-types {
+    }
+
+    @import "../table/_tablesSection";
+
+    .table-types {
         .table-type-toggle {
-          margin-top: 0;
+            margin-top: 0;
         }
-      }
-      .subaward-totals {
+    }
+
+    .subaward-totals {
         @include display(flex);
         justify-content: center;
         .total-item {
-          padding: $global-padding * 2;
-          .total-value {
-            font-weight: bold;
-          }
+            padding: $global-padding * 2;
+            .total-value {
+                font-weight: bold;
+            }
         }
-      }
+    }
+
     // Overriding Accordion component styling
     .accordion-container {
         margin: rem(24) rem(0);
