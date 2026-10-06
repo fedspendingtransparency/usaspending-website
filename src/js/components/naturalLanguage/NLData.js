@@ -752,12 +752,12 @@ export const preSearchOptions = [
     {
         id: "nl-8",
         title:"Disaster Relief",
-        text: (<>Tax dollars spen on <strong>contracts</strong></>),
+        text: (<>Tax dollars spent on <strong>contracts</strong></>),
         action: (callback) => {
             const filterValue = {
                 filters: {
                     ...defaultFilters,
-                    defCode: {...defCodeGroups.covid}
+                    defCode: defCodeGroups.covid
                 },
                 version: REQUEST_VERSION
             };
