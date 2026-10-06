@@ -93,13 +93,14 @@ const useResultsTableSearch = (
     if (spendingLevel === "subawards" && filtersTemp.dateType) {
         delete filtersTemp.dateType;
     }
-
+    console.log(tableType);
+    console.log(searchFilters.awardType);
     filtersTemp.awardType = getAwardTypeGroup(
         spendingLevel, tableType, searchFilters.awardType
     );
 
     const filters = filtersTemp.toParams();
-
+    // console.log(filters);
     const params = {
         auditTrail: 'Results Table - Spending by award search',
         filters,

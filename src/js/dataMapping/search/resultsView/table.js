@@ -12,6 +12,10 @@ export const tableTypes = [
         internal: 'grants'
     },
     {
+        label: 'Cooperative Agreement',
+        internal: 'cooperative_agreement'
+    },
+    {
         label: 'Direct Payments',
         internal: 'direct_payments'
     },

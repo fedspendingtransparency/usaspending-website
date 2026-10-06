@@ -35,6 +35,10 @@ const tableTypes = [
         internal: 'grants'
     },
     {
+        label: 'Cooperative Agreement',
+        internal: 'cooperative_agreement'
+    },
+    {
         label: 'Direct Payments',
         internal: 'direct_payments'
     },
@@ -179,6 +183,7 @@ export default class ResultsTableContainer extends React.Component {
 
         const requestFields = map(availableColumns(this.state.tableType), (data) => data.title);
         const tableType = this.state.tableType;
+        console.log(tableType);
 
         const params = {
             filters: {
