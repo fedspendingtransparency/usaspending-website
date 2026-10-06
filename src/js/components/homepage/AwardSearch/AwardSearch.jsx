@@ -124,14 +124,12 @@ const AwardSearch = () => {
             .then((results) => {
                 const hashData = results.data;
                 if (rankType === "naics" || rankType === "psc") {
-                     
                     window.open(`/search?hash=${encodeURIComponent(hashData.hash)}&section=${encodeURIComponent(section)}&type=${encodeURIComponent(rankType)}`, "_self");
                 }
                 else if (section === "time") {
                     window.open(`/search?hash=${encodeURIComponent(hashData.hash)}&section=${encodeURIComponent(section)}&by=${encodeURIComponent("fiscal_year")}`, "_self");
                 }
                 else {
-                     
                     window.open(`/search?hash=${encodeURIComponent(hashData.hash)}&section=${encodeURIComponent(section)}`, "_self");
                 }
                 // operation has resolved
@@ -171,12 +169,12 @@ const AwardSearch = () => {
 
         d.slides.forEach((slide, i) => {
             if (i === currentIndex) {
-                 
+
                 slide.ariaHidden = false;
                 setActiveCardIndex(currentIndex);
             }
             else {
-                 
+
                 slide.ariaHidden = true;
             }
         });

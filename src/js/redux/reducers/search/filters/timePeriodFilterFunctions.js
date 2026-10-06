@@ -3,7 +3,6 @@
  * Created by Nick Torres 11/7/2024
  */
 
- 
 // We only have one export but want to maintain consistency with other query modules
 export const updateDRs = (currentDates, date) => {
     let updatedSet = currentDates;

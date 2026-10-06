@@ -1,5 +1,3 @@
- 
-
 import storeSingleton from 'redux/storeSingleton';
 import * as slideoutActions from '../redux/actions/slideouts/slideoutActions';
 import * as aboutTheDataActions from '../redux/actions/aboutTheDataSidebar/aboutTheDataActions';
@@ -23,7 +21,6 @@ const closeLastOpenedSlideOut = (type) => {
     return true;
 };
 
- 
 export const showSlideout = (type, options = {}) => {
     // options { 'clear', 'term', 'url', 'open' } any or all can be null
     const { lastOpenedSlideout } = storeSingleton.store.getState().slideouts;
@@ -79,8 +76,8 @@ const slideoutsLookup = {
 };
 
 /**
- * 
- * Closes all slideouts except the current. 
+ *
+ * Closes all slideouts except the current.
  * Can also be used to close all slideouts when called
  * with no arg
  */

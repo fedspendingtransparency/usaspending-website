@@ -25,13 +25,13 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
         <section className={`search-gov-spending__section ${isFilters ? ' filter-spacing': ''}`}>
             <FlexGridRow className="search-gov-spending__row">
                 <div className="search-gov-spending__label-icon-container">
-                    <NLSearchSuggestionsIcon 
+                    <NLSearchSuggestionsIcon
                         variant="gov-spending"
                         label="Search government spending using AI"
                         icon="sparkles"/>
                 </div>
                 <div className="search-gov-spending__link">
-                    <Button 
+                    <Button
                         copy="Learn about Smart Assist"
                         onClick={() => {}}
                         buttonTitle="Learn about Smart Assist"
@@ -42,20 +42,20 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                         imageAlignment="right"
                         image={
                             <div className="button-icon-container">
-                                <FontAwesomeIcon 
+                                <FontAwesomeIcon
                                     className="button-icon"
                                     icon="arrow-up-right"/>
                             </div>}/>
                 </div>
-                {isFilters && 
+                {isFilters &&
                 <>
                     <span className="search-gov-spending__question">What questions do you have about federal award spending data?</span>
                     <div className="search-gov-spending__input-container">
                         <input
                             className="search-gov-spending__input"
                             type="text"
-                            value={inputValue} 
-                            onChange={handleInputChange} 
+                            value={inputValue}
+                            onChange={handleInputChange}
                             placeholder="Type a question about government spending, or choose a sample prompt below." />
                         <button className="search-gov-spending__input-button">
                             <img src={DEFAULT_ICON_PATH} alt="Icon for Search Button"/>
@@ -67,18 +67,18 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                         </div>
 
                         <div className="search-gov-spending__button-container">
-                            <button value="How much federal spending went to [recipient]?" 
-                                onClick={handleInputChange} 
+                            <button value="How much federal spending went to [recipient]?"
+                                onClick={handleInputChange}
                                 className="search-gov-spending__prompt-button">
                                 Recipient
                             </button>
-                            <button value="What agencies received funding during [time period]?" 
-                                onClick={handleInputChange} 
+                            <button value="What agencies received funding during [time period]?"
+                                onClick={handleInputChange}
                                 className="search-gov-spending__prompt-button">
                                 Time Period
                             </button>
                             <button value="How much federal funding did [my state] receive?"
-                                onClick={handleInputChange} 
+                                onClick={handleInputChange}
                                 className="search-gov-spending__prompt-button">
                                 Location
                             </button>
@@ -94,7 +94,6 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                             </button>
                         </div>
                     </div>
-                    
                 </>}
 
                 {!isFilters && <div className="search-gov-spending__container">
@@ -104,7 +103,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                     <FlexGridRow className="search-gov-spending__card-row">
                         {searchGovSpendingData.map((cardData) => (
                             <FlexGridCol
-                                className="search-gov-spending__card" 
+                                className="search-gov-spending__card"
                                 key={`search-gov-spending-card-${cardData.id}`}
                                 mobile={12}
                                 tablet={12}
@@ -118,7 +117,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                             </FlexGridCol>
                         ))
                         }
-                    </FlexGridRow>              
+                    </FlexGridRow>
                 </div>}
             </FlexGridRow>
         </section>

@@ -18,13 +18,11 @@ const DEFCheckboxTreeDownload = ({
     const dispatch = useDispatch();
 
     const titlesByCode = (codes) => codes.reduce((obj, item) => {
-         
         obj[item.code] = item.title;
         return obj;
     }, {});
 
     const detailsDisplay = (codes) => codes.reduce((obj, item) => {
-         
         obj[item.code] = (
             <DEFCheckboxTreeDownloadLabel
                 label={item.title}

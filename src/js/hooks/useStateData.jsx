@@ -18,7 +18,7 @@ const useStateData = () => {
         staleTime: Infinity,
         gcTime: Infinity
     });
-    
+
     return {data, isSuccess, isLoading, error};
 };
 

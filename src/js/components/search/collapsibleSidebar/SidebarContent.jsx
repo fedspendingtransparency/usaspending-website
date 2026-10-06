@@ -16,7 +16,7 @@ const propTypes = {
 const SidebarContent = ({ sidebarContentHeight, setShowMobileFilters }) => (
     <>
         <div className="sidebar-top-submit">
-            <SearchSidebarSubmitContainer 
+            <SearchSidebarSubmitContainer
                 setShowMobileFilters={setShowMobileFilters}/>
         </div>
         <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">

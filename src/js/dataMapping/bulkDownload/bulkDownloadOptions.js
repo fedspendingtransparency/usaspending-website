@@ -208,7 +208,7 @@ export const accountDownloadOptions = {
             description: (
                 <>
                     A set of Treasury spending accounts that are group under <br/>
-                    a <Link style={{color: '#005ea2'}} to="/download_center/custom_account_data?glossary=federal-account">Federal Account Symbol</Link>   
+                    a <Link style={{color: '#005ea2'}} to="/download_center/custom_account_data?glossary=federal-account">Federal Account Symbol</Link>
                 </>
             )
         },

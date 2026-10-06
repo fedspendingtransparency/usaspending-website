@@ -30,7 +30,6 @@ const StateLinkCell = ({name, fips, searchString}) => {
             </Link>
         </td>
     );
-    
 };
 
 StateLinkCell.propTypes = propTypes;

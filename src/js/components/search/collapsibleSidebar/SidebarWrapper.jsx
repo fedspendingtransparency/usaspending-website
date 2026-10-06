@@ -25,7 +25,6 @@ import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from "./NLConstants";
 import { sanitizeNLInput } from "helpers/search/naturalLanguage/sanitizeNLInput";
 import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
 
-
 const propTypes = {
     showMobileFilters: PropTypes.bool,
     setShowMobileFilters: PropTypes.func,
@@ -36,10 +35,10 @@ const propTypes = {
 
 // eslint-disable-next-line prefer-arrow-callback
 const SidebarWrapper = React.memo(function SidebarWrapper({
-    showMobileFilters, 
-    setShowMobileFilters, 
-    mobileSidebarContent, 
-    sidebarIsOpen, 
+    showMobileFilters,
+    setShowMobileFilters,
+    mobileSidebarContent,
+    sidebarIsOpen,
     setSidebarIsOpen
 }) {
     const { isMedium } = useIsMobile();
@@ -176,7 +175,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     aria-label="Close"
                     tabIndex={0}>
                     <FontAwesomeIcon className="close" icon="close" />
-                </div>    
+                </div>
             </div>
 
             { isDesktopFilters ? (
@@ -193,11 +192,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     hintOnClick={hintOnClick}
                     text={text}
                     setText={setText}
-                    startNLSearch={startNLSearch} 
+                    startNLSearch={startNLSearch}
                     data={parsedData}
                     cancelQuery={handleCancelQuery} />
-            )}   
-        </div>    
+            )}
+        </div>
     );
 
     const renderMobileSidebar = () => (
@@ -216,7 +215,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     aria-label="Close"
                     tabIndex={0}>
                     <FontAwesomeIcon className="close" icon="close" />
-                </div>    
+                </div>
             </div>
 
             { isMobileFilters ? (
@@ -226,30 +225,30 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                             Learn more about filters
                         </AboutTheDataLink>
                     </div>
-                    <MobileSidebarContent 
-                        setShowMobileFilters={setShowMobileFilters} 
-                        mobileSidebarContent={mobileSidebarContent} 
-                        showMobileFilters={showMobileFilters}/>  
+                    <MobileSidebarContent
+                        setShowMobileFilters={setShowMobileFilters}
+                        mobileSidebarContent={mobileSidebarContent}
+                        showMobileFilters={showMobileFilters}/>
                 </>
             ): (
                 <NLSidebarContent
                     hintOnClick={hintOnClick}
                     text={text}
                     setText={setText}
-                    startNLSearch={startNLSearch} 
+                    startNLSearch={startNLSearch}
                     data={parsedData}
                     cancelQuery={handleCancelQuery} />
             )}
         </div>
     );
-    
+
     return (
         <>
             <NLSidebarButtons
                 sidebarContent={sidebarContent}
                 setSidebarIsOpen={toggleOpened}
                 sidebarIsOpen={sidebarIsOpen}
-                isMedium={isMedium} 
+                isMedium={isMedium}
                 setShowMobileFilters={setShowMobileFilters}
                 isActiveNlSearch={isSearchActive && !isNLSearchComplete} />
             {/* Eventually remove search-sidebar css */}
@@ -259,14 +258,14 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 } ${
                     showMobileFilters ? "mobile" : ""}`
                 }>
-                
-                { isMedium 
+
+                { isMedium
                     ? showMobileFilters && renderMobileSidebar()
                     : sidebarIsOpen && renderDesktopSidebar()
                 }
             </div>
-        </> 
-    );                 
+        </>
+    );
 });
 
 SidebarWrapper.propTypes = propTypes;

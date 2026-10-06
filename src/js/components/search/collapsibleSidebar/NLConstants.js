@@ -38,19 +38,19 @@ export const responseLookup = {
 
     [RESPONSE_TYPE.SEARCH_ERROR]: {
         operation: SEARCH,
-        variant: ERROR, 
+        variant: ERROR,
         icon: ['far','circle-xmark']
     },
 
     [RESPONSE_TYPE.TOOL_START]: {
         operation: TOOL,
-        variant: START, 
+        variant: START,
         icon: 'sparkles'
     },
 
     [RESPONSE_TYPE.TOOL_COMPLETE]: {
         operation: TOOL,
-        variant: COMPLETE, 
+        variant: COMPLETE,
         icon: ['far','circle-check']
     },
 

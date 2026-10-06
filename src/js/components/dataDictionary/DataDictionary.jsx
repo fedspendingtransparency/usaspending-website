@@ -47,7 +47,6 @@ const DataDictionary = ({
     downloadLocation
 
 }) => {
-     
     const subtitle = (<p>The data dictionary below shows detailed information about the data available in our download files, including the definition of each element and its element name on the legacy USAspending.gov website.</p>);
 
     return (

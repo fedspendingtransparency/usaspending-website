@@ -10,7 +10,7 @@ import ExplorerWrapperPage from '../ExplorerWrapperPage';
 import ExplorerLandingOption from './ExplorerLandingOption';
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
- 
+
 const ExplorerDescription = () => (
     <div className="explorer-description__content">
         <p>
@@ -35,7 +35,6 @@ const explorerLandingDescription = {
     object_class:
         "See spending grouped by the types of items and services purchased by the federal government."
 };
- 
 
 const ExplorerLanding = () => {
     const [expanded, setExpanded] = useState(false);

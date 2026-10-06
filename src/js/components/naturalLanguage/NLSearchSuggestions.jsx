@@ -20,7 +20,7 @@ const NLSearchSuggestions = () => {
     const navigate = useNavigate();
     const { isDesktopSm } = useIsMobile();
     const [activeCardIndex, setActiveCardIndex] = useState(0);
-    
+
     const handleWatchVideosClick = () => {
         Analytics.event({
             event: 'watch-training-videos',
@@ -46,8 +46,8 @@ const NLSearchSuggestions = () => {
             return (
                 <FlexGridRow className="search-suggestions__card-row">
                     {searchCardData.map((card) => (
-                        <FlexGridCol 
-                            className="search-suggestions__card" 
+                        <FlexGridCol
+                            className="search-suggestions__card"
                             key={`search-suggestions-card-${card.id}`}
                             mobile={12}
                             tablet={12}
@@ -55,19 +55,19 @@ const NLSearchSuggestions = () => {
                             <CardContainer variant="outline" size="md">
                                 <CardBody
                                     customClassName="search-suggestions__card-body"
-                                    overline={card.overline} 
+                                    overline={card.overline}
                                     headline={card.headline}
                                     text={card.filterByHeader}>
                                     {card.icons.map((icon) => icon)}
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
-                    ))   
+                    ))
                     }
                 </FlexGridRow>
-            ); 
+            );
         }
-        
+
         return (
             <Swiper
                 direction={"horizontal"}
@@ -85,19 +85,19 @@ const NLSearchSuggestions = () => {
                 {searchCardData.map((card, i) => (
                     <SwiperSlide
                         tabIndex={activeCardIndex === i ? 0 : -1}
-                        className="search-suggestions__slide" 
+                        className="search-suggestions__slide"
                         key={`search-suggestions-card-${card.id}`}>
                         <CardContainer variant="outline" size="md">
                             <CardBody
                                 customClassName="search-suggestions__card-body"
-                                overline={card.overline} 
+                                overline={card.overline}
                                 headline={card.headline}
                                 text={card.filterByHeader}>
                                 {card.icons.map((icon) => icon)}
                             </CardBody>
                         </CardContainer>
                     </SwiperSlide>
-                ))   
+                ))
                 }
             </Swiper>
         );
@@ -121,7 +121,7 @@ const NLSearchSuggestions = () => {
                         imageAlignment="right"
                         image={
                             <div className="button-icon-container">
-                                <FontAwesomeIcon 
+                                <FontAwesomeIcon
                                     className="button-icon"
                                     icon="arrow-up-right"/>
                             </div>}/>

@@ -75,7 +75,6 @@ const Glossary = ({
                 mainContent.focus();
             }
         }
-        
     }, [dispatch, history, query]);
 
     const track = () => <div className="glossary-scrollbar-track" />;

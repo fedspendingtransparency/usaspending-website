@@ -16,7 +16,7 @@ const NLDefaultHint = React.memo(function NLDefaultHint({hint, onClick}) {
         <>
             <button className="sidebar-default-hint" onClick={onClick}>
                 {hint}
-            </button>   
+            </button>
         </>
     );
 });

@@ -19,7 +19,7 @@ const SearchLanding = () => {
 
     return (
         <div className="search-results-landing">
-            {isFilters && 
+            {isFilters &&
             <FeatureFlag>
                 <>
                     <NLSearchGovSpending isFilters={isFilters} />
@@ -37,7 +37,7 @@ const SearchLanding = () => {
                     <NLSearchSuggestions />
                     <NLMoreResources />
                 </>}
-            {!isFilters && 
+            {!isFilters &&
                 <>
                     <NLSearchGovSpending isFilters={isFilters} />
                     <NLMoreResources />

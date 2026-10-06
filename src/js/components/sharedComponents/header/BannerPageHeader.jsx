@@ -78,7 +78,7 @@ const BannerPageHeader = memo(function BannerPageHeader({
                 }
                 <FlexGridCol width="fill" className="text-column">
                     <div className="text-container">
-                        { isTablet && 
+                        { isTablet &&
                             <div className="icon-container__mobile " style={{ backgroundColor: titleOnly ? bannerColor : "#FFF"}}>
                                 <FontAwesomeIcon icon={faIcon} color={iconColor} />
                             </div>

@@ -19,7 +19,6 @@ const propTypes = {
 const DownloadInfoSection = ({
     dataType
 }) => {
-    
     if (dataType === "accounts") {
         return (
             <>

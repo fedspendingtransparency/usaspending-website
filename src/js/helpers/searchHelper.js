@@ -78,7 +78,6 @@ export const fetchNAICS = (req) => apiRequest({
 });
 
 // perform search is a cancellable promise
- 
 export const naicsRequest = (param) => apiRequest({
     url: `v2/references/naics/${param || ''}`
 });
@@ -186,7 +185,7 @@ export const fetchLastUpdate = () => apiRequest({
     url: 'v2/awards/last_updated/'
 });
 
- 
+
 const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { exclude: exclude2, require: require2 }) => {
     if (!isEqual(sortBy(require1), sortBy(require2))) return false;
     if (!isEqual(sortBy(exclude1), sortBy(exclude2))) return false;
@@ -331,7 +330,7 @@ export const dateRangeChipLabel = (timeInput) => {
     let start = null;
     let end = null;
     let dateLabel;
-    
+
     if (timeInput.start_date) {
         start = dayjs(timeInput.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
     }
@@ -419,7 +418,7 @@ export const dateRangeChipLabel = (timeInput) => {
 export const storeStructuresAreEqual = (store1, store2) => {
     // If both stores equal then simply return true.
     if (store1 === store2) return true;
-    
+
     // Check if types match or if one is null/undefined
     if (!store1 || !store2 || typeof store1 !== 'object' || typeof store2 !== 'object') {
         return typeof store1 === typeof store2;

@@ -77,7 +77,6 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
     let message = null;
 
     if (!MapboxGL.supported()) {
-         
         const description = "Please enable WebGL in your browser settings to view this map visualization.";
         return (
             <div className="results-table-message-container">

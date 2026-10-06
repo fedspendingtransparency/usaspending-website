@@ -32,7 +32,6 @@ const NLPreSearchButtonGroup = () => {
             .then((results) => {
                 const newQueryParams = combineQueryParams(query, {hash: encodeURIComponent(results.data.hash)});
                 window.open(`${'/search'}${getQueryParamString(newQueryParams)}`, "_self");
-                
                 // operation has resolved
                 tempHash = null;
             })
@@ -49,27 +48,27 @@ const NLPreSearchButtonGroup = () => {
         <div className="landing-pre-search__section">
             <FlexGridRow className="landing-pre-search__row">
                 {getQuestions.map((btn) => (
-                    <FlexGridCol 
-                        key={`landing-pre-search-${btn.id}`} 
+                    <FlexGridCol
+                        key={`landing-pre-search-${btn.id}`}
                         className="landing-pre-search__col"
-                        desktopxl={4} 
-                        desktop={12} 
+                        desktopxl={4}
+                        desktop={12}
                         tablet={12}
                         mobile={12}>
-                        <CardContainer 
+                        <CardContainer
                             variant="outline"
                             onClick={() => btn.action(fireSearchEvent)}
                             onKeyUp={(e) => {
                                 if (e.key === 'Enter'){
                                     btn.action(fireSearchEvent);
-                                } 
+                                }
                             }}>
                             <div className="pre-search-icon">
                                 <FontAwesomeIcon icon="filter-list" />
                             </div>
                             <div className="pre-search-text">{btn.text}</div>
                         </CardContainer>
-                        
+
                     </FlexGridCol>
                 ))}
             </FlexGridRow>

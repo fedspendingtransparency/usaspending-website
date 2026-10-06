@@ -32,37 +32,37 @@ export const searchCardData = [
         ),
         filterByHeader,
         icons: [
-            <NLSearchSuggestionsIcon 
-                key={`time-period-${id}`}  
-                variant="time-period" 
+            <NLSearchSuggestionsIcon
+                key={`time-period-${id}`}
+                variant="time-period"
                 label="Time Period"
                 icon="calendar"/>,
-            <NLSearchSuggestionsIcon 
-                key={`location-${id}`} 
-                variant="location" 
+            <NLSearchSuggestionsIcon
+                key={`location-${id}`}
+                variant="location"
                 label="Location"
-                icon="location-dot"/> 
+                icon="location-dot"/>
         ]
     },
     {
         id: id + 2,
         overline,
-        headline: ( 
+        headline: (
             <>
                 How much federal funding are <strong>national defense corporations</strong> receiving?
             </>
         ),
         filterByHeader,
         icons: [
-            <NLSearchSuggestionsIcon 
-                key={`keyword-${id}`}  
-                variant="keyword" 
+            <NLSearchSuggestionsIcon
+                key={`keyword-${id}`}
+                variant="keyword"
                 label="Keyword"
                 icon="search" />,
-            <NLSearchSuggestionsIcon 
-                key={`recipient-${id}`} variant="recipient" 
+            <NLSearchSuggestionsIcon
+                key={`recipient-${id}`} variant="recipient"
                 label="Recipient"
-                icon="user" /> 
+                icon="user" />
         ]
     },
     {
@@ -75,16 +75,16 @@ export const searchCardData = [
         ),
         filterByHeader,
         icons: [
-            <NLSearchSuggestionsIcon 
-                key={`award-type-${id}`}  
-                variant="award-type" 
+            <NLSearchSuggestionsIcon
+                key={`award-type-${id}`}
+                variant="award-type"
                 label="Award Type"
                 icon="file-certificate" />,
-            <NLSearchSuggestionsIcon 
-                key={`award-description-${id}`} 
-                variant="award-description" 
+            <NLSearchSuggestionsIcon
+                key={`award-description-${id}`}
+                variant="award-description"
                 label="Award Description"
-                icon="building" /> 
+                icon="building" />
         ]
     }
 ];
@@ -92,7 +92,7 @@ export const searchCardData = [
 export const moreResourcesBtnData = [
     {
         id: id + 1,
-        action: () => { 
+        action: () => {
             Analytics.event({
                 event: 'natural-language_glossary',
                 category: 'Natural Language More Resources',
@@ -103,15 +103,15 @@ export const moreResourcesBtnData = [
             dispatch(glossaryActions.toggleGlossary());
         },
         image: (
-            <NLSearchSuggestionsIcon 
-                variant="glossary" 
-                label="Glossary" 
+            <NLSearchSuggestionsIcon
+                variant="glossary"
+                label="Glossary"
                 icon="book"/>
         )
     },
     {
         id: id + 2,
-        action: () => { 
+        action: () => {
             Analytics.event({
                 event: 'natural-language_about-the-data',
                 category: 'Natural Language More Resources',
@@ -122,15 +122,15 @@ export const moreResourcesBtnData = [
             dispatch(aboutTheDataActions.toggleAboutTheData());
         },
         image: (
-            <NLSearchSuggestionsIcon 
-                variant="about-the-data" 
-                label="About the Data" 
+            <NLSearchSuggestionsIcon
+                variant="about-the-data"
+                label="About the Data"
                 icon="database"/>
-        ) 
+        )
     },
     {
         id: id + 3,
-        action: (navigate) => { 
+        action: (navigate) => {
             Analytics.event({
                 event: 'natural-language_data-dictionary',
                 category: 'Natural Language More Resources',
@@ -141,15 +141,15 @@ export const moreResourcesBtnData = [
             navigate("/data-dictionary");
         },
         image: (
-            <NLSearchSuggestionsIcon 
-                variant="data-dictionary" 
-                label="Data Dictionary" 
+            <NLSearchSuggestionsIcon
+                variant="data-dictionary"
+                label="Data Dictionary"
                 icon="book-open"/>
-        ) 
+        )
     },
     {
         id: id + 4,
-        action: (navigate) => { 
+        action: (navigate) => {
             Analytics.event({
                 event: 'natural-language_fed-spending-guide',
                 category: 'Natural Language More Resources',
@@ -160,11 +160,11 @@ export const moreResourcesBtnData = [
             navigate("/federal-spending-guide");
         },
         image: (
-            <NLSearchSuggestionsIcon 
-                variant="federal-spending-guide" 
-                label="Federal Spending Guide" 
+            <NLSearchSuggestionsIcon
+                variant="federal-spending-guide"
+                label="Federal Spending Guide"
                 icon="money-check-dollar"/>
-        ) 
+        )
     }
 ];
 
@@ -180,7 +180,7 @@ export const searchGovSpendingData = [
                     <>
                         Enter your <strong>question</strong> or select from{' '}
                         our <strong>templates</strong> in the Smart Assist panel.
-                    </> 
+                    </>
                 }/>
         )
     },
@@ -195,7 +195,7 @@ export const searchGovSpendingData = [
                     <>
                         Let our model do it’s work to{' '}
                         generate your <strong>data.</strong>
-                    </> 
+                    </>
                 }/>
         )
     },
@@ -210,7 +210,7 @@ export const searchGovSpendingData = [
                     <>
                         Get downloadable <strong>federal award</strong>{' '}
                         <strong>data</strong> relevant to your search!
-                    </> 
+                    </>
                 }/>
         )
     }
@@ -234,7 +234,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "ar-2",
@@ -250,7 +250,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "ar-3",
@@ -271,7 +271,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "ar-4",
@@ -292,7 +292,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "ar-5",
@@ -313,7 +313,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             }
         ]
     },
@@ -342,7 +342,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "nal-2",
@@ -354,7 +354,7 @@ export const preSearchOptions = [
                             naicsCodes: {
                                 require: ["11"],
                                 exclude: [],
-                                counts: [ 
+                                counts: [
                                     {
                                         label: "Agriculture, Forestry, Fishing and Hunting",
                                         value: "11",
@@ -366,7 +366,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "nal-3",
@@ -390,7 +390,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "nal-4",
@@ -411,7 +411,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "nal-5",
@@ -438,7 +438,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             }
         ]
     },
@@ -479,7 +479,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "agency-2",
@@ -508,7 +508,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "agency-3",
@@ -537,7 +537,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "agency-4",
@@ -566,7 +566,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "agency-5",
@@ -602,7 +602,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             }
         ]
     }

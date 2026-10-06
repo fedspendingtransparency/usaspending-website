@@ -139,7 +139,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
     }, [onDateChange, type]);
 
     const handleInputChange = (e) => {
-        // allow for type clear 
+        // allow for type clear
         if (e.target.value === "") {
             onDateChange(e.target.value, type);
         }
@@ -149,7 +149,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
         const parsed = parseInputDate(formatted);
         if (parsed) {
             setSelectedDate(parsed);
-            setViewDate(parsed.startOf("month")); 
+            setViewDate(parsed.startOf("month"));
             onDateChange(e.target.value, type);
         }
     };

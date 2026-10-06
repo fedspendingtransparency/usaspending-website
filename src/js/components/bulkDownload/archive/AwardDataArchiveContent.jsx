@@ -59,7 +59,6 @@ const logArchiveDownload = (e, file) => {
         });
 };
 
- 
 const AwardDataArchiveContent = ({
     filters,
     updateFilter,

@@ -80,7 +80,7 @@ export const addState = (state, countryAbbreviation, fipsIdByStateName, stateFIP
     };
 };
 
-export const addCountry = (country, countryAbbreviation) => {    
+export const addCountry = (country, countryAbbreviation) => {
     return ({
         identifier: countryAbbreviation,
         display: {

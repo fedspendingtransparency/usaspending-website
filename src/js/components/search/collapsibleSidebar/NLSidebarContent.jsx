@@ -3,7 +3,6 @@
  * Created by Nick Torres 8/28/2026
  */
 
- 
 import React, {useMemo} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -40,7 +39,7 @@ const NLSidebarContent = ({
 
     const MAX_CHARS = NL_INPUT_MAX_CHARS;
     const responseState = useMemo(
-        () => buildResponseState(data), 
+        () => buildResponseState(data),
         [data]
     );
 
@@ -87,10 +86,10 @@ const NLSidebarContent = ({
     };
 
     return (
-        <> 
+        <>
             { isSearchActive ? (
                 <div className="sidebar-nl-container response">
-                    <p className="sidebar-text semibold">{text}</p> 
+                    <p className="sidebar-text semibold">{text}</p>
                     <div className="sidebar-body-row response">
                         {responseState.items.map((item, index) => (
                             // eslint-disable-next-line react/no-array-index-key
@@ -99,7 +98,7 @@ const NLSidebarContent = ({
                             </div>
                         ))}
                     </div>
-                </div>   
+                </div>
             ) : (
                 <div className="sidebar-nl-container">
                     <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p>

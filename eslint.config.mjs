@@ -74,7 +74,6 @@ export default defineConfig([
             "@stylistic/function-paren-newline": [0],
 
             // TODO: address and turn back on:
-            "@stylistic/no-trailing-spaces": [0],
             "@stylistic/no-multiple-empty-lines": [0],
             "@stylistic/object-curly-spacing": [0],
             "@stylistic/operator-linebreak": [0],

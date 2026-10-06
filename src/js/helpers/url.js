@@ -35,11 +35,9 @@ const isRealUrl = (rawURL) => {
     }
     catch {
         return null;
-        
     }
 
     return parsed;
-
 };
 
 const isBaseURL = (val) => {
@@ -53,16 +51,16 @@ export const sanitizeUrl = (rawURL, blockRedirect = true) => {
 
     // not a real url
     if (!parsed) return null;
-    
+
     // https only
     if (parsed.protocol !== "https:") return null;
-    
+
     // hostname must exist and not just whitespace
     if (!parsed.hostname || parsed.hostname.trim() === "") return null;
 
     if (blockRedirect) {
         const params = [...parsed.searchParams.entries()];
-        
+
         // remove open-direct query params
         // allow valid urls.
         for( const [key, value] of params) {

@@ -33,11 +33,11 @@ const AccountLevelFilter = ({
                     name="account-level"
                     checked={currentAccountLevel === level.name}
                     onChange={onChange} />
-                <div className="radio-container"> 
+                <div className="radio-container">
                     {level.label}
                     <div className="radio-description">
                         {level.description}
-                    </div>  
+                    </div>
                 </div>
             </label>
         </div>

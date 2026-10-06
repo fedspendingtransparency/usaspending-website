@@ -125,8 +125,8 @@ const MobileDropdownItem = ({
                                     <Link
                                         to={item.url}
                                         prefetch={!item?.shouldOpenNewTab ? "viewport" : "none"}
-                                        onClick={clickedLink} 
-                                        className="mobile-dropdown__section-link" 
+                                        onClick={clickedLink}
+                                        className="mobile-dropdown__section-link"
                                         state={item.queryParam}>
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
@@ -204,10 +204,10 @@ const MobileDropdownItem = ({
                                                         </div>
                                                     </div>
                                                 </ExternalLink> :
-                                                <a 
-                                                    href={item.url} 
-                                                    target={item.shouldOpenNewTab ? "_blank" : null} 
-                                                    rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} 
+                                                <a
+                                                    href={item.url}
+                                                    target={item.shouldOpenNewTab ? "_blank" : null}
+                                                    rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}
                                                     className="mobile-dropdown__section-link">
                                                     <div className="mobile-dropdown__section-label">
                                                         {item.label}

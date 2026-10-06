@@ -36,7 +36,7 @@ const GlossaryDefinition = ({ glossary }) => {
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };
-    
+
     const checkDefinitions = () => {
         let hasPlainLocal = false;
         let hasOfficialLocal = false;

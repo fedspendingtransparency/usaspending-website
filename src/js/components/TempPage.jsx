@@ -33,7 +33,7 @@ const TempPage = () => {
         }, 5000);
     }, []);
 
-    const searchTestState = buildSearchTestState(searchTestData);    
+    const searchTestState = buildSearchTestState(searchTestData);
 
     const exampleLabel = (
         <>

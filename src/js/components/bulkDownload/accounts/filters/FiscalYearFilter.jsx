@@ -20,7 +20,6 @@ const FiscalYearFilter = ({ updateFilter }) => {
     const quarter = useSelector((state) => state.bulkDownload.accounts.quarter);
     const [, allPeriods, { year: latestFy }] = useLatestAccountData();
 
-     
     const noteOne = (<>
         The data included in the Custom Account Download was first collected in the second quarter of fiscal year 2017, per the{' '}
         <a
@@ -32,7 +31,6 @@ const FiscalYearFilter = ({ updateFilter }) => {
         . Financial data will not be available prior to that timeframe.
     </>);
     const noteTwo = 'Account Balances and Account Breakdown by Program Activity & Object Class files contain cumulative financial balances at the account and agency levels, as of the end of the quarter selected. The Account Breakdown by Award file contains every transaction reported at the account and agency levels, for the fiscal year through the end of the quarter selected.';
-     
 
     const latestSelectedTimeInterval = period || quarter;
 

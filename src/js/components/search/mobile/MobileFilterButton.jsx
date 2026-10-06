@@ -46,7 +46,6 @@ const MobileFilterButton = ({
                     if(!showMobileFilters){
                         toggleMobileFilters();
                     }
-                 
                 }
                 }
                 onKeyUp={(e) => {

@@ -105,7 +105,7 @@ const AwardSpendingSubagency = ({ fy }) => {
                 prevType={prevActiveTab.internal}
                 subHeading="Offices" />
             <Note message={(
-                <> 
+                <>
                     The sub-agencies presented in this section represent
                     awarding organizations and were sourced from the General Services
                     Administration (GSA) Federal Hierarchy (available at{ ' ' }
