@@ -151,6 +151,11 @@ module.exports = {
                     from: path.resolve(__dirname, "../src/fonts"),
                     to: path.resolve(__dirname, "../public/fonts"),
                     noErrorOnMissing: true
+                },
+                {
+                    from: path.resolve(__dirname, "../src/data"),
+                    to: path.resolve(__dirname, "../public/data"),
+                    noErrorOnMissing: true
                 }
             ]
         }),
