@@ -168,8 +168,8 @@ const articles = [
         content_type: 'Featured Content',
         banner_subtitle: "How People Use USAspending.gov Data",
         title: "Ways to Use Our Data",
-        created_date: "07/16/2026",
-        feature_sprint: 223,
+        created_date: "10/29/2026",
+        feature_sprint: 228,
         feature_week: 3,
         description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
         slug: "ways-to-use-our-data",
@@ -631,8 +631,8 @@ const articles = [
         content_type: 'Featured Content',
         title: "What Is a Loan?",
         banner_subtitle: "Learn About the Types of Loans on USAspending.gov",
-        created_date: "08/13/2026",
-        feature_sprint: 225,
+        created_date: "10/15/2026",
+        feature_sprint: 228,
         feature_week: 1,
         description: "On USAspending's Advanced Search, loans are found under Award Type; users can search for two different types of loans: direct loans and guaranteed/insured loans",
         slug: "what-is-a-loan",
@@ -850,46 +850,131 @@ const articles = [
             }
         ]
     },
-        {
-            taxonomy: "Spending Stories",
-            content_type: 'Marketing',
-            banner_subtitle: "How to Search for Emergency Funding on USAspending.gov",
-            title: "Tracking Emergency Government Spending",
-            created_date: "09/24/26",
-            feature_sprint: 227,
-            feature_week: 1,
-            description: "When disaster strikes, whether hurricanes, wildfires, floods, or public health emergencies, the federal government provides financial assistance to help communities respond and recover.",
-            slug: "tracking-emergency-government-spending",
-            explore_more: [
-                {
-                    label: "Advanced Search",
-                    slug: "/search",
-                    type: "internal"
-                },
-                {
-                    label: "Find Award Data by Pandemic Legislation",
-                    slug: "https://www.pandemicoversight.gov/data-interactive-tools/data-stories/how-find-award-data-pandemic-legislation",
-                    type: "external"
-                }
-            ],
-            related_terms: [
-                {
-                    term: "award",
-                    type: "glossary",
-                    label: "Award"
-                },
-                {
-                    term: "recipient",
-                    type: "glossary",
-                    label: "Recipient"
-                },
-                {
-                    term: "disaster-emergency-fund-code-defc",
-                    type: "glossary",
-                    label: "Disaster Emergency Fund Code"
-                }
-            ]
-        },
+    {
+        taxonomy: "Spending Stories",
+        content_type: 'Marketing',
+        banner_subtitle: "How to Search for Emergency Funding on USAspending.gov",
+        title: "Tracking Emergency Government Spending",
+        created_date: "09/24/26",
+        feature_sprint: 227,
+        feature_week: 1,
+        description: "When disaster strikes, whether hurricanes, wildfires, floods, or public health emergencies, the federal government provides financial assistance to help communities respond and recover.",
+        slug: "tracking-emergency-government-spending",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "Find Award Data by Pandemic Legislation",
+                slug: "https://www.pandemicoversight.gov/data-interactive-tools/data-stories/how-find-award-data-pandemic-legislation",
+                type: "external"
+            }
+        ],
+        related_terms: [
+            {
+                term: "award",
+                type: "glossary",
+                label: "Award"
+            },
+            {
+                term: "recipient",
+                type: "glossary",
+                label: "Recipient"
+            },
+            {
+                term: "disaster-emergency-fund-code-defc",
+                type: "glossary",
+                label: "Disaster Emergency Fund Code"
+            }
+        ]
+    },
+    {
+        content_type: 'Marketing',
+        taxonomy: "Exploring America's Finances",
+        banner_subtitle: "A Quick Overview of the Federal Spending Process",
+        title: "How Federal Spending Works",
+        created_date: "10/15/26",
+        feature_sprint: 228,
+        feature_week: 1,
+        description: "Each year, the U.S. government spends trillions of dollars to provide services, fund programs, and invest in communities across the country.",
+        slug: "how-federal-spending-works",
+        explore_more: [
+            {
+                label: "USA.gov",
+                slug: "https://www.usa.gov/federal-budget-process",
+                type: "government"
+            },
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "America's Finance Guide",
+                slug: "https://fiscaldata.treasury.gov/americas-finance-guide/federal-spending/",
+                type: "government"
+            }
+        ],
+        related_terms: [
+            {
+                term: "obligation",
+                type: "glossary",
+                label: "Obligation"
+            },
+            {
+                term: "outlay",
+                type: "glossary",
+                label: "Outlay"
+            }
+        ]
+    },
+    {
+        content_type: 'Featured Content',
+        taxonomy: "My USAspending Search",
+        banner_subtitle: "How the Children's Funding Project Researches Federal Spending",
+        title: "Alicia's USAspending Search",
+        created_date: "10/22/26",
+        feature_sprint: 228,
+        feature_week: 2,
+        description: "In “My USAspending Search,” we highlight one of our users and their unique approach to searching government spending open data. Meet Alicia Wilson-Ahlstrom.",
+        slug: "alicias-usaspending-search",
+        explore_more: [
+            {
+                label: "Advanced Search",
+                slug: "/search",
+                type: "internal"
+            },
+            {
+                label: "USAspending on YouTube",
+                slug: "https://www.youtube.com/@usaspendinggov",
+                type: "external"
+            },
+            {
+                label: "Custom Award Data",
+                slug: "/download_center/custom_award_data",
+                type: "internal"
+            }
+        ],
+        related_terms: [
+            {
+                term: "fiscal-year-fy",
+                type: "glossary",
+                label: "Fiscal Year"
+            },
+            {
+                term: "recipient-location",
+                type: "glossary",
+                label: "Location"
+            },
+            {
+                term: "primary-place-of-performance",
+                type: "glossary",
+                label: "Place of Performance"
+            }
+        ]
+    }
 ];
 
 export default articles;
