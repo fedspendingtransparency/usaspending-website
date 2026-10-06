@@ -11,7 +11,7 @@ import Accordion from "./sharedComponents/accordion/Accordion";
 import ComboBox from "./sharedComponents/ComboBox";
 import { mockComboBox, searchTestData, buildSearchTestState } from "../../../tests/mockData";
 import BannerPageHeader from "./sharedComponents/header/BannerPageHeader";
-import NLSearchSuggestionsIcon from "./naturalLanguage/NLSearchSuggestionsIcon";
+import NLSearchSuggestionsIcon from "./search/naturalLanguage/NLSearchSuggestionsIcon";
 
 require("pages/search/searchPage.scss");
 
