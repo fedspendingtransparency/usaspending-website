@@ -79,29 +79,29 @@ const DataQuality = () => (
             <div className="about-section-content">
                 <ul>
                     <li>
-                    GSA’s FPDS delays publishing procurement (i.e., contract and IDV) data for the Department of Defense
-                    (DOD) and U.S. Army Corps of Engineers (USACE) in order to&nbsp;
+                        GSA’s FPDS delays publishing procurement (i.e., contract and IDV) data for the Department of Defense
+                        (DOD) and U.S. Army Corps of Engineers (USACE) in order to&nbsp;
                         <a target="_blank" rel="noopener noreferrer" href="https://www.acq.osd.mil/dpap/policy/policyvault/2006-2086-DPAP.pdf">address potential DOD operational tempo issues</a>
-                    , delaying the availability of procurement, account breakdown by award (File C),
-                    and subcontract data on USAspending.gov that pertain to DOD and USACE by 90 days as well. This
-                    delay is acknowledged in a&nbsp;
+                        , delaying the availability of procurement, account breakdown by award (File C),
+                        and subcontract data on USAspending.gov that pertain to DOD and USACE by 90 days as well. This
+                        delay is acknowledged in a&nbsp;
                         <a target="_blank" rel="noopener noreferrer" href="https://media.defense.gov/2017/Nov/08/2001839818/-1/-1/1/DODIG-2018-020.PDF">2017 DOD Inspector General report</a>
-                    . Account Balances (File A), Account
-                    Breakdown by Program Activity &amp; Object Class (File B) data and assistance award data are unaffected
-                    by this delay.
+                        . Account Balances (File A), Account
+                        Breakdown by Program Activity &amp; Object Class (File B) data and assistance award data are unaffected
+                        by this delay.
                     </li>
                     <li>
-                    The Department of Health and Human Services (HHS) Centers for Medicare &amp; Medicaid Services (CMS)
-                    reports financial assistance awards from Medicare programs (CFDA 93.773, 93.774, and 93.770) as
-                    lump sum payments, with each record corresponding to the amount of money sent to a specific&nbsp;
+                        The Department of Health and Human Services (HHS) Centers for Medicare &amp; Medicaid Services (CMS)
+                        reports financial assistance awards from Medicare programs (CFDA 93.773, 93.774, and 93.770) as
+                        lump sum payments, with each record corresponding to the amount of money sent to a specific&nbsp;
                         <a target="_blank" rel="noopener noreferrer" href="https://www.cms.gov/Medicare/Medicare-Contracting/Medicare-Administrative-Contractors/What-is-a-MAC">Medicare Administrative Contractor (MAC)</a>
                         &nbsp;in a given month. The recipient location and primary place of
-                    performance location fields in these records correspond to the county where the MAC is located. As
-                    such, the location fields for these records do not reflect the places where Medicare beneficiaries
-                    or provider physicians/hospitals are located (which are usually in different states than the
-                    MAC’s location). Note that, per policy, the aggregate record format is solely intended to shield
-                    personally-identifiable-information (PII) of individual citizens, rather than to anonymize the names
-                    of companies like MACs.
+                        performance location fields in these records correspond to the county where the MAC is located. As
+                        such, the location fields for these records do not reflect the places where Medicare beneficiaries
+                        or provider physicians/hospitals are located (which are usually in different states than the
+                        MAC’s location). Note that, per policy, the aggregate record format is solely intended to shield
+                        personally-identifiable-information (PII) of individual citizens, rather than to anonymize the names
+                        of companies like MACs.
                     </li>
                 </ul>
             </div>

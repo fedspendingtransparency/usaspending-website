@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+ 
 /**
  * Contact.jsx
  * Created by Mike Bray 11/20/20178
@@ -11,15 +11,15 @@ const Contact = () => (
         className="about-section-wrapper"
         id="about-contact">
         <h2 className="about-section-title">
-                Contact Us
+            Contact Us
         </h2>
         <h3 className="about-subtitle">
-                How to reach us.
+            How to reach us.
         </h3>
         <div className="about-section-content">
             <p>
-                    We look forward to hearing from you and having the opportunity to answer
-                    your questions and comments.
+                We look forward to hearing from you and having the opportunity to answer
+                your questions and comments.
             </p>
             <div className="about-section-content-inline-buttons">
                 <div className="button-holder">
@@ -31,7 +31,7 @@ const Contact = () => (
                             className="usa-button-outline"
                             aria-label="Visit Our Community Page"
                             title="Visit Our Community Page">
-                                Visit Our Community Page
+                            Visit Our Community Page
                         </button>
                     </a>
                 </div>
@@ -41,7 +41,7 @@ const Contact = () => (
                             className="usa-button-outline"
                             aria-label="Send Us A Message"
                             title="Send Us A Message">
-                                Send Us A Message
+                            Send Us A Message
                         </button>
                     </a>
                 </div>

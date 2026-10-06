@@ -7,7 +7,6 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Analytics from 'helpers/analytics/Analytics';
 
-
 const DownloadButton = () => {
     const logDownloadButtonClick = () => {
         Analytics.event({
@@ -29,7 +28,7 @@ const DownloadButton = () => {
                 download
                 onClick={logDownloadButtonClick}>
                 <FontAwesomeIcon data-href="/data/about-the-data-download.pdf" icon="file-download" className="atd__download-icon" />
-            Download
+                Download
             </a>
         </div>);
 };
