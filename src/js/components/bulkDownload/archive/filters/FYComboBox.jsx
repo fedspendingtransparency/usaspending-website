@@ -10,7 +10,7 @@ for (let year = currentFY; year >= earliestFiscalYear; year--) {
     fyOptions.push({ value: year, text: `FY ${year}` });
 }
 
-const propTypes = { updateFilter: PropTypes.func }
+const propTypes = { updateFilter: PropTypes.func };
 
 const FYComboBox = ({ updateFilter }) => {
     const onSelect = (e) => {
@@ -26,8 +26,8 @@ const FYComboBox = ({ updateFilter }) => {
             label={"Fiscal Year (FY)"}
             placeholder={"Select a Fiscal Year"}
             defaultValue={`FY ${currentFY}`} />
-    )
-}
+    );
+};
 
 FYComboBox.propTypes = propTypes;
 export default FYComboBox;

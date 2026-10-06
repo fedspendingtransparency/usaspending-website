@@ -37,7 +37,7 @@ const ComboBox = memo(function ComboBox({
 }) {
     const [inputValue, setInputValue] = useState(defaultValue);
     const [openOptions, setOpenOptions] = useState(false);
-    const comboRef = useRef(null)
+    const comboRef = useRef(null);
 
     // 1) filter for inputValue 2) map to list item element
     let optionsArr = optionsArray;

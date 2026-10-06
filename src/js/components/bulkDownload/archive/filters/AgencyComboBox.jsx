@@ -44,8 +44,8 @@ const AgencyComboBox = ({ updateFilter, agencies }) => {
             label={"Agency"}
             placeholder={"Select an Agency"}
             defaultValue={"All Agencies"} />
-    )
-}
+    );
+};
 
 AgencyComboBox.propTypes = propTypes;
 export default AgencyComboBox;

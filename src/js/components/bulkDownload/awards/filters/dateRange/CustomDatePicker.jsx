@@ -96,7 +96,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
     const [isOpen, setIsOpen] = useState(false);
     const [viewDate, setViewDate] = useState(dayjs().startOf("month"));
     const [selectedDate, setSelectedDate] = useState("");
-    const [showError, setShowError] = useState(false)
+    const [showError, setShowError] = useState(false);
 
     const pickerRef = useRef(null);
 
@@ -214,7 +214,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
     );
 
     useEffect(() => {
-        setShowError(error?.active && type.startsWith(error?.type))
+        setShowError(error?.active && type.startsWith(error?.type));
     }, [error]);
 
     return (

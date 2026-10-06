@@ -155,7 +155,7 @@ const titleData = {
         fill: '#0E4F5C',
         addClassName: ""
     }
-}
+};
 
 
 const FilterSectionTitle = ({

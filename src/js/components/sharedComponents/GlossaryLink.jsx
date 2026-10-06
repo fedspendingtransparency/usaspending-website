@@ -33,8 +33,8 @@ const GlossaryLink = ({
 }) => {
     const { pathname, search } = useLocation();
     const params = new URLSearchParams(search);
-    params.set('glossary', term)
-    const glossaryUrl = `${pathname}`
+    params.set('glossary', term);
+    const glossaryUrl = `${pathname}`;
 
     const stopBubble = (e) => {
         e.preventDefault();

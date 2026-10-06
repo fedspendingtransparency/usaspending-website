@@ -97,7 +97,7 @@ const Accordion = ({
                             default:
                                 return link(awardInfo.data);
                         }
-                    }
+                    };
 
                     data = getData();
                 }
@@ -136,7 +136,7 @@ const Accordion = ({
                 </div>
             );
         });
-    }
+    };
 
     const onKeyDownHandler = createOnKeyDownHandler(handleClick);
 
@@ -175,7 +175,7 @@ const Accordion = ({
             </div>
         </div>
     );
-}
+};
 
 Accordion.propTypes = propTypes;
 export default Accordion;

@@ -30,7 +30,7 @@ const propTypes = {
     isDesktopSm: PropTypes.bool,
     scope: PropTypes.string,
     hash: PropTypes.string
-}
+};
 
 const CustomTick = ({ x, y, payload, link, isTablet, isDesktopSm, scope, hash }) => {
     const labelWidthVar = isTablet ? 400 : 175;

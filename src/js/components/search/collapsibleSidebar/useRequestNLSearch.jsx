@@ -49,6 +49,6 @@ const useRequestNLSearch = (prompt) => {
     };
 
     return { data, refetch, status, cancelQuery, isFetching};
-}
+};
 
 export default useRequestNLSearch;

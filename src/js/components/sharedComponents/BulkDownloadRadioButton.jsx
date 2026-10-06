@@ -9,7 +9,7 @@ const propTypes = {
     label: PropTypes.string,
     description: PropTypes.string,
     disabled: PropTypes.bool
-}
+};
 
 const BulkDownloadRadioButton = ({
     name,

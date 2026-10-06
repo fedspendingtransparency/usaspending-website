@@ -32,7 +32,7 @@ const NLSearchSuggestionsIcon = ({ variant, label, icon, description = ''}) => (
             </span>}
         </div>
     </div>
-)
+);
 
 NLSearchSuggestionsIcon.propTypes = propTypes;
 export default NLSearchSuggestionsIcon;

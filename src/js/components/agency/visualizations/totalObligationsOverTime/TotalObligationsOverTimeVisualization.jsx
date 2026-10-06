@@ -91,7 +91,7 @@ const TotalObligationsOverTimeVisualization = ({
 
     // y domain
     useEffect(() => {
-        setYDomain(getYDomain(dataWithFirstAndLastCoordinate, agencyBudget))
+        setYDomain(getYDomain(dataWithFirstAndLastCoordinate, agencyBudget));
     }, [dataWithFirstAndLastCoordinate, agencyBudget]);
     /**
      * set x scale
@@ -154,7 +154,7 @@ const TotalObligationsOverTimeVisualization = ({
     }, [dataWithFirstAndLastCoordinate]);
 
     useEffect(() => {
-        setScenario(determineScenario(agencyBudget, dataWithFirstAndLastCoordinate))
+        setScenario(determineScenario(agencyBudget, dataWithFirstAndLastCoordinate));
     }, [agencyBudget, dataWithFirstAndLastCoordinate]);
 
     useEffect(() => {

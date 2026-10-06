@@ -61,7 +61,7 @@ const AwardDataArchiveTable = ({ results, selectedFiles, setSelectedFiles }) => 
         file.fileName.toLowerCase().indexOf("delta") >= 0 ? "Delta File" : "Full File",
         file.fy,
         file.date
-    ]))
+    ]));
 
     return (
         <Table
@@ -69,7 +69,7 @@ const AwardDataArchiveTable = ({ results, selectedFiles, setSelectedFiles }) => 
             columns={columns}
             rows={rows} />
     );
-}
+};
 
 AwardDataArchiveTable.propTypes = propTypes;
 export default AwardDataArchiveTable;

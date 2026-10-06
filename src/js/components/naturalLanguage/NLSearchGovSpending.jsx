@@ -122,8 +122,8 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                 </div>}
             </FlexGridRow>
         </section>
-    )
+    );
+};
 
-}
 NLSearchGovSpending.propTypes = propTypes;
 export default NLSearchGovSpending;

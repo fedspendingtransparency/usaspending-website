@@ -98,7 +98,8 @@ const PageWrapper = ({
                 }`
             })}
             <Footer pageName={pageName} filters={filters} spending_level={spending_level} />
-        </div>)
+        </div>
+    );
 };
 
 PageWrapper.propTypes = {

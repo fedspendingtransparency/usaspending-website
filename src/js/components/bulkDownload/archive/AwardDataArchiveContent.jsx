@@ -57,9 +57,9 @@ const logArchiveDownload = (e, file) => {
                 gtm: true
             });
         });
-}
+};
 
-/* eslint-disable max-len */
+ 
 const AwardDataArchiveContent = ({
     filters,
     updateFilter,
@@ -72,7 +72,7 @@ const AwardDataArchiveContent = ({
     const onClickReset = () => setSelectedFiles(new Set());
 
     const onClickDownload = () => selectedFiles.forEach((url) => {
-        logArchiveDownload({}, results.find((file) => file.url === url))
+        logArchiveDownload({}, results.find((file) => file.url === url));
         window.open(url, '_blank');
     });
 
@@ -136,7 +136,7 @@ const AwardDataArchiveContent = ({
             </button>
         </div>
     );
-}
+};
 
 AwardDataArchiveContent.propTypes = propTypes;
 export default AwardDataArchiveContent;

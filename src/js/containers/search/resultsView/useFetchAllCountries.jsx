@@ -16,12 +16,12 @@ const useFetchAllCountries = () => {
         queryKey: ['fetchAllCountries'],
         queryFn: () => fetchAllCountries().promise,
         staleTime: Infinity
-    })
+    });
 
-    const countries = query.data?.data?.results || []
-    const countryAbbreviations = query.data?.data?.results.map(({ code }) => code) || []
+    const countries = query.data?.data?.results || [];
+    const countryAbbreviations = query.data?.data?.results.map(({ code }) => code) || [];
 
     return { countries, countryAbbreviations, ...query };
-}
+};
 
 export default useFetchAllCountries;

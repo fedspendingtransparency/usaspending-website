@@ -92,7 +92,7 @@ export const addCountry = (country, countryAbbreviation) => {
             country: countryAbbreviation
         }
     });
-}
+};
 
 export const addDistrict = (district, category, type) => {
     const districtArray = district.split('-');

@@ -7,12 +7,12 @@ const spendingLevels = [
     { level: "awards", auditText: "Awards" },
     { level: "subawards", auditText: "Subawards" },
     { level: "transactions", auditText: "Transactions" }
-]
+];
 
 const combine = (results) => ({
     data: results.map((result) => result?.data?.data?.calculated_count || 0),
     downloadInFlight: results.some((result) => result.isLoading)
-})
+});
 
 const useRequestDownloadCount = (filters, hash, areAppliedFiltersEmpty, spendingLevel) => {
     const operation = new SearchAwardsOperation();
@@ -60,7 +60,7 @@ const useRequestDownloadCount = (filters, hash, areAppliedFiltersEmpty, spending
         ) {
             return true;
         }
-    }
+    };
 
     return {
         awardsCount,
@@ -68,7 +68,7 @@ const useRequestDownloadCount = (filters, hash, areAppliedFiltersEmpty, spending
         transactionsCount,
         downloadInFlight,
         downloadAvailable: downloadAvailable()
-    }
-}
+    };
+};
 
 export default useRequestDownloadCount;

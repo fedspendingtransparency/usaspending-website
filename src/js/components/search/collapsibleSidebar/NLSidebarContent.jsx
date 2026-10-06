@@ -3,7 +3,7 @@
  * Created by Nick Torres 8/28/2026
  */
 
-/* eslint-disable max-len */
+ 
 import React, {useMemo} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
@@ -71,7 +71,7 @@ const NLSidebarContent = ({
 
     const handleNewNLSearch = () => {
         dispatch(setIsSearchActive(false));
-    }
+    };
 
     const handleNLSearch = isSearchActive ? handleNewNLSearch : handleStartNLSearch;
 
@@ -80,7 +80,7 @@ const NLSidebarContent = ({
         if (cancelQuery) {
             cancelQuery();
         }
-    }
+    };
 
     const handleInput = (event) => {
         setText(sanitizeNLInput(event.target.value).slice(0, MAX_CHARS));

@@ -50,7 +50,7 @@ const overviewData = [
 
 const SpendingByRecipientContainer = () => {
     const [inFlight, setInFlight] = useState(true);
-    const [activeTab, setActiveTab] = useState()
+    const [activeTab, setActiveTab] = useState();
     const { defcParams } = useSelector((state) => state.covid19);
     const awardFilterButtonsRef = useRef(null);
 

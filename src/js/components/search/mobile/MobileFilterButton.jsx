@@ -51,7 +51,7 @@ const MobileFilterButton = ({
                 }
                 onKeyUp={(e) => {
                     if (e.key === "Escape" && showMobileFilters) {
-                        setMobileSidebarContent("filters")
+                        setMobileSidebarContent("filters");
                         if(!showMobileFilters){
                             toggleMobileFilters();
                         }

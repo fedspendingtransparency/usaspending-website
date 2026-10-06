@@ -78,7 +78,7 @@ export const fetchNAICS = (req) => apiRequest({
 });
 
 // perform search is a cancellable promise
-// eslint-disable-next-line import/prefer-default-export
+ 
 export const naicsRequest = (param) => apiRequest({
     url: `v2/references/naics/${param || ''}`
 });
@@ -186,7 +186,7 @@ export const fetchLastUpdate = () => apiRequest({
     url: 'v2/awards/last_updated/'
 });
 
-// eslint-disable-next-line max-len
+ 
 const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { exclude: exclude2, require: require2 }) => {
     if (!isEqual(sortBy(require1), sortBy(require2))) return false;
     if (!isEqual(sortBy(exclude1), sortBy(exclude2))) return false;
@@ -194,13 +194,13 @@ const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { 
 };
 
 const valuesAreEqual = (a, b) => {
-    
     if(Iterable.isIterable(a) || Iterable.isIterable(b)) {
         return immutableIs(a, b);
     }
 
     return isEqual(a, b);
-}
+};
+
 /**
  * Equality Comparison of two objects:
  * @param {Object} filters object to be measured for equality
@@ -468,7 +468,7 @@ export const parseRemoteFilters = (data) => {
 
     // filter type check/null check
     if (!newFilters || typeof newFilters !== 'object') {
-        console.info("bad filters")
+        console.info("bad filters");
         return null;
     }
 
@@ -489,7 +489,7 @@ export const parseRemoteFilters = (data) => {
     if (!storeStructuresAreEqual(reduxValues, initialState)) {
         // Redux structure and URL hash data mis match
         // return null and send user to error page.
-        console.info("store structure mis match.")
+        console.info("store structure mis match.");
         return null;
     }
 

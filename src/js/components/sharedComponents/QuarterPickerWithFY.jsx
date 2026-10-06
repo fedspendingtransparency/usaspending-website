@@ -72,7 +72,7 @@ const QuarterPickerWithFY = ({
 
             return periods.filter((period) => !allAvailablePeriodsInFy.includes(period));
         }
-    }, [selectedFy, allPeriods])
+    }, [selectedFy, allPeriods]);
 
     const defaultFy = useMemo( () => latestFy || currentFiscalYear(), [latestFy]);
 
@@ -130,7 +130,7 @@ const QuarterPickerWithFY = ({
                 disabledPeriods={disabledPeriodsInFy}
                 handleSelection={handleQuarterPickerSelection} />
         </div>
-    )
+    );
 };
 
 QuarterPickerWithFY.propTypes = propTypes;

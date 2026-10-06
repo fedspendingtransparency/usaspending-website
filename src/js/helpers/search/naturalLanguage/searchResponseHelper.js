@@ -73,4 +73,4 @@ export const buildResponseState = (data = []) => {
         }
     });    
     return state;
-}
+};

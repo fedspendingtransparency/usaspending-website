@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QAT } from "GlobalConstants";
-import { setSidebarContent } from '../../../redux/actions/sidebar/sidebarActions'
+import { setSidebarContent } from '../../../redux/actions/sidebar/sidebarActions';
 import { NATURAL_LANGUAGE, FILTERS } from './SidebarConstants';
 import NLBadge from "../NLBadge";
 
@@ -24,7 +24,7 @@ const propTypes = {
     isActiveNlSearch: PropTypes.bool
 };
 
-/* eslint-disable max-len */
+ 
 const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isMedium, isActiveNlSearch }) => {
     const dispatch = useDispatch();
 

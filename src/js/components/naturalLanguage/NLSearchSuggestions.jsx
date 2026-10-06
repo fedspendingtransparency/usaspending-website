@@ -29,7 +29,7 @@ const NLSearchSuggestions = () => {
             label: 'search suggestions'
         });
         navigate("/training-videos");
-    }
+    };
 
     const onSlideChange = (d) => {
         const currentIndex = d.realIndex;

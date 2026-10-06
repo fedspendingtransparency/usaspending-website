@@ -135,7 +135,7 @@ const ExplorerSidebar = ({
 
         </div>
     );
-}
+};
 
 ExplorerSidebar.propTypes = propTypes;
 export default ExplorerSidebar;

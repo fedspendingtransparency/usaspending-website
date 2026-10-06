@@ -73,7 +73,7 @@ const Quarters = ({
         );
     }
 
-    const disabled = disabledQuarters.includes(quarterNumberAsString)
+    const disabled = disabledQuarters.includes(quarterNumberAsString);
     const active = isCumulative ?
         isIdOrGreaterInArray(quarterNumberAsString, selectedQuarters) :
         selectedQuarters.includes(quarterNumberAsString);

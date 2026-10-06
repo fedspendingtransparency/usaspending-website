@@ -29,7 +29,7 @@ const NLSearchButton = ({
     const onClick = () => {
         startNLSearch();
         fireSearchEvent();
-    }
+    };
 
     return (
         <button className={`natural-language-submit ${classname}`} onClick={onClick} disabled={loadingState}>

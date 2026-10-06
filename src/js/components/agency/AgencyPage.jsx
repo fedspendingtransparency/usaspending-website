@@ -93,7 +93,7 @@ export const AgencyProfileV2 = ({
         }
     ];
 
-    const jumpToSection = useJumpToSection("#agency-v2-", sections, isStatusOfFundsChartLoaded)
+    const jumpToSection = useJumpToSection("#agency-v2-", sections, isStatusOfFundsChartLoaded);
 
     return (
         <PageWrapper

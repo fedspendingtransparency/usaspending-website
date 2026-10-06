@@ -34,7 +34,7 @@ const isRealUrl = (rawURL) => {
         parsed = new URL(stripped);
     }
     catch {
-        return null
+        return null;
         
     }
 
@@ -46,7 +46,7 @@ const isBaseURL = (val) => {
     if (!isRealUrl(val)) return false;
 
     return val.startsWith('https://www.usaspending.gov/');
-}
+};
 
 export const sanitizeUrl = (rawURL, blockRedirect = true) => {
     let parsed = isRealUrl(rawURL);
@@ -73,8 +73,7 @@ export const sanitizeUrl = (rawURL, blockRedirect = true) => {
     }
 
     return encodeURI(parsed.toString());
-}
-
+};
 
 export const sanitizeMailUrl = (rawURL) => {
     let cleanMailto = rawURL;
@@ -92,9 +91,9 @@ export const sanitizeMailUrl = (rawURL) => {
 
         if (params.toString() && params.toString() !== '' ) {
             // add wanted params back
-            cleanMailto = `${prefix}?${params.toString().replace(/\+/g, '%20')}`
+            cleanMailto = `${prefix}?${params.toString().replace(/\+/g, '%20')}`;
         }
     }
 
     return cleanMailto;
-}
+};

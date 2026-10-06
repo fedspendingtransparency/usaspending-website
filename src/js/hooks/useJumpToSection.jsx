@@ -47,7 +47,7 @@ const useJumpToSection = (
     }, [history, query]);
 
     useEffect(() => {
-        if (!loading && query.section) jumpToSection(query.section)
+        if (!loading && query.section) jumpToSection(query.section);
     }, [loading, query.section, jumpToSection]);
 
     return jumpToSection;

@@ -56,11 +56,11 @@ const AwardTypeCell = ({
 
     const ref = useCallbackRef((entry) => {
         try {
-            setSvgWidth(entry.target.getBBox().width)
+            setSvgWidth(entry.target.getBBox().width);
         }
         catch (e) {
             // Firefox can't compute bbox
-            if (QAT) console.log({ e })
+            if (QAT) console.log({ e });
         }
     });
 

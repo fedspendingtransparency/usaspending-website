@@ -9,7 +9,7 @@ import { sortBy } from 'lodash-es';
 import DetailHeader from './header/DetailHeader';
 
 const randomPercents = [Math.random(), Math.random()];
-const total = Math.random() * 10000000
+const total = Math.random() * 10000000;
 
 const FakeScreen = () => {
     const remaining = 1 - (randomPercents[0] + randomPercents[1]);

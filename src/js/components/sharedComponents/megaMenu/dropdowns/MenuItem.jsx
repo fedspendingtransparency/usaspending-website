@@ -7,7 +7,7 @@ const propTypes = {
     children: PropTypes.string,
     index: PropTypes.string,
     onMouseEnter: PropTypes.string
-}
+};
 
 const MenuItem = ({
     title,

@@ -1,4 +1,4 @@
-/* eslint-disable max-len */
+ 
 import React, { memo } from "react";
 import { FlexGridRow } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,7 +16,7 @@ const propTypes = {
     prevIndex: PropTypes.number,
     closeDropdown: PropTypes.func,
     direction: PropTypes.string
-}
+};
 
 // eslint-disable-next-line prefer-arrow-callback
 const MenuDropdown = memo(function MenuDropdown({
@@ -53,7 +53,7 @@ const MenuDropdown = memo(function MenuDropdown({
             const section2Icon = section.section2Options[i]?.icon;
             const section3Icon = section.section3Options[i]?.icon;
 
-            // eslint-disable-next-line consistent-return
+             
             return (
                 <FadeContents hide={menuIndex !== i} direction={direction} key={section1Title}>
                     {/* the contents of the dropdown should be hidden if the content doesn't match to the prev or current menu item */}

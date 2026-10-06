@@ -18,7 +18,7 @@ const propTypes = {
     setFilters: PropTypes.func,
     results: PropTypes.array,
     setResults: PropTypes.func
-}
+};
 
 // eslint-disable-next-line prefer-arrow-callback
 const AwardDataArchiveContainer = memo(function AwardDataArchiveContainer(

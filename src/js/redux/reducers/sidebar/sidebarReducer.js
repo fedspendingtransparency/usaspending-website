@@ -3,7 +3,7 @@
  * Created by Trey Morgan 8/12/2026
  */
 
-import * as sidebarActions from '../../actions/sidebar/sidebarActions'
+import * as sidebarActions from '../../actions/sidebar/sidebarActions';
 
 export const initialState = {
     sidebarContent: 'filters',

@@ -12,7 +12,7 @@ const propTypes = {
     displayTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     ref: PropTypes.object
-}
+};
 
 const DefaultText = ({
     text,

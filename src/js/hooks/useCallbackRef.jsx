@@ -14,9 +14,9 @@ const useCallbackRef = (func) => {
 
         observer.observe(node);
 
-        return () => observer.disconnect()
+        return () => observer.disconnect();
     }, [func]);
-}
+};
 
 export default useCallbackRef;
 

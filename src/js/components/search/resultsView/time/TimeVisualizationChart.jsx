@@ -76,7 +76,7 @@ const CustomYTick = ({ x, y, payload }) => (
             {formatMoneyWithUnitsShortLabel(payload.value)}
         </text>
     </g>
-)
+);
 
 const CustomTooltip = (args) => {
     const { active, payload, label, onMouseLeave } = args;

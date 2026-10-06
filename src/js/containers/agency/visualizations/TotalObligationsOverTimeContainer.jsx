@@ -61,7 +61,7 @@ const TotalObligationsOverTimeContainer = ({
         if (isError) setLoading(false);
     }, [isError]);
 
-    const ref = useCallbackRef(throttle((entry) => setVisualizationWidth(entry.contentRect.width), 50))
+    const ref = useCallbackRef(throttle((entry) => setVisualizationWidth(entry.contentRect.width), 50));
 
     return (
         <div ref={ref} className="total-obligations-over-time-visualization-container">

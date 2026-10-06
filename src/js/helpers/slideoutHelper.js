@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+ 
 
 import storeSingleton from 'redux/storeSingleton';
 import * as slideoutActions from '../redux/actions/slideouts/slideoutActions';
@@ -23,7 +23,7 @@ const closeLastOpenedSlideOut = (type) => {
     return true;
 };
 
-// eslint-disable-next-line import/prefer-default-export
+ 
 export const showSlideout = (type, options = {}) => {
     // options { 'clear', 'term', 'url', 'open' } any or all can be null
     const { lastOpenedSlideout } = storeSingleton.store.getState().slideouts;
@@ -76,7 +76,7 @@ export const showSlideout = (type, options = {}) => {
 const slideoutsLookup = {
     glossary: () => glossaryActions.hideGlossary(),
     atd: () => aboutTheDataActions.hideAboutTheData()
-}
+};
 
 /**
  * 
@@ -91,8 +91,4 @@ export const closeOtherSlideouts = (currentType = '') => {
         }
     });
     storeSingleton.store.dispatch(slideoutActions.setLastOpenedSlideout(currentType));
-}
-
-
-
-
+};

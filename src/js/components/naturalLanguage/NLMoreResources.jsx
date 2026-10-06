@@ -39,6 +39,7 @@ const NLMoreResources = () => {
                 }
             </FlexGridRow>
         </section>
-    )};
+    );
+};
 
 export default NLMoreResources;

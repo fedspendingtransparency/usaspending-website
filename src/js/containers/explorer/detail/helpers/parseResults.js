@@ -35,7 +35,7 @@ const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
             resultsArray,
             ['Obligated Amount unformatted'],
             [sort.direction]
-        )
+        );
     }  
     return orderBy(
         resultsArray,

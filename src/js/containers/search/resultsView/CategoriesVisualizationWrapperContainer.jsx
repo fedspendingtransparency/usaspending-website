@@ -147,7 +147,7 @@ const CategoriesVisualizationWrapperContainer = ({
         recipientError = (
             get(error, 'response.data.detail', '') ===
             'Current filters return too many unique items. Narrow filters to return results.'
-        )
+        );
     }
 
     const childProps = {

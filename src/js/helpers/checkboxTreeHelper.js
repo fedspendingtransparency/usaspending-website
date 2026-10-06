@@ -782,7 +782,7 @@ export const trimCheckedToCommonAncestors = (arrayOfAncestryPaths) => {
             }
             return leanArrayOfAncestryPaths.concat([ancestryPath]);
         }, []);
-}
+};
 
 export const setNodes = (key, nodes, treeName, cleanNodesFn) => ({
     type: `SET_${treeName}_NODES`,

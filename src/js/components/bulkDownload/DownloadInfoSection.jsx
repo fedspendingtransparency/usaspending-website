@@ -59,7 +59,7 @@ const DownloadInfoSection = ({
                     </p>
                 </div>
             </>
-        )
+        );
     }
     return (
         <>
@@ -91,7 +91,7 @@ const DownloadInfoSection = ({
             </div>
         </>
     );
-}
+};
 
 
 DownloadInfoSection.propTypes = propTypes;

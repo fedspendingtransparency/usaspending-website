@@ -22,7 +22,7 @@ const propTypes = {
     videos: PropTypes.array
 };
 
-// eslint-disable-next-line max-len
+ 
 const body = "Learn how to use USAspending.gov and understand the data. Subscribe to our YouTube for the latest videos!";
 
 const getEmailSocialShareData = {
@@ -69,7 +69,7 @@ const TrainingVideosPage = ({ featuredVideo, videos }) => {
             </main>
         </PageWrapper>
     );
-}
+};
 
 TrainingVideosPage.propTypes = propTypes;
 export default TrainingVideosPage;

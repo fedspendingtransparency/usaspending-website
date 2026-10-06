@@ -33,7 +33,7 @@ const getCountryOption = (v) => {
         case 'FOREIGN': return { code: countryOptions[2].value, name: countryOptions[2].text };
         default: return { code: countryOptions[0].value, name: countryOptions[0].text };
     }
-}
+};
 
 const { locationTypes } = awardDownloadOptions;
 
@@ -68,7 +68,7 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
                 case 'all':return [{ code: 'all', name: 'All' }];
                 default: return states.filter(({ code }) => code === e.target.value);
             }
-        }
+        };
 
         const updatedLocation = Object.assign({}, location, {
             state: getState(e.target.value)[0]

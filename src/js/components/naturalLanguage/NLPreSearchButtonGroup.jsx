@@ -21,7 +21,7 @@ const NLPreSearchButtonGroup = () => {
         // eslint-disable-next-line react-hooks/purity
         const index = Math.floor(Math.random() * options.length);
         return options[index];
-    }
+    };
 
     const getQuestions = useMemo(() => preSearchOptions.map((type) => getRandomOption(type)), []);
 
@@ -43,7 +43,7 @@ const NLPreSearchButtonGroup = () => {
                 }
                 tempHash = null;
             });
-    }
+    };
 
     return (
         <div className="landing-pre-search__section">
@@ -61,7 +61,7 @@ const NLPreSearchButtonGroup = () => {
                             onClick={() => btn.action(fireSearchEvent)}
                             onKeyUp={(e) => {
                                 if (e.key === 'Enter'){
-                                    btn.action(fireSearchEvent)
+                                    btn.action(fireSearchEvent);
                                 } 
                             }}>
                             <div className="pre-search-icon">
@@ -74,6 +74,7 @@ const NLPreSearchButtonGroup = () => {
                 ))}
             </FlexGridRow>
         </div>
-    )};
+    );
+};
 
 export default NLPreSearchButtonGroup;

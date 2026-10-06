@@ -14,7 +14,7 @@ const AwardTypeToggle = ({ updateFilter, filters }) => {
             name: target.value,
             display: target.name
         });
-    }
+    };
 
     return (
         <div className="award-type__container">
