@@ -183,7 +183,6 @@ export default class ResultsTableContainer extends React.Component {
 
         const requestFields = map(availableColumns(this.state.tableType), (data) => data.title);
         const tableType = this.state.tableType;
-        console.log(tableType);
 
         const params = {
             filters: {
