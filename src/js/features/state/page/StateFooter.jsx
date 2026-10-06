@@ -19,7 +19,7 @@ const StateFooter = () => (
             <Link
                 className="state-search-button"
                 to="/search">
-                        Let&#39;s go!
+                Let&#39;s go!
             </Link>
         </div>
     </div>

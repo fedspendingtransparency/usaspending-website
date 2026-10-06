@@ -16,19 +16,19 @@ const AwardData = (props) => {
                 <>
                     <p>
                         <span className="glossary-term">
-                        File C (Account Breakdown by Award)
+                            File C (Account Breakdown by Award)
                         </span>{" "}
                         <GlossaryLink term="account-breakdown-by-award-file-c" />{" "}
-                    is part of the package of data submitted to USAspending by federal
-                    agencies, as required by the DATA Act. It contains obligation and
-                    outlay data for all awards issued by a reporting agency, covering both
-                    contract and financial assistance awards over the lifetime of those
-                    awards.
+                        is part of the package of data submitted to USAspending by federal
+                        agencies, as required by the DATA Act. It contains obligation and
+                        outlay data for all awards issued by a reporting agency, covering both
+                        contract and financial assistance awards over the lifetime of those
+                        awards.
                     </p>
                     <p>
-                    File C is a further breakdown of File B, showing award spending broken down by Treasury Account,{" "}
+                        File C is a further breakdown of File B, showing award spending broken down by Treasury Account,{" "}
                         <span className="glossary-term">
-                        Program Activity
+                            Program Activity
                         </span>{" "}
                         <GlossaryLink term="program-activity" />,{" "}
                         <span className="glossary-term">Object Class</span>{" "}
@@ -37,7 +37,7 @@ const AwardData = (props) => {
                         <GlossaryLink term="disaster-emergency-fund-code-defc" /> (DEFC, which is used to track spending from supplemental appropriation bills addressing topics such as COVID-19 relief and infrastructure investment).
                     </p>
                     <p>
-                    Note that File C represents only the financial aspect of awards (e.g., Treasury Account, Program Activity, and Object Class information), whereas Files D1 and D2 provide both financial information and other non-financial details (e.g., recipient name, recipient location, and place of performance).
+                        Note that File C represents only the financial aspect of awards (e.g., Treasury Account, Program Activity, and Object Class information), whereas Files D1 and D2 provide both financial information and other non-financial details (e.g., recipient name, recipient location, and place of performance).
                     </p>
                 </>
             )
@@ -61,13 +61,13 @@ const AwardData = (props) => {
                         <span className="glossary-term">contracts</span>{" "}
                         <GlossaryLink term="contract" /> and contract{" "}
                         <span className="glossary-term">
-                        indefinite delivery vehicles (IDV)
+                            indefinite delivery vehicles (IDV)
                         </span>{" "}
                         <GlossaryLink term="indefinite-delivery-vehicle-idv" />.{" "}
                         It contains information about award
                         transaction obligation,{" "}
                         <span className="glossary-term">
-                        award transaction description
+                            award transaction description
                         </span>{" "}
                         <GlossaryLink term="transaction-description" />,{" "}
                         <span className="glossary-term">action date</span>{" "}
@@ -75,7 +75,7 @@ const AwardData = (props) => {
                         <span className="glossary-term">awarding agency</span>{" "}
                         <GlossaryLink term="awarding-agency" />,{" "}
                         <span className="glossary-term">
-                        recipient code
+                            recipient code
                         </span>{" "}
                         <GlossaryLink term="unique-entity-identifier-uei" />,{" "}
                         <span className="glossary-term">recipient location</span>{" "}
@@ -110,7 +110,7 @@ const AwardData = (props) => {
                         <GlossaryLink term="financial-assistance" /> awards to USAspending.gov. It contains information
                         about award transaction obligation,{" "}
                         <span className="glossary-term">
-                        award transaction description
+                            award transaction description
                         </span>{" "}
                         <GlossaryLink term="transaction-description" />,{" "}
                         <span className="glossary-term">action date</span>{" "}
@@ -118,7 +118,7 @@ const AwardData = (props) => {
                         <span className="glossary-term">awarding agency</span>{" "}
                         <GlossaryLink term="awarding-agency" />,{" "}
                         <span className="glossary-term">
-                        recipient code
+                            recipient code
                         </span>{" "}
                         <GlossaryLink term="unique-entity-identifier-uei" />,{" "}
                         <span className="glossary-term">recipient location</span>{" "}
@@ -143,14 +143,14 @@ const AwardData = (props) => {
             content: (
                 <>
                     <p>
-                    While File C provides data over the lifetime of individual awards
-                    from agency financial systems, Files D1 and D2 provide data from award{" "}
+                        While File C provides data over the lifetime of individual awards
+                        from agency financial systems, Files D1 and D2 provide data from award{" "}
                         <span className="glossary-term">transactions</span>{" "}
                         <GlossaryLink term="transaction" /> in governmentwide award systems.
-                    USAspending.gov links these two sources of award data. However, due to
-                    different policies and reporting requirements for these separate
-                    systems, not all award data can be linked across both sources.
-                    Awards can only be linked through a shared{" "}
+                        USAspending.gov links these two sources of award data. However, due to
+                        different policies and reporting requirements for these separate
+                        systems, not all award data can be linked across both sources.
+                        Awards can only be linked through a shared{" "}
                         <span className="glossary-term">award ID</span>{" "}
                         <GlossaryLink term="award-id" />.
                     </p>
@@ -161,8 +161,8 @@ const AwardData = (props) => {
                         Account that funded the award.
                     </p>
                     <p>
-                    You can see statistics about unlinked contract awards and unlinked
-                    assistance awards in the{" "}
+                        You can see statistics about unlinked contract awards and unlinked
+                        assistance awards in the{" "}
                         <Link
                             className="scroller-overlay-card__link"
                             to="/submission-statistics"
@@ -202,7 +202,7 @@ const AwardData = (props) => {
                         . USAspending.gov uses SAM.gov as the source
                         of authoritative{" "}
                         <span className="glossary-term">
-                        recipient name
+                            recipient name
                         </span>{" "}
                         <GlossaryLink term="recipient-name" />,{" "}
                         <span className="glossary-term">code</span>{" "}

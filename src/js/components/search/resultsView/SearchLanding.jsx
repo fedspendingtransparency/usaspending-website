@@ -31,7 +31,7 @@ const SearchLanding = () => {
                 <>
                     <h3 className="landing-title">Start your USAspending search</h3>
                     <p className="landing-subTitle">
-                            View popular data searches, frequently asked questions, & timely government spending topics.
+                        View popular data searches, frequently asked questions, & timely government spending topics.
                     </p>
                     <NLPreSearchButtonGroup />
                     <NLSearchSuggestions />
@@ -43,7 +43,7 @@ const SearchLanding = () => {
                     <NLMoreResources />
                 </>}
         </div>
-    )
+    );
 };
 
 export default SearchLanding;

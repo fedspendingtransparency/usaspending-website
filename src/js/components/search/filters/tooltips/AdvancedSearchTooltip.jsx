@@ -99,7 +99,7 @@ export const CDTooltip = () => (
                 Note that some district boundaries have changed over time.
             </p>
             <p>
-            Additional information can be found in the “Congressional District Data” section of the <strong>About the Data</strong> module under <strong>Find Resources</strong>.
+                Additional information can be found in the “Congressional District Data” section of the <strong>About the Data</strong> module under <strong>Find Resources</strong>.
             </p>
         </div>
     </div>

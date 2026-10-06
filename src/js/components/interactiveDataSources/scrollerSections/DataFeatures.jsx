@@ -50,8 +50,8 @@ const DataFeatures = (props) => {
                             content={
                                 <>
                                     <p>
-                                If you are looking for account data, you can use the following
-                                features:
+                                        If you are looking for account data, you can use the following
+                                        features:
                                     </p>
                                     <ul className="interactives-guide_bullet-points">
                                         <li>
@@ -60,10 +60,10 @@ const DataFeatures = (props) => {
                                                 to="/explorer"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        Spending Explorer
+                                                Spending Explorer
                                             </Link>{" "}
-                                        lets you drill down from larger budget categories to smaller
-                                        ones
+                                            lets you drill down from larger budget categories to smaller
+                                            ones
                                         </li>
                                         <li>
                                             <Link
@@ -71,10 +71,10 @@ const DataFeatures = (props) => {
                                                 to="/agency"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        Agency Profiles
+                                                Agency Profiles
                                             </Link>{" "}
-                                        show you account spending (and award spending) summaries for
-                                        specific <span className="glossary-term">agencies</span>{" "}
+                                            show you account spending (and award spending) summaries for
+                                            specific <span className="glossary-term">agencies</span>{" "}
                                             <GlossaryLink term="agency" /> and{" "}
                                             <span className="glossary-term">fiscal years</span>{" "}
                                             <GlossaryLink term="fiscal-year-fy" />
@@ -85,13 +85,13 @@ const DataFeatures = (props) => {
                                                 to="/federal_account"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        Federal Account Profiles
+                                                Federal Account Profiles
                                             </Link>{" "}
-                                        show you account spending (and award spending) summaries for
-                                        specific{" "}
+                                            show you account spending (and award spending) summaries for
+                                            specific{" "}
                                             <span className="glossary-term">federal accounts</span>{" "}
                                             <GlossaryLink term="federal-account" /> in the current
-                                        fiscal year
+                                            fiscal year
                                         </li>
                                     </ul>
                                 </>
@@ -110,21 +110,21 @@ const DataFeatures = (props) => {
                             content={
                                 <>
                                     <p>
-                                    If you are looking for award data (both{" "}
+                                        If you are looking for award data (both{" "}
                                         <span className="glossary-term">prime award</span>{" "}
                                         <GlossaryLink term="prime-award" /> and{" "}
                                         <span className="glossary-term">subaward</span>{" "}
                                         <GlossaryLink term="sub-award" />
-                                    ), you should go directly to{" "}
+                                        ), you should go directly to{" "}
                                         <Link
                                             className="scroller-overlay-card__link"
                                             to="/search"
                                             target="_blank"
                                             rel="noopener noreferrer">
-                                        Advanced Search
+                                            Advanced Search
                                         </Link>
-                                    . This feature has many filters to help narrow your search,
-                                    such as by:
+                                        . This feature has many filters to help narrow your search,
+                                        such as by:
                                     </p>
                                     <ul className="interactives-guide_bullet-points">
                                         <li>
@@ -151,7 +151,7 @@ const DataFeatures = (props) => {
                                         </li>
                                         <li>
                                             <span className="glossary-term">
-                                        Assistance Listing (CFDA Program)
+                                                Assistance Listing (CFDA Program)
                                             </span>{" "}
                                             <GlossaryLink term="assistance-listings-cfda-program" />
                                         </li>
@@ -176,20 +176,20 @@ const DataFeatures = (props) => {
                             content={
                                 <>
                                     <p>
-                                    The{" "}
+                                        The{" "}
                                         <span className="glossary-term">
-                                        Disaster Emergency Fund Code (DEFC)
+                                            Disaster Emergency Fund Code (DEFC)
                                         </span>{" "}
                                         <GlossaryLink term="disaster-emergency-fund-code-defc" /> data
-                                    element tracks spending from supplemental appropriation bills
-                                    addressing topics such as COVID-19 relief and infrastructure
-                                    investment. These data elements are found in{" "}
+                                        element tracks spending from supplemental appropriation bills
+                                        addressing topics such as COVID-19 relief and infrastructure
+                                        investment. These data elements are found in{" "}
                                         <span className="glossary-term">File B</span>{" "}
                                         <GlossaryLink term="account-breakdown-by-program-activity-object-class-file-b" />{" "}
-                                    and <span className="glossary-term">File C</span>{" "}
+                                        and <span className="glossary-term">File C</span>{" "}
                                         <GlossaryLink term="account-breakdown-by-award-file-c" />{" "}
-                                    (i.e., in submissions from agency financial systems). You can find DEFC spending data in
-                                    the following features:
+                                        (i.e., in submissions from agency financial systems). You can find DEFC spending data in
+                                        the following features:
                                     </p>
                                     <ul className="interactives-guide_bullet-points">
                                         <li>
@@ -198,17 +198,17 @@ const DataFeatures = (props) => {
                                                 to="/disaster/covid-19"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        COVID-19 Spending Profile
+                                                COVID-19 Spending Profile
                                             </Link>{" "}
-                                        (with more information available in the{" "}
+                                            (with more information available in the{" "}
                                             <Link
                                                 className="scroller-overlay-card__link"
                                                 to="/disaster/covid-19/data-sources"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        Data Sources and Methodology page
+                                                Data Sources and Methodology page
                                             </Link>
-                                        )
+                                            )
                                         </li>
                                         <li>
                                             <Link
@@ -216,9 +216,9 @@ const DataFeatures = (props) => {
                                                 to="/search"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        Advanced Search
+                                                Advanced Search
                                             </Link>{" "}
-                                        (using the DEFC filter)
+                                            (using the DEFC filter)
                                         </li>
                                         <li>
                                             <Link
@@ -226,9 +226,9 @@ const DataFeatures = (props) => {
                                                 to="/download_center/custom_account_data"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        Custom Account Data Download
+                                                Custom Account Data Download
                                             </Link>{" "}
-                                        (using the DEFC filter)
+                                            (using the DEFC filter)
                                         </li>
                                     </ul>
                                 </>
@@ -250,87 +250,87 @@ const DataFeatures = (props) => {
                             content={
                                 <>
                                     <p>
-                                If you just want to access the data for your own purposes, you can
-                                use our various download and API features:
+                                        If you just want to access the data for your own purposes, you can
+                                        use our various download and API features:
                                     </p>
                                     <ul className="interactives-guide_bullet-points">
                                         <li>
-                                        Award data can be accessed as pre-generated files in the{" "}
+                                            Award data can be accessed as pre-generated files in the{" "}
                                             <Link
                                                 className="scroller-overlay-card__link"
                                                 to="/download_center/award_data_archive"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        Award Data Archive
+                                                Award Data Archive
                                             </Link>{" "}
-                                        , or as customized downloads in the{" "}
+                                            , or as customized downloads in the{" "}
                                             <Link
                                                 className="scroller-overlay-card__link"
                                                 to="download_center/custom_award_data"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        Custom Award Data Download
+                                                Custom Award Data Download
                                             </Link>
                                         </li>
                                         <li>
-                                        Account data can be accessed as customized downloads in the{" "}
+                                            Account data can be accessed as customized downloads in the{" "}
                                             <Link
                                                 className="scroller-overlay-card__link"
                                                 to="/download_center/custom_account_data"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        Custom Account Data Download
+                                                Custom Account Data Download
                                             </Link>
                                         </li>
                                         <li>
-                                        The USAspending database can be accessed in the{" "}
+                                            The USAspending database can be accessed in the{" "}
                                             <a
                                                 className="scroller-overlay-card__link"
                                                 href="https://files.usaspending.gov/database_download/"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        Database Download
+                                                Database Download
                                             </a>
                                         </li>
                                         <li>
-                                        Results from{" "}
+                                            Results from{" "}
                                             <Link
                                                 className="scroller-overlay-card__link"
                                                 to="/search"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                            Advanced Search
+                                                Advanced Search
                                             </Link>{" "}
-                                        can be downloaded from the top right of the page
+                                            can be downloaded from the top right of the page
                                         </li>
                                         <li>
-                                        Data from individual Award Summary Profile pages (accessed from the “Award ID”
-                                        column in{" "}
+                                            Data from individual Award Summary Profile pages (accessed from the “Award ID”
+                                            column in{" "}
                                             <Link
                                                 className="scroller-overlay-card__link"
                                                 to="/search"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                            Advanced Search
+                                                Advanced Search
                                             </Link>{" "}
-                                        results) can be downloaded from the top right of the page
+                                            results) can be downloaded from the top right of the page
                                         </li>
                                         <li>
-                                        The USAspending API documentation includes a list of{" "}
+                                            The USAspending API documentation includes a list of{" "}
                                             <a
                                                 className="scroller-overlay-card__link"
                                                 href="https://api.usaspending.gov/docs/endpoints"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        API Endpoints
+                                                API Endpoints
                                             </a>{" "}
-                                        as well as an{" "}
+                                            as well as an{" "}
                                             <a
                                                 className="scroller-overlay-card__link"
                                                 href="https://api.usaspending.gov/docs/intro-tutorial"
                                                 target="_blank"
                                                 rel="noopener noreferrer">
-                                        API Tutorial
+                                                API Tutorial
                                             </a>
                                         </li>
                                     </ul>

@@ -63,7 +63,7 @@ const StayInTouch = ({ pageName }) => {
                             <FontAwesomeIcon icon="paper-plane" />
                         </div>
                         <div className="stay-in-touch__title">
-                                Stay in touch
+                            Stay in touch
                         </div>
                     </FlexGridRow>
                 </FlexGridCol>

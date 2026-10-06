@@ -22,8 +22,8 @@ const BaseIdvActivityBar = {
         this._awardedAmount = data.awarded_amount || 0;
         this._obligatedAmount = data.obligated_amount || 0;
         this._startDate =
-        data.period_of_performance_start_date ?
-            parseDate(data.period_of_performance_start_date) : null;
+            data.period_of_performance_start_date ?
+                parseDate(data.period_of_performance_start_date) : null;
         this.piid = data.piid || '--';
         this.recipientName = data.recipient_name || '--';
         this.recipientId = data.recipient_id || '--';

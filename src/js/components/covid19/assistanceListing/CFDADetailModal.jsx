@@ -140,7 +140,7 @@ const CFDADetailModal = ({
                         <button
                             onClick={updateAdvancedSearchFilters}
                             value={data.code}>
-                                View in Advanced Search
+                            View in Advanced Search
                         </button>
                     </div>
                 </div>

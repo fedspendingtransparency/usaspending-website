@@ -37,7 +37,7 @@ const NewDownloadProgress = ({
         <div className="download-progress-screen">
             <div className="main-title">
                 <div className="details">
-                        This may take a little while &mdash; wait times vary based on site traffic and file size.
+                    This may take a little while &mdash; wait times vary based on site traffic and file size.
                 </div>
                 <div className="link-box">
                     <p>Action Required: Once your download is ready, the link below is required to access your file. Be sure to copy your link; this download link is temporary and will expire.</p>
@@ -53,7 +53,7 @@ const NewDownloadProgress = ({
                     </CopyToClipboard>
                 </div>
                 <div className="sub-details">
-                        To keep browsing, copy the download link and close this window; your download status will appear at the bottom of the screen.
+                    To keep browsing, copy the download link and close this window; your download status will appear at the bottom of the screen.
                 </div>
             </div>
         </div>

@@ -32,8 +32,7 @@ const propTypes = {
     mobileSidebarContent: PropTypes.string,
     sidebarIsOpen: PropTypes.bool,
     setSidebarIsOpen: PropTypes.func
-    
-}
+};
 
 // eslint-disable-next-line prefer-arrow-callback
 const SidebarWrapper = React.memo(function SidebarWrapper({
@@ -70,10 +69,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const closeSidebar = () => {
         if (isMedium) {
             setShowMobileFilters(false);
-        } else {
+        }
+        else {
             setSidebarIsOpen(false);
         }
-    }
+    };
 
     const keyHandler = (e, func) => {
         if (e.key === "Enter") {
@@ -92,7 +92,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             wasCancelled.current = false;
             refetch();
         }
-    }
+    };
 
     const request = useRef();
     const wasCancelled = useRef(false);
@@ -183,7 +183,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 <>
                     <div className="link">
                         <AboutTheDataLink slug="data-elements">
-                                Learn more about filters
+                            Learn more about filters
                         </AboutTheDataLink>
                     </div>
                     <SidebarContent />
@@ -223,7 +223,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 <>
                     <div className="link">
                         <AboutTheDataLink slug="data-elements">
-                                Learn more about filters
+                            Learn more about filters
                         </AboutTheDataLink>
                     </div>
                     <MobileSidebarContent 

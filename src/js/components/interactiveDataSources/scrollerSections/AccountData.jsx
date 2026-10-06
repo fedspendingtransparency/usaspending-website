@@ -14,13 +14,13 @@ const AccountData = (props) => {
             heading: <h4>GTAS</h4>,
             content: (
                 <p>
-                Agency budget execution information is submitted in a system called
-                the Governmentwide Treasury Account Symbol Adjusted Trial Balance
-                System (GTAS), and this information is used to generate authoritative{" "}
+                    Agency budget execution information is submitted in a system called
+                    the Governmentwide Treasury Account Symbol Adjusted Trial Balance
+                    System (GTAS), and this information is used to generate authoritative{" "}
                     <span className="glossary-term">Treasury Account</span>{" "}
                     <GlossaryLink term="treasury-account-symbol-tas" /> balances. USAspending.gov
-                extracts some data from GTAS for governmentwide spending figures and
-                other purposes.
+                    extracts some data from GTAS for governmentwide spending figures and
+                    other purposes.
                 </p>
             )
         },
@@ -36,7 +36,7 @@ const AccountData = (props) => {
                     File A contains{" "}
                     <span className="glossary-term">budgetary resources</span>{" "}
                     <GlossaryLink term="budgetary-resources" />, obligation, and outlay
-                data for all the relevant Treasury Accounts in a reporting agency. It includes both award and non-award spending (grouped together), and crosswalks with the SF 133 report.
+                    data for all the relevant Treasury Accounts in a reporting agency. It includes both award and non-award spending (grouped together), and crosswalks with the SF 133 report.
                 </p>
             )
         },

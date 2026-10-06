@@ -62,8 +62,8 @@ const DataSubmissionExtraction = (props) => {
                             overline={overline}
                             content={
                                 <p>
-                                Data from government systems flow into USAspending.gov in one of two
-                                ways: they are either submitted directly or extracted.
+                                    Data from government systems flow into USAspending.gov in one of two
+                                    ways: they are either submitted directly or extracted.
                                 </p>
                             } />
                     </div>
@@ -89,10 +89,10 @@ const DataSubmissionExtraction = (props) => {
                             heading={<h4>Data Submitted</h4>}
                             content={
                                 <p>
-                                Files A, B, and C, as well as FABS data, are all sent directly
-                                from federal agencies to USAspending.gov. For more information about
-                                what is included in these submissions, please consult the
-                                Reporting Submission Specification (RSS) spreadsheet in the{" "}
+                                    Files A, B, and C, as well as FABS data, are all sent directly
+                                    from federal agencies to USAspending.gov. For more information about
+                                    what is included in these submissions, please consult the
+                                    Reporting Submission Specification (RSS) spreadsheet in the{" "}
                                     <a
                                         className="scroller-overlay-card__link"
                                         href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html#fed"
@@ -100,7 +100,7 @@ const DataSubmissionExtraction = (props) => {
                                         rel="noopener noreferrer">
                                         Governmentwide Spending Data Model (GSDM)
                                     </a>{" "}
-                                page.
+                                    page.
                                 </p>
                             } />
                     </div>
@@ -127,11 +127,11 @@ const DataSubmissionExtraction = (props) => {
                             heading={<h4>Data Extracted</h4>}
                             content={
                                 <p>
-                                Data in Files D1, E, and F, as well as all reference data,
-                                are extracted by USAspending.gov from government sources. For more
-                                information about what is included in these extractions, please
-                                consult the Interface Definition Document (IDD) spreadsheet in
-                                the{" "}
+                                    Data in Files D1, E, and F, as well as all reference data,
+                                    are extracted by USAspending.gov from government sources. For more
+                                    information about what is included in these extractions, please
+                                    consult the Interface Definition Document (IDD) spreadsheet in
+                                    the{" "}
                                     <a
                                         className="scroller-overlay-card__link"
                                         href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html#fed"
@@ -139,7 +139,7 @@ const DataSubmissionExtraction = (props) => {
                                         rel="noopener noreferrer">
                                         Governmentwide Spending Data Model (GSDM)
                                     </a>{" "}
-                                page.
+                                    page.
                                 </p>} />
                     </div>
                 </ScrollerOverlay>

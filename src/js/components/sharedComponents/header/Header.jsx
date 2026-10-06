@@ -102,7 +102,7 @@ const Header = () => {
                 href="#main-content"
                 className="skip-nav"
                 onClick={skippedNav}>
-                    Skip to main content
+                Skip to main content
             </a>
             <header
                 className="site-header__wrapper"

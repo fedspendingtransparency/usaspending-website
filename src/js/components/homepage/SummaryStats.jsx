@@ -171,7 +171,7 @@ const SummaryStats = () => {
                                 onClick={trackExplorerLink}>
                                 <div className="summary-stats__spending-link-text">
                                     <div>See more breakdowns<br />
-                                    of federal spending
+                                        of federal spending
                                     </div>
                                 </div>
                                 <div

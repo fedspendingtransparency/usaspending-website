@@ -71,9 +71,9 @@ const DataTypes = (props) => {
                             overline={overline}
                             content={
                                 <p>
-                                Even though USAspending.gov has hundreds of data elements, you can
-                                think of them in three major categories: Account Data, Award
-                                Data, and Additional Data.
+                                    Even though USAspending.gov has hundreds of data elements, you can
+                                    think of them in three major categories: Account Data, Award
+                                    Data, and Additional Data.
                                 </p>
                             } />
                     </div>
@@ -100,12 +100,12 @@ const DataTypes = (props) => {
                             heading={<h4>Account Data</h4>}
                             content={
                                 <p>
-                                Account data contain information about an agency&#39;s overall
-                                spending authority, obligations and outlays, including the subset of
-                                spending on federal awards. Account data provide the “big
-                                picture” of an agency&#39;s total spending. USAspending.gov receives account
-                                data from most federal agencies and supplements the data with
-                                authoritative agency budget execution data.
+                                    Account data contain information about an agency&#39;s overall
+                                    spending authority, obligations and outlays, including the subset of
+                                    spending on federal awards. Account data provide the “big
+                                    picture” of an agency&#39;s total spending. USAspending.gov receives account
+                                    data from most federal agencies and supplements the data with
+                                    authoritative agency budget execution data.
                                 </p>
                             } />
                     </div>
@@ -132,12 +132,12 @@ const DataTypes = (props) => {
                             heading={<h4>Award Data</h4>}
                             content={
                                 <p>
-                                Award data contain rich details about individual federal awards,
-                                such as who received the award, when obligations were made,
-                                where the money went, and what the award&#39;s purpose is. Award
-                                spending is a subset of an agency&#39;s total spending.
-                                USAspending.gov receives award data from agency financial systems as
-                                well as governmentwide award systems.
+                                    Award data contain rich details about individual federal awards,
+                                    such as who received the award, when obligations were made,
+                                    where the money went, and what the award&#39;s purpose is. Award
+                                    spending is a subset of an agency&#39;s total spending.
+                                    USAspending.gov receives award data from agency financial systems as
+                                    well as governmentwide award systems.
                                 </p>
                             } />
                     </div>
@@ -165,9 +165,9 @@ const DataTypes = (props) => {
                             heading={<h4>Additional Data</h4>}
                             content={
                                 <p>
-                                USAspending.gov extracts reference data from government sources to
-                                ensure consistency and provide additional context to the account
-                                data and award data.
+                                    USAspending.gov extracts reference data from government sources to
+                                    ensure consistency and provide additional context to the account
+                                    data and award data.
                                 </p>
                             } />
                     </div>

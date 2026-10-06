@@ -14,13 +14,10 @@ import GlossaryLink from '../../sharedComponents/GlossaryLink';
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import { REQUEST_VERSION } from "../../../GlobalConstants";
 import Analytics from '../../../helpers/analytics/Analytics';
-
-/* eslint-disable */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Keyboard, A11y } from 'swiper/modules';
 import "swiper/css/bundle";
 import "swiper/css";
-/* eslint-enable */
 
 const AwardSearch = () => {
     const [isDesktopXL, setDesktopXL] = useState(window.innerWidth >= 1400);
@@ -47,7 +44,7 @@ const AwardSearch = () => {
             Use the
             <div className="award-search__glossary"> North American Industry Classification System (NAICS)</div>
             {<GlossaryLink term="naics" hidden={activeCardIndex !== 2} />}
-             filter to find spending by industry
+            filter to find spending by industry
         </div>
     );
     const psc = (
@@ -55,7 +52,7 @@ const AwardSearch = () => {
             From medical supplies to aircraft equipment, use
             <div className="award-search__glossary"> Product or Service Codes (PSCs)</div>
             {<GlossaryLink term="product-or-service-code-psc" hidden={activeCardIndex !== 3} />}
-             to see what&apos;s being purchased
+            to see what&apos;s being purchased
         </div>
     );
 
@@ -127,13 +124,14 @@ const AwardSearch = () => {
             .then((results) => {
                 const hashData = results.data;
                 if (rankType === "naics" || rankType === "psc") {
-                    // eslint-disable-next-line no-unused-expressions
+                     
                     window.open(`/search?hash=${encodeURIComponent(hashData.hash)}&section=${encodeURIComponent(section)}&type=${encodeURIComponent(rankType)}`, "_self");
-                } else if (section === "time") {
+                }
+                else if (section === "time") {
                     window.open(`/search?hash=${encodeURIComponent(hashData.hash)}&section=${encodeURIComponent(section)}&by=${encodeURIComponent("fiscal_year")}`, "_self");
                 }
                 else {
-                    // eslint-disable-next-line no-unused-expressions
+                     
                     window.open(`/search?hash=${encodeURIComponent(hashData.hash)}&section=${encodeURIComponent(section)}`, "_self");
                 }
                 // operation has resolved
@@ -173,12 +171,12 @@ const AwardSearch = () => {
 
         d.slides.forEach((slide, i) => {
             if (i === currentIndex) {
-                // eslint-disable-next-line no-param-reassign
+                 
                 slide.ariaHidden = false;
                 setActiveCardIndex(currentIndex);
             }
             else {
-                // eslint-disable-next-line no-param-reassign
+                 
                 slide.ariaHidden = true;
             }
         });

@@ -45,15 +45,15 @@ const DataValidation = (props) => {
                             heading={<h4>Data Broker Practices</h4>}
                             content={
                                 <p>
-                            The Data Broker is the system that collects and validates federal spending
-                            data from source systems before they are ultimately published on USAspending.gov.
-                            It receives data through two processes: one process is for FABS (i.e., transaction-level
-                            financial assistance data) and one process is for monthly compilations and quarterly
-                            certifications of Files A, B, C, D1, D2, E, and F. Data from the FABS process generates
-                            File D2. Both processes involve data validation checks within the Data Broker.
-                            The results of some validation checks prevent publication of data, while others
-                            raise warnings without preventing publication. Auditors can review these results
-                            to monitor agency submissions.
+                                    The Data Broker is the system that collects and validates federal spending
+                                    data from source systems before they are ultimately published on USAspending.gov.
+                                    It receives data through two processes: one process is for FABS (i.e., transaction-level
+                                    financial assistance data) and one process is for monthly compilations and quarterly
+                                    certifications of Files A, B, C, D1, D2, E, and F. Data from the FABS process generates
+                                    File D2. Both processes involve data validation checks within the Data Broker.
+                                    The results of some validation checks prevent publication of data, while others
+                                    raise warnings without preventing publication. Auditors can review these results
+                                    to monitor agency submissions.
                                 </p>
                             } />
                     </div>
@@ -68,13 +68,13 @@ const DataValidation = (props) => {
                             content={
                                 <>
                                     <p>
-                                The Data Broker validates the data it receives from agency financial systems (Files A, B, and C) as well as FABS. These validations are based on business rules (such as for award linkage between File C and Files D1 and D2) and checks against authoritative sources such as GTAS. Agency financial systems are subject to other data quality assurance measures, such as review by Offices of Inspector General (OIG) and the Government Accountability Office (GAO) for reports as required by the DATA Act.
+                                        The Data Broker validates the data it receives from agency financial systems (Files A, B, and C) as well as FABS. These validations are based on business rules (such as for award linkage between File C and Files D1 and D2) and checks against authoritative sources such as GTAS. Agency financial systems are subject to other data quality assurance measures, such as review by Offices of Inspector General (OIG) and the Government Accountability Office (GAO) for reports as required by the DATA Act.
                                     </p>
                                     <p>
-                                USAspending.gov relies on internal validations of data within source systems outside of the Treasury Department (such as FPDS and SAM.gov). The data extracted from these systems may not always align with the data standards, definitions, and requirements established in guidance from the Office of Management and Budget (OMB) and Treasury Department.
+                                        USAspending.gov relies on internal validations of data within source systems outside of the Treasury Department (such as FPDS and SAM.gov). The data extracted from these systems may not always align with the data standards, definitions, and requirements established in guidance from the Office of Management and Budget (OMB) and Treasury Department.
                                     </p>
                                     <p>
-                                Read below for examples of the Data Broker’s validation measures.
+                                        Read below for examples of the Data Broker’s validation measures.
                                     </p>
                                 </>
                             } />
@@ -89,12 +89,12 @@ const DataValidation = (props) => {
                             heading={<h4>Treasury Account Validations</h4>}
                             content={
                                 <p>
-                            The Data Broker checks that{" "}
+                                    The Data Broker checks that{" "}
                                     <span className="glossary-term">Treasury Accounts</span>{" "}
                                     <GlossaryLink term="treasury-account-symbol-tas" />{" "}
-                            submitted to GTAS for any given reporting period are also submitted to File A,
-                            and vice versa. It also checks that Treasury Accounts submitted to File A for
-                            any given reporting period are also submitted to File B, and vice versa.
+                                    submitted to GTAS for any given reporting period are also submitted to File A,
+                                    and vice versa. It also checks that Treasury Accounts submitted to File A for
+                                    any given reporting period are also submitted to File B, and vice versa.
                                 </p>
                             } />
                     </div>
@@ -108,10 +108,10 @@ const DataValidation = (props) => {
                             heading={<h4>Zip Code Validations</h4>}
                             content={
                                 <p>
-                            The Data Broker checks that all financial assistance recipient zip codes
-                            are valid five-digit U.S. Postal Service zip codes. It also checks that these
-                            zip codes are provided for all domestic financial assistance award recipients
-                            (excluding aggregated and redacted{" "}
+                                    The Data Broker checks that all financial assistance recipient zip codes
+                                    are valid five-digit U.S. Postal Service zip codes. It also checks that these
+                                    zip codes are provided for all domestic financial assistance award recipients
+                                    (excluding aggregated and redacted{" "}
                                     <span className="glossary-term">records</span>{" "}
                                     <GlossaryLink term="record-type" />).
                                 </p>
@@ -130,11 +130,11 @@ const DataValidation = (props) => {
                             heading={<h4>Unique Entity Identifier (UEI) Validations</h4>}
                             content={
                                 <p>
-                            The Data Broker checks that financial assistance award recipients with a
-                            unique entity identifier (UEI) are registered in SAM.gov as of the {" "}
+                                    The Data Broker checks that financial assistance award recipients with a
+                                    unique entity identifier (UEI) are registered in SAM.gov as of the {" "}
                                     <span className="glossary-term">date of the award transaction</span>{" "}
                                     <GlossaryLink term="action-date" />.{" "}
-                            Some exceptions apply, such as if the date is before October 1, 2010.
+                                    Some exceptions apply, such as if the date is before October 1, 2010.
                                 </p>
                             } />
                     </div>
@@ -149,37 +149,37 @@ const DataValidation = (props) => {
                             content={
                                 <>
                                     <p>
-                                    The Data Broker warns agencies about award IDs (i.e.,{" "}
+                                        The Data Broker warns agencies about award IDs (i.e.,{" "}
                                         <span className="glossary-term">PIID</span>{" "}
                                         <GlossaryLink term="procurement-instrument-identifier-piid" />,{" "}
                                         <span className="glossary-term">FAIN</span>{" "}
                                         <GlossaryLink term="fain" />,{" "}
-                                    and{" "}
+                                        and{" "}
                                         <span className="glossary-term">URI</span>{" "}
                                         <GlossaryLink term="uri" />){" "}
-                                    in File C that don’t exist in Files D1 and D2, and vice versa,
-                                    for the same reporting period. This check only applies for award
-                                    transactions where the obligation amount is not zero.
+                                        in File C that don’t exist in Files D1 and D2, and vice versa,
+                                        for the same reporting period. This check only applies for award
+                                        transactions where the obligation amount is not zero.
                                     </p>
                                     <p>
-                                    You can see statistics about unlinked contract awards and unlinked assistance
-                                    awards in the{" "}
+                                        You can see statistics about unlinked contract awards and unlinked assistance
+                                        awards in the{" "}
                                         <Link
                                             className="scroller-overlay-card__link"
                                             to="/submission-statistics"
                                             target="_blank"
                                             rel="noopener noreferrer">
-                                        Agency Submission Statistics page
+                                            Agency Submission Statistics page
                                         </Link>.
-                                    More information about linked awards is available in the{" "}
+                                        More information about linked awards is available in the{" "}
                                         <Link
                                             className="scroller-overlay-card__link"
                                             to="/submission-statistics/data-sources"
                                             target="_blank"
                                             rel="noopener noreferrer">
-                                        Data Sources and Methodology page
+                                            Data Sources and Methodology page
                                         </Link>{" "}
-                                    for these statistics.
+                                        for these statistics.
                                     </p>
                                 </>
                             } />

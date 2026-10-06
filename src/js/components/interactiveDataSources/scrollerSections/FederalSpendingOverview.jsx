@@ -13,8 +13,8 @@ const FederalSpendingOverview = (props) => {
             heading: <h4>Appropriations</h4>,
             content: (
                 <p>
-                Every year, the Treasury Department issues funds to federal agency
-                spending accounts (known as{" "}
+                    Every year, the Treasury Department issues funds to federal agency
+                    spending accounts (known as{" "}
                     <span className="glossary-term">Treasury Accounts</span>{" "}
                     <GlossaryLink term="treasury-account-symbol-tas" />) as a result of{" "}
                     <span className="glossary-term">appropriations</span>{" "}
@@ -30,13 +30,13 @@ const FederalSpendingOverview = (props) => {
             heading: <h4>Obligations</h4>,
             content: (
                 <p>
-                Agencies enter into binding agreements called{" "}
+                    Agencies enter into binding agreements called{" "}
                     <span className="glossary-term">obligations</span>{" "}
                     <GlossaryLink term="obligation" /> to spend the appropriated money for
-                certain authorized purposes. These purposes could be for agency
-                expenses or for federal awards such as contracts, grants, and loans.
-                Obligations could commit the agency to spend money immediately or in
-                the future.
+                    certain authorized purposes. These purposes could be for agency
+                    expenses or for federal awards such as contracts, grants, and loans.
+                    Obligations could commit the agency to spend money immediately or in
+                    the future.
                 </p>
             )
         },
@@ -47,13 +47,13 @@ const FederalSpendingOverview = (props) => {
                     <p>
                         <span className="glossary-term">Outlays</span>{" "}
                         <GlossaryLink term="outlay" /> occur when federal agencies authorize
-                    payments to individuals, businesses, or other organizations. Whereas
-                    an obligation is merely a promise to spend money, an outlay
-                    represents actual spending.
+                        payments to individuals, businesses, or other organizations. Whereas
+                        an obligation is merely a promise to spend money, an outlay
+                        represents actual spending.
                     </p>
                     <p>
-                    USAspending has data on both obligations and outlays, but in most cases, it is
-                    more common to measure spending by obligations rather than outlays.
+                        USAspending has data on both obligations and outlays, but in most cases, it is
+                        more common to measure spending by obligations rather than outlays.
                     </p>
                 </>
             )

@@ -107,7 +107,7 @@ const RecipientSection = ({ publicLaw }) => {
                                 Fund (PRF) to a single entity in Utah which will make payments to recipients
                                 across the country.{' '}
                                 <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">
-                                        See more information about HHS&apos;s data submission.
+                                    See more information about HHS&apos;s data submission.
                                 </a>
                             </li>
                             <li>

@@ -64,9 +64,9 @@ const Frequency = (props) => {
                             overline={overline}
                             content={
                                 <p>
-                                The data on USAspending.gov are updated every day after the nightly
-                                data pipeline runs. However, USAspending source systems have
-                                different requirements for the frequency of their data updates.
+                                    The data on USAspending.gov are updated every day after the nightly
+                                    data pipeline runs. However, USAspending source systems have
+                                    different requirements for the frequency of their data updates.
                                 </p>
                             } />
                     </div>
@@ -96,10 +96,10 @@ const Frequency = (props) => {
                             content={
                                 <>
                                     <p>
-                                    Files A, B, and C are submitted by federal agencies to
-                                    USAspending.gov on a monthly basis, as required by the DATA Act. You
-                                    can see specific DATA Act reporting submission dates in the
-                                    spreadsheets available in the resources page for the{" "}
+                                        Files A, B, and C are submitted by federal agencies to
+                                        USAspending.gov on a monthly basis, as required by the DATA Act. You
+                                        can see specific DATA Act reporting submission dates in the
+                                        spreadsheets available in the resources page for the{" "}
                                         <a
                                             className="scroller-overlay-card__link"
                                             href="https://fiscal.treasury.gov/data-transparency/resources.html"
@@ -107,19 +107,19 @@ const Frequency = (props) => {
                                             rel="noopener noreferrer">
                                             Governmentwide Spending Data Model (GSDM)
                                         </a>
-                                    .
+                                        .
                                     </p>
                                     <p>
-                                    You can see publication and certification dates for agency
-                                    submissions in the “Most Recent Update” column of the{" "}
+                                        You can see publication and certification dates for agency
+                                        submissions in the “Most Recent Update” column of the{" "}
                                         <Link
                                             className="scroller-overlay-card__link"
                                             to="/submission-statistics"
                                             target="_blank"
                                             rel="noopener noreferrer">
-                                        Agency Submission Statistics page
+                                            Agency Submission Statistics page
                                         </Link>
-                                    .
+                                        .
                                     </p>
                                 </>
                             } />
@@ -150,35 +150,35 @@ const Frequency = (props) => {
                             content={
                                 <>
                                     <p>
-                                    Federal agencies must submit{" "}
+                                        Federal agencies must submit{" "}
                                         <span className="glossary-term">contract</span>{" "}
                                         <GlossaryLink term="contract" /> data to FPDS within three
-                                    days of the award{" "}
+                                        days of the award{" "}
                                         <span className="glossary-term">transaction</span>{" "}
                                         <GlossaryLink term="transaction" />. The day after submission,
-                                    these data are made available to USAspending.gov. On the following
-                                    day, these data are automatically published on USAspending.gov.
+                                        these data are made available to USAspending.gov. On the following
+                                        day, these data are automatically published on USAspending.gov.
                                     </p>
                                     <ul className="interactives-guide_bullet-points">
                                         <li>
-                                        Example 1: A contract transaction is made on a given
-                                        Thursday. The award is reported to FPDS three business
-                                        days later, on the following Tuesday. It is then made
-                                        available to USAspending.gov on Wednesday morning and published
-                                        to the site on Thursday.
+                                            Example 1: A contract transaction is made on a given
+                                            Thursday. The award is reported to FPDS three business
+                                            days later, on the following Tuesday. It is then made
+                                            available to USAspending.gov on Wednesday morning and published
+                                            to the site on Thursday.
                                         </li>
                                         <li>
-                                        Example 2: A contract transaction is made on a given
-                                        Tuesday. The award is reported to FPDS three business
-                                        days later, on Friday. It is then made available to
-                                        USAspending.gov on Saturday morning and published to the
-                                        site on Sunday.
+                                            Example 2: A contract transaction is made on a given
+                                            Tuesday. The award is reported to FPDS three business
+                                            days later, on Friday. It is then made available to
+                                            USAspending.gov on Saturday morning and published to the
+                                            site on Sunday.
                                         </li>
                                     </ul>
                                     <p>
-                                    Note that the submission of data to FPDS is delayed by
-                                    90 days for the Department of Defense (DOD) and the U.S.
-                                    Army Corps of Engineers (USACE).
+                                        Note that the submission of data to FPDS is delayed by
+                                        90 days for the Department of Defense (DOD) and the U.S.
+                                        Army Corps of Engineers (USACE).
                                     </p>
                                 </>
                             } />
@@ -209,28 +209,28 @@ const Frequency = (props) => {
                             content={
                                 <>
                                     <p>
-                                    Federal agencies must submit{" "}
+                                        Federal agencies must submit{" "}
                                         <span className="glossary-term">financial assistance</span>{" "}
                                         <GlossaryLink term="financial-assistance" /> data to FABS
-                                    within two weeks of the award{" "}
+                                        within two weeks of the award{" "}
                                         <span className="glossary-term">transaction</span>{" "}
                                         <GlossaryLink term="transaction" />. This requirement applies
-                                    to all financial assistance awards except loans, which are
-                                    required to be reported within 30 days of the award
-                                    transaction.
+                                        to all financial assistance awards except loans, which are
+                                        required to be reported within 30 days of the award
+                                        transaction.
                                     </p>
                                     <ul className="interactives-guide_bullet-points">
                                         <li>
-                                        Grant Example: A grant transaction is issued on September 8.
-                                        It must be reported to FABS within 14 days, by September 22.
-                                        If submitted on September 22, the new data are published on
-                                        USAspending.gov on September 23.
+                                            Grant Example: A grant transaction is issued on September 8.
+                                            It must be reported to FABS within 14 days, by September 22.
+                                            If submitted on September 22, the new data are published on
+                                            USAspending.gov on September 23.
                                         </li>
                                         <li>
-                                        Loan Example: A loan transaction is issued on September 8.
-                                        It must be reported to FABS by October 8. If submitted on
-                                        October 8, the new data are published on USAspending.gov on
-                                        October 9.{" "}
+                                            Loan Example: A loan transaction is issued on September 8.
+                                            It must be reported to FABS by October 8. If submitted on
+                                            October 8, the new data are published on USAspending.gov on
+                                            October 9.{" "}
                                         </li>
                                     </ul>
                                 </>
@@ -261,10 +261,10 @@ const Frequency = (props) => {
                             heading={<h4>Reference Data</h4>}
                             content={
                                 <p>
-                                All reference data (such as location data) are extracted by
-                                USAspending.gov on a daily basis. In addition, data from SAM.gov
-                                (such as executive compensation data, also known as File E) and
-                                GTAS are also extracted daily (although GTAS data are only published once a month along with data from Files A, B, and C).
+                                    All reference data (such as location data) are extracted by
+                                    USAspending.gov on a daily basis. In addition, data from SAM.gov
+                                    (such as executive compensation data, also known as File E) and
+                                    GTAS are also extracted daily (although GTAS data are only published once a month along with data from Files A, B, and C).
                                 </p>
                             } />
                     </div>

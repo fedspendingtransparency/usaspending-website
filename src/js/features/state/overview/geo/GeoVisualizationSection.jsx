@@ -77,7 +77,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
     let message = null;
 
     if (!MapboxGL.supported()) {
-        // eslint-disable-next-line max-len
+         
         const description = "Please enable WebGL in your browser settings to view this map visualization.";
         return (
             <div className="results-table-message-container">
@@ -93,7 +93,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
                 <div className="map-loading">
                     <LoadingSpinner />
                     <div className="loading-message">
-                            Gathering your data...
+                        Gathering your data...
                     </div>
                 </div>
             </MapMessage>
@@ -107,10 +107,10 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
                         <ExclamationTriangle alt="An error occurred" />
                     </div>
                     <div className="title">
-                            An error occurred.
+                        An error occurred.
                     </div>
                     <div className="description">
-                            Something went wrong while gathering your data.
+                        Something went wrong while gathering your data.
                     </div>
                 </div>
             </MapMessage>
@@ -122,7 +122,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
                 <div className="map-no-results">
                     <div className="no-results-icon" />
                     <div className="title">
-                            No results found in the current map area.
+                        No results found in the current map area.
                     </div>
                 </div>
             </MapMessage>
