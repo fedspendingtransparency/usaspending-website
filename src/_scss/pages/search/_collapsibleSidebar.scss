@@ -165,6 +165,15 @@
         font-weight: $font-semibold;
       }
 
+      .sidebar-nl-tutorial-start {
+        @include button-unstyled;
+        margin: 0;
+        padding: 0;
+        font-size: $font-size-14;
+        color: $blue-60v;
+        line-height: 150%;
+      }
+
       @media (max-width: $medium-screen - 1) {
         padding: 0 rem(16);
       }

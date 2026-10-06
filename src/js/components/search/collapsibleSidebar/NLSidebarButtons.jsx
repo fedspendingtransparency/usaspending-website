@@ -57,6 +57,7 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isM
                 { QAT && 
                 <button
                     style={{ backgroundColor: secondaryColorNL }}
+                    id={sidebarContent === NATURAL_LANGUAGE && sidebarIsOpen ? 'animated-tour-step1' : null}
                     aria-label="Button to change the content of the sidebar to natural language search"
                     className={`sidebar-nl-buttons ${sidebarContent === NATURAL_LANGUAGE && sidebarIsOpen ? 'selected' : ''
                     }`}

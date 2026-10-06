@@ -11,6 +11,7 @@ import { moreResourcesBtnData } from "./NLData";
 
 const NLMoreResources = () => {
     const navigate = useNavigate();
+    console.debug(moreResourcesBtnData);
     return (
         <section className="more-resources__section">
             <FlexGridCol className="more-resources__label">
@@ -18,7 +19,8 @@ const NLMoreResources = () => {
             </FlexGridCol>
             <FlexGridRow className="more-resources__row">
                 {moreResourcesBtnData.map((btn) => (
-                    <FlexGridCol 
+                    <FlexGridCol
+                        id={btn.label === "Glossary" ? 'animated-tour-step4' : null}
                         className="more-resources__col"
                         key={`more-resources-${btn.id}`} 
                         onClick={() => btn.action(navigate)}

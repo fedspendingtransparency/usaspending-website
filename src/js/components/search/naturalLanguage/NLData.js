@@ -93,6 +93,7 @@ export const searchCardData = [
 export const moreResourcesBtnData = [
     {
         id: id + 1,
+        label: "Glossary",
         action: () => { 
             Analytics.event({
                 event: 'natural-language_glossary',
@@ -112,6 +113,7 @@ export const moreResourcesBtnData = [
     },
     {
         id: id + 2,
+        label: "About the Data",
         action: () => { 
             Analytics.event({
                 event: 'natural-language_about-the-data',
@@ -131,6 +133,7 @@ export const moreResourcesBtnData = [
     },
     {
         id: id + 3,
+        label: "Data Dictionary",
         action: (navigate) => { 
             Analytics.event({
                 event: 'natural-language_data-dictionary',
@@ -150,6 +153,7 @@ export const moreResourcesBtnData = [
     },
     {
         id: id + 4,
+        label: "Federal Spending Guide",
         action: (navigate) => { 
             Analytics.event({
                 event: 'natural-language_fed-spending-guide',
