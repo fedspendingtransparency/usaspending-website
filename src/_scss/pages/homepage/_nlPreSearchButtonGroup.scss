@@ -63,8 +63,8 @@
                 
                 .swiper-slide {
                     display: flex;
-                    width: rem(320) !important;
-                    height: rem(100);
+                    width: rem(340) !important;
+                    height: rem(80);
                 }
             }
         }
@@ -97,6 +97,7 @@
             display: flex;
             align-items: flex-start;
             padding: rem(16);
+            border: rem(1) solid $gray-10;
 
             .pre-search-content {
                 display: flex;
