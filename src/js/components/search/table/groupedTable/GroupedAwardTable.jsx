@@ -100,7 +100,8 @@ const GroupedAwardTable = (props) => {
                                     <th key={header.id} className="table-header stickyColumn">
                                         {header.isPlaceholder
                                             ? null
-                                            : <GroupedTableHeader
+                                            :
+                                            <GroupedTableHeader
                                                 index={h}
                                                 updateSort={props.updateSort}
                                                 currentSort={props.sort}

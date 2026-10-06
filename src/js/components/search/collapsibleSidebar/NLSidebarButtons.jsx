@@ -24,7 +24,6 @@ const propTypes = {
     isActiveNlSearch: PropTypes.bool
 };
 
- 
 const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isMedium, isActiveNlSearch }) => {
     const dispatch = useDispatch();
 

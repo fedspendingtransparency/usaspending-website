@@ -69,7 +69,8 @@ const SectionDataTable = (props) => {
                     nextPage={props.nextPage}
                     previousPage={props.previousPage}
                     hasNextPage={props.hasNextPage}
-                    hasPreviousPage={props.hasPreviousPage} /> : <Pagination
+                    hasPreviousPage={props.hasPreviousPage} /> :
+                <Pagination
                     resultsText
                     totalItems={maxRows.length}
                     pageSize={pageSize}
