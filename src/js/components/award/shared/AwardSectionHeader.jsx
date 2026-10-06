@@ -23,11 +23,11 @@ const AwardSectionHeader = ({
          <>
              <p>
                  <span className="label">Loan Face Value: </span>
-                 Represents how much has been lent out to the entity that received the loan dollars. Sometimes loans are financed by a financial institution (with the Federal government merely providing a 'loan guarantee' to the financial institution and reimbursement in cases where the loan isn't paid back), and other times they are financed by the Federal government directly (direct loans). Regardless of how it is financed, a loan's face value is not considered Federal spending, because it does not represent a long-term cost to the government. The estimated long-term cost to the government of a loan is captured in the subsidy cost field.
+                 Represents how much has been lent out to the entity that received the loan dollars. Sometimes loans are financed by a financial institution (with the Federal government merely providing a &apos;loan guarantee&apos; to the financial institution and reimbursement in cases where the loan isn&apos;t paid back), and other times they are financed by the Federal government directly (direct loans). Regardless of how it is financed, a loan&apos;s face value is not considered Federal spending, because it does not represent a long-term cost to the government. The estimated long-term cost to the government of a loan is captured in the subsidy cost field.
              </p>
              <p>
                  <span className="label">Loan Subsidy Cost (Total Obligations To Date): </span>
-                 The implications of a loan or loan guarantee for the Federal Budget (and thus the loan version of spending/obligations) are known as the loan's subsidy cost. Subsidy cost is the calculated net present value of the loan to the government, taking into account the interest rate and the modeled risk of the recipient failing to pay back the loan in part or full; subsidy cost can be positive (indicating that the government is likely to lose money on the loan) or negative (indicating that the government is likely to make money on the loan). Subsidy cost should never be larger in absolute value terms than the face value itself. Administrative costs of running the loan or loan guarantee program itself are excluded from subsidy cost calculations. Note that a loan's face value is not considered Federal spending, since it does not in itself represent a long-term cost to the government.
+                 The implications of a loan or loan guarantee for the Federal Budget (and thus the loan version of spending/obligations) are known as the loan&apos;s subsidy cost. Subsidy cost is the calculated net present value of the loan to the government, taking into account the interest rate and the modeled risk of the recipient failing to pay back the loan in part or full; subsidy cost can be positive (indicating that the government is likely to lose money on the loan) or negative (indicating that the government is likely to make money on the loan). Subsidy cost should never be larger in absolute value terms than the face value itself. Administrative costs of running the loan or loan guarantee program itself are excluded from subsidy cost calculations. Note that a loan&apos;s face value is not considered Federal spending, since it does not in itself represent a long-term cost to the government.
              </p>
          </>
         }
@@ -77,7 +77,7 @@ const AwardSectionHeader = ({
                 {icon && <div className="award-viz__icon">{icon}</div>}
                 <h3 className="award-viz__title">{title}</h3>
                 {tooltip && !title.includes("Award History") &&
-                //TODO: TooltipWrapper may be able to remove?
+                // TODO: TooltipWrapper may be able to remove?
                 <TooltipWrapper
                     className="award-section-tt"
                     icon="info"
