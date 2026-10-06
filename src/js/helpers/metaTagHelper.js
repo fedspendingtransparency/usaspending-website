@@ -38,6 +38,14 @@ export const getSearchPageMetaTags = (searchPageHash) => ({
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 });
 
+export const smartAssistPageMetaTags = {
+    og_url: `${productionURL}search/smart-assist`,
+    og_title: 'Advanced Search | Smart Assist | USAspending',
+    og_description: 'Learn about our AI-powered Smart Assist feature by visiting this page.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}smart-assist.png`
+}
+
 export const explorerPageMetaTags = {
     og_url: `${productionURL}explorer`,
     og_title: 'Government Spending Explorer | USAspending',

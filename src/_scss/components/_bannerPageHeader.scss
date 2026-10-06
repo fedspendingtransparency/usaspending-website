@@ -10,6 +10,10 @@
     margin: auto;
     padding: rem(55) 0;
 
+    &.nl-search-container {
+      margin-bottom: rem(12);
+    }
+
     @media (max-width: $mobile-only) {
       padding: rem(40) 0;
     }
@@ -56,6 +60,12 @@
           font-size: rem(60);
           margin: auto;
         }
+
+        &.nl-search-container {
+          svg {
+            width: rem(60);
+          }
+        }
       }
     }
 
@@ -67,6 +77,11 @@
         margin-left: rem(40);
         font-weight: $font-semibold;
         line-height: 1.5;
+
+        &.nl-search-container {
+          font-weight: $font-normal;
+          font-family: $font-sans;
+        }
 
         @media (max-width: $mobile-only) {
           margin: 0 rem(16);
@@ -83,6 +98,12 @@
           svg {
             font-size: $lead-font-size;
             margin: auto;
+          }
+
+          &.nl-search-container {
+            svg {
+              width: rem(24);
+            }
           }
         }
 
