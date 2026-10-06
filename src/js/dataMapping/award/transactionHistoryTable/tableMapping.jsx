@@ -1,8 +1,3 @@
-import React from "react";
-import { TooltipWrapper } from "data-transparency-ui";
-import { getHeaderTooltipsByTypeAndCol } from "../tooltips";
-import { subawardID, recipientName, actionDateSub, amountSub, descriptionSub } from "../../../components/award/shared/InfoTooltipContent";
-
 export const transactionsTableMapping = {
     idv: [
         {
