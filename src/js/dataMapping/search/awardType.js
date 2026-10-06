@@ -30,19 +30,12 @@ export const awardTypeCodes = {
     '10': 'Direct Payment with Unrestricted Use',
     '06': 'Direct Payment for Specified Use',
     '07': 'Direct Loans',
-    '08': 'Guaranteed/Insured Loans',
+    '08': 'Loan Guarantees',
     '09': 'Indemnity/Insurance (non-loan)',
     '11': 'Other Financial Assistance',
     'F001': 'Grant',
-    'F002': 'Cooperative Agreement',
-    'F003': 'Direct Loans',
-    'F004': 'Loan Guarantees',
-    'F005': 'Indemnity/Insurance (non-loan)',
-    'F006': 'Direct Payment for Specified Use',
-    'F007': 'Direct Payment with Unrestricted Use',
     'F008': 'Asset Forfeiture/Equitable Sharing',
     'F009': 'Sale, Exchange, or Donation of Property and Goods',
-    'F010': 'Other Financial Assistance',
     '-1': 'Not Specified'
 };
 
@@ -63,6 +56,12 @@ export const awardTypeNewLinkCodes = {
 export const awardTypeNewFCodes = {
     'F001': 'Grant',
     'F002': 'Cooperative Agreement',
+    'F003': 'Direct Loans',
+    'F004': 'Loan Guarantee',
+    'F005': 'Indemnity/Insurance (non-loan)',
+    'F006': 'Direct Payment for Specified Use',
+    'F007': 'Direct Payment with Unrestricted Use',
+    'F010': 'Other Financial Assistance',
     '03': 'Formula Grant',
     '04': 'Project Grant'
 };
@@ -105,10 +104,10 @@ export const awardTypeGroups = {
     contracts: ['A', 'B', 'C', 'D'],
     idvs: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E'],
     grants: ['02', '03', '04', 'F001'],
-    cooperative_agreement: ['05'],
-    direct_payments: ['10', '06'],
-    loans: ['07', '08'],
-    other: ['09', 'F008', 'F009', '11', '-1' ]
+    cooperative_agreement: ['05', 'F002'],
+    direct_payments: ['10', '06', 'F006', 'F007'],
+    loans: ['07', '08', 'F003', 'F004'],
+    other: ['09', 'F005', 'F008', 'F009', 'F010', '11', '-1' ]
 };
 
 export const bulkDownloadAwardTypeGroups = {
