@@ -66,7 +66,8 @@ export const AWARD_SECTION_HEADER_PROPS = {
     title: PropTypes.string,
     tooltip: PropTypes.node,
     tooltipWide: PropTypes.bool,
-    category: PropTypes.string
+    category: PropTypes.string,
+    activeTab: PropTypes.string
 };
 const awardOverviewAwardAmountsSectionBase = {
     _baseAndAllOptions: PropTypes.number,

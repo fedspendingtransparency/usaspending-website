@@ -13,13 +13,13 @@ const AwardSectionHeader = ({
     category,
     activeTab
 }) => {
-    const accordionTitle = <div className="action-type accordion-title"><FontAwesomeIcon icon="circle-info" />Show Column Info</div>;
+    const accordionTitle = <div className="action-type accordion-title"><FontAwesomeIcon icon="circle-info" /><span>Show Column Info</span></div>;
 
     const awardAccordionContent = (<div>
         <p><span className="label">Modification Number:</span> Identifies the modification. Modification number increment from lower to higher as more mods  are made.</p>
         <p><span className="label">Action Date:</span> When the modification was issued.</p>
         <p><span className="label">Amount:</span> The amount of money added or subtracted from the initial awarded amounts by the modification, if any.</p>
-        {category && category === "loan" && title.includes("Award History") &&
+        {category === "loan" && title.includes("Award History") &&
          <>
              <p>
                  <span className="label">Loan Face Value: </span>

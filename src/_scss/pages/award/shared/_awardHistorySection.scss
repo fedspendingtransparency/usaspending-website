@@ -2,71 +2,88 @@
   padding: rem(40) 0 rem(60);
   width: 100%;
 
-  .award-viz__break {
-    color: $gray-60;
-    margin-bottom: rem(24);
-  }
-  span {
-    font-weight: $font-semibold;
-    color: $gray-60;
-  }
-  p {
-    color: $gray-60;
-    line-height: 150%;
-  }
-  @import "../table/_tablesSection";
-  .table-types {
-    .table-type-toggle {
-      margin-top: 0;
-    }
-  }
-  .subaward-totals {
-    @include display(flex);
-    justify-content: center;
-    .total-item {
-      padding: $global-padding * 2;
-      .total-value {
-        font-weight: bold;
+      .award-viz__break {
+        color: $gray-60;
+        margin-bottom: rem(24);
       }
-    }
-  }
+      span {
+        font-weight: $font-semibold;
+        color: $gray-60;
+      }
+      p {
+        color: $gray-60;
+        line-height: 150%;
+      }
+      @import "../table/_tablesSection";
+      .table-types {
+        .table-type-toggle {
+          margin-top: 0;
+        }
+      }
+      .subaward-totals {
+        @include display(flex);
+        justify-content: center;
+        .total-item {
+          padding: $global-padding * 2;
+          .total-value {
+            font-weight: bold;
+          }
+        }
+      }
+    // Overriding Accordion component styling
     .accordion-container {
         margin: rem(24) rem(0);
+
+
+        .heading {
+            height: rem(48);
+            padding: rem(12) rem(16);
+            background-color: $gray-5;
+
+            .accordion-title.action-type {
+                display: flex;
+                align-items: center;
+                font-weight: $font-semibold;
+
+                .fa-circle-info {
+                    height: rem(20);
+                    width: rem(20);
+                    margin-right: rem(8);
+                }
+
+            }
+
+            .minus, .plus {
+                color: $gray-60;
+            }
+        }
+
         .accordion {
+            padding: 0;
+            height: rem(48);
 
-            p:first-of-type {
-                margin-top: 0;
-            }
+            &.accordion--open {
+                height: unset;
 
-            p:last-of-type {
-                margin-bottom: 0;
-            }
+                .content {
+                    padding: rem(16) rem(20);
 
-            .heading {
-                height: rem(48);
-                padding: rem(12) rem(16);
-                background-color: $gray-5;
-
-                .accordion-title.action-type {
-                    font-weight: $font-semibold;
-
-                    .fa-circle-info {
-                        height: rem(20);
-                        width: rem(20);
-                        margin-right: rem(8);
+                    p:first-of-type {
+                        margin-top: 0;
                     }
 
-                }
-            }
-            .content {
-                padding: rem(16) rem(20);
-                .label {
-                    font-weight: $font-semibold;
-                }
+                    p:last-of-type {
+                        margin-bottom: 0;
+                    }
 
-                .accordion-body-copy__action-type {
-                    line-height: 1.5;
-                    color: $gray-60;
+                    .label {
+                        font-weight: $font-semibold;
+                    }
+
+                    .accordion-body-copy__action-type {
+                        line-height: 1.5;
+                        color: $gray-60;
+                    }
                 }
             }
         }
