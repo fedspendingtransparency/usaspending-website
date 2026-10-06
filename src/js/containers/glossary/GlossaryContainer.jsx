@@ -37,7 +37,8 @@ const GlossaryContainer = () => {
     const performSearch = useCallback((input) => {
         if (!input) {
             setTerms(allTerms);
-        } else {
+        }
+        else {
             const filteredTerms = allTerms?.filter((item) => {
                 const term = item.term.toLowerCase();
                 return input.toLowerCase().split(" ").every((termName) => term.includes(termName));

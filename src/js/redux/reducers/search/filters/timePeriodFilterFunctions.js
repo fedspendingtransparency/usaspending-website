@@ -3,7 +3,7 @@
  * Created by Nick Torres 11/7/2024
  */
 
-/* eslint-disable import/prefer-default-export */
+ 
 // We only have one export but want to maintain consistency with other query modules
 export const updateDRs = (currentDates, date) => {
     let updatedSet = currentDates;
@@ -16,7 +16,8 @@ export const updateDRs = (currentDates, date) => {
             }
             i++;
         }
-    } else if (date.removeFilter === true && date.event.target.parentNode.getAttribute("data-index")) {
+    }
+    else if (date.removeFilter === true && date.event.target.parentNode.getAttribute("data-index")) {
         let i = 0;
         for (const item of updatedSet) {
             if (i === parseInt(date.event.target.parentNode.getAttribute("data-index"), 10)) {
@@ -24,7 +25,8 @@ export const updateDRs = (currentDates, date) => {
             }
             i++;
         }
-    } else if (date.start || date.end) {
+    }
+    else if (date.start || date.end) {
         updatedSet = updatedSet.add({
             start_date: date.start,
             end_date: date.end
@@ -35,4 +37,3 @@ export const updateDRs = (currentDates, date) => {
 };
 
 export const setDR = (newDR) => newDR;
-/* eslint-enable import/prefer-default-export */

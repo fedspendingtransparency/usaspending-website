@@ -32,7 +32,8 @@ const propTypes = {
 const NewDownloadContainer = (props) => {
     if (props.step === 2) {
         return <NewDownloadSummary {...props} />;
-    } else if (props.step === 3) {
+    }
+    else if (props.step === 3) {
         return props.content;
     }
 

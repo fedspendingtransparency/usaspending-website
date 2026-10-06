@@ -81,7 +81,14 @@ const ReadMore = ({
                     }}>{closePrompt}
                 </button>);
         }
-        return (<button className="read-more-button" onClick={(e) => { e.stopPropagation(); setExpanded(false); }}>Read Less</button>);
+        return (
+            <button
+                className="read-more-button"
+                onClick={(e) => {
+                    e.stopPropagation(); setExpanded(false);
+                }}>
+                Read Less
+            </button>);
     };
     const readMore = () => {
         if (openPrompt && openIcon) {
@@ -123,7 +130,13 @@ const ReadMore = ({
                     }}><span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
                 </button>);
         }
-        return (<button className="read-more-button" onClick={(e) => { e.stopPropagation(); setExpanded(true); }}>Read More</button>);
+        return (<button
+            className="read-more-button"
+            onClick={(e) => {
+                e.stopPropagation(); setExpanded(true);
+            }}>
+            Read More
+        </button>);
     };
 
     if (expanded && children) {
