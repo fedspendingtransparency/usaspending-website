@@ -11,7 +11,6 @@ import { moreResourcesBtnData } from "./NLData";
 
 const NLMoreResources = () => {
     const navigate = useNavigate();
-    console.debug(moreResourcesBtnData);
     return (
         <section className="more-resources__section">
             <FlexGridCol className="more-resources__label">
