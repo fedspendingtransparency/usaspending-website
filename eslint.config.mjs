@@ -74,8 +74,7 @@ export default defineConfig([
             "@stylistic/operator-linebreak": ["error", "after"],
 
             // TODO: address and turn back on:
-            "@stylistic/function-paren-newline": [0],
-            "@stylistic/eol-last": [0],
+            // "@stylistic/eol-last": [0],
             "@stylistic/indent-binary-ops": [0],
             "@stylistic/no-multi-spaces": [0],
             "@stylistic/jsx-one-expression-per-line": [0],
