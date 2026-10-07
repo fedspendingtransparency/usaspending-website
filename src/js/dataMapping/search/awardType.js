@@ -113,7 +113,7 @@ export const awardTypeGroups = {
 export const bulkDownloadAwardTypeGroups = {
     contracts: awardTypeGroups.contracts,
     idvs: awardTypeGroups.idvs,
-    grants: awardTypeGroups.grants,
+    grants: awardTypeGroups.grants.concat(awardTypeGroups.cooperative_agreement),
     direct_payments: awardTypeGroups.direct_payments,
     loans: awardTypeGroups.loans,
     insurance: ['09', 'F005'],
