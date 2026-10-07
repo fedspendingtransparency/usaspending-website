@@ -12,7 +12,6 @@ import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { LoadingMessage, Tabs } from 'data-transparency-ui';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
 
-
 import { setIsMapLoaded } from 'redux/actions/covid19/covid19Actions';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -33,7 +33,6 @@ import CheckboxTree from 'components/sharedComponents/checkboxTree/CheckboxTree'
 import EntityDropdownAutocomplete from
     'components/sharedComponents/EntityDropdownAutocomplete';
 
-
 const NAICSCheckboxTree = () => {
     const [isError, setIsError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -310,7 +309,6 @@ const NAICSCheckboxTree = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchString, isSearch]);
-
 
     useEffect(() => {
         if (nodes.length && (checkedFromHash.length || checkedStaged.length)) {

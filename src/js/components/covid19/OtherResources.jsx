@@ -88,7 +88,6 @@ const OtherResources = ({ handleExternalLinkClick }) => {
                     </li>
                 </ul>
 
-
                 <ul className="otherResources__list">
                     <li>
                         <a

@@ -109,7 +109,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         loadingTiles: true
     });
 
-
     const completeDataSet = {
         country: countries,
         state: stateFIPSByAbbreviation ? Object.keys(stateFIPSByAbbreviation) : [],
@@ -388,7 +387,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         setRenderHash(`geo-${uniqueId()}`);
         setLoadingTiles(true);
         useEffectRef.current.loadingTiles = true;
-
 
         logMapLayerEvent(layer);
     };

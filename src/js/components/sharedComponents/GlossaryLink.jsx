@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { showSlideout } from 'helpers/slideoutHelper';
 import { Glossary } from './icons/Icons';
 
-
 const propTypes = {
     term: PropTypes.string.isRequired,
     hidden: PropTypes.bool,

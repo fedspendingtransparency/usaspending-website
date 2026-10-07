@@ -91,7 +91,6 @@ const StatusOfFundsChart = ({
         return () => window.removeEventListener('resize', handleResize);
     }, [windowWidth]);
 
-
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
     function wrapText(text) {
         text.each(function w() {

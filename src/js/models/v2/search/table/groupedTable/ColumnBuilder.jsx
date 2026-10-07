@@ -14,7 +14,6 @@ import {
     expandedSubawardColumns
 } from 'dataMapping/search/groupedAwardTableColumns';
 
-
 const getColumnArray = (type) => {
     switch (type) {
         case "subawards":
@@ -88,4 +87,3 @@ export const ColumnBuilder = (columnType, onButtonClick, expanded) => {
 
     return columns;
 };
-

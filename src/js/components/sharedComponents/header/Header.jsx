@@ -57,7 +57,6 @@ const Header = () => {
                 break;
         }
 
-
         return icon;
     };
 
@@ -94,7 +93,6 @@ const Header = () => {
         getBanners();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
 
     return (
         <div className="site-header">

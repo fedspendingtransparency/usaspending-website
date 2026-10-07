@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import Markdown from 'react-markdown';
 import SmartLink from './SmartLink';
 
-
 const propTypes = {
     resources: PropTypes.string
 };

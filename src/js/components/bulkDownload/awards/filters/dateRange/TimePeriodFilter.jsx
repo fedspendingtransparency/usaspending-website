@@ -75,7 +75,6 @@ const TimePeriodFilter = ({
     const [currentTimeType, setCurrentTimeType] = useState("time_period");
     let defaultValue = '';
 
-
     const validateDates = useCallback(() => {
         // validate the date ranges
         const start = dayjs.isDayjs(startDateBulkUI)

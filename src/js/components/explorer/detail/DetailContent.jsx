@@ -235,7 +235,6 @@ const DetailContent = ({
         );
     }
 
-
     return (
         <div
             className="explorer-detail-content"

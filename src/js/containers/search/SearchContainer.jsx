@@ -30,7 +30,6 @@ import useRequestDownloadCount from "./useRequestDownloadCount";
 
 require('pages/search/searchPage.scss');
 
-
 const SearchContainer = () => {
     const location = useLocation();
     const { hash: urlHash } = getObjFromQueryParams(location.search);
@@ -233,4 +232,3 @@ const SearchContainer = () => {
 export default SearchContainer;
 
 export const SearchContainerRedirectv2 = () => <></>;
-

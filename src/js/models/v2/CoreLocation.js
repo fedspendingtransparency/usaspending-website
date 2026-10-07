@@ -3,7 +3,6 @@
  * Created by Lizzie Salita 5/6/18
  */
 
-
 const CoreLocation = {
     populateCore(data) {
         this._address1 = data.address1 || '';

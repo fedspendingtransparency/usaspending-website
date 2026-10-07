@@ -86,7 +86,6 @@ const StateTimeVisualizationChart = ({
         }
     }
 
-
     const onMouseLeave = useCallback(() => {
         if (focusBar) {
             setFocusBar(null);

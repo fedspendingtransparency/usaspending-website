@@ -27,9 +27,7 @@ const DataUseCases = (props) => {
                         role="presentation" />
                 </div>
 
-
                 {/* SCROLLER OVERLAYS */}
-
 
                 {/* OVERVIEW CARD OF USE CASES */}
                 <ScrollerOverlay

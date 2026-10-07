@@ -345,4 +345,3 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
 
 StateProfileMapWrapper.propTypes = propTypes;
 export default StateProfileMapWrapper;
-

@@ -14,7 +14,6 @@ import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY
 import { useLatestAccountData } from "../../../../containers/account/WithLatestFy";
 import VerticalTrail from './VerticalTrail';
 
-
 const propTypes = {
     fy: PropTypes.string,
     quarter: PropTypes.string,

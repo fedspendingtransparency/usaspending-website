@@ -86,7 +86,6 @@ export const sanitizeMailUrl = (rawURL) => {
         params.delete('cc');
         params.delete('bcc');
 
-
         if (params.toString() && params.toString() !== '' ) {
             // add wanted params back
             cleanMailto = `${prefix}?${params.toString().replace(/\+/g, '%20')}`;

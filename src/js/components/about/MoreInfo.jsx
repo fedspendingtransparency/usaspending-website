@@ -6,7 +6,6 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-
 const MoreInfo = () => (
     <div
         className="about-section-wrapper"

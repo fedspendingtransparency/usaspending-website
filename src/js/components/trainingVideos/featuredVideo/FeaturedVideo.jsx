@@ -13,7 +13,6 @@ import { handleShareOptionClick } from 'helpers/socialShare';
 import { throttle } from 'lodash-es';
 import VideoThumbnail from '../videoThumbnails/VideoThumbnail';
 
-
 const propTypes = {
     featuredVideo: PropTypes.object,
     url: oneOfType([PropTypes.string, PropTypes.func])

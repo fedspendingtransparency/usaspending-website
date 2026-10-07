@@ -131,7 +131,6 @@ const RecipientSection = ({ publicLaw }) => {
                     </div>
                 ) }
 
-
             </div>
         </div>
     );

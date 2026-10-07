@@ -3,9 +3,7 @@
  * Created by Brian Petway 12/05/22
  */
 
-
 // Depricating 9/15/2025
-
 
 import React, { useState, useEffect } from 'react';
 import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';

@@ -29,7 +29,6 @@ const DataFeatures = (props) => {
                         role="presentation" />
                 </div>
 
-
                 {/* SCROLLER OVERLAYS */}
 
                 {/* ACCOUNT DATA */}

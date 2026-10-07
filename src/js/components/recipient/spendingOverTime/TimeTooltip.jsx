@@ -48,7 +48,6 @@ const TimeTooltip = ({
         positionTooltip();
     }, [positionTooltip]);
 
-
     const dollarValue = formatMoneyWithUnitsShortLabel(data.yValue);
 
     return (

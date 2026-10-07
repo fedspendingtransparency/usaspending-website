@@ -23,7 +23,6 @@ const propTypes = {
     cancelQuery: PropTypes.func
 };
 
-
 const NLSidebarContent = ({
     hintOnClick,
     text,

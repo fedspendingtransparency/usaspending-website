@@ -12,7 +12,6 @@ const propTypes = {
     tooltipElement: PropTypes.element
 };
 
-
 const PaginatedTooltipContainer = ({ data, tooltipElement }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const previousPage = () => {

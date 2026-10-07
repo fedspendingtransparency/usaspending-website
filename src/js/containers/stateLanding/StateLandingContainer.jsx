@@ -149,4 +149,3 @@ export default class StateLandingContainer extends React.Component {
         );
     }
 }
-

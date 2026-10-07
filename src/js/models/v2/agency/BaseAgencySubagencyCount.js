@@ -1,4 +1,3 @@
-
 const BaseAgencySubagencyCount = {
     populate(data) {
     // eslint-disable-next-line camelcase

@@ -26,7 +26,6 @@ const AnalystGuideIntro = () => {
         handleShareOptionClick(name, slug, emailArgs, onExternalLinkClick);
     };
 
-
     return (
         <FlexGridRow className="analyst-guide__intro">
             <FlexGridCol width={10}>

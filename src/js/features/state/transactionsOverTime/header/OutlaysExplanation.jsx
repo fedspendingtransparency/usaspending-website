@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import GlossaryLink from "components/sharedComponents/GlossaryLink";
 
-
 const OutlaysExplanation = ({ outlayWhatOpen }) => (
     <>
         { outlayWhatOpen &&

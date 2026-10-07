@@ -60,4 +60,3 @@ export const getAtdDefcText = (isDefCodeInFilter, newSearch = false) => {
     }
     return '';
 };
-

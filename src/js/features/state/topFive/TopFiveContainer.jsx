@@ -19,7 +19,6 @@ const propTypes = {
 const TopFiveContainer = ({ category, type, agencyData }) => {
     const { overview, fy } = useSelector((state) => state.stateProfile);
 
-
     const { code, _totalAmount: total } = overview;
 
     const {

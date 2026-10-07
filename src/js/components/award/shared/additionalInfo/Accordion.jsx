@@ -34,7 +34,6 @@ const Accordion = ({
 
     const handleClick = () => setOpen((prevState) => !prevState);
 
-
     const link = (pathAndTitle) =>{
         const { path, title } = pathAndTitle;
         if (!path && !title) return '--';

@@ -26,7 +26,6 @@ const FeaturedContentArticleSidebar = ({ chosenArticle }) => {
         handleShareOptionClick(optionName, url, emailArgs, handleShareDispatch);
     };
 
-
     return (
         <FlexGridCol
             tablet={12}

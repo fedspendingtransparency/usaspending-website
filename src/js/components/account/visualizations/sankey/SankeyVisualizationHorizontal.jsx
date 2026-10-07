@@ -397,7 +397,6 @@ unobligated balance`}
                         <path d="M143.5 434.8L304 257 143.8 77.3 143.4 6l225.2 250.5L144 506" />
                     </DirectionLabel>
 
-
                     <g
                         className="center-col"
                         transform={`translate(${this.state.center.x}, 40)`}>

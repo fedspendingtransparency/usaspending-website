@@ -232,7 +232,6 @@ export const buildGrantsDirectOtherProps = (awardType, awardAmounts, hasOutlays,
     return chartProps;
 };
 
-
 export const buildLoanProps = (awardAmounts, awardType) => {
     const props = {
         numerator: {

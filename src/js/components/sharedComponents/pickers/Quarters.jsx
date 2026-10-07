@@ -26,7 +26,6 @@ const propTypes = {
     index: PropTypes.number
 };
 
-
 const Quarters = ({
     periodsPerQuarter,
     handleSelection,

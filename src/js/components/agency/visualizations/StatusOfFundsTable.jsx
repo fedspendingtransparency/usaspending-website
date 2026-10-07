@@ -101,4 +101,3 @@ const StatusOfFundsTable = ({
 
 StatusOfFundsTable.propTypes = propTypes;
 export default StatusOfFundsTable;
-

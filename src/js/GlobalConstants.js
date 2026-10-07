@@ -30,4 +30,3 @@ const globalConstants = {
 };
 
 module.exports = globalConstants;
-

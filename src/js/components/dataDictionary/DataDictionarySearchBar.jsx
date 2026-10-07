@@ -23,7 +23,6 @@ export default class DataDictionarySearchBar extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-
     onChange(e) {
         this.setState({
             term: e.target.value,

@@ -22,7 +22,6 @@ const propTypes = {
     videos: PropTypes.array
 };
 
-
 const body = "Learn how to use USAspending.gov and understand the data. Subscribe to our YouTube for the latest videos!";
 
 const getEmailSocialShareData = {

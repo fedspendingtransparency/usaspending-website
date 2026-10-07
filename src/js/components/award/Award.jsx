@@ -124,7 +124,6 @@ const Award = (props) => {
         });
     };
 
-
     const renderContent = (overview, awardId) => {
         if (!overview) return null;
         if (overview.category === 'contract') {

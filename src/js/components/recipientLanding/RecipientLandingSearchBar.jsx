@@ -24,7 +24,6 @@ export default class RecipientLandingSearchBar extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-
     onChange(e) {
         this.setState({
             [e.target.name]: e.target.value,

@@ -171,7 +171,6 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, isMobile }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fiscalYear, toptierCode]);
 
-
     return (<>
         {loading && <LoadingMessage />}
         {error && <ErrorMessage />}

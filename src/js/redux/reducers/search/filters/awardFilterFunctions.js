@@ -92,4 +92,3 @@ export const immutableSetToggle = (set, value) => {
     // return the new instance with updated values
     return updatedSet;
 };
-

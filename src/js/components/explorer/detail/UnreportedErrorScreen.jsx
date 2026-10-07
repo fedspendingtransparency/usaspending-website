@@ -6,7 +6,6 @@
 import React from 'react';
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 
-
 export default class UnreportedErrorScreen extends React.Component {
     render() {
         return (
@@ -45,4 +44,3 @@ export default class UnreportedErrorScreen extends React.Component {
         );
     }
 }
-

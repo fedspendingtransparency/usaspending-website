@@ -79,7 +79,6 @@ const AdditionalData = (props) => {
                     </div>
                 </div>
 
-
                 {/* SCROLLER OVERLAYS */}
 
                 {/* TRANSITION TO START SECTION */}
@@ -145,7 +144,6 @@ const AdditionalData = (props) => {
                     }>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
-
 
             </Scroller>
         </div>

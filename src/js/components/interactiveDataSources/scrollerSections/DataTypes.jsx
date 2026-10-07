@@ -45,9 +45,7 @@ const DataTypes = (props) => {
                     </div>
                 </div>
 
-
                 {/* SCROLLER OVERLAYS */}
-
 
                 {/* OVERVIEW OF DATA TYPES */}
                 <ScrollerOverlay
@@ -78,7 +76,6 @@ const DataTypes = (props) => {
                             } />
                     </div>
                 </ScrollerOverlay>
-
 
                 {/* ACCOUNT DATA */}
                 <ScrollerOverlay
@@ -111,7 +108,6 @@ const DataTypes = (props) => {
                     </div>
                 </ScrollerOverlay>
 
-
                 {/* AWARD DATA */}
                 <ScrollerOverlay
                     content="animation"
@@ -142,7 +138,6 @@ const DataTypes = (props) => {
                             } />
                     </div>
                 </ScrollerOverlay>
-
 
                 {/* ADDITIONAL DATA */}
                 <ScrollerOverlay

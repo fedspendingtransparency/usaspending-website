@@ -48,7 +48,6 @@ const DrilldownSidebar = ({
     const prgActivityOrObjectClassObligation = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedPrgActivityOrObjectClass?._obligations), 2);
     const prgActivityOrObjectClassOutlays = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedPrgActivityOrObjectClass?._outlays), 2);
 
-
     return (
         <>
             <DrilldownSidebarLevel

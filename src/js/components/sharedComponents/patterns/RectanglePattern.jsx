@@ -11,7 +11,6 @@ const propTypes = {
     rectangles: PropTypes.array
 };
 
-
 const RectanglePattern = ({
     patternProps,
     rectangles

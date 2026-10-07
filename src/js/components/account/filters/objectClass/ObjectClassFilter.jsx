@@ -27,7 +27,6 @@ export default class ObjectClassFilter extends React.Component {
         this.props.updateFilter(code);
     }
 
-
     render() {
         const items = this.props.availableObjectClasses.map((major) => {
             const label = major.name;

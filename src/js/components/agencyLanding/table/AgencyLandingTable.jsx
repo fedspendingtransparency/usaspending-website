@@ -23,7 +23,6 @@ export default class AgencyLandingTable extends React.PureComponent {
             noResultsClass = ' no-results';
         }
 
-
         const rows = this.props.results.map((agency, index) => (
             <TableRow
                 agency={agency}

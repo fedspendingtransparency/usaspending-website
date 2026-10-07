@@ -5,7 +5,6 @@ import LottieAnimation from '../lottieAnimation/LottieAnimation';
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
-
 const AccountData = (props) => {
     const overline = <p>{props.title?.toUpperCase()}</p>;
 
@@ -93,9 +92,7 @@ const AccountData = (props) => {
                     </div>
                 </div>
 
-
                 {/* SCROLLER OVERLAYS */}
-
 
                 {/* GTAS/AGENCY BUDGET EXECUTION */}
                 <ScrollerOverlay
@@ -130,7 +127,6 @@ const AccountData = (props) => {
                     </div>
                 </ScrollerOverlay>
 
-
                 {/* FILE A */}
                 <ScrollerOverlay
                     content="animation"
@@ -153,7 +149,6 @@ const AccountData = (props) => {
                             content={cards.card2.content} />
                     </div>
                 </ScrollerOverlay>
-
 
                 {/* FILE B */}
                 <ScrollerOverlay

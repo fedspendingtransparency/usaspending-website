@@ -17,7 +17,6 @@ const propTypes = {
     setShowMobileFilters: PropTypes.func
 };
 
-
 const SearchSidebarSubmit = ({
     stagedFiltersAreEmpty,
     requestsComplete,

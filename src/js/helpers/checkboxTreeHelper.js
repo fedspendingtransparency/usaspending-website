@@ -354,7 +354,6 @@ export const cleanTreeData = (nodes, keyMap) => nodes.map((node) => ({
     ...getChildren(node, keyMap)
 }));
 
-
 export const sortNodesByValue = (a, b) => {
     if (a.isPlaceHolder) return 1;
     if (b.isPlaceHolder) return -1;
@@ -757,7 +756,6 @@ export const getUniqueAncestorPaths = (
         return 0;
     });
 
-
 export const getAncestryPathOfNodes = (checked, nodes, traverseTreeByCodeFn) => [
     ...new Set(
         checked.map((code) => removePlaceholderString(code))
@@ -823,7 +821,6 @@ export const setCounts = (newCounts, treeName) => ({
     type: `SET_${treeName}_COUNTS`,
     payload: newCounts
 });
-
 
 // new helpers initially for Active Filters
 export const getChildrenAndDescendantIds = (node) => {

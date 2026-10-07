@@ -4,7 +4,6 @@ import Scroller from "../scroller/Scroller";
 import ScrollerOverlay from "../scroller/scrollerOverlay/ScrollerOverlay";
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 
-
 function ExampleScroller() {
     // Content for first overlay card
     const cardIcon1 = (

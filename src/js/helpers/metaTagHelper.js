@@ -354,8 +354,6 @@ export const trainingVideosMetaTags = {
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };
 
-
-
 export const isCustomPageTitleDefined = (title = "USAspending.gov") => {
     if (title === "USAspending.gov") return false;
     if (title.split('|')[0] === ' ') return false;

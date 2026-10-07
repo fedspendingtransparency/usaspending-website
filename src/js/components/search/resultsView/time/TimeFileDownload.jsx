@@ -75,4 +75,3 @@ const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
 
 TimeFileDownload.propTypes = propTypes;
 export default TimeFileDownload;
-

@@ -79,7 +79,6 @@ const DataAvailable = (props) => {
                     </div>
                 </div>
 
-
                 {/* SCROLLER OVERLAYS */}
                 <ScrollerOverlay
                     content="animation-loop1"

@@ -69,7 +69,6 @@ export const fetchCFDA = (req) => apiRequest({
     data: req
 });
 
-
 // NAICS search for autocomplete
 export const fetchNAICS = (req) => apiRequest({
     url: 'v2/autocomplete/naics/',
@@ -184,7 +183,6 @@ export const restoreUrlHash = (data) => apiRequest({
 export const fetchLastUpdate = () => apiRequest({
     url: 'v2/awards/last_updated/'
 });
-
 
 const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { exclude: exclude2, require: require2 }) => {
     if (!isEqual(sortBy(require1), sortBy(require2))) return false;

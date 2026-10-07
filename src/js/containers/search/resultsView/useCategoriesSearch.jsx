@@ -23,7 +23,6 @@ const onClickHandler = (linkName, selectedDropdown) => {
     });
 };
 
-
 const parseData = (data, selectedDropdown, spendingLevel) => {
     const labelSeries = [];
     const dataSeries = [];

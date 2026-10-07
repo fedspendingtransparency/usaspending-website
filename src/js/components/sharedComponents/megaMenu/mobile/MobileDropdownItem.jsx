@@ -33,7 +33,6 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-
 const MobileDropdownItem = ({
     title,
     section1Items,

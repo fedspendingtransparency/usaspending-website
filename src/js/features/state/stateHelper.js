@@ -116,4 +116,3 @@ export const stateTitleCase = (state) => (state || '').toLowerCase()
         return state.charAt(0).toUpperCase() + state.slice(1);
     })
     .join(' ');
-

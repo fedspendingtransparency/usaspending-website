@@ -3,7 +3,6 @@
  * Created by Andrea Blackwell 12/15/2021
  */
 
-
 export const mapToFullCategoryName = (categoryType) => `All ${categoryType.charAt(0).toUpperCase()}${categoryType.slice(1)}`;
 
 export const getCategoryNameByAwardType = (awardType, categoryMapping) => {
@@ -27,4 +26,3 @@ export const getOuterCategoryId = (categoryName, outer) => {
 
     return '';
 };
-

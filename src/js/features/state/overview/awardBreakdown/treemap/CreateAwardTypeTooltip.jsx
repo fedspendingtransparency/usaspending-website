@@ -11,7 +11,6 @@ import { formatMoneyWithUnitsShortLabel } from "helpers/moneyFormatter";
 import * as MoneyFormatter from "helpers/moneyFormatter";
 import AwardTypeTooltip from "./AwardTypeTooltip";
 
-
 const CreateAwardTypeTooltip = ({
     awardBreakdown,
     totalAmount,

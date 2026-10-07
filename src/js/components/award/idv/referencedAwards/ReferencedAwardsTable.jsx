@@ -111,7 +111,6 @@ export default class ReferencedAwardsTable extends React.Component {
             content = null;
         }
 
-
         const totalItems = (this.props.counts && this.props.counts[this.props.tableType]) || 0;
         const { page, tableType } = this.props;
         return (

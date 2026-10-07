@@ -32,4 +32,3 @@ const TrainingVideosContainer = () => {
 };
 
 export default TrainingVideosContainer;
-

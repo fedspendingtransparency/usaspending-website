@@ -46,7 +46,6 @@ const AccountUserSelections = () => {
         );
     };
 
-
     const generateBudgetAgencyFunctionString = () => {
         let selectedFilterValues = [];
 
@@ -94,7 +93,6 @@ const AccountUserSelections = () => {
             </div>
         );
     };
-
 
     const generateSubmissionTypeString = () => {
         if (accounts.submissionTypes.length > 0) {

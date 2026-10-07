@@ -123,4 +123,3 @@ export default class AggregatedAwardAmounts extends React.Component {
 }
 
 AggregatedAwardAmounts.propTypes = propTypes;
-

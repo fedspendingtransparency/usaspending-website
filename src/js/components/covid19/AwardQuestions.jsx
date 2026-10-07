@@ -37,4 +37,3 @@ const AwardQuestion = ({ publicLaw }) => (
 
 AwardQuestion.propTypes = propTypes;
 export default AwardQuestion;
-

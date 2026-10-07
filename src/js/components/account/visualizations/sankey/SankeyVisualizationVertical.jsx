@@ -264,7 +264,6 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
             }
         };
 
-
         // calculate bottom row
         const obligated = props.amounts.out.obligated;
         const obligatedWidth = (obligated / budgetAuthority) * centerWidth;
@@ -594,7 +593,6 @@ scale(0.7,0.7)`}>
 143.7`} />
                         </DirectionLabel>
                     </g>
-
 
                     <g
                         className="bottom-row"

@@ -22,11 +22,9 @@ const NewDownloadProgress = ({
         setDownloadCollapsed(true);
     }, [setDownloadCollapsed]);
 
-
     const onCopy = useCallback(() => {
         setCopied(true);
     }, []);
-
 
     const icon = (
         <div className="icon valid">

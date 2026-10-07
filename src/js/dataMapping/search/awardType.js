@@ -60,7 +60,6 @@ export const awardTypeNewFCodes = {
     'F010': 'Other Financial Assistance'
 };
 
-
 export const glossaryLinks = {
     'A': 'blanket-purchase-agreement-bpa',
     'B': 'purchase-order',
@@ -181,4 +180,3 @@ export const awardTypesData = [
         filters: awardTypeGroups.other
     }
 ];
-

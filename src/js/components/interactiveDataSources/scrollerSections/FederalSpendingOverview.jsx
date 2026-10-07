@@ -90,7 +90,6 @@ const FederalSpendingOverview = (props) => {
 
                 {/* SCROLLER OVERLAYS */}
 
-
                 <ScrollerOverlay
                     content="animation"
                     onStepEnter={() => {

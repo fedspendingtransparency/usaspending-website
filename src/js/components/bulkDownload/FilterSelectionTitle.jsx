@@ -157,7 +157,6 @@ const titleData = {
     }
 };
 
-
 const FilterSectionTitle = ({
     type
 }) => {

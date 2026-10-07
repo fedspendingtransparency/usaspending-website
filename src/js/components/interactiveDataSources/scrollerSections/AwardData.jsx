@@ -249,7 +249,6 @@ const AwardData = (props) => {
                     </div>
                 </div>
 
-
                 {/* SCROLLER OVERLAYS */}
 
                 {/* TRANSITION TO START SECTION */}
@@ -262,7 +261,6 @@ const AwardData = (props) => {
                     }>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
-
 
                 {/* FILE C */}
                 <ScrollerOverlay
@@ -310,7 +308,6 @@ const AwardData = (props) => {
                     </div>
                 </ScrollerOverlay>
 
-
                 {/* FABS */}
                 <ScrollerOverlay
                     content="animation"
@@ -333,7 +330,6 @@ const AwardData = (props) => {
                             content={cards.card3.content} />
                     </div>
                 </ScrollerOverlay>
-
 
                 {/* Linked Awards */}
                 <ScrollerOverlay

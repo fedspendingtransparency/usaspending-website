@@ -68,7 +68,6 @@ const MapLegend = memo(function MapLegend({
         );
     });
 
-
     return (
         <div className="map-legend">
             <ul className="map-legend-body">

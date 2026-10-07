@@ -167,7 +167,6 @@ const ResultsTable = (props) => {
         return () => window.removeEventListener('resize', measureHeight);
     }, []);
 
-
     useEffect(() => {
         if (props.isMobile) {
             setActivateRightFade(false);

@@ -28,7 +28,6 @@ export default class LegacyTopFilterBar extends React.Component {
         this.pressedClearAll = this.pressedClearAll.bind(this);
     }
 
-
     pressedClearAll() {
         this.props.clearAllFilters();
     }

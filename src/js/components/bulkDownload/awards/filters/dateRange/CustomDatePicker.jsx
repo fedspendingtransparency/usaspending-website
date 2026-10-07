@@ -11,7 +11,6 @@ import { ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
 const dayjs = require('dayjs');
 
-
 const propTypes = {
     value: PropTypes.string,
     type: PropTypes.string,
@@ -20,7 +19,6 @@ const propTypes = {
     min: PropTypes.string,
     error: PropTypes.object
 };
-
 
 // possibly move to helpers
 const dayNames = ["S", "M", "T", "W", "Th", "F", "S"];
@@ -78,7 +76,6 @@ const parseInputDate = (value) => {
 };
 
 // end possibly move to helpers
-
 
 // eslint-disable-next-line prefer-arrow-callback
 const CustomDatePicker = memo(function CustomDatePicker({

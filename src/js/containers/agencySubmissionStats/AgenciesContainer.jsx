@@ -343,7 +343,6 @@ const AgenciesContainer = ({
         }
     };
 
-
     useEffect(() => {
         pageRef.current = { publications: publicationsPage, submissions: submissionsPage };
         // eslint-disable-next-line react-hooks/exhaustive-deps

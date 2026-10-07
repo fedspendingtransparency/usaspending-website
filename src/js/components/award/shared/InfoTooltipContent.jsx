@@ -1453,11 +1453,9 @@ export const CovidFlagTooltip = ({ codes }) => (
     </div>
 );
 
-
 CovidFlagTooltip.propTypes = {
     codes: PropTypes.arrayOf(PropTypes.string)
 };
-
 
 export const UnlinkedTooltip = (props) => {
     const clickCloseTooltip = () => {
@@ -1540,4 +1538,3 @@ export const ExplorerInfoToolTip = (
 CondensedCDTooltip.propTypes = {
     title: PropTypes.string
 };
-

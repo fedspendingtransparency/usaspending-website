@@ -58,7 +58,6 @@ const RecipientSearchContainer = () => {
         }
     };
 
-
     const sortResults = (data) => {
         // sort alphabetically
         data.sort((a, b) => {
@@ -107,7 +106,6 @@ const RecipientSearchContainer = () => {
         }
     };
 
-
     const getRecipientsFromSearchString = (term) => {
         if (recipientRequest.current) {
             recipientRequest.current.cancel();
@@ -155,7 +153,6 @@ const RecipientSearchContainer = () => {
         setMaxRecipients(false); // clean up if previously set
         setRecipients([]);
     };
-
 
     const handleClearAll = () => {
         selectedRecipients.forEach((recipient) => {

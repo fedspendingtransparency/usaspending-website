@@ -76,7 +76,6 @@ const ResultItem = ({ item, search, selectTerm }) => {
         });
     };
 
-
     useEffect(() => {
         prepareLabel();
     // eslint-disable-next-line react-hooks/exhaustive-deps

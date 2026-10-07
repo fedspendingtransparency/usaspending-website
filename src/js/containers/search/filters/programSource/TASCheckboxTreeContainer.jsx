@@ -168,7 +168,6 @@ const TASCheckboxTree = () => {
             });
     };
 
-
     const onExpand = (expandedValue, newExpandedArray, shouldFetchChildren, selectedNode) => {
         const treeDepth = selectedNode.ancestors?.length;
 
@@ -281,7 +280,6 @@ const TASCheckboxTree = () => {
             setIsLoading(true);
         }
     };
-
 
     useEffect(() => {
         if (nodes.length !== 0) {

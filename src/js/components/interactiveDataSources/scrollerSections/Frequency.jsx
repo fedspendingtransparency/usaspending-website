@@ -39,7 +39,6 @@ const Frequency = (props) => {
                     </div>
                 </div>
 
-
                 {/* SCROLLER OVERLAYS */}
 
                 {/* INTRO CARD ON FREQUENCY */}

@@ -100,7 +100,6 @@ const CustomTooltip = (args) => {
     return null;
 };
 
-
 const TimeVisualizationChart = (props) => {
     const [focusBar, setFocusBar] = useState(null);
     const transformedData = [];

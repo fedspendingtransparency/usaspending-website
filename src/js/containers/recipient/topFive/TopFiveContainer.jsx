@@ -154,7 +154,6 @@ const TopFiveContainer = ({
 
 TopFiveContainer.propTypes = propTypes;
 
-
 export default connect(
     (state) => ({
         total: state.recipient.overview._totalAmount,

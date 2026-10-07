@@ -10,7 +10,6 @@ import ExplorerWrapperPage from '../ExplorerWrapperPage';
 import ExplorerLandingOption from './ExplorerLandingOption';
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
-
 const ExplorerDescription = () => (
     <div className="explorer-description__content">
         <p>

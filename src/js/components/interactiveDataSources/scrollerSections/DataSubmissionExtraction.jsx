@@ -37,9 +37,7 @@ const DataSubmissionExtraction = (props) => {
                     </div>
                 </div>
 
-
                 {/* SCROLLER OVERLAYS */}
-
 
                 {/* SUBMISSION AND EXCTRACTION */}
                 <ScrollerOverlay
@@ -105,7 +103,6 @@ const DataSubmissionExtraction = (props) => {
                             } />
                     </div>
                 </ScrollerOverlay>
-
 
                 {/* EXTRACTION */}
                 <ScrollerOverlay

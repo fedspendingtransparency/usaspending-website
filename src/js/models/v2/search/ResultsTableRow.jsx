@@ -411,4 +411,3 @@ const ResultsTableRow = {
 };
 
 export default ResultsTableRow;
-

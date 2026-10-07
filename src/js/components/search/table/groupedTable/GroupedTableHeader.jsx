@@ -79,4 +79,3 @@ const GroupedTableHeader = ({
 GroupedTableHeader.propTypes = propTypes;
 
 export default GroupedTableHeader;
-

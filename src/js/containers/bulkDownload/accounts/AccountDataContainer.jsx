@@ -182,7 +182,6 @@ export class AccountDataContainer extends React.Component {
         });
     }
 
-
     clearAccountFilters() {
         this.props.clearDownloadFilters('accounts');
     }

@@ -15,4 +15,3 @@ export const parseCodes = (codes, type) => sortAlphaNumbersLast(
     codes.filter(((code) => code.disaster === type))
         .map((code) => code.code)
 );
-

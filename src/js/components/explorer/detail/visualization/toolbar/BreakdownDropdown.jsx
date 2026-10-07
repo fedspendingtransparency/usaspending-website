@@ -74,7 +74,6 @@ const BreakdownDropdown = (props) => {
         setActive(tempActive);
     };
 
-
     useEffect(() => {
         prepareOptions(props);
         return () => {

@@ -4,7 +4,6 @@ import PropTypes from "prop-types";
 import { Button } from 'data-transparency-ui';
 import { Check } from 'components/sharedComponents/icons/Icons';
 
-
 const propTypes = {
     spendingLevel: PropTypes.string,
     onToggle: PropTypes.func
@@ -23,7 +22,6 @@ const AwardTypeToggle = ({
             onToggle();
         }
     };
-
 
     return (
         <div className="award-type-toggle" >

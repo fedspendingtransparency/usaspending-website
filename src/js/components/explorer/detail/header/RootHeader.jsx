@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { formatTreemapValues } from 'helpers/moneyFormatter';

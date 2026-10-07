@@ -192,4 +192,3 @@ const GeoVisualizationSection = (props) => {
 
 GeoVisualizationSection.propTypes = propTypes;
 export default GeoVisualizationSection;
-

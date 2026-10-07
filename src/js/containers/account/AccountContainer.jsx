@@ -11,7 +11,6 @@ import { isCancel } from 'axios';
 import { flowRight } from 'lodash-es';
 import { useMatch } from 'react-router';
 
-
 import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';
 
 import * as AccountHelper from 'apis/account';
@@ -25,7 +24,6 @@ import withLatestFy from 'containers/account/WithLatestFy';
 import Account from 'components/account/Account';
 import InvalidAccount from 'components/account/InvalidAccount';
 import LoadingAccount from 'components/account/LoadingAccount';
-
 
 require('pages/account/accountPage.scss');
 
@@ -104,7 +102,6 @@ const AccountContainer = (props) => {
             loadFiscalYearSnapshot(props.account.id);
         }
     };
-
 
     const loadData = () => {
         if (accountRequestRef.current) {

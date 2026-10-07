@@ -55,10 +55,8 @@ const ScrollToTop = () => {
         window.scrollTo(0, 0);
     }, [pathname]);
 
-
     return null;
 };
-
 
 const ErrorFallback = ({ resetErrorBoundary }) => (
     <ErrorPage

@@ -85,7 +85,6 @@ const GroupedAwardTable = (props) => {
         maxLeafRowFilterDepth: 1
     });
 
-
     return (
         <>
             <div
@@ -164,4 +163,3 @@ const GroupedAwardTable = (props) => {
 GroupedAwardTable.propTypes = propTypes;
 
 export default GroupedAwardTable;
-

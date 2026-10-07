@@ -10,8 +10,6 @@ import Note, { dodNote } from 'components/sharedComponents/Note';
 import { Glossary } from 'components/sharedComponents/icons/Icons';
 import kGlobalConstants from 'GlobalConstants';
 
-
-
 const propTypes = {
     dataType: PropTypes.string
 };
@@ -91,7 +89,6 @@ const DownloadInfoSection = ({
         </>
     );
 };
-
 
 DownloadInfoSection.propTypes = propTypes;
 export default DownloadInfoSection;

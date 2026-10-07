@@ -14,7 +14,6 @@ const propTypes = {
     showInfoTooltip: PropTypes.bool
 };
 
-
 const margin = 15;
 const tooltipPadding = 6;
 

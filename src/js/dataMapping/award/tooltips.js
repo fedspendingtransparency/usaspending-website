@@ -58,7 +58,6 @@ export const getToolTipBySectionAndAwardType = (section, type) => {
     return tooltipsBySectionByAwardType[section].default;
 };
 
-
 export const headerTooltipsByType = {
     idv: {
         modificationNumber: tooltips.modificationNumber,

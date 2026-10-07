@@ -78,7 +78,6 @@ const AwardsUserSelections = () => {
         );
     };
 
-
     const generateAgencyString = () => {
         if (awards.agency.name !== 'Select an Agency') {
             const options = awardDownloadOptions.agencyTypes;
@@ -104,7 +103,6 @@ const AwardsUserSelections = () => {
         }
         return null;
     };
-
 
     const generateLocationString = () => {
         const options = awardDownloadOptions.locationTypes;

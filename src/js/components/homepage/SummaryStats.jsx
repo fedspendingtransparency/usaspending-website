@@ -104,7 +104,6 @@ const SummaryStats = () => {
             });
     };
 
-
     const renderLink = (name) => (
         <a
             role="button"

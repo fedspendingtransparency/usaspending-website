@@ -32,4 +32,3 @@ export const buildYRange = (allY) => {
 
     return yRange;
 };
-

@@ -6,7 +6,6 @@
 import { includes } from 'lodash-es';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 
-
 export const awardType = (code) => {
     let type = "unknown";
     if (includes(awardTypeGroups.contracts, code)) {
@@ -29,4 +28,3 @@ export const awardType = (code) => {
 };
 
 export const maxDescriptionCharacters = 160;
-

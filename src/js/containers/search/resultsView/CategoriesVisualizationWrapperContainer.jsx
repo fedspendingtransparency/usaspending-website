@@ -222,7 +222,6 @@ const CategoriesVisualizationWrapperContainer = ({
         setPage(prevPage);
     }, [page]);
 
-
     useEffect(() => {
         dispatch(setAppliedFilterCompletion(true));
     }, [

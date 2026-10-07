@@ -233,7 +233,6 @@ const MapWrapper = ({
             mapRef.current.setMinZoom(0);
         }
 
-
         const parentMap = mapRef.current;
         function renderResolver() {
             parentMap.off('render', renderResolver);

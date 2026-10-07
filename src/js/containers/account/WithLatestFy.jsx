@@ -165,7 +165,6 @@ export const useValidTimeBasedQueryParams = (
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [history, latestFy, latestPeriod, submissionPeriods.size, currentUrlFy, currentUrlPeriod]);
 
-
     useEffect(() => {
     // Handles validating defined params
         if (

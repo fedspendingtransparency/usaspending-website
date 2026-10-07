@@ -42,7 +42,6 @@ const SearchSidebarSubmitContainer = ({ setShowMobileFilters }) => {
         dispatch(resetMapLegendToggle());
     }, [dispatch]);
 
-
     const applyFilters = useCallback(() => {
         dispatch(setAppliedFilterCompletion(false));
 

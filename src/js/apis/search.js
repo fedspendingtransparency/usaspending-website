@@ -10,4 +10,3 @@ export const performSpendingByGeographySearch = (params) => apiRequest({
     method: 'post',
     data: params
 });
-

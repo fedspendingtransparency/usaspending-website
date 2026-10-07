@@ -103,7 +103,6 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
         });
     };
 
-
     // Agency Options
     let agenciesArray = [{ name: 'All', toptier_agency_id: 'all', toptier_code: 'all' }];
 
@@ -155,7 +154,6 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
             });
         }
     };
-
 
     // Federal Accout options
     const federalAccountOptions = federalAccounts.map(({
@@ -306,7 +304,6 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
         </div>
     );
 });
-
 
 BudgetAgencyGroup.propTypes = propTypes;
 export default BudgetAgencyGroup;
