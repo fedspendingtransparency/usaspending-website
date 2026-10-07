@@ -131,7 +131,7 @@ const createTableRows = (rows, selectedTimeFrame) => {
         downloadData.push(downloadDataRow);
     });
 
-    return { tableRows, downloadData }
+    return { tableRows, downloadData };
 };
 
 const usePerformSpendingOverTimeSearch = (group, field, direction, selectedTimeFrame) => {
@@ -161,7 +161,7 @@ const usePerformSpendingOverTimeSearch = (group, field, direction, selectedTimeF
         queryKey: ["performSpendingOverTimeSearch", params],
         queryFn: () => performSpendingOverTimeSearch(params).promise,
         select: (data) => data.data.results
-    })
+    });
 
     const { tableRows, downloadData } = useMemo(() => {
         if (!data) return { tableRows: [], downloadData: [] };
@@ -185,7 +185,7 @@ const usePerformSpendingOverTimeSearch = (group, field, direction, selectedTimeF
 
     const parsedData = useMemo(() => parseData(data, group) || [], [data, group]);
 
-    return { isLoading, isError, tableRows, downloadData, parsedData }
-}
+    return { isLoading, isError, tableRows, downloadData, parsedData };
+};
 
 export default usePerformSpendingOverTimeSearch;

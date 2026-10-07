@@ -45,7 +45,7 @@ const NLSearchInfoPage = () => {
                     body="Get quick answers to your questions about our AI-powered Smart Assist feature"
                     faIcon="sparkles"
                     primaryColor="#0081a1"
-                    secondaryColor= "#0081a1"
+                    secondaryColor="#0081a1"
                     overrideBackgroundColor="linear-gradient(91deg,#00687d 0%, #0081a1 35%, #005ea2 100%)"/>
                 <FlexGridCol className="search-info-page__download-group">
                     <ShareDownloadButtonGroup
@@ -78,16 +78,16 @@ const NLSearchInfoPage = () => {
                     </div>
                 </section>
                 <section className="search-info-page__content-section">
-                    <NLSearchInfoSection section={ overview } />
-                    <NLSearchInfoSection section={ search } />
-                    <NLSearchInfoSection section={ results } />
-                    <NLSearchInfoSection section={ limitations } />
-                    <NLSearchInfoSection section={ feedback } />
+                    <NLSearchInfoSection section={overview} />
+                    <NLSearchInfoSection section={search} />
+                    <NLSearchInfoSection section={results} />
+                    <NLSearchInfoSection section={limitations} />
+                    <NLSearchInfoSection section={feedback} />
                 </section>
-                <NLSearchInfoResources />     
+                <NLSearchInfoResources />
             </main>
         </PageWrapper>
-    )
+    );
 };
 
 export default NLSearchInfoPage;

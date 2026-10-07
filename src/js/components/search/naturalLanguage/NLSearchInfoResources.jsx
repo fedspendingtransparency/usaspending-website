@@ -11,10 +11,10 @@ const NLSearchInfoResources = () => {
     return (
         <section className="search-info-page__additional-resources">
             <FlexGridCol className="search-info-page__resources-label">
-                        Additional Resources
+                Additional Resources
             </FlexGridCol>
             <FlexGridCol className="search-info-page__resources-text">
-                        Other resources available to help you understand the data in USAspending.
+                Other resources available to help you understand the data in USAspending.
             </FlexGridCol>
             <FlexGridRow className="search-info-page__resources-card-row">
                 {smartAssistResources.map((card, index) => (
@@ -47,6 +47,6 @@ const NLSearchInfoResources = () => {
             </FlexGridRow>
         </section>
     );
-}
+};
 
 export default NLSearchInfoResources;

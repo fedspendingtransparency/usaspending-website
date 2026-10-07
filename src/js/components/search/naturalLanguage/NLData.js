@@ -9,14 +9,14 @@ import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import Analytics from "../../../helpers/analytics/Analytics";
 import { closeOtherSlideouts } from "../../../helpers/slideoutHelper";
 import storeSingleton from 'redux/storeSingleton';
-import * as glossaryActions from "../../../redux/actions/glossary/glossaryActions"
-import * as aboutTheDataActions from "../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions"
+import * as glossaryActions from "../../../redux/actions/glossary/glossaryActions";
+import * as aboutTheDataActions from "../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 import { initialState as defaultFilters } from '../../../redux/reducers/search/searchFiltersReducer';
 import { awardTypeGroups } from "../../../dataMapping/search/awardType";
 import { REQUEST_VERSION } from "../../../GlobalConstants";
 
 const overline = 'IF YOU WANT TO KNOW:';
-const filterByHeader = 'FILTER BY:'
+const filterByHeader = 'FILTER BY:';
 const id = crypto.randomUUID();
 const dayjs = require('dayjs');
 
@@ -33,37 +33,37 @@ export const searchCardData = [
         ),
         filterByHeader,
         icons: [
-            <NLSearchSuggestionsIcon 
-                key={`time-period-${id}`}  
-                variant="time-period" 
+            <NLSearchSuggestionsIcon
+                key={`time-period-${id}`}
+                variant="time-period"
                 label="Time Period"
                 icon="calendar"/>,
-            <NLSearchSuggestionsIcon 
-                key={`location-${id}`} 
-                variant="location" 
+            <NLSearchSuggestionsIcon
+                key={`location-${id}`}
+                variant="location"
                 label="Location"
-                icon="location-dot"/> 
+                icon="location-dot"/>
         ]
     },
     {
         id: id + 2,
         overline,
-        headline: ( 
+        headline: (
             <>
                 How much federal funding are <strong>national defense corporations</strong> receiving?
             </>
         ),
         filterByHeader,
         icons: [
-            <NLSearchSuggestionsIcon 
-                key={`keyword-${id}`}  
-                variant="keyword" 
+            <NLSearchSuggestionsIcon
+                key={`keyword-${id}`}
+                variant="keyword"
                 label="Keyword"
                 icon="search" />,
-            <NLSearchSuggestionsIcon 
-                key={`recipient-${id}`} variant="recipient" 
+            <NLSearchSuggestionsIcon
+                key={`recipient-${id}`} variant="recipient"
                 label="Recipient"
-                icon="user" /> 
+                icon="user" />
         ]
     },
     {
@@ -76,16 +76,16 @@ export const searchCardData = [
         ),
         filterByHeader,
         icons: [
-            <NLSearchSuggestionsIcon 
-                key={`award-type-${id}`}  
-                variant="award-type" 
+            <NLSearchSuggestionsIcon
+                key={`award-type-${id}`}
+                variant="award-type"
                 label="Award Type"
                 icon="file-certificate" />,
-            <NLSearchSuggestionsIcon 
-                key={`award-description-${id}`} 
-                variant="award-description" 
+            <NLSearchSuggestionsIcon
+                key={`award-description-${id}`}
+                variant="award-description"
                 label="Award Description"
-                icon="building" /> 
+                icon="building" />
         ]
     }
 ];
@@ -93,7 +93,7 @@ export const searchCardData = [
 export const moreResourcesBtnData = [
     {
         id: id + 1,
-        action: () => { 
+        action: () => {
             Analytics.event({
                 event: 'natural-language_glossary',
                 category: 'Natural Language More Resources',
@@ -104,15 +104,15 @@ export const moreResourcesBtnData = [
             dispatch(glossaryActions.toggleGlossary());
         },
         image: (
-            <NLSearchSuggestionsIcon 
-                variant="glossary" 
-                label="Glossary" 
+            <NLSearchSuggestionsIcon
+                variant="glossary"
+                label="Glossary"
                 icon="book"/>
         )
     },
     {
         id: id + 2,
-        action: () => { 
+        action: () => {
             Analytics.event({
                 event: 'natural-language_about-the-data',
                 category: 'Natural Language More Resources',
@@ -123,15 +123,15 @@ export const moreResourcesBtnData = [
             dispatch(aboutTheDataActions.toggleAboutTheData());
         },
         image: (
-            <NLSearchSuggestionsIcon 
-                variant="about-the-data" 
-                label="About the Data" 
+            <NLSearchSuggestionsIcon
+                variant="about-the-data"
+                label="About the Data"
                 icon="database"/>
-        ) 
+        )
     },
     {
         id: id + 3,
-        action: (navigate) => { 
+        action: (navigate) => {
             Analytics.event({
                 event: 'natural-language_data-dictionary',
                 category: 'Natural Language More Resources',
@@ -142,15 +142,15 @@ export const moreResourcesBtnData = [
             navigate("/data-dictionary");
         },
         image: (
-            <NLSearchSuggestionsIcon 
-                variant="data-dictionary" 
-                label="Data Dictionary" 
+            <NLSearchSuggestionsIcon
+                variant="data-dictionary"
+                label="Data Dictionary"
                 icon="book-open"/>
-        ) 
+        )
     },
     {
         id: id + 4,
-        action: (navigate) => { 
+        action: (navigate) => {
             Analytics.event({
                 event: 'natural-language_fed-spending-guide',
                 category: 'Natural Language More Resources',
@@ -161,11 +161,11 @@ export const moreResourcesBtnData = [
             navigate("/federal-spending-guide");
         },
         image: (
-            <NLSearchSuggestionsIcon 
-                variant="federal-spending-guide" 
-                label="Federal Spending Guide" 
+            <NLSearchSuggestionsIcon
+                variant="federal-spending-guide"
+                label="Federal Spending Guide"
                 icon="money-check-dollar"/>
-        ) 
+        )
     }
 ];
 
@@ -181,7 +181,7 @@ export const searchGovSpendingData = [
                     <>
                         Enter your <strong>question</strong> or select from{' '}
                         our <strong>templates</strong> in the Smart Assist panel.
-                    </> 
+                    </>
                 }/>
         )
     },
@@ -196,7 +196,7 @@ export const searchGovSpendingData = [
                     <>
                         Let our model do it’s work to{' '}
                         generate your <strong>data.</strong>
-                    </> 
+                    </>
                 }/>
         )
     },
@@ -211,7 +211,7 @@ export const searchGovSpendingData = [
                     <>
                         Get downloadable <strong>federal award</strong>{' '}
                         <strong>data</strong> relevant to your search!
-                    </> 
+                    </>
                 }/>
         )
     }
@@ -235,7 +235,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "ar-2",
@@ -251,7 +251,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "ar-3",
@@ -272,7 +272,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "ar-4",
@@ -293,7 +293,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "ar-5",
@@ -314,7 +314,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             }
         ]
     },
@@ -343,7 +343,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "nal-2",
@@ -355,7 +355,7 @@ export const preSearchOptions = [
                             naicsCodes: {
                                 require: ["11"],
                                 exclude: [],
-                                counts: [ 
+                                counts: [
                                     {
                                         label: "Agriculture, Forestry, Fishing and Hunting",
                                         value: "11",
@@ -367,7 +367,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "nal-3",
@@ -391,7 +391,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "nal-4",
@@ -412,7 +412,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "nal-5",
@@ -439,7 +439,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             }
         ]
     },
@@ -480,7 +480,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "agency-2",
@@ -509,7 +509,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "agency-3",
@@ -538,7 +538,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "agency-4",
@@ -567,7 +567,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
                 id: "agency-5",
@@ -603,7 +603,7 @@ export const preSearchOptions = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             }
         ]
     }
@@ -659,7 +659,7 @@ export const smartAssistContent = {
                             When you submit a prompt, Smart Assist looks for key details such as agencies, recipients, fiscal years, locations, award types, and spending categories, then maps those details to available filters in USAspending data.
                         </p>
                         <p>
-                          While your search runs, you’ll see status updates. If your prompt could mean more than one thing, Smart Assist returns the best match based on context. If there’s only a partial match, it lets you know and suggests ways to refine the search.
+                            While your search runs, you’ll see status updates. If your prompt could mean more than one thing, Smart Assist returns the best match based on context. If there’s only a partial match, it lets you know and suggests ways to refine the search.
                         </p>
                     </>
                 )
@@ -683,7 +683,7 @@ export const smartAssistContent = {
                             <li>Results by Geography</li>
                         </ul>
                         <p>
-                           For details about what’s included in your results, visit the Data Sources and Methodology section below each results table.
+                            For details about what’s included in your results, visit the Data Sources and Methodology section below each results table.
                         </p>
                     </>
                 )
@@ -718,7 +718,7 @@ export const smartAssistContent = {
                             <li>Biased or harmful content (e.g., “unethical companies”). Smart Assist may ignore those terms and use only valid filters (such as Time Period).</li>
                         </ul>
                         <p>
-                          When this happens, Smart Assist explains the limitations and suggests ways to improve your query.
+                            When this happens, Smart Assist explains the limitations and suggests ways to improve your query.
                         </p>
                     </>
                 )
@@ -781,14 +781,14 @@ export const smartAssistResources = [
                 </div>
             </div>
         ),
-        action: () => { 
+        action: () => {
             Analytics.event({
                 event: 'search-info-page_resources-glossary',
                 category: 'Natural Language Additional Resources',
                 action: 'Link',
                 label: 'glossary button'
             });
-            
+
             closeOtherSlideouts('glossary');
             dispatch(glossaryActions.toggleGlossary());
         },
@@ -811,13 +811,13 @@ export const smartAssistResources = [
             </div>
         ),
         buttonLink: '/featured-content',
-        action: () => { 
+        action: () => {
             Analytics.event({
                 event: 'search-info-page_resources-featured-content',
                 category: 'Natural Language Additional Resources',
                 action: 'Link',
                 label: 'smart assist articles button'
-            })
+            });
         }
     },
     {
@@ -836,13 +836,13 @@ export const smartAssistResources = [
             </div>
         ),
         buttonLink: '/federal-spending-guide',
-        action: () => { 
+        action: () => {
             Analytics.event({
                 event: 'search-info-page_resources-federal-spending-guide',
                 category: 'Natural Language Additional Resources',
                 action: 'Link',
                 label: 'smart assist federal spending guide button'
-            })
+            });
         }
     }
 ];

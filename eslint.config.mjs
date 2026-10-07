@@ -149,18 +149,4 @@ export default defineConfig([
     }
 ]);
 
-// following rules noted as having eslint-disable lines
-// "no-nested-ternary": "error",
-// "camelcase": ["error", { properties: "never" }],
-// "consistent-return": "error",
-// "no-unused-expressions": "error",
-// "no-param-reassign": "error",
-// "one-var": "error",
-// "no-shadow": "error",
-// "no-return-assign": "error",
-// "array-callback-return": "error",
-// "prefer-const": "error",
-// "react/no-danger": "error",
-// "eqeqeq": "error",
-// "arrow-body-style": "error",
-// "no-confusing-arrow": "error", // deprecated (in @stylistic/eslint-plugin)
+// eslint --config eslint.config.mjs --ext .jsx,.js "src/js/**" --quiet
