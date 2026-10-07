@@ -55,7 +55,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { data, refetch, cancelQuery, isFetching } = useRequestNLSearch(text);
+    const { data, refetch, cancelQuery, isFetching, isSuccess } = useRequestNLSearch(text);
 
     const parsedData = useMemo(() => data?.split('\n')
         .filter((line) => line.trim() !== '')
@@ -70,7 +70,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const closeSidebar = () => {
         if (isMedium) {
             setShowMobileFilters(false);
-        } 
+        }
         else {
             setSidebarIsOpen(false);
         }
@@ -114,7 +114,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             return;
         }
 
-        if (!isFetching && parsedData && Object.keys(parsedData).length > 0) {
+        if (isSuccess && parsedData && Object.keys(parsedData).length > 0) {
             const done = parsedData.find((res) => {
                 if (res.type === RESPONSE_TYPE.SEARCH_COMPLETE) {
                     return res;
@@ -122,7 +122,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             });
 
             if (done?.result) {
-                // const nlHash = '90e50821bf552b36f20c74de96262d27';  // For testing purposes while NL is under development
                 const nlHash = done.result;
                 if (request.current) {
                     request.current.cancel();
@@ -156,11 +155,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                         }
                     });
             }
+            dispatch(setIsNLSearchComplete(!isFetching));
         }
-
-        dispatch(setIsNLSearchComplete(!isFetching));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [parsedData, isFetching]);
+    }, [isSuccess, isFetching]);
 
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">
