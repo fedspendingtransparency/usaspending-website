@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { QAT } from "GlobalConstants";
 import { setSidebarContent } from '../../../redux/actions/sidebar/sidebarActions';
 import { NATURAL_LANGUAGE, FILTERS } from './SidebarConstants';
-import NLBadge from "../NLBadge";
+import NLBadge from "../naturalLanguage/NLBadge";
 
 const cyan50v = '#0081A1';
 const colorWhite = '#FFF';

@@ -19,7 +19,8 @@ const propTypes = {
     showDownloadBtn: PropTypes.bool,
     onDownloadClick: PropTypes.func,
     downloadInFlight: PropTypes.bool,
-    downloadIcon: PropTypes.string
+    downloadIcon: PropTypes.string,
+    keepShareText: PropTypes.bool
 };
 
 const ShareDownloadButtonGroup = ({
@@ -31,7 +32,8 @@ const ShareDownloadButtonGroup = ({
     showDownloadBtn = false,
     onDownloadClick = () => {},
     downloadInFlight,
-    downloadIcon
+    downloadIcon,
+    keepShareText = false
 }) => {
     const { isMedium } = useContext(IsMobileContext);
     const dropdownDirection = isMedium ? 'right' : 'left';
@@ -77,6 +79,7 @@ const ShareDownloadButtonGroup = ({
                 <ShareIcon
                     url={url}
                     onShareOptionClick={onShareClick}
+                    keepText={keepShareText}
                     colors={{
                         backgroundColor: "white",
                         color: "#0071bc",

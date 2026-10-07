@@ -6,7 +6,7 @@
 
 import React, { memo } from 'react';
 import { useSelector } from "react-redux";
-import getFilters from "../../containers/search/topFilterBar/getFilters";
+import getFilters from "../../../containers/search/topFilterBar/getFilters";
 
 // eslint-disable-next-line prefer-arrow-callback
 const NLBadge = memo(function NLBadge() {

@@ -1,0 +1,102 @@
+.search-info-page__additional-resources {
+  padding: rem(40) rem(100);
+  background: $gray-2;
+
+  @media (max-width: $medium-screen) {
+    padding: rem(40) rem(32);
+  }
+
+  @media (max-width: $mobile-only) {
+    padding: rem(40) rem(16);
+  }
+
+  .search-info-page__resources-label {
+    font-size: $font-size-20;
+    font-family: $font-sans;
+    font-weight: $font-semibold;
+    line-height: $heading-line-height;
+    color: $gray-90;
+    margin-bottom: rem(8);
+  }
+
+  .search-info-page__resources-text {
+    color: $gray-90;
+    font-family: $font-sans;
+    font-size: $font-size-16;
+    line-height: $base-line-height;
+  }
+
+  .search-info-page__resources-card-row {
+    gap: rem(26);
+    margin-top: rem(24);
+    flex-wrap: nowrap;
+
+    @media (max-width: $medium-screen) {
+      flex-direction: column;
+    }
+
+    .search-info-page__resources-card-col {
+      border-radius: rem(8);
+      border: rem(1) solid $gray-10;
+      background: $color-white;
+      padding: rem(16);
+
+      .text {
+        margin-bottom: rem(10);
+        font-size: rem(14);
+      }
+
+      .headline {
+        margin-bottom: rem(2);
+        font-size: rem(16);
+      }
+
+      .card__body {
+        padding: 0;
+        .card__button {
+          margin-bottom: 0;
+          justify-content: left;
+          .card__button--borderless {
+            white-space: normal;
+          }
+          .button-type__text-light {
+            line-height: 1;
+            font-size: $font-size-16;
+            margin: 0;
+            padding: 0;
+          }
+        }
+      }
+
+      .search-info-page__resources-icon-container {
+        width: rem(24);
+        height: rem(24);
+        display: flex;
+        justify-content: center;
+
+        svg {
+          align-self: center;
+        }
+        &.glossary,
+        &.articles,
+        &.guide {
+          margin-bottom: rem(10);
+        }
+        &.glossary svg {
+          margin-left: rem(-4);
+        }
+      }
+
+      .search-info-page__resources-link-container {
+        font-size: rem(16);
+        cursor: pointer;
+
+        svg {
+          width: rem(14);
+          height: rem(16);
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+}

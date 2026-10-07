@@ -35,8 +35,7 @@ const NLMoreResources = () => {
                             imageAlignment="right"
                             image={btn.image}/>
                     </FlexGridCol>
-                ))
-                }
+                ))}
             </FlexGridRow>
         </section>
     );

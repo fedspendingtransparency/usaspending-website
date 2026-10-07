@@ -8,10 +8,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isCancel } from 'axios';
 import { FlexGridRow, FlexGridCol, CardContainer } from 'data-transparency-ui';
 import { preSearchOptions } from "./NLData";
-import { generateUrlHash } from "../../helpers/searchHelper";
-import { combineQueryParams, getQueryParamString } from "../../helpers/queryParams";
-import useQueryParams from "../../hooks/useQueryParams";
-import useFireQueryEvent from "../../hooks/useFireQueryEvent";
+import { generateUrlHash } from "../../../helpers/searchHelper";
+import { combineQueryParams, getQueryParamString } from "../../../helpers/queryParams";
+import useQueryParams from "../../../hooks/useQueryParams";
+import useFireQueryEvent from "../../../hooks/useFireQueryEvent";
 
 const NLPreSearchButtonGroup = () => {
     const query = useQueryParams();
