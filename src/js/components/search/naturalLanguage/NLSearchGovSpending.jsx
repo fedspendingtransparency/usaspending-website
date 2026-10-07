@@ -3,23 +3,43 @@
  * Created by Trey Morgan 8/12/2026
  */
 
-import React, {useState} from "react";
+import React, {useState, useRef, useEffect, useMemo} from "react";
+import { isCancel } from "axios";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from 'react-redux';
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import { searchGovSpendingData } from "./NLData";
 import PropTypes from "prop-types";
-import Analytics from "../../../helpers/analytics/Analytics";
 import { sanitizeNLInput } from "../../../helpers/search/naturalLanguage/sanitizeNLInput";
+import * as Icons from 'components/sharedComponents/icons/Icons';
+import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from "../collapsibleSidebar/NLConstants";
+import useRequestNLSearch from "../collapsibleSidebar/useRequestNLSearch";
+import { restoreUrlHash, parseRemoteFilters } from "helpers/searchHelper";
+import { setIsNLSearchComplete, setSidebarContent, setIsSearchActive } from "../../../redux/actions/sidebar/sidebarActions";
+import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
+import Analytics from "../../../helpers/analytics/Analytics";
+import { NATURAL_LANGUAGE } from "../collapsibleSidebar/SidebarConstants";
 
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
+
 const propTypes = {
     isFilters: PropTypes.bool
 };
 const NLSearchGovSpending = ({ isFilters=false }) => {
-    const navigate = useNavigate();
     const [inputValue, setInputValue] = useState('');
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const { data, refetch, isFetching } = useRequestNLSearch(inputValue);
+    const startNLSearch = () => {
+        if(inputValue?.trim() && typeof refetch === "function") {
+            refetch();
+        }
+    }
+
+    const MAX_CHARS = NL_INPUT_MAX_CHARS;
 
     const handleSmartAssistClick = () => {
         Analytics.event({
@@ -34,6 +54,76 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
     const handleInputChange = (event) => {
         setInputValue(sanitizeNLInput(event.target.value));
     };
+    const handleClear = (event) => {
+        event.preventDefault();
+        setInputValue('');
+    }
+
+    const request = useRef();
+    const wasCancelled = useRef(false);
+    
+    const parsedData = useMemo(() => data?.split('\n')
+        .filter((line) => line.trim() !== '')
+        .map((line) => JSON.parse(line)),
+    [data]);
+    useEffect(() => {
+        if (wasCancelled.current) {
+            return;
+        }
+    
+        if (!isFetching && parsedData && Object.keys(parsedData).length > 0) {
+            const done = parsedData.find((res) => {
+                if (res.type === RESPONSE_TYPE.SEARCH_COMPLETE) {
+                    return res;
+                }
+            });
+    
+            if (done?.result) {
+                const nlHash = '90e50821bf552b36f20c74de96262d27';  // For testing purposes while NL is under development
+                // const nlHash = done.result;
+                if (request.current) {
+                    request.current.cancel();
+                }
+    
+                request.current = restoreUrlHash({
+                    hash: nlHash
+                });
+    
+                request.current.promise
+                    .then((res) => {
+                        const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
+    
+                        if (filtersInImmutableStructure) {
+                            // apply the filters to both the staged and applied stores
+                            dispatch(restoreHashedFilters(filtersInImmutableStructure));
+                        }
+                        else {
+                            console.error('Error fetching filters from hash');
+                            // TODO: corrupt hash redirect to error page.
+                            // No such page as /hash-error, need to update
+                            navigate("/hash-error", { replace: true });
+                        }
+                        request.current = null;
+                    })
+                    .catch((err) => {
+                        if (!isCancel(err)) {
+                            console.error('Error fetching filters from hash: ', err);
+                            // remove hash since corresponding filter selections aren't retrievable.
+                            request.current = null;
+                        }
+                    });
+            }
+        }
+    
+        dispatch(setIsNLSearchComplete(!isFetching));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [parsedData, isFetching]);
+
+    const onClick = () => {
+        startNLSearch();
+        dispatch(setSidebarContent(NATURAL_LANGUAGE));
+        dispatch(setIsSearchActive(true));
+    }
     return (
         <section className={`search-gov-spending__section ${isFilters ? ' filter-spacing': ''}`}>
             <FlexGridRow className="search-gov-spending__row">
@@ -64,13 +154,26 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                 <>
                     <span className="search-gov-spending__question">What questions do you have about federal award spending data?</span>
                     <div className="search-gov-spending__input-container">
-                        <input
-                            className="search-gov-spending__input"
-                            type="text"
-                            value={inputValue} 
-                            onChange={handleInputChange} 
-                            placeholder="Type a question about government spending, or choose a sample prompt below." />
-                        <button className="search-gov-spending__input-button">
+                        <div className="search-gov-spending__clear-container">
+                            <input
+                                maxLength={MAX_CHARS}
+                                name="search gov spending input"
+                                className="search-gov-spending__input"
+                                type="text"
+                                id="nl-input"
+                                value={inputValue} 
+                                onChange={handleInputChange} 
+                                placeholder="Type a question about government spending, or choose a sample prompt below." />
+                            {inputValue.length > 0 && <button
+                                className="clear-button"
+                                id="nl-clear-button"
+                                aria-label="Clear Input"
+                                title="Clear Input"
+                                onClick={handleClear}>
+                                <Icons.Close alt="Clear search input" />
+                            </button>}
+                        </div>
+                        <button onClick={onClick} className="search-gov-spending__input-button">
                             <img src={DEFAULT_ICON_PATH} alt="Icon for Search Button"/>
                         </button>
                     </div>
