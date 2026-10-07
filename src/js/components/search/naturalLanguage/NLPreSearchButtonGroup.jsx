@@ -17,10 +17,14 @@ import { combineQueryParams, getQueryParamString } from "../../../helpers/queryP
 import useQueryParams from "../../../hooks/useQueryParams";
 import useFireQueryEvent from "../../../hooks/useFireQueryEvent";
 import useIsMobile from "../../../hooks/useIsMobile";
-
 const propTypes = {
     source: PropTypes.string
 }
+
+const getQuestions = preSearchOptionsToRemove.map(({ options }) => {
+    const index = Math.floor(Math.random() * options.length);
+    return options[index]
+});
 
 const NLPreSearchButtonGroup = ({source = ""}) => {
     const query = useQueryParams();
@@ -46,15 +50,6 @@ const NLPreSearchButtonGroup = ({source = ""}) => {
                 tempHash = null;
             });
     }
-
-    // to remove post Smart Assist release
-    const getRandomOption = ({options}) => {
-        // eslint-disable-next-line react-hooks/purity
-        const index = Math.floor(Math.random() * options.length);
-        return options[index];
-    }
-    
-    const getQuestions = useMemo(() => preSearchOptionsToRemove.map((type) => getRandomOption(type)), []);
 
     if ( source !== "Homepage") {
         return (
