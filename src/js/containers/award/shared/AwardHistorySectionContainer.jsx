@@ -77,7 +77,9 @@ const AwardHistory = ({
     return (
         <div id="award-award-history" className="award-viz award-history">
             <AwardSectionHeader
+                category={overview.category}
                 title={sectionTitle}
+                activeTab={activeTab}
                 icon={<AwardLoop alt="Award History" />} />
             <div className="tables-section">
                 <Tabs

@@ -1,0 +1,151 @@
+.homepage-pre-search {
+    background-color: $cyan-70v;
+
+    .homepage-pre-search__container {
+        display: flex;
+        box-sizing: border-box;
+        padding: rem(40) rem(16);
+        flex-direction: column;
+        align-items: flex-start;
+        color: $color-white;
+        max-height: rem(280);
+        margin: 0 auto;
+        max-width: $homepage-max-width;
+
+        @media (max-width: $medium-screen - 1 ) {
+            padding: rem(40) rem(16);
+            max-height: rem(378);
+        }
+
+        @media (max-width: $mobile-only) {
+            padding: rem(40) rem(32);
+            max-height: rem(592);
+        }
+
+        @media (min-width: $tablet-screen) {
+            padding: rem(40) rem(32);
+        }
+
+        @media (min-width: $m-large-screen) {
+            padding: rem(40) 0;
+            margin: 0 $grid-column;
+        }
+        
+        @media (min-width: $x-large-screen) {
+            padding: rem(40) rem(16);
+            margin: 0 auto;
+        }
+       
+        .homepage-pre-search__headline {
+            font-size: $lead-font-size;
+            font-weight: $font-semibold;
+            line-height: $base-line-height;
+            margin: 0;
+        }
+        
+        .homepage-pre-search__subText {
+            font-size: $base-font-size;
+            font-weight: $font-normal;
+            line-height: $base-line-height;
+            margin-top: rem(6);
+            margin-bottom: rem(24);
+        }
+
+        .homepage-pre-search__swiper-row {
+            align-self: stretch;
+            
+            .homepage-pre-search__swiper-col {
+                min-width: 0;
+            }
+            
+            .homepage-pre-search__swiper {
+                min-width: 0;
+                
+                .swiper-slide {
+                    display: flex;
+                    width: rem(340) !important;
+                    height: rem(80);
+                }
+            }
+        }
+
+        .homepage-pre-search__row {
+            display: flex;
+            flex-wrap: wrap;
+            row-gap: rem(16);
+            align-self: stretch;
+            overflow-x: auto;
+            /* Hide scrollbar for Firefox */
+            scrollbar-width: none;
+
+            /* Hide scrollbar for IE and Edge */
+            -ms-overflow-style: none;
+
+            .homepage-pre-search__col {
+                display: flex;
+                align-items: center;
+                gap: rem(16);
+            }
+        }
+
+        /* Hide scrollbar for Chrome, Safari, and Opera */
+        .homepage-pre-search__row::-webkit-scrollbar {
+            display: none;
+        }
+
+        .card-container {
+            display: flex;
+            align-items: flex-start;
+            padding: rem(16);
+            border: rem(1) solid $gray-10;
+
+            .pre-search-content {
+                display: flex;
+                align-items: center;
+                gap: rem(8);
+
+                .pre-search-icon {
+                    display: flex;
+                    align-self: flex-start;
+                    align-items: center;
+                    justify-content: center;
+                    flex-shrink: 0;
+                    width: rem(24);
+                    height: rem(24);
+                    aspect-ratio: 1/1;
+
+                    svg {
+                        color: $cyan-50v;
+                    }
+                }
+
+                .pre-search-copy {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: flex-start;
+                }
+
+                .pre-search-title {
+                    color: $gray-80;
+                    font-size: $base-font-size;
+                    font-weight: $font-semibold;
+                    line-height: $base-line-height;
+                }
+
+                .pre-search-text {
+                    color: $gray-60;
+                    font-size: $small-font-size;
+                    font-weight: $font-normal;
+                    line-height: $base-line-height;
+                }
+            }
+
+            &:hover,
+            &:active {
+                background-color: $cyan-5v;
+                border-color: $cyan-20v;
+            }
+        }
+    }
+
+}
