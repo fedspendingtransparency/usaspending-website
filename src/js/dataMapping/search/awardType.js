@@ -117,16 +117,16 @@ export const bulkDownloadAwardTypeGroups = {
     direct_payments: awardTypeGroups.direct_payments,
     loans: awardTypeGroups.loans,
     insurance: ['09', 'F005'],
-    other: ['11', 'F010', '-1']
+    other: ['11', 'F008', 'F009', 'F010', '-1']
 };
 
 export const transactionTypeGroups = {
     transaction_contracts: ['A', 'B', 'C', 'D'],
     transaction_idvs: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E'],
-    transaction_grants: ['02', '03', '04', '05'],
-    transaction_direct_payments: ['10', '06'],
-    transaction_loans: ['07', '08'],
-    transaction_other: ['09', '11', '-1']
+    transaction_grants: ['02', '03', '04', 'F001', '05', 'F002'],
+    transaction_direct_payments: ['10', '06', 'F006', 'F007'],
+    transaction_loans: ['07', '08', 'F003', 'F004'],
+    transaction_other: ['09', 'F005', 'F008', 'F009', 'F010', '11', '-1']
 };
 
 export const analyticsAwardTypeGroupLabels = {
