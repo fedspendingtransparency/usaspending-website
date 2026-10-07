@@ -5,6 +5,7 @@
 
 import React, {useState, useRef, useEffect, useMemo} from "react";
 import { isCancel } from "axios";
+import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from 'react-redux';
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';
@@ -18,10 +19,11 @@ import useRequestNLSearch from "../search/collapsibleSidebar/useRequestNLSearch"
 import { restoreUrlHash, parseRemoteFilters } from "helpers/searchHelper";
 import { setIsNLSearchComplete } from "../../redux/actions/sidebar/sidebarActions";
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
-import { useNavigate } from "react-router";
 import { setSidebarContent } from "../../redux/actions/sidebar/sidebarActions";
 import { NATURAL_LANGUAGE } from "../search/collapsibleSidebar/SidebarConstants";
 import { setIsSearchActive } from "../../redux/actions/sidebar/sidebarActions";
+import Analytics from "../../../helpers/analytics/Analytics";
+
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 
 const propTypes = {
@@ -40,6 +42,16 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
     }
 
     const MAX_CHARS = NL_INPUT_MAX_CHARS;
+
+    const handleSmartAssistClick = () => {
+        Analytics.event({
+            event: 'learn-about-smart-assist',
+            category: 'Smart Assist Landing Page',
+            action: 'Link',
+            label: 'smart assist landing page'
+        });
+        navigate("/search/smart-assist");
+    };
 
     const handleInputChange = (event) => {
         setInputValue(sanitizeNLInput(event.target.value));
@@ -126,7 +138,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                 <div className="search-gov-spending__link">
                     <Button 
                         copy="Learn about Smart Assist"
-                        onClick={() => {}}
+                        onClick={handleSmartAssistClick}
                         buttonTitle="Learn about Smart Assist"
                         buttonSize="md"
                         buttonType="text"
