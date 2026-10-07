@@ -15,7 +15,7 @@ const useRequestNLSearch = (prompt) => {
         body: JSON.stringify({'query': prompt?.trim()})
     };
 
-    const { data, refetch, status, isFetching } = useQuery({
+    const { data, refetch, isFetching, isSuccess } = useQuery({
         queryKey: ['nl-search-stream'],
         enabled: false,
         queryFn: streamedQuery({

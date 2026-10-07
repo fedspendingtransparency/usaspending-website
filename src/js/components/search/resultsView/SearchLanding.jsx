@@ -5,11 +5,11 @@
 
 import React from "react";
 import { useSelector } from "react-redux";
-import NLMoreResources from "../../naturalLanguage/NLMoreResources";
-import NLSearchSuggestions from "../../naturalLanguage/NLSearchSuggestions";
-import NLPreSearchButtonGroup from "../../naturalLanguage/NLPreSearchButtonGroup";
-import NLSearchGovSpending from "../../naturalLanguage/NLSearchGovSpending";
-import { FILTERS } from '../../search/collapsibleSidebar/SidebarConstants';
+import NLMoreResources from "../naturalLanguage/NLMoreResources";
+import NLSearchSuggestions from "../naturalLanguage/NLSearchSuggestions";
+import NLPreSearchButtonGroup from "../naturalLanguage/NLPreSearchButtonGroup";
+import NLSearchGovSpending from "../naturalLanguage/NLSearchGovSpending";
+import { FILTERS } from '../collapsibleSidebar/SidebarConstants';
 
 const SearchLanding = () => {
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
