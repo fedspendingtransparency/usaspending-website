@@ -41,7 +41,7 @@ const MapDsm = ({ spendingLevel }) => {
                         </span>{' '}
                         in our About the Data module.
                     </p>
-                </>                :
+                </> :
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                     <p className="award-search__body-text">

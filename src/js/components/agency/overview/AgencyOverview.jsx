@@ -107,7 +107,7 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
                 {websiteBlock}
                 {cjBlock}
             </ReadMore>
-        </>        :
+        </> :
         <>
             <FlexGridRow className="agency-overview__row">
                 <FlexGridCol width={8}>

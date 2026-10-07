@@ -129,7 +129,7 @@ const AwardsUserSelections = () => {
             );
         }
 
-        return  <div className="selection__content selection__content-required">Required</div>;
+        return <div className="selection__content selection__content-required">Required</div>;
     };
 
     const generateDateRangeString = () => {

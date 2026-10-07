@@ -143,7 +143,7 @@ const HomepageExploreToggle = () => {
                     </div>
                 </FlexGridRow>
                 {activeTab === 'explore' ?
-                    <ExploreTheData title={exploreDataTitle} cardObjects={exploreData} />                    :
+                    <ExploreTheData title={exploreDataTitle} cardObjects={exploreData} /> :
                     <ExploreTheData title={accessDataTitle} cardObjects={accessData} access />
                 }
             </div>

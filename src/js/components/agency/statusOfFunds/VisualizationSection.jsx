@@ -147,7 +147,7 @@ const VisualizationSection = ({
                         <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title={accordionTitle} />
                     </div>
                 </>
-            )                :
+            ) :
                 (
                     <>
                         <div className="status-of-funds__controls">
@@ -182,7 +182,7 @@ const VisualizationSection = ({
                         setDrilldownLevel={setDrilldownLevel}
                         maxLevel={maxLevel} />
                 </div>
-            )                :
+            ) :
                 (
                     <div className={`status-of-funds__visualization-table-container${maxLevelClass}`}>
                         <StatusOfFundsTable

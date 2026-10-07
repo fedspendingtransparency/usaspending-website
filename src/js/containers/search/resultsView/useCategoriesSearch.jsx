@@ -66,7 +66,7 @@ const parseData = (data, selectedDropdown, spendingLevel) => {
 
         if (selectedDropdown === 'recipient' && spendingLevel !== 'subawards') {
             const recipientLink = result.recipientId ?
-                `recipient/${result.recipientId}/latest`                :
+                `recipient/${result.recipientId}/latest` :
                 '';
 
             linkSeries.push(recipientLink);

@@ -34,7 +34,7 @@ const ListCheckbox = ({
     const highlightText = (text) => replaceString(text, searchString, 'highlight');
     const searchCategoryMapping = () => {
         // filter out definitions based on search text
-        // eslint-disable-next-line no-unused-vars
+
         const filteredDefinitions = Object.fromEntries(
             Object.entries(filters)
                 .filter(([, value]) => value.toLowerCase().includes(searchString.toLowerCase()))
@@ -102,7 +102,7 @@ const ListCheckbox = ({
                 onClear={onClear}
                 searchIcon />
             {noResults ?
-                <div className="no-results">No results found.</div>                :
+                <div className="no-results">No results found.</div> :
                 <div className="filter-item-wrap">
                     {checkboxCategories}
                 </div>

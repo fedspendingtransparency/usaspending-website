@@ -130,7 +130,7 @@ const TrainingVideoModal = (props) => {
                         {isError ?
                             <GenericErrorMessage
                                 message="Sorry, we're unable to load this video."
-                                emailSubject="Training%20Videos%20Error" />                            :
+                                emailSubject="Training%20Videos%20Error" /> :
                             <YouTube
                                 id="usa-dt-modal__yt-video"
                                 onError={handleError}

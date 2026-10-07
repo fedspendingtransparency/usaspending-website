@@ -140,7 +140,7 @@ const SummaryStats = () => {
                 <FlexGridRow className="grid-content summary-stats__row">
                     <FlexGridCol width={4} className="summary-stats__budget-total-container">
                         <span>So far this year, the federal government</span><br />
-                        <span>plans to spend {loading ? <span className="dot-pulse" />                            :
+                        <span>plans to spend {loading ? <span className="dot-pulse" /> :
                             <span className="summary-stats__budget-total">
                                 {formatMoneyWithUnits(budgetTotal)}
                             </span>} including…

@@ -75,7 +75,7 @@ const Heading = ({ publicLaw, url, onShareOptionClick }) => {
                         <p>
                             Visit our <button className="usa-button-link" onClick={jumpToDataSources}> Data Sources & Methodology </button> section to learn more about the underlying data, downloading the data, and resources about COVID-19 from other agencies.
                         </p>
-                    </div>                    :
+                    </div> :
                     <div className="heading__description">
                         <p>In early 2020, the U.S. Congress appropriated funds in response to the COVID-19 pandemic. These funds were made possible through the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other supplemental legislation. In March of 2021, additional funds were appropriated through the American Rescue Plan Act.</p>
                         <p>

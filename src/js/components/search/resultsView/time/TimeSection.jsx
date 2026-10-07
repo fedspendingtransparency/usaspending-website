@@ -65,7 +65,7 @@ const TimeSection = ({
                 <TimeVisualizationSectionContainer
                     wrapperProps={wrapperProps}
                     visualizationPeriod={visualizationPeriod}
-                    hash={hash} />                :
+                    hash={hash} /> :
                 <PlaceholderComponent className="time" />
             }
         </div>

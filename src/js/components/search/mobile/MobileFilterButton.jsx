@@ -89,7 +89,7 @@ const MobileFilterButton = ({
                     }}>
                     <div className="mobile-filter-button-content">
                         <div className={`mobile-filter-button-icon ${showMobileFilters && 'opened'}`}>
-                            <img src={showMobileFilters && mobileSidebarContent === "natural language"  ? AIWhiteIcon : AICyanIcon} alt="AI Search Icon" className={`mobile-filter-button-icon__svg ${showMobileFilters && 'opened'}`} />
+                            <img src={showMobileFilters && mobileSidebarContent === "natural language" ? AIWhiteIcon : AICyanIcon} alt="AI Search Icon" className={`mobile-filter-button-icon__svg ${showMobileFilters && 'opened'}`} />
                         </div>
                         <div className="mobile-filter-button-label">
                             Smart Assist

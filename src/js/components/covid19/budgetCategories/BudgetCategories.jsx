@@ -115,14 +115,14 @@ const BudgetCategories = ({ publicLaw }) => {
         <div className="body__content budget-categories">
             <DateNote />
             {publicLaw === 'american-rescue-plan' ?
-                <h4 className="body__narrative">How is <strong>total spending</strong> from the American Rescue Plan categorized?</h4>                :
+                <h4 className="body__narrative">How is <strong>total spending</strong> from the American Rescue Plan categorized?</h4> :
                 <h4 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h4>
             }
             <div className="body__narrative-description">
                 {publicLaw === 'american-rescue-plan' ?
                     <p>
                         In this section, we provide the total amount of American Rescue Plan funding broken down into three categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
-                    </p>                    :
+                    </p> :
                     <p>
                         In this section, we present the total amount of COVID-19 funding broken down by three categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
                     </p>

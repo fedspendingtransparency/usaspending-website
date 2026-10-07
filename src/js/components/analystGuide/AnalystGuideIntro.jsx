@@ -1,6 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
-import { FlexGridCol, FlexGridRow  } from "data-transparency-ui";
+import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
 
 import 'pages/analystGuide/analystGuide.scss';

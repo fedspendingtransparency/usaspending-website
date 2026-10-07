@@ -40,7 +40,7 @@ const SearchSectionWrapperHeader = ({
                         selectedOption={dropdownOptions?.length ?
                             dropdownOptions?.find(
                                 (obj) => obj.value === selectedDropdownOption
-                            )?.name                            :
+                            )?.name :
                             `${selectedDropdownOption}`}
                         sortFn={sortFn}
                         classname="advanced-search-dropdown__wrapper"
@@ -50,7 +50,7 @@ const SearchSectionWrapperHeader = ({
                         activeType={viewType}
                         changeView={changeView}
                         classname="search__chart-table-toggle" />
-                </div>                :
+                </div> :
                 <>
                     <div className="search__section-wrapper-header">
                         <span className="filter__dropdown-label">{sectionTitle}</span>

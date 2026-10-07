@@ -41,7 +41,7 @@ const StatusOfFundsTable = ({
                 displayName: [`${fyString} Outlays`],
                 right: true
             }
-        ]        :
+        ] :
         [
             {
                 title: 'subComponent',
@@ -65,7 +65,7 @@ const StatusOfFundsTable = ({
         [
             data.name,
             formatMoneyWithPrecision(data._outlays)
-        ]        :
+        ] :
         [
             data.name,
             formatMoneyWithPrecision(data._budgetaryResources),

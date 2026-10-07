@@ -62,7 +62,7 @@ const CustomTick = ({ x, y, payload, link, isTablet, isDesktopSm, scope, hash })
                         lineHeight={17.5}>
                         {formattedText.text}
                     </Text>
-                </a>                :
+                </a> :
                 <Text
                     textAnchor={isTablet ? "start" : "end"}
                     fontSize={14}

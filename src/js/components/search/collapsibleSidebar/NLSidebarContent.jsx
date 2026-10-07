@@ -49,7 +49,7 @@ const NLSidebarContent = ({
 
     if (isSearchActive) {
         if (isNLSearchComplete) {
-            searchClass +=  " complete";
+            searchClass += " complete";
             btnText = "Start a new search";
         }
         else {

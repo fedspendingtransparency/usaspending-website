@@ -43,7 +43,7 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isM
                 <button
                     style={{ backgroundColor: secondaryColorAS }}
                     aria-label="Button to change the content of the sidebar to advanced search filters"
-                    className={`sidebar-nl-buttons ${sidebarContent === FILTERS && sidebarIsOpen  ? 'selected' : ''
+                    className={`sidebar-nl-buttons ${sidebarContent === FILTERS && sidebarIsOpen ? 'selected' : ''
                     }`}
                     onClick={(e) => {
                         dispatch(setSidebarContent(FILTERS));

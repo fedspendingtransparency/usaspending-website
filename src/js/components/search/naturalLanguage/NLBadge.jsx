@@ -12,7 +12,7 @@ import getFilters from "../../../containers/search/topFilterBar/getFilters";
 const NLBadge = memo(function NLBadge() {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
 
-    const { filterCount } =  getFilters(reduxFilters);
+    const { filterCount } = getFilters(reduxFilters);
 
     if (filterCount === 0) return;
 

@@ -75,7 +75,7 @@ export default defineConfig([
             "@stylistic/operator-linebreak": ["error", "after"],
 
             // TODO: address and turn back on:
-            "@stylistic/no-multi-spaces": [0],
+            // "@stylistic/no-multi-spaces": [0],
             "@stylistic/jsx-one-expression-per-line": [0],
             "@stylistic/quote-props": [0],
             "@stylistic/padded-blocks": [0],

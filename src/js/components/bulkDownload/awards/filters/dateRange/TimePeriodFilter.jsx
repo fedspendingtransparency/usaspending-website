@@ -256,7 +256,7 @@ const TimePeriodFilter = ({
 
     useEffect(() => {
         const isSameAsRedux = (
-            startDateBulkUI === filterTimePeriodStart            &&
+            startDateBulkUI === filterTimePeriodStart &&
             endDateBulkUI === filterTimePeriodEnd
         );
 

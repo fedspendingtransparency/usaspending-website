@@ -115,7 +115,7 @@ const MobileDropdownItem = ({
                             ))}
                         </ul>
                         <hr />
-                    </>                    :
+                    </> :
                     <>
                         <ul>
                             {section1Items.map((item) => (

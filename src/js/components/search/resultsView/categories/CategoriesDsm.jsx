@@ -50,7 +50,7 @@ const CategoriesDsm = ({ spendingLevel }) => {
                         in our About the Data module.
                     </span>
                     </p>
-                </>                :
+                </> :
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                     <p>The data in the chart represent

@@ -140,7 +140,7 @@ const AmountsVisualization = ({
                             {publicLaw === 'american-rescue-plan' ?
                                 <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
                                     This is how much was <strong>spent</strong> so far through the American Rescue Plan
-                                </h4>                                :
+                                </h4> :
                                 <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
                                     This is how much was <strong>spent</strong> so far in response to COVID-19
                                 </h4>

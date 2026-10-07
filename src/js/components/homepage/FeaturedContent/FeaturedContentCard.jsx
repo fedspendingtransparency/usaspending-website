@@ -60,7 +60,7 @@ const FeaturedContentCard = ({
             {externalLink ?
                 <ExternalLink isCard url={url}>
                     {content()}
-                </ExternalLink>                :
+                </ExternalLink> :
                 <a
                     href={url}
                     target="_blank"
