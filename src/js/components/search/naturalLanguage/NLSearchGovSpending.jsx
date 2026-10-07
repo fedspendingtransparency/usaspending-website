@@ -12,17 +12,15 @@ import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
 import { searchGovSpendingData } from "./NLData";
 import PropTypes from "prop-types";
-import { sanitizeNLInput } from "../../helpers/search/naturalLanguage/sanitizeNLInput";
+import { sanitizeNLInput } from "../../../helpers/search/naturalLanguage/sanitizeNLInput";
 import * as Icons from 'components/sharedComponents/icons/Icons';
-import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from "../search/collapsibleSidebar/NLConstants";
-import useRequestNLSearch from "../search/collapsibleSidebar/useRequestNLSearch";
+import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from "../collapsibleSidebar/NLConstants";
+import useRequestNLSearch from "../collapsibleSidebar/useRequestNLSearch";
 import { restoreUrlHash, parseRemoteFilters } from "helpers/searchHelper";
-import { setIsNLSearchComplete } from "../../redux/actions/sidebar/sidebarActions";
+import { setIsNLSearchComplete, setSidebarContent, setIsSearchActive } from "../../../redux/actions/sidebar/sidebarActions";
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
-import { setSidebarContent } from "../../redux/actions/sidebar/sidebarActions";
-import { NATURAL_LANGUAGE } from "../search/collapsibleSidebar/SidebarConstants";
-import { setIsSearchActive } from "../../redux/actions/sidebar/sidebarActions";
 import Analytics from "../../../helpers/analytics/Analytics";
+import { NATURAL_LANGUAGE } from "../collapsibleSidebar/SidebarConstants";
 
 const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 
