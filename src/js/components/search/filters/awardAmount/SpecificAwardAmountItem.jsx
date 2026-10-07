@@ -123,12 +123,12 @@ const SpecificAwardAmountItem = ({ searchSpecificRange }) => {
             </div>
             {
                 showWarning &&
-                    <div className="award-amount-warning">
-                        <span className="award-amount__invalid">Invalid search</span>
-                        <ul>
-                            <li>{warningMessage}</li>
-                        </ul>
-                    </div>
+                <div className="award-amount-warning">
+                    <span className="award-amount__invalid">Invalid search</span>
+                    <ul>
+                        <li>{warningMessage}</li>
+                    </ul>
+                </div>
             }
         </div>
     );

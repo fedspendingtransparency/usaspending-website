@@ -374,18 +374,18 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 pageSize={pageSize}
                 totalItems={totalItems} />
             {(loading || error || results.length === 0) &&
-            <TransitionGroup>
-                <CSSTransition
-                    classNames="table-message-fade"
-                    timeout={{ exit: 225, enter: 195 }}
-                    exit>
-                    <div className="results-table-message-container">
-                        {error && <ResultsTableErrorMessage />}
-                        {loading && <ResultsTableLoadingMessage />}
-                        {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
-                    </div>
-                </CSSTransition>
-            </TransitionGroup>
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
+                        <div className="results-table-message-container">
+                            {error && <ResultsTableErrorMessage />}
+                            {loading && <ResultsTableLoadingMessage />}
+                            {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
+                        </div>
+                    </CSSTransition>
+                </TransitionGroup>
             }
             {!loading && !error && results.length > 0 &&
                 <div

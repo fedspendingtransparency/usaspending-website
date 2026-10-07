@@ -205,7 +205,7 @@ class SearchAwardsOperation {
         }
 
         if ((this.timePeriodType === 'fy' && this.timePeriodFY?.length === 0) ||
-        (this.timePeriodType === 'dr' && this.time_period?.length === 0)) {
+            (this.timePeriodType === 'dr' && this.time_period?.length === 0)) {
             // the user selected fiscal years but did not specify any years OR
             // the user has selected the date range type but has not entered any dates yet
             // this should default to a period of time from FY 2008 to present
@@ -222,7 +222,7 @@ class SearchAwardsOperation {
         // Add dateType = new_awards_only to all selected fy
         if (this.dateType) {
             filters[rootKeys.timePeriod].forEach((item) => {
-                // eslint-disable-next-line no-param-reassign
+
                 item[timePeriodKeys.dateType] = 'new_awards_only';
             });
         }
@@ -354,7 +354,7 @@ class SearchAwardsOperation {
                 if (amount[awardAmountKeys.max] === null) delete amount[awardAmountKeys.max];
                 // if both null return
                 if ((!amount[awardAmountKeys.min] && amount[awardAmountKeys.min] !== 0) &&
-                (!amount[awardAmountKeys.max] && amount[awardAmountKeys.max] !== 0)) {
+                    (!amount[awardAmountKeys.max] && amount[awardAmountKeys.max] !== 0)) {
                     return;
                 }
                 amounts.push(amount);

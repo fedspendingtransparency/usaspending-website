@@ -74,11 +74,11 @@ const TotalObligationsOverTimeContainer = ({
                     className="usda-message" />
             }
             {!isError && !loading && data.length > 0 &&
-            <TotalObligationsOverTimeVisualization
-                width={visualizationWidth}
-                agencyBudget={agencyBudget}
-                data={data}
-                fy={fy} />
+                <TotalObligationsOverTimeVisualization
+                    width={visualizationWidth}
+                    agencyBudget={agencyBudget}
+                    data={data}
+                    fy={fy} />
             }
         </div>
     );

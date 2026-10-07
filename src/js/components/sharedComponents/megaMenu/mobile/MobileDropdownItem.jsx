@@ -187,38 +187,38 @@ const MobileDropdownItem = ({
                         </div>
                         <div className="mobile-dropdown__section-container">
                             {type === "primary" &&
-                            <>
-                                <ul>
-                                    {section3Items.map((item) => (
-                                        <li className="mobile-dropdown__section-downloads" key={uniqueId()}>
-                                            { isRedirectNeeded(item) ?
-                                                <ExternalLink isCard={false} url={item.url}>
-                                                    <div className="mobile-dropdown__section-link">
+                                <>
+                                    <ul>
+                                        {section3Items.map((item) => (
+                                            <li className="mobile-dropdown__section-downloads" key={uniqueId()}>
+                                                { isRedirectNeeded(item) ?
+                                                    <ExternalLink isCard={false} url={item.url}>
+                                                        <div className="mobile-dropdown__section-link">
+                                                            <div className="mobile-dropdown__section-label">
+                                                                {item.label}
+                                                                <span className="mobile-dropdown__section-description">
+                                                                    {item.description}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </ExternalLink> :
+                                                    <a
+                                                        href={item.url}
+                                                        target={item.shouldOpenNewTab ? "_blank" : null}
+                                                        rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}
+                                                        className="mobile-dropdown__section-link">
                                                         <div className="mobile-dropdown__section-label">
                                                             {item.label}
                                                             <span className="mobile-dropdown__section-description">
                                                                 {item.description}
                                                             </span>
                                                         </div>
-                                                    </div>
-                                                </ExternalLink> :
-                                                <a
-                                                    href={item.url}
-                                                    target={item.shouldOpenNewTab ? "_blank" : null}
-                                                    rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}
-                                                    className="mobile-dropdown__section-link">
-                                                    <div className="mobile-dropdown__section-label">
-                                                        {item.label}
-                                                        <span className="mobile-dropdown__section-description">
-                                                            {item.description}
-                                                        </span>
-                                                    </div>
-                                                </a>
-                                            }
-                                        </li>
-                                    ))}
-                                </ul>
-                            </>
+                                                    </a>
+                                                }
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </>
                             }
                         </div>
                     </div>

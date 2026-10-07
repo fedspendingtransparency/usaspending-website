@@ -772,8 +772,8 @@ export const trimCheckedToCommonAncestors = (arrayOfAncestryPaths) => {
             const isSomeAncestorAlreadyChecked = ancestorsForCheckedDescendant
                 .some((ancestor, i, listOfAncestors) => leanArrayOfAncestryPaths.some((arr) => (
                     isEqual(arr, [ancestor]) ||
-                isEqual(arr, listOfAncestors.slice(0, i + 1)) ||
-                isEqual(arr, listOfAncestors)
+                    isEqual(arr, listOfAncestors.slice(0, i + 1)) ||
+                    isEqual(arr, listOfAncestors)
                 )));
             if (isSomeAncestorAlreadyChecked) {
                 return leanArrayOfAncestryPaths;

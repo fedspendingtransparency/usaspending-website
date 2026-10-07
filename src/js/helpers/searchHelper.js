@@ -382,9 +382,9 @@ export const dateRangeChipLabel = (timeInput) => {
         dayjs()
             .subtract(1, 'day')
             .isSame(timeInput.start_date, 'day') &&
-        dayjs()
-            .subtract(1, 'day')
-            .isSame(timeInput.end_date, 'day')
+            dayjs()
+                .subtract(1, 'day')
+                .isSame(timeInput.end_date, 'day')
     ) {
         dateLabel = dateRangeDropdownTimePeriods[0].label;
     }
@@ -393,10 +393,10 @@ export const dateRangeChipLabel = (timeInput) => {
             .subtract(1, 'year')
             .startOf('year')
             .isSame(timeInput.start_date, 'day') &&
-        dayjs()
-            .subtract(1, 'year')
-            .endOf('year')
-            .isSame(timeInput.end_date, 'day')
+            dayjs()
+                .subtract(1, 'year')
+                .endOf('year')
+                .isSame(timeInput.end_date, 'day')
     ) {
         dateLabel = dateRangeDropdownTimePeriods[9].label;
     }

@@ -26,7 +26,7 @@ const UpdateFiltersButton = ({ appliedFilters }) => {
 
     const closeIcon = useMemo(() => (<FontAwesomeIcon icon="times" />), []);
     const emptyFilters = areFiltersEqual(stagedFilters, initialState) ||
-            areFiltersEqual(stagedFilters, initialStateDR);
+        areFiltersEqual(stagedFilters, initialStateDR);
     const equalFilters = areFiltersEqual(stagedFilters, appliedFilters);
 
     const onClick = useCallback(() => {

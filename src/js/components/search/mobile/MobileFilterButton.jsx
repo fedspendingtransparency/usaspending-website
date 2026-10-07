@@ -70,32 +70,32 @@ const MobileFilterButton = ({
                 </div>
             </button>
             { QAT &&
-            <button
-                className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "natural language" ? 'opened natural-language' : ''}`}
-                onClick={() => {
-                    setMobileSidebarContent("natural language");
-                    if(!showMobileFilters){
-                        toggleMobileFilters();
-                    }
-                }
-                }
-                onKeyUp={(e) => {
-                    if (e.key === "Escape" && showMobileFilters) {
+                <button
+                    className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "natural language" ? 'opened natural-language' : ''}`}
+                    onClick={() => {
                         setMobileSidebarContent("natural language");
                         if(!showMobileFilters){
                             toggleMobileFilters();
                         }
                     }
-                }}>
-                <div className="mobile-filter-button-content">
-                    <div className={`mobile-filter-button-icon ${showMobileFilters && 'opened'}`}>
-                        <img src={showMobileFilters && mobileSidebarContent === "natural language"  ? AIWhiteIcon : AICyanIcon} alt="AI Search Icon" className={`mobile-filter-button-icon__svg ${showMobileFilters && 'opened'}`} />
+                    }
+                    onKeyUp={(e) => {
+                        if (e.key === "Escape" && showMobileFilters) {
+                            setMobileSidebarContent("natural language");
+                            if(!showMobileFilters){
+                                toggleMobileFilters();
+                            }
+                        }
+                    }}>
+                    <div className="mobile-filter-button-content">
+                        <div className={`mobile-filter-button-icon ${showMobileFilters && 'opened'}`}>
+                            <img src={showMobileFilters && mobileSidebarContent === "natural language"  ? AIWhiteIcon : AICyanIcon} alt="AI Search Icon" className={`mobile-filter-button-icon__svg ${showMobileFilters && 'opened'}`} />
+                        </div>
+                        <div className="mobile-filter-button-label">
+                            Smart Assist
+                        </div>
                     </div>
-                    <div className="mobile-filter-button-label">
-                        Smart Assist
-                    </div>
-                </div>
-            </button>
+                </button>
             }
         </div>
     );

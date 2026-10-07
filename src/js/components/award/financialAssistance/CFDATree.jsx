@@ -210,13 +210,13 @@ const CFDATree = ({
                     </svg>}
             </div>
             {chartLength !== 0 &&
-            <div className="cfda-section-treemap-count">
-                {`${virtualChart.length} ${naming}`}
-            </div>}
+                <div className="cfda-section-treemap-count">
+                    {`${virtualChart.length} ${naming}`}
+                </div>}
             {isPartialTree &&
-            <span className="cfda-section__note">
-                <Note message={message} />
-            </span>}
+                <span className="cfda-section__note">
+                    <Note message={message} />
+                </span>}
         </div>
     );
 };

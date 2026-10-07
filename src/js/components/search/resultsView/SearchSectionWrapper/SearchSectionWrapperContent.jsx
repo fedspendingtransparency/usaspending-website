@@ -99,34 +99,34 @@ const SearchSectionWrapperContent = ({
     return (
         <>
             { !openAccordion &&
-            <div
-                className={
-                    `search__section-wrapper-content new-results-view search__${sectionName}`
-                }>
-                {
-                    isError || isLoading || hasNoData ?
-                        message()                        :
-                        <>
-                            {((viewType === "table" || sectionName === "table") && isTablet) ?
-                                <MobileSort
-                                    columns={columns}
-                                    options={mobileDropdownOptions}
-                                    sortDirection={sortDirection}
-                                    setSortDirection={setSortDirection}
-                                    activeField={activeField}
-                                    field={sort?.field}
-                                    setActiveField={setActiveField}
-                                    sortBy={sortBy}
-                                    sort={sort}
-                                    tableColumns={tableColumns?.data}
-                                    setSort={setSort} /> : null}
-                            {downloadComponent}
-                            {viewType === "table" ?
-                                content()                                :
-                                children}
-                        </>
-                }
-            </div>
+                <div
+                    className={
+                        `search__section-wrapper-content new-results-view search__${sectionName}`
+                    }>
+                    {
+                        isError || isLoading || hasNoData ?
+                            message()                        :
+                            <>
+                                {((viewType === "table" || sectionName === "table") && isTablet) ?
+                                    <MobileSort
+                                        columns={columns}
+                                        options={mobileDropdownOptions}
+                                        sortDirection={sortDirection}
+                                        setSortDirection={setSortDirection}
+                                        activeField={activeField}
+                                        field={sort?.field}
+                                        setActiveField={setActiveField}
+                                        sortBy={sortBy}
+                                        sort={sort}
+                                        tableColumns={tableColumns?.data}
+                                        setSort={setSort} /> : null}
+                                {downloadComponent}
+                                {viewType === "table" ?
+                                    content()                                :
+                                    children}
+                            </>
+                    }
+                </div>
             }
         </>
     );

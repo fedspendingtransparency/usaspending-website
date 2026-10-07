@@ -44,9 +44,9 @@ const DrilldownSidebarLevel = ({
                     <div className="drilldown-level__name">{name}</div>
                     {!toggle && obligatedText}
                     {toggle &&
-                            <div className="drilldown-level__description">
-                                <strong>{outlay}</strong> has been paid out
-                            </div>
+                        <div className="drilldown-level__description">
+                            <strong>{outlay}</strong> has been paid out
+                        </div>
                     }
                 </div>
             </div>

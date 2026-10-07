@@ -577,7 +577,7 @@ const MapWrapper = ({
     useEffect(() => {
         // Only update if centerProp actually changed
         if (centerProp &&
-          (centerProp[0] !== center[0] || centerProp[1] !== center[1])) {
+            (centerProp[0] !== center[0] || centerProp[1] !== center[1])) {
             setCenter(centerProp);
         }
     }, [centerProp, center]);

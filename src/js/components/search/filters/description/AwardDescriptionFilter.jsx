@@ -48,10 +48,10 @@ const AwardDescriptionFilter = ({
             </form>
             <div className="selected-filters" role="status">
                 {selectedAwardDescription &&
-                        <ShownValue
-                            label={selectedAwardDescription}
-                            key={selectedAwardDescription}
-                            removeValue={removeAwardDescription} />
+                    <ShownValue
+                        label={selectedAwardDescription}
+                        key={selectedAwardDescription}
+                        removeValue={removeAwardDescription} />
                 }
             </div>
         </div>

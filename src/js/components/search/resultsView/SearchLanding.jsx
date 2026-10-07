@@ -20,13 +20,13 @@ const SearchLanding = () => {
     return (
         <div className="search-results-landing">
             {isFilters &&
-            <FeatureFlag>
-                <>
-                    <NLSearchGovSpending isFilters={isFilters} />
-                    <NLSearchSuggestions />
-                    <NLMoreResources />
-                </>
-            </FeatureFlag>}
+                <FeatureFlag>
+                    <>
+                        <NLSearchGovSpending isFilters={isFilters} />
+                        <NLSearchSuggestions />
+                        <NLMoreResources />
+                    </>
+                </FeatureFlag>}
             {isFilters && !GlobalConstants.QAT &&
                 <>
                     <h3 className="landing-title">Start your USAspending search</h3>

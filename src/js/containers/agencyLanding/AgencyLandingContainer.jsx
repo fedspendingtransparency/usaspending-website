@@ -163,7 +163,7 @@ export class AgencyLandingContainer extends React.Component {
                     budget_authority_amount: formattedCurrency,
                     percentage_of_total_budget_authority: percent,
                     congressional_justification_url: sanitizeUrl(item.congressional_justification_url) ||
-                    'not available'
+                        'not available'
                 }
             };
             agencies.push(agency);

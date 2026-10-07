@@ -13,7 +13,7 @@ export const filterHasSelections = (reduxFilters, filter) => {
         case 'Time Period':
             if (reduxFilters.timePeriodFY.toArray().length > 0 ||
                 (reduxFilters.timePeriodRange &&
-                reduxFilters.timePeriodRange.toArray().length === 2)) {
+                    reduxFilters.timePeriodRange.toArray().length === 2)) {
                 return true;
             }
             return false;

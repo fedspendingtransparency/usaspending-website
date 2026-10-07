@@ -301,12 +301,12 @@ const RecipientTableContainer = ({ activeTab, scrollIntoView }) => {
                     <SearchBar onSearch={setQuery} />
                 </div>
                 {(!error && !loading && results.length > 0) &&
-                <div className="table-utility__right">
-                    <TableDownloadLink
-                        defCodes={defcParams && defcParams.length > 0 && defcParams}
-                        awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null}
-                        query={query} />
-                </div>}
+                    <div className="table-utility__right">
+                        <TableDownloadLink
+                            defCodes={defcParams && defcParams.length > 0 && defcParams}
+                            awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null}
+                            query={query} />
+                    </div>}
             </div>
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
