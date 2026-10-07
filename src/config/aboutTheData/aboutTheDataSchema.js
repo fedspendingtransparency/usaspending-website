@@ -70,7 +70,21 @@ const schema = {
             {
                 name: "Unique Award Key Methodology for Financial Assistance",
                 slug: "unique-award-key-methodology"
+            },
+            {
+                name: "Assistance Type",
+                slug: "assistance-type"
+            },
+             {
+                 name: "Action Type",
+                 slug: "action-type"
+             },
+            {
+                name: "Freely Associated States",
+                slug: "freely-associated-states"
             }
+
+
         ]
     },
     "award-disclosures": {
