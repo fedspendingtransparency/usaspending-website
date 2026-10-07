@@ -61,7 +61,7 @@ const AccordionCheckbox = ({
         const containsId = expandedCategories?.indexOf(category.id);
         if (containsId <= -1) {
             if (!category.singleitem) {
-            setExpandedCategories([...expandedCategories, category.id]);
+                setExpandedCategories([...expandedCategories, category.id]);
             }
         }
         else {

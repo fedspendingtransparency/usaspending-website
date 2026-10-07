@@ -1,5 +1,5 @@
 import { recipientTypeGroups } from 'dataMapping/search/recipientType';
-import { awardTypeGroups, awardTypeNewFCodes, awardTypeSingleItems } from "../../dataMapping/search/awardType";
+import { awardTypeGroups, awardTypeNewFCodes } from "../../dataMapping/search/awardType";
 
 export const awardTypesData = [
     {
