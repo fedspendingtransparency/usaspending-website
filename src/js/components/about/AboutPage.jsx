@@ -3,7 +3,7 @@
  * Created by Mike Bray 11/20/2017
  **/
 
-import React, {memo} from 'react';
+import React, { memo } from 'react';
 
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';

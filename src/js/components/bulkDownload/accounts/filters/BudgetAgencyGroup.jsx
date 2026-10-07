@@ -52,7 +52,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
     ));
 
     // add default to the beginning of options array.
-    budgetOptions.unshift({ text: 'All', id: 'all', value: 'all'});
+    budgetOptions.unshift({ text: 'All', id: 'all', value: 'all' });
 
     const handleBudgetSelect = (e) => {
         e.preventDefault();
@@ -92,7 +92,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
     ));
 
     // add default to the beginning of options array.
-    subBudgetOptions.unshift({ text: 'All', id: 'all', value: 'all'});
+    subBudgetOptions.unshift({ text: 'All', id: 'all', value: 'all' });
 
     const handleBudgetSubfunctionSelect = (e) => {
         e.preventDefault();
@@ -169,7 +169,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
     ));
 
     // add default to the beginning of options array.
-    federalAccountOptions.unshift({ text: 'All', id: 'all', value: 'all'});
+    federalAccountOptions.unshift({ text: 'All', id: 'all', value: 'all' });
 
     const handleFederalAccountSelect = (e) => {
         e.preventDefault();

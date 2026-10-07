@@ -3,7 +3,7 @@
  * Created by Trey Morgan 9/14/2026
  */
 
-import {RESPONSE_TYPE, OPERATION, responseLookup } from "../../../components/search/collapsibleSidebar/NLConstants";
+import { RESPONSE_TYPE, OPERATION, responseLookup } from "../../../components/search/collapsibleSidebar/NLConstants";
 
 // eslint-disable-next-line import/prefer-default-export
 export const buildResponseState = (data = []) => {

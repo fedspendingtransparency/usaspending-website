@@ -3,7 +3,7 @@
  * Created by Nick Torres 8/28/2026
  */
 
-import React, {useMemo} from "react";
+import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import NLDefaultHint from "./NLDefaultHint";

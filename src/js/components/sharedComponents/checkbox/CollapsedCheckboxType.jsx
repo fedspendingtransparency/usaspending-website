@@ -3,7 +3,7 @@
  * Created by michaelbray on 5/18/17.
  */
 
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import CheckboxExpandButton from './CheckboxExpandButton';
 

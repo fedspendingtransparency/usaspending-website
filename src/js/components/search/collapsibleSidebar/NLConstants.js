@@ -21,8 +21,8 @@ export const VARIANT = {
     ERROR: 'error'
 };
 
-const {SEARCH, TOOL} = OPERATION;
-const {START, COMPLETE, ERROR, INIT} = VARIANT;
+const { SEARCH, TOOL } = OPERATION;
+const { START, COMPLETE, ERROR, INIT } = VARIANT;
 
 export const responseLookup = {
     [RESPONSE_TYPE.SEARCH_START]: {

@@ -78,7 +78,7 @@ const titleData = {
         span: "Budget Function",
         postSpan: <> and/or <span
             className={`download-filter__title_em no-right-margin`}
-            style={{backgroundColor: '#F7F2FF'}} >
+            style={{ backgroundColor: '#F7F2FF' }} >
             Agency
         </span>.
         </>,
@@ -125,7 +125,7 @@ const titleData = {
         span: "Fiscal Year",
         postSpan: <> and <span
             className={`download-filter__title_em no-right-margin`}
-            style={{backgroundColor: '#E8F5FF'}} >
+            style={{ backgroundColor: '#E8F5FF' }} >
             Period
         </span>.
         </>,
@@ -144,7 +144,7 @@ const titleData = {
                 and
                 <span
                     className={`download-filter__title_em no-right-margin`}
-                    style={{backgroundColor: '#E5FAFF'}} >
+                    style={{ backgroundColor: '#E5FAFF' }} >
                     Fiscal Year
                 </span>
                 &nbsp;to filter the table below.
@@ -177,14 +177,14 @@ const FilterSectionTitle = ({
             <h4 className="download-filter__title">
                 <div
                     className={`title-icon ${optClassName}`}
-                    style={{backgroundColor: background}} >
+                    style={{ backgroundColor: background }} >
                     <FontAwesomeIcon icon={icon} color={fill} />
                 </div>
                 <span>
                     {preSpan}
                     <span
                         className={`download-filter__title_em ${addClassName}`}
-                        style={{backgroundColor: background}} >
+                        style={{ backgroundColor: background }} >
                         {span}
                     </span>
                     {postSpan}

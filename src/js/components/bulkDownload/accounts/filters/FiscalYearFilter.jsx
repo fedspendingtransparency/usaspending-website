@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { handlePotentialStrings } from 'containers/explorer/detail/helpers/explorerQuarters';
 import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
 import FilterSectionTitle from 'components/bulkDownload/FilterSelectionTitle';
-import {useLatestAccountData} from "../../../../containers/account/WithLatestFy";
+import { useLatestAccountData } from "../../../../containers/account/WithLatestFy";
 
 const propTypes = { updateFilter: PropTypes.func };
 

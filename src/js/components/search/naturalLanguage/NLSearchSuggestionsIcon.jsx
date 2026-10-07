@@ -15,7 +15,7 @@ const propTypes = {
     description: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
 };
 
-const NLSearchSuggestionsIcon = ({ variant, label, icon, description = ''}) => (
+const NLSearchSuggestionsIcon = ({ variant, label, icon, description = '' }) => (
     <div className={`icon-row icon-row--${variant}
         ${description ? 'icon-row__with-description' : ''}`}>
         <div className={`icon-container icon-container--${variant}`}>

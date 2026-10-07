@@ -3,12 +3,12 @@
  * Created by Andrea Blackwell 08/09/2023
  **/
 
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import {throttle} from "lodash-es";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {largeScreen, mediumScreen, xLargeScreen} from 'dataMapping/shared/mobileBreakpoints';
-import {checkIsOverflow, getElementData, reset} from 'helpers/inPageNavHelper';
+import { throttle } from "lodash-es";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { largeScreen, mediumScreen, xLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { checkIsOverflow, getElementData, reset } from 'helpers/inPageNavHelper';
 
 const propTypes = {
     sections: PropTypes.array,

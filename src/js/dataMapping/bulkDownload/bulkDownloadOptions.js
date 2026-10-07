@@ -4,7 +4,7 @@
  */
 import React from "react";
 import { Link } from 'react-router';
-import {bulkDownloadAwardTypeGroups} from "../search/awardType";
+import { bulkDownloadAwardTypeGroups } from "../search/awardType";
 
 const dayjs = require('dayjs');
 
@@ -208,7 +208,7 @@ export const accountDownloadOptions = {
             description: (
                 <>
                     A set of Treasury spending accounts that are group under <br/>
-                    a <Link style={{color: '#005ea2'}} to="/download_center/custom_account_data?glossary=federal-account">Federal Account Symbol</Link>
+                    a <Link style={{ color: '#005ea2' }} to="/download_center/custom_account_data?glossary=federal-account">Federal Account Symbol</Link>
                 </>
             )
         },
@@ -218,7 +218,7 @@ export const accountDownloadOptions = {
             apiName: 'treasury_account',
             description: (
                 <>
-                    A <Link style={{color: '#005ea2'}} to="/download_center/custom_account_data?glossary=treasury-account-symbol-tas">Treasury Account Symbol</Link> code assigned to each <br/>
+                    A <Link style={{ color: '#005ea2' }} to="/download_center/custom_account_data?glossary=treasury-account-symbol-tas">Treasury Account Symbol</Link> code assigned to each <br/>
                     appropriation, receipt, or fund account including Period of <br/>
                     Availability.
                 </>

@@ -207,8 +207,8 @@ const valuesAreEqual = (a, b) => {
 export const areFiltersEqual = (filters = initialState, filterReference = initialState) => {
     if (!filterReference && filters) return false;
 
-    const referenceObject = {...filterReference};
-    const comparisonObject = {...filters};
+    const referenceObject = { ...filterReference };
+    const comparisonObject = { ...filters };
 
     if (referenceObject.timePeriodType === 'fy') {
     // if the time period is fiscal year, we don't care about the date range values, even

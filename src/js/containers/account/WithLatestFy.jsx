@@ -22,7 +22,7 @@ export const useLatestAccountData = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [errorMsg, setErrorMsg] = useState('');
     const { submissionPeriods } = useSelector((state) => state.account);
-    const [{latestMoment, latestPeriod }, setLatestData] = useState(
+    const [{ latestMoment, latestPeriod }, setLatestData] = useState(
         { latestPeriod: getLatestPeriod([]), latestMoment: null }
     );
     const request = useRef();

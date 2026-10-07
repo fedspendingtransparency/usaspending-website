@@ -6,7 +6,7 @@
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import {isCancel} from "axios";
+import { isCancel } from "axios";
 
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { setDataThroughDates,

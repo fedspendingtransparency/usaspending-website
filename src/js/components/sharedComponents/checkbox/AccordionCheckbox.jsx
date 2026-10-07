@@ -72,7 +72,7 @@ const AccordionCheckbox = ({
             // have to check expandeCategories instead of isExpanded.
             // isExpanded might not be known by parent
             // collapse expandedCategories
-            expandedCategories.forEach((ec) => toggleExpanded({id: ec}));
+            expandedCategories.forEach((ec) => toggleExpanded({ id: ec }));
 
         }
         else if (isExpanded) {

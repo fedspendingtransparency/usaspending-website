@@ -18,7 +18,7 @@ const useRequestDownloadCount = (filters, hash, areAppliedFiltersEmpty, spending
     const operation = new SearchAwardsOperation();
     operation.fromState(filters);
 
-    const { data, downloadInFlight} = useQueries({
+    const { data, downloadInFlight } = useQueries({
         queries: spendingLevels.map(({
             level,
             auditText

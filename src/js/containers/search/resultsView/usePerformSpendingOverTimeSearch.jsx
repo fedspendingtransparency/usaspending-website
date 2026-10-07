@@ -157,7 +157,7 @@ const usePerformSpendingOverTimeSearch = (group, field, direction, selectedTimeF
         auditTrail: 'Spending Over Time Visualization'
     };
 
-    const { data, isLoading, isError} = useQuery({
+    const { data, isLoading, isError } = useQuery({
         queryKey: ["performSpendingOverTimeSearch", params],
         queryFn: () => performSpendingOverTimeSearch(params).promise,
         select: (data) => data.data.results

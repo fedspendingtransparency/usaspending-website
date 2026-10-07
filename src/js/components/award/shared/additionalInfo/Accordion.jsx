@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {compact, uniqueId} from 'lodash-es';
+import { compact, uniqueId } from 'lodash-es';
 import { Link } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TooltipWrapper } from "data-transparency-ui";

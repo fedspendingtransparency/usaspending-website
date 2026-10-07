@@ -19,7 +19,7 @@ const useStateData = () => {
         gcTime: Infinity
     });
 
-    return {data, isSuccess, isLoading, error};
+    return { data, isSuccess, isLoading, error };
 };
 
 export const useStateList = () => {

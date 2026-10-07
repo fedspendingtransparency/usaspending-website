@@ -5,14 +5,14 @@
 
 import React, { useContext, useState } from 'react';
 import PropTypes from 'prop-types';
-import {startCase} from "lodash-es";
+import { startCase } from "lodash-es";
 
 import isMobileContext from "context/IsMobileContext";
 import Analytics from "../../../helpers/analytics/Analytics";
 import AwardDataArchiveForm from './AwardDataArchiveForm';
 import AwardDataArchiveTable from './table/AwardDataArchiveTable';
 import AwardDataArchiveUserSelections from "./AwardDataArchiveUserSelections";
-import {Link} from "react-router";
+import { Link } from "react-router";
 
 const propTypes = {
 

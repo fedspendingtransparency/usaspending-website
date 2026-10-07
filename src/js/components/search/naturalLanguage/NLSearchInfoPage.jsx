@@ -11,7 +11,7 @@ import smartAssistGraphic from '../../../../img/smart-assist-graphic.png';
 import { smartAssistContent } from '../naturalLanguage/NLData';
 import NLSearchInfoSection from './NLSearchInfoSection';
 import NLSearchInfoResources from './NLSearchInfoResources';
-import { FlexGridCol} from 'data-transparency-ui';
+import { FlexGridCol } from 'data-transparency-ui';
 import ShareDownloadButtonGroup from '../../sharedComponents/buttons/ShareDownloadButtonGroup';
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -23,7 +23,7 @@ require("pages/search/naturalLanguage/searchInfoPage.scss");
 
 const graphicLabel = (
     <>
-        An <span style={{color: '#0081a1', fontWeight: 600}}>easy</span> way to search for government spending.
+        An <span style={{ color: '#0081a1', fontWeight: 600 }}>easy</span> way to search for government spending.
     </>
 );
 

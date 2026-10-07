@@ -17,7 +17,7 @@ const NLPreSearchButtonGroup = () => {
     const query = useQueryParams();
     const fireQueryEvent = useFireQueryEvent();
 
-    const getRandomOption = ({options}) => {
+    const getRandomOption = ({ options }) => {
         // eslint-disable-next-line react-hooks/purity
         const index = Math.floor(Math.random() * options.length);
         return options[index];
@@ -30,7 +30,7 @@ const NLPreSearchButtonGroup = () => {
         let tempHash = generateUrlHash(filterValue);
         tempHash.promise
             .then((results) => {
-                const newQueryParams = combineQueryParams(query, {hash: encodeURIComponent(results.data.hash)});
+                const newQueryParams = combineQueryParams(query, { hash: encodeURIComponent(results.data.hash) });
                 window.open(`${'/search'}${getQueryParamString(newQueryParams)}`, "_self");
                 // operation has resolved
                 tempHash = null;

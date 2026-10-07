@@ -628,7 +628,7 @@ export const smartAssistContent = {
                 content: (
                     <>
                         <p>
-                            Your search will be used to find <span style={{color: '#005ea2'}}>Awards, Subawards, and Transactions</span> using the existing Advanced Search page filters ranging from time period to specific codes or categories.
+                            Your search will be used to find <span style={{ color: '#005ea2' }}>Awards, Subawards, and Transactions</span> using the existing Advanced Search page filters ranging from time period to specific codes or categories.
                         </p>
                     </>
                 )

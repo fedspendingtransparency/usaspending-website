@@ -3,13 +3,13 @@
  * Created by Kevin Li 8/17/17
  */
 
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {useNavigate} from 'react-router';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useNavigate } from 'react-router';
 
-import {dropdownScopes, icons, rootScopes} from 'dataMapping/explorer/dropdownScopes';
-import {sidebarTypes} from 'dataMapping/explorer/sidebarStrings';
+import { dropdownScopes, icons, rootScopes } from 'dataMapping/explorer/dropdownScopes';
+import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import ViewTypeButton from 'components/sharedComponents/buttons/ViewTypeButton';
 import DropdownItem from './DropdownItem';
 

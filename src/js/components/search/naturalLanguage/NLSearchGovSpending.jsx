@@ -3,7 +3,7 @@
  * Created by Trey Morgan 8/12/2026
  */
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, Button } from 'data-transparency-ui';

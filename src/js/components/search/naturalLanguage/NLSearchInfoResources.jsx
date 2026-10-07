@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { FlexGridRow, FlexGridCol, CardContainer, CardBody, CardButton} from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol, CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { smartAssistResources } from '../naturalLanguage/NLData';
 
 const NLSearchInfoResources = () => {

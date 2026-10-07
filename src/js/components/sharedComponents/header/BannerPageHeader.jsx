@@ -70,7 +70,7 @@ const BannerPageHeader = memo(function BannerPageHeader({
                                 </div>
                             </>
                         ): (
-                            <div className="icon-container no-hightlight" style={{backgroundColor: bannerColor}}>
+                            <div className="icon-container no-hightlight" style={{ backgroundColor: bannerColor }}>
                                 <FontAwesomeIcon icon={faIcon} color={iconColor} />
                             </div>
                         )}
@@ -79,7 +79,7 @@ const BannerPageHeader = memo(function BannerPageHeader({
                 <FlexGridCol width="fill" className="text-column">
                     <div className={`text-container ${className ? `${className}` : ''}`}>
                         { isTablet &&
-                            <div className={`icon-container__mobile ${className ? `${className}` : ''}`} style={{ backgroundColor: titleOnly ? bannerColor : "#FFF"}}>
+                            <div className={`icon-container__mobile ${className ? `${className}` : ''}`} style={{ backgroundColor: titleOnly ? bannerColor : "#FFF" }}>
                                 <FontAwesomeIcon icon={faIcon} color={iconColor} />
                             </div>
                         }
