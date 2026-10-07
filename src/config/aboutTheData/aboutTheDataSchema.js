@@ -75,10 +75,10 @@ const schema = {
                 name: "Assistance Type",
                 slug: "assistance-type"
             },
-             {
-                 name: "Action Type",
-                 slug: "action-type"
-             },
+            {
+                name: "Action Type",
+                slug: "action-type"
+            },
             {
                 name: "Freely Associated States",
                 slug: "freely-associated-states"
