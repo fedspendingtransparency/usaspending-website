@@ -13,7 +13,7 @@ import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle
 import HomepageResources from "./HomepageResources/HomepageResources";
 import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";
 import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
-import NLPreSearchButtonGroup from '../naturalLanguage/NLPreSearchButtonGroup';
+import NLPreSearchButtonGroup from '../search/naturalLanguage/NLPreSearchButtonGroup';
 
 require('pages/homepage/homepage.scss');
 
