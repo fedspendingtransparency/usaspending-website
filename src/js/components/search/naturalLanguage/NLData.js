@@ -14,7 +14,7 @@ import * as aboutTheDataActions from "../../../redux/actions/aboutTheDataSidebar
 import { initialState as defaultFilters } from '../../../redux/reducers/search/searchFiltersReducer';
 import { awardTypeGroups } from "../../../dataMapping/search/awardType";
 import { REQUEST_VERSION } from "../../../GlobalConstants";
-import { defCodeGroups } from "../../dataMapping/search/defCodes";
+import { defCodeGroups } from "../../../dataMapping/search/defCodes";
 
 const overline = 'IF YOU WANT TO KNOW:';
 const filterByHeader = 'FILTER BY:'
