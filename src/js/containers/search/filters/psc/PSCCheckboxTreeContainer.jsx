@@ -138,13 +138,13 @@ const PSCCheckboxTreeContainer = () => {
                         }
                     }
 
-                    const newChecked = modChecked?.length
-                        ? autoCheckPscAfterExpand(
+                    const newChecked = modChecked?.length ?
+                        autoCheckPscAfterExpand(
                             { children: pscNodes, value: key },
                             modChecked,
                             unchecked
-                        )
-                        : checked;
+                        ) :
+                        checked;
 
                     dispatch(setCheckedPsc(newChecked));
                 }

@@ -266,8 +266,8 @@ const InPageNav = ({
             <nav
                 ref={navBar}
                 className={`usda-in-page-nav__wrapper ${(isOverflowLeft && !isMobile) ? 'left-fade-effect' : ''} ${isOverflowRight ? 'right-fade-effect' : ''} `}>
-                {isOverflowLeft && !isMobile
-                    && (
+                {isOverflowLeft && !isMobile &&
+                    (
                         <div
                             aria-label="In-page navigation left paginator"
                             title="In-page navigation left paginator"
@@ -293,8 +293,8 @@ const InPageNav = ({
                         </li>
                     ))}
                 </ul>
-                {isOverflowRight && !isMobile
-                    && (
+                {isOverflowRight && !isMobile &&
+                    (
                         <div
                             aria-label="In-page navigation right paginator"
                             title="In-page navigation right paginator"

@@ -70,9 +70,9 @@ const TreeNodes = ({
                                     onChange={() => handleCheck(node.id, node.children || [])} />
                                 }
                             </div>
-                            {showCheckbox
-                                ? <label htmlFor={`checkbox-${node.id}`}>{node.label}</label>
-                                : node.label}
+                            {showCheckbox ?
+                                <label htmlFor={`checkbox-${node.id}`}>{node.label}</label> :
+                                node.label}
                         </div>
                         <div className={`checkbox-tree-label__description ${isOpen ? 'open' : ''}`}>
                             {isOpen && renderNodes(node.children || [], depth)}

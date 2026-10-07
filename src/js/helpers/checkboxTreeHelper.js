@@ -12,9 +12,9 @@ export const doesMeetMinimumCharsRequiredForSearch = (str = '', charMinimum = 3)
 
 const getChildren = (node, keyMap) => {
     if (!node.children && keyMap.isParent(node)) {
-        const value = node[keyMap?.value]
-            ? node[keyMap?.value]
-            : node.id || '';
+        const value = node[keyMap?.value] ?
+            node[keyMap?.value] :
+            node.id || '';
         return {
             children: [{
                 isPlaceHolder: true,
@@ -131,9 +131,9 @@ const removeFromUnchecked = (
     getHighestAncestorFn
 ) => {
     // we only want to remove from unchecked if...
-    const key = checkedCode.includes('children_of_')
-        ? checkedCode.split('children_of_')[1]
-        : checkedCode;
+    const key = checkedCode.includes('children_of_') ?
+        checkedCode.split('children_of_')[1] :
+        checkedCode;
     const currentNode = traverseTreeByCodeFn(nodes, key);
     const ancestorKey = getImmediateAncestorFn(currentNode);
     const parentKey = getHighestAncestorFn(currentNode);
@@ -235,9 +235,9 @@ export const decrementCountAndUpdateUnchecked = (
         )
     );
 
-    const newUnchecked = shouldUpdateUnchecked
-        ? [...unchecked, value]
-        : unchecked;
+    const newUnchecked = shouldUpdateUnchecked ?
+        [...unchecked, value] :
+        unchecked;
 
     return [newCounts, newUnchecked];
 };
@@ -312,9 +312,9 @@ export const incrementCountAndUpdateUnchecked = (
             const indexInArray = newState.findIndex((node) => node?.value === parentKey);
             const isParentInArray = indexInArray > -1;
             const countOfCheckedDescendants = getCountOfCheckedDescendants(key, codesWithCheckedAncestor, nodeTree, traverseTreeByCodeFn);
-            const originalCount = currentNode.count === 0
-                ? 1
-                : currentNode.count;
+            const originalCount = currentNode.count === 0 ?
+                1 :
+                currentNode.count;
             const amountToIncrement = originalCount - countOfCheckedDescendants;
 
             if (!isParentInArray) {
@@ -574,12 +574,12 @@ export const populateChildNodes = (
     // 1. add nodes to either branch (recursive) or leaf level of tree
     // 2. when adding nodes, don't remove any existing children that aren't placeholders as they are assumed to have and likely do have children of their own from search.
     const nodeWithNewChildren = key ? traverseTreeByCodeFn(tree, key) : '';
-    const immediateAncestorCode = nodeWithNewChildren
-        ? getImmediateAncestorCode(nodeWithNewChildren)
-        : getImmediateAncestorCode(key);
-    const highestAncestorCode = nodeWithNewChildren
-        ? getHighestAncestorCode(nodeWithNewChildren)
-        : getHighestAncestorCode(key);
+    const immediateAncestorCode = nodeWithNewChildren ?
+        getImmediateAncestorCode(nodeWithNewChildren) :
+        getImmediateAncestorCode(key);
+    const highestAncestorCode = nodeWithNewChildren ?
+        getHighestAncestorCode(nodeWithNewChildren) :
+        getHighestAncestorCode(key);
     return tree.map((node) => {
         const [data] = newNodes;
         const shouldPopulateChildren = node?.value === key;
@@ -605,11 +605,11 @@ export const populateChildNodes = (
                         if (weHaveTheGrandChildren) {
                             return {
                                 ...child,
-                                children: existingChild.children
-                                    ? existingChild.children
+                                children: existingChild.children ?
+                                    existingChild.children
                                         .map((grand) => ({ ...grand, className: '' }))
-                                        .sort(sortNodesByValue)
-                                    : []
+                                        .sort(sortNodesByValue) :
+                                    []
                             };
                         }
                         if (weHaveAtLeastOneGrandChild) {
@@ -700,9 +700,9 @@ export const showAllNodes = (tree) => tree
     .map((node) => ({
         ...node,
         className: '',
-        children: node.children
-            ? showAllNodes(node.children)
-            : []
+        children: node.children ?
+            showAllNodes(node.children) :
+            []
     }))
     .sort(sortNodesByValue);
 /**
@@ -716,9 +716,9 @@ export const getUniqueAncestorPaths = (
 ) => checkedAncestorPaths.concat(uncheckedAncestorPaths)
     .reduce((listOfUniqueAncestors, ancestryPath) => {
     // we don't need to fetch the last item of the array because we only need the *ancestors* of the ancestorPaths.
-        const numberOfAncestors = ancestryPath.length === 1
-            ? 1
-            : ancestryPath.length - 1;
+        const numberOfAncestors = ancestryPath.length === 1 ?
+            1 :
+            ancestryPath.length - 1;
         const uniqueAncestors = [...new Array(numberOfAncestors)]
             .reduce((ancestors, _, i) => {
                 const currentAncestor = ancestryPath[i];

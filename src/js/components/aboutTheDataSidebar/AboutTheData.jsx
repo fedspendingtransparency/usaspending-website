@@ -94,8 +94,7 @@ const AboutTheData = (props) => {
                                     <span className="matched-highlight">
                                         {part}
                                     </span>
-                                )
-                                    :
+                                )                                    :
                                     <>
                                         {part}
                                     </>
@@ -172,8 +171,7 @@ const AboutTheData = (props) => {
             <DownloadButton />
             <AboutTheDataNoResults searchTerm={searchTerm} />
         </>
-    )
-        :
+    )        :
         (
             <>
                 <DownloadButton />
@@ -255,8 +253,7 @@ const AboutTheData = (props) => {
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
                 {isLoading || searchResultsPending ?
-                    <><LoadingWrapper isLoading /></>
-                    :
+                    <><LoadingWrapper isLoading /></>                    :
                     <>
                         <AboutTheDataHeader
                             closeAboutTheData={closeAboutTheData}
@@ -276,8 +273,7 @@ const AboutTheData = (props) => {
                                         name={drilldownSection?.fields[drilldownItemId]?.name}
                                         clearDrilldown={clearDrilldown}
                                         slug={drilldownSection?.fields[drilldownItemId]?.slug} />
-                                </div>
-                                :
+                                </div>                                :
                                 <>
                                     <div className="atd__body">
                                         {content}

@@ -535,9 +535,9 @@ const MapWrapper = ({
     };
 
     useEffect(() => {
-        const cleanUpRef = Array.isArray(broadcastRef.current)
-            ? [...broadcastRef.current]
-            : [];
+        const cleanUpRef = Array.isArray(broadcastRef.current) ?
+            [...broadcastRef.current] :
+            [];
         displayData();
         if (!stateProfile) {
             prepareBroadcastReceivers();

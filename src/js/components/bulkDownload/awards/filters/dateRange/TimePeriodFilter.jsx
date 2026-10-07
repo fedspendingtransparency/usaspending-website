@@ -77,12 +77,12 @@ const TimePeriodFilter = ({
 
     const validateDates = useCallback(() => {
         // validate the date ranges
-        const start = dayjs.isDayjs(startDateBulkUI)
-            ? startDateBulkUI
-            : dayjs(startDateBulkUI);
-        const end = dayjs.isDayjs(endDateBulkUI)
-            ? endDateBulkUI
-            : dayjs(endDateBulkUI);
+        const start = dayjs.isDayjs(startDateBulkUI) ?
+            startDateBulkUI :
+            dayjs(startDateBulkUI);
+        const end = dayjs.isDayjs(endDateBulkUI) ?
+            endDateBulkUI :
+            dayjs(endDateBulkUI);
 
         const yearBeforeEnd = dayjs(endDateBulkUI).subtract(1, 'y');
 
@@ -229,12 +229,12 @@ const TimePeriodFilter = ({
     }
 
     if (startDateBulkUI && endDateBulkUI) {
-        const start = dayjs.isDayjs(startDateBulkUI)
-            ? startDateBulkUI.format('YYYY-MM-DD')
-            : startDateBulkUI;
-        const end = dayjs.isDayjs(endDateBulkUI)
-            ? endDateBulkUI.format('YYYY-MM-DD')
-            : endDateBulkUI;
+        const start = dayjs.isDayjs(startDateBulkUI) ?
+            startDateBulkUI.format('YYYY-MM-DD') :
+            startDateBulkUI;
+        const end = dayjs.isDayjs(endDateBulkUI) ?
+            endDateBulkUI.format('YYYY-MM-DD') :
+            endDateBulkUI;
 
         const searchValue = `${start} - ${end}`;
         const persistedOption = periodOptions.find((option) => option.value === searchValue);
@@ -256,8 +256,7 @@ const TimePeriodFilter = ({
 
     useEffect(() => {
         const isSameAsRedux = (
-            startDateBulkUI === filterTimePeriodStart
-            &&
+            startDateBulkUI === filterTimePeriodStart            &&
             endDateBulkUI === filterTimePeriodEnd
         );
 

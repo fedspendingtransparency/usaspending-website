@@ -131,9 +131,9 @@ export const buildContractIDVProps = (awardType, data, hasfilecCovid, hasOutlays
             value: data.baseAndAllOptionsAbbreviated,
             color: getAwardColor(potentialColor, infrastructurePotentialColor, covidColor, fileCType),
             lineOffset: lineOffsetsBySpendingCategory.potential,
-            text: awardType === 'idv'
-                ? "Combined Potential Award Amounts"
-                : "Potential Award Amount"
+            text: awardType === 'idv' ?
+                "Combined Potential Award Amounts" :
+                "Potential Award Amount"
         },
         // outlays numerator
         numerator2: {
@@ -154,9 +154,9 @@ export const buildContractIDVProps = (awardType, data, hasfilecCovid, hasOutlays
             denominatorValue: data._baseAndAllOptions,
             value: data.baseExercisedOptionsAbbreviated,
             lineOffset: lineOffsetsBySpendingCategory.current,
-            text: awardType === 'idv'
-                ? "Combined Current Award Amounts"
-                : "Current Award Amount",
+            text: awardType === 'idv' ?
+                "Combined Current Award Amounts" :
+                "Current Award Amount",
             color: getAwardColor(currentColor, infrastructureCurrentColor, covidColor, fileCType),
             children: [
                 {

@@ -165,9 +165,9 @@ const AboutTheDataPage = () => {
                                     openModal={modalClick}
                                     activeTab={activeTab}
                                     selectedFy={selectedFy}
-                                    selectedPeriod={selectedPeriod
-                                        ? selectedPeriod.id
-                                        : ''
+                                    selectedPeriod={selectedPeriod ?
+                                        selectedPeriod.id :
+                                        ''
                                     } />
                                 <AboutTheDataModal
                                     id="usa-dt-modal__agency-submission-statistics"

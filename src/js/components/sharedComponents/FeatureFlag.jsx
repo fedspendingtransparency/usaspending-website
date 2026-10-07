@@ -9,8 +9,7 @@ import GlobalConstants from "GlobalConstants";
 
 const FeatureFlag = ({ children }) => {
     const isQAT = GlobalConstants.QAT;
-    return (isQAT ? <>{children}</>
-        :
+    return (isQAT ? <>{children}</>        :
         <></>);
 };
 

@@ -213,8 +213,7 @@ const WordOfTheDay = () => {
                                 </CardButton>
                             </>
                         </CardBody>
-                    </>
-                    :
+                    </>                    :
                     <CardBody customClassName="card__body_error">
                         {loading ? <LoadingWrapper isLoading={loading} /> : <ErrorWordOfTheDay />}
                     </CardBody>

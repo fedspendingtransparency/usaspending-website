@@ -155,8 +155,8 @@ const FySummary = ({
             <h4 className="fy-summary__heading">FY {fy} Summary</h4>
             <hr />
             {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
-            {isMobile ? <Carousel items={sections} />
-                : (
+            {isMobile ? <Carousel items={sections} /> :
+                (
                     <FlexGridRow hasGutter className="fy-summary__row">
                         {sections.map((viz, i) => (
                             <FlexGridCol tablet={6} className="fy-summary__col" key={`FY-Summary-${i}`}>

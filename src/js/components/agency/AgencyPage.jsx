@@ -126,9 +126,9 @@ export const AgencyProfileV2 = ({
                     url="/agency" />
                 <div className="body usda__flex-col">
                     <PageTitle />
-                    {isError
-                        ? <ErrorMessage description={errorMessage} />
-                        : sections.map((section) => (
+                    {isError ?
+                        <ErrorMessage description={errorMessage} /> :
+                        sections.map((section) => (
                             <AgencySection
                                 key={section.section}
                                 section={section}

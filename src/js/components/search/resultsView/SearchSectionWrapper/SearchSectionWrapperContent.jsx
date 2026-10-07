@@ -105,8 +105,7 @@ const SearchSectionWrapperContent = ({
                 }>
                 {
                     isError || isLoading || hasNoData ?
-                        message()
-                        :
+                        message()                        :
                         <>
                             {((viewType === "table" || sectionName === "table") && isTablet) ?
                                 <MobileSort
@@ -123,8 +122,7 @@ const SearchSectionWrapperContent = ({
                                     setSort={setSort} /> : null}
                             {downloadComponent}
                             {viewType === "table" ?
-                                content()
-                                :
+                                content()                                :
                                 children}
                         </>
                 }

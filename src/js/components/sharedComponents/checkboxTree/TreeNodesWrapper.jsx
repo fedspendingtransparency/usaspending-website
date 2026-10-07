@@ -120,9 +120,9 @@ const TreeNodesWrapper = ({
                         const parentHasCheckedDescendants = hasCheckedDescendants(parent, newChecked);
                         // if all children are checked parent should be checked
                         // if any children or descendants are checked parent should be indeterminate.
-                        let setIndeterminate = !allChildrenChecked
-                            ? (hasAnyChildrenChecked.length > 0 || parentHasCheckedDescendants)
-                            : false;
+                        let setIndeterminate = !allChildrenChecked ?
+                            (hasAnyChildrenChecked.length > 0 || parentHasCheckedDescendants) :
+                            false;
 
                         if (checkboxRefs.current) {
                             if (nodePriorChecked) {

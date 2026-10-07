@@ -66,9 +66,9 @@ const StateTimeVisualizationHeader = ({
                     label="View by"
                     enabled
                     classname="state-dropdown__picker"
-                    selectedOption={dropdownOptions?.length
-                        ? dropdownOptions?.find((obj) => obj.value === visualizationPeriod)?.name
-                        : `${visualizationPeriod}`}
+                    selectedOption={dropdownOptions?.length ?
+                        dropdownOptions?.find((obj) => obj.value === visualizationPeriod)?.name :
+                        `${visualizationPeriod}`}
                     sortFn={sortFn} />
                 {showOutlays &&
                     <OutlaysToggle

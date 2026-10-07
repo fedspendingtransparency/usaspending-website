@@ -19,10 +19,10 @@ const propTypes = {
 
 const SortIcon = ({ currentSort, title, handleClickedSort }) => {
     // highlight the active arrow
-    const activeAsc = (currentSort?.field === title && currentSort?.direction === 'asc')
-        ? ' table-header__icon_active' : '';
-    const activeDesc = (currentSort?.field === title && currentSort?.direction === 'desc')
-        ? ' table-header__icon_active' : '';
+    const activeAsc = (currentSort?.field === title && currentSort?.direction === 'asc') ?
+        ' table-header__icon_active' : '';
+    const activeDesc = (currentSort?.field === title && currentSort?.direction === 'desc') ?
+        ' table-header__icon_active' : '';
 
     return (
         <div className="table-header__sort">

@@ -23,9 +23,9 @@ const searchPageToolBarComponents = (
     handleShareDispatch,
     queryParam
 ) => {
-    const toolTipComponent = (!downloadAvailable && hash)
-        ? <NoDownloadHover />
-        : null;
+    const toolTipComponent = (!downloadAvailable && hash) ?
+        <NoDownloadHover /> :
+        null;
 
     /**
      * Shows the full download modal

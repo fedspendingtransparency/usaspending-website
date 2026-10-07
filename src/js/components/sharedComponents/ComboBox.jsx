@@ -177,8 +177,7 @@ const ComboBox = memo(function ComboBox({
                                         aria-label={`${formName}-option-item`}>
                                         No results found
                                     </div>
-                                </li>
-                                :
+                                </li>                                :
                                 options
                             }
                         </ul>

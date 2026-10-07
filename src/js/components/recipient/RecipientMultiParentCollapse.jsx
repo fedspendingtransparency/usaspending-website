@@ -56,8 +56,7 @@ const RecipientMultiParentCollapse = (props) => {
                             to={`/recipient/${initialParent.parent_id}/latest`}>
                             {initialParent.parent_name}
                         </Link>
-                    </div>
-                    :
+                    </div>                    :
                     // Render top level parent, then allow hide/show of other parents
                     <div className="recipient-overview__parent">
                         This recipient is associated with multiple parents in the dataset:

@@ -50,9 +50,9 @@ export default class ProgressBar extends Component {
     // recreate the progress bar on window resize
     componentDidUpdate(prevProps) {
         if (
-            prevProps.width !== this.props.width
-            || prevProps.domain !== this.props.domain
-            || prevProps.milestones !== this.props.milestones
+            prevProps.width !== this.props.width ||
+            prevProps.domain !== this.props.domain ||
+            prevProps.milestones !== this.props.milestones
         ) {
             this.validateDomainAndMilestones();
             // DataFlow
@@ -360,10 +360,10 @@ export default class ProgressBar extends Component {
         };
         // bad data or completed progression
         if (
-            !currentProgress
-            || badDomainData
-            || currentProgress >= this.props.domain[1]
-            || currentProgress <= this.props.domain[0]
+            !currentProgress ||
+            badDomainData ||
+            currentProgress >= this.props.domain[1] ||
+            currentProgress <= this.props.domain[0]
         ) {
             progressTextData.display = false;
         }

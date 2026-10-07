@@ -259,9 +259,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     showMobileFilters ? "mobile" : ""}`
                 }>
 
-                { isMedium
-                    ? showMobileFilters && renderMobileSidebar()
-                    : sidebarIsOpen && renderDesktopSidebar()
+                { isMedium ?
+                    showMobileFilters && renderMobileSidebar() :
+                    sidebarIsOpen && renderDesktopSidebar()
                 }
             </div>
         </>

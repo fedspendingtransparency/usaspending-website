@@ -97,9 +97,8 @@ const GroupedAwardTable = (props) => {
                             <tr key={headerGroup.id} className="usda-table__row" style={{ height: 45 }}>
                                 {headerGroup.headers.map((header, h) => (
                                     <th key={header.id} className="table-header stickyColumn">
-                                        {header.isPlaceholder
-                                            ? null
-                                            :
+                                        {header.isPlaceholder ?
+                                            null                                            :
                                             <GroupedTableHeader
                                                 index={h}
                                                 updateSort={props.updateSort}

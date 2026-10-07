@@ -284,9 +284,9 @@ const AwardHistoryTableContainer = ({
         switch (activeTab) {
             case 'transaction': requestRef.current = fetchAwardTransaction(params);
                 break;
-            case 'federal_account': requestRef.current = (award.category === 'idv')
-                ? fetchAwardFedAccountFunding(params)
-                : fetchFederalAccountFunding(params);
+            case 'federal_account': requestRef.current = (award.category === 'idv') ?
+                fetchAwardFedAccountFunding(params) :
+                fetchFederalAccountFunding(params);
                 break;
             case 'subaward': requestRef.current = performSubawardSearch(params);
                 break;

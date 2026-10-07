@@ -56,8 +56,7 @@ const MapSection = ({ spendingLevel, mapHasLoaded, hash }) => {
                     scope={selectedDropdown}
                     setScope={setSelectedDropdown}
                     wrapperProps={wrapperProps}
-                    hash={hash} />
-                :
+                    hash={hash} />                :
                 <PlaceholderComponent classname="map" />
             }
         </div>

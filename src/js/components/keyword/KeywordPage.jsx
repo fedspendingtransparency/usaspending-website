@@ -81,9 +81,9 @@ const KeywordPage = ({
                     inFlight={summaryInFlight}
                     key="SearchSummary"/>,
                 <DownloadIconButton508
-                    tooltipComponent={(!downloadAvailable && keyword)
-                        ? <NoDownloadHover />
-                        : null
+                    tooltipComponent={(!downloadAvailable && keyword) ?
+                        <NoDownloadHover /> :
+                        null
                     }
                     isEnabled={downloadAvailable}
                     onClick={clickedDownload}

@@ -201,10 +201,10 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
         };
 
         // calculate the right column values
-        const obligatedHeight = (props.amounts.out.obligated / props.amounts.budgetAuthority)
-            * centerHeight;
-        const unobligatedHeight = (props.amounts.out.unobligated / props.amounts.budgetAuthority)
-            * centerHeight;
+        const obligatedHeight = (props.amounts.out.obligated / props.amounts.budgetAuthority) *
+            centerHeight;
+        const unobligatedHeight = (props.amounts.out.unobligated / props.amounts.budgetAuthority) *
+            centerHeight;
 
         const obligatedString = MoneyFormatter.formatMoney(props.amounts.out.obligated);
         const unobligatedString = MoneyFormatter.formatMoney(props.amounts.out.unobligated);
@@ -309,8 +309,8 @@ budgetary resources`}
                             }} />
                         <SankeyFlow
                             startY={this.state.left.appropriations.y}
-                            endY={(this.state.center.y + this.state.center.height)
-                                - this.state.left.appropriations.height}
+                            endY={(this.state.center.y + this.state.center.height) -
+                                this.state.left.appropriations.height}
                             height={this.state.left.appropriations.height}
                             length={this.state.left.flow.length}
                             description={`Flow of money into total budgetary resources from new \

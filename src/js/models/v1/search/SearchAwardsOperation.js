@@ -353,8 +353,8 @@ class SearchAwardsOperation {
                 if (amount[awardAmountKeys.min] === null) delete amount[awardAmountKeys.min];
                 if (amount[awardAmountKeys.max] === null) delete amount[awardAmountKeys.max];
                 // if both null return
-                if ((!amount[awardAmountKeys.min] && amount[awardAmountKeys.min] !== 0)
-                && (!amount[awardAmountKeys.max] && amount[awardAmountKeys.max] !== 0)) {
+                if ((!amount[awardAmountKeys.min] && amount[awardAmountKeys.min] !== 0) &&
+                (!amount[awardAmountKeys.max] && amount[awardAmountKeys.max] !== 0)) {
                     return;
                 }
                 amounts.push(amount);

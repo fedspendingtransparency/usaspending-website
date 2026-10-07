@@ -69,8 +69,8 @@ export default class FederalAccountsTable extends React.Component {
                                 <Link to={`/agency/${account._fundingAgencySlug}`}>
                                     {`(${account._fundingAgencyAbbreviation}) ${account[key]}`}
                                 </Link>
-                            )
-                            : '--';
+                            ) :
+                            '--';
                     }
                     return (
                         <td

@@ -255,9 +255,9 @@ const CustomDatePicker = memo(function CustomDatePicker({
                             ))}
                             {calendarDays.map(({ date, outside }) => {
                                 const outsideClass = outside ? " outside" : "";
-                                const selectedClass = date.isSame(selectedDate)
-                                    ? " isSelected"
-                                    : "";
+                                const selectedClass = date.isSame(selectedDate) ?
+                                    " isSelected" :
+                                    "";
 
                                 return (
                                     <button

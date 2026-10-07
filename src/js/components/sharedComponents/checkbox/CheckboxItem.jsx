@@ -56,8 +56,7 @@ const CheckboxItem = ({
                     disabled={isDisabled}
                     ref={inputRef} />
                 {customLabel ?
-                    <div className="checkbox-filter__item-label">{highlightText(customLabel)}</div>
-                    :
+                    <div className="checkbox-filter__item-label">{highlightText(customLabel)}</div>                    :
                     <div className="checkbox-filter__item-label">{highlightText(label)}</div>
                 }
             </label>

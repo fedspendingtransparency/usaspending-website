@@ -422,8 +422,8 @@ budgetary resouces`}
                             }} />
                         <SankeyFlowVertical
                             startX={this.state.top.bbf.x + this.state.top.flow.x}
-                            endX={(this.state.center.x + this.state.center.width)
-                                - this.state.top.bbf.width}
+                            endX={(this.state.center.x + this.state.center.width) -
+                                this.state.top.bbf.width}
                             width={this.state.top.bbf.width}
                             length={this.state.top.flow.length}
                             description={`Flow of money into total budgetary resources from balance \

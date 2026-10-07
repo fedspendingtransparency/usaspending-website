@@ -174,8 +174,8 @@ export default function ObligationsByAwardType({
                     (
                         activeType && activeType !== inner[i].label) &&
                         !isMobile
-                )
-                    ? inner[i].fadedColor :
+                ) ?
+                    inner[i].fadedColor :
                     inner[i].color;
             })
             .style('cursor', 'pointer')

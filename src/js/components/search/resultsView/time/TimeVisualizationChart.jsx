@@ -158,8 +158,7 @@ const TimeVisualizationChart = (props) => {
     return (
         <div className="recharts-time-visualization-container">
             {props?.loading || props?.error || transformedData?.length === 0 ?
-                <>{message()}</>
-                :
+                <>{message()}</>                :
                 <ResponsiveContainer>
                     <BarChart
                         height={350}

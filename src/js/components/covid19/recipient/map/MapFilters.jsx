@@ -34,8 +34,7 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
                                 <TooltipWrapper
                                     icon="info"
                                     tooltipPosition="right"
-                                    tooltipComponent={<CondensedCDTooltip title="Area Type: Congressional Districts" />} />
-                                :
+                                    tooltipComponent={<CondensedCDTooltip title="Area Type: Congressional Districts" />} />                                :
                                 null}
                             {filters[filter].label === 'AMOUNT TYPE' ?
                                 <TooltipWrapper

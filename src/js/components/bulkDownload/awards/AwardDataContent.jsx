@@ -69,11 +69,11 @@ const AwardDataContent = ({
     const subAwards = awards.awardTypes.subAwards.size > 0;
 
     const form = (
-        (primeAwards || subAwards)
-        && validDates && (awards.dateType !== '')
-        && (awards.agency.id !== '')
-        && (awards.location.country.code !== '')
-        && (awards.fileFormat !== '')
+        (primeAwards || subAwards) &&
+        validDates && (awards.dateType !== '') &&
+        (awards.agency.id !== '') &&
+        (awards.location.country.code !== '') &&
+        (awards.fileFormat !== '')
     );
 
     if (form) validForm = true;

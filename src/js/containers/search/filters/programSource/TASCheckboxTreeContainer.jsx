@@ -90,9 +90,9 @@ const TASCheckboxTree = () => {
         if (showNoResults) setShowNoResults(false);
 
         setIsLoading(true);
-        const queryParam = isSearch
-            ? `?depth=2&filter=${searchStr}`
-            : id;
+        const queryParam = isSearch ?
+            `?depth=2&filter=${searchStr}` :
+            id;
 
         request.current = fetchTas(queryParam);
 
@@ -106,9 +106,9 @@ const TASCheckboxTree = () => {
                     // parsing the prepended agency
                     // (format in url is agencyId/federalAccountId
                     // when fetching federalAccount level data)
-                    const key = id.includes('/')
-                        ? id.split('/')[1]
-                        : id;
+                    const key = id.includes('/') ?
+                        id.split('/')[1] :
+                        id;
 
                     if (isSearch) {
                         const searchExpandedNodes = expandTasNodeAndAllDescendantParents(tasNodes);
@@ -138,13 +138,13 @@ const TASCheckboxTree = () => {
                         }
                     }
 
-                    const newChecked = modChecked?.length
-                        ? autoCheckTasAfterExpand(
+                    const newChecked = modChecked?.length ?
+                        autoCheckTasAfterExpand(
                             { children: tasNodes, value: key },
                             modChecked,
                             unchecked
-                        )
-                        : checked;
+                        ) :
+                        checked;
 
                     dispatch(setCheckedTas(newChecked));
                 }

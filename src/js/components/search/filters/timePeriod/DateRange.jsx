@@ -432,10 +432,10 @@ const DateRange = (props) => {
                             size="sm"
                             options={dropdownOptions}
                             enabled
-                            selectedOption={dropdownOptions?.length
-                                ? dropdownOptions?.find(
-                                    (obj) => obj.value === selectedDropdownOption)?.name
-                                : `${selectedDropdownOption}`}
+                            selectedOption={dropdownOptions?.length ?
+                                dropdownOptions?.find(
+                                    (obj) => obj.value === selectedDropdownOption)?.name :
+                                `${selectedDropdownOption}`}
                             sortFn={sortFn} />
                     </div>
                     <Button

@@ -35,9 +35,9 @@ const additionalDetailsFinancialAssistance = (awardData) => {
     const data = {
         uniqueAwardKey: {
             'Unique Award Key': awardData.generatedId,
-            'Record Type': isAwardAggregate(awardData.generatedId)
-                ? 'Financial Assistance, Aggregated'
-                : 'Financial Assistance, Non-Aggregated',
+            'Record Type': isAwardAggregate(awardData.generatedId) ?
+                'Financial Assistance, Aggregated' :
+                'Financial Assistance, Non-Aggregated',
             ...getUriOrFain(awardData),
             'Awarding Agency Code': getSubmittingAgencyId(awardData.generatedId)
         },

@@ -26,9 +26,9 @@ const fileFieldsForAnalytics = ['fy', 'agency', 'date'];
 const archiveFileDownloadGACategory = 'Download Center - Archive Download';
 const getArchiveFileName = (file) => fileFieldsForAnalytics
     .reduce((acc, key, i, arr) => {
-        const selection = file[key] !== 'N/A'
-            ? file[key]
-            : `AllFYs`;
+        const selection = file[key] !== 'N/A' ?
+            file[key] :
+            `AllFYs`;
         if (i === 0) return `${selection}_`;
         if (i === arr.length - 1) return `${acc}_${selection}`;
         return `${acc}_${selection}_`;
@@ -45,9 +45,9 @@ const logArchiveDownload = (e, file) => {
 
     fileFieldsForAnalytics
         .forEach((key) => {
-            const label = file[key] !== 'N/A'
-                ? file[key]
-                : `AllFYs`;
+            const label = file[key] !== 'N/A' ?
+                file[key] :
+                `AllFYs`;
 
             Analytics.event({
                 event: 'archive_fields_for_download',

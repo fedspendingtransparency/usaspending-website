@@ -39,9 +39,9 @@ const LineTree = ({
         <div className={`line-tree-${type}`}>
             {getTierData(0) && (
                 <div className="tier--1">
-                    <span>{type === 'psc'
-                        ? getTierData(0).description
-                        : `${getTierData(0).code} : ${getTierData(0).description}`}
+                    <span>{type === 'psc' ?
+                        getTierData(0).description :
+                        `${getTierData(0).code} : ${getTierData(0).description}`}
                     </span>
                     {getTierData(1) && (
                         <div className={`tier--2 ${numberOfSections <= 2 ? 'tier--last' : ''}`}>

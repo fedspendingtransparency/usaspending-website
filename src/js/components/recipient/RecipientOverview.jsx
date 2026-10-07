@@ -62,15 +62,15 @@ const RecipientOverview = (props) => {
     }
     const numberOfAlternateNames = recipient.alternateNames.length;
     const pluralizeAltNamesLabel = numberOfAlternateNames > 1 ? "names" : "name";
-    const viewAlternateNames = numberOfAlternateNames > 0
-        ? (
+    const viewAlternateNames = numberOfAlternateNames > 0 ?
+        (
             <button
                 className="recipient-overview__alternate-names-button"
                 onClick={props.showAlternateNamesRecipientModal}>
                 {`Also known by ${numberOfAlternateNames} other ${pluralizeAltNamesLabel}`} <FontAwesomeIcon icon="caret-right" />
             </button>
-        )
-        : null;
+        ) :
+        null;
 
     // Format the location data
     let address = (

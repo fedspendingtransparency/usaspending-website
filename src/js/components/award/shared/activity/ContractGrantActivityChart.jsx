@@ -97,9 +97,9 @@ const ContractGrantActivityChart = ({
         let yOne;
         if (clonedTransactions.length > 1) { // multiple transactions
             // if the total obligation if bigger than any running obligation total, use total obligation
-            yOne = totalObligation > clonedTransactions[clonedTransactions.length - 1].running_obligation_total
-                ? totalObligation
-                : clonedTransactions[clonedTransactions.length - 1].running_obligation_total;
+            yOne = totalObligation > clonedTransactions[clonedTransactions.length - 1].running_obligation_total ?
+                totalObligation :
+                clonedTransactions[clonedTransactions.length - 1].running_obligation_total;
         }
         else { // one transaction
             yOne = totalObligation || clonedTransactions[0].running_obligation_total;

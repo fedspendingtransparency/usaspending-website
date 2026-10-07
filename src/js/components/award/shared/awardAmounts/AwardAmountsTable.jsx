@@ -158,9 +158,8 @@ const AwardAmountsTable = ({
         <div className={`award-amounts__data-wrapper ${awardAmountType}`} data-testid="award-amounts__data-wrapper">
             {Object.keys(amountMapByCategoryTitle).sort(sortTableTitles)
                 .map((title) => (
-                    hideRow(title)
-                        ? null
-                        :
+                    hideRow(title) ?
+                        null                        :
                         <div key={uniqueId(title)} className="award-amounts__data-content">
                             <div className="remove-indent">
                                 <span className={`award-amounts__data-icon ${awardTableClassMap[title]}`} />

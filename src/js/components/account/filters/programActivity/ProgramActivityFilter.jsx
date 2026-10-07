@@ -67,8 +67,8 @@ export default class ProgramActivityFilter extends React.Component {
             if (activities.length < this.state.shown) {
                 const label = `${programActivity.code} - ${programActivity.name}`;
 
-                if (activities.length <= this.state.shown
-                    && (programActivity.name !== null && programActivity.name !== '')) {
+                if (activities.length <= this.state.shown &&
+                    (programActivity.name !== null && programActivity.name !== '')) {
                     // return new checkbox here
                     activities.push(
                         <PrimaryCheckboxType

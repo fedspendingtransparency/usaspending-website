@@ -40,9 +40,9 @@ const CoreLocation = {
     },
     get countryName() {
         if (
-            this._countryCode === 'USA'
-            || this._countryCode === 'UNITED STATES'
-            || this._country === 'UNITED STATES'
+            this._countryCode === 'USA' ||
+            this._countryCode === 'UNITED STATES' ||
+            this._country === 'UNITED STATES'
         ) return 'UNITED STATES';
         return this._country || '--';
     },
@@ -66,9 +66,9 @@ const CoreLocation = {
     },
     get recipientRegionalAddress() {
         const city = this._city || '--';
-        if (this._countryCode === 'USA'
-            || this._countryCode === 'UNITED STATES'
-            || this._country === 'UNITED STATES') {
+        if (this._countryCode === 'USA' ||
+            this._countryCode === 'UNITED STATES' ||
+            this._country === 'UNITED STATES') {
             const state = this._stateCode || '--';
             const zip = this._zip || '--';
             return `${city}, ${state} ${zip}`;
@@ -83,9 +83,9 @@ const CoreLocation = {
     get recipientRegionalAddressContractsAndIDV() {
         const city = this._city || '--';
         const state = this._stateCode || '--';
-        if (this._countryCode === 'USA'
-            || this._countryCode === 'UNITED STATES'
-            || this._country === 'UNITED STATES') {
+        if (this._countryCode === 'USA' ||
+            this._countryCode === 'UNITED STATES' ||
+            this._country === 'UNITED STATES') {
             const zip = this._zip || '--';
             return `${city}, ${state} ${zip}`;
         }
@@ -115,9 +115,9 @@ const CoreLocation = {
         return this.congressionalDistrict && `\nCONGRESSIONAL DISTRICT: ${this.congressionalDistrict}`;
     },
     get recipientCongressionalDistrict() {
-        return this.congressionalDistrict
-            ? `\nCongressional District: ${this.congressionalDistrict}`
-            : '--';
+        return this.congressionalDistrict ?
+            `\nCongressional District: ${this.congressionalDistrict}` :
+            '--';
     },
     get stateProvince() {
         if (this._city && this._stateCode) {

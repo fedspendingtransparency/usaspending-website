@@ -72,10 +72,10 @@ export default class ActivityChartTooltip extends React.Component {
     }
 
     measureWindow() {
-        const windowWidth = window.innerWidth || document.documentElement.clientWidth
-            || document.body.clientWidth;
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight
-            || document.body.clientHeight;
+        const windowWidth = window.innerWidth || document.documentElement.clientWidth ||
+            document.body.clientWidth;
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight ||
+            document.body.clientHeight;
 
         this.setState({
             windowWidth,
@@ -281,8 +281,8 @@ export default class ActivityChartTooltip extends React.Component {
                         this.state.parentAwardPIID,
                         data.parentAwardPIID)}
                 </div>
-            )
-            : 'This IDV';
+            ) :
+            'This IDV';
         const amountTitle = `${formatMoney(data._obligatedAmount)} of ${formatMoney(data._awardedAmount)}`;
 
         return (

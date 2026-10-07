@@ -57,11 +57,11 @@ const AccountDataContent = ({
 
     useEffect(() => {
         setValidForm((
-            (accounts.budgetFunction.code !== '')
-            && (accounts.agency.id !== '')
-            && (accounts.submissionTypes.length !== 0)
-            && (accounts.fy !== '')
-            && (accounts.quarter !== '' || accounts.period !== '')
+            (accounts.budgetFunction.code !== '') &&
+            (accounts.agency.id !== '') &&
+            (accounts.submissionTypes.length !== 0) &&
+            (accounts.fy !== '') &&
+            (accounts.quarter !== '' || accounts.period !== '')
         ));
     }, [accounts]);
 

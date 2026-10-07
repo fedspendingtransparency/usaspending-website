@@ -18,8 +18,8 @@ const propTypes = {
 const FiscalYearButton = (props) => {
     let activeClass = '';
     const dates = fiscalYearHelper.convertFYToDateRange(props.year);
-    if (props.currentStartDate === dates[0]
-        && props.currentEndDate === dates[1]) {
+    if (props.currentStartDate === dates[0] &&
+        props.currentEndDate === dates[1]) {
         activeClass = 'active';
     }
     const label = `FY ${props.year}`;

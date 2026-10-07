@@ -47,8 +47,7 @@ const TableDsm = ({ spendingLevel }) => {
                             </Link> in our About the Data module.
                         </span>
                     </p>
-                </>
-                :
+                </>                :
                 <>
                     <p style={{ marginBottom: '8px' }}>
                         View a list of award summaries based on your selected filters.
