@@ -71,10 +71,10 @@ export default defineConfig([
             "@stylistic/comma-dangle": ["error", "never"],
             "@stylistic/arrow-parens": ["error", "always"],
             "@stylistic/brace-style": ["error", "stroustrup"],
-            "@stylistic/function-paren-newline": [0],
+            "@stylistic/operator-linebreak": ["error", "after"],
 
             // TODO: address and turn back on:
-            "@stylistic/operator-linebreak": [0],
+            "@stylistic/function-paren-newline": [0],
             "@stylistic/eol-last": [0],
             "@stylistic/indent-binary-ops": [0],
             "@stylistic/no-multi-spaces": [0],
