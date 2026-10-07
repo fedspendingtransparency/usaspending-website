@@ -3,7 +3,7 @@
  * Created by JD House 8/20/2026
  */
 
-import React, { useMemo } from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isCancel } from 'axios';
 import { FlexGridRow, FlexGridCol, CardContainer } from 'data-transparency-ui';
@@ -21,6 +21,7 @@ const propTypes = {
     source: PropTypes.string
 }
 
+// to remove when Smart Assist deploys
 const getQuestions = preSearchOptionsToRemove.map(({ options }) => {
     const index = Math.floor(Math.random() * options.length);
     return options[index]
