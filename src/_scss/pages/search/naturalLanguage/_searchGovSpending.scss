@@ -60,7 +60,7 @@
         line-height: 150%;
         padding: rem(4) rem(40) rem(4) rem(16);
         border-radius: rem(4) 0 0 rem(4);
-        border: 1px solid $gray-20;
+        border: rem(1) solid $gray-20;
         background: $color-white;
         color: $gray-60;
         font-size: $font-size-14;
@@ -82,8 +82,8 @@
         height: rem(24);
         margin-left:auto;
         svg {
-          width: 16px;
-          height: 16px;
+          width: rem(16);
+          height: rem(16);
           fill: black;
         }
 
@@ -139,7 +139,7 @@
       margin-top: 0;
       margin-bottom: 0;
       border-radius: rem(4);
-      border: 1px solid $color-secondary-secondary-lighter;
+      border: rem(1) solid $color-secondary-secondary-lighter;
       font-size: $font-size-12;
       color: $gray-60;
 
@@ -147,12 +147,12 @@
         margin-right: 0;
       }
       &:hover {
-        border: 1px solid $cyan-50v;
+        border: rem(1) solid $cyan-50v;
         background: $cyan-50v;
         color: $color-white;
       }
       &:active {
-        border: 1px solid $cyan-60v;
+        border: rem(1) solid $cyan-60v;
         background: $cyan-60v;
         color: $color-white;
       }
