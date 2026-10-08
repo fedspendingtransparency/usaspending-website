@@ -71,9 +71,6 @@ export default defineConfig([
             "@stylistic/operator-linebreak": ["error", "after"],
             "@stylistic/jsx-one-expression-per-line": ["error", { allow: "single-line" }],
 
-            // TODO: address and turn back on:
-            "@stylistic/arrow-spacing": [0],
-
             "react/default-props-match-prop-types": [0],
             // allow object prop-type
             "react/forbid-prop-types": [1, { forbid: ["any"] }],
