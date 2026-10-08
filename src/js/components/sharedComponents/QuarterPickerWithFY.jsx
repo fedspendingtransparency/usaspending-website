@@ -89,8 +89,8 @@ const QuarterPickerWithFY = ({
             <ComboBox
                 optionsArray={optionsArray}
                 onSelect={onSelect}
-                label={"Fiscal Year"}
-                formName={"download-filter__fy"}
+                label="Fiscal Year"
+                formName="download-filter__fy"
                 onClearSelect={onClearSelect}
                 placeholder="Select a FY"
                 disabled={!latestFy} />

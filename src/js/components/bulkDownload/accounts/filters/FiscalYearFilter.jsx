@@ -27,7 +27,7 @@ const FiscalYearFilter = ({ updateFilter }) => {
             <a
                 target="_blank"
                 rel="noopener noreferrer"
-                href={'https://www.congress.gov/113/plaws/publ101/PLAW-113publ101.pdf'}>
+                href="https://www.congress.gov/113/plaws/publ101/PLAW-113publ101.pdf">
                 Digital Accountability and Transparency Act of 2014 (DATA Act)
             </a>
             . Financial data will not be available prior to that timeframe.
@@ -65,7 +65,7 @@ const FiscalYearFilter = ({ updateFilter }) => {
         <div className="download-filter">
             <FilterSectionTitle type="fy" />
             <div className="download-filter__content new">
-                <p className={"download-filter__content-description"}>
+                <p className="download-filter__content-description">
                     The government
                     <span> Fiscal Year (FY) </span>
                     from October 1 through September 30 of the following year.

@@ -69,8 +69,8 @@ const NLSearchSuggestions = () => {
 
         return (
             <Swiper
-                direction={"horizontal"}
-                slidesPerView={'auto'}
+                direction="horizontal"
+                slidesPerView="auto"
                 spaceBetween={16}
                 pagination={{
                     el: '.custom-pagination', // Links to the custom pagination dots

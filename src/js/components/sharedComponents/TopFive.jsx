@@ -47,7 +47,7 @@ const TopFive = (props) => {
         },
         {
             title: 'link',
-            displayName: [<span key={"award-search"}>View in <span style={{ whiteSpace: "nowrap" }}>Award Search</span></span>]
+            displayName: [<span key="award-search">View in <span style={{ whiteSpace: "nowrap" }}>Award Search</span></span>]
         }
     ];
 

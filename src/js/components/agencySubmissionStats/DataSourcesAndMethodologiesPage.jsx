@@ -75,7 +75,6 @@ const DataSourcesAndMethodologiesPage = () => {
 
     const jumpToSection = useJumpToSection("#submissions-statistics-dsm-", sections, false, stickyHeaderHeight);
 
-    /* eslint-disable max-len */
     return (
         <PageWrapper
             pageName="submissions-statistics-dsm"
@@ -87,7 +86,7 @@ const DataSourcesAndMethodologiesPage = () => {
                 <ShareIcon508
                     url={getBaseUrl('submission-statistics')}
                     onShareOptionClick={handleShare}
-                    key={'submission-statistics'} />
+                    key="submission-statistics" />
             ]}
             sections={sections}
             jumpToSection={jumpToSection}
@@ -290,6 +289,5 @@ const DataSourcesAndMethodologiesPage = () => {
         </PageWrapper>
     );
 };
-/* eslint-enable max-len */
 
 export default DataSourcesAndMethodologiesPage;

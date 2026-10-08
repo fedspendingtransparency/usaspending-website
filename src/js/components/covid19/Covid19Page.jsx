@@ -163,7 +163,7 @@ const Covid19Page = ({ loading }) => {
                         pageName="covid19"
                         detectActiveSection
                         jumpToSection={jumpToSection}
-                        rootMargin={`-80px 0px 0px 0px`} />
+                        rootMargin="-80px 0px 0px 0px" />
                     <FlexGridRow className="body covid-content__row">
                         <FlexGridCol className="covid-content__col" width="fill">
                             <Heading publicLaw={query.publicLaw} url={getBaseUrl(slug)} onShareOptionClick={handleShare} />

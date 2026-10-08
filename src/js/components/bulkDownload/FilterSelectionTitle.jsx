@@ -81,7 +81,7 @@ const titleData = {
                 {' '}
                 and/or
                 <span
-                    className={`download-filter__title_em no-right-margin`}
+                    className="download-filter__title_em no-right-margin"
                     style={{ backgroundColor: '#F7F2FF' }}>
                     Agency
                 </span>
@@ -134,7 +134,7 @@ const titleData = {
                 {' '}
                 and
                 <span
-                    className={`download-filter__title_em no-right-margin`}
+                    className="download-filter__title_em no-right-margin"
                     style={{ backgroundColor: '#E8F5FF' }}>
                     Period
                 </span>
@@ -155,7 +155,7 @@ const titleData = {
             <>
                 and
                 <span
-                    className={`download-filter__title_em no-right-margin`}
+                    className="download-filter__title_em no-right-margin"
                     style={{ backgroundColor: '#E5FAFF' }}>
                     Fiscal Year
                 </span>

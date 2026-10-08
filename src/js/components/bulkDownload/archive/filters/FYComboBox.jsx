@@ -23,8 +23,8 @@ const FYComboBox = ({ updateFilter }) => {
         <ComboBox
             optionsArray={fyOptions}
             onSelect={onSelect}
-            label={"Fiscal Year (FY)"}
-            placeholder={"Select a Fiscal Year"}
+            label="Fiscal Year (FY)"
+            placeholder="Select a Fiscal Year"
             defaultValue={`FY ${currentFY}`} />
     );
 };

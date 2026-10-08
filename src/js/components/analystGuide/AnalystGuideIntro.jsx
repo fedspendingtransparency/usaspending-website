@@ -40,7 +40,7 @@ const AnalystGuideIntro = () => {
             <FlexGridCol width={2}>
                 <ShareDownloadButtonGroup
                     url={getBaseUrl(slug)}
-                    downloadLink={"/data/Federal-Spending-Guide.pdf"}
+                    downloadLink="/data/Federal-Spending-Guide.pdf"
                     onShareClick={onShareClick} />
             </FlexGridCol>
         </FlexGridRow>

@@ -9,7 +9,6 @@ const MapDsm = ({ spendingLevel }) => {
     const reduxFilters = useSelector((state) => state.appliedFilters.filters);
     const isDefCodeInFilter = reduxFilters?.defCodes?.counts;
 
-    /* eslint-disable max-len */
     return (
         <>
             <h4>What&#39;s included in this view of the data?</h4>
@@ -22,12 +21,12 @@ const MapDsm = ({ spendingLevel }) => {
                         {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                         <p className="award-search__body-text">
                             The data represent
-                            {<span className="award-search__glossary-term"> sub-awards </span>}
-                            {<GlossaryLink term="sub-award" />}
+                            <span className="award-search__glossary-term"> sub-awards </span>
+                            <GlossaryLink term="sub-award" />
                             {' '}
                             that meet the selected filter criteria. The results do not reflect sub-awards whose
-                            {<span className="award-search__glossary-term"> prime awards </span>}
-                            {<GlossaryLink term="prime-award" />}
+                            <span className="award-search__glossary-term"> prime awards </span>
+                            <GlossaryLink term="prime-award" />
                             {' '}
                             meet the selected filter criteria. For example, if you filter by Place of Performance in
                             your county, you will see only sub-awards with Place of Performance in your county, but you will
@@ -55,19 +54,19 @@ const MapDsm = ({ spendingLevel }) => {
                         {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                         <p className="award-search__body-text">
                             The data in the map represent
-                            {<span className="award-search__glossary-term"> federal action </span>}
-                            {<GlossaryLink term="federal-action-obligation" />}
+                            <span className="award-search__glossary-term"> federal action </span>
+                            <GlossaryLink term="federal-action-obligation" />
                             {' '}
-                            {<span className="award-search__glossary-term"> obligation </span>}
-                            {<GlossaryLink term="obligation" />}
+                            <span className="award-search__glossary-term"> obligation </span>
+                            <GlossaryLink term="obligation" />
                             {' '}
                             amounts for non-loan prime award summaries within the selected filters. Loan awards use the
-                            {<span className="award-search__glossary-term"> subsidy cost </span>}
-                            {<GlossaryLink term="loan-subsidy-cost" />}
+                            <span className="award-search__glossary-term"> subsidy cost </span>
+                            <GlossaryLink term="loan-subsidy-cost" />
                             {' '}
                             rather than the obligated amount to sum up the
-                            {<span className="award-search__glossary-term"> value of the loan </span>}
-                            {<GlossaryLink term="face-value-of-loan" />}
+                            <span className="award-search__glossary-term"> value of the loan </span>
+                            <GlossaryLink term="face-value-of-loan" />
                             .
                             {' '}
                             Prime award transactions with the same unique award ID are grouped under a single prime award summary.
@@ -99,7 +98,6 @@ const MapDsm = ({ spendingLevel }) => {
             </p>
         </>
     );
-    /* eslint-enable max-len */
 };
 
 export default MapDsm;

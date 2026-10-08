@@ -24,10 +24,10 @@ const AwardTypeToggle = ({ updateFilter, filters }) => {
                     className={`view-button${
                         filters.type.name === "contracts" ? " active" : ""
                     }`}
-                    value={"contracts"}
-                    title={"Contracts"}
-                    aria-label={"Contracts"}
-                    name={"Contracts"}
+                    value="contracts"
+                    title="Contracts"
+                    aria-label="Contracts"
+                    name="Contracts"
                     onClick={onClick}>
                     Contracts
                 </button>
@@ -35,10 +35,10 @@ const AwardTypeToggle = ({ updateFilter, filters }) => {
                     className={`view-button${
                         filters.type.name === "assistance" ? " active" : ""
                     }`}
-                    value={"assistance"}
-                    title={"Financial Assistance"}
-                    aria-label={"Financial Assistance"}
-                    name={"Financial Assistance"}
+                    value="assistance"
+                    title="Financial Assistance"
+                    aria-label="Financial Assistance"
+                    name="Financial Assistance"
                     onClick={onClick}>
                     Financial Assistance
                 </button>

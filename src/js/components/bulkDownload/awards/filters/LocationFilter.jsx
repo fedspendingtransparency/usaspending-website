@@ -113,14 +113,14 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
                     <ComboBox
                         optionsArray={countryOptions}
                         onSelect={updateCountry}
-                        label={"Country"}
-                        placeholder={"Select a Country"}
+                        label="Country"
+                        placeholder="Select a Country"
                         onClearSelect={onCountryClearSelect} />
                     <ComboBox
                         optionsArray={stateOptions}
                         onSelect={updateState}
-                        label={"State"}
-                        placeholder={"Select a State"}
+                        label="State"
+                        placeholder="Select a State"
                         disabled={location.country?.code !== "USA"}
                         onClearSelect={onStateClearSelect} />
                 </div>

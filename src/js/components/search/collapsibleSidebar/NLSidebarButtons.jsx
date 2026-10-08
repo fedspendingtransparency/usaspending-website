@@ -36,7 +36,7 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isM
     const secondaryColorAS = sidebarContent === FILTERS && sidebarIsOpen ? colorWhite : 'transparent';
 
     return (
-        <div className={"sidebar-nl-buttons-container"}>
+        <div className="sidebar-nl-buttons-container">
             <div className={`color-overlay-element ${sidebarContent === NATURAL_LANGUAGE ? ' gradient' : ''
             }`} />
             <div className='nl-buttons-wrapper'>

@@ -10,7 +10,6 @@ const TableDsm = ({ spendingLevel }) => {
         e.preventDefault();
     };
 
-    /* eslint-disable max-len */
     return (
         <>
             <h4>What&#39;s included in this view of the data?</h4>
@@ -24,12 +23,12 @@ const TableDsm = ({ spendingLevel }) => {
                         </p>
                         <p className="award-search__body-text">
                             The rows in the table represent
-                            {<span className="award-search__glossary-term"> sub-awards </span>}
-                            {<GlossaryLink term="sub-award" />}
-                            {' '}
+                            <span className="award-search__glossary-term"> sub-awards </span>
+                            <GlossaryLink term="sub-award" />
+                            {' ' }
                             that meet the selected filter criteria. The results do not reflect sub-awards whose
-                            {<span className="award-search__glossary-term"> prime awards </span>}
-                            {<GlossaryLink term="prime-award" />}
+                            <span className="award-search__glossary-term"> prime awards </span>
+                            <GlossaryLink term="prime-award" />
                             {' '}
                             meet the selected filter criteria. For example, if you filter by Fiscal Year 2019, you will
                             see only sub-awards with Action Dates in Fiscal Year 2019, but you will not see all sub-awards
@@ -66,17 +65,17 @@ const TableDsm = ({ spendingLevel }) => {
                         { spendingLevel === 'awards' && (
                             <p className="award-search__body-text">
                                 The rows in the table represent award summaries for
-                                {<span className="award-search__glossary-term"> prime awards </span>}
-                                {<GlossaryLink term="prime-award" />}
+                                <span className="award-search__glossary-term"> prime awards </span>
+                                <GlossaryLink term="prime-award" />
                                 .
                                 Award summaries contain all the individual transactions and modifications that share the same unique award ID.
                                 If you selected any Time Period filter, your results will include prime awards where the
-                                {<span className="award-search__glossary-term"> earliest </span>}
-                                {<GlossaryLink term="base-transaction-action-date" />}
+                                <span className="award-search__glossary-term"> earliest </span>
+                                <GlossaryLink term="base-transaction-action-date" />
                                 {' '}
                                 and
-                                {<span className="award-search__glossary-term"> latest </span>}
-                                {<GlossaryLink term="latest-transaction-action-date" />}
+                                <span className="award-search__glossary-term"> latest </span>
+                                <GlossaryLink term="latest-transaction-action-date" />
                                 {' '}
                                 transactions overlap with your selected time period (regardless of whether any transactions
                                 occur within that period).
@@ -86,7 +85,6 @@ const TableDsm = ({ spendingLevel }) => {
                 )}
         </>
     );
-    /* eslint-enable max-len */
 };
 
 export default TableDsm;

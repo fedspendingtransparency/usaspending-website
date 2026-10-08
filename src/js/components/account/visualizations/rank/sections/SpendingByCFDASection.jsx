@@ -69,14 +69,14 @@ export default class SpendingByCFDASection extends React.Component {
                                         {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
                                         <p className="award-search__body-text">
                                             The data below represent
-                                            {<span className="award-search__glossary-term"> sub-awards</span>}
+                                            <span className="award-search__glossary-term"> sub-awards</span>
                                             {' '}
-                                            {<GlossaryLink term="sub-award" />}
+                                            <GlossaryLink term="sub-award" />
                                             {' '}
                                             that meet the selected filter criteria. The results do not reflect sub-awards whose
-                                            {<span className="award-search__glossary-term"> prime awards</span>}
+                                            <span className="award-search__glossary-term"> prime awards</span>
                                             {' '}
-                                            {<GlossaryLink term="prime-award" />}
+                                            <GlossaryLink term="prime-award" />
                                             {' '}
                                             meet the selected filter criteria. For example, if you filter by Fiscal Year 2019, you will see only sub-awards with Action Dates in Fiscal Year 2019, but you will not see all sub-awards whose prime award overlaps with Fiscal Year 2019.
                                         </p>

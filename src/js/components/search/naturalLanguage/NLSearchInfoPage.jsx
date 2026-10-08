@@ -49,7 +49,7 @@ const NLSearchInfoPage = () => {
                     overrideBackgroundColor="linear-gradient(91deg,#00687d 0%, #0081a1 35%, #005ea2 100%)" />
                 <FlexGridCol className="search-info-page__download-group">
                     <ShareDownloadButtonGroup
-                        url={''}
+                        url=""
                         showDownloadBtn
                         onDownloadClick={() => {}}
                         downloadInFlight={false}
