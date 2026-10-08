@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isCancel } from 'axios';
 import { FlexGridRow, FlexGridCol, CardContainer } from 'data-transparency-ui';
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Keyboard, A11y } from 'swiper/modules';
+import { Keyboard, A11y, Mousewheel } from 'swiper/modules';
 import PropTypes from "prop-types";
 import "swiper/css";
 import { preSearchOptionsToRemove, preSearchOptions } from "./NLData";
@@ -130,10 +130,11 @@ const NLPreSearchButtonGroup = ({source = ""}) => {
                                 direction="horizontal"
                                 slidesPerView="auto"
                                 spaceBetween={16}
+                                mousewheel={true}
                                 keyboard
                                 a11y
                                 grabCursor={true}
-                                modules={[Keyboard, A11y]}
+                                modules={[Keyboard, A11y, Mousewheel]}
                                 className="homepage-pre-search__swiper">
                                 {preSearchOptions.map((btn) => (
                                     <SwiperSlide
