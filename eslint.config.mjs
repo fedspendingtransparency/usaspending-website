@@ -56,29 +56,12 @@ export default defineConfig([
             '@stylistic/quotes': [1],
             '@stylistic/semi': ['error', 'always'],
 
-            'react/default-props-match-prop-types': [0],
-            // allow object prop-type
             'react/forbid-prop-types': [1, { forbid: ['any'] }],
-            // closing brackets should be aligned with the final prop (props.. />)
             'react/jsx-closing-bracket-location': [2, { location: 'after-props' }],
-            // require 4 spaces in JSX as well
-            'react/jsx-indent': [0],
-            'react/jsx-indent-props': [0],
-            // downgrade array index as React key to warning (though it should be higher,
-            // this would be an expensive refactor)
             'react/no-array-index-key': [1],
-            // allow binding in React props because we don't have autobind in ES6
-            'react/jsx-no-bind': [0],
             // downgrading to warning when using props purely within componentWillReceiveProps
             'react/no-unused-prop-types': [1],
-            // allow unused state because linter does not always know
-            // when a state is passed to child components
-            'react/no-unused-state': [0],
-            // disallow stateless functions in place of fully declared React components
-            'react/prefer-stateless-function': [0],
             'react/prop-types': [1],
-            // default prop types not required
-            'react/require-default-props': [0],
 
             'react-hooks/exhaustive-deps': 'warn',
 
