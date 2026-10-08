@@ -32,7 +32,8 @@ const DrilldownSidebarLevel = ({
         {goBack ? (
             <button title="Go up a level" className="drilldown-level__back" onClick={goBack}>
                 <FontAwesomeIcon icon="chevron-left" />
-            </button>) : ''}
+            </button>
+        ) : ''}
         <div className="drilldown-level__wrapper">
             <div className="drilldown-level__label">{label}</div>
             <div className="drilldown-level__content">
@@ -43,11 +44,11 @@ const DrilldownSidebarLevel = ({
                 <div>
                     <div className="drilldown-level__name">{name}</div>
                     {!toggle && obligatedText}
-                    {toggle &&
+                    {toggle && (
                         <div className="drilldown-level__description">
                             <strong>{outlay}</strong> has been paid out
                         </div>
-                    }
+                    )}
                 </div>
             </div>
         </div>

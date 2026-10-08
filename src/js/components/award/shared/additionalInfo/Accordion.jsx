@@ -158,14 +158,18 @@ const Accordion = ({
                 <span>
                     {
                         open ?
-                            (<FontAwesomeIcon
-                                className="accordion-caret"
-                                size="lg"
-                                icon="angle-down" />) :
-                            (<FontAwesomeIcon
-                                className="accordion-caret"
-                                size="lg"
-                                icon="angle-right" />)
+                            (
+                                <FontAwesomeIcon
+                                    className="accordion-caret"
+                                    size="lg"
+                                    icon="angle-down" />
+                            ) :
+                            (
+                                <FontAwesomeIcon
+                                    className="accordion-caret"
+                                    size="lg"
+                                    icon="angle-right" />
+                            )
                     }
                 </span>
             </div>

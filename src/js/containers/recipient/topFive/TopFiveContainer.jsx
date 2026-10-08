@@ -138,7 +138,7 @@ const TopFiveContainer = ({
 
     return (
         <>
-            {!noResults &&
+            {!noResults && (
                 <TopFive
                     category={category}
                     total={total}
@@ -147,7 +147,7 @@ const TopFiveContainer = ({
                     error={error}
                     results={results}
                     agencyData={agencyData} />
-            }
+            )}
         </>
     );
 };

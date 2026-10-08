@@ -61,13 +61,13 @@ const Frequency = (props) => {
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
-                            content={
+                            content={(
                                 <p>
                                     The data on USAspending.gov are updated every day after the nightly
                                     data pipeline runs. However, USAspending source systems have
                                     different requirements for the frequency of their data updates.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -92,7 +92,7 @@ const Frequency = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Files A, B, and C</h4>}
-                            content={
+                            content={(
                                 <>
                                     <p>
                                         Files A, B, and C are submitted by federal agencies to
@@ -123,7 +123,7 @@ const Frequency = (props) => {
                                         .
                                     </p>
                                 </>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -148,7 +148,7 @@ const Frequency = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>FPDS (File D1)</h4>}
-                            content={
+                            content={(
                                 <>
                                     <p>
                                         Federal agencies must submit
@@ -189,7 +189,7 @@ const Frequency = (props) => {
                                         Army Corps of Engineers (USACE).
                                     </p>
                                 </>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -214,7 +214,7 @@ const Frequency = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>FABS (File D2)</h4>}
-                            content={
+                            content={(
                                 <>
                                     <p>
                                         Federal agencies must submit
@@ -250,7 +250,7 @@ const Frequency = (props) => {
                                         </li>
                                     </ul>
                                 </>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -275,14 +275,14 @@ const Frequency = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Reference Data</h4>}
-                            content={
+                            content={(
                                 <p>
                                     All reference data (such as location data) are extracted by
                                     USAspending.gov on a daily basis. In addition, data from SAM.gov
                                     (such as executive compensation data, also known as File E) and
                                     GTAS are also extracted daily (although GTAS data are only published once a month along with data from Files A, B, and C).
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 

@@ -102,7 +102,7 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
         </div>
     );
 
-    const content = isMedium ?
+    const content = isMedium ? (
         <>
             {showAboutData ? aboutBlock : missionBlock}
             <ReadMore>
@@ -110,7 +110,8 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
                 {websiteBlock}
                 {cjBlock}
             </ReadMore>
-        </> :
+        </>
+    ) : (
         <>
             <FlexGridRow className="agency-overview__row">
                 <FlexGridCol width={8}>
@@ -122,7 +123,8 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
                     {cjBlock}
                 </FlexGridCol>
             </FlexGridRow>
-        </>;
+        </>
+    );
 
     return (
         <div className="body__content agency-overview">

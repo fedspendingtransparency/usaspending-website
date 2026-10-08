@@ -101,14 +101,14 @@ const SpendingByCategoriesChart = ({
                         mirror={isTablet}
                         width={labelWidthVar}
                         tickLine={false}
-                        tick={
+                        tick={(
                             <CustomTick
                                 link={dataStuff}
                                 isTablet={isTablet}
                                 isDesktopSm={isDesktopSm}
                                 scope={scope}
                                 hash={hash} />
-                        } />
+                        )} />
                     <Bar dataKey="value" fill="#07648d" activeBar={false}>
                         <LabelList
                             dataKey="barLabel"

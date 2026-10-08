@@ -46,7 +46,7 @@ const CustomTick = ({ x, y, payload, link, isTablet, isDesktopSm, scope, hash })
     };
     return (
         <g transform={`translate(${x - 8},${translateY()})`}>
-            {link[payload.index].link ?
+            {link[payload.index].link ? (
                 <a
                     href={`${link[payload.index].link}`}
                     onClick={() => onClickHandler(
@@ -62,7 +62,8 @@ const CustomTick = ({ x, y, payload, link, isTablet, isDesktopSm, scope, hash })
                         lineHeight={17.5}>
                         {formattedText.text}
                     </Text>
-                </a> :
+                </a>
+            ) : (
                 <Text
                     textAnchor={isTablet ? "start" : "end"}
                     fontSize={14}
@@ -71,7 +72,7 @@ const CustomTick = ({ x, y, payload, link, isTablet, isDesktopSm, scope, hash })
                     lineHeight={17.5}>
                     {formattedText.text}
                 </Text>
-            }
+            )}
         </g>
     );
 };

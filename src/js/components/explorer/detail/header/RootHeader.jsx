@@ -70,7 +70,8 @@ export default class RootHeader extends React.Component {
                     below to start
                     your exploration.
                 </div>
-            </div>);
+            </div>
+        );
         return (
             <div className="detail-header" id="detail-header">
                 {header}

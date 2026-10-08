@@ -127,7 +127,8 @@ const BreakdownDropdown = (props) => {
         dropdown = (
             <ul className="dropdown__menu">
                 {items}
-            </ul>);
+            </ul>
+        );
     }
 
     let icon = null;

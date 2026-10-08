@@ -80,23 +80,25 @@ const StateMapFiltersDropdown = ({
                             sortOrder: mapFilterSortOrderByValue[option.value]
                         }));
 
-                        return (<>
-                            <div key={uniqueId()} className="map__filters-filter__container">
-                                <div className="map__filters-wrapper">
-                                    <span className="map__filters-label">
-                                        {mapFilters[filter].label}
-                                    </span>
-                                    <NewPicker
-                                        enabled={mapFilters[filter].enabled}
-                                        size="sm"
-                                        classname={`map__filters-button ${filterType}`}
-                                        dropdownClassname="map__filters-dropdown"
-                                        sortFn={handleSort}
-                                        selectedOption={selectedOption}
-                                        options={options} />
+                        return (
+                            <>
+                                <div key={uniqueId()} className="map__filters-filter__container">
+                                    <div className="map__filters-wrapper">
+                                        <span className="map__filters-label">
+                                            {mapFilters[filter].label}
+                                        </span>
+                                        <NewPicker
+                                            enabled={mapFilters[filter].enabled}
+                                            size="sm"
+                                            classname={`map__filters-button ${filterType}`}
+                                            dropdownClassname="map__filters-dropdown"
+                                            sortFn={handleSort}
+                                            selectedOption={selectedOption}
+                                            options={options} />
+                                    </div>
                                 </div>
-                            </div>
-                        </>);
+                            </>
+                        );
                     })
             }
         </>

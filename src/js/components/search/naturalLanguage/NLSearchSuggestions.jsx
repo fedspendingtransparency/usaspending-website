@@ -119,12 +119,13 @@ const NLSearchSuggestions = () => {
                         backgroundColor="light"
                         textAlignment="left"
                         imageAlignment="right"
-                        image={
+                        image={(
                             <div className="button-icon-container">
                                 <FontAwesomeIcon
                                     className="button-icon"
                                     icon="arrow-up-right" />
-                            </div>} />
+                            </div>
+                        )} />
                 </FlexGridCol>
             </FlexGridRow>
             {getCardContent()}

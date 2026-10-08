@@ -26,14 +26,15 @@ const RecipientSection = ({ publicLaw }) => {
     return (
         <div className="body__content recipient__container">
             <DateNote />
-            {publicLaw === 'american-rescue-plan' ?
+            {publicLaw === 'american-rescue-plan' ? (
                 <h4 className="body__narrative">
                     <strong>Who</strong> received funding through American Rescue Plan awards?
-                </h4> :
+                </h4>
+            ) : (
                 <h4 className="body__narrative">
                     <strong>Who</strong> received funding through COVID-19 awards?
                 </h4>
-            }
+            )}
             <div className="body__narrative-description">
                 {publicLaw === 'american-rescue-plan' ? (
                     <>

@@ -87,21 +87,23 @@ const AboutTheData = (props) => {
                     const regex = new RegExp(escapeRegExp(term), 'gi');
                     const markupName = field.name.replace(regex, '<match>$&<match>');
                     const parts = markupName.split('<match>');
-                    const markup = <>
-                        {parts.map((part) => (
-                            <>
-                                {part.toLowerCase() === term.toLowerCase() ? (
-                                    <span className="matched-highlight">
-                                        {part}
-                                    </span>
-                                ) :
-                                    <>
-                                        {part}
-                                    </>
-                                }
-                            </>
-                        ))}
-                    </>;
+                    const markup = (
+                        <>
+                            {parts.map((part) => (
+                                <>
+                                    {part.toLowerCase() === term.toLowerCase() ? (
+                                        <span className="matched-highlight">
+                                            {part}
+                                        </span>
+                                    ) : (
+                                        <>
+                                            {part}
+                                        </>
+                                    )}
+                                </>
+                            ))}
+                        </>
+                    );
 
                     markupFields.push({
                         name: markup,
@@ -253,37 +255,40 @@ const AboutTheData = (props) => {
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
                 {isLoading || searchResultsPending ?
-                    <><LoadingWrapper isLoading /></> :
-                    <>
-                        <AboutTheDataHeader
-                            closeAboutTheData={closeAboutTheData}
-                            searchTerm={searchTerm}
-                            setSearchTerm={setSearchTerm}
-                            performSearch={performSearch}
-                            clearSearch={clearSearch} />
-                        <Scrollbars
-                            style={{ height }}
-                            renderTrackVertical={track}
-                            renderThumbVertical={thumb}
-                            ref={(s) => setScrollbar(s)}>
-                            {drilldown ?
-                                <div className="atd__body">
-                                    <AboutTheDataDrilldown
-                                        section={drilldownSection?.heading}
-                                        name={drilldownSection?.fields[drilldownItemId]?.name}
-                                        clearDrilldown={clearDrilldown}
-                                        slug={drilldownSection?.fields[drilldownItemId]?.slug} />
-                                </div> :
-                                <>
+                    <><LoadingWrapper isLoading /></> : (
+                        <>
+                            <AboutTheDataHeader
+                                closeAboutTheData={closeAboutTheData}
+                                searchTerm={searchTerm}
+                                setSearchTerm={setSearchTerm}
+                                performSearch={performSearch}
+                                clearSearch={clearSearch} />
+                            <Scrollbars
+                                style={{ height }}
+                                renderTrackVertical={track}
+                                renderThumbVertical={thumb}
+                                ref={(s) => setScrollbar(s)}>
+                                {drilldown ? (
                                     <div className="atd__body">
-                                        {content}
+                                        <AboutTheDataDrilldown
+                                            section={drilldownSection?.heading}
+                                            name={drilldownSection?.fields[drilldownItemId]?.name}
+                                            clearDrilldown={clearDrilldown}
+                                            slug={drilldownSection?.fields[drilldownItemId]?.slug} />
                                     </div>
-                                </>}
-                        </Scrollbars>
-                    </>
-                }
+                                ) : (
+                                    <>
+                                        <div className="atd__body">
+                                            {content}
+                                        </div>
+                                    </>
+                                )}
+                            </Scrollbars>
+                        </>
+                    )}
             </aside>
-        </div>);
+        </div>
+    );
 };
 
 AboutTheData.propTypes = propTypes;

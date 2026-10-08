@@ -67,11 +67,13 @@ const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
     return (
         <div className="download">
             {downloadData && renderDownloadLink()}
-            {downloadData && <TooltipWrapper
-                className="tooltip-wrapper"
-                icon="info"
-                tooltipPosition="left"
-                tooltipComponent={downloadTooltip()} />}
+            {downloadData && (
+                <TooltipWrapper
+                    className="tooltip-wrapper"
+                    icon="info"
+                    tooltipPosition="left"
+                    tooltipComponent={downloadTooltip()} />
+            )}
         </div>
     );
 };

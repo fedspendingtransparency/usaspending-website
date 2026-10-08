@@ -41,7 +41,7 @@ const TreeNodes = ({
                     <li key={node.id}>
                         <div className="checkbox-tree-label__container">
                             <div className="checkbox-tree-label__controls">
-                                {hasAnyChildren &&
+                                {hasAnyChildren && (
                                     <button
                                         type="button"
                                         onClick={() => toggleExpand(node.id, true)}
@@ -50,24 +50,27 @@ const TreeNodes = ({
                                         <FontAwesomeIcon
                                             icon={isOpen ? 'chevron-down' : 'chevron-right'}
                                             style={{ cursor: 'pointer' }} />
-                                    </button>}
-                                {showCheckbox && <input
-                                    type="checkbox"
-                                    id={`checkbox-${node.id}`}
-                                    name={`checkbox-${node.id}`}
-                                    disabled={disabled}
-                                    checked={isChecked}
-                                    ref={(el) => {
-                                        const refs = checkboxRefs.current;
-                                        if (el) {
-                                            refs[node.id] = el;
-                                        }
-                                        else {
-                                            delete refs[node.id];
-                                        }
-                                    }}
-                                    onKeyDown={(e) => (e.key === "Enter" ? handleCheck(node.id, node.children || []) : "")}
-                                    onChange={() => handleCheck(node.id, node.children || [])} />
+                                    </button>
+                                )}
+                                {showCheckbox && (
+                                    <input
+                                        type="checkbox"
+                                        id={`checkbox-${node.id}`}
+                                        name={`checkbox-${node.id}`}
+                                        disabled={disabled}
+                                        checked={isChecked}
+                                        ref={(el) => {
+                                            const refs = checkboxRefs.current;
+                                            if (el) {
+                                                refs[node.id] = el;
+                                            }
+                                            else {
+                                                delete refs[node.id];
+                                            }
+                                        }}
+                                        onKeyDown={(e) => (e.key === "Enter" ? handleCheck(node.id, node.children || []) : "")}
+                                        onChange={() => handleCheck(node.id, node.children || [])} />
+                                )
                                 }
                             </div>
                             {showCheckbox ?
@@ -77,9 +80,11 @@ const TreeNodes = ({
                         <div className={`checkbox-tree-label__description ${isOpen ? 'open' : ''}`}>
                             {isOpen && renderNodes(node.children || [], depth)}
                         </div>
-                    </li>);
+                    </li>
+                );
             })}
-        </ul>);
+        </ul>
+    );
 
     return renderNodes(localNodes, 0);
 };

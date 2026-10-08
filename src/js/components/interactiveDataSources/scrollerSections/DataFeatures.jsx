@@ -46,7 +46,7 @@ const DataFeatures = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Features for Account Data</h4>}
-                            content={
+                            content={(
                                 <>
                                     <p>
                                         If you are looking for account data, you can use the following
@@ -108,7 +108,7 @@ const DataFeatures = (props) => {
                                         </li>
                                     </ul>
                                 </>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -120,7 +120,7 @@ const DataFeatures = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Features for Award Data</h4>}
-                            content={
+                            content={(
                                 <>
                                     <p>
                                         If you are looking for award data (both
@@ -192,7 +192,7 @@ const DataFeatures = (props) => {
                                         </li>
                                     </ul>
                                 </>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -204,7 +204,7 @@ const DataFeatures = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Features for COVID-19 and Infrastructure Spending Data</h4>}
-                            content={
+                            content={(
                                 <>
                                     <p>
                                         The
@@ -278,7 +278,7 @@ const DataFeatures = (props) => {
                                         </li>
                                     </ul>
                                 </>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -293,7 +293,7 @@ const DataFeatures = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Features for Downloads and APIs</h4>}
-                            content={
+                            content={(
                                 <>
                                     <p>
                                         If you just want to access the data for your own purposes, you can
@@ -393,7 +393,7 @@ const DataFeatures = (props) => {
                                         </li>
                                     </ul>
                                 </>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 

@@ -42,9 +42,11 @@ const TopFilterItem = ({
                 tabIndex="0">
                 <div className="filter-item-title">
                     {title}
-                    {resultsView && <FontAwesomeIcon
-                        icon={staged ? "times" : "plus"}
-                        className="filter-item-icon" />}
+                    {resultsView && (
+                        <FontAwesomeIcon
+                            icon={staged ? "times" : "plus"}
+                            className="filter-item-icon" />
+                    )}
                 </div>
             </button>
         </div>

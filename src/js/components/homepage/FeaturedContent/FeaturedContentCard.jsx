@@ -46,21 +46,22 @@ const FeaturedContentCard = ({
                 img={img} />
             <CardBody
                 overline={taxonomy?.toUpperCase()}
-                headline={
+                headline={(
                     <div>
                         {title}
                     </div>
-                }>
+                )}>
             </CardBody>
         </CardContainer>
     );
 
     return (
         <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-            {externalLink ?
+            {externalLink ? (
                 <ExternalLink isCard url={url}>
                     {content()}
-                </ExternalLink> :
+                </ExternalLink>
+            ) : (
                 <a
                     href={url}
                     target="_blank"
@@ -69,7 +70,7 @@ const FeaturedContentCard = ({
                     className="featured-content__section--link">
                     {content()}
                 </a>
-            }
+            )}
         </FlexGridCol>
     );
 };

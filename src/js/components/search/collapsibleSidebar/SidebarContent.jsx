@@ -22,7 +22,8 @@ const SidebarContent = ({ sidebarContentHeight, setShowMobileFilters }) => (
         <div className="collapsible-sidebar--main-menu search-filters-wrapper opened">
             <SidebarContentFilters sidebarContentHeight={sidebarContentHeight} />
         </div>
-    </>);
+    </>
+);
 
 SidebarContent.propTypes = propTypes;
 

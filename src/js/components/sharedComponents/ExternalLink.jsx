@@ -71,7 +71,8 @@ const ExternalLink = ({
             disabled={!isSafe}
             aria-disabled={!isSafe}>
             {children || href} <FontAwesomeIcon icon="external-link-alt" />
-        </button>);
+        </button>
+    );
 };
 
 ExternalLink.propTypes = propTypes;

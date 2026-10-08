@@ -47,8 +47,8 @@ const RecipientMultiParentCollapse = (props) => {
     return (
         <div className="recipient-overview__parent">
             {
-                isSingleParent ?
-                // Render only top level parent if there's only 1 parent
+                isSingleParent ? (
+                    // Render only top level parent if there's only 1 parent
                     <div className="recipient-overview__parent">
                         This recipient is a child of &nbsp;
                         <Link
@@ -56,7 +56,8 @@ const RecipientMultiParentCollapse = (props) => {
                             to={`/recipient/${initialParent.parent_id}/latest`}>
                             {initialParent.parent_name}
                         </Link>
-                    </div> :
+                    </div>
+                ) : (
                     // Render top level parent, then allow hide/show of other parents
                     <div className="recipient-overview__parent">
                         This recipient is associated with multiple parents in the dataset:
@@ -110,7 +111,7 @@ const RecipientMultiParentCollapse = (props) => {
                             }
                         </button>
                     </div>
-            }
+                )}
         </div>
     );
 };

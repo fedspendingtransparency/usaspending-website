@@ -261,7 +261,8 @@ const TreeNodesWrapper = ({
                 disabled={disabled}
                 handleCheck={handleCheck}
                 checkboxRefs={checkboxRefs} />
-        </div>);
+        </div>
+    );
 };
 
 TreeNodesWrapper.propTypes = propTypes;

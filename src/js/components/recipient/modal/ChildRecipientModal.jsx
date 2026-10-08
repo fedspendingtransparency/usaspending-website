@@ -23,14 +23,16 @@ const propTypes = {
 };
 
 const ChildRecipientModal = (props) => {
-    let table = (<ChildRecipientModalTable
-        sortField={props.sortField}
-        hideModal={props.hideModal}
-        sortDirection={props.sortDirection}
-        updateSort={props.updateSort}
-        fy={props.recipient.fy}
-        total={props.recipient.overview._totalAmount}
-        childRecipients={props.childRecipients} />);
+    let table = (
+        <ChildRecipientModalTable
+            sortField={props.sortField}
+            hideModal={props.hideModal}
+            sortDirection={props.sortDirection}
+            updateSort={props.updateSort}
+            fy={props.recipient.fy}
+            total={props.recipient.overview._totalAmount}
+            childRecipients={props.childRecipients} />
+    );
     let message = null;
     if (props.loading) {
         message = "Loading...";

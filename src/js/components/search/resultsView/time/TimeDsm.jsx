@@ -22,7 +22,7 @@ const TimeDsm = ({ spendingLevel }) => {
             <p style={{ marginBottom: '8px' }}>
                 Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months.
             </p>
-            { spendingLevel === 'subawards' &&
+            { spendingLevel === 'subawards' && (
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                     <p className="award-search__body-text">
@@ -59,8 +59,8 @@ const TimeDsm = ({ spendingLevel }) => {
                         </span>
                     </p>
                 </>
-            }
-            { spendingLevel === 'awards' &&
+            )}
+            { spendingLevel === 'awards' && (
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                     <p className="award-search__body-text">
@@ -101,7 +101,7 @@ const TimeDsm = ({ spendingLevel }) => {
                         .
                     </p>
                 </>
-            }
+            )}
         </>
     );
     /* eslint-enable max-len */

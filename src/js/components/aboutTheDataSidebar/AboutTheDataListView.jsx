@@ -31,11 +31,13 @@ const AboutTheDataListView = ({ section, selectItem }) => {
         }
     };
 
-    return (<>
-        <div className="atd__heading">{section.heading}</div>
-        <hr />
-        {section.fields.map((list, index) => <p key={`atd-list-item-${index}`}><a className="atd__link" role="link" tabIndex={0} onKeyUp={(e) => keyHandler(e, index, section)} onClick={(e) => clickHandler(e, index, section, list)}>{list.name}</a></p>)}
-    </>);
+    return (
+        <>
+            <div className="atd__heading">{section.heading}</div>
+            <hr />
+            {section.fields.map((list, index) => <p key={`atd-list-item-${index}`}><a className="atd__link" role="link" tabIndex={0} onKeyUp={(e) => keyHandler(e, index, section)} onClick={(e) => clickHandler(e, index, section, list)}>{list.name}</a></p>)}
+        </>
+    );
 };
 
 AboutTheDataListView.propTypes = propTypes;

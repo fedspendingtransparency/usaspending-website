@@ -165,7 +165,8 @@ const AccordionCheckboxPrimary = ({
                 customLabels={customLabels}
                 searchString={searchString}
                 isDisabled={isDisabled} />
-        </div>);
+        </div>
+    );
 };
 
 AccordionCheckboxPrimary.propTypes = propTypes;

@@ -19,15 +19,16 @@ const SearchLanding = () => {
 
     return (
         <div className="search-results-landing">
-            {isFilters &&
+            {isFilters && (
                 <FeatureFlag>
                     <>
                         <NLSearchGovSpending isFilters={isFilters} />
                         <NLSearchSuggestions />
                         <NLMoreResources />
                     </>
-                </FeatureFlag>}
-            {isFilters && !GlobalConstants.QAT &&
+                </FeatureFlag>
+            )}
+            {isFilters && !GlobalConstants.QAT && (
                 <>
                     <h3 className="landing-title">Start your USAspending search</h3>
                     <p className="landing-subTitle">
@@ -36,12 +37,14 @@ const SearchLanding = () => {
                     <NLPreSearchButtonGroup />
                     <NLSearchSuggestions />
                     <NLMoreResources />
-                </>}
-            {!isFilters &&
+                </>
+            )}
+            {!isFilters && (
                 <>
                     <NLSearchGovSpending isFilters={isFilters} />
                     <NLMoreResources />
-                </>}
+                </>
+            )}
         </div>
     );
 };

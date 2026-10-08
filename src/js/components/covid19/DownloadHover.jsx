@@ -33,6 +33,7 @@ const DownloadHover = () => (
                 <div className="tooltip-pointer right" />
             </div>
         </div>
-    </div>);
+    </div>
+);
 
 export default DownloadHover;

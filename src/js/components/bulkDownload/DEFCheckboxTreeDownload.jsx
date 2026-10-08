@@ -28,7 +28,8 @@ const DEFCheckboxTreeDownload = ({
                 label={item.title}
                 subLabel={item.public_law}
                 value={item.code}
-                defSearchString={defSearchString} />);
+                defSearchString={defSearchString} />
+        );
         return obj;
     }, {});
 
@@ -94,16 +95,18 @@ const DEFCheckboxTreeDownload = ({
     return (
         <div className="def-code-filter-download">
             {isLoading && loadingIndicator }
-            {validDefCodes?.length > 0 && !isLoading && !errorMsg && <AccordionCheckbox
-                filterCategoryMapping={defcDataByType(validDefCodes)}
-                filters={titlesByCode(validDefCodes)}
-                customLabels={detailsDisplay(validDefCodes)}
-                selectedFilters={new Set(defCodes)}
-                singleFilterChange={toggleDefc}
-                bulkFilterChange={bulkChangeDefc}
-                setDefSearchString={setDefSearchString}
-                showSearch={false}
-                isDisabled={isDisabled} />
+            {validDefCodes?.length > 0 && !isLoading && !errorMsg && (
+                <AccordionCheckbox
+                    filterCategoryMapping={defcDataByType(validDefCodes)}
+                    filters={titlesByCode(validDefCodes)}
+                    customLabels={detailsDisplay(validDefCodes)}
+                    selectedFilters={new Set(defCodes)}
+                    singleFilterChange={toggleDefc}
+                    bulkFilterChange={bulkChangeDefc}
+                    setDefSearchString={setDefSearchString}
+                    showSearch={false}
+                    isDisabled={isDisabled} />
+            )
             }
         </div>
     );

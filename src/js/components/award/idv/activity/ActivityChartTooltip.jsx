@@ -321,20 +321,20 @@ export default class ActivityChartTooltip extends React.Component {
                                 </div>
                             </div>
                             {
-                                data.grandchild &&
-                                <div className="tooltip-body__row-info" id="grandparentLabel">
-                                    <h6 className="tooltip-body__row-info-title first-titles">
-                                        Grandparent IDV
-                                    </h6>
-                                    <div
-                                        className="tooltip-body__row-info-data"
-                                        ref={(div) => {
-                                            this.grandparentDiv = div;
-                                        }}>
-                                        This IDV
+                                data.grandchild && (
+                                    <div className="tooltip-body__row-info" id="grandparentLabel">
+                                        <h6 className="tooltip-body__row-info-title first-titles">
+                                            Grandparent IDV
+                                        </h6>
+                                        <div
+                                            className="tooltip-body__row-info-data"
+                                            ref={(div) => {
+                                                this.grandparentDiv = div;
+                                            }}>
+                                            This IDV
+                                        </div>
                                     </div>
-                                </div>
-                            }
+                                )}
                             <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title first-titles">
                                     Parent IDV

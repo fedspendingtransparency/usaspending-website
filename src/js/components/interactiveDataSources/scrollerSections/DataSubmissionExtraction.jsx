@@ -58,12 +58,12 @@ const DataSubmissionExtraction = (props) => {
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
-                            content={
+                            content={(
                                 <p>
                                     Data from government systems flow into USAspending.gov in one of two
                                     ways: they are either submitted directly or extracted.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -85,7 +85,7 @@ const DataSubmissionExtraction = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Data Submitted</h4>}
-                            content={
+                            content={(
                                 <p>
                                     Files A, B, and C, as well as FABS data, are all sent directly
                                     from federal agencies to USAspending.gov. For more information about
@@ -102,7 +102,7 @@ const DataSubmissionExtraction = (props) => {
                                     {" "}
                                     page.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -124,7 +124,7 @@ const DataSubmissionExtraction = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Data Extracted</h4>}
-                            content={
+                            content={(
                                 <p>
                                     Data in Files D1, E, and F, as well as all reference data,
                                     are extracted by USAspending.gov from government sources. For more
@@ -141,7 +141,8 @@ const DataSubmissionExtraction = (props) => {
                                     </a>
                                     {" "}
                                     page.
-                                </p>} />
+                                </p>
+                            )} />
                     </div>
                 </ScrollerOverlay>
 

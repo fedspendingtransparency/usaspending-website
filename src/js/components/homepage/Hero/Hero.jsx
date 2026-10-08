@@ -109,7 +109,7 @@ const Hero = () => {
                 </div>
             </div>
             <div className="homepage-hero-graphic-container">
-                {isLargeScreen &&
+                {isLargeScreen && (
                     <div className="homepage-hero-graphic">
                         <div className="hero__graphic-layer-background">
                             <img
@@ -141,8 +141,9 @@ const Hero = () => {
                                 src="../../../../img/homepage-hero/desktop/hero-graphic-foreground@2x.webp"
                                 alt="" />
                         </div>
-                    </div> }
-                {!isLargeScreen &&
+                    </div>
+                )}
+                {!isLargeScreen && (
                     <div className="homepage-hero-graphic">
                         <div className="hero__graphic-layer-windmills">
                             <img
@@ -162,7 +163,8 @@ const Hero = () => {
                                 src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-foreground@2x.webp"
                                 alt="" />
                         </div>
-                    </div> }
+                    </div>
+                )}
             </div>
         </section>
     );

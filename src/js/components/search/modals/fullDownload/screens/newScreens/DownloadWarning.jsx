@@ -15,7 +15,8 @@ const DownloadWarning = (props) => (
     <div className="download-warning-container">
         <ExclamationTriangle />
         {props.message}
-    </div>);
+    </div>
+);
 
 DownloadWarning.propTypes = propTypes;
 export default DownloadWarning;

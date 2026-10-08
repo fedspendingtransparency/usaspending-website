@@ -21,8 +21,10 @@ const propTypes = {
 const ItemDefinition = (props) => {
     let resources = null;
     if (props.resources && props.resources !== '') {
-        resources = (<MoreResources
-            resources={props.resources} />);
+        resources = (
+            <MoreResources
+                resources={props.resources} />
+        );
     }
 
     let term = props.term;

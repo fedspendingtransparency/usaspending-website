@@ -121,12 +121,14 @@ const ArticleList = ({ articles }) => {
                                     fill={getPrimaryFill(article)}
                                     publishedAt={article.publishedAt}
                                     onClick={(e) => onClick(e, newUrl, article.title)} />
-                            </FlexGridCol>);
+                            </FlexGridCol>
+                        );
                     })
                     }
                 </FlexGridRow>
             </div>
-        </section>);
+        </section>
+    );
 };
 
 ArticleList.propTypes = propTypes;

@@ -10,7 +10,7 @@ import GlossaryLink from "components/sharedComponents/GlossaryLink";
 
 const OutlaysExplanation = ({ outlayWhatOpen }) => (
     <>
-        { outlayWhatOpen &&
+        { outlayWhatOpen && (
             <div className="state__what-content">
                 <FontAwesomeIcon icon="info-circle" className="state__info-icon" />
                 <p className="state__what-heading">What is an outlay?</p>
@@ -18,7 +18,7 @@ const OutlaysExplanation = ({ outlayWhatOpen }) => (
                 <p className="state__what-second-heading">Why are the obligation and budgetary resource amounts no longer visible on the chart?</p>
                 <p className="state__what-text">Remember, the <span className="state__emphasis">budgetary resources</span> <GlossaryLink term="budgetary-resources" /> and obligations on this chart refer to available amounts and promised amounts for spending in your selected fiscal year. However, agencies may make outlays to pay off obligations made in your selected year or in previous years. This means outlays on this chart should <span className="state__emphasis">not</span> be compared to the obligations or budgetary resources within any single fiscal year.</p>
             </div>
-        }
+        )}
     </>
 );
 

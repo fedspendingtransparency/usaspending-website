@@ -94,9 +94,11 @@ const ContractGrantActivity = ({
             }px)`,
             position: 'absolute'
         },
-        tooltipComponent: <RectanglePercentVizTooltip
-            title="Current Potential Award Amount"
-            amount={formatMoney(totalObligation)} />
+        tooltipComponent: (
+            <RectanglePercentVizTooltip
+                title="Current Potential Award Amount"
+                amount={formatMoney(totalObligation)} />
+        )
     });
 
     const formatDateData = (date) => {
@@ -115,9 +117,11 @@ const ContractGrantActivity = ({
                 position: 'absolute',
                 transform: `translate(${((data.position + 16))}px,${(height / 2) - defaultPadding.bottom}px)`
             },
-            tooltipComponent: <RectanglePercentVizTooltip
-                title={`${text} Date`}
-                amount={formatDateData(date)} />
+            tooltipComponent: (
+                <RectanglePercentVizTooltip
+                    title={`${text} Date`}
+                    amount={formatDateData(date)} />
+            )
         };
     };
 
@@ -179,9 +183,11 @@ const ContractGrantActivity = ({
             position: 'absolute',
             transform: `translate(${data.cx + 11}px,${data.cy - 13}px)`
         },
-        tooltipComponent: <PaginatedTooltipContainer
-            data={transactionTooltipInfo(data.data, 'Modification')}
-            tooltipElement={<Tooltip />} />
+        tooltipComponent: (
+            <PaginatedTooltipContainer
+                data={transactionTooltipInfo(data.data, 'Modification')}
+                tooltipElement={<Tooltip />} />
+        )
     });
 
     const handleTooltipDataLine = (data, text) => {
@@ -223,17 +229,19 @@ const ContractGrantActivity = ({
 
     return (
         <div ref={divReference} className="award-amounts-viz contract-grant-activity-visualization">
-            {(showTooltipLine || showTooltipTransaction || isHoveringOverTransactionTooltip) && <TooltipWrapper
-                className="award-section-tt"
-                {...tooltipData}
-                wide={false}
-                width={defaultTooltipWidth}
-                onMouseMoveTooltip={onMouseMoveTooltip}
-                onMouseLeaveTooltip={onMouseLeaveTooltip}
-                controlledProps={{
-                    isControlled: true,
-                    isVisible: showTooltipLine || showTooltipTransaction || isHoveringOverTransactionTooltip
-                }} />}
+            {(showTooltipLine || showTooltipTransaction || isHoveringOverTransactionTooltip) && (
+                <TooltipWrapper
+                    className="award-section-tt"
+                    {...tooltipData}
+                    wide={false}
+                    width={defaultTooltipWidth}
+                    onMouseMoveTooltip={onMouseMoveTooltip}
+                    onMouseLeaveTooltip={onMouseLeaveTooltip}
+                    controlledProps={{
+                        isControlled: true,
+                        isVisible: showTooltipLine || showTooltipTransaction || isHoveringOverTransactionTooltip
+                    }} />
+            )}
             <ContractGrantActivityChart
                 visualizationWidth={visualizationWidth}
                 transactions={transactions}

@@ -15,21 +15,21 @@ const ScrollerOverlayCard = ({
     icon, heading, content, overline, extraClassNameHeading = "", extraClassNameContent = ""
 }) => (
     <FlexGridRow className="scroller-overlay-card-content" tabIndex="0">
-        {icon &&
+        {icon && (
             <FlexGridCol width={12} desktop={1} className="scroller-overlay-card__icon-wrapper">
                 {icon}
             </FlexGridCol>
-        }
-        {overline &&
+        )}
+        {overline && (
             <FlexGridCol width={12} desktop={12} className="scroller-overlay-card__overline-wrapper">
                 {overline}
             </FlexGridCol>
-        }
-        {heading &&
+        )}
+        {heading && (
             <FlexGridCol width={12} desktop={icon ? 10 : 12} className={`scroller-overlay-card__heading-wrapper ${extraClassNameHeading}`}>
                 {heading}
             </FlexGridCol>
-        }
+        )}
         <FlexGridCol width={12} desktop={12} className={`scroller-overlay-card__content-wrapper ${extraClassNameContent}`}>
             {content}
         </FlexGridCol>

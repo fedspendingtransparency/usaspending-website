@@ -116,7 +116,8 @@ const SummaryStats = () => {
             }}
             onClick={(e) => performSearch(name, e)}>
             {name}
-        </a>);
+        </a>
+    );
 
     const loadBudgetItem = (index) => {
         if (loading) {
@@ -132,7 +133,8 @@ const SummaryStats = () => {
                     {!error ? 'on ' : ''}
                     {renderLink(budgetData[index % budgetData?.length]?.name)}
                 </span>
-            </>);
+            </>
+        );
     };
 
     return (
@@ -144,10 +146,11 @@ const SummaryStats = () => {
                         <br />
                         <span>
                             plans to spend
-                            {loading ? <span className="dot-pulse" /> :
+                            {loading ? <span className="dot-pulse" /> : (
                                 <span className="summary-stats__budget-total">
                                     {formatMoneyWithUnits(budgetTotal)}
-                                </span>}
+                                </span>
+                            )}
                             {' '}
                             including…
                         </span>
@@ -217,10 +220,11 @@ const SummaryStats = () => {
                         <span>
                             plans to spend&nbsp;
                             { loading ?
-                                <span className="dot-pulse" /> :
-                                <span className="summary-stats__budget-total">
-                                    {formatMoneyWithUnits(budgetTotal)}
-                                </span>}
+                                <span className="dot-pulse" /> : (
+                                    <span className="summary-stats__budget-total">
+                                        {formatMoneyWithUnits(budgetTotal)}
+                                    </span>
+                                )}
                             &nbsp;including…
                         </span>
                     </FlexGridCol>
@@ -268,7 +272,8 @@ const SummaryStats = () => {
                     </FlexGridCol>
                 </FlexGridRow>
             </div>
-        </section>);
+        </section>
+    );
 };
 
 export default SummaryStats;

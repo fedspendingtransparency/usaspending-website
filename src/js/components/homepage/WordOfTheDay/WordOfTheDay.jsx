@@ -196,7 +196,7 @@ const WordOfTheDay = () => {
             </div>
             <CardContainer variant="outline" fill="#1a4480">
                 {/* eslint-disable-next-line no-nested-ternary */}
-                {!loading && !noResults && !error ?
+                {!loading && !noResults && !error ? (
                     <>
                         <div className="word-of-the-day__headline">{changedTerm === "" ? term : changedTerm}</div>
                         <div className="word-of-the-day__divider" />
@@ -213,11 +213,12 @@ const WordOfTheDay = () => {
                                 </CardButton>
                             </>
                         </CardBody>
-                    </> :
+                    </>
+                ) : (
                     <CardBody customClassName="card__body_error">
                         {loading ? <LoadingWrapper isLoading={loading} /> : <ErrorWordOfTheDay />}
                     </CardBody>
-                }
+                )}
             </CardContainer>
         </section>
     );

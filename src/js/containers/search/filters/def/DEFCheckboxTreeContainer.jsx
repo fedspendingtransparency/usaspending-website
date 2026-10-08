@@ -31,7 +31,8 @@ const DEFCheckboxTreeContainer = () => {
                 label={item.title}
                 subLabel={item.public_law}
                 value={item.code}
-                defSearchString={defSearchString} />);
+                defSearchString={defSearchString} />
+        );
         return obj;
     }, {});
 
@@ -57,14 +58,16 @@ const DEFCheckboxTreeContainer = () => {
     return (
         <div className="def-code-filter">
             {isLoading && loadingIndicator }
-            {defCodes?.length > 0 && !isLoading && !errorMsg && <AccordionCheckbox
-                filterCategoryMapping={defcDataByType(defCodes)}
-                filters={titlesByCode(defCodes)}
-                customLabels={detailsDisplay(defCodes)}
-                selectedFilters={selectedDefCodes}
-                singleFilterChange={toggleDefc}
-                bulkFilterChange={bulkChangeDefc}
-                setDefSearchString={setDefSearchString} />
+            {defCodes?.length > 0 && !isLoading && !errorMsg && (
+                <AccordionCheckbox
+                    filterCategoryMapping={defcDataByType(defCodes)}
+                    filters={titlesByCode(defCodes)}
+                    customLabels={detailsDisplay(defCodes)}
+                    selectedFilters={selectedDefCodes}
+                    singleFilterChange={toggleDefc}
+                    bulkFilterChange={bulkChangeDefc}
+                    setDefSearchString={setDefSearchString} />
+            )
             }
         </div>
     );

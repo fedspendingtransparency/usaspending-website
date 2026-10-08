@@ -27,7 +27,7 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
 
     return (
         <>
-            {!noResults &&
+            {!noResults && (
                 <TopFive
                     key={category}
                     category={category}
@@ -37,7 +37,7 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
                     error={error}
                     dataParams={dataParams}
                     agencyData={agencyData} />
-            }
+            )}
         </>
     );
 };

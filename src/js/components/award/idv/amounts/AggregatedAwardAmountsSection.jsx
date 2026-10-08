@@ -58,7 +58,8 @@ export default class AggregatedAwardAmounts extends React.Component {
                             Gathering your data...
                         </div>
                     </div>
-                </div>);
+                </div>
+            );
         }
         else if (this.props.error) {
             return (<ChartError />);
@@ -73,13 +74,13 @@ export default class AggregatedAwardAmounts extends React.Component {
             <div className="award-amounts__content">
                 <AwardsBanner
                     jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
-                {tabTypes?.length > 0 &&
+                {tabTypes?.length > 0 && (
                     <Tabs
                         tablessStyle
                         active={this.state.active}
                         switchTab={this.switchTab}
                         types={tabTypes} />
-                }
+                )}
                 <AwardAmountsChart
                     showCaresActViz={this.props.showFileC}
                     awardOverview={awardAmounts}

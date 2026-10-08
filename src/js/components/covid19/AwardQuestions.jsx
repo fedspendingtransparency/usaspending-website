@@ -13,16 +13,17 @@ const propTypes = {
 
 const AwardQuestion = ({ publicLaw }) => (
     <div className={`award-question__container ${publicLaw === 'american-rescue-plan' ? 'information-body-arp' : 'information-body'}`}>
-        {publicLaw === 'american-rescue-plan' ?
+        {publicLaw === 'american-rescue-plan' ? (
             <h3 className="award-question__title">
                 Federal Awards from the <span className="color-blue-arp">American Rescue Plan</span>
-            </h3> :
+            </h3>
+        ) : (
             <h2 className="award-question__title">
                 Federal Awards in Response to <span className="color-purple">COVID-19</span>
             </h2>
-        }
+        )}
         <div className="award-question__sub-section">
-            {publicLaw === 'american-rescue-plan' ?
+            {publicLaw === 'american-rescue-plan' ? (
                 <p className="award-question__sub-section_paragraph">
                     Award spending is a subset of total spending and refers to money given through
                     {' '}
@@ -49,11 +50,12 @@ const AwardQuestion = ({ publicLaw }) => (
                     {' '}
                     <GlossaryLink term="loan-subsidy-cost" />
                     .
-                </p> :
+                </p>
+            ) : (
                 <p className="award-question__sub-section_paragraph">
                     Award spending is a subset of total spending and refers to money given through <span className="glossary-term">contracts</span> <GlossaryLink term="contract" /> or <span className="glossary-term">financial assistance</span> <GlossaryLink term="financial-assistance" /> to individuals, organizations, businesses, or governments (state, local, or tribal).
                 </p>
-            }
+            )}
         </div>
     </div>
 );

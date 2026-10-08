@@ -56,7 +56,8 @@ const FeaturedContent = (({ leftCard = marketingArticle, rightCard = otherArticl
                 taxonomy={rightCard.taxonomy}
                 externalLink={rightCard?.externalLink} />
         </div>
-    </section>));
+    </section>
+));
 
 FeaturedContent.propTypes = propTypes;
 export default FeaturedContent;

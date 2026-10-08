@@ -137,7 +137,7 @@ const ComboBox = memo(function ComboBox({
                         placeholder={placeholder}
                         disabled={isDisabledAndEmpty} />
                     <div className="combo-box__buttons-container">
-                        { !inputValueEmpty && !disabled &&
+                        { !inputValueEmpty && !disabled && (
                             <button
                                 className="combo-box__button"
                                 type="button"
@@ -149,7 +149,7 @@ const ComboBox = memo(function ComboBox({
                                     icon="times"
                                     className={`close-icon${disabled ? ' disabled' : ''}`} />
                             </button>
-                        }
+                        )}
                         <div className="combo-box__vertical-line" />
                         <button
                             className="combo-box__button"
@@ -165,9 +165,9 @@ const ComboBox = memo(function ComboBox({
                     </div>
                 </div>
                 <div className={`combo-box__options-container${label ? ' label' : ''}`}>
-                    { openOptions &&
+                    { openOptions && (
                         <ul className="combo-box__options" id={`${formName}-list`}>
-                            { noSearchResults ?
+                            { noSearchResults ? (
                                 <li
                                     value="no-result"
                                     className="combo-box__options-item"
@@ -177,11 +177,12 @@ const ComboBox = memo(function ComboBox({
                                         aria-label={`${formName}-option-item`}>
                                         No results found
                                     </div>
-                                </li> :
+                                </li>
+                            ) :
                                 options
                             }
                         </ul>
-                    }
+                    )}
                 </div>
             </div>
         </div>

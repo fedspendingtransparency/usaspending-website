@@ -71,25 +71,27 @@ const PageWrapper = ({
         <div className={classNames} ref={ref}>
             <MetaTags {...metaTagProps} />
             <Header />
-            {noHeader ? null : <>
-                <PageHeader
-                    title={title}
-                    stickyBreakPoint={getStickyBreakPointForSidebar()}
-                    overLine={overLine}
-                    toolBar={toolBarComponents}
-                    pageName={pageName}
-                    backgroundColor={backgroundColor} />
-                { sections && inPageNav &&
-                    <InPageNav
-                        sections={sections}
-                        loading={loading}
-                        activeSection={activeSection}
+            {noHeader ? null : (
+                <>
+                    <PageHeader
+                        title={title}
+                        stickyBreakPoint={getStickyBreakPointForSidebar()}
+                        overLine={overLine}
+                        toolBar={toolBarComponents}
                         pageName={pageName}
-                        rootMargin={rootMargin}
-                        detectActiveSection
-                        jumpToSection={jumpToSection} />
-                }
-            </>}
+                        backgroundColor={backgroundColor} />
+                    { sections && inPageNav && (
+                        <InPageNav
+                            sections={sections}
+                            loading={loading}
+                            activeSection={activeSection}
+                            pageName={pageName}
+                            rootMargin={rootMargin}
+                            detectActiveSection
+                            jumpToSection={jumpToSection} />
+                    )}
+                </>
+            )}
             {React.cloneElement(children, {
                 className: `usda-page__container${
                     children.props.className ?

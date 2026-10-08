@@ -585,16 +585,16 @@ const MapWrapper = ({
     return (
         <div className="map-container">
             {
-                GlobalConstants.MAPBOX_TOKEN &&
-                <MapBox
-                    setMapReady={setMapReady}
-                    center={center}
-                    mapType={scope}
-                    stateInfo={stateInfo}
-                    stateProfile={stateProfile}
-                    ref={mapRef}
-                    singleLocationSelected={singleLocationSelected} />
-            }
+                GlobalConstants.MAPBOX_TOKEN && (
+                    <MapBox
+                        setMapReady={setMapReady}
+                        center={center}
+                        mapType={scope}
+                        stateInfo={stateInfo}
+                        stateProfile={stateProfile}
+                        ref={mapRef}
+                        singleLocationSelected={singleLocationSelected} />
+                )}
             <MapFiltersToggle
                 isFiltersOpen={isFiltersOpen}
                 setIsFiltersOpen={setIsFiltersOpen} />

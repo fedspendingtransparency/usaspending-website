@@ -16,18 +16,19 @@ const InteractiveDataSourcesSection = ({
     children
 }) => (
     <>
-        {section.showSectionWrapper ?
+        {section.showSectionWrapper ? (
             <SectionWrapper
                 // isCollapsible // Currently disable for `Scroller`
                 id={`interactive-data-sources-${section.section}`}
                 title={section.label}>
                 {children}
-            </SectionWrapper> :
+            </SectionWrapper>
+        ) : (
             <section
                 id={`interactive-data-sources-${section.section}`}>
                 {children}
             </section>
-        }
+        )}
     </>
 );
 

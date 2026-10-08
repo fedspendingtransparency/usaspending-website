@@ -14,7 +14,7 @@ const TableDsm = ({ spendingLevel }) => {
     return (
         <>
             <h4>What&#39;s included in this view of the data?</h4>
-            { spendingLevel === "subawards" ?
+            { spendingLevel === "subawards" ? (
                 <>
                     <p style={{ marginBottom: '8px' }}>
                         View a list of sub-award transactions based on your selected filters.
@@ -54,13 +54,14 @@ const TableDsm = ({ spendingLevel }) => {
                             in our About the Data module.
                         </span>
                     </p>
-                </> :
+                </>
+            ) : (
                 <>
                     <p style={{ marginBottom: '8px' }}>
                         View a list of award summaries based on your selected filters.
                         Click the Award ID, Recipient Name, or Awarding Agency to find more detailed information on individual awards including transaction history, subawards, and more.
                     </p>
-                    { spendingLevel === 'awards' &&
+                    { spendingLevel === 'awards' && (
                         <p className="award-search__body-text">
                             The rows in the table represent award summaries for
                             {<span className="award-search__glossary-term"> prime awards </span>}
@@ -78,9 +79,9 @@ const TableDsm = ({ spendingLevel }) => {
                             transactions overlap with your selected time period (regardless of whether any transactions
                             occur within that period).
                         </p>
-                    }
+                    )}
                 </>
-            }
+            )}
         </>
     );
     /* eslint-enable max-len */

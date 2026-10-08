@@ -59,9 +59,11 @@ const ResultsTableRow = {
             </a> || '--';
         this.subsidyCost = MoneyFormatter.formatMoneyWithPrecision(data['Subsidy Cost'], 2, "--");
         this.loanValue = MoneyFormatter.formatMoneyWithPrecision(data['Loan Value'], 2, "--");
-        this.description = (<ReadMore
-            text={data.Description || '--'}
-            limit={90} />);
+        this.description = (
+            <ReadMore
+                text={data.Description || '--'}
+                limit={90} />
+        );
         this.awardType = data['Contract Award Type'] || data['Award Type'] || '--';
         this.uei = data['Recipient UEI'] || 'UEI not provided';
         this.recipientLocation = pickLocationFormat(data['Recipient Location']);
@@ -83,9 +85,11 @@ const ResultsTableRow = {
             </a> || '--';
         this.awardingSubAgency = data['Awarding Sub Agency'] || '--';
         this.issuedDate = data['Issued Date'] || '--';
-        this.assistanceListing = (<ReadMore
-            text={this.assistanceListingFormat(data['Assistance Listings'])}
-            limit={90} />);
+        this.assistanceListing = (
+            <ReadMore
+                text={this.assistanceListingFormat(data['Assistance Listings'])}
+                limit={90} />
+        );
     },
     populateDirectPayment(data) {
         this.generated_internal_id =
@@ -111,13 +115,17 @@ const ResultsTableRow = {
         this.awardAmount = MoneyFormatter.formatMoneyWithPrecision(data['Award Amount'], 2, "--");
         this.totalOutlays = MoneyFormatter.formatMoneyWithPrecision(data['Total Outlays'], 2, "--");
         this.description =
-            (<ReadMore
-                text={data.Description || '--'}
-                limit={90} />);
+            (
+                <ReadMore
+                    text={data.Description || '--'}
+                    limit={90} />
+            );
         this.awardType =
-            (<ReadMore
-                text={data['Contract Award Type'] || data['Award Type'] || '--'}
-                limit={65} />);
+            (
+                <ReadMore
+                    text={data['Contract Award Type'] || data['Award Type'] || '--'}
+                    limit={65} />
+            );
         this.recipientUEI = data['Recipient UEI'] || 'UEI not provided';
         this.recipientLocation = pickLocationFormat(data['Recipient Location']);
         this.primaryPlaceOfPerformance = pickLocationFormat(data['Primary Place of Performance']);
@@ -140,9 +148,11 @@ const ResultsTableRow = {
         this.startDate = data['Start Date'] || '--';
         this.endDate = data['End Date'] || '--';
         this.assistanceListing =
-            (<ReadMore
-                text={this.assistanceListingFormat(data['Assistance Listings'])}
-                limit={90} />);
+            (
+                <ReadMore
+                    text={this.assistanceListingFormat(data['Assistance Listings'])}
+                    limit={90} />
+            );
     },
     populateGrant(data) {
         this.generated_internal_id =
@@ -168,9 +178,11 @@ const ResultsTableRow = {
         this.awardAmount = MoneyFormatter.formatMoneyWithPrecision(data['Award Amount'], 2, "--");
         this.totalOutlays = MoneyFormatter.formatMoneyWithPrecision(data['Total Outlays'], 2, "--");
         this.description =
-            (<ReadMore
-                text={data.Description || '--'}
-                limit={90} />);
+            (
+                <ReadMore
+                    text={data.Description || '--'}
+                    limit={90} />
+            );
         this.awardType = data['Contract Award Type'] || data['Award Type'] || '--';
         this.recipientUEI = data['Recipient UEI'] || 'UEI not provided';
         this.recipientLocation = pickLocationFormat(data['Recipient Location']);
@@ -194,9 +206,11 @@ const ResultsTableRow = {
         this.startDate = data['Start Date'] || '--';
         this.endDate = data['End Date'] || data['Last Date to Order'] || '--';
         this.assistanceListing =
-            (<ReadMore
-                text={this.assistanceListingFormat(data['Assistance Listings'])}
-                limit={90} />);
+            (
+                <ReadMore
+                    text={this.assistanceListingFormat(data['Assistance Listings'])}
+                    limit={90} />
+            );
     },
     populateContract(data) {
         this.awardId =
@@ -222,9 +236,11 @@ const ResultsTableRow = {
         this.awardAmount = MoneyFormatter.formatMoneyWithPrecision(data['Award Amount'], 2, "--");
         this.totalOutlays = MoneyFormatter.formatMoneyWithPrecision(data['Total Outlays'], 2, "--");
         this.description =
-            (<ReadMore
-                text={data.Description || '--'}
-                limit={90} />);
+            (
+                <ReadMore
+                    text={data.Description || '--'}
+                    limit={90} />
+            );
         this.awardType = data['Contract Award Type'] || data['Award Type'] || '--';
         this.recipientUEI = data['Recipient UEI'] || 'UEI not provided';
         this.recipientLocation = pickLocationFormat(data['Recipient Location']);
@@ -248,13 +264,17 @@ const ResultsTableRow = {
         this.startDate = data['Start Date'] || '--';
         this.endDate = data['End Date'] || data['Last Date to Order'] || '--';
         this.naics =
-            (<ReadMore
-                text={twoVariableFormat(data.NAICS, 'code', 'description')}
-                limit={80} />);
+            (
+                <ReadMore
+                    text={twoVariableFormat(data.NAICS, 'code', 'description')}
+                    limit={80} />
+            );
         this.psc =
-            (<ReadMore
-                text={twoVariableFormat(data.PSC, 'code', 'description')}
-                limit={80} />);
+            (
+                <ReadMore
+                    text={twoVariableFormat(data.PSC, 'code', 'description')}
+                    limit={80} />
+            );
     },
     populateTransactionContract(data) {
         this.awardId =
@@ -272,9 +292,11 @@ const ResultsTableRow = {
         this.transactionAmount = MoneyFormatter.formatMoneyWithPrecision(data['Transaction Amount'], 2, "--");
         this.actionDate = data['Action Date'] || '--';
         this.transactionDescription =
-            (<ReadMore
-                text={data['Transaction Description'] || '--'}
-                limit={90} />);
+            (
+                <ReadMore
+                    text={data['Transaction Description'] || '--'}
+                    limit={90} />
+            );
         this.actionType = data['Action Type'] || '--';
         this.awardType = data['Award Type'] || '--';
         this.recipientUEI = data['Recipient UEI'] || 'UEI not provided';
@@ -283,13 +305,17 @@ const ResultsTableRow = {
         this.awardingAgency = data['Awarding Agency'] || '--';
         this.awardingSubAgency = data['Awarding Sub Agency'] || '--';
         this.naics =
-            (<ReadMore
-                text={twoVariableFormat(data.NAICS, 'code', 'description')}
-                limit={80} />);
+            (
+                <ReadMore
+                    text={twoVariableFormat(data.NAICS, 'code', 'description')}
+                    limit={80} />
+            );
         this.psc =
-            (<ReadMore
-                text={twoVariableFormat(data.PSC, 'code', 'description')}
-                limit={80} />);
+            (
+                <ReadMore
+                    text={twoVariableFormat(data.PSC, 'code', 'description')}
+                    limit={80} />
+            );
     },
     populateTransactionDefault(data) {
         this.generated_internal_id =
@@ -307,9 +333,11 @@ const ResultsTableRow = {
         this.transactionAmount = MoneyFormatter.formatMoneyWithPrecision(data['Transaction Amount'], 2, "--");
         this.actionDate = data['Action Date'] || '--';
         this.transactionDescription =
-            (<ReadMore
-                text={data['Transaction Description'] || '--'}
-                limit={90} />);
+            (
+                <ReadMore
+                    text={data['Transaction Description'] || '--'}
+                    limit={90} />
+            );
         this.actionType = data['Action Type'] || '--';
         this.awardType = data['Award Type'] || '--';
         this.recipientUEI = data['Recipient UEI'] || 'UEI not provided';
@@ -343,9 +371,11 @@ const ResultsTableRow = {
         this.subawardAmount = MoneyFormatter.formatMoneyWithPrecision(data['Sub-Award Amount'], 2, "--");
         this.subawardDate = data['Sub-Award Date'] || '--';
         this.subawardDesc =
-            (<ReadMore
-                text={data['Sub-Award Description'] || '--'}
-                limit={90} />);
+            (
+                <ReadMore
+                    text={data['Sub-Award Description'] || '--'}
+                    limit={90} />
+            );
         this.subrecipientUEI = data['Sub-Recipient UEI'] || 'UEI not provided';
         this.subrecipientLocation = pickLocationFormat(data['Sub-Recipient Location']);
         this.subawardPPOP = pickLocationFormat(data['Sub-Award Primary Place of Performance']);
@@ -374,13 +404,17 @@ const ResultsTableRow = {
         this.awardingAgency = data['Awarding Agency'] || '--';
         this.awardingSubAgency = data['Awarding Sub Agency'] || '--';
         this.naics =
-            (<ReadMore
-                text={twoVariableFormat(data.NAICS, 'code', 'description')}
-                limit={80} />);
+            (
+                <ReadMore
+                    text={twoVariableFormat(data.NAICS, 'code', 'description')}
+                    limit={80} />
+            );
         this.psc =
-            (<ReadMore
-                text={twoVariableFormat(data.PSC, 'code', 'description')}
-                limit={80} />);
+            (
+                <ReadMore
+                    text={twoVariableFormat(data.PSC, 'code', 'description')}
+                    limit={80} />
+            );
     },
     populateDefault(data) {
         this.subawardId =
@@ -397,9 +431,11 @@ const ResultsTableRow = {
         this.subawardAmount = MoneyFormatter.formatMoneyWithPrecision(data['Sub-Award Amount'], 2, "--");
         this.subawardDate = data['Sub-Award Date'] || '--';
         this.subawardDesc =
-            (<ReadMore
-                text={data['Sub-Award Description'] || '--'}
-                limit={90} />);
+            (
+                <ReadMore
+                    text={data['Sub-Award Description'] || '--'}
+                    limit={90} />
+            );
         this.subrecipientUEI = data['Sub-Recipient UEI'] || 'UEI not provided';
         this.subrecipientLocation = pickLocationFormat(data['Sub-Recipient Location']);
         this.subawardPPOP = pickLocationFormat(data['Sub-Award Primary Place of Performance']);

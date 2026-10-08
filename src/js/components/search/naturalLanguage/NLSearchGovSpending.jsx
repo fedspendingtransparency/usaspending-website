@@ -53,14 +53,15 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                         backgroundColor="light"
                         textAlignment="left"
                         imageAlignment="right"
-                        image={
+                        image={(
                             <div className="button-icon-container">
                                 <FontAwesomeIcon
                                     className="button-icon"
                                     icon="arrow-up-right" />
-                            </div>} />
+                            </div>
+                        )} />
                 </div>
-                {isFilters &&
+                {isFilters && (
                     <>
                         <span className="search-gov-spending__question">What questions do you have about federal award spending data?</span>
                         <div className="search-gov-spending__input-container">
@@ -107,31 +108,34 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                                 </button>
                             </div>
                         </div>
-                    </>}
+                    </>
+                )}
 
-                {!isFilters && <div className="search-gov-spending__container">
-                    <div className="search-gov-spending__header">
-                        HOW IT WORKS:
+                {!isFilters && (
+                    <div className="search-gov-spending__container">
+                        <div className="search-gov-spending__header">
+                            HOW IT WORKS:
+                        </div>
+                        <FlexGridRow className="search-gov-spending__card-row">
+                            {searchGovSpendingData.map((cardData) => (
+                                <FlexGridCol
+                                    className="search-gov-spending__card"
+                                    key={`search-gov-spending-card-${cardData.id}`}
+                                    mobile={12}
+                                    tablet={12}
+                                    desktop={4}>
+
+                                    <CardContainer variant="none">
+                                        <CardBody customClassName="card-body">
+                                            {cardData.icon}
+                                        </CardBody>
+                                    </CardContainer>
+                                </FlexGridCol>
+                            ))
+                            }
+                        </FlexGridRow>
                     </div>
-                    <FlexGridRow className="search-gov-spending__card-row">
-                        {searchGovSpendingData.map((cardData) => (
-                            <FlexGridCol
-                                className="search-gov-spending__card"
-                                key={`search-gov-spending-card-${cardData.id}`}
-                                mobile={12}
-                                tablet={12}
-                                desktop={4}>
-
-                                <CardContainer variant="none">
-                                    <CardBody customClassName="card-body">
-                                        {cardData.icon}
-                                    </CardBody>
-                                </CardContainer>
-                            </FlexGridCol>
-                        ))
-                        }
-                    </FlexGridRow>
-                </div>}
+                )}
             </FlexGridRow>
         </section>
     );

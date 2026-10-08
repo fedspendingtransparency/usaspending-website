@@ -28,7 +28,8 @@ const TrainingVideosContainer = () => {
     return (
         <TrainingVideosPage
             featuredVideo={featuredVideo}
-            videos={videos} />);
+            videos={videos} />
+    );
 };
 
 export default TrainingVideosContainer;

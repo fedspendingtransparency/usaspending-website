@@ -100,7 +100,8 @@ const parseData = (data, selectedDropdown, spendingLevel) => {
                             onClickHandler(result.name, selectedDropdown);
                         }}>
                         {result.name}
-                    </a>),
+                    </a>
+                ),
                 title: result.name
             };
         }

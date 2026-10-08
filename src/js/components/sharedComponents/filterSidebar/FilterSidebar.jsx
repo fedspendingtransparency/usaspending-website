@@ -35,15 +35,17 @@ const FilterSidebar = ({
             const component = components[i];
             const accessory = accessories[i];
             const glossarySlug = glossaryEntries[i];
-            return (<FilterOption
-                name={title}
-                tooltip={tooltip}
-                key={title}
-                component={component}
-                accessory={accessory}
-                defaultExpand={expanded[i]}
-                disabled={component === null}
-                glossarySlug={glossarySlug} />);
+            return (
+                <FilterOption
+                    name={title}
+                    tooltip={tooltip}
+                    key={title}
+                    component={component}
+                    accessory={accessory}
+                    defaultExpand={expanded[i]}
+                    disabled={component === null}
+                    glossarySlug={glossarySlug} />
+            );
         });
 
     return (

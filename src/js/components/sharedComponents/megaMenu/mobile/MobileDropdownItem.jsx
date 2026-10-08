@@ -91,7 +91,7 @@ const MobileDropdownItem = ({
                 {section1Options[index].sub}
             </div>
             <div className="mobile-dropdown__section-container">
-                {type === "secondary" ?
+                {type === "secondary" ? (
                     <>
                         <ul>
                             {section1Items.map((item) => (
@@ -115,7 +115,8 @@ const MobileDropdownItem = ({
                             ))}
                         </ul>
                         <hr />
-                    </> :
+                    </>
+                ) : (
                     <>
                         <ul>
                             {section1Items.map((item) => (
@@ -138,7 +139,7 @@ const MobileDropdownItem = ({
                         </ul>
                         <hr />
                     </>
-                }
+                )}
             </div>
             <div className={type === "primary" ? "mobile-dropdown_main-container" : ""}>
                 <div className={section2Options[index].icon && section2Options[index].icon !== null && section2Options[index].icon !== '' ? "mobile-dropdown__section-icon" : ""}>
@@ -173,7 +174,7 @@ const MobileDropdownItem = ({
                     ))}
                 </ul>
             </div>
-            {index > 0 &&
+            {index > 0 && (
                 <div className="mobile-dropdown_main-container">
                     <div className={section3Options[index].icon && section3Options[index].icon !== null && section3Options[index].icon !== '' ? "mobile-dropdown__section-icon" : ""}>
                         {section3Options[index].icon && section3Options[index].icon !== null && section3Options[index].icon !== '' ? <FontAwesomeIcon icon={section3Options[index].icon} style={{ width: "12px", height: "100%" }} /> : ''}
@@ -186,12 +187,12 @@ const MobileDropdownItem = ({
                             {section3Options[index].sub}
                         </div>
                         <div className="mobile-dropdown__section-container">
-                            {type === "primary" &&
+                            {type === "primary" && (
                                 <>
                                     <ul>
                                         {section3Items.map((item) => (
                                             <li className="mobile-dropdown__section-downloads" key={uniqueId()}>
-                                                { isRedirectNeeded(item) ?
+                                                { isRedirectNeeded(item) ? (
                                                     <ExternalLink isCard={false} url={item.url}>
                                                         <div className="mobile-dropdown__section-link">
                                                             <div className="mobile-dropdown__section-label">
@@ -201,7 +202,8 @@ const MobileDropdownItem = ({
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                    </ExternalLink> :
+                                                    </ExternalLink>
+                                                ) : (
                                                     <a
                                                         href={item.url}
                                                         target={item.shouldOpenNewTab ? "_blank" : null}
@@ -214,15 +216,16 @@ const MobileDropdownItem = ({
                                                             </span>
                                                         </div>
                                                     </a>
-                                                }
+                                                )}
                                             </li>
                                         ))}
                                     </ul>
                                 </>
-                            }
+                            )}
                         </div>
                     </div>
-                </div>}
+                </div>
+            )}
         </div>
     );
 };

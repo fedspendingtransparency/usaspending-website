@@ -69,7 +69,7 @@ const MobileFilterButton = ({
                     </div>
                 </div>
             </button>
-            { QAT &&
+            { QAT && (
                 <button
                     className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "natural language" ? 'opened natural-language' : ''}`}
                     onClick={() => {
@@ -96,7 +96,7 @@ const MobileFilterButton = ({
                         </div>
                     </div>
                 </button>
-            }
+            )}
         </div>
     );
 };

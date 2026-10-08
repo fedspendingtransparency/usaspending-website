@@ -64,14 +64,14 @@ const AwardPageWrapper = ({
                     awardType={awardType}
                     dates={dates} />
             </div>
-            {covidDefCodes && covidDefCodes.length > 0 &&
+            {covidDefCodes && covidDefCodes.length > 0 && (
                 <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={covidDefCodes} />}>
                     <span className="covid-spending-flag">
                         Includes COVID-19 Spending
                     </span>
                 </TooltipWrapper>
-            }
-            {unlinked &&
+            )}
+            {unlinked && (
                 <TooltipWrapper
                     tooltipPosition="bottom"
                     className="award-summary__unlinked-flag"
@@ -96,7 +96,7 @@ const AwardPageWrapper = ({
                         Unlinked Award
                     </span>
                 </TooltipWrapper>
-            }
+            )}
             <hr />
             {children}
         </div>

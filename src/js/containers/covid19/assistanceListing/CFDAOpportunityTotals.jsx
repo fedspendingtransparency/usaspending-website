@@ -51,7 +51,7 @@ const CFDAOpportunityTotals = ({ code }) => {
 
     return (
         <div className="cfda-opportunities__container">
-            {!error.error &&
+            {!error.error && (
                 <div className="cfda-opportunities__totals">
                     <div className="cfda-opportunities__total">
                         <div className="cfda-opportunities__total__title">Open</div>
@@ -82,7 +82,7 @@ const CFDAOpportunityTotals = ({ code }) => {
                         </div>
                     </div>
                 </div>
-            }
+            )}
             {error.error && <div>{error.message}</div>}
         </div>
     );

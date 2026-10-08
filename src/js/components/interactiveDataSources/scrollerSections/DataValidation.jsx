@@ -43,7 +43,7 @@ const DataValidation = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Data Broker Practices</h4>}
-                            content={
+                            content={(
                                 <p>
                                     The Data Broker is the system that collects and validates federal spending
                                     data from source systems before they are ultimately published on USAspending.gov.
@@ -55,7 +55,7 @@ const DataValidation = (props) => {
                                     raise warnings without preventing publication. Auditors can review these results
                                     to monitor agency submissions.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -65,7 +65,7 @@ const DataValidation = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>System Validations</h4>}
-                            content={
+                            content={(
                                 <>
                                     <p>
                                         The Data Broker validates the data it receives from agency financial systems (Files A, B, and C) as well as FABS. These validations are based on business rules (such as for award linkage between File C and Files D1 and D2) and checks against authoritative sources such as GTAS. Agency financial systems are subject to other data quality assurance measures, such as review by Offices of Inspector General (OIG) and the Government Accountability Office (GAO) for reports as required by the DATA Act.
@@ -77,7 +77,7 @@ const DataValidation = (props) => {
                                         Read below for examples of the Data Broker’s validation measures.
                                     </p>
                                 </>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -87,7 +87,7 @@ const DataValidation = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Treasury Account Validations</h4>}
-                            content={
+                            content={(
                                 <p>
                                     The Data Broker checks that
                                     {" "}
@@ -99,7 +99,7 @@ const DataValidation = (props) => {
                                     and vice versa. It also checks that Treasury Accounts submitted to File A for
                                     any given reporting period are also submitted to File B, and vice versa.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -109,7 +109,7 @@ const DataValidation = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Zip Code Validations</h4>}
-                            content={
+                            content={(
                                 <p>
                                     The Data Broker checks that all financial assistance recipient zip codes
                                     are valid five-digit U.S. Postal Service zip codes. It also checks that these
@@ -121,7 +121,7 @@ const DataValidation = (props) => {
                                     <GlossaryLink term="record-type" />
                                     ).
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -134,7 +134,7 @@ const DataValidation = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Unique Entity Identifier (UEI) Validations</h4>}
-                            content={
+                            content={(
                                 <p>
                                     The Data Broker checks that financial assistance award recipients with a
                                     unique entity identifier (UEI) are registered in SAM.gov as of the
@@ -147,7 +147,7 @@ const DataValidation = (props) => {
                                     {" "}
                                     Some exceptions apply, such as if the date is before October 1, 2010.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -157,7 +157,7 @@ const DataValidation = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Award Linkage Validation</h4>}
-                            content={
+                            content={(
                                 <>
                                     <p>
                                         The Data Broker warns agencies about award IDs (i.e.,
@@ -208,7 +208,7 @@ const DataValidation = (props) => {
                                         for these statistics.
                                     </p>
                                 </>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
             </Scroller>

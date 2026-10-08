@@ -120,7 +120,8 @@ const AwardSpendingSubagency = ({ fy }) => {
                     department or independent agency’s sub-tiers and its offices and is used
                     by federal agencies as the authoritative source for managing federal
                     funding and awarding organizations.
-                </>)} />
+                </>
+            )} />
         </div>
     );
 };

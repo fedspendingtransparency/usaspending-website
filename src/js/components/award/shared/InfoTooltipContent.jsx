@@ -1644,7 +1644,8 @@ export const UnlinkedTooltip = (props) => {
             <div className="tooltip__text">
                 <p>This means all financial system data elements (File C) are unavailable on this page and in downloads for this award.</p>
             </div>
-        </div>);
+        </div>
+    );
 };
 
 UnlinkedTooltip.propTypes = {

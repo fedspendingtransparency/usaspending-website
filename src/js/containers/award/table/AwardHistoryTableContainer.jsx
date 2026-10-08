@@ -387,7 +387,7 @@ const AwardHistoryTableContainer = ({
 
     return (
         <>
-            {activeTab === 'subaward' &&
+            {activeTab === 'subaward' && (
                 <div className="subaward-totals">
                     <InformationBoxes boxes={[{
                         title: totalSubAwardLabel,
@@ -405,7 +405,7 @@ const AwardHistoryTableContainer = ({
                         amount: `${award.overview.subAwardedPercent}`
                     }]} />
                 </div>
-            }
+            )}
             <div className="search-results-table-section">
                 <div className="results-table-content">
                     <div className="advanced-search__table-wrapper">

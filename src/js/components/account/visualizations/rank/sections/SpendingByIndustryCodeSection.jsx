@@ -71,7 +71,7 @@ export default class SpendingByIndustryCodeSection extends React.Component {
                             View your results by NAICS Code or PSC Code, and hover over
                             the bars for more detailed information.
                         </p>
-                        {this.props.subaward ?
+                        {this.props.subaward ? (
                             <ReadMore openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" additionalFunctionality={additionalFunctionality}>
                                 <>
                                     {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
@@ -92,13 +92,15 @@ export default class SpendingByIndustryCodeSection extends React.Component {
                                         Sub-award amounts are funded by prime award obligations and outlays. In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award; sub-award amounts generally should not exceed the Current Award Amount for their associated prime award. To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
                                     </p>
                                 </>
-                            </ReadMore> :
+                            </ReadMore>
+                        ) : (
                             <ReadMore openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" additionalFunctionality={additionalFunctionality}>
                                 <>
                                     {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
                                     <p className="award-search__body-text">The data in the chart below represent <span className="award-search__glossary-term">federal action</span>{' '}<GlossaryLink term="federal-action-obligation" /> <span className="award-search__glossary-term"> obligation</span>{' '}<GlossaryLink term="obligation" /> amounts for prime award <span className="award-search__glossary-term"> transactions</span>{' '}<GlossaryLink term="transaction" /> within the selected filters. Loan awards use the {<span className="award-search__glossary-term">subsidy cost</span>}{' '}{<GlossaryLink term="loan-subsidy-cost" />} rather than the obligated amount to sum up the value of the loan. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</p>
                                 </>
-                            </ReadMore>}
+                            </ReadMore>
+                        )}
                     </div>
                     <div className="visualization-scope">
                         <RankVisualizationScopeButton

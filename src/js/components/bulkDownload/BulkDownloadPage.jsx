@@ -130,13 +130,13 @@ const BulkDownloadPage = ({
                         <div className="bulk-download__data">{downloadDataContent}</div>
                         <BulkDownloadModalContainer mounted={showModal} hideModal={hideModal} />
                     </FlexGridCol>
-                    { userSelections && !isMedium &&
+                    { userSelections && !isMedium && (
                         <FlexGridCol
                             width={4}
                             className="bulk-download">
                             {userSelections}
                         </FlexGridCol>
-                    }
+                    )}
                 </FlexGridRow>
                 <FlexGridRow className="download-info-wrapper">
                     <hr />

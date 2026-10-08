@@ -201,22 +201,25 @@ const CFDATree = ({
                 {messaging()}
             </div>
             <div className="cfda-section-treemap">
-                {chartLength !== 0 &&
+                {chartLength !== 0 && (
                     <svg
                         className="treemap"
                         width="100%"
                         height={height}>
                         {cells}
-                    </svg>}
+                    </svg>
+                )}
             </div>
-            {chartLength !== 0 &&
+            {chartLength !== 0 && (
                 <div className="cfda-section-treemap-count">
                     {`${virtualChart.length} ${naming}`}
-                </div>}
-            {isPartialTree &&
+                </div>
+            )}
+            {isPartialTree && (
                 <span className="cfda-section__note">
                     <Note message={message} />
-                </span>}
+                </span>
+            )}
         </div>
     );
 };

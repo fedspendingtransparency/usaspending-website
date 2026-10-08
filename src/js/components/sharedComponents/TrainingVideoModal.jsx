@@ -127,10 +127,11 @@ const TrainingVideoModal = (props) => {
                         mobile={12}
                         tablet={12}
                         className="usa-dt-modal__video">
-                        {isError ?
+                        {isError ? (
                             <GenericErrorMessage
                                 message="Sorry, we're unable to load this video."
-                                emailSubject="Training%20Videos%20Error" /> :
+                                emailSubject="Training%20Videos%20Error" />
+                        ) : (
                             <YouTube
                                 id="usa-dt-modal__yt-video"
                                 onError={handleError}
@@ -146,11 +147,12 @@ const TrainingVideoModal = (props) => {
                                 }}
                                 onReady={youTubeOnReady}
                                 title="YouTube video player" />
-                        }
+                        )}
                     </FlexGridCol>
                 </div>
             </div>
-        </Modal>);
+        </Modal>
+    );
 };
 
 TrainingVideoModal.propTypes = propTypes;

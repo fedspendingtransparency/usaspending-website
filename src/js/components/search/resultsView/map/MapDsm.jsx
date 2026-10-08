@@ -16,7 +16,7 @@ const MapDsm = ({ spendingLevel }) => {
             <p style={{ marginBottom: '8px' }}>
                 Use the map to break down spending by state, county, or congressional district.
             </p>
-            { spendingLevel === 'subawards' ?
+            { spendingLevel === 'subawards' ? (
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                     <p className="award-search__body-text">
@@ -47,7 +47,8 @@ const MapDsm = ({ spendingLevel }) => {
                         {' '}
                         in our About the Data module.
                     </p>
-                </> :
+                </>
+            ) : (
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                     <p className="award-search__body-text">
@@ -84,7 +85,7 @@ const MapDsm = ({ spendingLevel }) => {
                         since spending usually scales by the population of a region.
                     </p>
                 </>
-            }
+            )}
             <p style={{ marginTop: '8px' }}>
                 <span className="award-search__glossary-term">NOTE: </span>
                 Data reported by the Department of Health and Human Services (HHS) related

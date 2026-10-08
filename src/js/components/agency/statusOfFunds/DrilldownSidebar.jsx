@@ -67,7 +67,7 @@ const DrilldownSidebar = ({
                 )}
                 toggle={toggle}
                 outlay={agencyOutlayedShort} />
-            {level >= 1 &&
+            {level >= 1 && (
                 <DrilldownSidebarLevel
                     key="Sub-Component"
                     label="Sub-Component"
@@ -87,8 +87,8 @@ const DrilldownSidebar = ({
                     outlay={subComponentOutlays}
                     goBack={goBack}
                     toggle={toggle} />
-            }
-            {level >= 2 &&
+            )}
+            {level >= 2 && (
                 <DrilldownSidebarLevel
                     key="Federal Account"
                     label="Federal Account"
@@ -108,8 +108,8 @@ const DrilldownSidebar = ({
                     outlay={federalAccountOutlays}
                     goBack={goBack}
                     toggle={toggle} />
-            }
-            {level >= 3 &&
+            )}
+            {level >= 3 && (
                 <DrilldownSidebarLevel
                     key="Treasury Account Symbol"
                     label="Treasury Account Symbol"
@@ -123,8 +123,8 @@ const DrilldownSidebar = ({
                     outlay={tasOutlays}
                     goBack={goBack}
                     toggle={toggle} />
-            }
-            {level >= 4 &&
+            )}
+            {level >= 4 && (
                 <DrilldownSidebarLevel
                     key={dropdownSelection}
                     label={dropdownSelection}
@@ -138,7 +138,7 @@ const DrilldownSidebar = ({
                     outlay={prgActivityOrObjectClassOutlays}
                     goBack={goBack}
                     toggle={toggle} />
-            }
+            )}
         </>
     );
 };

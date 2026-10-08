@@ -59,7 +59,7 @@ const BannerPageHeader = memo(function BannerPageHeader({
             className={sectionHeaderClass}
             style={{ background: bannerColor }}>
             <FlexGridRow className={`banner-page-header__row ${className ? `${className}` : ''}`}>
-                { !isTablet &&
+                { !isTablet && (
                     <FlexGridCol width="auto" className="icon-column">
                         {showIconHighlight ? (
                             <>
@@ -75,14 +75,14 @@ const BannerPageHeader = memo(function BannerPageHeader({
                             </div>
                         )}
                     </FlexGridCol>
-                }
+                )}
                 <FlexGridCol width="fill" className="text-column">
                     <div className={`text-container ${className ? `${className}` : ''}`}>
-                        { isTablet &&
+                        { isTablet && (
                             <div className={`icon-container__mobile ${className ? `${className}` : ''}`} style={{ backgroundColor: titleOnly ? bannerColor : "#FFF" }}>
                                 <FontAwesomeIcon icon={faIcon} color={iconColor} />
                             </div>
-                        }
+                        )}
                         {titleOnly ? (
                             <div className="text__title title-only">{title}</div>
                         ) : (

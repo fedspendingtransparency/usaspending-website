@@ -966,27 +966,27 @@ const StatusOfFundsChart = ({
     return (
         <>
             {
-                isHovered &&
-                <TooltipWrapper
-                    className="sof_chart-tt"
-                    width={288}
-                    tooltipPosition="bottom"
-                    tooltipComponent={tooltip(hoverData)}
-                    styles={!toggle ? {
-                        position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - tooltipName}px)`
-                    } : {
-                        position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - (tooltipName - 10)}px)`
-                    }}
-                    controlledProps={{
-                        isControlled: true,
-                        isVisible: isHovered,
-                        showTooltip: () => { },
-                        closeTooltip: () => { }
-                    }} />
-            }
-            {isMobile &&
+                isHovered && (
+                    <TooltipWrapper
+                        className="sof_chart-tt"
+                        width={288}
+                        tooltipPosition="bottom"
+                        tooltipComponent={tooltip(hoverData)}
+                        styles={!toggle ? {
+                            position: 'absolute',
+                            transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - tooltipName}px)`
+                        } : {
+                            position: 'absolute',
+                            transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - (tooltipName - 10)}px)`
+                        }}
+                        controlledProps={{
+                            isControlled: true,
+                            isVisible: isHovered,
+                            showTooltip: () => { },
+                            closeTooltip: () => { }
+                        }} />
+                )}
+            {isMobile && (
                 <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
                     <div className="legend__item">
                         <div
@@ -1005,9 +1005,9 @@ const StatusOfFundsChart = ({
                         </div>
                     )}
                 </FlexGridRow>
-            }
+            )}
             <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
-            {!isMobile &&
+            {!isMobile && (
                 <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
                     <div className="legend__item">
                         <div
@@ -1026,7 +1026,7 @@ const StatusOfFundsChart = ({
                         </div>
                     )}
                 </FlexGridRow>
-            }
+            )}
         </>
     );
 };

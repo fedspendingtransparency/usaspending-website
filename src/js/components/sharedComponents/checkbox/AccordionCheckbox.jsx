@@ -163,11 +163,11 @@ const AccordionCheckbox = ({
                         onClear={onClear}
                         searchIcon />
                     {noResults ?
-                        <div className="no-results">No results found.</div> :
-                        <div className="checkbox-categories-wrapper">
-                            {checkboxCategories}
-                        </div>
-                    }
+                        <div className="no-results">No results found.</div> : (
+                            <div className="checkbox-categories-wrapper">
+                                {checkboxCategories}
+                            </div>
+                        )}
                 </>
             ) : (
                 <div className="checkbox-categories-wrapper">

@@ -51,12 +51,13 @@ const MapSection = ({ spendingLevel, mapHasLoaded, hash }) => {
 
     return (
         <div id="search-page-component" className="map">
-            {mapHasLoaded ?
+            {mapHasLoaded ? (
                 <MapSectionWrapper
                     scope={selectedDropdown}
                     setScope={setSelectedDropdown}
                     wrapperProps={wrapperProps}
-                    hash={hash} /> :
+                    hash={hash} />
+            ) :
                 <PlaceholderComponent classname="map" />
             }
         </div>

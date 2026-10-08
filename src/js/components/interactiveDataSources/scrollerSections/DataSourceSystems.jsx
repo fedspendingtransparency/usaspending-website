@@ -63,13 +63,13 @@ const DataSourceSystems = (props) => {
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
-                            content={
+                            content={(
                                 <p>
                                     You can understand the USAspending source systems as grouped by
                                     the type of data they provide: Account Data, Award Data, and
                                     Additional Data.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -92,7 +92,7 @@ const DataSourceSystems = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Agency Budget Execution</h4>}
-                            content={
+                            content={(
                                 <p>
                                     Agency budget execution information (compiled in SF 133 reports) shows how agencies across
                                     the federal government spend their funding, as required by the
@@ -108,7 +108,7 @@ const DataSourceSystems = (props) => {
                                     USAspending.gov but nonetheless submit budget execution data to a
                                     different system.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -131,7 +131,7 @@ const DataSourceSystems = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Agency Financial Systems</h4>}
-                            content={
+                            content={(
                                 <p>
                                     Federal agencies maintain business systems to track their own
                                     finances, such as for operational costs, employee salaries, and
@@ -139,7 +139,7 @@ const DataSourceSystems = (props) => {
                                     submitted directly to USAspending.gov in accordance with the DATA
                                     Act and guidance from the Office of Management and Budget.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -162,7 +162,7 @@ const DataSourceSystems = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Governmentwide Award Systems</h4>}
-                            content={
+                            content={(
                                 <>
                                     <p>
                                         Agencies maintain detailed records of their federal awards in
@@ -205,7 +205,7 @@ const DataSourceSystems = (props) => {
                                         registration data.
                                     </p>
                                 </>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -228,7 +228,7 @@ const DataSourceSystems = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Additional Government Data</h4>}
-                            content={
+                            content={(
                                 <p>
                                     Certain agencies are considered authoritative sources for
                                     information related to the spending data that USAspending.gov
@@ -236,7 +236,7 @@ const DataSourceSystems = (props) => {
                                     needed to provide standardized names, codes, and element
                                     relationships.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 

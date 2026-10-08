@@ -118,10 +118,12 @@ const FeaturedContentArticle = () => {
     const Hero = () => {
         if (isInfographicTemplate) return <></>;
 
-        return (<FeaturedContentHeader
-            isMobile={isMobile}
-            isTablet={isTablet}
-            chosenArticle={chosenArticle} />);
+        return (
+            <FeaturedContentHeader
+                isMobile={isMobile}
+                isTablet={isTablet}
+                chosenArticle={chosenArticle} />
+        );
     };
 
     const InfographicHero = () => {
@@ -133,7 +135,8 @@ const FeaturedContentArticle = () => {
                         style={{ backgroundColor: getPrimaryFill(chosenArticle) }}>
                         {chosenArticle?.taxonomy}
                     </span>
-                </div>);
+                </div>
+            );
         }
 
         return <></>;
@@ -149,49 +152,53 @@ const FeaturedContentArticle = () => {
     const pageContent = () => {
         if (!isFound) return <ErrorMessage />;
 
-        return (<>
-            <Hero />
-            <FlexGridRow desktop={12} className="grid-content featured-content__article-body">
-                <FlexGridCol tablet={12} mobile={12} desktop={8}>
-                    <InfographicHero />
-                    <h1 className="featured-content__article-title">
-                        {chosenArticle?.title}
-                    </h1>
-                    <div className="featured-content__last-updated">
-                        Last Updated: {chosenArticle?.created_date}
-                    </div>
-                    <Article />
-                </FlexGridCol>
-                <FeaturedContentArticleSidebar chosenArticle={chosenArticle} />
-            </FlexGridRow>
-        </>);
+        return (
+            <>
+                <Hero />
+                <FlexGridRow desktop={12} className="grid-content featured-content__article-body">
+                    <FlexGridCol tablet={12} mobile={12} desktop={8}>
+                        <InfographicHero />
+                        <h1 className="featured-content__article-title">
+                            {chosenArticle?.title}
+                        </h1>
+                        <div className="featured-content__last-updated">
+                            Last Updated: {chosenArticle?.created_date}
+                        </div>
+                        <Article />
+                    </FlexGridCol>
+                    <FeaturedContentArticleSidebar chosenArticle={chosenArticle} />
+                </FlexGridRow>
+            </>
+        );
     };
 
-    return <>
-        {chosenArticle?.hidden && <Navigate to="/404" />}
-        <PageWrapper
-            pageName="featured-content-article"
-            classNames="featured-content-page"
-            noHeader={setNoHeader()}
-            backgroundColor={isInfographicTemplate ? getPrimaryFill(chosenArticle) : `rgb(26, 68, 128)`}
-            sections={sections}
-            activeSection={activeSection}
-            jumpToSection={jumpToSection}
-            inPageNav={
-                isInfographicTemplate &&
-                sections?.length > 2 &&
-                chosenArticle &&
-                typeof MarkdownContent === "function"
-            }
-            metaTagProps={{ ...homePageMetaTags }}
-            rootMargin="-240px 0px 0px 0px">
-            <main
-                id="main-content"
-                className="main-content featured-content">
-                {pageContent()}
-            </main>
-        </PageWrapper>
-    </>;
+    return (
+        <>
+            {chosenArticle?.hidden && <Navigate to="/404" />}
+            <PageWrapper
+                pageName="featured-content-article"
+                classNames="featured-content-page"
+                noHeader={setNoHeader()}
+                backgroundColor={isInfographicTemplate ? getPrimaryFill(chosenArticle) : `rgb(26, 68, 128)`}
+                sections={sections}
+                activeSection={activeSection}
+                jumpToSection={jumpToSection}
+                inPageNav={
+                    isInfographicTemplate &&
+                    sections?.length > 2 &&
+                    chosenArticle &&
+                    typeof MarkdownContent === "function"
+                }
+                metaTagProps={{ ...homePageMetaTags }}
+                rootMargin="-240px 0px 0px 0px">
+                <main
+                    id="main-content"
+                    className="main-content featured-content">
+                    {pageContent()}
+                </main>
+            </PageWrapper>
+        </>
+    );
 };
 
 export default FeaturedContentArticle;

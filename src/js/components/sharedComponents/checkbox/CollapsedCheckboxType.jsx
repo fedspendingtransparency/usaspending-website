@@ -49,12 +49,12 @@ const CollapsedCheckboxType = ({
         <div className="primary-checkbox-type">
             <div className="checkbox-type-item-wrapper">
                 {
-                    isCollapsable &&
-                    <CheckboxExpandButton
-                        hidden={hideArrow}
-                        toggleExpand={toggleExpand}
-                        arrowState={arrowState} />
-                }
+                    isCollapsable && (
+                        <CheckboxExpandButton
+                            hidden={hideArrow}
+                            toggleExpand={toggleExpand}
+                            arrowState={arrowState} />
+                    )}
                 <label
                     className="checkbox-item-wrapper"
                     htmlFor={inputId}>

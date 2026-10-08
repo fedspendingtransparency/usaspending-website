@@ -15,63 +15,67 @@ const AwardSectionHeader = ({
 }) => {
     const accordionTitle = <div className="action-type accordion-title"><FontAwesomeIcon icon="circle-info" /><span>Show Column Info</span></div>;
 
-    const awardAccordionContent = (<div>
-        <p><span className="label">Modification Number:</span> Identifies the modification. Modification numbers increment from lower to higher as more mods are made.</p>
-        <p><span className="label">Action Date:</span> When the modification was issued.</p>
-        <p><span className="label">Amount:</span> The amount of money added or subtracted from the initial awarded amounts by the modification, if any.</p>
-        {category === "loan" && title.includes("Award History") &&
-            <>
-                <p>
-                    <span className="label">Loan Face Value: </span>
-                    Represents how much has been lent out to the entity that received the loan dollars. Sometimes loans are financed by a financial institution (with the Federal government merely providing a &apos;loan guarantee&apos; to the financial institution and reimbursement in cases where the loan isn&apos;t paid back), and other times they are financed by the Federal government directly (direct loans). Regardless of how it is financed, a loan&apos;s face value is not considered Federal spending, because it does not represent a long-term cost to the government. The estimated long-term cost to the government of a loan is captured in the subsidy cost field.
-                </p>
-                <p>
-                    <span className="label">Loan Subsidy Cost (Total Obligations To Date): </span>
-                    The implications of a loan or loan guarantee for the Federal Budget (and thus the loan version of spending/obligations) are known as the loan&apos;s subsidy cost. Subsidy cost is the calculated net present value of the loan to the government, taking into account the interest rate and the modeled risk of the recipient failing to pay back the loan in part or full; subsidy cost can be positive (indicating that the government is likely to lose money on the loan) or negative (indicating that the government is likely to make money on the loan). Subsidy cost should never be larger in absolute value terms than the face value itself. Administrative costs of running the loan or loan guarantee program itself are excluded from subsidy cost calculations. Note that a loan&apos;s face value is not considered Federal spending, since it does not in itself represent a long-term cost to the government.
-                </p>
-            </>
-        }
+    const awardAccordionContent = (
+        <div>
+            <p><span className="label">Modification Number:</span> Identifies the modification. Modification numbers increment from lower to higher as more mods are made.</p>
+            <p><span className="label">Action Date:</span> When the modification was issued.</p>
+            <p><span className="label">Amount:</span> The amount of money added or subtracted from the initial awarded amounts by the modification, if any.</p>
+            {category === "loan" && title.includes("Award History") && (
+                <>
+                    <p>
+                        <span className="label">Loan Face Value: </span>
+                        Represents how much has been lent out to the entity that received the loan dollars. Sometimes loans are financed by a financial institution (with the Federal government merely providing a &apos;loan guarantee&apos; to the financial institution and reimbursement in cases where the loan isn&apos;t paid back), and other times they are financed by the Federal government directly (direct loans). Regardless of how it is financed, a loan&apos;s face value is not considered Federal spending, because it does not represent a long-term cost to the government. The estimated long-term cost to the government of a loan is captured in the subsidy cost field.
+                    </p>
+                    <p>
+                        <span className="label">Loan Subsidy Cost (Total Obligations To Date): </span>
+                        The implications of a loan or loan guarantee for the Federal Budget (and thus the loan version of spending/obligations) are known as the loan&apos;s subsidy cost. Subsidy cost is the calculated net present value of the loan to the government, taking into account the interest rate and the modeled risk of the recipient failing to pay back the loan in part or full; subsidy cost can be positive (indicating that the government is likely to lose money on the loan) or negative (indicating that the government is likely to make money on the loan). Subsidy cost should never be larger in absolute value terms than the face value itself. Administrative costs of running the loan or loan guarantee program itself are excluded from subsidy cost calculations. Note that a loan&apos;s face value is not considered Federal spending, since it does not in itself represent a long-term cost to the government.
+                    </p>
+                </>
+            )}
 
-        <div className="accordion-body-copy__action-type">
-            <span className="label">Action Type: </span>
-            Describes the type of modification using a letter code system that maps to the following descriptions.
-            <br />
-            A1 – New Award
-            <br />
-            A2 – Renewal Award
-            <br />
-            B1 – Continuation
-            <br />
-            C1 – Termination Initiated: Material Failure to Comply
-            <br />
-            C2 – Termination Initiated: Mutual Consent
-            <br />
-            C3 – Termination Initiated: Recipient-Initiated
-            <br />
-            C4 – Termination Initiated: No Longer Effectuates Program Goals or Agency Priorities
-            <br />
-            D1 – Closeout
-            <br />
-            E1 – Recipient Change
-            <br />
-            EX – Other Action, Non-Financial
-            <br />
-            FX – Other Action, Financial
-            <br />
-            G1 – Mixed Aggregate
-            <br />
+            <div className="accordion-body-copy__action-type">
+                <span className="label">Action Type: </span>
+                Describes the type of modification using a letter code system that maps to the following descriptions.
+                <br />
+                A1 – New Award
+                <br />
+                A2 – Renewal Award
+                <br />
+                B1 – Continuation
+                <br />
+                C1 – Termination Initiated: Material Failure to Comply
+                <br />
+                C2 – Termination Initiated: Mutual Consent
+                <br />
+                C3 – Termination Initiated: Recipient-Initiated
+                <br />
+                C4 – Termination Initiated: No Longer Effectuates Program Goals or Agency Priorities
+                <br />
+                D1 – Closeout
+                <br />
+                E1 – Recipient Change
+                <br />
+                EX – Other Action, Non-Financial
+                <br />
+                FX – Other Action, Financial
+                <br />
+                G1 – Mixed Aggregate
+                <br />
+            </div>
+
+            <p><span className="label">Transaction Description: </span> Describes modification, typically covering the effect on the contact.</p>
         </div>
+    );
 
-        <p><span className="label">Transaction Description: </span> Describes modification, typically covering the effect on the contact.</p>
-    </div>);
-
-    const subawardAccordionContent = (<div>
-        <p><span className="label">Sub-Award ID: </span> The sub-award ID number chosen by the prime recipient for this transaction.</p>
-        <p><span className="label">Recipient Name: </span> The name of the sub recipient.</p>
-        <p><span className="label">Action Date: </span> The date the sub-contract was issued.</p>
-        <p><span className="label">Amount: </span> The amount of money involved in the sub-contract action.</p>
-        <p><span className="label">Sub-Award Description: </span> The description of the sub-contract provided by the prime recipient. The level of detail in descriptions varies and is dependent on the author.</p>
-    </div>);
+    const subawardAccordionContent = (
+        <div>
+            <p><span className="label">Sub-Award ID: </span> The sub-award ID number chosen by the prime recipient for this transaction.</p>
+            <p><span className="label">Recipient Name: </span> The name of the sub recipient.</p>
+            <p><span className="label">Action Date: </span> The date the sub-contract was issued.</p>
+            <p><span className="label">Amount: </span> The amount of money involved in the sub-contract action.</p>
+            <p><span className="label">Sub-Award Description: </span> The description of the sub-contract provided by the prime recipient. The level of detail in descriptions varies and is dependent on the author.</p>
+        </div>
+    );
 
     const content = (
         <div className="accordion-body-copy">
@@ -90,14 +94,15 @@ const AwardSectionHeader = ({
             <div className="award-viz__heading">
                 {icon && <div className="award-viz__icon">{icon}</div>}
                 <h3 className="award-viz__title">{title}</h3>
-                {tooltip && !title.includes("Award History") &&
-                // TODO: TooltipWrapper may be able to remove?
+                {tooltip && !title.includes("Award History") && (
+                    // TODO: TooltipWrapper may be able to remove?
                     <TooltipWrapper
                         className="award-section-tt"
                         icon="info"
                         tooltipPosition={left ? 'left' : 'right'}
                         wide={tooltipWide}
-                        tooltipComponent={tooltip} />}
+                        tooltipComponent={tooltip} />
+                )}
             </div>
             <hr className="award-viz__break" />
             {title.includes("Award History") && content}

@@ -31,7 +31,8 @@ const PublicLawPickerOption = ({
                 {term && (
                     <GlossaryLink term={term} />
                 )}
-            </p>)}
+            </p>
+        )}
     </li>
 );
 
@@ -67,7 +68,8 @@ const PublicLawPicker = ({
                     onClick
                 }))} />
             <span>Public Law</span>
-        </div>);
+        </div>
+    );
 };
 
 PublicLawPicker.propTypes = {

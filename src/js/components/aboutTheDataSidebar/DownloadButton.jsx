@@ -30,7 +30,8 @@ const DownloadButton = () => {
                 <FontAwesomeIcon data-href="/data/about-the-data-download.pdf" icon="file-download" className="atd__download-icon" />
                 Download
             </a>
-        </div>);
+        </div>
+    );
 };
 
 export default DownloadButton;

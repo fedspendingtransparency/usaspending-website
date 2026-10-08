@@ -177,7 +177,7 @@ export const searchGovSpendingData = [
                 variant="ask-questions"
                 label="Ask questions"
                 icon="question"
-                description={
+                description={(
                     <>
                         Enter your
                         {' '}
@@ -191,7 +191,7 @@ export const searchGovSpendingData = [
                         {' '}
                         in the Smart Assist panel.
                     </>
-                } />
+                )} />
         )
     },
     {
@@ -201,7 +201,7 @@ export const searchGovSpendingData = [
                 variant="analyzing-response"
                 label="Analyzing Response"
                 icon="arrows-rotate"
-                description={
+                description={(
                     <>
                         Let our model do it’s work to
                         {' '}
@@ -209,7 +209,7 @@ export const searchGovSpendingData = [
                         {' '}
                         <strong>data.</strong>
                     </>
-                } />
+                )} />
         )
     },
     {
@@ -219,7 +219,7 @@ export const searchGovSpendingData = [
                 variant="get-the-data"
                 label="Get the Data"
                 icon="chart-column"
-                description={
+                description={(
                     <>
                         Get downloadable
                         {' '}
@@ -229,7 +229,7 @@ export const searchGovSpendingData = [
                         {' '}
                         relevant to your search!
                     </>
-                } />
+                )} />
         )
     }
 ];

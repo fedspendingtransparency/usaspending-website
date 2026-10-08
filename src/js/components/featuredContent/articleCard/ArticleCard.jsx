@@ -57,14 +57,14 @@ const ArticleCard = ({
                 </CardHero>
                 <CardBody
                     overline={overline}
-                    headline={
+                    headline={(
                         <div>
                             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                             <div className="article-card__headline" onClick={onClick}>
                                 {title}
                             </div>
                         </div>
-                    }
+                    )}
                     text={description}>
                     <div className="list-of-articles__inline">
                         <div className="article-card__metadiv">

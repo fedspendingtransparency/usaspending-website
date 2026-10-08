@@ -29,7 +29,7 @@ const SearchSectionWrapperHeader = ({
 
     return (
         <>
-            {selectedDropdownOption ?
+            {selectedDropdownOption ? (
                 <div className="search__section-wrapper-header">
                     <span className="filter__dropdown-label">{sectionTitle}</span>
                     <NewPicker
@@ -50,7 +50,8 @@ const SearchSectionWrapperHeader = ({
                         activeType={viewType}
                         changeView={changeView}
                         classname="search__chart-table-toggle" />
-                </div> :
+                </div>
+            ) : (
                 <>
                     <div className="search__section-wrapper-header">
                         <span className="filter__dropdown-label">{sectionTitle}</span>
@@ -74,7 +75,7 @@ const SearchSectionWrapperHeader = ({
                         // }
                     }
                 </>
-            }
+            )}
         </>
     );
 };

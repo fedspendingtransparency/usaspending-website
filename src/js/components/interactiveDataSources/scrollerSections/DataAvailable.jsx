@@ -105,7 +105,7 @@ const DataAvailable = (props) => {
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Data Available on USAspending.gov</h4>}
-                            content={
+                            content={(
                                 <p>
                                     USAspending.gov receives over 400 data elements coming from
                                     various government systems. These data elements cover
@@ -137,7 +137,7 @@ const DataAvailable = (props) => {
                                     , as well as
                                     information such as Census data for additional context.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -193,7 +193,7 @@ const DataAvailable = (props) => {
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
-                            content={
+                            content={(
                                 <p>
                                     Note that some smaller executive branch agencies, as well as
                                     the entire legislative and judicial branches, are not required
@@ -205,7 +205,7 @@ const DataAvailable = (props) => {
                                     </Link>
                                     .
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 

@@ -311,15 +311,15 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
     return (
         <div className="map-container">
             {
-                GlobalConstants.MAPBOX_TOKEN &&
-                <MapBox
-                    setMapReady={setMapReady}
-                    center={center}
-                    mapType={scope}
-                    stateInfo={stateInfo}
-                    stateProfile
-                    ref={mapRef} />
-            }
+                GlobalConstants.MAPBOX_TOKEN && (
+                    <MapBox
+                        setMapReady={setMapReady}
+                        center={center}
+                        mapType={scope}
+                        stateInfo={stateInfo}
+                        stateProfile
+                        ref={mapRef} />
+                )}
             <MapFiltersToggle
                 isFiltersOpen={isFiltersOpen}
                 setIsFiltersOpen={setIsFiltersOpen} />

@@ -25,10 +25,11 @@ const NLSearchSuggestionsIcon = ({ variant, label, icon, description = '' }) => 
             className={`icon-label icon-label--${variant} 
                 ${description ? 'icon-label__with-description' : ''}`}>
             <span>{label}</span>
-            { description &&
+            { description && (
                 <span className={`icon-description icon-description--${variant}`}>
                     {description}
-                </span>}
+                </span>
+            )}
         </div>
     </div>
 );

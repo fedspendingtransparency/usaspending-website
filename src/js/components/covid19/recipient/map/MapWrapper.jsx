@@ -478,12 +478,12 @@ export default class MapWrapper extends React.Component {
                     this.wrapperDiv = div;
                 }}>
                 {
-                    GlobalConstants.MAPBOX_TOKEN &&
-                    <MapBox
-                        setMapReady={this.props.onMapLoaded}
-                        center={this.props.center}
-                        ref={this.mapRef} />
-                }
+                    GlobalConstants.MAPBOX_TOKEN && (
+                        <MapBox
+                            setMapReady={this.props.onMapLoaded}
+                            center={this.props.center}
+                            ref={this.mapRef} />
+                    )}
                 <MapFiltersToggle
                     isFiltersOpen={this.state.isFiltersOpen}
                     setIsFiltersOpen={this.toggleFilters} />

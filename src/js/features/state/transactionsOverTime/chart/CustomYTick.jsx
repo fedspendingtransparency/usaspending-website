@@ -18,7 +18,8 @@ const CustomYTick = ({ x, y, payload }) => (
         <text x={0} y={0} dy={0} textAnchor="end" fill="#5C5C5C" fontSize={12} width="48px">
             {formatMoneyWithUnitsShortLabel(payload.value)}
         </text>
-    </g>);
+    </g>
+);
 
 CustomYTick.propTypes = customYTickPropTypes;
 export default CustomYTick;

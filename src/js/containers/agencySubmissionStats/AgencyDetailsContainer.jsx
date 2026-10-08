@@ -66,10 +66,11 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                     key={rowData.percentOfBudget}>
                     {rowData.percentOfBudget}
                 </div>,
-                !rowData._mostRecentPublicationDate ?
+                !rowData._mostRecentPublicationDate ? (
                     <div className="generic-cell-content">
                         {rowData.mostRecentPublicationDate}
-                    </div> :
+                    </div>
+                ) : (
                     <CellWithModal
                         data={rowData.mostRecentPublicationDate}
                         openModal={modalClick}
@@ -79,58 +80,63 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             fiscalPeriod: rowData.fiscalPeriod,
                             agencyName,
                             agencyCode
-                        }} />,
-                isNull(rowData._discrepancyCount) ?
-                    <div className="generic-cell-content">{rowData.discrepancyCount}</div> :
-                    <CellWithModal
-                        data={rowData.discrepancyCount}
-                        openModal={modalClick}
-                        modalType="missingAccountBalance"
-                        agencyData={{
-                            fiscalYear: rowData.fiscalYear,
-                            fiscalPeriod: rowData.fiscalPeriod,
-                            agencyName,
-                            agencyCode,
-                            gtasObligationTotal: rowData._gtasObligationTotal
-                        }} />,
-                isNull(rowData._obligationDifference) ?
-                    <div className="generic-cell-content">{rowData.obligationDifference}</div> :
-                    <CellWithModal
-                        data={rowData.obligationDifference}
-                        openModal={modalClick}
-                        modalType="reportingDifferences"
-                        agencyData={{
-                            fiscalYear: rowData.fiscalYear,
-                            fiscalPeriod: rowData.fiscalPeriod,
-                            agencyName,
-                            agencyCode
-                        }} />,
-                isNull(rowData._unlinkedContracts) ?
-                    <div className="generic-cell-content">{rowData.unlinkedContracts}</div> :
-                    <CellWithModal
-                        data={rowData.unlinkedContracts}
-                        openModal={modalClick}
-                        modalType="unlinkedData"
-                        agencyData={{
-                            agencyName,
-                            agencyCode,
-                            fiscalYear: rowData.fiscalYear,
-                            fiscalPeriod: rowData.fiscalPeriod,
-                            type: 'Contract'
-                        }} />,
-                isNull(rowData._unlinkedAssistance) ?
-                    <div className="generic-cell-content">{rowData.unlinkedAssistance}</div> :
-                    <CellWithModal
-                        data={rowData.unlinkedAssistance}
-                        openModal={modalClick}
-                        modalType="unlinkedData"
-                        agencyData={{
-                            agencyName,
-                            agencyCode,
-                            fiscalYear: rowData.fiscalYear,
-                            fiscalPeriod: rowData.fiscalPeriod,
-                            type: 'Assistance'
                         }} />
+                ),
+                isNull(rowData._discrepancyCount) ?
+                    <div className="generic-cell-content">{rowData.discrepancyCount}</div> : (
+                        <CellWithModal
+                            data={rowData.discrepancyCount}
+                            openModal={modalClick}
+                            modalType="missingAccountBalance"
+                            agencyData={{
+                                fiscalYear: rowData.fiscalYear,
+                                fiscalPeriod: rowData.fiscalPeriod,
+                                agencyName,
+                                agencyCode,
+                                gtasObligationTotal: rowData._gtasObligationTotal
+                            }} />
+                    ),
+                isNull(rowData._obligationDifference) ?
+                    <div className="generic-cell-content">{rowData.obligationDifference}</div> : (
+                        <CellWithModal
+                            data={rowData.obligationDifference}
+                            openModal={modalClick}
+                            modalType="reportingDifferences"
+                            agencyData={{
+                                fiscalYear: rowData.fiscalYear,
+                                fiscalPeriod: rowData.fiscalPeriod,
+                                agencyName,
+                                agencyCode
+                            }} />
+                    ),
+                isNull(rowData._unlinkedContracts) ?
+                    <div className="generic-cell-content">{rowData.unlinkedContracts}</div> : (
+                        <CellWithModal
+                            data={rowData.unlinkedContracts}
+                            openModal={modalClick}
+                            modalType="unlinkedData"
+                            agencyData={{
+                                agencyName,
+                                agencyCode,
+                                fiscalYear: rowData.fiscalYear,
+                                fiscalPeriod: rowData.fiscalPeriod,
+                                type: 'Contract'
+                            }} />
+                    ),
+                isNull(rowData._unlinkedAssistance) ?
+                    <div className="generic-cell-content">{rowData.unlinkedAssistance}</div> : (
+                        <CellWithModal
+                            data={rowData.unlinkedAssistance}
+                            openModal={modalClick}
+                            modalType="unlinkedData"
+                            agencyData={{
+                                agencyName,
+                                agencyCode,
+                                fiscalYear: rowData.fiscalYear,
+                                fiscalPeriod: rowData.fiscalPeriod,
+                                type: 'Assistance'
+                            }} />
+                    )
             ];
         });
 
@@ -165,7 +171,6 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
 
     useEffect(() => {
         prevPageRef.current = currentPage;
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     useEffect(() => {

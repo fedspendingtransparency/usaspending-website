@@ -41,7 +41,8 @@ const AgencySection = ({
             isCollapsible>
             {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
             {isLoading ? <LoadingMessage /> : children}
-        </SectionWrapper>);
+        </SectionWrapper>
+    );
 };
 
 AgencySection.propTypes = propTypes;

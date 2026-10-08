@@ -39,11 +39,13 @@ export default class CFDATable extends React.Component {
                             {header.displayName}
                         </div>
                     </div>
-                    {header.field && <StateLandingTableSorter
-                        field={header.field}
-                        label={header.displayName}
-                        active={{ field: sort, direction: order }}
-                        setSort={updateSort} />}
+                    {header.field && (
+                        <StateLandingTableSorter
+                            field={header.field}
+                            label={header.displayName}
+                            active={{ field: sort, direction: order }}
+                            setSort={updateSort} />
+                    )}
                 </div>
             </th>
         ));
@@ -112,9 +114,11 @@ export default class CFDATable extends React.Component {
             errorMessage = (<ResultsTableErrorMessage />);
         }
         if ((currentPageCFDAs.length === 0) && !error && !inFlight) {
-            noResultsMessage = (<NoResultsMessage
-                title="Chart Not Available"
-                message="No available data to display." />);
+            noResultsMessage = (
+                <NoResultsMessage
+                    title="Chart Not Available"
+                    message="No available data to display." />
+            );
         }
         if ((currentPageCFDAs.length > 0) && !error && !inFlight) {
             pagination = (

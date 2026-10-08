@@ -226,7 +226,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 description: (
                     <div className="unlinked-data">
                         Unknown CFDA Program (Unlinked Data)
-                    </div>),
+                    </div>
+                ),
                 ...calculateUnlinkedTotals(overallAsstAwardTotals, cfdaTotals)
             }]);
     });
@@ -373,7 +374,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />
-            {(loading || error || results.length === 0) &&
+            {(loading || error || results.length === 0) && (
                 <TransitionGroup>
                     <CSSTransition
                         classNames="table-message-fade"
@@ -386,8 +387,8 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                         </div>
                     </CSSTransition>
                 </TransitionGroup>
-            }
-            {!loading && !error && results.length > 0 &&
+            )}
+            {!loading && !error && results.length > 0 && (
                 <div
                     ref={tableRef}
                     className={`table-wrapper spending-by-cfda ${unlinkedDataClass ? 'unlinked-data' : ''}`}>
@@ -397,7 +398,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                         updateSort={updateSort}
                         currentSort={{ field: sort, direction: order }} />
                 </div>
-            }
+            )}
             <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

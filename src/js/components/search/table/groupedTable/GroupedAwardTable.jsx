@@ -98,13 +98,13 @@ const GroupedAwardTable = (props) => {
                                 {headerGroup.headers.map((header, h) => (
                                     <th key={header.id} className="table-header stickyColumn">
                                         {header.isPlaceholder ?
-                                            null :
-                                            <GroupedTableHeader
-                                                index={h}
-                                                updateSort={props.updateSort}
-                                                currentSort={props.sort}
-                                                header={header} />
-                                        }
+                                            null : (
+                                                <GroupedTableHeader
+                                                    index={h}
+                                                    updateSort={props.updateSort}
+                                                    currentSort={props.sort}
+                                                    header={header} />
+                                            )}
                                     </th>
                                 ))}
                             </tr>

@@ -52,7 +52,7 @@ const AwardBreakdownHeader = ({ toggle, setToggle }) => {
                                 title="About Outlays" />
                         </div>
                     </div>
-                    {open &&
+                    {open && (
                         <div className="state-overview__what-content">
                             <FontAwesomeIcon
                                 icon="info-circle"
@@ -74,7 +74,8 @@ const AwardBreakdownHeader = ({ toggle, setToggle }) => {
                                 The award types above add up to more than 100% due to negative values not
                                 shown here.
                             </p>
-                        </div>}
+                        </div>
+                    )}
                 </div>
             </FlexGridCol>
         </FlexGridRow>

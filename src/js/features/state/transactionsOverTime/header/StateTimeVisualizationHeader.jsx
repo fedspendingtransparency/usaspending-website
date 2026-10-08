@@ -72,13 +72,13 @@ const StateTimeVisualizationHeader = ({
                         dropdownOptions?.find((obj) => obj.value === visualizationPeriod)?.name :
                         `${visualizationPeriod}`}
                     sortFn={sortFn} />
-                {showOutlays &&
+                {showOutlays && (
                     <OutlaysToggle
                         outlayToggle={outlayToggle}
                         setOutlayToggle={setOutlayToggle}
                         outlayWhatOpen={outlayWhatOpen}
                         setOutlayWhatOpen={setOutlayWhatOpen} />
-                }
+                )}
             </div>
             { showOutlays && <OutlaysExplanation outlayWhatOpen={outlayWhatOpen} /> }
         </>

@@ -302,22 +302,25 @@ const RecipientTableContainer = ({ activeTab, scrollIntoView }) => {
                 <div className="table-utility__left">
                     <SearchBar onSearch={setQuery} />
                 </div>
-                {(!error && !loading && results.length > 0) &&
+                {(!error && !loading && results.length > 0) && (
                     <div className="table-utility__right">
                         <TableDownloadLink
                             defCodes={defcParams && defcParams.length > 0 && defcParams}
                             awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null}
                             query={query} />
-                    </div>}
+                    </div>
+                )}
             </div>
-            {(results.length > 0 || error) && <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={setPageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />}
+            {(results.length > 0 || error) && (
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={setPageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+            )}
             <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`}>
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
@@ -327,14 +330,16 @@ const RecipientTableContainer = ({ activeTab, scrollIntoView }) => {
                     error={error}
                     loading={loading} />
             </div>
-            {(results.length > 0 || error) && <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={setPageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />}
+            {(results.length > 0 || error) && (
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={setPageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+            )}
             {!loading && !error && results.length > 0 && <Note message={noteText} />}
         </div>
     );

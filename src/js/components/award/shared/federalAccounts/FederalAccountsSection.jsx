@@ -43,7 +43,7 @@ const FederalAccountsSection = ({
             <div className="award__col__content">
                 {unlinked ? (
                     <UnlinkedAwardWarning />
-                ) :
+                ) : (
                     <>
                         <FederalAccountsVizContainer />
                         <span className="federal-accounts__section--note">
@@ -52,7 +52,7 @@ const FederalAccountsSection = ({
                         <FederalAccountsSummaryContainer
                             jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
                     </>
-                }
+                )}
             </div>
         </AwardSection>
     );

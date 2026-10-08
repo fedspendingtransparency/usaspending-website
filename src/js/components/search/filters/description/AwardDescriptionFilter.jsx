@@ -47,12 +47,12 @@ const AwardDescriptionFilter = ({
                     onClick={applyAwardDescription} />
             </form>
             <div className="selected-filters" role="status">
-                {selectedAwardDescription &&
+                {selectedAwardDescription && (
                     <ShownValue
                         label={selectedAwardDescription}
                         key={selectedAwardDescription}
                         removeValue={removeAwardDescription} />
-                }
+                )}
             </div>
         </div>
     </div>

@@ -37,13 +37,14 @@ const BulkDownloadRadioButton = ({
                     checked={checked}
                     onChange={onChange}
                     disabled={disabled} />
-                {description ?
+                {description ? (
                     <div className="radio-container">
                         {label}
                         <div className="radio-description">
                             {description}
                         </div>
-                    </div> :
+                    </div>
+                ) :
                     label
                 }
             </label>

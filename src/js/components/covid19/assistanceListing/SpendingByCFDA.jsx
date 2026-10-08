@@ -129,14 +129,15 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
     return (
         <div className="body__content assistance-listing">
             <DateNote />
-            {publicLaw === 'american-rescue-plan' ?
+            {publicLaw === 'american-rescue-plan' ? (
                 <h4 className="body__narrative">
                     <strong>Which Assistance Listings </strong> supported the American Rescue Plan?
-                </h4> :
+                </h4>
+            ) : (
                 <h4 className="body__narrative">
                     <strong>Which Assistance Listings </strong> supported the response to COVID-19?
                 </h4>
-            }
+            )}
             <div className="body__narrative-description">
                 <p>
                     Overall financial assistance awards represent the vast majority of COVID-19 appropriated spending.
@@ -168,12 +169,13 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
                 activeTab={activeTab}
                 scrollIntoView={scrollIntoViewTable} />
             <Note message={dodNote} />
-            {publicLaw === 'american-rescue-plan' ?
+            {publicLaw === 'american-rescue-plan' ? (
                 <Note message={(
                     <>
                         This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
                     </>
-                )} /> : <div />
+                )} />
+            ) : <div />
             }
         </div>
     );

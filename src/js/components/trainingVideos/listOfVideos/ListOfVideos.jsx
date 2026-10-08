@@ -131,11 +131,13 @@ const ListOfVideos = ({ videos }) => {
                                         url: video.thumbnails.maxres.url, modalType: 'training-videos', title: video.title, description: video.description, publishedAt: video.publishedAt, duration: video.duration, id: video.id
                                     }));
                                 }} />
-                        </FlexGridCol>))
+                        </FlexGridCol>
+                    ))
                     }
                 </FlexGridRow>
             </div>
-        </section>);
+        </section>
+    );
 };
 
 ListOfVideos.propTypes = propTypes;

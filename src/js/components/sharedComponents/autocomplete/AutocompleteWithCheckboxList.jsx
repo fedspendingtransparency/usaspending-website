@@ -119,7 +119,7 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
         return (
             <li className="autocomplete-heading">
                 {searchString}
-                {selectAllButton &&
+                {selectAllButton && (
                     <button
                         type="button"
                         aria-label="Select All filters"
@@ -128,7 +128,7 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
                         onClick={handleToggleAll}>
                         {allSelected ? 'Deselect All' : 'Select All'}
                     </button>
-                }
+                )}
             </li>
         );
     };
@@ -157,7 +157,7 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
             );
             return (
                 <>
-                    {showClearAll &&
+                    {showClearAll && (
                         <div className="clear-all__container">
                             <button
                                 type="button"
@@ -168,7 +168,7 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
                                 {`Clear all ${filterType}`}
                             </button>
                         </div>
-                    }
+                    )}
                     <Alert
                         className="autocomplete-no-results"
                         header="Sorry, no results found"

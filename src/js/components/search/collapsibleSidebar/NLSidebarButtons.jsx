@@ -53,7 +53,7 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isM
                     <NLBadge />
                     <FontAwesomeIcon icon="filter-list" color={primaryColorAS} />
                 </button>
-                { QAT &&
+                { QAT && (
                     <button
                         style={{ backgroundColor: secondaryColorNL }}
                         aria-label="Button to change the content of the sidebar to natural language search"
@@ -76,7 +76,7 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isM
                                 fill={primaryColorNL} />
                         </svg>
                     </button>
-                }
+                )}
             </div>
         </div>
     );

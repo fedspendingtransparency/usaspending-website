@@ -102,7 +102,8 @@ const FilterModal = (props) => {
                     </div>
                 </div>
             </div>
-        </Modal>);
+        </Modal>
+    );
 };
 
 FilterModal.propTypes = propTypes;

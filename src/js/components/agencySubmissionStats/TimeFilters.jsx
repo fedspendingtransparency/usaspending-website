@@ -72,10 +72,12 @@ const parsePeriods = (year, periods) => {
                             type: classNames[classNames.length - 1],
                             classNames: classNames.join(' '),
                             isEnabled,
-                            component: <PeriodComponent
-                                isEnabled={isEnabled}
-                                classNames={i === 0 ? classNames.concat(['first']) : classNames}
-                                title={period.title} />
+                            component: (
+                                <PeriodComponent
+                                    isEnabled={isEnabled}
+                                    classNames={i === 0 ? classNames.concat(['first']) : classNames}
+                                    title={period.title} />
+                            )
                         };
                     })
             )

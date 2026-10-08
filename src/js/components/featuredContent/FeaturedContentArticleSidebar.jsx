@@ -35,16 +35,16 @@ const FeaturedContentArticleSidebar = ({ chosenArticle }) => {
             <InlineShare
                 onShareOptionClick={(name) => onShareClick(name, slug)}
                 url={getBaseUrl(slug)} />
-            {chosenArticle?.related_terms.length > 0 &&
+            {chosenArticle?.related_terms.length > 0 && (
                 <RelatedTerms
                     header="Related Terms"
                     citations={chosenArticle?.related_terms} />
-            }
-            {chosenArticle?.explore_more.length > 0 &&
+            )}
+            {chosenArticle?.explore_more.length > 0 && (
                 <ExploreMore
                     header="Explore More"
                     citations={chosenArticle?.explore_more} />
-            }
+            )}
         </FlexGridCol>
     );
 };

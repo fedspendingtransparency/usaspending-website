@@ -33,7 +33,8 @@ const AwardDataArchiveUserSelections = ({ results, filters }) => {
             return (
                 <div className="selection__content">
                     <ul>{results.map(({ fileName }) => <li key={fileName}>{fileName}</li>)}</ul>
-                </div>);
+                </div>
+            );
         }
 
         return (

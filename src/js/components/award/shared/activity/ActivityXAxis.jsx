@@ -84,15 +84,17 @@ const ActivityXAxis = ({
                 rotate : 325;
             const transform = `translate(${translateX},${translateY}) rotate(${rotateLabel})`;
 
-            return (<ActivityXAxisItem
-                x={xPos}
-                y={yPos}
-                label={`${tickLabels[i]}`}
-                key={`label-y-${tick}-${i}`}
-                lineStart={lineStart}
-                lineEnd={lineEnd}
-                transform={transform}
-                line={line || false} />);
+            return (
+                <ActivityXAxisItem
+                    x={xPos}
+                    y={yPos}
+                    label={`${tickLabels[i]}`}
+                    key={`label-y-${tick}-${i}`}
+                    lineStart={lineStart}
+                    lineEnd={lineEnd}
+                    transform={transform}
+                    line={line || false} />
+            );
         });
 
         setDescription(newDescription);

@@ -19,7 +19,7 @@ const CategoriesDsm = ({ spendingLevel }) => {
     return (
         <>
             <h4>What&#39;s included in this view of the data?</h4>
-            { spendingLevel === 'subawards' ?
+            { spendingLevel === 'subawards' ? (
                 <>
                     <p style={{ marginBottom: '8px' }}>
                         View a list of sub-award transactions based on your selected filters.
@@ -57,7 +57,8 @@ const CategoriesDsm = ({ spendingLevel }) => {
                             in our About the Data module.
                         </span>
                     </p>
-                </> :
+                </>
+            ) : (
                 <>
                     {getAtdDefcText(isDefCodeInFilter?.length > 0, true)}
                     <p>
@@ -84,7 +85,7 @@ const CategoriesDsm = ({ spendingLevel }) => {
                         Prime award transactions with the same unique award ID are grouped under a single prime award summary.
                     </p>
                 </>
-            }
+            )}
             <h4>Awarding Agency and Awarding Subagency</h4>
             <p>
                 View a list of the top Agencies from highest to lowest.

@@ -90,14 +90,15 @@ const StatusOfFunds = ({
 
     return (
         <>
-            {level > 0 && !isMedium ?
+            {level > 0 && !isMedium ? (
                 <button
                     title="Go up a level"
                     className="drilldown-back-button"
                     onClick={goBack}>
                     <FontAwesomeIcon icon="arrow-left" />
                         &nbsp;&nbsp;Back
-                </button> : <></>}
+                </button>
+            ) : <></>}
             {getContent()}
         </>
     );
