@@ -54,7 +54,7 @@ const propTypes = {
 };
 
 // eslint-disable-next-line prefer-arrow-callback
-const FadeContents = memo(function FadeContents ({
+const FadeContents = memo(function FadeContents({
     children,
     direction,
     hide

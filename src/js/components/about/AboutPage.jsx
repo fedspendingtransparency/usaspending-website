@@ -46,7 +46,7 @@ const aboutSections = [
 ];
 
 // eslint-disable-next-line prefer-arrow-callback
-const AboutPage = memo(function AboutPage () {
+const AboutPage = memo(function AboutPage() {
     // 60 px is the approx padding-top on the h2 elements
     const headerOffset = stickyHeaderHeight + 60;
 
