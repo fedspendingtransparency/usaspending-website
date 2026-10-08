@@ -19,8 +19,8 @@ const propTypes = {
 
 const NLSearchButton = ({
     loadingState,
-    classname="default-search",
-    icon=DEFAULT_ICON_PATH,
+    classname = "default-search",
+    icon = DEFAULT_ICON_PATH,
     text = "Search",
     startNLSearch
 }) => {

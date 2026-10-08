@@ -61,7 +61,7 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isM
                         }`}
                         onClick={(e) => {
                             dispatch(setSidebarContent(NATURAL_LANGUAGE));
-                            sidebarIsOpen ? null: setSidebarIsOpen(e);
+                            sidebarIsOpen ? null : setSidebarIsOpen(e);
                         }}>
                         <svg width="24" height="24" viewBox="0 0 24 24" fill={secondaryColorNL} xmlns="http://www.w3.org/2000/svg">
                             <path

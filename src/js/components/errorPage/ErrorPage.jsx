@@ -19,10 +19,10 @@ const propTypes = {
 };
 
 const ErrorPage = ({
-    title="Page Not Found",
-    heading="Sorry, the page you are looking for does not exist.",
-    showResetErrorBoundary=false,
-    resetErrorBoundary=() => {}
+    title = "Page Not Found",
+    heading = "Sorry, the page you are looking for does not exist.",
+    showResetErrorBoundary = false,
+    resetErrorBoundary = () => {}
 }) => (
     <PageWrapper
         pageName="Error"

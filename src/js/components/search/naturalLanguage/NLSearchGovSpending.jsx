@@ -17,7 +17,7 @@ const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
 const propTypes = {
     isFilters: PropTypes.bool
 };
-const NLSearchGovSpending = ({ isFilters=false }) => {
+const NLSearchGovSpending = ({ isFilters = false }) => {
     const navigate = useNavigate();
     const [inputValue, setInputValue] = useState('');
 
@@ -35,7 +35,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
         setInputValue(sanitizeNLInput(event.target.value));
     };
     return (
-        <section className={`search-gov-spending__section ${isFilters ? ' filter-spacing': ''}`}>
+        <section className={`search-gov-spending__section ${isFilters ? ' filter-spacing' : ''}`}>
             <FlexGridRow className="search-gov-spending__row">
                 <div className="search-gov-spending__label-icon-container">
                     <NLSearchSuggestionsIcon
