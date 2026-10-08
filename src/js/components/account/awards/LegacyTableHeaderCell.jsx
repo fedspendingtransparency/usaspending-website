@@ -95,7 +95,8 @@ const TableHeaderCell = (props) => {
                                         alt={`Sort table by descending ${props.title}`} />
                                 </button>
                             </div>
-                        )}
+                        )
+                    }
                 </div>
             </div>
         </div>

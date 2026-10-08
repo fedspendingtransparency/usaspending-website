@@ -80,8 +80,7 @@ const Suggestion = ({
     /* eslint-disable jsx-a11y/role-supports-aria-props */
         <>
             {isNewHeading() && category &&
-                <li className="autocomplete-heading">{locationDropdown[category]}</li>
-            }
+                <li className="autocomplete-heading">{locationDropdown[category]}</li>}
             <li
                 id={id}
                 tabIndex={-1}

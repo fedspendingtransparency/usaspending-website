@@ -132,8 +132,7 @@ const ListOfVideos = ({ videos }) => {
                                     }));
                                 }} />
                         </FlexGridCol>
-                    ))
-                    }
+                    ))}
                 </FlexGridRow>
             </div>
         </section>

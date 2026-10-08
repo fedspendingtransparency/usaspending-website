@@ -127,24 +127,21 @@ const AccountData = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(0, 120, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(120, 180, 1.5);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(180, 240, 1)
-                    }>
+                        ref1.current?.playAnimation(180, 240, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -159,16 +156,14 @@ const AccountData = (props) => {
                     content="animation"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(240, 300, 1.5);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(300, 360, 1)
-                    }>
+                        ref1.current?.playAnimation(300, 360, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -182,16 +177,14 @@ const AccountData = (props) => {
                     content="animation"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(360, 420, 1.5);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(420, 480, 1)
-                    }>
+                        ref1.current?.playAnimation(420, 480, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -206,8 +199,7 @@ const AccountData = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(480, 540, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
 

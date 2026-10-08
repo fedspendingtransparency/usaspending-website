@@ -987,7 +987,8 @@ const StatusOfFundsChart = ({
                             showTooltip: () => { },
                             closeTooltip: () => { }
                         }} />
-                )}
+                )
+            }
             {isMobile && (
                 <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
                     <div className="legend__item">

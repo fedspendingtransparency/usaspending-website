@@ -334,7 +334,8 @@ export default class ActivityChartTooltip extends React.Component {
                                             This IDV
                                         </div>
                                     </div>
-                                )}
+                                )
+                            }
                             <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title first-titles">
                                     Parent IDV

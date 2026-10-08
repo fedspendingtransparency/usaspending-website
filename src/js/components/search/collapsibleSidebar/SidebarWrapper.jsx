@@ -260,13 +260,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 className={`search-collapsible-sidebar-container search-sidebar sticky ${
                     sidebarIsOpen || showMobileFilters ? "opened" : ""
                 } ${
-                    showMobileFilters ? "mobile" : ""}`
-                }>
+                    showMobileFilters ? "mobile" : ""}`}>
 
                 { isMedium ?
                     showMobileFilters && renderMobileSidebar() :
-                    sidebarIsOpen && renderDesktopSidebar()
-                }
+                    sidebarIsOpen && renderDesktopSidebar()}
             </div>
         </>
     );

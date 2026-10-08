@@ -111,8 +111,7 @@ const renderDefCodes = (errorMsg, isLoading, codes) => {
                         .split("|")
                         .map((str, i) => (
                             <li key={uniqueId()}>{str}, {title.split("|")[i]}</li>
-                        ))
-                    }
+                        ))}
                 </ul>
             </li>
         ));

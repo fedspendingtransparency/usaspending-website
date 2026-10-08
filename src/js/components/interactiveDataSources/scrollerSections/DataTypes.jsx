@@ -54,16 +54,14 @@ const DataTypes = (props) => {
                         ref1.current?.playAnimation(0, 120, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
                         ref3.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(120, 300, 1)
-                    }>
+                        ref1.current?.playAnimation(120, 300, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -81,16 +79,14 @@ const DataTypes = (props) => {
                 <ScrollerOverlay
                     content="animation"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(300, 420, 1.5)
-                    }>
+                        ref1.current?.playAnimation(300, 420, 1.5)}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(420, 600, 1)
-                    }>
+                        ref1.current?.playAnimation(420, 600, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -112,16 +108,14 @@ const DataTypes = (props) => {
                 <ScrollerOverlay
                     content="animation"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(600, 720, 1.5)
-                    }>
+                        ref1.current?.playAnimation(600, 720, 1.5)}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(720, 900, 1)
-                    }>
+                        ref1.current?.playAnimation(720, 900, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -144,16 +138,14 @@ const DataTypes = (props) => {
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(900, 1020, 1.5)
-                    }>
+                        ref1.current?.playAnimation(900, 1020, 1.5)}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(1020, 1200, 1)
-                    }>
+                        ref1.current?.playAnimation(1020, 1200, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -176,8 +168,7 @@ const DataTypes = (props) => {
                         ref1.current?.playAnimation(1200, 1320, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
                         ref3.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
             </Scroller>

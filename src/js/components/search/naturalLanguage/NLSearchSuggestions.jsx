@@ -62,8 +62,7 @@ const NLSearchSuggestions = () => {
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
-                    ))
-                    }
+                    ))}
                 </FlexGridRow>
             );
         }
@@ -97,8 +96,7 @@ const NLSearchSuggestions = () => {
                             </CardBody>
                         </CardContainer>
                     </SwiperSlide>
-                ))
-                }
+                ))}
             </Swiper>
         );
     };

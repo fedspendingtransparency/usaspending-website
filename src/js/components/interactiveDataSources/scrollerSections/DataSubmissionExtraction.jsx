@@ -45,16 +45,14 @@ const DataSubmissionExtraction = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(0, 120, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="center"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(120, 300, 1)
-                    }>
+                        ref1.current?.playAnimation(120, 300, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -71,16 +69,14 @@ const DataSubmissionExtraction = (props) => {
                 <ScrollerOverlay
                     content="animation"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(300, 360, 1.5)
-                    }>
+                        ref1.current?.playAnimation(300, 360, 1.5)}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(360, 420, 1)
-                    }>
+                        ref1.current?.playAnimation(360, 420, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -110,16 +106,14 @@ const DataSubmissionExtraction = (props) => {
                 <ScrollerOverlay
                     content="animation"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(420, 480, 1.5)
-                    }>
+                        ref1.current?.playAnimation(420, 480, 1.5)}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
                     content="animation"
                     position="left"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(480, 540, 1)
-                    }>
+                        ref1.current?.playAnimation(480, 540, 1)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -152,8 +146,7 @@ const DataSubmissionExtraction = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(540, 600, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
 

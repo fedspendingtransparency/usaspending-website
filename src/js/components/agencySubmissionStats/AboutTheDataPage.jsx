@@ -169,8 +169,7 @@ const AboutTheDataPage = () => {
                                     selectedFy={selectedFy}
                                     selectedPeriod={selectedPeriod ?
                                         selectedPeriod.id :
-                                        ''
-                                    } />
+                                        ''} />
                                 <AboutTheDataModal
                                     id="usa-dt-modal__agency-submission-statistics"
                                     mounted={!!showModalLocal.length}

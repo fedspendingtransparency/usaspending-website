@@ -68,8 +68,7 @@ const TimeSection = ({
                         visualizationPeriod={visualizationPeriod}
                         hash={hash} />
                 ) :
-                <PlaceholderComponent className="time" />
-            }
+                <PlaceholderComponent className="time" />}
         </div>
     );
 };

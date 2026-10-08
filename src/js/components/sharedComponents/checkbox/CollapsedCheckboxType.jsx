@@ -54,7 +54,8 @@ const CollapsedCheckboxType = ({
                             hidden={hideArrow}
                             toggleExpand={toggleExpand}
                             arrowState={arrowState} />
-                    )}
+                    )
+                }
                 <label
                     className="checkbox-item-wrapper"
                     htmlFor={inputId}>

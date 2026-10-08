@@ -19,13 +19,11 @@ const DEFCheckboxTreeContainer = () => {
     const dispatch = useDispatch();
 
     const titlesByCode = (codes) => codes.reduce((obj, item) => {
-        // eslint-disable-next-line no-param-reassign
         obj[item.code] = item.title;
         return obj;
     }, {});
 
     const detailsDisplay = (codes) => codes.reduce((obj, item) => {
-        // eslint-disable-next-line no-param-reassign
         obj[item.code] = (
             <DEFCheckboxTreeLabelv2
                 label={item.title}
@@ -67,8 +65,7 @@ const DEFCheckboxTreeContainer = () => {
                     singleFilterChange={toggleDefc}
                     bulkFilterChange={bulkChangeDefc}
                     setDefSearchString={setDefSearchString} />
-            )
-            }
+            )}
         </div>
     );
 };

@@ -83,8 +83,7 @@ const KeywordPage = ({
                 <DownloadIconButton508
                     tooltipComponent={(!downloadAvailable && keyword) ?
                         <NoDownloadHover /> :
-                        null
-                    }
+                        null}
                     isEnabled={downloadAvailable}
                     onClick={clickedDownload}
                     key="DownloadIconButton508" />

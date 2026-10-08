@@ -112,7 +112,8 @@ const RecipientMultiParentCollapse = (props) => {
                             }
                         </button>
                     </div>
-                )}
+                )
+            }
         </div>
     );
 };

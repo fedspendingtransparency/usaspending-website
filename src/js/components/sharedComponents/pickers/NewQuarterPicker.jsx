@@ -79,8 +79,7 @@ const QuarterPicker = ({
                             index={quarterIndex}
                             key={uniqueId('quarter_')} />
 
-                    ))
-                }
+                    ))}
             </ul>
         </div>
     );

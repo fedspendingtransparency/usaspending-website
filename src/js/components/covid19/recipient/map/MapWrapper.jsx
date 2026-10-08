@@ -483,7 +483,8 @@ export default class MapWrapper extends React.Component {
                             setMapReady={this.props.onMapLoaded}
                             center={this.props.center}
                             ref={this.mapRef} />
-                    )}
+                    )
+                }
                 <MapFiltersToggle
                     isFiltersOpen={this.state.isFiltersOpen}
                     setIsFiltersOpen={this.toggleFilters} />

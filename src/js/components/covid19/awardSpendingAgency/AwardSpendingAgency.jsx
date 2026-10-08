@@ -185,8 +185,7 @@ const AwardSpendingAgency = ({ publicLaw }) => {
                             </>
                         )} />
                     ) :
-                    <div />
-                }
+                    <div />}
             </div>
         </div>
     );

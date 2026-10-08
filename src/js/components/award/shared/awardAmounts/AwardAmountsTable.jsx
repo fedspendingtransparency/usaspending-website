@@ -170,8 +170,7 @@ const AwardAmountsTable = ({
                                 <span>{amountMapByCategoryTitle[title] === null ? "--" : amountMapByCategoryTitle[title]}</span>
                             </div>
                         )
-                ))
-            }
+                ))}
             {overspendingRow}
         </div>
     );

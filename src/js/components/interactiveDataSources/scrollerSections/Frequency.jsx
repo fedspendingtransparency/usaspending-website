@@ -47,8 +47,7 @@ const Frequency = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(0, 120, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* transition no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -56,8 +55,7 @@ const Frequency = (props) => {
                     position="right"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(120, 300, 1);
-                    }
-                    }>
+                    }}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -77,8 +75,7 @@ const Frequency = (props) => {
                     position="right"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(300, 360, 1.5);
-                    }
-                    }>
+                    }}>
                     {/* transition no card */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -86,8 +83,7 @@ const Frequency = (props) => {
                     position="right"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(360, 420, 1);
-                    }
-                    }>
+                    }}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -133,8 +129,7 @@ const Frequency = (props) => {
                     position="right"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(420, 480, 1.5);
-                    }
-                    }>
+                    }}>
                     {/* transition no card */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -142,8 +137,7 @@ const Frequency = (props) => {
                     position="right"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(480, 540, 1);
-                    }
-                    }>
+                    }}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -199,8 +193,7 @@ const Frequency = (props) => {
                     position="right"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(540, 600, 1.5);
-                    }
-                    }>
+                    }}>
                     {/* transition no card */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -208,8 +201,7 @@ const Frequency = (props) => {
                     position="right"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(600, 660, 1);
-                    }
-                    }>
+                    }}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -260,8 +252,7 @@ const Frequency = (props) => {
                     position="right"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(780, 840, 1.5);
-                    }
-                    }>
+                    }}>
                     {/* transition no card */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -269,8 +260,7 @@ const Frequency = (props) => {
                     position="right"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(840, 900, 1);
-                    }
-                    }>
+                    }}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -292,8 +282,7 @@ const Frequency = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(900, 960, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* transition no card */}
                 </ScrollerOverlay>
 

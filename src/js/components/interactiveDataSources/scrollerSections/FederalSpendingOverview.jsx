@@ -111,8 +111,7 @@ const FederalSpendingOverview = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(0, 120, 1);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
 
@@ -157,8 +156,7 @@ const FederalSpendingOverview = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(300, 420, 1);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
             </Scroller>

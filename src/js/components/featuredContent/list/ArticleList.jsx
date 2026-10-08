@@ -123,8 +123,7 @@ const ArticleList = ({ articles }) => {
                                     onClick={(e) => onClick(e, newUrl, article.title)} />
                             </FlexGridCol>
                         );
-                    })
-                    }
+                    })}
                 </FlexGridRow>
             </div>
         </section>

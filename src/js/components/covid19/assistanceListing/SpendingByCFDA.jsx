@@ -179,8 +179,7 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
                         </>
                     )} />
                 ) :
-                <div />
-            }
+                <div />}
         </div>
     );
 };

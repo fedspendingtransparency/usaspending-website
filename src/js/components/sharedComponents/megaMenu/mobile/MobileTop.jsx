@@ -53,8 +53,7 @@ const MobileTop = (props) => {
                         if (e.key === 'Enter') {
                             props.closeDetailedMobileNav(e);
                         }
-                    }
-                    }>
+                    }}>
                     <div className="mobile-nav_back-button-icon">
                         <FontAwesomeIcon icon="chevron-left" />
                     </div>

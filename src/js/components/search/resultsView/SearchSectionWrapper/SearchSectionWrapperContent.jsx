@@ -129,7 +129,8 @@ const SearchSectionWrapperContent = ({
                                         content() :
                                         children}
                                 </>
-                            )}
+                            )
+                    }
                 </div>
             )}
         </>

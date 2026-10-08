@@ -180,8 +180,7 @@ const ComboBox = memo(function ComboBox({
                                         </div>
                                     </li>
                                 ) :
-                                options
-                            }
+                                options}
                         </ul>
                     )}
                 </div>

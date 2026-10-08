@@ -114,8 +114,7 @@ const AboutTheDataDrilldown = ({
                     <div className="atd__drilldown__heading">{ name }</div>
                     {isError ?
                         <p>Error Loading Data</p> :
-                        <div className="atd__copy">{drilldownComponent}</div>
-                    }
+                        <div className="atd__copy">{drilldownComponent}</div>}
                 </div>
             </Suspense>
         </>

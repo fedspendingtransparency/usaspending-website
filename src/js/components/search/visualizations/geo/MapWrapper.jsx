@@ -594,7 +594,8 @@ const MapWrapper = ({
                         stateProfile={stateProfile}
                         ref={mapRef}
                         singleLocationSelected={singleLocationSelected} />
-                )}
+                )
+            }
             <MapFiltersToggle
                 isFiltersOpen={isFiltersOpen}
                 setIsFiltersOpen={setIsFiltersOpen} />

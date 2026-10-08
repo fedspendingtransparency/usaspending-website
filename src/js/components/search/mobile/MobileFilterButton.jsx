@@ -46,8 +46,7 @@ const MobileFilterButton = ({
                     if (!showMobileFilters) {
                         toggleMobileFilters();
                     }
-                }
-                }
+                }}
                 onKeyUp={(e) => {
                     if (e.key === "Escape" && showMobileFilters) {
                         setMobileSidebarContent("filters");
@@ -77,8 +76,7 @@ const MobileFilterButton = ({
                         if (!showMobileFilters) {
                             toggleMobileFilters();
                         }
-                    }
-                    }
+                    }}
                     onKeyUp={(e) => {
                         if (e.key === "Escape" && showMobileFilters) {
                             setMobileSidebarContent("natural language");

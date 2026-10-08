@@ -87,8 +87,7 @@ const DataAvailable = (props) => {
                         ref2.current?.playAnimation(120, 300, 1, false);
                         ref3.current?.playAnimation(120, 300, 1, false);
                         ref4.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* no card. */}
                 </ScrollerOverlay>
 
@@ -99,8 +98,7 @@ const DataAvailable = (props) => {
                     onStepEnter={() => {
                         ref3.current?.playAnimation(120, 300, 1, false);
                         ref4.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -146,8 +144,7 @@ const DataAvailable = (props) => {
                     content="animation"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(300, 420, 1.5);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -156,8 +153,7 @@ const DataAvailable = (props) => {
                     onStepEnter={() => {
                         ref5.current?.playAnimation(420, 600, 1, false);
                         ref6.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -178,8 +174,7 @@ const DataAvailable = (props) => {
                                         U.S. Army Corps of Engineers (USACE), there is a 90-day delay in the submission of these data to the FPDS source system.
                                     </p>
                                 </>
-                            )
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -188,8 +183,7 @@ const DataAvailable = (props) => {
                     onStepEnter={() => {
                         ref5.current?.playAnimation(420, 600, 1, false);
                         ref6.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}

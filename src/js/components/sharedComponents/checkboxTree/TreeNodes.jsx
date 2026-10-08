@@ -70,8 +70,7 @@ const TreeNodes = ({
                                         }}
                                         onKeyDown={(e) => (e.key === "Enter" ? handleCheck(node.id, node.children || []) : "")}
                                         onChange={() => handleCheck(node.id, node.children || [])} />
-                                )
-                                }
+                                )}
                             </div>
                             {showCheckbox ?
                                 <label htmlFor={`checkbox-${node.id}`}>{node.label}</label> :

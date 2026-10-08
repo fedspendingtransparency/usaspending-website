@@ -129,7 +129,8 @@ const SpecificAwardAmountItem = ({ searchSpecificRange }) => {
                             <li>{warningMessage}</li>
                         </ul>
                     </div>
-                )}
+                )
+            }
         </div>
     );
 };

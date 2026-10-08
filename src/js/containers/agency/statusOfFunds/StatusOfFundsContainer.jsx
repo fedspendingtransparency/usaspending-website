@@ -433,7 +433,8 @@ const StatusOfFundsContainer = ({ fy }) => {
                         </a>
                         .
                     </>
-                )} />
+                )
+            } />
             { }
         </div>
     );

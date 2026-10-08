@@ -100,8 +100,7 @@ const Hero = () => {
                                     }}>
                                     { isPaused ?
                                         <><FontAwesomeIcon icon="play" width={10} />&nbsp;&nbsp;Play text animation</> :
-                                        <><FontAwesomeIcon icon="pause" width={10} />&nbsp;&nbsp;Pause text animation</>
-                                    }
+                                        <><FontAwesomeIcon icon="pause" width={10} />&nbsp;&nbsp;Pause text animation</>}
                                 </a>
                             </div>
                         </div>

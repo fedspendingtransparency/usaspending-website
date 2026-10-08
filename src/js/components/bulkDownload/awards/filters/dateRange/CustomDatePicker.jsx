@@ -264,8 +264,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
                                         aria-label={`datepicker-date-${date.date()}`}
                                         className={`custom-datepicker__date
                                         ${outsideClass}
-                                        ${selectedClass}`
-                                        }
+                                        ${selectedClass}`}
                                         onClick={() => selectDay(dayjs(date))}>
                                         {date.date()}
                                     </button>

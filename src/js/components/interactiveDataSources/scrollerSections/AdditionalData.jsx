@@ -89,8 +89,7 @@ const AdditionalData = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(0, 120, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
 
@@ -99,8 +98,7 @@ const AdditionalData = (props) => {
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(120, 180, 1.5)
-                    }>
+                        ref1.current?.playAnimation(120, 180, 1.5)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -113,8 +111,7 @@ const AdditionalData = (props) => {
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(180, 240, 1, false)
-                    }>
+                        ref1.current?.playAnimation(180, 240, 1, false)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -126,8 +123,7 @@ const AdditionalData = (props) => {
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(180, 240, 1, false)
-                    }>
+                        ref1.current?.playAnimation(180, 240, 1, false)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -142,8 +138,7 @@ const AdditionalData = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(240, 300, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
 

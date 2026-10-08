@@ -33,8 +33,7 @@ const DataUseCases = (props) => {
                 <ScrollerOverlay
                     content="animation-loop"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(120, 300, 1, false)
-                    }>
+                        ref1.current?.playAnimation(120, 300, 1, false)}>
                     {/* used as transition. no card */}
                 </ScrollerOverlay>
 
@@ -132,8 +131,7 @@ const DataUseCases = (props) => {
                     content="animation-loop"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(120, 300, 1, false)
-                    }>
+                        ref1.current?.playAnimation(120, 300, 1, false)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}

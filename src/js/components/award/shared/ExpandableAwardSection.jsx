@@ -55,8 +55,7 @@ const ExpandableAwardSection = ({
             <p className={secondaryContainerClass}>
                 {isContentTruncated && !isExpanded ?
                     truncatedContent :
-                    content
-                }
+                    content}
                 {isContentTruncated && button}
             </p>
         );

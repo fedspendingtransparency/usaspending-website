@@ -46,8 +46,7 @@ const BulkDownloadRadioButton = ({
                             </div>
                         </div>
                     ) :
-                    label
-                }
+                    label}
             </label>
         </div>
     );

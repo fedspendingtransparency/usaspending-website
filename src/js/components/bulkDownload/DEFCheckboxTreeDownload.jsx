@@ -106,8 +106,7 @@ const DEFCheckboxTreeDownload = ({
                     setDefSearchString={setDefSearchString}
                     showSearch={false}
                     isDisabled={isDisabled} />
-            )
-            }
+            )}
         </div>
     );
 };

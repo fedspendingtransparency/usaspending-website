@@ -319,7 +319,8 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
                         stateInfo={stateInfo}
                         stateProfile
                         ref={mapRef} />
-                )}
+                )
+            }
             <MapFiltersToggle
                 isFiltersOpen={isFiltersOpen}
                 setIsFiltersOpen={setIsFiltersOpen} />

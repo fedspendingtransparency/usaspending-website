@@ -139,8 +139,7 @@ const TimePeriodFilters = ({
                         )}
                     options={latestFy ?
                         allFiscalYears(2017, latestFy).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: handleTimeChange })) :
-                        [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
-                    } />
+                        [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]} />
             </div>
             {activeTab === 'submissions' && (
                 <div className="filter-container period-picker">

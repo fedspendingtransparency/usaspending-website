@@ -43,8 +43,7 @@ const CreateAwardTypeTooltip = ({
                 <AwardTypeTooltip
                     value={formatMoneyWithUnitsShortLabel(awardType[amountType])}
                     percentage={MoneyFormatter.calculatePercentage(
-                        awardType[amountType], totalAmount)
-                    }
+                        awardType[amountType], totalAmount)}
                     description={awardTypeDefinition}
                     x={node.x0}
                     y={node.y0}

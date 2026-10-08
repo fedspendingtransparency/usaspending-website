@@ -131,8 +131,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                                         </CardBody>
                                     </CardContainer>
                                 </FlexGridCol>
-                            ))
-                            }
+                            ))}
                         </FlexGridRow>
                     </div>
                 )}

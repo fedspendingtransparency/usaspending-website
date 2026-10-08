@@ -59,8 +59,7 @@ const MapSection = ({ spendingLevel, mapHasLoaded, hash }) => {
                         wrapperProps={wrapperProps}
                         hash={hash} />
                 ) :
-                <PlaceholderComponent classname="map" />
-            }
+                <PlaceholderComponent classname="map" />}
         </div>
     );
 };
