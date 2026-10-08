@@ -47,7 +47,8 @@ const Quarters = ({
         );
 
         const className = (period) => Object.keys(period).includes('className') ?
-            `${period.className} quarter-picker__list-item` : 'quarter-picker__list-item';
+            `${period.className} quarter-picker__list-item` :
+            'quarter-picker__list-item';
 
         return (
             <li

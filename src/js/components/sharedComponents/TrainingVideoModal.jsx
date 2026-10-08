@@ -127,6 +127,7 @@ const TrainingVideoModal = (props) => {
                         mobile={12}
                         tablet={12}
                         className="usa-dt-modal__video">
+                        {/* eslint-disable-next-line @stylistic/multiline-ternary */}
                         {isError ? (
                             <GenericErrorMessage
                                 message="Sorry, we're unable to load this video."

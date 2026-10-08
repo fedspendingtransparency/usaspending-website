@@ -139,15 +139,17 @@ const AmountsVisualization = ({
                     <Carousel
                         items={[
                             <div tabIndex={-1} key="bar1">
-                                {publicLaw === 'american-rescue-plan' ? (
-                                    <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
-                                        This is how much was <strong>spent</strong> so far through the American Rescue Plan
-                                    </h4>
-                                ) : (
-                                    <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
-                                        This is how much was <strong>spent</strong> so far in response to COVID-19
-                                    </h4>
-                                )}
+                                {publicLaw === 'american-rescue-plan' ?
+                                    (
+                                        <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
+                                            This is how much was <strong>spent</strong> so far through the American Rescue Plan
+                                        </h4>
+                                    ) :
+                                    (
+                                        <h4 className="body__narrative amounts-viz__title" tabIndex={-1}>
+                                            This is how much was <strong>spent</strong> so far in response to COVID-19
+                                        </h4>
+                                    )}
                                 <svg height={amountsHeight} width={width} className="amounts-viz__svg" tabIndex={-1}>
                                     <DefaultAmountViz
                                         displayTooltip={displayTooltip}

@@ -23,7 +23,8 @@ const ariaDescription = 'accessory-view';
 
 const FilterExpandButton = (props) => {
     const icon = props.arrowState === 'expanded' ?
-        <FontAwesomeIcon icon="angle-down" /> : <FontAwesomeIcon icon="angle-right" />;
+        <FontAwesomeIcon icon="angle-down" /> :
+        <FontAwesomeIcon icon="angle-right" />;
 
     return (
         <div className="filter-toggle">

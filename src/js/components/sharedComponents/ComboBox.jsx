@@ -167,18 +167,19 @@ const ComboBox = memo(function ComboBox({
                 <div className={`combo-box__options-container${label ? ' label' : ''}`}>
                     { openOptions && (
                         <ul className="combo-box__options" id={`${formName}-list`}>
-                            { noSearchResults ? (
-                                <li
-                                    value="no-result"
-                                    className="combo-box__options-item"
-                                    key="no-result">
-                                    <div
-                                        className="combo-box__option"
-                                        aria-label={`${formName}-option-item`}>
-                                        No results found
-                                    </div>
-                                </li>
-                            ) :
+                            { noSearchResults ?
+                                (
+                                    <li
+                                        value="no-result"
+                                        className="combo-box__options-item"
+                                        key="no-result">
+                                        <div
+                                            className="combo-box__option"
+                                            aria-label={`${formName}-option-item`}>
+                                            No results found
+                                        </div>
+                                    </li>
+                                ) :
                                 options
                             }
                         </ul>

@@ -70,13 +70,14 @@ const CFDADetailModal = ({
                             <h6>Program Website</h6>
                         </div>
                         <div className="usa-dt-modal__section__description">
-                            {sanitizeUrl(data.cfda_website) ? (
-                                <button
-                                    onClick={displayRedirectModal}
-                                    value={data.cfda_website}>
-                                    {data.cfda_website} <FontAwesomeIcon icon="external-link-alt" />
-                                </button>
-                            ) :
+                            {sanitizeUrl(data.cfda_website) ?
+                                (
+                                    <button
+                                        onClick={displayRedirectModal}
+                                        value={data.cfda_website}>
+                                        {data.cfda_website} <FontAwesomeIcon icon="external-link-alt" />
+                                    </button>
+                                ) :
                                 '--'
                             }
                         </div>
@@ -86,13 +87,14 @@ const CFDADetailModal = ({
                             <h6>Assistance Listing on SAM.gov</h6>
                         </div>
                         <div className="usa-dt-modal__section__description">
-                            {sanitizeUrl(data.resource_link) ? (
-                                <button
-                                    onClick={displayRedirectModal}
-                                    value={data.resource_link}>
-                                    {data.resource_link} <FontAwesomeIcon icon="external-link-alt" />
-                                </button>
-                            ) :
+                            {sanitizeUrl(data.resource_link) ?
+                                (
+                                    <button
+                                        onClick={displayRedirectModal}
+                                        value={data.resource_link}>
+                                        {data.resource_link} <FontAwesomeIcon icon="external-link-alt" />
+                                    </button>
+                                ) :
                                 '--'
                             }
                         </div>

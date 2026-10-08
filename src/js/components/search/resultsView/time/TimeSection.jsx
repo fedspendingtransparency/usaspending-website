@@ -61,12 +61,13 @@ const TimeSection = ({
 
     return (
         <div id="search-page-component" className="time">
-            {timeHasLoaded ? (
-                <TimeVisualizationSectionContainer
-                    wrapperProps={wrapperProps}
-                    visualizationPeriod={visualizationPeriod}
-                    hash={hash} />
-            ) :
+            {timeHasLoaded ?
+                (
+                    <TimeVisualizationSectionContainer
+                        wrapperProps={wrapperProps}
+                        visualizationPeriod={visualizationPeriod}
+                        hash={hash} />
+                ) :
                 <PlaceholderComponent className="time" />
             }
         </div>

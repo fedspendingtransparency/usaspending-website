@@ -29,6 +29,7 @@ const SearchSectionWrapperHeader = ({
 
     return (
         <>
+            {/* eslint-disable-next-line @stylistic/multiline-ternary */}
             {selectedDropdownOption ? (
                 <div className="search__section-wrapper-header">
                     <span className="filter__dropdown-label">{sectionTitle}</span>

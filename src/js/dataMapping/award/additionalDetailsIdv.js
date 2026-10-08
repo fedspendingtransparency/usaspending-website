@@ -56,7 +56,8 @@ const additionalDetails = (awardData) => {
                 type: 'link',
                 data: {
                     path: parentAwardDetails.agencySlug ?
-                        `/agency/${parentAwardDetails.agencySlug}` : null,
+                        `/agency/${parentAwardDetails.agencySlug}` :
+                        null,
                     title: parentAwardDetails.agencyName
                 }
             },

@@ -41,18 +41,20 @@ const FederalAccountsSection = ({
                 tooltipWide
                 tooltip={infoTooltip} />
             <div className="award__col__content">
-                {unlinked ? (
-                    <UnlinkedAwardWarning />
-                ) : (
-                    <>
-                        <FederalAccountsVizContainer />
-                        <span className="federal-accounts__section--note">
-                            <Note message={message} />
-                        </span>
-                        <FederalAccountsSummaryContainer
-                            jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
-                    </>
-                )}
+                {unlinked ?
+                    (
+                        <UnlinkedAwardWarning />
+                    ) :
+                    (
+                        <>
+                            <FederalAccountsVizContainer />
+                            <span className="federal-accounts__section--note">
+                                <Note message={message} />
+                            </span>
+                            <FederalAccountsSummaryContainer
+                                jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                        </>
+                    )}
             </div>
         </AwardSection>
     );

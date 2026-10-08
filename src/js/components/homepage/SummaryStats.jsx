@@ -146,11 +146,13 @@ const SummaryStats = () => {
                         <br />
                         <span>
                             plans to spend
-                            {loading ? <span className="dot-pulse" /> : (
-                                <span className="summary-stats__budget-total">
-                                    {formatMoneyWithUnits(budgetTotal)}
-                                </span>
-                            )}
+                            {loading ?
+                                <span className="dot-pulse" /> :
+                                (
+                                    <span className="summary-stats__budget-total">
+                                        {formatMoneyWithUnits(budgetTotal)}
+                                    </span>
+                                )}
                             {' '}
                             including…
                         </span>
@@ -220,7 +222,8 @@ const SummaryStats = () => {
                         <span>
                             plans to spend&nbsp;
                             { loading ?
-                                <span className="dot-pulse" /> : (
+                                <span className="dot-pulse" /> :
+                                (
                                     <span className="summary-stats__budget-total">
                                         {formatMoneyWithUnits(budgetTotal)}
                                     </span>

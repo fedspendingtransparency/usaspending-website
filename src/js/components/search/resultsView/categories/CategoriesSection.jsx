@@ -81,14 +81,15 @@ const CategoriesSection = ({
     };
     return (
         <div id="search-page-component" className="categories">
-            {categoriesHasLoaded ? (
-                <CategoriesVisualizationWrapperContainer
-                    wrapperProps={wrapperProps}
-                    selectedDropdown={selectedDropdown}
-                    setSelectedDropdown={setSelectedDropdown}
-                    hash={hash}
-                    key={selectedDropdown} />
-            ) :
+            {categoriesHasLoaded ?
+                (
+                    <CategoriesVisualizationWrapperContainer
+                        wrapperProps={wrapperProps}
+                        selectedDropdown={selectedDropdown}
+                        setSelectedDropdown={setSelectedDropdown}
+                        hash={hash}
+                        key={selectedDropdown} />
+                ) :
                 <PlaceholderComponent className="categories" />
             }
         </div>

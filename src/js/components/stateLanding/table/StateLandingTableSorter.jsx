@@ -23,9 +23,11 @@ const StateLandingTableSorter = (props) => {
     };
 
     const activeAsc = props.active.field === props.field && props.active.direction === 'asc' ?
-        'header-sorter__button_active' : '';
+        'header-sorter__button_active' :
+        '';
     const activeDesc = props.active.field === props.field && props.active.direction === 'desc' ?
-        'header-sorter__button_active' : '';
+        'header-sorter__button_active' :
+        '';
 
     return (
         <div className="state-list__head-sorter header-sorter">

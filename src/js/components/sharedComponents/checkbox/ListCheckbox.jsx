@@ -104,7 +104,8 @@ const ListCheckbox = ({
                 onClear={onClear}
                 searchIcon />
             {noResults ?
-                <div className="no-results">No results found.</div> : (
+                <div className="no-results">No results found.</div> :
+                (
                     <div className="filter-item-wrap">
                         {checkboxCategories}
                     </div>

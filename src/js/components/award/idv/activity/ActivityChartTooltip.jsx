@@ -423,7 +423,8 @@ export default class ActivityChartTooltip extends React.Component {
                                     title={amountTitle}>
                                     <strong>
                                         {data._obligatedAmount !== 0 ?
-                                            `${data.obligatedAmount} ` : '-- '}
+                                            `${data.obligatedAmount} ` :
+                                            '-- '}
                                     </strong>
                                     of
                                     {' '}

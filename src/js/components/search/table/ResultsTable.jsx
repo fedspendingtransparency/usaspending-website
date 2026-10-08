@@ -194,10 +194,12 @@ const ResultsTable = (props) => {
                     rows={prepareDTUIRows()}
                     rowHeight={props.isMobile ? null : 58}
                     headerRowHeight={45}
-                    highlightedColumns={props.spendingLevel === 'subawards' ? {
-                        standardColumns: 9,
-                        highlightedColumns: props.currentType === "subcontracts" ? 7 : 6
-                    } : null}
+                    highlightedColumns={props.spendingLevel === 'subawards' ?
+                        {
+                            standardColumns: 9,
+                            highlightedColumns: props.currentType === "subcontracts" ? 7 : 6
+                        } :
+                        null}
                     currentSort={props.sort}
                     updateSort={props.updateSort}
                     isMobile={props.isMobile}

@@ -150,31 +150,34 @@ const AccordionCheckbox = ({
 
     return (
         <div className="filter-item-wrap">
-            {showSearch ? (
-                <>
-                    <EntityDropdownAutocomplete
-                        placeholder={placeholder}
-                        searchString={searchString}
-                        enabled
-                        handleTextInputChange={handleTextInputChange}
-                        context={{}}
-                        loading={false}
-                        isClearable
-                        onClear={onClear}
-                        searchIcon />
-                    {noResults ?
-                        <div className="no-results">No results found.</div> : (
-                            <div className="checkbox-categories-wrapper">
-                                {checkboxCategories}
-                            </div>
-                        )}
-                </>
-            ) : (
-                <div className="checkbox-categories-wrapper">
-                    {checkboxCategories}
-                </div>
+            {showSearch ?
+                (
+                    <>
+                        <EntityDropdownAutocomplete
+                            placeholder={placeholder}
+                            searchString={searchString}
+                            enabled
+                            handleTextInputChange={handleTextInputChange}
+                            context={{}}
+                            loading={false}
+                            isClearable
+                            onClear={onClear}
+                            searchIcon />
+                        {noResults ?
+                            <div className="no-results">No results found.</div> :
+                            (
+                                <div className="checkbox-categories-wrapper">
+                                    {checkboxCategories}
+                                </div>
+                            )}
+                    </>
+                ) :
+                (
+                    <div className="checkbox-categories-wrapper">
+                        {checkboxCategories}
+                    </div>
 
-            )}
+                )}
         </div>
     );
 };

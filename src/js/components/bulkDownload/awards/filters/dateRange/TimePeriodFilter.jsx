@@ -289,25 +289,27 @@ const TimePeriodFilter = ({
                 <div className="input-container">
                     {timePeriodTypeList}
                 </div>
-                {currentTimeType === "time_period" ? (
-                    <div className="combo-box-container">
-                        <ComboBox
-                            optionsArray={periodOptions}
-                            onSelect={handleComboDateChange}
-                            onClearSelect={handleDateUpdate}
-                            formName="time-period-combo"
-                            label={<>Time Period <span className="required">(Required)</span></>}
-                            placeholder="Select time period"
-                            defaultValue={defaultValue} />
-                    </div>
-                ) : (
-                    <DownloadDateRange
-                        datePlaceholder=""
-                        startDate={startDateBulkUI}
-                        endDate={endDateBulkUI}
-                        onDateChange={handleDateChange}
-                        error={error} />
-                )}
+                {currentTimeType === "time_period" ?
+                    (
+                        <div className="combo-box-container">
+                            <ComboBox
+                                optionsArray={periodOptions}
+                                onSelect={handleComboDateChange}
+                                onClearSelect={handleDateUpdate}
+                                formName="time-period-combo"
+                                label={<>Time Period <span className="required">(Required)</span></>}
+                                placeholder="Select time period"
+                                defaultValue={defaultValue} />
+                        </div>
+                    ) :
+                    (
+                        <DownloadDateRange
+                            datePlaceholder=""
+                            startDate={startDateBulkUI}
+                            endDate={endDateBulkUI}
+                            onDateChange={handleDateChange}
+                            error={error} />
+                    )}
 
                 <p className="download-filter__content-note">
                     <span className="download-filter__content-note_bold">Note: </span>

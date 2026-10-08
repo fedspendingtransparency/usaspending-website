@@ -246,7 +246,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
             if (query) params.filter.query = query;
 
             const awardSpendingAgencyRequest = props.type === 'loans' ?
-                fetchLoansByAgency(params) : fetchAwardSpendingByAgency(params);
+                fetchLoansByAgency(params) :
+                fetchAwardSpendingByAgency(params);
 
             request.current = awardSpendingAgencyRequest;
             awardSpendingAgencyRequest.promise

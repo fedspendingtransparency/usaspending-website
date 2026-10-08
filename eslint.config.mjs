@@ -76,7 +76,6 @@ export default defineConfig([
             "@stylistic/jsx-one-expression-per-line": ["error", { allow: "single-line" }],
 
             // TODO: address and turn back on:
-            "@stylistic/multiline-ternary": [0],
             "@stylistic/comma-spacing": [0],
             "@stylistic/no-extra-parens": [0],
             "@stylistic/keyword-spacing": [0],

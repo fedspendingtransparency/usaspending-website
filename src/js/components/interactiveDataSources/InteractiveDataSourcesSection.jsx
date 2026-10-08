@@ -16,6 +16,7 @@ const InteractiveDataSourcesSection = ({
     children
 }) => (
     <>
+        {/* eslint-disable-next-line @stylistic/multiline-ternary */}
         {section.showSectionWrapper ? (
             <SectionWrapper
                 // isCollapsible // Currently disable for `Scroller`

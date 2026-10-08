@@ -39,24 +39,26 @@ const ExploreMore = (props) => {
                         desktop={12}
                         className="featured-content__citation"
                         key={`featured-content__citation-${index}`}>
-                        {citation.type === "external" ? (
-                            <>
-                                <ExternalLink isCard url={citation.slug}>
-                                    <div>
-                                        <span>{truncateText(citation.label, 55)}</span>
-                                        <FontAwesomeIcon icon="external-link-alt" className="featured-content__icon" />
-                                    </div>
-                                </ExternalLink>
-                            </>
-                        ) : (
-                            <>
-                                <Link to={citation.slug}>
-                                    <div>
-                                        <span>{truncateText(citation.label, 55)}</span>
-                                    </div>
-                                </Link>
-                            </>
-                        )}
+                        {citation.type === "external" ?
+                            (
+                                <>
+                                    <ExternalLink isCard url={citation.slug}>
+                                        <div>
+                                            <span>{truncateText(citation.label, 55)}</span>
+                                            <FontAwesomeIcon icon="external-link-alt" className="featured-content__icon" />
+                                        </div>
+                                    </ExternalLink>
+                                </>
+                            ) :
+                            (
+                                <>
+                                    <Link to={citation.slug}>
+                                        <div>
+                                            <span>{truncateText(citation.label, 55)}</span>
+                                        </div>
+                                    </Link>
+                                </>
+                            )}
                     </FlexGridCol>
                 ))}
             </FlexGridRow>

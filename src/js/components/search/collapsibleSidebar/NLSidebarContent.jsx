@@ -86,6 +86,7 @@ const NLSidebarContent = ({
 
     return (
         <>
+            {/* eslint-disable-next-line @stylistic/multiline-ternary */}
             { isSearchActive ? (
                 <div className="sidebar-nl-container response">
                     <p className="sidebar-text semibold">{text}</p>

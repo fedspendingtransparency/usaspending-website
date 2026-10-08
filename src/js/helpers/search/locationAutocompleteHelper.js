@@ -236,7 +236,8 @@ export const createLocationObject = (selectedItem, countriesList, createLocation
     const item = selectedItem;
     let location = {};
     const countryAbbreviation =
-        item.data.country_name === 'UNITED STATES' ? 'USA' :
+        item.data.country_name === 'UNITED STATES' ?
+            'USA' :
             countriesList?.find(
                 (country) => {
                     return country.name === item.data.country_name;

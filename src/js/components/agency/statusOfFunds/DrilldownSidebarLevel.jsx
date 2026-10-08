@@ -29,11 +29,13 @@ const DrilldownSidebarLevel = ({
     obligatedText
 }) => (
     <div className={`drilldown-level${active ? ' drilldown-level_active' : ''}`}>
-        {goBack ? (
-            <button title="Go up a level" className="drilldown-level__back" onClick={goBack}>
-                <FontAwesomeIcon icon="chevron-left" />
-            </button>
-        ) : ''}
+        {goBack ?
+            (
+                <button title="Go up a level" className="drilldown-level__back" onClick={goBack}>
+                    <FontAwesomeIcon icon="chevron-left" />
+                </button>
+            ) :
+            ''}
         <div className="drilldown-level__wrapper">
             <div className="drilldown-level__label">{label}</div>
             <div className="drilldown-level__content">

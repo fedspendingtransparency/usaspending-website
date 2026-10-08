@@ -380,16 +380,18 @@ const TopFive = (props) => {
                     aria-hidden="true"
                     alt="" />
                 <div className="category-table__title-name">
-                    {props.category === "district" ? (
-                        <>
-                            {categoryTitles[props.category]}
-                            <TooltipWrapper
-                                className="congressional-district__tt"
-                                icon="info"
-                                tooltipPosition="bottom"
-                                tooltipComponent={<CondensedCDTooltip title="Congressional Districts" />} />
-                        </>
-                    ) : categoryTitles[props.category]}
+                    {props.category === "district" ?
+                        (
+                            <>
+                                {categoryTitles[props.category]}
+                                <TooltipWrapper
+                                    className="congressional-district__tt"
+                                    icon="info"
+                                    tooltipPosition="bottom"
+                                    tooltipComponent={<CondensedCDTooltip title="Congressional Districts" />} />
+                            </>
+                        ) :
+                        categoryTitles[props.category]}
                 </div>
             </div>
             <Table

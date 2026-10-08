@@ -65,16 +65,19 @@ const MenuDropdown = memo(function MenuDropdown({
                                     key={uniqueId()}
                                     className="dropdown-section first-dropdown-section"
                                     data-first-dropdown-section>
-                                    {section1Icon && section1Icon !== null && section1Icon !== '' ? (
-                                        <FontAwesomeIcon
-                                            role="presentation"
-                                            icon={section1Icon}
-                                            style={{ width: "18px", height: "18px" }} />
-                                    ) : ''}
+                                    {section1Icon && section1Icon !== null && section1Icon !== '' ?
+                                        (
+                                            <FontAwesomeIcon
+                                                role="presentation"
+                                                icon={section1Icon}
+                                                style={{ width: "18px", height: "18px" }} />
+                                        ) :
+                                        ''}
                                     <div>
                                         <p className="dropdown-section__section-title">{section1Title}</p>
                                         {section1Sub !== null && section1Sub !== undefined && section1Sub !== '' ?
-                                            <span className="dropdown-section__section-subtitle">{section1Sub}</span> : ''}
+                                            <span className="dropdown-section__section-subtitle">{section1Sub}</span> :
+                                            ''}
                                         <ul className="dropdown-section__section-list">
                                             {section1Items?.map((item, index) => !item.hidden && (
                                                 <>
@@ -82,12 +85,14 @@ const MenuDropdown = memo(function MenuDropdown({
                                                         key={`link-${uniqueId(index)}`}
                                                         className="list__extra-padding">
                                                         <Link prefetch={!item.shouldOpenNewTab ? "intent" : "none"} className="dropdown--item__link" to={item.url} target={item.shouldOpenNewTab ? "_blank" : null} rel={item.shouldOpenNewTab ? "noopener noreferrer" : null} as="document" state={item.queryParam}>
-                                                            {item.icon && item.icon !== '' && item.icon !== null ? (
-                                                                <FontAwesomeIcon
-                                                                    role="presentation"
-                                                                    icon={item.icon}
-                                                                    style={{ width: "20px", height: "20px" }} />
-                                                            ) : ''}
+                                                            {item.icon && item.icon !== '' && item.icon !== null ?
+                                                                (
+                                                                    <FontAwesomeIcon
+                                                                        role="presentation"
+                                                                        icon={item.icon}
+                                                                        style={{ width: "20px", height: "20px" }} />
+                                                                ) :
+                                                                ''}
                                                             <div className="dropdown-item__link-desc">
                                                                 <div className="dropdown-item__link-label">
                                                                     {item.label}
@@ -106,20 +111,24 @@ const MenuDropdown = memo(function MenuDropdown({
                                 </div>
                                 <div key={uniqueId()} className="dropdown-section">
                                     <div className="dropdown-section__alternate-top">
-                                        {section2Icon && section2Icon !== null && section2Icon !== '' ? (
-                                            <FontAwesomeIcon
-                                                role="presentation"
-                                                icon={section2Icon}
-                                                style={{ width: "18px", height: "18px" }} />
-                                        ) : ''}
+                                        {section2Icon && section2Icon !== null && section2Icon !== '' ?
+                                            (
+                                                <FontAwesomeIcon
+                                                    role="presentation"
+                                                    icon={section2Icon}
+                                                    style={{ width: "18px", height: "18px" }} />
+                                            ) :
+                                            ''}
                                         <div>
                                             <p className="dropdown-section__section-title">{section2Title}</p>
-                                            {section2Sub !== null && section2Sub !== undefined && section2Sub !== '' ? (
-                                                <span
-                                                    className="dropdown-section__section-subtitle">
-                                                    {section2Sub}
-                                                </span>
-                                            ) : ''}
+                                            {section2Sub !== null && section2Sub !== undefined && section2Sub !== '' ?
+                                                (
+                                                    <span
+                                                        className="dropdown-section__section-subtitle">
+                                                        {section2Sub}
+                                                    </span>
+                                                ) :
+                                                ''}
                                             <ul className="dropdown-section__section-list">
                                                 {section2Items?.map((item, index) => !item.hidden && (
                                                     <>
@@ -148,17 +157,19 @@ const MenuDropdown = memo(function MenuDropdown({
                                                                         openGlossary(e);
                                                                     }
                                                                 }}>
-                                                                {item.icon && item.icon !== '' && item.icon !== null ? (
-                                                                    <FontAwesomeIcon
-                                                                        role="presentation"
-                                                                        size="lg"
-                                                                        className=""
-                                                                        icon={item.icon}
-                                                                        style={{
-                                                                            width: "20px",
-                                                                            height: "20px"
-                                                                        }} />
-                                                                ) : ''}
+                                                                {item.icon && item.icon !== '' && item.icon !== null ?
+                                                                    (
+                                                                        <FontAwesomeIcon
+                                                                            role="presentation"
+                                                                            size="lg"
+                                                                            className=""
+                                                                            icon={item.icon}
+                                                                            style={{
+                                                                                width: "20px",
+                                                                                height: "20px"
+                                                                            }} />
+                                                                    ) :
+                                                                    ''}
                                                                 <div className="dropdown-item__link-desc">
                                                                     <div className="dropdown-item__link-label">
                                                                         {item.label}
@@ -177,87 +188,97 @@ const MenuDropdown = memo(function MenuDropdown({
                                     </div>
                                 </div>
                             </div>
-                            {section3Title !== null && section3Title !== undefined && section3Title !== '' ? (
-                                <div key={uniqueId()} className="dropdown-section dropdown-section__bottom-portion">
-                                    <div className="dropdown-section__alternate-top">
-                                        {section3Icon && section3Icon !== null && section3Icon !== '' ? (
-                                            <FontAwesomeIcon
-                                                role="presentation"
-                                                style={{ width: "18px", height: "18px" }}
-                                                icon={section3Icon} />
-                                        ) : ''}
-                                        <div>
-                                            <p className="dropdown-section__section-title">{section3Title}</p>
-                                            <ul className="dropdown-section__section-list">
-                                                {section3Items?.map((item, index) => !item.hidden && (
-                                                    <>
-                                                        <li
-                                                            key={`third-section-link-${uniqueId(index)}`}
-                                                            className={menuIndex > 2 ? 'list__extra-padding third__item-margin' : 'list__extra-padding'}>
-                                                            <FlexGridRow
-                                                                width={6}
-                                                                desktop={6}
-                                                                onKeyDown={(e) => {
-                                                                    if (item.label === 'Release Notes' && e.key === 'Tab' && !e.shiftKey) {
-                                                                        closeDropdown();
-                                                                    }
-                                                                }}>
-                                                                { isRedirectNeeded(item) ? (
-                                                                    <ExternalLink isCard={false} url={item.url}>
-                                                                        {item.icon && item.icon !== '' && item.icon !== null ? (
-                                                                            <FontAwesomeIcon
-                                                                                role="presentation"
-                                                                                style={{ width: "20px", height: "20px" }}
-                                                                                icon={item.icon} />
-                                                                        ) : ''}
-                                                                        <div className="dropdown-item__link-desc">
-                                                                            <div className="dropdown-item__link-label">
-                                                                                {item.label}
-                                                                                <span
-                                                                                    className="dropdown-item__description">
-                                                                                    {item.description}
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </ExternalLink>
-                                                                ) : (
-                                                                    <Link
-                                                                        prefetch={!item.shouldOpenNewTab ? "intent" : "none"}
-                                                                        className="dropdown--item__link"
-                                                                        to={item.url}
-                                                                        onKeyDown={(e) => {
-                                                                            if (item.label === 'Release Notes' && e.key === 'Tab' && !e.shiftKey) {
-                                                                                closeDropdown();
-                                                                            }
-                                                                        }}
-                                                                        target={item.shouldOpenNewTab ? "_blank" : null}
-                                                                        rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
-                                                                        {item.icon && item.icon !== '' && item.icon !== null ? (
-                                                                            <FontAwesomeIcon
-                                                                                role="presentation"
-                                                                                style={{ width: "20px", height: "20px" }}
-                                                                                icon={item.icon} />
-                                                                        ) : ''}
-                                                                        <div className="dropdown-item__link-desc">
-                                                                            <div className="dropdown-item__link-label">
-                                                                                {item.label}
-                                                                                <span
-                                                                                    className="dropdown-item__description">
-                                                                                    {item.description}
-                                                                                </span>
-                                                                            </div>
-                                                                        </div>
-                                                                    </Link>
-                                                                )}
-                                                            </FlexGridRow>
-                                                        </li>
-                                                    </>
-                                                ))}
-                                            </ul>
+                            {section3Title !== null && section3Title !== undefined && section3Title !== '' ?
+                                (
+                                    <div key={uniqueId()} className="dropdown-section dropdown-section__bottom-portion">
+                                        <div className="dropdown-section__alternate-top">
+                                            {section3Icon && section3Icon !== null && section3Icon !== '' ?
+                                                (
+                                                    <FontAwesomeIcon
+                                                        role="presentation"
+                                                        style={{ width: "18px", height: "18px" }}
+                                                        icon={section3Icon} />
+                                                ) :
+                                                ''}
+                                            <div>
+                                                <p className="dropdown-section__section-title">{section3Title}</p>
+                                                <ul className="dropdown-section__section-list">
+                                                    {section3Items?.map((item, index) => !item.hidden && (
+                                                        <>
+                                                            <li
+                                                                key={`third-section-link-${uniqueId(index)}`}
+                                                                className={menuIndex > 2 ? 'list__extra-padding third__item-margin' : 'list__extra-padding'}>
+                                                                <FlexGridRow
+                                                                    width={6}
+                                                                    desktop={6}
+                                                                    onKeyDown={(e) => {
+                                                                        if (item.label === 'Release Notes' && e.key === 'Tab' && !e.shiftKey) {
+                                                                            closeDropdown();
+                                                                        }
+                                                                    }}>
+                                                                    { isRedirectNeeded(item) ?
+                                                                        (
+                                                                            <ExternalLink isCard={false} url={item.url}>
+                                                                                {item.icon && item.icon !== '' && item.icon !== null ?
+                                                                                    (
+                                                                                        <FontAwesomeIcon
+                                                                                            role="presentation"
+                                                                                            style={{ width: "20px", height: "20px" }}
+                                                                                            icon={item.icon} />
+                                                                                    ) :
+                                                                                    ''}
+                                                                                <div className="dropdown-item__link-desc">
+                                                                                    <div className="dropdown-item__link-label">
+                                                                                        {item.label}
+                                                                                        <span
+                                                                                            className="dropdown-item__description">
+                                                                                            {item.description}
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </ExternalLink>
+                                                                        ) :
+                                                                        (
+                                                                            <Link
+                                                                                prefetch={!item.shouldOpenNewTab ? "intent" : "none"}
+                                                                                className="dropdown--item__link"
+                                                                                to={item.url}
+                                                                                onKeyDown={(e) => {
+                                                                                    if (item.label === 'Release Notes' && e.key === 'Tab' && !e.shiftKey) {
+                                                                                        closeDropdown();
+                                                                                    }
+                                                                                }}
+                                                                                target={item.shouldOpenNewTab ? "_blank" : null}
+                                                                                rel={item.shouldOpenNewTab ? "noopener noreferrer" : null}>
+                                                                                {item.icon && item.icon !== '' && item.icon !== null ?
+                                                                                    (
+                                                                                        <FontAwesomeIcon
+                                                                                            role="presentation"
+                                                                                            style={{ width: "20px", height: "20px" }}
+                                                                                            icon={item.icon} />
+                                                                                    ) :
+                                                                                    ''}
+                                                                                <div className="dropdown-item__link-desc">
+                                                                                    <div className="dropdown-item__link-label">
+                                                                                        {item.label}
+                                                                                        <span
+                                                                                            className="dropdown-item__description">
+                                                                                            {item.description}
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </Link>
+                                                                        )}
+                                                                </FlexGridRow>
+                                                            </li>
+                                                        </>
+                                                    ))}
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            ) : ''}
+                                ) :
+                                ''}
                         </div>
                     </FadeContents>
                 );

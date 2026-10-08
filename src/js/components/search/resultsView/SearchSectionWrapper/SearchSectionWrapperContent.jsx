@@ -105,22 +105,25 @@ const SearchSectionWrapperContent = ({
                     }>
                     {
                         isError || isLoading || hasNoData ?
-                            message() : (
+                            message() :
+                            (
                                 <>
-                                    {((viewType === "table" || sectionName === "table") && isTablet) ? (
-                                        <MobileSort
-                                            columns={columns}
-                                            options={mobileDropdownOptions}
-                                            sortDirection={sortDirection}
-                                            setSortDirection={setSortDirection}
-                                            activeField={activeField}
-                                            field={sort?.field}
-                                            setActiveField={setActiveField}
-                                            sortBy={sortBy}
-                                            sort={sort}
-                                            tableColumns={tableColumns?.data}
-                                            setSort={setSort} />
-                                    ) : null}
+                                    {((viewType === "table" || sectionName === "table") && isTablet) ?
+                                        (
+                                            <MobileSort
+                                                columns={columns}
+                                                options={mobileDropdownOptions}
+                                                sortDirection={sortDirection}
+                                                setSortDirection={setSortDirection}
+                                                activeField={activeField}
+                                                field={sort?.field}
+                                                setActiveField={setActiveField}
+                                                sortBy={sortBy}
+                                                sort={sort}
+                                                tableColumns={tableColumns?.data}
+                                                setSort={setSort} />
+                                        ) :
+                                        null}
                                     {downloadComponent}
                                     {viewType === "table" ?
                                         content() :

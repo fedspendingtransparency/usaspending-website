@@ -47,6 +47,7 @@ const RecipientMultiParentCollapse = (props) => {
     return (
         <div className="recipient-overview__parent">
             {
+                // eslint-disable-next-line @stylistic/multiline-ternary
                 isSingleParent ? (
                     // Render only top level parent if there's only 1 parent
                     <div className="recipient-overview__parent">

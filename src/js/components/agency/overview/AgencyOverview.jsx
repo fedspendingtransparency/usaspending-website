@@ -102,29 +102,31 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
         </div>
     );
 
-    const content = isMedium ? (
-        <>
-            {showAboutData ? aboutBlock : missionBlock}
-            <ReadMore>
-                {showAboutData && missionBlock}
-                {websiteBlock}
-                {cjBlock}
-            </ReadMore>
-        </>
-    ) : (
-        <>
-            <FlexGridRow className="agency-overview__row">
-                <FlexGridCol width={8}>
-                    {showAboutData && aboutBlock}
-                    {missionBlock}
-                </FlexGridCol>
-                <FlexGridCol width={4}>
+    const content = isMedium ?
+        (
+            <>
+                {showAboutData ? aboutBlock : missionBlock}
+                <ReadMore>
+                    {showAboutData && missionBlock}
                     {websiteBlock}
                     {cjBlock}
-                </FlexGridCol>
-            </FlexGridRow>
-        </>
-    );
+                </ReadMore>
+            </>
+        ) :
+        (
+            <>
+                <FlexGridRow className="agency-overview__row">
+                    <FlexGridCol width={8}>
+                        {showAboutData && aboutBlock}
+                        {missionBlock}
+                    </FlexGridCol>
+                    <FlexGridCol width={4}>
+                        {websiteBlock}
+                        {cjBlock}
+                    </FlexGridCol>
+                </FlexGridRow>
+            </>
+        );
 
     return (
         <div className="body__content agency-overview">

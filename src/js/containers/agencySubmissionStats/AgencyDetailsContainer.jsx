@@ -66,24 +66,27 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                     key={rowData.percentOfBudget}>
                     {rowData.percentOfBudget}
                 </div>,
-                !rowData._mostRecentPublicationDate ? (
-                    <div className="generic-cell-content">
-                        {rowData.mostRecentPublicationDate}
-                    </div>
-                ) : (
-                    <CellWithModal
-                        data={rowData.mostRecentPublicationDate}
-                        openModal={modalClick}
-                        modalType="publicationDates"
-                        agencyData={{
-                            fiscalYear: rowData.fiscalYear,
-                            fiscalPeriod: rowData.fiscalPeriod,
-                            agencyName,
-                            agencyCode
-                        }} />
-                ),
+                !rowData._mostRecentPublicationDate ?
+                    (
+                        <div className="generic-cell-content">
+                            {rowData.mostRecentPublicationDate}
+                        </div>
+                    ) :
+                    (
+                        <CellWithModal
+                            data={rowData.mostRecentPublicationDate}
+                            openModal={modalClick}
+                            modalType="publicationDates"
+                            agencyData={{
+                                fiscalYear: rowData.fiscalYear,
+                                fiscalPeriod: rowData.fiscalPeriod,
+                                agencyName,
+                                agencyCode
+                            }} />
+                    ),
                 isNull(rowData._discrepancyCount) ?
-                    <div className="generic-cell-content">{rowData.discrepancyCount}</div> : (
+                    <div className="generic-cell-content">{rowData.discrepancyCount}</div> :
+                    (
                         <CellWithModal
                             data={rowData.discrepancyCount}
                             openModal={modalClick}
@@ -97,7 +100,8 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             }} />
                     ),
                 isNull(rowData._obligationDifference) ?
-                    <div className="generic-cell-content">{rowData.obligationDifference}</div> : (
+                    <div className="generic-cell-content">{rowData.obligationDifference}</div> :
+                    (
                         <CellWithModal
                             data={rowData.obligationDifference}
                             openModal={modalClick}
@@ -110,7 +114,8 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             }} />
                     ),
                 isNull(rowData._unlinkedContracts) ?
-                    <div className="generic-cell-content">{rowData.unlinkedContracts}</div> : (
+                    <div className="generic-cell-content">{rowData.unlinkedContracts}</div> :
+                    (
                         <CellWithModal
                             data={rowData.unlinkedContracts}
                             openModal={modalClick}
@@ -124,7 +129,8 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                             }} />
                     ),
                 isNull(rowData._unlinkedAssistance) ?
-                    <div className="generic-cell-content">{rowData.unlinkedAssistance}</div> : (
+                    <div className="generic-cell-content">{rowData.unlinkedAssistance}</div> :
+                    (
                         <CellWithModal
                             data={rowData.unlinkedAssistance}
                             openModal={modalClick}

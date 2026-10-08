@@ -972,13 +972,15 @@ const StatusOfFundsChart = ({
                         width={288}
                         tooltipPosition="bottom"
                         tooltipComponent={tooltip(hoverData)}
-                        styles={!toggle ? {
-                            position: 'absolute',
-                            transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - tooltipName}px)`
-                        } : {
-                            position: 'absolute',
-                            transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - (tooltipName - 10)}px)`
-                        }}
+                        styles={!toggle ?
+                            {
+                                position: 'absolute',
+                                transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - tooltipName}px)`
+                            } :
+                            {
+                                position: 'absolute',
+                                transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - (tooltipName - 10)}px)`
+                            }}
                         controlledProps={{
                             isControlled: true,
                             isVisible: isHovered,

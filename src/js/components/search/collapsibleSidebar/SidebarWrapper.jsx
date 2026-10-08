@@ -178,24 +178,26 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 </div>
             </div>
 
-            { isDesktopFilters ? (
-                <>
-                    <div className="link">
-                        <AboutTheDataLink slug="data-elements">
-                            Learn more about filters
-                        </AboutTheDataLink>
-                    </div>
-                    <SidebarContent />
-                </>
-            ): (
-                <NLSidebarContent
-                    hintOnClick={hintOnClick}
-                    text={text}
-                    setText={setText}
-                    startNLSearch={startNLSearch}
-                    data={parsedData}
-                    cancelQuery={handleCancelQuery} />
-            )}
+            { isDesktopFilters ?
+                (
+                    <>
+                        <div className="link">
+                            <AboutTheDataLink slug="data-elements">
+                                Learn more about filters
+                            </AboutTheDataLink>
+                        </div>
+                        <SidebarContent />
+                    </>
+                ) :
+                (
+                    <NLSidebarContent
+                        hintOnClick={hintOnClick}
+                        text={text}
+                        setText={setText}
+                        startNLSearch={startNLSearch}
+                        data={parsedData}
+                        cancelQuery={handleCancelQuery} />
+                )}
         </div>
     );
 
@@ -218,27 +220,29 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 </div>
             </div>
 
-            { isMobileFilters ? (
-                <>
-                    <div className="link">
-                        <AboutTheDataLink slug="data-elements">
-                            Learn more about filters
-                        </AboutTheDataLink>
-                    </div>
-                    <MobileSidebarContent
-                        setShowMobileFilters={setShowMobileFilters}
-                        mobileSidebarContent={mobileSidebarContent}
-                        showMobileFilters={showMobileFilters} />
-                </>
-            ): (
-                <NLSidebarContent
-                    hintOnClick={hintOnClick}
-                    text={text}
-                    setText={setText}
-                    startNLSearch={startNLSearch}
-                    data={parsedData}
-                    cancelQuery={handleCancelQuery} />
-            )}
+            { isMobileFilters ?
+                (
+                    <>
+                        <div className="link">
+                            <AboutTheDataLink slug="data-elements">
+                                Learn more about filters
+                            </AboutTheDataLink>
+                        </div>
+                        <MobileSidebarContent
+                            setShowMobileFilters={setShowMobileFilters}
+                            mobileSidebarContent={mobileSidebarContent}
+                            showMobileFilters={showMobileFilters} />
+                    </>
+                ) :
+                (
+                    <NLSidebarContent
+                        hintOnClick={hintOnClick}
+                        text={text}
+                        setText={setText}
+                        startNLSearch={startNLSearch}
+                        data={parsedData}
+                        cancelQuery={handleCancelQuery} />
+                )}
         </div>
     );
 

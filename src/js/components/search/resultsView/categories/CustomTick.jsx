@@ -46,33 +46,35 @@ const CustomTick = ({ x, y, payload, link, isTablet, isDesktopSm, scope, hash })
     };
     return (
         <g transform={`translate(${x - 8},${translateY()})`}>
-            {link[payload.index].link ? (
-                <a
-                    href={`${link[payload.index].link}`}
-                    onClick={() => onClickHandler(
-                        payload.value,
-                        scope,
-                        hash
-                    )}>
+            {link[payload.index].link ?
+                (
+                    <a
+                        href={`${link[payload.index].link}`}
+                        onClick={() => onClickHandler(
+                            payload.value,
+                            scope,
+                            hash
+                        )}>
+                        <Text
+                            textAnchor={isTablet ? "start" : "end"}
+                            fontSize={14}
+                            width={isTablet ? labelWidthVar : labelWidthVar + 16}
+                            fill="#2378C3"
+                            lineHeight={17.5}>
+                            {formattedText.text}
+                        </Text>
+                    </a>
+                ) :
+                (
                     <Text
                         textAnchor={isTablet ? "start" : "end"}
                         fontSize={14}
                         width={isTablet ? labelWidthVar : labelWidthVar + 16}
-                        fill="#2378C3"
+                        fill="#5c5c5c"
                         lineHeight={17.5}>
                         {formattedText.text}
                     </Text>
-                </a>
-            ) : (
-                <Text
-                    textAnchor={isTablet ? "start" : "end"}
-                    fontSize={14}
-                    width={isTablet ? labelWidthVar : labelWidthVar + 16}
-                    fill="#5c5c5c"
-                    lineHeight={17.5}>
-                    {formattedText.text}
-                </Text>
-            )}
+                )}
         </g>
     );
 };

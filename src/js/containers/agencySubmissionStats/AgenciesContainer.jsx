@@ -261,7 +261,8 @@ const AgenciesContainer = ({
                 </div>
             ),
             (!_mostRecentPublicationDate ?
-                <div className="generic-cell-content">{mostRecentPublicationDate}</div> : (
+                <div className="generic-cell-content">{mostRecentPublicationDate}</div> :
+                (
                     <CellWithModal
                         data={mostRecentPublicationDate}
                         openModal={openModal}
@@ -274,7 +275,8 @@ const AgenciesContainer = ({
                         }} />
                 )),
             (isNull(_discrepancyCount) ?
-                <div className="generic-cell-content">{GtasNotInFileA}</div> : (
+                <div className="generic-cell-content">{GtasNotInFileA}</div> :
+                (
                     <CellWithModal
                         data={GtasNotInFileA}
                         openModal={openModal}
@@ -288,7 +290,8 @@ const AgenciesContainer = ({
                         }} />
                 )),
             (isNull(_obligationDifference) ?
-                <div className="generic-cell-content">{obligationDifference}</div> : (
+                <div className="generic-cell-content">{obligationDifference}</div> :
+                (
                     <CellWithModal
                         data={obligationDifference}
                         openModal={openModal}
@@ -301,7 +304,8 @@ const AgenciesContainer = ({
                         }} />
                 )),
             (isNull(_unlinkedContracts) ?
-                <div className="generic-cell-content">{unlinkedContracts}</div> : (
+                <div className="generic-cell-content">{unlinkedContracts}</div> :
+                (
                     <CellWithModal
                         data={unlinkedContracts}
                         openModal={openModal}
@@ -315,7 +319,8 @@ const AgenciesContainer = ({
                         }} />
                 )),
             (isNull(_unlinkedAssistance) ?
-                <div className="generic-cell-content">{unlinkedAssistance}</div> : (
+                <div className="generic-cell-content">{unlinkedAssistance}</div> :
+                (
                     <CellWithModal
                         data={unlinkedAssistance}
                         openModal={openModal}

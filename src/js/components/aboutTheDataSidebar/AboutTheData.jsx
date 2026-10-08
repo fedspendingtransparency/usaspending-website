@@ -91,15 +91,17 @@ const AboutTheData = (props) => {
                         <>
                             {parts.map((part) => (
                                 <>
-                                    {part.toLowerCase() === term.toLowerCase() ? (
-                                        <span className="matched-highlight">
-                                            {part}
-                                        </span>
-                                    ) : (
-                                        <>
-                                            {part}
-                                        </>
-                                    )}
+                                    {part.toLowerCase() === term.toLowerCase() ?
+                                        (
+                                            <span className="matched-highlight">
+                                                {part}
+                                            </span>
+                                        ) :
+                                        (
+                                            <>
+                                                {part}
+                                            </>
+                                        )}
                                 </>
                             ))}
                         </>
@@ -168,12 +170,13 @@ const AboutTheData = (props) => {
         props.setAboutTheDataTerm(section.fields[index]);
     };
 
-    const content = Object.keys(searchResults).length === 0 ? (
-        <>
-            <DownloadButton />
-            <AboutTheDataNoResults searchTerm={searchTerm} />
-        </>
-    ) :
+    const content = Object.keys(searchResults).length === 0 ?
+        (
+            <>
+                <DownloadButton />
+                <AboutTheDataNoResults searchTerm={searchTerm} />
+            </>
+        ) :
         (
             <>
                 <DownloadButton />
@@ -255,7 +258,8 @@ const AboutTheData = (props) => {
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
                 {isLoading || searchResultsPending ?
-                    <><LoadingWrapper isLoading /></> : (
+                    <><LoadingWrapper isLoading /></> :
+                    (
                         <>
                             <AboutTheDataHeader
                                 closeAboutTheData={closeAboutTheData}
@@ -268,21 +272,23 @@ const AboutTheData = (props) => {
                                 renderTrackVertical={track}
                                 renderThumbVertical={thumb}
                                 ref={(s) => setScrollbar(s)}>
-                                {drilldown ? (
-                                    <div className="atd__body">
-                                        <AboutTheDataDrilldown
-                                            section={drilldownSection?.heading}
-                                            name={drilldownSection?.fields[drilldownItemId]?.name}
-                                            clearDrilldown={clearDrilldown}
-                                            slug={drilldownSection?.fields[drilldownItemId]?.slug} />
-                                    </div>
-                                ) : (
-                                    <>
+                                {drilldown ?
+                                    (
                                         <div className="atd__body">
-                                            {content}
+                                            <AboutTheDataDrilldown
+                                                section={drilldownSection?.heading}
+                                                name={drilldownSection?.fields[drilldownItemId]?.name}
+                                                clearDrilldown={clearDrilldown}
+                                                slug={drilldownSection?.fields[drilldownItemId]?.slug} />
                                         </div>
-                                    </>
-                                )}
+                                    ) :
+                                    (
+                                        <>
+                                            <div className="atd__body">
+                                                {content}
+                                            </div>
+                                        </>
+                                    )}
                             </Scrollbars>
                         </>
                     )}

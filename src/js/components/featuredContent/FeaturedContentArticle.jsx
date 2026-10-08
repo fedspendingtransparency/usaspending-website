@@ -65,7 +65,9 @@ const FeaturedContentArticle = () => {
                 setChosenArticle(article);
                 setIsInfographicTemplate(
                     Object.prototype.hasOwnProperty.call(
-                        article, 'isInfographicTemplate') ? article.isInfographicTemplate : false
+                        article, 'isInfographicTemplate') ?
+                        article.isInfographicTemplate :
+                        false
                 );
                 const tempSections = [];
                 for (let i = 0; i < article?.sections?.length; i++) {
