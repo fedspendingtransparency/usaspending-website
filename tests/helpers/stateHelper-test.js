@@ -5,7 +5,7 @@
  * Created by Max Kendall 02/05/2021
 */
 
-import { parseStateDataFromUrl, URLifyStateName } from 'features/state/stateHelper';
+import { parseStateDataFromUrl, URLifyStateName, normalizeStateName } from 'features/state/stateHelper';
 
 // Mock state data for testing
 const mockFipsIdByStateName = {
@@ -39,4 +39,14 @@ test.each([
     ['district of columbia', 'district-of-columbia']
 ])('URLifyStateName fn: given the input %s -- urlified name is %s', (input, rtrn) => {
     expect(URLifyStateName(input)).toEqual(rtrn);
+});
+
+test.each([
+    ['US Virgin Islands', 'us virgin islands'],
+    ['U.S. Virgin Islands', 'us virgin islands'],
+    ['south carolina', 'south carolina'],
+    ['district of columbia', 'district of columbia'],
+    [undefined, undefined]
+])('normalizeStateName fn: given the input %s -- normalized name is %s', (input, rtrn) => {
+    expect(normalizeStateName(input)).toEqual(rtrn);
 });

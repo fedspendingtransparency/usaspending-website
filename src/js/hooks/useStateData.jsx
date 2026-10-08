@@ -5,6 +5,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { apiRequest } from "../helpers/apiRequest";
+import { normalizeStateName } from "../features/state/stateHelper";
 
 export const fetchStateList = () => apiRequest({
     url: 'v2/references/states/',
@@ -59,7 +60,7 @@ export const useFipsIdByStateName = () => {
     if (results) {
         const obj = {};
         results.forEach((element) => {
-            obj[element.name.toLowerCase()] = element.fips;
+            obj[normalizeStateName(element.name)] = element.fips;
         });
         return obj;
     }
