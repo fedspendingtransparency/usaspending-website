@@ -61,7 +61,8 @@ export const searchCardData = [
                 label="Keyword"
                 icon="search" />,
             <NLSearchSuggestionsIcon
-                key={`recipient-${id}`} variant="recipient"
+                key={`recipient-${id}`}
+                variant="recipient"
                 label="Recipient"
                 icon="user" />
         ]

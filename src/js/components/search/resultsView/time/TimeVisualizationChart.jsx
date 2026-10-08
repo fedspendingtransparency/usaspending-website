@@ -38,7 +38,8 @@ const CustomShape = ({
                 <line
                     x1={x + (width / 2)}
                     x2={x + (width / 2) + 1}
-                    y1={lineHeight} y2="6"
+                    y1={lineHeight}
+                    y2="6"
                     stroke="#dfe1e2"
                     strokeDasharray="5 3" />
             </g>

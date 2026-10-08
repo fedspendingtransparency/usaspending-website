@@ -116,7 +116,8 @@ const NLSidebarContent = ({
                             className="sidebar-textarea"
                             maxLength={MAX_CHARS}
                             value={text}
-                            rows="3" cols="50"
+                            rows="3"
+                            cols="50"
                             placeholder="Type a question about government spending, or choose an example above." />
                         <div className="textarea-char-row">
                             <button type="reset" className={`textarea-reset ${text.length <= 0 && 'text-area-reset-hidden'}`} onClick={reset}>Clear Input</button>

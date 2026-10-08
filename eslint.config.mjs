@@ -72,7 +72,6 @@ export default defineConfig([
             "@stylistic/jsx-one-expression-per-line": ["error", { allow: "single-line" }],
 
             // TODO: address and turn back on:
-            // "@stylistic/jsx-max-props-per-line": [0],
             "@stylistic/arrow-spacing": [0],
 
             "react/default-props-match-prop-types": [0],
