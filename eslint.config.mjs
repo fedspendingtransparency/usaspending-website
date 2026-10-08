@@ -65,13 +65,7 @@ export default defineConfig([
             'react-hooks/exhaustive-deps': 'warn',
             'react-hooks/set-state-in-effect': 'warn', // TODO: fix these findings and set to error
 
-            // downgrading export default preference to warning,
-            // since we may add additional exports to files in the future
-            'import/no-named-as-default': [0],
             'import/prefer-default-export': ['warn']
         }
     }
 ]);
-
-// eslint --config eslint.config.mjs --ext .jsx,.js "src/js/**" --quiet
-// literal: 2391, single-child: 2032, single-line: 916, non-jsx: 1725
