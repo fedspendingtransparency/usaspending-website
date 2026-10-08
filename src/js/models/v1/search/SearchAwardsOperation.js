@@ -222,7 +222,6 @@ class SearchAwardsOperation {
         // Add dateType = new_awards_only to all selected fy
         if (this.dateType) {
             filters[rootKeys.timePeriod].forEach((item) => {
-
                 item[timePeriodKeys.dateType] = 'new_awards_only';
             });
         }

@@ -49,7 +49,6 @@ export const useStateNavigation = () => {
     }, []);
 
     return { handleFyChange, state, stateId, fy };
-
 };
 
 export default useStateNavigation;

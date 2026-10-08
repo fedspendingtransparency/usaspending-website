@@ -169,12 +169,10 @@ const AwardSearch = () => {
 
         d.slides.forEach((slide, i) => {
             if (i === currentIndex) {
-
                 slide.ariaHidden = false;
                 setActiveCardIndex(currentIndex);
             }
             else {
-
                 slide.ariaHidden = true;
             }
         });

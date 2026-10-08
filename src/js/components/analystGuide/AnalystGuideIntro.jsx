@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import { useDispatch } from "react-redux";
@@ -20,7 +19,6 @@ const AnalystGuideIntro = () => {
         const emailSubject = `USAspending.gov Federal Spending Guide`;
         const emailArgs = {
             subject: `${emailSubject}`,
-            // eslint-disable-next-line max-len
             body: `Interested in learning how to effectively use Federal Spending Data? Check out #USAspending Federal Spending Guide! ${getBaseUrl(slug)}`
         };
         handleShareOptionClick(name, slug, emailArgs, onExternalLinkClick);
@@ -47,7 +45,6 @@ const AnalystGuideIntro = () => {
             </FlexGridCol>
         </FlexGridRow>
     );
-
 };
 
 export default AnalystGuideIntro;

@@ -73,7 +73,6 @@ const AccordionCheckbox = ({
             // isExpanded might not be known by parent
             // collapse expandedCategories
             expandedCategories.forEach((ec) => toggleExpanded({ id: ec }));
-
         }
         else if (isExpanded) {
             const category = filterCategoryMapping.find((item) => item.id === selectedCategory);
@@ -96,7 +95,7 @@ const AccordionCheckbox = ({
 
     const searchCategoryMapping = () => {
         // filter out definitions based on search text
-        // eslint-disable-next-line no-unused-vars
+
         const filteredDefinitions = Object
             .fromEntries(
                 Object

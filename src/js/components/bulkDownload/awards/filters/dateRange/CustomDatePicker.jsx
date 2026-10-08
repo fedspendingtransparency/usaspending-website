@@ -132,7 +132,6 @@ const CustomDatePicker = memo(function CustomDatePicker({
         setIsOpen(false);
         onDateChange(date, type);
         setIsOpen(false);
-
     }, [onDateChange, type]);
 
     const handleInputChange = (e) => {

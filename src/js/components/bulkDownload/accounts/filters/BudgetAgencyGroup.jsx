@@ -32,7 +32,6 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
     updateFilter,
     accounts
 }) {
-
     const [hasSelectedBudgetFunction, setHasSelectedBudgetFunction] = useState(false);
     const [hasSelectedAgency, setHasSelectedAgency] = useState(false);
     const {

@@ -113,7 +113,6 @@ const FeaturedContentArticle = () => {
     const setNoHeader = () => {
         if (!isFound) return false;
         return !isInfographicTemplate;
-
     };
 
     const Hero = () => {

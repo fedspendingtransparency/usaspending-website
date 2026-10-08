@@ -15,7 +15,6 @@ const propTypes = {
 };
 
 const NLSearchInfoSection = ({ section }) => {
-
     return (
         <div className="search-info-page-section">
             <div className="search-info-page__heading-section">
