@@ -208,12 +208,14 @@ export default class AdditionalInfo extends React.Component {
         ];
 
         if (overview.category === "grant") {
-            columnTwo.push(<Accordion
-                key="PreAwardDetails"
-                globalToggle={this.state.globalToggle}
-                accordionName="Pre-Award Details"
-                accordionIcon="clipboard-list"
-                accordionData={overview?.preAwardDetails} />);
+            columnTwo.push(
+                <Accordion
+                    key="PreAwardDetails"
+                    globalToggle={this.state.globalToggle}
+                    accordionName="Pre-Award Details"
+                    accordionIcon="clipboard-list"
+                    accordionData={overview?.preAwardDetails} />
+            );
         }
         return { columnOne, columnTwo };
     }

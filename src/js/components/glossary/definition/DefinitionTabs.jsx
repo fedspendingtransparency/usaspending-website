@@ -21,21 +21,25 @@ const DefinitionTabs = ({
     const items = [];
 
     if (hasPlain) {
-        items.push(<TabItem
-            key="plain"
-            label="Plain Language"
-            type="plain"
-            active={activeTab === "plain"}
-            clickedTab={clickedTab} />);
+        items.push(
+            <TabItem
+                key="plain"
+                label="Plain Language"
+                type="plain"
+                active={activeTab === "plain"}
+                clickedTab={clickedTab} />
+        );
     }
 
     if (hasOfficial) {
-        items.push(<TabItem
-            key="official"
-            label="Official Definition"
-            type="official"
-            active={activeTab === "official"}
-            clickedTab={clickedTab} />);
+        items.push(
+            <TabItem
+                key="official"
+                label="Official Definition"
+                type="official"
+                active={activeTab === "official"}
+                clickedTab={clickedTab} />
+        );
     }
 
     return (

@@ -43,48 +43,55 @@ const MetaTags = ({
         const newTags = [];
 
         if (url !== '') {
-            newTags.push(<meta
-                property="og:url"
-                content={url}
-                key="og_url" />
+            newTags.push(
+                <meta
+                    property="og:url"
+                    content={url}
+                    key="og_url" />
             );
         }
         if (title !== '') {
-            newTags.push(<meta
-                property="og:title"
-                content={title}
-                key="og_title" />
+            newTags.push(
+                <meta
+                    property="og:title"
+                    content={title}
+                    key="og_title" />
             );
-            newTags.push(<meta
-                content={title}
-                key="twitter-title"
-                name="twitter:title" />
+            newTags.push(
+                <meta
+                    content={title}
+                    key="twitter-title"
+                    name="twitter:title" />
             );
             newTags.push(<title key="title">{title}</title>);
         }
         if (description !== '') {
-            newTags.push(<meta
-                name="description"
-                property="og:description"
-                content={description}
-                key="og_description" />
+            newTags.push(
+                <meta
+                    name="description"
+                    property="og:description"
+                    content={description}
+                    key="og_description" />
             );
-            newTags.push(<meta
-                content={description}
-                key="twitter-description"
-                name="twitter:description" />
+            newTags.push(
+                <meta
+                    content={description}
+                    key="twitter-description"
+                    name="twitter:description" />
             );
         }
         if (image !== '') {
-            newTags.push(<meta
-                property="og:image"
-                content={image}
-                key="og_image" />
+            newTags.push(
+                <meta
+                    property="og:image"
+                    content={image}
+                    key="og_image" />
             );
-            newTags.push(<meta
-                name="twitter:image"
-                key="twitter:image"
-                content={image} />
+            newTags.push(
+                <meta
+                    name="twitter:image"
+                    key="twitter:image"
+                    content={image} />
             );
         }
 
