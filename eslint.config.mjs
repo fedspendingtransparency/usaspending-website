@@ -72,7 +72,6 @@ export default defineConfig([
             "@stylistic/jsx-one-expression-per-line": ["error", { allow: "single-line" }],
 
             // TODO: address and turn back on:
-            "@stylistic/jsx-first-prop-new-line": [0],
             "@stylistic/lines-between-class-members": [0],
             "@stylistic/max-statements-per-line": [0],
             "@stylistic/space-infix-ops": [0],
