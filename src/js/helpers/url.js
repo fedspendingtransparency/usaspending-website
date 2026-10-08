@@ -63,7 +63,7 @@ export const sanitizeUrl = (rawURL, blockRedirect = true) => {
 
         // remove open-direct query params
         // allow valid urls.
-        for ( const [key, value] of params) {
+        for (const [key, value] of params) {
             if (commonAttackParams.has(key.toLowerCase()) && !isBaseURL(value)) {
                 parsed.searchParams.delete(key);
             }
@@ -86,7 +86,7 @@ export const sanitizeMailUrl = (rawURL) => {
         params.delete('cc');
         params.delete('bcc');
 
-        if (params.toString() && params.toString() !== '' ) {
+        if (params.toString() && params.toString() !== '') {
             // add wanted params back
             cleanMailto = `${prefix}?${params.toString().replace(/\+/g, '%20')}`;
         }

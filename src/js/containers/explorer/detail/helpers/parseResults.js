@@ -30,7 +30,7 @@ const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
         };
         resultsArray.push(result);
     });
-    if (sort.field == 'Obligated Amount' ) {
+    if (sort.field == 'Obligated Amount') {
         return orderBy(
             resultsArray,
             ['Obligated Amount unformatted'],

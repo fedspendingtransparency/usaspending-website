@@ -74,7 +74,7 @@ const QuarterPickerWithFY = ({
         }
     }, [selectedFy, allPeriods]);
 
-    const defaultFy = useMemo( () => latestFy || currentFiscalYear(), [latestFy]);
+    const defaultFy = useMemo(() => latestFy || currentFiscalYear(), [latestFy]);
 
     const optionsArray = useMemo(() => {
         return allFiscalYears(earliestExplorerYear, defaultFy)

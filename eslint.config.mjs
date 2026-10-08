@@ -58,10 +58,6 @@ export default defineConfig([
             "prefer-arrow-callback": ["error"],
             // for now, don't do destructuring
             "prefer-destructuring": [0],
-            // TODO: The following js rules have been deprecated and should be replaced,
-            //  all have been addressed in @stylistic/eslint-plugin
-            // "max-len": [1, 120, { "tabWidth": 4 }],
-            // "spaced-comment": [2, "always", { "exceptions": ["*"] }],
 
             "@stylistic/indent": [2, 4, { SwitchCase: 1 }],
             "@stylistic/jsx-indent-props": [2, 4],
@@ -76,7 +72,6 @@ export default defineConfig([
             "@stylistic/jsx-one-expression-per-line": ["error", { allow: "single-line" }],
 
             // TODO: address and turn back on:
-            "@stylistic/space-in-parens": [0],
             "@stylistic/space-before-function-paren": [0],
             "@stylistic/jsx-curly-brace-presence": [0],
             "@stylistic/jsx-first-prop-new-line": [0],

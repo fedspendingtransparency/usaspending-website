@@ -33,7 +33,7 @@ const SearchSidebarSubmit = ({
         title = 'Add or update a filter to submit.';
         disabled = true;
     }
-    else if (!requestsComplete ) {
+    else if (!requestsComplete) {
         title = 'Add or update a filter to submit.';
         disabled = true;
     }
