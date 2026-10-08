@@ -31,6 +31,7 @@ export default class ExplorerTooltip extends React.Component {
 
         this.measureWindow = this.measureWindow.bind(this);
     }
+
     componentDidMount() {
         this.measureWindow();
         window.addEventListener('resize', this.measureWindow);

@@ -19,11 +19,13 @@ export default class AwardsBanner extends React.Component {
         };
         this.toggleBanner = this.toggleBanner.bind(this);
     }
+
     toggleBanner() {
         this.setState({
             toggle: false
         });
     }
+
     render() {
         return (
 

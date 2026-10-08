@@ -40,14 +40,17 @@ export default class RelatedAwards extends React.Component {
         this.props.setRelatedAwardsTab('child_awards');
         this.props.jumpToSection('referenced-awards');
     }
+
     jumpToReferencedAwardsTableChildIDVsTab() {
         this.props.setRelatedAwardsTab('child_idvs');
         this.props.jumpToSection('referenced-awards');
     }
+
     jumpToReferencedAwardsTableGrandchildAwardsTab() {
         this.props.setRelatedAwardsTab('grandchild_awards');
         this.props.jumpToSection('referenced-awards');
     }
+
     jumpToAwardHistoryTableSubAwardsTab = () => {
         this.props.jumpToSubAwardHistoryTable('subaward');
         this.props.jumpToSection('award-history');

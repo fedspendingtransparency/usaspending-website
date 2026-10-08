@@ -30,6 +30,7 @@ export default class SankeyVisualization extends React.Component {
         }
         return (<SankeyVisualizationHorizontal {...this.props} />);
     }
+
     render() {
         const output = this.determineOutput();
         return output;

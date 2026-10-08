@@ -136,6 +136,7 @@ export class MapContainer extends React.Component {
             action: `${this.state.activeFilters.awardType} - area type - ${value}`
         });
     };
+
     updateSpendingTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
@@ -151,6 +152,7 @@ export class MapContainer extends React.Component {
             action: `${this.state.activeFilters.awardType} - spending type - ${value}`
         });
     };
+
     updateRecipientTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
@@ -166,6 +168,7 @@ export class MapContainer extends React.Component {
             action: `${this.state.activeFilters.awardType} - recipient type - ${value}`
         });
     };
+
     updateAwardTypeFilter = (value) => {
         this.setState(
             (currentState) => ({

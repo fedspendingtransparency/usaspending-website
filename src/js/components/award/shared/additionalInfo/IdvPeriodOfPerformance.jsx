@@ -21,11 +21,13 @@ export default class IdvPeriodOfPerformance extends React.Component {
         };
         this.handleClick = this.handleClick.bind(this);
     }
+
     componentDidUpdate(prevProps) {
         if (this.props.globalToggle !== prevProps.globalToggle) {
             this.globalOverride();
         }
     }
+
     handleClick() {
         this.setState({ open: !this.state.open });
     }

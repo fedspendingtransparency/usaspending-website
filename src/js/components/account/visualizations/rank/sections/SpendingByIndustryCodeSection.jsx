@@ -36,6 +36,7 @@ export default class SpendingByIndustryCodeSection extends React.Component {
             elem?.classList.add("line-clamp");
         }
     }
+
     render() {
         const applyLineClamp = (elem) => {
             elem.classList.add("line-clamp");

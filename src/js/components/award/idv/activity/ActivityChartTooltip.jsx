@@ -45,6 +45,7 @@ export default class ActivityChartTooltip extends React.Component {
         throttle(this.measureWindow = this.measureWindow.bind(this), 50);
         this.mouseEnter = this.mouseEnter.bind(this);
     }
+
     componentDidMount() {
         this.measureWindow();
         window.addEventListener('resize', this.measureWindow);
@@ -84,6 +85,7 @@ export default class ActivityChartTooltip extends React.Component {
             this.positionTooltip();
         });
     }
+
     // uses a ratio of
     // someDivWidth / GraphWidth = x ( TruncatedWidth ) / shortenedTooltipWidth
     // to get what the shortened width of the div should be
@@ -91,6 +93,7 @@ export default class ActivityChartTooltip extends React.Component {
         const graphWidth = this.props.data.graphWidth;
         return (graphWidth * (divWidth / 2)) / tooltipWidth;
     }
+
     // uses a ratio of
     // TruncatedDivWidth / NormalDivWidth =
     // x ( Truncated character length ) / NormalCharacterLength
@@ -100,6 +103,7 @@ export default class ActivityChartTooltip extends React.Component {
         return Math.floor(
             ((truncatedDivWidth * normalCharacterLength) / normalDivWidth));
     }
+
     // truncates the text if warranted
     truncateText(text, truncatedLength, propertyName) {
         if (truncatedLength < text.length) {
