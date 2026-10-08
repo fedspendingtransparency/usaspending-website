@@ -668,6 +668,7 @@ export const defaultColumns = (type) => {
     const columns = {
         contracts: defaultContract,
         grants: defaultGrant,
+        cooperative_agreement: defaultGrant,
         direct_payments: defaultDirectPayment,
         loans: defaultLoan,
         other: defaultOther,

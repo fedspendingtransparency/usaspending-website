@@ -47,6 +47,7 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
+
         // new BundleAnalyzerPlugin(), // Webpack bundle volume analysis
         new webpack.DefinePlugin({
             'process.env': {

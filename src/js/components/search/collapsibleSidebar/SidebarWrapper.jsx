@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router';
 
@@ -21,7 +21,8 @@ import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS } from './SidebarConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
-import {RESPONSE_TYPE } from "./NLConstants";
+import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from "./NLConstants";
+import { sanitizeNLInput } from "helpers/search/naturalLanguage/sanitizeNLInput";
 import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
 
 
@@ -56,9 +57,10 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const { data, refetch, cancelQuery, isFetching, isSuccess } = useRequestNLSearch(text);
 
-    const parsedData = data?.split('\n')
+    const parsedData = useMemo(() => data?.split('\n')
         .filter((line) => line.trim() !== '')
-        .map((line) => JSON.parse(line));
+        .map((line) => JSON.parse(line)),
+    [data]);
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -68,7 +70,8 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const closeSidebar = () => {
         if (isMedium) {
             setShowMobileFilters(false);
-        } else {
+        }
+        else {
             setSidebarIsOpen(false);
         }
     }
@@ -81,19 +84,36 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
 
     const hintOnClick = (e) => {
         if(e?.target.textContent) {
-            setText(e.target.textContent);
+            setText(sanitizeNLInput(e.target.textContent).trim().slice(0, NL_INPUT_MAX_CHARS));
         }
     };
 
     const startNLSearch = () => {
-        if(text && typeof refetch === "function") {
+        if(text?.trim() && typeof refetch === "function") {
+            wasCancelled.current = false;
             refetch();
         }
     }
 
     const request = useRef();
+    const wasCancelled = useRef(false);
+
+    const handleCancelQuery = () => {
+        wasCancelled.current = true;
+        if (request.current) {
+            request.current.cancel();
+            request.current = null;
+        }
+        if (typeof cancelQuery === "function") {
+            cancelQuery();
+        }
+    };
 
     useEffect(() => {
+        if (wasCancelled.current) {
+            return;
+        }
+
         if (isSuccess && parsedData && Object.keys(parsedData).length > 0) {
             const done = parsedData.find((res) => {
                 if (res.type === RESPONSE_TYPE.SEARCH_COMPLETE) {
@@ -137,6 +157,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             }
             dispatch(setIsNLSearchComplete(!isFetching));
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isSuccess, isFetching]);
 
     const renderDesktopSidebar = () => (
@@ -174,7 +195,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     setText={setText}
                     startNLSearch={startNLSearch} 
                     data={parsedData}
-                    cancelQuery={cancelQuery} />
+                    cancelQuery={handleCancelQuery} />
             )}   
         </div>    
     );
@@ -217,7 +238,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     setText={setText}
                     startNLSearch={startNLSearch} 
                     data={parsedData}
-                    cancelQuery={cancelQuery} />
+                    cancelQuery={handleCancelQuery} />
             )}
         </div>
     );

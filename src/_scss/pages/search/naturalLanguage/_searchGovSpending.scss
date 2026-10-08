@@ -49,17 +49,51 @@
     flex: 1 1 0;
     margin-top: rem(16);
     margin-bottom: rem(16);
-    .search-gov-spending__input {
-      width: 100%;
-      line-height: 150%;
-      padding: rem(4) rem(16);
-      border-radius: rem(4) 0 0 rem(4);
-      border: 1px solid $gray-20;
-      background: $color-white;
-      color: $gray-60;
-      font-size: $font-size-14;
-      height: rem(40);
-      margin: 0;
+    .search-gov-spending__clear-container {
+      width:100%;
+      display: flex;
+      flex: 1 1 0;
+      .search-gov-spending__input {
+        anchor-name: --input-anchor;
+        position: relative;
+        width: 100%;
+        line-height: 150%;
+        padding: rem(4) rem(40) rem(4) rem(16);
+        border-radius: rem(4) 0 0 rem(4);
+        border: rem(1) solid $gray-20;
+        background: $color-white;
+        color: $gray-60;
+        font-size: $font-size-14;
+        height: rem(40);
+        margin: 0;
+
+      }
+      .clear-button {
+        @include button-unstyled;
+        position: absolute;
+        position-anchor: --input-anchor;
+        position-area: center start; 
+        left: anchor(right);
+        transform: translateX(-36px);
+        margin-top: rem(8);
+        margin-bottom: rem(8);
+        margin-right: rem(12);
+        width: rem(24);
+        height: rem(24);
+        margin-left:auto;
+        svg {
+          width: rem(16);
+          height: rem(16);
+          fill: black;
+        }
+
+        &:hover,
+        &:active {
+          svg {
+            fill: black;
+          }
+        }
+      }
     }
     .search-gov-spending__input-button {
       margin: 0;
@@ -74,6 +108,12 @@
       justify-content: center;
       align-items: center;
     }
+  }
+  input[type="search"]::-webkit-search-cancel-button {
+    height: rem(24);
+    width: rem(24);
+    color: black;
+    cursor: pointer;
   }
 
   .search-gov-spending__prompt-container {
@@ -99,7 +139,7 @@
       margin-top: 0;
       margin-bottom: 0;
       border-radius: rem(4);
-      border: 1px solid $color-secondary-secondary-lighter;
+      border: rem(1) solid $color-secondary-secondary-lighter;
       font-size: $font-size-12;
       color: $gray-60;
 
@@ -107,12 +147,12 @@
         margin-right: 0;
       }
       &:hover {
-        border: 1px solid $cyan-50v;
+        border: rem(1) solid $cyan-50v;
         background: $cyan-50v;
         color: $color-white;
       }
       &:active {
-        border: 1px solid $cyan-60v;
+        border: rem(1) solid $cyan-60v;
         background: $cyan-60v;
         color: $color-white;
       }
