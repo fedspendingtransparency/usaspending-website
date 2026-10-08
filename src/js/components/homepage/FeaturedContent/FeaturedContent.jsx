@@ -32,7 +32,7 @@ const propTypes = {
     })
 };
 
-const FeaturedContent = (({ leftCard = marketingArticle, rightCard = otherArticle }) => (
+const FeaturedContent = ({ leftCard = marketingArticle, rightCard = otherArticle }) => (
     <section className="featured-content__section">
         <div className="featured-content__heading">
             <div className="featured-content__heading--background">
@@ -57,7 +57,7 @@ const FeaturedContent = (({ leftCard = marketingArticle, rightCard = otherArticl
                 externalLink={rightCard?.externalLink} />
         </div>
     </section>
-));
+);
 
 FeaturedContent.propTypes = propTypes;
 export default FeaturedContent;

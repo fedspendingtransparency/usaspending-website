@@ -30,22 +30,21 @@ const AwardPageWrapper = ({
             setCovidDefCodes(defCodes.filter((c) => c.disaster === 'covid_19' && allDefCodes.indexOf(c.code) > -1).map((code) => code.code));
         }
     }, [areDefCodesLoading, allDefCodes, defCodes]);
-    const handleClick = (() => {
-        setShowTooltip(true);
-    });
 
-    const handleKeyUp = ((e) => {
+    const handleClick = () => setShowTooltip(true);
+
+    const handleKeyUp = (e) => {
         if (e.key === 'Enter') {
             setShowTooltip(true);
         }
-    });
+    };
 
-    const handleFocus = (() => {
+    const handleFocus = () => {
         const spanFocus = document.getElementById("award-summary__unlinked-span");
         if (spanFocus) {
             spanFocus.focus();
         }
-    });
+    };
 
     return (
         <div className={`award award-${awardType}`}>
