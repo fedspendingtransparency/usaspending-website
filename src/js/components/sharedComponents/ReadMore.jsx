@@ -90,7 +90,8 @@ const ReadMore = ({
             <button
                 className="read-more-button"
                 onClick={(e) => {
-                    e.stopPropagation(); setExpanded(false);
+                    e.stopPropagation();
+                    setExpanded(false);
                 }}>
                 Read Less
             </button>
@@ -138,7 +139,11 @@ const ReadMore = ({
                             additionalFunctionality(expanded);
                         }
                     }}>
-                    <span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
+                    <span className="usa-button-link__icon">
+                        <FontAwesomeIcon
+                            className="readMoreUpdated__link-icon"
+                            icon={openIcon} />
+                    </span>
                 </button>
             );
         }
@@ -146,7 +151,8 @@ const ReadMore = ({
             <button
                 className="read-more-button"
                 onClick={(e) => {
-                    e.stopPropagation(); setExpanded(true);
+                    e.stopPropagation();
+                    setExpanded(true);
                 }}>
                 Read More
             </button>

@@ -105,7 +105,8 @@ const BulkDownloadPage = ({
             userSelections = (<AccountUserSelections />);
             title = "Custom Account Data";
             break;
-        case 'dataset_metadata': downloadDataContent = (<MetadataDownload />); break;
+        case 'dataset_metadata': downloadDataContent = (<MetadataDownload />);
+            break;
         default:
             downloadDataContent = (<AwardDataContainer clickedDownload={clickedDownload} />);
             userSelections = (<AwardsUserSelections />);
