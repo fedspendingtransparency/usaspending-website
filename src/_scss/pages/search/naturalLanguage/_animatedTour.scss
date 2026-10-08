@@ -1,3 +1,41 @@
-.nl-popover {
-    margin-left: rem(10);
+.driver-popover.nl-theme {
+    background-color: $cyan-50v;
+    color: $color-white;
+}
+
+/* Match the popover arrows to the new background color */
+.driver-popover.nl-theme .driver-popover-arrow-side-left.driver-popover-arrow {
+  border-left-color: $cyan-50v;
+}
+.driver-popover.nl-theme .driver-popover-arrow-side-right.driver-popover-arrow {
+  border-right-color: $cyan-50v;
+}
+.driver-popover.nl-theme .driver-popover-arrow-side-top.driver-popover-arrow {
+  border-top-color: $cyan-50v;
+}
+.driver-popover.nl-theme .driver-popover-arrow-side-bottom.driver-popover-arrow {
+  border-bottom-color: $cyan-50v;
+}
+
+.driver-popover-title {
+    font-size: $font-size-16;
+    font-weight: $font-semibold;
+    line-height: 150%;
+}
+
+.driver-popover-description {
+    font-size: $font-size-14;
+    line-height: 150%;
+}
+
+.progress-text {
+    color: $color-white;
+}
+
+.driver-popover-next-btn .driver-popover-prev-btn {
+    padding: rem(4) rem(8);
+    align-items: center;
+    border-radius: rem(2);
+    border: rem(1) solid $color-white;
+    background-color: $cyan-50v;
 }
