@@ -142,7 +142,7 @@ const AnimatedHeading = ({ paused }) => {
             document.querySelector('.phrase__static__item')?.classList.add('phrase--entrance-animation');
             const endPhrase = document.querySelector('.phrase__end__item');
             endPhrase?.classList.add('phrase--entrance-animation');
-            endPhrase.addEventListener('animationend', () => {
+            endPhrase?.addEventListener('animationend', () => {
                 startMainAnimation();
                 setAnimatedCnt((prevState) => prevState + 1);
             });
@@ -159,7 +159,7 @@ const AnimatedHeading = ({ paused }) => {
                 document.querySelector('.phrase__static__item')?.classList.add('phrase--exit-animation');
                 const endPhrase = document.querySelector('.phrase__end__item');
                 endPhrase?.classList.add('phrase--exit-animation');
-                endPhrase.addEventListener('animationend', () => {
+                endPhrase?.addEventListener('animationend', () => {
                     document.querySelector('.phrase').style.visibility = 'hidden';
                     restartLandingAnimation();
                     setTimeout(() => {

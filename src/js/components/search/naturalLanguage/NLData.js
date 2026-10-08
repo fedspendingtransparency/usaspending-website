@@ -14,6 +14,7 @@ import * as aboutTheDataActions from "../../../redux/actions/aboutTheDataSidebar
 import { initialState as defaultFilters } from '../../../redux/reducers/search/searchFiltersReducer';
 import { awardTypeGroups } from "../../../dataMapping/search/awardType";
 import { REQUEST_VERSION } from "../../../GlobalConstants";
+import { defCodeGroups } from "../../../dataMapping/search/defCodes";
 
 const overline = 'IF YOU WANT TO KNOW:';
 const filterByHeader = 'FILTER BY:';
@@ -235,7 +236,8 @@ export const searchGovSpendingData = [
     }
 ];
 
-export const preSearchOptions = [
+// delete when Smart Assist is released
+export const preSearchOptionsToRemove = [
     {
         type: "award-recipient-type",
         options: [
@@ -624,6 +626,218 @@ export const preSearchOptions = [
                 }
             }
         ]
+    }
+];
+
+// end delete when Smart Assist is released
+
+export const preSearchOptions = [
+    {
+        id: "nl-1",
+        title:"National Security",
+        text: (<>Tax dollars spent on <strong>national defense</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    keyword: {"National Defense" : "National Defense"}
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "shield"  
+    },
+    {
+        id: "nl-2",
+        title:"Health",
+        text: (<>Spending on <strong>health care services</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    naicsCodes: {
+                        require: ["62"],
+                        exclude: [],
+                        counts: [
+                            {
+                                label: "Health Care and Social Assistance",
+                                value: "62",
+                                count: 39
+                            }
+                        ]
+                    }
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "hospital"  
+    },
+    {
+        id: "nl-3",
+        title:"Education",
+        text: (<>Top <strong>universities</strong> funded in <strong>2026</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    timePeriodType: "fy",
+                    timePeriodFY: ["2026"],
+                    naicsCodes: {
+                        require: ["6113"],
+                        exclude: [],
+                        counts: [
+                            {
+                                label: "Educational Services",
+                                value: "61",
+                                count: 1
+                            }
+                        ]
+                    }
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "graduation-cap"   
+    },
+    {
+        id: "nl-4",
+        title:"Energy",
+        text: (<>Awards provided for <strong>renewable energy</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    keyword: {"Renewable Energy" : "Renewable Energy"}
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "wind-turbine"   
+    },
+    {
+        id: "nl-5",
+        title:"Medicare",
+        text: (<>Top <strong>medicare programs</strong> funded in <strong>2026</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    timePeriodType: "fy",
+                    timePeriodFY: ["2026"],
+                    keyword: {"Medicare" : "Medicare"}
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "hands-holding-heart"
+    },
+    {
+        id: "nl-6",
+        title:"Natural Resources",
+        text: (<>Spending on <strong>water resources</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    keyword: {"Water Resources" : "Water Resources"}
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "faucet-drip"
+    },
+    {
+        id: "nl-7",
+        title:"Social Security",
+        text: (<>Tax dollars spent on <strong>retirement & disability</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    selectedCFDA: {
+                        96.001: {
+                            identifier: "96.001",
+                            popular_name: "Social Security Disability Insurance",
+                            program_title: "Social Security Disability Insurance",
+                            program_number: "96.001"
+                        },
+                        96.002: {
+                            identifier: "96.002",
+                            popular_name: "Social Security Retirement Insurance",
+                            program_title: "Retirement (RIB",
+                            program_number: "96.002"
+                        }
+                    }
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "wheelchair-move" 
+    },
+    {
+        id: "nl-8",
+        title:"Disaster Relief",
+        text: (<>Tax dollars spent on <strong>contracts</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    defCode: defCodeGroups.covid
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "virus-covid"
+    },
+    {
+        id: "nl-9",
+        title:"Veterans Benefits",
+        text: (<>Awards provided for <strong>veteran programs</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    keyword: {"Veterans Benefits" : "Veterans Benefits"}
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "user-shield"
+    },
+    {
+        id: "nl-10",
+        title:"Agriculture",
+        text: (<>Spending on <strong>crop farming</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    naicsCodes: {
+                        require: ["1119"],
+                        exclude: [],
+                        counts: [
+                            {
+                                label: "Agriculture, Forestry, Fishing and Hunting",
+                                value: "11",
+                                count: 7
+                            }
+                        ]
+                    }
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "tractor"
     }
 ];
 
