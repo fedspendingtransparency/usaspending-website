@@ -1,29 +1,29 @@
-import { defineConfig, globalIgnores } from "eslint/config";
-import globals from "globals";
-import js from "@eslint/js";
+import { defineConfig, globalIgnores } from 'eslint/config';
+import globals from 'globals';
+import js from '@eslint/js';
 
-import react from "eslint-plugin-react";
-import reactHooks from "eslint-plugin-react-hooks";
-import jsxA11y from "eslint-plugin-jsx-a11y";
-import pluginImport from "eslint-plugin-import";
+import react from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import pluginImport from 'eslint-plugin-import';
 import stylistic from '@stylistic/eslint-plugin';
 
 export default defineConfig([
     globalIgnores([
-        "**/webpack/",
-        "**/storybook-static/",
-        "**/docs/",
-        "**/__mocks__",
-        "**/.storybook/",
-        "**/coverage/",
-        "**/scripts/",
-        "**/*.md"
+        '**/webpack/',
+        '**/storybook-static/',
+        '**/docs/',
+        '**/__mocks__',
+        '**/.storybook/',
+        '**/coverage/',
+        '**/scripts/',
+        '**/*.md'
     ]),
     {
-        files: ["**/*.{js,mjs,cjs,jsx}"],
+        files: ['**/*.{js,mjs,cjs,jsx}'],
         plugins: { js, reactHooks, react, jsxA11y, pluginImport, stylistic },
         extends: [
-            "js/recommended",
+            'js/recommended',
             react.configs.flat.recommended,
             reactHooks.configs.flat.recommended,
             jsxA11y.flatConfigs.recommended,
@@ -32,85 +32,85 @@ export default defineConfig([
         ],
         languageOptions: {
             globals: { ...globals.node, ...globals.browser, ...globals.jest },
-            ecmaVersion: "latest", // Or "2024", "2025", etc.
-            sourceType: "module",
+            ecmaVersion: 'latest', // Or "2024", "2025", etc.
+            sourceType: 'module',
             parserOptions: {
                 ecmaFeatures: {
                     jsx: true
                 }
             }
         },
-        settings: { react: { version: "19" } },
+        settings: { react: { version: '19' } },
         rules: {
             // disabling class method "this" requirement to avoid React conflicts
-            "class-methods-use-this": [0],
+            'class-methods-use-this': [0],
             // allow await in for-await-in loops
-            "no-await-in-loop": [0],
+            'no-await-in-loop': [0],
             // allow continue statements
-            "no-continue": [0],
+            'no-continue': [0],
             // allow ++ and --
-            "no-plusplus": [0],
+            'no-plusplus': [0],
             // allow some globals
-            "no-restricted-globals": [0],
+            'no-restricted-globals': [0],
             // allow for loops
-            "no-restricted-syntax": [2, "LabeledStatement", "WithStatement"],
-            "no-underscore-dangle": [0, { allowAfterThis: true }],
-            "prefer-arrow-callback": ["error"],
+            'no-restricted-syntax': [2, 'LabeledStatement', 'WithStatement'],
+            'no-underscore-dangle': [0, { allowAfterThis: true }],
+            'prefer-arrow-callback': ['error'],
             // for now, don't do destructuring
-            "prefer-destructuring": [0],
+            'prefer-destructuring': [0],
 
-            "@stylistic/indent": [2, 4, { SwitchCase: 1 }],
-            "@stylistic/jsx-indent-props": [2, 4],
-            "@stylistic/jsx-closing-bracket-location": ["error", "after-props"],
-            "@stylistic/quotes": [0],
-            "@stylistic/semi": ["error", "always"],
-            "@stylistic/comma-dangle": ["error", "never"],
-            "@stylistic/arrow-parens": ["error", "always"],
-            "@stylistic/brace-style": ["error", "stroustrup"],
-            "@stylistic/indent-binary-ops": [2, 4],
-            "@stylistic/operator-linebreak": ["error", "after"],
-            "@stylistic/jsx-one-expression-per-line": ["error", { allow: "single-line" }],
+            '@stylistic/arrow-parens': ['error', 'always'],
+            '@stylistic/brace-style': ['error', 'stroustrup'],
+            '@stylistic/comma-dangle': ['error', 'never'],
+            '@stylistic/indent': [2, 4, { SwitchCase: 1 }],
+            '@stylistic/indent-binary-ops': [2, 4],
+            '@stylistic/jsx-closing-bracket-location': ['error', 'after-props'],
+            '@stylistic/jsx-indent-props': [2, 4],
+            '@stylistic/jsx-one-expression-per-line': ['error', { allow: 'single-line' }],
+            '@stylistic/operator-linebreak': ['error', 'after'],
+            '@stylistic/quotes': [1],
+            '@stylistic/semi': ['error', 'always'],
 
-            "react/default-props-match-prop-types": [0],
+            'react/default-props-match-prop-types': [0],
             // allow object prop-type
-            "react/forbid-prop-types": [1, { forbid: ["any"] }],
+            'react/forbid-prop-types': [1, { forbid: ['any'] }],
             // closing brackets should be aligned with the final prop (props.. />)
-            "react/jsx-closing-bracket-location": [2, { location: "after-props" }],
+            'react/jsx-closing-bracket-location': [2, { location: 'after-props' }],
             // require 4 spaces in JSX as well
-            "react/jsx-indent": [0],
-            "react/jsx-indent-props": [0],
+            'react/jsx-indent': [0],
+            'react/jsx-indent-props': [0],
             // downgrade array index as React key to warning (though it should be higher,
             // this would be an expensive refactor)
-            "react/no-array-index-key": [1],
+            'react/no-array-index-key': [1],
             // allow binding in React props because we don't have autobind in ES6
-            "react/jsx-no-bind": [0],
+            'react/jsx-no-bind': [0],
             // downgrading to warning when using props purely within componentWillReceiveProps
-            "react/no-unused-prop-types": [1],
+            'react/no-unused-prop-types': [1],
             // allow unused state because linter does not always know
             // when a state is passed to child components
-            "react/no-unused-state": [0],
+            'react/no-unused-state': [0],
             // disallow stateless functions in place of fully declared React components
-            "react/prefer-stateless-function": [0],
-            "react/prop-types": [1],
+            'react/prefer-stateless-function': [0],
+            'react/prop-types': [1],
             // default prop types not required
-            "react/require-default-props": [0],
+            'react/require-default-props': [0],
 
-            "react-hooks/exhaustive-deps": "warn",
+            'react-hooks/exhaustive-deps': 'warn',
 
-            "jsx-a11y/anchor-is-valid": "warn",
+            'jsx-a11y/anchor-is-valid': 'warn',
             // downgrade label has for to a warning due to some design considerations
-            "jsx-a11y/label-has-associated-control": [1],
+            'jsx-a11y/label-has-associated-control': [1],
 
             // allow named exports in files with default exports in order to expose containers
             // for testing
-            "import/no-named-as-default": [0],
+            'import/no-named-as-default': [0],
             // downgrading export default preference to warning,
             // since we may add additional exports to files in the future
-            "import/prefer-default-export": ["warn"],
+            'import/prefer-default-export': ['warn'],
 
             // TODO: Fix errors and remove rules exceptions below
             //  They were added to avoid new errors with eslint upgrade
-            "react-hooks/set-state-in-effect": "warn"
+            'react-hooks/set-state-in-effect': 'warn'
         }
     }
 ]);
