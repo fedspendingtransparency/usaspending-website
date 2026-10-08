@@ -68,7 +68,8 @@ const RecipientSection = ({ publicLaw }) => {
                         <Note message={(
                             <>
                                 Amounts reported for Utah reflect an award by HHS from the Provider Relief Fund (PRF)
-                                to a single entity in Utah which will make payments to recipients across the country.{' '}
+                                to a single entity in Utah which will make payments to recipients across the country.
+                                {' '}
                                 <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">
                                     See more information about HHS&apos;s data submission.
                                 </a>
@@ -77,7 +78,8 @@ const RecipientSection = ({ publicLaw }) => {
                         <Note message={(
                             <>
                                 Amounts reported for Minnesota reflect an award by HHS from the Provider Relief Fund (PRF)
-                                to a single entity in Minnesota which will make payments to recipients across the country.{' '}
+                                to a single entity in Minnesota which will make payments to recipients across the country.
+                                {' '}
                                 <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">
                                     See more information about HHS&apos;s data submission.
                                 </a>
@@ -105,7 +107,8 @@ const RecipientSection = ({ publicLaw }) => {
                             <li>
                                 Amounts reported for Utah reflect an award by HHS from the Provider Relief
                                 Fund (PRF) to a single entity in Utah which will make payments to recipients
-                                across the country.{' '}
+                                across the country.
+                                {' '}
                                 <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">
                                     See more information about HHS&apos;s data submission.
                                 </a>
@@ -113,7 +116,8 @@ const RecipientSection = ({ publicLaw }) => {
                             <li>
                                 Amounts reported for Minnesota reflect an award by HHS from the Provider
                                 Relief Fund (PRF) to a single entity in Minnesota which will make payments
-                                to recipients across the country.{' '}
+                                to recipients across the country.
+                                {' '}
                                 <a href="data/data-limitations.pdf" target="_blank" rel="noopener noreferrer">
                                     See more information about HHS&apos;s data submission.
                                 </a>
@@ -121,7 +125,8 @@ const RecipientSection = ({ publicLaw }) => {
                             <li>
                                 There is a 90 day delay in displaying contract award data, subcontract data,
                                 and Account Breakdown by Award (File C) data for the Department of
-                                Defense (DOD). For more information, visit our{' '}
+                                Defense (DOD). For more information, visit our
+                                {' '}
                                 <a href="about?section=data-quality" target="_blank" rel="noopener noreferrer">
                                     About Page.
                                 </a>

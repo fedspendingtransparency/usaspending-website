@@ -92,7 +92,9 @@ const AwardDataArchiveContent = ({
                     <b> Full files</b> - data for the fiscal year up until the date the file was prepared
                 </li>
                 <li>
-                    <b>Delta files</b> - only new, modified, and deleted data since the date the last month&#39;s files were generated.
+                    <b>Delta files</b>
+                    {' '}
+                    - only new, modified, and deleted data since the date the last month&#39;s files were generated.
                     The `correction_delete_ind` column in the delta files indicates whether a record has been modified (C), deleted (D), or added (blank).
                 </li>
             </ul>
@@ -108,12 +110,14 @@ const AwardDataArchiveContent = ({
                 <span>
                     Note:{" "}
                 </span>
-                To download data prior to FY 2008, visit our{" "}
+                To download data prior to FY 2008, visit our
+                {" "}
                 <Link
                     to="/download_center/custom_award_data">
                     Custom Award Data
                 </Link>
-                {" "}page.
+                {" "}
+                page.
             </div>
             {isTablet && <AwardDataArchiveUserSelections filters={filters} results={results}/>}
             <button

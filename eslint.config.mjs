@@ -76,7 +76,7 @@ export default defineConfig([
 
             // TODO: address and turn back on:
             // "@stylistic/no-multi-spaces": [0],
-            "@stylistic/jsx-one-expression-per-line": [0],
+            "@stylistic/jsx-one-expression-per-line": ["error", { "allow": "single-line" }],
             "@stylistic/quote-props": [0],
             "@stylistic/padded-blocks": [0],
             "@stylistic/jsx-tag-spacing": [0],
@@ -146,3 +146,4 @@ export default defineConfig([
 ]);
 
 // eslint --config eslint.config.mjs --ext .jsx,.js "src/js/**" --quiet
+// literal: 2391, single-child: 2032, single-line: 916, non-jsx: 1725

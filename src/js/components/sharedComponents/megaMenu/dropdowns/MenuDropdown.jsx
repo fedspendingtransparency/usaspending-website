@@ -88,7 +88,8 @@ const MenuDropdown = memo(function MenuDropdown({
                                                         <div className="dropdown-item__link-label">
                                                             {item.label}
                                                             <span
-                                                                className="dropdown-item__description">{item.description}
+                                                                className="dropdown-item__description">
+                                                                {item.description}
                                                             </span>
                                                         </div>
                                                     </div>
@@ -109,7 +110,8 @@ const MenuDropdown = memo(function MenuDropdown({
                                         <p className="dropdown-section__section-title">{section2Title}</p>
                                         {section2Sub !== null && section2Sub !== undefined && section2Sub !== '' ?
                                             <span
-                                                className="dropdown-section__section-subtitle">{section2Sub}
+                                                className="dropdown-section__section-subtitle">
+                                                {section2Sub}
                                             </span> : ''}
                                         <ul className="dropdown-section__section-list">
                                             {section2Items?.map((item, index) => !item.hidden && <>
@@ -152,7 +154,8 @@ const MenuDropdown = memo(function MenuDropdown({
                                                             <div className="dropdown-item__link-label">
                                                                 {item.label}
                                                                 <span
-                                                                    className="dropdown-item__description">{item.description}
+                                                                    className="dropdown-item__description">
+                                                                    {item.description}
                                                                 </span>
                                                             </div>
                                                         </div>
@@ -198,7 +201,8 @@ const MenuDropdown = memo(function MenuDropdown({
                                                                     <div className="dropdown-item__link-label">
                                                                         {item.label}
                                                                         <span
-                                                                            className="dropdown-item__description">{item.description}
+                                                                            className="dropdown-item__description">
+                                                                            {item.description}
                                                                         </span>
                                                                     </div>
                                                                 </div>
@@ -223,7 +227,8 @@ const MenuDropdown = memo(function MenuDropdown({
                                                                     <div className="dropdown-item__link-label">
                                                                         {item.label}
                                                                         <span
-                                                                            className="dropdown-item__description">{item.description}
+                                                                            className="dropdown-item__description">
+                                                                            {item.description}
                                                                         </span>
                                                                     </div>
                                                                 </div>

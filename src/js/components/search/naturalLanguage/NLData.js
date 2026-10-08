@@ -179,8 +179,17 @@ export const searchGovSpendingData = [
                 icon="question"
                 description={
                     <>
-                        Enter your <strong>question</strong> or select from{' '}
-                        our <strong>templates</strong> in the Smart Assist panel.
+                        Enter your
+                        {' '}
+                        <strong>question</strong>
+                        {' '}
+                        or select from
+                        {' '}
+                        our
+                        {' '}
+                        <strong>templates</strong>
+                        {' '}
+                        in the Smart Assist panel.
                     </>
                 }/>
         )
@@ -194,8 +203,11 @@ export const searchGovSpendingData = [
                 icon="arrows-rotate"
                 description={
                     <>
-                        Let our model do it’s work to{' '}
-                        generate your <strong>data.</strong>
+                        Let our model do it’s work to
+                        {' '}
+                        generate your
+                        {' '}
+                        <strong>data.</strong>
                     </>
                 }/>
         )
@@ -209,8 +221,13 @@ export const searchGovSpendingData = [
                 icon="chart-column"
                 description={
                     <>
-                        Get downloadable <strong>federal award</strong>{' '}
-                        <strong>data</strong> relevant to your search!
+                        Get downloadable
+                        {' '}
+                        <strong>federal award</strong>
+                        {' '}
+                        <strong>data</strong>
+                        {' '}
+                        relevant to your search!
                     </>
                 }/>
         )
@@ -776,7 +793,8 @@ export const smartAssistResources = [
         text: 'Defines terminology found throughout USAspending',
         buttonText: (
             <div className="search-info-page__resources-link-container">
-                <div>View the glossary&nbsp;&nbsp;
+                <div>
+                    View the glossary&nbsp;&nbsp;
                     <FontAwesomeIcon icon="arrow-right" />
                 </div>
             </div>
@@ -805,7 +823,8 @@ export const smartAssistResources = [
         text: 'Read our articles and watch training videos about Smart Assist ',
         buttonText: (
             <div className="search-info-page__resources-link-container">
-                <div>View Smart Assist articles&nbsp;&nbsp;
+                <div>
+                    View Smart Assist articles&nbsp;&nbsp;
                     <FontAwesomeIcon icon="arrow-right" />
                 </div>
             </div>
@@ -830,7 +849,8 @@ export const smartAssistResources = [
         text: 'Learn about Federal Spending and USAspending data',
         buttonText: (
             <div className="search-info-page__resources-link-container">
-                <div>View Federal Spending Guide&nbsp;&nbsp;
+                <div>
+                    View Federal Spending Guide&nbsp;&nbsp;
                     <FontAwesomeIcon icon="arrow-right" />
                 </div>
             </div>

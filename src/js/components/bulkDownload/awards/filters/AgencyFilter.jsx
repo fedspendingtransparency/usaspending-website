@@ -89,7 +89,8 @@ const AgencyFilter = memo(function AgencyFilter({
 
     const agencyLabel = (
         <>
-            {currentAgencyType === "awarding_agency" ? "Awarding " : "Funding "}Agency
+            {currentAgencyType === "awarding_agency" ? "Awarding " : "Funding "}
+            Agency
             <span> (Required)</span>
         </>
     );

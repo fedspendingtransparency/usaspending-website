@@ -55,7 +55,10 @@ const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
             <div className="tooltip__title">Download data by {words(getPeriod()).map(upperFirst).join(' ')}</div>
             <div className="tooltip__text">
                 Download a CSV of award spending data that matches your search criteria,
-                broken down by {getPeriod()}. For complete download results,
+                broken down by
+                {' '}
+                {getPeriod()}
+                . For complete download results,
                 click on the &quot;Download&quot; button on the top right of this page.
             </div>
         </>

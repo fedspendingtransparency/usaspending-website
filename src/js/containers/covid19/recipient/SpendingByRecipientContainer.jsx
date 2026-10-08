@@ -28,7 +28,9 @@ const overviewData = [
             <div>
                 <span className="glossary-term">
                     Award Obligations
-                </span> <GlossaryLink term="obligation" />
+                </span>
+                {' '}
+                <GlossaryLink term="obligation" />
             </div>
         ),
         isMonetary: true

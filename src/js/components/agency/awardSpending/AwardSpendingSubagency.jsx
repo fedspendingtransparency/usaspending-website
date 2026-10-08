@@ -108,7 +108,8 @@ const AwardSpendingSubagency = ({ fy }) => {
                 <>
                     The sub-agencies presented in this section represent
                     awarding organizations and were sourced from the General Services
-                    Administration (GSA) Federal Hierarchy (available at{ ' ' }
+                    Administration (GSA) Federal Hierarchy (available at
+                    { ' ' }
                     <a
                         href="https://sam.gov/content/hierarchy"
                         target="_blank"

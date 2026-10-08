@@ -249,7 +249,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                     The federal budget can also be divided by government&nbsp;
                     <Link to="/download_center/custom_account_data?glossary=agency">
                         agency
-                    </Link>. Select Agency to view spending distributed to a particular agency.
+                    </Link>
+                    . Select Agency to view spending distributed to a particular agency.
                 </p>
             </div>
             <FlexGridRow className="download-filter__container">

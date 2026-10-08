@@ -98,7 +98,8 @@ const Frequency = (props) => {
                                         Files A, B, and C are submitted by federal agencies to
                                         USAspending.gov on a monthly basis, as required by the DATA Act. You
                                         can see specific DATA Act reporting submission dates in the
-                                        spreadsheets available in the resources page for the{" "}
+                                        spreadsheets available in the resources page for the
+                                        {" "}
                                         <a
                                             className="scroller-overlay-card__link"
                                             href="https://fiscal.treasury.gov/data-transparency/resources.html"
@@ -110,7 +111,8 @@ const Frequency = (props) => {
                                     </p>
                                     <p>
                                         You can see publication and certification dates for agency
-                                        submissions in the “Most Recent Update” column of the{" "}
+                                        submissions in the “Most Recent Update” column of the
+                                        {" "}
                                         <Link
                                             className="scroller-overlay-card__link"
                                             to="/submission-statistics"
@@ -149,12 +151,19 @@ const Frequency = (props) => {
                             content={
                                 <>
                                     <p>
-                                        Federal agencies must submit{" "}
-                                        <span className="glossary-term">contract</span>{" "}
-                                        <GlossaryLink term="contract" /> data to FPDS within three
-                                        days of the award{" "}
-                                        <span className="glossary-term">transaction</span>{" "}
-                                        <GlossaryLink term="transaction" />. The day after submission,
+                                        Federal agencies must submit
+                                        {" "}
+                                        <span className="glossary-term">contract</span>
+                                        {" "}
+                                        <GlossaryLink term="contract" />
+                                        {' '}
+                                        data to FPDS within three
+                                        days of the award
+                                        {" "}
+                                        <span className="glossary-term">transaction</span>
+                                        {" "}
+                                        <GlossaryLink term="transaction" />
+                                        . The day after submission,
                                         these data are made available to USAspending.gov. On the following
                                         day, these data are automatically published on USAspending.gov.
                                     </p>
@@ -208,12 +217,19 @@ const Frequency = (props) => {
                             content={
                                 <>
                                     <p>
-                                        Federal agencies must submit{" "}
-                                        <span className="glossary-term">financial assistance</span>{" "}
-                                        <GlossaryLink term="financial-assistance" /> data to FABS
-                                        within two weeks of the award{" "}
-                                        <span className="glossary-term">transaction</span>{" "}
-                                        <GlossaryLink term="transaction" />. This requirement applies
+                                        Federal agencies must submit
+                                        {" "}
+                                        <span className="glossary-term">financial assistance</span>
+                                        {" "}
+                                        <GlossaryLink term="financial-assistance" />
+                                        {' '}
+                                        data to FABS
+                                        within two weeks of the award
+                                        {" "}
+                                        <span className="glossary-term">transaction</span>
+                                        {" "}
+                                        <GlossaryLink term="transaction" />
+                                        . This requirement applies
                                         to all financial assistance awards except loans, which are
                                         required to be reported within 30 days of the award
                                         transaction.
@@ -229,7 +245,8 @@ const Frequency = (props) => {
                                             Loan Example: A loan transaction is issued on September 8.
                                             It must be reported to FABS by October 8. If submitted on
                                             October 8, the new data are published on USAspending.gov on
-                                            October 9.{" "}
+                                            October 9.
+                                            {" "}
                                         </li>
                                     </ul>
                                 </>

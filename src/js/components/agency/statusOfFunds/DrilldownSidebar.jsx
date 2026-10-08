@@ -56,7 +56,12 @@ const DrilldownSidebar = ({
                 active={level === 0}
                 obligatedText={(
                     <div className="drilldown-level__description">
-                        <strong>{agencyObligatedShort}</strong> committed of <strong>{agencyBudgetShort}</strong> Total
+                        <strong>{agencyObligatedShort}</strong>
+                        {' '}
+                        committed of
+                        <strong>{agencyBudgetShort}</strong>
+                        {' '}
+                        Total
                         Budgetary Resources
                     </div>
                 )}
@@ -70,7 +75,12 @@ const DrilldownSidebar = ({
                     name={subComponentName}
                     obligatedText={(
                         <div className="drilldown-level__description">
-                            <strong>{subComponentObligation}</strong> committed of <strong>{subComponentTbr}</strong> Total
+                            <strong>{subComponentObligation}</strong>
+                            {' '}
+                            committed of
+                            <strong>{subComponentTbr}</strong>
+                            {' '}
+                            Total
                             Budgetary Resources
                         </div>
                     )}
@@ -86,7 +96,12 @@ const DrilldownSidebar = ({
                     name={federalAccountName}
                     obligatedText={(
                         <div className="drilldown-level__description">
-                            <strong>{federalAccountObligation}</strong> committed of <strong>{federalAccountTbr}</strong> Total
+                            <strong>{federalAccountObligation}</strong>
+                            {' '}
+                            committed of
+                            <strong>{federalAccountTbr}</strong>
+                            {' '}
+                            Total
                             Budgetary Resources
                         </div>
                     )}

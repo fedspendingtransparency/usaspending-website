@@ -89,9 +89,12 @@ const DataValidation = (props) => {
                             heading={<h4>Treasury Account Validations</h4>}
                             content={
                                 <p>
-                                    The Data Broker checks that{" "}
-                                    <span className="glossary-term">Treasury Accounts</span>{" "}
-                                    <GlossaryLink term="treasury-account-symbol-tas" />{" "}
+                                    The Data Broker checks that
+                                    {" "}
+                                    <span className="glossary-term">Treasury Accounts</span>
+                                    {" "}
+                                    <GlossaryLink term="treasury-account-symbol-tas" />
+                                    {" "}
                                     submitted to GTAS for any given reporting period are also submitted to File A,
                                     and vice versa. It also checks that Treasury Accounts submitted to File A for
                                     any given reporting period are also submitted to File B, and vice versa.
@@ -111,9 +114,12 @@ const DataValidation = (props) => {
                                     The Data Broker checks that all financial assistance recipient zip codes
                                     are valid five-digit U.S. Postal Service zip codes. It also checks that these
                                     zip codes are provided for all domestic financial assistance award recipients
-                                    (excluding aggregated and redacted{" "}
-                                    <span className="glossary-term">records</span>{" "}
-                                    <GlossaryLink term="record-type" />).
+                                    (excluding aggregated and redacted
+                                    {" "}
+                                    <span className="glossary-term">records</span>
+                                    {" "}
+                                    <GlossaryLink term="record-type" />
+                                    ).
                                 </p>
                             } />
                     </div>
@@ -131,9 +137,14 @@ const DataValidation = (props) => {
                             content={
                                 <p>
                                     The Data Broker checks that financial assistance award recipients with a
-                                    unique entity identifier (UEI) are registered in SAM.gov as of the {" "}
-                                    <span className="glossary-term">date of the award transaction</span>{" "}
-                                    <GlossaryLink term="action-date" />.{" "}
+                                    unique entity identifier (UEI) are registered in SAM.gov as of the
+                                    {' '}
+                                    {" "}
+                                    <span className="glossary-term">date of the award transaction</span>
+                                    {" "}
+                                    <GlossaryLink term="action-date" />
+                                    .
+                                    {" "}
                                     Some exceptions apply, such as if the date is before October 1, 2010.
                                 </p>
                             } />
@@ -149,36 +160,51 @@ const DataValidation = (props) => {
                             content={
                                 <>
                                     <p>
-                                        The Data Broker warns agencies about award IDs (i.e.,{" "}
-                                        <span className="glossary-term">PIID</span>{" "}
-                                        <GlossaryLink term="procurement-instrument-identifier-piid" />,{" "}
-                                        <span className="glossary-term">FAIN</span>{" "}
-                                        <GlossaryLink term="fain" />,{" "}
-                                        and{" "}
-                                        <span className="glossary-term">URI</span>{" "}
-                                        <GlossaryLink term="uri" />){" "}
+                                        The Data Broker warns agencies about award IDs (i.e.,
+                                        {" "}
+                                        <span className="glossary-term">PIID</span>
+                                        {" "}
+                                        <GlossaryLink term="procurement-instrument-identifier-piid" />
+                                        ,
+                                        {" "}
+                                        <span className="glossary-term">FAIN</span>
+                                        {" "}
+                                        <GlossaryLink term="fain" />
+                                        ,
+                                        {" "}
+                                        and
+                                        {" "}
+                                        <span className="glossary-term">URI</span>
+                                        {" "}
+                                        <GlossaryLink term="uri" />
+                                        )
+                                        {" "}
                                         in File C that don’t exist in Files D1 and D2, and vice versa,
                                         for the same reporting period. This check only applies for award
                                         transactions where the obligation amount is not zero.
                                     </p>
                                     <p>
                                         You can see statistics about unlinked contract awards and unlinked assistance
-                                        awards in the{" "}
+                                        awards in the
+                                        {" "}
                                         <Link
                                             className="scroller-overlay-card__link"
                                             to="/submission-statistics"
                                             target="_blank"
                                             rel="noopener noreferrer">
                                             Agency Submission Statistics page
-                                        </Link>.
-                                        More information about linked awards is available in the{" "}
+                                        </Link>
+                                        .
+                                        More information about linked awards is available in the
+                                        {" "}
                                         <Link
                                             className="scroller-overlay-card__link"
                                             to="/submission-statistics/data-sources"
                                             target="_blank"
                                             rel="noopener noreferrer">
                                             Data Sources and Methodology page
-                                        </Link>{" "}
+                                        </Link>
+                                        {" "}
                                         for these statistics.
                                     </p>
                                 </>

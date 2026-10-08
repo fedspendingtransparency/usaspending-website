@@ -122,10 +122,12 @@ export const parseRows = (rows, activeTab, query) => (
             const handleClick = () => clickedRecipientProfile(`${description}`);
             link = (
                 <>
-                    {description}&nbsp;(
+                    {description}
+&nbsp;(
                     <Link onClick={handleClick} to={`/recipient/${rowData._childId}/latest`}>
                         as Child
-                    </Link>,&nbsp;
+                    </Link>
+                    ,&nbsp;
                     <Link onClick={handleClick} to={`/recipient/${rowData._recipientId}/latest`}>
                         as Recipient
                     </Link>

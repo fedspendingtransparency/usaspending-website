@@ -21,7 +21,8 @@ const FiscalYearFilter = ({ updateFilter }) => {
     const [, allPeriods, { year: latestFy }] = useLatestAccountData();
 
     const noteOne = (<>
-        The data included in the Custom Account Download was first collected in the second quarter of fiscal year 2017, per the{' '}
+        The data included in the Custom Account Download was first collected in the second quarter of fiscal year 2017, per the
+        {' '}
         <a
             target="_blank"
             rel="noopener noreferrer"

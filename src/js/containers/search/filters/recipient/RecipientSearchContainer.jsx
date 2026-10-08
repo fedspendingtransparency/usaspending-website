@@ -183,7 +183,8 @@ const RecipientSearchContainer = () => {
         if (recipient.uei && recipient.uei?.includes(searchString.toUpperCase())) {
             return (
                 <div className="recipient-checkbox__uei">
-                    <span>UEI: </span>{highlightText(recipient.uei)}
+                    <span>UEI: </span>
+                    {highlightText(recipient.uei)}
                     <div className="secondary-label__name-container">
                         {highlightText(recipient.name ? recipient.name : recipient.recipient_name)}
                     </div>

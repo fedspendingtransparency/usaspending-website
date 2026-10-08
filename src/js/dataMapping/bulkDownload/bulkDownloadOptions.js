@@ -207,8 +207,12 @@ export const accountDownloadOptions = {
             apiName: 'federal_account',
             description: (
                 <>
-                    A set of Treasury spending accounts that are group under <br/>
-                    a <Link style={{ color: '#005ea2' }} to="/download_center/custom_account_data?glossary=federal-account">Federal Account Symbol</Link>
+                    A set of Treasury spending accounts that are group under
+                    {' '}
+                    <br/>
+                    a
+                    {' '}
+                    <Link style={{ color: '#005ea2' }} to="/download_center/custom_account_data?glossary=federal-account">Federal Account Symbol</Link>
                 </>
             )
         },
@@ -218,8 +222,16 @@ export const accountDownloadOptions = {
             apiName: 'treasury_account',
             description: (
                 <>
-                    A <Link style={{ color: '#005ea2' }} to="/download_center/custom_account_data?glossary=treasury-account-symbol-tas">Treasury Account Symbol</Link> code assigned to each <br/>
-                    appropriation, receipt, or fund account including Period of <br/>
+                    A
+                    {' '}
+                    <Link style={{ color: '#005ea2' }} to="/download_center/custom_account_data?glossary=treasury-account-symbol-tas">Treasury Account Symbol</Link>
+                    {' '}
+                    code assigned to each
+                    {' '}
+                    <br/>
+                    appropriation, receipt, or fund account including Period of
+                    {' '}
+                    <br/>
                     Availability.
                 </>
             )

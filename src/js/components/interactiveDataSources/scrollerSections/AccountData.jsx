@@ -15,9 +15,13 @@ const AccountData = (props) => {
                 <p>
                     Agency budget execution information is submitted in a system called
                     the Governmentwide Treasury Account Symbol Adjusted Trial Balance
-                    System (GTAS), and this information is used to generate authoritative{" "}
-                    <span className="glossary-term">Treasury Account</span>{" "}
-                    <GlossaryLink term="treasury-account-symbol-tas" /> balances. USAspending.gov
+                    System (GTAS), and this information is used to generate authoritative
+                    {" "}
+                    <span className="glossary-term">Treasury Account</span>
+                    {" "}
+                    <GlossaryLink term="treasury-account-symbol-tas" />
+                    {' '}
+                    balances. USAspending.gov
                     extracts some data from GTAS for governmentwide spending figures and
                     other purposes.
                 </p>
@@ -27,14 +31,19 @@ const AccountData = (props) => {
             heading: <h4>File A</h4>,
             content: (
                 <p>
-                    <span className="glossary-term">File A (Account Balances)</span>{" "}
-                    <GlossaryLink term="account-balance-file-a" />{" "}
+                    <span className="glossary-term">File A (Account Balances)</span>
+                    {" "}
+                    <GlossaryLink term="account-balance-file-a" />
+                    {" "}
                     is part of the package of data submitted to USAspending.gov by federal
                     agencies, as required by the DATA Act. It can be generated from data
                     in GTAS, but agencies may also upload their own custom File A data.
-                    File A contains{" "}
-                    <span className="glossary-term">budgetary resources</span>{" "}
-                    <GlossaryLink term="budgetary-resources" />, obligation, and outlay
+                    File A contains
+                    {" "}
+                    <span className="glossary-term">budgetary resources</span>
+                    {" "}
+                    <GlossaryLink term="budgetary-resources" />
+                    , obligation, and outlay
                     data for all the relevant Treasury Accounts in a reporting agency. It includes both award and non-award spending (grouped together), and crosswalks with the SF 133 report.
                 </p>
             )
@@ -44,19 +53,37 @@ const AccountData = (props) => {
             content: (
                 <>
                     <p>
-                        <span className="glossary-term">File B (Account Breakdown by Program Activity & Object Class)</span>{" "}
-                        <GlossaryLink term="account-breakdown-by-program-activity-object-class-file-b" />{" "}
+                        <span className="glossary-term">File B (Account Breakdown by Program Activity & Object Class)</span>
+                        {" "}
+                        <GlossaryLink term="account-breakdown-by-program-activity-object-class-file-b" />
+                        {" "}
                         is part of the package of data submitted to USAspending.gov by federal
                         agencies, as required by the DATA Act. It contains obligation and
-                        outlay data for all the relevant <span className="glossary-term">Treasury Accounts</span>{" "}
-                        <GlossaryLink term="treasury-account-symbol-tas" />{" "} in a reporting agency, with a
-                        breakdown by two accounting categories called{" "}
-                        <span className="glossary-term">Program Activity</span>{" "}
-                        <GlossaryLink term="program-activity" />,{" "}
-                        <span className="glossary-term">Object Class</span>{" "}
-                        <GlossaryLink term="object-class" />, and{" "}
-                        <span className="glossary-term">Disaster Emergency Fund Code</span>{" "}
-                        <GlossaryLink term="disaster-emergency-fund-code-defc" /> (DEFC, which is used to track spending from supplemental appropriation bills addressing topics such as COVID-19 relief and infrastructure investment). It includes both award and non-award spending (grouped together).
+                        outlay data for all the relevant
+                        {' '}
+                        <span className="glossary-term">Treasury Accounts</span>
+                        {" "}
+                        <GlossaryLink term="treasury-account-symbol-tas" />
+                        {" "}
+                        {' '}
+                        in a reporting agency, with a
+                        breakdown by two accounting categories called
+                        {" "}
+                        <span className="glossary-term">Program Activity</span>
+                        {" "}
+                        <GlossaryLink term="program-activity" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">Object Class</span>
+                        {" "}
+                        <GlossaryLink term="object-class" />
+                        , and
+                        {" "}
+                        <span className="glossary-term">Disaster Emergency Fund Code</span>
+                        {" "}
+                        <GlossaryLink term="disaster-emergency-fund-code-defc" />
+                        {' '}
+                        (DEFC, which is used to track spending from supplemental appropriation bills addressing topics such as COVID-19 relief and infrastructure investment). It includes both award and non-award spending (grouped together).
                     </p>
                 </>
             )

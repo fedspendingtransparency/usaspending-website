@@ -101,7 +101,8 @@ const renderDefCodes = (errorMsg, isLoading, codes) => {
     return codes
         .map(({ code, public_law: pl, title }) => (
             <li key={uniqueId()}>
-                <strong>DEFC &quot;{code}&quot;</strong>:
+                <strong>DEFC &quot;{code}&quot;</strong>
+                :
                 <ul>
                     <li key={uniqueId()}>
                         {pl.includes('Non-emergency') ? "Not designated as emergency" : "Designated as emergency"}
@@ -267,9 +268,20 @@ const DataSourcesAndMethodologiesPage = () => {
                                         Given the above, OMB centered their guidance in M-20-21 on the covered funds concept and elected to use
                                         the DEFC as the means to track these covered funds in USAspending. New DEFC (see below) were issued to
                                         track each component of covered funds, consistent with the original and continued purpose of the DEFC to
-                                        track <em>Disaster</em>, <em>Emergency</em>, and <em>Wildfire Suppression </em>spending under BBEDCA; covered funds that fell outside
+                                        track
+                                        {' '}
+                                        <em>Disaster</em>
+                                        ,
+                                        {' '}
+                                        <em>Emergency</em>
+                                        , and
+                                        {' '}
+                                        <em>Wildfire Suppression </em>
+                                        spending under BBEDCA; covered funds that fell outside
                                         of the BBEDCA categories (and the specific statutory language that triggers their use) were captured in a&nbsp;
-                                        <em>Non-emergency</em> DEFC, O.
+                                        <em>Non-emergency</em>
+                                        {' '}
+                                        DEFC, O.
                                     </p>
                                     <p>
                                         One result of the covered funds concept and M-20-21 is that some spending that is clearly associated with the coronavirus response is not
@@ -493,7 +505,16 @@ const DataSourcesAndMethodologiesPage = () => {
                                             rel="noopener noreferrer"
                                             href="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
                                             Memorandum M-20-21
-                                        </a>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download Broker File C data, be sure to filter for rows with DEFC values {getDefCValues(errorMsg, isLoading, covidDefCodes)} in the downloaded file.
+                                        </a>
+                                        ,
+                                        <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>
+                                        . The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the
+                                        <Link to="/download_center/custom_account_data">Custom Account Data</Link>
+                                        {' '}
+                                        page to download Broker File C data, be sure to filter for rows with DEFC values
+                                        {getDefCValues(errorMsg, isLoading, covidDefCodes)}
+                                        {' '}
+                                        in the downloaded file.
                                     </p>
                                     <p>
                                         Note that the <strong>National Interest Action (NIA)</strong> code is also used to track COVID-19 spending. However, it only applies to procurement actions (i.e., contracts) and is not necessarily tied to COVID-19 supplemental appropriations. Thus, awards with the COVID-19 NIA value may not have a COVID-19 DEFC value, and vice versa.
@@ -627,7 +648,9 @@ const DataSourcesAndMethodologiesPage = () => {
                                     <p>
                                         All high-level, boxed calculations in this section can be recreated using the &quot;Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources&quot; Files on
                                         <a target="_blank" rel="noopener noreferrer" href="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</a>
-                                        page and the &quot;Account Breakdown&quot; files in the COVID-19 Spending profile page download. <strong>These four amounts remain constant regardless of any spending type selection in the dropdown.</strong>
+                                        page and the &quot;Account Breakdown&quot; files in the COVID-19 Spending profile page download.
+                                        {' '}
+                                        <strong>These four amounts remain constant regardless of any spending type selection in the dropdown.</strong>
                                     </p>
                                     <p>When the “Total Spending” dropdown is selected in this section, you will see a row for “unreported” data as the last row of the table. The “unreported” data row displays the difference between the high-level, boxed figure above the table versus the sum of all the rows in the table itself. The reason why a difference exists between the high-level figure and the sum of the table rows is because these data come from different systems with different reporting requirements, timing, and practical execution by submitting agencies. As mentioned at the beginning of this section, the high-level figures come from SF-133, whereas the table rows come from agency-submitted data to USAspending.gov (specifically File B).</p>
                                     <p>
@@ -764,7 +787,10 @@ const DataSourcesAndMethodologiesPage = () => {
                                     </p>
                                     <ul>
                                         <li>
-                                            For <strong>Award Spending (including Loan Spending)</strong>, sum together:
+                                            For
+                                            {' '}
+                                            <strong>Award Spending (including Loan Spending)</strong>
+                                            , sum together:
                                             <ul>
                                                 <li>
                                                     Either Transaction Obligated Amount (TOA, for linked and unlinked data) or Obligated Amount Funded by COVID-19 Supplementals (for linked data only) for every award ID (award unique key) tagged with a COVID-19 DEFC.
@@ -780,7 +806,10 @@ const DataSourcesAndMethodologiesPage = () => {
                                     </p>
                                     <ul>
                                         <li>
-                                            For <strong>Award Spending (including Loan Spending)</strong>, sum together:
+                                            For
+                                            {' '}
+                                            <strong>Award Spending (including Loan Spending)</strong>
+                                            , sum together:
                                             <ul>
                                                 <li>
                                                     Outlayed Amount Funded by COVID-19 Supplementals for every award ID (award unique key) tagged with a COVID-19 DEFC [for Linked Awards only].

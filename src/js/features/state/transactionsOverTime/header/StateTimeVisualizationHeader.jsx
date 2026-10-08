@@ -54,8 +54,10 @@ const StateTimeVisualizationHeader = ({
                 descTooltip={{ component: false }} />
             <hr className="results-divider" />
             <div className="state-section__description">
-                The graph below shows trends over time for transactions to this state.{" "}
-                Break down the amounts by years, quarters, or months,{" "}
+                The graph below shows trends over time for transactions to this state.
+                {" "}
+                Break down the amounts by years, quarters, or months,
+                {" "}
                 and hover over the bars for more detailed information.
             </div>
             <div className="state__controls-desktop">

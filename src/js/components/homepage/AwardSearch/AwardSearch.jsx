@@ -189,7 +189,8 @@ const AwardSearch = () => {
                             <FlexGridCol desktop={4} tablet={12} mobile={12} className="award-search__col1">
                                 <div className="award-search__overline-div">
                                     <span
-                                        className="fa-layers fa-fw award-search__span"><FontAwesomeIcon icon="search" size="sm" style={{ height: '12px', width: '12px' }} />
+                                        className="fa-layers fa-fw award-search__span">
+                                        <FontAwesomeIcon icon="search" size="sm" style={{ height: '12px', width: '12px' }} />
                                     </span>
                                     <p className="award-search__overline">SEARCH AWARD DATA</p>
                                 </div>
@@ -309,7 +310,8 @@ const AwardSearch = () => {
                                 <FlexGridCol desktop={9} tablet={12} mobile={12} className="award-search__col1">
                                     <div className="award-search__overline-div">
                                         <span
-                                            className="fa-layers fa-fw award-search__span"><FontAwesomeIcon icon="search" size="sm" style={{ height: '12px', width: '12px' }} />
+                                            className="fa-layers fa-fw award-search__span">
+                                            <FontAwesomeIcon icon="search" size="sm" style={{ height: '12px', width: '12px' }} />
                                         </span>
                                         <p className="award-search__overline">AWARD SEARCH</p>
                                     </div>

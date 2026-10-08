@@ -27,9 +27,15 @@ const DownloadInfoSection = ({
                         Account data covers all spending data, including non-award spending.
                     </p>
                     <p>
-                        The data is available on two different levels, <strong>federal account</strong>&nbsp;
+                        The data is available on two different levels,
+                        {' '}
+                        <strong>federal account</strong>
+&nbsp;
                         <Link to="/download_center/custom_account_data?glossary=federal-account"><Glossary /></Link>
-                        and <strong>treasury account</strong>&nbsp;
+                        and
+                        {' '}
+                        <strong>treasury account</strong>
+&nbsp;
                         <Link to="/download_center/custom_account_data?glossary=treasury-account-symbol-tas"><Glossary /></Link>
                         . Federal account data is essentially a &ldquo;roll-up&rdquo; of multiple treasury account data.
                     </p>
@@ -79,7 +85,9 @@ const DownloadInfoSection = ({
                 <p>
                     This form allows you to select specific awards by type; agency and sub-agency; location; and date range.
                     Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.
-                    <b> Please note that most fields are required.</b> You&#39;ll only be able to start the download when all required
+                    <b> Please note that most fields are required.</b>
+                    {' '}
+                    You&#39;ll only be able to start the download when all required
                     sections are properly filled in.
                 </p>
             </div>

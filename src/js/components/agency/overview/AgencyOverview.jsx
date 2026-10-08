@@ -56,9 +56,12 @@ const AgencyOverview = memo(function AgencyOverview({ fy, dataThroughDate }) {
                             openAboutTheDataSidebar(e, 'delay-in-dod-procurement-data')
                     }>
                     About the Data
-                </Link> module.
+                </Link>
+                {' '}
+                module.
                 To see a complete list of this agency&apos;s submissions, visit our&nbsp;
-                <Link to="/submission-statistics/agency/097">Submission Statistics page</Link>.
+                <Link to="/submission-statistics/agency/097">Submission Statistics page</Link>
+                .
             </p>
         </div>
     );

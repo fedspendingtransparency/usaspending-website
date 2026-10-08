@@ -90,7 +90,9 @@ const RecipientMultiParentCollapse = (props) => {
                                     </p>
                                 </div>
                             </span>
-                        </span> &nbsp;
+                        </span>
+                        {' '}
+&nbsp;
                         <Link
                             key={initialDuns}
                             className="recipient-overview__multiparents"

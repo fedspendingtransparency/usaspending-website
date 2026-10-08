@@ -70,7 +70,8 @@ const ListCheckbox = ({
                         {highlightText(category.name)}
                     </span>
                     <span className="checkbox-filter__header-count">
-                        {category.filters?.length}{' '}
+                        {category.filters?.length}
+                        {' '}
                         {category.filters?.length === 1 ? 'type' : 'types'}
                     </span>
                 </div>

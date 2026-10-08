@@ -95,7 +95,8 @@ const DataSourceSystems = (props) => {
                             content={
                                 <p>
                                     Agency budget execution information (compiled in SF 133 reports) shows how agencies across
-                                    the federal government spend their funding, as required by the{" "}
+                                    the federal government spend their funding, as required by the
+                                    {" "}
                                     <a
                                         className="scroller-overlay-card__link"
                                         href="https://www.whitehouse.gov/wp-content/uploads/2025/08/a11.pdf"
@@ -166,23 +167,41 @@ const DataSourceSystems = (props) => {
                                     <p>
                                         Agencies maintain detailed records of their federal awards in
                                         governmentwide award systems. These award systems track
-                                        obligations for award{" "}
-                                        <span className="glossary-term">transactions</span>{" "}
-                                        <GlossaryLink term="transaction" /> as well as related data
+                                        obligations for award
+                                        {" "}
+                                        <span className="glossary-term">transactions</span>
+                                        {" "}
+                                        <GlossaryLink term="transaction" />
+                                        {' '}
+                                        as well as related data
                                         about federal awards such as recipients, locations, and
                                         purposes. Any individual award is composed of one or more
-                                        transactions with a common{" "}
-                                        <span className="glossary-term">award ID</span>{" "}
-                                        <GlossaryLink term="award-id" />.
+                                        transactions with a common
+                                        {" "}
+                                        <span className="glossary-term">award ID</span>
+                                        {" "}
+                                        <GlossaryLink term="award-id" />
+                                        .
                                     </p>
                                     <p>
-                                        Separate systems exist for{" "}
-                                        <span className="glossary-term">contract</span>{" "}
-                                        <GlossaryLink term="contract" /> awards,{" "}
-                                        <span className="glossary-term">financial assistance</span>{" "}
-                                        <GlossaryLink term="financial-assistance" /> awards,{" "}
-                                        <span className="glossary-term">subawards</span>{" "}
-                                        <GlossaryLink term="sub-award" />, as well as recipient
+                                        Separate systems exist for
+                                        {" "}
+                                        <span className="glossary-term">contract</span>
+                                        {" "}
+                                        <GlossaryLink term="contract" />
+                                        {' '}
+                                        awards,
+                                        {" "}
+                                        <span className="glossary-term">financial assistance</span>
+                                        {" "}
+                                        <GlossaryLink term="financial-assistance" />
+                                        {' '}
+                                        awards,
+                                        {" "}
+                                        <span className="glossary-term">subawards</span>
+                                        {" "}
+                                        <GlossaryLink term="sub-award" />
+                                        , as well as recipient
                                         registration data.
                                     </p>
                                 </>

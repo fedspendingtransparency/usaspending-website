@@ -150,7 +150,8 @@ const AccordionCheckboxPrimary = ({
                         {replaceString(category.name, searchString, 'highlight')}
                     </span>
                     <span className="checkbox-filter__header-count">
-                        {count}{' '}
+                        {count}
+                        {' '}
                         {count === 1 ? 'type' : 'types'}
                     </span>
                 </label>

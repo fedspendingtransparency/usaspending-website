@@ -80,7 +80,8 @@ const RecipientLandingContent = ({
                     <br />
                     <span className="landing-page__entities">
                         Multiple Recipients, Multiple Foreign Recipients, Miscellaneous Foreign Awardees, Private Individual, Individual Recipient, and Redacted Due to PII
-                    </span>.
+                    </span>
+                    .
                 </p>
             </FlexGridCol>
         </FlexGridRow>

@@ -17,8 +17,10 @@ const AwardData = (props) => {
                     <p>
                         <span className="glossary-term">
                             File C (Account Breakdown by Award)
-                        </span>{" "}
-                        <GlossaryLink term="account-breakdown-by-award-file-c" />{" "}
+                        </span>
+                        {" "}
+                        <GlossaryLink term="account-breakdown-by-award-file-c" />
+                        {" "}
                         is part of the package of data submitted to USAspending by federal
                         agencies, as required by the DATA Act. It contains obligation and
                         outlay data for all awards issued by a reporting agency, covering both
@@ -26,15 +28,25 @@ const AwardData = (props) => {
                         awards.
                     </p>
                     <p>
-                        File C is a further breakdown of File B, showing award spending broken down by Treasury Account,{" "}
+                        File C is a further breakdown of File B, showing award spending broken down by Treasury Account,
+                        {" "}
                         <span className="glossary-term">
                             Program Activity
-                        </span>{" "}
-                        <GlossaryLink term="program-activity" />,{" "}
-                        <span className="glossary-term">Object Class</span>{" "}
-                        <GlossaryLink term="object-class" />, and{" "}
-                        <span className="glossary-term">Disaster Emergency Fund Code</span>{" "}
-                        <GlossaryLink term="disaster-emergency-fund-code-defc" /> (DEFC, which is used to track spending from supplemental appropriation bills addressing topics such as COVID-19 relief and infrastructure investment).
+                        </span>
+                        {" "}
+                        <GlossaryLink term="program-activity" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">Object Class</span>
+                        {" "}
+                        <GlossaryLink term="object-class" />
+                        , and
+                        {" "}
+                        <span className="glossary-term">Disaster Emergency Fund Code</span>
+                        {" "}
+                        <GlossaryLink term="disaster-emergency-fund-code-defc" />
+                        {' '}
+                        (DEFC, which is used to track spending from supplemental appropriation bills addressing topics such as COVID-19 relief and infrastructure investment).
                     </p>
                     <p>
                         Note that File C represents only the financial aspect of awards (e.g., Treasury Account, Program Activity, and Object Class information), whereas Files D1 and D2 provide both financial information and other non-financial details (e.g., recipient name, recipient location, and place of performance).
@@ -47,53 +59,97 @@ const AwardData = (props) => {
             content: (
                 <>
                     <p>
-                        The{" "}
+                        The
+                        {" "}
                         <a
                             className="scroller-overlay-card__link"
                             href="https://www.fpds.gov/"
                             target="_blank"
                             rel="noopener noreferrer">
                             Federal Procurement Data System (FPDS)
-                        </a>{" "}
-                        is the database where federal contracting officials submit{" "}
-                        <span className="glossary-term">transaction-level</span>{" "}
-                        <GlossaryLink term="transaction" /> data for{" "}
-                        <span className="glossary-term">contracts</span>{" "}
-                        <GlossaryLink term="contract" /> and contract{" "}
+                        </a>
+                        {" "}
+                        is the database where federal contracting officials submit
+                        {" "}
+                        <span className="glossary-term">transaction-level</span>
+                        {" "}
+                        <GlossaryLink term="transaction" />
+                        {' '}
+                        data for
+                        {" "}
+                        <span className="glossary-term">contracts</span>
+                        {" "}
+                        <GlossaryLink term="contract" />
+                        {' '}
+                        and contract
+                        {" "}
                         <span className="glossary-term">
                             indefinite delivery vehicles (IDV)
-                        </span>{" "}
-                        <GlossaryLink term="indefinite-delivery-vehicle-idv" />.{" "}
+                        </span>
+                        {" "}
+                        <GlossaryLink term="indefinite-delivery-vehicle-idv" />
+                        .
+                        {" "}
                         It contains information about award
-                        transaction obligation,{" "}
+                        transaction obligation,
+                        {" "}
                         <span className="glossary-term">
                             award transaction description
-                        </span>{" "}
-                        <GlossaryLink term="transaction-description" />,{" "}
-                        <span className="glossary-term">action date</span>{" "}
-                        <GlossaryLink term="action-date" />,{" "}
-                        <span className="glossary-term">awarding agency</span>{" "}
-                        <GlossaryLink term="awarding-agency" />,{" "}
+                        </span>
+                        {" "}
+                        <GlossaryLink term="transaction-description" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">action date</span>
+                        {" "}
+                        <GlossaryLink term="action-date" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">awarding agency</span>
+                        {" "}
+                        <GlossaryLink term="awarding-agency" />
+                        ,
+                        {" "}
                         <span className="glossary-term">
                             recipient code
-                        </span>{" "}
-                        <GlossaryLink term="unique-entity-identifier-uei" />,{" "}
-                        <span className="glossary-term">recipient location</span>{" "}
-                        <GlossaryLink term="recipient-location" />,{" "}
-                        <span className="glossary-term">place of performance</span>{" "}
-                        <GlossaryLink term="primary-place-of-performance" />,{" "}
-                        <span className="glossary-term">industry (NAICS)</span>{" "}
-                        <GlossaryLink term="naics" />,{" "}
-                        <span className="glossary-term">product or service</span>{" "}
-                        <GlossaryLink term="product-or-service-code-psc" />, and type of{" "}
-                        <span className="glossary-term">set aside</span>{" "}
-                        <GlossaryLink term="set-aside-type" />, among other details.
+                        </span>
+                        {" "}
+                        <GlossaryLink term="unique-entity-identifier-uei" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">recipient location</span>
+                        {" "}
+                        <GlossaryLink term="recipient-location" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">place of performance</span>
+                        {" "}
+                        <GlossaryLink term="primary-place-of-performance" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">industry (NAICS)</span>
+                        {" "}
+                        <GlossaryLink term="naics" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">product or service</span>
+                        {" "}
+                        <GlossaryLink term="product-or-service-code-psc" />
+                        , and type of
+                        {" "}
+                        <span className="glossary-term">set aside</span>
+                        {" "}
+                        <GlossaryLink term="set-aside-type" />
+                        , among other details.
                     </p>
                     <p>
                         The collection of data in FPDS that USAspending.gov extracts
-                        is known as{" "}
-                        <span className="glossary-term">File D1</span>{" "}
-                        <GlossaryLink term="awards-data-file-d" />.
+                        is known as
+                        {" "}
+                        <span className="glossary-term">File D1</span>
+                        {" "}
+                        <GlossaryLink term="awards-data-file-d" />
+                        .
                     </p>
                 </>
             )
@@ -103,37 +159,70 @@ const AwardData = (props) => {
             content: (
                 <>
                     <p>
-                        The Financial Assistance Broker Submission (FABS) is how federal agencies submit{" "}
-                        <span className="glossary-term">transaction-level</span>{" "}
-                        <GlossaryLink term="transaction" /> data for{" "}
-                        <span className="glossary-term">financial assistance</span>{" "}
-                        <GlossaryLink term="financial-assistance" /> awards to USAspending.gov. It contains information
-                        about award transaction obligation,{" "}
+                        The Financial Assistance Broker Submission (FABS) is how federal agencies submit
+                        {" "}
+                        <span className="glossary-term">transaction-level</span>
+                        {" "}
+                        <GlossaryLink term="transaction" />
+                        {' '}
+                        data for
+                        {" "}
+                        <span className="glossary-term">financial assistance</span>
+                        {" "}
+                        <GlossaryLink term="financial-assistance" />
+                        {' '}
+                        awards to USAspending.gov. It contains information
+                        about award transaction obligation,
+                        {" "}
                         <span className="glossary-term">
                             award transaction description
-                        </span>{" "}
-                        <GlossaryLink term="transaction-description" />,{" "}
-                        <span className="glossary-term">action date</span>{" "}
-                        <GlossaryLink term="action-date" />,{" "}
-                        <span className="glossary-term">awarding agency</span>{" "}
-                        <GlossaryLink term="awarding-agency" />,{" "}
+                        </span>
+                        {" "}
+                        <GlossaryLink term="transaction-description" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">action date</span>
+                        {" "}
+                        <GlossaryLink term="action-date" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">awarding agency</span>
+                        {" "}
+                        <GlossaryLink term="awarding-agency" />
+                        ,
+                        {" "}
                         <span className="glossary-term">
                             recipient code
-                        </span>{" "}
-                        <GlossaryLink term="unique-entity-identifier-uei" />,{" "}
-                        <span className="glossary-term">recipient location</span>{" "}
-                        <GlossaryLink term="recipient-location" />,{" "}
-                        <span className="glossary-term">place of performance</span>{" "}
-                        <GlossaryLink term="primary-place-of-performance" />, and {" "}
-                        <span className="glossary-term">assistance listing</span>{" "}
-                        <GlossaryLink term="assistance-listings-cfda-program" />,{" "}
+                        </span>
+                        {" "}
+                        <GlossaryLink term="unique-entity-identifier-uei" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">recipient location</span>
+                        {" "}
+                        <GlossaryLink term="recipient-location" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">place of performance</span>
+                        {" "}
+                        <GlossaryLink term="primary-place-of-performance" />
+                        , and
+                        {" "}
+                        <span className="glossary-term">assistance listing</span>
+                        {" "}
+                        <GlossaryLink term="assistance-listings-cfda-program" />
+                        ,
+                        {" "}
                         among other details.
                     </p>
                     <p>
                         The collection of data in FABS that USAspending.gov receives
-                        is known as{" "}
-                        <span className="glossary-term">File D2</span>{" "}
-                        <GlossaryLink term="awards-data-file-d" />.
+                        is known as
+                        {" "}
+                        <span className="glossary-term">File D2</span>
+                        {" "}
+                        <GlossaryLink term="awards-data-file-d" />
+                        .
                     </p>
                 </>
             )
@@ -144,15 +233,22 @@ const AwardData = (props) => {
                 <>
                     <p>
                         While File C provides data over the lifetime of individual awards
-                        from agency financial systems, Files D1 and D2 provide data from award{" "}
-                        <span className="glossary-term">transactions</span>{" "}
-                        <GlossaryLink term="transaction" /> in governmentwide award systems.
+                        from agency financial systems, Files D1 and D2 provide data from award
+                        {" "}
+                        <span className="glossary-term">transactions</span>
+                        {" "}
+                        <GlossaryLink term="transaction" />
+                        {' '}
+                        in governmentwide award systems.
                         USAspending.gov links these two sources of award data. However, due to
                         different policies and reporting requirements for these separate
                         systems, not all award data can be linked across both sources.
-                        Awards can only be linked through a shared{" "}
-                        <span className="glossary-term">award ID</span>{" "}
-                        <GlossaryLink term="award-id" />.
+                        Awards can only be linked through a shared
+                        {" "}
+                        <span className="glossary-term">award ID</span>
+                        {" "}
+                        <GlossaryLink term="award-id" />
+                        .
                     </p>
                     <p>
                         An award in File C that is missing in Files D1 and D2 will lack non-financial
@@ -162,7 +258,8 @@ const AwardData = (props) => {
                     </p>
                     <p>
                         You can see statistics about unlinked contract awards and unlinked
-                        assistance awards in the{" "}
+                        assistance awards in the
+                        {" "}
                         <Link
                             className="scroller-overlay-card__link"
                             to="/submission-statistics"
@@ -170,14 +267,16 @@ const AwardData = (props) => {
                             rel="noopener noreferrer">
                             Agency Submission Statistics page
                         </Link>
-                        . More information about linked awards is available in the{" "}
+                        . More information about linked awards is available in the
+                        {" "}
                         <Link
                             className="scroller-overlay-card__link"
                             to="/submission-statistics/data-sources"
                             target="_blank"
                             rel="noopener noreferrer">
                             Data Sources and Methodology page
-                        </Link>{" "}
+                        </Link>
+                        {" "}
                         for these statistics.
                     </p>
                 </>
@@ -194,21 +293,33 @@ const AwardData = (props) => {
                             target="_blank"
                             rel="noopener noreferrer">
                             SAM.gov
-                        </a>{" "}
+                        </a>
+                        {" "}
                         is the “System for Award Management” where potential recipients must
-                        register if they want to be eligible to receive federal{" "}
-                        <span className="glossary-term">prime awards</span>{" "}
+                        register if they want to be eligible to receive federal
+                        {" "}
+                        <span className="glossary-term">prime awards</span>
+                        {" "}
                         <GlossaryLink term="prime-award" />
                         . USAspending.gov uses SAM.gov as the source
-                        of authoritative{" "}
+                        of authoritative
+                        {" "}
                         <span className="glossary-term">
                             recipient name
-                        </span>{" "}
-                        <GlossaryLink term="recipient-name" />,{" "}
-                        <span className="glossary-term">code</span>{" "}
+                        </span>
+                        {" "}
+                        <GlossaryLink term="recipient-name" />
+                        ,
+                        {" "}
+                        <span className="glossary-term">code</span>
+                        {" "}
                         <GlossaryLink term="unique-entity-identifier-uei" />
-                        , and <span className="glossary-term">executive compensation</span>{" "}
-                        <GlossaryLink term="highly-compensated-officer-total-compensation" />{" "}
+                        , and
+                        {' '}
+                        <span className="glossary-term">executive compensation</span>
+                        {" "}
+                        <GlossaryLink term="highly-compensated-officer-total-compensation" />
+                        {" "}
                         data.
                     </p>
                     <p>

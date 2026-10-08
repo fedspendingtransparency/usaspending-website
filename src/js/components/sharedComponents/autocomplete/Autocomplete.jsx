@@ -219,7 +219,8 @@ const Autocomplete = ({
             const warning = (header, description) => (
                 <ul className="autocomplete" role="listbox">
                     <li className="unselectable">
-                        <span>{header}</span><br />
+                        <span>{header}</span>
+                        <br />
                         {description}
                     </li>
                 </ul>

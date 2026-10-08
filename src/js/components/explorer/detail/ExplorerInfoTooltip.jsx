@@ -96,7 +96,11 @@ export default class ExplorerInfoTooltip extends React.Component {
                         The sum of line 2190 across all remaining accounts in the
                         <em> GTAS SF 133 Report on Budget Execution and Budgetary Resources </em>
                         for this period, after excluding loan financing accounts. Loan program
-                        accounts <u>are</u> included.
+                        accounts
+                        {' '}
+                        <u>are</u>
+                        {' '}
+                        included.
                     </div>
                 </div>
             </div>

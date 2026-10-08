@@ -109,17 +109,32 @@ const DataAvailable = (props) => {
                                 <p>
                                     USAspending.gov receives over 400 data elements coming from
                                     various government systems. These data elements cover
-                                    information about federal{" "}
-                                    <span className="glossary-term">agencies</span>{" "}
-                                    <GlossaryLink term="agency" />, agency{" "}
-                                    <span className="glossary-term">accounts</span>{" "}
-                                    <GlossaryLink term="treasury-account-symbol-tas" />,{" "}
-                                    <span className="glossary-term">award types</span>{" "}
-                                    <GlossaryLink term="award-type" />,{" "}
-                                    <span className="glossary-term">prime award recipients</span>{" "}
-                                    <GlossaryLink term="prime-recipient" />, and{" "}
-                                    <span className="glossary-term">subrecipients</span>{" "}
-                                    <GlossaryLink term="sub-recipient" />, as well as
+                                    information about federal
+                                    {" "}
+                                    <span className="glossary-term">agencies</span>
+                                    {" "}
+                                    <GlossaryLink term="agency" />
+                                    , agency
+                                    {" "}
+                                    <span className="glossary-term">accounts</span>
+                                    {" "}
+                                    <GlossaryLink term="treasury-account-symbol-tas" />
+                                    ,
+                                    {" "}
+                                    <span className="glossary-term">award types</span>
+                                    {" "}
+                                    <GlossaryLink term="award-type" />
+                                    ,
+                                    {" "}
+                                    <span className="glossary-term">prime award recipients</span>
+                                    {" "}
+                                    <GlossaryLink term="prime-recipient" />
+                                    , and
+                                    {" "}
+                                    <span className="glossary-term">subrecipients</span>
+                                    {" "}
+                                    <GlossaryLink term="sub-recipient" />
+                                    , as well as
                                     information such as Census data for additional context.
                                 </p>
                             } />
@@ -183,7 +198,8 @@ const DataAvailable = (props) => {
                                     Note that some smaller executive branch agencies, as well as
                                     the entire legislative and judicial branches, are not required
                                     to report to USAspending.gov. The full list of reporting agencies
-                                    can be found on our{" "}
+                                    can be found on our
+                                    {" "}
                                     <Link className="scroller-overlay-card__link" to="/agency" target="_blank" rel="noopener noreferrer">
                                         Agency Profile landing page
                                     </Link>

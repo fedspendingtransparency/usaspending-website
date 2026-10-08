@@ -44,7 +44,8 @@ const ResultsTableRow = {
                 href={`/award/${data.generated_internal_id}`}
                 onClick={() => {
                     this.clickHandler(data['Award ID']);
-                }}>{data['Award ID']}
+                }}>
+                {data['Award ID']}
             </a> || '--';
         this.recipientName =
             <a
@@ -53,7 +54,8 @@ const ResultsTableRow = {
                 href={`/recipient/${data.recipient_id}`}
                 onClick={() => {
                     this.clickHandler(data['Recipient Name']);
-                }}>{data['Recipient Name']}
+                }}>
+                {data['Recipient Name']}
             </a> || '--';
         this.subsidyCost = MoneyFormatter.formatMoneyWithPrecision(data['Subsidy Cost'], 2, "--");
         this.loanValue = MoneyFormatter.formatMoneyWithPrecision(data['Loan Value'], 2, "--");
@@ -76,7 +78,8 @@ const ResultsTableRow = {
                 href={`/agency/${data.agency_slug}`}
                 onClick={() => {
                     this.clickHandler(data['Awarding Agency']);
-                }}>{data['Awarding Agency']}
+                }}>
+                {data['Awarding Agency']}
             </a> || '--';
         this.awardingSubAgency = data['Awarding Sub Agency'] || '--';
         this.issuedDate = data['Issued Date'] || '--';
@@ -92,7 +95,8 @@ const ResultsTableRow = {
                 href={`/award/${data.generated_internal_id}`}
                 onClick={() => {
                     this.clickHandler(data['Award ID']);
-                }}>{data['Award ID']}
+                }}>
+                {data['Award ID']}
             </a> || '--';
         this.recipient_id =
             <a
@@ -101,7 +105,8 @@ const ResultsTableRow = {
                 href={`/recipient/${data.recipient_id}`}
                 onClick={() => {
                     this.clickHandler(data['Recipient Name']);
-                }}>{data['Recipient Name']}
+                }}>
+                {data['Recipient Name']}
             </a> || '--';
         this.awardAmount = MoneyFormatter.formatMoneyWithPrecision(data['Award Amount'], 2, "--");
         this.totalOutlays = MoneyFormatter.formatMoneyWithPrecision(data['Total Outlays'], 2, "--");
@@ -128,7 +133,8 @@ const ResultsTableRow = {
                 href={`/agency/${data.agency_slug}`}
                 onClick={() => {
                     this.clickHandler(data['Awarding Agency']);
-                }}>{data['Awarding Agency']}
+                }}>
+                {data['Awarding Agency']}
             </a> || '--';
         this.awardingSubAgency = data['Awarding Sub Agency'] || '--';
         this.startDate = data['Start Date'] || '--';
@@ -146,7 +152,8 @@ const ResultsTableRow = {
                 href={`/award/${data.generated_internal_id}`}
                 onClick={() => {
                     this.clickHandler(data['Award ID']);
-                }}>{data['Award ID']}
+                }}>
+                {data['Award ID']}
             </a> || '--';
         this.recipient_id =
             <a
@@ -155,7 +162,8 @@ const ResultsTableRow = {
                 href={`/recipient/${data.recipient_id}`}
                 onClick={() => {
                     this.clickHandler(data['Recipient Name']);
-                }}>{data['Recipient Name']}
+                }}>
+                {data['Recipient Name']}
             </a> || '--';
         this.awardAmount = MoneyFormatter.formatMoneyWithPrecision(data['Award Amount'], 2, "--");
         this.totalOutlays = MoneyFormatter.formatMoneyWithPrecision(data['Total Outlays'], 2, "--");
@@ -179,7 +187,8 @@ const ResultsTableRow = {
                 href={`/agency/${data.agency_slug}`}
                 onClick={() => {
                     this.clickHandler(data['Awarding Agency']);
-                }}>{data['Awarding Agency']}
+                }}>
+                {data['Awarding Agency']}
             </a> || '--';
         this.awardingSubAgency = data['Awarding Sub Agency'] || '--';
         this.startDate = data['Start Date'] || '--';
@@ -197,7 +206,8 @@ const ResultsTableRow = {
                 href={`/award/${data.generated_internal_id}`}
                 onClick={() => {
                     this.clickHandler(data['Award ID']);
-                }}>{data['Award ID']}
+                }}>
+                {data['Award ID']}
             </a> || '--';
         this.recipient_id =
             <a
@@ -206,7 +216,8 @@ const ResultsTableRow = {
                 href={`/recipient/${data.recipient_id}`}
                 onClick={() => {
                     this.clickHandler(data['Recipient Name']);
-                }}>{data['Recipient Name']}
+                }}>
+                {data['Recipient Name']}
             </a> || '--';
         this.awardAmount = MoneyFormatter.formatMoneyWithPrecision(data['Award Amount'], 2, "--");
         this.totalOutlays = MoneyFormatter.formatMoneyWithPrecision(data['Total Outlays'], 2, "--");
@@ -230,7 +241,8 @@ const ResultsTableRow = {
                 href={`/agency/${data.agency_slug}`}
                 onClick={() => {
                     this.clickHandler(data['Awarding Agency']);
-                }}>{data['Awarding Agency']}
+                }}>
+                {data['Awarding Agency']}
             </a> || '--';
         this.awardingSubAgency = data['Awarding Sub Agency'] || '--';
         this.startDate = data['Start Date'] || '--';
@@ -252,7 +264,8 @@ const ResultsTableRow = {
                 href={`/award/${data.generated_internal_id}`}
                 onClick={() => {
                     this.clickHandler(data['Award ID']);
-                }}>{data['Award ID']}
+                }}>
+                {data['Award ID']}
             </a> || '--';
         this.mod = data.Mod || '--';
         this.recipientName = data['Recipient Name'] || '--';
@@ -286,7 +299,8 @@ const ResultsTableRow = {
                 href={`/award/${data.generated_internal_id}`}
                 onClick={() => {
                     this.clickHandler(data['Award ID']);
-                }}>{data['Award ID']}
+                }}>
+                {data['Award ID']}
             </a> || '--';
         this.mod = data.Mod || '--';
         this.recipientName = data['Recipient Name'] || '--';
@@ -308,7 +322,8 @@ const ResultsTableRow = {
                 href={`/agency/${data.agency_slug}`}
                 onClick={() => {
                     this.clickHandler(data['Awarding Agency']);
-                }}>{data['Awarding Agency']}
+                }}>
+                {data['Awarding Agency']}
             </a> || '--';
         this.awardingSubAgency = data['Awarding Sub Agency'] || '--';
         this.cfda = twoVariableFormat(data['Assistance Listing'], 'cfda_number', 'cfda_title');
@@ -321,7 +336,8 @@ const ResultsTableRow = {
                 href={`/award/${data.prime_award_generated_internal_id}`}
                 onClick={() => {
                     this.clickHandler(data['Sub-Award ID']);
-                }}>{data['Sub-Award ID']}
+                }}>
+                {data['Sub-Award ID']}
             </a> || '--';
         this.subawardeeName = data['Sub-Awardee Name'] || '--';
         this.subawardAmount = MoneyFormatter.formatMoneyWithPrecision(data['Sub-Award Amount'], 2, "--");
@@ -341,7 +357,8 @@ const ResultsTableRow = {
                 href={`/award/${data.prime_award_generated_internal_id}`}
                 onClick={() => {
                     this.clickHandler(data['Prime Award ID']);
-                }}>{data['Prime Award ID']}
+                }}>
+                {data['Prime Award ID']}
             </a> || '--';
         this.prime_award_recipient_id =
             <a
@@ -350,7 +367,8 @@ const ResultsTableRow = {
                 href={`/recipient/${data.prime_award_recipient_id}`}
                 onClick={() => {
                     this.clickHandler(data['Prime Recipient Name']);
-                }}>{data['Prime Recipient Name']}
+                }}>
+                {data['Prime Recipient Name']}
             </a> || '--';
         this.primeUEI = data['Prime Award Recipient UEI'] || 'UEI not provided';
         this.awardingAgency = data['Awarding Agency'] || '--';
@@ -372,7 +390,8 @@ const ResultsTableRow = {
                 href={`/award/${data.prime_award_generated_internal_id}`}
                 onClick={() => {
                     this.clickHandler(data['Sub-Award ID']);
-                }}>{data['Sub-Award ID']}
+                }}>
+                {data['Sub-Award ID']}
             </a> || '--';
         this.subawardeeName = data['Sub-Awardee Name'] || '--';
         this.subawardAmount = MoneyFormatter.formatMoneyWithPrecision(data['Sub-Award Amount'], 2, "--");
@@ -392,7 +411,8 @@ const ResultsTableRow = {
                 href={`/award/${data.prime_award_generated_internal_id}`}
                 onClick={() => {
                     this.clickHandler(data['Prime Award ID']);
-                }}>{data['Prime Award ID']}
+                }}>
+                {data['Prime Award ID']}
             </a> || '--';
         this.prime_award_recipient_id =
             <a
@@ -401,7 +421,8 @@ const ResultsTableRow = {
                 href={`/recipient/${data.prime_award_recipient_id}`}
                 onClick={() => {
                     this.clickHandler(data['Prime Recipient Name']);
-                }}>{data['Prime Recipient Name']}
+                }}>
+                {data['Prime Recipient Name']}
             </a> || '--';
         this.prime_award_recipient_UEI = data['Prime Award Recipient UEI'] || 'UEI not provided';
         this.awardingAgency = data['Awarding Agency'] || '--';

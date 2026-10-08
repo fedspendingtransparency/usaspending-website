@@ -13,7 +13,10 @@ const StateFooter = () => (
                 Looking for more insight?
             </h4>
             <p>
-                Check out the <strong>Advanced Search</strong> page <br />
+                Check out the
+                <strong> Advanced Search </strong>
+                page
+                <br />
                 for more in-depth analysis on this state and more
             </p>
             <Link

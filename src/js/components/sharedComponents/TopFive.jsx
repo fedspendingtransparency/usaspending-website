@@ -381,7 +381,8 @@ const TopFive = (props) => {
                     alt="" />
                 <div className="category-table__title-name">
                     {props.category === "district" ?
-                        <>{categoryTitles[props.category]}
+                        <>
+                            {categoryTitles[props.category]}
                             <TooltipWrapper
                                 className="congressional-district__tt"
                                 icon="info"

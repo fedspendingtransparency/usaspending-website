@@ -37,14 +37,16 @@ const AdditionalData = (props) => {
                     subcomponents. USAspending.gov draws from the Office of Management and
                     Budget&#39;s hierarchy for account data, and from the General Services
                     Administration&#39;s hierarchy for award data. You can see these two
-                    hierarchies in any of the{" "}
+                    hierarchies in any of the
+                    {" "}
                     <Link
                         className="scroller-overlay-card__link"
                         to="/agency"
                         target="_blank"
                         rel="noopener noreferrer">
                         Agency Profile pages
-                    </Link>.
+                    </Link>
+                    .
                 </p>
             )
         }

@@ -90,14 +90,16 @@ const DataSubmissionExtraction = (props) => {
                                     Files A, B, and C, as well as FABS data, are all sent directly
                                     from federal agencies to USAspending.gov. For more information about
                                     what is included in these submissions, please consult the
-                                    Reporting Submission Specification (RSS) spreadsheet in the{" "}
+                                    Reporting Submission Specification (RSS) spreadsheet in the
+                                    {" "}
                                     <a
                                         className="scroller-overlay-card__link"
                                         href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html#fed"
                                         target="_blank"
                                         rel="noopener noreferrer">
                                         Governmentwide Spending Data Model (GSDM)
-                                    </a>{" "}
+                                    </a>
+                                    {" "}
                                     page.
                                 </p>
                             } />
@@ -128,14 +130,16 @@ const DataSubmissionExtraction = (props) => {
                                     are extracted by USAspending.gov from government sources. For more
                                     information about what is included in these extractions, please
                                     consult the Interface Definition Document (IDD) spreadsheet in
-                                    the{" "}
+                                    the
+                                    {" "}
                                     <a
                                         className="scroller-overlay-card__link"
                                         href="https://fiscal.treasury.gov/data-transparency/GSDM-current.html#fed"
                                         target="_blank"
                                         rel="noopener noreferrer">
                                         Governmentwide Spending Data Model (GSDM)
-                                    </a>{" "}
+                                    </a>
+                                    {" "}
                                     page.
                                 </p>} />
                     </div>

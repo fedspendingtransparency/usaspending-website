@@ -72,7 +72,8 @@ export const ColumnBuilder = (columnType, onButtonClick, expanded) => {
                             target="_blank"
                             rel="noopener noreferrer"
                             href={col.link}
-                            onClick={col.onClick || (() => {})}>{getValue()}
+                            onClick={col.onClick || (() => {})}>
+                            {getValue()}
                         </a>
                     )
                 });

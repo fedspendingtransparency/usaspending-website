@@ -51,7 +51,8 @@ const ReadMore = ({
                         if (additionalFunctionality !== null) {
                             additionalFunctionality(expanded);
                         }
-                    }}>{closePrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
+                    }}>
+                    {closePrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
                 </button>);
         }
         else if (closeIcon) {
@@ -64,7 +65,8 @@ const ReadMore = ({
                         if (additionalFunctionality !== null) {
                             additionalFunctionality(expanded);
                         }
-                    }}>Read Less{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
+                    }}>
+                    Read Less{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
                 </button>
             );
         }
@@ -78,7 +80,8 @@ const ReadMore = ({
                         if (additionalFunctionality !== null) {
                             additionalFunctionality(expanded);
                         }
-                    }}>{closePrompt}
+                    }}>
+                    {closePrompt}
                 </button>);
         }
         return (
@@ -101,7 +104,8 @@ const ReadMore = ({
                         if (additionalFunctionality !== null) {
                             additionalFunctionality(expanded);
                         }
-                    }}>{openPrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
+                    }}>
+                    {openPrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
                 </button>);
         }
         else if (openPrompt) {
@@ -114,7 +118,8 @@ const ReadMore = ({
                         if (additionalFunctionality !== null) {
                             additionalFunctionality(expanded);
                         }
-                    }}>{openPrompt}
+                    }}>
+                    {openPrompt}
                 </button>);
         }
         else if (openIcon) {
@@ -127,7 +132,8 @@ const ReadMore = ({
                         if (additionalFunctionality !== null) {
                             additionalFunctionality(expanded);
                         }
-                    }}><span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
+                    }}>
+                    <span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
                 </button>);
         }
         return (<button

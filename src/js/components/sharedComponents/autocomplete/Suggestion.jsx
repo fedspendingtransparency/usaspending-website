@@ -88,7 +88,8 @@ const Suggestion = ({
                 aria-selected={selected}
                 role="option"
                 ref={suggestion}>
-                <span key={id}>{boldedText(title, matchingString)}</span><br />
+                <span key={id}>{boldedText(title, matchingString)}</span>
+                <br />
                 {boldedText(subtitle, matchingString)}
             </li>
         </>

@@ -81,7 +81,9 @@ const GovBanner = memo(function GovBanner() {
                                     src="img/uswds/icon-dot-gov.svg" />
                                 <p>
                                     <strong>Official websites use .gov</strong>
-                                    <br />A <strong>.gov </strong>
+                                    <br />
+                                    A
+                                    <strong>.gov </strong>
                                     website belongs to an official government organization in the United States.
                                 </p>
                             </div>
@@ -92,14 +94,23 @@ const GovBanner = memo(function GovBanner() {
                                     className="usa-banner__content-icon"
                                     alt="Lock"
                                     src="img/uswds/icon-https.svg" />
-                                <p><strong>Secure .gov websites use HTTPS</strong><br />A&nbsp;
-                                    <strong>lock (
+                                <p>
+                                    <strong>Secure .gov websites use HTTPS</strong>
+                                    <br />
+                                    A&nbsp;
+                                    <strong>
+                                        lock (
                                         <img
                                             className="usa-banner__content-lock"
                                             alt="Lock"
                                             src="img/uswds/lock.svg" />
                                         )
-                                    </strong> or <strong>https://</strong> means
+                                    </strong>
+                                    {' '}
+                                    or
+                                    <strong>https://</strong>
+                                    {' '}
+                                    means
                                     you’ve safely connected to the .gov website.
                                     Share sensitive information only on official, secure websites.
                                 </p>

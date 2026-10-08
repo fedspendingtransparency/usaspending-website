@@ -14,13 +14,22 @@ const FederalSpendingOverview = (props) => {
             content: (
                 <p>
                     Every year, the Treasury Department issues funds to federal agency
-                    spending accounts (known as{" "}
-                    <span className="glossary-term">Treasury Accounts</span>{" "}
-                    <GlossaryLink term="treasury-account-symbol-tas" />) as a result of{" "}
-                    <span className="glossary-term">appropriations</span>{" "}
-                    <GlossaryLink term="appropriation" /> from Congress.
-                    Appropriations are one form of{" "}
-                    <span className="glossary-term">budgetary resource</span>{" "}
+                    spending accounts (known as
+                    {" "}
+                    <span className="glossary-term">Treasury Accounts</span>
+                    {" "}
+                    <GlossaryLink term="treasury-account-symbol-tas" />
+                    ) as a result of
+                    {" "}
+                    <span className="glossary-term">appropriations</span>
+                    {" "}
+                    <GlossaryLink term="appropriation" />
+                    {' '}
+                    from Congress.
+                    Appropriations are one form of
+                    {" "}
+                    <span className="glossary-term">budgetary resource</span>
+                    {" "}
                     <GlossaryLink term="budgetary-resources" />
                     , and any given Treasury Account may include a variety of budgetary resources.
                 </p>
@@ -30,9 +39,13 @@ const FederalSpendingOverview = (props) => {
             heading: <h4>Obligations</h4>,
             content: (
                 <p>
-                    Agencies enter into binding agreements called{" "}
-                    <span className="glossary-term">obligations</span>{" "}
-                    <GlossaryLink term="obligation" /> to spend the appropriated money for
+                    Agencies enter into binding agreements called
+                    {" "}
+                    <span className="glossary-term">obligations</span>
+                    {" "}
+                    <GlossaryLink term="obligation" />
+                    {' '}
+                    to spend the appropriated money for
                     certain authorized purposes. These purposes could be for agency
                     expenses or for federal awards such as contracts, grants, and loans.
                     Obligations could commit the agency to spend money immediately or in
@@ -45,8 +58,11 @@ const FederalSpendingOverview = (props) => {
             content: (
                 <>
                     <p>
-                        <span className="glossary-term">Outlays</span>{" "}
-                        <GlossaryLink term="outlay" /> occur when federal agencies authorize
+                        <span className="glossary-term">Outlays</span>
+                        {" "}
+                        <GlossaryLink term="outlay" />
+                        {' '}
+                        occur when federal agencies authorize
                         payments to individuals, businesses, or other organizations. Whereas
                         an obligation is merely a promise to spend money, an outlay
                         represents actual spending.

@@ -34,19 +34,32 @@ const AwardSectionHeader = ({
 
         <div className="accordion-body-copy__action-type">
             <span className="label">Action Type: </span>
-            Describes the type of modification using a letter code system that maps to the following descriptions.<br/>
-            A1 – New Award<br/>
-            A2 – Renewal Award<br/>
-            B1 – Continuation<br/>
-            C1 – Termination Initiated: Material Failure to Comply<br/>
-            C2 – Termination Initiated: Mutual Consent<br/>
-            C3 – Termination Initiated: Recipient-Initiated<br/>
-            C4 – Termination Initiated: No Longer Effectuates Program Goals or Agency Priorities<br/>
-            D1 – Closeout<br/>
-            E1 – Recipient Change<br/>
-            EX – Other Action, Non-Financial<br/>
-            FX – Other Action, Financial<br/>
-            G1 – Mixed Aggregate<br/>
+            Describes the type of modification using a letter code system that maps to the following descriptions.
+            <br/>
+            A1 – New Award
+            <br/>
+            A2 – Renewal Award
+            <br/>
+            B1 – Continuation
+            <br/>
+            C1 – Termination Initiated: Material Failure to Comply
+            <br/>
+            C2 – Termination Initiated: Mutual Consent
+            <br/>
+            C3 – Termination Initiated: Recipient-Initiated
+            <br/>
+            C4 – Termination Initiated: No Longer Effectuates Program Goals or Agency Priorities
+            <br/>
+            D1 – Closeout
+            <br/>
+            E1 – Recipient Change
+            <br/>
+            EX – Other Action, Non-Financial
+            <br/>
+            FX – Other Action, Financial
+            <br/>
+            G1 – Mixed Aggregate
+            <br/>
         </div>
 
         <p><span className="label">Transaction Description: </span> Describes modification, typically covering the effect on the contact.</p>
@@ -64,7 +77,8 @@ const AwardSectionHeader = ({
         <div className="accordion-body-copy">
             <p>This section displays the awards:</p>
             <p><span>Transaction History </span>- Displays modification records for an award. Each modification appears as a row in the table below.</p>
-            <p><span>Sub-Awards </span>- Displays any sub-contracts reported by this contract&#39;s recipient (the &#39;prime recipient&#39; in the sub-award context). Sub-contracts are contractual agreements that a prime recipient makes with another entity (sub-recipient) to furnish supplies or services for the prime contract. Above the Sub-Award table, we display the total number of reported sub-contract actions and their total value.</p><p><span>Federal Account Funding </span>- Each row in this table shows a transaction in the awarding agency&#39;s financial system that promises spending for the award from a federal account (a rollup of TAS, or Treasury accounts), broken down by program activity and object class.</p>
+            <p><span>Sub-Awards </span>- Displays any sub-contracts reported by this contract&#39;s recipient (the &#39;prime recipient&#39; in the sub-award context). Sub-contracts are contractual agreements that a prime recipient makes with another entity (sub-recipient) to furnish supplies or services for the prime contract. Above the Sub-Award table, we display the total number of reported sub-contract actions and their total value.</p>
+            <p><span>Federal Account Funding </span>- Each row in this table shows a transaction in the awarding agency&#39;s financial system that promises spending for the award from a federal account (a rollup of TAS, or Treasury accounts), broken down by program activity and object class.</p>
             <Accordion
                 title={accordionTitle}>
                 {activeTab === "subaward" ? subawardAccordionContent : awardAccordionContent}

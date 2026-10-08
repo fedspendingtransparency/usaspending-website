@@ -23,9 +23,13 @@ const TableDsm = ({ spendingLevel }) => {
                     </p>
                     <p className="award-search__body-text">
                         The rows in the table represent
-                        {<span className="award-search__glossary-term"> sub-awards </span>}{<GlossaryLink term="sub-award" />}{' '}
+                        {<span className="award-search__glossary-term"> sub-awards </span>}
+                        {<GlossaryLink term="sub-award" />}
+                        {' '}
                         that meet the selected filter criteria. The results do not reflect sub-awards whose
-                        {<span className="award-search__glossary-term"> prime awards </span>}{<GlossaryLink term="prime-award" />}{' '}
+                        {<span className="award-search__glossary-term"> prime awards </span>}
+                        {<GlossaryLink term="prime-award" />}
+                        {' '}
                         meet the selected filter criteria. For example, if you filter by Fiscal Year 2019, you will
                         see only sub-awards with Action Dates in Fiscal Year 2019, but you will not see all sub-awards
                         whose prime award overlaps with Fiscal Year 2019.
@@ -34,7 +38,8 @@ const TableDsm = ({ spendingLevel }) => {
                         Sub-award amounts are funded by prime award obligations and outlays.
                         In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award;
                         sub-award amounts generally should not exceed the Current Award Amount for their associated prime award.
-                        To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.{' '}
+                        To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
+                        {' '}
                         <span className="award-search__subaward-note">
                             Note that there are several documented issues related to&nbsp;
                             <Link
@@ -44,7 +49,9 @@ const TableDsm = ({ spendingLevel }) => {
                                     (e) => openAboutTheDataSidebar(e, 'subaward-data-quality')
                                 }>
                                 subaward data quality
-                            </Link> in our About the Data module.
+                            </Link>
+                            {' '}
+                            in our About the Data module.
                         </span>
                     </p>
                 </> :
@@ -56,12 +63,18 @@ const TableDsm = ({ spendingLevel }) => {
                     { spendingLevel === 'awards' &&
                         <p className="award-search__body-text">
                             The rows in the table represent award summaries for
-                            {<span className="award-search__glossary-term"> prime awards </span>}{<GlossaryLink term="prime-award" />}.
+                            {<span className="award-search__glossary-term"> prime awards </span>}
+                            {<GlossaryLink term="prime-award" />}
+                            .
                             Award summaries contain all the individual transactions and modifications that share the same unique award ID.
                             If you selected any Time Period filter, your results will include prime awards where the
-                            {<span className="award-search__glossary-term"> earliest </span>}{<GlossaryLink term="base-transaction-action-date" />}{' '}
+                            {<span className="award-search__glossary-term"> earliest </span>}
+                            {<GlossaryLink term="base-transaction-action-date" />}
+                            {' '}
                             and
-                            {<span className="award-search__glossary-term"> latest </span>}{<GlossaryLink term="latest-transaction-action-date" />}{' '}
+                            {<span className="award-search__glossary-term"> latest </span>}
+                            {<GlossaryLink term="latest-transaction-action-date" />}
+                            {' '}
                             transactions overlap with your selected time period (regardless of whether any transactions
                             occur within that period).
                         </p>

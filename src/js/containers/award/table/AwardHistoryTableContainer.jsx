@@ -146,7 +146,8 @@ const AwardHistoryTableContainer = ({
                         href={`/agency/${obj.fundingAgencySlug}`}
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
-                        }}>{obj.agency}
+                        }}>
+                        {obj.agency}
                     </a> || '--',
                     <a
                         target="_blank"
@@ -154,7 +155,8 @@ const AwardHistoryTableContainer = ({
                         href={`/agency/${obj.awardingAgencySlug}`}
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
-                        }}>{obj.awardingAgencyName}
+                        }}>
+                        {obj.awardingAgencyName}
                     </a> || '--',
                     obj.disasterEmergencyFundCode || '--',
                     <a
@@ -163,7 +165,8 @@ const AwardHistoryTableContainer = ({
                         href={`/federal_account/${obj.federalAccountCode}`}
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
-                        }}>{obj.fedAccount}
+                        }}>
+                        {obj.fedAccount}
                     </a> || '--',
                     <ReadMore
                         text={obj.programActivity || '--'}
@@ -192,7 +195,8 @@ const AwardHistoryTableContainer = ({
                         href={`/federal_account/${obj.federalAccountCode}`}
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
-                        }}>{obj.fedAccount}
+                        }}>
+                        {obj.fedAccount}
                     </a> || '--',
                     <a
                         target="_blank"
@@ -200,7 +204,8 @@ const AwardHistoryTableContainer = ({
                         href={`/agency/${obj.fundingAgencySlug}`}
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
-                        }}>{obj.agency}
+                        }}>
+                        {obj.agency}
                     </a> || '--',
                     <a
                         target="_blank"
@@ -208,7 +213,8 @@ const AwardHistoryTableContainer = ({
                         href={`/agency/${obj.awardingAgencySlug}`}
                         onClick={() => {
                             this.clickHandler(obj['Prime Recipient Name']);
-                        }}>{obj.awardingAgencyName}
+                        }}>
+                        {obj.awardingAgencyName}
                     </a> || '--',
                     obj.disasterEmergencyFundCode || '--',
                     <ReadMore

@@ -76,11 +76,15 @@ const titleData = {
         icon: "list",
         preSpan: "Select a",
         span: "Budget Function",
-        postSpan: <> and/or <span
-            className={`download-filter__title_em no-right-margin`}
-            style={{ backgroundColor: '#F7F2FF' }} >
-            Agency
-        </span>.
+        postSpan: <>
+            {' '}
+            and/or
+            <span
+                className={`download-filter__title_em no-right-margin`}
+                style={{ backgroundColor: '#F7F2FF' }} >
+                Agency
+            </span>
+            .
         </>,
         showRequired: true,
         background: '#F7F2FF',
@@ -123,11 +127,15 @@ const titleData = {
         icon: "calendar",
         preSpan: "Select a",
         span: "Fiscal Year",
-        postSpan: <> and <span
-            className={`download-filter__title_em no-right-margin`}
-            style={{ backgroundColor: '#E8F5FF' }} >
-            Period
-        </span>.
+        postSpan: <>
+            {' '}
+            and
+            <span
+                className={`download-filter__title_em no-right-margin`}
+                style={{ backgroundColor: '#E8F5FF' }} >
+                Period
+            </span>
+            .
         </>,
         showRequired: true,
         background: '#E8F5FF',
