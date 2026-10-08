@@ -88,7 +88,7 @@ const AwardDataContent = ({
                     <h2 className="download-center__title">A faster way to download yearly award data by agency.</h2>
                     <p>
                         Award downloads for entire fiscal years are available for each major agency on our&nbsp;
-                        <Link to="/download_center/award_data_archive" className='usa-bold-link'>
+                        <Link to="/download_center/award_data_archive" className="usa-bold-link">
                             Award Data Archive
                         </Link>
                         &nbsp;page.
@@ -115,7 +115,7 @@ const AwardDataContent = ({
                         filterTimePeriodEnd={awards.dateRange.endDate} />
                     <FileFormatFilter updateFilter={updateFilter} />
                     { isMedium && <AwardsUserSelections />}
-                    <FlexGridRow className='download-button-group'>
+                    <FlexGridRow className="download-button-group">
                         <Button
                             additionalClassnames="download-reset"
                             copy="Reset Form"

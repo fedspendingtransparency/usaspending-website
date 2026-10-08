@@ -201,7 +201,7 @@ const FilterSectionTitle = ({
                     </span>
                     {postSpan}
                 </span>
-                {showRequired && <span className='required'>&nbsp;(Required)&nbsp;</span>}
+                {showRequired && <span className="required">&nbsp;(Required)&nbsp;</span>}
             </h4>
         </div>
     );

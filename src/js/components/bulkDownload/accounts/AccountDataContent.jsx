@@ -107,7 +107,7 @@ const AccountDataContent = ({
                         isDisabled={areDefCodesDisabled(accounts.submissionTypes)} />
                     <FiscalYearFilter updateFilter={updateFilter} />
                     { isMedium && <AccountUserSelections /> }
-                    <FlexGridRow className='download-button-group'>
+                    <FlexGridRow className="download-button-group">
                         <Button
                             additionalClassnames="download-reset"
                             copy="Reset Form"

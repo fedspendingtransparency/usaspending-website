@@ -39,7 +39,7 @@ const NLSidebarButtons = ({ sidebarContent, setSidebarIsOpen, sidebarIsOpen, isM
         <div className="sidebar-nl-buttons-container">
             <div className={`color-overlay-element ${sidebarContent === NATURAL_LANGUAGE ? ' gradient' : ''
             }`} />
-            <div className='nl-buttons-wrapper'>
+            <div className="nl-buttons-wrapper">
                 <button
                     style={{ backgroundColor: secondaryColorAS }}
                     aria-label="Button to change the content of the sidebar to advanced search filters"

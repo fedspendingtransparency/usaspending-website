@@ -58,7 +58,7 @@ const ErrorPage = ({
             </ul>
             {showResetErrorBoundary && (
                 <button
-                    className=''
+                    className=""
                     onClick={resetErrorBoundary}>
                     Try again
                 </button>

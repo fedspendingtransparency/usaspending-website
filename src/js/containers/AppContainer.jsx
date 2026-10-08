@@ -60,8 +60,8 @@ const ScrollToTop = () => {
 
 const ErrorFallback = ({ resetErrorBoundary }) => (
     <ErrorPage
-        title='Something went wrong.'
-        heading='Sorry, something unexpected happened on this page'
+        title="Something went wrong."
+        heading="Sorry, something unexpected happened on this page"
         resetErrorBoundary={resetErrorBoundary}
         showResetErrorBoundary />
 );
