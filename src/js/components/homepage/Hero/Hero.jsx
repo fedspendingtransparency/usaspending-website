@@ -4,9 +4,9 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from "react-router";
+import { useNavigate } from 'react-router';
 import { throttle } from 'lodash-es';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Analytics from 'helpers/analytics/Analytics';
@@ -88,6 +88,7 @@ const Hero = () => {
                                 </p>
                             </div>
                             <div className="hero__pause-button-container">
+                                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                                 <a
                                     className="hero__pause-button"
                                     role="button"

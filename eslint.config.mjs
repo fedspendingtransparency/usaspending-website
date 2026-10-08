@@ -59,26 +59,16 @@ export default defineConfig([
             'react/forbid-prop-types': [1, { forbid: ['any'] }],
             'react/jsx-closing-bracket-location': [2, { location: 'after-props' }],
             'react/no-array-index-key': [1],
-            // downgrading to warning when using props purely within componentWillReceiveProps
             'react/no-unused-prop-types': [1],
             'react/prop-types': [1],
 
             'react-hooks/exhaustive-deps': 'warn',
+            'react-hooks/set-state-in-effect': 'warn', // TODO: fix these findings and set to error
 
-            'jsx-a11y/anchor-is-valid': 'warn',
-            // downgrade label has for to a warning due to some design considerations
-            'jsx-a11y/label-has-associated-control': [1],
-
-            // allow named exports in files with default exports in order to expose containers
-            // for testing
-            'import/no-named-as-default': [0],
             // downgrading export default preference to warning,
             // since we may add additional exports to files in the future
-            'import/prefer-default-export': ['warn'],
-
-            // TODO: Fix errors and remove rules exceptions below
-            //  They were added to avoid new errors with eslint upgrade
-            'react-hooks/set-state-in-effect': 'warn'
+            'import/no-named-as-default': [0],
+            'import/prefer-default-export': ['warn']
         }
     }
 ]);

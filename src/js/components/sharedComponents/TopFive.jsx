@@ -6,14 +6,15 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Table, TooltipWrapper } from 'data-transparency-ui';
-import { isCancel } from "axios";
+import { isCancel } from 'axios';
 
 import { categoryTitles } from 'dataMapping/topCategories';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { CondensedCDTooltip } from '../award/shared/InfoTooltipContent';
-import { REQUEST_VERSION } from "../../GlobalConstants";
-import { generateUrlHash } from "../../helpers/searchHelper";
-import { useStateFIPSByAbbreviation, useStateNameByFipsId } from "../../hooks/useStateData";
+import { REQUEST_VERSION } from '../../GlobalConstants';
+import { generateUrlHash } from '../../helpers/searchHelper';
+import { useStateFIPSByAbbreviation, useStateNameByFipsId } from '../../hooks/useStateData';
+
 const propTypes = {
     category: PropTypes.string,
     results: PropTypes.array,
@@ -38,16 +39,16 @@ const TopFive = (props) => {
         },
         {
             title: 'amount',
-            displayName: ["Obligations"]
+            displayName: ['Obligations']
 
         },
         {
             title: 'percent',
-            displayName: ["% of Total"]
+            displayName: ['% of Total']
         },
         {
             title: 'link',
-            displayName: [<span key="award-search">View in <span style={{ whiteSpace: "nowrap" }}>Award Search</span></span>]
+            displayName: [<span key="award-search">View in <span style={{ whiteSpace: 'nowrap' }}>Award Search</span></span>]
         }
     ];
 
@@ -65,19 +66,20 @@ const TopFive = (props) => {
     const tableRows = props.results?.map((result) => {
         const percentValue = (result._amount / props.total) * 100;
         const percent = (!isNaN(percentValue) && isFinite(percentValue)) ? `${Math.round(percentValue * 100) / 100}%` : '--';
-        const linkText = props.category === "awards" ? "View this award" : "View awards";
+        const linkText = props.category === 'awards' ? 'View this award' : 'View awards';
 
         // return [result._slug ? result.linkedName : result.name, result.amount, percent,
         const rowArray = [
             result._slug ? result.linkedName : result.name,
             result.amount,
             percent,
+            // eslint-disable-next-line jsx-a11y/anchor-is-valid
             <a
                 role="button"
                 tabIndex={0}
                 aria-label="View awards"
                 onKeyDown={(e) => {
-                    if (e.key === "Enter") getSelectedLink(e, result.name);
+                    if (e.key === 'Enter') getSelectedLink(e, result.name);
                 }}
                 onClick={(e) => getSelectedLink(e, result)}
                 key={result.name}>
@@ -117,7 +119,7 @@ const TopFive = (props) => {
                             state: filter.state
                         },
                         display: {
-                            entity: "State",
+                            entity: 'State',
                             standalone: stateName,
                             title: stateName
                         }
@@ -141,7 +143,7 @@ const TopFive = (props) => {
                             abbreviation: linkData._code,
                             name: linkData._name
                         },
-                        agencyType: "toptier"
+                        agencyType: 'toptier'
                     }
                 }
             };
@@ -161,12 +163,12 @@ const TopFive = (props) => {
                             abbreviation: linkData._code,
                             name: linkData._name
                         },
-                        agencyType: "subtier"
+                        agencyType: 'subtier'
                     }
                 }
             };
         }
-        else if (params.category === "defc") {
+        else if (params.category === 'defc') {
             categoryFilter = {
                 defCodes: {
                     require: [linkData._code],
@@ -195,7 +197,7 @@ const TopFive = (props) => {
                             county: linkData._code
                         },
                         display: {
-                            entity: "County",
+                            entity: 'County',
                             standalone: `${linkData._name}, ${filter.state}`,
                             title: linkData._name
                         }
@@ -214,7 +216,7 @@ const TopFive = (props) => {
                             district_current: linkData._code
                         },
                         display: {
-                            entity: "Current congressional district",
+                            entity: 'Current congressional district',
                             standalone: `${linkData._name}, ${filter.state}`,
                             title: linkData._name
                         }
@@ -249,7 +251,7 @@ const TopFive = (props) => {
                 }
             };
         }
-        else if (params.category === "awards") {
+        else if (params.category === 'awards') {
             categoryFilter = {
                 selectedAwardIDs: {
                     [linkData._name]: linkData._name
@@ -283,7 +285,7 @@ const TopFive = (props) => {
                             country: linkData._code
                         },
                         display: {
-                            entity: "Country",
+                            entity: 'Country',
                             standalone: `${linkData._name}`,
                             title: linkData._name
                         }
@@ -302,7 +304,7 @@ const TopFive = (props) => {
                             state: linkData._code
                         },
                         display: {
-                            entity: "State or Territory",
+                            entity: 'State or Territory',
                             standalone: `${linkData._name}`,
                             title: linkData._name
                         }
@@ -380,7 +382,7 @@ const TopFive = (props) => {
                     aria-hidden="true"
                     alt="" />
                 <div className="category-table__title-name">
-                    {props.category === "district" ?
+                    {props.category === 'district' ?
                         (
                             <>
                                 {categoryTitles[props.category]}

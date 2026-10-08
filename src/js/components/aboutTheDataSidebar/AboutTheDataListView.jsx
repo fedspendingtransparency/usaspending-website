@@ -13,7 +13,6 @@ const propTypes = {
 };
 
 const AboutTheDataListView = ({ section, selectItem }) => {
-    // eslint-disable-next-line no-shadow
     const clickHandler = (e, index, section, list) => {
         e.preventDefault();
         selectItem(index, section);
@@ -24,7 +23,6 @@ const AboutTheDataListView = ({ section, selectItem }) => {
         });
     };
 
-    // eslint-disable-next-line no-shadow
     const keyHandler = (e, index, section) => {
         if (e.key === 'Enter') {
             clickHandler(e, index, section);
@@ -35,7 +33,19 @@ const AboutTheDataListView = ({ section, selectItem }) => {
         <>
             <div className="atd__heading">{section.heading}</div>
             <hr />
-            {section.fields.map((list, index) => <p key={`atd-list-item-${index}`}><a className="atd__link" role="link" tabIndex={0} onKeyUp={(e) => keyHandler(e, index, section)} onClick={(e) => clickHandler(e, index, section, list)}>{list.name}</a></p>)}
+            {section.fields.map((list, index) => (
+                <p key={`atd-list-item-${index}`}>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a
+                        className="atd__link"
+                        role="link"
+                        tabIndex={0}
+                        onKeyUp={(e) => keyHandler(e, index, section)}
+                        onClick={(e) => clickHandler(e, index, section, list)}>
+                        {list.name}
+                    </a>
+                </p>
+            ))}
         </>
     );
 };

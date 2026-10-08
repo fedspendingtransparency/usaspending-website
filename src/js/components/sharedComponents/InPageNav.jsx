@@ -5,8 +5,8 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from "lodash-es";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { throttle } from 'lodash-es';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { largeScreen, mediumScreen, xLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { checkIsOverflow, getElementData, reset } from 'helpers/inPageNavHelper';
 
@@ -59,7 +59,7 @@ const InPageNav = ({
             if (visible.length) {
                 const topMost = visible.reduce((best, el) => (el.getBoundingClientRect().top < best.getBoundingClientRect().top ? el : best));
 
-                const section = topMost.id.replace(prefix, "");
+                const section = topMost.id.replace(prefix, '');
 
                 setActiveSection(section);
             }
@@ -67,7 +67,7 @@ const InPageNav = ({
     });
     // detect if the element is overflowing on the left or the right
     const checkIsOverflowHidden = () => {
-        const ulEl = navBar?.current?.querySelector("ul");
+        const ulEl = navBar?.current?.querySelector('ul');
         const { left, right } = checkIsOverflow(ulEl, padding);
 
         setIsOverflowLeft(left);
@@ -82,14 +82,13 @@ const InPageNav = ({
     const scrollLeft = useCallback((e) => {
         e.stopPropagation();
 
-        const ulEl = navBar.current.querySelector("ul");
+        const ulEl = navBar.current.querySelector('ul');
         const elArray = [...ulEl.childNodes];
         const lastVisibleEl = {
-            name: "",
+            name: '',
             index: 0
         };
 
-        // eslint-disable-next-line array-callback-return,consistent-return
         elArray.find((el, i) => {
             const box = el.getBoundingClientRect();
             if (box.left > 0 && box.right < ulEl.clientWidth) {
@@ -114,14 +113,13 @@ const InPageNav = ({
         e.stopPropagation();
 
         if (elementData) {
-            const ulEl = navBar.current.querySelector("ul");
+            const ulEl = navBar.current.querySelector('ul');
             const elArray = [...ulEl.childNodes];
             const firstRtHiddenEl = {
-                name: "",
+                name: '',
                 index: 0
             };
 
-            // eslint-disable-next-line array-callback-return,consistent-return
             elArray.find((el, i) => {
                 const box = el.getBoundingClientRect();
                 const documentWidth = ulEl.clientWidth;
@@ -150,7 +148,7 @@ const InPageNav = ({
     });
 
     const getInitialElements = useCallback(() => {
-        const ulEl = navBar.current.querySelector("ul");
+        const ulEl = navBar.current.querySelector('ul');
         const tempElementData = getElementData(ulEl);
 
         setUlElement(ulEl);
@@ -158,12 +156,12 @@ const InPageNav = ({
     });
 
     const onKeyPress = useCallback((e, direction) => {
-        if (e.key === "Enter") {
-            if (direction === "left") {
+        if (e.key === 'Enter') {
+            if (direction === 'left') {
                 scrollLeft(e);
             }
 
-            if (direction === "right") {
+            if (direction === 'right') {
                 scrollRight(e);
             }
         }
@@ -274,7 +272,7 @@ const InPageNav = ({
                             className="usda-in-page-nav__paginator left"
                             tabIndex="0"
                             role="button"
-                            onKeyDown={(e) => onKeyPress(e, "left")}
+                            onKeyDown={(e) => onKeyPress(e, 'left')}
                             onClick={(e) => scrollLeft(e)}>
                             <FontAwesomeIcon icon="chevron-left" alt="Back" />
                         </div>
@@ -282,11 +280,12 @@ const InPageNav = ({
                 <ul>
                     {sections.map((section) => (
                         <li className={`usda-in-page-nav__element ${section.section === activeSection ? 'active' : ''}`} key={`in-page-nav-li-${section.label}`}>
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */ }
                             <a
                                 role="button"
                                 tabIndex="0"
                                 key={`in-page-nav-link-${section.label}`}
-                                onKeyDown={(e) => (e.key === "Enter" ? jumpToSection(section.section) : "")}
+                                onKeyDown={(e) => (e.key === 'Enter' ? jumpToSection(section.section) : '')}
                                 onClick={() => jumpToSection(section.section)}>
                                 {section.label}
                             </a>
@@ -301,7 +300,7 @@ const InPageNav = ({
                             className="usda-in-page-nav__paginator right"
                             tabIndex="0"
                             role="button"
-                            onKeyDown={(e) => onKeyPress(e, "right")}
+                            onKeyDown={(e) => onKeyPress(e, 'right')}
                             onClick={(e) => scrollRight(e)}>
                             <FontAwesomeIcon icon="chevron-right" alt="Forward" />
                         </div>
