@@ -25,7 +25,7 @@ const FilterModal = (props) => {
             titleText="Filter Modal"
             dialogClass="usa-dt-modal"
             verticallyCenter>
-            <div className="filter-modal" >
+            <div className="filter-modal">
                 <div className="filter-modal__header">
                     <div className="filter-modal__header-text">
                         Learn how active filters work

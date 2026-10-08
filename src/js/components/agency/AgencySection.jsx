@@ -38,7 +38,7 @@ const AgencySection = ({
             id={`agency-v2-${section.section}`}
             icon={<FontAwesomeIcon size="2x" icon={icon} />}
             title={section.label}
-            isCollapsible >
+            isCollapsible>
             {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
             {isLoading ? <LoadingMessage /> : children}
         </SectionWrapper>);

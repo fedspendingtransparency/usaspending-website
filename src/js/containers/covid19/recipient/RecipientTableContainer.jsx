@@ -318,7 +318,7 @@ const RecipientTableContainer = ({ activeTab, scrollIntoView }) => {
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />}
-            <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
+            <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`}>
                 <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={parsedRows}

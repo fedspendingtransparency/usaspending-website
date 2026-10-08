@@ -77,7 +77,7 @@ const QuarterPicker = ({
                             showPeriods={showPeriods}
                             isCumulative={isCumulative}
                             index={quarterIndex}
-                            key={uniqueId('quarter_')}/>
+                            key={uniqueId('quarter_')} />
 
                     ))
                 }

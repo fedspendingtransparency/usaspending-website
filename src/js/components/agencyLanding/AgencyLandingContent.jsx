@@ -42,7 +42,7 @@ const AgencyLandingContent = ({
     return (
         <FlexGridRow className="content__row landing-page">
             <H2PageHeader title="Find an Agency Profile." subtitle={subtitle} />
-            <FlexGridCol width={12} className="content__col" >
+            <FlexGridCol width={12} className="content__col">
                 <LandingSearchBar
                     onSubmit={setAgencySearchString}
                     placeholder="Search by Agency Name or Abbreviation"

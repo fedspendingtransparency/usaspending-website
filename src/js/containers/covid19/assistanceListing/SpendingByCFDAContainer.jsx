@@ -390,7 +390,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
             {!loading && !error && results.length > 0 &&
                 <div
                     ref={tableRef}
-                    className={`table-wrapper spending-by-cfda ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
+                    className={`table-wrapper spending-by-cfda ${unlinkedDataClass ? 'unlinked-data' : ''}`}>
                     <Table
                         columns={activeTab === 'loans' ? loanColumns : columns}
                         rows={parseRows(results)}

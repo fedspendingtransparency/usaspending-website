@@ -119,7 +119,7 @@ const AwardDataArchiveContent = ({
                 {" "}
                 page.
             </div>
-            {isTablet && <AwardDataArchiveUserSelections filters={filters} results={results}/>}
+            {isTablet && <AwardDataArchiveUserSelections filters={filters} results={results} />}
             <button
                 className={`reset-button${isTablet ? " buttons-tablet" : ""}`}
                 id="reset-button"

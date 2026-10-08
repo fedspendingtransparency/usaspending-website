@@ -116,7 +116,7 @@ const AccountDataContent = ({
                             buttonType="secondary"
                             backgroundColor="light"
                             onClick={clearAccountFilters}
-                            onKeyDown={onKeyDown}/>
+                            onKeyDown={onKeyDown} />
                         <Button
                             additionalClassnames="download-button"
                             copy="Download"

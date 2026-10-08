@@ -236,7 +236,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
     return (
         <div className="download-filter">
             <div className="budget-agency-heading__container">
-                <FilterSectionTitle type="budget"/>
+                <FilterSectionTitle type="budget" />
                 <p className="download-filter__subtitle">
                     The federal budget is divided into categories known as&nbsp;
                     <Link to="/download_center/custom_account_data?glossary=budget-function">
@@ -253,7 +253,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                 </p>
             </div>
             <FlexGridRow className="download-filter__container">
-                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6} >
+                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6}>
                     <ComboBox
                         optionsArray={budgetOptions}
                         onSelect={handleBudgetSelect}
@@ -264,7 +264,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         filterInput={budgetFunction.code !== 'all'}
                         placeholder="Select budget Function" />
                 </FlexGridCol>
-                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6} >
+                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6}>
                     <ComboBox
                         optionsArray={subBudgetOptions}
                         onSelect={handleBudgetSubfunctionSelect}
@@ -288,7 +288,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         filterInput={agency.id !== 'all'}
                         placeholder="Select agency" />
                 </FlexGridCol>
-                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6} >
+                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6}>
                     <ComboBox
                         optionsArray={federalAccountOptions}
                         onSelect={handleFederalAccountSelect}

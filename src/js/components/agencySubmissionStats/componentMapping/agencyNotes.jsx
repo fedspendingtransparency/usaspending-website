@@ -11,14 +11,14 @@ const opicNote = (
         <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://www.dfc.gov/media/press-releases/us-international-development-finance-corporation-begins-operations" >
+            href="https://www.dfc.gov/media/press-releases/us-international-development-finance-corporation-begins-operations">
             https://www.dfc.gov/media/press-releases/us-international-development-finance-corporation-begins-operations
         </a>
         ). In addition to absorbing OPIC, DFC also combined aspects of USAID,  including chiefly its Development Credit Authority (DCA) (source:&nbsp;
         <a
             target="_blank"
             rel="noopener noreferrer"
-            href="https://www.congress.gov/115/plaws/publ254/PLAW-115publ254.pdf" >
+            href="https://www.congress.gov/115/plaws/publ254/PLAW-115publ254.pdf">
             https://www.congress.gov/115/plaws/publ254/PLAW-115publ254.pdf
         </a>
         &nbsp;pg 29). For DATA Act reporting purposes, DFC continued to report as OPIC until its last submission in FY20Q4, and began to include the full set of DFC TAS in FY20Q3. DFC&#39;s first submission as DFC was in FY21Q1.

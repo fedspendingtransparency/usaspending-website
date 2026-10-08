@@ -42,7 +42,7 @@ const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
     const renderDownloadLink = () => (
         <a
             href={URL.createObjectURL(downloadBlob())}
-            download={`results-over-time-by-${visualizationPeriod}-${today}.csv`} >
+            download={`results-over-time-by-${visualizationPeriod}-${today}.csv`}>
             <FontAwesomeIcon icon="download" size="lg" />
             <span className="text">
                 Download data by {words(getPeriod()).map(upperFirst).join(' ')}

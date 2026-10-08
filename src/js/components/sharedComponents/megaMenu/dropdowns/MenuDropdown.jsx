@@ -197,7 +197,7 @@ const MenuDropdown = memo(function MenuDropdown({
                                                                         role="presentation"
                                                                         style={{ width: "20px", height: "20px" }}
                                                                         icon={item.icon} /> : ''}
-                                                                <div className="dropdown-item__link-desc" >
+                                                                <div className="dropdown-item__link-desc">
                                                                     <div className="dropdown-item__link-label">
                                                                         {item.label}
                                                                         <span

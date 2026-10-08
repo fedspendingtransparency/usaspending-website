@@ -114,7 +114,7 @@ const FySummary = ({
                 data={(<>{totalBudgetaryResources}<br />in budgetary resources</>)}
                 secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
                 label="Total Budgetary Resources Over Time"
-                key="Total Budgetary Resources Over Time" >
+                key="Total Budgetary Resources Over Time">
                 <BarChart
                     isLoading={isLoading}
                     isError={isError}
@@ -130,7 +130,7 @@ const FySummary = ({
                 data={(<>{totalObligations}<br />in total obligations</>)}
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
                 label="Total Obligations Over Time"
-                key="Total Obligations Over Time" >
+                key="Total Obligations Over Time">
                 <TotalObligationsOverTimeContainer
                     isLoading={isLoading}
                     isError={isError}
@@ -144,7 +144,7 @@ const FySummary = ({
                 data={(<>{awardObligations}<br /> in award obligations</>)}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type"
-                key="Award Obligations by Type" >
+                key="Award Obligations by Type">
                 <ObligationsByAwardTypeContainer fiscalYear={+fy} isMobile={isMobile} />
             </VisualizationSection>
         )

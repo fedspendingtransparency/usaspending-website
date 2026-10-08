@@ -46,7 +46,7 @@ export default class DownloadScope extends React.Component {
                         </div>
                         <br />
                         <div className="level-description">
-                            The <a href="https://github.com/fedspendingtransparency/usaspending-api/blob/master/usaspending_api/api_contracts/contracts/v2/download/transactions.md" alt="link to download/transactions md file" target="_blank" rel="noopener noreferrer">download/transactions</a> and <a href="https://github.com/fedspendingtransparency/usaspending-api/blob/master/usaspending_api/api_contracts/contracts/v2/download/awards.md" alt="link to download/awards md file" target="_blank" rel="noopener noreferrer" >download/awards</a> endpoints both support the columns attribute which allow API users to select columns to include in their download package.
+                            The <a href="https://github.com/fedspendingtransparency/usaspending-api/blob/master/usaspending_api/api_contracts/contracts/v2/download/transactions.md" alt="link to download/transactions md file" target="_blank" rel="noopener noreferrer">download/transactions</a> and <a href="https://github.com/fedspendingtransparency/usaspending-api/blob/master/usaspending_api/api_contracts/contracts/v2/download/awards.md" alt="link to download/awards md file" target="_blank" rel="noopener noreferrer">download/awards</a> endpoints both support the columns attribute which allow API users to select columns to include in their download package.
                         </div>
                     </div>
                 </div>

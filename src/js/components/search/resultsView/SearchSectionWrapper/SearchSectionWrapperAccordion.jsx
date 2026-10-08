@@ -100,7 +100,7 @@ const SearchSectionWrapperAccordion = ({
             setOpen={setOpenAccordion}
             closedIcon="chevron-down"
             openIcon="chevron-up"
-            title="Data sources and methodology" >
+            title="Data sources and methodology">
             {openAccordion ? (
                 <div
                     className="search__section-wrapper-dsm"

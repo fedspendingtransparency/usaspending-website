@@ -37,12 +37,12 @@ export const searchCardData = [
                 key={`time-period-${id}`}
                 variant="time-period"
                 label="Time Period"
-                icon="calendar"/>,
+                icon="calendar" />,
             <NLSearchSuggestionsIcon
                 key={`location-${id}`}
                 variant="location"
                 label="Location"
-                icon="location-dot"/>
+                icon="location-dot" />
         ]
     },
     {
@@ -107,7 +107,7 @@ export const moreResourcesBtnData = [
             <NLSearchSuggestionsIcon
                 variant="glossary"
                 label="Glossary"
-                icon="book"/>
+                icon="book" />
         )
     },
     {
@@ -126,7 +126,7 @@ export const moreResourcesBtnData = [
             <NLSearchSuggestionsIcon
                 variant="about-the-data"
                 label="About the Data"
-                icon="database"/>
+                icon="database" />
         )
     },
     {
@@ -145,7 +145,7 @@ export const moreResourcesBtnData = [
             <NLSearchSuggestionsIcon
                 variant="data-dictionary"
                 label="Data Dictionary"
-                icon="book-open"/>
+                icon="book-open" />
         )
     },
     {
@@ -164,7 +164,7 @@ export const moreResourcesBtnData = [
             <NLSearchSuggestionsIcon
                 variant="federal-spending-guide"
                 label="Federal Spending Guide"
-                icon="money-check-dollar"/>
+                icon="money-check-dollar" />
         )
     }
 ];
@@ -191,7 +191,7 @@ export const searchGovSpendingData = [
                         {' '}
                         in the Smart Assist panel.
                     </>
-                }/>
+                } />
         )
     },
     {
@@ -209,7 +209,7 @@ export const searchGovSpendingData = [
                         {' '}
                         <strong>data.</strong>
                     </>
-                }/>
+                } />
         )
     },
     {
@@ -229,7 +229,7 @@ export const searchGovSpendingData = [
                         {' '}
                         relevant to your search!
                     </>
-                }/>
+                } />
         )
     }
 ];

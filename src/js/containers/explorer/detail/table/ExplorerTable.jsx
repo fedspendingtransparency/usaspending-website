@@ -62,7 +62,7 @@ const ExplorerTable = memo(function ExplorerTableContainer({
                     <div className="cell-content">
                         <button
                             className="go-deeper-link"
-                            onClick={link} >
+                            onClick={link}>
                             {name}
                         </button>
                     </div>

@@ -87,7 +87,7 @@ const MobileDropdownItem = ({
                     {section1Options[index].title}
                 </div>
             </div>
-            <div className={type === "secondary" ? "mobile-dropdown__sub" : "mobile-dropdown__sub-two"} >
+            <div className={type === "secondary" ? "mobile-dropdown__sub" : "mobile-dropdown__sub-two"}>
                 {section1Options[index].sub}
             </div>
             <div className="mobile-dropdown__section-container">

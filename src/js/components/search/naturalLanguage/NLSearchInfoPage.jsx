@@ -46,7 +46,7 @@ const NLSearchInfoPage = () => {
                     faIcon="sparkles"
                     primaryColor="#0081a1"
                     secondaryColor="#0081a1"
-                    overrideBackgroundColor="linear-gradient(91deg,#00687d 0%, #0081a1 35%, #005ea2 100%)"/>
+                    overrideBackgroundColor="linear-gradient(91deg,#00687d 0%, #0081a1 35%, #005ea2 100%)" />
                 <FlexGridCol className="search-info-page__download-group">
                     <ShareDownloadButtonGroup
                         url={''}
@@ -72,7 +72,7 @@ const NLSearchInfoPage = () => {
                             <SwiperSlide className="search-info-page__graphic-slide">
                                 <img
                                     src={smartAssistGraphic}
-                                    alt="Smart Assist graphic"/>
+                                    alt="Smart Assist graphic" />
                             </SwiperSlide>
                         </Swiper>
                     </div>

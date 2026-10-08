@@ -57,8 +57,8 @@ const Account = ({ account, currentFiscalYear }) => {
                 <ProfileBackLink
                     label="Back to Federal Account Profile Page"
                     url="/federal_account" />
-                <FlexGridRow className="fed-account-content__row" >
-                    <FlexGridCol className="fed-account-content__col" >
+                <FlexGridRow className="fed-account-content__row">
+                    <FlexGridCol className="fed-account-content__col">
                         <AccountOverview account={account} currentFiscalYear={currentFiscalYear} />
                         <div className="filter-results">
                             <SearchSidebar />

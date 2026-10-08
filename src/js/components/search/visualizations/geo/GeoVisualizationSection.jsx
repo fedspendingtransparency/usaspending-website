@@ -182,7 +182,7 @@ const GeoVisualizationSection = (props) => {
                 className={props.className}
                 mapLegendToggle={props.mapLegendToggle}
                 updateMapLegendToggle={props.updateMapLegendToggle}
-                singleLocationSelected={props.singleLocationSelected} >
+                singleLocationSelected={props.singleLocationSelected}>
                 {getMessage()}
             </MapWrapper>
             {props.newAdvancedSearch ? <></> : <Note message={noteMessage} /> }

@@ -33,7 +33,7 @@ const NLMoreResources = () => {
                             backgroundColor="light"
                             textAlignment="left"
                             imageAlignment="right"
-                            image={btn.image}/>
+                            image={btn.image} />
                     </FlexGridCol>
                 ))}
             </FlexGridRow>

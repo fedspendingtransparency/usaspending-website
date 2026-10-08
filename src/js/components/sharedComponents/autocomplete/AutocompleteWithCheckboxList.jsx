@@ -125,7 +125,7 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
                         aria-label="Select All filters"
                         className="toggle-all__button"
                         tabIndex="0"
-                        onClick={handleToggleAll} >
+                        onClick={handleToggleAll}>
                         {allSelected ? 'Deselect All' : 'Select All'}
                     </button>
                 }
@@ -164,7 +164,7 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
                                 aria-label={`Clear all ${filterType}`}
                                 className="clear-all__button"
                                 tabIndex="0"
-                                onClick={handleClearAll} >
+                                onClick={handleClearAll}>
                                 {`Clear all ${filterType}`}
                             </button>
                         </div>
@@ -200,7 +200,7 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
                         aria-label={`Clear all ${filterType}`}
                         className="clear-all__button"
                         tabIndex="0"
-                        onClick={handleClearAll} >
+                        onClick={handleClearAll}>
                         {`Clear all ${filterType}`}
                     </button>
                 </div>
@@ -209,7 +209,7 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
 
         if (isOpen && filters?.length) {
             return (
-                <div className={`checkbox-type-filter ${additionalClassName}`} >
+                <div className={`checkbox-type-filter ${additionalClassName}`}>
                     <ul className="autocomplete-checkbox">
 
                         {checkboxHeading()}
@@ -246,7 +246,7 @@ const AutocompleteWithCheckboxList = React.memo(function AutocompleteWithCheckbo
                 searchIcon
                 id={searchId} />
             <div className="filter-item-wrap">
-                <div className="checkbox-filter__wrapper" >
+                <div className="checkbox-filter__wrapper">
                     {resultsContainer()}
                 </div>
             </div>

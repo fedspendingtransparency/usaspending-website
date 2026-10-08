@@ -159,7 +159,7 @@ const ActivityChart = ({
                     tabIndex="0"
                     className="activity-chart-bar-container"
                     key={`bar-${bar._awardedAmount}-${index}`}
-                    aria-label={description} >
+                    aria-label={description}>
                     {/* awarded amount bar */}
                     <ActivityChartBar
                         style={style}

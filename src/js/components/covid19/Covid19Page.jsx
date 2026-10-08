@@ -142,10 +142,10 @@ const Covid19Page = ({ loading }) => {
             classNames="usa-da-covid19-page"
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
-            noHeader >
+            noHeader>
             <LoadingWrapper isLoading={loading}>
                 <Helmet>
-                    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" crossOrigin="anonymous" integrity="sha384-JnF4GvwrnLggHxx0ORCeHombtPxfqigY/GeEvbdv0Uy5qrCAuAyN3AulKRA+VAPr"/>
+                    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" crossOrigin="anonymous" integrity="sha384-JnF4GvwrnLggHxx0ORCeHombtPxfqigY/GeEvbdv0Uy5qrCAuAyN3AulKRA+VAPr" />
                 </Helmet>
 
                 <main id="main-content" className="main-content">

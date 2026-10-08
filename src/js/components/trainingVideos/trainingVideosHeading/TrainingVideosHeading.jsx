@@ -59,7 +59,7 @@ const TrainingVideosHeading = () => {
                     desktop={6}
                     tablet={12}
                     mobile={12}>
-                    <div className="training-videos__column-two" >
+                    <div className="training-videos__column-two">
                         <div className="training-videos__column-two-container">
                             <div className="training-videos__column-two-title">RESOURCES</div>
                             <div className="training-videos__column-two-header">Training Videos</div>

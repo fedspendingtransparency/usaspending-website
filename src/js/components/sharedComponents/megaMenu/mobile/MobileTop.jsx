@@ -58,7 +58,7 @@ const MobileTop = (props) => {
                     <div className="mobile-nav_back-button-icon">
                         <FontAwesomeIcon icon="chevron-left" />
                     </div>
-                    <div className="mobile-nav_back-button" >Back</div>
+                    <div className="mobile-nav_back-button">Back</div>
                 </div>
                 <div className="mobile-nav-header__close">
                     <button

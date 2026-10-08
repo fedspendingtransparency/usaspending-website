@@ -145,7 +145,7 @@ const GeoVisualizationSection = React.memo(function GeoVisualizationSection({
                 clearSearchFilters={clearSearchFilters}
                 selectedItemsDisplayNames={selectedItemsDisplayNames}
                 center={center}
-                loadingTilesReady={loadingTilesReady} >
+                loadingTilesReady={loadingTilesReady}>
                 {message}
             </StateProfileMapWrapper>
         </div>

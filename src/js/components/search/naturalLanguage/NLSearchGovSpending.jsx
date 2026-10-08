@@ -41,7 +41,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                     <NLSearchSuggestionsIcon
                         variant="gov-spending"
                         label="Search government spending using AI"
-                        icon="sparkles"/>
+                        icon="sparkles" />
                 </div>
                 <div className="search-gov-spending__link">
                     <Button
@@ -57,8 +57,8 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                             <div className="button-icon-container">
                                 <FontAwesomeIcon
                                     className="button-icon"
-                                    icon="arrow-up-right"/>
-                            </div>}/>
+                                    icon="arrow-up-right" />
+                            </div>} />
                 </div>
                 {isFilters &&
                     <>
@@ -71,7 +71,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                                 onChange={handleInputChange}
                                 placeholder="Type a question about government spending, or choose a sample prompt below." />
                             <button className="search-gov-spending__input-button">
-                                <img src={DEFAULT_ICON_PATH} alt="Icon for Search Button"/>
+                                <img src={DEFAULT_ICON_PATH} alt="Icon for Search Button" />
                             </button>
                         </div>
                         <div className="search-gov-spending__prompt-container">

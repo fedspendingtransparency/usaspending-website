@@ -125,7 +125,7 @@ const AboutTheDataPage = () => {
             ]}>
             <main id="main-content" className="main-content">
                 <FlexGridRow className="agency-submission-stat-row">
-                    <FlexGridCol width={12} >
+                    <FlexGridCol width={12}>
                         <H2PageHeader
                             title="About These Statistics"
                             subtitle={subtitle}
@@ -133,7 +133,7 @@ const AboutTheDataPage = () => {
                     </FlexGridCol>
                 </FlexGridRow>
                 <FlexGridRow className="agency-submission-stat-row">
-                    <FlexGridCol width={12} className="agency-submission-stat-col" >
+                    <FlexGridCol width={12} className="agency-submission-stat-col">
                         <LoadingWrapper isLoading={!activeTab}>
                             <>
                                 <div className="table-controls">

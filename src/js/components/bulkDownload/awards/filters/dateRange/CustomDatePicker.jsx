@@ -241,7 +241,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
 
                 {isOpen && (
                     <div className="custom-datepicker__popup">
-                        <div className="custom-datepicker__header" >
+                        <div className="custom-datepicker__header">
                             {datepickerHeader()}
                         </div>
                         <div className="custom-datepicker__grid">
@@ -266,7 +266,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
                                         ${outsideClass}
                                         ${selectedClass}`
                                         }
-                                        onClick={() => selectDay(dayjs(date))} >
+                                        onClick={() => selectDay(dayjs(date))}>
                                         {date.date()}
                                     </button>
                                 );

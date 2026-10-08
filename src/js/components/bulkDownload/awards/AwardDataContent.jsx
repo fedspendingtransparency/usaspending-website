@@ -124,7 +124,7 @@ const AwardDataContent = ({
                             buttonType="secondary"
                             backgroundColor="light"
                             onClick={resetForm}
-                            onKeyDown={onKeyDown}/>
+                            onKeyDown={onKeyDown} />
                         <Button
                             additionalClassnames="download-button"
                             copy="Download"

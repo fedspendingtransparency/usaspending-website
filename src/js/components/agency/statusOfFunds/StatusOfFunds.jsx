@@ -94,7 +94,7 @@ const StatusOfFunds = ({
                 <button
                     title="Go up a level"
                     className="drilldown-back-button"
-                    onClick={goBack} >
+                    onClick={goBack}>
                     <FontAwesomeIcon icon="arrow-left" />
                         &nbsp;&nbsp;Back
                 </button> : <></>}

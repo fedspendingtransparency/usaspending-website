@@ -66,7 +66,7 @@ const FeaturedContentCard = ({
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => trackHomePageLink(title)}
-                    className="featured-content__section--link" >
+                    className="featured-content__section--link">
                     {content()}
                 </a>
             }

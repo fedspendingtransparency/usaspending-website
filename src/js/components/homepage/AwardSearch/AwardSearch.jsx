@@ -214,7 +214,7 @@ const AwardSearch = () => {
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending to Communities"
-                                                text={placeOfPerformance} >
+                                                text={placeOfPerformance}>
                                                 <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-communities.svg" alt="" role="presentation" />
                                                 </div>

@@ -53,7 +53,7 @@ const DownloadIconButton508 = ({
     );
 
     return (
-        <div className={wrapperclass} >
+        <div className={wrapperclass}>
             {downloadButton()}
         </div>
     );

@@ -23,10 +23,10 @@ const NLSearchSuggestionsIcon = ({ variant, label, icon, description = '' }) => 
         </div>
         <div
             className={`icon-label icon-label--${variant} 
-                ${description ? 'icon-label__with-description' : ''}`} >
+                ${description ? 'icon-label__with-description' : ''}`}>
             <span>{label}</span>
             { description &&
-                <span className={`icon-description icon-description--${variant}`} >
+                <span className={`icon-description icon-description--${variant}`}>
                     {description}
                 </span>}
         </div>

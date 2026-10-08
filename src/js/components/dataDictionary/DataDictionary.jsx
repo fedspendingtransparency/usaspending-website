@@ -51,18 +51,18 @@ const DataDictionary = ({
 
     return (
         <div className="data-dictionary">
-            <H2PageHeader title="Data Dictionary" subtitle={subtitle}/>
+            <H2PageHeader title="Data Dictionary" subtitle={subtitle} />
             <div className="data-dictionary__search-download">
                 <SearchBar
                     onSearch={setSearchString}
-                    placeholder="Search by Term"/>
+                    placeholder="Search by Term" />
                 <div className="data-dictionary__download">
                     <a
                         className="data-dictionary__download-link"
                         onClick={handleDownloadClick}
                         href={downloadLocation}>
                         <div className="data-dictionary__download-icon">
-                            <FontAwesomeIcon icon="file-excel"/>
+                            <FontAwesomeIcon icon="file-excel" />
                         </div>
                         Download
                     </a>
@@ -77,7 +77,7 @@ const DataDictionary = ({
                     columns={columns}
                     rows={rows}
                     sort={sort}
-                    changeSort={changeSort}/>
+                    changeSort={changeSort} />
             </div>
         </div>
     );

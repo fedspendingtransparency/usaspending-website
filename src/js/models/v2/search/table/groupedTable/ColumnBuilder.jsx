@@ -49,7 +49,7 @@ export const ColumnBuilder = (columnType, onButtonClick, expanded) => {
                             onClick={() => onButtonClick(getValue(), row.id)}
                             onKeyDown={() => onButtonClick(getValue(), row.id)}
                             role="link"
-                            className={`usa-button-link ${col.className ? col.className : ''}`} >
+                            className={`usa-button-link ${col.className ? col.className : ''}`}>
                             <FontAwesomeIcon
                                 icon={`${expanded[row.id] ? "chevron-down" : "chevron-right"}`} />
                             {' '}

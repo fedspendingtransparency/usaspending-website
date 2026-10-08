@@ -35,31 +35,31 @@ const AwardSectionHeader = ({
         <div className="accordion-body-copy__action-type">
             <span className="label">Action Type: </span>
             Describes the type of modification using a letter code system that maps to the following descriptions.
-            <br/>
+            <br />
             A1 – New Award
-            <br/>
+            <br />
             A2 – Renewal Award
-            <br/>
+            <br />
             B1 – Continuation
-            <br/>
+            <br />
             C1 – Termination Initiated: Material Failure to Comply
-            <br/>
+            <br />
             C2 – Termination Initiated: Mutual Consent
-            <br/>
+            <br />
             C3 – Termination Initiated: Recipient-Initiated
-            <br/>
+            <br />
             C4 – Termination Initiated: No Longer Effectuates Program Goals or Agency Priorities
-            <br/>
+            <br />
             D1 – Closeout
-            <br/>
+            <br />
             E1 – Recipient Change
-            <br/>
+            <br />
             EX – Other Action, Non-Financial
-            <br/>
+            <br />
             FX – Other Action, Financial
-            <br/>
+            <br />
             G1 – Mixed Aggregate
-            <br/>
+            <br />
         </div>
 
         <p><span className="label">Transaction Description: </span> Describes modification, typically covering the effect on the contact.</p>

@@ -15,7 +15,7 @@ const propTypes = {
 };
 
 const Covid19BottomSection = ({ handleExternalLinkClick, publicLaw }) => (
-    <div className="bottom-section" >
+    <div className="bottom-section">
         <section className="body__section" id="covid19-data_sources_and_methodology">
             <DataSourcesAndMethodology
                 handleExternalLinkClick={handleExternalLinkClick}

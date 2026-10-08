@@ -40,7 +40,7 @@ const TreeNodes = ({
                 return (
                     <li key={node.id}>
                         <div className="checkbox-tree-label__container">
-                            <div className="checkbox-tree-label__controls" >
+                            <div className="checkbox-tree-label__controls">
                                 {hasAnyChildren &&
                                     <button
                                         type="button"

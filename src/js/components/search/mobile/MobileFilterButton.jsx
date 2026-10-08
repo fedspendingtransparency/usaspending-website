@@ -38,7 +38,7 @@ const MobileFilterButton = ({
     return (
         <div className={
             `mobile-filter-button-wrapper ${!showMobileFilters && 'mobile-filter-closed-shadow'}`
-        } >
+        }>
             <button
                 className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "filters" ? 'opened filters' : ''}`}
                 onClick={() => {

@@ -80,7 +80,7 @@ export default class RecipientLandingSearchBar extends React.Component {
                     <button
                         aria-label="Search"
                         className="search-section__button"
-                        onClick={this.handleClick} >
+                        onClick={this.handleClick}>
                         <div className="search-section__button-icon">
                             {icon}
                         </div>

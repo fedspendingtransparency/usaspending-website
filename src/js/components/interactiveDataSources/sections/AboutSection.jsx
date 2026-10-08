@@ -171,7 +171,7 @@ const AboutSection = () => {
                         extraClassNameContent="blue-section-content" />
                 </div>
                 <br />
-                <FlexGridCol width={8} className="interactives-guide_begin-scroller" >
+                <FlexGridCol width={8} className="interactives-guide_begin-scroller">
                     <h4>You can follow the money from the source systems through the submission and extraction process to see what is displayed on USAspending.gov.</h4>
 
                     <div className="interactives-guide_scroll-indicator">

@@ -228,7 +228,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     <MobileSidebarContent
                         setShowMobileFilters={setShowMobileFilters}
                         mobileSidebarContent={mobileSidebarContent}
-                        showMobileFilters={showMobileFilters}/>
+                        showMobileFilters={showMobileFilters} />
                 </>
             ): (
                 <NLSidebarContent

@@ -24,7 +24,7 @@ const AwardTypeToggle = ({
     };
 
     return (
-        <div className="award-type-toggle" >
+        <div className="award-type-toggle">
             <Button
                 onClick={() => onToggleClick(nonGroup)}
                 buttonSize="sm"

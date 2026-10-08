@@ -54,7 +54,7 @@ const AwardDataArchiveTable = ({ results, selectedFiles, setSelectedFiles }) => 
                     value={file.url}
                     name="file-agency"
                     checked={selectedFiles.has(file.url)}
-                    onChange={onChange}/>
+                    onChange={onChange} />
                 {file.agency === "All" ? "All Agencies" : file.agency}
             </div>
         ),

@@ -181,7 +181,7 @@ const DataSourcesAndMethodologiesPage = () => {
             ref={dataDisclaimerBannerRef}
             title="COVID-19 Spending"
             metaTagProps={covidDataSourcesMetaTags}
-            noHeader >
+            noHeader>
             <div>
                 {dataDisclaimerBanner !== 'hide' && (
                     <div className={`info-banner data-disclaimer${isBannerSticky ? ' sticky-banner' : ''}`}>
@@ -400,7 +400,7 @@ const DataSourcesAndMethodologiesPage = () => {
                                     </ul>
                                 </div>
                                 <h3 className="about-subtitle">
-                                    <strong>System for Award Management (<a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a>)</strong>
+                                    <strong>System for Award Management (<a target="_blank" rel="noopener noreferrer" href="https://sam.gov/">SAM.gov</a>)</strong>
                                 </h3>
                                 <div className="about-section-content">
                                     <ul>
@@ -411,7 +411,7 @@ const DataSourcesAndMethodologiesPage = () => {
                                             <strong>Frequency of updates:</strong> monthly
                                         </li>
                                         <li>
-                                            <strong>Details:</strong> <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a> is a government database for collecting subcontract and subgrant information. It is not used in the COVID-19 Spending profile page&apos;s display, but is used to add subaward information to the page&apos;s download (specifically, all subawards associated with prime awards that were funded by COVID-19 supplemental appropriations).
+                                            <strong>Details:</strong> <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/">SAM.gov</a> is a government database for collecting subcontract and subgrant information. It is not used in the COVID-19 Spending profile page&apos;s display, but is used to add subaward information to the page&apos;s download (specifically, all subawards associated with prime awards that were funded by COVID-19 supplemental appropriations).
                                         </li>
                                     </ul>
                                 </div>
@@ -441,10 +441,10 @@ const DataSourcesAndMethodologiesPage = () => {
                                             Assistance Prime Award Summaries (sourced from FABS, with several derived fields compiled from Broker File C; <strong>linked data only*</strong>)
                                         </li>
                                         <li>
-                                            Contract Subawards (sourced from <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a>)
+                                            Contract Subawards (sourced from <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/">SAM.gov</a>)
                                         </li>
                                         <li>
-                                            Assistance Subawards (sourced from <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/" >SAM.gov</a>)
+                                            Assistance Subawards (sourced from <a target="_blank" rel="noopener noreferrer" href="https://sam.gov/">SAM.gov</a>)
                                         </li>
                                         <li>
                                             COVID-19_download_readme.txt

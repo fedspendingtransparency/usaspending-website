@@ -123,8 +123,8 @@ const NLSearchSuggestions = () => {
                             <div className="button-icon-container">
                                 <FontAwesomeIcon
                                     className="button-icon"
-                                    icon="arrow-up-right"/>
-                            </div>}/>
+                                    icon="arrow-up-right" />
+                            </div>} />
                 </FlexGridCol>
             </FlexGridRow>
             {getCardContent()}

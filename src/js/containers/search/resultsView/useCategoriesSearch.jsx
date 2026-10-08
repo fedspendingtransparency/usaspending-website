@@ -98,7 +98,7 @@ const parseData = (data, selectedDropdown, spendingLevel) => {
                         href={awardingLink}
                         onClick={() => {
                             onClickHandler(result.name, selectedDropdown);
-                        }} >
+                        }}>
                         {result.name}
                     </a>),
                 title: result.name

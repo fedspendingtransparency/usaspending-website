@@ -79,7 +79,7 @@ const KeywordPage = ({
                     primeAwardTotal={summary?.primeAmount}
                     primeTransactionCount={summary?.primeCount}
                     inFlight={summaryInFlight}
-                    key="SearchSummary"/>,
+                    key="SearchSummary" />,
                 <DownloadIconButton508
                     tooltipComponent={(!downloadAvailable && keyword) ?
                         <NoDownloadHover /> :

@@ -93,7 +93,7 @@ const BulkDownloadPage = ({
                     filters={filters}
                     setFilters={setFilters}
                     results={results}
-                    setResults={setResults}/>
+                    setResults={setResults} />
             );
             userSelections = (
                 <AwardDataArchiveUserSelections filters={filters} results={results} />

@@ -113,7 +113,7 @@ export const AgencyProfileV2 = ({
                     selectedValue={selectedFy}
                     latestValue={latestFy}
                     handleChange={(fy) => setSelectedFy({ fy })}
-                    key={"NumericPickerWrapper"}/>,
+                    key={"NumericPickerWrapper"} />,
                 <ShareIcon508
                     url={getBaseUrl(path)}
                     onShareOptionClick={handleShare}
