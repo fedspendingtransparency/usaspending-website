@@ -59,7 +59,7 @@ const NLPreSearchButtonGroup = () => {
                             variant="outline"
                             onClick={() => btn.action(fireSearchEvent)}
                             onKeyUp={(e) => {
-                                if (e.key === 'Enter'){
+                                if (e.key === 'Enter') {
                                     btn.action(fireSearchEvent);
                                 }
                             }}>

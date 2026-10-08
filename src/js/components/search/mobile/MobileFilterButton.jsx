@@ -43,7 +43,7 @@ const MobileFilterButton = ({
                 className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "filters" ? 'opened filters' : ''}`}
                 onClick={() => {
                     setMobileSidebarContent("filters");
-                    if (!showMobileFilters){
+                    if (!showMobileFilters) {
                         toggleMobileFilters();
                     }
                 }
@@ -51,7 +51,7 @@ const MobileFilterButton = ({
                 onKeyUp={(e) => {
                     if (e.key === "Escape" && showMobileFilters) {
                         setMobileSidebarContent("filters");
-                        if (!showMobileFilters){
+                        if (!showMobileFilters) {
                             toggleMobileFilters();
                         }
                     }
@@ -74,7 +74,7 @@ const MobileFilterButton = ({
                     className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "natural language" ? 'opened natural-language' : ''}`}
                     onClick={() => {
                         setMobileSidebarContent("natural language");
-                        if (!showMobileFilters){
+                        if (!showMobileFilters) {
                             toggleMobileFilters();
                         }
                     }
@@ -82,7 +82,7 @@ const MobileFilterButton = ({
                     onKeyUp={(e) => {
                         if (e.key === "Escape" && showMobileFilters) {
                             setMobileSidebarContent("natural language");
-                            if (!showMobileFilters){
+                            if (!showMobileFilters) {
                                 toggleMobileFilters();
                             }
                         }

@@ -76,8 +76,6 @@ export default defineConfig([
             "@stylistic/jsx-one-expression-per-line": ["error", { allow: "single-line" }],
 
             // TODO: address and turn back on:
-            // "@stylistic/keyword-spacing": [0],
-            "@stylistic/space-before-blocks": [0],
             "@stylistic/jsx-curly-newline": [0],
             "@stylistic/comma-style": [0],
             "@stylistic/jsx-closing-tag-location": [0],

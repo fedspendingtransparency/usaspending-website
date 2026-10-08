@@ -64,7 +64,7 @@ export const sanitizeUrl = (rawURL, blockRedirect = true) => {
         // remove open-direct query params
         // allow valid urls.
         for ( const [key, value] of params) {
-            if (commonAttackParams.has(key.toLowerCase()) && !isBaseURL(value)){
+            if (commonAttackParams.has(key.toLowerCase()) && !isBaseURL(value)) {
                 parsed.searchParams.delete(key);
             }
         }

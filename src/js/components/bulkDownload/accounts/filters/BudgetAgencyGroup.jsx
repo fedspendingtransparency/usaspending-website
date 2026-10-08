@@ -62,7 +62,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
         });
         setHasSelectedBudgetFunction(true);
 
-        if (agency.id === ''){
+        if (agency.id === '') {
             updateFilter('agency', {
                 id: 'all',
                 name: 'All'
