@@ -22,7 +22,7 @@ const parseResults = (data, total, sort, goDeeper, goToUnreported) => {
             () => goToUnreported(item);
 
         const result = {
-            Name: name,
+            "Name": name,
             "Obligated Amount": obligatedAmount,
             "Obligated Amount unformatted": item.amount,
             "Percent of Total": percent,

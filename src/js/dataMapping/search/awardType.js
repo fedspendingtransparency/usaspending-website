@@ -3,7 +3,7 @@
   * Created by Kevin Li 11/4/16
   **/
 
-/* eslint-disable quote-props */
+/* eslint-disable @stylistic/quote-props */
 // disable quote-props for consistency sake (we need leading zeroes)
 export const awardTypeCodes = {
     'A': 'Blanket Purchase Agreements (BPA) Calls',
@@ -91,7 +91,7 @@ export const glossaryLinks = {
     '-1': 'not-specified'
 };
 
-/* eslint-enable quote-props */
+/* eslint-enable @stylistic/quote-props */
 
 export const awardTypeGroups = {
     contracts: ['A', 'B', 'C', 'D'],

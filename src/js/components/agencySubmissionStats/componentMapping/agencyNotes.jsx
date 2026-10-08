@@ -34,5 +34,5 @@ export const agencyNotes = {
     // DFC
     '077': opicNote,
     // VEF
-    519: 'The Vietnam education foundation shut down in 2018. Its last DATA Act submission was in FY18Q4.'
+    "519": 'The Vietnam education foundation shut down in 2018. Its last DATA Act submission was in FY18Q4.'
 };

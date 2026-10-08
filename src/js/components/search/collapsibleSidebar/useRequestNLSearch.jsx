@@ -12,7 +12,7 @@ const useRequestNLSearch = (prompt) => {
     const requestHeader = {
         method: 'POST',
         headers: headers,
-        body: JSON.stringify({ 'query': prompt?.trim() })
+        body: JSON.stringify({ query: prompt?.trim() })
     };
 
     const { data, refetch, status, isFetching } = useQuery({

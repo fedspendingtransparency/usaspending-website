@@ -100,7 +100,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
             'End Date': periodOfPerformance.endDate
         },
         recipientDetails: {
-            Recipient: {
+            "Recipient": {
                 type: 'link',
                 data: {
                     path: recipient.internalId ? `/recipient/${recipient.internalId}/latest` : null,

@@ -74,7 +74,7 @@ const additionalDetails = (awardData) => {
             'Subject to Materials, Supplies, Articles & Equipment': awardData.additionalDetails.materialSuppliesArticlesEquip
         },
         recipientDetails: {
-            Recipient: {
+            "Recipient": {
                 type: 'link',
                 data: {
                     path: recipient.internalId ? `/recipient/${recipient.internalId}/latest` : null,

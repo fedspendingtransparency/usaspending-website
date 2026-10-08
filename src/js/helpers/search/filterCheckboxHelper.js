@@ -144,7 +144,7 @@ export const sourcesCount = ({
     defCode.size;
 
 export const getFilterCount = (filters) => ({
-    Location: filters.selectedLocations.size +
+    "Location": filters.selectedLocations.size +
         (filters.locationDomesticForeign === 'foreign' ? 1 : 0) +
         filters.selectedRecipientLocations.size +
         (filters.recipientDomesticForeign === 'foreign' ? 1 : 0),
@@ -160,9 +160,9 @@ export const getFilterCount = (filters) => ({
     'Type of Set Aside': filters.setAside.size,
     'Extent Competed': filters.extentCompeted.size,
     'Assistance Listing': filters.selectedCFDA.size,
-    Recipient: filters.selectedRecipients.size,
+    "Recipient": filters.selectedRecipients.size,
     'Recipient Type': filters.recipientType.size,
-    Agency: filters.selectedAwardingAgencies.size + filters.selectedFundingAgencies.size,
+    "Agency": filters.selectedAwardingAgencies.size + filters.selectedFundingAgencies.size,
     'Treasury Account Symbol (TAS)': generateCount(filters.tasCodes),
     'Disaster Emergency Fund Code (DEFC)': filters.defCode.size
 });

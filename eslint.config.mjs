@@ -73,11 +73,9 @@ export default defineConfig([
             "@stylistic/brace-style": ["error", "stroustrup"],
             "@stylistic/indent-binary-ops": [2, 4],
             "@stylistic/operator-linebreak": ["error", "after"],
+            "@stylistic/jsx-one-expression-per-line": ["error", { allow: "single-line" }],
 
             // TODO: address and turn back on:
-            // "@stylistic/no-multi-spaces": [0],
-            "@stylistic/jsx-one-expression-per-line": ["error", { "allow": "single-line" }],
-            "@stylistic/quote-props": [0],
             "@stylistic/padded-blocks": [0],
             "@stylistic/jsx-tag-spacing": [0],
             "@stylistic/jsx-wrap-multilines": [0],

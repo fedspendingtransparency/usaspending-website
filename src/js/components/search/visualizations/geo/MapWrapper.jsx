@@ -143,11 +143,11 @@ const MapWrapper = ({
         // transform the source shapes into a base layer that will show the outline of all the
         // contents
         mapRef.current.addLayer({
-            id: baseLayer,
-            type: 'fill',
-            source: type,
+            "id": baseLayer,
+            "type": 'fill',
+            "source": type,
             'source-layer': source.layer,
-            paint: {
+            "paint": {
                 'fill-outline-color': 'rgba(0,0,0,0.3)',
                 'fill-color': 'rgba(0,0,0,0)'
             }
@@ -158,15 +158,15 @@ const MapWrapper = ({
         visualizationColors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
             mapRef.current.addLayer({
-                id: layerName,
-                type: 'fill',
-                source: type,
+                "id": layerName,
+                "type": 'fill',
+                "source": type,
                 'source-layer': source.layer,
-                paint: {
+                "paint": {
                     'fill-outline-color': 'rgba(0,0,0,0.3)',
                     'fill-color': color
                 },
-                filter: ['in', source.filterKey, '']
+                "filter": ['in', source.filterKey, '']
             }, firstSymbolId(mapRef));
 
             // setup mouseover events
