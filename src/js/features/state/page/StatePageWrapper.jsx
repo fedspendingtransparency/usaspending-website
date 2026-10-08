@@ -36,10 +36,7 @@ const StatePageWrapper = ({
     const dispatch = useDispatch();
 
     const { name, id } = stateProfile.overview;
-    const metaTagProps = useMemo(
-        () => (name && id ? statePageMetaTags({ name, id }) : {})
-        , [name, id]
-    );
+    const metaTagProps = useMemo(() => (name && id ? statePageMetaTags({ name, id }) : {}), [name, id]);
 
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));

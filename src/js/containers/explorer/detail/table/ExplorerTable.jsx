@@ -50,8 +50,7 @@ const ExplorerTable = memo(function ExplorerTableContainer({
         const startingIndex = (pageNumber - 1) * pageSize;
 
         return parsedResults.filter((v, i) => i <= endingIndex && startingIndex <= i);
-    }
-    , [results, total, sort, goDeeper, goToUnreported, totalItems, pageNumber]);
+    }, [results, total, sort, goDeeper, goToUnreported, totalItems, pageNumber]);
 
     const rows = parsedData.map(
         ({
