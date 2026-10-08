@@ -39,7 +39,7 @@ export const responseLookup = {
     [RESPONSE_TYPE.SEARCH_ERROR]: {
         operation: SEARCH,
         variant: ERROR,
-        icon: ['far','circle-xmark']
+        icon: ['far', 'circle-xmark']
     },
 
     [RESPONSE_TYPE.TOOL_START]: {
@@ -51,7 +51,7 @@ export const responseLookup = {
     [RESPONSE_TYPE.TOOL_COMPLETE]: {
         operation: TOOL,
         variant: COMPLETE,
-        icon: ['far','circle-check']
+        icon: ['far', 'circle-check']
     },
 
     [RESPONSE_TYPE.TOOL_ERROR]: {

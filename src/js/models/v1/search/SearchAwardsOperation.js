@@ -145,8 +145,8 @@ class SearchAwardsOperation {
         let def1 = this.defCodes.require.length;
         let def2 = this.defCodes.exclude.length;
 
-        this.naicsCodes.require.splice(naics1,0);
-        this.naicsCodes.exclude.splice(naics2,0);
+        this.naicsCodes.require.splice(naics1, 0);
+        this.naicsCodes.exclude.splice(naics2, 0);
         this.pscCheckbox.require.splice(psc1, 0);
         this.pscCheckbox.exclude.splice(psc2, 0);
         this.tasCheckbox.require.splice(tas1, 0);
