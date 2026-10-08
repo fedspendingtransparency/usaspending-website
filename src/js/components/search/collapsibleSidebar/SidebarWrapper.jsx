@@ -81,13 +81,13 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     };
 
     const hintOnClick = (e) => {
-        if(e?.target.textContent) {
+        if (e?.target.textContent) {
             setText(sanitizeNLInput(e.target.textContent).trim().slice(0, NL_INPUT_MAX_CHARS));
         }
     };
 
     const startNLSearch = () => {
-        if(text?.trim() && typeof refetch === "function") {
+        if (text?.trim() && typeof refetch === "function") {
             wasCancelled.current = false;
             refetch();
         }

@@ -191,7 +191,7 @@ const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { 
 };
 
 const valuesAreEqual = (a, b) => {
-    if(Iterable.isIterable(a) || Iterable.isIterable(b)) {
+    if (Iterable.isIterable(a) || Iterable.isIterable(b)) {
         return immutableIs(a, b);
     }
 
