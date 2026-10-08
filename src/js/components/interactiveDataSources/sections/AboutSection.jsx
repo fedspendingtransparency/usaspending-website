@@ -84,29 +84,33 @@ const AboutSection = () => {
     );
     const aboutDetails = [{
         title: "What is the DATA Act?",
-        details: (<>
-            <p>
-                The Digital Accountability and Transparency Act (DATA Act) was signed into law in 2014, establishing federal standards for financial data and a new reporting process for agencies to improve data quality, transparency, and accountability.
-            </p>
-            <p>
-                The result is an ongoing partnership between the federal community and external stakeholders to create a standard data model and a publicly accessible and searchable website: USAspending.gov.
-            </p>
-            <p>
-                Today, more than 100 federal agencies submit financial data to USAspending.gov on a monthly basis, and thousands of public users visit the site every day to access data via visualizations, downloads, and open APIs.
-            </p>
-        </>)
+        details: (
+            <>
+                <p>
+                    The Digital Accountability and Transparency Act (DATA Act) was signed into law in 2014, establishing federal standards for financial data and a new reporting process for agencies to improve data quality, transparency, and accountability.
+                </p>
+                <p>
+                    The result is an ongoing partnership between the federal community and external stakeholders to create a standard data model and a publicly accessible and searchable website: USAspending.gov.
+                </p>
+                <p>
+                    Today, more than 100 federal agencies submit financial data to USAspending.gov on a monthly basis, and thousands of public users visit the site every day to access data via visualizations, downloads, and open APIs.
+                </p>
+            </>
+        )
     },
     {
         title: "Why was the DATA Act needed?",
-        details: (<>
-            <p>
-                Before the DATA Act, many programs in the federal government had the same types
-                of spending data about agency expenses and federal awards such as contracts, grants, and loans. However, they weren&#39;t all defining their data elements in the same way. These differences made it hard to share or compare data across agencies and programs.
-            </p>
-            <p>
-                In addition, agency financial systems were not linked to governmentwide award systems, so there was no way to follow the money from appropriated funds to award spending for recipients across the country and the world. As a result of the DATA Act, policies and mechanisms now exist for this linkage.
-            </p>
-        </>)
+        details: (
+            <>
+                <p>
+                    Before the DATA Act, many programs in the federal government had the same types
+                    of spending data about agency expenses and federal awards such as contracts, grants, and loans. However, they weren&#39;t all defining their data elements in the same way. These differences made it hard to share or compare data across agencies and programs.
+                </p>
+                <p>
+                    In addition, agency financial systems were not linked to governmentwide award systems, so there was no way to follow the money from appropriated funds to award spending for recipients across the country and the world. As a result of the DATA Act, policies and mechanisms now exist for this linkage.
+                </p>
+            </>
+        )
     },
     {
         title: "How is the DATA Act implemented?",
