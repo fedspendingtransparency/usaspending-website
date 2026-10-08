@@ -15,6 +15,9 @@ export const useStateNavigation = () => {
     const { state, fyParam } = match.params;
     const [wasInputStateName, stateName, stateId] = parseStateDataFromUrl(state, fipsIdByStateName, stateNameByFipsId);
     const fy = fyParam;
+    // fipsIdByStateName is rebuilt into a new object on every render, so use a stable
+    // primitive to detect "data has loaded" without re-running the effect every render
+    const isStateDataLoaded = !!fipsIdByStateName;
 
     const handleFyChange = useCallback((newFy) => {
         navigate(`/state/${stateName}/${newFy}`);
@@ -22,7 +25,12 @@ export const useStateNavigation = () => {
     }, [dispatch, navigate, stateName]);
 
     useEffect(() => {
-        if (Object.keys(fipsIdByStateName ?? {}).includes(stateName?.replaceAll('-', ' '))) {
+        // state list hasn't loaded yet; wait rather than redirecting away prematurely
+        if (!fipsIdByStateName) {
+            return undefined;
+        }
+
+        if (Object.keys(fipsIdByStateName).includes(stateName?.replaceAll('-', ' '))) {
             if (!fy) {
                 // this may be an issue on the first day of 2026 fiscal year
                 // history(`/state/${stateName}/latest`, { replace: true });
@@ -46,7 +54,7 @@ export const useStateNavigation = () => {
             dispatch(resetState());
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [isStateDataLoaded]);
 
     return { handleFyChange, state, stateId, fy };
 
