@@ -42,22 +42,7 @@ export default defineConfig([
         },
         settings: { react: { version: '19' } },
         rules: {
-            // disabling class method "this" requirement to avoid React conflicts
-            'class-methods-use-this': [0],
-            // allow await in for-await-in loops
-            'no-await-in-loop': [0],
-            // allow continue statements
-            'no-continue': [0],
-            // allow ++ and --
-            'no-plusplus': [0],
-            // allow some globals
-            'no-restricted-globals': [0],
-            // allow for loops
             'no-restricted-syntax': [2, 'LabeledStatement', 'WithStatement'],
-            'no-underscore-dangle': [0, { allowAfterThis: true }],
-            'prefer-arrow-callback': ['error'],
-            // for now, don't do destructuring
-            'prefer-destructuring': [0],
 
             '@stylistic/arrow-parens': ['error', 'always'],
             '@stylistic/brace-style': ['error', 'stroustrup'],
