@@ -292,7 +292,7 @@
     "ajv": "^8.18.0",
     "axios": "^1.18.0",
     "babel-plugin-react-compiler": "^1.0.0",
-    "basic-ftp": "^6.0.1",
+    "basic-ftp": "^6.2.1",
     "bourbon": "^4.3.4",
     "bourbon-neat": "^4.0.0",
     "buffer": "^6.0.3",
