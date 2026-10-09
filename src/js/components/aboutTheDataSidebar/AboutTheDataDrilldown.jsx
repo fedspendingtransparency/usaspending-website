@@ -7,14 +7,14 @@ import React, { useEffect, Suspense, useMemo, lazy } from 'react';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import { useSearchParams } from 'react-router';
-import { ShareIcon } from "data-transparency-ui";
+import { ShareIcon } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { handleShareOptionClick } from 'helpers/socialShare';
-import { LoadingWrapper } from "../sharedComponents/Loading";
+import { LoadingWrapper } from '../sharedComponents/Loading';
 import { showModal } from '../../redux/actions/modal/modalActions';
 
-const drilldownComponent = (slug) => lazy(() =>  import(
+const drilldownComponent = (slug) => lazy(() => import(
     /* webpackPreload: true */ `../../../content/about-the-data/${slug}`
 ));
 
@@ -33,7 +33,7 @@ const AboutTheDataDrilldown = ({
 
     const value = useMemo(() => {
         const newUrlString = searchParams ? `?${searchParams?.toString()}` : '';
-        const url = window.location.href.split("?");
+        const url = window.location.href.split('?');
         const path = url[0];
 
         if (path) {
@@ -61,7 +61,7 @@ const AboutTheDataDrilldown = ({
     };
 
     const handleKeyUp = (e) => {
-        if (e.key === "Enter") {
+        if (e.key === 'Enter') {
             clearDrilldown();
         }
     };
@@ -98,7 +98,7 @@ const AboutTheDataDrilldown = ({
                                 onShareClick();
                             }
                         }}
-                        colors={{ backgroundColor: "#00687d", color: "#dfe1e2" }}
+                        colors={{ backgroundColor: '#00687d', color: '#dfe1e2' }}
                         noShareText />
                 </div>
                 <div className="atd__drilldown">

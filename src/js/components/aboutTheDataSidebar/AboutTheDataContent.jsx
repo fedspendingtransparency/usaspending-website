@@ -1,20 +1,20 @@
 import React, { useMemo } from 'react';
-import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
+import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { escapeRegExp } from "../../helpers/aboutTheDataSidebarHelper";
-import { setAboutTheDataTerm } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import schema from "../../../config/aboutTheData/aboutTheDataSchema";
-import DownloadButton from "./DownloadButton";
-import AboutTheDataNoResults from "./AboutTheDataNoResults";
-import AboutTheDataListView from "./AboutTheDataListView";
-import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
+import { escapeRegExp } from '../../helpers/aboutTheDataSidebarHelper';
+import { setAboutTheDataTerm } from '../../redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import schema from '../../../config/aboutTheData/aboutTheDataSchema';
+import DownloadButton from './DownloadButton';
+import AboutTheDataNoResults from './AboutTheDataNoResults';
+import AboutTheDataListView from './AboutTheDataListView';
+import AboutTheDataDrilldown from './AboutTheDataDrilldown';
 
 const propTypes = {
     clearDrilldown: PropTypes.func,
     entryId: PropTypes.number,
     section: PropTypes.object
-}
+};
 
 const AboutTheDataContent = ({
     clearDrilldown,
@@ -47,22 +47,25 @@ const AboutTheDataContent = ({
                         const regex = new RegExp(escapeRegExp(input), 'gi');
                         const markupName = field.name.replace(regex, '<match>$&<match>');
                         const parts = markupName.split('<match>');
-                        const markup = <>
-                            {parts.map((part) => (
-                                <>
-                                    {part.toLowerCase() === input.toLowerCase() ? (
-                                        <span className="matched-highlight">
-                                            {part}
-                                        </span>
-                                    )
-                                        :
-                                        <>
-                                            {part}
-                                        </>
-                                    }
-                                </>
-                            ))}
-                        </>;
+                        const markup = (
+                            <>
+                                {parts.map((part) => (
+                                    <>
+                                        {part.toLowerCase() === input.toLowerCase() ?
+                                            (
+                                                <span className="matched-highlight">
+                                                    {part}
+                                                </span>
+                                            ) :
+                                            (
+                                                <>
+                                                    {part}
+                                                </>
+                                            )}
+                                    </>
+                                ))}
+                            </>
+                        );
 
                         markupFields.push({
                             name: markup,
@@ -78,16 +81,16 @@ const AboutTheDataContent = ({
 
         clearDrilldown();
 
-        return resultItems
-    }, [input, clearDrilldown])
+        return resultItems;
+    }, [input, clearDrilldown]);
 
-    const content = Object.keys(searchResults).length === 0 ? (
-        <>
-            <DownloadButton />
-            <AboutTheDataNoResults searchTerm={input} />
-        </>
-    )
-        :
+    const content = Object.keys(searchResults).length === 0 ?
+        (
+            <>
+                <DownloadButton />
+                <AboutTheDataNoResults searchTerm={input} />
+            </>
+        ) :
         (
             <>
                 <DownloadButton />
@@ -105,19 +108,21 @@ const AboutTheDataContent = ({
     return (
         <div className="atd__body">
             { entryId !== null && entryId >= 0 && section ?
-                <AboutTheDataDrilldown
-                    section={section?.heading}
-                    name={section?.fields[entryId]?.name}
-                    clearDrilldown={clearDrilldown}
-                    slug={section?.fields[entryId]?.slug} />
-                :
-                <>
-                    {content}
-                </>
-            }
+                (
+                    <AboutTheDataDrilldown
+                        section={section?.heading}
+                        name={section?.fields[entryId]?.name}
+                        clearDrilldown={clearDrilldown}
+                        slug={section?.fields[entryId]?.slug} />
+                ) :
+                (
+                    <>
+                        {content}
+                    </>
+                )}
         </div>
-    )
-}
+    );
+};
 
 AboutTheDataContent.propTypes = propTypes;
 export default AboutTheDataContent;
