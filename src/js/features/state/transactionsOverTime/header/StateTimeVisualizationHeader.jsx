@@ -54,8 +54,10 @@ const StateTimeVisualizationHeader = ({
                 descTooltip={{ component: false }} />
             <hr className="results-divider" />
             <div className="state-section__description">
-                The graph below shows trends over time for transactions to this state.{" "}
-                Break down the amounts by years, quarters, or months,{" "}
+                The graph below shows trends over time for transactions to this state.
+                {" "}
+                Break down the amounts by years, quarters, or months,
+                {" "}
                 and hover over the bars for more detailed information.
             </div>
             <div className="state__controls-desktop">
@@ -66,17 +68,17 @@ const StateTimeVisualizationHeader = ({
                     label="View by"
                     enabled
                     classname="state-dropdown__picker"
-                    selectedOption={dropdownOptions?.length
-                        ? dropdownOptions?.find((obj) => obj.value === visualizationPeriod)?.name
-                        : `${visualizationPeriod}`}
+                    selectedOption={dropdownOptions?.length ?
+                        dropdownOptions?.find((obj) => obj.value === visualizationPeriod)?.name :
+                        `${visualizationPeriod}`}
                     sortFn={sortFn} />
-                {showOutlays &&
+                {showOutlays && (
                     <OutlaysToggle
                         outlayToggle={outlayToggle}
                         setOutlayToggle={setOutlayToggle}
                         outlayWhatOpen={outlayWhatOpen}
                         setOutlayWhatOpen={setOutlayWhatOpen} />
-                }
+                )}
             </div>
             { showOutlays && <OutlaysExplanation outlayWhatOpen={outlayWhatOpen} /> }
         </>

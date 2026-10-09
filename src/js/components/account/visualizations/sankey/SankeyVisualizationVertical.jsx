@@ -264,7 +264,6 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
             }
         };
 
-
         // calculate bottom row
         const obligated = props.amounts.out.obligated;
         const obligatedWidth = (obligated / budgetAuthority) * centerWidth;
@@ -423,8 +422,8 @@ budgetary resouces`}
                             }} />
                         <SankeyFlowVertical
                             startX={this.state.top.bbf.x + this.state.top.flow.x}
-                            endX={(this.state.center.x + this.state.center.width)
-                                - this.state.top.bbf.width}
+                            endX={(this.state.center.x + this.state.center.width) -
+                                this.state.top.bbf.width}
                             width={this.state.top.bbf.width}
                             length={this.state.top.flow.length}
                             description={`Flow of money into total budgetary resources from balance \
@@ -594,7 +593,6 @@ scale(0.7,0.7)`}>
 143.7`} />
                         </DirectionLabel>
                     </g>
-
 
                     <g
                         className="bottom-row"

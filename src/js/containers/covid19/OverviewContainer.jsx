@@ -10,7 +10,7 @@ import { throttle } from 'lodash-es';
 
 import AmountsVisualization from 'components/covid19/amountsVisualization/AmountsVisualization';
 import DateNote from 'components/covid19/DateNote';
-import useCallbackRef from "../../hooks/useCallbackRef";
+import useCallbackRef from '../../hooks/useCallbackRef';
 
 const propTypes = {
     publicLaw: PropTypes.string

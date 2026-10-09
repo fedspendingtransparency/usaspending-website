@@ -70,10 +70,11 @@ const GeoVisualizationTooltip = ({
                     {label}
                 </div>
                 <div className="tooltip-body">
-                    {description &&
+                    {description && (
                         <div className="tooltip-label">
                             {description}
-                        </div>}
+                        </div>
+                    )}
                     <div className="tooltip-value">
                         {formatMoneyWithUnitsShortLabel(value)}
                     </div>

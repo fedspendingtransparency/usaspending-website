@@ -14,7 +14,6 @@ import {
     expandedSubawardColumns
 } from 'dataMapping/search/groupedAwardTableColumns';
 
-
 const getColumnArray = (type) => {
     switch (type) {
         case "subawards":
@@ -50,7 +49,7 @@ export const ColumnBuilder = (columnType, onButtonClick, expanded) => {
                             onClick={() => onButtonClick(getValue(), row.id)}
                             onKeyDown={() => onButtonClick(getValue(), row.id)}
                             role="link"
-                            className={`usa-button-link ${col.className ? col.className : ''}`} >
+                            className={`usa-button-link ${col.className ? col.className : ''}`}>
                             <FontAwesomeIcon
                                 icon={`${expanded[row.id] ? "chevron-down" : "chevron-right"}`} />
                             {' '}
@@ -73,7 +72,8 @@ export const ColumnBuilder = (columnType, onButtonClick, expanded) => {
                             target="_blank"
                             rel="noopener noreferrer"
                             href={col.link}
-                            onClick={col.onClick || (() => {})}>{getValue()}
+                            onClick={col.onClick || (() => {})}>
+                            {getValue()}
                         </a>
                     )
                 });
@@ -88,4 +88,3 @@ export const ColumnBuilder = (columnType, onButtonClick, expanded) => {
 
     return columns;
 };
-

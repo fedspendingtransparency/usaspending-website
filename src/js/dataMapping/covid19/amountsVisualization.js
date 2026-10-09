@@ -1,4 +1,3 @@
-
 export const defaultRectangleData = {
     x: 0,
     y: 0,

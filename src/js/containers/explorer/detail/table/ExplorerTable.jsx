@@ -50,8 +50,7 @@ const ExplorerTable = memo(function ExplorerTableContainer({
         const startingIndex = (pageNumber - 1) * pageSize;
 
         return parsedResults.filter((v, i) => i <= endingIndex && startingIndex <= i);
-    }
-    , [results, total, sort, goDeeper, goToUnreported, totalItems, pageNumber]);
+    }, [results, total, sort, goDeeper, goToUnreported, totalItems, pageNumber]);
 
     const rows = parsedData.map(
         ({
@@ -62,7 +61,7 @@ const ExplorerTable = memo(function ExplorerTableContainer({
                     <div className="cell-content">
                         <button
                             className="go-deeper-link"
-                            onClick={link} >
+                            onClick={link}>
                             {name}
                         </button>
                     </div>

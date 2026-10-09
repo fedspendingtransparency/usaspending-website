@@ -34,7 +34,6 @@ export default class ImageCarousel extends React.Component {
         this.stoppedMouseDrag = this.stoppedMouseDrag.bind(this);
         this.performedMouseDrag = this.performedMouseDrag.bind(this);
 
-
         this.clickedDot = this.clickedDot.bind(this);
         this.previousItem = this.previousItem.bind(this);
         this.nextItem = this.nextItem.bind(this);
@@ -181,7 +180,6 @@ export default class ImageCarousel extends React.Component {
         const page = parseInt(e.target.value, 10);
         this.goToItem(page);
     }
-
 
     render() {
         const dots = [];

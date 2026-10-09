@@ -24,10 +24,11 @@ const RelatedTerms = (props) => (
                 <FlexGridCol mobile={12} tablet={4} desktop={12} className="featured-content__citation" key={`featured-content__citation-${index}`}>
                     { citation.type === "glossary" ?
                         <GlossaryLink term={citation.term} label={citation.label} displayIcon={false} /> :
-                        <AboutTheDataLink slug={citation.term}>
-                            {citation.label}
-                        </AboutTheDataLink>
-                    }
+                        (
+                            <AboutTheDataLink slug={citation.term}>
+                                {citation.label}
+                            </AboutTheDataLink>
+                        )}
                 </FlexGridCol>
             ))}
         </FlexGridRow>

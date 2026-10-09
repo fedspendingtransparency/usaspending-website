@@ -8,7 +8,6 @@ import PropTypes from 'prop-types';
 import Markdown from 'react-markdown';
 import SmartLink from './SmartLink';
 
-
 const propTypes = {
     resources: PropTypes.string
 };
@@ -19,7 +18,7 @@ const MoreResources = ({ resources }) => (
             More Resources
         </h3>
         <hr />
-        <Markdown components={{Link: SmartLink, a: SmartLink}} skipHtml>{resources}</Markdown>
+        <Markdown components={{ Link: SmartLink, a: SmartLink }} skipHtml>{resources}</Markdown>
     </div>
 );
 

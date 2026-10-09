@@ -34,7 +34,6 @@ export const useFetchOverview = (stateId, fy) => {
         refetchOnWindowFocus: false,
         staleTime: Infinity
     });
-
 };
 
 export default useFetchOverview;

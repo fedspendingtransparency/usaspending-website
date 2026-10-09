@@ -3,7 +3,6 @@
  * Created by Nick Torres 8/9/2024
  */
 
-
 export const apiScopes = {
     state: 'state',
     county: 'county',

@@ -20,6 +20,7 @@ export default class RankVisualizationTooltip extends React.Component {
     componentDidMount() {
         this.positionTooltip();
     }
+
     positionTooltip() {
     // we need to wait for the tooltip to render before we can full position it due to its
     // dynamic width

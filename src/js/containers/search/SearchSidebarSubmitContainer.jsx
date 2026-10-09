@@ -34,14 +34,13 @@ const SearchSidebarSubmitContainer = ({ setShowMobileFilters }) => {
 
     const filtersChanged = !areFiltersEqual(stagedFilters, appliedFilters);
     const areStagedFiltersEmpty = areFiltersEqual(stagedFilters, initialState) ||
-            areFiltersEqual(stagedFilters, initialStateDR);
+        areFiltersEqual(stagedFilters, initialStateDR);
 
     const resetFilters = useCallback(() => {
         dispatch(clearStagedFilters());
         dispatch(resetAppliedFilters());
         dispatch(resetMapLegendToggle());
     }, [dispatch]);
-
 
     const applyFilters = useCallback(() => {
         dispatch(setAppliedFilterCompletion(false));

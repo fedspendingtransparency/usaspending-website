@@ -107,7 +107,7 @@ const AwardTypeTooltip = ({
             </div>
             <div className="tooltip-body-row">
                 <div className="tooltip-label">
-                        Percent of total
+                    Percent of total
                 </div>
                 <div className="tooltip-value">
                     {percentage}

@@ -3,7 +3,7 @@
  * Created by michaelbray on 3/20/17.
  */
 
-/* eslint-disable quote-props */
+/* eslint-disable @stylistic/quote-props */
 export const objectClassDefinitions = {
     '111': 'Full-time permanent',
     '113': 'Other than full-time permanent',
@@ -103,5 +103,3 @@ export const groupLabels = {
     grants_and_fixed_changes: 'Grants and Fixed Changes',
     other: 'Other'
 };
-
-/* eslint-enable quote-props */

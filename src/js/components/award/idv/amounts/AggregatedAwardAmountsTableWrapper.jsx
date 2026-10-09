@@ -31,12 +31,13 @@ const AggregatedAwardAmountsTableWrapper = (props) => {
     const tabTypes = generateDefcTabs(awardData);
     return (
         <div className="award-amounts__table-by-type" data-testid="award-amounts__table-by-type">
-            {tabTypes.length > 0 &&
+            {tabTypes.length > 0 && (
                 <Tabs
                     tablessStyle
                     active={activeTab}
                     switchTab={switchTab}
-                    types={tabTypes} />}
+                    types={tabTypes} />
+            )}
             <AwardAmountsTable
                 {...props}
                 fileCType={activeTab} />

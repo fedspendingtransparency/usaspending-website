@@ -23,7 +23,7 @@ const ExternalLink = ({
     const sanitized = sanitizeUrl(url);
     const isSafe = sanitized !== null;
     const href = isSafe ? sanitized : 'not available';
-    
+
     const dispatch = useDispatch();
     const redirect = () => {
         dispatch(showModal(href));
@@ -46,7 +46,7 @@ const ExternalLink = ({
                     tabIndex={0}
                     disabled={!isSafe}
                     aria-disabled={!isSafe}>
-                    {children} 
+                    {children}
                     <FontAwesomeIcon icon="external-link-alt" />
                 </button>
             );
@@ -57,7 +57,7 @@ const ExternalLink = ({
                 role="link"
                 onClick={redirect}
                 onKeyPress={keyPressHandler}
-                tabIndex={0} 
+                tabIndex={0}
                 disabled={!isSafe}
                 aria-disabled={!isSafe}>
                 {children}
@@ -71,7 +71,8 @@ const ExternalLink = ({
             disabled={!isSafe}
             aria-disabled={!isSafe}>
             {children || href} <FontAwesomeIcon icon="external-link-alt" />
-        </button>);
+        </button>
+    );
 };
 
 ExternalLink.propTypes = propTypes;

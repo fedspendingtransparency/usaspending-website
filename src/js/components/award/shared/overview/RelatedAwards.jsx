@@ -29,25 +29,28 @@ export default class RelatedAwards extends React.Component {
         super(props);
 
         this.jumpToReferencedAwardsTableChildAwardsTab =
-        this.jumpToReferencedAwardsTableChildAwardsTab.bind(this);
+            this.jumpToReferencedAwardsTableChildAwardsTab.bind(this);
         this.jumpToReferencedAwardsTableChildIDVsTab =
-        this.jumpToReferencedAwardsTableChildIDVsTab.bind(this);
+            this.jumpToReferencedAwardsTableChildIDVsTab.bind(this);
         this.jumpToReferencedAwardsTableGrandchildAwardsTab =
-        this.jumpToReferencedAwardsTableGrandchildAwardsTab.bind(this);
+            this.jumpToReferencedAwardsTableGrandchildAwardsTab.bind(this);
     }
 
     jumpToReferencedAwardsTableChildAwardsTab() {
         this.props.setRelatedAwardsTab('child_awards');
         this.props.jumpToSection('referenced-awards');
     }
+
     jumpToReferencedAwardsTableChildIDVsTab() {
         this.props.setRelatedAwardsTab('child_idvs');
         this.props.jumpToSection('referenced-awards');
     }
+
     jumpToReferencedAwardsTableGrandchildAwardsTab() {
         this.props.setRelatedAwardsTab('grandchild_awards');
         this.props.jumpToSection('referenced-awards');
     }
+
     jumpToAwardHistoryTableSubAwardsTab = () => {
         this.props.jumpToSubAwardHistoryTable('subaward');
         this.props.jumpToSection('award-history');

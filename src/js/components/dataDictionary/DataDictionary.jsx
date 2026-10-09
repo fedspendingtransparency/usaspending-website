@@ -47,7 +47,6 @@ const DataDictionary = ({
     downloadLocation
 
 }) => {
-    // eslint-disable-next-line max-len
     const subtitle = (<p>The data dictionary below shows detailed information about the data available in our download files, including the definition of each element and its element name on the legacy USAspending.gov website.</p>);
 
     return (
@@ -65,7 +64,7 @@ const DataDictionary = ({
                         <div className="data-dictionary__download-icon">
                             <FontAwesomeIcon icon="file-excel" />
                         </div>
-                    Download
+                        Download
                     </a>
                 </div>
             </div>

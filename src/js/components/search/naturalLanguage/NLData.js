@@ -3,21 +3,21 @@
  * Created by Trey Morgan 7/8/2026
  */
 
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
-import Analytics from "../../../helpers/analytics/Analytics";
-import { closeOtherSlideouts } from "../../../helpers/slideoutHelper";
+import React from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import NLSearchSuggestionsIcon from './NLSearchSuggestionsIcon';
+import Analytics from '../../../helpers/analytics/Analytics';
+import { closeOtherSlideouts } from '../../../helpers/slideoutHelper';
 import storeSingleton from 'redux/storeSingleton';
-import * as glossaryActions from "../../../redux/actions/glossary/glossaryActions"
-import * as aboutTheDataActions from "../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions"
+import * as glossaryActions from '../../../redux/actions/glossary/glossaryActions';
+import * as aboutTheDataActions from '../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { initialState as defaultFilters } from '../../../redux/reducers/search/searchFiltersReducer';
-import { awardTypeGroups } from "../../../dataMapping/search/awardType";
-import { REQUEST_VERSION } from "../../../GlobalConstants";
-import { defCodeGroups } from "../../../dataMapping/search/defCodes";
+import { awardTypeGroups } from '../../../dataMapping/search/awardType';
+import { REQUEST_VERSION } from '../../../GlobalConstants';
+import { defCodeGroups } from '../../../dataMapping/search/defCodes';
 
 const overline = 'IF YOU WANT TO KNOW:';
-const filterByHeader = 'FILTER BY:'
+const filterByHeader = 'FILTER BY:';
 const id = crypto.randomUUID();
 const dayjs = require('dayjs');
 
@@ -34,37 +34,38 @@ export const searchCardData = [
         ),
         filterByHeader,
         icons: [
-            <NLSearchSuggestionsIcon 
-                key={`time-period-${id}`}  
-                variant="time-period" 
+            <NLSearchSuggestionsIcon
+                key={`time-period-${id}`}
+                variant="time-period"
                 label="Time Period"
-                icon="calendar"/>,
-            <NLSearchSuggestionsIcon 
-                key={`location-${id}`} 
-                variant="location" 
+                icon="calendar" />,
+            <NLSearchSuggestionsIcon
+                key={`location-${id}`}
+                variant="location"
                 label="Location"
-                icon="location-dot"/> 
+                icon="location-dot" />
         ]
     },
     {
         id: id + 2,
         overline,
-        headline: ( 
+        headline: (
             <>
                 How much federal funding are <strong>national defense corporations</strong> receiving?
             </>
         ),
         filterByHeader,
         icons: [
-            <NLSearchSuggestionsIcon 
-                key={`keyword-${id}`}  
-                variant="keyword" 
+            <NLSearchSuggestionsIcon
+                key={`keyword-${id}`}
+                variant="keyword"
                 label="Keyword"
                 icon="search" />,
-            <NLSearchSuggestionsIcon 
-                key={`recipient-${id}`} variant="recipient" 
+            <NLSearchSuggestionsIcon
+                key={`recipient-${id}`}
+                variant="recipient"
                 label="Recipient"
-                icon="user" /> 
+                icon="user" />
         ]
     },
     {
@@ -77,16 +78,16 @@ export const searchCardData = [
         ),
         filterByHeader,
         icons: [
-            <NLSearchSuggestionsIcon 
-                key={`award-type-${id}`}  
-                variant="award-type" 
+            <NLSearchSuggestionsIcon
+                key={`award-type-${id}`}
+                variant="award-type"
                 label="Award Type"
                 icon="file-certificate" />,
-            <NLSearchSuggestionsIcon 
-                key={`award-description-${id}`} 
-                variant="award-description" 
+            <NLSearchSuggestionsIcon
+                key={`award-description-${id}`}
+                variant="award-description"
                 label="Award Description"
-                icon="building" /> 
+                icon="building" />
         ]
     }
 ];
@@ -94,7 +95,7 @@ export const searchCardData = [
 export const moreResourcesBtnData = [
     {
         id: id + 1,
-        action: () => { 
+        action: () => {
             Analytics.event({
                 event: 'natural-language_glossary',
                 category: 'Natural Language More Resources',
@@ -105,15 +106,15 @@ export const moreResourcesBtnData = [
             dispatch(glossaryActions.toggleGlossary());
         },
         image: (
-            <NLSearchSuggestionsIcon 
-                variant="glossary" 
-                label="Glossary" 
-                icon="book"/>
+            <NLSearchSuggestionsIcon
+                variant="glossary"
+                label="Glossary"
+                icon="book" />
         )
     },
     {
         id: id + 2,
-        action: () => { 
+        action: () => {
             Analytics.event({
                 event: 'natural-language_about-the-data',
                 category: 'Natural Language More Resources',
@@ -124,15 +125,15 @@ export const moreResourcesBtnData = [
             dispatch(aboutTheDataActions.toggleAboutTheData());
         },
         image: (
-            <NLSearchSuggestionsIcon 
-                variant="about-the-data" 
-                label="About the Data" 
-                icon="database"/>
-        ) 
+            <NLSearchSuggestionsIcon
+                variant="about-the-data"
+                label="About the Data"
+                icon="database" />
+        )
     },
     {
         id: id + 3,
-        action: (navigate) => { 
+        action: (navigate) => {
             Analytics.event({
                 event: 'natural-language_data-dictionary',
                 category: 'Natural Language More Resources',
@@ -140,18 +141,18 @@ export const moreResourcesBtnData = [
                 label: 'data dictionary button'
             });
             closeOtherSlideouts();
-            navigate("/data-dictionary");
+            navigate('/data-dictionary');
         },
         image: (
-            <NLSearchSuggestionsIcon 
-                variant="data-dictionary" 
-                label="Data Dictionary" 
-                icon="book-open"/>
-        ) 
+            <NLSearchSuggestionsIcon
+                variant="data-dictionary"
+                label="Data Dictionary"
+                icon="book-open" />
+        )
     },
     {
         id: id + 4,
-        action: (navigate) => { 
+        action: (navigate) => {
             Analytics.event({
                 event: 'natural-language_fed-spending-guide',
                 category: 'Natural Language More Resources',
@@ -159,14 +160,14 @@ export const moreResourcesBtnData = [
                 label: 'federal spending guide button'
             });
             closeOtherSlideouts();
-            navigate("/federal-spending-guide");
+            navigate('/federal-spending-guide');
         },
         image: (
-            <NLSearchSuggestionsIcon 
-                variant="federal-spending-guide" 
-                label="Federal Spending Guide" 
-                icon="money-check-dollar"/>
-        ) 
+            <NLSearchSuggestionsIcon
+                variant="federal-spending-guide"
+                label="Federal Spending Guide"
+                icon="money-check-dollar" />
+        )
     }
 ];
 
@@ -178,12 +179,21 @@ export const searchGovSpendingData = [
                 variant="ask-questions"
                 label="Ask questions"
                 icon="question"
-                description={
+                description={(
                     <>
-                        Enter your <strong>question</strong> or select from{' '}
-                        our <strong>templates</strong> in the Smart Assist panel.
-                    </> 
-                }/>
+                        Enter your
+                        {' '}
+                        <strong>question</strong>
+                        {' '}
+                        or select from
+                        {' '}
+                        our
+                        {' '}
+                        <strong>templates</strong>
+                        {' '}
+                        in the Smart Assist panel.
+                    </>
+                )} />
         )
     },
     {
@@ -193,12 +203,15 @@ export const searchGovSpendingData = [
                 variant="analyzing-response"
                 label="Analyzing Response"
                 icon="arrows-rotate"
-                description={
+                description={(
                     <>
-                        Let our model do it’s work to{' '}
-                        generate your <strong>data.</strong>
-                    </> 
-                }/>
+                        Let our model do it’s work to
+                        {' '}
+                        generate your
+                        {' '}
+                        <strong>data.</strong>
+                    </>
+                )} />
         )
     },
     {
@@ -208,12 +221,17 @@ export const searchGovSpendingData = [
                 variant="get-the-data"
                 label="Get the Data"
                 icon="chart-column"
-                description={
+                description={(
                     <>
-                        Get downloadable <strong>federal award</strong>{' '}
-                        <strong>data</strong> relevant to your search!
-                    </> 
-                }/>
+                        Get downloadable
+                        {' '}
+                        <strong>federal award</strong>
+                        {' '}
+                        <strong>data</strong>
+                        {' '}
+                        relevant to your search!
+                    </>
+                )} />
         )
     }
 ];
@@ -221,122 +239,122 @@ export const searchGovSpendingData = [
 // delete when Smart Assist is released
 export const preSearchOptionsToRemove = [
     {
-        type: "award-recipient-type",
+        type: 'award-recipient-type',
         options: [
             {
-                id: "ar-1",
+                id: 'ar-1',
                 text: (<>What <span>contracts</span> were awarded in <span>FY 2025</span>?</>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
-                            timePeriodType: "fy",
-                            timePeriodFY: ["2025"],
+                            timePeriodType: 'fy',
+                            timePeriodFY: ['2025'],
                             awardType: awardTypeGroups.contracts
                         },
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
-                id: "ar-2",
+                id: 'ar-2',
                 text: (<>What <span>grants</span> were awarded in <span>FY 2026</span>?</>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
-                            timePeriodType: "fy",
-                            timePeriodFY: ["2026"],
+                            timePeriodType: 'fy',
+                            timePeriodFY: ['2026'],
                             awardType: awardTypeGroups.grants
                         },
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
-                id: "ar-3",
+                id: 'ar-3',
                 text: (<>What funding went to <span>Small Businesses this year</span>?</>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
-                            timePeriodType: "dr",
+                            timePeriodType: 'dr',
                             time_period: [
                                 {
                                     start_date: dayjs().startOf('year').format('YYYY-MM-DD'),
                                     end_date: dayjs().format('YYYY-MM-DD')
                                 }
                             ],
-                            recipientType: ["small_business"]
+                            recipientType: ['small_business']
                         },
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
-                id: "ar-4",
+                id: 'ar-4',
                 text: (<>What funding went to <span>Veteran Owned Businesses</span> in <span>2026</span>?</>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
-                            timePeriodType: "dr",
+                            timePeriodType: 'dr',
                             time_period: [
                                 {
                                     start_date: dayjs().startOf('year').format('YYYY-MM-DD'),
                                     end_date: dayjs().format('YYYY-MM-DD')
                                 }
                             ],
-                            recipientType: ["veteran_owned_business"]
+                            recipientType: ['veteran_owned_business']
                         },
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
-                id: "ar-5",
+                id: 'ar-5',
                 text: (<>What funding went to <span>nonprofit organizations last year</span>?</>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
-                            timePeriodType: "dr",
+                            timePeriodType: 'dr',
                             time_period: [
                                 {
                                     start_date: dayjs().subtract(1, 'year').startOf('year').format('YYYY-MM-DD'),
                                     end_date: dayjs().subtract(1, 'year').endOf('year').format('YYYY-MM-DD')
                                 }
                             ],
-                            recipientType: ["nonprofit"]
+                            recipientType: ['nonprofit']
                         },
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             }
         ]
     },
     {
-        type: "nacis-or-assistance-listing",
+        type: 'nacis-or-assistance-listing',
         options: [
             {
-                id: "nal-1",
+                id: 'nal-1',
                 text: (<>Show me examples of contracts related to <span>science & technology</span></>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
                             naicsCodes: {
-                                require: ["5415", "5416", "5417"],
+                                require: ['5415', '5416', '5417'],
                                 exclude: [],
                                 counts: [
                                     {
-                                        label: "Professional, Scientific, and Technical Services",
-                                        value: "54",
+                                        label: 'Professional, Scientific, and Technical Services',
+                                        value: '54',
                                         count: 18
                                     }
                                 ]
@@ -345,22 +363,22 @@ export const preSearchOptionsToRemove = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
-                id: "nal-2",
+                id: 'nal-2',
                 text: (<>Show me examples of contracts related to <span>agriculture</span></>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
                             naicsCodes: {
-                                require: ["11"],
+                                require: ['11'],
                                 exclude: [],
-                                counts: [ 
+                                counts: [
                                     {
-                                        label: "Agriculture, Forestry, Fishing and Hunting",
-                                        value: "11",
+                                        label: 'Agriculture, Forestry, Fishing and Hunting',
+                                        value: '11',
                                         count: 64
                                     }
                                 ]
@@ -369,22 +387,22 @@ export const preSearchOptionsToRemove = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
-                id: "nal-3",
+                id: 'nal-3',
                 text: (<>Show me examples of contracts related to <span>construction</span></>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
                             naicsCodes: {
-                                require: ["23"],
+                                require: ['23'],
                                 exclude: [],
                                 counts: [
                                     {
-                                        label: "Construction",
-                                        value: "23",
+                                        label: 'Construction',
+                                        value: '23',
                                         count: 31
                                     }
                                 ]
@@ -393,10 +411,10 @@ export const preSearchOptionsToRemove = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
-                id: "nal-4",
+                id: 'nal-4',
                 text: (<>Show me financial assistance for <span>broadband infrastructure</span></>),
                 action: (callback) => {
                     const filterValue = {
@@ -404,20 +422,20 @@ export const preSearchOptionsToRemove = [
                             ...defaultFilters,
                             selectedCFDA: {
                                 11.031: {
-                                    identifier: "11.031",
-                                    popular_name: "Broadband Infrastructure Program",
-                                    program_title: "Broadband Infrastructure Program",
-                                    program_number: "11.031"
+                                    identifier: '11.031',
+                                    popular_name: 'Broadband Infrastructure Program',
+                                    program_title: 'Broadband Infrastructure Program',
+                                    program_number: '11.031'
                                 }
                             }
                         },
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
-                id: "nal-5",
+                id: 'nal-5',
                 text: (<>Show me examples of grants for <span>school meals</span></>),
                 action: (callback) => {
                     const filterValue = {
@@ -425,37 +443,37 @@ export const preSearchOptionsToRemove = [
                             ...defaultFilters,
                             selectedCFDA: {
                                 10.553: {
-                                    identifier: "10.553",
-                                    popular_name: "SBP",
-                                    program_title: "School Breakfast Program",
-                                    program_number: "10.553"
+                                    identifier: '10.553',
+                                    popular_name: 'SBP',
+                                    program_title: 'School Breakfast Program',
+                                    program_number: '10.553'
                                 },
                                 10.555: {
-                                    identifier: "10.555",
-                                    popular_name: "School Lunch",
-                                    program_title: "National School Lunch Program",
-                                    program_number: "10.555"
+                                    identifier: '10.555',
+                                    popular_name: 'School Lunch',
+                                    program_title: 'National School Lunch Program',
+                                    program_number: '10.555'
                                 }
                             }
                         },
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             }
         ]
     },
     {
-        type: "agency",
+        type: 'agency',
         options: [
             {
-                id: "agency-1",
+                id: 'agency-1',
                 text: (<>Show <span>Department of Agriculture (USDA)</span> awards in <span> 2026</span></>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
-                            timePeriodType: "dr",
+                            timePeriodType: 'dr',
                             time_period: [
                                 {
                                     start_date: dayjs().startOf('year').format('YYYY-MM-DD'),
@@ -463,18 +481,18 @@ export const preSearchOptionsToRemove = [
                                 }
                             ],
                             selectedAwardingAgencies: {
-                                "95_toptier": {
+                                '95_toptier': {
                                     id: 95,
-                                    agencyType: "toptier",
+                                    agencyType: 'toptier',
                                     toptier_flag: true,
                                     subtier_agency: {
-                                        name: "Department of Agriculture",
-                                        abbreviation: "USDA"
+                                        name: 'Department of Agriculture',
+                                        abbreviation: 'USDA'
                                     },
                                     toptier_agency: {
-                                        name: "Department of Agriculture",
-                                        abbreviation: "USDA",
-                                        toptier_code: "012"
+                                        name: 'Department of Agriculture',
+                                        abbreviation: 'USDA',
+                                        toptier_code: '012'
                                     }
                                 }
                             }
@@ -482,28 +500,28 @@ export const preSearchOptionsToRemove = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
-                id: "agency-2",
+                id: 'agency-2',
                 text: (<>Show <span>Department of Homeland Security (DHS)</span> awards</>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
                             selectedAwardingAgencies: {
-                                "766_toptier": {
+                                '766_toptier': {
                                     id: 766,
-                                    agencyType: "toptier",
+                                    agencyType: 'toptier',
                                     toptier_flag: true,
                                     subtier_agency: {
-                                        name: "Department of Homeland Security",
-                                        abbreviation: "DHS"
+                                        name: 'Department of Homeland Security',
+                                        abbreviation: 'DHS'
                                     },
                                     toptier_agency: {
-                                        name: "Department of Homeland Security",
-                                        abbreviation: "DHS",
-                                        toptier_code: "070"
+                                        name: 'Department of Homeland Security',
+                                        abbreviation: 'DHS',
+                                        toptier_code: '070'
                                     }
                                 }
                             }
@@ -511,28 +529,28 @@ export const preSearchOptionsToRemove = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
-                id: "agency-3",
+                id: 'agency-3',
                 text: (<>Show <span>Department of Health and Human Services (HHS)</span> awards</>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
                             selectedAwardingAgencies: {
-                                "806_toptier": {
+                                '806_toptier': {
                                     id: 806,
-                                    agencyType: "toptier",
+                                    agencyType: 'toptier',
                                     toptier_flag: true,
                                     subtier_agency: {
-                                        name: "Department of Health and Human Services",
-                                        abbreviation: "HHS"
+                                        name: 'Department of Health and Human Services',
+                                        abbreviation: 'HHS'
                                     },
                                     toptier_agency: {
-                                        name: "Department of Health and Human Services",
-                                        abbreviation: "HHS",
-                                        toptier_code: "075"
+                                        name: 'Department of Health and Human Services',
+                                        abbreviation: 'HHS',
+                                        toptier_code: '075'
                                     }
                                 }
                             }
@@ -540,28 +558,28 @@ export const preSearchOptionsToRemove = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
-                id: "agency-4",
+                id: 'agency-4',
                 text: (<>Show <span>Department of Veterans Affairs (VA)</span> awards</>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
                             selectedAwardingAgencies: {
-                                "561_toptier": {
+                                '561_toptier': {
                                     id: 561,
-                                    agencyType: "toptier",
+                                    agencyType: 'toptier',
                                     toptier_flag: true,
                                     subtier_agency: {
-                                        name: "Department of Veterans Affairs",
-                                        abbreviation: "VA"
+                                        name: 'Department of Veterans Affairs',
+                                        abbreviation: 'VA'
                                     },
                                     toptier_agency: {
-                                        name: "Department of Veterans Affairs",
-                                        abbreviation: "VA",
-                                        toptier_code: "036"
+                                        name: 'Department of Veterans Affairs',
+                                        abbreviation: 'VA',
+                                        toptier_code: '036'
                                     }
                                 }
                             }
@@ -569,16 +587,16 @@ export const preSearchOptionsToRemove = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             },
             {
-                id: "agency-5",
+                id: 'agency-5',
                 text: (<>Show <span>Federal Bureau of Investigation (FBI)</span> awards in <span> 2026</span></>),
                 action: (callback) => {
                     const filterValue = {
                         filters: {
                             ...defaultFilters,
-                            timePeriodType: "dr",
+                            timePeriodType: 'dr',
                             time_period: [
                                 {
                                     start_date: dayjs().startOf('year').format('YYYY-MM-DD'),
@@ -586,18 +604,18 @@ export const preSearchOptionsToRemove = [
                                 }
                             ],
                             selectedAwardingAgencies: {
-                                "262_subtier": {
+                                '262_subtier': {
                                     id: 262,
-                                    agencyType: "subtier",
+                                    agencyType: 'subtier',
                                     toptier_flag: false,
                                     subtier_agency: {
-                                        name: "Federal Bureau of Investigation",
-                                        abbreviation: "FBI"
+                                        name: 'Federal Bureau of Investigation',
+                                        abbreviation: 'FBI'
                                     },
                                     toptier_agency: {
-                                        name: "Department of Justice",
-                                        abbreviation: "DOJ",
-                                        toptier_code: "015"
+                                        name: 'Department of Justice',
+                                        abbreviation: 'DOJ',
+                                        toptier_code: '015'
                                     }
                                 }
                             }
@@ -605,7 +623,7 @@ export const preSearchOptionsToRemove = [
                         version: REQUEST_VERSION
                     };
                     callback(filterValue);
-                }   
+                }
             }
         ]
     }
@@ -615,36 +633,36 @@ export const preSearchOptionsToRemove = [
 
 export const preSearchOptions = [
     {
-        id: "nl-1",
-        title:"National Security",
+        id: 'nl-1',
+        title: 'National Security',
         text: (<>Tax dollars spent on <strong>national defense</strong></>),
         action: (callback) => {
             const filterValue = {
                 filters: {
                     ...defaultFilters,
-                    keyword: {"National Defense" : "National Defense"}
+                    keyword: { 'National Defense': 'National Defense' }
                 },
                 version: REQUEST_VERSION
             };
             callback(filterValue);
         },
-        icon: "shield"  
+        icon: 'shield'
     },
     {
-        id: "nl-2",
-        title:"Health",
+        id: 'nl-2',
+        title: 'Health',
         text: (<>Spending on <strong>health care services</strong></>),
         action: (callback) => {
             const filterValue = {
                 filters: {
                     ...defaultFilters,
                     naicsCodes: {
-                        require: ["62"],
+                        require: ['62'],
                         exclude: [],
                         counts: [
                             {
-                                label: "Health Care and Social Assistance",
-                                value: "62",
+                                label: 'Health Care and Social Assistance',
+                                value: '62',
                                 count: 39
                             }
                         ]
@@ -654,25 +672,25 @@ export const preSearchOptions = [
             };
             callback(filterValue);
         },
-        icon: "hospital"  
+        icon: 'hospital'
     },
     {
-        id: "nl-3",
-        title:"Education",
+        id: 'nl-3',
+        title: 'Education',
         text: (<>Top <strong>universities</strong> funded in <strong>2026</strong></>),
         action: (callback) => {
             const filterValue = {
                 filters: {
                     ...defaultFilters,
-                    timePeriodType: "fy",
-                    timePeriodFY: ["2026"],
+                    timePeriodType: 'fy',
+                    timePeriodFY: ['2026'],
                     naicsCodes: {
-                        require: ["6113"],
+                        require: ['6113'],
                         exclude: [],
                         counts: [
                             {
-                                label: "Educational Services",
-                                value: "61",
+                                label: 'Educational Services',
+                                value: '61',
                                 count: 1
                             }
                         ]
@@ -682,61 +700,61 @@ export const preSearchOptions = [
             };
             callback(filterValue);
         },
-        icon: "graduation-cap"   
+        icon: 'graduation-cap'
     },
     {
-        id: "nl-4",
-        title:"Energy",
+        id: 'nl-4',
+        title: 'Energy',
         text: (<>Awards provided for <strong>renewable energy</strong></>),
         action: (callback) => {
             const filterValue = {
                 filters: {
                     ...defaultFilters,
-                    keyword: {"Renewable Energy" : "Renewable Energy"}
+                    keyword: { 'Renewable Energy': 'Renewable Energy' }
                 },
                 version: REQUEST_VERSION
             };
             callback(filterValue);
         },
-        icon: "wind-turbine"   
+        icon: 'wind-turbine'
     },
     {
-        id: "nl-5",
-        title:"Medicare",
+        id: 'nl-5',
+        title: 'Medicare',
         text: (<>Top <strong>medicare programs</strong> funded in <strong>2026</strong></>),
         action: (callback) => {
             const filterValue = {
                 filters: {
                     ...defaultFilters,
-                    timePeriodType: "fy",
-                    timePeriodFY: ["2026"],
-                    keyword: {"Medicare" : "Medicare"}
+                    timePeriodType: 'fy',
+                    timePeriodFY: ['2026'],
+                    keyword: { Medicare: 'Medicare' }
                 },
                 version: REQUEST_VERSION
             };
             callback(filterValue);
         },
-        icon: "hands-holding-heart"
+        icon: 'hands-holding-heart'
     },
     {
-        id: "nl-6",
-        title:"Natural Resources",
+        id: 'nl-6',
+        title: 'Natural Resources',
         text: (<>Spending on <strong>water resources</strong></>),
         action: (callback) => {
             const filterValue = {
                 filters: {
                     ...defaultFilters,
-                    keyword: {"Water Resources" : "Water Resources"}
+                    keyword: { 'Water Resources': 'Water Resources' }
                 },
                 version: REQUEST_VERSION
             };
             callback(filterValue);
         },
-        icon: "faucet-drip"
+        icon: 'faucet-drip'
     },
     {
-        id: "nl-7",
-        title:"Social Security",
+        id: 'nl-7',
+        title: 'Social Security',
         text: (<>Tax dollars spent on <strong>retirement & disability</strong></>),
         action: (callback) => {
             const filterValue = {
@@ -744,16 +762,16 @@ export const preSearchOptions = [
                     ...defaultFilters,
                     selectedCFDA: {
                         96.001: {
-                            identifier: "96.001",
-                            popular_name: "Social Security Disability Insurance",
-                            program_title: "Social Security Disability Insurance",
-                            program_number: "96.001"
+                            identifier: '96.001',
+                            popular_name: 'Social Security Disability Insurance',
+                            program_title: 'Social Security Disability Insurance',
+                            program_number: '96.001'
                         },
                         96.002: {
-                            identifier: "96.002",
-                            popular_name: "Social Security Retirement Insurance",
-                            program_title: "Retirement (RIB",
-                            program_number: "96.002"
+                            identifier: '96.002',
+                            popular_name: 'Social Security Retirement Insurance',
+                            program_title: 'Retirement (RIB',
+                            program_number: '96.002'
                         }
                     }
                 },
@@ -761,11 +779,11 @@ export const preSearchOptions = [
             };
             callback(filterValue);
         },
-        icon: "wheelchair-move" 
+        icon: 'wheelchair-move'
     },
     {
-        id: "nl-8",
-        title:"Disaster Relief",
+        id: 'nl-8',
+        title: 'Disaster Relief',
         text: (<>Tax dollars spent on <strong>contracts</strong></>),
         action: (callback) => {
             const filterValue = {
@@ -777,39 +795,39 @@ export const preSearchOptions = [
             };
             callback(filterValue);
         },
-        icon: "virus-covid"
+        icon: 'virus-covid'
     },
     {
-        id: "nl-9",
-        title:"Veterans Benefits",
+        id: 'nl-9',
+        title: 'Veterans Benefits',
         text: (<>Awards provided for <strong>veteran programs</strong></>),
         action: (callback) => {
             const filterValue = {
                 filters: {
                     ...defaultFilters,
-                    keyword: {"Veterans Benefits" : "Veterans Benefits"}
+                    keyword: { 'Veterans Benefits': 'Veterans Benefits' }
                 },
                 version: REQUEST_VERSION
             };
             callback(filterValue);
         },
-        icon: "user-shield"
+        icon: 'user-shield'
     },
     {
-        id: "nl-10",
-        title:"Agriculture",
+        id: 'nl-10',
+        title: 'Agriculture',
         text: (<>Spending on <strong>crop farming</strong></>),
         action: (callback) => {
             const filterValue = {
                 filters: {
                     ...defaultFilters,
                     naicsCodes: {
-                        require: ["1119"],
+                        require: ['1119'],
                         exclude: [],
                         counts: [
                             {
-                                label: "Agriculture, Forestry, Fishing and Hunting",
-                                value: "11",
+                                label: 'Agriculture, Forestry, Fishing and Hunting',
+                                value: '11',
                                 count: 7
                             }
                         ]
@@ -819,7 +837,7 @@ export const preSearchOptions = [
             };
             callback(filterValue);
         },
-        icon: "tractor"
+        icon: 'tractor'
     }
 ];
 
@@ -842,7 +860,7 @@ export const smartAssistContent = {
                 content: (
                     <>
                         <p>
-                            Your search will be used to find <span style={{color: '#005ea2'}}>Awards, Subawards, and Transactions</span> using the existing Advanced Search page filters ranging from time period to specific codes or categories.
+                            Your search will be used to find <span style={{ color: '#005ea2' }}>Awards, Subawards, and Transactions</span> using the existing Advanced Search page filters ranging from time period to specific codes or categories.
                         </p>
                     </>
                 )
@@ -873,7 +891,7 @@ export const smartAssistContent = {
                             When you submit a prompt, Smart Assist looks for key details such as agencies, recipients, fiscal years, locations, award types, and spending categories, then maps those details to available filters in USAspending data.
                         </p>
                         <p>
-                          While your search runs, you’ll see status updates. If your prompt could mean more than one thing, Smart Assist returns the best match based on context. If there’s only a partial match, it lets you know and suggests ways to refine the search.
+                            While your search runs, you’ll see status updates. If your prompt could mean more than one thing, Smart Assist returns the best match based on context. If there’s only a partial match, it lets you know and suggests ways to refine the search.
                         </p>
                     </>
                 )
@@ -897,7 +915,7 @@ export const smartAssistContent = {
                             <li>Results by Geography</li>
                         </ul>
                         <p>
-                           For details about what’s included in your results, visit the Data Sources and Methodology section below each results table.
+                            For details about what’s included in your results, visit the Data Sources and Methodology section below each results table.
                         </p>
                     </>
                 )
@@ -932,7 +950,7 @@ export const smartAssistContent = {
                             <li>Biased or harmful content (e.g., “unethical companies”). Smart Assist may ignore those terms and use only valid filters (such as Time Period).</li>
                         </ul>
                         <p>
-                          When this happens, Smart Assist explains the limitations and suggests ways to improve your query.
+                            When this happens, Smart Assist explains the limitations and suggests ways to improve your query.
                         </p>
                     </>
                 )
@@ -990,19 +1008,20 @@ export const smartAssistResources = [
         text: 'Defines terminology found throughout USAspending',
         buttonText: (
             <div className="search-info-page__resources-link-container">
-                <div>View the glossary&nbsp;&nbsp;
+                <div>
+                    View the glossary&nbsp;&nbsp;
                     <FontAwesomeIcon icon="arrow-right" />
                 </div>
             </div>
         ),
-        action: () => { 
+        action: () => {
             Analytics.event({
                 event: 'search-info-page_resources-glossary',
                 category: 'Natural Language Additional Resources',
                 action: 'Link',
                 label: 'glossary button'
             });
-            
+
             closeOtherSlideouts('glossary');
             dispatch(glossaryActions.toggleGlossary());
         },
@@ -1019,19 +1038,20 @@ export const smartAssistResources = [
         text: 'Read our articles and watch training videos about Smart Assist ',
         buttonText: (
             <div className="search-info-page__resources-link-container">
-                <div>View Smart Assist articles&nbsp;&nbsp;
+                <div>
+                    View Smart Assist articles&nbsp;&nbsp;
                     <FontAwesomeIcon icon="arrow-right" />
                 </div>
             </div>
         ),
         buttonLink: '/featured-content',
-        action: () => { 
+        action: () => {
             Analytics.event({
                 event: 'search-info-page_resources-featured-content',
                 category: 'Natural Language Additional Resources',
                 action: 'Link',
                 label: 'smart assist articles button'
-            })
+            });
         }
     },
     {
@@ -1044,19 +1064,20 @@ export const smartAssistResources = [
         text: 'Learn about Federal Spending and USAspending data',
         buttonText: (
             <div className="search-info-page__resources-link-container">
-                <div>View Federal Spending Guide&nbsp;&nbsp;
+                <div>
+                    View Federal Spending Guide&nbsp;&nbsp;
                     <FontAwesomeIcon icon="arrow-right" />
                 </div>
             </div>
         ),
         buttonLink: '/federal-spending-guide',
-        action: () => { 
+        action: () => {
             Analytics.event({
                 event: 'search-info-page_resources-federal-spending-guide',
                 category: 'Natural Language Additional Resources',
                 action: 'Link',
                 label: 'smart assist federal spending guide button'
-            })
+            });
         }
     }
 ];

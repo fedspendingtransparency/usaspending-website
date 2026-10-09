@@ -34,7 +34,6 @@ const columns = [
     }
 ];
 
-
 const ObligationsByAwardTypeTooltip = ({
     awardTypes, fiscalYear, activeType, categoryType, isCategoryHover, labelTooltip
 }) => {

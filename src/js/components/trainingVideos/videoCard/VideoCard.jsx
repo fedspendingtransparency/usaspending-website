@@ -83,14 +83,14 @@ const VideoCard = ({
             </CardHero>
             <CardBody
                 overline={overline}
-                headline={
+                headline={(
                     <div>
                         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                        <div className="video-card__headline" onClick={onClick} >
+                        <div className="video-card__headline" onClick={onClick}>
                             {changedTitle}
                         </div>
                     </div>
-                }
+                )}
                 text={description}>
                 <div className="list-of-videos__inline">
                     <div className="video-card__metadiv">

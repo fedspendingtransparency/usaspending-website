@@ -27,7 +27,6 @@ import {
 import MobileTop from './MobileTop';
 import MobileDropdownItem from "./MobileDropdownItem";
 
-
 const propTypes = {
     hideMobileNav: PropTypes.func,
     mobileNavInitialState: PropTypes.bool,

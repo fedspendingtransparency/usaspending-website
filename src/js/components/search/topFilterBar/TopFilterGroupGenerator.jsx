@@ -57,7 +57,8 @@ const TopFilterGroupGenerator = memo(function TopFilterGroupGenerator({
                     resultsView={resultsView}
                     name={name}
                     code={code}
-                    key={groupKey} />);
+                    key={groupKey} />
+            );
         case 'selectedAwardingAgencies':
             return (
                 <AgencyFilterGroup
@@ -113,7 +114,8 @@ const TopFilterGroupGenerator = memo(function TopFilterGroupGenerator({
                 <PricingTypeFilterGroup
                     resultsView={resultsView}
                     name={name}
-                    key={groupKey} />);
+                    key={groupKey} />
+            );
         case 'setAside':
             return (<SetAsideFilterGroup resultsView={resultsView} name={name} key={groupKey} />
 
@@ -123,7 +125,8 @@ const TopFilterGroupGenerator = memo(function TopFilterGroupGenerator({
                 <ExtentCompetedFilterGroup
                     resultsView={resultsView}
                     name={name}
-                    key={groupKey} />);
+                    key={groupKey} />
+            );
         case 'defCodes':
             return (<DefCodesFilterGroup resultsView={resultsView} name={name} key={groupKey} />);
         default:

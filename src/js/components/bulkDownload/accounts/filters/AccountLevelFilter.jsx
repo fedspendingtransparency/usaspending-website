@@ -21,11 +21,11 @@ const AccountLevelFilter = ({
     const onChange = (e) => {
         const target = e.target;
         updateFilter('accountLevel', target.value);
-    }
+    };
 
     const accountLvls = accountLevels.map((level) => (
         <div className="radio" key={level.name}>
-            <label  className="radio-label" htmlFor="account-level">
+            <label className="radio-label" htmlFor="account-level">
                 <input
                     type="radio"
                     aria-label={level.name}
@@ -33,11 +33,11 @@ const AccountLevelFilter = ({
                     name="account-level"
                     checked={currentAccountLevel === level.name}
                     onChange={onChange} />
-                <div className="radio-container"> 
+                <div className="radio-container">
                     {level.label}
                     <div className="radio-description">
                         {level.description}
-                    </div>  
+                    </div>
                 </div>
             </label>
         </div>
@@ -53,7 +53,7 @@ const AccountLevelFilter = ({
             </div>
         </div>
     );
-}
+};
 
 AccountLevelFilter.propTypes = propTypes;
 export default AccountLevelFilter;

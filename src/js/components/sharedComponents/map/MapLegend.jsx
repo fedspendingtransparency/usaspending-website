@@ -35,16 +35,16 @@ const MapLegend = memo(function MapLegend({
         const color = visualizationColors[i];
 
         const currencyValue =
-                formatMoneyWithPrecision(segment / unit,
-                    precision) + unitLabel;
+            formatMoneyWithPrecision(segment / unit,
+                precision) + unitLabel;
 
         let previousValue = '';
 
         if (i > 0) {
             const previous = array[i - 1];
             previousValue =
-                    formatMoneyWithPrecision(previous / unit,
-                        precision) + unitLabel;
+                formatMoneyWithPrecision(previous / unit,
+                    precision) + unitLabel;
         }
 
         if (i === 0) {
@@ -67,7 +67,6 @@ const MapLegend = memo(function MapLegend({
                 color={color} />
         );
     });
-
 
     return (
         <div className="map-legend">

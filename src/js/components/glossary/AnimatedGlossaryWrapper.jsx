@@ -44,4 +44,3 @@ const AnimatedGlossaryWrapper = ({
 
 AnimatedGlossaryWrapper.propTypes = propTypes;
 export default AnimatedGlossaryWrapper;
-

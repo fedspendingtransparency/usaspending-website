@@ -9,8 +9,8 @@ import GlobalConstants from "GlobalConstants";
 
 const PageFeatureFlag = ({ children }) => {
     const isQAT = GlobalConstants.QAT;
-    return (isQAT ? <>{children}</>
-        :
+    return (isQAT ?
+        <>{children}</> :
         <Navigate to="/404" />);
 };
 

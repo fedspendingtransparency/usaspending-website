@@ -19,4 +19,4 @@ export const getPeriodTitle = (title) => {
         case "10 - 12": return "Jul-Sep";
         default: return title;
     }
-}
+};

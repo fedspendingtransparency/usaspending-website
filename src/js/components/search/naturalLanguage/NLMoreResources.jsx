@@ -1,6 +1,6 @@
 /**
- * 
- * NLMoreResources.jsx 
+ *
+ * NLMoreResources.jsx
  * Created by Trey Morgan 7/8/2026
  */
 
@@ -18,9 +18,9 @@ const NLMoreResources = () => {
             </FlexGridCol>
             <FlexGridRow className="more-resources__row">
                 {moreResourcesBtnData.map((btn) => (
-                    <FlexGridCol 
+                    <FlexGridCol
                         className="more-resources__col"
-                        key={`more-resources-${btn.id}`} 
+                        key={`more-resources-${btn.id}`}
                         onClick={() => btn.action(navigate)}
                         mobile={12}
                         tablet={6}
@@ -33,11 +33,12 @@ const NLMoreResources = () => {
                             backgroundColor="light"
                             textAlignment="left"
                             imageAlignment="right"
-                            image={btn.image}/>
+                            image={btn.image} />
                     </FlexGridCol>
                 ))}
             </FlexGridRow>
         </section>
-    )};
+    );
+};
 
 export default NLMoreResources;

@@ -25,7 +25,6 @@ const NewSearchScreenButton = () => {
         timePeriod: timePeriodFilter
     };
 
-
     const handleOnClick = () => {
         dispatch(updateTimePeriod(timePeriodFilter));
         dispatch(setAppliedFilterCompletion(false));

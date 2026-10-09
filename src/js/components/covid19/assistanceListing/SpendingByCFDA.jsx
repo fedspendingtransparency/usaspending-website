@@ -130,16 +130,25 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
         <div className="body__content assistance-listing">
             <DateNote />
             {publicLaw === 'american-rescue-plan' ?
-                <h4 className="body__narrative">
-                    <strong>Which Assistance Listings </strong> supported the American Rescue Plan?
-                </h4> :
-                <h4 className="body__narrative">
-                    <strong>Which Assistance Listings </strong> supported the response to COVID-19?
-                </h4>
-            }
+                (
+                    <h4 className="body__narrative">
+                        <strong>Which Assistance Listings </strong> supported the American Rescue Plan?
+                    </h4>
+                ) :
+                (
+                    <h4 className="body__narrative">
+                        <strong>Which Assistance Listings </strong> supported the response to COVID-19?
+                    </h4>
+                )}
             <div className="body__narrative-description">
                 <p>
-                    Overall financial assistance awards represent the vast majority of COVID-19 appropriated spending. <span className="glossary-term">Assistance Listings</span>&nbsp;<GlossaryLink term="assistance-listings-cfda-program" /> are programs like
+                    Overall financial assistance awards represent the vast majority of COVID-19 appropriated spending.
+                    {' '}
+                    <span className="glossary-term">Assistance Listings</span>
+&nbsp;
+                    <GlossaryLink term="assistance-listings-cfda-program" />
+                    {' '}
+                    are programs like
                     <a
                         href="https://sam.gov/fal/ccb612a4c4bb4ba98dbd427638a63029/view?keywords=snap&sort=-relevance&index=cfda&is_active=true&page=1"
                         onClick={handleClick}>
@@ -163,12 +172,14 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
                 scrollIntoView={scrollIntoViewTable} />
             <Note message={dodNote} />
             {publicLaw === 'american-rescue-plan' ?
-                <Note message={(
-                    <>
-                        This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
-                    </>
-                )} /> : <div />
-            }
+                (
+                    <Note message={(
+                        <>
+                            This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
+                        </>
+                    )} />
+                ) :
+                <div />}
         </div>
     );
 };

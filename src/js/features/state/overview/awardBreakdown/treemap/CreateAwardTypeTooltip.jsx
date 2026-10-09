@@ -11,7 +11,6 @@ import { formatMoneyWithUnitsShortLabel } from "helpers/moneyFormatter";
 import * as MoneyFormatter from "helpers/moneyFormatter";
 import AwardTypeTooltip from "./AwardTypeTooltip";
 
-
 const CreateAwardTypeTooltip = ({
     awardBreakdown,
     totalAmount,
@@ -44,8 +43,7 @@ const CreateAwardTypeTooltip = ({
                 <AwardTypeTooltip
                     value={formatMoneyWithUnitsShortLabel(awardType[amountType])}
                     percentage={MoneyFormatter.calculatePercentage(
-                        awardType[amountType], totalAmount)
-                    }
+                        awardType[amountType], totalAmount)}
                     description={awardTypeDefinition}
                     x={node.x0}
                     y={node.y0}

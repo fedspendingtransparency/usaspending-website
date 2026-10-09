@@ -14,7 +14,6 @@ import {
 } from "redux/actions/search/searchFilterActions";
 import SelectedAgencies from "./SelectedAgencies";
 
-
 const Agency = () => {
     const {
         selectedAwardingAgencies, selectedFundingAgencies

@@ -31,7 +31,8 @@ const PublicLawPickerOption = ({
                 {term && (
                     <GlossaryLink term={term} />
                 )}
-            </p>)}
+            </p>
+        )}
     </li>
 );
 
@@ -43,7 +44,7 @@ PublicLawPickerOption.propTypes = {
 };
 
 const backgroundColor = {
-    backgroundColor: "#1a4480",
+    "backgroundColor": "#1a4480",
     ' @media(max-width: $medium-screen)': {
         backgroundColor: "#f1f1f1"
     }
@@ -67,7 +68,8 @@ const PublicLawPicker = ({
                     onClick
                 }))} />
             <span>Public Law</span>
-        </div>);
+        </div>
+    );
 };
 
 PublicLawPicker.propTypes = {

@@ -61,7 +61,7 @@ const ChildRecipientModalTable = (props) => {
                         <div className="header-cell">
                             <div className="header-cell__text">
                                 <div className="header-cell__title">
-                                Recipient Name
+                                    Recipient Name
                                 </div>
                             </div>
                             <Sorter
@@ -103,7 +103,7 @@ const ChildRecipientModalTable = (props) => {
                         <div className="header-cell">
                             <div className="header-cell__text">
                                 <div className="header-cell__title">
-                                State
+                                    State
                                 </div>
                             </div>
                             <Sorter
@@ -117,7 +117,7 @@ const ChildRecipientModalTable = (props) => {
                         <div className="header-cell header-cell_right">
                             <div className="header-cell__text">
                                 <div className="header-cell__title header-cell__title_right header-cell__longer-title">
-                                Transaction Amount
+                                    Transaction Amount
                                     <div className="header-cell__subtitle">
                                         {timePeriod}
                                     </div>
@@ -134,7 +134,7 @@ const ChildRecipientModalTable = (props) => {
                         <div className="header-cell  header-cell_right">
                             <div className="header-cell__text">
                                 <div className="header-cell__title header-cell__title_right">
-                                Percent
+                                    Percent
                                 </div>
                             </div>
                             <Sorter

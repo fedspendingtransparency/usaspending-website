@@ -33,13 +33,14 @@ const AwardDataArchiveUserSelections = ({ results, filters }) => {
             return (
                 <div className="selection__content">
                     <ul>{results.map(({ fileName }) => <li key={fileName}>{fileName}</li>)}</ul>
-                </div>);
+                </div>
+            );
         }
 
         return (
             <div className="selection__content selection__content-required">required</div>
         );
-    }
+    };
 
     return (
         <div className="download-user-selections">
@@ -71,7 +72,7 @@ const AwardDataArchiveUserSelections = ({ results, filters }) => {
             </div>
         </div>
     );
-}
+};
 
 AwardDataArchiveUserSelections.propTypes = propTypes;
 export default AwardDataArchiveUserSelections;

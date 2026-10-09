@@ -57,7 +57,6 @@ const Header = () => {
                 break;
         }
 
-
         return icon;
     };
 
@@ -95,14 +94,13 @@ const Header = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-
     return (
         <div className="site-header">
             <a
                 href="#main-content"
                 className="skip-nav"
                 onClick={skippedNav}>
-                    Skip to main content
+                Skip to main content
             </a>
             <header
                 className="site-header__wrapper"

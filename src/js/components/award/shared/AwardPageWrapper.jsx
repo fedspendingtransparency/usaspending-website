@@ -30,22 +30,21 @@ const AwardPageWrapper = ({
             setCovidDefCodes(defCodes.filter((c) => c.disaster === 'covid_19' && allDefCodes.indexOf(c.code) > -1).map((code) => code.code));
         }
     }, [areDefCodesLoading, allDefCodes, defCodes]);
-    const handleClick = (() => {
-        setShowTooltip(true);
-    });
 
-    const handleKeyUp = ((e) => {
+    const handleClick = () => setShowTooltip(true);
+
+    const handleKeyUp = (e) => {
         if (e.key === 'Enter') {
             setShowTooltip(true);
         }
-    });
+    };
 
-    const handleFocus = (() => {
+    const handleFocus = () => {
         const spanFocus = document.getElementById("award-summary__unlinked-span");
         if (spanFocus) {
             spanFocus.focus();
         }
-    });
+    };
 
     return (
         <div className={`award award-${awardType}`}>
@@ -64,39 +63,39 @@ const AwardPageWrapper = ({
                     awardType={awardType}
                     dates={dates} />
             </div>
-            {covidDefCodes && covidDefCodes.length > 0 &&
-            <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={covidDefCodes} />}>
-                <span className="covid-spending-flag">
-                                Includes COVID-19 Spending
-                </span>
-            </TooltipWrapper>
-            }
-            {unlinked &&
-            <TooltipWrapper
-                tooltipPosition="bottom"
-                className="award-summary__unlinked-flag"
-                controlledProps={{
-                    isControlled: true,
-                    isVisible: !!showTooltip,
-                    showTooltip: () => {
-                        handleFocus();
-                    },
-                    closeTooltip: () => {}
-                }}
+            {covidDefCodes && covidDefCodes.length > 0 && (
+                <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={covidDefCodes} />}>
+                    <span className="covid-spending-flag">
+                        Includes COVID-19 Spending
+                    </span>
+                </TooltipWrapper>
+            )}
+            {unlinked && (
+                <TooltipWrapper
+                    tooltipPosition="bottom"
+                    className="award-summary__unlinked-flag"
+                    controlledProps={{
+                        isControlled: true,
+                        isVisible: !!showTooltip,
+                        showTooltip: () => {
+                            handleFocus();
+                        },
+                        closeTooltip: () => {}
+                    }}
 
-                tooltipComponent={<UnlinkedTooltip setShowTooltip={setShowTooltip} />}>
-                <span
-                    id="award-summary__unlinked-span"
-                    role="button"
-                    onClick={handleClick}
-                    onKeyUp={handleKeyUp}
-                    tabIndex={-1}
-                    onFocus={handleKeyUp}
-                    className="unlinked-flag">
-                    Unlinked Award
-                </span>
-            </TooltipWrapper>
-            }
+                    tooltipComponent={<UnlinkedTooltip setShowTooltip={setShowTooltip} />}>
+                    <span
+                        id="award-summary__unlinked-span"
+                        role="button"
+                        onClick={handleClick}
+                        onKeyUp={handleKeyUp}
+                        tabIndex={-1}
+                        onFocus={handleKeyUp}
+                        className="unlinked-flag">
+                        Unlinked Award
+                    </span>
+                </TooltipWrapper>
+            )}
             <hr />
             {children}
         </div>

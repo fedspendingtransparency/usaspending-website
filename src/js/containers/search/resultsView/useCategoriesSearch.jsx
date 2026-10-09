@@ -23,7 +23,6 @@ const onClickHandler = (linkName, selectedDropdown) => {
     });
 };
 
-
 const parseData = (data, selectedDropdown, spendingLevel) => {
     const labelSeries = [];
     const dataSeries = [];
@@ -41,7 +40,7 @@ const parseData = (data, selectedDropdown, spendingLevel) => {
         previous: '',
         hasNextPage: false,
         hasPreviousPage: false
-    }
+    };
 
     // iterate through each response object and break it up into groups, x series, and y series
     data.results.forEach((item) => {
@@ -67,8 +66,7 @@ const parseData = (data, selectedDropdown, spendingLevel) => {
 
         if (selectedDropdown === 'recipient' && spendingLevel !== 'subawards') {
             const recipientLink = result.recipientId ?
-                `recipient/${result.recipientId}/latest`
-                :
+                `recipient/${result.recipientId}/latest` :
                 '';
 
             linkSeries.push(recipientLink);
@@ -100,9 +98,10 @@ const parseData = (data, selectedDropdown, spendingLevel) => {
                         href={awardingLink}
                         onClick={() => {
                             onClickHandler(result.name, selectedDropdown);
-                        }} >
+                        }}>
                         {result.name}
-                    </a>),
+                    </a>
+                ),
                 title: result.name
             };
         }
@@ -129,7 +128,7 @@ const parseData = (data, selectedDropdown, spendingLevel) => {
         previous: data.page_metadata.previous,
         hasNextPage: data.page_metadata.hasNext,
         hasPreviousPage: data.page_metadata.hasPrevious
-    }
+    };
 };
 
 const useCategoriesSearch = (
@@ -167,11 +166,11 @@ const useCategoriesSearch = (
         queryKey: ['performSpendingByCategorySearch', apiParams],
         queryFn: () => performSpendingByCategorySearch(apiParams).promise,
         enabled: !areFiltersEqual(filters)
-    })
+    });
 
-    const parsedData = parseData(data?.data, selectedDropdown, spendingLevel)
+    const parsedData = parseData(data?.data, selectedDropdown, spendingLevel);
 
     return { loading: isLoading, error, ...parsedData };
-}
+};
 
 export default useCategoriesSearch;

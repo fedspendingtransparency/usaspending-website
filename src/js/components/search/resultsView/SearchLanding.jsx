@@ -3,12 +3,12 @@
  * Created by JD House 8/17/2026
  **/
 
-import React from "react";
-import { useSelector } from "react-redux";
-import NLMoreResources from "../naturalLanguage/NLMoreResources";
-import NLSearchSuggestions from "../naturalLanguage/NLSearchSuggestions";
-import NLPreSearchButtonGroup from "../naturalLanguage/NLPreSearchButtonGroup";
-import NLSearchGovSpending from "../naturalLanguage/NLSearchGovSpending";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import NLMoreResources from '../naturalLanguage/NLMoreResources';
+import NLSearchSuggestions from '../naturalLanguage/NLSearchSuggestions';
+import NLPreSearchButtonGroup from '../naturalLanguage/NLPreSearchButtonGroup';
+import NLSearchGovSpending from '../naturalLanguage/NLSearchGovSpending';
 import { FILTERS } from '../collapsibleSidebar/SidebarConstants';
 
 const SearchLanding = () => {
@@ -19,29 +19,32 @@ const SearchLanding = () => {
 
     return (
         <div className="search-results-landing">
-            {isFilters && smartAssistIsVisible &&
+            {isFilters && smartAssistIsVisible && (
                 <>
                     <NLSearchGovSpending isFilters={isFilters} />
                     <NLSearchSuggestions />
                     <NLMoreResources />
-                </>}
-            {isFilters && !smartAssistIsVisible &&
+                </>
+            )}
+            {isFilters && !smartAssistIsVisible && (
                 <>
                     <h3 className="landing-title">Start your USAspending search</h3>
                     <p className="landing-subTitle">
-                            View popular data searches, frequently asked questions, & timely government spending topics.
+                        View popular data searches, frequently asked questions, & timely government spending topics.
                     </p>
                     <NLPreSearchButtonGroup />
                     <NLSearchSuggestions />
                     <NLMoreResources />
-                </>}
-            {!isFilters && 
+                </>
+            )}
+            {!isFilters && (
                 <>
                     <NLSearchGovSpending isFilters={isFilters} />
                     <NLMoreResources />
-                </>}
+                </>
+            )}
         </div>
-    )
+    );
 };
 
 export default SearchLanding;

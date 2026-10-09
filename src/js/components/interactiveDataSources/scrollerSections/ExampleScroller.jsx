@@ -4,20 +4,21 @@ import Scroller from "../scroller/Scroller";
 import ScrollerOverlay from "../scroller/scrollerOverlay/ScrollerOverlay";
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 
-
 function ExampleScroller() {
     // Content for first overlay card
     const cardIcon1 = (
         <span
             className="fa-layers fa-fw">
             <FontAwesomeIcon icon="chart-bar" inverse size="xl" style={{ height: '20px', width: '20px' }} />
-        </span>);
+        </span>
+    );
     const cardHeading1 = <p>Card 1</p>;
     const cardContent1 = (
         <div>
             <p>This is a Scroller component. It consists of an overlay card and a backdrop.</p>
             <p>Scrolling changes the content!</p>
-        </div>);
+        </div>
+    );
 
     // Content for second overlay card
     const cardHeading2 = <p>Card 2</p>;
@@ -25,7 +26,8 @@ function ExampleScroller() {
         <div>
             <p>This is the second content overlay and backdrop.</p>
             <p>The background changed when this card scrolled into view.</p>
-        </div>);
+        </div>
+    );
     return (
         <div>
             <Scroller>

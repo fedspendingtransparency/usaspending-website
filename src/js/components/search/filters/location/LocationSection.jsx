@@ -26,7 +26,8 @@ const tabLabels = [
 const LocationSection = () => {
     const { selectedLocations, selectedRecipientLocations } = useSelector((state) => state.filters);
     const initialTab = selectedRecipientLocations?.count() > 0 && selectedLocations.count() === 0 ?
-        'recipient' : 'pop';
+        'recipient' :
+        'pop';
     const [activeTab, setActiveTab] = useState(initialTab);
 
     const toggleTab = (e) => {

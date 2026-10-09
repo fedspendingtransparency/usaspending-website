@@ -143,11 +143,11 @@ const MapWrapper = ({
         // transform the source shapes into a base layer that will show the outline of all the
         // contents
         mapRef.current.addLayer({
-            id: baseLayer,
-            type: 'fill',
-            source: type,
+            "id": baseLayer,
+            "type": 'fill',
+            "source": type,
             'source-layer': source.layer,
-            paint: {
+            "paint": {
                 'fill-outline-color': 'rgba(0,0,0,0.3)',
                 'fill-color': 'rgba(0,0,0,0)'
             }
@@ -158,15 +158,15 @@ const MapWrapper = ({
         visualizationColors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
             mapRef.current.addLayer({
-                id: layerName,
-                type: 'fill',
-                source: type,
+                "id": layerName,
+                "type": 'fill',
+                "source": type,
                 'source-layer': source.layer,
-                paint: {
+                "paint": {
                     'fill-outline-color': 'rgba(0,0,0,0.3)',
                     'fill-color': color
                 },
-                filter: ['in', source.filterKey, '']
+                "filter": ['in', source.filterKey, '']
             }, firstSymbolId(mapRef));
 
             // setup mouseover events
@@ -232,7 +232,6 @@ const MapWrapper = ({
         else {
             mapRef.current.setMinZoom(0);
         }
-
 
         const parentMap = mapRef.current;
         function renderResolver() {
@@ -536,9 +535,9 @@ const MapWrapper = ({
     };
 
     useEffect(() => {
-        const cleanUpRef = Array.isArray(broadcastRef.current)
-            ? [...broadcastRef.current]
-            : [];
+        const cleanUpRef = Array.isArray(broadcastRef.current) ?
+            [...broadcastRef.current] :
+            [];
         displayData();
         if (!stateProfile) {
             prepareBroadcastReceivers();
@@ -578,7 +577,7 @@ const MapWrapper = ({
     useEffect(() => {
         // Only update if centerProp actually changed
         if (centerProp &&
-          (centerProp[0] !== center[0] || centerProp[1] !== center[1])) {
+            (centerProp[0] !== center[0] || centerProp[1] !== center[1])) {
             setCenter(centerProp);
         }
     }, [centerProp, center]);
@@ -586,15 +585,16 @@ const MapWrapper = ({
     return (
         <div className="map-container">
             {
-                GlobalConstants.MAPBOX_TOKEN &&
-                <MapBox
-                    setMapReady={setMapReady}
-                    center={center}
-                    mapType={scope}
-                    stateInfo={stateInfo}
-                    stateProfile={stateProfile}
-                    ref={mapRef}
-                    singleLocationSelected={singleLocationSelected} />
+                GlobalConstants.MAPBOX_TOKEN && (
+                    <MapBox
+                        setMapReady={setMapReady}
+                        center={center}
+                        mapType={scope}
+                        stateInfo={stateInfo}
+                        stateProfile={stateProfile}
+                        ref={mapRef}
+                        singleLocationSelected={singleLocationSelected} />
+                )
             }
             <MapFiltersToggle
                 isFiltersOpen={isFiltersOpen}

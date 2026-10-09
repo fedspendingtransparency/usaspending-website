@@ -12,7 +12,6 @@ import MapboxGL from 'mapbox-gl/dist/mapbox-gl';
 import { LoadingMessage, Tabs } from 'data-transparency-ui';
 import MapWrapper from 'components/covid19/recipient/map/MapWrapper';
 
-
 import { setIsMapLoaded } from 'redux/actions/covid19/covid19Actions';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -137,6 +136,7 @@ export class MapContainer extends React.Component {
             action: `${this.state.activeFilters.awardType} - area type - ${value}`
         });
     };
+
     updateSpendingTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
@@ -152,6 +152,7 @@ export class MapContainer extends React.Component {
             action: `${this.state.activeFilters.awardType} - spending type - ${value}`
         });
     };
+
     updateRecipientTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
@@ -167,6 +168,7 @@ export class MapContainer extends React.Component {
             action: `${this.state.activeFilters.awardType} - recipient type - ${value}`
         });
     };
+
     updateAwardTypeFilter = (value) => {
         this.setState(
             (currentState) => ({

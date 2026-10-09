@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import {compact, uniqueId} from 'lodash-es';
+import { compact, uniqueId } from 'lodash-es';
 import { Link } from 'react-router';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TooltipWrapper } from "data-transparency-ui";
@@ -34,8 +34,7 @@ const Accordion = ({
 
     const handleClick = () => setOpen((prevState) => !prevState);
 
-
-    const link = (pathAndTitle) =>{
+    const link = (pathAndTitle) => {
         const { path, title } = pathAndTitle;
         if (!path && !title) return '--';
         if (!path) return title;
@@ -97,7 +96,7 @@ const Accordion = ({
                             default:
                                 return link(awardInfo.data);
                         }
-                    }
+                    };
 
                     data = getData();
                 }
@@ -136,7 +135,7 @@ const Accordion = ({
                 </div>
             );
         });
-    }
+    };
 
     const onKeyDownHandler = createOnKeyDownHandler(handleClick);
 
@@ -159,14 +158,18 @@ const Accordion = ({
                 <span>
                     {
                         open ?
-                            (<FontAwesomeIcon
-                                className="accordion-caret"
-                                size="lg"
-                                icon="angle-down" />) :
-                            (<FontAwesomeIcon
-                                className="accordion-caret"
-                                size="lg"
-                                icon="angle-right" />)
+                            (
+                                <FontAwesomeIcon
+                                    className="accordion-caret"
+                                    size="lg"
+                                    icon="angle-down" />
+                            ) :
+                            (
+                                <FontAwesomeIcon
+                                    className="accordion-caret"
+                                    size="lg"
+                                    icon="angle-right" />
+                            )
                     }
                 </span>
             </div>
@@ -175,7 +178,7 @@ const Accordion = ({
             </div>
         </div>
     );
-}
+};
 
 Accordion.propTypes = propTypes;
 export default Accordion;

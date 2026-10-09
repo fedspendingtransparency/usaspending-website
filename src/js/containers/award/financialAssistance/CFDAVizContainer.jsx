@@ -132,4 +132,3 @@ export default class CFDAVizContainer extends React.Component {
 }
 
 CFDAVizContainer.propTypes = propTypes;
-

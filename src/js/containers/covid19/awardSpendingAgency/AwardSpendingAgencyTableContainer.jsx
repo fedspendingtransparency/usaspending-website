@@ -141,9 +141,9 @@ const AwardSpendingAgencyTableContainer = (props) => {
         if (!parsedData.length) return setResults([]);
         const unlinkedData = calculateUnlinkedTotals(totalAgencySpending, totals);
 
-        const unlinkedName = (props.type === 'all')
-            ? 'Unknown Agency (Unlinked Data)'
-            : 'Unknown Agency (Linked but Missing Funding Agency)';
+        const unlinkedName = (props.type === 'all') ?
+            'Unknown Agency (Unlinked Data)' :
+            'Unknown Agency (Linked but Missing Funding Agency)';
 
         setUnlinkedDataClass(true);
         const unlinkedColumn = (
@@ -246,7 +246,8 @@ const AwardSpendingAgencyTableContainer = (props) => {
             if (query) params.filter.query = query;
 
             const awardSpendingAgencyRequest = props.type === 'loans' ?
-                fetchLoansByAgency(params) : fetchAwardSpendingByAgency(params);
+                fetchLoansByAgency(params) :
+                fetchAwardSpendingByAgency(params);
 
             request.current = awardSpendingAgencyRequest;
             awardSpendingAgencyRequest.promise

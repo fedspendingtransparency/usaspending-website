@@ -45,6 +45,7 @@ export default class ActivityChartTooltip extends React.Component {
         throttle(this.measureWindow = this.measureWindow.bind(this), 50);
         this.mouseEnter = this.mouseEnter.bind(this);
     }
+
     componentDidMount() {
         this.measureWindow();
         window.addEventListener('resize', this.measureWindow);
@@ -72,10 +73,10 @@ export default class ActivityChartTooltip extends React.Component {
     }
 
     measureWindow() {
-        const windowWidth = window.innerWidth || document.documentElement.clientWidth
-            || document.body.clientWidth;
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight
-            || document.body.clientHeight;
+        const windowWidth = window.innerWidth || document.documentElement.clientWidth ||
+            document.body.clientWidth;
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight ||
+            document.body.clientHeight;
 
         this.setState({
             windowWidth,
@@ -84,6 +85,7 @@ export default class ActivityChartTooltip extends React.Component {
             this.positionTooltip();
         });
     }
+
     // uses a ratio of
     // someDivWidth / GraphWidth = x ( TruncatedWidth ) / shortenedTooltipWidth
     // to get what the shortened width of the div should be
@@ -91,6 +93,7 @@ export default class ActivityChartTooltip extends React.Component {
         const graphWidth = this.props.data.graphWidth;
         return (graphWidth * (divWidth / 2)) / tooltipWidth;
     }
+
     // uses a ratio of
     // TruncatedDivWidth / NormalDivWidth =
     // x ( Truncated character length ) / NormalCharacterLength
@@ -100,6 +103,7 @@ export default class ActivityChartTooltip extends React.Component {
         return Math.floor(
             ((truncatedDivWidth * normalCharacterLength) / normalDivWidth));
     }
+
     // truncates the text if warranted
     truncateText(text, truncatedLength, propertyName) {
         if (truncatedLength < text.length) {
@@ -281,8 +285,8 @@ export default class ActivityChartTooltip extends React.Component {
                         this.state.parentAwardPIID,
                         data.parentAwardPIID)}
                 </div>
-            )
-            : 'This IDV';
+            ) :
+            'This IDV';
         const amountTitle = `${formatMoney(data._obligatedAmount)} of ${formatMoney(data._awardedAmount)}`;
 
         return (
@@ -321,19 +325,20 @@ export default class ActivityChartTooltip extends React.Component {
                                 </div>
                             </div>
                             {
-                                data.grandchild &&
-                                <div className="tooltip-body__row-info" id="grandparentLabel">
-                                    <h6 className="tooltip-body__row-info-title first-titles">
-                                        Grandparent IDV
-                                    </h6>
-                                    <div
-                                        className="tooltip-body__row-info-data"
-                                        ref={(div) => {
-                                            this.grandparentDiv = div;
-                                        }}>
-                                        This IDV
+                                data.grandchild && (
+                                    <div className="tooltip-body__row-info" id="grandparentLabel">
+                                        <h6 className="tooltip-body__row-info-title first-titles">
+                                            Grandparent IDV
+                                        </h6>
+                                        <div
+                                            className="tooltip-body__row-info-data"
+                                            ref={(div) => {
+                                                this.grandparentDiv = div;
+                                            }}>
+                                            This IDV
+                                        </div>
                                     </div>
-                                </div>
+                                )
                             }
                             <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title first-titles">
@@ -423,9 +428,12 @@ export default class ActivityChartTooltip extends React.Component {
                                     title={amountTitle}>
                                     <strong>
                                         {data._obligatedAmount !== 0 ?
-                                            `${data.obligatedAmount} ` : '-- '}
+                                            `${data.obligatedAmount} ` :
+                                            '-- '}
                                     </strong>
-                                    of {data._awardedAmount !== 0 ? data.awardedAmount : '--'}
+                                    of
+                                    {' '}
+                                    {data._awardedAmount !== 0 ? data.awardedAmount : '--'}
                                 </div>
                             </div>
                         </div>

@@ -35,9 +35,9 @@ const ExpandableAwardSection = ({
     const [isExpanded, setExpanded] = useState(false);
 
     const toggleButton = (e, prevButtonValue = buttonValue, prevIsExpanded = isExpanded) => {
-        const newButtonValue = (prevButtonValue === buttonValueByButtonTypeAndState[type].expanded)
-            ? buttonValueByButtonTypeAndState[type].contracted
-            : buttonValueByButtonTypeAndState[type].expanded;
+        const newButtonValue = (prevButtonValue === buttonValueByButtonTypeAndState[type].expanded) ?
+            buttonValueByButtonTypeAndState[type].contracted :
+            buttonValueByButtonTypeAndState[type].expanded;
         setExpanded(!prevIsExpanded);
         setButtonValue(newButtonValue);
     };
@@ -53,10 +53,9 @@ const ExpandableAwardSection = ({
         const truncatedContent = `${content.substring(0, maxChars)}...`;
         return (
             <p className={secondaryContainerClass}>
-                {isContentTruncated && !isExpanded
-                    ? truncatedContent
-                    : content
-                }
+                {isContentTruncated && !isExpanded ?
+                    truncatedContent :
+                    content}
                 {isContentTruncated && button}
             </p>
         );

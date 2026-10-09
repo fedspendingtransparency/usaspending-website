@@ -3,8 +3,7 @@
  * Created by Nick Torres 8/28/2026
  */
 
-/* eslint-disable max-len */
-import React, {useMemo} from "react";
+import React, { useMemo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import NLDefaultHint from "./NLDefaultHint";
@@ -24,7 +23,6 @@ const propTypes = {
     cancelQuery: PropTypes.func
 };
 
-
 const NLSidebarContent = ({
     hintOnClick,
     text,
@@ -40,7 +38,7 @@ const NLSidebarContent = ({
 
     const MAX_CHARS = NL_INPUT_MAX_CHARS;
     const responseState = useMemo(
-        () => buildResponseState(data), 
+        () => buildResponseState(data),
         [data]
     );
 
@@ -51,7 +49,7 @@ const NLSidebarContent = ({
 
     if (isSearchActive) {
         if (isNLSearchComplete) {
-            searchClass +=  " complete";
+            searchClass += " complete";
             btnText = "Start a new search";
         }
         else {
@@ -71,7 +69,7 @@ const NLSidebarContent = ({
 
     const handleNewNLSearch = () => {
         dispatch(setIsSearchActive(false));
-    }
+    };
 
     const handleNLSearch = isSearchActive ? handleNewNLSearch : handleStartNLSearch;
 
@@ -80,17 +78,18 @@ const NLSidebarContent = ({
         if (cancelQuery) {
             cancelQuery();
         }
-    }
+    };
 
     const handleInput = (event) => {
         setText(sanitizeNLInput(event.target.value).slice(0, MAX_CHARS));
     };
 
     return (
-        <> 
+        <>
+            {/* eslint-disable-next-line @stylistic/multiline-ternary */}
             { isSearchActive ? (
                 <div className="sidebar-nl-container response">
-                    <p className="sidebar-text semibold">{text}</p> 
+                    <p className="sidebar-text semibold">{text}</p>
                     <div className="sidebar-body-row response">
                         {responseState.items.map((item, index) => (
                             // eslint-disable-next-line react/no-array-index-key
@@ -99,7 +98,7 @@ const NLSidebarContent = ({
                             </div>
                         ))}
                     </div>
-                </div>   
+                </div>
             ) : (
                 <div className="sidebar-nl-container">
                     <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p>
@@ -117,7 +116,8 @@ const NLSidebarContent = ({
                             className="sidebar-textarea"
                             maxLength={MAX_CHARS}
                             value={text}
-                            rows="3" cols="50"
+                            rows="3"
+                            cols="50"
                             placeholder="Type a question about government spending, or choose an example above." />
                         <div className="textarea-char-row">
                             <button type="reset" className={`textarea-reset ${text.length <= 0 && 'text-area-reset-hidden'}`} onClick={reset}>Clear Input</button>

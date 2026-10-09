@@ -1,6 +1,6 @@
 /**
- * 
- * NLSearchSuggestionsIcon.jsx 
+ *
+ * NLSearchSuggestionsIcon.jsx
  * Created by Trey Morgan 7/8/2026
  */
 
@@ -15,24 +15,24 @@ const propTypes = {
     description: PropTypes.oneOfType([PropTypes.string, PropTypes.node])
 };
 
-const NLSearchSuggestionsIcon = ({ variant, label, icon, description = ''}) => (
+const NLSearchSuggestionsIcon = ({ variant, label, icon, description = '' }) => (
     <div className={`icon-row icon-row--${variant}
         ${description ? 'icon-row__with-description' : ''}`}>
-            
         <div className={`icon-container icon-container--${variant}`}>
             <FontAwesomeIcon className={`icon icon--${variant}`} icon={icon} />
         </div>
-        <div 
+        <div
             className={`icon-label icon-label--${variant} 
-                ${description ? 'icon-label__with-description' : ''}`} >
+                ${description ? 'icon-label__with-description' : ''}`}>
             <span>{label}</span>
-            { description && 
-            <span className={`icon-description icon-description--${variant}`} >
-                {description}
-            </span>}
+            { description && (
+                <span className={`icon-description icon-description--${variant}`}>
+                    {description}
+                </span>
+            )}
         </div>
     </div>
-)
+);
 
 NLSearchSuggestionsIcon.propTypes = propTypes;
 export default NLSearchSuggestionsIcon;

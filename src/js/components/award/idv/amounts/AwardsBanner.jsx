@@ -19,17 +19,20 @@ export default class AwardsBanner extends React.Component {
         };
         this.toggleBanner = this.toggleBanner.bind(this);
     }
+
     toggleBanner() {
         this.setState({
             toggle: false
         });
     }
+
     render() {
         return (
 
             <div className={`award-amounts__banner ${!this.state.toggle ? "award-amounts__banner_hidden" : ""}`}>
                 <span className="award-amounts__banner-info-icon"><InfoCircle /></span>
-                <p>The information in this tab is pulled from the combined data of awards that reference this IDV, not the IDV itself. To see those awards, scroll to the&nbsp;
+                <p>
+                    The information in this tab is pulled from the combined data of awards that reference this IDV, not the IDV itself. To see those awards, scroll to the&nbsp;
                     <button
                         onClick={this.props.jumpToReferencedAwardsTable}
                         className="award-viz__button">

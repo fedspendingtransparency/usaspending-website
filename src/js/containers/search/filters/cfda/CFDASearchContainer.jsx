@@ -14,7 +14,6 @@ import AutocompleteWithCheckboxList from
     'components/sharedComponents/autocomplete/AutocompleteWithCheckboxList';
 import ShownValue from 'components/search/filters/ShownValue';
 
-
 const CFDASearchContainer = () => {
     const [cfdaSearchString, setCfdaSearchString] = useState('');
     const [autocompleteCFDA, setAutocompleteCFDA] = useState([]);
@@ -119,7 +118,6 @@ const CFDASearchContainer = () => {
 
         handleSearchClear();
     };
-
 
     const toggleAll = (selectAll) => {
         const selectedArray = selectedCFDA.toArray();

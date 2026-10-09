@@ -12,7 +12,6 @@ import { createApiParams } from "../stateHelper";
 export const useFetchSpendingOverTime = (visualizationPeriod, code) => {
     const [parsedData, setParsedData] = useState(null);
 
-
     const generateTime = useCallback((group, timePeriod, type) => {
         const month = convertNumToShortMonth(timePeriod.month);
         const year = convertMonthToFY(timePeriod.month, timePeriod.fiscal_year);

@@ -55,17 +55,15 @@ const ScrollToTop = () => {
         window.scrollTo(0, 0);
     }, [pathname]);
 
-
     return null;
 };
 
-
 const ErrorFallback = ({ resetErrorBoundary }) => (
     <ErrorPage
-        title='Something went wrong.'
-        heading='Sorry, something unexpected happened on this page'
+        title="Something went wrong."
+        heading="Sorry, something unexpected happened on this page"
         resetErrorBoundary={resetErrorBoundary}
-        showResetErrorBoundary/>
+        showResetErrorBoundary />
 );
 
 const AppContainer = () => (
@@ -73,7 +71,7 @@ const AppContainer = () => (
         <BrowserRouter>
             <Suspense fallback={<Loading isLoading includeHeader includeFooter />}>
                 <ScrollToTop />
-                <ErrorBoundary FallbackComponent={ErrorFallback} >
+                <ErrorBoundary FallbackComponent={ErrorFallback}>
                     <Routes>
                         {routes.filter((route) => !route.hide).map(({ path, component }) => {
                             const Component = (routerProps) => WithUrlListener(component, routerProps);

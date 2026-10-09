@@ -65,16 +65,21 @@ const SectionDataTable = (props) => {
                 newResultsView
                 rows={rows} />
             {props.sectionName === 'categories' ?
-                <CategoriesPagination
-                    nextPage={props.nextPage}
-                    previousPage={props.previousPage}
-                    hasNextPage={props.hasNextPage}
-                    hasPreviousPage={props.hasPreviousPage} /> : <Pagination
-                    resultsText
-                    totalItems={maxRows.length}
-                    pageSize={pageSize}
-                    currentPage={currentPage}
-                    changePage={changePage} />}
+                (
+                    <CategoriesPagination
+                        nextPage={props.nextPage}
+                        previousPage={props.previousPage}
+                        hasNextPage={props.hasNextPage}
+                        hasPreviousPage={props.hasPreviousPage} />
+                ) :
+                (
+                    <Pagination
+                        resultsText
+                        totalItems={maxRows.length}
+                        pageSize={pageSize}
+                        currentPage={currentPage}
+                        changePage={changePage} />
+                )}
         </>
     );
 };

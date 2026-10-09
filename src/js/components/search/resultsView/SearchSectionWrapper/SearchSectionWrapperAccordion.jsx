@@ -100,18 +100,20 @@ const SearchSectionWrapperAccordion = ({
             setOpen={setOpenAccordion}
             closedIcon="chevron-down"
             openIcon="chevron-up"
-            title="Data sources and methodology" >
-            {openAccordion ? (
-                <div
-                    className="search__section-wrapper-dsm"
-                    style={{ height: `${contentHeight - 16}px` }}>
-                    {dropdownOptions && selectedDropdownOption &&
-                        dropdownOptions.find(
-                            (obj) => obj.value === selectedDropdownOption)
-                            .dsmContent}
-                    { dsmContent || '' }
-                </div>
-            ) : (<></>)}
+            title="Data sources and methodology">
+            {openAccordion ?
+                (
+                    <div
+                        className="search__section-wrapper-dsm"
+                        style={{ height: `${contentHeight - 16}px` }}>
+                        {dropdownOptions && selectedDropdownOption &&
+                            dropdownOptions.find(
+                                (obj) => obj.value === selectedDropdownOption)
+                                .dsmContent}
+                        { dsmContent || '' }
+                    </div>
+                ) :
+                (<></>)}
         </Accordion>
     );
 };

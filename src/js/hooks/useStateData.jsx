@@ -18,17 +18,17 @@ const useStateData = () => {
         queryFn: () => fetchStateList().promise,
         staleTime: Infinity,
         gcTime: Infinity
-    })
-    
-    return {data, isSuccess, isLoading, error};
-}
+    });
+
+    return { data, isSuccess, isLoading, error };
+};
 
 export const useStateList = () => {
     const { data } = useStateData();
     const { data: innerData = {} } = data || {};
     const { results } = innerData;
     return results;
-}
+};
 
 // 01: AL
 export const useStateFIPSByAbbreviation = () => {

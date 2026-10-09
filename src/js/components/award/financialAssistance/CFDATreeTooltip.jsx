@@ -1,4 +1,3 @@
-
 /**
  * CFDATreeTooltip.jsx
  * Created by Jonathan Hill 03/19/20
@@ -32,6 +31,7 @@ export default class CFDATreeTooltip extends React.Component {
 
         this.measureWindow = this.measureWindow.bind(this);
     }
+
     componentDidMount() {
         this.measureWindow();
         window.addEventListener('resize', this.measureWindow);
@@ -48,10 +48,10 @@ export default class CFDATreeTooltip extends React.Component {
     }
 
     measureWindow() {
-        const windowWidth = window.innerWidth || document.documentElement.clientWidth
-            || document.body.clientWidth;
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight
-            || document.body.clientHeight;
+        const windowWidth = window.innerWidth || document.documentElement.clientWidth ||
+            document.body.clientWidth;
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight ||
+            document.body.clientHeight;
 
         this.setState({
             windowWidth,

@@ -63,7 +63,8 @@ export const FileCObligatedTooltip = ({ total, awardType, title = "COVID-19 Obli
         <h5 className="tooltip__amount--loans">{total}</h5>
         {awardType === 'contract' && (
             <div className="tooltip__text">
-                <p>Out of the total amount obligated by this award, this amount is how much was obligated as part of the CARES Act and supplemental legislation in response to the coronavirus COVID-19. An obligation represents a binding promise by the government to pay the recipient, assuming the recipient fulfills all of its commitments.
+                <p>
+                    Out of the total amount obligated by this award, this amount is how much was obligated as part of the CARES Act and supplemental legislation in response to the coronavirus COVID-19. An obligation represents a binding promise by the government to pay the recipient, assuming the recipient fulfills all of its commitments.
                 </p>
                 <p>This amount is updated on a monthly basis.</p>
             </div>

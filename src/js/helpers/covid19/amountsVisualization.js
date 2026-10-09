@@ -1,4 +1,3 @@
-
 import {
     rectangleMapping,
     amountsPadding,

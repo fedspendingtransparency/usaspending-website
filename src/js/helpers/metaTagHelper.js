@@ -2,9 +2,6 @@
  * Created by michaelbray on 5/25/17.
  */
 
-// Disabling max-len property for readability / editability
-/* eslint-disable max-len */
-
 const productionURL = 'https://usaspending.gov/';
 const imgDirectory = 'img/';
 
@@ -44,7 +41,7 @@ export const smartAssistPageMetaTags = {
     og_description: 'Learn about our AI-powered Smart Assist feature by visiting this page.',
     og_site_name: siteName,
     og_image: `${productionURL}${imgDirectory}smart-assist.png`
-}
+};
 
 export const explorerPageMetaTags = {
     og_url: `${productionURL}explorer`,
@@ -356,8 +353,6 @@ export const trainingVideosMetaTags = {
     og_site_name: siteName,
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };
-
-/* eslint-enable max-len */
 
 export const isCustomPageTitleDefined = (title = "USAspending.gov") => {
     if (title === "USAspending.gov") return false;

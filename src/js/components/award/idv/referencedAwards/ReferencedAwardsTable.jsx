@@ -51,6 +51,7 @@ export default class ReferencedAwardsTable extends React.Component {
             </th>
         ));
     }
+
     generateRows() {
         return this.props.results.map((row) => {
             const columns = referencedAwardsColumns[this.props.tableType];
@@ -110,7 +111,6 @@ export default class ReferencedAwardsTable extends React.Component {
             message = (<ResultsTableNoResults />);
             content = null;
         }
-
 
         const totalItems = (this.props.counts && this.props.counts[this.props.tableType]) || 0;
         const { page, tableType } = this.props;

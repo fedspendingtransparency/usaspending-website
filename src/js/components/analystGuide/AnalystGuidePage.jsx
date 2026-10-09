@@ -40,4 +40,3 @@ const AnalystGuidePage = () => {
 };
 
 export default AnalystGuidePage;
-

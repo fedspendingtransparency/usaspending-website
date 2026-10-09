@@ -42,8 +42,10 @@ const RecipientOverview = (props) => {
                 Child Recipient
             </div>
         );
-        parent = (<RecipientMultiParentCollapse
-            parents={recipient.parents} />);
+        parent = (
+            <RecipientMultiParentCollapse
+                parents={recipient.parents} />
+        );
     }
     else if (recipient.level === 'P') {
         // This is a parent recipient
@@ -62,15 +64,15 @@ const RecipientOverview = (props) => {
     }
     const numberOfAlternateNames = recipient.alternateNames.length;
     const pluralizeAltNamesLabel = numberOfAlternateNames > 1 ? "names" : "name";
-    const viewAlternateNames = numberOfAlternateNames > 0
-        ? (
+    const viewAlternateNames = numberOfAlternateNames > 0 ?
+        (
             <button
                 className="recipient-overview__alternate-names-button"
                 onClick={props.showAlternateNamesRecipientModal}>
                 {`Also known by ${numberOfAlternateNames} other ${pluralizeAltNamesLabel}`} <FontAwesomeIcon icon="caret-right" />
             </button>
-        )
-        : null;
+        ) :
+        null;
 
     // Format the location data
     let address = (
@@ -197,7 +199,7 @@ const RecipientOverview = (props) => {
                             <div className="totals__awards">
                                 from <span className="state-overview__total">{recipient.totalTransactions}</span> transactions
                             </div>
-                            {(recipient.uei !== "" && recipient.uei !== null && recipient.uei !== undefined) &&
+                            {(recipient.uei !== "" && recipient.uei !== null && recipient.uei !== undefined) && (
                                 <Link
                                     className="recipient-section__award-button"
                                     target="_blank"
@@ -206,7 +208,7 @@ const RecipientOverview = (props) => {
                                     onClick={handleGoToAdvancedSearch}>
                                     View awards to this recipient
                                 </Link>
-                            }
+                            )}
                         </div>
                         <div className="recipient-section__viz loan">
                             <FaceValueOfLoans amount={recipient.totalLoanFaceValueAmount} transactions={recipient.totalLoanTransactions} heading="Face Value of Loans" headingClass="recipient-overview__heading" tooltipIcon="info" tooltipClasses="recipient-section__viz-loan__tt" tooltipComponent={recipientOverviewLoanInfo} tooltipPosition="right" />

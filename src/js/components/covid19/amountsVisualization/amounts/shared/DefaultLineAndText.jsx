@@ -31,7 +31,7 @@ const propTypes = {
 };
 
 // eslint-disable-next-line prefer-arrow-callback
-const DefaultLineAndText = memo(function DefaultLineAndText ({
+const DefaultLineAndText = memo(function DefaultLineAndText({
     scale,
     overviewData,
     displayTooltip = () => {},

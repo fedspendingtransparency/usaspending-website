@@ -14,7 +14,8 @@ const propTypes = { name: PropTypes.string, code: PropTypes.string };
 
 const LocationFilterGroup = ({ name, code, resultsView }) => {
     const foreignLocationsCode = code === 'selectedLocations' ?
-        'locationDomesticForeign' : 'recipientDomesticForeign';
+        'locationDomesticForeign' :
+        'recipientDomesticForeign';
 
     const stagedLocations = useSelector((state) => state.filters[code]);
     const stagedForeignLocations = useSelector((state) => state.filters[foreignLocationsCode]);

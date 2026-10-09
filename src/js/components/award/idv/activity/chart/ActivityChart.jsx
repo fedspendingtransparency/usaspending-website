@@ -159,7 +159,7 @@ const ActivityChart = ({
                     tabIndex="0"
                     className="activity-chart-bar-container"
                     key={`bar-${bar._awardedAmount}-${index}`}
-                    aria-label={description} >
+                    aria-label={description}>
                     {/* awarded amount bar */}
                     <ActivityChartBar
                         style={style}
@@ -217,7 +217,8 @@ const ActivityChart = ({
             // not handling bad data as that will be handled elsewhere
             const percentage = calculatePercentage(bar._obligatedAmount, bar._awardedAmount);
             data.description = `A ${bar.grandchild ?
-                'grandchild' : 'child'} award with a start date of ${bar.startDate},
+                'grandchild' :
+                'child'} award with a start date of ${bar.startDate},
                 an end date of ${bar.endDate},
                 an awarded amount of ${bar.awardedAmount} displayed in grey,
                 and an obligated amount of ${bar.obligatedAmount},

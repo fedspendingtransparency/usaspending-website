@@ -22,7 +22,7 @@ const NoResults = ({ glossary, searchLoading }) => {
     return (
         <div className={`glossary-no-results ${loading}`}>
             <h2 className="title">
-                    No Results Found
+                No Results Found
             </h2>
 
             <div className="no-results-content">

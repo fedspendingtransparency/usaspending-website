@@ -32,7 +32,6 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
     updateFilter,
     accounts
 }) {
-
     const [hasSelectedBudgetFunction, setHasSelectedBudgetFunction] = useState(false);
     const [hasSelectedAgency, setHasSelectedAgency] = useState(false);
     const {
@@ -40,11 +39,11 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
         budgetSubfunction,
         agency,
         federalAccount
-    } = accounts
+    } = accounts;
 
     // Budget Functions
     const budgetOptions = budgetFunctions.map((option) => (
-        { 
+        {
             text: option.budget_function_title,
             id: option.budget_function_code,
             value: option.budget_function_code
@@ -52,8 +51,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
     ));
 
     // add default to the beginning of options array.
-    budgetOptions.unshift({ text: 'All', id: 'all', value: 'all'});
-     
+    budgetOptions.unshift({ text: 'All', id: 'all', value: 'all' });
+
     const handleBudgetSelect = (e) => {
         e.preventDefault();
         const target = e.target;
@@ -63,13 +62,13 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
         });
         setHasSelectedBudgetFunction(true);
 
-        if (agency.id === ''){
+        if (agency.id === '') {
             updateFilter('agency', {
                 id: 'all',
                 name: 'All'
             });
         }
-        
+
         if (target.value === 'all') {
             setBudgetSubfunctionList('');
         }
@@ -80,8 +79,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                 title: 'All'
             });
         }
-    }
-    
+    };
+
     // Sub Budget Functions
     const subBudgetOptions = budgetSubfunctions.map((option) => (
         {
@@ -90,10 +89,10 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
             value: option.budget_subfunction_code
         }
     ));
-    
+
     // add default to the beginning of options array.
-    subBudgetOptions.unshift({ text: 'All', id: 'all', value: 'all'});
-    
+    subBudgetOptions.unshift({ text: 'All', id: 'all', value: 'all' });
+
     const handleBudgetSubfunctionSelect = (e) => {
         e.preventDefault();
         const target = e.target;
@@ -101,8 +100,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
             code: target.value,
             title: target.name
         });
-    }
-    
+    };
 
     // Agency Options
     let agenciesArray = [{ name: 'All', toptier_agency_id: 'all', toptier_code: 'all' }];
@@ -141,7 +139,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
             updateFilter('budgetFunction', {
                 code: 'all',
                 title: 'All'
-            })
+            });
         }
 
         if (target.value === 'all') {
@@ -155,7 +153,6 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
             });
         }
     };
-
 
     // Federal Accout options
     const federalAccountOptions = federalAccounts.map(({
@@ -171,7 +168,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
     ));
 
     // add default to the beginning of options array.
-    federalAccountOptions.unshift({ text: 'All', id: 'all', value: 'all'});
+    federalAccountOptions.unshift({ text: 'All', id: 'all', value: 'all' });
 
     const handleFederalAccountSelect = (e) => {
         e.preventDefault();
@@ -184,8 +181,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
 
     const handleClear = (type) => {
         switch (type) {
-            case "budgetFunction": 
-                setBudgetSubfunctionList('')
+            case "budgetFunction":
+                setBudgetSubfunctionList('');
                 updateFilter('budgetFunction', {
                     code: '',
                     title: 'Select a Budget Function'
@@ -198,7 +195,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         id: '',
                         name: 'Select an Agency'
                     });
-                }  
+                }
                 break;
 
             case "budgetSubfunction":
@@ -221,9 +218,9 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         code: '',
                         title: 'Select a Budget Function'
                     });
-                } 
+                }
                 break;
-                
+
             case "federalAccount":
                 updateFilter('federalAccount', {
                     id: '',
@@ -234,28 +231,29 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
             default:
                 return null;
         }
-    }
+    };
 
     return (
         <div className="download-filter">
             <div className="budget-agency-heading__container">
-                <FilterSectionTitle type="budget"/>
+                <FilterSectionTitle type="budget" />
                 <p className="download-filter__subtitle">
                     The federal budget is divided into categories known as&nbsp;
                     <Link to="/download_center/custom_account_data?glossary=budget-function">
-                    budget functions
+                        budget functions
                     </Link>
                     . Select Budget Function and/or Budget Sub-function to view spending by these categories.
                 </p>
                 <p className="download-filter__subtitle">
                     The federal budget can also be divided by government&nbsp;
                     <Link to="/download_center/custom_account_data?glossary=agency">
-                    agency
-                    </Link>. Select Agency to view spending distributed to a particular agency.
+                        agency
+                    </Link>
+                    . Select Agency to view spending distributed to a particular agency.
                 </p>
             </div>
             <FlexGridRow className="download-filter__container">
-                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6} >
+                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6}>
                     <ComboBox
                         optionsArray={budgetOptions}
                         onSelect={handleBudgetSelect}
@@ -266,7 +264,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         filterInput={budgetFunction.code !== 'all'}
                         placeholder="Select budget Function" />
                 </FlexGridCol>
-                <FlexGridCol className="download-filter__col"  mobile={12} tablet={6} desktop={6} >
+                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6}>
                     <ComboBox
                         optionsArray={subBudgetOptions}
                         onSelect={handleBudgetSubfunctionSelect}
@@ -278,8 +276,8 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         filterInput={budgetSubfunction?.code !== 'all'}
                         disabled={subBudgetOptions.length <= 1} />
                 </FlexGridCol>
-                
-                <FlexGridCol className="download-filter__col"  mobile={12} tablet={6} desktop={6}>
+
+                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6}>
                     <ComboBox
                         optionsArray={agenciesOptions}
                         onSelect={handleAgencySelect}
@@ -290,7 +288,7 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         filterInput={agency.id !== 'all'}
                         placeholder="Select agency" />
                 </FlexGridCol>
-                <FlexGridCol className="download-filter__col"  mobile={12} tablet={6} desktop={6} >
+                <FlexGridCol className="download-filter__col" mobile={12} tablet={6} desktop={6}>
                     <ComboBox
                         optionsArray={federalAccountOptions}
                         onSelect={handleFederalAccountSelect}
@@ -302,11 +300,10 @@ const BudgetAgencyGroup = memo(function BudgetAgencyGroup({
                         filterInput={federalAccount?.id !== 'all'}
                         disabled={federalAccountOptions.length <= 1} />
                 </FlexGridCol>
-            </FlexGridRow>  
+            </FlexGridRow>
         </div>
     );
 });
-
 
 BudgetAgencyGroup.propTypes = propTypes;
 export default BudgetAgencyGroup;

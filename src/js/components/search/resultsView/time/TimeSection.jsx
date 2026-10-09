@@ -3,7 +3,6 @@
  * Created by Andrea Blackwell 04/14/2024
  **/
 
-
 import React, { useState, useCallback } from "react";
 import PropTypes from "prop-types";
 
@@ -63,13 +62,13 @@ const TimeSection = ({
     return (
         <div id="search-page-component" className="time">
             {timeHasLoaded ?
-                <TimeVisualizationSectionContainer
-                    wrapperProps={wrapperProps}
-                    visualizationPeriod={visualizationPeriod}
-                    hash={hash} />
-                :
-                <PlaceholderComponent className="time" />
-            }
+                (
+                    <TimeVisualizationSectionContainer
+                        wrapperProps={wrapperProps}
+                        visualizationPeriod={visualizationPeriod}
+                        hash={hash} />
+                ) :
+                <PlaceholderComponent className="time" />}
         </div>
     );
 };

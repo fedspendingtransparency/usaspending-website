@@ -21,8 +21,10 @@ const propTypes = {
 const ItemDefinition = (props) => {
     let resources = null;
     if (props.resources && props.resources !== '') {
-        resources = (<MoreResources
-            resources={props.resources} />);
+        resources = (
+            <MoreResources
+                resources={props.resources} />
+        );
     }
 
     let term = props.term;
@@ -37,7 +39,7 @@ const ItemDefinition = (props) => {
             </h2>
 
             <div className="definition-content">
-                <Markdown components={{Link: SmartLink, a: SmartLink}} skipHtml>{props[props.type]}</Markdown>
+                <Markdown components={{ Link: SmartLink, a: SmartLink }} skipHtml>{props[props.type]}</Markdown>
             </div>
 
             {resources}

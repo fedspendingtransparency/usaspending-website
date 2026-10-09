@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
@@ -30,7 +29,6 @@ const IntroSection = ({
                 onShareClick={onShareClick} />
         </FlexGridCol>
     </FlexGridRow>
-                    
 );
 
 IntroSection.propTypes = propTypes;

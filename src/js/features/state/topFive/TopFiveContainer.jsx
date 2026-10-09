@@ -19,7 +19,6 @@ const propTypes = {
 const TopFiveContainer = ({ category, type, agencyData }) => {
     const { overview, fy } = useSelector((state) => state.stateProfile);
 
-
     const { code, _totalAmount: total } = overview;
 
     const {
@@ -28,7 +27,7 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
 
     return (
         <>
-            {!noResults &&
+            {!noResults && (
                 <TopFive
                     key={category}
                     category={category}
@@ -38,7 +37,7 @@ const TopFiveContainer = ({ category, type, agencyData }) => {
                     error={error}
                     dataParams={dataParams}
                     agencyData={agencyData} />
-            }
+            )}
         </>
     );
 };

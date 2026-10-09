@@ -3,7 +3,7 @@
  * Created by Mike Bray 11/20/2017
  **/
 
-import React, {memo} from 'react';
+import React, { memo } from 'react';
 
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { aboutPageMetaTags } from 'helpers/metaTagHelper';
@@ -46,7 +46,7 @@ const aboutSections = [
 ];
 
 // eslint-disable-next-line prefer-arrow-callback
-const AboutPage = memo(function AboutPage () {
+const AboutPage = memo(function AboutPage() {
     // 60 px is the approx padding-top on the h2 elements
     const headerOffset = stickyHeaderHeight + 60;
 

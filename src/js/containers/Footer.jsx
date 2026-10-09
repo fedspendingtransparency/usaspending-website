@@ -1,4 +1,3 @@
- 
 /**
  * Footer.jsx
  * Created by Brian Petway 04/14/23

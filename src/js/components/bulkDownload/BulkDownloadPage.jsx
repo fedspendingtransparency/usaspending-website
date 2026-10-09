@@ -93,7 +93,7 @@ const BulkDownloadPage = ({
                     filters={filters}
                     setFilters={setFilters}
                     results={results}
-                    setResults={setResults}/>
+                    setResults={setResults} />
             );
             userSelections = (
                 <AwardDataArchiveUserSelections filters={filters} results={results} />
@@ -105,7 +105,8 @@ const BulkDownloadPage = ({
             userSelections = (<AccountUserSelections />);
             title = "Custom Account Data";
             break;
-        case 'dataset_metadata': downloadDataContent = (<MetadataDownload />); break;
+        case 'dataset_metadata': downloadDataContent = (<MetadataDownload />);
+            break;
         default:
             downloadDataContent = (<AwardDataContainer clickedDownload={clickedDownload} />);
             userSelections = (<AwardsUserSelections />);
@@ -130,13 +131,13 @@ const BulkDownloadPage = ({
                         <div className="bulk-download__data">{downloadDataContent}</div>
                         <BulkDownloadModalContainer mounted={showModal} hideModal={hideModal} />
                     </FlexGridCol>
-                    { userSelections && !isMedium &&
+                    { userSelections && !isMedium && (
                         <FlexGridCol
                             width={4}
                             className="bulk-download">
                             {userSelections}
                         </FlexGridCol>
-                    }
+                    )}
                 </FlexGridRow>
                 <FlexGridRow className="download-info-wrapper">
                     <hr />

@@ -5,7 +5,6 @@
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-
 export const defaultNameTemplate = (code, name) => {
     if (code) {
         return `${code} - ${name}`;

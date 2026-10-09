@@ -262,67 +262,77 @@ const AgenciesContainer = ({
             ),
             (!_mostRecentPublicationDate ?
                 <div className="generic-cell-content">{mostRecentPublicationDate}</div> :
-                <CellWithModal
-                    data={mostRecentPublicationDate}
-                    openModal={openModal}
-                    modalType="publicationDates"
-                    agencyData={{
-                        agencyName,
-                        agencyCode: code,
-                        fiscalYear: selectedFy,
-                        fiscalPeriod: selectedPeriod?.id
-                    }} />),
+                (
+                    <CellWithModal
+                        data={mostRecentPublicationDate}
+                        openModal={openModal}
+                        modalType="publicationDates"
+                        agencyData={{
+                            agencyName,
+                            agencyCode: code,
+                            fiscalYear: selectedFy,
+                            fiscalPeriod: selectedPeriod?.id
+                        }} />
+                )),
             (isNull(_discrepancyCount) ?
                 <div className="generic-cell-content">{GtasNotInFileA}</div> :
-                <CellWithModal
-                    data={GtasNotInFileA}
-                    openModal={openModal}
-                    modalType="missingAccountBalance"
-                    agencyData={{
-                        agencyName,
-                        gtasObligationTotal: _gtasObligationTotal,
-                        agencyCode: code,
-                        fiscalYear: selectedFy,
-                        fiscalPeriod: selectedPeriod?.id
-                    }} />),
+                (
+                    <CellWithModal
+                        data={GtasNotInFileA}
+                        openModal={openModal}
+                        modalType="missingAccountBalance"
+                        agencyData={{
+                            agencyName,
+                            gtasObligationTotal: _gtasObligationTotal,
+                            agencyCode: code,
+                            fiscalYear: selectedFy,
+                            fiscalPeriod: selectedPeriod?.id
+                        }} />
+                )),
             (isNull(_obligationDifference) ?
                 <div className="generic-cell-content">{obligationDifference}</div> :
-                <CellWithModal
-                    data={obligationDifference}
-                    openModal={openModal}
-                    modalType="reportingDifferences"
-                    agencyData={{
-                        agencyName,
-                        agencyCode: code,
-                        fiscalYear: selectedFy,
-                        fiscalPeriod: selectedPeriod?.id
-                    }} />),
+                (
+                    <CellWithModal
+                        data={obligationDifference}
+                        openModal={openModal}
+                        modalType="reportingDifferences"
+                        agencyData={{
+                            agencyName,
+                            agencyCode: code,
+                            fiscalYear: selectedFy,
+                            fiscalPeriod: selectedPeriod?.id
+                        }} />
+                )),
             (isNull(_unlinkedContracts) ?
                 <div className="generic-cell-content">{unlinkedContracts}</div> :
-                <CellWithModal
-                    data={unlinkedContracts}
-                    openModal={openModal}
-                    modalType="unlinkedData"
-                    agencyData={{
-                        agencyName,
-                        agencyCode: code,
-                        fiscalYear: selectedFy,
-                        fiscalPeriod: selectedPeriod?.id,
-                        type: 'Contract'
-                    }} />),
+                (
+                    <CellWithModal
+                        data={unlinkedContracts}
+                        openModal={openModal}
+                        modalType="unlinkedData"
+                        agencyData={{
+                            agencyName,
+                            agencyCode: code,
+                            fiscalYear: selectedFy,
+                            fiscalPeriod: selectedPeriod?.id,
+                            type: 'Contract'
+                        }} />
+                )),
             (isNull(_unlinkedAssistance) ?
                 <div className="generic-cell-content">{unlinkedAssistance}</div> :
-                <CellWithModal
-                    data={unlinkedAssistance}
-                    openModal={openModal}
-                    modalType="unlinkedData"
-                    agencyData={{
-                        agencyName,
-                        agencyCode: code,
-                        fiscalYear: selectedFy,
-                        fiscalPeriod: selectedPeriod?.id,
-                        type: 'Assistance'
-                    }} />)
+                (
+                    <CellWithModal
+                        data={unlinkedAssistance}
+                        openModal={openModal}
+                        modalType="unlinkedData"
+                        agencyData={{
+                            agencyName,
+                            agencyCode: code,
+                            fiscalYear: selectedFy,
+                            fiscalPeriod: selectedPeriod?.id,
+                            type: 'Assistance'
+                        }} />
+                ))
         ]);
 
     const handlePageChange = (page) => {
@@ -342,7 +352,6 @@ const AgenciesContainer = ({
             changePublicationsLimit(limit);
         }
     };
-
 
     useEffect(() => {
         pageRef.current = { publications: publicationsPage, submissions: submissionsPage };

@@ -3,7 +3,6 @@
   * Created by Kevin Li 11/4/16
   **/
 
-/* eslint-disable quote-props */
 // disable quote-props for consistency sake (we need leading zeroes)
 export const awardTypeCodes = {
     'A': 'Blanket Purchase Agreements (BPA) Calls',
@@ -66,7 +65,6 @@ export const awardTypeNewFCodes = {
     '04': 'Project Grant'
 };
 
-
 export const glossaryLinks = {
     'A': 'blanket-purchase-agreement-bpa',
     'B': 'purchase-order',
@@ -98,8 +96,6 @@ export const glossaryLinks = {
     '-1': 'not-specified'
 };
 
-/* eslint-enable quote-props */
-
 export const awardTypeGroups = {
     contracts: ['A', 'B', 'C', 'D'],
     idvs: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E'],
@@ -107,7 +103,7 @@ export const awardTypeGroups = {
     cooperative_agreement: ['05', 'F002'],
     direct_payments: ['10', '06', 'F006', 'F007'],
     loans: ['07', '08', 'F003', 'F004'],
-    other: ['09', 'F005', 'F008', 'F009', 'F010', '11', '-1' ]
+    other: ['09', 'F005', 'F008', 'F009', 'F010', '11', '-1']
 };
 
 export const bulkDownloadAwardTypeGroups = {
@@ -131,7 +127,7 @@ export const transactionTypeGroups = {
 
 export const analyticsAwardTypeGroupLabels = {
     contracts: 'Contracts',
-    idvs: "Indefinite Delivery Vehicle",
+    idvs: 'Indefinite Delivery Vehicle',
     grants: 'Grants',
     cooperative_agreement: 'Cooperative Agreement',
     direct_payments: 'Direct Payments',
@@ -141,9 +137,9 @@ export const analyticsAwardTypeGroupLabels = {
 
 export const awardTypeGroupLabels = {
     contracts: 'Contracts',
-    idvs: "Contract IDVs",
+    idvs: 'Contract IDVs',
     grants: 'Grants',
-    cooperative_agreement: "Cooperative Agreement",
+    cooperative_agreement: 'Cooperative Agreement',
     direct_payments: 'Direct Payments',
     loans: 'Loans',
     other: 'Other'
@@ -176,7 +172,7 @@ export const awardTypesData = [
         filters: awardTypeGroups.grants,
         singleitem: true
     },
-    {     
+    {
         id: 'award-cooperative-agreement',
         name: 'Cooperative Agreement',
         filters: awardTypeGroups.cooperative_agreement,
@@ -198,4 +194,3 @@ export const awardTypesData = [
         filters: awardTypeGroups.other
     }
 ];
-

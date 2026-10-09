@@ -35,15 +35,17 @@ const IdvActivity = (props) => {
         message = (<NoResultsMessage />);
     }
     else {
-        content = (<IdvActivityVisualization
-            page={props.page}
-            total={props.total}
-            limit={props.limit}
-            awards={props.awards}
-            changePage={props.changePage}
-            xSeries={props.xSeries}
-            ySeries={props.ySeries}
-            selectedItemFunc={props.selectedItemFunc} />);
+        content = (
+            <IdvActivityVisualization
+                page={props.page}
+                total={props.total}
+                limit={props.limit}
+                awards={props.awards}
+                changePage={props.changePage}
+                xSeries={props.xSeries}
+                ySeries={props.ySeries}
+                selectedItemFunc={props.selectedItemFunc} />
+        );
     }
 
     return (
