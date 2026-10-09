@@ -57,6 +57,8 @@ button.driver-popover-close-btn {
   color: $color-white;
   font-size: rem(32);
   background-color: $cyan-50v;
+  margin-top: rem(12);
+  margin-right: rem(4);
   cursor: pointer;
   &:hover, &:active, &:focus {
     background-color: $cyan-50v;

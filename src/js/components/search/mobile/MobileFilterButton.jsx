@@ -75,6 +75,7 @@ const MobileFilterButton = ({
             { smartAssistIsVisible &&
             <button
                 className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "natural language" ? 'opened natural-language' : ''}`}
+                id={showMobileFilters && mobileSidebarContent === "natural language" ? 'animated-tour-mobile-step1' : null}
                 onClick={() => {
                     setMobileSidebarContent("natural language");
                     if(!showMobileFilters){
