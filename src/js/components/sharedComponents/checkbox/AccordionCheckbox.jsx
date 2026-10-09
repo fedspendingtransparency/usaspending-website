@@ -5,14 +5,14 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import AccordionCheckboxPrimary from "./AccordionCheckboxPrimary";
-import EntityDropdownAutocomplete from "../EntityDropdownAutocomplete";
+import AccordionCheckboxPrimary from './AccordionCheckboxPrimary';
+import EntityDropdownAutocomplete from '../EntityDropdownAutocomplete';
 
 const expandCheckboxCategoryAccordions = (filterCategoryMapping, selectedFilters) => {
     const toExpand = [];
     filterCategoryMapping?.forEach((category) => {
         category?.filters?.forEach((type) => {
-            if (selectedFilters?.has(type) && !category?.singleitem ){
+            if (selectedFilters?.has(type) && !category?.singleitem) {
                 toExpand.push(category.id);
             }
         });
@@ -48,7 +48,7 @@ const AccordionCheckbox = ({
     setDefSearchString = () => {},
     showSearch = true,
     isDisabled = false,
-    placeholder = "Search filters..."
+    placeholder = 'Search filters...'
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
