@@ -24,11 +24,11 @@ const NLSearchButton = ({
     text = "Search",
     startNLSearch
 }) => {
-    const fireSearchEvent = useFireQueryEvent();
+    const fireQueryEvent = useFireQueryEvent();
 
     const onClick = () => {
         startNLSearch();
-        fireSearchEvent();
+        fireQueryEvent();
     }
 
     return (
