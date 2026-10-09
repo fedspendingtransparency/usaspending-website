@@ -131,6 +131,7 @@ const NLPreSearchButtonGroup = ({source = ""}) => {
                                 slidesPerView="auto"
                                 spaceBetween={16}
                                 mousewheel={true}
+                                loop={true}
                                 keyboard
                                 a11y
                                 grabCursor={true}
