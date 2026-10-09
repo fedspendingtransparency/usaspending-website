@@ -17,7 +17,10 @@ const propTypes = {
     openIcon: PropTypes.string,
     setOpen: PropTypes.func,
     openObject: PropTypes.bool,
-    selectedChipCount: PropTypes.number
+    selectedChipCount: PropTypes.number,
+    headingClassName: PropTypes.string,
+    faClassName: PropTypes.string,
+    containerClassName: PropTypes.string
 };
 
 const Accordion = ({
@@ -29,7 +32,11 @@ const Accordion = ({
     setOpen = () => {},
     contentClassName = '',
     openObject = false,
-    selectedChipCount = 0
+    selectedChipCount = 0,
+    headingClassName = '',
+    containerClassName = '',
+    faClassName = ''
+
 }) => {
     const [closed, setClosed] = useState(!openObject);
 
@@ -62,14 +69,14 @@ const Accordion = ({
         (<></>));
 
     return (
-        <div className="accordion-container">
+        <div className={`accordion-container ${containerClassName}`}>
             <section
                 data-testid="accordion"
                 className={sectionClassName}>
                 {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/no-static-element-interactions */}
-                <div onClick={toggleOpen} onKeyDown={keyClickToggle} className="heading">
+                <div onClick={toggleOpen} onKeyDown={keyClickToggle} className={`heading ${headingClassName}`}>
                     {title}
-                    <div className="heading--chip-container">
+                    <div className={`heading--chip-container ${faClassName}`}>
                         {selectedChip(selectedChipCount)}
                         <button
                             onClick={toggleOpen}
@@ -78,11 +85,11 @@ const Accordion = ({
                             aria-label={buttonAriaLabel}>
                             <FontAwesomeIcon
                                 icon={closedIcon}
-                                className={iconClassName || "plus"}
+                                className={iconClassName || `plus ${faClassName}`}
                                 key="open" />
                             <FontAwesomeIcon
                                 icon={openIcon}
-                                className={iconClassName || "minus"}
+                                className={iconClassName || `minus ${faClassName}`}
                                 key="close" />
                         </button>
                     </div>

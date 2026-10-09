@@ -4,15 +4,17 @@
  */
 
 import React from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NLSearchSuggestionsIcon from "./NLSearchSuggestionsIcon";
-import Analytics from "../../helpers/analytics/Analytics";
-import { closeOtherSlideouts } from "../../helpers/slideoutHelper";
+import Analytics from "../../../helpers/analytics/Analytics";
+import { closeOtherSlideouts } from "../../../helpers/slideoutHelper";
 import storeSingleton from 'redux/storeSingleton';
-import * as glossaryActions from "../../redux/actions/glossary/glossaryActions"
-import * as aboutTheDataActions from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions"
-import { initialState as defaultFilters } from '../../redux/reducers/search/searchFiltersReducer';
-import { awardTypeGroups } from "../../dataMapping/search/awardType";
-import { REQUEST_VERSION } from "../../GlobalConstants";
+import * as glossaryActions from "../../../redux/actions/glossary/glossaryActions"
+import * as aboutTheDataActions from "../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions"
+import { initialState as defaultFilters } from '../../../redux/reducers/search/searchFiltersReducer';
+import { awardTypeGroups } from "../../../dataMapping/search/awardType";
+import { REQUEST_VERSION } from "../../../GlobalConstants";
+import { defCodeGroups } from "../../../dataMapping/search/defCodes";
 
 const overline = 'IF YOU WANT TO KNOW:';
 const filterByHeader = 'FILTER BY:'
@@ -216,7 +218,8 @@ export const searchGovSpendingData = [
     }
 ];
 
-export const preSearchOptions = [
+// delete when Smart Assist is released
+export const preSearchOptionsToRemove = [
     {
         type: "award-recipient-type",
         options: [
@@ -606,4 +609,454 @@ export const preSearchOptions = [
             }
         ]
     }
-]
+];
+
+// end delete when Smart Assist is released
+
+export const preSearchOptions = [
+    {
+        id: "nl-1",
+        title:"National Security",
+        text: (<>Tax dollars spent on <strong>national defense</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    keyword: {"National Defense" : "National Defense"}
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "shield"  
+    },
+    {
+        id: "nl-2",
+        title:"Health",
+        text: (<>Spending on <strong>health care services</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    naicsCodes: {
+                        require: ["62"],
+                        exclude: [],
+                        counts: [
+                            {
+                                label: "Health Care and Social Assistance",
+                                value: "62",
+                                count: 39
+                            }
+                        ]
+                    }
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "hospital"  
+    },
+    {
+        id: "nl-3",
+        title:"Education",
+        text: (<>Top <strong>universities</strong> funded in <strong>2026</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    timePeriodType: "fy",
+                    timePeriodFY: ["2026"],
+                    naicsCodes: {
+                        require: ["6113"],
+                        exclude: [],
+                        counts: [
+                            {
+                                label: "Educational Services",
+                                value: "61",
+                                count: 1
+                            }
+                        ]
+                    }
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "graduation-cap"   
+    },
+    {
+        id: "nl-4",
+        title:"Energy",
+        text: (<>Awards provided for <strong>renewable energy</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    keyword: {"Renewable Energy" : "Renewable Energy"}
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "wind-turbine"   
+    },
+    {
+        id: "nl-5",
+        title:"Medicare",
+        text: (<>Top <strong>medicare programs</strong> funded in <strong>2026</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    timePeriodType: "fy",
+                    timePeriodFY: ["2026"],
+                    keyword: {"Medicare" : "Medicare"}
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "hands-holding-heart"
+    },
+    {
+        id: "nl-6",
+        title:"Natural Resources",
+        text: (<>Spending on <strong>water resources</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    keyword: {"Water Resources" : "Water Resources"}
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "faucet-drip"
+    },
+    {
+        id: "nl-7",
+        title:"Social Security",
+        text: (<>Tax dollars spent on <strong>retirement & disability</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    selectedCFDA: {
+                        96.001: {
+                            identifier: "96.001",
+                            popular_name: "Social Security Disability Insurance",
+                            program_title: "Social Security Disability Insurance",
+                            program_number: "96.001"
+                        },
+                        96.002: {
+                            identifier: "96.002",
+                            popular_name: "Social Security Retirement Insurance",
+                            program_title: "Retirement (RIB",
+                            program_number: "96.002"
+                        }
+                    }
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "wheelchair-move" 
+    },
+    {
+        id: "nl-8",
+        title:"Disaster Relief",
+        text: (<>Tax dollars spent on <strong>contracts</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    defCode: defCodeGroups.covid
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "virus-covid"
+    },
+    {
+        id: "nl-9",
+        title:"Veterans Benefits",
+        text: (<>Awards provided for <strong>veteran programs</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    keyword: {"Veterans Benefits" : "Veterans Benefits"}
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "user-shield"
+    },
+    {
+        id: "nl-10",
+        title:"Agriculture",
+        text: (<>Spending on <strong>crop farming</strong></>),
+        action: (callback) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    naicsCodes: {
+                        require: ["1119"],
+                        exclude: [],
+                        counts: [
+                            {
+                                label: "Agriculture, Forestry, Fishing and Hunting",
+                                value: "11",
+                                count: 7
+                            }
+                        ]
+                    }
+                },
+                version: REQUEST_VERSION
+            };
+            callback(filterValue);
+        },
+        icon: "tractor"
+    }
+];
+
+export const smartAssistContent = {
+    overview: {
+        heading: 'Overview',
+        items: [
+            {
+                title: 'What is Smart Assist?',
+                content: (
+                    <>
+                        <p>
+                            Smart Assist is an AI feature on USAspending.gov that interprets your prompt and selects Advanced Search filters for you. You can describe what you want in your own words, and Smart Assist translates that into filters to find matching data.
+                        </p>
+                    </>
+                )
+            },
+            {
+                title: 'Which Data Does Smart Assist Use?',
+                content: (
+                    <>
+                        <p>
+                            Your search will be used to find <span style={{color: '#005ea2'}}>Awards, Subawards, and Transactions</span> using the existing Advanced Search page filters ranging from time period to specific codes or categories.
+                        </p>
+                    </>
+                )
+            }
+        ]
+    },
+    search: {
+        heading: 'Searching With Smart Assist',
+        items: [
+            {
+                title: `What's the Best Way to Search?`,
+                content: (
+                    <>
+                        <p>
+                            Focus on the data you want to see, not a question you want answered. Describe the spending you want to explore, like awards to a specific business, contracts in an industry, or grants in a timeframe.
+                        </p>
+                        <p>
+                            Example: Instead of “How much money did Michigan get for education last year?”, try “Show Department of Education spending in Michigan for 2025.”
+                        </p>
+                    </>
+                )
+            },
+            {
+                title: 'How Does Smart Assist Interpret Questions and Provide Responses?',
+                content: (
+                    <>
+                        <p>
+                            When you submit a prompt, Smart Assist looks for key details such as agencies, recipients, fiscal years, locations, award types, and spending categories, then maps those details to available filters in USAspending data.
+                        </p>
+                        <p>
+                          While your search runs, you’ll see status updates. If your prompt could mean more than one thing, Smart Assist returns the best match based on context. If there’s only a partial match, it lets you know and suggests ways to refine the search.
+                        </p>
+                    </>
+                )
+            }
+        ]
+    },
+    results: {
+        heading: 'Understanding Results',
+        items: [
+            {
+                title: `What's Included in Smart Assist Search Results?`,
+                content: (
+                    <>
+                        <p>
+                            Smart Assist results include tables and charts you can explore and download. Depending on your prompt, results may include:
+                        </p>
+                        <ul>
+                            <li>A list of matching awards or subawards</li>
+                            <li>Results by Category</li>
+                            <li>Results Over Time</li>
+                            <li>Results by Geography</li>
+                        </ul>
+                        <p>
+                           For details about what’s included in your results, visit the Data Sources and Methodology section below each results table.
+                        </p>
+                    </>
+                )
+            },
+            {
+                title: 'How Can I Refine My Search?',
+                content: (
+                    <>
+                        <p>
+                            If the initial results aren’t what you expected, you can refine them in two ways:
+                        </p>
+                        <p>
+                            Adjust filters: After a search completes, the chosen filters appear on the Filter tab of the Search panel. You can change values, add filters, or remove filters, then submit a new search. For example, “Only show grants” populates results for all available grants; you can then narrow by time period or awarding agency.
+                        </p>
+                        <p>
+                            Edit your prompt: Select “Start New Search” to reload your original prompt, make changes, and resubmit. For example, update “Only show grants” to “Only show grants in 2020.”
+                        </p>
+                    </>
+                )
+            },
+            {
+                title: 'Why Did I Receive a Partial Response or Error Message?',
+                content: (
+                    <>
+                        <p>
+                            Smart Assist returns results when it can interpret your request. If it needs more information, you may see a partial response or an error message. Common reasons include:
+                        </p>
+                        <ul>
+                            <li>Irrelevant questions (e.g., tax collection totals are outside federal awards data).</li>
+                            <li>Unavailable data (e.g., a location that does not exist in USAspending data). In some cases, Smart Assist defaults to the Keyword Search filter.</li>
+                            <li>Broad questions (e.g., “Show me where federal money is going.” may need more detail including information such as an agency or location).</li>
+                            <li>Biased or harmful content (e.g., “unethical companies”). Smart Assist may ignore those terms and use only valid filters (such as Time Period).</li>
+                        </ul>
+                        <p>
+                          When this happens, Smart Assist explains the limitations and suggests ways to improve your query.
+                        </p>
+                    </>
+                )
+            }
+        ]
+    },
+    limitations: {
+        heading: 'Limitations',
+        items: [
+            {
+                title: `What Doesn't Smart Assist Do?`,
+                content: (
+                    <>
+                        <ul>
+                            <li>Summarize data or provide key insights</li>
+                            <li>Create information that is not available in the data</li>
+                            <li>Predict future spending</li>
+                            <li>Modify or update federal spending records</li>
+                            <li>Interpret opinions or policy questions as factual spending data</li>
+                            <li>Access information outside the datasets available through USAspending.gov</li>
+                        </ul>
+                        <p>
+                            Smart Assist does not create new information, make assumptions beyond available federal spending data, or summarize results.
+                        </p>
+                    </>
+                )
+            }
+        ]
+    },
+    feedback: {
+        heading: 'Feedback & Support',
+        items: [
+            {
+                title: 'How Can I Provide Feedback for Smart Assist?',
+                content: (
+                    <>
+                        <p>
+                            After you view a response, you may be asked if the answer was helpful. Your feedback helps us improve Smart Assist by highlighting where responses can become more accurate, useful, and easier to understand.
+                        </p>
+                    </>
+                )
+            }
+        ]
+    }
+};
+
+export const smartAssistResources = [
+    {
+        icon: (
+            <div className="search-info-page__resources-icon-container glossary">
+                <FontAwesomeIcon icon="book" color="#0081a1" size="lg" />
+            </div>
+        ),
+        headline: 'Glossary',
+        text: 'Defines terminology found throughout USAspending',
+        buttonText: (
+            <div className="search-info-page__resources-link-container">
+                <div>View the glossary&nbsp;&nbsp;
+                    <FontAwesomeIcon icon="arrow-right" />
+                </div>
+            </div>
+        ),
+        action: () => { 
+            Analytics.event({
+                event: 'search-info-page_resources-glossary',
+                category: 'Natural Language Additional Resources',
+                action: 'Link',
+                label: 'glossary button'
+            });
+            
+            closeOtherSlideouts('glossary');
+            dispatch(glossaryActions.toggleGlossary());
+        },
+        govLink: false,
+        onlyPerformAction: true
+    },
+    {
+        icon: (
+            <div className="search-info-page__resources-icon-container articles">
+                <FontAwesomeIcon icon="graduation-cap" color="#0081a1" size="lg" />
+            </div>
+        ),
+        headline: 'Featured Content',
+        text: 'Read our articles and watch training videos about Smart Assist ',
+        buttonText: (
+            <div className="search-info-page__resources-link-container">
+                <div>View Smart Assist articles&nbsp;&nbsp;
+                    <FontAwesomeIcon icon="arrow-right" />
+                </div>
+            </div>
+        ),
+        buttonLink: '/featured-content',
+        action: () => { 
+            Analytics.event({
+                event: 'search-info-page_resources-featured-content',
+                category: 'Natural Language Additional Resources',
+                action: 'Link',
+                label: 'smart assist articles button'
+            })
+        }
+    },
+    {
+        icon: (
+            <div className="search-info-page__resources-icon-container guide">
+                <FontAwesomeIcon icon="money-check-dollar" color="#0081a1" size="lg" />
+            </div>
+        ),
+        headline: 'Federal Spending Guide',
+        text: 'Learn about Federal Spending and USAspending data',
+        buttonText: (
+            <div className="search-info-page__resources-link-container">
+                <div>View Federal Spending Guide&nbsp;&nbsp;
+                    <FontAwesomeIcon icon="arrow-right" />
+                </div>
+            </div>
+        ),
+        buttonLink: '/federal-spending-guide',
+        action: () => { 
+            Analytics.event({
+                event: 'search-info-page_resources-federal-spending-guide',
+                category: 'Natural Language Additional Resources',
+                action: 'Link',
+                label: 'smart assist federal spending guide button'
+            })
+        }
+    }
+];

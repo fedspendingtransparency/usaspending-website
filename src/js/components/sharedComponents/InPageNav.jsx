@@ -21,10 +21,9 @@ const propTypes = {
     loading: PropTypes.bool
 };
 
-const InPageNav = (props) => {
-    const {
-        sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold, loading
-    } = props;
+const InPageNav = ({
+    sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold, loading, ...props
+}) => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [activeSection, setActiveSection] = useState(props.activeSection);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
