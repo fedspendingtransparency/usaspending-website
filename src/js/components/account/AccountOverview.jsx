@@ -3,12 +3,13 @@
  * Created by 3/20/17
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, {useState, useEffect, useRef, useMemo} from 'react';
 import PropTypes from 'prop-types';
 import { SectionHeader } from "data-transparency-ui";
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 
+import * as MoneyFormatter from 'helpers/moneyFormatter';
 import SankeyVisualization from './visualizations/sankey/SankeyVisualization';
+import useFetchFederalAccountFYSnapshot from "../../containers/account/useFetchFederalAccountFYSnapshot";
 
 const propTypes = {
     account: PropTypes.object,
@@ -18,39 +19,33 @@ const propTypes = {
 const AccountOverview = ({ account, currentFiscalYear }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [visualizationWidth, setVisualizationWidth] = useState(0);
-    const [fyAvailable, setFyAvailable] = useState(false);
-    const [amounts, setAmounts] = useState({
-        budgetAuthority: 0,
-        out: {
-            obligated: 0,
-            unobligated: 0
-        },
-        in: {
-            bbf: 0,
-            other: 0,
-            appropriations: 0
-        }
-    });
-    const [summary, setSummary] = useState({
-        flow: '',
-        toDate: ''
-    });
 
-    const sankeyHr = useRef();
+    const sankeyHr = useRef(null);
 
-    const handleWindowResize = () => {
-        // determine if the width changed
-        const currentWindowWidth = window.innerWidth;
-        if (windowWidth !== currentWindowWidth) {
-            // width changed, update the visualization width
-            setWindowWidth(currentWindowWidth);
-            setVisualizationWidth(Math.min(1200, sankeyHr.current.offsetWidth));
-        }
-    };
+    const { response } = useFetchFederalAccountFYSnapshot(account, currentFiscalYear);
 
-    const generateSummary = (accountData) => {
-    // determine the current fiscal year and get the associated values
-        const fiscalYearAvailable = accountData.totals.available;
+    useEffect(() => {
+        const handleWindowResize = () => {
+            // determine if the width changed
+            const currentWindowWidth = window.innerWidth;
+            if (windowWidth !== currentWindowWidth) {
+                // width changed, update the visualization width
+                setWindowWidth(currentWindowWidth);
+                setVisualizationWidth(Math.min(1200, sankeyHr.current.offsetWidth));
+            }
+        };
+
+        handleWindowResize();
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => window.removeEventListener('resize', handleWindowResize);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    const { summary, amounts, fyAvailable } = useMemo(() => {
+        // determine the current fiscal year and get the associated values
+        const fiscalYearAvailable = response?.totals.available;
         const newSummary = {
             flow: `No data is available for the current fiscal year (FY ${currentFiscalYear}).`,
             toDate: ''
@@ -65,17 +60,19 @@ const AccountOverview = ({ account, currentFiscalYear }) => {
                     unobligated: 0
                 }
             };
-            setSummary(newSummary);
-            setAmounts(newAmounts);
-            setFyAvailable(fiscalYearAvailable);
-            return;
+
+            return {
+                summary: newSummary,
+                amounts: newAmounts,
+                fyAvailable: fiscalYearAvailable
+            }
         }
 
-        const authorityValue = accountData.totals.budgetAuthority || 0;
-        const obligatedValue = accountData.totals.obligated || 0;
-        const balanceBroughtForwardValue = accountData.totals.balanceBroughtForward || 0;
-        const otherValue = accountData.totals.otherBudgetaryResources || 0;
-        const appropriationsValue = accountData.totals.appropriations || 0;
+        const authorityValue = response.totals.budgetAuthority || 0;
+        const obligatedValue = response.totals.obligated || 0;
+        const balanceBroughtForwardValue = response.totals.balanceBroughtForward || 0;
+        const otherValue = response.totals.otherBudgetaryResources || 0;
+        const appropriationsValue = response.totals.appropriations || 0;
 
         const authUnits = MoneyFormatter.calculateUnitForSingleValue(authorityValue);
         const authority = `${MoneyFormatter.formatMoney(authorityValue / authUnits.unit)}\
@@ -113,7 +110,7 @@ ${authority} has been obligated.`;
             budgetAuthority: authorityValue,
             out: {
                 obligated: obligatedValue,
-                unobligated: parseFloat(accountData.totals.unobligated)
+                unobligated: parseFloat(response.totals.unobligated)
             },
             in: {
                 bbf: balanceBroughtForwardValue,
@@ -122,24 +119,12 @@ ${authority} has been obligated.`;
             }
         };
 
-        setSummary(newSummary);
-        setAmounts(newAmounts);
-        setFyAvailable(fiscalYearAvailable);
-    };
-
-    useEffect(() => {
-        generateSummary(account);
-        handleWindowResize();
-        window.addEventListener('resize', handleWindowResize);
-
-        return () => window.removeEventListener('resize', handleWindowResize);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
-    useEffect(() => {
-        generateSummary(account);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [account]);
+        return {
+            summary: newSummary,
+            amounts: newAmounts,
+            fyAvailable: fiscalYearAvailable
+        }
+    }, [response, currentFiscalYear]);
 
     return (
         <div className="account-overview">

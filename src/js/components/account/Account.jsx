@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import { useDispatch } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -21,14 +21,16 @@ import SearchResults from './SearchResults';
 import { showModal } from '../../redux/actions/modal/modalActions';
 
 const propTypes = {
-    account: PropTypes.object,
     currentFiscalYear: PropTypes.string
 };
 
-const Account = ({ account, currentFiscalYear }) => {
+const Account = ({ currentFiscalYear }) => {
+    const dispatch = useDispatch();
+    const account = useSelector((state) => state.account.account);
+
     const accountSymbol = `${account.agency_identifier}-${account.main_account_code}`;
     const fedAccountSlug = `federal_account/${accountSymbol}`;
-    const dispatch = useDispatch();
+
     const handleShareDispatch = (url) => {
         dispatch(showModal(url));
     };

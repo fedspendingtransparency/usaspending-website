@@ -2,8 +2,6 @@ import { useCallback } from "react";
 
 /**
  * useCallbackRef.jsx
- * - a custom hook for adding and removing event listeners
- * https://usehooks-ts.com/react-hook/use-event-listener
  * @param {function} func - the callback function to be executed (usually a setState)
  * @param {func} -  A callback ref that can be placed on an element
  * */
