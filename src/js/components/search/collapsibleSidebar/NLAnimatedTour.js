@@ -10,6 +10,7 @@ const MOBILE_BREAKPOINT = 768;
 const MOBILE_STEP3_WAIT_MS = 1000;
 const MOBILE_SCROLL_DELAY_MS = 400;
 const MOBILE_SCROLL_OFFSET = 200;
+const RESIZE_DEBOUNCE_MS = 200;
 
 const isMobileViewport = () => window.innerWidth <= MOBILE_BREAKPOINT;
 
@@ -87,6 +88,34 @@ const animatedTour = driver({
     showProgress: true,
     doneBtnText: "Done",
     steps: getStepsForScreenSize()
+});
+
+let currentIsMobile = isMobileViewport();
+let resizeTimeout;
+
+const handleViewportChange = () => {
+    const nowMobile = isMobileViewport();
+    if (nowMobile === currentIsMobile) {
+        return;
+    }
+
+    currentIsMobile = nowMobile;
+
+    // setSteps() resets the driver's active-index state even mid-tour, which breaks
+    // next/previous navigation. setConfig() swaps the steps without touching state.
+    animatedTour.setConfig({ ...animatedTour.getConfig(), steps: getStepsForScreenSize() });
+
+    if (animatedTour.isActive()) {
+        const activeIndex = animatedTour.getActiveIndex();
+        if (typeof activeIndex === 'number') {
+            animatedTour.moveTo(activeIndex);
+        }
+    }
+};
+
+window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(handleViewportChange, RESIZE_DEBOUNCE_MS);
 });
 
 export default animatedTour;
