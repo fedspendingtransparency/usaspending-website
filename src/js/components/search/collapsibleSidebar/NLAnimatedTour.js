@@ -48,7 +48,7 @@ const desktopSteps = [
 const mobileSteps = [
     { element: '#animated-tour-mobile-step1', popover: { ...stepContent.step1, side: "top", align: 'start', showButtons: ["next", "close"] } },
     { element: '#animated-tour-step2', popover: { ...stepContent.step2, side: "top", align: 'center' } },
-    { element: '#animated-tour-step3', waitforElement: MOBILE_STEP3_WAIT_MS, popover: { ...stepContent.step3, side: "bottom", align: 'center' } },
+    { element: '#animated-tour-step3', waitForElement: MOBILE_STEP3_WAIT_MS, popover: { ...stepContent.step3, side: "bottom", align: 'center' } },
     { element: '#animated-tour-step4', popover: { ...stepContent.step4, side: "top", align: 'center' } },
     { element: '#animated-tour-step5', popover: { ...stepContent.step5, side: "bottom", align: 'center' } }
 ];
