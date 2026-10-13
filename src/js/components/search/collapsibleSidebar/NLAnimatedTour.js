@@ -57,6 +57,10 @@ const getStepsForScreenSize = () => (isMobileViewport() ? mobileSteps : desktopS
 
 const scrollToStep4 = () => {
     const sectionDom = document.querySelector("#animated-tour-step4");
+    if (!sectionDom) {
+        return;
+    }
+
     window.scrollTo({
         top: sectionDom.offsetTop - MOBILE_SCROLL_OFFSET,
         left: 0,
@@ -67,7 +71,7 @@ const scrollToStep4 = () => {
 const animatedTour = driver({
     onNextClick: (element, step) => {
         if (step.element === "#animated-tour-step3" && isMobileViewport()) {
-            document.querySelector(".sidebar-close").click();
+            document.querySelector(".sidebar-close")?.click();
             setTimeout(scrollToStep4, MOBILE_SCROLL_DELAY_MS);
         }
 
@@ -87,6 +91,7 @@ const animatedTour = driver({
     popoverClass: 'nl-theme',
     showProgress: true,
     doneBtnText: "Done",
+    skipMissingElement: true,
     steps: getStepsForScreenSize()
 });
 
