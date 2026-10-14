@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 8/4/17
  */
 
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { flowRight, inRange } from 'lodash-es';
 import { LATEST_PERIOD_PROPS } from 'propTypes';
 
@@ -45,7 +45,10 @@ const AccountLandingContainer = ({ latestPeriod }) => {
 
     const { isLoading, isError, results, totalItems } = useFetchAllAccounts(order, pageNumber, latestPeriod.year, searchString);
 
-    const columns = latestPeriod.year ? getColumns(latestPeriod.year) : [];
+    const columns = useMemo(() => {
+        if (!latestPeriod?.year) return [];
+        return getColumns(latestPeriod.year);
+    }, [latestPeriod.year]);
 
     const pageSize = 50;
 
