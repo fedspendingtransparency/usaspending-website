@@ -3,104 +3,57 @@
  * Created by Lizzie Salita 8/4/17
  */
 
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { isCancel } from 'axios';
 import { flowRight, inRange } from 'lodash-es';
 
 import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
-import * as AccountLandingHelper from 'helpers/accountLandingHelper';
-
 import withLatestFy from 'containers/account/WithLatestFy';
 import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
-
 import BaseFederalAccountLandingRow from 'models/v1/accountLanding/BaseFederalAccountLandingRow';
-import { LATEST_PERIOD_PROPS, SUBMISSION_PERIOD_PROPS } from 'propTypes';
+import { LATEST_PERIOD_PROPS } from 'propTypes';
+import { fetchAllAccounts } from '../../helpers/accountLandingHelper';
 
 require('pages/accountLanding/accountLandingPage.scss');
 
-export class AccountLandingContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const AccountLandingContainer = ({ latestPeriod }) => {
+    const [pageNumber, setPageNumber] = useState(1);
+    const [order, setOrder] = useState({ field: 'budgetary_resources', direction: 'desc' });
+    const [columns, setColumns] = useState([]);
+    const [inFlight, setInFlight] = useState(false);
+    const [error, setError] = useState(false);
+    const [searchString, setSearchString] = useState('');
+    const [results, setResults] = useState([]);
+    const [totalItems, setTotalItems] = useState(0);
+    const [pageSize] = useState(50);
 
-        this.state = {
-            pageNumber: 1,
-            order: {
-                field: 'budgetary_resources',
-                direction: 'desc'
-            },
-            columns: [],
-            inFlight: false,
-            error: false,
-            searchString: '',
-            results: [],
-            totalItems: 0,
-            pageSize: 50
-        };
+    const accountsRequest = useRef(null);
 
-        this.accountsRequest = null;
-        this.setAccountSearchString = this.setAccountSearchString.bind(this);
-        this.onChangePage = this.onChangePage.bind(this);
-        this.updateSort = this.updateSort.bind(this);
-    }
-
-    componentDidMount() {
-        if (this.props.latestPeriod.year) {
-            this.showColumns();
-        }
-    }
-
-    componentDidUpdate(prevProps) {
-        if (!prevProps.latestPeriod.year && this.props.latestPeriod.year) {
-            this.showColumns();
-        }
-    }
-
-    componentWillUnmount() {
-        if (this.accountsRequest) {
-            this.accountsRequest.cancel();
-        }
-    }
-
-    onChangePage(pageNumber) {
-        const totalPages = Math.ceil(this.state.totalItems / this.state.pageSize);
-        if (inRange(pageNumber, 1, totalPages + 1)) {
+    const onChangePage = (page) => {
+        const totalPages = Math.ceil(totalItems / pageSize);
+        if (inRange(page, 1, totalPages + 1)) {
             // Change page number in the state and make a new request
-            this.setState({
-                pageNumber
-            }, () => {
-                this.fetchAccounts();
-            });
+            setPageNumber(page);
         }
-    }
+    };
 
-    setAccountSearchString(searchString) {
-    // Change search string in the state and make a new request
-        this.setState({
-            searchString,
-            pageNumber: 1
-        }, () => {
-            this.fetchAccounts();
-        });
-    }
+    const setAccountSearchString = (string) => {
+        // Change search string in the state and make a new request
+        setSearchString(string);
+        setPageNumber(1);
+    };
 
-    updateSort(field, direction) {
-    // Change sort in the state and make a new request
-    // Reset the page number to 1
-        this.setState({
-            order: {
-                field,
-                direction
-            },
-            pageNumber: 1
-        }, () => {
-            this.fetchAccounts();
-        });
-    }
+    const updateSort = (field, direction) => {
+        // Change sort in the state and make a new request
+        // Reset the page number to 1
+        setOrder({ field, direction });
+        setPageNumber(1);
+    };
 
-    showColumns() {
-        const { year: fy } = this.props.latestPeriod;
-        const columns = [];
+    const showColumns = () => {
+        const { year: fy } = latestPeriod;
+        const columnsArray = [];
         const sortOrder = AccountsTableFields.defaultSortDirection;
 
         AccountsTableFields.order.forEach((col) => {
@@ -114,65 +67,23 @@ export class AccountLandingContainer extends React.Component {
                 displayName,
                 defaultDirection: sortOrder[col]
             };
-            columns.push(column);
+            columnsArray.push(column);
         });
 
-        this.setState({
-            columns
-        }, () => {
-            this.fetchAccounts();
-        });
-    }
+        setColumns(columnsArray);
+    };
 
-    fetchAccounts() {
-        if (this.accountsRequest) {
-            // a request is in-flight, cancel it
-            this.accountsRequest.cancel();
+    useEffect(() => {
+        if (latestPeriod.year) {
+            showColumns();
         }
 
-        this.setState({
-            inFlight: true,
-            error: false
-        });
-
-        // generate the params
-        const pageSize = 50;
-        const params = {
-            sort: this.state.order,
-            page: this.state.pageNumber,
-            limit: pageSize,
-            filters: {
-                fy: `${this.props.latestPeriod.year}`
-            }
+        return () => {
+            if (accountsRequest.current) accountsRequest.current.cancel();
         };
+    }, [latestPeriod.year]);
 
-        if (this.state.searchString) {
-            params.keyword = this.state.searchString;
-        }
-
-        this.accountsRequest = AccountLandingHelper.fetchAllAccounts(params);
-
-        this.accountsRequest.promise
-            .then((res) => {
-                this.setState({
-                    inFlight: false
-                });
-
-                this.parseAccounts(res.data);
-            })
-            .catch((err) => {
-                this.accountsRequest = null;
-                if (!isCancel(err)) {
-                    this.setState({
-                        inFlight: false,
-                        error: true
-                    });
-                    console.log(err);
-                }
-            });
-    }
-
-    parseAccounts(data) {
+    const parseAccounts = (data) => {
         const accounts = [];
 
         data.results.forEach((item) => {
@@ -181,36 +92,72 @@ export class AccountLandingContainer extends React.Component {
             accounts.push(account);
         });
 
-        this.setState({
-            totalItems: data.count,
-            results: accounts
-        });
-    }
+        setTotalItems(data.count);
+        setResults(accounts);
+    };
 
-    render() {
-        return (
-            <AccountLandingContent
-                results={this.state.results}
-                inFlight={this.state.inFlight}
-                error={this.state.error}
-                columns={this.state.columns}
-                order={this.state.order}
-                updateSort={this.updateSort}
-                searchString={this.state.searchString}
-                setAccountSearchString={this.setAccountSearchString}
-                onChangePage={this.onChangePage}
-                pageNumber={this.state.pageNumber}
-                totalItems={this.state.totalItems}
-                pageSize={this.state.pageSize} />
-        );
-    }
-}
+    const fetchAccounts = () => {
+        if (accountsRequest.current) {
+            // a request is in-flight, cancel it
+            accountsRequest.current.cancel();
+        }
 
-AccountLandingContainer.propTypes = {
-    submissionPeriods: SUBMISSION_PERIOD_PROPS,
-    latestPeriod: LATEST_PERIOD_PROPS
+        setInFlight(true);
+        setError(false);
+
+        // generate the params
+        const pageSize = 50;
+        const params = {
+            sort: order,
+            page: pageNumber,
+            limit: pageSize,
+            filters: {
+                fy: `${latestPeriod.year}`
+            }
+        };
+
+        if (searchString) {
+            params.keyword = searchString;
+        }
+
+        accountsRequest.current = fetchAllAccounts(params);
+
+        accountsRequest.current.promise
+            .then((res) => {
+                setInFlight(false);
+
+                parseAccounts(res.data);
+            })
+            .catch((err) => {
+                accountsRequest.current = null;
+                if (!isCancel(err)) {
+                    setInFlight(false);
+                    setError(true);
+                    console.log(err);
+                }
+            });
+    };
+
+    useEffect(() => {
+        fetchAccounts();
+    }, [pageNumber, searchString, order, columns]);
+
+    return (
+        <AccountLandingContent
+            results={results}
+            inFlight={inFlight}
+            error={error}
+            columns={columns}
+            order={order}
+            updateSort={updateSort}
+            searchString={searchString}
+            setAccountSearchString={setAccountSearchString}
+            onChangePage={onChangePage}
+            pageNumber={pageNumber}
+            totalItems={totalItems}
+            pageSize={pageSize} />
+    );
 };
 
-export default flowRight(
-    withLatestFy
-)(AccountLandingContainer);
+AccountLandingContainer.propTypes = { latestPeriod: LATEST_PERIOD_PROPS };
+export default flowRight(withLatestFy)(AccountLandingContainer);
