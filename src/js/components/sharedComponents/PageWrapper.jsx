@@ -1,10 +1,9 @@
- 
 /**
  * Page.jsx
  * Created by Max Kendall 04/23/2021
 */
 
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { PageHeader } from 'data-transparency-ui';
 
@@ -16,7 +15,6 @@ import InPageNav from 'components/sharedComponents/InPageNav';
 import { find } from "lodash-es";
 import { combineQueryParams, getQueryParamString } from "../../helpers/queryParams";
 import useQueryParams from "../../hooks/useQueryParams";
-import IsMobileContext from "../../context/IsMobileContext";
 import { stickyHeaderHeight } from "../../dataMapping/stickyHeader/stickyHeader";
 
 const jumpToSectionLocal = (section = '', pageName, sections, query) => {
@@ -67,30 +65,30 @@ const PageWrapper = ({
     loading
 }) => {
     const query = useQueryParams();
-    const { isMedium } = useContext(IsMobileContext);
-    const [activeSection, setActiveSection] = useState(query.section || 'overview');
-
-    useEffect(() => {
-        // ("passed section", pageName="state", sections="stateSections")
-
-        if (!loading && query.section) {
-            setActiveSection(jumpToSection(query.section, pageName, `${pageName}Sections`));
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query.section, loading, isMedium]);
+    const [activeSection] = useState(query.section || 'overview');
 
     return (
         <div className={classNames} ref={ref}>
             <MetaTags {...metaTagProps} />
             <Header />
-            {noHeader ? null : <><PageHeader
-                title={title}
-                stickyBreakPoint={getStickyBreakPointForSidebar()}
-                overLine={overLine}
-                toolBar={toolBarComponents}
-                pageName={pageName}
-                backgroundColor={backgroundColor} />
-            {sections && inPageNav && <InPageNav sections={sections} loading={loading} activeSection={activeSection} pageName={pageName} rootMargin={rootMargin} detectActiveSection jumpToSection={jumpToSection} />}
+            {noHeader ? null : <>
+                <PageHeader
+                    title={title}
+                    stickyBreakPoint={getStickyBreakPointForSidebar()}
+                    overLine={overLine}
+                    toolBar={toolBarComponents}
+                    pageName={pageName}
+                    backgroundColor={backgroundColor} />
+                { sections && inPageNav &&
+                    <InPageNav
+                        sections={sections}
+                        loading={loading}
+                        activeSection={activeSection}
+                        pageName={pageName}
+                        rootMargin={rootMargin}
+                        detectActiveSection
+                        jumpToSection={jumpToSection} />
+                }
             </>}
             {React.cloneElement(children, {
                 className: `usda-page__container${

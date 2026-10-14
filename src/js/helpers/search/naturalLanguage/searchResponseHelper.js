@@ -60,21 +60,17 @@ export const buildResponseState = (data = []) => {
 
         const itemIndex = state.items.findIndex(
             (existingItem) => existingItem.toolId === toolId 
-                && message === undefined 
         );
     
-        // Tool complete/error updates the existing item when the
-        // message is not included
+        // Tool complete/error updates the existing item's variant and icon
+        // It keeps the previous label
         if (itemIndex !== -1) {
             state.items[itemIndex] = {
                 ...state.items[itemIndex],
-                ...item
+                variant: item.variant,
+                icon: item.icon
             };
         }
-        else {
-            state.items.push(item);
-        }
-    });
-    
+    });    
     return state;
 }

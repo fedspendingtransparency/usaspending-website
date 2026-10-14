@@ -14,7 +14,7 @@ import ProfileBackLink from 'components/sharedComponents/ProfileBackLink';
 import StateOverview from "features/state/overview/StateOverview";
 import StateTimeVisualizationSectionContainer from
     "features/state/transactionsOverTime/StateTimeVisualizationSectionContainer";
-import { setStateFiscalYear, setStateCenter } from "redux/actions/state/stateActions";
+import { setStateCenter } from "redux/actions/state/stateActions";
 import { stateCenterFromFips } from 'helpers/mapHelper';
 
 import StateFooter from "./StateFooter";
@@ -34,16 +34,13 @@ const StatePageContainer = () => {
     const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
     const agencyData = { agencySlugs, slugsLoading, slugsError };
 
-    const { isLoading, error
-    } = useFetchOverview(stateId, fy);
+    const { isLoading, error } = useFetchOverview(stateId, fy);
 
     useEffect(() => {
-        // Reset the FY
-        dispatch(setStateFiscalYear(fy));
         // Update the map center
         const center = stateCenterFromFips(stateId);
         dispatch(setStateCenter(center));
-    }, [fy, stateId, dispatch]);
+    }, [stateId, dispatch]);
 
     let content = (
         <FlexGridRow className="state-content-wrapper">

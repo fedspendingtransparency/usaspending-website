@@ -72,6 +72,9 @@ module.exports = merge(common, {
                     : JSON.stringify("https://api.usaspending.gov/api/"),
                 MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
                     ? JSON.stringify(process.env.MAPBOX_TOKEN)
+                    : JSON.stringify(""),
+                X_LLM_API_KEY: process.env.X_LLM_API_KEY
+                    ? JSON.stringify(process.env.X_LLM_API_KEY)
                     : JSON.stringify("")
             }
         })

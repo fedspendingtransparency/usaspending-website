@@ -36,10 +36,20 @@ export const createApiParams = (stateCode, period) => {
 
 const acceptableChars = "abcdefghijklmnopqrstuvwxyz";
 
-export const URLifyStateName = (str) => str
+/**
+ * normalizeStateName
+ * Strips punctuation (e.g. the periods in "U.S. Virgin Islands") from a state name on a
+ * per-word basis, lowercasing it, so it can be compared against a URL slug that went through
+ * the same stripping. Keeps words space-separated.
+ * @param {string} str the state name
+ * @returns {string} the normalized, space-separated, lowercase name
+*/
+export const normalizeStateName = (str) => str
     ?.split(' ')
     .map((s) => s.split('').filter((s2) => acceptableChars.includes(s2.toLowerCase())).join('').toLowerCase())
-    .join('-');
+    .join(' ');
+
+export const URLifyStateName = (str) => normalizeStateName(str)?.split(' ').join('-');
 
 /**
  * parseStateDataFromUrl

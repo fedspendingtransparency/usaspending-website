@@ -53,24 +53,26 @@ const TreeNodes = ({
                                     </button>}
                                 {showCheckbox && <input
                                     type="checkbox"
+                                    id={`checkbox-${node.id}`}
                                     name={`checkbox-${node.id}`}
                                     disabled={disabled}
                                     checked={isChecked}
                                     ref={(el) => {
+                                        const refs = checkboxRefs.current;
                                         if (el) {
-                                            // eslint-disable-next-line no-param-reassign
-                                            checkboxRefs.current[node.id] = el;
+                                            refs[node.id] = el;
                                         }
                                         else {
-                                            // eslint-disable-next-line no-param-reassign
-                                            delete checkboxRefs.current[node.id];
+                                            delete refs[node.id];
                                         }
                                     }}
                                     onKeyDown={(e) => (e.key === "Enter" ? handleCheck(node.id, node.children || []) : "")}
                                     onChange={() => handleCheck(node.id, node.children || [])} />
                                 }
                             </div>
-                            {node.label}
+                            {showCheckbox
+                                ? <label htmlFor={`checkbox-${node.id}`}>{node.label}</label>
+                                : node.label}
                         </div>
                         <div className={`checkbox-tree-label__description ${isOpen ? 'open' : ''}`}>
                             {isOpen && renderNodes(node.children || [], depth)}

@@ -29,21 +29,26 @@ const TreeNodesWrapper = ({
     const [localChecked, setLocalChecked] = useState(checked);
     const [localExpanded, setLocalExpanded] = useState(expanded);
     const [localNodes, setLocalNodes] = useState(nodes);
+    const [prevChecked, setPrevChecked] = useState(checked);
+    const [prevExpanded, setPrevExpanded] = useState(expanded);
+    const [prevNodes, setPrevNodes] = useState(nodes);
     const checkboxRefs = useRef({});
 
-    useEffect(() => {
+    // Adjust local state during render when a prop changes, instead of syncing via useEffect.
+    if (nodes !== prevNodes) {
+        setPrevNodes(nodes);
         setLocalNodes(nodes);
-    }, [nodes]);
+    }
 
-    useEffect(() => {
+    if (expanded !== prevExpanded) {
+        setPrevExpanded(expanded);
         setLocalExpanded(expanded);
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [expanded]);
+    }
 
-    useEffect(() => {
+    if (checked !== prevChecked) {
+        setPrevChecked(checked);
         setLocalChecked(checked);
-        /* eslint-disable-next-line react-hooks/exhaustive-deps */
-    }, [checked]);
+    }
 
     const getIdOrValue = (node) => node.id || node.value;
 

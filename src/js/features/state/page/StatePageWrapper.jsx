@@ -1,17 +1,12 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
-import { find } from "lodash-es";
-import { useNavigate } from "react-router";
+import React, { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 
 import { statePageMetaTags } from "helpers/metaTagHelper";
-import { combineQueryParams, getQueryParamString } from "helpers/queryParams";
-import { stickyHeaderHeight } from "dataMapping/stickyHeader/stickyHeader";
-import useQueryParams from "hooks/useQueryParams";
 import { showModal } from "redux/actions/modal/modalActions";
-import IsMobileContext from "context/IsMobileContext";
 import PageWrapper from "components/sharedComponents/PageWrapper";
 import statePageToolbarComponents from "./statePageToolbarComponents";
+import useJumpToSection from "../../../hooks/useJumpToSection";
 
 const stateSections = [
     {
@@ -38,10 +33,6 @@ const propTypes = {
 const StatePageWrapper = ({
     stateProfile, children, handleFyChange, loading
 }) => {
-    const query = useQueryParams();
-    const history = useNavigate();
-    const { isMedium } = useContext(IsMobileContext);
-    const [activeSection, setActiveSection] = useState(query.section || 'overview');
     const dispatch = useDispatch();
 
     const { name, id } = stateProfile.overview;
@@ -54,38 +45,7 @@ const StatePageWrapper = ({
         dispatch(showModal(url));
     };
 
-    const jumpToSection = (section = '') => {
-        // we've been provided a section to jump to
-        // check if it's a valid section
-        const sectionObj = find(stateSections, ['section', section]);
-        if (!sectionObj) return;
-
-        // find the section in dom
-        const sectionDom = document.querySelector(`#state-${sectionObj.section}`);
-        if (!sectionDom) return;
-
-        // add section to url
-        const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history({
-            path: `${getQueryParamString(newQueryParams)}`
-        }, { replace: true });
-
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
-
-        window.scrollTo({
-            top: sectionTop - 55,
-            left: 0,
-            behavior: 'smooth'
-        });
-        setActiveSection(section);
-    };
-
-    useEffect(() => {
-        if (!loading && query.section) {
-            jumpToSection(query.section);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query.section, loading, isMedium]);
+    const jumpToSection = useJumpToSection("#state-", stateSections, loading);
 
     return (
         <PageWrapper
@@ -98,7 +58,6 @@ const StatePageWrapper = ({
                 stateProfile, handleFyChange, handleShareDispatch
             )}
             sections={stateSections}
-            activeSection={activeSection}
             jumpToSection={jumpToSection}
             loading={loading}
             inPageNav>

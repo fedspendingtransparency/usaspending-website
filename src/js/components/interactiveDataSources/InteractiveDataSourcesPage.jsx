@@ -1,18 +1,14 @@
 /* eslint-disable max-len */
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { useNavigate } from 'react-router';
-import { find } from 'lodash-es';
+import React, { useMemo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { ComingSoon, FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 
-import { combineQueryParams, getQueryParamString } from 'helpers/queryParams';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { interactiveDataSourcesPageMetaTags } from 'helpers/metaTagHelper';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import BannerPageHeader from "components/sharedComponents/header/BannerPageHeader";
 import InPageNav from 'components/sharedComponents/InPageNav';
 import { showModal } from 'redux/actions/modal/modalActions';
-import useQueryParams from "hooks/useQueryParams";
 import InteractiveDataSourcesSection from './InteractiveDataSourcesSection';
 import AboutSection from './sections/AboutSection';
 import IntroSection from './sections/IntroSection';
@@ -28,26 +24,23 @@ import DataSourceSystems from './scrollerSections/DataSourceSystems';
 import AccountData from './scrollerSections/AccountData';
 import AwardData from './scrollerSections/AwardData';
 import AdditionalData from './scrollerSections/AdditionalData';
+import useJumpToSection from "../../hooks/useJumpToSection";
 
 require('pages/interactiveDataSources/index.scss');
 
 const InteractiveDataSourcesPage = () => {
-    const [activeSection, setActiveSection] = useState('intro-section');
-    const query = useQueryParams();
-    const history = useNavigate();
     const dispatch = useDispatch();
-    const handleShareDispatch = (url) => {
-        dispatch(showModal(url));
-    };
 
-    const emailData = {
-        subject: "USAspending Data Sources",
-        body: "View a visualization of USAspending data sources on this interactive page: https://www.usaspending.gov/data-sources"
-    };
-
-    const handleShare = (name) => {
-        handleShareOptionClick(name, `data-sources`, emailData, handleShareDispatch);
-    };
+    const handleShare = useCallback((name) => {
+        handleShareOptionClick(
+            name,
+            `data-sources`,
+            {
+                subject: "USAspending Data Sources",
+                body: "View a visualization of USAspending data sources on this interactive page: https://www.usaspending.gov/data-sources"
+            },
+            (url) => dispatch(showModal(url)));
+    }, [dispatch]);
 
     const sections = useMemo(() => [
         {
@@ -148,50 +141,9 @@ const InteractiveDataSourcesPage = () => {
             scroller: true,
             component: <DataUseCases title="Use Cases" subtitle="What can I do with the data on USAspending.gov?" />
         }
-    ], []);
+    ], [handleShare]);
 
-    // eslint-disable-next-line react-hooks/preserve-manual-memoization
-    const jumpToSection = useCallback((section = '') => {  
-
-        // we've been provided a section to jump to
-        // check if it's a valid section
-        const sectionObj = find(sections, ['section', section]);
-        if (!sectionObj) return;
-
-        // find the section in dom
-        const sectionDom = document.querySelector(`#interactive-data-sources-${sectionObj.section}`);
-        if (!sectionDom) return;
-        // add section to url
-        const newQueryParams = combineQueryParams(query, { section: `${section}` });
-        history(`${getQueryParamString(newQueryParams)}`, { replace: true });
-
-        setActiveSection(section);
-        const sectionTop = sectionDom.offsetTop;
-        window.scrollTo({
-            top: sectionTop + 300,
-            left: 0,
-            behavior: 'smooth'
-        });
-    }, [history, query, sections]);
-
-
-    useEffect(() => {
-        // prevents a console error about react unmounted component leak
-        let isMounted = true;
-        if (isMounted) {
-            const urlSection = query.section;
-            if (urlSection) {
-                // eslint-disable-next-line react-hooks/set-state-in-effect
-                setActiveSection(urlSection);
-                setTimeout(() => jumpToSection(urlSection), 100);
-            }
-        }
-        return () => {
-            isMounted = false;
-        };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [query.section]);
-
+    const jumpToSection = useJumpToSection("#interactive-data-sources-", sections, false, -300);
 
     return (
         <PageWrapper
@@ -210,7 +162,7 @@ const InteractiveDataSourcesPage = () => {
                     secondaryColor="#0076D6" />
                 <InPageNav
                     sections={sections}
-                    activeSection={activeSection}
+                    activeSection={'intro-section'}
                     pageName="interactive-data-sources"
                     detectActiveSection
                     jumpToSection={jumpToSection} />

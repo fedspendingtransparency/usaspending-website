@@ -47,6 +47,7 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
+
         // new BundleAnalyzerPlugin(), // Webpack bundle volume analysis
         new webpack.DefinePlugin({
             'process.env': {
@@ -55,6 +56,9 @@ module.exports = merge(common, {
                     : JSON.stringify("https://api.usaspending.gov/api/"),
                 MAPBOX_TOKEN: process.env.MAPBOX_TOKEN
                     ? JSON.stringify(process.env.MAPBOX_TOKEN)
+                    : JSON.stringify(""),
+                X_LLM_API_KEY: process.env.X_LLM_API_KEY
+                    ? JSON.stringify(process.env.X_LLM_API_KEY)
                     : JSON.stringify("")
             }
         })

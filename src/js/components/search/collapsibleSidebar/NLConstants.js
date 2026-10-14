@@ -1,3 +1,5 @@
+export const NL_INPUT_MAX_CHARS = 500;
+
 export const RESPONSE_TYPE = {
     SEARCH_START: 'search_start',
     SEARCH_COMPLETE: 'search_complete',
