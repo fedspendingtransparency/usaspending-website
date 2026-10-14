@@ -130,7 +130,8 @@ const AccordionCheckboxPrimary = ({
     return (
         <div className="checkbox-filter__wrapper">
             <div className="checkbox-filter__header accordion-checkbox">
-                <div className="checkbox-filter__header-icon">
+                <div className="checkbox-filter__header-icon" 
+                    style={{ visibility: !category.singleitem ? 'visible' : 'hidden'}}>
                     <CheckboxChevron
                         category={category}
                         toggleExpanded={toggleExpanded}
@@ -149,7 +150,8 @@ const AccordionCheckboxPrimary = ({
                     <span className="checkbox-filter__header-label accordion-checkbox">
                         {replaceString(category.name, searchString, 'highlight')}
                     </span>
-                    <span className="checkbox-filter__header-count">
+                    <span className="checkbox-filter__header-count"
+                        style={{ visibility: !category.singleitem ? 'visible' : 'hidden'}}>
                         {count}{' '}
                         {count === 1 ? 'type' : 'types'}
                     </span>

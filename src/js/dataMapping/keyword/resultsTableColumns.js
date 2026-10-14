@@ -36,6 +36,16 @@ const grantColumns = [
     { title: 'Award Type' }
 ];
 
+const coopColumns = [
+    { title: 'Award ID' },
+    { title: 'Mod' },
+    { title: 'Recipient Name' },
+    { title: 'Action Date' },
+    { title: 'Transaction Amount' },
+    { title: 'Awarding Agency' },
+    { title: 'Awarding Sub Agency' },
+    { title: 'Award Type' }
+];
 const loanColumns = [
     { title: 'Award ID' },
     { title: 'Mod' },
@@ -75,6 +85,7 @@ export const availableColumns = (type) => {
         contracts: contractColumns,
         idvs: idvColumns,
         grants: grantColumns,
+        cooperative_agreement: coopColumns,
         direct_payments: directPaymentColumns,
         loans: loanColumns,
         other: otherColumns
@@ -88,6 +99,7 @@ export const defaultSort = (type) => {
         contracts: 'Transaction Amount',
         idvs: 'Award Amount',
         grants: 'Transaction Amount',
+        cooperative_agreement: 'Transaction Amount',
         direct_payments: 'Transaction Amount',
         loans: 'Loan Value',
         other: 'Transaction Amount'

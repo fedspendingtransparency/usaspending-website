@@ -12,7 +12,7 @@ const expandCheckboxCategoryAccordions = (filterCategoryMapping, selectedFilters
     const toExpand = [];
     filterCategoryMapping?.forEach((category) => {
         category?.filters?.forEach((type) => {
-            if (selectedFilters?.has(type)) {
+            if (selectedFilters?.has(type) && !category?.singleitem ){
                 toExpand.push(category.id);
             }
         });
@@ -60,10 +60,14 @@ const AccordionCheckbox = ({
     const toggleExpanded = (category) => {
         const containsId = expandedCategories?.indexOf(category.id);
         if (containsId <= -1) {
-            setExpandedCategories([...expandedCategories, category.id]);
+            if (!category.singleitem) {
+                setExpandedCategories([...expandedCategories, category.id]);
+            }
         }
         else {
-            setExpandedCategories(expandedCategories.filter((item) => item !== category.id));
+            if (!category.singleitem) {
+                setExpandedCategories(expandedCategories.filter((item) => item !== category.id));
+            }
         }
     };
 
