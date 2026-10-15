@@ -106,7 +106,7 @@ const NLSidebarContent = ({
                 </div>   
             ) : (
                 <div className="sidebar-nl-container">
-                    <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started. <button className="sidebar-nl-tutorial-start" onClick={handleStartTutorial}>Begin Tutorial</button></p>
+                    <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started. <button className="sidebar-nl-tutorial-start" onClick={handleStartTutorial}>Begin tutorial</button></p>
                     <div id="animated-tour-step3" className="sidebar-body-row">
                         <span className="sidebar-example">Example Prompts: </span>
                         <NLDefaultHint onClick={hintOnClick} hint={<p>What schools in <span tabIndex={-1} className="hint-user-replace">[county, state]</span> receive the most money in federal funding?</p>} />
