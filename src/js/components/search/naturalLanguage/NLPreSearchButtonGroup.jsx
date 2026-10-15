@@ -17,6 +17,7 @@ import { combineQueryParams, getQueryParamString } from "../../../helpers/queryP
 import useQueryParams from "../../../hooks/useQueryParams";
 import useFireQueryEvent from "../../../hooks/useFireQueryEvent";
 import useIsMobile from "../../../hooks/useIsMobile";
+import { useState, useRef } from "react";
 const propTypes = {
     source: PropTypes.string
 }
@@ -31,6 +32,18 @@ const NLPreSearchButtonGroup = ({source = ""}) => {
     const query = useQueryParams();
     const fireQueryEvent = useFireQueryEvent();
     const { isMedium } = useIsMobile();
+    const [isScrolled, setIsScrolled] = useState(false);
+    const preSearchContainerRef = useRef(null);
+
+    const handleScroll = (event) => {
+        const { scrollTop } = event.currentTarget;
+        setIsScrolled(scrollTop > 0);
+    };
+
+    const handleScrollHintClick = () => {
+        const row = preSearchContainerRef.current?.querySelector('.homepage-pre-search__row');
+        row?.scrollBy({ top: row.clientHeight, behavior: 'smooth' });
+    };
 
     const fireSearchEvent = (filterValue) => {
         fireQueryEvent();
@@ -88,13 +101,13 @@ const NLPreSearchButtonGroup = ({source = ""}) => {
 
     return (
         <div className="homepage-pre-search">
-            <div className="homepage-pre-search__container">
+            <div className="homepage-pre-search__container" ref={preSearchContainerRef}>
                 <div className="homepage-pre-search__headline">What people are searching</div>
                 <div className="homepage-pre-search__subText">
                     Get the data breakdown on popular searches about government spending.
                 </div>
                 { isMedium ? (
-                    <FlexGridRow className="homepage-pre-search__row" hasGutter>
+                    <FlexGridRow className="homepage-pre-search__row" hasGutter onScroll={handleScroll}>
                         {preSearchOptions.map((btn) => (
                             <FlexGridCol
                                 key={`homepage-pre-search-${btn.id}`}
@@ -179,6 +192,16 @@ const NLPreSearchButtonGroup = ({source = ""}) => {
                             </button>
                         </FlexGridCol>
                     </FlexGridRow>
+                )}
+
+                {isMedium && !isScrolled && (
+                    <button
+                        type="button"
+                        aria-label="Next"
+                        className="homepage-pre-search__scroll-hint"
+                        onClick={handleScrollHintClick}>
+                        <FontAwesomeIcon icon="angle-double-down" />
+                    </button>
                 )}
             </div>
         </div>

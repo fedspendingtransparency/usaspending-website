@@ -113,7 +113,9 @@
             flex-wrap: wrap;
             row-gap: rem(16);
             align-self: stretch;
-            overflow-x: auto;
+            flex: 1 1 auto;
+            min-height: 0;
+            overflow-y: auto;
             /* Hide scrollbar for Firefox */
             scrollbar-width: none;
 
@@ -130,6 +132,23 @@
         /* Hide scrollbar for Chrome, Safari, and Opera */
         .homepage-pre-search__row::-webkit-scrollbar {
             display: none;
+        }
+
+        .homepage-pre-search__scroll-hint {
+            @include button-unstyled;
+            display: flex;
+            align-self: center;
+            height: rem(16);
+            width: rem(16);
+            border: none;
+            cursor: pointer;
+            margin-top: rem(16);
+
+            svg {
+                width: rem(16);
+                height: rem(16);
+                color: $cyan-10v;
+            }
         }
 
         .card-container {
