@@ -770,7 +770,7 @@ export const preSearchOptions = [
     {
         id: "nl-8",
         title:"Disaster Relief",
-        text: (<>Tax dollars spent on <strong>contracts</strong></>),
+        text: (<>Spending on <strong>COVID-19 response</strong></>),
         action: (callback) => {
             const filterValue = {
                 filters: {
