@@ -89,13 +89,13 @@
   .button-icon-container {
     display: flex;
     color: $blue-60v;
-    
+
     .button-icon {
       width: rem(12);
       height: rem(12);
     }
   }
-  
+
   button:focus {
     box-shadow: none;
   }

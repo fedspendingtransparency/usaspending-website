@@ -44,16 +44,16 @@
 }
 
 .usa-da-state-page .usda-page-header .usda-page-header__container {
-   @media (min-width: $large-screen) {
-      height: rem(80) !important;
-   }
+  @media (min-width: $large-screen) {
+    height: rem(80) !important;
+  }
 }
 
 .usa-da-state-page .usda-page-header h1 {
   @include profile-page-h1;
 }
 
-.usa-da-recipient-landing .usda-page-header .usda-page-header__title h1  {
+.usa-da-recipient-landing .usda-page-header .usda-page-header__title h1 {
   @include profile-page-h1;
 }
 
