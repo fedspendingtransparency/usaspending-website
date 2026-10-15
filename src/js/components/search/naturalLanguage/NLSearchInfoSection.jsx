@@ -11,10 +11,14 @@ import Accordion from '../../sharedComponents/accordion/Accordion';
 require("pages/search/naturalLanguage/searchInfoPage.scss");
 
 const propTypes = {
-    section: PropTypes.object
+    section: PropTypes.object,
+    toggleAll: PropTypes.shape({
+        trigger: PropTypes.number,
+        expand: PropTypes.bool
+    })
 }
 
-const NLSearchInfoSection = ({ section }) => {
+const NLSearchInfoSection = ({ section, toggleAll }) => {
 
     return (
         <div className="search-info-page-section">
@@ -45,7 +49,8 @@ const NLSearchInfoSection = ({ section }) => {
                             aria-expanded="false"
                             // eslint-disable-next-line react/no-array-index-key
                             key={`item-${i}`}
-                            title={item.title}>
+                            title={item.title}
+                            toggleAll={toggleAll}>
                             {item.content}
                         </Accordion>
                     ))}

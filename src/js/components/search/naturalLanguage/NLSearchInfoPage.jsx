@@ -3,7 +3,7 @@
  * Created by Trey Morgan 09/24/2026
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PageWrapper from "../../sharedComponents/PageWrapper";
 import BannerPageHeader from '../../sharedComponents/header/BannerPageHeader';
 import { smartAssistPageMetaTags } from '../../../helpers/metaTagHelper';
@@ -11,8 +11,9 @@ import smartAssistGraphic from '../../../../img/smart-assist-graphic.png';
 import { smartAssistContent } from '../naturalLanguage/NLData';
 import NLSearchInfoSection from './NLSearchInfoSection';
 import NLSearchInfoResources from './NLSearchInfoResources';
-import { FlexGridCol} from 'data-transparency-ui';
+import { FlexGridCol, Button} from 'data-transparency-ui';
 import ShareDownloadButtonGroup from '../../sharedComponents/buttons/ShareDownloadButtonGroup';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, A11y, FreeMode } from 'swiper/modules';
@@ -30,6 +31,13 @@ const graphicLabel = (
 const { overview, search, results, limitations, feedback } = smartAssistContent ?? {};
 
 const NLSearchInfoPage = () => {
+    const [toggleAllAccordions, setToggleAllAccordions] = useState({ trigger: 0, expand: false });
+    const { expand } = toggleAllAccordions;
+
+    const handleToggleAll = () => {
+        setToggleAllAccordions((prev) => ({ trigger: prev.trigger + 1, expand: !prev.expand }));
+    };
+
     return (
         <PageWrapper
             pageName="smart-assist"
@@ -77,12 +85,30 @@ const NLSearchInfoPage = () => {
                         </Swiper>
                     </div>
                 </section>
+                <FlexGridCol className="search-info-page__expand-all-btn">
+                    <Button
+                        copy={expand ? 'Collapse All':  'Expand All'}
+                        onClick={handleToggleAll}
+                        buttonTitle={expand ? 'Collapse All': 'Expand All'}
+                        buttonSize="md"
+                        buttonType="text"
+                        backgroundColor="light"
+                        textAlignment="center"
+                        imageAlignment="left"
+                        image={
+                            <div className="button-icon-container">
+                                <FontAwesomeIcon
+                                    className="button-icon"
+                                    icon={expand ? 'minus': 'plus'} />
+                            </div>
+                        }/>
+                </FlexGridCol>
                 <section className="search-info-page__content-section">
-                    <NLSearchInfoSection section={ overview } />
-                    <NLSearchInfoSection section={ search } />
-                    <NLSearchInfoSection section={ results } />
-                    <NLSearchInfoSection section={ limitations } />
-                    <NLSearchInfoSection section={ feedback } />
+                    <NLSearchInfoSection section={ overview } toggleAll={toggleAllAccordions} />
+                    <NLSearchInfoSection section={ search } toggleAll={toggleAllAccordions} />
+                    <NLSearchInfoSection section={ results } toggleAll={toggleAllAccordions} />
+                    <NLSearchInfoSection section={ limitations } toggleAll={toggleAllAccordions} />
+                    <NLSearchInfoSection section={ feedback } toggleAll={toggleAllAccordions} />
                 </section>
                 <NLSearchInfoResources />     
             </main>

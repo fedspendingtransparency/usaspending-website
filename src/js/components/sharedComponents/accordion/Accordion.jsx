@@ -20,7 +20,11 @@ const propTypes = {
     selectedChipCount: PropTypes.number,
     headingClassName: PropTypes.string,
     faClassName: PropTypes.string,
-    containerClassName: PropTypes.string
+    containerClassName: PropTypes.string,
+    toggleAll: PropTypes.shape({
+        trigger: PropTypes.number,
+        expand: PropTypes.bool
+    })
 };
 
 const Accordion = ({
@@ -35,10 +39,19 @@ const Accordion = ({
     selectedChipCount = 0,
     headingClassName = '',
     containerClassName = '',
-    faClassName = ''
+    faClassName = '',
+    toggleAll = { trigger: 0, expand: false }
 
 }) => {
     const [closed, setClosed] = useState(!openObject);
+    const [prevToggleAll, setPrevToggleAll] = useState(toggleAll.trigger);
+
+    if (toggleAll.trigger !== prevToggleAll) {
+        setPrevToggleAll(toggleAll.trigger);
+        if (toggleAll.trigger > 0) {
+            setClosed(!toggleAll.expand);
+        }
+    }
 
     const sectionClassName = !closed ? `open accordion--open accordion` : `accordion`;
     const buttonAriaLabel = closed ? 'Open toggle' : 'Close toggle';
