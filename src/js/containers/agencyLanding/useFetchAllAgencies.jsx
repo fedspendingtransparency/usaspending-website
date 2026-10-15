@@ -2,10 +2,11 @@ import { useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Search } from 'js-search';
 import { useSelector } from 'react-redux';
+import { orderBy } from 'lodash-es';
+
 import { fetchAllAgencies } from '../../helpers/agencyLandingHelper';
 import { formatMoneyWithPrecision } from '../../helpers/moneyFormatter';
 import { sanitizeUrl } from '../../helpers/url';
-import { orderBy } from 'lodash-es';
 
 const useFetchAllAgencies = (searchString = '') => {
     const { field, direction } = useSelector((state) => state.agencyLanding.agenciesOrder);
@@ -33,18 +34,18 @@ const useFetchAllAgencies = (searchString = '') => {
                 percent = 'Less than 0.01%';
             }
 
-            let abbreviation = '';
+            let agencyName = item.agency_name;
             if (item.abbreviation !== null && item.abbreviation !== '') {
-                abbreviation = `(${item.abbreviation})`;
+                agencyName = `${item.agency_name} (${item.abbreviation})`;
             }
 
             const agency = {
                 agency_id: item.agency_slug || item.agency_id,
-                agency_name: `${item.agency_name} ${abbreviation}`,
+                agency_name: agencyName,
                 budget_authority_amount: item.budget_authority_amount,
                 percentage_of_total_budget_authority: item.percentage_of_total_budget_authority,
                 display: {
-                    agency_name: `${item.agency_name} (${item.abbreviation})`,
+                    agency_name: agencyName,
                     budget_authority_amount: formattedCurrency,
                     percentage_of_total_budget_authority: percent,
                     congressional_justification_url: sanitizeUrl(item.congressional_justification_url) ||
