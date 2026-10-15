@@ -3,149 +3,130 @@
  * Created by Kevin Li 5/23/18
  */
 
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { isCancel } from 'axios';
-
 import { Search } from 'js-search';
 import { orderBy } from 'lodash-es';
 
 import { fetchStateList } from 'apis/state';
 import BaseStateLandingItem from 'models/v2/state/BaseStateLandingItem';
-
 import StateLandingContent from 'components/stateLanding/StateLandingContent';
 
-export default class StateLandingContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const StateLandingContainer = () => {
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
+    const [total, setTotal] = useState(0);
+    const [searchString, setSearchString] = useState('');
+    const [sortField, setSortField] = useState('name');
+    const [sortDirection, setSortDirection] = useState('asc');
+    const [fullData, setFullData] = useState([]);
+    const [results, setResults] = useState([]);
 
-        this.state = {
-            loading: false,
-            error: false,
-            total: 0,
-            searchString: '',
-            sortField: 'name',
-            sortDirection: 'asc',
-            fullData: [],
-            results: []
-        };
+    const request = useRef(null);
 
-        this.request = null;
-    }
-
-    componentDidMount() {
-        this.loadData();
-    }
-
-    setSearchString = (input) => {
-        this.setState({
-            searchString: input
-        }, () => {
-            this.performSearch();
-        });
+    const setSort = (field, direction) => {
+        setSortField(field);
+        setSortDirection(direction);
     };
 
-    setSort = (field, direction) => {
-        this.setState({
-            sortField: field,
-            sortDirection: direction
-        }, () => {
-            this.performSearch();
-        });
-    };
-
-    loadData() {
-        if (this.request) {
+    const loadData = () => {
+        if (request.current) {
             // a request is in-flight, cancel it
-            this.request.cancel();
+            request.current.cancel();
         }
 
-        this.setState({
-            loading: true,
-            error: false
-        });
+        setLoading(true);
+        setError(false);
 
-        this.request = fetchStateList();
-        this.request.promise
+        request.current = fetchStateList();
+        request.current.promise
             .then((res) => {
-                this.parseData(res.data);
+                parseData(res.data);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
-                    this.setState({
-                        loading: false,
-                        error: true
-                    });
+                    setLoading(false);
+                    setError(true);
                     console.error(err);
                 }
             });
-    }
+    };
 
-    parseData(data) {
-        let total = 0;
+    const parseData = (data) => {
+        let totalLocal = 0;
         const parsed = data.map((state) => {
             const item = Object.create(BaseStateLandingItem);
             item.populate(state);
-            total += state.amount;
+            totalLocal += state.amount;
             return item;
         });
 
-        this.setState({
-            total,
-            loading: false,
-            error: false,
-            fullData: parsed
-        }, () => {
-            this.performSearch();
-        });
-    }
+        setTotal(totalLocal);
+        setLoading(false);
+        setError(false);
+        setFullData(parsed);
+    };
 
-    performSearch() {
-    // perform a local search
+    const performSearch = () => {
+        // perform a local search
         const search = new Search('fips');
         search.addIndex('name');
         search.addIndex('code');
-        search.addDocuments(this.state.fullData);
+        search.addDocuments(fullData);
 
         // return the full data set if no search string is provided
-        let results = this.state.fullData;
-        if (this.state.searchString) {
-            results = search.search(this.state.searchString);
+        let results = fullData;
+        if (searchString) {
+            results = search.search(searchString);
         }
 
         // now sort the results by the appropriate table column and direction
-        const sortedResults = orderBy(results,
-            [this.state.sortField], [this.state.sortDirection]);
+        const sortedResults = orderBy(results, [sortField], [sortDirection]);
 
         let orderedResults = sortedResults;
 
-        if (this.state.sortField === 'name') {
+        if (sortField === 'name') {
             // Separate states and territories
             const states = sortedResults.filter((result) => result.type === 'state' || result.type === 'district');
             const territories = sortedResults.filter((result) => result.type === 'territory');
             orderedResults = states.concat(territories);
-            if (this.state.sortDirection === 'desc') {
+            if (sortDirection === 'desc') {
                 orderedResults = territories.concat(states);
             }
         }
 
-        this.setState({
-            results: orderedResults
-        });
+        setResults(orderedResults);
+    };
+
+    const resultsCount = results.length;
+
+    let resultsText = `${resultsCount} results`;
+
+    if (resultsCount === 1) {
+        resultsText = `${resultsCount} result`;
     }
 
-    render() {
-        const resultsCount = this.state.results.length;
-        let resultsText = `${resultsCount} results`;
-        if (resultsCount === 1) {
-            resultsText = `${resultsCount} result`;
-        }
+    useEffect(() => {
+        performSearch();
+    }, [searchString, fullData, sortField, sortDirection]);
 
-        return (
-            <StateLandingContent
-                setSearchString={this.setSearchString}
-                setSort={this.setSort}
-                resultsText={resultsText}
-                {...this.state} />
-        );
-    }
-}
+    useEffect(() => {
+        loadData();
+    }, []);
+
+    return (
+        <StateLandingContent
+            setSearchString={setSearchString}
+            resultsText={resultsText}
+            setSort={setSort}
+            loading={loading}
+            error={error}
+            total={total}
+            results={results}
+            sortField={sortField}
+            sortDirection={sortDirection}
+            searchString={searchString} />
+    );
+};
+
+export default StateLandingContainer;
