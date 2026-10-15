@@ -6,7 +6,7 @@
 import { driver } from "driver.js";
 import "driver.js/dist/driver.css";
 
-const MOBILE_BREAKPOINT = 768;
+const MOBILE_BREAKPOINT = 992;
 const MOBILE_STEP3_WAIT_MS = 1000;
 const MOBILE_SCROLL_DELAY_MS = 400;
 const MOBILE_SCROLL_OFFSET = 200;
@@ -91,7 +91,6 @@ const animatedTour = driver({
     popoverClass: 'nl-theme',
     showProgress: true,
     doneBtnText: "Done",
-    skipMissingElement: true,
     steps: getStepsForScreenSize()
 });
 
