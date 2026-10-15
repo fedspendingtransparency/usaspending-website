@@ -56,11 +56,50 @@
             
             .homepage-pre-search__swiper-col {
                 min-width: 0;
+                position: relative;
+                padding: 0 rem(32);
+
+                .homepage-pre-search__nav-button {
+                    @include button-unstyled;
+                    position: absolute;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    z-index: 2;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: rem(16);
+                    width: rem(16);
+                    border: none;
+                    cursor: pointer;
+
+                    // &:hover {
+                    //     background-color: $gray-5;
+                    // }
+
+                    &.swiper-button-disabled {
+                        display: none;
+                    }
+
+                    svg {
+                        width: rem(16);
+                        height: rem(16);
+                        color: $cyan-10v;
+                    }
+                }
+
+                .homepage-pre-search__nav-button--prev {
+                    left: rem(0);
+                }
+
+                .homepage-pre-search__nav-button--next {
+                    right: rem(0);
+                }
             }
-            
+
             .homepage-pre-search__swiper {
                 min-width: 0;
-                
+
                 .swiper-slide {
                     display: flex;
                     width: rem(340) !important;

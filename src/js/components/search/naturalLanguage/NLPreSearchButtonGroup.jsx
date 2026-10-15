@@ -8,7 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { isCancel } from 'axios';
 import { FlexGridRow, FlexGridCol, CardContainer } from 'data-transparency-ui';
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Keyboard, A11y, Mousewheel } from 'swiper/modules';
+import { Keyboard, A11y, Mousewheel, Navigation } from 'swiper/modules';
 import PropTypes from "prop-types";
 import "swiper/css";
 import { preSearchOptionsToRemove, preSearchOptions } from "./NLData";
@@ -126,16 +126,25 @@ const NLPreSearchButtonGroup = ({source = ""}) => {
                 ) : (
                     <FlexGridRow className="homepage-pre-search__swiper-row">
                         <FlexGridCol desktop={12} tablet={6} className="homepage-pre-search__swiper-col">
+                            <button
+                                type="button"
+                                aria-label="Previous"
+                                className="homepage-pre-search__nav-button homepage-pre-search__nav-button--prev">
+                                <FontAwesomeIcon icon="angles-left" />
+                            </button>
                             <Swiper
                                 direction="horizontal"
                                 slidesPerView="auto"
                                 spaceBetween={16}
                                 mousewheel={true}
-                                loop={true}
+                                navigation={{
+                                    prevEl: '.homepage-pre-search__nav-button--prev',
+                                    nextEl: '.homepage-pre-search__nav-button--next'
+                                }}
                                 keyboard
                                 a11y
                                 grabCursor={true}
-                                modules={[Keyboard, A11y, Mousewheel]}
+                                modules={[Keyboard, A11y, Mousewheel, Navigation]}
                                 className="homepage-pre-search__swiper">
                                 {preSearchOptions.map((btn) => (
                                     <SwiperSlide
@@ -162,6 +171,12 @@ const NLPreSearchButtonGroup = ({source = ""}) => {
                                     </SwiperSlide>
                                 ))}
                             </Swiper>
+                            <button
+                                type="button"
+                                aria-label="Next"
+                                className="homepage-pre-search__nav-button homepage-pre-search__nav-button--next">
+                                <FontAwesomeIcon icon="angles-right" />
+                            </button>
                         </FlexGridCol>
                     </FlexGridRow>
                 )}
