@@ -3,7 +3,7 @@
  * Created by Trey Morgan 09/24/2026
  */
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PageWrapper from "../../sharedComponents/PageWrapper";
 import BannerPageHeader from '../../sharedComponents/header/BannerPageHeader';
 import { smartAssistPageMetaTags } from '../../../helpers/metaTagHelper';
@@ -32,10 +32,17 @@ const { overview, search, results, limitations, feedback } = smartAssistContent 
 
 const NLSearchInfoPage = () => {
     const [toggleAllAccordions, setToggleAllAccordions] = useState({ trigger: 0, expand: false });
-    const { expand } = toggleAllAccordions;
+    const [openAccordions, setOpenAccordions] = useState({});
+
+    const accordionIds = Object.keys(openAccordions);
+    const allExpanded = accordionIds.length > 0 && accordionIds.every((accordionId) => openAccordions[accordionId]);
+
+    const handleAccordionToggle = useCallback((id, isOpen) => {
+        setOpenAccordions((prev) => (prev[id] === isOpen ? prev : { ...prev, [id]: isOpen }));
+    }, []);
 
     const handleToggleAll = () => {
-        setToggleAllAccordions((prev) => ({ trigger: prev.trigger + 1, expand: !prev.expand }));
+        setToggleAllAccordions((prev) => ({ trigger: prev.trigger + 1, expand: !allExpanded }));
     };
 
     return (
@@ -87,9 +94,9 @@ const NLSearchInfoPage = () => {
                 </section>
                 <FlexGridCol className="search-info-page__expand-all-btn">
                     <Button
-                        copy={expand ? 'Collapse All':  'Expand All'}
+                        copy={allExpanded ? 'Collapse All' : 'Expand All'}
                         onClick={handleToggleAll}
-                        buttonTitle={expand ? 'Collapse All': 'Expand All'}
+                        buttonTitle={allExpanded ? 'Collapse All' : 'Expand All'}
                         buttonSize="md"
                         buttonType="text"
                         backgroundColor="light"
@@ -99,16 +106,36 @@ const NLSearchInfoPage = () => {
                             <div className="button-icon-container">
                                 <FontAwesomeIcon
                                     className="button-icon"
-                                    icon={expand ? 'minus': 'plus'} />
+                                    icon={allExpanded ? 'minus' : 'plus'} />
                             </div>
                         }/>
                 </FlexGridCol>
                 <section className="search-info-page__content-section">
-                    <NLSearchInfoSection section={ overview } toggleAll={toggleAllAccordions} />
-                    <NLSearchInfoSection section={ search } toggleAll={toggleAllAccordions} />
-                    <NLSearchInfoSection section={ results } toggleAll={toggleAllAccordions} />
-                    <NLSearchInfoSection section={ limitations } toggleAll={toggleAllAccordions} />
-                    <NLSearchInfoSection section={ feedback } toggleAll={toggleAllAccordions} />
+                    <NLSearchInfoSection
+                        section={ overview }
+                        sectionKey="overview"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
+                    <NLSearchInfoSection
+                        section={ search }
+                        sectionKey="search"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
+                    <NLSearchInfoSection
+                        section={ results }
+                        sectionKey="results"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
+                    <NLSearchInfoSection
+                        section={ limitations }
+                        sectionKey="limitations"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
+                    <NLSearchInfoSection
+                        section={ feedback }
+                        sectionKey="feedback"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
                 </section>
                 <NLSearchInfoResources />     
             </main>

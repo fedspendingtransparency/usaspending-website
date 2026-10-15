@@ -15,10 +15,12 @@ const propTypes = {
     toggleAll: PropTypes.shape({
         trigger: PropTypes.number,
         expand: PropTypes.bool
-    })
+    }),
+    sectionKey: PropTypes.string,
+    onToggle: PropTypes.func
 }
 
-const NLSearchInfoSection = ({ section, toggleAll }) => {
+const NLSearchInfoSection = ({ section, toggleAll, sectionKey, onToggle }) => {
 
     return (
         <div className="search-info-page-section">
@@ -49,8 +51,10 @@ const NLSearchInfoSection = ({ section, toggleAll }) => {
                             aria-expanded="false"
                             // eslint-disable-next-line react/no-array-index-key
                             key={`item-${i}`}
+                            accordionId={`${sectionKey}-${i}`}
                             title={item.title}
-                            toggleAll={toggleAll}>
+                            toggleAll={toggleAll}
+                            onToggle={onToggle}>
                             {item.content}
                         </Accordion>
                     ))}

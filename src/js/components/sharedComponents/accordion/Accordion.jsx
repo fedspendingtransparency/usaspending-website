@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../_scss/elements/_accordion.scss';
@@ -24,7 +24,9 @@ const propTypes = {
     toggleAll: PropTypes.shape({
         trigger: PropTypes.number,
         expand: PropTypes.bool
-    })
+    }),
+    accordionId: PropTypes.string,
+    onToggle: PropTypes.func
 };
 
 const Accordion = ({
@@ -40,7 +42,9 @@ const Accordion = ({
     headingClassName = '',
     containerClassName = '',
     faClassName = '',
-    toggleAll = { trigger: 0, expand: false }
+    toggleAll = { trigger: 0, expand: false },
+    accordionId = '',
+    onToggle = () => {}
 
 }) => {
     const [closed, setClosed] = useState(!openObject);
@@ -52,6 +56,10 @@ const Accordion = ({
             setClosed(!toggleAll.expand);
         }
     }
+
+    useEffect(() => {
+        onToggle(accordionId, !closed);
+    }, [closed, accordionId, onToggle]);
 
     const sectionClassName = !closed ? `open accordion--open accordion` : `accordion`;
     const buttonAriaLabel = closed ? 'Open toggle' : 'Close toggle';
