@@ -132,7 +132,7 @@ const NLSearchGovSpending = ({ isFilters=false }) => {
                         label="Search government spending using AI"
                         icon="sparkles"/>
                 </div>
-                <div className="search-gov-spending__link">
+                <div id="animated-tour-step5" className="search-gov-spending__link">
                     <Button 
                         copy="Learn about Smart Assist"
                         onClick={handleSmartAssistClick}

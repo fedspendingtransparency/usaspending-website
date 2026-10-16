@@ -14,6 +14,7 @@ import { setIsSearchActive } from "../../../redux/actions/sidebar/sidebarActions
 import { buildResponseState } from "../../../helpers/search/naturalLanguage/searchResponseHelper";
 import { sanitizeNLInput } from "../../../helpers/search/naturalLanguage/sanitizeNLInput";
 import { NL_INPUT_MAX_CHARS } from "./NLConstants";
+import animatedTour from "./NLAnimatedTour";
 
 const propTypes = {
     hintOnClick: PropTypes.func,
@@ -86,6 +87,9 @@ const NLSidebarContent = ({
         setText(sanitizeNLInput(event.target.value).slice(0, MAX_CHARS));
     };
 
+    const handleStartTutorial = () => {
+        animatedTour.drive();
+    };
     return (
         <> 
             { isSearchActive ? (
@@ -102,8 +106,8 @@ const NLSidebarContent = ({
                 </div>   
             ) : (
                 <div className="sidebar-nl-container">
-                    <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p>
-                    <div className="sidebar-body-row">
+                    <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started. <button className="sidebar-nl-tutorial-start" onClick={handleStartTutorial}>Begin tutorial</button></p>
+                    <div id="animated-tour-step3" className="sidebar-body-row">
                         <span className="sidebar-example">Example Prompts: </span>
                         <NLDefaultHint onClick={hintOnClick} hint={<p>What schools in <span tabIndex={-1} className="hint-user-replace">[county, state]</span> receive the most money in federal funding?</p>} />
                         <NLDefaultHint onClick={hintOnClick} hint={<p>What programs received funding for veterans in <span tabIndex={-1} className="hint-user-replace">[state]</span> during <span tabIndex={-1} className="hint-user-replace">[time period]</span>?</p>} />
@@ -112,6 +116,7 @@ const NLSidebarContent = ({
                     <div className="sidebar-body-row">
                         <textarea
                             onChange={handleInput}
+                            id="animated-tour-step2"
                             name="smart-assist-input"
                             spellCheck
                             className="sidebar-textarea"
