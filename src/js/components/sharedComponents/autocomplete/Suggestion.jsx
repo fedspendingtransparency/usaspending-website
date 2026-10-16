@@ -80,15 +80,15 @@ const Suggestion = ({
     /* eslint-disable jsx-a11y/role-supports-aria-props */
         <>
             {isNewHeading() && category &&
-                <li className="autocomplete-heading">{locationDropdown[category]}</li>
-            }
+                <li className="autocomplete-heading">{locationDropdown[category]}</li>}
             <li
                 id={id}
                 tabIndex={-1}
                 aria-selected={selected}
                 role="option"
                 ref={suggestion}>
-                <span key={id}>{boldedText(title, matchingString)}</span><br />
+                <span key={id}>{boldedText(title, matchingString)}</span>
+                <br />
                 {boldedText(subtitle, matchingString)}
             </li>
         </>

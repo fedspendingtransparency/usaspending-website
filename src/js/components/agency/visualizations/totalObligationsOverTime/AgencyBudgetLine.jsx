@@ -81,16 +81,20 @@ const AgencyBudgetLine = ({
     return (
         <g
             onMouseEnter={() => {
-                setHoveredRectangle(true); toggleTooltipVisibility(true);
+                setHoveredRectangle(true);
+                toggleTooltipVisibility(true);
             }}
             onMouseLeave={() => {
-                setHoveredRectangle(false); toggleTooltipVisibility(false);
+                setHoveredRectangle(false);
+                toggleTooltipVisibility(false);
             }}
             onFocus={() => {
-                setHoveredRectangle(true); toggleTooltipVisibility(true);
+                setHoveredRectangle(true);
+                toggleTooltipVisibility(true);
             }}
             onBlur={() => {
-                setHoveredRectangle(false); toggleTooltipVisibility(false);
+                setHoveredRectangle(false);
+                toggleTooltipVisibility(false);
             }}
             className="bar-chart__item">
             <line

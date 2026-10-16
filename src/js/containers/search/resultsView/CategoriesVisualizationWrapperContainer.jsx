@@ -147,7 +147,7 @@ const CategoriesVisualizationWrapperContainer = ({
         recipientError = (
             get(error, 'response.data.detail', '') ===
             'Current filters return too many unique items. Narrow filters to return results.'
-        )
+        );
     }
 
     const childProps = {
@@ -221,7 +221,6 @@ const CategoriesVisualizationWrapperContainer = ({
         const prevPage = max([1, page - 1]);
         setPage(prevPage);
     }, [page]);
-
 
     useEffect(() => {
         dispatch(setAppliedFilterCompletion(true));

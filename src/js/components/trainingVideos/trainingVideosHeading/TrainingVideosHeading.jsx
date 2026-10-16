@@ -3,9 +3,7 @@
  * Created by Brian Petway 12/05/22
  */
 
-
 // Depricating 9/15/2025
-
 
 import React, { useState, useEffect } from 'react';
 import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';
@@ -61,7 +59,7 @@ const TrainingVideosHeading = () => {
                     desktop={6}
                     tablet={12}
                     mobile={12}>
-                    <div className="training-videos__column-two" >
+                    <div className="training-videos__column-two">
                         <div className="training-videos__column-two-container">
                             <div className="training-videos__column-two-title">RESOURCES</div>
                             <div className="training-videos__column-two-header">Training Videos</div>

@@ -96,7 +96,7 @@ export const columnTooltips = {
             Agency Comments are optional and provided by agencies at the time they submit their data to USAspending.gov in the required dataset formats (File A, B, C, D1, and D2). For more information about the DATA Act reporting flow, visit <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/files/data-transparency/gsdm-information-flow-diagram.pdf">https://fiscal.treasury.gov/files/data-transparency/gsdm-information-flow-diagram.pdf</a>
         </p>
     ),
-    percentOfBudgetSubmissions: (
+    "percentOfBudgetSubmissions": (
         <>
             <p>
                 This is an agency&apos;s total budgetary resources for the fiscal year through the selected period as a portion of all agency budgetary resources to-date.
@@ -106,7 +106,7 @@ export const columnTooltips = {
             </p>
         </>
     ),
-    percentOfBudgetPublications: (
+    "percentOfBudgetPublications": (
         <>
             <p>
                 This is an agency&apos;s total budgetary resources for the most recent period of the selected fiscal year as a portion of all agency budgetary resources to-date.

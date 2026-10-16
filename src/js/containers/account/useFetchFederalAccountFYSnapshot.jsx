@@ -1,14 +1,14 @@
-import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fiscalYearSnapshotFields } from "../../dataMapping/accounts/accountFields";
-import { fetchFederalAccountFYSnapshot } from "../../apis/account";
+import { useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { fiscalYearSnapshotFields } from '../../dataMapping/accounts/accountFields';
+import { fetchFederalAccountFYSnapshot } from '../../apis/account';
 
 const useFetchFederalAccountFYSnapshot = (account, year) => {
     const { data, isLoading } = useQuery({
         queryKey: ['fetchFederalAccountFYSnapshot', account.id, year],
         queryFn: () => fetchFederalAccountFYSnapshot(account.id, year).promise,
         enabled: !!year && !!account
-    })
+    });
 
     const response = useMemo(() => {
         if (!data) return;
@@ -29,7 +29,7 @@ const useFetchFederalAccountFYSnapshot = (account, year) => {
         return { ...account, totals: balances };
     }, [account, data]);
 
-    return { response, isLoading }
-}
+    return { response, isLoading };
+};
 
 export default useFetchFederalAccountFYSnapshot;

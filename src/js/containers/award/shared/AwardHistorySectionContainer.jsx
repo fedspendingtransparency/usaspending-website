@@ -25,9 +25,9 @@ const AwardHistory = ({
     const [tabOptions, setTabOptions] = useState([]);
     const requestRef = useRef(null);
 
-    const sectionTitle = (overview.category === 'idv')
-        ? "Award History for this IDV"
-        : "Award History";
+    const sectionTitle = (overview.category === 'idv') ?
+        "Award History for this IDV" :
+        "Award History";
 
     const setTableTabsAndGetCounts = (award = overview) => {
         if (requestRef.current) {

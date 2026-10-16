@@ -92,7 +92,8 @@ const HomepageResources = () => {
             text: 'Learn about spending terms',
             buttonText: (
                 <div className="homepage-resources__link-container">
-                    <div>View the glossary&nbsp;&nbsp;
+                    <div>
+                        View the glossary&nbsp;&nbsp;
                         <FontAwesomeIcon icon="arrow-right" />
                     </div>
                 </div>

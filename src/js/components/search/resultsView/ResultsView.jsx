@@ -50,8 +50,7 @@ const ResultsView = React.memo(function ResultsView({
             </div>
         );
     }
-    else if(!error && data) {
-        /* eslint-disable camelcase */
+    else if (!error && data) {
         const {
             contracts, direct_payments, grants, idvs, loans, other, subgrants, subcontracts
         } = data.data.results;
@@ -62,7 +61,6 @@ const ResultsView = React.memo(function ResultsView({
         }
 
         const hasResults = resCount > 0;
-        /* eslint-enable camelcase */
 
         if (!hash && noFiltersApplied) {
             return <SearchLanding />;

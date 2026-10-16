@@ -46,9 +46,9 @@ const IdvContent = ({
     };
 
     const glossarySlug = glossaryLinks[overview.type];
-    const glossaryLink = glossarySlug
-        ? `/award/${awardId}?glossary=${glossarySlug}`
-        : null;
+    const glossaryLink = glossarySlug ?
+        `/award/${awardId}?glossary=${glossarySlug}` :
+        null;
 
     return (
         <AwardPageWrapper

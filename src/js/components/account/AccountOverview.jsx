@@ -3,13 +3,13 @@
  * Created by 3/20/17
  */
 
-import React, {useState, useEffect, useRef, useMemo} from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import PropTypes from 'prop-types';
-import { SectionHeader } from "data-transparency-ui";
+import { SectionHeader } from 'data-transparency-ui';
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 import SankeyVisualization from './visualizations/sankey/SankeyVisualization';
-import useFetchFederalAccountFYSnapshot from "../../containers/account/useFetchFederalAccountFYSnapshot";
+import useFetchFederalAccountFYSnapshot from '../../containers/account/useFetchFederalAccountFYSnapshot';
 
 const propTypes = {
     account: PropTypes.object,
@@ -65,7 +65,7 @@ const AccountOverview = ({ account, currentFiscalYear }) => {
                 summary: newSummary,
                 amounts: newAmounts,
                 fyAvailable: fiscalYearAvailable
-            }
+            };
         }
 
         const authorityValue = response.totals.budgetAuthority || 0;
@@ -123,7 +123,7 @@ ${authority} has been obligated.`;
             summary: newSummary,
             amounts: newAmounts,
             fyAvailable: fiscalYearAvailable
-        }
+        };
     }, [response, currentFiscalYear]);
 
     return (

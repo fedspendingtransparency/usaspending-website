@@ -63,7 +63,6 @@ export const parentFields = [
     }
 ];
 
-
 export const competitionFields = [
     {
         label: 'Solicitation ID',

@@ -3,29 +3,29 @@
  * Created by Trey Morgan 9/14/2026
  */
 
-import {RESPONSE_TYPE, OPERATION, responseLookup } from "../../../components/search/collapsibleSidebar/NLConstants";
+import { RESPONSE_TYPE, OPERATION, responseLookup } from "../../../components/search/collapsibleSidebar/NLConstants";
 
 // eslint-disable-next-line import/prefer-default-export
 export const buildResponseState = (data = []) => {
     const state = {
         items: []
     };
-    
+
     data.forEach((event) => {
         const {
-            search_id, 
-            tool_use_id, 
-            type, 
-            message, 
+            search_id,
+            tool_use_id,
+            type,
+            message,
             result
         } = event ?? {};
-           
+
         const response = responseLookup[type];
-    
+
         if (!response) {
             return;
         }
-    
+
         const item = {
             searchId: search_id,
             ...(tool_use_id && {
@@ -39,19 +39,19 @@ export const buildResponseState = (data = []) => {
                 result
             })
         };
-    
+
         // Search messages are always new display items
         if (response.operation === OPERATION.SEARCH) {
             state.items.push(item);
-            return; 
+            return;
         }
-    
+
         const toolId = tool_use_id;
-    
+
         if (!toolId) {
             return;
         }
-    
+
         // Tool start creates a new display item
         if (type === RESPONSE_TYPE.TOOL_START) {
             state.items.push(item);
@@ -59,9 +59,9 @@ export const buildResponseState = (data = []) => {
         }
 
         const itemIndex = state.items.findIndex(
-            (existingItem) => existingItem.toolId === toolId 
+            (existingItem) => existingItem.toolId === toolId
         );
-    
+
         // Tool complete/error updates the existing item's variant and icon
         // It keeps the previous label
         if (itemIndex !== -1) {
@@ -71,6 +71,6 @@ export const buildResponseState = (data = []) => {
                 icon: item.icon
             };
         }
-    });    
+    });
     return state;
-}
+};

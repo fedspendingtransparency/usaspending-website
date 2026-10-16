@@ -420,4 +420,3 @@ export const pluralize = (string) => {
     }
     return `${string}s`;
 };
-

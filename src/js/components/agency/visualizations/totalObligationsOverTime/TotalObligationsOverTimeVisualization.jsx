@@ -91,7 +91,7 @@ const TotalObligationsOverTimeVisualization = ({
 
     // y domain
     useEffect(() => {
-        setYDomain(getYDomain(dataWithFirstAndLastCoordinate, agencyBudget))
+        setYDomain(getYDomain(dataWithFirstAndLastCoordinate, agencyBudget));
     }, [dataWithFirstAndLastCoordinate, agencyBudget]);
     /**
      * set x scale
@@ -154,7 +154,7 @@ const TotalObligationsOverTimeVisualization = ({
     }, [dataWithFirstAndLastCoordinate]);
 
     useEffect(() => {
-        setScenario(determineScenario(agencyBudget, dataWithFirstAndLastCoordinate))
+        setScenario(determineScenario(agencyBudget, dataWithFirstAndLastCoordinate));
     }, [agencyBudget, dataWithFirstAndLastCoordinate]);
 
     useEffect(() => {
@@ -228,12 +228,14 @@ const TotalObligationsOverTimeVisualization = ({
                             width={width}
                             height={height}
                             xTicks={xTicks} />
-                        {showTodayLineAndText && <TodayLineAndtext
-                            xScale={xScale}
-                            height={height}
-                            todaysDate={todaysDate}
-                            padding={padding}
-                            showTodayLineAndText={showTodayLineAndText} />}
+                        {showTodayLineAndText && (
+                            <TodayLineAndtext
+                                xScale={xScale}
+                                height={height}
+                                todaysDate={todaysDate}
+                                padding={padding}
+                                showTodayLineAndText={showTodayLineAndText} />
+                        )}
                         <AgencyBudgetLine
                             data={dataWithFirstAndLastCoordinate}
                             xScale={xScale}
@@ -246,14 +248,16 @@ const TotalObligationsOverTimeVisualization = ({
                             scenario={scenario}
                             showTodayLineAndText={showTodayLineAndText}
                             toggleTooltipVisibility={toggleTooltipVisibility} />
-                        {(scenario === 'exceedsMin' || scenario === 'exceedsMaxAndMin') && <ZeroLineAndTick
-                            xScale={xScale}
-                            yScale={yScale}
-                            height={height}
-                            padding={padding}
-                            width={width}
-                            showTodayLineAndText={showTodayLineAndText}
-                            todaysDate={todaysDate} />}
+                        {(scenario === 'exceedsMin' || scenario === 'exceedsMaxAndMin') && (
+                            <ZeroLineAndTick
+                                xScale={xScale}
+                                yScale={yScale}
+                                height={height}
+                                padding={padding}
+                                width={width}
+                                showTodayLineAndText={showTodayLineAndText}
+                                todaysDate={todaysDate} />
+                        )}
                     </g>
                 </svg>
             </TooltipWrapper>

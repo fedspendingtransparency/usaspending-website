@@ -34,47 +34,44 @@ const isRealUrl = (rawURL) => {
         parsed = new URL(stripped);
     }
     catch {
-        return null
-        
+        return null;
     }
 
     return parsed;
-
 };
 
 const isBaseURL = (val) => {
     if (!isRealUrl(val)) return false;
 
     return val.startsWith('https://www.usaspending.gov/');
-}
+};
 
 export const sanitizeUrl = (rawURL, blockRedirect = true) => {
     let parsed = isRealUrl(rawURL);
 
     // not a real url
     if (!parsed) return null;
-    
+
     // https only
     if (parsed.protocol !== "https:") return null;
-    
+
     // hostname must exist and not just whitespace
     if (!parsed.hostname || parsed.hostname.trim() === "") return null;
 
     if (blockRedirect) {
         const params = [...parsed.searchParams.entries()];
-        
+
         // remove open-direct query params
         // allow valid urls.
-        for( const [key, value] of params) {
-            if (commonAttackParams.has(key.toLowerCase()) && !isBaseURL(value)){
+        for (const [key, value] of params) {
+            if (commonAttackParams.has(key.toLowerCase()) && !isBaseURL(value)) {
                 parsed.searchParams.delete(key);
             }
         }
     }
 
     return encodeURI(parsed.toString());
-}
-
+};
 
 export const sanitizeMailUrl = (rawURL) => {
     let cleanMailto = rawURL;
@@ -89,12 +86,11 @@ export const sanitizeMailUrl = (rawURL) => {
         params.delete('cc');
         params.delete('bcc');
 
-
-        if (params.toString() && params.toString() !== '' ) {
+        if (params.toString() && params.toString() !== '') {
             // add wanted params back
-            cleanMailto = `${prefix}?${params.toString().replace(/\+/g, '%20')}`
+            cleanMailto = `${prefix}?${params.toString().replace(/\+/g, '%20')}`;
         }
     }
 
     return cleanMailto;
-}
+};

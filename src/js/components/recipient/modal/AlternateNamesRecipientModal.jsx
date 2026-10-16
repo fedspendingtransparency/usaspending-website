@@ -21,12 +21,14 @@ const propTypes = {
 };
 
 const AlternateNamesRecipientModal = (props) => {
-    let table = (<AlternateNamesRecipientModalTable
-        sortField={props.sortField}
-        hideModal={props.hideModal}
-        sortDirection={props.sortDirection}
-        updateSort={props.updateSort}
-        alternateNames={props.alternateNames} />);
+    let table = (
+        <AlternateNamesRecipientModalTable
+            sortField={props.sortField}
+            hideModal={props.hideModal}
+            sortDirection={props.sortDirection}
+            updateSort={props.updateSort}
+            alternateNames={props.alternateNames} />
+    );
     let message = null;
     if (props.alternateNames.length === 0) {
         message = "No results found.";

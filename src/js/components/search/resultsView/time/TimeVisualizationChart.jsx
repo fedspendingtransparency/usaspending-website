@@ -38,7 +38,8 @@ const CustomShape = ({
                 <line
                     x1={x + (width / 2)}
                     x2={x + (width / 2) + 1}
-                    y1={lineHeight} y2="6"
+                    y1={lineHeight}
+                    y2="6"
                     stroke="#dfe1e2"
                     strokeDasharray="5 3" />
             </g>
@@ -67,7 +68,8 @@ const CustomXTick = ({
             <text x={0} y={0} dx={12} dy={12} textAnchor="end" fill="#5C5C5C" fontSize={12} width="40px">
                 {payload.value}
             </text>
-        </g>);
+        </g>
+    );
 };
 
 const CustomYTick = ({ x, y, payload }) => (
@@ -76,7 +78,7 @@ const CustomYTick = ({ x, y, payload }) => (
             {formatMoneyWithUnitsShortLabel(payload.value)}
         </text>
     </g>
-)
+);
 
 const CustomTooltip = (args) => {
     const { active, payload, label, onMouseLeave } = args;
@@ -93,13 +95,13 @@ const CustomTooltip = (args) => {
                         {formatMoneyWithUnitsShortLabel(payload[0].value)}
                     </div>
                 </div>
-            </div>);
+            </div>
+        );
     }
 
     onMouseLeave();
     return null;
 };
-
 
 const TimeVisualizationChart = (props) => {
     const [focusBar, setFocusBar] = useState(null);
@@ -159,36 +161,38 @@ const TimeVisualizationChart = (props) => {
     return (
         <div className="recharts-time-visualization-container">
             {props?.loading || props?.error || transformedData?.length === 0 ?
-                <>{message()}</>
-                :
-                <ResponsiveContainer>
-                    <BarChart
-                        height={350}
-                        data={transformedData}
-                        accessibilityLayer
-                        margin={{
-                            top: 5,
-                            right: 30,
-                            bottom: 5
-                        }}>
-                        <XAxis dataKey="label" tick={<CustomXTick />} />
-                        <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
-                        <Tooltip
-                            cursor={{ fill: '#fff' }}
-                            filterNull
-                            content={<CustomTooltip onMouseLeave={onMouseLeave} />}
-                            isAnimationActive={false} />
-                        <ReferenceLine y={0} stroke="#dfe1e2" />
-                        <Bar
-                            dataKey="value"
-                            shape={<CustomShape focusBar={focusBar} />}
-                            activeBar={<CustomShape isActive focusBar={focusBar} />}
-                            onMouseEnter={onMouseMove}
-                            onMouseOut={onMouseLeave}
-                            onMouseLeave={onMouseLeave} />
-                    </BarChart>
-                </ResponsiveContainer>}
-        </div>);
+                <>{message()}</> :
+                (
+                    <ResponsiveContainer>
+                        <BarChart
+                            height={350}
+                            data={transformedData}
+                            accessibilityLayer
+                            margin={{
+                                top: 5,
+                                right: 30,
+                                bottom: 5
+                            }}>
+                            <XAxis dataKey="label" tick={<CustomXTick />} />
+                            <YAxis dataKey="value" tick={<CustomYTick />} tickLine={false} />
+                            <Tooltip
+                                cursor={{ fill: '#fff' }}
+                                filterNull
+                                content={<CustomTooltip onMouseLeave={onMouseLeave} />}
+                                isAnimationActive={false} />
+                            <ReferenceLine y={0} stroke="#dfe1e2" />
+                            <Bar
+                                dataKey="value"
+                                shape={<CustomShape focusBar={focusBar} />}
+                                activeBar={<CustomShape isActive focusBar={focusBar} />}
+                                onMouseEnter={onMouseMove}
+                                onMouseOut={onMouseLeave}
+                                onMouseLeave={onMouseLeave} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                )}
+        </div>
+    );
 };
 
 export default TimeVisualizationChart;

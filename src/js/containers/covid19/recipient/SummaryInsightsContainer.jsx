@@ -71,9 +71,9 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
             const params = {
                 filter: {
                     def_codes: defcParams,
-                    ...activeFilter === 'all'
-                        ? {}
-                        : { award_type_codes: awardTypeGroups[activeFilter] }
+                    ...activeFilter === 'all' ?
+                        {} :
+                        { award_type_codes: awardTypeGroups[activeFilter] }
                 }
             };
 

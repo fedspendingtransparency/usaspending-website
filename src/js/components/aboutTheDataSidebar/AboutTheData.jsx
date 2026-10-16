@@ -5,19 +5,19 @@
 
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from "react-router";
+import { useLocation } from 'react-router';
 import { Scrollbars } from 'react-custom-scrollbars';
 
 import {
     clearAboutTheDataTerm,
     hideAboutTheData
-} from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import { getDrilldownEntrySectionAndId } from "../../helpers/aboutTheDataSidebarHelper";
+} from '../../redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import { getDrilldownEntrySectionAndId } from '../../helpers/aboutTheDataSidebarHelper';
 import { getQueryParamString } from '../../helpers/queryParams';
-import schema from "../../../config/aboutTheData/aboutTheDataSchema";
-import useQueryParams from "../../hooks/useQueryParams";
-import AboutTheDataHeader from "./AboutTheDataHeader";
-import AboutTheDataContent from "./AboutTheDataContent";
+import schema from '../../../config/aboutTheData/aboutTheDataSchema';
+import useQueryParams from '../../hooks/useQueryParams';
+import AboutTheDataHeader from './AboutTheDataHeader';
+import AboutTheDataContent from './AboutTheDataContent';
 
 const getHeight = () => {
     const paddingBottom = 200;
@@ -25,7 +25,7 @@ const getHeight = () => {
     const headerHeight = document.getElementById('usa-atd-header')?.getBoundingClientRect().height || 0;
 
     return wrapperHeight - headerHeight - paddingBottom;
-}
+};
 
 const AboutTheData = () => {
     const query = useQueryParams();
@@ -44,8 +44,8 @@ const AboutTheData = () => {
     const clearDrilldown = useCallback(() => dispatch(clearAboutTheDataTerm()), [dispatch]);
 
     const { entryId, section } = useMemo(() => {
-        if (slug === "") return { entryId: null, section: null };
-        return getDrilldownEntrySectionAndId(schema, slug)
+        if (slug === '') return { entryId: null, section: null };
+        return getDrilldownEntrySectionAndId(schema, slug);
     }, [slug]);
 
     const measureAvailableHeight = () => setHeight(getHeight());
@@ -108,7 +108,7 @@ const AboutTheData = () => {
     return (
         <div
             id="usa-atd-wrapper"
-            style={{ visibility: firstMount ? "hidden" : "" }}
+            style={{ visibility: firstMount ? 'hidden' : '' }}
             className={
                 display ?
                     `opened usa-atd-wrapper ${zIndexClass}` :
@@ -127,7 +127,8 @@ const AboutTheData = () => {
                     <AboutTheDataContent clearDrilldown={clearDrilldown} entryId={entryId} section={section} />
                 </Scrollbars>
             </aside>
-        </div>);
+        </div>
+    );
 };
 
 export default AboutTheData;

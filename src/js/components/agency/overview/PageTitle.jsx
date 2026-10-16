@@ -17,12 +17,14 @@ const PageTitle = () => {
         logo
     } = useSelector((state) => state.agency.overview);
 
-    const image = logo ? (
-        <img
-            className="page-title__image"
-            src={`graphics/agency/${logo}`}
-            alt={`${name} logo`} />
-    ) : '';
+    const image = logo ?
+        (
+            <img
+                className="page-title__image"
+                src={`graphics/agency/${logo}`}
+                alt={`${name} logo`} />
+        ) :
+        '';
     return (
         <div className="page-title">
             <div className="page-title__wrapper">
