@@ -21,7 +21,6 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import withLatestFy from 'containers/account/WithLatestFy';
 import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 
-
 const startYear = FiscalYearHelper.earliestFederalAccountYear;
 
 const propTypes = {

@@ -1,19 +1,19 @@
-import {useMemo, useRef} from "react";
-import { useQueries } from "@tanstack/react-query";
-import { Iterable, Record } from "immutable";
-import { is as immutableIs } from "immutable/dist/immutable";
-import { isEqual } from "lodash-es";
+import { useMemo, useRef } from 'react';
+import { useQueries } from '@tanstack/react-query';
+import { Iterable, Record } from 'immutable';
+import { is as immutableIs } from 'immutable/dist/immutable';
+import { isEqual } from 'lodash-es';
 
-import AccountSearchBalanceOperation from "../../../models/v1/account/queries/AccountSearchBalanceOperation";
+import AccountSearchBalanceOperation from '../../../models/v1/account/queries/AccountSearchBalanceOperation';
 import {
     balanceFields,
     balanceFieldsFiltered,
     balanceFieldsNonfiltered
-} from "../../../dataMapping/accounts/accountFields";
-import { fetchTasBalanceTotals, fetchTasCategoryTotals } from "../../../helpers/accountQuartersHelper";
-import { initialState } from "../../../redux/reducers/account/accountReducer"
-import AccountSearchCategoryOperation from "../../../models/v1/account/queries/AccountSearchCategoryOperation";
-import * as AccountHelper from "../../../apis/account";
+} from '../../../dataMapping/accounts/accountFields';
+import { fetchTasBalanceTotals, fetchTasCategoryTotals } from '../../../helpers/accountQuartersHelper';
+import { initialState } from '../../../redux/reducers/account/accountReducer';
+import AccountSearchCategoryOperation from '../../../models/v1/account/queries/AccountSearchCategoryOperation';
+import * as AccountHelper from '../../../apis/account';
 
 const group = [
     'submission__reporting_fiscal_year',
@@ -25,26 +25,25 @@ const order = ['submission__reporting_fiscal_year'];
 const aggregate = 'sum';
 
 const valuesAreEqual = (a, b) => {
-
-    if(Iterable.isIterable(a) || Iterable.isIterable(b)) {
+    if (Iterable.isIterable(a) || Iterable.isIterable(b)) {
         return immutableIs(a, b);
     }
 
     return isEqual(a, b);
-}
+};
 
 const responseHasData = (res) => res.some(({ data }) => data);
 
 const areFiltersEmpty = (filters = initialState.filters, filterReference = initialState.filters) => {
     if (!filterReference && filters) return false;
 
-    const referenceObject = {...filterReference};
-    const comparisonObject = {...filters};
+    const referenceObject = { ...filterReference };
+    const comparisonObject = { ...filters };
 
     // we need to iterate through each of the filter Redux keys in order to perform equality
     // comparisons on Immutable children (via the Immutable is() function)
     const immutableFilterKeys = Object
-        .keys(comparisonObject)
+        .keys(comparisonObject);
 
     for (const key of immutableFilterKeys) {
         const unfilteredValue = comparisonObject[key];
@@ -248,10 +247,10 @@ const parseBalances = (res, visualizationPeriod, hasFilteredObligated, ref) => {
         ySeries,
         allY,
         stacks
-    })
+    });
 };
 
-export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) => {
+export default (id, reduxFilters, visualizationPeriod, hasFilteredObligated) => {
     const searchOperation = new AccountSearchBalanceOperation(id);
     searchOperation.fromState(reduxFilters);
     const balanceFilters = searchOperation.toParams();
@@ -263,7 +262,8 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
     const emptyFilters = areFiltersEmpty(reduxFilters);
 
     const fetchCategory = visualizationPeriod === 'quarter' ?
-        fetchTasCategoryTotals : AccountHelper.fetchTasCategoryTotals;
+        fetchTasCategoryTotals :
+        AccountHelper.fetchTasCategoryTotals;
 
     const quarterCategory = useQueries({
         queries: Object.keys(balanceFieldsFiltered).map((balanceType) => {
@@ -284,7 +284,7 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
                     auditTrail: `Spending over Time (${visualizationPeriod}) - obligated filter - ${balanceType}`
                 }).promise,
                 enabled: !emptyFilters && hasFilteredObligated
-            }
+            };
         }),
         combine: (result) => ({
             result: result.map((query, i) => ({
@@ -294,12 +294,13 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
             isLoading: result.some((query) => query.isLoading),
             isError: result.some((query) => query.isError)
         })
-    })
+    });
 
     const tasBalanceFields = hasFilteredObligated ? balanceFieldsNonfiltered : balanceFields;
 
     const fetchBalance = visualizationPeriod === 'quarter' ?
-        fetchTasBalanceTotals : AccountHelper.fetchTasBalanceTotals;
+        fetchTasBalanceTotals :
+        AccountHelper.fetchTasBalanceTotals;
 
     const balanceQuery = useQueries({
         queries: Object.keys(tasBalanceFields).map((balanceType) => {
@@ -322,7 +323,7 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
                     }obligated filter - ${balanceType}`
                 }).promise,
                 enabled: !emptyFilters
-            }
+            };
         }),
         combine: (result) => ({
             result: result.map((query, i) => ({
@@ -332,7 +333,7 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
             isLoading: result.some((query) => query.isLoading),
             isError: result.some((query) => query.isError)
         })
-    })
+    });
 
     const ref = useRef(null);
 
@@ -344,14 +345,14 @@ export default  (id, reduxFilters, visualizationPeriod, hasFilteredObligated) =>
 
         return parseBalances(combinedResult, visualizationPeriod, hasFilteredObligated, ref);
     }, [quarterCategory.result, balanceQuery.result, visualizationPeriod, hasFilteredObligated]);
-    
+
     const loading = useMemo(() => {
-        return quarterCategory.isLoading || balanceQuery.isLoading
-    }, [balanceQuery.isLoading, quarterCategory.isLoading])
-    
+        return quarterCategory.isLoading || balanceQuery.isLoading;
+    }, [balanceQuery.isLoading, quarterCategory.isLoading]);
+
     const error = useMemo(() => {
-        return quarterCategory.isError || balanceQuery.isError
-    },  [balanceQuery.isError, quarterCategory.isError])
+        return quarterCategory.isError || balanceQuery.isError;
+    }, [balanceQuery.isError, quarterCategory.isError]);
 
     return { result, loading, error };
-}
+};

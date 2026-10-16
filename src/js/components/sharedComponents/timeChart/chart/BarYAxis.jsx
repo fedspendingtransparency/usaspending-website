@@ -43,13 +43,11 @@ export default class BarYAxis extends React.Component {
         return false;
     }
 
-
     componentDidUpdate(prevProps) {
         if (!isEqual(prevProps, this.props)) {
             this.drawAxis(this.props);
         }
     }
-
 
     drawAxis(props) {
         if (!props.scale) {
@@ -96,13 +94,15 @@ export default class BarYAxis extends React.Component {
             // subtracting from the total Y axis height
             const yPos = props.height - props.scale(tick);
 
-            return (<BarYAxisItem
-                x={xPos}
-                y={yPos}
-                label={`${tickLabels[i]}`}
-                key={`label-y-${tick}-${i}`}
-                lineStart={lineStart}
-                lineEnd={lineEnd} />);
+            return (
+                <BarYAxisItem
+                    x={xPos}
+                    y={yPos}
+                    label={`${tickLabels[i]}`}
+                    key={`label-y-${tick}-${i}`}
+                    lineStart={lineStart}
+                    lineEnd={lineEnd} />
+            );
         });
 
         this.setState({

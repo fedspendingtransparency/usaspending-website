@@ -20,7 +20,6 @@ import AwardSection from '../AwardSection';
 import RecipientAddress from './RecipientAddress';
 import GlossaryLink from '../../../sharedComponents/GlossaryLink';
 
-
 const propTypes = {
     recipient: PropTypes.object,
     awardType: PropTypes.string,

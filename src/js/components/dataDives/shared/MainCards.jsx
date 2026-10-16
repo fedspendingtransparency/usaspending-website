@@ -69,4 +69,3 @@ const MainCards = ({ contentObject }) => {
 MainCards.propTypes = propTypes;
 
 export default MainCards;
-

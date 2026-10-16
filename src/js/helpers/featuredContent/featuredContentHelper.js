@@ -4,7 +4,6 @@
 */
 import React from "react";
 
-
 const primaryFill = {
     dataDefinition: '#783CB9',
     search: '#D54309',
@@ -77,4 +76,3 @@ export const getThumbnailPath = (article) => {
     const thumbnailPath = "../../img/featuredContent/thumbnails/";
     return `${thumbnailPath}${slug}-thumbnail.webp`;
 };
-

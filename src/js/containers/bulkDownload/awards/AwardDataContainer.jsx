@@ -161,4 +161,3 @@ export default connect(
     (state) => ({ bulkDownload: state.bulkDownload }),
     (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
 )(AwardDataContainer);
-

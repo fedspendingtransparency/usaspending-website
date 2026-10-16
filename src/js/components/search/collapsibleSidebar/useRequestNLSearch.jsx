@@ -1,4 +1,4 @@
-import { useQuery, experimental_streamedQuery as streamedQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, experimental_streamedQuery as streamedQuery, useQueryClient } from '@tanstack/react-query';
 import GlobalConstants from 'GlobalConstants';
 
 const headers = {
@@ -12,7 +12,7 @@ const useRequestNLSearch = (prompt) => {
     const requestHeader = {
         method: 'POST',
         headers: headers,
-        body: JSON.stringify({'query': prompt?.trim()})
+        body: JSON.stringify({ query: prompt?.trim() })
     };
 
     const { data, refetch, isFetching, isSuccess } = useQuery({
@@ -28,7 +28,7 @@ const useRequestNLSearch = (prompt) => {
                 while (true) {
                     if (signal.aborted) break;
 
-                    const {value, done} = await reader.read();
+                    const { value, done } = await reader.read();
 
                     if (done) break;
 
@@ -44,11 +44,11 @@ const useRequestNLSearch = (prompt) => {
     const queryClient = useQueryClient();
 
     const cancelQuery = () => {
-        queryClient.cancelQueries({queryKey: ['nl-search-stream']})
+        queryClient.cancelQueries({ queryKey: ['nl-search-stream'] })
             .then(() => queryClient.setQueryData(['nl-search-stream'], ''));
     };
 
-    return { data, refetch, cancelQuery, isFetching, isSuccess};
-}
+    return { data, refetch, cancelQuery, isFetching, isSuccess };
+};
 
 export default useRequestNLSearch;

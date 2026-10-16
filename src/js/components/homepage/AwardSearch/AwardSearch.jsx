@@ -14,13 +14,10 @@ import GlossaryLink from '../../sharedComponents/GlossaryLink';
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import { REQUEST_VERSION } from "../../../GlobalConstants";
 import Analytics from '../../../helpers/analytics/Analytics';
-
-/* eslint-disable */
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Keyboard, A11y } from 'swiper/modules';
 import "swiper/css/bundle";
 import "swiper/css";
-/* eslint-enable */
 
 const AwardSearch = () => {
     const [isDesktopXL, setDesktopXL] = useState(window.innerWidth >= 1400);
@@ -32,30 +29,30 @@ const AwardSearch = () => {
         <div aria-disabled={activeCardIndex !== 0}>
             Search spending to your community using Location filters like
             <div className="award-search__glossary"> Place of Performance</div>
-            {<GlossaryLink term="primary-place-of-performance" hidden={activeCardIndex !== 0} />}
+            <GlossaryLink term="primary-place-of-performance" hidden={activeCardIndex !== 0} />
         </div>
     );
     const fiscalYear = (
         <div aria-disabled={activeCardIndex !== 1}>
             See spending data over time using our Time Period filters, like
             <div className="award-search__glossary"> Fiscal Year</div>
-            {<GlossaryLink term="fiscal-year-fy" hidden={activeCardIndex !== 1} />}
+            <GlossaryLink term="fiscal-year-fy" hidden={activeCardIndex !== 1} />
         </div>
     );
     const naics = (
         <div aria-disabled={activeCardIndex !== 2}>
             Use the
             <div className="award-search__glossary"> North American Industry Classification System (NAICS)</div>
-            {<GlossaryLink term="naics" hidden={activeCardIndex !== 2} />}
-             filter to find spending by industry
+            <GlossaryLink term="naics" hidden={activeCardIndex !== 2} />
+            filter to find spending by industry
         </div>
     );
     const psc = (
         <div aria-disabled={activeCardIndex !== 3}>
             From medical supplies to aircraft equipment, use
             <div className="award-search__glossary"> Product or Service Codes (PSCs)</div>
-            {<GlossaryLink term="product-or-service-code-psc" hidden={activeCardIndex !== 3} />}
-             to see what&apos;s being purchased
+            <GlossaryLink term="product-or-service-code-psc" hidden={activeCardIndex !== 3} />
+            to see what&apos;s being purchased
         </div>
     );
 
@@ -127,13 +124,12 @@ const AwardSearch = () => {
             .then((results) => {
                 const hashData = results.data;
                 if (rankType === "naics" || rankType === "psc") {
-                    // eslint-disable-next-line no-unused-expressions
                     window.open(`/search?hash=${encodeURIComponent(hashData.hash)}&section=${encodeURIComponent(section)}&type=${encodeURIComponent(rankType)}`, "_self");
-                } else if (section === "time") {
+                }
+                else if (section === "time") {
                     window.open(`/search?hash=${encodeURIComponent(hashData.hash)}&section=${encodeURIComponent(section)}&by=${encodeURIComponent("fiscal_year")}`, "_self");
                 }
                 else {
-                    // eslint-disable-next-line no-unused-expressions
                     window.open(`/search?hash=${encodeURIComponent(hashData.hash)}&section=${encodeURIComponent(section)}`, "_self");
                 }
                 // operation has resolved
@@ -173,12 +169,10 @@ const AwardSearch = () => {
 
         d.slides.forEach((slide, i) => {
             if (i === currentIndex) {
-                // eslint-disable-next-line no-param-reassign
                 slide.ariaHidden = false;
                 setActiveCardIndex(currentIndex);
             }
             else {
-                // eslint-disable-next-line no-param-reassign
                 slide.ariaHidden = true;
             }
         });
@@ -189,131 +183,135 @@ const AwardSearch = () => {
             <div style={{ justifyContent: "center" }} className="award-search__topdiv">
                 <FlexGridRow className="grid-content">
                     {isDesktopXL &&
-                        (<>
-                            <FlexGridCol desktop={4} tablet={12} mobile={12} className="award-search__col1">
-                                <div className="award-search__overline-div">
-                                    <span
-                                        className="fa-layers fa-fw award-search__span"><FontAwesomeIcon icon="search" size="sm" style={{ height: '12px', width: '12px' }} />
-                                    </span>
-                                    <p className="award-search__overline">SEARCH AWARD DATA</p>
-                                </div>
-                                <h2 className="award-search__header">Search data on federal award spending</h2>
-                                <p className="award-search__subtext">Find information on awards such as contracts, grants, and loans based on location, industry, and more.</p>
-                            </FlexGridCol>
-                            <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2">
-                                <Swiper
-                                    a11y
-                                    centeredSlides
-                                    navigation
-                                    watchslidesvisibility="true"
-                                    slidesPerView="auto"
-                                    spaceBetween={40}
-                                    modules={[Keyboard, A11y, Navigation]}
-                                    keyboard
-                                    style={{ alignItems: "middle" }}
-                                    onSlideChange={onSlideChange}>
-                                    <SwiperSlide
-                                        tabIndex={activeCardIndex === 0 ? 0 : -1}
-                                        className="award-search__slide award-search__card1"
-                                        style={{ marginBottom: "20px" }}>
-                                        <CardContainer variant="elevated" size="lg">
-                                            <CardBody
-                                                headline="Federal Spending to Communities"
-                                                text={placeOfPerformance} >
-                                                <div className="award-search__image">
-                                                    <img src="img/homepage-award-search/award-search-communities.svg" alt="" role="presentation" />
-                                                </div>
-                                                <CardButton
-                                                    onlyPerformAction
-                                                    text="View spending by state"
-                                                    variant="primary"
-                                                    textAlignment="center"
-                                                    action={() => {
-                                                        handleGoToAdvancedSearch("map");
-                                                    }}
-                                                    disabled={activeCardIndex !== 0} />
-                                            </CardBody>
-                                        </CardContainer>
-                                    </SwiperSlide>
-                                    <SwiperSlide
-                                        tabIndex={activeCardIndex === 1 ? 0 : -1}
-                                        className="award-search__slide award-search__card2"
-                                        style={{ marginBottom: "20px" }}>
-                                        <CardContainer variant="elevated" size="lg">
-                                            <CardBody
-                                                headline="Federal Spending Over Time"
-                                                text={fiscalYear}>
-                                                <div className="award-search__image">
-                                                    <img src="img/homepage-award-search/award-search-over-time-2x.svg" alt="" role="presentation" />
-                                                </div>
-                                                <CardButton
-                                                    onlyPerformAction
-                                                    text="View spending by fiscal year"
-                                                    variant="primary"
-                                                    textAlignment="center"
-                                                    action={() => {
-                                                        handleGoToAdvancedSearch("time");
-                                                    }}
-                                                    disabled={activeCardIndex !== 1} />
-                                            </CardBody>
-                                        </CardContainer>
-                                    </SwiperSlide>
-                                    <SwiperSlide
-                                        tabIndex={activeCardIndex === 2 ? 0 : -1}
-                                        className="award-search__slide award-search__card3"
-                                        style={{ marginBottom: "20px" }}>
-                                        <CardContainer variant="elevated" size="lg">
-                                            <CardBody
-                                                headline="Federal Spending by Industry"
-                                                text={naics}>
-                                                <div className="award-search__image">
-                                                    <img src="img/homepage-award-search/award-search-industry-2x.svg" alt="" role="presentation" />
-                                                </div>
-                                                <CardButton
-                                                    onlyPerformAction
-                                                    text="View spending by industry"
-                                                    variant="primary"
-                                                    textAlignment="center"
-                                                    action={() => {
-                                                        handleGoToAdvancedSearch("categories", "naics");
-                                                    }}
-                                                    disabled={activeCardIndex !== 2} />
-                                            </CardBody>
-                                        </CardContainer>
-                                    </SwiperSlide>
-                                    <SwiperSlide
-                                        tabIndex={activeCardIndex === 3 ? 0 : -1}
-                                        className="award-search__slide award-search__card1"
-                                        style={{ marginBottom: "20px" }}>
-                                        <CardContainer variant="elevated" size="lg">
-                                            <CardBody
-                                                headline="Federal Spending by Product or Service"
-                                                text={psc}>
-                                                <div className="award-search__image">
-                                                    <img src="img/homepage-award-search/award-search-psc-2x.svg" alt="" role="presentation" />
-                                                </div>
-                                                <CardButton
-                                                    onlyPerformAction
-                                                    text="View spending by product or service"
-                                                    variant="primary"
-                                                    textAlignment="center"
-                                                    action={() => {
-                                                        handleGoToAdvancedSearch("categories", "psc");
-                                                    }}
-                                                    disabled={activeCardIndex !== 3} />
-                                            </CardBody>
-                                        </CardContainer>
-                                    </SwiperSlide>
-                                </Swiper>
-                            </FlexGridCol>
-                        </>)}
+                        (
+                            <>
+                                <FlexGridCol desktop={4} tablet={12} mobile={12} className="award-search__col1">
+                                    <div className="award-search__overline-div">
+                                        <span
+                                            className="fa-layers fa-fw award-search__span">
+                                            <FontAwesomeIcon icon="search" size="sm" style={{ height: '12px', width: '12px' }} />
+                                        </span>
+                                        <p className="award-search__overline">SEARCH AWARD DATA</p>
+                                    </div>
+                                    <h2 className="award-search__header">Search data on federal award spending</h2>
+                                    <p className="award-search__subtext">Find information on awards such as contracts, grants, and loans based on location, industry, and more.</p>
+                                </FlexGridCol>
+                                <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2">
+                                    <Swiper
+                                        a11y
+                                        centeredSlides
+                                        navigation
+                                        watchslidesvisibility="true"
+                                        slidesPerView="auto"
+                                        spaceBetween={40}
+                                        modules={[Keyboard, A11y, Navigation]}
+                                        keyboard
+                                        style={{ alignItems: "middle" }}
+                                        onSlideChange={onSlideChange}>
+                                        <SwiperSlide
+                                            tabIndex={activeCardIndex === 0 ? 0 : -1}
+                                            className="award-search__slide award-search__card1"
+                                            style={{ marginBottom: "20px" }}>
+                                            <CardContainer variant="elevated" size="lg">
+                                                <CardBody
+                                                    headline="Federal Spending to Communities"
+                                                    text={placeOfPerformance}>
+                                                    <div className="award-search__image">
+                                                        <img src="img/homepage-award-search/award-search-communities.svg" alt="" role="presentation" />
+                                                    </div>
+                                                    <CardButton
+                                                        onlyPerformAction
+                                                        text="View spending by state"
+                                                        variant="primary"
+                                                        textAlignment="center"
+                                                        action={() => {
+                                                            handleGoToAdvancedSearch("map");
+                                                        }}
+                                                        disabled={activeCardIndex !== 0} />
+                                                </CardBody>
+                                            </CardContainer>
+                                        </SwiperSlide>
+                                        <SwiperSlide
+                                            tabIndex={activeCardIndex === 1 ? 0 : -1}
+                                            className="award-search__slide award-search__card2"
+                                            style={{ marginBottom: "20px" }}>
+                                            <CardContainer variant="elevated" size="lg">
+                                                <CardBody
+                                                    headline="Federal Spending Over Time"
+                                                    text={fiscalYear}>
+                                                    <div className="award-search__image">
+                                                        <img src="img/homepage-award-search/award-search-over-time-2x.svg" alt="" role="presentation" />
+                                                    </div>
+                                                    <CardButton
+                                                        onlyPerformAction
+                                                        text="View spending by fiscal year"
+                                                        variant="primary"
+                                                        textAlignment="center"
+                                                        action={() => {
+                                                            handleGoToAdvancedSearch("time");
+                                                        }}
+                                                        disabled={activeCardIndex !== 1} />
+                                                </CardBody>
+                                            </CardContainer>
+                                        </SwiperSlide>
+                                        <SwiperSlide
+                                            tabIndex={activeCardIndex === 2 ? 0 : -1}
+                                            className="award-search__slide award-search__card3"
+                                            style={{ marginBottom: "20px" }}>
+                                            <CardContainer variant="elevated" size="lg">
+                                                <CardBody
+                                                    headline="Federal Spending by Industry"
+                                                    text={naics}>
+                                                    <div className="award-search__image">
+                                                        <img src="img/homepage-award-search/award-search-industry-2x.svg" alt="" role="presentation" />
+                                                    </div>
+                                                    <CardButton
+                                                        onlyPerformAction
+                                                        text="View spending by industry"
+                                                        variant="primary"
+                                                        textAlignment="center"
+                                                        action={() => {
+                                                            handleGoToAdvancedSearch("categories", "naics");
+                                                        }}
+                                                        disabled={activeCardIndex !== 2} />
+                                                </CardBody>
+                                            </CardContainer>
+                                        </SwiperSlide>
+                                        <SwiperSlide
+                                            tabIndex={activeCardIndex === 3 ? 0 : -1}
+                                            className="award-search__slide award-search__card1"
+                                            style={{ marginBottom: "20px" }}>
+                                            <CardContainer variant="elevated" size="lg">
+                                                <CardBody
+                                                    headline="Federal Spending by Product or Service"
+                                                    text={psc}>
+                                                    <div className="award-search__image">
+                                                        <img src="img/homepage-award-search/award-search-psc-2x.svg" alt="" role="presentation" />
+                                                    </div>
+                                                    <CardButton
+                                                        onlyPerformAction
+                                                        text="View spending by product or service"
+                                                        variant="primary"
+                                                        textAlignment="center"
+                                                        action={() => {
+                                                            handleGoToAdvancedSearch("categories", "psc");
+                                                        }}
+                                                        disabled={activeCardIndex !== 3} />
+                                                </CardBody>
+                                            </CardContainer>
+                                        </SwiperSlide>
+                                    </Swiper>
+                                </FlexGridCol>
+                            </>
+                        )}
                     {!isDesktopXL && (
                         <>
                             <FlexGridRow desktop={9} tablet={12} mobile={12}>
                                 <FlexGridCol desktop={9} tablet={12} mobile={12} className="award-search__col1">
                                     <div className="award-search__overline-div">
                                         <span
-                                            className="fa-layers fa-fw award-search__span"><FontAwesomeIcon icon="search" size="sm" style={{ height: '12px', width: '12px' }} />
+                                            className="fa-layers fa-fw award-search__span">
+                                            <FontAwesomeIcon icon="search" size="sm" style={{ height: '12px', width: '12px' }} />
                                         </span>
                                         <p className="award-search__overline">AWARD SEARCH</p>
                                     </div>
@@ -426,10 +424,12 @@ const AwardSearch = () => {
                                     </SwiperSlide>
                                 </Swiper>
                             </FlexGridCol>
-                        </>)}
+                        </>
+                    )}
                 </FlexGridRow>
             </div>
-        </section>);
+        </section>
+    );
 };
 
 export default AwardSearch;

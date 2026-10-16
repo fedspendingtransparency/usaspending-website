@@ -7,9 +7,9 @@ const PeriodComponent = ({
     isEnabled = true
 }) => {
     const isLastPeriod = title.includes('Q');
-    const classNamesWithState = isEnabled
-        ? classNames.join(' ')
-        : classNames.concat(['disabled']).join(' ');
+    const classNamesWithState = isEnabled ?
+        classNames.join(' ') :
+        classNames.concat(['disabled']).join(' ');
     if (isLastPeriod) {
         const quarterAndTitle = title.split(' ');
         return (

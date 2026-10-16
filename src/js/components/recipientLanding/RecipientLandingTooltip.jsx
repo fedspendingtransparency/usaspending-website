@@ -16,7 +16,6 @@ const propTypes = {
     showInfoTooltip: PropTypes.bool
 };
 
-
 const tooltipPadding = 12;
 
 export default class RecipientLandingTooltip extends React.Component {

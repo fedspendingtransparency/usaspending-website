@@ -64,7 +64,6 @@ export const parseAgency = (agency) => {
     return null;
 };
 
-
 export const convertReducibleValue = (value, type, parser) => (
     value.reduce((events, item) => {
         events.push({
@@ -105,7 +104,6 @@ export const convertAgency = (agencies, type) => (
         parseAgency
     )
 );
-
 
 export const convertLocation = (locations, type) => (
     convertReducibleValue(

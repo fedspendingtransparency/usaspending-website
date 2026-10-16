@@ -43,7 +43,7 @@ export default class LinkCell extends React.Component {
                 <div className="cell-content">
                     <button
                         className="go-deeper-link"
-                        onClick={this.clickedLink} >
+                        onClick={this.clickedLink}>
                         {name}
                     </button>
                 </div>

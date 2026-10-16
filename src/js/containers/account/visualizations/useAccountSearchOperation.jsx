@@ -1,9 +1,9 @@
-import { useMemo } from "react";
-import { useQuery } from "@tanstack/react-query";
-import { fetchTasCategoryTotals } from "../../../apis/account";
-import AccountSearchOperation from "../../../models/v1/account/queries/AccountSearchOperation";
-import { categoryLabelFields } from "../../../dataMapping/accounts/accountFields";
-import { formatMoney } from "../../../helpers/moneyFormatter";
+import { useMemo } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { fetchTasCategoryTotals } from '../../../apis/account';
+import AccountSearchOperation from '../../../models/v1/account/queries/AccountSearchOperation';
+import { categoryLabelFields } from '../../../dataMapping/accounts/accountFields';
+import { formatMoney } from '../../../helpers/moneyFormatter';
 
 const useAccountSearchOperation = (group, id, page, categoryScope) => {
     const filters = new AccountSearchOperation(id);
@@ -35,7 +35,7 @@ const useAccountSearchOperation = (group, id, page, categoryScope) => {
             descriptions,
             hasNextPage: false,
             hasPreviousPage: false
-        }
+        };
 
         const labelField = categoryLabelFields[categoryScope];
 
@@ -57,10 +57,10 @@ ${formatMoney(adjustedValue)}`;
             descriptions,
             hasNextPage: data.data.page_metadata.has_next_page,
             hasPreviousPage: data.data.page_metadata.has_previous_page
-        }
+        };
     }, [data, categoryScope]);
 
-    return { data: parsedData, error: isError, loading: isLoading }
-}
+    return { data: parsedData, error: isError, loading: isLoading };
+};
 
 export default useAccountSearchOperation;

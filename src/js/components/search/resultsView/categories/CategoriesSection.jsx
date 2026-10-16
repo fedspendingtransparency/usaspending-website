@@ -90,15 +90,15 @@ const CategoriesSection = ({
     return (
         <div ref={ref} className="categories">
             {categoriesHasLoaded ?
-                <CategoriesVisualizationWrapperContainer
-                    wrapperProps={wrapperProps}
-                    selectedDropdown={selectedDropdown}
-                    setSelectedDropdown={setSelectedDropdown}
-                    hash={hash}
-                    key={selectedDropdown} />
-                :
-                <PlaceholderComponent className="categories" />
-            }
+                (
+                    <CategoriesVisualizationWrapperContainer
+                        wrapperProps={wrapperProps}
+                        selectedDropdown={selectedDropdown}
+                        setSelectedDropdown={setSelectedDropdown}
+                        hash={hash}
+                        key={selectedDropdown} />
+                ) :
+                <PlaceholderComponent className="categories" />}
         </div>
     );
 };

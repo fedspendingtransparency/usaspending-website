@@ -177,12 +177,10 @@ const StateAgencyList = ({
             // Only search if search is 2 or more characters
             setAgencySearchString(inputVal);
 
-
             if (request.current) {
                 // A request is currently in-flight, cancel it
                 request.current.cancel();
             }
-
 
             const agencySearchParams = {
                 search_text: inputVal,

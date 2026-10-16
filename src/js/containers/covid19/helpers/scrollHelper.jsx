@@ -14,9 +14,9 @@ const isElementVisibleAndRoomExists = (ref) => (
 export const scrollIntoView = (loading, error, wrapperRef, wrapperReadyRef, margin,
     scrollIntoViewOptions, moreOptionsTabsRef) => {
     if (((loading || error) && wrapperRef.current && moreOptionsTabsRef.current &&
-    isElementVisibleAndRoomExists(wrapperRef)) ||
-    (wrapperReadyRef.current && moreOptionsTabsRef.current &&
-    isElementVisibleAndRoomExists(wrapperReadyRef))) {
+        isElementVisibleAndRoomExists(wrapperRef)) ||
+        (wrapperReadyRef.current && moreOptionsTabsRef.current &&
+            isElementVisibleAndRoomExists(wrapperReadyRef))) {
         moreOptionsTabsRef.current.scrollIntoView(scrollIntoViewOptions);
         const scrollToCurrentYPos = document.documentElement.scrollTop;
         window.scrollTo(0, scrollToCurrentYPos - margin);

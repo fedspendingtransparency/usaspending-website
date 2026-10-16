@@ -3,7 +3,6 @@
  * Created by Andrea Blackwell 01/14/2025
  **/
 
-
 export const sideBarXlDesktopWidth = 352;
 
 export const panelContainerElClasses = [

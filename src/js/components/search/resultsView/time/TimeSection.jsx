@@ -3,18 +3,17 @@
  * Created by Andrea Blackwell 04/14/2024
  **/
 
+import React, { useState, useCallback, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import React, { useState, useCallback, useEffect } from "react";
-import PropTypes from "prop-types";
-
-import Analytics from "../../../../helpers/analytics/Analytics";
+import Analytics from '../../../../helpers/analytics/Analytics';
 import TimeVisualizationSectionContainer
-    from "../../../../containers/search/resultsView/TimeVisualizationSectionContainer";
-import PlaceholderComponent from "../PlaceholderComponent";
-import TimeDsm from "./TimeDsm";
-import useQueryParams from "../../../../hooks/useQueryParams";
-import useIntersectionObserver from "../../../../hooks/useIntersectionObserver";
-import logVisualizationViewEvent from "../logVisualizationViewEvent";
+    from '../../../../containers/search/resultsView/TimeVisualizationSectionContainer';
+import PlaceholderComponent from '../PlaceholderComponent';
+import TimeDsm from './TimeDsm';
+import useQueryParams from '../../../../hooks/useQueryParams';
+import useIntersectionObserver from '../../../../hooks/useIntersectionObserver';
+import logVisualizationViewEvent from '../logVisualizationViewEvent';
 
 const propTypes = {
     hash: PropTypes.string,
@@ -33,7 +32,7 @@ const TimeSection = ({
 
     useEffect(() => {
         if (timeHasLoaded) {
-            logVisualizationViewEvent("time", hash);
+            logVisualizationViewEvent('time', hash);
         }
     }, [timeHasLoaded, hash]);
 
@@ -74,13 +73,13 @@ const TimeSection = ({
     return (
         <div ref={ref} className="time">
             {timeHasLoaded ?
-                <TimeVisualizationSectionContainer
-                    wrapperProps={wrapperProps}
-                    visualizationPeriod={visualizationPeriod}
-                    hash={hash} />
-                :
-                <PlaceholderComponent className="time" />
-            }
+                (
+                    <TimeVisualizationSectionContainer
+                        wrapperProps={wrapperProps}
+                        visualizationPeriod={visualizationPeriod}
+                        hash={hash} />
+                ) :
+                <PlaceholderComponent className="time" />}
         </div>
     );
 };

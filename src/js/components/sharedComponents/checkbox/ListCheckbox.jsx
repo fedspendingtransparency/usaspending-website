@@ -34,7 +34,7 @@ const ListCheckbox = ({
     const highlightText = (text) => replaceString(text, searchString, 'highlight');
     const searchCategoryMapping = () => {
         // filter out definitions based on search text
-        // eslint-disable-next-line no-unused-vars
+
         const filteredDefinitions = Object.fromEntries(
             Object.entries(filters)
                 .filter(([, value]) => value.toLowerCase().includes(searchString.toLowerCase()))
@@ -70,7 +70,8 @@ const ListCheckbox = ({
                         {highlightText(category.name)}
                     </span>
                     <span className="checkbox-filter__header-count">
-                        {category.filters?.length}{' '}
+                        {category.filters?.length}
+                        {' '}
                         {category.filters?.length === 1 ? 'type' : 'types'}
                     </span>
                 </div>
@@ -81,7 +82,8 @@ const ListCheckbox = ({
                 singleFilterChange={singleFilterChange}
                 filters={filters}
                 searchString={searchString} />
-        </div>)
+        </div>
+    )
     );
 
     useEffect(() => {
@@ -102,12 +104,12 @@ const ListCheckbox = ({
                 onClear={onClear}
                 searchIcon />
             {noResults ?
-                <div className="no-results">No results found.</div>
-                :
-                <div className="filter-item-wrap">
-                    {checkboxCategories}
-                </div>
-            }
+                <div className="no-results">No results found.</div> :
+                (
+                    <div className="filter-item-wrap">
+                        {checkboxCategories}
+                    </div>
+                )}
         </div>
     );
 };
