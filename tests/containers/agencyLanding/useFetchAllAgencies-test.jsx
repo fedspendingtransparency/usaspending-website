@@ -118,4 +118,16 @@ describe('useFetchAllAgencies', () => {
 
         expect(result.current.results[0].display.congressional_justification_url).toEqual('not available');
     });
+
+    it('returns zero results after a successful fetch when the search string matches nothing', async () => {
+        jest.spyOn(agencyLandingHelper, 'fetchAllAgencies')
+            .mockReturnValue({ promise: Promise.resolve({ data: mockData }) });
+
+        const { result } = renderUseFetchAllAgencies('Nonexistent');
+
+        await waitFor(() => expect(result.current.isLoading).toBe(false));
+
+        expect(result.current.results).toEqual([]);
+        expect(result.current.resultsText).toEqual('0 results');
+    });
 });

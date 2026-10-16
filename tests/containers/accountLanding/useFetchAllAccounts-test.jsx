@@ -21,9 +21,14 @@ const createWrapper = () => {
     );
 };
 
-const renderUseFetchAllAccounts = (fy, keyword = '') =>
+const renderUseFetchAllAccounts = ({
+    sort = { field: 'budgetary_resources', direction: 'desc' },
+    page = 1,
+    fy,
+    keyword = ''
+} = {}) =>
     renderHook(
-        () => useFetchAllAccounts({ field: 'budgetary_resources', direction: 'desc' }, 1, fy, keyword),
+        () => useFetchAllAccounts(sort, page, fy, keyword),
         { wrapper: createWrapper() }
     );
 
@@ -33,7 +38,7 @@ describe('useFetchAllAccounts', () => {
     it('does not fetch when fy is not yet available', () => {
         const fetchSpy = jest.spyOn(accountLandingHelper, 'fetchAllAccounts');
 
-        const { result } = renderUseFetchAllAccounts(undefined);
+        const { result } = renderUseFetchAllAccounts();
 
         expect(fetchSpy).not.toHaveBeenCalled();
         expect(result.current.results).toEqual([]);
@@ -44,7 +49,7 @@ describe('useFetchAllAccounts', () => {
         jest.spyOn(accountLandingHelper, 'fetchAllAccounts')
             .mockReturnValue({ promise: Promise.resolve(mockData) });
 
-        const { result } = renderUseFetchAllAccounts(2020);
+        const { result } = renderUseFetchAllAccounts({ fy: 2020 });
 
         expect(result.current.isLoading).toBe(true);
 
@@ -54,11 +59,25 @@ describe('useFetchAllAccounts', () => {
         expect(result.current.totalItems).toEqual(mockData.data.count);
     });
 
+    it('builds the request params from sort, page, and fy', () => {
+        const fetchSpy = jest.spyOn(accountLandingHelper, 'fetchAllAccounts')
+            .mockReturnValue({ promise: Promise.resolve(mockData) });
+
+        renderUseFetchAllAccounts({ fy: 2020 });
+
+        expect(fetchSpy.mock.calls[0][0]).toEqual({
+            sort: { field: 'budgetary_resources', direction: 'desc' },
+            page: 1,
+            limit: 50,
+            filters: { fy: '2020' }
+        });
+    });
+
     it('omits keyword from the request params when no search string is given', () => {
         const fetchSpy = jest.spyOn(accountLandingHelper, 'fetchAllAccounts')
             .mockReturnValue({ promise: Promise.resolve(mockData) });
 
-        renderUseFetchAllAccounts(2020);
+        renderUseFetchAllAccounts({ fy: 2020 });
 
         expect(fetchSpy.mock.calls[0][0]).not.toHaveProperty('keyword');
     });
@@ -67,7 +86,7 @@ describe('useFetchAllAccounts', () => {
         const fetchSpy = jest.spyOn(accountLandingHelper, 'fetchAllAccounts')
             .mockReturnValue({ promise: Promise.resolve(mockData) });
 
-        renderUseFetchAllAccounts(2020, 'defense');
+        renderUseFetchAllAccounts({ fy: 2020, keyword: 'defense' });
 
         expect(fetchSpy.mock.calls[0][0].keyword).toEqual('defense');
     });
@@ -76,9 +95,10 @@ describe('useFetchAllAccounts', () => {
         jest.spyOn(accountLandingHelper, 'fetchAllAccounts')
             .mockReturnValue({ promise: Promise.reject(new Error('network error')) });
 
-        const { result } = renderUseFetchAllAccounts(2020);
+        const { result } = renderUseFetchAllAccounts({ fy: 2020 });
 
         await waitFor(() => expect(result.current.isError).toBe(true));
+
         expect(result.current.results).toEqual([]);
         expect(result.current.totalItems).toEqual(0);
     });
