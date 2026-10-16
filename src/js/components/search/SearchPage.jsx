@@ -3,7 +3,7 @@
  * * Created by Andrea Blackwell November 4, 2024
  * **/
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { useDispatch } from "react-redux";
@@ -59,7 +59,6 @@ const SearchPage = ({
     const [sidebarIsOpen, setSidebarIsOpen] = useState(true);
     const [filterCount, setFilterCount] = useState(0);
     const [showFullDownload, setShowFullDownload] = useState(false);
-    const [stateHash, setStateHash] = useState(hash);
 
     const dispatch = useDispatch();
     const { isMedium } = useIsMobile();
@@ -79,10 +78,6 @@ const SearchPage = ({
         setShowFullDownload(false);
     };
 
-    useEffect(() => {
-        setStateHash(hash);
-    }, [hash]);
-
     return (
         <PageWrapper
             pageName="Advanced Search"
@@ -90,7 +85,7 @@ const SearchPage = ({
                 showMobileFilters && sidebarIsOpen ? 'fixed-body' : ''
             }`}
             title="Advanced Search"
-            metaTagProps={MetaTagHelper.getSearchPageMetaTags(stateHash)}
+            metaTagProps={MetaTagHelper.getSearchPageMetaTags(hash)}
             toolBarComponents={
                 searchPageToolBarComponents(
                     isMedium,
