@@ -3,176 +3,127 @@
  * Created by David Trinh 7/2/18
  */
 
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { isCancel } from 'axios';
 import { inRange } from 'lodash-es';
 
 import * as RecipientLandingHelper from 'helpers/recipientLandingHelper';
-
 import RecipientLandingContent from 'components/recipientLanding/RecipientLandingContent';
-
 import BaseRecipientLandingRow from 'models/v2/recipient/BaseRecipientLandingRow';
 
-export default class RecipientLandingContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const RecipientLandingContainer = () => {
+    const [pageNumber, setPageNumber] = useState(1);
+    const [order, setOrder] = useState({ field: 'amount', direction: 'desc' });
+    const [awardType, setAwardType] = useState('all');
+    const [inFlight, setInFlight] = useState(false);
+    const [error, setError] = useState(false);
+    const [searchString, setSearchString] = useState('');
+    const [results, setResults] = useState([]);
+    const [totalItems, setTotalItems] = useState(0);
+    const [pageSize] = useState(50);
 
-        this.state = {
-            pageNumber: 1,
-            order: {
-                field: 'amount',
-                direction: 'desc'
-            },
-            awardType: 'all',
-            inFlight: false,
-            error: false,
-            searchString: '',
-            results: [],
-            totalItems: 0,
-            pageSize: 50
-        };
+    const recipientsRequest = useRef(null);
 
-        this.recipientsRequest = null;
-        this.setRecipientSearchString = this.setRecipientSearchString.bind(this);
-        this.onChangePage = this.onChangePage.bind(this);
-        this.setSort = this.setSort.bind(this);
-        this.setTab = this.setTab.bind(this);
-    }
-
-    componentDidMount() {
-        this.fetchRecipients();
-    }
-
-    componentWillUnmount() {
-        if (this.recipientsRequest) {
-            this.recipientsRequest.cancel();
-        }
-    }
-
-    onChangePage(pageNumber) {
-        const totalPages = Math.ceil(this.state.totalItems / this.state.pageSize);
-        if (inRange(pageNumber, 1, totalPages + 1)) {
+    const onChangePage = (page) => {
+        const totalPages = Math.ceil(totalItems / pageSize);
+        if (inRange(page, 1, totalPages + 1)) {
             // Change page number in the state and make a new request
-            this.setState({
-                pageNumber
-            }, () => {
-                this.fetchRecipients();
-            });
+            setPageNumber(pageNumber);
         }
-    }
+    };
 
-    setRecipientSearchString(searchString) {
-        const pageNumber = 1;
-        // Change search string in the state and make a new request
-        this.setState({
-            searchString,
-            pageNumber
-        }, () => {
-            this.fetchRecipients();
-        });
-    }
+    const setRecipientSearchString = (string) => {
+        setSearchString(string);
+        setPageNumber(1);
+    };
 
-    setSort(field, direction) {
-    // Change sort in the state and make a new request
-    // Reset the page number to 1
-        this.setState({
-            order: {
-                field,
-                direction
-            },
-            pageNumber: 1
-        }, () => {
-            this.fetchRecipients();
-        });
-    }
+    const setSort = (field, direction) => {
+        setOrder({ field, direction });
+        setPageNumber(1);
+    };
 
-    setTab(awardType) {
-        this.setState({
-            pageNumber: 1,
-            awardType
-        }, () => {
-            this.fetchRecipients();
-        });
-    }
+    const setTab = (awardType) => {
+        setAwardType(awardType);
+        setPageNumber(1);
+    };
 
-    fetchRecipients() {
-        if (this.recipientsRequest) {
-            // a request is in-flight, cancel it
-            this.recipientsRequest.cancel();
-        }
-
-        this.setState({
-            inFlight: true,
-            error: false
-        });
-
-        // generate the params
-        const params = {
-            order: this.state.order.direction,
-            sort: this.state.order.field,
-            page: this.state.pageNumber,
-            limit: this.state.pageSize,
-            award_type: this.state.awardType
-        };
-
-        if (this.state.searchString !== '') {
-            params.keyword = this.state.searchString;
-        }
-
-        this.recipientsRequest = RecipientLandingHelper.fetchAllRecipients(params);
-
-        this.recipientsRequest.promise
-            .then((res) => {
-                this.setState({
-                    inFlight: false
-                });
-
-                this.parseRecipients(res.data);
-            })
-            .catch((err) => {
-                this.recipientsRequest = null;
-                if (!isCancel(err)) {
-                    this.setState({
-                        inFlight: false,
-                        error: true
-                    });
-                    console.log(err);
-                }
-            });
-    }
-
-    parseRecipients(data) {
+    const parseRecipients = (data) => {
         const recipients = [];
 
         data.results.forEach((item) => {
             const recipient = Object.create(BaseRecipientLandingRow);
             recipient.populate(item);
-            if (recipient.duns !== "DUNS not provided" || recipient.name !== "Not provided in source system") {
+            if (recipient.duns !== 'DUNS not provided' || recipient.name !== 'Not provided in source system') {
                 recipients.push(recipient);
             }
         });
 
-        this.setState({
-            totalItems: data.page_metadata.total,
-            results: recipients
-        });
-    }
+        setTotalItems(data.page_metadata.total);
+        setResults(recipients);
+    };
 
-    render() {
-        return (
-            <RecipientLandingContent
-                results={this.state.results}
-                inFlight={this.state.inFlight}
-                error={this.state.error}
-                order={this.state.order}
-                setSort={this.setSort}
-                setTab={this.setTab}
-                searchString={this.state.searchString}
-                setRecipientSearchString={this.setRecipientSearchString}
-                onChangePage={this.onChangePage}
-                pageNumber={this.state.pageNumber}
-                totalItems={this.state.totalItems}
-                pageSize={this.state.pageSize} />
-        );
-    }
-}
+    const fetchRecipients = () => {
+        if (recipientsRequest.current) {
+            // a request is in-flight, cancel it
+            recipientsRequest.current.cancel();
+        }
+
+        setInFlight(true);
+        setError(false);
+
+        // generate the params
+        const params = {
+            order: order.direction,
+            sort: order.field,
+            page: pageNumber,
+            limit: pageSize,
+            award_type: awardType
+        };
+
+        if (searchString !== '') {
+            params.keyword = searchString;
+        }
+
+        recipientsRequest.current = RecipientLandingHelper.fetchAllRecipients(params);
+
+        recipientsRequest.current.promise
+            .then((res) => {
+                setInFlight(false);
+
+                parseRecipients(res.data);
+            })
+            .catch((err) => {
+                recipientsRequest.current = null;
+                if (!isCancel(err)) {
+                    setInFlight(false);
+                    setError(true);
+
+                    console.log(err);
+                }
+            });
+    };
+
+    useEffect(() => {
+        fetchRecipients();
+
+        return () => recipientsRequest.current.cancel();
+    }, [pageNumber, searchString, order, awardType]);
+
+    return (
+        <RecipientLandingContent
+            results={results}
+            inFlight={inFlight}
+            error={error}
+            order={order}
+            setSort={setSort}
+            setTab={setTab}
+            searchString={searchString}
+            setRecipientSearchString={setRecipientSearchString}
+            onChangePage={onChangePage}
+            pageNumber={pageNumber}
+            totalItems={totalItems}
+            pageSize={pageSize} />
+    );
+};
+
+export default RecipientLandingContainer;
