@@ -51,6 +51,7 @@
     "@storybook/addon-links": "^9.1.3",
     "@storybook/addon-styling-webpack": "^2.0.0",
     "@storybook/react-webpack5": "^9.1.3",
+    "@stylistic/eslint-plugin": "^5.10.0",
     "@tanstack/react-query-devtools": "^5.104.2",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.1.4",
