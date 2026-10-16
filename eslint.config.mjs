@@ -51,7 +51,7 @@ export default defineConfig([
             '@stylistic/indent-binary-ops': [2, 4],
             '@stylistic/jsx-closing-bracket-location': ['error', 'after-props'],
             '@stylistic/jsx-indent-props': [2, 4],
-            '@stylistic/jsx-one-expression-per-line': ['error', { allow: 'single-line' }],
+            '@stylistic/jsx-one-expression-per-line': ['warn', { allow: 'single-line' }],
             '@stylistic/operator-linebreak': ['error', 'after'],
             '@stylistic/quotes': [1],
             '@stylistic/semi': ['error', 'always'],
