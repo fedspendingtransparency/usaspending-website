@@ -162,8 +162,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         <div className="collapsible-sidebar-header">
             <div className="sidebar-title-row">
                 <h2 className="sidebar-title">
-                    {isDesktopFilters ? 'Filter' : 'Smart Assist'}
+                    {isDesktopFilters ? 'Advanced Search' : 'Smart Assist'}
                 </h2>
+                {!isDesktopFilters && <span className="sidebar-beta-badge">BETA</span>}
                 <div
                     onClick={toggleOpened}
                     onKeyDown={(e) => {

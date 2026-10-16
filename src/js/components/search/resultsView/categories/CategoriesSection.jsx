@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 04/14/2024
  **/
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import Analytics from "../../../../helpers/analytics/Analytics";
@@ -11,21 +11,29 @@ import CategoriesVisualizationWrapperContainer
     from "../../../../containers/search/resultsView/CategoriesVisualizationWrapperContainer";
 import PlaceholderComponent from "../PlaceholderComponent";
 import CategoriesDsm from "./CategoriesDsm";
+import useIntersectionObserver from "../../../../hooks/useIntersectionObserver";
+import logVisualizationViewEvent from "../logVisualizationViewEvent";
 
 const propTypes = {
-    categoriesHasLoaded: PropTypes.bool,
     spendingLevel: PropTypes.string,
-    setSelectedDropdown: PropTypes.func,
-    selectedDropdown: PropTypes.string,
     hash: PropTypes.string
 };
 const CategoriesSection = ({
-    categoriesHasLoaded,
     spendingLevel,
-    setSelectedDropdown,
-    selectedDropdown,
     hash
 }) => {
+    const [selectedDropdown, setSelectedDropdown] = useState('awarding_agency');
+    const { ref, isIntersecting: categoriesHasLoaded } = useIntersectionObserver({
+        threshold: 0.1,
+        freezeOnceVisible: true
+    });
+
+    useEffect(() => {
+        if (categoriesHasLoaded) {
+            logVisualizationViewEvent("categories", hash);
+        }
+    }, [categoriesHasLoaded, hash]);
+
     const onClick = (e) => {
         setSelectedDropdown(e);
         Analytics.event({
@@ -80,7 +88,7 @@ const CategoriesSection = ({
 
     };
     return (
-        <div id="search-page-component" className="categories">
+        <div ref={ref} className="categories">
             {categoriesHasLoaded ?
                 (
                     <CategoriesVisualizationWrapperContainer
