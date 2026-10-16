@@ -18,10 +18,9 @@ const propTypes = {
     }),
     sectionKey: PropTypes.string,
     onToggle: PropTypes.func
-}
+};
 
 const NLSearchInfoSection = ({ section, toggleAll, sectionKey, onToggle }) => {
-
     return (
         <div className="search-info-page-section">
             <div className="search-info-page__heading-section">

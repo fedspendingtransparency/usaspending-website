@@ -11,7 +11,7 @@ import smartAssistGraphic from '../../../../img/smart-assist-graphic.png';
 import { smartAssistContent } from '../naturalLanguage/NLData';
 import NLSearchInfoSection from './NLSearchInfoSection';
 import NLSearchInfoResources from './NLSearchInfoResources';
-import { FlexGridCol, Button} from 'data-transparency-ui';
+import { FlexGridCol, Button } from 'data-transparency-ui';
 import ShareDownloadButtonGroup from '../../sharedComponents/buttons/ShareDownloadButtonGroup';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -102,37 +102,37 @@ const NLSearchInfoPage = () => {
                         backgroundColor="light"
                         textAlignment="center"
                         imageAlignment="left"
-                        image={
+                        image={(
                             <div className="button-icon-container">
                                 <FontAwesomeIcon
                                     className="button-icon"
                                     icon={allExpanded ? 'minus' : 'plus'} />
                             </div>
-                        }/>
+                        )} />
                 </FlexGridCol>
                 <section className="search-info-page__content-section">
                     <NLSearchInfoSection
-                        section={ overview }
+                        section={overview}
                         sectionKey="overview"
                         toggleAll={toggleAllAccordions}
                         onToggle={handleAccordionToggle} />
                     <NLSearchInfoSection
-                        section={ search }
+                        section={search}
                         sectionKey="search"
                         toggleAll={toggleAllAccordions}
                         onToggle={handleAccordionToggle} />
                     <NLSearchInfoSection
-                        section={ results }
+                        section={results}
                         sectionKey="results"
                         toggleAll={toggleAllAccordions}
                         onToggle={handleAccordionToggle} />
                     <NLSearchInfoSection
-                        section={ limitations }
+                        section={limitations}
                         sectionKey="limitations"
                         toggleAll={toggleAllAccordions}
                         onToggle={handleAccordionToggle} />
                     <NLSearchInfoSection
-                        section={ feedback }
+                        section={feedback}
                         sectionKey="feedback"
                         toggleAll={toggleAllAccordions}
                         onToggle={handleAccordionToggle} />
