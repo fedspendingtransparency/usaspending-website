@@ -174,8 +174,8 @@ export default function ObligationsByAwardType({
                     (
                         activeType && activeType !== inner[i].label) &&
                         !isMobile
-                )
-                    ? inner[i].fadedColor :
+                ) ?
+                    inner[i].fadedColor :
                     inner[i].color;
             })
             .style('cursor', 'pointer')
@@ -344,7 +344,8 @@ export default function ObligationsByAwardType({
                     activeType={activeType}
                     categoryType={getActiveCategoryType(activeType, categoryMapping)}
                     isCategoryHover={categoryHover?.length > 0}
-                    labelTooltip={labelTooltip} />)}
+                    labelTooltip={labelTooltip} />
+            )}
             controlledProps={{
                 isControlled: true,
                 isVisible: activeType && !isMobile,

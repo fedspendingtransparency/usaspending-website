@@ -4,35 +4,29 @@
  */
 
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import AboutTheData from 'components/aboutTheDataSidebar/AboutTheData';
-import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { getDrilldownEntry } from 'helpers/aboutTheDataSidebarHelper';
 import Analytics from 'helpers/analytics/Analytics';
-import schema from '../../../config/aboutTheData/aboutTheDataSchema';
+import {
+    setAboutTheDataTerm,
+    setAboutTheDataTermFromUrl
+} from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
+import schema from "../../../config/aboutTheData/aboutTheDataSchema";
+import AboutTheData from "../../components/aboutTheDataSidebar/AboutTheData";
 
 require('components/aboutTheDataSidebar/aboutTheData.scss');
 
-const propTypes = {
-    aboutTheDataSidebar: PropTypes.object,
-    showAboutTheData: PropTypes.func,
-    setAboutTheDataTerm: PropTypes.func,
-    setAboutTheDataTermFromUrl: PropTypes.func,
-    clearAboutTheDataTerm: PropTypes.func
-};
+export const AboutTheDataContainer = () => {
+    const dispatch = useDispatch();
+    const { termFromUrl, term, display } = useSelector((state) => state.aboutTheDataSidebar);
 
-export const AboutTheDataContainer = (props) => {
     useEffect(() => {
-        const { termFromUrl, term, display } = props.aboutTheDataSidebar;
-
         if (termFromUrl) {
             const drilldownEntry = getDrilldownEntry(schema, termFromUrl);
             if (drilldownEntry) {
-                props.setAboutTheDataTerm(drilldownEntry);
-                props.setAboutTheDataTermFromUrl('');
+                dispatch(setAboutTheDataTerm(drilldownEntry));
+                dispatch(setAboutTheDataTermFromUrl(''));
             }
         }
         if (display) {
@@ -47,21 +41,13 @@ export const AboutTheDataContainer = (props) => {
                 });
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.aboutTheDataSidebar]);
+    }, [dispatch, display, term.name, term.slug, termFromUrl]);
 
     return (
         <div className="usa-atd-animations">
-            <AboutTheData {...props} schema={schema} />
+            <AboutTheData />
         </div>
     );
 };
 
-AboutTheDataContainer.propTypes = propTypes;
-
-export default connect(
-    (state) => ({
-        aboutTheDataSidebar: state.aboutTheDataSidebar
-    }),
-    (dispatch) => bindActionCreators(aboutTheDataActions, dispatch)
-)(AboutTheDataContainer);
+export default AboutTheDataContainer;

@@ -106,7 +106,8 @@ const ExplorerVisualization = ({
                     changeSubdivisionType={changeSubdivisionType}
                     viewType={viewType}
                     changeView={changeView} />
-            </div>);
+            </div>
+        );
 
         disclaimer = (
             <div className="explorer-vis__disclaimer">

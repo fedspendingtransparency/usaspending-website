@@ -111,13 +111,15 @@ export default class FederalAccountsViz extends React.Component {
                         ref={(div) => {
                             this.widthRef = div;
                         }} />
-                    {isTreeView && <FederalAccountsTree
-                        error={this.props.error}
-                        inFlight={this.props.inFlight}
-                        width={this.state.width}
-                        data={this.props.federalAccounts}
-                        showTooltip={this.showTooltip}
-                        hideTooltip={this.hideTooltip} />}
+                    {isTreeView && (
+                        <FederalAccountsTree
+                            error={this.props.error}
+                            inFlight={this.props.inFlight}
+                            width={this.state.width}
+                            data={this.props.federalAccounts}
+                            showTooltip={this.showTooltip}
+                            hideTooltip={this.hideTooltip} />
+                    )}
                 </div>
             </div>
         );

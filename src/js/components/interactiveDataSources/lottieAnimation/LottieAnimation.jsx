@@ -133,17 +133,20 @@ class LottieAnimation extends React.Component {
         if (startFrame && (!stopFrame || stopFrame === 0)) {
             // go to start frame and play until end
             return (direction === "down") ?
-                [startFrame, duration] : [duration, startFrame];
+                [startFrame, duration] :
+                [duration, startFrame];
         }
         else if (stopFrame && (!startFrame || startFrame === 0)) {
             // play from beginning until stop frame
             return (direction === "down") ?
-                [0, stopFrame] : [stopFrame, 0];
+                [0, stopFrame] :
+                [stopFrame, 0];
         }
         else if (startFrame > 0 && stopFrame > 0) {
             // play the segment
             return (direction === "down") ?
-                [startFrame, stopFrame] : [stopFrame, startFrame];
+                [startFrame, stopFrame] :
+                [stopFrame, startFrame];
         }
         return null;
     };

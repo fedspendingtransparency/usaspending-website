@@ -3,7 +3,6 @@
  * Created by Jonathan Hill 12/05/19
  */
 
-
 const initialState = {
     isSubAwardIdClicked: false
 };

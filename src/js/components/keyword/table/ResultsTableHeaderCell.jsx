@@ -68,9 +68,11 @@ const TableHeaderCell = ({
         lastClass = ' last-column';
     }
 
-    const customStyle = background ? (
-        { backgroundColor: background, height: headerHeight }
-    ) : { height: headerHeight };
+    const customStyle = background ?
+        (
+            { backgroundColor: background, height: headerHeight }
+        ) :
+        { height: headerHeight };
 
     /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
     // allow keyboard selection of the header cell

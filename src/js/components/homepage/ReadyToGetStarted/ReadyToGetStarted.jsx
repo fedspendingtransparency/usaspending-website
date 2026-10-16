@@ -75,7 +75,7 @@ const ReadyToGetStarted = () => (
         <div style={{ display: "flex", justifyContent: "center" }}>
             <FlexGridRow className="grid-content">
                 <FlexGridCol className="ready-to-get-started__title" width={12}>
-                Ready to get started?
+                    Ready to get started?
                 </FlexGridCol>
                 <FlexGridRow className="ready-to-get-started__card-row" hasGutter gutterSize="lg">
                     {cardObjects.map((card, index) => (

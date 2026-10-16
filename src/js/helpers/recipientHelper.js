@@ -21,4 +21,3 @@ export const fetchNewAwardCounts = (params) => apiRequest({
     method: 'post',
     data: params
 });
-

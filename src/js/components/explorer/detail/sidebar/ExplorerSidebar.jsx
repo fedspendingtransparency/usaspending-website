@@ -3,7 +3,7 @@
  * Created by Kevin Li 8/16/17
  */
 
-import React, {useCallback, useEffect, useRef} from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router';
 
@@ -13,7 +13,6 @@ import { Home } from 'components/sharedComponents/icons/Icons';
 import QuarterPickerWithFY from 'components/sharedComponents/QuarterPickerWithFY';
 import { useLatestAccountData } from "../../../../containers/account/WithLatestFy";
 import VerticalTrail from './VerticalTrail';
-
 
 const propTypes = {
     fy: PropTypes.string,
@@ -135,7 +134,7 @@ const ExplorerSidebar = ({
 
         </div>
     );
-}
+};
 
 ExplorerSidebar.propTypes = propTypes;
 export default ExplorerSidebar;

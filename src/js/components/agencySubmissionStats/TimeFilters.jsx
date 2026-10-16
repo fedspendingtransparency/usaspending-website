@@ -55,9 +55,9 @@ const parsePeriods = (year, periods) => {
                                 lastPeriods.includes(period.id) || isIndividuallySelectablePeriod
                             )
                         );
-                        const classNames = src.length - 1 === i
-                            ? ['period', 'last', cssOrderClassByPeriodId[period.id]]
-                            : ['period', cssOrderClassByPeriodId[period.id]];
+                        const classNames = src.length - 1 === i ?
+                            ['period', 'last', cssOrderClassByPeriodId[period.id]] :
+                            ['period', cssOrderClassByPeriodId[period.id]];
                         if (!isIndividuallySelectablePeriod && isPeriodVisibleViaQuarterSelection) {
                             classNames.push(`not-individually-selectable-p${period.id}`);
                         }
@@ -72,10 +72,12 @@ const parsePeriods = (year, periods) => {
                             type: classNames[classNames.length - 1],
                             classNames: classNames.join(' '),
                             isEnabled,
-                            component: <PeriodComponent
-                                isEnabled={isEnabled}
-                                classNames={i === 0 ? classNames.concat(['first']) : classNames}
-                                title={period.title} />
+                            component: (
+                                <PeriodComponent
+                                    isEnabled={isEnabled}
+                                    classNames={i === 0 ? classNames.concat(['first']) : classNames}
+                                    title={period.title} />
+                            )
                         };
                     })
             )
@@ -108,9 +110,9 @@ const TimePeriodFilters = ({
                 component: p.component,
                 value: `${p.id}`,
                 isEnabled: p.isEnabled,
-                onClick: p.isEnabled
-                    ? (period) => handleTimeChange(selectedFy, period)
-                    : () => null
+                onClick: p.isEnabled ?
+                    (period) => handleTimeChange(selectedFy, period) :
+                    () => null
             }))
     );
 
@@ -128,17 +130,16 @@ const TimePeriodFilters = ({
                     isFixedWidth
                     className="fy-picker"
                     sortFn={sortPeriods}
-                    selectedOption={selectedFy
-                        ? <span>FY {selectedFy}</span>
-                        : (
+                    selectedOption={selectedFy ?
+                        <span>FY {selectedFy}</span> :
+                        (
                             <div data-testid="fy-loading" className="fy-loading">
                                 FY <FontAwesomeIcon icon="spinner" size="sm" alt="FY Loading ..." spin />
                             </div>
                         )}
-                    options={latestFy
-                        ? allFiscalYears(2017, latestFy).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: handleTimeChange }))
-                        : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
-                    } />
+                    options={latestFy ?
+                        allFiscalYears(2017, latestFy).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: handleTimeChange })) :
+                        [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]} />
             </div>
             {activeTab === 'submissions' && (
                 <div className="filter-container period-picker">
@@ -148,9 +149,9 @@ const TimePeriodFilters = ({
                         icon=""
                         className="period-picker"
                         sortFn={sortPeriods}
-                        selectedOption={selectedPeriod
-                            ? <span>{selectedPeriod.title}</span>
-                            : (
+                        selectedOption={selectedPeriod ?
+                            <span>{selectedPeriod.title}</span> :
+                            (
                                 <div className="period-loading">
                                     P <FontAwesomeIcon icon="spinner" size="sm" alt="Toggle menu" spin />
                                 </div>

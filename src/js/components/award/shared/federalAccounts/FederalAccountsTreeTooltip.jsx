@@ -38,6 +38,7 @@ export default class FederalAccountsTreeTooltip extends React.Component {
 
         this.measureWindow = this.measureWindow.bind(this);
     }
+
     componentDidMount() {
         this.measureWindow();
         window.addEventListener('resize', this.measureWindow);
@@ -54,10 +55,10 @@ export default class FederalAccountsTreeTooltip extends React.Component {
     }
 
     measureWindow() {
-        const windowWidth = window.innerWidth || document.documentElement.clientWidth
-            || document.body.clientWidth;
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight
-            || document.body.clientHeight;
+        const windowWidth = window.innerWidth || document.documentElement.clientWidth ||
+            document.body.clientWidth;
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight ||
+            document.body.clientHeight;
 
         this.setState({
             windowWidth,
@@ -91,7 +92,7 @@ export default class FederalAccountsTreeTooltip extends React.Component {
     render() {
         const { percent, obligatedAmount, _federalAccountName } = this.props;
         const subtitle =
-        `${this.props._fundingAgencyName} (${this.props._fundingAgencyAbbreviation})`;
+            `${this.props._fundingAgencyName} (${this.props._fundingAgencyAbbreviation})`;
 
         return (
             <div className="visualization-tooltip">

@@ -61,7 +61,7 @@ const NLSearchInfoSection = ({ section, toggleAll, sectionKey, onToggle }) => {
                 </FlexGridCol>
             </div>
         </div>
-    )
+    );
 };
 
 NLSearchInfoSection.propTypes = propTypes;

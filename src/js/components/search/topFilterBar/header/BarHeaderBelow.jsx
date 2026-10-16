@@ -25,7 +25,7 @@ const BarHeaderBelow = ({
                 id="top-filter-bar-title">
                 {filterCountCopy}
             </h2>
-            {resultsView &&
+            {resultsView && (
                 <div className="filter-buttons">
                     <UpdateFiltersButton appliedFilters={appliedFilters} />
                     <ExpandFiltersButton
@@ -33,7 +33,7 @@ const BarHeaderBelow = ({
                         expandedFilters={expandedFilters}
                         setExpandedFilters={setExpandedFilters} />
                 </div>
-            }
+            )}
         </div>
     );
 };

@@ -46,7 +46,7 @@ const StateLandingPage = () => {
                 <ShareIcon508
                     onShareOptionClick={handleShare}
                     url={getBaseUrl(slug)}
-                    key={slug}/>
+                    key={slug} />
             ]}>
             <main
                 id="main-content"

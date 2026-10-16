@@ -111,7 +111,7 @@ const RedirectModal = ({
             </div>
         </Modal>
     );
-}
+};
 
 RedirectModal.propTypes = propTypes;
 export default RedirectModal;

@@ -39,11 +39,13 @@ export default class FederalAccountsTable extends React.Component {
                             {header.displayName}
                         </div>
                     </div>
-                    {header.field && <StateLandingTableSorter
-                        field={header.field}
-                        label={header.displayName}
-                        active={{ field: sort, direction: order }}
-                        setSort={updateSort} />}
+                    {header.field && (
+                        <StateLandingTableSorter
+                            field={header.field}
+                            label={header.displayName}
+                            active={{ field: sort, direction: order }}
+                            setSort={updateSort} />
+                    )}
                 </div>
             </th>
         ));
@@ -69,8 +71,8 @@ export default class FederalAccountsTable extends React.Component {
                                 <Link to={`/agency/${account._fundingAgencySlug}`}>
                                     {`(${account._fundingAgencyAbbreviation}) ${account[key]}`}
                                 </Link>
-                            )
-                            : '--';
+                            ) :
+                            '--';
                     }
                     return (
                         <td
@@ -118,9 +120,11 @@ export default class FederalAccountsTable extends React.Component {
             errorMessage = (<ResultsTableErrorMessage />);
         }
         if ((federalAccounts.length === 0) && !error && !inFlight) {
-            noResultsMessage = (<NoResultsMessage
-                title="Chart Not Available"
-                message="No available data to display." />);
+            noResultsMessage = (
+                <NoResultsMessage
+                    title="Chart Not Available"
+                    message="No available data to display." />
+            );
         }
         if ((federalAccounts.length > 0) && !error && !inFlight) {
             pagination = (

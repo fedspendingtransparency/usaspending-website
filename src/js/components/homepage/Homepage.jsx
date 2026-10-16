@@ -5,14 +5,14 @@
 
 import React, { useEffect } from 'react';
 import Cookies from 'js-cookie';
-import PageWrapper from "../sharedComponents/PageWrapper";
-import { homePageMetaTags } from "../../helpers/metaTagHelper";
+import PageWrapper from '../sharedComponents/PageWrapper';
+import { homePageMetaTags } from '../../helpers/metaTagHelper';
 import Hero from './Hero/Hero';
-import AwardSearch from "./AwardSearch/AwardSearch";
-import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle";
-import HomepageResources from "./HomepageResources/HomepageResources";
-import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";
-import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
+import AwardSearch from './AwardSearch/AwardSearch';
+import HomepageExploreToggle from './HomepageExploreToggle/HomepageExploreToggle';
+import HomepageResources from './HomepageResources/HomepageResources';
+import ReadyToGetStarted from './ReadyToGetStarted/ReadyToGetStarted';
+import HomepageFirstRow from './HomepageFirstRow/HomepageFirstRow';
 import NLPreSearchButtonGroup from '../search/naturalLanguage/NLPreSearchButtonGroup';
 
 require('pages/homepage/homepage.scss');
@@ -32,7 +32,7 @@ const Homepage = () => {
             metaTagProps={{ ...homePageMetaTags }}>
             <main id="main-content" className="main-content homepage-update-content">
                 <Hero />
-                <NLPreSearchButtonGroup source={"Homepage"} />
+                <NLPreSearchButtonGroup source="Homepage" />
                 <HomepageFirstRow />
                 <AwardSearch />
                 <HomepageExploreToggle />

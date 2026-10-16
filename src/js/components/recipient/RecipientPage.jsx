@@ -92,9 +92,11 @@ export const RecipientPage = ({
     );
 
     if (error) {
-        content = (<Error
-            title="Invalid Recipient"
-            message="The recipient ID provided is invalid. Please check the ID and try again." />);
+        content = (
+            <Error
+                title="Invalid Recipient"
+                message="The recipient ID provided is invalid. Please check the ID and try again." />
+        );
     }
 
     const backgroundColor = "#1a4480";

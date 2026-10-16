@@ -162,8 +162,8 @@ export class AgencyLandingContainer extends React.Component {
                     agency_name: `${item.agency_name} (${item.abbreviation})`,
                     budget_authority_amount: formattedCurrency,
                     percentage_of_total_budget_authority: percent,
-                    congressional_justification_url: sanitizeUrl(item.congressional_justification_url)
-                    || 'not available'
+                    congressional_justification_url: sanitizeUrl(item.congressional_justification_url) ||
+                        'not available'
                 }
             };
             agencies.push(agency);

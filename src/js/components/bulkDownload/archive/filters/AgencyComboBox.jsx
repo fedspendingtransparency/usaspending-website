@@ -41,11 +41,11 @@ const AgencyComboBox = ({ updateFilter, agencies }) => {
         <ComboBox
             optionsArray={optionsArray}
             onSelect={onSelect}
-            label={"Agency"}
-            placeholder={"Select an Agency"}
-            defaultValue={"All Agencies"} />
-    )
-}
+            label="Agency"
+            placeholder="Select an Agency"
+            defaultValue="All Agencies" />
+    );
+};
 
 AgencyComboBox.propTypes = propTypes;
 export default AgencyComboBox;

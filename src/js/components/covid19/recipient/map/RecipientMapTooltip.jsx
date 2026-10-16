@@ -20,6 +20,7 @@ export default class RecipientMapTooltip extends React.Component {
     componentDidMount() {
         this.positionTooltip();
     }
+
     componentDidUpdate() {
         this.positionTooltip();
     }
