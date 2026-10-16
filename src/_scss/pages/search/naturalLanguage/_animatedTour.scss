@@ -13,7 +13,8 @@
 .driver-popover.nl-theme .driver-popover-arrow-side-top.driver-popover-arrow {
   border-top-color: $cyan-50v;
 }
-.driver-popover.nl-theme .driver-popover-arrow-side-bottom.driver-popover-arrow {
+.driver-popover.nl-theme
+  .driver-popover-arrow-side-bottom.driver-popover-arrow {
   border-bottom-color: $cyan-50v;
 }
 
@@ -32,7 +33,8 @@ span.driver-popover-progress-text {
   color: $color-white;
 }
 
-button.driver-popover-next-btn, button.driver-popover-prev-btn {
+button.driver-popover-next-btn,
+button.driver-popover-prev-btn {
   padding: rem(4) rem(8);
   align-items: center;
   border-radius: rem(2);
@@ -46,7 +48,8 @@ button.driver-popover-next-btn, button.driver-popover-prev-btn {
     border: rem(1) solid $cyan-50v;
   }
 
-  &:active, &:focus {
+  &:active,
+  &:focus {
     background-color: $cyan-5v;
     border: rem(1) solid $cyan-5v;
     color: $cyan-60v;
@@ -60,7 +63,9 @@ button.driver-popover-close-btn {
   margin-top: rem(12);
   margin-right: rem(4);
   cursor: pointer;
-  &:hover, &:active, &:focus {
+  &:hover,
+  &:active,
+  &:focus {
     background-color: $cyan-50v;
     color: $color-white;
   }

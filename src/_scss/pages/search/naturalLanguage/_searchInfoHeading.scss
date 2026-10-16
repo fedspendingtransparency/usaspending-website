@@ -78,3 +78,42 @@
     }
   }
 }
+
+.search-info-page__expand-all-btn {
+  @include search-info-page__content-width;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: rem(60);
+  padding: 0;
+
+  .button-icon-container {
+    display: flex;
+    color: $blue-60v;
+
+    .button-icon {
+      width: rem(12);
+      height: rem(12);
+    }
+  }
+
+  button:focus {
+    box-shadow: none;
+  }
+
+  .button-type__text-left-icon-light {
+    color: $blue-60v;
+    font-family: $font-sans;
+    font-size: $font-size-16;
+    font-weight: $font-semibold;
+    line-height: $base-line-height;
+
+    svg {
+      margin: rem(1) rem(4) 0 0;
+    }
+  }
+
+  .button__md {
+    margin-right: 0;
+    padding-right: 0;
+  }
+}
