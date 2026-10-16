@@ -3,22 +3,33 @@
  * Created by Andrea Blackwell 04/14/2024
  **/
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import Analytics from "../../../../helpers/analytics/Analytics";
 import MapSectionWrapper from "../../../../containers/search/resultsView/MapWrapperContainer";
 import MapDsm from "./MapDsm";
 import PlaceholderComponent from "../PlaceholderComponent";
+import useIntersectionObserver from "../../../../hooks/useIntersectionObserver";
+import logVisualizationViewEvent from "../logVisualizationViewEvent";
 
 const propTypes = {
     spendingLevel: PropTypes.string,
-    mapHasLoaded: PropTypes.bool,
     hash: PropTypes.string
 };
 
-const MapSection = ({ spendingLevel, mapHasLoaded, hash }) => {
+const MapSection = ({ spendingLevel, hash }) => {
     const [selectedDropdown, setSelectedDropdown] = useState('place_of_performance');
+    const { ref, isIntersecting: mapHasLoaded } = useIntersectionObserver({
+        threshold: 0.1,
+        freezeOnceVisible: true
+    });
+
+    useEffect(() => {
+        if (mapHasLoaded) {
+            logVisualizationViewEvent("map", hash);
+        }
+    }, [mapHasLoaded, hash]);
 
     const onClick = (e) => {
         setSelectedDropdown(e);
@@ -50,7 +61,7 @@ const MapSection = ({ spendingLevel, mapHasLoaded, hash }) => {
     };
 
     return (
-        <div id="search-page-component" className="map">
+        <div ref={ref} className="map">
             {mapHasLoaded ?
                 (
                     <MapSectionWrapper
