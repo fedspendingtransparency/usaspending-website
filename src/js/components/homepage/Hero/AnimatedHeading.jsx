@@ -62,7 +62,7 @@ const AnimatedHeading = ({ paused }) => {
         document.querySelector('.phrase__end__item .rotating__items')?.classList.add('phrase__end__item--rotation');
         const phrase = document.querySelector('.phrase');
         phrase.style.visibility = "visible";
-        const clonedNode = phrase.cloneNode(true);
+        const clonedNode = phrase?.cloneNode(true);
         phrase.parentNode.replaceChild(clonedNode, phrase);
     };
 
@@ -79,7 +79,7 @@ const AnimatedHeading = ({ paused }) => {
         document.querySelector('.phrase__end__item .entrance__item')?.classList.remove('phrase__end__item--entrance');
         document.querySelector('.phrase__end__item .rotating__items')?.classList.remove('phrase__end__item--rotation');
         const phrase = document.querySelector('.phrase');
-        const clonedNode = phrase.cloneNode(true);
+        const clonedNode = phrase?.cloneNode(true);
         phrase.parentNode.replaceChild(clonedNode, phrase);
     };
 
@@ -88,7 +88,7 @@ const AnimatedHeading = ({ paused }) => {
         landing?.classList.remove('landing-phrase--entrance-animation');
         landing?.classList.add('landing-phrase--exit-animation');
         landing.style.visibility = 'visible';
-        const clonedNode = landing.cloneNode(true);
+        const clonedNode = landing?.cloneNode(true);
         landing.parentNode.replaceChild(clonedNode, landing);
     };
 
