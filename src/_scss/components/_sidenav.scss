@@ -70,4 +70,39 @@
       }
     }
   }
+  
+}
+.search-info-page__sidebar-col {
+  position: sticky;
+  left: 8rem;
+  top: 1.5rem;
+  width: 30%;
+  color: black;
+  padding: 15px;
+}
+.sticky-sidebar-nav {
+  list-style: none;    
+  padding: 0;
+  margin: 0;
+  position: relative;
+  li {
+    position: relative;
+    padding-left: 25px;   
+    margin-bottom: 20px;
+    a {
+      color: black;
+    }
+    .active {
+      color: #005EA2 !important;
+    }
+  }
+}
+.sticky-sidebar-nav::before {
+  content: '';
+  position: absolute;
+  top: 8px;              
+  bottom: 8px;           
+  left: 6px;             
+  width: 2px;          
+  background-color: #cbd5e1; /* Color of the line */
 }

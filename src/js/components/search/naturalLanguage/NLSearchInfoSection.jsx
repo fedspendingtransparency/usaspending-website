@@ -11,17 +11,18 @@ import Accordion from '../../sharedComponents/accordion/Accordion';
 require("pages/search/naturalLanguage/searchInfoPage.scss");
 
 const propTypes = {
+    anchor: PropTypes.string,
     section: PropTypes.object
 }
 
-const NLSearchInfoSection = ({ section }) => {
+const NLSearchInfoSection = ({anchor, section }) => {
 
     return (
-        <div className="search-info-page-section">
+        <div className="search-info-page-section"  key={anchor} id={anchor}>
             <div className="search-info-page__heading-section">
                 <FlexGridCol
                     className="search-info-page__content-col"
-                    desktop={{ span: 9, offset: 3 }}
+                    desktop={{ span: 9, offset: 0 }}
                     tablet={12}
                     mobile={12}>
                     <h3 className="search-info-page__top-content-heading">
@@ -32,7 +33,7 @@ const NLSearchInfoSection = ({ section }) => {
             <div className="search-info-page__accordion-section">
                 <FlexGridCol
                     className="search-info-page__accordion-list"
-                    desktop={{ span: 9, offset: 3 }}
+                    desktop={{ span: 9, offset: 0 }}
                     tablet={12}
                     mobile={12}>
                     {section.items.map((item, i) => (
