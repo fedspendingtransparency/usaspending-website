@@ -93,6 +93,7 @@ const NLSearchInfoPage = () => {
                     </div>
                 </section>
                 <FlexGridCol className="search-info-page__expand-all-btn">
+                    <span>test</span>
                     <Button
                         copy={allExpanded ? 'Collapse all' : 'Expand all'}
                         onClick={handleToggleAll}
