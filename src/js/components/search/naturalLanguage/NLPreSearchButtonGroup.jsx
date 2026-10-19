@@ -139,12 +139,6 @@ const NLPreSearchButtonGroup = ({source = ""}) => {
                 ) : (
                     <FlexGridRow className="homepage-pre-search__swiper-row">
                         <FlexGridCol desktop={12} tablet={6} className="homepage-pre-search__swiper-col">
-                            <button
-                                type="button"
-                                aria-label="Previous"
-                                className="homepage-pre-search__nav-button homepage-pre-search__nav-button--prev">
-                                <FontAwesomeIcon icon="angles-left" />
-                            </button>
                             <Swiper
                                 direction="horizontal"
                                 slidesPerView="auto"

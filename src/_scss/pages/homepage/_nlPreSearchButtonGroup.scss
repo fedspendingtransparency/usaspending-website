@@ -8,18 +8,16 @@
     flex-direction: column;
     align-items: flex-start;
     color: $color-white;
-    max-height: rem(280);
+    max-height: rem(428);
     margin: 0 auto;
     max-width: $homepage-max-width;
 
     @media (max-width: $medium-screen - 1) {
       padding: rem(40) rem(16);
-      max-height: rem(378);
     }
 
     @media (max-width: $mobile-only) {
       padding: rem(40) rem(32);
-      max-height: rem(592);
     }
 
     @media (min-width: $tablet-screen) {
@@ -57,7 +55,6 @@
       .homepage-pre-search__swiper-col {
         min-width: 0;
         position: relative;
-        padding: 0 rem(32);
 
         .homepage-pre-search__nav-button {
           @include button-unstyled;
@@ -73,10 +70,6 @@
           border: none;
           cursor: pointer;
 
-          // &:hover {
-          //     background-color: $gray-5;
-          // }
-
           &.swiper-button-disabled {
             display: none;
           }
@@ -85,15 +78,19 @@
             width: rem(16);
             height: rem(16);
             color: $cyan-10v;
+
+            &:hover {
+              color: $cyan-20v;
+            }
           }
         }
 
         .homepage-pre-search__nav-button--prev {
-          left: rem(0);
+          display: none;
         }
 
         .homepage-pre-search__nav-button--next {
-          right: rem(0);
+          right: rem(-24);
         }
       }
 
@@ -148,6 +145,10 @@
         width: rem(16);
         height: rem(16);
         color: $cyan-10v;
+        
+        &:hover {
+          color: $cyan-20v;
+        }
       }
     }
 
