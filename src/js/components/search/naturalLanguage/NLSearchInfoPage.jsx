@@ -3,7 +3,7 @@
  * Created by Trey Morgan 09/24/2026
  */
 
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import PageWrapper from "../../sharedComponents/PageWrapper";
 import BannerPageHeader from '../../sharedComponents/header/BannerPageHeader';
 import { smartAssistPageMetaTags } from '../../../helpers/metaTagHelper';
@@ -11,8 +11,9 @@ import smartAssistGraphic from '../../../../img/smart-assist-graphic.png';
 import { smartAssistContent } from '../naturalLanguage/NLData';
 import NLSearchInfoSection from './NLSearchInfoSection';
 import NLSearchInfoResources from './NLSearchInfoResources';
-import { FlexGridCol } from 'data-transparency-ui';
+import { FlexGridCol, Button } from 'data-transparency-ui';
 import ShareDownloadButtonGroup from '../../sharedComponents/buttons/ShareDownloadButtonGroup';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, A11y, FreeMode } from 'swiper/modules';
@@ -30,6 +31,20 @@ const graphicLabel = (
 const { overview, search, results, limitations, feedback } = smartAssistContent ?? {};
 
 const NLSearchInfoPage = () => {
+    const [toggleAllAccordions, setToggleAllAccordions] = useState({ trigger: 0, expand: false });
+    const [openAccordions, setOpenAccordions] = useState({});
+
+    const accordionIds = Object.keys(openAccordions);
+    const allExpanded = accordionIds.length > 0 && accordionIds.every((accordionId) => openAccordions[accordionId]);
+
+    const handleAccordionToggle = useCallback((id, isOpen) => {
+        setOpenAccordions((prev) => (prev[id] === isOpen ? prev : { ...prev, [id]: isOpen }));
+    }, []);
+
+    const handleToggleAll = () => {
+        setToggleAllAccordions((prev) => ({ trigger: prev.trigger + 1, expand: !allExpanded }));
+    };
+
     return (
         <PageWrapper
             pageName="smart-assist"
@@ -77,12 +92,50 @@ const NLSearchInfoPage = () => {
                         </Swiper>
                     </div>
                 </section>
+                <FlexGridCol className="search-info-page__expand-all-btn">
+                    <Button
+                        copy={allExpanded ? 'Collapse all' : 'Expand all'}
+                        onClick={handleToggleAll}
+                        buttonTitle={allExpanded ? 'Collapse all' : 'Expand all'}
+                        buttonSize="md"
+                        buttonType="text"
+                        backgroundColor="light"
+                        textAlignment="center"
+                        imageAlignment="left"
+                        image={(
+                            <div className="button-icon-container">
+                                <FontAwesomeIcon
+                                    className="button-icon"
+                                    icon={allExpanded ? 'minus' : 'plus'} />
+                            </div>
+                        )} />
+                </FlexGridCol>
                 <section className="search-info-page__content-section">
-                    <NLSearchInfoSection section={overview} />
-                    <NLSearchInfoSection section={search} />
-                    <NLSearchInfoSection section={results} />
-                    <NLSearchInfoSection section={limitations} />
-                    <NLSearchInfoSection section={feedback} />
+                    <NLSearchInfoSection
+                        section={overview}
+                        sectionKey="overview"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
+                    <NLSearchInfoSection
+                        section={search}
+                        sectionKey="search"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
+                    <NLSearchInfoSection
+                        section={results}
+                        sectionKey="results"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
+                    <NLSearchInfoSection
+                        section={limitations}
+                        sectionKey="limitations"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
+                    <NLSearchInfoSection
+                        section={feedback}
+                        sectionKey="feedback"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
                 </section>
                 <NLSearchInfoResources />
             </main>
