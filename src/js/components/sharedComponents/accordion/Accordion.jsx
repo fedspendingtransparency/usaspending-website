@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../_scss/elements/_accordion.scss';
@@ -11,6 +11,7 @@ backgroundColor: background of collapsed box
 const propTypes = {
     title: PropTypes.any.isRequired,
     children: PropTypes.element || PropTypes.string,
+    open: PropTypes.bool,
     iconClassName: PropTypes.string,
     contentClassName: PropTypes.string,
     closedIcon: PropTypes.string,
@@ -26,8 +27,9 @@ const propTypes = {
 const Accordion = ({
     title,
     children,
-    closedIcon = "plus",
-    openIcon = "minus",
+    open,
+    closedIcon = 'plus',
+    openIcon = 'minus',
     iconClassName,
     setOpen = () => {},
     contentClassName = '',
@@ -38,14 +40,35 @@ const Accordion = ({
     faClassName = ''
 
 }) => {
-    const [closed, setClosed] = useState(!openObject);
+    const sectionClassName = open ? `open accordion--open accordion` : `accordion`;
 
-    const sectionClassName = !closed ? `open accordion--open accordion` : `accordion`;
-    const buttonAriaLabel = closed ? 'Open toggle' : 'Close toggle';
+    if (!openObject) return (
+        <div className={`accordion-container ${containerClassName}`}>
+            <details
+                data-testid="accordion"
+                className={sectionClassName}>
+                <summary className={`heading ${headingClassName}`}>
+                    {title}
+                    <div className="heading--chip-container">
+                        <FontAwesomeIcon
+                            icon={closedIcon}
+                            className={iconClassName || `plus ${faClassName}`}
+                            key="open" />
+                        <FontAwesomeIcon
+                            icon={openIcon}
+                            className={iconClassName || `minus ${faClassName}`}
+                            key="close" />
+                    </div>
+                </summary>
+                <div className={`content ${contentClassName}`}>{children}</div>
+            </details>
+        </div>
+    );
+
+    const buttonAriaLabel = !open ? 'Open toggle' : 'Close toggle';
 
     const toggleOpen = (e) => {
         e.stopPropagation();
-        setClosed((prevClosed) => !prevClosed);
         if (openObject) {
             setOpen();
         }
@@ -66,14 +89,15 @@ const Accordion = ({
                 {` ${count} selected`}
             </div>
         ) :
-        (<></>));
+        (<></>)
+    );
 
     return (
         <div className={`accordion-container ${containerClassName}`}>
             <section
                 data-testid="accordion"
                 className={sectionClassName}>
-                {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/no-static-element-interactions */}
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                 <div onClick={toggleOpen} onKeyDown={keyClickToggle} className={`heading ${headingClassName}`}>
                     {title}
                     <div className={`heading--chip-container ${faClassName}`}>
