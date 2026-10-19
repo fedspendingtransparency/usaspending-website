@@ -137,7 +137,7 @@ const handleUrlChange = () => {
 
 // React Router navigates via history.pushState/replaceState, which don't fire 'popstate',
 // so those methods are wrapped here to catch in-app navigation along with back/forward.
-// this prevents the tour remaining open when the url changes 
+// this prevents the tour remaining open when the url changes
 ['pushState', 'replaceState'].forEach((methodName) => {
     const originalMethod = window.history[methodName].bind(window.history);
     window.history[methodName] = (...args) => {
