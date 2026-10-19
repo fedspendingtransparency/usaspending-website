@@ -34,7 +34,7 @@ const articles = [
         description: "If you want to understand how you’re spending your own money, reviewing your bank statements and budget are a great place to start. If you want to understand",
         slug: "qat-only-test",
         black_text: true,
-        hidden: !GlobalConstants.QAT,
+        hidden: true,
         explore_more: [
             {
                 label: "Advanced Search",
