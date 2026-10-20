@@ -75,7 +75,6 @@ const DataSourcesAndMethodologiesPage = () => {
 
     const jumpToSection = useJumpToSection("#submissions-statistics-dsm-", sections, false, stickyHeaderHeight);
 
-    /* eslint-disable max-len */
     return (
         <PageWrapper
             pageName="submissions-statistics-dsm"
@@ -87,7 +86,7 @@ const DataSourcesAndMethodologiesPage = () => {
                 <ShareIcon508
                     url={getBaseUrl('submission-statistics')}
                     onShareOptionClick={handleShare}
-                    key={'submission-statistics'} />
+                    key="submission-statistics" />
             ]}
             sections={sections}
             jumpToSection={jumpToSection}
@@ -162,7 +161,8 @@ const DataSourcesAndMethodologiesPage = () => {
                                             href="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
                                             OMB’s Memorandum M-20-21 (Appendix A, Section III).
                                         </a>
-                                        The full schedule of deadlines for agency submissions is found on the{' '}
+                                        The full schedule of deadlines for agency submissions is found on the
+                                        {' '}
                                         <a
                                             className="usda-external-link"
                                             href="https://fiscal.treasury.gov/data-transparency/resources.html"
@@ -289,6 +289,5 @@ const DataSourcesAndMethodologiesPage = () => {
         </PageWrapper>
     );
 };
-/* eslint-enable max-len */
 
 export default DataSourcesAndMethodologiesPage;

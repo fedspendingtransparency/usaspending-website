@@ -14,7 +14,8 @@ const propTypes = {
 
 const Note = ({ title, message }) => (
     <p className="default-note">
-        <strong>{title || 'NOTE:'}</strong>&nbsp;
+        <strong>{title || 'NOTE:'}</strong>
+&nbsp;
         {message}
     </p>
 );
@@ -26,6 +27,9 @@ export const dodNote = (
     <>
         There is a 90-day delay in displaying contract award data, subcontract data,
         and Account Breakdown by Award (File C) data for the Department of Defense (DOD).
-        For more information, visit our <AboutTheDataLink className="usa-bold-link" slug="delay-in-dod-procurement-data">About Page</AboutTheDataLink>.
+        For more information, visit our
+        {' '}
+        <AboutTheDataLink className="usa-bold-link" slug="delay-in-dod-procurement-data">About Page</AboutTheDataLink>
+        .
     </>
 );

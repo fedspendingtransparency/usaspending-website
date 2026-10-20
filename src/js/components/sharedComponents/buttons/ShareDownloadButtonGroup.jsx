@@ -47,7 +47,6 @@ const ShareDownloadButtonGroup = ({
                         onClick={onDownloadClick}
                         downloadIcon={downloadIcon}
                         className={className} />
-                
                 </div>
             );
         }
@@ -72,7 +71,7 @@ const ShareDownloadButtonGroup = ({
             </div>
         );
     };
-    
+
     return (
         <div className="share-dl-group" data-testid="share-dl-group">
             {!hideDownload && getDownloadOption() }

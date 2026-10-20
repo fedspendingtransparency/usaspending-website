@@ -1,5 +1,5 @@
 import { recipientTypeGroups } from 'dataMapping/search/recipientType';
-import { awardTypeGroups, awardTypeNewFCodes } from "../../dataMapping/search/awardType";
+import { awardTypeGroups, awardTypeNewFCodes } from '../../dataMapping/search/awardType';
 
 export const awardTypesData = [
     {
@@ -18,7 +18,7 @@ export const awardTypesData = [
         filters: awardTypeGroups.grants,
         singleitem: true
     },
-    {     
+    {
         id: 'award-cooperative-agreement',
         name: 'Cooperative Agreement',
         filters: awardTypeGroups.cooperative_agreement,
@@ -104,8 +104,8 @@ export const excludeIDVBandNewFCodes = (awardTypes) => {
     let count = awardTypes.size;
     const newFCodeCount = Object.keys(awardTypeNewFCodes)
         .filter((key) => awardTypes.has(key)).length;
-        
-    if (awardTypes.has("IDV_B")) {
+
+    if (awardTypes.has('IDV_B')) {
         count -= 1;
     }
     if (newFCodeCount) {
@@ -149,7 +149,7 @@ export const sourcesCount = ({
     defCode.size;
 
 export const getFilterCount = (filters) => ({
-    Location: filters.selectedLocations.size +
+    'Location': filters.selectedLocations.size +
         (filters.locationDomesticForeign === 'foreign' ? 1 : 0) +
         filters.selectedRecipientLocations.size +
         (filters.recipientDomesticForeign === 'foreign' ? 1 : 0),
@@ -165,9 +165,9 @@ export const getFilterCount = (filters) => ({
     'Type of Set Aside': filters.setAside.size,
     'Extent Competed': filters.extentCompeted.size,
     'Assistance Listing': filters.selectedCFDA.size,
-    Recipient: filters.selectedRecipients.size,
+    'Recipient': filters.selectedRecipients.size,
     'Recipient Type': filters.recipientType.size,
-    Agency: filters.selectedAwardingAgencies.size + filters.selectedFundingAgencies.size,
+    'Agency': filters.selectedAwardingAgencies.size + filters.selectedFundingAgencies.size,
     'Treasury Account Symbol (TAS)': generateCount(filters.tasCodes),
     'Disaster Emergency Fund Code (DEFC)': filters.defCode.size
 });

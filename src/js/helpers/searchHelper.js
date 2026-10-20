@@ -50,16 +50,16 @@ export const fetchProgramActivity = (req) => apiRequest({
 // TAS search
 export const fetchTas = (idString = '') => apiRequest({
     // str contains depth, prepended with agency & federal account delimited by a '/', if any.
-    url: idString.length === 0
-        ? `/v2/references/filter_tree/tas/`
-        : `/v2/references/filter_tree/tas/${idString}`
+    url: idString.length === 0 ?
+        `/v2/references/filter_tree/tas/` :
+        `/v2/references/filter_tree/tas/${idString}`
 });
 
 // PSC search
 export const fetchPsc = (paramString = '') => apiRequest({
-    url: paramString === ''
-        ? `/v2/references/filter_tree/psc/`
-        : `/v2/references/filter_tree/psc/${paramString}`
+    url: paramString === '' ?
+        `/v2/references/filter_tree/psc/` :
+        `/v2/references/filter_tree/psc/${paramString}`
 });
 
 // CFDA search for autocomplete
@@ -69,7 +69,6 @@ export const fetchCFDA = (req) => apiRequest({
     data: req
 });
 
-
 // NAICS search for autocomplete
 export const fetchNAICS = (req) => apiRequest({
     url: 'v2/autocomplete/naics/',
@@ -78,7 +77,6 @@ export const fetchNAICS = (req) => apiRequest({
 });
 
 // perform search is a cancellable promise
-// eslint-disable-next-line import/prefer-default-export
 export const naicsRequest = (param) => apiRequest({
     url: `v2/references/naics/${param || ''}`
 });
@@ -186,7 +184,6 @@ export const fetchLastUpdate = () => apiRequest({
     url: 'v2/awards/last_updated/'
 });
 
-// eslint-disable-next-line max-len
 const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { exclude: exclude2, require: require2 }) => {
     if (!isEqual(sortBy(require1), sortBy(require2))) return false;
     if (!isEqual(sortBy(exclude1), sortBy(exclude2))) return false;
@@ -194,13 +191,13 @@ const areCheckboxSelectionsEqual = ({ exclude: exclude1, require: require1 }, { 
 };
 
 const valuesAreEqual = (a, b) => {
-    
-    if(Iterable.isIterable(a) || Iterable.isIterable(b)) {
+    if (Iterable.isIterable(a) || Iterable.isIterable(b)) {
         return immutableIs(a, b);
     }
 
     return isEqual(a, b);
-}
+};
+
 /**
  * Equality Comparison of two objects:
  * @param {Object} filters object to be measured for equality
@@ -210,8 +207,8 @@ const valuesAreEqual = (a, b) => {
 export const areFiltersEqual = (filters = initialState, filterReference = initialState) => {
     if (!filterReference && filters) return false;
 
-    const referenceObject = {...filterReference};
-    const comparisonObject = {...filters};
+    const referenceObject = { ...filterReference };
+    const comparisonObject = { ...filters };
 
     if (referenceObject.timePeriodType === 'fy') {
     // if the time period is fiscal year, we don't care about the date range values, even
@@ -331,7 +328,7 @@ export const dateRangeChipLabel = (timeInput) => {
     let start = null;
     let end = null;
     let dateLabel;
-    
+
     if (timeInput.start_date) {
         start = dayjs(timeInput.start_date, 'YYYY-MM-DD').format('MM/DD/YYYY');
     }
@@ -385,9 +382,9 @@ export const dateRangeChipLabel = (timeInput) => {
         dayjs()
             .subtract(1, 'day')
             .isSame(timeInput.start_date, 'day') &&
-        dayjs()
-            .subtract(1, 'day')
-            .isSame(timeInput.end_date, 'day')
+            dayjs()
+                .subtract(1, 'day')
+                .isSame(timeInput.end_date, 'day')
     ) {
         dateLabel = dateRangeDropdownTimePeriods[0].label;
     }
@@ -396,10 +393,10 @@ export const dateRangeChipLabel = (timeInput) => {
             .subtract(1, 'year')
             .startOf('year')
             .isSame(timeInput.start_date, 'day') &&
-        dayjs()
-            .subtract(1, 'year')
-            .endOf('year')
-            .isSame(timeInput.end_date, 'day')
+            dayjs()
+                .subtract(1, 'year')
+                .endOf('year')
+                .isSame(timeInput.end_date, 'day')
     ) {
         dateLabel = dateRangeDropdownTimePeriods[9].label;
     }
@@ -419,7 +416,7 @@ export const dateRangeChipLabel = (timeInput) => {
 export const storeStructuresAreEqual = (store1, store2) => {
     // If both stores equal then simply return true.
     if (store1 === store2) return true;
-    
+
     // Check if types match or if one is null/undefined
     if (!store1 || !store2 || typeof store1 !== 'object' || typeof store2 !== 'object') {
         return typeof store1 === typeof store2;
@@ -468,7 +465,7 @@ export const parseRemoteFilters = (data) => {
 
     // filter type check/null check
     if (!newFilters || typeof newFilters !== 'object') {
-        console.info("bad filters")
+        console.info("bad filters");
         return null;
     }
 
@@ -489,7 +486,7 @@ export const parseRemoteFilters = (data) => {
     if (!storeStructuresAreEqual(reduxValues, initialState)) {
         // Redux structure and URL hash data mis match
         // return null and send user to error page.
-        console.info("store structure mis match.")
+        console.info("store structure mis match.");
         return null;
     }
 

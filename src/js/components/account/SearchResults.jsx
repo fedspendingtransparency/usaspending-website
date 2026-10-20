@@ -29,6 +29,7 @@ export default class SearchResults extends React.Component {
 
         this.handleWindowResize = this.handleWindowResize.bind(this);
     }
+
     componentDidMount() {
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
@@ -48,6 +49,7 @@ export default class SearchResults extends React.Component {
             });
         }
     }
+
     render() {
         return (
             <div className="search-results-wrapper">

@@ -18,7 +18,7 @@ import {
 
 const totalSpendingText = (
     <div className="body__header-text">
-      This section covers
+        This section covers
         <span>
             <strong> Total Spending</strong>
             <div style={{ float: 'right' }}>
@@ -34,7 +34,7 @@ const totalSpendingText = (
 
 const awardSpendingText = (
     <div className="body__header-text">
-      This section covers
+        This section covers
         <span>
             <strong> Award Spending</strong>
             <div style={{ float: 'right' }}>

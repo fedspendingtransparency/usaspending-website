@@ -3,7 +3,6 @@
  * Created by Kevin Li 3/12/18
  */
 
-
 import tinycolor from 'tinycolor2';
 
 export const isContrastCompliant = (firstColor, secondColor) => {

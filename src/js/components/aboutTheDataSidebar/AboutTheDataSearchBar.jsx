@@ -3,48 +3,18 @@
  * Created by Brian Petway 11/30/22
  */
 
-import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import PropTypes from "prop-types";
-import { setAboutTheDataSearchValue } from
-    "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setAboutTheDataSearchValue } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 import { Search } from '../sharedComponents/icons/Icons';
 
-const propTypes = {
-    searchTerm: PropTypes.string,
-    setSearchTerm: PropTypes.func,
-    performSearch: PropTypes.func,
-    clearSearch: PropTypes.func
-};
-
-const AboutTheDataSearchBar = ({
-    searchTerm, setSearchTerm, performSearch, clearSearch
-}) => {
+const AboutTheDataSearchBar = () => {
+    const searchTerm = useSelector((state) => state.aboutTheDataSidebar.search.input);
     const dispatch = useDispatch();
 
-    const changedSearchValue = (e) => {
-        setSearchTerm(e.target.value);
-        // set it in redux too
-        dispatch(setAboutTheDataSearchValue(e.target.value));
-    };
+    const changedSearchValue = (e) => dispatch(setAboutTheDataSearchValue(e.target.value));
 
-    const submitSearch = (e) => {
-        e.preventDefault();
-        setSearchTerm(searchTerm);
-        dispatch(setAboutTheDataSearchValue(searchTerm));
-    };
-
-    useEffect(() => {
-        // do not perform a search if the search term is too short
-        if (searchTerm.length >= 0 && searchTerm.length < 3) {
-            // clear if there are already search results
-            clearSearch();
-            return;
-        }
-
-        performSearch(searchTerm);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchTerm]);
+    const submitSearch = (e) => e.preventDefault();
 
     return (
         <div className="atd-search-bar">
@@ -66,5 +36,4 @@ const AboutTheDataSearchBar = ({
     );
 };
 
-AboutTheDataSearchBar.propTypes = propTypes;
 export default AboutTheDataSearchBar;

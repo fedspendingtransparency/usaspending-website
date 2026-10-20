@@ -35,7 +35,6 @@ const propTypes = {
     children: PropTypes.node
 };
 
-// eslint-disable-next-line prefer-arrow-callback
 const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
     activeFilters,
     data = {
@@ -100,11 +99,11 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
         // transform the source shapes into a base layer that will show the outline of all the
         // contents
         mapRef.current.addLayer({
-            id: baseLayer,
-            type: 'fill',
-            source: type,
+            "id": baseLayer,
+            "type": 'fill',
+            "source": type,
             'source-layer': source.layer,
-            paint: {
+            "paint": {
                 'fill-outline-color': 'rgba(0,0,0,0.3)',
                 'fill-color': 'rgba(0,0,0,0)'
             }
@@ -115,15 +114,15 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
         visualizationColors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
             mapRef.current.addLayer({
-                id: layerName,
-                type: 'fill',
-                source: type,
+                "id": layerName,
+                "type": 'fill',
+                "source": type,
                 'source-layer': source.layer,
-                paint: {
+                "paint": {
                     'fill-outline-color': 'rgba(0,0,0,0.3)',
                     'fill-color': color
                 },
-                filter: ['in', source.filterKey, '']
+                "filter": ['in', source.filterKey, '']
             }, firstSymbolId(mapRef));
 
             // setup mouseover events
@@ -312,14 +311,15 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
     return (
         <div className="map-container">
             {
-                GlobalConstants.MAPBOX_TOKEN &&
-                <MapBox
-                    setMapReady={setMapReady}
-                    center={center}
-                    mapType={scope}
-                    stateInfo={stateInfo}
-                    stateProfile
-                    ref={mapRef} />
+                GlobalConstants.MAPBOX_TOKEN && (
+                    <MapBox
+                        setMapReady={setMapReady}
+                        center={center}
+                        mapType={scope}
+                        stateInfo={stateInfo}
+                        stateProfile
+                        ref={mapRef} />
+                )
             }
             <MapFiltersToggle
                 isFiltersOpen={isFiltersOpen}
@@ -345,4 +345,3 @@ const StateProfileMapWrapper = React.memo(function StateProfileMapWrapper({
 
 StateProfileMapWrapper.propTypes = propTypes;
 export default StateProfileMapWrapper;
-

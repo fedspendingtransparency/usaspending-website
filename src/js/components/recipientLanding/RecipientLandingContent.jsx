@@ -42,7 +42,6 @@ const RecipientLandingContent = ({
     setSort,
     setTab
 }) => {
-    // eslint-disable-next-line max-len
     const subtitle = "Recipients are any entity that has received federal money in the form of contracts, grants, loans, or other financial assistance.  Our Recipient Profiles offer insights into a specific recipient, including award trends over time and top 5 rankings from a variety of categories.";
 
     return (
@@ -80,8 +79,9 @@ const RecipientLandingContent = ({
                     Profiles are not included for the following recipient names because they would represent aggregations of many individuals instead of specific legal entities:
                     <br />
                     <span className="landing-page__entities">
-                    Multiple Recipients, Multiple Foreign Recipients, Miscellaneous Foreign Awardees, Private Individual, Individual Recipient, and Redacted Due to PII
-                    </span>.
+                        Multiple Recipients, Multiple Foreign Recipients, Miscellaneous Foreign Awardees, Private Individual, Individual Recipient, and Redacted Due to PII
+                    </span>
+                    .
                 </p>
             </FlexGridCol>
         </FlexGridRow>

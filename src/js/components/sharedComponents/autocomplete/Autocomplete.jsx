@@ -219,7 +219,8 @@ const Autocomplete = ({
             const warning = (header, description) => (
                 <ul className="autocomplete" role="listbox">
                     <li className="unselectable">
-                        <span>{header}</span><br />
+                        <span>{header}</span>
+                        <br />
                         {description}
                     </li>
                 </ul>
@@ -330,14 +331,18 @@ const Autocomplete = ({
                     role="alert">
                     {status}
                 </div>
-                {isLoading ? loadingIndicator : <SuggestionHolder
-                    suggestions={values}
-                    shown={shown}
-                    selectedIndex={selectedIndex}
-                    select={select}
-                    maxSuggestions={maxSuggestions}
-                    autocompleteId={autocompleteIdRef}
-                    matchingString={value} />}
+                {isLoading ?
+                    loadingIndicator :
+                    (
+                        <SuggestionHolder
+                            suggestions={values}
+                            shown={shown}
+                            selectedIndex={selectedIndex}
+                            select={select}
+                            maxSuggestions={maxSuggestions}
+                            autocompleteId={autocompleteIdRef}
+                            matchingString={value} />
+                    )}
                 {generateWarning()}
             </div>
         </div>

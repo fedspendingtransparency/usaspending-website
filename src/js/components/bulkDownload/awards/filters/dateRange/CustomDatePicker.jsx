@@ -11,7 +11,6 @@ import { ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
 const dayjs = require('dayjs');
 
-
 const propTypes = {
     value: PropTypes.string,
     type: PropTypes.string,
@@ -20,7 +19,6 @@ const propTypes = {
     min: PropTypes.string,
     error: PropTypes.object
 };
-
 
 // possibly move to helpers
 const dayNames = ["S", "M", "T", "W", "Th", "F", "S"];
@@ -79,7 +77,6 @@ const parseInputDate = (value) => {
 
 // end possibly move to helpers
 
-
 // eslint-disable-next-line prefer-arrow-callback
 const CustomDatePicker = memo(function CustomDatePicker({
     value,
@@ -96,7 +93,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
     const [isOpen, setIsOpen] = useState(false);
     const [viewDate, setViewDate] = useState(dayjs().startOf("month"));
     const [selectedDate, setSelectedDate] = useState("");
-    const [showError, setShowError] = useState(false)
+    const [showError, setShowError] = useState(false);
 
     const pickerRef = useRef(null);
 
@@ -135,11 +132,10 @@ const CustomDatePicker = memo(function CustomDatePicker({
         setIsOpen(false);
         onDateChange(date, type);
         setIsOpen(false);
-
     }, [onDateChange, type]);
 
     const handleInputChange = (e) => {
-        // allow for type clear 
+        // allow for type clear
         if (e.target.value === "") {
             onDateChange(e.target.value, type);
         }
@@ -149,7 +145,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
         const parsed = parseInputDate(formatted);
         if (parsed) {
             setSelectedDate(parsed);
-            setViewDate(parsed.startOf("month")); 
+            setViewDate(parsed.startOf("month"));
             onDateChange(e.target.value, type);
         }
     };
@@ -214,7 +210,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
     );
 
     useEffect(() => {
-        setShowError(error?.active && type.startsWith(error?.type))
+        setShowError(error?.active && type.startsWith(error?.type));
     }, [error]);
 
     return (
@@ -245,7 +241,7 @@ const CustomDatePicker = memo(function CustomDatePicker({
 
                 {isOpen && (
                     <div className="custom-datepicker__popup">
-                        <div className="custom-datepicker__header" >
+                        <div className="custom-datepicker__header">
                             {datepickerHeader()}
                         </div>
                         <div className="custom-datepicker__grid">
@@ -258,9 +254,9 @@ const CustomDatePicker = memo(function CustomDatePicker({
                             ))}
                             {calendarDays.map(({ date, outside }) => {
                                 const outsideClass = outside ? " outside" : "";
-                                const selectedClass = date.isSame(selectedDate)
-                                    ? " isSelected"
-                                    : "";
+                                const selectedClass = date.isSame(selectedDate) ?
+                                    " isSelected" :
+                                    "";
 
                                 return (
                                     <button
@@ -268,9 +264,8 @@ const CustomDatePicker = memo(function CustomDatePicker({
                                         aria-label={`datepicker-date-${date.date()}`}
                                         className={`custom-datepicker__date
                                         ${outsideClass}
-                                        ${selectedClass}`
-                                        }
-                                        onClick={() => selectDay(dayjs(date))} >
+                                        ${selectedClass}`}
+                                        onClick={() => selectDay(dayjs(date))}>
                                         {date.date()}
                                     </button>
                                 );

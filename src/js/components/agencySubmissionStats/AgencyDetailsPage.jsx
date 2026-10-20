@@ -110,7 +110,7 @@ const AgencyDetailsPage = () => {
             ]}>
             <main id="main-content" className="main-content">
                 <FlexGridRow className="agency-submission-stat-row">
-                    <FlexGridCol className="agency-submission-stat-col" >
+                    <FlexGridCol className="agency-submission-stat-col">
                         {loading && <LoadingMessage />}
                         {error && <ErrorMessage description={errorMessage} />}
                         {(!loading && !error) && (
@@ -131,7 +131,7 @@ const AgencyDetailsPage = () => {
                                                 <h5>Agency Contact Information</h5>
                                                 <div className="more-info-note">Contact this Agency with questions about their submissions</div>
                                                 <div className="agency-info__website">
-                                                    <a target="_blank" rel="noopener noreferrer" href={agencyOverview.website} >{agencyOverview.website}</a>
+                                                    <a target="_blank" rel="noopener noreferrer" href={agencyOverview.website}>{agencyOverview.website}</a>
                                                 </div>
                                             </div>
                                         )}
