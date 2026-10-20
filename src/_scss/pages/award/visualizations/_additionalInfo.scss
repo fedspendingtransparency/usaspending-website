@@ -89,93 +89,90 @@
   .accordion {
     margin-bottom: rem(20);
 
-    .accordion__content {
-      overflow: hidden;
-      height: 0;
+    .content.test {
+      padding: 0;
     }
 
-    &.accordion_open {
-      .accordion__content {
-        height: auto;
-        border: rem(2) solid $color-gray-lightest;
-        overflow: visible;
-        width: 100%;
+    .accordion__content {
+      height: auto;
+      border: rem(2) solid $color-gray-lightest;
+      overflow: visible;
+      width: 100%;
 
-        .accordion-row {
-          border-bottom: rem(2) solid $color-gray-lightest;
-          padding: rem(8) rem(40);
-          @include display(flex);
-          width: 100%;
-          font-size: rem(14);
+      .accordion-row {
+        border-bottom: rem(2) solid $color-gray-lightest;
+        padding: rem(8) rem(40);
+        @include display(flex);
+        //width: 100%;
+        font-size: rem(14);
 
-          .accordion-row__title {
-            @include flex-direction(column);
-            flex: 1;
+        .accordion-row__title {
+          @include flex-direction(column);
+          flex: 1;
+        }
+
+        .accordion-row__data {
+          @include flex-direction(column);
+          flex: 1;
+          font-weight: $font-light;
+          padding-left: rem(40);
+
+          &.generated-id {
+            word-break: break-word;
           }
 
-          .accordion-row__data {
-            @include flex-direction(column);
-            flex: 1;
-            font-weight: $font-light;
-            padding-left: rem(40);
-
-            &.generated-id {
-              word-break: break-word;
-            }
-
-            &.show-tooltip {
-              display: flex;
-              flex-flow: row nowrap;
-              align-items: center;
-              .accordion-row__data-tooltip {
-                @media (min-width: $large-screen) {
-                  align-self: flex-end;
-                }
-                .tooltip-wrapper {
-                  .tooltip__icon {
-                    height: rem(14);
-                    width: rem(14);
-                  }
+          &.show-tooltip {
+            display: flex;
+            flex-flow: row nowrap;
+            align-items: center;
+            .accordion-row__data-tooltip {
+              @media (min-width: $large-screen) {
+                align-self: flex-end;
+              }
+              .tooltip-wrapper {
+                .tooltip__icon {
+                  height: rem(14);
+                  width: rem(14);
                 }
               }
             }
+          }
 
-            .accordion-table__list {
-              list-style-type: none;
+          .accordion-table__list {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+
+            li {
               margin: 0;
-              padding: 0;
-
-              li {
-                margin: 0;
-              }
             }
           }
+        }
 
-          &.accordion-table__data_info-tooltip {
-            @include display(flex);
-            @import "../../../components/visualizations/tooltip/csstooltip";
+        &.accordion-table__data_info-tooltip {
+          @include display(flex);
+          @import "../../../components/visualizations/tooltip/csstooltip";
 
-            .tooltip-popover-container {
-              margin-left: rem(5);
-              color: $color-gray-lighter;
+          .tooltip-popover-container {
+            margin-left: rem(5);
+            color: $color-gray-lighter;
 
-              &:hover,
-              &:focus {
-                color: $color-gray-medium;
-              }
+            &:hover,
+            &:focus {
+              color: $color-gray-medium;
+            }
 
-              .tooltip-popover {
-                // override the positioning to be centered over the icon
-                bottom: rem(35);
-                left: rem(-145);
-                font-size: $small-font-size;
-              }
+            .tooltip-popover {
+              // override the positioning to be centered over the icon
+              bottom: rem(35);
+              left: rem(-145);
+              font-size: $small-font-size;
             }
           }
+        }
 
-          &:last-child {
-            border-bottom: none;
-          }
+        &:last-child {
+          border-bottom: none;
         }
       }
     }

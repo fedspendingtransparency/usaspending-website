@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import additionalDetailsContract from 'dataMapping/award/additionalDetailsContract';
 import additionalDetailsFinancialAssistance from 'dataMapping/award/additionalDetailsFinancialAssistance';
 import additionalDetailsIdv from 'dataMapping/award/additionalDetailsIdv';
-import Accordion from './Accordion';
+import AddInfoAccordion from './AddInfoAccordion';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 
 const propTypes = {
@@ -66,25 +66,25 @@ const AdditionalInfo = ({ overview }) => {
             }
 
             columnOne = [
-                (<Accordion
+                (<AddInfoAccordion
                     key="UniqueAwardKey"
                     globalToggle={open}
                     accordionName="Unique Award Key"
                     accordionIcon="fingerprint"
                     accordionData={newData.uniqueAwardKey} />),
-                (<Accordion
+                (<AddInfoAccordion
                     key="AgencyDetails"
                     globalToggle={open}
                     accordionName="Agency Details"
                     accordionIcon="landmark"
                     accordionData={newData.agencyDetails} />),
-                (<Accordion
+                (<AddInfoAccordion
                     key="PlaceOfPerformance"
                     globalToggle={open}
                     accordionName="Place Of Performance"
                     accordionIcon="map-marker-alt"
                     accordionData={newData.placeOfPerformance} />),
-                (<Accordion
+                (<AddInfoAccordion
                     key="PeriodOfPerformance"
                     globalToggle={open}
                     accordionName="Period Of Performance"
@@ -94,13 +94,13 @@ const AdditionalInfo = ({ overview }) => {
             ];
 
             columnTwo = [
-                (<Accordion
+                (<AddInfoAccordion
                     key="RecipientDetails"
                     globalToggle={open}
                     accordionName="Recipient Details"
                     accordionIcon="building"
                     accordionData={newData.recipientDetails} />),
-                (<Accordion
+                (<AddInfoAccordion
                     key="ExecutiveCompensation"
                     globalToggle={open}
                     accordionName="Executive Compensation"
@@ -110,7 +110,7 @@ const AdditionalInfo = ({ overview }) => {
 
             if (overview.category === 'grant') {
                 columnTwo.push(
-                    <Accordion
+                    <AddInfoAccordion
                         key="PreAwardDetails"
                         globalToggle={open}
                         accordionName="Pre-Award Details"
@@ -150,7 +150,7 @@ const AdditionalInfo = ({ overview }) => {
 
         if (overview._category !== 'idv') {
             placeOfPerformance = (
-                <Accordion
+                <AddInfoAccordion
                     key="PlaceOfPerformance"
                     globalToggle={open}
                     accordionName="Place Of Performance"
@@ -159,7 +159,7 @@ const AdditionalInfo = ({ overview }) => {
             );
 
             periodOfPerformance = (
-                <Accordion
+                <AddInfoAccordion
                     key="PeriodOfPerformance"
                     globalToggle={open}
                     accordionName="Period Of Performance"
@@ -170,19 +170,19 @@ const AdditionalInfo = ({ overview }) => {
         }
 
         columnOne = [
-            (<Accordion
+            (<AddInfoAccordion
                 key="UniqueAwardKey"
                 globalToggle={open}
                 accordionName="Unique Award Key"
                 accordionIcon="fingerprint"
                 accordionData={newData.uniqueAwardKey} />),
-            (<Accordion
+            (<AddInfoAccordion
                 key="AgencyDetails"
                 globalToggle={open}
                 accordionName="Agency Details"
                 accordionIcon="landmark"
                 accordionData={newData.agencyDetails} />),
-            (<Accordion
+            (<AddInfoAccordion
                 key="ParentAwardDetails"
                 globalToggle={open}
                 accordionName="Parent Award Details"
@@ -190,7 +190,7 @@ const AdditionalInfo = ({ overview }) => {
                 accordionData={newData.parentAwardDetails} />),
             (placeOfPerformance),
             (periodOfPerformance),
-            (<Accordion
+            (<AddInfoAccordion
                 key="LegislativeMandates"
                 globalToggle={open}
                 accordionName="Legislative Mandates"
@@ -199,31 +199,31 @@ const AdditionalInfo = ({ overview }) => {
         ];
 
         columnTwo = [
-            (<Accordion
+            (<AddInfoAccordion
                 key="RecipientDetails"
                 globalToggle={open}
                 accordionName="Recipient Details"
                 accordionIcon="building"
                 accordionData={newData.recipientDetails} />),
-            (<Accordion
+            (<AddInfoAccordion
                 key="AcquisitionDetails"
                 globalToggle={open}
                 accordionName="Acquisition Details"
                 accordionIcon="tag"
                 accordionData={newData.acquisitionDetails} />),
-            (<Accordion
+            (<AddInfoAccordion
                 key="CompetitionDetails"
                 globalToggle={open}
                 accordionName="Competition Details"
                 accordionIcon="chart-bar"
                 accordionData={newData.competitionDetails} />),
-            (<Accordion
+            (<AddInfoAccordion
                 key="AdditionalDetails"
                 globalToggle={open}
                 accordionName="Additional Details"
                 accordionIcon="ellipsis-h"
                 accordionData={newData.additionalDetails} />),
-            (<Accordion
+            (<AddInfoAccordion
                 key="ExecutiveCompensation"
                 globalToggle={open}
                 accordionName="Executive Compensation"

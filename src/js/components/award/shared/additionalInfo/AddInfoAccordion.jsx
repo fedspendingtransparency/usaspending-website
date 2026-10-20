@@ -3,15 +3,15 @@
  * Created by Kwadwo Opoku-Debrah 10/13/2018
  **/
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { compact, uniqueId } from 'lodash-es';
 import { Link } from 'react-router';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TooltipWrapper } from "data-transparency-ui";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { TooltipWrapper } from 'data-transparency-ui';
 
-import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 import { CondensedCDTooltip } from 'components/award/shared/InfoTooltipContent';
+import Accordion from '../../../sharedComponents/accordion/Accordion';
 
 const awardIdField = 'Unique Award Key';
 
@@ -19,21 +19,15 @@ const propTypes = {
     accordionName: PropTypes.string,
     accordionIcon: PropTypes.string,
     iconClassName: PropTypes.string,
-    accordionData: PropTypes.object,
-    globalToggle: PropTypes.bool
+    accordionData: PropTypes.object
 };
 
-const Accordion = ({
+const AddInfoAccordion = ({
     accordionName,
     accordionIcon,
     iconClassName,
-    accordionData,
-    globalToggle
+    accordionData
 }) => {
-    const [open, setOpen] = useState(false);
-
-    const handleClick = () => setOpen((prevState) => !prevState);
-
     const link = (pathAndTitle) => {
         const { path, title } = pathAndTitle;
         if (!path && !title) return '--';
@@ -89,9 +83,9 @@ const Accordion = ({
                 if (specialType) {
                     const getData = () => {
                         switch (specialType) {
-                            case "list":
+                            case 'list':
                                 return list(awardInfo.data);
-                            case "address":
+                            case 'address':
                                 return address(awardInfo.data);
                             default:
                                 return link(awardInfo.data);
@@ -137,48 +131,21 @@ const Accordion = ({
         });
     };
 
-    const onKeyDownHandler = createOnKeyDownHandler(handleClick);
-
-    const openClassName = open ? 'accordion accordion_open' : 'accordion';
-
-    useEffect(() => setOpen(globalToggle), [globalToggle]);
+    const title = (
+        <span>
+            <FontAwesomeIcon className={iconClassName} size="lg" icon={accordionIcon} />
+            {accordionName}
+        </span>
+    );
 
     return (
-        <div className={openClassName}>
-            <div
-                className="accordion__bar"
-                tabIndex={0}
-                role="button"
-                onKeyDown={onKeyDownHandler}
-                onClick={handleClick}>
-                <span>
-                    <FontAwesomeIcon className={iconClassName} size="lg" icon={accordionIcon} />
-                    {accordionName}
-                </span>
-                <span>
-                    {
-                        open ?
-                            (
-                                <FontAwesomeIcon
-                                    className="accordion-caret"
-                                    size="lg"
-                                    icon="angle-down" />
-                            ) :
-                            (
-                                <FontAwesomeIcon
-                                    className="accordion-caret"
-                                    size="lg"
-                                    icon="angle-right" />
-                            )
-                    }
-                </span>
-            </div>
+        <Accordion title={title} contentClassName="test">
             <div className="accordion__content">
                 {accordionBody()}
             </div>
-        </div>
+        </Accordion>
     );
 };
 
-Accordion.propTypes = propTypes;
-export default Accordion;
+AddInfoAccordion.propTypes = propTypes;
+export default AddInfoAccordion;
