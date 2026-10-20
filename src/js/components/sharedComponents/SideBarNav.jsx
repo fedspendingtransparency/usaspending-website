@@ -29,7 +29,6 @@ const SideBarNav = ({
     const [activeSection, setActiveSection] = useState(props.activeSection);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
     const [ulElement, setUlElement] = useState(null);
-    const [elementData, setElementData] = useState([]);
     const [isOverflowLeft, setIsOverflowLeft] = useState(false);
     const [isOverflowRight, setIsOverflowRight] = useState(false);
     const [padding, setPadding] = useState(32);
@@ -95,95 +94,6 @@ const SideBarNav = ({
         checkIsOverflowHidden();
     });
 
-    // const scrollLeft = useCallback((e) => {
-    //     e.stopPropagation();
-
-    //     const ulEl = navBar.current.querySelector("ul");
-    //     const elArray = [...ulEl.childNodes];
-    //     const lastVisibleEl = {
-    //         name: "",
-    //         index: 0
-    //     };
-
-    //     // eslint-disable-next-line array-callback-return,consistent-return
-    //     elArray.find((el, i) => {
-    //         const box = el.getBoundingClientRect();
-    //         if (box.left > 0 && box.right < ulEl.clientWidth) {
-    //             lastVisibleEl.name = el.querySelector('a').innerHTML;
-    //             lastVisibleEl.index = i;
-    //             return i;
-    //         }
-    //     });
-
-    //     const lastVisibleIndex = lastVisibleEl.index;
-    //     // check for last 2 visible items
-    //     if (lastVisibleIndex + 2 < elementData.length) {
-    //         const newLeftPosition = (ulEl.scrollLeft - ulEl.clientWidth) + 20 + elementData[lastVisibleIndex + 1].width + elementData[lastVisibleIndex + 2].width;
-    //         ulEl.scrollTo({ left: newLeftPosition, behavior: 'smooth' });
-    //     }
-    //     else {
-    //         reset(navBar);
-    //     }
-    // });
-
-    // const scrollRight = useCallback((e) => {
-    //     e.stopPropagation();
-
-    //     if (elementData) {
-    //         const ulEl = navBar.current.querySelector("ul");
-    //         const elArray = [...ulEl.childNodes];
-    //         const firstRtHiddenEl = {
-    //             name: "",
-    //             index: 0
-    //         };
-
-    //         // eslint-disable-next-line array-callback-return,consistent-return
-    //         elArray.find((el, i) => {
-    //             const box = el.getBoundingClientRect();
-    //             const documentWidth = ulEl.clientWidth;
-    //             // Check if element is hidden
-    //             if (box.right > documentWidth && box.left > padding / 2) {
-    //                 firstRtHiddenEl.name = el.querySelector('a').innerHTML;
-    //                 firstRtHiddenEl.index = i;
-    //                 return i;
-    //             }
-    //         });
-
-    //         const index = firstRtHiddenEl.index;
-
-    //         // check for 2 items
-    //         if (index - 2 >= 0) {
-    //             const leftOffset = elementData[index - 2]?.originalLeftOffset;
-    //             if (leftOffset) {
-    //                 const leftPosition = leftOffset + (padding / 2);
-    //                 ulEl.scrollTo({ left: leftPosition, behavior: 'smooth' });
-    //             }
-    //         }
-    //         else {
-    //             reset(navBar);
-    //         }
-    //     }
-    // });
-
-    // const getInitialElements = useCallback(() => {
-    //     const ulEl = navBar.current.querySelector("ul");
-    //     const tempElementData = getElementData(ulEl);
-
-    //     setUlElement(ulEl);
-    //     setElementData(tempElementData);
-    // });
-
-    // const onKeyPress = useCallback((e, direction) => {
-    //     if (e.key === "Enter") {
-    //         if (direction === "left") {
-    //             scrollLeft(e);
-    //         }
-
-    //         if (direction === "right") {
-    //             scrollRight(e);
-    //         }
-    //     }
-    // });
 
     const handleResize = () => {
         const newWidth = window.innerWidth;
