@@ -12,7 +12,6 @@ export const defCodeQueryString = (defCodes) => defCodes.sort().reduce((acc, cod
 }, '');
 
 export const parseCodes = (codes, type) => sortAlphaNumbersLast(
-    codes.filter(((code) => code.disaster === type))
+    codes.filter((code) => code.disaster === type)
         .map((code) => code.code)
 );
-

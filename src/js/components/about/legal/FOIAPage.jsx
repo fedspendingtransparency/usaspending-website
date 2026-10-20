@@ -30,7 +30,8 @@ const FOIAPage = () => (
                 rel="noopener noreferrer"
                 href="https://fiscal.treasury.gov/foia.html">
                 FOIA website
-            </a>.
+            </a>
+            .
         </p>
     </LegalPage>
 );

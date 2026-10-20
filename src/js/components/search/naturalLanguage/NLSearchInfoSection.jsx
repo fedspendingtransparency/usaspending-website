@@ -13,7 +13,7 @@ require("pages/search/naturalLanguage/searchInfoPage.scss");
 const propTypes = {
     anchor: PropTypes.string,
     section: PropTypes.object
-}
+};
 
 const NLSearchInfoSection = ({ anchor, section }) => {
     return (
@@ -52,7 +52,7 @@ const NLSearchInfoSection = ({ anchor, section }) => {
                 </FlexGridCol>
             </div>
         </div>
-    )
+    );
 };
 
 NLSearchInfoSection.propTypes = propTypes;

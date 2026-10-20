@@ -53,10 +53,9 @@ const NumericPickerWrapper = ({
                 classname="numeric-picker__wrapper"
                 dropdownClassname="numeric-picker__dropdown"
                 leftIcon="calendar-alt"
-                selectedOption={options.length
-                    ? options.find((obj) => obj.value === selectedValue || obj.value === parseInt(selectedValue, 10)).name || '--'
-                    : `FY ${selectedValue}`
-                }
+                selectedOption={options.length ?
+                    options.find((obj) => obj.value === selectedValue || obj.value === parseInt(selectedValue, 10)).name || '--' :
+                    `FY ${selectedValue}`}
                 sortFn={sortFn}
                 options={renderOptions()}
                 enabled={enabled} />

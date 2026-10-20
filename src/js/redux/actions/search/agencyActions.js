@@ -11,4 +11,3 @@ export const setAutocompleteFundingAgencies = (state) => ({
     type: 'SET_AUTOCOMPLETE_FUNDING_AGENCIES',
     agencies: state
 });
-

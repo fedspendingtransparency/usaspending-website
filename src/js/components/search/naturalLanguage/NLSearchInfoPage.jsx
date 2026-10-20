@@ -28,7 +28,7 @@ require("pages/search/naturalLanguage/searchInfoPage.scss");
 
 const graphicLabel = (
     <>
-        An <span style={{color: '#0081a1', fontWeight: 600}}>easy</span> way to search for government spending.
+        An <span style={{ color: '#0081a1', fontWeight: 600 }}>easy</span> way to search for government spending.
     </>
 );
 
@@ -75,11 +75,11 @@ const NLSearchInfoPage = () => {
                     body="Get quick answers to your questions about our AI-powered Smart Assist feature"
                     faIcon="sparkles"
                     primaryColor="#0081a1"
-                    secondaryColor= "#0081a1"
-                    overrideBackgroundColor="linear-gradient(91deg,#00687d 0%, #0081a1 35%, #005ea2 100%)"/>
+                    secondaryColor="#0081a1"
+                    overrideBackgroundColor="linear-gradient(91deg,#00687d 0%, #0081a1 35%, #005ea2 100%)" />
                 <FlexGridCol className="search-info-page__download-group">
                     <ShareDownloadButtonGroup
-                        url={''}
+                        url=""
                         showDownloadBtn
                         onDownloadClick={() => {}}
                         downloadInFlight={false}
@@ -102,7 +102,7 @@ const NLSearchInfoPage = () => {
                             <SwiperSlide className="search-info-page__graphic-slide">
                                 <img
                                     src={smartAssistGraphic}
-                                    alt="Smart Assist graphic"/>
+                                    alt="Smart Assist graphic" />
                             </SwiperSlide>
                         </Swiper>
                     </div>
@@ -122,10 +122,10 @@ const NLSearchInfoPage = () => {
                         <NLSearchInfoSection anchor="nlinfo-feedback-and-support" section={feedback} />
                     </div>
                 </section>
-                <NLSearchInfoResources />     
+                <NLSearchInfoResources />
             </main>
         </PageWrapper>
-    )
+    );
 };
 
 export default NLSearchInfoPage;

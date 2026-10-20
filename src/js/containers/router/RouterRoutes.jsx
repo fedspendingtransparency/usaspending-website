@@ -252,4 +252,3 @@ export const routes = [
         component: ErrorPage
     }
 ];
-

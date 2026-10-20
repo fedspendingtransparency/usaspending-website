@@ -38,7 +38,6 @@ const txnBuildFYRangeQuery = (fyRange) => {
         fyFilters.push(fyFilter);
     });
 
-
     const filter = {
         combine_method: 'OR',
         filters: fyFilters

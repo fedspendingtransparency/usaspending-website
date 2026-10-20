@@ -42,7 +42,7 @@ const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
     const renderDownloadLink = () => (
         <a
             href={URL.createObjectURL(downloadBlob())}
-            download={`results-over-time-by-${visualizationPeriod}-${today}.csv`} >
+            download={`results-over-time-by-${visualizationPeriod}-${today}.csv`}>
             <FontAwesomeIcon icon="download" size="lg" />
             <span className="text">
                 Download data by {words(getPeriod()).map(upperFirst).join(' ')}
@@ -55,7 +55,10 @@ const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
             <div className="tooltip__title">Download data by {words(getPeriod()).map(upperFirst).join(' ')}</div>
             <div className="tooltip__text">
                 Download a CSV of award spending data that matches your search criteria,
-                broken down by {getPeriod()}. For complete download results,
+                broken down by
+                {' '}
+                {getPeriod()}
+                . For complete download results,
                 click on the &quot;Download&quot; button on the top right of this page.
             </div>
         </>
@@ -64,15 +67,16 @@ const TimeFileDownload = ({ downloadData, visualizationPeriod }) => {
     return (
         <div className="download">
             {downloadData && renderDownloadLink()}
-            {downloadData && <TooltipWrapper
-                className="tooltip-wrapper"
-                icon="info"
-                tooltipPosition="left"
-                tooltipComponent={downloadTooltip()} />}
+            {downloadData && (
+                <TooltipWrapper
+                    className="tooltip-wrapper"
+                    icon="info"
+                    tooltipPosition="left"
+                    tooltipComponent={downloadTooltip()} />
+            )}
         </div>
     );
 };
 
 TimeFileDownload.propTypes = propTypes;
 export default TimeFileDownload;
-

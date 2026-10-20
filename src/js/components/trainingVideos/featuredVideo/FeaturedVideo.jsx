@@ -13,7 +13,6 @@ import { handleShareOptionClick } from 'helpers/socialShare';
 import { throttle } from 'lodash-es';
 import VideoThumbnail from '../videoThumbnails/VideoThumbnail';
 
-
 const propTypes = {
     featuredVideo: PropTypes.object,
     url: oneOfType([PropTypes.string, PropTypes.func])
@@ -71,7 +70,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
                                             launchModal(e);
                                         }
                                     }}
-                                    onClick={launchModal} >
+                                    onClick={launchModal}>
                                     Learn how USAspending.gov
                                     <br />
                                     got started
@@ -98,7 +97,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
                         tablet={12}
                         mobile={12}
                         onKeyDown={launchModal}
-                        onClick={launchModal} >
+                        onClick={launchModal}>
                         <VideoThumbnail
                             tabIndex="0"
                             thumbnailUrl={featuredVideo.thumbnails.maxres.url}

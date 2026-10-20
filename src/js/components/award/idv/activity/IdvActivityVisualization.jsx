@@ -162,11 +162,15 @@ export default class IdvActivityVisualization extends React.Component {
         const menuData = this.createMenuData();
         const resultsText = (
             <div className="pagination__totals">
-                Displaying award orders{" "}
+                Displaying award orders
+                {" "}
                 <span className="current-page-numbers">
                     {start}-{end}
-                </span>{" "}
-                of {formatNumberWithPrecision(this.props.total, 0)}
+                </span>
+                {" "}
+                of
+                {' '}
+                {formatNumberWithPrecision(this.props.total, 0)}
             </div>
         );
         return (
@@ -215,7 +219,8 @@ export default class IdvActivityVisualization extends React.Component {
                         enabled
                         selectedOption={menuData.length ? menuData.find((option) => option.value === this.props.limit).name : this.props.limit}
                         options={menuData}
-                        sortFn={(a, b) => a - b} /><span className="default-picker__append">per page</span>
+                        sortFn={(a, b) => a - b} />
+                    <span className="default-picker__append">per page</span>
                 </div>
                 <div className="activity-visualization-note">
                     <Note message={message} />

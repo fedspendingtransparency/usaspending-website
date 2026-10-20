@@ -45,9 +45,9 @@ export const useDynamicStickyClass = (stickyRef, fixedStickyBreakpoint = null) =
         // measureScreen
         // eslint-disable-next-line react-hooks/refs
         throttle(() => {
-            const wrapperY = stickyRef.current
-                ? stickyRef.current.offsetTop
-                : 0;
+            const wrapperY = stickyRef.current ?
+                stickyRef.current.offsetTop :
+                0;
             setDynamicStickyBreakpoint(wrapperY);
         }, 100)
     ];

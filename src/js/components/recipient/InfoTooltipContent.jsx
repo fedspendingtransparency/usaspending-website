@@ -25,4 +25,3 @@ export const recipientOverviewLoanInfo = (
         </div>
     </div>
 );
-

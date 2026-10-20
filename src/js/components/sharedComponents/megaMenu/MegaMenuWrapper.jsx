@@ -6,7 +6,7 @@ import MobileNav from './mobile/MobileNav';
 import MegaMenu from "./MegaMenu";
 
 // eslint-disable-next-line prefer-arrow-callback
-const MegaMenuWrapper = memo(function MegaMenuWrapper () {
+const MegaMenuWrapper = memo(function MegaMenuWrapper() {
     const [showMobileNav, setShowMobileNav] = useState(false);
     const [isHomepage, setIsHomepage] = useState(false);
 
@@ -107,4 +107,3 @@ const MegaMenuWrapper = memo(function MegaMenuWrapper () {
 });
 
 export default MegaMenuWrapper;
-

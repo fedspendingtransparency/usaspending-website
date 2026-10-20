@@ -22,15 +22,15 @@ export const getNewUrlForGlossary = (existingUrl, glossaryFragment, existingQuer
         return `${existingUrl.substring(0, existingUrl.length - 1)}${glossaryFragment}`;
     }
     if (existingQueryParams && existingUrl[existingUrl.length - 1] === '/') {
-        const cleanQueryParams = existingQueryParams[0] === '?'
-            ? existingQueryParams.substring(1)
-            : existingQueryParams;
+        const cleanQueryParams = existingQueryParams[0] === '?' ?
+            existingQueryParams.substring(1) :
+            existingQueryParams;
         return `${existingUrl.substring(0, existingUrl.length - 1)}${glossaryFragment}&${cleanQueryParams}`;
     }
     if (existingQueryParams) {
-        const cleanQueryParams = existingQueryParams[0] === '?'
-            ? existingQueryParams.substring(1)
-            : existingQueryParams;
+        const cleanQueryParams = existingQueryParams[0] === '?' ?
+            existingQueryParams.substring(1) :
+            existingQueryParams;
         return `${existingUrl}${glossaryFragment}&${cleanQueryParams}`;
     }
     return `${existingUrl}${glossaryFragment}`;

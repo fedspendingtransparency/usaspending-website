@@ -5,14 +5,14 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import AccordionCheckboxPrimary from "./AccordionCheckboxPrimary";
-import EntityDropdownAutocomplete from "../EntityDropdownAutocomplete";
+import AccordionCheckboxPrimary from './AccordionCheckboxPrimary';
+import EntityDropdownAutocomplete from '../EntityDropdownAutocomplete';
 
 const expandCheckboxCategoryAccordions = (filterCategoryMapping, selectedFilters) => {
     const toExpand = [];
     filterCategoryMapping?.forEach((category) => {
         category?.filters?.forEach((type) => {
-            if (selectedFilters?.has(type) && !category?.singleitem ){
+            if (selectedFilters?.has(type) && !category?.singleitem) {
                 toExpand.push(category.id);
             }
         });
@@ -48,7 +48,7 @@ const AccordionCheckbox = ({
     setDefSearchString = () => {},
     showSearch = true,
     isDisabled = false,
-    placeholder = "Search filters..."
+    placeholder = 'Search filters...'
 }) => {
     const [searchString, setSearchString] = useState('');
     const [filterCategory, setFilterCategory] = useState(filterCategoryMapping);
@@ -76,8 +76,7 @@ const AccordionCheckbox = ({
             // have to check expandeCategories instead of isExpanded.
             // isExpanded might not be known by parent
             // collapse expandedCategories
-            expandedCategories.forEach((ec) => toggleExpanded({id: ec}));
-
+            expandedCategories.forEach((ec) => toggleExpanded({ id: ec }));
         }
         else if (isExpanded) {
             const category = filterCategoryMapping.find((item) => item.id === selectedCategory);
@@ -100,7 +99,7 @@ const AccordionCheckbox = ({
 
     const searchCategoryMapping = () => {
         // filter out definitions based on search text
-        // eslint-disable-next-line no-unused-vars
+
         const filteredDefinitions = Object
             .fromEntries(
                 Object
@@ -155,32 +154,34 @@ const AccordionCheckbox = ({
 
     return (
         <div className="filter-item-wrap">
-            {showSearch ? (
-                <>
-                    <EntityDropdownAutocomplete
-                        placeholder={placeholder}
-                        searchString={searchString}
-                        enabled
-                        handleTextInputChange={handleTextInputChange}
-                        context={{}}
-                        loading={false}
-                        isClearable
-                        onClear={onClear}
-                        searchIcon />
-                    {noResults ?
-                        <div className="no-results">No results found.</div>
-                        :
-                        <div className="checkbox-categories-wrapper">
-                            {checkboxCategories}
-                        </div>
-                    }
-                </>
-            ) : (
-                <div className="checkbox-categories-wrapper">
-                    {checkboxCategories}
-                </div>
+            {showSearch ?
+                (
+                    <>
+                        <EntityDropdownAutocomplete
+                            placeholder={placeholder}
+                            searchString={searchString}
+                            enabled
+                            handleTextInputChange={handleTextInputChange}
+                            context={{}}
+                            loading={false}
+                            isClearable
+                            onClear={onClear}
+                            searchIcon />
+                        {noResults ?
+                            <div className="no-results">No results found.</div> :
+                            (
+                                <div className="checkbox-categories-wrapper">
+                                    {checkboxCategories}
+                                </div>
+                            )}
+                    </>
+                ) :
+                (
+                    <div className="checkbox-categories-wrapper">
+                        {checkboxCategories}
+                    </div>
 
-            )}
+                )}
         </div>
     );
 };
