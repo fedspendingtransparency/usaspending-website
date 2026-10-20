@@ -90,6 +90,11 @@
     display: flex;
     color: $blue-60v;
 
+    &:hover {
+      background: $blue-70v;
+      color: $color-white;
+    }
+
     .button-icon {
       width: rem(12);
       height: rem(12);
@@ -106,6 +111,10 @@
     font-size: $font-size-16;
     font-weight: $font-semibold;
     line-height: $base-line-height;
+
+    &:hover {
+      color: $blue-70v;
+    }
 
     svg {
       margin: rem(1) rem(4) 0 0;

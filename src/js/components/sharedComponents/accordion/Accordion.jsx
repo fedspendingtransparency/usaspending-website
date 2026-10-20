@@ -48,10 +48,10 @@ const Accordion = ({
 
 }) => {
     const [closed, setClosed] = useState(!openObject);
-    const [prevToggleAll, setPrevToggleAll] = useState(toggleAll.trigger);
+    const [prevToggleAllTrigger, setPrevToggleAllTrigger] = useState(toggleAll.trigger);
 
-    if (toggleAll.trigger !== prevToggleAll) {
-        setPrevToggleAll(toggleAll.trigger);
+    if (toggleAll.trigger !== prevToggleAllTrigger) {
+        setPrevToggleAllTrigger(toggleAll.trigger);
         if (toggleAll.trigger > 0) {
             setClosed(!toggleAll.expand);
         }
