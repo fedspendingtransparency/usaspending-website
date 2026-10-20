@@ -16,7 +16,7 @@ import NLSearchInfoResources from './NLSearchInfoResources';
 // import NLSearchInfoSidebar from './NLSearchInfoSidebar';
 import useJumpToSection from "../../../hooks/useJumpToSection";
 import useQueryParams from "../../../hooks/useQueryParams";
-import { FlexGridCol} from 'data-transparency-ui';
+import { FlexGridCol } from 'data-transparency-ui';
 import ShareDownloadButtonGroup from '../../sharedComponents/buttons/ShareDownloadButtonGroup';
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -54,8 +54,6 @@ const infoSections = [
         label: 'Feedback & Support'
     }
 ];
-
-
 
 const { overview, search, results, limitations, feedback } = smartAssistContent ?? {};
 
@@ -109,7 +107,7 @@ const NLSearchInfoPage = () => {
                         </Swiper>
                     </div>
                 </section>
-                <section className="search-info-page__content-section"> 
+                <section className="search-info-page__content-section">
                     <SideBarNav
                         sections={infoSections}
                         activeSection={activeSection}
@@ -117,11 +115,11 @@ const NLSearchInfoPage = () => {
                         detectActiveSection
                         jumpToSection={jumpToSection} />
                     <div>
-                        <NLSearchInfoSection anchor="nlinfo-overview" section={ overview } />
-                        <NLSearchInfoSection anchor="nlinfo-searching-with-smart-assist" section={ search } />
-                        <NLSearchInfoSection anchor="nlinfo-understanding-results" section={ results } />
-                        <NLSearchInfoSection anchor="nlinfo-limitations" section={ limitations } />
-                        <NLSearchInfoSection anchor="nlinfo-feedback-and-support" section={ feedback } />
+                        <NLSearchInfoSection anchor="nlinfo-overview" section={overview} />
+                        <NLSearchInfoSection anchor="nlinfo-searching-with-smart-assist" section={search} />
+                        <NLSearchInfoSection anchor="nlinfo-understanding-results" section={results} />
+                        <NLSearchInfoSection anchor="nlinfo-limitations" section={limitations} />
+                        <NLSearchInfoSection anchor="nlinfo-feedback-and-support" section={feedback} />
                     </div>
                 </section>
                 <NLSearchInfoResources />     

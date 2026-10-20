@@ -3,12 +3,11 @@
  * Created by Spencer Su 10/14/2026
  **/
 
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import {throttle} from "lodash-es";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {largeScreen, mediumScreen, xLargeScreen} from 'dataMapping/shared/mobileBreakpoints';
-import {checkIsOverflow, getElementData, reset} from 'helpers/inPageNavHelper';
+import { throttle } from "lodash-es";
+import { largeScreen, mediumScreen, xLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { checkIsOverflow } from 'helpers/inPageNavHelper';
 import { FlexGridCol } from 'data-transparency-ui';
 
 const propTypes = {
@@ -46,10 +45,12 @@ const SideBarNav = ({
         jumpToSection(option);
         setIsOpen(false);
     };
+
     const sideBarClick = (option) => {
         jumpToSection(option);
         setActiveSection(option);
-    }
+    };
+
     const visibleSections = new Set();
 
     const observerOptions = {
@@ -93,7 +94,6 @@ const SideBarNav = ({
         e.stopPropagation();
         checkIsOverflowHidden();
     });
-
 
     const handleResize = () => {
         const newWidth = window.innerWidth;
@@ -189,16 +189,14 @@ const SideBarNav = ({
     return (
         <>
             {!!isMobile && (
-                <button 
-                    className={`dropdown-trigger ${isOpen ? 'active' : ''}`} 
+                <button
+                    className={`dropdown-trigger ${isOpen ? 'active' : ''}`}
                     onClick={toggleMenu}
                     aria-haspopup="listbox"
                     aria-expanded={isOpen}>
                     <span>{selectedOption ? selectedOption.label : "-Select an option-"}</span>
                     <span className={`dropdown-arrow ${isOpen ? 'open' : ''}`}>▼</span>
-                </button>
-
-                
+                </button>                
             )}
             {isOpen && (
                 <ul className="dropdown-menu" role="listbox">

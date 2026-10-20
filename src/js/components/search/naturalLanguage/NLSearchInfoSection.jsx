@@ -15,10 +15,9 @@ const propTypes = {
     section: PropTypes.object
 }
 
-const NLSearchInfoSection = ({anchor, section }) => {
-
+const NLSearchInfoSection = ({ anchor, section }) => {
     return (
-        <div className="search-info-page-section"  key={anchor} id={anchor}>
+        <div className="search-info-page-section" key={anchor} id={anchor}>
             <div className="search-info-page__heading-section">
                 <FlexGridCol
                     className="search-info-page__content-col"
