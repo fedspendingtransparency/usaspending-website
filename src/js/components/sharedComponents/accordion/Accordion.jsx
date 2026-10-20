@@ -42,10 +42,8 @@ const Accordion = ({
     const sectionClassName = open ? `open accordion--open accordion` : `accordion`;
 
     if (!openObject) return (
-        <div className={`accordion-container ${containerClassName}`}>
-            <details
-                data-testid="accordion"
-                className={sectionClassName}>
+        <div className="accordion-container">
+            <details data-testid="accordion" className={`accordion ${containerClassName}`}>
                 <summary className={`heading ${headingClassName}`}>
                     {title}
                     <div className="heading--chip-container">

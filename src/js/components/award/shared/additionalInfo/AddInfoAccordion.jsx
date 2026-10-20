@@ -139,7 +139,7 @@ const AddInfoAccordion = ({
     );
 
     return (
-        <Accordion title={title} contentClassName="test">
+        <Accordion title={title} contentClassName="no-padding" containerClassName="expand-all-trigger">
             <div className="accordion__content">
                 {accordionBody()}
             </div>
