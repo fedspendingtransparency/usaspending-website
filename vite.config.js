@@ -42,7 +42,7 @@ export default defineConfig(({ command, mode }) => {
   const sharedConfig = {
     base: "./",
     loglevel: "error",
-    emptyOutDir: true,
+    emptyOutDir: false,
     customLogger: logger,
     css: {
       preprocessorOptions: {
@@ -94,17 +94,37 @@ export default defineConfig(({ command, mode }) => {
         targets: [
         {
           src: '**/*.xml',
-          dest: path.resolve(__dirname, "./dist"),
+          dest: path.resolve(__dirname, "./public"),
           suppressError: true
         },
         {
           src: 'robots.txt',
-          dest: path.resolve(__dirname, "./dist"),
+          dest: path.resolve(__dirname, "./public"),
           suppressError: true
         },
         {
           src: 'redirect-config.json',
-          dest: path.resolve(__dirname, "./dist"),
+          dest: path.resolve(__dirname, "./public"),
+          suppressError: true
+        },
+        {
+          src: path.resolve(__dirname, "./src/img/**/*"),
+          dest: path.resolve(__dirname, "./public/img"),
+          suppressError: true
+        },
+        {
+          src: path.resolve(__dirname, "./src/graphics/**/*"),
+          dest: path.resolve(__dirname, "./public/graphics"),
+          suppressError: true
+        },
+        {
+          src: path.resolve(__dirname, "./src/fonts/**/*"),
+          dest: path.resolve(__dirname, "./public/fonts"),
+          suppressError: true
+        },
+        {
+          src: path.resolve(__dirname, "./src/data/**/*"),
+          dest: path.resolve(__dirname, "./public/data"),
           suppressError: true
         }],
         silent: true})
@@ -166,11 +186,9 @@ export default defineConfig(({ command, mode }) => {
       return {
     ...sharedConfig,
     build: {
-      emptyOutDir: true,
+      emptyOutDir: false,
       assetsInlineLimit: 0,
-      publicDir: path.resolve(__dirname, "./public"),
       sourcemap: true,
-      emptyOutDir: true,
       minify: false,
       cssCodeSplit: true,
       rolldownOptions: { 
@@ -217,7 +235,6 @@ export default defineConfig(({ command, mode }) => {
   return {
     ...sharedConfig,
     build: {
-      publicDir: path.resolve(__dirname, "./public"),
       sourcemap: true,
       emptyOutDir: true,
       minify: true,
