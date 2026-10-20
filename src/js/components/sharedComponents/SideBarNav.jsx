@@ -89,11 +89,6 @@ const SideBarNav = ({
         setIsOverflowRight(right);
     };
 
-    const handleHorizontalScroll = useCallback((e) => {
-        e.stopPropagation();
-        checkIsOverflowHidden();
-    });
-
     const handleResize = () => {
         const newWidth = window.innerWidth;
 
