@@ -30,7 +30,8 @@ const propTypes = {
     isLoading: PropTypes.bool,
     disabled: PropTypes.bool,
     selectedItemsDisplayNames: PropTypes.object,
-    type: PropTypes.string
+    type: PropTypes.string,
+    locationCount: PropTypes.number
 };
 
 const Autocomplete = ({
@@ -54,7 +55,8 @@ const Autocomplete = ({
     isLoading = false,
     disabled = false,
     selectedItemsDisplayNames,
-    type
+    type,
+    locationCount
 }) => {
     const [value, setValue] = useState('');
     const [shown, setShown] = useState(false);
@@ -282,6 +284,12 @@ const Autocomplete = ({
     useEffect(() => {
         open();
     }, [values]);
+
+    useEffect(() => {
+        if (locationCount === 0 && autocompleteInputRef.current) {
+            autocompleteInputRef.current.value = '';
+        }
+    }, [locationCount]);
 
     useEffect(() => {
         toggleWarning();
