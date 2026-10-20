@@ -1,3 +1,6 @@
+
+@import "../checkbox/accordionCheckbox";
+
 .def-code-filter-download {
   margin-bottom: rem(12);
   padding: rem(12);
@@ -9,7 +12,6 @@
 
     .checkbox-filter__wrapper {
       .checkbox-filter__header.accordion-checkbox {
-        margin-bottom: ($global-margin * 1.5);
         line-height: $base-line-height;
         display: inline-flex;
         text-align: center;
@@ -21,17 +23,9 @@
           width: auto;
           display: flex;
 
-          button.toggle {
-            @include button-unstyled;
-            @include display(flex);
-            @include align-items(center);
-            @include flex(1 1 auto);
-          }
-
           svg {
             font-weight: 900;
-            color: $blue-50;
-            height: rem(12);
+            height: rem(16);
             max-height: rem(20);
             max-width: rem(20);
           }

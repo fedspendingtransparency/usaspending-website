@@ -57,16 +57,21 @@
       padding: unset;
       color: $color_gray;
       margin-right: 4px;
+      margin-left: -4px;
+      padding: 4px;
       svg {
-        width: 10px;
-        height: 10px;
+        width: 16px;
+        height: 16px;
         color: $blue-50;
       }
     }
 
     input[type="checkbox"] {
-      margin: 2px 4px 0 0;
+      margin: 2px 8px 0 0;
       cursor: pointer;
+      width: 16px;
+      height: 16px;
+      padding: 4px;
     }
 
     .checkbox-tree-label {
@@ -154,7 +159,6 @@
   }
 
   .def-code-filter {
-    padding: unset !important; // TODO remove after search 2.0 is released
 
     .defc-filter-message-container {
       font-size: rem(30);
@@ -165,18 +169,6 @@
         font-size: 2rem;
         padding-bottom: 2rem;
       }
-    }
-
-    li {
-      margin-bottom: rem(
-        12
-      ) !important; // TODO remove after search 2.0 is released
-    }
-
-    .checkbox-filter__header {
-      margin-bottom: rem(
-        16
-      ) !important; // TODO remove after search 2.0 is released
     }
 
     .checkbox-tree-label {

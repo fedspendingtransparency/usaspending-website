@@ -54,10 +54,10 @@
             @include usa-input-checkbox;
             margin: 0;
             border: solid rem(1) $gray-cool-20;
-            width: rem(12);
-            height: rem(12);
+            width: rem(16);
+            height: rem(16);
             min-width: rem(12);
-            top: rem(3);
+            top: 0;
 
             &:checked {
               background-color: $blue-50;
@@ -67,7 +67,7 @@
             &:checked:before {
               width: rem(4);
               height: rem(8);
-              margin: rem(0) rem(3);
+              margin: rem(0) rem(5);
             }
           }
 
