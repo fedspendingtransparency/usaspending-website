@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import '../../../../_scss/elements/_accordion.scss';
 
 /* props notes
 title: shows in the top box, collapsed or open

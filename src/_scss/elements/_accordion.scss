@@ -19,13 +19,6 @@
     border: 1px solid #eee;
     color: #1b1b1b;
 
-    &.search-info-page-heading {
-      box-sizing: border-box;
-      height: 48px;
-      padding: 12px 16px;
-      background-color: #f0f0f0;
-    }
-
     &--chip-container {
       display: flex;
       justify-content: space-between;
@@ -61,7 +54,7 @@
   }
 
   .content {
-    padding: 0 25px;
+    padding: 0 20px;
     max-height: 0;
     color: #1b1b1b;
     text-align: left;
@@ -74,21 +67,11 @@
   .plus {
     display: block;
     color: #0071bc;
-
-    &.search-info-page-fa {
-      display: block;
-      color: #1b1b1b;
-    }
   }
 
   .minus {
     display: none;
     color: #0071bc;
-
-    &.search-info-page-fa {
-      display: none;
-      color: #1b1b1b;
-    }
   }
 
   .open {
@@ -100,12 +83,6 @@
       padding-bottom: 25px;
       border: 1px solid #eee;
       visibility: visible;
-
-      &.search-info-page-content {
-        border: 2px solid #f0f0f0;
-        border-radius: 0 0 4px 4px;
-        padding: 16px 20px;
-      }
     }
 
     .plus {
@@ -131,22 +108,30 @@
 details {
   margin-bottom: 16px;
 
-  &[open] {
-    .content {
-      line-height: 1.2;
-      max-height: 100%;
-      padding-top: 15px;
-      padding-bottom: 25px;
-      border: 1px solid #eee;
-      visibility: visible;
+  .heading {
+    box-sizing: border-box;
+    height: 48px;
+    padding: 12px 16px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
 
-      &.search-info-page-content {
-        border: 2px solid #f0f0f0;
-        border-radius: 0 0 4px 4px;
-        padding: 16px 20px;
-      }
+    .plus {
+      display: block;
+      color: #1b1b1b;
     }
 
+    .minus {
+      color: #1b1b1b;
+    }
+  }
+
+  .content {
+    border: 2px solid #f0f0f0;
+    border-radius: 0 0 4px 4px;
+    padding: 16px 20px;
+  }
+
+  &[open] {
     .heading {
       border-radius: 4px 4px 0 0;
 
@@ -162,6 +147,9 @@ details {
     }
 
     .content {
+      line-height: 1.2;
+      max-height: 100%;
+      visibility: visible;
       transition: ease-in-out max-height 50ms,
       visibility 50ms;
     }
