@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 
 export const AWARD_OVERVIEW_PROPS = PropTypes.shape({
@@ -25,7 +24,6 @@ export const AWARD_COUNTS_PROPS = PropTypes.shape({
     grandchild_awards: PropTypes.number,
     total: PropTypes.number
 });
-
 
 export const AWARD_TYPE_PROPS = PropTypes.oneOf([
     'idv', 'contract', 'grant', 'loan', 'direct payment', 'insurance', 'other'

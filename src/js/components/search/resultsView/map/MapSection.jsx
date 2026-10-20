@@ -63,14 +63,14 @@ const MapSection = ({ spendingLevel, hash }) => {
     return (
         <div ref={ref} className="map">
             {mapHasLoaded ?
-                <MapSectionWrapper
-                    scope={selectedDropdown}
-                    setScope={setSelectedDropdown}
-                    wrapperProps={wrapperProps}
-                    hash={hash} />
-                :
-                <PlaceholderComponent classname="map" />
-            }
+                (
+                    <MapSectionWrapper
+                        scope={selectedDropdown}
+                        setScope={setSelectedDropdown}
+                        wrapperProps={wrapperProps}
+                        hash={hash} />
+                ) :
+                <PlaceholderComponent classname="map" />}
         </div>
     );
 };

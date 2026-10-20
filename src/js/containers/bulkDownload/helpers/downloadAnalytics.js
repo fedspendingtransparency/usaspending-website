@@ -52,9 +52,9 @@ const selectedValueByFilterType = {
     // eslint-disable-next-line no-confusing-arrow
     subAgency: (obj) => obj.id !== "" ? startCase(obj.name) : '',
     // eslint-disable-next-line no-confusing-arrow
-    location: (obj) => obj.state.code !== ""
-        ? `${obj.country.name}, ${obj.state.name}`
-        : obj.country.name,
+    location: (obj) => obj.state.code !== "" ?
+        `${obj.country.name}, ${obj.state.name}` :
+        obj.country.name,
     dateType: (string) => startCase(string),
     dateRange: (obj) => convertDateRange(obj),
     fileFormat: (string) => string.toLowerCase(),

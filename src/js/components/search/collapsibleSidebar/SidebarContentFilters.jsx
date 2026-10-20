@@ -13,7 +13,7 @@ const propTypes = {
 
 const SidebarContentFilters = ({ isMobile }) => {
     const [open, setOpen] = useState({
-        Location: false,
+        "Location": false,
         "Time Period": true,
         "Award Description": false,
         "Award ID": false,
@@ -25,9 +25,9 @@ const SidebarContentFilters = ({ isMobile }) => {
         "Type of Set Aside": false,
         "Extent Competed": false,
         "Assistance Listing": false,
-        Recipient: false,
+        "Recipient": false,
         "Recipient Type": false,
-        Agency: false,
+        "Agency": false,
         "Treasury Account Symbol (TAS)": false,
         "Disaster Emergency Fund Code (DEFC)": false
     });

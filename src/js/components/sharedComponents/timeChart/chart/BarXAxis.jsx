@@ -153,11 +153,13 @@ const BarXAxis = ({
                 const label = calculateLabel(item);
                 const xPos = calculateXPos(item, index, labelOffset);
 
-                return (<BarXAxisItem
-                    x={xPos}
-                    y={15}
-                    label={label}
-                    key={`label-x-${item}-${index}`} />);
+                return (
+                    <BarXAxisItem
+                        x={xPos}
+                        y={15}
+                        label={label}
+                        key={`label-x-${item}-${index}`} />
+                );
             })
         );
     };

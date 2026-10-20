@@ -15,7 +15,7 @@ const propTypes = {
     searchString: PropTypes.string
 };
 
-const StateLinkCell = ({name, fips, searchString}) => {
+const StateLinkCell = ({ name, fips, searchString }) => {
     let tempname = name;
     let stateNameByFipsId = useStateNameByFipsId();
     // highlight the matched string if applicable
@@ -30,7 +30,6 @@ const StateLinkCell = ({name, fips, searchString}) => {
             </Link>
         </td>
     );
-    
 };
 
 StateLinkCell.propTypes = propTypes;

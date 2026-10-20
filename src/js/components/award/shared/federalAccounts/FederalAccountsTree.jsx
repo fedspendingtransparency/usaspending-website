@@ -199,9 +199,11 @@ const FederalAccountsTree = ({
         errorMessage = (<ResultsTableErrorMessage />);
     }
     else if (noResults) {
-        noResultsMessage = (<NoResultsMessage
-            title="Chart Not Available"
-            message="No available data to display." />);
+        noResultsMessage = (
+            <NoResultsMessage
+                title="Chart Not Available"
+                message="No available data to display." />
+        );
     }
     else {
         treeMap = (

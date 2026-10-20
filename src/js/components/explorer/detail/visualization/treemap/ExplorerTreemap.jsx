@@ -11,7 +11,6 @@ import { scaleLinear } from 'd3-scale';
 
 import { measureTreemapHeader, measureTreemapValue } from 'helpers/textMeasurement';
 
-
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import TreemapCell from 'components/sharedComponents/TreemapCell';
 
@@ -225,4 +224,3 @@ export const ExplorerTreemap = ({
 ExplorerTreemap.propTypes = propTypes;
 
 export default ExplorerTreemap;
-

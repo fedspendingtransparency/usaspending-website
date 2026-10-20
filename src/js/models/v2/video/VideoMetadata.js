@@ -2,7 +2,7 @@
  * VideoMetadata.js
  * Created by Andrea Blackwell 12/20/22
  */
-import { transformDate } from "../../../helpers/featuredContent/featuredContentHelper";
+import { transformDate } from '../../../helpers/featuredContent/featuredContentHelper';
 
 const VideoMetadata = {
     populate(data) {

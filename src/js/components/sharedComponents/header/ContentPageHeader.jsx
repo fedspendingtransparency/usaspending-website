@@ -80,7 +80,7 @@ const ContentPageHeader = ({
                             <div className={`${className}__column-two-title`}>{title}</div>
                             <div className={`${className}__column-two-body`}>{body}</div>
 
-                            { shareOptions &&
+                            { shareOptions && (
                                 <div className={`${className}__column-share-icon`}>
                                     <ShareIcon
                                         url={getBaseUrl(slug)}
@@ -90,7 +90,7 @@ const ContentPageHeader = ({
                                         classNames="no-margin-left"
                                         noShareText />
                                 </div>
-                            }
+                            )}
                         </div>
                     </div>
                 </FlexGridCol>

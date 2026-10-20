@@ -182,11 +182,11 @@ export default class MapWrapper extends React.Component {
         // transform the source shapes into a base layer that will show the outline of all the
         // contents
         this.mapRef.current.addLayer({
-            id: baseLayer,
-            type: 'fill',
-            source: type,
+            "id": baseLayer,
+            "type": 'fill',
+            "source": type,
             'source-layer': source.layer,
-            paint: {
+            "paint": {
                 'fill-outline-color': 'rgba(0,0,0,0.3)',
                 'fill-color': 'rgba(0,0,0,0)'
             }
@@ -210,15 +210,15 @@ export default class MapWrapper extends React.Component {
         colors.forEach((color, index) => {
             const layerName = `highlight_${type}_group_${index}`;
             this.mapRef.current.addLayer({
-                id: layerName,
-                type: 'fill',
-                source: type,
+                "id": layerName,
+                "type": 'fill',
+                "source": type,
                 'source-layer': source.layer,
-                paint: {
+                "paint": {
                     'fill-outline-color': 'rgba(0,0,0,0.3)',
                     'fill-color': color
                 },
-                filter: ['in', source.filterKey, '']
+                "filter": ['in', source.filterKey, '']
             }, firstSymbolId(this.mapRef));
 
             // setup mouseover events
@@ -478,11 +478,12 @@ export default class MapWrapper extends React.Component {
                     this.wrapperDiv = div;
                 }}>
                 {
-                    GlobalConstants.MAPBOX_TOKEN &&
-                    <MapBox
-                        setMapReady={this.props.onMapLoaded}
-                        center={this.props.center}
-                        ref={this.mapRef} />
+                    GlobalConstants.MAPBOX_TOKEN && (
+                        <MapBox
+                            setMapReady={this.props.onMapLoaded}
+                            center={this.props.center}
+                            ref={this.mapRef} />
+                    )
                 }
                 <MapFiltersToggle
                     isFiltersOpen={this.state.isFiltersOpen}

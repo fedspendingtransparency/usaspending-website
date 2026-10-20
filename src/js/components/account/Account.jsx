@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import {useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -59,8 +59,8 @@ const Account = ({ currentFiscalYear }) => {
                 <ProfileBackLink
                     label="Back to Federal Account Profile Page"
                     url="/federal_account" />
-                <FlexGridRow className="fed-account-content__row" >
-                    <FlexGridCol className="fed-account-content__col" >
+                <FlexGridRow className="fed-account-content__row">
+                    <FlexGridCol className="fed-account-content__col">
                         <AccountOverview account={account} currentFiscalYear={currentFiscalYear} />
                         <div className="filter-results">
                             <SearchSidebar />

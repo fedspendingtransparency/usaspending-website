@@ -24,7 +24,6 @@ const MobileSidebarContent = ({
     showMobileFilters,
     mobileSidebarContent
 }) => {
-
     if (mobileSidebarContent !== FILTERS) {
         return null;
     }

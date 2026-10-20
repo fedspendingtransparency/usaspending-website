@@ -40,8 +40,7 @@ const AccountLandingContent = ({
     order,
     updateSort
 }) => {
-    // eslint-disable-next-line max-len
-    const subtitle = "The government has more than 2,000 unique Federal Accounts, which are similar to bank accounts. Use our Federal Account Profiles to get a better understanding of how agencies receive and spend congressional funding to carry out their programs, projects, and activities.";
+    const subtitle = 'The government has more than 2,000 unique Federal Accounts, which are similar to bank accounts. Use our Federal Account Profiles to get a better understanding of how agencies receive and spend congressional funding to carry out their programs, projects, and activities.';
 
     return (
         <FlexGridRow className="content__row landing-page">

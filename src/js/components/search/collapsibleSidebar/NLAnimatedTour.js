@@ -91,6 +91,7 @@ const animatedTour = driver({
     popoverClass: 'nl-theme',
     showProgress: true,
     doneBtnText: "Done",
+    overlayClickBehavior: 'close',
     steps: getStepsForScreenSize()
 });
 
@@ -121,5 +122,30 @@ window.addEventListener('resize', () => {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(handleViewportChange, RESIZE_DEBOUNCE_MS);
 });
+
+let currentPath = window.location.pathname + window.location.search;
+
+const handleUrlChange = () => {
+    const newPath = window.location.pathname + window.location.search;
+    if (newPath === currentPath) {
+        return;
+    }
+
+    currentPath = newPath;
+    animatedTour.destroy();
+};
+
+// React Router navigates via history.pushState/replaceState, which don't fire 'popstate',
+// so those methods are wrapped here to catch in-app navigation along with back/forward.
+// this prevents the tour remaining open when the url changes
+['pushState', 'replaceState'].forEach((methodName) => {
+    const originalMethod = window.history[methodName].bind(window.history);
+    window.history[methodName] = (...args) => {
+        originalMethod(...args);
+        handleUrlChange();
+    };
+});
+
+window.addEventListener('popstate', handleUrlChange);
 
 export default animatedTour;

@@ -37,14 +37,16 @@ const AdditionalData = (props) => {
                     subcomponents. USAspending.gov draws from the Office of Management and
                     Budget&#39;s hierarchy for account data, and from the General Services
                     Administration&#39;s hierarchy for award data. You can see these two
-                    hierarchies in any of the{" "}
+                    hierarchies in any of the
+                    {" "}
                     <Link
                         className="scroller-overlay-card__link"
                         to="/agency"
                         target="_blank"
                         rel="noopener noreferrer">
                         Agency Profile pages
-                    </Link>.
+                    </Link>
+                    .
                 </p>
             )
         }
@@ -79,7 +81,6 @@ const AdditionalData = (props) => {
                     </div>
                 </div>
 
-
                 {/* SCROLLER OVERLAYS */}
 
                 {/* TRANSITION TO START SECTION */}
@@ -88,8 +89,7 @@ const AdditionalData = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(0, 120, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
 
@@ -98,8 +98,7 @@ const AdditionalData = (props) => {
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(120, 180, 1.5)
-                    }>
+                        ref1.current?.playAnimation(120, 180, 1.5)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -112,8 +111,7 @@ const AdditionalData = (props) => {
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(180, 240, 1, false)
-                    }>
+                        ref1.current?.playAnimation(180, 240, 1, false)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -125,8 +123,7 @@ const AdditionalData = (props) => {
                     content="animation"
                     position="right"
                     onStepEnter={() =>
-                        ref1.current?.playAnimation(180, 240, 1, false)
-                    }>
+                        ref1.current?.playAnimation(180, 240, 1, false)}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -141,11 +138,9 @@ const AdditionalData = (props) => {
                     onStepEnter={() => {
                         ref1.current?.playAnimation(240, 300, 1.5);
                         ref2.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
-
 
             </Scroller>
         </div>

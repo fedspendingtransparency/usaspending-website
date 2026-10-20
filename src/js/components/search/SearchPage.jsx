@@ -23,7 +23,6 @@ import searchPageToolBarComponents from "./header/SearchPageToolBarComponents";
 
 require('pages/search/searchPage.scss');
 
-
 const propTypes = {
     download: PropTypes.object,
     appliedFilters: PropTypes.object,

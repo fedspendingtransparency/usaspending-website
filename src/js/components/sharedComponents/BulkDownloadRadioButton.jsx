@@ -9,7 +9,7 @@ const propTypes = {
     label: PropTypes.string,
     description: PropTypes.string,
     disabled: PropTypes.bool
-}
+};
 
 const BulkDownloadRadioButton = ({
     name,
@@ -38,14 +38,15 @@ const BulkDownloadRadioButton = ({
                     onChange={onChange}
                     disabled={disabled} />
                 {description ?
-                    <div className="radio-container">
-                        {label}
-                        <div className="radio-description">
-                            {description}
+                    (
+                        <div className="radio-container">
+                            {label}
+                            <div className="radio-description">
+                                {description}
+                            </div>
                         </div>
-                    </div> :
-                    label
-                }
+                    ) :
+                    label}
             </label>
         </div>
     );

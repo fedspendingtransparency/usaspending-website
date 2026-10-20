@@ -43,14 +43,17 @@ export default class StackedBarGroup extends React.Component {
     render() {
         const items = this.props.stack.map((item) => {
             if (item.type === 'bar') {
-                return (<StackedBar
-                    {...item}
-                    key={`${item.name}-${item.xValue}`} />);
+                return (
+                    <StackedBar
+                        {...item}
+                        key={`${item.name}-${item.xValue}`} />
+                );
             }
             return (
                 <OutlayLine
                     {...item}
-                    key={`${item.name}-${item.xValue}`} />);
+                    key={`${item.name}-${item.xValue}`} />
+            );
         });
 
         return (

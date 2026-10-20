@@ -33,7 +33,7 @@ const NewDownloadSummary = ({
             </div>
             <div className="download-summary-container">
                 <p className="download-summary__heading">
-                Download Summary
+                    Download Summary
                 </p>
                 <table
                     className="download-summary__details-table">

@@ -2,12 +2,12 @@
  * NLSearchButton.jsx
  * Created by Nick Torres 8/28/2026
  */
-import React from "react";
-import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import useFireQueryEvent from "../../../hooks/useFireQueryEvent";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import useFireQueryEvent from '../../../hooks/useFireQueryEvent';
 
-const DEFAULT_ICON_PATH = "../../../../img/magnifying-glass-white.svg";
+const DEFAULT_ICON_PATH = '../../../../img/magnifying-glass-white.svg';
 
 const propTypes = {
     loadingState: PropTypes.string,
@@ -19,9 +19,9 @@ const propTypes = {
 
 const NLSearchButton = ({
     loadingState,
-    classname="default-search",
-    icon=DEFAULT_ICON_PATH,
-    text = "Search",
+    classname = 'default-search',
+    icon = DEFAULT_ICON_PATH,
+    text = 'Search',
     startNLSearch
 }) => {
     const fireQueryEvent = useFireQueryEvent();
@@ -29,26 +29,26 @@ const NLSearchButton = ({
     const onClick = () => {
         startNLSearch();
         fireQueryEvent();
-    }
+    };
 
     return (
         <button className={`natural-language-submit ${classname}`} onClick={onClick} disabled={loadingState}>
-            {!loadingState && <img src={icon} alt="Icon for Search Button"/>}
+            {!loadingState && <img src={icon} alt="Icon for Search Button" />}
             {loadingState && <FontAwesomeIcon icon={['far', 'wand-magic-sparkles']} />}
             {text}
             {loadingState && (
                 <svg
                     className="natural-language-submit__spinner"
                     style={{
-                        position: "absolute",
+                        position: 'absolute',
                         top: 0,
                         left: 0,
                         right: 0,
                         bottom: 0,
-                        width: "100%",
-                        height: "100%",
-                        overflow: "visible",
-                        pointerEvents: "none"
+                        width: '100%',
+                        height: '100%',
+                        overflow: 'visible',
+                        pointerEvents: 'none'
                     }}
                     aria-hidden="true"
                     focusable="false">
