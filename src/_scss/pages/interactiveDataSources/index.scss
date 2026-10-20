@@ -82,6 +82,7 @@
 
         .body-padded__content {
           @import "./_scrollerOverlayCard.scss";
+          width: 100%;
           margin-top: 0;
           padding: 0 0 10% 0;
 
