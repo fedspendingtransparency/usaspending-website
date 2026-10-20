@@ -109,11 +109,11 @@ const NLSearchInfoPage = () => {
                         </Swiper>
                     </div>
                 </section>
-                <section className="search-info-page__content-section" style={{display: 'flex', alignItems: 'flex-start'}}> 
+                <section className="search-info-page__content-section"> 
                     <SideBarNav
                         sections={infoSections}
                         activeSection={activeSection}
-                        pageName="smart-assist"
+                        pageName="nlinfo"
                         detectActiveSection
                         jumpToSection={jumpToSection} />
                     <div>

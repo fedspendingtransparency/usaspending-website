@@ -165,13 +165,13 @@ const SideBarNav = ({
     //     }
     // });
 
-    const getInitialElements = useCallback(() => {
-        const ulEl = navBar.current.querySelector("ul");
-        const tempElementData = getElementData(ulEl);
+    // const getInitialElements = useCallback(() => {
+    //     const ulEl = navBar.current.querySelector("ul");
+    //     const tempElementData = getElementData(ulEl);
 
-        setUlElement(ulEl);
-        setElementData(tempElementData);
-    });
+    //     setUlElement(ulEl);
+    //     setElementData(tempElementData);
+    // });
 
     // const onKeyPress = useCallback((e, direction) => {
     //     if (e.key === "Enter") {
@@ -190,9 +190,8 @@ const SideBarNav = ({
 
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
+            setIsMobile(newWidth < mediumScreen);
         }
-
-        setIsMobile(windowWidth < mediumScreen);
 
         if (mediumScreen < windowWidth && windowWidth <= largeScreen) {
             setPadding(20 + 32);
@@ -241,7 +240,7 @@ const SideBarNav = ({
     }, 100);
 
     useEffect(() => {
-        getInitialElements();
+        // getInitialElements();
         handleResize();
         setObserverSupported('IntersectionObserver' in window);
 
