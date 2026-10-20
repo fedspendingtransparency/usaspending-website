@@ -89,7 +89,16 @@
     position: relative;
     padding-left: 25px;   
     margin-bottom: 20px;
-    a {
+    button {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      font: inherit;
+      color: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline;
       color: black;
     }
     .active {

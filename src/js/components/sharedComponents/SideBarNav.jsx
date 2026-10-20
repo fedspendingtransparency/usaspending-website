@@ -27,7 +27,6 @@ const SideBarNav = ({
     const [observerSupported, setObserverSupported] = useState(false);
     const [activeSection, setActiveSection] = useState(props.activeSection);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
-    const [ulElement, setUlElement] = useState(null);
     const [isOverflowLeft, setIsOverflowLeft] = useState(false);
     const [isOverflowRight, setIsOverflowRight] = useState(false);
     const [padding, setPadding] = useState(32);
@@ -115,13 +114,6 @@ const SideBarNav = ({
 
         checkIsOverflowHidden();
     };
-
-    useEffect(() => {
-        checkIsOverflowHidden();
-        ulElement?.addEventListener('scrollend', (e) => handleHorizontalScroll(e));
-        return () => ulElement?.removeEventListener('scrollend', (e) => handleHorizontalScroll(e));
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [ulElement]);
 
     const cacheSectionPositions = throttle(() => {
         // Measure section positions on windowResize and first render
@@ -230,8 +222,7 @@ const SideBarNav = ({
                                     <li
                                         className={`usda-in-page-nav__element ${section.section === activeSection ? 'active' : ''}`}
                                         key={`in-page-nav-li-${section.label}`}>
-                                        <a
-                                            role="button"
+                                        <button
                                             className={`sidenav-anchor ${section.section === activeSection ? 'active' : ''}`}
                                             tabIndex="0"
                                             id={`in-page-nav-link-${section.label}`}
@@ -239,7 +230,7 @@ const SideBarNav = ({
                                             onKeyDown={(e) => (e.key === "Enter" ? sideBarClick(section.section) : "")}
                                             onClick={() => sideBarClick(section.section)}>
                                             {section.label}
-                                        </a>
+                                        </button>
                                     </li>
                                 ))}
                             </ul>
