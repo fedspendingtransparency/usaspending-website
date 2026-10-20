@@ -33,7 +33,7 @@ const getCountryOption = (v) => {
         case 'FOREIGN': return { code: countryOptions[2].value, name: countryOptions[2].text };
         default: return { code: countryOptions[0].value, name: countryOptions[0].text };
     }
-}
+};
 
 const { locationTypes } = awardDownloadOptions;
 
@@ -68,7 +68,7 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
                 case 'all':return [{ code: 'all', name: 'All' }];
                 default: return states.filter(({ code }) => code === e.target.value);
             }
-        }
+        };
 
         const updatedLocation = Object.assign({}, location, {
             state: getState(e.target.value)[0]
@@ -77,7 +77,7 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
         updateFilter('location', updatedLocation);
     };
 
-    const onStateClearSelect = () => updateState({ target: { value: '' }});
+    const onStateClearSelect = () => updateState({ target: { value: '' } });
 
     const stateOptions = useMemo(() => {
         if (!states) {
@@ -113,14 +113,14 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
                     <ComboBox
                         optionsArray={countryOptions}
                         onSelect={updateCountry}
-                        label={"Country"}
-                        placeholder={"Select a Country"}
+                        label="Country"
+                        placeholder="Select a Country"
                         onClearSelect={onCountryClearSelect} />
                     <ComboBox
                         optionsArray={stateOptions}
                         onSelect={updateState}
-                        label={"State"}
-                        placeholder={"Select a State"}
+                        label="State"
+                        placeholder="Select a State"
                         disabled={location.country?.code !== "USA"}
                         onClearSelect={onStateClearSelect} />
                 </div>

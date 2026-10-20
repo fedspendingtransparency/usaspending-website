@@ -60,6 +60,6 @@ const useFireQueryEvent = () => {
         // Sanity check
         Cookies.set("has_logged_query_timer", true, { expires: 14 });
     };
-}
+};
 
 export default useFireQueryEvent;

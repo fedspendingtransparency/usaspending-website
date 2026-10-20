@@ -291,10 +291,10 @@ const ContractGrantActivityContainer = ({
      */
     const content = () => {
         if (
-            !error.error
-            && !loading
-            && transactions.length > 0
-            && !badDates
+            !error.error &&
+            !loading &&
+            transactions.length > 0 &&
+            !badDates
         ) {
             return (
                 <ContractGrantActivity

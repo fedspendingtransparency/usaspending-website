@@ -23,7 +23,8 @@ export default class InfoSnippet extends React.Component {
                         {this.props.value}
                     </div>
                 </div>
-            </li>);
+            </li>
+        );
     }
 }
 InfoSnippet.propTypes = propTypes;

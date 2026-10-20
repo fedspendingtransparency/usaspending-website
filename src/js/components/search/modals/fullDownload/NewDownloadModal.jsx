@@ -110,11 +110,13 @@ const NewDownloadModal = (props) => {
     }
     else if (downloadStep === 3) {
         headerContent = "We're preparing your download.";
-        content = (<NewDownloadProgress
-            hideModal={hideModal}
-            download={props.download}
-            setDownloadCollapsed={props.setDownloadCollapsed}
-            expectedUrl={props.download.expectedUrl} />);
+        content = (
+            <NewDownloadProgress
+                hideModal={hideModal}
+                download={props.download}
+                setDownloadCollapsed={props.setDownloadCollapsed}
+                expectedUrl={props.download.expectedUrl} />
+        );
     }
 
     return (

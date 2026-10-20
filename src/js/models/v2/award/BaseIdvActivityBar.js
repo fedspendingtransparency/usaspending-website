@@ -8,9 +8,9 @@ import { parseDate, formatDate } from './CorePeriodOfPerformance';
 
 const BaseIdvActivityBar = {
     populate(data) {
-        this.generatedId = data.generated_unique_award_id
-            ? encodeURIComponent(`${data.generated_unique_award_id}`)
-            : '--';
+        this.generatedId = data.generated_unique_award_id ?
+            encodeURIComponent(`${data.generated_unique_award_id}`) :
+            '--';
         this.awardingAgencyName = data.awarding_agency || '--';
         this.parentAwardId = data.parent_award_id || '--';
         this.parentGeneratedId = data.parent_generated_unique_award_id || '--';
@@ -18,12 +18,14 @@ const BaseIdvActivityBar = {
         this.awardingAgencyId = (data.awarding_agency_id && `${data.awarding_agency_id}`) || '--';
         this.awardingAgencySlug = data.awarding_agency_slug;
         this._endDate = data.period_of_performance_potential_end_date ?
-            parseDate(data.period_of_performance_potential_end_date) : null;
+            parseDate(data.period_of_performance_potential_end_date) :
+            null;
         this._awardedAmount = data.awarded_amount || 0;
         this._obligatedAmount = data.obligated_amount || 0;
         this._startDate =
-        data.period_of_performance_start_date ?
-            parseDate(data.period_of_performance_start_date) : null;
+            data.period_of_performance_start_date ?
+                parseDate(data.period_of_performance_start_date) :
+                null;
         this.piid = data.piid || '--';
         this.recipientName = data.recipient_name || '--';
         this.recipientId = data.recipient_id || '--';

@@ -3,8 +3,8 @@
  * Created by JD House 8/20/2026
  */
 
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React, { useState, useRef } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isCancel } from 'axios';
 import { FlexGridRow, FlexGridCol, CardContainer } from 'data-transparency-ui';
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,18 +17,18 @@ import { combineQueryParams, getQueryParamString } from "../../../helpers/queryP
 import useQueryParams from "../../../hooks/useQueryParams";
 import useFireQueryEvent from "../../../hooks/useFireQueryEvent";
 import useIsMobile from "../../../hooks/useIsMobile";
-import { useState, useRef } from "react";
+
 const propTypes = {
     source: PropTypes.string
-}
+};
 
 // to remove when Smart Assist deploys
 const getQuestions = preSearchOptionsToRemove.map(({ options }) => {
     const index = Math.floor(Math.random() * options.length);
-    return options[index]
+    return options[index];
 });
 
-const NLPreSearchButtonGroup = ({source = ""}) => {
+const NLPreSearchButtonGroup = ({ source = '' }) => {
     const query = useQueryParams();
     const fireQueryEvent = useFireQueryEvent();
     const { isMedium } = useIsMobile();
@@ -50,9 +50,9 @@ const NLPreSearchButtonGroup = ({source = ""}) => {
         let tempHash = generateUrlHash(filterValue);
         tempHash.promise
             .then((results) => {
-                const newQueryParams = combineQueryParams(query, {hash: encodeURIComponent(results.data.hash)});
-                window.open(`${'/search'}${getQueryParamString(newQueryParams)}`, "_self");
-                
+                const newQueryParams = combineQueryParams(query, { hash: encodeURIComponent(results.data.hash) });
+                window.open(`${'/search'}${getQueryParamString(newQueryParams)}`, '_self');
+
                 // operation has resolved
                 tempHash = null;
             })
@@ -63,41 +63,40 @@ const NLPreSearchButtonGroup = ({source = ""}) => {
                 }
                 tempHash = null;
             });
-    }
+    };
 
-    if ( source !== "Homepage") {
+    if (source !== 'Homepage') {
         return (
             <div className="landing-pre-search__section">
                 <FlexGridRow className="landing-pre-search__row">
                     {getQuestions.map((btn) => (
-                        <FlexGridCol 
-                            key={`landing-pre-search-${btn.id}`} 
+                        <FlexGridCol
+                            key={`landing-pre-search-${btn.id}`}
                             className="landing-pre-search__col"
-                            desktopxl={4} 
-                            desktop={12} 
+                            desktopxl={4}
+                            desktop={12}
                             tablet={12}
                             mobile={12}>
-                            <CardContainer 
+                            <CardContainer
                                 variant="outline"
                                 onClick={() => btn.action(fireSearchEvent)}
                                 onKeyUp={(e) => {
-                                    if (e.key === 'Enter'){
-                                        btn.action(fireSearchEvent)
-                                    } 
+                                    if (e.key === 'Enter') {
+                                        btn.action(fireSearchEvent);
+                                    }
                                 }}>
                                 <div className="pre-search-icon">
                                     <FontAwesomeIcon icon="filter-list" />
                                 </div>
                                 <div className="pre-search-text">{btn.text}</div>
                             </CardContainer>
-                            
+
                         </FlexGridCol>
                     ))}
                 </FlexGridRow>
             </div>
         );
     }
-
 
     return (
         <div className="homepage-pre-search">
@@ -199,9 +198,8 @@ const NLPreSearchButtonGroup = ({source = ""}) => {
                 )}
             </div>
         </div>
-    )
+    );
 };
-
 
 NLPreSearchButtonGroup.propTypes = propTypes;
 export default NLPreSearchButtonGroup;

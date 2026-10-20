@@ -18,7 +18,7 @@ const ChartTableToggle = ({
     changeView,
     classname
 }) => (
-    <div className={`chart-table-toggle ${classname || ""}`} >
+    <div className={`chart-table-toggle ${classname || ""}`}>
         <ViewTypeButton
             value="chart"
             label="chart"

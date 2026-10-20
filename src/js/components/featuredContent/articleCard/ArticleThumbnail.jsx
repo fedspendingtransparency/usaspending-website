@@ -7,7 +7,6 @@ import React from "react";
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import PropTypes from "prop-types";
 
-
 const propTypes = {
     thumbnailUrl: PropTypes.string,
     title: PropTypes.string

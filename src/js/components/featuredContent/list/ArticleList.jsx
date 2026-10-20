@@ -37,7 +37,6 @@ const ArticleList = ({ articles }) => {
             tmpArticles.sort((a, b) => new Date(b.created_date) - new Date(a.created_date));
         }
 
-
         if (sortOrder === "Oldest") {
             tmpArticles.sort((a, b) => new Date(a.created_date) - new Date(b.created_date));
         }
@@ -122,14 +121,14 @@ const ArticleList = ({ articles }) => {
                                     fill={getPrimaryFill(article)}
                                     publishedAt={article.publishedAt}
                                     onClick={(e) => onClick(e, newUrl, article.title)} />
-                            </FlexGridCol>);
-                    })
-                    }
+                            </FlexGridCol>
+                        );
+                    })}
                 </FlexGridRow>
             </div>
-        </section>);
+        </section>
+    );
 };
 
 ArticleList.propTypes = propTypes;
 export default ArticleList;
-

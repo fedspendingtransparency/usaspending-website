@@ -51,8 +51,10 @@ const ReadMore = ({
                         if (additionalFunctionality !== null) {
                             additionalFunctionality(expanded);
                         }
-                    }}>{closePrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
-                </button>);
+                    }}>
+                    {closePrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
+                </button>
+            );
         }
         else if (closeIcon) {
             return (
@@ -64,7 +66,8 @@ const ReadMore = ({
                         if (additionalFunctionality !== null) {
                             additionalFunctionality(expanded);
                         }
-                    }}>Read Less{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
+                    }}>
+                    Read Less{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
                 </button>
             );
         }
@@ -78,10 +81,21 @@ const ReadMore = ({
                         if (additionalFunctionality !== null) {
                             additionalFunctionality(expanded);
                         }
-                    }}>{closePrompt}
-                </button>);
+                    }}>
+                    {closePrompt}
+                </button>
+            );
         }
-        return (<button className="read-more-button" onClick={(e) => { e.stopPropagation(); setExpanded(false); }}>Read Less</button>);
+        return (
+            <button
+                className="read-more-button"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setExpanded(false);
+                }}>
+                Read Less
+            </button>
+        );
     };
     const readMore = () => {
         if (openPrompt && openIcon) {
@@ -94,8 +108,10 @@ const ReadMore = ({
                         if (additionalFunctionality !== null) {
                             additionalFunctionality(expanded);
                         }
-                    }}>{openPrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
-                </button>);
+                    }}>
+                    {openPrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
+                </button>
+            );
         }
         else if (openPrompt) {
             return (
@@ -107,8 +123,10 @@ const ReadMore = ({
                         if (additionalFunctionality !== null) {
                             additionalFunctionality(expanded);
                         }
-                    }}>{openPrompt}
-                </button>);
+                    }}>
+                    {openPrompt}
+                </button>
+            );
         }
         else if (openIcon) {
             return (
@@ -120,10 +138,25 @@ const ReadMore = ({
                         if (additionalFunctionality !== null) {
                             additionalFunctionality(expanded);
                         }
-                    }}><span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
-                </button>);
+                    }}>
+                    <span className="usa-button-link__icon">
+                        <FontAwesomeIcon
+                            className="readMoreUpdated__link-icon"
+                            icon={openIcon} />
+                    </span>
+                </button>
+            );
         }
-        return (<button className="read-more-button" onClick={(e) => { e.stopPropagation(); setExpanded(true); }}>Read More</button>);
+        return (
+            <button
+                className="read-more-button"
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setExpanded(true);
+                }}>
+                Read More
+            </button>
+        );
     };
 
     if (expanded && children) {

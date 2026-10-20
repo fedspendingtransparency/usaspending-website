@@ -1,7 +1,7 @@
 import React from 'react';
-import { createRoot } from "react-dom/client";
+import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import AppContainer from 'containers/AppContainer';
 import registerIcons from './registerIcons';
@@ -11,7 +11,7 @@ import registerIcons from './registerIcons';
  * See link here for this implementation: https://babeljs.io/docs/en/v7-migration
  * Also using the transform-runtime plugin for the test env.
 */
-require("core-js");
+require('core-js');
 require('helpers/rafPolyfill');
 
 registerIcons();
@@ -27,12 +27,12 @@ const queryClient = new QueryClient({
     }
 });
 
-const appDiv = document.getElementById("app");
+const appDiv = document.getElementById('app');
 const root = createRoot(appDiv);
 const App = root.render(
     <QueryClientProvider client={queryClient}>
         <AppContainer />
-        <ReactQueryDevtools initialIsOpen={false} />
+        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
     </QueryClientProvider>
 );
 export default App;

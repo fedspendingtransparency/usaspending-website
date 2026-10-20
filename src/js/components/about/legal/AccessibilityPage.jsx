@@ -13,14 +13,16 @@ const AccessibilityPage = () => (
         <p>
             The U.S. Department of the Treasury is committed to making USASpending.gov accessible
             to all members of the public and ensuring that it meets or exceeds the
-            requirements of{' '}
+            requirements of
+            {' '}
             <a
                 className="about-section-content do-wrap usa-bold-link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://section508.gov/">
                 Section 508 of the Rehabilitation Act
-            </a>.
+            </a>
+            .
         </p>
         <p>
             To help users who are visually impaired users more easily distinguish content,
@@ -31,7 +33,8 @@ const AccessibilityPage = () => (
                 rel="noopener noreferrer"
                 href="https://webaim.org/resources/contrastchecker/">
                 Web Accessibility in Mind
-            </a>. To ensure the site is accessible, we evaluate the site regularly using screen
+            </a>
+            . To ensure the site is accessible, we evaluate the site regularly using screen
             readers to check the accuracy and quality of the content and navigation. We use a
             variety of other techniques to ensure that all users can easily access the site;
             some of these include providing methods for skipping repetitive navigation and
@@ -44,10 +47,12 @@ const AccessibilityPage = () => (
             <li>Text equivalents provided for non-text elements</li>
             <li>Colored information made available without color</li>
             <li>Documents can be read without a style sheet</li>
-            <li>Text-only versions of data appear to comply with Section 508 standards,
+            <li>
+                Text-only versions of data appear to comply with Section 508 standards,
                 with the exception of maps
             </li>
-            <li>Forms are formatted to work with assistive technology to access the information,
+            <li>
+                Forms are formatted to work with assistive technology to access the information,
                 field elements, and functionality required to complete and submit forms
             </li>
         </ul>
