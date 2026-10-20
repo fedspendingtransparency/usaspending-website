@@ -196,7 +196,7 @@ const SideBarNav = ({
                     aria-expanded={isOpen}>
                     <span>{selectedOption ? selectedOption.label : "-Select an option-"}</span>
                     <span className={`dropdown-arrow ${isOpen ? 'open' : ''}`}>▼</span>
-                </button>                
+                </button>
             )}
             {isOpen && (
                 <ul className="dropdown-menu" role="listbox">
@@ -214,20 +214,21 @@ const SideBarNav = ({
                 </ul>
             )}
             {!isMobile && (
+
                 <FlexGridCol
                     className="search-info-page__sidebar-col"
                     desktop={{ span: 3, offset: 0 }}
                     tablet={3}
                     mobile={3}>
-                        
-                    <div  className="left" >
+                    <div className="left">
                         <h2>Browse topics on this page</h2>
                         <nav
                             ref={navBar}
                             className={`usda-in-page-nav__wrapper ${(isOverflowLeft && !isMobile) ? 'left-fade-effect' : ''} ${isOverflowRight ? 'right-fade-effect' : ''} `}>
                             <ul className="sticky-sidebar-nav">
                                 {sections.map((section) => (
-                                    <li className={`usda-in-page-nav__element ${section.section === activeSection ? 'active' : ''}`} 
+                                    <li
+                                        className={`usda-in-page-nav__element ${section.section === activeSection ? 'active' : ''}`}
                                         key={`in-page-nav-li-${section.label}`}>
                                         <a
                                             role="button"
@@ -244,7 +245,9 @@ const SideBarNav = ({
                             </ul>
                         </nav>
                     </div>
-                </FlexGridCol>)}</>
+                </FlexGridCol>
+            )}
+        </>
     );
 };
 
