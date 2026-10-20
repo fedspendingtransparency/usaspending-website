@@ -112,7 +112,7 @@ const AddInfoAccordion = ({
                         }${
                             showCDTooltip ? ' show-tooltip' : ''
                         }`}>
-                        <div className={`${open ? 'tab-enabled' : 'tab-disabled'}`}>
+                        <div>
                             {data}
                         </div>
                         {(key === 'Congressional District' && open && showCDTooltip) && (

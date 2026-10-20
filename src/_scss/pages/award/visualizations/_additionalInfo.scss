@@ -207,17 +207,5 @@
         margin-left: auto;
       }
     }
-
-    .tab-enabled a,
-    .tab-enabled div.accordion-row__data-tooltip,
-    .tab-enabled ul {
-      visibility: visible !important;
-    }
-
-    .tab-disabled a,
-    .tab-disabled div.accordion-row__data-tooltip,
-    .tab-disabled ul {
-      visibility: hidden !important;
-    }
   }
 }
