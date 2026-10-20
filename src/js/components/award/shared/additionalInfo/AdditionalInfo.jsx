@@ -3,7 +3,7 @@
  * Created by Kwadwo Opoku-Debrah 10/11/2018
  **/
 
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useMemo, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -21,8 +21,10 @@ const propTypes = {
 const AdditionalInfo = ({ overview }) => {
     const [open, setOpen] = useState(false);
 
+    const ref = useRef(null);
+
     const onClick = () => {
-        const accordionElements = document.querySelectorAll('.accordion.expand-all-trigger');
+        const accordionElements = ref.current.querySelectorAll('.accordion.expand-all-trigger');
 
         if (open) accordionElements.forEach((el) => el.removeAttribute('open'));
         else accordionElements.forEach((el) => el.setAttribute('open', ''));
@@ -42,6 +44,12 @@ const AdditionalInfo = ({ overview }) => {
 
         return {};
     }, [overview]);
+
+    const onToggle = useCallback(() => setOpen(
+        Array
+            .from(ref.current.querySelectorAll('.accordion.expand-all-trigger'))
+            .some((el) => el.hasAttribute('open'))
+    ), []);
 
     const { firstColumn, secondColumn } = useMemo(() => {
         let columnOne;
@@ -72,21 +80,25 @@ const AdditionalInfo = ({ overview }) => {
 
             columnOne = [
                 (<AddInfoAccordion
+                    onToggle={onToggle}
                     key="UniqueAwardKey"
                     accordionName="Unique Award Key"
                     accordionIcon="fingerprint"
                     accordionData={newData.uniqueAwardKey} />),
                 (<AddInfoAccordion
+                    onToggle={onToggle}
                     key="AgencyDetails"
                     accordionName="Agency Details"
                     accordionIcon="landmark"
                     accordionData={newData.agencyDetails} />),
                 (<AddInfoAccordion
+                    onToggle={onToggle}
                     key="PlaceOfPerformance"
                     accordionName="Place Of Performance"
                     accordionIcon="map-marker-alt"
                     accordionData={newData.placeOfPerformance} />),
                 (<AddInfoAccordion
+                    onToggle={onToggle}
                     key="PeriodOfPerformance"
                     accordionName="Period Of Performance"
                     accordionIcon="calendar-alt"
@@ -96,11 +108,13 @@ const AdditionalInfo = ({ overview }) => {
 
             columnTwo = [
                 (<AddInfoAccordion
+                    onToggle={onToggle}
                     key="RecipientDetails"
                     accordionName="Recipient Details"
                     accordionIcon="building"
                     accordionData={newData.recipientDetails} />),
                 (<AddInfoAccordion
+                    onToggle={onToggle}
                     key="ExecutiveCompensation"
                     accordionName="Executive Compensation"
                     accordionIcon="user-tie"
@@ -110,6 +124,7 @@ const AdditionalInfo = ({ overview }) => {
             if (overview.category === 'grant') {
                 columnTwo.push(
                     <AddInfoAccordion
+                        onToggle={onToggle}
                         key="PreAwardDetails"
                         accordionName="Pre-Award Details"
                         accordionIcon="clipboard-list"
@@ -148,6 +163,7 @@ const AdditionalInfo = ({ overview }) => {
         if (overview._category !== 'idv') {
             placeOfPerformance = (
                 <AddInfoAccordion
+                    onToggle={onToggle}
                     key="PlaceOfPerformance"
                     accordionName="Place Of Performance"
                     accordionIcon="map-marker-alt"
@@ -156,6 +172,7 @@ const AdditionalInfo = ({ overview }) => {
 
             periodOfPerformance = (
                 <AddInfoAccordion
+                    onToggle={onToggle}
                     key="PeriodOfPerformance"
                     accordionName="Period Of Performance"
                     accordionIcon="calendar-alt"
@@ -166,16 +183,19 @@ const AdditionalInfo = ({ overview }) => {
 
         columnOne = [
             (<AddInfoAccordion
+                onToggle={onToggle}
                 key="UniqueAwardKey"
                 accordionName="Unique Award Key"
                 accordionIcon="fingerprint"
                 accordionData={newData.uniqueAwardKey} />),
             (<AddInfoAccordion
+                onToggle={onToggle}
                 key="AgencyDetails"
                 accordionName="Agency Details"
                 accordionIcon="landmark"
                 accordionData={newData.agencyDetails} />),
             (<AddInfoAccordion
+                onToggle={onToggle}
                 key="ParentAwardDetails"
                 accordionName="Parent Award Details"
                 accordionIcon="sitemap"
@@ -183,6 +203,7 @@ const AdditionalInfo = ({ overview }) => {
             (placeOfPerformance),
             (periodOfPerformance),
             (<AddInfoAccordion
+                onToggle={onToggle}
                 key="LegislativeMandates"
                 accordionName="Legislative Mandates"
                 accordionIcon="pencil-alt"
@@ -191,26 +212,31 @@ const AdditionalInfo = ({ overview }) => {
 
         columnTwo = [
             (<AddInfoAccordion
+                onToggle={onToggle}
                 key="RecipientDetails"
                 accordionName="Recipient Details"
                 accordionIcon="building"
                 accordionData={newData.recipientDetails} />),
             (<AddInfoAccordion
+                onToggle={onToggle}
                 key="AcquisitionDetails"
                 accordionName="Acquisition Details"
                 accordionIcon="tag"
                 accordionData={newData.acquisitionDetails} />),
             (<AddInfoAccordion
+                onToggle={onToggle}
                 key="CompetitionDetails"
                 accordionName="Competition Details"
                 accordionIcon="chart-bar"
                 accordionData={newData.competitionDetails} />),
             (<AddInfoAccordion
+                onToggle={onToggle}
                 key="AdditionalDetails"
                 accordionName="Additional Details"
                 accordionIcon="ellipsis-h"
                 accordionData={newData.additionalDetails} />),
             (<AddInfoAccordion
+                onToggle={onToggle}
                 key="ExecutiveCompensation"
                 accordionName="Executive Compensation"
                 accordionIcon="user-tie"
@@ -218,29 +244,7 @@ const AdditionalInfo = ({ overview }) => {
         ];
 
         return { firstColumn: columnOne, secondColumn: columnTwo };
-    }, [overview, data]);
-
-    useEffect(() => {
-        const accordionElements = document.querySelectorAll('.accordion.expand-all-trigger');
-
-        const listenerFunction = () => {
-            setOpen(
-                Array
-                    .from(document.querySelectorAll('.accordion.expand-all-trigger'))
-                    .some((el) => el.hasAttribute('open'))
-            );
-        };
-
-        accordionElements.forEach((el) => {
-            el.addEventListener('toggle', listenerFunction);
-        });
-
-        return () => {
-            accordionElements.forEach((el) => {
-                el.removeEventListener('toggle', listenerFunction);
-            });
-        };
-    }, []);
+    }, [overview, data, onToggle]);
 
     return (
         <div id="award-additional-information" className="additional-info">
@@ -256,7 +260,7 @@ const AdditionalInfo = ({ overview }) => {
                     onClick={onClick}>
                     {open ? 'Collapse All' : 'Expand All'}
                 </button>
-                <div className="award__row">
+                <div className="award__row" ref={ref}>
                     <div className="award__col">
                         {firstColumn}
                     </div>

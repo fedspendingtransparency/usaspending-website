@@ -19,14 +19,16 @@ const propTypes = {
     accordionName: PropTypes.string,
     accordionIcon: PropTypes.string,
     iconClassName: PropTypes.string,
-    accordionData: PropTypes.object
+    accordionData: PropTypes.object,
+    onToggle: PropTypes.func
 };
 
 const AddInfoAccordion = ({
     accordionName,
     accordionIcon,
     iconClassName,
-    accordionData
+    accordionData,
+    onToggle
 }) => {
     const link = (pathAndTitle) => {
         const { path, title } = pathAndTitle;
@@ -139,7 +141,11 @@ const AddInfoAccordion = ({
     );
 
     return (
-        <Accordion title={title} contentClassName="no-padding" containerClassName="expand-all-trigger">
+        <Accordion
+            title={title}
+            onToggle={onToggle}
+            contentClassName="no-padding"
+            containerClassName="expand-all-trigger">
             <div className="accordion__content">
                 {accordionBody()}
             </div>

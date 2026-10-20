@@ -16,6 +16,7 @@ const propTypes = {
     closedIcon: PropTypes.string,
     openIcon: PropTypes.string,
     setOpen: PropTypes.func,
+    onToggle: PropTypes.func,
     openObject: PropTypes.bool,
     selectedChipCount: PropTypes.number,
     headingClassName: PropTypes.string,
@@ -31,6 +32,7 @@ const Accordion = ({
     openIcon = 'minus',
     iconClassName,
     setOpen = () => {},
+    onToggle = () => {},
     contentClassName = '',
     openObject = false,
     selectedChipCount = 0,
@@ -43,7 +45,7 @@ const Accordion = ({
 
     if (!openObject) return (
         <div className="accordion-container">
-            <details data-testid="accordion" className={`accordion ${containerClassName}`}>
+            <details data-testid="accordion" className={`accordion ${containerClassName}`} onToggle={onToggle}>
                 <summary className={`heading ${headingClassName}`}>
                     {title}
                     <div className="heading--chip-container">
