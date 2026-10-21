@@ -27,7 +27,7 @@ const NLSearchInfoSection = ({ anchor, section, toggleAll, sectionKey, onToggle 
             <div className="search-info-page__heading-section">
                 <FlexGridCol
                     className="search-info-page__content-col"
-                    desktop={{ span: 9, offset: 0 }}
+                    desktop={{ span: 11, offset: 1 }}
                     tablet={12}
                     mobile={12}>
                     <h3 className="search-info-page__top-content-heading">
@@ -38,7 +38,7 @@ const NLSearchInfoSection = ({ anchor, section, toggleAll, sectionKey, onToggle 
             <div className="search-info-page__accordion-section">
                 <FlexGridCol
                     className="search-info-page__accordion-list"
-                    desktop={{ span: 9, offset: 0 }}
+                    desktop={{ span: 11, offset: 1 }}
                     tablet={12}
                     mobile={12}>
                     {section.items.map((item, i) => (
