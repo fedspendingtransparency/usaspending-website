@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { throttle } from "lodash-es";
 import { largeScreen, mediumScreen, xLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { checkIsOverflow } from 'helpers/inPageNavHelper';
-import { FlexGridCol } from 'data-transparency-ui';
+import { FlexGridCol, NewPicker } from 'data-transparency-ui';
 
 const propTypes = {
     sections: PropTypes.array,
@@ -33,17 +33,13 @@ const SideBarNav = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const navBar = useRef(null);
     const [sectionPositions, setSectionPositions] = useState([]);
-    const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState("Select an option");
 
-    const toggleMenu = () => {
-        setIsOpen(!isOpen);
-    };
-    const dropDownClick = (option) => {
-        setSelectedOption(option);
-        jumpToSection(option);
-        setIsOpen(false);
-    };
+    // const mobileOptions = (options) => {
+    //     const formattedData = options.map(({ section: name, label: value }) => ({
+    //         name,
+    //         value,
+    //     }));
+    // };
 
     const sideBarClick = (option) => {
         jumpToSection(option);
@@ -176,29 +172,18 @@ const SideBarNav = ({
     return (
         <>
             {!!isMobile && (
-                <button
-                    className={`dropdown-trigger ${isOpen ? 'active' : ''}`}
-                    onClick={toggleMenu}
-                    aria-haspopup="listbox"
-                    aria-expanded={isOpen}>
-                    <span>{selectedOption ? selectedOption.label : "-Select an option-"}</span>
-                    <span className={`dropdown-arrow ${isOpen ? 'open' : ''}`}>▼</span>
-                </button>
-            )}
-            {isOpen && (
-                <ul className="dropdown-menu" role="listbox">
-                    {sections.map((section) => (
-                        <li
-                            key={section.value}
-                            className={`dropdown-item ${selectedOption?.value === section.value ? 'selected' : ''}`}
-                            onKeyDown={(e) => (e.key === "Enter" ? jumpToSection(section.section) : "")}
-                            onClick={() => dropDownClick(section.section)}
-                            role="option"
-                            aria-selected={selectedOption?.value === section.value}>
-                            {section.label}
-                        </li>
-                    ))}
-                </ul>
+                <NewPicker
+                    options={sections}
+                    leftIcon=""
+                    selectedOption={sections?.length ?
+                        // eslint-disable-next-line max-len, react/prop-types
+                        sections?.find((obj) => obj.value === props?.activeField || obj.value === props?.sort?.field)?.name :
+                        `${props?.activeField || props.sort?.field}`}
+                    size="md"
+                    label="Sort by:"
+                    enabled
+                    sortFn={() => sections}
+                    classname="mobile-sort__picker" />
             )}
             {!isMobile && (
 
