@@ -30,7 +30,7 @@ const SideBarNav = ({
     const [isOverflowLeft, setIsOverflowLeft] = useState(false);
     const [isOverflowRight, setIsOverflowRight] = useState(false);
     const [padding, setPadding] = useState(32);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= mediumScreen);
     const navBar = useRef(null);
     const [sectionPositions, setSectionPositions] = useState([]);
 
@@ -56,6 +56,7 @@ const SideBarNav = ({
     const initialLoadRef = useRef(true);
     const prefix = `${pageName}-`;
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const callbackFunction = useCallback((entries) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
@@ -90,7 +91,7 @@ const SideBarNav = ({
 
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
-            setIsMobile(newWidth < mediumScreen);
+            setIsMobile(newWidth <= mediumScreen);
         }
 
         if (mediumScreen < windowWidth && windowWidth <= largeScreen) {
