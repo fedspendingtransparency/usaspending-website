@@ -8,7 +8,7 @@ import {
 } from "helpers/searchHelper";
 import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import {
-    awardTypeGroups, subawardTypeGroups
+    awardTypeGroups, subawardTypeGroups, bulkDownloadAwardTypeGroups
 } from 'dataMapping/search/awardType';
 import { apiFieldByTableColumnName } from 'dataMapping/search/awardTableColumns';
 
@@ -20,6 +20,10 @@ const getAwardTypeGroup = (spendingLevel, tableType, awardType) => {
         awardTypeGroups[tableType];
 
     if (awardType.size === 0) {
+        // [DEV-16661] Temp workaround for keeping cooperative agreement results in grants table.
+        if (tableType === 'grants') {
+            return bulkDownloadAwardTypeGroups.grants;
+        }
         return awardTypeGroup;
     }
 
