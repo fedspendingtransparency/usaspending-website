@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { Link } from 'react-router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ExternalLink from '../sharedComponents/ExternalLink';
 
 const propTypes = {
