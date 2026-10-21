@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { throttle } from "lodash-es";
 import { largeScreen, mediumScreen, xLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { checkIsOverflow } from 'helpers/inPageNavHelper';
-import { FlexGridCol, NewPicker } from 'data-transparency-ui';
+import { FlexGridCol } from 'data-transparency-ui';
 
 const propTypes = {
     sections: PropTypes.array,
@@ -172,7 +172,9 @@ const SideBarNav = ({
 
     return (
         <>
-            {!!isMobile && (
+            {
+                // Snippet will be used for the mobile view.
+                /* {!!isMobile && (
                 <NewPicker
                     options={sections}
                     leftIcon=""
@@ -185,7 +187,7 @@ const SideBarNav = ({
                     enabled
                     sortFn={() => sections}
                     classname="mobile-sort__picker" />
-            )}
+            )} */}
             {!isMobile && (
 
                 <FlexGridCol
