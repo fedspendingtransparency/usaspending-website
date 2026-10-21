@@ -8,18 +8,16 @@
     flex-direction: column;
     align-items: flex-start;
     color: $color-white;
-    max-height: rem(280);
+    max-height: rem(428);
     margin: 0 auto;
     max-width: $homepage-max-width;
 
     @media (max-width: $medium-screen - 1) {
       padding: rem(40) rem(16);
-      max-height: rem(378);
     }
 
     @media (max-width: $mobile-only) {
       padding: rem(40) rem(32);
-      max-height: rem(592);
     }
 
     @media (min-width: $tablet-screen) {
@@ -56,6 +54,44 @@
 
       .homepage-pre-search__swiper-col {
         min-width: 0;
+        position: relative;
+
+        .homepage-pre-search__nav-button {
+          @include button-unstyled;
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          height: rem(16);
+          width: rem(16);
+          border: none;
+          cursor: pointer;
+
+          &.swiper-button-disabled {
+            display: none;
+          }
+
+          svg {
+            width: rem(16);
+            height: rem(16);
+            color: $cyan-10v;
+
+            &:hover {
+              color: $cyan-20v;
+            }
+          }
+        }
+
+        .homepage-pre-search__nav-button--prev {
+          display: none;
+        }
+
+        .homepage-pre-search__nav-button--next {
+          right: rem(-24);
+        }
       }
 
       .homepage-pre-search__swiper {
@@ -74,7 +110,9 @@
       flex-wrap: wrap;
       row-gap: rem(16);
       align-self: stretch;
-      overflow-x: auto;
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow-y: auto;
       /* Hide scrollbar for Firefox */
       scrollbar-width: none;
 
@@ -91,6 +129,27 @@
     /* Hide scrollbar for Chrome, Safari, and Opera */
     .homepage-pre-search__row::-webkit-scrollbar {
       display: none;
+    }
+
+    .homepage-pre-search__scroll-hint {
+      @include button-unstyled;
+      display: flex;
+      align-self: center;
+      height: rem(16);
+      width: rem(16);
+      border: none;
+      cursor: pointer;
+      margin-top: rem(16);
+
+      svg {
+        width: rem(16);
+        height: rem(16);
+        color: $cyan-10v;
+
+        &:hover {
+          color: $cyan-20v;
+        }
+      }
     }
 
     .card-container {
