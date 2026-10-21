@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { throttle } from "lodash-es";
 import { largeScreen, mediumScreen, xLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { checkIsOverflow } from 'helpers/inPageNavHelper';
-import { FlexGridCol } from 'data-transparency-ui';
+import { FlexGridCol, NewPicker } from 'data-transparency-ui';
 
 const propTypes = {
     sections: PropTypes.array,
@@ -33,13 +33,6 @@ const SideBarNav = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth <= mediumScreen);
     const navBar = useRef(null);
     const [sectionPositions, setSectionPositions] = useState([]);
-
-    // const mobileOptions = (options) => {
-    //     const formattedData = options.map(({ section: name, label: value }) => ({
-    //         name,
-    //         value,
-    //     }));
-    // };
 
     const sideBarClick = (option) => {
         jumpToSection(option);
@@ -172,22 +165,23 @@ const SideBarNav = ({
 
     return (
         <>
-            {
-                // Snippet will be used for the mobile view.
-                /* {!!isMobile && (
+            {!!isMobile && (
                 <NewPicker
-                    options={sections}
-                    leftIcon=""
-                    selectedOption={sections?.length ?
-                        // eslint-disable-next-line max-len, react/prop-types
-                        sections?.find((obj) => obj.value === props?.activeField || obj.value === props?.sort?.field)?.name :
-                        `${props?.activeField || props.sort?.field}`}
                     size="md"
-                    label="Sort by:"
+                    label="On this Page:"
+                    leftIcon=""
+                    classname="advanced-search-dropdown__wrapper"
+                    buttonClassname="nl-info-search-dropdown__button"
+                    selectedOption={sections?.find((section) => section.value === activeSection)}
                     enabled
-                    sortFn={() => sections}
-                    classname="mobile-sort__picker" />
-            )} */}
+                    options={
+                        sections?.map((section) => ({
+                            name: section.label,
+                            value: section.section,
+                            onClick: () => sideBarClick(section.section)
+                        }))
+                    } />
+            )}
             {!isMobile && (
 
                 <FlexGridCol
