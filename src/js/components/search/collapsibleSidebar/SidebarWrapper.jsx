@@ -24,6 +24,7 @@ import useRequestNLSearch from "./useRequestNLSearch";
 import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from "./NLConstants";
 import { sanitizeNLInput } from "helpers/search/naturalLanguage/sanitizeNLInput";
 import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
+import Analytics from '../../../helpers/analytics/Analytics';
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
@@ -86,11 +87,15 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
     };
 
-    const startNLSearch = () => {
+    const startNLSearch = (target) => {
         if (text?.trim() && typeof refetch === "function") {
             wasCancelled.current = false;
             refetch();
         }
+        Analytics.event({
+            event: 'smart assist panel submit search',
+            action: target
+        });
     };
 
     const request = useRef();

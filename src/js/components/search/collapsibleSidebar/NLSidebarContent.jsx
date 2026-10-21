@@ -3,17 +3,18 @@
  * Created by Nick Torres 8/28/2026
  */
 
-import React, { useMemo } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import NLDefaultHint from "./NLDefaultHint";
-import NLSearchButton from "./NLSearchButton";
-import NLSearchSuggestionsIcon from "../naturalLanguage/NLSearchSuggestionsIcon";
-import { setIsSearchActive } from "../../../redux/actions/sidebar/sidebarActions";
-import { buildResponseState } from "../../../helpers/search/naturalLanguage/searchResponseHelper";
-import { sanitizeNLInput } from "../../../helpers/search/naturalLanguage/sanitizeNLInput";
-import { NL_INPUT_MAX_CHARS } from "./NLConstants";
-import animatedTour from "./NLAnimatedTour";
+import React, { useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import NLDefaultHint from './NLDefaultHint';
+import NLSearchButton from './NLSearchButton';
+import NLSearchSuggestionsIcon from '../naturalLanguage/NLSearchSuggestionsIcon';
+import { setIsSearchActive } from '../../../redux/actions/sidebar/sidebarActions';
+import { buildResponseState } from '../../../helpers/search/naturalLanguage/searchResponseHelper';
+import { sanitizeNLInput } from '../../../helpers/search/naturalLanguage/sanitizeNLInput';
+import { NL_INPUT_MAX_CHARS } from './NLConstants';
+import animatedTour from './NLAnimatedTour';
+import Analytics from '../../../helpers/analytics/Analytics';
 
 const propTypes = {
     hintOnClick: PropTypes.func,
@@ -43,29 +44,35 @@ const NLSidebarContent = ({
         [data]
     );
 
-    const reset = () => setText("");
+    const reset = (target) => {
+        setText('');
+        Analytics.event({
+            event: 'smart assist panel clear input',
+            action: target
+        });
+    };
     let searchClass = 'default-search';
-    let btnText = "Search";
+    let btnText = 'Search';
     let icon = '../../../../img/magnifying-glass-white.svg';
 
     if (isSearchActive) {
         if (isNLSearchComplete) {
-            searchClass += " complete";
-            btnText = "Start a new search";
+            searchClass += ' complete';
+            btnText = 'Start a new search';
         }
         else {
-            searchClass += " loading";
-            btnText = "Working...";
+            searchClass += ' loading';
+            btnText = 'Working...';
         }
     }
     else if (text.length === 0) {
-        searchClass += " disabled";
+        searchClass += ' disabled';
         icon = '../../../../img/magnifying-glass-disabled.svg';
     }
 
-    const handleStartNLSearch = () => {
+    const handleStartNLSearch = (target) => {
         dispatch(setIsSearchActive(true));
-        startNLSearch();
+        startNLSearch(target);
     };
 
     const handleNewNLSearch = () => {
@@ -74,10 +81,14 @@ const NLSidebarContent = ({
 
     const handleNLSearch = isSearchActive ? handleNewNLSearch : handleStartNLSearch;
 
-    const handleNLCancel = () => {
+    const handleNLCancel = (target) => {
         dispatch(setIsSearchActive(false));
         if (cancelQuery) {
             cancelQuery();
+            Analytics.event({
+                event: 'smart assist panel stop generating',
+                action: target
+            });
         }
     };
 

@@ -26,8 +26,9 @@ const NLSearchButton = ({
 }) => {
     const fireQueryEvent = useFireQueryEvent();
 
-    const onClick = () => {
-        startNLSearch();
+    const onClick = (target) => {
+        console.debug(target);
+        startNLSearch(target);
         fireQueryEvent();
     };
 

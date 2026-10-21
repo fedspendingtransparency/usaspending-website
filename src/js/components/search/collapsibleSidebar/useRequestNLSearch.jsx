@@ -1,5 +1,6 @@
 import { useQuery, experimental_streamedQuery as streamedQuery, useQueryClient } from '@tanstack/react-query';
 import GlobalConstants from 'GlobalConstants';
+import Analytics from '../../../helpers/analytics/Analytics';
 
 const headers = {
     'Content-Type': 'application/json',
@@ -7,7 +8,7 @@ const headers = {
 };
 
 const LLM_API = GlobalConstants?.LLM_API + 'v2/llm/filter-search/';
-
+const now = new Date().getTime();
 const useRequestNLSearch = (prompt) => {
     const requestHeader = {
         method: 'POST',
@@ -47,7 +48,17 @@ const useRequestNLSearch = (prompt) => {
         queryClient.cancelQueries({ queryKey: ['nl-search-stream'] })
             .then(() => queryClient.setQueryData(['nl-search-stream'], ''));
     };
-
+    const timerNLFilters = now - new Date().getTime();
+    const timerNLInSeconds = Math.floor(timerNLFilters / 1000);
+    console.debug('timer: ', timerNLInSeconds);
+    if (timerNLInSeconds < 3600) {
+        Analytics.event({
+            category: 'Smart Assist Time to query',
+            action: 'smart_assist_filter_generation',
+            label: `${timerNLInSeconds} seconds`,
+            time_to_query: timerNLInSeconds
+        });
+    }
     return { data, refetch, cancelQuery, isFetching, isSuccess };
 };
 
