@@ -122,24 +122,6 @@ const NLSearchInfoPage = () => {
                         </Swiper>
                     </div>
                 </section>
-                <FlexGridCol className="search-info-page__expand-all-btn">
-                    <Button
-                        copy={allExpanded ? 'Collapse all' : 'Expand all'}
-                        onClick={handleToggleAll}
-                        buttonTitle={allExpanded ? 'Collapse all' : 'Expand all'}
-                        buttonSize="md"
-                        buttonType="text"
-                        backgroundColor="light"
-                        textAlignment="center"
-                        imageAlignment="left"
-                        image={(
-                            <div className="button-icon-container">
-                                <FontAwesomeIcon
-                                    className="button-icon"
-                                    icon={allExpanded ? 'minus' : 'plus'} />
-                            </div>
-                        )} />
-                </FlexGridCol>
                 <section className="search-info-page__content-section">
                     <SideBarNav
                         sections={infoSections}
@@ -148,6 +130,24 @@ const NLSearchInfoPage = () => {
                         detectActiveSection
                         jumpToSection={jumpToSection} />
                     <div>
+                        <FlexGridCol className="search-info-page__expand-all-btn">
+                            <Button
+                                copy={allExpanded ? 'Collapse all' : 'Expand all'}
+                                onClick={handleToggleAll}
+                                buttonTitle={allExpanded ? 'Collapse all' : 'Expand all'}
+                                buttonSize="md"
+                                buttonType="text"
+                                backgroundColor="light"
+                                textAlignment="center"
+                                imageAlignment="left"
+                                image={(
+                                    <div className="button-icon-container">
+                                        <FontAwesomeIcon
+                                            className="button-icon"
+                                            icon={allExpanded ? 'minus' : 'plus'} />
+                                    </div>
+                                )} />
+                        </FlexGridCol>
                         <NLSearchInfoSection
                             anchor="nlinfo-overview"
                             section={overview}
