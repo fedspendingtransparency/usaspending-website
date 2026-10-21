@@ -74,22 +74,22 @@
 }
 .search-info-page__sidebar-col {
   position: sticky;
-  left: 8rem;
-  top: 1.5rem;
+  left: rem(85);
+  top: rem(15);
   width: 30%;
   color: black;
-  padding: 15px;
+  padding: rem(15);
 }
 .sticky-sidebar-nav {
   list-style: none;    
   padding: 0;
   margin: 0;
-  margin-top: 16px;
+  margin-top: rem(16);
   position: relative;
   li {
     position: relative;
-    padding-left: 25px;   
-    margin-bottom: 12px;
+    padding-left: rem(25);   
+    margin-bottom: rem(12);
     button {
       background: transparent;
       border: none;
@@ -103,29 +103,29 @@
       color: black;
     }
     .active {
-      color: #005EA2 !important;
-      font-weight: 600;
+      color: $blue-60v !important;
+      font-weight: $font-semibold;
     }
     .active::before {
       content: '';
       position: absolute;
-      top: 4px;              
-      bottom: 2px;           
-      left: 6px;             
-      width: 2px;          
-      background-color: #005EA2;
+      top: rem(4);              
+      bottom: rem(2);           
+      left: rem(6);             
+      width: rem(2);          
+      background-color: $blue-60v;
     }
   }
 }
 .sticky-sidebar-nav::before {
   content: '';
   position: absolute;
-  top: 4px;              
-  bottom: 2px;           
-  left: 6px;             
-  width: 2px;          
-  background-color: #E6E6E6;
+  top: rem(4);              
+  bottom: rem(2);           
+  left: rem(6);             
+  width: rem(2);          
+  background-color: $gray-10;
 }
 .dropdown-trigger {
-  margin-left: 2.3em;
+  margin-left: rem(23);
 }

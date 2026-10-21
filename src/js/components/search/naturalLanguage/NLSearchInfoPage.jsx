@@ -149,37 +149,36 @@ const NLSearchInfoPage = () => {
                         jumpToSection={jumpToSection} />
                     <div>
                         <NLSearchInfoSection
-                        anchor="nlinfo-overview"
-                        section={overview}
-                        sectionKey="overview"
-                        toggleAll={toggleAllAccordions}
-                        onToggle={handleAccordionToggle} />
-                    <NLSearchInfoSection
-                        anchor="nlinfo-searching-with-smart-assist"
-                        section={search}
-                        sectionKey="search"
-                        toggleAll={toggleAllAccordions}
-                        onToggle={handleAccordionToggle} />
-                    <NLSearchInfoSection
-                        anchor="nlinfo-understanding-results"
-                        section={results}
-                        sectionKey="results"
-                        toggleAll={toggleAllAccordions}
-                        onToggle={handleAccordionToggle} />
-                    <NLSearchInfoSection
-                        anchor="nlinfo-limitations"
-                        section={limitations}
-                        sectionKey="limitations"
-                        toggleAll={toggleAllAccordions}
-                        onToggle={handleAccordionToggle} />
-                    <NLSearchInfoSection
-                        anchor="nlinfo-feedback-and-support"
-                        section={feedback}
-                        sectionKey="feedback"
-                        toggleAll={toggleAllAccordions}
-                        onToggle={handleAccordionToggle} />
+                            anchor="nlinfo-overview"
+                            section={overview}
+                            sectionKey="overview"
+                            toggleAll={toggleAllAccordions}
+                            onToggle={handleAccordionToggle} />
+                        <NLSearchInfoSection
+                            anchor="nlinfo-searching-with-smart-assist"
+                            section={search}
+                            sectionKey="search"
+                            toggleAll={toggleAllAccordions}
+                            onToggle={handleAccordionToggle} />
+                        <NLSearchInfoSection
+                            anchor="nlinfo-understanding-results"
+                            section={results}
+                            sectionKey="results"
+                            toggleAll={toggleAllAccordions}
+                            onToggle={handleAccordionToggle} />
+                        <NLSearchInfoSection
+                            anchor="nlinfo-limitations"
+                            section={limitations}
+                            sectionKey="limitations"
+                            toggleAll={toggleAllAccordions}
+                            onToggle={handleAccordionToggle} />
+                        <NLSearchInfoSection
+                            anchor="nlinfo-feedback-and-support"
+                            section={feedback}
+                            sectionKey="feedback"
+                            toggleAll={toggleAllAccordions}
+                            onToggle={handleAccordionToggle} />
                     </div>
-                    
                 </section>
                 <NLSearchInfoResources />
             </main>
