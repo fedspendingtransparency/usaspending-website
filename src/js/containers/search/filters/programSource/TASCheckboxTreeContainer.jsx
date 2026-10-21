@@ -333,10 +333,14 @@ const TASCheckboxTree = () => {
                     nodes
                 );
 
+                // getUniqueAncestorPaths returns API-call-shaped paths (slash-joined,
+                // e.g. "agencyCode/federalAccountCode") - the expanded array needs the
+                // bare node value at each level instead, so pull out the last segment
+                const toExpand = getUniqueAncestorPaths([...checkedArray, ...uncheckedArray])
+                    .map((ancestor) => (ancestor.includes('/') ? ancestor.split('/')[1] : ancestor));
+
                 dispatch(setCheckedTas(autoChecked));
-                dispatch(setExpandedTas(
-                    getUniqueAncestorPaths([...checkedArray, ...uncheckedArray])
-                ));
+                dispatch(setExpandedTas(toExpand));
             }
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
