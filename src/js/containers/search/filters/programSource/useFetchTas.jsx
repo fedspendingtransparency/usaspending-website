@@ -19,9 +19,12 @@ export const useFetchTas = (queryParam, isSearch, enabled = true) => {
         enabled: enabled && queryParam !== undefined
     });
 
-    // derive noResults after render commits, never during it
+    // intentional: derive noResults after render commits (never during it,
+    // since select runs synchronously as part of render) in response to the
+    // query settling or being disabled
     useEffect(() => {
         if (!enabled) {
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             setNoResults(false);
             return;
         }

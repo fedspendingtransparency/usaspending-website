@@ -38,15 +38,16 @@ import { autocompletePlaceholder } from 'helpers/search/filterCheckboxHelper';
 import { useFetchTas } from './useFetchTas';
 
 const TASCheckboxTree = () => {
+    const nodes = useSelector((state) => state.tas.tas.toJS());
+
     const [searchString, setSearchString] = useState('');
     const [isSearch, setIsSearch] = useState(false);
     const [isPreloading, setIsPreloading] = useState(false);
     const [isSearchPending, setIsSearchPending] = useState(false);
     const [preloadError, setPreloadError] = useState(null);
-    const [activeRequest, setActiveRequest] = useState(null);
+    const [activeRequest, setActiveRequest] = useState({ id: '', searchStr: '', isSearch: false });
 
     // state variables
-    const nodes = useSelector((state) => state.tas.tas.toJS());
     const expanded = useSelector((state) => state.tas.expanded.toJS());
     const searchExpanded = useSelector((state) => state.tas.searchExpanded.toJS());
     const checked = useSelector((state) => state.tas.checked.toJS());
@@ -210,7 +211,6 @@ const TASCheckboxTree = () => {
         setPreloadError(null);
     };
 
-    // eslint-disable-next-line react-hooks/refs
     const onSearchChange = debounce((text) => {
         triggerFetch('', text);
     }, 500);
@@ -283,18 +283,12 @@ const TASCheckboxTree = () => {
     };
 
     useEffect(() => {
-        if (nodes.length !== 0) {
-            dispatch(showTasTree());
-        }
-        else {
-            triggerFetch();
-        }
+        if (!isLoading) dispatch(showTasTree());
 
         return () => {
             dispatch(showTasTree());
         };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [dispatch]);
 
     // reacts to the interactive hook-driven fetch (root load / expand / search) succeeding
     useEffect(() => {
@@ -312,6 +306,9 @@ const TASCheckboxTree = () => {
             dispatch(setTasCounts(countsToSet));
 
             const allUniqueAncestors = getUniqueAncestorPaths(checkedArray, uncheckedArray);
+            // intentional: start the ancestor preload batch once the root fetch succeeds -
+            // this depends on hash/staged Redux state the fetch itself has no knowledge of
+            // eslint-disable-next-line react-hooks/set-state-in-effect
             preloadAncestors(allUniqueAncestors);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -342,6 +339,7 @@ const TASCheckboxTree = () => {
                 ));
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [nodes, checkedFromHash, checkedStaged, checked]);
 
     return (
