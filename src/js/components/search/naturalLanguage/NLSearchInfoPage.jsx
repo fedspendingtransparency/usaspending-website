@@ -3,7 +3,7 @@
  * Created by Trey Morgan 09/24/2026
  */
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import PageWrapper from "../../sharedComponents/PageWrapper";
 import SideBarNav from '../../sharedComponents/SideBarNav';
 import BannerPageHeader from '../../sharedComponents/header/BannerPageHeader';
@@ -16,8 +16,9 @@ import NLSearchInfoResources from './NLSearchInfoResources';
 // import NLSearchInfoSidebar from './NLSearchInfoSidebar';
 import useJumpToSection from "../../../hooks/useJumpToSection";
 import useQueryParams from "../../../hooks/useQueryParams";
-import { FlexGridCol } from 'data-transparency-ui';
+import { FlexGridCol, Button } from 'data-transparency-ui';
 import ShareDownloadButtonGroup from '../../sharedComponents/buttons/ShareDownloadButtonGroup';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Keyboard, A11y, FreeMode } from 'swiper/modules';
@@ -61,6 +62,20 @@ const NLSearchInfoPage = () => {
     const jumpToSection = useJumpToSection("#nlinfo-", infoSections, false, stickyHeaderHeight);
     const query = useQueryParams();
     const [activeSection] = useState(query.section || 'overview');
+    const [toggleAllAccordions, setToggleAllAccordions] = useState({ trigger: 0, expand: false });
+    const [openAccordions, setOpenAccordions] = useState({});
+
+    const accordionIds = Object.keys(openAccordions);
+    const allExpanded = accordionIds.length > 0 && accordionIds.every((accordionId) => openAccordions[accordionId]);
+
+    const handleAccordionToggle = useCallback((id, isOpen) => {
+        setOpenAccordions((prev) => (prev[id] === isOpen ? prev : { ...prev, [id]: isOpen }));
+    }, []);
+
+    const handleToggleAll = () => {
+        setToggleAllAccordions((prev) => ({ trigger: prev.trigger + 1, expand: !allExpanded }));
+    };
+
     return (
         <PageWrapper
             pageName="smart-assist"
@@ -107,6 +122,24 @@ const NLSearchInfoPage = () => {
                         </Swiper>
                     </div>
                 </section>
+                <FlexGridCol className="search-info-page__expand-all-btn">
+                    <Button
+                        copy={allExpanded ? 'Collapse all' : 'Expand all'}
+                        onClick={handleToggleAll}
+                        buttonTitle={allExpanded ? 'Collapse all' : 'Expand all'}
+                        buttonSize="md"
+                        buttonType="text"
+                        backgroundColor="light"
+                        textAlignment="center"
+                        imageAlignment="left"
+                        image={(
+                            <div className="button-icon-container">
+                                <FontAwesomeIcon
+                                    className="button-icon"
+                                    icon={allExpanded ? 'minus' : 'plus'} />
+                            </div>
+                        )} />
+                </FlexGridCol>
                 <section className="search-info-page__content-section">
                     <SideBarNav
                         sections={infoSections}
@@ -115,12 +148,38 @@ const NLSearchInfoPage = () => {
                         detectActiveSection
                         jumpToSection={jumpToSection} />
                     <div>
-                        <NLSearchInfoSection anchor="nlinfo-overview" section={overview} />
-                        <NLSearchInfoSection anchor="nlinfo-searching-with-smart-assist" section={search} />
-                        <NLSearchInfoSection anchor="nlinfo-understanding-results" section={results} />
-                        <NLSearchInfoSection anchor="nlinfo-limitations" section={limitations} />
-                        <NLSearchInfoSection anchor="nlinfo-feedback-and-support" section={feedback} />
+                        <NLSearchInfoSection
+                        anchor="nlinfo-overview"
+                        section={overview}
+                        sectionKey="overview"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
+                    <NLSearchInfoSection
+                        anchor="nlinfo-searching-with-smart-assist"
+                        section={search}
+                        sectionKey="search"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
+                    <NLSearchInfoSection
+                        anchor="nlinfo-understanding-results"
+                        section={results}
+                        sectionKey="results"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
+                    <NLSearchInfoSection
+                        anchor="nlinfo-limitations"
+                        section={limitations}
+                        sectionKey="limitations"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
+                    <NLSearchInfoSection
+                        anchor="nlinfo-feedback-and-support"
+                        section={feedback}
+                        sectionKey="feedback"
+                        toggleAll={toggleAllAccordions}
+                        onToggle={handleAccordionToggle} />
                     </div>
+                    
                 </section>
                 <NLSearchInfoResources />
             </main>

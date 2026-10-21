@@ -12,10 +12,16 @@ require("pages/search/naturalLanguage/searchInfoPage.scss");
 
 const propTypes = {
     anchor: PropTypes.string,
-    section: PropTypes.object
+    section: PropTypes.object,
+    toggleAll: PropTypes.shape({
+        trigger: PropTypes.number,
+        expand: PropTypes.bool
+    }),
+    sectionKey: PropTypes.string,
+    onToggle: PropTypes.func
 };
 
-const NLSearchInfoSection = ({ anchor, section }) => {
+const NLSearchInfoSection = ({ anchor, section, toggleAll, sectionKey, onToggle }) => {
     return (
         <div className="search-info-page-section" key={anchor} id={anchor}>
             <div className="search-info-page__heading-section">
@@ -45,7 +51,10 @@ const NLSearchInfoSection = ({ anchor, section }) => {
                             aria-expanded="false"
                             // eslint-disable-next-line react/no-array-index-key
                             key={`item-${i}`}
-                            title={item.title}>
+                            accordionId={`${sectionKey}-${i}`}
+                            title={item.title}
+                            toggleAll={toggleAll}
+                            onToggle={onToggle}>
                             {item.content}
                         </Accordion>
                     ))}
