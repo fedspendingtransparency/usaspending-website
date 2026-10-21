@@ -20,6 +20,10 @@ const getAwardTypeGroup = (spendingLevel, tableType, awardType) => {
         awardTypeGroups[tableType];
 
     if (awardType.size === 0) {
+        // [DEV-16661] Temp workaround for keeping cooperative agreement results in grants table.
+        if (tableType === 'grants') {
+            return awardTypeGroup.concat(awardTypeGroups?.cooperative_agreement);
+        }
         return awardTypeGroup;
     }
 
