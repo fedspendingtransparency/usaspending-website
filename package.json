@@ -8,7 +8,7 @@
     "preinstall": "npx npm-force-resolutions@0.0.3",
     "start": "webpack serve --open --history-api-fallback --progress --config ./webpack/webpack.local.config.mjs",
     "startvitedev": "vite",
-    "sass": "webpack serve --open --progress --config ./webpack/webpack.sass.config.js",
+    "sass": "webpvite buildack serve --open --progress --config ./webpack/webpack.sass.config.js",
     "test": "jest; exit 0;",
     "testVite": "vitest",
     "build-vite-dev": "cp ./index.html dist/index-original.html && vite build",

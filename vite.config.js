@@ -63,7 +63,6 @@ export default defineConfig(({ command, mode }) => {
     },
     plugins: [
       svgr(),
-      ViteEjsPlugin(),
       nodePolyfills({
         include: ['buffer', 'process', 'util'],
         globals: {
@@ -94,37 +93,37 @@ export default defineConfig(({ command, mode }) => {
         targets: [
         {
           src: '**/*.xml',
-          dest: path.resolve(__dirname, "./public"),
+          dest: '.',
           suppressError: true
         },
         {
           src: 'robots.txt',
-          dest: path.resolve(__dirname, "./public"),
+          dest: '.',
           suppressError: true
         },
         {
           src: 'redirect-config.json',
-          dest: path.resolve(__dirname, "./public"),
+          dest: '.',
           suppressError: true
         },
         {
           src: path.resolve(__dirname, "./src/img/**/*"),
-          dest: path.resolve(__dirname, "./public/img"),
+          dest: 'img',
           suppressError: true
         },
         {
           src: path.resolve(__dirname, "./src/graphics/**/*"),
-          dest: path.resolve(__dirname, "./public/graphics"),
+          dest: 'graphics',
           suppressError: true
         },
         {
-          src: path.resolve(__dirname, "./src/fonts/**/*"),
-          dest: path.resolve(__dirname, "./public/fonts"),
-          suppressError: true
+          src: path.resolve(__dirname, "./src/fonts/*"),
+          dest: 'fonts',
+          suppressError: false
         },
         {
           src: path.resolve(__dirname, "./src/data/**/*"),
-          dest: path.resolve(__dirname, "./public/data"),
+          dest: 'data',
           suppressError: true
         }],
         silent: true})

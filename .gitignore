@@ -29,7 +29,7 @@ node_modules
 # Ignore compiled files
 dev
 build
-public
+__public
 dist
 .tern-port
 
