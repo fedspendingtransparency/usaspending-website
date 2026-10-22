@@ -113,7 +113,6 @@ export default class Table extends React.Component {
         RenderQueue.addWrite(pointerOperation);
     }
 
-
     render() {
         const needsVerticalScroll = (this.props.rowCount * this.props.rowHeight) > this.props.bodyHeight;
         const visibleWidth = Math.min(this.props.bodyWidth, this.props.contentWidth);

@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
@@ -52,14 +51,27 @@ export default class RootHeader extends React.Component {
         const header = (
             <div className="detail-header__labels">
                 <h2 className="detail-header__title">
-                    You are viewing FY {this.props.fy} spending
-                    by <span className="detail-header__title detail-header__title_capitalize">{type}</span>
+                    You are viewing FY
+                    {' '}
+                    {this.props.fy}
+                    {' '}
+                    spending
+                    by
+                    {' '}
+                    <span className="detail-header__title detail-header__title_capitalize">{type}</span>
                 </h2>
                 <div className="detail-header__instructions">
-                    Choose {generateSingular(type, false)} {type.toLowerCase()} below to start
+                    Choose
+                    {' '}
+                    {generateSingular(type, false)}
+                    {' '}
+                    {type.toLowerCase()}
+                    {' '}
+                    below to start
                     your exploration.
                 </div>
-            </div>);
+            </div>
+        );
         return (
             <div className="detail-header" id="detail-header">
                 {header}

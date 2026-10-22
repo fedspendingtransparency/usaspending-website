@@ -13,7 +13,10 @@ const PrivacyPage = () => (
         <p>
             USASpending.gov is committed to protecting the privacy and security of its users.
             Our online privacy policy is outlined below. If you have questions about this policy,
-            please <a className="usa-bold-link" href={`mailto:usaspending.help@fiscal.treasury.gov?subject=${encodeURIComponent("Contact Us")}`}>contact us</a>.
+            please
+            {' '}
+            <a className="usa-bold-link" href={`mailto:usaspending.help@fiscal.treasury.gov?subject=${encodeURIComponent("Contact Us")}`}>contact us</a>
+            .
         </p>
         <h3 className="about-subtitle">
             Collection and disclosure of information
@@ -21,7 +24,11 @@ const PrivacyPage = () => (
         <p>
             The site collects personal information (e.g., names, email addresses, telephone numbers)
             only from those individuals who share this information with us.
-            You are <strong>not</strong> required to provide personal information to visit
+            You are
+            {' '}
+            <strong>not</strong>
+            {' '}
+            required to provide personal information to visit
             USASpending.gov. If you choose to provide us with this information through an email,
             form, or survey, we maintain the information only as long as necessary to respond to
             your question or to fulfill the stated purpose of the communication. It is our general
@@ -38,12 +45,14 @@ const PrivacyPage = () => (
             certain technical information about your visit:
         </p>
         <ul>
-            <li>The internet domain (for example, &quot;xcompany.com&quot; if you use a private internet
+            <li>
+                The internet domain (for example, &quot;xcompany.com&quot; if you use a private internet
                 access account, or &quot;yourschool.edu&quot; if you connect from a university&#39;s domain)
                 and IP address (an IP address is a number that&#39;s automatically assigned to your
                 computer whenever you&#39;re online) from which you access USASpending.gov
             </li>
-            <li>The browser (e.g., Firefox, Safari, or Internet Explorer) and operating system
+            <li>
+                The browser (e.g., Firefox, Safari, or Internet Explorer) and operating system
                 (e.g., Windows, Mac, Unix) you used to access our site
             </li>
             <li>The date and time you visit the site</li>
@@ -78,7 +87,11 @@ const PrivacyPage = () => (
         <p>
             The site uses session cookies for technical purposes, such as improving site navigation.
             These cookies let us know whether you continue to visit our site. Session cookies
-            are <strong>not</strong> permanently stored on your computer; the cookie and the information
+            are
+            {' '}
+            <strong>not</strong>
+            {' '}
+            permanently stored on your computer; the cookie and the information
             about your visit are automatically destroyed shortly after you close your browser and
             end the session.
         </p>
@@ -104,14 +117,16 @@ const PrivacyPage = () => (
             to all the information and resources USASpending.gov provides.
         </p>
         <p>
-            If you&#39;d like to disable cookies,{' '}
+            If you&#39;d like to disable cookies,
+            {' '}
             <a
                 className="about-section-content do-wrap usa-bold-link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.usa.gov/optout-instructions">
                 use these instructions provided by usa.gov
-            </a>; these instructions cover most popular browsers. Please note that by following
+            </a>
+            ; these instructions cover most popular browsers. Please note that by following
             the instructions to opt out of cookies, you will disable cookies from all sources,
             not just those from this site.
         </p>
@@ -157,14 +172,19 @@ const PrivacyPage = () => (
             </a>
         </p>
         <p>
-            <strong>NOTE:</strong> View or print the{' '}
+            <strong>NOTE:</strong>
+            {' '}
+            View or print the
+            {' '}
             <a
                 className="about-section-content do-wrap usa-bold-link"
                 target="_blank"
                 rel="noopener noreferrer"
                 href="https://www.fiscal.treasury.gov/pia.html">
                 Privacy Impact Assessment (PIA)
-            </a>{' '}performed on USAspending.gov.
+            </a>
+            {' '}
+            performed on USAspending.gov.
         </p>
     </LegalPage>
 );

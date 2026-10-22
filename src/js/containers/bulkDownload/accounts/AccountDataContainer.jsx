@@ -92,10 +92,10 @@ export class AccountDataContainer extends React.Component {
             try {
                 const { data } = await this.federalAccountListRequest.promise;
                 this.setState({
-                    federalAccounts: page > 1
+                    federalAccounts: page > 1 ?
                     // we're requesting the second page, concat array
-                        ? [...this.state.federalAccounts, ...data.results]
-                        : data.results
+                        [...this.state.federalAccounts, ...data.results] :
+                        data.results
                 });
                 if (data.hasNext) {
                     this.setFederalAccountList(agencyCode, page + 1);
@@ -181,7 +181,6 @@ export class AccountDataContainer extends React.Component {
             name: 'Select a Federal Account'
         });
     }
-
 
     clearAccountFilters() {
         this.props.clearDownloadFilters('accounts');

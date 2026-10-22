@@ -23,7 +23,6 @@ export default class DataDictionarySearchBar extends React.Component {
         this.handleClick = this.handleClick.bind(this);
     }
 
-
     onChange(e) {
         this.setState({
             term: e.target.value,
@@ -78,7 +77,7 @@ export default class DataDictionarySearchBar extends React.Component {
                     <button
                         aria-label="Search"
                         className="dictionary-search__button"
-                        onClick={this.handleClick} >
+                        onClick={this.handleClick}>
                         <div className="dictionary-search__button-icon">
                             {icon}
                         </div>

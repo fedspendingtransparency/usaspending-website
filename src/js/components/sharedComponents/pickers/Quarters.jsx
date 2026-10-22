@@ -26,7 +26,6 @@ const propTypes = {
     index: PropTypes.number
 };
 
-
 const Quarters = ({
     periodsPerQuarter,
     handleSelection,
@@ -48,7 +47,8 @@ const Quarters = ({
         );
 
         const className = (period) => Object.keys(period).includes('className') ?
-            `${period.className} quarter-picker__list-item` : 'quarter-picker__list-item';
+            `${period.className} quarter-picker__list-item` :
+            'quarter-picker__list-item';
 
         return (
             <li
@@ -73,7 +73,7 @@ const Quarters = ({
         );
     }
 
-    const disabled = disabledQuarters.includes(quarterNumberAsString)
+    const disabled = disabledQuarters.includes(quarterNumberAsString);
     const active = isCumulative ?
         isIdOrGreaterInArray(quarterNumberAsString, selectedQuarters) :
         selectedQuarters.includes(quarterNumberAsString);

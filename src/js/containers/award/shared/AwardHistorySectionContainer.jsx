@@ -25,9 +25,9 @@ const AwardHistory = ({
     const [tabOptions, setTabOptions] = useState([]);
     const requestRef = useRef(null);
 
-    const sectionTitle = (overview.category === 'idv')
-        ? "Award History for this IDV"
-        : "Award History";
+    const sectionTitle = (overview.category === 'idv') ?
+        "Award History for this IDV" :
+        "Award History";
 
     const setTableTabsAndGetCounts = (award = overview) => {
         if (requestRef.current) {
@@ -77,7 +77,9 @@ const AwardHistory = ({
     return (
         <div id="award-award-history" className="award-viz award-history">
             <AwardSectionHeader
+                category={overview.category}
                 title={sectionTitle}
+                activeTab={activeTab}
                 icon={<AwardLoop alt="Award History" />} />
             <div className="tables-section">
                 <Tabs

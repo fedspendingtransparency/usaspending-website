@@ -3,12 +3,12 @@
  * Created by Andrea Blackwell 08/09/2023
  **/
 
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import {throttle} from "lodash-es";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {largeScreen, mediumScreen, xLargeScreen} from 'dataMapping/shared/mobileBreakpoints';
-import {checkIsOverflow, getElementData, reset} from 'helpers/inPageNavHelper';
+import { throttle } from 'lodash-es';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { largeScreen, mediumScreen, xLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { checkIsOverflow, getElementData, reset } from 'helpers/inPageNavHelper';
 
 const propTypes = {
     sections: PropTypes.array,
@@ -21,10 +21,9 @@ const propTypes = {
     loading: PropTypes.bool
 };
 
-const InPageNav = (props) => {
-    const {
-        sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold, loading
-    } = props;
+const InPageNav = ({
+    sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold, loading, ...props
+}) => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [activeSection, setActiveSection] = useState(props.activeSection);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -60,7 +59,7 @@ const InPageNav = (props) => {
             if (visible.length) {
                 const topMost = visible.reduce((best, el) => (el.getBoundingClientRect().top < best.getBoundingClientRect().top ? el : best));
 
-                const section = topMost.id.replace(prefix, "");
+                const section = topMost.id.replace(prefix, '');
 
                 setActiveSection(section);
             }
@@ -68,7 +67,7 @@ const InPageNav = (props) => {
     });
     // detect if the element is overflowing on the left or the right
     const checkIsOverflowHidden = () => {
-        const ulEl = navBar?.current?.querySelector("ul");
+        const ulEl = navBar?.current?.querySelector('ul');
         const { left, right } = checkIsOverflow(ulEl, padding);
 
         setIsOverflowLeft(left);
@@ -83,14 +82,13 @@ const InPageNav = (props) => {
     const scrollLeft = useCallback((e) => {
         e.stopPropagation();
 
-        const ulEl = navBar.current.querySelector("ul");
+        const ulEl = navBar.current.querySelector('ul');
         const elArray = [...ulEl.childNodes];
         const lastVisibleEl = {
-            name: "",
+            name: '',
             index: 0
         };
 
-        // eslint-disable-next-line array-callback-return,consistent-return
         elArray.find((el, i) => {
             const box = el.getBoundingClientRect();
             if (box.left > 0 && box.right < ulEl.clientWidth) {
@@ -115,14 +113,13 @@ const InPageNav = (props) => {
         e.stopPropagation();
 
         if (elementData) {
-            const ulEl = navBar.current.querySelector("ul");
+            const ulEl = navBar.current.querySelector('ul');
             const elArray = [...ulEl.childNodes];
             const firstRtHiddenEl = {
-                name: "",
+                name: '',
                 index: 0
             };
 
-            // eslint-disable-next-line array-callback-return,consistent-return
             elArray.find((el, i) => {
                 const box = el.getBoundingClientRect();
                 const documentWidth = ulEl.clientWidth;
@@ -151,7 +148,7 @@ const InPageNav = (props) => {
     });
 
     const getInitialElements = useCallback(() => {
-        const ulEl = navBar.current.querySelector("ul");
+        const ulEl = navBar.current.querySelector('ul');
         const tempElementData = getElementData(ulEl);
 
         setUlElement(ulEl);
@@ -159,12 +156,12 @@ const InPageNav = (props) => {
     });
 
     const onKeyPress = useCallback((e, direction) => {
-        if (e.key === "Enter") {
-            if (direction === "left") {
+        if (e.key === 'Enter') {
+            if (direction === 'left') {
                 scrollLeft(e);
             }
 
-            if (direction === "right") {
+            if (direction === 'right') {
                 scrollRight(e);
             }
         }
@@ -267,15 +264,15 @@ const InPageNav = (props) => {
             <nav
                 ref={navBar}
                 className={`usda-in-page-nav__wrapper ${(isOverflowLeft && !isMobile) ? 'left-fade-effect' : ''} ${isOverflowRight ? 'right-fade-effect' : ''} `}>
-                {isOverflowLeft && !isMobile
-                    && (
+                {isOverflowLeft && !isMobile &&
+                    (
                         <div
                             aria-label="In-page navigation left paginator"
                             title="In-page navigation left paginator"
                             className="usda-in-page-nav__paginator left"
                             tabIndex="0"
                             role="button"
-                            onKeyDown={(e) => onKeyPress(e, "left")}
+                            onKeyDown={(e) => onKeyPress(e, 'left')}
                             onClick={(e) => scrollLeft(e)}>
                             <FontAwesomeIcon icon="chevron-left" alt="Back" />
                         </div>
@@ -283,26 +280,27 @@ const InPageNav = (props) => {
                 <ul>
                     {sections.map((section) => (
                         <li className={`usda-in-page-nav__element ${section.section === activeSection ? 'active' : ''}`} key={`in-page-nav-li-${section.label}`}>
+                            {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */ }
                             <a
                                 role="button"
                                 tabIndex="0"
                                 key={`in-page-nav-link-${section.label}`}
-                                onKeyDown={(e) => (e.key === "Enter" ? jumpToSection(section.section) : "")}
+                                onKeyDown={(e) => (e.key === 'Enter' ? jumpToSection(section.section) : '')}
                                 onClick={() => jumpToSection(section.section)}>
                                 {section.label}
                             </a>
                         </li>
                     ))}
                 </ul>
-                {isOverflowRight && !isMobile
-                    && (
+                {isOverflowRight && !isMobile &&
+                    (
                         <div
                             aria-label="In-page navigation right paginator"
                             title="In-page navigation right paginator"
                             className="usda-in-page-nav__paginator right"
                             tabIndex="0"
                             role="button"
-                            onKeyDown={(e) => onKeyPress(e, "right")}
+                            onKeyDown={(e) => onKeyPress(e, 'right')}
                             onClick={(e) => scrollRight(e)}>
                             <FontAwesomeIcon icon="chevron-right" alt="Forward" />
                         </div>

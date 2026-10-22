@@ -20,6 +20,10 @@ const getAwardTypeGroup = (spendingLevel, tableType, awardType) => {
         awardTypeGroups[tableType];
 
     if (awardType.size === 0) {
+        // [DEV-16661] Temp workaround for keeping cooperative agreement results in grants table.
+        if (tableType === 'grants') {
+            return awardTypeGroup.concat(awardTypeGroups?.cooperative_agreement);
+        }
         return awardTypeGroup;
     }
 
@@ -29,6 +33,10 @@ const getAwardTypeGroup = (spendingLevel, tableType, awardType) => {
         // in this case, send an array of non-existent types because the endpoint requires
         // an award type parameter
         intersectingTypes = ['no intersection'];
+    }
+    // [DEV-16409] Temp workaround for keeping cooperative agreement results in grants table.
+    if (tableType == 'grants' && awardType.size == 2) {
+        return ['05', 'F002'];
     }
     return intersectingTypes;
 };
@@ -93,13 +101,11 @@ const useResultsTableSearch = (
     if (spendingLevel === "subawards" && filtersTemp.dateType) {
         delete filtersTemp.dateType;
     }
-
     filtersTemp.awardType = getAwardTypeGroup(
         spendingLevel, tableType, searchFilters.awardType
     );
 
     const filters = filtersTemp.toParams();
-
     const params = {
         auditTrail: 'Results Table - Spending by award search',
         filters,

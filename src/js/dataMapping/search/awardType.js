@@ -3,7 +3,6 @@
   * Created by Kevin Li 11/4/16
   **/
 
-/* eslint-disable quote-props */
 // disable quote-props for consistency sake (we need leading zeroes)
 export const awardTypeCodes = {
     'A': 'Blanket Purchase Agreements (BPA) Calls',
@@ -30,9 +29,12 @@ export const awardTypeCodes = {
     '10': 'Direct Payment with Unrestricted Use',
     '06': 'Direct Payment for Specified Use',
     '07': 'Direct Loans',
-    '08': 'Guaranteed/Insured Loans',
-    '09': 'Insurance',
+    '08': 'Loan Guarantees',
+    '09': 'Indemnity/Insurance (non-loan)',
     '11': 'Other Financial Assistance',
+    'F001': 'Grant',
+    'F008': 'Asset Forfeiture/Equitable Sharing',
+    'F009': 'Sale, Exchange, or Donation of Property and Goods',
     '-1': 'Not Specified'
 };
 
@@ -49,6 +51,7 @@ export const awardTypeNewLinkCodes = {
     '11': 'F010'
 };
 
+// Updated array to include items that should be filtered out of the count for single items
 export const awardTypeNewFCodes = {
     'F001': 'Grant',
     'F002': 'Cooperative Agreement',
@@ -57,9 +60,10 @@ export const awardTypeNewFCodes = {
     'F005': 'Indemnity/Insurance (non-loan)',
     'F006': 'Direct Payment for Specified Use',
     'F007': 'Direct Payment with Unrestricted Use',
-    'F010': 'Other Financial Assistance'
+    'F010': 'Other Financial Assistance',
+    '03': 'Formula Grant',
+    '04': 'Project Grant'
 };
-
 
 export const glossaryLinks = {
     'A': 'blanket-purchase-agreement-bpa',
@@ -92,40 +96,40 @@ export const glossaryLinks = {
     '-1': 'not-specified'
 };
 
-/* eslint-enable quote-props */
-
 export const awardTypeGroups = {
     contracts: ['A', 'B', 'C', 'D'],
     idvs: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E'],
-    grants: ['02', '03', '04', '05', 'F001', 'F002'],
+    grants: ['02', '03', '04', 'F001'],
+    cooperative_agreement: ['05', 'F002'],
     direct_payments: ['10', '06', 'F006', 'F007'],
     loans: ['07', '08', 'F003', 'F004'],
-    other: ['09', '11', '-1', 'F005', 'F010']
+    other: ['09', 'F005', 'F008', 'F009', 'F010', '11', '-1']
 };
 
 export const bulkDownloadAwardTypeGroups = {
     contracts: awardTypeGroups.contracts,
     idvs: awardTypeGroups.idvs,
-    grants: awardTypeGroups.grants,
+    grants: awardTypeGroups.grants.concat(awardTypeGroups.cooperative_agreement),
     direct_payments: awardTypeGroups.direct_payments,
     loans: awardTypeGroups.loans,
     insurance: ['09', 'F005'],
-    other: ['11', 'F010', '-1']
+    other: ['11', 'F008', 'F009', 'F010', '-1']
 };
 
 export const transactionTypeGroups = {
     transaction_contracts: ['A', 'B', 'C', 'D'],
     transaction_idvs: ['IDV_A', 'IDV_B', 'IDV_B_A', 'IDV_B_B', 'IDV_B_C', 'IDV_C', 'IDV_D', 'IDV_E'],
-    transaction_grants: ['02', '03', '04', '05'],
-    transaction_direct_payments: ['10', '06'],
-    transaction_loans: ['07', '08'],
-    transaction_other: ['09', '11', '-1']
+    transaction_grants: ['02', '03', '04', 'F001', '05', 'F002'],
+    transaction_direct_payments: ['10', '06', 'F006', 'F007'],
+    transaction_loans: ['07', '08', 'F003', 'F004'],
+    transaction_other: ['09', 'F005', 'F008', 'F009', 'F010', '11', '-1']
 };
 
 export const analyticsAwardTypeGroupLabels = {
     contracts: 'Contracts',
-    idvs: "Indefinite Delivery Vehicle",
+    idvs: 'Indefinite Delivery Vehicle',
     grants: 'Grants',
+    cooperative_agreement: 'Cooperative Agreement',
     direct_payments: 'Direct Payments',
     loans: 'Loans',
     other: 'Other'
@@ -133,8 +137,9 @@ export const analyticsAwardTypeGroupLabels = {
 
 export const awardTypeGroupLabels = {
     contracts: 'Contracts',
-    idvs: "Contract IDVs",
+    idvs: 'Contract IDVs',
     grants: 'Grants',
+    cooperative_agreement: 'Cooperative Agreement',
     direct_payments: 'Direct Payments',
     loans: 'Loans',
     other: 'Other'
@@ -144,6 +149,7 @@ export const subawardTypeGroups = {
     subcontracts: awardTypeGroups.contracts.concat(awardTypeGroups.idvs),
     subgrants: awardTypeGroups
         .grants
+        .concat(awardTypeGroups.cooperative_agreement)
         .concat(awardTypeGroups.direct_payments)
         .concat(awardTypeGroups.loans)
         .concat(awardTypeGroups.other)
@@ -163,7 +169,14 @@ export const awardTypesData = [
     {
         id: 'award-grants',
         name: 'Grants',
-        filters: awardTypeGroups.grants
+        filters: awardTypeGroups.grants,
+        singleitem: true
+    },
+    {
+        id: 'award-cooperative-agreement',
+        name: 'Cooperative Agreement',
+        filters: awardTypeGroups.cooperative_agreement,
+        singleitem: true
     },
     {
         id: 'award-direct-payments',
@@ -181,4 +194,3 @@ export const awardTypesData = [
         filters: awardTypeGroups.other
     }
 ];
-

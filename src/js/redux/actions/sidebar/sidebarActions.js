@@ -9,7 +9,7 @@ export const SET_IS_NL_SEARCH_COMPLETE = 'SET_IS_NL_SEARCH_COMPLETE';
 export const SET_IS_NL_SEARCH_ERROR = 'SET_IS_NL_SEARCH_ERROR';
 
 export const setSidebarContent = (sidebarContent) => ({
-    type: SET_SIDEBAR_CONTENT, 
+    type: SET_SIDEBAR_CONTENT,
     sidebarContent
 });
 

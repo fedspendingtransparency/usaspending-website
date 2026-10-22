@@ -29,9 +29,9 @@ const PublicationOverviewRow = {
             });
     },
     get name() {
-        return (this._name && this._abbreviation)
-            ? `${this._name} (${this._abbreviation})`
-            : this._name;
+        return (this._name && this._abbreviation) ?
+            `${this._name} (${this._abbreviation})` :
+            this._name;
     },
     get budgetAuthority() {
         return formatMoney(this._budgetAuthority);

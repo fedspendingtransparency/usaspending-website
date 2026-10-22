@@ -1,4 +1,3 @@
-
 import PropTypes from 'prop-types';
 
 export const AWARD_OVERVIEW_PROPS = PropTypes.shape({
@@ -25,7 +24,6 @@ export const AWARD_COUNTS_PROPS = PropTypes.shape({
     grandchild_awards: PropTypes.number,
     total: PropTypes.number
 });
-
 
 export const AWARD_TYPE_PROPS = PropTypes.oneOf([
     'idv', 'contract', 'grant', 'loan', 'direct payment', 'insurance', 'other'
@@ -65,7 +63,9 @@ export const AWARD_SECTION_HEADER_PROPS = {
     icon: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     title: PropTypes.string,
     tooltip: PropTypes.node,
-    tooltipWide: PropTypes.bool
+    tooltipWide: PropTypes.bool,
+    category: PropTypes.string,
+    activeTab: PropTypes.string
 };
 const awardOverviewAwardAmountsSectionBase = {
     _baseAndAllOptions: PropTypes.number,

@@ -32,7 +32,8 @@ const CustomTooltip = ({
                         {formatMoneyWithUnitsShortLabel(payload[0].value)}
                     </div>
                 </div>
-            </div>);
+            </div>
+        );
     }
 
     onMouseLeave();

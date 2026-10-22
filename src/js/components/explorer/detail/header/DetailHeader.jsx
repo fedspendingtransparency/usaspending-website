@@ -88,12 +88,14 @@ const heading = (type, title, id, link, agencyIds, slugError) => {
                 className="detail-header__title-link"
                 onClick={exitExplorer.bind(null, `/agency/${agencyIdentifier}`)}>
                 {title}
-            </Link>);
+            </Link>
+        );
         if (title === "Unreported Data" || link === false) {
             header = (
                 <span className="detail-header__title">
                     {title}
-                </span>);
+                </span>
+            );
         }
         return (
             <h2 className="detail-header__title">

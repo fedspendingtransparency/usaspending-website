@@ -60,10 +60,10 @@ const MobileSort = (props) => {
             <NewPicker
                 options={mobileDropdownOptions}
                 leftIcon=""
-                selectedOption={mobileDropdownOptions?.length
+                selectedOption={mobileDropdownOptions?.length ?
                     // eslint-disable-next-line max-len, react/prop-types
-                    ? mobileDropdownOptions?.find((obj) => obj.value === props?.activeField || obj.value === props?.sort?.field)?.name
-                    : `${props?.activeField || props.sort?.field}`}
+                    mobileDropdownOptions?.find((obj) => obj.value === props?.activeField || obj.value === props?.sort?.field)?.name :
+                    `${props?.activeField || props.sort?.field}`}
                 size="sm"
                 label="Sort by:"
                 enabled

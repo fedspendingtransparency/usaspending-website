@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../_scss/elements/_accordion.scss';
@@ -17,7 +17,16 @@ const propTypes = {
     openIcon: PropTypes.string,
     setOpen: PropTypes.func,
     openObject: PropTypes.bool,
-    selectedChipCount: PropTypes.number
+    selectedChipCount: PropTypes.number,
+    headingClassName: PropTypes.string,
+    faClassName: PropTypes.string,
+    containerClassName: PropTypes.string,
+    toggleAll: PropTypes.shape({
+        trigger: PropTypes.number,
+        expand: PropTypes.bool
+    }),
+    accordionId: PropTypes.string,
+    onToggle: PropTypes.func
 };
 
 const Accordion = ({
@@ -29,9 +38,28 @@ const Accordion = ({
     setOpen = () => {},
     contentClassName = '',
     openObject = false,
-    selectedChipCount = 0
+    selectedChipCount = 0,
+    headingClassName = '',
+    containerClassName = '',
+    faClassName = '',
+    toggleAll = { trigger: 0, expand: false },
+    accordionId = '',
+    onToggle = () => {}
+
 }) => {
     const [closed, setClosed] = useState(!openObject);
+    const [prevToggleAllTrigger, setPrevToggleAllTrigger] = useState(toggleAll.trigger);
+
+    if (toggleAll.trigger !== prevToggleAllTrigger) {
+        setPrevToggleAllTrigger(toggleAll.trigger);
+        if (toggleAll.trigger > 0) {
+            setClosed(!toggleAll.expand);
+        }
+    }
+
+    useEffect(() => {
+        onToggle(accordionId, !closed);
+    }, [closed, accordionId, onToggle]);
 
     const sectionClassName = !closed ? `open accordion--open accordion` : `accordion`;
     const buttonAriaLabel = closed ? 'Open toggle' : 'Close toggle';
@@ -62,14 +90,14 @@ const Accordion = ({
         (<></>));
 
     return (
-        <div className="accordion-container">
+        <div className={`accordion-container ${containerClassName}`}>
             <section
                 data-testid="accordion"
                 className={sectionClassName}>
                 {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/no-static-element-interactions */}
-                <div onClick={toggleOpen} onKeyDown={keyClickToggle} className="heading">
+                <div onClick={toggleOpen} onKeyDown={keyClickToggle} className={`heading ${headingClassName}`}>
                     {title}
-                    <div className="heading--chip-container">
+                    <div className={`heading--chip-container ${faClassName}`}>
                         {selectedChip(selectedChipCount)}
                         <button
                             onClick={toggleOpen}
@@ -78,11 +106,11 @@ const Accordion = ({
                             aria-label={buttonAriaLabel}>
                             <FontAwesomeIcon
                                 icon={closedIcon}
-                                className={iconClassName || "plus"}
+                                className={iconClassName || `plus ${faClassName}`}
                                 key="open" />
                             <FontAwesomeIcon
                                 icon={openIcon}
-                                className={iconClassName || "minus"}
+                                className={iconClassName || `minus ${faClassName}`}
                                 key="close" />
                         </button>
                     </div>

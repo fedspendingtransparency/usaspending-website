@@ -53,9 +53,9 @@ export default class TimePeriodFYFilterGroup extends React.Component {
 
         // determine how many fiscal years there are available to select
         // add an extra year at the end to include the current year in the count
-        const allFY = this.props.latestFy
-            ? (this.props.latestFy.year() - FiscalYearHelper.earliestFiscalYear) + 1
-            : 0;
+        const allFY = this.props.latestFy ?
+            (this.props.latestFy.year() - FiscalYearHelper.earliestFiscalYear) + 1 :
+            0;
 
         // check if all fiscal years were selected
         if (selectedValues.length === allFY) {
@@ -86,10 +86,12 @@ export default class TimePeriodFYFilterGroup extends React.Component {
     render() {
         const tags = this.generateTags();
 
-        return (<LegacyBaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.clearGroup} />);
+        return (
+            <LegacyBaseTopFilterGroup
+                tags={tags}
+                filter={this.props.filter}
+                clearFilterGroup={this.clearGroup} />
+        );
     }
 }
 

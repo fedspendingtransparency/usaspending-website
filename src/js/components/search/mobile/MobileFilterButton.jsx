@@ -1,11 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { QAT } from "GlobalConstants";
+import React from 'react';
+import { useSelector } from 'react-redux';
+import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import AIWhiteIcon from '../../../../img/AI_Search_white.svg';
 import AICyanIcon from '../../../../img/AI_Search_cyan.svg';
-import { useSelector } from "react-redux";
 
 const pluralizeFilterLabel = (count) => {
     if (count === 1) {
@@ -30,29 +28,30 @@ const MobileFilterButton = ({
     filterCount
 }) => {
     let showCountBadge = '';
+
     if (filterCount === 0) {
         showCountBadge = 'hide';
     }
+
+    const smartAssistIsVisible = useSelector((state) => state.searchView.smartAssistIsVisible);
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
     return (
         <div className={
             `mobile-filter-button-wrapper ${!showMobileFilters && 'mobile-filter-closed-shadow'}`
-        } >
+        }>
             <button
-                className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "filters" ? 'opened filters' : ''}`}
+                className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === 'filters' ? 'opened filters' : ''}`}
                 onClick={() => {
-                    setMobileSidebarContent("filters");
-                    if(!showMobileFilters){
+                    setMobileSidebarContent('filters');
+                    if (!showMobileFilters) {
                         toggleMobileFilters();
                     }
-                 
-                }
-                }
+                }}
                 onKeyUp={(e) => {
-                    if (e.key === "Escape" && showMobileFilters) {
-                        setMobileSidebarContent("filters")
-                        if(!showMobileFilters){
+                    if (e.key === 'Escape' && showMobileFilters) {
+                        setMobileSidebarContent('filters');
+                        if (!showMobileFilters) {
                             toggleMobileFilters();
                         }
                     }
@@ -70,34 +69,34 @@ const MobileFilterButton = ({
                     </div>
                 </div>
             </button>
-            { QAT &&
-            <button
-                className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === "natural language" ? 'opened natural-language' : ''}`}
-                onClick={() => {
-                    setMobileSidebarContent("natural language");
-                    if(!showMobileFilters){
-                        toggleMobileFilters();
-                    }
-                }
-                }
-                onKeyUp={(e) => {
-                    if (e.key === "Escape" && showMobileFilters) {
-                        setMobileSidebarContent("natural language");
-                        if(!showMobileFilters){
+            { smartAssistIsVisible && (
+                <button
+                    className={`mobile-filter-button-v2  ${showMobileFilters && mobileSidebarContent === 'natural language' ? 'opened natural-language' : ''}`}
+                    id={showMobileFilters && mobileSidebarContent === 'natural language' ? 'animated-tour-mobile-step1' : null}
+                    onClick={() => {
+                        setMobileSidebarContent('natural language');
+                        if (!showMobileFilters) {
                             toggleMobileFilters();
                         }
-                    }
-                }}>
-                <div className="mobile-filter-button-content">
-                    <div className={`mobile-filter-button-icon ${showMobileFilters && 'opened'}`}>
-                        <img src={showMobileFilters && mobileSidebarContent === "natural language"  ? AIWhiteIcon : AICyanIcon} alt="AI Search Icon" className={`mobile-filter-button-icon__svg ${showMobileFilters && 'opened'}`} />
+                    }}
+                    onKeyUp={(e) => {
+                        if (e.key === 'Escape' && showMobileFilters) {
+                            setMobileSidebarContent('natural language');
+                            if (!showMobileFilters) {
+                                toggleMobileFilters();
+                            }
+                        }
+                    }}>
+                    <div className="mobile-filter-button-content">
+                        <div className={`mobile-filter-button-icon ${showMobileFilters && 'opened'}`}>
+                            <img src={showMobileFilters && mobileSidebarContent === 'natural language' ? AIWhiteIcon : AICyanIcon} alt="AI Search Icon" className={`mobile-filter-button-icon__svg ${showMobileFilters && 'opened'}`} />
+                        </div>
+                        <div className="mobile-filter-button-label">
+                            Smart Assist
+                        </div>
                     </div>
-                    <div className="mobile-filter-button-label">
-                        Smart Assist
-                    </div>
-                </div>
-            </button>
-            }
+                </button>
+            )}
         </div>
     );
 };

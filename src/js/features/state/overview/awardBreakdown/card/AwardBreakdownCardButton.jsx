@@ -62,11 +62,11 @@ const AwardBreakdownCardButton = ({
         <CardButton
             customClassName="details-button"
             onlyPerformAction
-            text={
+            text={(
                 <div>
                     View awards to this state <FontAwesomeIcon icon="arrow-right" />
                 </div>
-            }
+            )}
             variant="secondary"
             textAlignment="center"
             action={handleGoToAdvancedSearch} />

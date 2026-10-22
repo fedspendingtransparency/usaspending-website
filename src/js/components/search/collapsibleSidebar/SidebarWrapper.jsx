@@ -18,10 +18,10 @@ import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
 import NLSidebarContent from "./NLSidebarContent";
 import { FILTERS } from './SidebarConstants';
 import useRequestNLSearch from "./useRequestNLSearch";
-import useFetchDataFromHash from "./useFetchDataFromHash";
-import { RESPONSE_TYPE } from "./NLConstants";
+import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from "./NLConstants";
+import { sanitizeNLInput } from "helpers/search/naturalLanguage/sanitizeNLInput";
 import { setIsNLSearchComplete, setIsNLSearchError } from '../../../redux/actions/sidebar/sidebarActions';
-
+import useFetchDataFromHash from "./useFetchDataFromHash";
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
@@ -29,15 +29,14 @@ const propTypes = {
     mobileSidebarContent: PropTypes.string,
     sidebarIsOpen: PropTypes.bool,
     setSidebarIsOpen: PropTypes.func
-    
-}
+};
 
 // eslint-disable-next-line prefer-arrow-callback
 const SidebarWrapper = React.memo(function SidebarWrapper({
-    showMobileFilters, 
-    setShowMobileFilters, 
-    mobileSidebarContent, 
-    sidebarIsOpen, 
+    showMobileFilters,
+    setShowMobileFilters,
+    mobileSidebarContent,
+    sidebarIsOpen,
     setSidebarIsOpen
 }) {
     const { isMedium } = useIsMobile();
@@ -68,10 +67,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const closeSidebar = () => {
         if (isMedium) {
             setShowMobileFilters(false);
-        } else {
+        }
+        else {
             setSidebarIsOpen(false);
         }
-    }
+    };
 
     const keyHandler = (e, func) => {
         if (e.key === "Enter") {
@@ -80,19 +80,19 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     };
 
     const hintOnClick = (e) => {
-        if(e?.target.textContent) {
-            setText(e.target.textContent);
+        if (e?.target.textContent) {
+            setText(sanitizeNLInput(e.target.textContent).trim().slice(0, NL_INPUT_MAX_CHARS));
         }
     };
 
     const startNLSearch = () => {
-        if(text && typeof fetchNLSearch === "function") {
+        if(text?.trim() && typeof fetchNLSearch === "function") {
             wasCancelled.current = false;
             fetchNLSearch();
             dispatch(setIsNLSearchComplete(false));
             dispatch(setIsNLSearchError(false));
         }
-    }
+    };
 
     const request = useRef();
     const wasCancelled = useRef(false);
@@ -141,7 +141,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             return;
         }
 
-        if (!isFetching && parsedData && Object.keys(parsedData).length > 0) {
+        if (isSuccess && parsedData && Object.keys(parsedData).length > 0) {
             const done = parsedData.find((res) => {
                 if (res.type === RESPONSE_TYPE.SEARCH_COMPLETE) {
                     return res;
@@ -153,15 +153,16 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             }
             dispatch(setIsNLSearchComplete(!isFetching));
         }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parsedData, isFetching]);
 
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">
             <div className="sidebar-title-row">
                 <h2 className="sidebar-title">
-                    {isDesktopFilters ? 'Filter' : 'Smart Assist'}
+                    {isDesktopFilters ? 'Advanced Search' : 'Smart Assist'}
                 </h2>
+                {!isDesktopFilters && <span className="sidebar-beta-badge">BETA</span>}
                 <div
                     onClick={toggleOpened}
                     onKeyDown={(e) => {
@@ -172,28 +173,30 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     aria-label="Close"
                     tabIndex={0}>
                     <FontAwesomeIcon className="close" icon="close" />
-                </div>    
+                </div>
             </div>
 
-            { isDesktopFilters ? (
-                <>
-                    <div className="link">
-                        <AboutTheDataLink slug="data-elements">
+            { isDesktopFilters ?
+                (
+                    <>
+                        <div className="link">
+                            <AboutTheDataLink slug="data-elements">
                                 Learn more about filters
-                        </AboutTheDataLink>
-                    </div>
-                    <SidebarContent />
-                </>
-            ): (
-                <NLSidebarContent
-                    hintOnClick={hintOnClick}
-                    text={text}
-                    setText={setText}
-                    startNLSearch={startNLSearch} 
-                    data={parsedData}
-                    cancelQuery={handleCancelQuery} />
-            )}   
-        </div>    
+                            </AboutTheDataLink>
+                        </div>
+                        <SidebarContent />
+                    </>
+                ) :
+                (
+                    <NLSidebarContent
+                        hintOnClick={hintOnClick}
+                        text={text}
+                        setText={setText}
+                        startNLSearch={startNLSearch}
+                        data={parsedData}
+                        cancelQuery={handleCancelQuery} />
+                )}
+        </div>
     );
 
     const renderMobileSidebar = () => (
@@ -212,40 +215,42 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                     aria-label="Close"
                     tabIndex={0}>
                     <FontAwesomeIcon className="close" icon="close" />
-                </div>    
+                </div>
             </div>
 
-            { isMobileFilters ? (
-                <>
-                    <div className="link">
-                        <AboutTheDataLink slug="data-elements">
+            { isMobileFilters ?
+                (
+                    <>
+                        <div className="link">
+                            <AboutTheDataLink slug="data-elements">
                                 Learn more about filters
-                        </AboutTheDataLink>
-                    </div>
-                    <MobileSidebarContent 
-                        setShowMobileFilters={setShowMobileFilters} 
-                        mobileSidebarContent={mobileSidebarContent} 
-                        showMobileFilters={showMobileFilters}/>  
-                </>
-            ): (
-                <NLSidebarContent
-                    hintOnClick={hintOnClick}
-                    text={text}
-                    setText={setText}
-                    startNLSearch={startNLSearch} 
-                    data={parsedData}
-                    cancelQuery={handleCancelQuery} />
-            )}
+                            </AboutTheDataLink>
+                        </div>
+                        <MobileSidebarContent
+                            setShowMobileFilters={setShowMobileFilters}
+                            mobileSidebarContent={mobileSidebarContent}
+                            showMobileFilters={showMobileFilters} />
+                    </>
+                ) :
+                (
+                    <NLSidebarContent
+                        hintOnClick={hintOnClick}
+                        text={text}
+                        setText={setText}
+                        startNLSearch={startNLSearch}
+                        data={parsedData}
+                        cancelQuery={handleCancelQuery} />
+                )}
         </div>
     );
-    
+
     return (
         <>
             <NLSidebarButtons
                 sidebarContent={sidebarContent}
                 setSidebarIsOpen={toggleOpened}
                 sidebarIsOpen={sidebarIsOpen}
-                isMedium={isMedium} 
+                isMedium={isMedium}
                 setShowMobileFilters={setShowMobileFilters}
                 isActiveNlSearch={isSearchActive && !isNLSearchComplete} />
             {/* Eventually remove search-sidebar css */}
@@ -253,16 +258,14 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
                 className={`search-collapsible-sidebar-container search-sidebar sticky ${
                     sidebarIsOpen || showMobileFilters ? "opened" : ""
                 } ${
-                    showMobileFilters ? "mobile" : ""}`
-                }>
-                
-                { isMedium 
-                    ? showMobileFilters && renderMobileSidebar()
-                    : sidebarIsOpen && renderDesktopSidebar()
-                }
+                    showMobileFilters ? "mobile" : ""}`}>
+
+                { isMedium ?
+                    showMobileFilters && renderMobileSidebar() :
+                    sidebarIsOpen && renderDesktopSidebar()}
             </div>
-        </> 
-    );                 
+        </>
+    );
 });
 
 SidebarWrapper.propTypes = propTypes;

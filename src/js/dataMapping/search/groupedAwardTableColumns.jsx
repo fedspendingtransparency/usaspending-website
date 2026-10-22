@@ -319,4 +319,3 @@ export const expandedSubawardColumns = [
         element: (info) => convertToTitleCase(info.getValue())
     }
 ];
-
