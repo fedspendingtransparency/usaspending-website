@@ -3,214 +3,92 @@
  * Created by Lizzie Salita 8/4/17
  */
 
-import React from 'react';
-
-import { isCancel } from 'axios';
+import React, { useMemo, useState } from 'react';
 import { flowRight, inRange } from 'lodash-es';
+import { LATEST_PERIOD_PROPS } from 'propTypes';
 
 import AccountsTableFields from 'dataMapping/accountLanding/accountsTableFields';
-import * as AccountLandingHelper from 'helpers/accountLandingHelper';
-
 import withLatestFy from 'containers/account/WithLatestFy';
 import AccountLandingContent from 'components/accountLanding/AccountLandingContent';
+import useFetchAllAccounts from './useFetchAllAccounts';
 
-import BaseFederalAccountLandingRow from 'models/v1/accountLanding/BaseFederalAccountLandingRow';
-import { LATEST_PERIOD_PROPS, SUBMISSION_PERIOD_PROPS } from 'propTypes';
+const getColumns = (year) => {
+    const columnsArray = [];
+    const sortOrder = AccountsTableFields.defaultSortDirection;
+
+    AccountsTableFields.order.forEach((col) => {
+        let displayName = AccountsTableFields[col];
+
+        if (col === 'budgetaryResources') {
+            // Add default fiscal year to Budgetary Resources column header
+            displayName = `${year} ${displayName}`;
+        }
+
+        const column = {
+            columnName: col,
+            displayName,
+            defaultDirection: sortOrder[col]
+        };
+
+        columnsArray.push(column);
+    });
+
+    return columnsArray;
+};
 
 require('pages/accountLanding/accountLandingPage.scss');
 
-export class AccountLandingContainer extends React.Component {
-    constructor(props) {
-        super(props);
+const AccountLandingContainer = ({ latestPeriod }) => {
+    const [pageNumber, setPageNumber] = useState(1);
+    const [order, setOrder] = useState({ field: 'budgetary_resources', direction: 'desc' });
+    const [searchString, setSearchString] = useState('');
 
-        this.state = {
-            pageNumber: 1,
-            order: {
-                field: 'budgetary_resources',
-                direction: 'desc'
-            },
-            columns: [],
-            inFlight: false,
-            error: false,
-            searchString: '',
-            results: [],
-            totalItems: 0,
-            pageSize: 50
-        };
+    const { isLoading, isError, results, totalItems } = useFetchAllAccounts(order, pageNumber, latestPeriod.year, searchString);
 
-        this.accountsRequest = null;
-        this.setAccountSearchString = this.setAccountSearchString.bind(this);
-        this.onChangePage = this.onChangePage.bind(this);
-        this.updateSort = this.updateSort.bind(this);
-    }
+    const columns = useMemo(() => {
+        if (!latestPeriod?.year) return [];
+        return getColumns(latestPeriod.year);
+    }, [latestPeriod.year]);
 
-    componentDidMount() {
-        if (this.props.latestPeriod.year) {
-            this.showColumns();
-        }
-    }
+    const pageSize = 50;
 
-    componentDidUpdate(prevProps) {
-        if (!prevProps.latestPeriod.year && this.props.latestPeriod.year) {
-            this.showColumns();
-        }
-    }
-
-    componentWillUnmount() {
-        if (this.accountsRequest) {
-            this.accountsRequest.cancel();
-        }
-    }
-
-    onChangePage(pageNumber) {
-        const totalPages = Math.ceil(this.state.totalItems / this.state.pageSize);
-        if (inRange(pageNumber, 1, totalPages + 1)) {
+    const onChangePage = (page) => {
+        const totalPages = Math.ceil(totalItems / pageSize);
+        if (inRange(page, 1, totalPages + 1)) {
             // Change page number in the state and make a new request
-            this.setState({
-                pageNumber
-            }, () => {
-                this.fetchAccounts();
-            });
+            setPageNumber(page);
         }
-    }
+    };
 
-    setAccountSearchString(searchString) {
-    // Change search string in the state and make a new request
-        this.setState({
-            searchString,
-            pageNumber: 1
-        }, () => {
-            this.fetchAccounts();
-        });
-    }
+    const setAccountSearchString = (string) => {
+        // Change search string in the state and make a new request
+        setSearchString(string);
+        setPageNumber(1);
+    };
 
-    updateSort(field, direction) {
-    // Change sort in the state and make a new request
-    // Reset the page number to 1
-        this.setState({
-            order: {
-                field,
-                direction
-            },
-            pageNumber: 1
-        }, () => {
-            this.fetchAccounts();
-        });
-    }
+    const updateSort = (field, direction) => {
+        // Change sort in the state and make a new request
+        // Reset the page number to 1
+        setOrder({ field, direction });
+        setPageNumber(1);
+    };
 
-    showColumns() {
-        const { year: fy } = this.props.latestPeriod;
-        const columns = [];
-        const sortOrder = AccountsTableFields.defaultSortDirection;
-
-        AccountsTableFields.order.forEach((col) => {
-            let displayName = AccountsTableFields[col];
-            if (col === 'budgetaryResources') {
-                // Add default fiscal year to Budgetary Resources column header
-                displayName = `${fy} ${displayName}`;
-            }
-            const column = {
-                columnName: col,
-                displayName,
-                defaultDirection: sortOrder[col]
-            };
-            columns.push(column);
-        });
-
-        this.setState({
-            columns
-        }, () => {
-            this.fetchAccounts();
-        });
-    }
-
-    fetchAccounts() {
-        if (this.accountsRequest) {
-            // a request is in-flight, cancel it
-            this.accountsRequest.cancel();
-        }
-
-        this.setState({
-            inFlight: true,
-            error: false
-        });
-
-        // generate the params
-        const pageSize = 50;
-        const params = {
-            sort: this.state.order,
-            page: this.state.pageNumber,
-            limit: pageSize,
-            filters: {
-                fy: `${this.props.latestPeriod.year}`
-            }
-        };
-
-        if (this.state.searchString) {
-            params.keyword = this.state.searchString;
-        }
-
-        this.accountsRequest = AccountLandingHelper.fetchAllAccounts(params);
-
-        this.accountsRequest.promise
-            .then((res) => {
-                this.setState({
-                    inFlight: false
-                });
-
-                this.parseAccounts(res.data);
-            })
-            .catch((err) => {
-                this.accountsRequest = null;
-                if (!isCancel(err)) {
-                    this.setState({
-                        inFlight: false,
-                        error: true
-                    });
-                    console.log(err);
-                }
-            });
-    }
-
-    parseAccounts(data) {
-        const accounts = [];
-
-        data.results.forEach((item) => {
-            const account = Object.create(BaseFederalAccountLandingRow);
-            account.parse(item);
-            accounts.push(account);
-        });
-
-        this.setState({
-            totalItems: data.count,
-            results: accounts
-        });
-    }
-
-    render() {
-        return (
-            <AccountLandingContent
-                results={this.state.results}
-                inFlight={this.state.inFlight}
-                error={this.state.error}
-                columns={this.state.columns}
-                order={this.state.order}
-                updateSort={this.updateSort}
-                searchString={this.state.searchString}
-                setAccountSearchString={this.setAccountSearchString}
-                onChangePage={this.onChangePage}
-                pageNumber={this.state.pageNumber}
-                totalItems={this.state.totalItems}
-                pageSize={this.state.pageSize} />
-        );
-    }
-}
-
-AccountLandingContainer.propTypes = {
-    submissionPeriods: SUBMISSION_PERIOD_PROPS,
-    latestPeriod: LATEST_PERIOD_PROPS
+    return (
+        <AccountLandingContent
+            results={results}
+            inFlight={isLoading}
+            error={isError}
+            columns={columns}
+            order={order}
+            updateSort={updateSort}
+            searchString={searchString}
+            setAccountSearchString={setAccountSearchString}
+            onChangePage={onChangePage}
+            pageNumber={pageNumber}
+            totalItems={totalItems}
+            pageSize={pageSize} />
+    );
 };
 
-export default flowRight(
-    withLatestFy
-)(AccountLandingContainer);
+AccountLandingContainer.propTypes = { latestPeriod: LATEST_PERIOD_PROPS };
+export default flowRight(withLatestFy)(AccountLandingContainer);

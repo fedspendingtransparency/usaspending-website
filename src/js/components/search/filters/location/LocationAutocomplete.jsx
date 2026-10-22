@@ -72,7 +72,8 @@ const LocationAutocomplete = ({
                     placeholder={autocompletePlaceholder}
                     isLoading={isLoading}
                     retainValue
-                    disabled={isForeign} />
+                    disabled={isForeign}
+                    locationCount={locationCount} />
                 <Button
                     additionalClassnames="submit-button"
                     copy="Add"
