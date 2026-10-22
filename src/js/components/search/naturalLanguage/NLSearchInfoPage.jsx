@@ -131,7 +131,13 @@ const NLSearchInfoPage = () => {
                         jumpToSection={jumpToSection} />
                     <FlexGridCol className="search-info-page__expand-all-btn" desktop={9}>
                         <div className="search-info-page__top-content-row">
-                            <span>test</span>
+                            <div className="search-info-page__input">
+                                <div className="search-icon"><FontAwesomeIcon icon="search" /></div>
+                                <input
+                                    className="geo-entity-dropdown__input"
+                                    type="text"
+                                    placeholder="Search USAspending Smart Assist" />
+                            </div>
                             <Button
                                 copy={allExpanded ? 'Collapse all' : 'Expand all'}
                                 onClick={handleToggleAll}

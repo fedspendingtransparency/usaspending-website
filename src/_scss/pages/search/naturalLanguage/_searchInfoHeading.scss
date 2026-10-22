@@ -129,5 +129,58 @@
   .search-info-page__top-content-row {
     display: flex;
     justify-content: space-between;
+    @media(max-width: $medium-screen) {
+      flex-direction:column;
+    }
+    .search-info-page__input {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-bottom: 0;
+    position: relative;
+    @media(min-width: $medium-screen) {
+      max-width: rem(320);
+      margin-bottom: rem(16);
+    }
+    input {
+      width: 100%;
+      height: rem(40);
+      margin: 0;
+      padding: rem(7) rem(8) rem(7) rem(32);
+      font-size: $smallest-font-size;
+      line-height: 1.5;
+      color: $gray-60;
+      border: solid rem(1) $gray-10;
+      border-radius: rem(3);
+    }
+
+    svg {
+      color: $gray-60;
+      width: rem(16);
+      height: rem(16);
+    }
+
+    .search-icon {
+      @include flex(0 0 auto);
+      @include align-self(center);
+      position: absolute;
+      width: rem(16);
+      height: rem(16);
+      left: rem(8);
+      top: rem(8);
+      padding: rem(2);
+    }
+
+    .icon {
+      @include flex(0 0 auto);
+      @include align-self(center);
+      justify-self: center;
+      position: absolute;
+      height: rem(16);
+      right: $global-spacing-unit;
+      top: rem(2);
+      padding: rem(2);
+    }
+  }
   }
 }
