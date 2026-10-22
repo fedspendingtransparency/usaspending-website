@@ -83,9 +83,10 @@
   @include search-info-page__content-width;
   display: flex;
   justify-content: flex-end;
-  margin-top: rem(60);
+  flex-direction: column;
   padding: 0;
-
+  margin-left: 0;
+  margin-right: 0;
   button:focus {
     box-shadow: none;
   }
@@ -123,5 +124,10 @@
   .button__md {
     margin-right: 0;
     padding-right: 0;
+  }
+
+  .search-info-page__top-content-row {
+    display: flex;
+    justify-content: space-between;
   }
 }

@@ -74,11 +74,14 @@
 }
 .search-info-page__sidebar-col {
   position: sticky;
-  left: rem(85);
-  top: rem(15);
-  width: 30%;
+  left: 0;
+  top: 0;
   color: black;
-  padding: rem(15);
+  margin-right: rem(24);
+  h2 {
+    margin-top: 0;
+    margin-bottom: rem(16);
+  }
 }
 .sticky-sidebar-nav {
   list-style: none;    

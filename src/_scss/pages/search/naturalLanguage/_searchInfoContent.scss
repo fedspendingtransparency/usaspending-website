@@ -1,16 +1,32 @@
 .search-info-page__content-section {
   display: flex;
   align-items: flex-start;
+  margin: rem(60) rem(100) 0 rem(100);
+
+  @media(max-width: $medium-screen) {
+    margin: rem(24) rem(32) 0 rem(32);
+  }
+  @media(max-width: $tablet-screen) {
+    margin: rem(24) rem(16) 0 rem(16);
+  }
   .search-info-page__heading-section {
     @include search-info-page__content-width;
     display: flex;
-    justify-content: center;
     padding: 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
   }
 
   .search-info-page-section:first-child {
     .search-info-page__content-col {
       margin-top: rem(16);
+    }
+  }
+  .search-info-page-section {
+    .search-info-page__content-col {
+      width: 100%;
+      margin-left: 0;
     }
   }
 
@@ -23,14 +39,17 @@
   .search-info-page__accordion-section {
     @include search-info-page__content-width;
     display: flex;
-    justify-content: center;
     padding: 0;
     margin-bottom: rem(32);
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .search-info-page__accordion-list {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    margin-left: 0;
   }
 
   .search-info-page__top-content-heading {

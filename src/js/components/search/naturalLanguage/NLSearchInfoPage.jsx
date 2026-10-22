@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useCallback } from 'react';
-import PageWrapper from "../../sharedComponents/PageWrapper";
+import PageWrapper from '../../sharedComponents/PageWrapper';
 import SideBarNav from '../../sharedComponents/SideBarNav';
 import BannerPageHeader from '../../sharedComponents/header/BannerPageHeader';
 import { smartAssistPageMetaTags } from '../../../helpers/metaTagHelper';
@@ -14,18 +14,18 @@ import NLSearchInfoSection from './NLSearchInfoSection';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import NLSearchInfoResources from './NLSearchInfoResources';
 // import NLSearchInfoSidebar from './NLSearchInfoSidebar';
-import useJumpToSection from "../../../hooks/useJumpToSection";
-import useQueryParams from "../../../hooks/useQueryParams";
+import useJumpToSection from '../../../hooks/useJumpToSection';
+import useQueryParams from '../../../hooks/useQueryParams';
 import { FlexGridCol, Button } from 'data-transparency-ui';
 import ShareDownloadButtonGroup from '../../sharedComponents/buttons/ShareDownloadButtonGroup';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Keyboard, A11y, FreeMode } from 'swiper/modules';
-import "swiper/css/bundle";
-import "swiper/css";
+import 'swiper/css/bundle';
+import 'swiper/css';
 
-require("pages/search/naturalLanguage/searchInfoPage.scss");
+require('pages/search/naturalLanguage/searchInfoPage.scss');
 
 const graphicLabel = (
     <>
@@ -59,7 +59,7 @@ const infoSections = [
 const { overview, search, results, limitations, feedback } = smartAssistContent ?? {};
 
 const NLSearchInfoPage = () => {
-    const jumpToSection = useJumpToSection("#nlinfo-", infoSections, false, stickyHeaderHeight);
+    const jumpToSection = useJumpToSection('#nlinfo-', infoSections, false, stickyHeaderHeight);
     const query = useQueryParams();
     const [activeSection] = useState(query.section || 'overview');
     const [toggleAllAccordions, setToggleAllAccordions] = useState({ trigger: 0, expand: false });
@@ -129,8 +129,9 @@ const NLSearchInfoPage = () => {
                         pageName="nlinfo"
                         detectActiveSection
                         jumpToSection={jumpToSection} />
-                    <div>
-                        <FlexGridCol className="search-info-page__expand-all-btn">
+                    <FlexGridCol className="search-info-page__expand-all-btn" desktop={9}>
+                        <div className="search-info-page__top-content-row">
+                            <span>test</span>
                             <Button
                                 copy={allExpanded ? 'Collapse all' : 'Expand all'}
                                 onClick={handleToggleAll}
@@ -147,7 +148,7 @@ const NLSearchInfoPage = () => {
                                             icon={allExpanded ? 'minus' : 'plus'} />
                                     </div>
                                 )} />
-                        </FlexGridCol>
+                        </div>
                         <NLSearchInfoSection
                             anchor="nlinfo-overview"
                             section={overview}
@@ -178,7 +179,7 @@ const NLSearchInfoPage = () => {
                             sectionKey="feedback"
                             toggleAll={toggleAllAccordions}
                             onToggle={handleAccordionToggle} />
-                    </div>
+                    </FlexGridCol>
                 </section>
                 <NLSearchInfoResources />
             </main>
