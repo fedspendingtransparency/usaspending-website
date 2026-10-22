@@ -7,21 +7,21 @@ import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import PropTypes from "prop-types";
-import useIsMobile from "hooks/useIsMobile";
+import PropTypes from 'prop-types';
+import useIsMobile from 'hooks/useIsMobile';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
 
-import SidebarContent from "./SidebarContent";
-import MobileSidebarContent from "./MobileSidebarContent";
-import NLSidebarButtons from "./NLSidebarButtons";
-import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
-import NLSidebarContent from "./NLSidebarContent";
+import SidebarContent from './SidebarContent';
+import MobileSidebarContent from './MobileSidebarContent';
+import NLSidebarButtons from './NLSidebarButtons';
+import AboutTheDataLink from 'components/sharedComponents/AboutTheDataLink';
+import NLSidebarContent from './NLSidebarContent';
 import { FILTERS } from './SidebarConstants';
-import useRequestNLSearch from "./useRequestNLSearch";
-import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from "./NLConstants";
-import { sanitizeNLInput } from "helpers/search/naturalLanguage/sanitizeNLInput";
+import useRequestNLSearch from './useRequestNLSearch';
+import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from './NLConstants';
+import { sanitizeNLInput } from 'helpers/search/naturalLanguage/sanitizeNLInput';
 import { setIsNLSearchComplete, setIsNLSearchError } from '../../../redux/actions/sidebar/sidebarActions';
-import useFetchDataFromHash from "./useFetchDataFromHash";
+import useFetchDataFromHash from './useFetchDataFromHash';
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
@@ -31,7 +31,6 @@ const propTypes = {
     setSidebarIsOpen: PropTypes.func
 };
 
-// eslint-disable-next-line prefer-arrow-callback
 const SidebarWrapper = React.memo(function SidebarWrapper({
     showMobileFilters,
     setShowMobileFilters,
@@ -44,7 +43,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
 
-    const [text, setText] = useState("");
+    const [text, setText] = useState('');
     const [hash, setHash] = useState();
 
     const dispatch = useDispatch();
@@ -52,7 +51,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { data, fetchNLSearch, cancelQuery, isFetching, fetchingError } = useRequestNLSearch(text);
+    const { data, fetchNLSearch, cancelQuery, isFetching, fetchingError, isSuccess } = useRequestNLSearch(text);
 
     const parsedData = useMemo(() => data?.split('\n')
         .filter((line) => line.trim() !== '')
@@ -74,7 +73,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     };
 
     const keyHandler = (e, func) => {
-        if (e.key === "Enter") {
+        if (e.key === 'Enter') {
             func(e);
         }
     };
@@ -86,7 +85,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     };
 
     const startNLSearch = () => {
-        if(text?.trim() && typeof fetchNLSearch === "function") {
+        if (text?.trim() && typeof fetchNLSearch === 'function') {
             wasCancelled.current = false;
             fetchNLSearch();
             dispatch(setIsNLSearchComplete(false));
@@ -103,7 +102,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             request.current.cancel();
             request.current = null;
         }
-        if (typeof cancelQuery === "function") {
+        if (typeof cancelQuery === 'function') {
             cancelQuery();
             dispatch(setIsNLSearchComplete(true));
         }
@@ -126,8 +125,6 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         if (filterResults && Object.keys(filterResults).length > 0 && hashSuccess) {
             dispatch(restoreHashedFilters(filterResults));
         }
-
-
     }, [filterResults, hashSuccess, hashError, fetchingError]);
 
     useEffect(() => {
@@ -200,7 +197,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     );
 
     const renderMobileSidebar = () => (
-        <div className={`collapsible-sidebar-header ${isMobileFilters ? "" : "is-nl"}`}>
+        <div className={`collapsible-sidebar-header ${isMobileFilters ? '' : 'is-nl'}`}>
             <div className="sidebar-title-row">
                 <h2 className="sidebar-title">
                     {isMobileFilters ? 'Filter' : 'Smart Assist'}
@@ -256,9 +253,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             {/* Eventually remove search-sidebar css */}
             <div
                 className={`search-collapsible-sidebar-container search-sidebar sticky ${
-                    sidebarIsOpen || showMobileFilters ? "opened" : ""
+                    sidebarIsOpen || showMobileFilters ? 'opened' : ''
                 } ${
-                    showMobileFilters ? "mobile" : ""}`}>
+                    showMobileFilters ? 'mobile' : ''}`}>
 
                 { isMedium ?
                     showMobileFilters && renderMobileSidebar() :

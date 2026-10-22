@@ -24,7 +24,7 @@ const sidebarReducer = (state = initialState, action) => {
             return { ...state, isNLSearchComplete: action.isNLSearchComplete };
         }
         case sidebarActions.SET_IS_NL_SEARCH_ERROR: {
-            return {...state, isNLSearchError: action.isNLSearchError};
+            return { ...state, isNLSearchError: action.isNLSearchError };
         }
         default: return state;
     }

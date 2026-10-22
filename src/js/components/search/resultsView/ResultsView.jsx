@@ -42,7 +42,7 @@ const ResultsView = React.memo(function ResultsView({
 
     let content = null;
 
-    if(isNLSearchError) {
+    if (isNLSearchError) {
         content = <ErrorMessage />;
     }
     else if ((isLoading && !noFiltersApplied) || (isSearchActive && !isSearchComplete)) {

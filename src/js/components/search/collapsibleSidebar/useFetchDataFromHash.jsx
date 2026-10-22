@@ -3,10 +3,10 @@
  * Created by Andrea Blackwell 09/23/26
  */
 
-import { useCallback } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useCallback } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
-import { restoreUrlHash, parseRemoteFilters } from "helpers/searchHelper";
+import { restoreUrlHash, parseRemoteFilters } from 'helpers/searchHelper';
 
 export const useFetchDataFromHash = (nlHash) => {
     const hash = nlHash;
@@ -29,7 +29,6 @@ export const useFetchDataFromHash = (nlHash) => {
     });
 
     return { filterResults: data, hashError: error, isLoadingFilters: isLoading, loadResultsView: refetch, hashSuccess: isSuccess };
-
 };
 
 export default useFetchDataFromHash;

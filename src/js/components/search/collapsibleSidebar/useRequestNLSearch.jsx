@@ -20,7 +20,7 @@ const useRequestNLSearch = (prompt) => {
         enabled: false,
         queryFn: streamedQuery({
             streamFn: async function* ({ signal }) {
-                const request = await fetch(LLM_API, { ...requestHeader, signal: AbortSignal.timeout(5000) });
+                const request = await fetch(LLM_API, { ...requestHeader, signal });
 
                 const reader = request.body.getReader();
                 const decoder = new TextDecoder();
