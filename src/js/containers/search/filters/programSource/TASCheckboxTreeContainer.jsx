@@ -45,7 +45,9 @@ const TASCheckboxTree = () => {
     const [isPreloading, setIsPreloading] = useState(false);
     const [isSearchPending, setIsSearchPending] = useState(false);
     const [preloadError, setPreloadError] = useState(null);
-    const [activeRequest, setActiveRequest] = useState({ id: '', searchStr: '', isSearch: false });
+    const [activeRequest, setActiveRequest] = useState(
+        () => (nodes.length ? null : { id: '', searchStr: '', isSearch: false })
+    );
 
     // state variables
     const expanded = useSelector((state) => state.tas.expanded.toJS());
