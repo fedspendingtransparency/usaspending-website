@@ -117,7 +117,7 @@ const AddInfoAccordion = ({
                         <div>
                             {data}
                         </div>
-                        {(key === 'Congressional District' && open && showCDTooltip) && (
+                        {(key === 'Congressional District' && showCDTooltip) && (
                             <div className="accordion-row__data-tooltip">
                                 <TooltipWrapper
                                     className="homepage__covid-19-tt"
