@@ -28,7 +28,6 @@ const AgencyLandingContent = ({
     columns,
     setAgencySearchString
 }) => {
-    /* eslint-disable max-len */
     const subtitle = (
         <>
             <p>Dive into federal agency spending with our Agency Profiles. Find details on agencies&#39; total obligations and outlays to understand how each agency spends its funding.</p>
@@ -39,7 +38,6 @@ const AgencyLandingContent = ({
             </p>
         </>
     );
-    /* eslint-enable max-len */
 
     return (
         <FlexGridRow className="content__row landing-page">

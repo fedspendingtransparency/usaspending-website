@@ -3,8 +3,8 @@
  * Created by Josue Aguilar 09/04/2026
  */
 
-import { useQuery } from "@tanstack/react-query";
-import { apiRequest } from "../../../helpers/apiRequest";
+import { useQuery } from '@tanstack/react-query';
+import { apiRequest } from '../../../helpers/apiRequest';
 
 // perform search is a cancellable promise
 const fetchAllCountries = () => apiRequest({
@@ -14,8 +14,7 @@ const fetchAllCountries = () => apiRequest({
 const useFetchAllCountries = () => {
     const query = useQuery({
         queryKey: ['fetchAllCountries'],
-        queryFn: () => fetchAllCountries().promise,
-        staleTime: Infinity
+        queryFn: () => fetchAllCountries().promise
     });
 
     const countries = query.data?.data?.results || [];
