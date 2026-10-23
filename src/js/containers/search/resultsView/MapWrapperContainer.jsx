@@ -666,6 +666,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
                 renderHash={renderHash}
                 data={data}
                 center={center}
+                loading={loading}
+                error={error}
                 noResults={data.values.length === 0}
                 mapLegendToggle={props.mapLegendToggle}
                 updateMapLegendToggle={props.updateMapLegendToggle}

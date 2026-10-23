@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { isCancel } from 'axios';
 
@@ -32,7 +32,9 @@ const useFetchSpendingByGeography = (
     // the in-flight request handle has to live outside render state so a newer
     // fetch can cancel a slower, older one before it resolves
     const apiRequestRef = useRef(null);
-    const noData = visibleEntities.length === 0;
+    // only true once a fetch was actually attempted and found nothing visible -
+    // the mutation itself has no notion of "we chose not to fetch"
+    const [noData, setNoData] = useState(false);
 
     const geographySearchMutation = useMutation({
         mutationFn: (apiParams) => {
@@ -58,7 +60,8 @@ const useFetchSpendingByGeography = (
 
     const fetchData = () => {
         // if no entities are visible, don't make an API request because nothing in the US is visible
-        if (noData) {
+        if (visibleEntities.length === 0) {
+            setNoData(true);
             return;
         }
 
