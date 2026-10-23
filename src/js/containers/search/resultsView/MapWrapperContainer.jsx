@@ -12,14 +12,13 @@ import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActio
 import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
-import { performSpendingByGeographySearch } from 'apis/search';
 
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
 import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
 import * as MoneyFormatter from "../../../helpers/moneyFormatter";
 import { useStateFIPSByAbbreviation, useStateNameByFipsId } from "../../../hooks/useStateData";
 import useFetchAllCountries from "./useFetchAllCountries";
+import useFetchSpendingByGeography, { apiScopes } from "./useFetchSpendingByGeography";
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -33,13 +32,6 @@ const propTypes = {
     wrapperProps: PropTypes.object,
     hash: PropTypes.string,
     spendingLevel: PropTypes.string
-};
-
-const apiScopes = {
-    country: 'country',
-    state: 'state',
-    county: 'county',
-    congressionalDistrict: 'district'
 };
 
 const logMapLayerEvent = (layer) => {
@@ -72,17 +64,13 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         {};
 
     const [mapLayer, setMapLayer] = useState('state');
-    const [rawAPIData, setRawAPIData] = useState([]);
     const [data, setData] = useState({
         values: [],
         locations: []
     });
     const [visibleEntities, setVisibleEntities] = useState([]);
     const [renderHash, setRenderHash] = useState(null);
-    const [loading, setLoading] = useState(true);
     const [loadingTiles, setLoadingTiles] = useState(true);
-    const [error, setError] = useState(false);
-    const [noData, setNoData] = useState(false);
     const [center, setCenter] = useState(USACenterPoint);
     const [singleLocationSelected, setSingleLocationSelected] = useState({});
     const [tableData, setTableData] = useState([]);
@@ -96,7 +84,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     });
 
     const [mapViewType, setMapViewType] = useState('chart');
-    const apiRequestRef = React.useRef(null);
     const mapListenersRef = React.useRef([]);
 
     const { countryAbbreviations: countries } = useFetchAllCountries();
@@ -105,7 +92,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const useEffectRef = React.useRef({
         visibleEntities: false,
         allEntities: false,
-        rawAPIData: false,
         loadingTiles: true
     });
 
@@ -116,7 +102,22 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         congressionalDistrict: congressionalDistricts
     };
 
-    const selectDataSet = () => completeDataSet[mapLayer];
+    const {
+        rawAPIData,
+        hasFetched,
+        loading,
+        error,
+        noData,
+        fetchData
+    } = useFetchSpendingByGeography(
+        props.scope,
+        mapLayer,
+        completeDataSet[mapLayer],
+        props.reduxFilters,
+        props.spendingLevel,
+        visibleEntities,
+        props.setAppliedFilterCompletion
+    );
 
     const calculateCenterPoint = (location) => {
         if (location) {
@@ -236,8 +237,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
         setData(valuesLocationsLabelsFromAPIData());
         setRenderHash(`geo-${uniqueId()}`);
-        setLoading(false);
-        setError(false);
     };
 
     const prepareFetch = (forced = false) => {
@@ -274,79 +273,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         }
 
         return false;
-    };
-
-    // TODO: replace getSpendingLevel with just spendingLevel once ready to release transactions
-    const getSpendingLevel = (spendingLevel) => {
-        if (spendingLevel === "subawards") {
-            return spendingLevel;
-        }
-        return "transactions";
-    };
-
-    const fetchData = () => {
-        // build a new search operation from the Redux state, but create a transaction-based search
-        // operation instead of an award-based one
-        const operation = new SearchAwardsOperation();
-        operation.fromState(props.reduxFilters);
-
-        // if no entities are visible, don't make an API request because nothing in the US is visible
-        if (visibleEntities.length === 0) {
-            setLoading(false);
-            setError(false);
-            setData({
-                values: [],
-                locations: []
-            });
-            setNoData(true);
-
-            return;
-        }
-
-        // if subawards is true, newAwardsOnly cannot be true, so we remove
-        // dateType for this request
-        if (props.spendingLevel === 'subawards' && operation.dateType) {
-            delete operation.dateType;
-        }
-
-        const searchParams = operation.toParams();
-
-        // generate the API parameters
-        const apiParams = {
-            scope: props.scope,
-            geo_layer: apiScopes[mapLayer],
-            geo_layer_filters: selectDataSet(),
-            filters: searchParams,
-            auditTrail: 'Map Visualization',
-            spending_level: getSpendingLevel(props.spendingLevel)
-        };
-
-        if (apiRequestRef.current) {
-            apiRequestRef.current.cancel();
-        }
-
-        setLoading(true);
-        setError(false);
-
-        props.setAppliedFilterCompletion(false);
-        apiRequestRef.current = performSpendingByGeographySearch(apiParams);
-        apiRequestRef.current.promise
-            .then((res) => {
-                apiRequestRef.current = null;
-                useEffectRef.current.rawAPIData = true;
-                setRawAPIData(res.data.results);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    apiRequestRef.current = null;
-
-                    setLoading(false);
-                    setError(true);
-
-                    props.setAppliedFilterCompletion(true);
-                }
-            });
     };
 
     const receivedEntities = (entities, forced) => {
@@ -667,12 +593,21 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     }, [visibleEntities]);
 
     useEffect(() => {
-        if (useEffectRef.current.rawAPIData) {
+        if (hasFetched) {
             setParsedData();
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [rawAPIData]);
+
+    useEffect(() => {
+        if (noData) {
+            setData({
+                values: [],
+                locations: []
+            });
+        }
+    }, [noData]);
 
     useEffect(() => {
         prepareFetch(true);
