@@ -14,6 +14,12 @@ import additionalDetailsIdv from 'dataMapping/award/additionalDetailsIdv';
 import AddInfoAccordion from './AddInfoAccordion';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 
+const splitCongressionalDistrict = (section) => {
+    const cd = section?.['Congressional District']?.data.pop().trim();
+    const split = cd?.split(': ');
+    return split?.length === 2 ? split[1] : section?.['Congressional District'];
+};
+
 const propTypes = {
     overview: PropTypes.object
 };
@@ -23,7 +29,7 @@ const AdditionalInfo = ({ overview }) => {
 
     const ref = useRef(null);
 
-    const onClick = () => {
+    const handleClick = () => {
         const accordionElements = ref.current.querySelectorAll('.accordion.expand-all-trigger');
 
         if (open) accordionElements.forEach((el) => el.removeAttribute('open'));
@@ -64,19 +70,15 @@ const AdditionalInfo = ({ overview }) => {
             category === 'insurance' ||
             category === 'other'
         ) {
-            const cdPOP = data.placeOfPerformance['Congressional District']?.data.pop().trim();
-            const splitCDPOP = cdPOP?.split(': ');
+            newData.placeOfPerformance = {
+                ...data.placeOfPerformance,
+                'Congressional District': splitCongressionalDistrict(data.placeOfPerformance)
+            };
 
-            if (splitCDPOP?.length === 2) {
-                newData.placeOfPerformance['Congressional District'] = splitCDPOP[1];
-            }
-
-            const cdRD = data.recipientDetails['Congressional District']?.data.pop().trim();
-            const splitCDRD = cdRD?.split(': ');
-
-            if (splitCDRD?.length === 2) {
-                newData.recipientDetails['Congressional District'] = splitCDRD[1];
-            }
+            newData.recipientDetails = {
+                ...data.recipientDetails,
+                'Congressional District': splitCongressionalDistrict(data.recipientDetails)
+            };
 
             columnOne = [
                 (<AddInfoAccordion
@@ -138,26 +140,22 @@ const AdditionalInfo = ({ overview }) => {
         let placeOfPerformance = null;
 
         if (data.placeOfPerformance) {
-            const cdPOP = data.placeOfPerformance['Congressional District']?.data.pop().trim();
-            const splitCDPOP = cdPOP?.split(': ');
-
-            if (splitCDPOP?.length === 2) {
-                newData.placeOfPerformance['Congressional District'] = splitCDPOP[1];
-            }
+            newData.placeOfPerformance = {
+                ...data.placeOfPerformance,
+                'Congressional District': splitCongressionalDistrict(data.placeOfPerformance)
+            };
         }
 
-        const cdRD = data.recipientDetails['Congressional District']?.data.pop().trim();
-
-        const splitCDRD = cdRD?.split(': ');
-
-        if (splitCDRD?.length === 2) {
-            newData.recipientDetails['Congressional District'] = splitCDRD[1];
-        }
+        newData.recipientDetails = {
+            ...data.recipientDetails,
+            'Congressional District': splitCongressionalDistrict(data.recipientDetails)
+        };
 
         let periodOfPerformance = (
             <IdvPeriodOfPerformance
-                key="IdvPeriodOfPerformance"
-                accordionData={newData.periodOfPerformance} />
+                onToggle={onToggle}
+                accordionData={newData.periodOfPerformance}
+                key="IdvPeriodOfPerformance" />
         );
 
         if (overview._category !== 'idv') {
@@ -257,7 +255,7 @@ const AdditionalInfo = ({ overview }) => {
                 </div>
                 <button
                     className="award-viz__button"
-                    onClick={onClick}>
+                    onClick={handleClick}>
                     {open ? 'Collapse All' : 'Expand All'}
                 </button>
                 <div className="award__row" ref={ref}>
