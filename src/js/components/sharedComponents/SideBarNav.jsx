@@ -5,7 +5,7 @@
 
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import { throttle } from "lodash-es";
+import { throttle } from 'lodash-es';
 import { largeScreen, mediumScreen, xLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { checkIsOverflow } from 'helpers/inPageNavHelper';
 import { FlexGridCol } from 'data-transparency-ui';
@@ -18,11 +18,13 @@ const propTypes = {
     pageName: PropTypes.string,
     rootMargin: PropTypes.string,
     threshold: PropTypes.array,
-    loading: PropTypes.bool
+    loading: PropTypes.bool,
+    accordionIds: PropTypes.array,
+    toggle: PropTypes.func
 };
 
 const SideBarNav = ({
-    sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold, loading, ...props
+    sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold, loading, accordionIds, toggle, ...props
 }) => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [activeSection, setActiveSection] = useState(props.activeSection);
@@ -33,6 +35,11 @@ const SideBarNav = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth <= mediumScreen);
     const navBar = useRef(null);
     const [sectionPositions, setSectionPositions] = useState([]);
+    const navSections = sections.map((sect) => sect.section);
+    console.log({ navSections, accordionIds });
+    const navAccordionLookup = Object.fromEntries(
+        navSections.map((section) => [section, accordionIds.filter((id) => section.includes(id.split('-')[0]))]));
+    console.log({ navAccordionLookup });
 
     // const mobileOptions = (options) => {
     //     const formattedData = options.map(({ section: name, label: value }) => ({
@@ -41,9 +48,19 @@ const SideBarNav = ({
     //     }));
     // };
 
+    const manualJumpRef = useRef(false);
+    const manualJumpTimeoutRef = useRef(null);
+
     const sideBarClick = (option) => {
         jumpToSection(option);
         setActiveSection(option);
+        toggle?.(navAccordionLookup[option]);
+
+        manualJumpRef.current = true;
+        clearTimeout(manualJumpTimeoutRef.current);
+        manualJumpTimeoutRef.current = setTimeout(() => {
+            manualJumpRef.current = false;
+        }, 600);
     };
 
     const visibleSections = new Set();
@@ -58,6 +75,8 @@ const SideBarNav = ({
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const callbackFunction = useCallback((entries) => {
+        if (manualJumpRef.current) return;
+
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 visibleSections.add(entry.target);
