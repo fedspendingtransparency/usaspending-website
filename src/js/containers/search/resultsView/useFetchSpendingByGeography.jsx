@@ -1,3 +1,8 @@
+/**
+ * useFetchSpendingByGeography.jsx
+ * Created by JD House 10/21/2026
+ */
+
 import { useRef, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { isCancel } from 'axios';
