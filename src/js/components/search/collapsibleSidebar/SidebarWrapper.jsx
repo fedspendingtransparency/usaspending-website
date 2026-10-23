@@ -5,25 +5,23 @@
 
 import React, { useEffect, useState, useRef, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { isCancel } from 'axios';
-import PropTypes from "prop-types";
-import useIsMobile from "hooks/useIsMobile";
+import PropTypes from 'prop-types';
+import useIsMobile from 'hooks/useIsMobile';
 import { restoreHashedFilters } from 'redux/actions/search/searchHashActions';
-import { restoreUrlHash, parseRemoteFilters } from "helpers/searchHelper";
 
-import SidebarContent from "./SidebarContent";
-import MobileSidebarContent from "./MobileSidebarContent";
-import NLSidebarButtons from "./NLSidebarButtons";
-import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
-import NLSidebarContent from "./NLSidebarContent";
+import SidebarContent from './SidebarContent';
+import MobileSidebarContent from './MobileSidebarContent';
+import NLSidebarButtons from './NLSidebarButtons';
+import AboutTheDataLink from 'components/sharedComponents/AboutTheDataLink';
+import NLSidebarContent from './NLSidebarContent';
 import { FILTERS } from './SidebarConstants';
-import useRequestNLSearch from "./useRequestNLSearch";
-import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from "./NLConstants";
-import { sanitizeNLInput } from "helpers/search/naturalLanguage/sanitizeNLInput";
-import { setIsNLSearchComplete } from '../../../redux/actions/sidebar/sidebarActions';
+import useRequestNLSearch from './useRequestNLSearch';
+import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from './NLConstants';
+import { sanitizeNLInput } from 'helpers/search/naturalLanguage/sanitizeNLInput';
+import { setIsNLSearchComplete, setIsNLSearchError } from '../../../redux/actions/sidebar/sidebarActions';
+import useFetchDataFromHash from './useFetchDataFromHash';
 
 const propTypes = {
     showMobileFilters: PropTypes.bool,
@@ -33,7 +31,6 @@ const propTypes = {
     setSidebarIsOpen: PropTypes.func
 };
 
-// eslint-disable-next-line prefer-arrow-callback
 const SidebarWrapper = React.memo(function SidebarWrapper({
     showMobileFilters,
     setShowMobileFilters,
@@ -45,15 +42,16 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const sidebarContent = useSelector((state) => state.sidebar.sidebarContent);
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
     const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
-    const [text, setText] = useState("");
+
+    const [text, setText] = useState('');
+    const [hash, setHash] = useState();
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { data, refetch, cancelQuery, isFetching, isSuccess } = useRequestNLSearch(text);
+    const { data, fetchNLSearch, cancelQuery, isFetching, fetchingError, isSuccess } = useRequestNLSearch(text);
 
     const parsedData = useMemo(() => data?.split('\n')
         .filter((line) => line.trim() !== '')
@@ -75,7 +73,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     };
 
     const keyHandler = (e, func) => {
-        if (e.key === "Enter") {
+        if (e.key === 'Enter') {
             func(e);
         }
     };
@@ -87,9 +85,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     };
 
     const startNLSearch = () => {
-        if (text?.trim() && typeof refetch === "function") {
+        if (text?.trim() && typeof fetchNLSearch === 'function') {
             wasCancelled.current = false;
-            refetch();
+            fetchNLSearch();
+            dispatch(setIsNLSearchComplete(false));
+            dispatch(setIsNLSearchError(false));
         }
     };
 
@@ -102,10 +102,36 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             request.current.cancel();
             request.current = null;
         }
-        if (typeof cancelQuery === "function") {
+        if (typeof cancelQuery === 'function') {
             cancelQuery();
+            dispatch(setIsNLSearchComplete(true));
         }
     };
+
+    const { filterResults, hashError, loadResultsView, hashSuccess } = useFetchDataFromHash(hash);
+
+    useEffect(() => {
+        if (fetchingError) {
+            dispatch(setIsNLSearchError(true));
+            handleCancelQuery();
+        }
+
+        if (hashError) {
+            dispatch(setIsNLSearchError(true));
+            dispatch(setIsNLSearchComplete(true));
+        }
+
+        // check if the results is a filter object if not, show the hash error page
+        if (filterResults && Object.keys(filterResults).length > 0 && hashSuccess) {
+            dispatch(restoreHashedFilters(filterResults));
+        }
+    }, [filterResults, hashSuccess, hashError, fetchingError]);
+
+    useEffect(() => {
+        if (hash) {
+            loadResultsView();
+        }
+    }, [hash]);
 
     useEffect(() => {
         if (wasCancelled.current) {
@@ -120,43 +146,12 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             });
 
             if (done?.result) {
-                const nlHash = done.result;
-                if (request.current) {
-                    request.current.cancel();
-                }
-
-                request.current = restoreUrlHash({
-                    hash: nlHash
-                });
-
-                request.current.promise
-                    .then((res) => {
-                        const filtersInImmutableStructure = parseRemoteFilters(res.data.filter);
-
-                        if (filtersInImmutableStructure) {
-                            // apply the filters to both the staged and applied stores
-                            dispatch(restoreHashedFilters(filtersInImmutableStructure));
-                        }
-                        else {
-                            console.error('Error fetching filters from hash');
-                            // TODO: corrupt hash redirect to error page.
-                            // No such page as /hash-error, need to update
-                            navigate("/hash-error", { replace: true });
-                        }
-                        request.current = null;
-                    })
-                    .catch((err) => {
-                        if (!isCancel(err)) {
-                            console.error('Error fetching filters from hash: ', err);
-                            // remove hash since corresponding filter selections aren't retrievable.
-                            request.current = null;
-                        }
-                    });
+                setHash(done.result);
             }
             dispatch(setIsNLSearchComplete(!isFetching));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isSuccess, isFetching]);
+    }, [parsedData, isFetching]);
 
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">
@@ -202,7 +197,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     );
 
     const renderMobileSidebar = () => (
-        <div className={`collapsible-sidebar-header ${isMobileFilters ? "" : "is-nl"}`}>
+        <div className={`collapsible-sidebar-header ${isMobileFilters ? '' : 'is-nl'}`}>
             <div className="sidebar-title-row">
                 <h2 className="sidebar-title">
                     {isMobileFilters ? 'Filter' : 'Smart Assist'}
@@ -258,9 +253,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             {/* Eventually remove search-sidebar css */}
             <div
                 className={`search-collapsible-sidebar-container search-sidebar sticky ${
-                    sidebarIsOpen || showMobileFilters ? "opened" : ""
+                    sidebarIsOpen || showMobileFilters ? 'opened' : ''
                 } ${
-                    showMobileFilters ? "mobile" : ""}`}>
+                    showMobileFilters ? 'mobile' : ''}`}>
 
                 { isMedium ?
                     showMobileFilters && renderMobileSidebar() :
