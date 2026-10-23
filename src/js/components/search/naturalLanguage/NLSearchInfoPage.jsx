@@ -3,7 +3,7 @@
  * Created by Trey Morgan 09/24/2026
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import PageWrapper from '../../sharedComponents/PageWrapper';
 import SideBarNav from '../../sharedComponents/SideBarNav';
 import BannerPageHeader from '../../sharedComponents/header/BannerPageHeader';
@@ -19,6 +19,8 @@ import useQueryParams from '../../../hooks/useQueryParams';
 import { FlexGridCol, Button } from 'data-transparency-ui';
 import ShareDownloadButtonGroup from '../../sharedComponents/buttons/ShareDownloadButtonGroup';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Index } from 'flexsearch';
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Keyboard, A11y, FreeMode } from 'swiper/modules';
@@ -58,15 +60,39 @@ const infoSections = [
 
 const { overview, search, results, limitations, feedback } = smartAssistContent ?? {};
 
+const extractTextFromNode = (node) => {
+    if (node === null || node === undefined || typeof node === 'boolean') return '';
+    if (typeof node === 'string' || typeof node === 'number') return `${node}`;
+    if (Array.isArray(node)) return node.map(extractTextFromNode).join(' ');
+    if (node.props?.children) return extractTextFromNode(node.props.children);
+    return '';
+};
+
 const NLSearchInfoPage = () => {
     const jumpToSection = useJumpToSection('#nlinfo-', infoSections, false, stickyHeaderHeight);
     const query = useQueryParams();
     const [activeSection] = useState(query.section || 'overview');
     const [toggleAllAccordions, setToggleAllAccordions] = useState({ trigger: 0, expand: false });
     const [openAccordions, setOpenAccordions] = useState({});
-
+    const [text, setText] = useState('');
+    const [highlightTerm, setHighlightTerm] = useState('');
     const accordionIds = Object.keys(openAccordions);
     const allExpanded = accordionIds.length > 0 && accordionIds.every((accordionId) => openAccordions[accordionId]);
+
+    const { searchIndex, searchDocsById } = useMemo(() => {
+        const index = new Index({ tokenize: 'forward' });
+        const docsById = {};
+
+        Object.entries(smartAssistContent ?? {}).forEach(([sectionKey, section]) => {
+            section.items.forEach((item, itemIndex) => {
+                const accordionId = `${sectionKey}-${itemIndex}`;
+                index.add(accordionId, `${item.title} ${extractTextFromNode(item.content)}`);
+                docsById[accordionId] = { accordionId };
+            });
+        });
+
+        return { searchIndex: index, searchDocsById: docsById };
+    }, []);
 
     const handleAccordionToggle = useCallback((id, isOpen) => {
         setOpenAccordions((prev) => (prev[id] === isOpen ? prev : { ...prev, [id]: isOpen }));
@@ -74,6 +100,40 @@ const NLSearchInfoPage = () => {
 
     const handleToggleAll = () => {
         setToggleAllAccordions((prev) => ({ trigger: prev.trigger + 1, expand: !allExpanded }));
+    };
+
+    const handleChange = (e) => {
+        setText(e.target.value);
+    };
+
+    const handleClear = () => {
+        setText('');
+        setHighlightTerm('');
+        setToggleAllAccordions((prev) => (prev.targetIds ?
+            { trigger: prev.trigger + 1, expand: true, targetIds: prev.targetIds } :
+            prev));
+    };
+
+    const handleKey = (e) => {
+        if (e.key !== 'Enter') return;
+
+        const searchQuery = text.trim();
+        if (!searchQuery) return;
+
+        const matchIds = searchIndex.search(searchQuery, { limit: 1000 });
+        const matches = matchIds.map((matchId) => searchDocsById[matchId]).filter(Boolean);
+        if (!matches.length) return;
+
+        setHighlightTerm(searchQuery);
+        setToggleAllAccordions((prev) => ({
+            trigger: prev.trigger + 1,
+            expand: true,
+            targetIds: matches.map((match) => match.accordionId)
+        }));
+
+        requestAnimationFrame(() => {
+            document.getElementById(matches[0].accordionId)?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
     };
 
     return (
@@ -134,9 +194,23 @@ const NLSearchInfoPage = () => {
                             <div className="search-info-page__input">
                                 <div className="search-icon"><FontAwesomeIcon icon="search" /></div>
                                 <input
-                                    className="geo-entity-dropdown__input"
+                                    className="search-info-page__textbox"
+                                    name="search-info-page__textbox"
                                     type="text"
-                                    placeholder="Search USAspending Smart Assist" />
+                                    placeholder="Search USAspending Smart Assist"
+                                    value={text}
+                                    onChange={handleChange}
+                                    onKeyUp={handleKey} />
+                                {text.length > 0 && (
+                                    <button
+                                        className="clear-button"
+                                        id="nl-clear-button"
+                                        aria-label="Clear Input"
+                                        title="Clear Input"
+                                        onClick={handleClear}>
+                                        <Icons.Close alt="Clear search input" />
+                                    </button>
+                                )}
                             </div>
                             <Button
                                 copy={allExpanded ? 'Collapse all' : 'Expand all'}
@@ -160,31 +234,36 @@ const NLSearchInfoPage = () => {
                             section={overview}
                             sectionKey="overview"
                             toggleAll={toggleAllAccordions}
-                            onToggle={handleAccordionToggle} />
+                            onToggle={handleAccordionToggle}
+                            highlightTerm={highlightTerm} />
                         <NLSearchInfoSection
                             anchor="nlinfo-searching-with-smart-assist"
                             section={search}
                             sectionKey="search"
                             toggleAll={toggleAllAccordions}
-                            onToggle={handleAccordionToggle} />
+                            onToggle={handleAccordionToggle}
+                            highlightTerm={highlightTerm} />
                         <NLSearchInfoSection
                             anchor="nlinfo-understanding-results"
                             section={results}
                             sectionKey="results"
                             toggleAll={toggleAllAccordions}
-                            onToggle={handleAccordionToggle} />
+                            onToggle={handleAccordionToggle}
+                            highlightTerm={highlightTerm} />
                         <NLSearchInfoSection
                             anchor="nlinfo-limitations"
                             section={limitations}
                             sectionKey="limitations"
                             toggleAll={toggleAllAccordions}
-                            onToggle={handleAccordionToggle} />
+                            onToggle={handleAccordionToggle}
+                            highlightTerm={highlightTerm} />
                         <NLSearchInfoSection
                             anchor="nlinfo-feedback-and-support"
                             section={feedback}
                             sectionKey="feedback"
                             toggleAll={toggleAllAccordions}
-                            onToggle={handleAccordionToggle} />
+                            onToggle={handleAccordionToggle}
+                            highlightTerm={highlightTerm} />
                     </FlexGridCol>
                 </section>
                 <NLSearchInfoResources />

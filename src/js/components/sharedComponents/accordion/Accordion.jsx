@@ -23,7 +23,8 @@ const propTypes = {
     containerClassName: PropTypes.string,
     toggleAll: PropTypes.shape({
         trigger: PropTypes.number,
-        expand: PropTypes.bool
+        expand: PropTypes.bool,
+        targetIds: PropTypes.arrayOf(PropTypes.string)
     }),
     accordionId: PropTypes.string,
     onToggle: PropTypes.func
@@ -53,7 +54,12 @@ const Accordion = ({
     if (toggleAll.trigger !== prevToggleAllTrigger) {
         setPrevToggleAllTrigger(toggleAll.trigger);
         if (toggleAll.trigger > 0) {
-            setClosed(!toggleAll.expand);
+            if (toggleAll.targetIds) {
+                if (toggleAll.targetIds.includes(accordionId)) setClosed(!toggleAll.expand);
+            }
+            else {
+                setClosed(!toggleAll.expand);
+            }
         }
     }
 
@@ -90,13 +96,15 @@ const Accordion = ({
         (<></>));
 
     return (
-        <div className={`accordion-container ${containerClassName}`}>
+        <div id={accordionId || undefined} className={`accordion-container ${containerClassName}`}>
             <section
                 data-testid="accordion"
                 className={sectionClassName}>
-                {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/no-static-element-interactions */}
+                {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions */}
                 <div onClick={toggleOpen} onKeyDown={keyClickToggle} className={`heading ${headingClassName}`}>
-                    {title}
+                    <div>
+                        {title}
+                    </div>
                     <div className={`heading--chip-container ${faClassName}`}>
                         {selectedChip(selectedChipCount)}
                         <button

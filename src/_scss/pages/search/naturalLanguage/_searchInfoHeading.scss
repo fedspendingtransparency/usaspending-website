@@ -147,7 +147,7 @@
       height: rem(40);
       margin: 0;
       padding: rem(7) rem(8) rem(7) rem(32);
-      font-size: $smallest-font-size;
+      font-size: $font-size-14;
       line-height: 1.5;
       color: $gray-60;
       border: solid rem(1) $gray-10;
@@ -181,6 +181,25 @@
       top: rem(2);
       padding: rem(2);
     }
+    .clear-button {
+        @include button-unstyled;
+        position: absolute;
+        right: rem(8);
+        width: rem(16);
+        height: rem(16);
+        svg {
+          width: rem(16);
+          height: rem(16);
+          fill: black;
+        }
+
+        &:hover,
+        &:active {
+          svg {
+            fill: black;
+          }
+        }
+      }    
   }
   }
 }

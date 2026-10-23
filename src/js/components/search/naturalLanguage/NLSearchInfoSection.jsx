@@ -10,18 +10,50 @@ import Accordion from '../../sharedComponents/accordion/Accordion';
 
 require("pages/search/naturalLanguage/searchInfoPage.scss");
 
+const escapeRegExp = (value) => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+
+const highlightText = (text, term, keyPrefix) => {
+    const regex = new RegExp(`(${escapeRegExp(term)})`, 'gi');
+    const parts = text.split(regex);
+    if (parts.length === 1) return text;
+
+    return parts.map((part, i) => (
+        i % 2 === 1 ?
+            // eslint-disable-next-line react/no-array-index-key
+            <mark key={`${keyPrefix}-${i}`} className="search-info-page__search-highlight">{part}</mark> :
+            part
+    ));
+};
+
+const highlightNode = (node, term, keyPrefix = 'highlight') => {
+    if (!term) return node;
+    if (node === null || node === undefined || typeof node === 'boolean' || typeof node === 'number') return node;
+    if (typeof node === 'string') return highlightText(node, term, keyPrefix);
+    if (Array.isArray(node)) return node.map((child, i) => highlightNode(child, term, `${keyPrefix}-${i}`));
+    if (node.props?.children !== undefined) {
+        return React.cloneElement(
+            node,
+            { key: node.key ?? keyPrefix },
+            highlightNode(node.props.children, term, keyPrefix)
+        );
+    }
+    return node;
+};
+
 const propTypes = {
     anchor: PropTypes.string,
     section: PropTypes.object,
     toggleAll: PropTypes.shape({
         trigger: PropTypes.number,
-        expand: PropTypes.bool
+        expand: PropTypes.bool,
+        targetIds: PropTypes.arrayOf(PropTypes.string)
     }),
     sectionKey: PropTypes.string,
-    onToggle: PropTypes.func
+    onToggle: PropTypes.func,
+    highlightTerm: PropTypes.string
 };
 
-const NLSearchInfoSection = ({ anchor, section, toggleAll, sectionKey, onToggle }) => {
+const NLSearchInfoSection = ({ anchor, section, toggleAll, sectionKey, onToggle, highlightTerm = '' }) => {
     return (
         <div className="search-info-page-section" key={anchor} id={anchor}>
             <div className="search-info-page__heading-section">
@@ -52,10 +84,10 @@ const NLSearchInfoSection = ({ anchor, section, toggleAll, sectionKey, onToggle 
                             // eslint-disable-next-line react/no-array-index-key
                             key={`item-${i}`}
                             accordionId={`${sectionKey}-${i}`}
-                            title={item.title}
+                            title={highlightNode(item.title, highlightTerm, `${sectionKey}-${i}-title`)}
                             toggleAll={toggleAll}
                             onToggle={onToggle}>
-                            {item.content}
+                            {highlightNode(item.content, highlightTerm, `${sectionKey}-${i}-content`)}
                         </Accordion>
                     ))}
                 </FlexGridCol>

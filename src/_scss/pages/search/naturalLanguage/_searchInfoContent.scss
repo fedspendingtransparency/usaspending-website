@@ -61,6 +61,12 @@
     margin-top: 0;
     margin-bottom: rem(10);
   }
+
+  .search-info-page__search-highlight {
+    background-color: $yellow-20v;
+    margin: 0;
+    padding: 0;
+  }
 }
 
  @media screen and (max-width: $medium-screen) {
