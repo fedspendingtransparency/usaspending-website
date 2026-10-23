@@ -89,6 +89,10 @@
   .accordion {
     margin-bottom: rem(20);
 
+    .heading span svg {
+      margin-right: 8px;
+    }
+
     .content.no-padding {
       padding: 0;
     }
