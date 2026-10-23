@@ -156,12 +156,10 @@ const AboutSection = () => {
                     <h3 className="interactiveDataHeader__topTitle">
                         History of the DATA Act
                     </h3>
-                    {aboutDetails.map((item, i) => (
+                    {aboutDetails.map((item) => (
                         <Accordion
                             data-testid="accordion"
-                            aria-label="Toggle Expansion"
-                            aria-expanded="false"
-                            key={`item_${i}`}
+                            key={`item_${item.title}`}
                             title={item.title}>
                             {item.details}
                         </Accordion>
