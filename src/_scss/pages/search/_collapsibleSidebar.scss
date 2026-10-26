@@ -520,16 +520,29 @@
       }
 
       .accordion-container {
-        &.open {
-          padding: 0;
-        }
-
         .accordion {
+          margin: 0;
+
+          &[open] {
+            margin-bottom: $global-margin * 2;
+          }
+
           .heading {
             padding: $global-padding ($global-padding / 2);
             border: none;
             font-size: $smallest-font-size;
             line-height: 1.5;
+            align-items: center;
+            color: #1b1b1b;
+            cursor: pointer;
+            display: flex;
+            flex-wrap: nowrap;
+            font-weight: 600;
+            justify-content: space-between;
+            margin: 0;
+            text-align: left;
+            height: unset;
+            background-color: transparent;
 
             button {
               padding: 0;
