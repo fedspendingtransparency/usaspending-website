@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/05/2024
  **/
 
-import React, { useEffect, useState, useRef, useMemo } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -51,12 +51,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { data, fetchNLSearch, cancelQuery, isFetching, fetchingError, isSuccess } = useRequestNLSearch(text);
-
-    const parsedData = useMemo(() => data?.split('\n')
-        .filter((line) => line.trim() !== '')
-        .map((line) => JSON.parse(line)),
-    [data]);
+    const { parsedData, fetchNLSearch, cancelQuery, isFetching, fetchingError, isSuccess } = useRequestNLSearch(text);
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -113,7 +108,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     useEffect(() => {
         if (fetchingError) {
             dispatch(setIsNLSearchError(true));
-            handleCancelQuery();
+            dispatch(setIsNLSearchComplete(true));
         }
 
         if (hashError) {
@@ -151,7 +146,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             dispatch(setIsNLSearchComplete(!isFetching));
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [parsedData, isFetching]);
+    }, [parsedData, isSuccess]);
 
     const renderDesktopSidebar = () => (
         <div className="collapsible-sidebar-header">

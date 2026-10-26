@@ -1,5 +1,6 @@
 import { useQuery, experimental_streamedQuery as streamedQuery, useQueryClient } from '@tanstack/react-query';
 import GlobalConstants from 'GlobalConstants';
+import { RESPONSE_TYPE } from './NLConstants';
 
 const headers = {
     'Content-Type': 'application/json',
@@ -8,6 +9,11 @@ const headers = {
 
 const LLM_API = GlobalConstants?.LLM_API + 'v2/llm/filter-search/';
 
+const selectParsedLines = (acc) => acc
+    .split('\n')
+    .filter((line) => line.trim())
+    .map((line) => JSON.parse(line));
+
 const useRequestNLSearch = (prompt) => {
     const requestHeader = {
         method: 'POST',
@@ -15,29 +21,42 @@ const useRequestNLSearch = (prompt) => {
         body: JSON.stringify({ query: prompt?.trim() })
     };
 
-    const { data, refetch, isFetching, isError, error, isSuccess } = useQuery({
+    const { data, refetch, isFetching, isError, isSuccess } = useQuery({
         queryKey: ['nl-search-stream'],
         enabled: false,
+        retry: false,
         queryFn: streamedQuery({
             streamFn: async function* ({ signal }) {
                 const request = await fetch(LLM_API, { ...requestHeader, signal });
 
                 const reader = request.body.getReader();
                 const decoder = new TextDecoder();
+                let buffer = '';
 
                 while (true) {
                     if (signal.aborted) break;
-
                     const { value, done } = await reader.read();
-
                     if (done) break;
 
-                    yield decoder.decode(value);
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop();
+
+                    for (const line of lines) {
+                        if (!line.trim()) continue;
+                        const parsed = JSON.parse(line);
+                        if (parsed.type === RESPONSE_TYPE.SEARCH_ERROR) {
+                            yield `${line}\n`;
+                            throw new Error(parsed.message ?? 'Search failed');
+                        }
+                        yield `${line}\n`;
+                    }
                 }
             },
             reducer: (acc, chunk) => acc + chunk,
             initialValue: ''
-        })
+        }),
+        select: selectParsedLines
     });
 
     // allow cancel api request
@@ -48,7 +67,7 @@ const useRequestNLSearch = (prompt) => {
             .then(() => queryClient.setQueryData(['nl-search-stream'], ''));
     };
 
-    return { data, fetchNLSearch: refetch, cancelQuery, isFetching, fetchingError: isError, fetchingErrorMessage: error, isSuccess };
+    return { parsedData: data, fetchNLSearch: refetch, cancelQuery, isFetching, fetchingError: isError, isSuccess };
 };
 
 export default useRequestNLSearch;
