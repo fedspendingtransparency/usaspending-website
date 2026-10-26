@@ -9,7 +9,7 @@ backgroundColor: background of collapsed box
 setOpen: pass setOpen to get the controlled/button variant; omit it for the native <details> disclosure
 */
 const propTypes = {
-    title: PropTypes.any.isRequired,
+    title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
     children: PropTypes.element || PropTypes.string,
     open: PropTypes.bool,
     iconClassName: PropTypes.string,
@@ -18,6 +18,7 @@ const propTypes = {
     openIcon: PropTypes.string,
     setOpen: PropTypes.func,
     onToggle: PropTypes.func,
+    defaultOpen: PropTypes.bool,
     openObject: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     selectedChipCount: PropTypes.number,
     headingClassName: PropTypes.string,
@@ -34,6 +35,7 @@ const Accordion = ({
     iconClassName,
     setOpen,
     onToggle = () => {},
+    defaultOpen,
     contentClassName = '',
     openObject = false,
     selectedChipCount = 0,
@@ -44,12 +46,22 @@ const Accordion = ({
 }) => {
     const sectionClassName = open ? `open accordion--open accordion` : `accordion`;
 
+    const selectedChip = (count) => ((count > 0) ?
+        (<div className="selected-chip-count">{` ${count} selected`}</div>) :
+        (<></>)
+    );
+
     if (typeof setOpen !== 'function') return (
         <div className="accordion-container">
-            <details data-testid="accordion" className={`accordion ${containerClassName}`} onToggle={onToggle}>
+            <details
+                data-testid="accordion"
+                className={`accordion ${containerClassName}`}
+                onToggle={onToggle}
+                open={defaultOpen || undefined}>
                 <summary className={`heading ${headingClassName}`}>
                     {title}
                     <div className="heading--chip-container">
+                        {selectedChip(selectedChipCount)}
                         <FontAwesomeIcon
                             icon={closedIcon}
                             className={iconClassName || `plus ${faClassName}`}
@@ -82,15 +94,6 @@ const Accordion = ({
             e.stopPropagation();
         }
     };
-
-    const selectedChip = (count) => ((count > 0) ?
-        (
-            <div className="selected-chip-count">
-                {` ${count} selected`}
-            </div>
-        ) :
-        (<></>)
-    );
 
     return (
         <div className={`accordion-container ${containerClassName}`}>
