@@ -1,0 +1,6 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src/js"
+    },
+    "exclude": ["node_modules", "public"]
+}
