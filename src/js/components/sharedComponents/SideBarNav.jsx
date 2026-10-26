@@ -46,7 +46,11 @@ const SideBarNav = ({
     //     }));
     // };
 
+    // Suppresses the IntersectionObserver while a manual (click-triggered) scroll is in flight,
+    // so sections passing through the viewport mid-scroll don't fight the clicked target.
     const manualJumpRef = useRef(false);
+    // Holds the pending timeout that re-enables the observer; stored in a ref so a new click
+    // can clear/reset it instead of letting a stale timeout re-enable the observer too early.
     const manualJumpTimeoutRef = useRef(null);
 
     const sideBarClick = (option) => {
