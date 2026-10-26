@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 title: shows in the top box, collapsed or open
 color: theme color for border, collapsed background, and highlighted text within
 backgroundColor: background of collapsed box
+setOpen: pass setOpen to get the controlled/button variant; omit it for the native <details> disclosure
 */
 const propTypes = {
     title: PropTypes.any.isRequired,
@@ -17,7 +18,7 @@ const propTypes = {
     openIcon: PropTypes.string,
     setOpen: PropTypes.func,
     onToggle: PropTypes.func,
-    openObject: PropTypes.bool,
+    openObject: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     selectedChipCount: PropTypes.number,
     headingClassName: PropTypes.string,
     faClassName: PropTypes.string,
@@ -31,7 +32,7 @@ const Accordion = ({
     closedIcon = 'plus',
     openIcon = 'minus',
     iconClassName,
-    setOpen = () => {},
+    setOpen,
     onToggle = () => {},
     contentClassName = '',
     openObject = false,
@@ -43,7 +44,7 @@ const Accordion = ({
 }) => {
     const sectionClassName = open ? `open accordion--open accordion` : `accordion`;
 
-    if (!openObject) return (
+    if (typeof setOpen !== 'function') return (
         <div className="accordion-container">
             <details data-testid="accordion" className={`accordion ${containerClassName}`} onToggle={onToggle}>
                 <summary className={`heading ${headingClassName}`}>
