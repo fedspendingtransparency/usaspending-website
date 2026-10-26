@@ -33,10 +33,12 @@ const SideBarNav = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth <= mediumScreen);
     const navBar = useRef(null);
     const [sectionPositions, setSectionPositions] = useState([]);
+    const [dropSelection, setDropSelection] = useState('On this Page');
 
     const sideBarClick = (option) => {
-        jumpToSection(option);
-        setActiveSection(option);
+        jumpToSection(option.section);
+        setActiveSection(option.section);
+        setDropSelection(option.label);
     };
 
     const visibleSections = new Set();
@@ -168,17 +170,17 @@ const SideBarNav = ({
             {!!isMobile && (
                 <NewPicker
                     size="md"
-                    label="On this Page:"
                     leftIcon=""
                     classname="advanced-search-dropdown__wrapper"
                     buttonClassname="nl-info-search-dropdown__button"
-                    selectedOption={sections?.find((section) => section.value === activeSection)}
+                    selectedOption={dropSelection}
+                    sortFn={() => {}}
                     enabled
                     options={
                         sections?.map((section) => ({
                             name: section.label,
                             value: section.section,
-                            onClick: () => sideBarClick(section.section)
+                            onClick: () => sideBarClick(section)
                         }))
                     } />
             )}
@@ -204,8 +206,8 @@ const SideBarNav = ({
                                             tabIndex="0"
                                             id={`in-page-nav-link-${section.label}`}
                                             key={`in-page-nav-link-${section.label}`}
-                                            onKeyDown={(e) => (e.key === "Enter" ? sideBarClick(section.section) : "")}
-                                            onClick={() => sideBarClick(section.section)}>
+                                            onKeyDown={(e) => (e.key === "Enter" ? sideBarClick(section) : "")}
+                                            onClick={() => sideBarClick(section)}>
                                             {section.label}
                                         </button>
                                     </li>
