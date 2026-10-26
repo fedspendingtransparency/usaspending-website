@@ -130,10 +130,16 @@
   margin-left: rem(23);
 }
 .nl-info-search-dropdown__button {
-  margin-left: rem(16) !important;
+  margin-right: rem(80) !important;
+  border-radius: rem(4) !important;
   border: 1px solid !important;
-  border-color: $gray-10;
+  border-color: $color-gray-lighter !important;
   .filter__dropdown-button-text {
     color: #1B1B1B !important;
+  }
+}
+.usa-smart-assist-page {
+  .filter__dropdown-container {
+    margin-left: rem(30);
   }
 }
