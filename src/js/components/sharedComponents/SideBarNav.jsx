@@ -36,10 +36,8 @@ const SideBarNav = ({
     const navBar = useRef(null);
     const [sectionPositions, setSectionPositions] = useState([]);
     const navSections = sections.map((sect) => sect.section);
-    console.log({ navSections, accordionIds });
     const navAccordionLookup = Object.fromEntries(
         navSections.map((section) => [section, accordionIds.filter((id) => section.includes(id.split('-')[0]))]));
-    console.log({ navAccordionLookup });
 
     // const mobileOptions = (options) => {
     //     const formattedData = options.map(({ section: name, label: value }) => ({
