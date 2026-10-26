@@ -108,18 +108,18 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     useEffect(() => {
         if (fetchingError) {
             dispatch(setIsNLSearchError(true));
-            dispatch(setIsNLSearchComplete(true));
         }
 
         if (hashError) {
             dispatch(setIsNLSearchError(true));
-            dispatch(setIsNLSearchComplete(true));
         }
 
         // check if the results is a filter object if not, show the hash error page
         if (filterResults && Object.keys(filterResults).length > 0 && hashSuccess) {
             dispatch(restoreHashedFilters(filterResults));
         }
+
+        dispatch(setIsNLSearchComplete(!isFetching));
     }, [filterResults, hashSuccess, hashError, fetchingError]);
 
     useEffect(() => {
