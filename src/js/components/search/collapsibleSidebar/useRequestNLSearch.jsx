@@ -9,11 +9,6 @@ const headers = {
 
 const LLM_API = GlobalConstants?.LLM_API + 'v2/llm/filter-search/';
 
-const selectParsedLines = (acc) => acc
-    .split('\n')
-    .filter((line) => line.trim())
-    .map((line) => JSON.parse(line));
-
 const useRequestNLSearch = (prompt) => {
     const requestHeader = {
         method: 'POST',
@@ -46,17 +41,16 @@ const useRequestNLSearch = (prompt) => {
                         if (!line.trim()) continue;
                         const parsed = JSON.parse(line);
                         if (parsed.type === RESPONSE_TYPE.SEARCH_ERROR) {
-                            yield `${line}\n`;
+                            yield parsed;
                             throw new Error(parsed.message ?? 'Search failed');
                         }
-                        yield `${line}\n`;
+                        yield parsed;
                     }
                 }
             },
-            reducer: (acc, chunk) => acc + chunk,
-            initialValue: ''
-        }),
-        select: selectParsedLines
+            reducer: (acc, parsed) => [...acc, parsed],
+            initialValue: []
+        })
     });
 
     // allow cancel api request
@@ -64,7 +58,7 @@ const useRequestNLSearch = (prompt) => {
 
     const cancelQuery = () => {
         queryClient.cancelQueries({ queryKey: ['nl-search-stream'] })
-            .then(() => queryClient.setQueryData(['nl-search-stream'], ''));
+            .then(() => queryClient.setQueryData(['nl-search-stream'], []));
     };
 
     return { parsedData: data, fetchNLSearch: refetch, cancelQuery, isFetching, fetchingError: isError, isSuccess };
