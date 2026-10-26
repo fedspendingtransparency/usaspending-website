@@ -40,7 +40,7 @@
     "@babel/plugin-transform-optional-chaining": "^7.27.1",
     "@babel/plugin-transform-runtime": "^7.4.3",
     "@babel/polyfill": "^7.10.4",
-    "@babel/preset-env": "^7.26.9",
+    "@babel/preset-env": "^8.0.7",
     "@babel/runtime": "^7.29.7",
     "@eslint/js": "^10.0.1",
     "@lhci/cli": "^0.14.0",
