@@ -90,6 +90,14 @@
     @media (max-width: $medium-screen) {
       margin-top: 4px;
     }
+
+    .content {
+      padding: 16px 20px;
+
+      p {
+        margin: 16px 0;
+      }
+    }
   }
 
   .analyst-guide__questionLine {

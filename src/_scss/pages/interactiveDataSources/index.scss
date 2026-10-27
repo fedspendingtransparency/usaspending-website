@@ -91,6 +91,14 @@
           h3 {
             margin-top: 0;
           }
+
+          .accordion-container .content {
+            padding: 16px 20px;
+
+            p {
+              margin: 16px 0;
+            }
+          }
         }
         .usda-section__container {
           @include display(flex);

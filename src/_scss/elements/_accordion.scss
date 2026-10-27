@@ -154,6 +154,10 @@ details {
     border: 2px solid #f0f0f0;
     border-radius: 0 0 4px 4px;
     padding: 16px 20px;
+
+    p {
+      margin: 16px 0;
+    }
   }
 
   &[open] {
