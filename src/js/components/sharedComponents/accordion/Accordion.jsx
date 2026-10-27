@@ -9,8 +9,8 @@ backgroundColor: background of collapsed box
 setOpen: pass setOpen to get the controlled/button variant; omit it for the native <details> disclosure
 */
 const propTypes = {
-    title: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
-    children: PropTypes.element || PropTypes.string,
+    title: PropTypes.node.isRequired,
+    children: PropTypes.node,
     open: PropTypes.bool,
     iconClassName: PropTypes.string,
     contentClassName: PropTypes.string,
@@ -19,7 +19,6 @@ const propTypes = {
     setOpen: PropTypes.func,
     onToggle: PropTypes.func,
     defaultOpen: PropTypes.bool,
-    openObject: PropTypes.oneOfType([PropTypes.bool, PropTypes.object]),
     selectedChipCount: PropTypes.number,
     headingClassName: PropTypes.string,
     faClassName: PropTypes.string,
@@ -37,7 +36,6 @@ const Accordion = ({
     onToggle = () => {},
     defaultOpen,
     contentClassName = '',
-    openObject = false,
     selectedChipCount = 0,
     headingClassName = '',
     containerClassName = '',
@@ -47,7 +45,7 @@ const Accordion = ({
 
     const selectedChip = (count) => ((count > 0) ?
         (<div className="selected-chip-count">{` ${count} selected`}</div>) :
-        (<></>)
+        null
     );
 
     if (typeof setOpen !== 'function') return (
@@ -80,12 +78,7 @@ const Accordion = ({
 
     const toggleOpen = (e) => {
         e.stopPropagation();
-        if (openObject) {
-            setOpen();
-        }
-        else {
-            setOpen((prevOpen) => !prevOpen);
-        }
+        setOpen((prevOpen) => !prevOpen);
     };
 
     const keyClickToggle = (e) => {
@@ -108,6 +101,7 @@ const Accordion = ({
                             onClick={toggleOpen}
                             onKeyDown={keyClickToggle}
                             className="toggle"
+                            aria-expanded={!!open}
                             aria-label={buttonAriaLabel}>
                             <FontAwesomeIcon
                                 icon={closedIcon}
