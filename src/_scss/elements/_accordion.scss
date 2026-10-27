@@ -5,7 +5,6 @@
   }
 
   .heading {
-    padding: 12px 12px 12px 24px;
     font-size: 16px;
     line-height: 24px;
     font-weight: 600;
@@ -18,6 +17,11 @@
     flex-wrap: nowrap;
     border: 1px solid #eee;
     color: #1b1b1b;
+    box-sizing: border-box;
+    height: 48px;
+    padding: 12px 16px;
+    background-color: #f0f0f0;
+    border-radius: 4px;
 
     &--chip-container {
       display: flex;
@@ -54,7 +58,7 @@
   }
 
   .content {
-    padding: 0 20px;
+    padding: 16px 20px;
     max-height: 0;
     color: #1b1b1b;
     text-align: left;
@@ -66,22 +70,25 @@
 
   .plus {
     display: block;
-    color: #0071bc;
+    color: #1b1b1b;
   }
 
   .minus {
     display: none;
-    color: #0071bc;
+    color: #1b1b1b;
   }
 
   .open {
     margin-bottom: 16px;
+
+    .heading {
+      border-radius: 4px 4px 0 0;
+    }
+
     .content {
       line-height: 1.2;
       max-height: 100%;
-      padding-top: 15px;
-      padding-bottom: 25px;
-      border: 1px solid #eee;
+      border: 2px solid #eee;
       visibility: visible;
     }
 
