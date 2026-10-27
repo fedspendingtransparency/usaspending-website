@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Accordion from '../../../sharedComponents/accordion/Accordion';
+import Accordion from 'components/sharedComponents/accordion/Accordion';
 
 const propTypes = {
     accordionData: PropTypes.object,
