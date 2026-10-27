@@ -48,18 +48,16 @@ const SideBarNav = ({
     const manualJumpTimeoutRef = useRef(null);
 
     const sideBarClick = (option) => {
-        jumpToSection(option);
-        setActiveSection(option);
-        toggle?.(navAccordionLookup[option]);
+        jumpToSection(option.section);
+        setActiveSection(option.section);
+        setDropSelection(option.label);
+        toggle?.(navAccordionLookup[option.section]);
 
         manualJumpRef.current = true;
         clearTimeout(manualJumpTimeoutRef.current);
         manualJumpTimeoutRef.current = setTimeout(() => {
             manualJumpRef.current = false;
         }, 600);
-        jumpToSection(option.section);
-        setActiveSection(option.section);
-        setDropSelection(option.label);
     };
 
     const visibleSections = new Set();
