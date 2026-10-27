@@ -42,7 +42,6 @@ const Accordion = ({
     headingClassName = '',
     containerClassName = '',
     faClassName = ''
-
 }) => {
     const sectionClassName = open ? `open accordion--open accordion` : `accordion`;
 

@@ -397,6 +397,8 @@
         line-height: rem(18);
         color: $theme-color-1;
         justify-content: start;
+        background-color: transparent;
+        height: auto;
 
         .toggle {
           padding: 0;

@@ -544,15 +544,8 @@
             height: unset;
             background-color: transparent;
 
-            button {
-              padding: 0;
-              margin: 0;
-              max-height: rem(18);
-              max-width: rem(18);
-
-              svg {
-                color: $blue-50;
-              }
+            svg {
+              color: $blue-50;
             }
           }
 
