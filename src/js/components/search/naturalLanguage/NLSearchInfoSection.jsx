@@ -42,11 +42,10 @@ const NLSearchInfoSection = ({ anchor, section, openAccordions, sectionKey, onTo
                         const accordionId = `${sectionKey}-${i}`;
                         return (
                             <Accordion
-                                aria-label="Toggle Expansion"
-                                key={`item-${item.title}`}
                                 title={item.title}
                                 open={!!openAccordions[accordionId]}
-                                setOpen={(updater) => onToggle(accordionId, updater)}>
+                                setOpen={(updater) => onToggle(accordionId, updater)}
+                                key={`item-${item.title}`}>
                                 {item.content}
                             </Accordion>
                         );
