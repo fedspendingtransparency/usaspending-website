@@ -61,11 +61,9 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
     }, [updateFilter]);
 
     const onCountryClearSelect = () => {
-        console.log(location);
         updateFilter('location', '');
         onStateClearSelect();
-        clearStateRef.current?.triggerClear;
-        console.log(location);
+        clearStateRef.current?.triggerClear();
     };
 
     const updateState = (e) => {
