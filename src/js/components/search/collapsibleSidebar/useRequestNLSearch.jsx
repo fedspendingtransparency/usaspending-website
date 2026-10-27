@@ -7,7 +7,7 @@ const headers = {
     'X-LLM-API-Key': GlobalConstants?.LLM_HEADER_VALUE
 };
 
-const LLM_API = GlobalConstants?.LLM_API + 'v2/llm/filter-search/';
+const LLM_API = GlobalConstants?.API + 'v2/llm/filter-search/';
 
 const useRequestNLSearch = (prompt) => {
     const requestHeader = {

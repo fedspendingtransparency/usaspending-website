@@ -37,7 +37,7 @@ const ResultsView = React.memo(function ResultsView({
     const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
     const { data, error, isLoading } = useResultsCount(filters, spendingLevel, hash);
     const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
-    const isSearchComplete = useSelector((state) => state.sidebar.isSearchComplete);
+    const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
     const isNLSearchError = useSelector((state) => state.sidebar.isNLSearchError);
 
     let content = null;
@@ -45,7 +45,7 @@ const ResultsView = React.memo(function ResultsView({
     if (isNLSearchError) {
         content = <ErrorMessage />;
     }
-    else if ((isLoading && !noFiltersApplied) || (isSearchActive && !isSearchComplete)) {
+    else if ((isLoading && !noFiltersApplied) || (isSearchActive && !isNLSearchComplete)) {
         content = (
             <div className="search-results-loading">
                 <div className="search-results__loading-message">
