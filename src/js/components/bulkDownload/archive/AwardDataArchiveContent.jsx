@@ -68,6 +68,12 @@ const AwardDataArchiveContent = ({
     const { isTablet } = useContext(isMobileContext);
     const [selectedFiles, setSelectedFiles] = useState(new Set());
 
+    const [prevResults, setPrevResults] = useState(results);
+    if (results !== prevResults) {
+        setPrevResults(results);
+        setSelectedFiles(new Set());
+    }
+
     const onClickReset = () => setSelectedFiles(new Set());
 
     const onClickDownload = () => selectedFiles.forEach((url) => {
