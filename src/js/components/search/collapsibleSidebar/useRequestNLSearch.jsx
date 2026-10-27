@@ -61,7 +61,14 @@ const useRequestNLSearch = (prompt) => {
             .then(() => queryClient.setQueryData(['nl-search-stream'], []));
     };
 
-    return { parsedData: data, fetchNLSearch: refetch, cancelQuery, isFetching, fetchingError: isError, isSuccess };
+    const clearNLCache = () => {
+        queryClient.removeQueries({
+            queryKey: ['nl-search-stream'],
+            exact: true
+        });
+    };
+
+    return { parsedData: data, fetchNLSearch: refetch, cancelQuery, isFetching, fetchingError: isError, isSuccess, clearNLCache };
 };
 
 export default useRequestNLSearch;
