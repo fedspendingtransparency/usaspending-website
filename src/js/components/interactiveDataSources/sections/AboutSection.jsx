@@ -158,7 +158,6 @@ const AboutSection = () => {
                     </h3>
                     {aboutDetails.map((item) => (
                         <Accordion
-                            data-testid="accordion"
                             key={`item_${item.title}`}
                             title={item.title}>
                             {item.details}
