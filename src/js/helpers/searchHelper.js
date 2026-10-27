@@ -52,14 +52,14 @@ export const fetchTas = (idString = '') => apiRequest({
     // str contains depth, prepended with agency & federal account delimited by a '/', if any.
     url: idString.length === 0 ?
         `/v2/references/filter_tree/tas/` :
-        `/v2/references/filter_tree/tas/${idString}`
+        `/v2/references/filter_tree/tas/${idString}/`
 });
 
 // PSC search
 export const fetchPsc = (paramString = '') => apiRequest({
     url: paramString === '' ?
         `/v2/references/filter_tree/psc/` :
-        `/v2/references/filter_tree/psc/${paramString}`
+        `/v2/references/filter_tree/psc/${paramString}/`
 });
 
 // CFDA search for autocomplete
