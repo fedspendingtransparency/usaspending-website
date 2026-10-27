@@ -4,28 +4,28 @@
  */
 
 import React, { useState, useCallback } from 'react';
-import PageWrapper from "../../sharedComponents/PageWrapper";
+import PageWrapper from '../../sharedComponents/PageWrapper';
 import SideBarNav from '../../sharedComponents/SideBarNav';
 import BannerPageHeader from '../../sharedComponents/header/BannerPageHeader';
 import { smartAssistPageMetaTags } from '../../../helpers/metaTagHelper';
 import smartAssistGraphic from '../../../../img/smart-assist-graphic.png';
-import { smartAssistContent } from '../naturalLanguage/NLData';
+import { smartAssistContent } from './NLData';
 import NLSearchInfoSection from './NLSearchInfoSection';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import NLSearchInfoResources from './NLSearchInfoResources';
 // import NLSearchInfoSidebar from './NLSearchInfoSidebar';
-import useJumpToSection from "../../../hooks/useJumpToSection";
-import useQueryParams from "../../../hooks/useQueryParams";
+import useJumpToSection from '../../../hooks/useJumpToSection';
+import useQueryParams from '../../../hooks/useQueryParams';
 import { FlexGridCol, Button } from 'data-transparency-ui';
 import ShareDownloadButtonGroup from '../../sharedComponents/buttons/ShareDownloadButtonGroup';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Keyboard, A11y, FreeMode } from 'swiper/modules';
-import "swiper/css/bundle";
-import "swiper/css";
+import 'swiper/css/bundle';
+import 'swiper/css';
 
-require("pages/search/naturalLanguage/searchInfoPage.scss");
+require('pages/search/naturalLanguage/searchInfoPage.scss');
 
 const graphicLabel = (
     <>
@@ -58,23 +58,39 @@ const infoSections = [
 
 const { overview, search, results, limitations, feedback } = smartAssistContent ?? {};
 
+const accordionIdsForSection = (sectionKey, data) => (data?.items ?? []).map((_, i) => `${sectionKey}-${i}`);
+
+const allAccordionIds = [
+    ...accordionIdsForSection('overview', overview),
+    ...accordionIdsForSection('search', search),
+    ...accordionIdsForSection('results', results),
+    ...accordionIdsForSection('limitations', limitations),
+    ...accordionIdsForSection('feedback', feedback)
+];
+
 const NLSearchInfoPage = () => {
-    const jumpToSection = useJumpToSection("#nlinfo-", infoSections, false, stickyHeaderHeight);
+    const jumpToSection = useJumpToSection('#nlinfo-', infoSections, false, stickyHeaderHeight);
     const query = useQueryParams();
     const [activeSection] = useState(query.section || 'overview');
-    const [toggleAllAccordions, setToggleAllAccordions] = useState({ trigger: 0, expand: false });
     const [openAccordions, setOpenAccordions] = useState({});
 
-    const accordionIds = Object.keys(openAccordions);
-    const allExpanded = accordionIds.length > 0 && accordionIds.every((accordionId) => openAccordions[accordionId]);
+    const allExpanded = allAccordionIds.every((id) => openAccordions[id]);
 
-    const handleAccordionToggle = useCallback((id, isOpen) => {
-        setOpenAccordions((prev) => (prev[id] === isOpen ? prev : { ...prev, [id]: isOpen }));
+    const handleAccordionToggle = useCallback((id, updater) => {
+        setOpenAccordions((prev) => {
+            const prevOpen = !!prev[id];
+            const nextOpen = typeof updater === 'function' ? updater(prevOpen) : updater;
+            return prevOpen === nextOpen ? prev : { ...prev, [id]: nextOpen };
+        });
     }, []);
 
-    const handleToggleAll = () => {
-        setToggleAllAccordions((prev) => ({ trigger: prev.trigger + 1, expand: !allExpanded }));
-    };
+    const handleToggleAll = useCallback(() => {
+        const nextOpen = !allExpanded;
+        setOpenAccordions(allAccordionIds.reduce((acc, id) => {
+            acc[id] = nextOpen;
+            return acc;
+        }, {}));
+    }, [allExpanded]);
 
     return (
         <PageWrapper
@@ -152,31 +168,31 @@ const NLSearchInfoPage = () => {
                             anchor="nlinfo-overview"
                             section={overview}
                             sectionKey="overview"
-                            toggleAll={toggleAllAccordions}
+                            openAccordions={openAccordions}
                             onToggle={handleAccordionToggle} />
                         <NLSearchInfoSection
                             anchor="nlinfo-searching-with-smart-assist"
                             section={search}
                             sectionKey="search"
-                            toggleAll={toggleAllAccordions}
+                            openAccordions={openAccordions}
                             onToggle={handleAccordionToggle} />
                         <NLSearchInfoSection
                             anchor="nlinfo-understanding-results"
                             section={results}
                             sectionKey="results"
-                            toggleAll={toggleAllAccordions}
+                            openAccordions={openAccordions}
                             onToggle={handleAccordionToggle} />
                         <NLSearchInfoSection
                             anchor="nlinfo-limitations"
                             section={limitations}
                             sectionKey="limitations"
-                            toggleAll={toggleAllAccordions}
+                            openAccordions={openAccordions}
                             onToggle={handleAccordionToggle} />
                         <NLSearchInfoSection
                             anchor="nlinfo-feedback-and-support"
                             section={feedback}
                             sectionKey="feedback"
-                            toggleAll={toggleAllAccordions}
+                            openAccordions={openAccordions}
                             onToggle={handleAccordionToggle} />
                     </div>
                 </section>
