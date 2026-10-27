@@ -1,5 +1,11 @@
 // TODO: CSS variables do not work in this file. Will be addressed in follow up ticket.
 .accordion-container {
+  margin-bottom: 16px;
+
+  &:nth-last-child(1 of .accordion-container) {
+    margin-bottom: 0;
+  }
+
   button {
     margin-right: 0;
   }
@@ -63,7 +69,7 @@
   }
 
   .content {
-    padding: 16px 20px;
+    padding: 0;
     max-height: 0;
     color: #1b1b1b;
     text-align: left;
@@ -71,6 +77,10 @@
     transition:
       ease-in-out max-height 50ms,
       visibility 50ms;
+
+    p {
+      margin: 0;
+    }
   }
 
   .plus {
@@ -84,8 +94,6 @@
   }
 
   .open {
-    margin-bottom: 16px;
-
     .heading {
       border-radius: 4px 4px 0 0;
     }
@@ -95,6 +103,11 @@
       max-height: 100%;
       border: 2px solid #eee;
       visibility: visible;
+      padding: 16px 20px;
+
+      p {
+        margin: 16px 0;
+      }
     }
 
     .plus {
