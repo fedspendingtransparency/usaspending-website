@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { throttle } from 'lodash-es';
 import { largeScreen, mediumScreen, xLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { checkIsOverflow } from 'helpers/inPageNavHelper';
-import { FlexGridCol } from 'data-transparency-ui';
+import { FlexGridCol, NewPicker } from 'data-transparency-ui';
 
 const propTypes = {
     sections: PropTypes.array,
@@ -38,13 +38,7 @@ const SideBarNav = ({
     const navSections = sections.map((sect) => sect.section);
     const navAccordionLookup = Object.fromEntries(
         navSections.map((section) => [section, accordionIds.filter((id) => section.includes(id.split('-')[0]))]));
-
-    // const mobileOptions = (options) => {
-    //     const formattedData = options.map(({ section: name, label: value }) => ({
-    //         name,
-    //         value,
-    //     }));
-    // };
+    const [dropSelection, setDropSelection] = useState('On this Page');
 
     // Suppresses the IntersectionObserver while a manual (click-triggered) scroll is in flight,
     // so sections passing through the viewport mid-scroll don't fight the clicked target.
@@ -63,6 +57,9 @@ const SideBarNav = ({
         manualJumpTimeoutRef.current = setTimeout(() => {
             manualJumpRef.current = false;
         }, 600);
+        jumpToSection(option.section);
+        setActiveSection(option.section);
+        setDropSelection(option.label);
     };
 
     const visibleSections = new Set();
@@ -193,22 +190,23 @@ const SideBarNav = ({
 
     return (
         <>
-            {
-                // Snippet will be used for the mobile view.
-                /* {!!isMobile && (
+            {!!isMobile && (
                 <NewPicker
-                    options={sections}
-                    leftIcon=""
-                    selectedOption={sections?.length ?
-                        // eslint-disable-next-line max-len, react/prop-types
-                        sections?.find((obj) => obj.value === props?.activeField || obj.value === props?.sort?.field)?.name :
-                        `${props?.activeField || props.sort?.field}`}
                     size="md"
-                    label="Sort by:"
+                    leftIcon=""
+                    classname="advanced-search-dropdown__wrapper"
+                    buttonClassname="nl-info-search-dropdown__button"
+                    selectedOption={dropSelection}
+                    sortFn={() => {}}
                     enabled
-                    sortFn={() => sections}
-                    classname="mobile-sort__picker" />
-            )} */}
+                    options={
+                        sections?.map((section) => ({
+                            name: section.label,
+                            value: section.section,
+                            onClick: () => sideBarClick(section)
+                        }))
+                    } />
+            )}
             {!isMobile && (
 
                 <FlexGridCol
@@ -231,8 +229,8 @@ const SideBarNav = ({
                                             tabIndex="0"
                                             id={`in-page-nav-link-${section.label}`}
                                             key={`in-page-nav-link-${section.label}`}
-                                            onKeyDown={(e) => (e.key === "Enter" ? sideBarClick(section.section) : "")}
-                                            onClick={() => sideBarClick(section.section)}>
+                                            onKeyDown={(e) => (e.key === "Enter" ? sideBarClick(section) : "")}
+                                            onClick={() => sideBarClick(section)}>
                                             {section.label}
                                         </button>
                                     </li>

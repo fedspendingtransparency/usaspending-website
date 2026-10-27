@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { Link } from 'react-router';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ExternalLink from '../sharedComponents/ExternalLink';
 
 const propTypes = {
@@ -42,11 +41,13 @@ const ExploreMore = (props) => {
                         {citation.type === "external" ?
                             (
                                 <>
-                                    <ExternalLink isCard url={citation.slug}>
-                                        <div>
-                                            <span>{truncateText(citation.label, 55)}</span>
-                                            <FontAwesomeIcon icon="external-link-alt" className="featured-content__icon" />
-                                        </div>
+                                    <ExternalLink
+                                        className="featured-content__icon"
+                                        url={citation.slug}
+                                        isCard
+                                        showIcon>
+                                        <span>{truncateText(citation.label, 55)}</span>
+                                        {' '}
                                     </ExternalLink>
                                 </>
                             ) :
