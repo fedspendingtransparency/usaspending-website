@@ -1,5 +1,6 @@
 import { useQuery, experimental_streamedQuery as streamedQuery, useQueryClient } from '@tanstack/react-query';
 import GlobalConstants from 'GlobalConstants';
+import { RESPONSE_TYPE } from './NLConstants';
 
 const headers = {
     'Content-Type': 'application/json',
@@ -15,28 +16,40 @@ const useRequestNLSearch = (prompt) => {
         body: JSON.stringify({ query: prompt?.trim() })
     };
 
-    const { data, refetch, isFetching, isSuccess } = useQuery({
+    const { data, refetch, isFetching, isError, isSuccess } = useQuery({
         queryKey: ['nl-search-stream'],
         enabled: false,
+        retry: false,
         queryFn: streamedQuery({
             streamFn: async function* ({ signal }) {
                 const request = await fetch(LLM_API, { ...requestHeader, signal });
 
                 const reader = request.body.getReader();
                 const decoder = new TextDecoder();
+                let buffer = '';
 
                 while (true) {
                     if (signal.aborted) break;
-
                     const { value, done } = await reader.read();
-
                     if (done) break;
 
-                    yield decoder.decode(value);
+                    buffer += decoder.decode(value, { stream: true });
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop();
+
+                    for (const line of lines) {
+                        if (!line.trim()) continue;
+                        const parsed = JSON.parse(line);
+                        if (parsed.type === RESPONSE_TYPE.SEARCH_ERROR) {
+                            yield parsed;
+                            throw new Error(parsed.message ?? 'Search failed');
+                        }
+                        yield parsed;
+                    }
                 }
             },
-            reducer: (acc, chunk) => acc + chunk,
-            initialValue: ''
+            reducer: (acc, parsed) => [...acc, parsed],
+            initialValue: []
         })
     });
 
@@ -45,10 +58,10 @@ const useRequestNLSearch = (prompt) => {
 
     const cancelQuery = () => {
         queryClient.cancelQueries({ queryKey: ['nl-search-stream'] })
-            .then(() => queryClient.setQueryData(['nl-search-stream'], ''));
+            .then(() => queryClient.setQueryData(['nl-search-stream'], []));
     };
 
-    return { data, refetch, cancelQuery, isFetching, isSuccess };
+    return { parsedData: data, fetchNLSearch: refetch, cancelQuery, isFetching, fetchingError: isError, isSuccess };
 };
 
 export default useRequestNLSearch;
