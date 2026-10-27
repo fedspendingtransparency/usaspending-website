@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -52,6 +52,63 @@ const logMapScopeEvent = (scope) => {
     });
 };
 
+const emptyData = {
+    values: [],
+    locations: [],
+    rows: []
+};
+
+/**
+ * parseGeoData
+ * - creates locations, values, labels and table rows from api data
+ * @returns {Object} - object with locations, values, labels and rows properties
+ */
+const parseGeoData = (rawAPIData, dataKey, stateNameByFipsId) => {
+    const values = [];
+    const locations = [];
+    const labels = {};
+    const rows = [];
+
+    rawAPIData.forEach((item) => {
+        // state must not be null or empty string
+        if (item.shape_code && item.shape_code !== '') {
+            locations.push(item.shape_code);
+            values.push(parseFloat(item[dataKey]));
+            labels[item.shape_code] = {
+                label: item.display_name,
+                value: parseFloat(item[dataKey])
+            };
+
+            // for new search table
+            const row = [];
+            const stateCheck = item.shape_code.length < 3;
+            const congressionalDistrictCheck = item.display_name.substring(2, 3) === '-';
+            const countyCheck = parseInt(item.shape_code, 10);
+
+            if (stateCheck) {
+                row.state_territory = item.display_name;
+            }
+            else if (congressionalDistrictCheck) {
+                row.d_district = item.display_name;
+                row.state_territory = stateNameFromCode(item.display_name.substring(0, 2));
+            }
+            else if (countyCheck) {
+                row.county = item.display_name;
+                row.state_territory = stateNameByFipsId?.[item.shape_code.substring(0, 2)];
+            }
+            else {
+                row.country = item.display_name;
+            }
+            row.obligations = item.aggregated_amount;
+            row.per_capita = item.per_capita;
+
+            rows.push(row);
+        }
+    });
+
+    return { values, locations, labels, rows };
+};
+
 // eslint-disable-next-line prefer-arrow-callback
 const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const USACenterPoint = [-95.569430, 38.852892];
@@ -64,19 +121,14 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         {};
 
     const [mapLayer, setMapLayer] = useState('state');
-    const [data, setData] = useState({
-        values: [],
-        locations: []
-    });
     const [visibleEntities, setVisibleEntities] = useState([]);
-    const [renderHash, setRenderHash] = useState(null);
+    const [hasMeasuredEntities, setHasMeasuredEntities] = useState(false);
+    const [mapReadyCount, setMapReadyCount] = useState(0);
     const [loadingTiles, setLoadingTiles] = useState(true);
     const [center, setCenter] = useState(USACenterPoint);
     const [singleLocationSelected, setSingleLocationSelected] = useState({});
-    const [tableData, setTableData] = useState([]);
-    const [tableRows, setTableRows] = useState([]);
-    const [sortDirection, setSortDirection] = useState('asc');
-    const [activeField, setActiveField] = useState('aggregated_amount');
+    const [sortDirection, setSortDirection] = useState('desc');
+    const [activeField, setActiveField] = useState('obligations');
     const [wrapperScreens, setWrapperScreens] = useState({
         wrapperLoading: false,
         wrapperError: false,
@@ -88,10 +140,9 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     const { countryAbbreviations: countries } = useFetchAllCountries();
 
-    // this ref as been added to stop the related useEffect triggering on initial render
+    // mirrors loadingTiles for the map listeners, which are registered once and would
+    // otherwise read a stale value
     const useEffectRef = React.useRef({
-        visibleEntities: false,
-        allEntities: false,
         loadingTiles: true
     });
 
@@ -104,11 +155,9 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     const {
         rawAPIData,
-        hasFetched,
         loading,
         error,
-        noData,
-        fetchData
+        noData
     } = useFetchSpendingByGeography(
         props.scope,
         mapLayer,
@@ -116,7 +165,16 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         props.reduxFilters,
         props.spendingLevel,
         visibleEntities,
-        props.setAppliedFilterCompletion
+        props.setAppliedFilterCompletion,
+        // in chart view wait until the map has reported its visible entities
+        !props.noApplied && (mapViewType === 'table' || hasMeasuredEntities)
+    );
+
+    const mapToggleDataKey = props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita';
+
+    const parsed = useMemo(
+        () => parseGeoData(rawAPIData, mapToggleDataKey, stateNameByFipsId),
+        [rawAPIData, mapToggleDataKey, stateNameByFipsId]
     );
 
     const calculateCenterPoint = (location) => {
@@ -137,8 +195,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
             setCenter(USACenterPoint);
         }
     };
-
-    const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
 
     const findMapCenterPointByLocation = (locationAbbrev) => {
         if (apiScopes[mapLayer] !== 'country') {
@@ -169,53 +225,49 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         });
     };
 
-    /**
-     * valuesLocationsLabelsFromAPIData
-     * - creates locations, values, and labels for the map visualization from api data
-     * @returns {Object} - object with locations, values and labels properties
-     */
-    const valuesLocationsLabelsFromAPIData = () => {
-        const values = [];
-        const locations = [];
-        const labels = {};
-        const rows = [];
+    const data = noData ? emptyData : parsed;
 
-        rawAPIData.forEach((item) => {
-            // state must not be null or empty string
-            if (item.shape_code && item.shape_code !== '') {
-                locations.push(item.shape_code);
-                values.push(parseFloat(item[mapToggleDataKey()]));
-                labels[item.shape_code] = {
-                    label: item.display_name,
-                    value: parseFloat(item[mapToggleDataKey()])
-                };
+    // the map only redraws when it gets a new hash, so refresh it whenever the data,
+    // the layer, or the map's readiness changes
+    const renderHash = useMemo(
+        () => `geo-${uniqueId()}`,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [data, mapLayer, mapReadyCount]
+    );
 
-                // for new search table
-                const row = [];
-                const stateCheck = item.shape_code.length < 3;
-                const congressionalDistrictCheck = item.display_name.substring(2, 3) === '-';
-                const countyCheck = parseInt(item.shape_code, 10);
+    const tableRows = useMemo(() => {
+        const rows = noData ? [] : parsed.rows;
+        const direction = sortDirection === 'asc' ? 1 : -1;
+        return [...rows]
+            .sort((a, b) => {
+                if (a[activeField] < b[activeField]) {
+                    return -direction;
+                }
+                if (a[activeField] > b[activeField]) {
+                    return direction;
+                }
+                return 0;
+            })
+            .map((row) => Object.keys(row).map((key) => (
+                key === 'obligations' || key === 'per_capita' ?
+                    MoneyFormatter.formatMoneyWithPrecision(row[key], 0) :
+                    row[key]
+            )));
+    }, [parsed, noData, activeField, sortDirection]);
 
-                if (stateCheck) {
-                    row.state_territory = item.display_name;
-                }
-                else if (congressionalDistrictCheck) {
-                    row.d_district = item.display_name;
-                    row.state_territory = stateNameFromCode(item.display_name.substring(0, 2));
-                }
-                else if (countyCheck) {
-                    row.county = item.display_name;
-                    row.state_territory = stateNameByFipsId?.[item.shape_code.substring(0, 2)];
-                }
-                else {
-                    row.country = item.display_name;
-                }
-                row.obligations = item.aggregated_amount;
-                row.per_capita = item.per_capita;
+    // new data starts out sorted by obligations, highest first
+    useEffect(() => {
+        setActiveField('obligations');
+        setSortDirection('desc');
+    }, [parsed]);
 
-                rows.push(row);
-            }
-        });
+    // recenter the map when the data narrows to a single state, country, or the counties
+    // and districts of one state
+    useEffect(() => {
+        const { locations } = data;
+        if (locations.length === 0) {
+            return;
+        }
 
         if ((mapLayer === 'county' || mapLayer === 'congressionalDistrict') && areFirstTwoCharsEqual(locations)) {
             const stateAbbreviation = stateAbbreviationByFipsId?.[locations[0].substring(0, 2)];
@@ -223,21 +275,11 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
                 findMapCenterPointByLocation(stateAbbreviation);
             }
         }
-        else if ((mapLayer === 'country' || mapLayer === 'state') && locations?.length === 1) {
+        else if ((mapLayer === 'country' || mapLayer === 'state') && locations.length === 1) {
             findMapCenterPointByLocation(locations[0]);
         }
-
-        setTableData(rows);
-
-        return { values, locations, labels };
-    };
-
-    const setParsedData = () => {
-        props.setAppliedFilterCompletion(true);
-
-        setData(valuesLocationsLabelsFromAPIData());
-        setRenderHash(`geo-${uniqueId()}`);
-    };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data]);
 
     const prepareFetch = (forced = false) => {
         if (useEffectRef.current?.loadingTiles) {
@@ -251,6 +293,9 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const mapLoaded = () => {
         setLoadingTiles(false);
         useEffectRef.current.loadingTiles = false;
+        // a remounted map (e.g. returning from table view) is ready after the data it was
+        // given at mount, and cached query data won't arrive again, so ask it to redraw
+        setMapReadyCount((count) => count + 1);
     };
 
     const compareEntities = (entities) => {
@@ -285,18 +330,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
             }
         }
 
-        useEffectRef.current.visibleEntities = true;
+        setHasMeasuredEntities(true);
         setVisibleEntities(entities);
-    };
-
-    /**
-     * handleMapLegendToggleChange
-     * - updates data values property and label value properties to respective spending total
-     * @returns {null}
-     */
-    const handleMapLegendToggleChange = () => {
-        setData(Object.assign({}, valuesLocationsLabelsFromAPIData()));
-        setRenderHash(`geo-${uniqueId()}`);
     };
 
     const changeScope = (newScope) => {
@@ -310,7 +345,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     const changeMapLayer = (layer) => {
         setMapLayer(layer);
-        setRenderHash(`geo-${uniqueId()}`);
         setLoadingTiles(true);
         useEffectRef.current.loadingTiles = true;
 
@@ -491,51 +525,9 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         ]
     };
 
-    const createTableRows = (rows) => {
-        const rowsArray = [];
-        rows.forEach((row) => {
-            const rowArray = [];
-            Object.keys(row).forEach((key) => {
-                if (key === 'obligations' || key === 'per_capita') {
-                    rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
-                }
-                else {
-                    rowArray.push(row[key]);
-                }
-            });
-            rowsArray.push(rowArray);
-        });
-        setTableRows(rowsArray);
-    };
-
     const sortBy = (field, direction) => {
-        const updatedTable = [...tableData];
-        if (direction === 'asc') {
-            updatedTable.sort((a, b) => {
-                if (a[field] < b[field]) {
-                    return -1;
-                }
-                if (a[field] > b[field]) {
-                    return 1;
-                }
-                return 0;
-            });
-        }
-        else if (direction === 'desc') {
-            updatedTable.sort((a, b) => {
-                if (a[field] < b[field]) {
-                    return 1;
-                }
-                if (a[field] > b[field]) {
-                    return -1;
-                }
-                return 0;
-            });
-        }
-
         setSortDirection(direction);
         setActiveField(field);
-        createTableRows(updatedTable);
     };
 
     useEffect(() => {
@@ -568,9 +560,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
             prepareFetch(true);
             updateMapScope();
         }
-        else if (!props.noApplied && mapViewType === 'table') {
-            fetchData();
-        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         props.reduxFilters,
@@ -580,36 +569,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     ]);
 
     useEffect(() => {
-        handleMapLegendToggleChange();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.mapLegendToggle]);
-
-    useEffect(() => {
-        if (useEffectRef.current.visibleEntities) {
-            fetchData();
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [visibleEntities]);
-
-    useEffect(() => {
-        if (hasFetched) {
-            setParsedData();
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [rawAPIData]);
-
-    useEffect(() => {
-        if (noData) {
-            setData({
-                values: [],
-                locations: []
-            });
-        }
-    }, [noData]);
-
-    useEffect(() => {
         prepareFetch(true);
         logMapScopeEvent(props.scope);
     }, [props.scope]);
@@ -617,11 +576,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     useEffect(() => {
         prepareFetch(true);
     }, [mapLayer, loadingTiles]);
-
-    useEffect(() => {
-        sortBy('obligations', 'desc');
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tableData]);
 
     useEffect(() => {
         if (mapViewType === 'chart') {
