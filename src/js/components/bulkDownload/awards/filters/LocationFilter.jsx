@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 3/23/18
  */
 
-import React, { memo, useMemo, useCallback } from 'react';
+import React, { memo, useMemo, useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from "react-redux";
 import { awardDownloadOptions } from 'dataMapping/bulkDownload/bulkDownloadOptions';
@@ -46,6 +46,7 @@ const propTypes = {
 const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
     const location = useSelector((state) => state.bulkDownload.awards.location);
     const locationType = useSelector((state) => state.bulkDownload.awards.locationType);
+    const clearStateRef = useRef(null);
 
     const onChange = (e) => {
         const target = e.target;
@@ -59,7 +60,13 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
         });
     }, [updateFilter]);
 
-    const onCountryClearSelect = () => updateFilter('location', '');
+    const onCountryClearSelect = () => {
+        console.log(location);
+        updateFilter('location', '');
+        onStateClearSelect();
+        clearStateRef.current?.triggerClear;
+        console.log(location);
+    };
 
     const updateState = (e) => {
         const getState = (v) => {
@@ -117,6 +124,7 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
                         placeholder="Select a Country"
                         onClearSelect={onCountryClearSelect} />
                     <ComboBox
+                        ref={clearStateRef}
                         optionsArray={stateOptions}
                         onSelect={updateState}
                         label="State"

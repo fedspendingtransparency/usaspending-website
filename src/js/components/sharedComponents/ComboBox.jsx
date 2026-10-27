@@ -1,9 +1,13 @@
-import React, { memo, useState, useEffect, useRef, useCallback } from 'react';
+import React, { memo, useState, useEffect, useRef, useCallback, useImperativeHandle } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import { uniqueId } from "lodash-es";
 
 const propTypes = {
+    ref: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.shape({ current: PropTypes.any })
+    ]),
     optionsArray: PropTypes.arrayOf(
         PropTypes.shape(
             {
@@ -24,6 +28,7 @@ const propTypes = {
 
 // eslint-disable-next-line prefer-arrow-callback
 const ComboBox = memo(function ComboBox({
+    ref,
     onSelect,
     optionsArray,
     label,
@@ -98,6 +103,10 @@ const ComboBox = memo(function ComboBox({
     const inputValueEmpty = inputValue === '';
 
     const noSearchResults = options?.length === 0 && !inputValueEmpty;
+
+    useImperativeHandle(ref, () => ({
+        triggerClear: onClickClear
+    }));
 
     useEffect(() => {
         const handleOutsideClick = (e) => {
