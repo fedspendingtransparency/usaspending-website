@@ -15,7 +15,7 @@ import AddInfoAccordion from './AddInfoAccordion';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 
 const splitCongressionalDistrict = (section) => {
-    const cd = section?.['Congressional District']?.data.pop().trim();
+    const cd = section?.['Congressional District']?.data?.at(-1)?.trim();
     const split = cd?.split(': ');
     return split?.length === 2 ? split[1] : section?.['Congressional District'];
 };
