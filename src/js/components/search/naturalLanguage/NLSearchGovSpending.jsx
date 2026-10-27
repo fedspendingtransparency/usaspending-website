@@ -33,16 +33,11 @@ const NLSearchGovSpending = ({ isFilters = false }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { data, refetch, isFetching } = useRequestNLSearch(inputValue);
+    const { data, refetch, isFetching } = useRequestNLSearch(inputValue, 'widget');
     const startNLSearch = () => {
         if (inputValue?.trim() && typeof refetch === 'function') {
             refetch();
         }
-        Analytics.event({
-            category: 'Smart Assist - Query',
-            action: 'Query Submitted',
-            label: 'widget'
-        });
     };
 
     const MAX_CHARS = NL_INPUT_MAX_CHARS;
@@ -129,8 +124,8 @@ const NLSearchGovSpending = ({ isFilters = false }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [parsedData, isFetching]);
 
-    const onClick = (target) => {
-        startNLSearch(target);
+    const onClick = () => {
+        startNLSearch();
         dispatch(setSidebarContent(NATURAL_LANGUAGE));
         dispatch(setIsSearchActive(true));
     };

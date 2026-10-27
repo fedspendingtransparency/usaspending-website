@@ -52,7 +52,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { parsedData, fetchNLSearch, cancelQuery, isFetching, fetchingError, isSuccess } = useRequestNLSearch(text);
+    const { parsedData, fetchNLSearch, cancelQuery, isFetching, fetchingError, isSuccess } = useRequestNLSearch(text, 'side panel');
 
     const toggleOpened = (e) => {
         e.preventDefault();
