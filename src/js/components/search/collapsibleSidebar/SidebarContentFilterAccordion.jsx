@@ -1,7 +1,7 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
-import Accordion from '../../sharedComponents/accordion/Accordion';
+import Accordion from 'components/sharedComponents/accordion/Accordion';
 
 const propTypes = {
     title: PropTypes.string,
@@ -14,9 +14,15 @@ const SidebarContentFilterAccordion = memo(function SidebarContentFilterAccordio
     title, component, count, defaultOpen
 }) {
     const [hasOpened, setHasOpened] = useState(!!defaultOpen);
+    // browsers fire a toggle event when <details> mounts with open set, skip events that don't change state
+    const wasOpen = useRef(!!defaultOpen);
 
     const onToggle = useCallback((e) => {
-        const isOpen = e.target.open;
+        const isOpen = e.currentTarget.open;
+
+        if (isOpen === wasOpen.current) return;
+
+        wasOpen.current = isOpen;
 
         if (isOpen && !hasOpened) setHasOpened(true);
 
@@ -36,8 +42,7 @@ const SidebarContentFilterAccordion = memo(function SidebarContentFilterAccordio
                 closedIcon="chevron-down"
                 openIcon="chevron-up"
                 selectedChipCount={count}
-                defaultOpen={defaultOpen}
-                key={title}>
+                defaultOpen={defaultOpen}>
                 { hasOpened && component }
             </Accordion>
         </div>
