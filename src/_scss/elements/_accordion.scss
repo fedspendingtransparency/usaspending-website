@@ -53,6 +53,11 @@
         border: none;
         float: right;
         cursor: pointer;
+        padding: 0;
+
+        svg {
+          height: 16px;
+        }
       }
     }
   }
