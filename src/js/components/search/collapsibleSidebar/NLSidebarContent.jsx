@@ -44,11 +44,12 @@ const NLSidebarContent = ({
         [data]
     );
 
-    const reset = (target) => {
+    const reset = () => {
         setText('');
         Analytics.event({
-            event: 'smart assist panel clear input',
-            action: target
+            category: 'Smart Assist - Query',
+            action: 'Input Cleared',
+            label: 'side panel'
         });
     };
     let searchClass = 'default-search';
@@ -81,13 +82,14 @@ const NLSidebarContent = ({
 
     const handleNLSearch = isSearchActive ? handleNewNLSearch : handleStartNLSearch;
 
-    const handleNLCancel = (target) => {
+    const handleNLCancel = () => {
         dispatch(setIsSearchActive(false));
         if (cancelQuery) {
             cancelQuery();
             Analytics.event({
-                event: 'smart assist panel stop generating',
-                action: target
+                category: 'Smart Assist - Query',
+                action: 'Query Cancelled',
+                label: 'side panel'
             });
         }
     };

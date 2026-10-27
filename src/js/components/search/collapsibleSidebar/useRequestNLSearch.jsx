@@ -62,7 +62,7 @@ const useRequestNLSearch = (prompt) => {
             .then(() => queryClient.setQueryData(['nl-search-stream'], []));
     };
     const timerNLFilters = now - new Date().getTime();
-    const timerNLInSeconds = Math.floor(timerNLFilters / 1000);
+    const timerNLInSeconds = -Math.floor(timerNLFilters / 1000);
     console.debug('timer: ', timerNLInSeconds);
     if (timerNLInSeconds < 3600) {
         Analytics.event({

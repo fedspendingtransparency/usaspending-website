@@ -80,7 +80,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         }
     };
 
-    const startNLSearch = (e) => {
+    const startNLSearch = () => {
         if (text?.trim() && typeof fetchNLSearch === 'function') {
             wasCancelled.current = false;
             fetchNLSearch();
@@ -88,8 +88,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             dispatch(setIsNLSearchError(false));
         }
         Analytics.event({
-            event: 'smart assist panel submit search',
-            action: e.target
+            category: 'Smart Assist - Query',
+            action: 'Query Submitted',
+            label: 'side panel'
         });
     };
 

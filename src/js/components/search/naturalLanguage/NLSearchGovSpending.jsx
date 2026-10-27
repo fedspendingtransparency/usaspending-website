@@ -34,13 +34,14 @@ const NLSearchGovSpending = ({ isFilters = false }) => {
     const navigate = useNavigate();
 
     const { data, refetch, isFetching } = useRequestNLSearch(inputValue);
-    const startNLSearch = (target) => {
+    const startNLSearch = () => {
         if (inputValue?.trim() && typeof refetch === 'function') {
             refetch();
         }
         Analytics.event({
-            event: 'smart assist panel submit search',
-            action: target
+            category: 'Smart Assist - Query',
+            action: 'Query Submitted',
+            label: 'widget'
         });
     };
 
@@ -63,8 +64,9 @@ const NLSearchGovSpending = ({ isFilters = false }) => {
         event.preventDefault();
         setInputValue('');
         Analytics.event({
-            event: 'search government spending clear',
-            action: event
+            category: 'Smart Assist - Query',
+            action: 'Input Cleared',
+            label: 'widget'
         });
     };
 
