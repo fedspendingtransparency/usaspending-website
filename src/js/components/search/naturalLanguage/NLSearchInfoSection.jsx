@@ -11,16 +11,23 @@ import Accordion from '../../sharedComponents/accordion/Accordion';
 require("pages/search/naturalLanguage/searchInfoPage.scss");
 
 const propTypes = {
-    section: PropTypes.object
+    anchor: PropTypes.string,
+    section: PropTypes.object,
+    toggleAll: PropTypes.shape({
+        trigger: PropTypes.number,
+        expand: PropTypes.bool
+    }),
+    sectionKey: PropTypes.string,
+    onToggle: PropTypes.func
 };
 
-const NLSearchInfoSection = ({ section }) => {
+const NLSearchInfoSection = ({ anchor, section, toggleAll, sectionKey, onToggle }) => {
     return (
-        <div className="search-info-page-section">
+        <div className="search-info-page-section" key={anchor} id={anchor}>
             <div className="search-info-page__heading-section">
                 <FlexGridCol
                     className="search-info-page__content-col"
-                    desktop={{ span: 9, offset: 3 }}
+                    desktop={{ span: 11, offset: 1 }}
                     tablet={12}
                     mobile={12}>
                     <h3 className="search-info-page__top-content-heading">
@@ -31,7 +38,7 @@ const NLSearchInfoSection = ({ section }) => {
             <div className="search-info-page__accordion-section">
                 <FlexGridCol
                     className="search-info-page__accordion-list"
-                    desktop={{ span: 9, offset: 3 }}
+                    desktop={{ span: 11, offset: 1 }}
                     tablet={12}
                     mobile={12}>
                     {section.items.map((item, i) => (
@@ -44,7 +51,10 @@ const NLSearchInfoSection = ({ section }) => {
                             aria-expanded="false"
                             // eslint-disable-next-line react/no-array-index-key
                             key={`item-${i}`}
-                            title={item.title}>
+                            accordionId={`${sectionKey}-${i}`}
+                            title={item.title}
+                            toggleAll={toggleAll}
+                            onToggle={onToggle}>
                             {item.content}
                         </Accordion>
                     ))}

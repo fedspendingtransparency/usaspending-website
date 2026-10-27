@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../_scss/elements/_accordion.scss';
@@ -20,7 +20,14 @@ const propTypes = {
     selectedChipCount: PropTypes.number,
     headingClassName: PropTypes.string,
     faClassName: PropTypes.string,
-    containerClassName: PropTypes.string
+    containerClassName: PropTypes.string,
+    toggleAll: PropTypes.shape({
+        trigger: PropTypes.number,
+        expand: PropTypes.bool,
+        ids: PropTypes.arrayOf(PropTypes.string)
+    }),
+    accordionId: PropTypes.string,
+    onToggle: PropTypes.func
 };
 
 const Accordion = ({
@@ -35,10 +42,25 @@ const Accordion = ({
     selectedChipCount = 0,
     headingClassName = '',
     containerClassName = '',
-    faClassName = ''
+    faClassName = '',
+    toggleAll = { trigger: 0, expand: false },
+    accordionId = '',
+    onToggle = () => {}
 
 }) => {
     const [closed, setClosed] = useState(!openObject);
+    const [prevToggleAllTrigger, setPrevToggleAllTrigger] = useState(toggleAll.trigger);
+
+    if (toggleAll.trigger !== prevToggleAllTrigger) {
+        setPrevToggleAllTrigger(toggleAll.trigger);
+        if (toggleAll.trigger > 0 && (!toggleAll.ids || toggleAll.ids.includes(accordionId))) {
+            setClosed(!toggleAll.expand);
+        }
+    }
+
+    useEffect(() => {
+        onToggle(accordionId, !closed);
+    }, [closed, accordionId, onToggle]);
 
     const sectionClassName = !closed ? `open accordion--open accordion` : `accordion`;
     const buttonAriaLabel = closed ? 'Open toggle' : 'Close toggle';
