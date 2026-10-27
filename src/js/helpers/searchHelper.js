@@ -78,7 +78,7 @@ export const fetchNAICS = (req) => apiRequest({
 
 // perform search is a cancellable promise
 export const naicsRequest = (param) => apiRequest({
-    url: `v2/references/naics/${param || ''}`
+    url: `v2/references/naics/${param && !param.startsWith('?') ? `${param}/` : param || ''}`
 });
 
 // PSC search for autocomplete
@@ -121,7 +121,7 @@ export const performSpendingOverTimeSearch = (params) => apiRequest({
 
 // Spending By Category Visualization Endpoint
 export const performSpendingByCategorySearch = (params) => apiRequest({
-    url: `v2/search/spending_by_category/${params.category}`,
+    url: `v2/search/spending_by_category/${params.category}/`,
     method: 'post',
     headers: {
         'Content-Type': 'application/json'
@@ -157,7 +157,7 @@ export const performSpendingBySubawardGrouped = (params) => apiRequest({
 });
 
 export const performSpendingByTransactionsGrouped = (params) => apiRequest({
-    url: 'v2/search/spending_by_transaction_grouped',
+    url: 'v2/search/spending_by_transaction_grouped/',
     method: 'post',
     data: params
 });
