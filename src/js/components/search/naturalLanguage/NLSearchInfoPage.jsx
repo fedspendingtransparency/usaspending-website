@@ -72,6 +72,11 @@ const NLSearchInfoPage = () => {
         setOpenAccordions((prev) => (prev[id] === isOpen ? prev : { ...prev, [id]: isOpen }));
     }, []);
 
+    const handleExpandAccordions = useCallback((ids) => {
+        if (!ids?.length) return;
+        setToggleAllAccordions((prev) => ({ trigger: prev.trigger + 1, expand: true, ids }));
+    }, []);
+
     const handleToggleAll = () => {
         setToggleAllAccordions((prev) => ({ trigger: prev.trigger + 1, expand: !allExpanded }));
     };
@@ -128,7 +133,9 @@ const NLSearchInfoPage = () => {
                         activeSection={activeSection}
                         pageName="nlinfo"
                         detectActiveSection
-                        jumpToSection={jumpToSection} />
+                        jumpToSection={jumpToSection}
+                        toggle={handleExpandAccordions}
+                        accordionIds={accordionIds} />
                     <div>
                         <FlexGridCol className="search-info-page__expand-all-btn">
                             <Button

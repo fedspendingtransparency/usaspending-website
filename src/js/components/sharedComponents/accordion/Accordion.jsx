@@ -23,7 +23,8 @@ const propTypes = {
     containerClassName: PropTypes.string,
     toggleAll: PropTypes.shape({
         trigger: PropTypes.number,
-        expand: PropTypes.bool
+        expand: PropTypes.bool,
+        ids: PropTypes.arrayOf(PropTypes.string)
     }),
     accordionId: PropTypes.string,
     onToggle: PropTypes.func
@@ -52,7 +53,7 @@ const Accordion = ({
 
     if (toggleAll.trigger !== prevToggleAllTrigger) {
         setPrevToggleAllTrigger(toggleAll.trigger);
-        if (toggleAll.trigger > 0) {
+        if (toggleAll.trigger > 0 && (!toggleAll.ids || toggleAll.ids.includes(accordionId))) {
             setClosed(!toggleAll.expand);
         }
     }
