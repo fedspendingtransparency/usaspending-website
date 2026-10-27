@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "baseUrl": "./src/js",
-      "jsx": "react"
+        "jsx": "react"
     },
     "exclude": ["node_modules", "public"]
 }
