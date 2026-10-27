@@ -1,5 +1,5 @@
 /**
- * Accordion.jsx
+ * AddInfoAccordion.jsx
  * Created by Kwadwo Opoku-Debrah 10/13/2018
  **/
 
@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper } from 'data-transparency-ui';
 
 import { CondensedCDTooltip } from 'components/award/shared/InfoTooltipContent';
-import Accordion from '../../../sharedComponents/accordion/Accordion';
+import Accordion from 'components/sharedComponents/accordion/Accordion';
 
 const awardIdField = 'Unique Award Key';
 
