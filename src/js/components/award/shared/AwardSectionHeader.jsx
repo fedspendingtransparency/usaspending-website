@@ -1,7 +1,7 @@
 import React from 'react';
 import { TooltipWrapper } from 'data-transparency-ui';
 import Accordion from 'components/sharedComponents/accordion/Accordion';
-import { AWARD_SECTION_HEADER_PROPS } from "../../../propTypes/index";
+import { AWARD_SECTION_HEADER_PROPS } from '../../../propTypes/index';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const AwardSectionHeader = ({
@@ -20,7 +20,7 @@ const AwardSectionHeader = ({
             <p><span className="label">Modification Number:</span> Identifies the modification. Modification numbers increment from lower to higher as more mods are made.</p>
             <p><span className="label">Action Date:</span> When the modification was issued.</p>
             <p><span className="label">Amount:</span> The amount of money added or subtracted from the initial awarded amounts by the modification, if any.</p>
-            {category === "loan" && title.includes("Award History") && (
+            {category === 'loan' && title.includes('Award History') && (
                 <>
                     <p>
                         <span className="label">Loan Face Value: </span>
@@ -85,7 +85,7 @@ const AwardSectionHeader = ({
             <p><span>Federal Account Funding </span>- Each row in this table shows a transaction in the awarding agency&#39;s financial system that promises spending for the award from a federal account (a rollup of TAS, or Treasury accounts), broken down by program activity and object class.</p>
             <Accordion
                 title={accordionTitle}>
-                {activeTab === "subaward" ? subawardAccordionContent : awardAccordionContent}
+                {activeTab === 'subaward' ? subawardAccordionContent : awardAccordionContent}
             </Accordion>
         </div>
     );
@@ -94,7 +94,7 @@ const AwardSectionHeader = ({
             <div className="award-viz__heading">
                 {icon && <div className="award-viz__icon">{icon}</div>}
                 <h3 className="award-viz__title">{title}</h3>
-                {tooltip && !title.includes("Award History") && (
+                {tooltip && !title.includes('Award History') && (
                     // TODO: TooltipWrapper may be able to remove?
                     <TooltipWrapper
                         className="award-section-tt"
@@ -105,7 +105,7 @@ const AwardSectionHeader = ({
                 )}
             </div>
             <hr className="award-viz__break" />
-            {title.includes("Award History") && content}
+            {title.includes('Award History') && content}
         </React.Fragment>
     );
 };

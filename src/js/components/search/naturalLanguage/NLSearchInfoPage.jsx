@@ -4,28 +4,28 @@
  */
 
 import React, { useState, useCallback } from 'react';
-import PageWrapper from "../../sharedComponents/PageWrapper";
+import PageWrapper from '../../sharedComponents/PageWrapper';
 import SideBarNav from '../../sharedComponents/SideBarNav';
 import BannerPageHeader from '../../sharedComponents/header/BannerPageHeader';
 import { smartAssistPageMetaTags } from '../../../helpers/metaTagHelper';
 import smartAssistGraphic from '../../../../img/smart-assist-graphic.png';
-import { smartAssistContent } from '../naturalLanguage/NLData';
+import { smartAssistContent } from './NLData';
 import NLSearchInfoSection from './NLSearchInfoSection';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import NLSearchInfoResources from './NLSearchInfoResources';
 // import NLSearchInfoSidebar from './NLSearchInfoSidebar';
-import useJumpToSection from "../../../hooks/useJumpToSection";
-import useQueryParams from "../../../hooks/useQueryParams";
+import useJumpToSection from '../../../hooks/useJumpToSection';
+import useQueryParams from '../../../hooks/useQueryParams';
 import { FlexGridCol, Button } from 'data-transparency-ui';
 import ShareDownloadButtonGroup from '../../sharedComponents/buttons/ShareDownloadButtonGroup';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 import { Keyboard, A11y, FreeMode } from 'swiper/modules';
-import "swiper/css/bundle";
-import "swiper/css";
+import 'swiper/css/bundle';
+import 'swiper/css';
 
-require("pages/search/naturalLanguage/searchInfoPage.scss");
+require('pages/search/naturalLanguage/searchInfoPage.scss');
 
 const graphicLabel = (
     <>
@@ -33,53 +33,96 @@ const graphicLabel = (
     </>
 );
 
+const {
+    overview,
+    search,
+    results,
+    limitations,
+    feedback
+} = smartAssistContent ?? {};
+
 const infoSections = [
     {
         section: 'overview',
-        label: 'Overview'
+        label: 'Overview',
+        sectionKey: 'overview',
+        data: overview
     },
     {
         section: 'searching-with-smart-assist',
-        label: 'Searching With Smart Assist'
+        label: 'Searching With Smart Assist',
+        sectionKey: 'search',
+        data: search
     },
     {
         section: 'understanding-results',
-        label: 'Understanding Results'
+        label: 'Understanding Results',
+        sectionKey: 'results',
+        data: results
     },
     {
         section: 'limitations',
-        label: 'Limitations'
+        label: 'Limitations',
+        sectionKey: 'limitations',
+        data: limitations
     },
     {
         section: 'feedback-and-support',
-        label: 'Feedback & Support'
+        label: 'Feedback & Support',
+        sectionKey: 'feedback',
+        data: feedback
     }
 ];
 
-const { overview, search, results, limitations, feedback } = smartAssistContent ?? {};
+const accordionIdsForSection = (sectionKey, data) => (data?.items ?? []).map((_, i) => `${sectionKey}-${i}`);
+
+// nav section slug -> accordion ids in that section
+const accordionIdsBySection = Object.fromEntries(
+    infoSections.map(({ section, sectionKey, data }) => [section, accordionIdsForSection(sectionKey, data)])
+);
+
+const allAccordionIds = Object.values(accordionIdsBySection).flat();
+
+const withOpen = (prev, ids = []) => ({ ...prev, ...Object.fromEntries(ids.map((id) => [id, true])) });
 
 const NLSearchInfoPage = () => {
-    const jumpToSection = useJumpToSection("#nlinfo-", infoSections, false, stickyHeaderHeight);
+    const jumpToSection = useJumpToSection('#nlinfo-', infoSections, false, stickyHeaderHeight);
     const query = useQueryParams();
     const [activeSection] = useState(query.section || 'overview');
-    const [toggleAllAccordions, setToggleAllAccordions] = useState({ trigger: 0, expand: false });
-    const [openAccordions, setOpenAccordions] = useState({});
+    // lazy initializer so a deep link (?section=...) opens that section on first render,
+    // since useJumpToSection's initial scroll bypasses handleJumpToSection
+    const [openAccordions, setOpenAccordions] = useState(
+        () => withOpen({}, accordionIdsBySection[query.section])
+    );
 
-    const accordionIds = Object.keys(openAccordions);
-    const allExpanded = accordionIds.length > 0 && accordionIds.every((accordionId) => openAccordions[accordionId]);
-
-    const handleAccordionToggle = useCallback((id, isOpen) => {
-        setOpenAccordions((prev) => (prev[id] === isOpen ? prev : { ...prev, [id]: isOpen }));
-    }, []);
-
-    const handleExpandAccordions = useCallback((ids) => {
+    const openSection = useCallback((section) => {
+        const ids = accordionIdsBySection[section];
         if (!ids?.length) return;
-        setToggleAllAccordions((prev) => ({ trigger: prev.trigger + 1, expand: true, ids }));
+        setOpenAccordions((prev) => withOpen(prev, ids));
     }, []);
 
-    const handleToggleAll = () => {
-        setToggleAllAccordions((prev) => ({ trigger: prev.trigger + 1, expand: !allExpanded }));
-    };
+    const handleJumpToSection = useCallback((section) => {
+        openSection(section);
+        return jumpToSection(section);
+    }, [openSection, jumpToSection]);
+
+    const allExpanded = allAccordionIds.every((id) => openAccordions[id]);
+
+    const handleAccordionToggle = useCallback((id, updater) => {
+        setOpenAccordions((prev) => {
+            const prevOpen = !!prev[id];
+            const nextOpen = typeof updater === 'function' ? updater(prevOpen) : updater;
+            return prevOpen === nextOpen ? prev : { ...prev, [id]: nextOpen };
+        });
+    }, []);
+
+    const handleToggleAll = useCallback(() => {
+        const nextOpen = !allExpanded;
+        setOpenAccordions(allAccordionIds.reduce((acc, id) => {
+            acc[id] = nextOpen;
+            return acc;
+        }, {}));
+    }, [allExpanded]);
 
     return (
         <PageWrapper
@@ -133,9 +176,7 @@ const NLSearchInfoPage = () => {
                         activeSection={activeSection}
                         pageName="nlinfo"
                         detectActiveSection
-                        jumpToSection={jumpToSection}
-                        toggle={handleExpandAccordions}
-                        accordionIds={accordionIds} />
+                        jumpToSection={handleJumpToSection} />
                     <div>
                         <FlexGridCol className="search-info-page__expand-all-btn">
                             <Button
@@ -155,36 +196,15 @@ const NLSearchInfoPage = () => {
                                     </div>
                                 )} />
                         </FlexGridCol>
-                        <NLSearchInfoSection
-                            anchor="nlinfo-overview"
-                            section={overview}
-                            sectionKey="overview"
-                            toggleAll={toggleAllAccordions}
-                            onToggle={handleAccordionToggle} />
-                        <NLSearchInfoSection
-                            anchor="nlinfo-searching-with-smart-assist"
-                            section={search}
-                            sectionKey="search"
-                            toggleAll={toggleAllAccordions}
-                            onToggle={handleAccordionToggle} />
-                        <NLSearchInfoSection
-                            anchor="nlinfo-understanding-results"
-                            section={results}
-                            sectionKey="results"
-                            toggleAll={toggleAllAccordions}
-                            onToggle={handleAccordionToggle} />
-                        <NLSearchInfoSection
-                            anchor="nlinfo-limitations"
-                            section={limitations}
-                            sectionKey="limitations"
-                            toggleAll={toggleAllAccordions}
-                            onToggle={handleAccordionToggle} />
-                        <NLSearchInfoSection
-                            anchor="nlinfo-feedback-and-support"
-                            section={feedback}
-                            sectionKey="feedback"
-                            toggleAll={toggleAllAccordions}
-                            onToggle={handleAccordionToggle} />
+                        {infoSections.map(({ section, sectionKey, data }) => (
+                            <NLSearchInfoSection
+                                key={section}
+                                anchor={`nlinfo-${section}`}
+                                section={data}
+                                sectionKey={sectionKey}
+                                openAccordions={openAccordions}
+                                onToggle={handleAccordionToggle} />
+                        ))}
                     </div>
                 </section>
                 <NLSearchInfoResources />
