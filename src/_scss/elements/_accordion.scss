@@ -1,6 +1,5 @@
-// TODO: CSS variables do not work in this file. Will be addressed in follow up ticket.
 .accordion-container {
-  margin-bottom: 16px;
+  margin-bottom: $global-margin * 2;
 
   &:nth-last-child(1 of .accordion-container) {
     margin-bottom: 0;
@@ -11,9 +10,9 @@
   }
 
   .heading {
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 600;
+    font-size: $base-font-size;
+    line-height: 1.5;
+    font-weight: $font-semibold;
     text-align: left;
     margin: 0;
     cursor: pointer;
@@ -21,13 +20,13 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
-    border: 1px solid #eee;
-    color: #1b1b1b;
+    border: rem(1) solid #eee;
+    color: $gray-90;
     box-sizing: border-box;
-    height: 48px;
-    padding: 12px 16px;
-    background-color: #f0f0f0;
-    border-radius: 4px;
+    height: rem(48);
+    padding: rem(12) rem(16);
+    background-color: $gray-5;
+    border-radius: rem(4);
 
     &--chip-container {
       display: flex;
@@ -42,15 +41,15 @@
       }
 
       .selected-chip-count {
-        font-size: 10px;
+        font-size: $font-size-10;
         font-weight: normal;
         line-height: 1.5;
-        padding: 2px 6px;
-        border: 1px solid #edeff0ff;
-        border-radius: 4px;
+        padding: rem(2) rem(6);
+        border: rem(1) solid #edeff0ff;
+        border-radius: rem(4);
         background-color: #f7f9faff;
         white-space: nowrap;
-        margin: 0 4px;
+        margin: 0 rem(4);
       }
 
       .toggle {
@@ -62,7 +61,7 @@
         padding: 0;
 
         svg {
-          height: 16px;
+          height: rem(16);
         }
       }
     }
@@ -71,7 +70,7 @@
   .content {
     padding: 0;
     max-height: 0;
-    color: #1b1b1b;
+    color: $gray-90;
     text-align: left;
     visibility: hidden;
     transition:
@@ -85,28 +84,28 @@
 
   .plus {
     display: block;
-    color: #1b1b1b;
+    color: $gray-90;
   }
 
   .minus {
     display: none;
-    color: #1b1b1b;
+    color: $gray-90;
   }
 
   .open {
     .heading {
-      border-radius: 4px 4px 0 0;
+      border-radius: rem(4) rem(4) 0 0;
     }
 
     .content {
       line-height: 1.2;
       max-height: 100%;
-      border: 2px solid #eee;
+      border: rem(2) solid #eee;
       visibility: visible;
-      padding: 16px 20px;
+      padding: rem(16) rem(20);
 
       p {
-        margin: 16px 0;
+        margin: rem(16) 0;
       }
     }
 
@@ -121,9 +120,10 @@
 
   .sr-only {
     position: absolute;
-    height: 1px;
-    width: 1px;
-    clip: rect(1px, 1px, 1px, 1px);
+    height: rem(1);
+    width: rem(1);
+    clip: rect(rem(1), rem(1), rem(1), rem(1));
+    // clip-path doesn't take rem values
     clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
     -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
     overflow: hidden !important;
@@ -131,38 +131,38 @@
 }
 
 details {
-  margin-bottom: 16px;
+  margin-bottom: rem(16);
 
   .heading {
     box-sizing: border-box;
-    height: 48px;
-    padding: 12px 16px;
-    background-color: #f0f0f0;
-    border-radius: 4px;
+    height: rem(48);
+    padding: rem(12) rem(16);
+    background-color: $gray-5;
+    border-radius: rem(4);
 
     .plus {
       display: block;
-      color: #1b1b1b;
+      color: $gray-90;
     }
 
     .minus {
-      color: #1b1b1b;
+      color: $gray-90;
     }
   }
 
   .content {
-    border: 2px solid #f0f0f0;
-    border-radius: 0 0 4px 4px;
-    padding: 16px 20px;
+    border: rem(2) solid $gray-5;
+    border-radius: 0 0 rem(4) rem(4);
+    padding: rem(16) rem(20);
 
     p {
-      margin: 16px 0;
+      margin: rem(16) 0;
     }
   }
 
   &[open] {
     .heading {
-      border-radius: 4px 4px 0 0;
+      border-radius: rem(4) rem(4) 0 0;
 
       .heading--chip-container {
         .plus {
