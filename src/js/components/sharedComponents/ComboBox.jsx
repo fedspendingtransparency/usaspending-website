@@ -4,10 +4,6 @@ import PropTypes from "prop-types";
 import { uniqueId } from "lodash-es";
 
 const propTypes = {
-    ref: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.shape({ current: PropTypes.any })
-    ]),
     optionsArray: PropTypes.arrayOf(
         PropTypes.shape(
             {
