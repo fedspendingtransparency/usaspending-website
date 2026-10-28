@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from 'redux';
+import { bindActionCreators, useSelector } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash-es';
@@ -42,21 +42,23 @@ const apiScopes = {
     congressionalDistrict: 'district'
 };
 
-const logMapLayerEvent = (layer) => {
+const logMapLayerEvent = (layer, method) => {
     Analytics.event({
         event: 'search_map_layer_event',
         category: 'Advanced Search - Map - Map Layer',
         action: layer,
-        gtm: true
+        gtm: true,
+        method
     });
 };
 
-const logMapScopeEvent = (scope) => {
+const logMapScopeEvent = (scope, method) => {
     Analytics.event({
         event: 'search_map_location_type_event',
         category: 'Advanced Search - Map - Location Type',
         action: scope,
-        gtm: true
+        gtm: true,
+        method
     });
 };
 
@@ -65,6 +67,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const USACenterPoint = [-95.569430, 38.852892];
     const stateFIPSByAbbreviation = useStateFIPSByAbbreviation();
     const stateNameByFipsId = useStateNameByFipsId();
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const searchOrigin = isSearchActive ? "Smart Assist" : "Advanced Search";
 
     // Create inverted mapping: FIPS -> Abbreviation
     const stateAbbreviationByFipsId = stateFIPSByAbbreviation ?
@@ -388,7 +392,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         setLoadingTiles(true);
         useEffectRef.current.loadingTiles = true;
 
-        logMapLayerEvent(layer);
+        logMapLayerEvent(layer, searchOrigin);
     };
 
     const mapScopeLogic = (type) => {
@@ -625,8 +629,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         updateMapScope();
 
         // log the initial event
-        logMapScopeEvent(props.scope);
-        logMapLayerEvent(mapLayer);
+        logMapScopeEvent(props.scope, searchOrigin);
+        logMapLayerEvent(mapLayer, searchOrigin);
 
         return () => {
             // remove any broadcast listeners
@@ -676,7 +680,7 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     useEffect(() => {
         prepareFetch(true);
-        logMapScopeEvent(props.scope);
+        logMapScopeEvent(props.scope, searchOrigin);
     }, [props.scope]);
 
     useEffect(() => {

@@ -284,7 +284,7 @@ export const sendFieldCombinations = (events, category = 'Advanced Search - Sear
     });
 };
 
-export const sendFieldCombinationsOnUpdate = (events, category, action) => {
+export const sendFieldCombinationsOnUpdate = (events, category, action, method) => {
     // record the filter field combinations that were selected
     // extract the action label from each event and then eliminate duplicates
     const fields = uniq(events.reduce((parsed, event) => {
@@ -299,7 +299,8 @@ export const sendFieldCombinationsOnUpdate = (events, category, action) => {
         category,
         action,
         label: fields.sort().join('|'),
-        gtm: true
+        gtm: true,
+        method: method
     });
 };
 

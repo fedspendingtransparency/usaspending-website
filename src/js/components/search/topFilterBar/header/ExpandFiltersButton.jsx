@@ -3,11 +3,13 @@ import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from "prop-types";
 import Analytics from "helpers/analytics/Analytics";
+import { useSelector } from "react-redux";
 
-const logExpandEvent = (type) => {
+const logExpandEvent = (type, isSearchActive) => {
     Analytics.event({
         category: "Advanced Search - Active Filters",
-        action: `${type} Filters`
+        action: `${type} Filters`,
+        method: isSearchActive ? "Smart Assist" : "Advanced Search"
     });
 };
 
@@ -20,12 +22,14 @@ const propTypes = {
 const ExpandFiltersButton = ({ appliedFilters, expandedFilters, setExpandedFilters }) => {
     const [needExpandButton, setNeedExpandButton] = useState(false);
 
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+
     const chevronIcon = useMemo(() => (
         <FontAwesomeIcon icon={expandedFilters ? "chevron-up" : "chevron-down"} />
     ), [expandedFilters]);
 
     const onClick = useCallback(() => setExpandedFilters((prevState) => {
-        logExpandEvent(!prevState ? "Expand" : "Collapse");
+        logExpandEvent(!prevState ? "Expand" : "Collapse", isSearchActive);
 
         return !prevState;
     }), [setExpandedFilters]);

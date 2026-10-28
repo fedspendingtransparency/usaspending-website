@@ -3,16 +3,17 @@
  * Created by Andrea Blackwell 04/14/2024
  **/
 
-import React, { useState, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 
-import Analytics from "../../../../helpers/analytics/Analytics";
+import Analytics from '../../../../helpers/analytics/Analytics';
 import CategoriesVisualizationWrapperContainer
-    from "../../../../containers/search/resultsView/CategoriesVisualizationWrapperContainer";
-import PlaceholderComponent from "../PlaceholderComponent";
-import CategoriesDsm from "./CategoriesDsm";
-import useIntersectionObserver from "../../../../hooks/useIntersectionObserver";
-import logVisualizationViewEvent from "../logVisualizationViewEvent";
+    from '../../../../containers/search/resultsView/CategoriesVisualizationWrapperContainer';
+import PlaceholderComponent from '../PlaceholderComponent';
+import CategoriesDsm from './CategoriesDsm';
+import useIntersectionObserver from '../../../../hooks/useIntersectionObserver';
+import logVisualizationViewEvent from '../logVisualizationViewEvent';
+import { useSelector } from 'react-redux';
 
 const propTypes = {
     spendingLevel: PropTypes.string,
@@ -28,9 +29,12 @@ const CategoriesSection = ({
         freezeOnceVisible: true
     });
 
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const searchOrigin = isSearchActive ? 'Smart Assist' : 'Advanced Search';
+
     useEffect(() => {
         if (categoriesHasLoaded) {
-            logVisualizationViewEvent("categories", hash);
+            logVisualizationViewEvent('categories', hash, searchOrigin);
         }
     }, [categoriesHasLoaded, hash]);
 

@@ -99,6 +99,7 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
     const isSubaward = spendingLevel === "subawards";
     const loadExpandableData = (isSubaward && spendingLevel === "awards" && !isMobile);
     const counts = tabData.results;
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     const {
         isLoading,
@@ -150,7 +151,8 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
             event: 'search_table_tab',
             category: 'Advanced Search - Table Tab',
             action: tab,
-            gtm: true
+            gtm: true,
+            method: isSearchActive ? "Smart Assist" : "Advanced Search"
         });
     };
 
@@ -207,7 +209,8 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
             category: 'Advanced Search - Spending by Prime Award',
             action: `Clicked ${id}`,
             label: new URLSearchParams(location.search).get('hash'),
-            gtm: true
+            gtm: true,
+            method: isSearchActive ? "Smart Assist" : "Advanced Search"
         });
     };
 
@@ -217,7 +220,8 @@ const ResultsTableContainer = memo(function ResultsTableContainer({
             category: 'Advanced Search - Link',
             action: 'Subaward ID Clicked',
             label: id,
-            gtm: true
+            gtm: true,
+            method: isSearchActive ? "Smart Assist" : "Advanced Search"
         });
         dispatch(subAwardIdClicked(true));
     };

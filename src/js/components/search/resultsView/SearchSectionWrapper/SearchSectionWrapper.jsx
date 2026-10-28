@@ -9,6 +9,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import SearchSectionWrapperHeader from "./SearchSectionWrapperHeader";
 import SearchSectionWrapperAccordion from "./SearchSectionWrapperAccordion";
 import SearchSectionWrapperContent from "./SearchSectionWrapperContent";
+import { useSelector } from "react-redux";
 
 const propTypes = {
     sectionTitle: PropTypes.string,
@@ -82,6 +83,7 @@ const SearchSectionWrapper = ({
     const [viewType, setViewType] = useState('chart');
 
     const gaRef = useRef(false);
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
 
     const mobileDropdownOptions = [];
 
@@ -99,7 +101,8 @@ const SearchSectionWrapper = ({
             Analytics.event({
                 category: `Section ${sectionName}: ${selectedDropdownOption}`,
                 action: `Viewed ${selectedDropdownOption} ${viewType}`,
-                label: hash
+                label: hash,
+                method: isSearchActive ? "Smart Assist" : "Advanced Search"
             });
         }
         else {
@@ -139,7 +142,8 @@ const SearchSectionWrapper = ({
             Analytics.event({
                 category: 'Advanced Search - Results View DSM',
                 action,
-                label: `${prefix} DS&M`
+                label: `${prefix} DS&M`,
+                method: isSearchActive ? "Smart Assist" : "Advanced Search"
             });
         }
         setTrackDSMEvent(true);
