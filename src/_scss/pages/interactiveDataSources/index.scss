@@ -65,7 +65,7 @@
       .interactive-data-sources__col {
         @include display(flex);
         @include flex-direction(column);
-        padding: 0px;
+        padding: 0;
         background: $color-white;
 
         .usda-message {
@@ -82,6 +82,7 @@
 
         .body-padded__content {
           @import "./_scrollerOverlayCard.scss";
+          width: 100%;
           margin-top: 0;
           padding: 0 0 10% 0;
 
@@ -89,6 +90,14 @@
           h2,
           h3 {
             margin-top: 0;
+          }
+
+          .accordion-container .content {
+            padding: rem(16) rem(20);
+
+            p {
+              margin: rem(16) 0;
+            }
           }
         }
         .usda-section__container {

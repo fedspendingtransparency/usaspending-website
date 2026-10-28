@@ -18,13 +18,11 @@ const propTypes = {
     pageName: PropTypes.string,
     rootMargin: PropTypes.string,
     threshold: PropTypes.array,
-    loading: PropTypes.bool,
-    accordionIds: PropTypes.array,
-    toggle: PropTypes.func
+    loading: PropTypes.bool
 };
 
 const SideBarNav = ({
-    sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold, loading, accordionIds, toggle, ...props
+    sections, jumpToSection, pageName, detectActiveSection, rootMargin, threshold, loading, ...props
 }) => {
     const [observerSupported, setObserverSupported] = useState(false);
     const [activeSection, setActiveSection] = useState(props.activeSection);
@@ -35,9 +33,6 @@ const SideBarNav = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth <= mediumScreen);
     const navBar = useRef(null);
     const [sectionPositions, setSectionPositions] = useState([]);
-    const navSections = sections.map((sect) => sect.section);
-    const navAccordionLookup = Object.fromEntries(
-        navSections.map((section) => [section, accordionIds.filter((id) => section.includes(id.split('-')[0]))]));
     const [dropSelection, setDropSelection] = useState('On this Page');
 
     // Suppresses the IntersectionObserver while a manual (click-triggered) scroll is in flight,
@@ -51,7 +46,6 @@ const SideBarNav = ({
         jumpToSection(option.section);
         setActiveSection(option.section);
         setDropSelection(option.label);
-        toggle?.(navAccordionLookup[option.section]);
 
         manualJumpRef.current = true;
         clearTimeout(manualJumpTimeoutRef.current);
@@ -87,7 +81,7 @@ const SideBarNav = ({
             if (visible.length) {
                 const topMost = visible.reduce((best, el) => (el.getBoundingClientRect().top < best.getBoundingClientRect().top ? el : best));
 
-                const section = topMost.id.replace(prefix, "");
+                const section = topMost.id.replace(prefix, '');
 
                 setActiveSection(section);
             }
@@ -95,7 +89,7 @@ const SideBarNav = ({
     });
     // detect if the element is overflowing on the left or the right
     const checkIsOverflowHidden = () => {
-        const ulEl = navBar?.current?.querySelector("ul");
+        const ulEl = navBar?.current?.querySelector('ul');
         const { left, right } = checkIsOverflow(ulEl, padding);
 
         setIsOverflowLeft(left);
@@ -227,7 +221,7 @@ const SideBarNav = ({
                                             tabIndex="0"
                                             id={`in-page-nav-link-${section.label}`}
                                             key={`in-page-nav-link-${section.label}`}
-                                            onKeyDown={(e) => (e.key === "Enter" ? sideBarClick(section) : "")}
+                                            onKeyDown={(e) => (e.key === 'Enter' ? sideBarClick(section) : '')}
                                             onClick={() => sideBarClick(section)}>
                                             {section.label}
                                         </button>

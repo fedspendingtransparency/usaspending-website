@@ -1,20 +1,18 @@
-// TODO: CSS variables do not work in this file. Will be addressed in follow up ticket.
 .accordion-container {
+  margin-bottom: $global-margin * 2;
+
+  &:nth-last-child(1 of .accordion-container) {
+    margin-bottom: 0;
+  }
+
   button {
     margin-right: 0;
   }
 
-  .accordion {
-    ul {
-      list-style-type: disc;
-    }
-  }
-
   .heading {
-    padding: 12px 12px 12px 24px;
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 600;
+    font-size: $base-font-size;
+    line-height: 1.5;
+    font-weight: $font-semibold;
     text-align: left;
     margin: 0;
     cursor: pointer;
@@ -22,16 +20,13 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: nowrap;
-    border: 1px solid #eee;
-    color: #1b1b1b;
-
-    &.search-info-page-heading {
-      box-sizing: border-box;
-      height: 48px;
-      padding: 12px 16px;
-      background-color: #f0f0f0;
-      border-radius: 4px;
-    }
+    border: rem(1) solid #eee;
+    color: $gray-90;
+    box-sizing: border-box;
+    height: rem(48);
+    padding: rem(12) rem(16);
+    background-color: $gray-5;
+    border-radius: rem(4);
 
     &--chip-container {
       display: flex;
@@ -46,15 +41,15 @@
       }
 
       .selected-chip-count {
-        font-size: 10px;
+        font-size: $font-size-10;
         font-weight: normal;
         line-height: 1.5;
-        padding: 2px 6px;
-        border: 1px solid #edeff0ff;
-        border-radius: 4px;
+        padding: rem(2) rem(6);
+        border: rem(1) solid #edeff0ff;
+        border-radius: rem(4);
         background-color: #f7f9faff;
         white-space: nowrap;
-        margin: 0 4px;
+        margin: 0 rem(4);
       }
 
       .toggle {
@@ -63,55 +58,54 @@
         border: none;
         float: right;
         cursor: pointer;
+        padding: 0;
+
+        svg {
+          height: rem(16);
+        }
       }
     }
   }
 
   .content {
-    padding: 0 25px;
+    padding: 0;
     max-height: 0;
-    color: #1b1b1b;
+    color: $gray-90;
     text-align: left;
     visibility: hidden;
     transition:
       ease-in-out max-height 50ms,
       visibility 50ms;
+
+    p {
+      margin: 0;
+    }
   }
 
   .plus {
     display: block;
-    color: #0071bc;
-
-    &.search-info-page-fa {
-      display: block;
-      color: #1b1b1b;
-    }
+    color: $gray-90;
   }
 
   .minus {
     display: none;
-    color: #0071bc;
-
-    &.search-info-page-fa {
-      display: none;
-      color: #1b1b1b;
-    }
+    color: $gray-90;
   }
 
   .open {
-    margin-bottom: 16px;
+    .heading {
+      border-radius: rem(4) rem(4) 0 0;
+    }
+
     .content {
       line-height: 1.2;
       max-height: 100%;
-      padding-top: 15px;
-      padding-bottom: 25px;
-      border: 1px solid #eee;
+      border: rem(2) solid #eee;
       visibility: visible;
+      padding: rem(16) rem(20);
 
-      &.search-info-page-content {
-        border: 2px solid #f0f0f0;
-        border-radius: 0 0 4px 4px;
-        padding: 16px 20px;
+      p {
+        margin: rem(16) 0;
       }
     }
 
@@ -126,19 +120,75 @@
 
   .sr-only {
     position: absolute;
-    height: 1px;
-    width: 1px;
-    clip: rect(1px, 1px, 1px, 1px);
+    height: rem(1);
+    width: rem(1);
+    clip: rect(rem(1), rem(1), rem(1), rem(1));
+    // clip-path doesn't take rem values
     clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
     -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
     overflow: hidden !important;
   }
 }
 
+details {
+  margin-bottom: rem(16);
+
+  .heading {
+    box-sizing: border-box;
+    height: rem(48);
+    padding: rem(12) rem(16);
+    background-color: $gray-5;
+    border-radius: rem(4);
+
+    .plus {
+      display: block;
+      color: $gray-90;
+    }
+
+    .minus {
+      color: $gray-90;
+    }
+  }
+
+  .content {
+    border: rem(2) solid $gray-5;
+    border-radius: 0 0 rem(4) rem(4);
+    padding: rem(16) rem(20);
+
+    p {
+      margin: rem(16) 0;
+    }
+  }
+
+  &[open] {
+    .heading {
+      border-radius: rem(4) rem(4) 0 0;
+
+      .heading--chip-container {
+        .plus {
+          display: none;
+        }
+
+        .minus {
+          display: block;
+        }
+      }
+    }
+
+    .content {
+      line-height: 1.2;
+      max-height: 100%;
+      visibility: visible;
+      transition: ease-in-out max-height 50ms,
+      visibility 50ms;
+    }
+  }
+}
+
 // searchV2
-.collapsible-sidebar--search-filters-list
-  .search-filters-list
-  .accordion-container:last-of-type
+.collapsible-sidebar--search-filters-list,
+  .search-filters-list,
+  .accordion-container:last-of-type,
   .accordion {
   padding-bottom: 0;
 }

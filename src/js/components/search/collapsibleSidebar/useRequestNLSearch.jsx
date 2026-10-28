@@ -8,7 +8,7 @@ const headers = {
     'X-LLM-API-Key': GlobalConstants?.LLM_HEADER_VALUE
 };
 
-const LLM_API = GlobalConstants?.LLM_API + 'v2/llm/filter-search/';
+const LLM_API = GlobalConstants?.API + 'v2/llm/filter-search/';
 
 // defined outside the hook so the impure performance.now() call isn't made within render scope
 const startTimer = () => {
@@ -82,7 +82,14 @@ const useRequestNLSearch = (prompt, method) => {
             .then(() => queryClient.setQueryData(['nl-search-stream'], []));
     };
 
-    return { parsedData: data, fetchNLSearch: refetch, cancelQuery, isFetching, fetchingError: isError, isSuccess };
+    const clearNLCache = () => {
+        queryClient.removeQueries({
+            queryKey: ['nl-search-stream'],
+            exact: true
+        });
+    };
+
+    return { parsedData: data, fetchNLSearch: refetch, cancelQuery, isFetching, fetchingError: isError, isSuccess, clearNLCache };
 };
 
 export default useRequestNLSearch;

@@ -59,7 +59,10 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
         });
     }, [updateFilter]);
 
-    const onCountryClearSelect = () => updateFilter('location', '');
+    const onCountryClearSelect = () => {
+        updateFilter('location', '');
+        onStateClearSelect();
+    };
 
     const updateState = (e) => {
         const getState = (v) => {
@@ -117,6 +120,7 @@ const LocationFilter = memo(function LocationFilter({ states, updateFilter }) {
                         placeholder="Select a Country"
                         onClearSelect={onCountryClearSelect} />
                     <ComboBox
+                        key={location.country?.code || 'no-country'}
                         optionsArray={stateOptions}
                         onSelect={updateState}
                         label="State"

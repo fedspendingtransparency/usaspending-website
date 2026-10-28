@@ -3,36 +3,42 @@
  * Created by Kwadwo Opoku-Debrah 10/11/2018
  **/
 
-import React from 'react';
+import React, { useState, useMemo, useRef, useCallback } from 'react';
 import PropTypes from 'prop-types';
 
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import additionalDetailsContract from 'dataMapping/award/additionalDetailsContract';
 import additionalDetailsFinancialAssistance from 'dataMapping/award/additionalDetailsFinancialAssistance';
 import additionalDetailsIdv from 'dataMapping/award/additionalDetailsIdv';
-import Accordion from './Accordion';
+import AddInfoAccordion from './AddInfoAccordion';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
+
+const splitCongressionalDistrict = (section) => {
+    const cd = section?.['Congressional District']?.data?.at(-1)?.trim();
+    const split = cd?.split(': ');
+    return split?.length === 2 ? split[1] : section?.['Congressional District'];
+};
 
 const propTypes = {
     overview: PropTypes.object
 };
 
-export default class AdditionalInfo extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            globalToggle: false
-        };
-    }
+const AdditionalInfo = ({ overview }) => {
+    const [open, setOpen] = useState(false);
 
-    handleClick = () => {
-        this.setState({ globalToggle: !this.state.globalToggle });
+    const ref = useRef(null);
+
+    const handleClick = () => {
+        const accordionElements = ref.current.querySelectorAll('.accordion.expand-all-trigger');
+
+        if (open) accordionElements.forEach((el) => el.removeAttribute('open'));
+        else accordionElements.forEach((el) => el.setAttribute('open', ''));
     };
 
-    data() {
-        const { overview } = this.props;
+    const data = useMemo(() => {
         const category = overview._category;
+
         if (category === 'idv') return additionalDetailsIdv(overview);
         if (category === 'contract') return additionalDetailsContract(overview);
         if (category === 'definitive contract') return additionalDetailsContract(overview);
@@ -41,230 +47,229 @@ export default class AdditionalInfo extends React.Component {
         if (category === 'direct payment') return additionalDetailsFinancialAssistance(overview);
         if (category === 'insurance') return additionalDetailsFinancialAssistance(overview);
         if (category === 'other') return additionalDetailsFinancialAssistance(overview);
-        return {};
-    }
 
-    columns() {
-        const { overview } = this.props;
-        const data = this.data();
+        return {};
+    }, [overview]);
+
+    const onToggle = useCallback(() => setOpen(
+        Array
+            .from(ref.current.querySelectorAll('.accordion.expand-all-trigger'))
+            .some((el) => el.hasAttribute('open'))
+    ), []);
+
+    const { firstColumn, secondColumn } = useMemo(() => {
+        let columnOne;
+        let columnTwo;
+        const newData = { ...data };
+        const category = overview._category;
+
+        if (
+            category === 'grant' ||
+            category === 'loans' ||
+            category === 'direct payment' ||
+            category === 'insurance' ||
+            category === 'other'
+        ) {
+            newData.placeOfPerformance = {
+                ...data.placeOfPerformance,
+                'Congressional District': splitCongressionalDistrict(data.placeOfPerformance)
+            };
+
+            newData.recipientDetails = {
+                ...data.recipientDetails,
+                'Congressional District': splitCongressionalDistrict(data.recipientDetails)
+            };
+
+            columnOne = [
+                (<AddInfoAccordion
+                    onToggle={onToggle}
+                    key="UniqueAwardKey"
+                    accordionName="Unique Award Key"
+                    accordionIcon="fingerprint"
+                    accordionData={newData.uniqueAwardKey} />),
+                (<AddInfoAccordion
+                    onToggle={onToggle}
+                    key="AgencyDetails"
+                    accordionName="Agency Details"
+                    accordionIcon="landmark"
+                    accordionData={newData.agencyDetails} />),
+                (<AddInfoAccordion
+                    onToggle={onToggle}
+                    key="PlaceOfPerformance"
+                    accordionName="Place Of Performance"
+                    accordionIcon="map-marker-alt"
+                    accordionData={newData.placeOfPerformance} />),
+                (<AddInfoAccordion
+                    onToggle={onToggle}
+                    key="PeriodOfPerformance"
+                    accordionName="Period Of Performance"
+                    accordionIcon="calendar-alt"
+                    iconClassName="accordion-icon-calendar-alt"
+                    accordionData={newData.periodOfPerformance} />)
+            ];
+
+            columnTwo = [
+                (<AddInfoAccordion
+                    onToggle={onToggle}
+                    key="RecipientDetails"
+                    accordionName="Recipient Details"
+                    accordionIcon="building"
+                    accordionData={newData.recipientDetails} />),
+                (<AddInfoAccordion
+                    onToggle={onToggle}
+                    key="ExecutiveCompensation"
+                    accordionName="Executive Compensation"
+                    accordionIcon="user-tie"
+                    accordionData={overview.executiveDetails.officers} />)
+            ];
+
+            if (overview.category === 'grant') {
+                columnTwo.push(
+                    <AddInfoAccordion
+                        onToggle={onToggle}
+                        key="PreAwardDetails"
+                        accordionName="Pre-Award Details"
+                        accordionIcon="clipboard-list"
+                        accordionData={overview?.preAwardDetails} />
+                );
+            }
+            return { firstColumn: columnOne, secondColumn: columnTwo };
+        }
+
         // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
 
         if (data.placeOfPerformance) {
-            const cdPOP = data.placeOfPerformance["Congressional District"]?.data.pop().trim();
-            const splitCDPOP = cdPOP?.split(": ");
-            if (splitCDPOP?.length === 2) {
-                data.placeOfPerformance["Congressional District"] = splitCDPOP[1];
-            }
+            newData.placeOfPerformance = {
+                ...data.placeOfPerformance,
+                'Congressional District': splitCongressionalDistrict(data.placeOfPerformance)
+            };
         }
-        const cdRD = data.recipientDetails["Congressional District"]?.data.pop().trim();
-        const splitCDRD = cdRD?.split(": ");
-        if (splitCDRD?.length === 2) {
-            data.recipientDetails["Congressional District"] = splitCDRD[1];
-        }
+
+        newData.recipientDetails = {
+            ...data.recipientDetails,
+            'Congressional District': splitCongressionalDistrict(data.recipientDetails)
+        };
+
         let periodOfPerformance = (
             <IdvPeriodOfPerformance
-                key="IdvPeriodOfPerformance"
-                accordionData={data.periodOfPerformance}
-                globalToggle={this.state.globalToggle} />
+                onToggle={onToggle}
+                accordionData={newData.periodOfPerformance}
+                key="IdvPeriodOfPerformance" />
         );
-        if (this.props.overview._category !== 'idv') {
+
+        if (overview._category !== 'idv') {
             placeOfPerformance = (
-                <Accordion
+                <AddInfoAccordion
+                    onToggle={onToggle}
                     key="PlaceOfPerformance"
-                    globalToggle={this.state.globalToggle}
                     accordionName="Place Of Performance"
                     accordionIcon="map-marker-alt"
-                    accordionData={data.placeOfPerformance} />
+                    accordionData={newData.placeOfPerformance} />
             );
+
             periodOfPerformance = (
-                <Accordion
+                <AddInfoAccordion
+                    onToggle={onToggle}
                     key="PeriodOfPerformance"
-                    globalToggle={this.state.globalToggle}
                     accordionName="Period Of Performance"
                     accordionIcon="calendar-alt"
                     iconClassName="accordion-icon-calendar-alt"
-                    accordionData={data.periodOfPerformance} />
+                    accordionData={newData.periodOfPerformance} />
             );
         }
-        const columnOne = [
-            (<Accordion
+
+        columnOne = [
+            (<AddInfoAccordion
+                onToggle={onToggle}
                 key="UniqueAwardKey"
-                globalToggle={this.state.globalToggle}
                 accordionName="Unique Award Key"
                 accordionIcon="fingerprint"
-                accordionData={data.uniqueAwardKey} />),
-            (<Accordion
+                accordionData={newData.uniqueAwardKey} />),
+            (<AddInfoAccordion
+                onToggle={onToggle}
                 key="AgencyDetails"
-                globalToggle={this.state.globalToggle}
                 accordionName="Agency Details"
                 accordionIcon="landmark"
-                accordionData={data.agencyDetails} />),
-            (<Accordion
+                accordionData={newData.agencyDetails} />),
+            (<AddInfoAccordion
+                onToggle={onToggle}
                 key="ParentAwardDetails"
-                globalToggle={this.state.globalToggle}
                 accordionName="Parent Award Details"
                 accordionIcon="sitemap"
-                accordionData={data.parentAwardDetails} />),
+                accordionData={newData.parentAwardDetails} />),
             (placeOfPerformance),
             (periodOfPerformance),
-            (<Accordion
+            (<AddInfoAccordion
+                onToggle={onToggle}
                 key="LegislativeMandates"
-                globalToggle={this.state.globalToggle}
                 accordionName="Legislative Mandates"
                 accordionIcon="pencil-alt"
-                accordionData={data.legislativeMandates} />)
+                accordionData={newData.legislativeMandates} />)
         ];
-        const columnTwo = [
-            (<Accordion
+
+        columnTwo = [
+            (<AddInfoAccordion
+                onToggle={onToggle}
                 key="RecipientDetails"
-                globalToggle={this.state.globalToggle}
                 accordionName="Recipient Details"
                 accordionIcon="building"
-                accordionData={data.recipientDetails} />),
-            (<Accordion
+                accordionData={newData.recipientDetails} />),
+            (<AddInfoAccordion
+                onToggle={onToggle}
                 key="AcquisitionDetails"
-                globalToggle={this.state.globalToggle}
                 accordionName="Acquisition Details"
                 accordionIcon="tag"
-                accordionData={data.acquisitionDetails} />),
-            (<Accordion
+                accordionData={newData.acquisitionDetails} />),
+            (<AddInfoAccordion
+                onToggle={onToggle}
                 key="CompetitionDetails"
-                globalToggle={this.state.globalToggle}
                 accordionName="Competition Details"
                 accordionIcon="chart-bar"
-                accordionData={data.competitionDetails} />),
-            (<Accordion
+                accordionData={newData.competitionDetails} />),
+            (<AddInfoAccordion
+                onToggle={onToggle}
                 key="AdditionalDetails"
-                globalToggle={this.state.globalToggle}
                 accordionName="Additional Details"
                 accordionIcon="ellipsis-h"
-                accordionData={data.additionalDetails} />),
-            (<Accordion
+                accordionData={newData.additionalDetails} />),
+            (<AddInfoAccordion
+                onToggle={onToggle}
                 key="ExecutiveCompensation"
-                globalToggle={this.state.globalToggle}
                 accordionName="Executive Compensation"
                 accordionIcon="user-tie"
                 accordionData={overview.executiveDetails.officers} />)
         ];
 
-        return { columnOne, columnTwo };
-    }
+        return { firstColumn: columnOne, secondColumn: columnTwo };
+    }, [overview, data, onToggle]);
 
-    faColumns() {
-        const { overview } = this.props;
-        const data = this.data();
-
-        const cdPOP = data.placeOfPerformance["Congressional District"]?.data.pop().trim();
-        const splitCDPOP = cdPOP?.split(": ");
-        if (splitCDPOP?.length === 2) {
-            data.placeOfPerformance["Congressional District"] = splitCDPOP[1];
-        }
-        const cdRD = data.recipientDetails["Congressional District"]?.data.pop().trim();
-        const splitCDRD = cdRD?.split(": ");
-        if (splitCDRD?.length === 2) {
-            data.recipientDetails["Congressional District"] = splitCDRD[1];
-        }
-        const columnOne = [
-            (<Accordion
-                key="UniqueAwardKey"
-                globalToggle={this.state.globalToggle}
-                accordionName="Unique Award Key"
-                accordionIcon="fingerprint"
-                accordionData={data.uniqueAwardKey} />),
-            (<Accordion
-                key="AgencyDetails"
-                globalToggle={this.state.globalToggle}
-                accordionName="Agency Details"
-                accordionIcon="landmark"
-                accordionData={data.agencyDetails} />),
-            (<Accordion
-                key="PlaceOfPerformance"
-                globalToggle={this.state.globalToggle}
-                accordionName="Place Of Performance"
-                accordionIcon="map-marker-alt"
-                accordionData={data.placeOfPerformance} />),
-            (<Accordion
-                key="PeriodOfPerformance"
-                globalToggle={this.state.globalToggle}
-                accordionName="Period Of Performance"
-                accordionIcon="calendar-alt"
-                iconClassName="accordion-icon-calendar-alt"
-                accordionData={data.periodOfPerformance} />)
-        ];
-        const columnTwo = [
-            (<Accordion
-                key="RecipientDetails"
-                globalToggle={this.state.globalToggle}
-                accordionName="Recipient Details"
-                accordionIcon="building"
-                accordionData={data.recipientDetails} />),
-            (<Accordion
-                key="ExecutiveCompensation"
-                globalToggle={this.state.globalToggle}
-                accordionName="Executive Compensation"
-                accordionIcon="user-tie"
-                accordionData={overview.executiveDetails.officers} />)
-        ];
-
-        if (overview.category === "grant") {
-            columnTwo.push(
-                <Accordion
-                    key="PreAwardDetails"
-                    globalToggle={this.state.globalToggle}
-                    accordionName="Pre-Award Details"
-                    accordionIcon="clipboard-list"
-                    accordionData={overview?.preAwardDetails} />
-            );
-        }
-        return { columnOne, columnTwo };
-    }
-
-    render() {
-        const category = this.props.overview._category;
-        let firstColumn;
-        let secondColumn;
-        if (category === 'grant' ||
-            category === 'loans' ||
-            category === 'direct payment' ||
-            category === 'insurance' ||
-            category === 'other') {
-            const { columnOne, columnTwo } = this.faColumns();
-            firstColumn = columnOne;
-            secondColumn = columnTwo;
-        }
-        else {
-            const { columnOne, columnTwo } = this.columns();
-            firstColumn = columnOne;
-            secondColumn = columnTwo;
-        }
-
-        return (
-            <div id="award-additional-information" className="additional-info">
-                <div className="award-viz">
-                    <div className="award-viz__heading">
-                        <div className="award-viz__icon">
-                            <FontAwesomeIcon size="lg" icon="info" />
-                        </div>
-                        <h3 className="award-viz__title">Additional Information</h3>
+    return (
+        <div id="award-additional-information" className="additional-info">
+            <div className="award-viz">
+                <div className="award-viz__heading">
+                    <div className="award-viz__icon">
+                        <FontAwesomeIcon size="lg" icon="info" />
                     </div>
-                    <button
-                        className="award-viz__button"
-                        onClick={this.handleClick}>
-                        {this.state.globalToggle ? 'Collapse All' : 'Expand All'}
-                    </button>
-                    <div className="award__row">
-                        <div className="award__col">
-                            {firstColumn}
-                        </div>
-                        <div className="award__col">
-                            {secondColumn}
-                        </div>
+                    <h3 className="award-viz__title">Additional Information</h3>
+                </div>
+                <button
+                    className="award-viz__button"
+                    onClick={handleClick}>
+                    {open ? 'Collapse All' : 'Expand All'}
+                </button>
+                <div className="award__row" ref={ref}>
+                    <div className="award__col">
+                        {firstColumn}
+                    </div>
+                    <div className="award__col">
+                        {secondColumn}
                     </div>
                 </div>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
 
 AdditionalInfo.propTypes = propTypes;
+export default AdditionalInfo;
