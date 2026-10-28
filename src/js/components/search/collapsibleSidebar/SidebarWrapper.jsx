@@ -17,6 +17,7 @@ import NLSidebarButtons from './NLSidebarButtons';
 import AboutTheDataLink from 'components/sharedComponents/AboutTheDataLink';
 import NLSidebarContent from './NLSidebarContent';
 import { FILTERS } from './SidebarConstants';
+import Analytics from '../../../helpers/analytics/Analytics';
 import useRequestNLSearch from './useRequestNLSearch';
 import { RESPONSE_TYPE, NL_INPUT_MAX_CHARS } from './NLConstants';
 import { sanitizeNLInput } from 'helpers/search/naturalLanguage/sanitizeNLInput';
@@ -51,7 +52,7 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
     const isDesktopFilters = sidebarContent === FILTERS;
     const isMobileFilters = mobileSidebarContent === FILTERS;
 
-    const { parsedData, fetchNLSearch, cancelQuery, isFetching, fetchingError, isSuccess, clearNLCache } = useRequestNLSearch(text);
+    const { parsedData, fetchNLSearch, cancelQuery, isFetching, fetchingError, isSuccess, clearNLCache } = useRequestNLSearch(text, 'side panel');
 
     const toggleOpened = (e) => {
         e.preventDefault();
@@ -87,6 +88,11 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
             dispatch(setIsNLSearchComplete(false));
             dispatch(setIsNLSearchError(false));
         }
+        Analytics.event({
+            category: 'Smart Assist - Query',
+            action: 'Query Submitted',
+            label: 'side panel'
+        });
     };
 
     const request = useRef();
