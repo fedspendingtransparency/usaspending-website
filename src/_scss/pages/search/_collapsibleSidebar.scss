@@ -533,11 +533,11 @@
             font-size: $smallest-font-size;
             line-height: 1.5;
             align-items: center;
-            color: #1b1b1b;
+            color: $gray-90;
             cursor: pointer;
             display: flex;
             flex-wrap: nowrap;
-            font-weight: 600;
+            font-weight: $font-semibold;
             justify-content: space-between;
             margin: 0;
             text-align: left;
