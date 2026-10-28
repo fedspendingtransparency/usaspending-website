@@ -148,7 +148,6 @@ const dataModelCardContent = {
 };
 
 const AboutSection = () => {
-    // todo figure out why interactives-guide_bullet-points adds the bullet points but messes up the layout; currently appears as just text
     return (
         <div className="body__content interactive-data-sources-intro-section">
             <FlexGridCol width={8} style={{ display: 'flex', justifyContent: 'center', margin: 'auto' }}>
