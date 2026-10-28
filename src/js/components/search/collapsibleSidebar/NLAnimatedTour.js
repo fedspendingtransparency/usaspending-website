@@ -3,9 +3,9 @@
  * Created by Nick Torres 10/6/2026
  */
 
-import { driver } from "driver.js";
-import "driver.js/dist/driver.css";
-
+import { driver } from 'driver.js';
+import 'driver.js/dist/driver.css';
+import Analytics from 'helpers/analytics/Analytics';
 const MOBILE_BREAKPOINT = 992;
 const MOBILE_STEP3_WAIT_MS = 1000;
 const MOBILE_SCROLL_DELAY_MS = 400;
@@ -29,7 +29,7 @@ const stepContent = {
     },
     step4: {
         title: 'Understanding terminology',
-        description: "Access the glossary any time to look up terms you don't recognize."
+        description: 'Access the glossary any time to look up terms you don\'t recognize.'
     },
     step5: {
         title: 'Need more help?',
@@ -38,25 +38,25 @@ const stepContent = {
 };
 
 const desktopSteps = [
-    { element: '#animated-tour-step1', popover: { ...stepContent.step1, side: "right", align: 'start', showButtons: ["next", "close"] } },
-    { element: '#animated-tour-step2', popover: { ...stepContent.step2, side: "right", align: 'center' } },
-    { element: '#animated-tour-step3', popover: { ...stepContent.step3, side: "right", align: 'center' } },
-    { element: '#animated-tour-step4', popover: { ...stepContent.step4, side: "top", align: 'center' } },
-    { element: '#animated-tour-step5', popover: { ...stepContent.step5, side: "bottom", align: 'center' } }
+    { element: '#animated-tour-step1', popover: { ...stepContent.step1, side: 'right', align: 'start', showButtons: ['next', 'close'] } },
+    { element: '#animated-tour-step2', popover: { ...stepContent.step2, side: 'right', align: 'center' } },
+    { element: '#animated-tour-step3', popover: { ...stepContent.step3, side: 'right', align: 'center' } },
+    { element: '#animated-tour-step4', popover: { ...stepContent.step4, side: 'top', align: 'center' } },
+    { element: '#animated-tour-step5', popover: { ...stepContent.step5, side: 'bottom', align: 'center' } }
 ];
 
 const mobileSteps = [
-    { element: '#animated-tour-mobile-step1', popover: { ...stepContent.step1, side: "top", align: 'start', showButtons: ["next", "close"] } },
-    { element: '#animated-tour-step2', popover: { ...stepContent.step2, side: "top", align: 'center' } },
-    { element: '#animated-tour-step3', waitForElement: MOBILE_STEP3_WAIT_MS, popover: { ...stepContent.step3, side: "bottom", align: 'center' } },
-    { element: '#animated-tour-step4', popover: { ...stepContent.step4, side: "top", align: 'center' } },
-    { element: '#animated-tour-step5', popover: { ...stepContent.step5, side: "bottom", align: 'center' } }
+    { element: '#animated-tour-mobile-step1', popover: { ...stepContent.step1, side: 'top', align: 'start', showButtons: ['next', 'close'] } },
+    { element: '#animated-tour-step2', popover: { ...stepContent.step2, side: 'top', align: 'center' } },
+    { element: '#animated-tour-step3', waitForElement: MOBILE_STEP3_WAIT_MS, popover: { ...stepContent.step3, side: 'bottom', align: 'center' } },
+    { element: '#animated-tour-step4', popover: { ...stepContent.step4, side: 'top', align: 'center' } },
+    { element: '#animated-tour-step5', popover: { ...stepContent.step5, side: 'bottom', align: 'center' } }
 ];
 
 const getStepsForScreenSize = () => (isMobileViewport() ? mobileSteps : desktopSteps);
 
 const scrollToStep4 = () => {
-    const sectionDom = document.querySelector("#animated-tour-step4");
+    const sectionDom = document.querySelector('#animated-tour-step4');
     if (!sectionDom) {
         return;
     }
@@ -69,16 +69,33 @@ const scrollToStep4 = () => {
 };
 
 const animatedTour = driver({
+    onHighlightStarted: () => {
+        if (animatedTour.isFirstStep()) {
+            Analytics.event({
+                category: 'Smart Assist - Help',
+                action: 'Learning Resource Clicked',
+                label: 'begin_tutorial'
+            });
+        }
+    },
     onNextClick: (element, step) => {
-        if (step.element === "#animated-tour-step3" && isMobileViewport()) {
-            document.querySelector(".sidebar-close")?.click();
+        if (animatedTour.isLastStep()) {
+            Analytics.event({
+                category: 'Smart Assist - Help',
+                action: 'Learning Resource Clicked',
+                label: 'end_tutorial'
+            });
+        }
+
+        if (step.element === '#animated-tour-step3' && isMobileViewport()) {
+            document.querySelector('.sidebar-close')?.click();
             setTimeout(scrollToStep4, MOBILE_SCROLL_DELAY_MS);
         }
 
         animatedTour.moveNext();
     },
     onPrevClick: (element, step) => {
-        if (step.element === "#animated-tour-step4" && isMobileViewport()) {
+        if (step.element === '#animated-tour-step4' && isMobileViewport()) {
             const elements = document.querySelectorAll('.mobile-filter-button-v2');
             elements[elements.length - 1]?.click();
         }
@@ -90,7 +107,7 @@ const animatedTour = driver({
     stagePadding: 20,
     popoverClass: 'nl-theme',
     showProgress: true,
-    doneBtnText: "Done",
+    doneBtnText: 'Done',
     overlayClickBehavior: 'close',
     steps: getStepsForScreenSize()
 });
