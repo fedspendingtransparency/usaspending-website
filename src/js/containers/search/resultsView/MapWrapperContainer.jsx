@@ -1,25 +1,24 @@
-import React, { useState, useEffect, memo } from 'react';
+import React, { useState, useEffect, useMemo, memo } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { uniqueId, keyBy } from 'lodash-es';
 
-import { counties, congressionalDistricts } from "dataMapping/search/geoTable";
+import { counties, congressionalDistricts } from 'dataMapping/search/geoTable';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { updateMapLegendToggle } from 'redux/actions/search/mapLegendToggleActions';
 import { stateCenterFromFips, performCountryGeocode, stateNameFromCode } from 'helpers/mapHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 import Analytics from 'helpers/analytics/Analytics';
-import { performSpendingByGeographySearch } from 'apis/search';
 
-import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import GeoVisualizationSection from 'components/search/visualizations/geo/GeoVisualizationSection';
-import SearchSectionWrapper from "../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper";
-import * as MoneyFormatter from "../../../helpers/moneyFormatter";
-import { useStateFIPSByAbbreviation, useStateNameByFipsId } from "../../../hooks/useStateData";
-import useFetchAllCountries from "./useFetchAllCountries";
+import SearchSectionWrapper from '../../../components/search/resultsView/SearchSectionWrapper/SearchSectionWrapper';
+import * as MoneyFormatter from '../../../helpers/moneyFormatter';
+import { useStateFIPSByAbbreviation, useStateNameByFipsId } from '../../../hooks/useStateData';
+import useFetchAllCountries from './useFetchAllCountries';
+import useFetchSpendingByGeography, { apiScopes } from './useFetchSpendingByGeography';
 
 const propTypes = {
     reduxFilters: PropTypes.object,
@@ -33,13 +32,6 @@ const propTypes = {
     wrapperProps: PropTypes.object,
     hash: PropTypes.string,
     spendingLevel: PropTypes.string
-};
-
-const apiScopes = {
-    country: 'country',
-    state: 'state',
-    county: 'county',
-    congressionalDistrict: 'district'
 };
 
 const logMapLayerEvent = (layer) => {
@@ -60,6 +52,63 @@ const logMapScopeEvent = (scope) => {
     });
 };
 
+const emptyData = {
+    values: [],
+    locations: [],
+    rows: []
+};
+
+/**
+ * parseGeoData
+ * - creates locations, values, labels and table rows from api data
+ * @returns {Object} - object with locations, values, labels and rows properties
+ */
+const parseGeoData = (rawAPIData, dataKey, stateNameByFipsId) => {
+    const values = [];
+    const locations = [];
+    const labels = {};
+    const rows = [];
+
+    rawAPIData.forEach((item) => {
+        // state must not be null or empty string
+        if (item.shape_code && item.shape_code !== '') {
+            locations.push(item.shape_code);
+            values.push(parseFloat(item[dataKey]));
+            labels[item.shape_code] = {
+                label: item.display_name,
+                value: parseFloat(item[dataKey])
+            };
+
+            // for new search table
+            const row = [];
+            const stateCheck = item.shape_code.length < 3;
+            const congressionalDistrictCheck = item.display_name.substring(2, 3) === '-';
+            const countyCheck = parseInt(item.shape_code, 10);
+
+            if (stateCheck) {
+                row.state_territory = item.display_name;
+            }
+            else if (congressionalDistrictCheck) {
+                row.d_district = item.display_name;
+                row.state_territory = stateNameFromCode(item.display_name.substring(0, 2));
+            }
+            else if (countyCheck) {
+                row.county = item.display_name;
+                row.state_territory = stateNameByFipsId?.[item.shape_code.substring(0, 2)];
+            }
+            else {
+                row.country = item.display_name;
+            }
+            row.obligations = item.aggregated_amount;
+            row.per_capita = item.per_capita;
+
+            rows.push(row);
+        }
+    });
+
+    return { values, locations, labels, rows };
+};
+
 // eslint-disable-next-line prefer-arrow-callback
 const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const USACenterPoint = [-95.569430, 38.852892];
@@ -72,23 +121,14 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         {};
 
     const [mapLayer, setMapLayer] = useState('state');
-    const [rawAPIData, setRawAPIData] = useState([]);
-    const [data, setData] = useState({
-        values: [],
-        locations: []
-    });
     const [visibleEntities, setVisibleEntities] = useState([]);
-    const [renderHash, setRenderHash] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [hasMeasuredEntities, setHasMeasuredEntities] = useState(false);
+    const [mapReadyCount, setMapReadyCount] = useState(0);
     const [loadingTiles, setLoadingTiles] = useState(true);
-    const [error, setError] = useState(false);
-    const [noData, setNoData] = useState(false);
     const [center, setCenter] = useState(USACenterPoint);
     const [singleLocationSelected, setSingleLocationSelected] = useState({});
-    const [tableData, setTableData] = useState([]);
-    const [tableRows, setTableRows] = useState([]);
-    const [sortDirection, setSortDirection] = useState('asc');
-    const [activeField, setActiveField] = useState('aggregated_amount');
+    const [sortDirection, setSortDirection] = useState('desc');
+    const [activeField, setActiveField] = useState('obligations');
     const [wrapperScreens, setWrapperScreens] = useState({
         wrapperLoading: false,
         wrapperError: false,
@@ -96,16 +136,13 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     });
 
     const [mapViewType, setMapViewType] = useState('chart');
-    const apiRequestRef = React.useRef(null);
     const mapListenersRef = React.useRef([]);
 
     const { countryAbbreviations: countries } = useFetchAllCountries();
 
-    // this ref as been added to stop the related useEffect triggering on initial render
+    // mirrors loadingTiles for the map listeners, which are registered once and would
+    // otherwise read a stale value
     const useEffectRef = React.useRef({
-        visibleEntities: false,
-        allEntities: false,
-        rawAPIData: false,
         loadingTiles: true
     });
 
@@ -116,7 +153,29 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         congressionalDistrict: congressionalDistricts
     };
 
-    const selectDataSet = () => completeDataSet[mapLayer];
+    const {
+        rawAPIData,
+        loading,
+        error,
+        noData
+    } = useFetchSpendingByGeography(
+        props.scope,
+        mapLayer,
+        completeDataSet[mapLayer],
+        props.reduxFilters,
+        props.spendingLevel,
+        visibleEntities,
+        props.setAppliedFilterCompletion,
+        // in chart view wait until the map has reported its visible entities
+        !props.noApplied && (mapViewType === 'table' || hasMeasuredEntities)
+    );
+
+    const mapToggleDataKey = props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita';
+
+    const parsed = useMemo(
+        () => parseGeoData(rawAPIData, mapToggleDataKey, stateNameByFipsId),
+        [rawAPIData, mapToggleDataKey, stateNameByFipsId]
+    );
 
     const calculateCenterPoint = (location) => {
         if (location) {
@@ -136,8 +195,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
             setCenter(USACenterPoint);
         }
     };
-
-    const mapToggleDataKey = () => (props.mapLegendToggle === 'totalSpending' ? 'aggregated_amount' : 'per_capita');
 
     const findMapCenterPointByLocation = (locationAbbrev) => {
         if (apiScopes[mapLayer] !== 'country') {
@@ -168,77 +225,61 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         });
     };
 
-    /**
-     * valuesLocationsLabelsFromAPIData
-     * - creates locations, values, and labels for the map visualization from api data
-     * @returns {Object} - object with locations, values and labels properties
-     */
-    const valuesLocationsLabelsFromAPIData = () => {
-        const values = [];
-        const locations = [];
-        const labels = {};
-        const rows = [];
+    const data = noData ? emptyData : parsed;
 
-        rawAPIData.forEach((item) => {
-            // state must not be null or empty string
-            if (item.shape_code && item.shape_code !== '') {
-                locations.push(item.shape_code);
-                values.push(parseFloat(item[mapToggleDataKey()]));
-                labels[item.shape_code] = {
-                    label: item.display_name,
-                    value: parseFloat(item[mapToggleDataKey()])
-                };
+    // the map only redraws when it gets a new hash, so refresh it whenever the data,
+    // the layer, or the map's readiness changes
+    const renderHash = useMemo(
+        () => `geo-${uniqueId()}`,
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [data, mapLayer, mapReadyCount]
+    );
 
-                // for new search table
-                const row = [];
-                const stateCheck = item.shape_code.length < 3;
-                const congressionalDistrictCheck = item.display_name.substring(2, 3) === "-";
-                const countyCheck = parseInt(item.shape_code, 10);
-
-                if (stateCheck) {
-                    row.state_territory = item.display_name;
+    const tableRows = useMemo(() => {
+        const rows = noData ? [] : parsed.rows;
+        const direction = sortDirection === 'asc' ? 1 : -1;
+        return [...rows]
+            .sort((a, b) => {
+                if (a[activeField] < b[activeField]) {
+                    return -direction;
                 }
-                else if (congressionalDistrictCheck) {
-                    row.d_district = item.display_name;
-                    row.state_territory = stateNameFromCode(item.display_name.substring(0, 2));
+                if (a[activeField] > b[activeField]) {
+                    return direction;
                 }
-                else if (countyCheck) {
-                    row.county = item.display_name;
-                    row.state_territory = stateNameByFipsId?.[item.shape_code.substring(0, 2)];
-                }
-                else {
-                    row.country = item.display_name;
-                }
-                row.obligations = item.aggregated_amount;
-                row.per_capita = item.per_capita;
+                return 0;
+            })
+            .map((row) => Object.keys(row).map((key) => (
+                key === 'obligations' || key === 'per_capita' ?
+                    MoneyFormatter.formatMoneyWithPrecision(row[key], 0) :
+                    row[key]
+            )));
+    }, [parsed, noData, activeField, sortDirection]);
 
-                rows.push(row);
-            }
-        });
+    // new data starts out sorted by obligations, highest first
+    useEffect(() => {
+        setActiveField('obligations');
+        setSortDirection('desc');
+    }, [parsed]);
 
-        if ((mapLayer === "county" || mapLayer === "congressionalDistrict") && areFirstTwoCharsEqual(locations)) {
+    // recenter the map when the data narrows to a single state, country, or the counties
+    // and districts of one state
+    useEffect(() => {
+        const { locations } = data;
+        if (locations.length === 0) {
+            return;
+        }
+
+        if ((mapLayer === 'county' || mapLayer === 'congressionalDistrict') && areFirstTwoCharsEqual(locations)) {
             const stateAbbreviation = stateAbbreviationByFipsId?.[locations[0].substring(0, 2)];
             if (stateAbbreviation) {
                 findMapCenterPointByLocation(stateAbbreviation);
             }
         }
-        else if ((mapLayer === "country" || mapLayer === "state") && locations?.length === 1) {
+        else if ((mapLayer === 'country' || mapLayer === 'state') && locations.length === 1) {
             findMapCenterPointByLocation(locations[0]);
         }
-
-        setTableData(rows);
-
-        return { values, locations, labels };
-    };
-
-    const setParsedData = () => {
-        props.setAppliedFilterCompletion(true);
-
-        setData(valuesLocationsLabelsFromAPIData());
-        setRenderHash(`geo-${uniqueId()}`);
-        setLoading(false);
-        setError(false);
-    };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data]);
 
     const prepareFetch = (forced = false) => {
         if (useEffectRef.current?.loadingTiles) {
@@ -252,6 +293,9 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const mapLoaded = () => {
         setLoadingTiles(false);
         useEffectRef.current.loadingTiles = false;
+        // a remounted map (e.g. returning from table view) is ready after the data it was
+        // given at mount, and cached query data won't arrive again, so ask it to redraw
+        setMapReadyCount((count) => count + 1);
     };
 
     const compareEntities = (entities) => {
@@ -276,79 +320,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         return false;
     };
 
-    // TODO: replace getSpendingLevel with just spendingLevel once ready to release transactions
-    const getSpendingLevel = (spendingLevel) => {
-        if (spendingLevel === "subawards") {
-            return spendingLevel;
-        }
-        return "transactions";
-    };
-
-    const fetchData = () => {
-        // build a new search operation from the Redux state, but create a transaction-based search
-        // operation instead of an award-based one
-        const operation = new SearchAwardsOperation();
-        operation.fromState(props.reduxFilters);
-
-        // if no entities are visible, don't make an API request because nothing in the US is visible
-        if (visibleEntities.length === 0) {
-            setLoading(false);
-            setError(false);
-            setData({
-                values: [],
-                locations: []
-            });
-            setNoData(true);
-
-            return;
-        }
-
-        // if subawards is true, newAwardsOnly cannot be true, so we remove
-        // dateType for this request
-        if (props.spendingLevel === 'subawards' && operation.dateType) {
-            delete operation.dateType;
-        }
-
-        const searchParams = operation.toParams();
-
-        // generate the API parameters
-        const apiParams = {
-            scope: props.scope,
-            geo_layer: apiScopes[mapLayer],
-            geo_layer_filters: selectDataSet(),
-            filters: searchParams,
-            auditTrail: 'Map Visualization',
-            spending_level: getSpendingLevel(props.spendingLevel)
-        };
-
-        if (apiRequestRef.current) {
-            apiRequestRef.current.cancel();
-        }
-
-        setLoading(true);
-        setError(false);
-
-        props.setAppliedFilterCompletion(false);
-        apiRequestRef.current = performSpendingByGeographySearch(apiParams);
-        apiRequestRef.current.promise
-            .then((res) => {
-                apiRequestRef.current = null;
-                useEffectRef.current.rawAPIData = true;
-                setRawAPIData(res.data.results);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    apiRequestRef.current = null;
-
-                    setLoading(false);
-                    setError(true);
-
-                    props.setAppliedFilterCompletion(true);
-                }
-            });
-    };
-
     const receivedEntities = (entities, forced) => {
         if (!forced) {
             // only check if the returned entities list has changed if this is not a forced update
@@ -359,18 +330,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
             }
         }
 
-        useEffectRef.current.visibleEntities = true;
+        setHasMeasuredEntities(true);
         setVisibleEntities(entities);
-    };
-
-    /**
-     * handleMapLegendToggleChange
-     * - updates data values property and label value properties to respective spending total
-     * @returns {null}
-     */
-    const handleMapLegendToggleChange = () => {
-        setData(Object.assign({}, valuesLocationsLabelsFromAPIData()));
-        setRenderHash(`geo-${uniqueId()}`);
     };
 
     const changeScope = (newScope) => {
@@ -384,7 +345,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
     const changeMapLayer = (layer) => {
         setMapLayer(layer);
-        setRenderHash(`geo-${uniqueId()}`);
         setLoadingTiles(true);
         useEffectRef.current.loadingTiles = true;
 
@@ -392,25 +352,25 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     };
 
     const mapScopeLogic = (type) => {
-        const selectedLocationByType = type === "pop" ? "selectedLocations" : "selectedRecipientLocations";
+        const selectedLocationByType = type === 'pop' ? 'selectedLocations' : 'selectedRecipientLocations';
         // there is only 1 item, place of performance
         if (props.reduxFilters[selectedLocationByType].size === 1) {
             const onlyObject = props.reduxFilters[selectedLocationByType].first().filter;
             setSingleLocationSelected(onlyObject);
             if (onlyObject.district_current || onlyObject.district_original) {
-                changeMapLayer("congressionalDistrict");
+                changeMapLayer('congressionalDistrict');
                 setCenter(stateCenterFromFips(stateFIPSByAbbreviation?.[onlyObject.state]));
             }
             else if (onlyObject.county) {
-                changeMapLayer("county");
+                changeMapLayer('county');
                 setCenter(stateCenterFromFips(stateFIPSByAbbreviation?.[onlyObject.state]));
             }
             else if (onlyObject.state) {
                 // do not change the map layer, it is already state
                 setCenter(stateCenterFromFips(stateFIPSByAbbreviation?.[onlyObject.state]));
             }
-            else if (onlyObject.country !== "USA") {
-                changeMapLayer("country");
+            else if (onlyObject.country !== 'USA') {
+                changeMapLayer('country');
                 calculateCenterPoint(onlyObject.country);
             }
             // defaults to state
@@ -453,24 +413,24 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
 
             // change map layers based on make up of items
             if (numCountries === onlyObject.size) { // only countries
-                changeMapLayer("country");
+                changeMapLayer('country');
             }
             else if (numStates === onlyObject.size) { // only states
-                changeMapLayer("state");
+                changeMapLayer('state');
             }
             else if (numCounties === onlyObject.size) { // only counties
-                changeMapLayer("county");
+                changeMapLayer('county');
             }
             else if (numCDs === onlyObject.size) { // only cds
-                changeMapLayer("congressionalDistrict");
+                changeMapLayer('congressionalDistrict');
             }
             else if ((numCDs + numCounties) === onlyObject.size ||
                 (numStates + numCDs) === onlyObject.size ||
                 (numStates + numCounties) === onlyObject.size) {
-                changeMapLayer("state");
+                changeMapLayer('state');
             }
             else if (international === true) {
-                changeMapLayer("country");
+                changeMapLayer('country');
             }
         }
         else if (
@@ -480,10 +440,10 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
                 props.reduxFilters.locationDomesticForeign === 'foreign'
             )
         ) {
-            changeMapLayer("country");
+            changeMapLayer('country');
         }
         else if (props.reduxFilters[selectedLocationByType].size === 0) {
-            changeMapLayer("state");
+            changeMapLayer('state');
         }
     };
 
@@ -503,19 +463,19 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         }
 
         if (props.reduxFilters.selectedLocations.size === 0 && props.reduxFilters.selectedRecipientLocations.size > 0) {
-            changeScope("recipient_location");
+            changeScope('recipient_location');
         }
     };
 
     const standardColumns = [
         {
-            title: "obligations",
-            displayName: ["Obligations"],
+            title: 'obligations',
+            displayName: ['Obligations'],
             right: true
         },
         {
-            title: "per_capita",
-            displayName: ["Per Capita Obligations"],
+            title: 'per_capita',
+            displayName: ['Per Capita Obligations'],
             right: true
         }
     ];
@@ -523,16 +483,16 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     const columns = {
         state: [
             {
-                title: "state_territory",
-                displayName: ["State or Territory"],
+                title: 'state_territory',
+                displayName: ['State or Territory'],
                 right: false
             },
             ...standardColumns
         ],
         country: [
             {
-                title: "country",
-                displayName: ["Country"],
+                title: 'country',
+                displayName: ['Country'],
                 right: false
             },
             ...standardColumns
@@ -540,76 +500,34 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
         county: [
             {
                 title: 'county',
-                displayName: ["County"],
+                displayName: ['County'],
                 right: false
             },
             {
-                title: "state_territory",
-                displayName: ["State or Territory"],
+                title: 'state_territory',
+                displayName: ['State or Territory'],
                 right: false
             },
             ...standardColumns
         ],
         congressionalDistrict: [
             {
-                title: "congressional_district",
-                displayName: ["Congressional District"],
+                title: 'congressional_district',
+                displayName: ['Congressional District'],
                 right: false
             },
             {
-                title: "state_territory",
-                displayName: ["State or Territory"],
+                title: 'state_territory',
+                displayName: ['State or Territory'],
                 right: false
             },
             ...standardColumns
         ]
     };
 
-    const createTableRows = (rows) => {
-        const rowsArray = [];
-        rows.forEach((row) => {
-            const rowArray = [];
-            Object.keys(row).forEach((key) => {
-                if (key === 'obligations' || key === 'per_capita') {
-                    rowArray.push(MoneyFormatter.formatMoneyWithPrecision(row[key], 0));
-                }
-                else {
-                    rowArray.push(row[key]);
-                }
-            });
-            rowsArray.push(rowArray);
-        });
-        setTableRows(rowsArray);
-    };
-
     const sortBy = (field, direction) => {
-        const updatedTable = [...tableData];
-        if (direction === 'asc') {
-            updatedTable.sort((a, b) => {
-                if (a[field] < b[field]) {
-                    return -1;
-                }
-                if (a[field] > b[field]) {
-                    return 1;
-                }
-                return 0;
-            });
-        }
-        else if (direction === 'desc') {
-            updatedTable.sort((a, b) => {
-                if (a[field] < b[field]) {
-                    return 1;
-                }
-                if (a[field] > b[field]) {
-                    return -1;
-                }
-                return 0;
-            });
-        }
-
         setSortDirection(direction);
         setActiveField(field);
-        createTableRows(updatedTable);
     };
 
     useEffect(() => {
@@ -642,9 +560,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
             prepareFetch(true);
             updateMapScope();
         }
-        else if (!props.noApplied && mapViewType === 'table') {
-            fetchData();
-        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [
         props.reduxFilters,
@@ -654,27 +569,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     ]);
 
     useEffect(() => {
-        handleMapLegendToggleChange();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [props.mapLegendToggle]);
-
-    useEffect(() => {
-        if (useEffectRef.current.visibleEntities) {
-            fetchData();
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [visibleEntities]);
-
-    useEffect(() => {
-        if (useEffectRef.current.rawAPIData) {
-            setParsedData();
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [rawAPIData]);
-
-    useEffect(() => {
         prepareFetch(true);
         logMapScopeEvent(props.scope);
     }, [props.scope]);
@@ -682,11 +576,6 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
     useEffect(() => {
         prepareFetch(true);
     }, [mapLayer, loadingTiles]);
-
-    useEffect(() => {
-        sortBy("obligations", "desc");
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [tableData]);
 
     useEffect(() => {
         if (mapViewType === 'chart') {
@@ -731,6 +620,8 @@ const MapWrapperContainer = memo(function MapWrapperContainer(props) {
                 renderHash={renderHash}
                 data={data}
                 center={center}
+                loading={loading}
+                error={error}
                 noResults={data.values.length === 0}
                 mapLegendToggle={props.mapLegendToggle}
                 updateMapLegendToggle={props.updateMapLegendToggle}
