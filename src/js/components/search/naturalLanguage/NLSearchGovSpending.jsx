@@ -44,10 +44,9 @@ const NLSearchGovSpending = ({ isFilters = false }) => {
 
     const handleSmartAssistClick = () => {
         Analytics.event({
-            event: 'learn-about-smart-assist',
-            category: 'Smart Assist Landing Page',
-            action: 'Link',
-            label: 'smart assist landing page'
+            category: 'Smart Assist - Help',
+            action: 'Learning Resource Clicked',
+            label: 'learn_about_usaspending_ai'
         });
         navigate('/search/smart-assist');
     };
