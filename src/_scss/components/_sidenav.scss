@@ -131,15 +131,40 @@
 }
 
 .nl-info-search-dropdown__button {
-  margin-right: rem(80) !important;
+  margin-right: rem(120) !important;
   border-radius: rem(4) !important;
   border: 1px solid $color-gray-lighter !important;
   .filter__dropdown-button-text {
     color: $gray-90 !important;
   }
+  .filter__dropdown-chevron {
+    svg {
+      color: $blue-60v !important;
+    }
+  }
+  
 }
 .usa-smart-assist-page {
   .filter__dropdown-container {
     margin-left: rem(30);
+  }
+  .filter__dropdown-list-md {
+    padding: rem(16) rem(24) !important; 
+    .filter__dropdown-list-item {
+      .filter__dropdown-item {
+        font-weight: $font-normal !important;
+        color: black !important;
+      }
+      .filter__dropdown-item + .filter__dropdown-item {
+        padding-top: rem(16) !important;
+      }
+    }
+    .active {
+      background-color: white !important;
+      .filter__dropdown-item {
+        color: $blue-60v !important;
+        font-weight: $font-semibold !important;
+      }
+    }
   }
 }
