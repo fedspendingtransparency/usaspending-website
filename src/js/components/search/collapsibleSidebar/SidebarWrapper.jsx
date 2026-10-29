@@ -84,6 +84,9 @@ const SidebarWrapper = React.memo(function SidebarWrapper({
         if (text?.trim() && typeof fetchNLSearch === 'function') {
             wasCancelled.current = false;
             clearNLCache();
+            // reset so an identical hash from a repeated search will trigger
+            // a fetch to the hash endpoint
+            setHash(undefined);
             fetchNLSearch();
             dispatch(setIsNLSearchComplete(false));
             dispatch(setIsNLSearchError(false));
