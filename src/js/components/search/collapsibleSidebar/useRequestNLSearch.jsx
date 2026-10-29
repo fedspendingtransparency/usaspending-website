@@ -1,42 +1,76 @@
-import { useQuery, experimental_streamedQuery as streamedQuery, useQueryClient } from "@tanstack/react-query";
+import { useQuery, experimental_streamedQuery as streamedQuery, useQueryClient } from '@tanstack/react-query';
 import GlobalConstants from 'GlobalConstants';
+import Analytics from '../../../helpers/analytics/Analytics';
+import { RESPONSE_TYPE } from './NLConstants';
 
 const headers = {
     'Content-Type': 'application/json',
     'X-LLM-API-Key': GlobalConstants?.LLM_HEADER_VALUE
 };
 
-const LLM_API = GlobalConstants?.LLM_API + 'v2/llm/filter-search/';
+const LLM_API = GlobalConstants?.API + 'v2/llm/filter-search/';
 
-const useRequestNLSearch = (prompt) => {
+// defined outside the hook so the impure performance.now() call isn't made within render scope
+const startTimer = () => {
+    const start = performance.now();
+    return () => Math.round(performance.now() - start);
+};
+
+const useRequestNLSearch = (prompt, method) => {
     const requestHeader = {
         method: 'POST',
         headers: headers,
-        body: JSON.stringify({'query': prompt?.trim()})
+        body: JSON.stringify({ query: prompt?.trim() })
     };
 
-    const { data, refetch, isFetching, isSuccess } = useQuery({
+    const { data, refetch, isFetching, isError, isSuccess } = useQuery({
         queryKey: ['nl-search-stream'],
         enabled: false,
+        retry: false,
         queryFn: streamedQuery({
             streamFn: async function* ({ signal }) {
-                const request = await fetch(LLM_API, { ...requestHeader, signal });
+                const getElapsedTime = startTimer();
 
-                const reader = request.body.getReader();
-                const decoder = new TextDecoder();
+                try {
+                    const request = await fetch(LLM_API, { ...requestHeader, signal });
 
-                while (true) {
-                    if (signal.aborted) break;
+                    const reader = request.body.getReader();
+                    const decoder = new TextDecoder();
+                    let buffer = '';
 
-                    const {value, done} = await reader.read();
+                    while (true) {
+                        if (signal.aborted) {
+                            break;
+                        }
+                        const { value, done } = await reader.read();
+                        if (done) break;
 
-                    if (done) break;
+                        buffer += decoder.decode(value, { stream: true });
+                        const lines = buffer.split('\n');
+                        buffer = lines.pop();
 
-                    yield decoder.decode(value);
+                        for (const line of lines) {
+                            if (!line.trim()) continue;
+                            const parsed = JSON.parse(line);
+                            if (parsed.type === RESPONSE_TYPE.SEARCH_ERROR) {
+                                yield parsed;
+                                throw new Error(parsed.message ?? 'Search failed');
+                            }
+                            yield parsed;
+                        }
+                    }
+                }
+                finally {
+                    Analytics.event({
+                        category: 'Smart Assist – Performance',
+                        action: 'Query Processing Time',
+                        label: method,
+                        value: `${getElapsedTime()}(milliseconds)`
+                    });
                 }
             },
-            reducer: (acc, chunk) => acc + chunk,
-            initialValue: ''
+            reducer: (acc, parsed) => [...acc, parsed],
+            initialValue: []
         })
     });
 
@@ -44,11 +78,18 @@ const useRequestNLSearch = (prompt) => {
     const queryClient = useQueryClient();
 
     const cancelQuery = () => {
-        queryClient.cancelQueries({queryKey: ['nl-search-stream']})
-            .then(() => queryClient.setQueryData(['nl-search-stream'], ''));
+        queryClient.cancelQueries({ queryKey: ['nl-search-stream'] })
+            .then(() => queryClient.setQueryData(['nl-search-stream'], []));
     };
 
-    return { data, refetch, cancelQuery, isFetching, isSuccess};
-}
+    const clearNLCache = () => {
+        queryClient.removeQueries({
+            queryKey: ['nl-search-stream'],
+            exact: true
+        });
+    };
+
+    return { parsedData: data, fetchNLSearch: refetch, cancelQuery, isFetching, fetchingError: isError, isSuccess, clearNLCache };
+};
 
 export default useRequestNLSearch;

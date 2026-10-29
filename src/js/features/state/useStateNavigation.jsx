@@ -37,7 +37,7 @@ export const useStateNavigation = () => {
                 navigate(`/state/${stateName}/2026`, { replace: true });
             }
             else if (!allFiscalYears().includes(parseInt(fyParam, 10))) {
-                navigate(`/state/${stateName}/2026`, { replace: true} );
+                navigate(`/state/${stateName}/2026`, { replace: true });
             }
             else if (!wasInputStateName) {
                 navigate(`/state/${stateName}/${fy}`, { replace: true });
@@ -57,7 +57,6 @@ export const useStateNavigation = () => {
     }, [isStateDataLoaded]);
 
     return { handleFyChange, state, stateId, fy };
-
 };
 
 export default useStateNavigation;

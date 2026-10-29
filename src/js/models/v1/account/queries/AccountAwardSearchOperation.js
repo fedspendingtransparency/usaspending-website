@@ -3,10 +3,10 @@
  * Created by Kevin Li 4/13/17
  */
 
-import {concat, map} from 'lodash-es';
+import { concat, map } from 'lodash-es';
 
 import buildQuery from 'models/v1/search/queryBuilders/AwardTypeQuery';
-import {convertFYToDateRange} from 'helpers/fiscalYearHelper';
+import { convertFYToDateRange } from 'helpers/fiscalYearHelper';
 import * as TimePeriodQuery from './queryBuilders/TimePeriodQuery';
 import * as ObjectClassQuery from './queryBuilders/ObjectClassQuery';
 import * as ProgramActivityQuery from './queryBuilders/ProgramActivityQuery';

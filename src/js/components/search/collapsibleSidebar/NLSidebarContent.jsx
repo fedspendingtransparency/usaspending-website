@@ -3,17 +3,18 @@
  * Created by Nick Torres 8/28/2026
  */
 
-/* eslint-disable max-len */
-import React, {useMemo} from "react";
-import { useSelector, useDispatch } from "react-redux";
-import PropTypes from "prop-types";
-import NLDefaultHint from "./NLDefaultHint";
-import NLSearchButton from "./NLSearchButton";
-import NLSearchSuggestionsIcon from "../naturalLanguage/NLSearchSuggestionsIcon";
-import { setIsSearchActive } from "../../../redux/actions/sidebar/sidebarActions";
-import { buildResponseState } from "../../../helpers/search/naturalLanguage/searchResponseHelper";
-import { sanitizeNLInput } from "../../../helpers/search/naturalLanguage/sanitizeNLInput";
-import { NL_INPUT_MAX_CHARS } from "./NLConstants";
+import React, { useMemo } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import NLDefaultHint from './NLDefaultHint';
+import NLSearchButton from './NLSearchButton';
+import NLSearchSuggestionsIcon from '../naturalLanguage/NLSearchSuggestionsIcon';
+import { setIsSearchActive } from '../../../redux/actions/sidebar/sidebarActions';
+import { buildResponseState } from '../../../helpers/search/naturalLanguage/searchResponseHelper';
+import { sanitizeNLInput } from '../../../helpers/search/naturalLanguage/sanitizeNLInput';
+import { NL_INPUT_MAX_CHARS } from './NLConstants';
+import animatedTour from './NLAnimatedTour';
+import Analytics from '../../../helpers/analytics/Analytics';
 
 const propTypes = {
     hintOnClick: PropTypes.func,
@@ -23,7 +24,6 @@ const propTypes = {
     data: PropTypes.array,
     cancelQuery: PropTypes.func
 };
-
 
 const NLSidebarContent = ({
     hintOnClick,
@@ -40,38 +40,45 @@ const NLSidebarContent = ({
 
     const MAX_CHARS = NL_INPUT_MAX_CHARS;
     const responseState = useMemo(
-        () => buildResponseState(data), 
+        () => buildResponseState(data),
         [data]
     );
 
-    const reset = () => setText("");
+    const reset = () => {
+        setText('');
+        Analytics.event({
+            category: 'Smart Assist - Query',
+            action: 'Input Cleared',
+            label: 'side panel'
+        });
+    };
     let searchClass = 'default-search';
-    let btnText = "Search";
+    let btnText = 'Search';
     let icon = '../../../../img/magnifying-glass-white.svg';
 
     if (isSearchActive) {
         if (isNLSearchComplete) {
-            searchClass +=  " complete";
-            btnText = "Start a new search";
+            searchClass += ' complete';
+            btnText = 'Start a new search';
         }
         else {
-            searchClass += " loading";
-            btnText = "Working...";
+            searchClass += ' loading';
+            btnText = 'Working...';
         }
     }
     else if (text.length === 0) {
-        searchClass += " disabled";
+        searchClass += ' disabled';
         icon = '../../../../img/magnifying-glass-disabled.svg';
     }
 
-    const handleStartNLSearch = () => {
+    const handleStartNLSearch = (target) => {
         dispatch(setIsSearchActive(true));
-        startNLSearch();
+        startNLSearch(target);
     };
 
     const handleNewNLSearch = () => {
         dispatch(setIsSearchActive(false));
-    }
+    };
 
     const handleNLSearch = isSearchActive ? handleNewNLSearch : handleStartNLSearch;
 
@@ -79,18 +86,27 @@ const NLSidebarContent = ({
         dispatch(setIsSearchActive(false));
         if (cancelQuery) {
             cancelQuery();
+            Analytics.event({
+                category: 'Smart Assist - Query',
+                action: 'Query Cancelled',
+                label: 'side panel'
+            });
         }
-    }
+    };
 
     const handleInput = (event) => {
         setText(sanitizeNLInput(event.target.value).slice(0, MAX_CHARS));
     };
 
+    const handleStartTutorial = () => {
+        animatedTour.drive();
+    };
     return (
-        <> 
+        <>
+            {/* eslint-disable-next-line @stylistic/multiline-ternary */}
             { isSearchActive ? (
                 <div className="sidebar-nl-container response">
-                    <p className="sidebar-text semibold">{text}</p> 
+                    <p className="sidebar-text semibold">{text}</p>
                     <div className="sidebar-body-row response">
                         {responseState.items.map((item, index) => (
                             // eslint-disable-next-line react/no-array-index-key
@@ -99,11 +115,11 @@ const NLSidebarContent = ({
                             </div>
                         ))}
                     </div>
-                </div>   
+                </div>
             ) : (
                 <div className="sidebar-nl-container">
-                    <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started.</p>
-                    <div className="sidebar-body-row">
+                    <p className="sidebar-text">Start a USAspending search in your own words, or use one of the prompts below to help you get started. <button className="sidebar-nl-tutorial-start" onClick={handleStartTutorial}>Begin tutorial</button></p>
+                    <div id="animated-tour-step3" className="sidebar-body-row">
                         <span className="sidebar-example">Example Prompts: </span>
                         <NLDefaultHint onClick={hintOnClick} hint={<p>What schools in <span tabIndex={-1} className="hint-user-replace">[county, state]</span> receive the most money in federal funding?</p>} />
                         <NLDefaultHint onClick={hintOnClick} hint={<p>What programs received funding for veterans in <span tabIndex={-1} className="hint-user-replace">[state]</span> during <span tabIndex={-1} className="hint-user-replace">[time period]</span>?</p>} />
@@ -112,12 +128,14 @@ const NLSidebarContent = ({
                     <div className="sidebar-body-row">
                         <textarea
                             onChange={handleInput}
+                            id="animated-tour-step2"
                             name="smart-assist-input"
                             spellCheck
                             className="sidebar-textarea"
                             maxLength={MAX_CHARS}
                             value={text}
-                            rows="3" cols="50"
+                            rows="3"
+                            cols="50"
                             placeholder="Type a question about government spending, or choose an example above." />
                         <div className="textarea-char-row">
                             <button type="reset" className={`textarea-reset ${text.length <= 0 && 'text-area-reset-hidden'}`} onClick={reset}>Clear Input</button>

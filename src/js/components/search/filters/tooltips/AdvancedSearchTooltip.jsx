@@ -20,17 +20,34 @@ export const NewAwardsTooltip = () => (
             </p>
             <p>
                 Selecting the “Show New Awards Only” checkbox will display any prime award
-                whose <strong>base transaction action date</strong> (the date of the first
+                whose
+                {' '}
+                <strong>base transaction action date</strong>
+                {' '}
+                (the date of the first
                 transaction of a prime award) falls within the selected time period.
             </p>
             <p>
                 If not selected, search results in the Table tab will display prime awards
-                whose <strong>base transaction action date</strong> and{' '}
-                <strong>latest transaction action date</strong> (the date of the latest transaction
+                whose
+                {' '}
+                <strong>base transaction action date</strong>
+                {' '}
+                and
+                {' '}
+                <strong>latest transaction action date</strong>
+                {' '}
+                (the date of the latest transaction
                 of a prime award) overlap in any way with the selected time period. For example,
                 for the selected time period of Mar. 1-31, 2022, you would see results in
-                the Table tab for an award with a <strong>base transaction action date</strong> of
-                Jan. 1, 2022 and a <strong>latest transaction action date</strong> of
+                the Table tab for an award with a
+                <strong>base transaction action date</strong>
+                {' '}
+                of
+                Jan. 1, 2022 and a
+                <strong>latest transaction action date</strong>
+                {' '}
+                of
                 Dec. 31, 2022, even if there is no transaction activity for that award within
                 the period of Mar. 1-31, 2022.
             </p>
@@ -51,7 +68,11 @@ export const KeyWordTooltip = () => (
         </h3>
         <div className="advanced-search-tt__body">
             <p>
-                The <strong>Keyword</strong> field currently matches against
+                The
+                {' '}
+                <strong>Keyword</strong>
+                {' '}
+                field currently matches against
                 the following attributes:
             </p>
             <ul className="advanced-search-tt__list">
@@ -99,7 +120,7 @@ export const CDTooltip = () => (
                 Note that some district boundaries have changed over time.
             </p>
             <p>
-            Additional information can be found in the “Congressional District Data” section of the <strong>About the Data</strong> module under <strong>Find Resources</strong>.
+                Additional information can be found in the “Congressional District Data” section of the <strong>About the Data</strong> module under <strong>Find Resources</strong>.
             </p>
         </div>
     </div>

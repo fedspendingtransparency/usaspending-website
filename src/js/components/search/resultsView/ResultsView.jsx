@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 
 import TopFilterBarContainer from "containers/search/topFilterBar/TopFilterBarContainer";
 import useResultsCount from "containers/search/resultsView/useResultsCount";
+import { ErrorMessage } from "data-transparency-ui";
 import NoDataScreen from "./NoDataScreen";
 import SectionsContent from "./SectionsContent";
 import SearchLanding from "./SearchLanding";
@@ -35,10 +36,16 @@ const ResultsView = React.memo(function ResultsView({
     const filters = useSelector((state) => state.appliedFilters.filters);
     const spendingLevel = useSelector((state) => state.searchView.spendingLevel);
     const { data, error, isLoading } = useResultsCount(filters, spendingLevel, hash);
+    const isSearchActive = useSelector((state) => state.sidebar.isSearchActive);
+    const isNLSearchComplete = useSelector((state) => state.sidebar.isNLSearchComplete);
+    const isNLSearchError = useSelector((state) => state.sidebar.isNLSearchError);
 
     let content = null;
 
-    if (isLoading && !noFiltersApplied) {
+    if (isNLSearchError) {
+        content = <ErrorMessage />;
+    }
+    else if ((isLoading && !noFiltersApplied) || (isSearchActive && !isNLSearchComplete)) {
         content = (
             <div className="search-results-loading">
                 <div className="search-results__loading-message">
@@ -50,8 +57,7 @@ const ResultsView = React.memo(function ResultsView({
             </div>
         );
     }
-    else if(!error && data) {
-        /* eslint-disable camelcase */
+    else if (!error && data) {
         const {
             contracts, direct_payments, grants, idvs, loans, other, subgrants, subcontracts
         } = data.data.results;
@@ -62,7 +68,6 @@ const ResultsView = React.memo(function ResultsView({
         }
 
         const hasResults = resCount > 0;
-        /* eslint-enable camelcase */
 
         if (!hash && noFiltersApplied) {
             return <SearchLanding />;

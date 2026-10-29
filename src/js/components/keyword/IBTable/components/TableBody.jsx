@@ -95,8 +95,8 @@ export default class TableBody extends React.PureComponent {
         }
 
         // validate that the element is a cell in this table
-        if (element.dataset.ibtTableElement === 'cell'
-            && element.dataset.ibtTableOwner === this.props.tableId) {
+        if (element.dataset.ibtTableElement === 'cell' &&
+            element.dataset.ibtTableOwner === this.props.tableId) {
             return element;
         }
 

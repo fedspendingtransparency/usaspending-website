@@ -1,4 +1,6 @@
 .search-info-page__content-section {
+  display: flex;
+  align-items: flex-start;
   .search-info-page__heading-section {
     @include search-info-page__content-width;
     display: flex;
@@ -8,7 +10,7 @@
 
   .search-info-page-section:first-child {
     .search-info-page__content-col {
-      margin-top: rem(60);
+      margin-top: rem(16);
     }
   }
 
@@ -39,5 +41,11 @@
     line-height: $heading-line-height;
     margin-top: 0;
     margin-bottom: rem(10);
+  }
+}
+
+@media screen and (max-width: $medium-screen) {
+  .search-info-page__content-section {
+    flex-direction: column;
   }
 }

@@ -42,13 +42,16 @@ const BarHeaderAbove = memo(function BarHeaderAbove({ resultsView }) {
                     imageAlignment="right"
                     image={image} />
             </div>
-            {resultsView &&
+            {resultsView && (
                 <h2 className="subtitle">
                     <FontAwesomeIcon icon={["far", "lightbulb"]} />
-                    To <span>remove active filters</span>, select the individual filter labels.
+                    To
+                    {' '}
+                    <span>remove active filters</span>
+                    , select the individual filter labels.
                     Then, once the button appears, click &#34;Update selected filters&#34;.
                 </h2>
-            }
+            )}
         </div>
     );
 });

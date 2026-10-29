@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Button } from 'data-transparency-ui';
-import useFireQueryEvent from "../../hooks/useFireQueryEvent";
+import useFireQueryEvent from '../../hooks/useFireQueryEvent';
 
 const propTypes = {
     stagedFiltersAreEmpty: PropTypes.bool,
@@ -16,7 +16,6 @@ const propTypes = {
     resetFilters: PropTypes.func,
     setShowMobileFilters: PropTypes.func
 };
-
 
 const SearchSidebarSubmit = ({
     stagedFiltersAreEmpty,
@@ -34,7 +33,7 @@ const SearchSidebarSubmit = ({
         title = 'Add or update a filter to submit.';
         disabled = true;
     }
-    else if (!requestsComplete ) {
+    else if (!requestsComplete) {
         title = 'Add or update a filter to submit.';
         disabled = true;
     }

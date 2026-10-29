@@ -24,7 +24,6 @@ import {
 
 import { rectangleWidth } from 'helpers/covid19/amountsVisualization';
 
-
 const propTypes = {
     overviewData: PropTypes.object,
     scale: PropTypes.func,

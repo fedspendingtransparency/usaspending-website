@@ -45,9 +45,9 @@ const useIntersectionObserver = ({
 
         const observer = new IntersectionObserver(
             (entries) => {
-                const thresholds = Array.isArray(observer.thresholds)
-                    ? observer.thresholds
-                    : [observer.thresholds];
+                const thresholds = Array.isArray(observer.thresholds) ?
+                    observer.thresholds :
+                    [observer.thresholds];
 
                 entries.forEach((entry) => {
                     const isIntersecting =

@@ -195,7 +195,8 @@ const DetailContent = ({
         fakeScreenBelow = (
             <FakeScreens
                 position="below"
-                transitionSteps={transitionSteps} />);
+                transitionSteps={transitionSteps} />
+        );
     }
     else if (showFakes && fakeDirection === 'above') {
         fakeScreenAbove = (
@@ -234,7 +235,6 @@ const DetailContent = ({
                 rewindToFilter={rewindToFilter} />
         );
     }
-
 
     return (
         <div

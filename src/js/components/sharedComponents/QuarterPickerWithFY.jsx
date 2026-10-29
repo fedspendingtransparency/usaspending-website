@@ -72,9 +72,9 @@ const QuarterPickerWithFY = ({
 
             return periods.filter((period) => !allAvailablePeriodsInFy.includes(period));
         }
-    }, [selectedFy, allPeriods])
+    }, [selectedFy, allPeriods]);
 
-    const defaultFy = useMemo( () => latestFy || currentFiscalYear(), [latestFy]);
+    const defaultFy = useMemo(() => latestFy || currentFiscalYear(), [latestFy]);
 
     const optionsArray = useMemo(() => {
         return allFiscalYears(earliestExplorerYear, defaultFy)
@@ -89,8 +89,8 @@ const QuarterPickerWithFY = ({
             <ComboBox
                 optionsArray={optionsArray}
                 onSelect={onSelect}
-                label={"Fiscal Year"}
-                formName={"download-filter__fy"}
+                label="Fiscal Year"
+                formName="download-filter__fy"
                 onClearSelect={onClearSelect}
                 placeholder="Select a FY"
                 disabled={!latestFy} />
@@ -130,7 +130,7 @@ const QuarterPickerWithFY = ({
                 disabledPeriods={disabledPeriodsInFy}
                 handleSelection={handleQuarterPickerSelection} />
         </div>
-    )
+    );
 };
 
 QuarterPickerWithFY.propTypes = propTypes;

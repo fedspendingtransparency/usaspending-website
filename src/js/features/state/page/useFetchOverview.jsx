@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 02/15/26
  */
 
-import { useCallback } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useDispatch } from 'react-redux';
 
@@ -14,27 +14,25 @@ import { setStateOverview } from 'redux/actions/state/stateActions';
 export const useFetchOverview = (stateId, fy) => {
     const dispatch = useDispatch();
 
-    const loadStateOverview = useCallback((d) => {
-        const data = d?.data;
-        if (Object.keys(data).length === 0) {
-            return;
-        }
-        const newStateProfile = Object.create(BaseStateProfile);
-        newStateProfile.populate(data);
-        dispatch(setStateOverview(newStateProfile));
-
-        return newStateProfile;
-    }, []);
-
-    return useQuery({
+    const { data, isLoading, error } = useQuery({
         queryKey: [`stateProfileData${stateId}${fy}`],
         queryFn: () => fetchStateOverview(stateId, fy).promise,
-        select: loadStateOverview,
         enabled: !!stateId && !!fy,
         refetchOnWindowFocus: false,
         staleTime: Infinity
     });
 
+    useEffect(() => {
+        const overviewData = data?.data;
+        if (!overviewData || Object.keys(overviewData).length === 0) {
+            return;
+        }
+        const newStateProfile = Object.create(BaseStateProfile);
+        newStateProfile.populate(overviewData);
+        dispatch(setStateOverview(newStateProfile));
+    }, [data, dispatch]);
+
+    return { isLoading, error };
 };
 
 export default useFetchOverview;

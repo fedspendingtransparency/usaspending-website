@@ -25,7 +25,6 @@ const CheckboxExpandButton = ({
         hiddenClass = 'hidden-button';
     }
 
-
     if (arrowState === 'expanded') {
         icon = <Icons.AngleDown />;
     }

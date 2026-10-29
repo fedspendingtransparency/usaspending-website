@@ -21,8 +21,8 @@ export const VARIANT = {
     ERROR: 'error'
 };
 
-const {SEARCH, TOOL} = OPERATION;
-const {START, COMPLETE, ERROR, INIT} = VARIANT;
+const { SEARCH, TOOL } = OPERATION;
+const { START, COMPLETE, ERROR, INIT } = VARIANT;
 
 export const responseLookup = {
     [RESPONSE_TYPE.SEARCH_START]: {
@@ -38,20 +38,20 @@ export const responseLookup = {
 
     [RESPONSE_TYPE.SEARCH_ERROR]: {
         operation: SEARCH,
-        variant: ERROR, 
-        icon: ['far','circle-xmark']
+        variant: ERROR,
+        icon: ['far', 'circle-xmark']
     },
 
     [RESPONSE_TYPE.TOOL_START]: {
         operation: TOOL,
-        variant: START, 
+        variant: START,
         icon: 'sparkles'
     },
 
     [RESPONSE_TYPE.TOOL_COMPLETE]: {
         operation: TOOL,
-        variant: COMPLETE, 
-        icon: ['far','circle-check']
+        variant: COMPLETE,
+        icon: ['far', 'circle-check']
     },
 
     [RESPONSE_TYPE.TOOL_ERROR]: {

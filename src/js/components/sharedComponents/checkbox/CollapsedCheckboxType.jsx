@@ -3,7 +3,7 @@
  * Created by michaelbray on 5/18/17.
  */
 
-import React, {useEffect, useRef} from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import CheckboxExpandButton from './CheckboxExpandButton';
 
@@ -49,11 +49,12 @@ const CollapsedCheckboxType = ({
         <div className="primary-checkbox-type">
             <div className="checkbox-type-item-wrapper">
                 {
-                    isCollapsable &&
-                    <CheckboxExpandButton
-                        hidden={hideArrow}
-                        toggleExpand={toggleExpand}
-                        arrowState={arrowState} />
+                    isCollapsable && (
+                        <CheckboxExpandButton
+                            hidden={hideArrow}
+                            toggleExpand={toggleExpand}
+                            arrowState={arrowState} />
+                    )
                 }
                 <label
                     className="checkbox-item-wrapper"

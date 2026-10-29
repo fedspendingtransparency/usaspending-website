@@ -93,7 +93,7 @@ export const AgencyProfileV2 = ({
         }
     ];
 
-    const jumpToSection = useJumpToSection("#agency-v2-", sections, isStatusOfFundsChartLoaded)
+    const jumpToSection = useJumpToSection("#agency-v2-", sections, isStatusOfFundsChartLoaded);
 
     return (
         <PageWrapper
@@ -113,11 +113,11 @@ export const AgencyProfileV2 = ({
                     selectedValue={selectedFy}
                     latestValue={latestFy}
                     handleChange={(fy) => setSelectedFy({ fy })}
-                    key={"NumericPickerWrapper"}/>,
+                    key="NumericPickerWrapper" />,
                 <ShareIcon508
                     url={getBaseUrl(path)}
                     onShareOptionClick={handleShare}
-                    key={"ShareIcon508"} />
+                    key="ShareIcon508" />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
                 <ProfileBackLink
@@ -126,9 +126,9 @@ export const AgencyProfileV2 = ({
                     url="/agency" />
                 <div className="body usda__flex-col">
                     <PageTitle />
-                    {isError
-                        ? <ErrorMessage description={errorMessage} />
-                        : sections.map((section) => (
+                    {isError ?
+                        <ErrorMessage description={errorMessage} /> :
+                        sections.map((section) => (
                             <AgencySection
                                 key={section.section}
                                 section={section}

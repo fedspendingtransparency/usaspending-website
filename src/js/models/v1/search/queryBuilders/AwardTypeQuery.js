@@ -11,7 +11,6 @@ const buildFieldQuery = (field, values) => ({
     value: values
 });
 
-
 const buildQuery = (awardType, searchContext = 'award') => {
     const fieldName = FilterFields[`${searchContext}Fields`].awardType;
 

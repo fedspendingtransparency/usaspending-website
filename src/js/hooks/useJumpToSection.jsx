@@ -15,6 +15,13 @@ const useJumpToSection = (
     const query = useQueryParams();
     const history = useNavigate();
     const queryRef = useRef(null);
+    // ref keeps jumpToSection stable since useQueryParams()
+    // returns a new object every render
+    const latestQueryRef = useRef(query);
+
+    useEffect(() => {
+        latestQueryRef.current = query;
+    });
 
     const jumpToSection = useCallback((section = '') => {
         // we've been provided a section to jump to
@@ -27,7 +34,7 @@ const useJumpToSection = (
         if (!sectionDom) return;
 
         // add section to url
-        const newQueryParams = combineQueryParams(query, { section: `${section}` });
+        const newQueryParams = combineQueryParams(latestQueryRef.current, { section: `${section}` });
 
         if (queryRef.current !== section) {
             history({
@@ -44,10 +51,10 @@ const useJumpToSection = (
         });
 
         return section;
-    }, [history, query]);
+    }, [history]);
 
     useEffect(() => {
-        if (!loading && query.section) jumpToSection(query.section)
+        if (!loading && query.section) jumpToSection(query.section);
     }, [loading, query.section, jumpToSection]);
 
     return jumpToSection;

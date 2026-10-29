@@ -79,7 +79,6 @@ const DataAvailable = (props) => {
                     </div>
                 </div>
 
-
                 {/* SCROLLER OVERLAYS */}
                 <ScrollerOverlay
                     content="animation-loop1"
@@ -88,8 +87,7 @@ const DataAvailable = (props) => {
                         ref2.current?.playAnimation(120, 300, 1, false);
                         ref3.current?.playAnimation(120, 300, 1, false);
                         ref4.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     {/* no card. */}
                 </ScrollerOverlay>
 
@@ -100,30 +98,44 @@ const DataAvailable = (props) => {
                     onStepEnter={() => {
                         ref3.current?.playAnimation(120, 300, 1, false);
                         ref4.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
                             heading={<h4>Data Available on USAspending.gov</h4>}
-                            content={
+                            content={(
                                 <p>
-                                USAspending.gov receives over 400 data elements coming from
-                                various government systems. These data elements cover
-                                information about federal{" "}
-                                    <span className="glossary-term">agencies</span>{" "}
-                                    <GlossaryLink term="agency" />, agency{" "}
-                                    <span className="glossary-term">accounts</span>{" "}
-                                    <GlossaryLink term="treasury-account-symbol-tas" />,{" "}
-                                    <span className="glossary-term">award types</span>{" "}
-                                    <GlossaryLink term="award-type" />,{" "}
-                                    <span className="glossary-term">prime award recipients</span>{" "}
-                                    <GlossaryLink term="prime-recipient" />, and{" "}
-                                    <span className="glossary-term">subrecipients</span>{" "}
-                                    <GlossaryLink term="sub-recipient" />, as well as
-                                information such as Census data for additional context.
+                                    USAspending.gov receives over 400 data elements coming from
+                                    various government systems. These data elements cover
+                                    information about federal
+                                    {" "}
+                                    <span className="glossary-term">agencies</span>
+                                    {" "}
+                                    <GlossaryLink term="agency" />
+                                    , agency
+                                    {" "}
+                                    <span className="glossary-term">accounts</span>
+                                    {" "}
+                                    <GlossaryLink term="treasury-account-symbol-tas" />
+                                    ,
+                                    {" "}
+                                    <span className="glossary-term">award types</span>
+                                    {" "}
+                                    <GlossaryLink term="award-type" />
+                                    ,
+                                    {" "}
+                                    <span className="glossary-term">prime award recipients</span>
+                                    {" "}
+                                    <GlossaryLink term="prime-recipient" />
+                                    , and
+                                    {" "}
+                                    <span className="glossary-term">subrecipients</span>
+                                    {" "}
+                                    <GlossaryLink term="sub-recipient" />
+                                    , as well as
+                                    information such as Census data for additional context.
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 
@@ -132,8 +144,7 @@ const DataAvailable = (props) => {
                     content="animation"
                     onStepEnter={() => {
                         ref1.current?.playAnimation(300, 420, 1.5);
-                    }
-                    }>
+                    }}>
                     {/* used as transition. no card. */}
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -142,8 +153,7 @@ const DataAvailable = (props) => {
                     onStepEnter={() => {
                         ref5.current?.playAnimation(420, 600, 1, false);
                         ref6.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
@@ -151,7 +161,7 @@ const DataAvailable = (props) => {
                             content={(
                                 <>
                                     <p>
-                                    Due to existing laws and regulations, some data are not published on USAspending.gov. These exceptions include:
+                                        Due to existing laws and regulations, some data are not published on USAspending.gov. These exceptions include:
                                     </p>
                                     <ul className="interactives-guide_bullet-points">
                                         <li>Personally identifiable information (PII);</li>
@@ -160,12 +170,11 @@ const DataAvailable = (props) => {
                                         <li>Tax expenditure data, including Economic Impact Payments (i.e., COVID stimulus checks)</li>
                                     </ul>
                                     <p>
-                                    While USAspending.gov does receive contract award data from the Department of Defense (DOD) and the
-                                    U.S. Army Corps of Engineers (USACE), there is a 90-day delay in the submission of these data to the FPDS source system.
+                                        While USAspending.gov does receive contract award data from the Department of Defense (DOD) and the
+                                        U.S. Army Corps of Engineers (USACE), there is a 90-day delay in the submission of these data to the FPDS source system.
                                     </p>
                                 </>
-                            )
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
                 <ScrollerOverlay
@@ -174,23 +183,23 @@ const DataAvailable = (props) => {
                     onStepEnter={() => {
                         ref5.current?.playAnimation(420, 600, 1, false);
                         ref6.current?.playAnimation(120, 300, 1, false);
-                    }
-                    }>
+                    }}>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
                             overline={overline}
-                            content={
+                            content={(
                                 <p>
-                                Note that some smaller executive branch agencies, as well as
-                                the entire legislative and judicial branches, are not required
-                                to report to USAspending.gov. The full list of reporting agencies
-                                can be found on our{" "}
+                                    Note that some smaller executive branch agencies, as well as
+                                    the entire legislative and judicial branches, are not required
+                                    to report to USAspending.gov. The full list of reporting agencies
+                                    can be found on our
+                                    {" "}
                                     <Link className="scroller-overlay-card__link" to="/agency" target="_blank" rel="noopener noreferrer">
-                                Agency Profile landing page
+                                        Agency Profile landing page
                                     </Link>
-                                .
+                                    .
                                 </p>
-                            } />
+                            )} />
                     </div>
                 </ScrollerOverlay>
 

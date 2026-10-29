@@ -3,13 +3,13 @@
  * Created by Josue Aguilar on 09/05/2024.
  */
 
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
-import AccordionCheckboxSecondary from "./AccordionCheckboxSecondary";
+import AccordionCheckboxSecondary from './AccordionCheckboxSecondary';
 import replaceString from '../../../helpers/replaceString';
-import useEventListener from "../../../hooks/useEventListener";
-import CheckboxChevron from "./CheckboxChevron";
+import useEventListener from '../../../hooks/useEventListener';
+import CheckboxChevron from './CheckboxChevron';
 
 const logPrimaryFilterEvent = (type, filter) => {
     Analytics.event({
@@ -130,8 +130,9 @@ const AccordionCheckboxPrimary = ({
     return (
         <div className="checkbox-filter__wrapper">
             <div className="checkbox-filter__header accordion-checkbox">
-                <div className="checkbox-filter__header-icon" 
-                    style={{ visibility: !category.singleitem ? 'visible' : 'hidden'}}>
+                <div
+                    className="checkbox-filter__header-icon"
+                    style={{ visibility: !category.singleitem ? 'visible' : 'hidden' }}>
                     <CheckboxChevron
                         category={category}
                         toggleExpanded={toggleExpanded}
@@ -150,9 +151,11 @@ const AccordionCheckboxPrimary = ({
                     <span className="checkbox-filter__header-label accordion-checkbox">
                         {replaceString(category.name, searchString, 'highlight')}
                     </span>
-                    <span className="checkbox-filter__header-count"
-                        style={{ visibility: !category.singleitem ? 'visible' : 'hidden'}}>
-                        {count}{' '}
+                    <span
+                        className="checkbox-filter__header-count"
+                        style={{ visibility: !category.singleitem ? 'visible' : 'hidden' }}>
+                        {count}
+                        {' '}
                         {count === 1 ? 'type' : 'types'}
                     </span>
                 </label>
@@ -166,7 +169,8 @@ const AccordionCheckboxPrimary = ({
                 customLabels={customLabels}
                 searchString={searchString}
                 isDisabled={isDisabled} />
-        </div>);
+        </div>
+    );
 };
 
 AccordionCheckboxPrimary.propTypes = propTypes;

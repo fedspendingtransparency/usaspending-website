@@ -96,7 +96,6 @@ const AccountAwardsContainer = ({ account, filters, spendingLevel = 'awards' }) 
         // sort field
         newParams.sort = sort.field;
 
-
         // Set the params needed for download API call
         searchRequest.current = SearchHelper.performSpendingByAwardSearch(newParams);
         searchRequest.current.promise

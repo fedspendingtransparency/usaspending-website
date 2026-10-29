@@ -14,7 +14,7 @@ import React from "react";
 
 const PlaceholderComponent = () => (
     <div className="search__placeholder">
-            PLACEHOLDER
+        PLACEHOLDER
     </div>
 );
 
