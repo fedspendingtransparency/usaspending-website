@@ -229,7 +229,7 @@
     "picomatch": "4.0.4",
     "launch-editor": "2.14.1",
     "js-yaml": "3.15.2",
-    "undici": "6.29.0"
+    "undici": "6.29.1"
   },
   "dependencies": {
     "@babel/preset-react": "^7.28.5",
