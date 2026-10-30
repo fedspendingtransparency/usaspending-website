@@ -6,7 +6,6 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSearchParams } from "react-router";
 import { get, max } from 'lodash-es';
 
 import { setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
@@ -24,7 +23,6 @@ const propTypes = {
     agencyIds: oneOfType([PropTypes.array, PropTypes.object]),
     error: PropTypes.bool,
     wrapperProps: PropTypes.object,
-    setSelectedDropdown: PropTypes.func,
     hash: PropTypes.string,
     spendingLevel: PropTypes.string,
     selectedDropdown: PropTypes.string
@@ -107,7 +105,6 @@ const columns = {
 const CategoriesVisualizationWrapperContainer = ({
     wrapperProps,
     selectedDropdown,
-    setSelectedDropdown,
     hash
 }) => {
     const filters = useSelector((state) => state.appliedFilters.filters);
@@ -116,7 +113,6 @@ const CategoriesVisualizationWrapperContainer = ({
     const [sortDirection, setSortDirection] = useState('desc');
     const [activeField, setActiveField] = useState('obligations');
     const [page, setPage] = useState(1);
-    const [searchParams] = useSearchParams();
 
     // spendingBy used to be a state with no set state. Removed state for now.
     const spendingBy = 'awardingAgency';
@@ -237,18 +233,6 @@ const CategoriesVisualizationWrapperContainer = ({
         hasNextPage,
         hasPreviousPage
     ]);
-
-    useEffect(() => {
-        const section = searchParams.get('section');
-
-        const type = searchParams.get('type');
-        if (section && type) {
-            const rankVal = type;
-            if (rankVal === "naics" || rankVal === "psc") {
-                setSelectedDropdown(rankVal);
-            }
-        }
-    }, [searchParams, setSelectedDropdown]);
 
     return (
         <div
