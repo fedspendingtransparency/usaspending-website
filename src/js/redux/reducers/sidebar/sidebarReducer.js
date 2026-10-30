@@ -9,7 +9,10 @@ export const initialState = {
     sidebarContent: 'filters',
     isSearchActive: false,
     isNLSearchComplete: false,
-    isNLSearchError: false
+    isNLSearchError: false,
+    // hash of the filters produced by the most recent smart assist search; null when the
+    // current filters are not smart assist derived
+    nlSearchId: null
 };
 
 const sidebarReducer = (state = initialState, action) => {
@@ -25,6 +28,12 @@ const sidebarReducer = (state = initialState, action) => {
         }
         case sidebarActions.SET_IS_NL_SEARCH_ERROR: {
             return { ...state, isNLSearchError: action.isNLSearchError };
+        }
+        case sidebarActions.SET_NL_SEARCH_ID: {
+            return { ...state, nlSearchId: action.nlSearchId };
+        }
+        case 'CLEAR_SEARCH_FILTER_ALL': {
+            return { ...state, nlSearchId: null };
         }
         default: return state;
     }
