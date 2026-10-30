@@ -26,7 +26,8 @@ const CategoriesSection = ({
     const [searchParams] = useSearchParams();
     const section = searchParams.get('section');
     const type = searchParams.get('type');
-    const defaultDropdown = (section && type) ? type : 'awarding_agency';
+    const isValidType = type && (type === 'naics' || type === 'psc');
+    const defaultDropdown = (section && isValidType) ? type : 'awarding_agency';
     const [selectedDropdown, setSelectedDropdown] = useState(defaultDropdown);
     const { ref, isIntersecting: categoriesHasLoaded } = useIntersectionObserver({
         threshold: 0.1,
