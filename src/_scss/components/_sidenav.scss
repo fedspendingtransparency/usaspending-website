@@ -147,12 +147,13 @@
 .usa-smart-assist-page {
   .filter__dropdown-container {
     margin-left: rem(30);
+    margin-top: rem(24);
   }
   .filter__dropdown-list-md {
-    padding: rem(16) rem(24) !important; 
+    padding-top: rem(16) !important;
+    padding-bottom: rem(16) !important;  
     .filter__dropdown-list-item {
-      padding-top: rem(12) !important;
-      padding-bottom: rem(12) !important;
+      padding: rem(12) rem(24) !important;
       .filter__dropdown-item {
         font-weight: $font-normal !important;
         color: black !important;
@@ -161,7 +162,7 @@
     .active {
       background-color: white !important;
       .filter__dropdown-item {
-        color: $blue-60v !important;
+        color: $blue-80v !important;
         font-weight: $font-semibold !important;
       }
     }
